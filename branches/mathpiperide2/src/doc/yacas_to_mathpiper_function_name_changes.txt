@@ -72,6 +72,16 @@ True$
 False$
 Empty$
 
+
+--- Have all destructive functions end with a 'D', 
+--- (which is similar to how numeric functions end with an 'N'.)
+DestructiveAppend -> AppendD
+DestructiveDelete -> DeleteD
+DestructiveInsert -> InsertD
+DestructiveReplace -> ReplaceD
+DestructiveReverse -> ReverseD
+
+
 ---------------------------- Potential function name changes:
     Rulebase -> RulebaseHoldArguments
     RulebaseListed -> RulebaseListedHoldArguments
