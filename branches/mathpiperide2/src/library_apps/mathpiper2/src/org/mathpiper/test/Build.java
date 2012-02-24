@@ -16,11 +16,13 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.test;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -322,7 +324,7 @@ public class Build {
         String mpwFilePath = mpwFile.getAbsolutePath();
         mpwFilePath = mpwFilePath.substring(mpwFilePath.indexOf(File.separator + "org" + File.separator + "mathpiper" + File.separator)); //"/org/mathpiper/";
 
-        List<Fold> folds = MPWSFile.scanSourceFile(mpwFile);
+        List<Fold> folds = MPWSFile.scanSourceFile(new FileInputStream(mpwFile));
 
         boolean hasDocs = false;
 
@@ -722,7 +724,7 @@ public class Build {
 
                 this.documentedFunctionsCount++;
 
-                List<Fold> folds = MPWSFile.scanSourceFile(javaFile);
+                List<Fold> folds = MPWSFile.scanSourceFile(new FileInputStream(javaFile));
 
                 boolean hasDocs = false;
 

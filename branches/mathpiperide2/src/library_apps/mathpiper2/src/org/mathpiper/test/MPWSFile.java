@@ -20,6 +20,7 @@ import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,10 +32,43 @@ import java.util.Set;
 public class MPWSFile {
 	
 	
+	public MPWSFile()
+	{
+		super();
+	}
 	
-    public static List scanSourceFile(File sourceFile) throws Exception {
-
-        String fileName = sourceFile.getName();
+	
+	public static Map getFoldsMap(InputStream inputStream) throws Exception
+	{
+		
+		Map<String,Fold> namedFolds = new HashMap();
+		
+		List<Fold> folds = scanSourceFile(inputStream);
+		
+		for(Fold fold:folds)
+		{
+			Map<String,String> attributes = fold.getAttributes();
+			
+			Set<String> keys = attributes.keySet();
+			
+			for(String key: keys)
+			{
+				
+				if(key.equalsIgnoreCase("name"))
+				{
+					String name = attributes.get(key);
+					namedFolds.put(name, fold);
+				}
+			}
+		}
+		
+		return namedFolds;
+		
+	}//end method.
+	
+	
+	
+    public static List scanSourceFile(InputStream inputStream) throws Exception {
 
         //Uncomment for debugging.
         /*
@@ -50,9 +84,8 @@ public class MPWSFile {
         int startLineNumber = -1;
 
 
-        FileInputStream fstream = new FileInputStream(sourceFile);
         // Get the object of DataInputStream
-        DataInputStream in = new DataInputStream(fstream);
+        DataInputStream in = new DataInputStream(inputStream);
         BufferedReader br = new BufferedReader(new InputStreamReader(in));
         String line;
         //Read File Line By Line
@@ -64,7 +97,7 @@ public class MPWSFile {
             if (line.startsWith("%/")) {
 
                 if (inFold == false) {
-                    throw new Exception("Opening fold tag missing in " + fileName + ".");
+                    throw new Exception("Opening fold tag missing.");
                 }
 
                 Fold fold = new Fold(startLineNumber, foldHeader, foldContents.toString());
@@ -75,7 +108,7 @@ public class MPWSFile {
             } else if (line.startsWith("%")) {
 
                 if (inFold == true) {
-                    throw new Exception("Closing fold tag missing in " + fileName + ".");
+                    throw new Exception("Closing fold tag missing.");
                 }
 
                 startLineNumber = lineCounter;
@@ -89,7 +122,7 @@ public class MPWSFile {
         }//end while.
 
         if (inFold == true) {
-            throw new Exception("Opening or closing fold tag missing in " + fileName + ".");
+            throw new Exception("Opening or closing fold tag missing.");
         }
 
         //Close the input stream
@@ -108,7 +141,7 @@ public class MPWSFile {
     	
     	try
     	{
-    		List<Fold> folds = scanSourceFile(mpwFile);
+    		List<Fold> folds = scanSourceFile(new FileInputStream(mpwFile));
     		
     		for(Fold fold:folds)
     		{
