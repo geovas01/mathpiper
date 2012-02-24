@@ -223,7 +223,7 @@ public class SynchronousInterpreter implements Interpreter {
 
 
         EvaluationResponse evaluationResponse = EvaluationResponse.newInstance();
-        if (inputExpression.length() == 0) {
+        if (inputExpression == null || inputExpression.length() == 0) {
             //return (String) "";
             evaluationResponse.setResult("Empty Input");
             return evaluationResponse;
