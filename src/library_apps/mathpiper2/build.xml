@@ -301,7 +301,7 @@
 	
 	-->
 		
-		<delete dir="${build.dir}/android_dist" />
+		<delete dir="${library.dir}/android" />
 	
 		<!--<copy todir="${build.classes.dir}">
 			<fileset dir="${mathpiper.dir}/scripts" >
@@ -312,13 +312,13 @@
 
 		
 
-		<mkdir dir="${build.dir}/android_dist" />
-		<mkdir dir="${build.dir}/android_dist/build/classes" />
-		<mkdir dir="${build.dir}/android_dist/build/dist" />
+		<mkdir dir="${library.dir}/android" />
+		<mkdir dir="${library.dir}/android/classes" />
+		<mkdir dir="${library.dir}/android/dist" />
 
 		
-		        <copy todir="${build.dir}/android_dist/src">
-                <fileset dir="${mathpiper.dir}/src/">
+		<copy todir="${library.dir}/android/src">
+        		<fileset dir="${mathpiper.dir}/src/">
                 
                 <include name="org/mathpiper/builtin/" />
                 <exclude name="org/mathpiper/builtin/functions/optional/" />
@@ -332,14 +332,15 @@
 
                 <include name="org/mathpiper/ui/text/" />
 
-                
-
 
                 <include name="org/mathpiper/io/" />
 
                 <include name="org/mathpiper/lisp/" />
+        			
+        		
+        	    <include name="org/mathpiper/test/MPWSFile.java" />
+        		<include name="org/mathpiper/test/Fold.java" />
 
-                
 
                 <include name="org/mathpiper/Scripts.java" />
 
@@ -356,31 +357,31 @@
         <javac 
 			source="1.6"
 			target="1.6" 
-			srcdir="${build.dir}/android_dist/src"
-			destdir="${build.dir}/android_dist/build/classes"
+			srcdir="${library.dir}/android/src"
+			destdir="${library.dir}/android/classes"
 			debug="on"
 			deprecation="on"
-			optimize="off">
+			optimize="off"
+        	includeantruntime="false">
 			
 			<include name="**/*.java" />
 		</javac>
 		
 		
 		
+		<copy file="${mathpiper.dir}/src/org/mathpiper/scripts4/proposed/exercisesystem/arithmetic.mpw" todir="${library.dir}/android/classes" />
 		
-		<jar jarfile="${build.dir}/android_dist/mathpiperandroid.jar"
-			basedir="${build.dir}/android_dist/build/classes" update="true"
+		
+		<!--<jar jarfile="${build.dir}/android/mathpiperandroid.jar"
+			basedir="${build.dir}/android/build/classes" update="true"
 			manifest="${mathpiper.dir}/resources/MANIFEST.MF">
-			<!--<manifest> 
-				<section name="mathpiper" >
-					<attribute name="Build-Date" value="${build.time}"/>
-				</section>
-			</manifest>-->
+			
 			<include name="**/*" />
 			<exclude name="**/*.bat,**/*.sh" />
 			<exclude name="tests/" />
-		</jar> 
-
+			
+			</jar> 
+		-->
 
 
 	</target>
