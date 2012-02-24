@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, MathPiperExerciseActivity!</string>
+    <string name="app_name">MathPiperExercise</string>
+    <string name="button_1">1</string>
+    <string name="button_0">0</string>
+    <string name="button_2">2</string>
+    <string name="button_3">3</string>
+    <string name="button_4">4</string>
+    <string name="button_5">5</string>
+    <string name="button_6">6</string>
+    <string name="button_7">7</string>
+    <string name="button_8">8</string>
+    <string name="button_9">9</string>
+    <string name="button_.">.</string>
+    <string name="button_enter">Enter</string>
+    <string name="button_backspace">Backspace</string>
+
+</resources>
