@@ -96,12 +96,22 @@ DestructiveReverse -> ReverseD
 Local -> LocalHoldArguments (leave Local as a synonym)
 MacroLocal -> LocalEvaluateArguments
 
-Unbind -> UnbindHoldArguments (and leave Unbind as a synonym)
-Bind -> BindHoldArguments
-MacroUnbind -> UnbindEvaluateArguments
+
 
     DefMacroRulebase -> MacroRulebaseHoldArguments
     DefMacroRulebaseListed -> MacroRulebaseListedHoldArguments
+    
+
+----------------------------------
+A bound variable is a concept that is used differently in Lisp and mathematics. MathPiper
+currently uses the Lisp version but it will probably be better to use the mathematics
+version. Therefore, Bind should probably become Assign and Unbind should probably become
+Unassign:
+
+Unbind -> UnassignHoldArguments (and leave Unassign as a synonym)
+Bind -> AssignHoldArguments
+MacroUnbind -> UnassignEvaluateArguments
+----------------------------------
 
 
 Prog -> Block //For pedagogical reasons.
