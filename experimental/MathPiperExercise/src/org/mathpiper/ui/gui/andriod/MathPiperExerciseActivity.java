@@ -20,63 +20,43 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class MathPiperExerciseActivity extends Activity implements
-		OnInitListener, Runnable {
+		OnInitListener {
 	private TextToSpeech tts;
 	static final int TTS_CHECK_CODE = 0;
-	private Button mButton;
-	private EditText mEdit;
+
 
 	private EditText displayText;
 	private EditText inputTextField;
-	private Button evaluateButton;
-	private EditText resultTextArea;
-	private Interpreter interpreter;
 
-	private Thread casThread;
+	private MathPiperInterpreter interpreter;
 
-	private Boolean noInput = true;
 
-	private EvaluationResponse response;
 
-	private String inputText;
+
 
 	private String resultText;
-	
-	private Map<String,Fold> foldsMap;
+
+	private Map<String, Fold> foldsMap;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		
-		EvaluationResponse response;
-		
-		
-		casThread = new Thread(new ThreadGroup("mathiper"), this, "mathpiper", 50000);
-		casThread.start();
-		interpreter = Interpreters.getSynchronousInterpreter();
-		
-		
-	
-		
+
+		interpreter = new MathPiperInterpreter();
 
 		InputStream raw;
 		try {
 			raw = getAssets().open("arithmetic.mpw");
-			
+
 			foldsMap = org.mathpiper.test.MPWSFile.getFoldsMap(raw);
-			
-			
-					
-			
-//=================================================================
+
+			// =================================================================
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.main);
 
 			inputTextField = (EditText) findViewById(R.id.inputText);
 
 			displayText = (EditText) findViewById(R.id.displayText);
-
-
 
 			tts = new TextToSpeech(this, this);
 
@@ -170,64 +150,149 @@ public class MathPiperExerciseActivity extends Activity implements
 			final Button button_enter = (Button) findViewById(R.id.button_enter);
 			button_enter.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View view) {
+					
+					String input = inputTextField.getText().toString();
+					
+					EvaluationResponse response = interpreter.evaluate("QuestionCheck(" + input + ");");
+					
+					String result;
+					
+					if(response.isExceptionThrown())
+					{
+						result = response.getException().getMessage();
+					}
+					else
+					{
+						result = response.getResult();
+					}
+					
+					displayText.setText("D: " + result);
 
-					inputText = inputTextField.getText().toString();
-					System.out.println(inputText);
-					
-					
-					noInput = false;
-					
 				}
 			});
-			
 
-			
-			
 			final Button button_initialize = (Button) findViewById(R.id.button_initialize);
 			button_initialize.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View view) {
 
 					Fold configurationFold = foldsMap.get("configuration");
-					
+
 					String codeText = configurationFold.getContents();
-							
-				    codeText = codeText.replace("\\","\\\\");
-					codeText = codeText.replace("\"","\\\"");
+
+					codeText = codeText.replace("\\", "\\\\");
+					codeText = codeText.replace("\"", "\\\"");
+
+					EvaluationResponse response = interpreter.evaluate(codeText);
+					String result;
 					
-					inputText = "LoadScript(\"" + codeText + "\");";
-			
-					noInput = false;
-					
-					while(noInput == false)
+					if(response.isExceptionThrown())
 					{
+						result = response.getException().getMessage();
+						
+						displayText.setText("A: " + result);
+						return;
+					}
+					else
+					{
+						result = response.getResult();
+					}
+					
+
+
+					response = interpreter.evaluate("operation := \"+\"; numberOneLowSet(2);numberOneHighSet(9);numberTwoLowSet(2);numberTwoHighSet(9);".replace("\"", "\\\""));
+					if(response.isExceptionThrown())
+					{
+						result = response.getException().getMessage();
+						
+						displayText.setText("B: " + result);
+						return;
+					}
+					else
+					{
+						result = response.getResult();
 					}
 					
 					
 					
-					inputText = "LoadScript(\" + numberOneLowSet(2);numberOneHighSet(9);numberTwoLowSet(2);numberTwoHighSet(9);\");";	
+					configurationFold = foldsMap.get("ExerciseEngine");
+
+					codeText = configurationFold.getContents();
+
+					codeText = codeText.replace("\\", "\\\\");
+					codeText = codeText.replace("\"", "\\\"");
+
+					response = interpreter.evaluate(codeText);
 					
-					noInput = false;
+					if(response.isExceptionThrown())
+					{
+						result = response.getException().getMessage();
+						
+						displayText.setText("C: " + result);
+						return;
+					}
+					else
+					{
+						result = response.getResult();
+					}
 					
-					while(noInput == false)
-					{	
-					}		
+					
 				}
 			});
 
-			
 			final Button button_start = (Button) findViewById(R.id.button_start);
 			button_start.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View view) {
-
-					inputText = inputTextField.getText().toString();
-					System.out.println(inputText);
+					
+					EvaluationResponse response = interpreter.evaluate("QuestionAsk();");
+					
+					String result;
 					
 					
-					noInput = false;
+					if(response.isExceptionThrown())
+					{
+						result = response.getException().getMessage();
+					}
+					else
+					{
+						result = response.getResult();
+					}
+					
+					
+					result = result.replace("\"", "");
+					
+					displayText.setText("Y: " + result);
+					
+					
+					tts.speak(result, TextToSpeech.QUEUE_FLUSH, null);
 					
 				}
 			});
 			
+			
+			
+			final Button button_evaluate = (Button) findViewById(R.id.button_evaluate);
+			button_evaluate.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View view) {
+					
+					String input = inputTextField.getText().toString();
+					
+					EvaluationResponse response = interpreter.evaluate(input + ";");
+					
+					String result;
+					
+					if(response.isExceptionThrown())
+					{
+						result = response.getException().getMessage();
+					}
+					else
+					{
+						result = response.getResult();
+					}
+					
+					displayText.setText("X: " + result);
+
+				}
+			});
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -245,50 +310,67 @@ public class MathPiperExerciseActivity extends Activity implements
 			tts.speak("Working", TextToSpeech.QUEUE_FLUSH, null);
 		}
 	}
-	
-	
-	
-	
+
+	// ==============================================
+	private class MathPiperInterpreter implements Runnable {
+		private Thread casThread;
+		private EvaluationResponse evaluationResponse;
+		private Interpreter interpreter;
+		private String inputText = null;
+
+		public MathPiperInterpreter() {
+
+			casThread = new Thread(new ThreadGroup("mathiper"), this,
+					"mathpiper", 50000);
+			casThread.start();
+			interpreter = Interpreters.getSynchronousInterpreter();
+		}
+
+		public EvaluationResponse evaluate(String input) {
+			inputText = "LoadScript(\"" + input + "\");";
 
 
-    
-    
-    
-	public void run() {
-		while (true) {
-			if (noInput) {
+			while (inputText != null) {
 				try {
 					Thread.sleep(100);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			} else {
-
-				final EvaluationResponse evaluationResponse = interpreter.evaluate(inputText);
-
-				runOnUiThread(new Runnable() {
-					public void run() {
-						
-						String response;
-						
-						if(evaluationResponse.isExceptionThrown())
-						{
-							response = evaluationResponse.getException().getMessage();
-						}
-						else
-						{
-							response = evaluationResponse.getResult();
-						}
-
-						displayText.setText("xx: " + response);
-
-					}
-				});
-
-				noInput = true;
 			}
 
+			return evaluationResponse;
 		}
-	}
+
+		public void run() {
+			while (true) {
+				if (inputText == null) {
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				} else {
+
+					evaluationResponse = interpreter.evaluate(inputText);
+
+					/*
+					 * runOnUiThread(new Runnable() { public void run() {
+					 * 
+					 * String response;
+					 * 
+					 * if(evaluationResponse.isExceptionThrown()) { response =
+					 * evaluationResponse.getException().getMessage(); } else {
+					 * response = evaluationResponse.getResult(); }
+					 * 
+					 * } });
+					 */
+
+					inputText = null;
+				}
+
+			}
+		}// end method
+	}// end class.
 }

@@ -45,6 +45,12 @@
                 android:text="Start" />
 
             <Button
+                android:id="@+id/button_evaluate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Evaluate" />
+
+            <Button
                 android:id="@+id/button_backspace"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
