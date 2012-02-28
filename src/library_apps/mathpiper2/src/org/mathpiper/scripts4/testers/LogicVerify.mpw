@@ -3,7 +3,7 @@
 Function("LogicVerify",{aLeft,aRight})
 [
   If(aLeft !=? aRight,
-    Verify(CanProve(aLeft => aRight),True)
+    Verify(CanProve(aLeft  Implies?  aRight),True)
   );
 ];
 

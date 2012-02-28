@@ -22,7 +22,7 @@ TexForm
         0.4.5 fixes for bracketing of Sum(); added <> to render as \sim and <=> to render as \approx; added BinomialCoefficient()
         0.4.6 moved the <> and <=> operators to initialization.rep/stdopers.mpi
         0.4.7 added Product() i.e. Product()
-        0.4.8 added Differentiate(x,n), Deriv(x,n), =>, and fixed errors with ArcSinh, ArcCosh, ArcTanh
+        0.4.8 added Differentiate(x,n), Deriv(x,n),  Implies? , and fixed errors with ArcSinh, ArcCosh, ArcTanh
         0.4.9 fixed omission: (fraction)^n was not put in brackets
         0.4.10 cosmetic change: insert \cdot between numbers in cases like 2*10^n
         0.4.11 added DumpErrors() to TexForm for the benefit of TeXmacs notebooks
@@ -180,7 +180,7 @@ LocalSymbols(TeXFormRegularOps, TeXFormRegularPrefixOps, TeXFormGreekLetters, Te
     {"Or?", "\\vee "},
     {"<>", "\\sim "},
     {"<=>", "\\approx "},
-    {"=>", "\\Rightarrow "},
+    {"Implies?", "\\Rightarrow "},
     {"%", "\\bmod "},
   };
 
