@@ -7,7 +7,7 @@
  *
  *
  * Examples:
-CanProve(( (a=>b) And? (b=>c)=>(a=>c) ))  <-- True
+CanProve(( (a Implies? b) And? (b Implies? c) Implies? (a Implies? c) ))  <-- True
 CanProve(a  Or?   Not? a)                  <-- True
 CanProve(True  Or?  a)                    <-- True
 CanProve(False  Or?  a)                   <-- a
@@ -55,16 +55,16 @@ a implies c". MathPiper supports the following logical operations:
 
 {Or?}  :   disjunction, read as "or"
 
-{=>}  : implication, read as "implies"
+{Implies?}  : implication, read as "implies"
 
 The abovementioned proposition would be represented by the following expression,
 
-        ( (a=>b) And? (b=>c) ) => (a=>c)
+        ( (a Implies? b) And? (b Implies? c) )  Implies?  (a Implies? c)
 
 MathPiper can prove that is correct by applying {CanProve}
 to it:
 
-In> CanProve(( (a=>b) And? (b=>c) ) => (a=>c))
+In> CanProve(( (a Implies? b) And? (b Implies? c) )  Implies?  (a Implies? c))
 Result: True;
 
 It does this in the following way: in order to prove a proposition $p$, it
@@ -73,7 +73,7 @@ using the rules:
 
         Not?  ( Not? x)      --> x
 (eliminate double negation),
-        x=>y  -->  Not? x  Or?  y
+        x Implies? y  -->  Not? x  Or?  y
 (eliminate implication),
         Not? (x And? y)  -->  Not? x  Or?  Not? y
 (De Morgan's law),
@@ -126,9 +126,9 @@ Result: a Or? b;
 
 NextTest("Propositional logic theorem prover: CanProve");
 
-Verify(CanProve(( (a=>b) And? (b=>c) => (a=>c) )),True);
-Verify(CanProve((((a=>b) And? (b=>c))=> (a=>c) )),True);
-Verify(CanProve(( (a=>b) And?((b=>c) => (a=>c)))),((Not? a Or? b)And?(Not? a Or? (b Or? c))) );
+Verify(CanProve(( (a Implies? b) And? (b Implies? c)  Implies?  (a Implies? c) )),True);
+Verify(CanProve((((a Implies? b) And? (b Implies? c)) Implies?  (a Implies? c) )),True);
+Verify(CanProve(( (a Implies? b) And?((b Implies? c)  Implies?  (a Implies? c)))),((Not? a Or? b)And?(Not? a Or? (b Or? c))) );
 //KnownFailure(BadOutput + WhenPreviousLine + IsUncommented);
 //And *my* previous line (the KnownFailure) aborts.  (witnessed by no report from next line).
 Verify(CanProve( True ),True);
@@ -143,7 +143,7 @@ Verify(CanProve(a Or? b Or? (a And? b))               ,a Or? b  );
  * only operator is [material] implication.  From the first, all other
  * theorems in PIC can be proved using only the two transformation rules:
  * 1. Rule of substitution.  Uniform replacement in theorems yields theorems.
- * 2. Rule of detachment, or modus ponens.  If 'a' and 'a=>b' are theorems, then 'b' is a theorem.
+ * 2. Rule of detachment, or modus ponens.  If 'a' and 'a Implies? b' are theorems, then 'b' is a theorem.
  *
  * 1. Lukasiewicz, Jan, "The Shortest Axiom of the Implicational Calculus
  *    of Propositions," Proceedings of the Royal Irish Academy, vol. 52,
@@ -152,10 +152,10 @@ Verify(CanProve(a Or? b Or? (a And? b))               ,a Or? b  );
  *    Notre Dame Journal of Formal Logic, vol. XIV, No. 1, January 1973.
  */
 Verify(CanProve(        /* 1. CCCpqrCCrpCsp */
-     ((p=>q) => r) => ((r=>p) => (s=>p))
+     ((p Implies? q)  Implies?  r)  Implies?  ((r Implies? p)  Implies?  (s Implies? p))
      ), True);
 Verify(CanProve(        /* 2. CCpCqrCqCpr */
-     (p => (q=>r)) => (q => (p=>r))
+     (p  Implies?  (q Implies? r))  Implies?  (q  Implies?  (p Implies? r))
      ), True);
 
 

@@ -761,7 +761,7 @@ OMDef( "Sign"  , mathpiper,"sign"   );
 
 
 //LoadScriptOnce("logic.rep/om.mpi");
-OMDef( "=>" , "logic1","implies" );
+OMDef( "Implies?" , "logic1","implies" );
 OMDef( "CNF"          ,          mathpiper,"cnf"                      );
 OMDef( "LogicSimplify",          mathpiper,"logic_simplify"           );
 OMDef( "CanProve"     ,          mathpiper,"can_prove"                );

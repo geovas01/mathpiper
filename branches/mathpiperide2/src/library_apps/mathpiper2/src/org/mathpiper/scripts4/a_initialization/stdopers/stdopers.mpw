@@ -86,7 +86,7 @@ RuleHoldArguments(StandardOperatorsLoad, 0, 1, True)
     Infix("!==",90);
 
     /* Operators needed for propositional logic theorem prover */
-    Infix("=>",10000); /* implication, read as 'implies' */
+    Infix("Implies?",10000); /* implication, read as 'implies' */
 
 
     Bodied("if",5);

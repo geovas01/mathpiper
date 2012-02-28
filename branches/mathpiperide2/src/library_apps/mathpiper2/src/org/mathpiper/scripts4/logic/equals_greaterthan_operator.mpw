@@ -1,5 +1,0 @@
-%mathpiper,def="=>"
-
-RulebaseHoldArguments("=>",{a,b});
-
-%/mathpiper
