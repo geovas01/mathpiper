@@ -42,8 +42,8 @@ public class And_ extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Cons nogos = null;
-        int nrnogos = 0;
+        Cons argument = null;
+        int numberOfArguments = 0;
         Cons evaluated;
 
         Cons consTraverser =  (Cons) getArgument(aEnvironment, aStackTop, 1).car();
@@ -58,31 +58,31 @@ public class And_ extends BuiltinFunction
                 return;
             } else if (!Utility.isTrue(aEnvironment, evaluated, aStackTop))
             {
-                nrnogos++;
+                numberOfArguments++;
                 Cons ptr = evaluated.copy(false);
-                ptr.setCdr(nogos);
-                nogos = ptr;
+                ptr.setCdr(argument);
+                argument = ptr;
             }
 
             consTraverser = consTraverser.cdr();
         }
 
-        if (nogos != null)
+        if (argument != null)
         {
-            if (nrnogos == 1)
+            if (numberOfArguments == 1)
             {
-                setTopOfStack(aEnvironment, aStackTop, nogos);
+                setTopOfStack(aEnvironment, aStackTop, argument);
             } else
             {
                 
 
-                Cons ptr = Utility.reverseList(aEnvironment, nogos);
-                nogos = ptr;
+                Cons ptr = Utility.reverseList(aEnvironment, argument);
+                argument = ptr;
 
                 ptr = getArgument(aEnvironment, aStackTop, 0).copy(false);
-                ptr.setCdr(nogos);
-                nogos = ptr;
-                setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, nogos));
+                ptr.setCdr(argument);
+                argument = ptr;
+                setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, argument));
 
             //aEnvironment.CurrentPrinter().Print(getTopOfStackPointer(aEnvironment, aStackTop), *aEnvironment.CurrentOutput());
             }
