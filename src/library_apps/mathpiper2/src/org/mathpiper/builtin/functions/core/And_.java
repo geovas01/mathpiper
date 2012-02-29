@@ -137,7 +137,7 @@ Result: And?(a);
 In> And?(True,a,True,b)
 Result: b And? a;
 
-*SEE Or?, Not?
+*SEE Or?, Not?, Implies?
 %/mathpiper_docs
 
 

@@ -86,7 +86,7 @@ Result: True;
 In> Not?(a)
 Result: Not? a;
 
-*SEE And?, Or?
+*SEE And?, Or?, Implies?
 %/mathpiper_docs
 
 

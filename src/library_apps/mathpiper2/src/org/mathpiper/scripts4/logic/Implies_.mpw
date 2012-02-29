@@ -1,5 +1,0 @@
-%mathpiper,def="Implies?"
-
-RulebaseHoldArguments("Implies?",{a,b});
-
-%/mathpiper
