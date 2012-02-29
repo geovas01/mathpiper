@@ -129,7 +129,7 @@ Result: Or?(a);
 In> Or?(False,a,b,True)
 Result: True;
 
-*SEE And?, Not?
+*SEE And?, Not?, Implies?
 %/mathpiper_docs
 
 

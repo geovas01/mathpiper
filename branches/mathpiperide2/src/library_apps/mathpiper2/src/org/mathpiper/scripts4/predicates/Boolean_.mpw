@@ -1,7 +1,7 @@
 %mathpiper,def="Boolean?"
 
 Function ("Boolean?", {x})
-        (x=?True) Or? (x=?False) Or? Function?(x) And? Contains?({"=?", ">?", "<?", ">=?", "<=?", "!=?", "And?", "Not?", "Or?"}, Type(x));
+        (x=?True) Or? (x=?False) Or? Function?(x) And? Contains?({"=?", ">?", "<?", ">=?", "<=?", "!=?", "And?", "Not?", "Or?", "Implies?"}, Type(x));
 
 %/mathpiper
 
