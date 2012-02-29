@@ -44,7 +44,7 @@ public class Or_ extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         Cons  nogos = null;
-        int nrnogos = 0;
+        int numberOfArguments = 0;
 
         Cons consTraverser = (Cons) getArgument(aEnvironment, aStackTop, 1).car();
         consTraverser = consTraverser.cdr();
@@ -57,7 +57,7 @@ public class Or_ extends BuiltinFunction
                 return;
             } else if (!Utility.isFalse(aEnvironment, evaluated, aStackTop))
             {
-                nrnogos++;
+                numberOfArguments++;
 
                 Cons ptr = evaluated.copy(false);
                 ptr.setCdr(nogos);
@@ -68,7 +68,7 @@ public class Or_ extends BuiltinFunction
 
         if (nogos != null)
         {
-            if (nrnogos == 1)
+            if (numberOfArguments == 1)
             {
                 setTopOfStack(aEnvironment, aStackTop, nogos);
             } else
