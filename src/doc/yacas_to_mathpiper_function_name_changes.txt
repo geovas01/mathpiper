@@ -124,6 +124,14 @@ False -> FALSE
 Empty -> EMPTY
 
 
+
+----------------------------- Have bitwise operator names end with a B.
+BitAnd -> AndB
+BitOr -> OrB
+BitXor -> XorB
+NotB
+
+
 ----------------------------- Proposed predicate operator & function name changes:
 
 
