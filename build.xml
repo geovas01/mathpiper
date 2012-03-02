@@ -8,7 +8,7 @@
 	</description> 
 	
 	<!-- Misc properties -->
-	<property name="version" value=".80G_experimental" />
+	<property name="version" value=".80H_experimental" />
 	<property name="mathpiper.version" value="mathpiper2" />
 	
 	<property name="master.compile.source" value="1.5" />
