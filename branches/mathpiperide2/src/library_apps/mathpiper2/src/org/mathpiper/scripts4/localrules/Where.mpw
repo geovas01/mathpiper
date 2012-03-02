@@ -87,5 +87,5 @@ Result: {13};
 In> x^2+y^2 Where {x==2 And? y==3,x==4 And? y==5}
 Result: {13,41};
 
-*SEE Solve, AddTo
+*SEE Solve, AddTo, Subst, Where, WithValue, /:
 %/mathpiper_docs
