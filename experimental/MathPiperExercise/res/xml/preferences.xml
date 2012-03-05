@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+
+        <PreferenceCategory
+                android:title="First Category">
+                <CheckBoxPreference
+                        android:title="Checkbox Preference"
+                        android:defaultValue="false"
+                        android:summary="This preference can be true or false"
+                        android:key="checkboxPref" />
+                <EditTextPreference android:key="numberOneLow" android:title="Number One Low Preference" android:defaultValue="2"/>
+
+                <EditTextPreference android:key="numberOneHigh" android:title="Number One High Preference" android:defaultValue="9"/>
+                
+                <EditTextPreference android:key="numberTwoLow" android:title="Number Two Low Preference" android:defaultValue="2"/>
+                
+                <EditTextPreference android:key="numberTwoHigh" android:title="Number Two High Preference" android:defaultValue="9"/>
+        </PreferenceCategory>
+
+</PreferenceScreen>
+
