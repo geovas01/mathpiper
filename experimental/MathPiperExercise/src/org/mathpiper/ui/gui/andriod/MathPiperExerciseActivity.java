@@ -11,6 +11,7 @@ import org.mathpiper.interpreters.ResponseListener;
 import org.mathpiper.test.Fold;
 
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
@@ -29,6 +30,8 @@ public class MathPiperExerciseActivity extends Activity implements
 	private EditText inputTextField;
 
 	private MathPiperInterpreter interpreter;
+	
+	private String currentQuestion;
 
 
 
@@ -153,6 +156,13 @@ public class MathPiperExerciseActivity extends Activity implements
 					
 					String input = inputTextField.getText().toString();
 					
+					if(input.equals(""))
+					{
+					    speak(currentQuestion);
+					    
+					    return;
+					}
+					
 					EvaluationResponse response = interpreter.evaluate("QuestionCheck(" + input + ");");
 					
 					String result;
@@ -166,7 +176,31 @@ public class MathPiperExerciseActivity extends Activity implements
 						result = response.getResult();
 					}
 					
-					displayText.setText("D: " + result);
+					inputTextField.setText("");
+					
+					speak(input);
+					
+					if(result.equals("True"))
+					{
+					    displayText.setText("Correct");
+					    
+					    speak("correct");
+					    
+					    
+					    
+					    
+					    questionAsk();
+					}
+					else
+					{
+					    displayText.setText("Incorrect");
+					    
+					    speak("incorrect");
+					    
+					    speak(currentQuestion);
+					}
+					
+					
 
 				}
 			});
@@ -175,65 +209,7 @@ public class MathPiperExerciseActivity extends Activity implements
 			button_initialize.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View view) {
 
-					Fold configurationFold = foldsMap.get("configuration");
-
-					String codeText = configurationFold.getContents();
-
-					codeText = codeText.replace("\\", "\\\\");
-					codeText = codeText.replace("\"", "\\\"");
-
-					EvaluationResponse response = interpreter.evaluate(codeText);
-					String result;
-					
-					if(response.isExceptionThrown())
-					{
-						result = response.getException().getMessage();
-						
-						displayText.setText("A: " + result);
-						return;
-					}
-					else
-					{
-						result = response.getResult();
-					}
-					
-
-
-					response = interpreter.evaluate("operation := \"+\"; numberOneLowSet(2);numberOneHighSet(9);numberTwoLowSet(2);numberTwoHighSet(9);".replace("\"", "\\\""));
-					if(response.isExceptionThrown())
-					{
-						result = response.getException().getMessage();
-						
-						displayText.setText("B: " + result);
-						return;
-					}
-					else
-					{
-						result = response.getResult();
-					}
-					
-					
-					
-					configurationFold = foldsMap.get("ExerciseEngine");
-
-					codeText = configurationFold.getContents();
-
-					codeText = codeText.replace("\\", "\\\\");
-					codeText = codeText.replace("\"", "\\\"");
-
-					response = interpreter.evaluate(codeText);
-					
-					if(response.isExceptionThrown())
-					{
-						result = response.getException().getMessage();
-						
-						displayText.setText("C: " + result);
-						return;
-					}
-					else
-					{
-						result = response.getResult();
-					}
+					initialize();
 					
 					
 				}
@@ -243,27 +219,7 @@ public class MathPiperExerciseActivity extends Activity implements
 			button_start.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View view) {
 					
-					EvaluationResponse response = interpreter.evaluate("QuestionAsk();");
-					
-					String result;
-					
-					
-					if(response.isExceptionThrown())
-					{
-						result = response.getException().getMessage();
-					}
-					else
-					{
-						result = response.getResult();
-					}
-					
-					
-					result = result.replace("\"", "");
-					
-					displayText.setText("Y: " + result);
-					
-					
-					tts.speak(result, TextToSpeech.QUEUE_FLUSH, null);
+					questionAsk();
 					
 				}
 			});
@@ -289,7 +245,7 @@ public class MathPiperExerciseActivity extends Activity implements
 						result = response.getResult();
 					}
 					
-					displayText.setText("X: " + result);
+					displayText.setText(result);
 
 				}
 			});
@@ -307,9 +263,144 @@ public class MathPiperExerciseActivity extends Activity implements
 	@Override
 	public void onInit(int initStatus) {
 		if (initStatus == TextToSpeech.SUCCESS) {
-			tts.speak("Working", TextToSpeech.QUEUE_FLUSH, null);
+			speak("initializing");
+			displayText.setText("initializing");
+			
+			initialize();
+			
+			
+			speak("ready");
+			displayText.setText("ready");
+			
+			
+			/*
+			speak("what is your name?");
+			speak("what is your quest?");
+			speak("what is the capital of asiria");
+			*/
+			
 		}
 	}
+
+	private void questionAsk() {
+	    EvaluationResponse response = interpreter.evaluate("QuestionAsk();");
+	    
+	    String result;
+	    
+	    
+	    if(response.isExceptionThrown())
+	    {
+	    	result = response.getException().getMessage();
+	    }
+	    else
+	    {
+	    	result = response.getResult();
+	    }
+	    
+	    
+	    result = result.replace("\"", "");
+	    
+	    currentQuestion = result;
+	    
+	    displayText.setText(currentQuestion);
+	   
+	    
+	    speak(currentQuestion);
+	   
+	}
+	
+	
+	private void speak(String text)
+	{
+	    
+	    while(tts.isSpeaking())
+	    {
+		try {
+		    Thread.sleep(100);
+		} catch (InterruptedException e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
+		}
+	    }
+	    
+	    
+	    tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+	    
+	    
+	    
+	    
+	    
+	}
+
+	private void initialize() {
+	    Fold configurationFold = foldsMap.get("configuration");
+
+	    String codeText = configurationFold.getContents();
+
+	    codeText = codeText.replace("\\", "\\\\");
+	    codeText = codeText.replace("\"", "\\\"");
+
+	    EvaluationResponse response = interpreter.evaluate(codeText);
+	    String result;
+	    
+	    if(response.isExceptionThrown())
+	    {
+	    	result = response.getException().getMessage();
+	    	
+	    	displayText.setText(result);
+	    	return;
+	    }
+	    else
+	    {
+	    	result = response.getResult();
+	    }
+	    
+
+
+	    response = interpreter.evaluate("operation := \"+\"; numberOneLowSet(2);numberOneHighSet(9);numberTwoLowSet(2);numberTwoHighSet(9);".replace("\"", "\\\""));
+	    if(response.isExceptionThrown())
+	    {
+	    	result = response.getException().getMessage();
+	    	
+	    	displayText.setText(result);
+	    	return;
+	    }
+	    else
+	    {
+	    	result = response.getResult();
+	    }
+	    
+	    
+	    
+	    configurationFold = foldsMap.get("ExerciseEngine");
+
+	    codeText = configurationFold.getContents();
+
+	    codeText = codeText.replace("\\", "\\\\");
+	    codeText = codeText.replace("\"", "\\\"");
+
+	    response = interpreter.evaluate(codeText);
+	    
+	    if(response.isExceptionThrown())
+	    {
+	    	result = response.getException().getMessage();
+	    	
+	    	displayText.setText(result);
+	    	return;
+	    }
+	    else
+	    {
+	    	result = response.getResult();
+	    }
+	}
+	
+	
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+	  super.onConfigurationChanged(newConfig);
+
+	}
+
 
 	// ==============================================
 	private class MathPiperInterpreter implements Runnable {

@@ -12,15 +12,24 @@
     <EditText
         android:id="@+id/displayText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content" 
+        
+        android:clickable="false" 
+        android:cursorVisible="false" 
+        android:focusable="false" 
+        android:focusableInTouchMode="false">
+        
 
-        <requestFocus />
+        
     </EditText>
 
     <EditText
         android:id="@+id/inputText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content" >
+        <requestFocus />
+        
+        </EditText>
 
     <TableLayout
         android:id="@+id/tableLayout1"
