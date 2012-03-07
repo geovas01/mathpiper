@@ -1482,6 +1482,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				editorPane.setEditable(false);
 				//editorPane.setPage(tempFilePath);
 				editorPane.setText(htmlTextWithLatex);
+				editorPane.setCaretPosition(0);
 				contentPane.add(editorScrollPane);//guiBox,BorderLayout.NORTH);
 				
 				
@@ -1574,6 +1575,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 					editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 					editorPane.setEditable(false);
 					editorPane.setText(htmlText);
+					editorPane.setCaretPosition(0);
 					contentPane.add(editorScrollPane);//guiBox,BorderLayout.NORTH);
 					
 					
