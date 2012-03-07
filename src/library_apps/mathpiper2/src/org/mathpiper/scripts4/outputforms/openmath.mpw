@@ -666,7 +666,7 @@ OMDef( "Infinity" ,  "nums1", "infinity" );
 OMDef( "Undefined",  "nums1", "NaN"      );
 // [20010916 AGP] From initialization.rep/stdopers.mpi:
 OMDef( "And?"   ,  "logic1", "and"        );
-OMDef( "=="    ,  "logic1", "equivalent" );
+//OMDef( "=="    ,  "logic1", "equivalent" );
 /*Note:tk:when I had fixed the syntax error in this code, a redefinition error was created.
 OMDef( "!=?="   ,  "logic1", "not",
         { "<OMA><OMS cd=\"logic1\" name=\"equivalent\"/>",
@@ -762,6 +762,7 @@ OMDef( "Sign"  , mathpiper,"sign"   );
 
 //LoadScriptOnce("logic.rep/om.mpi");
 OMDef( "Implies?" , "logic1","implies" );
+OMDef( "Equivales?" , "logic1","equivalent" );
 OMDef( "CNF"          ,          mathpiper,"cnf"                      );
 OMDef( "LogicSimplify",          mathpiper,"logic_simplify"           );
 OMDef( "CanProve"     ,          mathpiper,"can_prove"                );

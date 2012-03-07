@@ -50,6 +50,12 @@ public class Tests {
         builtInFunctionsTestsMap.put("Equal?",testString);
 
         testString = new String[3];
+        testString[0] = "129";
+        testString[1] = "\nVerify(True Equivales? True,True);\nVerify(True Equivales? False,False);\nVerify(False Equivales? True,False);\nVerify(False Equivales? False,True);\n\n";
+        testString[2] = "/org/mathpiper/builtin/functions/core/Equivales_.java";
+        builtInFunctionsTestsMap.put("Equivales?",testString);
+
+        testString = new String[3];
         testString[0] = "174";
         testString[1] = "\n  //Test ExceptionCatch and ExceptionGet.\n  Local(exception);\n  exception := False;\n  ExceptionCatch(Check(False, \"Unspecified\", \"some error\"), exception := ExceptionGet());\n  Verify(exception =? False, False);\n\n\n";
         testString[2] = "/org/mathpiper/builtin/functions/core/ExceptionCatch.java";
@@ -84,6 +90,12 @@ public class Tests {
         testString[1] = "\nVerify(GreaterThan?(2,3),False);\nVerify(GreaterThan?(3,2),True);\n\n";
         testString[2] = "/org/mathpiper/builtin/functions/core/GreaterThan_.java";
         builtInFunctionsTestsMap.put("GreaterThan?",testString);
+
+        testString = new String[3];
+        testString[0] = "125";
+        testString[1] = "\nVerify(True Implies? True,True);\nVerify(True Implies? False,False);\nVerify(False Implies? True,True);\nVerify(False Implies? False,True);\n\n";
+        testString[2] = "/org/mathpiper/builtin/functions/core/Implies_.java";
+        builtInFunctionsTestsMap.put("Implies?",testString);
 
         testString = new String[3];
         testString[0] = "98";
@@ -429,13 +441,13 @@ public class Tests {
 
         testString = new String[3];
         testString[0] = "101";
-        testString[1] = "\nNextTest(\"CNF\");\n\n\n/*\n    The main point is that CNF should return an answer in CNF, that is,\n    as a conjunction of disjuncts.\n*/\nVerify(CNF(A And? A),      A);\nVerify(CNF(A And? True),   A);\n\n\nVerify(CNF(A And? False),  False);\nVerify(CNF(A Or?  True),   True);\nVerify(CNF(A Or?  False),  A);\nVerify(CNF(A Or?  Not? A),  True);\nVerify(CNF(A And? Not? A),  False);\n\n\nVerify(CNF((A And? B) Or? (A And? B)),             A And? B);\nVerify(CNF(A Or? (A And? B)),                     A And?(A Or? B));\nVerify(CNF((A => B) And? A),                     (Not? A Or? B)And? A);\nVerify(CNF((A And? B) And? A),                    (A And? B) And? A);\nVerify(CNF(Not? (A And? B) And? A),                (Not? A Or? Not? B) And? A);\n\n";
+        testString[1] = "\nNextTest(\"CNF\");\n\n\n/*\n    The main point is that CNF should return an answer in CNF, that is,\n    as a conjunction of disjuncts.\n*/\nVerify(CNF(A And? A),      A);\nVerify(CNF(A And? True),   A);\n\n\nVerify(CNF(A And? False),  False);\nVerify(CNF(A Or?  True),   True);\nVerify(CNF(A Or?  False),  A);\nVerify(CNF(A Or?  Not? A),  True);\nVerify(CNF(A And? Not? A),  False);\n\n\nVerify(CNF((A And? B) Or? (A And? B)),             A And? B);\nVerify(CNF(A Or? (A And? B)),                     A And?(A Or? B));\nVerify(CNF((A  Implies?  B) And? A),                     (Not? A Or? B)And? A);\nVerify(CNF((A And? B) And? A),                    (A And? B) And? A);\nVerify(CNF(Not? (A And? B) And? A),                (Not? A Or? Not? B) And? A);\n\n";
         testString[2] = "/org/mathpiper/scripts4/logic/CNF.mpw";
         userFunctionsTestsMap.put("CNF",testString);
 
         testString = new String[3];
         testString[0] = "124";
-        testString[1] = "\n\nNextTest(\"Propositional logic theorem prover: CanProve\");\n\nVerify(CanProve(( (a=>b) And? (b=>c) => (a=>c) )),True);\nVerify(CanProve((((a=>b) And? (b=>c))=> (a=>c) )),True);\nVerify(CanProve(( (a=>b) And?((b=>c) => (a=>c)))),((Not? a Or? b)And?(Not? a Or? (b Or? c))) );\n//KnownFailure(BadOutput + WhenPreviousLine + IsUncommented);\n//And *my* previous line (the KnownFailure) aborts.  (witnessed by no report from next line).\nVerify(CanProve( True ),True);\n\nVerify(CanProve(a Or? Not? a)                   ,True);\nVerify(CanProve(True Or? a)                 ,True);\nVerify(CanProve(False Or? a)                ,a   );\nVerify(CanProve(a And? Not? a)                   ,False);\nVerify(CanProve(a Or? b Or? (a And? b))               ,a Or? b  );\n\n/* Two theorems from the Pure Implicational Calculus (PIC), in which the\n * only operator is [material] implication.  From the first, all other\n * theorems in PIC can be proved using only the two transformation rules:\n * 1. Rule of substitution.  Uniform replacement in theorems yields theorems.\n * 2. Rule of detachment, or modus ponens.  If 'a' and 'a=>b' are theorems, then 'b' is a theorem.\n *\n * 1. Lukasiewicz, Jan, \"The Shortest Axiom of the Implicational Calculus\n *    of Propositions,\" Proceedings of the Royal Irish Academy, vol. 52,\n *    Sec. A, No. 3 (1948).  [ Can you say \"Polish Notation\"? ]\n * 2. Meredith, David, \"On a Property of Certain Propositional Formulae,\"\n *    Notre Dame Journal of Formal Logic, vol. XIV, No. 1, January 1973.\n */\nVerify(CanProve(        /* 1. CCCpqrCCrpCsp */\n     ((p=>q) => r) => ((r=>p) => (s=>p))\n     ), True);\nVerify(CanProve(        /* 2. CCpCqrCqCpr */\n     (p => (q=>r)) => (q => (p=>r))\n     ), True);\n\n\nVerify(CanProve((A Or? B) And? Not? A),            B And? Not? A);\nVerify(CanProve((A Or? B) And? (Not? A Or? C)),     (A Or? B) And? (C Or? Not? A));\nVerify(CanProve((B Or? A) And? (Not? A Or? C)),     (A Or? B) And? (C Or? Not? A));\nVerify(CanProve( A And? (A Or? B Or? C)),       A);\nVerify(CanProve( A And? (Not? A Or? B Or? C)),  A And? (B Or? C));\n\n// this is a test of contradication, A==3 should kick A==2 out as they're contradictory\nVerify(CanProve( A==3 And? (A==2 Or? B Or? C)),  A-3==0 And? (B Or? C));\n//TODO Verify(CanProve( A==3 And? (A<?2  Or? B Or? C)),  A-3==0 And? (B Or? C));\n//TODO Verify(CanProve( A==3 And? (A>?2  Or? B Or? C)),  (A-3==0) And? (((A-2) >? 0) Or? B Or? C));\n\nVerify(CanProve(Not?(Not? (p_2-NULL==0))Or? Not?(p_2-NULL==0)), True);\n\nLogicVerify(CanProve(P Or? (Not? P And? Not? Q)),P Or? Not? Q);\n\nLogicVerify(CanProve(P Or? (Not? P And? Not? Q)),P Or? Not? Q);\nLogicVerify(CanProve(A>?0 And? A<=?0),False);\nLogicVerify(CanProve(A>?0 Or? A<=?0),True);\n\n";
+        testString[1] = "\n\nNextTest(\"Propositional logic theorem prover: CanProve\");\n\nVerify(CanProve(( (a Implies? b) And? (b Implies? c)  Implies?  (a Implies? c) )),True);\nVerify(CanProve((((a Implies? b) And? (b Implies? c)) Implies?  (a Implies? c) )),True);\nVerify(CanProve(( (a Implies? b) And?((b Implies? c)  Implies?  (a Implies? c)))),((Not? a Or? b)And?(Not? a Or? (b Or? c))) );\n//KnownFailure(BadOutput + WhenPreviousLine + IsUncommented);\n//And *my* previous line (the KnownFailure) aborts.  (witnessed by no report from next line).\nVerify(CanProve( True ),True);\n\nVerify(CanProve(a Or? Not? a)                   ,True);\nVerify(CanProve(True Or? a)                 ,True);\nVerify(CanProve(False Or? a)                ,a   );\nVerify(CanProve(a And? Not? a)                   ,False);\nVerify(CanProve(a Or? b Or? (a And? b))               ,a Or? b  );\n\n/* Two theorems from the Pure Implicational Calculus (PIC), in which the\n * only operator is [material] implication.  From the first, all other\n * theorems in PIC can be proved using only the two transformation rules:\n * 1. Rule of substitution.  Uniform replacement in theorems yields theorems.\n * 2. Rule of detachment, or modus ponens.  If 'a' and 'a Implies? b' are theorems, then 'b' is a theorem.\n *\n * 1. Lukasiewicz, Jan, \"The Shortest Axiom of the Implicational Calculus\n *    of Propositions,\" Proceedings of the Royal Irish Academy, vol. 52,\n *    Sec. A, No. 3 (1948).  [ Can you say \"Polish Notation\"? ]\n * 2. Meredith, David, \"On a Property of Certain Propositional Formulae,\"\n *    Notre Dame Journal of Formal Logic, vol. XIV, No. 1, January 1973.\n */\nVerify(CanProve(        /* 1. CCCpqrCCrpCsp */\n     ((p Implies? q)  Implies?  r)  Implies?  ((r Implies? p)  Implies?  (s Implies? p))\n     ), True);\nVerify(CanProve(        /* 2. CCpCqrCqCpr */\n     (p  Implies?  (q Implies? r))  Implies?  (q  Implies?  (p Implies? r))\n     ), True);\n\n\nVerify(CanProve((A Or? B) And? Not? A),            B And? Not? A);\nVerify(CanProve((A Or? B) And? (Not? A Or? C)),     (A Or? B) And? (C Or? Not? A));\nVerify(CanProve((B Or? A) And? (Not? A Or? C)),     (A Or? B) And? (C Or? Not? A));\nVerify(CanProve( A And? (A Or? B Or? C)),       A);\nVerify(CanProve( A And? (Not? A Or? B Or? C)),  A And? (B Or? C));\n\n// this is a test of contradication, A==3 should kick A==2 out as they're contradictory\nVerify(CanProve( A==3 And? (A==2 Or? B Or? C)),  A-3==0 And? (B Or? C));\n//TODO Verify(CanProve( A==3 And? (A<?2  Or? B Or? C)),  A-3==0 And? (B Or? C));\n//TODO Verify(CanProve( A==3 And? (A>?2  Or? B Or? C)),  (A-3==0) And? (((A-2) >? 0) Or? B Or? C));\n\nVerify(CanProve(Not?(Not? (p_2-NULL==0))Or? Not?(p_2-NULL==0)), True);\n\nLogicVerify(CanProve(P Or? (Not? P And? Not? Q)),P Or? Not? Q);\n\nLogicVerify(CanProve(P Or? (Not? P And? Not? Q)),P Or? Not? Q);\nLogicVerify(CanProve(A>?0 And? A<=?0),False);\nLogicVerify(CanProve(A>?0 Or? A<=?0),True);\n\n";
         testString[2] = "/org/mathpiper/scripts4/logic/CanProve.mpw";
         userFunctionsTestsMap.put("CanProve",testString);
 
@@ -608,13 +620,13 @@ public class Tests {
         userFunctionsTestsMap.put("CFormable?",testString);
 
         testString = new String[3];
-        testString[0] = "1188";
+        testString[0] = "1189";
         testString[1] = "\n//Converting to and from OpenMath expressions\".\n\nMacro(OMTest1,{expr})\n[\n  Local(string,result);\n  string:=PipeToString() OMForm(@expr);\n  result:=PipeFromString(string)OMRead();\n//  Echo(Hold(@expr),`Hold(@result));\n  Verify(Hold(@expr),`Hold(@result));\n];\n\nOMTest1(2+3);\nOMTest1(2*a+3*Sin(Cos(a*x+b)));\n\n";
         testString[2] = "/org/mathpiper/scripts4/outputforms/openmath.mpw";
         userFunctionsTestsMap.put("open_math",testString);
 
         testString = new String[3];
-        testString[0] = "427";
+        testString[0] = "428";
         testString[1] = "\n/* it worketh no more...\nTesting(\"Realistic example\");\nf:=Exp(I*lambda*eta)*w(T*(k+k1+lambda));\ng:=Simplify(Subst(lambda,0) f+(k+k1)*(Differentiate(lambda)f)+k*k1*Differentiate(lambda)Differentiate(lambda)f );\nVerify(TeXForm(g), ...);\n*/\n\nVerify(\nTeXForm(Hold(Cos(A-B)*Sqrt(C+D)-(a+b)*c^d+2*I+Complex(a+b,a-b)/Complex(0,1)))\n,\"$\\\\cos ( A - B)  \\\\cdot \\\\sqrt{C + D} - ( a + b)  \\\\cdot c ^{d} + 2 \\\\cdot \\\\imath  + \\\\frac{a + b + \\\\imath  \\\\cdot ( a - b) }{\\\\imath } $\"\n);\n\nVerify(\nTeXForm(Hold(Exp(A*B)/C/D/(E+F)*G-(-(a+b)-(c-d))-b^(c^d) -(a^b)^c))\n,\"$\\\\frac{\\\\frac{\\\\frac{\\\\exp ( A \\\\cdot B) }{C} }{D} }{E + F}  \\\\cdot G - (  - ( a + b)  - ( c - d) )  - b ^{c ^{d}} - ( a ^{b})  ^{c}$\"\n);\n\nVerify(\nTeXForm(Hold(Cos(A-B)*Sin(a)*f(b,c,d*(e+1))*Sqrt(C+D)-(g(a+b)^(c+d))^(c+d)))\n,\"$\\\\cos ( A - B)  \\\\cdot \\\\sin a \\\\cdot f( b, c, d \\\\cdot ( e + 1) )  \\\\cdot \\\\sqrt{C + D} - ( g( a + b)  ^{c + d})  ^{c + d}$\"\n);\n\n\n/* This test is commented out because it throws an exception when orthopoly.mpw is removed from the build process.\n// testing latest features: \\\\cdot, %, (a/b)^n, BinomialCoefficient(), BesselI, OrthoH\nVerify(\nTeXForm(3*2^n+Hold(x*10!) + (x/y)^2 + BinomialCoefficient(x,y) + BesselI(n,x) + Maximum(a,b) + OrthoH(n,x))\n, \"$3\\\\cdot 2 ^{n} + x\\\\cdot 10! + ( \\\\frac{x}{y} )  ^{2} + {x \\\\choose y} + I _{n}( x)  + \\\\max ( a, b)  + H _{n}( x) $\"\n);\n*/\n\n/* this fails because of a bug that Differentiate(x) f(y) does not go to 0 */ /*\nVerify(\nTeXForm(3*Differentiate(x)f(x,y,z)*Cos(Omega)*Modulo(Sin(a)*4,5/a^b))\n,\"$3 ( \\\\frac{\\\\partial}{\\\\partial x}f( x, y, z) )  ( \\\\cos \\\\Omega )  ( 4 ( \\\\sin a) ) \\\\bmod \\\\frac{5}{a ^{b}} $\"\n);\n*/\n\n\nRulebaseHoldArguments(\"f\",{x});\nVerify(\nTeXForm(Hold(Differentiate(x)f(x)))\n,\"$\\\\frac{d}{d x}f( x) $\");\nRetract(\"f\",1);\n\nVerify(\nTeXForm(Hold(Not? (c<?0) And? (a+b)*c>=? -d^e And? (c<=?0 Or? b+1>?0) Or? a!=?0 And? Not? (p=?q)))\n,\"$ \\\\neg c < 0\\\\wedge ( a + b)  \\\\cdot c\\\\geq  - d ^{e}\\\\wedge ( c\\\\leq 0\\\\vee b + 1 > 0) \\\\vee a\\\\neq 0\\\\wedge  \\\\neg p = q$\"\n);\n\nRulebaseHoldArguments(\"f\",{x,y,z});\nVerify(\nTeXForm((Differentiate(x)f(x,y,z))*Cos(Omega)*Modulo(Sin(a)*4,5/a^b))\n,\"$( \\\\frac{\\\\partial}{\\\\partial x}f( x, y, z) )  \\\\cdot \\\\cos \\\\Omega  \\\\cdot ( 4 \\\\cdot \\\\sin a) \\\\bmod \\\\frac{5}{a ^{b}} $\"\n);\nRetract(\"f\",3);\n\nRulebaseHoldArguments(\"g\",{x});\nRulebaseHoldArguments(\"theta\",{x});\nVerify(\nTeXForm(Pi+Exp(1)-Theta-Integrate(x,x1,3/g(Pi))2*theta(x)*Exp(1/x))\n,\"$\\\\pi  + \\\\exp ( 1)  - \\\\Theta  - \\\\int _{x_{1}} ^{\\\\frac{3}{g( \\\\pi ) }  } 2 \\\\cdot \\\\theta ( x)  \\\\cdot \\\\exp ( \\\\frac{1}{x} )  dx$\"\n);\nRetract(\"g\",1);\nRetract(\"theta\",1);\n\nVerify(\nTeXForm({a[3]*b[5]-c[1][2],{a,b,c,d}})\n,\"$( a _{3} \\\\cdot b _{5} - c _{( 1, 2) }, ( a, b, c, d) ) $\"\n);\n\n\n//Note: this is the only code in the test suite that currently creates new rulebases.\nRulebaseHoldArguments(\"aa\",{x,y,z});\nBodied(\"aa\", 200);\nRulebaseHoldArguments(\"bar\", {x,y});\nInfix(\"bar\", 100);\nVerify(\nTeXForm(aa(x,y) z + 1 bar y!)\n,\"$aa( x, y) z + 1\\\\mathrm{ bar }y!$\"\n);\nRetract(\"aa\",3);\nRetract(\"bar\",2);\n\nVerify(\nTeXForm(x^(1/3)+x^(1/2))\n, \"$\\\\sqrt[3]{x} + \\\\sqrt{x}$\"\n);\n\n/*\nVerify(\nTeXForm()\n,\"\"\n);\n*/\n\n/* Bug report from Michael Borcherds. The brackets were missing. */\nVerify(TeXForm(Hold(2*x*(-2))), \"$2 \\\\cdot x \\\\cdot (  - 2) $\");\n\n\n";
         testString[2] = "/org/mathpiper/scripts4/outputforms/texform.mpw";
         userFunctionsTestsMap.put("TeXForm",testString);
@@ -708,6 +720,30 @@ public class Tests {
         testString[1] = "\nVerify(SquareMatrix?({{}}),False);\nVerify(SquareMatrix?({{a}}),True);\nVerify(SquareMatrix?({{},{}}),False);\nVerify(SquareMatrix?({{a,b}}),False);\nVerify(SquareMatrix?({{a,b},{c,d}}),True);\nVerify(SquareMatrix?({{a,b},{c,d},{e,f}}),False);\nVerify(SquareMatrix?({{a,b,c},{d,e,f},{g,h,i}}),True);\nVerify(SquareMatrix?({{a,b,c},{d,e,f}}),False);\nVerify(SquareMatrix?({{{a,b}},{{c,d}}}), False);\n\n";
         testString[2] = "/org/mathpiper/scripts4/predicates/matrix.mpw";
         userFunctionsTestsMap.put("SquareMatrix?",testString);
+
+        testString = new String[3];
+        testString[0] = "60";
+        testString[1] = "\nVerify(BooleanList(8, 36), {False,False,True,False,False,True,False,False});\n\n";
+        testString[2] = "/org/mathpiper/scripts4/proposed/logic/BooleanList.mpw";
+        userFunctionsTestsMap.put("BooleanList",testString);
+
+        testString = new String[3];
+        testString[0] = "50";
+        testString[1] = "\nVerify(BooleanLists(2), {{False,False},{False,True},{True,False},{True,True}});\n\n";
+        testString[2] = "/org/mathpiper/scripts4/proposed/logic/BooleanLists.mpw";
+        userFunctionsTestsMap.put("BooleanLists",testString);
+
+        testString = new String[3];
+        testString[0] = "102";
+        testString[1] = "\nUnbind(a,b,c);\n\nVerify(Subexpressions(a*b+c), {a,b,c,a*b,a*b+c});\n\n";
+        testString[2] = "/org/mathpiper/scripts4/proposed/logic/Subexpressions.mpw";
+        userFunctionsTestsMap.put("Subexpressions",testString);
+
+        testString = new String[3];
+        testString[0] = "77";
+        testString[1] = "\nUnbind(a,b);\n\nVerify(TruthTable(a And? b), {{a,b,a And? b},{True,True,True},{True,False,False},{False,True,False},{False,False,False}});\n\n";
+        testString[2] = "/org/mathpiper/scripts4/proposed/logic/TruthTable.mpw";
+        userFunctionsTestsMap.put("TruthTable",testString);
 
         testString = new String[3];
         testString[0] = "374";

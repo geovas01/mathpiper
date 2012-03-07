@@ -181,6 +181,7 @@ LocalSymbols(TeXFormRegularOps, TeXFormRegularPrefixOps, TeXFormGreekLetters, Te
     {"<>", "\\sim "},
     {"<=>", "\\approx "},
     {"Implies?", "\\Rightarrow "},
+    {"Equivales?", "\\equiv "},
     {"%", "\\bmod "},
   };
 

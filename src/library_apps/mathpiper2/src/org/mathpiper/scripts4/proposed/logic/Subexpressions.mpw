@@ -55,7 +55,7 @@ FunctionListAllHelper(expression) :=
     [
     
       Concat( {First(FunctionToList(expression))},
-         Apply("Concat", MapSingle("FuncListAll", Rest(FunctionToList(expression)))));
+         Apply("Concat", MapSingle("FunctionListAllHelper", Rest(FunctionToList(expression)))));
     ]
     else
     [
