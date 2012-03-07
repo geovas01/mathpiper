@@ -1,0 +1,70 @@
+%mathpiper,def="BooleanList"
+
+BooleanList(elements, integerBitPattern) :=
+[
+    Local(stringBitPattern, leadingDigitsCount, atomBitPattern);
+    
+    Check(Integer?(elements) And? elements >? 0, "Argument", "The first argument must be an integer that is > 0.");
+    
+    Check(Integer?(integerBitPattern) And? integerBitPattern >=? 0, "Argument", "The second argument must be an integer that is >= 0.");
+    
+    stringBitPattern := ToBase(2,integerBitPattern);
+    
+    leadingDigitsCount := elements - Length(stringBitPattern);
+    
+   
+    If(leadingDigitsCount >? 0, stringBitPattern := Concat(FillList("0",leadingDigitsCount),  StringToList(stringBitPattern)));
+    
+    atomBitPattern := MapSingle("ToAtom", stringBitPattern);
+    
+    atomBitPattern /: {0 <- False, 1 <- True};
+    
+];
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="BooleanList",categories="User Functions;Propositional Logic",access="experimental"
+*CMD BooleanList --- returns a list that contains boolean values
+
+*CALL
+        BooleanList(elements, integerBitPattern)
+
+*PARMS
+{elements} -- an integer that contains the desired number of elements in the returned list.
+
+{integerBitPattern} -- a integer that (when converted to binary) has a bit pattern that matches the desired boolean pattern.
+
+*DESC
+Returns a list that contains boolean values that match the binary equivalent of the integer in {integerBitPattern}. 
+The list is padded with leading {False} values to match the specified number of elements, if needed.
+
+*E.G.
+In> BooleanList(8, 5)
+Result: {False,False,False,False,False,True,False,True}
+
+*SEE BooleanLists, TruthTable
+
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+
+
+
+
+%mathpiper,name="BooleanList",subtype="automatic_test"
+
+Verify(BooleanList(8, 36), {False,False,True,False,False,True,False,False});
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
