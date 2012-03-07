@@ -20,6 +20,7 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -40,7 +41,9 @@ public class First extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        setTopOfStack(aEnvironment, aStackTop, Utility.nth(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1), 1));
+	Cons argumentCons = getArgument(aEnvironment, aStackTop, 1);
+	
+        setTopOfStack(aEnvironment, aStackTop, Utility.nth(aEnvironment, aStackTop, argumentCons, 1));
     }
 }
 
