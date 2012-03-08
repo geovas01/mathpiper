@@ -52,5 +52,5 @@ In> FindAll({1,2,3,2,1}, 4);
 Result: {}
 
 
-*SEE FindFirst, Contains?
+*SEE Find, FindFirst, Contains?
 %/mathpiper_docs

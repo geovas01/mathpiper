@@ -46,5 +46,5 @@ Result: 2;
 In> FindFirst({1,2,3,2,1}, 4);
 Result: -1;
 
-*SEE FindAll, Contains?
+*SEE Find, FindAll, Contains?
 %/mathpiper_docs
