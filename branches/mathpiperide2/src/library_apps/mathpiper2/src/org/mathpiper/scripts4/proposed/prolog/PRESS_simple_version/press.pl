@@ -1,3 +1,19 @@
+/* 
+
+Source code obtained from http://dream.inf.ed.ac.uk/software/press/ .
+
+    
+Disclaimer:
+These systems are supplied as is, without warranty expressed 
+or implied as to suitability for any purpose. In particular 
+they should not be used in the construction of nuclear facilities 
+or air traffic  control systems unless youre a bit of a gambler. 
+
+*/
+
+
+
+
 /*  
      solve_equation(Equation,Unknown,Solution) :-
 	Solution is a solution to the equation Equation 
