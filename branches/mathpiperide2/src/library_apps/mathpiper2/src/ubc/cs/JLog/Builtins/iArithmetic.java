@@ -42,34 +42,32 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Arithmetics
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
 import java.util.*;
 
 /**
-* The extending interface for arithmetic operators (which must also
-* inherit from an operator class).
-*
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public interface iArithmetic
-{
- final static int 	MAX = 1200;
- 
- /**
-  * Return priority value 0..MAX for operator precedence. Non-operator 
-  * terms have max priority.
-  *
-  * @return 		the priority of this operator (lower priority number
-  * 			is higher precedence).
-  */
- public int 	getPriority();
-};
+ * The extending interface for arithmetic operators (which must also inherit
+ * from an operator class).
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public interface iArithmetic {
+    final static int MAX = 1200;
 
+    /**
+     * Return priority value 0..MAX for operator precedence. Non-operator terms
+     * have max priority.
+     * 
+     * @return the priority of this operator (lower priority number is higher
+     *         precedence).
+     */
+    public int getPriority();
+};

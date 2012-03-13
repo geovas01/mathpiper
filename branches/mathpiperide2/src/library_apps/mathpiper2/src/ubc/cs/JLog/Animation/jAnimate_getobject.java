@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Animate GetObject
 //#########################################################################
- 
+
 package ubc.cs.JLog.Animation;
 
 import java.lang.*;
@@ -55,44 +55,38 @@ import java.awt.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jAnimate_getobject extends jAnimate
-{
- public jAnimate_getobject(jTerm t)
- {
-  super(t);
- };
-  
- public String 		getName()
- {
-  return "animate<getobject>";
- };
- 
- public int 		getNumberArguments()
- {
-  return 2;
- };
- 
- protected jUnaryBuiltinPredicate 		duplicate(jTerm r)
- {
-  return new jAnimate_getobject(r); 
- };
- 
- public boolean 	prove(jAnimateGoal ag,aAnimationEnvironment ae)
- {
-  return action(ae,aAttributeTranslation.convertToTerms(ag.term,getNumberArguments()),
-					ag.unified);
- };
+public class jAnimate_getobject extends jAnimate {
+    public jAnimate_getobject(jTerm t) {
+	super(t);
+    };
 
- protected boolean 	action(aAnimationEnvironment ae,jTerm[] terms,jUnifiedVector uv)
- {aAnimationObject 	obj = aAttributeTranslation.convertToAnimationObject(terms[0],ae);
-  jTerm[] 			objref = aAttributeTranslation.convertToTerms(terms[1],1);
+    public String getName() {
+	return "animate<getobject>";
+    };
 
-  return objref[0].unify(new jObject(obj),uv); 
- };
+    public int getNumberArguments() {
+	return 2;
+    };
 
- protected void 	action(aAnimationEnvironment ae,jTerm[] terms)
- {
-  // do nothing
- };
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jAnimate_getobject(r);
+    };
+
+    public boolean prove(jAnimateGoal ag, aAnimationEnvironment ae) {
+	return action(ae, aAttributeTranslation.convertToTerms(ag.term,
+		getNumberArguments()), ag.unified);
+    };
+
+    protected boolean action(aAnimationEnvironment ae, jTerm[] terms,
+	    jUnifiedVector uv) {
+	aAnimationObject obj = aAttributeTranslation.convertToAnimationObject(
+		terms[0], ae);
+	jTerm[] objref = aAttributeTranslation.convertToTerms(terms[1], 1);
+
+	return objref[0].unify(new jObject(obj), uv);
+    };
+
+    protected void action(aAnimationEnvironment ae, jTerm[] terms) {
+	// do nothing
+    };
 };
-

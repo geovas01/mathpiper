@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	AssertGoal
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins.Goals;
 
 import java.lang.*;
@@ -55,65 +55,59 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Builtins.*;
 
-public class jAssertGoal extends jGoal
-{
- protected jAssert 			assert_it;
- 
- // for use by assert
- public jTerm 			term;
- public boolean 		addlast;
- 
- public 	jAssertGoal(jAssert a,jTerm t,boolean al)
- {
-  assert_it = a;
-  term = t;
-  addlast = al;
- };
- 
- public boolean 	prove(iGoalStack goals,iGoalStack proved)
- {Thread 		t;
-  
-  t = Thread.currentThread();
-  
-  if (t instanceof jPrologServiceThread)
-  {jPrologServiceThread		pst = (jPrologServiceThread) t;
-   jPrologServices			prolog = pst.getPrologServices();
-   jKnowledgeBase 			database = prolog.getKnowledgeBase();
+public class jAssertGoal extends jGoal {
+    protected jAssert assert_it;
 
-   if (assert_it.prove(this,database))
-   {
-    proved.push(this);
-    return true;
-   }
-  }
-  goals.push(this); // a retry that follows may need a node to remove or retry
-  return false;
- };
+    // for use by assert
+    public jTerm term;
+    public boolean addlast;
 
- public boolean 	retry(iGoalStack goals,iGoalStack proved)
- {
-  goals.push(this); // a retry that follows may need a node to remove or retry
-  return false;
- };
-  
- public String 		getName() 
- {
-  return assert_it.getName();
- };
- 
- public int 		getArity() 
- {
-  return assert_it.getArity();
- };
- 
- public String 		toString()
- {StringBuffer 	sb = new StringBuffer();
-   
-  sb.append(getName()+"/"+String.valueOf(getArity())+" goal: ");
-  sb.append(getName()+"("+term.toString()+")");
-  
-  return sb.toString();
- };
+    public jAssertGoal(jAssert a, jTerm t, boolean al) {
+	assert_it = a;
+	term = t;
+	addlast = al;
+    };
+
+    public boolean prove(iGoalStack goals, iGoalStack proved) {
+	Thread t;
+
+	t = Thread.currentThread();
+
+	if (t instanceof jPrologServiceThread) {
+	    jPrologServiceThread pst = (jPrologServiceThread) t;
+	    jPrologServices prolog = pst.getPrologServices();
+	    jKnowledgeBase database = prolog.getKnowledgeBase();
+
+	    if (assert_it.prove(this, database)) {
+		proved.push(this);
+		return true;
+	    }
+	}
+	goals.push(this); // a retry that follows may need a node to remove or
+			  // retry
+	return false;
+    };
+
+    public boolean retry(iGoalStack goals, iGoalStack proved) {
+	goals.push(this); // a retry that follows may need a node to remove or
+			  // retry
+	return false;
+    };
+
+    public String getName() {
+	return assert_it.getName();
+    };
+
+    public int getArity() {
+	return assert_it.getArity();
+    };
+
+    public String toString() {
+	StringBuffer sb = new StringBuffer();
+
+	sb.append(getName() + "/" + String.valueOf(getArity()) + " goal: ");
+	sb.append(getName() + "(" + term.toString() + ")");
+
+	return sb.toString();
+    };
 };
-
- 

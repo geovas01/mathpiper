@@ -42,19 +42,21 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	InvalidNameArgumentException
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
 import java.util.*;
 
-public class InvalidNameArgumentException extends RuntimeException
-{
- public InvalidNameArgumentException() {};
- public InvalidNameArgumentException(String s) {super(s);};
-};
+public class InvalidNameArgumentException extends RuntimeException {
+    public InvalidNameArgumentException() {
+    };
 
+    public InvalidNameArgumentException(String s) {
+	super(s);
+    };
+};

@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	IsSimple
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -54,31 +54,28 @@ import java.util.*;
 import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
-public class jIsSimple extends jIsType
-{
- public jIsSimple(jTerm r)
- {
-  super(r);
- };
+public class jIsSimple extends jIsType {
+    public jIsSimple(jTerm r) {
+	super(r);
+    };
 
- public String 		getName()
- {
-  return "simple";
- };  
+    public String getName() {
+	return "simple";
+    };
 
- protected jUnaryBuiltinPredicate 	duplicate(jTerm r)
- {
-  return new jIsSimple(r);
- };
- 
- public boolean 	prove(jUnaryOperatorGoal og)
- {jTerm 	r;
-  
-  r = og.rhs.getTerm();
-  
-  return (r.type == TYPE_ATOM) ||  (r.type == TYPE_NULLLIST) ||
-          ((r instanceof iPredicate) && ((iPredicate) r).getArity() == 0) ||
-          (r.type == TYPE_INTEGER) || (r.type == TYPE_REAL) || (r.type == TYPE_VARIABLE);
- };
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jIsSimple(r);
+    };
+
+    public boolean prove(jUnaryOperatorGoal og) {
+	jTerm r;
+
+	r = og.rhs.getTerm();
+
+	return (r.type == TYPE_ATOM)
+		|| (r.type == TYPE_NULLLIST)
+		|| ((r instanceof iPredicate) && ((iPredicate) r).getArity() == 0)
+		|| (r.type == TYPE_INTEGER) || (r.type == TYPE_REAL)
+		|| (r.type == TYPE_VARIABLE);
+    };
 };
-

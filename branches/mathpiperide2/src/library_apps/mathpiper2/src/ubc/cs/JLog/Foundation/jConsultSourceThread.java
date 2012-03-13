@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	jConsultSourceThread
 //#########################################################################
@@ -55,131 +55,113 @@ import java.io.PrintWriter;
 import ubc.cs.JLog.Parser.*;
 
 /**
-* This class implements consulting of a prolog source text.  
-* The source is a <code>TextArea</code>, as is the error output.
-*  
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public class jConsultSourceThread extends jPrologServiceThread
-{
- protected iPrologServiceText				source;
- protected PrintWriter						errors;
- protected jPrologServiceBroadcaster 		begin = null,end = null;
-  
- public 	jConsultSourceThread(jPrologServices ps,iPrologServiceText s,PrintWriter e)
- {
-  super(ps);
+ * This class implements consulting of a prolog source text. The source is a
+ * <code>TextArea</code>, as is the error output.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public class jConsultSourceThread extends jPrologServiceThread {
+    protected iPrologServiceText source;
+    protected PrintWriter errors;
+    protected jPrologServiceBroadcaster begin = null, end = null;
 
-  setName("ConsultSourceThread");
- // setPriority(NORM_PRIORITY + 1); //MRJ 2.1 doesn't permit UI interaction with this setting
-   
-  source = s;
-  errors = e;  
- };
+    public jConsultSourceThread(jPrologServices ps, iPrologServiceText s,
+	    PrintWriter e) {
+	super(ps);
 
- public void 	setListeners(jPrologServiceBroadcaster b,
-                                jPrologServiceBroadcaster e,
- 				jPrologServiceBroadcaster s)
- {
-  setStoppedListeners(s);
-  begin = b;
-  end = e;
- };
+	setName("ConsultSourceThread");
+	// setPriority(NORM_PRIORITY + 1); //MRJ 2.1 doesn't permit UI
+	// interaction with this setting
 
-/**
-* Performs and controls the entire consultation phase.
-* 
-*/
- public void 	run()
- {
-  if (begin != null)
-   begin.broadcastEvent(new jPrologServiceEvent());
-  
-  errors.println("consulting.");
-  errors.flush();
-  
-  try
-  {pParseStream 	parser;
-   
-   parser = new pParseStream(source.getText(),prolog.getKnowledgeBase(),
-                             prolog.getPredicateRegistry(),
-                             prolog.getOperatorRegistry());
-   
-   try
-   {
-    parser.parseSource(); 
-    prolog.getKnowledgeBase().consult();
-    
-    errors.print("completed.");
-    errors.flush();
-   }
-   catch (SyntaxErrorException e)
-   {
-    errors.println("SYNTAX ERROR:");
-    errors.println(e.toString()+"\n");
-    source.setCaretPosition(e.getPosition());
-    source.select(e.getPosition(),e.getPosition()+1);
-    errors.print("terminated.");
-    errors.flush();
-	source.requestFocus(); 
-   }
-   catch (TokenizeStreamException e)
-   {
-    errors.println("INTERNAL ERROR:");
-    errors.println(e.toString()+"\n");
-    source.setCaretPosition(e.getPosition());
-    source.select(e.getPosition(),e.getPosition()+1);
-    errors.print("terminated.");
+	source = s;
+	errors = e;
+    };
+
+    public void setListeners(jPrologServiceBroadcaster b,
+	    jPrologServiceBroadcaster e, jPrologServiceBroadcaster s) {
+	setStoppedListeners(s);
+	begin = b;
+	end = e;
+    };
+
+    /**
+     * Performs and controls the entire consultation phase.
+     * 
+     */
+    public void run() {
+	if (begin != null)
+	    begin.broadcastEvent(new jPrologServiceEvent());
+
+	errors.println("consulting.");
 	errors.flush();
-    source.requestFocus(); 
-   }
-   catch (RuntimeException e)
-   {
-    errors.println("ERROR:");
-    errors.println(e.toString()+"\n");
-    errors.print("terminated.");
-	errors.flush();
-    source.requestFocus(); 
-   }
-  } 
-  catch (ThreadDeath e)
-  {
-   throw e; // thread death is user controlled
-  }
-  catch (Error e)
-  {
-   errors.println("JAVA ERROR:");
-   errors.println(e.toString()+"\n");
-   errors.print("terminated.");
-   errors.flush();
-   source.requestFocus(); 
-   throw e; 
-  }
-  finally
-  {
-   if (allow_release)
-    prolog.release();
-  
-   if (end != null)
-    end.broadcastEvent(new jPrologServiceEvent());
-  }
- };
 
- public boolean 	isCurrentlyConsulting()
- {
-  return true;
- };
-  
-/**
-* Displays errors and other output that results from consulting the source.
-* 
-* @param s 		the input string to append to errors. 
-*/
- public void 		printOutput(String s)
- {
-  errors.print(s);
-  errors.flush();
- };
+	try {
+	    pParseStream parser;
+
+	    parser = new pParseStream(source.getText(),
+		    prolog.getKnowledgeBase(), prolog.getPredicateRegistry(),
+		    prolog.getOperatorRegistry());
+
+	    try {
+		parser.parseSource();
+		prolog.getKnowledgeBase().consult();
+
+		errors.print("completed.");
+		errors.flush();
+	    } catch (SyntaxErrorException e) {
+		errors.println("SYNTAX ERROR:");
+		errors.println(e.toString() + "\n");
+		source.setCaretPosition(e.getPosition());
+		source.select(e.getPosition(), e.getPosition() + 1);
+		errors.print("terminated.");
+		errors.flush();
+		source.requestFocus();
+	    } catch (TokenizeStreamException e) {
+		errors.println("INTERNAL ERROR:");
+		errors.println(e.toString() + "\n");
+		source.setCaretPosition(e.getPosition());
+		source.select(e.getPosition(), e.getPosition() + 1);
+		errors.print("terminated.");
+		errors.flush();
+		source.requestFocus();
+	    } catch (RuntimeException e) {
+		errors.println("ERROR:");
+		errors.println(e.toString() + "\n");
+		errors.print("terminated.");
+		errors.flush();
+		source.requestFocus();
+	    }
+	} catch (ThreadDeath e) {
+	    throw e; // thread death is user controlled
+	} catch (Error e) {
+	    errors.println("JAVA ERROR:");
+	    errors.println(e.toString() + "\n");
+	    errors.print("terminated.");
+	    errors.flush();
+	    source.requestFocus();
+	    throw e;
+	} finally {
+	    if (allow_release)
+		prolog.release();
+
+	    if (end != null)
+		end.broadcastEvent(new jPrologServiceEvent());
+	}
+    };
+
+    public boolean isCurrentlyConsulting() {
+	return true;
+    };
+
+    /**
+     * Displays errors and other output that results from consulting the source.
+     * 
+     * @param s
+     *            the input string to append to errors.
+     */
+    public void printOutput(String s) {
+	errors.print(s);
+	errors.flush();
+    };
 };
-

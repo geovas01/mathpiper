@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Fail
 //#########################################################################
- 
+
 package ubc.cs.JLog.Terms;
 
 import java.lang.*;
@@ -54,32 +54,25 @@ import java.util.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Terms.Goals.*;
 
-public class jFail extends jBuiltinPredicate
-{
- public final static jFail		FAIL = new jFail();
+public class jFail extends jBuiltinPredicate {
+    public final static jFail FAIL = new jFail();
 
- protected jFail()
- {
- };
-  
- public String 		getName()
- {
-  return "fail";
- };
- 
- public int 		getArity()
- {
-  return 0;
- };
+    protected jFail() {
+    };
 
- public void 		addGoals(jGoal g,jVariable[] vars,iGoalStack goals)
- {
-  goals.push(new jFailGoal());
- }; 
+    public String getName() {
+	return "fail";
+    };
 
- public void 		addGoals(jGoal g,iGoalStack goals)
- {
-  goals.push(new jFailGoal());
- }; 
+    public int getArity() {
+	return 0;
+    };
+
+    public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+	goals.push(new jFailGoal());
+    };
+
+    public void addGoals(jGoal g, iGoalStack goals) {
+	goals.push(new jFailGoal());
+    };
 };
-

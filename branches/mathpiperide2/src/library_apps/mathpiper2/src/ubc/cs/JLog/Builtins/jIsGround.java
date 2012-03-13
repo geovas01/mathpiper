@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	IsGround
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -55,31 +55,24 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
-public class jIsGround extends jIsType
-{
- public jIsGround(jTerm r)
- {
-  super(r);
- };
+public class jIsGround extends jIsType {
+    public jIsGround(jTerm r) {
+	super(r);
+    };
 
- public String 		getName()
- {
-  return "ground";
- };  
+    public String getName() {
+	return "ground";
+    };
 
- protected jUnaryBuiltinPredicate 	duplicate(jTerm r)
- {
-  return new jIsGround(r);
- };
- 
- public boolean 	prove(jUnaryOperatorGoal og)
- {jUnifiedVector	v = new jUnifiedVector();
-  
-  og.rhs.registerUnboundVariables(v);
-  
-  return v.isEmpty();
- };
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jIsGround(r);
+    };
+
+    public boolean prove(jUnaryOperatorGoal og) {
+	jUnifiedVector v = new jUnifiedVector();
+
+	og.rhs.registerUnboundVariables(v);
+
+	return v.isEmpty();
+    };
 };
-
-
-

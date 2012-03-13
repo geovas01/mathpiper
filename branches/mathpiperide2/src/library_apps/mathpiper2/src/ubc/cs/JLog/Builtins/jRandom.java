@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Random
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -54,72 +54,66 @@ import java.util.*;
 import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Foundation.*;
 
-public class jRandom extends jUnaryArithmetic
-{
- public 	jRandom(jTerm r)
- {
-  super(r);
- };
- 
- public String 		getName()
- {
-  return "random";
- };  
+public class jRandom extends jUnaryArithmetic {
+    public jRandom(jTerm r) {
+	super(r);
+    };
 
- public  jTerm 		getValue()
- {jTerm 		r;
-  
-  r = rhs.getValue();
+    public String getName() {
+	return "random";
+    };
 
-  if (r.type == TYPE_INTEGER)
-   return new jInteger(operatorInt(((jInteger) r).getIntegerValue()));
-  else if (r.type == TYPE_REAL)
-   return new jReal(operatorReal(((jReal) r).getRealValue()));
-   
-  throw new InvalidArithmeticOperationException();
- };
+    public jTerm getValue() {
+	jTerm r;
 
- protected jUnaryBuiltinPredicate 	duplicate(jTerm r)
- {
-  return new jRandom(r);
- };
- 
- protected int 		operatorInt(int r)
- {Thread 		t = Thread.currentThread();
-  
-  if (r < 1)
-   throw new InvalidArithmeticOperationException();
-    
-  if (t instanceof jPrologServiceThread)
-  {jPrologServiceThread		pst = (jPrologServiceThread) t;
-   Random			gen;
-   double 			val;
-   int 				result;
-   
-   gen = pst.getPrologServices().getRandomGenerator();
-   val = gen.nextDouble();
-   
-   result = (int) Math.floor((double) r * val);
-   result = (result < r ? result : 0); // ensure 0 <= result < r
-     
-   return result;
-  }
-  else
-   throw new InvalidArithmeticOperationException();
- };
- 
- protected float 	operatorReal(float r)
- {Thread 		t = Thread.currentThread();
-  
-  if (t instanceof jPrologServiceThread)
-  {jPrologServiceThread		pst = (jPrologServiceThread) t;
-   Random			gen;
-   
-   gen = pst.getPrologServices().getRandomGenerator();
-   
-   return r * gen.nextFloat();
-  }
-  else
-   throw new InvalidArithmeticOperationException();
- };
+	r = rhs.getValue();
+
+	if (r.type == TYPE_INTEGER)
+	    return new jInteger(operatorInt(((jInteger) r).getIntegerValue()));
+	else if (r.type == TYPE_REAL)
+	    return new jReal(operatorReal(((jReal) r).getRealValue()));
+
+	throw new InvalidArithmeticOperationException();
+    };
+
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jRandom(r);
+    };
+
+    protected int operatorInt(int r) {
+	Thread t = Thread.currentThread();
+
+	if (r < 1)
+	    throw new InvalidArithmeticOperationException();
+
+	if (t instanceof jPrologServiceThread) {
+	    jPrologServiceThread pst = (jPrologServiceThread) t;
+	    Random gen;
+	    double val;
+	    int result;
+
+	    gen = pst.getPrologServices().getRandomGenerator();
+	    val = gen.nextDouble();
+
+	    result = (int) Math.floor((double) r * val);
+	    result = (result < r ? result : 0); // ensure 0 <= result < r
+
+	    return result;
+	} else
+	    throw new InvalidArithmeticOperationException();
+    };
+
+    protected float operatorReal(float r) {
+	Thread t = Thread.currentThread();
+
+	if (t instanceof jPrologServiceThread) {
+	    jPrologServiceThread pst = (jPrologServiceThread) t;
+	    Random gen;
+
+	    gen = pst.getPrologServices().getRandomGenerator();
+
+	    return r * gen.nextFloat();
+	} else
+	    throw new InvalidArithmeticOperationException();
+    };
 };

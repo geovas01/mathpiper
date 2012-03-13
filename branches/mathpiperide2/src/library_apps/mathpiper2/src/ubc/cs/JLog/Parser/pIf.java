@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	pIf
 //#########################################################################
@@ -54,32 +54,29 @@ import java.lang.*;
 import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Terms.Entries.*;
 
-class pIf extends pOperator
-{
- public 	pIf(pIfOperatorEntry op,pToken pt)
- {
-  super(op,pt);
- };
+class pIf extends pOperator {
+    public pIf(pIfOperatorEntry op, pToken pt) {
+	super(op, pt);
+    };
 
- public jTerm 			getTerm(pVariableRegistry vars,pTermToPacketHashtable phash)
- {
-  // just in case the owning class doesn't try to turn generic predicates off
-  // this potentially results is some small, parse time, re-duplication 
-  setGeneric(false);
-  
-  return super.getTerm(vars,phash);
- };
+    public jTerm getTerm(pVariableRegistry vars, pTermToPacketHashtable phash) {
+	// just in case the owning class doesn't try to turn generic predicates
+	// off
+	// this potentially results is some small, parse time, re-duplication
+	setGeneric(false);
 
- public void 		setGeneric(boolean genericpred)
- {pPacket 	l,r;
+	return super.getTerm(vars, phash);
+    };
 
-  l = getLHS();
-  r = getRHS();
-  
-  if (l != null)
-   l.setGeneric(true);
-  if (r != null)
-   r.setGeneric(false);
- };
+    public void setGeneric(boolean genericpred) {
+	pPacket l, r;
+
+	l = getLHS();
+	r = getRHS();
+
+	if (l != null)
+	    l.setGeneric(true);
+	if (r != null)
+	    r.setGeneric(false);
+    };
 };
-

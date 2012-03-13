@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Functor
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -56,75 +56,66 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Parser.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
-public class jFunctor extends jTrinaryBuiltinPredicate
-{
- public jFunctor(jTerm t,jTerm n,jTerm a)
- {
-  super(t,n,a,TYPE_BUILTINPREDICATE);
- };
-  
- public String 		getName()
- {
-  return "functor";
- };
+public class jFunctor extends jTrinaryBuiltinPredicate {
+    public jFunctor(jTerm t, jTerm n, jTerm a) {
+	super(t, n, a, TYPE_BUILTINPREDICATE);
+    };
 
- public final boolean 	prove(jFunctorGoal fg,pPredicateRegistry pr)
- {jTerm 	t1,t2,t3;
-  
-  t1 = fg.term1.getTerm();
-  t2 = fg.term2.getTerm();
-  t3 = fg.term3.getTerm();
-  
-  if (t1.type == TYPE_VARIABLE && !(t2.type == TYPE_VARIABLE) && t3.type == TYPE_INTEGER)
-  {int  				arity = ((jInteger) t3).getIntegerValue();
-  
-   if (arity > 0)
-   {pPredicateEntry 		pe = pr.getPredicate(t2.getName(),arity);
-    iPredicate 				p;
-   
-    if (pe != null)
-     p = pe.createPredicate();
-    else
-    {jCompoundTerm 		ct = new jCompoundTerm();
-     int 				i;
-     
-     for (i = 0; i < arity; i++)
-      ct.addTerm(new jVariable("_"));
-    
-     p = new jPredicate(t2.getName(),ct);
-    }
-    
-    return t1.unify(p,fg.unified);
-   }
-   else
-    throw new InvalidFunctorArgumentException();
-  }
-  else if (t1 instanceof iPredicate)
-  {iPredicate 		ip = (iPredicate) t1;
-   
-   if (!(t2.unify(new jAtom(ip.getName()),fg.unified)))
-    return false;
-     
-   return t3.unify(new jInteger(ip.getArity()),fg.unified);
-  }
-  else
-   throw new InvalidFunctorArgumentException(); 
- };
+    public String getName() {
+	return "functor";
+    };
 
- public void 		addGoals(jGoal g,jVariable[] vars,iGoalStack goals)
- {
-  goals.push(new jFunctorGoal(this,term1.duplicate(vars),term2.duplicate(vars),term3.duplicate(vars)));
- };
+    public final boolean prove(jFunctorGoal fg, pPredicateRegistry pr) {
+	jTerm t1, t2, t3;
 
- public void 		addGoals(jGoal g,iGoalStack goals)
- {
-  goals.push(new jFunctorGoal(this,term1,term2,term3));
- };
+	t1 = fg.term1.getTerm();
+	t2 = fg.term2.getTerm();
+	t3 = fg.term3.getTerm();
 
- protected jTrinaryBuiltinPredicate 		duplicate(jTerm t1,jTerm t2,jTerm t3)
- {
-  return new jFunctor(t1,t2,t3); 
- };
+	if (t1.type == TYPE_VARIABLE && !(t2.type == TYPE_VARIABLE)
+		&& t3.type == TYPE_INTEGER) {
+	    int arity = ((jInteger) t3).getIntegerValue();
+
+	    if (arity > 0) {
+		pPredicateEntry pe = pr.getPredicate(t2.getName(), arity);
+		iPredicate p;
+
+		if (pe != null)
+		    p = pe.createPredicate();
+		else {
+		    jCompoundTerm ct = new jCompoundTerm();
+		    int i;
+
+		    for (i = 0; i < arity; i++)
+			ct.addTerm(new jVariable("_"));
+
+		    p = new jPredicate(t2.getName(), ct);
+		}
+
+		return t1.unify(p, fg.unified);
+	    } else
+		throw new InvalidFunctorArgumentException();
+	} else if (t1 instanceof iPredicate) {
+	    iPredicate ip = (iPredicate) t1;
+
+	    if (!(t2.unify(new jAtom(ip.getName()), fg.unified)))
+		return false;
+
+	    return t3.unify(new jInteger(ip.getArity()), fg.unified);
+	} else
+	    throw new InvalidFunctorArgumentException();
+    };
+
+    public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+	goals.push(new jFunctorGoal(this, term1.duplicate(vars), term2
+		.duplicate(vars), term3.duplicate(vars)));
+    };
+
+    public void addGoals(jGoal g, iGoalStack goals) {
+	goals.push(new jFunctorGoal(this, term1, term2, term3));
+    };
+
+    protected jTrinaryBuiltinPredicate duplicate(jTerm t1, jTerm t2, jTerm t3) {
+	return new jFunctor(t1, t2, t3);
+    };
 };
-
- 

@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Unify
 //#########################################################################
- 
+
 package ubc.cs.JLog.Terms;
 
 import java.lang.*;
@@ -54,53 +54,46 @@ import java.util.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Terms.Goals.*;
 
-public class jUnify extends jBinaryBuiltinPredicate
-{
- // this constructor permits the delayed setting of lhs and rhs terms.  setLHS and setRHS
- // must be called before any other member.
- public jUnify()
- {
-  super(null,null,TYPE_BUILTINPREDICATE);
- };
-  
- public jUnify(jTerm l,jTerm r)
- {
-  super(l,r,TYPE_BUILTINPREDICATE);
- };
-  
- public String 		getName()
- {
-  return "=";
- };
- 
- // setLHS and setRHS complement default constructor
- public void 		setLHS(jTerm l)
- {
-  lhs = l;
- };
- 
- public void 		setRHS(jTerm r)
- {
-  rhs = r;
- };
- 
- public boolean 	prove(jBinaryBuiltinPredicateGoal ig)
- {jTerm l,r;
- 
-  l = ig.term1.getTerm();
-  r = ig.term2.getTerm();
-  
-  return l.unify(r,ig.unified);
- };
+public class jUnify extends jBinaryBuiltinPredicate {
+    // this constructor permits the delayed setting of lhs and rhs terms. setLHS
+    // and setRHS
+    // must be called before any other member.
+    public jUnify() {
+	super(null, null, TYPE_BUILTINPREDICATE);
+    };
 
- public jBinaryBuiltinPredicate 		duplicate(jTerm l,jTerm r)
- {
-  return new jUnify(l,r); 
- };
+    public jUnify(jTerm l, jTerm r) {
+	super(l, r, TYPE_BUILTINPREDICATE);
+    };
 
- public String 		toString(boolean usename)
- {
-  return lhs.toString(usename) + " " + getName() + " " + rhs.toString(usename);
- };
+    public String getName() {
+	return "=";
+    };
+
+    // setLHS and setRHS complement default constructor
+    public void setLHS(jTerm l) {
+	lhs = l;
+    };
+
+    public void setRHS(jTerm r) {
+	rhs = r;
+    };
+
+    public boolean prove(jBinaryBuiltinPredicateGoal ig) {
+	jTerm l, r;
+
+	l = ig.term1.getTerm();
+	r = ig.term2.getTerm();
+
+	return l.unify(r, ig.unified);
+    };
+
+    public jBinaryBuiltinPredicate duplicate(jTerm l, jTerm r) {
+	return new jUnify(l, r);
+    };
+
+    public String toString(boolean usename) {
+	return lhs.toString(usename) + " " + getName() + " "
+		+ rhs.toString(usename);
+    };
 };
-

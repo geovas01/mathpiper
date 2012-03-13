@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	NullList
 //#########################################################################
@@ -53,111 +53,108 @@ import java.lang.*;
 import java.util.*;
 import ubc.cs.JLog.Foundation.*;
 
-public class jNullList extends jList
-{
- public final static jNullList		NULL_LIST = new jNullList();
- public final static Enumeration	NULL_ENUM = new Enumeration()
-					{
-					 public boolean hasMoreElements() {return false;};
-					 public Object  nextElement() {return null;};
-					};
-					
- protected jNullList()
- {
-  type = TYPE_NULLLIST;
- };
- 
- public String 		getName()
- {
-  return LIST_NULL;
- };
- 
- protected int 		compare(jTerm term,boolean first_call,boolean var_equal)
- {jTerm 		t = term.getTerm();
- 
-  if ((t instanceof jVariable) || (t instanceof jReal) || (t instanceof jInteger))
-   return GREATER_THAN;
-  
-  if (t instanceof iPredicate)
-  {iPredicate 	ip = (iPredicate) t;
-   int 			compare_val;
-   int 			arity_b;
-   
-   arity_b = ip.getArity();
-   
-   if (0 < arity_b)
-    return LESS_THAN;
-   else if (0 > arity_b)
-    return GREATER_THAN;
-   
-   compare_val = getName().compareTo(ip.getName());
-   
-   if (compare_val < 0)
-    return LESS_THAN;
-   if (compare_val > 0)
-    return GREATER_THAN;
+public class jNullList extends jList {
+    public final static jNullList NULL_LIST = new jNullList();
+    public final static Enumeration NULL_ENUM = new Enumeration() {
+	public boolean hasMoreElements() {
+	    return false;
+	};
 
-   return EQUAL;
-  }
-  
-  if (t instanceof jNullList)
-   return EQUAL;
+	public Object nextElement() {
+	    return null;
+	};
+    };
 
-  if (t instanceof jListPair || t instanceof jCommand || t instanceof jConjunctTerm)
-   return LESS_THAN;
-   
-  return (first_call ? -t.compare(this,false,var_equal) : EQUAL);
- };
+    protected jNullList() {
+	type = TYPE_NULLLIST;
+    };
 
- public boolean 	equivalence(jTerm term,jEquivalenceMapping v)
- {jTerm t = term.getTerm();
- 
-  // many null lists may be same instances
-  if (this == t)
-   return true;
-   
-  return (type == t.type);
- };
-  
- public boolean 	unify(jTerm term,jUnifiedVector v)
- {
-  // if term is variable we let it handle the unification
-  if (term.type == TYPE_VARIABLE)
-   return term.unify(this,v);
-   
-  // many null lists may be same instances
-  if (this == term)
-   return true;
-   
-  return (type == term.type);
- };
-  
- public void 		registerVariables(jVariableVector v)
- {
- };
- 
- public void 		enumerateVariables(jVariableVector v,boolean all)
- {
- };
+    public String getName() {
+	return LIST_NULL;
+    };
 
- public jTerm 		duplicate(jVariable[] vars)
- {
-  return this; // since nulllists are constants, don't duplicate for memory and gc considerations
- };
+    protected int compare(jTerm term, boolean first_call, boolean var_equal) {
+	jTerm t = term.getTerm();
 
- public jTerm 		copy(jVariableRegistry vars)
- {
-  return this; // since nulllists are constants, don't duplicate for memory and gc considerations
- };
+	if ((t instanceof jVariable) || (t instanceof jReal)
+		|| (t instanceof jInteger))
+	    return GREATER_THAN;
 
- public Enumeration		elements(iTermToObject conv)
- {
-  return NULL_ENUM;
- };
+	if (t instanceof iPredicate) {
+	    iPredicate ip = (iPredicate) t;
+	    int compare_val;
+	    int arity_b;
 
- public String 		toString(boolean usename)
- {
-  return LIST_NULL;
- };
+	    arity_b = ip.getArity();
+
+	    if (0 < arity_b)
+		return LESS_THAN;
+	    else if (0 > arity_b)
+		return GREATER_THAN;
+
+	    compare_val = getName().compareTo(ip.getName());
+
+	    if (compare_val < 0)
+		return LESS_THAN;
+	    if (compare_val > 0)
+		return GREATER_THAN;
+
+	    return EQUAL;
+	}
+
+	if (t instanceof jNullList)
+	    return EQUAL;
+
+	if (t instanceof jListPair || t instanceof jCommand
+		|| t instanceof jConjunctTerm)
+	    return LESS_THAN;
+
+	return (first_call ? -t.compare(this, false, var_equal) : EQUAL);
+    };
+
+    public boolean equivalence(jTerm term, jEquivalenceMapping v) {
+	jTerm t = term.getTerm();
+
+	// many null lists may be same instances
+	if (this == t)
+	    return true;
+
+	return (type == t.type);
+    };
+
+    public boolean unify(jTerm term, jUnifiedVector v) {
+	// if term is variable we let it handle the unification
+	if (term.type == TYPE_VARIABLE)
+	    return term.unify(this, v);
+
+	// many null lists may be same instances
+	if (this == term)
+	    return true;
+
+	return (type == term.type);
+    };
+
+    public void registerVariables(jVariableVector v) {
+    };
+
+    public void enumerateVariables(jVariableVector v, boolean all) {
+    };
+
+    public jTerm duplicate(jVariable[] vars) {
+	return this; // since nulllists are constants, don't duplicate for
+		     // memory and gc considerations
+    };
+
+    public jTerm copy(jVariableRegistry vars) {
+	return this; // since nulllists are constants, don't duplicate for
+		     // memory and gc considerations
+    };
+
+    public Enumeration elements(iTermToObject conv) {
+	return NULL_ENUM;
+    };
+
+    public String toString(boolean usename) {
+	return LIST_NULL;
+    };
 };
-

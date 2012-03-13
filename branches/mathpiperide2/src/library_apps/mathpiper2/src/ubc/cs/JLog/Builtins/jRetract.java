@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Retract
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -55,86 +55,79 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
-public class jRetract extends jUnaryBuiltinPredicate
-{
- public jRetract(jTerm t)
- {
-  super(t,TYPE_BUILTINPREDICATE);
- };
-  
- public String 		getName()
- {
-  return "retract";
- };
+public class jRetract extends jUnaryBuiltinPredicate {
+    public jRetract(jTerm t) {
+	super(t, TYPE_BUILTINPREDICATE);
+    };
 
- public boolean 	prove(jRetractGoal rg,jKnowledgeBase kb)
- {jTerm 	t;
- 
-  t = rg.term.getTerm();
-  
-  if (t instanceof jIf)
-  {jIf 					jif = (jIf) t;
-   jTerm 				lhs = jif.getLHS();
-   jPredicate 			head = null;
-   jPredicateTerms 		base = null;
-         
-   if (lhs instanceof jPredicate)
-    head = (jPredicate) lhs;
-   else
-    throw new InvalidRetractException("Expected single predicate before if operator in retract.");
+    public String getName() {
+	return "retract";
+    };
 
-   try
-   {
-    base = new jPredicateTerms();
-    base.makePredicateTerms(jif.getRHS());
-   }
-   catch (PredicateExpectedException e)
-   {
-    throw new InvalidRetractException("Expected predicates after if operator.");
-   }
-     
-   return retractPredicate(head,base,kb,rg.unified);
-  }
-  else if (t instanceof jPredicate)
-   return retractPredicate((jPredicate) t,null,kb,rg.unified);
-  else if (t instanceof jAtom)
-   return retractPredicate(new jPredicate((jAtom) t),null,kb,rg.unified);
+    public boolean prove(jRetractGoal rg, jKnowledgeBase kb) {
+	jTerm t;
 
-  return false;
- };
+	t = rg.term.getTerm();
 
- // b may be null. return true if rule retracted, false if cannot retract.
- protected boolean 		retractPredicate(jPredicate h,jPredicateTerms b,jKnowledgeBase kb,
- 											jUnifiedVector unified)
- {jRuleDefinitions 		rds;
-  jRule 				rule;
-  
-  rule = new jRule(h,(b == null ? new jPredicateTerms() : b));
-  if ((rds = h.getCachedRuleDefinitions()) == null)
-   rds = kb.getRuleDefinitionsMatch(rule);
-  
-  if (rds == null)
-   return false;
-  else if (rds instanceof jDynamicRuleDefinitions)
-   return ((jDynamicRuleDefinitions) rds).retractUnifyRule(rule,unified);
-  else
-   throw new InvalidRetractException("Retracted term '"+h.getName()+"/"+
-                                      String.valueOf(h.getArity())+"' must be dynamic.");
- };
- 
- public void 		addGoals(jGoal g,jVariable[] vars,iGoalStack goals)
- {
-  goals.push(new jRetractGoal(this,rhs.duplicate(vars)));
- };
+	if (t instanceof jIf) {
+	    jIf jif = (jIf) t;
+	    jTerm lhs = jif.getLHS();
+	    jPredicate head = null;
+	    jPredicateTerms base = null;
 
- public void 		addGoals(jGoal g,iGoalStack goals)
- {
-  goals.push(new jRetractGoal(this,rhs));
- };
+	    if (lhs instanceof jPredicate)
+		head = (jPredicate) lhs;
+	    else
+		throw new InvalidRetractException(
+			"Expected single predicate before if operator in retract.");
 
- protected jUnaryBuiltinPredicate 		duplicate(jTerm r)
- {
-  return new jRetract(r); 
- };
+	    try {
+		base = new jPredicateTerms();
+		base.makePredicateTerms(jif.getRHS());
+	    } catch (PredicateExpectedException e) {
+		throw new InvalidRetractException(
+			"Expected predicates after if operator.");
+	    }
+
+	    return retractPredicate(head, base, kb, rg.unified);
+	} else if (t instanceof jPredicate)
+	    return retractPredicate((jPredicate) t, null, kb, rg.unified);
+	else if (t instanceof jAtom)
+	    return retractPredicate(new jPredicate((jAtom) t), null, kb,
+		    rg.unified);
+
+	return false;
+    };
+
+    // b may be null. return true if rule retracted, false if cannot retract.
+    protected boolean retractPredicate(jPredicate h, jPredicateTerms b,
+	    jKnowledgeBase kb, jUnifiedVector unified) {
+	jRuleDefinitions rds;
+	jRule rule;
+
+	rule = new jRule(h, (b == null ? new jPredicateTerms() : b));
+	if ((rds = h.getCachedRuleDefinitions()) == null)
+	    rds = kb.getRuleDefinitionsMatch(rule);
+
+	if (rds == null)
+	    return false;
+	else if (rds instanceof jDynamicRuleDefinitions)
+	    return ((jDynamicRuleDefinitions) rds).retractUnifyRule(rule,
+		    unified);
+	else
+	    throw new InvalidRetractException("Retracted term '" + h.getName()
+		    + "/" + String.valueOf(h.getArity()) + "' must be dynamic.");
+    };
+
+    public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+	goals.push(new jRetractGoal(this, rhs.duplicate(vars)));
+    };
+
+    public void addGoals(jGoal g, iGoalStack goals) {
+	goals.push(new jRetractGoal(this, rhs));
+    };
+
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jRetract(r);
+    };
 };
-

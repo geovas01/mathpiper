@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	WriteGoal
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins.Goals;
 
 import java.lang.*;
@@ -56,69 +56,62 @@ import ubc.cs.JLog.Foundation.*;
 
 /**
  * Goal for displaying text to the console.
- *
- * @author       Glendon Holst
- * @version      %I%, %G%
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
  */
-public class jWriteGoal extends jGoal
-{
- protected jTerm 			term = null;
- protected boolean 			linefeed;
- 
- public 	jWriteGoal(boolean lf)
- {
-  linefeed = lf;
- };
- 
- public 	jWriteGoal(jTerm t,boolean lf)
- {
-  term = t;
-  linefeed = lf;
- };
- 
- public boolean 	prove(iGoalStack goals,iGoalStack proved)
- {Thread 		t = Thread.currentThread();
-  
-  if (t instanceof jPrologServiceThread)
-  {jPrologServiceThread		pst = (jPrologServiceThread) t;
-   jPrologServices			ps = pst.getPrologServices();
-   
-   if (term != null)
-    pst.printOutput(term.getTerm().toString());
-   
-   if (linefeed)
-    pst.printOutput("\n");
-  }
-  
-  proved.push(this);
-  return true;
- };
+public class jWriteGoal extends jGoal {
+    protected jTerm term = null;
+    protected boolean linefeed;
 
- public boolean 	retry(iGoalStack goals,iGoalStack proved)
- {
-  goals.push(this); // a retry that follows may need a node to remove or retry
-  return false;
- }; 
+    public jWriteGoal(boolean lf) {
+	linefeed = lf;
+    };
 
- public String 		getName() 
- {
-  return (linefeed ? (term != null ? "writeln" : "nl") : "write");
- };
- 
- public int 		getArity() 
- {
-  return (term != null ? 1 : 0);
- };
- 
- public String 		toString()
- {StringBuffer 	sb = new StringBuffer();
-   
-  sb.append(getName()+"/"+String.valueOf(getArity()));
-  if (term != null)
-   sb.append(" goal: "+getName()+"("+term.toString()+")");
-  
-  return sb.toString();
- };
+    public jWriteGoal(jTerm t, boolean lf) {
+	term = t;
+	linefeed = lf;
+    };
+
+    public boolean prove(iGoalStack goals, iGoalStack proved) {
+	Thread t = Thread.currentThread();
+
+	if (t instanceof jPrologServiceThread) {
+	    jPrologServiceThread pst = (jPrologServiceThread) t;
+	    jPrologServices ps = pst.getPrologServices();
+
+	    if (term != null)
+		pst.printOutput(term.getTerm().toString());
+
+	    if (linefeed)
+		pst.printOutput("\n");
+	}
+
+	proved.push(this);
+	return true;
+    };
+
+    public boolean retry(iGoalStack goals, iGoalStack proved) {
+	goals.push(this); // a retry that follows may need a node to remove or
+			  // retry
+	return false;
+    };
+
+    public String getName() {
+	return (linefeed ? (term != null ? "writeln" : "nl") : "write");
+    };
+
+    public int getArity() {
+	return (term != null ? 1 : 0);
+    };
+
+    public String toString() {
+	StringBuffer sb = new StringBuffer();
+
+	sb.append(getName() + "/" + String.valueOf(getArity()));
+	if (term != null)
+	    sb.append(" goal: " + getName() + "(" + term.toString() + ")");
+
+	return sb.toString();
+    };
 };
-
- 

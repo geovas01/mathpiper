@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	LoadLibrary
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -56,57 +56,53 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
-public class jLoadLibrary extends jUnaryOperator
-{
- public jLoadLibrary(jTerm r)
- {
-  super(r);
- };
+public class jLoadLibrary extends jUnaryOperator {
+    public jLoadLibrary(jTerm r) {
+	super(r);
+    };
 
- public String 		getName()
- {
-  return "load_library";
- };  
+    public String getName() {
+	return "load_library";
+    };
 
- protected jUnaryBuiltinPredicate 	duplicate(jTerm r)
- {
-  return new jLoadLibrary(r);
- };
- 
- public boolean 	prove(jUnaryOperatorGoal og)
- {jTerm						r;
-  jPrologServiceThread 		pst;
-  String					lib_name = null;
-  
-  r = og.rhs.getTerm();
-  if (r instanceof jAtom)
-   lib_name = ((jAtom) r).getName();
-  else
-   throw new InvalidLoadLibraryException("Expected library name");
-  
-  pst = (jPrologServiceThread) Thread.currentThread();
- 
-  if (pst.isCurrentlyConsulting())
-  {jPrologServices			prolog = pst.getPrologServices();
-   
-   try
-   {
-    prolog.loadLibrary(lib_name);
-   }
-   catch (IOException e)
-   {
-    throw new LoadLibraryException("IO Error in loadLibrary");
-   }
-  }
-  else
-   throw new InvalidLoadLibraryException("load_library operator only works during consult.");
-  
-  return true;
- };
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jLoadLibrary(r);
+    };
+
+    public boolean prove(jUnaryOperatorGoal og) {
+	jTerm r;
+	jPrologServiceThread pst;
+	String lib_name = null;
+
+	r = og.rhs.getTerm();
+	if (r instanceof jAtom)
+	    lib_name = ((jAtom) r).getName();
+	else
+	    throw new InvalidLoadLibraryException("Expected library name");
+
+	pst = (jPrologServiceThread) Thread.currentThread();
+
+	if (pst.isCurrentlyConsulting()) {
+	    jPrologServices prolog = pst.getPrologServices();
+
+	    try {
+		prolog.loadLibrary(lib_name);
+	    } catch (IOException e) {
+		throw new LoadLibraryException("IO Error in loadLibrary");
+	    }
+	} else
+	    throw new InvalidLoadLibraryException(
+		    "load_library operator only works during consult.");
+
+	return true;
+    };
 };
 
-class InvalidLoadLibraryException extends RuntimeException
-{
- public InvalidLoadLibraryException() {};
- public InvalidLoadLibraryException(String s) {super(s);};
+class InvalidLoadLibraryException extends RuntimeException {
+    public InvalidLoadLibraryException() {
+    };
+
+    public InvalidLoadLibraryException(String s) {
+	super(s);
+    };
 };

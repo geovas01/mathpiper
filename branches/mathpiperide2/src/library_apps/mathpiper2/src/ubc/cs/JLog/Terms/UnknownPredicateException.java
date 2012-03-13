@@ -42,24 +42,29 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	UnknownPredicateException
 //#########################################################################
- 
+
 package ubc.cs.JLog.Terms;
 
 import java.lang.*;
 import java.util.*;
 
-public class UnknownPredicateException extends RuntimeException
-{
- protected iPredicate 		predicate;
- 
- public UnknownPredicateException(iPredicate p) 
-                            {super(p.getName()+"/"+p.getArity()); predicate = p;};
- public UnknownPredicateException(String s,iPredicate p) 
-                            {super(s+p.getName()+"/"+p.getArity());};
+public class UnknownPredicateException extends RuntimeException {
+    protected iPredicate predicate;
 
- public iPredicate 		getPredicate() {return predicate;};
+    public UnknownPredicateException(iPredicate p) {
+	super(p.getName() + "/" + p.getArity());
+	predicate = p;
+    };
+
+    public UnknownPredicateException(String s, iPredicate p) {
+	super(s + p.getName() + "/" + p.getArity());
+    };
+
+    public iPredicate getPredicate() {
+	return predicate;
+    };
 };

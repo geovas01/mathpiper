@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Cons
 //#########################################################################
@@ -52,43 +52,38 @@ package ubc.cs.JLog.Terms;
 import java.lang.*;
 import java.util.*;
 
-public class jCons extends jConjunctTerm
-{
- public jCons(jTerm l,jTerm r)
- {
-  super(l,r);
-  type = TYPE_CONS;
- };
+public class jCons extends jConjunctTerm {
+    public jCons(jTerm l, jTerm r) {
+	super(l, r);
+	type = TYPE_CONS;
+    };
 
- public jConjunctTerm 		duplicate(jTerm l,jTerm r)
- {
-  return new jCons(l,r);
- };
+    public jConjunctTerm duplicate(jTerm l, jTerm r) {
+	return new jCons(l, r);
+    };
 
- public String 		getName()
- {
-  return ",";
- };
+    public String getName() {
+	return ",";
+    };
 
- public String 		toString(boolean usename)
- {
-  return "(" + toTailString(usename) + ")";
- };
+    public String toString(boolean usename) {
+	return "(" + toTailString(usename) + ")";
+    };
 
- public String 		toTailString(boolean usename)
- {String 		head,tail;
-  jTerm 		l,r;
-  
-  l = lhs.getTerm();
-  r = rhs.getTerm();
- 
-  head = l.toString(usename);
-   
-  if (r instanceof jCons)
-   tail = ((jCons) r).toTailString(usename);
-  else
-   tail = r.toString(usename);
-   
-  return head + "," + tail;
- };
+    public String toTailString(boolean usename) {
+	String head, tail;
+	jTerm l, r;
+
+	l = lhs.getTerm();
+	r = rhs.getTerm();
+
+	head = l.toString(usename);
+
+	if (r instanceof jCons)
+	    tail = ((jCons) r).toTailString(usename);
+	else
+	    tail = r.toString(usename);
+
+	return head + "," + tail;
+    };
 };

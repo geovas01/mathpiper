@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //##################################################################################
 //	FloatRectangle
 //##################################################################################
@@ -53,29 +53,25 @@ import java.lang.*;
 import java.util.*;
 import java.awt.*;
 
-public class FloatRectangle
-{
- public float		x, y;
- public float		width, height;
-  
- public FloatRectangle()
- {
-  x = y = width = height = (float) 0.0;
- };
+public class FloatRectangle {
+    public float x, y;
+    public float width, height;
 
- public FloatRectangle(float x,float y,float w,float h)
- {
-  this.x = x;
-  this.y = y;
-  width = w;
-  height = h;
- };
+    public FloatRectangle() {
+	x = y = width = height = (float) 0.0;
+    };
 
- public FloatRectangle(FloatRectangle fr)
- {
-  x = fr.x;
-  y = fr.y;
-  width = fr.width;
-  height = fr.height;
- };
+    public FloatRectangle(float x, float y, float w, float h) {
+	this.x = x;
+	this.y = y;
+	width = w;
+	height = h;
+    };
+
+    public FloatRectangle(FloatRectangle fr) {
+	x = fr.x;
+	y = fr.y;
+	width = fr.width;
+	height = fr.height;
+    };
 };

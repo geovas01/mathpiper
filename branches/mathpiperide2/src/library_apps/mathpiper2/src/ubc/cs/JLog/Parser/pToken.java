@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	pToken
 //#########################################################################
@@ -53,58 +53,49 @@ import java.util.*;
 import java.lang.*;
 
 /**
-* Abstract base class representing tokens in the parse stream. Each token
-* contains information about its location in the parse stream. 
-*  
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-abstract class pToken
-{
- protected String 		token;
+ * Abstract base class representing tokens in the parse stream. Each token
+ * contains information about its location in the parse stream.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+abstract class pToken {
+    protected String token;
 
- // these are of starting positions of the token.  
- // use the token string to determine ending positions.
- protected int 			position = 0;
- protected int 			lineno = 0;
- protected int 			charpos = 0;
+    // these are of starting positions of the token.
+    // use the token string to determine ending positions.
+    protected int position = 0;
+    protected int lineno = 0;
+    protected int charpos = 0;
 
- public pToken(String s)
- {
-  token = s;
- };
- 
- public pToken(String s,int pos,int line,int cpos)
- {
-  token = s;
-  this.position = pos;
-  this.lineno = line;
-  this.charpos = cpos;
- };
- 
- public String 		getToken()
- {
-  return token;
- };
+    public pToken(String s) {
+	token = s;
+    };
 
- public int 		getPosition()
- {
-  return position;
- };
+    public pToken(String s, int pos, int line, int cpos) {
+	token = s;
+	this.position = pos;
+	this.lineno = line;
+	this.charpos = cpos;
+    };
 
- public int 		getLine()
- {
-  return lineno;
- };
+    public String getToken() {
+	return token;
+    };
 
- public int 		getCharPos()
- {
-  return charpos;
- };
+    public int getPosition() {
+	return position;
+    };
 
- public String 		toString()
- {
-  return getClass().toString() + ": " + token;
- };
+    public int getLine() {
+	return lineno;
+    };
+
+    public int getCharPos() {
+	return charpos;
+    };
+
+    public String toString() {
+	return getClass().toString() + ": " + token;
+    };
 };
-

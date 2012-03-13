@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	jGoalStack
 //#########################################################################
@@ -53,73 +53,64 @@ import java.lang.*;
 import java.util.*;
 
 /**
-* <code>jGoalStack</code> is the default goal stack implementation.
-* It is efficient, with a super-efficient cut operation. 
-* The design purpose of this class is purely efficiency.  
-*
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public class jGoalStack implements iGoalStack
-{
- protected jGoal 			head;
- 
- public 	jGoalStack()
- {
-  head = null;
- };
+ * <code>jGoalStack</code> is the default goal stack implementation. It is
+ * efficient, with a super-efficient cut operation. The design purpose of this
+ * class is purely efficiency.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public class jGoalStack implements iGoalStack {
+    protected jGoal head;
 
- public boolean 	empty()
- {
-  return head == null;
- };
- 
- 
- public jGoal 		pop()
- {jGoal 	top;
- 
-  if ((top = head) == null)
-   throw new EmptyStackException();
+    public jGoalStack() {
+	head = null;
+    };
 
-  head = top.next;
-  return top;   
- };
- 
- public jGoal 		peek()
- {
-  if (head == null)
-   throw new EmptyStackException();
+    public boolean empty() {
+	return head == null;
+    };
 
-  return head;
- };
- 
- public jGoal 		peekn(int n)
- {jGoal 	g = head;
- 
-  for (g = head; g != null && n >= 0; n--)
-  {
-   if (n == 0)
-    return g;
-    
-   g = g.next;
-  }
-  
-  throw new EmptyStackException();
- };
- 
- public jGoal 		push(jGoal item)
- {
-  item.next = head;
-  head = item;
-  
-  return item;
- };
- 
- public jGoal 		cut(jGoal item)
- {
-  head = item;
- 
-  return item;
- };
+    public jGoal pop() {
+	jGoal top;
+
+	if ((top = head) == null)
+	    throw new EmptyStackException();
+
+	head = top.next;
+	return top;
+    };
+
+    public jGoal peek() {
+	if (head == null)
+	    throw new EmptyStackException();
+
+	return head;
+    };
+
+    public jGoal peekn(int n) {
+	jGoal g = head;
+
+	for (g = head; g != null && n >= 0; n--) {
+	    if (n == 0)
+		return g;
+
+	    g = g.next;
+	}
+
+	throw new EmptyStackException();
+    };
+
+    public jGoal push(jGoal item) {
+	item.next = head;
+	head = item;
+
+	return item;
+    };
+
+    public jGoal cut(jGoal item) {
+	head = item;
+
+	return item;
+    };
 };
-

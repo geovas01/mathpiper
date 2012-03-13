@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	jConsultAndQueryThread
 //#########################################################################
@@ -55,82 +55,72 @@ import java.io.PrintWriter;
 import ubc.cs.JLog.Parser.*;
 
 /**
-* This class implements a prolog consult, followed by a query.  
-* The source is a <code>TextArea</code>, as is the error output.
-*  
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public class jConsultAndQueryThread extends jRetryQueryThread
-{
- protected boolean 	in_consult_phase = true;
+ * This class implements a prolog consult, followed by a query. The source is a
+ * <code>TextArea</code>, as is the error output.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public class jConsultAndQueryThread extends jRetryQueryThread {
+    protected boolean in_consult_phase = true;
 
- jConsultSourceThread 	consult;
- jUserQueryThread 		query;
- 
- public 	jConsultAndQueryThread(jPrologServices ps,
-                                    iPrologServiceText s,PrintWriter e,
-                                    iPrologServiceText qin,PrintWriter o)
- {
-  super(ps);
+    jConsultSourceThread consult;
+    jUserQueryThread query;
 
-  setName("ConsultAndQueryThread");
- // setPriority(NORM_PRIORITY + 1); //MRJ 2.1 doesn't permit UI interaction with this setting
- 
-  consult = new jConsultSourceThread(ps,s,e);
-  consult.setAllowRelease(false);
-  query = new jUserQueryThread(ps,qin,o);
- };
+    public jConsultAndQueryThread(jPrologServices ps, iPrologServiceText s,
+	    PrintWriter e, iPrologServiceText qin, PrintWriter o) {
+	super(ps);
 
- public void 	setListeners(jPrologServiceBroadcaster c_b,
-                                jPrologServiceBroadcaster c_e,
-                                jPrologServiceBroadcaster q_b,
-                                jPrologServiceBroadcaster q_r,
-								jPrologServiceBroadcaster q_e,
-                                jPrologServiceBroadcaster q_d,
-								jPrologServiceBroadcaster s)
- {
-  setStoppedListeners(s);
+	setName("ConsultAndQueryThread");
+	// setPriority(NORM_PRIORITY + 1); //MRJ 2.1 doesn't permit UI
+	// interaction with this setting
 
-  consult.setListeners(c_b,c_e,s);
-  query.setListeners(q_b,q_r,q_e,s,q_d);
- };
+	consult = new jConsultSourceThread(ps, s, e);
+	consult.setAllowRelease(false);
+	query = new jUserQueryThread(ps, qin, o);
+    };
 
-/**
-* Performs and controls the entire consultation phase.
-* 
-*/
- public void 	run()
- {
-  in_consult_phase = true;
-  consult.run();
-  
-  in_consult_phase = false;
-  query.run();
- };
- 
- public boolean 	isCurrentlyConsulting()
- {
-  return in_consult_phase;
- };
- 
- public synchronized void 	retry()
- {
-  if (!in_consult_phase)
-   query.retry();
- };
- 
-/**
-* Displays errors and other output that results from consulting the source.
-* 
-* @param s 		the input string to append to errors. 
-*/
- public void 		printOutput(String s)
- {
-  if (in_consult_phase)
-   consult.printOutput(s);
-  else
-   query.printOutput(s); 
- };
+    public void setListeners(jPrologServiceBroadcaster c_b,
+	    jPrologServiceBroadcaster c_e, jPrologServiceBroadcaster q_b,
+	    jPrologServiceBroadcaster q_r, jPrologServiceBroadcaster q_e,
+	    jPrologServiceBroadcaster q_d, jPrologServiceBroadcaster s) {
+	setStoppedListeners(s);
+
+	consult.setListeners(c_b, c_e, s);
+	query.setListeners(q_b, q_r, q_e, s, q_d);
+    };
+
+    /**
+     * Performs and controls the entire consultation phase.
+     * 
+     */
+    public void run() {
+	in_consult_phase = true;
+	consult.run();
+
+	in_consult_phase = false;
+	query.run();
+    };
+
+    public boolean isCurrentlyConsulting() {
+	return in_consult_phase;
+    };
+
+    public synchronized void retry() {
+	if (!in_consult_phase)
+	    query.retry();
+    };
+
+    /**
+     * Displays errors and other output that results from consulting the source.
+     * 
+     * @param s
+     *            the input string to append to errors.
+     */
+    public void printOutput(String s) {
+	if (in_consult_phase)
+	    consult.printOutput(s);
+	else
+	    query.printOutput(s);
+    };
 };
-

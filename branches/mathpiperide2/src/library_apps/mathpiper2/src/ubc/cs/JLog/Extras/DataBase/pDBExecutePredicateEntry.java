@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	DBExecute
 //#########################################################################
@@ -55,16 +55,12 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.*;
 import ubc.cs.JLog.Parser.*;
 
-public class pDBExecutePredicateEntry extends pPredicateEntry
-{
- public 	pDBExecutePredicateEntry()
- {
-  super("db_execute",1);
- };
- 
- public iPredicate 		createPredicate(jCompoundTerm cterm)
- {
-  return new jDBExecute(cterm.elementAt(0));
- };
-};
+public class pDBExecutePredicateEntry extends pPredicateEntry {
+    public pDBExecutePredicateEntry() {
+	super("db_execute", 1);
+    };
 
+    public iPredicate createPredicate(jCompoundTerm cterm) {
+	return new jDBExecute(cterm.elementAt(0));
+    };
+};

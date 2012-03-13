@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	TermToList
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -56,120 +56,108 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Parser.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
-public class jTermToList extends jBinaryBuiltinPredicate
-{
- public jTermToList(jTerm l,jTerm r)
- {
-  super(l,r,TYPE_BUILTINPREDICATE);
- };
-  
- public String 		getName()
- {
-  return "=..";
- };
+public class jTermToList extends jBinaryBuiltinPredicate {
+    public jTermToList(jTerm l, jTerm r) {
+	super(l, r, TYPE_BUILTINPREDICATE);
+    };
 
- public boolean 	prove(jTermToListGoal tg,pPredicateRegistry pr,
-                                pOperatorRegistry or)
- {jTerm 	l,r;
-  
-  l = tg.lhs.getTerm();
-  r = tg.rhs.getTerm();
-  
-  if (l instanceof iPredicate)
-  {jCompoundTerm 	ct = ((iPredicate) l).getArguments();
-   Enumeration  	e = ct.enumTerms();
-   jListPair 			head,prev;
-   
-   head = prev = new jListPair(new jAtom(l.getName()),null);
-   
-   while (e.hasMoreElements())
-   {jListPair 		next;
-   
-    prev.setTail(next = new jListPair((jTerm) e.nextElement(),null));
-    prev = next;
-   }
-   
-   prev.setTail(jNullList.NULL_LIST);
+    public String getName() {
+	return "=..";
+    };
 
-   return r.unify(head,tg.unified);
-  }
-  else if (l instanceof jConjunctTerm)
-  {jListPair 			head;
-   
-   head = new jListPair(new jAtom(l.getName()),
-            new jListPair(((jConjunctTerm) l).getLHS(),
-            new jListPair(((jConjunctTerm) l).getRHS(),jNullList.NULL_LIST)));
+    public boolean prove(jTermToListGoal tg, pPredicateRegistry pr,
+	    pOperatorRegistry or) {
+	jTerm l, r;
 
-   return r.unify(head,tg.unified);   
-  }
-  else if (r instanceof jListPair)
-  {jListPair 			lst = (jListPair) r;
-   jTerm 	 		name = lst.getHead().getTerm();
-   jCompoundTerm 		ct;
-   jTerm 			next;
-   
-   if (!(name instanceof iPredicate && ((iPredicate) name).getArity() == 0))
-    throw new InvalidTermToListArgumentException();
+	l = tg.lhs.getTerm();
+	r = tg.rhs.getTerm();
 
-   ct = new jCompoundTerm();
-   next = lst.getTail().getTerm();
-   
-   while (next instanceof jListPair)
-   {
-    lst = (jListPair) next;
-     
-    ct.addTerm(lst.getHead().getTerm());
-    next = lst.getTail().getTerm();
-   }
-   
-   if (!(next instanceof jNullList))
-    throw new InvalidTermToListArgumentException();
-  
-   {pPredicateEntry 		pe = pr.getPredicate(name.getName(),ct.size());
-    jTerm 			p;
-   
-    if (pe != null)
-    {    
-     p = pe.createPredicate(ct);
-    }
-    else
-    {pOperatorEntry 		oe = or.getOperator(name.getName(),true);
-     
-     if (oe != null)
-     {jTerm 			lhs,rhs;
+	if (l instanceof iPredicate) {
+	    jCompoundTerm ct = ((iPredicate) l).getArguments();
+	    Enumeration e = ct.enumTerms();
+	    jListPair head, prev;
 
-     if (ct.size() != 2)
-      throw new InvalidTermToListArgumentException();
-      
-      lhs = ct.elementAt(0);
-      rhs = ct.elementAt(1);
-      
-      p = oe.createOperator(lhs,rhs);
-     }
-     else
-      p = new jPredicate(name.getName(),ct);
-    }
-    
-    return l.unify(p,tg.unified); 
-   }
-  }
-  else
-   throw new InvalidTermToListArgumentException();
- };
+	    head = prev = new jListPair(new jAtom(l.getName()), null);
 
- public void 		addGoals(jGoal g,jVariable[] vars,iGoalStack goals)
- {
-  goals.push(new jTermToListGoal(this,lhs.duplicate(vars),rhs.duplicate(vars)));
- };
+	    while (e.hasMoreElements()) {
+		jListPair next;
 
- public void 		addGoals(jGoal g,iGoalStack goals)
- {
-  goals.push(new jTermToListGoal(this,lhs,rhs));
- };
+		prev.setTail(next = new jListPair((jTerm) e.nextElement(), null));
+		prev = next;
+	    }
 
- protected jBinaryBuiltinPredicate 		duplicate(jTerm l,jTerm r)
- {
-  return new jTermToList(l,r); 
- };
+	    prev.setTail(jNullList.NULL_LIST);
+
+	    return r.unify(head, tg.unified);
+	} else if (l instanceof jConjunctTerm) {
+	    jListPair head;
+
+	    head = new jListPair(new jAtom(l.getName()), new jListPair(
+		    ((jConjunctTerm) l).getLHS(), new jListPair(
+			    ((jConjunctTerm) l).getRHS(), jNullList.NULL_LIST)));
+
+	    return r.unify(head, tg.unified);
+	} else if (r instanceof jListPair) {
+	    jListPair lst = (jListPair) r;
+	    jTerm name = lst.getHead().getTerm();
+	    jCompoundTerm ct;
+	    jTerm next;
+
+	    if (!(name instanceof iPredicate && ((iPredicate) name).getArity() == 0))
+		throw new InvalidTermToListArgumentException();
+
+	    ct = new jCompoundTerm();
+	    next = lst.getTail().getTerm();
+
+	    while (next instanceof jListPair) {
+		lst = (jListPair) next;
+
+		ct.addTerm(lst.getHead().getTerm());
+		next = lst.getTail().getTerm();
+	    }
+
+	    if (!(next instanceof jNullList))
+		throw new InvalidTermToListArgumentException();
+
+	    {
+		pPredicateEntry pe = pr.getPredicate(name.getName(), ct.size());
+		jTerm p;
+
+		if (pe != null) {
+		    p = pe.createPredicate(ct);
+		} else {
+		    pOperatorEntry oe = or.getOperator(name.getName(), true);
+
+		    if (oe != null) {
+			jTerm lhs, rhs;
+
+			if (ct.size() != 2)
+			    throw new InvalidTermToListArgumentException();
+
+			lhs = ct.elementAt(0);
+			rhs = ct.elementAt(1);
+
+			p = oe.createOperator(lhs, rhs);
+		    } else
+			p = new jPredicate(name.getName(), ct);
+		}
+
+		return l.unify(p, tg.unified);
+	    }
+	} else
+	    throw new InvalidTermToListArgumentException();
+    };
+
+    public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+	goals.push(new jTermToListGoal(this, lhs.duplicate(vars), rhs
+		.duplicate(vars)));
+    };
+
+    public void addGoals(jGoal g, iGoalStack goals) {
+	goals.push(new jTermToListGoal(this, lhs, rhs));
+    };
+
+    protected jBinaryBuiltinPredicate duplicate(jTerm l, jTerm r) {
+	return new jTermToList(l, r);
+    };
 };
-

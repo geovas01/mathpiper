@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	LoadLibraryException
 //#########################################################################
@@ -52,8 +52,11 @@ package ubc.cs.JLog.Foundation;
 import java.lang.*;
 import java.util.*;
 
-public class LoadLibraryException extends RuntimeException
-{
- public LoadLibraryException() {};
- public LoadLibraryException(String s) {super(s);};
+public class LoadLibraryException extends RuntimeException {
+    public LoadLibraryException() {
+    };
+
+    public LoadLibraryException(String s) {
+	super(s);
+    };
 };

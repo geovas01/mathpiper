@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	AnimatePredicateEntry
 //#########################################################################
@@ -56,55 +56,51 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.*;
 import ubc.cs.JLog.Parser.*;
 
-public class pAnimatePredicateEntry extends pPredicateEntry
-{
- public 	pAnimatePredicateEntry()
- {
-  super("animate",2);
- };
- 
- public iPredicate 		createPredicate(jCompoundTerm cterm)
- {String 	command = cterm.elementAt(0).getName();
-  
-  if (command.equals("init"))
-   return new jAnimate_init(cterm.elementAt(1));
-  if (command.equals("update"))
-   return new jAnimate_update(cterm.elementAt(1));
-  if (command.equals("create"))
-   return new jAnimate_create(cterm.elementAt(1));
-  if (command.equals("delete"))
-   return new jAnimate_delete(cterm.elementAt(1));
-  if (command.equals("objects"))
-   return new jAnimate_objects(cterm.elementAt(1));
-  if (command.equals("getobject"))
-   return new jAnimate_getobject(cterm.elementAt(1));
-  if (command.equals("getattr"))
-   return new jAnimate_getattr(cterm.elementAt(1));
-  if (command.equals("setattr"))
-   return new jAnimate_setattr(cterm.elementAt(1));
-  if (command.equals("move"))
-   return new jAnimate_move(cterm.elementAt(1));
-  if (command.equals("rotate"))
-   return new jAnimate_rotate(cterm.elementAt(1));
-  if (command.equals("setlevel"))
-   return new jAnimate_setlevel(cterm.elementAt(1));
-  if (command.equals("setmagnify"))
-   return new jAnimate_setmagnify(cterm.elementAt(1));
-  if (command.equals("setview"))
-   return new jAnimate_setview(cterm.elementAt(1));
-  if (command.equals("path"))
-   return new jAnimate_path(cterm.elementAt(1));
-  if (command.equals("addshape"))
-   return new jAnimate_addshape(cterm.elementAt(1));
-  if (command.equals("getshape"))
-   return new jAnimate_getshape(cterm.elementAt(1));
-  if (command.equals("shapes"))
-   return new jAnimate_shapes(cterm.elementAt(1));
-  if (command.equals("removeshape"))
-   return new jAnimate_removeshape(cterm.elementAt(1));
-   
-  throw new InvalidAnimationAPIException("Unknown command.");
- };
+public class pAnimatePredicateEntry extends pPredicateEntry {
+    public pAnimatePredicateEntry() {
+	super("animate", 2);
+    };
+
+    public iPredicate createPredicate(jCompoundTerm cterm) {
+	String command = cterm.elementAt(0).getName();
+
+	if (command.equals("init"))
+	    return new jAnimate_init(cterm.elementAt(1));
+	if (command.equals("update"))
+	    return new jAnimate_update(cterm.elementAt(1));
+	if (command.equals("create"))
+	    return new jAnimate_create(cterm.elementAt(1));
+	if (command.equals("delete"))
+	    return new jAnimate_delete(cterm.elementAt(1));
+	if (command.equals("objects"))
+	    return new jAnimate_objects(cterm.elementAt(1));
+	if (command.equals("getobject"))
+	    return new jAnimate_getobject(cterm.elementAt(1));
+	if (command.equals("getattr"))
+	    return new jAnimate_getattr(cterm.elementAt(1));
+	if (command.equals("setattr"))
+	    return new jAnimate_setattr(cterm.elementAt(1));
+	if (command.equals("move"))
+	    return new jAnimate_move(cterm.elementAt(1));
+	if (command.equals("rotate"))
+	    return new jAnimate_rotate(cterm.elementAt(1));
+	if (command.equals("setlevel"))
+	    return new jAnimate_setlevel(cterm.elementAt(1));
+	if (command.equals("setmagnify"))
+	    return new jAnimate_setmagnify(cterm.elementAt(1));
+	if (command.equals("setview"))
+	    return new jAnimate_setview(cterm.elementAt(1));
+	if (command.equals("path"))
+	    return new jAnimate_path(cterm.elementAt(1));
+	if (command.equals("addshape"))
+	    return new jAnimate_addshape(cterm.elementAt(1));
+	if (command.equals("getshape"))
+	    return new jAnimate_getshape(cterm.elementAt(1));
+	if (command.equals("shapes"))
+	    return new jAnimate_shapes(cterm.elementAt(1));
+	if (command.equals("removeshape"))
+	    return new jAnimate_removeshape(cterm.elementAt(1));
+
+	throw new InvalidAnimationAPIException("Unknown command.");
+    };
 };
-
-

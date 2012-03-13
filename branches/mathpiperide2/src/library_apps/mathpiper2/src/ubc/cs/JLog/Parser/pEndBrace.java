@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	pEndBrace
 //#########################################################################
@@ -52,11 +52,8 @@ package ubc.cs.JLog.Parser;
 import java.util.*;
 import java.lang.*;
 
-class pEndBrace extends pToken
-{
- public 	pEndBrace(int pos,int line,int cpos)
- {
-  super("}",pos,line,cpos);
- };
+class pEndBrace extends pToken {
+    public pEndBrace(int pos, int line, int cpos) {
+	super("}", pos, line, cpos);
+    };
 };
-

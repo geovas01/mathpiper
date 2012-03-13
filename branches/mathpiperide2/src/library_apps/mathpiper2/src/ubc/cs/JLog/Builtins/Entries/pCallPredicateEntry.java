@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	CallPredicateEntry
 //#########################################################################
@@ -56,26 +56,19 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.*;
 import ubc.cs.JLog.Parser.*;
 
-public class pCallPredicateEntry extends pPredicateEntry
-{
- public 	pCallPredicateEntry()
- {
-  super("call",-1);
- };
+public class pCallPredicateEntry extends pPredicateEntry {
+    public pCallPredicateEntry() {
+	super("call", -1);
+    };
 
- public boolean 		isArity(int a)
- {
-  return true;
- };
- 
- public iPredicate 		createPredicate(jCompoundTerm cterm)
- {
-  if (cterm.size() == 1) 
-   return new jCall(cterm.elementAt(0));
-  else
-   return new jCallN(cterm);
- };
+    public boolean isArity(int a) {
+	return true;
+    };
+
+    public iPredicate createPredicate(jCompoundTerm cterm) {
+	if (cterm.size() == 1)
+	    return new jCall(cterm.elementAt(0));
+	else
+	    return new jCallN(cterm);
+    };
 };
-
-
-

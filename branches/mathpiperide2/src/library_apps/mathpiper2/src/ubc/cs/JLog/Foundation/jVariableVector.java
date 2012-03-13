@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	VariableVector
 //#########################################################################
@@ -53,61 +53,56 @@ import java.lang.*;
 import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jVariableVector
-{
- protected Vector 		variables;
- 
- public jVariableVector()
- {
-  variables = new Vector();
- };
- 
- // returns variable position index
- public int 		addVariable(jVariable v)
- {
-  if (!variables.contains(v))
-   variables.addElement(v); 
+public class jVariableVector {
+    protected Vector variables;
 
-  return variables.indexOf(v);
- };
- 
- public int			getVariableIndex(jVariable v)
- {
-  return variables.indexOf(v);
- };
- 
- public boolean		hasVariable(jVariable v)
- {
-  return variables.indexOf(v) >= 0;
- };
- 
- public Enumeration 	enumerate()
- {
-  return variables.elements();
- };
- 
- // for efficiency purposes we create unnamed variables (saves array access and function call)
- public jVariable[] 		duplicateVariables()
- {int 			i,sz = variables.size();
-  jVariable[] 	vars = new jVariable[sz];
-  
-  for (i = 0; i < sz; i++)
-   vars[i] = new jVariable(); 
- 
-  return vars;
- };
+    public jVariableVector() {
+	variables = new Vector();
+    };
 
- public jVariable[] 		getVariables()
- {jVariable[] 	vars = new jVariable[variables.size()];
-  
-  variables.copyInto(vars); 
-  return vars;
- };
- 
- public void 				appendVariables(jCompoundTerm ct)
- {Enumeration 		e = variables.elements();
-  
-  while (e.hasMoreElements())
-   ct.addTerm((jVariable) e.nextElement());
- };
+    // returns variable position index
+    public int addVariable(jVariable v) {
+	if (!variables.contains(v))
+	    variables.addElement(v);
+
+	return variables.indexOf(v);
+    };
+
+    public int getVariableIndex(jVariable v) {
+	return variables.indexOf(v);
+    };
+
+    public boolean hasVariable(jVariable v) {
+	return variables.indexOf(v) >= 0;
+    };
+
+    public Enumeration enumerate() {
+	return variables.elements();
+    };
+
+    // for efficiency purposes we create unnamed variables (saves array access
+    // and function call)
+    public jVariable[] duplicateVariables() {
+	int i, sz = variables.size();
+	jVariable[] vars = new jVariable[sz];
+
+	for (i = 0; i < sz; i++)
+	    vars[i] = new jVariable();
+
+	return vars;
+    };
+
+    public jVariable[] getVariables() {
+	jVariable[] vars = new jVariable[variables.size()];
+
+	variables.copyInto(vars);
+	return vars;
+    };
+
+    public void appendVariables(jCompoundTerm ct) {
+	Enumeration e = variables.elements();
+
+	while (e.hasMoreElements())
+	    ct.addTerm((jVariable) e.nextElement());
+    };
 };

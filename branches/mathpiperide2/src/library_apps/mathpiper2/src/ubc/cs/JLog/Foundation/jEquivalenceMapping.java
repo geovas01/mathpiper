@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	UnifiedVector
 //#########################################################################
@@ -54,45 +54,44 @@ import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
 /**
-* This class is used to register <code>jVariable</code> mapped pairs during 
-* equivalence testing.
-*  
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public class jEquivalenceMapping
-{
- protected Hashtable 		variables;
- 
- public jEquivalenceMapping()
- {
-  variables = new Hashtable();
- };
- 
- /**
-  * Adds a mapping between two different variables.  Should be invoked by the 
-  * <code>jVariable</code> during equivalence testing.
-  *
-  * @param v1 		a variable to pair.
-  * @param v2 		the other variable in the pair.
-  *
-  * @return boolean	<code>true</code> if the variables were previously unmapped, or this is the same mapping
-  *					<code>false</code> otherwise.
-  */
- public final boolean 		mapVariablePair(jVariable v1,jVariable v2)
- {
-  Object val1 = variables.get(v1);
-  Object val2 = variables.get(v2);
+ * This class is used to register <code>jVariable</code> mapped pairs during
+ * equivalence testing.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public class jEquivalenceMapping {
+    protected Hashtable variables;
 
-  if (val1 == null && val2 == null)
-  {
-   variables.put(v1,v2);
-   variables.put(v2,v1);
+    public jEquivalenceMapping() {
+	variables = new Hashtable();
+    };
 
-   return true;
-  }  
-  
-  return (val1 == v2 && val2 == v1);
- };
+    /**
+     * Adds a mapping between two different variables. Should be invoked by the
+     * <code>jVariable</code> during equivalence testing.
+     * 
+     * @param v1
+     *            a variable to pair.
+     * @param v2
+     *            the other variable in the pair.
+     * 
+     * @return boolean <code>true</code> if the variables were previously
+     *         unmapped, or this is the same mapping <code>false</code>
+     *         otherwise.
+     */
+    public final boolean mapVariablePair(jVariable v1, jVariable v2) {
+	Object val1 = variables.get(v1);
+	Object val2 = variables.get(v2);
+
+	if (val1 == null && val2 == null) {
+	    variables.put(v1, v2);
+	    variables.put(v2, v1);
+
+	    return true;
+	}
+
+	return (val1 == v2 && val2 == v1);
+    };
 
 };

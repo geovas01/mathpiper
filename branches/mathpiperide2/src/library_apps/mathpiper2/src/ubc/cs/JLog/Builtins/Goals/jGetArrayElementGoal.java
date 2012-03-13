@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	AppendArrayGoal
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins.Goals;
 
 import java.lang.*;
@@ -57,62 +57,56 @@ import ubc.cs.JLog.Builtins.*;
 
 /**
  * Goal for getting the term element of an array at a given index.
- *
- * @author       Glendon Holst
- * @version      %I%, %G%
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
  */
-public class jGetArrayElementGoal extends jGoal
-{
- protected jGetArrayElement 	get_element;
- 
- // for use by get_element
- public jTerm 				term1,term2,term3;
- 
- public 	jGetArrayElementGoal(jGetArrayElement gae,jTerm t1,jTerm t2,jTerm t3)
- {
-  get_element = gae;
-  term1 = t1;
-  term2 = t2;
-  term3 = t3;
- };
- 
- public boolean 	prove(iGoalStack goals,iGoalStack proved)
- {
-  if (get_element.prove(this))
-  {
-   proved.push(this);
-   return true;
-  }
-  else
-  {
-   goals.push(this); // a retry that follows may need a node to remove or retry
-   return false;
-  }
- };
+public class jGetArrayElementGoal extends jGoal {
+    protected jGetArrayElement get_element;
 
- public boolean 	retry(iGoalStack goals,iGoalStack proved)
- {
-  goals.push(this); // a retry that follows may need a node to remove or retry
-  return false;
- }; 
+    // for use by get_element
+    public jTerm term1, term2, term3;
 
- public String 		getName() 
- {
-  return get_element.getName();
- };
- 
- public int 		getArity() 
- {
-  return get_element.getArity();
- };
- 
- public String 		toString()
- {StringBuffer 	sb = new StringBuffer();
-   
-  sb.append(getName()+"/"+String.valueOf(getArity())+" goal: ");
-  sb.append(getName()+"("+term1.toString()+","+term2.toString()+","+term3.toString()+")");
-  
-  return sb.toString();
- };
+    public jGetArrayElementGoal(jGetArrayElement gae, jTerm t1, jTerm t2,
+	    jTerm t3) {
+	get_element = gae;
+	term1 = t1;
+	term2 = t2;
+	term3 = t3;
+    };
+
+    public boolean prove(iGoalStack goals, iGoalStack proved) {
+	if (get_element.prove(this)) {
+	    proved.push(this);
+	    return true;
+	} else {
+	    goals.push(this); // a retry that follows may need a node to remove
+			      // or retry
+	    return false;
+	}
+    };
+
+    public boolean retry(iGoalStack goals, iGoalStack proved) {
+	goals.push(this); // a retry that follows may need a node to remove or
+			  // retry
+	return false;
+    };
+
+    public String getName() {
+	return get_element.getName();
+    };
+
+    public int getArity() {
+	return get_element.getArity();
+    };
+
+    public String toString() {
+	StringBuffer sb = new StringBuffer();
+
+	sb.append(getName() + "/" + String.valueOf(getArity()) + " goal: ");
+	sb.append(getName() + "(" + term1.toString() + "," + term2.toString()
+		+ "," + term3.toString() + ")");
+
+	return sb.toString();
+    };
 };
-

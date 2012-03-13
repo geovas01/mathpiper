@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //##################################################################################
 //	gDebugWindow
 //##################################################################################
@@ -55,60 +55,49 @@ import java.awt.*;
 import java.awt.event.*;
 import ubc.cs.JLog.Foundation.*;
 
-public class gDebugWindow extends gWindowBase
-{
- protected gDebugPanel 			debug;
- 
- gDebugWindow(gJLogApplicationBase b,boolean visible)
- {
-  super(b);
- 
-  setLayout(new GridLayout());
-  debug = new gDebugPanel(parent.getPrologServices(),false);
-  add(debug);
-  pack();
+public class gDebugWindow extends gWindowBase {
+    protected gDebugPanel debug;
 
-  setSize(640, 480);
-  setLocation(30,60);
+    gDebugWindow(gJLogApplicationBase b, boolean visible) {
+	super(b);
 
-  setTitle("JLog - Debug");
-  setVisible(visible);
- };
+	setLayout(new GridLayout());
+	debug = new gDebugPanel(parent.getPrologServices(), false);
+	add(debug);
+	pack();
 
- public void 		setBreakState(boolean state)
- {
-  debug.setBreakState(state);
- };
+	setSize(640, 480);
+	setLocation(30, 60);
 
- public void 		setTraceState(boolean state)
- {
-  debug.setTraceState(state);
- };
+	setTitle("JLog - Debug");
+	setVisible(visible);
+    };
 
- public boolean 	getBreakState()
- {
-  return debug.getBreakState();
- };
+    public void setBreakState(boolean state) {
+	debug.setBreakState(state);
+    };
 
- public boolean 	getTraceState()
- {
-  return debug.getTraceState();
- };
+    public void setTraceState(boolean state) {
+	debug.setTraceState(state);
+    };
 
- public boolean 		useMenuItem(MenuItem mi)
- {
-  if (mi.getActionCommand() == parent.MENU_CLOSE)
-  {
-   mi.addActionListener(new ActionListener() 
-        {
-         public void actionPerformed (ActionEvent e) 
-         {
-          close();
-         }
-        }
-       );  
-   return true;
-  }
-  return false;
- };
+    public boolean getBreakState() {
+	return debug.getBreakState();
+    };
+
+    public boolean getTraceState() {
+	return debug.getTraceState();
+    };
+
+    public boolean useMenuItem(MenuItem mi) {
+	if (mi.getActionCommand() == parent.MENU_CLOSE) {
+	    mi.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		    close();
+		}
+	    });
+	    return true;
+	}
+	return false;
+    };
 };

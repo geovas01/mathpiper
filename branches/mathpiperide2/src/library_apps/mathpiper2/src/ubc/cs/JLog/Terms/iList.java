@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	List
 //#########################################################################
@@ -52,9 +52,7 @@ package ubc.cs.JLog.Terms;
 import java.lang.*;
 import java.util.*;
 
-public interface iList extends iTerm
-{
- final static String	LIST_PAIR = ".";
- final static String 	LIST_NULL = "[]";
+public interface iList extends iTerm {
+    final static String LIST_PAIR = ".";
+    final static String LIST_NULL = "[]";
 };
-

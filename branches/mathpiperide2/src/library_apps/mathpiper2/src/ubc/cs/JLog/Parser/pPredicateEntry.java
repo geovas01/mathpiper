@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	PredicateEntry
 //#########################################################################
@@ -55,152 +55,156 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Terms.*;
 
 /**
-* Abstract base class for entries in the <code>pPredicateRegistry</code>. Each
-* predicate entry subclass represents a type of prolog predicate at the 
-* level needed for the parser (they are parse time representations).
-* Predicate entries contain information about the corresponding predicate, such
-* as name and arity.
-* Predicate entries generate the corresponding real Prolog predicate
-* objects. 
-*  
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-abstract public class pPredicateEntry implements iNameArity
-{
- public static final int		NARY_ARITY = -1;
- 
- protected String 		name;
- protected int 			arity;
- protected String		library = null; 
+ * Abstract base class for entries in the <code>pPredicateRegistry</code>. Each
+ * predicate entry subclass represents a type of prolog predicate at the level
+ * needed for the parser (they are parse time representations). Predicate
+ * entries contain information about the corresponding predicate, such as name
+ * and arity. Predicate entries generate the corresponding real Prolog predicate
+ * objects.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+abstract public class pPredicateEntry implements iNameArity {
+    public static final int NARY_ARITY = -1;
 
- public 	pPredicateEntry(String name,int arity)
- {
-  this.name = name;
-  this.arity = arity;
-  
-   // prevent invalid entries
-  if (name == null || name.length() <= 0)
-   throw new InvalidPredicateNameException();
- };
- 
- public String 			getName()
- {
-  return name;
- };
- 
- public int 			getArity()
- {
-  return arity;
- };
+    protected String name;
+    protected int arity;
+    protected String library = null;
 
- /**
-  * Tests the arity of this entry.  Most predicates entries will only return true
-  * if there is an exact match, however, for n-ary predicates, arity should be set
-  * to NARY_ARITY, and isArity should always return true for supported arities.
-  *
-  * @param a		The arity to test this entry for.
-  *
-  * @return 		<code>boolean</code> which is true if entry can be of this arity.
-  */
- public boolean 		isArity(int a)
- {
-  return arity == a;
- };
+    public pPredicateEntry(String name, int arity) {
+	this.name = name;
+	this.arity = arity;
 
- /**
-  * Set the name of the library associated with this predicate.  Once an association is made
-  * it is an error to change it (throws <code>InvalidLibraryEntryException</code> in this case).
-  * Predicates default to a <code>null</code> valued library.
-  *
-  * @param lib		The name of the library.
-  */
- public void			setLibrary(String lib)
- {
-  if (library == null)
-   library = lib;
-  else
-   throw new InvalidLibraryEntryException();
- };
+	// prevent invalid entries
+	if (name == null || name.length() <= 0)
+	    throw new InvalidPredicateNameException();
+    };
 
- /**
-  * Get the name of the library associated with this predicate.
-  *
-  * @return		The name of the library. May be <code>null</code>.
-  */
- public String			getLibrary()
- {
-  return library;
- };
+    public String getName() {
+	return name;
+    };
 
- public boolean			sameLibrary(String lib)
- {
-  if (library == null && lib == null)
-   return true;
-  if (library == null || lib == null)
-   return false;
-  
-   return library.equals(lib); 
- };
-  
- /**
-  * Public interface for generating the real prolog term objects.  May generate syntax errors.
-  * Invokes internal <code>createPredicate</code> to perform actual construction of term.
-  *
-  * @param pt 		The parsing token representing the operator. Used for generating 
-  * 			information about the location of the operator in the input stream.
-  * @param cterm 	A terms belonging to this predicate.
-  *
-  * @return 		<code>iPredicat</code> representing this predicate and its terms.
-  */
- public iPredicate 			createPredicate(pToken pt,jCompoundTerm cterm)
- {
-  if (!isArity(cterm.size()))
-   throw new SyntaxErrorException("Term with arity "+String.valueOf(arity)+" expected for predicate at ",
-                                   pt.getPosition(),pt.getLine(),pt.getCharPos()); 
+    public int getArity() {
+	return arity;
+    };
 
-  return createPredicate(cterm);
- };
- 
- /**
-  * Public interface for generating the real prolog term objects.  May generate syntax errors.
-  * Invokes internal <code>createPredicate</code> to perform actual construction of term.
-  *  
-  * @return 		<code>iPredicat</code> representing this predicate with given arity,  
-  * 			with unamed variables for terms.
-  */
- public iPredicate 			createPredicate()
- {jCompoundTerm 	cterm = new jCompoundTerm();
-  int 				i;
-  
-  for (i = 0; i < arity; i++)
-   cterm.addTerm(new jVariable("_"));
-  
-  return createPredicate(cterm);
- };
- 
- /**
-  * The internal method for creating the <code>iPredicate</code> representation of this 
-  * predicate representation.  Subclasses must override.  The terms are provided, already created.
-  * The caller is responsible to ensure that arity and cterm.size match.
-  *
-  * @param cterm 	The collection of <code>jTerm</code>s.
-  *
-  * @return 		<code>iPredicate</code> representing this predicate and its terms.
-  */
- abstract public iPredicate 		createPredicate(jCompoundTerm cterm);
+    /**
+     * Tests the arity of this entry. Most predicates entries will only return
+     * true if there is an exact match, however, for n-ary predicates, arity
+     * should be set to NARY_ARITY, and isArity should always return true for
+     * supported arities.
+     * 
+     * @param a
+     *            The arity to test this entry for.
+     * 
+     * @return <code>boolean</code> which is true if entry can be of this arity.
+     */
+    public boolean isArity(int a) {
+	return arity == a;
+    };
 
- public String			toString()
- {StringBuffer			sb = new StringBuffer();
+    /**
+     * Set the name of the library associated with this predicate. Once an
+     * association is made it is an error to change it (throws
+     * <code>InvalidLibraryEntryException</code> in this case). Predicates
+     * default to a <code>null</code> valued library.
+     * 
+     * @param lib
+     *            The name of the library.
+     */
+    public void setLibrary(String lib) {
+	if (library == null)
+	    library = lib;
+	else
+	    throw new InvalidLibraryEntryException();
+    };
 
-  sb.append(getName() + "/" + Integer.toString(getArity()));
-   
-  {String   lib = getLibrary();
-  
-   if (lib != null)
-    sb.append(" library:"+lib);
-  }
-  
-  return sb.toString();
- };
+    /**
+     * Get the name of the library associated with this predicate.
+     * 
+     * @return The name of the library. May be <code>null</code>.
+     */
+    public String getLibrary() {
+	return library;
+    };
+
+    public boolean sameLibrary(String lib) {
+	if (library == null && lib == null)
+	    return true;
+	if (library == null || lib == null)
+	    return false;
+
+	return library.equals(lib);
+    };
+
+    /**
+     * Public interface for generating the real prolog term objects. May
+     * generate syntax errors. Invokes internal <code>createPredicate</code> to
+     * perform actual construction of term.
+     * 
+     * @param pt
+     *            The parsing token representing the operator. Used for
+     *            generating information about the location of the operator in
+     *            the input stream.
+     * @param cterm
+     *            A terms belonging to this predicate.
+     * 
+     * @return <code>iPredicat</code> representing this predicate and its terms.
+     */
+    public iPredicate createPredicate(pToken pt, jCompoundTerm cterm) {
+	if (!isArity(cterm.size()))
+	    throw new SyntaxErrorException("Term with arity "
+		    + String.valueOf(arity) + " expected for predicate at ",
+		    pt.getPosition(), pt.getLine(), pt.getCharPos());
+
+	return createPredicate(cterm);
+    };
+
+    /**
+     * Public interface for generating the real prolog term objects. May
+     * generate syntax errors. Invokes internal <code>createPredicate</code> to
+     * perform actual construction of term.
+     * 
+     * @return <code>iPredicat</code> representing this predicate with given
+     *         arity, with unamed variables for terms.
+     */
+    public iPredicate createPredicate() {
+	jCompoundTerm cterm = new jCompoundTerm();
+	int i;
+
+	for (i = 0; i < arity; i++)
+	    cterm.addTerm(new jVariable("_"));
+
+	return createPredicate(cterm);
+    };
+
+    /**
+     * The internal method for creating the <code>iPredicate</code>
+     * representation of this predicate representation. Subclasses must
+     * override. The terms are provided, already created. The caller is
+     * responsible to ensure that arity and cterm.size match.
+     * 
+     * @param cterm
+     *            The collection of <code>jTerm</code>s.
+     * 
+     * @return <code>iPredicate</code> representing this predicate and its
+     *         terms.
+     */
+    abstract public iPredicate createPredicate(jCompoundTerm cterm);
+
+    public String toString() {
+	StringBuffer sb = new StringBuffer();
+
+	sb.append(getName() + "/" + Integer.toString(getArity()));
+
+	{
+	    String lib = getLibrary();
+
+	    if (lib != null)
+		sb.append(" library:" + lib);
+	}
+
+	return sb.toString();
+    };
 };

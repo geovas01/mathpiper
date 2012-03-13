@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Write
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -55,59 +55,50 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
-public class jWrite extends jUnaryBuiltinPredicate
-{
- protected boolean			display_term;
- protected boolean 			linefeed;
+public class jWrite extends jUnaryBuiltinPredicate {
+    protected boolean display_term;
+    protected boolean linefeed;
 
- public jWrite(jTerm t)
- {
-  super(t,TYPE_BUILTINPREDICATE);
+    public jWrite(jTerm t) {
+	super(t, TYPE_BUILTINPREDICATE);
 
-  display_term = true;
-  linefeed = false;
- };
+	display_term = true;
+	linefeed = false;
+    };
 
- public jWrite(boolean lf)
- {
-  super(jFail.FAIL,TYPE_BUILTINPREDICATE);
+    public jWrite(boolean lf) {
+	super(jFail.FAIL, TYPE_BUILTINPREDICATE);
 
-  display_term = false;
-  linefeed = lf;
- };
+	display_term = false;
+	linefeed = lf;
+    };
 
- public jWrite(jTerm t,boolean lf)
- {
-  super(t,TYPE_BUILTINPREDICATE);
+    public jWrite(jTerm t, boolean lf) {
+	super(t, TYPE_BUILTINPREDICATE);
 
-  display_term = true;
-  linefeed = lf;
- };
-  
- public String 		getName()
- {
-  return "write";
- };
- 
- public void 		addGoals(jGoal g,jVariable[] vars,iGoalStack goals)
- {
-  if (display_term)
-   goals.push(new jWriteGoal(rhs.duplicate(vars),linefeed));
-  else
-   goals.push(new jWriteGoal(linefeed));
- };
+	display_term = true;
+	linefeed = lf;
+    };
 
- public void 		addGoals(jGoal g,iGoalStack goals)
- {
-  if (display_term)
-   goals.push(new jWriteGoal(rhs,linefeed));
-  else
-   goals.push(new jWriteGoal(linefeed));
- };
+    public String getName() {
+	return "write";
+    };
 
- protected jUnaryBuiltinPredicate 		duplicate(jTerm r)
- {
-  return new jWrite(r,linefeed); 
- };
+    public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+	if (display_term)
+	    goals.push(new jWriteGoal(rhs.duplicate(vars), linefeed));
+	else
+	    goals.push(new jWriteGoal(linefeed));
+    };
+
+    public void addGoals(jGoal g, iGoalStack goals) {
+	if (display_term)
+	    goals.push(new jWriteGoal(rhs, linefeed));
+	else
+	    goals.push(new jWriteGoal(linefeed));
+    };
+
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jWrite(r, linefeed);
+    };
 };
-

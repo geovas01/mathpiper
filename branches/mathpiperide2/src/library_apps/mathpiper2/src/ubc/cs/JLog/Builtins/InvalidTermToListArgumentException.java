@@ -42,20 +42,22 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	InvalidTermToListArgumentException
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
 import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
-public class InvalidTermToListArgumentException extends RuntimeException
-{
- public InvalidTermToListArgumentException() {};
- public InvalidTermToListArgumentException(String s) {super(s);};
-};
+public class InvalidTermToListArgumentException extends RuntimeException {
+    public InvalidTermToListArgumentException() {
+    };
 
+    public InvalidTermToListArgumentException(String s) {
+	super(s);
+    };
+};

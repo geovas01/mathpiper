@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	jAPIConsultThread
 //#########################################################################
@@ -54,87 +54,75 @@ import java.util.*;
 import ubc.cs.JLog.Parser.*;
 
 /**
-* This class implements consulting of a prolog source text, throwing exceptions for
-* encountered errors.
-*  
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public class jAPIConsultThread extends jPrologServiceThread
-{
- protected String							source;
- protected jPrologServiceBroadcaster 		begin = null,end = null;
- protected RuntimeException					result_exception = null;
-  
- public 	jAPIConsultThread(jPrologServices ps,String src)
- {
-  super(ps);
-  
-  setName("APIConsultThread");
- // setPriority(NORM_PRIORITY + 1); //MRJ 2.1 doesn't permit UI interaction with this setting
-   
-  source = src;
- };
-
- public void 	setListeners(jPrologServiceBroadcaster b,
-                                jPrologServiceBroadcaster e,
-								jPrologServiceBroadcaster s)
- {
-  setStoppedListeners(s);
-  begin = b;
-  end = e;
- };
-
-/**
-* Performs and controls the entire consultation phase.
-* 
-*/
- public void 	run()
- {
-  result_exception = null;
-
-  if (begin != null)
-   begin.broadcastEvent(new jPrologServiceEvent());
-  
-  try
-  {pParseStream 	parser;
-   
-   parser = new pParseStream(source,prolog.getKnowledgeBase(),
-                             prolog.getPredicateRegistry(),
-                             prolog.getOperatorRegistry());
-   
-   parser.parseSource(); 
-   prolog.getKnowledgeBase().consult();
-  }
-  catch (RuntimeException e)
-  {
-   result_exception = e;
-  }
-  finally
-  {
-   if (allow_release)
-    prolog.release();
-  
-   if (end != null)
-    end.broadcastEvent(new jPrologServiceEvent());
-  }
- };
-
- public boolean 	isCurrentlyConsulting()
- {
-  return true;
- };
-
- /**
- * Returns the RuntimeException thrown by an unsucessful query / retry 
- * (e.g., UnknownPredicateException).
+ * This class implements consulting of a prolog source text, throwing exceptions
+ * for encountered errors.
  * 
- * @return			Returns a RuntimeException if the query failed. 
- *					Returns null if the query did not throw an exception.
+ * @author Glendon Holst
+ * @version %I%, %G%
  */
- public RuntimeException 	getResultException()
- {
-  return result_exception;
- }; 
-};
+public class jAPIConsultThread extends jPrologServiceThread {
+    protected String source;
+    protected jPrologServiceBroadcaster begin = null, end = null;
+    protected RuntimeException result_exception = null;
 
+    public jAPIConsultThread(jPrologServices ps, String src) {
+	super(ps);
+
+	setName("APIConsultThread");
+	// setPriority(NORM_PRIORITY + 1); //MRJ 2.1 doesn't permit UI
+	// interaction with this setting
+
+	source = src;
+    };
+
+    public void setListeners(jPrologServiceBroadcaster b,
+	    jPrologServiceBroadcaster e, jPrologServiceBroadcaster s) {
+	setStoppedListeners(s);
+	begin = b;
+	end = e;
+    };
+
+    /**
+     * Performs and controls the entire consultation phase.
+     * 
+     */
+    public void run() {
+	result_exception = null;
+
+	if (begin != null)
+	    begin.broadcastEvent(new jPrologServiceEvent());
+
+	try {
+	    pParseStream parser;
+
+	    parser = new pParseStream(source, prolog.getKnowledgeBase(),
+		    prolog.getPredicateRegistry(), prolog.getOperatorRegistry());
+
+	    parser.parseSource();
+	    prolog.getKnowledgeBase().consult();
+	} catch (RuntimeException e) {
+	    result_exception = e;
+	} finally {
+	    if (allow_release)
+		prolog.release();
+
+	    if (end != null)
+		end.broadcastEvent(new jPrologServiceEvent());
+	}
+    };
+
+    public boolean isCurrentlyConsulting() {
+	return true;
+    };
+
+    /**
+     * Returns the RuntimeException thrown by an unsucessful query / retry
+     * (e.g., UnknownPredicateException).
+     * 
+     * @return Returns a RuntimeException if the query failed. Returns null if
+     *         the query did not throw an exception.
+     */
+    public RuntimeException getResultException() {
+	return result_exception;
+    };
+};

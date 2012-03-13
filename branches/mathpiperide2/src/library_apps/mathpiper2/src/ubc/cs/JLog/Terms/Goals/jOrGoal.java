@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	OrGoal
 //#########################################################################
@@ -54,92 +54,78 @@ import java.util.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jOrGoal extends jGoal
-{
- protected final static int 	STARTING_PREDICATE = 0;
- 
- protected jOrPredicate 		or_predicate;
- protected jGoal 				head_goal;
- protected jGoal 				end_goal;
- protected int 					pterm_number = STARTING_PREDICATE;
+public class jOrGoal extends jGoal {
+    protected final static int STARTING_PREDICATE = 0;
 
- public 	jOrGoal(jOrPredicate op,jGoal g,jGoal end)
- {
-  or_predicate = op;
-  head_goal = g;
-  end_goal = end;
- };
- 
- public final int 		getNextPredicateTermNumber()
- {
-  return pterm_number++;
- };
- 
- public final int 		getPredicateTermNumber()
- {
-  return pterm_number;
- };
- 
- public boolean 	prove(iGoalStack goals,iGoalStack proved)
- {
-  if (or_predicate.prove(this,head_goal,goals))
-  {
-   proved.push(this);
-   return true;
-  }
-  else
-  {
-   { // we need to initialize goal to potentially restart
-    pterm_number = STARTING_PREDICATE; 
-   }
-   goals.push(this); // a retry that follows may need a node to remove or retry
-   return false;
-  }
- };
+    protected jOrPredicate or_predicate;
+    protected jGoal head_goal;
+    protected jGoal end_goal;
+    protected int pterm_number = STARTING_PREDICATE;
 
- public boolean 	retry(iGoalStack goals,iGoalStack proved)
- {
-  goals.cut(end_goal);
+    public jOrGoal(jOrPredicate op, jGoal g, jGoal end) {
+	or_predicate = op;
+	head_goal = g;
+	end_goal = end;
+    };
 
-  if (or_predicate.retry(this))
-  {
-   goals.push(this);
-   return true;
-  }
-  else
-  {
-   { // we need to initialize goal to potentially restart
-    pterm_number = STARTING_PREDICATE; 
-   }
-   goals.push(this); // a retry that follows may need a node to remove or retry
-   return false;
-  }
- }; 
+    public final int getNextPredicateTermNumber() {
+	return pterm_number++;
+    };
 
- public final void 	internal_restore(iGoalStack goals)
- {
-  goals.cut(end_goal);
+    public final int getPredicateTermNumber() {
+	return pterm_number;
+    };
 
-  pterm_number = STARTING_PREDICATE; 
- };
+    public boolean prove(iGoalStack goals, iGoalStack proved) {
+	if (or_predicate.prove(this, head_goal, goals)) {
+	    proved.push(this);
+	    return true;
+	} else {
+	    { // we need to initialize goal to potentially restart
+		pterm_number = STARTING_PREDICATE;
+	    }
+	    goals.push(this); // a retry that follows may need a node to remove
+			      // or retry
+	    return false;
+	}
+    };
 
- public String 		getName() 
- {
-  return or_predicate.getName();
- };
- 
- public int 		getArity() 
- {
-  return or_predicate.getArity();
- };
- 
- public String 		toString()
- {StringBuffer 	sb = new StringBuffer();
-   
-  sb.append(getName()+"/"+String.valueOf(getArity())+" goal: ");
-  sb.append(or_predicate.toString());
-  
-  return sb.toString();
- };
+    public boolean retry(iGoalStack goals, iGoalStack proved) {
+	goals.cut(end_goal);
+
+	if (or_predicate.retry(this)) {
+	    goals.push(this);
+	    return true;
+	} else {
+	    { // we need to initialize goal to potentially restart
+		pterm_number = STARTING_PREDICATE;
+	    }
+	    goals.push(this); // a retry that follows may need a node to remove
+			      // or retry
+	    return false;
+	}
+    };
+
+    public final void internal_restore(iGoalStack goals) {
+	goals.cut(end_goal);
+
+	pterm_number = STARTING_PREDICATE;
+    };
+
+    public String getName() {
+	return or_predicate.getName();
+    };
+
+    public int getArity() {
+	return or_predicate.getArity();
+    };
+
+    public String toString() {
+	StringBuffer sb = new StringBuffer();
+
+	sb.append(getName() + "/" + String.valueOf(getArity()) + " goal: ");
+	sb.append(or_predicate.toString());
+
+	return sb.toString();
+    };
 };
-

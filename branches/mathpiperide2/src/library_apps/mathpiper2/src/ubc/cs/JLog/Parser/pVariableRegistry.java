@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	pVariableRegistry
 //#########################################################################
@@ -54,39 +54,36 @@ import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
 /**
-* Hashtable for <code>pVar</code> variables and their associated <code>jVariables</code>.
-* This class is used to ensure that the reference to a single named variable in the
-* parse stream (usually at the level of a rule or command), which my be represented by
-* several <code>pVar</code> packets, only produce a single instance of 
-* <code>jVariable</code>. 
-*  
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public class pVariableRegistry
-{
- protected Hashtable 		variables;
- 
- public pVariableRegistry()
- {
-  variables = new Hashtable();
- };
- 
- public jVariable 		getVariable(pVar v)
- {
-  return getVariable(v.getName());
- };
+ * Hashtable for <code>pVar</code> variables and their associated
+ * <code>jVariables</code>. This class is used to ensure that the reference to a
+ * single named variable in the parse stream (usually at the level of a rule or
+ * command), which my be represented by several <code>pVar</code> packets, only
+ * produce a single instance of <code>jVariable</code>.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public class pVariableRegistry {
+    protected Hashtable variables;
 
- public jVariable 		getVariable(String v)
- {jVariable jv;
- 
-  if (v.equals("_"))
-   return new jVariable();
-   
-  jv = (jVariable) variables.get(v);
-  if (jv == null)
-   variables.put(v,jv = new jVariable(v));
+    public pVariableRegistry() {
+	variables = new Hashtable();
+    };
 
-  return jv;
- };
+    public jVariable getVariable(pVar v) {
+	return getVariable(v.getName());
+    };
+
+    public jVariable getVariable(String v) {
+	jVariable jv;
+
+	if (v.equals("_"))
+	    return new jVariable();
+
+	jv = (jVariable) variables.get(v);
+	if (jv == null)
+	    variables.put(v, jv = new jVariable(v));
+
+	return jv;
+    };
 };

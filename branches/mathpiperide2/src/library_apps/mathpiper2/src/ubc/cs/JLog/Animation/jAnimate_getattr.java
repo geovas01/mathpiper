@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Animate GetAttributes
 //#########################################################################
- 
+
 package ubc.cs.JLog.Animation;
 
 import java.lang.*;
@@ -55,56 +55,49 @@ import java.awt.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jAnimate_getattr extends jAnimate
-{
- public jAnimate_getattr(jTerm t)
- {
-  super(t);
- };
-  
- public String 		getName()
- {
-  return "animate<getattr>";
- };
- 
- public int 		getNumberArguments()
- {
-  return 2;
- };
- 
- protected jUnaryBuiltinPredicate 		duplicate(jTerm r)
- {
-  return new jAnimate_getattr(r); 
- };
- 
- public boolean 	prove(jAnimateGoal ag,aAnimationEnvironment ae)
- {
-  return action(ae,aAttributeTranslation.convertToTerms(ag.term,getNumberArguments()),
-					ag.unified);
- };
+public class jAnimate_getattr extends jAnimate {
+    public jAnimate_getattr(jTerm t) {
+	super(t);
+    };
 
- protected boolean 	action(aAnimationEnvironment ae,jTerm[] terms,jUnifiedVector uv)
- {aAttributeTranslation		obj = aAttributeTranslation.convertToAttributesObject(terms[0]);
-  final Hashtable			ht = obj.getAttributes();
-  final jTermTranslation	ttrans = obj.getTermTranslation();
-  jList				attr = jListPair.createListFromEnumeration(ht.keys(),
-					   new iObjectToTerm()
-                       {
-                        public jTerm 	createTermFromObject(Object obj)
-                        {String		key = (String) obj;
-						 Object		val = ht.get(key);
-						 jTerm		term = ttrans.createTermFromObject(val,key);
-						 
-						 return new jCons(new jAtom(key),term); 
-                        }
-                       });
+    public String getName() {
+	return "animate<getattr>";
+    };
 
-  return terms[1].unify(attr,uv); 
- };
+    public int getNumberArguments() {
+	return 2;
+    };
 
- protected void 	action(aAnimationEnvironment ae,jTerm[] terms)
- {
-  // do nothing
- };
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jAnimate_getattr(r);
+    };
+
+    public boolean prove(jAnimateGoal ag, aAnimationEnvironment ae) {
+	return action(ae, aAttributeTranslation.convertToTerms(ag.term,
+		getNumberArguments()), ag.unified);
+    };
+
+    protected boolean action(aAnimationEnvironment ae, jTerm[] terms,
+	    jUnifiedVector uv) {
+	aAttributeTranslation obj = aAttributeTranslation
+		.convertToAttributesObject(terms[0]);
+	final Hashtable ht = obj.getAttributes();
+	final jTermTranslation ttrans = obj.getTermTranslation();
+	jList attr = jListPair.createListFromEnumeration(ht.keys(),
+		new iObjectToTerm() {
+		    public jTerm createTermFromObject(Object obj) {
+			String key = (String) obj;
+			Object val = ht.get(key);
+			jTerm term = ttrans.createTermFromObject(val, key);
+
+			return new jCons(new jAtom(key), term);
+		    }
+		});
+
+	return terms[1].unify(attr, uv);
+    };
+
+    protected void action(aAnimationEnvironment ae, jTerm[] terms) {
+	// do nothing
+    };
 };
-

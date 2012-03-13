@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	PrologServiceTextField
 //#########################################################################
@@ -58,110 +58,97 @@ import ubc.cs.JLog.Foundation.jPrologServiceEvent;
 import java.awt.TextField;
 
 /**
-* This class represents a TextField based text repository.
-*  
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public class gPrologServiceTextField implements iPrologServiceText
-{
- protected TextField 			text;
- protected jPrologServiceBroadcaster 	addedText = null;
- protected jPrologServiceBroadcaster 	removedText = null;
+ * This class represents a TextField based text repository.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public class gPrologServiceTextField implements iPrologServiceText {
+    protected TextField text;
+    protected jPrologServiceBroadcaster addedText = null;
+    protected jPrologServiceBroadcaster removedText = null;
 
- public gPrologServiceTextField(TextField t)
- {
-  text = t;
- }
- 
- public String 				getText()
- {
-  return text.getText();
- };
- 
- public synchronized void 		setText(String t)
- {
-  text.setText(t);
+    public gPrologServiceTextField(TextField t) {
+	text = t;
+    }
 
-  if (removedText != null)
-   removedText.broadcastEvent(new jPrologServiceEvent());
-  if (addedText != null)
-   addedText.broadcastEvent(new jPrologServiceEvent());
- };
- 
- public synchronized void 		append(String a)
- {
-  text.setText(text.getText() + a);
+    public String getText() {
+	return text.getText();
+    };
 
-  if (addedText != null)
-   addedText.broadcastEvent(new jPrologServiceEvent());
- };
- 
- public synchronized void 		insert(String i,int p)
- {StringBuffer 		sbuf = new StringBuffer(text.getText());
- 
-  sbuf.insert(p,i);
- 
-  text.setText(sbuf.toString());
+    public synchronized void setText(String t) {
+	text.setText(t);
 
-  if (addedText != null)
-   addedText.broadcastEvent(new jPrologServiceEvent());
- };
+	if (removedText != null)
+	    removedText.broadcastEvent(new jPrologServiceEvent());
+	if (addedText != null)
+	    addedText.broadcastEvent(new jPrologServiceEvent());
+    };
 
- public synchronized void 		remove(int s,int e)
- {String 	text_str = text.getText();
- 
-  text.setText(text_str.substring(0,s) + text_str.substring(e));
+    public synchronized void append(String a) {
+	text.setText(text.getText() + a);
 
-  if (removedText != null)
-   removedText.broadcastEvent(new jPrologServiceEvent());
- };
- 
- public synchronized void 		setCaretPosition(int i)
- {
-  text.setCaretPosition(i);
- };
- 
- public synchronized void 		select(int s,int e)
- {
-  text.select(s,e);
- };
- 
- public synchronized void 		selectAll()
- {
-  text.selectAll();
- };
- 
- public void   				requestFocus()
- {
-  text.requestFocus();
- }; 
+	if (addedText != null)
+	    addedText.broadcastEvent(new jPrologServiceEvent());
+    };
 
- public synchronized void 		addTextAddedListener(jPrologServiceListener l)
- {
-  if (addedText == null)
-   addedText = new jPrologServiceBroadcaster();
+    public synchronized void insert(String i, int p) {
+	StringBuffer sbuf = new StringBuffer(text.getText());
 
-  addedText.addListener(l);
- };
- 
- public synchronized void 		removeTextAddedListener(jPrologServiceListener l)
- {
-  if (addedText != null)
-   addedText.removeListener(l);
- };
+	sbuf.insert(p, i);
 
- public synchronized void 		addTextRemovedListener(jPrologServiceListener l)
- {
-  if (removedText == null)
-   removedText = new jPrologServiceBroadcaster();
+	text.setText(sbuf.toString());
 
-  removedText.addListener(l);
- };
- 
- public synchronized void 		removeTextRemovedListener(jPrologServiceListener l)
- {
-  if (removedText != null)
-   removedText.removeListener(l);
- };
+	if (addedText != null)
+	    addedText.broadcastEvent(new jPrologServiceEvent());
+    };
+
+    public synchronized void remove(int s, int e) {
+	String text_str = text.getText();
+
+	text.setText(text_str.substring(0, s) + text_str.substring(e));
+
+	if (removedText != null)
+	    removedText.broadcastEvent(new jPrologServiceEvent());
+    };
+
+    public synchronized void setCaretPosition(int i) {
+	text.setCaretPosition(i);
+    };
+
+    public synchronized void select(int s, int e) {
+	text.select(s, e);
+    };
+
+    public synchronized void selectAll() {
+	text.selectAll();
+    };
+
+    public void requestFocus() {
+	text.requestFocus();
+    };
+
+    public synchronized void addTextAddedListener(jPrologServiceListener l) {
+	if (addedText == null)
+	    addedText = new jPrologServiceBroadcaster();
+
+	addedText.addListener(l);
+    };
+
+    public synchronized void removeTextAddedListener(jPrologServiceListener l) {
+	if (addedText != null)
+	    addedText.removeListener(l);
+    };
+
+    public synchronized void addTextRemovedListener(jPrologServiceListener l) {
+	if (removedText == null)
+	    removedText = new jPrologServiceBroadcaster();
+
+	removedText.addListener(l);
+    };
+
+    public synchronized void removeTextRemovedListener(jPrologServiceListener l) {
+	if (removedText != null)
+	    removedText.removeListener(l);
+    };
 };

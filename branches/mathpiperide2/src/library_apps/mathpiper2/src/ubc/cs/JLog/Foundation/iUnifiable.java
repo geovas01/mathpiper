@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Unifiable
 //#########################################################################
@@ -54,27 +54,28 @@ import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
 /**
-* This is the interface for terms that support symbolic unification.
-*  
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public interface iUnifiable
-{
- /**
-  * Determines if this instance and <code>term</code> unify.
-  * Every variable which was previously unbound, but which becomes bound during 
-  * the unification must register itself with the <code>jUnifiedVector</code>. It
-  * is the callers responsibility to deal with the unified vector.
-  *
-  * @param term 	the term to unify with this instance.
-  * @param v 		the vector of variables bound during unification. Even if 
-  *			unification fails, this vector may contain recently
-  *			bound vectors.  This parameter is used to as output to the 
-  *			caller, not as input for <code>unify</code>.
-  * @return 		<code>true</code> if unification succeeded,
-  * 			<code>false</code> otherwise.  
-  * 			
-  */
- public boolean 	unify(jTerm term,jUnifiedVector v);
+ * This is the interface for terms that support symbolic unification.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public interface iUnifiable {
+    /**
+     * Determines if this instance and <code>term</code> unify. Every variable
+     * which was previously unbound, but which becomes bound during the
+     * unification must register itself with the <code>jUnifiedVector</code>. It
+     * is the callers responsibility to deal with the unified vector.
+     * 
+     * @param term
+     *            the term to unify with this instance.
+     * @param v
+     *            the vector of variables bound during unification. Even if
+     *            unification fails, this vector may contain recently bound
+     *            vectors. This parameter is used to as output to the caller,
+     *            not as input for <code>unify</code>.
+     * @return <code>true</code> if unification succeeded, <code>false</code>
+     *         otherwise.
+     * 
+     */
+    public boolean unify(jTerm term, jUnifiedVector v);
 };

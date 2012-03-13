@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	pTSPreToken
 //#########################################################################
@@ -52,54 +52,43 @@ package ubc.cs.JLog.Parser;
 import java.util.*;
 import java.lang.*;
 
-public class pTSPreToken extends pPreToken
-{
- protected int 			lineno = 0,charpos = 0;
+public class pTSPreToken extends pPreToken {
+    protected int lineno = 0, charpos = 0;
 
- public pTSPreToken()
- {
- };
- 
- public pTSPreToken(String s)
- {
-  super(s);
- };
- 
- public pTSPreToken(int type,int pos)
- {
-  super(type,pos);
- };
- 
- public pTSPreToken(String s,int type,int pos)
- {
-  super(s,type,pos);
- };
- 
- public pTSPreToken(String s,int type,int pos,int line,int cpos)
- {
-  super(s,type,pos);
-  this.lineno = line;
-  this.charpos = cpos;
- };
+    public pTSPreToken() {
+    };
 
- public int 		getLine()
- {
-  return lineno;
- };
+    public pTSPreToken(String s) {
+	super(s);
+    };
 
- public void 		setLine(int l)
- {
-  lineno = l;
- };
+    public pTSPreToken(int type, int pos) {
+	super(type, pos);
+    };
 
- public int 		getCharPos()
- {
-  return charpos;
- };
+    public pTSPreToken(String s, int type, int pos) {
+	super(s, type, pos);
+    };
 
- public void 		setCharPos(int p)
- {
-  charpos = p;
- };
+    public pTSPreToken(String s, int type, int pos, int line, int cpos) {
+	super(s, type, pos);
+	this.lineno = line;
+	this.charpos = cpos;
+    };
+
+    public int getLine() {
+	return lineno;
+    };
+
+    public void setLine(int l) {
+	lineno = l;
+    };
+
+    public int getCharPos() {
+	return charpos;
+    };
+
+    public void setCharPos(int p) {
+	charpos = p;
+    };
 };
-

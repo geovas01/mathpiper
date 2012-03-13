@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //##################################################################################
 //	gAboutDialog
 //##################################################################################
@@ -55,42 +55,38 @@ import java.awt.*;
 import java.awt.event.*;
 import java.applet.Applet;
 
-public class gAboutDialog extends Dialog
-{
- public gAboutDialog(gJLogApplicationBase b,boolean visible)
- {
-  super(b,"About JLog",true);
-  
-  setLayout(new GridLayout());
-  
-  {TextArea		about_text;
- 
-   about_text = new TextArea(b.getRequiredCreditInfo(),-1,-1,TextArea.SCROLLBARS_VERTICAL_ONLY);
-   about_text.setFont(new Font("SansSerif",Font.BOLD,12));
-   about_text.setEditable(false);
+public class gAboutDialog extends Dialog {
+    public gAboutDialog(gJLogApplicationBase b, boolean visible) {
+	super(b, "About JLog", true);
 
-   add(about_text);
-  }
-  
-  pack();
+	setLayout(new GridLayout());
 
-  addWindowListener(new WindowAdapter() 
-                {
-		 public void windowClosing(WindowEvent evt) 
-                 {
-		  close();
-		 }
-		}
-               );
+	{
+	    TextArea about_text;
 
-  setSize(512, 320);
-  setLocation(50,100);
+	    about_text = new TextArea(b.getRequiredCreditInfo(), -1, -1,
+		    TextArea.SCROLLBARS_VERTICAL_ONLY);
+	    about_text.setFont(new Font("SansSerif", Font.BOLD, 12));
+	    about_text.setEditable(false);
 
-  setVisible(visible);
- };
- 
- protected void 	close()
- {
-  dispose();
- };
+	    add(about_text);
+	}
+
+	pack();
+
+	addWindowListener(new WindowAdapter() {
+	    public void windowClosing(WindowEvent evt) {
+		close();
+	    }
+	});
+
+	setSize(512, 320);
+	setLocation(50, 100);
+
+	setVisible(visible);
+    };
+
+    protected void close() {
+	dispose();
+    };
 };

@@ -42,52 +42,46 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	BitwiseNegation
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
 import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jBitwiseNegation extends jUnaryArithmetic
-{
- public 	jBitwiseNegation(jTerm r)
- {
-  super(r);
- };
- 
- public String 		getName()
- {
-  return "\\";
- };  
+public class jBitwiseNegation extends jUnaryArithmetic {
+    public jBitwiseNegation(jTerm r) {
+	super(r);
+    };
 
- protected jUnaryBuiltinPredicate 	duplicate(jTerm r)
- {
-  return new jBitwiseNegation(r);
- };
- 
- public  jTerm 		getValue()
- {jTerm 		r;
-  
-  r = rhs.getValue();
+    public String getName() {
+	return "\\";
+    };
 
-  if (r.type == TYPE_INTEGER)
-   return new jInteger(operatorInt(((jInteger) r).getIntegerValue()));
-  else
-   throw new InvalidArithmeticOperationException();
- };
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jBitwiseNegation(r);
+    };
 
- protected float 	operatorReal(float r)
- {
-  throw new InvalidArithmeticOperationException();
- };
- 
- protected int 		operatorInt(int r)
- {
-  return ~r;
- };
+    public jTerm getValue() {
+	jTerm r;
+
+	r = rhs.getValue();
+
+	if (r.type == TYPE_INTEGER)
+	    return new jInteger(operatorInt(((jInteger) r).getIntegerValue()));
+	else
+	    throw new InvalidArithmeticOperationException();
+    };
+
+    protected float operatorReal(float r) {
+	throw new InvalidArithmeticOperationException();
+    };
+
+    protected int operatorInt(int r) {
+	return ~r;
+    };
 };

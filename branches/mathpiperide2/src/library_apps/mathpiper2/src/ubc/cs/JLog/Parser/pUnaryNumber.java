@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	pUnaryNumber
 //#########################################################################
@@ -53,34 +53,28 @@ import java.util.*;
 import java.lang.*;
 
 /**
-* Token representing numbers immediately preceeded by a sign (either '-' or '+').
-* These may be treated either as a single number, or as a unary arithmetic operator
-* and a number.
-*  
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-class pUnaryNumber extends pToken
-{
- protected pToken 	sign;
- protected pToken 	value;
- 
- public 	pUnaryNumber(pToken s,pToken v)
- {
-  super(s.token+v.token,s.position,s.lineno,s.charpos);
-  sign = s;
-  value = v;
- };
+ * Token representing numbers immediately preceeded by a sign (either '-' or
+ * '+'). These may be treated either as a single number, or as a unary
+ * arithmetic operator and a number.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+class pUnaryNumber extends pToken {
+    protected pToken sign;
+    protected pToken value;
 
- public pToken 		getSign()
- {
-  return sign;
- };
+    public pUnaryNumber(pToken s, pToken v) {
+	super(s.token + v.token, s.position, s.lineno, s.charpos);
+	sign = s;
+	value = v;
+    };
 
- public pToken 		getValue()
- {
-  return value;
- };
+    public pToken getSign() {
+	return sign;
+    };
+
+    public pToken getValue() {
+	return value;
+    };
 };
-
-

@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	jProver
 //#########################################################################
@@ -54,126 +54,118 @@ import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
 /**
-* This class implements a prolog proving engine.  It uses two
-* goal stacks to represent progress in the search tree.  The <code>goals</code> goal 
-* stack stores goals that have yet to be evaluated. The <code>proved</code> goal
-* stack stores goals that are already evaluated (i.e., the frontier).
-* <P>
-* The proving process takes a goal from the <code>goals</code> stack and attempts 
-* to prove it. If successful, any subgoals of the goal are pushed onto the 
-* <code>goals</code> stack and the goal to be proved is pushed onto the 
-* <code>proved</code> stack.the is the default goal stack implementation.
-*
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public class jProver
-{
- protected jKnowledgeBase 	database;
- protected iGoalStack 		goals;
- protected iGoalStack 		proved;
- 
- /**
-  * Construct a prover instance with a given <code>jKnowledgeBase</code>.
-  *
-  * @param kb 		the knowledge base which attempted proofs are based upon.
-  */
- public 			jProver(jKnowledgeBase kb)
- {
-  database = kb;
-  goals = null;
-  proved = null;
- };
- 
- /**
-  * Initiate a proof of the provided goal.
-  *
-  * @param goal 	the term to attempt to prove.
-  * @return 		<code>true</code> if the proof of <code>goal</code> succeeded, 
-  * 			<code>false</code> otherwise.
-  */
- public boolean 	prove(jPredicateTerms goal)
- {jVariableVector 		vars; 
-  jUserGoal 			ug;
-  
-  goals = createGoalsStack();
-  proved = createProvedStack();
-  proved.push(ug = new jUserGoal());
-  
-  goal.consult(database);
-  
-  vars = new jVariableVector();
-  goal.registerVariables(vars);
-  goal.addGoals(ug,vars.getVariables(),goals);
-  
-  return internal_prove();
- };
+ * This class implements a prolog proving engine. It uses two goal stacks to
+ * represent progress in the search tree. The <code>goals</code> goal stack
+ * stores goals that have yet to be evaluated. The <code>proved</code> goal
+ * stack stores goals that are already evaluated (i.e., the frontier).
+ * <P>
+ * The proving process takes a goal from the <code>goals</code> stack and
+ * attempts to prove it. If successful, any subgoals of the goal are pushed onto
+ * the <code>goals</code> stack and the goal to be proved is pushed onto the
+ * <code>proved</code> stack.the is the default goal stack implementation.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public class jProver {
+    protected jKnowledgeBase database;
+    protected iGoalStack goals;
+    protected iGoalStack proved;
 
- /**
-  * Attempts to prove the previous goal in a different way than before.  Only call after
-  * the previous call to <code>prove</code> succeeded, and no call to <code>retry</code>
-  * have failed.
-  *
-  * @return 		<code>true</code> if the proof of <code>goal</code> succeeded, 
-  * 			<code>false</code> otherwise.
-  */
- public boolean 	retry()
- {
-  if (!goals.empty() || !internal_retry())
-   return false;
-  
-  return internal_prove();
- };
- 
- protected boolean 	internal_prove()
- {
-  try
-  {
-   while (!goals.empty())
-   {
-    if (!goals.pop().prove(goals,proved))
-    {
-     while (!proved.pop().retry(goals,proved))
-      ;
-    }
-   }
-   return true;
-  }
-  catch (EmptyStackException e)
-  {// this should only occur when the proved stack is empty
-   return false;
-  }
- };
- 
- protected boolean 	internal_retry()
- {
-  while (!proved.empty())
-  {
-   if (proved.pop().retry(goals,proved))
-    return true;
-  }
-  return false;
- };
- 
- /**
-  * Construct a goal stack for <code>proved</code>. Subclasses can override this
-  * factory method to return goal stacks with different capabilities (but same interface). 
-  * 
-  * @return 		instance of <code>iGoalStack</code>.
-  */
- protected iGoalStack 		createProvedStack()
- {
-  return new jGoalStack();
- };
- 
- /**
-  * Construct a goal stack for <code>goals</code>. Subclasses can override this
-  * factory method to return goal stacks with different capabilities (but same interface). 
-  * 
-  * @return 		instance of <code>iGoalStack</code>.
-  */
- protected iGoalStack 		createGoalsStack()
- {
-  return new jGoalStack();
- };
+    /**
+     * Construct a prover instance with a given <code>jKnowledgeBase</code>.
+     * 
+     * @param kb
+     *            the knowledge base which attempted proofs are based upon.
+     */
+    public jProver(jKnowledgeBase kb) {
+	database = kb;
+	goals = null;
+	proved = null;
+    };
+
+    /**
+     * Initiate a proof of the provided goal.
+     * 
+     * @param goal
+     *            the term to attempt to prove.
+     * @return <code>true</code> if the proof of <code>goal</code> succeeded,
+     *         <code>false</code> otherwise.
+     */
+    public boolean prove(jPredicateTerms goal) {
+	jVariableVector vars;
+	jUserGoal ug;
+
+	goals = createGoalsStack();
+	proved = createProvedStack();
+	proved.push(ug = new jUserGoal());
+
+	goal.consult(database);
+
+	vars = new jVariableVector();
+	goal.registerVariables(vars);
+	goal.addGoals(ug, vars.getVariables(), goals);
+
+	return internal_prove();
+    };
+
+    /**
+     * Attempts to prove the previous goal in a different way than before. Only
+     * call after the previous call to <code>prove</code> succeeded, and no call
+     * to <code>retry</code> have failed.
+     * 
+     * @return <code>true</code> if the proof of <code>goal</code> succeeded,
+     *         <code>false</code> otherwise.
+     */
+    public boolean retry() {
+	if (!goals.empty() || !internal_retry())
+	    return false;
+
+	return internal_prove();
+    };
+
+    protected boolean internal_prove() {
+	try {
+	    while (!goals.empty()) {
+		if (!goals.pop().prove(goals, proved)) {
+		    while (!proved.pop().retry(goals, proved))
+			;
+		}
+	    }
+	    return true;
+	} catch (EmptyStackException e) {// this should only occur when the
+					 // proved stack is empty
+	    return false;
+	}
+    };
+
+    protected boolean internal_retry() {
+	while (!proved.empty()) {
+	    if (proved.pop().retry(goals, proved))
+		return true;
+	}
+	return false;
+    };
+
+    /**
+     * Construct a goal stack for <code>proved</code>. Subclasses can override
+     * this factory method to return goal stacks with different capabilities
+     * (but same interface).
+     * 
+     * @return instance of <code>iGoalStack</code>.
+     */
+    protected iGoalStack createProvedStack() {
+	return new jGoalStack();
+    };
+
+    /**
+     * Construct a goal stack for <code>goals</code>. Subclasses can override
+     * this factory method to return goal stacks with different capabilities
+     * (but same interface).
+     * 
+     * @return instance of <code>iGoalStack</code>.
+     */
+    protected iGoalStack createGoalsStack() {
+	return new jGoalStack();
+    };
 };

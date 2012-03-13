@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	ClauseGoal
 //#########################################################################
- 
+
 package ubc.cs.JLog.Terms.Goals;
 
 import java.lang.*;
@@ -54,105 +54,94 @@ import java.util.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jClauseGoal extends jGoal
-{
- protected final static int 	STARTING_RULE = 0;
+public class jClauseGoal extends jGoal {
+    protected final static int STARTING_RULE = 0;
 
- protected jClause 			clause;
+    protected jClause clause;
 
- protected jDynamicRuleDefinitions 		rules = null;
- protected int 					rule_number = STARTING_RULE;
- 
- // for use by retract
- public jTerm 				lhs,rhs;
- public jUnifiedVector 		unified;
- 
- public 	jClauseGoal(jClause c,jTerm l,jTerm r)
- {
-  clause = c;
-  lhs = l;
-  rhs = r;
-  unified = new jUnifiedVector();
- };
- 
- public jDynamicRuleDefinitions 	getDynamicRules()
- {
-  return rules;
- };
- 
- public void  						setDynamicRules(jDynamicRuleDefinitions r)
- {
-  rules = r;
-  rule_number = STARTING_RULE;
- };
- 
- public int 		getNextRuleNumber()
- {
-  return rule_number++;
- };
- 
- public int 		getRuleNumber()
- {
-  return rule_number;
- };
- 
- public boolean 	prove(iGoalStack goals,iGoalStack proved)
- {Thread 		t;
-  
-  t = Thread.currentThread();
-  
-  if (t instanceof jPrologServiceThread)
-  {jPrologServiceThread		pst = (jPrologServiceThread) t;
-   jPrologServices			prolog = pst.getPrologServices();
-   jKnowledgeBase 			database = prolog.getKnowledgeBase();
+    protected jDynamicRuleDefinitions rules = null;
+    protected int rule_number = STARTING_RULE;
 
-   if (clause.prove(this,database))
-   {
-    proved.push(this);
-    return true;
-   }
-  }
+    // for use by retract
+    public jTerm lhs, rhs;
+    public jUnifiedVector unified;
 
-  { // we need to initialize goal to potentially restart
-   rule_number = STARTING_RULE; 
-   unified.restoreVariables();
-  }
-  goals.push(this); // a retry that follows may need a node to remove or retry
-  return false;
- };
+    public jClauseGoal(jClause c, jTerm l, jTerm r) {
+	clause = c;
+	lhs = l;
+	rhs = r;
+	unified = new jUnifiedVector();
+    };
 
- public boolean 	retry(iGoalStack goals,iGoalStack proved)
- {
-  unified.restoreVariables();
-  
-  goals.push(this); // a retry that follows may need a node to remove or retry
-  return true; // retry until prove fails
- }; 
- 
- public void 	internal_restore(iGoalStack goals)
- {
-  unified.restoreVariables();
-  rule_number = STARTING_RULE; 
- };
+    public jDynamicRuleDefinitions getDynamicRules() {
+	return rules;
+    };
 
- public String 		getName() 
- {
-  return clause.getName();
- };
- 
- public int 		getArity() 
- {
-  return clause.getArity();
- };
- 
- public String 		toString()
- {StringBuffer 	sb = new StringBuffer();
-   
-  sb.append(getName()+"/"+String.valueOf(getArity())+" goal: ");
-  sb.append(getName()+"("+lhs.toString()+","+rhs.toString()+")");
-  
-  return sb.toString();
- };
+    public void setDynamicRules(jDynamicRuleDefinitions r) {
+	rules = r;
+	rule_number = STARTING_RULE;
+    };
+
+    public int getNextRuleNumber() {
+	return rule_number++;
+    };
+
+    public int getRuleNumber() {
+	return rule_number;
+    };
+
+    public boolean prove(iGoalStack goals, iGoalStack proved) {
+	Thread t;
+
+	t = Thread.currentThread();
+
+	if (t instanceof jPrologServiceThread) {
+	    jPrologServiceThread pst = (jPrologServiceThread) t;
+	    jPrologServices prolog = pst.getPrologServices();
+	    jKnowledgeBase database = prolog.getKnowledgeBase();
+
+	    if (clause.prove(this, database)) {
+		proved.push(this);
+		return true;
+	    }
+	}
+
+	{ // we need to initialize goal to potentially restart
+	    rule_number = STARTING_RULE;
+	    unified.restoreVariables();
+	}
+	goals.push(this); // a retry that follows may need a node to remove or
+			  // retry
+	return false;
+    };
+
+    public boolean retry(iGoalStack goals, iGoalStack proved) {
+	unified.restoreVariables();
+
+	goals.push(this); // a retry that follows may need a node to remove or
+			  // retry
+	return true; // retry until prove fails
+    };
+
+    public void internal_restore(iGoalStack goals) {
+	unified.restoreVariables();
+	rule_number = STARTING_RULE;
+    };
+
+    public String getName() {
+	return clause.getName();
+    };
+
+    public int getArity() {
+	return clause.getArity();
+    };
+
+    public String toString() {
+	StringBuffer sb = new StringBuffer();
+
+	sb.append(getName() + "/" + String.valueOf(getArity()) + " goal: ");
+	sb.append(getName() + "(" + lhs.toString() + "," + rhs.toString() + ")");
+
+	return sb.toString();
+    };
 };
-
- 

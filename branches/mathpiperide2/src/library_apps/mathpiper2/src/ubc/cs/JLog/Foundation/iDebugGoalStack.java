@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	iDebugGoalStack
 //#########################################################################
@@ -51,23 +51,22 @@ package ubc.cs.JLog.Foundation;
 
 import java.lang.*;
 import java.util.*;
- 
+
 /**
-* <code>iDebugGoalStack</code> is the debugging goal stack interface.
-* It extends <code>iGoalStack</code>, providing an efficient way to 
-* access the stack goals.
-*  
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public interface iDebugGoalStack extends iGoalStack
-{
- /**
-  * Provides a vectorized duplicate of the goal stack.
-  *
-  * @return 		<code>Vector</code> of <code>jGoal</code>s where the zero index
-  *                     element in the vector is the stack bottom, and the element with
-  *			the largest index is the stack top.
-  */
- public Vector 		getStackCopy();
-}; 
+ * <code>iDebugGoalStack</code> is the debugging goal stack interface. It
+ * extends <code>iGoalStack</code>, providing an efficient way to access the
+ * stack goals.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public interface iDebugGoalStack extends iGoalStack {
+    /**
+     * Provides a vectorized duplicate of the goal stack.
+     * 
+     * @return <code>Vector</code> of <code>jGoal</code>s where the zero index
+     *         element in the vector is the stack bottom, and the element with
+     *         the largest index is the stack top.
+     */
+    public Vector getStackCopy();
+};

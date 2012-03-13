@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	pTokenizerTable
 //#########################################################################
@@ -53,55 +53,50 @@ import java.io.*;
 import java.util.*;
 
 /**
-* Table for mapping input values to categories.  Used to process the next sequence
-* of input characters that map to the same value. 
-*  
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-class pTokenizerTable
-{ 
- protected int[] 		table;
+ * Table for mapping input values to categories. Used to process the next
+ * sequence of input characters that map to the same value.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+class pTokenizerTable {
+    protected int[] table;
 
- public final static int 		TOKEN_UNKNOWN = 0;
- public final static int 		TOKEN_EOL = 1;
+    public final static int TOKEN_UNKNOWN = 0;
+    public final static int TOKEN_EOL = 1;
 
- // token numbers equal or higher are treated like single characters
- public final static int 		TOKEN_SINGLE = 0xFF00;
+    // token numbers equal or higher are treated like single characters
+    public final static int TOKEN_SINGLE = 0xFF00;
 
- public 	pTokenizerTable()
- {
-  table = new int[256];
-  
-  resetSyntax();
- };
- 
- public void 		resetSyntax()
- {int 	i,max = table.length;
-  
-  for (i = 0; i < max; i++)
-   table[i] = TOKEN_UNKNOWN;
-   
-  table[10] = TOKEN_EOL;
-  table[13] = TOKEN_EOL;
- };
+    public pTokenizerTable() {
+	table = new int[256];
 
- public void 		setTokenType(int start,int end,int type)
- {int 	i;
- 
-  for (i = start; i <= end; i++)
-   table[i] = type;
- };
+	resetSyntax();
+    };
 
- public void 		setTokenType(int pos,int type)
- {
-  table[pos] = type;
- };
-  
- // for use by Tokenize classes to read array only. 
- public int[] 	getTokenTable()
- {
-  return table;
- };
+    public void resetSyntax() {
+	int i, max = table.length;
+
+	for (i = 0; i < max; i++)
+	    table[i] = TOKEN_UNKNOWN;
+
+	table[10] = TOKEN_EOL;
+	table[13] = TOKEN_EOL;
+    };
+
+    public void setTokenType(int start, int end, int type) {
+	int i;
+
+	for (i = start; i <= end; i++)
+	    table[i] = type;
+    };
+
+    public void setTokenType(int pos, int type) {
+	table[pos] = type;
+    };
+
+    // for use by Tokenize classes to read array only.
+    public int[] getTokenTable() {
+	return table;
+    };
 };
-

@@ -42,68 +42,60 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Keysort
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
 import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jKeysort extends jSort
-{
- public jKeysort(jTerm l,jTerm r)
- {
-  super(l,r);
- };
-  
- public jKeysort(jTerm l,jTerm r,boolean ve)
- {
-  super(l,r,ve);
- };
-  
- public String 		getName()
- {
-  return "keysort";
- };
- 
- protected int 		sort_compare(jTerm l,jTerm r,boolean ve)
- {jTerm	 lkey,rkey;
- 
-  if (l instanceof jSubtract)
-   lkey = ((jSubtract) l).getLHS();
-  else
-   throw new InvalidKeysortKeyValueException();
-   
-  if (r instanceof jSubtract)
-   rkey = ((jSubtract) r).getLHS();
-  else
-   throw new InvalidKeysortKeyValueException();
-   
-  return lkey.compare(rkey,ve);
- };
- 
- protected void 	sort_insert(jTerm t,Vector v,boolean ve)
- {int 	i,max,result;
- 
-  for (i = 0, max = v.size(); i < max; i++)
-  {
-   if ((result = sort_compare((jTerm) v.elementAt(i),t,ve)) == GREATER_THAN)
-   {
-    v.insertElementAt(t,i);    
-    return;
-   }  
-  }
-  
-  v.insertElementAt(t,v.size());
- };
+public class jKeysort extends jSort {
+    public jKeysort(jTerm l, jTerm r) {
+	super(l, r);
+    };
 
- public jBinaryBuiltinPredicate 		duplicate(jTerm l,jTerm r)
- {
-  return new jKeysort(l,r,var_equal); 
- };
+    public jKeysort(jTerm l, jTerm r, boolean ve) {
+	super(l, r, ve);
+    };
+
+    public String getName() {
+	return "keysort";
+    };
+
+    protected int sort_compare(jTerm l, jTerm r, boolean ve) {
+	jTerm lkey, rkey;
+
+	if (l instanceof jSubtract)
+	    lkey = ((jSubtract) l).getLHS();
+	else
+	    throw new InvalidKeysortKeyValueException();
+
+	if (r instanceof jSubtract)
+	    rkey = ((jSubtract) r).getLHS();
+	else
+	    throw new InvalidKeysortKeyValueException();
+
+	return lkey.compare(rkey, ve);
+    };
+
+    protected void sort_insert(jTerm t, Vector v, boolean ve) {
+	int i, max, result;
+
+	for (i = 0, max = v.size(); i < max; i++) {
+	    if ((result = sort_compare((jTerm) v.elementAt(i), t, ve)) == GREATER_THAN) {
+		v.insertElementAt(t, i);
+		return;
+	    }
+	}
+
+	v.insertElementAt(t, v.size());
+    };
+
+    public jBinaryBuiltinPredicate duplicate(jTerm l, jTerm r) {
+	return new jKeysort(l, r, var_equal);
+    };
 };
-

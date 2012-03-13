@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	UnifiedVector
 //#########################################################################
@@ -54,54 +54,50 @@ import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
 /**
-* This class is used to register a <code>jVariable</code> after it is bound 
-* during unification.
-* A single call can then return those variables back to their unbound state.
-*  
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public class jUnifiedVector
-{
- protected Vector 		variables;
- 
- public jUnifiedVector()
- {
-  variables = new Vector();
- };
- 
- /**
-  * Registers a variable with this instance.  Should be invoked by the 
-  * <code>jVariable</code> after it binds itself during unification.
-  *
-  * @param v 		the variable to register.
-  */
- public final void 		addVariable(jVariable v)
- {
-  variables.addElement(v); 
- };
- 
- public final int 		size()
- {
-  return variables.size();
- };
- 
- public final boolean 	isEmpty()
- {
-  return variables.isEmpty();
- };
- 
-/**
-  * Restores all registered variables to their unbound state, and removes the 
-  * variables from this registery. Only call once, since after restoration the 
-  * vector is empty (ready for re-use)
-  */
- public final void		restoreVariables()
- {int 		i,sz = variables.size();
-  
-  for (i = 0; i < sz; i++)
-   ((jVariable) variables.elementAt(i)).setBinding(null);
-   
-  variables.removeAllElements();
- };
+ * This class is used to register a <code>jVariable</code> after it is bound
+ * during unification. A single call can then return those variables back to
+ * their unbound state.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public class jUnifiedVector {
+    protected Vector variables;
+
+    public jUnifiedVector() {
+	variables = new Vector();
+    };
+
+    /**
+     * Registers a variable with this instance. Should be invoked by the
+     * <code>jVariable</code> after it binds itself during unification.
+     * 
+     * @param v
+     *            the variable to register.
+     */
+    public final void addVariable(jVariable v) {
+	variables.addElement(v);
+    };
+
+    public final int size() {
+	return variables.size();
+    };
+
+    public final boolean isEmpty() {
+	return variables.isEmpty();
+    };
+
+    /**
+     * Restores all registered variables to their unbound state, and removes the
+     * variables from this registery. Only call once, since after restoration
+     * the vector is empty (ready for re-use)
+     */
+    public final void restoreVariables() {
+	int i, sz = variables.size();
+
+	for (i = 0; i < sz; i++)
+	    ((jVariable) variables.elementAt(i)).setBinding(null);
+
+	variables.removeAllElements();
+    };
 };

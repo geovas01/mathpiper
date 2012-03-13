@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	DBSelect
 //#########################################################################
- 
+
 package ubc.cs.JLog.Extras.DataBase;
 
 import java.io.*;
@@ -57,102 +57,93 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.*;
 import ubc.cs.JLog.Terms.Goals.*;
 
-public class jDBSelect extends jBinaryBuiltinPredicate 
-{
- public jDBSelect(jTerm l,jTerm r) 
- {
-  super(l,r,TYPE_BUILTINPREDICATE);
- };
-  
- public String 		getName() 
- {
-  return "db_select";
- };
+public class jDBSelect extends jBinaryBuiltinPredicate {
+    public jDBSelect(jTerm l, jTerm r) {
+	super(l, r, TYPE_BUILTINPREDICATE);
+    };
 
- public boolean		prove(jBinaryBuiltinPredicateGoal bg)
- {jTerm			sql = bg.term1.getTerm();
-  jTerm			result = bg.term2.getTerm();
-  String		query = null;
- 
-  if (sql.type == iType.TYPE_VARIABLE) 
-   throw new RuntimeException("Query is unbound");
-  
-  query = sql.toString();
-  
-  try 
-  {Statement			stmt = jDBConnect.getConnection().createStatement();
-   ResultSet			rs = stmt.executeQuery(query);
-   ResultSetMetaData	rsmd = rs.getMetaData();
-   int					columns = rsmd.getColumnCount();
-   jTerm				tmp=null;
-   jListPair			prev=null;
+    public String getName() {
+	return "db_select";
+    };
 
-   while (rs.next()) 
-   {jTerm		tmpR=null, tR;
-	jListPair   prevR=null;
-	
-	for (int i=1; i<=columns; i++) 
-	{
-     switch (rsmd.getColumnType(i)) 
-	 {
-	  case Types.BIGINT:
-      case Types.SMALLINT:
-      case Types.TINYINT:
-      case Types.INTEGER:
-	 	tR = new jInteger(rs.getInt(i));
-	   break;
-	  case Types.REAL:
-	  case Types.FLOAT:
-	  case Types.DOUBLE:
-	  case Types.NUMERIC:
-	  case Types.DECIMAL:
-	    tR = new jReal(rs.getFloat(i));
-	   break;
-	  default:
-	   tR = new jAtom(rs.getString(i));
-	 }
-	 
-	 if (prevR == null) 
-	  tmpR = prevR = new jListPair(tR,null);
-	 else 
-	 {jListPair		nlst = new jListPair(tR,null);
+    public boolean prove(jBinaryBuiltinPredicateGoal bg) {
+	jTerm sql = bg.term1.getTerm();
+	jTerm result = bg.term2.getTerm();
+	String query = null;
 
-	  prevR.setTail(nlst);
-	  prevR = nlst;
-     }
-    }
-	
- 	if (prevR != null)
-	 prevR.setTail(jNullList.NULL_LIST);
-	else
-	 tmpR = jNullList.NULL_LIST;
+	if (sql.type == iType.TYPE_VARIABLE)
+	    throw new RuntimeException("Query is unbound");
 
-	if (prev == null) 
-     tmp = prev = new jListPair(tmpR,null);
-	else 
-	{jListPair		nlst = new jListPair(tmpR,null);
-	 
-	 prev.setTail(nlst);
-	 prev = nlst;
+	query = sql.toString();
+
+	try {
+	    Statement stmt = jDBConnect.getConnection().createStatement();
+	    ResultSet rs = stmt.executeQuery(query);
+	    ResultSetMetaData rsmd = rs.getMetaData();
+	    int columns = rsmd.getColumnCount();
+	    jTerm tmp = null;
+	    jListPair prev = null;
+
+	    while (rs.next()) {
+		jTerm tmpR = null, tR;
+		jListPair prevR = null;
+
+		for (int i = 1; i <= columns; i++) {
+		    switch (rsmd.getColumnType(i)) {
+		    case Types.BIGINT:
+		    case Types.SMALLINT:
+		    case Types.TINYINT:
+		    case Types.INTEGER:
+			tR = new jInteger(rs.getInt(i));
+			break;
+		    case Types.REAL:
+		    case Types.FLOAT:
+		    case Types.DOUBLE:
+		    case Types.NUMERIC:
+		    case Types.DECIMAL:
+			tR = new jReal(rs.getFloat(i));
+			break;
+		    default:
+			tR = new jAtom(rs.getString(i));
+		    }
+
+		    if (prevR == null)
+			tmpR = prevR = new jListPair(tR, null);
+		    else {
+			jListPair nlst = new jListPair(tR, null);
+
+			prevR.setTail(nlst);
+			prevR = nlst;
+		    }
+		}
+
+		if (prevR != null)
+		    prevR.setTail(jNullList.NULL_LIST);
+		else
+		    tmpR = jNullList.NULL_LIST;
+
+		if (prev == null)
+		    tmp = prev = new jListPair(tmpR, null);
+		else {
+		    jListPair nlst = new jListPair(tmpR, null);
+
+		    prev.setTail(nlst);
+		    prev = nlst;
+		}
+	    }
+
+	    if (prev != null)
+		prev.setTail(jNullList.NULL_LIST);
+	    else
+		tmp = jNullList.NULL_LIST;
+
+	    return (result.unify(tmp, bg.unified));
+	} catch (Exception ex) {
+	    return false;
 	}
-   }
+    };
 
-   if (prev != null)
-	prev.setTail(jNullList.NULL_LIST);
-   else
-	tmp = jNullList.NULL_LIST;
-
-   return (result.unify(tmp, bg.unified));
-  }
-  catch (Exception ex)
-  {
-   return false;
-  }  
- };
-
- public jBinaryBuiltinPredicate 		duplicate(jTerm l,jTerm r)
- {
-  return new jDBSelect(l,r); 
- };
+    public jBinaryBuiltinPredicate duplicate(jTerm l, jTerm r) {
+	return new jDBSelect(l, r);
+    };
 }
-

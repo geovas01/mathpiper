@@ -42,43 +42,35 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Floor
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
 import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jFloor extends jRealUnaryArithmetic
-{
- public 	jFloor(jTerm r)
- {
-  super(r);
- };
- 
- public String 		getName()
- {
-  return "floor";
- };  
+public class jFloor extends jRealUnaryArithmetic {
+    public jFloor(jTerm r) {
+	super(r);
+    };
 
- protected jUnaryBuiltinPredicate 	duplicate(jTerm r)
- {
-  return new jFloor(r);
- };
- 
- protected int 		operatorInt(int r)
- {
-  return r;
- };
- 
- protected float 	operatorReal(float r)
- {
-  return (float) Math.floor(r);
- };
+    public String getName() {
+	return "floor";
+    };
+
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jFloor(r);
+    };
+
+    protected int operatorInt(int r) {
+	return r;
+    };
+
+    protected float operatorReal(float r) {
+	return (float) Math.floor(r);
+    };
 };
-
-

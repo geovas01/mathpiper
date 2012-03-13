@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	IsList
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -54,29 +54,24 @@ import java.util.*;
 import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
-public class jIsList extends jIsType
-{
- public jIsList(jTerm r)
- {
-  super(r);
- };
+public class jIsList extends jIsType {
+    public jIsList(jTerm r) {
+	super(r);
+    };
 
- public String 		getName()
- {
-  return "list";
- };  
+    public String getName() {
+	return "list";
+    };
 
- protected jUnaryBuiltinPredicate 	duplicate(jTerm r)
- {
-  return new jIsList(r);
- };
- 
- public boolean 	prove(jUnaryOperatorGoal og)
- {jTerm 	r;
-  
-  r = og.rhs.getTerm();
-  
-  return (r.type == TYPE_LIST);
- };
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jIsList(r);
+    };
+
+    public boolean prove(jUnaryOperatorGoal og) {
+	jTerm r;
+
+	r = og.rhs.getTerm();
+
+	return (r.type == TYPE_LIST);
+    };
 };
-

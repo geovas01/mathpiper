@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Animate
 //#########################################################################
- 
+
 package ubc.cs.JLog.Animation;
 
 import java.lang.*;
@@ -56,43 +56,39 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Foundation.*;
 
 /**
-* An animation predicate that supports the creation of animation objects, and
-* provides a way to interact with them.  Its use is documented in the online Help for
-* the JLog Applet (also available in the "animate_predicates.txt" file in the Help folder).
-*
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-abstract public class jAnimate extends jUnaryBuiltinPredicate
-{
- public jAnimate(jTerm t)
- {
-  super(t,TYPE_BUILTINPREDICATE);
- };
-  
- public String 		getName()
- {
-  return "animate";
- };
- 
- abstract public int 		getNumberArguments();
- 
- public void 		addGoals(jGoal g,jVariable[] vars,iGoalStack goals)
- {
-  goals.push(new jAnimateGoal(this,rhs.duplicate(vars)));
- };
+ * An animation predicate that supports the creation of animation objects, and
+ * provides a way to interact with them. Its use is documented in the online
+ * Help for the JLog Applet (also available in the "animate_predicates.txt" file
+ * in the Help folder).
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+abstract public class jAnimate extends jUnaryBuiltinPredicate {
+    public jAnimate(jTerm t) {
+	super(t, TYPE_BUILTINPREDICATE);
+    };
 
- public void 		addGoals(jGoal g,iGoalStack goals)
- {
-  goals.push(new jAnimateGoal(this,rhs));
- };
+    public String getName() {
+	return "animate";
+    };
 
- public boolean 	prove(jAnimateGoal ag,aAnimationEnvironment ae)
- {
-  action(ae,aAttributeTranslation.convertToTerms(ag.term,getNumberArguments()));
-  return true;
- };
- 
- abstract protected void 	action(aAnimationEnvironment ae,jTerm[] terms);
- 
+    abstract public int getNumberArguments();
+
+    public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+	goals.push(new jAnimateGoal(this, rhs.duplicate(vars)));
+    };
+
+    public void addGoals(jGoal g, iGoalStack goals) {
+	goals.push(new jAnimateGoal(this, rhs));
+    };
+
+    public boolean prove(jAnimateGoal ag, aAnimationEnvironment ae) {
+	action(ae, aAttributeTranslation.convertToTerms(ag.term,
+		getNumberArguments()));
+	return true;
+    };
+
+    abstract protected void action(aAnimationEnvironment ae, jTerm[] terms);
+
 };

@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	OperatorGoal
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins.Goals;
 
 import java.lang.*;
@@ -55,58 +55,51 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.*;
 
-public class jOperatorGoal extends jGoal
-{
- protected jOperator 			op;
+public class jOperatorGoal extends jGoal {
+    protected jOperator op;
 
- // for use by operators
- public jTerm 				lhs,rhs;
+    // for use by operators
+    public jTerm lhs, rhs;
 
- public 	jOperatorGoal(jOperator o,jTerm l,jTerm r)
- {
-  op = o;
-  lhs = l;
-  rhs = r;
- };
- 
- public boolean 	prove(iGoalStack goals,iGoalStack proved)
- {
-  if (op.prove(this))
-  {
-   proved.push(this);
-   return true;
-  }
-  else
-  {
-   goals.push(this); // a retry that follows may need a node to remove or retry
-   return false;
-  }
- };
+    public jOperatorGoal(jOperator o, jTerm l, jTerm r) {
+	op = o;
+	lhs = l;
+	rhs = r;
+    };
 
- public boolean 	retry(iGoalStack goals,iGoalStack proved)
- {
-  // by default, we assume that builtins only produce one result.
-  
-  goals.push(this); // a retry that follows may need a node to remove or retry
-  return false;
- }; 
+    public boolean prove(iGoalStack goals, iGoalStack proved) {
+	if (op.prove(this)) {
+	    proved.push(this);
+	    return true;
+	} else {
+	    goals.push(this); // a retry that follows may need a node to remove
+			      // or retry
+	    return false;
+	}
+    };
 
- public String 		getName() 
- {
-  return op.getName();
- };
- 
- public int 		getArity() 
- {
-  return op.getArity();
- };
- 
- public String 		toString()
- {StringBuffer 	sb = new StringBuffer();
-   
-  sb.append(getName()+"/"+String.valueOf(getArity())+" goal: ");
-  sb.append(getName()+"("+lhs.toString()+","+rhs.toString()+")");
-  
-  return sb.toString();
- };
+    public boolean retry(iGoalStack goals, iGoalStack proved) {
+	// by default, we assume that builtins only produce one result.
+
+	goals.push(this); // a retry that follows may need a node to remove or
+			  // retry
+	return false;
+    };
+
+    public String getName() {
+	return op.getName();
+    };
+
+    public int getArity() {
+	return op.getArity();
+    };
+
+    public String toString() {
+	StringBuffer sb = new StringBuffer();
+
+	sb.append(getName() + "/" + String.valueOf(getArity()) + " goal: ");
+	sb.append(getName() + "(" + lhs.toString() + "," + rhs.toString() + ")");
+
+	return sb.toString();
+    };
 };

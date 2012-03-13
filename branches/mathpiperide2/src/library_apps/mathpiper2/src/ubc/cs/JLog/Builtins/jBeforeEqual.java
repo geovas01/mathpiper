@@ -42,37 +42,31 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	BeforeEqual
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
 import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jBeforeEqual extends jComparison
-{
- public jBeforeEqual(jTerm l,jTerm r)
- {
-  super(l,r);
- };
+public class jBeforeEqual extends jComparison {
+    public jBeforeEqual(jTerm l, jTerm r) {
+	super(l, r);
+    };
 
- public String 		getName()
- {
-  return "@=<";
- };  
+    public String getName() {
+	return "@=<";
+    };
 
- protected jBinaryBuiltinPredicate 	duplicate(jTerm l,jTerm r)
- {
-  return new jBeforeEqual(l,r);
- };
- 
- protected boolean 	compareOrder(jTerm l,jTerm r)
- {
-  return l.compare(r,false) != GREATER_THAN;
- };
+    protected jBinaryBuiltinPredicate duplicate(jTerm l, jTerm r) {
+	return new jBeforeEqual(l, r);
+    };
+
+    protected boolean compareOrder(jTerm l, jTerm r) {
+	return l.compare(r, false) != GREATER_THAN;
+    };
 };
-

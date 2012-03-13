@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Animate Set Magnification
 //#########################################################################
- 
+
 package ubc.cs.JLog.Animation;
 
 import java.lang.*;
@@ -54,32 +54,26 @@ import java.util.*;
 import java.awt.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jAnimate_setmagnify extends jAnimate
-{
- public jAnimate_setmagnify(jTerm t)
- {
-  super(t);
- };
-  
- public String 		getName()
- {
-  return "animate<setmagnify>";
- };
- 
- public int 		getNumberArguments()
- {
-  return 1;
- };
- 
- protected jUnaryBuiltinPredicate 		duplicate(jTerm r)
- {
-  return new jAnimate_setmagnify(r); 
- };
- 
- protected void 	action(aAnimationEnvironment ae,jTerm[] terms)
- {float 	mag = aAttributeTranslation.convertToFloat(terms[0],true);
- 
-  ae.setMagnification(mag);
- };
-};
+public class jAnimate_setmagnify extends jAnimate {
+    public jAnimate_setmagnify(jTerm t) {
+	super(t);
+    };
 
+    public String getName() {
+	return "animate<setmagnify>";
+    };
+
+    public int getNumberArguments() {
+	return 1;
+    };
+
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jAnimate_setmagnify(r);
+    };
+
+    protected void action(aAnimationEnvironment ae, jTerm[] terms) {
+	float mag = aAttributeTranslation.convertToFloat(terms[0], true);
+
+	ae.setMagnification(mag);
+    };
+};

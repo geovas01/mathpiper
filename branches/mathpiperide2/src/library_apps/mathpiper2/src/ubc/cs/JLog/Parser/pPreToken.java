@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	pPreToken
 //#########################################################################
@@ -53,67 +53,56 @@ import java.util.*;
 import java.lang.*;
 
 /**
-* Simple token category used to represent the results from the tokenizer tables.  
-*  
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-class pPreToken
-{
- protected String 		token = "";
- protected int 			position = 0;
- protected int 			type = pTokenizerTable.TOKEN_UNKNOWN;
+ * Simple token category used to represent the results from the tokenizer
+ * tables.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+class pPreToken {
+    protected String token = "";
+    protected int position = 0;
+    protected int type = pTokenizerTable.TOKEN_UNKNOWN;
 
- public pPreToken()
- {
- };
- 
- public pPreToken(String s)
- {
-  token = s;
- };
- 
- public pPreToken(int type,int pos)
- {
-  this.type = type;
-  this.position = pos;
- };
- 
- public pPreToken(String s,int type,int pos)
- {
-  token = s;
-  this.type = type;
-  this.position = pos;
- };
- 
- public String 		getToken()
- {
-  return token;
- };
- 
- public void 		setToken(String s)
- {
-  token = s;
- };
- 
- public int 		getType()
- {
-  return type;
- };
- 
- public void 		setType(int t)
- {
-  type = t;
- };
- 
- public int 		getPosition()
- {
-  return position;
- };
+    public pPreToken() {
+    };
 
- public void 		setPosition(int p)
- {
-  position = p;
- };
+    public pPreToken(String s) {
+	token = s;
+    };
+
+    public pPreToken(int type, int pos) {
+	this.type = type;
+	this.position = pos;
+    };
+
+    public pPreToken(String s, int type, int pos) {
+	token = s;
+	this.type = type;
+	this.position = pos;
+    };
+
+    public String getToken() {
+	return token;
+    };
+
+    public void setToken(String s) {
+	token = s;
+    };
+
+    public int getType() {
+	return type;
+    };
+
+    public void setType(int t) {
+	type = t;
+    };
+
+    public int getPosition() {
+	return position;
+    };
+
+    public void setPosition(int p) {
+	position = p;
+    };
 };
-

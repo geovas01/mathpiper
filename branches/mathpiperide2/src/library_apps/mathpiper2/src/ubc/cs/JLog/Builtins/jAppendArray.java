@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	AppendArray
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -55,55 +55,50 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
-public class jAppendArray extends jBinaryBuiltinPredicate
-{
- /**
-  * Constructor for <code>jAppendArray</code>.
-  *
-  * @param l 	The array term (should be bound to CompoundTerm before prove).
-  * @param r 	The term to add to the end of the array.
-  * 			
-  */
- public jAppendArray(jTerm l,jTerm r)
- {
-  super(l,r,TYPE_BUILTINPREDICATE);
- };
-  
- public String 		getName()
- {
-  return "APPENDARRAY";
- };
- 
- public final boolean 	prove(jAppendArrayGoal aag)
- {jTerm 	l,r;
-  
-  l = aag.lhs.getTerm();
-  r = aag.rhs.getTerm().copy();
-   
-  if (l instanceof jCompoundTerm)
-  {jCompoundTerm 	ct = (jCompoundTerm) l;
-  
-   ct.addTerm(r);
-  }
-  else
-   throw new ExpectedCompoundTermException();
-   
-  return true;
- };
+public class jAppendArray extends jBinaryBuiltinPredicate {
+    /**
+     * Constructor for <code>jAppendArray</code>.
+     * 
+     * @param l
+     *            The array term (should be bound to CompoundTerm before prove).
+     * @param r
+     *            The term to add to the end of the array.
+     * 
+     */
+    public jAppendArray(jTerm l, jTerm r) {
+	super(l, r, TYPE_BUILTINPREDICATE);
+    };
 
- public void 		addGoals(jGoal g,jVariable[] vars,iGoalStack goals)
- {
-  goals.push(new jAppendArrayGoal(this,lhs.duplicate(vars),rhs.duplicate(vars)));
- }; 
+    public String getName() {
+	return "APPENDARRAY";
+    };
 
- public void 		addGoals(jGoal g,iGoalStack goals)
- {
-  goals.push(new jAppendArrayGoal(this,lhs,rhs));
- }; 
+    public final boolean prove(jAppendArrayGoal aag) {
+	jTerm l, r;
 
- public jBinaryBuiltinPredicate 		duplicate(jTerm l,jTerm r)
- {
-  return new jAppendArray(l,r); 
- };
+	l = aag.lhs.getTerm();
+	r = aag.rhs.getTerm().copy();
+
+	if (l instanceof jCompoundTerm) {
+	    jCompoundTerm ct = (jCompoundTerm) l;
+
+	    ct.addTerm(r);
+	} else
+	    throw new ExpectedCompoundTermException();
+
+	return true;
+    };
+
+    public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+	goals.push(new jAppendArrayGoal(this, lhs.duplicate(vars), rhs
+		.duplicate(vars)));
+    };
+
+    public void addGoals(jGoal g, iGoalStack goals) {
+	goals.push(new jAppendArrayGoal(this, lhs, rhs));
+    };
+
+    public jBinaryBuiltinPredicate duplicate(jTerm l, jTerm r) {
+	return new jAppendArray(l, r);
+    };
 };
-

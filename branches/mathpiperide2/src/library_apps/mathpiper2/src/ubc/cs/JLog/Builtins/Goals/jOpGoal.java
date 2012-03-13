@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	OpGoal
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins.Goals;
 
 import java.lang.*;
@@ -56,144 +56,136 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Parser.*;
 import ubc.cs.JLog.Builtins.*;
 
-public class jOpGoal extends jGoal
-{
- protected jTerm 			priority,specifier,operation;
- 
- public 	jOpGoal(jTerm t1,jTerm t2,jTerm t3)
- {
-  priority = t1;
-  specifier = t2;
-  operation = t3;
- };
+public class jOpGoal extends jGoal {
+    protected jTerm priority, specifier, operation;
 
- public boolean 	prove(iGoalStack goals,iGoalStack proved)
- {int 		pri;
-  int 		stype;
-  
-  pri = getPriority(priority.getValue());
-  stype = getSpecifier(specifier.getTerm());
-  
-  {Thread 		t;
-  
-   t = Thread.currentThread();
-  
-   if (t instanceof jPrologServiceThread)
-   {jPrologServiceThread		pst = (jPrologServiceThread) t;
-    jPrologServices				prolog = pst.getPrologServices();
-    pOperatorRegistry 			registry = prolog.getOperatorRegistry();
-    
-    registerOperations(registry,pri,stype);
-    
-    proved.push(this);
-    return true;
-   }
-   else
-   {
-    goals.push(this); // a retry that follows may need a node to remove or retry
-    return false;
-   } 
-  }
- };
+    public jOpGoal(jTerm t1, jTerm t2, jTerm t3) {
+	priority = t1;
+	specifier = t2;
+	operation = t3;
+    };
 
- public boolean 	retry(iGoalStack goals,iGoalStack proved)
- {
-  goals.push(this); // a retry that follows may need a node to remove or retry
-  return false;
- }; 
- 
- protected int 			getPriority(jTerm t)
- {
-  if (t.type == jType.TYPE_INTEGER)
-  {int 	value;
-   
-   value = ((jInteger) t).getIntegerValue();
-   
-   if (value < 0 || value > 1200)
-    throw new InvalidOpArgumentException("Priority number in 0..1200 range required.");
-   
-   return value; 
-  }
-  else
-   throw new InvalidOpArgumentException("Priority number required.");
- };
+    public boolean prove(iGoalStack goals, iGoalStack proved) {
+	int pri;
+	int stype;
 
- protected int 			getSpecifier(jTerm t)
- {
-  if (t.type == jType.TYPE_ATOM)
-  {String 	value;
-   
-   value = t.getName();
-   
-   if (value.equalsIgnoreCase("FX"))
-    return pOperatorEntry.FX;
-   if (value.equalsIgnoreCase("FY"))
-    return pOperatorEntry.FY;
-   if (value.equalsIgnoreCase("XFX"))
-    return pOperatorEntry.XFX;
-   if (value.equalsIgnoreCase("XFY"))
-    return pOperatorEntry.XFY;
-   if (value.equalsIgnoreCase("YFX"))
-    return pOperatorEntry.YFX;
-   if (value.equalsIgnoreCase("XF"))
-    return pOperatorEntry.XF;
-   if (value.equalsIgnoreCase("YF"))
-    return pOperatorEntry.YF;
-   
-   throw new InvalidOpArgumentException("'fx','fy','xfx','xfy','yfx','xf' or 'yf' specifier required.");
-  }
-  else
-   throw new InvalidOpArgumentException("Specifier atom required.");
- };
+	pri = getPriority(priority.getValue());
+	stype = getSpecifier(specifier.getTerm());
 
- protected void 		registerOperations(pOperatorRegistry registry,int pri,int stype)
- {jTerm 	t = operation.getTerm();
+	{
+	    Thread t;
 
-  do
-  {
-   if (t.type == jType.TYPE_ATOM)
-   {
-    registerOperation(t,registry,pri,stype);
-    break;
-   }
-   else if (t.type == jType.TYPE_LIST)
-   {jListPair 	tl = (jListPair) t;
+	    t = Thread.currentThread();
 
-    registerOperation(tl.getHead(),registry,pri,stype);
-   
-    t = tl.getTail();
-   }
-   else
-    throw new InvalidOpArgumentException("Operator name atom required.");
-  } while (!(t instanceof jNullList));
- };
- 
- protected void 		registerOperation(jTerm t,pOperatorRegistry registry,int pri,int stype)
- {
-  if (t.type == jType.TYPE_ATOM)
-   registry.addOperator(new pPredicateOperatorEntry(t.getName(),stype,pri));
-  else
-   throw new InvalidOpArgumentException("Operator name atom required.");
- };
+	    if (t instanceof jPrologServiceThread) {
+		jPrologServiceThread pst = (jPrologServiceThread) t;
+		jPrologServices prolog = pst.getPrologServices();
+		pOperatorRegistry registry = prolog.getOperatorRegistry();
 
- public String 		getName() 
- {
-  return "op";
- };
- 
- public int 		getArity() 
- {
-  return 3;
- };
- 
- public String 		toString()
- {StringBuffer 	sb = new StringBuffer();
-   
-  sb.append(getName()+"/"+String.valueOf(getArity())+" goal: ");
-  sb.append(getName()+"("+priority.toString()+","+specifier.toString()+","+operation.toString()+")");
+		registerOperations(registry, pri, stype);
 
-  return sb.toString();
- };
+		proved.push(this);
+		return true;
+	    } else {
+		goals.push(this); // a retry that follows may need a node to
+				  // remove or retry
+		return false;
+	    }
+	}
+    };
+
+    public boolean retry(iGoalStack goals, iGoalStack proved) {
+	goals.push(this); // a retry that follows may need a node to remove or
+			  // retry
+	return false;
+    };
+
+    protected int getPriority(jTerm t) {
+	if (t.type == jType.TYPE_INTEGER) {
+	    int value;
+
+	    value = ((jInteger) t).getIntegerValue();
+
+	    if (value < 0 || value > 1200)
+		throw new InvalidOpArgumentException(
+			"Priority number in 0..1200 range required.");
+
+	    return value;
+	} else
+	    throw new InvalidOpArgumentException("Priority number required.");
+    };
+
+    protected int getSpecifier(jTerm t) {
+	if (t.type == jType.TYPE_ATOM) {
+	    String value;
+
+	    value = t.getName();
+
+	    if (value.equalsIgnoreCase("FX"))
+		return pOperatorEntry.FX;
+	    if (value.equalsIgnoreCase("FY"))
+		return pOperatorEntry.FY;
+	    if (value.equalsIgnoreCase("XFX"))
+		return pOperatorEntry.XFX;
+	    if (value.equalsIgnoreCase("XFY"))
+		return pOperatorEntry.XFY;
+	    if (value.equalsIgnoreCase("YFX"))
+		return pOperatorEntry.YFX;
+	    if (value.equalsIgnoreCase("XF"))
+		return pOperatorEntry.XF;
+	    if (value.equalsIgnoreCase("YF"))
+		return pOperatorEntry.YF;
+
+	    throw new InvalidOpArgumentException(
+		    "'fx','fy','xfx','xfy','yfx','xf' or 'yf' specifier required.");
+	} else
+	    throw new InvalidOpArgumentException("Specifier atom required.");
+    };
+
+    protected void registerOperations(pOperatorRegistry registry, int pri,
+	    int stype) {
+	jTerm t = operation.getTerm();
+
+	do {
+	    if (t.type == jType.TYPE_ATOM) {
+		registerOperation(t, registry, pri, stype);
+		break;
+	    } else if (t.type == jType.TYPE_LIST) {
+		jListPair tl = (jListPair) t;
+
+		registerOperation(tl.getHead(), registry, pri, stype);
+
+		t = tl.getTail();
+	    } else
+		throw new InvalidOpArgumentException(
+			"Operator name atom required.");
+	} while (!(t instanceof jNullList));
+    };
+
+    protected void registerOperation(jTerm t, pOperatorRegistry registry,
+	    int pri, int stype) {
+	if (t.type == jType.TYPE_ATOM)
+	    registry.addOperator(new pPredicateOperatorEntry(t.getName(),
+		    stype, pri));
+	else
+	    throw new InvalidOpArgumentException("Operator name atom required.");
+    };
+
+    public String getName() {
+	return "op";
+    };
+
+    public int getArity() {
+	return 3;
+    };
+
+    public String toString() {
+	StringBuffer sb = new StringBuffer();
+
+	sb.append(getName() + "/" + String.valueOf(getArity()) + " goal: ");
+	sb.append(getName() + "(" + priority.toString() + ","
+		+ specifier.toString() + "," + operation.toString() + ")");
+
+	return sb.toString();
+    };
 };
-
- 

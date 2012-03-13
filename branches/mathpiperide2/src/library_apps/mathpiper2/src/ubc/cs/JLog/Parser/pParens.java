@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	pParens
 //#########################################################################
@@ -53,39 +53,32 @@ import java.util.*;
 import java.lang.*;
 import ubc.cs.JLog.Terms.*;
 
-class pParens extends pPacket
-{ 
- protected pPacket 		inside;
- 
- public 	pParens(pStartParen pt,pPacket i)
- {
-  super(pt);
-  inside = i;
- };
- 
- public 	pParens(pStartBrace pt,pPacket i)
- {
-  super(pt);
-  inside = i;
- };
- 
- public jTerm 		getTerm(pVariableRegistry vars,pTermToPacketHashtable phash)
- {
-  return getInside().getTerm(vars,phash);
- };
+class pParens extends pPacket {
+    protected pPacket inside;
 
- public pPacket 	getInside()
- {
-  if (inside == null)
-   throw new SyntaxErrorException("Term required after '(' at ",
-                                   token.getPosition(),token.getLine(),token.getCharPos()); 
-  return inside;
- };
+    public pParens(pStartParen pt, pPacket i) {
+	super(pt);
+	inside = i;
+    };
 
- public void 		setGeneric(boolean genericpred)
- {
-  if (inside != null)
-   inside.setGeneric(genericpred);
- };
+    public pParens(pStartBrace pt, pPacket i) {
+	super(pt);
+	inside = i;
+    };
+
+    public jTerm getTerm(pVariableRegistry vars, pTermToPacketHashtable phash) {
+	return getInside().getTerm(vars, phash);
+    };
+
+    public pPacket getInside() {
+	if (inside == null)
+	    throw new SyntaxErrorException("Term required after '(' at ",
+		    token.getPosition(), token.getLine(), token.getCharPos());
+	return inside;
+    };
+
+    public void setGeneric(boolean genericpred) {
+	if (inside != null)
+	    inside.setGeneric(genericpred);
+    };
 };
-

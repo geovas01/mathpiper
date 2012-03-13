@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	TermToListGoal
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins.Goals;
 
 import java.lang.*;
@@ -56,79 +56,72 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Parser.*;
 import ubc.cs.JLog.Builtins.*;
 
-public class jTermToListGoal extends jGoal
-{
- protected jTermToList 		ttl;
- 
- // for use by ttl
- public jTerm 				lhs,rhs;
- public jUnifiedVector 		unified;
- 
- public 	jTermToListGoal(jTermToList t,jTerm l,jTerm r)
- {
-  ttl = t;
-  lhs = l;
-  rhs = r;
-  unified = new jUnifiedVector();
- };
+public class jTermToListGoal extends jGoal {
+    protected jTermToList ttl;
 
- public boolean 	prove(iGoalStack goals,iGoalStack proved)
- {Thread 		t;
-  
-  t = Thread.currentThread();
-  
-  if (t instanceof jPrologServiceThread)
-  {jPrologServiceThread			pst = (jPrologServiceThread) t;
-   jPrologServices				prolog = pst.getPrologServices();
-   pPredicateRegistry 			registry = prolog.getPredicateRegistry();
-   pOperatorRegistry 			oregistry = prolog.getOperatorRegistry();
-    
-   if (ttl.prove(this,registry,oregistry))
-   {
-    proved.push(this);
-    return true;
-   }
-  }
-  {
-   { // we need to initialize goal to potentially restart
-    unified.restoreVariables();
-   }
-   goals.push(this); // a retry that follows may need a node to remove or retry
-   return false;
-  } 
- };
+    // for use by ttl
+    public jTerm lhs, rhs;
+    public jUnifiedVector unified;
 
- public boolean 	retry(iGoalStack goals,iGoalStack proved)
- {
-  unified.restoreVariables();
-  
-  goals.push(this); // a retry that follows may need a node to remove or retry
-  return false;
- }; 
- 
- public void 	internal_restore(iGoalStack goals)
- {
-  unified.restoreVariables();
- };
+    public jTermToListGoal(jTermToList t, jTerm l, jTerm r) {
+	ttl = t;
+	lhs = l;
+	rhs = r;
+	unified = new jUnifiedVector();
+    };
 
- public String 		getName() 
- {
-  return ttl.getName();
- };
- 
- public int 		getArity() 
- {
-  return ttl.getArity();
- };
- 
- public String 		toString()
- {StringBuffer 	sb = new StringBuffer();
-   
-  sb.append(getName()+"/"+String.valueOf(getArity())+" goal: ");
-  sb.append(getName()+"("+lhs.toString()+","+rhs.toString()+")");
-  
-  return sb.toString();
- };
+    public boolean prove(iGoalStack goals, iGoalStack proved) {
+	Thread t;
+
+	t = Thread.currentThread();
+
+	if (t instanceof jPrologServiceThread) {
+	    jPrologServiceThread pst = (jPrologServiceThread) t;
+	    jPrologServices prolog = pst.getPrologServices();
+	    pPredicateRegistry registry = prolog.getPredicateRegistry();
+	    pOperatorRegistry oregistry = prolog.getOperatorRegistry();
+
+	    if (ttl.prove(this, registry, oregistry)) {
+		proved.push(this);
+		return true;
+	    }
+	}
+	{
+	    { // we need to initialize goal to potentially restart
+		unified.restoreVariables();
+	    }
+	    goals.push(this); // a retry that follows may need a node to remove
+			      // or retry
+	    return false;
+	}
+    };
+
+    public boolean retry(iGoalStack goals, iGoalStack proved) {
+	unified.restoreVariables();
+
+	goals.push(this); // a retry that follows may need a node to remove or
+			  // retry
+	return false;
+    };
+
+    public void internal_restore(iGoalStack goals) {
+	unified.restoreVariables();
+    };
+
+    public String getName() {
+	return ttl.getName();
+    };
+
+    public int getArity() {
+	return ttl.getArity();
+    };
+
+    public String toString() {
+	StringBuffer sb = new StringBuffer();
+
+	sb.append(getName() + "/" + String.valueOf(getArity()) + " goal: ");
+	sb.append(getName() + "(" + lhs.toString() + "," + rhs.toString() + ")");
+
+	return sb.toString();
+    };
 };
-
- 

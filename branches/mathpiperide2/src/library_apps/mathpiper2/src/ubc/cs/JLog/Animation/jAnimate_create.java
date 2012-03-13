@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Animate Create
 //#########################################################################
- 
+
 package ubc.cs.JLog.Animation;
 
 import java.lang.*;
@@ -55,57 +55,48 @@ import java.awt.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jAnimate_create extends jAnimate
-{
- public jAnimate_create(jTerm t)
- {
-  super(t);
- };
-  
- public String 		getName()
- {
-  return "animate<create>";
- };
- 
- public int 		getNumberArguments()
- {
-  return 3;
- };
- 
- protected jUnaryBuiltinPredicate 		duplicate(jTerm r)
- {
-  return new jAnimate_create(r); 
- };
+public class jAnimate_create extends jAnimate {
+    public jAnimate_create(jTerm t) {
+	super(t);
+    };
 
- public boolean 	prove(jAnimateGoal ag,aAnimationEnvironment ae)
- {
-  return action(ae,aAttributeTranslation.convertToTerms(ag.term),ag.unified);
- };
+    public String getName() {
+	return "animate<create>";
+    };
 
- protected boolean 	action(aAnimationEnvironment ae,jTerm[] terms,jUnifiedVector uv)
- {
-  if (terms.length >= getNumberArguments())
-  {String 			name = aAttributeTranslation.convertToString(terms[0]);
-   int 				level = aAttributeTranslation.convertToInt(terms[1],false);
-   int 				views = aAttributeTranslation.convertToInt(terms[2],false);
-   aAnimationObject obj;
-   
-   ae.addObject(obj = new aAnimationObject(ae,name,level,views)); 
+    public int getNumberArguments() {
+	return 3;
+    };
 
-   if (terms.length >= getNumberArguments() + 1)
-   {
-    return terms[3].unify(new jObject(obj),uv);
-   }
-   else
-    return true;
-  }
-  else
-   throw new InvalidAnimationAPIException("Arguments missing for animation predicate.");
- };
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jAnimate_create(r);
+    };
 
- protected void 	action(aAnimationEnvironment ae,jTerm[] terms)
- {
-  // do nothing
- }; 
+    public boolean prove(jAnimateGoal ag, aAnimationEnvironment ae) {
+	return action(ae, aAttributeTranslation.convertToTerms(ag.term),
+		ag.unified);
+    };
+
+    protected boolean action(aAnimationEnvironment ae, jTerm[] terms,
+	    jUnifiedVector uv) {
+	if (terms.length >= getNumberArguments()) {
+	    String name = aAttributeTranslation.convertToString(terms[0]);
+	    int level = aAttributeTranslation.convertToInt(terms[1], false);
+	    int views = aAttributeTranslation.convertToInt(terms[2], false);
+	    aAnimationObject obj;
+
+	    ae.addObject(obj = new aAnimationObject(ae, name, level, views));
+
+	    if (terms.length >= getNumberArguments() + 1) {
+		return terms[3].unify(new jObject(obj), uv);
+	    } else
+		return true;
+	} else
+	    throw new InvalidAnimationAPIException(
+		    "Arguments missing for animation predicate.");
+    };
+
+    protected void action(aAnimationEnvironment ae, jTerm[] terms) {
+	// do nothing
+    };
 };
-

@@ -42,51 +42,44 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	RepeatGoal
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins.Goals;
 
 import java.lang.*;
 import java.util.*;
 import ubc.cs.JLog.Foundation.*;
 
-public class jRepeatGoal extends jGoal
-{
- public 	jRepeatGoal()
- {
- };
- 
- public boolean 	prove(iGoalStack goals,iGoalStack proved)
- {
-  proved.push(this);
-  return true;
- };
+public class jRepeatGoal extends jGoal {
+    public jRepeatGoal() {
+    };
 
- public boolean 	retry(iGoalStack goals,iGoalStack proved)
- {
-  goals.push(this); // the remove that follows may need a node to remove
-  return true;
- }; 
+    public boolean prove(iGoalStack goals, iGoalStack proved) {
+	proved.push(this);
+	return true;
+    };
 
- public String 		getName() 
- {
-  return "repeat";
- };
- 
- public int 		getArity() 
- {
-  return 0;
- };
- 
- public String 		toString()
- {StringBuffer 	sb = new StringBuffer();
-   
-  sb.append(getName()+"/"+String.valueOf(getArity()));
-  
-  return sb.toString();
- };
+    public boolean retry(iGoalStack goals, iGoalStack proved) {
+	goals.push(this); // the remove that follows may need a node to remove
+	return true;
+    };
+
+    public String getName() {
+	return "repeat";
+    };
+
+    public int getArity() {
+	return 0;
+    };
+
+    public String toString() {
+	StringBuffer sb = new StringBuffer();
+
+	sb.append(getName() + "/" + String.valueOf(getArity()));
+
+	return sb.toString();
+    };
 };
-

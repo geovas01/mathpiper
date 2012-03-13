@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	pList
 //#########################################################################
@@ -53,65 +53,57 @@ import java.util.*;
 import java.lang.*;
 import ubc.cs.JLog.Terms.*;
 
-class pList extends pPacket
-{
- protected pPacket 		head,tail;
- 
- public 	pList(pToken pt,pPacket h,pPacket t)
- {
-  super(pt);
-  head = h;
-  tail = t;
- };
- 
- public jTerm 		getTerm(pVariableRegistry vars,pTermToPacketHashtable phash)
- {jTerm 	term;
- 
-  term = makeList(head,tail,vars,phash);
-  phash.putPacket(term,this);
- 
-  return term;
- };
- 
- protected jList 		makeList(pPacket pak1,pPacket pak2,
- 									pVariableRegistry vars,pTermToPacketHashtable phash)
- {jList 			start = null;
-  jListPair 			last = null;
-  
-  if (pak1 == null)
-   return jNullList.NULL_LIST;
-  
-  start = last = new jListPair(null,null);
-  
-  do
-  {
-   if (pak1 instanceof pCons)
-   {
-    last.setHead(((pCons) pak1).getLHS().getTerm(vars,phash));
-    last.setTail(last = new jListPair(null,null));
-    pak1 = ((pCons) pak1).getRHS();
-   }
-   else
-   { 
-    last.setHead(pak1.getTerm(vars,phash));
-    pak1 = null;
-   }
-  } while (pak1 != null);
- 
-  if (pak2 == null)
-   last.setTail(jNullList.NULL_LIST);
-  else
-   last.setTail(pak2.getTerm(vars,phash));
-   
-  return start;
- };
- 
- public void 		setGeneric(boolean genericpred)
- {
-  if (head != null)
-   head.setGeneric(genericpred);
-  if (tail != null)
-   tail.setGeneric(genericpred);
- };
-};
+class pList extends pPacket {
+    protected pPacket head, tail;
 
+    public pList(pToken pt, pPacket h, pPacket t) {
+	super(pt);
+	head = h;
+	tail = t;
+    };
+
+    public jTerm getTerm(pVariableRegistry vars, pTermToPacketHashtable phash) {
+	jTerm term;
+
+	term = makeList(head, tail, vars, phash);
+	phash.putPacket(term, this);
+
+	return term;
+    };
+
+    protected jList makeList(pPacket pak1, pPacket pak2,
+	    pVariableRegistry vars, pTermToPacketHashtable phash) {
+	jList start = null;
+	jListPair last = null;
+
+	if (pak1 == null)
+	    return jNullList.NULL_LIST;
+
+	start = last = new jListPair(null, null);
+
+	do {
+	    if (pak1 instanceof pCons) {
+		last.setHead(((pCons) pak1).getLHS().getTerm(vars, phash));
+		last.setTail(last = new jListPair(null, null));
+		pak1 = ((pCons) pak1).getRHS();
+	    } else {
+		last.setHead(pak1.getTerm(vars, phash));
+		pak1 = null;
+	    }
+	} while (pak1 != null);
+
+	if (pak2 == null)
+	    last.setTail(jNullList.NULL_LIST);
+	else
+	    last.setTail(pak2.getTerm(vars, phash));
+
+	return start;
+    };
+
+    public void setGeneric(boolean genericpred) {
+	if (head != null)
+	    head.setGeneric(genericpred);
+	if (tail != null)
+	    tail.setGeneric(genericpred);
+    };
+};

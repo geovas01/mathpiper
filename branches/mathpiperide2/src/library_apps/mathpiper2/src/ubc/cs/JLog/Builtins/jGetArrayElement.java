@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	GetArrayElement
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -55,62 +55,58 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
-public class jGetArrayElement extends jTrinaryBuiltinPredicate
-{
- /**
-  * Constructor for <code>jGetArrayElement</code>.
-  *
-  * @param t1 	The array term (should be bound to a jCompoundTerm).
-  * @param t2 	The term (should be bound to jInteger) specifying the zero-based element index.
-  * @param t3 	The term representing the element at index t2 in array t1.
-  * 			
-  */
- public jGetArrayElement(jTerm t1,jTerm t2,jTerm t3)
- {
-  super(t1,t2,t3,TYPE_BUILTINPREDICATE);
- };
-  
- public String 		getName()
- {
-  return "GETARRAYELEMENT";
- };
- 
- public final boolean 	prove(jGetArrayElementGoal gaeg)
- {jTerm 	t1,t2,t3;
-  
-  t1 = gaeg.term1.getTerm();
-  t2 = gaeg.term2.getTerm();
-  t3 = gaeg.term3.getTerm().copy();
-   
-  if (t1 instanceof jCompoundTerm)
-  {jCompoundTerm 	ct = (jCompoundTerm) t1;
+public class jGetArrayElement extends jTrinaryBuiltinPredicate {
+    /**
+     * Constructor for <code>jGetArrayElement</code>.
+     * 
+     * @param t1
+     *            The array term (should be bound to a jCompoundTerm).
+     * @param t2
+     *            The term (should be bound to jInteger) specifying the
+     *            zero-based element index.
+     * @param t3
+     *            The term representing the element at index t2 in array t1.
+     * 
+     */
+    public jGetArrayElement(jTerm t1, jTerm t2, jTerm t3) {
+	super(t1, t2, t3, TYPE_BUILTINPREDICATE);
+    };
 
-   if (t2.type == TYPE_INTEGER)
-   {int		index = ((jInteger) t2).getIntegerValue();
-	 
-    return ct.elementAt(index).getTerm().unify(t3,new jUnifiedVector());
-   }
-   else 
-    throw new InvalidArgArgumentException();
-  }
-  else
-   throw new ExpectedCompoundTermException();
- };
+    public String getName() {
+	return "GETARRAYELEMENT";
+    };
 
- public void 		addGoals(jGoal g,jVariable[] vars,iGoalStack goals)
- {
-  goals.push(new jGetArrayElementGoal(this,
-					term1.duplicate(vars),term2.duplicate(vars),term3.duplicate(vars)));
- }; 
+    public final boolean prove(jGetArrayElementGoal gaeg) {
+	jTerm t1, t2, t3;
 
- public void 		addGoals(jGoal g,iGoalStack goals)
- {
-  goals.push(new jGetArrayElementGoal(this,term1,term2,term3));
- }; 
+	t1 = gaeg.term1.getTerm();
+	t2 = gaeg.term2.getTerm();
+	t3 = gaeg.term3.getTerm().copy();
 
- public jTrinaryBuiltinPredicate 		duplicate(jTerm t1,jTerm t2,jTerm t3)
- {
-  return new jGetArrayElement(t1,t2,t3); 
- };
+	if (t1 instanceof jCompoundTerm) {
+	    jCompoundTerm ct = (jCompoundTerm) t1;
+
+	    if (t2.type == TYPE_INTEGER) {
+		int index = ((jInteger) t2).getIntegerValue();
+
+		return ct.elementAt(index).getTerm()
+			.unify(t3, new jUnifiedVector());
+	    } else
+		throw new InvalidArgArgumentException();
+	} else
+	    throw new ExpectedCompoundTermException();
+    };
+
+    public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+	goals.push(new jGetArrayElementGoal(this, term1.duplicate(vars), term2
+		.duplicate(vars), term3.duplicate(vars)));
+    };
+
+    public void addGoals(jGoal g, iGoalStack goals) {
+	goals.push(new jGetArrayElementGoal(this, term1, term2, term3));
+    };
+
+    public jTrinaryBuiltinPredicate duplicate(jTerm t1, jTerm t2, jTerm t3) {
+	return new jGetArrayElement(t1, t2, t3);
+    };
 };
-

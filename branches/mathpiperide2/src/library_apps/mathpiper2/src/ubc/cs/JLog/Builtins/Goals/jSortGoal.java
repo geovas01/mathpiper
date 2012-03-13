@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	SortGoal
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins.Goals;
 
 import java.lang.*;
@@ -55,70 +55,62 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.*;
 
-public class jSortGoal extends jGoal
-{
- protected jSort 		sort;
- 
- // for use by sort
- public jTerm 				lhs,rhs;
- public jUnifiedVector 		unified;
- public boolean 			var_equal;
- 
- public 	jSortGoal(jSort s,jTerm l,jTerm r,boolean ve)
- {
-  sort = s;
-  lhs = l;
-  rhs = r;
-  unified = new jUnifiedVector();
-  var_equal = ve;
- };
- 
- public boolean 	prove(iGoalStack goals,iGoalStack proved)
- {
-  if (sort.prove(this))
-  {
-   proved.push(this);
-   return true;
-  }
-  else
-  {
-   { // we need to initialize goal to potentially restart
-    unified.restoreVariables();
-   }
-   goals.push(this); // a retry that follows may need a node to remove or retry
-   return false;
-  }
- };
+public class jSortGoal extends jGoal {
+    protected jSort sort;
 
- public boolean 	retry(iGoalStack goals,iGoalStack proved)
- {
-  unified.restoreVariables();
-  
-  goals.push(this); // a retry that follows may need a node to remove or retry
-  return false;
- }; 
- 
- public void 	internal_restore(iGoalStack goals)
- {
-  unified.restoreVariables();
- };
+    // for use by sort
+    public jTerm lhs, rhs;
+    public jUnifiedVector unified;
+    public boolean var_equal;
 
- public String 		getName() 
- {
-  return sort.getName();
- };
- 
- public int 		getArity() 
- {
-  return sort.getArity();
- };
- 
- public String 		toString()
- {StringBuffer 	sb = new StringBuffer();
-   
-  sb.append(getName()+"/"+String.valueOf(getArity())+" goal: ");
-  sb.append(getName()+"("+lhs.toString()+","+rhs.toString()+")");
-  
-  return sb.toString();
- };
+    public jSortGoal(jSort s, jTerm l, jTerm r, boolean ve) {
+	sort = s;
+	lhs = l;
+	rhs = r;
+	unified = new jUnifiedVector();
+	var_equal = ve;
+    };
+
+    public boolean prove(iGoalStack goals, iGoalStack proved) {
+	if (sort.prove(this)) {
+	    proved.push(this);
+	    return true;
+	} else {
+	    { // we need to initialize goal to potentially restart
+		unified.restoreVariables();
+	    }
+	    goals.push(this); // a retry that follows may need a node to remove
+			      // or retry
+	    return false;
+	}
+    };
+
+    public boolean retry(iGoalStack goals, iGoalStack proved) {
+	unified.restoreVariables();
+
+	goals.push(this); // a retry that follows may need a node to remove or
+			  // retry
+	return false;
+    };
+
+    public void internal_restore(iGoalStack goals) {
+	unified.restoreVariables();
+    };
+
+    public String getName() {
+	return sort.getName();
+    };
+
+    public int getArity() {
+	return sort.getArity();
+    };
+
+    public String toString() {
+	StringBuffer sb = new StringBuffer();
+
+	sb.append(getName() + "/" + String.valueOf(getArity()) + " goal: ");
+	sb.append(getName() + "(" + lhs.toString() + "," + rhs.toString() + ")");
+
+	return sb.toString();
+    };
 };

@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //##################################################################################
 //	InvalidTraceItemException
 //##################################################################################
@@ -54,8 +54,11 @@ import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
 
-class InvalidTraceItemException extends RuntimeException
-{
- public InvalidTraceItemException() {};
- public InvalidTraceItemException(String s) {super(s);};
+class InvalidTraceItemException extends RuntimeException {
+    public InvalidTraceItemException() {
+    };
+
+    public InvalidTraceItemException(String s) {
+	super(s);
+    };
 }

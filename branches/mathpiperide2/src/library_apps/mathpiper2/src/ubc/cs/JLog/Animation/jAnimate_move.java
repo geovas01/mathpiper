@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Animate Move
 //#########################################################################
- 
+
 package ubc.cs.JLog.Animation;
 
 import java.lang.*;
@@ -54,34 +54,29 @@ import java.util.*;
 import java.awt.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jAnimate_move extends jAnimate
-{
- public jAnimate_move(jTerm t)
- {
-  super(t);
- };
-  
- public String 		getName()
- {
-  return "animate<move>";
- };
- 
- public int 		getNumberArguments()
- {
-  return 3;
- };
- 
- protected jUnaryBuiltinPredicate 		duplicate(jTerm r)
- {
-  return new jAnimate_move(r); 
- };
- 
- protected void 	action(aAnimationEnvironment ae,jTerm[] terms)
- {float 			x = aAttributeTranslation.convertToFloat(terms[1],true); 
-  float				y = aAttributeTranslation.convertToFloat(terms[2],true);
-  aAnimationObject 	obj = aAttributeTranslation.convertToAnimationObject(terms[0],ae);
-  
-  obj.setPosition(x,y);
- };
-};
+public class jAnimate_move extends jAnimate {
+    public jAnimate_move(jTerm t) {
+	super(t);
+    };
 
+    public String getName() {
+	return "animate<move>";
+    };
+
+    public int getNumberArguments() {
+	return 3;
+    };
+
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jAnimate_move(r);
+    };
+
+    protected void action(aAnimationEnvironment ae, jTerm[] terms) {
+	float x = aAttributeTranslation.convertToFloat(terms[1], true);
+	float y = aAttributeTranslation.convertToFloat(terms[2], true);
+	aAnimationObject obj = aAttributeTranslation.convertToAnimationObject(
+		terms[0], ae);
+
+	obj.setPosition(x, y);
+    };
+};

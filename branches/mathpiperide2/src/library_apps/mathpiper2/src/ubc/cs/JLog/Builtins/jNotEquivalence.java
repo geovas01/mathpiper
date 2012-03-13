@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	NotEquivalent
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -54,26 +54,20 @@ import java.util.*;
 import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
-public class jNotEquivalence extends jEquivalence
-{
- public jNotEquivalence(jTerm l,jTerm r)
- {
-  super(l,r);
- };
-  
- public String 		getName()
- {
-  return "\\=@=";
- };
- 
- public boolean 	prove(jEquivalenceGoal ig)
- {
-  return !super.prove(ig);
- };
+public class jNotEquivalence extends jEquivalence {
+    public jNotEquivalence(jTerm l, jTerm r) {
+	super(l, r);
+    };
 
- public jBinaryBuiltinPredicate 		duplicate(jTerm l,jTerm r)
- {
-  return new jNotEquivalence(l,r); 
- };
+    public String getName() {
+	return "\\=@=";
+    };
+
+    public boolean prove(jEquivalenceGoal ig) {
+	return !super.prove(ig);
+    };
+
+    public jBinaryBuiltinPredicate duplicate(jTerm l, jTerm r) {
+	return new jNotEquivalence(l, r);
+    };
 };
-

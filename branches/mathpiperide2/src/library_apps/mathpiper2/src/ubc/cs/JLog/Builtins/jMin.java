@@ -42,47 +42,39 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Min
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
 import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jMin extends jArithmetic
-{
- public 	jMin(jTerm l,jTerm r)
- {
-  super(l,r);
- };
- 
- public String 		getName()
- {
-  return "min";
- };  
+public class jMin extends jArithmetic {
+    public jMin(jTerm l, jTerm r) {
+	super(l, r);
+    };
 
- protected jBinaryBuiltinPredicate 	duplicate(jTerm l,jTerm r)
- {
-  return new jMin(l,r);
- };
- 
- protected int 		operatorInt(int l,int r)
- {
-  return (l < r ? l : r);
- };
- 
- protected float 	operatorReal(float l,float r)
- {
-  return (l < r ? l : r);
- };
- 
- public int 		getPriority()
- {
-  return iArithmetic.MAX;
- };
+    public String getName() {
+	return "min";
+    };
+
+    protected jBinaryBuiltinPredicate duplicate(jTerm l, jTerm r) {
+	return new jMin(l, r);
+    };
+
+    protected int operatorInt(int l, int r) {
+	return (l < r ? l : r);
+    };
+
+    protected float operatorReal(float l, float r) {
+	return (l < r ? l : r);
+    };
+
+    public int getPriority() {
+	return iArithmetic.MAX;
+    };
 };
-

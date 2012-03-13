@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	jPredicateGoal
 //#########################################################################
@@ -54,123 +54,106 @@ import java.util.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Terms.*;
 
-public final class jPredicateGoal extends jGoal
-{
- protected final static int 	STARTING_RULE = 0;
+public final class jPredicateGoal extends jGoal {
+    protected final static int STARTING_RULE = 0;
 
- protected jRuleDefinitions 	rules;
- protected int 					rule_number = STARTING_RULE;
- protected jGoal 				end_goal = null;
+    protected jRuleDefinitions rules;
+    protected int rule_number = STARTING_RULE;
+    protected jGoal end_goal = null;
 
- // for use by ruledefinitions
- public jCompoundTerm 		input_goal;
- public jCompoundTerm 		rule_goal = null;
- public jUnifiedVector 		unified;
- 
- public 	jPredicateGoal(jRuleDefinitions rs,jCompoundTerm in)
- {
-  rules = rs;
-  input_goal = in;
-  unified = new jUnifiedVector();
- };
- 
- // endgoal is the previous goal on the goalstack.  if endgoal is null, then goalstack
- // was previously empty.
- public final void 		setEndGoal(jGoal goal)
- {
-  end_goal = goal;
- };
- 
- public final int 		getNextRuleNumber()
- {
-  return rule_number++;
- };
- 
- public final int 		getRuleNumber()
- {
-  return rule_number;
- };
- 
- public final jRuleDefinitions		getRules()
- {
-  return rules;
- };
- 
- public boolean 	prove(iGoalStack goals,iGoalStack proved)
- {
-  if (rules.prove(this,goals))
-  {
-   proved.push(this);
-   return true;
-  }
-  else
-  {
-   { // we need to initialize goal to potentially restart
-    rule_number = STARTING_RULE; 
-    unified.restoreVariables();
-   }
-   goals.push(this); // a retry that follows may need a node to remove or retry
-   return false;
-  }
- };
+    // for use by ruledefinitions
+    public jCompoundTerm input_goal;
+    public jCompoundTerm rule_goal = null;
+    public jUnifiedVector unified;
 
- public boolean 	retry(iGoalStack goals,iGoalStack proved)
- {
-  internal_remove(goals);
-  unified.restoreVariables();
-  
-  if (rules.retry(this))
-  {
-   goals.push(this);
-   return true;
-  }
-  else
-  {
-   { // we need to initialize goal to potentially restart
-    rule_number = STARTING_RULE; 
-   }
-   goals.push(this); // a retry that follows may need a node to remove or retry
-   return false;
-  }
- }; 
- 
- protected final void 	internal_remove(iGoalStack goals)
- {
-  goals.cut(end_goal);
- };
- 
- public final void		internal_restore(iGoalStack goals)
- {
-  goals.cut(end_goal);
+    public jPredicateGoal(jRuleDefinitions rs, jCompoundTerm in) {
+	rules = rs;
+	input_goal = in;
+	unified = new jUnifiedVector();
+    };
 
-  unified.restoreVariables();
-  rule_number = STARTING_RULE;
- };
- 
- public String 		getName()
- {
-  return rules.getName();
- };
- 
- public int 		getArity()
- {
-  return rules.getArity();
- };
- 
- public String 		toString()
- {StringBuffer 	sb = new StringBuffer();
-  int 			rn = rule_number - 1;
-   
-  sb.append(rules.getName()+"/"+String.valueOf(rules.getArity())+" goal: ");
-  sb.append(rules.getName()+input_goal.toString()+" unified: ");
-  if (rule_goal != null)
-  {
-   sb.append(rules.getName() + rule_goal.toString());
-  }
-  else
-   sb.append("not unified");
-  
-  return sb.toString();
- };
+    // endgoal is the previous goal on the goalstack. if endgoal is null, then
+    // goalstack
+    // was previously empty.
+    public final void setEndGoal(jGoal goal) {
+	end_goal = goal;
+    };
+
+    public final int getNextRuleNumber() {
+	return rule_number++;
+    };
+
+    public final int getRuleNumber() {
+	return rule_number;
+    };
+
+    public final jRuleDefinitions getRules() {
+	return rules;
+    };
+
+    public boolean prove(iGoalStack goals, iGoalStack proved) {
+	if (rules.prove(this, goals)) {
+	    proved.push(this);
+	    return true;
+	} else {
+	    { // we need to initialize goal to potentially restart
+		rule_number = STARTING_RULE;
+		unified.restoreVariables();
+	    }
+	    goals.push(this); // a retry that follows may need a node to remove
+			      // or retry
+	    return false;
+	}
+    };
+
+    public boolean retry(iGoalStack goals, iGoalStack proved) {
+	internal_remove(goals);
+	unified.restoreVariables();
+
+	if (rules.retry(this)) {
+	    goals.push(this);
+	    return true;
+	} else {
+	    { // we need to initialize goal to potentially restart
+		rule_number = STARTING_RULE;
+	    }
+	    goals.push(this); // a retry that follows may need a node to remove
+			      // or retry
+	    return false;
+	}
+    };
+
+    protected final void internal_remove(iGoalStack goals) {
+	goals.cut(end_goal);
+    };
+
+    public final void internal_restore(iGoalStack goals) {
+	goals.cut(end_goal);
+
+	unified.restoreVariables();
+	rule_number = STARTING_RULE;
+    };
+
+    public String getName() {
+	return rules.getName();
+    };
+
+    public int getArity() {
+	return rules.getArity();
+    };
+
+    public String toString() {
+	StringBuffer sb = new StringBuffer();
+	int rn = rule_number - 1;
+
+	sb.append(rules.getName() + "/" + String.valueOf(rules.getArity())
+		+ " goal: ");
+	sb.append(rules.getName() + input_goal.toString() + " unified: ");
+	if (rule_goal != null) {
+	    sb.append(rules.getName() + rule_goal.toString());
+	} else
+	    sb.append("not unified");
+
+	return sb.toString();
+    };
 };
-

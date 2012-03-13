@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	jPrologServiceThread
 //#########################################################################
@@ -53,67 +53,62 @@ import java.lang.*;
 import java.util.*;
 
 /**
-* This class provides an independant thread of execution for services using 
-* a <code>jPrologService</code> Prolog proof engine.
-*
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public class jPrologServiceThread extends Thread
-{
- protected jPrologServices 			prolog;
- protected jPrologServiceBroadcaster 		stopped = null;
+ * This class provides an independant thread of execution for services using a
+ * <code>jPrologService</code> Prolog proof engine.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public class jPrologServiceThread extends Thread {
+    protected jPrologServices prolog;
+    protected jPrologServiceBroadcaster stopped = null;
 
- protected boolean 				allow_release;
- 
- public 	jPrologServiceThread(jPrologServices ps)
- {
-  prolog = ps;
-  allow_release = true;
- };
+    protected boolean allow_release;
 
- public jPrologServices 		getPrologServices()
- {
-  return prolog;
- };
- 
- public void 		setStoppedListeners(jPrologServiceBroadcaster s)
- {
-  stopped = s;
- };
+    public jPrologServiceThread(jPrologServices ps) {
+	prolog = ps;
+	allow_release = true;
+    };
 
- // this is a bit of a hack (but stop() is final method).  there is no guarentee that
- // other broadcasted messages (such as end messages) from the run method have already 
- // been sent.
- public void 	broadcasted_stop()
- {
-  if (stopped != null)
-   stopped.broadcastEvent(new jThreadStoppedEvent(this));
+    public jPrologServices getPrologServices() {
+	return prolog;
+    };
 
-  stop();
- };
- 
- public boolean 	isCurrentlyConsulting()
- {
-  return false;
- };
+    public void setStoppedListeners(jPrologServiceBroadcaster s) {
+	stopped = s;
+    };
 
-/**
-* Set the thread release state upon completion.  By default the thread may
-* release itself from <code>jPrologServices</code> when it no longer needs to
-* use its services.  If this thread is being used in sequence (i.e., is
-* being invoked by another worker thread) then it should not initiate release,
-* because the next thread may need Prolog Services.
-* 
-* @param a 		true to allow thread release, false to disallow it. 
-*/
- public void 		setAllowRelease(boolean a)
- {
-  allow_release = a;
- };
+    // this is a bit of a hack (but stop() is final method). there is no
+    // guarentee that
+    // other broadcasted messages (such as end messages) from the run method
+    // have already
+    // been sent.
+    public void broadcasted_stop() {
+	if (stopped != null)
+	    stopped.broadcastEvent(new jThreadStoppedEvent(this));
 
- public void 		printOutput(String s)
- {
-  prolog.printOutput(s);
- };
+	stop();
+    };
+
+    public boolean isCurrentlyConsulting() {
+	return false;
+    };
+
+    /**
+     * Set the thread release state upon completion. By default the thread may
+     * release itself from <code>jPrologServices</code> when it no longer needs
+     * to use its services. If this thread is being used in sequence (i.e., is
+     * being invoked by another worker thread) then it should not initiate
+     * release, because the next thread may need Prolog Services.
+     * 
+     * @param a
+     *            true to allow thread release, false to disallow it.
+     */
+    public void setAllowRelease(boolean a) {
+	allow_release = a;
+    };
+
+    public void printOutput(String s) {
+	prolog.printOutput(s);
+    };
 };

@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Asserta
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -55,31 +55,24 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
-public class jAsserta extends jAssert
-{
- public jAsserta(jTerm t)
- {
-  super(t);
- };
-  
- public String 		getName()
- {
-  return "asserta";
- };
- 
- public void 		addGoals(jGoal g,jVariable[] vars,iGoalStack goals)
- {
-  goals.push(new jAssertGoal(this,rhs.duplicate(vars),FIRST));
- };
+public class jAsserta extends jAssert {
+    public jAsserta(jTerm t) {
+	super(t);
+    };
 
- public void 		addGoals(jGoal g,iGoalStack goals)
- {
-  goals.push(new jAssertGoal(this,rhs,FIRST));
- };
+    public String getName() {
+	return "asserta";
+    };
 
- protected jUnaryBuiltinPredicate 		duplicate(jTerm t)
- {
-  return new jAsserta(t); 
- };
+    public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+	goals.push(new jAssertGoal(this, rhs.duplicate(vars), FIRST));
+    };
+
+    public void addGoals(jGoal g, iGoalStack goals) {
+	goals.push(new jAssertGoal(this, rhs, FIRST));
+    };
+
+    protected jUnaryBuiltinPredicate duplicate(jTerm t) {
+	return new jAsserta(t);
+    };
 };
-

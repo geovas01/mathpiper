@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	pCons
 //#########################################################################
@@ -54,19 +54,15 @@ import java.lang.*;
 import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Terms.Entries.*;
 
-class pCons extends pOperator
-{
- public 	pCons(pConsOperatorEntry op,pToken pt)
- {
-  super(op,pt);
- };
+class pCons extends pOperator {
+    public pCons(pConsOperatorEntry op, pToken pt) {
+	super(op, pt);
+    };
 
- public 	pCons(pConsOperatorEntry op,pToken pt,pPacket l,pPacket r)
- {
-  super(op,pt);
-  
-  setLHS(l);
-  setRHS(r);
- };
+    public pCons(pConsOperatorEntry op, pToken pt, pPacket l, pPacket r) {
+	super(op, pt);
+
+	setLHS(l);
+	setRHS(r);
+    };
 };
-

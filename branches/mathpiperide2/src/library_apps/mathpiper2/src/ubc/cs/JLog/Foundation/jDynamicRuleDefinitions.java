@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	DynamicRuleDefinitions
 //#########################################################################
@@ -55,131 +55,131 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Terms.Goals.*;
 
 /**
- * This class represents an ordered collection of <code>jRule</code>s 
- * of the same name and arity. This is designed for dynamically defined
- * rules that may change during a proof.  There is a performance penalty
- * for using dynamic rules.
- *
- * @author       Glendon Holst
- * @version      %I%, %G%
+ * This class represents an ordered collection of <code>jRule</code>s of the
+ * same name and arity. This is designed for dynamically defined rules that may
+ * change during a proof. There is a performance penalty for using dynamic
+ * rules.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
  */
-public class jDynamicRuleDefinitions extends jRuleDefinitions
-{
- // builtin defaults to false.  A dynamic predicate is no longer a builtin.
- 
-/**
-  * Construct dynamic rule based on name, arity, and vector of rules.  For 
-  * internal duplications purposes.
-  *
-  * @param name  	The name for these rules.
-  * @param arity  	The arity for these rules.
-  * @param v  		The rules vector to duplicate.
-  */
- protected jDynamicRuleDefinitions(String name,int arity,Vector v)
- {
-  rule_name = name;
-  rule_arity = arity;
-  rules = (Vector) v.clone();
- };
+public class jDynamicRuleDefinitions extends jRuleDefinitions {
+    // builtin defaults to false. A dynamic predicate is no longer a builtin.
 
- public jDynamicRuleDefinitions(String name,int arity)
- {
-  super(name,arity);
- };
+    /**
+     * Construct dynamic rule based on name, arity, and vector of rules. For
+     * internal duplications purposes.
+     * 
+     * @param name
+     *            The name for these rules.
+     * @param arity
+     *            The arity for these rules.
+     * @param v
+     *            The rules vector to duplicate.
+     */
+    protected jDynamicRuleDefinitions(String name, int arity, Vector v) {
+	rule_name = name;
+	rule_arity = arity;
+	rules = (Vector) v.clone();
+    };
 
-/**
-  * Construct dynamic rule based on static rule definitions. Converts a 
-  * <code>jRuleDefinition</code> to a dynamic rule definition.
-  * The database should be consulted afterwards and before the next prove.  
-  *
-  * @param rd  		The <code>jRuleDefinitions</code> to duplicate. Argument 
-  * 			should not be used again. to ensure against this, the 
-  * 			dynamic rule takes total ownership of the vector 
-  * 			(leaving <code>rd</code> empty).
-  */
- public jDynamicRuleDefinitions(jRuleDefinitions rd)
- {
-  super(rd.rule_name,rd.rule_arity);
-  rules = rd.rules;
-  rd.clearRules();
- };
+    public jDynamicRuleDefinitions(String name, int arity) {
+	super(name, arity);
+    };
 
- public jPredicateGoal 	createGoal(jCompoundTerm t)
- {
-  return new jPredicateGoal(new jDynamicRuleDefinitions(rule_name,rule_arity,rules),t);
- };
+    /**
+     * Construct dynamic rule based on static rule definitions. Converts a
+     * <code>jRuleDefinition</code> to a dynamic rule definition. The database
+     * should be consulted afterwards and before the next prove.
+     * 
+     * @param rd
+     *            The <code>jRuleDefinitions</code> to duplicate. Argument
+     *            should not be used again. to ensure against this, the dynamic
+     *            rule takes total ownership of the vector (leaving
+     *            <code>rd</code> empty).
+     */
+    public jDynamicRuleDefinitions(jRuleDefinitions rd) {
+	super(rd.rule_name, rd.rule_arity);
+	rules = rd.rules;
+	rd.clearRules();
+    };
 
- public jDynamicRuleDefinitions 	copy()
- {
-  return new jDynamicRuleDefinitions(rule_name,rule_arity,rules);
- };
+    public jPredicateGoal createGoal(jCompoundTerm t) {
+	return new jPredicateGoal(new jDynamicRuleDefinitions(rule_name,
+		rule_arity, rules), t);
+    };
 
-/**
-  * Construct dynamic rule based on name, arity, and vector of rules.  For 
-  * internal duplications purposes.
-  *
-  * @param cg  		The <code>jClauseGoal</code> we are trying to prove.  Contains 
-  * 			an index to the next clause that needs to be proved.
-  * @param h  		The rule head <code>jPredicate</code> of the rule body. Name
-  * 			and arity must match.
-  *
-  * @return  		The next <code>jTerm</code> of the rule base to prove. 
-  * 			null if there are no more terms.
-  */
- public jTerm 		getClause(jClauseGoal cg,jPredicate h)
- {int 				next_rule;
-  jCompoundTerm 	ct;
-  jTerm 			t;
- 
-  if (!(match(h)))
-   return null;
-   
-  ct = h.getArguments();
-   
-  while ((next_rule = cg.getNextRuleNumber()) < rules.size())
-   if ((t = ((jRule) rules.elementAt(next_rule)).getUnifiedBase(ct,cg.unified)) != null) 
-    return t;
+    public jDynamicRuleDefinitions copy() {
+	return new jDynamicRuleDefinitions(rule_name, rule_arity, rules);
+    };
 
-  return null;
- };
-  
-/**
-  * Attempts to retract a rule from the rule definition. Retracted rule must unify
-  * with the provided rule.  All non-retracted rules must be non-unified upon 
-  * completion.
-  *
-  * @param rule  	The <code>jRule</code> of the type we are trying to remove.
-  * @param v  		The variable vector required for unification.
-  *
-  * @return  		true if the rule was retracted, false otherwise.
-  */
- public boolean 		retractUnifyRule(jRule rule,jUnifiedVector v)
- {int 				i,sz = rules.size();
-  jPredicate 		h = rule.getHead();
-  jPredicateTerms 	b = rule.getBase();
-  jRule 			src_rule;
-  
-  if (!match(rule))
-   return false;
-    
-  for (i = 0; i < sz; i++)
-  {
-   src_rule = (jRule) rules.elementAt(i);
-   if (h.unifyArguments(src_rule.getHead().getArguments(),v) && b.unify(src_rule.getBase(),v))
-   {
-    removeRule(src_rule);
-    return true;
-   }
-   else
-    v.restoreVariables();    
-  }
+    /**
+     * Construct dynamic rule based on name, arity, and vector of rules. For
+     * internal duplications purposes.
+     * 
+     * @param cg
+     *            The <code>jClauseGoal</code> we are trying to prove. Contains
+     *            an index to the next clause that needs to be proved.
+     * @param h
+     *            The rule head <code>jPredicate</code> of the rule body. Name
+     *            and arity must match.
+     * 
+     * @return The next <code>jTerm</code> of the rule base to prove. null if
+     *         there are no more terms.
+     */
+    public jTerm getClause(jClauseGoal cg, jPredicate h) {
+	int next_rule;
+	jCompoundTerm ct;
+	jTerm t;
 
-  return false;
- };
-  
- public String			toString()
- {
-  return super.toString() + " (dynamic)";
- };
+	if (!(match(h)))
+	    return null;
+
+	ct = h.getArguments();
+
+	while ((next_rule = cg.getNextRuleNumber()) < rules.size())
+	    if ((t = ((jRule) rules.elementAt(next_rule)).getUnifiedBase(ct,
+		    cg.unified)) != null)
+		return t;
+
+	return null;
+    };
+
+    /**
+     * Attempts to retract a rule from the rule definition. Retracted rule must
+     * unify with the provided rule. All non-retracted rules must be non-unified
+     * upon completion.
+     * 
+     * @param rule
+     *            The <code>jRule</code> of the type we are trying to remove.
+     * @param v
+     *            The variable vector required for unification.
+     * 
+     * @return true if the rule was retracted, false otherwise.
+     */
+    public boolean retractUnifyRule(jRule rule, jUnifiedVector v) {
+	int i, sz = rules.size();
+	jPredicate h = rule.getHead();
+	jPredicateTerms b = rule.getBase();
+	jRule src_rule;
+
+	if (!match(rule))
+	    return false;
+
+	for (i = 0; i < sz; i++) {
+	    src_rule = (jRule) rules.elementAt(i);
+	    if (h.unifyArguments(src_rule.getHead().getArguments(), v)
+		    && b.unify(src_rule.getBase(), v)) {
+		removeRule(src_rule);
+		return true;
+	    } else
+		v.restoreVariables();
+	}
+
+	return false;
+    };
+
+    public String toString() {
+	return super.toString() + " (dynamic)";
+    };
 };
-

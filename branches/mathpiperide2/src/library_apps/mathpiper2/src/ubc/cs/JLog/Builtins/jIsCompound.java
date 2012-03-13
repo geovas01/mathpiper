@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	IsCompound
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -54,32 +54,28 @@ import java.util.*;
 import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
-public class jIsCompound extends jIsType
-{
- public jIsCompound(jTerm r)
- {
-  super(r);
- };
+public class jIsCompound extends jIsType {
+    public jIsCompound(jTerm r) {
+	super(r);
+    };
 
- public String 		getName()
- {
-  return "compound";
- };  
+    public String getName() {
+	return "compound";
+    };
 
- protected jUnaryBuiltinPredicate 	duplicate(jTerm r)
- {
-  return new jIsCompound(r);
- };
- 
- public boolean 	prove(jUnaryOperatorGoal og)
- {jTerm 	r;
-  
-  r = og.rhs.getTerm();
-  
-  if ((r instanceof jCompoundTerm) || (r instanceof jListPair) || (r instanceof jConjunctTerm))
-   return true;
-   
-  return ((r instanceof iPredicate) && ((iPredicate) r).getArity() > 0);
- };
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jIsCompound(r);
+    };
+
+    public boolean prove(jUnaryOperatorGoal og) {
+	jTerm r;
+
+	r = og.rhs.getTerm();
+
+	if ((r instanceof jCompoundTerm) || (r instanceof jListPair)
+		|| (r instanceof jConjunctTerm))
+	    return true;
+
+	return ((r instanceof iPredicate) && ((iPredicate) r).getArity() > 0);
+    };
 };
-

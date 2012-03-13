@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Animate AddShape
 //#########################################################################
- 
+
 package ubc.cs.JLog.Animation;
 
 import java.lang.*;
@@ -55,94 +55,95 @@ import java.awt.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jAnimate_addshape extends jAnimate
-{
- public jAnimate_addshape(jTerm t)
- {
-  super(t);
- };
-  
- public String 		getName()
- {
-  return "animate<addshape>";
- };
- 
- public int 		getNumberArguments()
- {
-  return 2;
- };
- 
- protected jUnaryBuiltinPredicate 		duplicate(jTerm r)
- {
-  return new jAnimate_addshape(r); 
- };
- 
- public boolean 	prove(jAnimateGoal ag,aAnimationEnvironment ae)
- {
-  return action(ae,aAttributeTranslation.convertToTerms(ag.term),ag.unified);
- };
+public class jAnimate_addshape extends jAnimate {
+    public jAnimate_addshape(jTerm t) {
+	super(t);
+    };
 
- protected boolean 	action(aAnimationEnvironment ae,jTerm[] terms,jUnifiedVector uv)
- {
-  if (terms.length >= getNumberArguments())
-  {aAnimationObject 	obj = aAttributeTranslation.convertToAnimationObject(terms[0],ae);
-   jTerm[] 			shapeinfo = aAttributeTranslation.convertToTerms(terms[1],3);
-   String 			shpname = aAttributeTranslation.convertToString(shapeinfo[0]);
-   String 			shptype = aAttributeTranslation.convertToString(shapeinfo[1]);
-   aAnimationShape	shaperef;
-   
-   if (shptype.equals("polygon"))
-   {jTerm[]			shape = aAttributeTranslation.convertToTerms(shapeinfo[2],3);
-    FloatPolygon 	fp = aAttributeTranslation.convertToPolygon(shape[0]);
-    boolean 			fill = aAttributeTranslation.convertToBoolean(shape[1]);
-    Color			fc = aAttributeTranslation.convertToColor(shape[2]);
-   
-    obj.addShape(shaperef = new aAnimationShape_polygon(obj,shpname,fp,fill,fc)); 
-   }
-   else if (shptype.equals("line"))
-   {jTerm[]			shape = aAttributeTranslation.convertToTerms(shapeinfo[2],2);
-    FloatRectangle 	fr = aAttributeTranslation.convertToRectangle(shape[0]);
-    Color			fc = aAttributeTranslation.convertToColor(shape[1]);
-   
-    obj.addShape(shaperef = new aAnimationShape_line(obj,shpname,fr,fc)); 
-   }
-   else if (shptype.equals("text"))
-   {jTerm[]			shape = aAttributeTranslation.convertToTerms(shapeinfo[2],5);
-    String 			text = aAttributeTranslation.convertToString(shape[0]);
-    FloatFont 		f = aAttributeTranslation.convertToFont(shape[1]);
-    Color			c = aAttributeTranslation.convertToColor(shape[2]);
-    float 			x = aAttributeTranslation.convertToFloat(shape[3],true);
-    float			y = aAttributeTranslation.convertToInt(shape[4],true);
+    public String getName() {
+	return "animate<addshape>";
+    };
 
-    obj.addShape(shaperef = new aAnimationShape_text(obj,shpname,text,f,c,x,y)); 
-   }
-   else if (shptype.equals("image"))
-   {jTerm[]			shape = aAttributeTranslation.convertToTerms(shapeinfo[2],5);
-    String 			img = aAttributeTranslation.convertToString(shape[0]);
-    float 			x = aAttributeTranslation.convertToFloat(shape[1],true); 
-    float			y = aAttributeTranslation.convertToFloat(shape[2],true);
-    float 			w = aAttributeTranslation.convertToFloat(shape[3],true); 
-    float			h = aAttributeTranslation.convertToFloat(shape[4],true);
-   
-    obj.addShape(shaperef = new aAnimationShape_image(obj,shpname,img,x,y,w,h)); 
-   }
-   else
-    throw new InvalidAnimationAPIException("Unknown shape type.");
+    public int getNumberArguments() {
+	return 2;
+    };
 
-   if (terms.length >= getNumberArguments() + 1)
-   {
-    return terms[2].unify(new jObject(shaperef),uv);
-   }
-   else
-    return true;   
-  }
-  else
-   throw new InvalidAnimationAPIException("Arguments missing for animation predicate.");
- };
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jAnimate_addshape(r);
+    };
 
- protected void 	action(aAnimationEnvironment ae,jTerm[] terms)
- {
-  // do nothing
- }; 
+    public boolean prove(jAnimateGoal ag, aAnimationEnvironment ae) {
+	return action(ae, aAttributeTranslation.convertToTerms(ag.term),
+		ag.unified);
+    };
+
+    protected boolean action(aAnimationEnvironment ae, jTerm[] terms,
+	    jUnifiedVector uv) {
+	if (terms.length >= getNumberArguments()) {
+	    aAnimationObject obj = aAttributeTranslation
+		    .convertToAnimationObject(terms[0], ae);
+	    jTerm[] shapeinfo = aAttributeTranslation.convertToTerms(terms[1],
+		    3);
+	    String shpname = aAttributeTranslation
+		    .convertToString(shapeinfo[0]);
+	    String shptype = aAttributeTranslation
+		    .convertToString(shapeinfo[1]);
+	    aAnimationShape shaperef;
+
+	    if (shptype.equals("polygon")) {
+		jTerm[] shape = aAttributeTranslation.convertToTerms(
+			shapeinfo[2], 3);
+		FloatPolygon fp = aAttributeTranslation
+			.convertToPolygon(shape[0]);
+		boolean fill = aAttributeTranslation.convertToBoolean(shape[1]);
+		Color fc = aAttributeTranslation.convertToColor(shape[2]);
+
+		obj.addShape(shaperef = new aAnimationShape_polygon(obj,
+			shpname, fp, fill, fc));
+	    } else if (shptype.equals("line")) {
+		jTerm[] shape = aAttributeTranslation.convertToTerms(
+			shapeinfo[2], 2);
+		FloatRectangle fr = aAttributeTranslation
+			.convertToRectangle(shape[0]);
+		Color fc = aAttributeTranslation.convertToColor(shape[1]);
+
+		obj.addShape(shaperef = new aAnimationShape_line(obj, shpname,
+			fr, fc));
+	    } else if (shptype.equals("text")) {
+		jTerm[] shape = aAttributeTranslation.convertToTerms(
+			shapeinfo[2], 5);
+		String text = aAttributeTranslation.convertToString(shape[0]);
+		FloatFont f = aAttributeTranslation.convertToFont(shape[1]);
+		Color c = aAttributeTranslation.convertToColor(shape[2]);
+		float x = aAttributeTranslation.convertToFloat(shape[3], true);
+		float y = aAttributeTranslation.convertToInt(shape[4], true);
+
+		obj.addShape(shaperef = new aAnimationShape_text(obj, shpname,
+			text, f, c, x, y));
+	    } else if (shptype.equals("image")) {
+		jTerm[] shape = aAttributeTranslation.convertToTerms(
+			shapeinfo[2], 5);
+		String img = aAttributeTranslation.convertToString(shape[0]);
+		float x = aAttributeTranslation.convertToFloat(shape[1], true);
+		float y = aAttributeTranslation.convertToFloat(shape[2], true);
+		float w = aAttributeTranslation.convertToFloat(shape[3], true);
+		float h = aAttributeTranslation.convertToFloat(shape[4], true);
+
+		obj.addShape(shaperef = new aAnimationShape_image(obj, shpname,
+			img, x, y, w, h));
+	    } else
+		throw new InvalidAnimationAPIException("Unknown shape type.");
+
+	    if (terms.length >= getNumberArguments() + 1) {
+		return terms[2].unify(new jObject(shaperef), uv);
+	    } else
+		return true;
+	} else
+	    throw new InvalidAnimationAPIException(
+		    "Arguments missing for animation predicate.");
+    };
+
+    protected void action(aAnimationEnvironment ae, jTerm[] terms) {
+	// do nothing
+    };
 };
-

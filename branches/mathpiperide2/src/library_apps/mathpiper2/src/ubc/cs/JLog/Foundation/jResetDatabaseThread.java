@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	jResetDatabaseThread
 //#########################################################################
@@ -53,44 +53,40 @@ import java.lang.*;
 import java.util.*;
 import java.io.PrintWriter;
 
-public class jResetDatabaseThread extends jPrologServiceThread
-{
- protected PrintWriter						errors;
- protected jPrologServiceBroadcaster 		begin = null,end = null;
+public class jResetDatabaseThread extends jPrologServiceThread {
+    protected PrintWriter errors;
+    protected jPrologServiceBroadcaster begin = null, end = null;
 
- public 	jResetDatabaseThread(jPrologServices ps,PrintWriter e)
- {
-  super(ps);
+    public jResetDatabaseThread(jPrologServices ps, PrintWriter e) {
+	super(ps);
 
-  setName("ResetDatabaseThread");
- // setPriority(NORM_PRIORITY + 1); //MRJ 2.1 doesn't permit UI interaction with this setting
+	setName("ResetDatabaseThread");
+	// setPriority(NORM_PRIORITY + 1); //MRJ 2.1 doesn't permit UI
+	// interaction with this setting
 
-  errors = e;
- };
+	errors = e;
+    };
 
- public void 	setListeners(jPrologServiceBroadcaster b,jPrologServiceBroadcaster e,
- 								jPrologServiceBroadcaster s)
- {
-  setStoppedListeners(s);
-  begin = b;
-  end = e;
- };
+    public void setListeners(jPrologServiceBroadcaster b,
+	    jPrologServiceBroadcaster e, jPrologServiceBroadcaster s) {
+	setStoppedListeners(s);
+	begin = b;
+	end = e;
+    };
 
- public void 	run()
- {
-  if (begin != null)
-   begin.broadcastEvent(new jPrologServiceEvent());
-  
-  prolog.resetKnowledgeBase();
-  
-  errors.print("Knowledge Base reset.");
-  errors.flush();
-  
-  if (allow_release)
-   prolog.release();
+    public void run() {
+	if (begin != null)
+	    begin.broadcastEvent(new jPrologServiceEvent());
 
-  if (end != null)
-   end.broadcastEvent(new jPrologServiceEvent());
- };
+	prolog.resetKnowledgeBase();
+
+	errors.print("Knowledge Base reset.");
+	errors.flush();
+
+	if (allow_release)
+	    prolog.release();
+
+	if (end != null)
+	    end.broadcastEvent(new jPrologServiceEvent());
+    };
 };
-

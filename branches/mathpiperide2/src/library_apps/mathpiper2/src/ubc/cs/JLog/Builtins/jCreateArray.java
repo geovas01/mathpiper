@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	CreateArray
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -55,46 +55,43 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Terms.Goals.*;
 
-public class jCreateArray extends jBinaryBuiltinPredicate
-{
- /**
-  * Constructor for <code>jCreateArray</code>.
-  *
-  * @param l 	The term (should be bound to a jInteger) specifiying the array size.
-  * @param r 	The array term (will be bound to CompoundTerm).
-  * 			
-  */
- public jCreateArray(jTerm l,jTerm r)
- {
-  super(l,r,TYPE_BUILTINPREDICATE);
- };
-  
- public String 		getName()
- {
-  return "CREATEARRAY";
- };
- 
- public final boolean 	prove(jBinaryBuiltinPredicateGoal bg)
- {jTerm 	l = bg.term1.getTerm();
-  jTerm		r = bg.term2.getTerm();
+public class jCreateArray extends jBinaryBuiltinPredicate {
+    /**
+     * Constructor for <code>jCreateArray</code>.
+     * 
+     * @param l
+     *            The term (should be bound to a jInteger) specifiying the array
+     *            size.
+     * @param r
+     *            The array term (will be bound to CompoundTerm).
+     * 
+     */
+    public jCreateArray(jTerm l, jTerm r) {
+	super(l, r, TYPE_BUILTINPREDICATE);
+    };
 
-  if (l.type == TYPE_INTEGER)
-  {int				size = ((jInteger) l).getIntegerValue();
-   int				cnt;
-   jCompoundTerm 	ct = new jCompoundTerm(size);
-  
-   for (cnt = 0; cnt < size; cnt++)
-    ct.addTerm(new jVariable());
-  
-   return r.unify(ct,bg.unified); 
-  }
-  else
-   throw new InvalidArgArgumentException();
- };
+    public String getName() {
+	return "CREATEARRAY";
+    };
 
- public jBinaryBuiltinPredicate 		duplicate(jTerm l,jTerm r)
- {
-  return new jCreateArray(l,r); 
- };
+    public final boolean prove(jBinaryBuiltinPredicateGoal bg) {
+	jTerm l = bg.term1.getTerm();
+	jTerm r = bg.term2.getTerm();
+
+	if (l.type == TYPE_INTEGER) {
+	    int size = ((jInteger) l).getIntegerValue();
+	    int cnt;
+	    jCompoundTerm ct = new jCompoundTerm(size);
+
+	    for (cnt = 0; cnt < size; cnt++)
+		ct.addTerm(new jVariable());
+
+	    return r.unify(ct, bg.unified);
+	} else
+	    throw new InvalidArgArgumentException();
+    };
+
+    public jBinaryBuiltinPredicate duplicate(jTerm l, jTerm r) {
+	return new jCreateArray(l, r);
+    };
 };
-

@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Arg
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -55,44 +55,36 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Terms.Goals.*;
 
-public class jArg extends jTrinaryBuiltinPredicate
-{
- public jArg(jTerm n,jTerm t,jTerm a)
- {
-  super(n,t,a,TYPE_BUILTINPREDICATE);
- };
-  
- public String 		getName()
- {
-  return "arg";
- };
+public class jArg extends jTrinaryBuiltinPredicate {
+    public jArg(jTerm n, jTerm t, jTerm a) {
+	super(n, t, a, TYPE_BUILTINPREDICATE);
+    };
 
- public boolean 	prove(jTrinaryBuiltinPredicateGoal ag)
- {jTerm 	t1,t2,t3;
-  
-  t1 = ag.term1.getTerm();
-  t2 = ag.term2.getTerm();
-  t3 = ag.term3.getTerm();
-  
-  if (t1 instanceof jInteger && t2 instanceof iPredicate)
-  {jCompoundTerm 	ct = ((iPredicate) t2).getArguments();
-   int  			arity = ct.size();
-   int 				arg = ((jInteger) t1).getIntegerValue() - 1;
-   
-   if (arg < arity && arg >= 0)
-   {
-    return t3.unify(ct.elementAt(arg),ag.unified);
-   }
-   else
-    throw new InvalidArgArgumentException(); 
-  }
-  else
-   throw new InvalidArgArgumentException();
- };
+    public String getName() {
+	return "arg";
+    };
 
- protected jTrinaryBuiltinPredicate 		duplicate(jTerm t1,jTerm t2,jTerm t3)
- {
-  return new jArg(t1,t2,t3); 
- };
+    public boolean prove(jTrinaryBuiltinPredicateGoal ag) {
+	jTerm t1, t2, t3;
+
+	t1 = ag.term1.getTerm();
+	t2 = ag.term2.getTerm();
+	t3 = ag.term3.getTerm();
+
+	if (t1 instanceof jInteger && t2 instanceof iPredicate) {
+	    jCompoundTerm ct = ((iPredicate) t2).getArguments();
+	    int arity = ct.size();
+	    int arg = ((jInteger) t1).getIntegerValue() - 1;
+
+	    if (arg < arity && arg >= 0) {
+		return t3.unify(ct.elementAt(arg), ag.unified);
+	    } else
+		throw new InvalidArgArgumentException();
+	} else
+	    throw new InvalidArgArgumentException();
+    };
+
+    protected jTrinaryBuiltinPredicate duplicate(jTerm t1, jTerm t2, jTerm t3) {
+	return new jArg(t1, t2, t3);
+    };
 };
-

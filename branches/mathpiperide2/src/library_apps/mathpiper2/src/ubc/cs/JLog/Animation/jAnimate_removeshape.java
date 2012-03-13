@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Animate RemoveShape
 //#########################################################################
- 
+
 package ubc.cs.JLog.Animation;
 
 import java.lang.*;
@@ -54,32 +54,28 @@ import java.util.*;
 import java.awt.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jAnimate_removeshape extends jAnimate
-{
- public jAnimate_removeshape(jTerm t)
- {
-  super(t);
- };
-  
- public String 		getName()
- {
-  return "animate<removeshape>";
- };
- 
- public int 		getNumberArguments()
- {
-  return 1;
- };
- 
- protected jUnaryBuiltinPredicate 		duplicate(jTerm r)
- {
-  return new jAnimate_removeshape(r); 
- };
- 
- protected void 	action(aAnimationEnvironment ae,jTerm[] terms)
- {aAnimationShape 	shape = aAttributeTranslation.convertToAnimationShape(terms[0]);
-  aAnimationObject  obj = shape.getEnclosingObject();
-  
-  obj.removeShape(shape);
- };
+public class jAnimate_removeshape extends jAnimate {
+    public jAnimate_removeshape(jTerm t) {
+	super(t);
+    };
+
+    public String getName() {
+	return "animate<removeshape>";
+    };
+
+    public int getNumberArguments() {
+	return 1;
+    };
+
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jAnimate_removeshape(r);
+    };
+
+    protected void action(aAnimationEnvironment ae, jTerm[] terms) {
+	aAnimationShape shape = aAttributeTranslation
+		.convertToAnimationShape(terms[0]);
+	aAnimationObject obj = shape.getEnclosingObject();
+
+	obj.removeShape(shape);
+    };
 };

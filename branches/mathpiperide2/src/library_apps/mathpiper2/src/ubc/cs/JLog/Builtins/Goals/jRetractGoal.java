@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	RetractGoal
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins.Goals;
 
 import java.lang.*;
@@ -55,76 +55,69 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.*;
 
-public class jRetractGoal extends jGoal
-{
- protected jRetract 	retract;
- 
- // for use by retract
- public jTerm 				term;
- public jUnifiedVector 		unified;
- 
- public 	jRetractGoal(jRetract r,jTerm t)
- {
-  retract = r;
-  term = t;
-  unified = new jUnifiedVector();
- };
- 
- public boolean 	prove(iGoalStack goals,iGoalStack proved)
- {Thread 		t;
-  
-  t = Thread.currentThread();
-  
-  if (t instanceof jPrologServiceThread)
-  {jPrologServiceThread		pst = (jPrologServiceThread) t;
-   jPrologServices			prolog = pst.getPrologServices();
-   jKnowledgeBase 			database = prolog.getKnowledgeBase();
+public class jRetractGoal extends jGoal {
+    protected jRetract retract;
 
-   if (retract.prove(this,database))
-   {
-    proved.push(this);
-    return true;
-   }
-  }
+    // for use by retract
+    public jTerm term;
+    public jUnifiedVector unified;
 
-  { // we need to initialize goal to potentially restart
-   unified.restoreVariables();
-  }
-  goals.push(this); // a retry that follows may need a node to remove or retry
-  return false;
- };
+    public jRetractGoal(jRetract r, jTerm t) {
+	retract = r;
+	term = t;
+	unified = new jUnifiedVector();
+    };
 
- public boolean 	retry(iGoalStack goals,iGoalStack proved)
- {
-  unified.restoreVariables();
-  
-  goals.push(this); // a retry that follows may need a node to remove or retry
-  return true; // retry until prove fails
- }; 
- 
- public void 	internal_restore(iGoalStack goals)
- {
-  unified.restoreVariables();
- };
+    public boolean prove(iGoalStack goals, iGoalStack proved) {
+	Thread t;
 
- public String 		getName() 
- {
-  return retract.getName();
- };
- 
- public int 		getArity() 
- {
-  return retract.getArity();
- };
- 
- public String 		toString()
- {StringBuffer 	sb = new StringBuffer();
-   
-  sb.append(getName()+"/"+String.valueOf(getArity())+" goal: ");
-  sb.append(getName()+"("+term.toString()+")");
-  
-  return sb.toString();
- };
+	t = Thread.currentThread();
+
+	if (t instanceof jPrologServiceThread) {
+	    jPrologServiceThread pst = (jPrologServiceThread) t;
+	    jPrologServices prolog = pst.getPrologServices();
+	    jKnowledgeBase database = prolog.getKnowledgeBase();
+
+	    if (retract.prove(this, database)) {
+		proved.push(this);
+		return true;
+	    }
+	}
+
+	{ // we need to initialize goal to potentially restart
+	    unified.restoreVariables();
+	}
+	goals.push(this); // a retry that follows may need a node to remove or
+			  // retry
+	return false;
+    };
+
+    public boolean retry(iGoalStack goals, iGoalStack proved) {
+	unified.restoreVariables();
+
+	goals.push(this); // a retry that follows may need a node to remove or
+			  // retry
+	return true; // retry until prove fails
+    };
+
+    public void internal_restore(iGoalStack goals) {
+	unified.restoreVariables();
+    };
+
+    public String getName() {
+	return retract.getName();
+    };
+
+    public int getArity() {
+	return retract.getArity();
+    };
+
+    public String toString() {
+	StringBuffer sb = new StringBuffer();
+
+	sb.append(getName() + "/" + String.valueOf(getArity()) + " goal: ");
+	sb.append(getName() + "(" + term.toString() + ")");
+
+	return sb.toString();
+    };
 };
-
- 

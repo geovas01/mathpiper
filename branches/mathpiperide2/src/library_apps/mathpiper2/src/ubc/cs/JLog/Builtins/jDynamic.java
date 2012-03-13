@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Dynamic
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -55,62 +55,60 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
-public class jDynamic extends jUnaryOperator
-{
- public jDynamic(jTerm r)
- {
-  super(r);
- };
+public class jDynamic extends jUnaryOperator {
+    public jDynamic(jTerm r) {
+	super(r);
+    };
 
- public String 		getName()
- {
-  return "dynamic";
- };  
+    public String getName() {
+	return "dynamic";
+    };
 
- protected jUnaryBuiltinPredicate 	duplicate(jTerm r)
- {
-  return new jDynamic(r);
- };
- 
- public boolean 	prove(jUnaryOperatorGoal og)
- {jTerm 			r;
-  jPrologServiceThread 		pst;
-  iNameArityStub 		nas = null;
-  
-  r = og.rhs.getTerm();
-  {jAtom 		na;
-   jInteger 		ar;
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jDynamic(r);
+    };
 
-   if (r instanceof jRealDivide && 
-        (((jRealDivide) r).getLHS() instanceof jAtom) && 
-        (((jRealDivide) r).getRHS() instanceof jInteger))
-   {
-    na = (jAtom) ((jRealDivide) r).getLHS();
-    ar = (jInteger) ((jRealDivide) r).getRHS();
-   }
-   else
-    throw new DynamicOperatorException("Expected name/arity");
-   
-   nas = new iNameArityStub(na.getName(),ar.getIntegerValue());
-  }
+    public boolean prove(jUnaryOperatorGoal og) {
+	jTerm r;
+	jPrologServiceThread pst;
+	iNameArityStub nas = null;
 
-  pst = (jPrologServiceThread) Thread.currentThread();
- 
-  if (pst.isCurrentlyConsulting())
-  {jPrologServices			prolog = pst.getPrologServices();
-   jKnowledgeBase 			database = prolog.getKnowledgeBase();
+	r = og.rhs.getTerm();
+	{
+	    jAtom na;
+	    jInteger ar;
 
-   database.makeRuleDefinitionDynamic(nas);
-  }
-  else
-   throw new DynamicOperatorException("dynamic operator only works during consult.");
-  
-  return true;
- };
+	    if (r instanceof jRealDivide
+		    && (((jRealDivide) r).getLHS() instanceof jAtom)
+		    && (((jRealDivide) r).getRHS() instanceof jInteger)) {
+		na = (jAtom) ((jRealDivide) r).getLHS();
+		ar = (jInteger) ((jRealDivide) r).getRHS();
+	    } else
+		throw new DynamicOperatorException("Expected name/arity");
+
+	    nas = new iNameArityStub(na.getName(), ar.getIntegerValue());
+	}
+
+	pst = (jPrologServiceThread) Thread.currentThread();
+
+	if (pst.isCurrentlyConsulting()) {
+	    jPrologServices prolog = pst.getPrologServices();
+	    jKnowledgeBase database = prolog.getKnowledgeBase();
+
+	    database.makeRuleDefinitionDynamic(nas);
+	} else
+	    throw new DynamicOperatorException(
+		    "dynamic operator only works during consult.");
+
+	return true;
+    };
 };
 
-class DynamicOperatorException extends RuntimeException
-{
- public DynamicOperatorException() {};
- public DynamicOperatorException(String s) {super(s);};
+class DynamicOperatorException extends RuntimeException {
+    public DynamicOperatorException() {
+    };
+
+    public DynamicOperatorException(String s) {
+	super(s);
+    };
 };

@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	pArray
 //#########################################################################
@@ -52,11 +52,8 @@ package ubc.cs.JLog.Parser;
 import java.util.*;
 import java.lang.*;
 
-class pArray extends pToken
-{
- public 	pArray(String s,int pos,int line,int cpos)
- {
-  super(s,pos,line,cpos);
- };
+class pArray extends pToken {
+    public pArray(String s, int pos, int line, int cpos) {
+	super(s, pos, line, cpos);
+    };
 };
-

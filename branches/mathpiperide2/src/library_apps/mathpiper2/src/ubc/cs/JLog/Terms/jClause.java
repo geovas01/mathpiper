@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Clause
 //#########################################################################
- 
+
 package ubc.cs.JLog.Terms;
 
 import java.lang.*;
@@ -54,102 +54,97 @@ import java.util.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Terms.Goals.*;
 
-public class jClause extends jBinaryBuiltinPredicate
-{
- public jClause(jTerm l,jTerm r)
- {
-  super(l,r,TYPE_BUILTINPREDICATE);
- };
-  
- public String 		getName()
- {
-  return "clause";
- };
+public class jClause extends jBinaryBuiltinPredicate {
+    public jClause(jTerm l, jTerm r) {
+	super(l, r, TYPE_BUILTINPREDICATE);
+    };
 
- public boolean 	prove(jClauseGoal cg,jKnowledgeBase kb)
- {jTerm 					l,r,t;
-  jDynamicRuleDefinitions 	dfd;
-  jPredicate 				p;
-  jPredicateTerms 			pt;
-  
-  l = cg.lhs.getTerm();
-  r = cg.rhs.getTerm();
-  
-  p = getPredicate(l);
-  
-  if ((dfd = cg.getDynamicRules()) == null)
-   cg.setDynamicRules(dfd = getDynamicRules(p,kb));
-   
-  if ((t = dfd.getClause(cg,p)) != null)
-  {jTerm 	tnew = t;
-   
-   if (t instanceof iMakeUnmake)
-    tnew = ((iMakeUnmake) t).unmake();
-   if (tnew == null)
-    tnew = jTrue.TRUE;
-   
-   return r.unify(tnew,cg.unified);
-  }
-  
-  return false;
- };
+    public String getName() {
+	return "clause";
+    };
 
- protected jPredicate 				getPredicate(jTerm t)
- {
-  if (t instanceof jPredicate)
-   return (jPredicate) t;
-  else if (t instanceof jAtom)
-   return new jPredicate((jAtom) t);
-  else 
-   throwError(t);
-   
-  // shouldn't be reached   
-  return null; 
- };
+    public boolean prove(jClauseGoal cg, jKnowledgeBase kb) {
+	jTerm l, r, t;
+	jDynamicRuleDefinitions dfd;
+	jPredicate p;
+	jPredicateTerms pt;
 
- protected jDynamicRuleDefinitions  getDynamicRules(jPredicate h,jKnowledgeBase kb)
- {jRuleDefinitions 		rds;
-   
-  if ((rds = h.getCachedRuleDefinitions()) == null)
-   rds = kb.getRuleDefinitionsMatch(h);
-  
-  if (rds instanceof jDynamicRuleDefinitions)
-   return ((jDynamicRuleDefinitions) rds).copy();
-  else
-   throwError(h);
-  
-  // shouldn't be reached   
-  return null; 
- };
- 
- protected void 		throwError(jTerm t) 	
- {StringBuffer 		sb = new StringBuffer();
- 
-  sb.append("Clause term '");
-  
-  if (t instanceof iNameArity)
-   sb.append(t.getName()+"/"+String.valueOf(((iNameArity) t).getArity()));
-  else
-   sb.append(t.getName());
-  
-  sb.append("' must be dynamic.");
-  
-  throw new InvalidClauseException(sb.toString());
- };
- 
- public void 		addGoals(jGoal g,jVariable[] vars,iGoalStack goals)
- {
-  goals.push(new jClauseGoal(this,lhs.duplicate(vars),rhs.duplicate(vars)));
- };
+	l = cg.lhs.getTerm();
+	r = cg.rhs.getTerm();
 
- public void 		addGoals(jGoal g,iGoalStack goals)
- {
-  goals.push(new jClauseGoal(this,lhs,rhs));
- };
+	p = getPredicate(l);
 
- protected jBinaryBuiltinPredicate 		duplicate(jTerm l,jTerm r)
- {
-  return new jClause(l,r); 
- };
+	if ((dfd = cg.getDynamicRules()) == null)
+	    cg.setDynamicRules(dfd = getDynamicRules(p, kb));
+
+	if ((t = dfd.getClause(cg, p)) != null) {
+	    jTerm tnew = t;
+
+	    if (t instanceof iMakeUnmake)
+		tnew = ((iMakeUnmake) t).unmake();
+	    if (tnew == null)
+		tnew = jTrue.TRUE;
+
+	    return r.unify(tnew, cg.unified);
+	}
+
+	return false;
+    };
+
+    protected jPredicate getPredicate(jTerm t) {
+	if (t instanceof jPredicate)
+	    return (jPredicate) t;
+	else if (t instanceof jAtom)
+	    return new jPredicate((jAtom) t);
+	else
+	    throwError(t);
+
+	// shouldn't be reached
+	return null;
+    };
+
+    protected jDynamicRuleDefinitions getDynamicRules(jPredicate h,
+	    jKnowledgeBase kb) {
+	jRuleDefinitions rds;
+
+	if ((rds = h.getCachedRuleDefinitions()) == null)
+	    rds = kb.getRuleDefinitionsMatch(h);
+
+	if (rds instanceof jDynamicRuleDefinitions)
+	    return ((jDynamicRuleDefinitions) rds).copy();
+	else
+	    throwError(h);
+
+	// shouldn't be reached
+	return null;
+    };
+
+    protected void throwError(jTerm t) {
+	StringBuffer sb = new StringBuffer();
+
+	sb.append("Clause term '");
+
+	if (t instanceof iNameArity)
+	    sb.append(t.getName() + "/"
+		    + String.valueOf(((iNameArity) t).getArity()));
+	else
+	    sb.append(t.getName());
+
+	sb.append("' must be dynamic.");
+
+	throw new InvalidClauseException(sb.toString());
+    };
+
+    public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+	goals.push(new jClauseGoal(this, lhs.duplicate(vars), rhs
+		.duplicate(vars)));
+    };
+
+    public void addGoals(jGoal g, iGoalStack goals) {
+	goals.push(new jClauseGoal(this, lhs, rhs));
+    };
+
+    protected jBinaryBuiltinPredicate duplicate(jTerm l, jTerm r) {
+	return new jClause(l, r);
+    };
 };
-

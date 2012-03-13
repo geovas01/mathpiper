@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //##################################################################################
 //	gClosingDialog
 //##################################################################################
@@ -55,121 +55,109 @@ import java.awt.*;
 import java.awt.event.*;
 import java.applet.Applet;
 
-public class gClosingDialog extends Dialog
-{
- public static final int 	CANCEL = 1;
- public static final int 	SAVE = 2;
- public static final int 	SAVEAS = 3;
- public static final int 	DONTSAVE = 4;
- 
- protected int 			choice;
- 
- public gClosingDialog(gWindowBase w)
- {
-  super(w,"Save Changes?",true);
-  
-  choice = CANCEL;
-  
-  setLayout(new BorderLayout());
-  
-  {Label 	info;
-   
-   info = new Label("Save changes before closing?",Label.LEFT);
-   info.setFont(new Font("Dialog",Font.BOLD,12));
+public class gClosingDialog extends Dialog {
+    public static final int CANCEL = 1;
+    public static final int SAVE = 2;
+    public static final int SAVEAS = 3;
+    public static final int DONTSAVE = 4;
 
-   add(info,BorderLayout.CENTER);
-  }
-   
-  add(new Panel(),BorderLayout.WEST);
-  add(new Panel(),BorderLayout.EAST);
-  
-  {Panel 	buttons = new Panel();
-   Button 	b;
+    protected int choice;
 
-   buttons.setLayout(new GridLayout(1,0));
-   
-   b = new Button("Save");
-   b.addActionListener(new ActionListener()
-                {
-                 public void 	actionPerformed(ActionEvent e)
-                 {
-                  choice = SAVE;
-		  close();
-                 }
-                }
-               ); 
-   b.setBackground(Color.white);
-   b.setForeground(Color.black);
-   buttons.add(b);
+    public gClosingDialog(gWindowBase w) {
+	super(w, "Save Changes?", true);
 
-   b = new Button("Cancel");
-   b.addActionListener(new ActionListener()
-                {
-                 public void 	actionPerformed(ActionEvent e)
-                 {
-                  choice = CANCEL;
-		  close();
-                 }
-                }
-               ); 
-   b.setBackground(Color.white);
-   b.setForeground(Color.black);
-   buttons.add(b);
-   
-   buttons.add(new Panel());
-   
-   b = new Button("Don't Save");
-   b.addActionListener(new ActionListener()
-                {
-                 public void 	actionPerformed(ActionEvent e)
-                 {
-                  choice = DONTSAVE;
-		  close();
-                 }
-                }
-               ); 
-   b.setBackground(Color.white);
-   b.setForeground(Color.black);            
-   buttons.add(b);
-   
-   {Panel 	button_area = new Panel();
-   
-    button_area.setLayout(new BorderLayout());
-    button_area.add(buttons,BorderLayout.CENTER);
-    button_area.add(new Panel(),BorderLayout.WEST);
-    button_area.add(new Panel(),BorderLayout.EAST);
-    
-    add(button_area,BorderLayout.SOUTH);
-   }
-  }
-  
-  pack();
+	choice = CANCEL;
 
-  addWindowListener(new WindowAdapter() 
-                {
-		 public void windowClosing(WindowEvent evt) 
-                 {
-                  choice = CANCEL;
-		  close();
-		 }
+	setLayout(new BorderLayout());
+
+	{
+	    Label info;
+
+	    info = new Label("Save changes before closing?", Label.LEFT);
+	    info.setFont(new Font("Dialog", Font.BOLD, 12));
+
+	    add(info, BorderLayout.CENTER);
+	}
+
+	add(new Panel(), BorderLayout.WEST);
+	add(new Panel(), BorderLayout.EAST);
+
+	{
+	    Panel buttons = new Panel();
+	    Button b;
+
+	    buttons.setLayout(new GridLayout(1, 0));
+
+	    b = new Button("Save");
+	    b.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		    choice = SAVE;
+		    close();
 		}
-               );
+	    });
+	    b.setBackground(Color.white);
+	    b.setForeground(Color.black);
+	    buttons.add(b);
 
-  setSize(400, 100);
-  {Point	ploc = w.getLocation();
-  
-   setLocation(ploc.x+16,ploc.y+32);
-  }  
-  setVisible(true);
- };
- 
- public int 		getChoiceValue()
- {
-  return choice;
- };
- 
- protected void 	close()
- {
-  dispose();
- };
+	    b = new Button("Cancel");
+	    b.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		    choice = CANCEL;
+		    close();
+		}
+	    });
+	    b.setBackground(Color.white);
+	    b.setForeground(Color.black);
+	    buttons.add(b);
+
+	    buttons.add(new Panel());
+
+	    b = new Button("Don't Save");
+	    b.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		    choice = DONTSAVE;
+		    close();
+		}
+	    });
+	    b.setBackground(Color.white);
+	    b.setForeground(Color.black);
+	    buttons.add(b);
+
+	    {
+		Panel button_area = new Panel();
+
+		button_area.setLayout(new BorderLayout());
+		button_area.add(buttons, BorderLayout.CENTER);
+		button_area.add(new Panel(), BorderLayout.WEST);
+		button_area.add(new Panel(), BorderLayout.EAST);
+
+		add(button_area, BorderLayout.SOUTH);
+	    }
+	}
+
+	pack();
+
+	addWindowListener(new WindowAdapter() {
+	    public void windowClosing(WindowEvent evt) {
+		choice = CANCEL;
+		close();
+	    }
+	});
+
+	setSize(400, 100);
+	{
+	    Point ploc = w.getLocation();
+
+	    setLocation(ploc.x + 16, ploc.y + 32);
+	}
+	setVisible(true);
+    };
+
+    public int getChoiceValue() {
+	return choice;
+    };
+
+    protected void close() {
+	dispose();
+    };
 };

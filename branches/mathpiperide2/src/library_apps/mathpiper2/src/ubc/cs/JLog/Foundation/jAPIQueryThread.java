@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	jAPIQueryThread
 //#########################################################################
@@ -55,200 +55,179 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Parser.*;
 
 /**
-* This class is the thread that attempts to prove a query. It can parse an
-* input string into the predicates of a user query, and it contains the 
-* Prolog prover itself.  The prover runs as part of this thread.  It is similar to 
-* <code>jUserQueryThread</code>, but is designed for use via <code>jPrologAPI</code> where the 
-* caller is responsible to handling exceptions.
-*
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public class jAPIQueryThread extends jRetryQueryThread //jUserQueryThread
+ * This class is the thread that attempts to prove a query. It can parse an
+ * input string into the predicates of a user query, and it contains the Prolog
+ * prover itself. The prover runs as part of this thread. It is similar to
+ * <code>jUserQueryThread</code>, but is designed for use via
+ * <code>jPrologAPI</code> where the caller is responsible to handling
+ * exceptions.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public class jAPIQueryThread extends jRetryQueryThread // jUserQueryThread
 {
- protected String							qinput;
+    protected String qinput;
 
- protected jPrologServiceBroadcaster 		beginq = null,retryq = null,endq = null;
- protected jPrologServiceBroadcaster 		debugm = null;
- 
+    protected jPrologServiceBroadcaster beginq = null, retryq = null,
+	    endq = null;
+    protected jPrologServiceBroadcaster debugm = null;
 
- protected jProver 				prover = null;
- protected jPredicateTerms		query = null;
- protected boolean 				result = false;
- protected int 					retry = 0;
- protected jVariableVector		var_vector = null;
- protected Hashtable			var_prebindings;
- protected RuntimeException		result_exception = null;
- 
- public 	jAPIQueryThread(jPrologServices ps,String qin)
- {
-  super(ps);
- // setPriority(NORM_PRIORITY + 1); //MRJ 2.1 doesn't permit UI interaction with this setting
+    protected jProver prover = null;
+    protected jPredicateTerms query = null;
+    protected boolean result = false;
+    protected int retry = 0;
+    protected jVariableVector var_vector = null;
+    protected Hashtable var_prebindings;
+    protected RuntimeException result_exception = null;
 
-  var_prebindings = null;
-  qinput = qin;
- };
+    public jAPIQueryThread(jPrologServices ps, String qin) {
+	super(ps);
+	// setPriority(NORM_PRIORITY + 1); //MRJ 2.1 doesn't permit UI
+	// interaction with this setting
 
- public 	jAPIQueryThread(jPrologServices ps,Hashtable bindings,String qin)
- {
-  super(ps);
+	var_prebindings = null;
+	qinput = qin;
+    };
 
-  setName("APIQueryThread");
- // setPriority(NORM_PRIORITY + 1); //MRJ 2.1 doesn't permit UI interaction with this setting
+    public jAPIQueryThread(jPrologServices ps, Hashtable bindings, String qin) {
+	super(ps);
 
-  var_prebindings = bindings;
-  qinput = qin;
- };
+	setName("APIQueryThread");
+	// setPriority(NORM_PRIORITY + 1); //MRJ 2.1 doesn't permit UI
+	// interaction with this setting
 
- public void 	setListeners(jPrologServiceBroadcaster b,jPrologServiceBroadcaster r,
-                                jPrologServiceBroadcaster e,jPrologServiceBroadcaster s,
-								jPrologServiceBroadcaster d)
- {
-  setStoppedListeners(s);
-  beginq = b;
-  retryq = r;
-  endq = e;
-  debugm = d;
- };
+	var_prebindings = bindings;
+	qinput = qin;
+    };
 
- public synchronized void 	retry()
- {
-  retry++;
-  notify();
- };
+    public void setListeners(jPrologServiceBroadcaster b,
+	    jPrologServiceBroadcaster r, jPrologServiceBroadcaster e,
+	    jPrologServiceBroadcaster s, jPrologServiceBroadcaster d) {
+	setStoppedListeners(s);
+	beginq = b;
+	retryq = r;
+	endq = e;
+	debugm = d;
+    };
 
- protected synchronized boolean 	waitForRetry()
- {
-  while (retry <= 0)
-  {
-   try
-   {
-    wait();   
-   }
-   catch (InterruptedException e)
-   {
-    return false;
-   }
-  }
-  retry--;
-  return true;
- };
+    public synchronized void retry() {
+	retry++;
+	notify();
+    };
 
- public void 	run()
- {
-  result_exception = null;
+    protected synchronized boolean waitForRetry() {
+	while (retry <= 0) {
+	    try {
+		wait();
+	    } catch (InterruptedException e) {
+		return false;
+	    }
+	}
+	retry--;
+	return true;
+    };
 
-  if (beginq != null)
-   beginq.broadcastEvent(new jPrologServiceEvent());
- 
-  try
-  {
-   query();
- 
-   if (retryq != null)
-    retryq.broadcastEvent(new jUserQueryEvent(result));
-  
-   while (result)
-   {
-    if (waitForRetry())
-    {
-     internal_retry();
-    
-     if (retryq != null)
-      retryq.broadcastEvent(new jUserQueryEvent(result));
-    }
-   }
-  }
-  catch (RuntimeException e)
-  {
-   result_exception = e;
-  }
-  finally
-  {
-   if (allow_release)
-    prolog.release();
+    public void run() {
+	result_exception = null;
 
-   var_vector = null;
+	if (beginq != null)
+	    beginq.broadcastEvent(new jPrologServiceEvent());
 
-   if (endq != null)
-    endq.broadcastEvent(new jPrologServiceEvent());
-  }
- };
- 
- protected void 	query()
- {pParseStream 	parser;
-   
-  parser = new pParseStream(qinput,prolog.getKnowledgeBase(),
-                             prolog.getPredicateRegistry(),
-                             prolog.getOperatorRegistry());
-  result = false;
-  query = parser.parseQuery(var_prebindings); 
+	try {
+	    query();
 
-  if (query != null)
-  {
-   var_vector = new jVariableVector();
-   query.registerVariables(var_vector);
+	    if (retryq != null)
+		retryq.broadcastEvent(new jUserQueryEvent(result));
 
-   internal_prove();
-  }
- };
- 
- protected void 	internal_prove()
- {
-  prover = (prolog.getDebugging() ? 
-  				new jDebugProver(prolog.getKnowledgeBase(),debugm) :
-  				new jProver(prolog.getKnowledgeBase()));
-  				
-  result = prover.prove(query);
- };
- 
- protected void 	internal_retry()
- {
-  if (result)
-   result = prover.retry();
- };
- 
- /**
- * Returns a hashtable of the variable bindings, as a result of a sucessful query / retry.
- * 
- * @return			Returns a hashtable with all the variables in the query, and their bindings.
- *					Each key in the hashtable is a variable name, and the associated value
- *					is the <code>jTerm</code> the variable was bound to. 
- *					Returns null if the query failed.
- */
- public Hashtable 	getResultHashtable()
- {
-  if (query == null)
-   return null;
-   
-  if (result)
-  {Hashtable		ht = new Hashtable();
-   jVariable[] 		vars;
-   int				i,max;
-      
-   vars = var_vector.getVariables(); 
-     
-   for (i = 0, max = vars.length; i < max; i++)
-   {
-    if (vars[i].isNamedForDisplay())
-	 ht.put(vars[i].getName(),vars[i].getTerm());
-   }
-   
-   return ht;	
-  }	
-  else
-   return null;
- };
+	    while (result) {
+		if (waitForRetry()) {
+		    internal_retry();
 
- /**
- * Returns the RuntimeException thrown by an unsucessful query / retry 
- * (e.g., UnknownPredicateException).
- * 
- * @return			Returns a RuntimeException if the query failed. 
- *					Returns null if the query did not throw an exception.
- */
- public RuntimeException 	getResultException()
- {
-  return result_exception;
- }; 
+		    if (retryq != null)
+			retryq.broadcastEvent(new jUserQueryEvent(result));
+		}
+	    }
+	} catch (RuntimeException e) {
+	    result_exception = e;
+	} finally {
+	    if (allow_release)
+		prolog.release();
+
+	    var_vector = null;
+
+	    if (endq != null)
+		endq.broadcastEvent(new jPrologServiceEvent());
+	}
+    };
+
+    protected void query() {
+	pParseStream parser;
+
+	parser = new pParseStream(qinput, prolog.getKnowledgeBase(),
+		prolog.getPredicateRegistry(), prolog.getOperatorRegistry());
+	result = false;
+	query = parser.parseQuery(var_prebindings);
+
+	if (query != null) {
+	    var_vector = new jVariableVector();
+	    query.registerVariables(var_vector);
+
+	    internal_prove();
+	}
+    };
+
+    protected void internal_prove() {
+	prover = (prolog.getDebugging() ? new jDebugProver(
+		prolog.getKnowledgeBase(), debugm) : new jProver(
+		prolog.getKnowledgeBase()));
+
+	result = prover.prove(query);
+    };
+
+    protected void internal_retry() {
+	if (result)
+	    result = prover.retry();
+    };
+
+    /**
+     * Returns a hashtable of the variable bindings, as a result of a sucessful
+     * query / retry.
+     * 
+     * @return Returns a hashtable with all the variables in the query, and
+     *         their bindings. Each key in the hashtable is a variable name, and
+     *         the associated value is the <code>jTerm</code> the variable was
+     *         bound to. Returns null if the query failed.
+     */
+    public Hashtable getResultHashtable() {
+	if (query == null)
+	    return null;
+
+	if (result) {
+	    Hashtable ht = new Hashtable();
+	    jVariable[] vars;
+	    int i, max;
+
+	    vars = var_vector.getVariables();
+
+	    for (i = 0, max = vars.length; i < max; i++) {
+		if (vars[i].isNamedForDisplay())
+		    ht.put(vars[i].getName(), vars[i].getTerm());
+	    }
+
+	    return ht;
+	} else
+	    return null;
+    };
+
+    /**
+     * Returns the RuntimeException thrown by an unsucessful query / retry
+     * (e.g., UnknownPredicateException).
+     * 
+     * @return Returns a RuntimeException if the query failed. Returns null if
+     *         the query did not throw an exception.
+     */
+    public RuntimeException getResultException() {
+	return result_exception;
+    };
 };

@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	EquivGoal
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins.Goals;
 
 import java.lang.*;
@@ -55,58 +55,52 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Builtins.*;
 
-public class jEquivGoal extends jGoal
-{
- protected jEquivalent 			equ;
- 
- // for use by equ
- public jTerm 				lhs,rhs;
- public jUnifiedVector 		unified; //equ is responsible for restoring any unification
- 
- public 	jEquivGoal(jEquivalent i,jTerm l,jTerm r)
- {
-  equ = i;
-  lhs = l;
-  rhs = r;
-  unified = new jUnifiedVector();
- };
- 
- public boolean 	prove(iGoalStack goals,iGoalStack proved)
- {
-  if (equ.prove(this))
-  {
-   proved.push(this);
-   return true;
-  }
-  else
-  {
-   goals.push(this); // a retry that follows may need a node to remove or retry
-   return false;
-  }
- };
+public class jEquivGoal extends jGoal {
+    protected jEquivalent equ;
 
- public boolean 	retry(iGoalStack goals,iGoalStack proved)
- {
-  goals.push(this); // a retry that follows may need a node to remove or retry
-  return false;
- }; 
+    // for use by equ
+    public jTerm lhs, rhs;
+    public jUnifiedVector unified; // equ is responsible for restoring any
+				   // unification
 
- public String 		getName() 
- {
-  return equ.getName();
- };
- 
- public int 		getArity() 
- {
-  return equ.getArity();
- };
- 
- public String 		toString()
- {StringBuffer 	sb = new StringBuffer();
-   
-  sb.append(getName()+"/"+String.valueOf(getArity())+" goal: ");
-  sb.append(getName()+"("+lhs.toString()+","+rhs.toString()+")");
-  
-  return sb.toString();
- };
+    public jEquivGoal(jEquivalent i, jTerm l, jTerm r) {
+	equ = i;
+	lhs = l;
+	rhs = r;
+	unified = new jUnifiedVector();
+    };
+
+    public boolean prove(iGoalStack goals, iGoalStack proved) {
+	if (equ.prove(this)) {
+	    proved.push(this);
+	    return true;
+	} else {
+	    goals.push(this); // a retry that follows may need a node to remove
+			      // or retry
+	    return false;
+	}
+    };
+
+    public boolean retry(iGoalStack goals, iGoalStack proved) {
+	goals.push(this); // a retry that follows may need a node to remove or
+			  // retry
+	return false;
+    };
+
+    public String getName() {
+	return equ.getName();
+    };
+
+    public int getArity() {
+	return equ.getArity();
+    };
+
+    public String toString() {
+	StringBuffer sb = new StringBuffer();
+
+	sb.append(getName() + "/" + String.valueOf(getArity()) + " goal: ");
+	sb.append(getName() + "(" + lhs.toString() + "," + rhs.toString() + ")");
+
+	return sb.toString();
+    };
 };

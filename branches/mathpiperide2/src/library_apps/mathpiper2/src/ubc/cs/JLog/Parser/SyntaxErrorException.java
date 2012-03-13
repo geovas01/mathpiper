@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	SyntaxErrorException
 //#########################################################################
@@ -52,45 +52,40 @@ package ubc.cs.JLog.Parser;
 import java.io.*;
 import java.util.*;
 
-public class SyntaxErrorException extends RuntimeException
-{
- protected int 			position = -1;
- protected int 			lineno = -1,charpos = -1;
-  
- public SyntaxErrorException(String s,int pos) 
- {
-  super(s+String.valueOf(pos));
-  position = pos;
- };
- 
- public SyntaxErrorException(String s,int line,int cpos) 
- {
-  super(s + " : line,char(" + String.valueOf(line+1) + "," + String.valueOf(cpos+1)+")");
-  lineno = line;
-  charpos = cpos;
- };
- 
- public SyntaxErrorException(String s,int pos,int line,int cpos) 
- {
-  super(s+String.valueOf(pos+1)+" : line,char("+String.valueOf(line+1)+","+String.valueOf(cpos+1)+")");
-  position = pos;
-  lineno = line;
-  charpos = cpos;
- };
+public class SyntaxErrorException extends RuntimeException {
+    protected int position = -1;
+    protected int lineno = -1, charpos = -1;
 
- public int 		getPosition()
- {
-  return position;
- };
- 
- public int 		getLine()
- {
-  return lineno;
- };
- 
- public int 		getCharPos()
- {
-  return charpos;
- };
+    public SyntaxErrorException(String s, int pos) {
+	super(s + String.valueOf(pos));
+	position = pos;
+    };
+
+    public SyntaxErrorException(String s, int line, int cpos) {
+	super(s + " : line,char(" + String.valueOf(line + 1) + ","
+		+ String.valueOf(cpos + 1) + ")");
+	lineno = line;
+	charpos = cpos;
+    };
+
+    public SyntaxErrorException(String s, int pos, int line, int cpos) {
+	super(s + String.valueOf(pos + 1) + " : line,char("
+		+ String.valueOf(line + 1) + "," + String.valueOf(cpos + 1)
+		+ ")");
+	position = pos;
+	lineno = line;
+	charpos = cpos;
+    };
+
+    public int getPosition() {
+	return position;
+    };
+
+    public int getLine() {
+	return lineno;
+    };
+
+    public int getCharPos() {
+	return charpos;
+    };
 };
-

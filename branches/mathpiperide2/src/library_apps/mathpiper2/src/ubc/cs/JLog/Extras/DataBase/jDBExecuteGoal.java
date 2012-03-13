@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	DBExecuteGoal
 //#########################################################################
- 
+
 package ubc.cs.JLog.Extras.DataBase;
 
 import java.sql.*;
@@ -55,62 +55,55 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.*;
 
-public class jDBExecuteGoal extends jGoal 
-{
- protected jTerm		sql = null;
+public class jDBExecuteGoal extends jGoal {
+    protected jTerm sql = null;
 
- public jDBExecuteGoal(jTerm t) 
- {
-  sql = t;
- };
- 
- public boolean prove(iGoalStack goals, iGoalStack proved) 
- {String	query = null;
-  jTerm		sql_term = sql.getTerm();
+    public jDBExecuteGoal(jTerm t) {
+	sql = t;
+    };
 
-  if (sql_term.type == iType.TYPE_VARIABLE) 
-   throw new RuntimeException("Query is unbound");
-  
-  query = sql_term.toString();
-  
-  try 
-  {Statement		stmt = jDBConnect.getConnection().createStatement();
-   int				rows = stmt.executeUpdate(query);
+    public boolean prove(iGoalStack goals, iGoalStack proved) {
+	String query = null;
+	jTerm sql_term = sql.getTerm();
 
-   proved.push(this);
-   return true;
-  } 
-  catch (SQLException sqlex) 
-  {
-   goals.push(this);
-   return false;
-  }
- };
+	if (sql_term.type == iType.TYPE_VARIABLE)
+	    throw new RuntimeException("Query is unbound");
 
- public boolean 	retry(iGoalStack goals,iGoalStack proved)
- {
-  goals.push(this); // a retry that follows may need a node to remove or retry
-  return false;
- };
+	query = sql_term.toString();
 
- public String 		getName() 
- {
-  return "db_execute";
- };
- 
- public int 		getArity() 
- {
-  return 1;
- };
- 
- public String 		toString() 
- {StringBuffer 	sb = new StringBuffer();
-   
-  sb.append(getName()+"/"+String.valueOf(getArity()));
-  if (sql != null)
-   sb.append(" goal: "+getName()+"("+sql.toString()+")");
-  
-  return sb.toString();
- };
+	try {
+	    Statement stmt = jDBConnect.getConnection().createStatement();
+	    int rows = stmt.executeUpdate(query);
+
+	    proved.push(this);
+	    return true;
+	} catch (SQLException sqlex) {
+	    goals.push(this);
+	    return false;
+	}
+    };
+
+    public boolean retry(iGoalStack goals, iGoalStack proved) {
+	goals.push(this); // a retry that follows may need a node to remove or
+			  // retry
+	return false;
+    };
+
+    public String getName() {
+	return "db_execute";
+    };
+
+    public int getArity() {
+	return 1;
+    };
+
+    public String toString() {
+	StringBuffer sb = new StringBuffer();
+
+	sb.append(getName() + "/" + String.valueOf(getArity()));
+	if (sql != null)
+	    sb.append(" goal: " + getName() + "(" + sql.toString() + ")");
+
+	return sb.toString();
+    };
 }
-

@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	DCGPredicateEntry
 //#########################################################################
@@ -55,18 +55,12 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Parser.*;
 import ubc.cs.JLog.Terms.*;
 
-public class pDCGPredicateEntry extends pPredicateEntry
-{
- public 	pDCGPredicateEntry()
- {
-  super("-->",2);
- };
- 
- public iPredicate 		createPredicate(jCompoundTerm cterm)
- {
-  return new jDCG(cterm.elementAt(0),cterm.elementAt(1));
- };
+public class pDCGPredicateEntry extends pPredicateEntry {
+    public pDCGPredicateEntry() {
+	super("-->", 2);
+    };
+
+    public iPredicate createPredicate(jCompoundTerm cterm) {
+	return new jDCG(cterm.elementAt(0), cterm.elementAt(1));
+    };
 };
-
-
-

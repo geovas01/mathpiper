@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //##################################################################################
 //	gCardPanel
 //##################################################################################
@@ -54,35 +54,30 @@ import java.util.*;
 import java.awt.*;
 
 /**
-* This is a panel that represents the working area for a tabbed interface.
-*
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public class gCardPanel extends Panel implements iCardPanel
-{
- protected String 	defaultcard = null;
+ * This is a panel that represents the working area for a tabbed interface.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public class gCardPanel extends Panel implements iCardPanel {
+    protected String defaultcard = null;
 
- public 	gCardPanel()
- {
-  setLayout(new CardLayout());
-  setFont(new Font("SansSerif",Font.PLAIN,12));
-  setBackground(Color.lightGray);
-  setForeground(Color.black);
- };
- 
- public void 		setDefaultCard(String s)
- {
-  defaultcard = s;
- };
+    public gCardPanel() {
+	setLayout(new CardLayout());
+	setFont(new Font("SansSerif", Font.PLAIN, 12));
+	setBackground(Color.lightGray);
+	setForeground(Color.black);
+    };
 
- public void 		setCard(String s)
- {
-  ((CardLayout) getLayout()).show(this,s);
- };
- 
- public void 		resetCard()
- {
-  ((CardLayout) getLayout()).show(this,defaultcard);
- };
+    public void setDefaultCard(String s) {
+	defaultcard = s;
+    };
+
+    public void setCard(String s) {
+	((CardLayout) getLayout()).show(this, s);
+    };
+
+    public void resetCard() {
+	((CardLayout) getLayout()).show(this, defaultcard);
+    };
 };

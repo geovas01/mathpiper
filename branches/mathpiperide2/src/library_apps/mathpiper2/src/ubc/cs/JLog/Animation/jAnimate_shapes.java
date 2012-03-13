@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Animate Shapes
 //#########################################################################
- 
+
 package ubc.cs.JLog.Animation;
 
 import java.lang.*;
@@ -55,52 +55,46 @@ import java.awt.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jAnimate_shapes extends jAnimate
-{
- public jAnimate_shapes(jTerm t)
- {
-  super(t);
- };
-  
- public String 		getName()
- {
-  return "animate<shapes>";
- };
- 
- public int 		getNumberArguments()
- {
-  return 2;
- };
- 
- protected jUnaryBuiltinPredicate 		duplicate(jTerm r)
- {
-  return new jAnimate_shapes(r); 
- };
- 
- public boolean 	prove(jAnimateGoal ag,aAnimationEnvironment ae)
- {
-  return action(ae,aAttributeTranslation.convertToTerms(ag.term,getNumberArguments()),
-					ag.unified);
- };
+public class jAnimate_shapes extends jAnimate {
+    public jAnimate_shapes(jTerm t) {
+	super(t);
+    };
 
- protected boolean 	action(aAnimationEnvironment ae,jTerm[] terms,jUnifiedVector uv)
- {aAnimationObject 	obj = aAttributeTranslation.convertToAnimationObject(terms[0],ae);
-  jList				list = jListPair.createListFromEnumeration(obj.enumShapes(),
-					   new iObjectToTerm()
-                       {
-                        public jTerm 	createTermFromObject(Object obj)
-                        {aAnimationShape ao = (aAnimationShape) obj;
-						
-						 return new jCons(new jAtom(ao.getName()),new jObject(obj)); 
-                        }
-                       });
-  
-  return terms[1].unify(list,uv); 
- };
+    public String getName() {
+	return "animate<shapes>";
+    };
 
- protected void 	action(aAnimationEnvironment ae,jTerm[] terms)
- {
-  // do nothing
- };
+    public int getNumberArguments() {
+	return 2;
+    };
+
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jAnimate_shapes(r);
+    };
+
+    public boolean prove(jAnimateGoal ag, aAnimationEnvironment ae) {
+	return action(ae, aAttributeTranslation.convertToTerms(ag.term,
+		getNumberArguments()), ag.unified);
+    };
+
+    protected boolean action(aAnimationEnvironment ae, jTerm[] terms,
+	    jUnifiedVector uv) {
+	aAnimationObject obj = aAttributeTranslation.convertToAnimationObject(
+		terms[0], ae);
+	jList list = jListPair.createListFromEnumeration(obj.enumShapes(),
+		new iObjectToTerm() {
+		    public jTerm createTermFromObject(Object obj) {
+			aAnimationShape ao = (aAnimationShape) obj;
+
+			return new jCons(new jAtom(ao.getName()), new jObject(
+				obj));
+		    }
+		});
+
+	return terms[1].unify(list, uv);
+    };
+
+    protected void action(aAnimationEnvironment ae, jTerm[] terms) {
+	// do nothing
+    };
 };
-

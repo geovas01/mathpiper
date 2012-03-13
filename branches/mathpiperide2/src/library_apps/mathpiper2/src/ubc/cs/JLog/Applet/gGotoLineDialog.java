@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //##################################################################################
 //	gGotoLineDialog
 //##################################################################################
@@ -55,128 +55,115 @@ import java.awt.*;
 import java.awt.event.*;
 import java.applet.Applet;
 
-public class gGotoLineDialog extends Dialog
-{
- protected TextField		line_field;
- protected int				initial_line;
- protected int				goto_line = -1;
- 
- public gGotoLineDialog(gWindowBase w,int line)
- {
-  super(w,"Goto Line",true);
-  
-  initial_line = line;
-  
-  setLayout(new BorderLayout());
-  
-  {Panel	fields = new Panel();
-   Font		font = new Font("Dialog",Font.BOLD,12);
-   Label 	info;
-   
-   fields.setLayout(new BorderLayout());
-   
-   info = new Label("Line: ",Label.LEFT);
-   info.setFont(font);
+public class gGotoLineDialog extends Dialog {
+    protected TextField line_field;
+    protected int initial_line;
+    protected int goto_line = -1;
 
-   fields.add(info,BorderLayout.WEST);
+    public gGotoLineDialog(gWindowBase w, int line) {
+	super(w, "Goto Line", true);
 
-   line_field = new TextField(Integer.toString(initial_line));
-   line_field.setFont(font);
+	initial_line = line;
 
-   line_field.addKeyListener(new KeyAdapter()
-                       {
-                        public void 	keyPressed(KeyEvent e)
-                        {
-                         if (e.getKeyCode() == KeyEvent.VK_ENTER)
-                         { 
-						  gGotoLineDialog.this.doGoto();
-						 } 
-                        }
-                       });
+	setLayout(new BorderLayout());
 
-   fields.add(line_field,BorderLayout.CENTER);
-   fields.add(new Panel(),BorderLayout.SOUTH);
-   add(fields,BorderLayout.CENTER);
-  }
-   
-  add(new Panel(),BorderLayout.WEST);
-  add(new Panel(),BorderLayout.EAST);
-  add(new Panel(),BorderLayout.NORTH);
-  
-  {Panel 	buttons = new Panel();
-   Panel	go = new Panel();
-   Button 	b;
+	{
+	    Panel fields = new Panel();
+	    Font font = new Font("Dialog", Font.BOLD, 12);
+	    Label info;
 
-   buttons.setLayout(new BorderLayout());
-   go.setLayout(new BorderLayout());
-   
-   b = new Button("Goto");
-   b.addActionListener(new ActionListener()
-                {
-                 public void 	actionPerformed(ActionEvent e)
-                 {
-				  gGotoLineDialog.this.doGoto();
-                 }
-                }); 
-   b.setBackground(Color.white);
-   b.setForeground(Color.black);
-   
-   go.add(b,BorderLayout.EAST);
-   go.add(new Panel(),BorderLayout.CENTER);
-   go.add(new Panel(),BorderLayout.WEST);
-   buttons.add(go,BorderLayout.CENTER);
-   buttons.add(new Panel(),BorderLayout.EAST);
-   buttons.add(new Panel(),BorderLayout.WEST);
-   buttons.add(new Panel(),BorderLayout.SOUTH);
-   add(buttons,BorderLayout.SOUTH);
-  }
-    
-  pack();
+	    fields.setLayout(new BorderLayout());
 
-  addWindowListener(new WindowAdapter() 
-                {
-				 public void windowClosing(WindowEvent evt) 
-                 {
-				  close();
-		         }
-		        });
+	    info = new Label("Line: ", Label.LEFT);
+	    info.setFont(font);
 
-  setSize(400, 100);
-  {Point	ploc = w.getLocation();
-  
-   setLocation(ploc.x+16,ploc.y+32);
-  }
-  setVisible(true);
- };
- 
- public boolean 		wasAccepted()
- {
-  return (goto_line >= 0);
- };
- 
- public int 		getGotoLine()
- {
-  return goto_line;
- };
- 
- protected void		doGoto()
- {
-  try
-  {
-   goto_line = Integer.parseInt(line_field.getText());
-   close();
-  }
-  catch (NumberFormatException ex)
-  {
-   goto_line = -1;
-   line_field.setText(Integer.toString(initial_line));
-   line_field.selectAll();
-   Toolkit.getDefaultToolkit().beep();
-  } 
- };
+	    fields.add(info, BorderLayout.WEST);
 
- protected void 	close()
- {
-  dispose();
- };
+	    line_field = new TextField(Integer.toString(initial_line));
+	    line_field.setFont(font);
+
+	    line_field.addKeyListener(new KeyAdapter() {
+		public void keyPressed(KeyEvent e) {
+		    if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			gGotoLineDialog.this.doGoto();
+		    }
+		}
+	    });
+
+	    fields.add(line_field, BorderLayout.CENTER);
+	    fields.add(new Panel(), BorderLayout.SOUTH);
+	    add(fields, BorderLayout.CENTER);
+	}
+
+	add(new Panel(), BorderLayout.WEST);
+	add(new Panel(), BorderLayout.EAST);
+	add(new Panel(), BorderLayout.NORTH);
+
+	{
+	    Panel buttons = new Panel();
+	    Panel go = new Panel();
+	    Button b;
+
+	    buttons.setLayout(new BorderLayout());
+	    go.setLayout(new BorderLayout());
+
+	    b = new Button("Goto");
+	    b.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		    gGotoLineDialog.this.doGoto();
+		}
+	    });
+	    b.setBackground(Color.white);
+	    b.setForeground(Color.black);
+
+	    go.add(b, BorderLayout.EAST);
+	    go.add(new Panel(), BorderLayout.CENTER);
+	    go.add(new Panel(), BorderLayout.WEST);
+	    buttons.add(go, BorderLayout.CENTER);
+	    buttons.add(new Panel(), BorderLayout.EAST);
+	    buttons.add(new Panel(), BorderLayout.WEST);
+	    buttons.add(new Panel(), BorderLayout.SOUTH);
+	    add(buttons, BorderLayout.SOUTH);
+	}
+
+	pack();
+
+	addWindowListener(new WindowAdapter() {
+	    public void windowClosing(WindowEvent evt) {
+		close();
+	    }
+	});
+
+	setSize(400, 100);
+	{
+	    Point ploc = w.getLocation();
+
+	    setLocation(ploc.x + 16, ploc.y + 32);
+	}
+	setVisible(true);
+    };
+
+    public boolean wasAccepted() {
+	return (goto_line >= 0);
+    };
+
+    public int getGotoLine() {
+	return goto_line;
+    };
+
+    protected void doGoto() {
+	try {
+	    goto_line = Integer.parseInt(line_field.getText());
+	    close();
+	} catch (NumberFormatException ex) {
+	    goto_line = -1;
+	    line_field.setText(Integer.toString(initial_line));
+	    line_field.selectAll();
+	    Toolkit.getDefaultToolkit().beep();
+	}
+    };
+
+    protected void close() {
+	dispose();
+    };
 };

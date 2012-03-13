@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	DBDisconnect
 //#########################################################################
- 
+
 package ubc.cs.JLog.Extras.DataBase;
 
 import java.util.*;
@@ -54,30 +54,23 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Builtins.*;
 
-public class jDBDisconnect extends jBuiltinPredicate
-{
- public jDBDisconnect()
- {
- };
-  
- public String 		getName()
- {
-  return "db_disconnect";
- };
- 
- public int 		getArity()
- {
-  return 0;
- };
+public class jDBDisconnect extends jBuiltinPredicate {
+    public jDBDisconnect() {
+    };
 
- public void 		addGoals(jGoal g,jVariable[] vars,iGoalStack goals)
- {
-  goals.push(new jDBDisconnectGoal());
- }; 
+    public String getName() {
+	return "db_disconnect";
+    };
 
- public void 		addGoals(jGoal g,iGoalStack goals)
- {
-  goals.push(new jDBDisconnectGoal());
- }; 
+    public int getArity() {
+	return 0;
+    };
+
+    public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+	goals.push(new jDBDisconnectGoal());
+    };
+
+    public void addGoals(jGoal g, iGoalStack goals) {
+	goals.push(new jDBDisconnectGoal());
+    };
 };
-

@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	NameArity
 //#########################################################################
@@ -53,18 +53,16 @@ import java.lang.*;
 import java.util.*;
 
 /**
-* This is the base interface for classes which have arity (such as predicates).
-*  
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public interface iNameArity extends iName
-{
- /**
-  * Returns the arity of this instance.
-  *
-  * @return 		<code>int</code> whose value is the arity of this instance.
-  */
- public int 		getArity();
+ * This is the base interface for classes which have arity (such as predicates).
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public interface iNameArity extends iName {
+    /**
+     * Returns the arity of this instance.
+     * 
+     * @return <code>int</code> whose value is the arity of this instance.
+     */
+    public int getArity();
 };
-

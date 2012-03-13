@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //##################################################################################
 //	gButtonTab
 //##################################################################################
@@ -55,64 +55,58 @@ import java.awt.*;
 import java.awt.event.*;
 
 /**
-* This represents a tab in a multi-tabbed user interface.  Each tab is associated
-* with an panel.  When the tab is pressed it informs its owning 
-* <code>gButtonTabMenu</code> that it was pressed and then notifies the enclosing 
-* <code>iCardPanel</code> to display the associated panel.
-*
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public class gButtonTab extends Panel
-{
- protected final static String 		ACTIVE = "active";
- protected final static String 		INACTIVE = "inactive";
- 
- protected String			cardname;
- protected iCardPanel 		card;
- protected gButtonTabMenu 	menu;
- protected Button 			button;
- protected Label 			label;
- 
- public 	gButtonTab(String title,gButtonTabMenu m,iCardPanel cl,String cname)
- {
-  card = cl;
-  cardname = cname;
-  
-  menu = m;
+ * This represents a tab in a multi-tabbed user interface. Each tab is
+ * associated with an panel. When the tab is pressed it informs its owning
+ * <code>gButtonTabMenu</code> that it was pressed and then notifies the
+ * enclosing <code>iCardPanel</code> to display the associated panel.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public class gButtonTab extends Panel {
+    protected final static String ACTIVE = "active";
+    protected final static String INACTIVE = "inactive";
 
-  setLayout(new CardLayout());
-  setFont(m.getFont());
-  setBackground(Color.lightGray);
-  setForeground(Color.black);
+    protected String cardname;
+    protected iCardPanel card;
+    protected gButtonTabMenu menu;
+    protected Button button;
+    protected Label label;
 
-  add(button = new Button(title),INACTIVE);
-  button.addActionListener(new ActionListener() 
-                       {
-                        public void 	actionPerformed(ActionEvent e)
-                        {
-                         menu.setActiveTab(gButtonTab.this);
-                        }
-                       }
-                      );
-  button.setBackground(Color.white);
-  button.setForeground(Color.black);
- 
-  add(label = new Label(title,Label.CENTER),ACTIVE);
- };
- 
- public void 	setState(boolean active)
- {
-  if (active)
-   card.setCard(cardname);
- 
-  ((CardLayout) getLayout()).show(this,(active ? ACTIVE : INACTIVE));
- };
- 
- public void 	setEnabled(boolean b)
- {
-  super.setEnabled(b);
-  button.setEnabled(b);
-  label.setEnabled(b);
- };
+    public gButtonTab(String title, gButtonTabMenu m, iCardPanel cl,
+	    String cname) {
+	card = cl;
+	cardname = cname;
+
+	menu = m;
+
+	setLayout(new CardLayout());
+	setFont(m.getFont());
+	setBackground(Color.lightGray);
+	setForeground(Color.black);
+
+	add(button = new Button(title), INACTIVE);
+	button.addActionListener(new ActionListener() {
+	    public void actionPerformed(ActionEvent e) {
+		menu.setActiveTab(gButtonTab.this);
+	    }
+	});
+	button.setBackground(Color.white);
+	button.setForeground(Color.black);
+
+	add(label = new Label(title, Label.CENTER), ACTIVE);
+    };
+
+    public void setState(boolean active) {
+	if (active)
+	    card.setCard(cardname);
+
+	((CardLayout) getLayout()).show(this, (active ? ACTIVE : INACTIVE));
+    };
+
+    public void setEnabled(boolean b) {
+	super.setEnabled(b);
+	button.setEnabled(b);
+	label.setEnabled(b);
+    };
 };

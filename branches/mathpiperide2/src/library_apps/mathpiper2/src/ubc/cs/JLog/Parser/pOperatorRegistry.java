@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	OperatorRegistry
 //#########################################################################
@@ -53,44 +53,37 @@ import java.lang.*;
 import java.util.*;
 
 /**
-* The registery for <code>pOperatorEntry</code>s.  This is like a translation table
-* for operators, where each entry is a mapping object that takes parsing packets,
-* and produces prolog terms.   
-*  
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public class pOperatorRegistry
-{
- protected Hashtable 					operators;
- 
- public pOperatorRegistry()
- {
-  operators = new Hashtable();
- };
+ * The registery for <code>pOperatorEntry</code>s. This is like a translation
+ * table for operators, where each entry is a mapping object that takes parsing
+ * packets, and produces prolog terms.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public class pOperatorRegistry {
+    protected Hashtable operators;
 
- public void 			addOperator(pOperatorEntry oe)
- {
-  operators.put(getKeyString(oe.getName(),oe.hasLHS()),oe);
- };
- 
- public pOperatorEntry 	getOperator(String name,boolean lhs_op)
- {
-  return (pOperatorEntry) operators.get(getKeyString(name,lhs_op));
- }; 			
- 
- public void 			clearOperators()
- {
-  operators = new Hashtable();
- };
- 
- public Enumeration 	enumOperators()
- {
-  return operators.elements();
- };
+    public pOperatorRegistry() {
+	operators = new Hashtable();
+    };
 
- protected final String		getKeyString(String name,boolean lhs_op)
- {
-  return name + (lhs_op ? "/LHS" : "/N");
- }; 
+    public void addOperator(pOperatorEntry oe) {
+	operators.put(getKeyString(oe.getName(), oe.hasLHS()), oe);
+    };
+
+    public pOperatorEntry getOperator(String name, boolean lhs_op) {
+	return (pOperatorEntry) operators.get(getKeyString(name, lhs_op));
+    };
+
+    public void clearOperators() {
+	operators = new Hashtable();
+    };
+
+    public Enumeration enumOperators() {
+	return operators.elements();
+    };
+
+    protected final String getKeyString(String name, boolean lhs_op) {
+	return name + (lhs_op ? "/LHS" : "/N");
+    };
 };

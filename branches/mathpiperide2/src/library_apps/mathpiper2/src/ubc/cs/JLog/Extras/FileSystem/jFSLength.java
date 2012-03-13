@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	FSLength
 //#########################################################################
- 
+
 package ubc.cs.JLog.Extras.FileSystem;
 
 import java.io.*;
@@ -56,55 +56,45 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.*;
 import ubc.cs.JLog.Terms.Goals.*;
 
-public class jFSLength extends jBinaryBuiltinPredicate 
-{
- public jFSLength(jTerm l,jTerm r) 
- {
-  super(l,r,TYPE_BUILTINPREDICATE);
- };
-  
- public String 		getName() 
- {
-  return "fs_length";
- };
- 
- public boolean 	prove(jBinaryBuiltinPredicateGoal bg)
- {jTerm 	l = bg.term1.getTerm();
-  jTerm		r = bg.term2.getTerm();
-  String	fileName;
+public class jFSLength extends jBinaryBuiltinPredicate {
+    public jFSLength(jTerm l, jTerm r) {
+	super(l, r, TYPE_BUILTINPREDICATE);
+    };
 
-  if (l instanceof jVariable) 
-  {
-   if (((jVariable) l).isBound()) 
-   {
-    fileName = ((jVariable) l).toString();
-   } 
-   else 
-   {
-    throw new RuntimeException("Filename variable is unbound");
-   }
-  } 
-  else 
-  {
-   fileName = l.toString();
-  }
+    public String getName() {
+	return "fs_length";
+    };
 
-  {File		f = new File(fileName);
-   jTerm	result;
-   
-   // simply fail the goal if the file does not exist
-   if (!f.exists() || !f.isFile())
-	return false;
+    public boolean prove(jBinaryBuiltinPredicateGoal bg) {
+	jTerm l = bg.term1.getTerm();
+	jTerm r = bg.term2.getTerm();
+	String fileName;
 
-   result = new jInteger((int) f.length());
+	if (l instanceof jVariable) {
+	    if (((jVariable) l).isBound()) {
+		fileName = ((jVariable) l).toString();
+	    } else {
+		throw new RuntimeException("Filename variable is unbound");
+	    }
+	} else {
+	    fileName = l.toString();
+	}
 
-   return r.unify(result, bg.unified);
-  }
- };
+	{
+	    File f = new File(fileName);
+	    jTerm result;
 
- public jBinaryBuiltinPredicate 		duplicate(jTerm l,jTerm r)
- {
-  return new jFSLength(l,r); 
- };
+	    // simply fail the goal if the file does not exist
+	    if (!f.exists() || !f.isFile())
+		return false;
+
+	    result = new jInteger((int) f.length());
+
+	    return r.unify(result, bg.unified);
+	}
+    };
+
+    public jBinaryBuiltinPredicate duplicate(jTerm l, jTerm r) {
+	return new jFSLength(l, r);
+    };
 }
-

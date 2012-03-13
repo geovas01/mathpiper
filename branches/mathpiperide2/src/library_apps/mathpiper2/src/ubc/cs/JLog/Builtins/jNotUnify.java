@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	NotUnify
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -54,26 +54,20 @@ import java.util.*;
 import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Terms.Goals.*;
 
-public class jNotUnify extends jUnify
-{
- public jNotUnify(jTerm l,jTerm r)
- {
-  super(l,r);
- };
-  
- public String 		getName()
- {
-  return "\\=";
- };
- 
- public boolean 	prove(jBinaryBuiltinPredicateGoal ig)
- {
-  return !super.prove(ig);
- };
+public class jNotUnify extends jUnify {
+    public jNotUnify(jTerm l, jTerm r) {
+	super(l, r);
+    };
 
- public jBinaryBuiltinPredicate 		duplicate(jTerm l,jTerm r)
- {
-  return new jNotUnify(l,r); 
- };
+    public String getName() {
+	return "\\=";
+    };
+
+    public boolean prove(jBinaryBuiltinPredicateGoal ig) {
+	return !super.prove(ig);
+    };
+
+    public jBinaryBuiltinPredicate duplicate(jTerm l, jTerm r) {
+	return new jNotUnify(l, r);
+    };
 };
-

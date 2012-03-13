@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Value
 //#########################################################################
@@ -53,23 +53,22 @@ import java.lang.*;
 import java.util.*;
 
 /**
-* This interface defines classes that return their evaluated values as a 
-* <code>jTerm</code>.   
-* In many cases, instances with this interface will return themselves (if they are a
-* <code>jTerm</code>), while operators would return their evaluated values,
-* while variables would return the evaluated value of the term they are bound to.
-* 
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public interface iValue
-{
- /**
-  * Return the value of this object after.
-  *
-  * @return 		<code>jTerm</code> which represents the evaluated value of this 
-  * 			instance, or the value bound to this instance, in the case of a 
-  * 			variable.
-  */
- public jTerm 		getValue();
+ * This interface defines classes that return their evaluated values as a
+ * <code>jTerm</code>. In many cases, instances with this interface will return
+ * themselves (if they are a <code>jTerm</code>), while operators would return
+ * their evaluated values, while variables would return the evaluated value of
+ * the term they are bound to.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public interface iValue {
+    /**
+     * Return the value of this object after.
+     * 
+     * @return <code>jTerm</code> which represents the evaluated value of this
+     *         instance, or the value bound to this instance, in the case of a
+     *         variable.
+     */
+    public jTerm getValue();
 };

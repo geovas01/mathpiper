@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	OrGoalWVars
 //#########################################################################
@@ -54,31 +54,25 @@ import java.util.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jOrGoalWVars extends jOrGoal
-{
- protected jVariable[] 			vars;
+public class jOrGoalWVars extends jOrGoal {
+    protected jVariable[] vars;
 
- public 	jOrGoalWVars(jOrPredicate op,jGoal g,jVariable[] v,jGoal end)
- {
-  super(op,g,end);
-  vars = v;
- };
+    public jOrGoalWVars(jOrPredicate op, jGoal g, jVariable[] v, jGoal end) {
+	super(op, g, end);
+	vars = v;
+    };
 
- public boolean 	prove(iGoalStack goals,iGoalStack proved)
- {
-  if (or_predicate.prove(this,head_goal,vars,goals))
-  {
-   proved.push(this);
-   return true;
-  }
-  else
-  {
-   { // we need to initialize goal to potentially restart
-    pterm_number = STARTING_PREDICATE; 
-   }
-   goals.push(this); // a retry that follows may need a node to remove or retry
-   return false;
-  }
- };
+    public boolean prove(iGoalStack goals, iGoalStack proved) {
+	if (or_predicate.prove(this, head_goal, vars, goals)) {
+	    proved.push(this);
+	    return true;
+	} else {
+	    { // we need to initialize goal to potentially restart
+		pterm_number = STARTING_PREDICATE;
+	    }
+	    goals.push(this); // a retry that follows may need a node to remove
+			      // or retry
+	    return false;
+	}
+    };
 };
-

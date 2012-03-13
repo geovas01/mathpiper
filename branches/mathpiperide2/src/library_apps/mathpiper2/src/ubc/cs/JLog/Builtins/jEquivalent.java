@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Equivalent
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -55,52 +55,47 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
-public class jEquivalent extends jBinaryBuiltinPredicate
-{
- public jEquivalent(jTerm l,jTerm r)
- {
-  super(l,r,TYPE_BUILTINPREDICATE);
- };
-  
- public String 		getName()
- {
-  return "==";
- };
- 
- public boolean 	prove(jEquivGoal ig)
- {jTerm 	l,r;
-  boolean 	result;
-  
-  l = ig.lhs.getTerm();
-  r = ig.rhs.getTerm();
-  
-  // to be equivalent two terms must unify, but without binding any variables
-  result = l.unify(r,ig.unified);
-  result = result && ig.unified.isEmpty();
-  
-  ig.unified.restoreVariables();
+public class jEquivalent extends jBinaryBuiltinPredicate {
+    public jEquivalent(jTerm l, jTerm r) {
+	super(l, r, TYPE_BUILTINPREDICATE);
+    };
 
-  return result;
- };
+    public String getName() {
+	return "==";
+    };
 
- public void 		addGoals(jGoal g,jVariable[] vars,iGoalStack goals)
- {
-  goals.push(new jEquivGoal(this,lhs.duplicate(vars),rhs.duplicate(vars)));
- }; 
+    public boolean prove(jEquivGoal ig) {
+	jTerm l, r;
+	boolean result;
 
- public void 		addGoals(jGoal g,iGoalStack goals)
- {
-  goals.push(new jEquivGoal(this,lhs,rhs));
- }; 
+	l = ig.lhs.getTerm();
+	r = ig.rhs.getTerm();
 
- public jBinaryBuiltinPredicate 		duplicate(jTerm l,jTerm r)
- {
-  return new jEquivalent(l,r); 
- };
+	// to be equivalent two terms must unify, but without binding any
+	// variables
+	result = l.unify(r, ig.unified);
+	result = result && ig.unified.isEmpty();
 
- public String 		toString(boolean usename)
- {
-  return lhs.toString(usename) + " " + getName() + " " + rhs.toString(usename);
- };
+	ig.unified.restoreVariables();
+
+	return result;
+    };
+
+    public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+	goals.push(new jEquivGoal(this, lhs.duplicate(vars), rhs
+		.duplicate(vars)));
+    };
+
+    public void addGoals(jGoal g, iGoalStack goals) {
+	goals.push(new jEquivGoal(this, lhs, rhs));
+    };
+
+    public jBinaryBuiltinPredicate duplicate(jTerm l, jTerm r) {
+	return new jEquivalent(l, r);
+    };
+
+    public String toString(boolean usename) {
+	return lhs.toString(usename) + " " + getName() + " "
+		+ rhs.toString(usename);
+    };
 };
-

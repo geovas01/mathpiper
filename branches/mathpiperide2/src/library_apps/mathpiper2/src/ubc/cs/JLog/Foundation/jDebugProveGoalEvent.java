@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	jDebugProveGoalEvent
 //#########################################################################
@@ -52,26 +52,21 @@ package ubc.cs.JLog.Foundation;
 import java.lang.*;
 import java.util.*;
 
-public class jDebugProveGoalEvent extends jPrologServiceEvent
-{
- protected jGoal 	goal;
- protected Vector 	sub_goals;
- 
- public 	jDebugProveGoalEvent(jGoal g,Vector sg)
- {
-  goal = g;
-  sub_goals = sg;
- };
+public class jDebugProveGoalEvent extends jPrologServiceEvent {
+    protected jGoal goal;
+    protected Vector sub_goals;
 
- // this is the goal that we are trying to prove - it is on the prove stack
- public jGoal 		getGoal()
- {
-  return goal;
- };
+    public jDebugProveGoalEvent(jGoal g, Vector sg) {
+	goal = g;
+	sub_goals = sg;
+    };
 
- public Vector 		getSubGoals()
- {
-  return sub_goals;
- };
+    // this is the goal that we are trying to prove - it is on the prove stack
+    public jGoal getGoal() {
+	return goal;
+    };
+
+    public Vector getSubGoals() {
+	return sub_goals;
+    };
 };
-

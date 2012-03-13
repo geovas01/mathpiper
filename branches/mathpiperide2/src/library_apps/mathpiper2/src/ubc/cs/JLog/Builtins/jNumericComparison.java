@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	NumericComparison
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -54,45 +54,45 @@ import java.util.*;
 import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
-abstract public class jNumericComparison extends jOperator
-{
- public jNumericComparison(jTerm l,jTerm r)
- {
-  super(l,r,TYPE_NUMERICCOMPARE);
- };
- 
- public boolean 	prove(jOperatorGoal og)
- {jTerm 	l,r;
-  float 	rl,rr;
- 
-  l = og.lhs.getValue();
-  r = og.rhs.getValue();
-  
-  if (l.type == TYPE_INTEGER && r.type == TYPE_INTEGER)
-   return compareInteger(((jInteger) l).getIntegerValue(),((jInteger) r).getIntegerValue());
-   
-  if (l.type == TYPE_ATOM && r.type == TYPE_ATOM)
-   return compareString(l.getName(),r.getName());
-  
-  if (l.type == TYPE_INTEGER)
-   rl = (float) ((jInteger) l).getIntegerValue();
-  else if (l.type == TYPE_REAL)
-   rl = ((jReal) l).getRealValue();
-  else
-   return false;
-  
-  if (r.type == TYPE_INTEGER)
-   rr = (float) ((jInteger) r).getIntegerValue();
-  else if (r.type == TYPE_REAL)
-   rr = ((jReal) r).getRealValue();
-  else
-   return false;
+abstract public class jNumericComparison extends jOperator {
+    public jNumericComparison(jTerm l, jTerm r) {
+	super(l, r, TYPE_NUMERICCOMPARE);
+    };
 
-  return compareReal(rl,rr);
- };
- 
- abstract protected boolean 	compareInteger(int l,int r);
- abstract protected boolean 	compareReal(float l,float r);
- abstract protected boolean 	compareString(String l,String r);
+    public boolean prove(jOperatorGoal og) {
+	jTerm l, r;
+	float rl, rr;
+
+	l = og.lhs.getValue();
+	r = og.rhs.getValue();
+
+	if (l.type == TYPE_INTEGER && r.type == TYPE_INTEGER)
+	    return compareInteger(((jInteger) l).getIntegerValue(),
+		    ((jInteger) r).getIntegerValue());
+
+	if (l.type == TYPE_ATOM && r.type == TYPE_ATOM)
+	    return compareString(l.getName(), r.getName());
+
+	if (l.type == TYPE_INTEGER)
+	    rl = (float) ((jInteger) l).getIntegerValue();
+	else if (l.type == TYPE_REAL)
+	    rl = ((jReal) l).getRealValue();
+	else
+	    return false;
+
+	if (r.type == TYPE_INTEGER)
+	    rr = (float) ((jInteger) r).getIntegerValue();
+	else if (r.type == TYPE_REAL)
+	    rr = ((jReal) r).getRealValue();
+	else
+	    return false;
+
+	return compareReal(rl, rr);
+    };
+
+    abstract protected boolean compareInteger(int l, int r);
+
+    abstract protected boolean compareReal(float l, float r);
+
+    abstract protected boolean compareString(String l, String r);
 };
-

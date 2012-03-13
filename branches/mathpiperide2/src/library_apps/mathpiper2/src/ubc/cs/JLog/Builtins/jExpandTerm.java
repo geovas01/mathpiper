@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	ExpandTerm
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -55,37 +55,34 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Terms.Goals.*;
 
-public class jExpandTerm extends jQuadaryBuiltinPredicate
-{
- public jExpandTerm(jTerm l,jTerm r,jTerm S,jTerm E)
- {
-  super(l,r,S,E,TYPE_BUILTINPREDICATE);
- };
-  
- public String 		getName()
- {
-  return "expand_term";
- };
- 
- public boolean 	prove(jQuadaryBuiltinPredicateGoal eg)
- {jTerm 	l,r;
-  jDCG 		dcg;
- 
-  l = eg.term1.getTerm();
-  
-  if (l instanceof jDCG)
-   dcg = (jDCG) l;
-  else
-   dcg = new jDCG(l);
-  
-  r = eg.term2.getTerm();
-  
-  return r.unify(dcg.makeDCGTerm(eg.term3.getTerm(),eg.term4.getTerm()),eg.unified);
- };
+public class jExpandTerm extends jQuadaryBuiltinPredicate {
+    public jExpandTerm(jTerm l, jTerm r, jTerm S, jTerm E) {
+	super(l, r, S, E, TYPE_BUILTINPREDICATE);
+    };
 
- public jQuadaryBuiltinPredicate 		duplicate(jTerm t1,jTerm t2,jTerm t3,jTerm t4)
- {
-  return new jExpandTerm(t1,t2,t3,t4); 
- };
+    public String getName() {
+	return "expand_term";
+    };
+
+    public boolean prove(jQuadaryBuiltinPredicateGoal eg) {
+	jTerm l, r;
+	jDCG dcg;
+
+	l = eg.term1.getTerm();
+
+	if (l instanceof jDCG)
+	    dcg = (jDCG) l;
+	else
+	    dcg = new jDCG(l);
+
+	r = eg.term2.getTerm();
+
+	return r.unify(dcg.makeDCGTerm(eg.term3.getTerm(), eg.term4.getTerm()),
+		eg.unified);
+    };
+
+    public jQuadaryBuiltinPredicate duplicate(jTerm t1, jTerm t2, jTerm t3,
+	    jTerm t4) {
+	return new jExpandTerm(t1, t2, t3, t4);
+    };
 };
-

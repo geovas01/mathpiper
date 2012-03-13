@@ -42,19 +42,21 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	InvalidCalleeTypeException
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
 import java.util.*;
 
-public class InvalidCalleeTypeException extends RuntimeException
-{
- public InvalidCalleeTypeException() {};
- public InvalidCalleeTypeException(String s) {super(s);};
-};
+public class InvalidCalleeTypeException extends RuntimeException {
+    public InvalidCalleeTypeException() {
+    };
 
+    public InvalidCalleeTypeException(String s) {
+	super(s);
+    };
+};

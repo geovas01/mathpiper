@@ -42,42 +42,35 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Cos
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
 import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jCos extends jRealUnaryArithmetic
-{
- public 	jCos(jTerm r)
- {
-  super(r);
- };
- 
- public String 		getName()
- {
-  return "cos";
- };  
+public class jCos extends jRealUnaryArithmetic {
+    public jCos(jTerm r) {
+	super(r);
+    };
 
- protected jUnaryBuiltinPredicate 	duplicate(jTerm r)
- {
-  return new jCos(r);
- };
- 
- protected int 		operatorInt(int r)
- {
-  throw new InvalidArithmeticOperationException();
- };
- 
- protected float 	operatorReal(float r)
- {
-  return (float) Math.cos(r);
- };
+    public String getName() {
+	return "cos";
+    };
+
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jCos(r);
+    };
+
+    protected int operatorInt(int r) {
+	throw new InvalidArithmeticOperationException();
+    };
+
+    protected float operatorReal(float r) {
+	return (float) Math.cos(r);
+    };
 };
-

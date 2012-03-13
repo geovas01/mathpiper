@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	UnaryOperator
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -55,34 +55,28 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
-abstract public class jUnaryOperator extends jUnaryBuiltinPredicate
-{
- public jUnaryOperator(jTerm r)
- {
-  super(r,TYPE_UNARYOPERATOR);
- };
-  
- protected jUnaryOperator(jTerm r,int t)
- {
-  super(r,t);
- };
-  
- // operatorgoal does not support unification tracking, only verify or use existing bindings
- abstract public boolean 	prove(jUnaryOperatorGoal og);
+abstract public class jUnaryOperator extends jUnaryBuiltinPredicate {
+    public jUnaryOperator(jTerm r) {
+	super(r, TYPE_UNARYOPERATOR);
+    };
 
- public void 		addGoals(jGoal g,jVariable[] vars,iGoalStack goals)
- {
-  goals.push(new jUnaryOperatorGoal(this,rhs.duplicate(vars)));
- }; 
+    protected jUnaryOperator(jTerm r, int t) {
+	super(r, t);
+    };
 
- public void 		addGoals(jGoal g,iGoalStack goals)
- {
-  goals.push(new jUnaryOperatorGoal(this,rhs));
- }; 
+    // operatorgoal does not support unification tracking, only verify or use
+    // existing bindings
+    abstract public boolean prove(jUnaryOperatorGoal og);
 
- public String 		toString(boolean usename)
- {
-  return getName() + "(" + rhs.toString(usename) + ")";
- };
+    public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+	goals.push(new jUnaryOperatorGoal(this, rhs.duplicate(vars)));
+    };
+
+    public void addGoals(jGoal g, iGoalStack goals) {
+	goals.push(new jUnaryOperatorGoal(this, rhs));
+    };
+
+    public String toString(boolean usename) {
+	return getName() + "(" + rhs.toString(usename) + ")";
+    };
 };
-

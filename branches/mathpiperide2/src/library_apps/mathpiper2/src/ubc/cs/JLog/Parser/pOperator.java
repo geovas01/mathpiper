@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	pOperator
 //#########################################################################
@@ -53,132 +53,122 @@ import java.util.*;
 import java.lang.*;
 import ubc.cs.JLog.Terms.*;
 
-class pOperator extends pPacket
-{
- protected pPacket 				lhs = null,rhs = null;
- protected pOperatorEntry 		op;
+class pOperator extends pPacket {
+    protected pPacket lhs = null, rhs = null;
+    protected pOperatorEntry op;
 
- public 	pOperator(pOperatorEntry op,pToken pt)
- {
-  super(pt);
-  this.op = op;
- };
- 
- public void 		setLHS(pPacket l)
- {
-  lhs = l;
- };
- 
- public void 		setRHS(pPacket r)
- {
-  rhs = r;
- };
- 
- // verifyCompletion and get?HS functions should only be called when there is no possiblity 
- // of any further packets to attach, such as when the operator to the right requires a lhs. 
- public void 		verifyCompletion()
- {
-  getLHS();
-  getRHS();
- };
- 
- public pPacket 	getLHS()
- {
-  if (isAtom())
-   return lhs;
-   
-  if (hasLHS() && lhs == null)
-   throw new SyntaxErrorException("LHS term required before operator '" + getName() + "' at ",
-                                   token.getPosition(),token.getLine(),token.getCharPos()); 
-   
-  return lhs;
- };
- 
- public pPacket 	getRHS()
- {
-  if (isAtom())
-   return rhs;
-   
-  if (hasRHS() && rhs == null)
-   throw new SyntaxErrorException("RHS term required after operator '" + getName() + "' at ",
-                                   token.getPosition(),token.getLine(),token.getCharPos()); 
-   
-  return rhs;
- };
- 
- public boolean 	hasLHS()
- {
-  return op.hasLHS();
- };
- 
- public boolean 	hasRHS()
- {
-  return op.hasRHS();
- };
- 
- public boolean 	isAtom()
- {
-  return op.isAtomPermitted() && lhs == null && rhs == null;
- };
- 
- public int 		getType()
- {
-  return op.getType();
- };
- 
- public int 		getPriority()
- {
-  return op.getPriority();
- };
- 
- public int 		getAssociativity()
- {
-  return op.getAssociativity();
- };
+    public pOperator(pOperatorEntry op, pToken pt) {
+	super(pt);
+	this.op = op;
+    };
 
- public boolean		isNonAssociativeLeft()
- {
-  return op.isNonAssociativeLeft();
- };
+    public void setLHS(pPacket l) {
+	lhs = l;
+    };
 
- public boolean 	isNonAssociativeRight()
- {
-  return op.isNonAssociativeRight();
- };
+    public void setRHS(pPacket r) {
+	rhs = r;
+    };
 
- public boolean 	hasLHSPacket()
- {
-  return lhs != null;
- };
- 
- public boolean 	hasRHSPacket()
- {
-  return rhs != null;
- };
+    // verifyCompletion and get?HS functions should only be called when there is
+    // no possiblity
+    // of any further packets to attach, such as when the operator to the right
+    // requires a lhs.
+    public void verifyCompletion() {
+	getLHS();
+	getRHS();
+    };
 
- public jTerm 			getTerm(pVariableRegistry vars,pTermToPacketHashtable phash)
- {jTerm 	term;
-  
-  term = op.createOperator(token,lhs,rhs,vars,phash);
-  phash.putPacket(term,this);
-  
-  return term;
- };
+    public pPacket getLHS() {
+	if (isAtom())
+	    return lhs;
 
- // built-in operators can never be generic since they cannot be overridden.  This result
- // happens naturally since non-builtin operators return a jPredicate. rules, which require
- // a jpredicate as the head, will throw an error if a builtin operator appears in the head.
- // the arguments should be non-generic so that they can be called if unified with a variable. 
- public void 		setGeneric(boolean genericpred)
- {pPacket 	l,r;
+	if (hasLHS() && lhs == null)
+	    throw new SyntaxErrorException(
+		    "LHS term required before operator '" + getName() + "' at ",
+		    token.getPosition(), token.getLine(), token.getCharPos());
 
-  l = getLHS();
-  r = getRHS();
-  
-  if (l != null)
-   l.setGeneric(false);
-  if (r != null)
-   r.setGeneric(false);
- };
+	return lhs;
+    };
+
+    public pPacket getRHS() {
+	if (isAtom())
+	    return rhs;
+
+	if (hasRHS() && rhs == null)
+	    throw new SyntaxErrorException("RHS term required after operator '"
+		    + getName() + "' at ", token.getPosition(),
+		    token.getLine(), token.getCharPos());
+
+	return rhs;
+    };
+
+    public boolean hasLHS() {
+	return op.hasLHS();
+    };
+
+    public boolean hasRHS() {
+	return op.hasRHS();
+    };
+
+    public boolean isAtom() {
+	return op.isAtomPermitted() && lhs == null && rhs == null;
+    };
+
+    public int getType() {
+	return op.getType();
+    };
+
+    public int getPriority() {
+	return op.getPriority();
+    };
+
+    public int getAssociativity() {
+	return op.getAssociativity();
+    };
+
+    public boolean isNonAssociativeLeft() {
+	return op.isNonAssociativeLeft();
+    };
+
+    public boolean isNonAssociativeRight() {
+	return op.isNonAssociativeRight();
+    };
+
+    public boolean hasLHSPacket() {
+	return lhs != null;
+    };
+
+    public boolean hasRHSPacket() {
+	return rhs != null;
+    };
+
+    public jTerm getTerm(pVariableRegistry vars, pTermToPacketHashtable phash) {
+	jTerm term;
+
+	term = op.createOperator(token, lhs, rhs, vars, phash);
+	phash.putPacket(term, this);
+
+	return term;
+    };
+
+    // built-in operators can never be generic since they cannot be overridden.
+    // This result
+    // happens naturally since non-builtin operators return a jPredicate. rules,
+    // which require
+    // a jpredicate as the head, will throw an error if a builtin operator
+    // appears in the head.
+    // the arguments should be non-generic so that they can be called if unified
+    // with a variable.
+    public void setGeneric(boolean genericpred) {
+	pPacket l, r;
+
+	l = getLHS();
+	r = getRHS();
+
+	if (l != null)
+	    l.setGeneric(false);
+	if (r != null)
+	    r.setGeneric(false);
+    };
 };
-

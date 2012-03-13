@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	CopyTerm
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -55,40 +55,33 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
-public class jCopyTerm extends jBinaryBuiltinPredicate
-{
- public jCopyTerm(jTerm l,jTerm r)
- {
-  super(l,r,TYPE_BUILTINPREDICATE);
- };
-  
- public String 		getName()
- {
-  return "copy_term";
- };
- 
- public boolean 	prove(jCopyGoal cg)
- {jTerm l,r;
- 
-  l = cg.lhs.getTerm().copy();
-  r = cg.rhs.getTerm();
-   
-  return l.unify(r,cg.unified);
- };
+public class jCopyTerm extends jBinaryBuiltinPredicate {
+    public jCopyTerm(jTerm l, jTerm r) {
+	super(l, r, TYPE_BUILTINPREDICATE);
+    };
 
- public void 		addGoals(jGoal g,jVariable[] vars,iGoalStack goals)
- {
-  goals.push(new jCopyGoal(this,lhs.duplicate(vars),rhs.duplicate(vars)));
- }; 
+    public String getName() {
+	return "copy_term";
+    };
 
- public void 		addGoals(jGoal g,iGoalStack goals)
- {
-  goals.push(new jCopyGoal(this,lhs,rhs));
- }; 
+    public boolean prove(jCopyGoal cg) {
+	jTerm l, r;
 
- public jBinaryBuiltinPredicate 		duplicate(jTerm l,jTerm r)
- {
-  return new jCopyTerm(l,r); 
- };
+	l = cg.lhs.getTerm().copy();
+	r = cg.rhs.getTerm();
+
+	return l.unify(r, cg.unified);
+    };
+
+    public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+	goals.push(new jCopyGoal(this, lhs.duplicate(vars), rhs.duplicate(vars)));
+    };
+
+    public void addGoals(jGoal g, iGoalStack goals) {
+	goals.push(new jCopyGoal(this, lhs, rhs));
+    };
+
+    public jBinaryBuiltinPredicate duplicate(jTerm l, jTerm r) {
+	return new jCopyTerm(l, r);
+    };
 };
-

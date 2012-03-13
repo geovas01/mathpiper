@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	GenericPredicateEntry
 //#########################################################################
@@ -55,96 +55,95 @@ import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
 /**
-* Dynamically constructs the <code>iPredicate</code> term from a description of the name,
-* arity, and class name for the associated predicate class.  It is suitable for predicates
-* constructed directly from the <code>jCompoundTerm</code> passed into 
-* <code>createPredicate</code>.
-*  
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public class pGenericPredicateEntry extends pPredicateEntry
-{
- protected final static Class[][]   constructor_params_arrays = new Class[][] {new Class[] {},
-				new Class[] {jTerm.class}, new Class[] {jTerm.class,jTerm.class},
-				new Class[] {jTerm.class,jTerm.class,jTerm.class},
-				new Class[] {jTerm.class,jTerm.class,jTerm.class,jTerm.class}};
+ * Dynamically constructs the <code>iPredicate</code> term from a description of
+ * the name, arity, and class name for the associated predicate class. It is
+ * suitable for predicates constructed directly from the
+ * <code>jCompoundTerm</code> passed into <code>createPredicate</code>.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public class pGenericPredicateEntry extends pPredicateEntry {
+    protected final static Class[][] constructor_params_arrays = new Class[][] {
+	    new Class[] {}, new Class[] { jTerm.class },
+	    new Class[] { jTerm.class, jTerm.class },
+	    new Class[] { jTerm.class, jTerm.class, jTerm.class },
+	    new Class[] { jTerm.class, jTerm.class, jTerm.class, jTerm.class } };
 
- protected Class				predicate_class;
+    protected Class predicate_class;
 
- public 	pGenericPredicateEntry(String name,int arity,String classname )
- {
-  super(name,arity);
+    public pGenericPredicateEntry(String name, int arity, String classname) {
+	super(name, arity);
 
-  if (arity < 0)
-   throw new InvalidGenericPredicateEntryException("Arity must be a fixed, positive value");
- 
-  try
-  {
-   predicate_class = Class.forName(classname);
-  }
-  catch (Exception e)
-  {
-   throw new InvalidGenericPredicateEntryException("Predicate Class not found: "+classname);
-  }
- };
+	if (arity < 0)
+	    throw new InvalidGenericPredicateEntryException(
+		    "Arity must be a fixed, positive value");
 
- public 	pGenericPredicateEntry(String name,int arity,Class p_class )
- {
-  super(name,arity);
+	try {
+	    predicate_class = Class.forName(classname);
+	} catch (Exception e) {
+	    throw new InvalidGenericPredicateEntryException(
+		    "Predicate Class not found: " + classname);
+	}
+    };
 
-  if (arity < 0)
-   throw new InvalidGenericPredicateEntryException("Arity must be a fixed, positive value");
- 
-  predicate_class = p_class;
- };
- 
- public iPredicate 		createPredicate(jCompoundTerm cterm)
- {
-  try
-  {Constructor		pred_cons = null;
-   iPredicate		pred = null;
-   
-   pred_cons = predicate_class.getConstructor(getConstructorParamsArray());
-   pred = (iPredicate) pred_cons.newInstance(getConstructorArgsArray(cterm));
+    public pGenericPredicateEntry(String name, int arity, Class p_class) {
+	super(name, arity);
 
-   return pred;   
-  }
-  catch (Exception e)
-  {
-   throw new InvalidGenericPredicateEntryException("Predicate construction failed");
-  }
- };
- 
- protected final Class[]	getConstructorParamsArray()
- {
-  if (arity >= 0 && arity <= 4)
-   return constructor_params_arrays[arity];
-  else
-  {Class[]		params = new Class[arity];
-   int			i;
-   
-   for (i = 0; i < arity; i++)
-    params[i] = jTerm.class;
-   
-   return params;
-  }
- };
- 
- protected final Object[]	getConstructorArgsArray(jCompoundTerm cterm)
- {Object[]		args = new Object[arity];
-  int			i;
-   
-  for (i = 0; i < arity; i++)
-   args[i] = cterm.elementAt(i);
-   
-  return args;
- };
+	if (arity < 0)
+	    throw new InvalidGenericPredicateEntryException(
+		    "Arity must be a fixed, positive value");
+
+	predicate_class = p_class;
+    };
+
+    public iPredicate createPredicate(jCompoundTerm cterm) {
+	try {
+	    Constructor pred_cons = null;
+	    iPredicate pred = null;
+
+	    pred_cons = predicate_class
+		    .getConstructor(getConstructorParamsArray());
+	    pred = (iPredicate) pred_cons
+		    .newInstance(getConstructorArgsArray(cterm));
+
+	    return pred;
+	} catch (Exception e) {
+	    throw new InvalidGenericPredicateEntryException(
+		    "Predicate construction failed");
+	}
+    };
+
+    protected final Class[] getConstructorParamsArray() {
+	if (arity >= 0 && arity <= 4)
+	    return constructor_params_arrays[arity];
+	else {
+	    Class[] params = new Class[arity];
+	    int i;
+
+	    for (i = 0; i < arity; i++)
+		params[i] = jTerm.class;
+
+	    return params;
+	}
+    };
+
+    protected final Object[] getConstructorArgsArray(jCompoundTerm cterm) {
+	Object[] args = new Object[arity];
+	int i;
+
+	for (i = 0; i < arity; i++)
+	    args[i] = cterm.elementAt(i);
+
+	return args;
+    };
 };
 
-class InvalidGenericPredicateEntryException extends RuntimeException
-{
- public InvalidGenericPredicateEntryException() {};
- public InvalidGenericPredicateEntryException(String s) {super(s);};
-};
+class InvalidGenericPredicateEntryException extends RuntimeException {
+    public InvalidGenericPredicateEntryException() {
+    };
 
+    public InvalidGenericPredicateEntryException(String s) {
+	super(s);
+    };
+};

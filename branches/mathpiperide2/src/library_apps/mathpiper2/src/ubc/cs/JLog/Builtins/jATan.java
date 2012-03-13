@@ -42,42 +42,35 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	ATan
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
 import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jATan extends jRealUnaryArithmetic
-{
- public 	jATan(jTerm r)
- {
-  super(r);
- };
- 
- public String 		getName()
- {
-  return "atan";
- };  
+public class jATan extends jRealUnaryArithmetic {
+    public jATan(jTerm r) {
+	super(r);
+    };
 
- protected jUnaryBuiltinPredicate 	duplicate(jTerm r)
- {
-  return new jATan(r);
- };
- 
- protected int 		operatorInt(int r)
- {
-  throw new InvalidArithmeticOperationException();
- };
- 
- protected float 	operatorReal(float r)
- {
-  return (float) Math.atan(r);
- };
+    public String getName() {
+	return "atan";
+    };
+
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jATan(r);
+    };
+
+    protected int operatorInt(int r) {
+	throw new InvalidArithmeticOperationException();
+    };
+
+    protected float operatorReal(float r) {
+	return (float) Math.atan(r);
+    };
 };
-

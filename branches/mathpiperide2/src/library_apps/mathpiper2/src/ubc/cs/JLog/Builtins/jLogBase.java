@@ -42,53 +42,47 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	LogarithmBase
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
 import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jLogBase extends jRealArithmetic
-{
-/**
- * Constructor of binary logarithm: log[l](r).
- *
- * @param l		The base for the log.
- * @param r		The value.
- */
- public 	jLogBase(jTerm l,jTerm r)
- {
-  super(l,r);
- };
- 
- public String 		getName()
- {
-  return "log";
- };  
+public class jLogBase extends jRealArithmetic {
+    /**
+     * Constructor of binary logarithm: log[l](r).
+     * 
+     * @param l
+     *            The base for the log.
+     * @param r
+     *            The value.
+     */
+    public jLogBase(jTerm l, jTerm r) {
+	super(l, r);
+    };
 
- protected jBinaryBuiltinPredicate 	duplicate(jTerm l,jTerm r)
- {
-  return new jLogBase(l,r);
- };
- 
- protected int 		operatorInt(int l,int r)
- {
-  throw new InvalidArithmeticOperationException();
- };
- 
- protected float 	operatorReal(float l,float r)
- {
-  return (float) (Math.log(r) / Math.log(l));
- };
+    public String getName() {
+	return "log";
+    };
 
- public int 		getPriority()
- {
-  return iArithmetic.MAX;
- }; 
+    protected jBinaryBuiltinPredicate duplicate(jTerm l, jTerm r) {
+	return new jLogBase(l, r);
+    };
+
+    protected int operatorInt(int l, int r) {
+	throw new InvalidArithmeticOperationException();
+    };
+
+    protected float operatorReal(float l, float r) {
+	return (float) (Math.log(r) / Math.log(l));
+    };
+
+    public int getPriority() {
+	return iArithmetic.MAX;
+    };
 };
-

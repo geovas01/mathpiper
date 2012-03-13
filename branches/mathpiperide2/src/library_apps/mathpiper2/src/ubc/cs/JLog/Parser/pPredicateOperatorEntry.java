@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	PredicateOperatorEntry
 //#########################################################################
@@ -53,24 +53,21 @@ import java.lang.*;
 import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
-public class pPredicateOperatorEntry extends pOperatorEntry
-{
- public 	pPredicateOperatorEntry(String name,int type,int priority)
- {
-  super(name,type,priority);
- };
- 
- public jTerm 		createOperator(jTerm l,jTerm r)
- {jCompoundTerm 		cterm;
- 
-  cterm = new jCompoundTerm(2);
-  
-  if (l != null)
-   cterm.addTerm(l);
-  if (r != null)
-   cterm.addTerm(r);
-  
-  return new jPredicate(name,cterm);
- };
-};
+public class pPredicateOperatorEntry extends pOperatorEntry {
+    public pPredicateOperatorEntry(String name, int type, int priority) {
+	super(name, type, priority);
+    };
 
+    public jTerm createOperator(jTerm l, jTerm r) {
+	jCompoundTerm cterm;
+
+	cterm = new jCompoundTerm(2);
+
+	if (l != null)
+	    cterm.addTerm(l);
+	if (r != null)
+	    cterm.addTerm(r);
+
+	return new jPredicate(name, cterm);
+    };
+};

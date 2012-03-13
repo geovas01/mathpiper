@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	OrOperatorEntry
 //#########################################################################
@@ -54,30 +54,26 @@ import java.util.*;
 import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Parser.*;
 
-public class pOrOperatorEntry extends pOperatorEntry
-{
- public 	pOrOperatorEntry()
- {
-  super(";",XFY,1100);
- };
- 
- public jTerm 		createOperator(jTerm l,jTerm r)
- {
-  // this handles the if-then-else case
-  if (l instanceof jPredicate && l.getName().equals("->") && ((jPredicate) l).getArity() == 2)
-  {jCompoundTerm 		args,cterm;
- 
-   args = ((jPredicate) l).getArguments();
-   
-   cterm = new jCompoundTerm(3);
-   cterm.addTerm(args.elementAt(0));
-   cterm.addTerm(args.elementAt(1));
-   cterm.addTerm(r);
-   
-   return new jPredicate("->",cterm);
-  }
-  return new jOr(l,r);
- };
+public class pOrOperatorEntry extends pOperatorEntry {
+    public pOrOperatorEntry() {
+	super(";", XFY, 1100);
+    };
+
+    public jTerm createOperator(jTerm l, jTerm r) {
+	// this handles the if-then-else case
+	if (l instanceof jPredicate && l.getName().equals("->")
+		&& ((jPredicate) l).getArity() == 2) {
+	    jCompoundTerm args, cterm;
+
+	    args = ((jPredicate) l).getArguments();
+
+	    cterm = new jCompoundTerm(3);
+	    cterm.addTerm(args.elementAt(0));
+	    cterm.addTerm(args.elementAt(1));
+	    cterm.addTerm(r);
+
+	    return new jPredicate("->", cterm);
+	}
+	return new jOr(l, r);
+    };
 };
-
-

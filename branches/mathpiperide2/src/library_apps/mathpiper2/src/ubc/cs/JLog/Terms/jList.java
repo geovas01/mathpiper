@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	List
 //#########################################################################
@@ -53,15 +53,15 @@ import java.lang.*;
 import java.util.*;
 import ubc.cs.JLog.Foundation.*;
 
-abstract public class jList extends jTerm implements iList
-{
- /**
-  * Generates a converted enumeration of the list.
-  *
-  * @param conv		The <code>iObjectFromTerm</code> conversion object used to convert between
-  *					Prolog terms and objects.
-  * @return			An <code>Enumeration</code> that iterates throught the list, returning
-  *					converted object for each term element in the list.
-  */
- public abstract Enumeration		elements(iTermToObject conv);
+abstract public class jList extends jTerm implements iList {
+    /**
+     * Generates a converted enumeration of the list.
+     * 
+     * @param conv
+     *            The <code>iObjectFromTerm</code> conversion object used to
+     *            convert between Prolog terms and objects.
+     * @return An <code>Enumeration</code> that iterates throught the list,
+     *         returning converted object for each term element in the list.
+     */
+    public abstract Enumeration elements(iTermToObject conv);
 };

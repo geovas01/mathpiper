@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	CompareGoal
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins.Goals;
 
 import java.lang.*;
@@ -55,71 +55,64 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Builtins.*;
 
-public class jCompareGoal extends jGoal
-{
- protected jCompare 			compare;
+public class jCompareGoal extends jGoal {
+    protected jCompare compare;
 
- // for use by compare
- public jTerm 				term1,term2,term3;
- public jUnifiedVector 		unified;
- public boolean 			var_equal;
- 
- public 	jCompareGoal(jCompare c,jTerm t1,jTerm t2,jTerm t3,boolean ve)
- {
-  compare = c;
-  term1 = t1;
-  term2 = t2;
-  term3 = t3;
-  unified = new jUnifiedVector();
-  var_equal = ve;
- };
- 
- public boolean 	prove(iGoalStack goals,iGoalStack proved)
- {
-  if (compare.prove(this))
-  {
-   proved.push(this);
-   return true;
-  }
-  else
-  {
-   { // we need to initialize goal to potentially restart
-    unified.restoreVariables();
-   }
-   goals.push(this); // a retry that follows may need a node to remove or retry
-   return false;
-  }
- };
+    // for use by compare
+    public jTerm term1, term2, term3;
+    public jUnifiedVector unified;
+    public boolean var_equal;
 
- public boolean 	retry(iGoalStack goals,iGoalStack proved)
- {
-  unified.restoreVariables();
-  
-  goals.push(this); // a retry that follows may need a node to remove or retry
-  return false;
- }; 
- 
- public void 	internal_restore(iGoalStack goals)
- {
-  unified.restoreVariables();
- };
+    public jCompareGoal(jCompare c, jTerm t1, jTerm t2, jTerm t3, boolean ve) {
+	compare = c;
+	term1 = t1;
+	term2 = t2;
+	term3 = t3;
+	unified = new jUnifiedVector();
+	var_equal = ve;
+    };
 
- public String 		getName() 
- {
-  return compare.getName();
- };
- 
- public int 		getArity() 
- {
-  return compare.getArity();
- };
- 
- public String 		toString()
- {StringBuffer 	sb = new StringBuffer();
-   
-  sb.append(getName()+"/"+String.valueOf(getArity())+" goal: ");
-  sb.append(getName()+"("+term1.toString()+","+term2.toString()+","+term3.toString()+")");
-  
-  return sb.toString();
- };
+    public boolean prove(iGoalStack goals, iGoalStack proved) {
+	if (compare.prove(this)) {
+	    proved.push(this);
+	    return true;
+	} else {
+	    { // we need to initialize goal to potentially restart
+		unified.restoreVariables();
+	    }
+	    goals.push(this); // a retry that follows may need a node to remove
+			      // or retry
+	    return false;
+	}
+    };
+
+    public boolean retry(iGoalStack goals, iGoalStack proved) {
+	unified.restoreVariables();
+
+	goals.push(this); // a retry that follows may need a node to remove or
+			  // retry
+	return false;
+    };
+
+    public void internal_restore(iGoalStack goals) {
+	unified.restoreVariables();
+    };
+
+    public String getName() {
+	return compare.getName();
+    };
+
+    public int getArity() {
+	return compare.getArity();
+    };
+
+    public String toString() {
+	StringBuffer sb = new StringBuffer();
+
+	sb.append(getName() + "/" + String.valueOf(getArity()) + " goal: ");
+	sb.append(getName() + "(" + term1.toString() + "," + term2.toString()
+		+ "," + term3.toString() + ")");
+
+	return sb.toString();
+    };
 };

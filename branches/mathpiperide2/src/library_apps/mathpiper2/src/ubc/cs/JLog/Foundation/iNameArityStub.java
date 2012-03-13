@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	NameArityStub
 //#########################################################################
@@ -54,31 +54,27 @@ import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
 /**
-* This is the interface stub to support the <code>jKnowledgeBase</code> interfaces
-* which require a name and arity, <code>iNameArity</code> in situations where a
-* term is not available.
-*  
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public class iNameArityStub implements iNameArity
-{
- protected String 		name;
- protected int 			arity;
- 
- public iNameArityStub(String n,int a)
- {
-  name = n;
-  arity = a;
- };
-  
- public String 		getName()
- {
-  return name;
- };
- 
- public int 		getArity()
- {
-  return arity;
- };
+ * This is the interface stub to support the <code>jKnowledgeBase</code>
+ * interfaces which require a name and arity, <code>iNameArity</code> in
+ * situations where a term is not available.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public class iNameArityStub implements iNameArity {
+    protected String name;
+    protected int arity;
+
+    public iNameArityStub(String n, int a) {
+	name = n;
+	arity = a;
+    };
+
+    public String getName() {
+	return name;
+    };
+
+    public int getArity() {
+	return arity;
+    };
 };

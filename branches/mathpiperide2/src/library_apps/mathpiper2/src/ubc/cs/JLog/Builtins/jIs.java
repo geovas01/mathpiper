@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Is
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -55,48 +55,43 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
-public class jIs extends jBinaryBuiltinPredicate
-{
- public jIs(jTerm l,jTerm r)
- {
-  super(l,r,TYPE_BUILTINPREDICATE);
- };
-  
- public String 		getName()
- {
-  return "is";
- };
- 
- public final boolean 	prove(jIsGoal ig)
- {jTerm l,r;
- 
-  l = ig.lhs.getValue();
-  r = ig.rhs.getValue();
-  
-  // to comply with behavior of other prologs, ensure that rhs is number
-  if (!(r.type == TYPE_INTEGER || r.type == TYPE_REAL))
-   throw new InvalidExpressionTypeException("is operator optimizes for number expression on RHS.");
-   
-  return l.unify(r,ig.unified);
- };
+public class jIs extends jBinaryBuiltinPredicate {
+    public jIs(jTerm l, jTerm r) {
+	super(l, r, TYPE_BUILTINPREDICATE);
+    };
 
- public void 		addGoals(jGoal g,jVariable[] vars,iGoalStack goals)
- {
-  goals.push(new jIsGoal(this,lhs.duplicate(vars),rhs.duplicate(vars)));
- }; 
+    public String getName() {
+	return "is";
+    };
 
- public void 		addGoals(jGoal g,iGoalStack goals)
- {
-  goals.push(new jIsGoal(this,lhs,rhs));
- }; 
+    public final boolean prove(jIsGoal ig) {
+	jTerm l, r;
 
- public jBinaryBuiltinPredicate 		duplicate(jTerm l,jTerm r)
- {
-  return new jIs(l,r); 
- };
+	l = ig.lhs.getValue();
+	r = ig.rhs.getValue();
 
- public String 		toString(boolean usename)
- {
-  return lhs.toString(usename) + " " + getName() + " " + rhs.toString(usename);
- };
+	// to comply with behavior of other prologs, ensure that rhs is number
+	if (!(r.type == TYPE_INTEGER || r.type == TYPE_REAL))
+	    throw new InvalidExpressionTypeException(
+		    "is operator optimizes for number expression on RHS.");
+
+	return l.unify(r, ig.unified);
+    };
+
+    public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+	goals.push(new jIsGoal(this, lhs.duplicate(vars), rhs.duplicate(vars)));
+    };
+
+    public void addGoals(jGoal g, iGoalStack goals) {
+	goals.push(new jIsGoal(this, lhs, rhs));
+    };
+
+    public jBinaryBuiltinPredicate duplicate(jTerm l, jTerm r) {
+	return new jIs(l, r);
+    };
+
+    public String toString(boolean usename) {
+	return lhs.toString(usename) + " " + getName() + " "
+		+ rhs.toString(usename);
+    };
 };

@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	EnumerateVariablesArray
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -55,55 +55,47 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
-public class jEnumerateVariablesArray extends jBinaryBuiltinPredicate
-{
- protected boolean 	all;
- 
- public jEnumerateVariablesArray(jTerm l,jTerm r,boolean all)
- {
-  super(l,r,TYPE_BUILTINPREDICATE);
-  this.all = all;
- };
-  
- public String 		getName()
- {
-  return "ENUMERATEVARIABLESARRAY";
- };
- 
- public final boolean 	prove(jEnumerateVariablesArrayGoal evag)
- {jTerm 	l,r;
-  
-  l = evag.lhs.getTerm();
-  r = evag.rhs.getTerm();
-   
-   
-  if (l instanceof jCompoundTerm)
-  {jCompoundTerm 	ct = (jCompoundTerm) l;
-   jVariableVector 	vv = new jVariableVector();
-   
-   ct.removeAllTerms();
-   r.enumerateVariables(vv,evag.all);
-   vv.appendVariables(ct);
-  }
-  else
-   throw new ExpectedCompoundTermException();
-   
-  return true;
- };
+public class jEnumerateVariablesArray extends jBinaryBuiltinPredicate {
+    protected boolean all;
 
- public void 		addGoals(jGoal g,jVariable[] vars,iGoalStack goals)
- {
-  goals.push(new jEnumerateVariablesArrayGoal(this,lhs.duplicate(vars),rhs.duplicate(vars),all));
- }; 
+    public jEnumerateVariablesArray(jTerm l, jTerm r, boolean all) {
+	super(l, r, TYPE_BUILTINPREDICATE);
+	this.all = all;
+    };
 
- public void 		addGoals(jGoal g,iGoalStack goals)
- {
-  goals.push(new jEnumerateVariablesArrayGoal(this,lhs,rhs,all));
- }; 
+    public String getName() {
+	return "ENUMERATEVARIABLESARRAY";
+    };
 
- public jBinaryBuiltinPredicate 		duplicate(jTerm l,jTerm r)
- {
-  return new jEnumerateVariablesArray(l,r,all); 
- };
+    public final boolean prove(jEnumerateVariablesArrayGoal evag) {
+	jTerm l, r;
+
+	l = evag.lhs.getTerm();
+	r = evag.rhs.getTerm();
+
+	if (l instanceof jCompoundTerm) {
+	    jCompoundTerm ct = (jCompoundTerm) l;
+	    jVariableVector vv = new jVariableVector();
+
+	    ct.removeAllTerms();
+	    r.enumerateVariables(vv, evag.all);
+	    vv.appendVariables(ct);
+	} else
+	    throw new ExpectedCompoundTermException();
+
+	return true;
+    };
+
+    public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+	goals.push(new jEnumerateVariablesArrayGoal(this, lhs.duplicate(vars),
+		rhs.duplicate(vars), all));
+    };
+
+    public void addGoals(jGoal g, iGoalStack goals) {
+	goals.push(new jEnumerateVariablesArrayGoal(this, lhs, rhs, all));
+    };
+
+    public jBinaryBuiltinPredicate duplicate(jTerm l, jTerm r) {
+	return new jEnumerateVariablesArray(l, r, all);
+    };
 };
-

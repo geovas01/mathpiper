@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	jDebugProver
 //#########################################################################
@@ -53,130 +53,122 @@ import java.lang.*;
 import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jDebugProver extends jProver
-{
- protected jPrologServiceBroadcaster 		debugmessages;
- protected boolean 				step;
+public class jDebugProver extends jProver {
+    protected jPrologServiceBroadcaster debugmessages;
+    protected boolean step;
 
- public 			jDebugProver(jKnowledgeBase kb,jPrologServiceBroadcaster debugm)
- {
-  super(kb);
-  debugmessages = debugm;
+    public jDebugProver(jKnowledgeBase kb, jPrologServiceBroadcaster debugm) {
+	super(kb);
+	debugmessages = debugm;
 
-  debugmessages.broadcastEvent(new jDebugProverStartedEvent(this));
- };
- 
- public boolean 	prove(jPredicateTerms goal)
- {
-  step = false;
-  return super.prove(goal);
- };
+	debugmessages.broadcastEvent(new jDebugProverStartedEvent(this));
+    };
 
- // one prove is performed when step is true. stepping requires debug listeners
- public synchronized void 	step()
- {
-  step = true;
-  notify();
- };
- 
- protected synchronized void 	waitForSingleStep()
- {
-  while (!step)
-  {
-   try
-   {
-    wait();   
-   }
-   catch (InterruptedException e)
-   {
-   }
-  }
-  step = false;
- };
-  
- protected boolean 	internal_prove()
- {
-  try
-  {jGoal 	tryg,nextg,retryg;
-  
-   while (!goals.empty())
-   {
-    tryg = goals.pop();
-    nextg = ((jDebugGoalStack) goals).peekTopGoal();
-       
-    debugmessages.broadcastEvent(new jDebugTryGoalEvent(tryg,nextg));
-    
-    waitForSingleStep();
+    public boolean prove(jPredicateTerms goal) {
+	step = false;
+	return super.prove(goal);
+    };
 
-    if (!tryg.prove(goals,proved))
-    {
-     debugmessages.broadcastEvent(new jDebugFailGoalEvent(tryg));
-     do
-     {
-      retryg = proved.pop();
-      debugmessages.broadcastEvent(new jDebugRetryGoalEvent(retryg));
-     } while (!retryg.retry(goals,proved));
-    }
-    else
-    {Vector 					sub_goals;
-     jDebugProvedGoalStack.jDebugGoalItem 	item;
-     
-     sub_goals = ((jDebugGoalStack) goals).getTopGoals(nextg);
-     try
-     {
-      item = ((jDebugProvedGoalStack) proved).getDebugItem(tryg);
-     }
-     catch (DebugStackException e)
-     {
-      item = ((jDebugProvedGoalStack) proved).peekDebugItem();
-     }
-     
-     item.setNextGoal(nextg);
-     item.setSubGoals(sub_goals);
-     
-     debugmessages.broadcastEvent(new jDebugProveGoalEvent(tryg,sub_goals));
-    
-     {jGoal 		topg = ((jDebugGoalStack) goals).peekTopGoal();
-      Vector 	proved_goals = ((jDebugProvedGoalStack) proved).getProvedDebugItems(topg);
-    
-      debugmessages.broadcastEvent(new jDebugProvedGoalsEvent(proved_goals));
-     }  
-    }
-   }
-   return true;
-  }
-  catch (EmptyStackException e)
-  {// this should only occur when the proved stack is empty
-   return false;
-  }
- };
- 
- protected boolean 	internal_retry()
- {
-  while (!proved.empty())
-  {jGoal 	retryg = proved.pop();
-  
-   debugmessages.broadcastEvent(new jDebugRetryGoalEvent(retryg));
-      
-   if (retryg.retry(goals,proved))
-    return true;
-  }
-  return false;
- };
- 
- protected iGoalStack 		createGoalsStack()
- {iDebugGoalStack 	gs = new jDebugGoalStack();
- 
-  debugmessages.broadcastEvent(new jDebugProverGoalStackEvent(this,gs,false));
+    // one prove is performed when step is true. stepping requires debug
+    // listeners
+    public synchronized void step() {
+	step = true;
+	notify();
+    };
 
-  return gs;
- };
+    protected synchronized void waitForSingleStep() {
+	while (!step) {
+	    try {
+		wait();
+	    } catch (InterruptedException e) {
+	    }
+	}
+	step = false;
+    };
 
- protected iGoalStack 		createProvedStack()
- {iDebugGoalStack 	gs = new jDebugProvedGoalStack();
- 
-  debugmessages.broadcastEvent(new jDebugProverGoalStackEvent(this,gs,true));
+    protected boolean internal_prove() {
+	try {
+	    jGoal tryg, nextg, retryg;
 
-  return gs;
- };
+	    while (!goals.empty()) {
+		tryg = goals.pop();
+		nextg = ((jDebugGoalStack) goals).peekTopGoal();
+
+		debugmessages
+			.broadcastEvent(new jDebugTryGoalEvent(tryg, nextg));
+
+		waitForSingleStep();
+
+		if (!tryg.prove(goals, proved)) {
+		    debugmessages.broadcastEvent(new jDebugFailGoalEvent(tryg));
+		    do {
+			retryg = proved.pop();
+			debugmessages.broadcastEvent(new jDebugRetryGoalEvent(
+				retryg));
+		    } while (!retryg.retry(goals, proved));
+		} else {
+		    Vector sub_goals;
+		    jDebugProvedGoalStack.jDebugGoalItem item;
+
+		    sub_goals = ((jDebugGoalStack) goals).getTopGoals(nextg);
+		    try {
+			item = ((jDebugProvedGoalStack) proved)
+				.getDebugItem(tryg);
+		    } catch (DebugStackException e) {
+			item = ((jDebugProvedGoalStack) proved).peekDebugItem();
+		    }
+
+		    item.setNextGoal(nextg);
+		    item.setSubGoals(sub_goals);
+
+		    debugmessages.broadcastEvent(new jDebugProveGoalEvent(tryg,
+			    sub_goals));
+
+		    {
+			jGoal topg = ((jDebugGoalStack) goals).peekTopGoal();
+			Vector proved_goals = ((jDebugProvedGoalStack) proved)
+				.getProvedDebugItems(topg);
+
+			debugmessages
+				.broadcastEvent(new jDebugProvedGoalsEvent(
+					proved_goals));
+		    }
+		}
+	    }
+	    return true;
+	} catch (EmptyStackException e) {// this should only occur when the
+					 // proved stack is empty
+	    return false;
+	}
+    };
+
+    protected boolean internal_retry() {
+	while (!proved.empty()) {
+	    jGoal retryg = proved.pop();
+
+	    debugmessages.broadcastEvent(new jDebugRetryGoalEvent(retryg));
+
+	    if (retryg.retry(goals, proved))
+		return true;
+	}
+	return false;
+    };
+
+    protected iGoalStack createGoalsStack() {
+	iDebugGoalStack gs = new jDebugGoalStack();
+
+	debugmessages.broadcastEvent(new jDebugProverGoalStackEvent(this, gs,
+		false));
+
+	return gs;
+    };
+
+    protected iGoalStack createProvedStack() {
+	iDebugGoalStack gs = new jDebugProvedGoalStack();
+
+	debugmessages.broadcastEvent(new jDebugProverGoalStackEvent(this, gs,
+		true));
+
+	return gs;
+    };
 };

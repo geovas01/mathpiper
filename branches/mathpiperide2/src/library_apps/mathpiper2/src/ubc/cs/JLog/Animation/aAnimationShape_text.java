@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //##################################################################################
 //	aAnimationShape Text
 //##################################################################################
@@ -55,127 +55,127 @@ import java.awt.*;
 
 import ubc.cs.JLog.Terms.*;
 
-public class aAnimationShape_text extends aAnimationShape
-{
- public static final String			TEXT_ATTR_KEY = "text";
- public static final String			FONT_ATTR_KEY = "font";
- public static final String			COLOUR_ATTR_KEY = "colour";
+public class aAnimationShape_text extends aAnimationShape {
+    public static final String TEXT_ATTR_KEY = "text";
+    public static final String FONT_ATTR_KEY = "font";
+    public static final String COLOUR_ATTR_KEY = "colour";
 
- private static jTermTranslation		translations;
- 
- static {
-  translations = new jTermTranslation();
-  setDefaultsForTranslation(translations);
- }
- 
- protected String 					text;
- protected float					font_size;
- protected Color 					colour;
- protected Font 					original_font;
+    private static jTermTranslation translations;
 
- protected Font						cached_font;
+    static {
+	translations = new jTermTranslation();
+	setDefaultsForTranslation(translations);
+    }
 
- public 	aAnimationShape_text(aAnimationObject ao,String n,String t,FloatFont f,Color c,
-										float x,float y)
- {
-  super(ao,n);
-  text = t;
-  original_font = f.font;
-  cached_font = null;
-  colour = c;
-  x_offset = x;
-  y_offset = y;
-  font_size = f.size;
- };
+    protected String text;
+    protected float font_size;
+    protected Color colour;
+    protected Font original_font;
 
- public void		updateMagnification()
- {
-  cached_font = null;
- };
+    protected Font cached_font;
 
- public void 		draw(Graphics g)
- {Point			p = object.getDisplayPointFromLocalPosition(x_offset,y_offset,rotation_offset);
- 
-  if (cached_font == null)
-   cached_font = generateSizedFont(original_font);
-  
-  g.setColor(colour);
-  g.setFont(cached_font);
-  
-  g.drawString(text,p.x,p.y);
- };
+    public aAnimationShape_text(aAnimationObject ao, String n, String t,
+	    FloatFont f, Color c, float x, float y) {
+	super(ao, n);
+	text = t;
+	original_font = f.font;
+	cached_font = null;
+	colour = c;
+	x_offset = x;
+	y_offset = y;
+	font_size = f.size;
+    };
 
- public Rectangle 		getBounds()
- {Point		p = object.getDisplayPointFromLocalPosition(x_offset,y_offset,rotation_offset);
-  FontMetrics	fm;
-  
-  if (cached_font == null)
-   cached_font = generateSizedFont(original_font);
-  
-  fm = getEnclosingObject().getEnvironment().getFontMetrics(cached_font);
-  
-  return new Rectangle(p,new Dimension(fm.stringWidth(text),fm.getHeight()));
- };
+    public void updateMagnification() {
+	cached_font = null;
+    };
 
- public String 		getType()
- {
-  return "text";
- };
+    public void draw(Graphics g) {
+	Point p = object.getDisplayPointFromLocalPosition(x_offset, y_offset,
+		rotation_offset);
 
- public static void		setDefaultsForTranslation(jTermTranslation t)
- {
-  aAnimationShape.setDefaultsForTranslation(t);
+	if (cached_font == null)
+	    cached_font = generateSizedFont(original_font);
 
-  setStringKeysForTranslation(t,TEXT_ATTR_KEY,jAtom.class,String.class);
-  setStringKeysForTranslation(t,FONT_ATTR_KEY,FloatFont.class,FloatFont.class);
-  setStringKeysForTranslation(t,COLOUR_ATTR_KEY,Color.class,Color.class);
- };
+	g.setColor(colour);
+	g.setFont(cached_font);
 
- public jTermTranslation	getTermTranslation()
- {
-  return translations;
- };
+	g.drawString(text, p.x, p.y);
+    };
 
- public Hashtable   getAttributes()
- {Hashtable		ht;
- 
-  ht = super.getAttributes();
- 
-  ht.put(TEXT_ATTR_KEY,text);
-  ht.put(FONT_ATTR_KEY,new FloatFont(original_font,font_size));
-  ht.put(COLOUR_ATTR_KEY,colour);
-  
-  return ht;  
- };
+    public Rectangle getBounds() {
+	Point p = object.getDisplayPointFromLocalPosition(x_offset, y_offset,
+		rotation_offset);
+	FontMetrics fm;
 
- public void		setAttributes(Hashtable attributes)
- {
-  super.setAttributes(attributes);
- 
-  {String		t;
+	if (cached_font == null)
+	    cached_font = generateSizedFont(original_font);
 
-   if ((t = (String) attributes.get(TEXT_ATTR_KEY)) != null)
-    text = t;
-  }
-  {FloatFont		f;
-  
-   if ((f = (FloatFont) attributes.get(FONT_ATTR_KEY)) != null)
-   {
-    original_font = f.font;
-    font_size = f.size;
-   }	
-  }
-  {Color	c;
-  
-   if ((c = (Color) attributes.get(COLOUR_ATTR_KEY)) != null)
-    colour = c;
-  }
- };
- 
- protected Font 	generateSizedFont(Font of)
- {float			mag = object.getEnvironment().getMagnification();
+	fm = getEnclosingObject().getEnvironment().getFontMetrics(cached_font);
 
-  return new Font(of.getName(),of.getStyle(),Math.round(font_size*mag));
- };
+	return new Rectangle(p, new Dimension(fm.stringWidth(text),
+		fm.getHeight()));
+    };
+
+    public String getType() {
+	return "text";
+    };
+
+    public static void setDefaultsForTranslation(jTermTranslation t) {
+	aAnimationShape.setDefaultsForTranslation(t);
+
+	setStringKeysForTranslation(t, TEXT_ATTR_KEY, jAtom.class, String.class);
+	setStringKeysForTranslation(t, FONT_ATTR_KEY, FloatFont.class,
+		FloatFont.class);
+	setStringKeysForTranslation(t, COLOUR_ATTR_KEY, Color.class,
+		Color.class);
+    };
+
+    public jTermTranslation getTermTranslation() {
+	return translations;
+    };
+
+    public Hashtable getAttributes() {
+	Hashtable ht;
+
+	ht = super.getAttributes();
+
+	ht.put(TEXT_ATTR_KEY, text);
+	ht.put(FONT_ATTR_KEY, new FloatFont(original_font, font_size));
+	ht.put(COLOUR_ATTR_KEY, colour);
+
+	return ht;
+    };
+
+    public void setAttributes(Hashtable attributes) {
+	super.setAttributes(attributes);
+
+	{
+	    String t;
+
+	    if ((t = (String) attributes.get(TEXT_ATTR_KEY)) != null)
+		text = t;
+	}
+	{
+	    FloatFont f;
+
+	    if ((f = (FloatFont) attributes.get(FONT_ATTR_KEY)) != null) {
+		original_font = f.font;
+		font_size = f.size;
+	    }
+	}
+	{
+	    Color c;
+
+	    if ((c = (Color) attributes.get(COLOUR_ATTR_KEY)) != null)
+		colour = c;
+	}
+    };
+
+    protected Font generateSizedFont(Font of) {
+	float mag = object.getEnvironment().getMagnification();
+
+	return new Font(of.getName(), of.getStyle(),
+		Math.round(font_size * mag));
+    };
 };
-

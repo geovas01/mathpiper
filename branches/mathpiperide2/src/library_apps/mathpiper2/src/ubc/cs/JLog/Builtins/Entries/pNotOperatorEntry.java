@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	NotOperatorEntry
 //#########################################################################
@@ -55,20 +55,17 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Builtins.*;
 import ubc.cs.JLog.Parser.*;
 
-public class pNotOperatorEntry extends pOperatorEntry
-{
- public 	pNotOperatorEntry()
- {
-  super("\\+",FY,900);
- };
- 
- public jTerm 		createOperator(jTerm l,jTerm r)
- {jCompoundTerm 		cterm;
- 
-  cterm = new jCompoundTerm(1);
-  cterm.addTerm(r);
-  
-  return new jPredicate("not",cterm);
- };
-};
+public class pNotOperatorEntry extends pOperatorEntry {
+    public pNotOperatorEntry() {
+	super("\\+", FY, 900);
+    };
 
+    public jTerm createOperator(jTerm l, jTerm r) {
+	jCompoundTerm cterm;
+
+	cterm = new jCompoundTerm(1);
+	cterm.addTerm(r);
+
+	return new jPredicate("not", cterm);
+    };
+};

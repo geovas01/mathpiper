@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Real
 //#########################################################################
@@ -53,105 +53,99 @@ import java.lang.*;
 import java.util.*;
 import ubc.cs.JLog.Foundation.*;
 
-public class jReal extends jTerm
-{
- protected float 	value;
+public class jReal extends jTerm {
+    protected float value;
 
- public jReal(float v)
- {
-  value = v;
-  type = TYPE_REAL;
- };
+    public jReal(float v) {
+	value = v;
+	type = TYPE_REAL;
+    };
 
- public String 		getName()
- {
-  return String.valueOf(value);
- };
- 
- public float 		getRealValue()
- {
-  return value;
- };
+    public String getName() {
+	return String.valueOf(value);
+    };
 
- protected int 		compare(jTerm term,boolean first_call,boolean var_equal)
- {jTerm 		t = term.getTerm();
- 
-  if (t instanceof jVariable)
-   return GREATER_THAN;
-   
-  if (t instanceof jReal)
-  {float 	f = ((jReal) t).getRealValue();
-  
-   if (value < f)
-    return LESS_THAN;
-   else if (value > f)
-    return GREATER_THAN;
-   else
-    return EQUAL;
-  }
- 
-  if (t instanceof jInteger)
-   return LESS_THAN;
-  
-  if (t instanceof iPredicate)
-   return LESS_THAN;
-  
-  return (first_call ? -t.compare(this,false,var_equal) : EQUAL);
- };
- 
- public boolean 	equivalence(jTerm term,jEquivalenceMapping v)
- {jTerm t = term.getTerm();
+    public float getRealValue() {
+	return value;
+    };
 
-  // many real may be same instances
-  if (this == t)
-   return true;
-   
-  if (type != t.type)
-   return false;
+    protected int compare(jTerm term, boolean first_call, boolean var_equal) {
+	jTerm t = term.getTerm();
 
-  // altough we cannot be certain that term is a jReal, if it is not then type was wrong
-  // so this warrents a failing exception.
-  return (value == ((jReal) t).value);
- };
-  
- public boolean 	unify(jTerm term,jUnifiedVector v)
- {
-  // if term is variable we let it handle the unification
-  if (term.type == TYPE_VARIABLE)
-   return term.unify(this,v);
-   
-  // many real may be same instances
-  if (this == term)
-   return true;
-   
-  if (type != term.type)
-   return false;
+	if (t instanceof jVariable)
+	    return GREATER_THAN;
 
-  // altough we cannot be certain that term is a jReal, if it is not then type was wrong
-  // so this warrents a failing exception.
-  return (value == ((jReal) term).value);
- };
-  
- public void 		registerVariables(jVariableVector v)
- {
- };
- 
- public void 		enumerateVariables(jVariableVector v,boolean all)
- {
- };
+	if (t instanceof jReal) {
+	    float f = ((jReal) t).getRealValue();
 
- public jTerm 		duplicate(jVariable[] vars)
- {
-  return this; // since reals are constants, don't duplicate for memory and gc considerations
- };
+	    if (value < f)
+		return LESS_THAN;
+	    else if (value > f)
+		return GREATER_THAN;
+	    else
+		return EQUAL;
+	}
 
- public jTerm 		copy(jVariableRegistry vars)
- {
-  return this; // since reals are constants, don't duplicate for memory and gc considerations
- };
+	if (t instanceof jInteger)
+	    return LESS_THAN;
 
- public String 		toString(boolean usename)
- {
-  return String.valueOf(value);
- };
+	if (t instanceof iPredicate)
+	    return LESS_THAN;
+
+	return (first_call ? -t.compare(this, false, var_equal) : EQUAL);
+    };
+
+    public boolean equivalence(jTerm term, jEquivalenceMapping v) {
+	jTerm t = term.getTerm();
+
+	// many real may be same instances
+	if (this == t)
+	    return true;
+
+	if (type != t.type)
+	    return false;
+
+	// altough we cannot be certain that term is a jReal, if it is not then
+	// type was wrong
+	// so this warrents a failing exception.
+	return (value == ((jReal) t).value);
+    };
+
+    public boolean unify(jTerm term, jUnifiedVector v) {
+	// if term is variable we let it handle the unification
+	if (term.type == TYPE_VARIABLE)
+	    return term.unify(this, v);
+
+	// many real may be same instances
+	if (this == term)
+	    return true;
+
+	if (type != term.type)
+	    return false;
+
+	// altough we cannot be certain that term is a jReal, if it is not then
+	// type was wrong
+	// so this warrents a failing exception.
+	return (value == ((jReal) term).value);
+    };
+
+    public void registerVariables(jVariableVector v) {
+    };
+
+    public void enumerateVariables(jVariableVector v, boolean all) {
+    };
+
+    public jTerm duplicate(jVariable[] vars) {
+	return this; // since reals are constants, don't duplicate for memory
+		     // and gc considerations
+    };
+
+    public jTerm copy(jVariableRegistry vars) {
+	return this; // since reals are constants, don't duplicate for memory
+		     // and gc considerations
+    };
+
+    public String toString(boolean usename) {
+	return String.valueOf(value);
+    };
 };

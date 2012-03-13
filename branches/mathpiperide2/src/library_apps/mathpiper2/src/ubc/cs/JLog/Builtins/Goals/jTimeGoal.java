@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	TimeGoal
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins.Goals;
 
 import java.lang.*;
@@ -55,110 +55,103 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Builtins.*;
 
-public class jTimeGoal extends jCallGoal
-{
- protected class jReportTimeGoal extends jGoal
- {
-  public long		start_time;
-  public long		last_time;
-  public long		total_time;
- 
-  protected jTimeGoal	parent;
-  
-  public jReportTimeGoal(jTimeGoal p)
-  {
-   parent = p;
-  }
-  
-  public boolean 	prove(iGoalStack goals,iGoalStack proved)
-  {long		current_time = System.currentTimeMillis();
-   long		elapsed_time = current_time - last_time;
+public class jTimeGoal extends jCallGoal {
+    protected class jReportTimeGoal extends jGoal {
+	public long start_time;
+	public long last_time;
+	public long total_time;
 
-   total_time += elapsed_time;
+	protected jTimeGoal parent;
 
-   {Thread 		t = Thread.currentThread();
-  
-    if (t instanceof jPrologServiceThread)
-    {jPrologServiceThread		pst = (jPrologServiceThread) t;
-     jPrologServices			ps = pst.getPrologServices();
-   
-      pst.printOutput("Time (ms): "+ Long.toString(elapsed_time) + " ");
-	  pst.printOutput("Total time (ms): " + Long.toString(total_time));
-      pst.printOutput("\n");
-    }
-   }
-   
-   proved.push(this);
-   return true;
-  }
+	public jReportTimeGoal(jTimeGoal p) {
+	    parent = p;
+	}
 
-  public boolean 	retry(iGoalStack goals,iGoalStack proved)
-  {
-   last_time = System.currentTimeMillis();
+	public boolean prove(iGoalStack goals, iGoalStack proved) {
+	    long current_time = System.currentTimeMillis();
+	    long elapsed_time = current_time - last_time;
 
-   goals.push(this);
-   return false;
-  } 
+	    total_time += elapsed_time;
 
-  public String 		getName() 
-  {  
-   return "REPORT_TIME";
-  }
- 
-  public int 		getArity() 
-  {
-   return 0;
-  }
- 
-  public String 		toString()
-  {StringBuffer 	sb = new StringBuffer();
-   
-   sb.append(getName()+"/"+String.valueOf(getArity()));
-  
-   return sb.toString();
-  }
- };
- 
- protected jReportTimeGoal		report_time_goal;
- 
- public 	jTimeGoal(jTerm c)
- {
-  super(c);
-  
-  report_time_goal = new jReportTimeGoal(this);
- };
- 
- public boolean 	prove(iGoalStack goals,iGoalStack proved)
- {jGoal		eg =   (goals.empty() ? null : goals.peek());
+	    {
+		Thread t = Thread.currentThread();
 
-  report_time_goal.start_time = report_time_goal.last_time = System.currentTimeMillis();
-  report_time_goal.total_time = 0L;
-   
-  goals.push(report_time_goal);
-  super.prove(goals,proved); // assume always true
-  setEndGoal(eg);
-  
-  return true;
- };
+		if (t instanceof jPrologServiceThread) {
+		    jPrologServiceThread pst = (jPrologServiceThread) t;
+		    jPrologServices ps = pst.getPrologServices();
 
- public String 		getName() 
- {
-  return "time";
- };
- 
- public int 		getArity() 
- {
-  return 1;
- };
- 
- public String 		toString()
- {StringBuffer 	sb = new StringBuffer();
-   
-  sb.append(getName()+"/"+String.valueOf(getArity())+" goal: ");
-  sb.append(getName()+"("+callee.toString()+")");
-  
-  return sb.toString();
- };
+		    pst.printOutput("Time (ms): " + Long.toString(elapsed_time)
+			    + " ");
+		    pst.printOutput("Total time (ms): "
+			    + Long.toString(total_time));
+		    pst.printOutput("\n");
+		}
+	    }
+
+	    proved.push(this);
+	    return true;
+	}
+
+	public boolean retry(iGoalStack goals, iGoalStack proved) {
+	    last_time = System.currentTimeMillis();
+
+	    goals.push(this);
+	    return false;
+	}
+
+	public String getName() {
+	    return "REPORT_TIME";
+	}
+
+	public int getArity() {
+	    return 0;
+	}
+
+	public String toString() {
+	    StringBuffer sb = new StringBuffer();
+
+	    sb.append(getName() + "/" + String.valueOf(getArity()));
+
+	    return sb.toString();
+	}
+    };
+
+    protected jReportTimeGoal report_time_goal;
+
+    public jTimeGoal(jTerm c) {
+	super(c);
+
+	report_time_goal = new jReportTimeGoal(this);
+    };
+
+    public boolean prove(iGoalStack goals, iGoalStack proved) {
+	jGoal eg = (goals.empty() ? null : goals.peek());
+
+	report_time_goal.start_time = report_time_goal.last_time = System
+		.currentTimeMillis();
+	report_time_goal.total_time = 0L;
+
+	goals.push(report_time_goal);
+	super.prove(goals, proved); // assume always true
+	setEndGoal(eg);
+
+	return true;
+    };
+
+    public String getName() {
+	return "time";
+    };
+
+    public int getArity() {
+	return 1;
+    };
+
+    public String toString() {
+	StringBuffer sb = new StringBuffer();
+
+	sb.append(getName() + "/" + String.valueOf(getArity()) + " goal: ");
+	sb.append(getName() + "(" + callee.toString() + ")");
+
+	return sb.toString();
+    };
 };
-
- 

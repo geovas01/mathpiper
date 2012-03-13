@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //##################################################################################
 //	gWindowBase
 //##################################################################################
@@ -56,43 +56,34 @@ import java.awt.event.*;
 import java.io.*;
 import ubc.cs.JLog.Foundation.*;
 
-abstract public class gWindowBase extends Frame implements iMenuServiceRequester
-{
- protected gJLogApplicationBase 	parent;
- 
- gWindowBase(gJLogApplicationBase b)
- {
-  parent = b;
- 
-  setMenuBar(parent.createMenuBar(this));
+abstract public class gWindowBase extends Frame implements
+	iMenuServiceRequester {
+    protected gJLogApplicationBase parent;
 
-  addWindowListener(new WindowAdapter() 
-                {
-		 public void windowClosing(WindowEvent evt) 
-                 {
-		  close();
-		 }
-		}
-               );  
- };
- 
- public boolean 	close()
- {
-  if (canClose())
-  {
-   dispose();
-   return true;
-  }
-  else
-   return false; 
- };
- 
- public boolean 	canClose()
- {
-  return true;
- };
- 
- public void 		displayErrorDialog(String err)
- {
- };
+    gWindowBase(gJLogApplicationBase b) {
+	parent = b;
+
+	setMenuBar(parent.createMenuBar(this));
+
+	addWindowListener(new WindowAdapter() {
+	    public void windowClosing(WindowEvent evt) {
+		close();
+	    }
+	});
+    };
+
+    public boolean close() {
+	if (canClose()) {
+	    dispose();
+	    return true;
+	} else
+	    return false;
+    };
+
+    public boolean canClose() {
+	return true;
+    };
+
+    public void displayErrorDialog(String err) {
+    };
 };

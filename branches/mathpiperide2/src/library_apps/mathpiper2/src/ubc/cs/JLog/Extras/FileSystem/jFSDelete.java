@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	FSDelete
 //#########################################################################
- 
+
 package ubc.cs.JLog.Extras.FileSystem;
 
 import java.lang.*;
@@ -57,27 +57,22 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.*;
 import ubc.cs.JLog.Terms.Goals.*;
 
-public class jFSDelete extends jUnaryBuiltinPredicate
-{
- public jFSDelete(jTerm t)
- {
-  super(t,TYPE_BUILTINPREDICATE);
- };
-  
- public String 		getName()
- {
-  return "fs_delete";
- };
- 
- public boolean 	prove(jUnaryBuiltinPredicateGoal ug)
- {File f = new File(ug.term1.getTerm().toString());
+public class jFSDelete extends jUnaryBuiltinPredicate {
+    public jFSDelete(jTerm t) {
+	super(t, TYPE_BUILTINPREDICATE);
+    };
 
-  return f.delete(); 
- };
- 
- protected jUnaryBuiltinPredicate 		duplicate(jTerm r)
- {
-  return new jFSDelete(r); 
- };
+    public String getName() {
+	return "fs_delete";
+    };
+
+    public boolean prove(jUnaryBuiltinPredicateGoal ug) {
+	File f = new File(ug.term1.getTerm().toString());
+
+	return f.delete();
+    };
+
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jFSDelete(r);
+    };
 };
-

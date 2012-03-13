@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Predefined
 //#########################################################################
- 
+
 package ubc.cs.JLog.Terms;
 
 import java.lang.*;
@@ -55,75 +55,68 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Parser.*;
 
 /**
-* Abstract class for creating any non-builtin predefined predicates needed by the 
-* <code>jKnowledgeBase</code> and registering any operator and predicate entries with
-* their corresponding registries for use by the parser. The <code>register</code> method 
-* for subclasses in a JLog library is automatically invoked, as neccessary.
-*  
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-abstract public class jPredefined
-{
- private jKnowledgeBase 	    database;
- private pPredicateRegistry 	predicates;
- private pOperatorRegistry		operators;
- private String					library;
- 
- public 	jPredefined(jPrologServices ps,String lib)
- {
-  database = ps.getKnowledgeBase();
-  predicates = ps.getPredicateRegistry();
-  operators = ps.getOperatorRegistry();
-  library = lib;
- };
- 
- abstract public void	register(); 
- 
- public String		getLibrary()
- {
-  return library;
- };
- 
- protected void			addPredicate(pPredicateEntry pe)
- {
-  pe.setLibrary(library);
-  
-  predicates.addPredicate(pe);
- };
- 
- protected void			addOperator(pOperatorEntry oe)
- {
-  oe.setLibrary(library);
-  
-  operators.addOperator(oe);
- };
- 
- protected void			addRuleDefinitions(jRuleDefinitions rds)
- {
-  rds.setLibrary(library);
-  
-  database.addRuleDefinitions(rds);
- };
+ * Abstract class for creating any non-builtin predefined predicates needed by
+ * the <code>jKnowledgeBase</code> and registering any operator and predicate
+ * entries with their corresponding registries for use by the parser. The
+ * <code>register</code> method for subclasses in a JLog library is
+ * automatically invoked, as neccessary.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+abstract public class jPredefined {
+    private jKnowledgeBase database;
+    private pPredicateRegistry predicates;
+    private pOperatorRegistry operators;
+    private String library;
 
- protected void			addRules(jRule[] r)
- {
-  if (r.length > 0)
-  {jRuleDefinitions		rds = new jRuleDefinitions(r[0].getName(),r[0].getArity());
-   int					i;
-   
-   for (i=0; i < r.length; i++)
-    rds.addRule(r[i]);
- 
-   rds.setLibrary(library);
-  
-   database.addRuleDefinitions(rds);
-  }
- };
+    public jPredefined(jPrologServices ps, String lib) {
+	database = ps.getKnowledgeBase();
+	predicates = ps.getPredicateRegistry();
+	operators = ps.getOperatorRegistry();
+	library = lib;
+    };
 
- protected void			consultDatabase()
- {
-  database.consult();
- }
+    abstract public void register();
+
+    public String getLibrary() {
+	return library;
+    };
+
+    protected void addPredicate(pPredicateEntry pe) {
+	pe.setLibrary(library);
+
+	predicates.addPredicate(pe);
+    };
+
+    protected void addOperator(pOperatorEntry oe) {
+	oe.setLibrary(library);
+
+	operators.addOperator(oe);
+    };
+
+    protected void addRuleDefinitions(jRuleDefinitions rds) {
+	rds.setLibrary(library);
+
+	database.addRuleDefinitions(rds);
+    };
+
+    protected void addRules(jRule[] r) {
+	if (r.length > 0) {
+	    jRuleDefinitions rds = new jRuleDefinitions(r[0].getName(),
+		    r[0].getArity());
+	    int i;
+
+	    for (i = 0; i < r.length; i++)
+		rds.addRule(r[i]);
+
+	    rds.setLibrary(library);
+
+	    database.addRuleDefinitions(rds);
+	}
+    };
+
+    protected void consultDatabase() {
+	database.consult();
+    }
 };
-

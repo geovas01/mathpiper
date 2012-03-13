@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	CallNGoal
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins.Goals;
 
 import java.lang.*;
@@ -55,63 +55,60 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Builtins.*;
 
-public class jCallNGoal extends jCallGoal
-{
- public 	jCallNGoal(jCompoundTerm c)
- {
-  super(c);
- };
-  
- public boolean 	prove(iGoalStack goals,iGoalStack proved)
- {jCompoundTerm 	ct;
-  jTerm				t0;
-  jPredicate		pt;
-  
-  ct = (jCompoundTerm) callee.getTerm();
-  t0 = ct.elementAt(0).getTerm();
+public class jCallNGoal extends jCallGoal {
+    public jCallNGoal(jCompoundTerm c) {
+	super(c);
+    };
 
-  // must be a predicate that can have terms added 
-  if (t0.type != iType.TYPE_PREDICATE && t0.type != iType.TYPE_ATOM)
-    throw new InvalidCalleeTypeException();
+    public boolean prove(iGoalStack goals, iGoalStack proved) {
+	jCompoundTerm ct;
+	jTerm t0;
+	jPredicate pt;
 
-  {int					i;
-   jCompoundTerm		args = new jCompoundTerm(((iPredicate) t0).getArity() + ct.size() - 1);
+	ct = (jCompoundTerm) callee.getTerm();
+	t0 = ct.elementAt(0).getTerm();
 
-   if (t0.type == iType.TYPE_PREDICATE)
-   {jCompoundTerm	t0ct = ((jPredicate) t0).getArguments();   
+	// must be a predicate that can have terms added
+	if (t0.type != iType.TYPE_PREDICATE && t0.type != iType.TYPE_ATOM)
+	    throw new InvalidCalleeTypeException();
 
-    for (i=0; i < t0ct.size(); i++)
-     args.addTerm(t0ct.elementAt(i));
-   }
- 
-   for (i=1; i < ct.size(); i++)
-    args.addTerm(ct.elementAt(i));
+	{
+	    int i;
+	    jCompoundTerm args = new jCompoundTerm(((iPredicate) t0).getArity()
+		    + ct.size() - 1);
 
-   pt = new jPredicate(t0.getName(),args);
-  }
- 
-  setEndGoal(goals.empty() ? null : goals.peek());
-    
-  pt.addGoals(this,goals);
+	    if (t0.type == iType.TYPE_PREDICATE) {
+		jCompoundTerm t0ct = ((jPredicate) t0).getArguments();
 
-  proved.push(this);
-  return true;
- };
- 
- public int 		getArity() 
- {
-  return ((jCompoundTerm) callee).size();
- }; 
+		for (i = 0; i < t0ct.size(); i++)
+		    args.addTerm(t0ct.elementAt(i));
+	    }
 
- public String 		toString()
- {StringBuffer 	sb = new StringBuffer();
-   
-  sb.append(getName()+"/"+String.valueOf(getArity())+" goal: ");
-  sb.append(getName()+callee.toString());
-  
-  return sb.toString();
- };
+	    for (i = 1; i < ct.size(); i++)
+		args.addTerm(ct.elementAt(i));
+
+	    pt = new jPredicate(t0.getName(), args);
+	}
+
+	setEndGoal(goals.empty() ? null : goals.peek());
+
+	pt.addGoals(this, goals);
+
+	proved.push(this);
+	return true;
+    };
+
+    public int getArity() {
+	return ((jCompoundTerm) callee).size();
+    };
+
+    public String toString() {
+	StringBuffer sb = new StringBuffer();
+
+	sb.append(getName() + "/" + String.valueOf(getArity()) + " goal: ");
+	sb.append(getName() + callee.toString());
+
+	return sb.toString();
+    };
 
 };
-
- 

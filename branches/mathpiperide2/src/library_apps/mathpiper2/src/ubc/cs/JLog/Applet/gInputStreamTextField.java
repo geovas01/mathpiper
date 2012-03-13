@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	InputStreamTextField
 //#########################################################################
@@ -57,146 +57,128 @@ import java.awt.Button;
 import java.awt.event.*;
 
 /**
-* This class represents an InputStream which gets input from a TextField.
-*  
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public class gInputStreamTextField extends Reader
-{
- protected TextField					input;
- protected Button						enter;
- protected StringReader					reader;
+ * This class represents an InputStream which gets input from a TextField.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public class gInputStreamTextField extends Reader {
+    protected TextField input;
+    protected Button enter;
+    protected StringReader reader;
 
- public gInputStreamTextField(TextField i,Button e)
- {
-  reader = null;
- 
-  input = i;
-  enter = e;
-  
-  enter.addActionListener(new ActionListener() 
-                       {
-                        public void 	actionPerformed(ActionEvent e)
-                        {
-                         gInputStreamTextField.this.enter();
-                        }
-                       });
-  input.addKeyListener(new KeyAdapter()
-                       {
-                        public void 	keyPressed(KeyEvent e)
-                        {
-                         if (e.getKeyCode() == KeyEvent.VK_ENTER && input.isEditable())
-                          gInputStreamTextField.this.enter();
-                        }
-                       });
- };
+    public gInputStreamTextField(TextField i, Button e) {
+	reader = null;
 
- public void	close() throws IOException
- {
-  if (input != null)
-   input.setEditable(false);
-  if (enter != null)
-   enter.setEnabled(false);
-  if (reader != null)
-   reader.close();
-   
-  input = null;
-  enter = null;
-  reader = null;
- };
+	input = i;
+	enter = e;
 
- public synchronized void	mark(int readlimit) throws IOException
- {
- };
+	enter.addActionListener(new ActionListener() {
+	    public void actionPerformed(ActionEvent e) {
+		gInputStreamTextField.this.enter();
+	    }
+	});
+	input.addKeyListener(new KeyAdapter() {
+	    public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.VK_ENTER && input.isEditable())
+		    gInputStreamTextField.this.enter();
+	    }
+	});
+    };
 
- public boolean			markSupported()
- {
-  return false;
- };
+    public void close() throws IOException {
+	if (input != null)
+	    input.setEditable(false);
+	if (enter != null)
+	    enter.setEnabled(false);
+	if (reader != null)
+	    reader.close();
 
- public synchronized void	reset() throws IOException 
- {
- };
- 
- public int		read() throws IOException
- {
-  if (reader == null)
-   readyInputAndEnter();
+	input = null;
+	enter = null;
+	reader = null;
+    };
 
-  while (reader == null)
-  {
-   Thread.currentThread().yield();
-  }
-  
-  {int		result = reader.read();
-  
-   if (result < 0)
-   {
-    reader = null;
-	return read();
-   }
+    public synchronized void mark(int readlimit) throws IOException {
+    };
 
-   if (!reader.ready())
-    reader = null;
+    public boolean markSupported() {
+	return false;
+    };
 
-   return result;
-  }
- };
- 
- public int		read(char[] cbuff,int off,int len) throws IOException
- {
-  if (reader == null)
-   readyInputAndEnter();
-   
-  while (reader == null)
-  {
-   Thread.currentThread().yield();
-  }
-   
-  {int		result = reader.read(cbuff,off,len);
+    public synchronized void reset() throws IOException {
+    };
 
-   if (result < 0)
-   {
-    reader = null;
-	return read(cbuff,off,len);
-   }
-  
-   if (!reader.ready())
-    reader = null;
-	
-   return result;
-  }
- };
- 
- public boolean		ready() throws IOException
- {
-  return (reader != null && reader.ready());
- }
- 
- public long	skip(long n) throws IOException
- {
-  if (reader != null)
-   return reader.skip(n);
+    public int read() throws IOException {
+	if (reader == null)
+	    readyInputAndEnter();
 
-  return 0; 
- };
- 
- protected void		enter()
- {
-  reader = new StringReader(input.getText() + "\n");
- 
-  input.setText("");
-  input.setEditable(false);
-  enter.setEnabled(false);
-  
-  Thread.currentThread().yield();
- };
- 
- protected void		readyInputAndEnter()
- {
-  input.setEditable(true);
-  input.requestFocus();
-  enter.setEnabled(true);
- };
+	while (reader == null) {
+	    Thread.currentThread().yield();
+	}
+
+	{
+	    int result = reader.read();
+
+	    if (result < 0) {
+		reader = null;
+		return read();
+	    }
+
+	    if (!reader.ready())
+		reader = null;
+
+	    return result;
+	}
+    };
+
+    public int read(char[] cbuff, int off, int len) throws IOException {
+	if (reader == null)
+	    readyInputAndEnter();
+
+	while (reader == null) {
+	    Thread.currentThread().yield();
+	}
+
+	{
+	    int result = reader.read(cbuff, off, len);
+
+	    if (result < 0) {
+		reader = null;
+		return read(cbuff, off, len);
+	    }
+
+	    if (!reader.ready())
+		reader = null;
+
+	    return result;
+	}
+    };
+
+    public boolean ready() throws IOException {
+	return (reader != null && reader.ready());
+    }
+
+    public long skip(long n) throws IOException {
+	if (reader != null)
+	    return reader.skip(n);
+
+	return 0;
+    };
+
+    protected void enter() {
+	reader = new StringReader(input.getText() + "\n");
+
+	input.setText("");
+	input.setEditable(false);
+	enter.setEnabled(false);
+
+	Thread.currentThread().yield();
+    };
+
+    protected void readyInputAndEnter() {
+	input.setEditable(true);
+	input.requestFocus();
+	enter.setEnabled(true);
+    };
 };
