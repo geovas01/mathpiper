@@ -20,6 +20,8 @@ import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
 import android.util.Log;
 import android.view.View;
+import android.view.KeyEvent;
+import android.view.View.OnKeyListener;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -60,6 +62,23 @@ public class MathPiperExerciseActivity extends Activity implements
 	    setContentView(R.layout.main);
 
 	    inputTextField = (EditText) findViewById(R.id.inputText);
+	    
+	    inputTextField.setOnKeyListener(new OnKeyListener() {
+		    public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+		        if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+		         
+		            enter();
+		            
+		          return true;
+		        }
+		        return false;
+		    }
+		});
+	    
+	    
+	    
+	    
 
 	    displayText = (EditText) findViewById(R.id.displayText);
 
@@ -156,42 +175,7 @@ public class MathPiperExerciseActivity extends Activity implements
 	    button_enter.setOnClickListener(new View.OnClickListener() {
 		public void onClick(View view) {
 
-		    String input = inputTextField.getText().toString();
-
-		    if (input.equals("")) {
-			speak(currentQuestion);
-
-			return;
-		    }
-
-		    EvaluationResponse response = interpreter
-			    .evaluate("QuestionCheck(" + input + ");");
-
-		    String result;
-
-		    if (response.isExceptionThrown()) {
-			result = response.getException().getMessage();
-		    } else {
-			result = response.getResult();
-		    }
-
-		    inputTextField.setText("");
-
-		    speak(input);
-
-		    if (result.equals("True")) {
-			displayText.setText("Correct");
-
-			speak("correct");
-
-			questionAsk();
-		    } else {
-			displayText.setText("Incorrect");
-
-			speak("incorrect");
-
-			speak(currentQuestion);
-		    }
+		    enter();
 
 		}
 	    });
@@ -330,13 +314,14 @@ public class MathPiperExerciseActivity extends Activity implements
 	}
 	
 	
-	String numberOneLow = preferences.getString("numberOneLow", "0");
+	//Note: preferences are not working when the app is run on a device.
+	String numberOneLow = preferences.getString("numberOneLow", "2");
 	
-	String numberOneHigh = preferences.getString("numberOneHigh", "0");
+	String numberOneHigh = preferences.getString("numberOneHigh", "9");
 	
-	String numberTwoLow = preferences.getString("numberTwoLow", "0");
+	String numberTwoLow = preferences.getString("numberTwoLow", "2");
 	
-	String numberTwoHigh = preferences.getString("numberTwoHigh", "0");
+	String numberTwoHigh = preferences.getString("numberTwoHigh", "9");
 	
 	String initializeCode = "operation := \"+\"; numberOneLowSet(" + numberOneLow + ");numberOneHighSet(" + numberOneHigh + ");numberTwoLowSet(" + numberTwoLow + ");numberTwoHighSet(" + numberTwoHigh + ");";
 
@@ -372,6 +357,45 @@ public class MathPiperExerciseActivity extends Activity implements
     public void onConfigurationChanged(Configuration newConfig) {
 	super.onConfigurationChanged(newConfig);
 
+    }
+
+    private void enter() {
+	String input = inputTextField.getText().toString();
+
+	if (input.equals("")) {
+	speak(currentQuestion);
+
+	return;
+	}
+
+	EvaluationResponse response = interpreter
+	    .evaluate("QuestionCheck(" + input + ");");
+
+	String result;
+
+	if (response.isExceptionThrown()) {
+	result = response.getException().getMessage();
+	} else {
+	result = response.getResult();
+	}
+
+	inputTextField.setText("");
+
+	speak(input);
+
+	if (result.equals("True")) {
+	displayText.setText("Correct");
+
+	speak("correct");
+
+	questionAsk();
+	} else {
+	displayText.setText("Incorrect");
+
+	speak("incorrect");
+
+	speak(currentQuestion);
+	}
     }
 
     // ==============================================
