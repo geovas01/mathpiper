@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	DBExecuteParam
 //#########################################################################
- 
+
 package ubc.cs.JLog.Extras.DataBase;
 
 import java.io.*;
@@ -55,32 +55,26 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.*;
 
-public class jDBExecuteParam extends jBinaryBuiltinPredicate 
-{
+public class jDBExecuteParam extends jBinaryBuiltinPredicate {
 
- public jDBExecuteParam(jTerm l,jTerm r) 
- {
-  super(l,r,TYPE_BUILTINPREDICATE);
- };
-  
- public String 		getName() 
- {
-  return "db_execute";
- };
+    public jDBExecuteParam(jTerm l, jTerm r) {
+	super(l, r, TYPE_BUILTINPREDICATE);
+    };
 
- public void 		addGoals(jGoal g,jVariable[] vars,iGoalStack goals)
- {
-  goals.push(new jDBExecuteParamGoal(lhs.duplicate(vars),rhs.duplicate(vars)));
- }; 
+    public String getName() {
+	return "db_execute";
+    };
 
- public void 		addGoals(jGoal g,iGoalStack goals)
- {
-  goals.push(new jDBExecuteParamGoal(lhs,rhs));
- }; 
+    public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+	goals.push(new jDBExecuteParamGoal(lhs.duplicate(vars), rhs
+		.duplicate(vars)));
+    };
 
- public jBinaryBuiltinPredicate 		duplicate(jTerm l,jTerm r)
- {
-  return new jDBExecuteParam(l,r); 
- };
+    public void addGoals(jGoal g, iGoalStack goals) {
+	goals.push(new jDBExecuteParamGoal(lhs, rhs));
+    };
+
+    public jBinaryBuiltinPredicate duplicate(jTerm l, jTerm r) {
+	return new jDBExecuteParam(l, r);
+    };
 };
-

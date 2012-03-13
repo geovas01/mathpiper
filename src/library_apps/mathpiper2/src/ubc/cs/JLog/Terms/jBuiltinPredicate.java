@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	BuiltinPredicate
 //#########################################################################
- 
+
 package ubc.cs.JLog.Terms;
 
 import java.lang.*;
@@ -54,169 +54,170 @@ import java.util.*;
 import ubc.cs.JLog.Foundation.*;
 
 /**
- * This is the abstract base for builtin predicates. The parser must create the 
- * appropriate object for builtin predicates. Builtins do not appear in the database
- * and are designed to provide a way to optimize a predicate or provide additional 
- * functionallity.
- *  
- * @author       Glendon Holst
- * @version      %I%, %G%
+ * This is the abstract base for builtin predicates. The parser must create the
+ * appropriate object for builtin predicates. Builtins do not appear in the
+ * database and are designed to provide a way to optimize a predicate or provide
+ * additional functionallity.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
  */
-abstract public class jBuiltinPredicate extends iPredicate
-{
- public jBuiltinPredicate()
- {
-  type = TYPE_BUILTINPREDICATE;
- };
+abstract public class jBuiltinPredicate extends iPredicate {
+    public jBuiltinPredicate() {
+	type = TYPE_BUILTINPREDICATE;
+    };
 
- public int 		getArity()
- {
-  return 0;
- };
+    public int getArity() {
+	return 0;
+    };
 
- /**
-  * Compares predicate aguments. Override in classes with different arities.
-  */
- protected int 		compareArguments(iPredicate ipred,boolean first_call,boolean var_equal)
- {
-  if (ipred instanceof jBuiltinPredicate && getArity() == 0)
-  {jBuiltinPredicate 		bip = (jBuiltinPredicate) ipred;
-   int 			compare_val;
-   int 			arity_b;
-   
-   arity_b = bip.getArity();
-   
-   if (0 < arity_b)
-    return LESS_THAN;
-   else if (0 > arity_b)
-    return GREATER_THAN;
-   
-   compare_val = getName().compareTo(bip.getName());
-   
-   if (compare_val < 0)
-    return LESS_THAN;
-   if (compare_val > 0)
-    return GREATER_THAN;
-   return EQUAL;
-  }
-  
-  return (first_call ? -ipred.compareArguments(this,false,var_equal) : EQUAL);
- };
+    /**
+     * Compares predicate aguments. Override in classes with different arities.
+     */
+    protected int compareArguments(iPredicate ipred, boolean first_call,
+	    boolean var_equal) {
+	if (ipred instanceof jBuiltinPredicate && getArity() == 0) {
+	    jBuiltinPredicate bip = (jBuiltinPredicate) ipred;
+	    int compare_val;
+	    int arity_b;
 
- public boolean 	isConsultNeeded()
- {
-  return false; // builtins without arguments don't need consulting
- };
+	    arity_b = bip.getArity();
 
- public boolean 	equivalence(jTerm term,jEquivalenceMapping v)
- {jTerm t = term.getTerm();
- 
-  // only unify with other predicate terms
-  if (type != t.type)
-   return false;
+	    if (0 < arity_b)
+		return LESS_THAN;
+	    else if (0 > arity_b)
+		return GREATER_THAN;
 
-  // altough we cannot be certain that term is a jBuiltinPredicate, if it is not then 
-  // type was wrong so this warrents a failing exception.
-  {jBuiltinPredicate 		pterm;
-   
-   pterm = (jBuiltinPredicate) t;
-   
-   // predicates must have same name
-   if (!getName().equals(pterm.getName()))
-    return false;
- 
-  // only test if terms have same arity
-   if (getArity() != pterm.getArity())
-    return false;
+	    compare_val = getName().compareTo(bip.getName());
 
-   // arguments must be equivalent.  subclasses defining new arguments should handle.
-   return equivalenceArguments(pterm,v);
-  }
- };
+	    if (compare_val < 0)
+		return LESS_THAN;
+	    if (compare_val > 0)
+		return GREATER_THAN;
+	    return EQUAL;
+	}
 
- /**
-  * Unification. For builtin predicates, unification may happen when they 
-  * are arguments to predicates.
-  */
- public boolean 	unify(jTerm term,jUnifiedVector v)
- {
-  // if term is variable we let it handle the unification
-  if (term.type == TYPE_VARIABLE)
-   return term.unify(this,v);
-   
-  // only unify with other predicate terms
-  if (type != term.type)
-   return false;
+	return (first_call ? -ipred.compareArguments(this, false, var_equal)
+		: EQUAL);
+    };
 
-  // altough we cannot be certain that term is a jBuiltinPredicate, if it is not then 
-  // type was wrong so this warrents a failing exception.
-  {jBuiltinPredicate 		pterm;
-   
-   pterm = (jBuiltinPredicate) term;
-   
-   // predicates must have same name
-   if (!getName().equals(pterm.getName()))
-    return false;
- 
-  // only unify if terms have same arity
-   if (getArity() != pterm.getArity())
-    return false;
+    public boolean isConsultNeeded() {
+	return false; // builtins without arguments don't need consulting
+    };
 
-   // arguments must unify.  subclasses defining new arguments should handle.
-   return unifyArguments(pterm,v);
-  }
- };
- 
- /**
-  * Equivalence test arguments. Similar behavior to that of <code>equivalence</code>.
-  *
-  * @param pterm 	We are assured that pterm has the same type, name, and arity.  
-  * @param v 		same as <code>jEquivalenceMapping</code> parameter in 
-  * 			<code>equivalence</code>.  
-  *
-  * @return 		Should test for instanceof as required and return false if there
-  * 			is no match, true otherwise.
-  */
- protected boolean 	equivalenceArguments(jBuiltinPredicate pterm,jEquivalenceMapping v)
- {
-  return true;
- };
+    public boolean equivalence(jTerm term, jEquivalenceMapping v) {
+	jTerm t = term.getTerm();
 
- /**
-  * Unification of arguments. Similar behavior to that of <code>unify</code>.
-  *
-  * @param pterm 	We are assured that pterm has the same type, name, and arity.  
-  * @param v 		same as <code>jUnifiedVector</code> parameter in 
-  * 			<code>unify</code>.  
-  *
-  * @return 		Should test for instanceof as required and return false if there
-  * 			is no match, true otherwise.
-  */
- protected boolean 	unifyArguments(jBuiltinPredicate pterm,jUnifiedVector v)
- {
-  return true;
- };
- 
- public void 		registerVariables(jVariableVector v)
- {
- };
+	// only unify with other predicate terms
+	if (type != t.type)
+	    return false;
 
- public void 		enumerateVariables(jVariableVector v,boolean all)
- {
- };
- 
- public jTerm 		duplicate(jVariable[] vars)
- {
-  return this;  // in many cases builtins are constant, so don't duplicate
- };
+	// altough we cannot be certain that term is a jBuiltinPredicate, if it
+	// is not then
+	// type was wrong so this warrents a failing exception.
+	{
+	    jBuiltinPredicate pterm;
 
- public jTerm 		copy(jVariableRegistry vars)
- {
-  return this;  // in many cases builtins are constant, so don't duplicate
- };
+	    pterm = (jBuiltinPredicate) t;
 
- public String 		toString(boolean usename)
- {
-  return getName();
- };
+	    // predicates must have same name
+	    if (!getName().equals(pterm.getName()))
+		return false;
+
+	    // only test if terms have same arity
+	    if (getArity() != pterm.getArity())
+		return false;
+
+	    // arguments must be equivalent. subclasses defining new arguments
+	    // should handle.
+	    return equivalenceArguments(pterm, v);
+	}
+    };
+
+    /**
+     * Unification. For builtin predicates, unification may happen when they are
+     * arguments to predicates.
+     */
+    public boolean unify(jTerm term, jUnifiedVector v) {
+	// if term is variable we let it handle the unification
+	if (term.type == TYPE_VARIABLE)
+	    return term.unify(this, v);
+
+	// only unify with other predicate terms
+	if (type != term.type)
+	    return false;
+
+	// altough we cannot be certain that term is a jBuiltinPredicate, if it
+	// is not then
+	// type was wrong so this warrents a failing exception.
+	{
+	    jBuiltinPredicate pterm;
+
+	    pterm = (jBuiltinPredicate) term;
+
+	    // predicates must have same name
+	    if (!getName().equals(pterm.getName()))
+		return false;
+
+	    // only unify if terms have same arity
+	    if (getArity() != pterm.getArity())
+		return false;
+
+	    // arguments must unify. subclasses defining new arguments should
+	    // handle.
+	    return unifyArguments(pterm, v);
+	}
+    };
+
+    /**
+     * Equivalence test arguments. Similar behavior to that of
+     * <code>equivalence</code>.
+     * 
+     * @param pterm
+     *            We are assured that pterm has the same type, name, and arity.
+     * @param v
+     *            same as <code>jEquivalenceMapping</code> parameter in
+     *            <code>equivalence</code>.
+     * 
+     * @return Should test for instanceof as required and return false if there
+     *         is no match, true otherwise.
+     */
+    protected boolean equivalenceArguments(jBuiltinPredicate pterm,
+	    jEquivalenceMapping v) {
+	return true;
+    };
+
+    /**
+     * Unification of arguments. Similar behavior to that of <code>unify</code>.
+     * 
+     * @param pterm
+     *            We are assured that pterm has the same type, name, and arity.
+     * @param v
+     *            same as <code>jUnifiedVector</code> parameter in
+     *            <code>unify</code>.
+     * 
+     * @return Should test for instanceof as required and return false if there
+     *         is no match, true otherwise.
+     */
+    protected boolean unifyArguments(jBuiltinPredicate pterm, jUnifiedVector v) {
+	return true;
+    };
+
+    public void registerVariables(jVariableVector v) {
+    };
+
+    public void enumerateVariables(jVariableVector v, boolean all) {
+    };
+
+    public jTerm duplicate(jVariable[] vars) {
+	return this; // in many cases builtins are constant, so don't duplicate
+    };
+
+    public jTerm copy(jVariableRegistry vars) {
+	return this; // in many cases builtins are constant, so don't duplicate
+    };
+
+    public String toString(boolean usename) {
+	return getName();
+    };
 };

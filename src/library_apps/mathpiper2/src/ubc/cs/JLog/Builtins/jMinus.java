@@ -42,59 +42,52 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Minus
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
 import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jMinus extends jUnaryArithmetic
-{
- public 	jMinus(jTerm r)
- {
-  super(r);
- };
- 
- public String 		getName()
- {
-  return "-";
- };  
+public class jMinus extends jUnaryArithmetic {
+    public jMinus(jTerm r) {
+	super(r);
+    };
 
- protected jUnaryBuiltinPredicate 	duplicate(jTerm r)
- {
-  return new jMinus(r);
- };
- 
- protected int 		operatorInt(int r)
- {
-  return -r;
- };
- 
- protected float 	operatorReal(float r)
- {
-  return -r;
- };
+    public String getName() {
+	return "-";
+    };
 
- public String 		toString(boolean usename)
- {jTerm 	r;
-  boolean 	bracket_r = false;
-  
-  r = rhs.getTerm();
-  
-  if (r instanceof iArithmetic)
-   bracket_r = ((iArithmetic) r).getPriority() > getPriority();
-  
-  return getName() + 
-         (bracket_r ? "(" : "") + rhs.toString(usename) + (bracket_r ? ")" : "");
- };
- 
- public int 		getPriority()
- {
-  return 500;
- };
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jMinus(r);
+    };
+
+    protected int operatorInt(int r) {
+	return -r;
+    };
+
+    protected float operatorReal(float r) {
+	return -r;
+    };
+
+    public String toString(boolean usename) {
+	jTerm r;
+	boolean bracket_r = false;
+
+	r = rhs.getTerm();
+
+	if (r instanceof iArithmetic)
+	    bracket_r = ((iArithmetic) r).getPriority() > getPriority();
+
+	return getName() + (bracket_r ? "(" : "") + rhs.toString(usename)
+		+ (bracket_r ? ")" : "");
+    };
+
+    public int getPriority() {
+	return 500;
+    };
 };

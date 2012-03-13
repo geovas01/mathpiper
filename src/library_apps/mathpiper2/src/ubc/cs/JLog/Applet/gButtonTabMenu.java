@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //##################################################################################
 //	gButtonTabMenu
 //##################################################################################
@@ -54,49 +54,44 @@ import java.util.*;
 import java.awt.*;
 
 /**
-* A collection of <code>gButtonTab</code>s. Used to synchronized the appearance
-* of related buttons, so that only one remains active at any time.
-*
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public class gButtonTabMenu extends Panel
-{
- public final static int 		HORIZONTAL = 0;
- public final static int 		VERTICAL = 1;
+ * A collection of <code>gButtonTab</code>s. Used to synchronized the appearance
+ * of related buttons, so that only one remains active at any time.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public class gButtonTabMenu extends Panel {
+    public final static int HORIZONTAL = 0;
+    public final static int VERTICAL = 1;
 
- protected gButtonTab 			activetab = null;
- 
- public 	gButtonTabMenu()
- {
-  this(HORIZONTAL);
- };
- 
- public 	gButtonTabMenu(int direction)
- {
-  this(direction,new Font("Dialog",Font.BOLD,12));
- };
+    protected gButtonTab activetab = null;
 
- public 	gButtonTabMenu(int direction,Font f)
- {
-  setLayout(new GridLayout((direction == VERTICAL ? 0 : 1),(direction == VERTICAL ? 1 : 0)));
-  setFont(f);
-  setBackground(Color.lightGray);
-  setForeground(Color.black);
- };
+    public gButtonTabMenu() {
+	this(HORIZONTAL);
+    };
 
- public void 	setActiveTab(gButtonTab a)
- {
-  if (activetab == a)
-   return;
-   
-  if (activetab != null)
-   activetab.setState(false);
-   
-  activetab = a;
-  
-  if (activetab != null)
-   activetab.setState(true);
- };
+    public gButtonTabMenu(int direction) {
+	this(direction, new Font("Dialog", Font.BOLD, 12));
+    };
+
+    public gButtonTabMenu(int direction, Font f) {
+	setLayout(new GridLayout((direction == VERTICAL ? 0 : 1),
+		(direction == VERTICAL ? 1 : 0)));
+	setFont(f);
+	setBackground(Color.lightGray);
+	setForeground(Color.black);
+    };
+
+    public void setActiveTab(gButtonTab a) {
+	if (activetab == a)
+	    return;
+
+	if (activetab != null)
+	    activetab.setState(false);
+
+	activetab = a;
+
+	if (activetab != null)
+	    activetab.setState(true);
+    };
 };
-

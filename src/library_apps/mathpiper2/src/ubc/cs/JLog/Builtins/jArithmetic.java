@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Arithmetic
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -56,105 +56,106 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Terms.Goals.*;
 
 /**
-* The abstract class for binary arithmetic operators.
-*
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-abstract class jArithmetic extends jBinaryBuiltinPredicate implements iArithmetic
-{
- public jArithmetic(jTerm l,jTerm r)
- {
-  super(l,r,TYPE_ARITHMETIC);
- };
-  
- public  jTerm 		getValue()
- {jTerm 		l,r;
-  
-  l = lhs.getValue();
-  r = rhs.getValue();
+ * The abstract class for binary arithmetic operators.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+abstract class jArithmetic extends jBinaryBuiltinPredicate implements
+	iArithmetic {
+    public jArithmetic(jTerm l, jTerm r) {
+	super(l, r, TYPE_ARITHMETIC);
+    };
 
-  if (l.type == TYPE_INTEGER && r.type == TYPE_INTEGER)
-   return new jInteger(operatorInt(((jInteger) l).getIntegerValue(),
-                                   ((jInteger) r).getIntegerValue()));
-  else
-  {float 		rl,rr;
+    public jTerm getValue() {
+	jTerm l, r;
 
-   if (l.type == TYPE_INTEGER)
-    rl = (float) ((jInteger) l).getIntegerValue();
-   else if (l.type == TYPE_REAL)
-    rl = ((jReal) l).getRealValue();
-   else
-    throw new InvalidArithmeticOperationException();
-  
-   if (r.type == TYPE_INTEGER)
-    rr = (float) ((jInteger) r).getIntegerValue();
-   else if (r.type == TYPE_REAL)
-    rr = ((jReal) r).getRealValue();
-   else
-    throw new InvalidArithmeticOperationException();
- 
-   return new jReal(operatorReal(rl,rr));
-  }
- };
- 
- /**
-  * Perform the integer operations specified by this instance on the two
-  * given integers, and return the integer result.
-  *
-  * @param l 		The left operand.
-  * @param r 		The right operand.
-  *
-  * @return 		The result of <code>l</code> op <code>r</code> 
-  * 			where <i>op</i> is specified by this instance.
-  */
- abstract protected int 	operatorInt(int l,int r);
+	l = lhs.getValue();
+	r = rhs.getValue();
 
- /**
-  * Perform the float operations specified by this instance on the two
-  * given floats, and return the float result.
-  *
-  * @param l 		The left operand.
-  * @param r 		The right operand.
-  *
-  * @return 		The result of <code>l</code> op <code>r</code> 
-  * 			where <i>op</i> is specified by this instance.
-  */
- abstract protected float 	operatorReal(float l,float r);
- 
- /**
-  * Arithmetics are intended as expressions for <code>is</code>, 
-  * if used a predicate they fail.
-  */
- public void 		addGoals(jGoal g,jVariable[] vars,iGoalStack goals)
- {
-  goals.push(new jFailGoal());
- }; 
+	if (l.type == TYPE_INTEGER && r.type == TYPE_INTEGER)
+	    return new jInteger(operatorInt(((jInteger) l).getIntegerValue(),
+		    ((jInteger) r).getIntegerValue()));
+	else {
+	    float rl, rr;
 
- /**
-  * Arithmetics are intended as expressions for <code>is</code>, 
-  * if used a predicate they fail.
-  */
- public void 		addGoals(jGoal g,iGoalStack goals)
- {
-  goals.push(new jFailGoal());
- }; 
+	    if (l.type == TYPE_INTEGER)
+		rl = (float) ((jInteger) l).getIntegerValue();
+	    else if (l.type == TYPE_REAL)
+		rl = ((jReal) l).getRealValue();
+	    else
+		throw new InvalidArithmeticOperationException();
 
- public String 		toString(boolean usename)
- {jTerm 	l,r;
-  boolean 	bracket_l = false,bracket_r = false;
-  
-  l = lhs.getTerm();
-  r = rhs.getTerm();
-  
-  if (l instanceof iArithmetic)
-   bracket_l = ((iArithmetic) l).getPriority() > getPriority();
-  if (r instanceof iArithmetic)
-   bracket_r = ((iArithmetic) r).getPriority() > getPriority();
-  
-  return (bracket_l ? "(" : "") + lhs.toString(usename) + (bracket_l ? ") " : " ") + 
-          getName() + 
-         (bracket_r ? " (" : " ") + rhs.toString(usename) + (bracket_r ? ")" : "");
- };
+	    if (r.type == TYPE_INTEGER)
+		rr = (float) ((jInteger) r).getIntegerValue();
+	    else if (r.type == TYPE_REAL)
+		rr = ((jReal) r).getRealValue();
+	    else
+		throw new InvalidArithmeticOperationException();
+
+	    return new jReal(operatorReal(rl, rr));
+	}
+    };
+
+    /**
+     * Perform the integer operations specified by this instance on the two
+     * given integers, and return the integer result.
+     * 
+     * @param l
+     *            The left operand.
+     * @param r
+     *            The right operand.
+     * 
+     * @return The result of <code>l</code> op <code>r</code> where <i>op</i> is
+     *         specified by this instance.
+     */
+    abstract protected int operatorInt(int l, int r);
+
+    /**
+     * Perform the float operations specified by this instance on the two given
+     * floats, and return the float result.
+     * 
+     * @param l
+     *            The left operand.
+     * @param r
+     *            The right operand.
+     * 
+     * @return The result of <code>l</code> op <code>r</code> where <i>op</i> is
+     *         specified by this instance.
+     */
+    abstract protected float operatorReal(float l, float r);
+
+    /**
+     * Arithmetics are intended as expressions for <code>is</code>, if used a
+     * predicate they fail.
+     */
+    public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+	goals.push(new jFailGoal());
+    };
+
+    /**
+     * Arithmetics are intended as expressions for <code>is</code>, if used a
+     * predicate they fail.
+     */
+    public void addGoals(jGoal g, iGoalStack goals) {
+	goals.push(new jFailGoal());
+    };
+
+    public String toString(boolean usename) {
+	jTerm l, r;
+	boolean bracket_l = false, bracket_r = false;
+
+	l = lhs.getTerm();
+	r = rhs.getTerm();
+
+	if (l instanceof iArithmetic)
+	    bracket_l = ((iArithmetic) l).getPriority() > getPriority();
+	if (r instanceof iArithmetic)
+	    bracket_r = ((iArithmetic) r).getPriority() > getPriority();
+
+	return (bracket_l ? "(" : "") + lhs.toString(usename)
+		+ (bracket_l ? ") " : " ") + getName()
+		+ (bracket_r ? " (" : " ") + rhs.toString(usename)
+		+ (bracket_r ? ")" : "");
+    };
 };
-

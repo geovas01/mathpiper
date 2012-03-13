@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	FSExists
 //#########################################################################
- 
+
 package ubc.cs.JLog.Extras.FileSystem;
 
 import java.lang.*;
@@ -57,27 +57,22 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.*;
 import ubc.cs.JLog.Terms.Goals.*;
 
-public class jFSExists extends jUnaryBuiltinPredicate
-{
- public jFSExists(jTerm t)
- {
-  super(t,TYPE_BUILTINPREDICATE);
- };
-  
- public String 		getName()
- {
-  return "fs_exists";
- };
- 
- public boolean 	prove(jUnaryBuiltinPredicateGoal ug)
- {File f = new File(ug.term1.getTerm().toString());
+public class jFSExists extends jUnaryBuiltinPredicate {
+    public jFSExists(jTerm t) {
+	super(t, TYPE_BUILTINPREDICATE);
+    };
 
-  return f.exists(); 
- };
+    public String getName() {
+	return "fs_exists";
+    };
 
- protected jUnaryBuiltinPredicate 		duplicate(jTerm r)
- {
-  return new jFSExists(r); 
- };
+    public boolean prove(jUnaryBuiltinPredicateGoal ug) {
+	File f = new File(ug.term1.getTerm().toString());
+
+	return f.exists();
+    };
+
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jFSExists(r);
+    };
 };
-

@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Type
 //#########################################################################
@@ -53,34 +53,34 @@ import java.lang.*;
 import java.util.*;
 
 /**
-* This abstract class defines all the prolog types.   
-* Use <code>jType.getType()</code> in place of instanceof for speed, and when only the 
-* actual instance type matters, and not any super classes. 
-* For sub classes, the type should be set in constructor only, and read-only from then on.
-* <P>
-* Any new types added to the system must be registered in this class.  It is unlikely
-* that this would be needed, since they are quite general.
-* 
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-abstract public class jType implements iType
-{
- // type should be set in constructor only, and read-only from then on. 
- public int 	type = TYPE_UNDEFINED;
- 
- public final int 	getType() {return type;};
- 
-/**
-  * Invokes the <code>toString</code> provided by the <code>Object</code> class.  
-  * This is intended for classes whose superclasses have overridden toString, but 
-  * need access to the default <code>toString</code> that the <code>Object</code> 
-  * class returns.
-  *
-  * @return 			the <code>String</code> from <code>Object.toString</code>.
-  */
- protected String 		objectToString()
- {
-  return super.toString();
- };
+ * This abstract class defines all the prolog types. Use
+ * <code>jType.getType()</code> in place of instanceof for speed, and when only
+ * the actual instance type matters, and not any super classes. For sub classes,
+ * the type should be set in constructor only, and read-only from then on.
+ * <P>
+ * Any new types added to the system must be registered in this class. It is
+ * unlikely that this would be needed, since they are quite general.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+abstract public class jType implements iType {
+    // type should be set in constructor only, and read-only from then on.
+    public int type = TYPE_UNDEFINED;
+
+    public final int getType() {
+	return type;
+    };
+
+    /**
+     * Invokes the <code>toString</code> provided by the <code>Object</code>
+     * class. This is intended for classes whose superclasses have overridden
+     * toString, but need access to the default <code>toString</code> that the
+     * <code>Object</code> class returns.
+     * 
+     * @return the <code>String</code> from <code>Object.toString</code>.
+     */
+    protected String objectToString() {
+	return super.toString();
+    };
 };

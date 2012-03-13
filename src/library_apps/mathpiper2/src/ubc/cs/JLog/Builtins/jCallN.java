@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	CallN
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -56,42 +56,37 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
 /**
-* A specialized version of jCall that handles cases of arity >= 2.  Its term is a 
-* jCompoundTerm where element 0 has the predicate to invoke, and the remaining elements
-* are added to the element 0 predicate to increase its arity.
-*  
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public class jCallN extends jCall
-{
- public jCallN(jCompoundTerm c)
- {
-  super(c);
- };
-  
- public void 		addGoals(jGoal g,jVariable[] vars,iGoalStack goals)
- {jTerm 	dt,ct;
- 
-  dt = rhs.duplicate(vars);
-  ct = dt.getTerm();
-  
-  goals.push(new jCallNGoal((jCompoundTerm) ct));
- };
+ * A specialized version of jCall that handles cases of arity >= 2. Its term is
+ * a jCompoundTerm where element 0 has the predicate to invoke, and the
+ * remaining elements are added to the element 0 predicate to increase its
+ * arity.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public class jCallN extends jCall {
+    public jCallN(jCompoundTerm c) {
+	super(c);
+    };
 
- public void 		addGoals(jGoal g,iGoalStack goals)
- {
-  goals.push(new jCallNGoal((jCompoundTerm) rhs));
- };
+    public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+	jTerm dt, ct;
 
- protected jUnaryBuiltinPredicate 		duplicate(jTerm t)
- {
-  return new jCallN((jCompoundTerm) t); 
- };
+	dt = rhs.duplicate(vars);
+	ct = dt.getTerm();
 
- public String 		toString(boolean usename)
- {
-  return getName() + rhs.toString(usename);
- };
+	goals.push(new jCallNGoal((jCompoundTerm) ct));
+    };
+
+    public void addGoals(jGoal g, iGoalStack goals) {
+	goals.push(new jCallNGoal((jCompoundTerm) rhs));
+    };
+
+    protected jUnaryBuiltinPredicate duplicate(jTerm t) {
+	return new jCallN((jCompoundTerm) t);
+    };
+
+    public String toString(boolean usename) {
+	return getName() + rhs.toString(usename);
+    };
 };
- 

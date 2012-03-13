@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	IsCallable
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -54,44 +54,36 @@ import java.util.*;
 import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
-public class jIsCallable extends jIsType
-{
- public jIsCallable(jTerm r)
- {
-  super(r);
- };
+public class jIsCallable extends jIsType {
+    public jIsCallable(jTerm r) {
+	super(r);
+    };
 
- public String 		getName()
- {
-  return "callable";
- };  
+    public String getName() {
+	return "callable";
+    };
 
- protected jUnaryBuiltinPredicate 	duplicate(jTerm r)
- {
-  return new jIsCallable(r);
- };
- 
- public boolean 	prove(jUnaryOperatorGoal og)
- {jTerm 	r;
-  
-  r = og.rhs.getTerm();
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jIsCallable(r);
+    };
 
-  if (r.type == TYPE_VARIABLE)
-   return false;
-  
-  try
-  {jPredicateTerms 		base;
-  
-   base = new jPredicateTerms();
-   base.makePredicateTerms(r);
+    public boolean prove(jUnaryOperatorGoal og) {
+	jTerm r;
 
-   return true;   
-  }
-  catch (PredicateExpectedException e)
-  {
-   return false;
-  }
- };
+	r = og.rhs.getTerm();
+
+	if (r.type == TYPE_VARIABLE)
+	    return false;
+
+	try {
+	    jPredicateTerms base;
+
+	    base = new jPredicateTerms();
+	    base.makePredicateTerms(r);
+
+	    return true;
+	} catch (PredicateExpectedException e) {
+	    return false;
+	}
+    };
 };
-
-

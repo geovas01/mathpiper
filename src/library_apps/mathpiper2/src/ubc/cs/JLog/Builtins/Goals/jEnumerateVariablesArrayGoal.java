@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	EnumerateVariablesArrayGoal
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins.Goals;
 
 import java.lang.*;
@@ -55,59 +55,52 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Builtins.*;
 
-public class jEnumerateVariablesArrayGoal extends jGoal
-{
- protected jEnumerateVariablesArray 	enum_vars;
- 
- // for use by enum_vars
- public jTerm 				lhs,rhs;
- public boolean 			all;
- 
- public 	jEnumerateVariablesArrayGoal(jEnumerateVariablesArray eva,jTerm l,jTerm r,boolean all)
- {
-  enum_vars = eva;
-  lhs = l;
-  rhs = r;
-  this.all = all;
- };
- 
- public boolean 	prove(iGoalStack goals,iGoalStack proved)
- {
-  if (enum_vars.prove(this))
-  {
-   proved.push(this);
-   return true;
-  }
-  else
-  {
-   goals.push(this); // a retry that follows may need a node to remove or retry
-   return false;
-  }
- };
+public class jEnumerateVariablesArrayGoal extends jGoal {
+    protected jEnumerateVariablesArray enum_vars;
 
- public boolean 	retry(iGoalStack goals,iGoalStack proved)
- {
-  goals.push(this); // a retry that follows may need a node to remove or retry
-  return false;
- }; 
+    // for use by enum_vars
+    public jTerm lhs, rhs;
+    public boolean all;
 
- public String 		getName() 
- {
-  return enum_vars.getName();
- };
- 
- public int 		getArity() 
- {
-  return enum_vars.getArity();
- };
- 
- public String 		toString()
- {StringBuffer 	sb = new StringBuffer();
-   
-  sb.append(getName()+"/"+String.valueOf(getArity())+" goal: ");
-  sb.append(getName()+"("+lhs.toString()+","+rhs.toString()+")");
-  
-  return sb.toString();
- };
+    public jEnumerateVariablesArrayGoal(jEnumerateVariablesArray eva, jTerm l,
+	    jTerm r, boolean all) {
+	enum_vars = eva;
+	lhs = l;
+	rhs = r;
+	this.all = all;
+    };
+
+    public boolean prove(iGoalStack goals, iGoalStack proved) {
+	if (enum_vars.prove(this)) {
+	    proved.push(this);
+	    return true;
+	} else {
+	    goals.push(this); // a retry that follows may need a node to remove
+			      // or retry
+	    return false;
+	}
+    };
+
+    public boolean retry(iGoalStack goals, iGoalStack proved) {
+	goals.push(this); // a retry that follows may need a node to remove or
+			  // retry
+	return false;
+    };
+
+    public String getName() {
+	return enum_vars.getName();
+    };
+
+    public int getArity() {
+	return enum_vars.getArity();
+    };
+
+    public String toString() {
+	StringBuffer sb = new StringBuffer();
+
+	sb.append(getName() + "/" + String.valueOf(getArity()) + " goal: ");
+	sb.append(getName() + "(" + lhs.toString() + "," + rhs.toString() + ")");
+
+	return sb.toString();
+    };
 };
-

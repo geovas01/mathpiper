@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Sort
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -55,122 +55,111 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
-public class jSort extends jBinaryBuiltinPredicate
-{
- protected boolean 		var_equal = false;
+public class jSort extends jBinaryBuiltinPredicate {
+    protected boolean var_equal = false;
 
- public jSort(jTerm l,jTerm r)
- {
-  super(l,r,TYPE_BUILTINPREDICATE);
- };
-  
- public jSort(jTerm l,jTerm r,boolean ve)
- {
-  super(l,r,TYPE_BUILTINPREDICATE);
-  var_equal = ve;
- };
-  
- public String 		getName()
- {
-  return "sort";
- };
- 
- public boolean 	prove(jSortGoal sg)
- {jTerm 	l,r;
-  jList 	sorted;
-  
-  l = sg.lhs.getTerm();
-  r = sg.rhs.getTerm();
-   
-   
-  if (l instanceof jList)
-   sorted = sort(l,sg.var_equal);
-  else
-   throw new InvalidSortSourceListException();
-   
-  return r.unify(sorted,sg.unified);
- };
+    public jSort(jTerm l, jTerm r) {
+	super(l, r, TYPE_BUILTINPREDICATE);
+    };
 
- protected jList 	sort(jTerm src,boolean ve)
- {Vector 	dest = new Vector();
-  
-  src = src.getTerm();
-  while (src.type == TYPE_LIST)
-  {
-   sort_insert(((jListPair) src).getHead(),dest,ve);
-   src = ((jListPair) src).getTail().getTerm();
-  }
+    public jSort(jTerm l, jTerm r, boolean ve) {
+	super(l, r, TYPE_BUILTINPREDICATE);
+	var_equal = ve;
+    };
 
-  if (src != null && src.type != TYPE_NULLLIST)
-   sort_insert(src,dest,ve);
+    public String getName() {
+	return "sort";
+    };
 
-  return sort_makelist(dest);   
- };
+    public boolean prove(jSortGoal sg) {
+	jTerm l, r;
+	jList sorted;
 
- protected jList 	sort_makelist(Vector dest)
- {Enumeration 		e = dest.elements();
-  jListPair				prev = null; 
-  jList 			dlst = null;
-  
-  while (e.hasMoreElements())
-  {jTerm 	t = (jTerm) e.nextElement();
-   
-   if (prev == null)
-    dlst = prev = new jListPair(t,null);
-   else
-   {jListPair 	nlst;
-    
-    prev.setTail(nlst = new jListPair(t,null));
-    prev = nlst;
-   }
-  }
-   
-  if (prev != null)
-   prev.setTail(jNullList.NULL_LIST);
-  else
-   dlst = jNullList.NULL_LIST;
-    
-  return dlst;
- };
- 
- // return values same as compare, capares l(vector element) to r(inserted element)
- protected int 		sort_compare(jTerm l,jTerm r,boolean ve)
- {
-  return l.compare(r,ve);
- };
- 
- protected void 	sort_insert(jTerm t,Vector v,boolean ve)
- {int 	i,max,result;
- 
-  for (i = 0, max = v.size(); i < max; i++)
-  {
-   result = sort_compare((jTerm) v.elementAt(i),t,ve);
-  
-   switch (result)
-   {
-    case GREATER_THAN:
-      v.insertElementAt(t,i);    
-    case EQUAL:
-      return;
-   }  
-  }
-  
-  v.insertElementAt(t,v.size());
- };
+	l = sg.lhs.getTerm();
+	r = sg.rhs.getTerm();
 
- public void 		addGoals(jGoal g,jVariable[] vars,iGoalStack goals)
- {
-  goals.push(new jSortGoal(this,lhs.duplicate(vars),rhs.duplicate(vars),var_equal));
- }; 
+	if (l instanceof jList)
+	    sorted = sort(l, sg.var_equal);
+	else
+	    throw new InvalidSortSourceListException();
 
- public void 		addGoals(jGoal g,iGoalStack goals)
- {
-  goals.push(new jSortGoal(this,lhs,rhs,var_equal));
- }; 
+	return r.unify(sorted, sg.unified);
+    };
 
- public jBinaryBuiltinPredicate 		duplicate(jTerm l,jTerm r)
- {
-  return new jSort(l,r,var_equal); 
- };
+    protected jList sort(jTerm src, boolean ve) {
+	Vector dest = new Vector();
+
+	src = src.getTerm();
+	while (src.type == TYPE_LIST) {
+	    sort_insert(((jListPair) src).getHead(), dest, ve);
+	    src = ((jListPair) src).getTail().getTerm();
+	}
+
+	if (src != null && src.type != TYPE_NULLLIST)
+	    sort_insert(src, dest, ve);
+
+	return sort_makelist(dest);
+    };
+
+    protected jList sort_makelist(Vector dest) {
+	Enumeration e = dest.elements();
+	jListPair prev = null;
+	jList dlst = null;
+
+	while (e.hasMoreElements()) {
+	    jTerm t = (jTerm) e.nextElement();
+
+	    if (prev == null)
+		dlst = prev = new jListPair(t, null);
+	    else {
+		jListPair nlst;
+
+		prev.setTail(nlst = new jListPair(t, null));
+		prev = nlst;
+	    }
+	}
+
+	if (prev != null)
+	    prev.setTail(jNullList.NULL_LIST);
+	else
+	    dlst = jNullList.NULL_LIST;
+
+	return dlst;
+    };
+
+    // return values same as compare, capares l(vector element) to r(inserted
+    // element)
+    protected int sort_compare(jTerm l, jTerm r, boolean ve) {
+	return l.compare(r, ve);
+    };
+
+    protected void sort_insert(jTerm t, Vector v, boolean ve) {
+	int i, max, result;
+
+	for (i = 0, max = v.size(); i < max; i++) {
+	    result = sort_compare((jTerm) v.elementAt(i), t, ve);
+
+	    switch (result) {
+	    case GREATER_THAN:
+		v.insertElementAt(t, i);
+	    case EQUAL:
+		return;
+	    }
+	}
+
+	v.insertElementAt(t, v.size());
+    };
+
+    public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+	goals.push(new jSortGoal(this, lhs.duplicate(vars),
+		rhs.duplicate(vars), var_equal));
+    };
+
+    public void addGoals(jGoal g, iGoalStack goals) {
+	goals.push(new jSortGoal(this, lhs, rhs, var_equal));
+    };
+
+    public jBinaryBuiltinPredicate duplicate(jTerm l, jTerm r) {
+	return new jSort(l, r, var_equal);
+    };
 };
-

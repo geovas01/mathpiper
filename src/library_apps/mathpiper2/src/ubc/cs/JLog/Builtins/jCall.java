@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Call
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -55,35 +55,29 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
-public class jCall extends jUnaryBuiltinPredicate
-{
- public jCall(jTerm c)
- {
-  super(c,TYPE_BUILTINPREDICATE);
- };
-  
- public String 		getName()
- {
-  return "call";
- };
- 
- public void 		addGoals(jGoal g,jVariable[] vars,iGoalStack goals)
- {jTerm 	dt,ct;
- 
-  dt = rhs.duplicate(vars);
-  ct = dt.getTerm();
-  
-  goals.push(new jCallGoal(ct));
- };
+public class jCall extends jUnaryBuiltinPredicate {
+    public jCall(jTerm c) {
+	super(c, TYPE_BUILTINPREDICATE);
+    };
 
- public void 		addGoals(jGoal g,iGoalStack goals)
- {
-  goals.push(new jCallGoal(rhs));
- };
+    public String getName() {
+	return "call";
+    };
 
- protected jUnaryBuiltinPredicate 		duplicate(jTerm t)
- {
-  return new jCall(t); 
- };
+    public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+	jTerm dt, ct;
+
+	dt = rhs.duplicate(vars);
+	ct = dt.getTerm();
+
+	goals.push(new jCallGoal(ct));
+    };
+
+    public void addGoals(jGoal g, iGoalStack goals) {
+	goals.push(new jCallGoal(rhs));
+    };
+
+    protected jUnaryBuiltinPredicate duplicate(jTerm t) {
+	return new jCall(t);
+    };
 };
- 

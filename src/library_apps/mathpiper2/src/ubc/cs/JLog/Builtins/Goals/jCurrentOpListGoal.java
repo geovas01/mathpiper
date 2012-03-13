@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	CurrentOpListGoal
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins.Goals;
 
 import java.lang.*;
@@ -56,76 +56,69 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Parser.*;
 import ubc.cs.JLog.Builtins.*;
 
-public class jCurrentOpListGoal extends jGoal
-{
- protected jCurrentOpList 			oplist;
- 
- // for use by oplist
- public jTerm 				rhs;
- public jUnifiedVector 		unified;
- 
- public 	jCurrentOpListGoal(jCurrentOpList ol,jTerm r)
- {
-  oplist = ol;
-  rhs = r;
-  unified = new jUnifiedVector();
- };
+public class jCurrentOpListGoal extends jGoal {
+    protected jCurrentOpList oplist;
 
- public boolean 	prove(iGoalStack goals,iGoalStack proved)
- {Thread 		t;
-  
-  t = Thread.currentThread();
-  
-  if (t instanceof jPrologServiceThread)
-  {jPrologServiceThread			pst = (jPrologServiceThread) t;
-   jPrologServices				prolog = pst.getPrologServices();
-   pOperatorRegistry 			registry = prolog.getOperatorRegistry();
-    
-   if (oplist.prove(this,registry.enumOperators()))
-   {
-    proved.push(this);
-    return true;
-   }
-  }
-  {
-   { // we need to initialize goal to potentially restart
-    unified.restoreVariables();
-   }
-   goals.push(this); // a retry that follows may need a node to remove or retry
-   return false;
-  } 
- };
+    // for use by oplist
+    public jTerm rhs;
+    public jUnifiedVector unified;
 
- public boolean 	retry(iGoalStack goals,iGoalStack proved)
- {
-  unified.restoreVariables();
+    public jCurrentOpListGoal(jCurrentOpList ol, jTerm r) {
+	oplist = ol;
+	rhs = r;
+	unified = new jUnifiedVector();
+    };
 
-  goals.push(this); // a retry that follows may need a node to remove or retry
-  return false;
- }; 
- 
- public void 	internal_restore(iGoalStack goals)
- {
-  unified.restoreVariables();
- };
+    public boolean prove(iGoalStack goals, iGoalStack proved) {
+	Thread t;
 
- public String 		getName() 
- {
-  return "CURRENTOPLIST";
- };
- 
- public int 		getArity() 
- {
-  return 1;
- };
- 
- public String 		toString()
- {StringBuffer 	sb = new StringBuffer();
-   
-  sb.append(getName()+"/"+String.valueOf(getArity()));
+	t = Thread.currentThread();
 
-  return sb.toString();
- };
+	if (t instanceof jPrologServiceThread) {
+	    jPrologServiceThread pst = (jPrologServiceThread) t;
+	    jPrologServices prolog = pst.getPrologServices();
+	    pOperatorRegistry registry = prolog.getOperatorRegistry();
+
+	    if (oplist.prove(this, registry.enumOperators())) {
+		proved.push(this);
+		return true;
+	    }
+	}
+	{
+	    { // we need to initialize goal to potentially restart
+		unified.restoreVariables();
+	    }
+	    goals.push(this); // a retry that follows may need a node to remove
+			      // or retry
+	    return false;
+	}
+    };
+
+    public boolean retry(iGoalStack goals, iGoalStack proved) {
+	unified.restoreVariables();
+
+	goals.push(this); // a retry that follows may need a node to remove or
+			  // retry
+	return false;
+    };
+
+    public void internal_restore(iGoalStack goals) {
+	unified.restoreVariables();
+    };
+
+    public String getName() {
+	return "CURRENTOPLIST";
+    };
+
+    public int getArity() {
+	return 1;
+    };
+
+    public String toString() {
+	StringBuffer sb = new StringBuffer();
+
+	sb.append(getName() + "/" + String.valueOf(getArity()));
+
+	return sb.toString();
+    };
 };
-
- 

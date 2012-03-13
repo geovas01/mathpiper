@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	jDebugGoalStack
 //#########################################################################
@@ -51,60 +51,51 @@ package ubc.cs.JLog.Foundation;
 
 import java.lang.*;
 import java.util.*;
- 
-/**
-* <code>jDebugGoalStack</code> is the default goal stack implementation.
-* It is efficient, but provides ways to view the stack contents. It is separated
-* from <code>jGoalStack</code> for reasons of potentially divergent design goals.
-* The design goal of this class is visability of the stack for purposes of
-* debugging.
-* 
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public class jDebugGoalStack extends jGoalStack implements iDebugGoalStack
-{
- public 	jDebugGoalStack()
- {
-  super();
- };
- 
- public synchronized Vector 	getTopGoals(jGoal bottom)
- {Vector 	v = new Vector();
-  jGoal 	top = head;
-  
-  while (top != null && top != bottom)
-  {
-   v.addElement(top);
-   top = top.next;
-  }
-  
-  return v;
- };
- 
- public jGoal 	peekTopGoal()
- {
-  try
-  {
-   return peek();
-  }
-  catch (EmptyStackException e)
-  {
-   return null;
-  }
- };
- 
- public synchronized Vector 		getStackCopy()
- {Vector 	v = new Vector();
-  jGoal 	top = head;
-  
-  while (top != null)
-  {
-   v.insertElementAt(top,0);
-   top = top.next;
-  }
-  
-  return v;
- };
-};
 
+/**
+ * <code>jDebugGoalStack</code> is the default goal stack implementation. It is
+ * efficient, but provides ways to view the stack contents. It is separated from
+ * <code>jGoalStack</code> for reasons of potentially divergent design goals.
+ * The design goal of this class is visability of the stack for purposes of
+ * debugging.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public class jDebugGoalStack extends jGoalStack implements iDebugGoalStack {
+    public jDebugGoalStack() {
+	super();
+    };
+
+    public synchronized Vector getTopGoals(jGoal bottom) {
+	Vector v = new Vector();
+	jGoal top = head;
+
+	while (top != null && top != bottom) {
+	    v.addElement(top);
+	    top = top.next;
+	}
+
+	return v;
+    };
+
+    public jGoal peekTopGoal() {
+	try {
+	    return peek();
+	} catch (EmptyStackException e) {
+	    return null;
+	}
+    };
+
+    public synchronized Vector getStackCopy() {
+	Vector v = new Vector();
+	jGoal top = head;
+
+	while (top != null) {
+	    v.insertElementAt(top, 0);
+	    top = top.next;
+	}
+
+	return v;
+    };
+};

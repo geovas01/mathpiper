@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Cut
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -55,34 +55,27 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
-public class jCut extends jBuiltinPredicate
-{
- public jCut()
- {
- };
-  
- public String 		getName()
- {
-  return "!";
- };
- 
- public int 		getArity()
- {
-  return 0;
- };
+public class jCut extends jBuiltinPredicate {
+    public jCut() {
+    };
 
- public boolean 	requiresCompleteVariableState()
- {
-  return true;
- };
+    public String getName() {
+	return "!";
+    };
 
- public void 		addGoals(jGoal g,jVariable[] vars,iGoalStack goals)
- {
-  goals.push(new jCutGoal(g));
- }; 
+    public int getArity() {
+	return 0;
+    };
 
- public void 		addGoals(jGoal g,iGoalStack goals)
- {
-  goals.push(new jCutGoal(g));
- }; 
+    public boolean requiresCompleteVariableState() {
+	return true;
+    };
+
+    public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+	goals.push(new jCutGoal(g));
+    };
+
+    public void addGoals(jGoal g, iGoalStack goals) {
+	goals.push(new jCutGoal(g));
+    };
 };

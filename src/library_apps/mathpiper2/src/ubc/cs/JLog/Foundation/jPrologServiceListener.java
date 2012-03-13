@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	jPrologServiceListener
 //#########################################################################
@@ -53,32 +53,30 @@ import java.lang.*;
 import java.util.*;
 
 /**
-* The abstract listening component of the Observer pattern. Instances 
-* register with a broadcaster, and are notified to handle any broadcast 
-* events.
-*
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-abstract public class jPrologServiceListener
-{
- /**
-  * Receive broadcast event for this class to process.
-  *
-  * @param e 		The event that was sent. Use <code>instanceOf</code> to determine
-  * 			actual message type and content.
-  */
- abstract public void 		handleEvent(jPrologServiceEvent e);
- 
- /**
-  * Return the priority level for listener (a partial ordering on notification order).
-  * Lower numbered events are notified before higher numbered events. 
-  *
-  * @return 		An integer priority number.
-  */
- public int 		getPriority()
- {
-  return 10;
- };
-};
+ * The abstract listening component of the Observer pattern. Instances register
+ * with a broadcaster, and are notified to handle any broadcast events.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+abstract public class jPrologServiceListener {
+    /**
+     * Receive broadcast event for this class to process.
+     * 
+     * @param e
+     *            The event that was sent. Use <code>instanceOf</code> to
+     *            determine actual message type and content.
+     */
+    abstract public void handleEvent(jPrologServiceEvent e);
 
+    /**
+     * Return the priority level for listener (a partial ordering on
+     * notification order). Lower numbered events are notified before higher
+     * numbered events.
+     * 
+     * @return An integer priority number.
+     */
+    public int getPriority() {
+	return 10;
+    };
+};

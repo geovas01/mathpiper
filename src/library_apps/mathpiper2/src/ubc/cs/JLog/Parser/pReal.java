@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	pReal
 //#########################################################################
@@ -52,27 +52,20 @@ package ubc.cs.JLog.Parser;
 import java.util.*;
 import java.lang.*;
 
-class pReal extends pToken
-{
- protected float 	value;
+class pReal extends pToken {
+    protected float value;
 
- public 	pReal(String s,int pos,int line,int cpos)
- {
-  super(s,pos,line,cpos);
-  try
-  {
-   value = Float.valueOf(s).floatValue();
-  }
-  catch (NumberFormatException e)
-  {
-   throw new SyntaxErrorException("Invalid real number format at ",pos,line,cpos);
-  }
- };
+    public pReal(String s, int pos, int line, int cpos) {
+	super(s, pos, line, cpos);
+	try {
+	    value = Float.valueOf(s).floatValue();
+	} catch (NumberFormatException e) {
+	    throw new SyntaxErrorException("Invalid real number format at ",
+		    pos, line, cpos);
+	}
+    };
 
- public float 		getValue()
- {
-  return value;
- };
+    public float getValue() {
+	return value;
+    };
 };
-
-

@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	jUserGoal
 //#########################################################################
@@ -53,51 +53,46 @@ import java.lang.*;
 import java.util.*;
 
 /**
- * Goal for getting user queries. <code>jUserGoal</code> is designed as a goal stub so 
- * that user queries have the same behavior as if they were the based off a rule. 
- * Notably, cuts will work, and or predicates containing cuts
- * will also work.  <code>jUserGoal</code> assumes that it is the first goal (it is ok
- * to place it on the empty proved stack first without calling prove, the only goal with 
- * this property).
- * No attempt is made to keep track of unified variables (for cuts), since a retry is
- * guarenteed to fail, and standard behavior is to not display variables if the query fails.
- *
- * @author       Glendon Holst
- * @version      %I%, %G%
+ * Goal for getting user queries. <code>jUserGoal</code> is designed as a goal
+ * stub so that user queries have the same behavior as if they were the based
+ * off a rule. Notably, cuts will work, and or predicates containing cuts will
+ * also work. <code>jUserGoal</code> assumes that it is the first goal (it is ok
+ * to place it on the empty proved stack first without calling prove, the only
+ * goal with this property). No attempt is made to keep track of unified
+ * variables (for cuts), since a retry is guarenteed to fail, and standard
+ * behavior is to not display variables if the query fails.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
  */
-public class jUserGoal extends jGoal
-{
- public 	jUserGoal()
- {
- };
- 
- public boolean 	prove(iGoalStack goals,iGoalStack proved)
- {
-  proved.push(this);
-  return true;
- };
+public class jUserGoal extends jGoal {
+    public jUserGoal() {
+    };
 
- public boolean 	retry(iGoalStack goals,iGoalStack proved)
- {
-  goals.push(this); // a retry that follows may need a node to remove or retry
-  return false;
- }; 
+    public boolean prove(iGoalStack goals, iGoalStack proved) {
+	proved.push(this);
+	return true;
+    };
 
- public String 		getName() 
- {
-  return "internal user goal stub";
- };
- 
- public int 		getArity() 
- {
-  return 0;
- };
- 
- public String 		toString()
- {StringBuffer 	sb = new StringBuffer();
-   
-  sb.append(getName()+"/"+String.valueOf(getArity()));
-  
-  return sb.toString();
- };
+    public boolean retry(iGoalStack goals, iGoalStack proved) {
+	goals.push(this); // a retry that follows may need a node to remove or
+			  // retry
+	return false;
+    };
+
+    public String getName() {
+	return "internal user goal stub";
+    };
+
+    public int getArity() {
+	return 0;
+    };
+
+    public String toString() {
+	StringBuffer sb = new StringBuffer();
+
+	sb.append(getName() + "/" + String.valueOf(getArity()));
+
+	return sb.toString();
+    };
 };

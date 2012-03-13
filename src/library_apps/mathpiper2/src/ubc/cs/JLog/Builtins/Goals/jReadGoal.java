@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	ReadGoal
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins.Goals;
 
 import java.lang.*;
@@ -59,151 +59,133 @@ import ubc.cs.JLog.Builtins.*;
 
 /**
  * Goal for inputing text from the console.
- *
- * @author       Glendon Holst
- * @version      %I%, %G%
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
  */
-public class jReadGoal extends jGoal
-{
- protected jRead 			read;
- 
- // for use by read
- public jTerm 				term;
- public jUnifiedVector 		unified;
- 
- public 	jReadGoal(jRead r,jTerm t)
- {
-  read = r;
-  term = t;
-  unified = new jUnifiedVector();
- };
- 
- public boolean 	prove(iGoalStack goals,iGoalStack proved)
- {jTerm 		in;
- 
-  in = getInput();
-  
-  if (read.prove(this,in))
-  {
-   proved.push(this);
-   return true;
-  }
-  else
-  {
-   { // we need to initialize goal to potentially restart
-    unified.restoreVariables();
-   }
-   goals.push(this); // a retry that follows may need a node to remove or retry
-   return false;
-  }
- };
+public class jReadGoal extends jGoal {
+    protected jRead read;
 
- public boolean 	retry(iGoalStack goals,iGoalStack proved)
- {
-  unified.restoreVariables();
-  
-  goals.push(this); // a retry that follows may need a node to remove or retry
-  return false;
- }; 
- 
- public void 	internal_restore(iGoalStack goals)
- {
-  unified.restoreVariables();
- };
-  
- protected jTerm  	getInput()
- {Thread 		thread = Thread.currentThread();
-  
-  if (thread instanceof jPrologServiceThread)
-  {jPrologServiceThread		pst = (jPrologServiceThread) thread;
-   jPrologServices			prolog = pst.getPrologServices();
-   BufferedReader			in = prolog.getInput();
-   PrintWriter				out = prolog.getOutput();
-   String					input = null;
-   
-   if (in == null)
-    throw new MissingInputServicesException("InputStream Services unavailable");
+    // for use by read
+    public jTerm term;
+    public jUnifiedVector unified;
 
-   while (input == null)
-   {
-    try
-    {  	
-     input = in.readLine();
-    }
-    catch (IOException e)
-    {
-     throw new InvalidInputException();
-    }
-   
-    if (input == null)
-     throw new InvalidInputException();   
-   
-    {pParseStream 	parser;
-   
-     parser = new pParseStream(input,prolog.getKnowledgeBase(),
-                             prolog.getPredicateRegistry(),
-                             prolog.getOperatorRegistry());
-   
-     try
-     {jTerm 		trm;
-    
-      trm = parser.parseTerm(); 
-    
-      if (trm != null)
-      {
-       out.println(trm.toString(true));
-       out.flush();
-       return trm;    
-      }
-      else
-       throw new InvalidInputException();   
-     }
-     catch (SyntaxErrorException e)
-     {
-	  out.println(input);
-      out.println("SYNTAX ERROR:");
-      out.println(e.toString());
-	  out.flush();
-	  input = null;
-      out.println("Try Again...\n");
-	  out.flush();	  
-     }
-     catch (TokenizeStreamException e)
-     {
-	  out.println(input);
-      out.println("INTERNAL ERROR:");
-      out.println(e.toString());
-	  out.flush();
-	  input = null;
-      out.println("Try Again...\n");
-	  out.flush();	  
-     }
-    }
-   }
-   throw new InvalidInputException();
-  } 
-  else
-   throw new MissingInputServicesException();
- };
- 
- public String 		getName() 
- {
-  return read.getName();
- };
- 
- public int 		getArity() 
- {
-  return read.getArity();
- };
- 
- public String 		toString()
- {StringBuffer 	sb = new StringBuffer();
-   
-  sb.append(getName()+"/"+String.valueOf(getArity())+" goal: ");
-  sb.append(getName()+"("+term.toString()+")");
-  
-  return sb.toString();
- };
+    public jReadGoal(jRead r, jTerm t) {
+	read = r;
+	term = t;
+	unified = new jUnifiedVector();
+    };
+
+    public boolean prove(iGoalStack goals, iGoalStack proved) {
+	jTerm in;
+
+	in = getInput();
+
+	if (read.prove(this, in)) {
+	    proved.push(this);
+	    return true;
+	} else {
+	    { // we need to initialize goal to potentially restart
+		unified.restoreVariables();
+	    }
+	    goals.push(this); // a retry that follows may need a node to remove
+			      // or retry
+	    return false;
+	}
+    };
+
+    public boolean retry(iGoalStack goals, iGoalStack proved) {
+	unified.restoreVariables();
+
+	goals.push(this); // a retry that follows may need a node to remove or
+			  // retry
+	return false;
+    };
+
+    public void internal_restore(iGoalStack goals) {
+	unified.restoreVariables();
+    };
+
+    protected jTerm getInput() {
+	Thread thread = Thread.currentThread();
+
+	if (thread instanceof jPrologServiceThread) {
+	    jPrologServiceThread pst = (jPrologServiceThread) thread;
+	    jPrologServices prolog = pst.getPrologServices();
+	    BufferedReader in = prolog.getInput();
+	    PrintWriter out = prolog.getOutput();
+	    String input = null;
+
+	    if (in == null)
+		throw new MissingInputServicesException(
+			"InputStream Services unavailable");
+
+	    while (input == null) {
+		try {
+		    input = in.readLine();
+		} catch (IOException e) {
+		    throw new InvalidInputException();
+		}
+
+		if (input == null)
+		    throw new InvalidInputException();
+
+		{
+		    pParseStream parser;
+
+		    parser = new pParseStream(input, prolog.getKnowledgeBase(),
+			    prolog.getPredicateRegistry(),
+			    prolog.getOperatorRegistry());
+
+		    try {
+			jTerm trm;
+
+			trm = parser.parseTerm();
+
+			if (trm != null) {
+			    out.println(trm.toString(true));
+			    out.flush();
+			    return trm;
+			} else
+			    throw new InvalidInputException();
+		    } catch (SyntaxErrorException e) {
+			out.println(input);
+			out.println("SYNTAX ERROR:");
+			out.println(e.toString());
+			out.flush();
+			input = null;
+			out.println("Try Again...\n");
+			out.flush();
+		    } catch (TokenizeStreamException e) {
+			out.println(input);
+			out.println("INTERNAL ERROR:");
+			out.println(e.toString());
+			out.flush();
+			input = null;
+			out.println("Try Again...\n");
+			out.flush();
+		    }
+		}
+	    }
+	    throw new InvalidInputException();
+	} else
+	    throw new MissingInputServicesException();
+    };
+
+    public String getName() {
+	return read.getName();
+    };
+
+    public int getArity() {
+	return read.getArity();
+    };
+
+    public String toString() {
+	StringBuffer sb = new StringBuffer();
+
+	sb.append(getName() + "/" + String.valueOf(getArity()) + " goal: ");
+	sb.append(getName() + "(" + term.toString() + ")");
+
+	return sb.toString();
+    };
 };
-
- 

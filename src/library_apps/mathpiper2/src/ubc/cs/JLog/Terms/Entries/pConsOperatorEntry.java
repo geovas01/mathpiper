@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	ConsOperatorEntry
 //#########################################################################
@@ -54,21 +54,16 @@ import java.util.*;
 import ubc.cs.JLog.Parser.*;
 import ubc.cs.JLog.Terms.*;
 
-public class pConsOperatorEntry extends pOperatorEntry
-{
- public 	pConsOperatorEntry()
- {
-  super(",",XFY,1000);
- };
- 
- public jTerm 		createOperator(jTerm l,jTerm r)
- {
-  return new jCons(l,r);
- };
+public class pConsOperatorEntry extends pOperatorEntry {
+    public pConsOperatorEntry() {
+	super(",", XFY, 1000);
+    };
 
- public boolean 		isAtomPermitted()
- {
-  return false;
- };
+    public jTerm createOperator(jTerm l, jTerm r) {
+	return new jCons(l, r);
+    };
+
+    public boolean isAtomPermitted() {
+	return false;
+    };
 };
-

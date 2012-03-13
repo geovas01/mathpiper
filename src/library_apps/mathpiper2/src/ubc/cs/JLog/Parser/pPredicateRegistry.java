@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	PredicateRegistry
 //#########################################################################
@@ -53,64 +53,59 @@ import java.lang.*;
 import java.util.*;
 
 /**
-* The registery for <code>pPredicateEntry</code>s.  This is like a translation table
-* for predicates, where each entry is a mapping object that takes parsing packets,
-* and produces prolog terms.   
-*  
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public class pPredicateRegistry
-{
- protected Hashtable 					builtins;
- 
- public pPredicateRegistry()
- {
-  builtins = new Hashtable();
- };
+ * The registery for <code>pPredicateEntry</code>s. This is like a translation
+ * table for predicates, where each entry is a mapping object that takes parsing
+ * packets, and produces prolog terms.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public class pPredicateRegistry {
+    protected Hashtable builtins;
 
- public void 			addPredicate(pPredicateEntry pe)
- {
-  // optimize for 1, 2, 3, and 4-ary predicates.
-  if (pe.getArity() == pPredicateEntry.NARY_ARITY)
-  {int		i;
-  
-   for(i=1; i <= 4; i++)
-    if (pe.isArity(i))
-     builtins.put(getKeyString(pe.getName(),i),pe);
-  }
-  
-  builtins.put(getKeyString(pe.getName(),pe.getArity()),pe);
- };
- 
- public pPredicateEntry 	getPredicate(String name,int arity)
- {pPredicateEntry 	pe;
-  
-  // search for exact match
-  if ((pe = (pPredicateEntry) builtins.get(getKeyString(name,arity))) != null)
-   return pe;
+    public pPredicateRegistry() {
+	builtins = new Hashtable();
+    };
 
-  // search for possible n-ary match
-  pe = (pPredicateEntry) builtins.get(getKeyString(name,pPredicateEntry.NARY_ARITY));
-  
-  if (pe != null && pe.isArity(arity))
-   return pe;
+    public void addPredicate(pPredicateEntry pe) {
+	// optimize for 1, 2, 3, and 4-ary predicates.
+	if (pe.getArity() == pPredicateEntry.NARY_ARITY) {
+	    int i;
 
-  return null;
- }; 			
- 
- public void 			clearPredicates()
- {
-  builtins = new Hashtable();
- };
- 
- public Enumeration 	enumPredicates()
- {
-  return builtins.elements();
- };
- 
- protected String		getKeyString(String name, int arity)
- {
-  return name + "/" + Integer.toString(arity);
- };
+	    for (i = 1; i <= 4; i++)
+		if (pe.isArity(i))
+		    builtins.put(getKeyString(pe.getName(), i), pe);
+	}
+
+	builtins.put(getKeyString(pe.getName(), pe.getArity()), pe);
+    };
+
+    public pPredicateEntry getPredicate(String name, int arity) {
+	pPredicateEntry pe;
+
+	// search for exact match
+	if ((pe = (pPredicateEntry) builtins.get(getKeyString(name, arity))) != null)
+	    return pe;
+
+	// search for possible n-ary match
+	pe = (pPredicateEntry) builtins.get(getKeyString(name,
+		pPredicateEntry.NARY_ARITY));
+
+	if (pe != null && pe.isArity(arity))
+	    return pe;
+
+	return null;
+    };
+
+    public void clearPredicates() {
+	builtins = new Hashtable();
+    };
+
+    public Enumeration enumPredicates() {
+	return builtins.elements();
+    };
+
+    protected String getKeyString(String name, int arity) {
+	return name + "/" + Integer.toString(arity);
+    };
 };

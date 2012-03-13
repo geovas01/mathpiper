@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	DBConnect
 //#########################################################################
- 
+
 package ubc.cs.JLog.Extras.DataBase;
 
 import java.util.*;
@@ -56,63 +56,51 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.*;
 import ubc.cs.JLog.Terms.Goals.*;
 
-public class jDBConnect extends jQuadaryBuiltinPredicate
-{
- private static Connection		connection = null;
+public class jDBConnect extends jQuadaryBuiltinPredicate {
+    private static Connection connection = null;
 
- public static Connection		getConnection() 
- { 
-  return connection; 
- };
- 
- public static void				closeConnection()
- {
-  try 
-  {
-   if (connection != null) 
-    connection.close();
-  } 
-  catch (SQLException sqlex) 
-  { 
-  }
-  connection = null;
- };
+    public static Connection getConnection() {
+	return connection;
+    };
 
- public jDBConnect (jTerm driver, jTerm url, jTerm user, jTerm pwd)
- {
-  super(driver, url, user, pwd, TYPE_BUILTINPREDICATE);
- };
-  
- public String 		getName()
- {
-  return "db_connect";
- };
+    public static void closeConnection() {
+	try {
+	    if (connection != null)
+		connection.close();
+	} catch (SQLException sqlex) {
+	}
+	connection = null;
+    };
 
- public boolean		prove(jQuadaryBuiltinPredicateGoal qg)
- {String	driver = qg.term1.getTerm().toString();
-  String	url = qg.term2.getTerm().toString();
-  String	user = qg.term3.getTerm().toString();
-  String	pwd = qg.term4.getTerm().toString();
+    public jDBConnect(jTerm driver, jTerm url, jTerm user, jTerm pwd) {
+	super(driver, url, user, pwd, TYPE_BUILTINPREDICATE);
+    };
 
-  // any existing connection is forcibly closed
-  closeConnection();
-  
-  try 
-  {
-   Class.forName(driver).newInstance();
-   connection = DriverManager.getConnection(url, user, pwd);
-  } 
-  catch (Exception ex) 
-  {
-   System.err.println(ex.getMessage());
-  }
+    public String getName() {
+	return "db_connect";
+    };
 
-  return (connection != null);
- };
- 
- public jQuadaryBuiltinPredicate 		duplicate(jTerm t1,jTerm t2,jTerm t3,jTerm t4)
- {
-  return new jDBConnect(t1,t2,t3,t4); 
- };
+    public boolean prove(jQuadaryBuiltinPredicateGoal qg) {
+	String driver = qg.term1.getTerm().toString();
+	String url = qg.term2.getTerm().toString();
+	String user = qg.term3.getTerm().toString();
+	String pwd = qg.term4.getTerm().toString();
+
+	// any existing connection is forcibly closed
+	closeConnection();
+
+	try {
+	    Class.forName(driver).newInstance();
+	    connection = DriverManager.getConnection(url, user, pwd);
+	} catch (Exception ex) {
+	    System.err.println(ex.getMessage());
+	}
+
+	return (connection != null);
+    };
+
+    public jQuadaryBuiltinPredicate duplicate(jTerm t1, jTerm t2, jTerm t3,
+	    jTerm t4) {
+	return new jDBConnect(t1, t2, t3, t4);
+    };
 };
-

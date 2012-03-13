@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	pVar
 //#########################################################################
@@ -53,22 +53,18 @@ import java.util.*;
 import java.lang.*;
 import ubc.cs.JLog.Terms.*;
 
-class pVar extends pPacket
-{
- public 	pVar(pVariable pt)
- {
-  super(pt);
- };
- 
- public jTerm 		getTerm(pVariableRegistry vars,pTermToPacketHashtable phash)
- {
-  // since one variable may come from many packets, we don't hash, since we cannot
-  // verify the correct mapping.
-  return vars.getVariable(this);
- };
+class pVar extends pPacket {
+    public pVar(pVariable pt) {
+	super(pt);
+    };
 
- public void 		setGeneric(boolean genericpred)
- {
- };
+    public jTerm getTerm(pVariableRegistry vars, pTermToPacketHashtable phash) {
+	// since one variable may come from many packets, we don't hash, since
+	// we cannot
+	// verify the correct mapping.
+	return vars.getVariable(this);
+    };
+
+    public void setGeneric(boolean genericpred) {
+    };
 };
-

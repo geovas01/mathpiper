@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //##################################################################################
 //	gProverStackPanel
 //##################################################################################
@@ -55,49 +55,48 @@ import java.awt.*;
 import java.awt.event.*;
 import ubc.cs.JLog.Foundation.*;
 
-public class gProverStackPanel extends gStackPanel
-{
- // required for debug functionality
- protected gStackPanel 			otherstackpanel; 
- 
- public 	gProverStackPanel(String name,TextArea darea,jPrologServices ps,gStackPanel gps)
- {
-  super(name,darea,ps,true);
-  otherstackpanel = gps;
- };
- 
- protected void 		internal_displayGoal(Object o)
- {
-  displayarea.append("\n"+
-           internal_getDisplayString(debugstack_vector.indexOf(o),internal_getGoal(o))+"\n");
-  if (o instanceof jDebugProvedGoalStack.jDebugGoalItem)
-  {jDebugProvedGoalStack.jDebugGoalItem 	gi = (jDebugProvedGoalStack.jDebugGoalItem) o;
-   Vector 									sg = gi.getSubGoals();
-   
-   if (sg.size() > 0)
-   {Enumeration 	e = sg.elements();
-   
-    displayarea.append("sub goals:\n");
-    while (e.hasMoreElements())
-    {jGoal 		g = (jGoal) e.nextElement();
-     int 		index;
-     
-     if ((index = getGoalIndex(g)) >= 0) 
-      displayarea.append(internal_getDisplayString(index,g));
-     else if ((index = otherstackpanel.getGoalIndex(g)) >= 0)
-      displayarea.append(otherstackpanel.internal_getDisplayString(index,g));
-	 else 
-	  displayarea.append("[trying] "+ g.toString());     
-      
-     displayarea.append("\n");
-    }
-   }
-   displayarea.append("\n");
-  }
- };
- 
- protected String 		internal_getDisplayString(int i,jGoal g)
- {
-  return "[p"+String.valueOf(i)+"] "+g.toString();
- };
+public class gProverStackPanel extends gStackPanel {
+    // required for debug functionality
+    protected gStackPanel otherstackpanel;
+
+    public gProverStackPanel(String name, TextArea darea, jPrologServices ps,
+	    gStackPanel gps) {
+	super(name, darea, ps, true);
+	otherstackpanel = gps;
+    };
+
+    protected void internal_displayGoal(Object o) {
+	displayarea.append("\n"
+		+ internal_getDisplayString(debugstack_vector.indexOf(o),
+			internal_getGoal(o)) + "\n");
+	if (o instanceof jDebugProvedGoalStack.jDebugGoalItem) {
+	    jDebugProvedGoalStack.jDebugGoalItem gi = (jDebugProvedGoalStack.jDebugGoalItem) o;
+	    Vector sg = gi.getSubGoals();
+
+	    if (sg.size() > 0) {
+		Enumeration e = sg.elements();
+
+		displayarea.append("sub goals:\n");
+		while (e.hasMoreElements()) {
+		    jGoal g = (jGoal) e.nextElement();
+		    int index;
+
+		    if ((index = getGoalIndex(g)) >= 0)
+			displayarea.append(internal_getDisplayString(index, g));
+		    else if ((index = otherstackpanel.getGoalIndex(g)) >= 0)
+			displayarea.append(otherstackpanel
+				.internal_getDisplayString(index, g));
+		    else
+			displayarea.append("[trying] " + g.toString());
+
+		    displayarea.append("\n");
+		}
+	    }
+	    displayarea.append("\n");
+	}
+    };
+
+    protected String internal_getDisplayString(int i, jGoal g) {
+	return "[p" + String.valueOf(i) + "] " + g.toString();
+    };
 };

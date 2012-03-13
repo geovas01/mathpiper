@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	TokenizeStreamException
 //#########################################################################
@@ -52,48 +52,47 @@ package ubc.cs.JLog.Parser;
 import java.io.*;
 import java.util.*;
 
-public class TokenizeStreamException extends RuntimeException
-{
- protected int 			position = -1;
- protected int 			lineno = -1,charpos = -1;
- protected IOException 	ioe = null;
- 
- public TokenizeStreamException() {super();}; 
- public TokenizeStreamException(String s) {super(s);}; 
+public class TokenizeStreamException extends RuntimeException {
+    protected int position = -1;
+    protected int lineno = -1, charpos = -1;
+    protected IOException ioe = null;
 
- public TokenizeStreamException(String s,int pos) 
- {
-  super(s+String.valueOf(pos));
- }; 
+    public TokenizeStreamException() {
+	super();
+    };
 
- public TokenizeStreamException(String s,int pos,IOException e) 
- {
-  super(s+String.valueOf(pos+1) + " : " + e.getMessage());
-  position = pos;
-  ioe = e;
- };
+    public TokenizeStreamException(String s) {
+	super(s);
+    };
 
- public TokenizeStreamException(String s,int pos,int line,int cpos) 
- {
-  super(s+String.valueOf(pos+1)+" : line,char("+String.valueOf(line+1)+","+String.valueOf(cpos+1)+")");
-  position = pos;
-  lineno = line;
-  charpos = cpos;
- };
- 
- public int 		getPosition()
- {
-  return position;
- };
- 
- public int 		getLine()
- {
-  return lineno;
- };
- 
- public int 		getCharPos()
- {
-  return charpos;
- };
+    public TokenizeStreamException(String s, int pos) {
+	super(s + String.valueOf(pos));
+    };
+
+    public TokenizeStreamException(String s, int pos, IOException e) {
+	super(s + String.valueOf(pos + 1) + " : " + e.getMessage());
+	position = pos;
+	ioe = e;
+    };
+
+    public TokenizeStreamException(String s, int pos, int line, int cpos) {
+	super(s + String.valueOf(pos + 1) + " : line,char("
+		+ String.valueOf(line + 1) + "," + String.valueOf(cpos + 1)
+		+ ")");
+	position = pos;
+	lineno = line;
+	charpos = cpos;
+    };
+
+    public int getPosition() {
+	return position;
+    };
+
+    public int getLine() {
+	return lineno;
+    };
+
+    public int getCharPos() {
+	return charpos;
+    };
 };
-

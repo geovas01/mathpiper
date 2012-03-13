@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //##################################################################################
 //	FloatFont
 //##################################################################################
@@ -53,14 +53,12 @@ import java.lang.*;
 import java.util.*;
 import java.awt.*;
 
-public class FloatFont
-{
- public Font		font;
- public float		size;
- 
- public FloatFont(Font f,float sz)
- {
-  font = f;
-  size = sz;
- };
+public class FloatFont {
+    public Font font;
+    public float size;
+
+    public FloatFont(Font f, float sz) {
+	font = f;
+	size = sz;
+    };
 };

@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	TermToObject
 //#########################################################################
@@ -53,21 +53,22 @@ import java.lang.*;
 import java.util.*;
 
 /**
-* This is the interface for objects which take a <code>jTerm</code>
-* and return a corresponding Java object.
-* 
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public interface iTermToObject
-{
- 
-/**
-  * Create a corresponding Java object representation from the given Prolog term.
-  *
-  * @param term			The <code>jTerm</code> to construct the representation from.
-  *
-  * @return 			the <code>Object</code> sub-class represting term.
-  */
- public Object 		createObjectFromTerm(jTerm term);
+ * This is the interface for objects which take a <code>jTerm</code> and return
+ * a corresponding Java object.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public interface iTermToObject {
+
+    /**
+     * Create a corresponding Java object representation from the given Prolog
+     * term.
+     * 
+     * @param term
+     *            The <code>jTerm</code> to construct the representation from.
+     * 
+     * @return the <code>Object</code> sub-class represting term.
+     */
+    public Object createObjectFromTerm(jTerm term);
 };

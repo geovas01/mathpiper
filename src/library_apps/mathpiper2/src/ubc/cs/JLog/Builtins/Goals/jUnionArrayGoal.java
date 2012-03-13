@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	UnionArrayGoal
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins.Goals;
 
 import java.lang.*;
@@ -57,62 +57,55 @@ import ubc.cs.JLog.Builtins.*;
 
 /**
  * Goal for getting the union of term arrays.
- *
- * @author       Glendon Holst
- * @version      %I%, %G%
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
  */
-public class jUnionArrayGoal extends jGoal
-{
- protected jUnionArray 		union;
- 
- // for use by union
- public jTerm 				term1,term2,term3;
- 
- public 	jUnionArrayGoal(jUnionArray ua,jTerm t1,jTerm t2,jTerm t3)
- {
-  union = ua;
-  term1 = t1;
-  term2 = t2;
-  term3 = t3;
- };
- 
- public boolean 	prove(iGoalStack goals,iGoalStack proved)
- {
-  if (union.prove(this))
-  {
-   proved.push(this);
-   return true;
-  }
-  else
-  {
-   goals.push(this); // a retry that follows may need a node to remove or retry
-   return false;
-  }
- };
+public class jUnionArrayGoal extends jGoal {
+    protected jUnionArray union;
 
- public boolean 	retry(iGoalStack goals,iGoalStack proved)
- {
-  goals.push(this); // a retry that follows may need a node to remove or retry
-  return false;
- }; 
+    // for use by union
+    public jTerm term1, term2, term3;
 
- public String 		getName() 
- {
-  return union.getName();
- };
- 
- public int 		getArity() 
- {
-  return union.getArity();
- };
- 
- public String 		toString()
- {StringBuffer 	sb = new StringBuffer();
-   
-  sb.append(getName()+"/"+String.valueOf(getArity())+" goal: ");
-  sb.append(getName()+"("+term1.toString()+","+term2.toString()+","+term3.toString()+")");
-  
-  return sb.toString();
- };
+    public jUnionArrayGoal(jUnionArray ua, jTerm t1, jTerm t2, jTerm t3) {
+	union = ua;
+	term1 = t1;
+	term2 = t2;
+	term3 = t3;
+    };
+
+    public boolean prove(iGoalStack goals, iGoalStack proved) {
+	if (union.prove(this)) {
+	    proved.push(this);
+	    return true;
+	} else {
+	    goals.push(this); // a retry that follows may need a node to remove
+			      // or retry
+	    return false;
+	}
+    };
+
+    public boolean retry(iGoalStack goals, iGoalStack proved) {
+	goals.push(this); // a retry that follows may need a node to remove or
+			  // retry
+	return false;
+    };
+
+    public String getName() {
+	return union.getName();
+    };
+
+    public int getArity() {
+	return union.getArity();
+    };
+
+    public String toString() {
+	StringBuffer sb = new StringBuffer();
+
+	sb.append(getName() + "/" + String.valueOf(getArity()) + " goal: ");
+	sb.append(getName() + "(" + term1.toString() + "," + term2.toString()
+		+ "," + term3.toString() + ")");
+
+	return sb.toString();
+    };
 };
-

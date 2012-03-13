@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	IsNumber
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -54,29 +54,24 @@ import java.util.*;
 import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
-public class jIsNumber extends jIsType
-{
- public jIsNumber(jTerm r)
- {
-  super(r);
- };
+public class jIsNumber extends jIsType {
+    public jIsNumber(jTerm r) {
+	super(r);
+    };
 
- public String 		getName()
- {
-  return "number";
- };  
+    public String getName() {
+	return "number";
+    };
 
- protected jUnaryBuiltinPredicate 	duplicate(jTerm r)
- {
-  return new jIsNumber(r);
- };
- 
- public boolean 	prove(jUnaryOperatorGoal og)
- {jTerm 	r;
-  
-  r = og.rhs.getTerm();
-  
-  return (r.type == TYPE_INTEGER) || (r.type == TYPE_REAL);
- };
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jIsNumber(r);
+    };
+
+    public boolean prove(jUnaryOperatorGoal og) {
+	jTerm r;
+
+	r = og.rhs.getTerm();
+
+	return (r.type == TYPE_INTEGER) || (r.type == TYPE_REAL);
+    };
 };
-

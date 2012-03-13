@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	JLogBase
 //#########################################################################
@@ -56,151 +56,138 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Parser.*;
 
 /**
-* This is the base class for applets or applications using the 
-* Prolog in Java environment.  It includes <code>jPrologServices</code>, 
-* but does not specify the user interface.  It is designed to be a delegate
-* class for the <code>gJLogAppletBase</code> or 
-* <code>gJLogApplicationBase</code> classes which need
-* the <code>jPrologServices</code>.  Derivative authors should ensure 
-* that the credits from <code>getRequiredCreditInfo</code> function
-* are preserved and visible in their own product.
-*
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public class gJLogBase implements iJLogApplBaseServices
-{ 
- protected jPrologServices			prolog;
- protected iJLogApplBaseServices 	parent;
- 
- /**
- * Constructor.  Requires a parent delegate of type <code>iJLogApplBaseServices</code>
- * The delegate is invoked first, and can override the behaviours of the 
- * member functions.
- *
- * @param p 	The parent delegate instance for this object.
- */ 
- public gJLogBase(iJLogApplBaseServices p)
- {
-  prolog = new jPrologServices(new jKnowledgeBase(),
-                               new pPredicateRegistry(),
-							   new pOperatorRegistry());
-  prolog.setFileServices(p);
+ * This is the base class for applets or applications using the Prolog in Java
+ * environment. It includes <code>jPrologServices</code>, but does not specify
+ * the user interface. It is designed to be a delegate class for the
+ * <code>gJLogAppletBase</code> or <code>gJLogApplicationBase</code> classes
+ * which need the <code>jPrologServices</code>. Derivative authors should ensure
+ * that the credits from <code>getRequiredCreditInfo</code> function are
+ * preserved and visible in their own product.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public class gJLogBase implements iJLogApplBaseServices {
+    protected jPrologServices prolog;
+    protected iJLogApplBaseServices parent;
 
-  parent = p;
- };
+    /**
+     * Constructor. Requires a parent delegate of type
+     * <code>iJLogApplBaseServices</code> The delegate is invoked first, and can
+     * override the behaviours of the member functions.
+     * 
+     * @param p
+     *            The parent delegate instance for this object.
+     */
+    public gJLogBase(iJLogApplBaseServices p) {
+	prolog = new jPrologServices(new jKnowledgeBase(),
+		new pPredicateRegistry(), new pOperatorRegistry());
+	prolog.setFileServices(p);
 
- public void init() 
- {
-  prolog.start();  
- };
+	parent = p;
+    };
 
- public void 	start()
- {
-  prolog.resume();
- };
- 
- public void 	stop()
- { 
-  prolog.suspend();
- };
- 
- public void 	destroy()
- { 
-  prolog.stop();
-  prolog = null;
- };
+    public void init() {
+	prolog.start();
+    };
 
- /**
- * This function returns the credit assignment and copyright informaiton string.
- * It must be preserved by authors of derivative works. All applets should be 
- * derived from the <code>gJLogAppletBase</code> class, and if they provide their 
- * own <code>getAppletInfo()</code> function it should invoke this function first.
- * For example: <code>return super.getAppletInfo() + "derivative information";</code>
- *
- * @return 	The credit and information string.
- */ 
- public String 			getRequiredCreditInfo()
- {
-  return jPrologServices.getRequiredCreditInfo();
- };
- 
- public String[][] 	getParameterInfo()
- {String[][] 	info = {{"source","text string","prolog source code"},
-                        {"file","text string","prolog source code URL"},
-                        {"query","text string","prolog query"},
-                        {"action","text string","'consult' =  consult, 'query' = consult + query"},
-                        {"pane","text string","'consult', 'query', 'debug', 'animation', 'help'"}};
+    public void start() {
+	prolog.resume();
+    };
 
-  return info;
- }; 
+    public void stop() {
+	prolog.suspend();
+    };
 
- public String 		getSource() throws IOException
- {String 	source_text = parent.getParameter("source");
-  String 	source_file = parent.getParameter("url");
-  InputStream 	file;
-   
-  if (source_file == null)
-   return parent.convertStringLinebreaks(source_text);
-  
-  try
-  {
-   file = parent.getInputStreamFromFilename(source_file); 
-  }
-  catch (MalformedURLException e)
-  {
-   return null;
-  }
-  catch (IOException e)
-  {
-   return null;
-  }
-  
-  return parent.getTextFromInputStream(file);
- }
+    public void destroy() {
+	prolog.stop();
+	prolog = null;
+    };
 
- public URL 	getURLFromFilename(String name) throws MalformedURLException, IOException
- {
-  return null; // do nothing
- };
+    /**
+     * This function returns the credit assignment and copyright informaiton
+     * string. It must be preserved by authors of derivative works. All applets
+     * should be derived from the <code>gJLogAppletBase</code> class, and if
+     * they provide their own <code>getAppletInfo()</code> function it should
+     * invoke this function first. For example:
+     * <code>return super.getAppletInfo() + "derivative information";</code>
+     * 
+     * @return The credit and information string.
+     */
+    public String getRequiredCreditInfo() {
+	return jPrologServices.getRequiredCreditInfo();
+    };
 
- public InputStream 	getInputStreamFromFilename(String name) throws MalformedURLException, IOException
- {
-  return null; // do nothing
- };
+    public String[][] getParameterInfo() {
+	String[][] info = {
+		{ "source", "text string", "prolog source code" },
+		{ "file", "text string", "prolog source code URL" },
+		{ "query", "text string", "prolog query" },
+		{ "action", "text string",
+			"'consult' =  consult, 'query' = consult + query" },
+		{ "pane", "text string",
+			"'consult', 'query', 'debug', 'animation', 'help'" } };
 
- public URL 	getResourceURLFromFilename(String name) throws MalformedURLException, IOException
- {
-  return null; // do nothing
- };
+	return info;
+    };
 
- public InputStream 	getResourceInputStreamFromFilename(String name) throws MalformedURLException, IOException
- {
-  return null; // do nothing
- };
+    public String getSource() throws IOException {
+	String source_text = parent.getParameter("source");
+	String source_file = parent.getParameter("url");
+	InputStream file;
 
- public String 		getTextFromInputStream(InputStream in_strm) throws IOException
- {
-  return jPrologFileServices.getTextFromInputStream_S(in_strm);
- };
+	if (source_file == null)
+	    return parent.convertStringLinebreaks(source_text);
 
- public String 		getParameter(String name)
- {
-  return null;
- }; 
- 
- public String 		convertStringLinebreaks(String param)
- {
-  return jPrologFileServices.convertStringLinebreaks_S(param);
- }; 
+	try {
+	    file = parent.getInputStreamFromFilename(source_file);
+	} catch (MalformedURLException e) {
+	    return null;
+	} catch (IOException e) {
+	    return null;
+	}
 
- public Image 		getImage(String name)
- {
-  return null; // do nothing
- };
- 
- public jPrologServices 	getPrologServices()
- {
-  return prolog;
- };
+	return parent.getTextFromInputStream(file);
+    }
+
+    public URL getURLFromFilename(String name) throws MalformedURLException,
+	    IOException {
+	return null; // do nothing
+    };
+
+    public InputStream getInputStreamFromFilename(String name)
+	    throws MalformedURLException, IOException {
+	return null; // do nothing
+    };
+
+    public URL getResourceURLFromFilename(String name)
+	    throws MalformedURLException, IOException {
+	return null; // do nothing
+    };
+
+    public InputStream getResourceInputStreamFromFilename(String name)
+	    throws MalformedURLException, IOException {
+	return null; // do nothing
+    };
+
+    public String getTextFromInputStream(InputStream in_strm)
+	    throws IOException {
+	return jPrologFileServices.getTextFromInputStream_S(in_strm);
+    };
+
+    public String getParameter(String name) {
+	return null;
+    };
+
+    public String convertStringLinebreaks(String param) {
+	return jPrologFileServices.convertStringLinebreaks_S(param);
+    };
+
+    public Image getImage(String name) {
+	return null; // do nothing
+    };
+
+    public jPrologServices getPrologServices() {
+	return prolog;
+    };
 };

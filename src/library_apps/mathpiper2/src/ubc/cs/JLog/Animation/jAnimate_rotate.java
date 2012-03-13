@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Animate Rotate
 //#########################################################################
- 
+
 package ubc.cs.JLog.Animation;
 
 import java.lang.*;
@@ -54,33 +54,28 @@ import java.util.*;
 import java.awt.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jAnimate_rotate extends jAnimate
-{
- public jAnimate_rotate(jTerm t)
- {
-  super(t);
- };
-  
- public String 		getName()
- {
-  return "animate<rotate>";
- };
- 
- public int 		getNumberArguments()
- {
-  return 2;
- };
- 
- protected jUnaryBuiltinPredicate 		duplicate(jTerm r)
- {
-  return new jAnimate_rotate(r); 
- };
- 
- protected void 	action(aAnimationEnvironment ae,jTerm[] terms)
- {float 			rot = aAttributeTranslation.convertToFloat(terms[1],true);
-  aAnimationObject 	obj = aAttributeTranslation.convertToAnimationObject(terms[0],ae);
-  
-  obj.setRotation(rot);
- };
-};
+public class jAnimate_rotate extends jAnimate {
+    public jAnimate_rotate(jTerm t) {
+	super(t);
+    };
 
+    public String getName() {
+	return "animate<rotate>";
+    };
+
+    public int getNumberArguments() {
+	return 2;
+    };
+
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jAnimate_rotate(r);
+    };
+
+    protected void action(aAnimationEnvironment ae, jTerm[] terms) {
+	float rot = aAttributeTranslation.convertToFloat(terms[1], true);
+	aAnimationObject obj = aAttributeTranslation.convertToAnimationObject(
+		terms[0], ae);
+
+	obj.setRotation(rot);
+    };
+};

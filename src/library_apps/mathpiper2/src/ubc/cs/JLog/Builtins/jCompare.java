@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Compare
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -55,73 +55,62 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
-public class jCompare extends jTrinaryBuiltinPredicate
-{
- protected boolean 		var_equal = false;
+public class jCompare extends jTrinaryBuiltinPredicate {
+    protected boolean var_equal = false;
 
- public jCompare(jTerm t1,jTerm t2,jTerm t3)
- {
-  super(t1,t2,t3,TYPE_BUILTINPREDICATE);
- };
+    public jCompare(jTerm t1, jTerm t2, jTerm t3) {
+	super(t1, t2, t3, TYPE_BUILTINPREDICATE);
+    };
 
- public jCompare(jTerm t1,jTerm t2,jTerm t3,boolean ve)
- {
-  super(t1,t2,t3,TYPE_BUILTINPREDICATE);
-  var_equal = ve;
- };
+    public jCompare(jTerm t1, jTerm t2, jTerm t3, boolean ve) {
+	super(t1, t2, t3, TYPE_BUILTINPREDICATE);
+	var_equal = ve;
+    };
 
- public String 		getName()
- {
-  return "compare";
- };  
+    public String getName() {
+	return "compare";
+    };
 
- // comparegoal does not support unification tracking, only verify or use existing bindings
- public boolean 	prove(jCompareGoal cg)
- {jTerm 	t1 = cg.term1.getTerm();
-  jTerm 	t2 = cg.term2.getTerm();
-  jTerm 	t3 = cg.term3.getTerm();
-  int 		result;
-  
-  result = t2.compare(t3,cg.var_equal);
+    // comparegoal does not support unification tracking, only verify or use
+    // existing bindings
+    public boolean prove(jCompareGoal cg) {
+	jTerm t1 = cg.term1.getTerm();
+	jTerm t2 = cg.term2.getTerm();
+	jTerm t3 = cg.term3.getTerm();
+	int result;
 
-  if (t1 instanceof iPredicate && ((iPredicate) t1).getArity() == 0)
-  {
-   if (t1.getName().equals("="))
-    return result == EQUAL;
-   if (t1.getName().equals("<"))
-    return result == LESS_THAN;
-   if (t1.getName().equals(">"))
-    return result == GREATER_THAN;
-  }
-  else
-  {
-   switch (result)
-   {
-    case EQUAL:
-      return t1.unify(new jAtom("="),cg.unified);
-    case LESS_THAN:
-      return t1.unify(new jAtom("<"),cg.unified);
-    case GREATER_THAN:
-      return t1.unify(new jAtom(">"),cg.unified);
-   }
-  }
-  return false;
- };
- 
- public void 		addGoals(jGoal g,jVariable[] vars,iGoalStack goals)
- {
-  goals.push(new jCompareGoal(this,term1.duplicate(vars),term2.duplicate(vars),
-  								term3.duplicate(vars),var_equal));
- };
+	result = t2.compare(t3, cg.var_equal);
 
- public void 		addGoals(jGoal g,iGoalStack goals)
- {
-  goals.push(new jCompareGoal(this,term1,term2,term3,var_equal));
- };
+	if (t1 instanceof iPredicate && ((iPredicate) t1).getArity() == 0) {
+	    if (t1.getName().equals("="))
+		return result == EQUAL;
+	    if (t1.getName().equals("<"))
+		return result == LESS_THAN;
+	    if (t1.getName().equals(">"))
+		return result == GREATER_THAN;
+	} else {
+	    switch (result) {
+	    case EQUAL:
+		return t1.unify(new jAtom("="), cg.unified);
+	    case LESS_THAN:
+		return t1.unify(new jAtom("<"), cg.unified);
+	    case GREATER_THAN:
+		return t1.unify(new jAtom(">"), cg.unified);
+	    }
+	}
+	return false;
+    };
 
- protected jTrinaryBuiltinPredicate 	duplicate(jTerm t1,jTerm t2,jTerm t3)
- {
-  return new jCompare(t1,t2,t3,var_equal);
- };
+    public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+	goals.push(new jCompareGoal(this, term1.duplicate(vars), term2
+		.duplicate(vars), term3.duplicate(vars), var_equal));
+    };
+
+    public void addGoals(jGoal g, iGoalStack goals) {
+	goals.push(new jCompareGoal(this, term1, term2, term3, var_equal));
+    };
+
+    protected jTrinaryBuiltinPredicate duplicate(jTerm t1, jTerm t2, jTerm t3) {
+	return new jCompare(t1, t2, t3, var_equal);
+    };
 };
-

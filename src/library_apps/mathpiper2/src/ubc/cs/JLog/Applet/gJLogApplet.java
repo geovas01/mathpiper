@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	JLogApplet
 //#########################################################################
@@ -56,32 +56,29 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Parser.*;
 
 /**
-* This is the Applet for the full Prolog in Java environment, 
-* complete with user interface.
-*
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public class gJLogApplet extends gJLogAppletBase
-{
- protected gMainPanel 		main;
- 
- public gJLogApplet()
- {
-  super();
- };
+ * This is the Applet for the full Prolog in Java environment, complete with
+ * user interface.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public class gJLogApplet extends gJLogAppletBase {
+    protected gMainPanel main;
 
- public void init() 
- {
-  super.init();
-  
-  {// main interface area
-   main = new gMainPanel(this);   
-  }
-  
-  setLayout(new GridLayout());
-  add(main);
+    public gJLogApplet() {
+	super();
+    };
 
-  repaint();
- };
+    public void init() {
+	super.init();
+
+	{// main interface area
+	    main = new gMainPanel(this);
+	}
+
+	setLayout(new GridLayout());
+	add(main);
+
+	repaint();
+    };
 };

@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	UnaryArithmetic
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -57,88 +57,83 @@ import ubc.cs.JLog.Terms.Goals.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
 /**
-* The abstract class for unary arithmetic operators.
-*
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-abstract public class jUnaryArithmetic extends jUnaryBuiltinPredicate implements iArithmetic
-{
- public jUnaryArithmetic(jTerm r)
- {
-  super(r,TYPE_UNARYARITHMETIC);
- };
-  
- public  jTerm 		getValue()
- {jTerm 		r;
-  
-  r = rhs.getValue();
+ * The abstract class for unary arithmetic operators.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+abstract public class jUnaryArithmetic extends jUnaryBuiltinPredicate implements
+	iArithmetic {
+    public jUnaryArithmetic(jTerm r) {
+	super(r, TYPE_UNARYARITHMETIC);
+    };
 
-  if (r.type == TYPE_INTEGER)
-   return new jInteger(operatorInt(((jInteger) r).getIntegerValue()));
-  else if (r.type == TYPE_REAL)
-   return new jReal(operatorReal(((jReal) r).getRealValue()));
-   
-  throw new InvalidArithmeticOperationException();
- };
- 
- /**
-  * Perform the integer operations specified by this instance on the 
-  * given integer, and returns the integer result.
-  *
-  * @param r 		The operand.
-  *
-  * @return 		The result of op <code>r</code> 
-  * 			where <i>op</i> is specified by this instance.
-  */
- abstract protected int 	operatorInt(int r);
+    public jTerm getValue() {
+	jTerm r;
 
- /**
-  * Perform the float operations specified by this instance on the
-  * given float, and returns the float result.
-  *
-  * @param r 		The operand.
-  *
-  * @return 		The result of op <code>r</code> 
-  * 			where <i>op</i> is specified by this instance.
-  */
- abstract protected float 	operatorReal(float r);
- 
- /**
-  * Some arithmetics may need to do double duty as istype predicates, so they
-  * can override this.
-  */
- public boolean 	prove(jUnaryArithmeticGoal ag)
- {
-  return false;
- };
- 
- /**
-  * Arithmetics are intended as expressions for <code>is</code>, 
-  * if used a predicate they fail.
-  */
- public void 		addGoals(jGoal g,jVariable[] vars,iGoalStack goals)
- {
-  goals.push(new jFailGoal());
- }; 
+	r = rhs.getValue();
 
- /**
-  * Arithmetics are intended as expressions for <code>is</code>, 
-  * if used a predicate they fail.
-  */
- public void 		addGoals(jGoal g,iGoalStack goals)
- {
-  goals.push(new jFailGoal());
- }; 
- 
- public int 		getPriority()
- {
-  return iArithmetic.MAX; // most sub-classes are non-operators.
- };
+	if (r.type == TYPE_INTEGER)
+	    return new jInteger(operatorInt(((jInteger) r).getIntegerValue()));
+	else if (r.type == TYPE_REAL)
+	    return new jReal(operatorReal(((jReal) r).getRealValue()));
 
- public String 		toString(boolean usename)
- {
-  return getName() + "(" + rhs.toString(usename) + ")";
- };
+	throw new InvalidArithmeticOperationException();
+    };
+
+    /**
+     * Perform the integer operations specified by this instance on the given
+     * integer, and returns the integer result.
+     * 
+     * @param r
+     *            The operand.
+     * 
+     * @return The result of op <code>r</code> where <i>op</i> is specified by
+     *         this instance.
+     */
+    abstract protected int operatorInt(int r);
+
+    /**
+     * Perform the float operations specified by this instance on the given
+     * float, and returns the float result.
+     * 
+     * @param r
+     *            The operand.
+     * 
+     * @return The result of op <code>r</code> where <i>op</i> is specified by
+     *         this instance.
+     */
+    abstract protected float operatorReal(float r);
+
+    /**
+     * Some arithmetics may need to do double duty as istype predicates, so they
+     * can override this.
+     */
+    public boolean prove(jUnaryArithmeticGoal ag) {
+	return false;
+    };
+
+    /**
+     * Arithmetics are intended as expressions for <code>is</code>, if used a
+     * predicate they fail.
+     */
+    public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+	goals.push(new jFailGoal());
+    };
+
+    /**
+     * Arithmetics are intended as expressions for <code>is</code>, if used a
+     * predicate they fail.
+     */
+    public void addGoals(jGoal g, iGoalStack goals) {
+	goals.push(new jFailGoal());
+    };
+
+    public int getPriority() {
+	return iArithmetic.MAX; // most sub-classes are non-operators.
+    };
+
+    public String toString(boolean usename) {
+	return getName() + "(" + rhs.toString(usename) + ")";
+    };
 };
-

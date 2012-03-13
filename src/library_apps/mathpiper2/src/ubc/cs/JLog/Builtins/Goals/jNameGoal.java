@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	NameGoal
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins.Goals;
 
 import java.lang.*;
@@ -55,72 +55,63 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.*;
 
-public class jNameGoal extends jGoal
-{
- protected jName 			name;
- 
- // for use by name
- public jTerm 				lhs,rhs;
- public boolean 			prefer_atom;
- public jUnifiedVector 		unified;
- 
- public 	jNameGoal(jName n,jTerm l,jTerm r,boolean pa)
- {
-  name = n;
-  lhs = l;
-  rhs = r;
-  prefer_atom = pa;
-  unified = new jUnifiedVector();
- };
+public class jNameGoal extends jGoal {
+    protected jName name;
 
- public boolean 	prove(iGoalStack goals,iGoalStack proved)
- {
-  if (name.prove(this))
-  {
-   proved.push(this);
-   return true;
-  }
-  else
-  {
-   { // we need to initialize goal to potentially restart
-    unified.restoreVariables();
-   }
-   goals.push(this); // a retry that follows may need a node to remove or retry
-   return false;
-  } 
- };
+    // for use by name
+    public jTerm lhs, rhs;
+    public boolean prefer_atom;
+    public jUnifiedVector unified;
 
- public boolean 	retry(iGoalStack goals,iGoalStack proved)
- {
-  unified.restoreVariables();
-  
-  goals.push(this); // a retry that follows may need a node to remove or retry
-  return false;
- }; 
- 
- public void 	internal_restore(iGoalStack goals)
- {
-  unified.restoreVariables();
- };
+    public jNameGoal(jName n, jTerm l, jTerm r, boolean pa) {
+	name = n;
+	lhs = l;
+	rhs = r;
+	prefer_atom = pa;
+	unified = new jUnifiedVector();
+    };
 
- public String 		getName() 
- {
-  return name.getName();
- };
- 
- public int 		getArity() 
- {
-  return name.getArity();
- };
- 
- public String 		toString()
- {StringBuffer 	sb = new StringBuffer();
-   
-  sb.append(getName()+"/"+String.valueOf(getArity())+"<"+(prefer_atom ? "atom" : "number")+"> goal: ");
-  sb.append(getName()+"("+lhs.toString()+","+rhs.toString()+")");
-  
-  return sb.toString();
- };
+    public boolean prove(iGoalStack goals, iGoalStack proved) {
+	if (name.prove(this)) {
+	    proved.push(this);
+	    return true;
+	} else {
+	    { // we need to initialize goal to potentially restart
+		unified.restoreVariables();
+	    }
+	    goals.push(this); // a retry that follows may need a node to remove
+			      // or retry
+	    return false;
+	}
+    };
+
+    public boolean retry(iGoalStack goals, iGoalStack proved) {
+	unified.restoreVariables();
+
+	goals.push(this); // a retry that follows may need a node to remove or
+			  // retry
+	return false;
+    };
+
+    public void internal_restore(iGoalStack goals) {
+	unified.restoreVariables();
+    };
+
+    public String getName() {
+	return name.getName();
+    };
+
+    public int getArity() {
+	return name.getArity();
+    };
+
+    public String toString() {
+	StringBuffer sb = new StringBuffer();
+
+	sb.append(getName() + "/" + String.valueOf(getArity()) + "<"
+		+ (prefer_atom ? "atom" : "number") + "> goal: ");
+	sb.append(getName() + "(" + lhs.toString() + "," + rhs.toString() + ")");
+
+	return sb.toString();
+    };
 };
-
- 

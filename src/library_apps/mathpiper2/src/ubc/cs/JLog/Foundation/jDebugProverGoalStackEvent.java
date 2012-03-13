@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	jDebugProverGoalStackEvent
 //#########################################################################
@@ -52,32 +52,27 @@ package ubc.cs.JLog.Foundation;
 import java.lang.*;
 import java.util.*;
 
-public class jDebugProverGoalStackEvent extends jPrologServiceEvent
-{
- protected jDebugProver 	prover;
- protected iDebugGoalStack 	stack;
- protected boolean 			proved_stack;
- 
- public 	jDebugProverGoalStackEvent(jDebugProver p,iDebugGoalStack gs,boolean ps)
- {
-  prover = p;
-  stack = gs;
-  proved_stack = ps;
- };
+public class jDebugProverGoalStackEvent extends jPrologServiceEvent {
+    protected jDebugProver prover;
+    protected iDebugGoalStack stack;
+    protected boolean proved_stack;
 
- public jDebugProver 		getDebugProver()
- {
-  return prover;
- };
- 
- public iDebugGoalStack 	getDebugGoalStack()
- {
-  return stack;
- };
- 
- public boolean 			isProvedStack()
- {
-  return proved_stack;
- };
+    public jDebugProverGoalStackEvent(jDebugProver p, iDebugGoalStack gs,
+	    boolean ps) {
+	prover = p;
+	stack = gs;
+	proved_stack = ps;
+    };
+
+    public jDebugProver getDebugProver() {
+	return prover;
+    };
+
+    public iDebugGoalStack getDebugGoalStack() {
+	return stack;
+    };
+
+    public boolean isProvedStack() {
+	return proved_stack;
+    };
 };
-

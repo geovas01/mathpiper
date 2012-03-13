@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	jThreadStoppedEvent
 //#########################################################################
@@ -52,18 +52,14 @@ package ubc.cs.JLog.Foundation;
 import java.lang.*;
 import java.util.*;
 
-public class jThreadStoppedEvent extends jPrologServiceEvent
-{
- protected jPrologServiceThread 	thread;
- 
- public 	jThreadStoppedEvent(jPrologServiceThread t)
- {
-  thread = t;
- };
+public class jThreadStoppedEvent extends jPrologServiceEvent {
+    protected jPrologServiceThread thread;
 
- public jPrologServiceThread 		getThread()
- {
-  return thread;
- };
+    public jThreadStoppedEvent(jPrologServiceThread t) {
+	thread = t;
+    };
+
+    public jPrologServiceThread getThread() {
+	return thread;
+    };
 };
-

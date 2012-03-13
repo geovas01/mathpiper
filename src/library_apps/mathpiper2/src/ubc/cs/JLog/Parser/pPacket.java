@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	pPacket
 //#########################################################################
@@ -54,75 +54,72 @@ import java.lang.*;
 import ubc.cs.JLog.Terms.*;
 
 /**
-* Abstract base class representing packets in the parse stream. Each packet is the
-* parse stream representation of a prolog term, and is bound to the parse stream via
-* its corresponding token. Packets form the nodes in our implicit parse tree.
-*  
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-abstract class pPacket
-{
- protected pToken 		token;
+ * Abstract base class representing packets in the parse stream. Each packet is
+ * the parse stream representation of a prolog term, and is bound to the parse
+ * stream via its corresponding token. Packets form the nodes in our implicit
+ * parse tree.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+abstract class pPacket {
+    protected pToken token;
 
- public pPacket(pToken pt)
- {
-  token = pt;
- };
- 
- public String 		getName()
- {
-  return token.getToken();
- };
+    public pPacket(pToken pt) {
+	token = pt;
+    };
 
- public pToken 		getToken()
- {
-  return token;
- };
+    public String getName() {
+	return token.getToken();
+    };
 
- /**
-  * Public interface for generating the real prolog term objects.  May generate syntax errors.
-  *
-  * @param vars 	A registery of named variables (ensures that variables of the same name
-  * 			are the same instance). This should be the variable registry of the
-  * 			rule or command containing this operator.
-  * @param phash 	A registery of terms and their corresponding parsing tokens.
-  *
-  * @return 		<code>jTerm</code> representing this packet.
-  */
- abstract public jTerm 	getTerm(pVariableRegistry vars,pTermToPacketHashtable phash);
+    public pToken getToken() {
+	return token;
+    };
 
- /**
-  * Determine if this packet represents a generic predicate (not builtin).
-  * If generic_predicate is true, then only create <code>jPredicate</code> for use as rule 
-  * head. This call is for <code>pPredicate</code> class, but others must pass it down to 
-  * children packets.
-  * Some operators, such as if and command, will pass true to the lhs, and false to rhs. 
-  * The initiating call should be with genericpred false for queries, and false when adding
-  * terms to the database.
-  *
-  * @param genericpred 	The value to set generic_predicate to.
-  */
- abstract public void 		setGeneric(boolean genericpred);
+    /**
+     * Public interface for generating the real prolog term objects. May
+     * generate syntax errors.
+     * 
+     * @param vars
+     *            A registery of named variables (ensures that variables of the
+     *            same name are the same instance). This should be the variable
+     *            registry of the rule or command containing this operator.
+     * @param phash
+     *            A registery of terms and their corresponding parsing tokens.
+     * 
+     * @return <code>jTerm</code> representing this packet.
+     */
+    abstract public jTerm getTerm(pVariableRegistry vars,
+	    pTermToPacketHashtable phash);
 
- public int 		getPosition()
- {
-  return token.getPosition();
- };
+    /**
+     * Determine if this packet represents a generic predicate (not builtin). If
+     * generic_predicate is true, then only create <code>jPredicate</code> for
+     * use as rule head. This call is for <code>pPredicate</code> class, but
+     * others must pass it down to children packets. Some operators, such as if
+     * and command, will pass true to the lhs, and false to rhs. The initiating
+     * call should be with genericpred false for queries, and false when adding
+     * terms to the database.
+     * 
+     * @param genericpred
+     *            The value to set generic_predicate to.
+     */
+    abstract public void setGeneric(boolean genericpred);
 
- public int 		getLine()
- {
-  return token.getLine();
- };
+    public int getPosition() {
+	return token.getPosition();
+    };
 
- public int 		getCharPos()
- {
-  return token.getCharPos();
- };
+    public int getLine() {
+	return token.getLine();
+    };
 
- public String 		toString()
- {
-  return getClass().toString() + ": " + token.toString();
- };
+    public int getCharPos() {
+	return token.getCharPos();
+    };
+
+    public String toString() {
+	return getClass().toString() + ": " + token.toString();
+    };
 };
-

@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	jDebugProvedGoalStack
 //#########################################################################
@@ -52,148 +52,136 @@ package ubc.cs.JLog.Foundation;
 import java.lang.*;
 import java.util.*;
 
-public class jDebugProvedGoalStack implements iDebugGoalStack
-{
- protected Stack 	stack;
+public class jDebugProvedGoalStack implements iDebugGoalStack {
+    protected Stack stack;
 
- public class jDebugGoalItem
- {
-  protected jGoal 		goal,next = null;
-  protected Vector 		sub_goals = null;
-  
-  public 		jDebugGoalItem(jGoal g)
-  {
-   goal = g;
-  };
-  
-  public void 		setSubGoals(Vector v)
-  {
-   sub_goals = v;
-  };
-  
-  // null if subgoals were not set.
-  public Vector 	getSubGoals()
-  {
-   return sub_goals;
-  };
-  
-  public jGoal 		getGoal()
-  {
-   return goal;
-  };
-  
-  public void 		setNextGoal(jGoal n)
-  {
-   next = n;
-  };
-  
-  public jGoal 		getNextGoal()
-  {
-   return next;
-  };
- };
- 
- public 	jDebugProvedGoalStack()
- {
-  stack = new Stack();
- };
+    public class jDebugGoalItem {
+	protected jGoal goal, next = null;
+	protected Vector sub_goals = null;
 
- public boolean 	empty()
- {
-  return stack.empty();
- };
- 
- 
- public synchronized jGoal 		pop()
- {jDebugGoalItem 	g = (jDebugGoalItem) stack.pop();
- 
-  return g.getGoal();
- };
- 
- public jGoal 		peek()
- {jDebugGoalItem 	g = (jDebugGoalItem) stack.peek();
- 
-  return g.getGoal();
- };
- 
- public jGoal 		peekn(int n)
- {jDebugGoalItem 	g = (jDebugGoalItem) stack.elementAt(stack.size() - (n + 1));
- 
-  return g.getGoal();
- };
- 
- public synchronized jGoal 		push(jGoal item)
- {
-  item.next = null;
-  stack.push(new jDebugGoalItem(item));
-  return item;
- };
- 
- public synchronized jGoal 		cut(jGoal item)
- {jDebugGoalItem 	g;
- 
-  while (!stack.empty())
-  {
-   g = (jDebugGoalItem) stack.pop();
-   if (g.getGoal() == item)
-   {
-    stack.push(g);
-    return item;
-   } 
-  }
-  return null;
- };
- 
- public jDebugGoalItem 		peekDebugItem()
- {
-  return (jDebugGoalItem) stack.peek();
- };
- 
- public synchronized jDebugGoalItem 	popDebugItem()
- {
-  return (jDebugGoalItem) stack.pop();
- };
- 
- public synchronized jDebugGoalItem 	getDebugItem(jGoal item)
- {Enumeration 	e = stack.elements();
- 
-  while (e.hasMoreElements())
-  {jDebugGoalItem 	g = (jDebugGoalItem) e.nextElement();
-  
-   if (g.getGoal() == item)
-    return g; 
-  }
-  
-  throw new DebugStackException();
- };
- 
- public synchronized Vector 	getProvedDebugItems(jGoal next)
- {Enumeration 	e = stack.elements();
-  Vector 		v = new Vector();
-  
-  while (e.hasMoreElements())
-  {jDebugGoalItem 	g = (jDebugGoalItem) e.nextElement();
-  
-   if (g.getNextGoal() == next)
-    v.addElement(g); 
-  }
-  
-  return v;
- };
- 
- public synchronized Vector 		getStackCopy()
- {Enumeration 	e = stack.elements();
-  Vector 		v = new Vector(stack.size());
-  
-  while (e.hasMoreElements())
-   v.addElement(e.nextElement());
-  
-  return v; 
- };
+	public jDebugGoalItem(jGoal g) {
+	    goal = g;
+	};
+
+	public void setSubGoals(Vector v) {
+	    sub_goals = v;
+	};
+
+	// null if subgoals were not set.
+	public Vector getSubGoals() {
+	    return sub_goals;
+	};
+
+	public jGoal getGoal() {
+	    return goal;
+	};
+
+	public void setNextGoal(jGoal n) {
+	    next = n;
+	};
+
+	public jGoal getNextGoal() {
+	    return next;
+	};
+    };
+
+    public jDebugProvedGoalStack() {
+	stack = new Stack();
+    };
+
+    public boolean empty() {
+	return stack.empty();
+    };
+
+    public synchronized jGoal pop() {
+	jDebugGoalItem g = (jDebugGoalItem) stack.pop();
+
+	return g.getGoal();
+    };
+
+    public jGoal peek() {
+	jDebugGoalItem g = (jDebugGoalItem) stack.peek();
+
+	return g.getGoal();
+    };
+
+    public jGoal peekn(int n) {
+	jDebugGoalItem g = (jDebugGoalItem) stack.elementAt(stack.size()
+		- (n + 1));
+
+	return g.getGoal();
+    };
+
+    public synchronized jGoal push(jGoal item) {
+	item.next = null;
+	stack.push(new jDebugGoalItem(item));
+	return item;
+    };
+
+    public synchronized jGoal cut(jGoal item) {
+	jDebugGoalItem g;
+
+	while (!stack.empty()) {
+	    g = (jDebugGoalItem) stack.pop();
+	    if (g.getGoal() == item) {
+		stack.push(g);
+		return item;
+	    }
+	}
+	return null;
+    };
+
+    public jDebugGoalItem peekDebugItem() {
+	return (jDebugGoalItem) stack.peek();
+    };
+
+    public synchronized jDebugGoalItem popDebugItem() {
+	return (jDebugGoalItem) stack.pop();
+    };
+
+    public synchronized jDebugGoalItem getDebugItem(jGoal item) {
+	Enumeration e = stack.elements();
+
+	while (e.hasMoreElements()) {
+	    jDebugGoalItem g = (jDebugGoalItem) e.nextElement();
+
+	    if (g.getGoal() == item)
+		return g;
+	}
+
+	throw new DebugStackException();
+    };
+
+    public synchronized Vector getProvedDebugItems(jGoal next) {
+	Enumeration e = stack.elements();
+	Vector v = new Vector();
+
+	while (e.hasMoreElements()) {
+	    jDebugGoalItem g = (jDebugGoalItem) e.nextElement();
+
+	    if (g.getNextGoal() == next)
+		v.addElement(g);
+	}
+
+	return v;
+    };
+
+    public synchronized Vector getStackCopy() {
+	Enumeration e = stack.elements();
+	Vector v = new Vector(stack.size());
+
+	while (e.hasMoreElements())
+	    v.addElement(e.nextElement());
+
+	return v;
+    };
 };
 
-class DebugStackException extends RuntimeException
-{
- public DebugStackException() {};
- public DebugStackException(String s) {super(s);};
+class DebugStackException extends RuntimeException {
+    public DebugStackException() {
+    };
+
+    public DebugStackException(String s) {
+	super(s);
+    };
 };

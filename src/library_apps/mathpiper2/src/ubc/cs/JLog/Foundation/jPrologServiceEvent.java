@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	jPrologServiceEvent
 //#########################################################################
@@ -53,16 +53,13 @@ import java.lang.*;
 import java.util.*;
 
 /**
-* The base class for events sent from <code>jPrologServiceBroadcaster</code>s
-* to <code>jPrologServiceListener</code>s. Sub-classes indicate event type.
-*
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public class jPrologServiceEvent
-{
- public 	jPrologServiceEvent()
- {
- };
+ * The base class for events sent from <code>jPrologServiceBroadcaster</code>s
+ * to <code>jPrologServiceListener</code>s. Sub-classes indicate event type.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public class jPrologServiceEvent {
+    public jPrologServiceEvent() {
+    };
 };
-

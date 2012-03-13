@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	JLogAppletBase
 //#########################################################################
@@ -57,122 +57,111 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Parser.*;
 
 /**
-* This is the abstract Applet class for the Prolog in Java environment. 
-* It includes <code>jPrologServices</code>, but does not specify the user
-* interface.  It is designed as a super class for any applets which need
-* the <code>jPrologServices</code>.  Derivative authors should inherit from
-* this class to preserve the <code>getAppletInfo()</code> credits.
-*
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-abstract public class gJLogAppletBase extends Applet implements iJLogApplBaseServices
-{ 
- protected gJLogBase 		base;
-  
- public gJLogAppletBase()
- {
-  base = new gJLogBase(this);
- };
+ * This is the abstract Applet class for the Prolog in Java environment. It
+ * includes <code>jPrologServices</code>, but does not specify the user
+ * interface. It is designed as a super class for any applets which need the
+ * <code>jPrologServices</code>. Derivative authors should inherit from this
+ * class to preserve the <code>getAppletInfo()</code> credits.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+abstract public class gJLogAppletBase extends Applet implements
+	iJLogApplBaseServices {
+    protected gJLogBase base;
 
- public void init() 
- {
-  super.init();
-  
-  base.init();  
- };
+    public gJLogAppletBase() {
+	base = new gJLogBase(this);
+    };
 
- public void 	start()
- {
-  base.start();
- };
- 
- public void 	stop()
- { 
-  base.stop();
- };
- 
- public void 	destroy()
- { 
-  base.destroy();
- };
+    public void init() {
+	super.init();
 
- /**
- * This function returns the credit assignment and copyright informaiton string.
- * It must be preserved by authors of derivative works. All applets should be 
- * derived from the <code>gJLogAppletBase</code> class, and if they provide their 
- * own <code>getAppletInfo()</code> function it should invoke this version first.
- * For example: <code>return super.getAppletInfo() + "derivative information";</code>
- *
- * @return 	The credit and information string.
- */ 
- public String 			getAppletInfo()
- {
-  return base.getRequiredCreditInfo();
- };
+	base.init();
+    };
 
- public String[][] 	getParameterInfo()
- {
-  return base.getParameterInfo();
- };
- 
- public String 			getRequiredCreditInfo()
- {
-  return base.getRequiredCreditInfo();
- };
+    public void start() {
+	base.start();
+    };
 
- public String 			getSource() throws IOException
- {
-  return base.getSource();
- }
+    public void stop() {
+	base.stop();
+    };
 
- public URL				getURLFromFilename(String name) throws MalformedURLException, IOException
- {URL 		dbase = getDocumentBase();
-  URL 		file = new URL(dbase,name);
-  
-  return file;
- };
+    public void destroy() {
+	base.destroy();
+    };
 
- public InputStream 	getInputStreamFromFilename(String name) throws MalformedURLException, IOException
- {URL 		dbase = getDocumentBase();
-  URL 		file = new URL(dbase,name);
-  
-  return file.openStream();
- };
+    /**
+     * This function returns the credit assignment and copyright informaiton
+     * string. It must be preserved by authors of derivative works. All applets
+     * should be derived from the <code>gJLogAppletBase</code> class, and if
+     * they provide their own <code>getAppletInfo()</code> function it should
+     * invoke this version first. For example:
+     * <code>return super.getAppletInfo() + "derivative information";</code>
+     * 
+     * @return The credit and information string.
+     */
+    public String getAppletInfo() {
+	return base.getRequiredCreditInfo();
+    };
 
- public URL				getResourceURLFromFilename(String name) throws MalformedURLException, IOException
- {
-  return jPrologFileServices.getResourceURLFromFilename_S(name);
- };
+    public String[][] getParameterInfo() {
+	return base.getParameterInfo();
+    };
 
- public InputStream 	getResourceInputStreamFromFilename(String name) throws 
-                                            MalformedURLException, IOException
- {
-  return jPrologFileServices.getResourceInputStreamFromFilename_S(name);
- };
+    public String getRequiredCreditInfo() {
+	return base.getRequiredCreditInfo();
+    };
 
- public String 		getTextFromInputStream(InputStream in_strm) throws IOException
- {
-  return base.getTextFromInputStream(in_strm);
- };
+    public String getSource() throws IOException {
+	return base.getSource();
+    }
 
- public String 			getParameter(String name)
- {
-  return convertStringLinebreaks(super.getParameter(name));  
- }; 
- 
- public String 	convertStringLinebreaks(String param)
- {
-  return base.convertStringLinebreaks(param);  
- }; 
+    public URL getURLFromFilename(String name) throws MalformedURLException,
+	    IOException {
+	URL dbase = getDocumentBase();
+	URL file = new URL(dbase, name);
 
- public Image 		getImage(String name)
- {
-  return getImage(getDocumentBase(),name);
- };
+	return file;
+    };
 
- public jPrologServices 	getPrologServices()
- {
-  return base.getPrologServices();
- };
+    public InputStream getInputStreamFromFilename(String name)
+	    throws MalformedURLException, IOException {
+	URL dbase = getDocumentBase();
+	URL file = new URL(dbase, name);
+
+	return file.openStream();
+    };
+
+    public URL getResourceURLFromFilename(String name)
+	    throws MalformedURLException, IOException {
+	return jPrologFileServices.getResourceURLFromFilename_S(name);
+    };
+
+    public InputStream getResourceInputStreamFromFilename(String name)
+	    throws MalformedURLException, IOException {
+	return jPrologFileServices.getResourceInputStreamFromFilename_S(name);
+    };
+
+    public String getTextFromInputStream(InputStream in_strm)
+	    throws IOException {
+	return base.getTextFromInputStream(in_strm);
+    };
+
+    public String getParameter(String name) {
+	return convertStringLinebreaks(super.getParameter(name));
+    };
+
+    public String convertStringLinebreaks(String param) {
+	return base.convertStringLinebreaks(param);
+    };
+
+    public Image getImage(String name) {
+	return getImage(getDocumentBase(), name);
+    };
+
+    public jPrologServices getPrologServices() {
+	return base.getPrologServices();
+    };
 };

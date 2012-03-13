@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //##################################################################################
 //	gAnimationWindow
 //##################################################################################
@@ -55,37 +55,30 @@ import java.awt.*;
 import java.awt.event.*;
 import java.applet.Applet;
 
-public class gAnimationWindow extends gWindowBase
-{
- gAnimationWindow(gJLogApplicationBase b,boolean visible)
- {
-  super(b);
+public class gAnimationWindow extends gWindowBase {
+    gAnimationWindow(gJLogApplicationBase b, boolean visible) {
+	super(b);
 
-  setLayout(new GridLayout());
-  add(new gAnimationPanel(parent,parent.getPrologServices()));
-  pack();
+	setLayout(new GridLayout());
+	add(new gAnimationPanel(parent, parent.getPrologServices()));
+	pack();
 
-  setSize(640, 480);
-  setLocation(40,20);
+	setSize(640, 480);
+	setLocation(40, 20);
 
-  setTitle("JLog - Animation");
-  setVisible(visible);
- };
+	setTitle("JLog - Animation");
+	setVisible(visible);
+    };
 
- public boolean 		useMenuItem(MenuItem mi)
- {
-  if (mi.getActionCommand() == parent.MENU_CLOSE)
-  {
-   mi.addActionListener(new ActionListener() 
-        {
-         public void actionPerformed (ActionEvent e) 
-         {
-          close();
-         }
-        }
-       );  
-   return true;
-  }
-  return false;
- };
+    public boolean useMenuItem(MenuItem mi) {
+	if (mi.getActionCommand() == parent.MENU_CLOSE) {
+	    mi.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		    close();
+		}
+	    });
+	    return true;
+	}
+	return false;
+    };
 };

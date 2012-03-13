@@ -42,19 +42,21 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	InvalidPredicateNameException
 //#########################################################################
- 
+
 package ubc.cs.JLog.Terms;
 
 import java.lang.*;
 import java.util.*;
 
-public class InvalidPredicateNameException extends RuntimeException
-{
- public InvalidPredicateNameException() {};
- public InvalidPredicateNameException(String s) {super(s);};
-};
+public class InvalidPredicateNameException extends RuntimeException {
+    public InvalidPredicateNameException() {
+    };
 
+    public InvalidPredicateNameException(String s) {
+	super(s);
+    };
+};

@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Exists	
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -54,66 +54,57 @@ import java.util.*;
 import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Foundation.*;
 
-public class jExists extends jBinaryBuiltinPredicate
-{
- protected jCall 	call_r;
- 
- public jExists(jTerm l,jTerm r)
- {
-  super(l,r,TYPE_BUILTINPREDICATE);
-  call_r = new jCall(r);
- };
-  
- public String 		getName()
- {
-  return "^";
- };
- 
- public void 		enumerateVariables(jVariableVector v,boolean all)
- {
-  if (all)
-  {
-   rhs.enumerateVariables(v,true);
-   lhs.enumerateVariables(v,true);
-  }
-  else
-  {jVariableVector 		v1 = new jVariableVector();
-   jVariableVector 		v2 = new jVariableVector();
-   Enumeration 			e;
-   
-   lhs.enumerateVariables(v1,true);
-   rhs.enumerateVariables(v2,false);
-   
-   e = v2.enumerate();
-   
-   while(e.hasMoreElements())
-   {jVariable 	jv = (jVariable) e.nextElement();
-   
-    if (!v1.hasVariable(jv))
-     v.addVariable(jv);
-   }
-  }
- };
+public class jExists extends jBinaryBuiltinPredicate {
+    protected jCall call_r;
 
- public void 		addGoals(jGoal g,jVariable[] vars,iGoalStack goals)
- {
-  call_r.addGoals(g,vars,goals);
- }; 
+    public jExists(jTerm l, jTerm r) {
+	super(l, r, TYPE_BUILTINPREDICATE);
+	call_r = new jCall(r);
+    };
 
- public void 		addGoals(jGoal g,iGoalStack goals)
- {
-  call_r.addGoals(g,goals);
- }; 
+    public String getName() {
+	return "^";
+    };
 
- public jBinaryBuiltinPredicate 		duplicate(jTerm l,jTerm r)
- {
-  return new jExists(l,r); 
- };
+    public void enumerateVariables(jVariableVector v, boolean all) {
+	if (all) {
+	    rhs.enumerateVariables(v, true);
+	    lhs.enumerateVariables(v, true);
+	} else {
+	    jVariableVector v1 = new jVariableVector();
+	    jVariableVector v2 = new jVariableVector();
+	    Enumeration e;
 
- public String 		toString(boolean usename)
- {
-  return lhs.toString(usename) + " " + getName() + " " + rhs.toString(usename);
- };
+	    lhs.enumerateVariables(v1, true);
+	    rhs.enumerateVariables(v2, false);
+
+	    e = v2.enumerate();
+
+	    while (e.hasMoreElements()) {
+		jVariable jv = (jVariable) e.nextElement();
+
+		if (!v1.hasVariable(jv))
+		    v.addVariable(jv);
+	    }
+	}
+    };
+
+    public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+	call_r.addGoals(g, vars, goals);
+    };
+
+    public void addGoals(jGoal g, iGoalStack goals) {
+	call_r.addGoals(g, goals);
+    };
+
+    public jBinaryBuiltinPredicate duplicate(jTerm l, jTerm r) {
+	return new jExists(l, r);
+    };
+
+    public String toString(boolean usename) {
+	return lhs.toString(usename) + " " + getName() + " "
+		+ rhs.toString(usename);
+    };
 };
 
-//#########################
+// #########################

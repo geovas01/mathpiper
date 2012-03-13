@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //##################################################################################
 //	aAnimationShape Polygon
 //##################################################################################
@@ -55,183 +55,168 @@ import java.awt.*;
 
 import ubc.cs.JLog.Terms.*;
 
-public class aAnimationShape_polygon extends aAnimationShape
-{
- public static final String			POLYGON_ATTR_KEY = "polygon";
- public static final String			COLOUR_ATTR_KEY = "colour";
+public class aAnimationShape_polygon extends aAnimationShape {
+    public static final String POLYGON_ATTR_KEY = "polygon";
+    public static final String COLOUR_ATTR_KEY = "colour";
 
- private static jTermTranslation		translations;
- 
- static {
-  translations = new jTermTranslation();
-  setDefaultsForTranslation(translations);
- }
+    private static jTermTranslation translations;
 
- protected boolean 					fill;
- protected Color 					colour;
- protected FloatPolygon				original_shape;
+    static {
+	translations = new jTermTranslation();
+	setDefaultsForTranslation(translations);
+    }
 
- protected FloatPolygon				cached_rotshape;
- protected Polygon 					cached_transhape;
- 
- public 	aAnimationShape_polygon(aAnimationObject ao,String n,FloatPolygon p,
-										boolean f,Color c)
- {
-  super(ao,n);
-  original_shape = p;
-  cached_rotshape = null;
-  cached_transhape = null;
-  fill = f;
-  colour = c;
- };
+    protected boolean fill;
+    protected Color colour;
+    protected FloatPolygon original_shape;
 
- public void 		draw(Graphics g)
- {
-  if (cached_rotshape == null)
-  {
-   cached_rotshape = generateRotatedPolygon(original_shape);
-   cached_transhape = generateTranslatedPolygon(cached_rotshape);
-  }
-  else if (cached_transhape == null)
-   cached_transhape = generateTranslatedPolygon(cached_rotshape);
-   
-  g.setColor(colour);
+    protected FloatPolygon cached_rotshape;
+    protected Polygon cached_transhape;
 
-  if (fill)
-   g.fillPolygon(cached_transhape);
+    public aAnimationShape_polygon(aAnimationObject ao, String n,
+	    FloatPolygon p, boolean f, Color c) {
+	super(ao, n);
+	original_shape = p;
+	cached_rotshape = null;
+	cached_transhape = null;
+	fill = f;
+	colour = c;
+    };
 
-  g.drawPolygon(cached_transhape);
- };
+    public void draw(Graphics g) {
+	if (cached_rotshape == null) {
+	    cached_rotshape = generateRotatedPolygon(original_shape);
+	    cached_transhape = generateTranslatedPolygon(cached_rotshape);
+	} else if (cached_transhape == null)
+	    cached_transhape = generateTranslatedPolygon(cached_rotshape);
 
- public Rectangle 		getBounds()
- {
-  if (cached_rotshape == null)
-  {
-   cached_rotshape = generateRotatedPolygon(original_shape);
-   cached_transhape = generateTranslatedPolygon(cached_rotshape);
-  }
-  else if (cached_transhape == null)
-   cached_transhape = generateTranslatedPolygon(cached_rotshape);
+	g.setColor(colour);
 
-  return cached_transhape.getBounds();
- };
+	if (fill)
+	    g.fillPolygon(cached_transhape);
 
- public String 		getType()
- {
-  return "polygon";
- };
+	g.drawPolygon(cached_transhape);
+    };
 
- public void 		setPolygon(FloatPolygon p)
- {
-  original_shape = p;
+    public Rectangle getBounds() {
+	if (cached_rotshape == null) {
+	    cached_rotshape = generateRotatedPolygon(original_shape);
+	    cached_transhape = generateTranslatedPolygon(cached_rotshape);
+	} else if (cached_transhape == null)
+	    cached_transhape = generateTranslatedPolygon(cached_rotshape);
 
-  cached_rotshape = null;
-  cached_transhape = null;
- };
- 
- 
- public void 		setLocalPosition(float x,float y)
- {
-  super.setLocalPosition(x,y);
-  cached_transhape = null;
- };
- 
- public void 		setLocalRotation(float r)
- {
-  super.setLocalRotation(r);
-  cached_rotshape = null;
-  cached_transhape = null;
- };
- 
- public static void		setDefaultsForTranslation(jTermTranslation t)
- {
-  aAnimationShape.setDefaultsForTranslation(t);
+	return cached_transhape.getBounds();
+    };
 
-  setStringKeysForTranslation(t,POLYGON_ATTR_KEY,FloatPolygon.class,FloatPolygon.class);
-  setStringKeysForTranslation(t,COLOUR_ATTR_KEY,Color.class,Color.class);
- };
+    public String getType() {
+	return "polygon";
+    };
 
- public jTermTranslation	getTermTranslation()
- {
-  return translations;
- };
+    public void setPolygon(FloatPolygon p) {
+	original_shape = p;
 
- public Hashtable   getAttributes()
- {Hashtable		ht;
- 
-  ht = super.getAttributes();
- 
-  ht.put(POLYGON_ATTR_KEY,original_shape);
-  ht.put(COLOUR_ATTR_KEY,colour);
-  
-  return ht;  
- };
+	cached_rotshape = null;
+	cached_transhape = null;
+    };
 
- public void		setAttributes(Hashtable attributes)
- {
-  super.setAttributes(attributes);
- 
-  {FloatPolygon		fp;
-  
-   if ((fp = (FloatPolygon) attributes.get(POLYGON_ATTR_KEY)) != null)
-    setPolygon(fp);
-  }
-  {Color	c;
-  
-   if ((c = (Color) attributes.get(COLOUR_ATTR_KEY)) != null)
-    colour = c;
-  }
- };
- 
- public void 		updatePosition()
- {
-  cached_transhape = null;
- };
- 
- public void 		updateRotation()
- {
-  cached_rotshape = null;
-  cached_transhape = null;
- };
+    public void setLocalPosition(float x, float y) {
+	super.setLocalPosition(x, y);
+	cached_transhape = null;
+    };
 
- public void		updateMagnification()
- {
-  cached_rotshape = null;
-  cached_transhape = null;
- };
- 
- protected FloatPolygon 	generateRotatedPolygon(FloatPolygon original)
- {FloatPolygon  fp = new FloatPolygon(original.npoints);
-  float			rot = object.getGlobalRotationFromLocal(rotation_offset);
-  int 			i;
-  
-  for (i = 0; i < original.npoints; i++)
-  {float 	xpos = original.xpoints[i];
-   float	ypos = original.ypoints[i];
-   float 	a = (float) (Math.atan2(xpos,ypos) + rot);
-   float 	d = (float) Math.sqrt(xpos*xpos + ypos*ypos);
-   
-   fp.addPoint((float) Math.sin(a)*d,(float) Math.cos(a)*d);
-  }
-  
-  return fp;
- };
+    public void setLocalRotation(float r) {
+	super.setLocalRotation(r);
+	cached_rotshape = null;
+	cached_transhape = null;
+    };
 
- protected Polygon 	generateTranslatedPolygon(FloatPolygon fp)
- {int[]		xpts = new int[fp.npoints];
-  int[]		ypts = new int[fp.npoints];
-  int		i;
- 
-  for (i = 0; i < fp.npoints; i++)
-  {Point	p;
-  
-   p = object.getDisplayPointFromLocalPoint(fp.xpoints[i]+x_offset,fp.ypoints[i]+y_offset);
+    public static void setDefaultsForTranslation(jTermTranslation t) {
+	aAnimationShape.setDefaultsForTranslation(t);
 
-   xpts[i] = p.x;
-   ypts[i] = p.y;
-  }
-  
-  return new Polygon(xpts,ypts,fp.npoints);
- };
+	setStringKeysForTranslation(t, POLYGON_ATTR_KEY, FloatPolygon.class,
+		FloatPolygon.class);
+	setStringKeysForTranslation(t, COLOUR_ATTR_KEY, Color.class,
+		Color.class);
+    };
+
+    public jTermTranslation getTermTranslation() {
+	return translations;
+    };
+
+    public Hashtable getAttributes() {
+	Hashtable ht;
+
+	ht = super.getAttributes();
+
+	ht.put(POLYGON_ATTR_KEY, original_shape);
+	ht.put(COLOUR_ATTR_KEY, colour);
+
+	return ht;
+    };
+
+    public void setAttributes(Hashtable attributes) {
+	super.setAttributes(attributes);
+
+	{
+	    FloatPolygon fp;
+
+	    if ((fp = (FloatPolygon) attributes.get(POLYGON_ATTR_KEY)) != null)
+		setPolygon(fp);
+	}
+	{
+	    Color c;
+
+	    if ((c = (Color) attributes.get(COLOUR_ATTR_KEY)) != null)
+		colour = c;
+	}
+    };
+
+    public void updatePosition() {
+	cached_transhape = null;
+    };
+
+    public void updateRotation() {
+	cached_rotshape = null;
+	cached_transhape = null;
+    };
+
+    public void updateMagnification() {
+	cached_rotshape = null;
+	cached_transhape = null;
+    };
+
+    protected FloatPolygon generateRotatedPolygon(FloatPolygon original) {
+	FloatPolygon fp = new FloatPolygon(original.npoints);
+	float rot = object.getGlobalRotationFromLocal(rotation_offset);
+	int i;
+
+	for (i = 0; i < original.npoints; i++) {
+	    float xpos = original.xpoints[i];
+	    float ypos = original.ypoints[i];
+	    float a = (float) (Math.atan2(xpos, ypos) + rot);
+	    float d = (float) Math.sqrt(xpos * xpos + ypos * ypos);
+
+	    fp.addPoint((float) Math.sin(a) * d, (float) Math.cos(a) * d);
+	}
+
+	return fp;
+    };
+
+    protected Polygon generateTranslatedPolygon(FloatPolygon fp) {
+	int[] xpts = new int[fp.npoints];
+	int[] ypts = new int[fp.npoints];
+	int i;
+
+	for (i = 0; i < fp.npoints; i++) {
+	    Point p;
+
+	    p = object.getDisplayPointFromLocalPoint(fp.xpoints[i] + x_offset,
+		    fp.ypoints[i] + y_offset);
+
+	    xpts[i] = p.x;
+	    ypts[i] = p.y;
+	}
+
+	return new Polygon(xpts, ypts, fp.npoints);
+    };
 };
-

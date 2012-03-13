@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //##################################################################################
 //	gAnimationPanel
 //##################################################################################
@@ -58,70 +58,70 @@ import java.applet.Applet;
 import ubc.cs.JLog.Foundation.*;
 
 /**
-* This is the panel for displaying a graphical environment.
-*
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public class gAnimationPanel extends Panel
-{
- protected static final String  ANIMATION_ENV = "ubc.cs.JLog.Animation.aAnimationEnvironment";
-  
- public 	gAnimationPanel(iJLogApplBaseServices b,jPrologServices prolog)
- {Panel 		animation = null;
+ * This is the panel for displaying a graphical environment.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public class gAnimationPanel extends Panel {
+    protected static final String ANIMATION_ENV = "ubc.cs.JLog.Animation.aAnimationEnvironment";
 
-  {// create area for animation to appear in
-  
-   try
-   {Class			a_class = null;
-    Constructor		a_cons = null;
+    public gAnimationPanel(iJLogApplBaseServices b, jPrologServices prolog) {
+	Panel animation = null;
 
-	a_class = Class.forName(ANIMATION_ENV);
-    a_cons = a_class.getConstructor(new Class[] {iJLogApplBaseServices.class});
-	animation = (Panel) a_cons.newInstance(new Object[] {b});
-	
-    prolog.setAnimationEnvironment(animation);
-   }
-   catch(Exception e)
-   {
-    animation = makeErrorPanel();
-   }
-  }
-   
-  {Panel		inner_panel;
-   ScrollPane	scroll_animation;
-   
-   setLayout(new BorderLayout());
-   setFont(new Font("SansSerif",Font.PLAIN,12));
-   setBackground(Color.lightGray);
-   setForeground(Color.black);
-   
-   add(new Panel(),BorderLayout.NORTH);
-   add(new Panel(),BorderLayout.WEST);
-   add(new Panel(),BorderLayout.EAST);
-   add(new Panel(),BorderLayout.SOUTH);
- 
-   scroll_animation = new ScrollPane();
-   scroll_animation.add(animation,BorderLayout.CENTER);
-   
-   inner_panel = new Panel(new BorderLayout());
-   
-   inner_panel.add(scroll_animation,BorderLayout.CENTER);
-   inner_panel.add(new Panel(),BorderLayout.SOUTH);
-   
-   add(inner_panel,BorderLayout.CENTER);    
-  }  
- };
- 
- private Panel		makeErrorPanel()
- {String err_str = "ERROR: Animation Library not available - Missing class: " + ANIMATION_ENV;
-  Panel  p = new Panel(new BorderLayout());
-  
-  p.setFont(new Font("Dialog",Font.PLAIN,12));
-  p.setBackground(Color.lightGray);
-  p.setForeground(Color.black);
-  p.add(new Label(err_str),BorderLayout.CENTER);
- 
-  return p;
- };
+	{// create area for animation to appear in
+
+	    try {
+		Class a_class = null;
+		Constructor a_cons = null;
+
+		a_class = Class.forName(ANIMATION_ENV);
+		a_cons = a_class
+			.getConstructor(new Class[] { iJLogApplBaseServices.class });
+		animation = (Panel) a_cons.newInstance(new Object[] { b });
+
+		prolog.setAnimationEnvironment(animation);
+	    } catch (Exception e) {
+		animation = makeErrorPanel();
+	    }
+	}
+
+	{
+	    Panel inner_panel;
+	    ScrollPane scroll_animation;
+
+	    setLayout(new BorderLayout());
+	    setFont(new Font("SansSerif", Font.PLAIN, 12));
+	    setBackground(Color.lightGray);
+	    setForeground(Color.black);
+
+	    add(new Panel(), BorderLayout.NORTH);
+	    add(new Panel(), BorderLayout.WEST);
+	    add(new Panel(), BorderLayout.EAST);
+	    add(new Panel(), BorderLayout.SOUTH);
+
+	    scroll_animation = new ScrollPane();
+	    scroll_animation.add(animation, BorderLayout.CENTER);
+
+	    inner_panel = new Panel(new BorderLayout());
+
+	    inner_panel.add(scroll_animation, BorderLayout.CENTER);
+	    inner_panel.add(new Panel(), BorderLayout.SOUTH);
+
+	    add(inner_panel, BorderLayout.CENTER);
+	}
+    };
+
+    private Panel makeErrorPanel() {
+	String err_str = "ERROR: Animation Library not available - Missing class: "
+		+ ANIMATION_ENV;
+	Panel p = new Panel(new BorderLayout());
+
+	p.setFont(new Font("Dialog", Font.PLAIN, 12));
+	p.setBackground(Color.lightGray);
+	p.setForeground(Color.black);
+	p.add(new Label(err_str), BorderLayout.CENTER);
+
+	return p;
+    };
 };

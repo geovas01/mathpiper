@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Animate SetLevel
 //#########################################################################
- 
+
 package ubc.cs.JLog.Animation;
 
 import java.lang.*;
@@ -54,32 +54,28 @@ import java.util.*;
 import java.awt.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jAnimate_setlevel extends jAnimate
-{
- public jAnimate_setlevel(jTerm t)
- {
-  super(t);
- };
-  
- public String 		getName()
- {
-  return "animate<setlevel>";
- };
- 
- public int 		getNumberArguments()
- {
-  return 2;
- };
- 
- protected jUnaryBuiltinPredicate 		duplicate(jTerm r)
- {
-  return new jAnimate_setlevel(r); 
- };
- 
- protected void 	action(aAnimationEnvironment ae,jTerm[] terms)
- {int 				v = aAttributeTranslation.convertToInt(terms[1],false);
-  aAnimationObject 	obj = aAttributeTranslation.convertToAnimationObject(terms[0],ae);
-  
-  obj.setLevel(v);
- };
+public class jAnimate_setlevel extends jAnimate {
+    public jAnimate_setlevel(jTerm t) {
+	super(t);
+    };
+
+    public String getName() {
+	return "animate<setlevel>";
+    };
+
+    public int getNumberArguments() {
+	return 2;
+    };
+
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jAnimate_setlevel(r);
+    };
+
+    protected void action(aAnimationEnvironment ae, jTerm[] terms) {
+	int v = aAttributeTranslation.convertToInt(terms[1], false);
+	aAnimationObject obj = aAttributeTranslation.convertToAnimationObject(
+		terms[0], ae);
+
+	obj.setLevel(v);
+    };
 };

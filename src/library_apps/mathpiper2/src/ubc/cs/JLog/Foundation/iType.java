@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Type
 //#########################################################################
@@ -53,43 +53,42 @@ import java.lang.*;
 import java.util.*;
 
 /**
-* This abstract interface defines all the prolog types.   
-* Use <code>iType.getType()</code> in place of instanceof for speed, and when only the 
-* actual instance type matters, and not any super classes. 
-* <P>
-* Any new types added to the system must be registered in this interface.  It is unlikely
-* that this would be needed, since they are quite general.
-* 
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public interface iType
-{
- // any new term types should be added here
- public final static int 	TYPE_UNDEFINED = -1;
- public final static int 	TYPE_ATOM = 0;
- public final static int 	TYPE_INTEGER = 1;
- public final static int 	TYPE_REAL = 2;
- public final static int 	TYPE_PREDICATE = 3;
- public final static int 	TYPE_BUILTINPREDICATE = 4;
- public final static int 	TYPE_COMPOUND = 5;
- public final static int 	TYPE_PREDICATETERMS = 6;
- public final static int 	TYPE_CONS = 7;
- public final static int 	TYPE_OR = 8;
- public final static int 	TYPE_ORPREDICATE = 9;
- public final static int 	TYPE_IF = 10;
- public final static int 	TYPE_COMMAND = 11;
- public final static int 	TYPE_LIST = 12;
- public final static int 	TYPE_NULLLIST = 13;
- public final static int 	TYPE_VARIABLE = 14;
- public final static int 	TYPE_OPERATOR = 15;
- public final static int 	TYPE_UNARYOPERATOR = 16;
- public final static int 	TYPE_NUMERICCOMPARE = 17;
- public final static int 	TYPE_COMPARE = 18;
- public final static int 	TYPE_TYPE = 19;
- public final static int 	TYPE_ARITHMETIC = 20;
- public final static int 	TYPE_UNARYARITHMETIC = 21;
- public final static int 	TYPE_OBJECT = 22;
- 
- public int 	getType(); 
+ * This abstract interface defines all the prolog types. Use
+ * <code>iType.getType()</code> in place of instanceof for speed, and when only
+ * the actual instance type matters, and not any super classes.
+ * <P>
+ * Any new types added to the system must be registered in this interface. It is
+ * unlikely that this would be needed, since they are quite general.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public interface iType {
+    // any new term types should be added here
+    public final static int TYPE_UNDEFINED = -1;
+    public final static int TYPE_ATOM = 0;
+    public final static int TYPE_INTEGER = 1;
+    public final static int TYPE_REAL = 2;
+    public final static int TYPE_PREDICATE = 3;
+    public final static int TYPE_BUILTINPREDICATE = 4;
+    public final static int TYPE_COMPOUND = 5;
+    public final static int TYPE_PREDICATETERMS = 6;
+    public final static int TYPE_CONS = 7;
+    public final static int TYPE_OR = 8;
+    public final static int TYPE_ORPREDICATE = 9;
+    public final static int TYPE_IF = 10;
+    public final static int TYPE_COMMAND = 11;
+    public final static int TYPE_LIST = 12;
+    public final static int TYPE_NULLLIST = 13;
+    public final static int TYPE_VARIABLE = 14;
+    public final static int TYPE_OPERATOR = 15;
+    public final static int TYPE_UNARYOPERATOR = 16;
+    public final static int TYPE_NUMERICCOMPARE = 17;
+    public final static int TYPE_COMPARE = 18;
+    public final static int TYPE_TYPE = 19;
+    public final static int TYPE_ARITHMETIC = 20;
+    public final static int TYPE_UNARYARITHMETIC = 21;
+    public final static int TYPE_OBJECT = 22;
+
+    public int getType();
 };

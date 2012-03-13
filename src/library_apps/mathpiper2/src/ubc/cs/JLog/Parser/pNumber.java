@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	pNumber
 //#########################################################################
@@ -53,47 +53,41 @@ import java.util.*;
 import java.lang.*;
 import ubc.cs.JLog.Terms.*;
 
-class pNumber extends pPacket
-{
- public 	pNumber(pToken pt)
- {
-  super(pt);
- };
- 
- public jTerm 		getTerm(pVariableRegistry vars,pTermToPacketHashtable phash)
- {jTerm 	term;
- 
-  if (token instanceof pReal)
-   term = new jReal(((pReal) token).getValue());
-  else if (token instanceof pInteger)
-   term = new jInteger(((pInteger) token).getValue());
-  else if (token instanceof pUnaryNumber && 
-                ((pUnaryNumber) token).getValue() instanceof pReal)
-  {String 	sgn;
-  
-   sgn = ((pUnaryNumber) token).getSign().getToken();
-   term = new jReal((sgn.equals("-") ? -1.0f : 1.0f ) * 
-                    ((pReal) ((pUnaryNumber) token).getValue()).getValue());
-  }
-  else if (token instanceof pUnaryNumber && 
-                ((pUnaryNumber) token).getValue() instanceof pInteger)
-  {String 	sgn;
-  
-   sgn = ((pUnaryNumber) token).getSign().getToken();
-   term = new jInteger((sgn.equals("-") ? -1 : 1 ) * 
-                        ((pInteger) ((pUnaryNumber) token).getValue()).getValue());
-  }
-  else
-   throw new SyntaxErrorException("Expected number token at ",
-                                   token.getPosition(),token.getLine(),token.getCharPos()); 
-  
-  phash.putPacket(term,this);
-  
-  return term;
- };
- 
- public void 		setGeneric(boolean genericpred)
- {
- };
-};
+class pNumber extends pPacket {
+    public pNumber(pToken pt) {
+	super(pt);
+    };
 
+    public jTerm getTerm(pVariableRegistry vars, pTermToPacketHashtable phash) {
+	jTerm term;
+
+	if (token instanceof pReal)
+	    term = new jReal(((pReal) token).getValue());
+	else if (token instanceof pInteger)
+	    term = new jInteger(((pInteger) token).getValue());
+	else if (token instanceof pUnaryNumber
+		&& ((pUnaryNumber) token).getValue() instanceof pReal) {
+	    String sgn;
+
+	    sgn = ((pUnaryNumber) token).getSign().getToken();
+	    term = new jReal((sgn.equals("-") ? -1.0f : 1.0f)
+		    * ((pReal) ((pUnaryNumber) token).getValue()).getValue());
+	} else if (token instanceof pUnaryNumber
+		&& ((pUnaryNumber) token).getValue() instanceof pInteger) {
+	    String sgn;
+
+	    sgn = ((pUnaryNumber) token).getSign().getToken();
+	    term = new jInteger((sgn.equals("-") ? -1 : 1)
+		    * ((pInteger) ((pUnaryNumber) token).getValue()).getValue());
+	} else
+	    throw new SyntaxErrorException("Expected number token at ",
+		    token.getPosition(), token.getLine(), token.getCharPos());
+
+	phash.putPacket(term, this);
+
+	return term;
+    };
+
+    public void setGeneric(boolean genericpred) {
+    };
+};

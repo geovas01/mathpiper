@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	BinaryBuiltinPredicate
 //#########################################################################
- 
+
 package ubc.cs.JLog.Terms;
 
 import java.lang.*;
@@ -54,154 +54,139 @@ import java.util.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Terms.Goals.*;
 
-abstract public class jBinaryBuiltinPredicate extends jBuiltinPredicate
-{
- protected jTerm 	lhs,rhs;  	
+abstract public class jBinaryBuiltinPredicate extends jBuiltinPredicate {
+    protected jTerm lhs, rhs;
 
- public jBinaryBuiltinPredicate(jTerm l,jTerm r,int t)
- {
-  lhs = l;
-  rhs = r;
-  
-  type = t;
- };
-  
- public final int 		getArity()
- {
-  return 2;
- };
+    public jBinaryBuiltinPredicate(jTerm l, jTerm r, int t) {
+	lhs = l;
+	rhs = r;
 
- public final jTerm 		getLHS()
- {
-  return lhs;
- };
- 
- public final jTerm 		getRHS()
- {
-  return rhs;
- };
- 
- public final jCompoundTerm 		getArguments()
- {jCompoundTerm 		ct = new jCompoundTerm();
- 
-  ct.addTerm(lhs);
-  ct.addTerm(rhs);
-  
-  return ct;
- };
+	type = t;
+    };
 
- protected int 		compareArguments(iPredicate ipred,boolean first_call,boolean var_equal)
- {
-  if (ipred instanceof jBinaryBuiltinPredicate)
-  {jBinaryBuiltinPredicate 		bip = (jBinaryBuiltinPredicate) ipred;
-   int 							compare_val,result;
-   
-   compare_val = getName().compareTo(bip.getName());
-   
-   if (compare_val < 0)
-    return LESS_THAN;
-   if (compare_val > 0)
-    return GREATER_THAN;
-    
-   result = lhs.compare(bip.lhs,true,var_equal);
-   if (result != EQUAL)
-    return result;
-    
-   return rhs.compare(bip.rhs,true,var_equal);
-  }
-  
-  return (first_call ? -ipred.compareArguments(this,false,var_equal) : EQUAL);
- };
+    public final int getArity() {
+	return 2;
+    };
 
- protected final boolean 	equivalenceArguments(jBuiltinPredicate pterm,jEquivalenceMapping v)
- {
-  if (pterm instanceof jBinaryBuiltinPredicate)
-  {jBinaryBuiltinPredicate 	bterm = (jBinaryBuiltinPredicate) pterm;
-  
-   return lhs.equivalence(bterm.lhs,v) && rhs.equivalence(bterm.rhs,v);
-  }
-  else
-   return false;
- };
+    public final jTerm getLHS() {
+	return lhs;
+    };
 
- protected final boolean 	unifyArguments(jBuiltinPredicate pterm,jUnifiedVector v)
- {
-  if (pterm instanceof jBinaryBuiltinPredicate)
-  {jBinaryBuiltinPredicate 	bterm = (jBinaryBuiltinPredicate) pterm;
-  
-   return lhs.unify(bterm.lhs,v) && rhs.unify(bterm.rhs,v);
-  }
-  else
-   return false;
- };
- 
- public void 		registerVariables(jVariableVector v)
- {
-  lhs.registerVariables(v);
-  rhs.registerVariables(v);
- };
- 
- public void 		enumerateVariables(jVariableVector v,boolean all)
- {
-  lhs.enumerateVariables(v,all);
-  rhs.enumerateVariables(v,all);
- };
+    public final jTerm getRHS() {
+	return rhs;
+    };
 
- public void 		registerUnboundVariables(jUnifiedVector v)
- {
-  lhs.registerUnboundVariables(v);
-  rhs.registerUnboundVariables(v);
- };
+    public final jCompoundTerm getArguments() {
+	jCompoundTerm ct = new jCompoundTerm();
 
- public boolean 	prove(jBinaryBuiltinPredicateGoal bg)
- {
-  throw new UnimplementedPredicateProveMethodException(); 
- };
+	ct.addTerm(lhs);
+	ct.addTerm(rhs);
 
- public void 		addGoals(jGoal g,jVariable[] vars,iGoalStack goals)
- {
-  goals.push(new jBinaryBuiltinPredicateGoal(this,lhs.duplicate(vars),rhs.duplicate(vars)));
- }; 
+	return ct;
+    };
 
- public void 		addGoals(jGoal g,iGoalStack goals)
- {
-  goals.push(new jBinaryBuiltinPredicateGoal(this,lhs,rhs));
- }; 
+    protected int compareArguments(iPredicate ipred, boolean first_call,
+	    boolean var_equal) {
+	if (ipred instanceof jBinaryBuiltinPredicate) {
+	    jBinaryBuiltinPredicate bip = (jBinaryBuiltinPredicate) ipred;
+	    int compare_val, result;
 
- // since binary predicates have variables, they should be able to duplicate themselves
- // this version of duplicate only requires subclasses to create themselves.
- abstract protected jBinaryBuiltinPredicate 	duplicate(jTerm l,jTerm r);
+	    compare_val = getName().compareTo(bip.getName());
 
- public jTerm 		duplicate(jVariable[] vars)
- {
-  return duplicate(lhs.duplicate(vars),rhs.duplicate(vars)); 
- };
+	    if (compare_val < 0)
+		return LESS_THAN;
+	    if (compare_val > 0)
+		return GREATER_THAN;
 
- public jTerm 		copy(jVariableRegistry vars)
- {
-  return duplicate(lhs.copy(vars),rhs.copy(vars));
- };
+	    result = lhs.compare(bip.lhs, true, var_equal);
+	    if (result != EQUAL)
+		return result;
 
- public void 		consult(jKnowledgeBase kb)
- {
-  lhs.consult(kb);
-  rhs.consult(kb);
- };
- 
- public void 		consultReset()
- {
-  lhs.consultReset();
-  rhs.consultReset();
- };
- 
- public boolean 	isConsultNeeded()
- {
-  return true;
- };
+	    return rhs.compare(bip.rhs, true, var_equal);
+	}
 
- public String 		toString(boolean usename)
- {
-  return  getName() + "(" + lhs.toString(usename) + "," + rhs.toString(usename) + ")";
- };
+	return (first_call ? -ipred.compareArguments(this, false, var_equal)
+		: EQUAL);
+    };
+
+    protected final boolean equivalenceArguments(jBuiltinPredicate pterm,
+	    jEquivalenceMapping v) {
+	if (pterm instanceof jBinaryBuiltinPredicate) {
+	    jBinaryBuiltinPredicate bterm = (jBinaryBuiltinPredicate) pterm;
+
+	    return lhs.equivalence(bterm.lhs, v)
+		    && rhs.equivalence(bterm.rhs, v);
+	} else
+	    return false;
+    };
+
+    protected final boolean unifyArguments(jBuiltinPredicate pterm,
+	    jUnifiedVector v) {
+	if (pterm instanceof jBinaryBuiltinPredicate) {
+	    jBinaryBuiltinPredicate bterm = (jBinaryBuiltinPredicate) pterm;
+
+	    return lhs.unify(bterm.lhs, v) && rhs.unify(bterm.rhs, v);
+	} else
+	    return false;
+    };
+
+    public void registerVariables(jVariableVector v) {
+	lhs.registerVariables(v);
+	rhs.registerVariables(v);
+    };
+
+    public void enumerateVariables(jVariableVector v, boolean all) {
+	lhs.enumerateVariables(v, all);
+	rhs.enumerateVariables(v, all);
+    };
+
+    public void registerUnboundVariables(jUnifiedVector v) {
+	lhs.registerUnboundVariables(v);
+	rhs.registerUnboundVariables(v);
+    };
+
+    public boolean prove(jBinaryBuiltinPredicateGoal bg) {
+	throw new UnimplementedPredicateProveMethodException();
+    };
+
+    public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+	goals.push(new jBinaryBuiltinPredicateGoal(this, lhs.duplicate(vars),
+		rhs.duplicate(vars)));
+    };
+
+    public void addGoals(jGoal g, iGoalStack goals) {
+	goals.push(new jBinaryBuiltinPredicateGoal(this, lhs, rhs));
+    };
+
+    // since binary predicates have variables, they should be able to duplicate
+    // themselves
+    // this version of duplicate only requires subclasses to create themselves.
+    abstract protected jBinaryBuiltinPredicate duplicate(jTerm l, jTerm r);
+
+    public jTerm duplicate(jVariable[] vars) {
+	return duplicate(lhs.duplicate(vars), rhs.duplicate(vars));
+    };
+
+    public jTerm copy(jVariableRegistry vars) {
+	return duplicate(lhs.copy(vars), rhs.copy(vars));
+    };
+
+    public void consult(jKnowledgeBase kb) {
+	lhs.consult(kb);
+	rhs.consult(kb);
+    };
+
+    public void consultReset() {
+	lhs.consultReset();
+	rhs.consultReset();
+    };
+
+    public boolean isConsultNeeded() {
+	return true;
+    };
+
+    public String toString(boolean usename) {
+	return getName() + "(" + lhs.toString(usename) + ","
+		+ rhs.toString(usename) + ")";
+    };
 };
-

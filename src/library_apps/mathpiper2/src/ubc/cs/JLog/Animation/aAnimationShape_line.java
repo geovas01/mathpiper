@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //##################################################################################
 //	aAnimationShape Line
 //##################################################################################
@@ -55,178 +55,173 @@ import java.awt.*;
 
 import ubc.cs.JLog.Terms.*;
 
-public class aAnimationShape_line extends aAnimationShape
-{
- public static final String			LINE_ATTR_KEY = "line";
- public static final String			COLOUR_ATTR_KEY = "colour";
+public class aAnimationShape_line extends aAnimationShape {
+    public static final String LINE_ATTR_KEY = "line";
+    public static final String COLOUR_ATTR_KEY = "colour";
 
- private static jTermTranslation		translations;
- 
- static {
-  translations = new jTermTranslation();
-  setDefaultsForTranslation(translations);
- }
- 
- protected Color 					colour;
- protected FloatRectangle			original_line;
+    private static jTermTranslation translations;
 
- protected FloatRectangle			cached_rotline;
- protected Rectangle 				cached_tranline;
+    static {
+	translations = new jTermTranslation();
+	setDefaultsForTranslation(translations);
+    }
 
- /**
-  * The constructor.  Requires the owning <code>aAnimationObject</code>, and a name.
-  * The rectangle describes the two points that make up the line (the width, height are the
-  * x,y of the second point).
-  *
-  * @param ao 		The graphical object composed from this shape.
-  * 			Animation shapes can only belong to one object.
-  * @param n 		The name of the shape.
-  * @param r 		The rectangle representing the line.
-  * @param c 		The colour of the line.
-  */
- public 	aAnimationShape_line(aAnimationObject ao,String n,FloatRectangle r,Color c)
- {
-  super(ao,n);
-  original_line = r;
-  cached_rotline = null;
-  cached_tranline = null;
-  colour = c;
- };
+    protected Color colour;
+    protected FloatRectangle original_line;
 
- public void 		draw(Graphics g)
- {
-  if (cached_rotline == null)
-  {
-   cached_rotline = generateRotatedLine(original_line);
-   cached_tranline = generateTranslatedLine(cached_rotline);
-  }
-  else if (cached_tranline == null)
-   cached_tranline = generateTranslatedLine(cached_rotline);
-   
-  g.setColor(colour);
+    protected FloatRectangle cached_rotline;
+    protected Rectangle cached_tranline;
 
-  g.drawLine(cached_tranline.x,cached_tranline.y,cached_tranline.width,cached_tranline.height);
- };
+    /**
+     * The constructor. Requires the owning <code>aAnimationObject</code>, and a
+     * name. The rectangle describes the two points that make up the line (the
+     * width, height are the x,y of the second point).
+     * 
+     * @param ao
+     *            The graphical object composed from this shape. Animation
+     *            shapes can only belong to one object.
+     * @param n
+     *            The name of the shape.
+     * @param r
+     *            The rectangle representing the line.
+     * @param c
+     *            The colour of the line.
+     */
+    public aAnimationShape_line(aAnimationObject ao, String n,
+	    FloatRectangle r, Color c) {
+	super(ao, n);
+	original_line = r;
+	cached_rotline = null;
+	cached_tranline = null;
+	colour = c;
+    };
 
- public Rectangle 		getBounds()
- {
-  if (cached_rotline == null)
-  {
-   cached_rotline = generateRotatedLine(original_line);
-   cached_tranline = generateTranslatedLine(cached_rotline);
-  }
-  else if (cached_tranline == null)
-   cached_tranline = generateTranslatedLine(cached_rotline);
-  
-  {Rectangle	cr = cached_tranline;
-   
-   return new Rectangle(cr.x,cr.y,cr.width-cr.x,cr.height-cr.y);
-  }
- };
+    public void draw(Graphics g) {
+	if (cached_rotline == null) {
+	    cached_rotline = generateRotatedLine(original_line);
+	    cached_tranline = generateTranslatedLine(cached_rotline);
+	} else if (cached_tranline == null)
+	    cached_tranline = generateTranslatedLine(cached_rotline);
 
- public String 		getType()
- {
-  return "line";
- };
+	g.setColor(colour);
 
- public void 		setLine(FloatRectangle r)
- {
-  original_line = r;
-  
-  cached_rotline = null;
-  cached_tranline = null;
- };
+	g.drawLine(cached_tranline.x, cached_tranline.y, cached_tranline.width,
+		cached_tranline.height);
+    };
 
- 
- public void 		setLocalPosition(float x,float y)
- {
-  super.setLocalPosition(x,y);
-  cached_tranline = null;
- };
- 
- public void 		setLocalRotation(float r)
- {
-  super.setLocalRotation(r);
-  cached_rotline = null;
-  cached_tranline = null;
- };
+    public Rectangle getBounds() {
+	if (cached_rotline == null) {
+	    cached_rotline = generateRotatedLine(original_line);
+	    cached_tranline = generateTranslatedLine(cached_rotline);
+	} else if (cached_tranline == null)
+	    cached_tranline = generateTranslatedLine(cached_rotline);
 
- public static void		setDefaultsForTranslation(jTermTranslation t)
- {
-  aAnimationShape.setDefaultsForTranslation(t);
+	{
+	    Rectangle cr = cached_tranline;
 
-  setStringKeysForTranslation(t,LINE_ATTR_KEY,FloatRectangle.class,FloatRectangle.class);
-  setStringKeysForTranslation(t,COLOUR_ATTR_KEY,Color.class,Color.class);
- };
+	    return new Rectangle(cr.x, cr.y, cr.width - cr.x, cr.height - cr.y);
+	}
+    };
 
- public jTermTranslation	getTermTranslation()
- {
-  return translations;
- };
+    public String getType() {
+	return "line";
+    };
 
- public Hashtable   getAttributes()
- {Hashtable		ht;
- 
-  ht = super.getAttributes();
- 
-  ht.put(LINE_ATTR_KEY,original_line);
-  ht.put(COLOUR_ATTR_KEY,colour);
-  
-  return ht;  
- };
+    public void setLine(FloatRectangle r) {
+	original_line = r;
 
- public void		setAttributes(Hashtable attributes)
- {
-  super.setAttributes(attributes);
- 
-  {FloatRectangle	fr;
-  
-   if ((fr = (FloatRectangle) attributes.get(LINE_ATTR_KEY)) != null)
-    setLine(fr);
-  }
-  {Color	c;
-  
-   if ((c = (Color) attributes.get(COLOUR_ATTR_KEY)) != null)
-    colour = c;
-  }
- };
- 
- public void 		updatePosition()
- {
-  cached_tranline = null;
- };
- 
- public void 		updateRotation()
- {
-  cached_rotline = null;
-  cached_tranline = null;
- };
+	cached_rotline = null;
+	cached_tranline = null;
+    };
 
- public void		updateMagnification()
- {
-  cached_rotline = null;
-  cached_tranline = null;
- };
- 
- protected FloatRectangle 	generateRotatedLine(FloatRectangle fr)
- {float		rot = object.getGlobalRotationFromLocal(rotation_offset);
-  float 	a1 = (float) (Math.atan2(fr.x,fr.y) + rot);
-  float 	d1 = (float) Math.sqrt(fr.x*fr.x + fr.y*fr.y);
-  float 	a2 = (float) (Math.atan2(fr.width,fr.height) + rot);
-  float 	d2 = (float) Math.sqrt(fr.width*fr.width + fr.height*fr.height);
-  
-  return new FloatRectangle((float) Math.sin(a1)*d1,(float) Math.cos(a1)*d1,
-							(float) Math.sin(a2)*d2,(float) Math.cos(a2)*d2);
- };
+    public void setLocalPosition(float x, float y) {
+	super.setLocalPosition(x, y);
+	cached_tranline = null;
+    };
 
- protected Rectangle 	generateTranslatedLine(FloatRectangle fr)
- {Point	p1;
-  Point	p2;
-   
-  p1 = object.getDisplayPointFromLocalPoint(fr.x+x_offset,fr.y+y_offset);
-  p2 = object.getDisplayPointFromLocalPoint(fr.width+x_offset,fr.height+y_offset);
+    public void setLocalRotation(float r) {
+	super.setLocalRotation(r);
+	cached_rotline = null;
+	cached_tranline = null;
+    };
 
-  return new Rectangle(p1.x,p1.y,p2.x,p2.y);
- };
+    public static void setDefaultsForTranslation(jTermTranslation t) {
+	aAnimationShape.setDefaultsForTranslation(t);
+
+	setStringKeysForTranslation(t, LINE_ATTR_KEY, FloatRectangle.class,
+		FloatRectangle.class);
+	setStringKeysForTranslation(t, COLOUR_ATTR_KEY, Color.class,
+		Color.class);
+    };
+
+    public jTermTranslation getTermTranslation() {
+	return translations;
+    };
+
+    public Hashtable getAttributes() {
+	Hashtable ht;
+
+	ht = super.getAttributes();
+
+	ht.put(LINE_ATTR_KEY, original_line);
+	ht.put(COLOUR_ATTR_KEY, colour);
+
+	return ht;
+    };
+
+    public void setAttributes(Hashtable attributes) {
+	super.setAttributes(attributes);
+
+	{
+	    FloatRectangle fr;
+
+	    if ((fr = (FloatRectangle) attributes.get(LINE_ATTR_KEY)) != null)
+		setLine(fr);
+	}
+	{
+	    Color c;
+
+	    if ((c = (Color) attributes.get(COLOUR_ATTR_KEY)) != null)
+		colour = c;
+	}
+    };
+
+    public void updatePosition() {
+	cached_tranline = null;
+    };
+
+    public void updateRotation() {
+	cached_rotline = null;
+	cached_tranline = null;
+    };
+
+    public void updateMagnification() {
+	cached_rotline = null;
+	cached_tranline = null;
+    };
+
+    protected FloatRectangle generateRotatedLine(FloatRectangle fr) {
+	float rot = object.getGlobalRotationFromLocal(rotation_offset);
+	float a1 = (float) (Math.atan2(fr.x, fr.y) + rot);
+	float d1 = (float) Math.sqrt(fr.x * fr.x + fr.y * fr.y);
+	float a2 = (float) (Math.atan2(fr.width, fr.height) + rot);
+	float d2 = (float) Math.sqrt(fr.width * fr.width + fr.height
+		* fr.height);
+
+	return new FloatRectangle((float) Math.sin(a1) * d1,
+		(float) Math.cos(a1) * d1, (float) Math.sin(a2) * d2,
+		(float) Math.cos(a2) * d2);
+    };
+
+    protected Rectangle generateTranslatedLine(FloatRectangle fr) {
+	Point p1;
+	Point p2;
+
+	p1 = object.getDisplayPointFromLocalPoint(fr.x + x_offset, fr.y
+		+ y_offset);
+	p2 = object.getDisplayPointFromLocalPoint(fr.width + x_offset,
+		fr.height + y_offset);
+
+	return new Rectangle(p1.x, p1.y, p2.x, p2.y);
+    };
 };
-

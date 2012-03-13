@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	FSisDirPredicate
 //#########################################################################
@@ -56,17 +56,12 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.*;
 import ubc.cs.JLog.Parser.*;
 
-public class pFSisDirPredicateEntry extends pPredicateEntry
-{
- public 	pFSisDirPredicateEntry()
- {
-  super("fs_isdir",1);
- };
- 
- public iPredicate 		createPredicate(jCompoundTerm cterm)
- {
-  return new jFSisFileOrDir(cterm.elementAt(0), false);
- };
+public class pFSisDirPredicateEntry extends pPredicateEntry {
+    public pFSisDirPredicateEntry() {
+	super("fs_isdir", 1);
+    };
+
+    public iPredicate createPredicate(jCompoundTerm cterm) {
+	return new jFSisFileOrDir(cterm.elementAt(0), false);
+    };
 };
-
-

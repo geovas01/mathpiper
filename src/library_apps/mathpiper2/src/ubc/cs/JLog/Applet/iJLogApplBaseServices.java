@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //##################################################################################
 //	iJLogApplBaseServices
 //##################################################################################
@@ -56,22 +56,26 @@ import java.net.*;
 import java.awt.*;
 import ubc.cs.JLog.Foundation.*;
 
-public interface iJLogApplBaseServices extends iPrologFileServices
-{
+public interface iJLogApplBaseServices extends iPrologFileServices {
 
- public String 		getRequiredCreditInfo();
+    public String getRequiredCreditInfo();
 
- public URL			getURLFromFilename(String name) throws MalformedURLException, IOException;
- public InputStream 	getInputStreamFromFilename(String name) throws MalformedURLException, IOException;
- public String 		getTextFromInputStream(InputStream in_strm) throws IOException;
+    public URL getURLFromFilename(String name) throws MalformedURLException,
+	    IOException;
 
- public String 		getParameter(String name);
- public String 		getSource() throws IOException;
+    public InputStream getInputStreamFromFilename(String name)
+	    throws MalformedURLException, IOException;
 
- public String 		convertStringLinebreaks(String param);
- 
- public Image 		getImage(String name);
- 
- public jPrologServices 	getPrologServices();
+    public String getTextFromInputStream(InputStream in_strm)
+	    throws IOException;
+
+    public String getParameter(String name);
+
+    public String getSource() throws IOException;
+
+    public String convertStringLinebreaks(String param);
+
+    public Image getImage(String name);
+
+    public jPrologServices getPrologServices();
 };
-

@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Animate SetView
 //#########################################################################
- 
+
 package ubc.cs.JLog.Animation;
 
 import java.lang.*;
@@ -54,32 +54,28 @@ import java.util.*;
 import java.awt.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jAnimate_setview extends jAnimate
-{
- public jAnimate_setview(jTerm t)
- {
-  super(t);
- };
-  
- public String 		getName()
- {
-  return "animate<setview>";
- };
- 
- public int 		getNumberArguments()
- {
-  return 2;
- };
- 
- protected jUnaryBuiltinPredicate 		duplicate(jTerm r)
- {
-  return new jAnimate_setview(r); 
- };
- 
- protected void 	action(aAnimationEnvironment ae,jTerm[] terms)
- {int 				v = aAttributeTranslation.convertToInt(terms[1],false);
-  aAnimationObject 	obj = aAttributeTranslation.convertToAnimationObject(terms[0],ae);
-  
-  obj.setView(v);
- };
+public class jAnimate_setview extends jAnimate {
+    public jAnimate_setview(jTerm t) {
+	super(t);
+    };
+
+    public String getName() {
+	return "animate<setview>";
+    };
+
+    public int getNumberArguments() {
+	return 2;
+    };
+
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jAnimate_setview(r);
+    };
+
+    protected void action(aAnimationEnvironment ae, jTerm[] terms) {
+	int v = aAttributeTranslation.convertToInt(terms[1], false);
+	aAnimationObject obj = aAttributeTranslation.convertToAnimationObject(
+		terms[0], ae);
+
+	obj.setView(v);
+    };
 };

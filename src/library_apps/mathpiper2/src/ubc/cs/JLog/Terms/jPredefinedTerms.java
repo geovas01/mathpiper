@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Predefined
 //#########################################################################
- 
+
 package ubc.cs.JLog.Terms;
 
 import java.lang.*;
@@ -56,57 +56,48 @@ import ubc.cs.JLog.Parser.*;
 import ubc.cs.JLog.Terms.Entries.*;
 
 /**
-* Registers the core operator and predicate entries with their corresponding registries for 
-* use by the parser. 
-*  
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public class jPredefinedTerms extends jPredefined
-{ 
- public 	jPredefinedTerms(jPrologServices ps)
- {
-  super(ps,"builtins");
- };
+ * Registers the core operator and predicate entries with their corresponding
+ * registries for use by the parser.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public class jPredefinedTerms extends jPredefined {
+    public jPredefinedTerms(jPrologServices ps) {
+	super(ps, "builtins");
+    };
 
- public void		register()
- {
-  registerOperators();
-  registerPredicates();
- }
- 
- protected void 	registerPredicates()
- {
-  addPredicate(new pGenericPredicateEntry("clause",2,jClause.class)); 
-  addPredicate(new pGenericPredicateEntry("=",2,jUnify.class)); 
-  addPredicate(new pPredicateEntry("true",0)
-						{
-						 public iPredicate createPredicate(jCompoundTerm cterm)
-						 {
-						  return jTrue.TRUE;
-						 };
-						});
-  addPredicate(new pPredicateEntry("fail",0)
-						{
-						 public iPredicate createPredicate(jCompoundTerm cterm)
-						 {
-						  return jFail.FAIL;
-						 };
-						});
+    public void register() {
+	registerOperators();
+	registerPredicates();
+    }
 
-  addPredicate(new pOrPredicateEntry());
-  addPredicate(new pDCGPredicateEntry());
- };
- 
- protected void 	registerOperators()
- {
-  addOperator(new pConsOperatorEntry());
-  addOperator(new pOrOperatorEntry());
-  addOperator(new pIfOperatorEntry());
-  addOperator(new pDCGOperatorEntry());
-  addOperator(new pCommandOperatorEntry());
-  
-  addOperator(new pGenericOperatorEntry("=",pOperatorEntry.XFX,700,jUnify.class));
- }; 
+    protected void registerPredicates() {
+	addPredicate(new pGenericPredicateEntry("clause", 2, jClause.class));
+	addPredicate(new pGenericPredicateEntry("=", 2, jUnify.class));
+	addPredicate(new pPredicateEntry("true", 0) {
+	    public iPredicate createPredicate(jCompoundTerm cterm) {
+		return jTrue.TRUE;
+	    };
+	});
+	addPredicate(new pPredicateEntry("fail", 0) {
+	    public iPredicate createPredicate(jCompoundTerm cterm) {
+		return jFail.FAIL;
+	    };
+	});
+
+	addPredicate(new pOrPredicateEntry());
+	addPredicate(new pDCGPredicateEntry());
+    };
+
+    protected void registerOperators() {
+	addOperator(new pConsOperatorEntry());
+	addOperator(new pOrOperatorEntry());
+	addOperator(new pIfOperatorEntry());
+	addOperator(new pDCGOperatorEntry());
+	addOperator(new pCommandOperatorEntry());
+
+	addOperator(new pGenericOperatorEntry("=", pOperatorEntry.XFX, 700,
+		jUnify.class));
+    };
 };
-

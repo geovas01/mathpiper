@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	OrPredicateEntry
 //#########################################################################
@@ -55,31 +55,28 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Parser.*;
 import ubc.cs.JLog.Terms.*;
 
-public class pOrPredicateEntry extends pPredicateEntry
-{
- public 	pOrPredicateEntry()
- {
-  super(";",2);
- };
- 
- public iPredicate 		createPredicate(jCompoundTerm cterm)
- {jTerm 	l = cterm.elementAt(0);
- 
-  // this handles the if-then-else case
-  if (l instanceof jPredicate && l.getName().equals("->") && ((jPredicate) l).getArity() == 2)
-  {jCompoundTerm 		args,nterm;
- 
-   args = ((jPredicate) l).getArguments();
-   
-   nterm = new jCompoundTerm(3);
-   nterm.addTerm(args.elementAt(0));
-   nterm.addTerm(args.elementAt(1));
-   nterm.addTerm(cterm.elementAt(1));
-   
-   return new jPredicate("->",nterm);
-  }
-  return new jPredicate(";",cterm);
- };
+public class pOrPredicateEntry extends pPredicateEntry {
+    public pOrPredicateEntry() {
+	super(";", 2);
+    };
+
+    public iPredicate createPredicate(jCompoundTerm cterm) {
+	jTerm l = cterm.elementAt(0);
+
+	// this handles the if-then-else case
+	if (l instanceof jPredicate && l.getName().equals("->")
+		&& ((jPredicate) l).getArity() == 2) {
+	    jCompoundTerm args, nterm;
+
+	    args = ((jPredicate) l).getArguments();
+
+	    nterm = new jCompoundTerm(3);
+	    nterm.addTerm(args.elementAt(0));
+	    nterm.addTerm(args.elementAt(1));
+	    nterm.addTerm(cterm.elementAt(1));
+
+	    return new jPredicate("->", nterm);
+	}
+	return new jPredicate(";", cterm);
+    };
 };
-
-

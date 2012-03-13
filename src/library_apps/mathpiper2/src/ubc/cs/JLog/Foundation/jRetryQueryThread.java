@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	jRetryQueryThread
 //#########################################################################
@@ -53,18 +53,16 @@ import java.lang.*;
 import java.util.*;
 
 /**
-* This abstract class specifies the methods needed for 
-* <code>jPrologServiceThread</code> based classes which support user queries.
-*
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-abstract public class jRetryQueryThread extends jPrologServiceThread
-{  
- public 	jRetryQueryThread(jPrologServices ps)
- {
-  super(ps);
- };
+ * This abstract class specifies the methods needed for
+ * <code>jPrologServiceThread</code> based classes which support user queries.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+abstract public class jRetryQueryThread extends jPrologServiceThread {
+    public jRetryQueryThread(jPrologServices ps) {
+	super(ps);
+    };
 
- abstract public void 			retry();
+    abstract public void retry();
 };

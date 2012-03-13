@@ -42,24 +42,32 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	InvalidInputException
 //#########################################################################
- 
+
 package ubc.cs.JLog.Foundation;
 
 import java.lang.*;
 import java.util.*;
 
-public class InvalidInputException extends RuntimeException
-{
- protected boolean 		handled = false;
- 
- public InvalidInputException() {};
- public InvalidInputException(boolean h) {handled = h;};
- public InvalidInputException(boolean h,String s) {super(s);handled = h;};
- 
- public boolean 		isHandled() {return handled;};
-};
+public class InvalidInputException extends RuntimeException {
+    protected boolean handled = false;
 
+    public InvalidInputException() {
+    };
+
+    public InvalidInputException(boolean h) {
+	handled = h;
+    };
+
+    public InvalidInputException(boolean h, String s) {
+	super(s);
+	handled = h;
+    };
+
+    public boolean isHandled() {
+	return handled;
+    };
+};

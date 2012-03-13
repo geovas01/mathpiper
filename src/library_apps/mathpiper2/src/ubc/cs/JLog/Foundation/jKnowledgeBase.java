@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Knowlege Base
 //#########################################################################
@@ -54,132 +54,137 @@ import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
 /**
- * The Prolog rule definitions database. 
- *
- * @author       Glendon Holst
- * @version      %I%, %G%
+ * The Prolog rule definitions database.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
  */
-public class jKnowledgeBase
-{
- protected Hashtable 					definitions;
- 
- public jKnowledgeBase()
- {
-  definitions = new Hashtable();
- };
+public class jKnowledgeBase {
+    protected Hashtable definitions;
 
- /**
-  * Use this method to set all the rules for a particular predicate definition at once.
-  * Unlike the separate <code>addRule</code> methods, this method only updates the rule
-  * definition if it does not already exist.  It is an error if the definition already exists
-  * and belongs to a different library.
-  *
-  * @param rds		The rule definition to add.
-  */
- public void			addRuleDefinitions(jRuleDefinitions rds)
- {jRuleDefinitions		rdsmatch;
-  
-  if ((rdsmatch = getRuleDefinitionsMatch(rds)) == null)
-   definitions.put(getKeyString(rds),rds);
-  else if (!rdsmatch.sameLibrary(rds.getLibrary()))
-  {String		err;
-	 
-   err = "Rules " + rdsmatch.getName() + "/" + rdsmatch.getArity() + 
-			" already exists" + 
-			(rdsmatch.getLibrary() != null ? " in library " + rdsmatch.getLibrary() : "");
-  
-   throw new UnmatchedRuleException(err);
-  }
- };
+    public jKnowledgeBase() {
+	definitions = new Hashtable();
+    };
 
- public void 			addRule(jRule r)
- {jRuleDefinitions 	rds;
-  
-  if ((rds = getRuleDefinitionsMatch(r)) == null)
-   definitions.put(getKeyString(r),rds = new jRuleDefinitions(r.getName(),r.getArity()));
- 
-  rds.addRule(r);
- };
- 
- public void 			addRuleFirst(jRule r)
- {jRuleDefinitions 	rds;
-  
-  if ((rds = getRuleDefinitionsMatch(r)) == null)
-   definitions.put(getKeyString(r),rds = new jRuleDefinitions(r.getName(),r.getArity()));
- 
-  rds.addRuleFirst(r);
- };
- 
- public void 			addRuleLast(jRule r)
- {jRuleDefinitions 	rds;
-  
-  if ((rds = getRuleDefinitionsMatch(r)) == null)
-   definitions.put(getKeyString(r),rds = new jRuleDefinitions(r.getName(),r.getArity()));
- 
-  rds.addRuleLast(r);
- };
- 
- public void 			removeRule(jRule r)
- {jRuleDefinitions 	rds;
+    /**
+     * Use this method to set all the rules for a particular predicate
+     * definition at once. Unlike the separate <code>addRule</code> methods,
+     * this method only updates the rule definition if it does not already
+     * exist. It is an error if the definition already exists and belongs to a
+     * different library.
+     * 
+     * @param rds
+     *            The rule definition to add.
+     */
+    public void addRuleDefinitions(jRuleDefinitions rds) {
+	jRuleDefinitions rdsmatch;
 
-  if ((rds = getRuleDefinitionsMatch(r)) != null)
-   rds.removeRule(r);
- };
- 
- public void 			clearRules()
- {
-  definitions = new Hashtable();
- };
- 
- public Enumeration 	enumDefinitions()
- {
-  return definitions.elements();
- };
+	if ((rdsmatch = getRuleDefinitionsMatch(rds)) == null)
+	    definitions.put(getKeyString(rds), rds);
+	else if (!rdsmatch.sameLibrary(rds.getLibrary())) {
+	    String err;
 
- /**
-  * Convert a set of rules matching the given name and arity to dynamic rules.
-  *
-  * @param r  		The name and arity of the rule set to convert.
-  */
- public synchronized void 	makeRuleDefinitionDynamic(iNameArity r)
- {jRuleDefinitions 		rds;
- 
-  rds = getRuleDefinitionsMatch(r);
-  
-  if (rds == null)
-   definitions.put(getKeyString(r),new jDynamicRuleDefinitions(r.getName(),r.getArity()));
-  else if (!(rds instanceof jDynamicRuleDefinitions))
-   definitions.put(getKeyString(r),new jDynamicRuleDefinitions(rds));
- };
- 
- /**
-  * Access the set of rules matching the given name and arity.
-  *
-  * @param r  		The name and arity of the rule set to retrieve.
-  *
-  * @return  		The <code>jRuleDefinitions</code> rule set, or <code>null</code> if it
-  *					doesn't exist.
-  */
- public jRuleDefinitions 	getRuleDefinitionsMatch(iNameArity r)
- {
-  return (jRuleDefinitions) definitions.get(getKeyString(r));
- };
- 
- public void 			consult()
- {Enumeration 		e;
-  jRuleDefinitions 	rds;
+	    err = "Rules "
+		    + rdsmatch.getName()
+		    + "/"
+		    + rdsmatch.getArity()
+		    + " already exists"
+		    + (rdsmatch.getLibrary() != null ? " in library "
+			    + rdsmatch.getLibrary() : "");
 
-  e = enumDefinitions();
-  while (e.hasMoreElements())
-  {
-   rds = (jRuleDefinitions) e.nextElement();
-   rds.consult(this); 
-  }
- };
- 
- protected String		getKeyString(iNameArity r)
- {
-  return r.getName() + "/" + Integer.toString(r.getArity());
- }; 
+	    throw new UnmatchedRuleException(err);
+	}
+    };
+
+    public void addRule(jRule r) {
+	jRuleDefinitions rds;
+
+	if ((rds = getRuleDefinitionsMatch(r)) == null)
+	    definitions.put(getKeyString(r),
+		    rds = new jRuleDefinitions(r.getName(), r.getArity()));
+
+	rds.addRule(r);
+    };
+
+    public void addRuleFirst(jRule r) {
+	jRuleDefinitions rds;
+
+	if ((rds = getRuleDefinitionsMatch(r)) == null)
+	    definitions.put(getKeyString(r),
+		    rds = new jRuleDefinitions(r.getName(), r.getArity()));
+
+	rds.addRuleFirst(r);
+    };
+
+    public void addRuleLast(jRule r) {
+	jRuleDefinitions rds;
+
+	if ((rds = getRuleDefinitionsMatch(r)) == null)
+	    definitions.put(getKeyString(r),
+		    rds = new jRuleDefinitions(r.getName(), r.getArity()));
+
+	rds.addRuleLast(r);
+    };
+
+    public void removeRule(jRule r) {
+	jRuleDefinitions rds;
+
+	if ((rds = getRuleDefinitionsMatch(r)) != null)
+	    rds.removeRule(r);
+    };
+
+    public void clearRules() {
+	definitions = new Hashtable();
+    };
+
+    public Enumeration enumDefinitions() {
+	return definitions.elements();
+    };
+
+    /**
+     * Convert a set of rules matching the given name and arity to dynamic
+     * rules.
+     * 
+     * @param r
+     *            The name and arity of the rule set to convert.
+     */
+    public synchronized void makeRuleDefinitionDynamic(iNameArity r) {
+	jRuleDefinitions rds;
+
+	rds = getRuleDefinitionsMatch(r);
+
+	if (rds == null)
+	    definitions.put(getKeyString(r),
+		    new jDynamicRuleDefinitions(r.getName(), r.getArity()));
+	else if (!(rds instanceof jDynamicRuleDefinitions))
+	    definitions.put(getKeyString(r), new jDynamicRuleDefinitions(rds));
+    };
+
+    /**
+     * Access the set of rules matching the given name and arity.
+     * 
+     * @param r
+     *            The name and arity of the rule set to retrieve.
+     * 
+     * @return The <code>jRuleDefinitions</code> rule set, or <code>null</code>
+     *         if it doesn't exist.
+     */
+    public jRuleDefinitions getRuleDefinitionsMatch(iNameArity r) {
+	return (jRuleDefinitions) definitions.get(getKeyString(r));
+    };
+
+    public void consult() {
+	Enumeration e;
+	jRuleDefinitions rds;
+
+	e = enumDefinitions();
+	while (e.hasMoreElements()) {
+	    rds = (jRuleDefinitions) e.nextElement();
+	    rds.consult(this);
+	}
+    };
+
+    protected String getKeyString(iNameArity r) {
+	return r.getName() + "/" + Integer.toString(r.getArity());
+    };
 };
-

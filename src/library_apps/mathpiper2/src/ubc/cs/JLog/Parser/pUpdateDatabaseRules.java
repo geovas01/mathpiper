@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	pUpdateDatabaseRules
 //#########################################################################
@@ -53,37 +53,34 @@ import java.lang.*;
 import java.util.*;
 import ubc.cs.JLog.Foundation.*;
 
-public class pUpdateDatabaseRules
-{
- protected Hashtable 			rules;
- protected jKnowledgeBase 		database;
- 
- public pUpdateDatabaseRules(jKnowledgeBase kb)
- {
-  super();
-  rules = new Hashtable();
-  database = kb;
- };
- 
- public void 			addRule(jRule r)
- {jRuleDefinitions 		rd;
- 
-  rd = database.getRuleDefinitionsMatch(r);
-  
-  if (rd == null) // no similar rules in database
-  {
-   database.addRule(r);
-   rules.put(database.getRuleDefinitionsMatch(r),r);
-  }
-  else if (rules.containsKey(rd)) // similar rule was previously added
-  {
-   database.addRule(r);
-  }
-  else // similar rules exist, but this is first rule of this type that we have added
-  {
-   rd.clearRules();
-   rules.put(rd,r);
-   database.addRule(r);
-  }
- };
+public class pUpdateDatabaseRules {
+    protected Hashtable rules;
+    protected jKnowledgeBase database;
+
+    public pUpdateDatabaseRules(jKnowledgeBase kb) {
+	super();
+	rules = new Hashtable();
+	database = kb;
+    };
+
+    public void addRule(jRule r) {
+	jRuleDefinitions rd;
+
+	rd = database.getRuleDefinitionsMatch(r);
+
+	if (rd == null) // no similar rules in database
+	{
+	    database.addRule(r);
+	    rules.put(database.getRuleDefinitionsMatch(r), r);
+	} else if (rules.containsKey(rd)) // similar rule was previously added
+	{
+	    database.addRule(r);
+	} else // similar rules exist, but this is first rule of this type that
+	       // we have added
+	{
+	    rd.clearRules();
+	    rules.put(rd, r);
+	    database.addRule(r);
+	}
+    };
 };

@@ -42,42 +42,35 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Plus
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
 import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jPlus extends jUnaryArithmetic
-{
- public 	jPlus(jTerm r)
- {
-  super(r);
- };
- 
- public String 		getName()
- {
-  return "+";
- };  
+public class jPlus extends jUnaryArithmetic {
+    public jPlus(jTerm r) {
+	super(r);
+    };
 
- protected jUnaryBuiltinPredicate 	duplicate(jTerm r)
- {
-  return new jPlus(r);
- };
- 
- protected int 		operatorInt(int r)
- {
-  return r;
- };
- 
- protected float 	operatorReal(float r)
- {
-  return r;
- };
+    public String getName() {
+	return "+";
+    };
+
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jPlus(r);
+    };
+
+    protected int operatorInt(int r) {
+	return r;
+    };
+
+    protected float operatorReal(float r) {
+	return r;
+    };
 };
-

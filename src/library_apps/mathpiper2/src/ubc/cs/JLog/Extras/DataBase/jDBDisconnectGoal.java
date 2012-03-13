@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	DBDisconnectGoal
 //#########################################################################
- 
+
 package ubc.cs.JLog.Extras.DataBase;
 
 import java.sql.*;
@@ -54,42 +54,36 @@ import java.util.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.*;
 
-public class jDBDisconnectGoal extends jGoal 
-{
- public 	jDBDisconnectGoal() 
- { 
- };
+public class jDBDisconnectGoal extends jGoal {
+    public jDBDisconnectGoal() {
+    };
 
- public boolean prove (iGoalStack goals, iGoalStack proved) 
- {
-  jDBConnect.closeConnection();
- 
-  proved.push(this);
-  return true;
- };
+    public boolean prove(iGoalStack goals, iGoalStack proved) {
+	jDBConnect.closeConnection();
 
- public boolean 	retry(iGoalStack goals,iGoalStack proved)
- {
-  goals.push(this); // the remove that follows may need a node to remove or retry
-  return false;
- }; 
+	proved.push(this);
+	return true;
+    };
 
- public String 		getName() 
- {
-  return "db_disconnect";
- };
- 
- public int 		getArity() 
- {
-  return 0;
- };
- 
- public String 		toString()
- {StringBuffer 	sb = new StringBuffer();
-   
-  sb.append(getName()+"/"+String.valueOf(getArity()));
-  
-  return sb.toString();
- };
+    public boolean retry(iGoalStack goals, iGoalStack proved) {
+	goals.push(this); // the remove that follows may need a node to remove
+			  // or retry
+	return false;
+    };
+
+    public String getName() {
+	return "db_disconnect";
+    };
+
+    public int getArity() {
+	return 0;
+    };
+
+    public String toString() {
+	StringBuffer sb = new StringBuffer();
+
+	sb.append(getName() + "/" + String.valueOf(getArity()));
+
+	return sb.toString();
+    };
 };
-

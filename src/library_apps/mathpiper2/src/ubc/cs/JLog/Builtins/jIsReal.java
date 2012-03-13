@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	IsReal
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -56,62 +56,53 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
 // this predicate produces real values and performs like meta-logical float test.
-public class jIsReal extends jUnaryArithmetic
-{
- public 	jIsReal(jTerm r)
- {
-  super(r);
- };
- 
- public String 		getName()
- {
-  return "float";
- };  
+public class jIsReal extends jUnaryArithmetic {
+    public jIsReal(jTerm r) {
+	super(r);
+    };
 
- public  jTerm 		getValue()
- {jTerm 		r;
-  
-  r = rhs.getValue();
+    public String getName() {
+	return "float";
+    };
 
-  if (r.type == TYPE_INTEGER)
-   return new jReal((float) ((jInteger) r).getIntegerValue());
-  else if (r.type == TYPE_REAL)
-   return r;
-   
-  throw new InvalidArithmeticOperationException();
- };
+    public jTerm getValue() {
+	jTerm r;
 
- protected jUnaryBuiltinPredicate 	duplicate(jTerm r)
- {
-  return new jIsReal(r);
- };
- 
- protected int 		operatorInt(int r)
- {
-  return r;
- };
- 
- protected float 	operatorReal(float r)
- {
-  return r;
- };
- 
- public boolean 	prove(jUnaryArithmeticGoal ag)
- {jTerm 	r;
-  
-  r = ag.rhs.getTerm();
-  
-  return (r.type == TYPE_REAL);
- };
+	r = rhs.getValue();
 
- public void 		addGoals(jGoal g,jVariable[] vars,iGoalStack goals)
- {
-  goals.push(new jUnaryArithmeticGoal(this,rhs.duplicate(vars)));
- }; 
+	if (r.type == TYPE_INTEGER)
+	    return new jReal((float) ((jInteger) r).getIntegerValue());
+	else if (r.type == TYPE_REAL)
+	    return r;
 
- public void 		addGoals(jGoal g,iGoalStack goals)
- {
-  goals.push(new jUnaryArithmeticGoal(this,rhs));
- }; 
+	throw new InvalidArithmeticOperationException();
+    };
+
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jIsReal(r);
+    };
+
+    protected int operatorInt(int r) {
+	return r;
+    };
+
+    protected float operatorReal(float r) {
+	return r;
+    };
+
+    public boolean prove(jUnaryArithmeticGoal ag) {
+	jTerm r;
+
+	r = ag.rhs.getTerm();
+
+	return (r.type == TYPE_REAL);
+    };
+
+    public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+	goals.push(new jUnaryArithmeticGoal(this, rhs.duplicate(vars)));
+    };
+
+    public void addGoals(jGoal g, iGoalStack goals) {
+	goals.push(new jUnaryArithmeticGoal(this, rhs));
+    };
 };
-

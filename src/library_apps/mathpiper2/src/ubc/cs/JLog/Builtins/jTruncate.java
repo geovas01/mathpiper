@@ -42,55 +42,48 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Truncate
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
 import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jTruncate extends jUnaryArithmetic
-{
- public 	jTruncate(jTerm r)
- {
-  super(r);
- };
- 
- public String 		getName()
- {
-  return "truncate";
- };  
+public class jTruncate extends jUnaryArithmetic {
+    public jTruncate(jTerm r) {
+	super(r);
+    };
 
- protected jUnaryBuiltinPredicate 	duplicate(jTerm r)
- {
-  return new jTruncate(r);
- };
+    public String getName() {
+	return "truncate";
+    };
 
- public  jTerm 		getValue()
- {jTerm 		r;
-  
-  r = rhs.getValue();
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jTruncate(r);
+    };
 
-  if (r.type == TYPE_INTEGER)
-   return new jInteger(operatorInt(((jInteger) r).getIntegerValue()));
-  else if (r.type == TYPE_REAL)
-   return new jInteger(operatorInt((int) ((jReal) r).getRealValue()));
-   
-  throw new InvalidArithmeticOperationException();
- };
- 
- protected int 		operatorInt(int r)
- {
-  return r;
- };
- 
- protected float 	operatorReal(float r)
- {
-  return (float) ((int) r);
- };
+    public jTerm getValue() {
+	jTerm r;
+
+	r = rhs.getValue();
+
+	if (r.type == TYPE_INTEGER)
+	    return new jInteger(operatorInt(((jInteger) r).getIntegerValue()));
+	else if (r.type == TYPE_REAL)
+	    return new jInteger(operatorInt((int) ((jReal) r).getRealValue()));
+
+	throw new InvalidArithmeticOperationException();
+    };
+
+    protected int operatorInt(int r) {
+	return r;
+    };
+
+    protected float operatorReal(float r) {
+	return (float) ((int) r);
+    };
 };
-

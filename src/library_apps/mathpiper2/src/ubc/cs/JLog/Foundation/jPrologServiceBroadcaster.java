@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	jPrologServiceBroadcaster
 //#########################################################################
@@ -53,89 +53,88 @@ import java.lang.*;
 import java.util.*;
 
 /**
-* The boadcasting component of the Observer pattern. Interested 
-* <code>jPrologServiceListener</code> instances register, and are
-* notified of any broadcast events.
-*
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public class jPrologServiceBroadcaster
-{
- protected Vector 		listeners;
- protected Vector 		cached_listeners = null;
- 
- public 	jPrologServiceBroadcaster()
- {
-  listeners = new Vector();
- };
+ * The boadcasting component of the Observer pattern. Interested
+ * <code>jPrologServiceListener</code> instances register, and are notified of
+ * any broadcast events.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public class jPrologServiceBroadcaster {
+    protected Vector listeners;
+    protected Vector cached_listeners = null;
 
- /**
-  * Register provided listener as an interested observer to receive broadcast events.
-  * Events are ordered by their priority.
-  *
-  * @param l 		The listener to register.
-  */
- public synchronized void 		addListener(jPrologServiceListener l)
- {
-  if (!listeners.contains(l))
-  {int 	i, max = listeners.size();
-   
-   for (i = 0; i < max; i++)
-   {jPrologServiceListener 	e = (jPrologServiceListener) listeners.elementAt(i);
+    public jPrologServiceBroadcaster() {
+	listeners = new Vector();
+    };
 
-    if (l.getPriority() <= e.getPriority())
-    {
-     listeners.insertElementAt(l,i);
-     cached_listeners = null;
-     return;
-    } 
-   }
-   
-   listeners.insertElementAt(l,max);
-   cached_listeners = null;
-  }
- };
- 
- /**
-  * Remove specified listener from broadcast receipients (listener is no longer 
-  * interested).
-  *
-  * @param l 		The listener to remove.
-  */
- public synchronized void 		removeListener(jPrologServiceListener l)
- {
-  listeners.removeElement(l);
-  cached_listeners = null;
- };
- 
- /**
-  * Sends provided event to all registered <code>jPrologServiceListener</code>s.
-  *
-  * @param event 	The event to send.
-  */
- public synchronized void 		broadcastEvent(jPrologServiceEvent event)
- {Enumeration 	e = getCachedListeners().elements();
-  
-  while (e.hasMoreElements())
-   ((jPrologServiceListener) e.nextElement()).handleEvent(event);
- };
- 
- public synchronized Vector 		getCachedListeners()
- {
-  if (cached_listeners != null)
-   return cached_listeners;
-  else
-  {Enumeration 	e;
- 
-   cached_listeners = new Vector(listeners.size());
+    /**
+     * Register provided listener as an interested observer to receive broadcast
+     * events. Events are ordered by their priority.
+     * 
+     * @param l
+     *            The listener to register.
+     */
+    public synchronized void addListener(jPrologServiceListener l) {
+	if (!listeners.contains(l)) {
+	    int i, max = listeners.size();
 
-   e = listeners.elements();
-  
-   while (e.hasMoreElements())
-    cached_listeners.addElement(e.nextElement());
-    
-   return cached_listeners; 
-  }
- };
+	    for (i = 0; i < max; i++) {
+		jPrologServiceListener e = (jPrologServiceListener) listeners
+			.elementAt(i);
+
+		if (l.getPriority() <= e.getPriority()) {
+		    listeners.insertElementAt(l, i);
+		    cached_listeners = null;
+		    return;
+		}
+	    }
+
+	    listeners.insertElementAt(l, max);
+	    cached_listeners = null;
+	}
+    };
+
+    /**
+     * Remove specified listener from broadcast receipients (listener is no
+     * longer interested).
+     * 
+     * @param l
+     *            The listener to remove.
+     */
+    public synchronized void removeListener(jPrologServiceListener l) {
+	listeners.removeElement(l);
+	cached_listeners = null;
+    };
+
+    /**
+     * Sends provided event to all registered
+     * <code>jPrologServiceListener</code>s.
+     * 
+     * @param event
+     *            The event to send.
+     */
+    public synchronized void broadcastEvent(jPrologServiceEvent event) {
+	Enumeration e = getCachedListeners().elements();
+
+	while (e.hasMoreElements())
+	    ((jPrologServiceListener) e.nextElement()).handleEvent(event);
+    };
+
+    public synchronized Vector getCachedListeners() {
+	if (cached_listeners != null)
+	    return cached_listeners;
+	else {
+	    Enumeration e;
+
+	    cached_listeners = new Vector(listeners.size());
+
+	    e = listeners.elements();
+
+	    while (e.hasMoreElements())
+		cached_listeners.addElement(e.nextElement());
+
+	    return cached_listeners;
+	}
+    };
 };

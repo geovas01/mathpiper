@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //##################################################################################
 //	gQueryWindow
 //##################################################################################
@@ -55,37 +55,32 @@ import java.awt.*;
 import java.awt.event.*;
 import ubc.cs.JLog.Foundation.*;
 
-public class gQueryWindow extends gWindowBase
-{
- gQueryWindow(gJLogApplicationBase b,String default_source_text,boolean visible)
- {
-  super(b);
- 
-  setLayout(new GridLayout());
-  add(new gQueryPanel(parent.getPrologServices(),default_source_text,false));
-  pack();
+public class gQueryWindow extends gWindowBase {
+    gQueryWindow(gJLogApplicationBase b, String default_source_text,
+	    boolean visible) {
+	super(b);
 
-  setSize(600, 400);
-  setLocation(20,40);
+	setLayout(new GridLayout());
+	add(new gQueryPanel(parent.getPrologServices(), default_source_text,
+		false));
+	pack();
 
-  setTitle("JLog - Query");
-  setVisible(visible);
- };
+	setSize(600, 400);
+	setLocation(20, 40);
 
- public boolean 		useMenuItem(MenuItem mi)
- {
-  if (mi.getActionCommand() == parent.MENU_CLOSE)
-  {
-   mi.addActionListener(new ActionListener() 
-        {
-         public void actionPerformed (ActionEvent e) 
-         {
-          close();
-         }
-        }
-       );  
-   return true;
-  }
-  return false;
- };
+	setTitle("JLog - Query");
+	setVisible(visible);
+    };
+
+    public boolean useMenuItem(MenuItem mi) {
+	if (mi.getActionCommand() == parent.MENU_CLOSE) {
+	    mi.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		    close();
+		}
+	    });
+	    return true;
+	}
+	return false;
+    };
 };

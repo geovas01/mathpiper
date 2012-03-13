@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Name
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -55,146 +55,129 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
-public class jName extends jBinaryBuiltinPredicate
-{
- protected boolean 		prefer_atom;
- 
- public jName(jTerm l,jTerm r)
- {
-  this(l,r,false);
- };
+public class jName extends jBinaryBuiltinPredicate {
+    protected boolean prefer_atom;
 
- public jName(jTerm l,jTerm r,boolean pa)
- {
-  super(l,r,TYPE_BUILTINPREDICATE);
-  prefer_atom = pa; 
- };
-  
- public String 		getName()
- {
-  return "name";
- };
+    public jName(jTerm l, jTerm r) {
+	this(l, r, false);
+    };
 
- public boolean 	prove(jNameGoal ng)
- {jTerm 	l,r;
-  
-  l = ng.lhs.getTerm();
-  r = ng.rhs.getTerm();
-  
-  if ((l instanceof iPredicate && ((iPredicate) l).getArity() == 0) || 
-		(l.type == TYPE_INTEGER) || (l.type == TYPE_REAL))
-  {String 		s;
-   jList 		il;
-   
-   if (l.type == TYPE_REAL)
-    s = String.valueOf(((jReal) l).getRealValue());
-   if (l.type == TYPE_INTEGER)
-    s = String.valueOf(((jInteger) l).getIntegerValue());
-   else
-    s = l.getName();
+    public jName(jTerm l, jTerm r, boolean pa) {
+	super(l, r, TYPE_BUILTINPREDICATE);
+	prefer_atom = pa;
+    };
 
-   il = convertStringToList(s);
-   return r.unify(il,ng.unified);  
-  }
-  else if (r instanceof jList)
-  {String 		s;
-   jTerm 		t;
-   
-   s = convertListToString((jList) r);
-   t = convertStringToTerm(s,ng.prefer_atom);
-   
-   return l.unify(t,ng.unified);
-  }
-  else
-   throw new InvalidNameArgumentException();
- };
+    public String getName() {
+	return "name";
+    };
 
- protected jTerm 	convertStringToTerm(String s,boolean pa)
- {
-  if (pa)
-   return new jAtom(s);
-  
-  // try to create an integer first
-  try
-  {
-   return new jInteger(Integer.parseInt(s));
-  }
-  catch (NumberFormatException e)
-  {
-   // do nothing
-  }
-  // try to create a real next
-  try
-  {
-   return new jReal(Float.parseFloat(s));
-  }
-  catch (NumberFormatException e)
-  {
-   return new jAtom(s);
-  }
- };
+    public boolean prove(jNameGoal ng) {
+	jTerm l, r;
 
- protected String 	convertListToString(jList i)
- {StringBuffer 		sb = new StringBuffer();
-  jTerm 			t = i;
-  
-  while (t.type == TYPE_LIST)
-  {jListPair 	l = (jListPair) t;
-   jTerm 	it;
-  
-   it = l.getHead().getTerm();
-   
-   if (it.type != TYPE_INTEGER)
-    throw new InvalidNameArgumentException();
-    
-   sb.append((char) ((jInteger) it).getIntegerValue());
-   
-   t = l.getTail().getTerm();
-  }
-    
-  return sb.toString();
- }; 	
- 
- protected jList 	convertStringToList(String s)
- {int 		i,max = s.length();
-  jList 	head = null;
-  jListPair 	prev = null;
-  
-  for (i = 0; i < max; i++)
-  {jListPair 	next;
-  
-   next = new jListPair(new jInteger((int) s.charAt(i)),null);
-   
-   if (prev == null)
-    head = next;
-   else
-    prev.setTail(next);
-    
-   prev = next;
-  }
-  
-  if (prev == null)
-   head = jNullList.NULL_LIST;
-  else
-   prev.setTail(jNullList.NULL_LIST);
-    
-  return head;
- }; 	
- 
- public void 		addGoals(jGoal g,jVariable[] vars,iGoalStack goals)
- {
-  goals.push(new jNameGoal(this,lhs.duplicate(vars),rhs.duplicate(vars),prefer_atom));
- };
+	l = ng.lhs.getTerm();
+	r = ng.rhs.getTerm();
 
- public void 		addGoals(jGoal g,iGoalStack goals)
- {
-  goals.push(new jNameGoal(this,lhs,rhs,prefer_atom));
- };
+	if ((l instanceof iPredicate && ((iPredicate) l).getArity() == 0)
+		|| (l.type == TYPE_INTEGER) || (l.type == TYPE_REAL)) {
+	    String s;
+	    jList il;
 
- protected jBinaryBuiltinPredicate 		duplicate(jTerm lhs,jTerm rhs)
- {
-  return new jName(lhs,rhs,prefer_atom); 
- };
+	    if (l.type == TYPE_REAL)
+		s = String.valueOf(((jReal) l).getRealValue());
+	    if (l.type == TYPE_INTEGER)
+		s = String.valueOf(((jInteger) l).getIntegerValue());
+	    else
+		s = l.getName();
+
+	    il = convertStringToList(s);
+	    return r.unify(il, ng.unified);
+	} else if (r instanceof jList) {
+	    String s;
+	    jTerm t;
+
+	    s = convertListToString((jList) r);
+	    t = convertStringToTerm(s, ng.prefer_atom);
+
+	    return l.unify(t, ng.unified);
+	} else
+	    throw new InvalidNameArgumentException();
+    };
+
+    protected jTerm convertStringToTerm(String s, boolean pa) {
+	if (pa)
+	    return new jAtom(s);
+
+	// try to create an integer first
+	try {
+	    return new jInteger(Integer.parseInt(s));
+	} catch (NumberFormatException e) {
+	    // do nothing
+	}
+	// try to create a real next
+	try {
+	    return new jReal(Float.parseFloat(s));
+	} catch (NumberFormatException e) {
+	    return new jAtom(s);
+	}
+    };
+
+    protected String convertListToString(jList i) {
+	StringBuffer sb = new StringBuffer();
+	jTerm t = i;
+
+	while (t.type == TYPE_LIST) {
+	    jListPair l = (jListPair) t;
+	    jTerm it;
+
+	    it = l.getHead().getTerm();
+
+	    if (it.type != TYPE_INTEGER)
+		throw new InvalidNameArgumentException();
+
+	    sb.append((char) ((jInteger) it).getIntegerValue());
+
+	    t = l.getTail().getTerm();
+	}
+
+	return sb.toString();
+    };
+
+    protected jList convertStringToList(String s) {
+	int i, max = s.length();
+	jList head = null;
+	jListPair prev = null;
+
+	for (i = 0; i < max; i++) {
+	    jListPair next;
+
+	    next = new jListPair(new jInteger((int) s.charAt(i)), null);
+
+	    if (prev == null)
+		head = next;
+	    else
+		prev.setTail(next);
+
+	    prev = next;
+	}
+
+	if (prev == null)
+	    head = jNullList.NULL_LIST;
+	else
+	    prev.setTail(jNullList.NULL_LIST);
+
+	return head;
+    };
+
+    public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+	goals.push(new jNameGoal(this, lhs.duplicate(vars),
+		rhs.duplicate(vars), prefer_atom));
+    };
+
+    public void addGoals(jGoal g, iGoalStack goals) {
+	goals.push(new jNameGoal(this, lhs, rhs, prefer_atom));
+    };
+
+    protected jBinaryBuiltinPredicate duplicate(jTerm lhs, jTerm rhs) {
+	return new jName(lhs, rhs, prefer_atom);
+    };
 };
-
- 

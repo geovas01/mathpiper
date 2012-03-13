@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	jDebugRetryGoalEvent
 //#########################################################################
@@ -52,18 +52,14 @@ package ubc.cs.JLog.Foundation;
 import java.lang.*;
 import java.util.*;
 
-public class jDebugRetryGoalEvent extends jPrologServiceEvent
-{
- protected jGoal 	goal;
- 
- public 	jDebugRetryGoalEvent(jGoal g)
- {
-  goal = g;
- };
+public class jDebugRetryGoalEvent extends jPrologServiceEvent {
+    protected jGoal goal;
 
- public jGoal 		getGoal()
- {
-  return goal;
- };
+    public jDebugRetryGoalEvent(jGoal g) {
+	goal = g;
+    };
+
+    public jGoal getGoal() {
+	return goal;
+    };
 };
-

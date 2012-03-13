@@ -42,44 +42,37 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Logarithm2
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
 import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jLog2 extends jRealUnaryArithmetic
-{
- protected final static double		log_base = Math.log(2);
- 
- public 	jLog2(jTerm r)
- {
-  super(r);
- };
- 
- public String 		getName()
- {
-  return "log2";
- };  
+public class jLog2 extends jRealUnaryArithmetic {
+    protected final static double log_base = Math.log(2);
 
- protected jUnaryBuiltinPredicate 	duplicate(jTerm r)
- {
-  return new jLog2(r);
- };
- 
- protected int 		operatorInt(int r)
- {
-  throw new InvalidArithmeticOperationException();
- };
- 
- protected float 	operatorReal(float r)
- {
-  return (float) (Math.log(r) / log_base);
- };
+    public jLog2(jTerm r) {
+	super(r);
+    };
+
+    public String getName() {
+	return "log2";
+    };
+
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jLog2(r);
+    };
+
+    protected int operatorInt(int r) {
+	throw new InvalidArithmeticOperationException();
+    };
+
+    protected float operatorReal(float r) {
+	return (float) (Math.log(r) / log_base);
+    };
 };
-

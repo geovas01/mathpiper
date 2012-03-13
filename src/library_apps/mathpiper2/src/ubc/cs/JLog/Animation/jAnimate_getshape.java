@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Animate GetShape
 //#########################################################################
- 
+
 package ubc.cs.JLog.Animation;
 
 import java.lang.*;
@@ -55,50 +55,45 @@ import java.awt.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jAnimate_getshape extends jAnimate
-{
- public jAnimate_getshape(jTerm t)
- {
-  super(t);
- };
-  
- public String 		getName()
- {
-  return "animate<getshape>";
- };
- 
- public int 		getNumberArguments()
- {
-  return 2;
- };
- 
- protected jUnaryBuiltinPredicate 		duplicate(jTerm r)
- {
-  return new jAnimate_getshape(r); 
- };
- 
- public boolean 	prove(jAnimateGoal ag,aAnimationEnvironment ae)
- {
-  return action(ae,aAttributeTranslation.convertToTerms(ag.term,getNumberArguments()),
-				ag.unified);
- };
+public class jAnimate_getshape extends jAnimate {
+    public jAnimate_getshape(jTerm t) {
+	super(t);
+    };
 
- protected boolean 	action(aAnimationEnvironment ae,jTerm[] terms,jUnifiedVector uv)
- {aAnimationObject 	obj = aAttributeTranslation.convertToAnimationObject(terms[0],ae);
-  jTerm[] 			shapeinfo = aAttributeTranslation.convertToTerms(terms[1],2);
-  String 			shpname = aAttributeTranslation.convertToString(shapeinfo[0]);
-  jTerm[]			shaperef = aAttributeTranslation.convertToTerms(shapeinfo[1],1);
-  aAnimationShape 	shape;
-  
-  if ((shape = obj.getShape(shpname)) != null)
-   return shaperef[0].unify(new jObject(shape),uv); 
-  else
-   return false;
- };
+    public String getName() {
+	return "animate<getshape>";
+    };
 
- protected void 	action(aAnimationEnvironment ae,jTerm[] terms)
- {
-  // do nothing
- };
+    public int getNumberArguments() {
+	return 2;
+    };
+
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jAnimate_getshape(r);
+    };
+
+    public boolean prove(jAnimateGoal ag, aAnimationEnvironment ae) {
+	return action(ae, aAttributeTranslation.convertToTerms(ag.term,
+		getNumberArguments()), ag.unified);
+    };
+
+    protected boolean action(aAnimationEnvironment ae, jTerm[] terms,
+	    jUnifiedVector uv) {
+	aAnimationObject obj = aAttributeTranslation.convertToAnimationObject(
+		terms[0], ae);
+	jTerm[] shapeinfo = aAttributeTranslation.convertToTerms(terms[1], 2);
+	String shpname = aAttributeTranslation.convertToString(shapeinfo[0]);
+	jTerm[] shaperef = aAttributeTranslation
+		.convertToTerms(shapeinfo[1], 1);
+	aAnimationShape shape;
+
+	if ((shape = obj.getShape(shpname)) != null)
+	    return shaperef[0].unify(new jObject(shape), uv);
+	else
+	    return false;
+    };
+
+    protected void action(aAnimationEnvironment ae, jTerm[] terms) {
+	// do nothing
+    };
 };
-

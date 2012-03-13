@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Name
 //#########################################################################
@@ -54,17 +54,15 @@ import java.util.*;
 
 /**
  * This is the base interface for classes which have a name.
- *  
- * @author       Glendon Holst
- * @version      %I%, %G%
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
  */
-public interface iName
-{
- /**
-  * Returns the name of this instance.
-  *
-  * @return 		<code>String</code> containing name of this instance.
-  */
- public String 		getName();
+public interface iName {
+    /**
+     * Returns the name of this instance.
+     * 
+     * @return <code>String</code> containing name of this instance.
+     */
+    public String getName();
 };
-

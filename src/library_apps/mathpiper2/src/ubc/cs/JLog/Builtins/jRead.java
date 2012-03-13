@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Read
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -55,37 +55,28 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
-public class jRead extends jUnaryBuiltinPredicate
-{
- public jRead(jTerm t)
- {
-  super(t,TYPE_BUILTINPREDICATE);
- };
-  
- public String 		getName()
- {
-  return "read";
- };
+public class jRead extends jUnaryBuiltinPredicate {
+    public jRead(jTerm t) {
+	super(t, TYPE_BUILTINPREDICATE);
+    };
 
- public boolean 	prove(jReadGoal rg,jTerm in)
- {
-  return rg.term.unify(in,rg.unified);
- };
- 
- public void 		addGoals(jGoal g,jVariable[] vars,iGoalStack goals)
- {
-  goals.push(new jReadGoal(this,rhs.duplicate(vars)));
- };
+    public String getName() {
+	return "read";
+    };
 
- public void 		addGoals(jGoal g,iGoalStack goals)
- {
-  goals.push(new jReadGoal(this,rhs));
- };
+    public boolean prove(jReadGoal rg, jTerm in) {
+	return rg.term.unify(in, rg.unified);
+    };
 
- protected jUnaryBuiltinPredicate 		duplicate(jTerm r)
- {
-  return new jRead(r); 
- };
+    public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+	goals.push(new jReadGoal(this, rhs.duplicate(vars)));
+    };
+
+    public void addGoals(jGoal g, iGoalStack goals) {
+	goals.push(new jReadGoal(this, rhs));
+    };
+
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jRead(r);
+    };
 };
-
- 

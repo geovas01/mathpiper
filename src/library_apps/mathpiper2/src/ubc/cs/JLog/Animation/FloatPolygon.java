@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //##################################################################################
 //	FloatPolygon
 //##################################################################################
@@ -53,68 +53,61 @@ import java.lang.*;
 import java.util.*;
 import java.awt.*;
 
-public class FloatPolygon
-{
- public int			npoints;
- public float[]		xpoints, ypoints;
-  
- public FloatPolygon()
- {
-  npoints = 0;
-  xpoints = new float[1];
-  ypoints = new float[1];
- };
+public class FloatPolygon {
+    public int npoints;
+    public float[] xpoints, ypoints;
 
- public FloatPolygon(int capacity)
- {
-  npoints = 0;
-  if (capacity < 1)
-   capacity = 1;
-	
-  xpoints = new float[capacity];
-  ypoints = new float[capacity];
- };
+    public FloatPolygon() {
+	npoints = 0;
+	xpoints = new float[1];
+	ypoints = new float[1];
+    };
 
- public FloatPolygon(float[] xpts,float[] ypts,int npts)
- {
-  npoints = npts;
-  xpoints = new float[npoints];
-  ypoints = new float[npoints];
-  System.arraycopy(xpts,0,xpoints,0,npts);
-  System.arraycopy(ypts,0,ypoints,0,npts);
- };
+    public FloatPolygon(int capacity) {
+	npoints = 0;
+	if (capacity < 1)
+	    capacity = 1;
 
- public void		addPoint(float x,float y)
- {
-  if (xpoints.length > npoints+1 && ypoints.length > npoints+1)
-  {
-   xpoints[npoints]=x;
-   ypoints[npoints]=y;
-   npoints++;
-  }
-  else // resize arrays
-  {float[]		xp = new float[npoints+1];
-   float[]		yp = new float[npoints+1];
-	
-   System.arraycopy(xpoints,0,xp,0,npoints);
-   System.arraycopy(ypoints,0,yp,0,npoints);
-   
-   xpoints = xp;
-   ypoints = yp;
-	
-   xpoints[npoints]=x;
-   ypoints[npoints]=y;
-   npoints++;
-  }
- };
-  
- public void		translate(float deltaX,float deltaY)
- {int 			i;
-  
-  for (i = 0; i < npoints; i++)
-  {
-   xpoints[i] += deltaX;
-   ypoints[i] += deltaY;
-  }
- };
+	xpoints = new float[capacity];
+	ypoints = new float[capacity];
+    };
+
+    public FloatPolygon(float[] xpts, float[] ypts, int npts) {
+	npoints = npts;
+	xpoints = new float[npoints];
+	ypoints = new float[npoints];
+	System.arraycopy(xpts, 0, xpoints, 0, npts);
+	System.arraycopy(ypts, 0, ypoints, 0, npts);
+    };
+
+    public void addPoint(float x, float y) {
+	if (xpoints.length > npoints + 1 && ypoints.length > npoints + 1) {
+	    xpoints[npoints] = x;
+	    ypoints[npoints] = y;
+	    npoints++;
+	} else // resize arrays
+	{
+	    float[] xp = new float[npoints + 1];
+	    float[] yp = new float[npoints + 1];
+
+	    System.arraycopy(xpoints, 0, xp, 0, npoints);
+	    System.arraycopy(ypoints, 0, yp, 0, npoints);
+
+	    xpoints = xp;
+	    ypoints = yp;
+
+	    xpoints[npoints] = x;
+	    ypoints[npoints] = y;
+	    npoints++;
+	}
+    };
+
+    public void translate(float deltaX, float deltaY) {
+	int i;
+
+	for (i = 0; i < npoints; i++) {
+	    xpoints[i] += deltaX;
+	    ypoints[i] += deltaY;
+	}
+    };
 };

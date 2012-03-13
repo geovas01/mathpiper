@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	VariableRegistry
 //#########################################################################
@@ -53,52 +53,46 @@ import java.lang.*;
 import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jVariableRegistry
-{
- protected final class jVariablePair
- {
-  protected jVariable 	original,copy;
-  
-  public jVariablePair(jVariable o,jVariable c)
-  {
-   original = o;
-   copy = c;
-  };
- 
-  public final boolean 	match(jVariable o)
-  {
-   return original == o;
-  };
-  
-  public final jVariable 	getCopy()
-  {
-   return copy;
-  };
- };
- 
- protected Vector 		variables;
- 
- public jVariableRegistry()
- {
-  variables = new Vector();
- };
- 
- public jVariable 		copyVariable(jVariable v)
- {int 				i,sz = variables.size();
-  jVariablePair 	pair;
-  
-  for (i = 0; i < sz; i++)
-  {
-   pair = (jVariablePair) variables.elementAt(i);
-   if (pair.match(v))
-    return pair.getCopy(); 
-  }
+public class jVariableRegistry {
+    protected final class jVariablePair {
+	protected jVariable original, copy;
 
-  {jVariable nvar;
-  
-   variables.addElement(new jVariablePair(v,nvar = new jVariable()));
-   
-   return nvar;
-  }
- };
+	public jVariablePair(jVariable o, jVariable c) {
+	    original = o;
+	    copy = c;
+	};
+
+	public final boolean match(jVariable o) {
+	    return original == o;
+	};
+
+	public final jVariable getCopy() {
+	    return copy;
+	};
+    };
+
+    protected Vector variables;
+
+    public jVariableRegistry() {
+	variables = new Vector();
+    };
+
+    public jVariable copyVariable(jVariable v) {
+	int i, sz = variables.size();
+	jVariablePair pair;
+
+	for (i = 0; i < sz; i++) {
+	    pair = (jVariablePair) variables.elementAt(i);
+	    if (pair.match(v))
+		return pair.getCopy();
+	}
+
+	{
+	    jVariable nvar;
+
+	    variables.addElement(new jVariablePair(v, nvar = new jVariable()));
+
+	    return nvar;
+	}
+    };
 };

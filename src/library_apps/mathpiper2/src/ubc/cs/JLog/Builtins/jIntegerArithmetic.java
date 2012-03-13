@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	IntegerArithmetic
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -54,41 +54,38 @@ import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
 // flexible arithmetic class, converts operator results to integer
-abstract public class jIntegerArithmetic extends jArithmetic
-{
- public jIntegerArithmetic(jTerm l,jTerm r)
- {
-  super(l,r);
- };
-  
- public  jTerm 		getValue()
- {jTerm 		l,r;
-  
-  l = lhs.getValue();
-  r = rhs.getValue();
+abstract public class jIntegerArithmetic extends jArithmetic {
+    public jIntegerArithmetic(jTerm l, jTerm r) {
+	super(l, r);
+    };
 
-  if (l.type == TYPE_INTEGER && r.type == TYPE_INTEGER)
-   return new jInteger(operatorInt(((jInteger) l).getIntegerValue(),
-                                   ((jInteger) r).getIntegerValue()));
-  else
-  {float 		rl,rr;
+    public jTerm getValue() {
+	jTerm l, r;
 
-   if (l.type == TYPE_INTEGER)
-    rl = (float) ((jInteger) l).getIntegerValue();
-   else if (l.type == TYPE_REAL)
-    rl = ((jReal) l).getRealValue();
-   else
-    throw new InvalidArithmeticOperationException();
-  
-   if (r.type == TYPE_INTEGER)
-    rr = (float) ((jInteger) r).getIntegerValue();
-   else if (r.type == TYPE_REAL)
-    rr = ((jReal) r).getRealValue();
-   else
-    throw new InvalidArithmeticOperationException();
- 
-   return new jInteger((int) operatorReal(rl,rr));
-  }
- };
+	l = lhs.getValue();
+	r = rhs.getValue();
+
+	if (l.type == TYPE_INTEGER && r.type == TYPE_INTEGER)
+	    return new jInteger(operatorInt(((jInteger) l).getIntegerValue(),
+		    ((jInteger) r).getIntegerValue()));
+	else {
+	    float rl, rr;
+
+	    if (l.type == TYPE_INTEGER)
+		rl = (float) ((jInteger) l).getIntegerValue();
+	    else if (l.type == TYPE_REAL)
+		rl = ((jReal) l).getRealValue();
+	    else
+		throw new InvalidArithmeticOperationException();
+
+	    if (r.type == TYPE_INTEGER)
+		rr = (float) ((jInteger) r).getIntegerValue();
+	    else if (r.type == TYPE_REAL)
+		rr = ((jReal) r).getRealValue();
+	    else
+		throw new InvalidArithmeticOperationException();
+
+	    return new jInteger((int) operatorReal(rl, rr));
+	}
+    };
 };
-

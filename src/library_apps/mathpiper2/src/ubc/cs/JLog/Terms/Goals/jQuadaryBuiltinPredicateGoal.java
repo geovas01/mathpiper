@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	QuadaryBuiltinPredicateGoal
 //#########################################################################
- 
+
 package ubc.cs.JLog.Terms.Goals;
 
 import java.lang.*;
@@ -55,80 +55,71 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Terms.*;
 
 /**
- * A very basic goal for quadary builtin predicates.  It only attempts to prove once (i.e., 
- * the retry fails).  It calls the prove(jQuadaryBuiltinPredicateGoal) method of the associated
- * predicate to perform the prove.
- *
- * @author       Glendon Holst
- * @version      %I%, %G%
+ * A very basic goal for quadary builtin predicates. It only attempts to prove
+ * once (i.e., the retry fails). It calls the
+ * prove(jQuadaryBuiltinPredicateGoal) method of the associated predicate to
+ * perform the prove.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
  */
-public class jQuadaryBuiltinPredicateGoal extends jGoal
-{
- protected jQuadaryBuiltinPredicate			predicate;
- 
- public jTerm				term1,term2,term3,term4;
- public jUnifiedVector 		unified;
- 
- public 	jQuadaryBuiltinPredicateGoal(jQuadaryBuiltinPredicate p,
-											jTerm t1,jTerm t2,jTerm t3,jTerm t4)
- {
-  predicate = p;
-  term1 = t1;
-  term2 = t2;
-  term3 = t3;
-  term4 = t4;
-  unified = new jUnifiedVector();
- };
+public class jQuadaryBuiltinPredicateGoal extends jGoal {
+    protected jQuadaryBuiltinPredicate predicate;
 
- public boolean 	prove(iGoalStack goals,iGoalStack proved)
- {
-  if (predicate.prove(this))
-  {
-   proved.push(this);
-   return true;
-  }
-  else
-  {
-   { // we need to initialize goal to potentially restart
-    unified.restoreVariables();
-   }
-   goals.push(this); // a retry that follows may need a node to remove or retry
-   return false;
-  } 
- };
+    public jTerm term1, term2, term3, term4;
+    public jUnifiedVector unified;
 
- public boolean 	retry(iGoalStack goals,iGoalStack proved)
- {
-  unified.restoreVariables();
-  
-  goals.push(this); // a retry that follows may need a node to remove or retry
-  return false;
- }; 
- 
- public void 	internal_restore(iGoalStack goals)
- {
-  unified.restoreVariables();
- };
+    public jQuadaryBuiltinPredicateGoal(jQuadaryBuiltinPredicate p, jTerm t1,
+	    jTerm t2, jTerm t3, jTerm t4) {
+	predicate = p;
+	term1 = t1;
+	term2 = t2;
+	term3 = t3;
+	term4 = t4;
+	unified = new jUnifiedVector();
+    };
 
- public String 		getName() 
- {
-  return predicate.getName();
- };
- 
- public int 		getArity() 
- {
-  return predicate.getArity();
- };
- 
- public String 		toString()
- {StringBuffer 	sb = new StringBuffer();
-   
-  sb.append(getName()+"/"+String.valueOf(getArity())+" goal: ");
-  sb.append(getName()+"("+term1.toString()+","+term2.toString()+","+
-							term3.toString()+","+term4.toString()+")");
-  
-  return sb.toString();
- };
+    public boolean prove(iGoalStack goals, iGoalStack proved) {
+	if (predicate.prove(this)) {
+	    proved.push(this);
+	    return true;
+	} else {
+	    { // we need to initialize goal to potentially restart
+		unified.restoreVariables();
+	    }
+	    goals.push(this); // a retry that follows may need a node to remove
+			      // or retry
+	    return false;
+	}
+    };
+
+    public boolean retry(iGoalStack goals, iGoalStack proved) {
+	unified.restoreVariables();
+
+	goals.push(this); // a retry that follows may need a node to remove or
+			  // retry
+	return false;
+    };
+
+    public void internal_restore(iGoalStack goals) {
+	unified.restoreVariables();
+    };
+
+    public String getName() {
+	return predicate.getName();
+    };
+
+    public int getArity() {
+	return predicate.getArity();
+    };
+
+    public String toString() {
+	StringBuffer sb = new StringBuffer();
+
+	sb.append(getName() + "/" + String.valueOf(getArity()) + " goal: ");
+	sb.append(getName() + "(" + term1.toString() + "," + term2.toString()
+		+ "," + term3.toString() + "," + term4.toString() + ")");
+
+	return sb.toString();
+    };
 };
-
- 

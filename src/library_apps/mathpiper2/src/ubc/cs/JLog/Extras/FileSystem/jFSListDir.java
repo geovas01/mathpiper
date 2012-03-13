@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	FSListDir
 //#########################################################################
- 
+
 package ubc.cs.JLog.Extras.FileSystem;
 
 import java.io.*;
@@ -56,75 +56,66 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.*;
 import ubc.cs.JLog.Terms.Goals.*;
 
-public class jFSListDir extends jBinaryBuiltinPredicate 
-{
- public jFSListDir(jTerm l,jTerm r) 
- {
-  super(l,r,TYPE_BUILTINPREDICATE);
- };
-  
- public String 		getName() 
- {
-  return "fs_list";
- };
- 
- public boolean 	prove(jBinaryBuiltinPredicateGoal bg)
- {jTerm 	l = bg.term1.getTerm();
-  jTerm		r = bg.term2.getTerm();
-  String	fileName;
+public class jFSListDir extends jBinaryBuiltinPredicate {
+    public jFSListDir(jTerm l, jTerm r) {
+	super(l, r, TYPE_BUILTINPREDICATE);
+    };
 
-  if (l instanceof jVariable) 
-  {
-   if (((jVariable) l).isBound()) 
-   {
-	fileName = ((jVariable) l).toString();
-   } 
-   else 
-   {
-    throw new RuntimeException("Variable is unbound");
-   }
-  } 
-  else 
-  {
-   fileName = l.toString();
-  }
+    public String getName() {
+	return "fs_list";
+    };
 
-  {File		f = new File(fileName);
+    public boolean prove(jBinaryBuiltinPredicateGoal bg) {
+	jTerm l = bg.term1.getTerm();
+	jTerm r = bg.term2.getTerm();
+	String fileName;
 
-   // simply fail the goal if the file does not exist
-   if (! f.exists() || !f.isDirectory())
-	return false;
-
-   {jList		result=null;
-	jListPair   prev=null;
-	String[]	files = f.list();
-	
-	for (int i=0; i<files.length; i++) 
-	{jTerm		t = new jAtom(files[i]);
-	 
-	 if (prev == null) 
-	  result = prev = new jListPair(t,null);
-	 else 
-	 {jListPair		nlst;
-
-      prev.setTail(nlst = new jListPair(t,null));
-	  prev = nlst;
-	 }
+	if (l instanceof jVariable) {
+	    if (((jVariable) l).isBound()) {
+		fileName = ((jVariable) l).toString();
+	    } else {
+		throw new RuntimeException("Variable is unbound");
+	    }
+	} else {
+	    fileName = l.toString();
 	}
 
-    if (prev != null)
-	 prev.setTail(jNullList.NULL_LIST);
-    else
-	 result = jNullList.NULL_LIST;
+	{
+	    File f = new File(fileName);
 
-    return r.unify(result, bg.unified);
-   }
-  } 
- };
- 
- public jBinaryBuiltinPredicate 		duplicate(jTerm l,jTerm r)
- {
-  return new jFSListDir(l,r); 
- };
+	    // simply fail the goal if the file does not exist
+	    if (!f.exists() || !f.isDirectory())
+		return false;
+
+	    {
+		jList result = null;
+		jListPair prev = null;
+		String[] files = f.list();
+
+		for (int i = 0; i < files.length; i++) {
+		    jTerm t = new jAtom(files[i]);
+
+		    if (prev == null)
+			result = prev = new jListPair(t, null);
+		    else {
+			jListPair nlst;
+
+			prev.setTail(nlst = new jListPair(t, null));
+			prev = nlst;
+		    }
+		}
+
+		if (prev != null)
+		    prev.setTail(jNullList.NULL_LIST);
+		else
+		    result = jNullList.NULL_LIST;
+
+		return r.unify(result, bg.unified);
+	    }
+	}
+    };
+
+    public jBinaryBuiltinPredicate duplicate(jTerm l, jTerm r) {
+	return new jFSListDir(l, r);
+    };
 }
-

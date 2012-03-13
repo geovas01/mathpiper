@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	SubtractArray
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -55,53 +55,46 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
-public class jSubtractArray extends jTrinaryBuiltinPredicate
-{
- public jSubtractArray(jTerm t1,jTerm t2,jTerm t3)
- {
-  super(t1,t2,t3,TYPE_BUILTINPREDICATE);
- };
-  
- public String 		getName()
- {
-  return "SUBTRACTARRAY";
- };
- 
- public final boolean 	prove(jSubtractArrayGoal sag)
- {jTerm 	t1,t2,t3;
-  
-  t1 = sag.term1.getTerm();
-  t2 = sag.term2.getTerm();
-  t3 = sag.term3.getTerm();
-   
-   
-  if (t1 instanceof jCompoundTerm && t2 instanceof jCompoundTerm && t3 instanceof jCompoundTerm)
-  {jCompoundTerm 	ct1 = (jCompoundTerm) t1;
-   jCompoundTerm 	ct2 = (jCompoundTerm) t2;
-   jCompoundTerm 	ct3 = (jCompoundTerm) t3;
+public class jSubtractArray extends jTrinaryBuiltinPredicate {
+    public jSubtractArray(jTerm t1, jTerm t2, jTerm t3) {
+	super(t1, t2, t3, TYPE_BUILTINPREDICATE);
+    };
 
-   ct1.copyCompoundTerm(ct2);
-   ct1.subtractCompoundTerm(ct3);
-  }
-  else
-   throw new ExpectedCompoundTermException();
-   
-  return true;
- };
+    public String getName() {
+	return "SUBTRACTARRAY";
+    };
 
- public void 		addGoals(jGoal g,jVariable[] vars,iGoalStack goals)
- {
-  goals.push(new jSubtractArrayGoal(this,term1.duplicate(vars),term2.duplicate(vars),term3.duplicate(vars)));
- }; 
+    public final boolean prove(jSubtractArrayGoal sag) {
+	jTerm t1, t2, t3;
 
- public void 		addGoals(jGoal g,iGoalStack goals)
- {
-  goals.push(new jSubtractArrayGoal(this,term1,term2,term3));
- }; 
+	t1 = sag.term1.getTerm();
+	t2 = sag.term2.getTerm();
+	t3 = sag.term3.getTerm();
 
- public jTrinaryBuiltinPredicate 		duplicate(jTerm t1,jTerm t2,jTerm t3)
- {
-  return new jSubtractArray(t1,t2,t3); 
- };
+	if (t1 instanceof jCompoundTerm && t2 instanceof jCompoundTerm
+		&& t3 instanceof jCompoundTerm) {
+	    jCompoundTerm ct1 = (jCompoundTerm) t1;
+	    jCompoundTerm ct2 = (jCompoundTerm) t2;
+	    jCompoundTerm ct3 = (jCompoundTerm) t3;
+
+	    ct1.copyCompoundTerm(ct2);
+	    ct1.subtractCompoundTerm(ct3);
+	} else
+	    throw new ExpectedCompoundTermException();
+
+	return true;
+    };
+
+    public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+	goals.push(new jSubtractArrayGoal(this, term1.duplicate(vars), term2
+		.duplicate(vars), term3.duplicate(vars)));
+    };
+
+    public void addGoals(jGoal g, iGoalStack goals) {
+	goals.push(new jSubtractArrayGoal(this, term1, term2, term3));
+    };
+
+    public jTrinaryBuiltinPredicate duplicate(jTerm t1, jTerm t2, jTerm t3) {
+	return new jSubtractArray(t1, t2, t3);
+    };
 };
-

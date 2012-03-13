@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	pName
 //#########################################################################
@@ -52,24 +52,19 @@ package ubc.cs.JLog.Parser;
 import java.util.*;
 import java.lang.*;
 
-class pName extends pToken
-{
- protected boolean 		potential_predicate = false;
- 
- public 	pName(String s,int pos,int line,int cpos)
- {
-  super(s,pos,line,cpos);
- };
- 
- public 	pName(String s,boolean pred,int pos,int line,int cpos)
- {
-  super(s,pos,line,cpos);
-  potential_predicate = pred;
- };
- 
- public boolean 	isPotentialPredicate()
- {
-  return potential_predicate;
- };
-};
+class pName extends pToken {
+    protected boolean potential_predicate = false;
 
+    public pName(String s, int pos, int line, int cpos) {
+	super(s, pos, line, cpos);
+    };
+
+    public pName(String s, boolean pred, int pos, int line, int cpos) {
+	super(s, pos, line, cpos);
+	potential_predicate = pred;
+    };
+
+    public boolean isPotentialPredicate() {
+	return potential_predicate;
+    };
+};

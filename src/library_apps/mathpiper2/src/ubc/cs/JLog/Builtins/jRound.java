@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Round
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -54,43 +54,37 @@ import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
 // this predicate produces integer values.
-public class jRound extends jUnaryArithmetic
-{
- public 	jRound(jTerm r)
- {
-  super(r);
- };
- 
- public String 		getName()
- {
-  return "round";
- };  
+public class jRound extends jUnaryArithmetic {
+    public jRound(jTerm r) {
+	super(r);
+    };
 
- public  jTerm 		getValue()
- {jTerm 		r;
-  
-  r = rhs.getValue();
+    public String getName() {
+	return "round";
+    };
 
-  if (r.type == TYPE_INTEGER)
-   return new jInteger(((jInteger) r).getIntegerValue());
-  else if (r.type == TYPE_REAL)
-   return new jInteger(Math.round(((jReal) r).getRealValue()));
-   
-  throw new InvalidArithmeticOperationException();
- };
+    public jTerm getValue() {
+	jTerm r;
 
- protected jUnaryBuiltinPredicate 	duplicate(jTerm r)
- {
-  return new jRound(r);
- };
- 
- protected int 		operatorInt(int r)
- {
-  return r;
- };
- 
- protected float 	operatorReal(float r)
- {
-  return (float) Math.round(r);
- };
+	r = rhs.getValue();
+
+	if (r.type == TYPE_INTEGER)
+	    return new jInteger(((jInteger) r).getIntegerValue());
+	else if (r.type == TYPE_REAL)
+	    return new jInteger(Math.round(((jReal) r).getRealValue()));
+
+	throw new InvalidArithmeticOperationException();
+    };
+
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jRound(r);
+    };
+
+    protected int operatorInt(int r) {
+	return r;
+    };
+
+    protected float operatorReal(float r) {
+	return (float) Math.round(r);
+    };
 };

@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	CallGoal
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins.Goals;
 
 import java.lang.*;
@@ -55,94 +55,84 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Builtins.*;
 
-public class jCallGoal extends jGoal
-{
- protected jTerm 				callee;
- protected jUnifiedVector 		unified;
- protected jGoal 				end_goal = null;
+public class jCallGoal extends jGoal {
+    protected jTerm callee;
+    protected jUnifiedVector unified;
+    protected jGoal end_goal = null;
 
- public 	jCallGoal(jTerm c)
- {
-  callee = c;
-  unified = new jUnifiedVector();
+    public jCallGoal(jTerm c) {
+	callee = c;
+	unified = new jUnifiedVector();
+    };
+
+    // endgoal is the previous goal on the goalstack. if endgoal is null, then
+    // goalstack
+    // was previously empty.
+    public final void setEndGoal(jGoal goal) {
+	end_goal = goal;
+    };
+
+    public boolean prove(iGoalStack goals, iGoalStack proved) {
+	jTerm ct;
+
+	ct = callee.getTerm();
+
+	// variables are not permitted, since this would cause infinite regress
+	if (ct.type == jType.TYPE_VARIABLE)
+	    throw new InvalidCalleeTypeException();
+
+	setEndGoal(goals.empty() ? null : goals.peek());
+
+	try {
+	    jPredicateTerms base;
+
+	    base = new jPredicateTerms();
+	    base.makePredicateTerms(ct);
+
+	    if (base.requiresCompleteVariableState())
+		base.registerUnboundVariables(unified);
+
+	    base.addGoals(this, goals);
+	} catch (PredicateExpectedException e) {
+	    throw new InvalidCalleeTypeException();
+	}
+
+	proved.push(this);
+	return true;
+    };
+
+    public boolean retry(iGoalStack goals, iGoalStack proved) {
+	internal_restore(goals);
+
+	goals.push(this); // a retry that follows may need a node to remove or
+			  // retry
+	return false;
+    };
+
+    protected final void internal_remove(iGoalStack goals) {
+	goals.cut(end_goal);
+    };
+
+    public final void internal_restore(iGoalStack goals) {
+	goals.cut(end_goal);
+
+	unified.restoreVariables();
+    };
+
+    public String getName() {
+	return "call";
+    };
+
+    public int getArity() {
+	return 1;
+    };
+
+    public String toString() {
+	StringBuffer sb = new StringBuffer();
+
+	sb.append(getName() + "/" + String.valueOf(getArity()) + " goal: ");
+	sb.append(getName() + "(" + callee.toString() + ")");
+
+	return sb.toString();
+    };
 };
- 
- // endgoal is the previous goal on the goalstack.  if endgoal is null, then goalstack
- // was previously empty.
- public final void 		setEndGoal(jGoal goal)
- {
-  end_goal = goal;
- };
- 
- public boolean 	prove(iGoalStack goals,iGoalStack proved)
- {jTerm 	ct;
- 
-  ct = callee.getTerm();
- 
-  // variables are not permitted, since this would cause infinite regress 
-  if (ct.type == jType.TYPE_VARIABLE)
-   throw new InvalidCalleeTypeException();
-  
-  setEndGoal(goals.empty() ? null : goals.peek());
-  
-  try
-  {jPredicateTerms 		base;
-  
-   base = new jPredicateTerms();
-   base.makePredicateTerms(ct);
-   
-   if (base.requiresCompleteVariableState())
-    base.registerUnboundVariables(unified);
-    
-   base.addGoals(this,goals);
-  }
-  catch (PredicateExpectedException e)
-  {
-   throw new InvalidCalleeTypeException();
-  }
-
-  proved.push(this);
-  return true;
- };
-
- public boolean 	retry(iGoalStack goals,iGoalStack proved)
- {
-  internal_restore(goals);
-
-  goals.push(this); // a retry that follows may need a node to remove or retry
-  return false;
- }; 
- 
- protected final void 	internal_remove(iGoalStack goals)
- {
-  goals.cut(end_goal);
- };
- 
- public final void 	internal_restore(iGoalStack goals)
- {
-  goals.cut(end_goal);
-
-  unified.restoreVariables();
- };
-
- public String 		getName() 
- {
-  return "call";
- };
- 
- public int 		getArity() 
- {
-  return 1;
- };
- 
- public String 		toString()
- {StringBuffer 	sb = new StringBuffer();
-   
-  sb.append(getName()+"/"+String.valueOf(getArity())+" goal: ");
-  sb.append(getName()+"("+callee.toString()+")");
-  
-  return sb.toString();
- };
-};
-
- 

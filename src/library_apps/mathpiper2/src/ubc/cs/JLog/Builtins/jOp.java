@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Op
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -55,32 +55,25 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
-public class jOp extends jTrinaryBuiltinPredicate
-{
- public jOp(jTerm priority,jTerm specifier,jTerm operation)
- {
-  super(priority,specifier,operation,TYPE_BUILTINPREDICATE);
- };
-  
- public String 		getName()
- {
-  return "op";
- };
- 
- public void 		addGoals(jGoal g,jVariable[] vars,iGoalStack goals)
- {
-  goals.push(new jOpGoal(term1.duplicate(vars),term2.duplicate(vars),term3.duplicate(vars)));
- };
+public class jOp extends jTrinaryBuiltinPredicate {
+    public jOp(jTerm priority, jTerm specifier, jTerm operation) {
+	super(priority, specifier, operation, TYPE_BUILTINPREDICATE);
+    };
 
- public void 		addGoals(jGoal g,iGoalStack goals)
- {
-  goals.push(new jOpGoal(term1,term2,term3));
- };
+    public String getName() {
+	return "op";
+    };
 
- protected jTrinaryBuiltinPredicate 		duplicate(jTerm t1,jTerm t2,jTerm t3)
- {
-  return new jOp(t1,t2,t3); 
- };
+    public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+	goals.push(new jOpGoal(term1.duplicate(vars), term2.duplicate(vars),
+		term3.duplicate(vars)));
+    };
+
+    public void addGoals(jGoal g, iGoalStack goals) {
+	goals.push(new jOpGoal(term1, term2, term3));
+    };
+
+    protected jTrinaryBuiltinPredicate duplicate(jTerm t1, jTerm t2, jTerm t3) {
+	return new jOp(t1, t2, t3);
+    };
 };
-
- 

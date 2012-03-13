@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	PredicateExpectedException
 //#########################################################################
@@ -52,12 +52,19 @@ package ubc.cs.JLog.Terms;
 import java.lang.*;
 import java.util.*;
 
-public class PredicateExpectedException extends RuntimeException
-{
- protected jTerm 		term;
- 
- public PredicateExpectedException(jTerm t) {term = t;};
- public PredicateExpectedException(String s,jTerm t) {super(s); term = t;};
- 
- public jTerm 		getTerm() {return term;};
+public class PredicateExpectedException extends RuntimeException {
+    protected jTerm term;
+
+    public PredicateExpectedException(jTerm t) {
+	term = t;
+    };
+
+    public PredicateExpectedException(String s, jTerm t) {
+	super(s);
+	term = t;
+    };
+
+    public jTerm getTerm() {
+	return term;
+    };
 };

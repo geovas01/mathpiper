@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	IfThenOperatorEntry
 //#########################################################################
@@ -55,21 +55,18 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Builtins.*;
 import ubc.cs.JLog.Parser.*;
 
-public class pIfThenOperatorEntry extends pOperatorEntry
-{
- public 	pIfThenOperatorEntry()
- {
-  super("->",XFY,1050);
- };
- 
- public jTerm 		createOperator(jTerm l,jTerm r)
- {jCompoundTerm 		cterm;
- 
-  cterm = new jCompoundTerm(2);
-  cterm.addTerm(l);
-  cterm.addTerm(r);
-  
-  return new jPredicate("->",cterm);
- };
-};
+public class pIfThenOperatorEntry extends pOperatorEntry {
+    public pIfThenOperatorEntry() {
+	super("->", XFY, 1050);
+    };
 
+    public jTerm createOperator(jTerm l, jTerm r) {
+	jCompoundTerm cterm;
+
+	cterm = new jCompoundTerm(2);
+	cterm.addTerm(l);
+	cterm.addTerm(r);
+
+	return new jPredicate("->", cterm);
+    };
+};

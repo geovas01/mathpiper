@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Operator
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -55,35 +55,30 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
-abstract public class jOperator extends jBinaryBuiltinPredicate
-{
- public jOperator(jTerm l,jTerm r)
- {
-  super(l,r,TYPE_OPERATOR);
- };
-  
- protected jOperator(jTerm l,jTerm r,int t)
- {
-  super(l,r,t);
- };
-  
- // operator goal does not support unification tracking, only verify or use 
- // existing bindings
- abstract public boolean 	prove(jOperatorGoal og);
+abstract public class jOperator extends jBinaryBuiltinPredicate {
+    public jOperator(jTerm l, jTerm r) {
+	super(l, r, TYPE_OPERATOR);
+    };
 
- public void 		addGoals(jGoal g,jVariable[] vars,iGoalStack goals)
- {
-  goals.push(new jOperatorGoal(this,lhs.duplicate(vars),rhs.duplicate(vars)));
- }; 
+    protected jOperator(jTerm l, jTerm r, int t) {
+	super(l, r, t);
+    };
 
- public void 		addGoals(jGoal g,iGoalStack goals)
- {
-  goals.push(new jOperatorGoal(this,lhs,rhs));
- }; 
+    // operator goal does not support unification tracking, only verify or use
+    // existing bindings
+    abstract public boolean prove(jOperatorGoal og);
 
- public String 		toString(boolean usename)
- {
-  return lhs.toString(usename) + " " + getName() + " " + rhs.toString(usename);
- };
+    public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+	goals.push(new jOperatorGoal(this, lhs.duplicate(vars), rhs
+		.duplicate(vars)));
+    };
+
+    public void addGoals(jGoal g, iGoalStack goals) {
+	goals.push(new jOperatorGoal(this, lhs, rhs));
+    };
+
+    public String toString(boolean usename) {
+	return lhs.toString(usename) + " " + getName() + " "
+		+ rhs.toString(usename);
+    };
 };
-

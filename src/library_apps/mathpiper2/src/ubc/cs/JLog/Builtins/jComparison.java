@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Comparison
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -54,18 +54,14 @@ import java.util.*;
 import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
-abstract class jComparison extends jOperator
-{
- public jComparison(jTerm l,jTerm r)
- {
-  super(l,r,TYPE_COMPARE);
- };
- 
- public boolean 	prove(jOperatorGoal og)
- {
-  return compareOrder(og.lhs.getTerm(),og.rhs.getTerm());
- };
- 
- abstract protected boolean 	compareOrder(jTerm l,jTerm r);
-};
+abstract class jComparison extends jOperator {
+    public jComparison(jTerm l, jTerm r) {
+	super(l, r, TYPE_COMPARE);
+    };
 
+    public boolean prove(jOperatorGoal og) {
+	return compareOrder(og.lhs.getTerm(), og.rhs.getTerm());
+    };
+
+    abstract protected boolean compareOrder(jTerm l, jTerm r);
+};

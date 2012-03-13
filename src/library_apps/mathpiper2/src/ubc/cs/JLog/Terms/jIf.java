@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	If
 //#########################################################################
@@ -52,26 +52,21 @@ package ubc.cs.JLog.Terms;
 import java.lang.*;
 import java.util.*;
 
-public class jIf extends jConjunctTerm
-{
- public jIf(jTerm l,jTerm r)
- {
-  super(l,r);
-  type = TYPE_IF;
- };
+public class jIf extends jConjunctTerm {
+    public jIf(jTerm l, jTerm r) {
+	super(l, r);
+	type = TYPE_IF;
+    };
 
- public String 		getName()
- {
-  return ":-";
- };
- 
- public jConjunctTerm 		duplicate(jTerm l,jTerm r)
- {
-  return new jIf(l,r);
- };
+    public String getName() {
+	return ":-";
+    };
 
- public String 		toString(boolean usename)
- {
-  return lhs.toString(usename) + " :- " + rhs.toString(usename);
- };
+    public jConjunctTerm duplicate(jTerm l, jTerm r) {
+	return new jIf(l, r);
+    };
+
+    public String toString(boolean usename) {
+	return lhs.toString(usename) + " :- " + rhs.toString(usename);
+    };
 };

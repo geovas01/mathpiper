@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	FSWrite
 //#########################################################################
- 
+
 package ubc.cs.JLog.Extras.FileSystem;
 
 import java.io.*;
@@ -56,103 +56,82 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.*;
 import ubc.cs.JLog.Terms.Goals.*;
 
-public class jFSWrite extends jTrinaryBuiltinPredicate 
-{
- public jFSWrite(jTerm t1,jTerm t2,jTerm t3) 
- {
-  super(t1,t2,t3,TYPE_BUILTINPREDICATE);
- };
+public class jFSWrite extends jTrinaryBuiltinPredicate {
+    public jFSWrite(jTerm t1, jTerm t2, jTerm t3) {
+	super(t1, t2, t3, TYPE_BUILTINPREDICATE);
+    };
 
- public String 		getName() 
- {
-  return "fs_write";
- };  
- 
- public boolean 	prove(jTrinaryBuiltinPredicateGoal tg)
- {jTerm			t1 = tg.term1.getTerm();
-  jTerm			t2 = tg.term2.getTerm();
-  jTerm			t3 = tg.term3.getTerm();
-  String		fileName;
-  jListPair		data;
-  boolean		append = "append".equals(t3.toString().toLowerCase());
+    public String getName() {
+	return "fs_write";
+    };
 
-  if (t1 instanceof jVariable) 
-  {
-   if (((jVariable) t1).isBound()) 
-   {
-    fileName = ((jVariable) t1).toString();
-   } 
-   else 
-   {
-	throw new RuntimeException("Filename variable is unbound");
-   }
-  } 
-  else 
-  {
-   fileName = t1.toString();
-  }
+    public boolean prove(jTrinaryBuiltinPredicateGoal tg) {
+	jTerm t1 = tg.term1.getTerm();
+	jTerm t2 = tg.term2.getTerm();
+	jTerm t3 = tg.term3.getTerm();
+	String fileName;
+	jListPair data;
+	boolean append = "append".equals(t3.toString().toLowerCase());
 
-  if (t2 instanceof jVariable) 
-  {
-   if (((jVariable) t2).isBound()) 
-   {jTerm		tmp = ((jVariable) t2).getTerm();
-	
-	if (tmp instanceof jListPair) 
+	if (t1 instanceof jVariable) {
+	    if (((jVariable) t1).isBound()) {
+		fileName = ((jVariable) t1).toString();
+	    } else {
+		throw new RuntimeException("Filename variable is unbound");
+	    }
+	} else {
+	    fileName = t1.toString();
+	}
+
+	if (t2 instanceof jVariable) {
+	    if (((jVariable) t2).isBound()) {
+		jTerm tmp = ((jVariable) t2).getTerm();
+
+		if (tmp instanceof jListPair) {
+		    data = (jListPair) tmp;
+		} else {
+		    throw new RuntimeException(
+			    "Write data variable is not a list");
+		}
+	    } else {
+		throw new RuntimeException("Write data variable is unbound");
+	    }
+	} else if (t2 instanceof jListPair) {
+	    data = (jListPair) t2;
+	} else {
+	    throw new RuntimeException("Write data is not a list");
+	}
+
 	{
-	 data = (jListPair) tmp;
-    } 
-	else 
-	{
-     throw new RuntimeException("Write data variable is not a list");
-    }
-   } 
-   else 
-   {
-    throw new RuntimeException("Write data variable is unbound");
-   }
-  } 
-  else if (t2 instanceof jListPair) 
-  {
-   data = (jListPair) t2;
-  } 
-  else 
-  {
-   throw new RuntimeException("Write data is not a list");
-  }
+	    jTerm iter = data;
+	    jListPair tmp;
+	    String line;
 
-  {jTerm		iter = data;
-   jListPair	tmp;
-   String		line;
-   
-   try 
-   {BufferedWriter		bw = new BufferedWriter(new FileWriter(fileName, append));
-    
-	while (iter instanceof jListPair) 
-	{
-	 tmp = (jListPair) iter;
-     line = tmp.getHead().toString();
-	 if (tmp.getHead() instanceof jNullList)
-	  line = "";
+	    try {
+		BufferedWriter bw = new BufferedWriter(new FileWriter(fileName,
+			append));
 
-     bw.write(line);
-	 bw.newLine();
-	 iter = tmp.getTail();
-    }
-    
-	bw.close();
-   } 
-   catch (IOException ioex) 
-   {
-	throw new RuntimeException(ioex.getMessage());
-   }
-  }
+		while (iter instanceof jListPair) {
+		    tmp = (jListPair) iter;
+		    line = tmp.getHead().toString();
+		    if (tmp.getHead() instanceof jNullList)
+			line = "";
 
-  return true;
- };
+		    bw.write(line);
+		    bw.newLine();
+		    iter = tmp.getTail();
+		}
 
- protected jTrinaryBuiltinPredicate 	duplicate(jTerm t1,jTerm t2,jTerm t3)
- {
-  return new jFSWrite(t1,t2,t3);
- };
+		bw.close();
+	    } catch (IOException ioex) {
+		throw new RuntimeException(ioex.getMessage());
+	    }
+	}
+
+	return true;
+    };
+
+    protected jTrinaryBuiltinPredicate duplicate(jTerm t1, jTerm t2, jTerm t3) {
+	return new jFSWrite(t1, t2, t3);
+    };
 }
-

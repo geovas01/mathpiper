@@ -42,47 +42,39 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	ATan2
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
 import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jATan2 extends jRealArithmetic
-{
- public 	jATan2(jTerm l,jTerm r)
- {
-  super(l,r);
- };
- 
- public String 		getName()
- {
-  return "atan";
- };  
+public class jATan2 extends jRealArithmetic {
+    public jATan2(jTerm l, jTerm r) {
+	super(l, r);
+    };
 
- protected jBinaryBuiltinPredicate 	duplicate(jTerm l,jTerm r)
- {
-  return new jATan2(l,r);
- };
- 
- protected int 		operatorInt(int l,int r)
- {
-  throw new InvalidArithmeticOperationException();
- };
- 
- protected float 	operatorReal(float l,float r)
- {
-  return (float) Math.atan2(l,r);
- };
- 
- public int 		getPriority()
- {
-  return iArithmetic.MAX;
- }; 
+    public String getName() {
+	return "atan";
+    };
+
+    protected jBinaryBuiltinPredicate duplicate(jTerm l, jTerm r) {
+	return new jATan2(l, r);
+    };
+
+    protected int operatorInt(int l, int r) {
+	throw new InvalidArithmeticOperationException();
+    };
+
+    protected float operatorReal(float l, float r) {
+	return (float) Math.atan2(l, r);
+    };
+
+    public int getPriority() {
+	return iArithmetic.MAX;
+    };
 };
-

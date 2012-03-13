@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	MakeUnmake
 //#########################################################################
@@ -53,27 +53,27 @@ import java.lang.*;
 import java.util.*;
 
 /**
-* Interface for objects that are not standard prolog terms, but efficient or
-* different representations of these terms.
-*
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public interface iMakeUnmake
-{
- /**
-  * Make this object equivalent to <code>jTerm</code>.
-  *
-  * @param t 		The <code>jTerm</code> that this object should be equivalent too.
-  */
- public void 		make(jTerm t);
- 
- /**
-  * Produce a <code>jTerm</code> equivalent to this object.
-  *
-  * @return 		<code>jTerm</code> that is equivalent to this object, or <code>null</code> if no
-  *			<code>jTerm</code> representation exists.
-  */
- public jTerm 		unmake(); 		
-};
+ * Interface for objects that are not standard prolog terms, but efficient or
+ * different representations of these terms.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public interface iMakeUnmake {
+    /**
+     * Make this object equivalent to <code>jTerm</code>.
+     * 
+     * @param t
+     *            The <code>jTerm</code> that this object should be equivalent
+     *            too.
+     */
+    public void make(jTerm t);
 
+    /**
+     * Produce a <code>jTerm</code> equivalent to this object.
+     * 
+     * @return <code>jTerm</code> that is equivalent to this object, or
+     *         <code>null</code> if no <code>jTerm</code> representation exists.
+     */
+    public jTerm unmake();
+};

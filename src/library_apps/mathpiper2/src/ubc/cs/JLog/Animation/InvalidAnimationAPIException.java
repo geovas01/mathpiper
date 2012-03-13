@@ -42,18 +42,21 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	InvalidAnimationAPIException
 //#########################################################################
- 
+
 package ubc.cs.JLog.Animation;
 
 import java.lang.*;
 import java.util.*;
 
-public class InvalidAnimationAPIException extends RuntimeException
-{
- public InvalidAnimationAPIException() {};
- public InvalidAnimationAPIException(String s) {super(s);};
+public class InvalidAnimationAPIException extends RuntimeException {
+    public InvalidAnimationAPIException() {
+    };
+
+    public InvalidAnimationAPIException(String s) {
+	super(s);
+    };
 };

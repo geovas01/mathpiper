@@ -42,47 +42,39 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	NotEqual
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
 import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jNotEqual extends jNumericComparison
-{
- public jNotEqual(jTerm l,jTerm r)
- {
-  super(l,r);
- };
+public class jNotEqual extends jNumericComparison {
+    public jNotEqual(jTerm l, jTerm r) {
+	super(l, r);
+    };
 
- public String 		getName()
- {
-  return "=\\=";
- };  
+    public String getName() {
+	return "=\\=";
+    };
 
- protected jBinaryBuiltinPredicate 	duplicate(jTerm l,jTerm r)
- {
-  return new jNotEqual(l,r);
- };
- 
- protected boolean 	compareInteger(int l,int r)
- {
-  return l != r;
- };
- 
- protected boolean 	compareReal(float l,float r)
- {
-  return l != r;
- };
- 
- protected boolean 	compareString(String l,String r)
- {
-  return l.compareTo(r) != 0;
- };
+    protected jBinaryBuiltinPredicate duplicate(jTerm l, jTerm r) {
+	return new jNotEqual(l, r);
+    };
+
+    protected boolean compareInteger(int l, int r) {
+	return l != r;
+    };
+
+    protected boolean compareReal(float l, float r) {
+	return l != r;
+    };
+
+    protected boolean compareString(String l, String r) {
+	return l.compareTo(r) != 0;
+    };
 };
-

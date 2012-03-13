@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //##################################################################################
 //	gFindDialog
 //##################################################################################
@@ -55,106 +55,99 @@ import java.awt.*;
 import java.awt.event.*;
 import java.applet.Applet;
 
-public class gFindDialog extends Dialog
-{
- protected TextField		find_field;
- protected String 			find_string = null;
- 
- public gFindDialog(gWindowBase w,String initial_find)
- {
-  super(w,"Find",true);
-  
-  setLayout(new BorderLayout());
-  
-  {Panel	fields = new Panel();
-   Font		font = new Font("Dialog",Font.BOLD,12);
-   Label 	info;
-   
-   fields.setLayout(new BorderLayout());
-   
-   info = new Label("Find: ",Label.LEFT);
-   info.setFont(font);
+public class gFindDialog extends Dialog {
+    protected TextField find_field;
+    protected String find_string = null;
 
-   fields.add(info,BorderLayout.WEST);
+    public gFindDialog(gWindowBase w, String initial_find) {
+	super(w, "Find", true);
 
-   find_field = new TextField((initial_find == null ? "" : initial_find));
-   find_field.setFont(font);
+	setLayout(new BorderLayout());
 
-   find_field.addKeyListener(new KeyAdapter()
-                       {
-                        public void 	keyPressed(KeyEvent e)
-                        {
-                         if (e.getKeyCode() == KeyEvent.VK_ENTER)
-                         { 
-						  find_string = find_field.getText();
-						  close();
-						 } 
-                        }
-                       });
+	{
+	    Panel fields = new Panel();
+	    Font font = new Font("Dialog", Font.BOLD, 12);
+	    Label info;
 
-   fields.add(find_field,BorderLayout.CENTER);
-   fields.add(new Panel(),BorderLayout.SOUTH);
-   add(fields,BorderLayout.CENTER);
-  }
-   
-  add(new Panel(),BorderLayout.WEST);
-  add(new Panel(),BorderLayout.EAST);
-  add(new Panel(),BorderLayout.NORTH);
-  
-  {Panel 	buttons = new Panel();
-   Panel	find = new Panel();
-   Button 	b;
+	    fields.setLayout(new BorderLayout());
 
-   buttons.setLayout(new BorderLayout());
-   find.setLayout(new BorderLayout());
-   
-   b = new Button("Find");
-   b.addActionListener(new ActionListener()
-                {
-                 public void 	actionPerformed(ActionEvent e)
-                 {
-                  find_string = find_field.getText();
-				  close();
-                 }
-                }); 
-   b.setBackground(Color.white);
-   b.setForeground(Color.black);
-   
-   find.add(b,BorderLayout.EAST);
-   find.add(new Panel(),BorderLayout.CENTER);
-   find.add(new Panel(),BorderLayout.WEST);
-   buttons.add(find,BorderLayout.CENTER);
-   buttons.add(new Panel(),BorderLayout.EAST);
-   buttons.add(new Panel(),BorderLayout.WEST);
-   buttons.add(new Panel(),BorderLayout.SOUTH);
-   add(buttons,BorderLayout.SOUTH);
-  }
-  
-  pack();
+	    info = new Label("Find: ", Label.LEFT);
+	    info.setFont(font);
 
-  addWindowListener(new WindowAdapter() 
-                {
-				 public void windowClosing(WindowEvent evt) 
-                 {
-				  close();
-		         }
-		        });
+	    fields.add(info, BorderLayout.WEST);
 
-  setSize(400, 100);
-  {Point	ploc = w.getLocation();
-  
-   setLocation(ploc.x+16,ploc.y+32);
-  }
-  setVisible(true);
- };
- 
- public String 		getFindString()
- {
-  return find_string;
- };
- 
- protected void 	close()
- {
-  dispose();
- };
+	    find_field = new TextField((initial_find == null ? ""
+		    : initial_find));
+	    find_field.setFont(font);
+
+	    find_field.addKeyListener(new KeyAdapter() {
+		public void keyPressed(KeyEvent e) {
+		    if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			find_string = find_field.getText();
+			close();
+		    }
+		}
+	    });
+
+	    fields.add(find_field, BorderLayout.CENTER);
+	    fields.add(new Panel(), BorderLayout.SOUTH);
+	    add(fields, BorderLayout.CENTER);
+	}
+
+	add(new Panel(), BorderLayout.WEST);
+	add(new Panel(), BorderLayout.EAST);
+	add(new Panel(), BorderLayout.NORTH);
+
+	{
+	    Panel buttons = new Panel();
+	    Panel find = new Panel();
+	    Button b;
+
+	    buttons.setLayout(new BorderLayout());
+	    find.setLayout(new BorderLayout());
+
+	    b = new Button("Find");
+	    b.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		    find_string = find_field.getText();
+		    close();
+		}
+	    });
+	    b.setBackground(Color.white);
+	    b.setForeground(Color.black);
+
+	    find.add(b, BorderLayout.EAST);
+	    find.add(new Panel(), BorderLayout.CENTER);
+	    find.add(new Panel(), BorderLayout.WEST);
+	    buttons.add(find, BorderLayout.CENTER);
+	    buttons.add(new Panel(), BorderLayout.EAST);
+	    buttons.add(new Panel(), BorderLayout.WEST);
+	    buttons.add(new Panel(), BorderLayout.SOUTH);
+	    add(buttons, BorderLayout.SOUTH);
+	}
+
+	pack();
+
+	addWindowListener(new WindowAdapter() {
+	    public void windowClosing(WindowEvent evt) {
+		close();
+	    }
+	});
+
+	setSize(400, 100);
+	{
+	    Point ploc = w.getLocation();
+
+	    setLocation(ploc.x + 16, ploc.y + 32);
+	}
+	setVisible(true);
+    };
+
+    public String getFindString() {
+	return find_string;
+    };
+
+    protected void close() {
+	dispose();
+    };
 };

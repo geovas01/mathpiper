@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	jDebugProverStartedEvent
 //#########################################################################
@@ -52,18 +52,14 @@ package ubc.cs.JLog.Foundation;
 import java.lang.*;
 import java.util.*;
 
-public class jDebugProverStartedEvent extends jPrologServiceEvent
-{
- protected jDebugProver 	prover;
- 
- public 	jDebugProverStartedEvent(jDebugProver p)
- {
-  prover = p;
- };
+public class jDebugProverStartedEvent extends jPrologServiceEvent {
+    protected jDebugProver prover;
 
- public jDebugProver 		getDebugProver()
- {
-  return prover;
- };
+    public jDebugProverStartedEvent(jDebugProver p) {
+	prover = p;
+    };
+
+    public jDebugProver getDebugProver() {
+	return prover;
+    };
 };
-

@@ -42,43 +42,35 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Abs
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
 import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jAbs extends jUnaryArithmetic
-{
- public 	jAbs(jTerm r)
- {
-  super(r);
- };
- 
- public String 		getName()
- {
-  return "abs";
- };  
+public class jAbs extends jUnaryArithmetic {
+    public jAbs(jTerm r) {
+	super(r);
+    };
 
- protected jUnaryBuiltinPredicate 	duplicate(jTerm r)
- {
-  return new jAbs(r);
- };
- 
- protected int 		operatorInt(int r)
- {
-  return Math.abs(r);
- };
- 
- protected float 	operatorReal(float r)
- {
-  return Math.abs(r);
- };
+    public String getName() {
+	return "abs";
+    };
+
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jAbs(r);
+    };
+
+    protected int operatorInt(int r) {
+	return Math.abs(r);
+    };
+
+    protected float operatorReal(float r) {
+	return Math.abs(r);
+    };
 };
-
-

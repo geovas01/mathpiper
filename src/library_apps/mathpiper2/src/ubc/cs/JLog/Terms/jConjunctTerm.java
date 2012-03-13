@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	ConjunctTerm
 //#########################################################################
@@ -53,181 +53,173 @@ import java.lang.*;
 import java.util.*;
 import ubc.cs.JLog.Foundation.*;
 
-public abstract class jConjunctTerm extends jTerm
-{
- protected jTerm 		lhs = null,rhs = null;
- 
- protected jConjunctTerm(jTerm l,jTerm r)
- {
-  lhs = l;
-  rhs = r;
- };
- 
- public jTerm 		getLHS()
- {
-  return lhs;
- };
- 
- public jTerm 		getRHS()
- {
-  return rhs;
- };
+public abstract class jConjunctTerm extends jTerm {
+    protected jTerm lhs = null, rhs = null;
 
- public void 		setLHS(jTerm l)
- {
-  lhs = l;
- };
- 
- public void 		setRHS(jTerm r)
- {
-  rhs = r;
- };
+    protected jConjunctTerm(jTerm l, jTerm r) {
+	lhs = l;
+	rhs = r;
+    };
 
- protected int 		compare(jTerm term,boolean first_call,boolean var_equal)
- {jTerm 	t = term.getTerm();
- 
-  if ((t instanceof jVariable) || (t instanceof jReal) || (t instanceof jInteger))
-   return GREATER_THAN;
-   
-  if (t instanceof iPredicate)
-  {iPredicate 	ip = (iPredicate) t;
-   int 			compare_val;
-   int 			arity_b;
-   
-   arity_b = ip.getArity();
-   
-   if (2 < arity_b)
-    return LESS_THAN;
-   else if (2 > arity_b)
-    return GREATER_THAN;
-   
-   compare_val = getName().compareTo(ip.getName());
-   
-   if (compare_val < 0)
-    return LESS_THAN;
-   if (compare_val > 0)
-    return GREATER_THAN;
+    public jTerm getLHS() {
+	return lhs;
+    };
 
-   return EQUAL;
-  }
- 
-  if (t instanceof jConjunctTerm)
-  {jTerm 	lt = ((jConjunctTerm) t).lhs;
-   jTerm 	rt = ((jConjunctTerm) t).rhs;
-   int 		compare_val;
-   int  	result;
-   
-   compare_val = getName().compareTo(t.getName());
-   
-   if (compare_val < 0)
-    return LESS_THAN;
-   if (compare_val > 0)
-    return GREATER_THAN;
-  
-   result = lhs.compare(lt,true,var_equal);
-   if (result != EQUAL)
-    return result;
-   return rhs.compare(rt,true,var_equal);
-  }
-  
-  return (first_call ? -t.compare(this,false,var_equal) : EQUAL);
- };
+    public jTerm getRHS() {
+	return rhs;
+    };
 
- public boolean 	requiresCompleteVariableState()
- {
-  return (lhs.requiresCompleteVariableState() || rhs.requiresCompleteVariableState());
- };
- 
- public void 		registerUnboundVariables(jUnifiedVector v)
- {
-  lhs.registerUnboundVariables(v);
-  rhs.registerUnboundVariables(v);
- };
+    public void setLHS(jTerm l) {
+	lhs = l;
+    };
 
- public boolean 	equivalence(jTerm term,jEquivalenceMapping v)
- {jTerm t = term.getTerm();
- 
-  // only unify with other cons terms of same type
-  if (type != t.type)
-   return false;
- 
-  // altough we cannot be certain that term is a jConjunctTerm, if it is not then type 
-  // was wrong so this warrents a failing exception.
-  {jConjunctTerm 		cterm;
-   int 					sz;
-   
-   cterm = (jConjunctTerm) t;
-   
-  // equiv each element of cons term, exit on first failure.
+    public void setRHS(jTerm r) {
+	rhs = r;
+    };
 
-   if (!lhs.equivalence(cterm.lhs,v))
-    return false;
-   if (!rhs.equivalence(cterm.rhs,v))
-    return false;
-  }
-  return true;
- };
+    protected int compare(jTerm term, boolean first_call, boolean var_equal) {
+	jTerm t = term.getTerm();
 
- public boolean 	unify(jTerm term,jUnifiedVector v)
- {
-  // if term is variable we let it handle the unification
-  if (term.type == TYPE_VARIABLE)
-   return term.unify(this,v);
+	if ((t instanceof jVariable) || (t instanceof jReal)
+		|| (t instanceof jInteger))
+	    return GREATER_THAN;
 
-  // only unify with other cons terms of same type
-  if (type != term.type)
-   return false;
- 
-  // altough we cannot be certain that term is a jConjunctTerm, if it is not then type 
-  // was wrong so this warrents a failing exception.
-  {jConjunctTerm 		cterm;
-   int 					sz;
-   
-   cterm = (jConjunctTerm) term;
-   
-  // unify each element of cons term, exit on first unification failure.
+	if (t instanceof iPredicate) {
+	    iPredicate ip = (iPredicate) t;
+	    int compare_val;
+	    int arity_b;
 
-   if (!lhs.unify(cterm.lhs,v))
-    return false;
-   if (!rhs.unify(cterm.rhs,v))
-    return false;
-  }
-  return true;
- };
+	    arity_b = ip.getArity();
 
- public void 		registerVariables(jVariableVector v)
- {
-  lhs.registerVariables(v);
-  rhs.registerVariables(v);
- };
- 
- public void 		enumerateVariables(jVariableVector v,boolean all)
- {
-  lhs.enumerateVariables(v,all);
-  rhs.enumerateVariables(v,all);
- };
+	    if (2 < arity_b)
+		return LESS_THAN;
+	    else if (2 > arity_b)
+		return GREATER_THAN;
 
- public jTerm 		duplicate(jVariable[] vars)
- {  
-  return duplicate(lhs.duplicate(vars),rhs.duplicate(vars));
- };
+	    compare_val = getName().compareTo(ip.getName());
 
- public jTerm 		copy(jVariableRegistry vars)
- {
-  return duplicate(lhs.copy(vars),rhs.copy(vars));
- };
- 
- abstract protected jConjunctTerm 	duplicate(jTerm l,jTerm r);
- 
- public void 		consult(jKnowledgeBase kb)
- {
-  lhs.consult(kb);
-  rhs.consult(kb);
- };
- 
- public void 		consultReset()
- {
-  lhs.consultReset();
-  rhs.consultReset();
- };
+	    if (compare_val < 0)
+		return LESS_THAN;
+	    if (compare_val > 0)
+		return GREATER_THAN;
+
+	    return EQUAL;
+	}
+
+	if (t instanceof jConjunctTerm) {
+	    jTerm lt = ((jConjunctTerm) t).lhs;
+	    jTerm rt = ((jConjunctTerm) t).rhs;
+	    int compare_val;
+	    int result;
+
+	    compare_val = getName().compareTo(t.getName());
+
+	    if (compare_val < 0)
+		return LESS_THAN;
+	    if (compare_val > 0)
+		return GREATER_THAN;
+
+	    result = lhs.compare(lt, true, var_equal);
+	    if (result != EQUAL)
+		return result;
+	    return rhs.compare(rt, true, var_equal);
+	}
+
+	return (first_call ? -t.compare(this, false, var_equal) : EQUAL);
+    };
+
+    public boolean requiresCompleteVariableState() {
+	return (lhs.requiresCompleteVariableState() || rhs
+		.requiresCompleteVariableState());
+    };
+
+    public void registerUnboundVariables(jUnifiedVector v) {
+	lhs.registerUnboundVariables(v);
+	rhs.registerUnboundVariables(v);
+    };
+
+    public boolean equivalence(jTerm term, jEquivalenceMapping v) {
+	jTerm t = term.getTerm();
+
+	// only unify with other cons terms of same type
+	if (type != t.type)
+	    return false;
+
+	// altough we cannot be certain that term is a jConjunctTerm, if it is
+	// not then type
+	// was wrong so this warrents a failing exception.
+	{
+	    jConjunctTerm cterm;
+	    int sz;
+
+	    cterm = (jConjunctTerm) t;
+
+	    // equiv each element of cons term, exit on first failure.
+
+	    if (!lhs.equivalence(cterm.lhs, v))
+		return false;
+	    if (!rhs.equivalence(cterm.rhs, v))
+		return false;
+	}
+	return true;
+    };
+
+    public boolean unify(jTerm term, jUnifiedVector v) {
+	// if term is variable we let it handle the unification
+	if (term.type == TYPE_VARIABLE)
+	    return term.unify(this, v);
+
+	// only unify with other cons terms of same type
+	if (type != term.type)
+	    return false;
+
+	// altough we cannot be certain that term is a jConjunctTerm, if it is
+	// not then type
+	// was wrong so this warrents a failing exception.
+	{
+	    jConjunctTerm cterm;
+	    int sz;
+
+	    cterm = (jConjunctTerm) term;
+
+	    // unify each element of cons term, exit on first unification
+	    // failure.
+
+	    if (!lhs.unify(cterm.lhs, v))
+		return false;
+	    if (!rhs.unify(cterm.rhs, v))
+		return false;
+	}
+	return true;
+    };
+
+    public void registerVariables(jVariableVector v) {
+	lhs.registerVariables(v);
+	rhs.registerVariables(v);
+    };
+
+    public void enumerateVariables(jVariableVector v, boolean all) {
+	lhs.enumerateVariables(v, all);
+	rhs.enumerateVariables(v, all);
+    };
+
+    public jTerm duplicate(jVariable[] vars) {
+	return duplicate(lhs.duplicate(vars), rhs.duplicate(vars));
+    };
+
+    public jTerm copy(jVariableRegistry vars) {
+	return duplicate(lhs.copy(vars), rhs.copy(vars));
+    };
+
+    abstract protected jConjunctTerm duplicate(jTerm l, jTerm r);
+
+    public void consult(jKnowledgeBase kb) {
+	lhs.consult(kb);
+	rhs.consult(kb);
+    };
+
+    public void consultReset() {
+	lhs.consultReset();
+	rhs.consultReset();
+    };
 };

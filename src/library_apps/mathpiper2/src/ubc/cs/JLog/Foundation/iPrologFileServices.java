@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //##################################################################################
 //	iPrologFileServices
 //##################################################################################
@@ -54,16 +54,21 @@ import java.util.*;
 import java.io.*;
 import java.net.*;
 
-public interface iPrologFileServices
-{
+public interface iPrologFileServices {
 
- public URL				getURLFromFilename(String name) throws MalformedURLException, IOException;
- public InputStream 	getInputStreamFromFilename(String name) throws MalformedURLException, IOException;
+    public URL getURLFromFilename(String name) throws MalformedURLException,
+	    IOException;
 
- public URL				getResourceURLFromFilename(String name) throws MalformedURLException, IOException;
- public InputStream 	getResourceInputStreamFromFilename(String name) throws MalformedURLException, IOException;
+    public InputStream getInputStreamFromFilename(String name)
+	    throws MalformedURLException, IOException;
 
- public String			getTextFromInputStream(InputStream in_strm) throws IOException;
+    public URL getResourceURLFromFilename(String name)
+	    throws MalformedURLException, IOException;
+
+    public InputStream getResourceInputStreamFromFilename(String name)
+	    throws MalformedURLException, IOException;
+
+    public String getTextFromInputStream(InputStream in_strm)
+	    throws IOException;
 
 };
-

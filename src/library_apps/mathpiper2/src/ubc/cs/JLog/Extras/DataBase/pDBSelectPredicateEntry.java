@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	DBSelect
 //#########################################################################
@@ -55,16 +55,12 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.*;
 import ubc.cs.JLog.Parser.*;
 
-public class pDBSelectPredicateEntry extends pPredicateEntry
-{
- public 	pDBSelectPredicateEntry()
- {
-  super("db_select",2);
- };
- 
- public iPredicate 		createPredicate(jCompoundTerm cterm)
- {
-  return new jDBSelect(cterm.elementAt(0), cterm.elementAt(1));
- };
-};
+public class pDBSelectPredicateEntry extends pPredicateEntry {
+    public pDBSelectPredicateEntry() {
+	super("db_select", 2);
+    };
 
+    public iPredicate createPredicate(jCompoundTerm cterm) {
+	return new jDBSelect(cterm.elementAt(0), cterm.elementAt(1));
+    };
+};

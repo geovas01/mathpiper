@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	RealUnaryArithmetic
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -54,30 +54,28 @@ import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
 /**
-* A flexible abstract class for unary arithmetic. Upgrades integers to reals 
-* before calling real operator.
-*
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-abstract public class jRealUnaryArithmetic extends jUnaryArithmetic
-{
- public jRealUnaryArithmetic(jTerm r)
- {
-  super(r);
- };
-  
- public  jTerm 		getValue()
- {jTerm 		r;
-  
-  r = rhs.getValue();
+ * A flexible abstract class for unary arithmetic. Upgrades integers to reals
+ * before calling real operator.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+abstract public class jRealUnaryArithmetic extends jUnaryArithmetic {
+    public jRealUnaryArithmetic(jTerm r) {
+	super(r);
+    };
 
-  if (r.type == TYPE_INTEGER)
-   return new jReal(operatorReal((float) ((jInteger) r).getIntegerValue()));
-  else if (r.type == TYPE_REAL)
-   return new jReal(operatorReal(((jReal) r).getRealValue()));
-   
-  throw new InvalidArithmeticOperationException();
- };
+    public jTerm getValue() {
+	jTerm r;
+
+	r = rhs.getValue();
+
+	if (r.type == TYPE_INTEGER)
+	    return new jReal(
+		    operatorReal((float) ((jInteger) r).getIntegerValue()));
+	else if (r.type == TYPE_REAL)
+	    return new jReal(operatorReal(((jReal) r).getRealValue()));
+
+	throw new InvalidArithmeticOperationException();
+    };
 };
-

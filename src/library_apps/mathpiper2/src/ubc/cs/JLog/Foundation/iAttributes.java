@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Attributes
 //#########################################################################
@@ -53,29 +53,31 @@ import java.lang.*;
 import java.util.*;
 
 /**
-* An inteface to represent getting and setting attribute Key-Value pairs via Hashtables.
-*  
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public interface iAttributes
-{
+ * An inteface to represent getting and setting attribute Key-Value pairs via
+ * Hashtables.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public interface iAttributes {
 
- /**
-  * Returns a hashtable of every attribute associated with this object.  Each attribute must
-  * have a String name key, and its associated value (non-null).
-  *
-  * @return		The Hashtable of attribute name-value pairings.
-  */
- public Hashtable   getAttributes();
- 
- /**
-  * Set the attributes of the object to those in the given Hashtable.  Errors such as 
-  * Non-applicable attributes, or invalid values can be handled as the receiving object
-  * prefers (e.g., silently ignore, or throw exception).
-  *
-  * @param attributes		The Hashtable of attribute name-value pairings.
-  */
- public void		setAttributes(Hashtable attributes);
- 
+    /**
+     * Returns a hashtable of every attribute associated with this object. Each
+     * attribute must have a String name key, and its associated value
+     * (non-null).
+     * 
+     * @return The Hashtable of attribute name-value pairings.
+     */
+    public Hashtable getAttributes();
+
+    /**
+     * Set the attributes of the object to those in the given Hashtable. Errors
+     * such as Non-applicable attributes, or invalid values can be handled as
+     * the receiving object prefers (e.g., silently ignore, or throw exception).
+     * 
+     * @param attributes
+     *            The Hashtable of attribute name-value pairings.
+     */
+    public void setAttributes(Hashtable attributes);
+
 };

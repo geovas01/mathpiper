@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Repeat
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -55,30 +55,23 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
-public class jRepeat extends jBuiltinPredicate
-{
- public jRepeat()
- {
- };
-  
- public String 		getName()
- {
-  return "repeat";
- };
- 
- public int 		getArity()
- {
-  return 0;
- };
+public class jRepeat extends jBuiltinPredicate {
+    public jRepeat() {
+    };
 
- public void 		addGoals(jGoal g,jVariable[] vars,iGoalStack goals)
- {
-  goals.push(new jRepeatGoal());
- }; 
+    public String getName() {
+	return "repeat";
+    };
 
- public void 		addGoals(jGoal g,iGoalStack goals)
- {
-  goals.push(new jRepeatGoal());
- }; 
+    public int getArity() {
+	return 0;
+    };
+
+    public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+	goals.push(new jRepeatGoal());
+    };
+
+    public void addGoals(jGoal g, iGoalStack goals) {
+	goals.push(new jRepeatGoal());
+    };
 };
-

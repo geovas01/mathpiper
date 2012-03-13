@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	FunctorGoal
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins.Goals;
 
 import java.lang.*;
@@ -56,79 +56,73 @@ import ubc.cs.JLog.Terms.*;
 import ubc.cs.JLog.Parser.*;
 import ubc.cs.JLog.Builtins.*;
 
-public class jFunctorGoal extends jGoal
-{
- protected jFunctor 			functor;
- 
- // for use by functor
- public jTerm 				term1,term2,term3;
- public jUnifiedVector 		unified;
- 
- public 	jFunctorGoal(jFunctor f,jTerm t1,jTerm t2,jTerm t3)
- {
-  functor = f;
-  term1 = t1;
-  term2 = t2;
-  term3 = t3;
-  unified = new jUnifiedVector();
- };
+public class jFunctorGoal extends jGoal {
+    protected jFunctor functor;
 
- public boolean 	prove(iGoalStack goals,iGoalStack proved)
- {Thread 		t;
-  
-  t = Thread.currentThread();
-  
-  if (t instanceof jPrologServiceThread)
-  {jPrologServiceThread			pst = (jPrologServiceThread) t;
-   jPrologServices				prolog = pst.getPrologServices();
-   pPredicateRegistry 			registry = prolog.getPredicateRegistry();
-    
-   if (functor.prove(this,registry))
-   {
-    proved.push(this);
-    return true;
-   }
-  }
-  {
-   { // we need to initialize goal to potentially restart
-    unified.restoreVariables();
-   }
-   goals.push(this); // a retry that follows may need a node to remove or retry
-   return false;
-  } 
- };
+    // for use by functor
+    public jTerm term1, term2, term3;
+    public jUnifiedVector unified;
 
- public boolean 	retry(iGoalStack goals,iGoalStack proved)
- {
-  unified.restoreVariables();
-  
-  goals.push(this); // a retry that follows may need a node to remove or retry
-  return false;
- }; 
- 
- public final void 	internal_restore(iGoalStack goals)
- {
-  unified.restoreVariables();
- };
+    public jFunctorGoal(jFunctor f, jTerm t1, jTerm t2, jTerm t3) {
+	functor = f;
+	term1 = t1;
+	term2 = t2;
+	term3 = t3;
+	unified = new jUnifiedVector();
+    };
 
- public String 		getName() 
- {
-  return functor.getName();
- };
- 
- public int 		getArity() 
- {
-  return functor.getArity();
- };
- 
- public String 		toString()
- {StringBuffer 	sb = new StringBuffer();
-   
-  sb.append(getName()+"/"+String.valueOf(getArity())+" goal: ");
-  sb.append(getName()+"("+term1.toString()+","+term2.toString()+","+term3.toString()+")");
-  
-  return sb.toString();
- };
+    public boolean prove(iGoalStack goals, iGoalStack proved) {
+	Thread t;
+
+	t = Thread.currentThread();
+
+	if (t instanceof jPrologServiceThread) {
+	    jPrologServiceThread pst = (jPrologServiceThread) t;
+	    jPrologServices prolog = pst.getPrologServices();
+	    pPredicateRegistry registry = prolog.getPredicateRegistry();
+
+	    if (functor.prove(this, registry)) {
+		proved.push(this);
+		return true;
+	    }
+	}
+	{
+	    { // we need to initialize goal to potentially restart
+		unified.restoreVariables();
+	    }
+	    goals.push(this); // a retry that follows may need a node to remove
+			      // or retry
+	    return false;
+	}
+    };
+
+    public boolean retry(iGoalStack goals, iGoalStack proved) {
+	unified.restoreVariables();
+
+	goals.push(this); // a retry that follows may need a node to remove or
+			  // retry
+	return false;
+    };
+
+    public final void internal_restore(iGoalStack goals) {
+	unified.restoreVariables();
+    };
+
+    public String getName() {
+	return functor.getName();
+    };
+
+    public int getArity() {
+	return functor.getArity();
+    };
+
+    public String toString() {
+	StringBuffer sb = new StringBuffer();
+
+	sb.append(getName() + "/" + String.valueOf(getArity()) + " goal: ");
+	sb.append(getName() + "(" + term1.toString() + "," + term2.toString()
+		+ "," + term3.toString() + ")");
+
+	return sb.toString();
+    };
 };
-
- 

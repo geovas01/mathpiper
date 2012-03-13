@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	NaryBuiltinPredicateGoal
 //#########################################################################
- 
+
 package ubc.cs.JLog.Terms.Goals;
 
 import java.lang.*;
@@ -55,77 +55,68 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Terms.*;
 
 /**
- * A very basic goal for N-ary builtin predicates.  It only attempts to prove once (i.e., 
- * the retry fails).  It calls the prove(jNaryBuiltinPredicateGoal) method of the associated
- * predicate to perform the prove.
- *
- * @author       Glendon Holst
- * @version      %I%, %G%
+ * A very basic goal for N-ary builtin predicates. It only attempts to prove
+ * once (i.e., the retry fails). It calls the prove(jNaryBuiltinPredicateGoal)
+ * method of the associated predicate to perform the prove.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
  */
-public class jNaryBuiltinPredicateGoal extends jGoal
-{
- protected jNaryBuiltinPredicate			predicate;
- 
- public jCompoundTerm		arguments;
- public jUnifiedVector 		unified;
- 
- public 	jNaryBuiltinPredicateGoal(jNaryBuiltinPredicate p,jCompoundTerm args)
- {
-  predicate = p;
-  arguments = args;
-  unified = new jUnifiedVector();
- };
+public class jNaryBuiltinPredicateGoal extends jGoal {
+    protected jNaryBuiltinPredicate predicate;
 
- public boolean 	prove(iGoalStack goals,iGoalStack proved)
- {
-  if (predicate.prove(this))
-  {
-   proved.push(this);
-   return true;
-  }
-  else
-  {
-   { // we need to initialize goal to potentially restart
-    unified.restoreVariables();
-   }
-   goals.push(this); // a retry that follows may need a node to remove or retry
-   return false;
-  } 
- };
+    public jCompoundTerm arguments;
+    public jUnifiedVector unified;
 
- public boolean 	retry(iGoalStack goals,iGoalStack proved)
- {
-  unified.restoreVariables();
-  
-  goals.push(this); // a retry that follows may need a node to remove or retry
-  return false;
- }; 
- 
- public void 	internal_restore(iGoalStack goals)
- {
-  unified.restoreVariables();
- };
+    public jNaryBuiltinPredicateGoal(jNaryBuiltinPredicate p, jCompoundTerm args) {
+	predicate = p;
+	arguments = args;
+	unified = new jUnifiedVector();
+    };
 
- public String 		getName() 
- {
-  return predicate.getName();
- };
- 
- public int 		getArity() 
- {
-  return predicate.getArity();
- };
+    public boolean prove(iGoalStack goals, iGoalStack proved) {
+	if (predicate.prove(this)) {
+	    proved.push(this);
+	    return true;
+	} else {
+	    { // we need to initialize goal to potentially restart
+		unified.restoreVariables();
+	    }
+	    goals.push(this); // a retry that follows may need a node to remove
+			      // or retry
+	    return false;
+	}
+    };
 
- public String 		toString()
- {StringBuffer 	sb = new StringBuffer();
-   
-  sb.append(getName()+"/"+String.valueOf(predicate.getArity())+" goal: ");
-  sb.append(getName());
-  if (arguments.size() > 0)
-   sb.append(arguments.toString());
+    public boolean retry(iGoalStack goals, iGoalStack proved) {
+	unified.restoreVariables();
 
-  return sb.toString();
- };
+	goals.push(this); // a retry that follows may need a node to remove or
+			  // retry
+	return false;
+    };
+
+    public void internal_restore(iGoalStack goals) {
+	unified.restoreVariables();
+    };
+
+    public String getName() {
+	return predicate.getName();
+    };
+
+    public int getArity() {
+	return predicate.getArity();
+    };
+
+    public String toString() {
+	StringBuffer sb = new StringBuffer();
+
+	sb.append(getName() + "/" + String.valueOf(predicate.getArity())
+		+ " goal: ");
+	sb.append(getName());
+	if (arguments.size() > 0)
+	    sb.append(arguments.toString());
+
+	return sb.toString();
+    };
 };
-
- 

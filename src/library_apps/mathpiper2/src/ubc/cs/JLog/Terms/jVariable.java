@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Variable
 //#########################################################################
@@ -54,254 +54,230 @@ import java.util.*;
 import ubc.cs.JLog.Foundation.*;
 
 /**
-* This is the class for Prolog variables.
-*  
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public class jVariable extends jTerm
-{
- protected String 	name = null;
- protected jTerm 	bound = null;
- protected int 		proxy = -1;
+ * This is the class for Prolog variables.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public class jVariable extends jTerm {
+    protected String name = null;
+    protected jTerm bound = null;
+    protected int proxy = -1;
 
- /**
-  * Constructor to create unnamed variables, such as "_".
-  *
-  */ 
- public 	jVariable()
- {
-  type = TYPE_VARIABLE;
- };
- 
- public 	jVariable(String n)
- {
-  name = n;
-  type = TYPE_VARIABLE;
- };
- 
- public jTerm 		getValue()
- {
-  if (bound != null)
-   return bound.getValue();
-   
-  return this;
- };
+    /**
+     * Constructor to create unnamed variables, such as "_".
+     * 
+     */
+    public jVariable() {
+	type = TYPE_VARIABLE;
+    };
 
- public jTerm 		getTerm()
- {jTerm			b = bound;
-  jVariable		p = this;
+    public jVariable(String n) {
+	name = n;
+	type = TYPE_VARIABLE;
+    };
 
-  while (b != null)
-  {
-   if (b.type == TYPE_VARIABLE)
-   {
-    p = (jVariable) b; // assume type member is correct
-	b = p.bound;
-   }
-   else
-    return b.getTerm();
-  }
+    public jTerm getValue() {
+	if (bound != null)
+	    return bound.getValue();
 
-  return p;
- };
- 
- public String 		getName()
- {
-  if (isNamed())
-   return name;
-   
-  return getIdentity();
- };
+	return this;
+    };
 
- /**
-  * Get an unique indentifying name. Relies on the <code>Object toString</code> 
-  * to tack on a number at the end of the string. If expectations are not met, 
-  * this is still handled fairly gracefully.
-  *
-  * @return  		An identity string (based on the name and and id number 
-  * 			from <code>Object toString</code>.
-  */ 
- public String 		getIdentity()
- {String 	id =  objectToString();
-  int 		pos = id.lastIndexOf('@') + 1;
-  
-  if (pos < 0 || pos >= id.length())
-   pos = id.length() - 6;
-  if (pos < 0)
-   pos = 0;
-  
-  return "_" + id.substring(pos);
- };
- 
- public boolean 	isNamed()
- {
-  return (name != null && !name.equals("_"));
- };
+    public jTerm getTerm() {
+	jTerm b = bound;
+	jVariable p = this;
 
- public boolean 	isNamedForDisplay()
- {
-  return (name != null && !name.startsWith("_"));
- };
-
- public void 		setBinding(jTerm b)
- {
-  bound = b;
- };
-
- public boolean 	isBound()
- {
-  return bound != null;
- };
-
- public void 		registerUnboundVariables(jUnifiedVector v)
- {
-  if (bound == null)
-   v.addVariable(this);
-  else
-   bound.registerUnboundVariables(v);
- };
-
- protected int 		compare(jTerm term,boolean first_call,boolean var_equal)
- {jTerm 	    vt = getTerm();
-  jTerm 		t = term.getTerm();
- 
-  if (vt instanceof jVariable)
-  {
-   if (t instanceof jVariable)
-   {int 			compare_val;
-   
-    if (var_equal)
-     return EQUAL;
-     
-    compare_val = ((jVariable) vt).getIdentity().compareTo(((jVariable) t).getIdentity());
-   
-    if (compare_val < 0)
-     return LESS_THAN;
-    if (compare_val > 0)
-     return GREATER_THAN;
- 
-    return EQUAL;
-   }
-   else
-    return LESS_THAN;
-  }
-  else
-   return vt.compare(t,true,var_equal);
- };
-
- public boolean 	equivalence(jTerm term,jEquivalenceMapping v)
- {jTerm 		t = term.getTerm();
-  
-  {jTerm		b = bound;
-   jVariable	p = this;
-   
-   while (b != null)
-   {
-    if (b.type == TYPE_VARIABLE)
-    {
-	 p = (jVariable) b;  // assume type member is correct
-	 b = p.bound; 
+	while (b != null) {
+	    if (b.type == TYPE_VARIABLE) {
+		p = (jVariable) b; // assume type member is correct
+		b = p.bound;
+	    } else
+		return b.getTerm();
 	}
-	else // there is no occurs check
-	 return b.equivalence(t,v);	
-   }
 
-   if (t.type != TYPE_VARIABLE)
-    return false;
-   
-   // past this point, both terms are variables 
-   if (p == t)
-    return true;
+	return p;
+    };
 
-   // assume p and t are variables (if not, a failing exceptin is appropriate).
-   return v.mapVariablePair((jVariable) p,(jVariable) t);
-  }  
- };
+    public String getName() {
+	if (isNamed())
+	    return name;
 
- public boolean 	unify(jTerm term,jUnifiedVector v)
- {jTerm 		t = term.getTerm();
-  
-  {jTerm		b = bound;
-   jVariable	p = this;
-   
-   while (b != null)
-   {
-    if (b.type == TYPE_VARIABLE)
-    {
-	 p = (jVariable) b;  // assume type member is correct
-	 b = p.bound; 
+	return getIdentity();
+    };
+
+    /**
+     * Get an unique indentifying name. Relies on the
+     * <code>Object toString</code> to tack on a number at the end of the
+     * string. If expectations are not met, this is still handled fairly
+     * gracefully.
+     * 
+     * @return An identity string (based on the name and and id number from
+     *         <code>Object toString</code>.
+     */
+    public String getIdentity() {
+	String id = objectToString();
+	int pos = id.lastIndexOf('@') + 1;
+
+	if (pos < 0 || pos >= id.length())
+	    pos = id.length() - 6;
+	if (pos < 0)
+	    pos = 0;
+
+	return "_" + id.substring(pos);
+    };
+
+    public boolean isNamed() {
+	return (name != null && !name.equals("_"));
+    };
+
+    public boolean isNamedForDisplay() {
+	return (name != null && !name.startsWith("_"));
+    };
+
+    public void setBinding(jTerm b) {
+	bound = b;
+    };
+
+    public boolean isBound() {
+	return bound != null;
+    };
+
+    public void registerUnboundVariables(jUnifiedVector v) {
+	if (bound == null)
+	    v.addVariable(this);
+	else
+	    bound.registerUnboundVariables(v);
+    };
+
+    protected int compare(jTerm term, boolean first_call, boolean var_equal) {
+	jTerm vt = getTerm();
+	jTerm t = term.getTerm();
+
+	if (vt instanceof jVariable) {
+	    if (t instanceof jVariable) {
+		int compare_val;
+
+		if (var_equal)
+		    return EQUAL;
+
+		compare_val = ((jVariable) vt).getIdentity().compareTo(
+			((jVariable) t).getIdentity());
+
+		if (compare_val < 0)
+		    return LESS_THAN;
+		if (compare_val > 0)
+		    return GREATER_THAN;
+
+		return EQUAL;
+	    } else
+		return LESS_THAN;
+	} else
+	    return vt.compare(t, true, var_equal);
+    };
+
+    public boolean equivalence(jTerm term, jEquivalenceMapping v) {
+	jTerm t = term.getTerm();
+
+	{
+	    jTerm b = bound;
+	    jVariable p = this;
+
+	    while (b != null) {
+		if (b.type == TYPE_VARIABLE) {
+		    p = (jVariable) b; // assume type member is correct
+		    b = p.bound;
+		} else
+		    // there is no occurs check
+		    return b.equivalence(t, v);
+	    }
+
+	    if (t.type != TYPE_VARIABLE)
+		return false;
+
+	    // past this point, both terms are variables
+	    if (p == t)
+		return true;
+
+	    // assume p and t are variables (if not, a failing exceptin is
+	    // appropriate).
+	    return v.mapVariablePair((jVariable) p, (jVariable) t);
 	}
-	else // there is no occurs check
-	 return b.unify(t,v);	
-   }
+    };
 
-   if (p == t)
-    return true;
+    public boolean unify(jTerm term, jUnifiedVector v) {
+	jTerm t = term.getTerm();
 
-   p.bound = t;
-   v.addVariable(p);
-   return true;
-  }  
- };
+	{
+	    jTerm b = bound;
+	    jVariable p = this;
 
- public void 		registerVariables(jVariableVector v)
- {
-  proxy = v.addVariable(this);
- };
-  
- public void 		enumerateVariables(jVariableVector v,boolean all)
- {
-  if (bound != null)
-   bound.enumerateVariables(v,all);
-  else
-   v.addVariable(this);
- };
+	    while (b != null) {
+		if (b.type == TYPE_VARIABLE) {
+		    p = (jVariable) b; // assume type member is correct
+		    b = p.bound;
+		} else
+		    // there is no occurs check
+		    return b.unify(t, v);
+	    }
 
- public jTerm 		duplicate(jVariable[] vars)
- {
-  return vars[proxy];
- };
+	    if (p == t)
+		return true;
 
- public jTerm 		copy(jVariableRegistry vars)
- {jTerm			b = bound;
-  jVariable		p = this;
+	    p.bound = t;
+	    v.addVariable(p);
+	    return true;
+	}
+    };
 
-  while (b != null)
-  {
-   if (b.type == TYPE_VARIABLE)
-   {
-    p = (jVariable) b; // assume type member is correct
-	b = p.bound;
-   }
-   else
-    return b.copy(vars);
-  }
+    public void registerVariables(jVariableVector v) {
+	proxy = v.addVariable(this);
+    };
 
-  return vars.copyVariable(p);
- };
+    public void enumerateVariables(jVariableVector v, boolean all) {
+	if (bound != null)
+	    bound.enumerateVariables(v, all);
+	else
+	    v.addVariable(this);
+    };
 
- public void 		consult(jKnowledgeBase kb)
- {
-  if (bound != null)
-   bound.consult(kb);
- };
- 
- public void 		consultReset()
- {
-  if (bound != null)
-   bound.consultReset();
- };
- 
- public boolean 	isConsultNeeded()
- {
-  return bound != null;
- };
+    public jTerm duplicate(jVariable[] vars) {
+	return vars[proxy];
+    };
 
- public String 		toString(boolean usename)
- {jTerm 	t = getTerm();
- 
-  return (t instanceof jVariable ? 
-           (usename ? getName() : ((jVariable) t).getIdentity()): t.toString(usename));
- };
+    public jTerm copy(jVariableRegistry vars) {
+	jTerm b = bound;
+	jVariable p = this;
+
+	while (b != null) {
+	    if (b.type == TYPE_VARIABLE) {
+		p = (jVariable) b; // assume type member is correct
+		b = p.bound;
+	    } else
+		return b.copy(vars);
+	}
+
+	return vars.copyVariable(p);
+    };
+
+    public void consult(jKnowledgeBase kb) {
+	if (bound != null)
+	    bound.consult(kb);
+    };
+
+    public void consultReset() {
+	if (bound != null)
+	    bound.consultReset();
+    };
+
+    public boolean isConsultNeeded() {
+	return bound != null;
+    };
+
+    public String toString(boolean usename) {
+	jTerm t = getTerm();
+
+	return (t instanceof jVariable ? (usename ? getName() : ((jVariable) t)
+		.getIdentity()) : t.toString(usename));
+    };
 };

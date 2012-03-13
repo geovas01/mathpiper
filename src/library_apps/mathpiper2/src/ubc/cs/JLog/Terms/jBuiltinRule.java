@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	BuiltinRule
 //#########################################################################
@@ -54,16 +54,14 @@ import java.util.*;
 import ubc.cs.JLog.Foundation.*;
 
 /**
- * This class is a type stub that permits differentiating between user and 
+ * This class is a type stub that permits differentiating between user and
  * builtin rules.
- *  
- * @author       Glendon Holst
- * @version      %I%, %G%
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
  */
-public class jBuiltinRule extends jRule
-{
- public 	jBuiltinRule(jPredicate h,jPredicateTerms b)
- {
-  super(h,b);
- };
+public class jBuiltinRule extends jRule {
+    public jBuiltinRule(jPredicate h, jPredicateTerms b) {
+	super(h, b);
+    };
 };

@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	GenericOperatorEntry
 //#########################################################################
@@ -55,126 +55,119 @@ import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
 /**
-* Dynamically constructs the operator <code>jTerm</code> term from a description of the
-* operators name, type, and priority. It is suitable for operators
-* constructed directly from the the arguments passed into <code>createOperator</code>.
-*  
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public class pGenericOperatorEntry extends pOperatorEntry
-{
- protected final static Class[][]   constructor_params_arrays = new Class[][] {
-				new Class[] {jTerm.class}, new Class[] {jTerm.class,jTerm.class}};
+ * Dynamically constructs the operator <code>jTerm</code> term from a
+ * description of the operators name, type, and priority. It is suitable for
+ * operators constructed directly from the the arguments passed into
+ * <code>createOperator</code>.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public class pGenericOperatorEntry extends pOperatorEntry {
+    protected final static Class[][] constructor_params_arrays = new Class[][] {
+	    new Class[] { jTerm.class },
+	    new Class[] { jTerm.class, jTerm.class } };
 
- protected Class		operator_class;
- protected boolean		allow_atom = true;
+    protected Class operator_class;
+    protected boolean allow_atom = true;
 
- public 	pGenericOperatorEntry(String name,int type,int priority,String classname)
- {
-  super(name,type,priority);
-  try
-  {
-   operator_class = Class.forName(classname);
-  }
-  catch (Exception e)
-  {
-   throw new InvalidGenericOperatorEntryException("Operator Class not found: "+classname);
-  }
- };
+    public pGenericOperatorEntry(String name, int type, int priority,
+	    String classname) {
+	super(name, type, priority);
+	try {
+	    operator_class = Class.forName(classname);
+	} catch (Exception e) {
+	    throw new InvalidGenericOperatorEntryException(
+		    "Operator Class not found: " + classname);
+	}
+    };
 
- public 	pGenericOperatorEntry(String name,int type,int priority,boolean aatom, String classname)
- {
-  super(name,type,priority);
+    public pGenericOperatorEntry(String name, int type, int priority,
+	    boolean aatom, String classname) {
+	super(name, type, priority);
 
-  allow_atom = aatom;
-  
-  try
-  {
-   operator_class = Class.forName(classname);
-  }
-  catch (Exception e)
-  {
-   throw new InvalidGenericOperatorEntryException("Operator Class not found");   
-  }
- };
+	allow_atom = aatom;
 
- public 	pGenericOperatorEntry(String name,int type,int priority,Class op_class)
- {
-  super(name,type,priority);
-  operator_class = op_class;
- };
- 
- public 	pGenericOperatorEntry(String name,int type,int priority,boolean aatom,Class op_class)
- {
-  super(name,type,priority);
-  allow_atom = aatom;
-  operator_class = op_class;
- };
- 
- public boolean 		isAtomPermitted()
- {
-  return allow_atom;
- };
- 
- public jTerm 		createOperator(jTerm l,jTerm r)
- {
-  try
-  {Constructor		op_cons = null;
-   jTerm			op = null;
-   
-   op_cons = operator_class.getConstructor(getConstructorParamsArray());
-   op = (jTerm) op_cons.newInstance(getConstructorArgsArray(l,r));
+	try {
+	    operator_class = Class.forName(classname);
+	} catch (Exception e) {
+	    throw new InvalidGenericOperatorEntryException(
+		    "Operator Class not found");
+	}
+    };
 
-   return op;   
-  }
-  catch (Exception e)
-  {
-   throw new InvalidGenericOperatorEntryException("Operator construction failed");
-  }
- };
+    public pGenericOperatorEntry(String name, int type, int priority,
+	    Class op_class) {
+	super(name, type, priority);
+	operator_class = op_class;
+    };
 
- protected final Class[]	getConstructorParamsArray()
- {
-  switch (type)
-  {
-   case FX:
-   case FY:
-   case XF:
-   case YF:
-	 return constructor_params_arrays[0];
-   case XFX:
-   case XFY:
-   case YFX:
-     return constructor_params_arrays[1];
-   default:
-     return null;
-  }
- };
- 
- protected final Object[]	getConstructorArgsArray(jTerm l,jTerm r)
- {
-  switch (type)
-  {
-   case FX:
-   case FY:
-     return new Object[] {r};
-   case XF:
-   case YF:
-	 return new Object[] {l};
-   case XFX:
-   case XFY:
-   case YFX:
-     return new Object[] {l,r};
-   default:
-     return null;
-  }
- };
+    public pGenericOperatorEntry(String name, int type, int priority,
+	    boolean aatom, Class op_class) {
+	super(name, type, priority);
+	allow_atom = aatom;
+	operator_class = op_class;
+    };
+
+    public boolean isAtomPermitted() {
+	return allow_atom;
+    };
+
+    public jTerm createOperator(jTerm l, jTerm r) {
+	try {
+	    Constructor op_cons = null;
+	    jTerm op = null;
+
+	    op_cons = operator_class
+		    .getConstructor(getConstructorParamsArray());
+	    op = (jTerm) op_cons.newInstance(getConstructorArgsArray(l, r));
+
+	    return op;
+	} catch (Exception e) {
+	    throw new InvalidGenericOperatorEntryException(
+		    "Operator construction failed");
+	}
+    };
+
+    protected final Class[] getConstructorParamsArray() {
+	switch (type) {
+	case FX:
+	case FY:
+	case XF:
+	case YF:
+	    return constructor_params_arrays[0];
+	case XFX:
+	case XFY:
+	case YFX:
+	    return constructor_params_arrays[1];
+	default:
+	    return null;
+	}
+    };
+
+    protected final Object[] getConstructorArgsArray(jTerm l, jTerm r) {
+	switch (type) {
+	case FX:
+	case FY:
+	    return new Object[] { r };
+	case XF:
+	case YF:
+	    return new Object[] { l };
+	case XFX:
+	case XFY:
+	case YFX:
+	    return new Object[] { l, r };
+	default:
+	    return null;
+	}
+    };
 };
 
-class InvalidGenericOperatorEntryException extends RuntimeException
-{
- public InvalidGenericOperatorEntryException() {};
- public InvalidGenericOperatorEntryException(String s) {super(s);};
-};
+class InvalidGenericOperatorEntryException extends RuntimeException {
+    public InvalidGenericOperatorEntryException() {
+    };
 
+    public InvalidGenericOperatorEntryException(String s) {
+	super(s);
+    };
+};

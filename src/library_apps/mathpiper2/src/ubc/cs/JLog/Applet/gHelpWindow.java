@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //##################################################################################
 //	gHelpWindow
 //##################################################################################
@@ -56,37 +56,30 @@ import java.awt.event.*;
 import java.net.*;
 import java.io.*;
 
-public class gHelpWindow extends gWindowBase
-{
- gHelpWindow(gJLogApplicationBase b,boolean visible)
- {
-  super(b);
-  
-  setLayout(new GridLayout());
-  add(new gHelpPanel(parent));
-  pack();
+public class gHelpWindow extends gWindowBase {
+    gHelpWindow(gJLogApplicationBase b, boolean visible) {
+	super(b);
 
-  setSize(500, 400);
-  setLocation(120,40);
+	setLayout(new GridLayout());
+	add(new gHelpPanel(parent));
+	pack();
 
-  setTitle("JLog - Help");
-  setVisible(visible);
- };
- 
- public boolean 		useMenuItem(MenuItem mi)
- {
-  if (mi.getActionCommand() == parent.MENU_CLOSE)
-  {
-   mi.addActionListener(new ActionListener() 
-        {
-         public void actionPerformed (ActionEvent e) 
-         {
-          close();
-         }
-        }
-       );  
-   return true;
-  }
-  return false;
- };
+	setSize(500, 400);
+	setLocation(120, 40);
+
+	setTitle("JLog - Help");
+	setVisible(visible);
+    };
+
+    public boolean useMenuItem(MenuItem mi) {
+	if (mi.getActionCommand() == parent.MENU_CLOSE) {
+	    mi.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		    close();
+		}
+	    });
+	    return true;
+	}
+	return false;
+    };
 };

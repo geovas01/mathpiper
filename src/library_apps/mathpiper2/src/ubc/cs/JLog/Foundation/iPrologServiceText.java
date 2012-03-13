@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	PrologServiceText
 //#########################################################################
@@ -53,24 +53,30 @@ import java.lang.*;
 import java.util.*;
 
 /**
-* This is the interface for text.  It represents the minimal interface suitable
-* for jPrologService* to interface with text sources and destinations.  The 
-* interface also supports the user interface aspects of TextArea and TextField,
-* which can be ignored by Strings.
-*  
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public interface iPrologServiceText
-{
- public String 			getText();
- public void 			setText(String t);
- public void 			append(String a);
- public void 			insert(String i,int p);
- public void 			remove(int s,int e);
- 
- public void 			setCaretPosition(int i);
- public void 			select(int s,int e);
- public void 			selectAll();
- public void   			requestFocus(); 
+ * This is the interface for text. It represents the minimal interface suitable
+ * for jPrologService* to interface with text sources and destinations. The
+ * interface also supports the user interface aspects of TextArea and TextField,
+ * which can be ignored by Strings.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public interface iPrologServiceText {
+    public String getText();
+
+    public void setText(String t);
+
+    public void append(String a);
+
+    public void insert(String i, int p);
+
+    public void remove(int s, int e);
+
+    public void setCaretPosition(int i);
+
+    public void select(int s, int e);
+
+    public void selectAll();
+
+    public void requestFocus();
 };

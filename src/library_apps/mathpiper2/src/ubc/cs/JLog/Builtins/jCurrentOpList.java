@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	CurrentOpList
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -56,89 +56,78 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Parser.*;
 import ubc.cs.JLog.Builtins.Goals.*;
 
-public class jCurrentOpList extends jUnaryBuiltinPredicate
-{
- public jCurrentOpList(jTerm list)
- {
-  super(list,TYPE_BUILTINPREDICATE);
- };
-  
- public String 		getName()
- {
-  return "CURRENTOPLIST";
- };
+public class jCurrentOpList extends jUnaryBuiltinPredicate {
+    public jCurrentOpList(jTerm list) {
+	super(list, TYPE_BUILTINPREDICATE);
+    };
 
- public boolean 	prove(jCurrentOpListGoal olg,Enumeration e)
- {jTerm 	r,l = null;
-  jListPair 	prev = null;
-  
-  r = olg.rhs.getTerm();
-  
-  while (e.hasMoreElements())
-  {pOperatorEntry 	oe = (pOperatorEntry) e.nextElement();
-   jListPair 			next;
-   
-   next = new jListPair(createSingleOperatorList(oe),null);
-   if (prev != null)
-    prev.setTail(next);
-   else
-    l = next;
-    
-   prev = next;
-  }
-   
-  if (prev != null)
-   prev.setTail(jNullList.NULL_LIST);
-  else
-   l = jNullList.NULL_LIST;
-   
-  return r.unify(l,olg.unified);
- };
+    public String getName() {
+	return "CURRENTOPLIST";
+    };
 
- protected String 	createSpecifierString(int type)
- {
-  switch (type)
-  {
-   case pOperatorEntry.FX:
-    return "fx";
-   case pOperatorEntry.FY:
-    return "fy";
-   case pOperatorEntry.XFX:
-    return "xfx";
-   case pOperatorEntry.XFY:
-    return "xfy";
-   case pOperatorEntry.YFX:
-    return "yfx";
-   case pOperatorEntry.XF:
-    return "xf";
-   case pOperatorEntry.YF:
-    return "yf";
-   default:
-    return "?";
-  }
- };
- 
- protected jListPair 	createSingleOperatorList(pOperatorEntry oe)
- {
-  return new jListPair(new jInteger(oe.getPriority()),
-            new jListPair(new jAtom(oe.getName()),
-            new jAtom(createSpecifierString(oe.getType()))));
- };
- 
- public void 		addGoals(jGoal g,jVariable[] vars,iGoalStack goals)
- {
-  goals.push(new jCurrentOpListGoal(this,rhs.duplicate(vars)));
- };
+    public boolean prove(jCurrentOpListGoal olg, Enumeration e) {
+	jTerm r, l = null;
+	jListPair prev = null;
 
- public void 		addGoals(jGoal g,iGoalStack goals)
- {
-  goals.push(new jCurrentOpListGoal(this,rhs));
- };
+	r = olg.rhs.getTerm();
 
- protected jUnaryBuiltinPredicate 		duplicate(jTerm r)
- {
-  return new jCurrentOpList(r); 
- };
+	while (e.hasMoreElements()) {
+	    pOperatorEntry oe = (pOperatorEntry) e.nextElement();
+	    jListPair next;
+
+	    next = new jListPair(createSingleOperatorList(oe), null);
+	    if (prev != null)
+		prev.setTail(next);
+	    else
+		l = next;
+
+	    prev = next;
+	}
+
+	if (prev != null)
+	    prev.setTail(jNullList.NULL_LIST);
+	else
+	    l = jNullList.NULL_LIST;
+
+	return r.unify(l, olg.unified);
+    };
+
+    protected String createSpecifierString(int type) {
+	switch (type) {
+	case pOperatorEntry.FX:
+	    return "fx";
+	case pOperatorEntry.FY:
+	    return "fy";
+	case pOperatorEntry.XFX:
+	    return "xfx";
+	case pOperatorEntry.XFY:
+	    return "xfy";
+	case pOperatorEntry.YFX:
+	    return "yfx";
+	case pOperatorEntry.XF:
+	    return "xf";
+	case pOperatorEntry.YF:
+	    return "yf";
+	default:
+	    return "?";
+	}
+    };
+
+    protected jListPair createSingleOperatorList(pOperatorEntry oe) {
+	return new jListPair(new jInteger(oe.getPriority()), new jListPair(
+		new jAtom(oe.getName()), new jAtom(
+			createSpecifierString(oe.getType()))));
+    };
+
+    public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+	goals.push(new jCurrentOpListGoal(this, rhs.duplicate(vars)));
+    };
+
+    public void addGoals(jGoal g, iGoalStack goals) {
+	goals.push(new jCurrentOpListGoal(this, rhs));
+    };
+
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jCurrentOpList(r);
+    };
 };
-
- 

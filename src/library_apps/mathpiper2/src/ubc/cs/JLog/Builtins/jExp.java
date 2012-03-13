@@ -42,42 +42,35 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Exp
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
 import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jExp extends jRealUnaryArithmetic
-{
- public 	jExp(jTerm r)
- {
-  super(r);
- };
- 
- public String 		getName()
- {
-  return "exp";
- };  
+public class jExp extends jRealUnaryArithmetic {
+    public jExp(jTerm r) {
+	super(r);
+    };
 
- protected jUnaryBuiltinPredicate 	duplicate(jTerm r)
- {
-  return new jExp(r);
- };
- 
- protected int 		operatorInt(int r)
- {
-  throw new InvalidArithmeticOperationException();
- };
- 
- protected float 	operatorReal(float r)
- {
-  return (float) Math.exp(r);
- };
+    public String getName() {
+	return "exp";
+    };
+
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jExp(r);
+    };
+
+    protected int operatorInt(int r) {
+	throw new InvalidArithmeticOperationException();
+    };
+
+    protected float operatorReal(float r) {
+	return (float) Math.exp(r);
+    };
 };
-

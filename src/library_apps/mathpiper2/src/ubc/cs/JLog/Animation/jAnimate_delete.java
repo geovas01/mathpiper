@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Animate Delete
 //#########################################################################
- 
+
 package ubc.cs.JLog.Animation;
 
 import java.lang.*;
@@ -54,33 +54,28 @@ import java.util.*;
 import java.awt.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jAnimate_delete extends jAnimate
-{
- public jAnimate_delete(jTerm t)
- {
-  super(t);
- };
-  
- public String 		getName()
- {
-  return "animate<delete>";
- };
- 
- public int 		getNumberArguments()
- {
-  return 1;
- };
- 
- protected jUnaryBuiltinPredicate 		duplicate(jTerm r)
- {
-  return new jAnimate_delete(r); 
- };
- 
- protected void 	action(aAnimationEnvironment ae,jTerm[] terms)
- {aAnimationObject 	obj = aAttributeTranslation.convertToAnimationObject(terms[0],ae);
-  
-  ae.removeObject(obj);
-  ae.update(); 
- };
-};
+public class jAnimate_delete extends jAnimate {
+    public jAnimate_delete(jTerm t) {
+	super(t);
+    };
 
+    public String getName() {
+	return "animate<delete>";
+    };
+
+    public int getNumberArguments() {
+	return 1;
+    };
+
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jAnimate_delete(r);
+    };
+
+    protected void action(aAnimationEnvironment ae, jTerm[] terms) {
+	aAnimationObject obj = aAttributeTranslation.convertToAnimationObject(
+		terms[0], ae);
+
+	ae.removeObject(obj);
+	ae.update();
+    };
+};

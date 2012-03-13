@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	FSRead
 //#########################################################################
- 
+
 package ubc.cs.JLog.Extras.FileSystem;
 
 import java.io.*;
@@ -56,88 +56,75 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.*;
 import ubc.cs.JLog.Terms.Goals.*;
 
-public class jFSRead extends jBinaryBuiltinPredicate 
-{
- public jFSRead(jTerm l,jTerm r) 
- {
-  super(l,r,TYPE_BUILTINPREDICATE);
- };
+public class jFSRead extends jBinaryBuiltinPredicate {
+    public jFSRead(jTerm l, jTerm r) {
+	super(l, r, TYPE_BUILTINPREDICATE);
+    };
 
- public String 		getName() 
- {
-  return "fs_read";
- };
- 
- public boolean 	prove(jBinaryBuiltinPredicateGoal bg)
- {jTerm 	l = bg.term1.getTerm();
-  jTerm		r = bg.term2.getTerm();
-  String	fileName;
+    public String getName() {
+	return "fs_read";
+    };
 
-  if (l instanceof jVariable) 
-  {
-   if (((jVariable) l).isBound()) 
-   {
-	fileName = ((jVariable) l).toString();
-   } 
-   else 
-   {
-    throw new RuntimeException("Variable is unbound");
-   }
-  } 
-  else 
-  {
-   fileName = l.toString();
-  }
+    public boolean prove(jBinaryBuiltinPredicateGoal bg) {
+	jTerm l = bg.term1.getTerm();
+	jTerm r = bg.term2.getTerm();
+	String fileName;
 
-  {jList		result=null;
-   jListPair	prev=null;
+	if (l instanceof jVariable) {
+	    if (((jVariable) l).isBound()) {
+		fileName = ((jVariable) l).toString();
+	    } else {
+		throw new RuntimeException("Variable is unbound");
+	    }
+	} else {
+	    fileName = l.toString();
+	}
 
-   try 
-   {File	f = new File(fileName);
+	{
+	    jList result = null;
+	    jListPair prev = null;
 
-	// simply fail the goal if the file does not exist
-	if (!f.exists())
-	 return false;
-	
-	{BufferedReader		br = new BufferedReader(new FileReader(f));
+	    try {
+		File f = new File(fileName);
 
-     while (br.ready()) 
-	 {String		line = br.readLine();
-      jTerm			t = new jAtom(line);
-	
-	  if (prev == null) 
-	  {
-	   result = prev = new jListPair(t,null);
-	  } 
-	  else 
-	  {jListPair	nlst;
-	   
-	   prev.setTail(nlst = new jListPair(t,null));
-	   prev = nlst;
-	  }
-	 }
-	 
-	 br.close();
-    }
-	
-	if (prev != null)
-	 prev.setTail(jNullList.NULL_LIST);
-	else
-	 result = jNullList.NULL_LIST;
-   } 
-   catch (IOException ioex) 
-   {
-	ioex.printStackTrace();
-	throw new RuntimeException(ioex.getMessage());
-   }
+		// simply fail the goal if the file does not exist
+		if (!f.exists())
+		    return false;
 
-   return r.unify(result,bg.unified);
-  }
- };
+		{
+		    BufferedReader br = new BufferedReader(new FileReader(f));
 
- public jBinaryBuiltinPredicate 		duplicate(jTerm l,jTerm r)
- {
-  return new jFSRead(l,r); 
- };
+		    while (br.ready()) {
+			String line = br.readLine();
+			jTerm t = new jAtom(line);
+
+			if (prev == null) {
+			    result = prev = new jListPair(t, null);
+			} else {
+			    jListPair nlst;
+
+			    prev.setTail(nlst = new jListPair(t, null));
+			    prev = nlst;
+			}
+		    }
+
+		    br.close();
+		}
+
+		if (prev != null)
+		    prev.setTail(jNullList.NULL_LIST);
+		else
+		    result = jNullList.NULL_LIST;
+	    } catch (IOException ioex) {
+		ioex.printStackTrace();
+		throw new RuntimeException(ioex.getMessage());
+	    }
+
+	    return r.unify(result, bg.unified);
+	}
+    };
+
+    public jBinaryBuiltinPredicate duplicate(jTerm l, jTerm r) {
+	return new jFSRead(l, r);
+    };
 }
-

@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Animate Path
 //#########################################################################
- 
+
 package ubc.cs.JLog.Animation;
 
 import java.lang.*;
@@ -54,35 +54,30 @@ import java.util.*;
 import java.awt.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jAnimate_path extends jAnimate
-{
- public jAnimate_path(jTerm t)
- {
-  super(t);
- };
-  
- public String 		getName()
- {
-  return "animate<path>";
- };
- 
- public int 		getNumberArguments()
- {
-  return 4;
- };
- 
- protected jUnaryBuiltinPredicate 		duplicate(jTerm r)
- {
-  return new jAnimate_path(r); 
- };
- 
- protected void 	action(aAnimationEnvironment ae,jTerm[] terms)
- {int 				sz = aAttributeTranslation.convertToInt(terms[1],false);
-  int				incr = aAttributeTranslation.convertToInt(terms[2],false);
-  aAnimationObject 	obj = aAttributeTranslation.convertToAnimationObject(terms[0],ae);
-  Color 			c = aAttributeTranslation.convertToColor(terms[3]);
-  
-  obj.setPathSize(sz,incr,c);
- };
-};
+public class jAnimate_path extends jAnimate {
+    public jAnimate_path(jTerm t) {
+	super(t);
+    };
 
+    public String getName() {
+	return "animate<path>";
+    };
+
+    public int getNumberArguments() {
+	return 4;
+    };
+
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jAnimate_path(r);
+    };
+
+    protected void action(aAnimationEnvironment ae, jTerm[] terms) {
+	int sz = aAttributeTranslation.convertToInt(terms[1], false);
+	int incr = aAttributeTranslation.convertToInt(terms[2], false);
+	aAnimationObject obj = aAttributeTranslation.convertToAnimationObject(
+		terms[0], ae);
+	Color c = aAttributeTranslation.convertToColor(terms[3]);
+
+	obj.setPathSize(sz, incr, c);
+    };
+};

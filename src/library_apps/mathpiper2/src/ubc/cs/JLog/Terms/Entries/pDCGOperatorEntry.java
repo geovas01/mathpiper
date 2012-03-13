@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	DCGOperatorEntry
 //#########################################################################
@@ -54,16 +54,12 @@ import java.util.*;
 import ubc.cs.JLog.Parser.*;
 import ubc.cs.JLog.Terms.*;
 
-public class pDCGOperatorEntry extends pOperatorEntry
-{
- public 	pDCGOperatorEntry()
- {
-  super("-->",XFX,1200);
- };
- 
- public jTerm 		createOperator(jTerm l,jTerm r)
- {
-  return new jDCG(l,r);
- };
-};
+public class pDCGOperatorEntry extends pOperatorEntry {
+    public pDCGOperatorEntry() {
+	super("-->", XFX, 1200);
+    };
 
+    public jTerm createOperator(jTerm l, jTerm r) {
+	return new jDCG(l, r);
+    };
+};

@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	pArrayList
 //#########################################################################
@@ -53,44 +53,40 @@ import java.util.*;
 import java.lang.*;
 import ubc.cs.JLog.Terms.*;
 
-class pArrayList extends pPacket
-{
- public 	pArrayList(pArray pt)
- {
-  super(pt);
- };
- 
- public jTerm 		getTerm(pVariableRegistry vars,pTermToPacketHashtable phash)
- {jTerm 	term;
- 
-  term = createArrayList();
-  phash.putPacket(term,this);
-  
-  return term;
- };
- 
- protected jList 	createArrayList()
- {jList 			start = null;
-  jListPair 			last = null;
-  int 				pos,max;
-  String 			s;
-   
-  s = token.getToken();
-   
-  if (s.length() <= 0)
-   return jNullList.NULL_LIST;
-   
-  start = last = new jListPair(new jInteger(s.charAt(0)),null);
-   
-  for (pos = 1, max = s.length(); pos < max; pos++)
-   last.setTail(last = new jListPair(new jInteger(s.charAt(pos)),null));
-    
-  last.setTail(jNullList.NULL_LIST);
-  return start;
- };
+class pArrayList extends pPacket {
+    public pArrayList(pArray pt) {
+	super(pt);
+    };
 
- public void 		setGeneric(boolean genericpred)
- {
- };
+    public jTerm getTerm(pVariableRegistry vars, pTermToPacketHashtable phash) {
+	jTerm term;
+
+	term = createArrayList();
+	phash.putPacket(term, this);
+
+	return term;
+    };
+
+    protected jList createArrayList() {
+	jList start = null;
+	jListPair last = null;
+	int pos, max;
+	String s;
+
+	s = token.getToken();
+
+	if (s.length() <= 0)
+	    return jNullList.NULL_LIST;
+
+	start = last = new jListPair(new jInteger(s.charAt(0)), null);
+
+	for (pos = 1, max = s.length(); pos < max; pos++)
+	    last.setTail(last = new jListPair(new jInteger(s.charAt(pos)), null));
+
+	last.setTail(jNullList.NULL_LIST);
+	return start;
+    };
+
+    public void setGeneric(boolean genericpred) {
+    };
 };
-

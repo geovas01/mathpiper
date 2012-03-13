@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	OutputStreamTextArea
 //#########################################################################
@@ -59,73 +59,62 @@ import ubc.cs.JLog.Foundation.jPrologServiceEvent;
 import java.awt.TextArea;
 
 /**
-* This class represents an OuputStream which directs to a TextArea.
-*  
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public class gOutputStreamTextArea extends OutputStream
-{
- protected TextArea						text;
- protected jPrologServiceBroadcaster 	addedText = null;
+ * This class represents an OuputStream which directs to a TextArea.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public class gOutputStreamTextArea extends OutputStream {
+    protected TextArea text;
+    protected jPrologServiceBroadcaster addedText = null;
 
- public gOutputStreamTextArea(TextArea t)
- {
-  text = t;
- }
+    public gOutputStreamTextArea(TextArea t) {
+	text = t;
+    }
 
- public void	close() throws IOException
- {
-  text = null;
-  super.close();
- };
+    public void close() throws IOException {
+	text = null;
+	super.close();
+    };
 
- public void	flush() throws IOException
- {
-  super.flush();
- };
- 
- public void	write(int b) throws IOException
- {
-  write(new byte[]{(byte) b});  
- };
+    public void flush() throws IOException {
+	super.flush();
+    };
 
- public void	write(byte[] b) throws IOException
- {String	s = new String(b);
- 
-  if (text != null)
-  {
-   text.append(s);
-   if (addedText != null)
-    addedText.broadcastEvent(new jPrologServiceEvent());
-  }
-  else
-   throw new IOException();
- };
+    public void write(int b) throws IOException {
+	write(new byte[] { (byte) b });
+    };
 
- public void	write(byte[] b,int off,int len) throws IOException
- {String	s = new String(b,off,len);
- 
-  if (text != null)
-  {
-   text.append(s);
-   if (addedText != null)
-    addedText.broadcastEvent(new jPrologServiceEvent());
-  }
-  else
-   throw new IOException();
- };
+    public void write(byte[] b) throws IOException {
+	String s = new String(b);
 
- public synchronized void 		addTextAddedListener(jPrologServiceListener l)
- {
-  if (addedText == null)
-   addedText = new jPrologServiceBroadcaster();
+	if (text != null) {
+	    text.append(s);
+	    if (addedText != null)
+		addedText.broadcastEvent(new jPrologServiceEvent());
+	} else
+	    throw new IOException();
+    };
 
-  addedText.addListener(l);
- };
- 
- public synchronized void 		removeTextAddedListener(jPrologServiceListener l)
- {
-  addedText.removeListener(l);
- };
+    public void write(byte[] b, int off, int len) throws IOException {
+	String s = new String(b, off, len);
+
+	if (text != null) {
+	    text.append(s);
+	    if (addedText != null)
+		addedText.broadcastEvent(new jPrologServiceEvent());
+	} else
+	    throw new IOException();
+    };
+
+    public synchronized void addTextAddedListener(jPrologServiceListener l) {
+	if (addedText == null)
+	    addedText = new jPrologServiceBroadcaster();
+
+	addedText.addListener(l);
+    };
+
+    public synchronized void removeTextAddedListener(jPrologServiceListener l) {
+	addedText.removeListener(l);
+    };
 };

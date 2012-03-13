@@ -42,44 +42,37 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Logarithm10
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
 import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jLog10 extends jRealUnaryArithmetic
-{
- protected final static double		log_base = Math.log(10);
- 
- public 	jLog10(jTerm r)
- {
-  super(r);
- };
- 
- public String 		getName()
- {
-  return "log10";
- };  
+public class jLog10 extends jRealUnaryArithmetic {
+    protected final static double log_base = Math.log(10);
 
- protected jUnaryBuiltinPredicate 	duplicate(jTerm r)
- {
-  return new jLog10(r);
- };
- 
- protected int 		operatorInt(int r)
- {
-  throw new InvalidArithmeticOperationException();
- };
- 
- protected float 	operatorReal(float r)
- {
-  return (float) (Math.log(r) / log_base);
- };
+    public jLog10(jTerm r) {
+	super(r);
+    };
+
+    public String getName() {
+	return "log10";
+    };
+
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jLog10(r);
+    };
+
+    protected int operatorInt(int r) {
+	throw new InvalidArithmeticOperationException();
+    };
+
+    protected float operatorReal(float r) {
+	return (float) (Math.log(r) / log_base);
+    };
 };
-

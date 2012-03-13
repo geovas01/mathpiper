@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	FSisFileOrDir
 //#########################################################################
- 
+
 package ubc.cs.JLog.Extras.FileSystem;
 
 import java.lang.*;
@@ -57,31 +57,27 @@ import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Builtins.*;
 import ubc.cs.JLog.Terms.Goals.*;
 
-public class jFSisFileOrDir extends jUnaryBuiltinPredicate
-{
- protected boolean		isFile;
+public class jFSisFileOrDir extends jUnaryBuiltinPredicate {
+    protected boolean isFile;
 
- public jFSisFileOrDir (jTerm t, boolean isFile)
- {
-  super(t,TYPE_BUILTINPREDICATE);
+    public jFSisFileOrDir(jTerm t, boolean isFile) {
+	super(t, TYPE_BUILTINPREDICATE);
 
-  this.isFile = isFile;
- };
-  
- public String 		getName()
- {
-	 return (isFile ? "fs_isFile" : "fs_isDir");
- };
- 
- public boolean 	prove(jUnaryBuiltinPredicateGoal ug)
- {File f = new File(ug.term1.getTerm().toString());
+	this.isFile = isFile;
+    };
 
-  return (f.exists() && ((isFile && f.isFile()) || (!isFile && f.isDirectory())));
- };
+    public String getName() {
+	return (isFile ? "fs_isFile" : "fs_isDir");
+    };
 
- protected jUnaryBuiltinPredicate 		duplicate(jTerm r)
- {
-  return new jFSisFileOrDir(r, isFile); 
- };
+    public boolean prove(jUnaryBuiltinPredicateGoal ug) {
+	File f = new File(ug.term1.getTerm().toString());
+
+	return (f.exists() && ((isFile && f.isFile()) || (!isFile && f
+		.isDirectory())));
+    };
+
+    protected jUnaryBuiltinPredicate duplicate(jTerm r) {
+	return new jFSisFileOrDir(r, isFile);
+    };
 };
-

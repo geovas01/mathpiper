@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	pPreTokenizeStream
 //#########################################################################
@@ -53,134 +53,123 @@ import java.io.*;
 import java.util.*;
 
 /**
-* Takes an input stream and produces a stream of pre-tokens, ready for a fully tokenizing parse. 
-*  
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-class pPreTokenizeStream
-{ 
- protected Reader 				reader;
- protected Stack 				pushback,previous_tables;
- protected pTokenizerTable 		current_table;
+ * Takes an input stream and produces a stream of pre-tokens, ready for a fully
+ * tokenizing parse.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+class pPreTokenizeStream {
+    protected Reader reader;
+    protected Stack pushback, previous_tables;
+    protected pTokenizerTable current_table;
 
- protected int 			currentPosition = 0; //the number of characters into the stream
- 
- protected boolean 		read_pushedback = false;
- protected int 			read_pushback; 
- 
- public final static int 		TOKEN_EOF = -1;
- 
- public pPreTokenizeStream(Reader r)
- {
-  reader = r;
+    protected int currentPosition = 0; // the number of characters into the
+				       // stream
 
-  current_table = null;
-  previous_tables = new Stack();
+    protected boolean read_pushedback = false;
+    protected int read_pushback;
 
-  pushback = new Stack();  
- };
- 
- public void 					useTokenizerTable(pTokenizerTable t)
- {
-  if (current_table != null)
-   previous_tables.push(current_table);
-   
-  current_table = t;
- };
- 
- public pTokenizerTable 		popTokenizerTable()
- {pTokenizerTable 		t = current_table;
- 
-  if (previous_tables.empty())
-   return null;
-   
-  current_table = (pTokenizerTable) previous_tables.pop(); 
-  return t;
- };
- 
- public void 		pushBackToken(pPreToken p)
- {
-  pushback.push(p);
- };
- 
- public pPreToken 	getNextToken()
- {
-  if (!pushback.empty())
-   return (pPreToken) pushback.pop();
-  else
-  {pPreToken 		pt;
-   int 				c,startpos = currentPosition;
-   StringBuffer 	sb;
-   boolean 			collectall;
-   int[] 			table;
-   
-   if (current_table == null)
-    throw new TokenizeStreamException("There is no Tokenizing Table"); 
-   
-   table = current_table.getTokenTable();
-   
-   c = read();
-   
-   if (c < 0)
-    return new pPreToken(TOKEN_EOF,startpos);
-   
-   if (c >= table.length || table[c] == pTokenizerTable.TOKEN_UNKNOWN)
-    throw new SyntaxErrorException("Unknown character at position ",startpos);
-   
-   sb = new StringBuffer();
-   sb.append((char) c);
-   pt = new pPreToken(table[c],startpos);
-   
-   collectall = (pt.getType() < pTokenizerTable.TOKEN_SINGLE);
-   
-   while (collectall)
-   {
-    c = read();
-   
-    if (c < 0 || c >= table.length || table[c] != pt.getType())
-    {
-     pushbackRead(c);
-     break;
-    }
+    public final static int TOKEN_EOF = -1;
 
-    sb.append((char) c);
-   }
- 
-   pt.setToken(sb.toString());
-   return pt;
-  }
- };
- 
- protected int 		read()
- {
-  currentPosition++;
+    public pPreTokenizeStream(Reader r) {
+	reader = r;
 
-  if (read_pushedback)
-  {
-   read_pushedback = false;
-   return read_pushback;
-  }
-  else
-  {
-   try
-   {
-    return reader.read();
-   }
-   catch (IOException e)
-   {
-    throw new TokenizeStreamException("IO error occurred while reading at position ",
-                                    currentPosition - 1,e);
-   }
-  }
- };
- 
- // this simple tokenizer only supports a single pushback
- protected void 	pushbackRead(int c)
- {
-  read_pushedback = true;
-  read_pushback = c;
-  currentPosition--;
- };
+	current_table = null;
+	previous_tables = new Stack();
+
+	pushback = new Stack();
+    };
+
+    public void useTokenizerTable(pTokenizerTable t) {
+	if (current_table != null)
+	    previous_tables.push(current_table);
+
+	current_table = t;
+    };
+
+    public pTokenizerTable popTokenizerTable() {
+	pTokenizerTable t = current_table;
+
+	if (previous_tables.empty())
+	    return null;
+
+	current_table = (pTokenizerTable) previous_tables.pop();
+	return t;
+    };
+
+    public void pushBackToken(pPreToken p) {
+	pushback.push(p);
+    };
+
+    public pPreToken getNextToken() {
+	if (!pushback.empty())
+	    return (pPreToken) pushback.pop();
+	else {
+	    pPreToken pt;
+	    int c, startpos = currentPosition;
+	    StringBuffer sb;
+	    boolean collectall;
+	    int[] table;
+
+	    if (current_table == null)
+		throw new TokenizeStreamException(
+			"There is no Tokenizing Table");
+
+	    table = current_table.getTokenTable();
+
+	    c = read();
+
+	    if (c < 0)
+		return new pPreToken(TOKEN_EOF, startpos);
+
+	    if (c >= table.length || table[c] == pTokenizerTable.TOKEN_UNKNOWN)
+		throw new SyntaxErrorException(
+			"Unknown character at position ", startpos);
+
+	    sb = new StringBuffer();
+	    sb.append((char) c);
+	    pt = new pPreToken(table[c], startpos);
+
+	    collectall = (pt.getType() < pTokenizerTable.TOKEN_SINGLE);
+
+	    while (collectall) {
+		c = read();
+
+		if (c < 0 || c >= table.length || table[c] != pt.getType()) {
+		    pushbackRead(c);
+		    break;
+		}
+
+		sb.append((char) c);
+	    }
+
+	    pt.setToken(sb.toString());
+	    return pt;
+	}
+    };
+
+    protected int read() {
+	currentPosition++;
+
+	if (read_pushedback) {
+	    read_pushedback = false;
+	    return read_pushback;
+	} else {
+	    try {
+		return reader.read();
+	    } catch (IOException e) {
+		throw new TokenizeStreamException(
+			"IO error occurred while reading at position ",
+			currentPosition - 1, e);
+	    }
+	}
+    };
+
+    // this simple tokenizer only supports a single pushback
+    protected void pushbackRead(int c) {
+	read_pushedback = true;
+	read_pushback = c;
+	currentPosition--;
+    };
 };
-

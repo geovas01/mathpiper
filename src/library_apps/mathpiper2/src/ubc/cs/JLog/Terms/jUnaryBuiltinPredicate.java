@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	UnaryBuiltinPredicate
 //#########################################################################
- 
+
 package ubc.cs.JLog.Terms;
 
 import java.lang.*;
@@ -54,132 +54,117 @@ import java.util.*;
 import ubc.cs.JLog.Foundation.*;
 import ubc.cs.JLog.Terms.Goals.*;
 
-abstract public class jUnaryBuiltinPredicate extends jBuiltinPredicate
-{
- protected jTerm 	rhs;  	
+abstract public class jUnaryBuiltinPredicate extends jBuiltinPredicate {
+    protected jTerm rhs;
 
- public jUnaryBuiltinPredicate(jTerm r,int t)
- {
-  rhs = r;
-  
-  type = t;
- };
-  
- public final int 		getArity()
- {
-  return 1;
- };
- 
- public final jTerm 		getRHS()
- {
-  return rhs;
- };
- 
- public final jCompoundTerm 		getArguments()
- {jCompoundTerm 		ct = new jCompoundTerm();
- 
-  ct.addTerm(rhs);
-  
-  return ct;
- };
+    public jUnaryBuiltinPredicate(jTerm r, int t) {
+	rhs = r;
 
- protected int 		compareArguments(iPredicate ipred,boolean first_call,boolean var_equal)
- {
-  if (ipred instanceof jUnaryBuiltinPredicate)
-  {jUnaryBuiltinPredicate 		uip = (jUnaryBuiltinPredicate) ipred;
-   int 			compare_val;
-   
-   compare_val = getName().compareTo(uip.getName());
-   
-   if (compare_val < 0)
-    return LESS_THAN;
-   if (compare_val > 0)
-    return GREATER_THAN;
-    
-   return rhs.compare(uip.rhs,true,var_equal);
-  }
-  
-  return (first_call ? -ipred.compareArguments(this,false,var_equal) : EQUAL);
- };
+	type = t;
+    };
 
- protected final boolean 	equivalenceArguments(jBuiltinPredicate pterm,jEquivalenceMapping v)
- {
-  if (pterm instanceof jUnaryBuiltinPredicate)
-   return rhs.equivalence(((jUnaryBuiltinPredicate) pterm).rhs,v);
-  else
-   return false;
- };
+    public final int getArity() {
+	return 1;
+    };
 
- protected final boolean 	unifyArguments(jBuiltinPredicate pterm,jUnifiedVector v)
- {
-  if (pterm instanceof jUnaryBuiltinPredicate)
-   return rhs.unify(((jUnaryBuiltinPredicate) pterm).rhs,v);
-  else
-   return false;
- };
- 
- public void 		registerVariables(jVariableVector v)
- {
-  rhs.registerVariables(v);
- };
+    public final jTerm getRHS() {
+	return rhs;
+    };
 
- public void 		enumerateVariables(jVariableVector v,boolean all)
- {
-  rhs.enumerateVariables(v,all);
- };
+    public final jCompoundTerm getArguments() {
+	jCompoundTerm ct = new jCompoundTerm();
 
- public void 		registerUnboundVariables(jUnifiedVector v)
- {
-  rhs.registerUnboundVariables(v);
- };
+	ct.addTerm(rhs);
 
- public boolean 	prove(jUnaryBuiltinPredicateGoal ug)
- {
-  throw new UnimplementedPredicateProveMethodException(); 
- };
+	return ct;
+    };
 
- public void 		addGoals(jGoal g,jVariable[] vars,iGoalStack goals)
- {
-  goals.push(new jUnaryBuiltinPredicateGoal(this,rhs.duplicate(vars)));
- }; 
+    protected int compareArguments(iPredicate ipred, boolean first_call,
+	    boolean var_equal) {
+	if (ipred instanceof jUnaryBuiltinPredicate) {
+	    jUnaryBuiltinPredicate uip = (jUnaryBuiltinPredicate) ipred;
+	    int compare_val;
 
- public void 		addGoals(jGoal g,iGoalStack goals)
- {
-  goals.push(new jUnaryBuiltinPredicateGoal(this,rhs));
- }; 
+	    compare_val = getName().compareTo(uip.getName());
 
- // since unary predicates have variables, they should be able to duplicate themselves
- // this version of duplicate only requires subclasses to create themselves.
- abstract protected jUnaryBuiltinPredicate 	duplicate(jTerm r);
+	    if (compare_val < 0)
+		return LESS_THAN;
+	    if (compare_val > 0)
+		return GREATER_THAN;
 
- public jTerm 		duplicate(jVariable[] vars)
- {
-  return duplicate(rhs.duplicate(vars)); 
- };
+	    return rhs.compare(uip.rhs, true, var_equal);
+	}
 
- public jTerm 		copy(jVariableRegistry vars)
- {
-  return duplicate(rhs.copy(vars));
- };
+	return (first_call ? -ipred.compareArguments(this, false, var_equal)
+		: EQUAL);
+    };
 
- public void 		consult(jKnowledgeBase kb)
- {
-  rhs.consult(kb);
- };
- 
- public void 		consultReset()
- {
-  rhs.consultReset();
- };
- 
- public boolean 	isConsultNeeded()
- {
-  return true;
- };
+    protected final boolean equivalenceArguments(jBuiltinPredicate pterm,
+	    jEquivalenceMapping v) {
+	if (pterm instanceof jUnaryBuiltinPredicate)
+	    return rhs.equivalence(((jUnaryBuiltinPredicate) pterm).rhs, v);
+	else
+	    return false;
+    };
 
- public String 		toString(boolean usename)
- {
-  return getName() + "(" + rhs.toString(usename) + ")";
- };
+    protected final boolean unifyArguments(jBuiltinPredicate pterm,
+	    jUnifiedVector v) {
+	if (pterm instanceof jUnaryBuiltinPredicate)
+	    return rhs.unify(((jUnaryBuiltinPredicate) pterm).rhs, v);
+	else
+	    return false;
+    };
+
+    public void registerVariables(jVariableVector v) {
+	rhs.registerVariables(v);
+    };
+
+    public void enumerateVariables(jVariableVector v, boolean all) {
+	rhs.enumerateVariables(v, all);
+    };
+
+    public void registerUnboundVariables(jUnifiedVector v) {
+	rhs.registerUnboundVariables(v);
+    };
+
+    public boolean prove(jUnaryBuiltinPredicateGoal ug) {
+	throw new UnimplementedPredicateProveMethodException();
+    };
+
+    public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+	goals.push(new jUnaryBuiltinPredicateGoal(this, rhs.duplicate(vars)));
+    };
+
+    public void addGoals(jGoal g, iGoalStack goals) {
+	goals.push(new jUnaryBuiltinPredicateGoal(this, rhs));
+    };
+
+    // since unary predicates have variables, they should be able to duplicate
+    // themselves
+    // this version of duplicate only requires subclasses to create themselves.
+    abstract protected jUnaryBuiltinPredicate duplicate(jTerm r);
+
+    public jTerm duplicate(jVariable[] vars) {
+	return duplicate(rhs.duplicate(vars));
+    };
+
+    public jTerm copy(jVariableRegistry vars) {
+	return duplicate(rhs.copy(vars));
+    };
+
+    public void consult(jKnowledgeBase kb) {
+	rhs.consult(kb);
+    };
+
+    public void consultReset() {
+	rhs.consultReset();
+    };
+
+    public boolean isConsultNeeded() {
+	return true;
+    };
+
+    public String toString(boolean usename) {
+	return getName() + "(" + rhs.toString(usename) + ")";
+    };
 };
-

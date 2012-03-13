@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Consultable
 //#########################################################################
@@ -54,45 +54,44 @@ import java.util.*;
 import ubc.cs.JLog.Foundation.*;
 
 /**
-* <code>iConsultable</code> is the interface for classes that may need to
-* access the knowledge base before any proof attempts are made.
-* Usually such consulting is done after the knowledge base changes, such as
-* when a prolog source is consulted.  The usual purpose of such consulting is to 
-* prefetch and cache the knowledge base entries so that a search of the 
-* knowledge base during the proof phase is not required.
-*
-* @author       Glendon Holst
-* @version      %I%, %G%
-*/
-public interface iConsultable
-{
- /**
-  * Consult the given <code>jKnowledgeBase</code> and cache any invariant values (those 
-  * which would not change until the next time the <code>jKnowledgeBase</code> changes). 
-  * Where possible, consultable objects should minimize computation and assume that any 
-  * cached values are still accurate.
-  *
-  * @param kb 		the knowledge base which attempted proofs are based upon.
-  */
- public void 		consult(jKnowledgeBase kb);
- 
- /**
-  * Called when the <code>jKnowledgeBase</code> changes. Should set all cached values to 
-  * dirty so that a  following call to <code>consult</code> would perform a full lookup 
-  * as required.
-  *
-  */
- public void 		consultReset();
- 
- /**
-  * Determine if cached values already exist and hence if consulting is required. If 
-  * object does not knowimmediatly whether consulting is needed, then assuming it is 
-  * required.
-  *
-  * @return 		<code>false</code> if cached values are valid, 
-  * 			<code>true</code> otherwise, if <code>consult</code> should be
-  * 			called.
-  */
- public boolean 	isConsultNeeded();
-};
+ * <code>iConsultable</code> is the interface for classes that may need to
+ * access the knowledge base before any proof attempts are made. Usually such
+ * consulting is done after the knowledge base changes, such as when a prolog
+ * source is consulted. The usual purpose of such consulting is to prefetch and
+ * cache the knowledge base entries so that a search of the knowledge base
+ * during the proof phase is not required.
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
+ */
+public interface iConsultable {
+    /**
+     * Consult the given <code>jKnowledgeBase</code> and cache any invariant
+     * values (those which would not change until the next time the
+     * <code>jKnowledgeBase</code> changes). Where possible, consultable objects
+     * should minimize computation and assume that any cached values are still
+     * accurate.
+     * 
+     * @param kb
+     *            the knowledge base which attempted proofs are based upon.
+     */
+    public void consult(jKnowledgeBase kb);
 
+    /**
+     * Called when the <code>jKnowledgeBase</code> changes. Should set all
+     * cached values to dirty so that a following call to <code>consult</code>
+     * would perform a full lookup as required.
+     * 
+     */
+    public void consultReset();
+
+    /**
+     * Determine if cached values already exist and hence if consulting is
+     * required. If object does not knowimmediatly whether consulting is needed,
+     * then assuming it is required.
+     * 
+     * @return <code>false</code> if cached values are valid, <code>true</code>
+     *         otherwise, if <code>consult</code> should be called.
+     */
+    public boolean isConsultNeeded();
+};

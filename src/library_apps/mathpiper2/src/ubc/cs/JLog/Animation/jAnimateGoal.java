@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	AnimateGoal
 //#########################################################################
- 
+
 package ubc.cs.JLog.Animation;
 
 import java.lang.*;
@@ -57,79 +57,76 @@ import ubc.cs.JLog.Terms.*;
 
 /**
  * Goal for displaying animated graphics.
- *
- * @author       Glendon Holst
- * @version      %I%, %G%
+ * 
+ * @author Glendon Holst
+ * @version %I%, %G%
  */
-public class jAnimateGoal extends jGoal
-{
- protected jAnimate 		animate;
+public class jAnimateGoal extends jGoal {
+    protected jAnimate animate;
 
- // for use by animate
- public jTerm				term = null;
- public jUnifiedVector 		unified;
- 
- public 	jAnimateGoal(jAnimate a,jTerm t)
- {
-  animate = a;
-  term = t;
-  unified = new jUnifiedVector();
- };
- 
- public boolean 	prove(iGoalStack goals,iGoalStack proved)
- {Thread 		t;
-  
-  t = Thread.currentThread();
-  
-  if (t instanceof jPrologServiceThread)
-  {jPrologServiceThread		pst = (jPrologServiceThread) t;
-   jPrologServices			prolog = pst.getPrologServices();
-   
-   // if getAnimationEnvironment doesn't return correct value, warrents a failing exception
-   aAnimationEnvironment 	animation = (aAnimationEnvironment) prolog.getAnimationEnvironment();
+    // for use by animate
+    public jTerm term = null;
+    public jUnifiedVector unified;
 
-   if (animate == null)
-    throw new InvalidAnimationAPIException("Animation Environment is not available.");
-	
-   if (animate.prove(this,animation))
-   {
-    proved.push(this);
-    return true;
-   }
-  }
-  { // we need to initialize goal to potentially restart
-   unified.restoreVariables();
-  }
-  goals.push(this); // a retry that follows may need a node to remove or retry
-  return false;
- };
+    public jAnimateGoal(jAnimate a, jTerm t) {
+	animate = a;
+	term = t;
+	unified = new jUnifiedVector();
+    };
 
- public boolean 	retry(iGoalStack goals,iGoalStack proved)
- {
-  unified.restoreVariables();
-  
-  goals.push(this); // a retry that follows may need a node to remove or retry
-  return false;
- }; 
- 
- public String 		getName() 
- {
-  return animate.getName();
- };
- 
- public int 		getArity() 
- {
-  return animate.getArity();
- };
- 
- public String 		toString()
- {StringBuffer 	sb = new StringBuffer();
-   
-  sb.append(getName()+"/"+String.valueOf(getArity())+" goal: ");
-  sb.append(getName()+"("+term.toString()+")");
-  
-  return sb.toString();
- };
+    public boolean prove(iGoalStack goals, iGoalStack proved) {
+	Thread t;
+
+	t = Thread.currentThread();
+
+	if (t instanceof jPrologServiceThread) {
+	    jPrologServiceThread pst = (jPrologServiceThread) t;
+	    jPrologServices prolog = pst.getPrologServices();
+
+	    // if getAnimationEnvironment doesn't return correct value, warrents
+	    // a failing exception
+	    aAnimationEnvironment animation = (aAnimationEnvironment) prolog
+		    .getAnimationEnvironment();
+
+	    if (animate == null)
+		throw new InvalidAnimationAPIException(
+			"Animation Environment is not available.");
+
+	    if (animate.prove(this, animation)) {
+		proved.push(this);
+		return true;
+	    }
+	}
+	{ // we need to initialize goal to potentially restart
+	    unified.restoreVariables();
+	}
+	goals.push(this); // a retry that follows may need a node to remove or
+			  // retry
+	return false;
+    };
+
+    public boolean retry(iGoalStack goals, iGoalStack proved) {
+	unified.restoreVariables();
+
+	goals.push(this); // a retry that follows may need a node to remove or
+			  // retry
+	return false;
+    };
+
+    public String getName() {
+	return animate.getName();
+    };
+
+    public int getArity() {
+	return animate.getArity();
+    };
+
+    public String toString() {
+	StringBuffer sb = new StringBuffer();
+
+	sb.append(getName() + "/" + String.valueOf(getArity()) + " goal: ");
+	sb.append(getName() + "(" + term.toString() + ")");
+
+	return sb.toString();
+    };
 };
-
- 

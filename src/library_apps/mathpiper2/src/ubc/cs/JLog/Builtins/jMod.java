@@ -42,47 +42,39 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	Mod
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
 import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
-public class jMod extends jIntegerArithmetic
-{
- public 	jMod(jTerm l,jTerm r)
- {
-  super(l,r);
- };
- 
- public String 		getName()
- {
-  return "mod";
- };  
+public class jMod extends jIntegerArithmetic {
+    public jMod(jTerm l, jTerm r) {
+	super(l, r);
+    };
 
- protected jBinaryBuiltinPredicate 	duplicate(jTerm l,jTerm r)
- {
-  return new jMod(l,r);
- };
- 
- protected int 		operatorInt(int l,int r)
- {
-  return l % r;
- };
- 
- protected float 	operatorReal(float l,float r)
- {
-  return l % r;
- };
- 
- public int 		getPriority()
- {
-  return 300;
- };
+    public String getName() {
+	return "mod";
+    };
+
+    protected jBinaryBuiltinPredicate duplicate(jTerm l, jTerm r) {
+	return new jMod(l, r);
+    };
+
+    protected int operatorInt(int l, int r) {
+	return l % r;
+    };
+
+    protected float operatorReal(float l, float r) {
+	return l % r;
+    };
+
+    public int getPriority() {
+	return 300;
+    };
 };
-

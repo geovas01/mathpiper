@@ -42,51 +42,45 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	FailGoal
 //#########################################################################
- 
+
 package ubc.cs.JLog.Terms.Goals;
 
 import java.lang.*;
 import java.util.*;
 import ubc.cs.JLog.Foundation.*;
 
-public class jFailGoal extends jGoal
-{
- public 	jFailGoal()
- {
- };
- 
- public boolean 	prove(iGoalStack goals,iGoalStack proved)
- {
-  goals.push(this);
-  return false;
- };
+public class jFailGoal extends jGoal {
+    public jFailGoal() {
+    };
 
- public boolean 	retry(iGoalStack goals,iGoalStack proved)
- {
-  goals.push(this); // the remove that follows may need a node to remove or retry
-  return false;
- }; 
+    public boolean prove(iGoalStack goals, iGoalStack proved) {
+	goals.push(this);
+	return false;
+    };
 
- public String 		getName() 
- {
-  return "fail";
- };
- 
- public int 		getArity() 
- {
-  return 0;
- };
- 
- public String 		toString()
- {StringBuffer 	sb = new StringBuffer();
-   
-  sb.append(getName()+"/"+String.valueOf(getArity()));
-  
-  return sb.toString();
- };
+    public boolean retry(iGoalStack goals, iGoalStack proved) {
+	goals.push(this); // the remove that follows may need a node to remove
+			  // or retry
+	return false;
+    };
+
+    public String getName() {
+	return "fail";
+    };
+
+    public int getArity() {
+	return 0;
+    };
+
+    public String toString() {
+	StringBuffer sb = new StringBuffer();
+
+	sb.append(getName() + "/" + String.valueOf(getArity()));
+
+	return sb.toString();
+    };
 };
-

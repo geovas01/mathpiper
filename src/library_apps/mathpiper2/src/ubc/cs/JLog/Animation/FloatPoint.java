@@ -42,7 +42,7 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //##################################################################################
 //	FloatPoint
 //##################################################################################
@@ -53,24 +53,20 @@ import java.lang.*;
 import java.util.*;
 import java.awt.*;
 
-public class FloatPoint
-{
- public float		x, y;
- 
- public FloatPoint()
- {
-  x = y = (float) 0.0;
- };
-   
- public FloatPoint(float x,float y)
- {
-  this.x = x;
-  this.y = y;
- };
+public class FloatPoint {
+    public float x, y;
 
- public FloatPoint(FloatPoint fp)
- {
-  x = fp.x;
-  y = fp.y;
- };
+    public FloatPoint() {
+	x = y = (float) 0.0;
+    };
+
+    public FloatPoint(float x, float y) {
+	this.x = x;
+	this.y = y;
+    };
+
+    public FloatPoint(FloatPoint fp) {
+	x = fp.x;
+	y = fp.y;
+    };
 };

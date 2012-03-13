@@ -42,11 +42,11 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	IntegerOnlyArithmetic
 //#########################################################################
- 
+
 package ubc.cs.JLog.Builtins;
 
 import java.lang.*;
@@ -54,29 +54,25 @@ import java.util.*;
 import ubc.cs.JLog.Terms.*;
 
 // integer only arithmetic class
-abstract public class jIntegerOnlyArithmetic extends jArithmetic
-{
- public jIntegerOnlyArithmetic(jTerm l,jTerm r)
- {
-  super(l,r);
- };
-  
- public  jTerm 		getValue()
- {jTerm 		l,r;
-  
-  l = lhs.getValue();
-  r = rhs.getValue();
+abstract public class jIntegerOnlyArithmetic extends jArithmetic {
+    public jIntegerOnlyArithmetic(jTerm l, jTerm r) {
+	super(l, r);
+    };
 
-  if (l.type == TYPE_INTEGER && r.type == TYPE_INTEGER)
-   return new jInteger(operatorInt(((jInteger) l).getIntegerValue(),
-                                   ((jInteger) r).getIntegerValue()));
-  else
-   throw new InvalidArithmeticOperationException();
- };
+    public jTerm getValue() {
+	jTerm l, r;
 
- protected float 	operatorReal(float l,float r)
- {
-  throw new InvalidArithmeticOperationException();
- };
+	l = lhs.getValue();
+	r = rhs.getValue();
+
+	if (l.type == TYPE_INTEGER && r.type == TYPE_INTEGER)
+	    return new jInteger(operatorInt(((jInteger) l).getIntegerValue(),
+		    ((jInteger) r).getIntegerValue()));
+	else
+	    throw new InvalidArithmeticOperationException();
+    };
+
+    protected float operatorReal(float l, float r) {
+	throw new InvalidArithmeticOperationException();
+    };
 };
-

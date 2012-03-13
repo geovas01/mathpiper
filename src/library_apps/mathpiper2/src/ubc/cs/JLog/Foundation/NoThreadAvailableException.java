@@ -42,19 +42,21 @@
     along with JLog, in the file MPL.txt; if not, contact:
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
-*/
+ */
 //#########################################################################
 //	NoThreadAvailableException
 //#########################################################################
- 
+
 package ubc.cs.JLog.Foundation;
 
 import java.lang.*;
 import java.util.*;
 
-public class NoThreadAvailableException extends RuntimeException
-{
- public NoThreadAvailableException() {};
- public NoThreadAvailableException(String s) {super(s);};
-};
+public class NoThreadAvailableException extends RuntimeException {
+    public NoThreadAvailableException() {
+    };
 
+    public NoThreadAvailableException(String s) {
+	super(s);
+    };
+};
