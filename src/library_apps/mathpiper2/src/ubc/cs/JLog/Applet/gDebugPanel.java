@@ -191,7 +191,7 @@ public class gDebugPanel extends Panel
    info.setBackground(Color.white);
    info.setForeground(Color.black);
    info.setEditable(false);
-   info.setFont(new Font("Monospaced",Font.PLAIN,10));
+   info.setFont(new Font("Monospaced",Font.PLAIN,12));
   }
   {// create card for tracing
    trace_list = new gTracePanel(prolog);
