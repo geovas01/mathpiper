@@ -117,7 +117,7 @@ public class gConsultWindow extends gWindowBase
   }
   
   setLayout(new GridLayout());
-  consult = new gConsultPanel(parent.getPrologServices(),default_source_text,false);
+  consult = new gConsultPanel(parent.getPrologServices(),default_source_text,true);
   add(consult);
   pack();
   
