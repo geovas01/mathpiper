@@ -105,7 +105,7 @@ public class MPWSFile {
                 folds.add(fold);
                 inFold = false;
 
-            } else if (line.startsWith("%")) {
+            } else if (line.startsWith("%") && line.charAt(1) != ' ') {
 
                 if (inFold == true) {
                     throw new Exception("Closing fold tag missing.");
