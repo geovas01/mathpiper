@@ -84,6 +84,13 @@ public class jPrologAPI {
     protected jTermTranslation translations = null;
 
     protected int query_state = QUERY_STATE_WAITING;
+    
+    public jPrologAPI(jPrologServices prolog)
+    {
+        this.prolog = prolog;
+        initTranslation();
+        initPrologListeners();
+    }
 
     /**
      * Basic constructor instantiates a bare-bones Prolog engine, and consults
