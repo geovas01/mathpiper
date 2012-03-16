@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.*;
 import java.io.*;
 import ubc.cs.JLog.Foundation.*;
+import ubc.cs.JLog.Applet.gJLogApplication;
 
 /**
  *
@@ -42,6 +43,7 @@ public class JLogWrapper implements Runnable, EBComponent
 
 	private static JLogWrapper jlogInstance = null;
 	private jPrologAPI   jlog = null;
+	private gJLogApplication jLogApplication = null;
 	private boolean keepRunning = true;
 	private ArrayList<ResponseListener> responseListeners;
 	private ArrayList<ResponseListener> removeListeners;
@@ -56,7 +58,13 @@ public class JLogWrapper implements Runnable, EBComponent
 	{
 		responseListeners = new ArrayList<ResponseListener>();
 		removeListeners = new ArrayList<ResponseListener>();
-		jlog = new jPrologAPI("", null, printWriter, null, null);
+		
+		
+		jLogApplication = new gJLogApplication();
+		
+		jlog = new jPrologAPI(jLogApplication.getPrologServices());
+		
+		//jlog = new jPrologAPI("", null, printWriter, null, null);
 
 		new Thread(this,"jlog").start();
 		
