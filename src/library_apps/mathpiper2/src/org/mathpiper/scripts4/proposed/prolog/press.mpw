@@ -1,3 +1,10 @@
+%mathpiper,def=""
+
+%/mathpiper
+
+
+%prolog
+
 /* 
 
 Source code obtained from http://dream.inf.ed.ac.uk/software/press/ .
@@ -398,4 +405,13 @@ equation(2,cos(x)*(1-2*sin(x))=0,x).
 equation(3,2^(2*x) - 5*2^(x+1) + 16 = 0,x).
 
 %  Program 23.1  A program for solving equations
+
+% solve_equation(x^2-3*x+2=0,x,Y).
+
+%/prolog
+
+    %output,preserve="false"
+      consulted
+.   %/output
+
 
