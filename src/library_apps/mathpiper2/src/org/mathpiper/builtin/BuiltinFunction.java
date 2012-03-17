@@ -63,7 +63,7 @@ public abstract class BuiltinFunction {
         aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "RuleHoldArguments");
         aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "RuleEvaluateArguments");
         aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "RulePatternHoldArguments");
-        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "RulePatterrnEvaluateArguments");
+        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "RulePatternEvaluateArguments");
         aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "PipeFromFile");
         aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "PipeFromString");
         aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "PipeToFile");
@@ -190,7 +190,7 @@ public abstract class BuiltinFunction {
         functionNameInit = "LocalSymbols"; aEnvironment.iBuiltinFunctions.setAssociation(functionNameInit, new BuiltinFunctionEvaluator(new LocalSymbols(functionNameInit), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro));
         functionNameInit = "MacroBind"; aEnvironment.iBuiltinFunctions.setAssociation(functionNameInit, new BuiltinFunctionEvaluator(new MacroBind(functionNameInit), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro));
         functionNameInit = "RuleEvaluateArguments"; aEnvironment.iBuiltinFunctions.setAssociation(functionNameInit, new BuiltinFunctionEvaluator(new RuleEvaluateArguments(functionNameInit), 5, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
-        functionNameInit = "RulePatterrnEvaluateArguments"; aEnvironment.iBuiltinFunctions.setAssociation(functionNameInit, new BuiltinFunctionEvaluator(new RulePatterrnEvaluateArguments(functionNameInit), 5, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
+        functionNameInit = "RulePatternEvaluateArguments"; aEnvironment.iBuiltinFunctions.setAssociation(functionNameInit, new BuiltinFunctionEvaluator(new RulePatternEvaluateArguments(functionNameInit), 5, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
         functionNameInit = "RulebaseEvaluateArguments"; aEnvironment.iBuiltinFunctions.setAssociation(functionNameInit, new BuiltinFunctionEvaluator(new RulebaseEvaluateArguments(functionNameInit), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
         functionNameInit = "RulebaseListedEvaluateArguments"; aEnvironment.iBuiltinFunctions.setAssociation(functionNameInit, new BuiltinFunctionEvaluator(new RulebaseListedEvaluateArguments(functionNameInit), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
         functionNameInit = "MathIsSmall"; aEnvironment.iBuiltinFunctions.setAssociation(functionNameInit, new BuiltinFunctionEvaluator(new MathIsSmall(functionNameInit), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));

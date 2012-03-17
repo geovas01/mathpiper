@@ -2065,7 +2065,7 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "RulebaseHoldArguments(\"_\",{a});RulebaseHoldArguments(\"_\",{a,b});RulebaseHoldArguments(\"DefinePattern\",{leftOperand, rightOperand, rulePrecedence, postPredicate});RuleHoldArguments(\"DefinePattern\",4,9,Equal?(Type(leftOperand),\"_\"))[ DefinePattern(leftOperand[1], rightOperand, rulePrecedence, leftOperand[2]);];RuleHoldArguments(\"DefinePattern\",4,10,True)[ Local(patternFlat,patternVariables, pattern, patternOperator, arg, arity);  Bind(patternFlat, FunctionToList(leftOperand));   Bind(patternVariables, Rest(patternFlat));   Bind(patternOperator,ToString(First(patternFlat)));   Bind(arity,Length(patternVariables));      If(Not?(RulebaseDefined(patternOperator,arity)), [ RulebaseEvaluateArguments(patternOperator,MakeVector(arg,arity)); ] );  Bind(pattern,PatternCreate(patternVariables,postPredicate));  RulePatterrnEvaluateArguments(patternOperator,arity,rulePrecedence, pattern)rightOperand;  True;];";
+        scriptString[1] = "RulebaseHoldArguments(\"_\",{a});RulebaseHoldArguments(\"_\",{a,b});RulebaseHoldArguments(\"DefinePattern\",{leftOperand, rightOperand, rulePrecedence, postPredicate});RuleHoldArguments(\"DefinePattern\",4,9,Equal?(Type(leftOperand),\"_\"))[ DefinePattern(leftOperand[1], rightOperand, rulePrecedence, leftOperand[2]);];RuleHoldArguments(\"DefinePattern\",4,10,True)[ Local(patternFlat,patternVariables, pattern, patternOperator, arg, arity);  Bind(patternFlat, FunctionToList(leftOperand));   Bind(patternVariables, Rest(patternFlat));   Bind(patternOperator,ToString(First(patternFlat)));   Bind(arity,Length(patternVariables));      If(Not?(RulebaseDefined(patternOperator,arity)), [ RulebaseEvaluateArguments(patternOperator,MakeVector(arg,arity)); ] );  Bind(pattern,PatternCreate(patternVariables,postPredicate));  RulePatternEvaluateArguments(patternOperator,arity,rulePrecedence, pattern)rightOperand;  True;];";
         scriptMap.put("DefinePattern",scriptString);
         scriptMap.put("_",scriptString);
 
@@ -2372,7 +2372,7 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "Variable?(_expr) <-- (Atom?(expr) And? Not?(expr=?Infinity) And? Not?(expr=? -Infinity) And? Not?(expr=?Undefined) And? Not?(Number?(N(Eval(expr)))));";
+        scriptString[1] = "Variable?(_expr) <-- (Atom?(expr) And? Not?(expr =? True) And? Not?(expr =? False) And? Not?(expr =? Infinity) And? Not?(expr =? -Infinity) And? Not?(expr =? Undefined) And? Not?(Number?(N(Eval(expr)))));";
         scriptMap.put("Variable?",scriptString);
 
         scriptString = new String[2];
