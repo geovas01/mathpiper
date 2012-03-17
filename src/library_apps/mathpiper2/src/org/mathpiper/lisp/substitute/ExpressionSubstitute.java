@@ -1,4 +1,4 @@
-package org.mathpiper.lisp.behaviours;
+package org.mathpiper.lisp.substitute;
 
 import org.mathpiper.lisp.Utility;
 

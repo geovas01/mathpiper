@@ -613,9 +613,9 @@ public final class Environment {
 		// Declare a new evaluation rule
 		if (Utility.isTrue(this, aPredicate, aStackTop)) {
 			// printf("FastPredicate on %s\n",aOperator->String());
-			rulebase.defineAlwaysTrueRule(aStackTop, aPrecedence, aBody);
+			rulebase.defineTrueRule(aStackTop, aPrecedence, aBody);
 		} else {
-			rulebase.defineSometimesTrueRule(aStackTop, aPrecedence,
+			rulebase.definePredicateRule(aStackTop, aPrecedence,
 					aPredicate, aBody);
 		}
 	}
@@ -639,7 +639,7 @@ public final class Environment {
 				newMacroRulebase);
 	}
 
-	public void defineRulePattern(int aStackTop, String aOperator, int aArity,
+	public void definePatternRule(int aStackTop, String aOperator, int aArity,
 			int aPrecedence, Cons aPredicate, Cons aBody) throws Exception {
 		// Find existing multiuser rulebase.
 		MultipleArityRulebase multipleArityRulebase = (MultipleArityRulebase) iUserRulebases
@@ -657,7 +657,7 @@ public final class Environment {
 		}
 
 		// Declare a new evaluation rule
-		rulebase.definePattern(aStackTop, aPrecedence, aPredicate, aBody);
+		rulebase.definePatternRule(aStackTop, aPrecedence, aPredicate, aBody);
 	}
 
 	/**

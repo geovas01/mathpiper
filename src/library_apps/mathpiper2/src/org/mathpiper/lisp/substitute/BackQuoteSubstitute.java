@@ -14,7 +14,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathpiper.lisp.behaviours;
+package org.mathpiper.lisp.substitute;
 
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.Utility;

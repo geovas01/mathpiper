@@ -97,7 +97,7 @@ public class SingleArityRulebase extends Evaluator {
      * names of the formal arguments, as stored in iName. Then
      * all rules in <b>iRules</b> are tried one by one. The body of the
      * first rule that matches is evaluated, and the result is put in
-     * aResult. If no rule matches, aResult will recieve a new
+     * aResult. If no rule matches, aResult will receive a new
      * expression with evaluated arguments.
      * 
      * @param aResult (on output) the result of the evaluation
@@ -350,7 +350,7 @@ public class SingleArityRulebase extends Evaluator {
      * @param aBody
      * @throws java.lang.Exception
      */
-    public void defineSometimesTrueRule(int aStackTop, int aPrecedence, Cons aPredicate, Cons aBody) throws Exception {
+    public void definePredicateRule(int aStackTop, int aPrecedence, Cons aPredicate, Cons aBody) throws Exception {
         // New branching rule.
         PredicateRule newRule = new PredicateRule(iEnvironment, aPrecedence, aPredicate, aBody);
         //LispError.check(iEnvironment, aStackTop, newRule != null, LispError.CREATING_RULE, "INTERNAL");
@@ -367,7 +367,7 @@ public class SingleArityRulebase extends Evaluator {
      * @param aBody
      * @throws java.lang.Exception
      */
-    public void defineAlwaysTrueRule(int aStackTop, int aPrecedence, Cons aBody) throws Exception {
+    public void defineTrueRule(int aStackTop, int aPrecedence, Cons aBody) throws Exception {
         // New branching rule.
         PredicateRule newRule = new TrueRule(iEnvironment, aPrecedence, aBody);
         //LispError.check(iEnvironment, aStackTop, newRule != null, LispError.CREATING_RULE, "INTERNAL");
@@ -385,7 +385,7 @@ public class SingleArityRulebase extends Evaluator {
      * @param aBody
      * @throws java.lang.Exception
      */
-    public void definePattern(int aStackTop, int aPrecedence, Cons aPredicate, Cons aBody) throws Exception {
+    public void definePatternRule(int aStackTop, int aPrecedence, Cons aPredicate, Cons aBody) throws Exception {
         // New branching rule.
         PatternRule newRule = new PatternRule(iEnvironment, aStackTop, aPrecedence, aPredicate, aBody);
         //LispError.check(iEnvironment, aStackTop, newRule != null, LispError.CREATING_RULE, "INTERNAL");

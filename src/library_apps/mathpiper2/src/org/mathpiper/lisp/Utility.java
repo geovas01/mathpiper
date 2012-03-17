@@ -30,14 +30,14 @@ import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.io.InputStatus;
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
-import org.mathpiper.lisp.behaviours.Substitute;
+import org.mathpiper.lisp.substitute.BackQuoteSubstitute;
+import org.mathpiper.lisp.substitute.Substitute;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 import org.mathpiper.lisp.printers.MathPiperPrinter;
 import org.mathpiper.lisp.parsers.MathPiperParser;
 import org.mathpiper.io.StringInputStream;
 import org.mathpiper.io.StringOutput;
 import org.mathpiper.io.StringOutputStream;
-import org.mathpiper.lisp.behaviours.BackQuoteSubstitute;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.NumberCons;
 import org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher;
@@ -1088,7 +1088,7 @@ public class Utility {
         orig = (String) BuiltinFunction.getArgument(aEnvironment, aStackTop, 1).car();
         if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         Cons arityCons = BuiltinFunction.getArgument(aEnvironment, aStackTop, 2);
-        Cons precidence = BuiltinFunction.getArgument(aEnvironment, aStackTop, 3);
+        Cons precedenceCons = BuiltinFunction.getArgument(aEnvironment, aStackTop, 3);
         Cons predicate = BuiltinFunction.getArgument(aEnvironment, aStackTop, 4);
         Cons body = BuiltinFunction.getArgument(aEnvironment, aStackTop, 5);
 
@@ -1098,14 +1098,14 @@ public class Utility {
         arity = Integer.parseInt((String) arityCons.car(), 10);
 
         // The precedence
-        if( precidence  == null) LispError.checkArgument(aEnvironment, aStackTop, 3);
-        if(! (precidence.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 3);
-        precedence = Integer.parseInt((String) precidence.car(), 10);
+        if( precedenceCons  == null) LispError.checkArgument(aEnvironment, aStackTop, 3);
+        if(! (precedenceCons.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 3);
+        precedence = Integer.parseInt((String) precedenceCons.car(), 10);
 
         // Finally define the rule base
         if(aPattern == true)
         {
-            aEnvironment.defineRulePattern(aStackTop, Utility.getSymbolName(aEnvironment, orig),
+            aEnvironment.definePatternRule(aStackTop, Utility.getSymbolName(aEnvironment, orig),
                 arity,
                 precedence,
                 predicate,
@@ -1150,7 +1150,7 @@ public class Utility {
         try {
             int precedence = rule.getPrecedence();
 
-            Cons predicate1 = rule.getPredicate();
+            Cons predicate1 = rule.getPredicateOrPattern(aEnvironment, aStackTop);
             String predicate = "";
 
 

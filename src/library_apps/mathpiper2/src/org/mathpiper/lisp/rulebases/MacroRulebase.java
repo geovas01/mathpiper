@@ -18,7 +18,7 @@ package org.mathpiper.lisp.rulebases;
 
 import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.lisp.stacks.UserStackInformation;
-import org.mathpiper.lisp.behaviours.BackQuoteSubstitute;
+import org.mathpiper.lisp.substitute.BackQuoteSubstitute;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Environment;
