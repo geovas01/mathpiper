@@ -75,6 +75,8 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
+
+import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.interpreters.EvaluationResponse;
 import org.mathpiper.interpreters.Interpreter;
 import org.mathpiper.interpreters.Interpreters;
@@ -599,6 +601,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
                     if (code.length() > 0) {
                         interpreter.addResponseListener(this);
+                        Environment.saveDebugInformation = true;
                         interpreter.evaluate("[" + code + "];", true);
                         haltButton.setEnabled(true);
 
@@ -657,6 +660,8 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
 
     public void response(EvaluationResponse response) {
+	
+	Environment.saveDebugInformation = false;
 
         resultHolder = new ResultHolder("Error in GraphicConsole.", "Error in GraphicConsole.", fontSize + resultHolderAdjustment);
 
@@ -758,13 +763,24 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         }
 
 
-        String exception = null;
+        String exceptionMessage = null;
         int exceptionOffset = 0;
         int exceptionLength = 0;
         if (response.isExceptionThrown()) {
             exceptionOffset = responseOffset + result.length() + sideEffectsOffset;
-            exception = "\nException: " + response.getException().getMessage();
-            exceptionLength = exception.length();
+            
+            Exception exception = response.getException();
+            
+            exceptionMessage = "\nException: " + exception.getMessage();
+            
+            if(exception instanceof EvaluationException)
+            {
+        	EvaluationException evaluationException = (EvaluationException) exception;
+        	
+        	exceptionMessage = exceptionMessage + " Error starts at index " + ((evaluationException.getStartIndex())-1);
+            }
+            
+            exceptionLength = exceptionMessage.length();
         }
 
 
@@ -774,7 +790,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         final String finalExtraNewline = extraNewline;
         final String finalResult = result;
         final String finalSideEffects = sideEffects;
-        final String finalException = exception;
+        final String finalException = exceptionMessage;
 
         final int finalSideEffectsOffset = sideEffectsOffset;
         final int finalExceptionOffset = exceptionOffset;

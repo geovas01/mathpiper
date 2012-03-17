@@ -137,11 +137,17 @@ public class MathPiperParser extends Parser
 
    //if(iEnvironment.saveDebugInformation )System.out.println(iLookAhead[0] + "XX");
         
-        if(iEnvironment.saveDebugInformation)
+        if(Environment.saveDebugInformation)
         {        
             iLookAhead[1] = iInput.iStatus.getLineNumber() + "";
             iLookAhead[3] = iInput.iStatus.getLineIndex() + "";
             iLookAhead[2] = (iInput.iStatus.getLineIndex() - iLookAhead[0].length()) + "";
+        }
+        else
+        {
+            iLookAhead[1] = "-1";
+            iLookAhead[3] = "-1";
+            iLookAhead[2] = "-1";
         }
         
 
@@ -461,7 +467,7 @@ public class MathPiperParser extends Parser
 
         Cons newCons = AtomCons.getInstance(iEnvironment, aStackTop, aString[0]);
 
-        if(aEnvironment.saveDebugInformation == true && aString[1] != null)
+        if(Environment.saveDebugInformation == true && aString[1] != null)
         {
             Map metaDataMap = new HashMap();
             metaDataMap.put("lineNumber", Integer.parseInt(aString[1]));
