@@ -45,7 +45,7 @@ public class MacroExpand extends BuiltinFunction
     //todo:tk:this function is not complete yet.  It currently only expands backquoted expressions.
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        org.mathpiper.lisp.behaviours.BackQuoteSubstitute behaviour = new org.mathpiper.lisp.behaviours.BackQuoteSubstitute(aEnvironment);
+        org.mathpiper.lisp.substitute.BackQuoteSubstitute behaviour = new org.mathpiper.lisp.substitute.BackQuoteSubstitute(aEnvironment);
 
         //Cons argument = getArgumentPointer(aEnvironment, aStackTop, 1);
 

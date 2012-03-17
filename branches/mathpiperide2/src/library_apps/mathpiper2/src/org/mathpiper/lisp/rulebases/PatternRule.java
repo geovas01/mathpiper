@@ -22,6 +22,7 @@ import org.mathpiper.builtin.PatternContainer;
 
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
+import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher;
 
@@ -31,26 +32,27 @@ import org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher;
 public class PatternRule extends Rule {
 
     protected int iPrecedence;
-    protected Cons iBody;
-    protected Cons iPredicate;    
+    protected Cons iBody;  
     protected PatternContainer iPattern; //The pattern that decides whether this rule matches or not.
 
     /**
      * 
      * @param aPrecedence precedence of the rule
-     * @param aPredicate getObject object of type PatternContainer
+     * @param aPattern Cons that holds a PatternContainer
      * @param aBody body of the rule
      */
-    public PatternRule(Environment aEnvironment, int aStackTop, int aPrecedence, Cons aPredicate, Cons aBody) throws Exception {
-        iPattern = null;
+    public PatternRule(Environment aEnvironment, int aStackTop, int aPrecedence, Cons aPattern, Cons aBody) throws Exception {
+        
         iPrecedence = aPrecedence;
-        iPredicate = aPredicate;
 
-        BuiltinContainer gen = (BuiltinContainer) aPredicate.car();
+        BuiltinContainer gen = (BuiltinContainer) aPattern.car();
+        
         if(gen == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "");
+        
         if(! gen.typeName().equals("\"Pattern\"")) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "Type is not <pattern>.");
 
         iPattern = (PatternContainer) gen;
+        
         iBody = aBody;
     }
 
@@ -64,8 +66,9 @@ public class PatternRule extends Rule {
         return iPrecedence;
     }
 
-    public Cons getPredicate() {
-        return this.iPredicate;
+    public Cons getPredicateOrPattern(Environment aEnvironment, int aStackTop) throws Exception {
+
+	return BuiltinObjectCons.getInstance(aEnvironment, aStackTop, this.iPattern);
     }
 
     public ParametersPatternMatcher getPattern() {

@@ -686,7 +686,7 @@ public class Tests {
         userFunctionsTestsMap.put("Unitary?",testString);
 
         testString = new String[3];
-        testString[0] = "11";
+        testString[0] = "47";
         testString[1] = "\nVerify(Variable?(a),True);\nVerify(Variable?(Sin(a)),False);\nVerify(Variable?(2),False);\nVerify(Variable?(-2),False);\nVerify(Variable?(2.1),False);\n\n";
         testString[2] = "/org/mathpiper/scripts4/predicates/Variable_.mpw";
         userFunctionsTestsMap.put("Variable?",testString);

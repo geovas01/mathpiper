@@ -31,7 +31,7 @@ public abstract class Rule
 
     public abstract int getPrecedence();
 
-    public abstract Cons getPredicate();
+    public abstract Cons getPredicateOrPattern(Environment aEnvironment, int aStackTop) throws Exception;
 
     public abstract Cons getBody();
 }

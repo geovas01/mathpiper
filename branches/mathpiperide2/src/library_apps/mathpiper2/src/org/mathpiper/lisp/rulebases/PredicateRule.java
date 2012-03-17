@@ -75,7 +75,7 @@ class PredicateRule extends Rule {
     }
 
 
-    public Cons getPredicate() {
+    public Cons getPredicateOrPattern(Environment aEnvironment, int aStackTop) {
         return this.iPredicate;
     }
 
