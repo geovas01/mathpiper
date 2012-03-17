@@ -401,6 +401,7 @@ public class SynchronousInterpreter implements Interpreter {
         Evaluator.VERBOSE_DEBUG = false;
         Evaluator.TRACE_TO_STANDARD_OUT = false;
         Evaluator.iTraced = false;
+        Environment.saveDebugInformation = false;
 
         try {
             iEnvironment.iArgumentStack.reset(-1, iEnvironment);

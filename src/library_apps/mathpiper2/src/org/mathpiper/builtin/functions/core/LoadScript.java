@@ -60,11 +60,11 @@ public class LoadScript extends BuiltinFunction
 
         StringInputStream functionInputStream = new StringInputStream(scriptString,status); //aEnvironment.iCurrentInput.iStatus);
 
-        aEnvironment.saveDebugInformation = true;
+        Environment.saveDebugInformation = true;
 
         Utility.doInternalLoad(aEnvironment, aStackTop, functionInputStream);
 
-        aEnvironment.saveDebugInformation = false;
+        Environment.saveDebugInformation = false;
         
         setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
          
