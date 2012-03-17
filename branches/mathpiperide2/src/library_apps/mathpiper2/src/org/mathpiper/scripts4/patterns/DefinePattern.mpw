@@ -39,7 +39,7 @@ RuleHoldArguments("DefinePattern",4,10,True)
     
       Bind(pattern,PatternCreate(patternVariables,postPredicate));
     
-      RulePatterrnEvaluateArguments(patternOperator,arity,rulePrecedence, pattern)rightOperand;
+      RulePatternEvaluateArguments(patternOperator,arity,rulePrecedence, pattern)rightOperand;
     
       True;
 ];
@@ -69,5 +69,5 @@ DefinePattern(leftOperand[2],rightOperand,leftOperand[1],True);
 *DESC
 This function defines a rule which uses a pattern as its predicate.
 
-*SEE RulePatterrnEvaluateArguments
+*SEE RulePatternEvaluateArguments
 %/mathpiper_docs

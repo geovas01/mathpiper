@@ -66,6 +66,6 @@ public class RulePatternHoldArguments extends BuiltinFunction
 *DESC
 This function defines a rule which uses a pattern as its predicate.
 
-*SEE RulePatterrnEvaluateArguments
+*SEE RulePatternEvaluateArguments
 %/mathpiper_docs
 */
