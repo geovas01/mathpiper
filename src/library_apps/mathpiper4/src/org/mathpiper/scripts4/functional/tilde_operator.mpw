@@ -1,16 +1,8 @@
 %mathpiper,def="~"
 
-/* Operators for functional programming. todo:tk:move some of this documentation into the proper function's .mpw files.
- * Examples:
- *  a:b:c:{}       ->  {a,b,c}
- *  "Sin" @ a      ->   Sin(a)
- *  "Sin" @ {a,b}  ->   Sin(a,b)
- *  "Sin" /@ {a,b} ->   {Sin(a),Sin(b)}
- *  1 .. 4         ->   {1,2,3,4}
- */
 
 
-/* a : b will now return unevaluated (rather than cause error of invalid argument in Concat) if neither a nor b is a list and if one of them is not a string
+/* a ~ b will now return unevaluated (rather than cause error of invalid argument in Concat) if neither a nor b is a list and if one of them is not a string
 */
 RulebaseHoldArguments("~",{head,tail});
 RuleHoldArguments("~",2,20,List?(head) And? Not? List?(tail) ) Concat(head,{tail});
@@ -23,13 +15,13 @@ UnFence("~",2);
 
 
 %mathpiper_docs,name="~",categories="Operators"
-*CMD : --- append one item to a list or prepend one or more items to a list or concatenate strings
+*CMD ~ --- append one item to a list or prepend one or more items to a list or concatenate strings
 *STD
 *CALL
-    list : item
-        item : list
-    item : item : list
-        string1 : string2
+    list ~ item
+        item ~ list
+    item ~ item ~ list
+        string1 ~ string2
     
 Precedence = 70
 
@@ -53,16 +45,16 @@ This operator can help the user to program in the style of functional programmin
 
 *E.G.
 
-In> {}:a
+In> {}~a
 Result: {a}
 
-In> {a,b}:c
+In> {a,b}~c
 Result: {a,b,c}
 
-In> a:b:c:{}
+In> a~b~c~{}
 Result: {a,b,c};
 
-In> a:b:{c}:d
+In> a~b~{c}~d
 Result: {a,b,c,d}
 
 In> "This"~"Is"~"A"~"String"
