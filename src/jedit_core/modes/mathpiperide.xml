@@ -28,6 +28,10 @@
         
         <EOL_SPAN TYPE="COMMENT3">%group</EOL_SPAN>
         <EOL_SPAN TYPE="COMMENT3">%/group</EOL_SPAN>
+        
+        <SEQ TYPE="COMMENT3">In></SEQ>
+        
+        <SEQ TYPE="KEYWORD4">========================================================================================================</SEQ>
 
 
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="mathpiperdocs::MAIN">
@@ -78,6 +82,11 @@
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="lisp::MAIN">
 			<BEGIN>%lisp[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
 			<END>%/lisp</END>
+		</SPAN_REGEXP>
+		
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="prolog::MAIN">
+			<BEGIN>%prolog[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<END>%/prolog</END>
 		</SPAN_REGEXP>
 		
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="clojure::MAIN">

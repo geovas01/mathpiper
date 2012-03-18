@@ -5,9 +5,9 @@
 HighschoolForm(expression) :=
 [
     //Note: since := is at a higher precedence than :/, parentheses are needed.
-    expression := (expression /: { (x_IsNegativeNumber) / _y <- [Echo(x,/,y);]});
+    expression := (expression /: { (x_NegativeNumber?) / _y <- [Echo(x,/,y);]});
     
-    expression := (expression  /: {_z^((x_IsNegativeInteger)/y_IsNumber) <- {z,x,y}});
+    expression := (expression  /: {_z^((x_NegativeInteger?)/y_Number?) <- {z,x,y}});
     
 ];
 

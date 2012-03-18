@@ -1,7 +1,7 @@
 %mathpiper,def="Object"
 
-Rulebase("Object",{pred,x});
-Rule("Object",2,0,Apply(pred,{x})=?True) x;
+RulebaseHoldArguments("Object",{pred,x});
+RuleHoldArguments("Object",2,0,Apply(pred,{x})=?True) x;
 
 %/mathpiper
 
@@ -26,14 +26,14 @@ so-called incomplete types.
 
 *E.G.
 
-In> a := Object("IsNumber", x);
-Result: Object("IsNumber",x);
+In> a := Object("Number?", x);
+Result: Object("Number?",x);
 In> Eval(a);
-Result: Object("IsNumber",x);
+Result: Object("Number?",x);
 In> x := 5;
 Result: 5;
 In> Eval(a);
 Result: 5;
 
-*SEE IsNonObject
+*SEE NonObject?
 %/mathpiper_docs

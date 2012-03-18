@@ -28,7 +28,7 @@ import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
-import org.mathpiper.lisp.cons.ConsPointer;
+
 
 import java.awt.Color;
 
@@ -37,6 +37,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.lisp.cons.BuiltinObjectCons;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.ui.gui.worksheets.LatexRenderingController;
 import org.mathpiper.ui.gui.worksheets.ScreenCapturePanel;
 import org.scilab.forge.jlatexmath.TeXFormula;
@@ -53,9 +54,9 @@ public class ViewLatex extends BuiltinFunction {
 
     public void plugIn(Environment aEnvironment)  throws Exception
     {
+        this.functionName = "ViewLatexInternal";
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "ViewLatexInternal");
+                this.functionName, new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
 
        String[] parameters = new String[] {"expression","size"};
        Utility.declareFunction("ViewLatex", parameters, "ViewLatexInternal(expression, size);", aEnvironment, LispError.TODO);
@@ -75,13 +76,11 @@ public class ViewLatex extends BuiltinFunction {
 
         String latexString = null;
 
-        ConsPointer consPointer = null;
+        Object expression = getArgument(aEnvironment, aStackTop, 1).car();
 
-        Object expressionPointer = getArgumentPointer(aEnvironment, aStackTop, 1).car();
-
-        if (expressionPointer instanceof String)
+        if (expression instanceof String)
         {
-            latexString = (String) expressionPointer;
+            latexString = (String) expression;
 
             latexString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, latexString);
 
@@ -89,18 +88,14 @@ public class ViewLatex extends BuiltinFunction {
         }
         else
         {
-            LispError.raiseError("The first argument must be a string which contains Latex code.", "ViewLatex", aStackTop, aEnvironment);
+            LispError.raiseError("The first argument must be a string which contains Latex code.", aStackTop, aEnvironment);
         }//end else.
 
 
-
-        ConsPointer resultPointer = new ConsPointer();
-
-        ConsPointer viewScalePointer = new ConsPointer();
-        viewScalePointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, resultPointer, viewScalePointer);
-        BigNumber viewScale = (BigNumber) resultPointer.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment);
-        LispError.checkArgument(aEnvironment, aStackTop, viewScale != null, 1, "ViewLatex");
+        Cons viewScaleCons = getArgument(aEnvironment, aStackTop, 2);
+        Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, viewScaleCons);
+        BigNumber viewScale = (BigNumber) result.getNumber(aEnvironment.getPrecision(), aEnvironment);
+        if(viewScale == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
         /*sHotEqn hotEqn = new sHotEqn();
         hotEqn.setFontsizes(18,18,18,18);
@@ -167,7 +162,7 @@ public class ViewLatex extends BuiltinFunction {
 
         JavaObject response = new JavaObject(frame);
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
+        setTopOfStack(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
 
 
     }//end method.

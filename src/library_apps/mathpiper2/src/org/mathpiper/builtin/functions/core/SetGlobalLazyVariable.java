@@ -28,9 +28,19 @@ import org.mathpiper.lisp.Environment;
 public class SetGlobalLazyVariable extends BuiltinFunction
 {
 
+    private SetGlobalLazyVariable()
+    {
+    }
+
+    public SetGlobalLazyVariable(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Utility.setVar(aEnvironment, aStackTop, false, true);
+        Utility.setVariableOrConstant(aEnvironment, aStackTop, false, true, false);
     }
 }
 

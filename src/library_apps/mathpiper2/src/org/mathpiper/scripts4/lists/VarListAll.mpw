@@ -6,13 +6,13 @@
  */
 /* Accept any variable. */
 
-VarListAll(_expr) <-- VarListAll(expr,"IsVariable");
+VarListAll(_expr) <-- VarListAll(expr,"Variable?");
 
 10 # VarListAll(_expr,_filter)_(Apply(filter,{expr}) =? True) <--
      {expr};
 
 /* Otherwise check all leafs of a function. */
-20 # VarListAll(expr_IsFunction,_filter) <--
+20 # VarListAll(expr_Function?,_filter) <--
 [
   Local(item,result, flatlist);
   Bind(flatlist,Rest(FunctionToList(expr)));

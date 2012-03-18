@@ -29,6 +29,16 @@ import org.mathpiper.lisp.Environment;
 public class FastPower extends BuiltinFunction
 {
 
+    private FastPower()
+    {
+    }
+
+    public FastPower(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         BigNumber x, y;
@@ -37,7 +47,7 @@ public class FastPower extends BuiltinFunction
         double result = Math.pow(x.toDouble(), y.toDouble());
         BigNumber z = new BigNumber(aEnvironment.getPrecision());
         z.setTo(result);
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
+        setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
     }
 }//end class.
 

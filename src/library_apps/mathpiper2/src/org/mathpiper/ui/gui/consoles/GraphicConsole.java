@@ -75,6 +75,8 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
+
+import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.interpreters.EvaluationResponse;
 import org.mathpiper.interpreters.Interpreter;
 import org.mathpiper.interpreters.Interpreters;
@@ -84,7 +86,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.Cons;
-import org.mathpiper.lisp.cons.ConsPointer;
+
 import org.mathpiper.lisp.cons.SublistCons;
 
 public class GraphicConsole extends javax.swing.JPanel implements ActionListener, KeyListener, ResponseListener, ItemListener, FocusListener, MathPiperOutputStream {
@@ -97,7 +99,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
     private StringBuilder input = new StringBuilder();
     private JButton haltButton, clearConsoleButton, clearRawButton, helpButton, smallerFontButton, largerFontButton;
     private JCheckBox rawOutputCheckBox;
-    private boolean isCodeResult = false;
+    private boolean isCodeResult = true;
     private JCheckBox codeResultCheckBox;
     private JCheckBox showRawOutputCheckBox;
     private JTextArea rawOutputTextArea;
@@ -212,7 +214,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         rawOutputTextArea.setEditable(false);
         rawOutputTextArea.setText("Raw output text area.\n\n");
 
-        codeResultCheckBox = new JCheckBox("Code Result");
+        codeResultCheckBox = new JCheckBox("Math Result");
         codeResultCheckBox.setToolTipText("Show results in code format instead of traditional mathematics format.");
         codeResultCheckBox.addItemListener(this);
         consoleButtons.add(codeResultCheckBox);
@@ -365,9 +367,9 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
         if (source == codeResultCheckBox) {
             if (ie.getStateChange() == ItemEvent.SELECTED) {
-                isCodeResult = true;
-            } else {
                 isCodeResult = false;
+            } else {
+                isCodeResult = true;
             }//end if/else.
         }
         if (source == rawOutputCheckBox) {
@@ -599,6 +601,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
                     if (code.length() > 0) {
                         interpreter.addResponseListener(this);
+                        Environment.saveDebugInformation = true;
                         interpreter.evaluate("[" + code + "];", true);
                         haltButton.setEnabled(true);
 
@@ -657,6 +660,8 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
 
     public void response(EvaluationResponse response) {
+	
+	Environment.saveDebugInformation = false;
 
         resultHolder = new ResultHolder("Error in GraphicConsole.", "Error in GraphicConsole.", fontSize + resultHolderAdjustment);
 
@@ -681,17 +686,17 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
                         //Evaluate Hold function.
                         Cons holdAtomCons = AtomCons.getInstance(syncronousInterpreter.getEnvironment(), -1, "Hold");
-                        holdAtomCons.cdr().setCons(response.getResultList().getCons());
+                        holdAtomCons.setCdr(response.getResultList());
                         Cons holdSubListCons = SublistCons.getInstance(syncronousInterpreter.getEnvironment(), holdAtomCons);
-                        ConsPointer holdInputExpressionPointer = new ConsPointer(holdSubListCons);
+                        Cons holdInputExpression = holdSubListCons;
 
 
                         //Evaluate TeXForm function.
                         Cons texFormAtomCons = AtomCons.getInstance(syncronousInterpreter.getEnvironment(), -1, "TeXForm");
-                        texFormAtomCons.cdr().setCons(holdInputExpressionPointer.getCons());
+                        texFormAtomCons.setCdr(holdInputExpression);
                         Cons texFormSubListCons = SublistCons.getInstance(syncronousInterpreter.getEnvironment(), texFormAtomCons);
-                        ConsPointer texFormInputExpressionPointer = new ConsPointer(texFormSubListCons);
-                        EvaluationResponse latexResponse = syncronousInterpreter.evaluate(texFormInputExpressionPointer);
+
+                        EvaluationResponse latexResponse = syncronousInterpreter.evaluate(texFormSubListCons);
 
                         String latexString = latexResponse.getResult();
 
@@ -704,8 +709,8 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
                         //Set the % variable to the original result.
                         Environment iEnvironment = syncronousInterpreter.getEnvironment();
-                        String percent = (String) iEnvironment.getTokenHash().lookUp("%");
-                        iEnvironment.setGlobalVariable(-1, percent, response.getResultList(), true);
+                        String percent = "%";
+                        iEnvironment.setLocalOrGlobalVariable(-1, percent, response.getResultList(), true);
 
 
                     } catch (Exception e) {
@@ -758,13 +763,24 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         }
 
 
-        String exception = null;
+        String exceptionMessage = null;
         int exceptionOffset = 0;
         int exceptionLength = 0;
         if (response.isExceptionThrown()) {
             exceptionOffset = responseOffset + result.length() + sideEffectsOffset;
-            exception = "\nException: " + response.getExceptionMessage();
-            exceptionLength = exception.length();
+            
+            Exception exception = response.getException();
+            
+            exceptionMessage = "\nException: " + exception.getMessage();
+            
+            if(exception instanceof EvaluationException)
+            {
+        	EvaluationException evaluationException = (EvaluationException) exception;
+        	
+        	exceptionMessage = exceptionMessage + " Error starts at index " + ((evaluationException.getStartIndex())-1);
+            }
+            
+            exceptionLength = exceptionMessage.length();
         }
 
 
@@ -774,7 +790,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         final String finalExtraNewline = extraNewline;
         final String finalResult = result;
         final String finalSideEffects = sideEffects;
-        final String finalException = exception;
+        final String finalException = exceptionMessage;
 
         final int finalSideEffectsOffset = sideEffectsOffset;
         final int finalExceptionOffset = exceptionOffset;
@@ -1318,7 +1334,12 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
 
     public static void main(String[] args) {
+
+
         final GraphicConsole console = new GraphicConsole();
+
+        Interpreter interpreter = console.getInterpreter();
+        Interpreters.addOptionalFunctions(interpreter.getEnvironment(), "org/mathpiper/builtin/functions/optional/");
 
         JFrame frame = new javax.swing.JFrame();
         Container contentPane = frame.getContentPane();
@@ -1540,6 +1561,15 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         }//end of ActionPerformed method
 
     }//end of action listener
+
+
+    
+    public Interpreter getInterpreter() {
+        return interpreter;
+    }
+
+
+
 
 }//end class.
 

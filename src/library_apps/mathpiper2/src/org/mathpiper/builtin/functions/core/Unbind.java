@@ -17,12 +17,11 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin.functions.core;
 
-import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -31,26 +30,36 @@ import org.mathpiper.lisp.Utility;
 public class Unbind extends BuiltinFunction
 {
 
+    private Unbind()
+    {
+    }
+
+    public Unbind(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        if (getArgumentPointer(aEnvironment, aStackTop, 1).car() instanceof ConsPointer) {
+        if (getArgument(aEnvironment, aStackTop, 1).car() instanceof Cons) {
 
-            ConsPointer subList = (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car();
+            Cons subList = (Cons) getArgument(aEnvironment, aStackTop, 1).car();
             
-            ConsTraverser consTraverser = new ConsTraverser(aEnvironment, subList);
-            consTraverser.goNext(aStackTop);
+            Cons  consTraverser = subList;
+            consTraverser = consTraverser.cdr();
             int nr = 1;
-            while (consTraverser.getCons() != null)
+            while (consTraverser != null)
             {
                 String variableName;
                 variableName =  (String) consTraverser.car();
-                LispError.checkArgument(aEnvironment, aStackTop, variableName != null, nr, "Unbind");
+                if( variableName == null) LispError.checkArgument(aEnvironment, aStackTop, nr);
                 aEnvironment.unbindVariable(aStackTop, variableName);
-                consTraverser.goNext(aStackTop);
+                consTraverser = consTraverser.cdr();
                 nr++;
             }
         }
-        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }
 }
 

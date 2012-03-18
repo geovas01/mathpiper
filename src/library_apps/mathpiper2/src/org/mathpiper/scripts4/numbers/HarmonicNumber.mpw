@@ -1,7 +1,7 @@
 %mathpiper,def="HarmonicNumber"
 
-10 #         HarmonicNumber(n_IsInteger)        <-- HarmonicNumber(n,1);
-HarmonicNumber(n_IsInteger,r_IsPositiveInteger) <--
+10 #         HarmonicNumber(n_Integer?)        <-- HarmonicNumber(n,1);
+HarmonicNumber(n_Integer?,r_PositiveInteger?) <--
 [
         // small speed up
         if( r=?1 )[

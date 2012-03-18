@@ -34,7 +34,6 @@ public class MathPiperShell extends Shell
 		//interpreter = MathPiperInterpreter.getInstance(); 
 		interpreter = org.mathpiper.interpreters.Interpreters.getSynchronousInterpreter();
 		
-		
 		//Console console = (Console) jEdit.getPlugin("org.sageide.SAGEIDEPlugin").getPluginJAR().getClassLoader().loadClass("console.Console",1);
 		
 	}//end constructor.
@@ -54,7 +53,7 @@ public class MathPiperShell extends Shell
 			
 			if(response.isExceptionThrown())
 			{
-				output.print(java.awt.Color.RED,response.getExceptionMessage() );
+				output.print(java.awt.Color.RED,response.getException().getMessage() );
 			}
 
 	
@@ -77,7 +76,7 @@ public class MathPiperShell extends Shell
 			
 			if(response.isExceptionThrown())
 			{
-				output.print(java.awt.Color.RED,response.getExceptionMessage() );
+				output.print(java.awt.Color.RED,response.getException().getMessage() );
 			}
 			output.commandDone();
 	

@@ -26,69 +26,69 @@ SetGlobalLazyVariable(I,Complex(0,1));
 //TODO: here we wrap the entire file in LocalSymbols, this is inefficient in that it slows loading of this file. Needs optimization.
 LocalSymbols(CacheOfConstantsN) [
 
-/// declare a new cached constant C'atom and its associated function C'atom().
-/// C'atom() will call C'func() at current precision to evaluate C'atom if it has not yet been cached at that precision. (note: any arguments to C'func() must be included)
-Rulebase("CachedConstant", {C'cache, C'atom, C'func});
+/// declare a new cached constant Catom and its associated function Catom().
+/// Catom() will call Cfunc() at current precision to evaluate Catom if it has not yet been cached at that precision. (note: any arguments to Cfunc() must be included)
+RulebaseHoldArguments("CachedConstant", {Ccache, Catom, Cfunc});
 UnFence("CachedConstant", 3);        // not sure if this is useful
-HoldArgument("CachedConstant", C'func);
-HoldArgument("CachedConstant", C'cache);        // name of the cache
+HoldArgument("CachedConstant", Cfunc);
+HoldArgument("CachedConstant", Ccache);        // name of the cache
 // check syntax: must be called on an atom and a function
-Rule("CachedConstant", 3, 10, And?(IsAtom(C'atom), IsFunction(C'func)))
+RuleHoldArguments("CachedConstant", 3, 10, And?(Atom?(Catom), Function?(Cfunc)))
 [
-         Local(C'name,C'functionName);
-        Bind(C'name, ToString(C'atom));        // this is for later conveniences
-  Bind(C'functionName,ConcatStrings("Internal'",C'name));
+         Local(Cname,CfunctionName);
+        Bind(Cname, ToString(Catom));        // this is for later conveniences
+  Bind(CfunctionName,ConcatStrings("Internal",Cname));
 
         If(        // create the cache it if it does not already exist
-                IsAtom(Eval(C'cache)),
-                MacroBind(Eval(C'cache), {})
+                Atom?(Eval(Ccache)),
+                MacroBind(Eval(Ccache), {})
         );
-//        Write({"debug step 0: ", C'cache, Eval(C'cache), C'atom, C'func, C'name});
+//        Write({"debug step 0: ", Ccache, Eval(Ccache), Catom, Cfunc, Cname});
         // check that the constant is not already defined
         If(
-          IsEqual(Builtin'Assoc(C'name, Eval(C'cache)), Empty),        // the constant is not already defined, so need to define "C'atom" and the corresponding function "C'atom"()
-          [        // e.g. C'atom evaluates to Pi, C'cache to a name e.g. CacheOfConstantsN, which is bound to a hash
-                MacroUnbind(C'atom);
-//                Write({"debug step 1: ", Cache'name, C'cache, Eval(C'cache)});
+          Equal?(BuiltinAssoc(Cname, Eval(Ccache)), Empty),        // the constant is not already defined, so need to define "Catom" and the corresponding function "Catom"()
+          [        // e.g. Catom evaluates to Pi, Ccache to a name e.g. CacheOfConstantsN, which is bound to a hash
+                MacroUnbind(Catom);
+//                Write({"debug step 1: ", Cachename, Ccache, Eval(Ccache)});
                 // add the new constant to the cache
-//                MacroBind(Cache'name, Insert(Eval(C'cache), 1, {C'name, 0, 0}));
-                DestructiveInsert(Eval(C'cache), 1, {C'name, 0, 0});
-//                Write({"debug step 2: ", Cache'name, C'cache, Eval(C'cache)});
-                // define the new function "C'atom"()
+//                MacroBind(Cachename, Insert(Eval(Ccache), 1, {Cname, 0, 0}));
+                DestructiveInsert(Eval(Ccache), 1, {Cname, 0, 0});
+//                Write({"debug step 2: ", Cachename, Ccache, Eval(Ccache)});
+                // define the new function "Catom"()
                 // note: this should not use N() because it may be called from inside N() itself
 
-                MacroRulebase(C'functionName, {});
-                `( Rule(@C'functionName, 0, 1024, True)
+                RulebaseEvaluateArguments(CfunctionName, {});
+                `( RuleHoldArguments(@CfunctionName, 0, 1024, True)
                 [
-                        Local(new'prec, new'C, cached'C);
-                        Bind(new'prec, BuiltinPrecisionGet());
+                        Local(newprec, newC, cachedC);
+                        Bind(newprec, BuiltinPrecisionGet());
                         // fetch the cache entry for this constant
-                        // note that this procedure will store the name of the cache here in this statement as Eval(C'cache)
-                        Bind(cached'C, Builtin'Assoc(@C'name, @C'cache));
-                        If( MathNth(cached'C, 2) !=? new'prec,
+                        // note that this procedure will store the name of the cache here in this statement as Eval(Ccache)
+                        Bind(cachedC, BuiltinAssoc(@Cname, @Ccache));
+                        If( MathNth(cachedC, 2) !=? newprec,
                           [        // need to recalculate at current precision
-                                If(IsEqual(InVerboseMode(),True), Echo("CachedConstant: Info: constant ", @C'name, " is being recalculated at precision ", new'prec));
-                                Bind(new'C, RoundTo(Eval(@C'func),new'prec));
-                                DestructiveReplace(cached'C, 2, new'prec);
-                                DestructiveReplace(cached'C, 3, new'C);
-                                new'C;
+                                If(Equal?(InVerboseMode(),True), Echo("CachedConstant: Info: constant ", @Cname, " is being recalculated at precision ", newprec));
+                                Bind(newC, RoundTo(Eval(@Cfunc),newprec));
+                                DestructiveReplace(cachedC, 2, newprec);
+                                DestructiveReplace(cachedC, 3, newC);
+                                newC;
                           ],
-                          // return cached value of C'atom
-                          MathNth(cached'C, 3)
+                          // return cached value of Catom
+                          MathNth(cachedC, 3)
                         );
                 ]);
 
-                // calculate C'atom at current precision for the first time
-//                Eval(ListToFunction({C'atom}));        // "C'name"();
+                // calculate Catom at current precision for the first time
+//                Eval(ListToFunction({Catom}));        // "Cname"();
                 // we do not need this until the constant is used; it will just slow us down
           ],
           // the constant is defined
-          Echo("CachedConstant: Warning: constant ", C'atom, " already defined")
+          Echo("CachedConstant: Warning: constant ", Catom, " already defined")
         );
 ];
 
-Rule("CachedConstant", 3, 20, True)
-        Echo("CachedConstant: Error: ", C'atom, " must be an atom and ", C'func, " must be a function.");
+RuleHoldArguments("CachedConstant", 3, 20, True)
+        Echo("CachedConstant: Error: ", Catom, " must be an atom and ", Cfunc, " must be a function.");
 
 /// assign numerical values to all cached constants: using fixed cache "CacheOfConstantsN"
 // this is called from N()
@@ -98,9 +98,9 @@ Function("AssignCachedConstantsN", {})
         ForEach(var, AssocIndices(CacheOfConstantsN))
         [
                 MacroUnbind(ToAtom(var));
-    Bind(fname,ConcatStrings("Internal'",var));
+    Bind(fname,ConcatStrings("Internal",var));
     Bind(var,ToAtom(var));
-                // this way the routine Internal'Pi() will be actually called only when the variable 'Pi' is used, etcetera.
+                // this way the routine InternalPi() will be actually called only when the variable Pi is used, etcetera.
     `SetGlobalLazyVariable((@var), ListToFunction({ToAtom(fname)}));
         ];
 ];
@@ -110,9 +110,9 @@ UnFence("AssignCachedConstantsN", 0);
 // this is called from N()
 Function("ClearCachedConstantsN", {})
 [
-        Local(c'entry);
-        ForEach(c'entry, CacheOfConstantsN)
-                MacroUnbind(ToAtom(c'entry[1]));
+        Local(centry);
+        ForEach(centry, CacheOfConstantsN)
+                MacroUnbind(ToAtom(centry[1]));
 ];
 UnFence("ClearCachedConstantsN", 0);
 
@@ -121,13 +121,13 @@ CachedConstant(CacheOfConstantsN, Pi,
 [// it seems necessary to precompute Pi to a few more digits
 // so that Cos(0.5*Pi)=0 at precision 10
 // FIXME: find a better solution
-        Local(result,old'prec);
-  Bind(old'prec,BuiltinPrecisionGet());
-If(IsEqual(InVerboseMode(),True), Echo("Recalculating Pi at precision ",old'prec+5));
+        Local(result,oldprec);
+  Bind(oldprec,BuiltinPrecisionGet());
+If(Equal?(InVerboseMode(),True), Echo("Recalculating Pi at precision ",oldprec+5));
         BuiltinPrecisionSet(BuiltinPrecisionGet()+5);
         result := MathPi();
-If(IsEqual(InVerboseMode(),True),Echo("Switching back to precision ",old'prec));
-        BuiltinPrecisionSet(old'prec);
+If(Equal?(InVerboseMode(),True),Echo("Switching back to precision ",oldprec));
+        BuiltinPrecisionSet(oldprec);
         result;
 ]
 );
@@ -237,14 +237,14 @@ Result: 1.6180339887498948482;
 
 
 %mathpiper_docs,name="Catalan",categories="User Functions;Constants (Mathematical)"
-*CMD Catalan --- Catalan's Constant
+*CMD Catalan --- Catalans Constant
 *STD
 *CALL
         Catalan
 
 *DESC
 
-These functions compute Catalan's Constant $Catalan<=>0.9159655941$.
+These functions compute Catalans Constant $Catalan<=>0.9159655941$.
 
 The constant is available symbolically as {Catalan} or numerically through {N(Catalan)} with {N(...)} the usual operator used to try to coerce an expression in to a numeric approximation of that expression.
 This is a "cached constant" which is recalculated only when precision is increased.
@@ -271,21 +271,21 @@ Result: 0.91596559417721901505;
 
 
 %mathpiper_docs,name="gamma",categories="User Functions;Constants (Mathematical)"
-*CMD gamma --- Euler's constant $gamma$
+*CMD gamma --- Eulers constant $gamma$
 *STD
 *CALL
         gamma
 
 *DESC
 
-These functions compute Euler's constant $gamma<=>0.57722$...
+These functions compute Eulers constant $gamma<=>0.57722$...
 
 The constant is available symbolically as {gamma} or numerically through using the usual function {N(...)} to get a numeric result, {N(gamma)}.
 This is a "cached constant" which is recalculated only when precision is increased.
 The numerical value of the constant can also be obtained as {N(gamma)}.
 The low-level numerical computations are performed by the routine {GammaConstNum}.
 
-Note that Euler's Gamma function $Gamma(x)$ is the capitalized {Gamma} in MathPiper.
+Note that Eulers Gamma function $Gamma(x)$ is the capitalized {Gamma} in MathPiper.
 
 *E.G.
 
@@ -335,27 +335,27 @@ The associative list {cache} contains elements of the form {{Cname, prec, value}
 
 This mechanism is currently used by {N()} to precompute the values of $Pi$ and $gamma$ (and the golden ratio through {GoldenRatio}, and {Catalan}).
 The name of the cache for {N()} is {CacheOfConstantsN}.
-The code in the function {N()} assigns unevaluated calls to {Internal'Pi()} and {Internal'gamma()} to the atoms {Pi} and {gamma} and declares them to be lazy global variables through {SetGlobalLazyVariable} (with equivalent functions assigned to other constants that are added to the list of cached constants).
+The code in the function {N()} assigns unevaluated calls to {InternalPi()} and {Internalgamma()} to the atoms {Pi} and {gamma} and declares them to be lazy global variables through {SetGlobalLazyVariable} (with equivalent functions assigned to other constants that are added to the list of cached constants).
 
 The result is that the constants will be recalculated only when they are used in the expression under {N()}.
 In other words, the code in {N()} does the equivalent of
 
-        SetGlobalLazyVariable(mypi,Hold(Internal'Pi()));
-        SetGlobalLazyVariable(mygamma,Hold(Internal'gamma()));
+        SetGlobalLazyVariable(mypi,Hold(InternalPi()));
+        SetGlobalLazyVariable(mygamma,Hold(Internalgamma()));
 
-After this, evaluating an expression such as {1/2+gamma} will call the function {Internal'gamma()} but not the function {Internal'Pi()}.
+After this, evaluating an expression such as {1/2+gamma} will call the function {Internalgamma()} but not the function {InternalPi()}.
 
 *E.G. notest
 
-In> CachedConstant( my'cache, Ln2, Internal'LnNum(2) )
+In> CachedConstant( mycache, Ln2, InternalLnNum(2) )
 Result: True;
-In> Internal'Ln2()
+In> InternalLn2()
 Result: 0.6931471806;
-In> V(N(Internal'Ln2(),20))
+In> V(N(InternalLn2(),20))
         CachedConstant: Info: constant Ln2 is being
           recalculated at precision 20 
 Result: 0.69314718055994530942;
-In> my'cache
+In> mycache
 Result: {{"Ln2",20,0.69314718055994530942}};
 
 

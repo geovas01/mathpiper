@@ -12,7 +12,7 @@
 // function against the other
 
 Function("FactorGaussianInteger",{x}) [
-        Check( IsGaussianInteger(x), "Argument", "FactorGaussianInteger: argument must be a Gaussian integer");
+        Check( GaussianInteger?(x), "Argument", "FactorGaussianInteger: argument must be a Gaussian integer");
         Local(re,im,norm,a,b,d,i,j);
 
         re:=Re(x);im:=Im(x);
@@ -21,7 +21,7 @@ Function("FactorGaussianInteger",{x}) [
         If(im<?0, im:=(-im) );
         norm:=re^2+im^2;
 
-        if( IsComposite(norm) )[
+        if( Composite?(norm) )[
                 For(i:=0, i^2 <=? norm, i++ )[        // real part
                         For(j:=0, i^2 + j^2 <=? norm, j++)[        // complex part
                                 if( Not?( (i =? re And? j =? im) Or?

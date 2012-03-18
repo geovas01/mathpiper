@@ -25,19 +25,17 @@ import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
-import org.mathpiper.lisp.cons.ConsPointer;
 
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.XYBarRenderer;
 import org.jfree.data.xy.IntervalXYDataset;
 import org.mathpiper.lisp.cons.BuiltinObjectCons;
+import org.mathpiper.lisp.cons.Cons;
 
 
 public class LineChart extends BuiltinFunction {
@@ -48,8 +46,7 @@ public class LineChart extends BuiltinFunction {
     public void plugIn(Environment aEnvironment)  throws Exception
     {
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
-                "LineChart");
+                "LineChart", new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
 
         defaultOptions = new HashMap();
         defaultOptions.put("title", null);
@@ -68,23 +65,23 @@ public class LineChart extends BuiltinFunction {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        ConsPointer argumentsPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
+        Cons arguments = getArgument(aEnvironment, aStackTop, 1);
 
-        LispError.check(aEnvironment, aStackTop, Utility.isSublist(argumentsPointer), LispError.INVALID_ARGUMENT, "", "LineChart");
+        if(! Utility.isSublist(arguments)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "");
 
-        argumentsPointer.goSub(aStackTop, aEnvironment); //Go to sub list.
+        arguments = (Cons) arguments.car(); //Go to sub list.
 
-        argumentsPointer.goNext(aStackTop, aEnvironment); //Strip List tag.
+        arguments = arguments.cdr(); //Strip List tag.
 
-        LispError.check(aEnvironment, aStackTop, Utility.isList(argumentsPointer), LispError.NOT_A_LIST, "", "LineChart");
+        if(! Utility.isList(arguments)) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_LIST, "");
 
-        ConsPointer dataListPointer = (ConsPointer) argumentsPointer.car(); //Grab the first member of the list.
+        Cons dataList = (Cons) arguments.car(); //Grab the first member of the list.
 
-        ConsPointer optionsPointer = (ConsPointer) argumentsPointer.cdr();
+        Cons options = arguments.cdr();
 
-        Map userOptions = ChartUtility.optionsListToJavaMap(aEnvironment, aStackTop, optionsPointer, defaultOptions);
+        Map userOptions = ChartUtility.optionsListToJavaMap(aEnvironment, aStackTop, options, defaultOptions);
 
-        IntervalXYDataset dataSet = ChartUtility.listToIntervalXYDataset(aEnvironment, aStackTop, dataListPointer, userOptions);
+        IntervalXYDataset dataSet = ChartUtility.listToIntervalXYDataset(aEnvironment, aStackTop, dataList, userOptions);
 
 
         JFreeChart chart = ChartFactory.createXYLineChart(
@@ -115,10 +112,10 @@ public class LineChart extends BuiltinFunction {
 
 
         if (chart == null) {
-            Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+            setTopOfStack(aEnvironment, aStackTop, Utility.getFalseAtom(aEnvironment));
             return;
         } else {
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, new JavaObject(new ChartPanel(chart))));
+            setTopOfStack(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, new JavaObject(new ChartPanel(chart))));
             return;
         }//end if/else.
 

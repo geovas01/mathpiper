@@ -1,4 +1,4 @@
-%mathpiper,def="MatchLinear;MatchPureSquared;Matched'a;Matched'b"
+%mathpiper,def="MatchLinear;MatchPureSquared;Matcheda;Matchedb"
 
 /*
 todo:tk:MatchPureSquared() is in this file because it is grouped with MatchLinear in a
@@ -13,7 +13,7 @@ MatchPureSquared
  */
 LocalSymbols(a,b)[
 
-10 # MatchLinear(var_IsAtom,expr_CanBeUni(var)) <--
+10 # MatchLinear(var_Atom?,expr_CanBeUni(var)) <--
 [
   Bind(expr,MakeUni(expr,var));
   MatchLinear(expr);
@@ -22,7 +22,7 @@ LocalSymbols(a,b)[
 
 10 # MatchLinear(_expr)_(Degree(expr,var)<?2) <--
 [
-  Check(IsUniVar(expr), "Argument", PipeToString()Echo({"Incorrect argument ",expr," passed to MatchLinear"}));
+  Check(UniVar?(expr), "Argument", PipeToString()Echo({"Incorrect argument ",expr," passed to MatchLinear"}));
 
 //TODO if I enable these checks, then integration fails (only users of this function any way). Can this be removed? Where are these variables cleared any way?
 //  Check(a = Hold(a), "Argument", PipeToString()(Echo({"Found bound variable a which should have been unbound, in MatchLinear: ", a, "=?", Eval(a)})));
@@ -39,7 +39,7 @@ UnFence("MatchLinear",2);
 /** MatchPureSquared(variable,expression) - matches expressions
  *  of the form a*x^2+b.
  */
-10 # MatchPureSquared(var_IsAtom,_sign2,_sign0,expr_CanBeUni(var)) <--
+10 # MatchPureSquared(var_Atom?,_sign2,_sign0,expr_CanBeUni(var)) <--
 [
   Bind(expr,MakeUni(expr,var));
   MatchPureSquared(expr,sign2,sign0);
@@ -48,13 +48,13 @@ UnFence("MatchLinear",2);
 
 10 # MatchPureSquared(_expr,_sign2,_sign0)_(Degree(expr,var)=?2 And?
                                     Coef(expr,1) =? 0 And?
-                                    IsNumber(Coef(expr,0)) And?
-                                    IsNumber(Coef(expr,2)) And?
+                                    Number?(Coef(expr,0)) And?
+                                    Number?(Coef(expr,2)) And?
                                     Coef(expr,0)*sign0 >? 0 And?
                                     Coef(expr,2)*sign2 >? 0
                                     ) <--
 [
-  Check(IsUniVar(expr), "Argument", PipeToString()Echo({"Incorrect argument ",expr," passed to MatchLinear"}));
+  Check(UniVar?(expr), "Argument", PipeToString()Echo({"Incorrect argument ",expr," passed to MatchLinear"}));
 //TODO if I enable these checks, then integration fails (only users of this function any way). Can this be removed? Where are these variables cleared any way?
 //  Check(a = Hold(a), "Invariant", "Found bound variable which should have been unbound, in MatchLinear");
 //  Check(b = Hold(b), "Invariant", "Found bound variable which should have been unbound, in MatchLinear");
@@ -66,8 +66,8 @@ UnFence("MatchLinear",2);
 UnFence("MatchPureSquared",3);
 UnFence("MatchPureSquared",4);
 
-Matched'a() := a;
-Matched'b() := b;
+Matcheda() := a;
+Matchedb() := b;
 
 
 

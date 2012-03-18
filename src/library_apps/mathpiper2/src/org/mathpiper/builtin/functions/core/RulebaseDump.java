@@ -23,14 +23,25 @@ import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.rulebases.MultipleArityRulebase;
 import org.mathpiper.lisp.rulebases.SingleArityRulebase;
 
-public class RulebaseDump extends BuiltinFunction {
+public class RulebaseDump extends BuiltinFunction
+{
+
+    private RulebaseDump()
+    {
+    }
+
+    public RulebaseDump(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
-        LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1, "RulebaseDump");
-        String rulebaseName = (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
-        LispError.checkArgument(aEnvironment, aStackTop, rulebaseName != null, 1, "RulebaseDump");
-        LispError.checkArgument(aEnvironment, aStackTop, rulebaseName.charAt(0) == '\"', 1, "StringToUnicode");
-        LispError.checkArgument(aEnvironment, aStackTop, rulebaseName.charAt(rulebaseName.length() - 1) == '\"', 1, "StringToUnicode");
+        if(getArgument(aEnvironment, aStackTop, 1) == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        String rulebaseName = (String) getArgument(aEnvironment, aStackTop, 1).car();
+        if(rulebaseName == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if(rulebaseName.charAt(0) != '\"') LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if( rulebaseName.charAt(rulebaseName.length() - 1) != '\"') LispError.checkArgument(aEnvironment, aStackTop, 1);
 
         rulebaseName = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, rulebaseName);
 
@@ -61,7 +72,7 @@ public class RulebaseDump extends BuiltinFunction {
             aEnvironment.write("Rule not defined");
         }
 
-        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
 
     }//end method.
 }//end class.

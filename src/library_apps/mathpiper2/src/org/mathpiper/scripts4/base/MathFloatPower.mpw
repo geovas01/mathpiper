@@ -2,11 +2,30 @@
 
 // power function for non-integer argument y -- use ExpN and LogN
 /* Serge, I disabled this one for now, until we get a compiled version of LogN that does not hang in
-   an infinite loop. The C++ version of LogN never terminates, so I mapped LogN to your Internal'LnNum
+   an infinite loop. The C++ version of LogN never terminates, so I mapped LogN to your InternalLnNum
    which of course does a much better job of it. Corollary is that this function can be defined when we also
-   have Internal'LnNum in this file.
+   have InternalLnNum in this file.
 Defun("MathFloatPower", {x,y})
-        If(IsInteger(y), False, ExpN(MultiplyN(y,LogN(x))));
+        If(Integer?(y), False, ExpN(MultiplyN(y,LogN(x))));
 */
 
 %/mathpiper
+
+
+
+
+%mathpiper_docs,name="MathFloatPower",categories="User Functions",access="undocumented"
+*CMD MathFloatPower --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

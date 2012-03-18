@@ -24,7 +24,8 @@ import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.Evaluator;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.Cons;
+
 import org.mathpiper.lisp.printers.MathPiperPrinter;
 
 /**
@@ -36,26 +37,26 @@ public class TraceExcept extends BuiltinFunction
 
     public void plugIn(Environment aEnvironment) throws Exception
     {
+        this.functionName = "TraceExcept";
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-                "TraceExcept");
+                this.functionName, new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro));
         aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "TraceExcept");
     }//end method.
     
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
 
-        ConsPointer functionListPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
-        ConsPointer bodyPointer = getArgumentPointer(aEnvironment, aStackTop, 2);
+        Cons functionList = getArgument(aEnvironment, aStackTop, 1);
+        Cons body = getArgument(aEnvironment, aStackTop, 2);
 
         // Get function list.
-        LispError.checkArgument(aEnvironment, aStackTop, functionListPointer.getCons() != null, 1, "TraceExcept");
-        ConsPointer result = new ConsPointer();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result , functionListPointer);
+        if(functionList == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        
+        Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, functionList);
         String functionNamesString =  (String) result.car();
 
 
-        LispError.checkArgument(aEnvironment, aStackTop, functionNamesString != null, 1, "TraceExcept");
+        if(functionNamesString == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
 
         //Place function names into a List and then set this as the trace function list in Evaluator.
@@ -71,7 +72,8 @@ public class TraceExcept extends BuiltinFunction
 
         //Evaluate expresstion with tracing on.
         Evaluator.traceOn();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), bodyPointer);
+
+        setTopOfStack(aEnvironment, aStackTop, aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, body));
         Evaluator.traceOff();
         Evaluator.setTraceExceptFunctionList(null);
 
@@ -110,13 +112,13 @@ Enter<**** user rulebase>{(-,2+3-6);
     Enter<**** user rulebase>{(+,2+3);
         Arg(2->2);
         Arg(3->3);
-        Enter<builtin>{(IsNumber,IsNumber(x));
+        Enter<builtin>{(Number?,Number?(x));
             Arg(x->2);
-        Leave<builtin>}(IsNumber(x)->True);
-        Enter<builtin>{(IsNumber,IsNumber(y));
+        Leave<builtin>}(Number?(x)->True);
+        Enter<builtin>{(Number?,Number?(y));
             Arg(y->3);
-        Leave<builtin>}(IsNumber(y)->True);
-        **** Rule in function (+) matched: Precedence: 50, Parameters: arg1<hold=false>, arg2<hold=false>, Predicates: (Pattern) IsNumber(x), IsNumber(y), True,     Variables: x, y,    Types: Variable, Variable, Body: AddN(x,y)
+        Leave<builtin>}(Number?(y)->True);
+        **** Rule in function (+) matched: Precedence: 50, Parameters: arg1<hold=false>, arg2<hold=false>, Predicates: (Pattern) Number?(x), Number?(y), True,     Variables: x, y,    Types: Variable, Variable, Body: AddN(x,y)
         Enter<builtin>{(AddN,AddN(x,y));
             Arg(x->2);
             Arg(y->3);
@@ -124,16 +126,16 @@ Enter<**** user rulebase>{(-,2+3-6);
     Leave<**** user rulebase>}(2+3->5);
     Arg(2+3->5);
     Arg(6->6);
-    Enter<builtin>{(IsList,IsList($x8));
+    Enter<builtin>{(List?,List?($x8));
         Arg($x8->5);
-    Leave<builtin>}(IsList($x8)->False);
-    Enter<builtin>{(IsNumber,IsNumber(x));
+    Leave<builtin>}(List?($x8)->False);
+    Enter<builtin>{(Number?,Number?(x));
         Arg(x->5);
-    Leave<builtin>}(IsNumber(x)->True);
-    Enter<builtin>{(IsNumber,IsNumber(y));
+    Leave<builtin>}(Number?(x)->True);
+    Enter<builtin>{(Number?,Number?(y));
         Arg(y->6);
-    Leave<builtin>}(IsNumber(y)->True);
-    **** Rule in function (-) matched: Precedence: 50, Parameters: arg1<hold=false>, arg2<hold=false>, Predicates: (Pattern) IsNumber(x), IsNumber(y), True,     Variables: x, y,    Types: Variable, Variable, Body: SubtractN(x,y)
+    Leave<builtin>}(Number?(y)->True);
+    **** Rule in function (-) matched: Precedence: 50, Parameters: arg1<hold=false>, arg2<hold=false>, Predicates: (Pattern) Number?(x), Number?(y), True,     Variables: x, y,    Types: Variable, Variable, Body: SubtractN(x,y)
     Enter<builtin>{(SubtractN,SubtractN(x,y));
         Arg(x->5);
         Arg(y->6);
@@ -141,14 +143,14 @@ Enter<**** user rulebase>{(-,2+3-6);
 Leave<**** user rulebase>}(2+3-6->-1);
 
 
-In> TraceExcept("IsList, IsNumber") 2+3-6
+In> TraceExcept("List?, Number?") 2+3-6
 Result> True
 Side Effects>
 Enter<**** user rulebase>{(-,2+3-6);
     Enter<**** user rulebase>{(+,2+3);
         Arg(2->2);
         Arg(3->3);
-        **** Rule in function (+) matched: Precedence: 50, Parameters: arg1<hold=false>, arg2<hold=false>, Predicates: (Pattern) IsNumber(x), IsNumber(y), True,     Variables: x, y,    Types: Variable, Variable, Body: AddN(x,y)
+        **** Rule in function (+) matched: Precedence: 50, Parameters: arg1<hold=false>, arg2<hold=false>, Predicates: (Pattern) Number?(x), Number?(y), True,     Variables: x, y,    Types: Variable, Variable, Body: AddN(x,y)
         Enter<builtin>{(AddN,AddN(x,y));
             Arg(x->2);
             Arg(y->3);
@@ -156,7 +158,7 @@ Enter<**** user rulebase>{(-,2+3-6);
     Leave<**** user rulebase>}(2+3->5);
     Arg(2+3->5);
     Arg(6->6);
-    **** Rule in function (-) matched: Precedence: 50, Parameters: arg1<hold=false>, arg2<hold=false>, Predicates: (Pattern) IsNumber(x), IsNumber(y), True,     Variables: x, y,    Types: Variable, Variable, Body: SubtractN(x,y)
+    **** Rule in function (-) matched: Precedence: 50, Parameters: arg1<hold=false>, arg2<hold=false>, Predicates: (Pattern) Number?(x), Number?(y), True,     Variables: x, y,    Types: Variable, Variable, Body: SubtractN(x,y)
     Enter<builtin>{(SubtractN,SubtractN(x,y));
         Arg(x->5);
         Arg(y->6);

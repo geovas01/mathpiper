@@ -33,9 +33,9 @@ public class TraceOff extends BuiltinFunction
 
     public void plugIn(Environment aEnvironment) throws Exception
     {
+        this.functionName = "TraceOff";
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(this, 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "TraceOff");
+                this.functionName, new BuiltinFunctionEvaluator(this, 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 
 
@@ -43,7 +43,7 @@ public class TraceOff extends BuiltinFunction
     {
          Evaluator.traceOff();
          aEnvironment.write("Tracing is off.\n");
-         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+         setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }
 }
 

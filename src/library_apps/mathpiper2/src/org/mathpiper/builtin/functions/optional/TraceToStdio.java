@@ -33,9 +33,9 @@ public class TraceToStdio extends BuiltinFunction
 
     public void plugIn(Environment aEnvironment) throws Exception
     {
+        this.functionName = "TraceToStdio";
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(this, 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "TraceToStdio");
+                this.functionName, new BuiltinFunctionEvaluator(this, 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 
 
@@ -45,7 +45,7 @@ public class TraceToStdio extends BuiltinFunction
 
          aEnvironment.write("Tracing to stdio is on.\n");
          
-         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+         setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }
 }
 

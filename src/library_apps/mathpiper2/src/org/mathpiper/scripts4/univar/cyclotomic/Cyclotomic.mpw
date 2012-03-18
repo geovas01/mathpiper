@@ -1,4 +1,4 @@
-%mathpiper,def="Cyclotomic"
+%mathpiper,def="Cyclotomic;CyclotomicDivisorsList;CyclotomicFactor;InternalCyclotomic"
 
 //  Cyclotomic(n,x):
 //  Returns the cyclotomic polinomial in the variable x
@@ -37,7 +37,7 @@ Function("SubstituteInUniVar",{p,k})
   // We append k-1 zeros
   If (i<?d, For (j:=1,j<?k,j++) DestructiveAppend(NL,0));
   // We append (-1)^i*c as the coefficient of x^(k*i)
-  DestructiveAppend(NL,If(IsEven(i),c,-c));
+  DestructiveAppend(NL,If(Even?(i),c,-c));
   i--;
  ];
  UniVariate(First(p),0,NL);
@@ -61,7 +61,7 @@ Function("SubstituteAndExpandInUniVar",{p,k})
     Local(term);
     exponent := first+i-1;
     c:= coefs[i];
-    nc := If(IsEven(exponent),c,-c);
+    nc := If(Even?(exponent),c,-c);
     term:=NormalForm(nc*var^(exponent*k));
     result:=result+term;
   ];
@@ -75,7 +75,7 @@ Function("SubstituteAndExpandInUniVar",{p,k})
 // 3) m=Moebius(d1)
 // Addapted form: MoebiusDivisorsList
 
-CyclotomicDivisorsList(n_IsPositiveInteger) <--
+CyclotomicDivisorsList(n_PositiveInteger?) <--
 [
  Local(nFactors,f,result,oldresult,x);
  nFactors:= Factors(n);
@@ -119,12 +119,12 @@ CyclotomicFactor(_a,_b) <--
 // If m=1, n is a power of 2, and Cyclotomic(n,x)= x^k+1 */
 
 
-10 # InternalCyclotomic(n_IsEven,_x) <--
+10 # InternalCyclotomic(n_Even?,_x) <--
      [
       Local(k,m,result,p,t);
        k := 1;
        m := n;
-        While(IsEven(m))
+        While(Even?(m))
        [
         k := k*2;
         m := m/2;
@@ -135,7 +135,7 @@ CyclotomicFactor(_a,_b) <--
                  // Substitute x by -x^k
                  result:={};
                  ForEach(t,p)
-                    DestructiveAppend(result, {t[1]*k,If(IsEven(t[1]),t[2],-t[2])});
+                    DestructiveAppend(result, {t[1]*k,If(Even?(t[1]),t[2],-t[2])});
                ],
                  result := {{k,1},{0,1}} // x^k+1
         );
@@ -158,7 +158,7 @@ CyclotomicFactor(_a,_b) <--
 // unnecesary polynomial divisions)
 
 
-20 # InternalCyclotomic(n_IsOdd,_x)_(n>?1) <--
+20 # InternalCyclotomic(n_Odd?,_x)_(n>?1) <--
 [
  Local(divisors,poly1,poly2,q,d,f,coef,i,j,result);
  divisors := CyclotomicDivisorsList(n);
@@ -182,7 +182,7 @@ CyclotomicFactor(_a,_b) <--
 
 
 10  # Cyclotomic(1,_x) <-- x-1;
-20  # Cyclotomic(n_IsInteger,_x) <-- ExpandSparseUniVar(InternalCyclotomic(n,x));
+20  # Cyclotomic(n_Integer?,_x) <-- ExpandSparseUniVar(InternalCyclotomic(n,x));
 
 
 

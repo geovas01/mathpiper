@@ -19,9 +19,11 @@ package org.mathpiper.lisp.rulebases;
 
 import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.builtin.PatternContainer;
-import org.mathpiper.lisp.cons.ConsPointer;
+
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
+import org.mathpiper.lisp.cons.BuiltinObjectCons;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher;
 
 /**
@@ -30,33 +32,32 @@ import org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher;
 public class PatternRule extends Rule {
 
     protected int iPrecedence;
-    protected ConsPointer iBody;
-    protected ConsPointer iPredicate;    
+    protected Cons iBody;  
     protected PatternContainer iPattern; //The pattern that decides whether this rule matches or not.
 
     /**
      * 
      * @param aPrecedence precedence of the rule
-     * @param aPredicate getObject object of type PatternContainer
+     * @param aPattern Cons that holds a PatternContainer
      * @param aBody body of the rule
      */
-    public PatternRule(Environment aEnvironment, int aStackTop, int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception {
-        iBody = new ConsPointer();
-        iPredicate = new ConsPointer();
-        iPattern = null;
+    public PatternRule(Environment aEnvironment, int aStackTop, int aPrecedence, Cons aPattern, Cons aBody) throws Exception {
+        
         iPrecedence = aPrecedence;
-        iPredicate.setCons(aPredicate.getCons());
 
-        BuiltinContainer gen = (BuiltinContainer) aPredicate.car();
-        LispError.check(aEnvironment, aStackTop, gen != null, LispError.INVALID_ARGUMENT, "","INTERNAL");
-        LispError.check(aEnvironment, aStackTop, gen.typeName().equals("\"Pattern\""), LispError.INVALID_ARGUMENT, "Type is not <pattern>.","INTERNAL");
+        BuiltinContainer gen = (BuiltinContainer) aPattern.car();
+        
+        if(gen == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "");
+        
+        if(! gen.typeName().equals("\"Pattern\"")) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "Type is not <pattern>.");
 
         iPattern = (PatternContainer) gen;
-        iBody.setCons(aBody.getCons());
+        
+        iBody = aBody;
     }
 
     //Return true if the corresponding pattern matches.
-    public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer[] aArguments) throws Exception {
+    public boolean matches(Environment aEnvironment, int aStackTop, Cons[] aArguments) throws Exception {
         return iPattern.matches(aEnvironment, aStackTop, aArguments);
     }
 
@@ -65,8 +66,9 @@ public class PatternRule extends Rule {
         return iPrecedence;
     }
 
-    public ConsPointer getPredicatePointer() {
-        return this.iPredicate;
+    public Cons getPredicateOrPattern(Environment aEnvironment, int aStackTop) throws Exception {
+
+	return BuiltinObjectCons.getInstance(aEnvironment, aStackTop, this.iPattern);
     }
 
     public ParametersPatternMatcher getPattern() {
@@ -74,7 +76,7 @@ public class PatternRule extends Rule {
     }
 
     //Access iBody
-    public ConsPointer getBodyPointer() {
+    public Cons getBody() {
         return iBody;
     }
 }

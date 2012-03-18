@@ -1,0 +1,26 @@
+%mathpiper,def="InternalLnNum"
+
+/// low-level numerical calculations of elementary functions.
+/// These are only called if InNumericMode() returns True
+
+// natural logarithm: this should be called only for real x>1
+//InternalLnNum(x) := LogN(x);
+// right now the fastest algorithm is Halley's method for Exp(x)=a
+// when internal math is fixed, we may want to use Brent's method (below)
+// this method is using a cubically convergent Newton iteration for Exp(x/2)-a*Exp(-x/2)=0:
+// x := x - 2 * (Exp(x)-a) / (Exp(x)+a) = x-2+4*a/(Exp(x)+a)
+InternalLnNum(x_Number?)_(x>=?1) <-- NewtonLn(x);
+
+InternalLnNum(x_Number?)_(0<?x And? x<?1) <-- - InternalLnNum(DivideN(1,x));
+
+%/mathpiper
+
+
+
+
+
+%mathpiper,name="InternalLnNum",subtype="automatic_test"
+
+Verify(InternalLnNum(1), 0);
+
+%/mathpiper

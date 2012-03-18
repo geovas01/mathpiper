@@ -1,4 +1,4 @@
-%mathpiper,def="xFactors"
+%mathpiper,def="xFactors;xFactorsPrimitivePart;xFactorsUnivariate;xFactorsMultivariate;xFactorsHomogeneousBivariate;CheckForSpecialForms;ApproximateRealCoefficients;CombineNumericalFactors;IsPureRational;HasRealCoefficients;HasRationalCoefficients;FixUpMonicFactors;IsIrreducible;matchPower;matchPower"
 
 /*------------------------------------------------------------------------
  *  PENULTIMATE VERSION 
@@ -27,26 +27,26 @@
 
 /* --------------    LISTS    ---------------*/
 
-10 # xFactors( L_IsList ) <-- xFactors /@ L;
+10 # xFactors( L_List? ) <-- xFactors /@ L;
 
 
 /* -------------    NUMBERS    --------------*/
 
 
-10 # xFactors(p_IsPositiveInteger) <--  
+10 # xFactors(p_PositiveInteger?) <--  
 [
     If( p <? 1600, FactorsSmallInteger(p), FactorizeInt(p) );
 ];
 
 
-12 # xFactors(p_IsNegativeInteger) <-- xFactors(-p);
+12 # xFactors(p_NegativeInteger?) <-- xFactors(-p);
 
 
-14 # xFactors(p_IsRational)_(Denominator(p) !=? 1) <-- 
+14 # xFactors(p_Rational?)_(Denominator(p) !=? 1) <-- 
              { {xFactor(Numerator(p)) / xFactor(Denominator(p) ) , 1} }; 
              
 
-16 # xFactors(p_IsGaussianInteger)        <-- GaussianFactors(p);
+16 # xFactors(p_GaussianInteger?)        <-- GaussianFactors(p);
 
 
 18 # xFactors(_p)_(Length(VarList(p))=?0) <-- {{p,1}};
@@ -100,7 +100,7 @@
             Local(sd,cmp); 
             sd  := Sum /@ disassem[2];
             cmp := FillList(sd[1],Length(sd));
-            IsZeroVector(sd - cmp);
+            ZeroVector?(sd - cmp);
         ];
       ]
     );
@@ -268,7 +268,7 @@ UnFence("xFactorsMultivariate",1);
 
 // ------------------  HOMOGENEOUS BIVARIATE  ------------------
 
-10 # xFactorsHomogeneousBivariate( dis_IsList ) <-- 
+10 # xFactorsHomogeneousBivariate( dis_List? ) <-- 
 [
     If(InVerboseMode(),[NewLine();Tell("xFactorsHomogeneousBivariate",dis);]);
     Local(dis1,f,lst,dis2,poly1,ppFactors,residuals,ii,preassem);
@@ -305,7 +305,7 @@ UnFence("xFactorsHomogeneousBivariate",1);
 
 // ------------------  SPECIAL FORMS  ------------------
 
-10 # CheckForSpecialForms( final_IsList ) <-- 
+10 # CheckForSpecialForms( final_List? ) <-- 
 [
     If(InVerboseMode(),[NewLine();Tell("CheckForSpecialForms",final);]);
     Local(LL,ii,fact,mult,dis,new);
@@ -343,7 +343,7 @@ UnFence("xFactorsHomogeneousBivariate",1);
 // ---------------------   OTHER STUFF ------------------------
 
 
-10 # ApproximateRealCoefficients( poly_IsPolynomial ) <--
+10 # ApproximateRealCoefficients( poly_Polynomial? ) <--
 [
     // If the polynomial has REAL coefficients, convert them to
     // approximate integers
@@ -364,7 +364,7 @@ UnFence("xFactorsHomogeneousBivariate",1);
 UnFence("ApproximateRealCoefficients",1);
 
 
-100 # CombineNumericalFactors( factrs_IsList ) <--
+100 # CombineNumericalFactors( factrs_List? ) <--
 [
       If( InVerboseMode(), Tell("Combine",factrs) );
       Local(q,a,b,t,f,ff,err);
@@ -374,11 +374,11 @@ UnFence("ApproximateRealCoefficients",1);
       ForEach(q,factrs)
       [
           If( InVerboseMode(), Tell(1,q) );
-          If( IsList(q) And? Length(q)=?2,
+          If( List?(q) And? Length(q)=?2,
             [
                 {a,b} := q;
                 If( InVerboseMode(), Echo("     ",{a,b}) );
-                If( IsNumericList( {a,b} ),
+                If( NumericList?( {a,b} ),
                     t := t * a^b,
                     f := {a,b}:f
                 );
@@ -401,8 +401,8 @@ UnFence("ApproximateRealCoefficients",1);
 
 // ----------------  RATIONAL POLYNOMIALS  -----------------
 
-150 # xFactors( expr_IsRationalFunction )_
-        (IsPolynomial(Numerator(expr)) And? IsPolynomial(Denominator(expr))) <--
+150 # xFactors( expr_RationalFunction? )_
+        (Polynomial?(Numerator(expr)) And? Polynomial?(Denominator(expr))) <--
 [
     If(InVerboseMode(),[NewLine();Tell("xFactors_Rational_Function",expr);]);
     Local(Numer,Denom,fNumer,fDenom);
@@ -415,8 +415,8 @@ UnFence("ApproximateRealCoefficients",1);
 ];
 
 
-152 # xFactors( expr_IsRationalFunction )_
-        (IsConstant(Numerator(expr)) And? IsPolynomial(Denominator(expr))) <--
+152 # xFactors( expr_RationalFunction? )_
+        (Constant?(Numerator(expr)) And? Polynomial?(Denominator(expr))) <--
 [
     If(InVerboseMode(),[NewLine();Tell("xFactors_Rational_Denom",expr);]);
     Local(Numer,Denom,fNumer,fDenom);
@@ -448,27 +448,27 @@ UnFence("ApproximateRealCoefficients",1);
 
 
 
-10 # IsPureRational( N_IsRational )_(Not? IsInteger(N)) <-- True;
+10 # IsPureRational( N_Rational? )_(Not? Integer?(N)) <-- True;
 
 12 # IsPureRational( _N ) <-- False;
 
 
-10 # HasRealCoefficients( poly_IsPolynomial ) <--
+10 # HasRealCoefficients( poly_Polynomial? ) <--
 [
     Local(disassem);
     disassem := DisassembleExpression(poly);
-    (Length(Select(disassem[3],"IsDecimal")) >? 0);
+    (Length(Select(disassem[3],"Decimal?")) >? 0);
 ];
 
-10 # HasRealCoefficients( poly_IsMonomial ) <--
+10 # HasRealCoefficients( poly_Monomial? ) <--
 [
     Local(disassem);
     disassem := DisassembleExpression(poly);
-    (Length(Select(disassem[3],"IsDecimal")) >? 0);
+    (Length(Select(disassem[3],"Decimal?")) >? 0);
 ];
 
 
-10 # HasRationalCoefficients( poly_IsPolynomial ) <--
+10 # HasRationalCoefficients( poly_Polynomial? ) <--
 [
     Local(disassem);
     disassem := DisassembleExpression(poly);
@@ -476,7 +476,7 @@ UnFence("ApproximateRealCoefficients",1);
     (Length(Select(disassem[3],"IsPureRational")) >? 0);
 ];
 
-10 # HasRationalCoefficients( poly_IsMonomial) <--
+10 # HasRationalCoefficients( poly_Monomial?) <--
 [
     Local(disassem);
     disassem := DisassembleExpression(poly);
@@ -484,7 +484,7 @@ UnFence("ApproximateRealCoefficients",1);
 ];
 
 
-10 # FixUpMonicFactors( factrs_IsList ) <--
+10 # FixUpMonicFactors( factrs_List? ) <--
 [
     If(InVerboseMode(),[ NewLine(); Tell("   doing monic fixup"); ] );
     Local(factrsnew,residuals,uni);
@@ -538,7 +538,7 @@ UnFence("ApproximateRealCoefficients",1);
 ];
 UnFence("FixUpMonicFactors",1);
 
-10 # IsIrreducible( poly_IsPolynomial )_(Length(VarList(poly))=?1) <--
+10 # IsIrreducible( poly_Polynomial? )_(Length(VarList(poly))=?1) <--
 [
     //  If these tests return True, the polynomial IS irreducible..
     //  If they return False, the reducibility of the polynomial is
@@ -556,15 +556,15 @@ UnFence("FixUpMonicFactors",1);
     For(ii:=-3*deg,ii<=?3*deg,ii:=ii+3)
     [
         res := N(Subst(x,ii) poly);
-        //Tell("      ",{ii,res,IsPrime(res)});
-        If(Abs(res)=?1 Or? IsPrime(res), nprimes := nprimes + 1, );
+        //Tell("      ",{ii,res,Prime?(res)});
+        If(Abs(res)=?1 Or? Prime?(res), nprimes := nprimes + 1, );
     ];
     Tell("   ",nprimes);
     If(nprimes >? 2*deg, True, False );
 ];
 
 
-10 # matchPower(_Z^n_IsNumber) <-- n;
+10 # matchPower(_Z^n_Number?) <-- n;
 
 15 # matchPower(_Z) <-- 1;
 
@@ -577,6 +577,18 @@ UnFence("FixUpMonicFactors",1);
 
 
 
+%mathpiper_docs,name="xFactors",categories="User Functions",access="undocumented"
+*CMD xFactors --- *** UNDOCUMENTED ***
 
+*CALL
+        ?
 
+*PARMS
 
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

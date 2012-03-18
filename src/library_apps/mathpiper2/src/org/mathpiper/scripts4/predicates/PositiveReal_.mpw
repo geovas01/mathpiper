@@ -1,0 +1,44 @@
+%mathpiper,def="PositiveReal?"
+
+/* See if a number, when evaluated, would be a positive real value */
+PositiveReal?(_r) <--
+[
+  r:=N(Eval(r));
+  (Number?(r) And? r >=? 0);
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="PositiveReal?",categories="User Functions;Predicates"
+*CMD PositiveReal? --- test for a numerically positive value
+*STD
+*CALL
+        PositiveReal?(expr)
+
+*PARMS
+
+{expr} -- expression to test
+
+*DESC
+
+This function tries to approximate "expr" numerically. It returns {True} if this approximation is positive. In case no
+approximation can be found, the function returns {False}. Note that round-off errors may cause incorrect
+results.
+
+*E.G.
+
+In> PositiveReal?(Sin(1)-3/4);
+Result: True;
+In> PositiveReal?(Sin(1)-6/7);
+Result: False;
+In> PositiveReal?(Exp(x));
+Result: False;
+
+The last result is because {Exp(x)} cannot be
+numerically approximated if {x} is not known. Hence
+MathPiper can not determine the sign of this expression.
+
+*SEE NegativeReal?, PositiveNumber?, N
+%/mathpiper_docs

@@ -21,8 +21,9 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
+
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -31,27 +32,39 @@ import org.mathpiper.lisp.Utility;
 public class Check extends BuiltinFunction
 {
 
+    private Check()
+    {
+    }
+
+    public Check(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer pred = new ConsPointer();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, pred, getArgumentPointer(aEnvironment, aStackTop, 1));
+        Cons pred;
+        pred = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1));
         if (!Utility.isTrue(aEnvironment, pred, aStackTop))
         {
-            ConsPointer type = new ConsPointer();
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, type, getArgumentPointer(aEnvironment, aStackTop, 2));
-            LispError.checkIsString(aEnvironment, aStackTop, type, 2, "Check");
+            Cons type = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 2));
+            LispError.checkIsString(aEnvironment, aStackTop, type, 2);
             
             
             
-            ConsPointer message = new ConsPointer();
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, message, getArgumentPointer(aEnvironment, aStackTop, 3));
-            LispError.checkIsString(aEnvironment, aStackTop, message, 3, "Check");
+            
+            Cons message = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 3));
+            LispError.checkIsString(aEnvironment, aStackTop, message, 3);
 
-
-
-            throw new EvaluationException( Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, (String) type.car()), Utility.toNormalString(aEnvironment, aStackTop, (String) message.car()), aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(), aEnvironment.iCurrentInput.iStatus.getLineIndex() , "Check");
+            
+            String errorMessage = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, (String) type.car()) + " Error: " + Utility.toNormalString(aEnvironment, aStackTop, (String) message.car());
+            
+            LispError.throwError(aEnvironment, aStackTop, errorMessage);
+        
+        
         }
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(pred.getCons());
+        setTopOfStack(aEnvironment, aStackTop, pred);
     }
 }
 
@@ -84,7 +97,7 @@ Exceptions that are thrown by this function can be caught by the {ExceptionCatch
 
 *E.G.
 
-In> Check(IsInteger(2.3), "Argument", "The argument must be an integer.")
+In> Check(Integer?(2.3), "Argument", "The argument must be an integer.")
 Result: Exception
 Exception: The argument must be an integer.
 

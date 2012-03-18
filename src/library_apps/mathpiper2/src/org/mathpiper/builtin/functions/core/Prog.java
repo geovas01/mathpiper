@@ -18,18 +18,27 @@ package org.mathpiper.builtin.functions.core;
 
 
 import org.mathpiper.builtin.BuiltinFunction;
-import org.mathpiper.exceptions.ReturnException;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.Utility;
-import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.Cons;
 
 
 /**
  *
  *  
  */
-public class Prog extends BuiltinFunction {
+public class Prog extends BuiltinFunction
+{
+
+    private Prog()
+    {
+    }
+
+    public Prog(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
         // Allow accessing previous locals.
@@ -37,19 +46,19 @@ public class Prog extends BuiltinFunction {
 
         try {
 
-            ConsPointer resultPointer = new ConsPointer();
 
-            Utility.putTrueInPointer(aEnvironment, resultPointer);
+
+            Cons result = Utility.getTrueAtom(aEnvironment);
 
             // Evaluate args one by one.
-            ConsTraverser consTraverser = new ConsTraverser(aEnvironment, (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car());
-            consTraverser.goNext(aStackTop);
-            while (consTraverser.getCons() != null) {
-                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, resultPointer, consTraverser.getPointer());
-                consTraverser.goNext(aStackTop);
+            Cons consTraverser = (Cons) getArgument(aEnvironment, aStackTop, 1).car();
+            consTraverser =  consTraverser.cdr();
+            while (consTraverser != null) {
+                result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser);
+                consTraverser = consTraverser.cdr();
             }
 
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(resultPointer.getCons());
+            setTopOfStack(aEnvironment, aStackTop, result);
 
         } catch (Exception e) {
             throw e;

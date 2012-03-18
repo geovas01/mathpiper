@@ -4,3 +4,23 @@
 20 # FWatom({_a,_n}) <-- ListToFunction({ToAtom("^"),a, n});
 
 %/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="FWatom",categories="User Functions",access="undocumented"
+*CMD FWatom --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

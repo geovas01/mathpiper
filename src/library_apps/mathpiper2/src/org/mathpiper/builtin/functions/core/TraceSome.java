@@ -23,7 +23,8 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.Evaluator;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.Cons;
+
 
 /**
  *
@@ -31,18 +32,28 @@ import org.mathpiper.lisp.cons.ConsPointer;
  */
 public class TraceSome extends BuiltinFunction
 {
+
+    private TraceSome()
+    {
+    }
+
+    public TraceSome(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
 
-        ConsPointer functionListPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
-        ConsPointer bodyPointer = getArgumentPointer(aEnvironment, aStackTop, 2);
+        Cons functionList = getArgument(aEnvironment, aStackTop, 1);
+        Cons body = getArgument(aEnvironment, aStackTop, 2);
 
         // Get function list.
-        LispError.checkArgument(aEnvironment, aStackTop, functionListPointer.getCons() != null, 1, "TraceSome");
-        ConsPointer result = new ConsPointer();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result , functionListPointer);
+        if(functionList == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, functionList);
         String functionNamesString =  (String) result.car();
-        LispError.checkArgument(aEnvironment, aStackTop, functionNamesString != null, 1, "TraceSome");
+        if(functionNamesString == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
         
         //Place function names into a List and then set this as the trace function list in Evaluator.
@@ -58,7 +69,7 @@ public class TraceSome extends BuiltinFunction
 
         //Evaluate expresstion with tracing on.
         Evaluator.traceOn();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), bodyPointer);
+        setTopOfStack(aEnvironment, aStackTop, aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, body));
         Evaluator.traceOff();
         Evaluator.setTraceFunctionList(null);
 
@@ -97,10 +108,10 @@ Result> True
 Side Effects>
 Enter<**** user rulebase>{(Factors,Factors(p));
     Arg(p->8);
-    **** Rule in function (Factors) matched: Precedence: 10, Parameters: arg1<hold=false>, Predicates: (Pattern) IsInteger(p), True,     Variables: p,    Types: Variable, Body: FactorizeInt(p)
+    **** Rule in function (Factors) matched: Precedence: 10, Parameters: arg1<hold=false>, Predicates: (Pattern) Integer?(p), True,     Variables: p,    Types: Variable, Body: FactorizeInt(p)
     Enter<**** user rulebase>{(FactorizeInt,FactorizeInt(p));
         Arg(p->8);
-        **** Rule in function (FactorizeInt) matched: Precedence: 3, Parameters: arg1<hold=false>, Predicates: (Pattern) IsInteger(n), True,     Variables: n,    Types: Variable, Body: [    Local(small'powers);    n:=Abs(n);    If(Gcd(ProductPrimesTo257(),n)>1,small'powers:=TrialFactorize(n,257),small'powers:={n});    n:=small'powers[1];    If(n=1,Tail(small'powers),[        If(InVerboseMode(),Echo({"FactorizeInt: Info: remaining number ",n}));        SortFactorList(PollardCombineLists(Tail(small'powers),PollardRhoFactorize(n)));]);]
+        **** Rule in function (FactorizeInt) matched: Precedence: 3, Parameters: arg1<hold=false>, Predicates: (Pattern) Integer?(n), True,     Variables: n,    Types: Variable, Body: [    Local(small'powers);    n:=Abs(n);    If(Gcd(ProductPrimesTo257(),n)>1,small'powers:=TrialFactorize(n,257),small'powers:={n});    n:=small'powers[1];    If(n=1,Tail(small'powers),[        If(InVerboseMode(),Echo({"FactorizeInt: Info: remaining number ",n}));        SortFactorList(PollardCombineLists(Tail(small'powers),PollardRhoFactorize(n)));]);]
     Leave<**** user rulebase>}(FactorizeInt(p)->{{2,3}});
 Leave<**** user rulebase>}(Factors(p)->{{2,3}});
 

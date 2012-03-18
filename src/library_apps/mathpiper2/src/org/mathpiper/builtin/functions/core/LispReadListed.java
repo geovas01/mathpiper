@@ -29,14 +29,23 @@ import org.mathpiper.lisp.parsers.Parser;
 public class LispReadListed extends BuiltinFunction
 {
 
+    private LispReadListed()
+    {
+    }
+
+    public LispReadListed(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Parser parser = new Parser(aEnvironment.iCurrentTokenizer,
-                aEnvironment.iCurrentInput,
+        Parser parser = new Parser(aEnvironment.iCurrentTokenizer, aEnvironment.getCurrentInput(),
                 aEnvironment);
         parser.iListed = true;
         // Read expression
-        parser.parse(aStackTop, getTopOfStackPointer(aEnvironment, aStackTop));
+        setTopOfStack(aEnvironment, aStackTop, parser.parse(aStackTop));
     }
 }
 

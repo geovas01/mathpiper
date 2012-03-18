@@ -1,11 +1,5 @@
-%mathpiper,def="BinSplitNum;BinSplitData;BinSplitFinal"
+%mathpiper,def="BinSplitNum;BinSplitData;BinSplitFinal;BinSplitCombine"
 
-/*
-def file definitions
-BinSplitNum
-BinSplitData
-BinSplitFinal
-*/
 
 /// coded by Serge Winitzki. See essays documentation for algorithms.
 

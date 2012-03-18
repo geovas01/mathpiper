@@ -1,33 +1,33 @@
 %mathpiper,def="Macro"
 
-Rulebase("Macro",{oper,args,body});
+RulebaseHoldArguments("Macro",{oper,args,body});
 HoldArgument("Macro",oper);
 HoldArgument("Macro",args);
 HoldArgument("Macro",body);
 
 // macro with variable number of arguments: Macro("func",{x,y, ...})body;
-Rule("Macro",3,2047,
-        And?(IsGreaterThan(Length(args), 1), IsEqual( MathNth(args, Length(args)), ToAtom("...") ))
+RuleHoldArguments("Macro",3,2047,
+        And?(GreaterThan?(Length(args), 1), Equal?( MathNth(args, Length(args)), ToAtom("...") ))
 )
 [
   DestructiveDelete(args,Length(args));        // remove trailing "..."
   Retract(oper,Length(args));
-  `DefMacroRulebaseListed(@oper,@args);
-  MacroRule(oper,Length(args),1025,True) body;        // at precedence 1025, for flexibility
+  `MacroRulebaseListedHoldArguments(@oper,@args);
+  RuleEvaluateArguments(oper,Length(args),1025,True) body;        // at precedence 1025, for flexibility
 ];
 
 // macro with a fixed number of arguments
-Rule("Macro",3,2048,True)
+RuleHoldArguments("Macro",3,2048,True)
 [
   Retract(oper,Length(args));
-  `DefMacroRulebase(@oper,@args);
-  MacroRule(oper,Length(args),1025,True) body;
+  `MacroRulebaseHoldArguments(@oper,@args);
+  RuleEvaluateArguments(oper,Length(args),1025,True) body;
 ];
 
-Rulebase("Macro",{oper});
+RulebaseHoldArguments("Macro",{oper});
 // macro with variable number of arguments: Macro() f(x,y, ...)
-Rule("Macro",1,2047,
-        And?(IsFunction(oper), IsGreaterThan(Length(oper), 1), IsEqual( MathNth(oper, Length(oper)), ToAtom("...") ))
+RuleHoldArguments("Macro",1,2047,
+        And?(Function?(oper), GreaterThan?(Length(oper), 1), Equal?( MathNth(oper, Length(oper)), ToAtom("...") ))
 )
 [
         Local(args,name);
@@ -36,12 +36,12 @@ Rule("Macro",1,2047,
   Bind(name,Type(oper));
         If(RulebaseDefined(Type(oper),Length(args)),
                 False,        // do nothing
-                `DefMacroRulebaseListed(@name,@args)
+                `MacroRulebaseListedHoldArguments(@name,@args)
         );
 ];
 // macro with a fixed number of arguments
-Rule("Macro",1,2048,
-        And?(IsFunction(oper))
+RuleHoldArguments("Macro",1,2048,
+        And?(Function?(oper))
 )
 [
         Local(args,name);
@@ -50,7 +50,7 @@ Rule("Macro",1,2048,
         If(RulebaseDefined(Type(oper),Length(args)),
                 False,        // do nothing
                 [
-      `DefMacroRulebase(@name,@args);
+      `MacroRulebaseHoldArguments(@name,@args);
     ]
         );
 ];
@@ -83,7 +83,7 @@ Rule("Macro",1,2048,
 *DESC
 
 This does the same as {Function}, but for macros. One can define a macro
-easily with this function, in stead of having to use {DefMacroRulebase}.
+easily with this function, in stead of having to use {MacroRulebaseHoldArguments}.
 
 *E.G. notest
 
@@ -111,7 +111,7 @@ Result: True;
 In> i
 Result: 10;
 
-*SEE Function, DefMacroRulebase
+*SEE Function, MacroRulebaseHoldArguments
 %/mathpiper_docs
 
 
@@ -122,7 +122,7 @@ Result: 10;
 
 [
   Local(a,b,c,d);
-  DefMacroRulebase(foo,{a,b});
+  MacroRulebaseHoldArguments(foo,{a,b});
 
   // Simple check
   foo(_c,_d) <-- {@c,@d};
@@ -169,7 +169,7 @@ Result: 10;
 
 [
   Local(x,y,z);
-  Rulebase("@",{x});
+  RulebaseHoldArguments("@",{x});
   y:=x;
   Verify(`{@x,@y},{x,x});
   z:=u;

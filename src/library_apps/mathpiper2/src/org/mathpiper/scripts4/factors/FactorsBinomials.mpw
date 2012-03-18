@@ -1,16 +1,16 @@
-%mathpiper,def="FactorsBinomials"
+%mathpiper,def="FactorsBinomials;xFactorsBinomials"
 
 //Retract("FactorsBinomials",*);
 
-10 # FactorsBinomials( _x + y_IsFreeOf(x) ) <-- {x+y,1};
+10 # FactorsBinomials( _x + y_FreeOf?(x) ) <-- {x+y,1};
 
-10 # FactorsBinomials( _x - y_IsFreeOf(x) ) <-- {x-y,1};
+10 # FactorsBinomials( _x - y_FreeOf?(x) ) <-- {x-y,1};
 
-10 # FactorsBinomials( c_IsConstant * _x + y_IsFreeOf(x) ) <-- {c*x+y,1};
+10 # FactorsBinomials( c_Constant? * _x + y_FreeOf?(x) ) <-- {c*x+y,1};
 
-10 # FactorsBinomials( c_IsConstant * _x - y_IsFreeOf(x) ) <-- {c*x-y,1};
+10 # FactorsBinomials( c_Constant? * _x - y_FreeOf?(x) ) <-- {c*x-y,1};
 
-10 # FactorsBinomials( _x^m_IsOdd + _y ) <--
+10 # FactorsBinomials( _x^m_Odd? + _y ) <--
 [
     If(InVerboseMode(),Tell("FactorsBinomialssum",{x,m,y}));
     Local(nn,qq, r);
@@ -21,7 +21,7 @@
 ];
 
 
-12 # FactorsBinomials( c_IsConstant * _x^m_IsOdd + _y ) <--
+12 # FactorsBinomials( c_Constant? * _x^m_Odd? + _y ) <--
 [
     If(InVerboseMode(),Tell("FactorsBinomialssum",{c,x,m,y}));
     Local(nn,qq, r);
@@ -35,13 +35,13 @@
 ];
 
 
-10 # FactorsBinomials( _x^m_IsInteger - _y ) <--
+10 # FactorsBinomials( _x^m_Integer? - _y ) <--
 [
     If(InVerboseMode(),Tell("FactorsBinomialsdif",{x,m,y}));
     Local(pp,qq,r,L);
     pp := m-1;
     qq := (y^(1/m));
-    If(IsNumber(y),qq:=GuessRational(N(qq)));
+    If(Number?(y),qq:=GuessRational(N(qq)));
     If(InVerboseMode(),Tell("  FBindif.1",{pp,qq}));
     
     if      (m =? 2)
@@ -60,21 +60,35 @@
 ];
 
 
-12 # xFactorsBinomials( c_IsConstant * _x^m_IsInteger - _y ) <--
+12 # xFactorsBinomials( c_Constant? * _x^m_Integer? - _y ) <--
 [
     If(InVerboseMode(),Tell("FactorsBinomialsdif",{c,x,m,y}));
     Local(aa,bb,c0,r);
     aa := c^(1/m);
     bb := ((y)^(1/m));
-    If(IsNumber(y),bb:=GuessRational(N(bb)));
+    If(Number?(y),bb:=GuessRational(N(bb)));
     If(InVerboseMode(),Tell("  FBindif.1b",{aa,bb}));
     r  := FactorsBinomials( (aa*x)^m - bb^m );
 ];
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-.   %/output
 
 
+
+
+%mathpiper_docs,name="FactorsBinomials",categories="User Functions",access="undocumented"
+*CMD FactorsBinomials --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

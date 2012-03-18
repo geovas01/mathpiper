@@ -29,6 +29,16 @@ import org.mathpiper.lisp.Environment;
 public class ShiftRight extends BuiltinFunction
 {
 
+    private ShiftRight()
+    {
+    }
+
+    public ShiftRight(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
@@ -36,7 +46,7 @@ public class ShiftRight extends BuiltinFunction
         long nrToShift = n.toLong();
         BigNumber z = new BigNumber(aEnvironment.getPrecision());
         z.shiftRight(x, (int) nrToShift, null, aStackTop);
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
+        setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
     }
 }//end class.
 

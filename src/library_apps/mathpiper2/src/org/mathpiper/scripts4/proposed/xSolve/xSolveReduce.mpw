@@ -1,21 +1,21 @@
 %mathpiper,title="xSolveReduce"
 
-//Retract("xSolve'Reduce",*);
-//Retract("xSolve'Context",*);
+//Retract("xSolveReduce",*);
+//Retract("xSolveContext",*);
 
-/***************************** xSolve'Reduce *****************************/
+/***************************** xSolveReduce *****************************/
 
 /*
- *      Tries to solve by reduction strategy, calling xSolve'Context(); 
+ *      Tries to solve by reduction strategy, calling xSolveContext(); 
  * Returns Failed if this doesn't work, and the solution otherwise 
 */
 
-10 # xSolve'Reduce(_expr, _var) <--
+10 # xSolveReduce(_expr, _var) <--
   [
       If(iDebug,Tell("xSolveReduce",{expr,var}));
-      ClearError("Solve'Fails");  // in case left-over from previous failure!
+      ClearError("SolveFails");  // in case left-over from previous failure!
       Local(context, expr2, var2, res, sol, sol2, i);
-      context := xSolve'Context(expr, var);
+      context := xSolveContext(expr, var);
       If(iDebug,Tell(" xSolveReduce",context));
       If(context = False,
          [
@@ -39,10 +39,10 @@
                      //Tell(" 31XReduce",GetErrorTableau());
                          sol2 := Solve(expr2, var2);
                      If(iDebug,Tell(" 31fReduce",sol2));
-                     If(IsError("Solve'Fails"),
+                     If(Error?("SolveFails"),
                              [
                              If(iDebug,Tell(" 31gReduce_error"));
-                                 ClearError("Solve'Fails");
+                                 ClearError("SolveFails");
                                      res := Failed;
                          ],
                              [
@@ -53,9 +53,9 @@
                              [
                                          sol := Solve(context == (var2 Where sol2[i]), var);
                                  If(iDebug,Tell(" 31iReduce",{i,sol}));
-                                     If(IsError("Solve'Fails"),
+                                     If(Error?("SolveFails"),
                                              [
-                                                  ClearError("Solve'Fails");
+                                                  ClearError("SolveFails");
                                                   res := Failed;
                                      ],
                                              res := Union(res, sol)
@@ -74,7 +74,7 @@
 
 
 
-/******************** xSolve'Context ********************/
+/******************** xSolveContext ********************/
 
 /*
  *      Returns the unique context of 'var' in 'expr', 
@@ -82,13 +82,13 @@
  * or False if the context is not unique.         
  */
 
-10 # xSolve'Context(expr_IsAtom, _var) <-- 
+10 # xSolveContext(expr_Atom?, _var) <-- 
   [
       If(iDebug,Tell("xSolveContext",{expr,var}));
       If(expr=var, var, {});
   ];
 
-20 # xSolve'Context(_expr, _var) <--
+20 # xSolveContext(_expr, _var) <--
   [
       If(iDebug,Tell("xSolveContext",{expr,var}));
       Local(lst, foundVarP, context, i, res);
@@ -110,7 +110,7 @@
               context := {};
               i := 2;
               While(i <=? Length(lst) And? context !=? False) [
-                  res := xSolve'Context(lst[i], var);
+                  res := xSolveContext(lst[i], var);
                       If(res !=? {} And? context !=? {} And? res !=? context, [context := False;If(iDebug,Tell("  42caContext",res));]);
                       If(res !=? {} And? context = {}, [context := res;If(iDebug,Tell("  42cbContext",context));]);
                       i++;

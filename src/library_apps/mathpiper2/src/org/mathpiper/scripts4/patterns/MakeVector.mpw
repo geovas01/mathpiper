@@ -1,13 +1,13 @@
 %mathpiper,def="MakeVector"
 
-Rulebase("MakeVector",{vec,dimension});
-Rule("MakeVector",2,1,True)
+RulebaseHoldArguments("MakeVector",{vec,dimension});
+RuleHoldArguments("MakeVector",2,1,True)
 [
     Local(res,i);
     res:={};
     i:=1;
     Bind(dimension,AddN(dimension,1));
-    While(IsLessThan(i,dimension))
+    While(LessThan?(i,dimension))
     [
       DestructiveInsert(res,1,ToAtom(ConcatStrings(ToString(vec),ToString(i))));
       Bind(i,AddN(i,1));

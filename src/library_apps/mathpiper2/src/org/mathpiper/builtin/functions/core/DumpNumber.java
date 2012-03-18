@@ -30,6 +30,16 @@ import org.mathpiper.lisp.cons.Cons;
 public class DumpNumber extends BuiltinFunction
 {
 
+    private DumpNumber()
+    {
+    }
+
+    public DumpNumber(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
@@ -45,7 +55,7 @@ public class DumpNumber extends BuiltinFunction
         }
         */
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(resultCons);
+        setTopOfStack(aEnvironment, aStackTop, resultCons);
 
 
     }//end method.

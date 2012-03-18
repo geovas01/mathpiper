@@ -8,11 +8,14 @@
 	</description> 
 	
 	<!-- Misc properties -->
+	<property name="version" value=".80H_experimental" />
+	<property name="mathpiper.version" value="mathpiper2" />
+	
 	<property name="master.compile.source" value="1.5" />
 	<property name="master.compile.target" value="1.5" />
 	<property name="master.compile.debug" value="false" />
 	<property environment="env" />
-	<property name="version" value=".79U" />
+	
 	
 	
 	<!-- Set top directories -->
@@ -48,6 +51,7 @@
 		<pathelement path="${master.lib.dir}/jars/clojure.jar" />
 		<pathelement path="${master.lib.dir}/non_plugin_jars/abcl.jar" />
 		<pathelement path="${master.lib.dir}/non_plugin_jars/geogebra.jar" />
+		<pathelement path="${master.lib.dir}/non_plugin_jars/geogebra_algos.jar" />
 		<pathelement path="${master.lib.dir}/non_plugin_jars/geogebra_cas.jar" />
 		<pathelement path="${master.lib.dir}/non_plugin_jars/geogebra_export.jar" />
 		<pathelement path="${master.lib.dir}/non_plugin_jars/geogebra_gui.jar" />
@@ -66,6 +70,7 @@
 		<pathelement path="${non_plugin.jars.dir}/jas.jar" />
 		<pathelement path="${non_plugin.jars.dir}/jdom.jar" />
 		<pathelement path="${non_plugin.jars.dir}/mpreduce.jar" />
+		<pathelement path="${non_plugin.jars.dir}/jlog.jar" />
 		<!--<pathelement path="${master.lib.dir}/jars/bsh-2.0b4.jar" />
 		<pathelement path="${master.lib.dir}/jars/beansheet_plugin.jar" />  
 		-->
@@ -98,12 +103,12 @@
 
 
 	<target id="mathpiper_library" name="mathpiper_library" depends="init" >
-		<ant dir="${library_apps.src.dir}/mathpiper" target="${target}" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${library_apps.build.dir}/mathpiper"/>
+		<ant dir="${library_apps.src.dir}/${mathpiper.version}" target="${target}" inheritAll="false" inheritRefs="false" >
+			<property name="build.dir" value="${library_apps.build.dir}/${mathpiper.version}"/>
 			<property name="compile.source" value="${master.compile.source}"/>
 			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="src.dir" value="${library_apps.src.dir}/mathpiper/src"/>
-			<property name="mathpiper.dir" value="${library_apps.src.dir}/mathpiper"/>
+			<property name="src.dir" value="${library_apps.src.dir}/${mathpiper.version}/src"/>
+			<property name="mathpiper.dir" value="${library_apps.src.dir}/${mathpiper.version}"/>
 			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
 			<reference refid="build_classpath"/>
 		</ant>
@@ -443,9 +448,23 @@
 	
 	
 	
+	<target id="jlog_plugin" name="jlog_plugin" depends="mathpiperide_library" >
+		<ant dir="${plugins.src.dir}/jlog_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
+			<property name="build.dir" value="${plugins.build.dir}/jlog_plugin"/>
+			<property name="compile.source" value="${master.compile.source}"/>
+			<property name="compile.target" value="${master.compile.target}"/>
+			<property name="src.dir" value="${plugins.src.dir}/jlog_plugin/src"/>
+			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
+			<reference refid="build_classpath"/>
+		</ant>
+		
+		<copy file="${plugins.build.dir}/jlog_plugin/dist/jlog_plugin.jar" todir="${plugins.jars.dir}"/>
+	</target>
+	
+	
 	<!-- -->
-	<target id="all-plugins" name="all-plugins" depends="mathpiper_plugin, mathpiper_docs_plugin, 
-		geogebra_plugin, u6502_plugin, jung_plugin, jfreechart_plugin, threedxplormathj_plugin, hoteqn_plugin, mpreduce_plugin" />
+	<target id="all-plugins" name="all-plugins" depends="mathpiper_plugin, mathpiper_docs_plugin, jlog_plugin, 
+		geogebra_plugin, u6502_plugin, jung_plugin, jfreechart_plugin, threedxplormathj_plugin, mpreduce_plugin" />
 	
 	
 	
@@ -510,7 +529,7 @@
 		<antcall target="mathpiper_library">
 			<param name="target" value="dist"/>
 		</antcall>
-		<copy file="${library_apps.build.dir}/mathpiper/dist/mathpiper.jar" todir="${non_plugin.jars.dir}"/>
+		<copy file="${library_apps.build.dir}/${mathpiper.version}/dist/mathpiper.jar" todir="${non_plugin.jars.dir}"/>
 		
 		<!--<antcall target="piper_me_library">
 			<param name="target" value="dist"/>

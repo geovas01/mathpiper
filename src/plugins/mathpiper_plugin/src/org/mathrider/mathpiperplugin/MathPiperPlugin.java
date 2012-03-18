@@ -23,6 +23,14 @@ public class MathPiperPlugin extends EditPlugin implements EBComponent{
 		//System.out.println("************************************************MathPiper plugin started...");
 		EditBus.addToBus(this);
 		
+		org.mathpiper.interpreters.Interpreter interpreter = org.mathpiper.interpreters.Interpreters.getSynchronousInterpreter();
+		
+		org.mathpiper.lisp.Environment environment = interpreter.getEnvironment();
+
+        org.mathpiper.interpreters.Interpreters.addOptionalFunctions(environment,"org/mathpiper/builtin/functions/optional/");
+        
+        org.mathpiper.interpreters.Interpreters.addOptionalFunctions(environment,"org/mathpiper/builtin/functions/plugins/jfreechart/");
+		
 	}//end method.
 	
 	

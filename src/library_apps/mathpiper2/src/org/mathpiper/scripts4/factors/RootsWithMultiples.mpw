@@ -15,7 +15,7 @@
     If(deg >? 0 And? deg <? 3,
       [
         root:= PSolve(uni);
-        If(Not? IsList(root),root:={root});
+        If(Not? List?(root),root:={root});
         For(i:=1,i<=?Length(root),i++)
           result:= Concat({{root[i],item[2]}}, result);
       ]
@@ -25,3 +25,23 @@
 ];
 
 %/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="RootsWithMultiples",categories="User Functions",access="undocumented"
+*CMD RootsWithMultiples --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

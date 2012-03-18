@@ -21,8 +21,9 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
+
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -30,31 +31,40 @@ import org.mathpiper.lisp.Utility;
  */
 public class ApplyFast extends BuiltinFunction
 {
+    
+    private ApplyFast()
+    {
+    }
+
+    public ApplyFast(String functionName)
+    {
+        this.functionName = functionName;
+    }
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer oper = new ConsPointer();
-        oper.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        ConsPointer args = new ConsPointer();
-        args.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
 
-        LispError.checkArgument(aEnvironment, aStackTop, args.car() instanceof ConsPointer, 2, "ApplyFast");
-        LispError.check(aEnvironment, aStackTop, ((ConsPointer) args.car()).getCons() != null, 2);
+        Cons oper = getArgument(aEnvironment, aStackTop, 1);
+
+        Cons args = getArgument(aEnvironment, aStackTop, 2);
+
+        if(! (args.car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        if(((Cons) args.car()) == null) LispError.throwError(aEnvironment, aStackTop, 2);
 
         // Apply a pure string
         if (oper.car() instanceof String)
         {
-            Utility.applyString(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop),
-                    (String) oper.car(),
-                    ((ConsPointer) args.car()).cdr());
+            
+            Cons result = Utility.applyString(aEnvironment, aStackTop, (String) oper.car(), ((Cons) args.car()).cdr());
+            setTopOfStack(aEnvironment, aStackTop,result);
         } else
         {   // Apply a pure function {args,body}.
 
-            ConsPointer args2 = new ConsPointer();
-            args2.setCons(((ConsPointer) args.car()).cdr().getCons());
-            LispError.checkArgument(aEnvironment, aStackTop, oper.car() instanceof ConsPointer, 1, "ApplyFast");
-            LispError.checkArgument(aEnvironment, aStackTop, ((ConsPointer) oper.car()).getCons() != null, 1, "ApplyFast");
-            Utility.applyPure(aStackTop, oper, args2, getTopOfStackPointer(aEnvironment, aStackTop), aEnvironment);
+            Cons args2 = ((Cons) args.car()).cdr();
+            if(! (oper.car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackTop, 1);
+            if( (Cons) oper.car() == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+            
+            setTopOfStack(aEnvironment, aStackTop, Utility.applyPure(aStackTop, oper, args2, aEnvironment));
         }
     }
 }

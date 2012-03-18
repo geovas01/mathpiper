@@ -6,7 +6,7 @@
 Retract(ChiSquareTest,*);
 
 
-10 # ChiSquareTest( observedFrequenciesMatrix_IsMatrix, expectedFrequenciesMatrix_IsMatrix) <--
+10 # ChiSquareTest( observedFrequenciesMatrix_Matrix?, expectedFrequenciesMatrix_Matrix?) <--
 [
 
     Local(observedFrequenciesList, expectedFrequenciesList);
@@ -47,7 +47,7 @@ Retract(ChiSquareTest,*);
 
 
 
-20 # ChiSquareTest( observedFrequenciesList_IsList, expectedFrequenciesList_IsList) <--
+20 # ChiSquareTest( observedFrequenciesList_List?, expectedFrequenciesList_List?) <--
 [
     Check(Length(observedFrequenciesList) >? 0, "Argument", "The first argument must be a nonempty list.");
     

@@ -19,8 +19,9 @@ package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.ConsPointer;
+
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.SublistCons;
 
 /**
@@ -30,11 +31,21 @@ import org.mathpiper.lisp.cons.SublistCons;
 public class FlatCopy extends BuiltinFunction
 {
 
+    private FlatCopy()
+    {
+    }
+
+    public FlatCopy(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer copied = new ConsPointer();
-        Utility.flatCopy(aEnvironment, aStackTop, copied, (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car());
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment,copied.getCons()));
+        
+        Cons copied = Utility.flatCopy(aEnvironment, aStackTop, (Cons) getArgument(aEnvironment, aStackTop, 1).car());
+        setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, copied));
     }
 }
 
@@ -63,7 +74,7 @@ efficiency).
 The following shows a possible way to define a command that reverses a
 list nondestructively.
 
-In> reverse(l_IsList) <-- DestructiveReverse \
+In> reverse(l_List?) <-- DestructiveReverse \
 	  (FlatCopy(l));
 Result: True;
 In> lst := {a,b,c,d,e};

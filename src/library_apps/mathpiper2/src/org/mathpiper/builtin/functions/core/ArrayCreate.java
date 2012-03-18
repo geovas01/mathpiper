@@ -23,7 +23,8 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.Cons;
+
 
 /**
  *
@@ -31,22 +32,36 @@ import org.mathpiper.lisp.cons.ConsPointer;
  */
 public class ArrayCreate extends BuiltinFunction
 {
+    
+    private ArrayCreate()
+    {
+    }
 
+    public ArrayCreate(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+    
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer sizearg = new ConsPointer();
-        sizearg.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        Cons sizearg = getArgument(aEnvironment, aStackTop, 1);
 
-        LispError.checkArgument(aEnvironment, aStackTop, sizearg.getCons() != null, 1, "ArrayCreate");
-        LispError.checkArgument(aEnvironment, aStackTop, sizearg.car() instanceof String, 1, "ArrayCreate");
+        if( sizearg == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if(! (sizearg.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
         int size = Integer.parseInt( (String) sizearg.car(), 10);
 
-        ConsPointer initarg = new ConsPointer();
-        initarg.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
+        Cons initarg = getArgument(aEnvironment, aStackTop, 2);
 
-        Array array = new Array(aEnvironment, size, initarg.getCons());
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, array));
+        Array array = new Array(aEnvironment, size);
+        Cons initializeCons = initarg;
+
+        for(int index = 1; index <= size; index++)
+        {
+            array.setElement(index, initializeCons, aStackTop, aEnvironment);
+        }
+        setTopOfStack(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, array));
     }
 }//end class.
 

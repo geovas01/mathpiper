@@ -3,7 +3,7 @@
 /// Compute integer part of s-th root of (positive) integer n.
 // algorithm using floating-point math
 10 # IntNthRoot(_n, 2) <-- Floor(SqrtN(n));
-20 # IntNthRoot(_n, s_IsInteger) <--
+20 # IntNthRoot(_n, s_Integer?) <--
 [
         Local(result, k);
         GlobalPush(BuiltinPrecisionGet());
@@ -11,7 +11,7 @@
         k := Quotient(IntLog(n, 2), s);
         // therefore we need k*Ln(2)/Ln(10) digits for the floating-point calculation
         BuiltinPrecisionSet(2+Quotient(k*3361, 11165));        // 643/2136 < Ln(2)/Ln(10) < 3361/11165
-        result := Round(ExpN(DivideN(Internal'LnNum(DivideN(n, 2^(k*s))), s))*2^k);
+        result := Round(ExpN(DivideN(InternalLnNum(DivideN(n, 2^(k*s))), s))*2^k);
         BuiltinPrecisionSet(GlobalPop());
         // result is rounded and so it may overshoot (we do not use Floor above because numerical calculations may undershoot)
         If(result^s>?n, result-1, result);
@@ -19,9 +19,9 @@
 
 /* algorithm using only integer arithmetic.
 (this is slower than the floating-point algorithm for large numbers because all calculations are with long integers)
-IntNthRoot1(_n, s_IsInteger) <--
+IntNthRoot1(_n, s_Integer?) <--
 [
-        Local(x1, x2, x'new, y1);
+        Local(x1, x2, xnew, y1);
         // initial guess should always undershoot
         //        x1:= 2 ^ Quotient(IntLog(n, 2), s);         // this is worse than we can make it
         x1 := IntLog(n,2);
@@ -56,20 +56,20 @@ IntNthRoot1(_n, s_IsInteger) <--
         While(y1 <? n)
         [
 //        Echo({x1, x2});
-                x'new := Quotient(x1*((s-1)*y1+(s+1)*n), (s+1)*y1+(s-1)*n) + 1;        // add 1 because the floating-point value undershoots
+                xnew := Quotient(x1*((s-1)*y1+(s+1)*n), (s+1)*y1+(s-1)*n) + 1;        // add 1 because the floating-point value undershoots
                 If(
-                        x'new <? Quotient(x1+x2, 2),
-                        // x'new did not reach the midpoint, need to check progress
+                        xnew <? Quotient(x1+x2, 2),
+                        // xnew did not reach the midpoint, need to check progress
                         If(
                                 Quotient(x1+x2, 2)^s <=? n,
                                 // Newton's iteration is not making good progress, so leave x2 in place and update x1 by bisection
-                                x'new := Quotient(x1+x2, 2),
+                                xnew := Quotient(x1+x2, 2),
                                 // Newton's iteration knows what it is doing. Update x2 by bisection
                                 x2 := Quotient(x1+x2, 2)
                         )
-                        // else, x'new reached the midpoint, good progress, continue
+                        // else, xnew reached the midpoint, good progress, continue
                 );
-                x1 := x'new;
+                x1 := xnew;
                 y1 := x1^s;
         ];
         If(y1=n, x1, x1-1);        // subtract 1 if we overshot
@@ -101,7 +101,7 @@ This function is used to test numbers for prime powers.
 In> IntNthRoot(65537^111, 37)
 Result: 281487861809153;
 
-*SEE IntLog, PowerN, IsPrimePower
+*SEE IntLog, PowerN, PrimePower?
 %/mathpiper_docs
 
 

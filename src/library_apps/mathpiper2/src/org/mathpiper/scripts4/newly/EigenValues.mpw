@@ -1,10 +1,10 @@
 %mathpiper,def="EigenValues"
 
-// diagonal matrices will be caught by IsUpperTriangular
-10 # EigenValues(matrix_IsUpperTriangular) <-- Diagonal(matrix);
-10 # EigenValues(matrix_IsLowerTriangular) <-- Diagonal(matrix);
+// diagonal matrices will be caught by UpperTriangular?
+10 # EigenValues(matrix_UpperTriangular?) <-- Diagonal(matrix);
+10 # EigenValues(matrix_LowerTriangular?) <-- Diagonal(matrix);
 
-20 # EigenValues(matrix_IsMatrix) <-- Roots(CharacteristicEquation(matrix,xx));
+20 # EigenValues(matrix_Matrix?) <-- Roots(CharacteristicEquation(matrix,xx));
 
 %/mathpiper
 

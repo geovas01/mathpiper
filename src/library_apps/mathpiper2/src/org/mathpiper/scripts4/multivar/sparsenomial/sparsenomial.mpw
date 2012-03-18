@@ -1,4 +1,4 @@
-%mathpiper,def="CreateTerm;MultiNomialAdd;MultiNomialNegate;MultiNomialMultiply;NormalForm"
+%mathpiper,def="CreateTerm;MultiNomialAdd;MultiNomialNegate;MultiNomialMultiply;NormalForm;MultiLeadingTerm;MultiDegreeScanHead;ScanMultiNomial;MultiDropLeadingZeroes;MultiDropScan;MultiTermLess;MultiZero;CheckMultiZero;MultiNomialMultiplyAdd;muadm;NormalMultiNomial"
 
 
 /* Implementation of MultiNomials based on sparse representation
@@ -46,11 +46,11 @@ UnFence("muadm",2);
    for speed. This routine is a lot faster!
  */
 
-Rulebase("NormalForm",{expression});
-Rule("NormalForm",1,1000,True) expression;
+RulebaseHoldArguments("NormalForm",{expression});
+RuleHoldArguments("NormalForm",1,1000,True) expression;
 0 # NormalForm(UniVariate(_var,_first,_coefs)) <--
     ExpandUniVariate(var,first,coefs);
-10 # NormalForm(x_IsMulti/y_IsMulti) <-- NormalForm(x)/NormalForm(y);
+10 # NormalForm(x_Multi?/y_Multi?) <-- NormalForm(x)/NormalForm(y);
 20 # NormalForm(MultiNomial(_vars,_list) )
     <-- NormalMultiNomial(vars,list,1);
 
@@ -100,7 +100,7 @@ MultiLeadingTerm(MultiNomial(_vars,_terms))
    ];
 UnFence("MultiDegreeScanHead",2);
 
-ScanMultiNomial(_op,MultiNomial(vars_IsList,_terms))
+ScanMultiNomial(_op,MultiNomial(vars_List?,_terms))
     <-- SparseTreeScan(op,Length(vars),terms);
 UnFence("ScanMultiNomial",2);
 
@@ -149,7 +149,7 @@ MultiTermLess({_deg1,_fact1},{_deg2,_fact2}) <--
     ((deg !=? {}) And? (deg[1] <? 0));
   ];
 
-20 # MultiZero(multi_IsMulti) <--
+20 # MultiZero(multi_Multi?) <--
 [
   CheckMultiZero(DropZeroLC(multi));
 ];

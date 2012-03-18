@@ -1,4 +1,4 @@
-%mathpiper,def="GetErrorTableau;ClearErrors;GetError;CheckErrorTableau"
+%mathpiper,def="GetErrorTableau;ClearError;ClearErrors;GetError;CheckErrorTableau"
 
 /* def file definitions
 ClearErrors
@@ -6,7 +6,7 @@ GetError
 */
 
 //////////////////////////////////////////////////
-/// ErrorTableau, Assert, IsError --- global error reporting
+/// ErrorTableau, Assert, Error? --- global error reporting
 //////////////////////////////////////////////////
 
 LocalSymbols(ErrorTableau) [
@@ -21,7 +21,7 @@ LocalSymbols(ErrorTableau) [
   /// aux function to check for corrupt tableau
   CheckErrorTableau() <--
   If(
-    Not? IsList(ErrorTableau),
+    Not? List?(ErrorTableau),
     Bind(ErrorTableau, {{"general", "corrupted ErrorTableau"}})
   );
 
@@ -29,10 +29,10 @@ LocalSymbols(ErrorTableau) [
 
 
 /// obtain error object
-GetError(error'class_IsString) <--
+GetError(errorclass_String?) <--
 [
         Local(error);
-        error := GetErrorTableau()[error'class];
+        error := GetErrorTableau()[errorclass];
         If(
                 error !=? Empty,
                 error,
@@ -42,7 +42,7 @@ GetError(error'class_IsString) <--
 
 
 /// delete error
-ClearError(error'class_IsString) <-- AssocDelete(GetErrorTableau(), error'class);
+ClearError(errorclass_String?) <-- AssocDelete(GetErrorTableau(), errorclass);
 
 %/mathpiper
 
@@ -59,7 +59,7 @@ ClearError(error'class_IsString) <-- AssocDelete(GetErrorTableau(), error'class)
 
 {ClearErrors} is a trivial error handler that does nothing except it clears the tableau.
 
-*SEE Assert, IsError, DumpErrors
+*SEE Assert, Error?, DumpErrors
 
 %/mathpiper_docs
 
@@ -104,9 +104,9 @@ In> GetError("bad value")
 Result: {1, "must be zero"};
 In> ClearError("bad value");
 Result: True;
-In> IsError()
+In> Error?()
 Result: False;
 
-*SEE IsError, Assert, Check, ClearErrors
+*SEE Error?, Assert, Check, ClearErrors
 
 %/mathpiper_docs

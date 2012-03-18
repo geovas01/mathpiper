@@ -4,13 +4,13 @@
 /// Print a list using a padding string
 //////////////////////////////////////////////////
 
-10 # PrintList(list_IsList) <-- PrintList(list, ", ");
-10 # PrintList({}, padding_IsString) <-- "";
-20 # PrintList(list_IsList, padding_IsString) <-- PipeToString() [
+10 # PrintList(list_List?) <-- PrintList(list, ", ");
+10 # PrintList({}, padding_String?) <-- "";
+20 # PrintList(list_List?, padding_String?) <-- PipeToString() [
         Local(i);
         ForEach(i, list) [
-                If(Not?(IsEqual(i, First(list))), WriteString(padding));
-                If (IsString(i), WriteString(i), If(IsList(i), WriteString("{" : PrintList(i, padding) : "}"), Write(i)));
+                If(Not?(Equal?(i, First(list))), WriteString(padding));
+                If (String?(i), WriteString(i), If(List?(i), WriteString("{" : PrintList(i, padding) : "}"), Write(i)));
         ];
 ];
 

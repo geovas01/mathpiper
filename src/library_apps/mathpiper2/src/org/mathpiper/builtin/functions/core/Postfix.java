@@ -28,9 +28,19 @@ import org.mathpiper.lisp.Utility;
 public class Postfix extends BuiltinFunction
 {
 
+    private Postfix()
+    {
+    }
+
+    public Postfix(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int nrArguments = Utility.listLength(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 0));
+        int nrArguments = Utility.listLength(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 0));
         if (nrArguments == 2)
         {
             Utility.singleFix(0, aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
@@ -72,6 +82,6 @@ Precedence is optional (will be set to 0 by default).
 *E.G.
 In> todo
 
-*SEE IsBodied, PrecedenceGet, Bodied, Infix, Prefix
+*SEE Bodied?, PrecedenceGet, Bodied, Infix, Prefix
 %/mathpiper_docs
 */

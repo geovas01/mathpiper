@@ -34,7 +34,11 @@ public class NumberCons extends Cons {
     private BigNumber iCarBigNumber;
     /// string representation in decimal; NULL if not yet converted from BigNumber
     private String iCarStringNumber;
-    private ConsPointer iCdr;
+
+    //This variable is placed here instead of in Cons because it makes viewing it
+    // in the debugger easier.
+    private Cons iCdr;
+
 
     /**
      * Construct a number from either a BigNumber or a String.
@@ -46,7 +50,6 @@ public class NumberCons extends Cons {
         super();
         iCarStringNumber = aString;
         iCarBigNumber = aNumber;
-        iCdr = new ConsPointer();
     }
 
     /**
@@ -57,7 +60,6 @@ public class NumberCons extends Cons {
         super();
         iCarStringNumber = null;
         iCarBigNumber = aNumber;
-        iCdr = new ConsPointer();
     }
 
     /**
@@ -71,13 +73,42 @@ public class NumberCons extends Cons {
         //(also create a number object).
         iCarStringNumber = aString;
         iCarBigNumber = null;  // purge whatever it was.
-        iCdr = new ConsPointer();
 
     // create a new BigNumber object out of iString, set its precision in digits
     //TODO FIXME enable this in the end    NumberCons(aBasePrecision);
     }
 
-    public Cons copy( Environment aEnvironment, boolean aRecursed) throws Exception  {
+
+
+    public void setCar(Object object) throws Exception
+    {
+        if(object instanceof String)
+        {
+            iCarStringNumber = (String) object;
+            iCarBigNumber = null;
+        }
+        else if(object instanceof BigNumber)
+        {
+            iCarStringNumber = null;
+            iCarBigNumber = (BigNumber) object;
+        }
+        else
+        {
+            LispError.raiseError("Argument must be a string or a BigNumber.", -1, null);
+        }
+    }
+
+
+    public Cons cdr() {
+        return iCdr;
+    }
+
+    public void setCdr(Cons aCdr)
+    {
+        iCdr = aCdr;
+    }
+
+    public Cons copy(boolean aRecursed) throws Exception  {
 
         NumberCons numberCons = new NumberCons(iCarBigNumber, iCarStringNumber);
 
@@ -104,7 +135,7 @@ public class NumberCons extends Cons {
         if (iCarStringNumber == null) {
             //LispError.lispAssert(iCarBigNumber != null, aEnvironment, aStackTop);  // either the string is null or the number but not both.
 
-            if(iCarBigNumber == null) throw new EvaluationException("Internal error in NumberCons.","",-1,-1);
+            if(iCarBigNumber == null) throw new EvaluationException("Internal error in NumberCons.","",-1,-1,-1);
 
             iCarStringNumber = iCarBigNumber.numToString(0/*TODO FIXME*/, 10);
         // export the current number to string and store it as NumberCons::iString
@@ -112,18 +143,7 @@ public class NumberCons extends Cons {
         return iCarStringNumber;
     }
 
-    @Override
-    public String toString() {
-        String stringRepresentation = null;
-        try {
-            stringRepresentation = (String) car();
 
-        } catch (Exception e) {
-            e.printStackTrace();  //Todo:fixme.
-        }
-        return stringRepresentation;
-
-    }
 
     
     /**
@@ -140,7 +160,7 @@ public class NumberCons extends Cons {
             
             //LispError.lispAssert(iCarStringNumber != null, aEnvironment, aStackTop);
 
-            if(iCarStringNumber == null) throw new EvaluationException("Internal error in NumberCons.","",-1,-1);
+            if(iCarStringNumber == null) throw new EvaluationException("Internal error in NumberCons.","",-1,-1,-1);
 
             String str;
             str = iCarStringNumber;
@@ -159,12 +179,6 @@ public class NumberCons extends Cons {
         return iCarBigNumber;
     }
 
-
-    
-
-    public ConsPointer cdr() {
-        return iCdr;
-    }//end method.
 
 
     public int type()

@@ -22,6 +22,8 @@ import org.mathpiper.io.StringOutputStream;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.io.MathPiperOutputStream;
+import org.mathpiper.lisp.Utility;
+
 
 /**
  *
@@ -29,6 +31,16 @@ import org.mathpiper.io.MathPiperOutputStream;
  */
 public class PipeToString extends BuiltinFunction
 {
+
+    private PipeToString()
+    {
+    }
+
+    public PipeToString(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
@@ -39,10 +51,10 @@ public class PipeToString extends BuiltinFunction
         try
         {
             // Evaluate the body
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 1));
+            setTopOfStack(aEnvironment, aStackTop, aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1)));
 
             //Return the getTopOfStackPointer
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, aEnvironment.getTokenHash().lookUpStringify(oper.toString())));
+            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, Utility.toMathPiperString(aEnvironment, aStackTop, oper.toString())));
         } catch (Exception e)
         {
             throw e;

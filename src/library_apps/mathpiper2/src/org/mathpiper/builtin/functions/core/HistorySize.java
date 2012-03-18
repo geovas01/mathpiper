@@ -29,11 +29,21 @@ import org.mathpiper.lisp.Environment;
 public class HistorySize extends BuiltinFunction
 {
 
+    private HistorySize()
+    {
+    }
+
+    public HistorySize(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         aEnvironment.write("Function not yet implemented : LispHistorySize");//TODO FIXME
 
-        throw new EvaluationException("Function not yet supported",aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(), aEnvironment.iCurrentInput.iStatus.getLineIndex());
+        throw new EvaluationException("Function not yet supported",aEnvironment.getCurrentInput().iStatus.getFileName(), -1, aEnvironment.getCurrentInput().iStatus.getLineNumber(), aEnvironment.getCurrentInput().iStatus.getLineIndex());
     }
 }
 

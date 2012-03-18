@@ -23,10 +23,11 @@ import java.util.Collections;
 import java.util.List;
 import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.io.StringOutputStream;
-import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.localvariables.LocalVariableFrame;
+import org.mathpiper.lisp.cons.Cons;
+
 import org.mathpiper.lisp.printers.MathPiperPrinter;
 import org.mathpiper.lisp.stacks.UserStackInformation;
+import org.mathpiper.lisp.variables.LocalVariableFrame;
 
 // evaluate'
 public abstract class Evaluator {
@@ -41,7 +42,7 @@ public abstract class Evaluator {
         public static boolean iStackTraced = false;
 	UserStackInformation iBasicInfo = new UserStackInformation();
 
-	public static void showExpression(StringBuffer outString, Environment aEnvironment, ConsPointer aExpression) throws Exception {
+	public static void showExpression(StringBuffer outString, Environment aEnvironment, Cons aExpression) throws Exception {
 		MathPiperPrinter infixprinter = new MathPiperPrinter(aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
 		// Print out the current expression
 		//StringOutput stream(outString);
@@ -58,7 +59,7 @@ public abstract class Evaluator {
 
 	}//end method.
 
-	public static void traceShowEnter(Environment aEnvironment, ConsPointer aExpression, String extraInfo) throws Exception {
+	public static void traceShowEnter(Environment aEnvironment, Cons aExpression, String extraInfo) throws Exception {
 		for (int i = 0; i < evalDepth; i++) {
 			// aEnvironment.iEvalDepth; i++) {
 			if (TRACE_TO_STANDARD_OUT) {
@@ -75,8 +76,8 @@ public abstract class Evaluator {
 		}
 
 		String function = "";
-		if (aExpression.car() instanceof ConsPointer) {
-			ConsPointer sub = (ConsPointer) aExpression.car();
+		if (aExpression.car() instanceof Cons) {
+			Cons sub = (Cons) aExpression.car();
 			if (sub.car() instanceof String) {
 				function = (String) sub.car();
 			}
@@ -135,7 +136,7 @@ public abstract class Evaluator {
 		evalDepth++;
 	}//end method.
 
-	public static void traceShowArg(Environment aEnvironment, ConsPointer aParam, ConsPointer aValue) throws Exception {
+	public static void traceShowArg(Environment aEnvironment, Cons aParam, Cons aValue) throws Exception {
 		for (int i = 0; i < evalDepth; i++) {
 			//aEnvironment.iEvalDepth; i++) {
 			if (TRACE_TO_STANDARD_OUT) {
@@ -163,7 +164,7 @@ public abstract class Evaluator {
 		}
 	}//end method.
 
-	public static void traceShowExpression(Environment aEnvironment, ConsPointer aExpression) throws Exception {
+	public static void traceShowExpression(Environment aEnvironment, Cons aExpression) throws Exception {
 		StringBuffer outString = new StringBuffer();
 
 		showExpression(outString, aEnvironment, aExpression);
@@ -178,7 +179,7 @@ public abstract class Evaluator {
 		}
 	}//end method.
 
-	public static void traceShowRule(Environment aEnvironment, ConsPointer aExpression, String ruleDump) throws Exception {
+	public static void traceShowRule(Environment aEnvironment, Cons aExpression, String ruleDump) throws Exception {
 
 		for (int i = 0; i < evalDepth; i++) {
 			// aEnvironment.iEvalDepth; i++) {
@@ -190,8 +191,8 @@ public abstract class Evaluator {
 		}
 
 		String function = "";
-		if (aExpression.car() instanceof ConsPointer) {
-			ConsPointer sub = (ConsPointer) aExpression.car();
+		if (aExpression.car() instanceof Cons) {
+			Cons sub = (Cons) aExpression.car();
 			if (sub.car() instanceof String) {
 				function = (String) sub.car();
 			}
@@ -210,7 +211,7 @@ public abstract class Evaluator {
 		}
 	}//end method.
 
-	public static void traceShowLeave(Environment aEnvironment, ConsPointer aResult, ConsPointer aExpression, String extraInfo, String localVariables) throws Exception {
+	public static void traceShowLeave(Environment aEnvironment, Cons aResult, Cons aExpression, String extraInfo, String localVariables) throws Exception {
 		if (evalDepth != 0) {
 			evalDepth--;
 		}
@@ -252,8 +253,16 @@ public abstract class Evaluator {
 		}//end else.
 	}//end method.
 
-	public static boolean isTraced() {
-		return iTraced;
+	public static boolean isTraced(String functionName) {
+
+                if(iTraced == true && !functionName.endsWith("?"))
+                {
+                    return true;
+                }
+                else
+                {
+		    return false;
+                }
 	}
 
 	public static void traceOff() {
@@ -276,7 +285,7 @@ public abstract class Evaluator {
 		iStackTraced = true;
 	}
 
-	public abstract void evaluate(Environment aEnvironment, int aStackTop, ConsPointer aResult, ConsPointer aArgumentsOrExpression) throws Exception;
+	public abstract Cons evaluate(Environment aEnvironment, int aStackTop, Cons aArgumentsOrExpression) throws Exception;
 
 
 	public UserStackInformation stackInformation() {

@@ -25,7 +25,7 @@ import org.mathpiper.interpreters.Interpreters;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
-import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -36,36 +36,36 @@ public class Import extends BuiltinFunction
 
     public void plugIn(Environment aEnvironment) throws Exception
     {
+        this.functionName = "Import";
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Import");
+                this.functionName, new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
 
-        ConsPointer pathPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
+        Cons path = getArgument(aEnvironment, aStackTop, 1);
 
 
-        LispError.checkIsString(aEnvironment, aStackTop, pathPointer, 1, "Import");
+        LispError.checkIsString(aEnvironment, aStackTop, path, 1);
 
-        String path = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, (String) pathPointer.car());
+        String pathString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, (String) path.car());
 
         /*org.mathpiper.builtin.javareflection.Import.addImport(path);
         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));*/
 
 
-        List failList = Interpreters.addOptionalFunctions(aEnvironment, path);
+        List failList = Interpreters.addOptionalFunctions(aEnvironment, pathString);
 
         if(failList.isEmpty())
         {
-            Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+            setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
             return;
         }
         else
         {
-            aEnvironment.write("Could not load " + path);
-            Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+            aEnvironment.write("Could not load " + pathString);
+            setTopOfStack(aEnvironment, aStackTop, Utility.getFalseAtom(aEnvironment));
         }//end if/else
 
     }//end method.

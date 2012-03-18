@@ -23,22 +23,32 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.Cons;
-import org.mathpiper.lisp.cons.ConsPointer;
+
 import org.mathpiper.lisp.cons.SublistCons;
 
 
-public class MetaKeys extends BuiltinFunction {
+public class MetaKeys extends BuiltinFunction
+{
+
+    private MetaKeys()
+    {
+    }
+
+    public MetaKeys(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        ConsPointer objectPointer = new ConsPointer();
-        objectPointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        Cons object = getArgument(aEnvironment, aStackTop, 1);
 
 
-        Map metadataMap = objectPointer.getCons().getMetadataMap();
+        Map metadataMap = object.getMetadataMap();
 
         if (metadataMap == null || metadataMap.isEmpty()) {
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment, aEnvironment.iListAtom.copy( aEnvironment, false)));
+            setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, aEnvironment.iListAtom.copy(false)));
 
             return;
         }//end if.
@@ -48,7 +58,7 @@ public class MetaKeys extends BuiltinFunction {
 
         Cons head = Utility.iterableToList(aEnvironment, aStackTop, keySet);
         
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment,head));
+        setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,head));
 
 
 

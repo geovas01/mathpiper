@@ -30,7 +30,18 @@ import org.mathpiper.lisp.cons.SublistCons;
  *
  *
  */
-public class GlobalVariablesGet extends BuiltinFunction {
+public class GlobalVariablesGet extends BuiltinFunction
+{
+
+    private GlobalVariablesGet()
+    {
+    }
+
+    public GlobalVariablesGet(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
@@ -42,7 +53,7 @@ public class GlobalVariablesGet extends BuiltinFunction {
 
         Cons head = Utility.iterableToList(aEnvironment, aStackTop, variablesList);
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment, head));
+        setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, head));
 
     }//end method.
 

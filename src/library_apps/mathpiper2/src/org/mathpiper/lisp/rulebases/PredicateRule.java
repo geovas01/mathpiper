@@ -16,9 +16,9 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.rulebases;
 
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  * A rule with a predicate (the rule matches if the predicate evaluates to True.)
@@ -26,23 +26,19 @@ import org.mathpiper.lisp.Utility;
 class PredicateRule extends Rule {
 
     protected int iPrecedence;
-    protected ConsPointer iBody;
-    protected ConsPointer iPredicate;
+    protected Cons iBody;
+    protected Cons iPredicate;
 
 
-    public PredicateRule(Environment aEnvironment, int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) {
-        iBody = new ConsPointer();
-        iBody.setCons(aBody.getCons());
-        iPredicate = new ConsPointer();
+    public PredicateRule(Environment aEnvironment, int aPrecedence, Cons aPredicate, Cons aBody) {
+        iBody = aBody;
         iPrecedence = aPrecedence;
-        iPredicate.setCons(aPredicate.getCons());
+        iPredicate = aPredicate;
 
     }
 
 
     protected PredicateRule(Environment aEnvironment) {
-        iBody = new ConsPointer();
-        iPredicate = new ConsPointer();
     }
 
 
@@ -60,9 +56,9 @@ class PredicateRule extends Rule {
      */
     // iPredicate is evaluated in \a Environment. If the result
     /// IsTrue(), this function returns true
-    public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer[] aArguments) throws Exception {
-        ConsPointer pred = new ConsPointer();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, pred, iPredicate);
+    public boolean matches(Environment aEnvironment, int aStackTop, Cons[] aArguments) throws Exception {
+        
+        Cons pred = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, iPredicate);
         return Utility.isTrue(aEnvironment, pred, aStackTop);
     }
 
@@ -74,12 +70,12 @@ class PredicateRule extends Rule {
 
     /// Access #iBody.
 
-    public ConsPointer getBodyPointer() {
+    public Cons getBody() {
         return iBody;
     }
 
 
-    public ConsPointer getPredicatePointer() {
+    public Cons getPredicateOrPattern(Environment aEnvironment, int aStackTop) {
         return this.iPredicate;
     }
 

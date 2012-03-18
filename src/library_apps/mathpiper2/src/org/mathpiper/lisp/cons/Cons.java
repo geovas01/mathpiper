@@ -18,7 +18,9 @@
 package org.mathpiper.lisp.cons;
 
 import java.util.Map;
+import org.mathpiper.io.StringOutput;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.printers.LispPrinter;
 
 
 /**
@@ -34,16 +36,19 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
     protected Map metadataMap;
 
-
     public Cons() throws Exception
     {
         metadataMap = null; //aEnvironment.iEmptyAtom;
     }//end constructor.
 
 
-    public abstract ConsPointer cdr();
-
     public abstract Object car() throws Exception;
+
+    public abstract void setCar(Object object) throws Exception;
+
+    public abstract Cons cdr();
+
+    public abstract void setCdr(Cons aCons);
 
     public abstract int type();
 
@@ -56,8 +61,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
         return null;
     }
 
-    public abstract Cons copy( Environment aEnvironment, boolean aRecursed) throws Exception;
-
+    public abstract Cons copy(boolean aRecursed) throws Exception;
 
 
 
@@ -82,20 +86,26 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
     public boolean isEqual(Cons aOther) throws Exception {
         // iCdr line handles the fact that either one is a string
-        if (car() != aOther.car()) {
-            return false;
+        if(car() instanceof String && aOther.car() instanceof String){
+            if (! (((String)car()).equals(((String)aOther.car())))) {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         //So, no strings.
-        ConsPointer iter1 = (ConsPointer) car();
-        ConsPointer iter2 = (ConsPointer) aOther.car();
+        Cons iter1 = (Cons) car();
+        Cons iter2 = (Cons) aOther.car();
         if (!(iter1 != null && iter2 != null)) {
             return false;
         }
 
         // check all elements in sublist
-        while (iter1.getCons() != null && iter2.getCons() != null) {
-            if (!iter1.getCons().isEqual(iter2.getCons())) {
+        while (iter1 != null && iter2 != null) {
+            if (!iter1.isEqual(iter2)) {
                 return false;
             }
 
@@ -103,13 +113,316 @@ public abstract class Cons //Note:tk:was MathPiperObject.
             iter2 = iter2.cdr();
         }
         //One list longer than the other?
-        if (iter1.getCons() == null && iter2.getCons() == null) {
+        if (iter1 == null && iter2 == null) {
             return true;
         }
         return false;
     }//end method.
 
 
+    
+    public String toString() {
+        StringOutput out = new StringOutput();
+        LispPrinter printer = new LispPrinter();
+        try {
+            printer.print(-1, this, out, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return out.toString();
+    }//end method.
+
+
+
+
+
+    public static Object car(Object cons) throws Exception
+    {
+        return ((Cons)cons).car();
+    }
+
+
+
+
+    public static Object cdr(Object cons) throws Exception
+    {
+        return ((Cons)cons).cdr();
+    }
+
+
+
+    public static Object cadar(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).cdr();
+        return ((Cons)cons).car();
+    }
+
+
+    
+    public static Object caaaar(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).car();
+        return ((Cons)cons).car();
+    }
+
+
+
+    public static Object caaadr(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).car();
+        return ((Cons)cons).car();
+    }
+
+
+
+    public static Object caaar(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).car();
+        return ((Cons)cons).car();
+    }
+
+
+
+    public static Object caadar(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).car();
+        return ((Cons)cons).car();
+    }
+
+
+
+    public static Object caaddr(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).car();
+        return ((Cons)cons).car();
+
+    }
+
+
+
+    public static Object caadr(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).car();
+        return ((Cons)cons).car();
+    }
+
+
+
+    public static Object caar(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).car();
+        return ((Cons)cons).car();
+    }
+
+
+
+    public static Object cadaar(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).cdr();
+        return ((Cons)cons).car();
+    }
+
+
+
+    public static Object cadadr(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).cdr();
+        return ((Cons)cons).car();
+    }
+
+
+
+    public static Object adar(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).cdr();
+        return ((Cons)cons).car();
+    }
+
+
+
+    public static Object caddar(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).cdr();
+        return ((Cons)cons).car();
+
+    }
+
+
+
+    public static Object cadddr(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).cdr();
+        return ((Cons)cons).car();
+    }
+
+
+
+    public static Object caddr(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).cdr();
+        return ((Cons)cons).car();
+    }
+
+
+
+    public static Object cadr(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).cdr();
+        return ((Cons)cons).car();
+    }
+
+
+
+    public static Object cdaaar(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).car();
+        return ((Cons)cons).cdr();
+    }
+
+
+
+    public static Object cdaadr(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).car();
+        return ((Cons)cons).cdr();
+    }
+
+
+
+    public static Object cdaar(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).car();
+        return ((Cons)cons).cdr();
+    }
+
+
+
+    public static Object cdadar(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).car();
+        return ((Cons)cons).cdr();
+    }
+
+
+
+    public static Object cdaddr(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).car();
+        return ((Cons)cons).cdr();
+    }
+
+
+
+    public static Object cdadr(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).car();
+        return ((Cons)cons).cdr();
+    }
+
+
+
+    public static Object cdar(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).car();
+        return ((Cons)cons).cdr();
+    }
+
+
+
+    public static Object cddaar(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).cdr();
+        return ((Cons)cons).cdr();
+    }
+
+
+
+    public static Object cddadr(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).cdr();
+        return ((Cons)cons).cdr();
+    }
+
+
+
+    public static Object cddar(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).cdr();
+        return ((Cons)cons).cdr();
+    }
+
+
+
+    public static Object cdddar(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).cdr();
+        return ((Cons)cons).cdr();
+    }
+
+
+
+    public static Object cddddr(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).cdr();
+        return ((Cons)cons).cdr();
+    }
+
+
+
+    public static Object cdddr(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).cdr();
+        return ((Cons)cons).cdr();
+    }
+
+
+
+    public static Object cddr(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).cdr();
+        return ((Cons)cons).cdr();
+    }
 
     
 }//end class.

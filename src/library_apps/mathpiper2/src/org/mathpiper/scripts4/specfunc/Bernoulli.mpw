@@ -8,16 +8,16 @@
 /// Bernoulli(n): interface to Bernoulli numbers
 10 # Bernoulli(0) <-- 1;
 10 # Bernoulli(1) <-- -1/2;
-15 # Bernoulli(n_IsInteger)_(n<?0) <-- Undefined;
-30 # Bernoulli(n_IsOdd) <-- 0;
+15 # Bernoulli(n_Integer?)_(n<?0) <-- Undefined;
+30 # Bernoulli(n_Odd?) <-- 0;
 
 /// numerical computations of Bernulli numbers use two different methods, one good for small numbers and one good only for very large numbers (using Zeta function)
-20 # Bernoulli(n_IsEven)_(n<=?Bernoulli1Threshold()) <-- Internal'BernoulliArray(n)[n+1];
-20 # Bernoulli(n_IsEven)_(n>?Bernoulli1Threshold()) <-- Bernoulli1(n);
+20 # Bernoulli(n_Even?)_(n<=?Bernoulli1Threshold()) <-- InternalBernoulliArray(n)[n+1];
+20 # Bernoulli(n_Even?)_(n>?Bernoulli1Threshold()) <-- Bernoulli1(n);
 
 LocalSymbols(bernoulli1Threshold) [
   /// Bernoulli1Threshold could in principle be set by the user
-  If(Not? IsBound(bernoulli1Threshold), bernoulli1Threshold := 20);
+  If(Not? Bound?(bernoulli1Threshold), bernoulli1Threshold := 20);
 
   Bernoulli1Threshold() := bernoulli1Threshold;
   SetBernoulli1Threshold(threshold) := [ bernoulli1Threshold := threshold;];
@@ -25,9 +25,9 @@ LocalSymbols(bernoulli1Threshold) [
 ] ; // LocalSymbols(bernoulli1Threshold)
 
 /// Bernoulli polynomials of degree n in variable x
-Bernoulli(n_IsInteger, _x) <-- [
+Bernoulli(n_Integer?, _x) <-- [
         Local(B, i, result);
-        B := Internal'BernoulliArray(n);
+        B := InternalBernoulliArray(n);
         result := B[1];
         For(i:=n-1, i>=?0, i--) [
                 result := result * x + B[n-i+1]*BinomialCoefficient(n,i);

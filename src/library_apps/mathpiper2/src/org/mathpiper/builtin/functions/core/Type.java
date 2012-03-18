@@ -21,27 +21,36 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.Utility;
-import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.Cons;
 
 
 /**
  *
  *  
  */
-public class Type extends BuiltinFunction {
+public class Type extends BuiltinFunction
+{
+
+    private Type()
+    {
+    }
+
+    public Type(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        ConsPointer evaluated = new ConsPointer();
-
-        evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        Cons evaluated = getArgument(aEnvironment, aStackTop, 1);
 
         String functionType = Utility.functionType(evaluated);
 
         if (functionType.equals("")) {
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "\"\""));
+            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "\"\""));
         } else {
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, aEnvironment.getTokenHash().lookUpStringify(functionType)));
+            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, Utility.toMathPiperString(aEnvironment, aStackTop, functionType)));
         }
     }//end method.
 
@@ -77,6 +86,6 @@ Result: "*";
 In> Type(123);
 Result: "";
 
-*SEE IsAtom, ArgumentsCount
+*SEE Atom?, ArgumentsCount
 %/mathpiper_docs
 */

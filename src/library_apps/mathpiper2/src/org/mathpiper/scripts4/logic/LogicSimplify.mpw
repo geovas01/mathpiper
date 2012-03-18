@@ -31,14 +31,14 @@
     */
     Bind(clauses, RemoveDuplicates(clauses));
 
-    If(IsEqual(level, 3) And? (Length(clauses) !=? 0), [
+    If(Equal?(level, 3) And? (Length(clauses) !=? 0), [
         Bind(clauses, DoUnitSubsumptionAndResolution(clauses));
         Bind(clauses, LogicCombine(clauses));
     ]);
 
     Bind(clauses, RemoveDuplicates(clauses));
 
-    If(IsEqual(Length(clauses), 0), True, [
+    If(Equal?(Length(clauses), 0), True, [
         /* assemble the result back into a boolean expression */
         Local(result);
         Bind(result, True);

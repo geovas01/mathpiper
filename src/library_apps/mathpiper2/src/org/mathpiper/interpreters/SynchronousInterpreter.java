@@ -24,7 +24,7 @@ import org.mathpiper.io.StringOutputStream;
 import org.mathpiper.io.StringInputStream;
 import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.lisp.Utility;
-import org.mathpiper.lisp.cons.ConsPointer;
+
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 import org.mathpiper.lisp.parsers.Parser;
@@ -33,8 +33,7 @@ import org.mathpiper.lisp.printers.LispPrinter;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.List;
 import org.mathpiper.Scripts;
 import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.builtin.BuiltinFunction;
@@ -44,11 +43,13 @@ import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.SublistCons;
 
+import org.mathpiper.builtin.JavaObject;
+
 /**
  *
  *
  */
-class SynchronousInterpreter implements Interpreter {
+public class SynchronousInterpreter implements Interpreter {
 
     private ArrayList<ResponseListener> removeListeners;
     private ArrayList<ResponseListener> responseListeners;
@@ -63,7 +64,10 @@ class SynchronousInterpreter implements Interpreter {
     boolean inZipFile = false;
     MathPiperOutputStream sideEffectsStream;
     private static SynchronousInterpreter singletonInstance;
-
+    private int loopIndex = 1;
+    boolean returnValue = true;
+    Iterator keyIterator = null;
+    Scripts scripts = null;
 
     private SynchronousInterpreter(String docBase) {
         responseListeners = new ArrayList<ResponseListener>();
@@ -71,109 +75,27 @@ class SynchronousInterpreter implements Interpreter {
 
         sideEffectsStream = new StringOutput();
 
-        Utility.scriptsPath = "/org/mathpiper/assembledscripts/";
 
-        try {
-            System.out.print("Initializing CAS... ");
-
-            iEnvironment = new Environment(sideEffectsStream);
-
-            BuiltinFunction.addCoreFunctions(iEnvironment);
-
-
-            iEnvironment.pushLocalFrame(true, "<START>");
-
-            tokenizer = new MathPiperTokenizer();
-            printer = new MathPiperPrinter(iEnvironment.iPrefixOperators, iEnvironment.iInfixOperators, iEnvironment.iPostfixOperators, iEnvironment.iBodiedOperators);
-
-
-            //iEnvironment.iCurrentInput = new CachedStandardFileInputStream(iEnvironment.iInputStatus);
-
-
-
-            //EvaluationResponse initializationEvaluationResponse = evaluate("LoadScript(\"initialization.rep/mathpiperinit.mpi\");");
-            EvaluationResponse initializationEvaluationResponse = evaluate("MathPiperInitLoad();");
-            if (initializationEvaluationResponse.isExceptionThrown()) {
-                throw new Exception("Error during system script initialization.");
-            }
-
-
-            Scripts scripts = iEnvironment.scripts;
-
-            Map scriptsMap = scripts.getMap();
-
-            Set keysSet = scriptsMap.keySet();
-
-            Iterator keyIterator = keysSet.iterator();
-
-            while (keyIterator.hasNext()) {
-
-
-                String functionName = (String) keyIterator.next();
-
-                String[] scriptCode = scripts.getScript(functionName);
-
-                if (scriptCode[0] == null) {
-
-                    iEnvironment.iInputStatus.setTo(functionName);
-
-                    String scriptString = scriptCode[1];
-
-                    StringInputStream functionInputStream = new StringInputStream(scriptString, iEnvironment.iInputStatus);
-
-                    scriptCode[0] = "+";
-
-                    Utility.doInternalLoad(iEnvironment, -1, functionInputStream);
-
-                } else {
-                    //System.out.println("Already loaded.");
-                }
-
-            }//end while.
-
-            iEnvironment.scripts = null;
-
-            System.out.print("done. \n");
-
-        } catch (Exception e) //Note:tk:need to handle exceptions better here.  should return exception to user in an EvaluationResponse.
-        {
-            if(e instanceof EvaluationException)
-            {
-                EvaluationException ee = (EvaluationException) e;
-                System.out.println("Exception: " + ee.getMessage() + " Filename: " + ee.getFileName() + ", Line Number: " + ee.getLineNumber() + ", Line Index: " + ee.getLineIndex());
-            }
-            else
-            {
-                System.out.println(e.toString());
-            }
-            e.printStackTrace();
-            
-        }
     }//end constructor.
-
 
     private SynchronousInterpreter() {
         this(null);
     }
 
-
     static SynchronousInterpreter newInstance() {
         return new SynchronousInterpreter();
     }
-
 
     static SynchronousInterpreter newInstance(String docBase) {
         return new SynchronousInterpreter(docBase);
     }
 
-
-    static SynchronousInterpreter getInstance() {
+    public static SynchronousInterpreter getInstance() {
         if (singletonInstance == null) {
             singletonInstance = new SynchronousInterpreter();
         }
         return singletonInstance;
     }
-
 
     static SynchronousInterpreter getInstance(String docBase) {
         if (singletonInstance == null) {
@@ -182,11 +104,113 @@ class SynchronousInterpreter implements Interpreter {
         return singletonInstance;
     }
 
+    public boolean initialize() {
+
+
+
+        try {
+            switch (loopIndex) {
+                case 1:
+
+                    System.out.print("Initializing CAS... ");
+
+                    iEnvironment = new Environment(sideEffectsStream);
+
+                    BuiltinFunction.addCoreFunctions(iEnvironment);
+
+
+                    iEnvironment.pushLocalFrame(true, "<START>");
+
+                    tokenizer = new MathPiperTokenizer();
+                    printer = new MathPiperPrinter(iEnvironment.iPrefixOperators, iEnvironment.iInfixOperators, iEnvironment.iPostfixOperators, iEnvironment.iBodiedOperators);
+
+
+                    EvaluationResponse initializationEvaluationResponse = evaluate("MathPiperInitLoad();");
+                    if (initializationEvaluationResponse.isExceptionThrown()) {
+                        Exception ex = initializationEvaluationResponse.getException();
+                        throw ex;
+                    }
+
+
+                    scripts = iEnvironment.scripts;
+
+                    //Map scriptsMap = scripts.getMap();
+
+                    List functionList = new ArrayList();
+
+                    functionList.add("+");
+                    functionList.add("-");
+                    functionList.add("*");
+                    functionList.add("/");
+                    functionList.add("^");
+                    functionList.add("UniVar?");
+                    functionList.add("Sign");
+                    functionList.add("MakeMultiNomial");
+                    functionList.add("Complex");
+                    functionList.add("Limit");
+                    functionList.add("II");
+                    functionList.add("UniVariate");
+                    functionList.add("SparseUniVar");
+                    //functionList.add("AntiDeriv");
+
+
+                    keyIterator = functionList.iterator();
+
+                    //Set keysSet = scriptsMap.keySet();
+
+                    //keyIterator = keysSet.iterator();
+
+                    loopIndex++;
+                    break;
+                case 2:
+
+                    int loadCounter = 0;
+
+                    while (keyIterator.hasNext() && loadCounter++ <= 10) {
+
+                        String functionName = (String) keyIterator.next();
+
+
+                        Utility.loadLibraryFunction(functionName, iEnvironment, loopIndex);
+
+                    }//end while.
+                    if (!keyIterator.hasNext()) {
+                        loopIndex++;
+                    }
+                    break;
+
+                default:
+
+                    //iEnvironment.scripts = null;
+
+                    System.out.print("done. \n");
+
+                    returnValue = false;
+
+                    break;
+
+            }//end switch.
+
+
+
+        } catch (Exception e) //Note:tk:need to handle exceptions better here.  should return exception to user in an EvaluationResponse.
+        {
+            if (e instanceof EvaluationException) {
+                EvaluationException ee = (EvaluationException) e;
+                System.out.println("Exception: " + ee.getMessage() + " Filename: " + ee.getFileName() + ", Line Number: " + ee.getLineNumber() + ", Line Index: " + ee.getEndIndex());
+            } else {
+                System.out.println(e.toString());
+            }
+            e.printStackTrace();
+
+        }
+
+        return returnValue;
+    }
 
     public EvaluationResponse evaluate(String inputExpression) {
         return this.evaluate(inputExpression, false);
     }//end method.
-
 
     /**
     Evaluate an input expression which is a string.
@@ -199,7 +223,7 @@ class SynchronousInterpreter implements Interpreter {
 
 
         EvaluationResponse evaluationResponse = EvaluationResponse.newInstance();
-        if (inputExpression.length() == 0) {
+        if (inputExpression == null || inputExpression.length() == 0) {
             //return (String) "";
             evaluationResponse.setResult("Empty Input");
             return evaluationResponse;
@@ -207,7 +231,7 @@ class SynchronousInterpreter implements Interpreter {
 
         InputStatus oldstatus = iEnvironment.iInputStatus;
 
-        MathPiperInputStream previous = iEnvironment.iCurrentInput;
+        MathPiperInputStream previous = iEnvironment.getCurrentInput();
 
         try {
             iEnvironment.iEvalDepth = 0;
@@ -218,29 +242,29 @@ class SynchronousInterpreter implements Interpreter {
 
             //iException = null;
 
-            ConsPointer inputExpressionPointer = new ConsPointer();
+            Cons parsedOrAppliedInputExpression;
 
             iEnvironment.iInputStatus.setTo("String");
 
             StringInputStream newInput = new StringInputStream(inputExpression + ";", iEnvironment.iInputStatus);
 
-            iEnvironment.iCurrentInput = newInput;
+            iEnvironment.setCurrentInput(newInput);
 
             if (iEnvironment.iPrettyReaderName != null) {
-                ConsPointer args = new ConsPointer();
-                Utility.applyString(iEnvironment, -1, inputExpressionPointer, iEnvironment.iPrettyReaderName, args);
+
+                parsedOrAppliedInputExpression = Utility.applyString(iEnvironment, -1, iEnvironment.iPrettyReaderName, null);
             } else //Else not PrettyReader.
             {
                 Parser infixParser = new MathPiperParser(tokenizer, newInput, iEnvironment, iEnvironment.iPrefixOperators, iEnvironment.iInfixOperators, iEnvironment.iPostfixOperators, iEnvironment.iBodiedOperators);
-                infixParser.parse(-1, inputExpressionPointer);
+                parsedOrAppliedInputExpression = infixParser.parse(-1);
             }
 
-            return evaluate(inputExpressionPointer, notifyEvaluationListeners);
+            return evaluate(parsedOrAppliedInputExpression, notifyEvaluationListeners);
 
         } catch (Exception exception) {
             this.handleException(exception, evaluationResponse);
         } finally {
-            iEnvironment.iCurrentInput = previous;
+            iEnvironment.setCurrentInput(previous);
             iEnvironment.iInputStatus.restoreFrom(oldstatus);
         }
 
@@ -252,20 +276,18 @@ class SynchronousInterpreter implements Interpreter {
 
     }//end method.
 
-
-    public EvaluationResponse evaluate(ConsPointer inputExpressionPointer) {
-        return evaluate(inputExpressionPointer, false);
+    public EvaluationResponse evaluate(Cons inputExpression) {
+        return evaluate(inputExpression, false);
     }
-
 
     /**
     Evaluate an input expression which is a Lisp list.
 
-    @param inputExpressionPointer
+    @param inputExpression
     @param notifyEvaluationListeners
     @return
      */
-    public EvaluationResponse evaluate(ConsPointer inputExpressionPointer, boolean notifyEvaluationListeners) {
+    public EvaluationResponse evaluate(Cons inputExpression, boolean notifyEvaluationListeners) {
 
 
         //return this.evaluate(inputExpression, false);
@@ -274,14 +296,13 @@ class SynchronousInterpreter implements Interpreter {
         String resultString = "Exception";
 
         try {
-            ConsPointer resultPointer = new ConsPointer();
-            iEnvironment.iLispExpressionEvaluator.evaluate(iEnvironment, -1, resultPointer, inputExpressionPointer); //*** The main evaluation happens here.
+            Cons result = iEnvironment.iLispExpressionEvaluator.evaluate(iEnvironment, -1, inputExpression); //*** The main evaluation happens here.
 
-            evaluationResponse.setResultList(resultPointer);
+            evaluationResponse.setResultList(result);
 
-            if (resultPointer.type() == Utility.OBJECT) {
+            if (result.type() == Utility.OBJECT) {
 
-                Object object = resultPointer.car();
+                Object object = result.car();
 
                 if (object instanceof BuiltinContainer) {
                     BuiltinContainer builtinContainer = (BuiltinContainer) object;
@@ -292,8 +313,8 @@ class SynchronousInterpreter implements Interpreter {
             }//end if.
 
             //Set the % symbol to the result of the current evaluation.
-            String percent = (String) iEnvironment.getTokenHash().lookUp("%");
-            iEnvironment.setGlobalVariable(-1, percent, resultPointer, true);
+            String percent = "%";
+            iEnvironment.setLocalOrGlobalVariable(-1, percent, result, true);
 
             StringBuffer outputBuffer = new StringBuffer();
             MathPiperOutputStream outputStream = new StringOutputStream(outputBuffer);
@@ -301,30 +322,28 @@ class SynchronousInterpreter implements Interpreter {
             if (iEnvironment.iPrettyPrinterName != null) {
                 //Pretty printer.
 
-                ConsPointer applyResultPointer = new ConsPointer();
+                Cons applyResult = null;
 
                 if (iEnvironment.iPrettyPrinterName.equals("\"RForm\"")) {
                     Cons holdAtom = AtomCons.getInstance(iEnvironment, -1, "Hold");
 
-                    holdAtom.cdr().setCons(resultPointer.getCons());
+                    holdAtom.cdr().setCdr(result);
 
-                    Cons subListCons = SublistCons.getInstance(iEnvironment, holdAtom);
+                    Cons resultWithHold = SublistCons.getInstance(iEnvironment, holdAtom);
 
-                    ConsPointer resultPointerWithHold = new ConsPointer(subListCons);
-
-                    Utility.applyString(iEnvironment, -1, applyResultPointer, iEnvironment.iPrettyPrinterName, resultPointerWithHold);
+                    applyResult = Utility.applyString(iEnvironment, -1, iEnvironment.iPrettyPrinterName, resultWithHold);
                 } else {
-                    Utility.applyString(iEnvironment, -1, applyResultPointer, iEnvironment.iPrettyPrinterName, resultPointer);
+                    applyResult = Utility.applyString(iEnvironment, -1, iEnvironment.iPrettyPrinterName, result);
                 }
 
                 printer.rememberLastChar(' ');
-                printer.print(-1, applyResultPointer, outputStream, iEnvironment);
+                printer.print(-1, applyResult, outputStream, iEnvironment);
                 resultString = outputBuffer.toString();
 
             } else {
                 //Default printer.
                 printer.rememberLastChar(' ');
-                printer.print(-1, resultPointer, outputStream, iEnvironment);
+                printer.print(-1, result, outputStream, iEnvironment);
                 resultString = outputBuffer.toString();
             }
 
@@ -343,21 +362,15 @@ class SynchronousInterpreter implements Interpreter {
             evaluationResponse.setSideEffects(sideEffects);
         }
 
-        /*try{
-        org.mathpiper.builtin.functions.optional.ViewList.evaluate(iEnvironment, -1, inputExpressionPointer);
-        }catch(Exception e)
-        {
-        e.printStackTrace();
-        }*/
 
         try {
-            if (inputExpressionPointer.getCons() instanceof SublistCons) {
+            if (inputExpression instanceof SublistCons) {
 
-                Object object = ((ConsPointer) inputExpressionPointer.getCons().car()).car();
+                Object object = ((Cons) inputExpression.car()).car();
 
                 if (object instanceof String && ((String) object).startsWith("Load")) {
-                    ConsPointer loadResult = new ConsPointer();
-                    iEnvironment.getGlobalVariable(-1, "$LoadResult", loadResult);
+
+                    Cons loadResult = iEnvironment.getLocalOrGlobalVariable(-1, "$LoadResult");
                     StringBuffer string_out = new StringBuffer();
                     MathPiperOutputStream output = new StringOutputStream(string_out);
                     printer.rememberLastChar(' ');
@@ -365,13 +378,12 @@ class SynchronousInterpreter implements Interpreter {
                     String loadResultString = string_out.toString();
                     evaluationResponse.setResult(loadResultString);
                     if (loadResult.type() == Utility.OBJECT) {
-                        //JavaObject javaObject = (JavaObject) loadResult.car();
-                        //evaluationResponse.setObject(javaObject.getObject());
+                        JavaObject javaObject = (JavaObject) loadResult.car();
+                        evaluationResponse.setObject(javaObject.getObject());
                     }//end if.
                 }//if.
             }//end if
         } catch (Exception e) {
-            evaluationResponse.setExceptionMessage(e.getMessage());
             evaluationResponse.setException(e);
         }
 
@@ -382,7 +394,6 @@ class SynchronousInterpreter implements Interpreter {
         return evaluationResponse;
     }
 
-
     private void handleException(Exception exception, EvaluationResponse evaluationResponse) {
         //exception.printStackTrace();  //todo:tk:uncomment for debugging.
 
@@ -390,6 +401,7 @@ class SynchronousInterpreter implements Interpreter {
         Evaluator.VERBOSE_DEBUG = false;
         Evaluator.TRACE_TO_STANDARD_OUT = false;
         Evaluator.iTraced = false;
+        Environment.saveDebugInformation = false;
 
         try {
             iEnvironment.iArgumentStack.reset(-1, iEnvironment);
@@ -399,9 +411,9 @@ class SynchronousInterpreter implements Interpreter {
 
         if (exception instanceof EvaluationException) {
             EvaluationException mpe = (EvaluationException) exception;
-            
+
             int errorLineNumber = mpe.getLineNumber();
-            int errorLineIndex = mpe.getLineIndex();
+            int errorLineIndex = mpe.getEndIndex();
 
             if (errorLineNumber == -1) {
                 errorLineNumber = iEnvironment.iInputStatus.getLineNumber();
@@ -409,12 +421,8 @@ class SynchronousInterpreter implements Interpreter {
                 if (errorLineNumber == -1) {
                     errorLineNumber = 1; //Code was probably a single line submitted from the command line or from a single line evaluation request.
                 }
-                evaluationResponse.setLineNumber(errorLineNumber);
-                evaluationResponse.setLineNumber(errorLineIndex);
                 evaluationResponse.setSourceFileName(iEnvironment.iInputStatus.getFileName());
             } else {
-                evaluationResponse.setLineNumber(mpe.getLineNumber());
-                evaluationResponse.setLineNumber(errorLineIndex);
                 evaluationResponse.setSourceFileName(mpe.getFileName());
             }
 
@@ -425,23 +433,20 @@ class SynchronousInterpreter implements Interpreter {
             //if (errorLineNumber == -1) {
             //    errorLineNumber = 1; //Code was probably a single line submitted from the command line or from a single line evaluation request.
             //}
-            evaluationResponse.setLineNumber(errorLineNumber);
-            evaluationResponse.setLineNumber(errorLineIndex);
             evaluationResponse.setSourceFileName(iEnvironment.iInputStatus.getFileName());
         }
 
         evaluationResponse.setException(exception);
-        evaluationResponse.setExceptionMessage(exception.getMessage());
     }
-
 
     public void haltEvaluation() {
         //synchronized (iEnvironment) {
         //iEnvironment.iEvalDepth = iEnvironment.iMaxEvalDepth + 100; //Deprecated.
         //evaluationThread.interrupt();
         //}
-    }
+        Environment.haltEvaluation = true;
 
+    }
 
     public Environment getEnvironment() {
         return iEnvironment;
@@ -451,16 +456,13 @@ class SynchronousInterpreter implements Interpreter {
     {
     return Utility.zipFile;
     }//end method.*/
-
     public void addResponseListener(ResponseListener listener) {
         responseListeners.add(listener);
     }
 
-
     public void removeResponseListener(ResponseListener listener) {
         responseListeners.remove(listener);
     }
-
 
     protected void notifyListeners(EvaluationResponse response) {
         //notify listeners.
@@ -484,6 +486,5 @@ class SynchronousInterpreter implements Interpreter {
         removeListeners.clear();
 
     }//end method.
-
 }// end class.
 

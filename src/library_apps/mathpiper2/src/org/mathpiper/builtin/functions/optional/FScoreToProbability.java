@@ -15,24 +15,24 @@ public class FScoreToProbability extends BuiltinFunction{
 
     public void plugIn(Environment aEnvironment) throws Exception
     {
+        this.functionName = "FScoreToProbability";
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(this, 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "FScoreToProbability");
+                this.functionName, new BuiltinFunctionEvaluator(this, 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         BigNumber degreesOfFreedom1 = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
 
-        LispError.check(aEnvironment, aStackTop, degreesOfFreedom1.isInteger() && degreesOfFreedom1.toInt() >= 0, "The first argument must be an integer which is greater than 0.", "FScoreToProbability");
+        if(!degreesOfFreedom1.isInteger() || degreesOfFreedom1.toInt() < 0) LispError.throwError(aEnvironment, aStackTop, "The first argument must be an integer which is greater than 0.");
 
         BigNumber degreesOfFreedom2 = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 2);
 
-        LispError.check(aEnvironment, aStackTop, degreesOfFreedom2.isInteger() && degreesOfFreedom2.toInt() >= 0, "The second argument must be an integer which is greater than 0.", "FScoreToProbability");
+        if(!degreesOfFreedom2.isInteger() || degreesOfFreedom2.toInt() < 0) LispError.throwError(aEnvironment, aStackTop,  "The second argument must be an integer which is greater than 0.");
 
         BigNumber fScore = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 3);
 
-        LispError.check(aEnvironment, aStackTop, fScore.toDouble() >= 0, "The third argument must be greater than 0.", "FScoreToProbability");
+        if(fScore.toDouble() < 0) LispError.throwError(aEnvironment, aStackTop, "The third argument must be greater than 0.");
 
         
         FDistribution fDistribution = new FDistribution(degreesOfFreedom1.toDouble(),degreesOfFreedom2.toDouble());
@@ -43,7 +43,7 @@ public class FScoreToProbability extends BuiltinFunction{
 
         cumulativeProbability.setTo(probability);
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(cumulativeProbability));
+        setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(cumulativeProbability));
 
     }//end method.
 

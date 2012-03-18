@@ -17,7 +17,7 @@
 package org.mathpiper.interpreters;
 
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  * Interpreter is implemented by all MathPiper interpreters and it allows client code to evaluate
@@ -49,11 +49,18 @@ public interface Interpreter
      * Evaluates a MathPiper expression.  The results of the evaluation are returned
      * in a {@link EvaluationResponse} object.
      *
-     * @param expressionPointer the list form of a MathPiper expression to be evaluated
+     * @param expression the list form of a MathPiper expression to be evaluated
      * @return an EvaluationResponse object
      */
-    public EvaluationResponse evaluate(ConsPointer expressionPointer);
+    public EvaluationResponse evaluate(Cons expression);
 
+
+    /**
+     * Initialize the system.
+     */
+    public boolean initialize();
+
+    
     /**
      * Halts the current evaluation.
      */

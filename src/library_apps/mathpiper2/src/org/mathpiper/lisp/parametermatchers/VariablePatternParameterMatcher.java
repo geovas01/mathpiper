@@ -17,8 +17,8 @@
 package org.mathpiper.lisp.parametermatchers;
 
 import org.mathpiper.lisp.Utility;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.cons.Cons;
 
 //Class for matching against a pattern variable.
 public class VariablePatternParameterMatcher extends PatternParameterMatcher {
@@ -45,10 +45,10 @@ public class VariablePatternParameterMatcher extends PatternParameterMatcher {
      *entry. Otherwise, the pattern only matches if the entry equals
      *aExpression.
      */
-    public boolean argumentMatches(Environment aEnvironment, int aStackTop, ConsPointer aExpression, ConsPointer[] arguments) throws Exception {
+    public boolean argumentMatches(Environment aEnvironment, int aStackTop, Cons aExpression, Cons[] arguments) throws Exception {
 
-        if (arguments[iVarIndex].getCons() == null) {
-            arguments[iVarIndex].setCons(aExpression.getCons());
+        if (arguments[iVarIndex] == null) {
+            arguments[iVarIndex] = aExpression;
             //Set var iVarIndex.
             return true;
         } else {

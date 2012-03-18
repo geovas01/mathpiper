@@ -16,9 +16,8 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.parametermatchers;
 
-import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.cons.Cons;
 
 /// Class for matching against a list of PatternParameterMatcher objects.
 public class SublistPatternParameterMatcher extends PatternParameterMatcher {
@@ -34,36 +33,30 @@ public class SublistPatternParameterMatcher extends PatternParameterMatcher {
     }
 
 
-    public boolean argumentMatches(Environment aEnvironment, int aStackTop, ConsPointer aExpression, ConsPointer[] arguments) throws Exception {
+    public boolean argumentMatches(Environment aEnvironment, int aStackTop, Cons aExpression, Cons[] arguments) throws Exception {
 
-        if (!(aExpression.car() instanceof ConsPointer)) {
+        if (!(aExpression.car() instanceof Cons)) {
             return false;
         }
 
-        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, aExpression);
+        Cons consTraverser = aExpression;
 
-        consTraverser.goSub(aStackTop);
+        consTraverser = (Cons) consTraverser.car();
 
         for (int i = 0; i < iNumberOfMatchers; i++) {
 
-            ConsPointer consPointer = consTraverser.getPointer();
-
-            if (consPointer == null) {
+            if (consTraverser == null) {
                 return false;
             }
 
-            if (consTraverser.getCons() == null) {
+            if (!iMatchers[i].argumentMatches(aEnvironment, aStackTop, consTraverser, arguments)) {
                 return false;
             }
 
-            if (!iMatchers[i].argumentMatches(aEnvironment, aStackTop, consPointer, arguments)) {
-                return false;
-            }
-
-            consTraverser.goNext(aStackTop);
+            consTraverser = consTraverser.cdr();
         }
 
-        if (consTraverser.getCons() != null) {
+        if (consTraverser != null) {
             return false;
         }
         

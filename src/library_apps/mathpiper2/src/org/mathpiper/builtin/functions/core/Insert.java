@@ -28,6 +28,16 @@ import org.mathpiper.lisp.Environment;
 public class Insert extends BuiltinFunction
 {
 
+    private Insert()
+    {
+    }
+
+    public Insert(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         Utility.insert(aEnvironment, aStackTop, false);

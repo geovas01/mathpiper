@@ -28,6 +28,16 @@ import org.mathpiper.lisp.Environment;
 public class Bodied extends BuiltinFunction
 {
 
+    private Bodied()
+    {
+    }
+
+    public Bodied(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         Utility.multiFix(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
@@ -70,6 +80,6 @@ Precedence is optional (will be set to 0 by default).
 *E.G.
 In> todo
 
-*SEE IsBodied, PrecedenceGet, Infix, Postfix, Prefix
+*SEE Bodied?, PrecedenceGet, Infix, Postfix, Prefix
 %/mathpiper_docs
 */

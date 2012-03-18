@@ -14,9 +14,9 @@ public class IncompleteGamma extends BuiltinFunction{
 
     public void plugIn(Environment aEnvironment) throws Exception
     {
+        this.functionName = "IncompleteGamma";
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "IncompleteGamma");
+                this.functionName, new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -31,7 +31,7 @@ public class IncompleteGamma extends BuiltinFunction{
 
         result.setTo(resultValue);
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(result));
+        setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(result));
 
     }//end method.
 

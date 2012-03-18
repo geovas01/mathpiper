@@ -1,4 +1,4 @@
-%mathpiper,def="CreateSparseTree;SparseTreeMap;SparseTreeScan;AddSparseTrees;MultiplyAddSparseTrees;SparseTreeGet"
+%mathpiper,def="CreateSparseTree;SparseTreeMap;SparseTreeScan;AddSparseTrees;MultiplyAddSparseTrees;SparseTreeGet;SparseTreeGet2;SparseTreeSet;SparseTreeSet2;SparseTreeMap2;SparseTreeScan2;Muaddterm;meradd;meraddmap;MuMuaddterm"
 
 /* def file definitions
 CreateSparseTree
@@ -165,7 +165,7 @@ UnFence("SparseTreeScan", 3);
   x;
 ];
 
-10 # meradd({_ord,rest_IsList},_coefs) <--
+10 # meradd({_ord,rest_List?},_coefs) <--
 [
   Local(head);
   Bind(head,First(coefs));
@@ -177,7 +177,7 @@ UnFence("SparseTreeScan", 3);
    {ord+First(coefs),rest*fact};
 ];
 
-10 # meraddmap(list_IsList,_coefs) <--
+10 # meraddmap(list_List?,_coefs) <--
 [
   Local(result);
   Bind(result,{});

@@ -19,8 +19,9 @@ package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.ConsPointer;
+
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -29,15 +30,23 @@ import org.mathpiper.lisp.Utility;
 public class Rest extends BuiltinFunction
 {
 
+    private Rest()
+    {
+    }
+
+    public Rest(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer first = new ConsPointer();
-        Utility.tail(aEnvironment, aStackTop, first, getArgumentPointer(aEnvironment, aStackTop, 1));
-        Utility.tail(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), first);
-        ConsPointer head = new ConsPointer();
-        head.setCons(aEnvironment.iListAtom.copy( aEnvironment, false));
-        head.cdr().setCons(((ConsPointer) getTopOfStackPointer(aEnvironment, aStackTop).car()).getCons());
-        ((ConsPointer) getTopOfStackPointer(aEnvironment, aStackTop).car()).setCons(head.getCons());
+        Cons first = Utility.tail(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1));
+        setTopOfStack(aEnvironment, aStackTop, Utility.tail(aEnvironment, aStackTop, first));
+        Cons head = aEnvironment.iListAtom.copy(false);
+        head.setCdr(((Cons) getTopOfStack(aEnvironment, aStackTop).car()));
+        getTopOfStack(aEnvironment, aStackTop).setCar(head);
     }
 }
 

@@ -31,6 +31,8 @@ public class MultipleArityRulebase {
     /// File to read for the definition of this function.
     public String iFileLocation;
 
+    public String functionName;
+
 
     public MultipleArityRulebase() {
     }
@@ -44,7 +46,7 @@ public class MultipleArityRulebase {
         //Find function body with the right arity
         int numberOfRules = iFunctions.size();
         for (ruleIndex = 0; ruleIndex < numberOfRules; ruleIndex++) {
-            LispError.lispAssert(iFunctions.get(ruleIndex) != null, aEnvironment, aStackTop);
+            if(iFunctions.get(ruleIndex) == null) LispError.lispAssert(aEnvironment, aStackTop);
 
             if (((SingleArityRulebase) iFunctions.get(ruleIndex)).isArity(aArity)) {
                 return (SingleArityRulebase) iFunctions.get(ruleIndex);
@@ -64,7 +66,7 @@ public class MultipleArityRulebase {
     public void holdArgument(String aVariable, int aStackTop, Environment aEnvironment) throws Exception {
         int ruleIndex;
         for (ruleIndex = 0; ruleIndex < iFunctions.size(); ruleIndex++) {
-            LispError.lispAssert(iFunctions.get(ruleIndex) != null, aEnvironment, aStackTop);
+            if(iFunctions.get(ruleIndex) == null) LispError.lispAssert(aEnvironment, aStackTop);
             ((SingleArityRulebase) iFunctions.get(ruleIndex)).holdArgument(aVariable);
         }
     }//end method.
@@ -78,10 +80,10 @@ public class MultipleArityRulebase {
         //Find function body with the right arity
         int numberOfRules = iFunctions.size();
         for (ruleIndex = 0; ruleIndex < numberOfRules; ruleIndex++) {
-            LispError.lispAssert(((SingleArityRulebase) iFunctions.get(ruleIndex)) != null, aEnvironment, aStackTop);
-            LispError.lispAssert(aNewFunction != null, aEnvironment, aStackTop);
-            LispError.check(aEnvironment, aStackTop, !((SingleArityRulebase) iFunctions.get(ruleIndex)).isArity(aNewFunction.arity()), "ARITY ALREADY DEFINED FOR FUNCTION: " + aNewFunction.functionName, "INTERNAL");
-            LispError.check(aEnvironment, aStackTop, !aNewFunction.isArity(((SingleArityRulebase) iFunctions.get(ruleIndex)).arity()), "ARITY ALREADY DEFINED FOR FUNCTION: " + aNewFunction.functionName, "INTERNAL");
+            if(((SingleArityRulebase) iFunctions.get(ruleIndex)) == null) LispError.lispAssert(aEnvironment, aStackTop);
+            if(aNewFunction == null) LispError.lispAssert(aEnvironment, aStackTop);
+            if(((SingleArityRulebase) iFunctions.get(ruleIndex)).isArity(aNewFunction.arity())) LispError.throwError(aEnvironment, aStackTop, "ARITY ALREADY DEFINED FOR FUNCTION: " + aNewFunction.functionName);
+            if(aNewFunction.isArity(((SingleArityRulebase) iFunctions.get(ruleIndex)).arity())) LispError.throwError(aEnvironment, aStackTop, "ARITY ALREADY DEFINED FOR FUNCTION: " + aNewFunction.functionName);
         }
         iFunctions.add(aNewFunction);
     }//end method.
@@ -101,7 +103,7 @@ public class MultipleArityRulebase {
         //Find function body with the right arity
         int numberOfRules = iFunctions.size();
         for (ruleIndex = 0; ruleIndex < numberOfRules; ruleIndex++) {
-            LispError.lispAssert(((SingleArityRulebase) iFunctions.get(ruleIndex)) != null, aEnvironment, aStackTop);
+            if(((SingleArityRulebase) iFunctions.get(ruleIndex)) == null) LispError.lispAssert(aEnvironment, aStackTop);
 
             if (((SingleArityRulebase) iFunctions.get(ruleIndex)).isArity(aArity)) {
                 iFunctions.remove(ruleIndex);

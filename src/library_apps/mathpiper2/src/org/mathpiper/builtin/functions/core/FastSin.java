@@ -30,6 +30,16 @@ import org.mathpiper.lisp.LispError;
 public class FastSin extends BuiltinFunction
 {
 
+    private FastSin()
+    {
+    }
+
+    public FastSin(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         BigNumber x;
@@ -42,14 +52,14 @@ public class FastSin extends BuiltinFunction
 
         if(Double.isNaN(result))
         {
-            LispError.raiseError("The result is NaN.", "FastSin", aStackTop, aEnvironment);
+            LispError.raiseError("The result is NaN.", aStackTop, aEnvironment);
         }
 
         BigNumber z = new BigNumber(aEnvironment.getPrecision());
 
         z.setTo(result);
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
+        setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
     }
 }//end class.
 

@@ -30,6 +30,16 @@ import org.mathpiper.lisp.LispError;
 public class FastArcCos extends BuiltinFunction
 {
 
+    private FastArcCos()
+    {
+    }
+
+    public FastArcCos(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         BigNumber x;
@@ -42,14 +52,14 @@ public class FastArcCos extends BuiltinFunction
 
         if(Double.isNaN(result))
         {
-            LispError.raiseError("The argument must have a value between -1 and 1.", "FastArcCos", aStackTop, aEnvironment);
+            LispError.raiseError("The argument must have a value between -1 and 1.", aStackTop, aEnvironment);
         }
 
         BigNumber z = new BigNumber(aEnvironment.getPrecision());
 
         z.setTo(result);
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
+        setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
     }
 }//end class.
 

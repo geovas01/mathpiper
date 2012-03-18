@@ -2,8 +2,8 @@
 
 
 
-Rulebase(StandardOperatorsLoad,{});
-Rule(StandardOperatorsLoad, 0, 1, True)
+RulebaseHoldArguments(StandardOperatorsLoad,{});
+RuleHoldArguments(StandardOperatorsLoad, 0, 1, True)
 [
     /* stdopers is loaded immediately after MathPiper is started. It contains
      * the definitions of the infix operators, so the parser can already
@@ -86,7 +86,8 @@ Rule(StandardOperatorsLoad, 0, 1, True)
     Infix("!==",90);
 
     /* Operators needed for propositional logic theorem prover */
-    Infix("=>",10000); /* implication, read as 'implies' */
+    Infix("Implies?",10000); /* implication. */
+    Infix("Equivales?",10000); /* equivalence. */
 
 
     Bodied("if",5);
@@ -122,7 +123,7 @@ Rule(StandardOperatorsLoad, 0, 1, True)
 
     Bodied("TemplateFunction",60000);
 
-    Bodied("Taylor3'TaylorCoefs",0);
+    Bodied("Taylor3TaylorCoefs",0);
 
     Infix(":*:",3);
 

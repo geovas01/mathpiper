@@ -5,7 +5,7 @@ LocalSymbols(complexReduce) [
   Bind(complexReduce,
     Hold(
     {
-      Exp(x_IsComplexII) <- Exp(ReII(x))*(Cos(ImII(x))+II*Sin(ImII(x)))
+      Exp(x_ComplexII?) <- Exp(ReII(x))*(Cos(ImII(x))+II*Sin(ImII(x)))
     }));
 
   NN(_c) <--
@@ -19,3 +19,23 @@ LocalSymbols(complexReduce) [
 ]; //LocalSymbols(complexReduce)
 
 %/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="NN",categories="User Functions",access="undocumented"
+*CMD NN --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

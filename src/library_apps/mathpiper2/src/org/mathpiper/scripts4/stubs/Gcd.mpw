@@ -6,22 +6,22 @@
 1 # Gcd(_m,_m) <-- Abs(m);
 2 # Gcd(_n,1) <-- 1;
 2 # Gcd(1,_m) <-- 1;
-2 # Gcd(n_IsInteger,m_IsInteger) <-- GcdN(n,m);
-3 # Gcd(_n,_m)_(IsGaussianInteger(m) And? IsGaussianInteger(n) )<-- GaussianGcd(n,m);
+2 # Gcd(n_Integer?,m_Integer?) <-- GcdN(n,m);
+3 # Gcd(_n,_m)_(GaussianInteger?(m) And? GaussianInteger?(n) )<-- GaussianGcd(n,m);
 
 4 # Gcd(-(_n), (_m)) <-- Gcd(n,m);
 4 # Gcd( (_n),-(_m)) <-- Gcd(n,m);
-4 # Gcd(Sqrt(n_IsInteger),Sqrt(m_IsInteger)) <-- Sqrt(Gcd(n,m));
-4 # Gcd(Sqrt(n_IsInteger),m_IsInteger) <-- Sqrt(Gcd(n,m^2));
-4 # Gcd(n_IsInteger,Sqrt(m_IsInteger)) <-- Sqrt(Gcd(n^2,m));
+4 # Gcd(Sqrt(n_Integer?),Sqrt(m_Integer?)) <-- Sqrt(Gcd(n,m));
+4 # Gcd(Sqrt(n_Integer?),m_Integer?) <-- Sqrt(Gcd(n,m^2));
+4 # Gcd(n_Integer?,Sqrt(m_Integer?)) <-- Sqrt(Gcd(n^2,m));
 
-5 # Gcd(n_IsRational,m_IsRational) <--
+5 # Gcd(n_Rational?,m_Rational?) <--
 [
   Gcd(Numerator(n),Numerator(m))/Lcm(Denominator(n),Denominator(m));
 ];
 
 
-10 # Gcd(list_IsList)_(Length(list)>?2) <--
+10 # Gcd(list_List?)_(Length(list)>?2) <--
     [
       Local(first);
       first:=Gcd(list[1],list[2]);
@@ -30,7 +30,7 @@
 14 # Gcd({0}) <-- 1;
 15 # Gcd({_head}) <-- head;
 
-20 # Gcd(list_IsList)_(Length(list)=?2) <-- Gcd(list[1],list[2]);
+20 # Gcd(list_List?)_(Length(list)=?2) <-- Gcd(list[1],list[2]);
 
 30 # Gcd(n_CanBeUni,m_CanBeUni)_(Length(VarList(n*m))=?1) <--
 [
@@ -39,7 +39,7 @@
   NormalForm(Gcd(MakeUni(n,vars),MakeUni(m,vars)));
 ];
 
-100 # Gcd(n_IsConstant,m_IsConstant) <-- 1;
+100 # Gcd(n_Constant?,m_Constant?) <-- 1;
 110 # Gcd(_m,_n) <--
 [
   Echo("Not simplified");
@@ -47,10 +47,10 @@
 
 
 //Note:tk:moved here from univar.rep.
-0 # Gcd(n_IsUniVar,m_IsUniVar)_
+0 # Gcd(n_UniVar?,m_UniVar?)_
     (n[1] =? m[1] And? Degree(n) <? Degree(m)) <-- Gcd(m,n);
 
-1 # Gcd(nn_IsUniVar,mm_IsUniVar)_
+1 # Gcd(nn_UniVar?,mm_UniVar?)_
     (nn[1] =? mm[1] And? Degree(nn) >=? Degree(mm)) <--
 [
    UniVariate(nn[1],0,
@@ -142,7 +142,7 @@ VerifyGaussianGcd(x,y):=
   gcd:=Gcd(x,y);
 //  Echo(x/gcd);
 //  Echo(y/gcd);
-  Verify(IsGaussianInteger(x/gcd) And? IsGaussianInteger(y/gcd),True);
+  Verify(GaussianInteger?(x/gcd) And? GaussianInteger?(y/gcd),True);
 ];
 VerifyGaussianGcd(324 + 1608*I, -11800 + 7900*I);
 VerifyGaussianGcd(7300 + 12*I, 2700 + 100*I);

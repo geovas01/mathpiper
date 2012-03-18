@@ -65,7 +65,7 @@
 :ContFracEval:ContFracEval(list, rest)::
 :ContFracList:ContFracList(frac):manipulate continued fractions:
 :ContFracList:ContFracList(frac, depth)::
-:Contains:Contains(list, expr):test whether a list contains a certain element:
+:Contains?:Contains?(list, expr):test whether a list contains a certain element:
 :Content:Content(expr):content of a univariate polynomial:
 :Cos:Cos(x):trigonometric cosine function:
 :Count:Count(list, expr):count the number of occurrences of an expression:
@@ -175,12 +175,12 @@
 :GuessRational:GuessRational(x, digits)::
 :HarmonicNumber:HarmonicNumber(n):return the {n}th Harmonic Number:
 :HarmonicNumber:HarmonicNumber(n,r)::
-:HasExpr:HasExpr(expr, x):check for expression containing a subexpression:
-:HasExprArith:HasExprArith(expr, x):check for expression containing a subexpression:
-:HasExprSome:HasExprSome(expr, x, list):check for expression containing a subexpression:
-:HasFunc:HasFunc(expr, func):check for expression containing a function:
-:HasFuncArith:HasFuncArith(expr, func):check for expression containing a function:
-:HasFuncSome:HasFuncSome(expr, func, list):check for expression containing a function:
+:HasExpression?:HasExpression?(expr, x):check for expression containing a subexpression:
+:HasExpressionArithmetic?:HasExpressionArithmetic?(expr, x):check for expression containing a subexpression:
+:HasExpressionSome?:HasExpressionSome?(expr, x, list):check for expression containing a subexpression:
+:HasFunction?:HasFunction?(expr, func):check for expression containing a function:
+:HasFunctionArithmetic?:HasFunctionArithmetic?(expr, func):check for expression containing a function:
+:HasFunctionSome?:HasFunctionSome?(expr, func, list):check for expression containing a function:
 :Head:Head(list):the first element of a list:
 :HeapSort:HeapSort(list, compare):sort a list:
 :HessianMatrix:HessianMatrix(function,var):create the Hessian matrix:
@@ -211,75 +211,75 @@
 :Intersection:Intersection(l1, l2):return the intersection of two lists:
 :Inverse:Inverse(M):get inverse of a matrix:
 :InverseTaylor:InverseTaylor(var, at, order) expr:Taylor expansion of inverse:
-:IsAmicablePair:IsAmicablePair(m,n):test for a pair of amicable numbers:
-:IsAtom:IsAtom(expr):test for an atom:
-:IsBodied:IsBodied("op"):check for function syntax:
+:AmicablePair?:AmicablePair?(m,n):test for a pair of amicable numbers:
+:Atom?:Atom?(expr):test for an atom:
+:Bodied?:Bodied?("op"):check for function syntax:
 :IsBoolean:IsBoolean(expression):test for a Boolean value:
-:IsBound:IsBound(var):test for a bound variable:
-:IsCFormable:IsCFormable(expr):check possibility to export expression to C++ code:
-:IsCFormable:IsCFormable(expr, funclist)::
-:IsCarmichaelNumber:IsCarmichaelNumber(n):test for a Carmichael number:
-:IsComposite:IsComposite(n):test for a composite number:
+:Bound?:Bound?(var):test for a bound variable:
+:CFormable?:CFormable?(expr):check possibility to export expression to C++ code:
+:CFormable?:CFormable?(expr, funclist)::
+:CarmichaelNumber?:CarmichaelNumber?(n):test for a Carmichael number:
+:Composite?:Composite?(n):test for a composite number:
 :IsConstant:IsConstant(expr):test for a constant:
-:IsCoprime:IsCoprime(list)::
-:IsCoprime:IsCoprime(m,n):test if integers are coprime :
+:Coprime?:Coprime?(list)::
+:Coprime?:Coprime?(m,n):test if integers are coprime :
 :IsDiagonal:IsDiagonal(A):test for a diagonal matrix:
-:IsError:IsError("str")::
-:IsError:IsError():check for custom error:
+:Error?:Error?("str")::
+:Error?:Error?():check for custom error:
 :IsEven:IsEven(n):test for an even integer:
 :IsEvenFunction:IsEvenFunction(expression,variable):Return true if function is an even function, False otherwise:
-:IsFreeOf:IsFreeOf(var, expr):test whether expression depends on variable:
-:IsFreeOf:IsFreeOf({var, ...}, expr)::
-:IsFunction:IsFunction(expr):test for a composite object:
-:IsGaussianInteger:IsGaussianInteger(z):test for a Gaussian integer:
-:IsGaussianPrime:IsGaussianPrime(z):test for a Gaussian prime:
-:IsGaussianUnit:IsGaussianUnit(z):test for a Gaussian unit:
-:IsGeneric:IsGeneric(object):check for generic object:
+:FreeOf?:FreeOf?(var, expr):test whether expression depends on variable:
+:FreeOf?:FreeOf?({var, ...}, expr)::
+:Function?:Function?(expr):test for a composite object:
+:GaussianInteger?:GaussianInteger?(z):test for a Gaussian integer:
+:GaussianPrime?:GaussianPrime?(z):test for a Gaussian prime:
+:GaussianUnit?:GaussianUnit?(z):test for a Gaussian unit:
+:Generic?:Generic?(object):check for generic object:
 :IsHermitian:IsHermitian(A):test for a Hermitian matrix:
-:IsIdempotent:IsIdempotent(A):test for an idempotent matrix:
+:Idempotent?:Idempotent?(A):test for an idempotent matrix:
 :IsInfinity:IsInfinity(expr):test for an infinity:
-:IsInfix:IsInfix("op"):check for function syntax:
-:IsIrregularPrime:IsIrregularPrime(n):test for an irregular prime:
-:IsList:IsList(expr):test for a list:
+:Infix?:Infix?("op"):check for function syntax:
+:IrregularPrime?:IrregularPrime?(n):test for an irregular prime:
+:List?:List?(expr):test for a list:
 :IsLowerTriangular:IsLowerTriangular(A):test for a lower triangular matrix:
-:IsMatrix:IsMatrix(expr):test for a matrix:
-:IsMatrix:IsMatrix(pred,expr)::
+:Matrix?:Matrix?(expr):test for a matrix:
+:Matrix?:Matrix?(pred,expr)::
 :IsNegativeInteger:IsNegativeInteger(n):test for a negative integer:
-:IsNegativeNumber:IsNegativeNumber(n):test for a negative number:
+:NegativeNumber?:NegativeNumber?(n):test for a negative number:
 :IsNegativeReal:IsNegativeReal(expr):test for a numerically negative value:
-:IsNonObject:IsNonObject(expr):test whether argument is not an {Object()}:
+:NonObject?:NonObject?(expr):test whether argument is not an {Object()}:
 :IsNonZeroInteger:IsNonZeroInteger(n):test for a nonzero integer:
 :IsNotZero:IsNotZero(n):test for a nonzero number:
-:IsNumber:IsNumber(expr):test for a number:
+:Number?:Number?(expr):test for a number:
 :IsNumericList:IsNumericList({list}):test for a list of numbers:
 :IsOdd:IsOdd(n):test for an odd integer:
 :IsOddFunction:IsOddFunction(expression,variable):Return true if function is an odd function, False otherwise:
 :IsOrthogonal:IsOrthogonal(A):test for an orthogonal matrix:
-:IsPositiveInteger:IsPositiveInteger(n):test for a positive integer:
-:IsPositiveNumber:IsPositiveNumber(n):test for a positive number:
-:IsPositiveReal:IsPositiveReal(expr):test for a numerically positive value:
-:IsPostfix:IsPostfix("op"):check for function syntax:
-:IsPrefix:IsPrefix("op"):check for function syntax:
+:PositiveInteger?:PositiveInteger?(n):test for a positive integer:
+:PositiveNumber?:PositiveNumber?(n):test for a positive number:
+:PositiveReal?:PositiveReal?(expr):test for a numerically positive value:
+:Postfix?:Postfix?("op"):check for function syntax:
+:Prefix?:Prefix?("op"):check for function syntax:
 :IsPrime:IsPrime(n):test for a prime number:
 :IsPrimePower:IsPrimePower(n):test for a power of a prime number:
-:IsPromptShown:IsPromptShown():test for the Yacas prompt option:
-:IsQuadraticResidue:IsQuadraticResidue(m,n):functions related to finite groups:
+:PromptShown?:PromptShown?():test for the Yacas prompt option:
+:QuadraticResidue?:QuadraticResidue?(m,n):functions related to finite groups:
 :IsRational:IsRational(expr):test whether argument is a rational:
-:IsScalar:IsScalar(expr):test for a scalar:
+:Scalar?:Scalar?(expr):test for a scalar:
 :IsSkewSymmetric:IsSkewSymmetric(A):test for a skew-symmetric matrix:
-:IsSmallPrime:IsSmallPrime(n):test for a (small) prime number:
-:IsSquareFree:IsSquareFree(n):test for a square-free number:
-:IsSquareMatrix:IsSquareMatrix(expr):test for a square matrix:
-:IsSquareMatrix:IsSquareMatrix(pred,expr)::
-:IsString:IsString(expr):test for an string:
+:SmallPrime?:SmallPrime?(n):test for a (small) prime number:
+:SquareFree?:SquareFree?(n):test for a square-free number:
+:SquareMatrix?:SquareMatrix?(expr):test for a square matrix:
+:SquareMatrix?:SquareMatrix?(pred,expr)::
+:String?:String?(expr):test for an string:
 :IsSymmetric:IsSymmetric(A):test for a symmetric matrix:
-:IsTwinPrime:IsTwinPrime(n):test for a twin prime:
+:TwinPrime?:TwinPrime?(n):test for a twin prime:
 :IsUnitary:IsUnitary(A):test for a unitary matrix:
 :IsUpperTriangular:IsUpperTriangular(A):test for an upper triangular matrix:
-:IsVector:IsVector(expr):test for a vector:
-:IsVector:IsVector(pred,expr)::
-:IsZero:IsZero(n):test whether argument is zero:
-:IsZeroVector:IsZeroVector(list):test whether list contains only zeroes:
+:Vector?:Vector?(expr):test for a vector:
+:Vector?:Vector?(pred,expr)::
+:Zero?:Zero?(n):test whether argument is zero:
+:Zero?Vector:Zero?Vector(list):test whether list contains only zeroes:
 :JacobiSymbol:JacobiSymbol(m,n):functions related to finite groups:
 :JacobianMatrix:JacobianMatrix(functions,variables):calculate the Jacobian matrix of $n$ functions in $n$ variables:
 :KnownFailure:KnownFailure(test):Mark a test as a known failure:

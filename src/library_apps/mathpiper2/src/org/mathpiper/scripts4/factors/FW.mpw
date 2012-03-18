@@ -19,3 +19,23 @@
 ];
 
 %/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="FW",categories="User Functions",access="undocumented"
+*CMD FW --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

@@ -1,0 +1,10 @@
+%mathpiper,def="InternalGammaNum"
+
+//Serge Winitzki
+
+InternalGammaNum(z) := N(Exp(InternalLnGammaNum(z)));
+
+/// this should not be used by applications
+InternalGammaNum(z,a) := N(Exp(InternalLnGammaNum(z,a)));
+
+%/mathpiper

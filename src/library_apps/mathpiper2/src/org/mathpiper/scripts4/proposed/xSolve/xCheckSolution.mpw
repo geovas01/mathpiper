@@ -8,7 +8,7 @@
       If(iDebug=True,Tell("CloseEnough",{expr1,expr2,prec}));
       Local(diff,ndiff,ncomp,result);
       diff := expr1 - expr2;
-      If(diff !=? 0 And? HasFunc(expr1,Sqrt), diff := RadSimp(expr1-expr2));
+      If(diff !=? 0 And? HasFunction?(expr1,Sqrt), diff := RadSimp(expr1-expr2));
       If(diff !=? 0, diff := Simplify(expr1-expr2));      
       If(iDebug=True,Tell("  ce1",diff));
       If(diff=0,
@@ -24,22 +24,22 @@
   ];
   
 
-10 # xCheckSolution( exprs_IsList, _var, solutions_IsList ) <--
+10 # xCheckSolution( exprs_List?, _var, solutions_List? ) <--
   [
       If(iDebug=True,Tell("xCheckSolutionL",{exprs,var,solutions}));
       Local(tests);
       
       tests := Subst(==,ToAtom("-")) (exprs Where solutions);
       If(iDebug,Tell("  1",tests));
-      tests := AllSatisfy("IsZero",tests);
+      tests := AllSatisfy?("Zero?",tests);
   ];
 
   
-12 # xCheckSolution( _expr, _var, solution_IsList ) <--
+12 # xCheckSolution( _expr, _var, solution_List? ) <--
   [
       If(iDebug=True,Tell("xCheckSolution1",{expr,var,solution}));
       Local(expr0,result,s,r);
-      If( IsEquation(expr),
+      If( Equation?(expr),
           Bind(expr0,EquationLeft(expr)-EquationRight(expr)),
           Bind(expr0,expr)
       );

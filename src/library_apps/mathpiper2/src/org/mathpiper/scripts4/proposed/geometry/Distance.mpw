@@ -1,6 +1,6 @@
 %mathpiper,def="Distance"
 
-Distance(PointA_IsPoint,PointB_IsPoint) <--
+Distance(PointA_Point?,PointB_Point?) <--
 [
     Local(x1,x2,y1,y2,distance);
 
@@ -43,5 +43,5 @@ Result: {6,8}
 In> Distance(PointA, PointB)
 Result: Sqrt(41)
 
-*SEE IsPoint, Point, Midpoint, Slope, Segment
+*SEE Point?, Point, Midpoint, Slope, Segment
 %/mathpiper_docs

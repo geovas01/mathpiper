@@ -29,6 +29,16 @@ import org.mathpiper.lisp.Environment;
 public class FastLog extends BuiltinFunction
 {
 
+    private FastLog()
+    {
+    }
+
+    public FastLog(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         BigNumber x;
@@ -36,7 +46,7 @@ public class FastLog extends BuiltinFunction
         double result = Math.log(x.toDouble());
         BigNumber z = new BigNumber(aEnvironment.getPrecision());
         z.setTo(result);
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
+        setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
     }
 }//end class.
 

@@ -2,7 +2,7 @@
 
 //Retract("Factor",*);
 
-10 # Factor( p_IsRational )_(Denominator(p) !=? 1) <--
+10 # Factor( p_Rational? )_(Denominator(p) !=? 1) <--
 [
     If(InVerboseMode(),Tell("Factor_ratNum",p));
     Local(fs,num,den,dent,n,d);
@@ -32,7 +32,7 @@
 ];
 
 
-20 # Factor( p_IsRationalFunction ) <--
+20 # Factor( p_RationalFunction? ) <--
 [
     If(InVerboseMode(),Tell("Factor_ratFunc",p));
     Local(fs,num,den,dent,n,d);
@@ -51,7 +51,7 @@
 ];
 
 
-30 # Factor( L_IsList ) <-- 
+30 # Factor( L_List? ) <-- 
 [
     Local (result,x,f);
     result := {};
@@ -188,7 +188,7 @@ Result: x-y
 
 %mathpiper,name="Factor",subtype="automatic_test"
 
-Rulebase("f",{x});
+RulebaseHoldArguments("f",{x});
 f(x):=Eval(Factor(x))=x;
 Verify(f(703), True);
 Verify(f(485), True);

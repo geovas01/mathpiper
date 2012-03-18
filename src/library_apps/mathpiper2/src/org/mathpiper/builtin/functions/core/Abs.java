@@ -28,6 +28,15 @@ import org.mathpiper.lisp.Environment;
  */
 public class Abs extends BuiltinFunction
 {
+    
+    private Abs()
+    {
+    }
+
+    public Abs(String functionName)
+    {
+        this.functionName = functionName;
+    }
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
@@ -38,7 +47,7 @@ public class Abs extends BuiltinFunction
         {
             z.negate(x);
         }
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
+        setTopOfStack(aEnvironment, aStackTop,new org.mathpiper.lisp.cons.NumberCons(z));
     }
 }//end class.
 

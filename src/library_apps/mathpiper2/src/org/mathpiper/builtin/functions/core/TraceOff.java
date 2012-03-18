@@ -29,11 +29,22 @@ import org.mathpiper.lisp.Utility;
  */
 public class TraceOff extends BuiltinFunction
 {
+
+    private TraceOff()
+    {
+    }
+
+    public TraceOff(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
          Evaluator.traceOff();
          aEnvironment.write("Tracing is off.\n");
-         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+         setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }
 }
 

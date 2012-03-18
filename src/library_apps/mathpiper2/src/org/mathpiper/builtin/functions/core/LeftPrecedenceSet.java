@@ -21,8 +21,8 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -31,21 +31,30 @@ import org.mathpiper.lisp.Utility;
 public class LeftPrecedenceSet extends BuiltinFunction
 {
 
+    private LeftPrecedenceSet()
+    {
+    }
+
+    public LeftPrecedenceSet(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         // Get operator
-        LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1, "LeftPrecedenceSet");
-        String orig =  (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
-        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "LeftPrecedenceSet");
+        if(getArgument(aEnvironment, aStackTop, 1) == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        String orig =  (String) getArgument(aEnvironment, aStackTop, 1).car();
+        if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
-        ConsPointer index = new ConsPointer();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, index, getArgumentPointer(aEnvironment, aStackTop, 2));
-        LispError.checkArgument(aEnvironment, aStackTop, index.getCons() != null, 2, "LeftPrecedenceSet");
-        LispError.checkArgument(aEnvironment, aStackTop, index.car() instanceof String, 2, "LeftPrecedenceSet");
+        Cons index = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 2));
+        if(index == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        if(! (index.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2);
         int ind = Integer.parseInt( (String) index.car(), 10);
 
         aEnvironment.iInfixOperators.setLeftPrecedence(aStackTop, Utility.getSymbolName(aEnvironment, orig), ind);
-        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }
 }
 

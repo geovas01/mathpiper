@@ -28,11 +28,21 @@ import org.mathpiper.lisp.printers.LispPrinter;
 public class LispForm extends BuiltinFunction
 {
 
+    private LispForm()
+    {
+    }
+
+    public LispForm(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        setTopOfStack(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1));
         LispPrinter printer = new LispPrinter();
-        printer.print(aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), aEnvironment.iCurrentOutput, aEnvironment);
+        printer.print(aStackTop, getTopOfStack(aEnvironment, aStackTop), aEnvironment.iCurrentOutput, aEnvironment);
         aEnvironment.write("\n");
     }
 }

@@ -1,4 +1,4 @@
-/*  v 1.15.
+/*  v 1.16.
     This is a MathPiperIDE worksheet file and it consists of folds which contain source
     code.  A fold starts with %<keyword> and ends with %/<keyword>.  Code is entered inside
     a fold and then executed by placing the cursor anywhere inside the code and
@@ -14,7 +14,7 @@
 //Loop demonstration.
 
 x := 1;
-While(x < 100) 
+While(x <? 100) 
 [
   Write(x,,);
   x := x + 1;  
@@ -778,22 +778,6 @@ ViewList(x^2 + 3*x + 7);
 
 
 
-%mathpiper,output="latex"
-/*
-Execute this MathPiper code and then press <shift><enter> in its output fold
-to render the LaTeX expression it generates.
-*/
-Unbind(x);
-a := (2*x)*(x+3)*(x+4);
-b := Expand(a);
-b;
-
-%/mathpiper
-
-
-
-
-
 
 
 /*
@@ -826,6 +810,7 @@ HTML demo.  Execute this code by pressing <shift><enter> inside the fold.
     </html>
 
 %/html
+
 
 
 
@@ -914,6 +899,7 @@ HTML demo.  Execute this code by pressing <shift><enter> inside the fold.
 
 
 
+
 %jung
 
 *Vertices 16
@@ -955,57 +941,4 @@ HTML demo.  Execute this code by pressing <shift><enter> inside the fold.
 
 
 
-
-
-
-%beanshell
-/*
-This code demonstrates that any GUI interfaces can be created for use
-in a notebook.
-*/
-import javax.swing.*;
-import java.awt.event.*;
-import java.awt.*;
-docker = org.gjt.sp.jedit.jEdit.getActiveView().getDockableWindowManager();
-frame = new javax.swing.JFrame();
-guiBox = new Box(BoxLayout.Y_AXIS);
-messageTextField = new JTextField();
-guiBox.add(messageTextField);
-button1 = new JButton("Open GeoGebra");
-button1.setBackground(Color.green);
-button1.addActionListener(this);
-guiBox.add(button1);
-button2 = new JButton("Close GeoGebra");
-button2.setBackground(Color.red);
-button2.addActionListener(this);
-guiBox.add(button2);
-contentPane = frame.getContentPane();
-contentPane.add(guiBox,BorderLayout.NORTH);
-frame.pack();
-frame.setAlwaysOnTop(true);
-frame.setTitle("MathPiperIDE");
-frame.setSize(new Dimension(250, 200));
-frame.setResizable(false);
-frame.setPreferredSize(new Dimension(250, 200));
-frame.setLocationRelativeTo(null); // added
-frame.show();
-
-actionPerformed(event)
-{
-    src = event.getSource();
-
-    if (src == button1)
-    {
-      messageTextField.setText("GeoGebra opened.");
-      docker.showDockableWindow( "geogebra" );
-    }
-    else if (src == button2)
-    {
-      messageTextField.setText("GeoGebra closed.");
-      docker.hideDockableWindow( "geogebra" );
-    }
-
-}
-
-%/beanshell
 

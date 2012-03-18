@@ -22,7 +22,8 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.Cons;
+
 
 /**
  *
@@ -31,28 +32,37 @@ import org.mathpiper.lisp.cons.ConsPointer;
 public class StringMidGet extends BuiltinFunction
 {
 
+    private StringMidGet()
+    {
+    }
+
+    public StringMidGet(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer evaluated = new ConsPointer();
-        evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
-        LispError.checkIsString(aEnvironment, aStackTop, evaluated, 3, "StringMidGet");
+        
+        Cons evaluated = getArgument(aEnvironment, aStackTop, 3);
+        LispError.checkIsString(aEnvironment, aStackTop, evaluated, 3);
         String orig = (String) evaluated.car();
 
-        ConsPointer index = new ConsPointer();
-        index.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        LispError.checkArgument(aEnvironment, aStackTop, index.getCons() != null, 1, "StringMidGet");
-        LispError.checkArgument(aEnvironment, aStackTop, index.car() instanceof String, 1, "StringMidGet");
+        Cons index = getArgument(aEnvironment, aStackTop, 1);
+        if( index  == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if(! (index.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 1);
         int from = Integer.parseInt( (String) index.car(), 10);
-        LispError.checkArgument(aEnvironment, aStackTop, from > 0, 1, "StringMidGet");
+        if( from <= 0) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
-        index.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
-        LispError.checkArgument(aEnvironment, aStackTop, index.getCons() != null, 2, "StringMidGet");
-        LispError.checkArgument(aEnvironment, aStackTop, index.car() instanceof String, 2, "StringMidGet");
+        index = getArgument(aEnvironment, aStackTop, 2);
+        if( index == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        if(! (index.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2);
         int count = Integer.parseInt( (String) index.car(), 10);
 
 
         String str = "\"" + orig.substring(from, from + count) + "\"";
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, str));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, str));
     }
 }
 

@@ -1,12 +1,12 @@
-%mathpiper,def="SolveSystem"
+%mathpiper,def="SolveSystem;VarsAndDegs;SolveLinearSystem;MakeCoefMatrix"
 
 /*-------------------------------------------------------------------
  *  NOTE:  this is a diversion of the SolveSystem modules to a
- *  new file all its own.  Previously, it was named "Solve'System",
+ *  new file all its own.  Previously, it was named "SolveSystem",
  *  and was contained in the file OldSolve.mpw.
  *
  *  For the time being, we are just reconnecting the new file to
- *  point to the same old file  Solve'SimpleBackSubstitution .
+ *  point to the same old file  SolveSimpleBackSubstitution .
  *  This will be changed soon.
  *    started   hso 100630.
  *    begin mods    100701
@@ -19,20 +19,20 @@
 //Retract("SolveNonlinearSystem",*);
 
 /*
-10 # SolveSystem( eqns_IsList, vars_IsList ) <--
+10 # SolveSystem( eqns_List?, vars_List? ) <--
 [
     // This is the old, now obsolete method
     If(InVerboseMode(),Tell("SolveSystem0",{eqns,vars}));
-    Solve'SimpleBackSubstitution(eqns,vars);
+    SolveSimpleBackSubstitution(eqns,vars);
 ];
 */
 
-10 # SolveSystem( eqns_IsList, vars_IsList )_(Length(eqns)=?1 And? Length(vars)=?1) <--
+10 # SolveSystem( eqns_List?, vars_List? )_(Length(eqns)=?1 And? Length(vars)=?1) <--
 [
     {Solve(eqns[1],vars[1])};
 ];
 
-12 # SolveSystem( eqns_IsList, vars_IsList ) <--
+12 # SolveSystem( eqns_List?, vars_List? ) <--
 [
     // This is the first try at a better algorithm for doing this
     If(InVerboseMode(),Tell("SolveSystem",{eqns,vars}));
@@ -42,7 +42,7 @@
     exprns := {};
     ForEach(eq,eqns)
      [
-         expr := If( IsEquation(eq), EquationLeft(eq)-EquationRight(eq), eq );
+         expr := If( Equation?(eq), EquationLeft(eq)-EquationRight(eq), eq );
          DestructiveAppend(exprns,expr);
      ];
     If(InVerboseMode(),Tell(" ",exprns));
@@ -66,7 +66,7 @@
 ];
 
 
-10 # VarsAndDegs(exs_IsList,vars_IsList) <--
+10 # VarsAndDegs(exs_List?,vars_List?) <--
 [
     Local(ex,v,result);
     result := {};
@@ -85,7 +85,7 @@
 
 
 
-10 # SolveLinearSystem( polys_IsList, vars_IsList ) <--
+10 # SolveLinearSystem( polys_List?, vars_List? ) <--
 [
     Local(A, E);
 
@@ -101,14 +101,14 @@
     A := Transpose(Concat(Transpose(lhs),{rhs}));
     E := RREF(A);
 
-    If(Contains(E,BaseVector(Dimensions(E)[2],Dimensions(E)[2])),
+    If(Contains?(E,BaseVector(Dimensions(E)[2],Dimensions(E)[2])),
         {},
         MatrixColumn(E,Dimensions(E)[2]) - (ExtractSubMatrix(E, 1, 1, Length(E), Length(E)) - Identity(Length(E))) * vars);
 ];
 
 
 
-10 # MakeCoefMatrix(polys_IsList,vars_IsList) <--
+10 # MakeCoefMatrix(polys_List?,vars_List?) <--
 [
     If(InVerboseMode(),Tell("      MakeCoefMatrix",{polys,vars}));
     Local(p,v,result);

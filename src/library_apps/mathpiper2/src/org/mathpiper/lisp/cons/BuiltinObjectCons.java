@@ -24,18 +24,21 @@ import org.mathpiper.builtin.BuiltinContainer;
 public class BuiltinObjectCons extends Cons {
 
     BuiltinContainer iCarBuiltin;
-    ConsPointer iCdr;
+
+    //This variable is placed here instead of in Cons because it makes viewing it
+    // in the debugger easier.
+    private Cons iCdr;
 
 
-    private BuiltinObjectCons(Environment aEnvironment, BuiltinContainer aClass) throws Exception  {
+
+    private BuiltinObjectCons(BuiltinContainer aClass) throws Exception  {
         super();
         iCarBuiltin = aClass;
-        iCdr = new ConsPointer();
     }
 
     public static BuiltinObjectCons getInstance(Environment aEnvironment, int aStackTop, BuiltinContainer aClass) throws Exception {
-        LispError.lispAssert(aClass != null, aEnvironment, aStackTop);
-        BuiltinObjectCons self = new BuiltinObjectCons(aEnvironment, aClass);
+        if(aClass == null) LispError.lispAssert(aEnvironment, aStackTop);
+        BuiltinObjectCons self = new BuiltinObjectCons(aClass);
         //LispError.check(aEnvironment, aStackTop, self != null, LispError.NOT_ENOUGH_MEMORY, "INTERNAL");
         return self;
     }
@@ -46,9 +49,24 @@ public class BuiltinObjectCons extends Cons {
     }
 
 
-    public Cons copy(Environment aEnvironment, boolean aRecursed) throws Exception  {
+    public void setCar(Object object) throws Exception
+    {
+        iCarBuiltin = (BuiltinContainer) object;
+    }
 
-        Cons copied = new BuiltinObjectCons(aEnvironment, iCarBuiltin);
+    public Cons cdr() {
+        return iCdr;
+    }
+
+    public void setCdr(Cons aCdr)
+    {
+        iCdr = aCdr;
+    }
+
+    
+    public Cons copy(boolean aRecursed) throws Exception  {
+
+        Cons copied = new BuiltinObjectCons(iCarBuiltin);
 
         copied.setMetadataMap(this.getMetadataMap());
 
@@ -56,11 +74,6 @@ public class BuiltinObjectCons extends Cons {
         
     }
 
-
-
-    public ConsPointer cdr() {
-        return iCdr;
-    }
 
 
     public int type() {

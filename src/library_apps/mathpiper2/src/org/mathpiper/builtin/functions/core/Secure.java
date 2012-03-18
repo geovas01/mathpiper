@@ -21,6 +21,7 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 
+
 /**
  *
  *  
@@ -28,13 +29,23 @@ import org.mathpiper.lisp.Environment;
 public class Secure extends BuiltinFunction
 {
 
+    private Secure()
+    {
+    }
+
+    public Secure(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         boolean prevSecure = aEnvironment.iSecure;
         aEnvironment.iSecure = true;
         try
         {
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 1));
+            setTopOfStack(aEnvironment, aStackTop, aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1)));
         } catch (Exception e)
         {
             throw e;

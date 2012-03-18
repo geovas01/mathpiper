@@ -30,6 +30,16 @@ import org.mathpiper.lisp.Utility;
 public class GetExactBits extends BuiltinFunction
 {
 
+    private GetExactBits()
+    {
+    }
+
+    public GetExactBits(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         BigNumber numberToCheck = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
@@ -39,7 +49,7 @@ public class GetExactBits extends BuiltinFunction
                 ? numberToCheck.bitCount() // for integers, return the bit count
                 : Utility.digitsToBits((long) (numberToCheck.getPrecision()), 10) // for floats, return the getPrecision
                 );
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(numberToReturn));
+        setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(numberToReturn));
     }
 }
 

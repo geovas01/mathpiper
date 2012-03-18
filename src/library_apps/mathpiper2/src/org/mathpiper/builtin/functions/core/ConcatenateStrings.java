@@ -20,9 +20,8 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -31,20 +30,30 @@ import org.mathpiper.lisp.cons.ConsPointer;
 public class ConcatenateStrings extends BuiltinFunction
 {
 
+    private ConcatenateStrings()
+    {
+    }
+
+    public ConcatenateStrings(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     void ConcatenateStrings(StringBuffer aStringBuffer, Environment aEnvironment, int aStackTop) throws Exception
     {
         aStringBuffer.append('\"');
         int arg = 1;
 
-        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car() );
-        consTraverser.goNext(aStackTop);
-        while (consTraverser.getCons() != null)
+        Cons consTraverser =  (Cons) getArgument(aEnvironment, aStackTop, 1).car();
+        consTraverser = consTraverser.cdr();
+        while (consTraverser != null)
         {
-            LispError.checkIsString(aEnvironment, aStackTop, consTraverser.getPointer(), arg, "ConcatenateStrings");
+            LispError.checkIsString(aEnvironment, aStackTop, consTraverser, arg);
             String thisString =  (String) consTraverser.car();
             String toAppend = thisString.substring(1, thisString.length() - 1);
             aStringBuffer.append(toAppend);
-            consTraverser.goNext(aStackTop);
+            consTraverser = consTraverser.cdr();
             arg++;
         }
         aStringBuffer.append('\"');
@@ -54,7 +63,7 @@ public class ConcatenateStrings extends BuiltinFunction
     {
         StringBuffer strBuffer = new StringBuffer("");
         ConcatenateStrings(strBuffer, aEnvironment, aStackTop);
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, strBuffer.toString()));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, strBuffer.toString()));
     }
 }
 

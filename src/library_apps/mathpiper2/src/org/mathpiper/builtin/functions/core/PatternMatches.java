@@ -22,10 +22,9 @@ import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.PatternContainer;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -34,29 +33,38 @@ import org.mathpiper.lisp.Utility;
 public class PatternMatches extends BuiltinFunction
 {
 
+    private PatternMatches()
+    {
+    }
+
+    public PatternMatches(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer pattern = new ConsPointer();
-        pattern.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        BuiltinContainer gen = (BuiltinContainer) pattern.car();
-        LispError.checkArgument(aEnvironment, aStackTop, gen != null, 1, "PatternMatches");
-        LispError.checkArgument(aEnvironment, aStackTop, gen.typeName().equals("\"Pattern\""), 1, "PatternMatches");
 
-        ConsPointer list = new ConsPointer();
-        list.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
+        Cons pattern = getArgument(aEnvironment, aStackTop, 1);
+        BuiltinContainer gen = (BuiltinContainer) pattern.car();
+        if( gen == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if(! gen.typeName().equals("\"Pattern\"")) LispError.checkArgument(aEnvironment, aStackTop, 1);
+
+
+        Cons list = getArgument(aEnvironment, aStackTop, 2);
 
         PatternContainer patclass = (PatternContainer) gen;
 
-        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, list);
-        LispError.checkArgument(aEnvironment, aStackTop, consTraverser.getCons() != null, 2, "PatternMatches");
-        LispError.checkArgument(aEnvironment, aStackTop, consTraverser.car() instanceof ConsPointer, 2, "PatternMatches");
-        consTraverser.goSub(aStackTop);
-        LispError.checkArgument(aEnvironment, aStackTop, consTraverser.getCons() != null, 2, "PatternMatches");
-        consTraverser.goNext(aStackTop);
+        Cons consTraverser = list;
+        if(consTraverser == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        if(! (consTraverser.car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        consTraverser = (Cons) consTraverser.car();
+        if(consTraverser == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        consTraverser = consTraverser.cdr();
 
-        ConsPointer ptr = consTraverser.getPointer();
-        LispError.checkArgument(aEnvironment, aStackTop, ptr != null, 2, "PatternMatches");
-        boolean matches = patclass.matches(aEnvironment, aStackTop, ptr);
-        Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), matches);
+        if( consTraverser == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        boolean matches = patclass.matches(aEnvironment, aStackTop, consTraverser);
+        setTopOfStack(aEnvironment, aStackTop, Utility.getBooleanAtom(aEnvironment, matches));
     }
 }

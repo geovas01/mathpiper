@@ -22,24 +22,35 @@ import org.mathpiper.exceptions.BreakException;
 import org.mathpiper.exceptions.ContinueException;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
+
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 
 /**
  *
  *  
  */
-public class While extends BuiltinFunction {
+public class While extends BuiltinFunction
+{
+
+    private While()
+    {
+    }
+
+    public While(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
-        ConsPointer arg1 = getArgumentPointer(aEnvironment, aStackTop, 1);
-        ConsPointer arg2 = getArgumentPointer(aEnvironment, aStackTop, 2);
+        Cons arg1 = getArgument(aEnvironment, aStackTop, 1);
+        Cons arg2 = getArgument(aEnvironment, aStackTop, 2);
 
-        ConsPointer predicate = new ConsPointer();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, predicate, arg1);
+        Cons predicate = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, arg1);
 
-        ConsPointer evaluated = new ConsPointer();
+        Cons evaluated;
 
         int beforeStackTop = -1;
         int beforeEvaluationDepth = -1;
@@ -52,26 +63,26 @@ public class While extends BuiltinFunction {
 
                 try {
 
-                    aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, evaluated, arg2);
+                    evaluated = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, arg2);
 
                 } catch (ContinueException ce) {
                     aEnvironment.iArgumentStack.popTo(beforeStackTop, aStackTop, aEnvironment);
                     aEnvironment.iEvalDepth = beforeEvaluationDepth;
-                    Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+                    setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
                 }//end continue catch.
 
-                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, predicate, arg1);
+                predicate = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, arg1);
 
             }//end while.
 
-            LispError.checkArgument(aEnvironment, aStackTop, Utility.isFalse(aEnvironment, predicate, aStackTop), 1, "While");
+            if(! Utility.isFalse(aEnvironment, predicate, aStackTop)) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
         } catch (BreakException be) {
               aEnvironment.iArgumentStack.popTo(beforeStackTop, aStackTop, aEnvironment);
               aEnvironment.iEvalDepth = beforeEvaluationDepth;
         }
 
-        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }
 
 
@@ -104,19 +115,19 @@ all other loop commands are based. It is equivalent to the {while} command in th
 
 In> x := 0;
 Result: 0;
-In> While (x! < 10^6) \
-[ Echo({x, x!}); x++; ];
-0  1
-1  1
-2  2
-3  6
-4  24
-5  120
-6  720
-7  5040
-8  40320
-9  362880
-Result: True;
+In> While (x ! <? 10^6) [ Echo({x, x!}); x++; ];
+Result: True
+Side Effects:
+{0,1} 
+{1,1} 
+{2,2} 
+{3,6} 
+{4,24} 
+{5,120} 
+{6,720} 
+{7,5040} 
+{8,40320} 
+{9,362880} 
 
 *SEE Until, For, ForEach, Break, Continue
 %/mathpiper_docs

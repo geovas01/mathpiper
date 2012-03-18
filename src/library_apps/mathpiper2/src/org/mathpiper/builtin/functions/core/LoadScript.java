@@ -18,11 +18,12 @@
 package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.io.InputStatus;
 import org.mathpiper.io.StringInputStream;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -31,26 +32,41 @@ import org.mathpiper.lisp.Utility;
 public class LoadScript extends BuiltinFunction
 {
 
+    private LoadScript()
+    {
+    }
+
+    public LoadScript(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        LispError.check(aEnvironment, aStackTop, aEnvironment.iSecure == false, LispError.SECURITY_BREACH);
+        if(aEnvironment.iSecure != false) LispError.throwError(aEnvironment, aStackTop, LispError.SECURITY_BREACH);
 
-        ConsPointer evaluated = new ConsPointer();
-        evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        Cons evaluated = getArgument(aEnvironment, aStackTop, 1);
 
-        // Get file name
-        LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1, "LoadScript");
+        if(evaluated == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        
         String scriptString = (String) evaluated.car();
 
-        LispError.checkArgument(aEnvironment, aStackTop, scriptString != null, 1, "LoadScript");
+        if( scriptString == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
         scriptString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, scriptString);
 
-        StringInputStream functionInputStream = new StringInputStream(scriptString, aEnvironment.iCurrentInput.iStatus);
+        InputStatus status = new InputStatus();
+
+        StringInputStream functionInputStream = new StringInputStream(scriptString,status); //aEnvironment.iCurrentInput.iStatus);
+
+        Environment.saveDebugInformation = true;
 
         Utility.doInternalLoad(aEnvironment, aStackTop, functionInputStream);
+
+        Environment.saveDebugInformation = false;
         
-        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
          
     }
 }

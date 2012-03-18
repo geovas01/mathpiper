@@ -1,35 +1,26 @@
-%mathpiper,def="OMREP;OMDef;OMForm;OMRead;OMParse;OMEcho;OMEchoEscape"
+%mathpiper,def="OMREP;OMDef;OMForm;OMRead;OMParse;OMEcho;OMEchoEscape;OMFormExpression;OMFormFunction;OMWriteOMEscape;OMEscapeString;OMWriteStringEscape;OMSignature;MatchClose;MatchOMOBJ;ReadOMOBJ;OMApplyReverseMapping;OMApplyMapping;OMPathSelect;OMPathSelect;ReadOMOBJ;OMWriteEscape"
 
-/* def file definitions
-OMREP
-OMDef
-OMForm
-OMRead
-OMParse
-OMEcho
-OMEchoEscape
-*/
 
 ////////////////////////
 // Written by Alberto González Palomo and Ayal Pinkus.
 ////////////////////////
 
-Rulebase("OMError", {x,y});
-Rulebase("OMError", {x,y,z});
+RulebaseHoldArguments("OMError", {x,y});
+RulebaseHoldArguments("OMError", {x,y,z});
 
 /* The read-eval-print loop */
 /* It can take one parameter, that is the evaluation count. If it is greater
    than zero, only that number of iterations will be performed before
    exiting. This is particularly useful when connecting to MathPiper via pipes.
 */
-Rulebase("OMREP",{});
-Rule("OMREP",0,1,True)
+RulebaseHoldArguments("OMREP",{});
+RuleHoldArguments("OMREP",0,1,True)
 [
   OMREP(0);// 0 means keep repeating, as usual.
 ];
-Rulebase("OMREP",{count});
+RulebaseHoldArguments("OMREP",{count});
 LocalSymbols(input,stringOut,result)
-Rule("OMREP",1,1,True)
+RuleHoldArguments("OMREP",1,1,True)
 [
   Local(input,stringOut,result);
   While(Not?(IsExitRequested()))
@@ -80,7 +71,7 @@ LocalSymbols(omindent) [
      OMClearIndent();
      OMEcho("<OMOBJ>");
      OMIndent();
-     If(IsAtom(expression),
+     If(Atom?(expression),
         If(expression =? ToAtom("%"),
            Secure(expression := Eval(expression))
            )
@@ -90,29 +81,29 @@ LocalSymbols(omindent) [
      OMEcho("</OMOBJ>");
      ];
 
-10 # OMFormExpression(i_IsString)  <-- OMEcho("<OMSTR>":i:"</OMSTR>");
-11 # OMFormExpression(i_IsInteger) <-- OMEcho("<OMI>":ToString(i):"</OMI>");
-12 # OMFormExpression(i_IsNumber)  <-- OMEcho("<OMF dec=\"":ToString(i):"\"/>");
-13 # OMFormExpression(i_IsConstant)_(OMSymbol()[ ToString(i) ] !=? Empty)
+10 # OMFormExpression(i_String?)  <-- OMEcho("<OMSTR>":i:"</OMSTR>");
+11 # OMFormExpression(i_Integer?) <-- OMEcho("<OMI>":ToString(i):"</OMI>");
+12 # OMFormExpression(i_Number?)  <-- OMEcho("<OMF dec=\"":ToString(i):"\"/>");
+13 # OMFormExpression(i_Constant?)_(OMSymbol()[ ToString(i) ] !=? Empty)
      <-- OMEcho("<OMS cd=\"":OMSymbol()[ ToString(i) ][1]
                 :"\" name=\"":OMSymbol()[ ToString(i) ][2]:"\"/>"
                 );
-14 # OMFormExpression(i_IsConstant)// Should we rather evaluate it?
+14 # OMFormExpression(i_Constant?)// Should we rather evaluate it?
      <-- OMEcho("<OMV name=\"":ToString(i):"\"/>");
-15 # OMFormExpression(i_IsVariable)_(OMSymbol()[ ToString(i) ] !=? Empty)
+15 # OMFormExpression(i_Variable?)_(OMSymbol()[ ToString(i) ] !=? Empty)
      <-- OMEcho("<OMS cd=\"":OMSymbol()[ ToString(i) ][1]
                 :"\" name=\"":OMSymbol()[ ToString(i) ][2]:"\"/>"
                 );
-16 # OMFormExpression(i_IsVariable)
+16 # OMFormExpression(i_Variable?)
      <-- OMEcho("<OMV name=\"":ToString(i):"\"/>");
-16 # OMFormExpression(i_IsVariable)_(i =? Empty)
+16 # OMFormExpression(i_Variable?)_(i =? Empty)
      <-- False; // This is useful for void expressions.
 
-10 # OMFormExpression(function_IsFunction)_(Type(function) =? "OMError")
+10 # OMFormExpression(function_Function?)_(Type(function) =? "OMError")
      <--
      [
      Local(cd, name);
-     If(IsList(function[1]),
+     If(List?(function[1]),
         [ cd := function[1][1]; name := function[1][2]; ],
         [ cd := "error";        name := function[1];    ]);
      OMEcho("<OME>");
@@ -122,7 +113,7 @@ LocalSymbols(omindent) [
      OMUndent();
      OMEcho("</OME>");
      ];
-10 # OMFormExpression(function_IsFunction)_(Type(function) =? "OME")
+10 # OMFormExpression(function_Function?)_(Type(function) =? "OME")
      <--
      [
      OMEcho("<OME>");
@@ -131,9 +122,9 @@ LocalSymbols(omindent) [
      OMUndent();
      OMEcho("</OME>");
      ];
-10 # OMFormExpression(function_IsFunction)_(Type(function) =? "OMS")
+10 # OMFormExpression(function_Function?)_(Type(function) =? "OMS")
      <-- OMEcho("<OMS cd=\"":function[1]:"\" name=\"":function[2]:"\"/>");
-10 # OMFormExpression(function_IsFunction)_(Type(function) =? "OMBIND")
+10 # OMFormExpression(function_Function?)_(Type(function) =? "OMBIND")
      <--
      [
      OMEcho("<OMBIND>");
@@ -142,7 +133,7 @@ LocalSymbols(omindent) [
      OMUndent();
      OMEcho("</OMBIND>");
      ];
-10 # OMFormExpression(function_IsFunction)_(Type(function) =? "OMBVAR")
+10 # OMFormExpression(function_Function?)_(Type(function) =? "OMBVAR")
      <--
      [
      OMEcho("<OMBVAR>");
@@ -151,7 +142,7 @@ LocalSymbols(omindent) [
      OMUndent();
      OMEcho("</OMBVAR>");
      ];
-10 # OMFormExpression(function_IsFunction)_(Type(function) =? "OMA")
+10 # OMFormExpression(function_Function?)_(Type(function) =? "OMA")
      <--
      [
      // This is not the same as the next rule: this is OMA(a,b,c,...),
@@ -162,7 +153,7 @@ LocalSymbols(omindent) [
      OMUndent();
      OMEcho("</OMA>");
      ];
-11 # OMFormExpression(function_IsFunction)
+11 # OMFormExpression(function_Function?)
      <--
      [
      OMEcho("<OMA>");
@@ -172,7 +163,7 @@ LocalSymbols(omindent) [
      OMEcho("</OMA>");
      ];
 
-11 # OMFormFunction(function_IsFunction)
+11 # OMFormFunction(function_Function?)
      <--
      [
      Local(arity);
@@ -180,7 +171,7 @@ LocalSymbols(omindent) [
      OMEcho("<OMS cd=\"piper\" name=\"":Type(function):"\"/>");
      If(arity >? 0, ForEach(arg, function) OMFormExpression(arg));
      ];
-10 # OMFormFunction(function_IsFunction)_(OMSymbol()[ Type(function) ] !=? Empty)
+10 # OMFormFunction(function_Function?)_(OMSymbol()[ Type(function) ] !=? Empty)
      <--
      [
      Local(symbolDef);
@@ -197,8 +188,8 @@ LocalSymbols(omindent) [
         [
         Local(result);
         result := OMApplyMapping(function, symbolDef[3]);
-        //Check(IsList(result), "Return Type", PipeToString()Echo("Mapping result is not a list: ", result));
-        If(IsList(result),
+        //Check(List?(result), "Return Type", PipeToString()Echo("Mapping result is not a list: ", result));
+        If(List?(result),
            [
            result := ListToFunction(Subst($, function[0]) result);
            OMFormExpression(result[0]);
@@ -225,17 +216,17 @@ OMEcho(_expression) <--
   Write(expression);
   NewLine();
 ];
-OMEcho(expression_IsString) <--
+OMEcho(expression_String?) <--
 [
   OMIndentSpace();
   WriteString(expression);
   NewLine();
 ];
-OMEcho(expression_IsList) <--
+OMEcho(expression_List?) <--
 [
   ForEach(arg, expression)
   [
-    If (IsString(arg), WriteString(arg), Write(arg));
+    If (String?(arg), WriteString(arg), Write(arg));
   ];
   NewLine();
 ];
@@ -244,7 +235,7 @@ OMEscape(_expression) <--
 [
   "<![CDATA[":ToString(expression):"]]>";
 ];
-OMEscapeString(_expression_IsString) <--
+OMEscapeString(_expression_String?) <--
 [
   "<![CDATA[":expression:"]]>";
 ];
@@ -252,7 +243,7 @@ OMWriteEscape(_expression) <--
 [
   WriteString(OMEscape(expression));
 ];
-OMWriteStringEscape(expression_IsString) <--
+OMWriteStringEscape(expression_String?) <--
 [
   WriteString(OMEscapeString(expression));
 ];
@@ -261,17 +252,17 @@ OMEchoEscape(_expression) <--
   OMWriteEscape(expression);
   NewLine();
 ];
-OMEchoEscape(expression_IsString) <--
+OMEchoEscape(expression_String?) <--
 [
   OMWriteStringEscape(expression);
   NewLine();
 ];
-OMEchoEscape(expression_IsList) <--
+OMEchoEscape(expression_List?) <--
 [
   WriteString("<![CDATA[");
   ForEach(arg, expression)
   [
-    If (IsString(arg), WriteString(arg), Write(arg));
+    If (String?(arg), WriteString(arg), Write(arg));
   ];
   WriteString("]]>");
   NewLine();
@@ -284,7 +275,7 @@ HoldArgumentNumber("OMForm",1,1);
 
 
 OMSignature(_function) <-- "";
-OMSignature(function_IsFunction) <--
+OMSignature(function_Function?) <--
 [
   Local(makeSig);
   makeSig := {ConcatStrings, Type(function), "_"};
@@ -294,9 +285,9 @@ OMSignature(function_IsFunction) <--
   [
     If(Type(arg) =? "List",
        type := "L",
-       If(IsFunction(arg),
+       If(Function?(arg),
           type := "F",
-          If(IsInteger(arg),
+          If(Integer?(arg),
              type := "I",
              type := "V"
              )
@@ -413,7 +404,7 @@ PipeFromString(str:" EndOfFile")
 [
   Local(result);
   OMNextToken();
-  If(IsString(OMToken()), [result := OMToken(); OMNextToken();], result := "");
+  If(String?(OMToken()), [result := OMToken(); OMNextToken();], result := "");
   MatchClose(XmlTag("OMSTR",{},"Close"));
   result;
 ];
@@ -464,8 +455,8 @@ PipeFromString(str:" EndOfFile")
   result;
 ];
 
-10 # OMApplyReverseMapping(piperExp_IsFunction) <-- piperExp;
-10 # OMApplyReverseMapping(piperExp_IsFunction)_(OMSymbol()[ Type(piperExp) ] !=? Empty)
+10 # OMApplyReverseMapping(piperExp_Function?) <-- piperExp;
+10 # OMApplyReverseMapping(piperExp_Function?)_(OMSymbol()[ Type(piperExp) ] !=? Empty)
      <--
      [
      Local(symbolDef, result);
@@ -475,7 +466,7 @@ PipeFromString(str:" EndOfFile")
         [
           result := OMApplyMapping(piperExp, symbolDef[4]);
           result := Subst($, piperExp[0]) result;
-          If(IsList(result), result := ListToFunction(result));
+          If(List?(result), result := ListToFunction(result));
         ]
        );
      result;
@@ -525,16 +516,16 @@ PipeFromString(str:" EndOfFile")
      Empty);
 ];
 
-11 # OMPathSelect(path_IsNumber, _expression) <--
+11 # OMPathSelect(path_Number?, _expression) <--
 [
   If(path >=? 0 And? path <=? Length(expression),
      expression[path],
      Undefined);
 ];
-11 # OMPathSelect(path_IsList, _expression) <--
+11 # OMPathSelect(path_List?, _expression) <--
 [
   ForEach(i, path)
-    If(IsFunction(expression) And? i >=? 0 And? i <=? Length(expression),
+    If(Function?(expression) And? i >=? 0 And? i <=? Length(expression),
        expression := expression[i],
        Undefined);
   expression;
@@ -565,7 +556,7 @@ HoldArgumentNumber("OMPathSelect", 2, 2);
      // OM name have to be different from the MathPiper name (e.g. "/@").
      If(piperform =? Empty,
         If(cd =? mathpiper, ToAtom(omname), OMS(omcd, omname)),
-        If(IsString(piperform), ToAtom(piperform), piperform));
+        If(String?(piperform), ToAtom(piperform), piperform));
      ]
     );
 ];
@@ -595,7 +586,7 @@ OMGetCoreError():=
   Local(result);
   result := ExceptionGet(); //todo:tk:verify that ExceptionCheck works properly with the soft error handling functions.
   If(result !=? False,
-     If( IsError("omErrorObject"),
+     If( Error?("omErrorObject"),
         [result := GetError("omErrorObject");                     ],
         [result := OMError({"moreerrors", "unexpected"}, result); ])
     );
@@ -618,10 +609,10 @@ LocalSymbols(omsymbol, omsymbolreverse) [
 
 ]; // LocalSymbols(omsymbol, omsymbolreverse)OMDef
 
-OMDef(_piperform, omcd_IsString, omname_IsString, _directMapping, _reverseMapping) <--
+OMDef(_piperform, omcd_String?, omname_String?, _directMapping, _reverseMapping) <--
 [
   Local(cdTable);
-  If(IsString(piperform),
+  If(String?(piperform),
      OMSymbol()[ piperform ] := {omcd, omname, directMapping, reverseMapping}
      );
   cdTable := OMSymbolReverse()[ omcd ];
@@ -649,10 +640,10 @@ OMDef(_piperform, omcd_IsString, omname_IsString, _directMapping, _reverseMappin
   True;
 ];
 
-OMDef(_piperform, omcd_IsString, omname_IsString)
+OMDef(_piperform, omcd_String?, omname_String?)
 <-- OMDef(piperform, omcd, omname, {}, {});
 
-OMDef(piperalias_IsString, pipername_IsString) <--
+OMDef(piperalias_String?, pipername_String?) <--
 [
   OMSymbol()[ piperalias ] := OMSymbol()[ pipername ];
 ];
@@ -675,7 +666,7 @@ OMDef( "Infinity" ,  "nums1", "infinity" );
 OMDef( "Undefined",  "nums1", "NaN"      );
 // [20010916 AGP] From initialization.rep/stdopers.mpi:
 OMDef( "And?"   ,  "logic1", "and"        );
-OMDef( "=="    ,  "logic1", "equivalent" );
+//OMDef( "=="    ,  "logic1", "equivalent" );
 /*Note:tk:when I had fixed the syntax error in this code, a redefinition error was created.
 OMDef( "!=?="   ,  "logic1", "not",
         { "<OMA><OMS cd=\"logic1\" name=\"equivalent\"/>",
@@ -695,7 +686,7 @@ OMDef( "&" ,  mathpiper, "bitwise_and" );
 OMDef( "|" ,  mathpiper, "bitwise_or"  );
 OMDef( "%" ,  mathpiper, "bitwise_xor" );
 OMDef( "/" , "arith1", "divide");// This definition is for OM arith1:divide to MathPiper. In all other cases, the next one will be used.
-OMDef( "/" , "nums1", "rational", {$, _1, _2}_(IsRational(_1/_2)) | {OMS("arith1", "divide"), _1, _2}, {/, _1, _2});
+OMDef( "/" , "nums1", "rational", {$, _1, _2}_(Rational?(_1/_2)) | {OMS("arith1", "divide"), _1, _2}, {/, _1, _2});
 OMDef( "-" ,  "arith1", "unary_minus");
 OMDef( "-" ,  "arith1", "minus"  );// We need a way of testing the arity.
 OMDef( "+" ,  "arith1", "plus"   );
@@ -770,7 +761,8 @@ OMDef( "Sign"  , mathpiper,"sign"   );
 
 
 //LoadScriptOnce("logic.rep/om.mpi");
-OMDef( "=>" , "logic1","implies" );
+OMDef( "Implies?" , "logic1","implies" );
+OMDef( "Equivales?" , "logic1","equivalent" );
 OMDef( "CNF"          ,          mathpiper,"cnf"                      );
 OMDef( "LogicSimplify",          mathpiper,"logic_simplify"           );
 OMDef( "CanProve"     ,          mathpiper,"can_prove"                );
@@ -787,7 +779,7 @@ OMDef( "Re"       , "complex1","real"              );
 OMDef( "Im"       , "complex1","imaginary"         );
 OMDef( "Conjugate", "complex1","conjugate"         );
 OMDef( "Arg"      , "complex1","argument"          );
-OMDef( "IsComplex", mathpiper,"is_complex"         );
+OMDef( "Complex?", mathpiper,"is_complex"         );
 
 
 //LoadScriptOnce("integrate.rep/om.mpi");
@@ -871,18 +863,18 @@ OMDef( "GetPrimePower",   mathpiper,"GetPrimePower" );
 OMDef( "HarmonicNumber",  mathpiper,"HarmonicNumber" );
 OMDef( "IntLog",          mathpiper,"IntLog" );
 OMDef( "IntNthRoot",      mathpiper,"IntNthRoot" );
-OMDef( "IsAmicablePair",  mathpiper,"IsAmicablePair" );
-OMDef( "IsCarmichaelNumber", mathpiper,"IsCarmichaelNumber" );
-OMDef( "IsComposite",     mathpiper,"IsComposite" );
-OMDef( "IsCoprime",       mathpiper,"IsCoprime" );
-OMDef( "IsIrregularPrime", mathpiper,"IsIrregularPrime" );
-OMDef( "IsPerfect",       mathpiper,"IsPerfect" );
-OMDef( "IsPrime",         mathpiper,"IsPrime" );
-OMDef( "IsPrimePower",    mathpiper,"IsPrimePower" );
-OMDef( "IsQuadraticResidue", mathpiper,"IsQuadraticResidue" );
-OMDef( "IsSmallPrime",    mathpiper,"IsSmallPrime" );
-OMDef( "IsSquareFree",    mathpiper,"IsSquareFree" );
-OMDef( "IsTwinPrime",     mathpiper,"IsTwinPrime" );
+OMDef( "AmicablePair?",  mathpiper,"AmicablePair?" );
+OMDef( "CarmichaelNumber?", mathpiper,"CarmichaelNumber?" );
+OMDef( "Composite?",     mathpiper,"Composite?" );
+OMDef( "Coprime?",       mathpiper,"Coprime?" );
+OMDef( "IrregularPrime?", mathpiper,"IrregularPrime?" );
+OMDef( "Perfect?",       mathpiper,"Perfect?" );
+OMDef( "Prime?",         mathpiper,"Prime?" );
+OMDef( "PrimePower?",    mathpiper,"PrimePower?" );
+OMDef( "QuadraticResidue?", mathpiper,"QuadraticResidue?" );
+OMDef( "SmallPrime?",    mathpiper,"SmallPrime?" );
+OMDef( "SquareFree?",    mathpiper,"SquareFree?" );
+OMDef( "TwinPrime?",     mathpiper,"TwinPrime?" );
 OMDef( "LegendreSymbol",  mathpiper,"LegendreSymbol" );
 OMDef( "Moebius",         mathpiper,"Moebius" );
 OMDef( "NextPrime",       mathpiper,"NextPrime" );
@@ -897,9 +889,9 @@ OMDef( "StirlingNumber2", mathpiper,"StirlingNumber2" );
 OMDef( "Totient",         mathpiper,"Totient" );
 
 // From GaussianIntegers.mpi.def
-OMDef( "IsGaussianUnit",    mathpiper,"IsGaussianUnit" );
-OMDef( "IsGaussianInteger", mathpiper,"IsGaussianInteger" );
-OMDef( "IsGaussianPrime",   mathpiper,"IsGaussianPrime" );
+OMDef( "GaussianUnit?",    mathpiper,"GaussianUnit?" );
+OMDef( "GaussianInteger?", mathpiper,"GaussianInteger?" );
+OMDef( "GaussianPrime?",   mathpiper,"GaussianPrime?" );
 OMDef( "GaussianFactorPrime", mathpiper,"GaussianFactorPrime" );
 OMDef( "GaussianNorm",      mathpiper,"GaussianNorm" );
 OMDef( "GaussianMod",       mathpiper,"GaussianMod" );
@@ -910,11 +902,11 @@ OMDef( "GaussianGcd",       mathpiper,"GaussianGcd" );
 
 // From nthroot.mpi.def
 OMDef( "NthRoot",      mathpiper,"NthRoot" );
-OMDef( "NthRoot'Calc", mathpiper,"NthRoot'Calc" );
-OMDef( "NthRoot'List", mathpiper,"NthRoot'List" );
-OMDef( "NthRoot'Save", mathpiper,"NthRoot'Save" );
-OMDef( "NthRoot'Restore", mathpiper,"NthRoot'Restore" );
-OMDef( "NthRoot'Clear", mathpiper,"NthRoot'Clear" );
+OMDef( "NthRootCalc", mathpiper,"NthRootCalc" );
+OMDef( "NthRootList", mathpiper,"NthRootList" );
+OMDef( "NthRootSave", mathpiper,"NthRootSave" );
+OMDef( "NthRootRestore", mathpiper,"NthRootRestore" );
+OMDef( "NthRootClear", mathpiper,"NthRootClear" );
 
 // From NumberTheory.mpi.def
 OMDef( "DivisorsList", mathpiper,"DivisorsList" );
@@ -1057,7 +1049,7 @@ In> OMDef( {}, "set1","emptyset" )
 Result: True
 In> PipeFromString("<OMOBJ><OMS cd=\"set1\" name=\"emptyset\"/></OMOBJ> ")OMRead()
 Result: {}
-In> IsList(%)
+In> List?(%)
 Result: True
 Otherwise, a symbol that is not inside an application (OMA) gets translated to
 the MathPiper atom with the given name:

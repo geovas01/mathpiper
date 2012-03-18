@@ -5,3 +5,23 @@ Function("Magnitude",{x}) [
 ];
 
 %/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="Magnitude",categories="User Functions",access="undocumented"
+*CMD Magnitude --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

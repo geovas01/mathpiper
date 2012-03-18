@@ -25,19 +25,20 @@ import org.mathpiper.lisp.printers.LispPrinter;
 
 public class SublistCons extends Cons {
 
-    ConsPointer iCar;
-    ConsPointer iCdr;
+    Cons iCar;
+    
+    //This variable is placed here instead of in Cons because it makes viewing it 
+    // in the debugger easier.
+    private Cons iCdr;
 
-
-    private SublistCons(Environment aEnvironment, Cons aSubList) throws Exception {
+    private SublistCons(Cons aSubList) throws Exception {
         super();
-        iCar = new ConsPointer();
-        iCar.setCons(aSubList);
-        iCdr = new ConsPointer();
+
+        iCar = aSubList;
     }
 
     public static SublistCons getInstance(Environment aEnvironment, Cons aSubList) throws Exception {
-        return new SublistCons(aEnvironment, aSubList);
+        return new SublistCons(aSubList);
     }
 
 
@@ -46,18 +47,34 @@ public class SublistCons extends Cons {
     }
 
 
+    public void setCar(Object object) throws Exception
+    {
+        iCar = (Cons) object;
+    }
+
+
+    public Cons cdr() {
+        return iCdr;
+    }
+
+    public void setCdr(Cons aCons)
+    {
+        iCdr = aCons;
+    }
+
+
     /*
     public String toString()
     {
     return iCar.toString();
     }*/
-    public Cons copy(Environment aEnvironment, boolean aRecursed) throws Exception {
+    public Cons copy(boolean aRecursed) throws Exception {
         //TODO recursed copy needs to be implemented still
         //LispError.lispAssert(aRecursed == false, aEnvironment, aStackTop);
 
-        if(aRecursed != false) throw new EvaluationException("Internal error in SublistCons.","",-1,-1);
+        if(aRecursed != false) throw new EvaluationException("Internal error in SublistCons.","",-1,-1,-1);
 
-        Cons copied = new SublistCons(aEnvironment, iCar.getCons());
+        Cons copied = new SublistCons(iCar);
 
         copied.setMetadataMap(this.getMetadataMap());
         
@@ -66,22 +83,8 @@ public class SublistCons extends Cons {
 
 
 
-    public ConsPointer cdr() {
-        return iCdr;
-    }//end method.
 
 
-    @Override
-    public String toString() {
-        StringOutput out = new StringOutput();
-        LispPrinter printer = new LispPrinter();
-        try {
-            printer.print(-1, new ConsPointer(this), out, null);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return out.toString();
-    }//end method.
 
 
     public int type() {

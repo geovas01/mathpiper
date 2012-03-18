@@ -17,7 +17,6 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.tokenizers;
 
-import org.mathpiper.lisp.collections.TokenMap;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.lisp.Environment;
@@ -28,14 +27,14 @@ public class XmlTokenizer
     /// NextToken returns a string representing the next token,
     /// or an empty list.
     @Override
-    public String nextToken(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput, TokenMap aHashTable)
+    public String nextToken(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput)
             throws Exception {
 
         char c;
         int firstpos = 0;
 
         if (aInput.endOfStream()) {
-            return (String) aHashTable.lookUp(aInput.startPtr().substring(firstpos, aInput.position()));
+            return aInput.startPtr().substring(firstpos, aInput.position());
         }
 
         //skipping spaces
@@ -50,7 +49,7 @@ public class XmlTokenizer
 
             while (c != '>') {
                 c = aInput.next();
-                LispError.check(aEnvironment, aStackTop, !aInput.endOfStream(), LispError.COMMENT_TO_END_OF_FILE, "Last character read was <" + c + ">.","INTERNAL");
+                if(aInput.endOfStream()) LispError.throwError(aEnvironment, aStackTop, LispError.COMMENT_TO_END_OF_FILE, "Last character read was <" + c + ">.");
             }
         } else {
 
@@ -59,7 +58,7 @@ public class XmlTokenizer
             }
         }
 
-        return (String) aHashTable.lookUp(aInput.startPtr().substring(firstpos, aInput.position()));
+        return aInput.startPtr().substring(firstpos, aInput.position());
     }
 
 

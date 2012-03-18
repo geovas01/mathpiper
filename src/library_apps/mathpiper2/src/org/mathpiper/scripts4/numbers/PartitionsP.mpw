@@ -1,27 +1,27 @@
-%mathpiper,def="PartitionsP"
+%mathpiper,def="PartitionsP;PartitionsPHR;PartitionsP1;PartitionsPrecur"
 
 /// the restricted partition function
 /// partitions of length k
 
-5  # PartitionsP(n_IsInteger,0)                          <-- 0;
-5  # PartitionsP(n_IsInteger,n_IsInteger)        <-- 1;
-5  # PartitionsP(n_IsInteger,1)                        <-- 1;
-5  # PartitionsP(n_IsInteger,2)                        <-- Floor(n/2);
-5  # PartitionsP(n_IsInteger,3)                        <-- Round(n^2/12);
-6  # PartitionsP(n_IsInteger,k_IsInteger)_(k>?n) <-- 0;
-10 # PartitionsP(n_IsInteger,k_IsInteger)        <-- PartitionsP(n-1,k-1)+PartitionsP(n-k,k);
+5  # PartitionsP(n_Integer?,0)                          <-- 0;
+5  # PartitionsP(n_Integer?,n_Integer?)        <-- 1;
+5  # PartitionsP(n_Integer?,1)                        <-- 1;
+5  # PartitionsP(n_Integer?,2)                        <-- Floor(n/2);
+5  # PartitionsP(n_Integer?,3)                        <-- Round(n^2/12);
+6  # PartitionsP(n_Integer?,k_Integer?)_(k>?n) <-- 0;
+10 # PartitionsP(n_Integer?,k_Integer?)        <-- PartitionsP(n-1,k-1)+PartitionsP(n-k,k);
 
 /// the number of additive partitions of an integer
 5  # PartitionsP(0)        <-- 1;
 5  # PartitionsP(1)        <-- 1;
 // decide which algorithm to use
-10 # PartitionsP(n_IsInteger)_(n<?250) <-- PartitionsP'recur(n);
-20 # PartitionsP(n_IsInteger) <-- PartitionsP'HR(n);
+10 # PartitionsP(n_Integer?)_(n<?250) <-- PartitionsPrecur(n);
+20 # PartitionsP(n_Integer?) <-- PartitionsPHR(n);
 
 /// Calculation using the Hardy-Ramanujan series.
-10 # PartitionsP'HR(n_IsPositiveInteger) <--
+10 # PartitionsPHR(n_PositiveInteger?) <--
 [
-        Local(P0, A, lambda, mu, mu'k, result, term, j, k, l, prec, epsilon);
+        Local(P0, A, lambda, mu, muk, result, term, j, k, l, prec, epsilon);
         result:=0;
         term:=1;        // initial value must be nonzero
         GlobalPush(BuiltinPrecisionGet());
@@ -72,14 +72,14 @@
                         0,
                         N( A*Sqrt(k)*(
                           [
-                                  mu'k := mu/k;        // save time, compute mu/k once
-                            Exp(mu'k-mu)*(mu'k-1) + Exp(-mu'k-mu)*(mu'k+1);
+                                  muk := mu/k;        // save time, compute mu/k once
+                            Exp(muk-mu)*(muk-1) + Exp(-muk-mu)*(muk+1);
                           ]
                         )/(mu-1) )
                 );
 //                Echo("k=", k, "term=", term);
                 result := result + term;
-//                Echo("result", new'result* P0);
+//                Echo("result", newresult* P0);
         ];
         result := result * P0;
         BuiltinPrecisionSet(GlobalPop());
@@ -88,7 +88,7 @@
 
 // old code for comparison
 
-10 # PartitionsP1(n_IsPositiveInteger) <--
+10 # PartitionsP1(n_PositiveInteger?) <--
  [
                  Local(C,A,lambda,m,pa,k,h,term);
            GlobalPush(BuiltinPrecisionGet());
@@ -121,7 +121,7 @@
 /// integer partitions by recurrence relation P(n) = Sum(k,1,n, (-1)^(k+1)*( P(n-k*(3*k-1)/2)+P(n-k*(3*k+1)/2) ) ) = P(n-1)+P(n-2)-P(n-5)-P(n-7)+...
 /// where 1, 2, 5, 7, ... is the "generalized pentagonal sequence"
 /// this method is faster with internal math for number<300 or so.
-PartitionsP'recur(number_IsPositiveInteger) <--
+PartitionsPrecur(number_PositiveInteger?) <--
 [
         // need storage of n values PartitionsP(k) for k=1,...,n
         Local(sign, cache, n, k, pentagonal, P);
@@ -146,6 +146,6 @@ PartitionsP'recur(number_IsPositiveInteger) <--
         ];
         cache[number+1];
 ];
-PartitionsP'recur(0) <-- 1;
+PartitionsPrecur(0) <-- 1;
 
 %/mathpiper

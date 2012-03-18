@@ -60,13 +60,13 @@ Pslq(x, precision) :=
 //tmp:=DivideN(tmp,1.0);
 //Echo("tmp is ",tmp);
 //MathDebugInfo(tmp);
-/*If(Not? IsPositiveNumber(tmp),
+/*If(Not? PositiveNumber?(tmp),
   Echo("******** not a positive number: ",tmp)
 );
-If(Not? IsNumber(tmp),
+If(Not? Number?(tmp),
   Echo("******** not a number: ",tmp)
 );
-If(IsLessThan(tmp,0),
+If(LessThan?(tmp,0),
 [
   Echo("******** not positive: ",tmp);
 ]
@@ -75,11 +75,11 @@ If(IsLessThan(tmp,0),
     s[k]:=SqrtN(tmp);
 
 
-/*If(Not? IsNumber(tmp),
+/*If(Not? Number?(tmp),
 [
 Echo("************** tmp = ",tmp);
 ]);
-If(Not? IsNumber(s[k]),
+If(Not? Number?(s[k]),
 [
 Echo("************** s[k] = ",s[k]);
 ]);*/
@@ -89,7 +89,7 @@ Echo("************** s[k] = ",s[k]);
 //Echo("3...");
 
   tmp:=N(Eval(s[1]));
-/*If(Not? IsNumber(tmp),
+/*If(Not? Number?(tmp),
 [
 Echo("************** tmp = ",tmp);
 ]);*/
@@ -100,11 +100,11 @@ Echo("************** tmp = ",tmp);
     s[k]:=N(Eval(s[k]/tmp));
 
 //Echo("1..."," ",y[k]," ",s[k]);
-/*If(Not? IsNumber(y[k]),
+/*If(Not? Number?(y[k]),
 [
 Echo("************** y[k] = ",y[k]);
 ]);
-If(Not? IsNumber(s[k]),
+If(Not? Number?(s[k]),
 [
 Echo("************** s[k] = ",s[k]);
 ]);*/
@@ -125,7 +125,7 @@ Echo("************** s[k] = ",s[k]);
       H[i][j]:= N(-(y[i]*y[j])/(s[j]*s[j + 1]));
 //Echo("4.3...");
 
-/*If(Not? IsNumber(H[i][j]),
+/*If(Not? Number?(H[i][j]),
 [
 Echo("************** H[i][j] = ",H[i][j]);
 ]
@@ -207,12 +207,12 @@ Echo("************** H[i][j] = ",H[i][j]);
       t1:=H[m][ m]/t0;
       t2:=H[m][ m + 1]/t0;
 
-//      If(IsZero(t0),t0:=N(Confidence));
+//      If(Zero?(t0),t0:=N(Confidence));
 //Echo("");
 //Echo("H[m][ m] = ",N(H[m][ m]));
 //Echo("H[m][ m+1] = ",N(H[m][ m+1]));
 
-//If(IsZero(t0),[t1:=Infinity;t2:=Infinity;]);
+//If(Zero?(t0),[t1:=Infinity;t2:=Infinity;]);
 //Echo("t0=",N(t0));
 //Echo("t1=",N(t1));
 //Echo("t2=",N(t2));

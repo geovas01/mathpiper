@@ -1,4 +1,4 @@
-%mathpiper,def="PollardRhoFactorize"
+%mathpiper,def="PollardRhoFactorize;PollardRhoPolynomial"
 
 /* This is Pollard's Rho method of factorizing, as described in
  * "Modern Computer Algebra". It is a rather fast algorithm for
@@ -29,7 +29,7 @@ This problem could also be circumvented by trying a different random initial val
 /// Polynomial for the Pollard Rho iteration
 PollardRhoPolynomial(_x) <-- x^2+1;
 
-2# PollardRhoFactorize(n_IsPrimePower) <-- {GetPrimePower(n)};
+2# PollardRhoFactorize(n_PrimePower?) <-- {GetPrimePower(n)};
 3# PollardRhoFactorize(_n) <--
 [
   Local(x,y,restarts,gcd,repeat);
@@ -71,3 +71,23 @@ PollardRhoPolynomial(_x) <-- x^2+1;
 ];
 
 %/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="PollardRhoFactorize",categories="User Functions",access="undocumented"
+*CMD PollardRhoFactorize --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

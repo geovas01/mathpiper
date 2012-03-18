@@ -15,20 +15,20 @@ public class OneTailAlphaToTScore extends BuiltinFunction{
 
     public void plugIn(Environment aEnvironment) throws Exception
     {
+        this.functionName = "OneTailAlphaToTScore";
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "OneTailAlphaToTScore");
+                this.functionName, new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         BigNumber degreesOfFreedom = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
 
-        LispError.check(aEnvironment, aStackTop, degreesOfFreedom.isInteger() && degreesOfFreedom.toInt() >= 0, "The first argument must be an integer which is greater than 0.", "OneTailAlphaToTScore");
+        if(!degreesOfFreedom.isInteger() || degreesOfFreedom.toInt() < 0) LispError.throwError(aEnvironment, aStackTop, "The first argument must be an integer which is greater than 0.");
 
         BigNumber alpha = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 2);
 
-        LispError.check(aEnvironment, aStackTop, alpha.toDouble() >= 0 && alpha.toDouble() <= .5, "The second argument must be greater than 0 and less than or equal to .5.", "OneTailAlphaToTScore");
+        if(alpha.toDouble() < 0 || alpha.toDouble() > .5) LispError.throwError(aEnvironment, aStackTop, "The second argument must be greater than 0 and less than or equal to .5.");
 
         double cdf = Probability.studentTInverse(alpha.toDouble()*2, (int) degreesOfFreedom.toLong());
 
@@ -36,7 +36,7 @@ public class OneTailAlphaToTScore extends BuiltinFunction{
 
         tScore.setTo(cdf);
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(tScore));
+        setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(tScore));
 
     }//end method.
 

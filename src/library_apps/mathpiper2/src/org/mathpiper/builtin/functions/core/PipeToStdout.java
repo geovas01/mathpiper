@@ -21,6 +21,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.io.MathPiperOutputStream;
 
+
 /**
  *
  *  
@@ -28,13 +29,23 @@ import org.mathpiper.io.MathPiperOutputStream;
 public class PipeToStdout extends BuiltinFunction
 {
 
+    private PipeToStdout()
+    {
+    }
+
+    public PipeToStdout(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         MathPiperOutputStream previous = aEnvironment.iCurrentOutput;
         aEnvironment.iCurrentOutput = aEnvironment.iInitialOutput;
         try
         {
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 1));
+            setTopOfStack(aEnvironment, aStackTop, aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1)));
         } catch (Exception e)
         {
             throw e;

@@ -5,48 +5,54 @@
 //50 # -0 <-- 0;
 51 # -Undefined <-- Undefined;
 54 # - (- _x)      <-- x;
-55 # (- (x_IsNumber)) <-- SubtractN(0,x);
-100 # _x - n_IsConstant*(_x)   <-- (1-n)*x;
-100 # n_IsConstant*(_x) - _x   <-- (n-1)*x;
+55 # (- (x_Number?)) <-- SubtractN(0,x);
+100 # _x - n_Constant?*(_x)   <-- (1-n)*x;
+100 # n_Constant?*(_x) - _x   <-- (n-1)*x;
+
+100 # Sinh(_x)^2-Cosh(_x)^2         <-- 1;
+100 # Sinh(_x)-Cosh(_x)                <-- Exp(-x);
 
 110 # - (_x - _y) <-- y-x;
-111 # - (x_IsNumber / _y) <-- (-x)/y;        
+111 # - (x_Number? / _y) <-- (-x)/y;        
 LocalSymbols(x)
 [
-  200 # - (x_IsList) <-- MapSingle("-",x);
+  200 # - (x_List?) <-- MapSingle("-",x);
 ];
 
 /* Subtraction arity 2 */
-50  # x_IsNumber - y_IsNumber <-- SubtractN(x,y);
-50  # x_IsNumber - y_IsNumber <-- SubtractN(x,y);
+50  # x_Number? - y_Number? <-- SubtractN(x,y);
+50  # x_Number? - y_Number? <-- SubtractN(x,y);
 60  # Infinity - Infinity <-- Undefined;
 100 # 0 - _x <-- -x;
 100 # _x - 0 <-- x;
 100 # _x - _x <-- 0;
 
+107 # -( (-(_x))/(_y)) <-- x/y;
+107 # -( (_x)/(-(_y))) <-- x/y;
+
 110 # _x - (- _y) <-- x + y;
-110 # _x - (y_IsNegativeNumber) <-- x + (-y);
+110 # _x - (y_NegativeNumber?) <-- x + (-y);
 111 # (_x + _y)- _x <-- y;
 111 # (_x + _y)- _y <-- x;
 112 # _x - (_x + _y) <-- - y;
 112 # _y - (_x + _y) <-- - x;
 113 # (- _x) - _y <-- -(x+y);
-113 # (x_IsNegativeNumber) - _y <-- -((-x)+y);
-113 # (x_IsNegativeNumber)/_y - _z <-- -((-x)/y+z);
+113 # (x_NegativeNumber?) - _y <-- -((-x)+y);
+113 # (x_NegativeNumber?)/_y - _z <-- -((-x)/y+z);
 
 
 /* TODO move to this precedence everywhere? */
 LocalSymbols(x,y,xarg,yarg)
 [
-  10 # ((x_IsList) - (y_IsList))_(Length(x)=?Length(y)) <--
+  10 # ((x_List?) - (y_List?))_(Length(x)=?Length(y)) <--
   [
     Map({{xarg,yarg},xarg-yarg},{x,y});
   ];
 ];
 
-240 # (x_IsList - y_IsNonObject)_Not?(IsList(y)) <-- -(y-x);
+240 # (x_List? - y_NonObject?)_Not?(List?(y)) <-- -(y-x);
 
-241 # (x_IsNonObject - y_IsList)_Not?(IsList(x)) <--
+241 # (x_NonObject? - y_List?)_Not?(List?(x)) <--
 [
    Local(i,result);
    result:={};
@@ -55,18 +61,18 @@ LocalSymbols(x,y,xarg,yarg)
    result;
 ];
 
-250 # z_IsInfinity - Complex(_x,_y) <-- Complex(-x+z,-y);
-250 # Complex(_x,_y) - z_IsInfinity <-- Complex(x-z,y);
+250 # z_Infinity? - Complex(_x,_y) <-- Complex(-x+z,-y);
+250 # Complex(_x,_y) - z_Infinity? <-- Complex(x-z,y);
 
-251 # z_IsInfinity - _x <-- z;
-251 # _x - z_IsInfinity <-- -z;
+251 # z_Infinity? - _x <-- z;
+251 # _x - z_Infinity? <-- -z;
 
 250 # Undefined - _y <-- Undefined;
 250 # _x - Undefined <-- Undefined;
 // fractions
-210 # x_IsNumber - (y_IsNumber / z_IsNumber) <--(x*z-y)/z;
-210 # (y_IsNumber / z_IsNumber) - x_IsNumber <--(y-x*z)/z;
-210 # (x_IsNumber / v_IsNumber) - (y_IsNumber / z_IsNumber) <--(x*z-y*v)/(v*z);
+210 # x_Number? - (y_Number? / z_Number?) <--(x*z-y)/z;
+210 # (y_Number? / z_Number?) - x_Number? <--(y-x*z)/z;
+210 # (x_Number? / v_Number?) - (y_Number? / z_Number?) <--(x*z-y*v)/(v*z);
 
 %/mathpiper
 

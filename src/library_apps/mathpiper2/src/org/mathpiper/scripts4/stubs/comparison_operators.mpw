@@ -26,20 +26,20 @@
 
 
 // If n and m are numbers, use the standard LessThan function immediately
-5 # (n_IsNumber <? m_IsNumber) <-- IsLessThan(n-m,0);
+5 # (n_Number? <? m_Number?) <-- LessThan?(n-m,0);
 
 
 // If n and m are symbolic after a single evaluation, see if they can be coerced in to a real-valued number.
 LocalSymbols(nNum,mNum)
 [
-  10 # (_n <? _m)_[nNum:=N(Eval(n)); mNum:=N(Eval(m));IsNumber(nNum) And? IsNumber(mNum);] <-- IsLessThan(nNum-mNum,0);
+  10 # (_n <? _m)_[nNum:=N(Eval(n)); mNum:=N(Eval(m));Number?(nNum) And? Number?(mNum);] <-- LessThan?(nNum-mNum,0);
 ];
 
 // Deal with Infinity
-20 #  (Infinity <? _n)_(Not?(IsInfinity(n)))  <-- False;
-20 #  (-Infinity <? _n)_(Not?(IsInfinity(n))) <-- True;
-20 #  (_n <? Infinity)_(Not?(IsInfinity(n)))  <-- True;
-20 #  (_n <? -Infinity)_(Not?(IsInfinity(n))) <-- False;
+20 #  (Infinity <? _n)_(Not?(Infinity?(n)))  <-- False;
+20 #  (-Infinity <? _n)_(Not?(Infinity?(n))) <-- True;
+20 #  (_n <? Infinity)_(Not?(Infinity?(n)))  <-- True;
+20 #  (_n <? -Infinity)_(Not?(Infinity?(n))) <-- False;
 
 // Lots of known identities go here
 30 # (_n1/_n2) <? 0  <--  (n1 <? 0) !=? (n2 <? 0);
@@ -48,19 +48,19 @@ LocalSymbols(nNum,mNum)
 // This doesn't sadly cover the case where a and b have opposite signs
 30 # ((_n1+_n2) <? 0)_((n1 <? 0) And? (n2 <? 0))  <--  True;
 30 # ((_n1+_n2) <? 0)_((n1 >? 0) And? (n2 >? 0))  <--  False;
-30 #  _x^a_IsOdd  <? 0  <--  x <? 0;
-30 #  _x^a_IsEven <? 0  <--  False; // This is wrong for complex x
+30 #  _x^a_Odd?  <? 0  <--  x <? 0;
+30 #  _x^a_Even? <? 0  <--  False; // This is wrong for complex x
 
 // Add other functions here!  Everything we can compare to 0 should be here.
 40 # (Sqrt(_x))_(x >? 0) <? 0          <--  False;
 
-40 # (Sin(_x) <? 0)_(Not?(IsEven(N(x/Pi))) And? IsEven(N(Floor(x/Pi)))) <-- False;
-40 # (Sin(_x) <? 0)_(Not?(IsOdd (N(x/Pi))) And? IsOdd (N(Floor(x/Pi)))) <-- True;
+40 # (Sin(_x) <? 0)_(Not?(Even?(N(x/Pi))) And? Even?(N(Floor(x/Pi)))) <-- False;
+40 # (Sin(_x) <? 0)_(Not?(Odd? (N(x/Pi))) And? Odd? (N(Floor(x/Pi)))) <-- True;
 
 40 # Cos(_x) <? 0 <-- Sin(Pi/2-x) <? 0;
 
-40 # (Tan(_x) <? 0)_(Not?(IsEven(N(2*x/Pi))) And? IsEven(N(Floor(2*x/Pi)))) <-- False;
-40 # (Tan(_x) <? 0)_(Not?(IsOdd (N(2*x/Pi))) And? IsOdd (N(Floor(2*x/Pi)))) <-- True;
+40 # (Tan(_x) <? 0)_(Not?(Even?(N(2*x/Pi))) And? Even?(N(Floor(2*x/Pi)))) <-- False;
+40 # (Tan(_x) <? 0)_(Not?(Odd? (N(2*x/Pi))) And? Odd? (N(Floor(2*x/Pi)))) <-- True;
 
 // Functions that need special treatment with more than one of the comparison
 // operators as they always return true or false.  For these we must define
@@ -105,8 +105,8 @@ the result is {True} and it is {False} otherwise. If either of the expression is
 evaluation, the expression is returned with evaluated arguments.
 
 The word "numeric" in the previous paragraph has the following
-meaning. An expression is numeric if it is either a number (i.e. {IsNumber} returns {True}), or the
-quotient of two numbers, or an infinity (i.e. {IsInfinity} returns {True}). MathPiper will try to 
+meaning. An expression is numeric if it is either a number (i.e. {Number?} returns {True}), or the
+quotient of two numbers, or an infinity (i.e. {Infinity?} returns {True}). MathPiper will try to 
 coerce the arguments passed to this comparison operator to a real value before making the comparison.
 
 *E.G.
@@ -116,7 +116,7 @@ Result: True;
 In> Cos(1) <? 5;
 Result: True;
 
-*SEE IsNumber, IsInfinity, N
+*SEE Number?, Infinity?, N
 %/mathpiper_docs
 
 
@@ -142,8 +142,8 @@ the result is {True} and it is {False} otherwise. If either of the expression is
 evaluation, the expression is returned with evaluated arguments.
 
 The word "numeric" in the previous paragraph has the following
-meaning. An expression is numeric if it is either a number (i.e. {IsNumber} returns {True}), or the
-quotient of two numbers, or an infinity (i.e. {IsInfinity} returns {True}). MathPiper will try to 
+meaning. An expression is numeric if it is either a number (i.e. {Number?} returns {True}), or the
+quotient of two numbers, or an infinity (i.e. {Infinity?} returns {True}). MathPiper will try to 
 coerce the arguments passed to this comparison operator to a real value before making the comparison.
 
 *E.G.
@@ -153,7 +153,7 @@ Result: False;
 In> Cos(1) >? 5;
 Result: False
 
-*SEE IsNumber, IsInfinity, N
+*SEE Number?, Infinity?, N
 %/mathpiper_docs
 
 
@@ -180,8 +180,8 @@ numeric, after evaluation, the expression is returned with evaluated
 arguments.
 
 The word "numeric" in the previous paragraph has the following
-meaning. An expression is numeric if it is either a number (i.e. {IsNumber} returns {True}), or the
-quotient of two numbers, or an infinity (i.e. {IsInfinity} returns {True}). MathPiper will try to 
+meaning. An expression is numeric if it is either a number (i.e. {Number?} returns {True}), or the
+quotient of two numbers, or an infinity (i.e. {Infinity?} returns {True}). MathPiper will try to 
 coerce the arguments passed to this comparison operator to a real value before making the comparison.
 
 *E.G.
@@ -191,7 +191,7 @@ Result: True;
 In> Cos(1) <=? 5;
 Result: True
 
-*SEE IsNumber, IsInfinity, N
+*SEE Number?, Infinity?, N
 %/mathpiper_docs
 
 
@@ -218,8 +218,8 @@ numeric, after evaluation, the expression is returned with evaluated
 arguments.
 
 The word "numeric" in the previous paragraph has the following
-meaning. An expression is numeric if it is either a number (i.e. {IsNumber} returns {True}), or the
-quotient of two numbers, or an infinity (i.e. {IsInfinity} returns {True}). MathPiper will try to 
+meaning. An expression is numeric if it is either a number (i.e. {Number?} returns {True}), or the
+quotient of two numbers, or an infinity (i.e. {Infinity?} returns {True}). MathPiper will try to 
 coerce the arguments passed to this comparison operator to a real value before making the comparison.
 
 *E.G.
@@ -229,7 +229,7 @@ Result: False;
 In> Cos(1) >=? 5;
 Result: False
 
-*SEE IsNumber, IsInfinity, N
+*SEE Number?, Infinity?, N
 %/mathpiper_docs
 
 

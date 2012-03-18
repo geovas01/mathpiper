@@ -24,7 +24,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -71,6 +71,11 @@ class AsynchronousInterpreter implements Interpreter
         }
         return singletonInstance;
     }
+
+
+    public boolean initialize() {
+        return interpreter.initialize();
+    }
     
     public synchronized EvaluationResponse evaluate(String inputExpression) {
 	    return this.evaluate(inputExpression, false);
@@ -89,8 +94,8 @@ class AsynchronousInterpreter implements Interpreter
     }//end method.
 
 
-    public synchronized EvaluationResponse evaluate(ConsPointer inputExpressionPointer) {
-        return interpreter.evaluate(inputExpressionPointer);
+    public synchronized EvaluationResponse evaluate(Cons inputExpression) {
+        return interpreter.evaluate(inputExpression);
     }
 
 
@@ -151,11 +156,9 @@ class AsynchronousInterpreter implements Interpreter
             } catch (ExecutionException e)
             {
                 evaluationResponse = EvaluationResponse.newInstance();
-                evaluationResponse.setExceptionMessage(e.getMessage());
             } catch (InterruptedException e)
             {
                 evaluationResponse = EvaluationResponse.newInstance();
-                evaluationResponse.setExceptionMessage(e.getMessage());
             }
 
         }//done.

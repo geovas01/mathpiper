@@ -1,4 +1,4 @@
-%mathpiper,def="Plot2D"
+%mathpiper,def="Plot2D;Plot2Dgetdata;Plot2Dadaptive"
 
 //Retract("Plot2D", *);
 
@@ -10,17 +10,17 @@
 //LoadScriptOnce("plots.rep/backends_2d.mpi");
 
 /*
-        Plot2D is an interface for various backends (Plot2D'...). It calls
-Plot2D'get'data to obtain the list of points and values, and then it calls
-Plot2D'<backend> on that data.
+        Plot2D is an interface for various backends (Plot2D...). It calls
+Plot2Dgetdata to obtain the list of points and values, and then it calls
+Plot2D<backend> on that data.
 
-        Algorithm for Plot2D'get'data:
+        Algorithm for Plot2Dgetdata:
         1) Split the given interval into Quotient(points+3, 4) subintervals, and split each subinterval into 4 parts.
-        2) For each of the parts: evaluate function values and call Plot2D'adaptive
+        2) For each of the parts: evaluate function values and call Plot2Dadaptive
         3) concatenate resulting lists and return
 */
 
-LocalSymbols(var, func, range, option, options'list, delta, options'hash, c, fc, all'values, dummy)
+LocalSymbols(var, func, range, option, optionslist, delta, optionshash, c, fc, allvalues, dummy)
 [
 
 // declaration of Plot2D with variable number of arguments
@@ -31,30 +31,30 @@ Function() Plot2D(func, range, options, ...);
 /// interface routines
 1 # Plot2D(_func) <-- ("Plot2D" @ {func, -5:5});
 2 # Plot2D(_func, _range) <-- ("Plot2D" @ {func, range, {}});
-3 # Plot2D(_func, _range, option_IsFunction) _ (Type(option) =? "->" )  <-- ("Plot2D" @ {func, range, {option}});
+3 # Plot2D(_func, _range, option_Function?) _ (Type(option) =? "->" )  <-- ("Plot2D" @ {func, range, {option}});
 
 /// Plot a single function
-5 # Plot2D(_func, _range, options'list_IsList)_(Not? IsList(func)) <-- ("Plot2D" @ {{func}, range, options'list});
+5 # Plot2D(_func, _range, optionslist_List?)_(Not? List?(func)) <-- ("Plot2D" @ {{func}, range, optionslist});
 
 /// Top-level 2D plotting routine:
 /// plot several functions sharing the same xrange and other options
-4 # Plot2D(func'list_IsList, _range, options'list_IsList) <--
+4 # Plot2D(funclist_List?, _range, optionslist_List?) <--
 [
-        Local(var, func, delta, options'hash, c, fc, all'values, dummy);
-        all'values := {};
-        options'hash := "OptionsListToHash" @ {options'list};
+        Local(var, func, delta, optionshash, c, fc, allvalues, dummy);
+        allvalues := {};
+        optionshash := "OptionsListToHash" @ {optionslist};
     
     
         // this will be a string - name of independent variable
-        options'hash["xname"] := "";
+        optionshash["xname"] := "";
         // this will be a list of strings - printed forms of functions being plotted
-        options'hash["yname"] := {};
+        optionshash["yname"] := {};
         // parse range
         If (
                 Type(range) =? "->",        // variable also specified -- ignore for now, store in options
                 [
                         // store alternative variable name
-                        options'hash["xname"] := ToString(range[1]);
+                        optionshash["xname"] := ToString(range[1]);
                         range := range[2];
                 ]
         );
@@ -64,52 +64,52 @@ Function() Plot2D(func, range, options, ...);
         );
         // set default option values
         If(
-                options'hash["points"] =? Empty,
-                options'hash["points"] := 23
+                optionshash["points"] =? Empty,
+                optionshash["points"] := 23
         );
         If(
-                options'hash["depth"] =? Empty,
-                options'hash["depth"] := 5
+                optionshash["depth"] =? Empty,
+                optionshash["depth"] := 5
         );
         If(
-                options'hash["precision"] =? Empty,
-                options'hash["precision"] := 0.0001
+                optionshash["precision"] =? Empty,
+                optionshash["precision"] := 0.0001
         );
         If(
-                options'hash["output"] =? Empty Or? IsString(options'hash["output"]) And? Plot2DOutputs()[options'hash["output"]] =? Empty,
-                options'hash["output"] := Plot2DOutputs()["default"]
+                optionshash["output"] =? Empty Or? String?(optionshash["output"]) And? Plot2DOutputs()[optionshash["output"]] =? Empty,
+                optionshash["output"] := Plot2DOutputs()["default"]
         );
         // a "filename" parameter is required when using data file
         If(
-                options'hash["output"] =? "datafile" And? options'hash["filename"] =? Empty,
-                options'hash["filename"] := "output.data"
+                optionshash["output"] =? "datafile" And? optionshash["filename"] =? Empty,
+                optionshash["filename"] := "output.data"
         );
     
         // we will divide each subinterval in 4 parts, so divide number of points by 4 now
-        options'hash["points"] := N(Eval(Quotient(options'hash["points"]+3, 4)));
+        optionshash["points"] := N(Eval(Quotient(optionshash["points"]+3, 4)));
     
         // in case it is not a simple number but an unevaluated expression
-        options'hash["precision"] := N(Eval(options'hash["precision"]));
+        optionshash["precision"] := N(Eval(optionshash["precision"]));
     
         // store range in options
-        options'hash["xrange"] := {range[1], range[2]};
+        optionshash["xrange"] := {range[1], range[2]};
     
         // compute the separation between grid points
-        delta := N(Eval( (range[2] - range[1]) / (options'hash["points"]) ));
+        delta := N(Eval( (range[2] - range[1]) / (optionshash["points"]) ));
     
         // check that the input parameters are valid (all numbers)
-        Check(IsNumber(range[1]) And? IsNumber(range[2]) And? IsNumber(options'hash["points"]) And? IsNumber(options'hash["precision"]),
+        Check(Number?(range[1]) And? Number?(range[2]) And? Number?(optionshash["points"]) And? Number?(optionshash["precision"]),
                 "Argument",
-                "Plot2D: Error: plotting range '"
+                "Plot2D: Error: plotting range "
                 :(PipeToString()Write(range))
-                :"' and/or the number of points '"
-                :(PipeToString()Write(options'hash["points"]))
-                :"' and/or precision '"
-                :(PipeToString()Write(options'hash["precision"]))
-                :"' is not numeric"
+                :" and/or the number of points "
+                :(PipeToString()Write(optionshash["points"]))
+                :" and/or precision "
+                :(PipeToString()Write(optionshash["precision"]))
+                :" is not numeric"
         );
         // loop over functions in the list
-        ForEach(func, func'list)
+        ForEach(func, funclist)
         [
                 // obtain name of variable
                 var := VarList(func);        // variable name in a one-element list
@@ -120,32 +120,32 @@ Function() Plot2D(func, range, options, ...);
                 If(Length(var)=?0, var:={dummy});
                 // store variable name if not already done so
                 If(
-                        options'hash["xname"] =? "",
-                        options'hash["xname"] := ToString(VarList(var)[1])
+                        optionshash["xname"] =? "",
+                        optionshash["xname"] := ToString(VarList(var)[1])
                 );
                 // store function name in options
-                DestructiveAppend(options'hash["yname"], PipeToString()Write(func));
+                DestructiveAppend(optionshash["yname"], PipeToString()Write(func));
                 // compute the first point to see if it's okay
                 c := range[1];
                 fc := N(Eval(Apply({var, func}, {c})));
-                Check(IsNumber(fc) Or? fc=?Infinity Or? fc=? -Infinity Or? fc=?Undefined,
+                Check(Number?(fc) Or? fc=?Infinity Or? fc=? -Infinity Or? fc=?Undefined,
                         "Argument", 
-                        "Plot2D: Error: cannot evaluate function '"
+                        "Plot2D: Error: cannot evaluate function "
                         :(PipeToString()Write(func))
-                        :"' at point '"
+                        :" at point "
                         :(PipeToString()Write(c))
-                        :"' to a number, instead got '"
+                        :" to a number, instead got "
                         :(PipeToString()Write(fc))
-                        :"'"
+                        :""
                 );
                 // compute all other data points
-                DestructiveAppend(all'values,  Plot2D'get'data(func, var, c, fc, delta, options'hash) );
+                DestructiveAppend(allvalues,  Plot2Dgetdata(func, var, c, fc, delta, optionshash) );
         
-                If(InVerboseMode(), Echo({"Plot2D: using ", Length(all'values[Length(all'values)]), " points for function ", func}), True);
+                If(InVerboseMode(), Echo({"Plot2D: using ", Length(allvalues[Length(allvalues)]), " points for function ", func}), True);
         ];
     
         // call the specified output backend
-        Plot2DOutputs()[options'hash["output"]] @ {all'values, options'hash};
+        Plot2DOutputs()[optionshash["output"]] @ {allvalues, optionshash};
 ];
 
 //HoldArgument("Plot2D", range);
@@ -156,41 +156,41 @@ HoldArgumentNumber("Plot2D", 3, 3);
 
 
 
-//Retract("Plot2D'get'data", *);
+//Retract("Plot2Dgetdata", *);
 /// this is the middle-level plotting routine; it generates the initial
 /// grid, calls the adaptive routine, and gathers data points.
 /// func must be just one function (not a list)
-Plot2D'get'data(_func, _var, _x'init, _y'init, _delta'x, _options'hash) <--
+Plot2Dgetdata(_func, _var, _xinit, _yinit, _deltax, _optionshash) <--
 [
         Local(i, a, fa, b, fb, c, fc, result);
         // initialize list by first points (later will always use Rest() to exclude first points of subintervals)
-        result := { {c,fc} := {x'init, y'init} };
-        For(i:=0, i<?options'hash["points"], i++)
+        result := { {c,fc} := {xinit, yinit} };
+        For(i:=0, i<?optionshash["points"], i++)
         [
-                {a,fa} := {c, fc};        // this is to save time but here a = x'init + i*delta'x
+                {a,fa} := {c, fc};        // this is to save time but here a = xinit + i*deltax
                 // build subintervals
-                {b, c} := N(Eval({x'init + (i+1/2)*delta'x, x'init + (i+1)*delta'x}));        // this is not computed using "a" to reduce roundoff error
+                {b, c} := N(Eval({xinit + (i+1/2)*deltax, xinit + (i+1)*deltax}));        // this is not computed using "a" to reduce roundoff error
                 {fb, fc} := N(Eval(MapSingle({var, func}, {b, c})));
                 result := Concat(result,
-                        Rest(Plot2D'adaptive(func, var, {a,b,c}, {fa, fb, fc}, options'hash["depth"],
+                        Rest(Plot2Dadaptive(func, var, {a,b,c}, {fa, fb, fc}, optionshash["depth"],
                                 // since we are dividing into "points" subintervals, we need to relax precision
-                                options'hash["precision"]*options'hash["points"] )));
+                                optionshash["precision"]*optionshash["points"] )));
         ];
     
         result;
 ];
 
 //////////////////////////////////////////////////
-/// Plot2D'adaptive --- core routine to collect data
+/// Plot2Dadaptive --- core routine to collect data
 //////////////////////////////////////////////////
 /*
-        Plot2D'adaptive returns a list of pairs of coordinates { {x1,y1}, {x2,y2},...}
+        Plot2Dadaptive returns a list of pairs of coordinates { {x1,y1}, {x2,y2},...}
         All arguments except f() and var must be numbers. var is a one-element list containing the independent variable. The "a,b,c" and "fa, fb, fc" arguments are values of the function that are already computed -- we don't want to recompute them once more.
         See documentation (Algorithms.chapt.txt) for the description of the algorithm.
 */
 
-//Retract("Plot2D'adaptive", *);
-Plot2D'adaptive(_func, _var, {_a,_b,_c}, {_fa, _fb, _fc}, _depth, _epsilon) <--
+//Retract("Plot2Dadaptive", *);
+Plot2Dadaptive(_func, _var, {_a,_b,_c}, {_fa, _fb, _fc}, _depth, _epsilon) <--
 [
         Local(a1, b1, fa1, fb1);
 
@@ -201,7 +201,7 @@ Plot2D'adaptive(_func, _var, {_a,_b,_c}, {_fa, _fb, _fc}, _depth, _epsilon) <--
                 depth<=?0 Or?
                 (
                   // condition for the values not to oscillate too rapidly
-                  sign'change(fa, fa1, fb) + sign'change(fa1, fb, fb1) + sign'change(fb, fb1, fc) <=? 2
+                  signchange(fa, fa1, fb) + signchange(fa1, fb, fb1) + signchange(fb, fb1, fc) <=? 2
                   And?
                   // condition for the values not to change too rapidly
                   N(Eval(Abs( (fa-5*fa1+9*fb-7*fb1+2*fc)/24 ) ))        // this is the Simpson quadrature for the (fb,fb1) subinterval (using points b,b1,c), subtracted from the 4-point Newton-Cotes quadrature for the (fb,fb1) subinterval (using points a, a1, b, b1)
@@ -215,8 +215,8 @@ Plot2D'adaptive(_func, _var, {_a,_b,_c}, {_fa, _fb, _fc}, _depth, _epsilon) <--
                 // not okay, need to refine more
                 Concat(
                         // recursive call on two halves of the interval; relax precision by factor of 2
-                        Plot2D'adaptive(func, var, {a, a1, b}, {fa, fa1, fb}, depth-1, epsilon*2),        // Rest() omits the pair {b, fb}
-                        Rest(Plot2D'adaptive(func, var, {b, b1, c}, {fb, fb1, fc}, depth-1, epsilon*2))
+                        Plot2Dadaptive(func, var, {a, a1, b}, {fa, fa1, fb}, depth-1, epsilon*2),        // Rest() omits the pair {b, fb}
+                        Rest(Plot2Dadaptive(func, var, {b, b1, c}, {fb, fb1, fc}, depth-1, epsilon*2))
                 )
         );
 ];

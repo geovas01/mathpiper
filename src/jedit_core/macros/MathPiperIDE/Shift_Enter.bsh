@@ -104,83 +104,30 @@ else if (path.endsWith(".uasm")|| path.endsWith(".UASM") )
 }
 else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 {
-	//buffer.setMode("mathpiperide");
-	currentCaretPosition = textArea.getCaretPosition();
+	File tempFile = null;
 	
-	userSelection = textArea.getSelection();
-	
-	textArea.selectFold();
-	fold  = textArea.getSelection()[0];
-	foldStartIndex = fold.getStart();
-	foldEndIndex = fold.getEnd();
-	foldStartLine = fold.getStartLine();
-	foldEndLine = fold.getEndLine();
-	foldStartLineText = textArea.getLineText(foldStartLine);
-	if(!foldStartLineText.trim().startsWith("%"))
+	getFoldProperties(startLine)
 	{
-		org.gjt.sp.jedit.Macros.message(jEdit.getActiveView(),"You must place the cursor inside of a fold to execute it with <shift><Enter>.");
-		textArea.selectNone();
-		textArea.setCaretPosition(currentCaretPosition);
-		return;
-	}
-	codeStartLine = foldStartLine+1;
-	codeEndLine = foldEndLine-1;
-	codeStartIndex = fold.getStart(textArea.getBuffer(),codeStartLine);
-	codeEndIndex = fold.getEnd(textArea.getBuffer(),codeEndLine);
-	codeSelection = new Range(codeStartIndex, codeEndIndex);
-
-	textArea.setSelection(codeSelection);
-	
-
-
-
-	//Remove the whitespace at the end of the selected fold text.
-	allFoldText = textArea.getSelectedText().replaceAll("\\s+$", "");
-	//replaceAll("^\\s+", "");Remove whitespace at end of string.
-	//replaceAll("\\s+$", "");Remove whitespace at beginning of string.
-  //System.out.println("YYYY allFoldText: " + allFoldText); 
-
-
-	textArea.setSelection(null);
-
-	
-		//{{{ Fold information.
 		
-
-			foldStartSelection = new Range(foldStartIndex, foldStartIndex + foldStartLineText.length());
-			
-			
-			//Determine the indent character and how much the fold is indented by.  Then, create a string
-			//that indents one more level for the output fold.
-			indentCharType = foldStartLineText.charAt(0);
-			indentAmount = new StringBuffer();
-			if(indentCharType == 9 || indentCharType == 32)
-			{
-				
-				for(indentCount = 0; foldStartLineText.charAt(indentCount) == indentCharType; indentCount++)
-				{
-					indentAmount.append(indentCharType);
-				}//end for.
-				
-				
-				if(indentCharType == 9)
-				{indentAmount.append("\t");
-				}
-				else
-				{
-					indentAmount.append("    ");
-				}//end if/else/
-			}//end if.
-			else
-			{
-				indentAmount.append("    ");
-			}//end else.
-				
-			
-			
-			getFoldProperties(startLine)
-			{
-			
+		properties = new java.util.Hashtable();
+		properties.put("type","");
+		properties.put("preserve","true");
+		properties.put("input","");
+		properties.put("width","600");
+		properties.put("height","500");
+		properties.put("name","");
+		properties.put("output","output");
+		properties.put("collapse","false");
+		properties.put("clear","false");
+		properties.put("description","");
+		properties.put("pipe_to","");
+		properties.put("scope","local");
+		properties.put("ver","");
+		properties.put("truncate","");
+		
+		if(startLine > -1)
+		{
+		
 			foldStartLineText = textArea.getLineText(startLine);
 			//Obtain fold type.
 			typeText = foldStartLineText.substring(foldStartLineText.indexOf("%"));
@@ -197,22 +144,8 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 			
 			foldType = foldTypePropertyStrings[0];
 			foldType = foldType.trim();
-			
-			properties = new java.util.Hashtable();
 			properties.put("type",foldType);
-			properties.put("preserve","true");
-			properties.put("input","");
-			properties.put("width","600");
-			properties.put("height","500");
-			properties.put("name","");
-			properties.put("output","output");
-			properties.put("collapse","false");
-			properties.put("clear","false");
-			properties.put("description","");
-			properties.put("pipe_to","");
-			properties.put("scope","local");
-			properties.put("ver","");
-			properties.put("truncate","");
+	
 			
 			if(foldTypePropertyStrings.length != 1)
 			{
@@ -224,134 +157,333 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 					properties.put(key,value);
 				}//end for.
 			}//end if.
-			
-			return properties;
-			}//end function.
-			//}}}
-
-			foldProperties = getFoldProperties(foldStartLine);
-			foldType = foldProperties.get("type");
-			
-	
-/*	endDollarSignIndex = -1;
-	if(foldType.equalsIgnoreCase("%hoteqn"))
-	{
-		startDollarSignIndex = allFoldText.indexOf("$");
-		if(startDollarSignIndex != -1)
-		{
-			endDollarSignIndex = allFoldText.indexOf("$", startDollarSignIndex+1);
+		
 		}//end if.
+		
+		return properties;
+	}//end function.
 
-	}//end if.
-	*/	
-
-	/* Used when output folds were inside of the parent fold.
-	foldSections = allFoldText.split("%piper|%maxima|%lisp|%output|%geogebra|%beanshell|%hoteqn|%error|%html|%group");
-	codeText = foldSections[0];
-	codeText = codeText.replaceAll("\\s+$", "");//Note:tk:verify that this is needed.
-	*/
+				
+				
+	currentCaretPosition = textArea.getCaretPosition();
 	
-	if(foldProperties.get("type").equalsIgnoreCase("%html"))
-	{
-		codeText = allFoldText.trim();
-	}
+	currentLineNumber = textArea.getCaretLine();
+	
+	lineText = textArea.getLineText(currentLineNumber);
+	
+	if(lineText.startsWith("In>"))
+	{	
+		foldEndLine = currentLineNumber;
+		
+		foldType = "%In>";
+		
+		indentAmount = "    ";
+		
+		userSelection = textArea.getSelection();
+    }
 	else
 	{
-		codeText = allFoldText;
-	}//end if/else
+	
+		//buffer.setMode("mathpiperide");
+		currentCaretPosition = textArea.getCaretPosition();
+		
+		userSelection = textArea.getSelection();
+		
+		textArea.selectFold();
+		fold  = textArea.getSelection()[0];
+		foldStartIndex = fold.getStart();
+		foldEndIndex = fold.getEnd();
+		foldStartLine = fold.getStartLine();
+		foldEndLine = fold.getEndLine();
+		foldStartLineText = textArea.getLineText(foldStartLine);
+		if(!foldStartLineText.trim().startsWith("%"))
+		{
+			org.gjt.sp.jedit.Macros.message(jEdit.getActiveView(),"You must place the cursor inside of a fold to execute it with <shift><Enter>.");
+			textArea.selectNone();
+			textArea.setCaretPosition(currentCaretPosition);
+			return;
+		}
+		codeStartLine = foldStartLine+1;
+		codeEndLine = foldEndLine-1;
+		codeStartIndex = fold.getStart(textArea.getBuffer(),codeStartLine);
+		codeEndIndex = fold.getEnd(textArea.getBuffer(),codeEndLine);
+		codeSelection = new Range(codeStartIndex, codeEndIndex);
+	
+		textArea.setSelection(codeSelection);
+		
 	
 	
-	if(userSelection.length != 0)
-	{
-		textArea.setSelection(userSelection);
-		
-		codeText = textArea.getSelectedText();
-		
+	
+		//Remove the whitespace at the end of the selected fold text.
+		allFoldText = textArea.getSelectedText().replaceAll("\\s+$", "");
+		//replaceAll("^\\s+", "");Remove whitespace at end of string.
+		//replaceAll("\\s+$", "");Remove whitespace at beginning of string.
+	  //System.out.println("YYYY allFoldText: " + allFoldText); 
+	
+	
 		textArea.setSelection(null);
-	}
 	
-	
-	//Remove the rest of the fold text starting at \\ if present.
-	cutIndex = codeText.indexOf("\\\\");
-	if(cutIndex != -1)
-	{
-		codeText = codeText.substring(0,cutIndex);
-	}
-	
-/*	
-	//Do not include subfold as code.
-	if(endDollarSignIndex != -1)
-	{
-		subFoldIndex = allFoldText.indexOf("\u007b\u007b\u007b", endDollarSignIndex+1);
-	}
-	else
-	{
-		subFoldIndex = allFoldText.indexOf("\u007b\u007b\u007b");
-	}//end else.
-	
-	if(subFoldIndex != -1)
-	{
-		codeText = allFoldText.substring(0,subFoldIndex).replaceAll("\\s+$", "");
-	}
-	else
-	{
-		codeText = allFoldText;
-	}
-*/	
-   //System.out.println("YYYY: codeText " + codeText);
-
-//	noCrLf = text.replace("\n","").replace("\r","");
-	isolatedCodeLength = codeText.length();
-	isolatedCodeEndIndex = codeStartIndex + isolatedCodeLength;
-	
-	textArea.setCaretPosition(isolatedCodeEndIndex);
-
-	
-	try {
-        // Create temp file.
 		
-		if(foldType.equalsIgnoreCase("%maxima"))
+			//{{{ Fold information.
+			
+	
+				foldStartSelection = new Range(foldStartIndex, foldStartIndex + foldStartLineText.length());
+				
+				
+				//Determine the indent character and how much the fold is indented by.  Then, create a string
+				//that indents one more level for the output fold.
+				indentCharType = foldStartLineText.charAt(0);
+				indentAmount = new StringBuffer();
+				if(indentCharType == 9 || indentCharType == 32)
+				{
+					
+					for(indentCount = 0; foldStartLineText.charAt(indentCount) == indentCharType; indentCount++)
+					{
+						indentAmount.append(indentCharType);
+					}//end for.
+					
+					
+					if(indentCharType == 9)
+					{indentAmount.append("\t");
+					}
+					else
+					{
+						indentAmount.append("    ");
+					}//end if/else/
+				}//end if.
+				else
+				{
+					indentAmount.append("    ");
+				}//end else.
+					
+				
+				
+				//}}}
+	
+				foldProperties = getFoldProperties(foldStartLine);
+
+				foldType = foldProperties.get("type");
+				
+		
+	/*	endDollarSignIndex = -1;
+		if(foldType.equalsIgnoreCase("%hoteqn"))
 		{
-			fileExtension = ".mac";
-		}
-		else if(foldType.equalsIgnoreCase("%lisp"))
+			startDollarSignIndex = allFoldText.indexOf("$");
+			if(startDollarSignIndex != -1)
+			{
+				endDollarSignIndex = allFoldText.indexOf("$", startDollarSignIndex+1);
+			}//end if.
+	
+		}//end if.
+		*/	
+	
+		/* Used when output folds were inside of the parent fold.
+		foldSections = allFoldText.split("%piper|%maxima|%lisp|%output|%geogebra|%beanshell|%hoteqn|%error|%html|%group");
+		codeText = foldSections[0];
+		codeText = codeText.replaceAll("\\s+$", "");//Note:tk:verify that this is needed.
+		*/
+		
+		if(foldProperties.get("type").equalsIgnoreCase("%html"))
 		{
-			fileExtension = ".lisp";
-		}
-		else if(foldType.equalsIgnoreCase("%_fricas"))
-		{
-			fileExtension = ".input";
-		}
-		else if(foldType.equalsIgnoreCase("%reduce"))
-		{
-			fileExtension = ".red";
-			codeText = "OFF ECHO$\n" + codeText + "END$\n";
+			codeText = allFoldText.trim();
 		}
 		else
 		{
-			fileExtension = ".mpw_tmp";
-		}//end if/else.
+			codeText = allFoldText;
+		}//end if/else
 		
-        File tempFile = File.createTempFile("mathpiperide", fileExtension);
-    
-        // Delete temp file when program exits.
-        tempFile.deleteOnExit();
-    
-        // Write to temp file
-        BufferedWriter out = new BufferedWriter(new FileWriter(tempFile));
-        out.write(codeText);
-        out.close();
-		                                                                                        
-
-
 		
+		if(userSelection.length != 0)
+		{
+			textArea.setSelection(userSelection);
+			
+			codeText = textArea.getSelectedText();
+			
+			textArea.setSelection(null);
+		}
+	
+		
+		//Remove the rest of the fold text starting at \\ if present.
+		//cutIndex = codeText.indexOf("\\\\");
+		//if(cutIndex != -1)
+		//{
+		//	codeText = codeText.substring(0,cutIndex);
+		//}
+		
+	/*	
+		//Do not include subfold as code.
+		if(endDollarSignIndex != -1)
+		{
+			subFoldIndex = allFoldText.indexOf("\u007b\u007b\u007b", endDollarSignIndex+1);
+		}
+		else
+		{
+			subFoldIndex = allFoldText.indexOf("\u007b\u007b\u007b");
+		}//end else.
+		
+		if(subFoldIndex != -1)
+		{
+			codeText = allFoldText.substring(0,subFoldIndex).replaceAll("\\s+$", "");
+		}
+		else
+		{
+			codeText = allFoldText;
+		}
+	*/	
+	   //System.out.println("YYYY: codeText " + codeText);
+	
+	//	noCrLf = text.replace("\n","").replace("\r","");
+		isolatedCodeLength = codeText.length();
+		isolatedCodeEndIndex = codeStartIndex + isolatedCodeLength;
+		
+		textArea.setCaretPosition(isolatedCodeEndIndex);
+		
+		try {
+			// Create temp file.
+			
+			if(foldType.equalsIgnoreCase("%maxima"))
+			{
+				fileExtension = ".mac";
+			}
+			else if(foldType.equalsIgnoreCase("%lisp"))
+			{
+				fileExtension = ".lisp";
+			}
+			else if(foldType.equalsIgnoreCase("%_fricas"))
+			{
+				fileExtension = ".input";
+			}
+			else if(foldType.equalsIgnoreCase("%reduce"))
+			{
+				fileExtension = ".red";
+				codeText = "OFF ECHO$\n" + codeText + "END$\n";
+			}
+			else
+			{
+				fileExtension = ".mpw_tmp";
+			}//end if/else.
+			
+			tempFile = File.createTempFile("mathpiperide", fileExtension);
+		
+			// Delete temp file when program exits.
+			tempFile.deleteOnExit();
+		
+			// Write to temp file
+			BufferedWriter out = new BufferedWriter(new FileWriter(tempFile));
+			out.write(codeText);
+			out.close();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return;
+		}
+		collapseFold = foldProperties.get("collapse");                                                                                 
 
+	}//end else
+  
+	try{
 		result = "";
 		output_fold_type = "";
-		collapseFold = foldProperties.get("collapse");
 		
+		
+		if(foldType.equalsIgnoreCase("%In>"))
+		{
+			lineText = lineText.substring(3,lineText.length()).trim();
+			
+			if(! lineText.endsWith(";"))
+			{
+				lineText = lineText + ";";
+			}
+			
+			lineText = lineText.replace("\\","\\\\");
+			lineText = lineText.replace("\"","\\\"");
+			
+			//System.out.println(lineText);
+			
+			synchronousInterpreter = org.mathpiper.interpreters.Interpreters.getSynchronousInterpreter();
+			
+			wm.getDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME).setHaltButtonState(true);
+			
+			evaluationResponse = synchronousInterpreter.evaluate("LoadScript(\"" + lineText + "\");", true);
+			
+			result = evaluationResponse.getResult();
+			
+			
+			if(evaluationResponse.isExceptionThrown())
+			{	
+				exception = evaluationResponse.getException();
+				
+				if(exception instanceof org.mathpiper.exceptions.EvaluationException)
+				{
+					exception = (org.mathpiper.exceptions.EvaluationException) exception;
+					
+					startIndex = exception.getStartIndex();
+					
+					endIndex = exception.getEndIndex();
+					
+					adjustedErrorLineNumber = currentLineNumber; 
+					
+					errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
+	
+					errorResult =  exception.getMessage() + " Error near line " + (adjustedErrorLineNumber + 1) + " starting at index " + startIndex + ".";							
+					
+					filePath = textArea.getBuffer().getPath();
+				
+					errorSource.clear();
+				
+					errorSource.addError(new DefaultErrorSource.DefaultError( errorSource, ErrorSource.ERROR, filePath, adjustedErrorLineNumber, startIndex, endIndex, errorResult ) );
+					
+				}
+				else
+				{
+					errorResult =  exception.getMessage();
+				}
+				
+				
+				jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "error-list" );
+				
+				if(!evaluationResponse.getSideEffects().equalsIgnoreCase(""))
+				{
+					result = "Result: " + errorResult + "\n\nSide Effects:\n" + evaluationResponse.getSideEffects();
+				}
+				else
+				{
+					result = "Result: " + errorResult ;
+				}
+
+			}
+			else
+			{
+				if(!evaluationResponse.getSideEffects().equalsIgnoreCase(""))
+				{
+					result = "Result: " + evaluationResponse.getResult() + "\n\nSide Effects:\n" + evaluationResponse.getSideEffects();
+				}
+				else
+				{
+					result = "Result: " + result ;
+				}
+			}
+		
+		
+
+		
+		    wm.getDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME).setHaltButtonState(false);
+		    
+		    foldProperties = getFoldProperties(-1);
+		    
+		    collapseFold = foldProperties.get("collapse");
+		    
+		    output_fold_type = "%output";
+		
+		//textArea.insert("\n\n" + result + "\n.\n", false);
+		
+		//textArea.setCaretPosition(originalCaretPosition);
+		
+		//return;
+		}
 		///{{{ *** %mathpiper ***.
-		if(foldType.equalsIgnoreCase("%mathpiper"))    
+		else if(foldType.equalsIgnoreCase("%mathpiper"))    
 		{
 
 			//system = MathPiperInterpreter.getInstance();
@@ -383,22 +515,42 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 			{
 				//result = evaluationResponse[3] + ";Error near line: " + evaluationResponse[4];
 				
+				
+				exception = evaluationResponse.getException();
+				
+				if(exception instanceof org.mathpiper.exceptions.EvaluationException)
+				{
+					exception = (org.mathpiper.exceptions.EvaluationException) exception;
+					
+					errorLineNumber = exception.getLineNumber();
+					
+					startIndex = exception.getStartIndex();
+					
+					endIndex = exception.getEndIndex();
+					
+					
+					adjustedErrorLineNumber = foldStartLine + errorLineNumber; 
+					
+					errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
+	
+					errorResult =  exception.getMessage() + " Error near line " + (adjustedErrorLineNumber + 1) + " starting at index " + startIndex + ".";							
+					
+					filePath = textArea.getBuffer().getPath();
+				
+					errorSource.clear();
+				
+					errorSource.addError(new DefaultErrorSource.DefaultError( errorSource, ErrorSource.ERROR, filePath, adjustedErrorLineNumber, startIndex, endIndex, errorResult ) );
+					
+				}
+				else
+				{
+					errorResult =  exception.getMessage();
+				}
+				
+				
 				output_fold_type = "%error";
 				
-				errorLineNumber = evaluationResponse.getLineNumber();//("line_number"); //evaluationResponse[4];
-				
-				errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
 
-				adjustedErrorLineNumber = foldStartLine + (errorLineNumber + 2);
-				
-				errorResult =  evaluationResponse.getExceptionMessage() + " Error near line " + adjustedErrorLineNumber;							
-				
-				filePath = textArea.getBuffer().getPath();
-			
-				errorSource.clear();
-			
-				errorSource.addError(new DefaultErrorSource.DefaultError( errorSource, ErrorSource.ERROR, filePath, adjustedErrorLineNumber-1, 0, 0, errorResult ) );
-			
 				jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "error-list" );
 				
 				if(!evaluationResponse.getSideEffects().equalsIgnoreCase(""))
@@ -422,7 +574,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 					result = result.replace("$\"","");
 					result = result.replace(" ","");
 					//result = evaluationResponse[0];
-					output_fold_type = "%hoteqn";
+					output_fold_type = "%latex";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("openmath") )
 				{	
@@ -510,9 +662,9 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 			
 			asynchronousInterpreter.addResponseListener(responseListener);
 			
-			tempFilePath = tempFile.getAbsolutePath();
+			//tempFilePath = tempFile.getAbsolutePath();
 				
-			tempFilePath = ChangeToForwardSlash(tempFilePath);
+			//tempFilePath = ChangeToForwardSlash(tempFilePath);
 			
 				//System.out.println(tempFilePath);
         	
@@ -532,7 +684,13 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				catch(InterruptedException e)
 				{
 				}
-					asynchronousInterpreter.evaluate("LoadScript(\""+tempFilePath+"\");", true);
+				
+					//System.out.println("XXXXXXXX1 " + "LoadScript(\""+codeText+"\");");
+				    
+				    codeText = codeText.replace("\\","\\\\");
+					codeText = codeText.replace("\"","\\\"");
+					
+					asynchronousInterpreter.evaluate("LoadScript(\"" + codeText + "\");", true);
 					System.out.println("<shift><enter> submitted evaluation request. ");
 				}//end run.
 				
@@ -818,6 +976,68 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 		}//end if }}}		
 		
 		
+
+
+
+		///{{{ *** %prolog ***.
+		else if(foldType.equalsIgnoreCase("%prolog"))    
+		{
+						
+			try 
+			{   
+
+				jlogWrapper = org.mathpiper.ide.jlogplugin.JLogWrapper.getInstance();
+				
+				jlogWrapper.consultSource(codeText);
+
+				result="consulted";
+				
+				
+				output_fold_type = "%output";
+				
+			
+			}catch(Throwable e) 
+			{
+				if(e instanceof ubc.cs.JLog.Parser.SyntaxErrorException)
+				{
+					syntaxException = (ubc.cs.JLog.Parser.SyntaxErrorException) e;
+					
+					adjustedErrorLineNumber = foldStartLine + syntaxException.getLine() + 2;
+					
+					startIndex = syntaxException.getCharPos() + 1;
+					
+					errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
+	
+					errorResult =  syntaxException.getMessage();
+					
+					errorResult = errorResult.substring(0, errorResult.indexOf("at"));
+					
+					errorResult = errorResult + " Error near line " + adjustedErrorLineNumber + " just before index " + startIndex + ".";	
+					
+					filePath = textArea.getBuffer().getPath();
+				
+					errorSource.clear();
+				
+					errorSource.addError(new DefaultErrorSource.DefaultError( errorSource, ErrorSource.ERROR, filePath, adjustedErrorLineNumber - 1, startIndex, startIndex + 1, errorResult ) );
+					
+					jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "error-list" );
+					
+					
+					result = errorResult;
+				}
+				else
+				{
+					result = e.getMessage();
+				}
+				
+				output_fold_type = "%error ";
+			}
+			
+			
+
+					
+		}//end if }}}
+
 		
 		
 		
@@ -1262,6 +1482,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				editorPane.setEditable(false);
 				//editorPane.setPage(tempFilePath);
 				editorPane.setText(htmlTextWithLatex);
+				editorPane.setCaretPosition(0);
 				contentPane.add(editorScrollPane);//guiBox,BorderLayout.NORTH);
 				
 				
@@ -1354,6 +1575,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 					editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 					editorPane.setEditable(false);
 					editorPane.setText(htmlText);
+					editorPane.setCaretPosition(0);
 					contentPane.add(editorScrollPane);//guiBox,BorderLayout.NORTH);
 					
 					
@@ -1595,7 +1817,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 			//        mappings = mappings.assoc(var, e.getValue());
 			//}
 			//Var.pushThreadBindings(mappings);
-	System.out.println("XXXX " + path);
+	
 			ret = clojure.lang.Compiler.loadFile(tempFile.getAbsolutePath());
 			StringWriter writer = new StringWriter();
 			clojure.lang.RT.print(ret, writer);
@@ -1633,7 +1855,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 			//        mappings = mappings.assoc(var, e.getValue());
 			//}
 			//Var.pushThreadBindings(mappings);
-	System.out.println("XXXX " + path);
+	
 			ret = clojure.lang.Compiler.loadFile(tempFile.getAbsolutePath());
 			StringWriter writer = new StringWriter();
 			clojure.lang.RT.print(ret, writer);
@@ -1668,7 +1890,14 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 			
 			
 			
-			result = evaluationResponse.getExceptionMessage();
+			if(evaluationResponse.isExceptionThrown())
+			{
+				result = evaluationResponse.getException().getMessage();
+			}
+			else
+			{
+				result = "True";
+			}
 			
 			output_fold_type = "%output";
 			
@@ -1709,11 +1938,12 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				
 				result = result.trim();
 				
-				
+
 				//Send output to a macro if the macro is specified.
 				macro = foldProperties.get("pipe_to");
+		
 				//print("YYYYY " + macro);
-				if(! macro.equalsIgnoreCase(""))
+				if(macro != null && ! macro.equalsIgnoreCase(""))
 				{
 					//bshInterpreter = PiperInterpreter.getBshInstance();
 					bshInterpreter = bsi;
@@ -1729,7 +1959,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				}//end if.
 				
 						
-				
+
 				
 				void displayResult()
 				{

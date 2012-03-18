@@ -32,6 +32,16 @@ import org.mathpiper.lisp.LispError;
 public class PrecedenceGet extends BuiltinFunction
 {
 
+    private PrecedenceGet()
+    {
+    }
+
+    public PrecedenceGet(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         Operator op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
@@ -46,11 +56,11 @@ public class PrecedenceGet extends BuiltinFunction
                 {  // or maybe it's a bodied function
 
                     op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
-                    LispError.check(aEnvironment, aStackTop, op != null, LispError.IS_NOT_INFIX);
+                    if(op == null) LispError.throwError(aEnvironment, aStackTop, LispError.IS_NOT_INFIX);
                 }
             }
         }
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "" + op.iPrecedence));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + op.iPrecedence));
     }
 }
 

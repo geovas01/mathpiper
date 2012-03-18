@@ -16,11 +16,10 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp;
 
-import org.mathpiper.Scripts;
-import org.mathpiper.lisp.cons.ConsPointer;
+import java.util.Map;
+
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
-import org.mathpiper.io.StringInputStream;
 
 import org.mathpiper.lisp.rulebases.SingleArityRulebase;
 
@@ -67,52 +66,83 @@ public class LispExpressionEvaluator extends Evaluator {
      * @param aExpression     the expression to evaluate
      * @throws java.lang.Exception
      */
-    public void evaluate(Environment aEnvironment, int aStackTop, ConsPointer aResult, ConsPointer aExpression) throws Exception {
+    public Cons evaluate(Environment aEnvironment, int aStackTop, Cons aExpression) throws Exception {
 
-        LispError.lispAssert(aExpression.getCons() != null, aEnvironment, aStackTop);
+        if(aExpression == null) 
+        {
+            LispError.lispAssert(aEnvironment, aStackTop);
+        }
 
         aEnvironment.iEvalDepth++;
         if (aEnvironment.iEvalDepth >= aEnvironment.iMaxEvalDepth) {
-            /* if (aEnvironment.iEvalDepth > aEnvironment.iMaxEvalDepth + 20) {
-            LispError.check(aEnvironment, aStackTop, aEnvironment.iEvalDepth < aEnvironment.iMaxEvalDepth, LispError.USER_INTERRUPT, "INTERNAL");
-            } else {*/
-            LispError.check(aEnvironment, aStackTop, aEnvironment.iEvalDepth < aEnvironment.iMaxEvalDepth, LispError.MAXIMUM_RECURSE_DEPTH_REACHED, "Maximum recursed depth set to " + aEnvironment.iMaxEvalDepth + ".","INTERNAL");
+
+            if(aEnvironment.iEvalDepth >= aEnvironment.iMaxEvalDepth) LispError.throwError(aEnvironment, aStackTop, LispError.MAXIMUM_RECURSE_DEPTH_REACHED, "Maximum recursed depth set to " + aEnvironment.iMaxEvalDepth + ".");
             // }
         }
 
-        //if (Thread.interrupted()) {
-        //    LispError.raiseError("User halted calculation.", "", aStackTop, aEnvironment);
-        //}
+
+
+        if (Environment.haltEvaluation == true) {
+            Environment.haltEvaluation = false;
+
+            LispError.raiseError("User halted calculation.", aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex(), aStackTop, aEnvironment);
+        }
 
 
 
 
         // evaluate an atom: find the bound value (treat it as a variable)
         if (aExpression.car() instanceof String) {
-            String str = (String) aExpression.car();
-            if (str.charAt(0) == '\"') {
-                aResult.setCons(aExpression.getCons().copy(aEnvironment, false));
+
+            String atomName = (String) aExpression.car();
+
+            if (atomName.charAt(0) == '\"') {
+                //Handle string atoms.
                 aEnvironment.iEvalDepth--;
-                return;
+                return aExpression.copy(false);
             }
 
-            ConsPointer val = new ConsPointer();
-            aEnvironment.getGlobalVariable(aStackTop, str, val);
-            if (val.getCons() != null) {
-                aResult.setCons(val.getCons().copy(aEnvironment, false));
+
+            if (Character.isDigit(atomName.charAt(0))) {
+                //Handle number atoms.
                 aEnvironment.iEvalDepth--;
-                return;
+                return aExpression.copy(false);
             }
-            aResult.setCons(aExpression.getCons().copy(aEnvironment, false));
+
+
+            Cons val = aEnvironment.getLocalOrGlobalVariable(aStackTop, atomName);
+            if (val != null) {
+                aEnvironment.iEvalDepth--;
+                return val.copy(false);
+            }
+
+ 
+            /*
+            Map metaDataMap = aExpression.getCons().getMetadataMap();
+            int lineNumber = aEnvironment.iCurrentInput.iStatus.getLineNumber();
+            int startIndex = -1;
+            int endIndex = aEnvironment.iCurrentInput.iStatus.getLineIndex();
+            if (metaDataMap != null) {
+            lineNumber = (Integer) metaDataMap.get("lineNumber");
+            startIndex = (Integer) metaDataMap.get("startIndex");
+            endIndex = (Integer) metaDataMap.get("endIndex");
+            }
+            LispError.raiseError("Problem with atom ***(" + atomName + ")***, <wrong code: " + Utility.printLispExpression(-1, aExpression, aEnvironment, 50) + ">,", "[Internal]", lineNumber, startIndex, endIndex, aStackTop, aEnvironment);
+             */
+
+            //Handle unbound variables.
+
             aEnvironment.iEvalDepth--;
-            return;
+            return aExpression.copy(false);
+
+
         }
         {
 
 
-            if (aExpression.car() instanceof ConsPointer) {
-                ConsPointer functionAndArgumentsList = (ConsPointer) aExpression.car();
-                Cons head = functionAndArgumentsList.getCons();
+            if (aExpression.car() instanceof Cons) {
+                Cons functionAndArgumentsList = (Cons) aExpression.car();
+                Cons head = functionAndArgumentsList;
                 if (head != null) {
 
                     String functionName;
@@ -121,43 +151,53 @@ public class LispExpressionEvaluator extends Evaluator {
 
                         functionName = (String) head.car();
 
-                        //Built-in function handler.
+                      //Built-in function handler.
                         BuiltinFunctionEvaluator builtinInFunctionEvaluator = (BuiltinFunctionEvaluator) aEnvironment.getBuiltinFunctions().lookUp(functionName);
                         if (builtinInFunctionEvaluator != null) {
-                            builtinInFunctionEvaluator.evaluate(aEnvironment, aStackTop, aResult, functionAndArgumentsList);
+
                             aEnvironment.iEvalDepth--;
-                            return;
+                            return builtinInFunctionEvaluator.evaluate(aEnvironment, aStackTop, functionAndArgumentsList);
                         }
 
                         //User function handler.
                         SingleArityRulebase userFunction;
                         userFunction = getUserFunction(aEnvironment, aStackTop, functionAndArgumentsList);
                         if (userFunction != null) {
-                            userFunction.evaluate(aEnvironment, aStackTop, aResult, functionAndArgumentsList);
+                            
                             aEnvironment.iEvalDepth--;
-                            return;
-                        }
-                        
-                        if (functionName.equals("IsFreeOf")) {
-                            Utility.returnUnEvaluated(aStackTop, aResult, functionAndArgumentsList, aEnvironment);
-
-                            aEnvironment.iEvalDepth--;
-
-                            return;
+                            return userFunction.evaluate(aEnvironment, aStackTop,functionAndArgumentsList);
                         }
 
-                            LispError.raiseError("Function <" + functionName + ">  " + Utility.printLispExpression(-1, functionAndArgumentsList, aEnvironment, 50) +" <arity " + (Utility.listLength(aEnvironment, aStackTop, functionAndArgumentsList) - 1) + "> not defined.", "[Internal]", aStackTop, aEnvironment);
+
+                        if (functionName.equals("FreeOf?")) {
+
+                            aEnvironment.iEvalDepth--;
+
+                            return Utility.returnUnEvaluated(aStackTop,functionAndArgumentsList, aEnvironment);
+                        }
+                        Map metaDataMap = functionAndArgumentsList.getMetadataMap();
+
+                        int lineNumber = aEnvironment.getCurrentInput().iStatus.getLineNumber();
+                        int startIndex = -1;
+                        int endIndex = aEnvironment.getCurrentInput().iStatus.getLineIndex();
+
+                        if (metaDataMap != null) {
+                            lineNumber = (Integer) metaDataMap.get("lineNumber");
+                            startIndex = (Integer) metaDataMap.get("startIndex");
+                            endIndex = (Integer) metaDataMap.get("endIndex");
+                        }
+
+
+                        LispError.raiseError("Problem with function ***(" + functionName + ")***, <wrong code: " + Utility.printLispExpression(-1, functionAndArgumentsList, aEnvironment, 50) + ">, <the " + (Utility.listLength(aEnvironment, aStackTop, functionAndArgumentsList) - 1) + " parameter version of this function is not defined (MAKE SURE THE FUNCTION IS SPELLED CORRECTLY).>", lineNumber, startIndex, endIndex, aStackTop, aEnvironment);
 
 
                     } else {
                         //Pure function handler.
-                        ConsPointer operator = new ConsPointer();
-                        ConsPointer args2 = new ConsPointer();
-                        operator.setCons(functionAndArgumentsList.getCons());
-                        args2.setCons(functionAndArgumentsList.cdr().getCons());
-                        Utility.applyPure(aStackTop, operator, args2, aResult, aEnvironment);
+                        Cons operator = functionAndArgumentsList;
+                        Cons args2 = functionAndArgumentsList.cdr();
+                        
                         aEnvironment.iEvalDepth--;
-                        return;
+                        return Utility.applyPure(aStackTop, operator, args2, aEnvironment);
                     }
                     //printf("**** Undef: %s\n",head.String().String());
 
@@ -180,21 +220,22 @@ public class LispExpressionEvaluator extends Evaluator {
 
                 }
             }
-            aResult.setCons(aExpression.getCons().copy(aEnvironment, false));
+            
         }
         aEnvironment.iEvalDepth--;
+
+        return aExpression.copy(false);
     }
 
+    SingleArityRulebase getUserFunction(Environment aEnvironment, int aStackTop, Cons subList) throws Exception {
+        Cons head = subList;
 
-    SingleArityRulebase getUserFunction(Environment aEnvironment, int aStackTop, ConsPointer subList) throws Exception {
-        Cons head = subList.getCons();
-
-        LispError.check(aEnvironment, aStackTop, head.car() instanceof String, "No function name specified.", "INTERNAL");
+        if(! (head.car() instanceof String)) LispError.throwError(aEnvironment, aStackTop, "No function name specified.");
 
         String functionName = (String) head.car();
 
 
-
+  
         SingleArityRulebase userFunc = (SingleArityRulebase) aEnvironment.getRulebase(aStackTop, subList);
 
         //if (userFunc == null && functionName.equals("f")) {
@@ -205,102 +246,15 @@ public class LispExpressionEvaluator extends Evaluator {
         if (userFunc != null) {
             return userFunc;
 
-        } else if(aEnvironment.scripts != null) {
-            //MultipleArityRulebase multiUserFunc = aEnvironment.getMultipleArityRulebase(aStackTop, functionName, true);
+        } else {
+
 
             //System.out.println(functionName);
 
-            Scripts scripts = aEnvironment.scripts;
+            Utility.loadLibraryFunction(functionName, aEnvironment, aStackTop);
 
-            String[] scriptCode = scripts.getScript(functionName);
+            userFunc = (SingleArityRulebase) aEnvironment.getRulebase(aStackTop, subList);
 
-
-            LispError.check(aEnvironment, aStackTop, scriptCode != null, "No script returned for function: " + functionName + " from Scripts.java.", "INTERNAL");
-
-
-            if (scriptCode[0] == null) {
-                //DefFile def = multiUserFunc.iIsFunctionRead;
-
-                if (DEBUG) {
-                    /*Show loading... */
-
-                    if (VERBOSE_DEBUG) {
-                        /*char buf[1024];
-                        #ifdef HAVE_VSNPRINTF
-                        snprintf(buf,1024,"Debug> Loading file %s for function %s\n",def.iFileName.c_str(),head.String().c_str());
-                        #else
-                        sprintf(buf,      "Debug> Loading file %s for function %s\n",def.iFileName.c_str(),head.String().c_str());
-                        #endif
-                        aEnvironment.write(buf);*/
-                        if (TRACE_TO_STANDARD_OUT) {
-                            System.out.print("Debug> Reading function " + functionName + "\n");
-                        } else {
-                            aEnvironment.write("Debug> Reading function " + functionName + "\n");
-                        }
-
-                        int debugBreakpoint = 0;
-                    }
-                }
-
-
-
-                LispError.check(aEnvironment, aStackTop, scriptCode[1] != null, "No script returned for function: " + functionName + " from Scripts.java.", "INTERNAL");
-
-                aEnvironment.iCurrentInput.iStatus.setTo(functionName);
-
-                String scriptString = scriptCode[1];
-
-                /*
-                //Gzip + base64.
-                byte[] bytes = (new BASE64Decoder()).decodeBuffer(scriptCode[1]);
-                BufferedReader in = new BufferedReader(new InputStreamReader(
-                        new GZIPInputStream(new ByteArrayInputStream(bytes))));
-                StringBuffer buffer = new StringBuffer();
-                char[] charBuffer = new char[1024];
-                while (in.read(charBuffer) != -1) {
-                    buffer.append(charBuffer);
-                }
-                scriptString = buffer.toString();
-                */
-
-
-                StringInputStream functionInputStream = new StringInputStream(scriptString, aEnvironment.iCurrentInput.iStatus);
-
-                scriptCode[0] = "+";
-
-                Utility.doInternalLoad(aEnvironment, aStackTop, functionInputStream);
-
-                userFunc = (SingleArityRulebase) aEnvironment.getRulebase(aStackTop, subList);
-
-                //Utility.loadScriptOnce(aEnvironment, aStackTop, def.iFileName);
-
-                if (DEBUG) {
-                    //extern int VERBOSE_DEBUG;
-                    if (VERBOSE_DEBUG) {
-                        /*
-                        char buf[1024];
-                        #ifdef HAVE_VSNPRINTF
-                        snprintf(buf,1024,"Debug> Finished loading file %s\n",def.iFileName.c_str());
-                        #else
-                        sprintf(buf,      "Debug> Finished loading file %s\n",def.iFileName.c_str());
-                        #endif*/
-
-                        if (TRACE_TO_STANDARD_OUT) {
-                            System.out.print("Debug> Finished reading " + functionName + "\n");
-                        } else {
-                            aEnvironment.write("Debug> Finished reading " + functionName + "\n");
-                        }
-
-                    }
-                }
-
-            }
-            else
-            {
-               userFunc = null;
-            }
-
-            //userFunc = aEnvironment.getRulebase(aStackTop, subList);
         }
 
 
@@ -533,6 +487,5 @@ public class LispExpressionEvaluator extends Evaluator {
 
 
      */
-
 }//end class.
 

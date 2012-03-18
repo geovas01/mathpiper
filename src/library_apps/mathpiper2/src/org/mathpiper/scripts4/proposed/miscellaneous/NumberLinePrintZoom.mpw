@@ -1,4 +1,4 @@
-%mathpiper,def="NumberLinePrintZoom"
+%mathpiper,def="NumberLinePrintZoom;ZoomInOnce"
 
 //Retract("NumberLineZoom", *);
 
@@ -7,7 +7,7 @@
 LocalSymbols(ZoomInOnce)
 [
 
-    10 # NumberLinePrintZoom(_lowValue, _highValue, divisions_IsPositiveInteger, depth_IsPositiveInteger)_(lowValue <? highValue) <-- 
+    10 # NumberLinePrintZoom(_lowValue, _highValue, divisions_PositiveInteger?, depth_PositiveInteger?)_(lowValue <? highValue) <-- 
     [
     
         Local(numbers, stepAmount, zoomIndexes, nextZoomIndex, outputWidth, numbersString, output, randomStep, randomZoomNumber, iteration);
@@ -61,11 +61,11 @@ LocalSymbols(ZoomInOnce)
     
     
     
-    ZoomInOnce(_lowValue, _highValue, divisions_IsPositiveInteger)_(lowValue <? highValue) <--
+    ZoomInOnce(_lowValue, _highValue, divisions_PositiveInteger?)_(lowValue <? highValue) <--
     [
         Local(stepAmount, x, numbers);
         
-        stepAmount := If(IsDecimal(lowValue) Or? IsDecimal(highValue), N((highValue-lowValue)/divisions), (highValue-lowValue)/divisions);
+        stepAmount := If(Decimal?(lowValue) Or? Decimal?(highValue), N((highValue-lowValue)/divisions), (highValue-lowValue)/divisions);
         
         x := lowValue;
         

@@ -20,8 +20,9 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
+
 
 /**
  *
@@ -30,26 +31,37 @@ import org.mathpiper.lisp.Utility;
 public class If extends BuiltinFunction
 {
 
+    private If()
+    {
+    }
+
+    public If(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int nrArguments = Utility.listLength(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 0));
-        LispError.check(aEnvironment, aStackTop, nrArguments == 3 || nrArguments == 4, LispError.WRONG_NUMBER_OF_ARGUMENTS);
+        int nrArguments = Utility.listLength(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 0));
+        if( nrArguments != 3 && nrArguments != 4) LispError.throwError(aEnvironment, aStackTop, LispError.WRONG_NUMBER_OF_ARGUMENTS);
 
-        ConsPointer predicate = new ConsPointer();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, predicate, getArgumentPointer(aEnvironment, aStackTop, 1));
+        
+        Cons predicate = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1));
+
 
         if (Utility.isTrue(aEnvironment, predicate, aStackTop))
         {
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 0), 2));
+            setTopOfStack(aEnvironment, aStackTop, aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 0), 2)));
         } else
         {
-            LispError.checkArgument(aEnvironment, aStackTop, Utility.isFalse(aEnvironment, predicate, aStackTop), 1, "If");
+            if( Utility.isTrue(aEnvironment, predicate, aStackTop)) LispError.checkArgument(aEnvironment, aStackTop, 1);
             if (nrArguments == 4)
             {
-                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 0), 3));
+                setTopOfStack(aEnvironment, aStackTop,aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 0), 3)));
             } else
             {
-                Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+                setTopOfStack(aEnvironment, aStackTop, Utility.getFalseAtom(aEnvironment));
             }
         }
     }
@@ -95,7 +107,7 @@ numerically approximated.
 In> mysign(a);
 Result: -1;
 Hence a better implementation would be
-In> mysign(_x)_IsNumber(N(x)) <-- If \
+In> mysign(_x)_Number?(N(x)) <-- If \
 	  (IsPositiveReal(x), 1, -1);
 Result: True;
 %/mathpiper_docs

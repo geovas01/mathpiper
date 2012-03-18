@@ -1,4 +1,4 @@
-%mathpiper,def="TestEquivalent"
+%mathpiper,def="TestEquivalent;TestTwoLists"
 
 //Retract("TestEquivalent",*);
 //Retract("TestTwoLists",*);
@@ -11,9 +11,9 @@ Macro("TestEquivalent",{left,right})
     rightEval := @right;
     If(InVerboseMode(),
       [ NewLine(); Tell("    ",leftEval); Tell("   ",rightEval); ]);
-    If( IsList(leftEval),
+    If( List?(leftEval),
       [
-          If( IsList(rightEval),
+          If( List?(rightEval),
             [
                 // both are lists
                 If(InVerboseMode(),Tell("     both are lists "));
@@ -23,14 +23,14 @@ Macro("TestEquivalent",{left,right})
           );
       ],
       [
-          If( IsList(rightEval), 
+          If( List?(rightEval), 
             isEquiv := False,
             [
                 // neither is a list, so check equality of diff
                 If(InVerboseMode(),Tell("     neither is list "));
-                If(IsEquation(leftEval),
+                If(Equation?(leftEval),
                   [
-                      If(IsEquation(rightEval),
+                      If(Equation?(rightEval),
                         [
                             If(InVerboseMode(),Tell("      both are equations"));
                             Local(dLHs,dRHS);
@@ -43,7 +43,7 @@ Macro("TestEquivalent",{left,right})
                       );
                   ],
                   [
-                     If(IsEquation(rightEval),
+                     If(Equation?(rightEval),
                         isEquiv := False,
                         [
                             If(InVerboseMode(),Tell("      neither is equation"));
@@ -56,7 +56,7 @@ Macro("TestEquivalent",{left,right})
                                  Tell("    ",diff);
                               ]
                             );
-                            isEquiv   := ( IsZero(diff) Or? IsZeroVector(diff) );
+                            isEquiv   := ( Zero?(diff) Or? ZeroVector?(diff) );
                         ]
                       );
                    ]
@@ -82,7 +82,7 @@ Macro("TestEquivalent",{left,right})
 ];
 
 
-10 # TestTwoLists( L1_IsList, L2_IsList ) <--
+10 # TestTwoLists( L1_List?, L2_List? ) <--
 [
     If(InVerboseMode(),[Tell("   TestTwoLists");Tell("     ",L1);Tell("     ",L2);]);
     If(Length(L1)=?1 And? Length(L2)=?1,

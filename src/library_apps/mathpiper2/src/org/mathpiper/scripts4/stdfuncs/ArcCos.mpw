@@ -1,6 +1,6 @@
 %mathpiper,def="ArcCos"
 
-2 # ArcCos(x_IsNumber)_InNumericMode() <-- Internal'Pi()/2-ArcSin(x);
+2 # ArcCos(x_Number?)_InNumericMode() <-- InternalPi()/2-ArcSin(x);
 
  /* TODO check! */
 200 # ArcCos(0) <-- Pi/2;
@@ -15,7 +15,7 @@
 
 200 # ArcCos(Undefined) <-- Undefined;
 
-ArcCos(xlist_IsList) <-- MapSingle("ArcCos",xlist);
+ArcCos(xlist_List?) <-- MapSingle("ArcCos",xlist);
 
 110 # ArcCos(Complex(_r,_i)) <--
     (- I)*Ln(Complex(r,i) + (Complex(r,i)^2 - 1)^(1/2));

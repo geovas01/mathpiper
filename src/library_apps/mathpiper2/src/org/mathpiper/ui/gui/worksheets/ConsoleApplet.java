@@ -272,7 +272,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
         //stdoutput = new StringOutputStream(outp);
         String docBase = getDocumentBase().toString();
         interpreter = Interpreters.getSynchronousInterpreter(docBase);
-        interpreter.getEnvironment().iCurrentInput = new CachedStandardFileInputStream(interpreter.getEnvironment().iInputStatus);
+        interpreter.getEnvironment().setCurrentInput(new CachedStandardFileInputStream(interpreter.getEnvironment().iInputStatus));
 
 
         if (piperLogo != null)
@@ -891,7 +891,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
             
             if (response.isExceptionThrown() == true)
             {
-                addLinesStatic(48, "Error> ", response.getExceptionMessage());
+                addLinesStatic(48, "Error> ", response.getException().getMessage());
             }
             //AddLinesStatic(48, outputPrompt, response.getSideEffects());//TODO:tk: latex results are returned as a side effect, but normal results are not.  Also, what is a static line?.
             succeed = true;
@@ -1457,7 +1457,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 
         evaluationResponse = interpreter.evaluate(expression);
 
-        lastError = evaluationResponse.getExceptionMessage();  //Note:tk: need to check for null value.
+        lastError = evaluationResponse.getException().getMessage();  //Note:tk: need to check for null value.
         return evaluationResponse.getResult();
     }
 
@@ -1549,9 +1549,9 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 
                 calculating = false;
                 addOutputLine(outputStringBuffer.toString());
-                if (evaluationResponse != null && evaluationResponse.getExceptionMessage() != null)
+                if (evaluationResponse != null && evaluationResponse.isExceptionThrown())
                 {
-                    addLinesStatic(48, "Error> ", evaluationResponse.getExceptionMessage());
+                    addLinesStatic(48, "Error> ", evaluationResponse.getException().getMessage());
                 }
 
                 resetInput();

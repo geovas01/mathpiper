@@ -16,7 +16,7 @@ UnFence("Product",4);
 HoldArgument("Product",sumvar);
 HoldArgument("Product",sumbody);
 
-Product(sumlist_IsList) <--
+Product(sumlist_List?) <--
 [
    Local(sumi,sumsum);
    sumsum:=1;

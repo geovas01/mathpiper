@@ -1,0 +1,43 @@
+%mathpiper,def="Zero?"
+
+//10 # Zero?(x_Number?) <-- (DivideN( Round( MultiplyN(x, 10^BuiltinPrecisionGet()) ), 10^BuiltinPrecisionGet() ) = 0);
+
+// these should be calls to MathSign() and the math library should do this. Or it should be just MathEquals(x,0).
+// for now, avoid underflow and avoid Zero?(10^(-BuiltinPrecisionGet())) returning True.
+10 # Zero?(x_Number?) <-- ( MathSign(x) =? 0 Or? AbsN(x)  <? PowerN(10, -BuiltinPrecisionGet()));
+60000 # Zero?(_x) <-- False;
+
+//Note:tk:moved here from univariate.rep.
+20 # Zero?(UniVariate(_var,_first,_coefs)) <-- ZeroVector?(coefs);
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Zero?",categories="User Functions;Numbers (Predicates);Predicates"
+*CMD Zero? --- test whether argument is zero
+*STD
+*CALL
+        Zero?(n)
+
+*PARMS
+
+{n} -- number to test
+
+*DESC
+
+{Zero?(n)} evaluates to {True} if
+"n" is zero. In case "n" is not a number, the function returns
+{False}.
+
+*E.G.
+
+In> Zero?(3.25)
+Result: False;
+In> Zero?(0)
+Result: True;
+In> Zero?(x)
+Result: False;
+
+*SEE Number?, NotZero?
+%/mathpiper_docs

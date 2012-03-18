@@ -29,8 +29,18 @@ import org.mathpiper.lisp.Utility;
 public class ExitRequested extends BuiltinFunction
 {
 
+    private ExitRequested()
+    {
+    }
+
+    public ExitRequested(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        setTopOfStack(aEnvironment, aStackTop, Utility.getFalseAtom(aEnvironment));
     }
 }

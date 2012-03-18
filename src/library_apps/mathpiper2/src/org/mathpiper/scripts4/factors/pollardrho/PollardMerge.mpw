@@ -12,3 +12,23 @@
 ];
 
 %/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="PollardMerge",categories="User Functions",access="undocumented"
+*CMD PollardMerge --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

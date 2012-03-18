@@ -30,14 +30,24 @@ import org.mathpiper.lisp.Utility;
 public class RightAssociativeSet extends BuiltinFunction
 {
 
+    private RightAssociativeSet()
+    {
+    }
+
+    public RightAssociativeSet(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         // Get operator
-        LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1, "RightAssociativeSet");
-        String orig = (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
-        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "RightAssociativeSet");
+        if( getArgument(aEnvironment, aStackTop, 1) == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        String orig = (String) getArgument(aEnvironment, aStackTop, 1).car();
+        if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         aEnvironment.iInfixOperators.setRightAssociative(aStackTop, Utility.getSymbolName(aEnvironment, orig));
-        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }
 }
 

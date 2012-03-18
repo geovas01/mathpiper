@@ -2,9 +2,9 @@
 
 //Retract("Manipulate",*);
 
-Rulebase("Manipulate",{symbolicEquation});
+RulebaseHoldArguments("Manipulate",{symbolicEquation});
 HoldArgument("Manipulate",symbolicEquation);
-10 # Manipulate(_symbolicEquation)_HasFunc(Eval(symbolicEquation), "==") <--
+10 # Manipulate(_symbolicEquation)_HasFunction?(Eval(symbolicEquation), "==") <--
 [
     Local(listForm, operator, operand, left, right, leftManipulated, rightManipulated, operandIndex, equationIndex, leftOrder, rightOrder);
 
@@ -12,7 +12,7 @@ HoldArgument("Manipulate",symbolicEquation);
     
     operator := listForm[1];
     
-    If(HasFunc(Eval(listForm[2]),"==" ), [operandIndex := 3; equationIndex := 2; ], [ operandIndex := 2; equationIndex := 3;]);
+    If(HasFunction?(Eval(listForm[2]),"==" ), [operandIndex := 3; equationIndex := 2; ], [ operandIndex := 2; equationIndex := 3;]);
     
     operand := listForm[operandIndex];
     equation := Eval(listForm[equationIndex]);

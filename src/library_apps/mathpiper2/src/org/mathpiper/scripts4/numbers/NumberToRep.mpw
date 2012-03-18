@@ -3,7 +3,7 @@
 //Retract("NumberToRep",*);
 
 
-10 # NumberToRep( N_IsNumber ) <--
+10 # NumberToRep( N_Number? ) <--
 [
     //If(InVerboseMode(),Tell(NumberToRep,N));
     Local(oldPrec,sgn,assoc,typ,val,prec,rep);
@@ -41,9 +41,9 @@
 
 
 
-12 # NumberToRep( N_IsComplex ) <-- 
+12 # NumberToRep( N_Complex? ) <-- 
 [
-    If(IsZero(Re(N)),
+    If(Zero?(Re(N)),
         {NumberToRep(0.0),NumberToRep(Im(N))},
         {NumberToRep(Re(N)),NumberToRep(Im(N))}
     );

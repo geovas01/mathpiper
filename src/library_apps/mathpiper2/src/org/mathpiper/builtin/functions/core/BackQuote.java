@@ -20,8 +20,8 @@ package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -29,13 +29,24 @@ import org.mathpiper.lisp.Utility;
  */
 public class BackQuote extends BuiltinFunction
 {
+    
+    private BackQuote()
+    {
+    }
+
+    public BackQuote(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        org.mathpiper.lisp.behaviours.BackQuoteSubstitute behaviour = new org.mathpiper.lisp.behaviours.BackQuoteSubstitute(aEnvironment);
-        ConsPointer result = new ConsPointer();
-        Utility.substitute(aEnvironment, aStackTop, result, getArgumentPointer(aEnvironment, aStackTop, 1), behaviour);
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), result);
+        org.mathpiper.lisp.substitute.BackQuoteSubstitute behaviour = new org.mathpiper.lisp.substitute.BackQuoteSubstitute(aEnvironment);
+
+        Cons result = Utility.substitute(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1), behaviour);
+        
+        setTopOfStack(aEnvironment, aStackTop, aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result));
     }
 }
 
@@ -88,7 +99,7 @@ soon as the argument is a number (a lot of functions  do this only when inside
 a {N(...)} section).
 
 In> Decl(f1,f2) := \
-In>   `(@f1(x_IsNumber) <-- N(@f2(x)));
+In>   `(@f1(x_Number?) <-- N(@f2(x)));
 Result: True;
 In> Decl(nSin,Sin)
 Result: True;
@@ -109,6 +120,6 @@ In> a
 Result: Sin(x);
 
 
-*SEE MacroBind, MacroLocal, MacroRulebase, Hold, HoldArgument, DefMacroRulebase, MacroExpand
+*SEE MacroBind, MacroLocal, MacroRulebase, Hold, HoldArgument, MacroRulebaseHoldArguments, MacroExpand
 %/mathpiper_docs
 */

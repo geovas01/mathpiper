@@ -1,0 +1,13 @@
+# RegisterGeneric also loads the specified class.
+
+RegisterGenericPredicateEntry: "fs_delete" 1 ubc.cs.JLog.Extras.FileSystem.jFSDelete
+RegisterGenericPredicateEntry: "fs_exists" 1 ubc.cs.JLog.Extras.FileSystem.jFSExists
+RegisterGenericPredicateEntry: "fs_length" 2 ubc.cs.JLog.Extras.FileSystem.jFSLength
+RegisterGenericPredicateEntry: "fs_list" 2 ubc.cs.JLog.Extras.FileSystem.jFSListDir
+RegisterGenericPredicateEntry: "fs_makedir" 1 ubc.cs.JLog.Extras.FileSystem.jFSMakeDir
+RegisterGenericPredicateEntry: "fs_read" 2 ubc.cs.JLog.Extras.FileSystem.jFSRead
+RegisterGenericPredicateEntry: "fs_write" 3 ubc.cs.JLog.Extras.FileSystem.jFSWrite
+
+LoadClass: ubc.cs.JLog.Extras.FileSystem.pFSisDirPredicateEntry
+LoadClass: ubc.cs.JLog.Extras.FileSystem.pFSisFilePredicateEntry
+

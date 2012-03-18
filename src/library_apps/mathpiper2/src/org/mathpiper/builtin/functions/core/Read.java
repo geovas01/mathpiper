@@ -28,17 +28,26 @@ import org.mathpiper.lisp.parsers.MathPiperParser;
 public class Read extends BuiltinFunction
 {
 
+    private Read()
+    {
+    }
+
+    public Read(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        MathPiperParser parser = new MathPiperParser(aEnvironment.iCurrentTokenizer,
-                aEnvironment.iCurrentInput,
+        MathPiperParser parser = new MathPiperParser(aEnvironment.iCurrentTokenizer, aEnvironment.getCurrentInput(),
                 aEnvironment,
                 aEnvironment.iPrefixOperators,
                 aEnvironment.iInfixOperators,
                 aEnvironment.iPostfixOperators,
                 aEnvironment.iBodiedOperators);
         // Read expression
-        parser.parse(aStackTop, getTopOfStackPointer(aEnvironment, aStackTop));
+        setTopOfStack(aEnvironment, aStackTop, parser.parse(aStackTop));
     }
 }
 

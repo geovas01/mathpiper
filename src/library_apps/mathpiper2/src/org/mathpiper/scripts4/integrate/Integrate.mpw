@@ -1,13 +1,15 @@
-%mathpiper,def="Integrate"
+%mathpiper,def="Integrate;IntSub;defIntegrate;IntegrateRange;IntClean"
 
-//todo:tk:this file need to be broken down further.
+//todo:tk:this file needs to be broken down further.
+
+LoadLibraryFunction("AntiDeriv");
 
 
-10# (Integrate(_var)(expr_IsList))
+10 # (Integrate(_var)(expr_List?))
     <-- Map("Integrate",{FillList(var,Length(expr)),expr});
 20 # (Integrate(_var)(_expr)) <-- IntSub(var,expr,AntiDeriv(var,IntClean(var,expr)));
 
-20 # (Integrate(_var, optionsList_IsList)(_expr)) <--
+20 # (Integrate(_var, optionsList_List?)(_expr)) <--
 [
     Local(result);
 
@@ -30,7 +32,7 @@
 // Integrate over a range
 //
 ////////////////////////////////////////////////
-10# (Integrate(_var,_from,_to)(expr_IsList))
+10# (Integrate(_var,_from,_to)(expr_List?))
     <-- Map("Integrate",{FillList(var,Length(expr)),
                          FillList(from,Length(expr)),
                          FillList(to,Length(expr)),
@@ -40,7 +42,7 @@
     <-- defIntegrate(var,from,to,expr,a,b);
 
 
-20 # (Integrate(_var,_from,_to,optionsList_IsList)(_expr)) <--
+20 # (Integrate(_var,_from,_to,optionsList_List?)(_expr)) <--
 [
     Local(result);
 
@@ -60,7 +62,7 @@
 //
 ////////////////////////////////////////////////
 
-10 # defIntegrate(_var,_from,_to,_expr,_a,_b)_(from =? -to And? IsOddFunction(expr,var)) <-- 0;
+10 # defIntegrate(_var,_from,_to,_expr,_a,_b)_(from =? -to And? OddFunction?(expr,var)) <-- 0;
 
 // We need to define this case (integrating from 0 to 0 over an even function)
 // explicitly, otherwise the integration ends up going in to infinite recursion.
@@ -71,7 +73,7 @@
 
 10 # defIntegrate(_var,_from,_from,_expr,_a,_b) <-- 0;
 
-12 # defIntegrate(_var,_from,_to,_expr,_a,_b)_(from =? -to And? IsEvenFunction(expr,var))
+12 # defIntegrate(_var,_from,_to,_expr,_a,_b)_(from =? -to And? EvenFunction?(expr,var))
         <-- 2*defIntegrate(var,0,to,expr,a,b);
 
 100 # defIntegrate(_var,_from,_to,_expr,_a,_b)_(Type(AntiDeriv(var,IntClean(var,expr))) !=? "AntiDeriv")
@@ -116,9 +118,9 @@
 ////////////////////////////////////////////////
 10 # IntClean(_var,_expr) <--
 [
-        if( IsFreeOf(var,expr) Or? IsSumOfTerms(var,expr) )[
+        if( FreeOf?(var,expr) Or? SumOfTerms?(var,expr) )[
                 expr;
-        ] else if ( HasFunc(expr,Sin) Or? HasFunc(expr,Cos) )[
+        ] else if ( HasFunction?(expr,Sin) Or? HasFunction?(expr,Cos) )[
                 Simplify(TrigSimpCombine(expr));
         ] else [
                 Simplify(expr);
@@ -252,8 +254,8 @@ LocalSymbols(TestMatchLinearTrue,TestMatchLinearFalse) [
   [
     Local(a,b);
     Verify(MatchLinear(var,expr),True);
-    a:=Simplify(Matched'a()-expected[1]);
-    b:=Simplify(Matched'b()-expected[2]);
+    a:=Simplify(Matcheda()-expected[1]);
+    b:=Simplify(Matchedb()-expected[2]);
     `TestMathPiper(@a,0);
     `TestMathPiper(@b,0);
   ];

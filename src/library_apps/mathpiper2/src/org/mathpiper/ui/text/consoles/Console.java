@@ -20,9 +20,11 @@ package org.mathpiper.ui.text.consoles;
 
 import java.io.*;
 import org.mathpiper.Version;
+import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.interpreters.EvaluationResponse;
 import org.mathpiper.interpreters.Interpreter;
 import org.mathpiper.interpreters.Interpreters;
+import org.mathpiper.lisp.Environment;
 
 
 /**
@@ -38,6 +40,9 @@ public class Console {
         //MathPiper needs an output stream to send "side effect" output to.
         //StandardFileOutputStream stdoutput = new StandardFileOutputStream(System.out);
         interpreter = Interpreters.getSynchronousInterpreter();
+
+        Environment environment = interpreter.getEnvironment();
+        Interpreters.addOptionalFunctions(environment,"org/mathpiper/builtin/functions/optional/");
     }
 
 
@@ -63,6 +68,9 @@ public class Console {
             input = input + ";";
         }
 
+        input = input.replace("\\","\\\\");
+	input = input.replace("\"","\\\"");
+
         input = "LoadScript(\""+input+"\");";
         
         EvaluationResponse response = interpreter.evaluate(input, true);
@@ -81,8 +89,14 @@ public class Console {
             responseString = responseString + "Side Effects>\n" + response.getSideEffects() + "\n";
         }
 
-        if (!response.getExceptionMessage().equalsIgnoreCase("")) {
-            responseString = responseString + response.getExceptionMessage() + " Source file name: " + response.getSourceFileName() + ", Near line number: " + response.getLineNumber()  + " Near line index: " + response.getLineIndex() + "\n";
+        if (response.isExceptionThrown()) {
+            responseString = responseString + response.getException().getMessage() + " Source file name: " + response.getSourceFileName();
+            
+            if(response.getException() instanceof EvaluationException)
+            {
+                EvaluationException ex = (EvaluationException) response.getException();
+                responseString += ", Near line number: " + ex.getLineNumber()  + " Near line index: " + ex.getStartIndex() + "\n";
+            }
         }
         else if (response.getException() != null)
         {

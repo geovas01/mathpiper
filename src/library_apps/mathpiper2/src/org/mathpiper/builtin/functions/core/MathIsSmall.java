@@ -30,9 +30,19 @@ import org.mathpiper.lisp.Utility;
 public class MathIsSmall extends BuiltinFunction
 {
 
+    private MathIsSmall()
+    {
+    }
+
+    public MathIsSmall(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
-        Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), x.isSmall());
+        setTopOfStack(aEnvironment, aStackTop, Utility.getBooleanAtom(aEnvironment, x.isSmall()));
     }
 }

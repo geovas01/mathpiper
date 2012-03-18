@@ -29,10 +29,20 @@ import org.mathpiper.lisp.Environment;
 public class BuiltinPrecisionGet extends BuiltinFunction
 {
 
+    private BuiltinPrecisionGet()
+    {
+    }
+
+    public BuiltinPrecisionGet(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         // decimal getPrecision
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "" + aEnvironment.getPrecision()));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + aEnvironment.iPrecision));
     }
 }
 

@@ -1,8 +1,0 @@
-%mathpiper,def="IsComplex"
-
-/* All things you can request a real and imaginary part for are complex */
-1 # IsComplex(x_IsRationalOrNumber)     <-- True;
-2 # IsComplex(Complex(_r,_i)) <-- True;
-3 # IsComplex(_x)             <-- False;
-
-%/mathpiper

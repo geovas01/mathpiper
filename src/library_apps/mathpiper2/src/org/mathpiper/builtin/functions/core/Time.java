@@ -22,7 +22,7 @@ import java.math.BigDecimal;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.printers.MathPiperPrinter;
 
 /**
@@ -32,12 +32,15 @@ import org.mathpiper.lisp.printers.MathPiperPrinter;
 public class Time extends BuiltinFunction
 {
 
-     private Time()
+
+    private Time()
     {
     }
 
-    public Time(Environment aEnvironment)
+    public Time(Environment aEnvironment, String functionName)
     {
+        this.functionName = functionName;
+
         aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "Time");
     }//end constructor.
 
@@ -45,9 +48,7 @@ public class Time extends BuiltinFunction
     {
         BigDecimal startTime = new BigDecimal(System.currentTimeMillis());
 
-        ConsPointer res = new ConsPointer();
-
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, res, getArgumentPointer(aEnvironment, aStackTop, 1));
+        Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1));
 
         BigDecimal endTime = new BigDecimal(System.currentTimeMillis());
 
@@ -55,9 +56,9 @@ public class Time extends BuiltinFunction
 
         timeDiff = endTime.subtract(startTime);
 
-        timeDiff = timeDiff.movePointLeft(9);
+        timeDiff = timeDiff.movePointLeft(3);
         
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "" + timeDiff));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + timeDiff));
     }
 }
 

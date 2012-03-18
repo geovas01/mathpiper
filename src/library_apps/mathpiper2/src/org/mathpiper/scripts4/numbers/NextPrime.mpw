@@ -3,7 +3,7 @@
 /// obtain the real next prime number -- use primality testing
 1# NextPrime(_i) <--
 [
-        Until(IsPrime(i)) i := NextPseudoPrime(i);
+        Until(Prime?(i)) i := NextPseudoPrime(i);
         i;
 ];
 
@@ -28,14 +28,14 @@ integer value.
 
 The routine generates "candidate numbers" using the formula $n+2*Modulo(-n,3)$
 where $n$ is an odd number (this generates the sequence 5, 7, 11, 13, 17,
-19, ...) and {IsPrime()} to test whether the next candidate number is in
+19, ...) and {Prime?()} to test whether the next candidate number is in
 fact prime.
 
 *E.G.
 In> NextPrime(5)
 Result: 7;
 
-*SEE IsPrime
+*SEE Prime?
 %/mathpiper_docs
 
 

@@ -1,4 +1,4 @@
-%mathpiper,def="LogicRemoveTautologies"
+%mathpiper,def="LogicRemoveTautologies;SimpleNegate;LocalCmp;SimplifyExpression"
 
  // not clear is this will stay, but it is eq. to LogicSimplify(expr, 2)
 
@@ -13,7 +13,7 @@
 
 /* this can be optimized to walk through the lists a bit more efficiently and also take
 care of duplicates in one pass */
-LocalCmp(_e1, _e2)                  <-- IsLessThan(PipeToString() Write(e1), PipeToString() Write(e2));
+LocalCmp(_e1, _e2)                  <-- LessThan?(PipeToString() Write(e1), PipeToString() Write(e2));
 
 // we may want to add other expression simplifers for new expression types
 100 # SimplifyExpression(_x)        <-- x;
@@ -42,14 +42,14 @@ LogicRemoveTautologies(_e) <--
         Local(y);
         Bind(y, MathNth(e,j));
 
-        If(IsEqual(y, n),
+        If(Equal?(y, n),
             [
                 //Echo({"Deleting from ", e, " i=", i, ", j=", j, Nl()});
 
                 Bind(negationfound, True);
                 //Echo({"Removing clause ", i, Nl()});
             ],
-        If(IsEqual(y, x),
+        If(Equal?(y, x),
             [
                 //Echo({"Deleting from ", e, " j=", j, Nl()});
                 DestructiveDelete(e, j);

@@ -16,7 +16,7 @@ VerifyNumeric(expression1, expression2, optionsList) :=
     ]
     else
     [
-        optionsList := HeapSort(optionsList, Lambda({x,y},IsLessThan(x[1],y[1])));
+        optionsList := HeapSort(optionsList, Lambda({x,y},LessThan?(x[1],y[1])));
         
         associativeList := OptionsToAssociativeList(optionsList);
         
@@ -24,9 +24,9 @@ VerifyNumeric(expression1, expression2, optionsList) :=
         
         optionsValuesList := MapSingle("ToAtom", AssocValues(associativeList));
         
-        variablesList1 := HeapSort(variablesList1,"IsLessThan");
+        variablesList1 := HeapSort(variablesList1,"LessThan?");
         
-        variablesList2 := HeapSort(variablesList2,"IsLessThan");
+        variablesList2 := HeapSort(variablesList2,"LessThan?");
         
         Check(variablesList1 =? variablesList2 And? variablesList1 =? optionsVariableNamesList, "Argument", "Both expressions and the options list must have the same variable names and the same number of variables.");
         

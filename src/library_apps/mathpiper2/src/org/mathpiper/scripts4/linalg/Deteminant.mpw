@@ -1,6 +1,6 @@
 %mathpiper,def="Determinant"
 
-10 # Determinant(_matrix)_(IsUpperTriangular(matrix) Or? IsLowerTriangular(matrix)) <--
+10 # Determinant(_matrix)_(UpperTriangular?(matrix) Or? LowerTriangular?(matrix)) <--
 [
         Local(result);
         result:=1;
@@ -15,7 +15,7 @@
 // elements happens to be zero, the result is something like Infinity or Undefined.
 // Use the symbolic determinant in that case, as it is slower but much more robust.
 //
-15 # Determinant(_matrix)_(Length(Select(Diagonal(matrix), "IsZero")) >? 0) <-- SymbolicDeterminant(matrix);
+15 # Determinant(_matrix)_(Length(Select(Diagonal(matrix), "Zero?")) >? 0) <-- SymbolicDeterminant(matrix);
 
 // Not numeric entries, so lets treat it symbolically.
 16 # Determinant(_matrix)_(VarList(matrix) !=? {}) <-- SymbolicDeterminant(matrix);
@@ -58,6 +58,6 @@ Result: 24;
 // to return "Undefined" when one of the elements of the diagonal of a matrix
 // was zero. This was due to the numeric determinant algorithm applying
 // Gaussian elimination, but taking the elements on the diagonal as pivot points.
-Verify(IsZero(Determinant( {{1,-1,0,0},{0,0,-1,1},{1,0,0,1},{0,1,1,0}} )),True);
+Verify(Zero?(Determinant( {{1,-1,0,0},{0,0,-1,1},{1,0,0,1},{0,1,1,0}} )),True);
 
 %/mathpiper

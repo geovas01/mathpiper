@@ -24,7 +24,6 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
 
 /**
  *
@@ -32,28 +31,36 @@ import org.mathpiper.lisp.cons.ConsPointer;
  */
 public class ArrayGet extends BuiltinFunction
 {
+    
+    private ArrayGet()
+    {
+    }
+
+    public ArrayGet(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer evaluated = new ConsPointer();
-        evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        Cons evaluated = getArgument(aEnvironment, aStackTop, 1);
 
         BuiltinContainer gen = (BuiltinContainer) evaluated.car();
-        LispError.checkArgument(aEnvironment, aStackTop, gen != null, 1,"ArrayGet");
-        LispError.checkArgument(aEnvironment, aStackTop, gen.typeName().equals("\"Array\""), 1, "ArrayGet");
+        if( gen == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if(! gen.typeName().equals("\"Array\"")) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
-        ConsPointer sizearg = new ConsPointer();
-        sizearg.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
+        Cons sizearg = getArgument(aEnvironment, aStackTop, 2);
 
-        LispError.checkArgument(aEnvironment, aStackTop, sizearg.getCons() != null, 2, "ArrayGet");
-        LispError.checkArgument(aEnvironment, aStackTop, sizearg.car() instanceof String, 2, "ArrayGet");
+        if( sizearg == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        if(! (sizearg.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2);
 
         int size = Integer.parseInt( (String) sizearg.car(), 10);
 
-        LispError.checkArgument(aEnvironment, aStackTop, size > 0 && size <= ((Array) gen).size(), 2, "ArrayGet");
+        if( size <= 0 || size > ((Array) gen).size()) LispError.checkArgument(aEnvironment, aStackTop, 2);
         Cons object = ((Array) gen).getElement(size, aStackTop, aEnvironment);
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(object.copy( aEnvironment, false));
+        setTopOfStack(aEnvironment, aStackTop, object.copy(false));
     }
 }//end class.
 

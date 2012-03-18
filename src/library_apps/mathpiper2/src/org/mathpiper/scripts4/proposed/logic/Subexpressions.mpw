@@ -1,0 +1,114 @@
+%mathpiper,def="Subexpressions"
+
+Subexpressions(expression) :=
+[
+    Local(subexpressions, uniqueSubexpressions, variables, functions, sortedFunctions);
+    
+     subexpressions := SubexpressionsHelper(expression,{});
+     
+     uniqueSubexpressions := RemoveDuplicates(subexpressions);
+     
+     variables := VarList(uniqueSubexpressions);
+     
+     functions := Select(uniqueSubexpressions, "Function?");
+
+     sortedFunctions := Sort(functions,Lambda({x,y},Length(FunctionListAllHelper(x)) + Length(VarList(x)) <? Length(FunctionListAllHelper(y)) + Length(VarList(y))));
+     
+     Concat(variables, sortedFunctions);
+];
+
+
+
+SubexpressionsHelper(expression, list) :=
+[
+
+    Local(first, rest);
+    
+    
+    if((Not? Atom?(expression)) And? (Length(expression) !=? 0))
+    [
+    
+        first := First(expression);
+        
+        list := SubexpressionsHelper(first, list);
+        
+        rest := Rest(expression);
+        
+        If(Length(rest) !=? 0, rest := First(rest));
+     
+        If(Length(rest) !=? 0, list := SubexpressionsHelper(rest, list));
+    ];
+    
+    Append(list, expression);
+];
+
+
+
+//Similar to FuncList, but does not remove duplicates.
+FunctionListAllHelper(expression) :=
+[
+    if(Atom?(expression))
+    [
+       {}; 
+    ]
+    else if (Function?(expression))
+    [
+    
+      Concat( {First(FunctionToList(expression))},
+         Apply("Concat", MapSingle("FunctionListAllHelper", Rest(FunctionToList(expression)))));
+    ]
+    else
+    [
+        Check(False, "Argument", "The argument must be an atom or a function.");
+    
+    ];
+
+];
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="Subexpressions",categories="User Functions;Propositional Logic",access="experimental"
+*CMD Subexpressions --- returns a list that contains all of the subexpressions in an expression
+
+*CALL
+        Subexpressions(expression)
+
+*PARMS
+{expression} -- an expression.
+
+*DESC
+Returns a list that contains all of the subexpressions in an expression. The list does not contain any duplicates 
+and the subexpressions are arranged in order from shortest to longest.
+
+*E.G.
+In> Subexpressions(a*b+c)
+Result: {a,b,c,a*b,a*b+c}
+
+*SEE TruthTable
+
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+
+
+
+
+%mathpiper,name="Subexpressions",subtype="automatic_test"
+
+Unbind(a,b,c);
+
+Verify(Subexpressions(a*b+c), {a,b,c,a*b,a*b+c});
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+

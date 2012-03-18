@@ -29,11 +29,21 @@ import org.mathpiper.lisp.Environment;
 public class SystemTimer extends BuiltinFunction
 {
 
+    private SystemTimer()
+    {
+    }
+
+    public SystemTimer(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         long currentTime = System.currentTimeMillis();
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "" + currentTime));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + currentTime));
     }//end method.
 
 }//end class.

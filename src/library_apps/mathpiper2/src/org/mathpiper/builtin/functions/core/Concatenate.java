@@ -19,10 +19,10 @@ package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
+
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.SublistCons;
 
 /**
@@ -32,28 +32,48 @@ import org.mathpiper.lisp.cons.SublistCons;
 public class Concatenate extends BuiltinFunction
 {
 
+    private Concatenate()
+    {
+    }
+
+    public Concatenate(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer all = new ConsPointer();
-        all.setCons(aEnvironment.iListAtom.copy( aEnvironment, false));
-        ConsTraverser tail = new ConsTraverser(aEnvironment, all);
-        tail.goNext(aStackTop);
+        Cons all = aEnvironment.iListAtom.copy(false);
+
+        //ConsTraverser tail = new ConsTraverser(aEnvironment, all);
+        //tail.goNext(aStackTop);
+
+        Cons tail = all;
+
         int arg = 1;
 
-        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car());
-        consTraverser.goNext(aStackTop);
-        while (consTraverser.getCons() != null)
+        Cons consTraverser =  (Cons) getArgument(aEnvironment, aStackTop, 1).car();
+        consTraverser = consTraverser.cdr();
+
+        while (consTraverser != null)
         {
-            LispError.checkIsList(aEnvironment, aStackTop, consTraverser.getPointer(), arg, "Concatenate");
-            Utility.flatCopy(aEnvironment, aStackTop, tail.getPointer(), ((ConsPointer) consTraverser.getPointer().car()).cdr());
-            while (tail.getCons() != null)
+            LispError.checkIsList(aEnvironment, aStackTop, consTraverser, arg);
+
+            Cons result = Utility.flatCopy(aEnvironment, aStackTop, ((Cons) consTraverser.car()).cdr());
+
+           tail.setCdr(result);
+
+            while (tail.cdr() != null)
             {
-                tail.goNext(aStackTop);
+                tail = tail.cdr();
             }
-            consTraverser.goNext(aStackTop);
+
+            consTraverser = consTraverser.cdr();
+
             arg++;
         }
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment,all.getCons()));
+        setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,all));
     }
 }
 
@@ -84,4 +104,14 @@ Result: {5,a,b,c,{f(x)}};
 
 *SEE ConcatStrings, :, Insert
 %/mathpiper_docs
+
+
+
+
+%mathpiper,name="Concat",subtype="automatic_test"
+
+Verify(Concat({a,b},{c,d}), {a,b,c,d});
+
+%/mathpiper
+
 */

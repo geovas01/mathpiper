@@ -1,10 +1,10 @@
 %mathpiper,def="Where"
 
-Rulebase("Where",{left,right});
+RulebaseHoldArguments("Where",{left,right});
 //HoldArgument("Where",left);
 //HoldArgument("Where",right);
 UnFence("Where",2);
-10 # (_body Where var_IsAtom == _value)
+10 # (_body Where var_Atom? == _value)
      <-- `[Local(@var);@var := @value;@body;];
 20 # (_body Where (_a And? _b))
      <--
@@ -14,7 +14,7 @@ UnFence("Where",2);
 ];
 
 30 # (_body Where {}) <-- {};
-40 # (_body Where list_IsList)_IsList(list[1])
+40 # (_body Where list_List?)_List?(list[1])
      <--
      [
        Local(head,rest);
@@ -24,7 +24,7 @@ UnFence("Where",2);
        `(@body Where @head) : rest;
      ];
 
-50 # (_body Where list_IsList)
+50 # (_body Where list_List?)
      <--
      [
        Local(head,rest);
@@ -87,5 +87,5 @@ Result: {13};
 In> x^2+y^2 Where {x==2 And? y==3,x==4 And? y==5}
 Result: {13,41};
 
-*SEE Solve, AddTo
+*SEE Solve, AddTo, Subst, Where, WithValue, /:
 %/mathpiper_docs

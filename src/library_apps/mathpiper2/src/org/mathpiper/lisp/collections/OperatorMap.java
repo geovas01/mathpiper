@@ -33,27 +33,27 @@ public class OperatorMap extends MathPiperMap // <Operator>
 	public void setOperator(int aPrecedence,String aString)
 	{
 		Operator op = new Operator(aPrecedence);
-		setAssociation(op, aString);
+		setAssociation(aString, op);
 	}
 	
 	public void setRightAssociative(int aStackTop, String aString) throws Exception
 	{
 		Operator op = (Operator)lookUp(aString);
-		LispError.check(iEnvironment, aStackTop, op != null,LispError.NOT_AN_INFIX_OPERATOR, aString, "INTERNAL");
+		if(op == null) LispError.throwError(iEnvironment, aStackTop, LispError.NOT_AN_INFIX_OPERATOR, aString);
 		op.setRightAssociative();
 	}
 	
 	public void setLeftPrecedence(int aStackTop, String aString,int aPrecedence) throws Exception
 	{
 		Operator op = (Operator)lookUp(aString);
-		LispError.check(iEnvironment, aStackTop, op != null,LispError.NOT_AN_INFIX_OPERATOR, aString, "INTERNAL");
+		if(op == null) LispError.throwError(iEnvironment, aStackTop, LispError.NOT_AN_INFIX_OPERATOR, aString);
 		op.setLeftPrecedence(aPrecedence);
 	}
 	
 	public void setRightPrecedence(int aStackTop, String aString, int aPrecedence) throws Exception
 	{
 		Operator op = (Operator)lookUp(aString);
-		LispError.check(iEnvironment, aStackTop, op != null,LispError.NOT_AN_INFIX_OPERATOR, aString, "INTERNAL");
+		if(op == null) LispError.throwError(iEnvironment, aStackTop, LispError.NOT_AN_INFIX_OPERATOR, aString);
 		op.setRightPrecedence(aPrecedence);
 	}
 	

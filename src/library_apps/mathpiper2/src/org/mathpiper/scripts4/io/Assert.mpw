@@ -1,20 +1,20 @@
 %mathpiper,def="Assert"
 
 /// post an error if assertion fails
-(Assert(_error'class, _error'object) _predicate) <--
+(Assert(_errorclass, _errorobject) _predicate) <--
 [
         CheckErrorTableau();
-        If(IsEqual(predicate, True),        // if it does not evaluate to True, it's an error
+        If(Equal?(predicate, True),        // if it does not evaluate to True, its an error
                 True,
-                [        // error occurred, need to post error'object
-                        DestructiveAppend(GetErrorTableau(), {error'class, error'object});
+                [        // error occurred, need to post errorobject
+                        DestructiveAppend(GetErrorTableau(), {errorclass, errorobject});
                         False;
                 ]
         );
 ];
 
 /// interface
-(Assert(_error'class) _predicate) <-- Assert(error'class, True) predicate;
+(Assert(_errorclass) _predicate) <-- Assert(errorclass, True) predicate;
 
 /// interface
 (Assert() _predicate) <-- Assert("generic", True) predicate;
@@ -63,7 +63,7 @@ If the parameter {expr} is missing, {Assert} substitutes {True}. If both optiona
 
 Errors can be handled by a
 custom error handler in the portion of the code that is able to handle a certain class of
-errors. The functions {IsError}, {GetError} and {ClearError} can be used.
+errors. The functions {Error?}, {GetError} and {ClearError} can be used.
 
 Normally, all errors posted to the error tableau during evaluation of an expression should
 be eventually printed to the screen. This is the behavior of prettyprinters
@@ -77,11 +77,11 @@ In> Assert("bad value", "must be zero") 1=0
 Result: False;
 In> Assert("bad value", "must be one") 1=1
 Result: True;
-In> IsError()
+In> Error?()
 Result: True;
-In> IsError("bad value")
+In> Error?("bad value")
 Result: True;
-In> IsError("bad file")
+In> Error?("bad file")
 Result: False;
 In> GetError("bad value");
 Result: "must be zero";
@@ -89,11 +89,11 @@ In> DumpErrors()
         Error: bad value: must be zero
 Result: True;
 No more errors left:
-In> IsError()
+In> Error?()
 Result: False;
 In> DumpErrors()
 Result: True;
 
-*SEE IsError, DumpErrors, Check, GetError, ClearError, ClearErrors, GetErrorTableau
+*SEE Error?, DumpErrors, Check, GetError, ClearError, ClearErrors, GetErrorTableau
 
 %/mathpiper_docs

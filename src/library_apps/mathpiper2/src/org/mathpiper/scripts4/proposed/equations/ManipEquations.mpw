@@ -1,6 +1,6 @@
 %mathpiper
 
-//Retract("IsEquation",*);
+//Retract("Equation?",*);
 
 //Retract("*==",*);
 //Retract("/==",*);
@@ -9,15 +9,15 @@
 //Retract("==+",*);
 //Retract("==-",*);
 
-10 # IsEquation(expr_IsAtom) <-- False;
-12 # IsEquation(_expr) <-- 
+10 # Equation?(expr_Atom?) <-- False;
+12 # Equation?(_expr) <-- 
 [
     Local(EL,res);
     EL  := FunctionToList(expr);
     res := (EL[1] =? == );
 ];
 
-10 # *==(_num,eqn_IsEquation) <-- 
+10 # *==(_num,eqn_Equation?) <-- 
 [
     Local(EL,LHS,RHS);
     EL  := FunctionToList(eqn);
@@ -26,7 +26,7 @@
     LHS == RHS;
 ];
 
-10 # *==(eqn_IsEquation,_num) <-- 
+10 # *==(eqn_Equation?,_num) <-- 
 [
     Local(EL,LHS,RHS);
     EL  := FunctionToList(eqn);
@@ -35,7 +35,7 @@
     LHS == RHS;
 ];
 
-10 # /==(eqn_IsEquation,_num) <-- 
+10 # /==(eqn_Equation?,_num) <-- 
 [
     Local(EL,LHS,RHS);
     EL  := FunctionToList(eqn);
@@ -44,7 +44,7 @@
     LHS == RHS;
 ];
 
-10 # +==(_num,eqn_IsEquation) <-- 
+10 # +==(_num,eqn_Equation?) <-- 
 [
     Local(EL,LHS,RHS);
     EL  := FunctionToList(eqn);
@@ -53,7 +53,7 @@
     LHS == RHS;
 ];
 
-10 # +==(eqn_IsEquation,_num) <-- 
+10 # +==(eqn_Equation?,_num) <-- 
 [
     Local(EL,LHS,RHS);
     EL  := FunctionToList(eqn);
@@ -62,7 +62,7 @@
     LHS == RHS;
 ];
 
-10 # -==(eqn_IsEquation,_num) <-- 
+10 # -==(eqn_Equation?,_num) <-- 
 [
     Local(EL,LHS,RHS);
     EL  := FunctionToList(eqn);
@@ -71,7 +71,7 @@
     LHS == RHS;
 ];
 
-10 # -==(_num,eqn_IsEquation) <-- 
+10 # -==(_num,eqn_Equation?) <-- 
 [
     Local(EL,LHS,RHS);
     EL  := FunctionToList(eqn);
@@ -80,7 +80,7 @@
     LHS == RHS;
 ];
 
-12 # ==+(eqn1_IsEquation,eqn2_IsEquation) <-- 
+12 # ==+(eqn1_Equation?,eqn2_Equation?) <-- 
 [
     Local(EL1,LHS,RHS,EL2);
     EL1 := FunctionToList(eqn1);
@@ -90,7 +90,7 @@
     LHS == RHS;
 ];
 
-12 # ==-(eqn1_IsEquation,eqn2_IsEquation) <-- 
+12 # ==-(eqn1_Equation?,eqn2_Equation?) <-- 
 [
     Local(EL1,LHS,RHS,EL2);
     EL1 := FunctionToList(eqn1);

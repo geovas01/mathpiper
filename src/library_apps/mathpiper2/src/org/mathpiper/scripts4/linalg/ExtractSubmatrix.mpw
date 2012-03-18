@@ -2,9 +2,9 @@
 
 //Retract("ExtractSubMatrix",*);
 
-10 # ExtractSubMatrix( mat_IsMatrix, _row1, _col1, _row2, _col2 )_
-       (And?(IsPositiveInteger(row1),IsPositiveInteger(col1),
-            IsPositiveInteger(row2),IsPositiveInteger(col2))) <--
+10 # ExtractSubMatrix( mat_Matrix?, _row1, _col1, _row2, _col2 )_
+       (And?(PositiveInteger?(row1),PositiveInteger?(col1),
+            PositiveInteger?(row2),PositiveInteger?(col2))) <--
 [
     Local(nrows,ncols,r,row,result);
     {nrows,ncols} := Dimensions( mat );
@@ -20,8 +20,8 @@
 ];
 
 
-10 # ExtractSubMatrix( mat_IsMatrix, _row1, _col1 )_
-              (And?(IsPositiveInteger(row1),IsPositiveInteger(col1))) <--
+10 # ExtractSubMatrix( mat_Matrix?, _row1, _col1 )_
+              (And?(PositiveInteger?(row1),PositiveInteger?(col1))) <--
 [
     Local(nrows,ncols);
     {nrows,ncols} := Dimensions( mat );

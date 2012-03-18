@@ -29,6 +29,16 @@ import org.mathpiper.lisp.Environment;
 public class Quotient extends BuiltinFunction
 {
 
+    private Quotient()
+    {
+    }
+
+    public Quotient(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
@@ -38,7 +48,7 @@ public class Quotient extends BuiltinFunction
 
             BigNumber z = new BigNumber(aEnvironment.getPrecision());
             z.divide(x, y, aEnvironment.getPrecision());
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
+            setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
             return;
         } else
         {

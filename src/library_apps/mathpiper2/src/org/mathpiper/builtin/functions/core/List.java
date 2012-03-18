@@ -18,8 +18,7 @@ package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.ConsTraverser;
-import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.SublistCons;
 
 /**
@@ -28,45 +27,50 @@ import org.mathpiper.lisp.cons.SublistCons;
  */
 public class List extends BuiltinFunction {
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
-        ConsPointer allPointer = new ConsPointer();
-        allPointer.setCons(aEnvironment.iListAtom.copy(aEnvironment, false));
-        ConsTraverser tail = new ConsTraverser(aEnvironment, allPointer);
-        tail.goNext(aStackTop);
-        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car());
-        consTraverser.goNext(aStackTop);
-        while (consTraverser.getCons() != null) {
-            ConsPointer evaluated = new ConsPointer();
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, evaluated, consTraverser.getPointer());
-            tail.getPointer().setCons(evaluated.getCons());
-            tail.goNext(aStackTop);
-            consTraverser.goNext(aStackTop);
-        }
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment, allPointer.getCons()));
+    private List() {
     }
 
+    public List(String functionName) {
+        this.functionName = functionName;
+    }
+
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+
+        Cons all = aEnvironment.iListAtom.copy(false);
+        Cons tail = all;
+
+        Cons consTraverser = (Cons) getArgument(aEnvironment, aStackTop, 1).car();
+        consTraverser = consTraverser.cdr();
+        while (consTraverser != null) {
+
+            Cons evaluated = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser);
+
+            tail.setCdr(evaluated);
+            tail = tail.cdr();
+
+            consTraverser = consTraverser.cdr();
+        }
+        setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, all));
+    }
 }
-
-
-
 /*
 %mathpiper_docs,name="List",categories="User Functions;Lists (Operations);Built In"
-*CMD List --- construct a list
-*CORE
-*CALL
-	List(expr1, expr2, ...)
+ *CMD List --- construct a list
+ *CORE
+ *CALL
+List(expr1, expr2, ...)
 
-*PARMS
+ *PARMS
 
 {expr1}, {expr2} -- expressions making up the list
 
-*DESC
+ *DESC
 
 A list is constructed whose car entry is "expr1", the second entry
 is "expr2", and so on. This command is equivalent to the expression
 "{expr1, expr2, ...}".
 
-*E.G.
+ *E.G.
 
 In> List();
 Result: {};
@@ -75,6 +79,6 @@ Result: {a,b};
 In> List(a,{1,2},d);
 Result: {a,{1,2},d};
 
-*SEE ListToFunction, FunctionToList
+ *SEE ListToFunction, FunctionToList
 %/mathpiper_docs
-*/
+ */

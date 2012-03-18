@@ -5,7 +5,7 @@
 10 # xFactor( p_CanBeUni ) <-- FW(xFactors(p));
 
 
-10 # xFactor( p_IsRationalFunction ) <--
+10 # xFactor( p_RationalFunction? ) <--
 [
     Local(fs,n,d);
     fs := xFactors( p );
@@ -15,7 +15,7 @@
 ];
 
 
-10 # xFactor( L_IsList ) <-- 
+10 # xFactor( L_List? ) <-- 
 [
     Local (result,x,f);
     result := {};
@@ -33,3 +33,23 @@
 20 # xFactor( _expr ) <-- expr;
 
 %/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="xFactor",categories="User Functions",access="undocumented"
+*CMD xFactor --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

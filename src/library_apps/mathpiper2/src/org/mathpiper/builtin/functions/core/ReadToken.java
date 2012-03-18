@@ -29,18 +29,28 @@ import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 public class ReadToken extends BuiltinFunction
 {
 
+    private ReadToken()
+    {
+    }
+
+    public ReadToken(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         MathPiperTokenizer tok = aEnvironment.iCurrentTokenizer;
         String result;
-        result = tok.nextToken(aEnvironment, aStackTop, aEnvironment.iCurrentInput, aEnvironment.getTokenHash());
+        result = tok.nextToken(aEnvironment, aStackTop, aEnvironment.getCurrentInput());
 
         if (result.length() == 0)
         {
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(aEnvironment.iEndOfFileAtom.copy( aEnvironment, false));
+            setTopOfStack(aEnvironment, aStackTop, aEnvironment.iEndOfFileAtom.copy(false));
             return;
         }
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, result));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, result));
     }
 }
 

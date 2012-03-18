@@ -29,6 +29,16 @@ import org.mathpiper.lisp.Environment;
 public class FastIsPrime extends BuiltinFunction
 {
 
+    private FastIsPrime()
+    {
+    }
+
+    public FastIsPrime(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         //TODO fixme this routine should actually be called SlowIsPrime ;-)
@@ -56,6 +66,6 @@ public class FastIsPrime extends BuiltinFunction
 
         BigNumber z = new BigNumber(aEnvironment.getPrecision());
         z.setTo(result);
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
+        setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
     }
 }

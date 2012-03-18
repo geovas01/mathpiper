@@ -3,7 +3,7 @@
 // http://en.wikipedia.org/wiki/Computus#Anonymous_Gregorian_algorithm
 Easter(year) := [
 
-    Check(IsPositiveInteger(year), "Argument", "The argument must be a positive integer");
+    Check(PositiveInteger?(year), "Argument", "The argument must be a positive integer");
 
     Local(a,b,c,d,e,f,g,h,i,k,L,m,month,day);
 

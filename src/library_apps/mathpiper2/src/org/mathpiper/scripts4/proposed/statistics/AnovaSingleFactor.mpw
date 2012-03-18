@@ -4,7 +4,7 @@
 
 AnovaSingleFactor(levelsList, alpha) :=
 [
-    Check(IsListOfLists(levelsList), "Argument", "The first argument must be a list of lists.");
+    Check(ListOfLists?(levelsList), "Argument", "The first argument must be a list of lists.");
     
     Check(alpha >=? 0 And? alpha <=? 1, "Argument", "The second argument must be a number between 0 and 1.");
     

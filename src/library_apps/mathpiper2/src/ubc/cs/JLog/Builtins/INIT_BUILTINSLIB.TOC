@@ -1,0 +1,283 @@
+LoadClass: ubc.cs.JLog.Builtins.ExpectedCompoundTermException
+# LoadClass: ubc.cs.JLog.Builtins.iArithmetic
+LoadClass: ubc.cs.JLog.Builtins.InvalidArgArgumentException
+LoadClass: ubc.cs.JLog.Builtins.InvalidArithmeticOperationException
+LoadClass: ubc.cs.JLog.Builtins.InvalidAssertException
+LoadClass: ubc.cs.JLog.Builtins.InvalidCalleeTypeException
+LoadClass: ubc.cs.JLog.Builtins.InvalidExpressionTypeException
+LoadClass: ubc.cs.JLog.Builtins.InvalidFunctorArgumentException
+LoadClass: ubc.cs.JLog.Builtins.InvalidKeysortKeyValueException
+LoadClass: ubc.cs.JLog.Builtins.InvalidNameArgumentException
+LoadClass: ubc.cs.JLog.Builtins.InvalidOpArgumentException
+LoadClass: ubc.cs.JLog.Builtins.InvalidRetractException
+LoadClass: ubc.cs.JLog.Builtins.InvalidSortSourceListException
+LoadClass: ubc.cs.JLog.Builtins.InvalidTermToListArgumentException
+
+LoadClass: ubc.cs.JLog.Builtins.jCreateArray
+LoadClass: ubc.cs.JLog.Builtins.jGetArrayElement
+LoadClass: ubc.cs.JLog.Builtins.jSetArrayElement
+
+# LoadClass: ubc.cs.JLog.Builtins.jAbs
+# LoadClass: ubc.cs.JLog.Builtins.jACos
+# LoadClass: ubc.cs.JLog.Builtins.jAdd
+# LoadClass: ubc.cs.JLog.Builtins.jAfter
+# LoadClass: ubc.cs.JLog.Builtins.jAfterEqual
+# LoadClass: ubc.cs.JLog.Builtins.jAppendArray
+# LoadClass: ubc.cs.JLog.Builtins.jArg
+# LoadClass: ubc.cs.JLog.Builtins.jArithmetic
+# LoadClass: ubc.cs.JLog.Builtins.jASin
+# LoadClass: ubc.cs.JLog.Builtins.jAssert
+# LoadClass: ubc.cs.JLog.Builtins.jAsserta
+# LoadClass: ubc.cs.JLog.Builtins.jAssertz
+# LoadClass: ubc.cs.JLog.Builtins.jATan
+# LoadClass: ubc.cs.JLog.Builtins.jATan2
+# LoadClass: ubc.cs.JLog.Builtins.jBefore
+# LoadClass: ubc.cs.JLog.Builtins.jBeforeEqual
+# LoadClass: ubc.cs.JLog.Builtins.jBitwiseConjunction
+# LoadClass: ubc.cs.JLog.Builtins.jBitwiseDisjunction
+# LoadClass: ubc.cs.JLog.Builtins.jBitwiseExclusiveDisjunction
+# LoadClass: ubc.cs.JLog.Builtins.jBitwiseLeftShift
+# LoadClass: ubc.cs.JLog.Builtins.jBitwiseNegation
+# LoadClass: ubc.cs.JLog.Builtins.jBitwiseRightShift
+# LoadClass: ubc.cs.JLog.Builtins.jCall
+# LoadClass: ubc.cs.JLog.Builtins.jCallN
+# LoadClass: ubc.cs.JLog.Builtins.jCeiling
+# LoadClass: ubc.cs.JLog.Builtins.jCompare
+# LoadClass: ubc.cs.JLog.Builtins.jComparison
+# LoadClass: ubc.cs.JLog.Builtins.jConvertArray
+# LoadClass: ubc.cs.JLog.Builtins.jCopyTerm
+# LoadClass: ubc.cs.JLog.Builtins.jCos
+# LoadClass: ubc.cs.JLog.Builtins.jCurrentOpList
+# LoadClass: ubc.cs.JLog.Builtins.jCut
+# LoadClass: ubc.cs.JLog.Builtins.jDynamic
+# LoadClass: ubc.cs.JLog.Builtins.jEnumerateVariablesArray
+# LoadClass: ubc.cs.JLog.Builtins.jEqual
+# LoadClass: ubc.cs.JLog.Builtins.jEquivalent
+# LoadClass: ubc.cs.JLog.Builtins.jExists
+# LoadClass: ubc.cs.JLog.Builtins.jExp
+# LoadClass: ubc.cs.JLog.Builtins.jExpandTerm
+# LoadClass: ubc.cs.JLog.Builtins.jFloor
+# LoadClass: ubc.cs.JLog.Builtins.jFunctor
+# LoadClass: ubc.cs.JLog.Builtins.jGreaterThan
+# LoadClass: ubc.cs.JLog.Builtins.jGreaterThanEqual
+LoadClass: ubc.cs.JLog.Builtins.jIntegerArithmetic
+#LoadClass: ubc.cs.JLog.Builtins.jIntegerDivide
+LoadClass: ubc.cs.JLog.Builtins.jIntegerOnlyArithmetic
+# LoadClass: ubc.cs.JLog.Builtins.jIntersectArray
+# LoadClass: ubc.cs.JLog.Builtins.jIs
+# LoadClass: ubc.cs.JLog.Builtins.jIsAtom
+# LoadClass: ubc.cs.JLog.Builtins.jIsAtomic
+# LoadClass: ubc.cs.JLog.Builtins.jIsCallable
+# LoadClass: ubc.cs.JLog.Builtins.jIsCompound
+# LoadClass: ubc.cs.JLog.Builtins.jIsGround
+# LoadClass: ubc.cs.JLog.Builtins.jIsInteger
+# LoadClass: ubc.cs.JLog.Builtins.jIsList
+# LoadClass: ubc.cs.JLog.Builtins.jIsNonVariable
+# LoadClass: ubc.cs.JLog.Builtins.jIsNumber
+# LoadClass: ubc.cs.JLog.Builtins.jIsReal
+# LoadClass: ubc.cs.JLog.Builtins.jIsSimple
+# LoadClass: ubc.cs.JLog.Builtins.jIsType
+# LoadClass: ubc.cs.JLog.Builtins.jIsVariable
+# LoadClass: ubc.cs.JLog.Builtins.jKeysort
+# LoadClass: ubc.cs.JLog.Builtins.jLessThan
+# LoadClass: ubc.cs.JLog.Builtins.jLessThanEqual
+# LoadClass: ubc.cs.JLog.Builtins.jLoadLibrary
+# LoadClass: ubc.cs.JLog.Builtins.jLog
+# LoadClass: ubc.cs.JLog.Builtins.jLog2
+# LoadClass: ubc.cs.JLog.Builtins.jLog10
+# LoadClass: ubc.cs.JLog.Builtins.jLogBase
+# LoadClass: ubc.cs.JLog.Builtins.jMax
+# LoadClass: ubc.cs.JLog.Builtins.jMin
+# LoadClass: ubc.cs.JLog.Builtins.jMinus
+# LoadClass: ubc.cs.JLog.Builtins.jMod
+# LoadClass: ubc.cs.JLog.Builtins.jMultiply
+# LoadClass: ubc.cs.JLog.Builtins.jName
+# LoadClass: ubc.cs.JLog.Builtins.jNotEqual
+# LoadClass: ubc.cs.JLog.Builtins.jNotEquivalent
+# LoadClass: ubc.cs.JLog.Builtins.jNotUnify
+LoadClass: ubc.cs.JLog.Builtins.jNumericComparison
+# LoadClass: ubc.cs.JLog.Builtins.jOp
+LoadClass: ubc.cs.JLog.Builtins.jOperator
+# LoadClass: ubc.cs.JLog.Builtins.jPlus
+# LoadClass: ubc.cs.JLog.Builtins.jPow
+# LoadClass: ubc.cs.JLog.Builtins.jRandom
+# LoadClass: ubc.cs.JLog.Builtins.jRead
+LoadClass: ubc.cs.JLog.Builtins.jRealArithmetic
+# LoadClass: ubc.cs.JLog.Builtins.jRealDivide
+LoadClass: ubc.cs.JLog.Builtins.jRealUnaryArithmetic
+# LoadClass: ubc.cs.JLog.Builtins.jRepeat
+# LoadClass: ubc.cs.JLog.Builtins.jRetract
+# LoadClass: ubc.cs.JLog.Builtins.jRound
+# LoadClass: ubc.cs.JLog.Builtins.jSin
+# LoadClass: ubc.cs.JLog.Builtins.jSort
+# LoadClass: ubc.cs.JLog.Builtins.jSqrt
+# LoadClass: ubc.cs.JLog.Builtins.jSubtract
+# LoadClass: ubc.cs.JLog.Builtins.jSubtractArray
+# LoadClass: ubc.cs.JLog.Builtins.jTan
+# LoadClass: ubc.cs.JLog.Builtins.jTermToList
+# LoadClass: ubc.cs.JLog.Builtins.jTruncate
+LoadClass: ubc.cs.JLog.Builtins.jUnaryArithmetic
+LoadClass: ubc.cs.JLog.Builtins.jUnaryOperator
+# LoadClass: ubc.cs.JLog.Builtins.jUnionArray
+# LoadClass: ubc.cs.JLog.Builtins.jWrite
+LoadClass: ubc.cs.JLog.Builtins.MissingInputServicesException
+LoadClass: ubc.cs.JLog.Builtins.Goals.jGetArrayElementGoal
+LoadClass: ubc.cs.JLog.Builtins.Goals.jSetArrayElementGoal
+LoadClass: ubc.cs.JLog.Builtins.Goals.jAppendArrayGoal
+LoadClass: ubc.cs.JLog.Builtins.Goals.jAssertGoal
+LoadClass: ubc.cs.JLog.Builtins.Goals.jCallGoal
+LoadClass: ubc.cs.JLog.Builtins.Goals.jCallNGoal
+LoadClass: ubc.cs.JLog.Builtins.Goals.jCompareGoal
+LoadClass: ubc.cs.JLog.Builtins.Goals.jCopyGoal
+LoadClass: ubc.cs.JLog.Builtins.Goals.jCurrentOpListGoal
+LoadClass: ubc.cs.JLog.Builtins.Goals.jCutGoal
+LoadClass: ubc.cs.JLog.Builtins.Goals.jEnumerateVariablesArrayGoal
+LoadClass: ubc.cs.JLog.Builtins.Goals.jEquivGoal
+LoadClass: ubc.cs.JLog.Builtins.Goals.jFunctorGoal
+LoadClass: ubc.cs.JLog.Builtins.Goals.jIntersectArrayGoal
+LoadClass: ubc.cs.JLog.Builtins.Goals.jIsGoal
+LoadClass: ubc.cs.JLog.Builtins.Goals.jNameGoal
+LoadClass: ubc.cs.JLog.Builtins.Goals.jOperatorGoal
+LoadClass: ubc.cs.JLog.Builtins.Goals.jOpGoal
+LoadClass: ubc.cs.JLog.Builtins.Goals.jReadGoal
+LoadClass: ubc.cs.JLog.Builtins.Goals.jRepeatGoal
+LoadClass: ubc.cs.JLog.Builtins.Goals.jRetractGoal
+LoadClass: ubc.cs.JLog.Builtins.Goals.jSortGoal
+LoadClass: ubc.cs.JLog.Builtins.Goals.jSubtractArrayGoal
+LoadClass: ubc.cs.JLog.Builtins.Goals.jTermToListGoal
+LoadClass: ubc.cs.JLog.Builtins.Goals.jTimeGoal
+LoadClass: ubc.cs.JLog.Builtins.Goals.jUnaryArithmeticGoal
+LoadClass: ubc.cs.JLog.Builtins.Goals.jUnaryOperatorGoal
+LoadClass: ubc.cs.JLog.Builtins.Goals.jUnionArrayGoal
+LoadClass: ubc.cs.JLog.Builtins.Goals.jWriteGoal
+LoadClass: ubc.cs.JLog.Builtins.Entries.pCallPredicateEntry
+LoadClass: ubc.cs.JLog.Builtins.Entries.pIfThenOperatorEntry
+LoadClass: ubc.cs.JLog.Builtins.Entries.pNotOperatorEntry
+
+# RegisterGeneric also load the specified class.
+
+RegisterGenericPredicateEntry: "functor" 3 ubc.cs.JLog.Builtins.jFunctor 
+RegisterGenericPredicateEntry: "arg" 3 ubc.cs.JLog.Builtins.jArg 
+RegisterGenericPredicateEntry: "name" 2 ubc.cs.JLog.Builtins.jName
+RegisterGenericPredicateEntry: "=.." 2 ubc.cs.JLog.Builtins.jTermToList
+RegisterGenericPredicateEntry: "/\\" 2 ubc.cs.JLog.Builtins.jBitwiseConjunction
+RegisterGenericPredicateEntry: "\\/" 2 ubc.cs.JLog.Builtins.jBitwiseDisjunction
+RegisterGenericPredicateEntry: "#" 2 ubc.cs.JLog.Builtins.jBitwiseExclusiveDisjunction
+RegisterGenericPredicateEntry: "<<" 2 ubc.cs.JLog.Builtins.jBitwiseLeftShift 
+RegisterGenericPredicateEntry: ">>" 2 ubc.cs.JLog.Builtins.jBitwiseRightShift
+RegisterGenericPredicateEntry: "\\" 1 ubc.cs.JLog.Builtins.jBitwiseNegation 
+RegisterGenericPredicateEntry: "^" 2 ubc.cs.JLog.Builtins.jExists 
+RegisterGenericPredicateEntry: "sort" 2 ubc.cs.JLog.Builtins.jSort 
+RegisterGenericPredicateEntry: "keysort" 2 ubc.cs.JLog.Builtins.jKeysort 
+RegisterGenericPredicateEntry: "copy_term" 2 ubc.cs.JLog.Builtins.jCopyTerm 
+RegisterGenericPredicateEntry: "assert" 1 ubc.cs.JLog.Builtins.jAssert 
+RegisterGenericPredicateEntry: "asserta" 1 ubc.cs.JLog.Builtins.jAsserta 
+RegisterGenericPredicateEntry: "assertz" 1 ubc.cs.JLog.Builtins.jAssertz 
+RegisterGenericPredicateEntry: "retract" 1 ubc.cs.JLog.Builtins.jRetract 
+RegisterGenericPredicateEntry: "op" 3 ubc.cs.JLog.Builtins.jOp 
+RegisterGenericPredicateEntry: "dynamic" 1 ubc.cs.JLog.Builtins.jDynamic 
+RegisterGenericPredicateEntry: "load_library" 1 ubc.cs.JLog.Builtins.jLoadLibrary 
+RegisterGenericPredicateEntry: "max" 2 ubc.cs.JLog.Builtins.jMax 
+RegisterGenericPredicateEntry: "min" 2 ubc.cs.JLog.Builtins.jMin 
+RegisterGenericPredicateEntry: "atom" 1 ubc.cs.JLog.Builtins.jIsAtom 
+RegisterGenericPredicateEntry: "atomic" 1 ubc.cs.JLog.Builtins.jIsAtomic
+RegisterGenericPredicateEntry: "simple" 1 ubc.cs.JLog.Builtins.jIsSimple
+RegisterGenericPredicateEntry: "compound" 1 ubc.cs.JLog.Builtins.jIsCompound
+RegisterGenericPredicateEntry: "float" 1 ubc.cs.JLog.Builtins.jIsReal 
+RegisterGenericPredicateEntry: "integer" 1 ubc.cs.JLog.Builtins.jIsInteger
+RegisterGenericPredicateEntry: "number" 1 ubc.cs.JLog.Builtins.jIsNumber
+RegisterGenericPredicateEntry: "var" 1 ubc.cs.JLog.Builtins.jIsVariable
+RegisterGenericPredicateEntry: "nonvar" 1 ubc.cs.JLog.Builtins.jIsNonVariable
+RegisterGenericPredicateEntry: "ground" 1 ubc.cs.JLog.Builtins.jIsGround
+RegisterGenericPredicateEntry: "list" 1 ubc.cs.JLog.Builtins.jIsList
+RegisterGenericPredicateEntry: "callable" 1 ubc.cs.JLog.Builtins.jIsCallable
+RegisterGenericPredicateEntry: "write" 1 ubc.cs.JLog.Builtins.jWrite
+RegisterGenericPredicateEntry: "read" 1 ubc.cs.JLog.Builtins.jRead
+RegisterGenericPredicateEntry: "repeat" 0 ubc.cs.JLog.Builtins.jRepeat
+RegisterGenericPredicateEntry: "!" 0 ubc.cs.JLog.Builtins.jCut
+RegisterGenericPredicateEntry: "is" 2 ubc.cs.JLog.Builtins.jIs
+RegisterGenericPredicateEntry: "\\=" 2 ubc.cs.JLog.Builtins.jNotUnify
+RegisterGenericPredicateEntry: "==" 2 ubc.cs.JLog.Builtins.jEquivalent
+RegisterGenericPredicateEntry: "\\==" 2 ubc.cs.JLog.Builtins.jNotEquivalent
+RegisterGenericPredicateEntry: "=@=" 2 ubc.cs.JLog.Builtins.jEquivalence
+RegisterGenericPredicateEntry: "\\=@=" 2 ubc.cs.JLog.Builtins.jNotEquivalence
+RegisterGenericPredicateEntry: "<" 2 ubc.cs.JLog.Builtins.jLessThan 
+RegisterGenericPredicateEntry: "=<" 2 ubc.cs.JLog.Builtins.jLessThanEqual
+RegisterGenericPredicateEntry: "=:=" 2 ubc.cs.JLog.Builtins.jEqual 
+RegisterGenericPredicateEntry: "=\\=" 2 ubc.cs.JLog.Builtins.jNotEqual 
+RegisterGenericPredicateEntry: ">" 2 ubc.cs.JLog.Builtins.jGreaterThan 
+RegisterGenericPredicateEntry: ">=" 2 ubc.cs.JLog.Builtins.jGreaterThanEqual 
+RegisterGenericPredicateEntry: "@<" 2 ubc.cs.JLog.Builtins.jBefore 
+RegisterGenericPredicateEntry: "@=<" 2 ubc.cs.JLog.Builtins.jBeforeEqual 
+RegisterGenericPredicateEntry: "@>" 2 ubc.cs.JLog.Builtins.jAfter 
+RegisterGenericPredicateEntry: "@>=" 2 ubc.cs.JLog.Builtins.jAfterEqual 
+RegisterGenericPredicateEntry: "compare" 3 ubc.cs.JLog.Builtins.jCompare 
+RegisterGenericPredicateEntry: "+" 2 ubc.cs.JLog.Builtins.jAdd 
+RegisterGenericPredicateEntry: "-" 2 ubc.cs.JLog.Builtins.jSubtract 
+RegisterGenericPredicateEntry: "*" 2 ubc.cs.JLog.Builtins.jMultiply 
+RegisterGenericPredicateEntry: "/" 2 ubc.cs.JLog.Builtins.jRealDivide 
+RegisterGenericPredicateEntry: "//" 2 ubc.cs.JLog.Builtins.jIntegerDivide
+RegisterGenericPredicateEntry: "mod" 2 ubc.cs.JLog.Builtins.jMod
+RegisterGenericPredicateEntry: "pow" 2 ubc.cs.JLog.Builtins.jPow
+RegisterGenericPredicateEntry: "**" 2 ubc.cs.JLog.Builtins.jPow
+RegisterGenericPredicateEntry: "-" 1 ubc.cs.JLog.Builtins.jMinus
+RegisterGenericPredicateEntry: "+" 1 ubc.cs.JLog.Builtins.jPlus
+RegisterGenericPredicateEntry: "abs" 1 ubc.cs.JLog.Builtins.jAbs
+RegisterGenericPredicateEntry: "asin" 1 ubc.cs.JLog.Builtins.jASin
+RegisterGenericPredicateEntry: "acos" 1 ubc.cs.JLog.Builtins.jACos
+RegisterGenericPredicateEntry: "atan" 1 ubc.cs.JLog.Builtins.jATan
+RegisterGenericPredicateEntry: "atan" 2 ubc.cs.JLog.Builtins.jATan2
+RegisterGenericPredicateEntry: "sin" 1 ubc.cs.JLog.Builtins.jSin
+RegisterGenericPredicateEntry: "cos" 1 ubc.cs.JLog.Builtins.jCos
+RegisterGenericPredicateEntry: "tan" 1 ubc.cs.JLog.Builtins.jTan
+RegisterGenericPredicateEntry: "ceiling" 1 ubc.cs.JLog.Builtins.jCeiling
+RegisterGenericPredicateEntry: "floor" 1 ubc.cs.JLog.Builtins.jFloor
+RegisterGenericPredicateEntry: "round" 1 ubc.cs.JLog.Builtins.jRound
+RegisterGenericPredicateEntry: "truncate" 1 ubc.cs.JLog.Builtins.jTruncate
+RegisterGenericPredicateEntry: "exp" 1 ubc.cs.JLog.Builtins.jExp 
+RegisterGenericPredicateEntry: "log" 1 ubc.cs.JLog.Builtins.jLog 
+RegisterGenericPredicateEntry: "log2" 1 ubc.cs.JLog.Builtins.jLog2 
+RegisterGenericPredicateEntry: "log10" 1 ubc.cs.JLog.Builtins.jLog10 
+RegisterGenericPredicateEntry: "log" 2 ubc.cs.JLog.Builtins.jLogBase 
+RegisterGenericPredicateEntry: "sqrt" 1 ubc.cs.JLog.Builtins.jSqrt 
+RegisterGenericPredicateEntry: "random" 1 ubc.cs.JLog.Builtins.jRandom 
+RegisterGenericPredicateEntry: "time" 1 ubc.cs.JLog.Builtins.jTime 
+
+RegisterGenericOperatorEntry: "^" XFY 200 true ubc.cs.JLog.Builtins.jExists 
+RegisterGenericOperatorEntry: "=.." XFX 700 false ubc.cs.JLog.Builtins.jTermToList 
+RegisterGenericOperatorEntry: "/\\" YFX 500 false ubc.cs.JLog.Builtins.jBitwiseConjunction 
+RegisterGenericOperatorEntry: "\\/" YFX 500 false ubc.cs.JLog.Builtins.jBitwiseDisjunction 
+RegisterGenericOperatorEntry: "#" YFX 500 false ubc.cs.JLog.Builtins.jBitwiseExclusiveDisjunction 
+RegisterGenericOperatorEntry: "<<" YFX 400 false ubc.cs.JLog.Builtins.jBitwiseLeftShift 
+RegisterGenericOperatorEntry: ">>" YFX 400 false ubc.cs.JLog.Builtins.jBitwiseRightShift 
+RegisterGenericOperatorEntry: "is" XFX 700 true ubc.cs.JLog.Builtins.jIs
+RegisterGenericOperatorEntry: "dynamic" FX 1150 true ubc.cs.JLog.Builtins.jDynamic
+RegisterGenericOperatorEntry: "load_library" FX 1150 true ubc.cs.JLog.Builtins.jLoadLibrary
+RegisterGenericOperatorEntry: "\\=" XFX 700 true ubc.cs.JLog.Builtins.jNotUnify
+RegisterGenericOperatorEntry: "==" XFX 700 true ubc.cs.JLog.Builtins.jEquivalent
+RegisterGenericOperatorEntry: "\\==" XFX 700 true ubc.cs.JLog.Builtins.jNotEquivalent
+RegisterGenericOperatorEntry: "=@=" XFX 700 true ubc.cs.JLog.Builtins.jEquivalence
+RegisterGenericOperatorEntry: "\\=@=" XFX 700 true ubc.cs.JLog.Builtins.jNotEquivalence
+RegisterGenericOperatorEntry: "<" XFX 700 true ubc.cs.JLog.Builtins.jLessThan
+RegisterGenericOperatorEntry: "=<" XFX 700 true ubc.cs.JLog.Builtins.jLessThanEqual
+RegisterGenericOperatorEntry: "=:=" XFX 700 true ubc.cs.JLog.Builtins.jEqual
+RegisterGenericOperatorEntry: "=\\=" XFX 700 true ubc.cs.JLog.Builtins.jNotEqual
+RegisterGenericOperatorEntry: ">" XFX 700 true ubc.cs.JLog.Builtins.jGreaterThan
+RegisterGenericOperatorEntry: ">=" XFX 700 true ubc.cs.JLog.Builtins.jGreaterThanEqual
+RegisterGenericOperatorEntry: "@<" XFX 700 true ubc.cs.JLog.Builtins.jBefore
+RegisterGenericOperatorEntry: "@=<" XFX 700 true ubc.cs.JLog.Builtins.jBeforeEqual
+RegisterGenericOperatorEntry: "@>" XFX 700 true ubc.cs.JLog.Builtins.jAfter
+RegisterGenericOperatorEntry: "@>=" XFX 700 true ubc.cs.JLog.Builtins.jAfterEqual
+RegisterGenericOperatorEntry: "+" YFX 500 true ubc.cs.JLog.Builtins.jAdd
+RegisterGenericOperatorEntry: "-" YFX 500 true ubc.cs.JLog.Builtins.jSubtract
+RegisterGenericOperatorEntry: "*" YFX 400 true ubc.cs.JLog.Builtins.jMultiply
+RegisterGenericOperatorEntry: "/" YFX 400 true ubc.cs.JLog.Builtins.jRealDivide
+RegisterGenericOperatorEntry: "//" YFX 400 true ubc.cs.JLog.Builtins.jIntegerDivide
+RegisterGenericOperatorEntry: "mod" XFX 300 true ubc.cs.JLog.Builtins.jMod
+RegisterGenericOperatorEntry: "pow" XFY 200 true ubc.cs.JLog.Builtins.jPow
+RegisterGenericOperatorEntry: "**" XFX 200 true ubc.cs.JLog.Builtins.jPow 
+RegisterGenericOperatorEntry: "-" FY 500 true ubc.cs.JLog.Builtins.jMinus 
+RegisterGenericOperatorEntry: "+" FY 500 true ubc.cs.JLog.Builtins.jPlus 
+
+# jPredefined subclasses should load after all other predicates and operators are registered.
+LoadClass: ubc.cs.JLog.Builtins.jPredefinedBuiltins

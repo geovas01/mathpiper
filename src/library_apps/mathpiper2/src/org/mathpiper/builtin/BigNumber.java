@@ -23,7 +23,7 @@ import java.math.*;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.Cons;
-import org.mathpiper.lisp.cons.ConsPointer;
+
 import org.mathpiper.lisp.cons.NumberCons;
 import org.mathpiper.lisp.cons.SublistCons;
 
@@ -516,9 +516,9 @@ public class BigNumber {
      * @throws java.lang.Exception
      */
     public void mod(Environment aEnvironment,int aStackTop, BigNumber aY, BigNumber aZ) throws Exception {
-        LispError.check(aEnvironment, aStackTop, aY.javaBigInteger != null, LispError.NOT_AN_INTEGER, aY.toString(), "INTERNAL");
-        LispError.check(aEnvironment, aStackTop, aZ.javaBigInteger != null, LispError.NOT_AN_INTEGER, aZ.toString(), "INTERNAL");
-        //TODO fixme    LispError.check(!IsZero(aZ),LispError.INVALID_ARGUMENT);
+        if(aY.javaBigInteger == null) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_AN_INTEGER, aY);
+        if(aZ.javaBigInteger == null) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_AN_INTEGER, aZ);
+        //TODO fixme    LispError.check(!Zero?(aZ),LispError.INVALID_ARGUMENT);
         javaBigInteger = aY.javaBigInteger.mod(aZ.javaBigInteger);
         javaBigDecimal = null;
     }
@@ -547,126 +547,126 @@ public class BigNumber {
         if(javaBigInteger != null)
         {
             //Create type association list.
-            Cons typeListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
+            Cons typeListAtomCons = aEnvironment.iListAtom.copy(false);
 
             Cons typeAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"type\"");
 
             Cons typeValueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"BigInteger\"");
 
-            typeListAtomCons.cdr().setCons(typeAtomCons);
+            typeListAtomCons.setCdr(typeAtomCons);
 
-            typeAtomCons.cdr().setCons(typeValueAtomCons);
+            typeAtomCons.setCdr(typeValueAtomCons);
 
             Cons typeSublistCons = SublistCons.getInstance(aEnvironment, typeListAtomCons);
 
 
             //Create value association list.
-            Cons valueListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
+            Cons valueListAtomCons = aEnvironment.iListAtom.copy(false);
 
             Cons valueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"value\"");
 
             Cons valueValueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, javaBigInteger.toString());
 
-            valueListAtomCons.cdr().setCons(valueAtomCons);
+            valueListAtomCons.setCdr(valueAtomCons);
 
-            valueAtomCons.cdr().setCons(valueValueAtomCons);
+            valueAtomCons.setCdr(valueValueAtomCons);
 
             Cons valueSublistCons = SublistCons.getInstance(aEnvironment, valueListAtomCons);
 
 
             //Create result list.
-            typeSublistCons.cdr().setCons(valueSublistCons);
+            typeSublistCons.setCdr(valueSublistCons);
 
-            Cons resultListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
+            Cons resultListAtomCons = aEnvironment.iListAtom.copy(false);
 
-            resultListAtomCons.cdr().setCons(typeSublistCons);
+            resultListAtomCons.setCdr(typeSublistCons);
 
             resultSublistCons = SublistCons.getInstance(aEnvironment, resultListAtomCons);
         }
         else
         {
             //Create type association list.
-            Cons typeListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
+            Cons typeListAtomCons = aEnvironment.iListAtom.copy(false);
 
             Cons typeAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"type\"");
 
             Cons typeValueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"BigDecimal\"");
 
-            typeListAtomCons.cdr().setCons(typeAtomCons);
+            typeListAtomCons.setCdr(typeAtomCons);
 
-            typeAtomCons.cdr().setCons(typeValueAtomCons);
+            typeAtomCons.setCdr(typeValueAtomCons);
 
             Cons typeSublistCons = SublistCons.getInstance(aEnvironment, typeListAtomCons);
 
 
             //Create value association list.
-            Cons valueListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
+            Cons valueListAtomCons = aEnvironment.iListAtom.copy(false);
 
             Cons valueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"value\"");
 
             Cons valueValueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, javaBigDecimal.toPlainString());
 
-            valueListAtomCons.cdr().setCons(valueAtomCons);
+            valueListAtomCons.setCdr(valueAtomCons);
 
-            valueAtomCons.cdr().setCons(valueValueAtomCons);
+            valueAtomCons.setCdr(valueValueAtomCons);
 
             Cons valueSublistCons = SublistCons.getInstance(aEnvironment, valueListAtomCons);
 
 
             //Create precision association list.
-            Cons precisionListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
+            Cons precisionListAtomCons = aEnvironment.iListAtom.copy(false);
 
             Cons precisionAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"precision\"");
 
             Cons precisionValueAtomCons = new NumberCons(new BigNumber("" + javaBigDecimal.precision(), this.iPrecision, 10));
 
-            precisionListAtomCons.cdr().setCons(precisionAtomCons);
+            precisionListAtomCons.setCdr(precisionAtomCons);
 
-            precisionAtomCons.cdr().setCons(precisionValueAtomCons);
+            precisionAtomCons.setCdr(precisionValueAtomCons);
 
             Cons precisionSublistCons = SublistCons.getInstance(aEnvironment, precisionListAtomCons);
 
 
             //Create unscaled value association list.
-            Cons unscaledValueListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
+            Cons unscaledValueListAtomCons = aEnvironment.iListAtom.copy(false);
 
             Cons unscaledValueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"unscaledValue\"");
 
             Cons unscaledValueValueAtomCons = new NumberCons(new BigNumber("" + javaBigDecimal.unscaledValue(), this.iPrecision, 10));
 
-            unscaledValueListAtomCons.cdr().setCons(unscaledValueAtomCons);
+            unscaledValueListAtomCons.setCdr(unscaledValueAtomCons);
 
-            unscaledValueAtomCons.cdr().setCons(unscaledValueValueAtomCons);
+            unscaledValueAtomCons.setCdr(unscaledValueValueAtomCons);
 
             Cons unscaledValueSublistCons = SublistCons.getInstance(aEnvironment, unscaledValueListAtomCons);
 
 
             //Create scale association list.
-            Cons scaleListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
+            Cons scaleListAtomCons = aEnvironment.iListAtom.copy(false);
 
             Cons scaleAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"scale\"");
 
             Cons scaleValueAtomCons = new NumberCons(new BigNumber("" + javaBigDecimal.scale(), this.iPrecision, 10));
 
-            scaleListAtomCons.cdr().setCons(scaleAtomCons);
+            scaleListAtomCons.setCdr(scaleAtomCons);
 
-            scaleAtomCons.cdr().setCons(scaleValueAtomCons);
+            scaleAtomCons.setCdr(scaleValueAtomCons);
 
             Cons scaleSublistCons = SublistCons.getInstance(aEnvironment, scaleListAtomCons);
 
 
             //Create result list.
-            typeSublistCons.cdr().setCons(valueSublistCons);
+            typeSublistCons.setCdr(valueSublistCons);
 
-            valueSublistCons.cdr().setCons(precisionSublistCons);
+            valueSublistCons.setCdr(precisionSublistCons);
 
-            precisionSublistCons.cdr().setCons(unscaledValueSublistCons);
+            precisionSublistCons.setCdr(unscaledValueSublistCons);
 
-            unscaledValueSublistCons.cdr().setCons(scaleSublistCons);
+            unscaledValueSublistCons.setCdr(scaleSublistCons);
 
-            Cons resultListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
+            Cons resultListAtomCons = aEnvironment.iListAtom.copy(false);
 
-            resultListAtomCons.cdr().setCons(typeSublistCons);
+            resultListAtomCons.setCdr(typeSublistCons);
 
             resultSublistCons = SublistCons.getInstance(aEnvironment, resultListAtomCons);
 
@@ -763,7 +763,7 @@ public class BigNumber {
      * @throws java.lang.Exception
      */
     public void shiftLeft(BigNumber aX, int aNrToShift, Environment aEnvironment, int aStackTop) throws Exception {
-        LispError.lispAssert(aX.javaBigInteger != null, aEnvironment, aStackTop);
+        if(aX.javaBigInteger == null) LispError.lispAssert(aEnvironment, aStackTop);
         javaBigDecimal = null;
         javaBigInteger = aX.javaBigInteger.shiftLeft(aNrToShift);
     }
@@ -775,7 +775,7 @@ public class BigNumber {
      * @throws java.lang.Exception
      */
     public void shiftRight(BigNumber aX, int aNrToShift, Environment aEnvironment, int aStackTop) throws Exception {
-        LispError.lispAssert(aX.javaBigInteger != null, aEnvironment, aStackTop);
+        if(aX.javaBigInteger == null) LispError.lispAssert(aEnvironment, aStackTop);
         javaBigDecimal = null;
         javaBigInteger = aX.javaBigInteger.shiftRight(aNrToShift);
     }
@@ -788,8 +788,8 @@ public class BigNumber {
      * @throws java.lang.Exception
      */
     public void gcd(BigNumber aX, BigNumber aY, Environment aEnvironment, int aStackTop) throws Exception {
-        LispError.lispAssert(aX.javaBigInteger != null, aEnvironment, aStackTop);
-        LispError.lispAssert(aY.javaBigInteger != null, aEnvironment, aStackTop);
+        if(aX.javaBigInteger == null) LispError.lispAssert(aEnvironment, aStackTop);
+        if(aY.javaBigInteger == null) LispError.lispAssert(aEnvironment, aStackTop);
         javaBigInteger = aX.javaBigInteger.gcd(aY.javaBigInteger);
         javaBigDecimal = null;
     }
@@ -802,8 +802,8 @@ public class BigNumber {
      * @throws java.lang.Exception
      */
     public void bitAnd(BigNumber aX, BigNumber aY, Environment aEnvironment, int aStackTop) throws Exception {
-        LispError.lispAssert(aX.javaBigInteger != null, aEnvironment, aStackTop);
-        LispError.lispAssert(aY.javaBigInteger != null, aEnvironment, aStackTop);
+        if(aX.javaBigInteger == null) LispError.lispAssert(aEnvironment, aStackTop);
+        if(aY.javaBigInteger == null) LispError.lispAssert(aEnvironment, aStackTop);
         javaBigInteger = aX.javaBigInteger.and(aY.javaBigInteger);
         javaBigDecimal = null;
     }
@@ -815,8 +815,8 @@ public class BigNumber {
      * @throws java.lang.Exception
      */
     public void bitOr(BigNumber aX, BigNumber aY, Environment aEnvironment, int aStackTop) throws Exception {
-        LispError.lispAssert(aX.javaBigInteger != null, aEnvironment, aStackTop);
-        LispError.lispAssert(aY.javaBigInteger != null, aEnvironment, aStackTop);
+        if(aX.javaBigInteger == null) LispError.lispAssert(aEnvironment, aStackTop);
+        if(aY.javaBigInteger == null) LispError.lispAssert(aEnvironment, aStackTop);
         javaBigInteger = aX.javaBigInteger.or(aY.javaBigInteger);
         javaBigDecimal = null;
     }
@@ -829,8 +829,8 @@ public class BigNumber {
      * @throws java.lang.Exception
      */
     public void bitXor(BigNumber aX, BigNumber aY, Environment aEnvironment, int aStackTop) throws Exception {
-        LispError.lispAssert(aX.javaBigInteger != null, aEnvironment, aStackTop);
-        LispError.lispAssert(aY.javaBigInteger != null, aEnvironment, aStackTop);
+        if(aX.javaBigInteger == null) LispError.lispAssert(aEnvironment, aStackTop);
+        if(aY.javaBigInteger == null) LispError.lispAssert(aEnvironment, aStackTop);
         javaBigInteger = aX.javaBigInteger.xor(aY.javaBigInteger);
         javaBigDecimal = null;
     }
@@ -842,7 +842,7 @@ public class BigNumber {
      * @throws java.lang.Exception
      */
     void bitNot(BigNumber aX, Environment aEnvironment, int aStackTop) throws Exception {
-        LispError.lispAssert(aX.javaBigInteger != null, aEnvironment, aStackTop);
+        if(aX.javaBigInteger == null) LispError.lispAssert(aEnvironment, aStackTop);
         javaBigInteger = aX.javaBigInteger.not();
         javaBigDecimal = null;
     }

@@ -1,7 +1,7 @@
-%mathpiper,def="Decimal"
+%mathpiper,def="Decimal;DecimalFindPeriod;DecimalMatches"
 
-10 # Decimal( n_IsInteger ) <-- {n,{0}};
-10 # Decimal( (n_IsPositiveInteger) / (d_IsPositiveInteger) ) <--
+10 # Decimal( n_Integer? ) <-- {n,{0}};
+10 # Decimal( (n_PositiveInteger?) / (d_PositiveInteger?) ) <--
 [
   Local(result,rev,first,period,repeat,static);
   result:={Quotient(n,d)};

@@ -54,8 +54,9 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
-import org.mathpiper.lisp.GlobalVariable;
+import org.mathpiper.lisp.variables.GlobalVariable;
 import org.mathpiper.lisp.Utility;
+
 import org.mathpiper.lisp.rulebases.Rule;
 import org.mathpiper.lisp.rulebases.MultipleArityRulebase;
 import org.mathpiper.lisp.rulebases.SingleArityRulebase;
@@ -90,14 +91,12 @@ public class EnvironmentViewer implements ActionListener {
         Leaf one = new Leaf("one");
         Leaf two = new Leaf("two");
         Leaf three = new Leaf("three");
-        Leaf four = new Leaf("four");
 
-        one.setWeight(0.15);
-        two.setWeight(0.28);
-        three.setWeight(0.28);
-        four.setWeight(0.29);
+        one.setWeight(0.25);
+        two.setWeight(0.35);
+        three.setWeight(0.40);
 
-        List children = Arrays.asList(one, new Divider(), two, new Divider(), three, new Divider(), four);
+        List children = Arrays.asList(one, new Divider(), two, new Divider(), three);
         MultiSplitLayout.Split modelRoot = new Split();
         modelRoot.setChildren(children);
         MultiSplitPane multiSplitPane = new MultiSplitPane();
@@ -148,12 +147,7 @@ public class EnvironmentViewer implements ActionListener {
         tables.add(scrollPane);
         multiSplitPane.add(scrollPane, "three");
 
-        //Add tokens.
-        table = this.getTokenTable(aEnvironment);
-        tables.add(table);
-        scrollPane = new JScrollPane(table);
-        tables.add(scrollPane);
-        multiSplitPane.add(scrollPane, "four");
+
 
         JPanel buttonsPanel = new JPanel();
 
@@ -213,7 +207,7 @@ public class EnvironmentViewer implements ActionListener {
 
     /**
      * Returns a GUI table which contains a sorted list of the user functions.
-     * 
+     *
      * @param aEnvironment the environment to view
      * @return a JTable which contains the user function names
      */
@@ -223,7 +217,7 @@ public class EnvironmentViewer implements ActionListener {
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.getSelectionModel().addListSelectionListener(new FunctionListener(table, aEnvironment));
 
-        final java.util.Map map = (java.util.Map) aEnvironment.getUserFunctions().getMap();
+        final java.util.Map map = (java.util.Map) aEnvironment.iUserRulebases.getMap();
 
         table.setModel(new AbstractTableModel() {
 
@@ -321,7 +315,7 @@ public class EnvironmentViewer implements ActionListener {
 
     /**
      * Returns a GUI table which contains a sorted list of the builtin functions.
-     * 
+     *
      * @param aEnvironment the environment to view
      * @return a JTable which contains the built in function names
      */
@@ -331,7 +325,7 @@ public class EnvironmentViewer implements ActionListener {
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.getSelectionModel().addListSelectionListener(new DummyListener(table, aEnvironment));
 
-        final java.util.Map map = (java.util.Map) aEnvironment.getBuiltinFunctions().getMap();
+        final java.util.Map map = (java.util.Map) aEnvironment.iBuiltinFunctions.getMap();
 
         table.setModel(new AbstractTableModel() {
 
@@ -388,7 +382,7 @@ public class EnvironmentViewer implements ActionListener {
 
     /**
      * Returns a GUI table which contains a sorted list of the global variables.
-     * 
+     *
      * @param aEnvironment the environment to view
      * @return a JTable which contains the global variable names
      */
@@ -398,7 +392,7 @@ public class EnvironmentViewer implements ActionListener {
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.getSelectionModel().addListSelectionListener(new GlobalVariableListener(table, aEnvironment));
 
-        final java.util.Map map = (java.util.Map) aEnvironment.getGlobalState().getMap();
+        final java.util.Map map = (java.util.Map) aEnvironment.iGlobalState.getMap();
 
         table.setModel(new AbstractTableModel() {
 
@@ -496,71 +490,7 @@ public class EnvironmentViewer implements ActionListener {
     }//end method.
 
 
-    /**
-     * Returns a GUI table which contains a sorted list of the tokens.
-     * 
-     * @param aEnvironment the environment to view
-     * @return a JTable which contains the token names
-     */
-    public JTable getTokenTable(Environment aEnvironment) {
-        JTable table = new JTable();
 
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        table.getSelectionModel().addListSelectionListener(new DummyListener(table, aEnvironment));
-
-        final java.util.Map m_hash = (java.util.Map) aEnvironment.getTokenHash().getMap();
-
-        table.setModel(new AbstractTableModel() {
-
-            private static final long serialVersionUID = 1L;
-
-
-            public int getColumnCount() {
-                return 1;
-            }
-
-
-            public int getRowCount() {
-                return m_hash.size();
-            }
-
-
-            public String getColumnName(int column) {
-                if (column == 0) {
-                    return "Tokens";
-                } else {
-                    return "";
-                }
-            }
-
-
-            public Object getValueAt(int rowIndex, int columnIndex) {
-                if (columnIndex == 0) {
-                    return getKey(rowIndex);
-                } else {
-                    return m_hash.get(getKey(rowIndex));
-                } // if-else
-
-            }
-
-
-            private String getKey(int a_index) {
-                String retval = "";
-                ArrayList keyList = new ArrayList(m_hash.keySet());
-                Collections.sort(keyList, functionNameComparator);
-
-                // for (int i = 0; i < a_index + 1; i++) {
-                //         retval = e.next();
-                // } // for
-                retval = (String) keyList.get(a_index);
-
-                return retval;
-            }
-
-        });
-
-        return table;
-    }//end method.
 
     private class GlobalVariableListener implements ListSelectionListener {
 
@@ -740,7 +670,7 @@ public class EnvironmentViewer implements ActionListener {
     private static boolean isClipboardContainingText(Object requestor) {
         Transferable t = Toolkit.getDefaultToolkit().getSystemClipboard().getContents(requestor);
         return t != null
-                && (t.isDataFlavorSupported(DataFlavor.stringFlavor) || t.isDataFlavorSupported(DataFlavor.plainTextFlavor));
+                && (t.isDataFlavorSupported(DataFlavor.stringFlavor) || t.isDataFlavorSupported(DataFlavor.getTextPlainUnicodeFlavor()));
     }
 
 

@@ -89,9 +89,9 @@ Examples to add to docs in the future.
 
 Hold((a + b) * (1 + 2) * (2 + 1) * (1/2 + c) * (3/4 + d) ) /:
     {
-      (x_IsOdd + y_IsEven) <- m1,
-      (x_IsEven + y_IsOdd) <- m2,
-      (x_IsRational + y_IsAtom)_(Denominator(x) = 2) <- m3,
+      (x_Odd? + y_Even?) <- m1,
+      (x_Even? + y_Odd?) <- m2,
+      (x_Rational? + y_Atom?)_(Denominator(x) = 2) <- m3,
     };
 
     %output,preserve="false"
@@ -106,7 +106,7 @@ Hold((a + b) * (1 + 2) * (2 + 1) * (1/2 + c) * (3/4 + d) ) /:
 
 %mathpiper,name="/:",subtype="automatic_test"
 
-Rulebase("sin", {x});
+RulebaseHoldArguments("sin", {x});
 Verify(a[2]*Sin(x)/:{Sin(_x) <- sin(x)},a[2]*sin(x));
 Retract("sin", 1);
 

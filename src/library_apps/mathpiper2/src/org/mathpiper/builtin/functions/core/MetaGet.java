@@ -11,38 +11,48 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.Cons;
-import org.mathpiper.lisp.cons.ConsPointer;
 
 
-public class MetaGet extends BuiltinFunction {
+
+public class MetaGet extends BuiltinFunction
+{
+
+    private MetaGet()
+    {
+    }
+
+    public MetaGet(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        ConsPointer objectPointer = new ConsPointer();
-        objectPointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        Cons object = getArgument(aEnvironment, aStackTop, 1);
 
 
-        ConsPointer keyPointer = new ConsPointer();
-        keyPointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
-        LispError.checkIsString(aEnvironment, aStackTop, keyPointer, 2, "MetaGet");
+        Cons key = getArgument(aEnvironment, aStackTop, 2);
+
+        LispError.checkIsString(aEnvironment, aStackTop, key, 2);
 
 
-        Map metadataMap = objectPointer.getCons().getMetadataMap();
+        Map metadataMap = object.getMetadataMap();
 
         if (metadataMap == null) {
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "Empty"));
+            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "Empty"));
 
             return;
         }//end if.
 
 
-        Cons valueCons = (Cons) metadataMap.get((String) keyPointer.getCons().car());
+        Cons valueCons = (Cons) metadataMap.get((String) key.car());
 
 
         if (valueCons == null) {
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "Empty"));
+            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "Empty"));
         } else {
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(valueCons);
+            setTopOfStack(aEnvironment, aStackTop, valueCons);
         }
 
 

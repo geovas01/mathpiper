@@ -21,8 +21,9 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
+
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.SublistCons;
 import org.mathpiper.lisp.rulebases.SingleArityRulebase;
 
@@ -33,30 +34,37 @@ import org.mathpiper.lisp.rulebases.SingleArityRulebase;
 public class RulebaseArgumentsList extends BuiltinFunction
 {
 
+    private RulebaseArgumentsList()
+    {
+    }
+
+    public RulebaseArgumentsList(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer name = new ConsPointer();
-        name.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        Cons name = getArgument(aEnvironment, aStackTop, 1);
         String orig = (String) name.car();
-        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "RulebaseArgumentsList");
+        if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         String oper = Utility.toNormalString(aEnvironment, aStackTop, orig);
 
-        ConsPointer sizearg = new ConsPointer();
-        sizearg.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
-        LispError.checkArgument(aEnvironment, aStackTop, sizearg.getCons() != null, 2, "RulebaseArgumentsList");
-        LispError.checkArgument(aEnvironment, aStackTop, sizearg.car() instanceof String, 2, "RulebaseArgumentsList");
+        Cons sizearg = getArgument(aEnvironment, aStackTop, 2);
+        if( sizearg == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        if(! (sizearg.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2);
 
         int arity = Integer.parseInt( (String) sizearg.car(), 10);
 
-        SingleArityRulebase userFunc = aEnvironment.getRulebase((String)aEnvironment.getTokenHash().lookUp(oper), arity, aStackTop);
+        SingleArityRulebase userFunc = aEnvironment.getRulebase(oper, arity, aStackTop);
         
-        LispError.check(aEnvironment, aStackTop,userFunc != null, "User function for this arity is not defined.", "RulebaseArgumentsList");
+        if(userFunc == null) LispError.throwError(aEnvironment, aStackTop, "User function for this arity is not defined.");
 
-        ConsPointer list = userFunc.argList();
-        ConsPointer head = new ConsPointer();
-        head.setCons(aEnvironment.iListAtom.copy( aEnvironment, false));
-        head.cdr().setCons(list.getCons());
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment,head.getCons()));
+        Cons list = userFunc.argList();
+        Cons head = aEnvironment.iListAtom.copy(false);
+        head.setCdr(list);
+        setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,head));
     }
 }
 
@@ -79,6 +87,6 @@ public class RulebaseArgumentsList extends BuiltinFunction
 Returns a list of atoms, symbolic parameters specified in the {Rulebase} call
 for the function named {"operator"} with the specific {arity}.
 
-*SEE Rulebase, HoldArgumentNumber, HoldArgument
+*SEE RulebaseHoldArguments, HoldArgumentNumber, HoldArgument
 %/mathpiper_docs
 */

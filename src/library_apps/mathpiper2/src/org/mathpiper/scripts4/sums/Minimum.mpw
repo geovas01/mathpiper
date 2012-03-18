@@ -16,19 +16,19 @@ FIXME
 
 Function() Minimum(l1, l2, l3, ...);
 
-10 # Minimum(_l1, _l2, l3_IsList) <-- Minimum(Concat({l1, l2}, l3));
+10 # Minimum(_l1, _l2, l3_List?) <-- Minimum(Concat({l1, l2}, l3));
 20 # Minimum(_l1, _l2, _l3) <-- Minimum({l1, l2, l3});
 
-10 # Minimum(l1_IsList,l2_IsList) <-- Map("Minimum",{l1,l2});
+10 # Minimum(l1_List?,l2_List?) <-- Map("Minimum",{l1,l2});
 
-20 # Minimum(l1_IsRationalOrNumber,l2_IsRationalOrNumber) <-- If(l1<?l2,l1,l2);
+20 # Minimum(l1_RationalOrNumber?,l2_RationalOrNumber?) <-- If(l1<?l2,l1,l2);
 
-30 # Minimum(l1_IsConstant,l2_IsConstant) <-- If(N(Eval(l1-l2))<?0,l1,l2);
+30 # Minimum(l1_Constant?,l2_Constant?) <-- If(N(Eval(l1-l2))<?0,l1,l2);
 
 //Min on an empty list.
 10 # Minimum({}) <-- Undefined;
 
-20 # Minimum(list_IsList) <--
+20 # Minimum(list_List?) <--
 [
   Local(result);
   result:= list[1];

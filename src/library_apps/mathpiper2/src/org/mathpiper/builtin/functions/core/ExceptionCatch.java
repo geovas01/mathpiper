@@ -20,6 +20,7 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 
+
 /**
  *
  *  
@@ -27,18 +28,28 @@ import org.mathpiper.lisp.Environment;
 public class ExceptionCatch extends BuiltinFunction
 {
 
+    private ExceptionCatch()
+    {
+    }
+
+    public ExceptionCatch(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         try
         {
             //Return the first argument.
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 1));
+            setTopOfStack(aEnvironment, aStackTop, aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1)));
         } catch (Throwable exception)
         {   //Return the second argument.
             //e.printStackTrace();
             //Boolean interrupted = Thread.currentThread().interrupted(); //Clear interrupted condition.
             aEnvironment.iException = exception;
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 2));
+            setTopOfStack(aEnvironment, aStackTop, aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 2)));
             aEnvironment.iException = null;
         }
     }
@@ -101,7 +112,7 @@ Result: "This string is returned if an exception is thrown."
 /%mathpiper,title="Example of how to use ExceptionCatch and ExceptionGet in test code (short version)."
 
 //ExceptionGet returns False if there is no exception or an association list if there is.
-Verify( ExceptionCatch(Check(1 = 2, "Test", "Throwing a test exception."), ExceptionGet()) = False, False);
+Verify( ExceptionCatch(Check(1 =? 2, "Test", "Throwing a test exception."), ExceptionGet()) = False, False);
 
 /%/mathpiper
 
@@ -118,7 +129,7 @@ Verify( ExceptionCatch(Check(1 = 2, "Test", "Throwing a test exception."), Excep
 TestFunction(x) :=
 [
 
-    Check(IsInteger(x), "Argument", "The argument must be an integer.");
+    Check(Integer?(x), "Argument", "The argument must be an integer.");
 
 ];
 
@@ -166,7 +177,7 @@ Echo("Message: ", caughtException["message"]);
   Local(exception);
   exception := False;
   ExceptionCatch(Check(False, "Unspecified", "some error"), exception := ExceptionGet());
-  Verify(exception = False, False);
+  Verify(exception =? False, False);
 
 
 %/mathpiper

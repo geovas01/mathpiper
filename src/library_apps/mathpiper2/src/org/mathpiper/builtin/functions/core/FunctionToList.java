@@ -20,7 +20,8 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.Cons;
+
 import org.mathpiper.lisp.cons.SublistCons;
 
 /**
@@ -30,13 +31,22 @@ import org.mathpiper.lisp.cons.SublistCons;
 public class FunctionToList extends BuiltinFunction
 {
 
+    private FunctionToList()
+    {
+    }
+
+    public FunctionToList(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).car() instanceof ConsPointer, 1, "FunctionToList");
-        ConsPointer head = new ConsPointer();
-        head.setCons(aEnvironment.iListAtom.copy( aEnvironment, false));
-        head.cdr().setCons(((ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car()).getCons());
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment,head.getCons()));
+        if(! (getArgument(aEnvironment, aStackTop, 1).car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        Cons head = aEnvironment.iListAtom.copy(false);
+        head.setCdr((Cons) getArgument(aEnvironment, aStackTop, 1).car());
+        setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,head));
     }
 }
 
@@ -68,7 +78,7 @@ Result: {Cos,x};
 In> FunctionToList(3*a);
 Result: {*,3,a};
 
-*SEE List, ListToFunction, IsAtom
+*SEE List, ListToFunction, Atom?
 %/mathpiper_docs
 
 
@@ -85,7 +95,7 @@ Verify(FunctionToList(Cos(x)),{Cos,x});
 
   exception := False;
   ExceptionCatch(FunctionToList(1.2), exception := ExceptionGet());
-  Verify(exception = False, False);
+  Verify(exception =? False, False);
 ];
 
 %/mathpiper

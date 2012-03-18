@@ -30,14 +30,24 @@ import org.mathpiper.lisp.Utility;
 public class UnicodeToString extends BuiltinFunction
 {
 
+    private UnicodeToString()
+    {
+    }
+
+    public UnicodeToString(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         String str;
-        str =  (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
-        LispError.checkArgument(aEnvironment, aStackTop, str != null, 2, "UnicodeToString");
-        LispError.checkArgument(aEnvironment, aStackTop, Utility.isNumber(str, false), 2, "UnicodeToString");
+        str =  (String) getArgument(aEnvironment, aStackTop, 1).car();
+        if( str == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        if(! Utility.isNumber(str, false)) LispError.checkArgument(aEnvironment, aStackTop, 2);
         char asciiCode = (char) Integer.parseInt(str, 10);
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "\"" + asciiCode + "\""));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "\"" + asciiCode + "\""));
     }
 }
 

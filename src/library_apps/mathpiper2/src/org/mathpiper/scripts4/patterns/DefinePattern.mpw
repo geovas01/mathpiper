@@ -1,20 +1,20 @@
 %mathpiper,def="DefinePattern;_",private="true"
 
-Rulebase("_",{a});
-Rulebase("_",{a,b});
+RulebaseHoldArguments("_",{a});
+RulebaseHoldArguments("_",{a,b});
 
-Rulebase("DefinePattern",{leftOperand, rightOperand, rulePrecedence, postPredicate});
+RulebaseHoldArguments("DefinePattern",{leftOperand, rightOperand, rulePrecedence, postPredicate});
 
 
 
-Rule("DefinePattern",4,9,IsEqual(Type(leftOperand),"_"))
+RuleHoldArguments("DefinePattern",4,9,Equal?(Type(leftOperand),"_"))
 [
     DefinePattern(leftOperand[1], rightOperand, rulePrecedence, leftOperand[2]);
 ];
 
 
 
-Rule("DefinePattern",4,10,True)
+RuleHoldArguments("DefinePattern",4,10,True)
 [
       Local(patternFlat,patternVariables, pattern, patternOperator, arg, arity);
       
@@ -33,13 +33,13 @@ Rule("DefinePattern",4,10,True)
       */
       If(Not?(RulebaseDefined(patternOperator,arity)),
          [
-          MacroRulebase(patternOperator,MakeVector(arg,arity));
+          RulebaseEvaluateArguments(patternOperator,MakeVector(arg,arity));
          ]
         );
     
       Bind(pattern,PatternCreate(patternVariables,postPredicate));
     
-      MacroRulePattern(patternOperator,arity,rulePrecedence, pattern)rightOperand;
+      RulePatternEvaluateArguments(patternOperator,arity,rulePrecedence, pattern)rightOperand;
     
       True;
 ];
@@ -69,5 +69,5 @@ DefinePattern(leftOperand[2],rightOperand,leftOperand[1],True);
 *DESC
 This function defines a rule which uses a pattern as its predicate.
 
-*SEE MacroRulePattern
+*SEE RulePatternEvaluateArguments
 %/mathpiper_docs

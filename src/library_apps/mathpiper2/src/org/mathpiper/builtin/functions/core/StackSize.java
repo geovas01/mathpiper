@@ -29,10 +29,20 @@ import org.mathpiper.lisp.Environment;
 public class StackSize extends BuiltinFunction
 {
 
+    private StackSize()
+    {
+    }
+
+    public StackSize(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         aEnvironment.write("Function not yet implemented : LispStackSize");//TODO FIXME
 
-        throw new EvaluationException("Function not yet supported",aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(), aEnvironment.iCurrentInput.iStatus.getLineIndex());
+        throw new EvaluationException("Function not yet supported",aEnvironment.getCurrentInput().iStatus.getFileName(), aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex());
     }
 }

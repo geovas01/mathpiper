@@ -38,15 +38,15 @@ ant compile
 
 ------------------------------
 
-Run the compile task. Place a reduce.map file into src/packages. Create a reduce.img file 
-which contains a compiled version of all of the reduced packages and place it into build/image:
+Run the compile task. Then, create a reduce.img file which contains a compiled
+version of all of the reduced packages and place it into build/image:
 
 ant reduce.img
 
 ------------------------------
 
-Run the compile task. Place a minireduce.map file into src/packages. Create a minireduce.img file 
-which contains a compiled version of a subset of the reduced packages and place it into 
+Run the compile task. Then, create a minireduce.img file which contains a 
+compiled version of a subset of the reduced packages and place it into 
 build/image:
 
 ant minireduce.img

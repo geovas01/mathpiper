@@ -29,9 +29,19 @@ import org.mathpiper.lisp.Environment;
 public class CurrentLine extends BuiltinFunction
 {
 
+    private CurrentLine()
+    {
+    }
+
+    public CurrentLine(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "" + aEnvironment.iCurrentInput.iStatus.getLineNumber()));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + aEnvironment.getCurrentInput().iStatus.getLineNumber()));
     }
 }
 

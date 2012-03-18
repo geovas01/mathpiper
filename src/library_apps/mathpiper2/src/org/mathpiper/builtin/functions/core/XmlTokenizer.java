@@ -28,10 +28,19 @@ import org.mathpiper.lisp.Utility;
 public class XmlTokenizer extends BuiltinFunction
 {
 
+    private XmlTokenizer()
+    {
+    }
+
+    public XmlTokenizer(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         aEnvironment.iCurrentTokenizer = aEnvironment.iXmlTokenizer;
-        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }
 }
 

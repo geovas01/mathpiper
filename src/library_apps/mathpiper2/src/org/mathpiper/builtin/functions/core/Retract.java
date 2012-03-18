@@ -20,8 +20,9 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
+
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -30,24 +31,32 @@ import org.mathpiper.lisp.Utility;
 public class Retract extends BuiltinFunction
 {
 
+    private Retract()
+    {
+    }
+
+    public Retract(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         // Get operator
-        ConsPointer evaluated = new ConsPointer();
-        evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        Cons evaluated = getArgument(aEnvironment, aStackTop, 1);
 
-        LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1, "Retract");
+        if( evaluated == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         String orig = (String) evaluated.car();
 
         orig = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, orig);
         
-        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "Retract");
+        if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         String oper = Utility.getSymbolName(aEnvironment, orig);
 
-        ConsPointer arityPointer = new ConsPointer();
-        arityPointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
-        LispError.checkArgument(aEnvironment, aStackTop, arityPointer.car() instanceof String, 2, "Retract");
-        String arityString = (String) arityPointer.car();
+        Cons arityCons = getArgument(aEnvironment, aStackTop, 2);
+        if(!(arityCons.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        String arityString = (String) arityCons.car();
         if(arityString.equalsIgnoreCase("*"))
         {
             aEnvironment.retractRule(oper, -1, aStackTop, aEnvironment);
@@ -58,7 +67,7 @@ public class Retract extends BuiltinFunction
             aEnvironment.retractRule(oper, arity, aStackTop, aEnvironment);
         }
   
-        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }
 }
 
@@ -85,6 +94,6 @@ arity, then all arities of the rulebase are removed.
 
 Assignment {:=} of a function automatically does a single arity retract to the function being (re)defined.
 
-*SEE RulebaseArgumentsList, Rulebase, :=
+*SEE RulebaseArgumentsList, RulebaseHoldArguments, :=
 %/mathpiper_docs
 */

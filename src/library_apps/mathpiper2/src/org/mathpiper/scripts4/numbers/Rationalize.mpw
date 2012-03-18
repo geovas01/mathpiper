@@ -2,12 +2,12 @@
 
 //Retract("Rationalize",*);
 
-10 # Rationalize(aNumber_IsList) <-- Rationalize /@ aNumber;
+10 # Rationalize(aNumber_List?) <-- Rationalize /@ aNumber;
 
 20 # Rationalize( _aNumber ) <--
 [
     Local(result,n,d);
-    result:=Substitute(aNumber,{{x},IsNumber(x) And? Not?(IsInteger(x))},"RationalizeNumber");
+    result:=Substitute(aNumber,{{x},Number?(x) And? Not?(Integer?(x))},"RationalizeNumber");
     If(InVerboseMode(),Tell("",result));
     If(Length(VarList(aNumber))=?0,
       [
@@ -62,7 +62,7 @@ Result: {1.2,3.123,4.5};
 In> Rationalize(%)
 Result: {6/5,3123/1000,9/2};
 
-*SEE IsRational
+*SEE Rational?
 
 %/mathpiper_docs
 

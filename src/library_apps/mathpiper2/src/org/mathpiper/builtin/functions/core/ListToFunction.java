@@ -22,7 +22,7 @@ import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
-import org.mathpiper.lisp.cons.ConsPointer;
+
 
 /**
  *
@@ -31,14 +31,24 @@ import org.mathpiper.lisp.cons.ConsPointer;
 public class ListToFunction extends BuiltinFunction
 {
 
+    private ListToFunction()
+    {
+    }
+
+    public ListToFunction(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1, "ListToFunction");
-        LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).car() instanceof ConsPointer, 1, "ListToFunction");
-        Cons atom = ((ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car()).getCons();
-        LispError.checkArgument(aEnvironment, aStackTop, atom != null, 1, "ListToFunction");
-        LispError.checkArgument(aEnvironment, aStackTop, atom.car() == aEnvironment.iListAtom.car(), 1, "ListToFunction");
-        Utility.tail(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 1));
+        if(getArgument(aEnvironment, aStackTop, 1) == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if(! (getArgument(aEnvironment, aStackTop, 1).car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        Cons atom = (Cons) getArgument(aEnvironment, aStackTop, 1).car();
+        if( atom == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if(! (((String)atom.car()).equals((String)aEnvironment.iListAtom.car()))) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        setTopOfStack(aEnvironment, aStackTop, Utility.tail(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1)));
     }
 }
 
@@ -93,7 +103,7 @@ Verify(ListToFunction({Cos,x}),Cos(x));
  
   exception := False;
   ExceptionCatch(ListToFunction(1.2), exception := ExceptionGet());
-  Verify(exception = False, False);
+  Verify(exception =? False, False);
 ];
 
 %/mathpiper

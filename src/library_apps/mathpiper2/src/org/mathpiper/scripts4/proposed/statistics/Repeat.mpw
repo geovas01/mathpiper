@@ -13,7 +13,7 @@
 LocalSymbols(count, iterations, body)[
 
 
-Rulebase("Repeat",{iterations,body});
+RulebaseHoldArguments("Repeat",{iterations,body});
 
 /*
   A Rule function needed to be used here because 10 # xxx <--
@@ -23,7 +23,7 @@ Rulebase("Repeat",{iterations,body});
   Retract correctly.
 */
 
-Rule("Repeat",2,10,IsInteger(iterations) And? iterations >? 0)
+RuleHoldArguments("Repeat",2,10,Integer?(iterations) And? iterations >? 0)
 [
     Local(count);
 
@@ -44,10 +44,10 @@ Rule("Repeat",2,10,IsInteger(iterations) And? iterations >? 0)
 
 
 
-Rulebase("Repeat",{body});
+RulebaseHoldArguments("Repeat",{body});
 
 
-Rule("Repeat",1,20,True)
+RuleHoldArguments("Repeat",1,20,True)
 [
     Local(count);
 

@@ -1,4 +1,4 @@
-%mathpiper,def="RandomSeed;Random;Rng;RngSeed;RngCreate"
+%mathpiper,def="RandomSeed;Random;Rng;RngSeed;RngCreate;FlatRNGDist;GaussianRNGDist;RNGEngineLCG1;RNGEngineLCG2;RNGEngineLCG3;RNGEngineLCG4;RandomLCG;RNGEngineLEcuyer"
 
 /* def file definitions
 
@@ -40,8 +40,8 @@ RngSeed(r1, seed) expects an integer seed.
 It will re-initialize the RNG object r1 with the given seed.
 
 The "RNG engine API": calling RngCreate with engine->SomeEngine expects that:
-        SomeEngine(seed_IsInteger) will create and initialize a state object with given seed and return the new state object (a list). SomeEngine can assume that "seed" is a positive integer.
-        SomeEngine(state1_IsList) will update the RNG state object state1 and return the pair {new state object, new number}.
+        SomeEngine(seed_Integer?) will create and initialize a state object with given seed and return the new state object (a list). SomeEngine can assume that "seed" is a positive integer.
+        SomeEngine(state1_List?) will update the RNG state object state1 and return the pair {new state object, new number}.
 
 The "RNG distribution adaptor API": calling RngCreate with distribution->SomeDist expects that:
         SomeDist(r1) will update the RNG object r1 and return the pair {new state object, new number}. r1 is a full RNG object, not just a state object.
@@ -58,8 +58,8 @@ The "RNG distribution adaptor API": calling RngCreate with distribution->SomeDis
 LocalSymbols(knownRNGEngines, knownRNGDists) [
   knownRNGEngines :=
   {
-    { "default", "RNGEngine'LCG'2"},
-    { "advanced", "RNGEngine'L'Ecuyer"},
+    { "default", "RNGEngineLCG2"},
+    { "advanced", "RNGEngineLEcuyer"},
   };
 
   knownRNGDists :=
@@ -93,13 +93,13 @@ Function() Rng(r);
 
 RngCreate() <-- RngCreate(0);
 
-10 # RngCreate(a'seed_IsInteger) <-- (RngCreate @ {seed -> a'seed});
+10 # RngCreate(aseed_Integer?) <-- (RngCreate @ {seed -> aseed});
 
 // a single option given: convert explicitly to a list
 20 # RngCreate(_key -> _value) <-- `(RngCreate({@key -> value}));
 
 // expect a list of options
-30 # RngCreate(options_IsList) <--
+30 # RngCreate(options_List?) <--
 [
         options := OptionsListToHash @ {options};
 
@@ -136,7 +136,7 @@ Rng(_r) <--
 ];
 
 /// set seed: will call SomeEngine(r, seed) and update r
-RngSeed(_r, seed_IsInteger) <--
+RngSeed(_r, seed_Integer?) <--
 [
         Local(state);
         (Assert("warning", {"RngSeed: seed must be positive", seed}) seed >? 0
@@ -153,8 +153,8 @@ RngSeed(_r, seed_IsInteger) <--
 /// trivial distribution adaptor: flat distribution, simply calls SomeEngine(r)
 /* we have to return whole objects; we can't use references b/c the core
 function ApplyFast will not work properly on references, i.e. if r =? {"", "", {1}} so that
-r[3] =? {1}, then LCG'2(r[3]) modifies r[3], but LCG'2 @ r[3] or
-ApplyFast("LCG'2", {r[3]}) do not actually modify r[3].
+r[3] =? {1}, then LCG2(r[3]) modifies r[3], but LCG2 @ r[3] or
+ApplyFast("LCG2", {r[3]}) do not actually modify r[3].
 */
 
 // return pair {state, number}
@@ -170,18 +170,18 @@ GaussianRNGDist(_rng) <--
         // a Gaussian distributed complex number p + I*q is made up of two uniformly distributed numbers x,y according to the formula:
         // a:=2*x-1, b:=2*y-1, m:=a^2+b^2; p =? a*Sqrt(-2*Ln(m)/m); q:=b*Sqrt(-2*Ln(m)/m);
         // here we need to make sure that m is nonzero and strictly less than 1.
-        Local(a,b,m, new'state, rnumber);
-        new'state := rng[3];        // this will be updated at the end
+        Local(a,b,m, newstate, rnumber);
+        newstate := rng[3];        // this will be updated at the end
         m:=0;
         While(m=?0 Or? m>=?1)        // repeat generating new x,y  - should not take more than one iteration really
         [
-                {new'state, rnumber} := (rng[2] @ {new'state});
+                {newstate, rnumber} := (rng[2] @ {newstate});
                 a:=2*rnumber-1;
-                {new'state, rnumber} := (rng[2] @ {new'state});
+                {newstate, rnumber} := (rng[2] @ {newstate});
                 b:=2*rnumber-1;
                 m:=a*a+b*b;
         ];
-        {new'state, (a+I*b)*SqrtN(-2*DivideN(Internal'LnNum(m),m))};
+        {newstate, (a+I*b)*SqrtN(-2*DivideN(InternalLnNum(m),m))};
 ];
 
 
@@ -192,30 +192,30 @@ GaussianRNGDist(_rng) <--
 /// default RNG engine: the LCG generator
 
 // first method: initialize a state object with given seed
-RNGEngine'LCG'1(seed_IsInteger) <-- {seed};
+RNGEngineLCG1(seed_Integer?) <-- {seed};
 // second method: update state object and return new number
-RNGEngine'LCG'1(state_IsList) <-- LCG'1(state);
+RNGEngineLCG1(state_List?) <-- LCG1(state);
 
 // first method: initialize a state object with given seed
-RNGEngine'LCG'2(seed_IsInteger) <-- {seed};
+RNGEngineLCG2(seed_Integer?) <-- {seed};
 // second method: update state object and return new number
-RNGEngine'LCG'2(state_IsList) <-- LCG'2(state);
+RNGEngineLCG2(state_List?) <-- LCG2(state);
 
 // first method: initialize a state object with given seed
-RNGEngine'LCG'3(seed_IsInteger) <-- {seed};
+RNGEngineLCG3(seed_Integer?) <-- {seed};
 // second method: update state object and return new number
-RNGEngine'LCG'3(state_IsList) <-- LCG'3(state);
+RNGEngineLCG3(state_List?) <-- LCG3(state);
 
 // first method: initialize a state object with given seed
-RNGEngine'LCG'4(seed_IsInteger) <-- {seed};
+RNGEngineLCG4(seed_Integer?) <-- {seed};
 // second method: update state object and return new number
-RNGEngine'LCG'4(state_IsList) <-- LCG'4(state);
+RNGEngineLCG4(state_List?) <-- LCG4(state);
 
 /// parameters from P. Hellekalek, 1994; see G. S. Fishman, Math. Comp. vol. 54, 331 (1990)
-LCG'1(state) := RandomLCG(state, 2147483647,950706376,0);
-LCG'2(state) := RandomLCG(state, 4294967296,1099087573,0);
-LCG'3(state) := RandomLCG(state, 281474976710656,68909602460261,0);
-LCG'4(state) := RandomLCG(state, 18014398509481984,2783377640906189,0);
+LCG1(state) := RandomLCG(state, 2147483647,950706376,0);
+LCG2(state) := RandomLCG(state, 4294967296,1099087573,0);
+LCG3(state) := RandomLCG(state, 281474976710656,68909602460261,0);
+LCG4(state) := RandomLCG(state, 18014398509481984,2783377640906189,0);
 
 /// Linear congruential generator engine: backend
 // state is a list with one element
@@ -225,40 +225,40 @@ RandomLCG(_state, _im, _ia, _ic) <--
         DivideN(state[1], im)        // division should never give 1
 };
 
-/// Advanced RNG engine due to L'Ecuyer et al.
-/// RNG from P. L'ecuyer et al (2000). Period approximately 2^191
+/// Advanced RNG engine due to LEcuyer et al.
+/// RNG from P. Lecuyer et al (2000). Period approximately 2^191
 // state information: 6 32-bit integers, corresponding to {x3,x2,x1,y3,y2,y1}
 
 // first method: initialize a state object with given seed
-RNGEngine'L'Ecuyer(a'seed_IsInteger) <--
+RNGEngineLEcuyer(aseed_Integer?) <--
 [
-        // use LCG'2 as auxiliary RNG to fill the seeds
-        Local(rng'aux, result);
-        rng'aux := (RngCreate @ {a'seed});
+        // use LCG2 as auxiliary RNG to fill the seeds
+        Local(rngaux, result);
+        rngaux := (RngCreate @ {aseed});
         // this will be the state vector
         result:=ZeroVector(6);
         // fill the state object with random numbers
         Local(i);
         For(i:=1, i<=?6, i++)
         [
-                Rng(rng'aux);
-                result[i] := rng'aux[3][1];        // hack to get the integer part
+                Rng(rngaux);
+                result[i] := rngaux[3][1];        // hack to get the integer part
         ];
         // return the state object
         result;
 ];
 
 // second method: update state object and return a new random number (floating-point)
-RNGEngine'L'Ecuyer(state_IsList) <--
+RNGEngineLEcuyer(state_List?) <--
 [
-        Local(new'state, result);
-        new'state := {
+        Local(newstate, result);
+        newstate := {
                 Modulo(1403580*state[2]-810728*state[3], 4294967087), state[1], state[2],
                 Modulo(527612*state[4]-1370589*state[6], 4294944433), state[4], state[5]
         };
         result:=Modulo(state[1]-state[4], 4294967087);
         {
-                new'state,
+                newstate,
                 DivideN(If(result=?0, 4294967087, result), 4294967088)
         };
 ];
@@ -390,7 +390,7 @@ However, the {Random} function is slightly faster.
 *E.G.
 
 In> r1:=RngCreate(seed->1,dist->gauss)
-Result: {"GaussianRNGDist","RNGEngine'LCG'2",{1}}
+Result: {"GaussianRNGDist","RNGEngineLCG2",{1}}
 In> Rng(r1)
 Result: Complex(-1.6668466417,0.228904004);
 In> Rng(r1);

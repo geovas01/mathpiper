@@ -29,9 +29,19 @@ import org.mathpiper.lisp.Environment;
 public class Version extends BuiltinFunction
 {
 
+    private Version()
+    {
+    }
+
+    public Version(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "\"" + org.mathpiper.Version.version + "\""));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "\"" + org.mathpiper.Version.version + "\""));
     }
 }
 
@@ -52,12 +62,12 @@ The function {Version()} returns a string representing the version of the curren
 
 In> Version()
 Result: "1.0.48rev3";
-In> IsLessThan(Version(), "1.0.47")
+In> LessThan?(Version(), "1.0.47")
 Result: False;
 In> GreaterThan(Version(), "1.0.47")
 Result: True;
 
-The last two calls show that the {IsLessThan} and {GreaterThan}
+The last two calls show that the {LessThan?} and {GreaterThan}
 functions can be used for comparing version numbers. This
 method is only guaranteed, however, if the version is always expressed
 in the form {d.d.dd} as above.
@@ -67,6 +77,6 @@ Note that on the Windows platforms the output may be different:
 In> Version()
 Result: "Windows-latest";
 
-*SEE IsLessThan, GreaterThan
+*SEE LessThan?, GreaterThan
 %/mathpiper_docs
 */

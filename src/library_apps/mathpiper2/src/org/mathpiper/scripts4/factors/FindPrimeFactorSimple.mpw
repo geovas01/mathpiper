@@ -16,4 +16,24 @@ FindPrimeFactorSimple(n, prime) :=
         {n/(factor/prime), power};
 ];
 
-%/mathpiper
+%/mathpipe
+
+
+
+
+
+%mathpiper_docs,name="FindPrimeFactorSimple",categories="User Functions",access="undocumented"
+*CMD FindPrimeFactorSimple --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

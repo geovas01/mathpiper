@@ -58,24 +58,24 @@ public class JFreeChartPlugin extends EditPlugin implements EBComponent{
 			this.add(HistogramExample1.createDemoPanel());
 			
 			org.mathpiper.interpreters.Interpreter synchronousInterpreter = org.mathpiper.interpreters.Interpreters.getSynchronousInterpreter();
-			org.mathpiper.interpreters.EvaluationResponse response = synchronousInterpreter.evaluate("[Import(\"org/mathpiper/builtin/functions/plugins/jfreechart/\"); Plot2DOutputs()[\"default\"] := \"jfreechart\";];");
 			
-			//System.out.println("XXX: "+ response.getResult());
-			
+			org.mathpiper.interpreters.EvaluationResponse response = synchronousInterpreter.evaluate("Plot2DOutputs()[\"default\"] := \"jfreechart\";");
+		
 			if(response.isExceptionThrown())
 			{
-				System.out.println(response.getExceptionMessage());
+				System.out.println(response.getException().getMessage());
 			}//end if.
 		
 			synchronousInterpreter.addResponseListener(this); 
 		}//end consstructor
 			
 		public void response(org.mathpiper.interpreters.EvaluationResponse response)
-		{
+		{		
 			//JFreeChart handler.
 			if(response.getObject() != null)
-			{
+			{		
 				Object object = response.getObject();
+				
 				if(object instanceof org.jfree.chart.ChartPanel)
 				{	
 					org.gjt.sp.jedit.jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "jfreechart" );

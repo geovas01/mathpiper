@@ -1,19 +1,19 @@
-%mathpiper,def="!"
+%mathpiper,def="!;HalfIntegerFactorial"
 
 /* Factorials */
 
 10 # 0! <-- 1;
 10 # (Infinity)! <-- Infinity;
-20 # ((n_IsPositiveInteger)!) <-- [
+20 # ((n_PositiveInteger?)!) <-- [
         Check(n <=? 65535, "Argument", "Factorial: Error: the argument " : ( PipeToString() Write(n) ) : " is too large, you may want to avoid exact calculation");
         MathFac(n);
 ];
 
-25 # ((x_IsConstant)!)_(FloatIsInt(x) And? x>?0) <-- (Round(x)!);
+25 # ((x_Constant?)!)_(FloatIsInt?(x) And? x>?0) <-- (Round(x)!);
 
-30 # ((x_IsNumber)!)_InNumericMode() <-- Internal'GammaNum(x+1);
+30 # ((x_Number?)!)_InNumericMode() <-- InternalGammaNum(x+1);
 
-40 # (n_IsList)! <-- MapSingle("!",n);
+40 # (n_List?)! <-- MapSingle("!",n);
 
 /* formulae for half-integer factorials:
 
@@ -26,20 +26,20 @@ Double factorials are more efficient:
 
 */
 /* // old version - not using double factorials
-HalfIntegerFactorial(n_IsOdd) _ (n>?0) <--
+HalfIntegerFactorial(n_Odd?) _ (n>?0) <--
         Sqrt(Pi) * ( n! / ( 2^n*((n-1)/2)! ) );
-HalfIntegerFactorial(n_IsOdd) _ (n<?0)  <--
+HalfIntegerFactorial(n_Odd?) _ (n<?0)  <--
         Sqrt(Pi) * ( (-1)^((-n-1)/2)*2^(-n-1)*((-n-1)/2)! / (-n-1)! );
 */
 // new version using double factorials
-HalfIntegerFactorial(n_IsOdd) _ (n>?0) <--
+HalfIntegerFactorial(n_Odd?) _ (n>?0) <--
         Sqrt(Pi) * ( n!! / 2^((n+1)/2) );
-HalfIntegerFactorial(n_IsOdd) _ (n<?0)  <--
+HalfIntegerFactorial(n_Odd?) _ (n<?0)  <--
         Sqrt(Pi) * ( (-1)^((-n-1)/2)*2^((-n-1)/2) / (-n-2)!! );
-//HalfIntegerFactorial(n_IsOdd) _ (n= -1)  <-- Sqrt(Pi);
+//HalfIntegerFactorial(n_Odd?) _ (n= -1)  <-- Sqrt(Pi);
 
 /* Want to also compute (2.5)! */
-40 # (n_IsRationalOrNumber)! _(Denominator(Rationalize(n))=?2) <-- HalfIntegerFactorial(Numerator(Rationalize(n)));
+40 # (n_RationalOrNumber?)! _(Denominator(Rationalize(n))=?2) <-- HalfIntegerFactorial(Numerator(Rationalize(n)));
 
 
 %/mathpiper
@@ -70,7 +70,7 @@ after {!} in expressions such as {x! +1}.
 
 The factorial functions terminate and print an error message if the arguments are too large (currently the limit 
 is $n < 65535$) because exact factorials of such large numbers are computationally expensive and most probably 
-not useful. One can call {Internal'LnGammaNum()} to evaluate logarithms of such factorials to desired precision.
+not useful. One can call {InternalLnGammaNum()} to evaluate logarithms of such factorials to desired precision.
 
 *E.G.
 

@@ -21,8 +21,8 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -31,16 +31,25 @@ import org.mathpiper.lisp.Utility;
 public class MaxEvalDepth extends BuiltinFunction
 {
 
+    private MaxEvalDepth()
+    {
+    }
+
+    public MaxEvalDepth(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer index = new ConsPointer();
-        index.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        LispError.checkArgument(aEnvironment, aStackTop, index.getCons() != null, 1, "MaxEvalDepth");
-        LispError.checkArgument(aEnvironment, aStackTop, index.car() instanceof String, 1, "MaxEvalDepth");
+        Cons index = getArgument(aEnvironment, aStackTop, 1);
+        if(index == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if(! (index.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
         int ind = Integer.parseInt( (String) index.car(), 10);
         aEnvironment.iMaxEvalDepth = ind;
-        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+         setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }
 }
 
@@ -84,7 +93,7 @@ be reached without the presence of infinite recursion. The function {MaxEvalDept
 
 In> 10 # g(0) <-- 1;
 Result: True;
-In> 20 # g(n_IsPositiveInteger) <-- \
+In> 20 # g(n_PositiveInteger?) <-- \
 	  2 * g(n-1);
 Result: True;
 In> g(1001);

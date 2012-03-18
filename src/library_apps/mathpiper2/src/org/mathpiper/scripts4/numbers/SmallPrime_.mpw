@@ -1,0 +1,71 @@
+%mathpiper,def="SmallPrime?"
+
+/* Returns whether n is a small by a lookup table, very fast.
+The largest prime number in the table is returned by FastIsPrime(0). */
+
+2 # SmallPrime?(0) <-- False;
+3 # SmallPrime?(n_Integer?) <-- (FastIsPrime(n)>?0);
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="SmallPrime?",categories="User Functions;Number Theory;Predicates"
+*CMD Prime? --- test for a prime number
+*CMD SmallPrime? --- test for a (small) prime number
+*STD
+*CALL
+        Prime?(n)
+        SmallPrime?(n)
+
+*PARMS
+
+{n} -- integer to test
+
+*DESC
+
+The commands checks whether $n$, which should be a positive integer,
+is a prime number. A number $n$ is a prime number if it is only divisible
+by 1 and itself. As a special case, 1 is not considered a prime number.
+The first prime numbers are 2, 3, 5, ...
+
+The function {IsShortPrime} only works for numbers $n<=65537$ but it is very fast.
+
+The function {Prime?} operates on all numbers and uses different algorithms depending on the magnitude of the number $n$.
+For small numbers $n<=65537$, a constant-time table lookup is performed.
+(The function {IsShortPrime} is used for that.)
+For numbers $n$ between $65537$ and $34155071728321$, the function uses the Rabin-Miller test together with table lookups to guarantee correct results.
+
+For even larger numbers a version of the probabilistic Rabin-Miller test is executed.
+The test can sometimes mistakenly mark a number as prime while it is in fact composite, but a prime number will never be mistakenly declared composite.
+The parameters of the test are such that the probability for a false result is less than $10^(-24)$.
+
+*E.G.
+
+In> Prime?(1)
+Result: False;
+In> Prime?(2)
+Result: True;
+In> Prime?(10)
+Result: False;
+In> Prime?(23)
+Result: True;
+In> Select(1 .. 100, "Prime?")
+Result: {2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,
+          53,59,61,67,71,73,79,83,89,97};
+
+*SEE PrimePower?, Factors
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="SmallPrime?",subtype="automatic_test"
+
+Verify(SmallPrime?(137),True);
+Verify(SmallPrime?(138),False);
+Verify(SmallPrime?(65537),True);
+Verify(SmallPrime?(65539),False);
+
+%/mathpiper

@@ -1,4 +1,4 @@
-%mathpiper,def="Print"
+%mathpiper,def="Print;PrintArg;PrintArgComma;PrintArgProg"
 
 
 /* A reference print implementation. Expand at own leisure.
@@ -16,8 +16,8 @@
 ];
 
 /* Print an argument within an environment of precedence n */
-10 # Print(x_IsAtom,_n) <-- Write(x);
-10 # Print(_x,_n)_(IsInfix(Type(x))And? ArgumentsCount(x) =? 2) <--
+10 # Print(x_Atom?,_n) <-- Write(x);
+10 # Print(_x,_n)_(Infix?(Type(x))And? ArgumentsCount(x) =? 2) <--
 [
   Local(bracket);
   bracket:= (PrecedenceGet(Type(x)) >? n);
@@ -28,7 +28,7 @@
   If(bracket,WriteString(")"));
 ];
 
-10 # Print(_x,_n)_(IsPrefix(Type(x)) And? ArgumentsCount(x) =? 1) <--
+10 # Print(_x,_n)_(Prefix?(Type(x)) And? ArgumentsCount(x) =? 1) <--
 [
   Local(bracket);
   bracket:= (PrecedenceGet(Type(x)) >? n);
@@ -38,7 +38,7 @@
   If(bracket,WriteString(")"));
 ];
 
-10 # Print(_x,_n)_(IsPostfix(Type(x))And? ArgumentsCount(x) =? 1) <--
+10 # Print(_x,_n)_(Postfix?(Type(x))And? ArgumentsCount(x) =? 1) <--
 [
   Local(bracket);
   bracket:= (PrecedenceGet(Type(x)) >? n);
@@ -69,7 +69,7 @@
   WriteString("]");
 ];
 
-100 # Print(x_IsFunction,_n) <--
+100 # Print(x_Function?,_n) <--
  [
    Write(x[0]);
    WriteString("(");

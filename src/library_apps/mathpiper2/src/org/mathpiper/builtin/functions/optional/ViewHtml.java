@@ -29,7 +29,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.BuiltinObjectCons;
-import org.mathpiper.lisp.cons.ConsPointer;
+
 import org.mathpiper.ui.gui.help.FunctionTreePanel;
 
 /**
@@ -40,18 +40,16 @@ public class ViewHtml extends BuiltinFunction {
 
     public void plugIn(Environment aEnvironment)  throws Exception
     {
+        this.functionName = "ViewHtml";
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "ViewHtml");
+                this.functionName, new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
         String htmlText = null;
-        
-        ConsPointer consPointer = null;
 
-        Object argument = getArgumentPointer(aEnvironment, aStackTop, 1).car();
+        Object argument = getArgument(aEnvironment, aStackTop, 1).car();
 
         if (argument instanceof String)
         {
@@ -62,12 +60,12 @@ public class ViewHtml extends BuiltinFunction {
         else if (argument instanceof BuiltinContainer)
         {
             BuiltinContainer builtinContainer = (BuiltinContainer) argument;
-            LispError.check(aEnvironment, aStackTop, builtinContainer.typeName().equals("java.lang.String"), "Argument must be a MathPiper string or a Java String object.", "ViewHtml");
+            if(! builtinContainer.typeName().equals("java.lang.String")) LispError.throwError(aEnvironment, aStackTop, "Argument must be a MathPiper string or a Java String object.");
             htmlText = (String) builtinContainer.getObject();
         }
         else
         {
-            LispError.raiseError("Argument must be a MathPiper string or a Java String object.", "ViewHtml", aStackTop, aEnvironment);
+            LispError.raiseError("Argument must be a MathPiper string or a Java String object.", aStackTop, aEnvironment);
         }//end else.
 
         htmlText = FunctionTreePanel.processLatex(htmlText);
@@ -93,7 +91,7 @@ public class ViewHtml extends BuiltinFunction {
 
         JavaObject response = new JavaObject(frame);
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
+        setTopOfStack(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
 
     }//end method.
 }//end class.

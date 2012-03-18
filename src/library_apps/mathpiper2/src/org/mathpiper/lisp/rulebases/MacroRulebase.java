@@ -18,30 +18,29 @@ package org.mathpiper.lisp.rulebases;
 
 import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.lisp.stacks.UserStackInformation;
-import org.mathpiper.lisp.behaviours.BackQuoteSubstitute;
+import org.mathpiper.lisp.substitute.BackQuoteSubstitute;
 import org.mathpiper.lisp.Utility;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.Evaluator;
 import org.mathpiper.lisp.LispExpressionEvaluator;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.SublistCons;
 
 public class MacroRulebase extends SingleArityRulebase {
 
-    public MacroRulebase(Environment aEnvironment, int aStackTop, ConsPointer aParameters, String functionName) throws Exception {
+    public MacroRulebase(Environment aEnvironment, int aStackTop, Cons aParameters, String functionName) throws Exception {
         super(aEnvironment, aStackTop, aParameters, functionName);
-        ConsTraverser parameterTraverser = new ConsTraverser(aEnvironment, aParameters);
+        Cons parameterTraverser =  aParameters;
         int i = 0;
-        while (parameterTraverser.getCons() != null) {
+        while (parameterTraverser != null) {
 
             //LispError.check(parameterTraverser.car() != null, LispError.CREATING_USER_FUNCTION);
             try {
-                LispError.check(aEnvironment, aStackTop, parameterTraverser.car() instanceof String, LispError.CREATING_USER_FUNCTION, "","INTERNAL");
+                if(! (parameterTraverser.car() instanceof String)) LispError.throwError(aEnvironment, aStackTop, LispError.CREATING_USER_FUNCTION, "");
             } catch (EvaluationException ex) {
                 if (ex.getFunctionName() == null) {
-                    throw new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", -1,-1, this.functionName);
+                    throw new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", -1,-1,-1, this.functionName);
                 } else {
                     throw ex;
                 }
@@ -49,7 +48,7 @@ public class MacroRulebase extends SingleArityRulebase {
 
 
             ((ParameterName) iParameters.get(i)).iHold = true;
-            parameterTraverser.goNext(aStackTop);
+            parameterTraverser = parameterTraverser.cdr();
             i++;
         }
         //Macros are all unfenced.
@@ -60,14 +59,14 @@ public class MacroRulebase extends SingleArityRulebase {
 
 
     @Override
-    public void evaluate(Environment aEnvironment, int aStackTop, ConsPointer aResult, ConsPointer aArgumentsPointer) throws Exception {
+    public Cons evaluate(Environment aEnvironment, int aStackTop, Cons aArguments) throws Exception {
+        Cons aResult;
         int arity = arity();
-        ConsPointer[] argumentsResultPointerArray = evaluateArguments(aEnvironment, aStackTop, aArgumentsPointer);
+        Cons[] argumentsResultArray = evaluateArguments(aEnvironment, aStackTop, aArguments);
 
 
 
-        ConsPointer substitutedBodyPointer = new ConsPointer();
-
+        Cons substitutedBody = null;
         //Create a new local variable frame that is unfenced (false = unfenced).
         aEnvironment.pushLocalFrame(false, this.functionName);
 
@@ -77,7 +76,7 @@ public class MacroRulebase extends SingleArityRulebase {
                 String variable = ((ParameterName) iParameters.get(parameterIndex)).iName;
 
                 // set the variable to the new value
-                aEnvironment.newLocalVariable(variable, argumentsResultPointerArray[parameterIndex].getCons(), aStackTop);
+                aEnvironment.newLocalVariable(variable, argumentsResultArray[parameterIndex], aStackTop);
             }
 
             // walk the rules database, returning the evaluated result if the
@@ -87,26 +86,25 @@ public class MacroRulebase extends SingleArityRulebase {
             for (int ruleIndex = 0; ruleIndex < numberOfRules; ruleIndex++) {
                 Rule thisRule = ((Rule) iBranchRules.get(ruleIndex));
                 //TODO remove            CHECKPTR(thisRule);
-                LispError.lispAssert(thisRule != null, aEnvironment, aStackTop);
+                if(thisRule == null) LispError.lispAssert(aEnvironment, aStackTop);
 
                 userStackInformation.iRulePrecedence = thisRule.getPrecedence();
 
-                boolean matches = thisRule.matches(aEnvironment, aStackTop, argumentsResultPointerArray);
+                boolean matches = thisRule.matches(aEnvironment, aStackTop, argumentsResultArray);
 
                 if (matches) {
                     /* Rule dump trace code. */
-                    if (isTraced() && showFlag) {
-                        ConsPointer argumentsPointer = new ConsPointer();
-                        argumentsPointer.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer.getCons()));
+                    if (isTraced(this.functionName) && showFlag) {
+                        Cons arguments = SublistCons.getInstance(aEnvironment, aArguments);
                         String ruleDump = org.mathpiper.lisp.Utility.dumpRule(aStackTop, thisRule, aEnvironment, this);
-                        Evaluator.traceShowRule(aEnvironment, argumentsPointer, ruleDump);
+                        Evaluator.traceShowRule(aEnvironment, arguments, ruleDump);
                     }
                     userStackInformation.iSide = 1;
 
                     BackQuoteSubstitute backQuoteSubstitute = new BackQuoteSubstitute(aEnvironment);
 
-                    ConsPointer originalBodyPointer = thisRule.getBodyPointer();
-                    Utility.substitute(aEnvironment, aStackTop, substitutedBodyPointer, originalBodyPointer, backQuoteSubstitute);
+                    Cons originalBody = thisRule.getBody();
+                    substitutedBody = Utility.substitute(aEnvironment, aStackTop, originalBody, backQuoteSubstitute);
                     //              aEnvironment.iLispExpressionEvaluator.Eval(aEnvironment, aResult, thisRule.body());
                     break;
                 }
@@ -118,7 +116,7 @@ public class MacroRulebase extends SingleArityRulebase {
             }
         } catch (EvaluationException ex) {
             if (ex.getFunctionName() == null) {
-                throw new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", -1, -1, this.functionName);
+                throw new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", -1,-1, -1, this.functionName);
             } else {
                 throw ex;
             }
@@ -128,35 +126,33 @@ public class MacroRulebase extends SingleArityRulebase {
 
 
 
-        if (substitutedBodyPointer.getCons() != null) {
+        if (substitutedBody != null) {
             //Note:tk:substituted body must be evaluated after the local frame has been popped.
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, aResult, substitutedBodyPointer);
-        } else // No predicate was true: return a new expression with the evaluated
-        // arguments.
+            aResult = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, substitutedBody);
+        } else // No predicate was true: return a new expression with the evaluated arguments.
         {
-            ConsPointer full = new ConsPointer();
-            full.setCons(aArgumentsPointer.getCons().copy(aEnvironment, false));
+            Cons full = aArguments.copy(false);
             if (arity == 0) {
-                full.cdr().setCons(null);
+                full.setCdr(null);
             } else {
-                full.cdr().setCons(argumentsResultPointerArray[0].getCons());
+                full.setCdr(argumentsResultArray[0]);
                 for (int parameterIndex = 0; parameterIndex < arity - 1; parameterIndex++) {
-                    argumentsResultPointerArray[parameterIndex].cdr().setCons(argumentsResultPointerArray[parameterIndex + 1].getCons());
+                    argumentsResultArray[parameterIndex].setCdr(argumentsResultArray[parameterIndex + 1]);
                 }
             }
-            aResult.setCons(SublistCons.getInstance(aEnvironment, full.getCons()));
+            aResult = SublistCons.getInstance(aEnvironment, full);
         }
         //FINISH:
 
         /*Leave trace code */
-        if (isTraced() && showFlag) {
-            ConsPointer tr = new ConsPointer();
-            tr.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer.getCons()));
+        if (isTraced(this.functionName) && showFlag) {
+            Cons tr = SublistCons.getInstance(aEnvironment, aArguments);
             String localVariables = aEnvironment.getLocalVariables(aStackTop);
             LispExpressionEvaluator.traceShowLeave(aEnvironment, aResult, tr, "macro", localVariables);
-            tr.setCons(null);
+            tr = null;
         }
 
+        return aResult;
     }
 
 }

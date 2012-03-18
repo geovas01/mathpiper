@@ -1,0 +1,47 @@
+%mathpiper,def="Symmetric?"
+
+Symmetric?(A_Matrix?) <-- (Transpose(A)=?A);
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Symmetric?",categories="User Functions;Matrices (Predicates);Predicates"
+*CMD Symmetric? --- test for a symmetric matrix
+*STD
+*CALL
+        Symmetric?(A)
+
+*PARMS
+
+{A} -- a matrix
+
+*DESC
+
+{Symmetric?(A)} returns {True} if {A} is symmetric and {False} otherwise.
+$A$ is symmetric iff Transpose ($A$) =$A$.
+
+*E.G.
+
+In> A := {{1,0,0,0,1},{0,2,0,0,0},{0,0,3,0,0},
+          {0,0,0,4,0},{1,0,0,0,5}};
+In> PrettyForm(A)
+
+        /                                \
+        | ( 1 ) ( 0 ) ( 0 ) ( 0 ) ( 1 )  |
+        |                                |
+        | ( 0 ) ( 2 ) ( 0 ) ( 0 ) ( 0 )  |
+        |                                |
+        | ( 0 ) ( 0 ) ( 3 ) ( 0 ) ( 0 )  |
+        |                                |
+        | ( 0 ) ( 0 ) ( 0 ) ( 4 ) ( 0 )  |
+        |                                |
+        | ( 1 ) ( 0 ) ( 0 ) ( 0 ) ( 5 )  |
+        \                                /
+Result: True;
+In> Symmetric?(A)
+Result: True;
+                
+
+*SEE Hermitian?, SkewSymmetric?
+%/mathpiper_docs

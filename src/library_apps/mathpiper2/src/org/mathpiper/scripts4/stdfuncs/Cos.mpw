@@ -1,6 +1,6 @@
-%mathpiper,def="Cos"
+%mathpiper,def="Cos;CosMap"
 
-1 # CosMap( _n )_(Not?(IsRationalOrNumber(n))) <-- ListToFunction({ToAtom("Cos"),n*Pi});
+1 # CosMap( _n )_(Not?(RationalOrNumber?(n))) <-- ListToFunction({ToAtom("Cos"),n*Pi});
 2 # CosMap( _n )_(n<?0) <-- CosMap(-n);
 2 # CosMap( _n )_(n>?2) <-- CosMap(Modulo(n,2));
 3 # CosMap( _n )_(n>?1) <-- CosMap(2-n);
@@ -17,43 +17,43 @@
 
 
 
-2 # Cos(x_IsNumber)_InNumericMode() <-- CosNum(x);
+2 # Cos(x_Number?)_InNumericMode() <-- CosNum(x);
 4 # Cos(ArcCos(_x))           <-- x;
 4 # Cos(ArcSin(_x)) <-- Sqrt(1-x^2);
 4 # Cos(ArcTan(_x)) <-- 1/Sqrt(1+x^2);
-5 # Cos(- _x)_(Not? IsConstant(x))                 <-- Cos(x);
-6 # (Cos(x_IsConstant))_(IsNegativeNumber(N(Eval(x))))   <-- Cos(-x);
+5 # Cos(- _x)_(Not? Constant?(x))                 <-- Cos(x);
+6 # (Cos(x_Constant?))_(NegativeNumber?(N(Eval(x))))   <-- Cos(-x);
 // must prevent it from looping
 
 110 # Cos(Complex(_r,_i)) <--
     (Exp(I*Complex(r,i)) + Exp(- I*Complex(r,i))) / (2) ;
 
-6 # Cos(x_IsInfinity) <-- Undefined;
+6 # Cos(x_Infinity?) <-- Undefined;
 6 # Cos(Undefined) <-- Undefined;
 
 200 # Cos(v_CanBeUni(Pi))_(Not?(InNumericMode()) And? Degree(v,Pi) <? 2 And? Coef(v,Pi,0) =? 0) <--
       CosMap(Coef(v,Pi,1));
 
-400 # Cos(x_IsRationalOrNumber) <--
+400 # Cos(x_RationalOrNumber?) <--
     [
      Local(ll);
      ll:= FloorN(N(Eval(x/Pi)));
-     If(IsEven(ll),x:=(x - Pi*ll),x:=(-x + Pi*(ll+1)));
+     If(Even?(ll),x:=(x - Pi*ll),x:=(-x + Pi*(ll+1)));
      ListToFunction({Cos,x});
      ];
 
-400 # Cos(x_IsRationalOrNumber) <--
+400 # Cos(x_RationalOrNumber?) <--
     [
      Local(ll);
      ll:= FloorN(N(Eval(Abs(x)/Pi)));
-     If(IsEven(ll),x:=(Abs(x) - Pi*ll),x:=(-Abs(x) + Pi*(ll+1)));
+     If(Even?(ll),x:=(Abs(x) - Pi*ll),x:=(-Abs(x) + Pi*(ll+1)));
      ListToFunction({Cos,x});
      ];
 
-100 # Cos(_x)*Tan(_x) <-- Sin(x);
-100 # Cos(_x)/Sin(_x) <-- (1/Tan(x));
 
-Cos(xlist_IsList) <-- MapSingle("Cos",xlist);
+
+
+Cos(xlist_List?) <-- MapSingle("Cos",xlist);
 
 
 %/mathpiper
@@ -98,14 +98,14 @@ Result: Sqrt(1/2);
 
 
 
-
-
 %mathpiper,name="Cos",subtype="automatic_test"
 
 Verify(Cos(0),1);
-
 Verify(Cos(2*Pi), 1);
 Verify(Cos(4*Pi), 1);
-NumericEqual(N(Cos(Pi*.5),BuiltinPrecisionGet()), 0,BuiltinPrecisionGet());
+Verify(N(Cos(Pi/6)), N(Sqrt(3/4)));
+NumericEqual(N(Cos(Pi/2),BuiltinPrecisionGet()+1), 0,BuiltinPrecisionGet());
 
 %/mathpiper
+
+

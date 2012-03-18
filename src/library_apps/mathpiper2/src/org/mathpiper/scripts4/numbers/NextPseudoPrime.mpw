@@ -1,10 +1,10 @@
 %mathpiper,def="NextPseudoPrime"
 
 /// obtain next number that has good chances of being prime (not divisible by 2,3)
-1# NextPseudoPrime(i_IsInteger)_(i<=?1) <-- 2;
+1# NextPseudoPrime(i_Integer?)_(i<=?1) <-- 2;
 2# NextPseudoPrime(2) <-- 3;
 //2# NextPseudoPrime(3) <-- 5;
-3# NextPseudoPrime(i_IsOdd) <--
+3# NextPseudoPrime(i_Odd?) <--
 [
         // this sequence generates numbers not divisible by 2 or 3
         i := i+2;
@@ -25,6 +25,6 @@
 */
 ];
 // this works only for even i>=4
-4# NextPseudoPrime(i_IsEven) <-- NextPseudoPrime(i-1);
+4# NextPseudoPrime(i_Even?) <-- NextPseudoPrime(i-1);
 
 %/mathpiper

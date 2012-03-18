@@ -24,7 +24,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -32,17 +32,26 @@ import org.mathpiper.lisp.cons.ConsPointer;
  */
 public class ArraySize extends BuiltinFunction
 {
+    
+    private ArraySize()
+    {
+    }
+
+    public ArraySize(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer evaluated = new ConsPointer();
-        evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        Cons evaluated = getArgument(aEnvironment, aStackTop, 1);
 
         BuiltinContainer gen = (BuiltinContainer) evaluated.car();
-        LispError.checkArgument(aEnvironment, aStackTop, gen != null, 1, "ArraySize");
-        LispError.checkArgument(aEnvironment, aStackTop, gen.typeName().equals("\"Array\""), 1, "ArraySize");
+        if(gen == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if(! gen.typeName().equals("\"Array\"")) LispError.checkArgument(aEnvironment, aStackTop, 1);
         int size = ((Array) gen).size();
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "" + size));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + size));
     }
 }//end class.
 

@@ -6,7 +6,7 @@
 // Given the positive definite matrix A, a matrix R is returned such that
 // A = Transpose(R) * R
 
-10 # Cholesky(A_IsMatrix) <--
+10 # Cholesky(A_Matrix?) <--
 [
         Local(matrix,n,k,j);
         n:=Length(A);
@@ -75,5 +75,5 @@ In> Cholesky(ToeplitzMatrix({1,2,3}))
         In function "Check" :
         CommandLine(1) : "Cholesky: Matrix is not positive definite"
 
-*SEE IsSymmetric, IsDiagonal, Diagonal
+*SEE Symmetric?, Diagonal?, Diagonal
 %/mathpiper_docs

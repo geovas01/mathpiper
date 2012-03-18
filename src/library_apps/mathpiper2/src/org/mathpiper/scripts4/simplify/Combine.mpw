@@ -2,7 +2,7 @@
 
 //Retract("Combine",*);
 
-10 # Combine(expr_IsZero) <-- 0;
+10 # Combine(expr_Zero?) <-- 0;
 
 20 # Combine(_expr) <-- 
 [

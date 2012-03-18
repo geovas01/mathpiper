@@ -36,11 +36,11 @@ import org.mathpiper.ui.gui.consoles.GraphicConsole;
 public class ViewGraphicConsole extends BuiltinFunction
 {
 
-        public void plugIn(Environment aEnvironment) throws Exception
+    public void plugIn(Environment aEnvironment) throws Exception
     {
+        this.functionName = "ViewGraphicConsole";
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(this, 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "ViewGraphicConsole");
+                this.functionName, new BuiltinFunctionEvaluator(this, 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -62,7 +62,7 @@ public class ViewGraphicConsole extends BuiltinFunction
 
         JavaObject response = new JavaObject(frame);
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
+        setTopOfStack(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
 
     }//end method.
 

@@ -21,16 +21,16 @@ package org.mathpiper.builtin;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointerArray;
+import org.mathpiper.lisp.cons.ConsArray;
 
 
 public class Array extends BuiltinContainer
 {
-	ConsPointerArray iArray;
+	ConsArray iArray;
 
-	public Array(Environment aEnvironment, int aSize,Cons aInitialItem)
+	public Array(Environment aEnvironment, int aSize)
 	{
-		iArray = new ConsPointerArray(aEnvironment, aSize,aInitialItem);
+		iArray = new ConsArray(aEnvironment, aSize);
 	}
 
 	public String typeName()
@@ -44,12 +44,15 @@ public class Array extends BuiltinContainer
 	}
 	public Cons getElement(int aItem, int aStackTop, Environment aEnvironment) throws Exception
 	{
-		LispError.lispAssert(aItem>0 && aItem<=iArray.size(), aEnvironment, aStackTop);
-		return iArray.getElement(aItem-1).getCons();
+		if(aItem <= 0 || aItem > iArray.size()) LispError.lispAssert(aEnvironment, aStackTop);
+		return iArray.getElement(aItem-1);
 	}
 	public void setElement(int aItem,Cons aObject, int aStackTop, Environment aEnvironment) throws Exception
 	{
-		LispError.lispAssert(aItem>0 && aItem<=iArray.size(), aEnvironment, aStackTop);
+		if(aItem <= 0|| aItem > iArray.size()) 
+                {
+                    LispError.lispAssert(aEnvironment, aStackTop);
+                }
 		iArray.setElement(aItem-1,aObject);
 	}
 

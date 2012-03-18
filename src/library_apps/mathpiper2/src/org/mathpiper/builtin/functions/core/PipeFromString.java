@@ -23,8 +23,9 @@ import org.mathpiper.io.StringInputStream;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
+
 
 /**
  *
@@ -33,34 +34,44 @@ import org.mathpiper.lisp.Utility;
 public class PipeFromString extends BuiltinFunction
 {
 
+    private PipeFromString()
+    {
+    }
+
+    public PipeFromString(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer evaluated = new ConsPointer();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, evaluated, getArgumentPointer(aEnvironment, aStackTop, 1));
+
+        Cons evaluated = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1));
 
         // Get file name
-        LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1, "PipeFromString");
+        if( evaluated == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         String orig =  (String) evaluated.car();
-        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "PipeFromString");
+        if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         String oper = Utility.toNormalString(aEnvironment, aStackTop, orig);
 
-        InputStatus oldstatus = aEnvironment.iCurrentInput.iStatus;
-        aEnvironment.iCurrentInput.iStatus.setTo("String");
-        StringInputStream newInput = new StringInputStream(oper, aEnvironment.iCurrentInput.iStatus);
+        InputStatus oldstatus = aEnvironment.getCurrentInput().iStatus;
+        aEnvironment.getCurrentInput().iStatus.setTo("String");
+        StringInputStream newInput = new StringInputStream(oper, aEnvironment.getCurrentInput().iStatus);
 
-        MathPiperInputStream previous = aEnvironment.iCurrentInput;
-        aEnvironment.iCurrentInput = newInput;
+        MathPiperInputStream previous = aEnvironment.getCurrentInput();
+        aEnvironment.setCurrentInput(newInput);
         try
         {
             // Evaluate the body
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 2));
+            setTopOfStack(aEnvironment, aStackTop, aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 2)));
         } catch (Exception e)
         {
             throw e;
         } finally
         {
-            aEnvironment.iCurrentInput = previous;
-            aEnvironment.iCurrentInput.iStatus.restoreFrom(oldstatus);
+            aEnvironment.setCurrentInput(previous);
+            aEnvironment.getCurrentInput().iStatus.restoreFrom(oldstatus);
         }
 
     //Return the getTopOfStackPointer

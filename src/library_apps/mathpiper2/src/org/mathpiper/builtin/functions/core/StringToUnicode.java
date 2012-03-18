@@ -29,18 +29,28 @@ import org.mathpiper.lisp.LispError;
 public class StringToUnicode extends BuiltinFunction
 {
 
+    private StringToUnicode()
+    {
+    }
+
+    public StringToUnicode(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1, "StringToUnicode");
-        String str = (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
-        LispError.checkArgument(aEnvironment, aStackTop, str != null, 1, "StringToUnicode");
-        LispError.check(aEnvironment, aStackTop,str.length() == 3, "The string must be one character long.", "StringToUnicode");
-        LispError.checkArgument(aEnvironment, aStackTop, str.charAt(0) == '\"', 1, "StringToUnicode");
-        LispError.checkArgument(aEnvironment, aStackTop, str.charAt(str.length() - 1) == '\"', 1, "StringToUnicode");
+        if( getArgument(aEnvironment, aStackTop, 1) == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        String str = (String) getArgument(aEnvironment, aStackTop, 1).car();
+        if( str == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if(str.length() != 3) LispError.throwError(aEnvironment, aStackTop, "The string must be one character long.");
+        if(str.charAt(0) != '\"') LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if(str.charAt(str.length() - 1) != '\"') LispError.checkArgument(aEnvironment, aStackTop, 1);
 
         int unicodeValue = (int) str.charAt(1);
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "" + unicodeValue));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + unicodeValue));
     }
 }
 

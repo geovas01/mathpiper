@@ -1,4 +1,4 @@
-%mathpiper,def="BinaryFactors"
+%mathpiper,def="BinaryFactors;LastCoef"
 
 LocalSymbols(lastcoef,OrdBuild, AddFoundSolutionSingle , AddFoundSolution, Fct, MkfactD,p)
 [
@@ -37,10 +37,10 @@ OrdBuild(vector,q):=
 Function(AddFoundSolutionSingle,{p})
 [
   Local(calc);
-//  If ( Not? Contains(result,p),
+//  If ( Not? Contains?(result,p),
 //  [
     Bind(calc, Eval(lastcoef));
-    If (IsEqual(calc, 0),
+    If (Equal?(calc, 0),
     [
       Local(newlist,count,root);
       count:=0;
@@ -169,14 +169,14 @@ Function(Fct,{poly,var})
   Bind(q,1);
   Bind(twoq,MultiplyN(q,2));
   Bind(mask,AddN(twoq,MathNegate(1)));
-  if (IsEven(testpoly[1]))
+  if (Even?(testpoly[1]))
   [
     Bind(accu,0:accu);
     AddFoundSolutionSingle(0);
   ];
   Bind(p,1);
   Bind(calc, Eval(lastcoef));
-  If (IsEven(calc),
+  If (Even?(calc),
   [
     Bind(accu,1:accu);
     AddFoundSolution(1);
@@ -191,21 +191,21 @@ Function(Fct,{poly,var})
     ForEach(p,accu)
     [
       Bind(calc,Eval(lastcoef));
-      If (IsLessThan(calc,0),
+      If (LessThan?(calc,0),
         Bind(calc, AddN(calc,MultiplyN(twoq,QuotientN(AddN(MathNegate(calc),twoq),twoq))))
          );
       Bind(calc, BitAnd(calc, mask));
-      If ( IsEqual(calc, 0),
+      If ( Equal?(calc, 0),
       [
         Bind(newaccu, p:newaccu);
         AddFoundSolutionSingle(-2*q+p);
       ]);
       Bind(calc, AddN(calc, Eval(ord)));
-      If (IsLessThan(calc,0),
+      If (LessThan?(calc,0),
         Bind(calc, AddN(calc,MultiplyN(twoq,QuotientN(AddN(MathNegate(calc),twoq),twoq))))
          );
       Bind(calc, BitAnd(calc, mask));
-      If ( IsEqual(calc, 0),
+      If ( Equal?(calc, 0),
       [
         Bind(newaccu, AddN(p,q):newaccu);
         AddFoundSolution(AddN(p,q));
@@ -226,7 +226,7 @@ Function(Fct,{poly,var})
   Bind(poly,poly*an^(0 .. (Length(poly)-1)));
   Bind(poly,gcd*anmul*poly);
   //TODO had to add this if statement, what was andiv again, and why would it become zero? This happens with for example Factor(2*x^2)
-  If(Not? IsZero(unrat * andiv ),Bind(poly,poly/(unrat * andiv )));
+  If(Not? Zero?(unrat * andiv ),Bind(poly,poly/(unrat * andiv )));
   If(poly !=? {1},
   [
     result:={(Add(poly*var^(0 .. (Length(poly)-1)))),1}:result;
@@ -296,6 +296,26 @@ MkfactD(numer,denom):=
 
 
 %/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="BinaryFactors",categories="User Functions",access="undocumented"
+*CMD BinaryFactors --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs
 
 
 

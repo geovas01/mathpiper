@@ -1,10 +1,5 @@
-%mathpiper,def="OdeSolve;OdeTest;OdeOrder"
+%mathpiper,def="OdeSolve;OdeTest;OdeOrder;OdeLeftHandSideEq;OdeNormChange;OdeNormPred;OdeNormalForm;OdeChange;OdePred;OdeSubstitute;OdeConstantList;OdeFlatTerm;OdeMakeTerm;OdeMakeTermPred;OdeCoefList;OdeTermFail;OdeAuxiliaryEquation;OdeSolveLinearHomogeneousConstantCoefficients;OdeSolveLinear;OdeUnsolved;TanMap"
 
-/* def file definitions
-OdeSolve
-OdeTest
-OdeOrder
-*/
 
 /*
  1) implement more sub-solvers
@@ -12,15 +7,15 @@ OdeOrder
  3) Done: documentation for OdeSolve and OdeTest
  */
 
-Rulebase("yyy",{x});
+RulebaseHoldArguments("yyy",{x});
 
 10 # OdeLeftHandSideEq(_l == _r) <-- (l-r);
 20 # OdeLeftHandSideEq(_e) <-- e;
 
-10 # OdeNormChange(y(n_IsInteger)) <-- ListToFunction({yyy,n});
+10 # OdeNormChange(y(n_Integer?)) <-- ListToFunction({yyy,n});
 20 # OdeNormChange(y) <-- yyy(0);
-25 # OdeNormChange(y') <-- yyy(1);
-25 # OdeNormChange(y'') <-- yyy(2);
+25 # OdeNormChange(yPRIME) <-- yyy(1);
+25 # OdeNormChange(yPRIMEPRIME) <-- yyy(2);
 30 # OdeNormChange(_e) <-- e;
 OdeNormPred(_e) <-- (e !=? OdeNormChange(e));
 
@@ -36,14 +31,14 @@ OdeNormalForm(_e) <--
   OdeLeftHandSideEq(e) /:
     {
       y <- yyy(0),
-      y' <- yyy(1),
-      y'' <- yyy(2),
+      yPRIME <- yyy(1),
+      yPRIMEPRIME <- yyy(2),
       y(_n) <- yyy(n)
     };
 ];
 */
 
-10 # OdeChange(yyy(n_IsInteger)) <-- Apply(yn,{n});
+10 # OdeChange(yyy(n_Integer?)) <-- Apply(yn,{n});
 30 # OdeChange(_e) <-- e;
 OdePred(_e) <-- (e !=? OdeChange(e));
 UnFence("OdeChange",1);
@@ -54,7 +49,7 @@ OdeSubstitute(_e,_yn) <--
 ];
 UnFence("OdeSubstitute",2);
 
-OdeConstantList(n_IsInteger) <--
+OdeConstantList(n_Integer?) <--
 [
   Local(result,i);
   result:=ZeroVector(n);
@@ -63,7 +58,7 @@ OdeConstantList(n_IsInteger) <--
 ];
 
 
-Rulebase("OdeTerm",{px,list});
+RulebaseHoldArguments("OdeTerm",{px,list});
 
 /*5 # OdeFlatTerm(_x)_[Echo({x});False;] <-- True; */
 
@@ -71,23 +66,23 @@ Rulebase("OdeTerm",{px,list});
 10# OdeFlatTerm(OdeTerm(_a0,_b0)-OdeTerm(_a1,_b1)) <-- OdeTerm(a0-a1,b0-b1);
 10# OdeFlatTerm(-OdeTerm(_a1,_b1)) <-- OdeTerm(-a1,-b1);
 10# OdeFlatTerm(OdeTerm(_a0,_b0)*OdeTerm(_a1,_b1))_
-    (IsZeroVector(b0) Or? IsZeroVector(b1)) <--
+    (ZeroVector?(b0) Or? ZeroVector?(b1)) <--
 [
   OdeTerm(a0*a1,a1*b0+a0*b1);
 ];
 
 10# OdeFlatTerm(OdeTerm(_a0,_b0)/OdeTerm(_a1,_b1))_
-    (IsZeroVector(b1)) <--
+    (ZeroVector?(b1)) <--
     OdeTerm(a0/a1,b0/a1);
 
-10# OdeFlatTerm(OdeTerm(_a0,b0_IsZeroVector)^OdeTerm(_a1,b1_IsZeroVector)) <--
+10# OdeFlatTerm(OdeTerm(_a0,b0_ZeroVector?)^OdeTerm(_a1,b1_ZeroVector?)) <--
     OdeTerm(a0^a1,b0);
 15 # OdeFlatTerm(OdeTerm(_a,_b)) <-- OdeTerm(a,b);
 
 15# OdeFlatTerm(OdeTerm(_a0,_b0)*OdeTerm(_a1,_b1)) <-- OdeTermFail();
 15# OdeFlatTerm(OdeTerm(_a0,b0)^OdeTerm(_a1,b1)) <-- OdeTermFail();
 15# OdeFlatTerm(OdeTerm(_a0,b0)/OdeTerm(_a1,b1)) <-- OdeTermFail();
-20 # OdeFlatTerm(a_IsAtom) <-- OdeTermFail();
+20 # OdeFlatTerm(a_Atom?) <-- OdeTermFail();
 
 20 # OdeFlatTerm(_a+_b) <-- OdeFlatTerm(OdeFlatTerm(a) + OdeFlatTerm(b));
 20 # OdeFlatTerm(_a-_b) <-- OdeFlatTerm(OdeFlatTerm(a) - OdeFlatTerm(b));
@@ -95,7 +90,7 @@ Rulebase("OdeTerm",{px,list});
 20 # OdeFlatTerm(_a^_b) <-- OdeFlatTerm(OdeFlatTerm(a) ^ OdeFlatTerm(b));
 20 # OdeFlatTerm(_a/_b) <-- OdeFlatTerm(OdeFlatTerm(a) / OdeFlatTerm(b));
 
-OdeMakeTerm(xx_IsAtom) <-- OdeTerm(xx,FillList(0,10));
+OdeMakeTerm(xx_Atom?) <-- OdeTerm(xx,FillList(0,10));
 OdeMakeTerm(yyy(_n)) <-- OdeTerm(0,BaseVector(n+1,10));
 
 
@@ -177,7 +172,7 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
 
     if( b=?0 And? c=?0 )[
         Add(OdeConstantList(2)*{1,x});
-    ] else if( IsNumber(N(roots[1])) )[
+    ] else if( Number?(N(roots[1])) )[
         If(InVerboseMode(),Echo("OdeSolve: Real roots"));
         Add(OdeConstantList(2)*{Exp(roots[1]*x),Exp(roots[2]*x)});
     ] else [
@@ -193,7 +188,7 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
   ];
 ];
 
-// this croaks on Sin(x)*y'' because OdeMakeTerm does
+// this croaks on Sin(x)*yPRIMEPRIME because OdeMakeTerm does
 10 # OdeOrder(_e) <-- [
         Local(h,i,coefs);
 
@@ -214,19 +209,19 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
 ];
 
 
-10 # OdeSolve(_expr)_(OdeOrder(expr)=?0)            <-- Echo("OdeSolve: Not? a differential equation");
+10 # OdeSolve(_expr)_(OdeOrder(expr)=?0)            <-- Echo("OdeSolve: Not a differential equation");
 
 // Solve the ever lovable seperable equation
 
-10 # OdeSolve(y'+_a==_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'==expr-a);
-10 # OdeSolve(y'-_a==_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'==expr+a);
-10 # OdeSolve(y'/_a==_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'==expr*a);
-10 # OdeSolve(_a*y'==_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'==expr/a);
-10 # OdeSolve(y'*_a==_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'==expr/a);
-10 # OdeSolve(_a/y'==_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'==a/expr);
+10 # OdeSolve(yPRIME+_a==_expr)_(FreeOf?(y,a)) <-- OdeSolve(yPRIME==expr-a);
+10 # OdeSolve(yPRIME-_a==_expr)_(FreeOf?(y,a)) <-- OdeSolve(yPRIME==expr+a);
+10 # OdeSolve(yPRIME/_a==_expr)_(FreeOf?(y,a)) <-- OdeSolve(yPRIME==expr*a);
+10 # OdeSolve(_a*yPRIME==_expr)_(FreeOf?(y,a)) <-- OdeSolve(yPRIME==expr/a);
+10 # OdeSolve(yPRIME*_a==_expr)_(FreeOf?(y,a)) <-- OdeSolve(yPRIME==expr/a);
+10 # OdeSolve(_a/yPRIME==_expr)_(FreeOf?(y,a)) <-- OdeSolve(yPRIME==a/expr);
 
 // only works for low order equations
-10 # OdeSolve(y'==_expr)_(IsFreeOf({y,y',y''},expr)) <--
+10 # OdeSolve(yPRIME==_expr)_(FreeOf?({y,yPRIME,yPRIMEPRIME},expr)) <--
 [
         If(InVerboseMode(),Echo("OdeSolve: Integral in disguise!"));
         If(InVerboseMode(),Echo("OdeSolve: Attempting to integrate ",expr));
@@ -241,7 +236,7 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
   If(InVerboseMode(),Echo("OdeSolve: Normal form is",e));
   h:=OdeFlatTerm(OdeCoefList(e));
   If(InVerboseMode(),Echo("OdeSolve: Flatterm is",h));
-  if (IsFreeOf(Error,h))
+  if (FreeOf?(Error,h))
   [
     OdeSolveLinear(e,h);
   ]
@@ -271,7 +266,7 @@ Echo({e});
 Echo({e});
   e;
 ];
-OdeBoundaries(_solution,bounds_IsList) <--
+OdeBoundaries(_solution,bounds_List?) <--
 [
 ];
 */
@@ -308,19 +303,19 @@ used as the arguments of exponentials. If the roots are complex conjugate
 pairs, then the solution returned is in the form of exponentials, sines
 and cosines.
 
-First and second derivatives are entered as {y',y''}. Higher order derivatives
+First and second derivatives are entered as {yPRIME,yPRIMEPRIME}. Higher order derivatives
 may be entered as {y(n)}, where {n} is any integer. 
 
 
 *E.G.
 
-In> OdeSolve( y'' + y == 0 )
+In> OdeSolve( yPRIMEPRIME + y == 0 )
 Result: C42*Sin(x)+C43*Cos(x);
-In> OdeSolve( 2*y'' + 3*y' + 5*y == 0 )
+In> OdeSolve( 2*yPRIMEPRIME + 3*yPRIME + 5*y == 0 )
 Result: Exp(((-3)*x)/4)*(C78*Sin(Sqrt(31/16)*x)+C79*Cos(Sqrt(31/16)*x));
-In> OdeSolve( y'' - 4*y == 0 )
+In> OdeSolve( yPRIMEPRIME - 4*y == 0 )
 Result: C132*Exp((-2)*x)+C136*Exp(2*x);
-In> OdeSolve( y'' +2*y' + y == 0 )
+In> OdeSolve( yPRIMEPRIME +2*yPRIME + y == 0 )
 Result: (C183+C184*x)*Exp(-x);
 
 *SEE Solve, RootsWithMultiples
@@ -347,9 +342,9 @@ on a function.
 
 *E.G.
 
-In> OdeTest(y''+y,Sin(x)+Cos(x))
+In> OdeTest(yPRIMEPRIME+y,Sin(x)+Cos(x))
 Result: 0;
-In> OdeTest(y''+2*y,Sin(x)+Cos(x))
+In> OdeTest(yPRIMEPRIME+2*y,Sin(x)+Cos(x))
 Result: Sin(x)+Cos(x);
 
 *SEE OdeSolve
@@ -373,9 +368,9 @@ order of the highest derivative. If no derivatives appear, zero is returned.
 
 *E.G.
 
-In> OdeOrder(y'' + 2*y' == 0)
+In> OdeOrder(yPRIMEPRIME + 2*yPRIME == 0)
 Result: 2;
-In> OdeOrder(Sin(x)*y(5) + 2*y' == 0)
+In> OdeOrder(Sin(x)*y(5) + 2*yPRIME == 0)
 Result: 5;
 In> OdeOrder(2*y + Sin(y) == 0)
 Result: 0;
@@ -389,8 +384,8 @@ Result: 0;
 
 %mathpiper,name="OdeSolve",subtype="automatic_test"
 
-Verify( OdeTest(y''+y,       OdeSolve(y''+y==0)     ), 0 );
-Verify( OdeTest(y'/5-Sin(x), OdeSolve(y'/5==Sin(x)) ), 0 );
-Verify( OdeTest(x*y' - 1,    OdeSolve(x*y'==1) ), 0 );
+Verify( OdeTest(yPRIMEPRIME+y,       OdeSolve(yPRIMEPRIME+y==0)     ), 0 );
+Verify( OdeTest(yPRIME/5-Sin(x), OdeSolve(yPRIME/5==Sin(x)) ), 0 );
+Verify( OdeTest(x*yPRIME - 1,    OdeSolve(x*yPRIME==1) ), 0 );
 
 %/mathpiper

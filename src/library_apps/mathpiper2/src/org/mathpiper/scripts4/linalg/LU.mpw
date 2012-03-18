@@ -4,7 +4,7 @@
 // Pivotting is not implemented
 // Adapted from Numerical Methods with Matlab
 //        Gerald Recktenwald, Sec 8.4
-10 # LU(A_IsSquareMatrix) <--
+10 # LU(A_SquareMatrix?) <--
 [
         Local(n,matrix,L,U);
         n:=Length(A);

@@ -1,6 +1,6 @@
 %mathpiper,def="Take"
 
-/* ���� Take ���� */
+/*  Take  */
 
 /* Needs to check the parameters */
 
@@ -10,17 +10,17 @@
  * Take( list, {m,n} ) elements m through n of 'list'
  */
 
-Rulebase("Take", {lst, range});
+RulebaseHoldArguments("Take", {lst, range});
 
-Rule("Take", 2, 1, IsList(range))
+RuleHoldArguments("Take", 2, 1, List?(range))
     Take( Drop(lst, range[1] -1), range[2] - range[1] + 1);
 
-Rule("Take", 2, 2, range >=? 0)
+RuleHoldArguments("Take", 2, 2, range >=? 0)
     If( Length(lst)=?0 Or? range=?0, {},
         Concat({First(lst)}, Take(Rest(lst), range-1)));
 
-Rule("Take", 2, 2, range <? 0)
-    Drop( lst, Length(lst) + range );
+RuleHoldArguments("Take", 2, 2, range <? 0)
+    Drop( lst, If(AbsN(range) <? Length(lst), Length(lst) + range, 0 ));
 
 %/mathpiper
 

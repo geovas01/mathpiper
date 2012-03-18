@@ -17,7 +17,7 @@
 package org.mathpiper.lisp.rulebases;
 
 import org.mathpiper.lisp.stacks.UserStackInformation;
-import org.mathpiper.lisp.cons.ConsPointer;
+
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.SublistCons;
@@ -26,6 +26,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.exceptions.ReturnException;
 import org.mathpiper.lisp.Evaluator;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  * A function (usually mathematical) which is defined by one or more rules.
@@ -41,7 +42,7 @@ public class SingleArityRulebase extends Evaluator {
     protected List<Rule> iBranchRules = new ArrayList();//CDeletingArrayGrower<BranchRuleBase*>
     
     // List of arguments
-    ConsPointer iParameterList;
+    Cons iParameterList;
 /// Abstract class providing the basic user function API.
 /// Instances of this class are associated to the name of the function
 /// via an associated hash table. When obtained, they can be used to
@@ -59,30 +60,30 @@ public class SingleArityRulebase extends Evaluator {
      * @param aParameters linked list constaining the names of the arguments
      * @throws java.lang.Exception
      */
-    public SingleArityRulebase(Environment aEnvironment, int aStackTop, ConsPointer aParametersPointer, String functionName) throws Exception {
+    public SingleArityRulebase(Environment aEnvironment, int aStackTop, Cons aParameters, String functionName) throws Exception {
         iEnvironment = aEnvironment;
         this.functionName = functionName;
-        iParameterList = new ConsPointer();
+
         // iParameterList and #iParameters are set from \a aParameters.
-        iParameterList.setCons(aParametersPointer.getCons());
+        iParameterList = aParameters;
 
-        ConsPointer parameterPointer = new ConsPointer(aParametersPointer.getCons());
+        Cons parameters = aParameters;
 
-        while (parameterPointer.getCons() != null) {
+        while (parameters != null) {
 
             try {
-                LispError.check(aEnvironment, aStackTop, parameterPointer.car() instanceof String, LispError.CREATING_USER_FUNCTION, functionName,"INTERNAL");
+                if(! (parameters.car() instanceof String)) LispError.throwError(aEnvironment, aStackTop, LispError.CREATING_USER_FUNCTION, functionName);
             } catch (EvaluationException ex) {
                 if (ex.getFunctionName() == null) {
-                    throw new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", -1, -1, this.functionName);
+                    throw new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", -1,-1, -1, this.functionName);
                 } else {
                     throw ex;
                 }
             }//end catch.
 
-            ParameterName parameter = new ParameterName((String) parameterPointer.car(), false);
+            ParameterName parameter = new ParameterName((String) parameters.car(), false);
             iParameters.add(parameter);
-            parameterPointer.goNext(aStackTop, aEnvironment);
+            parameters = parameters.cdr();
         }
     }
 
@@ -96,7 +97,7 @@ public class SingleArityRulebase extends Evaluator {
      * names of the formal arguments, as stored in iName. Then
      * all rules in <b>iRules</b> are tried one by one. The body of the
      * first rule that matches is evaluated, and the result is put in
-     * aResult. If no rule matches, aResult will recieve a new
+     * aResult. If no rule matches, aResult will receive a new
      * expression with evaluated arguments.
      * 
      * @param aResult (on output) the result of the evaluation
@@ -104,9 +105,11 @@ public class SingleArityRulebase extends Evaluator {
      * @param aArguments the arguments to the function
      * @throws java.lang.Exception
      */
-    public void evaluate(Environment aEnvironment, int aStackTop, ConsPointer aResult, ConsPointer aArgumentsPointer) throws Exception {
+    public Cons evaluate(Environment aEnvironment, int aStackTop, Cons aArguments) throws Exception {
+
+        Cons aResult;
         int arity = arity();
-        ConsPointer[] argumentsResultPointerArray = evaluateArguments(aEnvironment, aStackTop, aArgumentsPointer);
+        Cons[] argumentsResultArray = evaluateArguments(aEnvironment, aStackTop, aArguments);
 
         // Create a new local variables frame that has the same fenced state as this function.
         aEnvironment.pushLocalFrame(fenced(), this.functionName);
@@ -121,7 +124,7 @@ public class SingleArityRulebase extends Evaluator {
             for (int parameterIndex = 0; parameterIndex < arity; parameterIndex++) {
                 String variableName = ((ParameterName) iParameters.get(parameterIndex)).iName;
                 // set the variable to the new value
-                aEnvironment.newLocalVariable(variableName, argumentsResultPointerArray[parameterIndex].getCons(), aStackTop);
+                aEnvironment.newLocalVariable(variableName, argumentsResultArray[parameterIndex], aStackTop);
             }
 
             // walk the rules database, returning the evaluated result if the
@@ -132,20 +135,19 @@ public class SingleArityRulebase extends Evaluator {
 
             for (int ruleIndex = 0; ruleIndex < numberOfRules; ruleIndex++) {
                 Rule thisRule = ((Rule) iBranchRules.get(ruleIndex));
-                LispError.lispAssert(thisRule != null, aEnvironment, aStackTop);
+                if(thisRule == null) LispError.lispAssert(aEnvironment, aStackTop);
 
                 userStackInformation.iRulePrecedence = thisRule.getPrecedence();
 
-                boolean matches = thisRule.matches(aEnvironment, aStackTop, argumentsResultPointerArray);
+                boolean matches = thisRule.matches(aEnvironment, aStackTop, argumentsResultArray);
 
                 if (matches) {
 
                     /* Rule dump trace code. */
-                    if (isTraced() && showFlag) {
-                        ConsPointer argumentsPointer = new ConsPointer();
-                        argumentsPointer.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer.getCons()));
+                    if (isTraced(this.functionName) && showFlag) {
+                        Cons arguments = SublistCons.getInstance(aEnvironment, aArguments);
                         String ruleDump = org.mathpiper.lisp.Utility.dumpRule(aStackTop, thisRule, aEnvironment, this);
-                        Evaluator.traceShowRule(aEnvironment, argumentsPointer, ruleDump);
+                        Evaluator.traceShowRule(aEnvironment, arguments, ruleDump);
                     }
 
                     userStackInformation.iSide = 1;
@@ -154,14 +156,12 @@ public class SingleArityRulebase extends Evaluator {
                         beforeStackTop = aEnvironment.iArgumentStack.getStackTopIndex();
                         beforeEvaluationDepth = aEnvironment.iEvalDepth;
 
-                        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, aResult, thisRule.getBodyPointer()); //*** User function is called here.
+                        aResult = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, thisRule.getBody()); //*** User function is called here.
 
                     } catch (ReturnException re) {
                         //todo:tk:note that user functions currently return their results in aResult, not on the stack.
                         int stackTopIndex = aEnvironment.iArgumentStack.getStackTopIndex();
-                        ConsPointer resultPointer = BuiltinFunction.getTopOfStackPointer(aEnvironment, stackTopIndex - 1);
-
-                        aResult.setCons(resultPointer.getCons());
+                        aResult =  BuiltinFunction.getTopOfStack(aEnvironment, stackTopIndex - 1);
 
                         aEnvironment.iArgumentStack.popTo(beforeStackTop, aStackTop, aEnvironment);
                         aEnvironment.iEvalDepth = beforeEvaluationDepth;
@@ -169,15 +169,14 @@ public class SingleArityRulebase extends Evaluator {
                     }
 
                     /*Leave trace code */
-                    if (isTraced() && showFlag) {
-                        ConsPointer argumentsPointer2 = new ConsPointer();
-                        argumentsPointer2.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer.getCons()));
+                    if (isTraced(this.functionName) && showFlag) {
+                        Cons arguments2 = SublistCons.getInstance(aEnvironment, aArguments);
                         String localVariables = aEnvironment.getLocalVariables(aStackTop);
-                        Evaluator.traceShowLeave(aEnvironment, aResult, argumentsPointer2, functionType, localVariables);
-                        argumentsPointer2.setCons(null);
+                        Evaluator.traceShowLeave(aEnvironment, aResult, arguments2, functionType, localVariables);
+                        arguments2 = null;
                     }//end if.
 
-                    return;
+                    return aResult;
                 }//end if matches.
 
                 // If rules got inserted, walk back.
@@ -189,34 +188,34 @@ public class SingleArityRulebase extends Evaluator {
 
             // No predicate was true: return a new expression with the evaluated
             // arguments.
-            ConsPointer full = new ConsPointer();
-            full.setCons(aArgumentsPointer.getCons().copy(aEnvironment, false));
+            Cons full = aArguments.copy(false);
             if (arity == 0) {
-                full.cdr().setCons(null);
+                full.setCdr(null);
             } else {
-                full.cdr().setCons(argumentsResultPointerArray[0].getCons());
+                full.setCdr(argumentsResultArray[0]);
                 for (int parameterIndex = 0; parameterIndex < arity - 1; parameterIndex++) {
-                    argumentsResultPointerArray[parameterIndex].cdr().setCons(argumentsResultPointerArray[parameterIndex + 1].getCons());
+                    argumentsResultArray[parameterIndex].setCdr(argumentsResultArray[parameterIndex + 1]);
                 }
             }
-            aResult.setCons(SublistCons.getInstance(aEnvironment, full.getCons()));
+            aResult = SublistCons.getInstance(aEnvironment, full);
 
 
             /* Trace code */
-            if (isTraced() && showFlag) {
-                ConsPointer argumentsPointer3 = new ConsPointer();
-                argumentsPointer3.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer.getCons()));
+            if (isTraced(this.functionName) && showFlag) {
+                Cons arguments3 = SublistCons.getInstance(aEnvironment, aArguments);
                 String localVariables = aEnvironment.getLocalVariables(aStackTop);
-                Evaluator.traceShowLeave(aEnvironment, aResult, argumentsPointer3, functionType, localVariables);
-                argumentsPointer3.setCons(null);
+                Evaluator.traceShowLeave(aEnvironment, aResult, arguments3, functionType, localVariables);
+                arguments3 = null;
             }
+
+            return aResult;
 
         } catch (EvaluationException ex) {
 
-            //ex.printStackTrace();//todo:tk:uncomment for debugging.
+            //ex.printStackTrace(); System.exit(1);//todo:tk:uncomment for debugging.
 
             if (ex.getFunctionName() == null) {
-                throw new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", -1, -1, this.functionName);
+                throw new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", -1,-1, -1, this.functionName);
             } else {
                 throw ex;
             }
@@ -226,83 +225,79 @@ public class SingleArityRulebase extends Evaluator {
     }
 
 
-    protected ConsPointer[] evaluateArguments(Environment aEnvironment, int aStackTop, ConsPointer aArgumentsPointer) throws Exception {
+    protected Cons[] evaluateArguments(Environment aEnvironment, int aStackTop, Cons aArguments) throws Exception {
         int arity = arity();
         int parameterIndex;
 
         /*Enter trace code*/
-        if (isTraced()) {
-            ConsPointer argumentsPointer = new ConsPointer();
-            argumentsPointer.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer.getCons()));
+        if (isTraced(this.functionName)) {
+            Cons arguments = SublistCons.getInstance(aEnvironment, aArguments);
             String traceFunctionName = "";
-            if (argumentsPointer.car() instanceof ConsPointer) {
-                ConsPointer sub = (ConsPointer) argumentsPointer.car();
+            if (arguments.car() instanceof Cons) {
+                Cons sub = (Cons) arguments.car();
                 if (sub.car() instanceof String) {
                     traceFunctionName = (String) sub.car();
                 }
             }//end function.
             if (Evaluator.isTraceFunction(traceFunctionName)) {
                 showFlag = true;
-                Evaluator.traceShowEnter(aEnvironment, argumentsPointer, functionType);
+                Evaluator.traceShowEnter(aEnvironment, arguments, functionType);
             } else {
                 showFlag = false;
             }//
-            argumentsPointer.setCons(null);
+            arguments = null;
         }
 
-        ConsPointer argumentsTraverser = new ConsPointer(aArgumentsPointer.getCons());
+        Cons argumentsTraverser = aArguments;
 
         //Strip the function name from the head of the list.
-        argumentsTraverser.goNext(aStackTop, aEnvironment);
+        argumentsTraverser = argumentsTraverser.cdr();
 
         //Creat an array which holds pointers to each argument.
-        ConsPointer[] argumentsResultPointerArray;
+        Cons[] argumentsResultArray;
         if (arity == 0) {
-            argumentsResultPointerArray = null;
+            argumentsResultArray = null;
         } else {
-            LispError.lispAssert(arity > 0, aEnvironment, aStackTop);
-            argumentsResultPointerArray = new ConsPointer[arity];
+            if(arity <= 0) LispError.lispAssert(aEnvironment, aStackTop);
+            argumentsResultArray = new Cons[arity];
         }
 
         // Walk over all arguments, evaluating them as necessary ********************************************************
         for (parameterIndex = 0; parameterIndex < arity; parameterIndex++) {
 
-            argumentsResultPointerArray[parameterIndex] = new ConsPointer();
+            //argumentsResultPointerArray[parameterIndex] = new ConsPointer();
 
-            LispError.check(aEnvironment, aStackTop, argumentsTraverser.getCons() != null, LispError.WRONG_NUMBER_OF_ARGUMENTS, "Expected arity: " + arity + ".", "INTERNAL");
+            if(argumentsTraverser == null) LispError.throwError(aEnvironment, aStackTop, LispError.WRONG_NUMBER_OF_ARGUMENTS, "Expected arity: " + arity + ".");
 
             if (((ParameterName) iParameters.get(parameterIndex)).iHold) {
-                //If the parameter is on hold, don't evaluate it and place a copy of it in argumentsPointerArray.
-                argumentsResultPointerArray[parameterIndex].setCons(argumentsTraverser.getCons().copy(aEnvironment, false));
+                //If the parameter is on hold, don't evaluate it and place a copy of it in argumentsArray.
+                argumentsResultArray[parameterIndex] = argumentsTraverser.copy(false);
             } else {
                 //If the parameter is not on hold:
 
                 //Verify that the pointer to the arguments is not null.
-                LispError.check(aEnvironment, aStackTop, argumentsTraverser != null, LispError.WRONG_NUMBER_OF_ARGUMENTS, "Expected arity: " + arity + ".", "INTERNAL");
+                //if(argumentsTraverser == null) LispError.throwError(aEnvironment, aStackTop, LispError.WRONG_NUMBER_OF_ARGUMENTS, "Expected arity: " + arity + ".", "INTERNAL");
 
-                //Evaluate each argument and place the result into argumentsResultPointerArray[i];
-                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, argumentsResultPointerArray[parameterIndex], argumentsTraverser);
+                //Evaluate each argument and place the result into argumentsResultArray[i];
+                argumentsResultArray[parameterIndex] = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, argumentsTraverser);
             }
-            argumentsTraverser.goNext(aStackTop, aEnvironment);
+            argumentsTraverser = argumentsTraverser.cdr();
         }//end for.
 
         /*Argument trace code */
-        if (isTraced() && argumentsResultPointerArray != null && showFlag) {
-            //ConsTraverser consTraverser2 = new ConsTraverser(aArguments);
-            //ConsPointer traceArgumentPointer = new ConsPointer(aArgumentsPointer.getCons());
+        if (isTraced(this.functionName) && argumentsResultArray != null && showFlag) {
 
-            //ConsTransverser traceArgumentPointer new ConsTraverser(this.iParameterList);
-            ConsPointer traceParameterPointer = new ConsPointer(this.iParameterList.getCons());
+            Cons traceParameter = this.iParameterList;
 
-            //traceArgumentPointer.goNext();
-            for (parameterIndex = 0; parameterIndex < argumentsResultPointerArray.length; parameterIndex++) {
-                Evaluator.traceShowArg(aEnvironment, traceParameterPointer, argumentsResultPointerArray[parameterIndex]);
 
-                traceParameterPointer.goNext(aStackTop, aEnvironment);
+            for (parameterIndex = 0; parameterIndex < argumentsResultArray.length; parameterIndex++) {
+                Evaluator.traceShowArg(aEnvironment, traceParameter, argumentsResultArray[parameterIndex]);
+
+                traceParameter = traceParameter.cdr();
             }//end for.
         }//end if.
 
-        return argumentsResultPointerArray;
+        return argumentsResultArray;
 
     }//end method.
 
@@ -355,7 +350,7 @@ public class SingleArityRulebase extends Evaluator {
      * @param aBody
      * @throws java.lang.Exception
      */
-    public void defineSometimesTrueRule(int aStackTop, int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception {
+    public void definePredicateRule(int aStackTop, int aPrecedence, Cons aPredicate, Cons aBody) throws Exception {
         // New branching rule.
         PredicateRule newRule = new PredicateRule(iEnvironment, aPrecedence, aPredicate, aBody);
         //LispError.check(iEnvironment, aStackTop, newRule != null, LispError.CREATING_RULE, "INTERNAL");
@@ -372,7 +367,7 @@ public class SingleArityRulebase extends Evaluator {
      * @param aBody
      * @throws java.lang.Exception
      */
-    public void defineAlwaysTrueRule(int aStackTop, int aPrecedence, ConsPointer aBody) throws Exception {
+    public void defineTrueRule(int aStackTop, int aPrecedence, Cons aBody) throws Exception {
         // New branching rule.
         PredicateRule newRule = new TrueRule(iEnvironment, aPrecedence, aBody);
         //LispError.check(iEnvironment, aStackTop, newRule != null, LispError.CREATING_RULE, "INTERNAL");
@@ -390,7 +385,7 @@ public class SingleArityRulebase extends Evaluator {
      * @param aBody
      * @throws java.lang.Exception
      */
-    public void definePattern(int aStackTop, int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception {
+    public void definePatternRule(int aStackTop, int aPrecedence, Cons aPredicate, Cons aBody) throws Exception {
         // New branching rule.
         PatternRule newRule = new PatternRule(iEnvironment, aStackTop, aPrecedence, aPredicate, aBody);
         //LispError.check(iEnvironment, aStackTop, newRule != null, LispError.CREATING_RULE, "INTERNAL");
@@ -466,9 +461,9 @@ public class SingleArityRulebase extends Evaluator {
     /**
      * Return the argument list, stored in #iParameterList.
      * 
-     * @return a ConsPointer
+     * @return a Cons
      */
-    public ConsPointer argList() {
+    public Cons argList() {
         return iParameterList;
     }
 

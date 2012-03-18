@@ -2,11 +2,11 @@
 
 /// service function. WriteDataItem({1,2,3}, {}) will output "1 2 3" on a separate line.
 /// Writes data points to the current output stream, omits non-numeric values.
-WriteDataItem(tuple_IsList, _options'hash) <--
+WriteDataItem(tuple_List?, _optionshash) <--
 [
   Local(item);
   If(        // do not write anything if one of the items is not a number
-          IsNumericList(tuple),
+          NumericList?(tuple),
         ForEach(item,tuple)
         [
                 Write(item);

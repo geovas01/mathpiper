@@ -1,8 +1,8 @@
 %mathpiper,def="MatrixRowStack"
 
-MatrixRowStack( M_IsMatrix, v_IsVector )_(Length(v)=?Dimensions(M)[1]) <--
+MatrixRowStack( M_Matrix?, v_Vector? )_(Length(v)=?Dimensions(M)[1]) <--
 [
-    If( Not? IsBound(iDebug), iDebug := False );
+    If( Not? Bound?(iDebug), iDebug := False );
     If( iDebug, Tell(MatrixRowStack,{M,v}) );
     Local(mRows,nCols,newMat,ir);
     {mRows,nCols} := Dimensions(M);

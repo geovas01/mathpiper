@@ -32,7 +32,6 @@ import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.Cons;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.SublistCons;
 
 import javax.swing.JLabel;
@@ -51,9 +50,9 @@ public class ViewMath extends BuiltinFunction {
 
     public void plugIn(Environment aEnvironment)  throws Exception
     {
+        this.functionName = "ViewMathInternal";
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-                "ViewMathInternal");
+                this.functionName, new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro) );
 
        String[] parameters = new String[] {"expression","size"};
        Utility.declareFunction("ViewMath", parameters, "ViewMathInternal(expression, size);", aEnvironment, LispError.TODO);
@@ -71,23 +70,20 @@ public class ViewMath extends BuiltinFunction {
 
         Cons head = SublistCons.getInstance(aEnvironment, AtomCons.getInstance(aEnvironment, aStackTop, "TeXForm"));
 
-        ((ConsPointer) head.car()).cdr().setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        ((Cons) head.car()).setCdr(getArgument(aEnvironment, aStackTop, 1));
 
 
-        ConsPointer resultPointer = new ConsPointer();
-
-        ConsPointer viewScalePointer = new ConsPointer();
-        viewScalePointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, resultPointer, viewScalePointer);
-        BigNumber viewScale = (BigNumber) resultPointer.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment);
-        LispError.checkArgument(aEnvironment, aStackTop, viewScale != null, 1, "ViewMath");
+        Cons viewScaleCons = getArgument(aEnvironment, aStackTop, 2);
+        Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, viewScaleCons);
+        BigNumber viewScale = (BigNumber) result.getNumber(aEnvironment.getPrecision(), aEnvironment);
+        if(viewScale == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
 
         
 
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, resultPointer, new ConsPointer(head));
+        result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, head);
 
-        String texString = (String) resultPointer.car();
+        String texString = (String) result.car();
         texString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, texString);
         texString = texString.substring(1, texString.length());
         texString = texString.substring(0, texString.length() - 1);
@@ -182,7 +178,7 @@ public class ViewMath extends BuiltinFunction {
 
         JavaObject response = new JavaObject(frame);
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
+        setTopOfStack(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
 
     }//end method.
 

@@ -3,33 +3,33 @@
 /// print all errors and clear the tableau
 DumpErrors() <--
 [
-        Local(error'object, error'word);
+        Local(errorobject, errorword);
         CheckErrorTableau();
-        ForEach(error'object, GetErrorTableau())
-        [        // error'object might be e.g. {"critical", {"bad bad", -1000}}
+        ForEach(errorobject, GetErrorTableau())
+        [        // errorobject might be e.g. {"critical", {"bad bad", -1000}}
                 If(
-                        IsList(error'object),
+                        List?(errorobject),
                         [
                                 If( // special case: error class "warning"
-                                        Length(error'object) >? 0 And? error'object[1] =? "warning",
+                                        Length(errorobject) >? 0 And? errorobject[1] =? "warning",
                                         [
-                                                error'word := "Warning";
-                                                error'object[1] := "";        // don't print the word "warning" again
+                                                errorword := "Warning";
+                                                errorobject[1] := "";        // dont print the word "warning" again
                                         ],
-                                        error'word := "Error: "        // important hack: insert ": " here but not after "Warning"
+                                        errorword := "Error: "        // important hack: insert ": " here but not after "Warning"
                                 );
 
-                                If(        // special case: {"error'class", True}
-                                        Length(error'object)=?2 And? error'object[2]=?True,
-                                        Echo(error'word, error'object[1]),
+                                If(        // special case: {"errorclass", True}
+                                        Length(errorobject)=?2 And? errorobject[2]=?True,
+                                        Echo(errorword, errorobject[1]),
                                         [
-                                                Echo(error'word, error'object[1], ": ",
-                                                        PrintList(Rest(error'object)));
+                                                Echo(errorword, errorobject[1], ": ",
+                                                        PrintList(Rest(errorobject)));
                                         ]
                                 );
                         ],
-                        // error'object is not a list: just print it
-                        Echo("Error: ", error'object)
+                        // errorobject is not a list: just print it
+                        Echo("Error: ", errorobject)
                 );
         ];
         ClearErrors();
@@ -50,6 +50,6 @@ DumpErrors() <--
 
 {DumpErrors} is a simple error handler for the global error reporting mechanism. It prints all errors posted using {Assert} and clears the error tableau.
 
-*SEE Assert, IsError, ClearErrors
+*SEE Assert, Error?, ClearErrors
 
 %/mathpiper_docs

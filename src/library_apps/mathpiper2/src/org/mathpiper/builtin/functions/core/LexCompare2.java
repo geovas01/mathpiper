@@ -20,11 +20,10 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.collections.TokenMap;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.AtomCons;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.NumberCons;
 
 /**
@@ -34,31 +33,27 @@ import org.mathpiper.lisp.cons.NumberCons;
 abstract public class LexCompare2
 {
 
-    abstract boolean lexFunction(String f1, String f2, TokenMap aHashTable, int aPrecision);
+    abstract boolean lexFunction(String f1, String f2, int aPrecision);
 
     abstract boolean numFunction(BigNumber n1, BigNumber n2);
 
     void Compare(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer argument1 = new ConsPointer();
+        Cons argument1 = BuiltinFunction.getArgument(aEnvironment, aStackTop, 1);
 
-        ConsPointer argument2 = new ConsPointer();
-
-        argument1.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-
-        argument2.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
+        Cons argument2 = BuiltinFunction.getArgument(aEnvironment, aStackTop, 2);
 
 
         //LispError.check(argument1.getCons() instanceof NumberCons || argument1.getCons() instanceof AtomCons, "The first argument must be a non-complex decimal number or a string.","LexCompare2");
         //LispError.check(argument2.getCons() instanceof NumberCons || argument2.getCons() instanceof AtomCons, "The second argument must be a non-complex decimal number or a string.","LexCompare2");
 
-        LispError.checkArgumentTypeWithError(aEnvironment, aStackTop, argument1.getCons() instanceof NumberCons || argument1.getCons() instanceof AtomCons, 1, "The first argument must be a non-complex decimal number or a string.","LexCompare2");
-        LispError.checkArgumentTypeWithError(aEnvironment, aStackTop, argument2.getCons() instanceof NumberCons || argument2.getCons() instanceof AtomCons, 2, "The second argument must be a non-complex decimal number or a string.","LexCompare2");
+        if(! (argument1 instanceof NumberCons) && ! (argument1 instanceof AtomCons)) LispError.checkArgumentTypeWithError(aEnvironment, aStackTop, 1, "The first argument must be a non-complex decimal number or a string.");
+        if(! (argument2 instanceof NumberCons) && ! (argument2 instanceof AtomCons)) LispError.checkArgumentTypeWithError(aEnvironment, aStackTop, 2, "The second argument must be a non-complex decimal number or a string.");
 
 
         boolean cmp;
-        BigNumber n1 = (BigNumber) argument1.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment);
-        BigNumber n2 = (BigNumber) argument2.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment);
+        BigNumber n1 = (BigNumber) argument1.getNumber(aEnvironment.getPrecision(), aEnvironment);
+        BigNumber n2 = (BigNumber) argument2.getNumber(aEnvironment.getPrecision(), aEnvironment);
 
         if (n1 != null && n2 != null)
         {
@@ -70,14 +65,12 @@ abstract public class LexCompare2
             String str2;
             str1 =  (String) argument1.car();
             str2 = (String) argument2.car();
-            LispError.checkArgument(aEnvironment, aStackTop, str1 != null, 1, "LexCompare2");
-            LispError.checkArgument(aEnvironment, aStackTop, str2 != null, 2, "LexCompare2");
+            if( str1 == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+            if( str2 == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
             // the getPrecision argument is ignored in "lex" functions
-            cmp = lexFunction(str1, str2,
-                    aEnvironment.getTokenHash(),
-                    aEnvironment.getPrecision());
+            cmp = lexFunction(str1, str2, aEnvironment.iPrecision);
         }
 
-        Utility.putBooleanInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop), cmp);
+        BuiltinFunction.setTopOfStack(aEnvironment, aStackTop, Utility.getBooleanAtom(aEnvironment, cmp));
     }
 }

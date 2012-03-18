@@ -1,6 +1,6 @@
 %mathpiper,def="else"
 
-Rulebase("else",{ifthen,otherwise});
+RulebaseHoldArguments("else",{ifthen,otherwise});
 
 0 # (if (_predicate) _body else _otherwise)_(Eval(predicate) =? True) <-- Eval(body);
 

@@ -1,17 +1,17 @@
 %mathpiper,def="<--"
 
-Rulebase("<--",{leftOperand,rightOperand});
+RulebaseHoldArguments("<--",{leftOperand,rightOperand});
 
 
 
-Rule("<--",2,1,IsEqual(Type(leftOperand),"#"))
+RuleHoldArguments("<--",2,1,Equal?(Type(leftOperand),"#"))
 [
   DefinePattern(leftOperand[2],rightOperand,leftOperand[1],True);
 ];
 
 
 
-Rule("<--",2,2,IsFunction(leftOperand))
+RuleHoldArguments("<--",2,2,Function?(leftOperand))
 [
  DefinePattern(leftOperand,rightOperand,0,True);
 ];
@@ -64,17 +64,17 @@ You can verify that this already works for input value zero, with f(0).
 
 Now we come to the more complex line
 
-20 # f(n_IsIntegerGreaterThanZero) <-- n*f(n-1);
+20 # f(n_IntegerGreaterThanZero?) <-- n*f(n-1);
 
-We realize we need a function IsGreaterThanZero, so we define this function, with
-IsIntegerGreaterThanZero(_n) <-- (IsInteger(n) And? n>?0);
+We realize we need a function GreaterThan?Zero, so we define this function, with
+IntegerGreaterThanZero?(_n) <-- (Integer?(n) And? n>?0);
 
 You can verify that it works by trying f(5), which should return the same value as 5!.
 
 In the above example we have first defined two "simplification rules" for a new
-function f(). Then we realized that we need to define a predicate IsIntegerGreaterThanZero().
-A predicate equivalent to IsIntegerGreaterThanZero() is actually already defined
-in the standard library and it's called IsPositiveInteger, so it was not necessary,
+function f(). Then we realized that we need to define a predicate IntegerGreaterThanZero?().
+A predicate equivalent to IntegerGreaterThanZero?() is actually already defined
+in the standard library and it's called PositiveInteger?, so it was not necessary,
 strictly speaking, to define our own predicate to do the same thing. We did it here
 just for illustration purposes.
 
@@ -87,25 +87,25 @@ a few lines of code. One of the design goals of MathPiper was to allow precisely
 that, definition of a new function with very little effort.
 
 The operator <-- defines a rule to be applied to a specific function. (The <-- operation
-cannot be applied to an atom.) The _n in the rule for IsIntegerGreaterThanZero()
+cannot be applied to an atom.) The _n in the rule for IntegerGreaterThanZero?()
 specifies that any object which happens to be the argument of that predicate is
 matched and assigned to the local variable n. The expression to the right of <-- can
 use n (without the underscore) as a variable.
 
 Now we consider the rules for the function f. The first rule just specifies that f(0)
 should be replaced by 1 in any expression. The second rule is a little more involved.
-n_IsIntegerGreaterThanZero is a match for the argument of f, with the proviso that
-the predicate IsIntegerGreaterThanZero(n) should return True, otherwise the pattern
+n_IntegerGreaterThanZero? is a match for the argument of f, with the proviso that
+the predicate IntegerGreaterThanZero?(n) should return True, otherwise the pattern
 is not matched. The underscore operator is to be used only on the left hand side of
 the rule definition operator <--.
 
 There is another, slightly longer but equivalent way of writing the second rule:
-20 # f(_n)_(IsIntegerGreaterThanZero(n)) <-- n*f(n-1);
+20 # f(_n)_(IntegerGreaterThanZero?(n)) <-- n*f(n-1);
 
 The underscore after the function object denotes a "postpredicate" that should return
 True or else there is no match. This predicate may be a complicated expression involving
 several logical operations, unlike the simple checking of just one predicate in the
-n_IsIntegerGreaterThanZero construct. The postpredicate can also use the variable
+n_IntegerGreaterThanZero? construct. The postpredicate can also use the variable
 n (without the underscore).
 
 Precedence values for rules are given by a number followed by the # infix operator
@@ -120,10 +120,10 @@ long as there are no other rules concerning the function f, the assignment of nu
 usually a good idea however to keep some space between these numbers, so you have
 room to insert new transformation rules later on.
 
-Predicates can be combined: for example, {IsIntegerGreaterThanZero()} could also
+Predicates can be combined: for example, {IntegerGreaterThanZero?()} could also
 have been defined as:
-10 # IsIntegerGreaterThanZero(n_IsInteger)_(n>?0) <-- True;
-20 # IsIntegerGreaterThanZero(_n) <-- False;
+10 # IntegerGreaterThanZero?(n_Integer?)_(n>?0) <-- True;
+20 # IntegerGreaterThanZero?(_n) <-- False;
 
 The first rule specifies that if n is an integer, and is greater than zero, the
 result is True, and the second rule states that otherwise (when the rule with
@@ -132,7 +132,7 @@ precedence 10 did not apply) the predicate returns False.
 In the above example, the expression n > 0 is added after the pattern and allows
 the pattern to match only if this predicate return True. This is a useful syntax
 for defining rules with complicated predicates. There is no difference between the
-rules F(n_IsPositiveInteger) <--... and F(_n)_(IsPositiveInteger(n)) <-- ... except
+rules F(n_PositiveInteger?) <--... and F(_n)_(PositiveInteger?(n)) <-- ... except
 that the first syntax is a little more concise.
 
 The left hand side of a rule expression has the following form:

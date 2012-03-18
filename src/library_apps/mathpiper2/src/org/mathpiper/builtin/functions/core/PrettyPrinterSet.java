@@ -21,8 +21,8 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -31,22 +31,31 @@ import org.mathpiper.lisp.Utility;
 public class PrettyPrinterSet extends BuiltinFunction
 {
 
+    private PrettyPrinterSet()
+    {
+    }
+
+    public PrettyPrinterSet(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int nrArguments = Utility.listLength(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 0));
+        int nrArguments = Utility.listLength(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 0));
         if (nrArguments == 1)
         {
             aEnvironment.iPrettyPrinterName = null;
         } else
         {
-            LispError.check(aEnvironment, aStackTop, nrArguments == 2, LispError.WRONG_NUMBER_OF_ARGUMENTS);
-            ConsPointer oper = new ConsPointer();
-            oper.setCons(getArgumentPointer(aEnvironment, aStackTop, 0).getCons());
-            oper.goNext(aStackTop, aEnvironment);
-            LispError.checkIsString(aEnvironment, aStackTop, oper, 1, "PrettyPrinterSet");
+            if(nrArguments != 2) LispError.throwError(aEnvironment, aStackTop, LispError.WRONG_NUMBER_OF_ARGUMENTS);
+            Cons oper = getArgument(aEnvironment, aStackTop, 0);
+            oper = oper.cdr();
+            LispError.checkIsString(aEnvironment, aStackTop, oper, 1);
             aEnvironment.iPrettyPrinterName = (String) oper.car();
         }
-        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }
 }
 

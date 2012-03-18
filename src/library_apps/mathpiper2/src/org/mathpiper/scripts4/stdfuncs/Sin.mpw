@@ -1,13 +1,13 @@
-%mathpiper,def="Sin"
+%mathpiper,def="Sin;SinMap"
 
 
-1 # SinMap( _n )_(Not?(IsRationalOrNumber(n))) <-- ListToFunction({ToAtom("Sin"),n*Pi});
+1 # SinMap( _n )_(Not?(RationalOrNumber?(n))) <-- ListToFunction({ToAtom("Sin"),n*Pi});
 2 # SinMap( _n )_(n<?0) <-- -SinMap(-n);
 2 # SinMap( _n )_(n>?2) <-- SinMap(Modulo(n,2));
 3 # SinMap( _n )_(n>?1) <-- SinMap(n-2);
 4 # SinMap( _n )_(n>?1/2) <-- SinMap(1-n);
 
-5 # SinMap( n_IsInteger ) <-- 0;
+5 # SinMap( n_Integer? ) <-- 0;
 5 # SinMap( 1/6 ) <-- 1/2;
 5 # SinMap( 1/4 ) <-- Sqrt(2)/2;
 5 # SinMap( 1/3 ) <-- Sqrt(3)/2;
@@ -19,15 +19,15 @@
 
 
 
-2 # Sin(x_IsNumber)_InNumericMode() <-- SinNum(x);
+2 # Sin(x_Number?)_InNumericMode() <-- SinNum(x);
 4 # Sin(ArcSin(_x))           <-- x;
 4 # Sin(ArcCos(_x)) <-- Sqrt(1-x^2);
 4 # Sin(ArcTan(_x)) <-- x/Sqrt(1+x^2);
-5 # Sin(- _x)_(Not? IsConstant(x))                 <-- -Sin(x);
-6 # (Sin(x_IsConstant))_(IsNegativeNumber(N(Eval(x))))   <-- -Sin(-x);
+5 # Sin(- _x)_(Not? Constant?(x))                 <-- -Sin(x);
+6 # (Sin(x_Constant?))_(NegativeNumber?(N(Eval(x))))   <-- -Sin(-x);
 
 // must prevent it from looping
-6 # Sin(x_IsInfinity)                 <-- Undefined;
+6 # Sin(x_Infinity?)                 <-- Undefined;
 6 # Sin(Undefined) <-- Undefined;
 
 110 # Sin(Complex(_r,_i)) <--
@@ -38,10 +38,8 @@
   SinMap(Coef(v,Pi,1));
 ];
 
-100 # Sin(_x)/Tan(_x) <-- Cos(x);
-100 # Sin(_x)/Cos(_x) <-- Tan(x);
 
-Sin(xlist_IsList) <-- MapSingle("Sin",xlist);
+Sin(xlist_List?) <-- MapSingle("Sin",xlist);
 
 %/mathpiper
 

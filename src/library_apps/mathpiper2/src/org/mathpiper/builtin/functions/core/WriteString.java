@@ -29,13 +29,23 @@ import org.mathpiper.lisp.Utility;
 public class WriteString extends BuiltinFunction
 {
 
+    private WriteString()
+    {
+    }
+
+    public WriteString(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1, "WriteString");
-        String str = (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
-        LispError.checkArgument(aEnvironment, aStackTop, str != null, 1, "WriteString");
-        LispError.checkArgument(aEnvironment, aStackTop, str.charAt(0) == '\"', 1, "WriteString");
-        LispError.checkArgument(aEnvironment, aStackTop, str.charAt(str.length() - 1) == '\"', 1, "WriteString");
+        if(getArgument(aEnvironment, aStackTop, 1) == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        String str = (String) getArgument(aEnvironment, aStackTop, 1).car();
+        if( str == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if( str.charAt(0) != '\"') LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if( str.charAt(str.length() - 1) != '\"') LispError.checkArgument(aEnvironment, aStackTop, 1);
 
         int i = 1;
         int nr = str.length() - 1;
@@ -47,7 +57,7 @@ public class WriteString extends BuiltinFunction
         // pass last printed character to the current printer
         aEnvironment.iCurrentPrinter.rememberLastChar(str.charAt(nr - 1));  // hacky hacky
 
-        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }
 }
 

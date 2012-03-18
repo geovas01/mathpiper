@@ -2,15 +2,32 @@
 
 /* Multiplication */
 
-50  # x_IsNumber * y_IsNumber <-- MultiplyN(x,y);
+50  # x_Number? * y_Number? <-- MultiplyN(x,y);
 100 #  1  * _x  <-- x;
 100 # _x  *  1  <-- x;
 100 # (_f  * _x)_(f=? -1)  <-- -x;
 100 # (_x  * _f)_(f=? -1)  <-- -x;
-105 # (f_IsNegativeNumber * _x)  <-- -(-f)*x;
-105 # (_x * f_IsNegativeNumber)  <-- -(-f)*x;
 
-95 # x_IsMatrix * y_IsMatrix <--
+100  # ((_x)*(_x ^ _m)) <-- x^(m+1);
+100  # ((_x ^ _m)*(_x)) <-- x^(m+1);
+100  # ((_x ^ _n)*(_x ^ _m)) <-- x^(m+n);
+
+100 # Tan(_x)*Cos(_x) <-- Sin(x);
+
+100 # Sinh(_x)*Csch(_x) <-- 1;
+
+100 # Cosh(_x)*Sech(_x) <-- 1;
+
+100 # Cos(_x)*Tan(_x) <-- Sin(x);
+
+100 # Coth(_x)*Sinh(_x) <-- Cosh(x);
+
+100 # Tanh(_x)*Cosh(_x) <-- Sinh(x);
+
+105 # (f_NegativeNumber? * _x)  <-- -(-f)*x;
+105 # (_x * f_NegativeNumber?)  <-- -(-f)*x;
+
+95 # x_Matrix? * y_Matrix? <--
 [
    Local(i,j,k,row,result);
    result:=ZeroMatrix(Length(x),Length(y[1]));
@@ -25,7 +42,7 @@
 ];
 
 
-96 # x_IsMatrix * y_IsList <--
+96 # x_Matrix? * y_List? <--
 [
    Local(i,result);
    result:={};
@@ -35,8 +52,8 @@
 ];
 
 
-97 # (x_IsList * y_IsNonObject)_Not?(IsList(y)) <-- y*x;
-98 # (x_IsNonObject * y_IsList)_Not?(IsList(x)) <--
+97 # (x_List? * y_NonObject?)_Not?(List?(y)) <-- y*x;
+98 # (x_NonObject? * y_List?)_Not?(List?(x)) <--
 [
    Local(i,result);
    result:={};
@@ -50,14 +67,14 @@
 50  # Undefined * _y <-- Undefined;
 
 
-100  # 0 * y_IsInfinity <-- Undefined;
-100  # x_IsInfinity * 0 <-- Undefined;
+100  # 0 * y_Infinity? <-- Undefined;
+100  # x_Infinity? * 0 <-- Undefined;
 
 101 # 0    * (_x) <-- 0;
 101 # (_x) *    0 <-- 0;
 
-100 # x_IsNumber * (y_IsNumber * _z) <-- (x*y)*z;
-100 # x_IsNumber * (_y * z_IsNumber) <-- (x*z)*y;
+100 # x_Number? * (y_Number? * _z) <-- (x*y)*z;
+100 # x_Number? * (_y * z_Number?) <-- (x*z)*y;
 
 100 # (_x * _y) * _y <-- x * y^2;
 100 # (_x * _y) * _x <-- y * x^2;
@@ -66,42 +83,44 @@
 100 # _x * (_y / _z) <-- (x*y)/z;
 // fractions
 100 # (_y / _z) * _x <-- (x*y)/z;
-100 # (_x * y_IsNumber)_Not?(IsNumber(x)) <-- y*x;
+100 # (_x * y_Number?)_Not?(Number?(x)) <-- y*x;
 
-100 # (_x) * (_x) ^ (n_IsConstant) <-- x^(n+1);
-100 # (_x) ^ (n_IsConstant) * (_x) <-- x^(n+1);
-100 # (_x * _y)* _x ^ n_IsConstant <-- y * x^(n+1);
-100 # (_y * _x)* _x ^ n_IsConstant <-- y * x^(n+1);
-100 # Sqrt(_x) * (_x) ^ (n_IsConstant) <-- x^(n+1/2);
-100 # (_x) ^ (n_IsConstant) * Sqrt(_x) <-- x^(n+1/2);
+100 # (_x) * (_x) ^ (n_Constant?) <-- x^(n+1);
+100 # (_x) ^ (n_Constant?) * (_x) <-- x^(n+1);
+100 # (_x * _y)* _x ^ n_Constant? <-- y * x^(n+1);
+100 # (_y * _x)* _x ^ n_Constant? <-- y * x^(n+1);
+100 # Sqrt(_x) * (_x) ^ (n_Constant?) <-- x^(n+1/2);
+100 # (_x) ^ (n_Constant?) * Sqrt(_x) <-- x^(n+1/2);
 100 # Sqrt(_x) * (_x) <-- x^(3/2);
 100 # (_x) * Sqrt(_x) <-- x^(3/2);
 
-105 # x_IsNumber * -(_y) <-- (-x)*y;
-105 # (-(_x)) * (y_IsNumber) <-- (-y)*x;
+105 # x_Number? * -(_y) <-- (-x)*y;
+105 # (-(_x)) * (y_Number?) <-- (-y)*x;
 
 106 # _x * -(_y) <-- -(x*y);
 106 # (- _x) * _y <-- -(x*y);
 
-107 # -( (-(_x))/(_y)) <-- x/y;
-107 # -( (_x)/(-(_y))) <-- x/y;
+150 # (_x) ^ (n_Constant?) * (_x) <-- x^(n-1);
 
-
-250  # x_IsNumber * y_IsInfinity <-- Sign(x)*y;
-250  # x_IsInfinity * y_IsNumber <-- Sign(y)*x;
+250  # x_Number? * y_Infinity? <-- Sign(x)*y;
+250  # x_Infinity? * y_Number? <-- Sign(y)*x;
 
 
 /* Note: this rule MUST be past all the transformations on
  * matrices, since they are lists also.
  */
-230 # (aLeft_IsList * aRight_IsList)_(Length(aLeft)=?Length(aRight)) <--
+230 # (aLeft_List? * aRight_List?)_(Length(aLeft)=?Length(aRight)) <--
          Map("*",{aLeft,aRight});
 // fractions
-242 # (x_IsInteger / y_IsInteger) * (v_IsInteger / w_IsInteger) <-- (x*v)/(y*w);
-243 #  x_IsInteger * (y_IsInteger / z_IsInteger) <--  (x*y)/z;
-243 #  (y_IsInteger / z_IsInteger) * x_IsInteger <--  (x*y)/z;
+242 # (x_Integer? / y_Integer?) * (v_Integer? / w_Integer?) <-- (x*v)/(y*w);
+243 #  x_Integer? * (y_Integer? / z_Integer?) <--  (x*y)/z;
+243 #  (y_Integer? / z_Integer?) * x_Integer? <--  (x*y)/z;
 
 400 # (_x) * (_x) <-- x^2;
+
+400 # x_RationalOrNumber? * Sqrt(y_RationalOrNumber?)  <-- Sign(x)*Sqrt(x^2*y);
+400 # Sqrt(y_RationalOrNumber?) * x_RationalOrNumber?  <-- Sign(x)*Sqrt(x^2*y);
+400 # Sqrt(y_RationalOrNumber?) * Sqrt(x_RationalOrNumber?)  <-- Sqrt(y*x);
 
 %/mathpiper
 

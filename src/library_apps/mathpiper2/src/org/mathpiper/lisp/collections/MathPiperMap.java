@@ -57,7 +57,7 @@ public class MathPiperMap
      * @param aData
      * @param aString
      */
-    public void setAssociation(Object aData, String aString)
+    public void setAssociation(String aString, Object aData)
     {
         //if (iMap.containsKey(aString))
         //	iMap.remove(aString);

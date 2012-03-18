@@ -22,8 +22,9 @@ import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
+
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -32,36 +33,44 @@ import org.mathpiper.lisp.Utility;
 public class FromBase extends BuiltinFunction
 {
 
+    private FromBase()
+    {
+    }
+
+    public FromBase(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         // Get the base to convert to:
         // Evaluate car argument, and store getTopOfStackPointer in oper
-        ConsPointer oper = new ConsPointer();
-        oper.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        Cons oper = getArgument(aEnvironment, aStackTop, 1);
         // check that getTopOfStackPointer is a number, and that it is in fact an integer
 //        LispError.check(oper.type().equals("Number"), LispError.KLispErrInvalidArg);
-        BigNumber num = (BigNumber)  oper.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment);
-        LispError.checkArgument(aEnvironment, aStackTop, num != null, 1, "FromBase");
+        BigNumber num = (BigNumber)  oper.getNumber(aEnvironment.getPrecision(), aEnvironment);
+        if( num == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         // check that the base is an integer between 2 and 32
-        LispError.checkArgument(aEnvironment, aStackTop, num.isInteger(), 1, "FromBase");
+        if(! num.isInteger()) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
         // Get a short platform integer from the car argument
         int base = (int) (num.toDouble());
 
         // Get the number to convert
-        ConsPointer fromNum = new ConsPointer();
-        fromNum.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
+        Cons fromNum = getArgument(aEnvironment, aStackTop, 2);
         String str2;
         str2 =  (String) fromNum.car();
-        LispError.checkArgument(aEnvironment, aStackTop, str2 != null, 2, "FromBase");
+        if( str2 == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
 
         // Added, unquote a string
-        LispError.checkArgument(aEnvironment, aStackTop, Utility.isString(str2), 2, "FromBase");
-        str2 = aEnvironment.getTokenHash().lookUpUnStringify(str2);
+        if(! Utility.isString(str2)) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        str2 = Utility.stripEndQuotesIfPresent(aEnvironment, -1, str2);
 
         // convert using correct base
         BigNumber z = new BigNumber(str2, aEnvironment.getPrecision(), base);
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
+        setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
     }
 }
 

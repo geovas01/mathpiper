@@ -17,8 +17,8 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.rulebases;
 
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  * A rule that always matches.
@@ -26,15 +26,15 @@ import org.mathpiper.lisp.Environment;
 class TrueRule extends PredicateRule
 {
 
-    public TrueRule(Environment aEnvironment, int aPrecedence, ConsPointer aBody)
+    public TrueRule(Environment aEnvironment, int aPrecedence, Cons aBody)
     {
         super(aEnvironment);
         iPrecedence = aPrecedence;
-        iBody.setCons(aBody.getCons());
+        iBody = aBody;
     }
     /// Return true, always.
     @Override
-    public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer[] aArguments) throws Exception
+    public boolean matches(Environment aEnvironment, int aStackTop, Cons[] aArguments) throws Exception
     {
         return true;
     }

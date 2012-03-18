@@ -1,4 +1,4 @@
-%mathpiper,def="xPSolve"
+%mathpiper,def="xPSolve;xPSolveCubic;xPSC1;xPSC2"
 
 //Retract("xPSolve",*);
 //Retract("xPSolveCubic",*);
@@ -11,15 +11,15 @@
  *-------------------------------------------------------*/
 
  
-Rulebase("xPSolve",{uni});
+RulebaseHoldArguments("xPSolve",{uni});
 
-Rule("xPSolve",1,1,IsUniVar(uni) And? Degree(uni) =? 1)
+RuleHoldArguments("xPSolve",1,1,UniVar?(uni) And? Degree(uni) =? 1)
 [
     If(iDebug,Tell("   xPSolve_1",uni));
     {-Coef(uni,0)/Coef(uni,1)};
 ];
 
-Rule("xPSolve",1,1,IsUniVar(uni) And? Degree(uni) =? 2)
+RuleHoldArguments("xPSolve",1,1,UniVar?(uni) And? Degree(uni) =? 2)
 [
      If(iDebug,Tell("   xPSolve_2",uni));
      Local(a,b,c,d,q,r);
@@ -44,7 +44,7 @@ Rule("xPSolve",1,1,IsUniVar(uni) And? Degree(uni) =? 2)
    
    Get coefficients for a new polynomial, such that the coefficient of
    degree 2 is zero:
-   Take f(x)=a0+a1*x+a2*x^2+a3*x^3 and substitute x = x' + adjust
+   Take f(x)=a0+a1*x+a2*x^2+a3*x^3 and substitute x = x + adjust
    to get the expression  g(x) = b0+b1*x+b2*x^2+b3*x^3,
    where
       b3 = a3;
@@ -52,7 +52,7 @@ Rule("xPSolve",1,1,IsUniVar(uni) And? Degree(uni) =? 2)
       b1 = 2*a2*adjust+3*a3*adjust^2+a1;
       b0 = a2*adjust^2+a3*adjust^3+adjust*a1+a0;
 
-   After solving g(x') = 0, return x = x' + adjust.
+   After solving g(x) = 0, return x = x + adjust.
    
    Since b2 = 0 by construction, we have the equation
       g(x) = x^3 + q x + r = 0,
@@ -77,7 +77,7 @@ Rule("xPSolve",1,1,IsUniVar(uni) And? Degree(uni) =? 2)
         Clearly if ab = -q/3 is true then (wa)(w^2b) == (wb)(w^2a) == -q/3
 */
 
-Rule("xPSolve",1,1,IsUniVar(uni) And? Degree(uni) =? 3 )
+RuleHoldArguments("xPSolve",1,1,UniVar?(uni) And? Degree(uni) =? 3 )
 [
      If(iDebug,Tell("   xPSolve_3",uni));
      Local(p,q,r,s,t,w1,w2,a,b);
@@ -98,7 +98,7 @@ Rule("xPSolve",1,1,IsUniVar(uni) And? Degree(uni) =? 3 )
 
      // Invariant: c0, c1, c2 are all REAL
      Assert("Invariant", "Coefficients Must be Real") And?(Im(c0)=?0,Im(c1)=?0,Im(c2)=?0);
-     If( IsError("Invariant"), DumpErrors() );
+     If( Error?("Invariant"), DumpErrors() );
 
      p :=c3;
      q :=c1/p;
@@ -161,7 +161,7 @@ The four roots of the quartic are the two roots of the first quadratic
 factor plus the two roots of the second quadratic factor.
 */
 
-Rule("xPSolve",1,1,IsUniVar(uni) And? Degree(uni) =? 4 )
+RuleHoldArguments("xPSolve",1,1,UniVar?(uni) And? Degree(uni) =? 4 )
 [
     If(iDebug,Tell("   xPSolve_4",uni));
     Local(coef4,a1,a2,a3,a4,y,y1,z,t,s);
@@ -207,10 +207,10 @@ Rule("xPSolve",1,1,IsUniVar(uni) And? Degree(uni) =? 4 )
 
 Function("xPSolve",{expr,var})
 [
-    If( Not? IsBound(iDebug), iDebug := False );
+    If( Not? Bound?(iDebug), iDebug := False );
     If(iDebug,Tell("xPSolve_notUni",{expr,var}));  
     Local(lhs,rhs,cc,pp,uni,solnpp,solncc,soln);
-    If( IsEquation(expr), 
+    If( Equation?(expr), 
       [
          If(iDebug,Tell("   is Equation"));
          lhs  := EquationLeft(expr);
@@ -224,7 +224,7 @@ Function("xPSolve",{expr,var})
     If(iDebug,Tell("   ",{cc,pp}));
     solnpp := xPSolve(MakeUni(pp,var));
     If(iDebug,Tell("   ",solnpp));
-    If( Length(VarList(cc)) >? 0 And? Contains(VarList(cc),var ),
+    If( Length(VarList(cc)) >? 0 And? Contains?(VarList(cc),var ),
       [
          solncc := xPSolve(MakeUni(cc,var));
          If(iDebug,Tell("   ",solncc));
@@ -238,7 +238,7 @@ Function("xPSolve",{expr,var})
 ];
 
 
-10 # xPSolveCubic( poly_IsPolynomial )_
+10 # xPSolveCubic( poly_Polynomial? )_
                    (Length(VarList(poly))=?1 And? Degree(poly)=?3) <--
 [
     If( iDebug, Tell("  xPSolveCubic",poly) );
@@ -251,7 +251,7 @@ Function("xPSolve",{expr,var})
 UnFence("xPSolveCubic",1);
 
 
-10 # xPSC1( coeffs_IsList ) <--
+10 # xPSC1( coeffs_List? ) <--
 [
     If( iDebug, Tell("    xPSC1",coeffs) );
     /*
@@ -270,7 +270,7 @@ UnFence("xPSolveCubic",1);
 ];
 
 
-10 # xPSC2( xs_IsList )_(xs[4]=?0) <--
+10 # xPSC2( xs_List? )_(xs[4]=?0) <--
 [
     If( iDebug, Tell("        Type 1",xs) );                 
     Local(f,g,h,j,m,r1,r2,r3,ans);
@@ -282,7 +282,7 @@ UnFence("xPSolveCubic",1);
     ans := {r1,r2,r3};
 ];
 
-10 # xPSC2( xs_IsList )_(xs[4]>?0) <--
+10 # xPSC2( xs_List? )_(xs[4]>?0) <--
 [
     If( iDebug, Tell("        Type 2",xs) ); 
     Local(f,g,h,j,k,l1,l2,m,n,r1,r2,r3,ans); 
@@ -299,7 +299,7 @@ UnFence("xPSolveCubic",1);
     
 ];
 
-10 # xPSC2( xs_IsList )_(xs[4]<?0 And? xs[3]=?0) <--
+10 # xPSC2( xs_List? )_(xs[4]<?0 And? xs[3]=?0) <--
 [
     If( iDebug, Tell("        Type 3a",xs) );
     Local(f,g,h,j,p,r1,r2,r3,ans);
@@ -311,7 +311,7 @@ UnFence("xPSolveCubic",1);
     ans := {r1,r2,r3};
 ];
 
-10 # xPSC2( xs_IsList )_(xs[4]<?0 And? xs[3]>?0) <--
+10 # xPSC2( xs_List? )_(xs[4]<?0 And? xs[3]>?0) <--
 [
     If( iDebug, Tell("        Type 3b",xs) );
     Local(p,x,alpha,beta,gama,r1,r2,r3,ans);
@@ -335,7 +335,7 @@ UnFence("xPSolveCubic",1);
     ans   := {r1,r2,r3};
 ];
 
-10 # xPSC2( xs_IsList )_(xs[4]<?0 And? xs[3]<?0) <--
+10 # xPSC2( xs_List? )_(xs[4]<?0 And? xs[3]<?0) <--
 [
     If( iDebug, Tell("        Type 3c",xs) );
     Local(f,g,h,j,p,k,alpha,beta,gama,r1,r2,r3,ans);

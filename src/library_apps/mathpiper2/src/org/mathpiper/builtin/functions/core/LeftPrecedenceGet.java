@@ -32,6 +32,16 @@ import org.mathpiper.lisp.LispError;
 public class LeftPrecedenceGet extends BuiltinFunction
 {
 
+    private LeftPrecedenceGet()
+    {
+    }
+
+    public LeftPrecedenceGet(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         Operator op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
@@ -39,9 +49,9 @@ public class LeftPrecedenceGet extends BuiltinFunction
         {  // infix and postfix operators have left precedence
 
             op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
-            LispError.check(aEnvironment, aStackTop, op != null, LispError.IS_NOT_INFIX);
+            if(op == null) LispError.throwError(aEnvironment, aStackTop, LispError.IS_NOT_INFIX);
         }
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "" + op.iLeftPrecedence));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + op.iLeftPrecedence));
     }
 }
 

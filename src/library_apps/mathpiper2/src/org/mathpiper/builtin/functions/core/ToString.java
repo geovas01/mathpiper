@@ -22,7 +22,8 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -31,13 +32,22 @@ import org.mathpiper.lisp.cons.ConsPointer;
 public class ToString extends BuiltinFunction
 {
 
+    private ToString()
+    {
+    }
+
+    public ToString(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer evaluated = new ConsPointer();
-        evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        Cons evaluated = getArgument(aEnvironment, aStackTop, 1);
 
         // Get operator
-        LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1, "ToString");
+        if(evaluated  == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
         String orig = null;
         if(evaluated.car() instanceof String)
@@ -50,9 +60,9 @@ public class ToString extends BuiltinFunction
             orig = container.getObject().toString();
         }
 
-        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "ToString");
+        if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, aEnvironment.getTokenHash().lookUpStringify(orig)));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, Utility.toMathPiperString(aEnvironment, aStackTop, orig)));
     }
 }
 

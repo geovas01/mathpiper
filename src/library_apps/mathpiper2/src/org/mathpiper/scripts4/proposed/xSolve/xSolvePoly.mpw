@@ -1,8 +1,8 @@
 %mathpiper,title="xSolvePoly"
 
-//Retract("xSolve'Poly",*);
+//Retract("xSolvePoly",*);
 
-/******************** xSolve'Poly ********************/
+/******************** xSolvePoly ********************/
 
 /* Tries to solve by calling PSolve */
 /* Returns Failed if this doesn't work, and the solution otherwise */
@@ -10,14 +10,14 @@
 /* CanBeUni is not documented, but defined in univar.rep/code.mpi */
 /* It returns True iff 'expr' is or can be considered to be a univariate polynomial in 'var' */
 
-10 # xSolve'Poly(_expr, _var)_(Not? CanBeUni(var, expr)) <-- 
+10 # xSolvePoly(_expr, _var)_(Not? CanBeUni(var, expr)) <-- 
   [
       If(iDebug=True,Tell("xSolvePoly_NoUni",{expr,var}));
       Failed;
   ];
 
   
-20 # xSolve'Poly(_expr, _var) <--
+20 # xSolvePoly(_expr, _var) <--
   LocalSymbols(x)
   [
       If(iDebug=True,Tell("xSolvePoly_Uni_F",{expr,var}));
@@ -27,7 +27,7 @@
       If(iDebug=True,Tell("  sp1",{nfactors,factors}));
       roots := {};
       ForEach(factor,factors) 
-          If(Contains(VarList(factor[1]),var),
+          If(Contains?(VarList(factor[1]),var),
               [
                   Local(rs,r);
                   rs := PSolve(factor[1],var);
@@ -67,7 +67,7 @@
  *   3) PSolve remains unevaluated
  */
 
-30 # xSolve'Poly(_expr, _var) <--
+30 # xSolvePoly(_expr, _var) <--
   LocalSymbols(x)
   [
       If(iDebug=True,Tell("xSolvePoly_Uni_P",{expr,var}));

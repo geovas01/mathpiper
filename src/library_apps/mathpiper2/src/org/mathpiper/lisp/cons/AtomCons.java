@@ -24,7 +24,11 @@ public class AtomCons extends Cons
 
     private String iCar;
 
-    ConsPointer iCdr;
+    //This variable is placed here instead of in Cons because it makes viewing it
+    // in the debugger easier.
+    private Cons iCdr;
+
+
 
     public AtomCons(String aString) throws Exception
     {
@@ -32,7 +36,7 @@ public class AtomCons extends Cons
         
         super();
         iCar = aString;
-        iCdr = new ConsPointer();
+
     }
 
     public static Cons getInstance(Environment aEnvironment, int aStackTop, String aString) throws Exception
@@ -44,7 +48,7 @@ public class AtomCons extends Cons
             self = new NumberCons(aString, aEnvironment.getPrecision());
         } else
         {
-            self = new AtomCons((String)aEnvironment.getTokenHash().lookUp(aString));
+            self = new AtomCons(aString);
         }
         
         //LispError.check(aEnvironment, aStackTop, self != null, LispError.NOT_ENOUGH_MEMORY, ""," INTERNAL");
@@ -57,13 +61,25 @@ public class AtomCons extends Cons
         return iCar;
     }
 
-    
-        /*public String toString()
-        {
-            return car();
-        }*/
 
-    public Cons copy( Environment aEnvironment, boolean aRecursed) throws Exception
+    public void setCar(Object object) throws Exception
+    {
+        iCar = (String) object;
+    }
+
+
+    public Cons cdr() {
+        return iCdr;
+    }
+
+    public void setCdr(Cons aCons)
+    {
+        iCdr = aCons;
+    }
+
+
+
+    public Cons copy(boolean aRecursed) throws Exception
     {
         Cons atomCons = new AtomCons(iCar);
 
@@ -74,15 +90,6 @@ public class AtomCons extends Cons
 
 
 
-    public ConsPointer cdr() {
-        return iCdr;
-    }
-
-    @Override
-    public String toString()
-    {
-        return iCar;
-    }//end method.
 
     public int type()
     {

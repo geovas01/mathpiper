@@ -1,6 +1,6 @@
 %mathpiper,def="Exp"
 
-2 # Exp(x_IsNumber)_InNumericMode() <-- ExpNum(x);
+2 # Exp(x_Number?)_InNumericMode() <-- ExpNum(x);
 4 # Exp(Ln(_x))           <-- x;
 110 # Exp(Complex(_r,_i)) <--  Exp(r)*(Cos(i) + I*Sin(i));
 200 # Exp(0) <-- 1;
@@ -8,7 +8,7 @@
 200 # Exp(Infinity) <-- Infinity;
 200 # Exp(Undefined) <-- Undefined;
 
-Exp(xlist_IsList) <-- MapSingle("Exp",xlist);
+Exp(xlist_List?) <-- MapSingle("Exp",xlist);
 
 %/mathpiper
 

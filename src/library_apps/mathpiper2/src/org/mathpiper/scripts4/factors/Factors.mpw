@@ -16,20 +16,20 @@
 
 /* --------------    LISTS    ---------------*/
 
-10 # Factors( L_IsList ) <-- nFactors /@ L;
+10 # Factors( L_List? ) <-- nFactors /@ L;
 
 
 /* -------------    NUMBERS    --------------*/
 
 
-10 # Factors(n_IsPositiveInteger) <--  
+10 # Factors(n_PositiveInteger?) <--  
 [
     If( n <? 1600, FactorsSmallInteger(n), FactorizeInt(n) );
 ];
 
 
 
-15 # Factors(n_IsNegativeInteger) <--
+15 # Factors(n_NegativeInteger?) <--
 [
     If(InVerboseMode(),Tell("Factors_negInt",n));
     Local(en,ans);
@@ -38,7 +38,7 @@
 ];
 
 
-20 # Factors(p_IsRational)_(Denominator(p) !=? 1) <-- 
+20 # Factors(p_Rational?)_(Denominator(p) !=? 1) <-- 
 [
     If(InVerboseMode(),Tell("Factors_ratNum",p));
     Local(sgn,num,den,fn,fd,f,ans);
@@ -59,13 +59,13 @@
 ]; 
              
 
-25 # Factors(p_IsGaussianInteger)        <-- GaussianFactors(p);
+25 # Factors(p_GaussianInteger?)        <-- GaussianFactors(p);
 
 
 30 # Factors(_p)_(Length(VarList(p))=0) <-- {{p,1}};
 
 
-//40 # Factors(p_IsRationalFunction) <-- 
+//40 # Factors(p_RationalFunction?) <-- 
 //[
 //    If(InVerboseMode(),Tell("Factors_ratFunc",p));
 //    jFactorsRationalFunc(p);
@@ -87,7 +87,7 @@
     ForEach(r,res)
     [
         If(InVerboseMode(),Tell("      ",r));
-        If( IsNumber(Eval(r[1])), 
+        If( Number?(Eval(r[1])), 
           [ 
               n := r[1]^r[2];
               If(InVerboseMode(),Tell("            ",n));              
@@ -102,7 +102,7 @@
 ];
 
 
-60 # Factors( p_IsRationalFunction ) <--
+60 # Factors( p_RationalFunction? ) <--
 [
     If(InVerboseMode(),Tell("Factors_ratFunc",p));
     Local(num,den,fn,fd,f);
@@ -111,7 +111,7 @@
     If(InVerboseMode(),Tell("   ",{num,den}));
     fn  := Factors(num);
     fd  := Factors(den);
-    If(Not? IsListOfLists(fd), fd := {fd});
+    If(Not? ListOfLists?(fd), fd := {fd});
     If(InVerboseMode(),Tell("       r ",{fn,fd}));
     ForEach(f,fd)
      [
@@ -178,7 +178,7 @@ Result: {{2,3},{3,1}}
 In> Factors(32*x^3+32*x^2-70*x-75)
 Result: {{4*x+5,2},{2*x-3,1}}
 
-*SEE Factor, IsPrime, GaussianFactors
+*SEE Factor, Prime?, GaussianFactors
 %/mathpiper_docs
 
 

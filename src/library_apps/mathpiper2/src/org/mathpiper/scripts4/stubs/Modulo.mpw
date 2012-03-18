@@ -2,22 +2,22 @@
 
 //Retract("Modulo",*);
 
-0 # Modulo(_n,m_IsRationalOrNumber)_(m<?0) <-- `Hold(Modulo(@n,@m));
+0 # Modulo(_n,m_RationalOrNumber?)_(m<?0) <-- `Hold(Modulo(@n,@m));
 
-1 # Modulo(n_IsNegativeInteger,m_IsPositiveInteger) <--
+1 # Modulo(n_NegativeInteger?,m_PositiveInteger?) <--
 [
   Local(result);
   result := ModuloN(n,m);
   If (result <? 0,result := result + m);
   result;
 ];
-1 # Modulo(n_IsPositiveInteger,m_IsPositiveInteger) <-- ModuloN(n,m);
+1 # Modulo(n_PositiveInteger?,m_PositiveInteger?) <-- ModuloN(n,m);
 2 # Modulo(0,_m) <-- 0;
-2 # Modulo(n_IsPositiveInteger,Infinity) <-- n;
-3 # Modulo(n_IsInteger,m_IsInteger) <-- ModuloN(n,m);
-4 # Modulo(n_IsNumber,m_IsNumber) <-- NonN(Modulo(Rationalize(n),Rationalize(m)));
+2 # Modulo(n_PositiveInteger?,Infinity) <-- n;
+3 # Modulo(n_Integer?,m_Integer?) <-- ModuloN(n,m);
+4 # Modulo(n_Number?,m_Number?) <-- NonN(Modulo(Rationalize(n),Rationalize(m)));
 
-5 # Modulo(n_IsRationalOrNumber,m_IsRationalOrNumber)/*_(n>?0 And? m>?0)*/ <--
+5 # Modulo(n_RationalOrNumber?,m_RationalOrNumber?)/*_(n>?0 And? m>?0)*/ <--
 [
   Local(n1,n2,m1,m2);
   n1:=Numerator(n);
@@ -27,8 +27,8 @@
   Modulo(n1*m2,m1*n2)/(n2*m2);
 ];
 
-6 # Modulo(n_IsList,m_IsList) <-- Map("Modulo",{n,m});
-7 # Modulo(n_IsList,_m) <-- Map("Modulo",{n,FillList(m,Length(n))});
+6 # Modulo(n_List?,m_List?) <-- Map("Modulo",{n,m});
+7 # Modulo(n_List?,_m) <-- Map("Modulo",{n,FillList(m,Length(n))});
 
 
 30 # Modulo(n_CanBeUni,m_CanBeUni) <--
@@ -40,8 +40,8 @@
 
 
 //Note:tk:moved here from univariate.rep.
-0 # Modulo(n_IsUniVar,m_IsUniVar)_(Degree(n) <? Degree(m)) <-- n;
-1 # Modulo(n_IsUniVar,m_IsUniVar)_
+0 # Modulo(n_UniVar?,m_UniVar?)_(Degree(n) <? Degree(m)) <-- n;
+1 # Modulo(n_UniVar?,m_UniVar?)_
     (n[1] =? m[1] And? Degree(n) >=? Degree(m)) <--
 [
     UniVariate(n[1],0,
@@ -49,7 +49,7 @@
                          Concat(ZeroVector(m[2]),m[3]))[2]);
 ];
 
-10 # Modulo(n_CanBeUni, m_CanBeUni, vars_IsList)_(Length(vars)=?1) <--
+10 # Modulo(n_CanBeUni, m_CanBeUni, vars_List?)_(Length(vars)=?1) <--
 [
     NormalForm(Modulo(MakeUni(n,vars),MakeUni(m,vars)));
 ];

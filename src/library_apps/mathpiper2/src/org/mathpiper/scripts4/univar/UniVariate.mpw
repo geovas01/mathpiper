@@ -1,4 +1,4 @@
-%mathpiper,def="UniVariate"
+%mathpiper,def="UniVariate;ShiftUniVar"
 
 //Auxiliary function.
 ShiftUniVar(UniVariate(_var,_first,_coefs),_fact,_shift)
@@ -10,11 +10,11 @@ ShiftUniVar(UniVariate(_var,_first,_coefs),_fact,_shift)
 
 
 
-Rulebase("UniVariate",{var,first,coefs});
+RulebaseHoldArguments("UniVariate",{var,first,coefs});
 
-Rule("UniVariate",3,10,Length(coefs)>?0 And? coefs[1]=?0)
+RuleHoldArguments("UniVariate",3,10,Length(coefs)>?0 And? coefs[1]=?0)
   UniVariate(var,first+1,Rest(coefs));
-Rule("UniVariate",3,1000,IsComplex(var) Or? IsList(var))
+RuleHoldArguments("UniVariate",3,1000,Complex?(var) Or? List?(var))
     ExpandUniVariate(var,first,coefs);
 
 500 # UniVariate(_var,_f1,_c1) + UniVariate(_var,_f2,_c2) <--
@@ -29,24 +29,24 @@ Rule("UniVariate",3,1000,IsComplex(var) Or? IsList(var))
   Bind(result, {});
   Bind(from, Minimum(curl,curr));
 
-  While(And?(IsLessThan(curl,curr),left !=? {}))
+  While(And?(LessThan?(curl,curr),left !=? {}))
   [
     DestructiveAppend(result,First(left));
     Bind(left,Rest(left));
     Bind(curl,AddN(curl,1));
   ];
-  While(IsLessThan(curl,curr))
+  While(LessThan?(curl,curr))
   [
     DestructiveAppend(result,0);
     Bind(curl,AddN(curl,1));
   ];
-  While(And?(IsLessThan(curr,curl), right !=? {}))
+  While(And?(LessThan?(curr,curl), right !=? {}))
   [
     DestructiveAppend(result,First(right));
     Bind(right,Rest(right));
     Bind(curr,AddN(curr,1));
   ];
-  While(IsLessThan(curr,curl))
+  While(LessThan?(curr,curl))
   [
     DestructiveAppend(result,0);
     Bind(curr,AddN(curr,1));
@@ -72,19 +72,19 @@ Rule("UniVariate",3,1000,IsComplex(var) Or? IsList(var))
 ];
 
 
-200 # UniVariate(_var,_first,_coefs) + a_IsNumber <--
+200 # UniVariate(_var,_first,_coefs) + a_Number? <--
       UniVariate(var,first,coefs) + UniVariate(var,0,{a});
-200 # a_IsNumber + UniVariate(_var,_first,_coefs) <--
+200 # a_Number? + UniVariate(_var,_first,_coefs) <--
       UniVariate(var,first,coefs) + UniVariate(var,0,{a});
 
 
 200 # - UniVariate(_var,_first,_coefs) <-- UniVariate(var,first,-coefs);
 
 
-200 # (_factor * UniVariate(_var,_first,_coefs))_((IsFreeOf(var,factor))) <--
+200 # (_factor * UniVariate(_var,_first,_coefs))_((FreeOf?(var,factor))) <--
   UniVariate(var,first,coefs*factor);
 
-200 # (UniVariate(_var,_first,_coefs)/_factor)_((IsFreeOf(var,factor))) <--
+200 # (UniVariate(_var,_first,_coefs)/_factor)_((FreeOf?(var,factor))) <--
   UniVariate(var,first,coefs/factor);
 
 

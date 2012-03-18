@@ -2,10 +2,10 @@
 
 //Retract("CheckSolution",*);
 
-10 # CheckSolution( _expr, _var, solution_IsList )_(Not? IsFreeOf(var,expr)) <--
+10 # CheckSolution( _expr, _var, solution_List? )_(Not? FreeOf?(var,expr)) <--
   [
       Local(expr0,result,s,r);
-      If( IsEquation(expr),
+      If( Equation?(expr),
           Bind(expr0,EquationLeft(expr)-EquationRight(expr)),
           Bind(expr0,expr)
       );

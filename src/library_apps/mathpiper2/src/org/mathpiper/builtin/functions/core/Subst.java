@@ -20,8 +20,8 @@ package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -30,14 +30,23 @@ import org.mathpiper.lisp.Utility;
 public class Subst extends BuiltinFunction
 {
 
+    private Subst()
+    {
+    }
+
+    public Subst(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer from = new ConsPointer(), to = new ConsPointer(), body = new ConsPointer();
-        from.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        to.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
-        body.setCons(getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
-        org.mathpiper.lisp.behaviours.ExpressionSubstitute behaviour = new org.mathpiper.lisp.behaviours.ExpressionSubstitute(aEnvironment, from, to);
-        Utility.substitute(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), body, behaviour);
+        Cons from = getArgument(aEnvironment, aStackTop, 1);
+        Cons to = getArgument(aEnvironment, aStackTop, 2);
+        Cons body = getArgument(aEnvironment, aStackTop, 3);
+        org.mathpiper.lisp.substitute.ExpressionSubstitute behaviour = new org.mathpiper.lisp.substitute.ExpressionSubstitute(aEnvironment, from, to);
+        setTopOfStack(aEnvironment, aStackTop, Utility.substitute(aEnvironment, aStackTop, body, behaviour));
     }
 }
 
@@ -74,6 +83,6 @@ Result: a+b+c;
 
 The explanation for the last result is that the expression {a+b+c} is internally stored as {(a+b)+c}. Hence {a+b} is a subexpression, but {b+c} is not.
 
-*SEE WithValue, /:
+*SEE WithValue, /:, Where
 %/mathpiper_docs
 */

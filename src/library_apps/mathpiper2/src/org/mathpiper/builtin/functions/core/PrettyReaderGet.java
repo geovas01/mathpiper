@@ -29,14 +29,24 @@ import org.mathpiper.lisp.Environment;
 public class PrettyReaderGet extends BuiltinFunction
 {
 
+    private PrettyReaderGet()
+    {
+    }
+
+    public PrettyReaderGet(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         if (aEnvironment.iPrettyReaderName == null)
         {
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "\"\""));
+            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "\"\""));
         } else
         {
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, aEnvironment.iPrettyReaderName));
+            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, aEnvironment.iPrettyReaderName));
         }
     }
 }

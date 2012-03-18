@@ -29,11 +29,21 @@ import org.mathpiper.lisp.Environment;
 public class TraceStack extends BuiltinFunction
 {
 
+    private TraceStack()
+    {
+    }
+
+    public TraceStack(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         aEnvironment.write("Function not yet implemented : TraceStack");////TODO fixme
 
-        throw new EvaluationException("Function not yet supported",aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(), aEnvironment.iCurrentInput.iStatus.getLineIndex());
+        throw new EvaluationException("Function not yet supported",aEnvironment.getCurrentInput().iStatus.getFileName(), aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex());
     }
 }
 
@@ -90,7 +100,7 @@ In> TraceStack(f(2))
 	Debug> 994 :  f (Rule # 0 in body)
 	Debug> 995 :  f (User function)
 	Debug> 996 :  Sin (Rule # 0 in pattern)
-	Debug> 997 :  IsList (Internal function)
+	Debug> 997 :  List? (Internal function)
 	Error on line 1 in file [CommandLine]
 	Max evaluation stack depth reached.
 	Please use MaxEvalDepth to increase the stack

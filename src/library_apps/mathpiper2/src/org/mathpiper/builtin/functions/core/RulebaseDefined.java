@@ -21,8 +21,9 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
+
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.rulebases.SingleArityRulebase;
 
 /**
@@ -32,23 +33,31 @@ import org.mathpiper.lisp.rulebases.SingleArityRulebase;
 public class RulebaseDefined extends BuiltinFunction
 {
 
+    private RulebaseDefined()
+    {
+    }
+
+    public RulebaseDefined(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer name = new ConsPointer();
-        name.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        Cons name = getArgument(aEnvironment, aStackTop, 1);
         String orig = (String) name.car();
-        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "RulebaseDefined");
+        if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         String oper = Utility.toNormalString(aEnvironment, aStackTop, orig);
 
-        ConsPointer sizearg = new ConsPointer();
-        sizearg.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
-        LispError.checkArgument(aEnvironment, aStackTop, sizearg.getCons() != null, 2, "RulebaseDefined");
-        LispError.checkArgument(aEnvironment, aStackTop, sizearg.car() instanceof String, 2, "RulebaseDefined");
+        Cons sizearg = getArgument(aEnvironment, aStackTop, 2);
+        if( sizearg == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        if(! (sizearg.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2);
 
         int arity = Integer.parseInt( (String) sizearg.car(), 10);
 
-        SingleArityRulebase userFunc = aEnvironment.getRulebase((String)aEnvironment.getTokenHash().lookUp(oper), arity, aStackTop);
-        Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), userFunc != null);
+        SingleArityRulebase userFunc = aEnvironment.getRulebase(oper, arity, aStackTop);
+        setTopOfStack(aEnvironment, aStackTop, Utility.getBooleanAtom(aEnvironment, userFunc != null));
     }
 }
 

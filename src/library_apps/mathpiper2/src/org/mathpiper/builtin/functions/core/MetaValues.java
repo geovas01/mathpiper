@@ -20,53 +20,76 @@ package org.mathpiper.builtin.functions.core;
 
 import java.util.Iterator;
 import java.util.Map;
+import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.Cons;
-import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.NumberCons;
 import org.mathpiper.lisp.cons.SublistCons;
 
 
-public class MetaValues extends BuiltinFunction {
+public class MetaValues extends BuiltinFunction
+{
+
+    private MetaValues()
+    {
+    }
+
+    public MetaValues(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        ConsPointer objectPointer = new ConsPointer();
-        objectPointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        Cons objectCons = getArgument(aEnvironment, aStackTop, 1);
 
-
-        Map metadataMap = objectPointer.getCons().getMetadataMap();
+        Map metadataMap = objectCons.getMetadataMap();
 
         if (metadataMap == null || metadataMap.isEmpty()) {
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment, aEnvironment.iListAtom.copy( aEnvironment, false)));
+            setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, aEnvironment.iListAtom.copy(false)));
 
             return;
         }//end if.
 
 
-        ConsPointer consPointer = new ConsPointer();
+        Cons head = aEnvironment.iListAtom.copy(false);
 
-        Cons head = aEnvironment.iListAtom.copy( aEnvironment, false);
-
-        consPointer.setCons(head);
+        Cons consReference = head;
 
         java.util.Collection valueCollection = (java.util.Collection) metadataMap.values();
 
         Iterator valueIterator = valueCollection.iterator();
 
+        Cons cons = null;
+        
         while(valueIterator.hasNext())
         {
-           Cons cons = (Cons) valueIterator.next();
+           Object object = valueIterator.next();
 
-           consPointer.getCons().cdr().setCons(cons);
+           if(object instanceof Integer)
+           {
+             Integer integer = (Integer) object;
 
-           consPointer.goNext(aStackTop, aEnvironment);
+             BigNumber bigNumber = new BigNumber(integer);
+
+             cons = new NumberCons(bigNumber);
+           }
+           else
+           {
+               cons = (Cons) object;
+           }
+
+           consReference.setCdr(cons);
+
+           consReference = consReference.cdr();
 
         }//end while.
 
 
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment,head));
+        setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,head));
 
 
 

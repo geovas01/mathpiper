@@ -24,44 +24,54 @@ import java.util.Map;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.Cons;
 
 
-public class MetaSet extends BuiltinFunction {
+
+public class MetaSet extends BuiltinFunction
+{
+
+    private MetaSet()
+    {
+    }
+
+    public MetaSet(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        ConsPointer objectPointer = new ConsPointer();
-        objectPointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        Cons object = getArgument(aEnvironment, aStackTop, 1);
 
 
-        ConsPointer keyPointer = new ConsPointer();
-        keyPointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
-        LispError.checkIsString(aEnvironment, aStackTop, keyPointer, 2, "MetaSet");
+        Cons key = getArgument(aEnvironment, aStackTop, 2);
+
+        LispError.checkIsString(aEnvironment, aStackTop, key, 2);
 
 
-        ConsPointer value = new ConsPointer();
-        value.setCons(getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
+        Cons value = getArgument(aEnvironment, aStackTop, 3);
 
 
         
 
-        Map metadataMap = objectPointer.getCons().getMetadataMap();
+        Map metadataMap = object.getMetadataMap();
 
         if(metadataMap == null)
         {
             metadataMap = new HashMap();
 
-            objectPointer.getCons().setMetadataMap(metadataMap);
+            object.setMetadataMap(metadataMap);
         }//end if.
 
 
 
-        String keyString =(String) keyPointer.getCons().car();;
+        String keyString =(String) key.car();
 
-        metadataMap.put(keyString, value.getCons());
+        metadataMap.put(keyString, value);
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(objectPointer.getCons());
+        setTopOfStack(aEnvironment, aStackTop, object);
 
         return;
 

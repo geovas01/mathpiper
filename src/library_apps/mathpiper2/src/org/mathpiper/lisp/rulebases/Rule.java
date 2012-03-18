@@ -17,8 +17,9 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.rulebases;
 
-import org.mathpiper.lisp.cons.ConsPointer;
+
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  * Base class for rules.
@@ -26,11 +27,11 @@ import org.mathpiper.lisp.Environment;
 public abstract class Rule
 {
 
-    public abstract boolean matches(Environment aEnvironment, int aStackTop, ConsPointer[] aArguments) throws Exception;
+    public abstract boolean matches(Environment aEnvironment, int aStackTop, Cons[] aArguments) throws Exception;
 
     public abstract int getPrecedence();
 
-    public abstract ConsPointer getPredicatePointer();
+    public abstract Cons getPredicateOrPattern(Environment aEnvironment, int aStackTop) throws Exception;
 
-    public abstract ConsPointer getBodyPointer();
+    public abstract Cons getBody();
 }

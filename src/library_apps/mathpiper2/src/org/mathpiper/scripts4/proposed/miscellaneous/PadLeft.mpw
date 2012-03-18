@@ -2,7 +2,7 @@
 
 //Retract("PadLeft", *);
 
-10 # PadLeft(number_IsNumber, totalDigits_IsInteger) <--
+10 # PadLeft(number_Number?, totalDigits_Integer?) <--
 [
     Local(integerString, padAmount, resultString);
     

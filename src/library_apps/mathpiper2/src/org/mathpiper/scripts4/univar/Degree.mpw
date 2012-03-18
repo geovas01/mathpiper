@@ -2,15 +2,15 @@
 
 //Retract("Degree",*);
 
-Rulebase("Degree",{expr});
-Rule("Degree",1,0, IsUniVar(expr))
+RulebaseHoldArguments("Degree",{expr});
+RuleHoldArguments("Degree",1,0, UniVar?(expr))
 [
 
   Local(i,min,max);
   min:=expr[2];
   max:=min+Length(expr[3]);
   i:=max;
-  While(i >=? min And? IsZero(Coef(expr,i))) i--;
+  While(i >=? min And? Zero?(Coef(expr,i))) i--;
   i;
 ];
 

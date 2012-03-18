@@ -16,11 +16,13 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.test;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,7 +37,8 @@ import java.util.Map;
  */
 public class Build {
 
-    private boolean strip = true;
+    private boolean strip = true; //Uncomment to have unaltered scripts placed into Scripts.java.
+    
     private java.io.File scriptsDir;
     //private java.io.FileWriter packagesFile;
     private java.io.FileWriter scriptsJavaFile;
@@ -56,9 +59,11 @@ public class Build {
     private Build() {
     }//end constructor.
 
-    public Build(String baseDirectory) throws Exception {
-        documentationOutputDirectory = baseDirectory + "/build/classes/";
-        sourceDirectory = baseDirectory + "/src/";
+    public Build(String sourceDirectory, String outputDirectory) throws Exception {
+    	    
+    	this.sourceDirectory = sourceDirectory;
+    	
+        documentationOutputDirectory = outputDirectory;
         sourceScriptsDirectory = sourceDirectory + "org/mathpiper/scripts4/";
 
         this.initializeFiles();
@@ -68,27 +73,19 @@ public class Build {
     }
 
     public void initializeFiles() throws Exception {
-        File file;
+  
+	    documentationFile = new DataOutputStream(new java.io.FileOutputStream(documentationOutputDirectory + "org/mathpiper/ui/gui/help/data/documentation.txt"));
+	
+	    documentationIndexFile = new java.io.FileWriter(documentationOutputDirectory + "org/mathpiper/ui/gui/help/data/documentation_index.txt");
+	
+	    functionCategoriesFile = new java.io.FileWriter(documentationOutputDirectory + "org/mathpiper/ui/gui/help/data/function_categories.txt");
 
-        file = new File(documentationOutputDirectory + "org/mathpiper/ui/gui/help/data/documentation.txt");
-        if (file.exists()) {
-            documentationFile = new DataOutputStream(new java.io.FileOutputStream(file));
-        }
-
-        file = new File(documentationOutputDirectory + "org/mathpiper/ui/gui/help/data/documentation_index.txt");
-        if (file.exists()) {
-            documentationIndexFile = new java.io.FileWriter(file);
-        }
-        file = new File(documentationOutputDirectory + "org/mathpiper/ui/gui/help/data/function_categories.txt");
-        if (file.exists()) {
-            functionCategoriesFile = new java.io.FileWriter(file);
-        }
     }
 
     public void compileScripts() throws Exception {
 
 
-        //System.out.println("XXXXX " + outputDirectory);
+        //System.out.println("XXXXX " + sourceDirectory);
 
 
         scriptsJavaFile = new java.io.FileWriter(sourceDirectory + "org/mathpiper/Scripts.java");
@@ -119,9 +116,11 @@ public class Build {
                 + "\n"
                 + "public class Tests {\n"
                 + "\n"
-                + "    private HashMap testsMap = null;\n\n"
+                + "    private HashMap userFunctionsTestsMap = null;\n\n"
+                + "    private HashMap builtInFunctionsTestsMap = null;\n\n"
                 + "    public Tests() {\n\n"
-                + "        testsMap = new HashMap();\n\n"
+                + "        userFunctionsTestsMap = new HashMap();\n\n"
+                + "        builtInFunctionsTestsMap = new HashMap();\n\n"
                 + "        String[] testString;\n\n";
         testsJavaFile.write(topOfClass);
 
@@ -130,6 +129,18 @@ public class Build {
         scriptsDir = new java.io.File(sourceScriptsDirectory);
 
         if (scriptsDir.exists()) {
+
+            //Process built in functions first.
+            if (documentationFile != null) {
+
+                processBuiltinDocs(sourceDirectory, documentationOutputDirectory, "org/mathpiper/builtin/functions/core");
+
+                processBuiltinDocs(sourceDirectory, documentationOutputDirectory, "org/mathpiper/builtin/functions/optional");
+
+                processBuiltinDocs(sourceDirectory, documentationOutputDirectory, "org/mathpiper/builtin/functions/plugins/jfreechart");
+            }
+
+
             java.io.File[] packagesDirectory = scriptsDir.listFiles(new java.io.FilenameFilter() {
 
                 public boolean accept(java.io.File file, String name) {
@@ -235,15 +246,6 @@ public class Build {
             }//end for.
 
 
-            if (documentationFile != null) {
-
-                processBuiltinDocs(sourceDirectory, documentationOutputDirectory, "org/mathpiper/builtin/functions/core");
-
-                processBuiltinDocs(sourceDirectory, documentationOutputDirectory, "org/mathpiper/builtin/functions/optional");
-
-                processBuiltinDocs(sourceDirectory, documentationOutputDirectory, "org/mathpiper/builtin/functions/plugins/jfreechart");
-            }
-
             Collections.sort(functionCategoriesList);
             for (CategoryEntry entry : functionCategoriesList) {
                 functionCategoriesFile.write(entry.toString() + "\n");
@@ -275,14 +277,24 @@ public class Build {
 
         bottomOfClass =
                 "    }\n\n"
-                + "    public String[] getScript(String testName)\n"
+                + "    public String[] getUserFunctionScript(String testName)\n"
                 + "    {\n"
-                + "        return (String[]) testsMap.get(testName);\n"
+                + "        return (String[]) userFunctionsTestsMap.get(testName);\n"
                 + "    }\n"
                 + "\n"
-                + "    public Map getMap()\n"
+                + "    public Map getUserFunctionsMap()\n"
                 + "    {\n"
-                + "        return testsMap;\n"
+                + "        return userFunctionsTestsMap;\n"
+                + "    }\n"
+                + "\n"
+                + "    public String[] getBuiltInFunctionScript(String testName)\n"
+                + "    {\n"
+                + "        return (String[]) builtInFunctionsTestsMap.get(testName);\n"
+                + "    }\n"
+                + "\n"
+                + "    public Map getBuiltInFunctionsMap()\n"
+                + "    {\n"
+                + "        return builtInFunctionsTestsMap;\n"
                 + "    }\n"
                 + "}\n";
         testsJavaFile.write(bottomOfClass);
@@ -305,131 +317,14 @@ public class Build {
 
     }//end method.
 
-    List scanSourceFile(File sourceFile) throws Exception {
 
-
-        String fileName = sourceFile.getName();
-
-        //Uncomment for debugging.
-        /*
-        if (getFileName.equals("Factors.mpw")) {
-        int xxx = 1;
-        }//end if.*/
-
-        List<Fold> folds = new ArrayList();
-        StringBuilder foldContents = new StringBuilder();
-        String foldHeader = "";
-        boolean inFold = false;
-        int lineCounter = 0;
-        int startLineNumber = -1;
-
-
-        FileInputStream fstream = new FileInputStream(sourceFile);
-        // Get the object of DataInputStream
-        DataInputStream in = new DataInputStream(fstream);
-        BufferedReader br = new BufferedReader(new InputStreamReader(in));
-        String line;
-        //Read File Line By Line
-        while ((line = br.readLine()) != null) {
-            //line = line.trim();
-            //System.out.println(line);
-            lineCounter++;
-
-            if (line.startsWith("%/")) {
-
-                if (inFold == false) {
-                    throw new Exception("Opening fold tag missing in " + fileName + ".");
-                }
-
-                Fold fold = new Fold(startLineNumber, foldHeader, foldContents.toString());
-                foldContents.delete(0, foldContents.length());
-                folds.add(fold);
-                inFold = false;
-
-            } else if (line.startsWith("%")) {
-
-                if (inFold == true) {
-                    throw new Exception("Closing fold tag missing in " + fileName + ".");
-                }
-
-                startLineNumber = lineCounter;
-                foldHeader = line;
-                inFold = true;
-            } else if (inFold == true) {
-                foldContents.append(line);
-                foldContents.append("\n");
-
-            }
-        }//end while.
-
-        if (inFold == true) {
-            throw new Exception("Opening or closing fold tag missing in " + fileName + ".");
-        }
-
-        //Close the input stream
-        in.close();
-
-
-        return folds;
-
-    }//end.
-
-    class Fold {
-
-        private int startLineNumber;
-        private String type;
-        private String contents;
-        private Map<String, String> attributes = new HashMap();
-
-        public Fold(int startLineNumber, String header, String contents) {
-
-            this.startLineNumber = startLineNumber;
-
-            scanHeader(header);
-
-            this.contents = contents;
-        }//end inner class.
-
-        private void scanHeader(String header) {
-            String[] headerParts = header.trim().split(",");
-
-            type = headerParts[0];
-
-            for (int x = 1; x < headerParts.length; x++) {
-                headerParts[x] = headerParts[x].replaceFirst("=", ",");
-                String[] headerPart = headerParts[x].split(",");
-                String attributeName = headerPart[0];
-                String attributeValue = headerPart[1].replace("\"", "");
-                attributes.put(attributeName, attributeValue);
-            }
-
-        }//end method.
-
-        public Map getAttributes() {
-            return attributes;
-        }
-
-        public String getContents() {
-            return contents;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public int getStartLineNumber()
-        {
-            return this.startLineNumber;
-        }
-        
-    }//end inner class.
 
     private void processMPWFile(File mpwFile) throws Exception {
 
         String mpwFilePath = mpwFile.getAbsolutePath();
         mpwFilePath = mpwFilePath.substring(mpwFilePath.indexOf(File.separator + "org" + File.separator + "mathpiper" + File.separator)); //"/org/mathpiper/";
 
-        List<Fold> folds = scanSourceFile(mpwFile);
+        List<Fold> folds = MPWSFile.scanSourceFile(new FileInputStream(mpwFile));
 
         boolean hasDocs = false;
 
@@ -458,7 +353,7 @@ public class Build {
 
                     String[] functionsNotToBuild = {""};
 
-                    /*{"CForm", "IsCFormable", "issues", "debug", "jFactorsPoly", "jasFactorsInt",
+                    /*{"CForm", "CFormable?", "issues", "debug", "jFactorsPoly", "jasFactorsInt",
                         "xContent", "xFactor", "xFactors", "xFactorsBinomial", "xFactorsResiduals", "xPrimitivePart", "html", "odesolver",
                         "orthopoly", "openmath", "ManipEquations", "Manipulate", "SolveSetEqns", "ControlChart", "GeoGebra", "GeoGebraHistogram",
                         "GeoGebraPlot", "GeoGebraPoint", "ggbLine", "HighschoolForm", "jas_test", "JFreeChartHistogram", "JavaAccess", "RForm",
@@ -476,7 +371,7 @@ public class Build {
 
                     if (subTypeAttribute.equalsIgnoreCase("automatic_test")) {
 
-                        processAutomaticTestFold(fold, mpwFile.getPath());
+                        processAutomaticTestFold(fold, mpwFile.getPath(),false);
 
                     } else {
 
@@ -555,8 +450,9 @@ public class Build {
 
                                 if (strip == false) {
 
-
-                                    scriptsJavaFile.write("\n        scriptString[2] = \"" + mpwFilePath + "\";");
+                                    mpwFilePath = mpwFilePath.replace("\\", "\\\\");
+                                    
+                                    scriptsJavaFile.write("\n        scriptString[2] = \"" + mpwFilePath + ", (" + defAttribute + ")\";");
                                 }
 
                                 scriptsJavaFile.write("\n");
@@ -709,7 +605,7 @@ public class Build {
         }//end if.
     }//end method
 
-    private void processAutomaticTestFold(Fold fold, String filePath) throws Exception {
+    private void processAutomaticTestFold(Fold fold, String filePath, boolean builtin) throws Exception {
 
         String foldContents = fold.getContents();
 
@@ -722,13 +618,21 @@ public class Build {
         if (fold.getAttributes().containsKey("name") && !(nameAttribute = (String) fold.getAttributes().get("name")).equals("")) {
 
             filePath = filePath.substring(filePath.indexOf(File.separator + "org" + File.separator + "mathpiper" + File.separator));
-
+            filePath = filePath.replace("\\", "\\\\");
+            
             //foldContents =  ("Testing(\\\"" + nameAttribute + "\\\");" + foldContents);
             testsJavaFile.write("\n        testString = new String[3];");
             testsJavaFile.write("\n        testString[0] = \"" + fold.getStartLineNumber() + "\";");
             testsJavaFile.write("\n        testString[1] = \"" + foldContents + "\";");
             testsJavaFile.write("\n        testString[2] = \"" + filePath + "\";\n");
-            testsJavaFile.write("        testsMap.put(\"" + nameAttribute + "\"," + "testString" + ");\n");
+            if(builtin)
+            {
+                testsJavaFile.write("        builtInFunctionsTestsMap.put(\"" + nameAttribute + "\"," + "testString" + ");\n");
+            }
+            else
+            {
+                testsJavaFile.write("        userFunctionsTestsMap.put(\"" + nameAttribute + "\"," + "testString" + ");\n");
+            }
 
         } else {
             throw new Exception("The following test code has no name: " + foldContents);
@@ -820,7 +724,7 @@ public class Build {
 
                 this.documentedFunctionsCount++;
 
-                List<Fold> folds = scanSourceFile(javaFile);
+                List<Fold> folds = MPWSFile.scanSourceFile(new FileInputStream(javaFile));
 
                 boolean hasDocs = false;
 
@@ -852,7 +756,7 @@ public class Build {
 
 
                             if (subTypeAttribute.equalsIgnoreCase("automatic_test")) {
-                                this.processAutomaticTestFold(fold, javaFile.getPath());
+                                this.processAutomaticTestFold(fold, javaFile.getPath(),true);
                             }//end if.
                         }//end if.
                     }//end else.
@@ -910,7 +814,7 @@ public class Build {
     LispError.check(aEnvironment, aStackTop, readIn.getCons() != null, LispError.READING_FILE, "","INTERNAL");
     // check for end of file
     if (readIn.car() instanceof String && ((String) readIn.car()).equals(eof)) {
-    endoffile = true;
+    endoffile = true;Pointer
     } // Else print and maybe evaluate
     else {
     printExpression(printedScriptStringBuffer, aEnvironment, readIn);
@@ -1025,13 +929,22 @@ public class Build {
         try {
             //fileCopy("/home/tkosan/NetBeansProjects/mathpiper_javascript_branch/src/org/mathpiper/test/Scripts.java", "/home/tkosan/NetBeansProjects/mathpiper_javascript_branch/src/org/mathpiper/Scripts.java"); if(1==1) return;
 
-            String baseDirectory = "/home/tkosan/NetBeansProjects/mathpiper_javascript_branch";
+            //String baseDirectory = "/home/tkosan/NetBeansProjects/mathpiper_javascript_branch";
+            
+            String sourceDirectory = null;
+            
+            String outputDirectory = null;
 
-            if (args.length > 0) {
-                baseDirectory = args[0];
+            if (args.length == 2) {
+                sourceDirectory = args[0];
+                outputDirectory = args[1];
+            }
+            else
+            {
+            	    throw new Exception("Two arguments must be submitted to the main method.");
             }
 
-            Build build = new Build(baseDirectory);
+            Build build = new Build(sourceDirectory, outputDirectory);
 
 
             build.compileScripts();

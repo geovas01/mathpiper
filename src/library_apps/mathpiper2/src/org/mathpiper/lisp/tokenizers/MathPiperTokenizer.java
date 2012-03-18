@@ -17,7 +17,6 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.tokenizers;
 
-import org.mathpiper.lisp.collections.TokenMap;
 import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.lisp.*;
@@ -25,21 +24,22 @@ import org.mathpiper.lisp.*;
 
 public class MathPiperTokenizer {
 
-    static String symbolics = "~`!@#$^&*-=+:<>?/\\|";
+    static String symbolics = "~'`!@#$^&*-=+:<>?/\\|⊕⊖⊗⊘";
     //static String unicodeVariableChars = "αβγ";
     String iToken; //Can be used as a token container.
 
     /// NextToken returns a string representing the next token,
     /// or an empty list.
-    public String nextToken(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput, TokenMap aTokenHashTable) throws Exception {
+    public String nextToken(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput) throws Exception {
         char streamCharacter;
-        int firstpos = aInput.position();
+        int firstPosition = 0; //aInput.position();
 
         boolean redo = true;
+        
         while (redo) {
             redo = false;
             //REDO: //TODO FIXME
-            firstpos = aInput.position();
+            firstPosition = aInput.position();
 
             // End of stream: return empty string
             if (aInput.endOfStream()) {
@@ -70,7 +70,7 @@ public class MathPiperTokenizer {
                 aInput.next(); //consume *
                 while (true) {
                     while (aInput.next() != '*' && !aInput.endOfStream());
-                    LispError.check(aEnvironment, aStackTop, !aInput.endOfStream(), LispError.COMMENT_TO_END_OF_FILE, "","INTERNAL");
+                    if(aInput.endOfStream()) LispError.throwError(aEnvironment, aStackTop, LispError.COMMENT_TO_END_OF_FILE, "");
                     if (aInput.peek() == '/') {
                         aInput.next();  // consume /
                         redo = true;
@@ -94,7 +94,7 @@ public class MathPiperTokenizer {
                 while (aInput.peek() != '\"') {
                     if (aInput.peek() == '\\') {
                         aInput.next();
-                        LispError.check(aEnvironment, aStackTop, !aInput.endOfStream(), LispError.PARSING_INPUT, aInput.toString(),"INTERNAL");
+                        if(aInput.endOfStream()) LispError.throwError(aEnvironment, aStackTop, LispError.PARSING_INPUT, aInput);
 
                         /*if(! (aInput.peek() == '\"'))
                         {
@@ -104,11 +104,11 @@ public class MathPiperTokenizer {
                     }
                     //TODO FIXME is following append char correct?
                     aResult = aResult + ((char) aInput.next());
-                    LispError.check(aEnvironment, aStackTop, !aInput.endOfStream(), LispError.PARSING_INPUT, "Last character read was <" + aResult + ">.","INTERNAL");
+                    if(aInput.endOfStream()) LispError.throwError(aEnvironment, aStackTop, LispError.PARSING_INPUT, "Last character read was <" + aResult + ">.");
                 }
                 //TODO FIXME is following append char correct?
                 aResult = aResult + ((char) aInput.next()); // consume the close quote
-                return (String) aTokenHashTable.lookUp(aResult);
+                return aResult;
             } //parse atoms
             else if (isAlpha(streamCharacter)) {
                 while (isAlNum(aInput.peek())) {
@@ -143,13 +143,19 @@ public class MathPiperTokenizer {
                         }
                     }
                 }
-            } // Treat the char as a space.
+            } // Treat the character as a space.
             else {
+
                 redo = true;
+                
                 continue;
             }
-        }
-        return (String) aTokenHashTable.lookUp(aInput.startPtr().substring(firstpos, aInput.position()));
+
+        }//end while.
+
+
+        return aInput.startPtr().substring(firstPosition, aInput.position());
+
     }
 
     public static boolean isDigit(char c) {
@@ -163,8 +169,6 @@ public class MathPiperTokenizer {
         if (c >= 'a' && c <= 'z') {
             return true;
         } else if (c >= 'A' && c <= 'Z') {
-            return true;
-        } else if (c == '\'') {
             return true;
         } else if (c == '?') {
             return true;

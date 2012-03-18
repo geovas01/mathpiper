@@ -19,10 +19,9 @@ package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -31,27 +30,37 @@ import org.mathpiper.lisp.Utility;
 public class Local extends BuiltinFunction
 {
 
+    private Local()
+    {
+    }
+
+    public Local(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        if (getArgumentPointer(aEnvironment, aStackTop, 1).car() instanceof ConsPointer) {
+        if (getArgument(aEnvironment, aStackTop, 1).car() instanceof Cons) {
 
-            ConsPointer subList = (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car();
+            Cons subList = (Cons) getArgument(aEnvironment, aStackTop, 1).car();
             
-            ConsTraverser consTraverser = new ConsTraverser(aEnvironment, subList);
-            consTraverser.goNext(aStackTop);
+            Cons consTraverser = subList;
+            consTraverser = consTraverser.cdr();
 
             int nr = 1;
-            while (consTraverser.getCons() != null)
+            while (consTraverser != null)
             {
                 String variable = (String) consTraverser.car();
-                LispError.checkArgument(aEnvironment, aStackTop, variable != null, nr, "Local");
+                if(variable == null) LispError.checkArgument(aEnvironment, aStackTop, nr);
                 // printf("Variable %s\n",variable.String());
                 aEnvironment.newLocalVariable(variable, null, aStackTop);
-                consTraverser.goNext(aStackTop);
+                consTraverser = consTraverser.cdr();
                 nr++;
             }
         }
-        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+         setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }
 }
 
@@ -125,7 +134,7 @@ rules based on parameters.
 
 Make sure that the arguments of {Macro}... commands evaluate to expressions that would normally be used in the non-macro version!
 
-*SEE Bind, Unbind, Local, Rulebase, Rule, `, MacroBind, MacroUnbind, MacroRulebase, MacroRulebaseListed, MacroRule
+*SEE Bind, Unbind, Local, RulebaseHoldArguments, RuleHoldArguments, `, MacroBind, MacroUnbind, MacroRulebase, MacroRulebaseListed, RuleEvaluateArguments
 %/mathpiper_docs
 
 
@@ -135,13 +144,13 @@ Make sure that the arguments of {Macro}... commands evaluate to expressions that
 %mathpiper,name="Local",subtype="automatic_test"
 
 [
-  Verify(IsBound({}),False);
+  Verify(Bound?({}),False);
   Local(a);
-  Verify(IsBound(a),False);
+  Verify(Bound?(a),False);
   a:=1;
-  Verify(IsBound(a),True);
+  Verify(Bound?(a),True);
   Unbind(a);
-  Verify(IsBound(a),False);
+  Verify(Bound?(a),False);
 ];
 
 %/mathpiper

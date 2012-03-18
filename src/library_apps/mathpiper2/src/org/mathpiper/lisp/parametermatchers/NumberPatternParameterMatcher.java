@@ -18,8 +18,8 @@ package org.mathpiper.lisp.parametermatchers;
 
 import org.mathpiper.builtin.BigNumber;
 
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.cons.Cons;
 
 /// Class for matching an expression to a given number.
 public class NumberPatternParameterMatcher extends PatternParameterMatcher {
@@ -32,9 +32,9 @@ public class NumberPatternParameterMatcher extends PatternParameterMatcher {
     }
 
 
-    public boolean argumentMatches(Environment aEnvironment, int aStackTop, ConsPointer aExpression, ConsPointer[] arguments) throws Exception {
+    public boolean argumentMatches(Environment aEnvironment, int aStackTop, Cons aExpression, Cons[] arguments) throws Exception {
 
-        BigNumber bigNumber = (BigNumber) aExpression.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment);
+        BigNumber bigNumber = (BigNumber) aExpression.getNumber(aEnvironment.getPrecision(), aEnvironment);
         
         if (bigNumber != null) {
             return iNumber.equals(bigNumber);

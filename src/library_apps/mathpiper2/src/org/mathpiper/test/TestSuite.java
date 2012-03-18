@@ -32,7 +32,8 @@ import org.mathpiper.io.StringInputStream;
 import org.mathpiper.io.StringOutputStream;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.Cons;
+
 import org.mathpiper.lisp.parsers.MathPiperParser;
 import org.mathpiper.lisp.printers.MathPiperPrinter;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
@@ -41,7 +42,7 @@ public class TestSuite {
 
     private boolean printExpression = false;
     private boolean stackTrace = false;
-    private Interpreter mathPiper;
+    private Interpreter interpreter;
     private EvaluationResponse evaluationResponse;
     private java.io.FileWriter logFile;
     private String logFileName = "mathpiper_tests.log";
@@ -52,6 +53,7 @@ public class TestSuite {
     private static int argumentErrorCount = 0;
     private static String testTypeArgs = "";
     private static String testTypeMessage = "";
+    private static long elapsedTime;
 
     private static enum TestType {
         ALL, NONE, SOME, EXCEPT
@@ -67,13 +69,23 @@ public class TestSuite {
     }//end constructor.
 
     private ArrayList getKeyArray() {
-        Set keySet = tests.getMap().keySet();
+        Set builtinFunctionsKeySet = tests.getBuiltInFunctionsMap().keySet();
 
-        ArrayList keyArray = new ArrayList(keySet);
+        ArrayList builtInKeyArray = new ArrayList(builtinFunctionsKeySet);
 
-        Collections.sort(keyArray, String.CASE_INSENSITIVE_ORDER);
+        Collections.sort(builtInKeyArray, String.CASE_INSENSITIVE_ORDER);
 
-        return keyArray;
+
+        Set userFunctionsKeySet = tests.getUserFunctionsMap().keySet();
+
+        ArrayList userKeyArray = new ArrayList(userFunctionsKeySet);
+
+        Collections.sort(userKeyArray, String.CASE_INSENSITIVE_ORDER);
+
+
+        builtInKeyArray.addAll(userKeyArray);
+
+        return builtInKeyArray;
     }
 
     public void test() {
@@ -109,12 +121,20 @@ public class TestSuite {
         try {
 
             logFile = new java.io.FileWriter("./tests/" + logFileName); //"./tests/mathpiper_tests.log"
+            
+        	elapsedTime = System.currentTimeMillis();
 
-            mathPiper = Interpreters.newSynchronousInterpreter();
+            interpreter = Interpreters.newSynchronousInterpreter();
+
+            Environment environment = interpreter.getEnvironment();
+
+            Interpreters.addOptionalFunctions(environment,"org/mathpiper/builtin/functions/optional/");
+
+            Interpreters.addOptionalFunctions(environment,"org/mathpiper/builtin/functions/plugins/jfreechart/");
 
 
             if (this.stackTrace == true) {
-                evaluationResponse = mathPiper.evaluate("StackTraceOn();");
+                evaluationResponse = interpreter.evaluate("StackTraceOn();");
                 output = evaluationResponse(evaluationResponse);
                 System.out.println("Stack tracing is on: " + output);
                 logFile.write("Stack tracing is on: " + output);
@@ -128,7 +148,6 @@ public class TestSuite {
             output += "Beginning of tests:\n";
             System.out.print(output);
             logFile.write(output);
-
 
             Iterator keyIterator = keyArray.iterator();
 
@@ -148,10 +167,19 @@ public class TestSuite {
 
 
             //Check the global variables.
-            evaluationResponse = mathPiper.evaluate("Echo(GlobalVariablesGet());");
+            evaluationResponse = interpreter.evaluate("Echo(GlobalVariablesGet());");
             output = evaluationResponse(evaluationResponse);
             System.out.println("Global variables: " + output);
             logFile.write("GlobalVariables: " + output);
+            
+            elapsedTime = System.currentTimeMillis() - elapsedTime;
+            
+            int seconds = (int) (elapsedTime / 1000) % 60 ;
+            
+            int minutes = (int) ((elapsedTime / (1000*60)) % 60);
+            
+            System.out.println("Elapsed Time: " + minutes + ":" + seconds);
+            logFile.write("\nElapsed Time: " + minutes + ":" + seconds);
 
             logFile.close();
 
@@ -165,7 +193,11 @@ public class TestSuite {
     }//end method.
 
     private void runSingleTest(String testName) throws Exception {
-        String[] testScriptArray = (String[]) tests.getMap().get(testName);
+        String[] testScriptArray = (String[]) tests.getBuiltInFunctionsMap().get(testName);
+
+        if (testScriptArray == null) {
+            testScriptArray = (String[]) tests.getUserFunctionsMap().get(testName);
+        }
 
         if (testScriptArray == null) {
             throw new Exception("The test named " + testName + " does not exist.");
@@ -175,7 +207,7 @@ public class TestSuite {
 
         String testScript = testScriptArray[1];
 
-        mathPiper.getEnvironment().iInputStatus.setTo(testFilePath);
+        interpreter.getEnvironment().iInputStatus.setTo(testFilePath);
 
 
         output = "\n================================================================\nTesting " + testName + " in file <" + testFilePath + ">: \n\n";
@@ -187,7 +219,7 @@ public class TestSuite {
 
         try {
 
-            evaluateTestScript(mathPiper.getEnvironment(), -1, new StringInputStream(testScript, mathPiper.getEnvironment().iInputStatus), true);
+            evaluateTestScript(interpreter.getEnvironment(), -1, new StringInputStream(testScript, interpreter.getEnvironment().iInputStatus), true);
 
         } catch (Exception e) {
 
@@ -212,7 +244,13 @@ public class TestSuite {
 
 
         if (evaluationResponse.isExceptionThrown()) {
-            result = result + "\nException:" + evaluationResponse.getExceptionMessage() + " Source file: " + evaluationResponse.getSourceFileName() + " Line number: " + evaluationResponse.getLineNumber() + " Line index: " + evaluationResponse.getLineIndex();
+            result = result + "\nException:" + evaluationResponse.getException().getMessage() + " Source file: " + evaluationResponse.getSourceFileName();
+            
+            if(evaluationResponse.getException() instanceof EvaluationException)
+            {
+                EvaluationException ex = (EvaluationException) evaluationResponse.getException();
+                result += " Line number: "  + ex.getLineNumber() + " Line start index: " + ex.getStartIndex();
+            }
         }
 
         return result;
@@ -222,7 +260,7 @@ public class TestSuite {
 
         StringBuffer printedScriptStringBuffer = new StringBuffer();
 
-        MathPiperInputStream previousInput = aEnvironment.iCurrentInput;
+        MathPiperInputStream previousInput = aEnvironment.getCurrentInput();
 
         StringBuffer outputStringBuffer = new StringBuffer();
         MathPiperOutputStream previousOutput = aEnvironment.iCurrentOutput;
@@ -233,23 +271,21 @@ public class TestSuite {
 
 
         try {
-            aEnvironment.iCurrentInput = aInput;
+            aEnvironment.setCurrentInput(aInput);
             // TODO make "EndOfFile" a global thing
             // read-parse-evaluate to the end of file
-            String eof = (String) aEnvironment.getTokenHash().lookUp("EndOfFile");
+            String eof = "EndOfFile";
             boolean endoffile = false;
-            MathPiperParser parser = new MathPiperParser(new MathPiperTokenizer(),
-                    aEnvironment.iCurrentInput, aEnvironment,
+            MathPiperParser parser = new MathPiperParser(new MathPiperTokenizer(), aEnvironment.getCurrentInput(), aEnvironment,
                     aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators,
                     aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
 
             while (!endoffile) {
 
-                ConsPointer readIn = new ConsPointer();
                 // Read expression
-                parser.parse(aStackTop, readIn);
+                Cons readIn = parser.parse(aStackTop);
 
-                LispError.check(aEnvironment, aStackTop, readIn.getCons() != null, LispError.READING_FILE, "", "INTERNAL");
+                if(readIn == null) LispError.throwError(aEnvironment, aStackTop, LispError.READING_FILE, "");
                 // check for end of file
                 if (readIn.car() instanceof String && ((String) readIn.car()).equals(eof)) {
                     endoffile = true;
@@ -267,8 +303,8 @@ public class TestSuite {
                     }
 
                     if (evaluate == true) {
-                        ConsPointer result = new ConsPointer();
-                        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result, readIn);
+                        
+                        Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, readIn);
 
                         if (outputStringBuffer.length() > 0) {
                             String sideEffectOutputString = outputStringBuffer.toString();
@@ -286,17 +322,17 @@ public class TestSuite {
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            //e.printStackTrace(); //todo:tk:uncomment for debugging.
+            e.printStackTrace(); //todo:tk:uncomment for debugging.
 
-            EvaluationException ee = new EvaluationException("\n\n\n***EXCEPTION[ " + e.getMessage() + " ]EXCEPTION***\n", aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(), aEnvironment.iCurrentInput.iStatus.getLineNumber());
+            EvaluationException ee = new EvaluationException("\n\n\n***EXCEPTION[ " + e.getMessage() + " ]EXCEPTION***\n", aEnvironment.getCurrentInput().iStatus.getFileName(), aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineNumber());
             throw ee;
         } finally {
-            aEnvironment.iCurrentInput = previousInput;
+            aEnvironment.setCurrentInput(previousInput);
             aEnvironment.iCurrentOutput = previousOutput;
         }
     }
 
-    public static void printExpression(StringBuffer outString, Environment aEnvironment, ConsPointer aExpression) throws Exception {
+    public static void printExpression(StringBuffer outString, Environment aEnvironment, Cons aExpression) throws Exception {
         MathPiperPrinter infixprinter = new MathPiperPrinter(aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
 
         MathPiperOutputStream stream = new StringOutputStream(outString);
@@ -330,6 +366,7 @@ public class TestSuite {
     }
 
     public static void main(String[] args) {
+    	
         TestSuite testSuite = new TestSuite();
 
         int argIndex;
@@ -418,6 +455,7 @@ public class TestSuite {
             }
         } else {
             //Run test.
+        	
             switch (testType) {
                 case ALL:
                     testTypeMessage = "Running all tests.";
@@ -438,6 +476,10 @@ public class TestSuite {
                     break;
 
             }//end switch.
+            
+
+
+            
         }//end else.
 
 

@@ -1,4 +1,4 @@
-%mathpiper,def="Dot"
+%mathpiper,def="Dot;Dot0;Dot1"
 
 //////
 // dot product for vectors and matrices (dr)
@@ -7,11 +7,11 @@
 LocalSymbols(Dot0,Dot1)
 [
 // vector . vector
-Dot(t1_IsVector,t2_IsVector)_(Length(t1)=?Length(t2)) <--
+Dot(t1_Vector?,t2_Vector?)_(Length(t1)=?Length(t2)) <--
    Dot0(t1,t2,Length(t1));
 
 // matrix . vector
-Dot(t1_IsMatrix,t2_IsVector)_(Length(t1[1])=?Length(t2)) <--
+Dot(t1_Matrix?,t2_Vector?)_(Length(t1[1])=?Length(t2)) <--
 [
    Local(i,n,m,result);
    n:=Length(t1);
@@ -23,12 +23,12 @@ Dot(t1_IsMatrix,t2_IsVector)_(Length(t1[1])=?Length(t2)) <--
 ];
 
 // vector . matrix
-Dot(t1_IsVector,t2_IsMatrix)_(Length(t1)=?Length(t2)
+Dot(t1_Vector?,t2_Matrix?)_(Length(t1)=?Length(t2)
                                And? Length(t2[1])>?0) <--
    Dot1(t1,t2,Length(t1),Length(t2[1]));
 
 // matrix . matrix
-Dot(t1_IsMatrix,t2_IsMatrix)_(Length(t1[1])=?Length(t2)
+Dot(t1_Matrix?,t2_Matrix?)_(Length(t1[1])=?Length(t2)
                                   And? Length(t2[1])>?0) <--
 [
    Local(i,n,k,l,result);
@@ -99,7 +99,7 @@ Result: {23,34};
 In> Dot({{1,2},{3,4}},{{5,6},{7,8}})
 Result: {{19,22},{43,50}};
 
-*SEE Outer, Cross, IsScalar, IsVector, IsMatrix
+*SEE Outer, Cross, Scalar?, Vector?, Matrix?
 %/mathpiper_docs
 
 

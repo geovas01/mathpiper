@@ -29,6 +29,16 @@ import org.mathpiper.lisp.Environment;
 public class Ceil extends BuiltinFunction
 {
 
+    private Ceil()
+    {
+    }
+
+    public Ceil(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
@@ -36,7 +46,7 @@ public class Ceil extends BuiltinFunction
         z.negate(x);
         z.floor(z);
         z.negate(z);
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
+        setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
     }
 }//end class.
 

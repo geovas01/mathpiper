@@ -3,7 +3,7 @@
 
 AnovaCompletelyRandomizedBlock(levelsList, alpha) :=
 [
-    Check(IsMatrix(levelsList), "Argument", "The first argument must be a list of equal-length lists.");
+    Check(Matrix?(levelsList), "Argument", "The first argument must be a list of equal-length lists.");
     
     Check(alpha >=? 0 And? alpha <=? 1, "Argument", "The second argument must be a number between 0 and 1.");
     
@@ -28,7 +28,7 @@ AnovaCompletelyRandomizedBlock(levelsList, alpha) :=
         fScoreBlock,
         criticalFScoreBlock,
         blockMeansList,
-        sumOfSquaresWithin',
+        sumOfSquaresWithin,
         meanSquareBetween,
         sumOfSquaresBetween,
         fScore,
@@ -97,11 +97,11 @@ AnovaCompletelyRandomizedBlock(levelsList, alpha) :=
     
     sumOfSquaresTotal := N(sumOfSquaresWithin + sumOfSquaresBetween);
     
-    sumOfSquaresWithin' := N(sumOfSquaresTotal - sumOfSquaresBetween - sumOfSquaresBlock);
+    sumOfSquaresWithin := N(sumOfSquaresTotal - sumOfSquaresBetween - sumOfSquaresBlock);
     
     meanSquareBetween := N(sumOfSquaresBetween/(k - 1));
     
-    meanSquareWithin := N(sumOfSquaresWithin'/((k - 1)*(b - 1)));
+    meanSquareWithin := N(sumOfSquaresWithin/((k - 1)*(b - 1)));
     
     fScore := N(meanSquareBetween/meanSquareWithin);
     
@@ -195,7 +195,7 @@ AnovaCompletelyRandomizedBlock(levelsList, alpha) :=
     
     anovaBlockTableRow2 := PatchString("<TR> <TD> <?Write(ToAtom(\"Between Blocks\"));?> </TD> <TD > <?Write(sumOfSquaresBlock);?> </TD> <TD> <?Write(b - 1);?> </TD>   <TD > <?Write(meanSquareBlock);?> </TD> <TD> <?Write(fScoreBlock);?> </TD> <TD> <?Write(criticalFScoreBlock);?> </TD> </TR>":Nl());
 
-    anovaBlockTableRow3 := PatchString("<TR> <TD> <?Write(ToAtom(\"Within Levels\"));?> </TD> <TD > <?Write(sumOfSquaresWithin');?> </TD> <TD> <?Write(b - 1);?> </TD>   <TD > <?Write(meanSquareWithin);?> </TD></TR>":Nl());
+    anovaBlockTableRow3 := PatchString("<TR> <TD> <?Write(ToAtom(\"Within Levels\"));?> </TD> <TD > <?Write(sumOfSquaresWithin);?> </TD> <TD> <?Write(b - 1);?> </TD>   <TD > <?Write(meanSquareWithin);?> </TD></TR>":Nl());
 
     bottomOfAnovaBlock :=
 "
@@ -228,7 +228,7 @@ AnovaCompletelyRandomizedBlock(levelsList, alpha) :=
      
      result["html"] := htmlJavaString;
      
-     result["sumOfSquaresWithin'"] := sumOfSquaresWithin';
+     result["sumOfSquaresWithin"] := sumOfSquaresWithin;
      
      result["sumOfSquaresBetween"] := sumOfSquaresBetween;
      
@@ -314,7 +314,7 @@ ViewHtml(anovaBlock["html"]);
       Side Effects:
       {"criticalFScoreBlock",3.325834530} {"fScoreBlock",0.08045614890} {"criticalFScore",4.102821015} {"fScore",3.078377024} 
       {"meanSquareBlock",0.1418888884} {"meanSquareWithin",1.763555556} {"meanSquareBetween",5.428888905} {"sumOfSquaresTotal",29.20277781} 
-      {"sumOfSquaresBlock",0.7094444419} {"sumOfSquaresBetween",10.85777781} {"sumOfSquaresWithin'",17.63555556} {"html",java.lang.String} 
+      {"sumOfSquaresBlock",0.7094444419} {"sumOfSquaresBetween",10.85777781} {"sumOfSquaresWithin",17.63555556} {"html",java.lang.String} 
       
       F-Score of the block: 0.08045614890 
       
@@ -359,7 +359,7 @@ ViewHtml(anovaBlock["html"]);
       Result: True
       
       Side Effects:
-      {"criticalFScoreBlock",3.325834530} {"fScoreBlock",0.08045614890} {"criticalFScore",4.102821015} {"fScore",3.078377024} {"meanSquareBlock",0.1418888884} {"meanSquareWithin",1.763555556} {"meanSquareBetween",5.428888905} {"sumOfSquaresTotal",29.20277781} {"sumOfSquaresBlock",0.7094444419} {"sumOfSquaresBetween",10.85777781} {"sumOfSquaresWithin'",17.63555556} {"html",java.lang.String} 
+      {"criticalFScoreBlock",3.325834530} {"fScoreBlock",0.08045614890} {"criticalFScore",4.102821015} {"fScore",3.078377024} {"meanSquareBlock",0.1418888884} {"meanSquareWithin",1.763555556} {"meanSquareBetween",5.428888905} {"sumOfSquaresTotal",29.20277781} {"sumOfSquaresBlock",0.7094444419} {"sumOfSquaresBetween",10.85777781} {"sumOfSquaresWithin",17.63555556} {"html",java.lang.String} 
       
       F-Score of the block: 0.08045614890 
       

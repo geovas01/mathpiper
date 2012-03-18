@@ -2,19 +2,19 @@
 
 /// VarListSome is just like FuncList(x,y)
 
-10 # VarListSome({}, _look'list) <-- {};
+10 # VarListSome({}, _looklist) <-- {};
 // an atom should be a variable to qualify
-10 # VarListSome(expr_IsVariable, _look'list) <-- {expr};
-15 # VarListSome(expr_IsAtom, _look'list) <-- {};
+10 # VarListSome(expr_Variable?, _looklist) <-- {expr};
+15 # VarListSome(expr_Atom?, _looklist) <-- {};
 // a function not in the looking list - return it whole
-20 # VarListSome(expr_IsFunction, look'list_IsList)_(Not? Contains(look'list, ToAtom(Type(expr)))) <-- {expr};
+20 # VarListSome(expr_Function?, looklist_List?)_(Not? Contains?(looklist, ToAtom(Type(expr)))) <-- {expr};
 // a function in the looking list - traverse its arguments
-30 # VarListSome(expr_IsFunction, look'list_IsList) <--
+30 # VarListSome(expr_Function?, looklist_List?) <--
 RemoveDuplicates(
-                [        // obtain a list of functions, considering only functions in look'list
+                [        // obtain a list of functions, considering only functions in looklist
                         Local(item, result);
                         result := {};
-                        ForEach(item, expr) result := Concat(result, VarListSome(item, look'list));
+                        ForEach(item, expr) result := Concat(result, VarListSome(item, looklist));
                         result;
                 ]
 );
@@ -68,5 +68,5 @@ Result: {x,y,Cos(Ln(x)/x)}
 In> VarListArith(x+a*y^2-1)
 Result: {x,a,y^2};
 
-*SEE IsFreeOf, IsVariable, FuncList, HasExpr, HasFunc
+*SEE FreeOf?, Variable?, FuncList, HasExpression?, HasFunction?
 %/mathpiper_docs

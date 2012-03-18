@@ -1,4 +1,4 @@
-%mathpiper,def="ContFrac"
+%mathpiper,def="ContFrac;ContFracDoPoly"
 
 //////////////////////////////////////////////////
 /// continued fractions for polynomials

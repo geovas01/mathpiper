@@ -30,15 +30,25 @@ import org.mathpiper.lisp.Utility;
 public class Subtract extends BuiltinFunction
 {
 
+    private Subtract()
+    {
+    }
+
+    public Subtract(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int length = Utility.listLength(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 0));
+        int length = Utility.listLength(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 0));
         if (length == 2)
         {
             BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
             BigNumber z = new BigNumber(x);
             z.negate(x);
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
+            setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
             return;
         } else
         {
@@ -48,7 +58,7 @@ public class Subtract extends BuiltinFunction
             yneg.negate(y);
             BigNumber z = new BigNumber(aEnvironment.getPrecision());
             z.add(x, yneg, aEnvironment.getPrecision());
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
+            setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
             return;
         }
     }

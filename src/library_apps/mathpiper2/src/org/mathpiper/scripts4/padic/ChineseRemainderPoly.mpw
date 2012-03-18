@@ -1,6 +1,6 @@
 %mathpiper,def="ChineseRemainderPoly"
 
-ChineseRemainderPoly(mlist_IsList,vlist_IsList) <--
+ChineseRemainderPoly(mlist_List?,vlist_List?) <--
 [
   Local(m,i,nr,result,msub,euclid,clist);
   clist:={};

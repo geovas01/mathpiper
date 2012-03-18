@@ -29,24 +29,36 @@ import org.mathpiper.lisp.cons.AtomCons;
  *
  *  
  */
-public class PatchString extends BuiltinFunction {
+public class PatchString extends BuiltinFunction
+{
+
+    private PatchString()
+    {
+    }
+
+    public PatchString(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
         String unpatchedString = 
-            (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
-        LispError.checkArgument(aEnvironment, aStackTop, unpatchedString != null, 2, "PatchString");
+        (String) getArgument(aEnvironment, aStackTop, 1).car();
         
-        InputStatus oldStatus = new InputStatus(aEnvironment.iCurrentInput.iStatus);
-        aEnvironment.iCurrentInput.iStatus.setTo("STRING");
+        if(unpatchedString == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        
+        InputStatus oldStatus = new InputStatus(aEnvironment.getCurrentInput().iStatus);
+        aEnvironment.getCurrentInput().iStatus.setTo("STRING");
         
         StringBuffer resultBuffer = new StringBuffer();
         StringOutputStream resultStream = new StringOutputStream(resultBuffer);
         
         Utility.doPatchString(unpatchedString, resultStream, aEnvironment, aStackTop);
         
-        aEnvironment.iCurrentInput.iStatus.restoreFrom(oldStatus);
+        aEnvironment.getCurrentInput().iStatus.restoreFrom(oldStatus);
         
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, resultBuffer.toString()));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, resultBuffer.toString()));
     }
 
 

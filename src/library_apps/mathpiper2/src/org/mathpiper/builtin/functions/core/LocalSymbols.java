@@ -21,9 +21,9 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
-import org.mathpiper.lisp.behaviours.LocalSymbolSubstitute;
+import org.mathpiper.lisp.cons.Cons;
+import org.mathpiper.lisp.substitute.LocalSymbolSubstitute;
 
 /**
  *
@@ -32,9 +32,19 @@ import org.mathpiper.lisp.behaviours.LocalSymbolSubstitute;
 public class LocalSymbols extends BuiltinFunction
 {
 
+    private LocalSymbols()
+    {
+    }
+
+    public LocalSymbols(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int numberOfArguments = Utility.listLength(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 0));
+        int numberOfArguments = Utility.listLength(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 0));
         int numberOfSymbols = numberOfArguments - 2;
 
         String atomNames[] = new String[numberOfSymbols];
@@ -44,17 +54,18 @@ public class LocalSymbols extends BuiltinFunction
         int i;
         for (i = 0; i < numberOfSymbols; i++)
         {
-            String atomName = (String) getArgumentPointer(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 0), i + 1).car();
-            LispError.checkArgument(aEnvironment, aStackTop, atomName != null, i + 1, "LocalSymbols");
+            String atomName = (String) getArgument(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 0), i + 1).car();
+            if( atomName == null) LispError.checkArgument(aEnvironment, aStackTop, i + 1);
             atomNames[i] = atomName;
             String newAtomName = "$" + atomName + uniqueNumber;
-            String variable = (String) aEnvironment.getTokenHash().lookUp(newAtomName);
+            String variable = newAtomName;
             localAtomNames[i] = variable;
         }
         LocalSymbolSubstitute substituteBehaviour = new LocalSymbolSubstitute(aEnvironment, atomNames, localAtomNames, numberOfSymbols);
-        ConsPointer result = new ConsPointer();
-        Utility.substitute(aEnvironment, aStackTop, result, getArgumentPointer(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 0), numberOfArguments - 1), substituteBehaviour);
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), result);
+
+        Cons result = Utility.substitute(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 0), numberOfArguments - 1), substituteBehaviour);
+        
+        setTopOfStack(aEnvironment, aStackTop, aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result));
     }
 }//end class.
 

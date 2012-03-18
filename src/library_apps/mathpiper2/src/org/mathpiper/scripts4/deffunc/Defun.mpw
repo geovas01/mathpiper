@@ -5,16 +5,16 @@
    scripts at this point. The functions in these plugins need to be defined with
    these "Defun" functions.
  */
-DefMacroRulebase("Defun",{func,args,body});
-Rule("Defun",3,0,True)
+MacroRulebaseHoldArguments("Defun",{func,args,body});
+RuleHoldArguments("Defun",3,0,True)
 [
   Local(nrargs);
   Bind(nrargs,Length(@args));
   Retract(@func, `(@nrargs));
-  Rulebase(@func,@args);
+  RulebaseHoldArguments(@func,@args);
   Local(fn,bd);
   Bind(fn,Hold(@func)); Bind(bd,Hold(@body));
-  `Rule(@fn, @nrargs, 0,True)(@bd);
+  `RuleHoldArguments(@fn, @nrargs, 0,True)(@bd);
 ];
 
 %/mathpiper

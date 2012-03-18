@@ -7,12 +7,12 @@
 
 LocalSymbols(BrentCacheOfConstantsN)
 [
-    CachedConstant(BrentCacheOfConstantsN, Ln2, Internal'LnNum(2));        // this is only useful for BrentLn
+    CachedConstant(BrentCacheOfConstantsN, Ln2, InternalLnNum(2));        // this is only useful for BrentLn
 ];
 
-// compute Ln(x_IsInteger) using the AGM sequence. See: Brent paper rpb028 (1975).
+// compute Ln(x_Integer?) using the AGM sequence. See: Brent paper rpb028 (1975).
 // this is currently faster than LogN(n) for precision > 40 digits
-10 # BrentLn(x_IsInteger)_(BuiltinPrecisionGet()>?40) <--
+10 # BrentLn(x_Integer?)_(BuiltinPrecisionGet()>?40) <--
 [
         Local(y, n, k, eps);
         n := BuiltinPrecisionGet();        // decimal digits
@@ -22,12 +22,12 @@ LocalSymbols(BrentCacheOfConstantsN)
         eps := DivideN(1, 10^n);        // precision
         y := PowerN(x, k);        // not yet divided by 4
         // this is Brent's AGM times y. This way we work around the MathPiper limitation of fixed precision, at cost of slightly slower initial iterations
-        y := DivideN(Internal'Pi()*y, (2*k)*ArithmeticGeometricMean(4, y, eps));
+        y := DivideN(InternalPi()*y, (2*k)*ArithmeticGeometricMean(4, y, eps));
         BuiltinPrecisionSet(n);
         RoundTo(y, n);        // do not return a more precise number than we really have
 ];
 
-15 # BrentLn(x_IsInteger)  <-- LogN(x);
+15 # BrentLn(x_Integer?)  <-- LogN(x);
 
 /// calculation of Ln(x) using Brent's AGM sequence - use precomputed Pi and Ln2.
 20 # BrentLn(_x)_(x<?1) <-- -BrentLn(1/x);
@@ -50,12 +50,12 @@ LocalSymbols(BrentCacheOfConstantsN)
     y := x*2^(k-2);        // divided already by 4
     // initial values for AGM
     // this is Brent's AGM times y. This way we work around the MathPiper limitation of fixed precision, at cost of slightly slower initial iterations
-    y:=Internal'Pi()*y/(2*ArithmeticGeometricMean(1,y,eps)) - k*Ln2();
+    y:=InternalPi()*y/(2*ArithmeticGeometricMean(1,y,eps)) - k*Ln2();
     BuiltinPrecisionSet(n);
   ]);
         y;        // do not return a more precise number than we really have
 ];
 
-40 # BrentLn(x_IsNumber) <-- LogN(x);
+40 # BrentLn(x_Number?) <-- LogN(x);
 
 %/mathpiper

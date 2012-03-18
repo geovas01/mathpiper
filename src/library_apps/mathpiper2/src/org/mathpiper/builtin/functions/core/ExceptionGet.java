@@ -34,11 +34,21 @@ import org.mathpiper.lisp.cons.SublistCons;
 public class ExceptionGet extends BuiltinFunction
 {
 
+    private ExceptionGet()
+    {
+    }
+
+    public ExceptionGet(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         if(aEnvironment.iException == null)
         {
-            Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+            setTopOfStack(aEnvironment, aStackTop, Utility.getFalseAtom(aEnvironment));
         }
         else
         {
@@ -67,15 +77,15 @@ public class ExceptionGet extends BuiltinFunction
             
             
             //Create type association list.
-            Cons typeListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
+            Cons typeListAtomCons = aEnvironment.iListAtom.copy(false);
 
             Cons typeNameAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"type\"");
 
             Cons typeValueValueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, Utility.toMathPiperString(aEnvironment, aStackTop, type));
 
-            typeListAtomCons.cdr().setCons(typeNameAtomCons);
+            typeListAtomCons.setCdr(typeNameAtomCons);
 
-            typeNameAtomCons.cdr().setCons(typeValueValueAtomCons);
+            typeNameAtomCons.setCdr(typeValueValueAtomCons);
 
             Cons typeSublistCons = SublistCons.getInstance(aEnvironment, typeListAtomCons);
 
@@ -83,54 +93,54 @@ public class ExceptionGet extends BuiltinFunction
 
 
             //Create message association list.
-            Cons messageListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
+            Cons messageListAtomCons = aEnvironment.iListAtom.copy(false);
 
             Cons messageNameAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"message\"");
 
             Cons messageValueValueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, Utility.toMathPiperString(aEnvironment, aStackTop, message));
 
-            messageListAtomCons.cdr().setCons(messageNameAtomCons);
+            messageListAtomCons.setCdr(messageNameAtomCons);
 
-            messageNameAtomCons.cdr().setCons(messageValueValueAtomCons);
+            messageNameAtomCons.setCdr(messageValueValueAtomCons);
 
             Cons messageSublistCons = SublistCons.getInstance(aEnvironment, messageListAtomCons);
 
 
 
             //Create exception object association list.
-            Cons exceptionObjectListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
+            Cons exceptionObjectListAtomCons = aEnvironment.iListAtom.copy(false);
 
             Cons exceptionObjectNameAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"exceptionObject\"");
 
             Cons exceptionObjectValueValueAtomCons = BuiltinObjectCons.getInstance(aEnvironment, aStackTop, exceptionObject);
 
-            exceptionObjectListAtomCons.cdr().setCons(exceptionObjectNameAtomCons);
+            exceptionObjectListAtomCons.setCdr(exceptionObjectNameAtomCons);
 
-            exceptionObjectNameAtomCons.cdr().setCons(exceptionObjectValueValueAtomCons);
+            exceptionObjectNameAtomCons.setCdr(exceptionObjectValueValueAtomCons);
 
             Cons exceptionObjectSublistCons = SublistCons.getInstance(aEnvironment, exceptionObjectListAtomCons);
 
 
 
             //Create result list.
-            typeSublistCons.cdr().setCons(messageSublistCons);
+            typeSublistCons.setCdr(messageSublistCons);
 
-            messageSublistCons.cdr().setCons(exceptionObjectSublistCons);
+            messageSublistCons.setCdr(exceptionObjectSublistCons);
 
             //exceptionSublistCons.cdr().setCons(xxxSublistCons);
 
             //xxxSublistCons.cdr().setCons(yyySublistCons);
 
-            Cons resultListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
+            Cons resultListAtomCons = aEnvironment.iListAtom.copy(false);
 
-            resultListAtomCons.cdr().setCons(typeSublistCons);
+            resultListAtomCons.setCdr(typeSublistCons);
 
             Cons resultSublistCons = SublistCons.getInstance(aEnvironment, resultListAtomCons);
 
 
 
 
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(resultSublistCons);
+            setTopOfStack(aEnvironment, aStackTop, resultSublistCons);
 
         }
     }

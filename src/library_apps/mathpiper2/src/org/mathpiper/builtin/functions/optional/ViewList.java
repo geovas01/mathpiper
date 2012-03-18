@@ -12,7 +12,7 @@ import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.BuiltinObjectCons;
-import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.ui.gui.worksheets.ListPanel;
 import org.mathpiper.ui.gui.worksheets.MathPanelController;
 import org.mathpiper.ui.gui.worksheets.ScreenCapturePanel;
@@ -20,23 +20,32 @@ import org.mathpiper.ui.gui.worksheets.ScreenCapturePanel;
 public class ViewList extends BuiltinFunction {
 
     public void plugIn(Environment aEnvironment) throws Exception {
+        this.functionName = "ViewList";
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "ViewList");
+                this.functionName, new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 
 
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        ConsPointer expressionPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
+        Cons expression = getArgument(aEnvironment, aStackTop, 1);
 
+        JavaObject response = new JavaObject(showFrame(expression));
+
+        setTopOfStack(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
+
+    }//end method.
+
+
+    public static JFrame showFrame(Cons expression) throws Exception
+    {
         JFrame frame = new JFrame();
         Container contentPane = frame.getContentPane();
         frame.setBackground(Color.WHITE);
         contentPane.setBackground(Color.WHITE);
 
-        ListPanel listPanel = new ListPanel(aEnvironment, aStackTop, expressionPointer, 2);
+        ListPanel listPanel = new ListPanel(null, -1, expression, 2);
 
         MathPanelController mathPanelScaler = new MathPanelController(listPanel, 2.0);
 
@@ -58,11 +67,8 @@ public class ViewList extends BuiltinFunction {
         frame.pack();
         frame.setVisible(true);
 
-        JavaObject response = new JavaObject(frame);
-
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
-
-    }//end method.
+        return frame;
+    }
 
 }//end class.
 

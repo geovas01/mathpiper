@@ -2,7 +2,7 @@
 
 //Retract("Trace",*);
 
-Trace(matrix_IsList) <--
+Trace(matrix_List?) <--
 [
    Local(i,j,n,d,r,aux,result);
    

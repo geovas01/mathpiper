@@ -22,7 +22,7 @@ import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
+
 import org.mathpiper.lisp.Utility;
 
 
@@ -30,32 +30,41 @@ import org.mathpiper.lisp.Utility;
  *
  *  
  */
-public class BuiltinAssoc extends BuiltinFunction {
+public class BuiltinAssoc extends BuiltinFunction
+{
+
+    private BuiltinAssoc()
+    {
+    }
+
+    public BuiltinAssoc(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
         // key to find
-        ConsPointer key = new ConsPointer();
-        key.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        Cons key = getArgument(aEnvironment, aStackTop, 1);
 
         // assoc-list to find it in
-        ConsPointer list = new ConsPointer();
-        list.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
+        Cons list = getArgument(aEnvironment, aStackTop, 2);
 
         Cons listCons;
 
         //check that it is a compound object
-        LispError.checkArgument(aEnvironment, aStackTop, list.car() instanceof ConsPointer, 2, "BuiltinAssoc");
-        listCons = ((ConsPointer) list.car()).getCons();
-        LispError.checkArgument(aEnvironment, aStackTop, listCons != null, 2, "BuiltinAssoc");
-        listCons = listCons.cdr().getCons();
+        if(! (list.car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        listCons = (Cons) list.car();
+        if( listCons == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        listCons = listCons.cdr();
 
         Cons result = Utility.associativeListGet(aEnvironment, aStackTop, key, listCons);
 
         if (result != null) {
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(result);
+            setTopOfStack(aEnvironment, aStackTop, result);
 
         } else {
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "Empty"));
+            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "Empty"));
         }
 
 

@@ -23,7 +23,8 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -32,18 +33,27 @@ import org.mathpiper.lisp.cons.ConsPointer;
 public class ToBase extends BuiltinFunction
 {
 
+    private ToBase()
+    {
+    }
+
+    public ToBase(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         // Get the base to convert to:
         // Evaluate car argument, and store getTopOfStackPointer in oper
-        ConsPointer oper = new ConsPointer();
-        oper.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        Cons oper = getArgument(aEnvironment, aStackTop, 1);
         // check that getTopOfStackPointer is a number, and that it is in fact an integer
 //        LispError.check(oper.type().equals("Number"), LispError.KLispErrInvalidArg);
-        BigNumber num =(BigNumber) oper.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment);
-        LispError.checkArgument(aEnvironment, aStackTop, num != null, 1, "ToBase");
+        BigNumber num =(BigNumber) oper.getNumber(aEnvironment.getPrecision(), aEnvironment);
+        if(num == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         // check that the base is an integer between 2 and 32
-        LispError.checkArgument(aEnvironment, aStackTop, num.isInteger(), 1, "ToBase");
+        if(! num.isInteger()) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
         // Get a short platform integer from the car argument
         int base = (int) (num.toLong());
@@ -56,7 +66,7 @@ public class ToBase extends BuiltinFunction
         str = x.numToString(aEnvironment.getPrecision(), base);
         // Get unique string from hash table, and create an atom from it.
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, aEnvironment.getTokenHash().lookUpStringify(str)));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, Utility.toMathPiperString(aEnvironment, aStackTop, str)));
     }
 }
 

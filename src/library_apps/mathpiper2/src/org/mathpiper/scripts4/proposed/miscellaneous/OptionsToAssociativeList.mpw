@@ -9,8 +9,8 @@ OptionsToAssociativeList(optionList) :=
     [
         If(option[0] =? ->,
         [
-            If(IsString(option[1]), key := option[1], key := ToString(option[1]));
-            If(IsString(option[2]), value := option[2], value := ToString(option[2]));
+            If(String?(option[1]), key := option[1], key := ToString(option[1]));
+            If(String?(option[2]), value := option[2], value := ToString(option[2]));
             
             associativeList := {key, value} : associativeList;
         

@@ -31,36 +31,109 @@ GetError -> GetException
 RulebaseDefined -> IsRulebaseDefined
 BuiltinPrecisionSet -> PrecisionSet
 BuiltinPrecisionGet -> PrecisionGet
+SetGlobalLazyVariable - GlobalLazyVariableSet
 
+If -> Decide
+if -> If
+else -> Else
+
+
+------------------------------------------------------------------------------------------
+
+Have all symbolic operators and constants end with a period. This goes along with all predicate operators
+ending with a ? which indicates a truth result is returned. Operators ending with a period
+are simply statements.
+
+== -> =.
+!== -> !=.
+<.
+<=.
+>.
+>=.
+Infinity -> Infinity.
+Pi -> Infinity.
+e -> e.
+
+
+
+Another idea is to have all symbolic operators and constants end with a $ because it looks
+similar to an "s" and therefore it can stand for "symbolic".
+
+== -> =$
+!== -> !=$
+<$
+<=$
+>$
+>=$
+Infinity -> Infinity$
+Pi -> Pi$
+e$
+True$
+False$
+Empty$
+
+
+--- Have all destructive functions end with a 'D', 
+--- (which is similar to how numeric functions end with an 'N'.)
+DestructiveAppend -> AppendD
+DestructiveDelete -> DeleteD
+DestructiveInsert -> InsertD
+DestructiveReplace -> ReplaceD
+DestructiveReverse -> ReverseD
 
 
 ---------------------------- Potential function name changes:
-Rulebase -> RulebaseHoldArguments
-RulebaseListed -> RulebaseListedHoldArguments
-Rule -> RuleHoldArguments
+    Rulebase -> RulebaseHoldArguments
+    RulebaseListed -> RulebaseListedHoldArguments
+    Rule -> RuleHoldArguments
+    RulePattern -> RulePatternHoldArguments
 
-MacroRulebase -> RulebaseEvaluateArguments
-MacroRulebaseListed -> RulebaseListedEvaluateArguments
-MacroRule -> RuleEvaluateArguments
+    MacroRulebase -> RulebaseEvaluateArguments
+    MacroRulebaseListed -> RulebaseListedEvaluateArguments
+    MacroRule -> RuleEvaluateArguments
+    MacroRulePattern -> RulePatterrnEvaluateArguments
 
 Local -> LocalHoldArguments (leave Local as a synonym)
 MacroLocal -> LocalEvaluateArguments
 
-Unbind -> UnbindHoldArguments (and leave Unbind as a synonym)
-MacroUnbind -> UnbindEvaluateArguments
 
-DefMacroRulebase -> MacroRulebaseEvaluateArguments
-DefMacroRulebaseListed -> MacroRulebaseListedEvaluateArguments
+
+    DefMacroRulebase -> MacroRulebaseHoldArguments
+    DefMacroRulebaseListed -> MacroRulebaseListedHoldArguments
+    
+
+----------------------------------
+A bound variable is a concept that is used differently in Lisp and mathematics. MathPiper
+currently uses the Lisp version but it will probably be better to use the mathematics
+version. Therefore, Bind should probably become Assign and Unbind should probably become
+Unassign:
+
+Unbind -> UnassignHoldArguments (and leave Unassign as a synonym)
+Bind -> AssignHoldArguments
+MacroUnbind -> UnassignEvaluateArguments
+----------------------------------
+
+
+Prog -> Block //For pedagogical reasons.
+
+DestructiveAppend -> AppendDestructive
+
+----------------------------- Have most constants be in all capital letters.
+True -> TRUE
+False -> FALSE
+Empty -> EMPTY
+
+
+
+----------------------------- Have bitwise operator names end with a B.
+BitAnd -> AndB
+BitOr -> OrB
+BitXor -> XorB
+NotB
 
 
 ----------------------------- Proposed predicate operator & function name changes:
-= -> =?    
-= -> DEPRECATE.
-!= -> !=?
-< -> <?
-> -> >?
-<= -> <=?
->= -> >=?
+
 
 @$, @&, @%
 
@@ -70,13 +143,124 @@ IsInteger -> Integer?
 IsList -> List?
 etc.
 
- 
+
+============================= Changes that have already been done. ===================================
+// Changed in early September 2011.
+IsNumber -> Number?
+InDebugMode -> DebugMode?
+IsAtom -> Atom?
+IsBodied -> Bodied?
+IsBound -> Bound?
+IsDecimal -> Decimal?
+IsEqual -> Equal?
+IsFunction -> Function?
+IsGeneric -> Generic?
+IsGreaterThan -> GreaterThan?
+IsInfix -> InFix?
+IsLessThan -> LessThan?
+IsList -> List?
+IsListOfLists -> ListOfLists?
+IsPostfix -> Postfix?
+IsPrefix -> Prefix?
+IsPromptShown -> PromptShown?
+IsString -> String?
+IsComplex -> Complex?
+IsComplexII -> ComplexII
+IsAssumed -> Assumed?
+IsAmicablePair -> AmicablePair
+IsCarmichaelNumber -> CarmichaelNumber
+IsCFormable -> CFormable?
+IsComposite -> Composite?
+IsCoprime -> Coprime
+IsError -> Error?
+IsFreeOf -> FreeOf?
+IsGaussianInteger -> GaussianInteger?
+IsGaussianPrime -> GaussianPrime?
+IsGaussianUnit -> GaussianUnit?
+IsIrregularPrime -> IrregualrPrime?
+IsNonObject -> NonObject?
+IsPerfect -> Perfect?
+IsPoint -> Point?
+IsQuadraticResidue -> QuadraticResidue?
+IsSegment -> Segment?
+IsSmallPrime -> SmallPrime?
+IsSquareFree -> SquareFree?
+IsSubset -> Subset?
+IsTwinPrime -> TwinPrime?
+IsScalar -> Scalar?
+IsMatrix -> Matrix?
+IsVector -> Vector?
+IsSquareMatrix -> SquareMatrix?
+IsUniVar -> UniVar?
+IsMultiExpression -> MultiExpression?
+IsMultiConstant -> MultiConstant?
+IsMulti -> Multi?
+AllSatisfy -> AllSatisfy?
+FloatIsInt -> FloatIsInt?
+HasExpr -> HasExpression?
+HasExprArith -> HasExpressionArithmetic?
+HasExprSome -> HasExpressionSome?
+HasFunc -> HasFunction?
+HasFuncArith -> HasFunctionArithmetic?
+HasFuncSome -> HasFunctionSome?
+IsBoolType -> BooleanType?
+IsBoolean -> Boolean?
+IsConstant -> Constant?
+IsDiagonal -> Diagonal?
+IsEquation -> Equation?
+IsEven -> Even?
+IsEvenFunction -> EvenFunction?
+IsHermitian -> Hermitian?
+IsIdempotent -> Idempotent?
+IsInfinity -> Infinity?
+IsLowerTriangular -> LowerTriangular?
+IsMonomial -> Monomial?
+IsNegativeInteger -> NegativeInteger?
+IsNegativeNumber -> NegativeNumber?
+IsNegativeReal -> NegativeReal?
+IsNonNegativeInteger -> NonNegativeInteger?
+IsNonNegativeNumber -> NonNegativeNumber?
+IsNonZeroInteger -> NonZeroInteger?
+IsNotZero -> NotZero?
+IsNumericList -> NumericList?
+IsOdd -> Odd?
+IsOddFunction -> OddFunction?
+IsOne -> One?
+IsOrthogonal -> Orthogonal?
+IsPolynomial -> Polynomial?
+IsPolynomialOverIntegers -> PolynomialOverIntegers?
+IsPositiveInteger -> PositiveInteger?
+IsPositiveNumber -> PositiveNumber?
+IsPositiveReal -> PositiveReal?
+IsRationalFunction -> RationalFunction?
+IsRationalOrNumber -> RationalOrNumber?
+IsRational -> Rational?
+IsSkewSymmetric -> SkewSymmetric?
+IsSumOfTerms -> SumOfTerms?
+IsUnitary -> Unitary?
+IsUpperTriangular -> UpperTriangular?
+IsVariable -> Variable?
+IsZeroVector -> ZeroVector?
+IsZero -> Zero?
+ListHasFuncSome -> ListHasFunctionSome?
+NoneSatisfy -> NoneSatisfy?
+IsIntegerGreaterThanZero -> IntegerGreaterThanZero?
+IsInteger -> IsInteger?
+IsBound -> Bound?
+IsPrimePower -> PrimePower?
+IsPrime -> Prime? (check the docs for IsSmallPrime because it has IsPrime info in it).
 
 
 
 
+// Changed late August 2011.
+= -> =?    
+!= -> !=?
+< -> <?
+> -> >?
+<= -> <=?
+>= -> >=?
 
-============================= Changes that have already been done.
 
 //Newest changes (1/8/2010). 
 

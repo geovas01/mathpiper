@@ -2,9 +2,9 @@
 
 //Retract("FactorCancel",*);
 
-10 # FactorCancel( p_IsRational ) <-- Factor(p);
+10 # FactorCancel( p_Rational? ) <-- Factor(p);
 
-15 # FactorCancel( p_IsRationalFunction ) <--
+15 # FactorCancel( p_RationalFunction? ) <--
 [
     If(InVerboseMode(),Tell(FactorCancel,p));
     Local(pp,ff,n,d,fn,fd,f,tnu,newn,newd,s,k);
@@ -13,7 +13,7 @@
     ff   := Factors(pp);
     If(InVerboseMode(),Tell("  ",ff));
     tnu  := {ff[1]};
-    If(IsListOfLists(ff), tnu  := RemoveDuplicates(Transpose(ff)[1]));
+    If(ListOfLists?(ff), tnu  := RemoveDuplicates(Transpose(ff)[1]));
     newn := {};
     newd := {};
     If(InVerboseMode(),Tell("      ",tnu));

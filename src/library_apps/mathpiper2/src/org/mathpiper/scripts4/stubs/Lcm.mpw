@@ -1,20 +1,20 @@
 %mathpiper,def="Lcm"
 
 /* Least common multiple */
-5  # Lcm(a_IsInteger,b_IsInteger) <-- Quotient(a*b,Gcd(a,b));
+5  # Lcm(a_Integer?,b_Integer?) <-- Quotient(a*b,Gcd(a,b));
 
-10 # Lcm(list_IsList)_(Length(list)>?2) <--
+10 # Lcm(list_List?)_(Length(list)>?2) <--
 [
         Local(first);
         first:=Lcm(list[1],list[2]);
         Lcm(first:Rest(Rest(list)));
 ];
 
-10 # Lcm(list_IsList)_(Length(list)=?2) <-- Lcm(list[1],list[2]);
+10 # Lcm(list_List?)_(Length(list)=?2) <-- Lcm(list[1],list[2]);
 
 // We handle lists with just one element to avoid special-casing 
 // all the calls. 
-10 # Lcm(list_IsList)_(Length(list)=?1) <-- Lcm(list[1],1);
+10 # Lcm(list_List?)_(Length(list)=?1) <-- Lcm(list[1],1);
 
 %/mathpiper
 

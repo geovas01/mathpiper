@@ -16,9 +16,10 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.printers;
 
-import org.mathpiper.lisp.cons.ConsPointer;
+
 import org.mathpiper.lisp.*;
 import org.mathpiper.io.MathPiperOutputStream;
+import org.mathpiper.lisp.cons.Cons;
 
 public class LispPrinter {
 
@@ -31,7 +32,7 @@ public class LispPrinter {
 
     //private List<Cons> visitedLists = new ArrayList<Cons>();
 
-    public void print(int aStackTop, ConsPointer aExpression, MathPiperOutputStream aOutput, Environment aEnvironment) throws Exception {
+    public void print(int aStackTop, Cons aExpression, MathPiperOutputStream aOutput, Environment aEnvironment) throws Exception {
         printExpression(aExpression, aOutput, aEnvironment, 0);
 
         //visitedLists.clear();
@@ -42,12 +43,17 @@ public class LispPrinter {
     }
 
 
-    void printExpression(ConsPointer aExpression, MathPiperOutputStream aOutput, Environment aEnvironment, int aDepth /* =0 */) throws Exception {
-        ConsPointer consWalker = new ConsPointer();
-        consWalker.setCons(aExpression.getCons());
+    void printExpression(Cons aExpression, MathPiperOutputStream aOutput, Environment aEnvironment, int aDepth /* =0 */) throws Exception {
+
+        Cons consWalker = aExpression;
         int item = 0;
 
-        while (consWalker.getCons() != null) {
+        if(consWalker == null)
+        {
+            aOutput.write("<null>");
+        }
+
+        while (consWalker != null) {
 
             if (consWalker.car() instanceof String) {
                 String atom = (String) consWalker.car();
@@ -56,7 +62,7 @@ public class LispPrinter {
 
 
             } // else print "(", print sublist, and print ")"
-            else if (consWalker.car() instanceof ConsPointer) {
+            else if (consWalker.car() instanceof Cons) {
                 if (item != 0) {
                     indent(aOutput, aDepth + 1);
                 }
@@ -73,7 +79,7 @@ public class LispPrinter {
                     indent(aOutput, aDepth + 1);
                 }
                 aOutput.write("(");
-                printExpression(((ConsPointer) consWalker.car()), aOutput, aEnvironment, aDepth + 1);
+                printExpression(((Cons) consWalker.car()), aOutput, aEnvironment, aDepth + 1);
                 aOutput.write(")");
                 item = 0;
                 //}
@@ -85,7 +91,7 @@ public class LispPrinter {
 
             consWalker = (consWalker.cdr()); // print rest element
             
-            if(consWalker.getCons() != null)
+            if(consWalker != null)
             {
                aOutput.putChar(' ');
             }

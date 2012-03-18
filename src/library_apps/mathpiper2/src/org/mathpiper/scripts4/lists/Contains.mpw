@@ -1,12 +1,12 @@
-%mathpiper,def="Contains"
+%mathpiper,def="Contains?"
 
-Function("Contains",{list,element})
+Function("Contains?",{list,element})
 [
   Local(result);
   Bind(result,False);
-  While(And?(Not?(result), Not?(IsEqual(list, {}))))
+  While(And?(Not?(result), Not?(Equal?(list, {}))))
   [
-    If(IsEqual(First(list),element),
+    If(Equal?(First(list),element),
       Bind(result, True),
       Bind(list, Rest(list))
       );
@@ -18,11 +18,11 @@ Function("Contains",{list,element})
 
 
 
-%mathpiper_docs,name="Contains",categories="User Functions;Lists (Operations)"
-*CMD Contains --- test whether a list contains a certain element
+%mathpiper_docs,name="Contains?",categories="User Functions;Lists (Operations)"
+*CMD Contains? --- test whether a list contains a certain element
 *STD
 *CALL
-        Contains(list, expr)
+        Contains?(list, expr)
 
 *PARMS
 
@@ -41,13 +41,13 @@ that case the top-level operands are tested for the occurrence of
 
 *E.G.
 
-In> Contains({a,b,c,d}, b);
+In> Contains?({a,b,c,d}, b);
 Result: True;
-In> Contains({a,b,c,d}, x);
+In> Contains?({a,b,c,d}, x);
 Result: False;
-In> Contains({a,{1,2,3},z}, 1);
+In> Contains?({a,{1,2,3},z}, 1);
 Result: False;
-In> Contains(a*b, b);
+In> Contains?(a*b, b);
 Result: True;
 
 *SEE Find, Count

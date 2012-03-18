@@ -1,0 +1,7 @@
+%mathpiper,def="BooleanType?"
+
+0 # BooleanType?(True) <-- True;
+0 # BooleanType?(False) <-- True;
+1 # BooleanType?(_anythingelse) <-- False;
+
+%/mathpiper

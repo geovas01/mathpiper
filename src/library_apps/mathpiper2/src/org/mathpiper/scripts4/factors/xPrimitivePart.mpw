@@ -17,7 +17,7 @@ Macro("xPrimitivePart",{poly,xcont})
     Local(pp);
     If(InVerboseMode(),Tell("  xPrimitivePart2",{poly,xcont}));
     
-    If( IsBound(@xcont), 
+    If( Bound?(@xcont), 
       [
           pp := Eval(@poly) / Eval(@xcont);
       ],

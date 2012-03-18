@@ -16,15 +16,14 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.rulebases;
 
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.SublistCons;
 
 public class ListedRulebase extends SingleArityRulebase {
 
-    public ListedRulebase(Environment aEnvironment, int aStackTop, ConsPointer aParameters, String functionName) throws Exception {
+    public ListedRulebase(Environment aEnvironment, int aStackTop, Cons aParameters, String functionName) throws Exception {
         super(aEnvironment, aStackTop, aParameters, functionName);
     }
 
@@ -36,31 +35,55 @@ public class ListedRulebase extends SingleArityRulebase {
 
 
     @Override
-    public void evaluate(Environment aEnvironment, int aStackTop, ConsPointer aResult, ConsPointer aArguments) throws Exception {
-        ConsPointer newArgs = new ConsPointer();
-        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, aArguments);
-        ConsPointer ptr = newArgs;
+    public Cons evaluate(Environment aEnvironment, int aStackTop, Cons aArguments) throws Exception {
+        Cons aResult;
+
+        Cons newArgs = null;
+
+        Cons consTraverser = aArguments;
+
+        Cons ptr = null;
+
         int arity = arity();
+
         int i = 0;
-        while (i < arity && consTraverser.getCons() != null) {
-            ptr.setCons(consTraverser.getCons().copy(aEnvironment, false));
-            ptr = (ptr.cdr());
+
+        while (i < arity && consTraverser != null) {
+
+            if(i == 0)
+            {
+                ptr = consTraverser.copy(false);
+                newArgs = ptr;
+            }
+            else
+            {
+                Cons nextCons = consTraverser.copy(false);
+                ptr.setCdr(nextCons);
+                ptr = nextCons;
+            }
+
             i++;
-            consTraverser.goNext(aStackTop);
+
+            consTraverser = consTraverser.cdr();
         }
-        if (consTraverser.cdr().getCons() == null) {
-            ptr.setCons(consTraverser.getCons().copy(aEnvironment, false));
-            ptr = (ptr.cdr());
+
+        if (consTraverser.cdr() == null) {
+            Cons nextCons = consTraverser.copy(false);
+            ptr.setCdr(nextCons);
+            ptr = nextCons;
             i++;
-            consTraverser.goNext(aStackTop);
-            LispError.lispAssert(consTraverser.getCons() == null, aEnvironment, aStackTop);
+            consTraverser = consTraverser.cdr();
+            if(consTraverser != null) LispError.lispAssert(aEnvironment, aStackTop);
         } else {
-            ConsPointer head = new ConsPointer();
-            head.setCons(aEnvironment.iListAtom.copy(aEnvironment, false));
-            head.cdr().setCons(consTraverser.getCons());
-            ptr.setCons(SublistCons.getInstance(aEnvironment, head.getCons()));
+
+            Cons head = aEnvironment.iListAtom.copy(false);
+            head.setCdr(consTraverser);
+            Cons nextCons = SublistCons.getInstance(aEnvironment, head);
+            ptr.setCdr(nextCons);
+            ptr = nextCons;
         }
-        super.evaluate(aEnvironment, aStackTop, aResult, newArgs);
+        aResult = super.evaluate(aEnvironment, aStackTop, newArgs);
+        return aResult;
     }
 
 }

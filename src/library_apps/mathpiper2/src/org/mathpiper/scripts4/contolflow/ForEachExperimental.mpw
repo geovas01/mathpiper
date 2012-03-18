@@ -1,4 +1,4 @@
-%mathpiper,def="",public="todo"
+%mathpiper,def=""
 
 /*
  * TODO This was an experiment to try to get to using a new ForEach that works the
@@ -10,12 +10,12 @@ Macro()(ForEachRest(i,L,B));
 
 LocalSymbols(foreachtail)
 [
-  10 # ForEachRest(_i,L_IsFunction,_B) <--
+  10 # ForEachRest(_i,L_Function?,_B) <--
   [
     Local(foreachtail);
     Local(@i);
     Bind(foreachtail,@L);
-    While(Not?(IsEqual(foreachtail,{})))
+    While(Not?(Equal?(foreachtail,{})))
     [
       Bind(@i,First(foreachtail));
       @B;
@@ -27,8 +27,8 @@ LocalSymbols(foreachtail)
 LocalSymbols(index,nr)
 [
   20 # ForEachRest(_i,_A,_B)_(   And?(
-            IsEqual(IsGeneric(A),True),
-            IsEqual(GenericTypeName(A),"Array")
+            Equal?(Generic?(A),True),
+            Equal?(GenericTypeName(A),"Array")
             )) <--
   [
     Local(index,nr);
@@ -64,3 +64,23 @@ LocalSymbols(itm,lst,bd)
 */
 
 %/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="ForEachExperimental",categories="User Functions",access="undocumented"
+*CMD ForEachExperimental --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

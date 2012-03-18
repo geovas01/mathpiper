@@ -43,7 +43,7 @@ if desired.
 
 *E.G.
 
-In> Select({a,b,2,c,3,d,4,e,f}, "IsInteger")
+In> Select({a,b,2,c,3,d,4,e,f}, "Integer?")
 Result: {2,3,4};
 
 

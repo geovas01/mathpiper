@@ -12,13 +12,24 @@ import org.mathpiper.lisp.Environment;
  *
  *  
  */
-public class Floor extends BuiltinFunction {
+public class Floor extends BuiltinFunction
+{
+
+    private Floor()
+    {
+    }
+
+    public Floor(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
         BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
         BigNumber z = new BigNumber(aEnvironment.getPrecision());
         z.floor(x);
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
+        setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
     }
 
 }//end class.

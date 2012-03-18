@@ -28,6 +28,16 @@ import org.mathpiper.lisp.Environment;
 public class Prefix extends BuiltinFunction
 {
 
+    private Prefix()
+    {
+    }
+
+    public Prefix(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         Utility.multiFix(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
@@ -75,6 +85,6 @@ Note that, due to a current parser limitation, a function atom that is declared 
 In> YY
 	CommandLine(1) : Error parsing expression
 
-*SEE IsBodied, PrecedenceGet, Bodied, Infix, Postfix
+*SEE Bodied?, PrecedenceGet, Bodied, Infix, Postfix
 %/mathpiper_docs
 */
