@@ -8,8 +8,8 @@
 	</description> 
 	
 	<!-- Misc properties -->
-	<property name="version" value=".80H_experimental" />
-	<property name="mathpiper.version" value="mathpiper2" />
+	<property name="version" value=".80I_mp4_experimental" />
+	<property name="mathpiper.version" value="mathpiper4" />
 	
 	<property name="master.compile.source" value="1.5" />
 	<property name="master.compile.target" value="1.5" />
