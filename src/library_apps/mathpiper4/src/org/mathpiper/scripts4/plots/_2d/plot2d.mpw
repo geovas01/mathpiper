@@ -59,7 +59,7 @@ Function() Plot2D(func, range, options, ...);
                 ]
         );
         If(
-                Type(range) =? "~",        // simple range
+                Type(range) =? ":",        // simple range
                 range := N(Eval({range[1], range[2]}))
         );
         // set default option values
