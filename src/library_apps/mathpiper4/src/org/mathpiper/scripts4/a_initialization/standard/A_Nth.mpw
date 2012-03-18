@@ -18,7 +18,7 @@ RuleHoldArguments("Nth",2,14,
 [
   Local(result);
   result:="";
-  ForEach(i,aindex) [ result := result : StringMidGet(i,1,alist); ];
+  ForEach(i,aindex) [ result := result ~ StringMidGet(i,1,alist); ];
   result;
 ];
 

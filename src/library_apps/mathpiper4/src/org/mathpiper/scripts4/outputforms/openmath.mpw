@@ -81,21 +81,21 @@ LocalSymbols(omindent) [
      OMEcho("</OMOBJ>");
      ];
 
-10 # OMFormExpression(i_String?)  <-- OMEcho("<OMSTR>":i:"</OMSTR>");
-11 # OMFormExpression(i_Integer?) <-- OMEcho("<OMI>":ToString(i):"</OMI>");
-12 # OMFormExpression(i_Number?)  <-- OMEcho("<OMF dec=\"":ToString(i):"\"/>");
+10 # OMFormExpression(i_String?)  <-- OMEcho("<OMSTR>"~i~"</OMSTR>");
+11 # OMFormExpression(i_Integer?) <-- OMEcho("<OMI>"~ToString(i)~"</OMI>");
+12 # OMFormExpression(i_Number?)  <-- OMEcho("<OMF dec=\""~ToString(i)~"\"/>");
 13 # OMFormExpression(i_Constant?)_(OMSymbol()[ ToString(i) ] !=? Empty)
-     <-- OMEcho("<OMS cd=\"":OMSymbol()[ ToString(i) ][1]
-                :"\" name=\"":OMSymbol()[ ToString(i) ][2]:"\"/>"
+     <-- OMEcho("<OMS cd=\""~OMSymbol()[ ToString(i) ][1]
+                ~"\" name=\""~OMSymbol()[ ToString(i) ][2]~"\"/>"
                 );
 14 # OMFormExpression(i_Constant?)// Should we rather evaluate it?
-     <-- OMEcho("<OMV name=\"":ToString(i):"\"/>");
+     <-- OMEcho("<OMV name=\""~ToString(i)~"\"/>");
 15 # OMFormExpression(i_Variable?)_(OMSymbol()[ ToString(i) ] !=? Empty)
-     <-- OMEcho("<OMS cd=\"":OMSymbol()[ ToString(i) ][1]
-                :"\" name=\"":OMSymbol()[ ToString(i) ][2]:"\"/>"
+     <-- OMEcho("<OMS cd=\""~OMSymbol()[ ToString(i) ][1]
+                ~"\" name=\""~OMSymbol()[ ToString(i) ][2]~"\"/>"
                 );
 16 # OMFormExpression(i_Variable?)
-     <-- OMEcho("<OMV name=\"":ToString(i):"\"/>");
+     <-- OMEcho("<OMV name=\""~ToString(i)~"\"/>");
 16 # OMFormExpression(i_Variable?)_(i =? Empty)
      <-- False; // This is useful for void expressions.
 
@@ -108,7 +108,7 @@ LocalSymbols(omindent) [
         [ cd := "error";        name := function[1];    ]);
      OMEcho("<OME>");
      OMIndent();
-     OMEcho("<OMS cd=\"":cd:"\" name=\"":name:"\"/>");
+     OMEcho("<OMS cd=\""~cd~"\" name=\""~name~"\"/>");
      ForEach(i, Rest(function)) OMFormExpression(i);
      OMUndent();
      OMEcho("</OME>");
@@ -123,7 +123,7 @@ LocalSymbols(omindent) [
      OMEcho("</OME>");
      ];
 10 # OMFormExpression(function_Function?)_(Type(function) =? "OMS")
-     <-- OMEcho("<OMS cd=\"":function[1]:"\" name=\"":function[2]:"\"/>");
+     <-- OMEcho("<OMS cd=\""~function[1]~"\" name=\""~function[2]~"\"/>");
 10 # OMFormExpression(function_Function?)_(Type(function) =? "OMBIND")
      <--
      [
@@ -168,7 +168,7 @@ LocalSymbols(omindent) [
      [
      Local(arity);
      arity := Length(function);
-     OMEcho("<OMS cd=\"piper\" name=\"":Type(function):"\"/>");
+     OMEcho("<OMS cd=\"piper\" name=\""~Type(function)~"\"/>");
      If(arity >? 0, ForEach(arg, function) OMFormExpression(arg));
      ];
 10 # OMFormFunction(function_Function?)_(OMSymbol()[ Type(function) ] !=? Empty)
@@ -182,7 +182,7 @@ LocalSymbols(omindent) [
      If(symbolDef =? Empty, symbolDef := OMSymbol()[ Type(function) ] );
      If(symbolDef =? Empty Or? Length(symbolDef) <? 3 Or? symbolDef[3] =? {},
         [
-        OMEcho("<OMS cd=\"":symbolDef[1]:"\" name=\"":symbolDef[2]:"\"/>");
+        OMEcho("<OMS cd=\""~symbolDef[1]~"\" name=\""~symbolDef[2]~"\"/>");
         ForEach(arg, function) OMFormExpression(arg);
         ],
         [
@@ -233,11 +233,11 @@ OMEcho(expression_List?) <--
 
 OMEscape(_expression) <--
 [
-  "<![CDATA[":ToString(expression):"]]>";
+  "<![CDATA["~ToString(expression)~"]]>";
 ];
 OMEscapeString(_expression_String?) <--
 [
-  "<![CDATA[":expression:"]]>";
+  "<![CDATA["~expression~"]]>";
 ];
 OMWriteEscape(_expression) <--
 [
@@ -335,7 +335,7 @@ OMRead():=
 
 
 OMDump(str):=
-PipeFromString(str:" EndOfFile")
+PipeFromString(str~" EndOfFile")
 [
   Local(result);
   XmlTokenizer();
@@ -508,9 +508,9 @@ PipeFromString(str:" EndOfFile")
     );
 
   If(ruleMatched,
-     If(Type(result) =? ":",
+     If(Type(result) =? "~",
         If(Length(result) =? 2,
-           result[1]:result[2],
+           result[1]~result[2],
            result),// Perhaps we should give a warning here.
         result),
      Empty);
@@ -797,12 +797,12 @@ OMDef( "Minimum", "minmax1","min",
        { "<OMA>", "<OMS cd=\"set1\" name=\"set\"/>",
          1,2,3,4,5,6,7,8,9,10,11,12,13,14,
          "</OMS>", "</OMA>" },
-       ($):_1 );
+       ($)~_1 );
 OMDef( "Maximum", "minmax1","max",
        { "<OMA>", "<OMS cd=\"set1\" name=\"set\"/>",
          1,2,3,4,5,6,7,8,9,10,11,12,13,14,
          "</OMS>", "</OMA>" },
-       ($):_1 );
+       ($)~_1 );
 OMDef( "!", "integer1","factorial" );
 OMDef( "BinomialCoefficient", "combinat1","binomial" );
 OMDef( "!!",  mathpiper,"double_factorial" );
@@ -918,7 +918,7 @@ OMDef( "JacobiSymbol",   mathpiper,"JacobiSymbol" );
 
 
 //LoadScriptOnce("functional.rep/om.mpi");
-OMDef( ":"        , "mathpiper","prepend"    );
+OMDef( "~"        , "mathpiper","prepend"    );
 OMDef( "@"        , "mathpiper","apply"      );
 OMDef( "/@"       , "mathpiper","list_apply" );
 OMDef( ".."       , "interval1","integer_interval" );

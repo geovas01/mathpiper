@@ -8,7 +8,7 @@ BubbleSortIndexed( L_List?, _compare ) <--
 
   list    := FlatCopy(L);
   indices := Table(i,i,1,Length(list),1);
-  pairs   := Transpose(list:{indices});
+  pairs   := Transpose(list~{indices});
   sortedPairs := If( Apply(compare,{3,5}), 
      BubbleSort( pairs, Lambda({X,Y},X[1] <? Y[1]) ),
      BubbleSort( pairs, Lambda({X,Y},X[1] >? Y[1]) )

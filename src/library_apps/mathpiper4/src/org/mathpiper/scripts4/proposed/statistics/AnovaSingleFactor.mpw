@@ -49,13 +49,13 @@ AnovaSingleFactor(levelsList, alpha) :=
     
     ForEach(levelList, levelsList)
     [
-        meansList := meansList : N(Mean(levelList));
+        meansList := meansList ~ N(Mean(levelList));
         
-        variancesList := variancesList : N(UnbiasedVariance(levelList));
+        variancesList := variancesList ~ N(UnbiasedVariance(levelList));
         
-        sumsList := sumsList : N(Sum(levelList));
+        sumsList := sumsList ~ N(Sum(levelList));
 
-        lengthsList := lengthsList : Length(levelList);
+        lengthsList := lengthsList ~ Length(levelList);
     ];
     
     sumOfSquaresWithin := Sum((lengthsList - 1) * variancesList);
@@ -101,12 +101,12 @@ AnovaSingleFactor(levelsList, alpha) :=
     
     summaryTableRows := "";
     
-    summaryTableRow := "<TR> <TD> <?Write(ToAtom(\"Level\":ToString(index)));?> </TD> <TD align=\"right\"> <?Write(lengthsList[index]);?> </TD> <TD> <?Write(sumsList[index]);?> </TD>  <TD> <?Write(meansList[index]);?> </TD> <TD> <?Write(variancesList[index]);?> </TD> </TR>":Nl();
+    summaryTableRow := "<TR> <TD> <?Write(ToAtom(\"Level\"~ToString(index)));?> </TD> <TD align=\"right\"> <?Write(lengthsList[index]);?> </TD> <TD> <?Write(sumsList[index]);?> </TD>  <TD> <?Write(meansList[index]);?> </TD> <TD> <?Write(variancesList[index]);?> </TD> </TR>"~Nl();
     
     index := 1;
     While(index <=? Length(levelsList))
     [
-        summaryTableRows := summaryTableRows : PatchString(summaryTableRow);
+        summaryTableRows := summaryTableRows ~ PatchString(summaryTableRow);
     
         index++;
     ];
@@ -132,9 +132,9 @@ AnovaSingleFactor(levelsList, alpha) :=
 
     
     
-    anovaTableRow1 := PatchString("<TR> <TD> <?Write(ToAtom(\"Between Levels\"));?> </TD> <TD > <?Write(sumOfSquaresBetween);?> </TD> <TD> <?Write(degreesOfFreedomBetween);?> </TD>   <TD > <?Write(meanSquareBetween);?> </TD><TD> <?Write(fScore);?> </TD> <TD> <?Write(criticalFScore);?> </TD> </TR>":Nl());
+    anovaTableRow1 := PatchString("<TR> <TD> <?Write(ToAtom(\"Between Levels\"));?> </TD> <TD > <?Write(sumOfSquaresBetween);?> </TD> <TD> <?Write(degreesOfFreedomBetween);?> </TD>   <TD > <?Write(meanSquareBetween);?> </TD><TD> <?Write(fScore);?> </TD> <TD> <?Write(criticalFScore);?> </TD> </TR>"~Nl());
     
-    anovaTableRow2 := PatchString("<TR> <TD> <?Write(ToAtom(\"Within Levels\"));?> </TD> <TD > <?Write(sumOfSquaresWithin);?> </TD> <TD> <?Write(degreesOfFreedomWithin);?> </TD>   <TD > <?Write(meanSquareWithin);?> </TD></TR>":Nl());
+    anovaTableRow2 := PatchString("<TR> <TD> <?Write(ToAtom(\"Within Levels\"));?> </TD> <TD > <?Write(sumOfSquaresWithin);?> </TD> <TD> <?Write(degreesOfFreedomWithin);?> </TD>   <TD > <?Write(meanSquareWithin);?> </TD></TR>"~Nl());
     
     anovaTableTotal := PatchString("<TR> <TD> Total </TD> <TD> <?Write(sumOfSquaresTotal);?> </TD> <TD> <?Write(degreesOfFreedomBetween + degreesOfFreedomWithin);?> </TD> </TR>");
     
@@ -152,15 +152,15 @@ AnovaSingleFactor(levelsList, alpha) :=
 ";
     
     htmlJavaString := JavaNew("java.lang.String",
-                topOfPage : 
-                topOfSummary : 
-                summaryTableRows : 
-                bottomOfSummary : 
-                topOfAnova : 
-                anovaTableRow1 : 
-                anovaTableRow2 : 
-                anovaTableTotal : 
-                bottomOfAnova : 
+                topOfPage ~ 
+                topOfSummary ~
+                summaryTableRows ~
+                bottomOfSummary ~
+                topOfAnova ~
+                anovaTableRow1 ~ 
+                anovaTableRow2 ~
+                anovaTableTotal ~ 
+                bottomOfAnova ~
                 bottomOfPage);
                 
                 

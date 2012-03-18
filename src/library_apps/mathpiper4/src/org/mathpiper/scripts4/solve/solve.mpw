@@ -30,16 +30,16 @@ LocalSymbols(res)
         [ {Solve(expr,var[1])}; ];
   
   20  # Solve(_expr, _var)_(Number?(var) Or? String?(var)) <--
-        [ Assert("SolveTypeError", "Second argument, ":(PipeToString() Write(var)):", is not the name of a variable") False; {}; ];
+        [ Assert("SolveTypeError", "Second argument, "~(PipeToString() Write(var))~", is not the name of a variable") False; {}; ];
   22  # Solve(_expr, _var)_(Not? Atom?(var) And? Not? HasExpression?(expr,var)) <--
-        [ Assert("SolveTypeError", "Second argument, ":(PipeToString() Write(var)):", is not the name of a variable") False; {}; ];
+        [ Assert("SolveTypeError", "Second argument, "~(PipeToString() Write(var))~", is not the name of a variable") False; {}; ];
   24  # Solve(False,_var) <-- Check(False, "Argument", "Bad input: possibly '=' instead of '==' ");
 
   30  # Solve(_lhs == _rhs, _var) <-- Solve(lhs - rhs, var);
   40  # Solve(0, _var) <-- {var == var};
   41  # Solve(a_Constant?, _var) <-- {};
   42  # Solve(_expr, _var)_(Not? HasExpression?(expr,var)) <--
-        [ Assert("Solve", "expression ":(PipeToString() Write(expr)):" does not depend on ":PipeToString() Write(var)) False; {}; ];
+        [ Assert("Solve", "expression "~(PipeToString() Write(expr))~" does not depend on "~PipeToString() Write(var)) False; {}; ];
   50  # Solve(_expr, _var)_((res := SolvePoly(expr, var)) !=? Failed) <-- res;
   60  # Solve(_e1 * _e2, _var) <-- [
       Local(t,u,s);
@@ -74,7 +74,7 @@ LocalSymbols(res)
   95  # Solve(_expr, _var)_((res := SolveDivide(expr, var)) !=? Failed) <-- res;
   100 # Solve(_expr, _var)_((res := Simplify(expr)) !=? expr) <-- Solve(res, var);
   110 # Solve(_expr, _var) <--
-        [ Assert("SolveFails", "cannot solve equation ":(PipeToString() Write(expr)):" for ":PipeToString() Write(var)) False; {}; ];
+        [ Assert("SolveFails", "cannot solve equation "~(PipeToString() Write(expr))~" for "~PipeToString() Write(var)) False; {}; ];
 ];
 
 /********** SolvePoly **********/

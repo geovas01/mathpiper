@@ -19,9 +19,9 @@ WeightedMean(list) :=
         
         Check(Length(element) =? 2, "Argument", "Each value and its associated weight must be in a two element list.");
         
-        values := values : element[1];
+        values := values ~ element[1];
 
-        weights := weights : element[2];
+        weights := weights ~ element[2];
     ];
     
     Sum(values * weights)/Sum(weights);

@@ -3,7 +3,7 @@
 /// partial factorial
 n1_RationalOrNumber? *** n2_RationalOrNumber? <--
 [
-        Check(n2-n1 <=? 65535, "Argument", "Partial factorial: Error: the range " : ( PipeToString() Write(n2-n1) ) : " is too large, you may want to avoid exact calculation");
+        Check(n2-n1 <=? 65535, "Argument", "Partial factorial: Error: the range " ~ ( PipeToString() Write(n2-n1) ) ~ " is too large, you may want to avoid exact calculation");
         If(n2-n1<?0,
                 1,
                 Factorialpartial(n1, n2)

@@ -39,7 +39,7 @@ CFormDoublePrecisionNumber(x_Number?) <--
     [
         If(s[i] =? "e" Or? s[i] =? ".", f := True);
     ];
-    If(f, s, s : ".");
+    If(f, s, s ~ ".");
 ];
 
 /* Proceed just like TeXForm()
@@ -95,8 +95,8 @@ LocalSymbols(cformRegularOps) [
         /* power's argument is never bracketed but it must be put in braces. */
 100 # CForm(_x ^ _y, _p) <-- CFormBracketIf(p<=?PrecedenceGet("^"), ConcatStrings("pow(", CForm(x, CFormMaxPrec()), ", ", CForm(y, CFormMaxPrec()), ")" ) );
 
-100 # CForm(if(_pred)_body, _p) <-- "if (":CForm(pred,60000):") ":CForm(body);
-100 # CForm(_left else _right, _p) <-- CForm(left):" else ":CForm(right);
+100 # CForm(if(_pred)_body, _p) <-- "if ("~CForm(pred,60000)~") "~CForm(body);
+100 # CForm(_left else _right, _p) <-- CForm(left)~" else "~CForm(right);
 
 
 LocalSymbols(cformMathFunctions) [
@@ -153,8 +153,8 @@ CFormArgs(list_List?) <--
   nr:=Length(list);
   For (i:=1,i<=?nr,i++)
   [
-    result:=result:CForm(list[i]);
-    If (i<?nr, result:=result:", ");
+    result:=result~CForm(list[i]);
+    If (i<?nr, result:=result~", ");
   ];
   result;
 ];
@@ -195,7 +195,7 @@ LocalSymbols(cindent) [
     Local(i);
     For(i:=1,i<?cindent,i++)
     [
-      result:=result:"  ";
+      result:=result~"  ";
     ];
     result;
   ];
@@ -211,31 +211,31 @@ LocalSymbols(cindent) [
   ];
 ]; // LocalSymbols(cindent)
 
-CFormStatement(_x) <-- CForm(x) : ";" : NlIndented();
+CFormStatement(_x) <-- CForm(x) ~ ";" ~ NlIndented();
 
 120 # CForm(_x,_p)_(Type(x) =? "Prog") <--
 [
   Local(result);
-  result:=CIndent():"{":NlIndented();
+  result:=CIndent()~"{"~NlIndented();
   ForEach(item,Rest(FunctionToList(x)))
   [
-    result:=result:CFormStatement(item);
+    result:=result~CFormStatement(item);
   ];
-  result:=result:"}":CUndent():NlIndented();
+  result:=result~"}"~CUndent()~NlIndented();
   result;
 ];
 
 120 # CForm(For(_from,_to,_step)_body,_p) <--
-  "for(" : CForm(from,CFormMaxPrec()) : ";"
-        : CForm(to,CFormMaxPrec()) : ";"
-        : CForm(step,CFormMaxPrec()) : ")"
-        : CIndent() : NlIndented()
-        : CFormStatement(body) : CUndent();
+  "for(" ~ CForm(from,CFormMaxPrec()) ~ ";"
+        ~ CForm(to,CFormMaxPrec()) ~ ";"
+        ~ CForm(step,CFormMaxPrec()) ~ ")"
+        ~ CIndent() ~ NlIndented()
+        ~ CFormStatement(body) ~ CUndent();
 
 120 # CForm(While(_pred)_body, _p) <--
-        "while(" : CForm(pred,CFormMaxPrec()) : ")"
-        : CIndent() : NlIndented()
-        : CFormStatement(body) : CUndent();
+        "while(" ~ CForm(pred,CFormMaxPrec()) ~ ")"
+        ~ CIndent() ~ NlIndented()
+        ~ CFormStatement(body) ~ CUndent();
 
 %/mathpiper
 

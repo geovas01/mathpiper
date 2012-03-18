@@ -143,16 +143,16 @@ RuleHoldArguments("FSimpTerm",2,2,Type(f) =? ":*:")
 ];
 RuleHoldArguments("FSimpTerm",2,3,Type(f) =? "FSin")
 [
-  {rlist[1],f:(rlist[2])};
+  {rlist[1],f~(rlist[2])};
 ];
 RuleHoldArguments("FSimpTerm",2,3,Type(f) =? "FCos")
 [
-  {f:(rlist[1]),rlist[2]};
+  {f~(rlist[1]),rlist[2]};
 ];
 
 RuleHoldArguments("FSimpTerm",2,4,True)
 [
-  {(FCos(f,0)):(rlist[1]),rlist[2]};
+  {(FCos(f,0))~(rlist[1]),rlist[2]};
 ];
 
 /* FSimpFactor does the difficult part. it gets a list, representing

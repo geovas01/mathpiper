@@ -150,6 +150,8 @@ public class TestSuite {
             logFile.write(output);
 
             Iterator keyIterator = keyArray.iterator();
+            
+            Environment.saveDebugInformation = true;
 
             while (keyIterator.hasNext()) {
 
@@ -184,7 +186,7 @@ public class TestSuite {
             logFile.close();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             System.out.flush();
             System.err.flush();
 
@@ -223,7 +225,7 @@ public class TestSuite {
 
         } catch (Exception e) {
 
-            //System.out.println(e.getMessage());
+            System.out.println(e.getMessage());
             logFile.write(e.getMessage());
 
             logFile.flush();
@@ -321,10 +323,22 @@ public class TestSuite {
             return printedScriptStringBuffer.toString();
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace(); //todo:tk:uncomment for debugging.
-
-            EvaluationException ee = new EvaluationException("\n\n\n***EXCEPTION[ " + e.getMessage() + " ]EXCEPTION***\n", aEnvironment.getCurrentInput().iStatus.getFileName(), aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineNumber());
+            //System.out.println(e.getMessage());
+            //e.printStackTrace(); //todo:tk:uncomment for debugging.
+            
+            //EvaluationException ee = new EvaluationException("\n\n\n***EXCEPTION[ " + e.getMessage() + " ]EXCEPTION***\n", aEnvironment.getCurrentInput().iStatus.getFileName(), aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineNumber());
+            
+            String errorMessage = "\n\n\n***EXCEPTION[ " + e.getMessage() + " ]EXCEPTION*** ";
+            
+            if(e instanceof EvaluationException)
+            {
+        	EvaluationException evaluationException = (EvaluationException) e;
+        	
+        	errorMessage = errorMessage + aEnvironment.getCurrentInput().iStatus.getFileName() + ", Line: " + evaluationException.getLineNumber() + ", Start Index: " + evaluationException.getStartIndex();
+            }
+            
+            
+            Exception ee = new Exception(errorMessage);
             throw ee;
         } finally {
             aEnvironment.setCurrentInput(previousInput);

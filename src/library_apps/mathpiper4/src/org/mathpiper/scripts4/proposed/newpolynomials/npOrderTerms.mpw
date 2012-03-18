@@ -19,7 +19,7 @@ Retract("GREVLEXlt",*);
     Local(np,v,out);
     v   := expr[2];
     np  := npTerms(expr);
-    out := NP:v:npOrderTerms(np,termOrder);
+    out := NP~v~npOrderTerms(np,termOrder);
    ];
 ];
  

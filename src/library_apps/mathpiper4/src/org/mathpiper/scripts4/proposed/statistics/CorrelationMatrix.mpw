@@ -11,7 +11,7 @@ CorrelationMatrix(dataLists) :=
 
     namesList := MatrixColumn(dataLists,1);
     
-    namesList := "" : namesList;
+    namesList := "" ~ namesList;
     
     ForEach(dataList, dataLists)
     [

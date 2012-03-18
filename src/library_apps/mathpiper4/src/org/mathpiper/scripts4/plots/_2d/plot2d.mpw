@@ -59,7 +59,7 @@ Function() Plot2D(func, range, options, ...);
                 ]
         );
         If(
-                Type(range) =? ":",        // simple range
+                Type(range) =? "~",        // simple range
                 range := N(Eval({range[1], range[2]}))
         );
         // set default option values
@@ -101,12 +101,12 @@ Function() Plot2D(func, range, options, ...);
         Check(Number?(range[1]) And? Number?(range[2]) And? Number?(optionshash["points"]) And? Number?(optionshash["precision"]),
                 "Argument",
                 "Plot2D: Error: plotting range "
-                :(PipeToString()Write(range))
-                :" and/or the number of points "
-                :(PipeToString()Write(optionshash["points"]))
-                :" and/or precision "
-                :(PipeToString()Write(optionshash["precision"]))
-                :" is not numeric"
+                ~(PipeToString()Write(range))
+                ~" and/or the number of points "
+                ~(PipeToString()Write(optionshash["points"]))
+                ~" and/or precision "
+                ~(PipeToString()Write(optionshash["precision"]))
+                ~" is not numeric"
         );
         // loop over functions in the list
         ForEach(func, funclist)
@@ -114,7 +114,7 @@ Function() Plot2D(func, range, options, ...);
                 // obtain name of variable
                 var := VarList(func);        // variable name in a one-element list
                 Check(Length(var)<=?1, "Argument", "Plot2D: Error: expression is not a function of one variable: "
-                        :(PipeToString()Write(func))
+                        ~(PipeToString()Write(func))
                 );
                 // Allow plotting of constant functions
                 If(Length(var)=?0, var:={dummy});
@@ -131,12 +131,12 @@ Function() Plot2D(func, range, options, ...);
                 Check(Number?(fc) Or? fc=?Infinity Or? fc=? -Infinity Or? fc=?Undefined,
                         "Argument", 
                         "Plot2D: Error: cannot evaluate function "
-                        :(PipeToString()Write(func))
-                        :" at point "
-                        :(PipeToString()Write(c))
-                        :" to a number, instead got "
-                        :(PipeToString()Write(fc))
-                        :""
+                        ~(PipeToString()Write(func))
+                        ~" at point "
+                        ~(PipeToString()Write(c))
+                        ~" to a number, instead got "
+                        ~(PipeToString()Write(fc))
+                        ~""
                 );
                 // compute all other data points
                 DestructiveAppend(allvalues,  Plot2Dgetdata(func, var, c, fc, delta, optionshash) );

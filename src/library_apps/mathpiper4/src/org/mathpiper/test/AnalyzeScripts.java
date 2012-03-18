@@ -100,7 +100,7 @@ public class AnalyzeScripts {
                 if(scriptCodeArray[2].contains("!"))
                 {
                 int xx = 1;
-                }
+                }errorMessage
                  */
 
                 // Read expression
@@ -189,14 +189,28 @@ public class AnalyzeScripts {
             return printedScriptStringBuffer.toString();
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace(); //todo:tk:uncomment for debugging.
+            //System.out.println(e.getMessage());
+            //e.printStackTrace(); //todo:tk:uncomment for debugging.
 
-            EvaluationException ee = new EvaluationException(e.getMessage(), aEnvironment.getCurrentInput().iStatus.getFileName(), aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineNumber());
-            throw ee;
+            //EvaluationException ee = new EvaluationException(e.getMessage(), aEnvironment.getCurrentInput().iStatus.getFileName(), aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineNumber());
+
+            String errorMessage = e.getMessage();
+            
+            if(e instanceof EvaluationException)
+            {
+        	EvaluationException evaluationException = (EvaluationException)e;
+        	
+        	errorMessage = errorMessage + aEnvironment.getCurrentInput().iStatus.getFileName() + ", Line: " + evaluationException.getLineNumber() + ", Start Index: " + evaluationException.getStartIndex();
+            }            
+            
+            
+            System.out.println(errorMessage);
+
         } finally {
             aEnvironment.setCurrentInput(previous);
         }
+        
+        return "";
     }//end method.
 
     private static void processLocalSymbols(Cons prog, String[] scriptCodeArray, Object[] result) throws Exception {
@@ -303,7 +317,9 @@ public class AnalyzeScripts {
         try {
             analyze.findOperator(":");
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+              
+            
         }
 
 

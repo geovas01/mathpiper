@@ -10,7 +10,7 @@
         Local(i);
         ForEach(i, list) [
                 If(Not?(Equal?(i, First(list))), WriteString(padding));
-                If (String?(i), WriteString(i), If(List?(i), WriteString("{" : PrintList(i, padding) : "}"), Write(i)));
+                If (String?(i), WriteString(i), If(List?(i), WriteString("{" ~ PrintList(i, padding) ~ "}"), Write(i)));
         ];
 ];
 

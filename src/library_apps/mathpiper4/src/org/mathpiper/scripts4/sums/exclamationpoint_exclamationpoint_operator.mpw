@@ -4,7 +4,7 @@
 1# (n_PositiveInteger?)!! _ (n<=?3) <-- n;
 2# (n_PositiveInteger?)!! <--
 [
-        Check(n<=?65535, "Argument", "Double factorial: Error: the argument " : ( PipeToString() Write(n) ) : " is too large, you may want to avoid exact calculation");
+        Check(n<=?65535, "Argument", "Double factorial: Error: the argument " ~ ( PipeToString() Write(n) ) ~ " is too large, you may want to avoid exact calculation");
         Factorialdouble(2+Modulo(n, 2), n);
 ];
 // special cases
