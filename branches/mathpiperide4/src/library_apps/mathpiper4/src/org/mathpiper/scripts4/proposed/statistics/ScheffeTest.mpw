@@ -48,9 +48,9 @@ ScheffeTest(levelsList, alpha) :=
     
     ForEach(levelList,levelsList)
     [
-        meansList := meansList : N(Mean(levelList));
+        meansList := meansList ~ N(Mean(levelList));
     
-        countsList := countsList : Length(levelList);
+        countsList := countsList ~ Length(levelList);
     ];
     
     pairsList := CombinationsList(1 .. Length(levelsList),2);
@@ -85,7 +85,7 @@ ScheffeTest(levelsList, alpha) :=
         
         oneComparisonList["pair"] := pairList;
         
-        summaryList["pair" : ToString(index)] := oneComparisonList;
+        summaryList["pair" ~ ToString(index)] := oneComparisonList;
         
         index++;
     ];
@@ -118,7 +118,7 @@ ScheffeTest(levelsList, alpha) :=
     
     summaryTableRows := "";
     
-    summaryTableRow := "<TR> <TD align=\"center\"> <?Write(ToAtom(ToString(pairList[1]) : \" and \" : ToString(pairList[2])));?> </TD> <TD align=\"right\"> <?Write(summary[\"scheffeStatistic\"]);?> </TD> <TD align=\"right\"> <?Write(resultList[\"scheffeStatisticCalculated\"]);?> </TD>  <TD> <?Write(ToAtom(summary[\"conclusion\"]));?> </TD> </TR>":Nl();
+    summaryTableRow := "<TR> <TD align=\"center\"> <?Write(ToAtom(ToString(pairList[1]) ~ \" and \" ` ToString(pairList[2])));?> </TD> <TD align=\"right\"> <?Write(summary[\"scheffeStatistic\"]);?> </TD> <TD align=\"right\"> <?Write(resultList[\"scheffeStatisticCalculated\"]);?> </TD>  <TD> <?Write(ToAtom(summary[\"conclusion\"]));?> </TD> </TR>"~Nl();
     
 
     
@@ -128,7 +128,7 @@ ScheffeTest(levelsList, alpha) :=
 
         pairList := summary["pair"];
         
-        summaryTableRows := summaryTableRows : PatchString(summaryTableRow);
+        summaryTableRows := summaryTableRows ~ PatchString(summaryTableRow);
     
         index++;
     ];
@@ -147,10 +147,10 @@ ScheffeTest(levelsList, alpha) :=
 ";
     
     htmlJavaString := JavaNew("java.lang.String",
-                topOfPage : 
-                topOfSummary : 
-                summaryTableRows : 
-                bottomOfSummary : 
+                topOfPage ~
+                topOfSummary ~
+                summaryTableRows ~
+                bottomOfSummary ~
                 bottomOfPage);    
     
     

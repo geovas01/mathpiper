@@ -300,7 +300,7 @@ TaylorLPSCoeffs(_lps, _n1, _n2) <--
       [
          j := TaylorLPSGetOrder(lps[4][1])[1];
          Check(j >=? 0, "Math", "Expansion of f(g(x)) where f has a"
-                       : "singularity is not implemented");
+                       ~ "singularity is not implemented");
          k := TaylorLPSGetOrder(lps[4][2])[1];
          c1 := {j, TaylorLPSCoeffs(lps[4][1], j, n2)};
          c2 := {k, TaylorLPSCoeffs(lps[4][2], k, n2)};
@@ -383,7 +383,7 @@ TaylorLPSCoeffs(_lps, _n1, _n2) <--
    c := {};
    For (k:=1, k<=?Minimum(Length(c1), Length(c2)), k++)
    [
-      c := c : Sum(j, 1, k, c1[j]*c2[k+1-j]);
+      c := c ~ Sum(j, 1, k, c1[j]*c2[k+1-j]);
    ];
    {n1+n2, c};
 ];
@@ -392,7 +392,7 @@ TaylorLPSCoeffs(_lps, _n1, _n2) <--
 [
    Local(res, tps, tps2, k, n);
    n := Minimum(n1+Length(c1)-1, n2+Length(c2)-1);
-   tps := {0, 1 : FillList(0, n)}; // tps =? {n2,c2} ^ k
+   tps := {0, 1 ~ FillList(0, n)}; // tps =? {n2,c2} ^ k
    res := TaylorTPSScalarMult(TaylorTPSGetCoeff({n1,c1}, 0), tps);
    For (k:=1, k<=?n, k++)
    [
@@ -658,7 +658,7 @@ Echo(expr," ",n," ",result);
 
 60000 # TaylorLPSCompCoeff(_var, _expr, _n)
       <-- Check(False, "Argument", "TaylorLPSCompCoeffFallThrough"
-                       : PipeToString() Write({var,expr,n}));
+                       ~ PipeToString() Write({var,expr,n}));
 
 /**********************************************************************
  *

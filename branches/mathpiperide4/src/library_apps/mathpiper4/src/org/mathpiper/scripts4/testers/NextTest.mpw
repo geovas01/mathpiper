@@ -4,7 +4,7 @@ Function("NextTest",{aLeft})
 [
 // curline++;
 WriteString("
-Test suite for ":aLeft:" : "
+Test suite for "~aLeft~" : "
            );
   NewLine();
 ];

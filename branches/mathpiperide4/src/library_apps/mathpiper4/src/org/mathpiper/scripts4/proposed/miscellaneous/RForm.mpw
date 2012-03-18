@@ -128,8 +128,8 @@ LocalSymbols(rFormMathFunctions) [
         /* power's argument is never bracketed but it must be put in braces. */
 100 # RForm(_x ^ _y, _p) <-- RFormBracketIf(p <=? PrecedenceGet("^"), ConcatStrings(RForm(x, RFormMaxPrec()), "^", RForm(y, RFormMaxPrec())) );
 
-100 # RForm(if(_pred)_body, _p) <-- "if (":RForm(pred,60000):") ":RForm(body);
-100 # RForm(_left else _right, _p) <-- RForm(left):" else ":RForm(right);
+100 # RForm(if(_pred)_body, _p) <-- "if ("~RForm(pred,60000)~") "~RForm(body);
+100 # RForm(_left else _right, _p) <-- RForm(left)~" else "~RForm(right);
 
 /* Precedence of 120 because we'd like to process some special functions like pow() first */
 
@@ -155,8 +155,8 @@ RFormArgs(list_List?) <--
   nr:=Length(list);
   For (i:=1,i<=?nr,i++)
   [
-    result:=result:RForm(list[i]);
-    If (i<?nr, result:=result:", ");
+    result:=result~RForm(list[i]);
+    If (i<?nr, result:=result~", ");
   ];
   result;
 ];
@@ -197,7 +197,7 @@ LocalSymbols(RIndent) [
     Local(i);
     For(i:=1,i<?RIndent,i++)
     [
-      result:=result:"  ";
+      result:=result~"  ";
     ];
     result;
   ];
@@ -213,31 +213,31 @@ LocalSymbols(RIndent) [
   ];
 ]; // LocalSymbols(RIndent)
 
-RFormStatement(_x) <-- RForm(x) : ";" : RNlIndented();
+RFormStatement(_x) <-- RForm(x) ~ ";" ~ RNlIndented();
 
 120 # RForm(_x,_p)_(Type(x) =? "Prog") <--
 [
   Local(result);
-  result:=RIndent():"{":RNlIndented();
+  result:=RIndent()~"{"~RNlIndented();
   ForEach(item,Rest(FunctionToList(x)))
   [
-    result:=result:RFormStatement(item);
+    result:=result~RFormStatement(item);
   ];
-  result:=result:"}":RUndent():RNlIndented();
+  result:=result~"}"~RUndent()~RNlIndented();
   result;
 ];
 
 120 # RForm(For(_from,_to,_step)_body,_p) <--
-  "for(" : RForm(from,RFormMaxPrec()) : ";"
-        : RForm(to,RFormMaxPrec()) : ";"
-        : RForm(step,RFormMaxPrec()) : ")"
-        : RIndent() : RNlIndented()
-        : RFormStatement(body) : RUndent();
+  "for(" ~ RForm(from,RFormMaxPrec()) ~ ";"
+        ~ RForm(to,RFormMaxPrec()) ~ ";"
+        ~ RForm(step,RFormMaxPrec()) ~ ")"
+        ~ RIndent() ~ RNlIndented()
+        ~ RFormStatement(body) ~ RUndent();
 
 120 # RForm(While(_pred)_body, _p) <--
-        "while(" : RForm(pred,RFormMaxPrec()) : ")"
-        : RIndent() : RNlIndented()
-        : RFormStatement(body) : RUndent();
+        "while(" ~ RForm(pred,RFormMaxPrec()) ~ ")"
+        ~ RIndent() ~ RNlIndented()
+        ~ RFormStatement(body) ~ RUndent();
 
 %/mathpiper
 

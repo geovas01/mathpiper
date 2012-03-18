@@ -79,12 +79,12 @@ Lt():="&lt;";
 
 
 
-HtmlNewParagraph():= (newline : "<p>" : newline);
+HtmlNewParagraph():= (newline ~ "<p>" ~ newline);
 
 HtmlTitle(title):=
 [
 "<head>
-  <title>" : title : "</title>
+  <title>" ~ title ~ "</title>
   <link rel=\"stylesheet\" href=\"piper.css\" TYPE=\"text/css\" MEDIA=\"screen\">
 </head>";
 ];
@@ -147,7 +147,7 @@ HtmlSubmitButton(name,value):=
 HtmlLink(description,file,tag,target):=
 [
   If(tag !=? "",
-    link["href"]:= file : "#" : tag,
+    link["href"]:= file ~ "#" ~ tag,
     link["href"]:= file);
 
   If(target !=? "",link["target"] :=target);
@@ -182,11 +182,11 @@ HtmlFrame(source,name):=
 HtmlTag(tags,content):=
 [
   Local(result,tag,analytics);
-  result:="<" : tags["0"];
+  result:="<" ~ tags["0"];
   ForEach(tag,AssocIndices(tags))
   [
     If (tag !=? "0" And? tags[tag] !=? "",
-       result:= result : " " : tag : "=?" : "\"" : tags[tag] : "\""
+       result:= result ~ " " ~ tag ~ "=?" ~ "\"" ~ tags[tag] ~ "\""
        );
   ];
 
@@ -201,9 +201,9 @@ urchinTracker();
 ");
 
 
-  result:= result : ">" : newline :
-           content : newline :
-           analytics : "</" : tags["0"] : ">" : newline;
+  result:= result ~ ">" ~ newline ~
+           content ~ newline ~
+           analytics ~ "</" ~ tags["0"] ~ ">" ~ newline;
 
   result;
 ];
@@ -211,7 +211,7 @@ urchinTracker();
 /* output directory management */
 htmldir:="";
 SetHtmlDirectory(dir):= [htmldir:=dir;];
-HtmlFile(file) := [htmldir : file;];
+HtmlFile(file) := [htmldir ~ file;];
 
 
 /* loading and saving site info */
@@ -237,13 +237,13 @@ SaveSite():=
 MySQLQuery(pidstr,string):=
 [
   Local(result);
-  PipeToFile("sqlin":pidstr) WriteString(string);
-  SystemCall("mysql mysql < ":"sqlin":pidstr:" > sqlout":pidstr);
-  SystemCall(FindFile("tools/mysqlstubs"):" sqlout":pidstr:" sqlout_":pidstr);
-  result:= PipeFromFile("sqlout_":pidstr)Read();
-  SystemCall("rm -rf sqlin":pidstr);
-  SystemCall("rm -rf sqlout":pidstr);
-  SystemCall("rm -rf sqlout_":pidstr);
+  PipeToFile("sqlin"~pidstr) WriteString(string);
+  SystemCall("mysql mysql < "~"sqlin"~pidstr~" > sqlout"~pidstr);
+  SystemCall(FindFile("tools/mysqlstubs")~" sqlout"~pidstr~" sqlout_"~pidstr);
+  result:= PipeFromFile("sqlout_"~pidstr)Read();
+  SystemCall("rm -rf sqlin"~pidstr);
+  SystemCall("rm -rf sqlout"~pidstr);
+  SystemCall("rm -rf sqlout_"~pidstr);
   result;
 ];
 

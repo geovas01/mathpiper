@@ -12,7 +12,7 @@ OptionsToAssociativeList(optionList) :=
             If(String?(option[1]), key := option[1], key := ToString(option[1]));
             If(String?(option[2]), value := option[2], value := ToString(option[2]));
             
-            associativeList := {key, value} : associativeList;
+            associativeList := {key, value} ~ associativeList;
         
         ]);
     

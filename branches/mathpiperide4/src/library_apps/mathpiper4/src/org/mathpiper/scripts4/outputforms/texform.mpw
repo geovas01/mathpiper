@@ -152,8 +152,8 @@ TeXFormMaxPrec() := 60000;         /* This precedence will never be bracketed. I
 
 120 # TeXForm(_x ^ _y, _p) <-- TeXFormBracketIf(p<=?PrecedenceGet("^"), ConcatStrings(TeXForm(x, PrecedenceGet("^")), " ^{", TeXForm(y, TeXFormMaxPrec()), "}" ) );
 
-100 # TeXForm(if(_pred)_body, _p) <-- "\\textrm{if }(":TeXForm(pred,60000):") ":TeXForm(body,60000);
-100 # TeXForm(_left else _right, _p) <-- TeXForm(left,60000):"\\textrm{ else }":TeXForm(right,60000);
+100 # TeXForm(if(_pred)_body, _p) <-- "\\textrm{if }("~TeXForm(pred,60000)~") "~TeXForm(body,60000);
+100 # TeXForm(_left else _right, _p) <-- TeXForm(left,60000)~"\\textrm{ else }"~TeXForm(right,60000);
 
 
 /* functions */
@@ -347,8 +347,8 @@ LocalSymbols(TeXFormMathFunctions, TeXFormMathFunctions2) [
 100 # TeXForm(Deriv(_x, _n)_y, _p) <-- TeXFormBracketIf(p<?PrecedenceGet("-"), ConcatStrings(
         If(
                 Length(VarList(y))>?1,
-                "\\frac{\\partial^" : TeXForm(n, TeXFormMaxPrec()) : "}{\\partial ",
-                "\\frac{d^" : TeXForm(n, TeXFormMaxPrec()) : "}{d "
+                "\\frac{\\partial^" ~ TeXForm(n, TeXFormMaxPrec()) ~ "}{\\partial ",
+                "\\frac{d^" ~ TeXForm(n, TeXFormMaxPrec()) ~ "}{d "
         ), TeXForm(x, PrecedenceGet("^")), " ^", TeXForm(n, TeXFormMaxPrec()), "}", TeXForm(y, PrecedenceGet("/")) ) );
 100 # TeXForm(Differentiate(_x)_y, _p) <-- TeXForm(Deriv(x) y, p);
 100 # TeXForm(Differentiate(_x, _n)_y, _p) <-- TeXForm(Deriv(x, n) y, p);

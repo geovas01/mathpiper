@@ -63,7 +63,7 @@ Function(AddFoundSolutionSingle,{p})
       Local(lgcd,lc);
       Bind(lgcd,Gcd({andiv,an,root}));
       Bind(lc,Quotient(an,lgcd));
-      Bind(result,{var+ (-(Quotient(root,lgcd)/lc)),count}:result);
+      Bind(result,{var+ (-(Quotient(root,lgcd)/lc)),count}~result);
       Bind(andiv,Quotient(andiv,lgcd^count));
       Bind(anmul,anmul*lc^count);
 
@@ -171,14 +171,14 @@ Function(Fct,{poly,var})
   Bind(mask,AddN(twoq,MathNegate(1)));
   if (Even?(testpoly[1]))
   [
-    Bind(accu,0:accu);
+    Bind(accu,0~accu);
     AddFoundSolutionSingle(0);
   ];
   Bind(p,1);
   Bind(calc, Eval(lastcoef));
   If (Even?(calc),
   [
-    Bind(accu,1:accu);
+    Bind(accu,1~accu);
     AddFoundSolution(1);
   ]);
   Bind(q,twoq);
@@ -197,7 +197,7 @@ Function(Fct,{poly,var})
       Bind(calc, BitAnd(calc, mask));
       If ( Equal?(calc, 0),
       [
-        Bind(newaccu, p:newaccu);
+        Bind(newaccu, p~newaccu);
         AddFoundSolutionSingle(-2*q+p);
       ]);
       Bind(calc, AddN(calc, Eval(ord)));
@@ -207,7 +207,7 @@ Function(Fct,{poly,var})
       Bind(calc, BitAnd(calc, mask));
       If ( Equal?(calc, 0),
       [
-        Bind(newaccu, AddN(p,q):newaccu);
+        Bind(newaccu, AddN(p,q)~newaccu);
         AddFoundSolution(AddN(p,q));
       ]);
     ];
@@ -229,7 +229,7 @@ Function(Fct,{poly,var})
   If(Not? Zero?(unrat * andiv ),Bind(poly,poly/(unrat * andiv )));
   If(poly !=? {1},
   [
-    result:={(Add(poly*var^(0 .. (Length(poly)-1)))),1}:result;
+    result:={(Add(poly*var^(0 .. (Length(poly)-1)))),1}~result;
   ]);
   result;
 ];
@@ -340,7 +340,7 @@ TestPoly(poly,requiredResult):=
     ForEach(item2,realResult)
     [
       If(Simplify(item1-item2) =? {0,0},
-        intersection := (item1:intersection));
+        intersection := (item1~intersection));
     ];
   Verify(Length(realResult),Length(intersection/*Intersection(requiredResult,realResult)*/));
   Verify(Simplify(poly-FW(realResult)),0);

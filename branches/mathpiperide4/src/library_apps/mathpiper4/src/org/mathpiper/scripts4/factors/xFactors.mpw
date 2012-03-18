@@ -380,7 +380,7 @@ UnFence("ApproximateRealCoefficients",1);
                 If( InVerboseMode(), Echo("     ",{a,b}) );
                 If( NumericList?( {a,b} ),
                     t := t * a^b,
-                    f := {a,b}:f
+                    f := {a,b}~f
                 );
             ],
               err := True
@@ -393,7 +393,7 @@ UnFence("ApproximateRealCoefficients",1);
             Echo("    err = ",err);
         ]
       );
-      ff := If(Not? err And? t !=? 1, {t,1}:Reverse(f), factrs);
+      ff := If(Not? err And? t !=? 1, {t,1}~Reverse(f), factrs);
       ff := Select(Lambda({x},x!=?{1,1}),ff);
       If(ff[1]<?0,ff[1]:=-ff[1]);
 ];

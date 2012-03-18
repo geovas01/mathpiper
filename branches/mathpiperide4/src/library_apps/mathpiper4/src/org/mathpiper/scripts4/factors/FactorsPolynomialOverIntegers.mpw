@@ -102,10 +102,10 @@
                 rr := TryToReduceSpecialPolynomial(r[1]);
                 If( List?(rr),newResult := Concat(newResult,rr) );
             ],
-                If( r !=? {1,1}, newResult := r:newResult )
+                If( r !=? {1,1}, newResult := r~newResult )
           );
     ];  
-    If(gtotal>?1,newResult:={gtotal,1}:newResult);
+    If(gtotal>?1,newResult:={gtotal,1}~newResult);
     newResult;
 ];
 

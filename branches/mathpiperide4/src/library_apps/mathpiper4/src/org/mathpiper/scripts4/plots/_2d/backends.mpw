@@ -44,21 +44,21 @@ Plot2DJava(values_List?, _optionsHash) <--
   count := 0;
   result:="$plot2d:";
 
-  result := result:" pensize 2.0 ";
+  result := result~" pensize 2.0 ";
   ForEach(function,values)
   [
-    result := result:ColorForGraphNr(count);
+    result := result~ColorForGraphNr(count);
     count++;
-    result:=result:" lines2d ":ToString(Length(function));
+    result:=result~" lines2d "~ToString(Length(function));
 
     function:=Select(function, Lambda({item},item[2] !=? Undefined));
 
     ForEach(item,function)
     [
-      result := result:" ":ToString(item[1]):" ":ToString(item[2]):" ";
+      result := result~" "~ToString(item[1])~" "~ToString(item[2])~" ";
     ];
   ];
-  WriteString(result:"$");
+  WriteString(result~"$");
   True;
 ];
 
@@ -85,7 +85,7 @@ Plot2DGeogebra(values_List?, _optionsHash) <--
 
     ForEach(item,function)
     [
-      result := result:"(":ToString(item[1]):",":ToString(item[2]):")":Nl();
+      result := result~"("~ToString(item[1])~","~ToString(item[2])~")"~Nl();
     ];
   ];
   WriteString(result);

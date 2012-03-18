@@ -11,7 +11,7 @@ HeapSortIndexed1( L_List?, _compare ) <--
 
   list    := FlatCopy(L);
   indices := Table(i,i,1,Length(list),1);
-  pairs   := Transpose(list:{indices});
+  pairs   := Transpose(list~{indices});
   SortedPairs := {};
   sortedPairs := If( Apply(compare,{3,5}), 
      HeapSort( pairs, Lambda({X,Y},X[1] <? Y[1]) ),

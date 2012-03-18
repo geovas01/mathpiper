@@ -66,11 +66,11 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
                 ]
         );
         If(
-                Type(xrange) =? ":",        // simple range
+                Type(xrange) =? "~",        // simple range
                 xrange := N(Eval({xrange[1], xrange[2]}))
         );
         If(
-                Type(yrange) =? ":",        // simple range
+                Type(yrange) =? "~",        // simple range
                 yrange := N(Eval({yrange[1], yrange[2]}))
         );
         // set default option values
@@ -124,12 +124,12 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
         Check(NumericList?({xrange[1], xrange[2], optionshash["xpoints"], optionshash["ypoints"], optionshash["precision"]}),
                 "Argument", 
                 "Plot3DS: Error: plotting ranges "
-                :(PipeToString()Write(xrange, yrange))
-                :" and/or the number of points "
-                :(PipeToString()Write(optionshash["xpoints"], optionshash["ypoints"]))
-                :" and/or precision "
-                :(PipeToString()Write(optionshash["precision"]))
-                :" is not numeric"
+                ~(PipeToString()Write(xrange, yrange))
+                ~" and/or the number of points "
+                ~(PipeToString()Write(optionshash["xpoints"], optionshash["ypoints"]))
+                ~" and/or precision "
+                ~(PipeToString()Write(optionshash["precision"]))
+                ~" is not numeric"
         );
         // loop over functions in the list
         ForEach(func, funclist)
@@ -137,7 +137,7 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
                 // obtain name of variable
                 var := VarList(func);        // variable names in a list
             Check(Length(var)<=?2, "Argument", "Plot3DS: Error: expression is not a function of at most two variables: "
-                        :(PipeToString()Write(func))
+                        ~(PipeToString()Write(func))
                 );
                 // Allow plotting of constant functions
                 If(Length(var)=?0, var:={dummy, dummy});
@@ -159,12 +159,12 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
                 Check(Number?(fc) Or? fc=?Infinity Or? fc=? -Infinity Or? fc=?Undefined,
                         "Argument", 
                         "Plot3DS: Error: cannot evaluate function "
-                        :(PipeToString()Write(func))
-                        :" at point "
-                        :(PipeToString()Write(cx, cy))
-                        :" to a number, instead got "
-                        :(PipeToString()Write(fc))
-                        :""
+                        ~(PipeToString()Write(func))
+                        ~" at point "
+                        ~(PipeToString()Write(cx, cy))
+                        ~" to a number, instead got "
+                        ~(PipeToString()Write(fc))
+                        ~""
                 );
                 // compute all other data points
                 DestructiveAppend(allvalues, RemoveRepeated(HeapSort( Plot3DSgetdata(func, var, {cx, cy, fc}, {xdelta, ydelta}, optionshash), Hold({{x,y},x[1]<?y[1] Or? x[1] =? y[1] And? x[2] <=? y[2] } ) )) );

@@ -67,7 +67,7 @@
                   Echo("facs ",facs);
                  ]
               );
-              result := {(1/lcm),1}:facs;
+              result := {(1/lcm),1}~facs;
               //NOT FINISHED YET
         ]
       );
@@ -121,23 +121,23 @@
 //                    S P E C I A L     C A S E S
 //------------------------------------------------------------------------
 
-10 # FactorsMultivariateSpecialCases(-_expr) <-- {-1,1}:FactorsMultivariateSpecialCases(expr);
+10 # FactorsMultivariateSpecialCases(-_expr) <-- {-1,1}~FactorsMultivariateSpecialCases(expr);
 
 10 # FactorsMultivariateSpecialCases(x_Atom? + y_Atom?) <-- [If(InVerboseMode(),Tell(1));{{x+y,1}};];
 
 10 # FactorsMultivariateSpecialCases(x_Atom? - y_Atom?) <-- [If(InVerboseMode(),Tell(2));{{x-y,1}};];
 
-10 # FactorsMultivariateSpecialCases(_n*_x^p_Integer? + _n*_y) <-- [If(InVerboseMode(),Tell(3));{n,1}:FactorsMultivariateSpecialCases(x+y);];
+10 # FactorsMultivariateSpecialCases(_n*_x^p_Integer? + _n*_y) <-- [If(InVerboseMode(),Tell(3));{n,1}~FactorsMultivariateSpecialCases(x+y);];
 
-10 # FactorsMultivariateSpecialCases(_n*_x^p_Integer? - _n*_y) <-- [If(InVerboseMode(),Tell(4));{n,1}:FactorsMultivariateSpecialCases(x-y);];
+10 # FactorsMultivariateSpecialCases(_n*_x^p_Integer? - _n*_y) <-- [If(InVerboseMode(),Tell(4));{n,1}~FactorsMultivariateSpecialCases(x-y);];
 
 10 # FactorsMultivariateSpecialCases(n_Integer?*_x + m_Integer?*_y)_(Gcd(n,m)>?1) <-- {{Gcd(n,m),1},{(Simplify((n*x+m*y)/Gcd(n,m))),1}};
 
 10 # FactorsMultivariateSpecialCases(n_Integer?*_x - m_Integer?*_y)_(Gcd(n,m)>?1) <-- {{Gcd(n,m),1},{(Simplify((n*x-m*y)/Gcd(n,m))),1}};
 
-10 # FactorsMultivariateSpecialCases(_n*_x + _n*_y) <-- {n,1}:FactorsMultivariateSpecialCases(x+y);
+10 # FactorsMultivariateSpecialCases(_n*_x + _n*_y) <-- {n,1}~FactorsMultivariateSpecialCases(x+y);
 
-10 # FactorsMultivariateSpecialCases(_n*_x - _n*_y) <-- {n,1}:FactorsMultivariateSpecialCases(x-y);
+10 # FactorsMultivariateSpecialCases(_n*_x - _n*_y) <-- {n,1}~FactorsMultivariateSpecialCases(x-y);
 
 10 # FactorsMultivariateSpecialCases(_x^n_Integer? - _y) <-- FactorsBinomials(x^n - y); 
 
@@ -172,7 +172,7 @@
                   If( InVerboseMode(), Echo("     ",{a,b}) );
                   If( NumericList?( {a,b} ),
                       t := t * a^b,
-                      f := {a,b}:f
+                      f := {a,b}~f
                   );
               ],
               err := True
@@ -185,7 +185,7 @@
             Echo("    err = ",err);
         ]
       );
-      If(Not? err And? t !=? 1, {t,1}:Reverse(f), factrs);
+      If(Not? err And? t !=? 1, {t,1}~Reverse(f), factrs);
   ];
 
 %/mathpiper

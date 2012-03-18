@@ -30,7 +30,7 @@ LocalSymbols(ZoomInOnce)
                 
                 zoomIndexes := Append(zoomIndexes, Length(output));
                 
-                numbersString := numbersString : output : PipeToString() Space(3);
+                numbersString := numbersString ~ output ~ PipeToString() Space(3);
                 
                 outputWidth := outputWidth + Length(output) + 3;
             

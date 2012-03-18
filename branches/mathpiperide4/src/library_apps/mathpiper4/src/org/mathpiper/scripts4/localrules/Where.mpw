@@ -21,7 +21,7 @@ UnFence("Where",2);
        head:=First(list);
        rest:=Rest(list);
        rest:= `(@body Where @rest);
-       `(@body Where @head) : rest;
+       `(@body Where @head) ~ rest;
      ];
 
 50 # (_body Where list_List?)

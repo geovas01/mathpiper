@@ -727,7 +727,7 @@ public class Utility {
 
 
         } catch (Exception e) {
-            //System.out.println(e.getMessage()); e.printStackTrace(); //todo:tk:uncomment for debugging.
+            System.out.println(e.getMessage()); e.printStackTrace(); //todo:tk:uncomment for debugging.
 
             throw e;
         } finally {

@@ -64,7 +64,7 @@ DebugRemoveBreakAt(file,line):=
 
 DebugStop():=[debugging:=False;debugstopped:=True;CustomEvalStop();];
 DebugVerbose(verbose):=[debugverbose:=verbose;];
-DebugAddBreakpoint(fname_String?) <-- [ breakpoints := fname:breakpoints;];
+DebugAddBreakpoint(fname_String?) <-- [ breakpoints := fname~breakpoints;];
 Macro(DebugBreakIf,{predicate})
 [
   breakpredicate:= Hold(@predicate);
@@ -101,7 +101,7 @@ DebugCallstack() <--
 
 Macro(DebugEnter,{})
 [
-  debugcallstack := CustomEvalExpression():debugcallstack;
+  debugcallstack := CustomEvalExpression()~debugcallstack;
   // custom breakpoint (custom predicate thought up by the programmer)
   If(debugging =? False And?
       Eval(breakpredicate) =? True,
@@ -138,7 +138,7 @@ Macro(DebugEnter,{})
      Echo(">>> ",CustomEvalExpression());
      While(debugging)
      [
-        Echo("DebugResult: ",Eval(PipeFromString(ReadCmdLineString("Debug> "):";")Read()));
+        Echo("DebugResult: ",Eval(PipeFromString(ReadCmdLineString("Debug> ")~";")Read()));
     //      If(debugging,Echo("DebugResult: ",debugRes));
        If(IsExitRequested(),debugging:=False);
      ];
@@ -198,7 +198,7 @@ Macro(EchoTime,{expression})
 
 
 // ClearScreenString : the ascii escape codes to clear the screen
-ClearScreenString := UnicodeToString(27):"[2J":UnicodeToString(27):"[1;1H";
+ClearScreenString := UnicodeToString(27)~"[2J"~UnicodeToString(27)~"[1;1H";
 
 // WriteLines: do the actual outputting of lines of a file to screen
 WriteLines(filename,lines,from,nrlines,breakpoints,current):=

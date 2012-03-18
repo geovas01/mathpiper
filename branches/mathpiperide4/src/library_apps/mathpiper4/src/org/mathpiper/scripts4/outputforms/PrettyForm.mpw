@@ -66,7 +66,7 @@ CharList(length,item):=
   Local(line,i);
   line:="";
   For(Bind(i,0),LessThan?(i,length),Bind(i,AddN(i,1)))
-    Bind(line, line:item);
+    Bind(line, line~item);
   line;
 ];
 
@@ -213,7 +213,7 @@ AlignBase(i1,i2):=
 
         MoveOper(item2,comma[1]+comma[3]+1,SubtractN(base,(item2[7])));
         Bind(newitem, MakeOper(0,0,AddN(item2[1],item2[3]),Maximum(item1[4],item2[4]),"Func",{item1,comma,item2},base));
-        BuildArgs(newitem:Rest(Rest(any)));
+        BuildArgs(newitem~Rest(Rest(any)));
       ];
 
 
