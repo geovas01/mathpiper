@@ -1,0 +1,999 @@
+
+html
+    html.mpw -> **** Does not contain docs ****
+integrate
+    AntiDeriv.mpw -> **** Does not contain docs ****
+    Integrate.mpw -> Integrate: integration, 
+    MatchLinear.mpw -> MatchLinear: match an expression to a polynomial of degree one in a variable, 
+io
+    Assert.mpw -> Assert: signal "soft" custom error, 
+    DefaultPrint.mpw -> **** Does not contain docs ****
+    DumpErrors.mpw -> DumpErrors: simple error handlers, 
+    Echo.mpw -> Echo: high-level printing routine, 
+    Error_.mpw -> Error?: check for custom error, 
+    GetErrorTableau.mpw -> ClearErrors: simple error handlers, GetError: custom errors handlers, ClearError: custom errors handlers, GetErrorTableau: custom errors handlers, 
+    Print.mpw -> **** Does not contain docs ****
+    Show.mpw -> Show: debug routine using SysOut to print ID and (optional) variable(s), 
+    TableForm.mpw -> TableForm: print each entry in a list on a line, 
+    Tell.mpw -> Tell: debug routine using Echo to print ID and (optional) variable(s), 
+limit
+    Limit.mpw -> Limit: limit of an expression, 
+linalg
+    BaseVector.mpw -> BaseVector: base vector, 
+    CartesianProduct.mpw -> CartesianProduct: returns the Cartesian product of two lists, 
+    Cholesky.mpw -> Cholesky: find the Cholesky Decomposition, 
+    CoFactor.mpw -> CoFactor: cofactor of a matrix, 
+    CrossProduct.mpw -> CrossProduct: outer product of vectors, 
+    Deteminant.mpw -> Determinant: determinant of a matrix, 
+    Diagonal.mpw -> Diagonal: extract the diagonal from a matrix, 
+    DiagonalMatrix.mpw -> DiagonalMatrix: construct a diagonal matrix, 
+    Dimensions.mpw -> Dimensions: dimensions (number of rows and columns etc) of input Matrix, 
+    Dot.mpw -> Dot: get dot product of tensors, 
+    ExtractSubmatrix.mpw -> ExtractSubMatrix: Extract a submatrix from a given matrix, 
+    FrobeniusNorm.mpw -> FrobeniusNorm: todo, 
+    GaussianDeterminant.mpw -> GaussianDeterminant: todo, 
+    GenMatrix.mpw -> GenMatrix: generate a matrix with a function, 
+    HankelMatrix.mpw -> HankelMatrix: todo, 
+    HessianMatrix.mpw -> HessianMatrix: create the Hessian matrix, 
+    HilbertInverseMatrix.mpw -> HilbertInverseMatrix: create a Hilbert inverse matrix, 
+    HilbertMatrix.mpw -> HilbertMatrix: create a Hilbert matrix, 
+    Identity.mpw -> Identity: make identity matrix, 
+    InProduct.mpw -> InProduct: inner product of vectors (deprecated), 
+    InfinityNorm.mpw -> InfinityNorm: Compute the "Infinity Norm" of a Vector or Matrix, 
+    Inverse.mpw -> Inverse: get inverse of a matrix, 
+    JacobianMatrix.mpw -> JacobianMatrix: calculate the Jacobian matrix of $n$ functions in $n$ variables, 
+    LU.mpw -> LU: in-place LU decomposition, 
+    LeviCivita.mpw -> LeviCivita: totally anti-symmetric Levi-Civita symbol, 
+    MatrixPower.mpw -> MatrixPower: get nth power of a square matrix, 
+    MatrixSolve.mpw -> MatrixSolve: solve a system of equations, 
+    Minor.mpw -> Minor: get principal minor of a matrix, 
+    Norm.mpw -> Norm: the norm (magnitude or length) of a vector, 
+    Normalize.mpw -> Normalize: normalize a vector, 
+    OrthogonalBasis.mpw -> OrthogonalBasis: create an orthogonal basis, 
+    OrthonormalBasis.mpw -> OrthonormalBasis: create an orthonormal basis, 
+    Outer.mpw -> Outer: get outer tensor product, 
+    PNorm.mpw -> PNorm: todo:?, 
+    RREF.mpw -> RREF: convert a system of equations to reduced row echelon form, 
+    RecursiveDeterminant.mpw -> RecursiveDeterminant: computes a determinant recursively, 
+    Sparsity.mpw -> Sparsity: get the sparsity of a matrix, 
+    SylvesterMatrix.mpw -> SylvesterMatrix: calculate the Sylvester matrix of two polynomials, 
+    SymbolicDeterminant.mpw -> SymbolicDeterminant: todo, 
+    ToeplitzMatrix.mpw -> ToeplitzMatrix: create a Toeplitz matrix, 
+    Trace.mpw -> Trace: trace of a matrix, 
+    Transpose.mpw -> Transpose: get transpose of a matrix, 
+    VandermondeMatrix.mpw -> VandermondeMatrix: create the Vandermonde matrix, 
+    WilkinsonMatrix.mpw -> **** Does not contain docs ****
+    WronskianMatrix.mpw -> WronskianMatrix: create the Wronskian matrix, 
+    X_operator.mpw -> X: todo, 
+    ZeroMatrix.mpw -> ZeroMatrix: make a zero matrix, 
+    ZeroVector.mpw -> ZeroVector: create a vector with all zeroes, 
+    linear_algebra_tests.mpw -> **** Does not contain docs ****
+    o_operator.mpw -> o: get outer tensor product, 
+    period_operator.mpw -> **** Does not contain docs ****
+    rowandcolumnoperations
+        MatrixColumn.mpw -> MatrixColumn: obtain the column of a matrix, 
+        MatrixColumnAugment.mpw -> **** Does not contain docs ****
+        MatrixColumnReplace.mpw -> **** Does not contain docs ****
+        MatrixColumnSwap.mpw -> **** Does not contain docs ****
+        MatrixRow.mpw -> MatrixRow: obtain the row of a matrix, 
+        MatrixRowReplace.mpw -> **** Does not contain docs ****
+        MatrixRowStack.mpw -> **** Does not contain docs ****
+        MatrixRowSwap.mpw -> **** Does not contain docs ****
+lists
+    Append.mpw -> Append: append an entry at the end of a list, 
+    BSearch.mpw -> **** Does not contain docs ****
+    BubbleSort.mpw -> BubbleSort: sort a list, 
+    Contains.mpw -> Contains?: test whether a list contains a certain element, 
+    Count.mpw -> Count: count the number of occurrences of an expression, 
+    DestructiveAppend.mpw -> DestructiveAppend: destructively append an entry to a list, 
+    DestructiveAppendList.mpw -> **** Does not contain docs ****
+    Difference.mpw -> Difference: return the difference of two lists, 
+    Drop.mpw -> Drop: drop a range of elements from a list, 
+    FillList.mpw -> FillList: fill a list with a certain expression, 
+    Find.mpw -> Find: get the index at which a certain element occurs, 
+    FindIsq.mpw -> **** Does not contain docs ****
+    FindPredicate.mpw -> **** Does not contain docs ****
+    FuncList.mpw -> FuncList: list of functions used in an expression, 
+    FuncListArith.mpw -> FuncListArith: list of functions used in an expression, 
+    FuncListSome.mpw -> FuncListSome: list of functions used in an expression, 
+    HeapSort.mpw -> HeapSort: sort a list, 
+    Intersection.mpw -> Intersection: return the Intersection of two or more lists, 
+    MacroMapArgs.mpw -> **** Does not contain docs ****
+    MacroMapSingle.mpw -> **** Does not contain docs ****
+    Map.mpw -> Map: apply an $n$-ary function to all entries in a list, 
+    MapArgs.mpw -> MapArgs: apply a function to all top-level arguments, 
+    MapSingle.mpw -> MapSingle: apply a unary function to all entries in a list, 
+    Partition.mpw -> Partition: partition a list in sublists of equal length, 
+    Pop.mpw -> Pop: remove an element from a stack, 
+    PopBack.mpw -> PopBack: remove an element from the bottom of a stack, 
+    PopFront.mpw -> PopFront: remove an element from the top of a stack, 
+    PrintList.mpw -> PrintList: print list with padding, 
+    Push.mpw -> Push: add an element on top of a stack, 
+    Remove.mpw -> Remove: remove all occurrences of an expression from a list, 
+    RemoveDuplicates.mpw -> RemoveDuplicates: remove any duplicates from a list, 
+    Reverse.mpw -> Reverse: return the reversed list (without touching the original), 
+    Select.mpw -> Select: select entries satisfying some predicate, 
+    SmallSort.mpw -> **** Does not contain docs ****
+    Swap.mpw -> Swap: swap two elements in a list, 
+    Table.mpw -> Table: evaluate while some variable ranges over interval, 
+    Take.mpw -> Take: take a sublist from a list (dropping the rest), 
+    Union.mpw -> Union: return the union of two lists, 
+    VarList.mpw -> VarList: list of variables appearing in an expression, 
+    VarListAll.mpw -> **** Does not contain docs ****
+    VarListArith.mpw -> VarListArith: list of variables appearing in an expression, 
+    VarListSome.mpw -> VarListSome: list of variables appearing in an expression, 
+    global_stack.mpw -> GlobalPop: restore variables using a global stack, GlobalPush: restore variables using a global stack, 
+    lists_tests.mpw -> **** Does not contain docs ****
+    scopestack
+        scopestack.mpw -> **** Does not contain docs ****
+localrules
+    AddTo.mpw -> AddTo: add an equation to a set of equations or set of set of equations, 
+    CompilePatterns.mpw -> **** Does not contain docs ****
+    Where.mpw -> Where: substitute result into expression, 
+    lessthan_minus_operator.mpw -> **** Does not contain docs ****
+    slash_colon_colon_operator.mpw -> /::: local simplification rules, 
+    slash_colon_operator.mpw -> /:: local simplification rules, 
+logic
+    CNF.mpw -> **** Does not contain docs ****
+    CanProve.mpw -> CanProve: try to prove statement, 
+    Contradict.mpw -> **** Does not contain docs ****
+    DoUnitSubsumptionAndResolution.mpw -> **** Does not contain docs ****
+    LogicCombine.mpw -> **** Does not contain docs ****
+    LogicFindWith.mpw -> **** Does not contain docs ****
+    LogicRemoveTautologies.mpw -> **** Does not contain docs ****
+    LogicSimplify.mpw -> **** Does not contain docs ****
+    Subsumes.mpw -> **** Does not contain docs ****
+    equals_greaterthan_operator.mpw -> **** Does not contain docs ****
+multivar
+    DisassembleExpression.mpw -> DisassembleExpression: returns a list describing composition of an expression, 
+    Groebner.mpw -> **** Does not contain docs ****
+    ListTerms.mpw -> ListTerms: returns a list of the terms in an expression, 
+    MM.mpw -> **** Does not contain docs ****
+    MultiDivTerm.mpw -> **** Does not contain docs ****
+    MultiDivide.mpw -> **** Does not contain docs ****
+    MultiGcd.mpw -> **** Does not contain docs ****
+    MultiNomial.mpw -> **** Does not contain docs ****
+    MultiSimp.mpw -> **** Does not contain docs ****
+    ReassembleListTerms.mpw -> ReassembleListTerms: returns a list of the terms in an expression, 
+    makemulti
+        MakeMultiNomial.mpw -> **** Does not contain docs ****
+    sparsenomial
+        sparsenomial.mpw -> NormalForm: return expression in normal form, 
+    sparsetree
+        sparsetree.mpw -> **** Does not contain docs ****
+newly
+    BracketRational.mpw -> BracketRational: find optimal rational approximations, 
+    CharacteristicEquation.mpw -> CharacteristicEquation: get characteristic polynomial of a matrix, 
+    ContFrac.mpw -> ContFrac: continued fraction expansion, 
+    ContFracEval.mpw -> ContFracEval: manipulate continued fractions, 
+    ContFracList.mpw -> ContFracList: manipulate continued fractions, 
+    Decimal.mpw -> Decimal: decimal representation of a rational, 
+    EigenValues.mpw -> EigenValues: get eigenvalues of a matrix, 
+    EigenVectors.mpw -> EigenVectors: get eigenvectors of a matrix, 
+    FreeOf_.mpw -> FreeOf?: test whether expression depends on variable, 
+    GuessRational.mpw -> GuessRational: find optimal rational approximations, 
+    InverseTaylor.mpw -> InverseTaylor: Taylor expansion of inverse, 
+    LagrangeInterpolant.mpw -> LagrangeInterpolant: polynomial interpolation, 
+    NearRational.mpw -> NearRational: find optimal rational approximations, 
+    NewLine.mpw -> NewLine: print one or more newline characters, 
+    Nl.mpw -> Nl: the newline character, 
+    ReversePoly.mpw -> ReversePoly: solve $h(f(x)) = g(x) + O(x^n)$ for $h$, 
+    Series.mpw -> **** Does not contain docs ****
+    Space.mpw -> Space: print one or more spaces, 
+    TRun.mpw -> **** Does not contain docs ****
+    UniqueConstant.mpw -> UniqueConstant: create a unique identifier, 
+    WithValue.mpw -> WithValue: temporary assignment during an evaluation, 
+    WriteN.mpw -> **** Does not contain docs ****
+numbers
+    AmicablePair_.mpw -> AmicablePair?: test for a pair of amicable numbers, 
+    BellNumber.mpw -> **** Does not contain docs ****
+    CarmichaelNumber_.mpw -> CarmichaelNumber?: test for a Carmichael number, 
+    CatalanNumber.mpw -> CatalanNumber: return the {n}th Catalan Number, 
+    CheckIntPower.mpw -> **** Does not contain docs ****
+    Composite_.mpw -> Composite?: test for a composite number, 
+    Coprime_.mpw -> Coprime?: test if integers are coprime, 
+    DigitalRoot.mpw -> **** Does not contain docs ****
+    Divisors.mpw -> Divisors: number of divisors, 
+    DivisorsSum.mpw -> DivisorsSum: the sum of  divisors, 
+    Euler.mpw -> Euler: Euler numbers and polynomials, 
+    EulerArray.mpw -> **** Does not contain docs ****
+    Eulerian.mpw -> Eulerian: Eulerian numbers, 
+    FermatNumber.mpw -> FermatNumber: return the {n}th Fermat Number, 
+    GetPrimePower.mpw -> **** Does not contain docs ****
+    HarmonicNumber.mpw -> HarmonicNumber: return the {n}th Harmonic Number, 
+    IntLog.mpw -> IntLog: integer part of logarithm, 
+    IntNthRoot.mpw -> IntNthRoot: integer part of $n$-th root, 
+    IrregularPrime_.mpw -> IrregularPrime?: test for an irregular prime, 
+    LegendreSymbol.mpw -> LegendreSymbol: functions related to finite groups, 
+    Moebius.mpw -> Moebius: the Moebius function, 
+    NextPrime.mpw -> NextPrime: generate a prime following a number, 
+    NextPseudoPrime.mpw -> **** Does not contain docs ****
+    NthRoot.mpw -> NthRoot: calculate/simplify nth root of an integer, 
+    NumberToRep.mpw -> NumberToRep: returns a List showing MathPiper's internal representation of a number, 
+    PartitionsP.mpw -> **** Does not contain docs ****
+    Perfect_.mpw -> **** Does not contain docs ****
+    PrimePower_.mpw -> PrimePower?: test for a power of a prime number, 
+    Prime_.mpw -> Prime?: test for a prime number, 
+    ProductPrimesTo257.mpw -> **** Does not contain docs ****
+    ProperDivisors.mpw -> ProperDivisors: the number of proper divisors, 
+    ProperDivisorsSum.mpw -> ProperDivisorsSum: the sum of proper divisors, 
+    QuadraticResidue_.mpw -> QuadraticResidue?: functions related to finite groups, 
+    Rationalize.mpw -> Rationalize: convert floating point numbers to fractions, 
+    RationalizeNumber.mpw -> **** Does not contain docs ****
+    RepToNumber.mpw -> RepToNumber: "Given a List representing a number as MathPiper stores it, returns the number", 
+    Repunit.mpw -> **** Does not contain docs ****
+    RoundToPlace.mpw -> RoundToPlace: Rounds or Sets a number to the specified "decimal place", 
+    RoundToPrecision.mpw -> RoundToPrecision: Rounds or Sets a number to the specified precision, 
+    SmallPrime_.mpw -> SmallPrime?: test for a prime number, 
+    SquareFree_.mpw -> SquareFree?: test for a square-free number, 
+    StirlingNumber1.mpw -> StirlingNumber1: return the {n m}th Stirling Number of the first kind, 
+    StirlingNumber2.mpw -> StirlingNumber2: return the {n m}th Stirling Number of the second kind, 
+    Totient.mpw -> **** Does not contain docs ****
+    TwinPrime_.mpw -> TwinPrime?: test for a twin prime, 
+    gaussianintegers
+        FactorGaussianInteger.mpw -> **** Does not contain docs ****
+        GaussianFactorPrime.mpw -> **** Does not contain docs ****
+        GaussianFactors.mpw -> GaussianFactors: factorization in Gaussian integers, 
+        GaussianGcd.mpw -> GaussianGcd: greatest common divisor in Gaussian integers, 
+        GaussianInteger_.mpw -> GaussianInteger?: test for a Gaussian integer, 
+        GaussianMod.mpw -> **** Does not contain docs ****
+        GaussianNorm.mpw -> GaussianNorm: norm of a Gaussian integer, 
+        GaussianPrime_.mpw -> GaussianPrime?: test for a Gaussian prime, 
+        GaussianUnit_.mpw -> GaussianUnit?: test for a Gaussian unit, 
+    nthroot
+    numbertheory
+        DivisorsList.mpw -> DivisorsList: the list of divisors, 
+        JacobiSymbol.mpw -> JacobiSymbol: functions related to finite groups, 
+        MoebiusDivisorsList.mpw -> MoebiusDivisorsList: the list of divisors and Moebius values, 
+        RamanujanSum.mpw -> RamanujanSum: compute the "Ramanujan sum", 
+        SquareFreeDivisorsList.mpw -> SquareFreeDivisorsList: the list of square-free divisors, 
+        SumForDivisors.mpw -> SumForDivisors: loop over divisors, 
+odesolver
+    odesolver.mpw -> OdeSolve: general ODE solver, OdeTest: test the solution of an ODE, OdeOrder: return order of an ODE, 
+orthopoly
+    orthopoly.mpw -> EvaluateHornerScheme: fast evaluation of polynomials, OrthoP: Legendre and Jacobi orthogonal polynomials, OrthoH: Hermite orthogonal polynomials, OrthoG: Gegenbauer orthogonal polynomials, OrthoL: Laguerre orthogonal polynomials, OrthoT: Chebyshev polynomials, OrthoU: Chebyshev polynomials, OrthoPSum: sums of series of orthogonal polynomials, OrthoHSum: sums of series of orthogonal polynomials, OrthoLSum: sums of series of orthogonal polynomials, OrthoGSum: sums of series of orthogonal polynomials, OrthoTSum: sums of series of orthogonal polynomials, OrthoUSum: sums of series of orthogonal polynomials, OrthoPoly: internal function for constructing orthogonal polynomials, OrthoPolySum: internal function for computing series of orthogonal polynomials, 
+outputforms
+    CForm.mpw -> CForm: export expression to C++ code, 
+    CFormable_.mpw -> CFormable?: check possibility to export expression to C++ code, 
+    PrettyForm.mpw -> PrettyForm: print an expression nicely with ASCII art, EvalFormula: print an evaluation nicely with ASCII art, 
+    openmath.mpw -> OMForm: convert MathPiper expression to OpenMath, OMRead: convert MathPiper expression to OpenMath, OMDef: define translations from MathPiper to OpenMath and vice-versa., 
+    texform.mpw -> TeXForm: export expressions to $LaTeX$, 
+padic
+    Apart.mpw -> Apart: creates a partial fraction expansion of a polynomial, 
+    ChineseRemainderInteger.mpw -> **** Does not contain docs ****
+    ChineseRemainderPoly.mpw -> **** Does not contain docs ****
+    ExtendedEuclidean.mpw -> **** Does not contain docs ****
+    ExtendedEuclideanMonic.mpw -> **** Does not contain docs ****
+    GcdReduce.mpw -> **** Does not contain docs ****
+    PAdicExpand.mpw -> PAdicExpand: p-adic expansion, 
+    PAdicExpandInternal.mpw -> **** Does not contain docs ****
+    PartFracExpand.mpw -> **** Does not contain docs ****
+    RationalForm.mpw -> **** Does not contain docs ****
+    Together.mpw -> Together: places terms in a sum over a common denominator and cancels factors in the result, 
+patterns
+    DefinePattern.mpw -> DefinePattern: defines a rule which uses a pattern as its predicate, 
+    MakeVector.mpw -> MakeVector: vector of uniquely numbered variable names, 
+    lessthan_negative_negative_operator.mpw -> <--: defines a rule which uses patterns and predicate functions to determine if it is true or not, 
+    pound_operator.mpw -> **** Does not contain docs ****
+plots
+    OptionsListToHash.mpw -> **** Does not contain docs ****
+    RemoveRepeated.mpw -> **** Does not contain docs ****
+    WriteDataItem.mpw -> **** Does not contain docs ****
+    _2d
+        backends.mpw -> **** Does not contain docs ****
+        plot2d.mpw -> Plot2D: adaptive two-dimensional plotting, 
+    _3d
+        backends.mpw -> **** Does not contain docs ****
+        plot3ds.mpw -> Plot3DS: three-dimensional (surface) plotting, 
+    signchange.mpw -> **** Does not contain docs ****
+predicates
+    AllSatisfy_.mpw -> AllSatisfy?: Check if all elements of list {lst} satisfy predicate {pred}, 
+    BooleanType_.mpw -> **** Does not contain docs ****
+    Boolean_.mpw -> Boolean?: test for a Boolean value, 
+    Constant_.mpw -> Constant?: test for a constant, 
+    Diagonal_.mpw -> Diagonal?: test for a diagonal matrix, 
+    Equation_.mpw -> Equation?: Return true if {expr} is an Equation False otherwise, 
+    EvenFunction_.mpw -> EvenFunction?: Return true if function is an even function (False otherwise), 
+    Even_.mpw -> Even?: test for an even integer, 
+    FloatIsInt_.mpw -> **** Does not contain docs ****
+    HasExpressionArithmetic_.mpw -> HasExpressionArithmetic?: check for expression containing a subexpression, 
+    HasExpressionSome_.mpw -> HasExpressionSome?: check for expression containing a subexpression, 
+    HasExpression_.mpw -> HasExpression?: check for expression containing a subexpression, 
+    HasFunctionArithmetic_.mpw -> HasFunctionArithmetic?: check for expression containing a function, 
+    HasFunctionSome_.mpw -> HasFunctionSome?: check for expression containing a function, 
+    HasFunction_.mpw -> HasFunction?: check for expression containing a function, 
+    Hermitian_.mpw -> Hermitian?: test for a Hermitian matrix, 
+    Idempotent_.mpw -> Idempotent?: test for an idempotent matrix, 
+    Infinity_.mpw -> Infinity?: test for an infinity, 
+    ListHasFunctionSome_.mpw -> **** Does not contain docs ****
+    ListHasFunction_.mpw -> ListHasFunction?: test for one of the elements of a list to contain a function, 
+    LowerTriangular_.mpw -> LowerTriangular?: test for a lower triangular matrix, 
+    Monomial_.mpw -> Monomial?: determine if {expr} is a Monomial, 
+    NegativeInteger_.mpw -> NegativeInteger?: test for a negative integer, 
+    NegativeNumber_.mpw -> NegativeNumber?: test for a negative number, 
+    NegativeReal_.mpw -> NegativeReal?: test for a numerically negative value, 
+    NonNegativeInteger_.mpw -> **** Does not contain docs ****
+    NonNegativeNumber_.mpw -> **** Does not contain docs ****
+    NonZeroInteger_.mpw -> NonZeroInteger?: test for a nonzero integer, 
+    NoneSatisfy_.mpw -> NoneSatisfy?: Check if NO element of list {lst} satisfies predicate {pred}, 
+    NotZero_.mpw -> NotZero?: test for a nonzero number, 
+    NumericList_.mpw -> NumericList?: test for a list of numbers, 
+    OddFunction_.mpw -> OddFunction?: Return true if function is an odd function (False otherwise), 
+    Odd_.mpw -> Odd?: test for an odd integer, 
+    One_.mpw -> **** Does not contain docs ****
+    Orthogonal_.mpw -> Orthogonal?: test for an orthogonal matrix, 
+    PolynomialOverIntegers_.mpw -> PolynomialOverIntegers?: Check if {expr} is a polynomial in variable {var} all of whose coefficients are integers, 
+    Polynomial_.mpw -> Polynomial?: Check if {expr} is a polynomial in variable {var} if {var} is specified., 
+    PositiveInteger_.mpw -> PositiveInteger?: test for a positive integer, 
+    PositiveNumber_.mpw -> PositiveNumber?: test for a positive number, 
+    PositiveReal_.mpw -> PositiveReal?: test for a numerically positive value, 
+    RationalFunction_.mpw -> RationalFunction?: test for a Rational Function, 
+    RationalOrNumber_.mpw -> **** Does not contain docs ****
+    Rational_.mpw -> Rational?: test whether argument is a rational, 
+    SkewSymmetric_.mpw -> SkewSymmetric?: test for a skew-symmetric matrix, 
+    SumOfTerms_.mpw -> SumOfTerms?: check for expression being a sum of terms in variable, 
+    Symmetric_.mpw -> Symmetric?: test for a symmetric matrix, 
+    Unitary_.mpw -> Unitary?: test for a unitary matrix, 
+    UpperTriangular_.mpw -> UpperTriangular?: test for an upper triangular matrix, 
+    Variable_.mpw -> **** Does not contain docs ****
+    ZeroVector_.mpw -> ZeroVector?: test whether list contains only zeroes, 
+    Zero_.mpw -> Zero?: test whether argument is zero, 
+    matrix.mpw -> Scalar?: test for a scalar, Vector?: test for a vector, Matrix?: test for a matrix, SquareMatrix?: test for a square matrix, 
+probability
+    CDF.mpw -> CDF: cumulative distribution function, 
+    Expectation.mpw -> Expectation: expectation function, 
+    PDF.mpw -> PDF: probability density function, 
+    PMF.mpw -> PMF: probability mass function, 
+proposed
+    equations
+        ManipEquations.mpw -> **** Does not contain docs ****
+        Manipulate.mpw -> **** Does not contain docs ****
+        SolveSetEqns.mpw -> **** Does not contain docs ****
+    geogebra
+        ControlChart.mpw -> **** Does not contain docs ****
+        GeoGebra.mpw -> **** Does not contain docs ****
+        GeoGebraHistogram.mpw -> **** Does not contain docs ****
+        GeoGebraPlot.mpw -> **** Does not contain docs ****
+        GeoGebraPoint.mpw -> **** Does not contain docs ****
+        ggbLine.mpw -> **** Does not contain docs ****
+    geometry
+        Distance.mpw -> Distance: returns the distance between two points, 
+        Midpoint.mpw -> Midpoint: returns a Point which represents the midpoint between two points, 
+        Point.mpw -> Point: return a list which contains a point, 
+        Point_.mpw -> Point?: test for a point, 
+        Segment.mpw -> Segment: returns a list which contains the endpoints of a segment, 
+        Segment_.mpw -> Segment?: test for a segment, 
+        Slope.mpw -> Slope: returns the slope of a line which is represented by two points, 
+    highschool
+        HighschoolForm.mpw -> **** Does not contain docs ****
+    jas
+        jas_test.mpw -> **** Does not contain docs ****
+    jfreechart
+        JFreeChartHistogram.mpw -> **** Does not contain docs ****
+    miscellaneous
+        CombinationsList.mpw -> CombinationsList: return all of the combinations from a given list taken r at a time, 
+        ElementCount.mpw -> ElementCount: counts the number of elements in a list or nested list, 
+        JavaAccess.mpw -> **** Does not contain docs ****
+        ListOfLists_.mpw -> ListOfLists?: determine if {list} is a list of lists, 
+        ListToString.mpw -> ListToString: converts a list into a string, 
+        NumberLinePrintZoom.mpw -> NumberLinePrintZoom: zooms into the number line, 
+        OptionsToAssociativeList.mpw -> OptionsToAssociativeList: converts an options list into an associative list, 
+        PadLeft.mpw -> PadLeft: converts a number into a string which has a specified width, 
+        RForm.mpw -> RForm: export expression to R code, 
+        StringToList.mpw -> StringToList: converts a string into a list, 
+        StringToNumber.mpw -> StringToNumber: Convert a base-10 number in string form to its numeric value, 
+        VerifyNumeric.mpw -> VerifyNumeric: numerically evaluates two expressions to indicate if they may be equivalent or not, 
+    statistics
+        AlphaToChiSquareScore.mpw -> AlphaToChiSquareScore: calculates the chi square score of a given alpha probability, 
+        AnovaCompletelyRandomizedBlock.mpw -> AnovaCompletelyRandomizedBlock: performs an ANOVA completely randomized block analysis, 
+        AnovaSingleFactor.mpw -> AnovaSingleFactor: performs an ANOVA single factor analysis, 
+        BinomialDistributionMean.mpw -> BinomialDistributionMean: the mean of a binomial distribution, 
+        BinomialDistributionStandardDeviation.mpw -> BinomialDistributionStandardDeviation: the standard deviation of a binomial distribution, 
+        ChiSquareScoreToAlpha.mpw -> ChiSquareScoreToAlpha: calculates the alpha probability of a chi square score, 
+        CoefficientOfDetermination.mpw -> CoefficientOfDetermination: calculates the correlation coefficient between two lists of values, 
+        ConfidenceIntervalOfTheMean.mpw -> ConfidenceIntervalOfTheMean: calculates a confidence interval, 
+        ConfidenceIntervalOfTheProportion.mpw -> ConfidenceIntervalOfTheProportion: calculates a confidence interval for a proportion, 
+        ConfidenceLevelToZScore.mpw -> ConfidenceLevelToZScore: calculates the z-score for a given confidence level, 
+        ControlChartConstants.mpw -> ControlChartConstants: returns the control chart constants A2 d2 D3 D4, 
+        CorrelationCoefficient.mpw -> CorrelationCoefficient: calculates the correlation coefficient between two lists of values, 
+        CorrelationMatrix.mpw -> CorrelationMatrix: creates a correlation matrix, 
+        D2Value.mpw -> D2Value: converts average range $\bar{R}$ into estimated standard deviation $\hat{\sigma}_x$, 
+        ErrorFunction.mpw -> ErrorFunction: a special function which occurs in probability statistics and partial differential equations, 
+        Mode.mpw -> Mode: calculates the mode of a list of values, 
+        Permutations.mpw -> Permutations: number of permutations, 
+        ProbabilityToZScore.mpw -> ProbabilityToZScore: calculates the z-score for a given probability, 
+        Quartile.mpw -> Quartile: returns all of the quartiles and the interquartile range of a list of values, 
+        RandomPick.mpw -> RandomPick: randomly pick an element from a list, 
+        RandomPickVector.mpw -> RandomPickVector: returns a given number of randomly picked elements from a given list, 
+        RandomPickWeighted.mpw -> RandomPickWeighted: randomly pick an element from a list using a given weight, 
+        Range.mpw -> Range: calculates the Range of a list of values, 
+        RegressionLine.mpw -> RegressionLine: calculates the correlation coefficient between two lists of values, 
+        RegressionLineConfidenceLevel.mpw -> RegressionLineConfidenceInterval: calculates the correlation coefficient between two lists of values, 
+        Repeat.mpw -> Repeat: loop a specified number of times or loop indefinitely, 
+        Sample.mpw -> Sample: takes a random sample of elements from a list, 
+        SampleSizeForTheMean.mpw -> SampleSizeForTheMean: calculates the sample size for the mean, 
+        SampleSizeForTheProportion.mpw -> SampleSizeForTheProportion: calculates the sample size for the proportion, 
+        ScheffeTest.mpw -> ScheffeTest: performs a Scheffe pairwise analysis, 
+        Shuffle.mpw -> Shuffle: randomly shuffles the elements in a list, 
+        ShuffledDeckNoSuits.mpw -> **** Does not contain docs ****
+        StandardErrorOfTheEstimate.mpw -> StandardErrorOfTheEstimate: calculates the correlation coefficient between two lists of values, 
+        StandardErrorOfTheMean.mpw -> StandardErrorOfTheMean: calculates the standard error of the mean, 
+        StandardErrorOfTheProportion.mpw -> StandardErrorOfTheProportion: calculates the standard error of the proportion, 
+        StandardErrorOfTheSlope.mpw -> StandardErrorOfTheSlope: calculates the correlation coefficient between two lists of values, 
+        StemAndLeaf.mpw -> **** Does not contain docs ****
+        Subset_.mpw -> **** Does not contain docs ****
+        ValueToZScore.mpw -> ValueToZScore: calculates the z-score of a numerical value, 
+        WeightedMean.mpw -> WeightedMean: weighted mean, 
+        ZScoreToProbability.mpw -> ZScoreToProbability: calculates the probability of a given z-score, 
+        ZScoreToValue.mpw -> ZScoreToValue: calculates the numerical value for a given z-score, 
+    xSolve
+        xCheckSolution.mpw -> xCheckSolution: Check the validity of solutions returned by the {xSolve} function., 
+        xSolve.mpw -> xSolve: solve an equation or set of linear equations, 
+        xSolvePoly.mpw -> **** Does not contain docs ****
+        xSolveRational.mpw -> **** Does not contain docs ****
+        xSolveReduce.mpw -> **** Does not contain docs ****
+        xSolveSqrts.mpw -> **** Does not contain docs ****
+        xSolveSystem.mpw -> **** Does not contain docs ****
+        xTerms.mpw -> **** Does not contain docs ****
+pslq
+    Pslq.mpw -> Pslq: search for integer relations between reals, 
+rabinmiller
+    RabinMiller.mpw -> **** Does not contain docs ****
+radsimp
+    RadSimp.mpw -> RadSimp: simplify expression with nested radicals, 
+random
+    RandomInteger.mpw -> RandomInteger: generate a random integer, 
+    RandomIntegerList.mpw -> RandomIntegerList: generate a vector of random integers, 
+    RandomIntegerMatrix.mpw -> RandomIntegerMatrix: generate a matrix of random integers, 
+    RandomInterestingPolynomial.mpw -> RandomInterestingPolynomial: construct a random "interesting" polynomial, 
+    RandomPoly.mpw -> RandomPoly: construct a random polynomial, 
+    random.mpw -> Random: (pseudo-) random number generator, RandomSeed: (pseudo-) random number generator, RngCreate: manipulate random number generators as objects, RngSeed: manipulate random number generators as objects, Rng: manipulate random number generators as objects, 
+simplify
+    Combine.mpw -> Combine: try to simplify an expression by combining terms or factors that cancel, 
+    Eliminate.mpw -> Eliminate: substitute and simplify, 
+    ExpandBrackets.mpw -> ExpandBrackets: expand all brackets, 
+    ExpandFrac.mpw -> **** Does not contain docs ****
+    Flatten.mpw -> Flatten: flatten expression w.r.t. some operator, 
+    GetNumerDenom.mpw -> **** Does not contain docs ****
+    SimpAdd.mpw -> **** Does not contain docs ****
+    SimpDiv.mpw -> **** Does not contain docs ****
+    SimpExpand.mpw -> **** Does not contain docs ****
+    SimpFlatten.mpw -> **** Does not contain docs ****
+    SimpImplode.mpw -> **** Does not contain docs ****
+    SimpMul.mpw -> **** Does not contain docs ****
+    Simplify.mpw -> Simplify: try to simplify an expression, 
+    UnFlatten.mpw -> UnFlatten: inverse operation of Flatten, 
+    factorial
+        FactorialSimplify.mpw -> FactorialSimplify: Simplify hypergeometric expressions containing factorials, 
+solve
+    Assume.mpw -> Assume: a suite of functions for specifying and testing "assumptions" about unbound variables, 
+    CheckSolution.mpw -> CheckSolution: Check the validity of solutions returned by the {Solve} function., 
+    Newton.mpw -> Newton: solve an equation numerically with Newton's method, 
+    OldSolve.mpw -> OldSolve: old version of {Solve}, 
+    PSolve.mpw -> **** Does not contain docs ****
+    SolveMatrix.mpw -> SolveMatrix: solve a linear system, 
+    SolveSystem.mpw -> **** Does not contain docs ****
+    SuchThat.mpw -> SuchThat: special purpose solver, 
+    YacasPSolve.mpw -> YacasPSolve: solve a polynomial equation, 
+    jSolveUniPoly.mpw -> jSolveUniPoly: solve (find the roots of) a strictly univariate polynomial using JAS, 
+    solve.mpw -> Solve: solve an equation, 
+    xPSolve.mpw -> xPSolve: solve a polynomial equation, 
+specfunc
+    ApproxInfSum.mpw -> **** Does not contain docs ****
+    Bernoulli.mpw -> Bernoulli: Bernoulli numbers and polynomials, 
+    BesselI.mpw -> **** Does not contain docs ****
+    BesselJ.mpw -> **** Does not contain docs ****
+    BesselY.mpw -> **** Does not contain docs ****
+    Beta.mpw -> **** Does not contain docs ****
+    CatalanConstNum.mpw -> **** Does not contain docs ****
+    DawsonIntegral.mpw -> **** Does not contain docs ****
+    Digamma.mpw -> **** Does not contain docs ****
+    DirichletBeta.mpw -> **** Does not contain docs ****
+    DirichletEta.mpw -> **** Does not contain docs ****
+    DirichletLambda.mpw -> **** Does not contain docs ****
+    Erf.mpw -> **** Does not contain docs ****
+    Erfc.mpw -> **** Does not contain docs ****
+    Erfi.mpw -> **** Does not contain docs ****
+    FresnelCos.mpw -> **** Does not contain docs ****
+    FresnelSin.mpw -> **** Does not contain docs ****
+    Gamma.mpw -> Gamma: Euler's Gamma function, 
+    LambertW.mpw -> LambertW: Lambert's $W$ function, 
+    LnGamma.mpw -> **** Does not contain docs ****
+    PolyLog.mpw -> **** Does not contain docs ****
+    Sinc.mpw -> **** Does not contain docs ****
+    Zeta.mpw -> Zeta: Riemann's Zeta function, 
+    bernou
+        Bernoulli1.mpw -> **** Does not contain docs ****
+        BernoulliFracPart.mpw -> **** Does not contain docs ****
+        InternalBernoulliArray.mpw -> **** Does not contain docs ****
+        InternalBernoulliArray1.mpw -> **** Does not contain docs ****
+    bessel
+        BesselJN.mpw -> **** Does not contain docs ****
+        BesselJN0.mpw -> **** Does not contain docs ****
+        BesselNsmall.mpw -> **** Does not contain docs ****
+    gamma
+        InternalGammaNum.mpw -> **** Does not contain docs ****
+        InternalLnGammaNum.mpw -> **** Does not contain docs ****
+    gammaconst
+        GammaConstNum.mpw -> **** Does not contain docs ****
+    zeta
+        zeta.mpw -> **** Does not contain docs ****
+statistics
+    GeometricMean.mpw -> GeometricMean: calculates the mean of a list of values, 
+    Mean.mpw -> Mean: calculates the mean of a list of values, 
+    Median.mpw -> Median: calculates the median of a list of values, 
+    StandardDeviation.mpw -> StandardDeviation: calculates the standard deviation of a list of values, 
+    UnbiasedVariance.mpw -> UnbiasedVariance: calculates the unbiased variance of a list of values, 
+    Variance.mpw -> Variance: calculates the variance of a list of values, 
+    distributions
+        BernoulliDistribution.mpw -> BernoulliDistribution: Bernoulli distribution, 
+        BinomialDistribution.mpw -> BinomialDistribution: binomial distribution, 
+        ChiSquareDistribution.mpw -> ChiSquareDistribution: Chi square distribution, 
+        ContinuousUniformDistribution.mpw -> ContinuousUniformDistribution: Discrete uniform distribution, 
+        DiscreteDistribution.mpw -> DiscreteDistribution: Discrete uniform distribution, 
+        DiscreteUniformDistribution.mpw -> DiscreteUniformDistribution: Discrete uniform distribution, 
+        ExponentialDistribution.mpw -> ExponentialDistribution: Exponential distribution, 
+        FDistribution.mpw -> FDistribution: the F distribution, 
+        GeometricDistribution.mpw -> GeometricDistribution: Geometric distribution, 
+        HypergeometricDistribution.mpw -> HypergeometricDistribution: Hypergeometric distribution, 
+        NormalDistribution.mpw -> NormalDistribution: The normal distribution., 
+        PoissonDistribution.mpw -> PoissonDistribution: Poisson distribution, 
+        tDistribution.mpw -> tDistribution: Student's $t$ distribution, 
+    hypothesystest
+        ChiSquareTest.mpw -> ChiSquareTest: Pearson's ChiSquare test, 
+    incompletegamma
+        IncompleteGamma.mpw -> **** Does not contain docs ****
+    randomtest.mpw -> **** Does not contain docs ****
+    regression
+        Regress.mpw -> **** Does not contain docs ****
+stats
+    ExpressionDepth.mpw -> **** Does not contain docs ****
+stdfuncs
+    ArcCos.mpw -> ArcCos: inverse trigonometric function arc-cosine, 
+    ArcCosh.mpw -> **** Does not contain docs ****
+    ArcCot.mpw -> **** Does not contain docs ****
+    ArcCoth.mpw -> **** Does not contain docs ****
+    ArcCsc.mpw -> **** Does not contain docs ****
+    ArcCsch.mpw -> **** Does not contain docs ****
+    ArcSec.mpw -> **** Does not contain docs ****
+    ArcSech.mpw -> **** Does not contain docs ****
+    ArcSin.mpw -> ArcSin: inverse trigonometric function arc-sine, 
+    ArcSinh.mpw -> **** Does not contain docs ****
+    ArcTan.mpw -> ArcTan: inverse trigonometric function arc-tangent, 
+    ArcTanh.mpw -> **** Does not contain docs ****
+    Cos.mpw -> Cos: trigonometric cosine function, 
+    Cosh.mpw -> **** Does not contain docs ****
+    Cot.mpw -> **** Does not contain docs ****
+    Coth.mpw -> **** Does not contain docs ****
+    Csc.mpw -> **** Does not contain docs ****
+    Csch.mpw -> **** Does not contain docs ****
+    Exp.mpw -> Exp: exponential function, 
+    Ln.mpw -> Ln: natural logarithm, 
+    Sec.mpw -> **** Does not contain docs ****
+    Sech.mpw -> **** Does not contain docs ****
+    Sin.mpw -> Sin: trigonometric sine function, 
+    Sinh.mpw -> **** Does not contain docs ****
+    Tan.mpw -> Tan: trigonometric tangent function, 
+    Tanh.mpw -> **** Does not contain docs ****
+    elemfuncs
+        ArcCosN.mpw -> ArcCosN: inverse cosine (arbitrary-precision math function), 
+        ArcCoshN.mpw -> ArcCoshN: inverse hyperbolic cosine (arbitrary-precision math function), 
+        ArcSinN.mpw -> ArcSinN: inverse sine (arbitrary-precision math function), 
+        ArcSinhN.mpw -> ArcSinhN: inverse hyperbolic sine (arbitrary-precision math function), 
+        ArcTanN.mpw -> ArcTanN: inverse tangent (arbitrary-precision math function), 
+        ArcTanNTaylor.mpw -> **** Does not contain docs ****
+        ArcTanhN.mpw -> ArcTanhN: inverse hyperbolic tangent (arbitrary-precision math function), 
+        BisectSqrt.mpw -> **** Does not contain docs ****
+        BitsToDigits.mpw -> **** Does not contain docs ****
+        CosNDoubling.mpw -> **** Does not contain docs ****
+        CosNTaylor.mpw -> **** Does not contain docs ****
+        CoshN.mpw -> CoshN: hyperbolic cosine (arbitrary-precision math function), 
+        DigitsToBits.mpw -> **** Does not contain docs ****
+        ExpNDoubling.mpw -> **** Does not contain docs ****
+        ExpNTaylor.mpw -> **** Does not contain docs ****
+        GcdN.mpw -> **** Does not contain docs ****
+        MathBitCount.mpw -> **** Does not contain docs ****
+        MathLnDoubling.mpw -> **** Does not contain docs ****
+        MathLnTaylor.mpw -> **** Does not contain docs ****
+        MathPi.mpw -> MathPi: The constant Pi., 
+        MathSqrtFloat.mpw -> **** Does not contain docs ****
+        SinNTaylor.mpw -> **** Does not contain docs ****
+        SinNTripling.mpw -> **** Does not contain docs ****
+        SinhN.mpw -> SinhN: hyperbolic sine (arbitrary-precision math function), 
+        SqrtN.mpw -> SqrtN: square root (x must be >= 0) (arbitrary-precision math function), 
+        TanhN.mpw -> TanhN: hyperbolic tangent (arbitrary-precision math function), 
+    numerical
+        ArcSinNum.mpw -> **** Does not contain docs ****
+        ArcTanNum.mpw -> **** Does not contain docs ****
+        BrentLn.mpw -> **** Does not contain docs ****
+        CosNum.mpw -> **** Does not contain docs ****
+        ExpNum.mpw -> **** Does not contain docs ****
+        InternalLnNum.mpw -> **** Does not contain docs ****
+        LogN.mpw -> LogN: natural logarithm for x > 0 (arbitrary-precision math function), 
+        NewtonLn.mpw -> **** Does not contain docs ****
+        SinNum.mpw -> **** Does not contain docs ****
+        TanNum.mpw -> **** Does not contain docs ****
+        TruncRadian.mpw -> TruncRadian: remainder modulo $2*Pi$, 
+        expthreshold.mpw -> **** Does not contain docs ****
+    nummethods
+        ArithmeticGeometricMean.mpw -> ArithmeticGeometricMean: calculate the arithmetic geometric mean of two positive real numbers, 
+        IntPowerNum.mpw -> IntPowerNum: optimized computation of integer powers, 
+        MultiplyNum.mpw -> MultiplyNum: optimized numerical multiplication, 
+        NewtonNum.mpw -> NewtonNum: low-level optimized Newton's iterations, 
+        SumTaylorNum.mpw -> SumTaylorNum: optimized numerical evaluation of Taylor series, 
+        binsplit.mpw -> BinSplitNum: computations of series by the binary splitting method, BinSplitData: computations of series by the binary splitting method, BinSplitFinal: computations of series by the binary splitting method, 
+stubs
+    Abs.mpw -> Abs: absolute value or modulus of complex number, 
+    CanonicalAdd.mpw -> **** Does not contain docs ****
+    Ceil.mpw -> Ceil: round a number upwards, 
+    Expand.mpw -> Expand: transform a polynomial to an expanded form, 
+    Floor.mpw -> Floor: round a number downwards, 
+    Gcd.mpw -> Gcd: greatest common divisor, 
+    Lcm.mpw -> Lcm: least common multiple, 
+    LnCombine.mpw -> LnCombine: combine logarithmic expressions using standard logarithm rules, 
+    LnExpand.mpw -> LnExpand: expand a logarithmic expression using standard logarithm rules, 
+    Modulo.mpw -> Modulo: Determine remainder of two mathematical objects after dividing one by the other, 
+    Object.mpw -> Object: create an incomplete type, 
+    Quotient.mpw -> Quotient: Determine quotient of two mathematical objects, 
+    Rem.mpw -> **** Does not contain docs ****
+    Round.mpw -> Round: round a number to the nearest integer, 
+    Sign.mpw -> Sign: sign of a number, 
+    Sqrt.mpw -> Sqrt: square root, 
+    comparison_operators.mpw -> <?: test for "less than", >?: test for "greater than", <=?: test for "less or equal", >=?: test for "greater or equal", !=?: test for "not equal", =?: test for equality of expressions, 
+    minus_greaterthan_operator.mpw -> ->: options operator, 
+    shifting_operators.mpw -> <<: binary shift left operator, >>: binary shift left operator, 
+substitute
+    MacroSubstitute.mpw -> **** Does not contain docs ****
+    Substitute.mpw -> **** Does not contain docs ****
+sums
+    Add.mpw -> Add: find sum of a list of values, 
+    Average.mpw -> **** Does not contain docs ****
+    Maximum.mpw -> Maximum: maximum of a number of values, 
+    Minimum.mpw -> Minimum: minimum of a number of values, 
+    Product.mpw -> Product: product of a list of values, 
+    Subfactorial.mpw -> Subfactorial: factorial and related functions, 
+    Sum.mpw -> Sum: find sum of a sequence, 
+    SumFunc.mpw -> **** Does not contain docs ****
+    Taylor.mpw -> Taylor: univariate Taylor series expansion, 
+    Taylor2.mpw -> **** Does not contain docs ****
+    Taylor3.mpw -> **** Does not contain docs ****
+    asterisk_asterisk_asterisk_operator.mpw -> ***: partial factorial operator, 
+    exclamationpoint_exclamationpoint_operator.mpw -> !!: double factorial operator, 
+    exclamationpoint_operator.mpw -> !: factorial, 
+tensor
+    ApplyDelta.mpw -> **** Does not contain docs ****
+    Delta.mpw -> **** Does not contain docs ****
+    MoveDeltas.mpw -> **** Does not contain docs ****
+    TD.mpw -> **** Does not contain docs ****
+    TExplicitSum.mpw -> **** Does not contain docs ****
+    TList.mpw -> **** Does not contain docs ****
+    TSimplify.mpw -> **** Does not contain docs ****
+    TSum.mpw -> **** Does not contain docs ****
+    TSumRest.mpw -> **** Does not contain docs ****
+    TSumSimplify.mpw -> **** Does not contain docs ****
+    X.mpw -> **** Does not contain docs ****
+testers
+    BenchCall.mpw -> **** Does not contain docs ****
+    BenchShow.mpw -> **** Does not contain docs ****
+    EqualAsSets.mpw -> **** Does not contain docs ****
+    KnownFailure.mpw -> KnownFailure: Mark a test as a known failure, 
+    LogicTest.mpw -> LogicTest: verifying equivalence of two expressions, 
+    LogicVerify.mpw -> LogicVerify: verifying equivalence of two expressions, 
+    NextTest.mpw -> **** Does not contain docs ****
+    NumericEqual.mpw -> **** Does not contain docs ****
+    RandVerifyArithmetic.mpw -> RandVerifyArithmetic: Special purpose arithmetic verifiers, 
+    RoundTo.mpw -> RoundTo: Round a real-valued result to a set number of digits, 
+    ShowLine.mpw -> **** Does not contain docs ****
+    TestEquivalent.mpw -> **** Does not contain docs ****
+    TestMathPiper.mpw -> TestMathPiper: verifying equivalence of two expressions, 
+    Testing.mpw -> **** Does not contain docs ****
+    Verify.mpw -> Verify: verifying equivalence of two expressions, 
+    VerifyArithmetic.mpw -> VerifyArithmetic: Special purpose arithmetic verifiers, 
+    VerifyDiv.mpw -> VerifyDiv: Special purpose arithmetic verifiers, 
+    VerifySolve.mpw -> VerifySolve: verifies that one expression is mathematically equivalent to another, 
+transforms
+    laplace
+        LaplaceTransform.mpw -> LaplaceTransform: Laplace Transform, 
+trigsimp
+    TrigSimpCombine.mpw -> TrigSimpCombine: combine products of trigonometric functions, 
+univar
+    BigOh.mpw -> BigOh: drop all terms of a certain order in a polynomial, 
+    CanBeUni.mpw -> **** Does not contain docs ****
+    Coef.mpw -> Coef: coefficient of a polynomial, 
+    CollectOn.mpw -> CollectOn: "Collect terms of a polynomial-like expression on powers of {var}, starting with power 0.", 
+    Content.mpw -> Content: content of a univariate polynomial, 
+    Degree.mpw -> Degree: degree of a polynomial, 
+    DivPoly.mpw -> **** Does not contain docs ****
+    DropEndZeroes.mpw -> **** Does not contain docs ****
+    ExpandUniVariate.mpw -> **** Does not contain docs ****
+    FactorUniVar.mpw -> **** Does not contain docs ****
+    Horner.mpw -> Horner: convert a polynomial into the Horner form, 
+    LeadingCoef.mpw -> LeadingCoef: leading coefficient of a polynomial, 
+    MakeUni.mpw -> **** Does not contain docs ****
+    Monic.mpw -> Monic: monic part of a polynomial, 
+    PrimitivePart.mpw -> PrimitivePart: primitive part of a univariate polynomial, 
+    RepeatedSquaresMultiply.mpw -> **** Does not contain docs ****
+    SetOrder.mpw -> **** Does not contain docs ****
+    UniDivide.mpw -> **** Does not contain docs ****
+    UniGCD.mpw -> **** Does not contain docs ****
+    UniTaylor.mpw -> **** Does not contain docs ****
+    UniVarList.mpw -> **** Does not contain docs ****
+    UniVar_.mpw -> **** Does not contain docs ****
+    UniVariate.mpw -> **** Does not contain docs ****
+    cyclotomic
+        Cyclotomic.mpw -> Cyclotomic: construct the cyclotomic polynomial, 
+        OldCyclotomic.mpw -> **** Does not contain docs ****
+        UniVariateCyclotomic.mpw -> **** Does not contain docs ****
+    sparse
+        AddTerm.mpw -> **** Does not contain docs ****
+        AddTerms.mpw -> **** Does not contain docs ****
+        DivTermList.mpw -> **** Does not contain docs ****
+        ExpandSparseUniVar.mpw -> **** Does not contain docs ****
+        MakeSparseUniVar.mpw -> **** Does not contain docs ****
+        MultiplySingleTerm.mpw -> **** Does not contain docs ****
+        MultiplyTerms.mpw -> **** Does not contain docs ****
+        SparseUniVar.mpw -> **** Does not contain docs ****
+        SubtractTerms.mpw -> **** Does not contain docs ****
+    sturm
+        BoundRealRoots.mpw -> **** Does not contain docs ****
+        FindRealRoots.mpw -> FindRealRoots: find the real roots of a polynomial, 
+        MaximumBound.mpw -> MaximumBound: return upper bounds on the absolute values of real roots of a polynomial, 
+        MinimumBound.mpw -> MinimumBound: return lower bounds on the absolute values of real roots of a polynomial, 
+        RealRootsCount.mpw -> RealRootsCount: return the number of real roots of a polynomial, 
+        SquareFree.mpw -> SquareFree: return the square-free part of a univariate polynomial, 
+        SturmSequence.mpw -> **** Does not contain docs ****
+        SturmVariations.mpw -> **** Does not contain docs ****
+
+***** Processing built in docs *****
+/home/tkosan/NetBeansProjects/mathpiper2-b/mathpiper2/build/classes//org/mathpiper/builtin/functions/core/plugins_list.txt
+Abs.java -> AbsN: absolute value of x or |x| (arbitrary-precision math function), 
+Add.java -> AddN: add two numbers (arbitrary-precision math function), 
+And_.java -> And?: logical conjunction, 
+ApplyFast.java -> ApplyFast: a fast built-in version of the Apply function, 
+ArrayCreate.java -> ArrayCreate: create array, 
+ArrayGet.java -> ArrayGet: fetch array element, 
+ArraySet.java -> ArraySet: set array element, 
+ArraySize.java -> ArraySize: get array size, 
+Atom_.java -> Atom?: test for an atom, 
+BackQuote.java -> `: macro expansion (LISP-style backquoting), 
+Bind.java -> Bind: assignment, 
+BitAnd.java -> BitAnd: bitwise and operation, 
+BitCount.java -> **** Does not contain docs ****
+BitOr.java -> BitOr: bitwise or operation, 
+BitXor.java -> BitXor: bitwise xor operation, 
+BitsToDigits.java -> **** Does not contain docs ****
+Bodied.java -> Bodied: define function syntax (bodied function), 
+Bodied_.java -> Bodied?: check for function syntax, 
+Bound_.java -> Bound?: test for a bound variable, 
+Break.java -> Break: break out of a loop, 
+BuiltinAssoc.java -> **** Does not contain docs ****
+BuiltinPrecisionGet.java -> BuiltinPrecisionGet: get the current precision, 
+BuiltinPrecisionSet.java -> BuiltinPrecisionSet: set the precision, 
+Ceil.java -> CeilN: natural logarithm for x > 0 (arbitrary-precision math function), 
+Check.java -> Check: throw an exception if a predicate expression returns False, 
+CommonLispTokenizer.java -> **** Does not contain docs ****
+Concatenate.java -> Concat: concatenate lists, 
+ConcatenateStrings.java -> ConcatStrings: concatenate strings, 
+Constant.java -> Constant: assignment, 
+Continue.java -> Continue: skips executing the remainder of code in this loop iteration and begins the next iteration, 
+CurrentFile.java -> CurrentFile: return current input file, 
+CurrentLine.java -> CurrentLine: return current line number on input, 
+CustomEval.java -> **** Does not contain docs ****
+CustomEvalExpression.java -> **** Does not contain docs ****
+CustomEvalLocals.java -> **** Does not contain docs ****
+CustomEvalResult.java -> **** Does not contain docs ****
+CustomEvalStop.java -> **** Does not contain docs ****
+DebugFile.java -> **** Does not contain docs ****
+DebugLine.java -> **** Does not contain docs ****
+DebugMode_.java -> **** Does not contain docs ****
+Decimal_.java -> Decimal?: test to see if a number is a decimal, 
+DefMacroRulebase.java -> DefMacroRulebase: define a function as a macro, 
+DefMacroRulebaseListed.java -> DefMacroRulebaseListed: define macro with variable number of arguments, 
+DefaultDirectory.java -> DefaultDirectory: add directory to path for MathPiper scripts, 
+DefaultTokenizer.java -> DefaultTokenizer: select the default syntax tokenizer for parsing the input, 
+Delay.java -> Delay: delays execution of a program for a specified number of milliseconds, 
+Delete.java -> Delete: delete an element from a list, 
+DestructiveDelete.java -> DestructiveDelete: delete an element destructively from a list, 
+DestructiveInsert.java -> DestructiveInsert: insert an element destructively into a list, 
+DestructiveReplace.java -> DestructiveReplace: replace an entry destructively in a list, 
+DestructiveReverse.java -> DestructiveReverse: reverse a list destructively, 
+DigitsToBits.java -> **** Does not contain docs ****
+Divide.java -> DivideN: divide two numbers (arbitrary-precision math function), 
+DumpNumber.java -> DumpNumber: prints the implementation details of a number, 
+Equal_.java -> Equal?: check equality, 
+Eval.java -> Eval: force evaluation of expression, 
+ExceptionCatch.java -> ExceptionCatch: catches exceptions, 
+ExceptionGet.java -> ExceptionGet: returns the exception object which was thrown., 
+ExitRequested.java -> **** Does not contain docs ****
+ExpressionToString.java -> ExpressionToString: convert an expression to a string, 
+Factorial.java -> **** Does not contain docs ****
+FastArcCos.java -> **** Does not contain docs ****
+FastArcSin.java -> **** Does not contain docs ****
+FastArcTan.java -> **** Does not contain docs ****
+FastCos.java -> **** Does not contain docs ****
+FastIsPrime.java -> **** Does not contain docs ****
+FastLog.java -> **** Does not contain docs ****
+FastPower.java -> **** Does not contain docs ****
+FastSin.java -> **** Does not contain docs ****
+FastTan.java -> **** Does not contain docs ****
+FindFunction.java -> FindFunction: find the library file where a function is defined, 
+First.java -> First: the first element of a list, 
+FlatCopy.java -> FlatCopy: copy the top level of a list, 
+Floor.java -> FloorN: largest integer not larger than x (arbitrary-precision math function), 
+FromBase.java -> FromBase: conversion of a number from non-decimal base to decimal base, 
+FunctionToList.java -> FunctionToList: convert a function application to a list, 
+Function_.java -> Function?: test for a composite object, 
+GarbageCollect.java -> **** Does not contain docs ****
+Gcd.java -> GcdN: Greatest Common Divisor (arbitrary-precision math function), 
+GenericTypeName.java -> GenericTypeName: get type name, 
+Generic_.java -> Generic?: check for generic object, 
+GetExactBits.java -> GetExactBitsN: manipulate precision of floating-point numbers, 
+GlobalVariablesGet.java -> GlobalVariablesGet: return a list which contains the names of all the global variables, 
+GreaterThan_.java -> GreaterThan?: comparison predicate, 
+HistorySize.java -> HistorySize: set size of history file, 
+Hold.java -> Hold: keep expression unevaluated, 
+HoldArgument.java -> HoldArgument: mark argument as not evaluated, 
+If.java -> If: branch point, 
+Infix.java -> Infix: define function syntax (infix operator), 
+Infix_.java -> Infix?: check for function syntax, 
+Insert.java -> Insert: insert an element into a list, 
+Integer_.java -> Integer?: test to see if a number is an integer, 
+LeftPrecedenceGet.java -> LeftPrecedenceGet: get operator precedence, 
+LeftPrecedenceSet.java -> LeftPrecedenceSet: set operator precedence, 
+Length.java -> Length: the length of a list or string, 
+LessThan_.java -> LessThan?: comparison predicate, 
+LexCompare2.java -> **** Does not contain docs ****
+LexGreaterThan.java -> **** Does not contain docs ****
+LexLessThan.java -> **** Does not contain docs ****
+LispForm.java -> LispForm: print an expression in LISP-format, 
+LispRead.java -> LispRead: read expressions in LISP syntax, 
+LispReadListed.java -> LispReadListed: read expressions in LISP syntax, 
+List.java -> List: construct a list, 
+ListToFunction.java -> ListToFunction: convert a list to a function application, 
+List_.java -> List?: test for a list, 
+LoadScript.java -> LoadScript: evaluate all expressions in a string, 
+Local.java -> Local: declare new local variables, MacroLocal: define rules in functions, 
+LocalSymbols.java -> LocalSymbols: create unique local symbols with given prefix, 
+MacroBind.java -> MacroBind: define rules in functions, 
+MacroRule.java -> MacroRule: define rules in functions, 
+MacroRulePattern.java -> MacroRulePattern: defines a rule which uses a pattern as its predicate, 
+MacroRulebase.java -> MacroRulebase: define rules in functions, 
+MacroRulebaseListed.java -> MacroRulebaseListed: define rules in functions, 
+MathIsSmall.java -> **** Does not contain docs ****
+MathNegate.java -> **** Does not contain docs ****
+MathSign.java -> **** Does not contain docs ****
+MaxEvalDepth.java -> MaxEvalDepth: set the maximum evaluation depth, 
+MetaEntries.java -> MetaEntries: returns the metadata values for a value or an unbound variable, 
+MetaGet.java -> MetaGet: returns the metadata for a value or an unbound variable, 
+MetaKeys.java -> MetaKeys: returns the metadata keys for a value or an unbound variable, 
+MetaSet.java -> MetaSet: set the metadata for a value or an unbound variable, 
+MetaValues.java -> MetaValues: returns the metadata values for a value or an unbound variable, 
+Modulo.java -> ModuloN: remainder of division or x modulo y (arbitrary-precision math function), 
+Multiply.java -> MultiplyN: multiply two numbers (arbitrary-precision math function), 
+Not_.java -> Not?: logical negation, 
+Nth.java -> **** Does not contain docs ****
+Number_.java -> Number?: test for a number, 
+Or_.java -> Or?: logical disjunction, 
+PatchString.java -> PatchString: execute commands between {<?} and {?>} in strings, 
+PatternCreate.java -> **** Does not contain docs ****
+PatternMatches.java -> **** Does not contain docs ****
+PipeFromString.java -> PipeFromString: connect current input to a string, 
+PipeToStdout.java -> PipeToStdout: select initial output stream for output, 
+PipeToString.java -> PipeToString: connect current output to a string, 
+Postfix.java -> Postfix: define function syntax (postfix operator), 
+Postfix_.java -> Postfix?: check for function syntax, 
+PrecedenceGet.java -> PrecedenceGet: get operator precedence, 
+Prefix.java -> Prefix: define function syntax (prefix operator), 
+Prefix_.java -> Prefix?: check for function syntax, 
+PrettyPrinterGet.java -> PrettyPrinterGet: get routine to use as pretty-printer, 
+PrettyPrinterSet.java -> PrettyPrinterSet: set routine to use as pretty-printer, 
+PrettyReaderGet.java -> PrettyReaderGet: get routine that is currently used as pretty-reader, 
+PrettyReaderSet.java -> PrettyReaderSet: set routine to use as pretty-reader, 
+Prog.java -> Prog: block of statements, 
+PromptShown_.java -> PromptShown?: test for the MathPiper prompt option, 
+Quotient.java -> QuotientN: integer division result is an integer (arbitrary-precision math function), 
+Read.java -> Read: read an expression from current input, 
+ReadToken.java -> ReadToken: read a token from current input, 
+Replace.java -> Replace: replace an entry in a list, 
+Rest.java -> Rest: returns a list without its car element, 
+Retract.java -> Retract: erase rules for a function, 
+Return.java -> **** Does not contain docs ****
+RightAssociativeSet.java -> RightAssociativeSet: declare associativity, 
+RightPrecedenceGet.java -> RightPrecedenceGet: get operator precedence, 
+RightPrecedenceSet.java -> RightPrecedenceSet: set operator precedence, 
+RoundToN.java -> RoundToN: rounds a decimal number to a given precision, 
+Rule.java -> Rule: define a rewrite rule, 
+RulePattern.java -> RulePattern: defines a rule which uses a pattern as its predicate, 
+Rulebase.java -> Rulebase: define function with a fixed number of arguments, 
+RulebaseArgumentsList.java -> RulebaseArgumentsList: obtain list of arguments, 
+RulebaseDefined.java -> RulebaseDefined: predicate function which indicates whether or not a rulebase is defined., 
+RulebaseDump.java -> RulebaseDump: prints the rules in a rulebase if the rulebase exists, 
+RulebaseListed.java -> RulebaseListed: define function with variable number of arguments, 
+Secure.java -> Secure: guard the host OS, 
+Set.java -> **** Does not contain docs ****
+SetExactBits.java -> SetExactBitsN: manipulate precision of floating-point numbers, 
+SetGlobalLazyVariable.java -> SetGlobalLazyVariable: global variable is to be evaluated lazily, 
+ShiftLeft.java -> ShiftLeft: built-in bitwise shift left operation, 
+ShiftRight.java -> ShiftRight: built-in bitwise shift right operation, 
+StackSize.java -> **** Does not contain docs ****
+StackTrace.java -> StackTrace: shows the current state of the user function stack and the built in function stack, 
+StackTraceOff.java -> StackTraceOff: clears the flag which will show a stack trace when an exception is thrown, 
+StackTraceOn.java -> StackTraceOn: sets the flag which will show a stack trace when an exception is thrown, 
+StringMidGet.java -> StringMidGet: retrieve a substring, 
+StringMidSet.java -> StringMidSet: change a substring, 
+StringToUnicode.java -> StringToUnicode: returns the unicode value of the character in a single character string, 
+String_.java -> String?: test for an string, 
+Subst.java -> Subst: perform a substitution, 
+Subtract.java -> SubtractN: subtract two numbers (arbitrary-precision math function), 
+SystemTimer.java -> SystemTimer: return the current time in nanoseconds, 
+Time.java -> Time: measure the time taken by an evaluation, 
+ToAtom.java -> ToAtom: convert string to atom, 
+ToBase.java -> ToBase: conversion of a number in decimal base to non-decimal base, 
+ToString.java -> ToString: convert atom to string, 
+TraceExcept.java -> TraceExcept: trace all the functions but the given functions an expression, 
+TraceOff.java -> TraceOff: disables a complete trace of all the functions that are called when an expression is evaluated, 
+TraceOn.java -> TraceOn: enables a complete trace of all the functions that are called when an expression is evaluated, 
+TraceRule.java -> TraceRule: turn on tracing for a particular function, 
+TraceSome.java -> TraceSome: trace the given functions which are evaluated in the given expression, 
+TraceStack.java -> TraceStack: show calling stack after an error occurs, 
+Type.java -> Type: return the type of an expression, 
+UnFence.java -> UnFence: change local variable scope for a function, 
+Unbind.java -> Unbind: undo an assignment, 
+UnicodeToString.java -> UnicodeToString: creates a single character string from the character's unicode value, 
+Version.java -> Version: show version of MathPiper, 
+While.java -> While: loop while a condition is met, 
+Write.java -> Write: low-level printing routine, 
+WriteString.java -> WriteString: low-level printing routine for strings, 
+XmlExplodeTag.java -> XmlExplodeTag: convert XML strings to tag objects, 
+XmlTokenizer.java -> XmlTokenizer: select an XML syntax tokenizer for parsing the input, 
+
+***** Processing built in docs *****
+/home/tkosan/NetBeansProjects/mathpiper2-b/mathpiper2/build/classes//org/mathpiper/builtin/functions/optional/plugins_list.txt
+FScoreToProbability.java -> FScoreToProbability: calculates the cumulative probability for a given f-score, 
+Import.java -> **** Does not contain docs ****
+IncompleteBeta.java -> IncompleteBeta: the incomplete beta function, 
+IncompleteGamma.java -> IncompleteGamma: the incomplete gamma function, 
+MacroExpand.java -> MacroExpand: shows the expanded form of a macro, 
+NormalDistributionValue.java -> NormalDistributionValue: returns a value from the normal distribution, 
+OneTailAlphaToTScore.java -> OneTailAlphaToTScore: convert a one-tail alpha to a t-score, 
+ProbabilityToFScore.java -> ProbabilityToFScore: calculates the f-score for a given cumulative probability, 
+StackTrace.java -> StackTrace: shows the current state of the user function stack and the built in function stack, 
+StackTraceOff.java -> StackTraceOff: clears the flag which will show a stack trace when an exception is thrown, 
+StackTraceOn.java -> StackTraceOn: sets the flag which will show a stack trace when an exception is thrown, 
+SysOut.java -> SysOut: "similar to the Write function, except a copy of the output is also sent to Java's System.out stream", 
+TraceExcept.java -> TraceExcept: trace all the functions but the given functions an expression, 
+TraceOff.java -> TraceOff: disables a complete trace of all the functions that are called when an expression is evaluated, 
+TraceOn.java -> TraceOn: enables a complete trace of all the functions that are called when an expression is evaluated, 
+TraceSome.java -> TraceSome: trace the given functions which are evaluated in the given expression, 
+TraceToStdio.java -> **** Does not contain docs ****
+ViewEnvironment.java -> ViewEnvironment: show the console window, 
+ViewGraphicConsole.java -> ViewGraphicConsole: show the console window, 
+ViewHelp.java -> ViewHelp: display the function help window, 
+ViewHtml.java -> ViewHtml: display rendered HTML code, 
+ViewLatex.java -> ViewLatex: display rendered Latex code, 
+ViewList.java -> ViewList: display an expression in Lisp box diagram form, 
+ViewMath.java -> ViewMath: display an expression in traditional form, 
+
+***** Processing built in docs *****
+/home/tkosan/NetBeansProjects/mathpiper2-b/mathpiper2/build/classes//org/mathpiper/builtin/functions/plugins/jfreechart/plugins_list.txt
+BarChart.java -> BarChart: displays a graphic bar chart, 
+ChartUtility.java -> **** Does not contain docs ****
+CumulativePlot.java -> CumulativePlot: displays a graphic cumulative plot, 
+Histogram.java -> Histogram: displays a graphic histogram, 
+LineChart.java -> LineChart: displays a graphic line chart, 
+ScatterPlot.java -> ScatterPlot: displays a graphic scatter plot, 
+
+Documented functions: 788
+
+Undocumented .mpw files: 333
+
+mathpiper.exclude_files_from_compilation:
+mathpiper.compile:
+Compiling 2 source files to /home/tkosan/NetBeansProjects/mathpiper2-b/mathpiper2/build/classes
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+mathpiper.build:
+Copying 1 file to /home/tkosan/NetBeansProjects/mathpiper2-b/mathpiper2/build/classes
+Copying 1 file to /home/tkosan/NetBeansProjects/mathpiper2-b/mathpiper2/build/classes
+BUILD SUCCESSFUL (total time: 2 seconds)
+

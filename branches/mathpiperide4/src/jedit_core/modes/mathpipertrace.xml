@@ -1,0 +1,599 @@
+<?xml version="1.0"?>
+
+<!-- Copyright (C) 2008 Ted Kosan (license information is at the end of this document.) -->
+
+<!DOCTYPE MODE SYSTEM "xmode.dtd">
+
+<MODE>
+	<PROPS>
+		<PROPERTY NAME="commentStart" VALUE="/*" />
+		<PROPERTY NAME="commentEnd" VALUE="*/" />
+		<PROPERTY NAME="lineComment" VALUE="//" />
+
+	</PROPS>
+	
+	<RULES IGNORE_CASE="FALSE"
+		HIGHLIGHT_DIGITS="TRUE"
+		DIGIT_RE="(0[lL]?|[1-9]\d{0,9}(\d{0,9}[lL])?|0[xX]\p{XDigit}{1,8}(\p{XDigit}{0,8}[lL])?|0[0-7]{1,11}([0-7]{0,11}[lL])?|([0-9]+\.[0-9]*|\.[0-9]+)([eE][+-]?[0-9]+)?[fFdD]?|[0-9]+([eE][+-]?[0-9]+[fFdD]?|([eE][+-]?[0-9]+)?[fFdD]))">
+
+		<!-- Silly comment -->
+		<SEQ TYPE="COMMENT1">/**/</SEQ>
+
+
+		<!-- C style comment -->
+		<SPAN TYPE="COMMENT1">
+			<BEGIN>/*</BEGIN>
+			<END>*/</END>
+		</SPAN>
+
+        
+		<EOL_SPAN TYPE="COMMENT1">//</EOL_SPAN>
+
+        
+        <SPAN TYPE="LITERAL1" ESCAPE="\" NO_LINE_BREAK="TRUE">
+			<BEGIN>"</BEGIN>
+			<END>"</END>
+		</SPAN>
+        
+        
+
+
+
+
+		
+		
+
+
+		<SEQ TYPE="OPERATOR">=</SEQ>
+        <SEQ TYPE="OPERATOR">:=</SEQ>
+		<SEQ TYPE="OPERATOR">!</SEQ>
+		<SEQ TYPE="OPERATOR">&gt;=</SEQ>
+		<SEQ TYPE="OPERATOR">&lt;=</SEQ>
+		<SEQ TYPE="OPERATOR">+</SEQ>
+		<SEQ TYPE="OPERATOR">-</SEQ>
+		<SEQ TYPE="OPERATOR">/</SEQ>
+		<SEQ TYPE="OPERATOR">*</SEQ>
+		<SEQ TYPE="OPERATOR">&gt;</SEQ>
+		<SEQ TYPE="OPERATOR">&lt;</SEQ>
+		<SEQ TYPE="OPERATOR">%</SEQ>
+		<SEQ TYPE="OPERATOR">&amp;</SEQ>
+		<SEQ TYPE="OPERATOR">|</SEQ>
+		<SEQ TYPE="OPERATOR">^</SEQ>
+		<SEQ TYPE="OPERATOR">~</SEQ>
+		<SEQ TYPE="OPERATOR">}</SEQ>
+		<SEQ TYPE="OPERATOR">{</SEQ>
+
+		<!-- Function calls -->
+		<MARK_PREVIOUS TYPE="FUNCTION" MATCH_TYPE="OPERATOR">(</MARK_PREVIOUS>
+		<SEQ TYPE="OPERATOR">)</SEQ>
+
+
+
+		<KEYWORDS>
+			<KEYWORD1>restart</KEYWORD1>
+
+			<!-- Library functions. -->
+			<KEYWORD2>D</KEYWORD2>
+			<KEYWORD2>DiagonalMatrix</KEYWORD2>
+			<KEYWORD2>Div</KEYWORD2>
+			<KEYWORD2>Factor</KEYWORD2>
+			<KEYWORD2>ForEach</KEYWORD2>
+			<KEYWORD2>Integrate</KEYWORD2>
+			<KEYWORD2>Limit</KEYWORD2>
+			<KEYWORD2>N</KEYWORD2>
+			<KEYWORD2>Pi</KEYWORD2>
+			<KEYWORD2>Plot2D</KEYWORD2>
+			<KEYWORD2>Select</KEYWORD2>
+			<KEYWORD2>Simplify</KEYWORD2>
+			<KEYWORD2>Solve</KEYWORD2>
+			<KEYWORD2>Sum</KEYWORD2>
+			<KEYWORD2>Taylor</KEYWORD2>
+			<KEYWORD2>Abs</KEYWORD2>
+			<KEYWORD2>Add</KEYWORD2>
+			<KEYWORD2>Append</KEYWORD2>
+			<KEYWORD2>Apply</KEYWORD2>
+			<KEYWORD2>ArcCos</KEYWORD2>
+			<KEYWORD2>ArcSin</KEYWORD2>
+			<KEYWORD2>ArcTan</KEYWORD2>
+			<KEYWORD2>Arg</KEYWORD2>
+			<KEYWORD2>Atom</KEYWORD2>
+			<KEYWORD2>BaseVector</KEYWORD2>
+			<KEYWORD2>Bin</KEYWORD2>
+			<KEYWORD2>CanProve</KEYWORD2>
+			<KEYWORD2>Ceil</KEYWORD2>
+			<KEYWORD2>CharacteristicEquation</KEYWORD2>
+			<KEYWORD2>Clear</KEYWORD2>
+			<KEYWORD2>Coef</KEYWORD2>
+			<KEYWORD2>Complex</KEYWORD2>
+			<KEYWORD2>Concat</KEYWORD2>
+			<KEYWORD2>ConcatStrings</KEYWORD2>
+			<KEYWORD2>Conjugate</KEYWORD2>
+			<KEYWORD2>ContFrac</KEYWORD2>
+			<KEYWORD2>Contains</KEYWORD2>
+			<KEYWORD2>Content</KEYWORD2>
+			<KEYWORD2>Cos</KEYWORD2>
+			<KEYWORD2>CrossProduct</KEYWORD2>
+			<KEYWORD2>Curl</KEYWORD2>
+			<KEYWORD2>Decimal</KEYWORD2>
+			<KEYWORD2>Degree</KEYWORD2>
+			<KEYWORD2>Delete</KEYWORD2>
+			<KEYWORD2>Denom</KEYWORD2>
+			<KEYWORD2>Determinant</KEYWORD2>
+			<KEYWORD2>Difference</KEYWORD2>
+			<KEYWORD2>Diverge</KEYWORD2>
+			<KEYWORD2>Dot</KEYWORD2>
+			<KEYWORD2>Echo</KEYWORD2>
+			<KEYWORD2>EigenValues</KEYWORD2>
+			<KEYWORD2>EigenVectors</KEYWORD2>
+			<KEYWORD2>Eliminate</KEYWORD2>
+			<KEYWORD2>Eval</KEYWORD2>
+			<KEYWORD2>Exp</KEYWORD2>
+			<KEYWORD2>Expand</KEYWORD2>
+			<KEYWORD2>FactorialSimplify</KEYWORD2>
+			<KEYWORD2>Factorize</KEYWORD2>
+			<KEYWORD2>Factors</KEYWORD2>
+			<KEYWORD2>FillList</KEYWORD2>
+			<KEYWORD2>Find</KEYWORD2>
+			<KEYWORD2>FindRealRoots</KEYWORD2>
+			<KEYWORD2>Flatten</KEYWORD2>
+			<KEYWORD2>Floor</KEYWORD2>
+			<KEYWORD2>For</KEYWORD2>
+			<KEYWORD2>FromBase</KEYWORD2>
+			<KEYWORD2>FromString</KEYWORD2>
+			<KEYWORD2>FullForm</KEYWORD2>
+			<KEYWORD2>Gcd</KEYWORD2>
+			<KEYWORD2>Head</KEYWORD2>
+			<KEYWORD2>Hold</KEYWORD2>
+			<KEYWORD2>I</KEYWORD2>
+			<KEYWORD2>Identity</KEYWORD2>
+			<KEYWORD2>If</KEYWORD2>
+			<KEYWORD2>Im</KEYWORD2>
+			<KEYWORD2>Insert</KEYWORD2>
+			<KEYWORD2>Intersection</KEYWORD2>
+			<KEYWORD2>Inverse</KEYWORD2>
+			<KEYWORD2>IsAtom</KEYWORD2>
+			<KEYWORD2>IsBoolean</KEYWORD2>
+			<KEYWORD2>IsBound</KEYWORD2>
+			<KEYWORD2>IsConstant</KEYWORD2>
+			<KEYWORD2>IsEven</KEYWORD2>
+			<KEYWORD2>IsEvenFunction</KEYWORD2>
+			<KEYWORD2>IsFreeOf</KEYWORD2>
+			<KEYWORD2>IsFunction</KEYWORD2>
+			<KEYWORD2>IsList</KEYWORD2>
+			<KEYWORD2>IsNotZero</KEYWORD2>
+			<KEYWORD2>IsNumber</KEYWORD2>
+			<KEYWORD2>IsOdd</KEYWORD2>
+			<KEYWORD2>IsOddFunction</KEYWORD2>
+			<KEYWORD2>IsPrime</KEYWORD2>
+			<KEYWORD2>IsRational</KEYWORD2>
+			<KEYWORD2>IsString</KEYWORD2>
+			<KEYWORD2>IsZero</KEYWORD2>
+			<KEYWORD2>LagrangeInterpolant</KEYWORD2>
+			<KEYWORD2>Lcm</KEYWORD2>
+			<KEYWORD2>Length</KEYWORD2>
+			<KEYWORD2>LeviCivita</KEYWORD2>
+			<KEYWORD2>Listify</KEYWORD2>
+			<KEYWORD2>Ln</KEYWORD2>
+			<KEYWORD2>Local</KEYWORD2>
+			<KEYWORD2>LocalSymbols</KEYWORD2>
+			<KEYWORD2>MakeVector</KEYWORD2>
+			<KEYWORD2>Map</KEYWORD2>
+			<KEYWORD2>Max</KEYWORD2>
+			<KEYWORD2>Min</KEYWORD2>
+			<KEYWORD2>Mod</KEYWORD2>
+			<KEYWORD2>Newton</KEYWORD2>
+			<KEYWORD2>NextPrime</KEYWORD2>
+			<KEYWORD2>Normalize</KEYWORD2>
+			<KEYWORD2>Not</KEYWORD2>
+			<KEYWORD2>NthRoot</KEYWORD2>
+			<KEYWORD2>Numer</KEYWORD2>
+			<KEYWORD2>PAdicExpand</KEYWORD2>
+			<KEYWORD2>PSolve</KEYWORD2>
+			<KEYWORD2>Permutations</KEYWORD2>
+			<KEYWORD2>PrimitivePart</KEYWORD2>
+			<KEYWORD2>Pslq</KEYWORD2>
+			<KEYWORD2>RadSimp</KEYWORD2>
+			<KEYWORD2>Random</KEYWORD2>
+			<KEYWORD2>RandomIntegerVector</KEYWORD2>
+			<KEYWORD2>RandomPoly</KEYWORD2>
+			<KEYWORD2>Rationalize</KEYWORD2>
+			<KEYWORD2>Re</KEYWORD2>
+			<KEYWORD2>Read</KEYWORD2>
+			<KEYWORD2>Replace</KEYWORD2>
+			<KEYWORD2>Reverse</KEYWORD2>
+			<KEYWORD2>Round</KEYWORD2>
+			<KEYWORD2>Sign</KEYWORD2>
+			<KEYWORD2>Sin</KEYWORD2>
+			<KEYWORD2>Sqrt</KEYWORD2>
+			<KEYWORD2>String</KEYWORD2>
+			<KEYWORD2>Subst</KEYWORD2>
+			<KEYWORD2>SuchThat</KEYWORD2>
+			<KEYWORD2>Table</KEYWORD2>
+			<KEYWORD2>Tail</KEYWORD2>
+			<KEYWORD2>Tan</KEYWORD2>
+			<KEYWORD2>Time</KEYWORD2>
+			<KEYWORD2>ToBase</KEYWORD2>
+			<KEYWORD2>ToString</KEYWORD2>
+			<KEYWORD2>Trace</KEYWORD2>
+			<KEYWORD2>Transpose</KEYWORD2>
+			<KEYWORD2>TrigSimpCombine</KEYWORD2>
+			<KEYWORD2>TruncRadian</KEYWORD2>
+			<KEYWORD2>Type</KEYWORD2>
+			<KEYWORD2>UnFlatten</KEYWORD2>
+			<KEYWORD2>UnList</KEYWORD2>
+			<KEYWORD2>Union</KEYWORD2>
+			<KEYWORD2>UniqueConstant</KEYWORD2>
+			<KEYWORD2>Until</KEYWORD2>
+			<KEYWORD2>VarList</KEYWORD2>
+			<KEYWORD2>While</KEYWORD2>
+			<KEYWORD2>WithValue</KEYWORD2>
+			<KEYWORD2>ZeroMatrix</KEYWORD2>
+			<KEYWORD2>ZeroVector</KEYWORD2>
+			<KEYWORD2>Array'Create</KEYWORD2>
+			<KEYWORD2>Array'CreateFromList</KEYWORD2>
+			<KEYWORD2>Array'Get</KEYWORD2>
+			<KEYWORD2>Array'Set</KEYWORD2>
+			<KEYWORD2>Array'Size</KEYWORD2>
+			<KEYWORD2>Array'ToList</KEYWORD2>
+			<KEYWORD2>Assert</KEYWORD2>
+			<KEYWORD2>Assoc</KEYWORD2>
+			<KEYWORD2>AssocDelete</KEYWORD2>
+			<KEYWORD2>AssocIndices</KEYWORD2>
+			<KEYWORD2>Bernoulli</KEYWORD2>
+			<KEYWORD2>BernoulliDistribution</KEYWORD2>
+			<KEYWORD2>BigOh</KEYWORD2>
+			<KEYWORD2>BinSplitData</KEYWORD2>
+			<KEYWORD2>BinSplitFinal</KEYWORD2>
+			<KEYWORD2>BinSplitNum</KEYWORD2>
+			<KEYWORD2>BinomialDistribution</KEYWORD2>
+			<KEYWORD2>BitAnd</KEYWORD2>
+			<KEYWORD2>BitOr</KEYWORD2>
+			<KEYWORD2>BitXor</KEYWORD2>
+			<KEYWORD2>Bodied</KEYWORD2>
+			<KEYWORD2>BracketRational</KEYWORD2>
+			<KEYWORD2>BubbleSort</KEYWORD2>
+			<KEYWORD2>Builtin'Precision'Get</KEYWORD2>
+			<KEYWORD2>Builtin'Precision'Set</KEYWORD2>
+			<KEYWORD2>CForm</KEYWORD2>
+			<KEYWORD2>CachedConstant</KEYWORD2>
+			<KEYWORD2>Catalan</KEYWORD2>
+			<KEYWORD2>CatalanNumber</KEYWORD2>
+			<KEYWORD2>Check</KEYWORD2>
+			<KEYWORD2>ChiSquareTest</KEYWORD2>
+			<KEYWORD2>Cholesky</KEYWORD2>
+			<KEYWORD2>ClearError</KEYWORD2>
+			<KEYWORD2>ClearErrors</KEYWORD2>
+			<KEYWORD2>CoFactor</KEYWORD2>
+			<KEYWORD2>ContFracEval</KEYWORD2>
+			<KEYWORD2>ContFracList</KEYWORD2>
+			<KEYWORD2>Count</KEYWORD2>
+			<KEYWORD2>CurrentFile</KEYWORD2>
+			<KEYWORD2>CurrentLine</KEYWORD2>
+			<KEYWORD2>Cyclotomic</KEYWORD2>
+			<KEYWORD2>DefLoad</KEYWORD2>
+			<KEYWORD2>DefMacroRuleBase</KEYWORD2>
+			<KEYWORD2>DefMacroRuleBaseListed</KEYWORD2>
+			<KEYWORD2>DefaultTokenizer</KEYWORD2>
+			<KEYWORD2>DestructiveAppend</KEYWORD2>
+			<KEYWORD2>DestructiveDelete</KEYWORD2>
+			<KEYWORD2>DestructiveInsert</KEYWORD2>
+			<KEYWORD2>DestructiveReplace</KEYWORD2>
+			<KEYWORD2>DestructiveReverse</KEYWORD2>
+			<KEYWORD2>Diagonal</KEYWORD2>
+			<KEYWORD2>Divisors</KEYWORD2>
+			<KEYWORD2>DivisorsList</KEYWORD2>
+			<KEYWORD2>DivisorsSum</KEYWORD2>
+			<KEYWORD2>Drop</KEYWORD2>
+			<KEYWORD2>DumpErrors</KEYWORD2>
+			<KEYWORD2>EndOfFile</KEYWORD2>
+			<KEYWORD2>Equals</KEYWORD2>
+			<KEYWORD2>Euler</KEYWORD2>
+			<KEYWORD2>Eulerian</KEYWORD2>
+			<KEYWORD2>EvalFormula</KEYWORD2>
+			<KEYWORD2>EvaluateHornerScheme</KEYWORD2>
+			<KEYWORD2>ExpandBrackets</KEYWORD2>
+			<KEYWORD2>ExtraInfo'Get</KEYWORD2>
+			<KEYWORD2>ExtraInfo'Set</KEYWORD2>
+			<KEYWORD2>False</KEYWORD2>
+			<KEYWORD2>FermatNumber</KEYWORD2>
+			<KEYWORD2>FindFile</KEYWORD2>
+			<KEYWORD2>FindFunction</KEYWORD2>
+			<KEYWORD2>FlatCopy</KEYWORD2>
+			<KEYWORD2>FromFile</KEYWORD2>
+			<KEYWORD2>FuncList</KEYWORD2>
+			<KEYWORD2>FuncListArith</KEYWORD2>
+			<KEYWORD2>FuncListSome</KEYWORD2>
+			<KEYWORD2>Function</KEYWORD2>
+			<KEYWORD2>Gamma</KEYWORD2>
+			<KEYWORD2>GarbageCollect</KEYWORD2>
+			<KEYWORD2>GaussianFactors</KEYWORD2>
+			<KEYWORD2>GaussianGcd</KEYWORD2>
+			<KEYWORD2>GaussianNorm</KEYWORD2>
+			<KEYWORD2>GenericTypeName</KEYWORD2>
+			<KEYWORD2>GetCoreError</KEYWORD2>
+			<KEYWORD2>GetError</KEYWORD2>
+			<KEYWORD2>GetErrorTableau</KEYWORD2>
+			<KEYWORD2>GetTime</KEYWORD2>
+			<KEYWORD2>GlobalPop</KEYWORD2>
+			<KEYWORD2>GlobalPush</KEYWORD2>
+			<KEYWORD2>GoldenRatio</KEYWORD2>
+			<KEYWORD2>GreaterThan</KEYWORD2>
+			<KEYWORD2>GuessRational</KEYWORD2>
+			<KEYWORD2>HarmonicNumber</KEYWORD2>
+			<KEYWORD2>HasExpr</KEYWORD2>
+			<KEYWORD2>HasExprArith</KEYWORD2>
+			<KEYWORD2>HasExprSome</KEYWORD2>
+			<KEYWORD2>HasFunc</KEYWORD2>
+			<KEYWORD2>HasFuncArith</KEYWORD2>
+			<KEYWORD2>HasFuncSome</KEYWORD2>
+			<KEYWORD2>HeapSort</KEYWORD2>
+			<KEYWORD2>HessianMatrix</KEYWORD2>
+			<KEYWORD2>HilbertInverseMatrix</KEYWORD2>
+			<KEYWORD2>HilbertMatrix</KEYWORD2>
+			<KEYWORD2>HoldArg</KEYWORD2>
+			<KEYWORD2>HoldArgNr</KEYWORD2>
+			<KEYWORD2>Horner</KEYWORD2>
+			<KEYWORD2>InNumericMode</KEYWORD2>
+			<KEYWORD2>InProduct</KEYWORD2>
+			<KEYWORD2>InVerboseMode</KEYWORD2>
+			<KEYWORD2>Infinity</KEYWORD2>
+			<KEYWORD2>Infix</KEYWORD2>
+			<KEYWORD2>IntLog</KEYWORD2>
+			<KEYWORD2>IntNthRoot</KEYWORD2>
+			<KEYWORD2>IntPowerNum</KEYWORD2>
+			<KEYWORD2>InverseTaylor</KEYWORD2>
+			<KEYWORD2>IsAmicablePair</KEYWORD2>
+			<KEYWORD2>IsBodied</KEYWORD2>
+			<KEYWORD2>IsCFormable</KEYWORD2>
+			<KEYWORD2>IsCarmichaelNumber</KEYWORD2>
+			<KEYWORD2>IsComposite</KEYWORD2>
+			<KEYWORD2>IsCoprime</KEYWORD2>
+			<KEYWORD2>IsDiagonal</KEYWORD2>
+			<KEYWORD2>IsError</KEYWORD2>
+			<KEYWORD2>IsGaussianInteger</KEYWORD2>
+			<KEYWORD2>IsGaussianPrime</KEYWORD2>
+			<KEYWORD2>IsGaussianUnit</KEYWORD2>
+			<KEYWORD2>IsGeneric</KEYWORD2>
+			<KEYWORD2>IsHermitian</KEYWORD2>
+			<KEYWORD2>IsIdempotent</KEYWORD2>
+			<KEYWORD2>IsInfinity</KEYWORD2>
+			<KEYWORD2>IsInfix</KEYWORD2>
+			<KEYWORD2>IsIrregularPrime</KEYWORD2>
+			<KEYWORD2>IsLowerTriangular</KEYWORD2>
+			<KEYWORD2>IsMatrix</KEYWORD2>
+			<KEYWORD2>IsNegativeInteger</KEYWORD2>
+			<KEYWORD2>IsNegativeNumber</KEYWORD2>
+			<KEYWORD2>IsNegativeReal</KEYWORD2>
+			<KEYWORD2>IsNonObject</KEYWORD2>
+			<KEYWORD2>IsNonZeroInteger</KEYWORD2>
+			<KEYWORD2>IsNumericList</KEYWORD2>
+			<KEYWORD2>IsOrthogonal</KEYWORD2>
+			<KEYWORD2>IsPositiveInteger</KEYWORD2>
+			<KEYWORD2>IsPositiveNumber</KEYWORD2>
+			<KEYWORD2>IsPositiveReal</KEYWORD2>
+			<KEYWORD2>IsPostfix</KEYWORD2>
+			<KEYWORD2>IsPrefix</KEYWORD2>
+			<KEYWORD2>IsPrimePower</KEYWORD2>
+			<KEYWORD2>IsPromptShown</KEYWORD2>
+			<KEYWORD2>IsQuadraticResidue</KEYWORD2>
+			<KEYWORD2>IsScalar</KEYWORD2>
+			<KEYWORD2>IsSkewSymmetric</KEYWORD2>
+			<KEYWORD2>IsSmallPrime</KEYWORD2>
+			<KEYWORD2>IsSquareFree</KEYWORD2>
+			<KEYWORD2>IsSquareMatrix</KEYWORD2>
+			<KEYWORD2>IsSymmetric</KEYWORD2>
+			<KEYWORD2>IsTwinPrime</KEYWORD2>
+			<KEYWORD2>IsUnitary</KEYWORD2>
+			<KEYWORD2>IsUpperTriangular</KEYWORD2>
+			<KEYWORD2>IsVector</KEYWORD2>
+			<KEYWORD2>IsZeroVector</KEYWORD2>
+			<KEYWORD2>JacobiSymbol</KEYWORD2>
+			<KEYWORD2>JacobianMatrix</KEYWORD2>
+			<KEYWORD2>KnownFailure</KEYWORD2>
+			<KEYWORD2>LambertW</KEYWORD2>
+			<KEYWORD2>LaplaceTransform</KEYWORD2>
+			<KEYWORD2>LeadingCoef</KEYWORD2>
+			<KEYWORD2>LeftPrecedence</KEYWORD2>
+			<KEYWORD2>LegendreSymbol</KEYWORD2>
+			<KEYWORD2>LessThan</KEYWORD2>
+			<KEYWORD2>LispRead</KEYWORD2>
+			<KEYWORD2>LispReadListed</KEYWORD2>
+			<KEYWORD2>List</KEYWORD2>
+			<KEYWORD2>LnCombine</KEYWORD2>
+			<KEYWORD2>LnExpand</KEYWORD2>
+			<KEYWORD2>Load</KEYWORD2>
+			<KEYWORD2>LogicTest</KEYWORD2>
+			<KEYWORD2>LogicVerify</KEYWORD2>
+			<KEYWORD2>Macro</KEYWORD2>
+			<KEYWORD2>MapArgs</KEYWORD2>
+			<KEYWORD2>MapSingle</KEYWORD2>
+			<KEYWORD2>MatchLinear</KEYWORD2>
+			<KEYWORD2>MathAbs</KEYWORD2>
+			<KEYWORD2>MathAdd</KEYWORD2>
+			<KEYWORD2>MathAnd</KEYWORD2>
+			<KEYWORD2>MathArcCos</KEYWORD2>
+			<KEYWORD2>MathArcCosh</KEYWORD2>
+			<KEYWORD2>MathArcSin</KEYWORD2>
+			<KEYWORD2>MathArcSinh</KEYWORD2>
+			<KEYWORD2>MathArcTan</KEYWORD2>
+			<KEYWORD2>MathArcTanh</KEYWORD2>
+			<KEYWORD2>MathCeil</KEYWORD2>
+			<KEYWORD2>MathCos</KEYWORD2>
+			<KEYWORD2>MathCosh</KEYWORD2>
+			<KEYWORD2>MathDiv</KEYWORD2>
+			<KEYWORD2>MathDivide</KEYWORD2>
+			<KEYWORD2>MathExp</KEYWORD2>
+			<KEYWORD2>MathFloor</KEYWORD2>
+			<KEYWORD2>MathGcd</KEYWORD2>
+			<KEYWORD2>MathGetExactBits</KEYWORD2>
+			<KEYWORD2>MathLog</KEYWORD2>
+			<KEYWORD2>MathMod</KEYWORD2>
+			<KEYWORD2>MathMultiply</KEYWORD2>
+			<KEYWORD2>MathNot</KEYWORD2>
+			<KEYWORD2>MathOr</KEYWORD2>
+			<KEYWORD2>MathPower</KEYWORD2>
+			<KEYWORD2>MathSetExactBits</KEYWORD2>
+			<KEYWORD2>MathSin</KEYWORD2>
+			<KEYWORD2>MathSinh</KEYWORD2>
+			<KEYWORD2>MathSqrt</KEYWORD2>
+			<KEYWORD2>MathSubtract</KEYWORD2>
+			<KEYWORD2>MathTan</KEYWORD2>
+			<KEYWORD2>MathTanh</KEYWORD2>
+			<KEYWORD2>MatrixPower</KEYWORD2>
+			<KEYWORD2>MatrixSolve</KEYWORD2>
+			<KEYWORD2>MaxEvalDepth</KEYWORD2>
+			<KEYWORD2>MaximumBound</KEYWORD2>
+			<KEYWORD2>MinimumBound</KEYWORD2>
+			<KEYWORD2>Minor</KEYWORD2>
+			<KEYWORD2>Moebius</KEYWORD2>
+			<KEYWORD2>MoebiusDivisorsList</KEYWORD2>
+			<KEYWORD2>Monic</KEYWORD2>
+			<KEYWORD2>MultiplyNum</KEYWORD2>
+			<KEYWORD2>NFunction</KEYWORD2>
+			<KEYWORD2>NearRational</KEYWORD2>
+			<KEYWORD2>NewLine</KEYWORD2>
+			<KEYWORD2>NewtonNum</KEYWORD2>
+			<KEYWORD2>Nl</KEYWORD2>
+			<KEYWORD2>NonN</KEYWORD2>
+			<KEYWORD2>NrArgs</KEYWORD2>
+			<KEYWORD2>Nth</KEYWORD2>
+			<KEYWORD2>NumRealRoots</KEYWORD2>
+			<KEYWORD2>OMDef</KEYWORD2>
+			<KEYWORD2>OMForm</KEYWORD2>
+			<KEYWORD2>OMRead</KEYWORD2>
+			<KEYWORD2>Object</KEYWORD2>
+			<KEYWORD2>OdeOrder</KEYWORD2>
+			<KEYWORD2>OdeSolve</KEYWORD2>
+			<KEYWORD2>OdeTest</KEYWORD2>
+			<KEYWORD2>OldSolve</KEYWORD2>
+			<KEYWORD2>OpLeftPrecedence</KEYWORD2>
+			<KEYWORD2>OpPrecedence</KEYWORD2>
+			<KEYWORD2>OpRightPrecedence</KEYWORD2>
+			<KEYWORD2>Or</KEYWORD2>
+			<KEYWORD2>OrthoG</KEYWORD2>
+			<KEYWORD2>OrthoGSum</KEYWORD2>
+			<KEYWORD2>OrthoH</KEYWORD2>
+			<KEYWORD2>OrthoHSum</KEYWORD2>
+			<KEYWORD2>OrthoL</KEYWORD2>
+			<KEYWORD2>OrthoLSum</KEYWORD2>
+			<KEYWORD2>OrthoP</KEYWORD2>
+			<KEYWORD2>OrthoPSum</KEYWORD2>
+			<KEYWORD2>OrthoPoly</KEYWORD2>
+			<KEYWORD2>OrthoPolySum</KEYWORD2>
+			<KEYWORD2>OrthoT</KEYWORD2>
+			<KEYWORD2>OrthoTSum</KEYWORD2>
+			<KEYWORD2>OrthoU</KEYWORD2>
+			<KEYWORD2>OrthoUSum</KEYWORD2>
+			<KEYWORD2>OrthogonalBasis</KEYWORD2>
+			<KEYWORD2>OrthonormalBasis</KEYWORD2>
+			<KEYWORD2>Outer</KEYWORD2>
+			<KEYWORD2>PDF</KEYWORD2>
+			<KEYWORD2>Partition</KEYWORD2>
+			<KEYWORD2>PatchLoad</KEYWORD2>
+			<KEYWORD2>PatchString</KEYWORD2>
+			<KEYWORD2>Plot3DS</KEYWORD2>
+			<KEYWORD2>Pop</KEYWORD2>
+			<KEYWORD2>PopBack</KEYWORD2>
+			<KEYWORD2>PopFront</KEYWORD2>
+			<KEYWORD2>Postfix</KEYWORD2>
+			<KEYWORD2>Prefix</KEYWORD2>
+			<KEYWORD2>PrettyForm</KEYWORD2>
+			<KEYWORD2>PrintList</KEYWORD2>
+			<KEYWORD2>Prog</KEYWORD2>
+			<KEYWORD2>ProperDivisors</KEYWORD2>
+			<KEYWORD2>ProperDivisorsSum</KEYWORD2>
+			<KEYWORD2>Push</KEYWORD2>
+			<KEYWORD2>RamanujanSum</KEYWORD2>
+			<KEYWORD2>RandVerifyArithmetic</KEYWORD2>
+			<KEYWORD2>RandomIntegerMatrix</KEYWORD2>
+			<KEYWORD2>RandomSeed</KEYWORD2>
+			<KEYWORD2>ReadCmdLineString</KEYWORD2>
+			<KEYWORD2>ReadToken</KEYWORD2>
+			<KEYWORD2>RemoveDuplicates</KEYWORD2>
+			<KEYWORD2>Retract</KEYWORD2>
+			<KEYWORD2>ReversePoly</KEYWORD2>
+			<KEYWORD2>RightAssociative</KEYWORD2>
+			<KEYWORD2>RightPrecedence</KEYWORD2>
+			<KEYWORD2>Rng</KEYWORD2>
+			<KEYWORD2>RngCreate</KEYWORD2>
+			<KEYWORD2>RngSeed</KEYWORD2>
+			<KEYWORD2>RoundTo</KEYWORD2>
+			<KEYWORD2>Rule</KEYWORD2>
+			<KEYWORD2>RuleBase</KEYWORD2>
+			<KEYWORD2>RuleBaseArgList</KEYWORD2>
+			<KEYWORD2>RuleBaseListed</KEYWORD2>
+			<KEYWORD2>Secure</KEYWORD2>
+			<KEYWORD2>Set</KEYWORD2>
+			<KEYWORD2>SetGlobalLazyVariable</KEYWORD2>
+			<KEYWORD2>ShiftLeft</KEYWORD2>
+			<KEYWORD2>ShiftRight</KEYWORD2>
+			<KEYWORD2>SolveMatrix</KEYWORD2>
+			<KEYWORD2>Space</KEYWORD2>
+			<KEYWORD2>Sparsity</KEYWORD2>
+			<KEYWORD2>SquareFree</KEYWORD2>
+			<KEYWORD2>SquareFreeDivisorsList</KEYWORD2>
+			<KEYWORD2>StirlingNumber1</KEYWORD2>
+			<KEYWORD2>StringMid'Get</KEYWORD2>
+			<KEYWORD2>StringMid'Set</KEYWORD2>
+			<KEYWORD2>Subfactorial</KEYWORD2>
+			<KEYWORD2>SumForDivisors</KEYWORD2>
+			<KEYWORD2>SumTaylorNum</KEYWORD2>
+			<KEYWORD2>Swap</KEYWORD2>
+			<KEYWORD2>SylvesterMatrix</KEYWORD2>
+			<KEYWORD2>SystemCall</KEYWORD2>
+			<KEYWORD2>TableForm</KEYWORD2>
+			<KEYWORD2>Take</KEYWORD2>
+			<KEYWORD2>TeXForm</KEYWORD2>
+			<KEYWORD2>TestPiper</KEYWORD2>
+			<KEYWORD2>ToFile</KEYWORD2>
+			<KEYWORD2>ToStdout</KEYWORD2>
+			<KEYWORD2>ToeplitzMatrix</KEYWORD2>
+			<KEYWORD2>TraceExp</KEYWORD2>
+			<KEYWORD2>TraceRule</KEYWORD2>
+			<KEYWORD2>TraceStack</KEYWORD2>
+			<KEYWORD2>TrapError</KEYWORD2>
+			<KEYWORD2>True</KEYWORD2>
+			<KEYWORD2>UnFence</KEYWORD2>
+			<KEYWORD2>Undefined</KEYWORD2>
+			<KEYWORD2>Use</KEYWORD2>
+			<KEYWORD2>V</KEYWORD2>
+			<KEYWORD2>VandermondeMatrix</KEYWORD2>
+			<KEYWORD2>VarListArith</KEYWORD2>
+			<KEYWORD2>VarListSome</KEYWORD2>
+			<KEYWORD2>Verify</KEYWORD2>
+			<KEYWORD2>VerifyArithmetic</KEYWORD2>
+			<KEYWORD2>VerifyDiv</KEYWORD2>
+			<KEYWORD2>Write</KEYWORD2>
+			<KEYWORD2>WriteString</KEYWORD2>
+			<KEYWORD2>WronskianMatrix</KEYWORD2>
+			<KEYWORD2>XmlExplodeTag</KEYWORD2>
+			<KEYWORD2>XmlTokenizer</KEYWORD2>
+			<KEYWORD2>Zeta</KEYWORD2>
+
+			<LITERAL1>True</LITERAL1>
+			<LITERAL1>False</LITERAL1>
+
+
+		</KEYWORDS>
+	</RULES>
+
+
+</MODE>
+
+<!-- {{{ License.
+/*
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+ }}} -->

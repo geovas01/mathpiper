@@ -1,0 +1,226 @@
+// P. 22 exercises.
+
+
+
+{{{ Exercises 1 and 2.
+/*
+In each of Exercises 1 and 2, verify the associative property of multiplication, a(bc) = (ab)c, for the given values a,b, and c.
+*/
+f1(a,b,c) := a*(b*c) = (a*b)*c;
+
+Echo(f1);
+
+//
+Echo("Exercise 1: a=4, b=5, c=6: ",f1(4,5,6));
+Echo("Exercise 2: a=8, b=7, c=3: ",f1(8,7,3));
+
+     {{{Output:
+      a*b*c==a*b*c 
+      Exercise 1: a=4, b=5, c=6: True 
+      Exercise 2: a=8, b=7, c=3: True
+     }}}
+
+}}}
+
+{{{%yacas Exercise 3.
+/* List all the prime natural numbers which are members of the set {1,2,3,...,30} */
+
+a := {};
+ForEach(x,1 .. 30)
+ If(IsPrime(x),Write(x));
+
+     {{{%output 
+      2 3 5 7 11 13 17 19 23 29
+     }}}
+
+}}}
+
+
+{{{%yacas Exercise 4.
+/* List all the prime natural numbers which are members of the set {30,...,50} */
+
+a := {};
+ForEach(x,30 .. 50)
+ If(IsPrime(x),Write(x));
+
+     {{{%output 
+      31 37 41 43 47
+     }}}
+
+}}}
+
+
+{{{%yacas Exercise 5.
+/* Factor each of the following into prime factors: 8,11,14,18,24,29. */
+
+a := {8,11,14,18,24,29};
+ForEach(x,a)
+    Echo(x, Factor(x));
+
+     {{{%output 
+      8 2^3 
+      11 11 
+      14 2*7 
+      18 2*3^2 
+      24 2^3*3 
+      29 29
+     }}}
+
+}}}
+
+
+{{{%yacas Exercise 6.
+/* Factor each of the following into prime factors: 15,17,21,45,39,42. */
+
+a := {15,17,21,45,39,42};
+ForEach(x,a)
+    Echo(x, Factor(x));
+
+     {{{%output 
+      15 3*5 
+      17 17 
+      21 3*7 
+      45 3^2*5 
+      39 3*13 
+      42 2*3*7
+     }}}
+
+}}}
+
+
+{{{%yacas Exercise 7.
+//What prime factors do the numbers 21, 42, and 56 have in common.
+
+Echo("Manually...");
+Echo(Factor(21),Factor(42),Factor(56));
+Echo(" ");
+
+
+Echo("Automatically...");
+a1 := {};
+a2 := {};
+a3 := {};
+
+f := Factors(21);
+ForEach(x,f)
+    a1 := Append(a1,x[1]);
+    
+  
+f := Factors(42);
+ForEach(x,f)
+    a2 := Append(a2,x[1]);
+    
+    
+f := Factors(56);
+ForEach(x,f)
+    a3 := Append(a3,x[1]);
+    
+Echo(a1,a2,a3);
+
+i1 := Intersection(a1,a2);
+i2 := Intersection(i1,a3);
+
+Echo("The answer is:",i2);
+
+     {{{%output 
+      Manually...
+      3*7 2*3*7 2^3*7 
+       
+      Automatically...
+      {3,7} {2,3,7} {2,7} 
+      The answer is:{7}
+     }}}
+
+}}}
+
+
+{{{%yacas Exercise 8.
+//What prime factors do the numbers 30, 210, and 770 have in common.
+
+Echo("Manually...");
+Echo(Factor(30),Factor(210),Factor(770));
+Echo(" ");
+
+
+Echo("Automatically...");
+a1 := {};
+a2 := {};
+a3 := {};
+
+f := Factors(30);
+ForEach(x,f)
+    a1 := Append(a1,x[1]);
+    
+  
+f := Factors(210);
+ForEach(x,f)
+    a2 := Append(a2,x[1]);
+    
+    
+f := Factors(770);
+ForEach(x,f)
+    a3 := Append(a3,x[1]);
+    
+Echo(a1,a2,a3);
+
+i1 := Intersection(a1,a2);
+i2 := Intersection(i1,a3);
+
+Echo("The answer is:",i2);
+
+     {{{%output 
+      Manually...
+      2*3*5 2*3*5*7 2*5*7*11 
+       
+      Automatically...
+      {2,3,5} {2,3,5,7} {2,5,7,11} 
+      The answer is:{2,5}
+     }}}
+
+}}}
+
+
+
+
+{{{%yacas Exercises 9-12.
+
+/* In each of Exercises 9 to 12, the given number is a multiple of what natural numbers? 
+9) 93.
+10) 210.
+11) 315.
+12) 267.
+*/
+
+//9) 93.
+Write(93,: );
+ForEach(x, 1 .. 93)
+    If( Mod(93,x) = 0, Write(x));
+Echo(" ");
+    
+//9) 210.
+Write(210,: );
+ForEach(x, 1 .. 210)
+    If( Mod(210,x) = 0, Write(x));
+Echo(" ");
+    
+//9) 315.
+Write(315,: );
+ForEach(x, 1 .. 315)
+    If( Mod(315,x) = 0, Write(x));
+Echo(" ");
+    
+//9) 267.
+Write(267,:, );
+ForEach(x, 1 .. 267)
+    If( Mod(267,x) = 0, Write(x));
+Echo(" ");
+
+     {{{%output 
+      93:1 3 31 93 
+      210:1 2 3 5 6 7 10 14 15 21 30 35 42 70 105 210 
+      315:1 3 5 7 9 15 21 35 45 63 105 315 
+      267:1 3 89 267
+     }}}
+
+}}}
+

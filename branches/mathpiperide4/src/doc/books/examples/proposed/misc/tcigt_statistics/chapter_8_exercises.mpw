@@ -1,0 +1,171 @@
+%mathpiper,title="1"
+
+3*8*4*3;
+
+%/mathpiper
+
+
+
+
+%mathpiper,title="2"
+
+numberOfWaysToAnswerExam := 4^10;
+
+probabilityOfAllCorrect := N(1/numberOfWaysToAnswerExam);
+
+%/mathpiper
+
+
+
+
+%mathpiper,title="3"
+
+Permutations(13);
+
+%/mathpiper
+
+
+
+
+%mathpiper,title="4"
+
+Permutations(8,3);
+
+%/mathpiper
+
+
+
+%mathpiper,title="5"
+
+Permutations(10,2);
+
+%/mathpiper
+
+
+
+
+%mathpiper,title="6"
+
+Permutations(40,3);
+
+%/mathpiper
+
+
+
+
+
+%mathpiper,title="7"
+
+Combinations(12,3);
+
+%/mathpiper
+
+
+
+
+%mathpiper,title="8"
+
+Combinations(50,12);
+
+%/mathpiper
+
+
+
+
+
+%mathpiper,title="9a"
+
+numberOfCats := {0,1,2,3,4};
+numberOfFamilies := {137,160,112,31,10};
+
+BarChart({numberOfCats, numberOfFamilies}, title -> "# of cats in a family", series1Title -> "Series 1", xAxisLabel -> "# of cats", yAxisLabel -> "# of families");
+
+%/mathpiper
+
+
+
+
+
+%mathpiper,title="9b"
+
+survey := Concat( FillList(0,137), FillList(1,160), FillList(2,112), FillList(3,31), FillList(4,10));
+
+Echo("Mean: ", N( Mean(survey) ));
+
+Echo("Variance: ", N( UnbiasedVariance(survey) ));
+
+Echo("StandardDeviation: ", N( StandardDeviation(survey) ));
+
+%/mathpiper
+
+
+
+
+
+
+
+%mathpiper,title="10"
+
+Use("org/mathpiper/assembledscripts/proposed.rep/statistics.mpi");
+Use("org/mathpiper/assembledscripts/proposed.rep/geogebra.mpi");
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+%mathpiper,title="Full house (three-of-a-kind and a pair)."
+
+fullHouseCount := 0;
+
+deck := Concat(1 .. 13, 1 .. 13, 1 .. 13, 1 .. 13);
+
+trials := 10000;
+
+Repeat(trials)
+[
+
+    deck := Shuffle(deck);
+
+    hand := Take(deck,5);
+    
+    //Echo(hand);
+    
+    handPairCount := 0;
+    handThreeOfAKindCount := 0;
+    ForEach(card,1 .. 13)
+    
+    [
+        If(Count(hand,card) = 3, handThreeOfAKindCount++);
+        If(Count(hand,card) = 2, handPairCount++);
+    ];
+    
+    
+    //Echo(handPairCount,,,handThreeOfAKindCount,,,fullHouseCount);
+    
+    If(handPairCount = 1 And handThreeOfAKindCount = 1, fullHouseCount++);
+    
+
+];
+
+Echo("Trials: ", trials);
+Echo("Full houses: ", fullHouseCount );
+Echo("Probability of a full house: ", N(fullHouseCount/trials) );
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Trials: 10000 
+      Full houses: 11 
+      Probability of a full house: 0.0011
+.   %/output
+
+
+

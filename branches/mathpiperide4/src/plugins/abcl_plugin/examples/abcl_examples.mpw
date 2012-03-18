@@ -1,0 +1,12 @@
+To execute these lisp folds, place the cursor inside
+of a fold and press <shift><enter>.
+
+%lisp
+(+ 2 3)
+%/lisp
+
+
+
+%lisp
+(union '(a b c) '(c b s))
+%/lisp

@@ -1,0 +1,73 @@
+%mathpiper,def="PDF"
+
+/* Evaluates distribution dst at point x
+   known distributions are:
+   1. Discrete distributions
+   -- BernoulliDistribution(p)
+   -- BinomialDistribution(p,n)
+   -- DiscreteUniformDistribution(a,b)
+   -- PoissonDistribution(l)
+   2. Continuous distributions
+   -- ExponentialDistribution(l)
+   -- NormalDistrobution(a,s)
+   -- ContinuousUniformDistribution(a,b)
+   -- tDistribution(m)
+   -- GammaDistribution(m)
+   -- ChiSquareDistribution(m)
+
+  DiscreteDistribution(domain,probabilities) represent arbitrary
+  distribution with finite number of possible values; domain list
+  contains possible values such that
+  Pr(X=domain[i])=probabilities[i].
+  TODO: Should domain contain numbers only?
+*/
+
+//Retract("PDF", *);
+
+
+10 # PDF(ExponentialDistribution(_l), _x) <-- If(x<?0,0,l*Exp(-l*x));
+
+10 # PDF(NormalDistribution(_m,_s),_x) <-- Exp(-(x-m)^2/(2*s^2))/Sqrt(2*Pi*s^2); //See http://en.wikipedia.org/wiki/Normal_distribution.
+
+10 # PDF(ContinuousUniformDistribution(_a,_b),x)_(a<?b) <-- If(x<?a Or? x>?b,0,1/(b-a));
+
+10 # PDF(DiscreteDistribution( dom_List?, prob_List?), _x)_( Length(dom)=?Length(prob) And? Simplify(Add(prob))=?1) <--
+    [
+      Local(i);
+      i:=Find(dom,x);
+      If(i =? -1,0,prob[i]);
+    ];
+10 # PDF( ChiSquareDistribution( _m),x_RationalOrNumber?)_(x<=?0) <-- 0;
+20 # PDF( ChiSquareDistribution( _m),_x) <-- x^(m/2-1)*Exp(-x/2)/2^(m/2)/Gamma(m/2);
+
+10 # PDF(tDistribution(_m),x) <-- Gamma((m+1)/2)*(1+x^2/m)^(-(m+1)/2)/Gamma(m/2)/Sqrt(Pi*m);
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+%mathpiper_docs,name="PDF",categories="User Functions;Statistics & Probability"
+*CMD PDF --- probability density function
+*STD
+*CALL
+        PDF(dist,x)
+
+*PARMS
+{dist} -- a distribution type
+
+{x} -- a value of random variable
+
+*DESC
+{PDF}
+returns the density function at point $x$.
+
+The probability density function (PDF) of a continuous distribution is defined as the 
+derivative of the (cumulative) distribution function.
+
+*SEE CDF, PMF, Expectation
+%/mathpiper_docs

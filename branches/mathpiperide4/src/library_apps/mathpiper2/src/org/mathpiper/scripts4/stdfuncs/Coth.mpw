@@ -1,0 +1,5 @@
+%mathpiper,def="Coth"
+
+100 # Coth(_x)                <-- 1/Tanh(x);
+
+%/mathpiper

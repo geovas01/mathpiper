@@ -1,0 +1,129 @@
+%mathpiper,def="Modulo"
+
+//Retract("Modulo",*);
+
+0 # Modulo(_n,m_RationalOrNumber?)_(m<?0) <-- `Hold(Modulo(@n,@m));
+
+1 # Modulo(n_NegativeInteger?,m_PositiveInteger?) <--
+[
+  Local(result);
+  result := ModuloN(n,m);
+  If (result <? 0,result := result + m);
+  result;
+];
+1 # Modulo(n_PositiveInteger?,m_PositiveInteger?) <-- ModuloN(n,m);
+2 # Modulo(0,_m) <-- 0;
+2 # Modulo(n_PositiveInteger?,Infinity) <-- n;
+3 # Modulo(n_Integer?,m_Integer?) <-- ModuloN(n,m);
+4 # Modulo(n_Number?,m_Number?) <-- NonN(Modulo(Rationalize(n),Rationalize(m)));
+
+5 # Modulo(n_RationalOrNumber?,m_RationalOrNumber?)/*_(n>?0 And? m>?0)*/ <--
+[
+  Local(n1,n2,m1,m2);
+  n1:=Numerator(n);
+  n2:=Denominator(n);
+  m1:=Numerator(m);
+  m2:=Denominator(m);
+  Modulo(n1*m2,m1*n2)/(n2*m2);
+];
+
+6 # Modulo(n_List?,m_List?) <-- Map("Modulo",{n,m});
+7 # Modulo(n_List?,_m) <-- Map("Modulo",{n,FillList(m,Length(n))});
+
+
+30 # Modulo(n_CanBeUni,m_CanBeUni) <--
+[
+  Local(vars);
+  vars:=VarList(n+m);
+  NormalForm(Modulo(MakeUni(n,vars),MakeUni(m,vars)));
+];
+
+
+//Note:tk:moved here from univariate.rep.
+0 # Modulo(n_UniVar?,m_UniVar?)_(Degree(n) <? Degree(m)) <-- n;
+1 # Modulo(n_UniVar?,m_UniVar?)_
+    (n[1] =? m[1] And? Degree(n) >=? Degree(m)) <--
+[
+    UniVariate(n[1],0,
+               UniDivide(Concat(ZeroVector(n[2]),n[3]),
+                         Concat(ZeroVector(m[2]),m[3]))[2]);
+];
+
+10 # Modulo(n_CanBeUni, m_CanBeUni, vars_List?)_(Length(vars)=?1) <--
+[
+    NormalForm(Modulo(MakeUni(n,vars),MakeUni(m,vars)));
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+%mathpiper_docs,name="Modulo",categories="User Functions;Numbers (Operations)"
+*CMD Modulo --- Determine remainder of two mathematical objects after dividing one by the other
+
+*STD
+*CALL
+        Modulo(x,y)
+        Modulo(x,y,vars)
+
+*PARMS
+
+{x}, {y} -- integers or univariate polynomials
+{vars}   -- a list containing the name of the (single) variable appearing in both polynomials
+
+*DESC
+
+{Modulo} returns the remainder after division.  {Modulo} is also defined for univariate polynomials.
+
+If {Quotient(x,y)} returns "a" and {Modulo(x,y)} equals "b", then these numbers satisfy $x =a*y + b$ and $0 <= b < y$.
+
+The second form of the function contains a third parameter, and is used in the special case where the 
+the "divisor" polynomial contains an unbound "variable" which is really just a parameter.  
+In that situation, MathPiper cannot distinguish the variable from the parameter, until you
+specifically name the variable.  See the example below.
+
+*E.G.
+
+In> Quotient(5,3)
+Result: 1;
+In> Modulo(5,3)
+Result: 2;
+        
+In> Modulo(x^2-5*x+2,x-1)
+Result: -2
+        
+In> Modulo(x^2-5*x+2,x-k)
+Result: x^2-5*x+2          
+            NOTE: answer is INCORRECT
+In> Modulo(x^2-5*x+2,x-k,{x})
+Result: (k-5)*k+2
+            NOTE: answer is now CORRECT
+
+*SEE Gcd, Lcm, Quotient
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Modulo",subtype="automatic_test"
+
+// Modulo generated a stack overflow on floats.
+Verify(Modulo(1.2,3.4),6/5);
+
+//TODO I need to understand why we need to put Eval here. Modulo(-1.2,3.4)-2.2 returns 0/5 where the 0 is not an integer according to the system. Round-off error?
+NumericEqual(N(Eval(Modulo(-1.2,3.4))),2.2,BuiltinPrecisionGet());
+
+Verify(Modulo(-12/10,34/10),11/5);
+// just a test to see if Verify still gives correct error Verify(N(Modulo(-12/10,34/10)),11/5);
+
+
+// Make sure Mod works threaded
+Verify(Modulo(2,Infinity),2);
+Verify(Modulo({2,1},{2,2}),{0,1});
+Verify(Modulo({5,1},4),{1,1});
+
+%/mathpiper

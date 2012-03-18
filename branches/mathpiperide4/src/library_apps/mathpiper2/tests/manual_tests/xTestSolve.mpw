@@ -1,0 +1,139 @@
+%mathpiper,title="xTestSolve"
+
+Use("proposed.rep/xSolve.mpi");
+
+//########################################################################
+//       T E S T I N G     T E S T I N G     T E S T I N G
+//########################################################################
+
+iDebug := False;
+//iDebug := True;
+
+// a bunch of expressions for testing
+expressions := {};
+Push( expressions, {a,{}} );
+Push( expressions, {0,{{x==x}}} );
+Push( expressions, {x-5,{{x==5}}} );
+Push( expressions, {x-a,{{x==a}}} );
+Push( expressions, {12*x+5==29,{{x==2}}} );
+Push( expressions, {5*x-15==5*(x-3),{x==x}} );
+Push( expressions, {5*x-15==5*(x-4),{}} );
+
+Push( expressions, {x^2-4,{x==2,x==(-2)}} );
+Push( expressions, {x^2-a^2,{x==a,x==(-a)}} );
+Push( expressions, {2*x^2+9*x==18,{x==3/2,x==(-6)}} );
+Push( expressions, {5*x^2==25*x, {x==0,x==5}} );
+
+Push( expressions, {2*x/5-x/3==2,{x==30}});
+Push( expressions, {2/x-3/2==7/(2*x),{x==(-1)}});
+Push( expressions, {2/(x-3)-3/(x+3)==12/(x^2-9),{}});
+Push( expressions, {3/(x^2+x-2)-1/(x^2-1)==7/(2*(x^2+3*x+2)),{x==3}});
+Push( expressions, {1+1/x==6/x^2,{x==2,x==(-3)}});
+
+Push( expressions, {Sqrt(x)-3,{x==9}});
+Push( expressions, {Sqrt(x-3),{x==3}});
+Push( expressions, {Sqrt(x-3)==2, {x==7}});
+Push( expressions, {Sqrt(2*x)==Sqrt(x+1), {x==1}});
+Push( expressions, {Sqrt(x)==x, {x==1,x==0}});
+Push( expressions, {Sqrt(x+2)-2*x==1,{x==1/4} } );
+Push( expressions, {Sqrt(x+2)+2*x==1,{x==(5 - Sqrt(41))/8} } );
+Push( expressions, {Sqrt(9*x^2+4)-3*x==1,{x==1/2} } );
+Push( expressions, {Sqrt(x+1)-Sqrt(x)==-2,{} } );
+Push( expressions, {Sqrt(3*x-5)-Sqrt(2*x+3)==-1,{x==3} } );
+
+Push( expressions, {Exp(x)==4, {x==Ln(4)}});
+Push( expressions, {Exp(x)==Abs(a), {x==Ln(Abs(a))}});
+Push( expressions, {Ln(x)==4, {x==Exp(4)}});
+Push( expressions, {Ln(x)==a, {x==Exp(a)}});
+
+Push( expressions, {(x+6)/2-(3*x+36)/4==4, {x==-40} } );
+Push( expressions, {(x-3)*(x-4)==x^2-2, {x==2} } );
+Push( expressions, {a*x-2*b*c==d,{x==(2*b*c+d)/a} } );
+Push( expressions, {(36-4*x)/(x^2-9)-(2+3*x)/(3-x)==(3*x-2)/(x+3),{x==-2} } );
+Push( expressions, {(x^2-1)^(1/3)==2,{x==3,x==(-3)} } );
+
+Push( expressions, {x^4-53*x^2+196==0, {x==(-7),x==(-2),x==2,x==7} } );
+Push( expressions, {x^3-8==0, {x==2,x==-1+I*Sqrt(3),x==-1-I*Sqrt(3)} } );
+Push( expressions, {x^(2/3)+x^(1/3)-2==0, {x==1,x==(-8)} } );
+Push( expressions, {Sqrt(x)-(1/4)*x==1, {x==4} } );
+Push( expressions, {(1/4)*x-Sqrt(x)==-1, {x==4} } );
+
+Push( expressions, {{x-y==1,3*x+2*y==13}, {x==3,y==2} } );
+Push( expressions, {{x-y-1==0,2*y+3*x-13==0}, {x==3,y==2} } ); 
+
+//Push( expressions, {, {} } );
+
+//Push( expressions, {,{{},{},{},{}}} );
+
+NewLine(2);  Tell("TEST xSolve()");
+t1 := SystemTimer();
+expressions := Reverse(expressions);
+Local(i);           i := 0;
+Local(iCorrect);    iCorrect := 0;
+ForEach(q,expressions)
+[
+    i := i + 1;     
+    Check(i<100, ">>>>> FORCED STOP <<<<<");
+    f := q[1];
+    If( f = blank, 
+        [
+            i := i - 1;
+            NewLine();
+        ],
+        [
+            //If(i=23 Or i=26 Or i=40,iDebug:=True,iDebug:=False);
+            
+            Local(vars);
+            g := q[2];
+            NewLine();
+            Tell(i,"-------------------------------");
+            Tell(">>> Test xSolve() on the expression: ",f);
+            stk := {};
+            vars := VarList(f);
+            If(IsList(f),
+                [
+                    If(iDebug=True,Tell("   system"));
+                    r := xSolve(f,vars);
+                    SysOut("      xSolve(f,vars) ==> ",r);
+                ],
+                [
+                    If(iDebug=True,Tell("    single"));
+                    r   := xSolve(f,x);
+                    SysOut("      xSolve(f,x) ==> ",r);
+                ]
+            );
+            //If(IsList(f),Break());
+            rmg := Simplify(Expand(UnFlatten(r-g,"+",0)));
+            If(iDebug=True,Tell("rmg",rmg));
+            If(iDebug And IsList(rmg),Tell(Listify(rmg)));
+            If( IsZero(rmg) Or IsZeroVector(rmg), 
+                [SysOut("             Answer is CORRECT"); iCorrect:=iCorrect+1;],
+                [
+                  If(iDebug=True,Tell("check rmg a little more"));
+                  Local(Lrmg,Lrmg2,Lrmg3);
+                  Lrmg := Listify(rmg);
+                  If(iDebug=True,Tell("Listify rmg",Lrmg));
+                  If(Lrmg[1] != UnFlatten,
+                    [
+                       Lrmg2 := Listify(Lrmg[2]);
+                       Lrmg3 := Listify(Lrmg[3]);
+                       If(iDebug=True,Tell("LL",{Lrmg2,Lrmg3}));
+                       If(CloseEnough(Lrmg2[3],Lrmg3[3],10),
+                         [SysOut("             Answer is CORRECT"); iCorrect:=iCorrect+1;],
+                         [SysOut("             Answer is WRONG:  should be ",g  );]
+                       );
+                    ],
+                    SysOut("             Answer is WRONG:  should be ",g  )
+                  );
+                ]                               
+            );
+            //SysOut("             Answer is WRONG:  it should be ",g);
+        ]
+    );     
+];
+NewLine(2);
+Tell("DONE",{iCorrect,i});
+t2 := SystemTimer();
+Echo("Time taken:  ",N((t2-t1)/10^9)," sec");
+
+%/mathpiper

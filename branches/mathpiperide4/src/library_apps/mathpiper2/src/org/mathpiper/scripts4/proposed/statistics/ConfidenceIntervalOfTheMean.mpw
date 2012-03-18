@@ -1,0 +1,123 @@
+%mathpiper,def="ConfidenceIntervalOfTheMean"
+
+//Retract("ConfidenceIntervalOfTheMean",*);
+
+ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnown,sampleSize,confidenceLevel) :=
+[
+    Check(Boolean?(standardDeviationIsKnown), "Argument", "The third argument must be True or False.");
+    
+    Local(criticalZScore,criticalTScore,standardErrorOfTheMean,upperLimitValue,lowerLimitValue,resultList);
+    
+    resultList := {};
+    
+    If(sampleSize >=? 30 Or? standardDeviationIsKnown =? True,
+    [
+        criticalZScore := N(ConfidenceLevelToZScore(confidenceLevel));
+        
+        resultList["criticalZScore"] := criticalZScore;
+
+        standardErrorOfTheMean := N(StandardErrorOfTheMean(standardDeviation,sampleSize));
+        
+        lowerLimitValue := N(sampleMean - criticalZScore * standardErrorOfTheMean);
+        
+        upperLimitValue := N(sampleMean + criticalZScore * standardErrorOfTheMean);
+
+        
+        If(InVerboseMode(),
+            [
+                Echo("Using the normal distribution.");
+                
+                Echo("Critical z-score: ", criticalZScore);
+                
+                Echo("Standard error of the mean: ", standardErrorOfTheMean);
+            ]);
+    ],
+    [   
+        criticalTScore := OneTailAlphaToTScore(sampleSize - 1, N((1 - confidenceLevel)/2));
+        
+        resultList["criticalTScore"] := criticalTScore;
+        
+        standardErrorOfTheMean := N(StandardErrorOfTheMean(standardDeviation,sampleSize));
+        
+        lowerLimitValue := N(sampleMean - criticalTScore * standardErrorOfTheMean);
+        
+        upperLimitValue := N(sampleMean + criticalTScore * standardErrorOfTheMean);
+        
+        
+        If(InVerboseMode(),
+            [
+                Echo("Using the t-distribution.");
+                
+                Echo("Critical t-score: ", criticalTScore);
+                
+                Echo("Standard error of the mean: ", standardErrorOfTheMean);
+            ]);
+    
+    ]);
+    
+    resultList["upperLimit"] := upperLimitValue;
+    
+    resultList["lowerLimit"] := lowerLimitValue;
+
+    resultList;
+];
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+%mathpiper_docs,name="ConfidenceIntervalOfTheMean",categories="User Functions;Statistics & Probability",access="experimental"
+*CMD ConfidenceIntervalOfTheMean --- calculates a confidence interval
+*STD
+*CALL
+        ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnown,sampleSize,confidenceLevel)
+*PARMS
+{sampleMean} -- the mean of the sample
+{standardDeviation} -- the standard deviation of the sample
+{standardDeviationIsKnown} -- True or False
+{sampleSize} -- the size of the sample
+{confidenceLevel} -- the desired confidence level
+
+*DESC
+This function calculates a confidence interval for a mean.  It returns an association list
+which contains the lower limit, the upper limit, and either the critical Z score or the t value.
+If the sample size is <30 or {standardDeviationIsKnown} is False, then
+Student's t-distribution is used during the calculation.
+
+If the function is run in verbose mode, it returns additional information as a side effect.
+
+*E.G.
+In> result := ConfidenceIntervalOfTheMean(78.25,37.50,True,32,.90)
+Result: {{"lowerLimit",67.34605578},{"upperLimit",89.15394422},{"criticalZScore",1.644853952}}
+
+In> result["upperLimit"]
+Result: 89.15394422
+
+In> result := ConfidenceIntervalOfTheMean(78.25,37.50,False,25,.90)
+Result: {{"lowerLimit",65.41838440},{"upperLimit",91.08161560},{"criticalTScore",1.710882080}}
+
+In> result["criticalTScore"]
+Result: 1.710882080
+
+In> result := V(ConfidenceIntervalOfTheMean(78.25,37.50,True,32,.90))
+Result: {{"lowerLimit",67.34605578},{"upperLimit",89.15394422},{"criticalZScore",1.644853952}}
+Side Effects:
+Using the normal distribution.
+Critical Z-Score: 1.644853952 
+Standard error of the mean: 6.629126073 
+
+*SEE ConfidenceIntervalOfTheProportion, V, Assoc
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+

@@ -1,0 +1,35 @@
+Piper-ME is a port of Yacas/Mathpiper targeting the Java ME platforms
+(CLDC 1.1). It has been tested on a Nokia N73 mobile.
+
+Currenly, we only provide the Java-ME enabled library. Application developers
+can easily include the interpreter:
+
+    try {
+      PiperInterpreter piper = new PiperInterpreter(new DefaultFileLocator());
+      System.out.println(piper.evaluate("2+3"));    
+    } catch (Piperexception e) {
+      e.printStackTrace();
+    }
+    
+Piper-ME differs from Yacas/Piper-ME in the following aspects:
+
+1. List presentation, numbers, and collections have been reimplemented
+in order to meet the restricted Java-ME API and for smaller memory footprint.
+
+2. Language and scripts follow the changes in Mathpiper, but are usually
+several steps behind.
+    					 
+
+In order to compile and test the library, perform the following steps:
+
+1. Compile via ant:
+
+>ant
+
+2. Perform tests:
+
+>integrationtest.sh
+
+3. Call piper as a console application:
+
+>piper.sh

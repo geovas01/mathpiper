@@ -1,0 +1,34 @@
+%mathpiper,def="UniqueConstant"
+
+UniqueConstant() <--
+[
+  Local(result);
+  result := ToString(LocalSymbols(C)(C));
+  ToAtom(StringMidGet(2,Length(result)-1,result));
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="UniqueConstant",categories="User Functions;Variables"
+*CMD UniqueConstant --- create a unique identifier
+*STD
+*CALL
+        UniqueConstant()
+
+*DESC
+
+This function returns a unique constant atom each time you call
+it. The atom starts with a C character, and a unique number is
+appended to it.
+
+*E.G.
+
+In> UniqueConstant()
+Result: C9
+In>  UniqueConstant()
+Result: C10
+
+*SEE LocalSymbols
+%/mathpiper_docs

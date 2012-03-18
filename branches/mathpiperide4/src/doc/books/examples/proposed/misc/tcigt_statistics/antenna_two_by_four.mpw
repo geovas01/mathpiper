@@ -1,0 +1,76 @@
+
+
+%mathpiper,title=""
+
+len := {
+3.543,
+3.554,
+3.544,
+3.590,
+3.463,
+3.448,
+3.424,
+3.552,
+3.502,
+3.485,
+3.506,
+3.495,
+3.583
+};
+
+wid := {
+1.536,
+1.525,
+1.524,
+1.516,
+1.489,
+1.497,
+1.490,
+1.524,
+1.521,
+1.506,
+1.512,
+1.490,
+1.515
+};
+
+
+lengthMean := N(Mean(len));
+lengthStandardDeviation := N(StandardDeviation(len));
+Echo("Mean of length: ", lengthMean);
+Echo("Standard deviation of length: ", lengthStandardDeviation);
+Echo("Percent defective: ", 1-N(CumulativeDistributionFunction(NormalDistribution(lengthMean,lengthStandardDeviation),3.65)));
+
+NewLine();
+
+widthMean := N(Mean(wid));
+widthStandardDeviation := N(StandardDeviation(wid));
+Echo("Mean of width: ", widthMean);
+Echo("Standard deviatin of width: ", widthStandardDeviation);
+Echo("Percent defective: ", 1-N(CumulativeDistributionFunction(NormalDistribution(widthMean,widthStandardDeviation),1.55)));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Mean of length: 3.514538462 
+      Standard deviation of length: 0.051466195045 
+      Percent defective: 0.0042436226 
+      
+      Mean of width: 1.511153846 
+      Standard deviatin of width: 0.015512608610 
+      Percent defective: 0.0061370294
+.   %/output
+
+
+
+
+
+
+
+
+
+
+

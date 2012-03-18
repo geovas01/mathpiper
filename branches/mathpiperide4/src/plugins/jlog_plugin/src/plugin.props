@@ -1,0 +1,83 @@
+# Properties file for JLog plugin.
+
+
+#{{{ Must be in order.
+# jEdit only needs to load the plugin the first time the user accesses it
+# the presence of this property also tells jEdit the plugin is using the new API
+plugin.org.mathpiper.ide.jlogplugin.JLogPlugin.activate=defer
+# we only have one dependency, jEdit 4.2, since we use the new plugin API
+# These two properties are required for all plugins
+plugin.org.mathpiper.ide.jlogplugin.JLogPlugin.name=JLog
+plugin.org.mathpiper.ide.jlogplugin.JLogPlugin.author=Ted Kosan
+
+# version number == jEdit version number
+plugin.org.mathpiper.ide.jlogplugin.JLogPlugin.version=4.3
+
+# online help
+plugin.org.mathpiper.ide.jlogplugin.JLogPlugin.docs=index.html
+plugin.org.mathpiper.ide.jlogplugin.JLogPlugin.depend.0=jedit 04.02.01.00
+plugin.org.mathpiper.ide.jlogplugin.JLogPlugin.depend.1=jdk 1.5
+plugin.org.mathpiper.ide.jlogplugin.JLogPlugin.2=plugin console.ConsolePlugin 4.3.5
+plugin.org.mathpiper.ide.jlogplugin.JLogPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
+plugin.org.mathpiper.ide.jlogplugin.JLogPlugin.longdescription=description.html
+#}}}
+
+
+
+
+jlog.shell.msg.info=\nJLog Shell \n\
+
+
+jlog.shell.msg.usage=See http://jlogic.sourceforge.net for information on how to use JLog.
+
+
+
+# plugin menu
+plugin.org.mathpiper.ide.jlogplugin.JLogPlugin.menu=jlog
+#	- \
+#	jlog.choose-file \
+#	jlog.save-file \
+#	jlog.copy-to-buffer
+
+# action labels for actions supplied by dockables.xml
+jlog.label=JLog
+
+# action labels for actions supplied by actions.xml
+jlog.choose-file.label=Choose notepad file
+jlog.save-file.label=Save notepad file
+jlog.copy-to-buffer.label=Copy notepad to buffer
+
+# plugin option pane
+plugin.org.mathpiper.ide.jlogplugin.JLogPlugin.option-pane=jlog
+
+# Option pane activation BeanShell snippet
+options.jlog.code=new org.mathpiper.ide.jlogplugin.JLogOptionPane();
+
+# Option pane labels
+options.jlog.label=JLog
+options.jlog.file=File:
+options.jlog.choose-file=Choose
+options.jlog.choose-file.title=Choose a notepad file
+options.jlog.choose-font=Font:
+options.jlog.show-filepath.title=Display notepad file path
+
+# window title
+jlog.title=JLog
+
+# window toolbar buttons
+jlog.choose-file.icon=Open.png
+jlog.save-file.icon=Save.png
+jlog.copy-to-buffer.icon=CopyToBuffer.png
+
+# default settings
+options.jlog.show-filepath=true
+options.jlog.font=Monospaced
+options.jlog.fontstyle=0
+options.jlog.fontsize=14
+
+# Setting not defined but supplied for completeness
+options.jlog.path=
+
+#jlog.path=/home/tkosan/checkouts/usr/local/bin/jlog
+
+# :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:

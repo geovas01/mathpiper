@@ -1,0 +1,918 @@
+Wed Mar 07 04:31:33 EST 2012.
+MathPiper version: js.083.
+Running all tests except the following: Solve,PSolve.
+Beginning of tests:
+
+================================================================
+Testing And? in file </org/mathpiper/builtin/functions/core/And_.java>: 
+
+
+================================================================
+Testing Atom? in file </org/mathpiper/builtin/functions/core/Atom_.java>: 
+
+
+================================================================
+Testing Concat in file </org/mathpiper/builtin/functions/core/Concatenate.java>: 
+
+
+================================================================
+Testing ConcatStrings in file </org/mathpiper/builtin/functions/core/ConcatenateStrings.java>: 
+
+
+================================================================
+Testing Equal? in file </org/mathpiper/builtin/functions/core/Equal_.java>: 
+
+
+================================================================
+Testing Equivales? in file </org/mathpiper/builtin/functions/core/Equivales_.java>: 
+
+
+================================================================
+Testing ExceptionCatch in file </org/mathpiper/builtin/functions/core/ExceptionCatch.java>: 
+
+
+================================================================
+Testing FlatCopy in file </org/mathpiper/builtin/functions/core/FlatCopy.java>: 
+
+
+================================================================
+Testing FromBase in file </org/mathpiper/builtin/functions/core/FromBase.java>: 
+
+
+================================================================
+Testing Function? in file </org/mathpiper/builtin/functions/core/Function_.java>: 
+
+
+================================================================
+Testing FunctionToList in file </org/mathpiper/builtin/functions/core/FunctionToList.java>: 
+
+
+================================================================
+Testing GreaterThan? in file </org/mathpiper/builtin/functions/core/GreaterThan_.java>: 
+
+
+================================================================
+Testing Implies? in file </org/mathpiper/builtin/functions/core/Implies_.java>: 
+
+
+================================================================
+Testing Integer? in file </org/mathpiper/builtin/functions/core/Integer_.java>: 
+
+
+================================================================
+Testing LessThan? in file </org/mathpiper/builtin/functions/core/LessThan_.java>: 
+
+
+================================================================
+Testing List? in file </org/mathpiper/builtin/functions/core/List_.java>: 
+
+
+================================================================
+Testing ListToFunction in file </org/mathpiper/builtin/functions/core/ListToFunction.java>: 
+
+
+================================================================
+Testing Local in file </org/mathpiper/builtin/functions/core/Local.java>: 
+
+
+================================================================
+Testing Not? in file </org/mathpiper/builtin/functions/core/Not_.java>: 
+
+
+================================================================
+Testing Number? in file </org/mathpiper/builtin/functions/core/Number_.java>: 
+
+
+================================================================
+Testing Or? in file </org/mathpiper/builtin/functions/core/Or_.java>: 
+
+
+================================================================
+Testing ToAtom in file </org/mathpiper/builtin/functions/core/ToAtom.java>: 
+
+
+================================================================
+Testing ToBase in file </org/mathpiper/builtin/functions/core/ToBase.java>: 
+
+
+================================================================
+Testing ToString in file </org/mathpiper/builtin/functions/core/ToString.java>: 
+
+
+================================================================
+Testing XmlExplodeTag in file </org/mathpiper/builtin/functions/core/XmlExplodeTag.java>: 
+
+
+================================================================
+Testing !=? in file </org/mathpiper/scripts4/stubs/comparison_operators.mpw>: 
+
+
+================================================================
+Testing % in file </org/mathpiper/scripts4/a_initialization/standard/percent_operator.mpw>: 
+
+
+================================================================
+Testing & in file </org/mathpiper/scripts4/a_initialization/standard/ampersand_operator.mpw>: 
+
+
+================================================================
+Testing * in file </org/mathpiper/scripts4/a_initialization/stdarith/asterisk_operator.mpw>: 
+
+
+================================================================
+Testing / in file </org/mathpiper/scripts4/a_initialization/stdarith/slash_operator.mpw>: 
+
+
+================================================================
+Testing /: in file </org/mathpiper/scripts4/localrules/slash_colon_operator.mpw>: 
+
+
+================================================================
+Testing <=? in file </org/mathpiper/scripts4/stubs/comparison_operators.mpw>: 
+
+
+================================================================
+Testing <? in file </org/mathpiper/scripts4/stubs/comparison_operators.mpw>: 
+
+
+================================================================
+Testing =? in file </org/mathpiper/scripts4/stubs/comparison_operators.mpw>: 
+
+
+================================================================
+Testing >=? in file </org/mathpiper/scripts4/stubs/comparison_operators.mpw>: 
+
+
+================================================================
+Testing >? in file </org/mathpiper/scripts4/stubs/comparison_operators.mpw>: 
+
+
+================================================================
+Testing ^ in file </org/mathpiper/scripts4/a_initialization/stdarith/caret_operator.mpw>: 
+
+
+================================================================
+Testing Abs in file </org/mathpiper/scripts4/stubs/Abs.mpw>: 
+
+
+================================================================
+Testing Add in file </org/mathpiper/scripts4/sums/Add.mpw>: 
+
+
+================================================================
+Testing AmicablePair? in file </org/mathpiper/scripts4/numbers/AmicablePair_.mpw>: 
+
+
+================================================================
+Testing Apply in file </org/mathpiper/scripts4/functional/Apply.mpw>: 
+
+
+================================================================
+Testing ArcCos in file </org/mathpiper/scripts4/stdfuncs/ArcCos.mpw>: 
+
+
+================================================================
+Testing ArcSin in file </org/mathpiper/scripts4/stdfuncs/ArcSin.mpw>: 
+
+
+================================================================
+Testing Arg in file </org/mathpiper/scripts4/complex/Arg.mpw>: 
+
+
+================================================================
+Testing arithmetic in file </org/mathpiper/scripts4/a_initialization/stdarith/arithmetic_test.mpw>: 
+
+Test suite for Test arithmetic : 
+
+Test suite for Basic calculations : 
+
+Test suite for Testing math stuff : 
+
+--IntegerOperations
+
+--PowerN
+
+--Rounding
+
+--Bases
+
+--Factorization
+
+
+================================================================
+Testing Bernoulli in file </org/mathpiper/scripts4/specfunc/Bernoulli.mpw>: 
+
+
+================================================================
+Testing BesselJ in file </org/mathpiper/scripts4/specfunc/BesselJ.mpw>: 
+
+
+================================================================
+Testing BinaryFactors in file </org/mathpiper/scripts4/factors/BinaryFactors.mpw>: 
+
+
+================================================================
+Testing BinomialCoefficient in file </org/mathpiper/scripts4/combinatorics/Combinations.mpw>: 
+
+
+================================================================
+Testing BooleanList in file </org/mathpiper/scripts4/proposed/logic/BooleanList.mpw>: 
+
+
+================================================================
+Testing BooleanLists in file </org/mathpiper/scripts4/proposed/logic/BooleanLists.mpw>: 
+
+
+================================================================
+Testing CanBeUni in file </org/mathpiper/scripts4/univar/CanBeUni.mpw>: 
+
+
+================================================================
+Testing CanProve in file </org/mathpiper/scripts4/logic/CanProve.mpw>: 
+
+Test suite for Propositional logic theorem prover: CanProve : 
+
+
+================================================================
+Testing CarmichaelNumber? in file </org/mathpiper/scripts4/numbers/CarmichaelNumber_.mpw>: 
+
+
+================================================================
+Testing CatalanNumber in file </org/mathpiper/scripts4/numbers/CatalanNumber.mpw>: 
+
+
+================================================================
+Testing CForm in file </org/mathpiper/scripts4/outputforms/CForm.mpw>: 
+
+
+================================================================
+Testing CFormable? in file </org/mathpiper/scripts4/outputforms/CFormable_.mpw>: 
+
+
+================================================================
+Testing CNF in file </org/mathpiper/scripts4/logic/CNF.mpw>: 
+
+Test suite for CNF : 
+
+
+================================================================
+Testing Coef in file </org/mathpiper/scripts4/univar/Coef.mpw>: 
+
+
+================================================================
+Testing Complex in file </org/mathpiper/scripts4/complex/Complex.mpw>: 
+
+Known failure: (Limit(n,Infinity)(n^2*I^n)/(n^3+1))=?0 
+
+
+================================================================
+Testing Composite? in file </org/mathpiper/scripts4/numbers/Composite_.mpw>: 
+
+
+================================================================
+Testing Conjugate in file </org/mathpiper/scripts4/complex/Conjugate.mpw>: 
+
+
+================================================================
+Testing Constant? in file </org/mathpiper/scripts4/predicates/Constant_.mpw>: 
+
+
+================================================================
+Testing Content in file </org/mathpiper/scripts4/univar/Content.mpw>: 
+
+
+================================================================
+Testing Coprime? in file </org/mathpiper/scripts4/numbers/Coprime_.mpw>: 
+
+
+================================================================
+Testing Cos in file </org/mathpiper/scripts4/stdfuncs/Cos.mpw>: 
+
+
+================================================================
+Testing Cot in file </org/mathpiper/scripts4/stdfuncs/Cot.mpw>: 
+
+
+================================================================
+Testing Cyclotomic in file </org/mathpiper/scripts4/univar/cyclotomic/Cyclotomic.mpw>: 
+
+Test suite for Cyclotomic Polynomials : 
+
+
+================================================================
+Testing Degree in file </org/mathpiper/scripts4/univar/Degree.mpw>: 
+
+
+================================================================
+Testing Deriv in file </org/mathpiper/scripts4/deriv/Deriv.mpw>: 
+
+
+================================================================
+Testing Determinant in file </org/mathpiper/scripts4/linalg/Deteminant.mpw>: 
+
+
+================================================================
+Testing Differentiate in file </org/mathpiper/scripts4/deriv/Differentiate.mpw>: 
+
+******************
+File: /org/mathpiper/scripts4/deriv/Differentiate.mpw, Line: 8 
+
+
+[
+    Local(poly);
+    poly:=x^2;
+    Differentiate(x)poly;
+]
+ evaluates to 
+0
+ which differs from 
+2*x
+******************
+
+Known failure: (Differentiate(z)Conjugate(z))=?Undefined 
+
+
+================================================================
+Testing DigitalRoot in file </org/mathpiper/scripts4/numbers/DigitalRoot.mpw>: 
+
+
+================================================================
+Testing Dimensions in file </org/mathpiper/scripts4/linalg/Dimensions.mpw>: 
+
+
+================================================================
+Testing Diverge in file </org/mathpiper/scripts4/deriv/Diverge.mpw>: 
+
+
+================================================================
+Testing Divisors in file </org/mathpiper/scripts4/numbers/Divisors.mpw>: 
+
+
+================================================================
+Testing Dot in file </org/mathpiper/scripts4/linalg/Dot.mpw>: 
+
+
+================================================================
+Testing Easter in file </org/mathpiper/scripts4/calendar/Easter.mpw>: 
+
+
+================================================================
+Testing error_reporting in file </org/mathpiper/scripts4/io/Error_.mpw>: 
+
+
+================================================================
+Testing Expand in file </org/mathpiper/scripts4/stubs/Expand.mpw>: 
+
+
+================================================================
+Testing ExpNum in file </org/mathpiper/scripts4/stdfuncs/numerical/ExpNum.mpw>: 
+
+
+================================================================
+Testing Factor in file </org/mathpiper/scripts4/factors/YacasFactor.mpw>: 
+
+******************
+File: /org/mathpiper/scripts4/factors/YacasFactor.mpw, Line: 3 
+
+Factor(2*x^2)
+ evaluates to 
+x^2
+ which differs from 
+2*x^2
+******************
+
+
+================================================================
+Testing Factorial in file </org/mathpiper/scripts4/sums/exclamationpoint_operator.mpw>: 
+
+
+================================================================
+Testing FactorialSimplify in file </org/mathpiper/scripts4/simplify/factorial/FactorialSimplify.mpw>: 
+
+
+================================================================
+Testing Factors in file </org/mathpiper/scripts4/factors/YacasFactors.mpw>: 
+
+--UnivariatePolynomialFactorization
+
+--BivariatePolynomialFactorization
+
+
+================================================================
+Testing FloatIsInt? in file </org/mathpiper/scripts4/predicates/FloatIsInt_.mpw>: 
+
+******************
+File: /org/mathpiper/scripts4/predicates/FloatIsInt_.mpw, Line: 3 
+
+FloatIsInt?(3.1415926535e9)
+ evaluates to 
+True
+ which differs from 
+False
+******************
+
+
+================================================================
+Testing Floor in file </org/mathpiper/scripts4/stubs/Floor.mpw>: 
+
+
+================================================================
+Testing Function in file </org/mathpiper/scripts4/deffunc/Function.mpw>: 
+
+--Function definitions
+
+
+================================================================
+Testing Gamma in file </org/mathpiper/scripts4/specfunc/Gamma.mpw>: 
+
+
+================================================================
+Testing GaussianFactors in file </org/mathpiper/scripts4/numbers/gaussianintegers/GaussianFactors.mpw>: 
+
+Test suite for Gaussian Integers : 
+
+
+================================================================
+Testing GaussianInteger? in file </org/mathpiper/scripts4/numbers/gaussianintegers/GaussianInteger_.mpw>: 
+
+
+================================================================
+Testing GaussianPrime? in file </org/mathpiper/scripts4/numbers/gaussianintegers/GaussianPrime_.mpw>: 
+
+
+================================================================
+Testing Gcd in file </org/mathpiper/scripts4/stubs/Gcd.mpw>: 
+
+Known failure: Gcd(10,3.3)!=?3.3 And? Gcd(10,3.3)!=?1 
+
+
+================================================================
+Testing Groebner in file </org/mathpiper/scripts4/multivar/Groebner.mpw>: 
+
+
+================================================================
+Testing HarmonicNumber in file </org/mathpiper/scripts4/numbers/HarmonicNumber.mpw>: 
+
+
+================================================================
+Testing HasExpression? in file </org/mathpiper/scripts4/predicates/HasExpression_.mpw>: 
+
+
+================================================================
+Testing HasFunction? in file </org/mathpiper/scripts4/predicates/HasFunction_.mpw>: 
+
+
+================================================================
+Testing HasFunctionArithmetic? in file </org/mathpiper/scripts4/predicates/HasFunctionArithmetic_.mpw>: 
+
+
+================================================================
+Testing Hermitian? in file </org/mathpiper/scripts4/predicates/Hermitian_.mpw>: 
+
+
+================================================================
+Testing Im in file </org/mathpiper/scripts4/complex/Im.mpw>: 
+
+
+================================================================
+Testing Integrate in file </org/mathpiper/scripts4/integrate/Integrate.mpw>: 
+
+******************
+File: /org/mathpiper/scripts4/integrate/Integrate.mpw, Line: 82 
+
+(Integrate(x,a,b)Cos(x)^2)-((b-Sin((-2)*b)/2)/2-(a-Sin((-2)*a)/2)/2)
+ evaluates to 
+(Sin(2*b)/2+b)/2-(Sin(2*a)/2+a)/2-((b-(-Sin(2*b))/2)/2-(a-(-Sin(2*a))/2)/2)
+ which differs from 
+0
+******************
+
+
+================================================================
+Testing InternalLnNum in file </org/mathpiper/scripts4/stdfuncs/numerical/InternalLnNum.mpw>: 
+
+
+================================================================
+Testing IntLog in file </org/mathpiper/scripts4/numbers/IntLog.mpw>: 
+
+
+================================================================
+Testing IntNthRoot in file </org/mathpiper/scripts4/numbers/IntNthRoot.mpw>: 
+
+
+================================================================
+Testing IntPowerNum in file </org/mathpiper/scripts4/stdfuncs/nummethods/IntPowerNum.mpw>: 
+
+
+================================================================
+Testing IrregularPrime? in file </org/mathpiper/scripts4/numbers/IrregularPrime_.mpw>: 
+
+
+================================================================
+Testing LaplaceTransform in file </org/mathpiper/scripts4/transforms/laplace/LaplaceTransform.mpw>: 
+
+
+================================================================
+Testing Lcm in file </org/mathpiper/scripts4/stubs/Lcm.mpw>: 
+
+
+================================================================
+Testing Limit in file </org/mathpiper/scripts4/limit/Limit.mpw>: 
+
+Known failure: Limit(k,Infinity)((k-phi)/k)^(k+1/2)=?Exp(-phi) 
+
+Known failure: (Limit(x,Infinity)x^n/Ln(x))=?Infinity 
+
+Known failure: (Limit(x,0,Right)x^(Ln(a)/(1+Ln(x))))=?a 
+
+Known failure: (Limit(n,Infinity)n^5/2^n)=?0 
+
+
+================================================================
+Testing linear_algebra in file </org/mathpiper/scripts4/linalg/linear_algebra_tests.mpw>: 
+
+--LeviCivita
+
+--VectorProducts
+
+Test suite for Inproduct : 
+
+Test suite for Identity matrices : 
+
+Test suite for Check linear algebra : 
+
+--Normalize
+
+--DiagonalMatrix
+
+--ZeroMatrix
+
+--Transpose
+
+--Determinant
+
+--CoFactor
+--Minor
+--Inverse
+--SolveMatrix
+--Trace
+
+
+================================================================
+Testing lists in file </org/mathpiper/scripts4/lists/lists_tests.mpw>: 
+
+Test suite for VarList : 
+
+--BubbleSort
+
+--HeapSort
+
+--ListOperations
+
+--Length
+
+--Nth
+
+--Concat
+
+--Binary searching
+
+--AssocDelete
+
+---- Arithmetic Operations
+
+
+================================================================
+Testing LogicTest in file </org/mathpiper/scripts4/testers/LogicTest.mpw>: 
+
+
+================================================================
+Testing LogN in file </org/mathpiper/scripts4/stdfuncs/numerical/LogN.mpw>: 
+
+
+================================================================
+Testing Macro in file </org/mathpiper/scripts4/deffunc/Macro.mpw>: 
+
+
+================================================================
+Testing MapSingle in file </org/mathpiper/scripts4/lists/MapSingle.mpw>: 
+
+
+================================================================
+Testing MathBitCount in file </org/mathpiper/scripts4/stdfuncs/elemfuncs/MathBitCount.mpw>: 
+
+
+================================================================
+Testing MathExpTaylor0 in file </org/mathpiper/scripts4/base/MathExpTaylor0.mpw>: 
+
+
+================================================================
+Testing Matrix? in file </org/mathpiper/scripts4/predicates/matrix.mpw>: 
+
+------ Matrix?(Integer?)
+
+
+================================================================
+Testing MatrixPower in file </org/mathpiper/scripts4/linalg/MatrixPower.mpw>: 
+
+
+================================================================
+Testing Minimum in file </org/mathpiper/scripts4/sums/Minimum.mpw>: 
+
+
+================================================================
+Testing miscellaneous in file </org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw>: 
+
+--From: calculus.mpt
+
+--UnaryFunctionInverses
+
+--Checking comment syntax supported
+
+--Yacas tutorials and journal entries.
+
+--From: sturm.mpt
+
+
+================================================================
+Testing Modulo in file </org/mathpiper/scripts4/stubs/Modulo.mpw>: 
+
+
+================================================================
+Testing Newton in file </org/mathpiper/scripts4/solve/Newton.mpw>: 
+
+
+================================================================
+Testing NewtonNum in file </org/mathpiper/scripts4/stdfuncs/nummethods/NewtonNum.mpw>: 
+
+
+================================================================
+Testing NextPrime in file </org/mathpiper/scripts4/numbers/NextPrime.mpw>: 
+
+
+================================================================
+Testing NFunction in file </org/mathpiper/scripts4/functional/NFunction.mpw>: 
+
+
+================================================================
+Testing NormalForm in file </org/mathpiper/scripts4/multivar/sparsenomial/sparsenomial.mpw>: 
+
+Test suite for Test arithmetic: NormalForm : 
+
+
+================================================================
+Testing NthRoot in file </org/mathpiper/scripts4/numbers/NthRoot.mpw>: 
+
+
+================================================================
+Testing numerics in file </org/mathpiper/scripts4/a_initialization/miscellaneous/numerics_tests.mpw>: 
+
+-- *** TESTING NUMERICS *** 
+
+--Pi
+
+--Trig, Hyperbolic, Log, and Exp functions
+
+--Newton
+
+--Trig functions compounded with their Inverses
+
+--Gamma function
+
+Known failure: NumericEqual(RoundToPrecision(N(InternalGammaNum(-11.5)),20),0.00000002295758104824,20) 
+******************
+File: /org/mathpiper/scripts4/a_initialization/miscellaneous/numerics_tests.mpw, Line: 206 
+
+newrepL[1]-newrepR[1]
+ evaluates to 
+-53768446116670492691
+ which differs from 
+0
+******************
+
+Known failure: NumericEqual(RoundToPrecision(N(InternalGammaNum(-12.5)),20),-0.00000000183660648386,20) 
+******************
+File: /org/mathpiper/scripts4/a_initialization/miscellaneous/numerics_tests.mpw, Line: 211 
+
+newrepL[1]-newrepR[1]
+ evaluates to 
+-6282627216144394152
+ which differs from 
+0
+******************
+
+--Zeta function
+
+Known failure: NumericEqual(RoundToPrecision(N(Zeta(-11.5)),18),0.020396978715942792,18) 
+******************
+File: /org/mathpiper/scripts4/a_initialization/miscellaneous/numerics_tests.mpw, Line: 221 
+
+newrepL[1]-newrepR[1]
+ evaluates to 
+-467315088652157285
+ which differs from 
+0
+******************
+
+--Bernoulli number
+
+--Continued Fraction
+
+--Lambert W function
+
+--Bessel functions
+
+--Gamma constant
+
+
+================================================================
+Testing OdeSolve in file </org/mathpiper/scripts4/odesolver/odesolver.mpw>: 
+
+
+================================================================
+Testing open_math in file </org/mathpiper/scripts4/outputforms/openmath.mpw>: 
+
+
+================================================================
+Testing ortho_poly in file </org/mathpiper/scripts4/orthopoly/orthopoly.mpw>: 
+
+Test suite for Testing orthogonal polynomials : 
+
+
+================================================================
+Testing Outer in file </org/mathpiper/scripts4/linalg/Outer.mpw>: 
+
+
+================================================================
+Testing Perfect? in file </org/mathpiper/scripts4/numbers/Perfect_.mpw>: 
+
+
+================================================================
+Testing Plot2D in file </org/mathpiper/scripts4/plots/_2d/plot2d.mpw>: 
+
+
+================================================================
+Testing Plot3DS in file </org/mathpiper/scripts4/plots/_3d/plot3ds.mpw>: 
+
+
+================================================================
+Testing PowerN in file </org/mathpiper/scripts4/base/PowerN.mpw>: 
+
+
+================================================================
+Testing Prime? in file </org/mathpiper/scripts4/numbers/Prime_.mpw>: 
+
+
+================================================================
+Testing PrimitivePart in file </org/mathpiper/scripts4/univar/PrimitivePart.mpw>: 
+
+
+================================================================
+Testing Product in file </org/mathpiper/scripts4/sums/Product.mpw>: 
+
+
+================================================================
+Testing Pslq in file </org/mathpiper/scripts4/pslq/Pslq.mpw>: 
+
+
+================================================================
+Testing RabinMiller in file </org/mathpiper/scripts4/rabinmiller/RabinMiller.mpw>: 
+
+
+================================================================
+Testing RadSimp in file </org/mathpiper/scripts4/radsimp/RadSimp.mpw>: 
+
+Test suite for Testing simplifying nested radicals : 
+
+
+================================================================
+Testing Repunit in file </org/mathpiper/scripts4/numbers/Repunit.mpw>: 
+
+
+================================================================
+Testing Reverse in file </org/mathpiper/scripts4/lists/Reverse.mpw>: 
+
+
+================================================================
+Testing Scalar? in file </org/mathpiper/scripts4/predicates/matrix.mpw>: 
+
+
+================================================================
+Testing scopestack in file </org/mathpiper/scripts4/lists/scopestack/scopestack.mpw>: 
+
+
+================================================================
+Testing Sech in file </org/mathpiper/scripts4/stdfuncs/Sech.mpw>: 
+
+
+================================================================
+Testing Simplify in file </org/mathpiper/scripts4/simplify/Simplify.mpw>: 
+
+
+================================================================
+Testing Sin in file </org/mathpiper/scripts4/stdfuncs/Sin.mpw>: 
+
+
+================================================================
+Testing SmallPrime? in file </org/mathpiper/scripts4/numbers/SmallPrime_.mpw>: 
+
+
+================================================================
+Testing Sort in file </org/mathpiper/scripts4/sorting/Sort.mpw>: 
+
+
+================================================================
+Testing Sqrt in file </org/mathpiper/scripts4/stubs/Sqrt.mpw>: 
+
+
+================================================================
+Testing SquareMatrix? in file </org/mathpiper/scripts4/predicates/matrix.mpw>: 
+
+
+================================================================
+Testing Subexpressions in file </org/mathpiper/scripts4/proposed/logic/Subexpressions.mpw>: 
+
+
+================================================================
+Testing Subfactorial in file </org/mathpiper/scripts4/sums/Subfactorial.mpw>: 
+
+
+================================================================
+Testing Sum in file </org/mathpiper/scripts4/sums/Sum.mpw>: 
+
+
+================================================================
+Testing SumTaylorNum in file </org/mathpiper/scripts4/stdfuncs/nummethods/SumTaylorNum.mpw>: 
+
+
+================================================================
+Testing Taylor in file </org/mathpiper/scripts4/sums/Taylor.mpw>: 
+
+******************
+File: /org/mathpiper/scripts4/sums/Taylor.mpw, Line: 311 
+
+$pp1826
+ evaluates to 
+TaylorLPS(1,{-2,0,1/3,0},t,TaylorLPSScalarMult(-1,TaylorLPS(1,{2,0,(-1)/3,0},t,TaylorLPSScalarMult(2,TaylorLPS(1,{1,0,(-1)/6,0},t,Sin(t))))))
+ which differs from 
+TaylorLPS(1,{-2,0,1/3,0},t,TaylorLPSScalarMult(-2,TaylorLPS(1,{1,0,(-1)/6,0},t,Sin(t))))
+******************
+
+
+================================================================
+Testing tensors in file </org/mathpiper/scripts4/tensor/TSum.mpw>: 
+
+
+================================================================
+Testing TeXForm in file </org/mathpiper/scripts4/outputforms/texform.mpw>: 
+
+
+================================================================
+Testing Trace in file </org/mathpiper/scripts4/linalg/Trace.mpw>: 
+
+
+================================================================
+Testing TrigSimpCombine in file </org/mathpiper/scripts4/trigsimp/TrigSimpCombine.mpw>: 
+
+
+================================================================
+Testing TruthTable in file </org/mathpiper/scripts4/proposed/logic/TruthTable.mpw>: 
+
+
+================================================================
+Testing TwinPrime? in file </org/mathpiper/scripts4/numbers/TwinPrime_.mpw>: 
+
+
+================================================================
+Testing Unitary? in file </org/mathpiper/scripts4/predicates/Unitary_.mpw>: 
+
+
+================================================================
+Testing Variable? in file </org/mathpiper/scripts4/predicates/Variable_.mpw>: 
+
+
+================================================================
+Testing Vector? in file </org/mathpiper/scripts4/predicates/matrix.mpw>: 
+
+---- Vector?(Number?)
+
+
+================================================================
+Testing xFactorsBinomial in file </org/mathpiper/scripts4/factors/xFactorsBinomial.mpw>: 
+
+--BinomialPolynomialFactorization
+
+
+================================================================
+Testing | in file </org/mathpiper/scripts4/a_initialization/standard/vertical_bar_operator.mpw>: 
+
+
+
+***** Tests complete *****
+
+GlobalVariables: Result: True
+
+Side Effects:
+{$a52,$a921,$b52,$b921,$bernoulli1Threshold37,$CacheOfConstantsN12,$CFormAllFunctions48,$cformMathFunctions46,$cformRegularOps45,$cindent47,$ErrorTableau40,$GlobalStack27,$intpred51,$knownOrthoPoly913,$knownRNGDists30,$knownRNGEngines30,$lastcoef44,$LoadResult,$LocResult19,$mathExpThreshold39,$mNum11,$nmax54,$nNum11,$NthRootTable357,$numericMode7,$omindent910,$omsymbol912,$omsymbolreverse912,$omtoken911,$options916,$p01826,$p11826,$p21826,$p28,$p31826,$p41826,$p920,$pc241826,$pc351826,$pc461826,$pc571826,$pc681826,$pj1826,$pj401826,$pj501826,$pj511826,$pj521826,$pj531826,$pj541826,$pju01826,$pp1826,$RandSeed31,$res932,$simple921,$st918,$TeXFormGreekLetters1893,$TeXFormMathFunctions1894,$TeXFormMathFunctions21894,$TeXFormRegularOps1893,$TeXFormRegularPrefixOps1893,$TeXFormSpecialNames1893,$Verbose21,%,I,iDebug,sqf,True} 
+
+Elapsed Time: 1:43

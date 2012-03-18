@@ -1,0 +1,281 @@
+%mathpiper,def="ScheffeTest"
+
+ScheffeTest(levelsList, alpha) :=
+[
+    Check(ListOfLists?(levelsList), "Argument", "The first argument must be a list of lists.");
+    
+    Check(alpha >=? 0 And? alpha <=? 1, "Argument", "The second argument must be a number between 0 and 1.");
+    
+    Local(  result,
+            topOfSummary,
+            pairsList,
+            xBarB,
+            xBarA,
+            summaryTableRow,
+            ssw,
+            nA,
+            scheffeStatisticCalculated,
+            nB,
+            summaryList,
+            topOfPage,
+            htmlJavaString,
+            summaryTableRows,
+            meansList,
+            index,b,
+            pairList,
+            a,
+            bottomOfPage,
+            k,
+            countsList,
+            oneComparisonList,
+            scheffeStatistic,
+            bottomOfSummary,
+            resultList);
+    
+    anova := AnovaSingleFactor(levelsList, alpha);
+    
+    k := Length(levelsList);
+    
+    scheffeStatisticCalculated := (k-1)*anova["criticalFScore"];
+    
+    resultList := {};
+    
+    resultList["scheffeStatisticCalculated"] := scheffeStatisticCalculated;
+    
+    meansList := {};
+    
+    countsList := {};
+    
+    ForEach(levelList,levelsList)
+    [
+        meansList := meansList : N(Mean(levelList));
+    
+        countsList := countsList : Length(levelList);
+    ];
+    
+    pairsList := CombinationsList(1 .. Length(levelsList),2);
+    
+    summaryList := {};
+    
+    index := 1;
+    
+    ForEach(pairList, pairsList)
+    [   
+        a := pairList[1];
+        
+        b := pairList[2];
+        
+        xBarA := meansList[a];
+        
+        nA := countsList[a];
+        
+        xBarB := meansList[b];
+        
+        nB := countsList[b];
+        
+        ssw := anova["sumOfSquaresWithin"];
+        
+        scheffeStatistic := ScheffeStatistic(xBarA,nA,xBarB,nB,ssw,k,countsList);
+        
+        oneComparisonList := {};
+        
+        oneComparisonList["conclusion"] := If(scheffeStatistic <=? scheffeStatisticCalculated, "No Difference", "Difference");
+        
+        oneComparisonList["scheffeStatistic"] := scheffeStatistic;
+        
+        oneComparisonList["pair"] := pairList;
+        
+        summaryList["pair" : ToString(index)] := oneComparisonList;
+        
+        index++;
+    ];
+    
+    resultList["summary"] := summaryList;
+    
+    
+    
+    
+    topOfPage :=
+"
+    <html>
+        <title>
+            Scheffe Test Summary
+        </title>
+        
+        <body>
+";
+    
+    topOfSummary :=
+"
+            <h2>Scheffe Test Summary</h2>
+            
+            <TABLE BORDER>
+                <CAPTION align=\"left\"> <h3>Summary</h3>  </CAPTION>
+                
+                <TR> <TH> Sample Pair</TH> <TH> Measured Scheffe Statistic </TH> <TH> Calculated Scheffe Statistic </TH> <TH> Conclusion </TH> </TR>
+";
+
+    
+    summaryTableRows := "";
+    
+    summaryTableRow := "<TR> <TD align=\"center\"> <?Write(ToAtom(ToString(pairList[1]) : \" and \" : ToString(pairList[2])));?> </TD> <TD align=\"right\"> <?Write(summary[\"scheffeStatistic\"]);?> </TD> <TD align=\"right\"> <?Write(resultList[\"scheffeStatisticCalculated\"]);?> </TD>  <TD> <?Write(ToAtom(summary[\"conclusion\"]));?> </TD> </TR>":Nl();
+    
+
+    
+    ForEach(summary, Reverse(resultList["summary"]))
+    [
+        summary := summary[2];
+
+        pairList := summary["pair"];
+        
+        summaryTableRows := summaryTableRows : PatchString(summaryTableRow);
+    
+        index++;
+    ];
+    
+    
+    bottomOfSummary :=
+"
+            </TABLE>
+";
+    
+    
+    bottomOfPage :=
+"
+        </body>         
+    </html>
+";
+    
+    htmlJavaString := JavaNew("java.lang.String",
+                topOfPage : 
+                topOfSummary : 
+                summaryTableRows : 
+                bottomOfSummary : 
+                bottomOfPage);    
+    
+    
+    
+    
+    resultList["html"] := htmlJavaString;
+    
+    
+    DestructiveReverse(resultList);
+
+];
+
+
+
+
+
+
+ScheffeStatistic(xBarA,nA,xBarB,nB,ssw,k,countsList) :=
+[
+    N(((xBarA-xBarB)^2)/((ssw/Sum(i,1,k,(countsList[i] - 1))*(1/nA + 1/nB))));   
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+
+
+%mathpiper_docs,name="ScheffeTest",categories="User Functions;Statistics & Probability",access="experimental"
+*CMD ScheffeTest --- performs a Scheffe pairwise analysis
+
+*CALL
+        ScheffeTest(listOfLists,alpha)
+
+*PARMS
+{listOfLists} -- a list which contains lists which contain the data to be analyzed
+
+{alpha} -- the alpha value to use in the analysis.
+
+*DESC
+This function performs a Scheffe pairwise analysis.  The various values that are
+calculated during the analysis are returned in an association list and these
+values are listed in the keys of the returned list (see the examples section).
+
+If the {html} key is passed to the {ViewHtml} function, the results of the analysis
+are displayed in a graphcs window as rendered HTML.
+
+*E.G.
+/%mathpiper,scope="nobuild",subtype="manual_test"
+
+alpha := .05;
+
+data1List := {10.2,8.5,8.4,10.5,9.0,8.1};
+
+data2List := {11.6,12.0,9.2,10.3,9.9,12.5};
+
+data3List := {8.1,9.0,10.7,9.1,10.5,9.5};
+
+Echo(scheffeResult := ScheffeTest({data1List,data2List,data3List}, alpha));
+
+Echo("Scheffe statistic of the first pair: ", scheffeResult["scheffeStatistic"]);
+
+ViewHtml(scheffeResult["html"]);
+
+/%/mathpiper
+
+    /%output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      {"scheffeStatisticCalculated",7.364640688} 
+      {"summary",
+      {{"pair3",{{"pair",{2,3}},{"scheffeStatistic",5.039520331},{"conclusion","No Difference"}}},
+      {"pair2",{{"pair",{1,3}},{"scheffeStatistic",0.3297901324},{"conclusion","No Difference"}}},
+      {"pair1",{{"pair",{1,2}},{"scheffeStatistic",7.947669691},{"conclusion","Difference"}}}}} 
+      {"html",java.lang.String}
+      
+      Scheffe statistic of the first pair: 7.364640688 
+      
+.   /%/output
+
+*SEE ViewHtml,AnovaSingleFactor
+%/mathpiper_docs
+
+
+
+
+
+
+
+
+%mathpiper,scope="nobuild",subtype="manual_test"
+
+alpha := .05;
+
+data1List := {10.2,8.5,8.4,10.5,9.0,8.1};
+
+data2List := {11.6,12.0,9.2,10.3,9.9,12.5};
+
+data3List := {8.1,9.0,10.7,9.1,10.5,9.5};
+
+Echo(scheffeResult := ScheffeTest({data1List,data2List,data3List}, alpha));
+
+NewLine();
+
+Echo("Scheffe statistic of the first pair: ", scheffeResult["scheffeStatisticCalculated"]);
+
+ViewHtml(scheffeResult["html"]);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      {"scheffeStatisticCalculated",7.364640688} {"summary",{{"pair3",{{"pair",{2,3}},{"scheffeStatistic",5.039520331},{"conclusion","No Difference"}}},{"pair2",{{"pair",{1,3}},{"scheffeStatistic",0.3297901324},{"conclusion","No Difference"}}},{"pair1",{{"pair",{1,2}},{"scheffeStatistic",7.947669691},{"conclusion","Difference"}}}}} {"html",java.lang.String} 
+      
+      Scheffe statistic of the first pair: 7.364640688 
+      
+.   %/output
+
+

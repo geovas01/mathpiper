@@ -1,0 +1,89 @@
+%mathpiper
+x := 0;
+
+slope := N(4/2);
+
+While(x <=? 2)
+[
+    y := slope * x;
+    
+    GeoGebraPoint("BALL",x,y);
+
+    x := x + .1;
+    
+    Delay(40);
+];
+
+%/mathpiper
+
+
+
+
+
+
+%mathpiper
+x := 0;
+
+slope := N(-3/2);
+
+While(x <=? 2)  
+[
+    y := slope * x + 4;
+    
+    GeoGebraPoint("BALL",x + 2,y);
+
+    x := x + .1;
+    
+    Delay(40);
+];
+
+%/mathpiper
+
+
+
+
+
+
+%mathpiper
+x := 0;
+
+slope := N(1.5/2);
+
+While(x <=? 2)
+[
+    y := slope * x + 1;
+    
+    GeoGebraPoint("BALL",x + 4,y);
+
+    x := x + .1;
+    
+    Delay(40);
+];
+
+%/mathpiper
+
+
+
+
+
+
+%mathpiper
+x := 0;
+
+slope := N(-1.5/3);
+
+While(x <=? 3)
+[
+    y := slope * x + 2.5;
+    
+    GeoGebraPoint("BALL",x + 6,y);
+
+    x := x + .1;
+    
+    Delay(40);
+];
+
+%/mathpiper
+
+
+

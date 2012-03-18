@@ -1,0 +1,36 @@
+%mathpiper,def="QuadraticResidue?"
+
+// Algorithm adapted from:
+// Elementary Number Theory, David M. Burton
+// Theorem 9.1 p187
+10 # QuadraticResidue?(_a,_p) <--
+[
+        Check( Integer?(a) And? Integer?(p) And? p>?2 And? Coprime?(a,p) And? Prime?(p),
+                "Argument", "QuadraticResidue?: Invalid arguments");
+        If(a^((p-1)/2) % p =? 1, True, False);
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="QuadraticResidue?",categories="User Functions;Number Theory;Predicates"
+*CMD QuadraticResidue? --- functions related to finite groups
+*STD
+*CALL
+        QuadraticResidue?(m,n)
+
+*PARMS
+{m}, {n} -- integers, $n$ must be odd and positive
+
+*DESC
+
+A number $m$ is a "quadratic residue modulo $n$" if there exists a number $k$ such that $k^2:=Modulo(m,n)$.
+
+*E.G.
+
+In> QuadraticResidue?(9,13)
+Result: True;
+
+*SEE Gcd, JacobiSymbol, LegendreSymbol
+%/mathpiper_docs

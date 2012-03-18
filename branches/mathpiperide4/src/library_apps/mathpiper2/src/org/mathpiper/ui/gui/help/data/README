@@ -1,0 +1,2 @@
+This directory is for holding the data for the function documentation. The empty
+files in this directory are filled with this data during build time.

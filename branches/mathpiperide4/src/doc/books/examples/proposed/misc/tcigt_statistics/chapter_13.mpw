@@ -1,0 +1,176 @@
+
+%mathpiper,title="Ping pong ball example pp. 189."
+
+mean := 3.0;
+standardDeviation := SqrtN(2.08);
+sampleSize := 20;
+standardErrorOfTheMean := N(StandardErrorOfTheMean(standardDeviation,sampleSize));
+
+Echo("a)", N(CDF(NormalDistribution(mean,standardErrorOfTheMean),3.5)));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      a)0.9394813155 
+      
+.   %/output
+
+
+
+
+
+
+%mathpiper,title="Proportion example pp. 190-193."
+
+estimatedProportion := .164;
+sampleSize := 150;
+standardErrorOfTheProportion := N(StandardErrorOfTheProportion(estimatedProportion,sampleSize));
+
+Echo("a)", N(CDF(NormalDistribution(estimatedProportion,standardErrorOfTheProportion),.20)));
+);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: )
+      
+      Side Effects:
+      a)0.8831253986 
+      
+.   %/output
+
+
+
+
+
+%mathpiper,title="Exercise 1"
+
+Echo("a)",N(StandardErrorOfTheMean(10,15)));
+
+Echo("b)",N(StandardErrorOfTheMean(4.7,12)));
+
+Echo("c)",N(StandardErrorOfTheMean(7,20)));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      a)2.581988897 
+      b)1.356773133 
+      c)1.565247584 
+      
+.   %/output
+
+
+
+%mathpiper,title="Exercise 2"
+
+mean := 16;
+standardDeviation := 7.5;
+sampleSize := 9;
+standardErrorOfTheMean := N(StandardErrorOfTheMean(standardDeviation,sampleSize));
+
+Echo("a)", N(CDF(NormalDistribution(mean,standardErrorOfTheMean),17)));
+
+Echo("b)", N(1 - CDF(NormalDistribution(mean,standardErrorOfTheMean),18)));
+
+Echo("c)", 
+N(CDF(NormalDistribution(mean,standardErrorOfTheMean),16.5)) -
+N(CDF(NormalDistribution(mean,standardErrorOfTheMean),14.5))
+
+);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      a)0.6554216923 
+      b)0.2118553386 
+      c)0.3050066148 
+      
+.   %/output
+
+
+
+
+%mathpiper,title="Exercise 3"
+
+Echo("a)",N(StandardErrorOfTheProportion(.25,200)));
+
+Echo("b)",N(StandardErrorOfTheProportion(.42,100)));
+
+Echo("c)",N(StandardErrorOfTheProportion(.06,175)));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      a)0.03061862178 
+      b)0.04935585072 
+      c)0.01795231780 
+      
+.   %/output
+
+
+
+
+%mathpiper,title="Exercise 4"
+
+estimatedProportion := .32;
+sampleSize := 160;
+standardErrorOfTheProportion := N(StandardErrorOfTheProportion(estimatedProportion,sampleSize));
+
+Echo("a)", N(CDF(NormalDistribution(estimatedProportion,standardErrorOfTheProportion),.30)));
+
+Echo("b)", N(1 - CDF(NormalDistribution(estimatedProportion,standardErrorOfTheProportion),.36)));
+
+Echo("c)", 
+N(CDF(NormalDistribution(estimatedProportion,standardErrorOfTheProportion),.37)) -
+N(CDF(NormalDistribution(estimatedProportion,standardErrorOfTheProportion),.29))
+
+);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      a)0.2937969007 
+      b)0.1390378830 
+      c)0.7044522203 
+      
+.   %/output
+
+
+
+
+%mathpiper,title="Exercise 5"
+
+sampleSize := 60;
+estimatedProportion := 24/sampleSize;
+
+standardErrorOfTheProportion := N(StandardErrorOfTheProportion(estimatedProportion,sampleSize));
+
+Echo(N(1 - CDF(NormalDistribution(estimatedProportion,standardErrorOfTheProportion),30/sampleSize)));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      0.05692315437 
+      
+.   %/output
+
+

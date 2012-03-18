@@ -1,0 +1,256 @@
+%geogebra_xml,title="Tossing a ball into the air.",clear="true"
+<?xml version="1.0" encoding="utf-8"?>
+<geogebra format="3.2">
+<gui>
+	<show algebraView="false" spreadsheetView="false" auxiliaryObjects="true" algebraInput="true" cmdList="true"/>
+	<font  size="12"/>
+</gui>
+<euclidianView>
+	<size  width="617" height="594"/>
+	<coordSystem xZero="112.0" yZero="252.22222222222223" scale="87.44078197362468" yscale="10.871459810351004"/>
+	<evSettings axes="true" grid="false" gridIsBold="false" pointCapturing="3" pointStyle="0" rightAngleStyle="1" checkboxSize="13" gridType="0"/>
+	<bgColor r="255" g="255" b="255"/>
+	<axesColor r="0" g="0" b="0"/>
+	<gridColor r="192" g="192" b="192"/>
+	<lineStyle axes="1" grid="10"/>
+	<axis id="0" show="true" label="Time" unitLabel="sec" tickStyle="1" showNumbers="true"/>
+	<axis id="1" show="true" label="Distance" unitLabel="m" tickStyle="1" showNumbers="true"/>
+	<grid distX="0.1" distY="1.0"/>
+</euclidianView>
+<kernel>
+	<continuous val="false"/>
+	<decimals val="2"/>
+	<angleUnit val="degree"/>
+	<coordStyle val="0"/>
+</kernel>
+<construction title="" author="" date="">
+<element type="numeric" label="time">
+	<value val="0.0"/>
+	<show object="true" label="true"/>
+	<objColor r="0" g="0" b="0" alpha="0.1"/>
+	<layer val="0"/>
+	<labelMode val="1"/>
+	<slider min="0.0" max="4.08" absoluteScreenLocation="true" width="200.0" x="134.0" y="353.0" fixed="false" horizontal="true"/>
+	<lineStyle thickness="2" type="0"/>
+	<animation step="0.01" velocity="1.0" type="0" playing="false"/>
+</element>
+<expression label ="distance" exp="distance(x) = 20.0 * x - 9.8 * x^(2.0) / 2.0"/>
+<element type="function" label="distance">
+	<lineStyle thickness="2" type="0"/>
+	<show object="true" label="true"/>
+	<condition showObject="e"/>
+	<objColor r="0" g="0" b="255" alpha="0.0"/>
+	<layer val="0"/>
+	<animation step="0.1" velocity="1.0" type="0" playing="false"/>
+	<lineStyle thickness="2" type="0"/>
+</element>
+<command name="Derivative">
+	<input a0="distance(x)"/>
+	<output a0="velocity_1"/>
+</command>
+<element type="function" label="velocity_1">
+	<lineStyle thickness="2" type="0"/>
+	<show object="true" label="true"/>
+	<condition showObject="velocity"/>
+	<objColor r="255" g="0" b="51" alpha="0.0"/>
+	<layer val="0"/>
+	<lineStyle thickness="2" type="0"/>
+</element>
+<expression label="A" exp="(time, distance(time))" type="point" />
+<element type="point" label="A">
+	<show object="false" label="true"/>
+	<condition showObject="i"/>
+	<objColor r="125" g="125" b="255" alpha="0.0"/>
+	<layer val="0"/>
+	<coords x="0.0" y="0.0" z="1.0"/>
+	<pointSize val="3"/>
+</element>
+<command name="Tangent">
+	<input a0="A" a1="distance"/>
+	<output a0="s"/>
+</command>
+<element type="line" label="s">
+	<lineStyle thickness="2" type="0"/>
+	<show object="false" label="false"/>
+	<condition showObject="a"/>
+	<objColor r="153" g="0" b="153" alpha="0.0"/>
+	<layer val="0"/>
+	<coords x="-20.0" y="1.0" z="0.0"/>
+	<lineStyle thickness="2" type="0"/>
+	<eqnStyle style="explicit"/>
+</element>
+<command name="Slope">
+	<input a0="s"/>
+	<output a0="slope"/>
+</command>
+<element type="numeric" label="slope">
+	<value val="20.0"/>
+	<show object="true" label="true"/>
+	<condition showObject="a"/>
+	<objColor r="153" g="51" b="0" alpha="0.1"/>
+	<layer val="0"/>
+	<labelMode val="1"/>
+	<lineStyle thickness="2" type="0"/>
+</element>
+<command name="OrthogonalLine">
+	<input a0="A" a1="xAxis"/>
+	<output a0="Time"/>
+</command>
+<element type="line" label="Time">
+	<lineStyle thickness="2" type="0"/>
+	<show object="true" label="true"/>
+	<condition showObject="h"/>
+	<objColor r="255" g="153" b="0" alpha="0.0"/>
+	<layer val="0"/>
+	<coords x="-1.0" y="0.0" z="0.0"/>
+	<lineStyle thickness="2" type="0"/>
+	<eqnStyle style="implicit"/>
+</element>
+<command name="Intersect">
+	<input a0="velocity_1" a1="Time"/>
+	<output a0="B"/>
+</command>
+<element type="point" label="B">
+	<show object="false" label="true"/>
+	<objColor r="64" g="64" b="64" alpha="0.0"/>
+	<layer val="0"/>
+	<coords x="0.0" y="20.0" z="1.0"/>
+	<pointSize val="3"/>
+</element>
+<command name="OrthogonalLine">
+	<input a0="B" a1="yAxis"/>
+	<output a0="Velocity"/>
+</command>
+<element type="line" label="Velocity">
+	<lineStyle thickness="2" type="0"/>
+	<show object="true" label="true"/>
+	<condition showObject="g"/>
+	<objColor r="0" g="204" b="0" alpha="0.0"/>
+	<layer val="0"/>
+	<coords x="0.0" y="1.0" z="-20.0"/>
+	<lineStyle thickness="2" type="0"/>
+	<eqnStyle style="implicit"/>
+</element>
+<element type="boolean" label="velocity">
+	<value val="false"/>
+	<show object="true" label="true"/>
+	<layer val="0"/>
+	<labelOffset x="143" y="531"/>
+	<caption val="Velocity vs. time function"/>
+</element>
+<element type="boolean" label="a">
+	<value val="false"/>
+	<show object="true" label="true"/>
+	<layer val="0"/>
+	<labelOffset x="143" y="471"/>
+	<caption val="Slope"/>
+</element>
+<command name="OrthogonalLine">
+	<input a0="A" a1="yAxis"/>
+	<output a0="Distance"/>
+</command>
+<element type="line" label="Distance">
+	<lineStyle thickness="2" type="0"/>
+	<show object="true" label="true"/>
+	<condition showObject="f"/>
+	<objColor r="255" g="153" b="0" alpha="0.0"/>
+	<layer val="0"/>
+	<coords x="0.0" y="1.0" z="0.0"/>
+	<lineStyle thickness="2" type="0"/>
+	<eqnStyle style="implicit"/>
+</element>
+<element type="line" label="c">
+	<lineStyle thickness="2" type="0"/>
+	<show object="false" label="true"/>
+	<layer val="0"/>
+	<animation step="0.1" velocity="1.0" type="0" playing="false"/>
+	<auxiliary val="true"/>
+	<coords x="1.0" y="0.0" z="0.2"/>
+	<lineStyle thickness="2" type="0"/>
+	<eqnStyle style="implicit"/>
+</element>
+<command name="Intersect">
+	<input a0="c" a1="Distance"/>
+	<output a0="ball"/>
+</command>
+<element type="point" label="ball">
+	<show object="true" label="true"/>
+	<condition showObject="d"/>
+	<objColor r="0" g="153" b="204" alpha="0.0"/>
+	<layer val="0"/>
+	<coords x="-0.2" y="0.0" z="1.0"/>
+	<pointSize val="8"/>
+</element>
+<command name="Intersect">
+	<input a0="Time" a1="Velocity"/>
+	<output a0="B"/>
+</command>
+<element type="point" label="B">
+	<show object="false" label="true"/>
+	<condition showObject="j"/>
+	<objColor r="255" g="0" b="51" alpha="0.0"/>
+	<layer val="0"/>
+	<trace val="true"/>
+	<auxiliary val="true"/>
+	<coords x="0.0" y="20.0" z="1.0"/>
+	<pointSize val="3"/>
+</element>
+<element type="boolean" label="d">
+	<value val="true"/>
+	<show object="true" label="true"/>
+	<layer val="0"/>
+	<labelOffset x="143" y="371"/>
+	<caption val="Ball"/>
+</element>
+<element type="boolean" label="e">
+	<value val="false"/>
+	<show object="true" label="true"/>
+	<layer val="0"/>
+	<labelOffset x="143" y="391"/>
+	<caption val="Distance vs. time function"/>
+</element>
+<element type="boolean" label="h">
+	<value val="false"/>
+	<show object="true" label="true"/>
+	<layer val="0"/>
+	<labelOffset x="143" y="411"/>
+	<caption val="Time indicator line"/>
+</element>
+<element type="boolean" label="g">
+	<value val="false"/>
+	<show object="true" label="true"/>
+	<layer val="0"/>
+	<labelOffset x="143" y="491"/>
+	<caption val="Velocity indicator line"/>
+</element>
+<element type="boolean" label="f">
+	<value val="false"/>
+	<show object="true" label="true"/>
+	<layer val="0"/>
+	<labelOffset x="143" y="431"/>
+	<caption val="Distance indicator line"/>
+</element>
+<element type="boolean" label="i">
+	<value val="false"/>
+	<show object="true" label="true"/>
+	<layer val="0"/>
+	<labelOffset x="143" y="451"/>
+	<caption val="Point on plot"/>
+</element>
+<element type="boolean" label="j">
+	<value val="false"/>
+	<show object="true" label="true"/>
+	<layer val="0"/>
+	<labelOffset x="143" y="511"/>
+	<caption val="Velocity point"/>
+</element>
+</construction>
+</geogebra>
+
+%/geogebra_xml
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+

@@ -1,0 +1,66 @@
+%mathpiper,def="IrregularPrime?"
+
+5  # IrregularPrime?(p_Composite?)        <-- False;
+// First irregular prime is 37
+5  # IrregularPrime?(_p)_(p<?37)        <-- False;
+
+// an odd prime p is irregular iff p divides the numerator of a Bernoulli number B(2*n) with
+// 2*n+1<p
+10 # IrregularPrime?(p_PositiveInteger?) <--
+[
+        Local(i,irregular);
+
+        i:=1;
+        irregular:=False;
+
+        While( 2*i + 1 <? p And? (irregular =? False) )[
+                If( Abs(Numerator(Bernoulli(2*i))) % p =? 0, irregular:=True );
+                i++;
+        ];
+        irregular;
+
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="IrregularPrime?",categories="User Functions;Number Theory;Predicates"
+*CMD IrregularPrime? --- test for an irregular prime
+*STD
+*CALL
+        IrregularPrime?(n)
+
+*PARMS
+
+{n} -- positive integer
+
+*DESC
+
+This function returns {True} if {n} is an irregular prime. A prime number $n$
+is irregular if and only if {n} divides the numerator of a Bernoulli number $B[2*i]$,
+where $2*i+1 < n $. Small irregular primes are quite rare; the only irregular primes under 100
+are  37, 59 and 67. Asymptotically, roughly 40{%} of primes are irregular.
+
+*E.G.
+
+In> IrregularPrime?(5)
+Result: False;
+In> Select(1 .. 100, IrregularPrime?)
+Result: {37,59,67};
+
+*SEE Prime?
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="IrregularPrime?",subtype="automatic_test"
+
+Verify( IrregularPrime?(37), True );
+Verify( IrregularPrime?(59), True );
+Verify( IrregularPrime?(1), False );
+Verify( IrregularPrime?(11), False );
+
+%/mathpiper
