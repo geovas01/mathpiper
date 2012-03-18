@@ -139,12 +139,39 @@ public class AnalyzeScripts {
                         }//end else if
 
 
-                    }//end if
+                    }
+                    else
+                    {
+                	
+                	List locationsList = (List) result[1];
+                	
+                	if(locationsList.size() != 0)
+                	{
+                	
+                	System.out.println("\n" + scriptCodeArray[2]);
+                	
+                        ArrayList<Map> functionOrOperatorLocationsList = (ArrayList) result[1];
 
+                        for (Map location : functionOrOperatorLocationsList) {
 
+                            String operatorOrFunctionName = (String) location.get("operatorOrFunctionName");
 
+                            int lineNumber = (Integer) location.get("lineNumber");
 
+                            int lineIndex = (Integer) location.get("lineIndex");
 
+                            if (scriptCodeArray[0] != null) {
+                                lineNumber = lineNumber + Integer.parseInt(scriptCodeArray[0]);
+                            }
+
+                            System.out.println("    " + operatorOrFunctionName + " " + (lineNumber + 1) + ":" + lineIndex);
+                        }//end for.*/
+                        
+                	}//end if.
+                    }
+                    
+                    
+                    
 
 
                     //printExpression(printedScriptStringBuffer, aEnvironment, readIn);
@@ -199,6 +226,11 @@ public class AnalyzeScripts {
             }//end if.
 
             prog = prog.cdr();
+
+
+
+
+
         }
     }
 
@@ -260,22 +292,7 @@ public class AnalyzeScripts {
 
 
 
-            /*ArrayList<Map> functionOrOperatorLocationsList = (ArrayList) result[1];
 
-            for (Map location : functionOrOperatorLocationsList) {
-
-                String operatorOrFunctionName = (String) location.get("operatorOrFunctionName");
-
-                int lineNumber = (Integer) location.get("lineNumber");
-
-                int lineIndex = (Integer) location.get("lineIndex");
-
-                if (scriptCodeArray[0] != null) {
-                    lineNumber = lineNumber + Integer.parseInt(scriptCodeArray[0]);
-                }
-
-                System.out.println("    " + operatorOrFunctionName + " " + (lineNumber + 1) + ":" + lineIndex + "\n");
-            }//end for.*/
 
 
 
@@ -284,7 +301,7 @@ public class AnalyzeScripts {
         AnalyzeScripts analyze = new AnalyzeScripts();
 
         try {
-            analyze.findOperator("<--");
+            analyze.findOperator(":");
         } catch (Exception e) {
             e.printStackTrace();
         }
