@@ -24,6 +24,8 @@ import javax.swing.Box;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
@@ -39,7 +41,13 @@ import javax.swing.JLabel;
 import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.ui.gui.worksheets.LatexRenderingController;
+import org.mathpiper.ui.gui.worksheets.MathPanel;
+import org.mathpiper.ui.gui.worksheets.MathPanelController;
 import org.mathpiper.ui.gui.worksheets.ScreenCapturePanel;
+import org.mathpiper.ui.gui.worksheets.TreePanel;
+import org.mathpiper.ui.gui.worksheets.TreePanelCons;
+import org.mathpiper.ui.gui.worksheets.latexparser.TexParser;
+import org.mathpiper.ui.gui.worksheets.symbolboxes.SymbolBox;
 import org.scilab.forge.jlatexmath.TeXFormula;
 
 /**
@@ -71,6 +79,8 @@ public class ViewMath extends BuiltinFunction {
         Cons head = SublistCons.getInstance(aEnvironment, AtomCons.getInstance(aEnvironment, aStackTop, "TeXForm"));
 
         ((Cons) head.car()).setCdr(getArgument(aEnvironment, aStackTop, 1));
+        
+
 
 
         Cons viewScaleCons = getArgument(aEnvironment, aStackTop, 2);
@@ -80,14 +90,18 @@ public class ViewMath extends BuiltinFunction {
 
 
         
-
+        //Evaluate parameter.
         result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, head);
 
         String texString = (String) result.car();
         texString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, texString);
         texString = texString.substring(1, texString.length());
         texString = texString.substring(0, texString.length() - 1);
-
+        
+        
+        
+        Cons expression1 = getArgument(aEnvironment, aStackTop, 1);
+        Cons expression2 = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, expression1);
 
 
         JFrame frame = new JFrame();
@@ -109,11 +123,24 @@ public class ViewMath extends BuiltinFunction {
 
 
 
-        /*
+        //
+        JTabbedPane tabbedPane = new JTabbedPane();
+        //Tree viewer.
+        JPanel treeControllerPanel = new JPanel();
+        treeControllerPanel.setLayout(new BorderLayout());
+        //
+        //TreePanel treePanel = new TreePanel(sBoxExpression,viewScale.toDouble());
+        TreePanelCons treePanel = new TreePanelCons(expression2, viewScale.toDouble());
+        //
+        MathPanelController treePanelScaler = new MathPanelController(treePanel,viewScale.toDouble());
+        JScrollPane treeScrollPane = new JScrollPane(treePanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        treeControllerPanel.add(treeScrollPane);
+        treeControllerPanel.add(treePanelScaler, BorderLayout.NORTH);
+        tabbedPane.addTab("Parse Tree", null, treeControllerPanel, "Parse tree viewer..");
         //MathPiper built-in math viewer.
         TexParser parser = new TexParser();
         SymbolBox sBoxExpression = parser.parse(texString);
-        JTabbedPane tabbedPane = new JTabbedPane();
+        //
         //Math viewer.
         JPanel mathControllerPanel = new JPanel();
         mathControllerPanel.setLayout(new BorderLayout());
@@ -123,16 +150,7 @@ public class ViewMath extends BuiltinFunction {
         mathControllerPanel.add(scrollPane);
         mathControllerPanel.add(mathPanelScaler, BorderLayout.NORTH);
         tabbedPane.addTab("Math Form", null, mathControllerPanel, "Math expression viewer.");
-        //Tree viewer.
-        JPanel treeControllerPanel = new JPanel();
-        treeControllerPanel.setLayout(new BorderLayout());
-        TreePanel treePanel = new TreePanel(sBoxExpression,viewScale.toDouble());
-        MathPanelController treePanelScaler = new MathPanelController(treePanel,viewScale.toDouble());
-        JScrollPane treeScrollPane = new JScrollPane(treePanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        treeControllerPanel.add(treeScrollPane);
-        treeControllerPanel.add(treePanelScaler, BorderLayout.NORTH);
-        tabbedPane.addTab("Parse Tree", null, treeControllerPanel, "Parse tree viewer..");
-        */
+        
 
 
 
@@ -156,7 +174,7 @@ public class ViewMath extends BuiltinFunction {
         box.add(jMathTexScrollPane);
 
 
-        //box.add(tabbedPane); //MathPiper's built-in math viewer.
+        box.add(tabbedPane); //Uncomment to show MathPiper's built-in math viewer.
         
 
         contentPane.add(box);
