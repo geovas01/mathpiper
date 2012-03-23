@@ -330,7 +330,7 @@ public class gQueryPanel extends Panel {
 	    } catch (InterruptedException e) {
 	    }
 
-	    output.append("done.\n");
+	    output.append("done.\n\n");
 	}
     };
 
@@ -345,7 +345,7 @@ public class gQueryPanel extends Panel {
 	    } catch (InterruptedException e) {
 	    }
 
-	    output.append("done.\n");
+	    output.append("done.\n\n");
 	}
 
 	thread = t;
@@ -356,7 +356,7 @@ public class gQueryPanel extends Panel {
 
 	if (!prolog.start(thread = new jUserQueryThread(prolog, getQinput(),
 		getOutputStream())))
-	    output.append("query failed. other events pending.\n");
+	    output.append("query failed. other events pending.\n\n");
 	else if (prolog.getDebugging() && debug_action != null)
 	    debug_action.switchToCard();
     };
@@ -372,13 +372,13 @@ public class gQueryPanel extends Panel {
 	    if (prolog.getDebugging() && debug_action != null)
 		debug_action.switchToCard();
 	} else
-	    output.append("prolog thread not available.\n");
+	    output.append("prolog thread not available.\n\n");
     };
 
     public void pause() {
 	if (thread == null || !thread.isAlive()) {
 	    pause.setEnabled(false);
-	    output.append("prolog thread not available.\n");
+	    output.append("prolog thread not available.\n\n");
 	} else if (pause.getLabel() == PAUSE) {
 	    pause.setLabel(CONTINUE);
 	    thread.suspend();
@@ -400,7 +400,7 @@ public class gQueryPanel extends Panel {
 
 	thread = null;
 
-	output.append("done.\n");
+	output.append("done.\n\n");
     };
 
     protected void reset_buttons() {
