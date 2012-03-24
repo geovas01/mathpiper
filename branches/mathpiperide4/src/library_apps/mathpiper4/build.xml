@@ -89,6 +89,8 @@
             <classpath refid="build_classpath" />
 
             <include name="org/mathpiper/test/Build.java" />
+            <include name="org/mathpiper/test/MPWSFile.java" />
+            <include name="org/mathpiper/test/Fold.java" />
             
         </javac>
         
