@@ -285,9 +285,9 @@ abstract public class pOperatorEntry {
 	    sb.append("???");
 	}
 
-	sb.append(",");
+	sb.append(", ");
 	sb.append(Integer.toString(getPriority()));
-	sb.append(",");
+	sb.append(", ");
 	sb.append((isAtomPermitted() ? "atom allowed" : "atom *not* allowed"));
 	sb.append(")");
 

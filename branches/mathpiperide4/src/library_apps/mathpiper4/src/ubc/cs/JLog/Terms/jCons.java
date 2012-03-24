@@ -63,7 +63,7 @@ public class jCons extends jConjunctTerm {
     };
 
     public String getName() {
-	return ",";
+	return ", ";
     };
 
     public String toString(boolean usename) {
@@ -84,6 +84,6 @@ public class jCons extends jConjunctTerm {
 	else
 	    tail = r.toString(usename);
 
-	return head + "," + tail;
+	return head + ", " + tail;
     };
 };

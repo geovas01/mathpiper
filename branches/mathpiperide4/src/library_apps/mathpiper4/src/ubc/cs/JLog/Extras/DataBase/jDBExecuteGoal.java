@@ -102,7 +102,7 @@ public class jDBExecuteGoal extends jGoal {
 
 	sb.append(getName() + "/" + String.valueOf(getArity()));
 	if (sql != null)
-	    sb.append(" GOAL: " + getName() + "(" + sql.toString() + ")");
+	    sb.append(" -> " + getName() + "(" + sql.toString() + ")");
 
 	return sb.toString();
     };

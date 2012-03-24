@@ -56,7 +56,7 @@ import ubc.cs.JLog.Terms.*;
 
 public class pConsOperatorEntry extends pOperatorEntry {
     public pConsOperatorEntry() {
-	super(",", XFY, 1000);
+	super(", ", XFY, 1000);
     };
 
     public jTerm createOperator(jTerm l, jTerm r) {

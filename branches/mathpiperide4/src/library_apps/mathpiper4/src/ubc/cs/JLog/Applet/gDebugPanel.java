@@ -478,7 +478,7 @@ public class gDebugPanel extends Panel {
 	    setRunState(STATE_STOP);
 
 	if (traceGoal(ti)) {
-	    info.append(indentSpaces + "TRYING: " + de.getGoal().toString());
+	    info.append(indentSpaces + "TRYING: " + de.getGoal().toString() + ";");
 	    info.append("\n");
 	}
 	switch (run_state) {
@@ -491,7 +491,7 @@ public class gDebugPanel extends Panel {
     public void debugProveGoal(jDebugProveGoalEvent de) {
 
 	if (traceGoal(de.getGoal())) {
-	    info.append(indentSpaces + "PROVING: " + de.getGoal().toString());
+	    info.append(indentSpaces + "PROVING: " + de.getGoal().toString() + ";");
 	    //info.append("\n");
 
 	    if (de.getSubGoals().size() > 0) {
@@ -502,7 +502,7 @@ public class gDebugPanel extends Panel {
 		indentSpaces = indentSpaces + "    ";
 		
 		while (e.hasMoreElements()) {
-		    info.append(e.nextElement().toString());
+		    info.append(e.nextElement().toString() + "; ");
 		    //info.append("\n");
 		}
 	    }
@@ -522,7 +522,7 @@ public class gDebugPanel extends Panel {
 
 		dgi = (jDebugProvedGoalStack.jDebugGoalItem) e.nextElement();
 
-		info.append(dgi.getGoal().toString());
+		info.append(dgi.getGoal().toString() + ";");
 		info.append("\n" + "        " + indentSpaces);
 	    }
 	    info.append("\n");

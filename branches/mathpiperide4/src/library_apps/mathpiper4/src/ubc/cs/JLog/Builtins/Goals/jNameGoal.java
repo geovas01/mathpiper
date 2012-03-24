@@ -109,8 +109,8 @@ public class jNameGoal extends jGoal {
 	StringBuffer sb = new StringBuffer();
 
 	sb.append(getName() + "/" + String.valueOf(getArity()) + "<"
-		+ (prefer_atom ? "atom" : "number") + "> GOAL: ");
-	sb.append(getName() + "(" + lhs.toString() + "," + rhs.toString() + ")");
+		+ (prefer_atom ? "atom" : "number") + "> -> ");
+	sb.append(getName() + "(" + lhs.toString() + ", " + rhs.toString() + ")");
 
 	return sb.toString();
     };

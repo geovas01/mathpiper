@@ -96,7 +96,7 @@ public class jUnaryOperatorGoal extends jGoal {
     public String toString() {
 	StringBuffer sb = new StringBuffer();
 
-	sb.append(getName() + "/" + String.valueOf(getArity()) + " GOAL: ");
+	sb.append(getName() + "/" + String.valueOf(getArity()) + " -> ");
 	sb.append(getName() + "(" + rhs.toString() + ")");
 
 	return sb.toString();

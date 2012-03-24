@@ -203,7 +203,7 @@ abstract public class jTrinaryBuiltinPredicate extends jBuiltinPredicate {
     };
 
     public String toString(boolean usename) {
-	return getName() + "(" + term1.toString(usename) + ","
-		+ term2.toString(usename) + "," + term3.toString(usename) + ")";
+	return getName() + "(" + term1.toString(usename) + ", "
+		+ term2.toString(usename) + ", " + term3.toString(usename) + ")";
     };
 };

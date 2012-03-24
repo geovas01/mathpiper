@@ -186,7 +186,7 @@ abstract public class jBinaryBuiltinPredicate extends jBuiltinPredicate {
     };
 
     public String toString(boolean usename) {
-	return getName() + "(" + lhs.toString(usename) + ","
+	return getName() + "(" + lhs.toString(usename) + ", "
 		+ rhs.toString(usename) + ")";
     };
 };

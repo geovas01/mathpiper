@@ -77,7 +77,7 @@ public class TokenizeStreamException extends RuntimeException {
 
     public TokenizeStreamException(String s, int pos, int line, int cpos) {
 	super(s + String.valueOf(pos + 1) + " : line,char("
-		+ String.valueOf(line + 1) + "," + String.valueOf(cpos + 1)
+		+ String.valueOf(line + 1) + ", " + String.valueOf(cpos + 1)
 		+ ")");
 	position = pos;
 	lineno = line;
