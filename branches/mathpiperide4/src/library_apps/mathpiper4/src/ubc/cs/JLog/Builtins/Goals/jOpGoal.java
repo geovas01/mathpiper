@@ -182,7 +182,7 @@ public class jOpGoal extends jGoal {
     public String toString() {
 	StringBuffer sb = new StringBuffer();
 
-	sb.append(getName() + "/" + String.valueOf(getArity()) + " goal: ");
+	sb.append(getName() + "/" + String.valueOf(getArity()) + " GOAL: ");
 	sb.append(getName() + "(" + priority.toString() + ","
 		+ specifier.toString() + "," + operation.toString() + ")");
 

@@ -147,7 +147,7 @@ public final class jPredicateGoal extends jGoal {
 	int rn = rule_number - 1;
 
 	sb.append(rules.getName() + "/" + String.valueOf(rules.getArity())
-		+ " goal: ");
+		+ " GOAL: ");
 	sb.append(rules.getName() + input_goal.toString() + " unified: ");
 	if (rule_goal != null) {
 	    sb.append(rules.getName() + rule_goal.toString());
