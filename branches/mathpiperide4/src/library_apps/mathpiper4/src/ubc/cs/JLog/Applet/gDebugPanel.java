@@ -370,7 +370,7 @@ public class gDebugPanel extends Panel {
 
     public void stepover() {
 	if (prover != null) {
-	    // info.append("steping over\n");
+	    // info.append("stepping over\n");
 	    prover_stopgoal = prover_currentnextgoal;
 	    setRunState(STATE_STEPOVER);
 	}
@@ -385,6 +385,7 @@ public class gDebugPanel extends Panel {
 
     public void clear() {
 	info.setText("");
+	indentSpaces = "";
     };
 
     public void setBreakState(boolean state) {
