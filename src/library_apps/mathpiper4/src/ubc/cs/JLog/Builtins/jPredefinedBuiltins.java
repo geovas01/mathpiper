@@ -364,7 +364,7 @@ public class jPredefinedBuiltins extends jPredefined {
 	pt.addPredicate(new jCall(X));
 	pt.addPredicate(new jCall(Y));
 
-	return new jBuiltinRule(new jPredicate(",", ct1), pt);
+	return new jBuiltinRule(new jPredicate(", ", ct1), pt);
     };
 
     protected jBuiltinRule get_retractall1() {

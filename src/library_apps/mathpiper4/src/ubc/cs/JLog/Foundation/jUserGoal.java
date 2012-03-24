@@ -81,7 +81,7 @@ public class jUserGoal extends jGoal {
     };
 
     public String getName() {
-	return "internal user goal stub";
+	return "internal_user_goal_stub";
     };
 
     public int getArity() {

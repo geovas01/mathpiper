@@ -413,7 +413,7 @@ public class jListPair extends jList {
 	    jListPair lp = (jListPair) t; // assume type member value is correct
 
 	    if (!first)
-		sb.append(",");
+		sb.append(", ");
 	    else
 		first = false;
 
@@ -427,7 +427,7 @@ public class jListPair extends jList {
 	else if (t instanceof jVariable)
 	    sb.append("|" + t.toString(usename) + "]");
 	else
-	    sb.append("," + t.toString(usename) + "]");
+	    sb.append(", " + t.toString(usename) + "]");
 
 	return sb.toString();
     };

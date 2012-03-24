@@ -435,7 +435,7 @@ public class jCompoundTerm extends jTerm implements iMakeUnmake {
 	    boolean higher_priority;
 
 	    if (!first)
-		sb.append(",");
+		sb.append(", ");
 
 	    t = (jTerm) e.nextElement();
 	    higher_priority = isHigherPriorityOperator(t) && (terms.size() > 1);

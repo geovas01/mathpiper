@@ -54,6 +54,6 @@ import java.lang.*;
 
 class pComma extends pToken {
     public pComma(int pos, int line, int cpos) {
-	super(",", pos, line, cpos);
+	super(", ", pos, line, cpos);
     };
 };

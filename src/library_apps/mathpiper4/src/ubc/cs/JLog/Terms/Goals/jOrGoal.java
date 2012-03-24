@@ -123,7 +123,7 @@ public class jOrGoal extends jGoal {
     public String toString() {
 	StringBuffer sb = new StringBuffer();
 
-	sb.append(getName() + "/" + String.valueOf(getArity()) + " GOAL: ");
+	sb.append(getName() + "/" + String.valueOf(getArity()) + " -> ");
 	sb.append(or_predicate.toString());
 
 	return sb.toString();

@@ -110,7 +110,7 @@ public class jWriteGoal extends jGoal {
 
 	sb.append(getName() + "/" + String.valueOf(getArity()));
 	if (term != null)
-	    sb.append(" GOAL: " + getName() + "(" + term.toString() + ")");
+	    sb.append(" -> " + getName() + "(" + term.toString() + ")");
 
 	return sb.toString();
     };

@@ -62,7 +62,7 @@ public class SyntaxErrorException extends RuntimeException {
     };
 
     public SyntaxErrorException(String s, int line, int cpos) {
-	super(s + " : line,char(" + String.valueOf(line + 1) + ","
+	super(s + " : line,char(" + String.valueOf(line + 1) + ", "
 		+ String.valueOf(cpos + 1) + ")");
 	lineno = line;
 	charpos = cpos;
@@ -70,7 +70,7 @@ public class SyntaxErrorException extends RuntimeException {
 
     public SyntaxErrorException(String s, int pos, int line, int cpos) {
 	super(s + String.valueOf(pos + 1) + " : line,char("
-		+ String.valueOf(line + 1) + "," + String.valueOf(cpos + 1)
+		+ String.valueOf(line + 1) + ", " + String.valueOf(cpos + 1)
 		+ ")");
 	position = pos;
 	lineno = line;
