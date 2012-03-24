@@ -112,7 +112,7 @@ public class jNaryBuiltinPredicateGoal extends jGoal {
 	StringBuffer sb = new StringBuffer();
 
 	sb.append(getName() + "/" + String.valueOf(predicate.getArity())
-		+ " goal: ");
+		+ " GOAL: ");
 	sb.append(getName());
 	if (arguments.size() > 0)
 	    sb.append(arguments.toString());

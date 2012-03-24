@@ -111,7 +111,7 @@ public class jUnaryBuiltinPredicateGoal extends jGoal {
     public String toString() {
 	StringBuffer sb = new StringBuffer();
 
-	sb.append(getName() + "/" + String.valueOf(getArity()) + " goal: ");
+	sb.append(getName() + "/" + String.valueOf(getArity()) + " GOAL: ");
 	sb.append(getName() + "(" + term1.toString() + ")");
 
 	return sb.toString();

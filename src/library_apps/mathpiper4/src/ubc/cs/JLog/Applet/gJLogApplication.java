@@ -390,6 +390,12 @@ public class gJLogApplication extends gJLogApplicationBase {
 		    boolean dbg = getPrologServices().getDebugging();
 
 		    getPrologServices().setDebugging(!dbg);
+		    
+		    if(!dbg)
+		    {
+			showDebugWindow();
+		    }
+		    
 		}
 	    });
 	    // mi.addActionListener(new ActionListener()

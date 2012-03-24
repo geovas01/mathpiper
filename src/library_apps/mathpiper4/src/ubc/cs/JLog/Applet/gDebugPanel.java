@@ -90,6 +90,9 @@ public class gDebugPanel extends Panel {
     protected final static int STATE_RUN = 1;
     protected final static int STATE_STEPIN = 2;
     protected final static int STATE_STEPOVER = 3;
+    
+    
+    protected String indentSpaces = "";
 
     public gDebugPanel(jPrologServices ps, boolean show_buttons) {
 	{
@@ -112,7 +115,7 @@ public class gDebugPanel extends Panel {
 			setRunState(STATE_STOP);
 
 			if (prolog.getDebugging() && uqe.getResult())
-			    info.append("\nQuery Succeeded\n");
+			    info.append(indentSpaces + "\nQUERY SUCCEEDED\n");
 		    }
 		}
 	    });
@@ -120,7 +123,7 @@ public class gDebugPanel extends Panel {
 		public void handleEvent(jPrologServiceEvent e) {
 		    queryTerminated();
 		    if (prolog.getDebugging())
-			info.append("\nQuery Failed\n");
+			info.append(indentSpaces + "\nQuery Failed\n");
 		}
 	    });
 	    prolog.addEndConsultListener(new jPrologServiceListener() {
@@ -474,7 +477,7 @@ public class gDebugPanel extends Panel {
 	    setRunState(STATE_STOP);
 
 	if (traceGoal(ti)) {
-	    info.append("trying: " + de.getGoal().toString());
+	    info.append(indentSpaces + "TRYING: " + de.getGoal().toString());
 	    info.append("\n");
 	}
 	switch (run_state) {
@@ -487,16 +490,19 @@ public class gDebugPanel extends Panel {
     public void debugProveGoal(jDebugProveGoalEvent de) {
 
 	if (traceGoal(de.getGoal())) {
-	    info.append("proving: " + de.getGoal().toString());
-	    info.append("\n");
+	    info.append(indentSpaces + "PROVING: " + de.getGoal().toString());
+	    //info.append("\n");
 
 	    if (de.getSubGoals().size() > 0) {
 		Enumeration e = de.getSubGoals().elements();
 
-		info.append("sub goals:\n");
+		info.append("\n" + indentSpaces + "SUB GOALS: ");
+		
+		indentSpaces = indentSpaces + "    ";
+		
 		while (e.hasMoreElements()) {
 		    info.append(e.nextElement().toString());
-		    info.append("\n");
+		    //info.append("\n");
 		}
 	    }
 	    info.append("\n");
@@ -509,14 +515,14 @@ public class gDebugPanel extends Panel {
 	if (v.size() > 0) {
 	    Enumeration e = v.elements();
 
-	    info.append("proved:\n");
+	    info.append(indentSpaces + "PROVED: ");
 	    while (e.hasMoreElements()) {
 		jDebugProvedGoalStack.jDebugGoalItem dgi;
 
 		dgi = (jDebugProvedGoalStack.jDebugGoalItem) e.nextElement();
 
 		info.append(dgi.getGoal().toString());
-		info.append("\n");
+		info.append("\n" + "        " + indentSpaces);
 	    }
 	    info.append("\n");
 	}
@@ -524,7 +530,7 @@ public class gDebugPanel extends Panel {
 
     public void debugRetryGoal(jDebugRetryGoalEvent de) {
 	if (traceGoal(de.getGoal())) {
-	    info.append("retry: " + de.getGoal().toString());
+	    info.append(indentSpaces + "RETRY: " + de.getGoal().toString());
 	    info.append("\n");
 	}
     };
@@ -534,7 +540,7 @@ public class gDebugPanel extends Panel {
 	    if (breakall.getState())
 		setRunState(STATE_STOP);
 
-	    info.append("failed: " + de.getGoal().toString());
+	    info.append(indentSpaces + "FAILED: " + de.getGoal().toString());
 	    info.append("\n\n");
 	}
     };

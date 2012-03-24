@@ -105,7 +105,7 @@ public class jCallNGoal extends jCallGoal {
     public String toString() {
 	StringBuffer sb = new StringBuffer();
 
-	sb.append(getName() + "/" + String.valueOf(getArity()) + " goal: ");
+	sb.append(getName() + "/" + String.valueOf(getArity()) + " GOAL: ");
 	sb.append(getName() + callee.toString());
 
 	return sb.toString();
