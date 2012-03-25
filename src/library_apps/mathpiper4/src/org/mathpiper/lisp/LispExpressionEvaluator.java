@@ -48,12 +48,13 @@ public class LispExpressionEvaluator extends Evaluator {
      * examined. If the head is not a string. ApplyFast()
      * is called. If the head is a string, it is checked against
      * the core commands (if there is a check, the corresponding
-     * evaluator is called). Then it is checked agaist the list of
+     * evaluator is called). Then it is checked against the list of
      * user function with getRulebase().   Again, the
      * corresponding evaluator is called if there is a check. If
      * all fails, ReturnUnEvaluated() is called.</p>
+     * 
      * <li value="3"><p>
-     * Otherwise (ie. if aExpression is a getJavaObject object), it is
+     * Otherwise (i.e. if aExpression is a getJavaObject object), it is
      * copied in aResult.</p>
      * </ol>
      *
