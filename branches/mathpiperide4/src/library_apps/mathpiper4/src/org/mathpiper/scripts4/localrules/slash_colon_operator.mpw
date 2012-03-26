@@ -9,6 +9,7 @@
 10 # (_expression /: _patterns) <--
 [
   Bind(patterns, LocProcess(patterns));
+  
   MacroSubstitute(expression,"LocPredicate","LocChange");
 ];
 
@@ -75,30 +76,34 @@ should become apparent.
 
 *E.G.
 
-In> Sin(u)*Ln(a*b) /: {Ln(_x*_y) <- Ln(x)+Ln(y)}
+In> Sin(u)*Ln(a*b) /: {Ln(_x*_y) <- Ln(x) + Ln(y)}
 Result: Sin(u)*(Ln(a)+Ln(b));
+
 In> Sin(u)*Ln(a*b) /:: { a <- 2, b <- 3 }
 Result: Sin(u)*Ln(6);
+
+
+/%mathpiper
+
+Hold((a + b) * (1 + 2) * (2 + 1) * (1/2 + c) * (3/4 + d) ) /:
+   {
+     (x_Odd? + y_Even?) <- m1,
+     
+     (x_Even? + y_Odd?) <- m2,
+     
+     (x_Rational? + y_Atom?)_(Denominator(x) =? 2) <- m3
+   };
+
+/%/mathpiper
+
+    /%output,preserve="false"
+      Result: (a+b)*m1*m2*m3*(3/4+d)
+.   /%/output
 
 *SEE Subst
 %/mathpiper_docs
 
 
-/*
-Examples to add to docs in the future.
-
-Hold((a + b) * (1 + 2) * (2 + 1) * (1/2 + c) * (3/4 + d) ) /:
-    {
-      (x_Odd? + y_Even?) <- m1,
-      (x_Even? + y_Odd?) <- m2,
-      (x_Rational? + y_Atom?)_(Denominator(x) = 2) <- m3,
-    };
-
-    %output,preserve="false"
-      Result: (a+b)*m1*m2*m3*(3/4+d)
-.   %/output
-
-*/
 
 
 

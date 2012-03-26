@@ -643,11 +643,6 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "RulebaseHoldArguments(\"~\",{head,tail});RuleHoldArguments(\"~\",2,20,List?(head) And? Not? List?(tail) ) Concat(head,{tail});RuleHoldArguments(\"~\",2,30,List?(tail) ) Concat({head},tail);RuleHoldArguments(\"~\",2,10,String?(tail) And? String?(head)) ConcatStrings(head,tail);UnFence(\"~\",2);";
-        scriptMap.put("~",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
         scriptString[1] = "10 # (countfrom_Integer? .. countto_Integer?)_(countfrom <=? countto) <-- Table(i,i,countfrom,countto,1);20 # (countfrom_Integer? .. countto_Integer?) <-- Table(i,i,countfrom,countto,-1);";
         scriptMap.put("..",scriptString);
 
@@ -655,6 +650,11 @@ public class Scripts {
         scriptString[0] = null;
         scriptString[1] = "Function(\"/@\",{func,lst}) Apply(\"MapSingle\",{func,lst});";
         scriptMap.put("/@",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
+        scriptString[1] = "RulebaseHoldArguments(\"~\",{head,tail});RuleHoldArguments(\"~\",2,20,List?(head) And? Not? List?(tail) ) Concat(head,{tail});RuleHoldArguments(\"~\",2,30,List?(tail) ) Concat({head},tail);RuleHoldArguments(\"~\",2,10,String?(tail) And? String?(head)) ConcatStrings(head,tail);UnFence(\"~\",2);";
+        scriptMap.put("~",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
@@ -1297,7 +1297,7 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "LocalSymbols(LocResult) [ Bind(LocResult,True); 10 # LocPredicate(exp_Atom?) <-- [ Local(tr,result); tr:=patterns; result:=False; While (tr !=? {}) [ If (First(First(tr)) =? exp, [ Bind(LocResult,Eval(First(Rest(First(tr))))); result := True; tr:={}; ], [ tr := Rest(tr); ]); ]; result; ]; 10 # LocPredicate(exp_Function?) <-- [ Local(tr,result,head); tr:=patterns; result:=False; While (tr !=? {}) [ Bind(head, First(First(tr))); If (Not?(Atom?(head)) And? exp[0]=?head[1] And? PatternMatches(head[2], exp), [ Bind(LocResult,Eval(First(Rest(First(tr))))); Bind(result, True); Bind(tr,{}); ], [ Bind(tr, Rest(tr)); ]); ]; result; ]; 20 # LocPredicate(_exp) <-- False; LocChange(_exp) <-- LocResult;]; UnFence(\"LocPredicate\",1);UnFence(\"LocChange\",1);10 # LocProcessSingle({_pat,_post,_exp}) <-- { {pat[0],PatternCreate(pat,post)},exp };20 # LocProcessSingle({pat_Function?,_exp}) <-- { {pat[0],PatternCreate(pat,True)},exp };30 # LocProcessSingle({pat_Atom?,_exp}) <-- { pat,exp };40 # LocProcessSingle(pat_Function? <- _exp) <-- [ Local(justPattern, postPredicate);  If(Type(pat) =? \"_\", [  justPattern := pat[1]; postPredicate := pat[2]; ], [  justPattern := pat; postPredicate := True; ] );  { {justPattern[0],PatternCreate(justPattern,postPredicate)},exp };];50 # LocProcessSingle(pat_Atom? <- _exp) <-- { pat,exp };LocProcess(patterns) :=[ MapSingle(\"LocProcessSingle\",patterns);];CompilePatterns(patterns) := LocPatterns(LocProcess(patterns));";
+        scriptString[1] = "LocalSymbols(localResult) [ localResult := True;   10 # LocPredicate(exp_Atom?) <-- [ Local(tr, result);  tr := patterns;  result := False;  While (tr !=? {}) [ If (First(First(tr)) =? exp, [ Echo(\"RULE_Atom: \", Last(First(tr)));  Bind(localResult,Eval(First(Rest(First(tr)))));  result := True;  tr:={}; ], [ tr := Rest(tr); ]); ];  result; ];   10 # LocPredicate(exp_Function?) <-- [ Local(tr, result, head);  tr := patterns;  result := False;  While (tr !=? {}) [ Bind(head, First(First(tr)));  If (Not?(Atom?(head)) And? exp[0] =? head[1] And? PatternMatches(head[2], exp), [ Echo(\"RULE_Function: \", Last(First(tr)));  Bind(localResult, Eval(First(Rest(First(tr)))));  Bind(result, True);  Bind(tr, {}); ], [ Bind(tr, Rest(tr)); ]); ];  result; ];    20 # LocPredicate(_exp) <-- False;   LocChange(_exp) <-- localResult;  ]; UnFence(\"LocPredicate\",1);UnFence(\"LocChange\",1);10 # LocProcessSingle({_pat, _post, _exp}) <-- { {pat[0], PatternCreate(pat, post)}, exp, \"UNNAMED\" };20 # LocProcessSingle({pat_Function?, _exp}) <-- { {pat[0], PatternCreate(pat,True)}, exp, \"UNNAMED\" };30 # LocProcessSingle({pat_Atom?, _exp}) <-- { pat, exp, \"UNNAMED\" };40 # LocProcessSingle(pat_Function? <- _exp) <-- [ Local(justPattern, postPredicate, ruleName);  justPattern := pat;  If(Type(justPattern) =? \"_\", [  justPattern := pat[1]; postPredicate := pat[2]; ], [  postPredicate := True; ] );    If(Type(justPattern) =? \"#\", [  ruleName := pat[1]; justPattern := pat[2];  If(Function?(justPattern), [ { {justPattern[0], PatternCreate(justPattern, postPredicate)}, exp , ruleName}; ], [  { justPattern, exp, ruleName }; ]  ); ], [ ruleName := \"UNNAMED\"; justPattern := pat; { {justPattern[0], PatternCreate(justPattern, postPredicate)}, exp , ruleName}; ] ); ];50 # LocProcessSingle(pat_Atom? <- _exp) <-- { pat, exp, \"UNNAMED\" };LocProcess(patterns) :=[ MapSingle(\"LocProcessSingle\", patterns);];CompilePatterns(patterns) := LocPatterns(LocProcess(patterns));";
         scriptMap.put("CompilePatterns",scriptString);
         scriptMap.put("LocProcess",scriptString);
         scriptMap.put("LocProcessSingle",scriptString);
@@ -1316,12 +1316,12 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "5 # (_expression /:: LocPatterns(_patterns)) <--[ MacroSubstitute(expression,\"LocPredicate\",\"LocChange\");];10 # (_expression /:: _patterns) <--[ Local(old); Bind(patterns, LocProcess(patterns)); Bind(old, expression); Bind(expression, MacroSubstitute(expression,\"LocPredicate\",\"LocChange\")); While (expression !=? old) [ Bind(old, expression); Bind(expression, MacroSubstitute(expression,\"LocPredicate\",\"LocChange\")); ]; expression;];";
+        scriptString[1] = "5 # (_expression /:: LocPatterns(_patterns)) <--[ MacroSubstitute(expression,\"LocPredicate\",\"LocChange\");];10 # (_expression /:: _patterns) <--[ Local(old);  Bind(patterns, LocProcess(patterns));  Bind(old, expression);  Bind(expression, MacroSubstitute(expression,\"LocPredicate\",\"LocChange\"));  While (expression !=? old) [ Bind(old, expression);  Bind(expression, MacroSubstitute(expression,\"LocPredicate\",\"LocChange\")); ];  expression;];";
         scriptMap.put("/::",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "5 # (_expression /: LocPatterns(_patterns)) <--[ MacroSubstitute(expression,\"LocPredicate\",\"LocChange\");];10 # (_expression /: _patterns) <--[ Bind(patterns, LocProcess(patterns)); MacroSubstitute(expression,\"LocPredicate\",\"LocChange\");];";
+        scriptString[1] = "5 # (_expression /: LocPatterns(_patterns)) <--[ MacroSubstitute(expression,\"LocPredicate\",\"LocChange\");];10 # (_expression /: _patterns) <--[ Bind(patterns, LocProcess(patterns));  MacroSubstitute(expression,\"LocPredicate\",\"LocChange\");];";
         scriptMap.put("/:",scriptString);
 
         scriptString = new String[2];
@@ -3734,12 +3734,12 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "Function(\"MacroSubstitute\",{body,predicate,change})[ `MacroSubstitute((Hold(@body)));];HoldArgument(\"MacroSubstitute\",predicate);HoldArgument(\"MacroSubstitute\",change);UnFence(\"MacroSubstitute\",3);RulebaseHoldArguments(\"MacroSubstitute\",{body});UnFence(\"MacroSubstitute\",1);RuleHoldArguments(\"MacroSubstitute\",1,1,`ApplyFast(predicate,{Hold(Hold(@body))}) =? True)[ `ApplyFast(change,{Hold(Hold(@body))});];RuleHoldArguments(\"MacroSubstitute\",1,2,`Function?(Hold(@body)))[ `ApplyFast(\"MacroMapArgs\",{Hold(Hold(@body)),\"MacroSubstitute\"});];RuleHoldArguments(\"MacroSubstitute\",1,3,True)[ `Hold(@body);];";
+        scriptString[1] = "   Function(\"MacroSubstitute\", {body, predicate, change})[ `MacroSubstitute((Hold(@body)));];HoldArgument(\"MacroSubstitute\", predicate);HoldArgument(\"MacroSubstitute\", change);UnFence(\"MacroSubstitute\", 3);RulebaseHoldArguments(\"MacroSubstitute\", {body});UnFence(\"MacroSubstitute\", 1);RuleHoldArguments(\"MacroSubstitute\", 1, 1, `ApplyFast(predicate, {Hold(Hold(@body))}) =? True)[ `ApplyFast(change, {Hold(Hold(@body))});];RuleHoldArguments(\"MacroSubstitute\", 1, 2, `Function?(Hold(@body)))[ `ApplyFast(\"MacroMapArgs\", {Hold(Hold(@body)), \"MacroSubstitute\"});];RuleHoldArguments(\"MacroSubstitute\", 1, 3, True)[ `Hold(@body);];";
         scriptMap.put("MacroSubstitute",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "Function(\"Substitute\",{body,predicate,change})[ Substitute(body);];HoldArgument(\"Substitute\",predicate);HoldArgument(\"Substitute\",change);UnFence(\"Substitute\",3);RulebaseHoldArguments(\"Substitute\",{body});UnFence(\"Substitute\",1);RuleHoldArguments(\"Substitute\",1,1,Apply(predicate,{body}) =? True)[ Apply(change,{body});];RuleHoldArguments(\"Substitute\",1,2,Function?(body))[ Apply(\"MapArgs\",{body,\"Substitute\"});];RuleHoldArguments(\"Substitute\",1,3,True) body;";
+        scriptString[1] = "Function(\"Substitute\", {body, predicate, change})[ Substitute(body);];HoldArgument(\"Substitute\", predicate);HoldArgument(\"Substitute\", change);UnFence(\"Substitute\", 3);RulebaseHoldArguments(\"Substitute\", {body});UnFence(\"Substitute\", 1);RuleHoldArguments(\"Substitute\", 1, 1, Apply(predicate, {body}) =? True)[ Apply(change,{body});];RuleHoldArguments(\"Substitute\", 1, 2, Function?(body))[ Apply(\"MapArgs\",{body,\"Substitute\"});];RuleHoldArguments(\"Substitute\", 1, 3, True) body;";
         scriptMap.put("Substitute",scriptString);
 
         scriptString = new String[2];
