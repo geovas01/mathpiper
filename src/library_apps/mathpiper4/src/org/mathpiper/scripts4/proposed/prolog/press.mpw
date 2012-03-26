@@ -77,16 +77,12 @@ or air traffic  control systems unless youre a bit of a gambler.
     isolax(2, Term1-Term2 = Rhs, Term2 = Term1-Rhs).   % Subtraction
 
     isolax(1, Term1*Term2 = Rhs, Term1 = Rhs/Term2) :- Term2 \== 0. % Multiplication 
-   
     isolax(2, Term1*Term2 = Rhs, Term2 = Rhs/Term1) :- Term1 \== 0. % Multiplication 
    
-
     isolax(1, Term1/Term2 = Rhs, Term1 = Rhs*Term2) :- Term2 \== 0. % Division
-   
     isolax(2, Term1/Term2 = Rhs, Term2 = Term1/Rhs) :- Rhs \== 0. % Division
     
-
-    isolax(1, Term1^Term2 = Rhs, Term1 = Rhs^(1/Term2)). % Exponentiation $$$ ^
+    isolax(1, Term1^Term2 = Rhs, Term1 = Rhs^(1/Term2)). % Exponentiation ^
     isolax(2, Term1^Term2 = Rhs, Term2 = log(base(Term1), Rhs)). % Exponentiation
 
     isolax(1, sin(U) = V, U = arcsin(V)).   % Sine
@@ -334,7 +330,7 @@ or air traffic  control systems unless youre a bit of a gambler.
 
 
 
-%group,title="MathPiper version of PRESS."
+
 
 
 
@@ -350,7 +346,8 @@ Position(subTerm, term) :=
     
     positionList := Rest(positionList);
     
-    Reverse(positionList);
+    Rest(Reverse(positionList));
+
 ];
 
 
@@ -389,6 +386,10 @@ PositionHelper(subTerm, term, list) :=
 
 %/mathpiper
 
+    %output,preserve="false"
+      Result: True
+.   %/output
+
 
 
 
@@ -420,10 +421,72 @@ SingleOccurrence?(subTerm, term) :=
 
 
 
-%/group
+
+
+%mathpiper,title="Isolate"
+
+SolveEquation(equation, var) :=
+[
+    path := Position(var, equation);
+
+    Isolate(path, equation);
+
+];
 
 
 
+
+Isolate(path, equation) :=
+[
+    equ := equation;
+    
+    Echo(path, equ);
+    
+    //ViewMath(equ);
+    
+    ForEach(p, path)
+    [
+        equ := Isolax(p,equ);
+        
+        Echo(p, equ);
+        
+        //ViewMath(equ);
+    
+    
+    ];
+
+
+
+
+
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+%mathpiper,title=""
+
+SolveEquation('(((-a) * b)/c+d == e), c);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      {1,2} ((-a)*b)/c+d==e 
+      RULE_Function: Addition1
+      1 ((-a)*b)/c==e-d 
+      RULE_Function: Division2
+      2 c==((-a)*b)/(e-d) 
+      
+.   %/output
 
 
 
@@ -431,14 +494,87 @@ SingleOccurrence?(subTerm, term) :=
 
 %mathpiper,title=""
 
-'(-a == b) /: {-_lhs == _rhs <- lhs == -rhs /*Unary minus*/ };
+SolveEquation('(((-a) * b^f)/c+d == e), b);
 
 %/mathpiper
 
     %output,preserve="false"
-      Result: a==-b
+      Result: True
+      
+      Side Effects:
+      {1,1,2,1} ((-a)*b^f)/c+d==e 
+      RULE_Function: Addition1
+      1 ((-a)*b^f)/c==e-d 
+      RULE_Function: Division1
+      1 (-a)*b^f==(e-d)*c 
+      RULE_Function: Multiplication2
+      2 b^f==-((e-d)*c)/a 
+      RULE_Function: Exponentiation1
+      1 b==(-((e-d)*c)/a)^(1/f) 
+      
 .   %/output
 
+
+
+dd
+
+
+Position(b,'(((-a) * b)/c+d == e))
+
+
+1 : -a == b
+
+2 : a + b == c
+
+1 : a - b == c
+
+2 : a * b == c 
+
+In> ViewMath('(((-a) * b)/c+d == e))
+
+
+
+esult: class javax.swing.JFrame
+
+In>  isolax(1,'(((-a) * b)/c+d == e))
+Result: ((-a)*b)/c==e-d
+Side Effects:
+RULE_Function: Addition1
+
+
+In> ViewMath('(((-a)*b)/c==e-d))
+Result: class javax.swing.JFrame
+
+%mathpiper,title=""
+
+
+Isolax(side, equation) :=
+[
+    side : equation /: {
+                        "UnaryMinus" # 1 : -_lhs == _rhs <- lhs == -rhs,
+                        
+                        "Addition1" #  1 : _term1 + _term2 == _rhs <- term1 == rhs - term2,
+                        "Addition2" #  2 : _term1 + _term2 == _rhs <- term2 == rhs - term1,
+                        
+                        "Subtraction1" #  1 : _term1 - _term2 == _rhs <- term1 == rhs + term2,
+                        "Subtraction2" #  2 : _term1 - _term2 == _rhs <- term2 == term1 - rhs,
+                        
+                        "Multiplication1" #  1 : _term1 * _term2 == _rhs <- term1 == rhs / term2,
+                        "Multiplication2" #  2 : _term1 * _term2 == _rhs <- term2 == rhs / term1,
+                        
+                        "Division1" #  1 : _term1 / _term2 == _rhs <- term1 == rhs * term2,
+                        "Division2" #  2 : _term1 / _term2 == _rhs <- term2 == term1 / rhs,
+                        
+                        "Exponentiation1" # 1 : _term1 ^ _term2 == _rhs <- term1 == rhs^(1/term2),
+                        //"Exponentiation2" # 2 : _term1 ^ _term2 == _rhs <- term2 == Log(rhs)//Log(base(term1), rhs)
+                      };
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
 
 
 
