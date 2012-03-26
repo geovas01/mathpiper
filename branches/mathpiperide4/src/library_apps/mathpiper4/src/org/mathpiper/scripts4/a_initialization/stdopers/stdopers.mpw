@@ -26,7 +26,7 @@ RuleHoldArguments(StandardOperatorsLoad, 0, 1, True)
     RightAssociativeSet(":=");
     
     RulebaseHoldArguments(":",{left,right});
-    Infix(":",70);
+    Infix(":",900);
 
     Infix("+",70);
     Infix("-",70);
