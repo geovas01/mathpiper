@@ -1409,6 +1409,15 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
             saveAction.setText("Save");
             saveAction.addActionListener(new FileOperationListener());
             fileMenu.add(saveAction);
+            
+	    JMenuItem saveAsImageAction = new JMenuItem();
+	    saveAsImageAction.setText("Save As Image");
+	    saveAsImageAction.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent ae) {
+		    org.mathpiper.ui.gui.Utility.saveImageOfComponent(textPane);
+		}
+	    });
+	    fileMenu.add(saveAsImageAction);
 
             //JMenuItem exitAction = new JMenuItem("Exit");
             //fileMenu.add(exitAction);
