@@ -497,18 +497,13 @@ SolveEquation('(((-a) * b)/c+d == e), a);
 %/mathpiper
 
     %output,preserve="false"
-      Result: {{((-a)*b)/c+d==e},{{((-a)*b)/c==e-d,"Subtract d."}},{{(-a)*b==(e-d)*c,"Multiply c."}},{{-a==((e-d)*c)/b,"Divide b."}},{{a==-((e-d)*c)/b,"Multiply -1."}}}
+      Result: {{Solve \ \ \frac{(  - a)  \cdot b}{c}  + d = e \ \ for \ a.},{\downarrow},{Subtract \ d \ from \ both \ sides.},{\downarrow},{((-a)*b)/c==e-d},{\downarrow},{Multiply \ both \ sides \ by \ c.},{\downarrow},{(-a)*b==(e-d)*c},{\downarrow},{Divide \ both \ sides \ by \ b.},{\downarrow},{-a==((e-d)*c)/b},{\downarrow},{Multiply \ both \ sides \ by \ -1.},{\downarrow},{a==-((e-d)*c)/b}}
       
       Side Effects:
-      {1,1,1,1} ((-a)*b)/c+d==e 
       RULE_Function: Addition1
-      1 ((-a)*b)/c==e-d Subtract d.
       RULE_Function: Division1
-      1 (-a)*b==(e-d)*c Multiply c.
       RULE_Function: Multiplication1
-      1 -a==((e-d)*c)/b Divide b.
       RULE_Function: UnaryMinus
-      1 a==-((e-d)*c)/b Multiply -1.
       
 .   %/output
 
@@ -626,7 +621,7 @@ side : equation /: {
                         "Division1" #  1 : _term1 / _term2 == _rhs <- {term1 == rhs * term2, "Multiply \\ both \\ sides \\ by \\ " ~ ExpressionToString(term2) ~ "."},
                         "Division2" #  2 : _term1 / _term2 == _rhs <- {term2 == term1 / rhs, "Multiply \\ both \\ sides \\ by \\ " ~ ExpressionToString(term1) ~ "."},
                         
-                        "Exponentiation1" # 1 : _term1 ^ _term2 == _rhs <- {term1 == rhs^(1/term2), ""},
+                        "Exponentiation1" # 1 : _term1 ^ _term2 == _rhs <- {term1 == rhs^(1/term2), " "},
                         //"Exponentiation2" # 2 : _term1 ^ _term2 == _rhs <- term2 == Log(rhs)//Log(base(term1), rhs)
                       };
                       
