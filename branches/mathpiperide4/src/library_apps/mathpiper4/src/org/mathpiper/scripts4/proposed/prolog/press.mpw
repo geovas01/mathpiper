@@ -429,34 +429,54 @@ SolveEquation(equation, var) :=
 [
     path := Position(var, equation);
 
-    Isolate(path, equation);
+    Isolate(path, equation, var);
 
 ];
 
 
 
 
-Isolate(path, equation) :=
+Isolate(path, equation, var) :=
 [
+
+    result := {};
     equ := equation;
     
-    Echo(path, equ);
+    x1 := StringToList(TeXForm(equ));
+    
+    x1 := Remove(x1,"$");
+    
+    x1 := ListToString(x1);
+    
+    DestructiveAppend(result,{ToAtom("Solve \\ \\ " ~ x1 ~ " \\ \\ for \\ " ~ ToString(var) ~ ".")});
+    
+    //DestructiveAppend(result,{ToAtom("\\downarrow")});
+    
+    //DestructiveAppend(result,{equ});
+    
+    //Echo(path, equ);
     
     //ViewMath(equ);
     
+    rest := {equ};
+    
     ForEach(p, path)
     [
-        equ := Isolax(p,equ);
+        rest := Isolax(p,First(rest));
         
-        Echo(p, equ);
+        DestructiveAppend(result,{ToAtom("\\downarrow")});
+        DestructiveAppend(result,{ToAtom(rest[2])});  
+        DestructiveAppend(result,{ToAtom("\\downarrow")});
+        DestructiveAppend(result,{rest[1]});
+        
+        //Echo(p, rest);
         
         //ViewMath(equ);
     
     
     ];
-
-
-
+    
+    result;
 
 
 ];
@@ -472,19 +492,23 @@ Isolate(path, equation) :=
 
 %mathpiper,title=""
 
-SolveEquation('(((-a) * b)/c+d == e), c);
+SolveEquation('(((-a) * b)/c+d == e), a);
 
 %/mathpiper
 
     %output,preserve="false"
-      Result: True
+      Result: {{((-a)*b)/c+d==e},{{((-a)*b)/c==e-d,"Subtract d."}},{{(-a)*b==(e-d)*c,"Multiply c."}},{{-a==((e-d)*c)/b,"Divide b."}},{{a==-((e-d)*c)/b,"Multiply -1."}}}
       
       Side Effects:
-      {1,2} ((-a)*b)/c+d==e 
+      {1,1,1,1} ((-a)*b)/c+d==e 
       RULE_Function: Addition1
-      1 ((-a)*b)/c==e-d 
-      RULE_Function: Division2
-      2 c==((-a)*b)/(e-d) 
+      1 ((-a)*b)/c==e-d Subtract d.
+      RULE_Function: Division1
+      1 (-a)*b==(e-d)*c Multiply c.
+      RULE_Function: Multiplication1
+      1 -a==((e-d)*c)/b Divide b.
+      RULE_Function: UnaryMinus
+      1 a==-((e-d)*c)/b Multiply -1.
       
 .   %/output
 
@@ -499,16 +523,16 @@ SolveEquation('(((-a) * b^f)/c+d == e), b);
 %/mathpiper
 
     %output,preserve="false"
-      Result: True
+      Result: {{((-a)*b^f)/c+d==e},{{((-a)*b^f)/c==e-d,"Subtract d."}},{{(-a)*b^f==(e-d)*c,"Multiply c."}},{{b^f==-((e-d)*c)/a,"Divide -a."}},{{b==(-((e-d)*c)/a)^(1/f),""}}}
       
       Side Effects:
       {1,1,2,1} ((-a)*b^f)/c+d==e 
       RULE_Function: Addition1
-      1 ((-a)*b^f)/c==e-d 
+      1 ((-a)*b^f)/c==e-d Subtract d.
       RULE_Function: Division1
-      1 (-a)*b^f==(e-d)*c 
+      1 (-a)*b^f==(e-d)*c Multiply c.
       RULE_Function: Multiplication2
-      2 b^f==-((e-d)*c)/a 
+      2 b^f==-((e-d)*c)/a Divide -a.
       RULE_Function: Exponentiation1
       1 b==(-((e-d)*c)/a)^(1/f) 
       
@@ -536,10 +560,14 @@ In> ViewMath('(((-a) * b)/c+d == e))
 
 esult: class javax.swing.JFrame
 
-In>  isolax(1,'(((-a) * b)/c+d == e))
-Result: ((-a)*b)/c==e-d
-Side Effects:
-RULE_Function: Addition1
+In>  Isolax(1,'(((-a) * b)/c+d == e))
+
+    %output,preserve="false"
+      Result: {"RULE_Function: Addition1
+      ",((-a)*b)/c==e-d}
+.   %/output
+
+
 
 
 In> ViewMath('(((-a)*b)/c==e-d))
@@ -568,6 +596,7 @@ Isolax(side, equation) :=
                         "Exponentiation1" # 1 : _term1 ^ _term2 == _rhs <- term1 == rhs^(1/term2),
                         //"Exponentiation2" # 2 : _term1 ^ _term2 == _rhs <- term2 == Log(rhs)//Log(base(term1), rhs)
                       };
+
 ];
 
 %/mathpiper
@@ -579,6 +608,36 @@ Isolax(side, equation) :=
 
 
 
+%mathpiper
+Isolax(side, equation) :=
+[
+side : equation /: {
+                        "UnaryMinus" # 1 : -_lhs == _rhs <- {lhs == -rhs, "Multiply \\ both \\ sides \\ by \\ " ~ ExpressionToString(-1) ~ "."},
+                        
+                        "Addition1" #  1 : _term1 + _term2 == _rhs <- {term1 == rhs - term2,"Subtract \\ " ~ ExpressionToString(term2) ~ " \\ from \\ both \\ sides."},
+                        "Addition2" #  2 : _term1 + _term2 == _rhs <- {term2 == rhs - term1,"Subtract \\ " ~ ExpressionToString(term1) ~ " \\ from \\ both \\ sides."},
+                        
+                        "Subtraction1" #  1 : _term1 - _term2 == _rhs <- {term1 == rhs + term2, "Add \\ " ~ ExpressionToString(term2) ~ " \\ to \\ both \\ sides."},
+                        "Subtraction2" #  2 : _term1 - _term2 == _rhs <- {term2 == term1 - rhs, "Add \\ " ~ ExpressionToString(term1) ~ " \\ to \\ both \\ sides."},
+                        
+                        "Multiplication1" #  1 : _term1 * _term2 == _rhs <- {term1 == rhs / term2, "Divide \\ both \\ sides \\ by \\ " ~ ExpressionToString(term2) ~ "."},
+                        "Multiplication2" #  2 : _term1 * _term2 == _rhs <- {term2 == rhs / term1, "Divide \\ both \\ sides \\ by \\ " ~ ExpressionToString(term1) ~ "."},
+                        
+                        "Division1" #  1 : _term1 / _term2 == _rhs <- {term1 == rhs * term2, "Multiply \\ both \\ sides \\ by \\ " ~ ExpressionToString(term2) ~ "."},
+                        "Division2" #  2 : _term1 / _term2 == _rhs <- {term2 == term1 / rhs, "Multiply \\ both \\ sides \\ by \\ " ~ ExpressionToString(term1) ~ "."},
+                        
+                        "Exponentiation1" # 1 : _term1 ^ _term2 == _rhs <- {term1 == rhs^(1/term2), ""},
+                        //"Exponentiation2" # 2 : _term1 ^ _term2 == _rhs <- term2 == Log(rhs)//Log(base(term1), rhs)
+                      };
+                      
+
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
 
 
 
