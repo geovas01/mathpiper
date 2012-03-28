@@ -452,6 +452,8 @@ Isolate(path, equation, var) :=
     
     //DestructiveAppend(result,{ToAtom("\\downarrow")});
     
+    DestructiveAppend(result,{ToAtom(" \\ ")});
+    
     //DestructiveAppend(result,{equ});
     
     //Echo(path, equ);
@@ -464,9 +466,9 @@ Isolate(path, equation, var) :=
     [
         rest := Isolax(p,First(rest));
         
-        DestructiveAppend(result,{ToAtom("\\downarrow")});
+        //DestructiveAppend(result,{ToAtom("\\downarrow")});
         DestructiveAppend(result,{ToAtom(rest[2])});  
-        DestructiveAppend(result,{ToAtom("\\downarrow")});
+        //DestructiveAppend(result,{ToAtom("\\downarrow")});
         DestructiveAppend(result,{rest[1]});
         
         //Echo(p, rest);
@@ -497,7 +499,7 @@ SolveEquation('(((-a) * b)/c+d == e), a);
 %/mathpiper
 
     %output,preserve="false"
-      Result: {{Solve \ \ \frac{(  - a)  \cdot b}{c}  + d = e \ \ for \ a.},{\downarrow},{Subtract \ d \ from \ both \ sides.},{\downarrow},{((-a)*b)/c==e-d},{\downarrow},{Multiply \ both \ sides \ by \ c.},{\downarrow},{(-a)*b==(e-d)*c},{\downarrow},{Divide \ both \ sides \ by \ b.},{\downarrow},{-a==((e-d)*c)/b},{\downarrow},{Multiply \ both \ sides \ by \ -1.},{\downarrow},{a==-((e-d)*c)/b}}
+      Result: {{Solve \ \ \frac{(  - a)  \cdot b}{c}  + d = e \ \ for \ a.},{ \ },{Subtract \ d \ from \ both \ sides:},{((-a)*b)/c==e-d},{Multiply \ both \ sides \ by \ c:},{(-a)*b==(e-d)*c},{Divide \ both \ sides \ by \ b:},{-a==((e-d)*c)/b},{Multiply \ both \ sides \ by \ -1:},{a==-((e-d)*c)/b}}
       
       Side Effects:
       RULE_Function: Addition1
@@ -607,21 +609,21 @@ Isolax(side, equation) :=
 Isolax(side, equation) :=
 [
 side : equation /: {
-                        "UnaryMinus" # 1 : -_lhs == _rhs <- {lhs == -rhs, "Multiply \\ both \\ sides \\ by \\ " ~ ExpressionToString(-1) ~ "."},
+                        "UnaryMinus" # 1 : -_lhs == _rhs <- {lhs == -rhs, "Multiply \\ both \\ sides \\ by \\ " ~ ExpressionToString(-1) ~ ":"},
                         
-                        "Addition1" #  1 : _term1 + _term2 == _rhs <- {term1 == rhs - term2,"Subtract \\ " ~ ExpressionToString(term2) ~ " \\ from \\ both \\ sides."},
-                        "Addition2" #  2 : _term1 + _term2 == _rhs <- {term2 == rhs - term1,"Subtract \\ " ~ ExpressionToString(term1) ~ " \\ from \\ both \\ sides."},
+                        "Addition1" #  1 : _term1 + _term2 == _rhs <- {term1 == rhs - term2,"Subtract \\ " ~ ExpressionToString(term2) ~ " \\ from \\ both \\ sides:"},
+                        "Addition2" #  2 : _term1 + _term2 == _rhs <- {term2 == rhs - term1,"Subtract \\ " ~ ExpressionToString(term1) ~ " \\ from \\ both \\ sides:"},
                         
-                        "Subtraction1" #  1 : _term1 - _term2 == _rhs <- {term1 == rhs + term2, "Add \\ " ~ ExpressionToString(term2) ~ " \\ to \\ both \\ sides."},
-                        "Subtraction2" #  2 : _term1 - _term2 == _rhs <- {term2 == term1 - rhs, "Add \\ " ~ ExpressionToString(term1) ~ " \\ to \\ both \\ sides."},
+                        "Subtraction1" #  1 : _term1 - _term2 == _rhs <- {term1 == rhs + term2, "Add \\ " ~ ExpressionToString(term2) ~ " \\ to \\ both \\ sides:"},
+                        "Subtraction2" #  2 : _term1 - _term2 == _rhs <- {term2 == term1 - rhs, "Add \\ " ~ ExpressionToString(term1) ~ " \\ to \\ both \\ sides:"},
                         
-                        "Multiplication1" #  1 : _term1 * _term2 == _rhs <- {term1 == rhs / term2, "Divide \\ both \\ sides \\ by \\ " ~ ExpressionToString(term2) ~ "."},
-                        "Multiplication2" #  2 : _term1 * _term2 == _rhs <- {term2 == rhs / term1, "Divide \\ both \\ sides \\ by \\ " ~ ExpressionToString(term1) ~ "."},
+                        "Multiplication1" #  1 : _term1 * _term2 == _rhs <- {term1 == rhs / term2, "Divide \\ both \\ sides \\ by \\ " ~ ExpressionToString(term2) ~ ":"},
+                        "Multiplication2" #  2 : _term1 * _term2 == _rhs <- {term2 == rhs / term1, "Divide \\ both \\ sides \\ by \\ " ~ ExpressionToString(term1) ~ ":"},
                         
-                        "Division1" #  1 : _term1 / _term2 == _rhs <- {term1 == rhs * term2, "Multiply \\ both \\ sides \\ by \\ " ~ ExpressionToString(term2) ~ "."},
-                        "Division2" #  2 : _term1 / _term2 == _rhs <- {term2 == term1 / rhs, "Multiply \\ both \\ sides \\ by \\ " ~ ExpressionToString(term1) ~ "."},
+                        "Division1" #  1 : _term1 / _term2 == _rhs <- {term1 == rhs * term2, "Multiply \\ both \\ sides \\ by \\ " ~ ExpressionToString(term2) ~ ":"},
+                        "Division2" #  2 : _term1 / _term2 == _rhs <- {term2 == term1 / rhs, "Multiply \\ both \\ sides \\ by \\ " ~ ExpressionToString(term1) ~ ":"},
                         
-                        "Exponentiation1" # 1 : _term1 ^ _term2 == _rhs <- {term1 == rhs^(1/term2), " "},
+                        "Exponentiation1" # 1 : _term1 ^ _term2 == _rhs <- {term1 == rhs^(1/term2), " :"},
                         //"Exponentiation2" # 2 : _term1 ^ _term2 == _rhs <- term2 == Log(rhs)//Log(base(term1), rhs)
                       };
                       
