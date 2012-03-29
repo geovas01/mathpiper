@@ -17,7 +17,7 @@ LocalSymbols(localResult) [
     [
       If (First(First(tr)) =? exp,
       [
-        Echo("RULE_Atom: ", Last(First(tr)));
+        //Echo("RULE_Atom: ", Last(First(tr)));
         
         Bind(localResult,Eval(First(Rest(First(tr)))));
         
@@ -49,7 +49,7 @@ LocalSymbols(localResult) [
       
       If (Not?(Atom?(head)) And? exp[0] =? head[1] And? PatternMatches(head[2], exp),
       [
-        Echo("RULE_Function: ", Last(First(tr)));
+        //Echo("RULE_Function: ", Last(First(tr)));
         
         Bind(localResult, Eval(First(Rest(First(tr)))));
         
