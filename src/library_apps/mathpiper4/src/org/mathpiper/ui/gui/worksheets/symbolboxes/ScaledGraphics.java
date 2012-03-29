@@ -83,7 +83,7 @@ public class ScaledGraphics {
         int newFontSize = (int) (viewScale * aSize);
         if (prevSetFontSize != newFontSize) {
             prevSetFontSize = newFontSize;
-            Font f = new Font("Verdana", Font.PLAIN, newFontSize);
+            Font f = new Font("Monospaced", Font.PLAIN, newFontSize);
             if (f != null) {
                 iG.setFont(f);
                 metrics = iG.getFontMetrics();
