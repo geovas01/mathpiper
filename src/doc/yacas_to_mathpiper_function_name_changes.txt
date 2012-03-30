@@ -37,6 +37,9 @@ If -> Decide
 if -> If
 else -> Else
 
+InVerboseMode -> VerboseMode?
+V() -> Make V a bodied function so it can be more easily added and removed from code.
+
 
 ------------------------------------------------------------------------------------------
 
