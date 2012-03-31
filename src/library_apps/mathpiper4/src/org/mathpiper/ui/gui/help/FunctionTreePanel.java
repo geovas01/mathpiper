@@ -1008,12 +1008,12 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
     public void hyperlinkUpdate(HyperlinkEvent event) {
         //System.out.println(event.toString());
         
-	//URL url = event.getURL();
+	
 	
         //System.out.println("YYYPiperDocsYYY: " + url.getPath() + " reference: " + url.getRef() + " query: " + url.getQuery() );
-        /*
-         * if (event.getEventType() == HyperlinkEvent.EventType.ACTIVATED)
+        if (event.getEventType() == HyperlinkEvent.EventType.ACTIVATED)
         {
+            URL url = event.getURL();
 
             String functionName = "";
 
@@ -1065,18 +1065,14 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                 }
                 else
                 {
-                    String urlString = url.toString();
-                    functionName = urlString.substring(7, urlString.length());
+                    //String urlString = url.toString();
+                    //functionName = urlString.substring(7, urlString.length());
                 }
 
             }
             else
             {
-                //Hack to get around problem of null url object being returned for the := operator.
-                if (event.getDescription().contains("http://:="))
-                {
-                    functionName = ":=";
-                }
+        	functionName = event.getDescription();
             }
 
             //System.out.println("VVVVV " + functionName);
@@ -1086,14 +1082,9 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                 viewFunction(functionName, true);
             }
 
-        }//end if.  + getRef())
+        }//end if.  
         
-                    */
-	
-	if (event.getEventType() == HyperlinkEvent.EventType.ACTIVATED)
-        {
-	    viewFunction(event.getDescription(), true);
-        }
+
 
     }//end method.
 
