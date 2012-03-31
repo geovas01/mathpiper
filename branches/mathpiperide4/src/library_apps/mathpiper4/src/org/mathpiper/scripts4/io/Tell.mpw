@@ -38,7 +38,7 @@ out, along with a list of their currently bound values.
 {Tell} always returns {True}.
 
 Because {Tell} uses Echo(), it prints to Standard Output.  If you are debuging
-a program which may hang, you may get no printout.  In that case, use {Show}
+a program which may hang, you may get no printout.  In that case, use {TellNow}
 instead of {Tell}
 
 *E.G. notest
@@ -66,5 +66,5 @@ Result: True
         << ID4 >> {var1,var2,var3} :  {123,"a string",Sin(x)+Exp(x)} 
 
 
-*SEE Show
+*SEE TellNow
 %/mathpiper_docs
