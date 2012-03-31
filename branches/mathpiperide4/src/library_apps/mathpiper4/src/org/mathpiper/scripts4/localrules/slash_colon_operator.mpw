@@ -19,14 +19,8 @@
 
 %mathpiper_docs,name="/:",categories="Operators"
 *CMD /: --- local simplification rules
-*CMD /:: --- local simplification rules
-*STD
-*CALL
-        expression /: patterns
-        expressions /:: patterns
-Precedence:
-*EVAL PrecedenceGet("/:")
 
+        expression /: patterns
 
 *PARMS
 
@@ -45,6 +39,7 @@ to do this is using the {/:} operator, as follows:
 
 In> Sin(x)*Ln(a*b)
 Result: Sin(x)*Ln(a*b);
+
 In> % /: { Ln(_x*_y) <- Ln(x)+Ln(y) }
 Result: Sin(x)*(Ln(a)+Ln(b));
 
@@ -67,20 +62,23 @@ rules to the end of the list of rules. If the rules cannot be applied
 to an expression, it will try subexpressions of that
 expression and so on.
 
-It might be necessary sometimes to use the {/::} operator, which
-repeatedly applies the {/:} operator until the result doesn't change
-any more. Caution is required, since rules can contradict each other,
-which could result in an infinite loop. To detect this situation,
-just use /: repeatedly on the expression. The repetitive nature
-should become apparent.
+A local rule that is defined by the <- operator can be given a name by using the # operator:
+
+"RuleName" # Ln(_x*_y) <- Ln(x) + Ln(y)}
+
+Each time the rule is selected while the system is in verbose mode, the name of the rule will be
+printed as a side effect.
+
 
 *E.G.
 
 In> Sin(u)*Ln(a*b) /: {Ln(_x*_y) <- Ln(x) + Ln(y)}
 Result: Sin(u)*(Ln(a)+Ln(b));
 
-In> Sin(u)*Ln(a*b) /:: { a <- 2, b <- 3 }
-Result: Sin(u)*Ln(6);
+In> V(Sin(u)*Ln(a*b) /: { "RuleName" # Ln(_x*_y) <- Ln(x) + Ln(y)})
+Result: Sin(u)*(Ln(a)+Ln(b))
+Side Effects:
+RuleName
 
 
 /%mathpiper
@@ -100,7 +98,7 @@ Hold((a + b) * (1 + 2) * (2 + 1) * (1/2 + c) * (3/4 + d) ) /:
       Result: (a+b)*m1*m2*m3*(3/4+d)
 .   /%/output
 
-*SEE Subst
+*SEE /::, Subst
 %/mathpiper_docs
 
 
