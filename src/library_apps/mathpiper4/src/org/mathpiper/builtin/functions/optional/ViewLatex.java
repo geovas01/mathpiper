@@ -63,7 +63,7 @@ public class ViewLatex extends BuiltinFunction {
 
 
        parameters = new String[] {"expression"};
-       Utility.declareFunction("ViewLatex", parameters, "ViewLatexInternal(expression, 2);", aEnvironment, LispError.TODO);
+       Utility.declareFunction("ViewLatex", parameters, "ViewLatexInternal(expression, 100);", aEnvironment, LispError.TODO);
 
 
         DefaultTeXFont.registerAlphabet(new CyrillicRegistration());
@@ -134,7 +134,7 @@ public class ViewLatex extends BuiltinFunction {
         //JLateXMath
 	TeXFormula formula = new TeXFormula(latexString);
         JLabel latexLabel = new JLabel();
-        JPanel latexPanelController = new LatexRenderingController(formula, latexLabel, 100);
+        JPanel latexPanelController = new LatexRenderingController(formula, latexLabel, viewScale.toInt());
 
         JPanel screenCapturePanel = new ScreenCapturePanel();
 
