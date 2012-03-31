@@ -136,15 +136,16 @@ or air traffic  control systems unless youre a bit of a gambler.
 */
     subtract_polynomials(Poly1, Poly2, Poly) :-  multiply_single(Poly2, (-1, 0), Poly3), add_polynomials(Poly1, Poly3, Poly), !.
 
+    
 /*  
     multiply_single(Poly1, Monomial, Poly) :-  Poly is the product of Poly1 and Monomial, where
     Poly1, and Poly are in polynomial form, and Monomial 
     has the form (C, N) denoting the monomial C*X^N.
 */
-
     multiply_single([(C1, N1)|Poly1], (C, N), [(C2, N2)|Poly]) :-  C2 is C1*C, N2 is N1+N, multiply_single(Poly1, (C, N), Poly).
     multiply_single([], Factor, []).
 
+    
 /*  
     multiply_polynomials(Poly1, Poly2, Poly) :-  Poly  is the product of Poly1 and Poly2, where
     Poly1, Poly2 and Poly are all in polynomial form.
@@ -153,7 +154,8 @@ or air traffic  control systems unless youre a bit of a gambler.
     multiply_polynomials([], P, []).
 
     binomial(Poly, 1, Poly).
- 
+    
+    
 /*   
     solve_polynomial_equation(Equation, Unknown, Solution) :-  Solution  is a solution to the polynomial Equation  
     in the unknown Unknown.
@@ -176,12 +178,14 @@ or air traffic  control systems unless youre a bit of a gambler.
 
     quadratic([(Coeff, 2)|Poly]).
 
+    
 /*  ================================== The homogenization method 
     homogenize(Equation, X, Equation1, X1) :-  The Equation in X is transformed to the polynomial
     Equation1 in X1 where X1 contains X.
 */    
     homogenize(Equation, X, Equation1, X1) :-  offenders(Equation, X, Offenders), reduced_term(X, Offenders, Type, X1), rewrite(Offenders, Type, X1, Substitutions), substitute(Equation, Substitutions, Equation1).
 
+    
 /*  
     offenders(Equation, Unknown, Offenders) 
     Offenders is the set of offenders of the equation in the Unknown  
@@ -334,7 +338,40 @@ or air traffic  control systems unless youre a bit of a gambler.
 
 
 
-%mathpiper,title="Position"
+%mathpiper,title=""
+
+    Retract("+$", *);
+    Retract("-$", *);
+    Retract("/$", *);
+    Retract("*$", *);
+    Retract("^$", *);
+
+
+    
+
+    Infix("+$",70);
+    Infix("-$",70);
+    RightPrecedenceSet("-$",40);
+    Infix("/$",30);
+    Infix("*$",40);
+    Infix("^$",20);
+    LeftPrecedenceSet("^$",19); //Added to make expressions like x^n^2 unambiguous.
+    RightAssociativeSet("^$");
+    Prefix("+$",50);
+    Prefix("-$",50);
+    RightPrecedenceSet("-$",40);
+    
+    
+    RulebaseEvaluateArguments("+$",{lhs, rhs});
+    RulebaseEvaluateArguments("-$",{lhs, rhs});
+    RulebaseEvaluateArguments("/$",{lhs, rhs});
+    RulebaseEvaluateArguments("*$",{lhs, rhs});
+    RulebaseEvaluateArguments("^$",{lhs, rhs});
+    RulebaseEvaluateArguments("+$",{operand});
+    RulebaseEvaluateArguments("-$",{operand});
+
+    
+
 
 Position(subTerm, term) :=
 [
@@ -384,17 +421,7 @@ PositionHelper(subTerm, term, list) :=
     ];
 ];
 
-%/mathpiper
 
-    %output,preserve="false"
-      Result: True
-.   %/output
-
-
-
-
-
-%mathpiper,title=""
 
 
 Occurrence(subTerm, term) :=
@@ -411,22 +438,12 @@ SingleOccurrence?(subTerm, term) :=
     Occurrence(subTerm, term) =? 1;
 ];
 
-%/mathpiper
 
-    %output,preserve="false"
-      Result: True
-.   %/output
-
-
-
-
-
-
-
-%mathpiper,title="Isolate"
 
 SolveEquation(equation, var) :=
 [
+    Local(path);
+    
     path := Position(var, equation);
 
     Isolate(path, equation, var);
@@ -436,52 +453,85 @@ SolveEquation(equation, var) :=
 
 
 
-Isolate(path, equation, var) :=
+Isolate(pathNumbers, equation, var) :=
 [
-
+    Local(result, rest);
+    
     result := {};
-    equ := equation;
     
-    x1 := StringToList(TeXForm(equ));
-    
-    x1 := Remove(x1,"$");
-    
-    x1 := ListToString(x1);
-    
-    DestructiveAppend(result,{ToAtom("Solve \\ \\ " ~ x1 ~ " \\ \\ for \\ " ~ ToString(var) ~ ".")});
-    
-    //DestructiveAppend(result,{ToAtom("\\downarrow")});
+    DestructiveAppend(result,{ToAtom("Solve \\ \\ " ~ ToString(TexFormNoDollarSigns(equation)) ~ " \\ \\ for \\ " ~ ToString(var) ~ ".")});
     
     DestructiveAppend(result,{ToAtom(" \\ ")});
     
-    //DestructiveAppend(result,{equ});
+    rest := {equation};
     
-    //Echo(path, equ);
-    
-    //ViewMath(equ);
-    
-    rest := {equ};
-    
-    ForEach(p, path)
+
+    ForEach(pathNumber, pathNumbers)
     [
-        rest := Isolax(p,First(rest));
+        rest := Isolax(pathNumber, First(rest));
         
-        //DestructiveAppend(result,{ToAtom("\\downarrow")});
-        DestructiveAppend(result,{ToAtom(rest[2])});  
-        //DestructiveAppend(result,{ToAtom("\\downarrow")});
-        DestructiveAppend(result,{rest[1]});
+        DestructiveAppend(result,{ToAtom(" \\ ")});
+
+        DestructiveAppend(result,{ToAtom(ListToString(Remove(StringToList(rest[3]),"$")))});
         
-        //Echo(p, rest);
+        If(Length(rest) =? 4, DestructiveAppend(result,{TexFormNoDollarSigns(rest[4])}));
         
-        //ViewMath(equ);
-    
-    
+        DestructiveAppend(result,{ToAtom(" \\ ")});
+        
+        DestructiveAppend(result,{TexFormNoDollarSigns(rest[1])});
+        
+        DestructiveAppend(result,{ToAtom(" \\ ")});
     ];
     
     result;
+];
 
+
+
+
+
+TexFormNoDollarSigns(equation) := 
+[
+    equation := Subst(ToAtom("+$"),ToAtom("+")) equation;
+    equation := Subst(ToAtom("-$"),ToAtom("-")) equation;
+    equation := Subst(ToAtom("*$"),ToAtom("*")) equation;
+    equation := Subst(ToAtom("/$"),ToAtom("/")) equation;
+    equation := Subst(ToAtom("^$"),ToAtom("^")) equation;
+    
+    ToAtom(ListToString(Remove(StringToList(TeXForm(equation)),"$")));
+];
+
+
+
+
+Isolax(side, equation) :=
+[
+    side : equation /: {
+    
+     1: -$ _lhs == _rhs <- {lhs == -$ rhs, "UnaryMinus", "Multiply \\ both \\ sides \\ by \\ " ~ ExpressionToString(-1) ~ ":"},
+     
+     1: _term1 +$ _term2 == _rhs <- {term1 == rhs -$ term2, "Addition1", "Subtract \\ " ~ ExpressionToString(term2) ~ " \\ from \\ both \\ sides:", -$ term2 +$ term1 +$ term2 == rhs -$ term2},
+     2: _term1 +$ _term2 == _rhs <- {term2 == rhs -$ term1, "Addition2", "Subtract \\ " ~ ExpressionToString(term1) ~ " \\ from \\ both \\ sides:", -$ term1 +$ term1 +$ term2 == rhs -$ term1},
+     
+     1: _term1 -$ _term2 == _rhs <- {term1 == rhs +$ term2, "Subtraction1", "Add \\ " ~ ExpressionToString(term2) ~ " \\ to \\ both \\ sides:", term2 +$ term1 -$ term2 == rhs +$ term2},
+     2: _term1 -$ _term2 == _rhs <- {term2 == term1 -$ rhs, "Subtraction2", "Add \\ " ~ ExpressionToString(term1) ~ " \\ to \\ both \\ sides:", term1 +$ term1 -$ term2 == rhs +$ term1},
+     
+     1: _term1 *$ _term2 == _rhs <- {term1 == rhs /$ term2, "Multiplication1", "Divide \\ both \\ sides \\ by \\ " ~ ExpressionToString(term2) ~ ":", (term1 *$ term2) /$ term2 == rhs /$ term2},
+     2: _term1 *$ _term2 == _rhs <- {term2 == rhs /$ term1, "Multiplication2", "Divide \\ both \\ sides \\ by \\ " ~ ExpressionToString(term1) ~ ":", (term1 *$ term2) /$ term1 == rhs /$ term1},
+     
+     1: _term1 /$ _term2 == _rhs <- {term1 == rhs *$ term2, "Division1", "Multiply \\ both \\ sides \\ by \\ " ~ ExpressionToString(term2) ~ ":", term2 *$ (term1 /$ term2) == rhs *$ term2},
+     2: _term1 /$ _term2 == _rhs <- {term2 == term1 /$ rhs, "Division2", "Multiply \\ both \\ sides \\ by \\ " ~ ExpressionToString(term1) ~ ":", term1 *$ (term1 /$ term2) == rhs *$ term1},
+     
+     //1: _term1 ^$ 2 == _rhs <- {term1 == Sqrt(rhs), "Exponentiation1a", "Take \\ the \\ square \\ root \\ of \\ both \\ sides:", Sqrt(term1 ^$ 2) == Sqrt(rhs)},
+     
+     1: _term1 ^$ _term2 == _rhs <- {term1 == rhs^$(1/$term2), "Exponentiation1b", "Take \\ root \\ " ~ ExpressionToString(term2) ~ " \\ of \\ both \\ sides:", (term1 ^$ term2)^$(1/term2) == rhs^$(1/$ term2)},
+    //"Exponentiation2" # 2 : _term1 ^ _term2 == _rhs <- term2 == Log(rhs)//Log(base(term1), rhs)
+                      
+    };
+                      
 
 ];
+
 
 %/mathpiper
 
@@ -492,70 +542,18 @@ Isolate(path, equation, var) :=
 
 
 
-%mathpiper,title=""
-
-SolveEquation('(((-a) * b)/c+d == e), a);
-
-%/mathpiper
-
-    %output,preserve="false"
-      Result: {{Solve \ \ \frac{(  - a)  \cdot b}{c}  + d = e \ \ for \ a.},{ \ },{Subtract \ d \ from \ both \ sides:},{((-a)*b)/c==e-d},{Multiply \ both \ sides \ by \ c:},{(-a)*b==(e-d)*c},{Divide \ both \ sides \ by \ b:},{-a==((e-d)*c)/b},{Multiply \ both \ sides \ by \ -1:},{a==-((e-d)*c)/b}}
-      
-      Side Effects:
-      RULE_Function: Addition1
-      RULE_Function: Division1
-      RULE_Function: Multiplication1
-      RULE_Function: UnaryMinus
-      
-.   %/output
 
 
-
-
-
-%mathpiper,title=""
-
-SolveEquation('(((-a) * b^f)/c+d == e), b);
-
-%/mathpiper
-
-    %output,preserve="false"
-      Result: {{((-a)*b^f)/c+d==e},{{((-a)*b^f)/c==e-d,"Subtract d."}},{{(-a)*b^f==(e-d)*c,"Multiply c."}},{{b^f==-((e-d)*c)/a,"Divide -a."}},{{b==(-((e-d)*c)/a)^(1/f),""}}}
-      
-      Side Effects:
-      {1,1,2,1} ((-a)*b^f)/c+d==e 
-      RULE_Function: Addition1
-      1 ((-a)*b^f)/c==e-d Subtract d.
-      RULE_Function: Division1
-      1 (-a)*b^f==(e-d)*c Multiply c.
-      RULE_Function: Multiplication2
-      2 b^f==-((e-d)*c)/a Divide -a.
-      RULE_Function: Exponentiation1
-      1 b==(-((e-d)*c)/a)^(1/f) 
-      
-.   %/output
-
-
-
-dd
 
 
 Position(b,'(((-a) * b)/c+d == e))
 
 
-1 : -a == b
-
-2 : a + b == c
-
-1 : a - b == c
-
-2 : a * b == c 
 
 In> ViewMath('(((-a) * b)/c+d == e))
 
 
 
-esult: class javax.swing.JFrame
 
 In>  Isolax(1,'(((-a) * b)/c+d == e))
 
@@ -570,71 +568,14 @@ In>  Isolax(1,'(((-a) * b)/c+d == e))
 In> ViewMath('(((-a)*b)/c==e-d))
 Result: class javax.swing.JFrame
 
-%mathpiper,title=""
 
 
-Isolax(side, equation) :=
-[
-    side : equation /: {
-                        "UnaryMinus" # 1 : -_lhs == _rhs <- lhs == -rhs,
-                        
-                        "Addition1" #  1 : _term1 + _term2 == _rhs <- term1 == rhs - term2,
-                        "Addition2" #  2 : _term1 + _term2 == _rhs <- term2 == rhs - term1,
-                        
-                        "Subtraction1" #  1 : _term1 - _term2 == _rhs <- term1 == rhs + term2,
-                        "Subtraction2" #  2 : _term1 - _term2 == _rhs <- term2 == term1 - rhs,
-                        
-                        "Multiplication1" #  1 : _term1 * _term2 == _rhs <- term1 == rhs / term2,
-                        "Multiplication2" #  2 : _term1 * _term2 == _rhs <- term2 == rhs / term1,
-                        
-                        "Division1" #  1 : _term1 / _term2 == _rhs <- term1 == rhs * term2,
-                        "Division2" #  2 : _term1 / _term2 == _rhs <- term2 == term1 / rhs,
-                        
-                        "Exponentiation1" # 1 : _term1 ^ _term2 == _rhs <- term1 == rhs^(1/term2),
-                        //"Exponentiation2" # 2 : _term1 ^ _term2 == _rhs <- term2 == Log(rhs)//Log(base(term1), rhs)
-                      };
-
-];
-
-%/mathpiper
-
-    %output,preserve="false"
-      Result: True
-.   %/output
+zz := ((-$a)*$b)/$c +$ d 
 
 
+SolveEquation(((-$ a) *$ b^$f)/$c+$d == e, b);
 
+SolveEquation(((-$ a) *$ b )/$ c +$ d == e, a)
 
-%mathpiper
-Isolax(side, equation) :=
-[
-side : equation /: {
-                        "UnaryMinus" # 1 : -_lhs == _rhs <- {lhs == -rhs, "Multiply \\ both \\ sides \\ by \\ " ~ ExpressionToString(-1) ~ ":"},
-                        
-                        "Addition1" #  1 : _term1 + _term2 == _rhs <- {term1 == rhs - term2,"Subtract \\ " ~ ExpressionToString(term2) ~ " \\ from \\ both \\ sides:"},
-                        "Addition2" #  2 : _term1 + _term2 == _rhs <- {term2 == rhs - term1,"Subtract \\ " ~ ExpressionToString(term1) ~ " \\ from \\ both \\ sides:"},
-                        
-                        "Subtraction1" #  1 : _term1 - _term2 == _rhs <- {term1 == rhs + term2, "Add \\ " ~ ExpressionToString(term2) ~ " \\ to \\ both \\ sides:"},
-                        "Subtraction2" #  2 : _term1 - _term2 == _rhs <- {term2 == term1 - rhs, "Add \\ " ~ ExpressionToString(term1) ~ " \\ to \\ both \\ sides:"},
-                        
-                        "Multiplication1" #  1 : _term1 * _term2 == _rhs <- {term1 == rhs / term2, "Divide \\ both \\ sides \\ by \\ " ~ ExpressionToString(term2) ~ ":"},
-                        "Multiplication2" #  2 : _term1 * _term2 == _rhs <- {term2 == rhs / term1, "Divide \\ both \\ sides \\ by \\ " ~ ExpressionToString(term1) ~ ":"},
-                        
-                        "Division1" #  1 : _term1 / _term2 == _rhs <- {term1 == rhs * term2, "Multiply \\ both \\ sides \\ by \\ " ~ ExpressionToString(term2) ~ ":"},
-                        "Division2" #  2 : _term1 / _term2 == _rhs <- {term2 == term1 / rhs, "Multiply \\ both \\ sides \\ by \\ " ~ ExpressionToString(term1) ~ ":"},
-                        
-                        "Exponentiation1" # 1 : _term1 ^ _term2 == _rhs <- {term1 == rhs^(1/term2), " :"},
-                        //"Exponentiation2" # 2 : _term1 ^ _term2 == _rhs <- term2 == Log(rhs)//Log(base(term1), rhs)
-                      };
-                      
-
-];
-
-%/mathpiper
-
-    %output,preserve="false"
-      Result: True
-.   %/output
-
-
+SolveEquation(((-$ a) *$ b^$2)/$c+$d == e, b)
 
