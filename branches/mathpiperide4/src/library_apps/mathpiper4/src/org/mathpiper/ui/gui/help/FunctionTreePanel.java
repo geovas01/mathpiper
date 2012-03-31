@@ -943,7 +943,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
                 for (String seeFunction : seeFunctions)
                 {
-                    seeFunctionsBuilder.append("<a href=\"http://" + seeFunction + "\">" + seeFunction + "</a>, ");
+                    seeFunctionsBuilder.append("<a href=\"" + seeFunction + "\">" + seeFunction + "</a>, ");
                 }
 
                 html.append("<h4>See also:</h4>" + seeFunctionsBuilder.toString() + "\n");
@@ -1007,9 +1007,12 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
     public void hyperlinkUpdate(HyperlinkEvent event) {
         //System.out.println(event.toString());
-        URL url = event.getURL();
+        
+	//URL url = event.getURL();
+	
         //System.out.println("YYYPiperDocsYYY: " + url.getPath() + " reference: " + url.getRef() + " query: " + url.getQuery() );
-        if (event.getEventType() == HyperlinkEvent.EventType.ACTIVATED)
+        /*
+         * if (event.getEventType() == HyperlinkEvent.EventType.ACTIVATED)
         {
 
             String functionName = "";
@@ -1066,9 +1069,6 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                     functionName = urlString.substring(7, urlString.length());
                 }
 
-
-
-
             }
             else
             {
@@ -1086,9 +1086,14 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                 viewFunction(functionName, true);
             }
 
-
-
         }//end if.  + getRef())
+        
+                    */
+	
+	if (event.getEventType() == HyperlinkEvent.EventType.ACTIVATED)
+        {
+	    viewFunction(event.getDescription(), true);
+        }
 
     }//end method.
 
