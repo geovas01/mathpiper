@@ -16,37 +16,27 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin.functions.optional;
 
-import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.Dimension;
-import javax.swing.Box;
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import org.mathpiper.builtin.BigNumber;
-import org.mathpiper.builtin.BuiltinFunction;
-import org.mathpiper.builtin.BuiltinFunctionEvaluator;
-import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.Utility;
-
-
 import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.Box;
 import javax.swing.JLabel;
-
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.builtin.JavaObject;
-import org.mathpiper.builtin.functions.plugins.jfreechart.ChartUtility;
+import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.LispError;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.lisp.cons.Cons;
-import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.ui.gui.worksheets.LatexRenderingController;
 import org.mathpiper.ui.gui.worksheets.ScreenCapturePanel;
-import org.scilab.forge.jlatexmath.TeXFormula;
 import org.scilab.forge.jlatexmath.DefaultTeXFont;
-
+import org.scilab.forge.jlatexmath.TeXFormula;
 import org.scilab.forge.jlatexmath.cyrillic.CyrillicRegistration;
 import org.scilab.forge.jlatexmath.greek.GreekRegistration;
 
