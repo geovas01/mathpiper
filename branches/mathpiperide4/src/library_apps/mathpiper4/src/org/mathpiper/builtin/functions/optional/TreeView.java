@@ -33,35 +33,29 @@ import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.lisp.cons.Cons;
-import org.mathpiper.ui.gui.worksheets.LatexRenderingController;
+import org.mathpiper.ui.gui.worksheets.MathPanelController;
 import org.mathpiper.ui.gui.worksheets.ScreenCapturePanel;
-import org.scilab.forge.jlatexmath.DefaultTeXFont;
-import org.scilab.forge.jlatexmath.TeXFormula;
-import org.scilab.forge.jlatexmath.cyrillic.CyrillicRegistration;
-import org.scilab.forge.jlatexmath.greek.GreekRegistration;
+import org.mathpiper.ui.gui.worksheets.TreePanelCons;
 
 /**
  *
  *
  */
-public class LatexView extends BuiltinFunction {
+public class TreeView extends BuiltinFunction {
 
     private Map defaultOptions;
     
     public void plugIn(Environment aEnvironment)  throws Exception
     {
-	this.functionName = "LatexView";
+	this.functionName = "TreeView";
 	
         aEnvironment.getBuiltinFunctions().setAssociation(
-                "LatexView", new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
+                "TreeView", new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
 
         defaultOptions = new HashMap();
-        defaultOptions.put("scale", 100.0);
+        defaultOptions.put("scale", 3.0);
         defaultOptions.put("slider", false);
 
-
-        DefaultTeXFont.registerAlphabet(new CyrillicRegistration());
-	DefaultTeXFont.registerAlphabet(new GreekRegistration());
 
 
     }//end method.
@@ -76,13 +70,12 @@ public class LatexView extends BuiltinFunction {
 
         arguments = arguments.cdr(); //Strip List tag.
 
-        //if(! Utility.isList(arguments)) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_LIST, "");
 
-        Object latexStringObject = arguments.car();
+        Cons expression = (Cons) arguments;
         
-        if(! (latexStringObject instanceof String)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "ToDo");
+        //if(! (latexStringObject instanceof String)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "ToDo");
 
-        String latexString = (String) latexStringObject;
+
         
         
         Cons options = arguments.cdr();
@@ -90,70 +83,35 @@ public class LatexView extends BuiltinFunction {
         Map userOptions = Utility.optionsListToJavaMap(aEnvironment, aStackTop, options, defaultOptions);
         
 
-        latexString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, latexString);
-
-        latexString = Utility.stripEndDollarSigns(latexString);
 
         
         int viewScale = (int) ((Double)userOptions.get("scale")).doubleValue();
         
 
-
-        /*sHotEqn hotEqn = new sHotEqn();
-        hotEqn.setFontsizes(18,18,18,18);
-        hotEqn.setEquation(latexString);
-        JScrollPane hotEqnScrollPane = new JScrollPane(hotEqn,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        */
-
-
-
-
-        //MathPiper built-in math viewer.
-        /*TexParser parser = new TexParser();
-        SymbolBox sBoxExpression = parser.parse(latexString);
-        MathPanel mathPanel = new MathPanel(sBoxExpression, viewScale.toDouble());
-        MathPanelController mathPanelScaler = new MathPanelController(mathPanel, viewScale.toDouble());
-        JScrollPane mathPiperScrollPane = new JScrollPane(mathPanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-         */
-
-
-        
-
-        /*
-        DebugGraphics.setFlashCount(10);
-        DebugGraphics.setFlashColor(Color.red);
-        DebugGraphics.setFlashTime(1000);
-        RepaintManager.currentManager(panel).setDoubleBufferingEnabled(false);
-        panel.setDebugGraphicsOptions(DebugGraphics.FLASH_OPTION);
-        panel.setDebugGraphicsOptions(DebugGraphics.LOG_OPTION);
-         */
-
         Box box = Box.createVerticalBox();
+        
+	box.setBackground(Color.white);
+	box.setOpaque(true);
 
 
-        //JLateXMath
-	TeXFormula formula = new TeXFormula(latexString);
-	
-	JLabel latexLabel = new JLabel();
+        TreePanelCons treePanel = new TreePanelCons(expression, viewScale);
         
-        JPanel latexPanelController = new LatexRenderingController(formula, latexLabel, viewScale);
-        
-        JPanel screenCapturePanel = new ScreenCapturePanel();
-        
-        screenCapturePanel.add(latexLabel);
+        //JPanel screenCapturePanel = new ScreenCapturePanel();   
+        //screenCapturePanel.add(treePanel);
 	
 	boolean includeSlider = (Boolean) userOptions.get("slider");
 	
 	if(includeSlider)
 	{
-            JScrollPane jMathTexScrollPane = new JScrollPane(screenCapturePanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-            jMathTexScrollPane.getViewport().setBackground(Color.WHITE);
-            box.add(jMathTexScrollPane);
-            box.add(latexPanelController);
+	    MathPanelController treePanelScaler = new MathPanelController(treePanel, viewScale);
+	    JScrollPane treeScrollPane = new JScrollPane(treePanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+
+            box.add(treeScrollPane);
+            box.add(treePanelScaler);
 	}
 	else
 	{
-	    box.add(screenCapturePanel);
+	    box.add(treePanel);
 	}
  
 
@@ -172,11 +130,11 @@ public class LatexView extends BuiltinFunction {
 
 
 /*
-%mathpiper_docs,name="LatexView",categories="User Functions;Visualization"
-*CMD ViewLatex --- display rendered Latex code
+%mathpiper_docs,name="TreeView",categories="User Functions;Visualization"
+*CMD TreeView --- display rendered Latex code
 
 *CALL
-    LatexView(string)
+    TreeView(string)
 
 *Params
 {string} -- a string which contains Latex code

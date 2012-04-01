@@ -6,17 +6,21 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+
+import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.SublistCons;
 import org.mathpiper.ui.gui.worksheets.symbolboxes.ScaledGraphics;
 
-public class TreePanelCons extends JPanel implements ViewPanel {
+public class TreePanelCons extends JComponent implements ViewPanel {
 
     protected Cons expressionCons;
     protected double viewScale = 1;
@@ -25,12 +29,24 @@ public class TreePanelCons extends JPanel implements ViewPanel {
     private int maxTreeY = 0;
     private boolean paintedOnce = false;
     private SymbolNode rootNode = null;
+    
+    private int leftMostPosition = Integer.MAX_VALUE;
+    private int rightMostPosition = 0;
+    private int topMostPosition = 0;
+    private int lineThickness = 0;
+    private int fontSize = 10;
+    
+   
 
     public TreePanelCons(Cons expressionCons, double viewScale) {
+	
+	super();
+	
+	this.setLayout(null);
+	
         this.expressionCons = expressionCons;
         this.setOpaque(true);
         this.viewScale = viewScale;
-        this.setBackground(Color.white);
 
         for(int index = 0; index < lastOnRasterArray.length; index++)
         {
@@ -46,7 +62,15 @@ public class TreePanelCons extends JPanel implements ViewPanel {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
-
+        
+        
+        
+        //Determine the preferred size of this component.
+        BufferedImage image = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
+        Graphics g = image.getGraphics();
+        Graphics2D g2d = (Graphics2D) g;
+        layoutTree(g2d);
+        
     }
     
     
@@ -87,8 +111,6 @@ public class TreePanelCons extends JPanel implements ViewPanel {
 	    }
 	}
 	
-	int xx = 4;
-	
 
     }//end method.
     
@@ -97,34 +119,11 @@ public class TreePanelCons extends JPanel implements ViewPanel {
     
     
 
-    public void paint(Graphics g) {
-        super.paint(g);
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-        g2d.addRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
-
-        g2d.setStroke(new BasicStroke((float) (2), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-        g2d.setColor(Color.black);
-        g2d.setBackground(Color.white);
-        ScaledGraphics sg = new ScaledGraphics(g2d);
         
-        sg.setFontSize(viewScale * 10);
-        
-        sg.setLineThickness(0);
-        sg.setViewScale(viewScale);
-
-        int x = 0;
-        int y = 0;
-        //rootNode.calculatePositions(sg, 3, new Position(x , y));
-
-
-        for(int index = 0; index < lastOnRasterArray.length; index++)
-        {
-            lastOnRasterArray[index] = -1;
-        }//end for.
-
-        maxTreeY = 0;
-        
-        layoutTree(rootNode, 50/*yPosition*/,  -20/*position*/, null, sg);
+        ScaledGraphics sg = layoutTree(g2d);
 
 
         queue.add(rootNode);
@@ -137,8 +136,10 @@ public class TreePanelCons extends JPanel implements ViewPanel {
 
             if (currentNode != null) {
                 String nodeString = currentNode.toString();
+                
+                int yPositionAdjust = 42;
 
-                sg.drawText(nodeString, currentNode.getTreeX(), currentNode.getTreeY() );//xPosition, yPosition);
+                sg.drawText(nodeString, currentNode.getTreeX()-(leftMostPosition * Math.pow(viewScale,1/4)), currentNode.getTreeY() -(yPositionAdjust * Math.pow(viewScale,1/2)));//xPosition, yPosition);
 
                 SymbolNode[] children = currentNode.getChildren();
 
@@ -149,11 +150,10 @@ public class TreePanelCons extends JPanel implements ViewPanel {
 
                             sg.setColor(Color.BLACK);
                             sg.setLineThickness(1.3);
-                            sg.drawLine(currentNode.getTreeX() + currentNode.getTextWidth(sg)/2, 
-                        	    currentNode.getTreeY() + 1, 
-                        	    child.getTreeX() + child.getTextWidth(sg)/2, 
-                        	    child.getTreeY() - child.getTextHeight(sg) + 1);
-
+                            sg.drawLine(currentNode.getTreeX() + currentNode.getTextWidth(sg)/2 -(leftMostPosition * Math.pow(viewScale,1/4)), 
+                        	    currentNode.getTreeY() -(yPositionAdjust * Math.pow(viewScale,1/2)), 
+                        	    child.getTreeX() + child.getTextWidth(sg)/2 -(leftMostPosition * Math.pow(viewScale,1/4)), 
+                        	    child.getTreeY() - child.getTextHeight(sg) -(yPositionAdjust * Math.pow(viewScale,1/2)));
                         }
                     }
 
@@ -164,49 +164,83 @@ public class TreePanelCons extends JPanel implements ViewPanel {
                 System.out.print("<Null>");
             }
 
-            if(paintedOnce == false)
-            {
-                super.revalidate();
-                paintedOnce = true;
-            }
+
 
         }//end while.
 
     }
 
+    
+    
     public Dimension getPreferredSize() {
         
-        if(paintedOnce == false)
-        {
-            return new Dimension(0,0);
-        }
+        int maxHeightScaled = (int) ((maxTreeY) * Math.pow(viewScale, .8));
+        
+        int maxWidth = rightMostPosition - leftMostPosition;
+        int maxWidthScaled = (int) ((maxWidth) * Math.pow(viewScale, 1.1));
+        
+        //System.out.println("" + maxWidth + ", " + maxTreeY + ", " + maxWidthScaled + ", " + maxHeightScaled);
 
-        int maxWidth = 0;
-
-        int index = 0;
-
-        for(; index < lastOnRasterArray.length; index++)
-        {
-            if(lastOnRasterArray[index] > maxWidth)
-            {
-                maxWidth = lastOnRasterArray[index];
-            }//end if.
-
-        }//end for.
-
-        maxWidth = (int) ((maxWidth + 100) * viewScale);
-
-        int maxHeight = (int) ((maxTreeY) * viewScale);
-
-        return(new Dimension(maxWidth, maxHeight));
+        return(new Dimension(maxWidthScaled, maxHeightScaled));
 
     }//end method.
+    
+    
+    public Dimension getMaximumSize()
+    {
+	return this.getPreferredSize();
+    }
 
+    
+    public Dimension getMinimumSize()
+    {
 
+	return this.getPreferredSize(); 
+    }
+    
+    
+    
     public void setViewScale(double viewScale) {
         this.viewScale = viewScale;
         this.revalidate();
         this.repaint();
+    }
+    
+    
+    
+    private ScaledGraphics layoutTree(Graphics2D g2d)
+    {
+        int xInset = getInsets().left;
+        int yInset = getInsets().top;
+        int w = getWidth() - getInsets().left - getInsets().right;
+        int h = getHeight() - getInsets().top - getInsets().bottom;
+        g2d.setColor(Color.white);
+        g2d.fillRect(xInset, yInset, w, h);     
+        
+        
+        g2d.addRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
+
+        g2d.setStroke(new BasicStroke((float) (2), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+        g2d.setColor(Color.black);
+        
+        ScaledGraphics sg = new ScaledGraphics(g2d);
+        
+        sg.setFontSize(viewScale * fontSize);
+        
+        sg.setLineThickness(lineThickness);
+        
+        sg.setViewScale(viewScale);
+
+        for(int index = 0; index < lastOnRasterArray.length; index++)
+        {
+            lastOnRasterArray[index] = -1;
+        }//end for.
+
+        maxTreeY = 0;
+        
+        layoutTree(rootNode, 50/*yPosition*/,  -20/*position*/, null, sg);
+        
+        return sg;
     }
 
 
@@ -264,6 +298,7 @@ public class TreePanelCons extends JPanel implements ViewPanel {
                 /* Position far left branch. */
                 leftPosition = layoutTree(tree.getChildren()[0], yPosition + tree.getTextHeight(sg) + Y_SEPARATION,
                          branchPosition, tree, sg);
+                
 
                 /* Position the other branches if they exist. */
                 rightPosition = leftPosition;
@@ -274,6 +309,17 @@ public class TreePanelCons extends JPanel implements ViewPanel {
                     rightPosition = layoutTree(tree.getChildren()[i], yPosition + tree.getTextHeight(sg) + Y_SEPARATION,
                              branchPosition, tree, sg);
                 } /* for */
+                
+                
+                if(leftPosition < leftMostPosition)
+                {
+                    leftMostPosition = leftPosition;
+                }
+                
+                if(rightPosition > rightMostPosition)
+                {
+                    rightMostPosition = rightPosition;
+                }
 
                 position = (leftPosition+rightPosition)/2;
 

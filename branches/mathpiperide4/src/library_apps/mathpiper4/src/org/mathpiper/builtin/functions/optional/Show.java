@@ -26,11 +26,11 @@ import java.util.Map;
 
 import javax.swing.Box;
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.builtin.JavaObject;
-import org.mathpiper.builtin.functions.plugins.jfreechart.ChartUtility;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
@@ -122,12 +122,15 @@ public class Show extends BuiltinFunction {
             dataList = dataList.cdr();
         }
         
-        contentPane.add(box);
+        JScrollPane scrollPane = new JScrollPane(box,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
+        
+        contentPane.add(scrollPane);
+
+        frame.setVisible(true);
+        
         frame.pack();
         
-        frame.setVisible(true);
-
 
         JavaObject response = new JavaObject(frame);
 
