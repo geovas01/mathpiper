@@ -33,7 +33,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
     private int leftMostPosition = Integer.MAX_VALUE;
     private int rightMostPosition = 0;
     private int topMostPosition = 0;
-    private int lineThickness = 0;
+    private double lineThickness = .8;
     private int fontSize = 10;
     
    
@@ -149,7 +149,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
                             queue.add(child);
 
                             sg.setColor(Color.BLACK);
-                            sg.setLineThickness(1.3);
+                            sg.setLineThickness(lineThickness);
                             sg.drawLine(currentNode.getTreeX() + currentNode.getTextWidth(sg)/2 -(leftMostPosition * Math.pow(viewScale,1/4)), 
                         	    currentNode.getTreeY() -(yPositionAdjust * Math.pow(viewScale,1/2)), 
                         	    child.getTreeX() + child.getTextWidth(sg)/2 -(leftMostPosition * Math.pow(viewScale,1/4)), 
@@ -227,7 +227,6 @@ public class TreePanelCons extends JComponent implements ViewPanel {
         
         sg.setFontSize(viewScale * fontSize);
         
-        sg.setLineThickness(lineThickness);
         
         sg.setViewScale(viewScale);
 
