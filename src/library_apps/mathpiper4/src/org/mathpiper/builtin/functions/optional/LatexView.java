@@ -56,7 +56,7 @@ public class LatexView extends BuiltinFunction {
                 "LatexView", new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
 
         defaultOptions = new HashMap();
-        defaultOptions.put("scale", 100.0);
+        defaultOptions.put("scale", 40.0);
         defaultOptions.put("slider", false);
 
 
