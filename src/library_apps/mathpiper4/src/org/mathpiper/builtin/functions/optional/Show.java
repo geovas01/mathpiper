@@ -126,10 +126,12 @@ public class Show extends BuiltinFunction {
 
         
         contentPane.add(scrollPane);
+        
+        frame.pack();
 
         frame.setVisible(true);
         
-        frame.pack();
+
         
 
         JavaObject response = new JavaObject(frame);

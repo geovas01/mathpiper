@@ -91,7 +91,7 @@ public class TreeView extends BuiltinFunction {
         Box box = Box.createVerticalBox();
         
 	box.setBackground(Color.white);
-	box.setOpaque(true);
+	//box.setOpaque(true);
 
 
         TreePanelCons treePanel = new TreePanelCons(expression, viewScale);
@@ -111,7 +111,11 @@ public class TreeView extends BuiltinFunction {
 	}
 	else
 	{
-	    box.add(treePanel);
+	    JPanel jPanel = new JPanel();
+	    jPanel.setOpaque(true);
+	    jPanel.setBackground(Color.white);
+	    jPanel.add(treePanel);
+	    box.add(new JPanel().add(jPanel));
 	}
  
 
