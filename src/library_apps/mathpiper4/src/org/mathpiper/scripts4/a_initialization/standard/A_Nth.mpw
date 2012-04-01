@@ -96,5 +96,5 @@ Result: {c,13,a};
 In> Nth(b*(a+c), 2);
 Result: a+c;
 
-*SEE Select, Nth
+*SEE Select
 %/mathpiper_docs
