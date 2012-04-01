@@ -340,6 +340,10 @@ or air traffic  control systems unless youre a bit of a gambler.
 
 %mathpiper,title=""
 
+//Note:tk:Perhaps create a function called Value that obtains the value that is assigned to a variable
+// without evaluating the variable first.
+
+
     Retract("+$", *);
     Retract("-$", *);
     Retract("/$", *);
@@ -440,19 +444,67 @@ SingleOccurrence?(subTerm, term) :=
 
 
 
-SolveEquation(equation, var) :=
+
+//====================================================================
+Retract("SolveEquation",*);
+
+/*
+
+RulebaseHoldArguments("SolveEquation",{equation,var});
+
+RuleHoldArguments("SolveEquation",2,20,True)
 [
     Local(path);
     
+    equation := AddDollarSigns(equation);
+    
     path := Position(var, equation);
+    
+    Isolate2(path, equation, var);
+];
 
-    Isolate(path, equation, var);
+HoldArgumentNumber("SolveEquation",2,1);
+HoldArgumentNumber("SolveEquation",2,2);
+*/
 
+
+
+
+
+
+
+
+RulebaseListedHoldArguments("SolveEquation",{equation, variable, optionsList});
+
+//Handle no option call.
+5 # SolveEquation(_equation, _variable) <-- SolveEquation(equation, variable, {});
+
+
+//Main routine.  It will automatically accept 2 or more option calls because the
+//options come in a list.
+10 # SolveEquation(_equation, _variable, optionsList_List?) <--
+[
+    Local(options, path);
+    
+    options := OptionsToAssociativeList(optionsList);
+    
+    equation := AddDollarSigns(equation);
+    
+    path := Position(variable, equation);
+    
+    Isolate2(path, equation, variable, options);
 ];
 
 
+//Handle a single option call because the option does not come in a list for some reason.
+20 # SolveEquation(_equation, _variable, _singleOption) <-- SolveEquation(equation, variable, {singleOption});
 
 
+
+//===================================================================
+
+
+//Obsolete.
 Isolate(pathNumbers, equation, var) :=
 [
     Local(result, rest);
@@ -460,6 +512,8 @@ Isolate(pathNumbers, equation, var) :=
     result := {};
     
     DestructiveAppend(result,{ToAtom("Solve \\ \\ " ~ ToString(TexFormNoDollarSigns(equation)) ~ " \\ \\ for \\ " ~ ToString(var) ~ ".")});
+    
+    //ViewLatex("Solve \\ \\ " ~ ToString(TexFormNoDollarSigns(equation)) ~ " \\ \\ for \\ " ~ ToString(var) ~ ".",2);
     
     DestructiveAppend(result,{ToAtom(" \\ ")});
     
@@ -489,16 +543,79 @@ Isolate(pathNumbers, equation, var) :=
 
 
 
+Isolate2(pathNumbers, equation, var, options) :=
+[
+    Local(result, rest, currentEquation, );
+    
+    showTree := options["showTree"];
+    
+    Echo(showTree);
+    
+    result := {};
+    
+    DestructiveAppend(result, LatexView("Solve \\ \\ " ~ ToString(TexFormNoDollarSigns(equation)) ~ " \\ \\ for \\ " ~ ToString(var) ~ "."));
+    
+    
+    If(showTree =? "True", DestructiveAppend(result, TreeView(RemoveDollarSigns(equation), scale -> 2)));
+    
+    
+    //DestructiveAppend(result,LatexView(" \\vspace{1in}"));
+    
+    
+    rest := {equation};
+    
 
-TexFormNoDollarSigns(equation) := 
+    ForEach(pathNumber, pathNumbers)
+    [
+        currentEquation := First(rest);
+    
+        rest := Isolax(pathNumber, currentEquation);
+        
+        DestructiveAppend(result,LatexView(" \\vspace{.75in}"));
+
+        DestructiveAppend(result,LatexView(ListToString(Remove(StringToList(rest[3]),"$"))));
+        
+        If(Length(rest) =? 4, [DestructiveAppend(result,LatexView(" \\vspace{.10in}"));
+                    DestructiveAppend(result,LatexView(TexFormNoDollarSigns(rest[4])));]);
+        
+        DestructiveAppend(result,LatexView(" \\vspace{.10in}"));
+        
+        DestructiveAppend(result, LatexView(TexFormNoDollarSigns(rest[1])));
+        
+        If(showTree =? "True", DestructiveAppend(result, TreeView(RemoveDollarSigns(First(rest)), scale -> 2)));
+        
+        //DestructiveAppend(result,LatexView(" \\vspace{.5in}"));
+    ];
+    
+    result;
+];
+
+
+
+RemoveDollarSigns(equation) :=
 [
     equation := Subst(ToAtom("+$"),ToAtom("+")) equation;
     equation := Subst(ToAtom("-$"),ToAtom("-")) equation;
     equation := Subst(ToAtom("*$"),ToAtom("*")) equation;
     equation := Subst(ToAtom("/$"),ToAtom("/")) equation;
     equation := Subst(ToAtom("^$"),ToAtom("^")) equation;
-    
-    ToAtom(ListToString(Remove(StringToList(TeXForm(equation)),"$")));
+];
+
+
+AddDollarSigns(equation) :=
+[
+    equation := Subst(ToAtom("+"),ToAtom("+$")) equation;
+    equation := Subst(ToAtom("-"),ToAtom("-$")) equation;
+    equation := Subst(ToAtom("*"),ToAtom("*$")) equation;
+    equation := Subst(ToAtom("/"),ToAtom("/$")) equation;
+    equation := Subst(ToAtom("^"),ToAtom("^$")) equation;
+];
+
+
+
+TexFormNoDollarSigns(equation) := 
+[
+    ToAtom(ListToString(Remove(StringToList(TeXForm(RemoveDollarSigns(equation))),"$")));
 ];
 
 
@@ -508,7 +625,7 @@ Isolax(side, equation) :=
 [
     side : equation /: {
     
-     1: -$ _lhs == _rhs <- {lhs == -$ rhs, "UnaryMinus", "Multiply \\ both \\ sides \\ by \\ " ~ ExpressionToString(-1) ~ ":"},
+     1: -$ _lhs == _rhs <- {lhs == -$ rhs, "UnaryMinus", "Multiply \\ both \\ sides \\ by \\ " ~ ExpressionToString(-1) ~ ":", -1 *$ -$ lhs == rhs *$ -1},
      
      1: _term1 +$ _term2 == _rhs <- {term1 == rhs -$ term2, "Addition1", "Subtract \\ " ~ ExpressionToString(term2) ~ " \\ from \\ both \\ sides:", -$ term2 +$ term1 +$ term2 == rhs -$ term2},
      2: _term1 +$ _term2 == _rhs <- {term2 == rhs -$ term1, "Addition2", "Subtract \\ " ~ ExpressionToString(term1) ~ " \\ from \\ both \\ sides:", -$ term1 +$ term1 +$ term2 == rhs -$ term1},
@@ -570,12 +687,12 @@ Result: class javax.swing.JFrame
 
 
 
-zz := ((-$a)*$b)/$c +$ d 
+zz := ((-a)*b)/c + d 
 
 
-SolveEquation(((-$ a) *$ b^$f)/$c+$d == e, b);
+Show(SolveEquation(((- a) * b^f)/c+d == e, b, showTree -> True))
 
-SolveEquation(((-$ a) *$ b )/$ c +$ d == e, a)
+Show(SolveEquation(((- a) * b )/ c + d == e, a, showTree -> True))
 
-SolveEquation(((-$ a) *$ b^$2)/$c+$d == e, b)
+Show(SolveEquation(((- a) * b^2)/c+d == e, b, showTree -> True))
 
