@@ -21,11 +21,17 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.MenuBar;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.Box;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 
 import org.mathpiper.builtin.BuiltinFunction;
@@ -89,7 +95,7 @@ public class Show extends BuiltinFunction {
 
         Map userOptions = Utility.optionsListToJavaMap(aEnvironment, aStackTop, options, defaultOptions);
 
-        Box box = Box.createVerticalBox();
+        final Box box = Box.createVerticalBox();
         
         
         JFrame frame = new JFrame();
@@ -101,7 +107,7 @@ public class Show extends BuiltinFunction {
         frame.setTitle((String) userOptions.get("title"));
         frame.setSize(new Dimension(300, 200));
         frame.setResizable(true);
-        frame.setLocationRelativeTo(null);
+        frame.setLocationRelativeTo(null);        
         
         while(dataList != null)
         {
@@ -126,6 +132,24 @@ public class Show extends BuiltinFunction {
 
         
         contentPane.add(scrollPane);
+        
+        
+        JMenu fileMenu = new JMenu("File");
+        
+	JMenuItem saveAsImageAction = new JMenuItem();
+	saveAsImageAction.setText("Save As Image");
+	saveAsImageAction.addActionListener(new ActionListener() {
+	    public void actionPerformed(ActionEvent ae) {
+		org.mathpiper.ui.gui.Utility.saveImageOfComponent(box);
+	    }
+	    });
+	fileMenu.add(saveAsImageAction);
+	
+	JMenuBar menuBar = new JMenuBar();
+	
+	menuBar.add(fileMenu);
+	
+	frame.setJMenuBar(menuBar);
         
         frame.pack();
 
