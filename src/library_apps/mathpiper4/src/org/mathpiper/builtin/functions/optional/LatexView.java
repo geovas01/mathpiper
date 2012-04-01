@@ -31,13 +31,17 @@ import org.mathpiper.lisp.Utility;
 
 
 import java.awt.Color;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JLabel;
 
 import javax.swing.JPanel;
 import org.mathpiper.builtin.JavaObject;
+import org.mathpiper.builtin.functions.plugins.jfreechart.ChartUtility;
 import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.lisp.cons.Cons;
+import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.ui.gui.worksheets.LatexRenderingController;
 import org.mathpiper.ui.gui.worksheets.ScreenCapturePanel;
 import org.scilab.forge.jlatexmath.TeXFormula;
@@ -50,20 +54,20 @@ import org.scilab.forge.jlatexmath.greek.GreekRegistration;
  *
  *
  */
-public class ViewLatex extends BuiltinFunction {
+public class LatexView extends BuiltinFunction {
 
+    private Map defaultOptions;
+    
     public void plugIn(Environment aEnvironment)  throws Exception
     {
-        this.functionName = "ViewLatexInternal";
+	this.functionName = "LatexView";
+	
         aEnvironment.getBuiltinFunctions().setAssociation(
-                this.functionName, new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
+                "LatexView", new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
 
-       String[] parameters = new String[] {"expression","size"};
-       Utility.declareFunction("ViewLatex", parameters, "ViewLatexInternal(expression, size);", aEnvironment, LispError.TODO);
-
-
-       parameters = new String[] {"expression"};
-       Utility.declareFunction("ViewLatex", parameters, "ViewLatexInternal(expression, 100);", aEnvironment, LispError.TODO);
+        defaultOptions = new HashMap();
+        defaultOptions.put("scale", 100.0);
+        defaultOptions.put("slider", false);
 
 
         DefaultTeXFont.registerAlphabet(new CyrillicRegistration());
@@ -73,29 +77,40 @@ public class ViewLatex extends BuiltinFunction {
     }//end method.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+	
+        Cons arguments = getArgument(aEnvironment, aStackTop, 1);
 
-        String latexString = null;
+        if(! Utility.isSublist(arguments)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "ToDo");
 
-        Object expression = getArgument(aEnvironment, aStackTop, 1).car();
+        arguments = (Cons) arguments.car(); //Go to sub list.
 
-        if (expression instanceof String)
-        {
-            latexString = (String) expression;
+        arguments = arguments.cdr(); //Strip List tag.
 
-            latexString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, latexString);
+        //if(! Utility.isList(arguments)) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_LIST, "");
 
-            latexString = Utility.stripEndDollarSigns(latexString);
-        }
-        else
-        {
-            LispError.raiseError("The first argument must be a string which contains Latex code.", aStackTop, aEnvironment);
-        }//end else.
+        Object latexStringObject = arguments.car(); //Grab the first member of the list arguments list.
+        
+        if(! (latexStringObject instanceof String)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "ToDo");
 
+        String latexString = (String) latexStringObject;
+        
+        
+        Cons options = arguments.cdr();
 
-        Cons viewScaleCons = getArgument(aEnvironment, aStackTop, 2);
-        Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, viewScaleCons);
-        BigNumber viewScale = (BigNumber) result.getNumber(aEnvironment.getPrecision(), aEnvironment);
-        if(viewScale == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        Map userOptions = Utility.optionsListToJavaMap(aEnvironment, aStackTop, options, defaultOptions);
+        
+   //===============================
+
+        
+
+        latexString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, latexString);
+
+        latexString = Utility.stripEndDollarSigns(latexString);
+
+        
+        int viewScale = (int) ((Double)userOptions.get("scale")).doubleValue();
+        
+
 
         /*sHotEqn hotEqn = new sHotEqn();
         hotEqn.setFontsizes(18,18,18,18);
@@ -114,10 +129,8 @@ public class ViewLatex extends BuiltinFunction {
         JScrollPane mathPiperScrollPane = new JScrollPane(mathPanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
          */
 
-        JFrame frame = new JFrame();
-        Container contentPane = frame.getContentPane();
-        frame.setBackground(Color.WHITE);
-        contentPane.setBackground(Color.WHITE);
+
+        
 
         /*
         DebugGraphics.setFlashCount(10);
@@ -133,34 +146,31 @@ public class ViewLatex extends BuiltinFunction {
 
         //JLateXMath
 	TeXFormula formula = new TeXFormula(latexString);
-        JLabel latexLabel = new JLabel();
-        JPanel latexPanelController = new LatexRenderingController(formula, latexLabel, viewScale.toInt());
-
+	
+	JLabel latexLabel = new JLabel();
+        
+        JPanel latexPanelController = new LatexRenderingController(formula, latexLabel, viewScale);
+        
         JPanel screenCapturePanel = new ScreenCapturePanel();
-
+        
         screenCapturePanel.add(latexLabel);
+	
+	boolean includeSlider = (Boolean) userOptions.get("slider");
+	
+	if(includeSlider)
+	{
+            JScrollPane jMathTexScrollPane = new JScrollPane(screenCapturePanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+            jMathTexScrollPane.getViewport().setBackground(Color.WHITE);
+            box.add(jMathTexScrollPane);
+            box.add(latexPanelController);
+	}
+	else
+	{
+	    box.add(screenCapturePanel);
+	}
+ 
 
-        JScrollPane jMathTexScrollPane = new JScrollPane(screenCapturePanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        jMathTexScrollPane.getViewport().setBackground(Color.WHITE);
-        box.add(jMathTexScrollPane);
-
-        contentPane.add(box);
-
-        contentPane.add(latexPanelController, BorderLayout.NORTH);
-
-        //box.add(mathPiperScrollPane);
-
-        frame.setAlwaysOnTop(false);
-        frame.setTitle("MathPiper");
-        frame.setSize(new Dimension(300, 200));
-        frame.setResizable(true);
-        frame.setLocationRelativeTo(null);
-
-        frame.pack();
-        frame.setVisible(true);
-
-
-        JavaObject response = new JavaObject(frame);
+        JavaObject response = new JavaObject(box);
 
         setTopOfStack(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
 
@@ -175,11 +185,11 @@ public class ViewLatex extends BuiltinFunction {
 
 
 /*
-%mathpiper_docs,name="ViewLatex",categories="User Functions;Visualization"
+%mathpiper_docs,name="LatexView",categories="User Functions;Visualization"
 *CMD ViewLatex --- display rendered Latex code
 
 *CALL
-    ViewLatex(string)
+    LatexView(string)
 
 *Params
 {string} -- a string which contains Latex code
@@ -189,27 +199,20 @@ Display rendered Latex code.  Note: backslashes must be escaped
 with a backslash.
  
 *E.G.
-In> ViewLatex("2\\sum_{i=1}^n a_i")
+In> LatexView("2\\sum_{i=1}^n a_i")
 Result: javax.swing.JFrame
 
 
 
-The ViewXXX functions all return a reference to the Java JFrame windows which they are displayed in.
-This JFrame instance can be used to hide, show, and dispose of the window.
+The XXXView functions all return a reference to the Java Component which they are displayed in.
+The Show function can be used to display these components.
 
-In> frame := ViewLatex("2\\sum_{i=1}^n a_i")
-Result: javax.swing.JFrame
+In> component := ViewLatex("2\\sum_{i=1}^n a_i")
+Result: java.awt.Component
 
-In> JavaCall(frame, "hide")
-Result: True
 
-In> JavaCall(frame, "show")
-Result: True
 
-In> JavaCall(frame, "dispose")
-Result: True
-
-*SEE ViewMath
+*SEE Show
 %/mathpiper_docs
 */
 
