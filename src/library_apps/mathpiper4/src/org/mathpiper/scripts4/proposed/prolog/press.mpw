@@ -690,9 +690,9 @@ Result: class javax.swing.JFrame
 zz := ((-a)*b)/c + d 
 
 
-Show(SolveEquation(((- a) * b^f)/c+d == e, b, showTree -> True))
+Show(SolveEquation( '( ((- a) * b )/ c + d == e ), a, showTree -> True))
 
-Show(SolveEquation(((- a) * b )/ c + d == e, a, showTree -> True))
+Show(SolveEquation( '( ((- a) * b^f)/c+d == e, b ), showTree -> True))
 
-Show(SolveEquation(((- a) * b^2)/c+d == e, b, showTree -> True))
+Show(SolveEquation( '( ((- a) * b^2)/c+d == e, b ), showTree -> True))
 
