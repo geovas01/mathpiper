@@ -1,0 +1,98 @@
+Using Rewrite Rules To Perform Mathematics. v1.01.
+
+This is an introductory level explanation of how a computer algebra system (CAS)
+can be programmed to use the same techniques to solve a simple equation that a
+human typically would. There are a number of different types of CASs, and one of
+these types is called a rewriting system (http://en.wikipedia.org/wiki/Rewriting). 
+Rewriting systems use rules to transform expressions into different expressions.
+
+MathPiper is primarily a rewriting system, and it includes a large number of
+predefined rules. However, MathPiper was specifically designed to enable users
+to create their own rules very easily. The following example uses a rule (that 
+was obtained from from the above Wikipedia article) to transform the expression
+
+(x And? y) Or? z 
+
+into 
+
+(x Or? z) And? (y Or? z)
+
+In>   (x And? y) Or? z  /: {(_a And? _b) Or? _c <- (a Or? c) And? (b Or? c)} 
+Result: (x Or? z) And? (y Or? z)
+
+/: is MathPiper's local rules operator. It takes the expression that is on its
+left side and tries to match it to the list of rules that is on its right side
+(the above example only contains one rule, but more rules can be added to the list).
+If it finds a match, the result of the transformation is returned. If it does
+not find a match, the original expression is returned:
+
+In>   x And? y  /: {(_a And? _b) Or? _c <- (a Or? c) And? (b Or? c)} 
+Result: x And? y
+
+
+//==============================================================================
+
+The following code shows how all of the logic rules from the Wikipedia article
+can be placed into a function called SimpLogic and then be used to transform
+expressions:
+
+%mathpiper
+
+SimpLogic(expression) :=
+[
+    expression /: 
+      {
+        //Double negative elimination.
+        Not? Not? _a <- a, 
+        
+        //DeMorgan's laws.
+        Not?(_a And? _b) <- Not? a Or? Not? b,
+        Not?(_a Or? _b) <- Not? a And? Not? b,
+        
+        //Distributivity.
+        (_a And? _b) Or? _c <- (a Or? c) And? (b Or? c),
+        (_a Or? _b) And? _c <- (a And? c) Or? (b And? c)
+      };
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+In> SimpLogic(Not? Not? x)
+Result: x
+
+In> SimpLogic( Not? (x And? y))
+Result: Not? x Or? Not? y
+
+In> SimpLogic( Not? (x Or? y))
+Result: Not? x And? Not? y
+
+In> SimpLogic( (x And? y) Or? z )
+Result: (x Or? z) And? (y Or? z)
+
+In> SimpLogic( (x Or? y) And? z)
+Result: x And? z Or? y And? z
+
+
+//==============================================================================
+
+Most rewriting-based CASs contain a powerful pattern matching system that is
+able to locate subexpressions that match a given pattern. These subexpressions
+can be simple or relatively complex. The following example shows how a rule that
+embodies the distributive law of multiplication over addition can match a simple
+subexpression such as 3 or a more complex one such as (a - b):
+
+In> 3*(w + x) /: { _a*(_b + _c) <- a*b + a*c }
+Result: 3*w+3*x
+
+In> (w - x)*(y + z) /: { _a*(_b + _c) <- a*b + a*c }
+Result: (w-x)*y+(w-x)*z
+
+
+//=============================================================================
+
+THE REST OF THIS DOCUMENT IS STILL IN DEVELOPMENT.  
