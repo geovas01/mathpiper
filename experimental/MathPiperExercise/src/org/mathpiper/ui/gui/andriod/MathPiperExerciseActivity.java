@@ -13,6 +13,7 @@ import org.mathpiper.test.Fold;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -24,6 +25,7 @@ import android.view.KeyEvent;
 import android.view.View.OnKeyListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MathPiperExerciseActivity extends Activity implements
 	OnInitListener {
@@ -40,8 +42,10 @@ public class MathPiperExerciseActivity extends Activity implements
     private SharedPreferences preferences;
 
     private String resultText;
-
+    
     private Map<String, Fold> foldsMap;
+
+    
 
     /** Called when the activity is first created. */
     @Override
@@ -49,17 +53,15 @@ public class MathPiperExerciseActivity extends Activity implements
 
 	preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-	interpreter = new MathPiperInterpreter();
+	interpreter = MathPiperInterpreter.getInterpreter();
 
-	InputStream raw;
-	try {
-	    raw = getAssets().open("arithmetic.mpw");
 
-	    foldsMap = org.mathpiper.test.MPWSFile.getFoldsMap(raw);
+
+	    
 
 	    // =================================================================
 	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.main);
+	    setContentView(R.layout.mathpiperexercise);
 
 	    inputTextField = (EditText) findViewById(R.id.inputText);
 	    
@@ -222,13 +224,7 @@ public class MathPiperExerciseActivity extends Activity implements
 		}
 	    });
 
-	} catch (IOException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	} catch (Exception e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	}
+
 
     }
 
@@ -250,12 +246,58 @@ public class MathPiperExerciseActivity extends Activity implements
 
 
 
-	    /*
-	     * speak("what is your name?"); speak("what is your quest?");
-	     * speak("what is the capital of asiria");
-	     */
-
 	}
+    }
+    
+    
+    
+    private void initialize()
+    {
+	InputStream raw;
+	try {
+	    raw = getAssets().open("arithmetic.mpw");
+
+	    foldsMap = org.mathpiper.test.MPWSFile.getFoldsMap(raw);
+
+	} catch (Exception e) {
+	    Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+	    e.printStackTrace();
+	}
+	
+	Fold configurationFold = foldsMap.get("configuration");
+
+	String codeText = configurationFold.getContents();
+
+	EvaluationResponse response = interpreter.evaluate(codeText);
+	String result;
+
+	if (response.isExceptionThrown()) {
+	    result = response.getException().getMessage();
+
+	    Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+	    return;
+	} else {
+	    result = response.getResult();
+	}
+	
+	
+//====================================	
+	    configurationFold = foldsMap.get("ExerciseEngine");
+
+	    codeText = configurationFold.getContents();
+
+	    response = interpreter.evaluate(codeText);
+
+	    if (response.isExceptionThrown()) {
+		result = response.getException().getMessage();
+
+		Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+		
+		return;
+		
+	    } else {
+		result = response.getResult();
+	    }
     }
 
     private void questionAsk() {
@@ -294,64 +336,7 @@ public class MathPiperExerciseActivity extends Activity implements
 
     }
 
-    private void initialize() throws Exception{
-	Fold configurationFold = foldsMap.get("configuration");
 
-	String codeText = configurationFold.getContents();
-
-
-
-	EvaluationResponse response = interpreter.evaluate(codeText);
-	String result;
-
-	if (response.isExceptionThrown()) {
-	    result = response.getException().getMessage();
-
-	    displayText.setText(result);
-	    return;
-	} else {
-	    result = response.getResult();
-	}
-	
-	
-	//Note: preferences are not working when the app is run on a device.
-	String numberOneLow = preferences.getString("numberOneLow", "2");
-	
-	String numberOneHigh = preferences.getString("numberOneHigh", "9");
-	
-	String numberTwoLow = preferences.getString("numberTwoLow", "2");
-	
-	String numberTwoHigh = preferences.getString("numberTwoHigh", "9");
-	
-	String initializeCode = "operation := \"+\"; numberOneLowSet(" + numberOneLow + ");numberOneHighSet(" + numberOneHigh + ");numberTwoLowSet(" + numberTwoLow + ");numberTwoHighSet(" + numberTwoHigh + ");";
-
-	//String initializeCode2 = "operation := \"+\"; numberOneLowSet(2);numberOneHighSet(9);numberTwoLowSet(2);numberTwoHighSet(9);".replace("\"", "\\\"");
-	
-	response = interpreter.evaluate(initializeCode);
-	
-
-	
-	if (response.isExceptionThrown()) {
-	    throw response.getException();
-	} else {
-	    result = response.getResult();
-	}
-
-	configurationFold = foldsMap.get("ExerciseEngine");
-
-	codeText = configurationFold.getContents();
-
-	response = interpreter.evaluate(codeText);
-
-	if (response.isExceptionThrown()) {
-	    result = response.getException().getMessage();
-
-	    displayText.setText(result);
-	    return;
-	} else {
-	    result = response.getResult();
-	}
-    }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
@@ -399,68 +384,5 @@ public class MathPiperExerciseActivity extends Activity implements
     }
 
     // ==============================================
-    private class MathPiperInterpreter implements Runnable {
-	private Thread casThread;
-	private EvaluationResponse evaluationResponse;
-	private Interpreter interpreter;
-	private String inputText = null;
 
-	public MathPiperInterpreter() {
-
-	    casThread = new Thread(new ThreadGroup("mathiper"), this,
-		    "mathpiper", 50000);
-	    casThread.start();
-	    interpreter = Interpreters.getSynchronousInterpreter();
-	}
-
-	public EvaluationResponse evaluate(String input) {
-	    
-	    input = input.replace("\\", "\\\\");
-	    input = input.replace("\"", "\\\"");
-	    
-	    inputText = "LoadScript(\"" + input + "\");";
-
-	    while (inputText != null) {
-		try {
-		    Thread.sleep(100);
-		} catch (InterruptedException e) {
-		    // TODO Auto-generated catch block
-		    e.printStackTrace();
-		}
-	    }
-
-	    return evaluationResponse;
-	}
-
-	public void run() {
-	    while (true) {
-		if (inputText == null) {
-		    try {
-			Thread.sleep(100);
-		    } catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		    }
-		} else {
-
-		    evaluationResponse = interpreter.evaluate(inputText);
-
-		    /*
-		     * runOnUiThread(new Runnable() { public void run() {
-		     * 
-		     * String response;
-		     * 
-		     * if(evaluationResponse.isExceptionThrown()) { response =
-		     * evaluationResponse.getException().getMessage(); } else {
-		     * response = evaluationResponse.getResult(); }
-		     * 
-		     * } });
-		     */
-
-		    inputText = null;
-		}
-
-	    }
-	}// end method
-    }// end class.
 }

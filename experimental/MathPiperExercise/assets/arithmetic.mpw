@@ -17,82 +17,87 @@ description := "Basic arithmetic exercises.";
 
 
 
+
+
+
+
 %mathpiper,name="configuration"
 [
-configuration := 
-{
-    //{"operation", {"String","+","-","*","/"}},
-    {"numberOneLow", "Integer" },
-    {"numberOneHigh", "Integer"},
-    {"numberTwoLow", "Integer"},
-    {"numberTwoHigh", "Integer"},
-};
 
+    
 
-
-VarSetFunctionsCreate(configuration) :=
-[
-    varNames := AssocIndices(configuration);
-
-    ForEach(varName, varNames)
+    configurations := 
+    {
+        //{"operation", {"String","+","-","*","/"}},
+        {{"name", "numberOneLow"}, {"type", "Integer"}, {"value","2"}},
+        {{"name", "numberOneHigh"}, {"type", "Integer"}, {"value","9"}},
+        {{"name", "numberTwoLow"},  {"type", "Integer"}, {"value","2"}},
+        {{"name", "numberTwoHigh"}, {"type", "Integer"}, {"value","9"}},
+        {{"name", "operation"}, {"type", "String"}, {"value","+"}},
+    };
+    
+    
+    ForEach(configuration, configurations)
     [
+        name := configuration["name"];
         
-        functionName := varName : "Set";
-        
-        variableTypeCheckPredicateAtom := ToAtom(configuration[varName] : "?");
-        
-        varNameParameterAtom := ToAtom(varName : "Var");
-        
-        varNameAtom := ToAtom(varName);
-
-        `Function(@functionName,{@varNameParameterAtom})
+        If(configuration["type"] =? "Integer", value := ToAtom(configuration["value"]), value := configuration["value"]);
+        `Bind(@name, @value);
+    ];
+    
+    
+    VarSetFunctionsCreate(configurations) :=
+    [
+        //varNames := AssocIndices(configuration);
+    
+        //ForEach(varName, varNames)
+        ForEach(configuration, configurations)
         [
-            Check(@variableTypeCheckPredicateAtom(@varNameParameterAtom), "Argument", "Invalid Argument: " : ToString(Eval(@varNameParameterAtom)) : ".");
+            varName := configuration["name"];
             
-            @varNameAtom := @varNameParameterAtom;
+            functionName := varName ~ "Set";
+            
+            variableTypeCheckPredicateAtom := ToAtom(configuration["type"] ~ "?");
+            
+            varNameParameterAtom := ToAtom(varName ~ "Var");
+            
+            varNameAtom := ToAtom(varName);
+    
+            `Function(@functionName,{@varNameParameterAtom})
+            [
+                Check(@variableTypeCheckPredicateAtom(@varNameParameterAtom), "Argument", "Invalid Argument: " ~ ToString(Eval(@varNameParameterAtom)) ~ ".");
+                
+                @varNameAtom := @varNameParameterAtom;
+            
+                True;
+            ];
         
-            True;
         ];
     
     ];
-
-];
-
-
-VarSetFunctionsCreate(configuration);
+    
+    
+    VarSetFunctionsCreate(configurations);
+    
+    
+    ConfigurationsGet() :=
+    [
+        result := "";
+        ForEach(configuration, configurations)
+        [
+            result := (result ~ configuration["name"] ~ "," ~ configuration["type"] ~ "," ~ configuration["value"] ~ ";");
+        ];
+        
+        result;
+    
+    ];
+    
 ];
 
 %/mathpiper
 
     %output,preserve="false"
       Result: True
-      
-      Side Effects:
-      Function("numberTwoHighSet",{numberTwoHighVar})
-      [
-          Check(Integer?(numberTwoHighVar),"Argument","Invalid Argument: ":ToString(Eval(numberTwoHighVar)):".");
-          numberTwoHigh:=numberTwoHighVar;
-          True;
-      ]
-      Function("numberTwoLowSet",{numberTwoLowVar})
-      [
-          Check(Integer?(numberTwoLowVar),"Argument","Invalid Argument: ":ToString(Eval(numberTwoLowVar)):".");
-          numberTwoLow:=numberTwoLowVar;
-          True;
-      ]
-      Function("numberOneHighSet",{numberOneHighVar})
-      [
-          Check(Integer?(numberOneHighVar),"Argument","Invalid Argument: ":ToString(Eval(numberOneHighVar)):".");
-          numberOneHigh:=numberOneHighVar;
-          True;
-      ]
-      Function("numberOneLowSet",{numberOneLowVar})
-      [
-          Check(Integer?(numberOneLowVar),"Argument","Invalid Argument: ":ToString(Eval(numberOneLowVar)):".");
-          numberOneLow:=numberOneLowVar;
-          True;
-      ]
-      
 .   %/output
 
 
@@ -103,21 +108,8 @@ VarSetFunctionsCreate(configuration);
 
 
 
-%mathpiper,name="defaultInitialization"
 
-numberOneLow := 2;
-numberOneHigh := 9;
 
-numberTwoLow := 2;
-numberTwoHigh := 9;
-
-operation := "+";
-
-%/mathpiper
-
-    %output,preserve="false"
-      Result: "+"
-.   %/output
 
 
 
@@ -156,7 +148,7 @@ QuestionAsk() :=
     oldnumberOne := numberOne;
     oldnumberTwo := numberTwo;
     
-    question := ToString(numberOne) :" " : operation :" ": ToString(numberTwo);
+    question := ToString(numberOne) ~" " ~ operation ~" "~ ToString(numberTwo);
     
     answer := Apply(operation, {numberOne, numberTwo});
     
@@ -191,8 +183,20 @@ QuestionCheck(input) :=
 
 
 
+%mathpiper,title=""
 
+    ForEach(configuration, configurations)
+    [
+        name := configuration["name"];
+        value := ToAtom(configuration["value"]);
+        `Bind(@name, @value);
+    ];
 
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
 
 
 
