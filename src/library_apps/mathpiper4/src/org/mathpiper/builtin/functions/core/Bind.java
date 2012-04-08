@@ -55,7 +55,7 @@ public class Bind extends BuiltinFunction
 
 *PARMS
 
-{var} -- variable which should be assigned
+{var} -- variable that should be assigned or a string that contains the name of the variable
 
 {exp} -- expression to assign to the variable
 
@@ -72,6 +72,7 @@ has more uses, e.g. changing individual entries in a list.
 
 In> Bind(a, Sin(x)+3);
 Result: True;
+
 In> a;
 Result: Sin(x)+3;
 
