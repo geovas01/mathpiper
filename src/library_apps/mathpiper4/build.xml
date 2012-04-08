@@ -371,7 +371,7 @@
 		
 		
 		
-		<copy file="${mathpiper.dir}/src/org/mathpiper/scripts4/proposed/exercisesystem/arithmetic.mpw" todir="${library.dir}/android/classes" />
+		<!-- <copy file="${mathpiper.dir}/src/org/mathpiper/scripts4/proposed/exercisesystem/arithmetic.mpw" todir="${library.dir}/android/classes" />-->
 		
 		
 		<!--<jar jarfile="${build.dir}/android/mathpiperandroid.jar"
