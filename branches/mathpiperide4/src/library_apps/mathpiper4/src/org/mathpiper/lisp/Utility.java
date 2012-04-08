@@ -924,6 +924,9 @@ public class Utility {
         } else {
             variableString = (String) BuiltinFunction.getArgument(aEnvironment, aStackTop, 1).car();
         }
+        
+        variableString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, variableString);
+        
         if(variableString == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         if(Utility.isNumber(variableString, true)) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
