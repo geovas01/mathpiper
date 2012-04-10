@@ -1,0 +1,307 @@
+%mathpiper,name="information"
+url :=  "mathpiper.org/exercises/remember_numbers.mpw";
+title := "Remember Numbers";
+version := .01;
+author := "tkosan";
+description := "Remember numbers by encoding them into sentences.";
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: "Remember numbers by encoding them into sentences."
+.   %/output
+
+
+
+
+
+
+
+
+%mathpiper,name="help"
+
+"1 is the t or d sound.
+2 is the n sound.
+3 is the m sound. 
+4 is the r sound. 
+5 is the l sound. 
+6 is the j, ch, or sh sound. 
+7 is the k or hard g sound.
+8 is the f or v sound.
+9 is the p or b sound.
+0 is the z or s sound."
+
+%/mathpiper
+
+
+
+
+
+
+
+%mathpiper,name="configuration"
+[
+
+    
+
+    configurations := 
+    {
+        //{"operation", {"String","+","-","*","/"}},
+        {{"name", "numberOneLow"}, {"type", "Integer"}, {"value","2"}},
+
+    };
+    
+    
+    ForEach(configuration, configurations)
+    [
+        name := configuration["name"];
+        
+        If(configuration["type"] =? "Integer", value := ToAtom(configuration["value"]), value := configuration["value"]);
+        `Bind(@name, @value);
+    ];
+    
+    
+    VarSetFunctionsCreate(configurations) :=
+    [
+        //varNames := AssocIndices(configuration);
+    
+        //ForEach(varName, varNames)
+        ForEach(configuration, configurations)
+        [
+            varName := configuration["name"];
+            
+            functionName := varName ~ "Set";
+            
+            variableTypeCheckPredicateAtom := ToAtom(configuration["type"] ~ "?");
+            
+            varNameParameterAtom := ToAtom(varName ~ "Var");
+            
+            varNameAtom := ToAtom(varName);
+    
+            `Function(@functionName,{@varNameParameterAtom})
+            [
+                Check(@variableTypeCheckPredicateAtom(@varNameParameterAtom), "Argument", "Invalid Argument: " ~ ToString(Eval(@varNameParameterAtom)) ~ ".");
+                
+                @varNameAtom := @varNameParameterAtom;
+            
+                True;
+            ];
+        
+        ];
+    
+    ];
+    
+    
+    VarSetFunctionsCreate(configurations);
+    
+    
+    ConfigurationsGet() :=
+    [
+        result := "";
+        ForEach(configuration, configurations)
+        [
+            result := (result ~ configuration["name"] ~ "," ~ configuration["type"] ~ "," ~ configuration["value"] ~ ";");
+        ];
+        
+        result;
+    
+    ];
+    
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%mathpiper,name="ExerciseEngine"
+
+
+wordsList := {
+"tie","knee","emu","ear","law","shoe","cow","ivy","bee","dice","tot","tin","tomb","tire","towel",
+"dish","duck","dove","tub","nose","nut","nun","name","Nero","nail","notch","neck","knife","knob",
+"mouse","mat","moon","mummy","mower","mule","match","mug","movie","map","rose","rod","rain","ram",
+"rear","roll","roach","rock","roof","rope","lace","light","lion","lamb","lure","lily","leash","log",
+"leaf","lip","cheese","sheet","chain","chum","cherry","jail","judge","chalk","chef","ship","kiss","kite",
+"coin","comb","car","coal","cage","cake", "cave", "cap","face","fight","phone","foam","fire","file","fish","fog",
+"fife","V.I.P","bus","bat","bun","bomb","bear","bell","beach","book","puff","puppy","daises"
+
+};
+
+
+attempt := 0;
+
+QuestionAsk() :=
+[
+    number := RandomInteger(1, Length(wordsList));
+    
+    answer := number;
+    
+    word := wordsList[number];
+
+];
+
+
+
+
+QuestionCheck(input) :=
+[
+    attempt++;
+    
+    If(answer =? input, True, False);
+];
+
+
+
+
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+%mathpiper,title=""
+
+x := 1;
+
+While(x <=? 100)
+[
+    Echo(x,wordsList[x]);
+    x++;
+
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      1 tie
+      2 knee
+      3 emu
+      4 ear
+      5 law
+      6 shoe
+      7 cow
+      8 ivy
+      9 bee
+      10 dice
+      11 tot
+      12 tin
+      13 tomb
+      14 tire
+      15 towel
+      16 dish
+      17 duck
+      18 dove
+      19 tub
+      20 nose
+      21 nut
+      22 nun
+      23 name
+      24 Nero
+      25 nail
+      26 notch
+      27 neck
+      28 knife
+      29 knob
+      30 mouse
+      31 mat
+      32 moon
+      33 mummy
+      34 mower
+      35 mule
+      36 match
+      37 mug
+      38 movie
+      39 map
+      40 rose
+      41 rod
+      42 rain
+      43 ram
+      44 rear
+      45 roll
+      46 roach
+      47 rock
+      48 roof
+      49 rope
+      50 lace
+      51 light
+      52 lion
+      53 lamb
+      54 lure
+      55 lily
+      56 leash
+      57 log
+      58 leaf
+      59 lip
+      60 cheese
+      61 sheet
+      62 chain
+      63 chum
+      64 cherry
+      65 jail
+      66 judge
+      67 chalk
+      68 chef
+      69 ship
+      70 kiss
+      71 kite
+      72 coin
+      73 comb
+      74 car
+      75 coal
+      76 cage
+      77 cake
+      78 cave
+      79 cap
+      80 face
+      81 fight
+      82 phone
+      83 foam
+      84 fire
+      85 file
+      86 fish
+      87 fog
+      88 fife
+      89 V.I.P
+      90 bus
+      91 bat
+      92 bun
+      93 bomb
+      94 bear
+      95 bell
+      96 beach
+      97 book
+      98 puff
+      99 puppy
+      100 daises
+      
+.   %/output
+
+
+
+
