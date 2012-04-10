@@ -12,24 +12,20 @@
     <EditText
         android:id="@+id/displayText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        
-        android:clickable="false" 
-        android:cursorVisible="false" 
-        android:focusable="false" 
-        android:focusableInTouchMode="false">
-        
-
-        
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false" >
     </EditText>
 
     <EditText
         android:id="@+id/inputText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
+
         <requestFocus />
-        
-        </EditText>
+    </EditText>
 
     <TableLayout
         android:id="@+id/tableLayout1"
@@ -42,22 +38,22 @@
             android:layout_height="wrap_content" >
 
             <Button
-                android:id="@+id/button_configure"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Configure" />
-
-            <Button
                 android:id="@+id/button_start"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Start" />
 
             <Button
+                android:id="@+id/button_configure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Configure" />
+
+            <Button
                 android:id="@+id/button_evaluate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Evaluate" />
+                android:text="Eval" />
 
             <Button
                 android:id="@+id/button_backspace"
@@ -65,6 +61,11 @@
                 android:layout_height="wrap_content"
                 android:text="@string/button_backspace" />
 
+            <Button
+                android:id="@+id/button_help"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Help" />
         </TableRow>
 
         <TableRow
@@ -179,7 +180,6 @@
                 android:layout_weight="1"
                 android:text="@string/button_enter" />
         </TableRow>
-
     </TableLayout>
 
 </LinearLayout>

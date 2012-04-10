@@ -15,6 +15,6 @@
     <string name="button_9">9</string>
     <string name="button_.">.</string>
     <string name="button_enter">Enter</string>
-    <string name="button_backspace">Backspace</string>
+    <string name="button_backspace">BkSp</string>
 
 </resources>

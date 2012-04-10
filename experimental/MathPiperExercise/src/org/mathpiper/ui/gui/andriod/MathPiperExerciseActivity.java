@@ -42,10 +42,8 @@ public class MathPiperExerciseActivity extends Activity implements
     private SharedPreferences preferences;
 
     private String resultText;
-    
-    private Map<String, Fold> foldsMap;
 
-    
+    private Map<String, Fold> foldsMap;
 
     /** Called when the activity is first created. */
     @Override
@@ -55,176 +53,181 @@ public class MathPiperExerciseActivity extends Activity implements
 
 	interpreter = MathPiperInterpreter.getInterpreter();
 
+	// =================================================================
+	super.onCreate(savedInstanceState);
+	setContentView(R.layout.mathpiperexercise);
 
+	inputTextField = (EditText) findViewById(R.id.inputText);
 
-	    
+	inputTextField.setOnKeyListener(new OnKeyListener() {
+	    public boolean onKey(View v, int keyCode, KeyEvent event) {
 
-	    // =================================================================
-	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.mathpiperexercise);
-
-	    inputTextField = (EditText) findViewById(R.id.inputText);
-	    
-	    inputTextField.setOnKeyListener(new OnKeyListener() {
-		    public boolean onKey(View v, int keyCode, KeyEvent event) {
-
-		        if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-		         
-		            enter();
-		            
-		          return true;
-		        }
-		        return false;
-		    }
-		});
-	    
-	    
-	    
-	    
-
-	    displayText = (EditText) findViewById(R.id.displayText);
-
-	    tts = new TextToSpeech(this, this);
-
-	    // Add event listeners to buttons.
-	    final Button button0 = (Button) findViewById(R.id.button_0);
-	    button0.setOnClickListener(new View.OnClickListener() {
-		public void onClick(View view) {
-		    inputTextField.append(button0.getText());
-		}
-	    });
-
-	    final Button button1 = (Button) findViewById(R.id.button_1);
-	    button1.setOnClickListener(new View.OnClickListener() {
-		public void onClick(View view) {
-		    inputTextField.append(button1.getText());
-		}
-	    });
-
-	    final Button button2 = (Button) findViewById(R.id.button_2);
-	    button2.setOnClickListener(new View.OnClickListener() {
-		public void onClick(View view) {
-		    inputTextField.append(button2.getText());
-		}
-	    });
-
-	    final Button button3 = (Button) findViewById(R.id.button_3);
-	    button3.setOnClickListener(new View.OnClickListener() {
-		public void onClick(View view) {
-		    inputTextField.append(button3.getText());
-		}
-	    });
-
-	    final Button button4 = (Button) findViewById(R.id.button_4);
-	    button4.setOnClickListener(new View.OnClickListener() {
-		public void onClick(View view) {
-		    inputTextField.append(button4.getText());
-		}
-	    });
-
-	    final Button button5 = (Button) findViewById(R.id.button_5);
-	    button5.setOnClickListener(new View.OnClickListener() {
-		public void onClick(View view) {
-		    inputTextField.append(button5.getText());
-		}
-	    });
-
-	    final Button button6 = (Button) findViewById(R.id.button_6);
-	    button6.setOnClickListener(new View.OnClickListener() {
-		public void onClick(View view) {
-		    inputTextField.append(button6.getText());
-		}
-	    });
-
-	    final Button button7 = (Button) findViewById(R.id.button_7);
-	    button7.setOnClickListener(new View.OnClickListener() {
-		public void onClick(View view) {
-		    inputTextField.append(button7.getText());
-		}
-	    });
-
-	    final Button button8 = (Button) findViewById(R.id.button_8);
-	    button8.setOnClickListener(new View.OnClickListener() {
-		public void onClick(View view) {
-		    inputTextField.append(button8.getText());
-		}
-	    });
-
-	    final Button button9 = (Button) findViewById(R.id.button_9);
-	    button9.setOnClickListener(new View.OnClickListener() {
-		public void onClick(View view) {
-		    inputTextField.append(button9.getText());
-		}
-	    });
-
-	    final Button button_backspace = (Button) findViewById(R.id.button_backspace);
-	    button_backspace.setOnClickListener(new View.OnClickListener() {
-		public void onClick(View view) {
-
-		    String currentText = inputTextField.getText().toString();
-
-		    if (currentText.length() > 0) {
-			currentText = currentText.substring(0,
-				currentText.length() - 1);
-
-			inputTextField.setText(currentText);
-		    }
-
-		}
-	    });
-
-	    final Button button_enter = (Button) findViewById(R.id.button_enter);
-	    button_enter.setOnClickListener(new View.OnClickListener() {
-		public void onClick(View view) {
+		if ((event.getAction() == KeyEvent.ACTION_DOWN)
+			&& (keyCode == KeyEvent.KEYCODE_ENTER)) {
 
 		    enter();
 
+		    return true;
 		}
-	    });
+		return false;
+	    }
+	});
 
-	    final Button button_configure = (Button) findViewById(R.id.button_configure);
-	    button_configure.setOnClickListener(new View.OnClickListener() {
-		public void onClick(View view) {
+	displayText = (EditText) findViewById(R.id.displayText);
 
-		    Intent settingsActivity = new Intent(getBaseContext(),
-			    PreferencesActivity.class);
-		    startActivity(settingsActivity);
+	tts = new TextToSpeech(this, this);
 
+	// Add event listeners to buttons.
+	final Button button0 = (Button) findViewById(R.id.button_0);
+	button0.setOnClickListener(new View.OnClickListener() {
+	    public void onClick(View view) {
+		inputTextField.append(button0.getText());
+	    }
+	});
+
+	final Button button1 = (Button) findViewById(R.id.button_1);
+	button1.setOnClickListener(new View.OnClickListener() {
+	    public void onClick(View view) {
+		inputTextField.append(button1.getText());
+	    }
+	});
+
+	final Button button2 = (Button) findViewById(R.id.button_2);
+	button2.setOnClickListener(new View.OnClickListener() {
+	    public void onClick(View view) {
+		inputTextField.append(button2.getText());
+	    }
+	});
+
+	final Button button3 = (Button) findViewById(R.id.button_3);
+	button3.setOnClickListener(new View.OnClickListener() {
+	    public void onClick(View view) {
+		inputTextField.append(button3.getText());
+	    }
+	});
+
+	final Button button4 = (Button) findViewById(R.id.button_4);
+	button4.setOnClickListener(new View.OnClickListener() {
+	    public void onClick(View view) {
+		inputTextField.append(button4.getText());
+	    }
+	});
+
+	final Button button5 = (Button) findViewById(R.id.button_5);
+	button5.setOnClickListener(new View.OnClickListener() {
+	    public void onClick(View view) {
+		inputTextField.append(button5.getText());
+	    }
+	});
+
+	final Button button6 = (Button) findViewById(R.id.button_6);
+	button6.setOnClickListener(new View.OnClickListener() {
+	    public void onClick(View view) {
+		inputTextField.append(button6.getText());
+	    }
+	});
+
+	final Button button7 = (Button) findViewById(R.id.button_7);
+	button7.setOnClickListener(new View.OnClickListener() {
+	    public void onClick(View view) {
+		inputTextField.append(button7.getText());
+	    }
+	});
+
+	final Button button8 = (Button) findViewById(R.id.button_8);
+	button8.setOnClickListener(new View.OnClickListener() {
+	    public void onClick(View view) {
+		inputTextField.append(button8.getText());
+	    }
+	});
+
+	final Button button9 = (Button) findViewById(R.id.button_9);
+	button9.setOnClickListener(new View.OnClickListener() {
+	    public void onClick(View view) {
+		inputTextField.append(button9.getText());
+	    }
+	});
+
+	final Button button_backspace = (Button) findViewById(R.id.button_backspace);
+	button_backspace.setOnClickListener(new View.OnClickListener() {
+	    public void onClick(View view) {
+
+		String currentText = inputTextField.getText().toString();
+
+		if (currentText.length() > 0) {
+		    currentText = currentText.substring(0,
+			    currentText.length() - 1);
+
+		    inputTextField.setText(currentText);
 		}
-	    });
 
-	    final Button button_start = (Button) findViewById(R.id.button_start);
-	    button_start.setOnClickListener(new View.OnClickListener() {
-		public void onClick(View view) {
+	    }
+	});
 
-		    questionAsk();
+	final Button button_enter = (Button) findViewById(R.id.button_enter);
+	button_enter.setOnClickListener(new View.OnClickListener() {
+	    public void onClick(View view) {
 
+		enter();
+
+	    }
+	});
+
+	final Button button_configure = (Button) findViewById(R.id.button_configure);
+	button_configure.setOnClickListener(new View.OnClickListener() {
+	    public void onClick(View view) {
+
+		Intent settingsActivity = new Intent(getBaseContext(),
+			PreferencesActivity.class);
+		startActivity(settingsActivity);
+
+	    }
+	});
+
+	final Button button_help = (Button) findViewById(R.id.button_help);
+	button_help.setOnClickListener(new View.OnClickListener() {
+	    public void onClick(View view) {
+
+		Fold configurationFold = foldsMap.get("help");
+
+		String helpString = configurationFold.getContents();
+
+		helpString = helpString.replace("\"", "");
+
+		speak(helpString);
+
+	    }
+	});
+
+	final Button button_start = (Button) findViewById(R.id.button_start);
+	button_start.setOnClickListener(new View.OnClickListener() {
+	    public void onClick(View view) {
+
+		questionAsk();
+
+	    }
+	});
+
+	final Button button_evaluate = (Button) findViewById(R.id.button_evaluate);
+	button_evaluate.setOnClickListener(new View.OnClickListener() {
+	    public void onClick(View view) {
+
+		String input = inputTextField.getText().toString();
+
+		EvaluationResponse response = interpreter.evaluate(input + ";");
+
+		String result;
+
+		if (response.isExceptionThrown()) {
+		    result = response.getException().getMessage();
+		} else {
+		    result = response.getResult();
 		}
-	    });
 
-	    final Button button_evaluate = (Button) findViewById(R.id.button_evaluate);
-	    button_evaluate.setOnClickListener(new View.OnClickListener() {
-		public void onClick(View view) {
+		displayText.setText(result);
 
-		    String input = inputTextField.getText().toString();
-
-		    EvaluationResponse response = interpreter.evaluate(input
-			    + ";");
-
-		    String result;
-
-		    if (response.isExceptionThrown()) {
-			result = response.getException().getMessage();
-		    } else {
-			result = response.getResult();
-		    }
-
-		    displayText.setText(result);
-
-		}
-	    });
-
-
+	    }
+	});
 
     }
 
@@ -236,26 +239,26 @@ public class MathPiperExerciseActivity extends Activity implements
 
 	    try {
 		initialize();
-		    speak("ready");
-		    displayText.setText("ready");
+		speak("ready");
+		displayText.setText("ready");
 	    } catch (Exception e) {
 		speak("Initialization error.");
-		
+
 		displayText.setText(e.getMessage());
 	    }
 
-
-
 	}
     }
-    
-    
-    
-    private void initialize()
-    {
+
+    private void initialize() {
 	InputStream raw;
 	try {
-	    raw = getAssets().open("arithmetic.mpw");
+
+	    // String mpwFile = "arithmetic.mpw";
+
+	    String mpwFile = "remember_numbers.mpw";
+
+	    raw = getAssets().open(mpwFile);
 
 	    foldsMap = org.mathpiper.test.MPWSFile.getFoldsMap(raw);
 
@@ -263,7 +266,7 @@ public class MathPiperExerciseActivity extends Activity implements
 	    Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
 	    e.printStackTrace();
 	}
-	
+
 	Fold configurationFold = foldsMap.get("configuration");
 
 	String codeText = configurationFold.getContents();
@@ -279,25 +282,24 @@ public class MathPiperExerciseActivity extends Activity implements
 	} else {
 	    result = response.getResult();
 	}
-	
-	
-//====================================	
-	    configurationFold = foldsMap.get("ExerciseEngine");
 
-	    codeText = configurationFold.getContents();
+	// ====================================
+	configurationFold = foldsMap.get("ExerciseEngine");
 
-	    response = interpreter.evaluate(codeText);
+	codeText = configurationFold.getContents();
 
-	    if (response.isExceptionThrown()) {
-		result = response.getException().getMessage();
+	response = interpreter.evaluate(codeText);
 
-		Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
-		
-		return;
-		
-	    } else {
-		result = response.getResult();
-	    }
+	if (response.isExceptionThrown()) {
+	    result = response.getException().getMessage();
+
+	    Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+
+	    return;
+
+	} else {
+	    result = response.getResult();
+	}
     }
 
     private void questionAsk() {
@@ -336,8 +338,6 @@ public class MathPiperExerciseActivity extends Activity implements
 
     }
 
-
-
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
 	super.onConfigurationChanged(newConfig);
@@ -348,20 +348,20 @@ public class MathPiperExerciseActivity extends Activity implements
 	String input = inputTextField.getText().toString();
 
 	if (input.equals("")) {
-	speak(currentQuestion);
+	    speak(currentQuestion);
 
-	return;
+	    return;
 	}
 
-	EvaluationResponse response = interpreter
-	    .evaluate("QuestionCheck(" + input + ");");
+	EvaluationResponse response = interpreter.evaluate("QuestionCheck("
+		+ input + ");");
 
 	String result;
 
 	if (response.isExceptionThrown()) {
-	result = response.getException().getMessage();
+	    result = response.getException().getMessage();
 	} else {
-	result = response.getResult();
+	    result = response.getResult();
 	}
 
 	inputTextField.setText("");
@@ -369,17 +369,19 @@ public class MathPiperExerciseActivity extends Activity implements
 	speak(input);
 
 	if (result.equals("True")) {
-	displayText.setText("Correct");
+	    displayText.setText("Correct");
 
-	speak("correct");
+	    speak("correct");
 
-	questionAsk();
+	    questionAsk();
 	} else {
-	displayText.setText("Incorrect");
+	    //displayText.setText("Incorrect");
 
-	speak("incorrect");
+	    speak("incorrect");
 
-	speak(currentQuestion);
+	    speak(currentQuestion);
+
+	    //displayText.setText(currentQuestion);
 	}
     }
 
