@@ -1,25 +1,10 @@
 package org.mathpiper.ui.gui.andriod;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Map;
-
 import org.mathpiper.interpreters.EvaluationResponse;
-import org.mathpiper.interpreters.Interpreter;
-import org.mathpiper.test.Fold;
-
-import android.content.Intent;
-import android.content.SharedPreferences.Editor;
-import android.content.res.TypedArray;
-import android.net.Uri;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
-import android.preference.ListPreference;
 import android.preference.PreferenceActivity;
-import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
-import android.widget.Toast;
 
 public class PreferencesActivity extends PreferenceActivity {
 
