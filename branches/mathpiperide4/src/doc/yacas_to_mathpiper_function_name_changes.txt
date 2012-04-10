@@ -40,6 +40,9 @@ else -> Else
 InVerboseMode -> VerboseMode?
 V() -> Make V a bodied function so it can be more easily added and removed from code.
 
+[] -> {} //Change the code block outfix operator to match the syntax used in other languages.
+{} -> [] //Change the list outfix operator to match the syntax used in other languages.
+
 
 ------------------------------------------------------------------------------------------
 
