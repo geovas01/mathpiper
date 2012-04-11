@@ -338,7 +338,7 @@ or air traffic  control systems unless youre a bit of a gambler.
 
 
 
-%mathpiper,title=""
+%mathpiper,title="MathPiper version of PRESS."
 
 //Note:tk:Perhaps create a function called Value that obtains the value that is assigned to a variable
 // without evaluating the variable first.
@@ -644,9 +644,7 @@ Isolax(side, equation) :=
      1: _term1 ^$ _term2 == _rhs <- {term1 == rhs^$(1/$term2), "Exponentiation1b", "Take \\ root \\ " ~ ExpressionToString(term2) ~ " \\ of \\ both \\ sides:", (term1 ^$ term2)^$(1/term2) == rhs^$(1/$ term2)},
     //"Exponentiation2" # 2 : _term1 ^ _term2 == _rhs <- term2 == Log(rhs)//Log(base(term1), rhs)
                       
-    };
-                      
-
+    };                 
 ];
 
 
@@ -663,36 +661,9 @@ Isolax(side, equation) :=
 
 
 
-Position(b,'(((-a) * b)/c+d == e))
-
-
-
-In> ViewMath('(((-a) * b)/c+d == e))
-
-
-
-
-In>  Isolax(1,'(((-a) * b)/c+d == e))
-
-    %output,preserve="false"
-      Result: {"RULE_Function: Addition1
-      ",((-a)*b)/c==e-d}
-.   %/output
-
-
-
-
-In> ViewMath('(((-a)*b)/c==e-d))
-Result: class javax.swing.JFrame
-
-
-
-zz := ((-a)*b)/c + d 
-
-
 Show(SolveEquation( '( ((- a) * b )/ c + d == e ), a, showTree -> True))
 
-Show(SolveEquation( '( ((- a) * b^f)/c+d == e, b ), showTree -> True))
+Show(SolveEquation( '( ((- a) * b^f)/c+d == e), b , showTree -> True))
 
-Show(SolveEquation( '( ((- a) * b^2)/c+d == e, b ), showTree -> True))
+Show(SolveEquation( '( ((- a) * b^2)/c+d == e), b , showTree -> True))
 
