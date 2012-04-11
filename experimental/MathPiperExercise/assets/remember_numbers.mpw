@@ -135,13 +135,106 @@ description := "Remember numbers by encoding them into sentences.";
 
 
 wordsList := {
-"tie","knee","emu","ear","law","shoe","cow","ivy","bee","dice","tot","tin","tomb","tire","towel",
-"dish","duck","dove","tub","nose","nut","nun","name","Nero","nail","notch","neck","knife","knob",
-"mouse","mat","moon","mummy","mower","mule","match","mug","movie","map","rose","rod","rain","ram",
-"rear","roll","roach","rock","roof","rope","lace","light","lion","lamb","lure","lily","leash","log",
-"leaf","lip","cheese","sheet","chain","chum","cherry","jail","judge","chalk","chef","ship","kiss","kite",
-"coin","comb","car","coal","cage","cake", "cave", "cap","face","fight","phone","foam","fire","file","fish","fog",
-"fife","V.I.P","bus","bat","bun","bomb","bear","bell","beach","book","puff","puppy","daises"
+      {"tie", 1, "Tie a knot."},
+      {"knee", 2, "Bend your knee."},
+      {"emu", 3, "An emu is a bird."},
+      {"ear", 4, "Plug your left ear."},
+      {"law", 5, "It is against the law."},
+      {"shoe", 6, "Tie your shoe."},
+      {"cow", 7, "Milk the cow."},
+      {"ivy", 8, "An ivy league school."},
+      {"bee", 9, "Stung by a bee."},
+      {"dice", 10, "Role the dice."},
+      {"tot", 11, "A tot is a very young child."},
+      {"tin", 12, "A tin can."},
+      {"tomb", 13, "King tut's tomb."},
+      {"tire", 14, "A tire on a car."},
+      {"towel", 15, "Dry your hands with a towel."},
+      {"dish", 16, "Wash the dirty dish."},
+      {"duck", 17, "Quacks like a duck."},
+      {"dove", 18, "A white dove flew by."},
+      {"tub", 19, "Put water in the tub."},
+      {"nose", 20, "Blow your nose."},
+      {"nut", 21, "Crack the nut."},
+      {"nun", 22, "A Catholic nun."},
+      {"name", 23, "His name is Bob."},
+      {"Nero", 24, "Nero fiddled while Rome burned."},
+      {"nail", 25, "Hammer the nail."},
+      {"notch", 26, "Put a notch in the belt."},
+      {"neck", 27, "Wring its neck."},
+      {"knife", 28, "Cut it with a knife."},
+      {"knob", 29, "Turn the door knob."},
+      {"mouse", 30, "A mouse has a tail."},
+      {"mat", 31, "Step on the mat."},
+      {"moon", 32, "A full moon."},
+      {"mummy", 33, "An Egyptian mummy."},
+      {"mower", 34, "A mower cuts grass."},
+      {"mule", 35, "A pack mule."},
+      {"match", 36, "Light the match."},
+      {"mug", 37, "Dring from the mug."},
+      {"movie", 38, "Go see a movie."},
+      {"map", 39, "Read the map."},
+      {"rose", 40, "Smell the rose."},
+      {"rod", 41, "A rod is like a pole."},
+      {"rain", 42, "Use an umbrella when it rains."},
+      {"ram", 43, "Aries the ram."},
+      {"rear", 44, "The rear end of the car."},
+      {"roll", 45, "Roll down the hill."},
+      {"roach", 46, "A roach is a bug."},
+      {"rock", 47, "As hard as a rock."},
+      {"roof", 48, "A roof over your head."},
+      {"rope", 49, "Pull on the rope."},
+      {"lace", 50, "A shoe lace."},
+      {"light", 51, "A bright light."},
+      {"lion", 52, "The lion roared."},
+      {"lamb", 53, "A lamb is a young sheep."},
+      {"lure", 54, "Fish with a lure."},
+      {"lily", 55, "A lily is a flower."},
+      {"leash", 56, "Put the dog on a leash."},
+      {"log", 57, "Put a log in the fire."},
+      {"leaf", 58, "The leaf of a tree."},
+      {"lip", 59, "Bite your lip."},
+      {"cheese", 60, "A cheese sandwitch."},
+      {"sheet", 61, "A sheet and a blanket."},
+      {"chain", 62, "A steel chain."},
+      {"chum", 63, "A chum is a close friend."},
+      {"cherry", 64, "A cherry tree."},
+      {"jail", 65, "Locked inside a jail."},
+      {"judge", 66, "The judge will decide."},
+      {"chalk", 67, "Write on the board with chalk."},
+      {"chef", 68, "A chef cooks food."},
+      {"ship", 69, "A ship on the sea."},
+      {"kiss", 70, "A kiss goodbye"},
+      {"kite", 71, "Fly a kite."},
+      {"coin", 72, "Flip a coin."},
+      {"comb", 73, "Comb your hair."},
+      {"car", 74, "Drive the car."},
+      {"coal", 75, "Black as coal."},
+      {"cage", 76, "A bird cage."},
+      {"cake", 77, "A birthday cake."},
+      {"cave", 78, "A caveman."},
+      {"cap", 79, "Put the cap on the pen."},
+      {"face", 80, "Wash your face."},
+      {"fight", 81, "A fist fight."},
+      {"phone", 82, "Call you on the phone."},
+      {"foam", 83, "Coffee in a foam cup."},
+      {"fire", 84, "Put out the fire with water."},
+      {"file", 85, "File your nails."},
+      {"fish", 86, "Catch a fish."},
+      {"fog", 87, "The fog is thick."},
+      {"fife", 88, "A fife is a smill flute."},
+      {"V.I.P", 89, "Very important person."},
+      {"bus", 90, "A school bus."},
+      {"bat", 91, "Hit the ball with a bat."},
+      {"bun", 92, "A hamburger bun."},
+      {"bomb", 93, "The bomb exploded."},
+      {"bear", 94, "A grizzly bear."},
+      {"bell", 95, "Ring the bell."},
+      {"beach", 96, "An ocean beach."},
+      {"book", 97, "Read a book."},
+      {"puff", 98, "Huff and puff."},
+      {"puppy", 99, "A puppy is a young dog."},
+      {"daises", 100, "Smell the daises"},
 
 };
 
@@ -152,10 +245,13 @@ QuestionAsk() :=
 [
     number := RandomInteger(1, Length(wordsList));
     
-    answer := number;
+    word := wordsList[number][1];
     
-    word := wordsList[number];
-
+    answer := wordsList[number][2];
+    
+    hint := wordsList[number][3];
+    
+    word;
 ];
 
 
@@ -169,6 +265,11 @@ QuestionCheck(input) :=
 ];
 
 
+
+QuestionHint() :=
+[
+    hint;
+];
 
 
 
@@ -188,7 +289,12 @@ x := 1;
 
 While(x <=? 100)
 [
-    Echo(x,wordsList[x]);
+    WriteString("{\"" ~ wordsList[x] ~ "\", " ~ ToString(x) ~ ", " ~ "\"\"" ~ "},");
+    
+
+    
+    WriteString(Nl());
+    
     x++;
 
 ];
@@ -199,106 +305,106 @@ While(x <=? 100)
       Result: True
       
       Side Effects:
-      1 tie
-      2 knee
-      3 emu
-      4 ear
-      5 law
-      6 shoe
-      7 cow
-      8 ivy
-      9 bee
-      10 dice
-      11 tot
-      12 tin
-      13 tomb
-      14 tire
-      15 towel
-      16 dish
-      17 duck
-      18 dove
-      19 tub
-      20 nose
-      21 nut
-      22 nun
-      23 name
-      24 Nero
-      25 nail
-      26 notch
-      27 neck
-      28 knife
-      29 knob
-      30 mouse
-      31 mat
-      32 moon
-      33 mummy
-      34 mower
-      35 mule
-      36 match
-      37 mug
-      38 movie
-      39 map
-      40 rose
-      41 rod
-      42 rain
-      43 ram
-      44 rear
-      45 roll
-      46 roach
-      47 rock
-      48 roof
-      49 rope
-      50 lace
-      51 light
-      52 lion
-      53 lamb
-      54 lure
-      55 lily
-      56 leash
-      57 log
-      58 leaf
-      59 lip
-      60 cheese
-      61 sheet
-      62 chain
-      63 chum
-      64 cherry
-      65 jail
-      66 judge
-      67 chalk
-      68 chef
-      69 ship
-      70 kiss
-      71 kite
-      72 coin
-      73 comb
-      74 car
-      75 coal
-      76 cage
-      77 cake
-      78 cave
-      79 cap
-      80 face
-      81 fight
-      82 phone
-      83 foam
-      84 fire
-      85 file
-      86 fish
-      87 fog
-      88 fife
-      89 V.I.P
-      90 bus
-      91 bat
-      92 bun
-      93 bomb
-      94 bear
-      95 bell
-      96 beach
-      97 book
-      98 puff
-      99 puppy
-      100 daises
+      {"tie", 1, ""},
+      {"knee", 2, ""},
+      {"emu", 3, ""},
+      {"ear", 4, ""},
+      {"law", 5, ""},
+      {"shoe", 6, ""},
+      {"cow", 7, ""},
+      {"ivy", 8, ""},
+      {"bee", 9, ""},
+      {"dice", 10, ""},
+      {"tot", 11, ""},
+      {"tin", 12, ""},
+      {"tomb", 13, ""},
+      {"tire", 14, ""},
+      {"towel", 15, ""},
+      {"dish", 16, ""},
+      {"duck", 17, ""},
+      {"dove", 18, ""},
+      {"tub", 19, ""},
+      {"nose", 20, ""},
+      {"nut", 21, ""},
+      {"nun", 22, ""},
+      {"name", 23, ""},
+      {"Nero", 24, ""},
+      {"nail", 25, ""},
+      {"notch", 26, ""},
+      {"neck", 27, ""},
+      {"knife", 28, ""},
+      {"knob", 29, ""},
+      {"mouse", 30, ""},
+      {"mat", 31, ""},
+      {"moon", 32, ""},
+      {"mummy", 33, ""},
+      {"mower", 34, ""},
+      {"mule", 35, ""},
+      {"match", 36, ""},
+      {"mug", 37, ""},
+      {"movie", 38, ""},
+      {"map", 39, ""},
+      {"rose", 40, ""},
+      {"rod", 41, ""},
+      {"rain", 42, ""},
+      {"ram", 43, ""},
+      {"rear", 44, ""},
+      {"roll", 45, ""},
+      {"roach", 46, ""},
+      {"rock", 47, ""},
+      {"roof", 48, ""},
+      {"rope", 49, ""},
+      {"lace", 50, ""},
+      {"light", 51, ""},
+      {"lion", 52, ""},
+      {"lamb", 53, ""},
+      {"lure", 54, ""},
+      {"lily", 55, ""},
+      {"leash", 56, ""},
+      {"log", 57, ""},
+      {"leaf", 58, ""},
+      {"lip", 59, ""},
+      {"cheese", 60, ""},
+      {"sheet", 61, ""},
+      {"chain", 62, ""},
+      {"chum", 63, ""},
+      {"cherry", 64, ""},
+      {"jail", 65, ""},
+      {"judge", 66, ""},
+      {"chalk", 67, ""},
+      {"chef", 68, ""},
+      {"ship", 69, ""},
+      {"kiss", 70, ""},
+      {"kite", 71, ""},
+      {"coin", 72, ""},
+      {"comb", 73, ""},
+      {"car", 74, ""},
+      {"coal", 75, ""},
+      {"cage", 76, ""},
+      {"cake", 77, ""},
+      {"cave", 78, ""},
+      {"cap", 79, ""},
+      {"face", 80, ""},
+      {"fight", 81, ""},
+      {"phone", 82, ""},
+      {"foam", 83, ""},
+      {"fire", 84, ""},
+      {"file", 85, ""},
+      {"fish", 86, ""},
+      {"fog", 87, ""},
+      {"fife", 88, ""},
+      {"V.I.P", 89, ""},
+      {"bus", 90, ""},
+      {"bat", 91, ""},
+      {"bun", 92, ""},
+      {"bomb", 93, ""},
+      {"bear", 94, ""},
+      {"bell", 95, ""},
+      {"beach", 96, ""},
+      {"book", 97, ""},
+      {"puff", 98, ""},
+      {"puppy", 99, ""},
+      {"daises", 100, ""},
       
 .   %/output
 

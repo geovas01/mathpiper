@@ -47,7 +47,7 @@
                 android:id="@+id/button_configure"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Configure" />
+                android:text="Config" />
 
             <Button
                 android:id="@+id/button_evaluate"
@@ -66,6 +66,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Help" />
+
+            <Button
+                android:id="@+id/button_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hint" />
+
         </TableRow>
 
         <TableRow

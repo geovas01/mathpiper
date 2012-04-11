@@ -5,21 +5,16 @@ import java.io.*;
 import java.util.Map;
 
 import org.mathpiper.interpreters.EvaluationResponse;
-import org.mathpiper.interpreters.Interpreter;
-import org.mathpiper.interpreters.Interpreters;
-import org.mathpiper.interpreters.ResponseListener;
 import org.mathpiper.test.Fold;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
-import android.util.Log;
 import android.view.View;
 import android.view.KeyEvent;
 import android.view.View.OnKeyListener;
@@ -40,8 +35,6 @@ public class MathPiperExerciseActivity extends Activity implements
     private String currentQuestion;
 
     private SharedPreferences preferences;
-
-    private String resultText;
 
     private Map<String, Fold> foldsMap;
 
@@ -199,6 +192,13 @@ public class MathPiperExerciseActivity extends Activity implements
 	    }
 	});
 
+	final Button button_hint = (Button) findViewById(R.id.button_hint);
+	button_hint.setOnClickListener(new View.OnClickListener() {
+	    public void onClick(View view) {
+		hint();
+	    }
+	});
+
 	final Button button_start = (Button) findViewById(R.id.button_start);
 	button_start.setOnClickListener(new View.OnClickListener() {
 	    public void onClick(View view) {
@@ -323,6 +323,24 @@ public class MathPiperExerciseActivity extends Activity implements
 
     }
 
+    private void hint() {
+	EvaluationResponse response = interpreter.evaluate("QuestionHint();");
+
+	String result;
+
+	if (response.isExceptionThrown()) {
+	    result = response.getException().getMessage();
+	} else {
+	    result = response.getResult();
+	}
+
+	String hint = result.replace("\"", "");
+
+	speak(hint);
+
+    }
+
+    
     private void speak(String text) {
 
 	while (tts.isSpeaking()) {
@@ -351,6 +369,11 @@ public class MathPiperExerciseActivity extends Activity implements
 	    speak(currentQuestion);
 
 	    return;
+	} else if (input.equals("*"))
+	{
+	    hint();
+	    
+	    return;
 	}
 
 	EvaluationResponse response = interpreter.evaluate("QuestionCheck("
@@ -375,13 +398,13 @@ public class MathPiperExerciseActivity extends Activity implements
 
 	    questionAsk();
 	} else {
-	    //displayText.setText("Incorrect");
+	    // displayText.setText("Incorrect");
 
 	    speak("incorrect");
 
 	    speak(currentQuestion);
 
-	    //displayText.setText(currentQuestion);
+	    // displayText.setText(currentQuestion);
 	}
     }
 
