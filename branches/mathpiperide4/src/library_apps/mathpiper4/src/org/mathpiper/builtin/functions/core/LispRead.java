@@ -79,4 +79,16 @@ Result: a+b;
 
 *SEE PipeFromFile, PipeFromString, Read, ReadToken, LispForm, LispReadListed
 %/mathpiper_docs
+
+
+
+
+
+
+
+%mathpiper,name="LispRead",subtype="automatic_test"
+
+Verify(PipeFromString("(+ a b)") LispRead(),a+b);
+
+%/mathpiper
 */

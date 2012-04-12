@@ -59,12 +59,14 @@ public class Parser {
     Cons parseList(Environment aEnvironment, int aStackTop) throws Exception {
         String token;
 
-        Cons aResult = null;
-        Cons iter;
+        Cons result = null;
+        Cons iter = null;
+        boolean firstLoop = true;
         if (iListed) {
-            aResult = AtomCons.getInstance(iEnvironment, aStackTop, "List");
-            iter = (aResult.cdr()); //TODO FIXME
+            result = AtomCons.getInstance(iEnvironment, aStackTop, "List");
+            iter = (result.cdr()); //TODO FIXME
         }
+        
         for (;;) {
             //Get token.
             token = iTokenizer.nextToken(iEnvironment, aStackTop, iInput);
@@ -72,14 +74,29 @@ public class Parser {
             if(token.length() <= 0) LispError.throwError(iEnvironment, aStackTop, LispError.INVALID_TOKEN, "Token empty."); //TODO FIXME
             // if token is ")" return result.
             if (token.equals(")")) {
-                return aResult;
+                return result;
             }
             // else parse simple atom with parse, and append it to the
             // results list.
 
-            iter = parseAtom(aEnvironment, aStackTop, token);
-            iter = (iter.cdr()); //TODO FIXME
-        }
+            Cons atomCons = parseAtom(aEnvironment, aStackTop, token);
+            
+            if(!iListed && firstLoop)
+            {
+        	iter = atomCons;
+        	result = iter;
+        	firstLoop = false;
+            }
+            else
+            {
+        	iter.setCdr(atomCons);
+        	
+        	iter = (iter.cdr()); //TODO FIXME
+            }
+            
+            
+        }//end for.
+        
     }
 
 
