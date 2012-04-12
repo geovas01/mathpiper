@@ -193,7 +193,7 @@ TryRandomPoly(5,5,1000);
 
 TryRandomRoots(deg,coefmin,coefmax):=
 [
-  Local(coefs,p,roots,px,mult);
+  Local(coefs,p,roots,px,mult,sqf);
   coefs:=RemoveDuplicates(Table(FloorN(coefmin+Random()*(coefmax-coefmin)),i,1,deg+1,1));
   deg:=Length(coefs)-1;
   mult:=1+Abs(Table(FloorN(coefmin+Random()*(coefmax-coefmin)),i,1,deg+1,1));

@@ -62,7 +62,7 @@ RuleHoldArguments(StandardOperatorsLoad, 0, 1, True)
 
     Bodied("Repeat", 60000);
 
-    Infix("->",600);
+    Infix("->",950);
 
     /* functional operators */
     Infix("~",70);
