@@ -827,7 +827,7 @@ weekComplete  := {};
 ForEach(day,week)
 [   
     //day := week[1];
-    dayEnd := Append(day,{"end","",{0,288,0}});
+    dayEnd := Append(day,{"end","",{0,289,0}});
     dayOpen := {};
     For([indexTime := 1; index := 1;],indexTime <? 288, [index++;])
     [   
@@ -835,7 +835,7 @@ ForEach(day,week)
         timeInc := dayEnd[index][3][3];
         //Echo(indexTime);
         If(indexTime !=? nextTime, dayOpen := Append(dayOpen,{"Open","",{0,indexTime,nextTime-indexTime}}));
-        indexTime := nextTime+timeInc+1;
+        indexTime := nextTime+timeInc;
     ];
     dayComplete :=  Sort(Concat(day,dayOpen),Lambda({x,y},x[3][2]<?y[3][2]));
     weekComplete := Append(weekComplete,dayComplete);
