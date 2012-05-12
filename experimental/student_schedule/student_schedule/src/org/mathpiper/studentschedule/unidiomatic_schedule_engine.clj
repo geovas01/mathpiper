@@ -38,9 +38,9 @@
      (do 
         (doseq [pat l1]
          
-            (if (zz courseNumber)
+            (if (fall2012Schedule courseNumber)
             
-                (doseq [section (zz courseNumber)]
+                (doseq [section (fall2012Schedule courseNumber)]
                    (def l2 (conj l2 (conj pat (vec (cons courseNumber section)))))
                 )
             )
@@ -281,8 +281,8 @@
 </body>
 </html>"))
 
-"Done"
+(println "Done")
 
 
-(spit "/home/tkosan/tmp/student_schedule.html" html)
+(spit "../student_schedule.html" html)
 
