@@ -153,8 +153,6 @@
             (def day (conj day section))
             )
       ))
-    
-    
 
      (def day (vec (sort (fn [x y] (< ((x 2) 1) ((y 2) 1))) day) ))
     
@@ -164,7 +162,7 @@
 )
     
 
-;TableForm(week);
+;(prn week)
 
 
 
@@ -179,7 +177,7 @@
   ;(vec (cons courseNumber section))
     (def dayEnd (conj day [:end :x [0,289,0]] ))
   
-  
+  ;(prn dayEnd)
   
     (def dayOpen [])
     
@@ -187,10 +185,11 @@
     (def index 0)
     (while (< indexTime 288)
     (do   
+      
         (def nextTime (((dayEnd index) 2) 1))
         (def timeInc (((dayEnd index) 2 ) 2))
         
-      
+      (println index indexTime nextTime timeInc dayEnd)
 
         (if (not= indexTime nextTime) (def dayOpen (conj dayOpen [:Open :x [0 indexTime (- nextTime indexTime)]])))
        
