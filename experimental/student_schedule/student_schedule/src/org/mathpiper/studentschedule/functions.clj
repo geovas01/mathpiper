@@ -8,11 +8,13 @@
                   (= (timecode 0) day) ) (class 2)) ) schedule))
 (filter #( query 2r0101000 %) legalSchedules)
 
-(defn query2 [day schedule ]
-(some?
-  (fn [class] (every? 
-                (fn [timecode]
-                  (= (timecode 0) day) ) (class 2)) ) schedule))
+;(defn query2 [day schedule ]
+;(some?
+;  (fn [class] (every? 
+;                (fn [timecode]
+;                  (= (timecode 0) day) ) (class 2)) ) schedule))
+;
+
 (filter #( query2 2r0101000) legalSchedules)
 
 (defn overlap [timecode1 timecode2]
