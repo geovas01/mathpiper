@@ -251,22 +251,27 @@
 
 
   
-  
-
-  
-  
+ 
 
 
 
-;;Create HTML.
-(defn createHtml [schedule] 
+;;Create one HTML schedule table.
+;(spit "../student_schedule.html" (createHtmlScheduleTable (nth legalSchedules 0)))
+;
+(defn createHtmlScheduleTable [schedule] 
   
-  (let [days (addOpenTimeBlocks schedule) accumulator [] ]
+  (def xz -1)
+  (let [days (addOpenTimeBlocks schedule) accumulator [] htmlColors 
+ [["#99CCFF" "Blue(Light)"]
+ ["#F6F6CC" "Beige"]
+ ["#9FCC9F" "Green(Pale)"]
+ ["#C9C9F3" "Quartz"]
+ ["#FF6F60" "Coral"]
+ ["#CCCC60" "Goldenrod"]]
+ ]
   (str
       
-    "
-<html>
-<body>
+"
 <table border=1 width=100%>
 <tr>
 <td nowrap></td>
@@ -292,10 +297,11 @@
         
         (if (= startTime row)
           (do
-                  
-                  (conj accumulator (str "<td align=center rowspan=" duration " >" (if (= courseNumber :Open) (str "<font color=blue>" (name courseNumber) " </font>") (name courseNumber)) " " (if (= sectionNumber :x) "" (name sectionNumber)) "</td>"))
+                  (def xz (inc xz))
+                  (conj accumulator (str "<td align=center " (if (not= courseNumber :Open) (str "BGCOLOR=\"" (first (nth htmlColors (mod xz (count htmlColors)))) "\"")) " rowspan=" duration " >" (if (= courseNumber :Open) (str "<font color=blue>" (name courseNumber) " </font>") (name courseNumber)) " " (if (= sectionNumber :x) "" (name sectionNumber)) "</td>"))
 
-                  )
+                  
+            )
           )
   
      )
@@ -314,8 +320,7 @@
 
  
 "</table>
-</body>
-</html>"    
+"   
     
     (count legalSchedules)(
     )
@@ -329,9 +334,33 @@
 
 
 
-;(spit "../student_schedule.html" (createHtml (nth legalSchedules 0)))
 
 
+
+
+
+;;Create multiple HTML schedule tables on one web page.
+;(spit "../student_schedule.html" (createHtmlScheduleTables (take 3 legalSchedules)))
+;
+(defn createHtmlScheduleTables [schedules]
+(str 
+"<html>
+<body>"
+  
+   
+
+   (apply str (for  [index (range (- (count schedules) 1)) ]
+     (str 
+       
+     "<h2 align=\"center\"> Schedule " (inc index) "</h2>" 
+       
+    (createHtmlScheduleTable (nth schedules index))
+
+"<br /> <br /> <br />")
+))
+    
+"</body>
+</html>" ))
 
 
 
