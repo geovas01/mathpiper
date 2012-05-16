@@ -1,13 +1,26 @@
 
 
+;;Add associate a color with each course.
+(defn addColorsToCourses [schedule]
+  (map conj schedule (cycle [["#99CCFF" "Blue(Light)"]
+ ["#F6F6CC" "Beige"]
+ ["#9FCC9F" "Green(Pale)"]
+ ["#C9C9F3" "Quartz"]
+ ["#FF6F60" "Coral"]
+ ["#CCCC60" "Goldenrod"]])))
+  
+  
+
+
+
 
 ; (defn leastDays [schedule]
-; 
+; scheduleWithColors 
 ;   
 ;   (every?
 ;   (fn [class] (every? 
 ;                 (fn [timecode]
-;                   (= (timecode 0) day) ) (class 2)) ) schedule))
+;                   (= (timecode 0) day) ) (class 2addColorsToCourses)) ) schedule))
 ; 
 ; 
 ; (filter #(query  %) legalSchedules)
@@ -21,7 +34,7 @@
 ;     (take-while
 ;       #(not (zero? %))
 ;       (iterate #(bit-and % (dec %)) n))))
-; 
+; addColorsToCourses
 ; 
 ; ;;Count the number of bits that are set in an integer.
 ; (defn bit-count2 [v]
@@ -76,8 +89,8 @@
 ;        aa))
 ;
 (defn unbundleDaysAndTimes [schedule]
-  (vec (for [[courseName courseSection daysAndTimes] schedule, dayAndTime daysAndTimes]
-  [courseName courseSection dayAndTime])))
+  (vec (for [[courseName courseSection daysAndTimes courseColor] schedule, dayAndTime daysAndTimes]
+  [courseName courseSection dayAndTime courseColor])))
              
              
 
@@ -87,7 +100,6 @@
 ;Unidiomatic implementation.
 ;(def week [])
 ;(doseq [daybit [64 32 16 8 4 2 1]]
-;(do 
 ;    (def day [])
 ;    
 ;    (doseq [section schedulesTimeSlots]
@@ -104,11 +116,15 @@
 ;    
 ;)
 (defn orderIntoDays [schedule]
-  (let [unbundled (unbundleDaysAndTimes schedule)]
+  (let [unbundled (unbundleDaysAndTimes (addColorsToCourses schedule))]
         
     (vec (for [daybit [64 32 16 8 4 2 1]]
         
-      (vec (sort (fn [[course1Name course1Section day1Time] [course2Name course2Section day2Time]] (< (day1Time 1) (day2Time 1))) (filter (fn [[courseName courseSection dayTime]] (not= (bit-and (dayTime 0) daybit) 0) ) unbundled)) )
+      (vec (sort 
+             (fn [[course1Name course1Section day1Time] [course2Name course2Section day2Time]] 
+               (< (day1Time 1) (day2Time 1))) 
+             (filter (fn [[courseName courseSection dayTime]]                                  
+                       (not= (bit-and (dayTime 0) daybit) 0) ) unbundled)) )
 
         ))))
 
@@ -150,35 +166,6 @@
 ; ))
 ; 
 ; 
-; ;Before opens are added.
-; [[:MATH1300 :01 [80 120 22]] [:ARTH1101 :02 [80 144 15]] [:end :x [0 289 0]]]
-; [[:ETEM1110 :01 [40 96 22]] [:ETCO1120 :51 [32 204 58]] [:end :x [0 289 0]]]
-; [[:MATH1300 :01 [80 120 22]] [:ARTH1101 :02 [80 144 15]] [:end :x [0 289 0]]]
-; [[:ETEM1110 :01 [40 96 22]] [:end :x [0 289 0]]]
-; [[:MATH1300 :01 [4 120 10]] [:end :x [0 289 0]]]
-; [[:end :x [0 289 0]]]
-; [[:end :x [0 289 0]]]
-; 
-; 
-; ;After opens are added.
-; [
-; [[:Open :x [0 0 120]] [:MATH1300 :01 [80 120 22]] [:Open :x [0 142 2]] [:ARTH1101 :02 [80 144 15]] [:Open :x [0 159 130]]]
-; [[:Open :x [0 0 96]] [:ETEM1110 :01 [40 96 22]] [:Open :x [0 118 86]] [:ETCO1120 :51 [32 204 58]] [:Open :x [0 262 27]]]
-; [[:Open :x [0 0 120]] [:MATH1300 :01 [80 120 22]] [:Open :x [0 142 2]] [:ARTH1101 :02 [80 144 15]] [:Open :x [0 159 130]]]
-; [[:Open :x [0 0 96]] [:ETEM1110 :01 [40 96 22]] [:Open :x [0 118 171]]]
-; [[:Open :x [0 0 120]] [:MATH1300 :01 [4 120 10]] [:Open :x [0 130 159]]] 
-; [[:Open :x [0 0 289]]] 
-; [[:Open :x [0 0 289]]]
-; ]
-; 
-; [
-; [[:Open :x [0 0 120]] [:MATH1300 :01 [80 120 22]] [:Open :x [0 142 2]] [:ARTH1101 :02 [80 144 15]] [:Open :x [0 159 130]]]
-; [[:Open :x [0 0 96]] [:ETEM1110 :01 [40 96 22]] [:Open :x [0 118 86]] [:ETCO1120 :51 [32 204 58]] [:Open :x [0 262 27]]]
-; [[:Open :x [0 0 120]] [:MATH1300 :01 [80 120 22]] [:Open :x [0 142 2]] [:ARTH1101 :02 [80 144 15]] [:Open :x [0 159 130]]]
-; [[:Open :x [0 0 96]] [:ETEM1110 :01 [40 96 22]] [:Open :x [0 118 171]]] 
-; [[:Open :x [0 0 120]] [:MATH1300 :01 [4 120 10]][:Open :x [0 130 159]]] 
-; [[:Open :x [0 0 289]]] 
-; [[:Open :x [0 0 289]]]]
 ; 
 ;weekComplete
 ;64 32 16  8  4 2 1
@@ -222,9 +209,9 @@
         ;(. (System/out) (println (str (count dayEnd2) dayEnd2 )))
           
         (if (>= (+ nextTime timeInc) 288)
-          (conj dayOpen [:Open :x [0 indexTime (- nextTime indexTime)]])
+          (conj dayOpen [:Open :x [0 indexTime (- nextTime indexTime)] ["#FFFFFF" "White"]])
           (recur (inc index) (+ nextTime timeInc) 
-             (if (not= indexTime nextTime) (conj dayOpen [:Open :x [0 indexTime (- nextTime indexTime)]]) ["HHH"]);todo;tk;this if function needs to be studied further.
+             (if (not= indexTime nextTime) (conj dayOpen [:Open :x [0 indexTime (- nextTime indexTime)] ["#FFFFFF" "White"]]) ["HHH"]);todo;tk;this if function needs to be studied further.
             )            
          )
         )
@@ -250,6 +237,7 @@
 
 
 
+
   
  
 
@@ -260,26 +248,19 @@
 ;
 (defn createHtmlScheduleTable [schedule] 
   
-  (def xz -1)
-  (let [days (addOpenTimeBlocks schedule) accumulator [] htmlColors 
- [["#99CCFF" "Blue(Light)"]
- ["#F6F6CC" "Beige"]
- ["#9FCC9F" "Green(Pale)"]
- ["#C9C9F3" "Quartz"]
- ["#FF6F60" "Coral"]
- ["#CCCC60" "Goldenrod"]]
+  (let [days (addOpenTimeBlocks schedule) accumulator [] 
  ]
   (str
       
 "
-<table border=1 width=100%>
+<table border=1 width=90%>
 <tr>
-<td nowrap></td>
-<th width=16%>Monday</th>
-<th width=16%>Tuesday</th>
-<th width=16%>Wednesday</th>
-<th width=16%>Thursday</th>
-<th width=16%>Friday</th>
+<td BGCOLOR=#EEEEEE align=center nowrap><b>SSU</b></td>
+<th BGCOLOR=#EEEEEE width=18%>Monday</th>
+<th BGCOLOR=#EEEEEE width=18%>Tuesday</th>
+<th BGCOLOR=#EEEEEE width=18%>Wednesday</th>
+<th BGCOLOR=#EEEEEE width=18%>Thursday</th>
+<th BGCOLOR=#EEEEEE width=18%>Friday</th>
 </tr>
 "  
       
@@ -287,18 +268,21 @@
       (apply concat
              
         
-        (conj accumulator (str "<tr> " (if (= (mod row 6) 0) (str "<th rowspan= 6 nowrap>" row "</th>"))))
+        (conj accumulator (str "<tr> " (if (= (mod row 12) 0) (str "<th rowspan=12 BGCOLOR=#EEEEEE nowrap>" row "</th>"))))
         
         
-    (apply str (apply concat (for [ day days, [courseNumber sectionNumber [daysCode startTime duration]] day]
+    (apply str (apply concat (for [ day days, [courseNumber sectionNumber [daysCode startTime duration] backgroundColor] day]
       (apply concat
              
                 
         
         (if (= startTime row)
           (do
-                  (def xz (inc xz))
-                  (conj accumulator (str "<td align=center " (if (not= courseNumber :Open) (str "BGCOLOR=\"" (first (nth htmlColors (mod xz (count htmlColors)))) "\"")) " rowspan=" duration " >" (if (= courseNumber :Open) (str "<font color=blue>" (name courseNumber) " </font>") (name courseNumber)) " " (if (= sectionNumber :x) "" (name sectionNumber)) "</td>"))
+                  (conj accumulator (str "<td align=center " 
+                                         (str "BGCOLOR=\"" (first backgroundColor) "\"") " rowspan=" duration " >" 
+                                         (if (= courseNumber :Open) (str "<font color=black>" (name courseNumber) " </font>") 
+                                           (name courseNumber)) " " (if (= sectionNumber :x) "" 
+                                                                      (name sectionNumber)) " <br />1:00-3:00</td>"))
 
                   
             )
@@ -340,7 +324,7 @@
 
 
 ;;Create multiple HTML schedule tables on one web page.
-;(spit "../student_schedule.html" (createHtmlScheduleTables (take 3 legalSchedules)))
+;(spit "../student_schedule.html" (createHtmlScheduleTables (take 10 legalSchedules)))
 ;
 (defn createHtmlScheduleTables [schedules]
 (str 
@@ -349,10 +333,10 @@
   
    
 
-   (apply str (for  [index (range (- (count schedules) 1)) ]
+   (apply str (for  [index (range (count schedules)) ]
      (str 
        
-     "<h2 align=\"center\"> Schedule " (inc index) "</h2>" 
+     "<hr /> <h2 align=\"center\"> Schedule " (inc index) "</h2> " 
        
     (createHtmlScheduleTable (nth schedules index))
 
