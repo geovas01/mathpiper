@@ -297,7 +297,7 @@
                                          (str "BGCOLOR=\"" (first backgroundColor) "\"") " rowspan=" (-  (+ duration startTime) earliestCorrected) " >" 
                                          (if (= courseNumber :Open) (str "<font color=black>" (name courseNumber) " </font>") 
                                            (name courseNumber)) " " (if (= sectionNumber :x) "" 
-                                                                      (name sectionNumber)) " <br />" (time-in-blocks-to-time startTime) "-" (time-in-blocks-to-time (+ startTime duration))  "</td>"))
+                                                                      (name sectionNumber)) " <br />" (time-in-blocks-to-time earliestCorrected) "-" (time-in-blocks-to-time (+ startTime duration))  "</td>"))
 
                   
           
@@ -307,10 +307,10 @@
         (if (= startTime row)
           (do
                   (conj accumulator (str "<td align=center " 
-                                         (str "BGCOLOR=\"" (first backgroundColor) "\"") " rowspan=" duration " >" 
+                                         (str "BGCOLOR=\"" (first backgroundColor) "\"") " rowspan=" (if (> duration latestCorrected) (- latestCorrected startTime) duration) " >" 
                                          (if (= courseNumber :Open) (str "<font color=black>" (name courseNumber) " </font>") 
                                            (name courseNumber)) " " (if (= sectionNumber :x) "" 
-                                                                      (name sectionNumber)) " <br />" (time-in-blocks-to-time startTime) "-" (time-in-blocks-to-time (+ startTime duration))  "</td>"))
+                                                                      (name sectionNumber)) " <br />" (time-in-blocks-to-time startTime) "-" (time-in-blocks-to-time (+ startTime (if (> (+ startTime duration) latestCorrected) (- latestCorrected startTime) duration)))  "</td>"))
 
                   
             )
