@@ -17,6 +17,7 @@
         minute (mod (* timeinblock 5) 60)
        ]
   (cond
+    (= hour 0) "12:00AM"
     (>= hour 13) (str (- hour 12) ":" (if (< minute 10) (str "0" minute) minute) "PM" )
     (<  hour 13) (str (if (= hour 0) (str "12" ) hour) ":" (if (< minute 10) (str "0" minute) minute) (if (= hour 12) "PM" "AM")  )
     )  )
@@ -253,14 +254,20 @@
  
 
 
-
+#_(unbundleDaysAndTimes (nth legalSchedules 0))
 ;;Create one HTML schedule table.
-;(spit "../student_schedule.html" (createHtmlScheduleTable (nth legalSchedules 0)))
+#_(spit "../student_schedule.html" (createHtmlScheduleTable (nth legalSchedules 1000)))
 ;
 (defn createHtmlScheduleTable [schedule] 
   
   (let [days (addOpenTimeBlocks schedule) accumulator [] 
- ]
+        earliest (reduce min (map (fn [class] (let [[courseName courseSection dayAndTime courseColor]  class, [dayCode startTime duration] dayAndTime] startTime)) (unbundleDaysAndTimes schedule)))
+        latest   (reduce max (map (fn [class] (let [[courseName courseSection dayAndTime courseColor]  class, [dayCode startTime duration] dayAndTime] (+ startTime duration))) (unbundleDaysAndTimes schedule))) 
+        earliestCorrected (- earliest (mod earliest 12) )
+        latestCorrected   (+ latest (- 12 (mod latest 12)) )
+       ]
+     #_(println (time-in-blocks-to-time earliest) " " (time-in-blocks-to-time latest) )
+     #_(println (time-in-blocks-to-time earliestCorrected) " " (time-in-blocks-to-time latestCorrected) )
   (str
       
 "
@@ -275,17 +282,27 @@
 </tr>
 "  
       
-    (apply str (apply concat (for [row (range 96 288)]
+    (apply str (apply concat (for [row (range earliestCorrected latestCorrected)]
       (apply concat
              
         
         (conj accumulator (str "<tr> " (if (= (mod row 12) 0) (str "<th rowspan=12 BGCOLOR=#EEEEEE nowrap>" (time-in-blocks-to-time row) "</th>"))))
         
         
-    (apply str (apply concat (for [ day days, [courseNumber sectionNumber [daysCode startTime duration] backgroundColor] day]
+    (apply str (apply concat (for [ day (take 5 days), [courseNumber sectionNumber [daysCode startTime duration] backgroundColor] day]
       (apply concat
              
-                
+        (if (and (= row earliestCorrected) (< startTime earliestCorrected) (> (+ startTime duration) earliestCorrected)) #_(println day " " startTime " " (+ startTime duration))
+          (conj accumulator (str "<td align=center " 
+                                         (str "BGCOLOR=\"" (first backgroundColor) "\"") " rowspan=" (-  (+ duration startTime) earliestCorrected) " >" 
+                                         (if (= courseNumber :Open) (str "<font color=black>" (name courseNumber) " </font>") 
+                                           (name courseNumber)) " " (if (= sectionNumber :x) "" 
+                                                                      (name sectionNumber)) " <br />" (time-in-blocks-to-time startTime) "-" (time-in-blocks-to-time (+ startTime duration))  "</td>"))
+
+                  
+          
+          
+          )       
         
         (if (= startTime row)
           (do
@@ -317,15 +334,15 @@
 "</table>
 "   
     
-    (count legalSchedules)(
-    )
+ ;   (count legalSchedules)(
+ ;  )
     
     
     
     
     )
   
-  ))
+ ))
 
 
 
@@ -337,6 +354,9 @@
 ;;Create multiple HTML schedule tables on one web page.
 ;(spit "../student_schedule.html" (createHtmlScheduleTables (take 10 legalSchedules)))
 ;
+#_(spit "../student_schedule.html"(createHtmlScheduleTables (for [e (range 50) ] (nth legalSchedules (rand-int (count legalSchedules)) ) )) )
+
+
 (defn createHtmlScheduleTables [schedules]
 (str 
 "<html>
