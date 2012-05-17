@@ -15,7 +15,7 @@
 ;                  (= (timecode 0) day) ) (class 2)) ) schedule))
 ;
 
-(filter #( query2 2r0101000) legalSchedules)
+;(filter #( query2 2r0101000) legalSchedules)
 
 (defn overlap [timecode1 timecode2]
   (let [[daycode1 starttime1 duration1] timecode1
@@ -67,10 +67,37 @@
    (overlapingratio [timeofdaycode] scheduletimecodes) )
 )
 
-(defn sortbytime [schedules timeofday]
-  (sort (fn [schedule1 schedule2]
-          (> (timeofdayratio schedule1 timeofday) (timeofdayratio schedule2 timeofday))
-          ) schedules))
+
+
+
+
+(defn time-in-blocks-to-time
+  [timeinblock]
+  (let [hour (int  (Math/floor (/ timeinblock 12)) )
+        minute (mod (* timeinblock 5) 60)
+       ]
+  (cond
+    (>= hour 13) (str (- hour 12) ":" (if (< minute 10) (str "0" minute) minute) "PM" )
+    (<  hour 13) (str (if (= hour 0) (str "12" ) hour) ":" (if (< minute 10) (str "0" minute) minute) (if (= hour 12) "PM" "AM")  )
+    )  )
+)
+
+
+
+  
+; test for time-in-blocks-to-time
+(for [y  (for [x (range 289)]
+  (time-in-blocks-to-time x)) ]
+  (println y ))
+  
+  
+  
+
+;; this code is not efficent
+;;(defn sortbytime [schedules timeofday]
+;;  (sort (fn [schedule1 schedule2]
+;;          (> (timeofdayratio schedule1 timeofday) (timeofdayratio schedule2 timeofday))
+;;          ) schedules))
 
 ;;(def zzz (sortbytime legalSchedules :morning))
 ;;(def zzz2(sortbytime legalSchedules :afternoon))
@@ -78,5 +105,7 @@
 ;;(/ (apply + (map #(timeofdayratio % :morning) legalSchedules)) (count legalSchedules))
 ;;(/ (apply + (map #(timeofdayratio % :afternoon) legalSchedules)) (count legalSchedules))
 ;;(/ (apply + (map #(timeofdayratio % :evening) legalSchedules)) (count legalSchedules))
+
+
 
 

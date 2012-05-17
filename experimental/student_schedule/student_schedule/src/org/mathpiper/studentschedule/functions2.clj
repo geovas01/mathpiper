@@ -9,7 +9,18 @@
  ["#FF6F60" "Coral"]
  ["#CCCC60" "Goldenrod"]])))
   
-  
+
+
+(defn time-in-blocks-to-time
+  [timeinblock]
+  (let [hour (int  (Math/floor (/ timeinblock 12)) )
+        minute (mod (* timeinblock 5) 60)
+       ]
+  (cond
+    (>= hour 13) (str (- hour 12) ":" (if (< minute 10) (str "0" minute) minute) "PM" )
+    (<  hour 13) (str (if (= hour 0) (str "12" ) hour) ":" (if (< minute 10) (str "0" minute) minute) (if (= hour 12) "PM" "AM")  )
+    )  )
+)
 
 
 
@@ -183,7 +194,7 @@
     (vec (for [day week]
       (do
         
-        (let [dayEnd2 (conj day [:end :x [0,289,0]]) dayOpenFinal 
+        (let [dayEnd2 (conj day [:end :x [0,288,0]]) dayOpenFinal 
                      
           ;(println (count dayEnd2) dayEnd2 (dayEnd2 1))
           
@@ -207,7 +218,7 @@
         ;  (recur (inc index) 3 dayOpen))
           
         ;(. (System/out) (println (str (count dayEnd2) dayEnd2 )))
-          
+        
         (if (>= (+ nextTime timeInc) 288)
           (conj dayOpen [:Open :x [0 indexTime (- nextTime indexTime)] ["#FFFFFF" "White"]])
           (recur (inc index) (+ nextTime timeInc) 
@@ -268,7 +279,7 @@
       (apply concat
              
         
-        (conj accumulator (str "<tr> " (if (= (mod row 12) 0) (str "<th rowspan=12 BGCOLOR=#EEEEEE nowrap>" row "</th>"))))
+        (conj accumulator (str "<tr> " (if (= (mod row 12) 0) (str "<th rowspan=12 BGCOLOR=#EEEEEE nowrap>" (time-in-blocks-to-time row) "</th>"))))
         
         
     (apply str (apply concat (for [ day days, [courseNumber sectionNumber [daysCode startTime duration] backgroundColor] day]
@@ -282,7 +293,7 @@
                                          (str "BGCOLOR=\"" (first backgroundColor) "\"") " rowspan=" duration " >" 
                                          (if (= courseNumber :Open) (str "<font color=black>" (name courseNumber) " </font>") 
                                            (name courseNumber)) " " (if (= sectionNumber :x) "" 
-                                                                      (name sectionNumber)) " <br />1:00-3:00</td>"))
+                                                                      (name sectionNumber)) " <br />" (time-in-blocks-to-time startTime) "-" (time-in-blocks-to-time (+ startTime duration))  "</td>"))
 
                   
             )
