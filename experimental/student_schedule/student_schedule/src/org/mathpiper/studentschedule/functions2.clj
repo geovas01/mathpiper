@@ -365,9 +365,34 @@
    
 
    (apply str (for  [index (range (count schedules)) ]
+     
+       
+                
      (str 
        
-     "<hr /> <h2 align=\"center\"> Schedule " (inc index) "</h2> " 
+       "<hr /> <h2 align=\"center\"> Schedule " (inc index) "</h2> \n" 
+       
+"
+<table border=1  align=\"center\">
+<tr>
+<td BGCOLOR=#EEEEEE align=center nowrap><b>#</b></td>
+<th BGCOLOR=#EEEEEE >Course</th>
+<th BGCOLOR=#EEEEEE >Section</th>
+</tr>
+"  
+             
+               (apply str(for [index2 (range (count (nth schedules index))) ]
+                           
+                           (let [[courseName courseSection] (nth (nth schedules index) index2)]
+                 (str "<tr> <td>" (inc index2) "</td>" "<td>" (name courseName) "</td> <td align=center>" (name courseSection) "</td> </tr> ")
+                 ))
+               )
+                 
+               
+       "</table> <br />"
+       
+                   
+       
        
     (createHtmlScheduleTable (nth schedules index))
 
