@@ -271,9 +271,9 @@
   (str
       
 "
-<table border=1 width=90%>
+<table border=1 cellpadding="4" width=90%>
 <tr>
-<td BGCOLOR=#EEEEEE align=center nowrap><b>SSU</b></td>
+<td BGCOLOR=#EEEEEE align=center nowrap><b>Time</b></td>
 <th BGCOLOR=#EEEEEE width=18%>Monday</th>
 <th BGCOLOR=#EEEEEE width=18%>Tuesday</th>
 <th BGCOLOR=#EEEEEE width=18%>Wednesday</th>
@@ -295,9 +295,9 @@
         (if (and (= row earliestCorrected) (< startTime earliestCorrected) (> (+ startTime duration) earliestCorrected)) #_(println day " " startTime " " (+ startTime duration))
           (conj accumulator (str "<td align=center " 
                                          (str "BGCOLOR=\"" (first backgroundColor) "\"") " rowspan=" (-  (+ duration startTime) earliestCorrected) " >" 
-                                         (if (= courseNumber :Open) (str "<font color=black>" (name courseNumber) " </font>") 
+                                          (if (= courseNumber :Open) "" 
                                            (name courseNumber)) " " (if (= sectionNumber :x) "" 
-                                                                      (name sectionNumber)) " <br />" (time-in-blocks-to-time earliestCorrected) "-" (time-in-blocks-to-time (+ startTime duration))  "</td>"))
+                                                                      (str (name sectionNumber) " <br />") ) (time-in-blocks-to-time earliestCorrected) "-" (time-in-blocks-to-time (+ startTime duration))  "</td>"))
 
                   
           
@@ -308,9 +308,9 @@
           (do
                   (conj accumulator (str "<td align=center " 
                                          (str "BGCOLOR=\"" (first backgroundColor) "\"") " rowspan=" (if (> duration latestCorrected) (- latestCorrected startTime) duration) " >" 
-                                         (if (= courseNumber :Open) (str "<font color=black>" (name courseNumber) " </font>") 
-                                           (name courseNumber)) " " (if (= sectionNumber :x) "" 
-                                                                      (name sectionNumber)) " <br />" (time-in-blocks-to-time startTime) "-" (time-in-blocks-to-time (+ startTime (if (> (+ startTime duration) latestCorrected) (- latestCorrected startTime) duration)))  "</td>"))
+                                         (if (= courseNumber :Open) "" 
+                                          (name courseNumber)) " " (if (= sectionNumber :x) "" 
+                                                                      (str (name sectionNumber) " <br />") )  (time-in-blocks-to-time startTime) "-" (time-in-blocks-to-time (+ startTime (if (> (+ startTime duration) latestCorrected) (- latestCorrected startTime) duration)))  "</td>"))
 
                   
             )
@@ -373,7 +373,7 @@
        "<hr /> <h2 align=\"center\"> Schedule " (inc index) "</h2> \n" 
        
 "
-<table border=1  align=\"center\">
+<table border=1  cellpadding=3 align=\"center\">
 <tr>
 <td BGCOLOR=#EEEEEE align=center nowrap><b>#</b></td>
 <th BGCOLOR=#EEEEEE >Course</th>
