@@ -1,12 +1,12 @@
 
 
 
-(defn query [day schedule ]
+#_(defn query [day schedule ]
 (every?
   (fn [class] (every? 
                 (fn [timecode]
                   (= (timecode 0) day) ) (class 2)) ) schedule))
-(filter #( query 2r0101000 %) legalSchedules)
+#_(filter #( query 2r0101000 %) legalSchedules)
 
 ;(defn query2 [day schedule ]
 ;(some?
@@ -17,6 +17,8 @@
 
 ;(filter #( query2 2r0101000) legalSchedules)
 
+
+;overlap takes two timecodes and finds their overlap
 (defn overlap [timecode1 timecode2]
   (let [[daycode1 starttime1 duration1] timecode1
         [daycode2 starttime2 duration2] timecode2
@@ -38,12 +40,18 @@
 
 ;;possibleCourses
 
+;countSectionPatterns counts the number of schedules that con be made from
+;the given courses
 (defn countSectionPatterns [possible]
   (apply + (map (fn [courselist]
          (apply * (map 
            #(count (% fall2012Schedule)) courselist) )) possible)) 
 )
 
+
+
+;overlapingratio takes two sequences of timecodes and finds the ratio of the
+;their overlap and the sum of the durations of the secound sequence of timecodes.
 (defn overlapingratio [timecodes1 timecodes2]
   (/ (apply + (map 
    (fn [timecode1] (apply + (map (fn
@@ -57,6 +65,9 @@
 )
 
 
+
+;finds the ratio of classes that fall into timeofday (morning afternoon or eveninig)
+;and intorpolates ???.
 (defn timeofdayratio [schedule timeofday]
   (let [ timeofdaycode (cond (= :morning timeofday) [127 0 144]
          (= :afternoon timeofday) [127 144 60]
@@ -71,6 +82,9 @@
 
 
 
+
+;takes times in the form of number of five minute blocks from midnight and turns them into 
+;normal time/
 (defn time-in-blocks-to-time
   [timeinblock]
   (let [hour (int  (Math/floor (/ timeinblock 12)) )
@@ -82,8 +96,44 @@
     )  )
 )
 
+;gives signed number which is the diffrence bettween the opitmum time and the start time, middle time, end time or any
+;time that is within the duration of the timecode
+(defn distancefromoptimum [timecode optimumtimecode measuremethod]
+  ( if (and (>= measuremethod  0) (<=  measuremethod 1)) 
+        
+          (let  [num measuremethod
+                 [daycode1 starttime1 duration1] timecode
+                 [daycode2 starttime2 duration2] optimumtimecode
+                 ] (if (not (= (bit-and daycode1 daycode2) 0)) (- (+ starttime1 (* duration1 num)) starttime2 0.0) 0.0) ) ))
+
+;weight function for distancefromoptimumratio
+(defn linearweight [diff option] (- 1 (/ (Math/abs diff) 288)))
+
+#_(defn quadweight [diff option] (let [
+                                     a option
+                                     b (- (+ (* a 288) (/ 1 288)))
+                                     c 1
+                                     output (+ (* a (Math/pow diff 2)) (* b diff) c)
+                                     ] output))
+
+;takes a weight function that is 1 when distancefromoptimum is 0 and 0 when distancefromoptimum is +/-288. The weight
+;function must be decreasing in the +/- 288 directions.
+(defn distancefromoptimumratio [timecode optimumtimecode measuremethod weightfn option]
+  (weightfn (distancefromoptimum timecode optimumtimecode measuremethod) option)  )
 
 
+(defn distance-from-optimum-linear-ratio [timecode optimumtimecode]
+  (distancefromoptimumratio timecode optimumtimecode 0 linearweight nil))
+
+(defn spread-from-optimum-ratio [optimum-timecode time-codes weight]
+  (* 1.0 weight (/ (apply + (map #(distance-from-optimum-linear-ratio % optimum-timecode) time-codes)) (count time-codes)))
+  
+  
+  )
+
+
+#_(defn distancefromoptimumquadratio [timecode optimumtime]
+  (distancefromoptimumratio timecode optimumtime 0 linearweight nil))
   
 ; test for time-in-blocks-to-time
 (for [y  (for [x (range 289)]
@@ -108,4 +158,42 @@
 
 
 
+
+
+
+
+
+
+
+(defn time-of-day-ratio-corrected [schedule timeofday]
+  (let [ timeofdaycode (cond (= :morning timeofday) [127 0 144]
+         (= :afternoon timeofday) [127 144 60]
+         (= :evening timeofday) [127 204 84]
+         )
+        scheduletimecodes (reduce concat (map #(% 2) schedule))
+        overlaprate (overlapingratio [timeofdaycode] scheduletimecodes)
+        spread (spread-from-optimum-ratio timeofdaycode scheduletimecodes 0.3)
+        ]
+    (/ (+ overlaprate spread) 1.3)
+    
+    )
+)
+
+
+#_(do (def x 3000) (time-of-day-ratio-corrected (nth legalSchedules x) :evening)
+    (spit "../student_schedule.html" (createHtmlScheduleTable (nth legalSchedules x)))
+)
+
+
+(defn sortbytime2 [schedules timeofday]
+  (sort (fn [schedule1 schedule2]
+          (> (time-of-day-ratio-corrected schedule1 timeofday) (time-of-day-ratio-corrected schedule2 timeofday))
+          ) schedules))
+
+
+
+;;(def zzz12 (sortbytime2 legalSchedules :morning))
+;;(def zzz22 (sortbytime2 legalSchedules :afternoon))
+#_(def zzz32 (sortbytime2 legalSchedules :evening))
+#_(spit "../student_schedule.html" (createHtmlScheduleTable (nth zzz32 0)))
 
