@@ -358,6 +358,7 @@
 
 
 (defn createHtmlScheduleTables [schedules]
+  
 (str 
 "<html>
 <body>"
@@ -383,9 +384,11 @@
              
                (apply str(for [index2 (range (count (nth schedules index))) ]
                            
-                           (let [[courseName courseSection] (nth (nth schedules index) index2)]
-                 (str "<tr> <td>" (inc index2) "</td>" "<td>" (name courseName) "</td> <td align=center>" (name courseSection) "</td> </tr> ")
-                 ))
+                           (let [[courseName courseSection _ backgroundColor]  (nth (addColorsToCourses (nth schedules index)) index2)]
+                  (do
+                    (prn (nth (nth schedules index) index2))
+                 (str "<tr> <td>" (inc index2) "</td>" "<td " (str "BGCOLOR=\"" (first backgroundColor) "\"") ">" (name courseName) "</td> <td align=center>" (name courseSection) "</td> </tr> ")
+                 )))
                )
                  
                
