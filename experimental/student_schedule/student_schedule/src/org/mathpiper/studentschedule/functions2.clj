@@ -296,7 +296,7 @@
           (conj accumulator (str "<td align=center " 
                                          (str "BGCOLOR=\"" (first backgroundColor) "\"") " rowspan=" (-  (+ duration startTime) earliestCorrected) " >" 
                                           (if (= courseNumber :Open) "" 
-                                           (name courseNumber)) " " (if (= sectionNumber :x) "" 
+                                           (name courseNumber)) (if (= courseNumber :Open) "" "-") (if (= sectionNumber :x) "" 
                                                                       (str (name sectionNumber) " <br />") ) (time-in-blocks-to-time earliestCorrected) "-" (time-in-blocks-to-time (+ startTime duration))  "</td>"))
 
                   
@@ -309,7 +309,7 @@
                   (conj accumulator (str "<td align=center " 
                                          (str "BGCOLOR=\"" (first backgroundColor) "\"") " rowspan=" (if (> duration latestCorrected) (- latestCorrected startTime) duration) " >" 
                                          (if (= courseNumber :Open) "" 
-                                          (name courseNumber)) " " (if (= sectionNumber :x) "" 
+                                          (name courseNumber)) (if (= courseNumber :Open) "" "-") (if (= sectionNumber :x) "" 
                                                                       (str (name sectionNumber) " <br />") )  (time-in-blocks-to-time startTime) "-" (time-in-blocks-to-time (+ startTime (if (> (+ startTime duration) latestCorrected) (- latestCorrected startTime) duration)))  "</td>"))
 
                   
@@ -361,6 +361,9 @@
   
 (str 
 "<html>
+<head>
+<title>Student schedule</title>
+</head>
 <body>"
   
    
@@ -379,16 +382,19 @@
 <td BGCOLOR=#EEEEEE align=center nowrap><b>#</b></td>
 <th BGCOLOR=#EEEEEE >Course</th>
 <th BGCOLOR=#EEEEEE >Section</th>
+<th BGCOLOR=#EEEEEE >Name</th>
+<th BGCOLOR=#EEEEEE >Faculty</th>
+<th BGCOLOR=#EEEEEE >Capacity</th>
+<th BGCOLOR=#EEEEEE >Credits</th>
 </tr>
 "  
              
                (apply str(for [index2 (range (count (nth schedules index))) ]
                            
-                           (let [[courseName courseSection _ backgroundColor]  (nth (addColorsToCourses (nth schedules index)) index2)]
-                  (do
-                    (prn (nth (nth schedules index) index2))
+                  (let [[courseName courseSection _ backgroundColor]  (nth (addColorsToCourses (nth schedules index)) index2)]
+                  
                  (str "<tr> <td>" (inc index2) "</td>" "<td " (str "BGCOLOR=\"" (first backgroundColor) "\"") ">" (name courseName) "</td> <td align=center>" (name courseSection) "</td> </tr> ")
-                 )))
+                 ))
                )
                  
                

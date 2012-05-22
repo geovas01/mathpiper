@@ -6,16 +6,20 @@ import java.util.List;
 
 public class Course{
     
-    private List<Section> sections = new ArrayList<Section>();
-    
     private String courseNumber = "";
     
+    private List<Section> sections = new ArrayList<Section>();
     
-    public Course(String courseNumber)
+    private String name;
+    
+    
+    public Course(String courseNumber, String courseName)
     {
 	super();
 	
 	this.courseNumber = courseNumber;
+	
+	this.name = courseName;
     }
     
     
@@ -39,6 +43,16 @@ public class Course{
 
     public void setCourseNumber(String courseNumber) {
         this.courseNumber = courseNumber;
+    }
+
+
+    public String getName() {
+        return name;
+    }
+
+
+    public void setName(String name) {
+        this.name = name;
     }
     
     

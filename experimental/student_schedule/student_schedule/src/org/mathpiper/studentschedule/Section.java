@@ -8,7 +8,7 @@ public class Section{
 
     private String courseNumber;
     private String courseSection;
-    private String courseDescription;
+    private String courseName;//todo:tk:it would be more efficient to only have this field in Course.
     private String instructors;
     private int enrolled;
     private int capacity;
@@ -43,11 +43,11 @@ public class Section{
     public void setCourseSection(String courseSection) {
         this.courseSection = courseSection;
     }
-    public String getCourseDescription() {
-        return courseDescription;
+    public String getCourseName() {
+        return courseName;
     }
-    public void setCourseDescription(String courseDescription) {
-        this.courseDescription = courseDescription;
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
     public String getInstructors() {
         return instructors;
@@ -92,7 +92,7 @@ public class Section{
 	sb.append(this.courseSection);
 	sb.append(" ");
 	
-	sb.append(this.courseDescription);
+	sb.append(this.courseName);
 	sb.append(" ");
 	
 	sb.append(this.instructors);
