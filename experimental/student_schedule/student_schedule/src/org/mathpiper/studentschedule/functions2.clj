@@ -1,4 +1,6 @@
 
+(use 'clojure.math.combinatorics)
+
 
 ;;Add associate a color with each course.
 (defn addColorsToCourses [schedule]
