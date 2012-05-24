@@ -4,7 +4,7 @@
 
 (def possibleCourses [[]])
 (def possibleCoursesRevised [])
-
+ 
 
 (doseq [courseList  courses]
   (do
