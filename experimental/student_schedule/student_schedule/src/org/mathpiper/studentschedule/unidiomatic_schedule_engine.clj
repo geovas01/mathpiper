@@ -1,4 +1,5 @@
 
+( time (do
 ;;Determine possible course combinations. [:ENGL1101] [:MATH1010]
 (def courses [[:ETCO1120] [:ETEM1110] [:MATH1300] [:ENGL1101] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 :PHIL3300 :THAR1000]])
 
@@ -55,6 +56,7 @@
 )
 
 
+ 
 
 
 ;;Legal schedules.
@@ -114,7 +116,8 @@
 
 
 (def legalSchedules (remove (set illegalSchedules) l0))
-
+;;for time and do
+) )
 
 ;This code causes a stack overflow.
 ;(def legalSchedules l0)

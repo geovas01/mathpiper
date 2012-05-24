@@ -1,53 +1,114 @@
-(use 'clojure.math.combinatorics)
+#_(time (def sched (tabulat-schedules [[:ETCO1120] [:ETEM1110] [:MATH1300] [:ENGL1101] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 :PHIL3300 :THAR1000]]))
+)
+
+#_(time (tabulat-schedules [[:ETCO1120] [:ETEM1110] [:MATH1300] [:ENGL1101] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 :PHIL3300 :THAR1000]]))
+
+#_(combine (map #(get-sections % ) [:ETCO1120 :ETEM1110 :MATH1300 :ENGL1101 :ENGL2275]))
+
+#_(get-sections :MATH1300)
+
+
+#_(comment        
+  
+  (map combine (:ETCO1120 :ETEM1110 :MATH1300 :ENGL1101 :ENGL2275))  
+
+(declare seq-of-seqs)
+
+(defmacro combine [seq-of-seqs]
+  
+     (list 'for 
+      (vec (reduce concat (map (fn [x y] (list (symbol (str "var" y)) x )) (eval seq-of-seqs) (range   (count (eval seq-of-seqs) ) ))))
+      (vec  (for [var (map (fn [x] (symbol (str "var" x))) (range   (count (eval seq-of-seqs))))] var) ))
+)
+
+(defn stuff [a] (combine ))
+
+(combine aa) 
+       )
+#_(use 'clojure.math.combinatorics)
+
+
+
 
 (defn get-sections [course-number] 
   (let [ {sections :sections} (course-number zz2)
         section-numbers (keys sections)]
-    (for [section-number section-numbers]
-      {:course-number course-number :section-number section-number}
+    (vec (for [section-number section-numbers]
+      {:course-number course-number :section-number section-number})
     )    
   )
 )
 
 
-#_((defn tabulat-schedules [course-list]
-  (let [courses-possible (apply cartesian-product course-list)
-        schedules (reduce concat 
-                          (map (fn
-                                  [possible-course-list ]
-                                  (map #(apply cartesian-product (get-sections %) ) possible-course-list) ) courses-possible))]     
-    (vec schedules))
+
+(defn combine [seq-of-seqs]
+(loop [remainder seq-of-seqs currant-state-of-seq [[]] ]
+  (let [next-seq (first remainder)
+        rest-remainder (rest remainder)
+        processed-seq (reduce concat (map (fn [unfinished-seq] (map #(conj unfinished-seq %) next-seq) ) currant-state-of-seq))
+        ] (if (= rest-remainder '()) processed-seq (recur rest-remainder  processed-seq)) ))
+  
   )
 
-(def maci (apply cartesian-product [[:ETCO1120] [:ETEM1110] [:MATH1300] [:ENGL1101] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 :PHIL3300 :THAR1000]]))
 
-(:ETCO1120 :ETEM1110 :MATH1300 :ENGL1101 :ENGL2275)
+(defn tabulat-schedules [course-list]
+  (let [courses-possible (combine course-list)
+        schedules (reduce concat 
+                          (map (fn [possible-course-list]
+                                  (combine (map #(get-sections %)  possible-course-list)) ) courses-possible)) ]     
+     schedules)
+  )
 
-
-
-(map #(apply cartesian-product (get-sections %) ) [:ETCO1120 :ETEM1110 :MATH1300 :ENGL1101 :ENGL2275])  
-
-(map (fn [x] println x ) (:ETCO1120 :ETEM1110 :MATH1300 :ENGL1101 :ENGL2275))  )
-
-(defn combine [seq]
-    (list 'for 
-      (vec (reduce concat (map (fn [x y] (list (symbol (str "var" y)) x )) seq (range  (count seq)))))
-      (vec  (for [var (map (fn [x] (symbol (str "var" x))) (range  (count seq)))] var) ))
+(defn overlap? [{course-number-1 :course-number section-number-1 :section-number} {course-number-2 :course-number section-number-2 :section-number}]
+  (let [time-codes-1 (get-in zz2 [course-number-1 :sections section-number-1 :days-and-times])
+        time-codes-2 (get-in zz2 [course-number-2 :sections section-number-2 :days-and-times])
+       
+    result (for [time-code-1 time-codes-1 time-code-2 time-codes-2]
+           (let [[day-code-1 start-time-1 duration-1] time-code-1
+                 [day-code-2 start-time-2 duration-2] time-code-2
+                 end-time-1 (+ start-time-1 duration-1)
+                 end-time-2 (+ start-time-2 duration-2)]
+                 
+             (if (and 
+                  (not= (bit-and day-code-1 day-code-2 ) 0)
+                  (> end-time-1 start-time-2)
+                  (> end-time-2 start-time-1))
+                  true false)    )) ]
+    
+    (some (fn [bool] bool) result)
+  
+    )     
 )
-(def ab (combine aa))
-
-(defmacro countmac [s] (combine s))
-
-(defmacro course-combinations [list-of-courses] (combine list-of-courses))
 
 
 
-(macroexpand-1 '(countmac aa))
+(defn legal-schedule? [schedule]
+(let [result
+      (for [course-1 schedule course-2 schedule]
+        
+        (if (and (= (:course-number course-1) (:course-number course-2)) (= (:section-number course-1) (:section-number course-2)))
+          true (not  (overlap? course-1 course-2))
+          )
+       )]
+        (every? (fn [bool]  bool) result)
+        
+) 
+)
 
-(defmacro illl [x] `(do  `(count x)) )
 
-(def aa [["a" "b" "c"] [1 2 3 4] [:red :green :blue]])
+(defn legal-schedules [course-list]
+  (filter legal-schedule? (tabulat-schedules course-list))
+  )
+
+#_(def scheds (tabulat-schedules [[:ETCO1120] [:ETEM1110] [:MATH1300] [:ENGL1101] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 :PHIL3300 :THAR1000]]))
+
+#_(time (def legs (legal-schedules [[:ETCO1120] [:ETEM1110] [:MATH1300] [:ENGL1101] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 :PHIL3300 :THAR1000]]))
+)
 
 
-#_(combine aa)
+
+
+
+
+
 
