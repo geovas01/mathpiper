@@ -2,7 +2,7 @@ package org.mathpiper.studentschedule.gwt.server;
 
 import java.io.IOException;
 
-import org.mathpiper.studentschedule.gwt.client.GreetingService;
+import org.mathpiper.studentschedule.gwt.client.StudentScheduleService;
 import org.mathpiper.studentschedule.gwt.shared.FieldVerifier;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import clojure.lang.RT;
@@ -12,13 +12,13 @@ import clojure.lang.Var;
  * The server side implementation of the RPC service.
  */
 @SuppressWarnings("serial")
-public class GreetingServiceImpl extends RemoteServiceServlet implements
-	GreetingService {
+public class StudentScheduleServiceImpl extends RemoteServiceServlet implements
+	StudentScheduleService {
     
     private Var report;
     
     
-    public GreetingServiceImpl()
+    public StudentScheduleServiceImpl()
     {
 	super();
 	
@@ -32,14 +32,14 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	
     }
 
-    public String greetServer(String input) throws IllegalArgumentException {
+    public String findSchedules(String input) throws IllegalArgumentException {
 	// Verify that the input is valid. 
-	if (!FieldVerifier.isValidName(input)) {
+	/*if (!FieldVerifier.isValidName(input)) {
 	    // If the input is not valid, throw an IllegalArgumentException back to
 	    // the client.
 	    throw new IllegalArgumentException(
 		    "Name must be at least 4 characters long");
-	}
+	}*/
 
 	String serverInfo = getServletContext().getServerInfo();
 	String userAgent = getThreadLocalRequest().getHeader("User-Agent");

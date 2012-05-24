@@ -32,8 +32,8 @@ public class Student_schedule_gwt implements EntryPoint {
     /**
      * Create a remote service proxy to talk to the server-side Greeting service.
      */
-    private final GreetingServiceAsync greetingService = GWT
-	    .create(GreetingService.class);
+    private final StudentScheduleServiceAsync greetingService = GWT
+	    .create(StudentScheduleService.class);
 
     /**
      * This is the entry point method.
@@ -119,7 +119,7 @@ public class Student_schedule_gwt implements EntryPoint {
 		sendButton.setEnabled(false);
 		textToServerLabel.setText(textToServer);
 		serverResponseLabel.setText("");
-		greetingService.greetServer(textToServer,
+		greetingService.findSchedules(textToServer,
 			new AsyncCallback<String>() {
 			    public void onFailure(Throwable caught) {
 				// Show the RPC error message to the user

@@ -3,7 +3,9 @@ package org.mathpiper.studentschedule.gwt.client;
 import java.io.IOException;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -19,6 +21,8 @@ import com.google.gwt.user.client.ui.HTML;
 
 public class GUI implements EntryPoint {
     
+    private final StudentScheduleServiceAsync studentScheduleService = GWT
+	    .create(StudentScheduleService.class);
 
     @Override
     public void onModuleLoad() {
@@ -28,7 +32,7 @@ public class GUI implements EntryPoint {
 	
 	RootPanel rootPanel = RootPanel.get();
 	
-	TabPanel tabPanel = new TabPanel();
+	final TabPanel tabPanel = new TabPanel();
 	rootPanel.add(tabPanel, 10, 10);
 	tabPanel.setSize("555px", "380px");
 	
@@ -75,7 +79,21 @@ public class GUI implements EntryPoint {
 	Button btnSubmit = new Button("Submit");
 	btnSubmit.addClickHandler(new ClickHandler() {
 		public void onClick(ClickEvent event) {
+		studentScheduleService.findSchedules("",
+			new AsyncCallback<String>() {
+			    public void onFailure(Throwable caught) {
+				Window.alert("Failure: " + caught.getMessage());
+			    }
 
+			    public void onSuccess(String result) {
+				Window.alert("Success!: " + result);
+				
+				tabPanel.add(new HTML(result), "foo");
+				
+				
+			    }
+			});
+		
 		    Window.alert("Hello");
 		}
 	});

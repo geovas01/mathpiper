@@ -7,12 +7,12 @@
 
   <!-- Servlets -->
   <servlet>
-    <servlet-name>greetServlet</servlet-name>
-    <servlet-class>org.mathpiper.studentschedule.gwt.server.GreetingServiceImpl</servlet-class>
+    <servlet-name>studentScheduleServlet</servlet-name>
+    <servlet-class>org.mathpiper.studentschedule.gwt.server.StudentScheduleServiceImpl</servlet-class>
   </servlet>
   
   <servlet-mapping>
-    <servlet-name>greetServlet</servlet-name>
+    <servlet-name>studentScheduleServlet</servlet-name>
     <url-pattern>/student_schedule_gwt/greet</url-pattern>
   </servlet-mapping>
   
