@@ -2,14 +2,41 @@
 (use 'clojure.math.combinatorics)
 
 
+(defn formated-days [course]
+  (let [{course-number :course-number section-number :section-number} course
+        days-and-times (get-in zz2 [course-number :sections section-number :days-and-times])
+        all-days-bin (reduce #(bit-or %1 %2) (map (fn [day-and-time] (nth day-and-time 0) )  days-and-times) )]
+    (str (if (not= (bit-and 2r1000000 all-days-bin) 0) "M" "-")
+         (if (not= (bit-and 2r0100000 all-days-bin) 0) "T" "-")
+         (if (not= (bit-and 2r0010000 all-days-bin) 0) "W" "-")
+         (if (not= (bit-and 2r0001000 all-days-bin) 0) "R" "-")
+         (if (not= (bit-and 2r0000100 all-days-bin) 0) "F" "-")
+     
+         )
+    
+    
+    ))
+
 ;;Add associate a color with each course.
-(defn addColorsToCourses [schedule]
-  (map conj schedule (cycle [["#99CCFF" "Blue(Light)"]
+#_(defn addColorsToCourses [schedule]
+  (map  #(assoc schedule )   (cycle [["#99CCFF" "Blue(Light)"]
  ["#F6F6CC" "Beige"]
  ["#9FCC9F" "Green(Pale)"]
  ["#C9C9F3" "Quartz"]
  ["#FF6F60" "Coral"]
  ["#CCCC60" "Goldenrod"]])))
+
+
+(defn addColorsToCourses [schedule]
+  ( vec(map  #(assoc (nth schedule %2) :color %1 )   (cycle [["#99CCFF" "Blue(Light)"]
+ ["#F6F6CC" "Beige"]
+ ["#9FCC9F" "Green(Pale)"]
+ ["#C9C9F3" "Quartz"]
+ ["#FF6F60" "Coral"]
+ ["#CCCC60" "Goldenrod"]])
+        
+        (range (count schedule))) ))
+  
   
 
 
@@ -102,12 +129,26 @@
 ;          (map (fn [dayAndTime] [courseName sectionNumber dayAndTime]) daysAndTimes ) )
 ;        aa))
 ;
-(defn unbundleDaysAndTimes [schedule]
+#_(defn unbundleDaysAndTimes [schedule]
   (vec (for [[courseName courseSection daysAndTimes courseColor] schedule, dayAndTime daysAndTimes]
   [courseName courseSection dayAndTime courseColor])))
              
              
+(defn unbundleDaysAndTimes [schedule-colored]
+  (vec (for [{courseName :course-number courseSection :section-number courseColor :color} schedule-colored,
+             dayAndTime (get-in zz2 [courseName :sections courseSection :days-and-times])
+            ]
+         
+         [courseName courseSection dayAndTime courseColor]))
+  
+ 
+  
+  #_(println  schedule-colored))
 
+
+ #_(get-in zz2 [:OTAT2210 :sections :01 :days-and-times])
+
+#_(unbundleDaysAndTimes (addColorsToCourses sample-sched))
 
 ;Orders previously formatted single timecode sections into days of a week.
 ;
@@ -258,7 +299,7 @@
 
 #_(unbundleDaysAndTimes (nth legalSchedules 0))
 ;;Create one HTML schedule table.
-#_(spit "../student_schedule.html" (createHtmlScheduleTable (nth legalSchedules 1000)))
+#_(spit "../student_schedule.html" (createHtmlScheduleTable (nth (legal-schedules course-list) 600) ))
 ;
 (defn createHtmlScheduleTable [schedule] 
   
@@ -336,9 +377,7 @@
 "</table>
 "   
     
- ;   (count legalSchedules)(
- ;  )
-    
+
     
     
     
@@ -356,10 +395,19 @@
 ;;Create multiple HTML schedule tables on one web page.
 ;(spit "../student_schedule.html" (createHtmlScheduleTables (take 10 legalSchedules)))
 ;
-#_(spit "../student_schedule.html"(createHtmlScheduleTables (for [e (range 50) ] (nth legalSchedules (rand-int (count legalSchedules)) ) )) )
+#_(def course-list [[:ETCO1120] [:ETEM1110] [:MATH1300] [:ENGL1101] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 :PHIL3300 :THAR1000]])
+
+#_(spit "../student_schedule.html"(createHtmlScheduleTables (for [e (range 50) ] (nth (legal-schedules course-list) (rand-int (count (legal-schedules course-list))) ) )) )
+
+
+#_[{:course-number :ETCO1120, :section-number :51} {:course-number :ETEM1110, :section-number :01} {:course-number :MATH1300, :section-number :01} {:course-number :ENGL1101, :section-number :12} {:course-number :ARTH1101, :section-number :52}]
+
+#_(spit "../student_schedule.html" (createHtmlScheduleTables  [ [{:course-number :ETCO1120, :section-number :51} {:course-number :ETEM1110, :section-number :01} {:course-number :MATH1300, :section-number :01} {:course-number :ENGL1101, :section-number :12} {:course-number :ARTH1101, :section-number :52}] ] ) )
 
 
 (defn createHtmlScheduleTables [schedules]
+
+  
   
 (str 
 "<html>
@@ -388,17 +436,28 @@
 <th BGCOLOR=#EEEEEE >Faculty</th>
 <th BGCOLOR=#EEEEEE >Capacity</th>
 <th BGCOLOR=#EEEEEE >Credits</th>
+<th BGCOLOR=#EEEEEE >Days</th>
 </tr>
 "  
              
-               (apply str(for [index2 (range (count (nth schedules index))) ]
-                           
-                  (let [[courseName courseSection _ backgroundColor]  (nth (addColorsToCourses (nth schedules index)) index2)]
+               (apply str (for [[index2 {courseName :course-number courseSection :section-number backgroundColor :color}]
+                                (map #(do [%1 %2]) (range (count (nth schedules index))) (addColorsToCourses (nth schedules index))) 
+                                  
+                                ] 
+                       
+                   
                   
-                 (str "<tr> <td>" (inc index2) "</td>" "<td " (str "BGCOLOR=\"" (first backgroundColor) "\"") ">" (name courseName) "</td> <td align=center>" (name courseSection) "</td> </tr> ")
-                 ))
+                 (str "<tr> <td>" (inc index2) "</td>" "<td " (str "BGCOLOR=\"" (first backgroundColor) "\"") ">" (name courseName) "</td> <td align=center>" (name courseSection) "</td>
+                  <td>"  (get-in zz2 [courseName :name]) "</td>
+                  <td>"  (first (get-in zz2 [courseName :sections courseSection :faculty])) "</td>
+                  <td>" "-" "</td>
+                  <td>" "-" "</td>
+                  <td>"  (formated-days {:course-number courseName  :section-number courseSection}) "</td>
+
+
+                 </tr> ")
+                 )
                )
-                 
                
        "</table> <br />"
        

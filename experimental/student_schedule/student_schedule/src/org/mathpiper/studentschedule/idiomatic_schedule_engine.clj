@@ -42,7 +42,7 @@
 
 
 (defn combine [seq-of-seqs]
-(loop [remainder seq-of-seqs currant-state-of-seq [[]] ]
+ (loop [remainder seq-of-seqs currant-state-of-seq [[]] ]
   (let [next-seq (first remainder)
         rest-remainder (rest remainder)
         processed-seq (reduce concat (map (fn [unfinished-seq] (map #(conj unfinished-seq %) next-seq) ) currant-state-of-seq))
@@ -51,7 +51,7 @@
   )
 
 
-(defn tabulat-schedules [course-list]
+(defn tabulate-schedules [course-list]
   (let [courses-possible (combine course-list)
         schedules (reduce concat 
                           (map (fn [possible-course-list]
@@ -63,7 +63,7 @@
   (let [time-codes-1 (get-in zz2 [course-number-1 :sections section-number-1 :days-and-times])
         time-codes-2 (get-in zz2 [course-number-2 :sections section-number-2 :days-and-times])
        
-    result (for [time-code-1 time-codes-1 time-code-2 time-codes-2]
+     boolean-list (for [time-code-1 time-codes-1 time-code-2 time-codes-2]
            (let [[day-code-1 start-time-1 duration-1] time-code-1
                  [day-code-2 start-time-2 duration-2] time-code-2
                  end-time-1 (+ start-time-1 duration-1)
@@ -75,7 +75,7 @@
                   (> end-time-2 start-time-1))
                   true false)    )) ]
     
-    (some (fn [bool] bool) result)
+    (some (fn [bool] bool) boolean-list)
   
     )     
 )
@@ -83,26 +83,34 @@
 
 
 (defn legal-schedule? [schedule]
-(let [result
+(let [boolean-list
       (for [course-1 schedule course-2 schedule]
         
         (if (and (= (:course-number course-1) (:course-number course-2)) (= (:section-number course-1) (:section-number course-2)))
           true (not  (overlap? course-1 course-2))
           )
        )]
-        (every? (fn [bool]  bool) result)
+        (every? (fn [bool]  bool) boolean-list)
         
 ) 
 )
 
 
 (defn legal-schedules [course-list]
-  (filter legal-schedule? (tabulat-schedules course-list))
+  (vec (filter legal-schedule? (tabulate-schedules course-list)))
   )
 
-#_(def scheds (tabulat-schedules [[:ETCO1120] [:ETEM1110] [:MATH1300] [:ENGL1101] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 :PHIL3300 :THAR1000]]))
 
-#_(time (def legs (legal-schedules [[:ETCO1120] [:ETEM1110] [:MATH1300] [:ENGL1101] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 :PHIL3300 :THAR1000]]))
+#_(:ETCO1120 :ETEM1110 :MATH1300 :ENGL1101 :ENGL2275)
+
+
+
+#_(def sample-sched [{:course-number :ETCO1120, :section-number :51} {:course-number :ETEM1110, :section-number :01} {:course-number :MATH1010, :section-number :05} {:course-number :ENGL1101, :section-number :05} {:course-number :ARTH1101, :section-number :09}])
+
+
+#_(def scheds (tabulate-schedules [[:ETCO1120] [:ETEM1110] [:MATH1300] [:ENGL1101] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 :PHIL3300 :THAR1000]]))
+
+#_(time (def legs (legal-schedules [[:ETCO1120] [:ETEM1110] [:MATH1010] [:ENGL1101] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 :PHIL3300 :THAR1000]]))
 )
 
 
