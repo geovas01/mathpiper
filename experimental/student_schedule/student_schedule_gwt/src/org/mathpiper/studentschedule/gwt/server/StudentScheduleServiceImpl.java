@@ -23,8 +23,11 @@ public class StudentScheduleServiceImpl extends RemoteServiceServlet implements
 	super();
 	
 	try {
-	    RT.loadResourceScript("org/mathpiper/studentschedule/gwt-test.clj");
-	    report = RT.var("org.mathpiper.studentschedule.gwt-test", "print-report");
+	    //RT.loadResourceScript("org/mathpiper/studentschedule/gwt-test.clj");
+	    //report = RT.var("org.mathpiper.studentschedule.gwt-test", "print-report");
+	    
+	    RT.loadResourceScript("org/mathpiper/studentschedule/completescheduleengine/student_schedules_api.clj");
+	    report = RT.var("org.mathpiper.studentschedule.completescheduleengine.student_schedules_api", "find-schedules");
 	} catch (IOException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
@@ -40,18 +43,22 @@ public class StudentScheduleServiceImpl extends RemoteServiceServlet implements
 	    throw new IllegalArgumentException(
 		    "Name must be at least 4 characters long");
 	}*/
+	
+	
 
 	String serverInfo = getServletContext().getServerInfo();
 	String userAgent = getThreadLocalRequest().getHeader("User-Agent");
 
 	// Escape data from the client to avoid cross-site script vulnerabilities.
 	input = escapeHtml(input);
+	
+	System.out.println(input);
+	
 	userAgent = escapeHtml(userAgent);
 	
-	Long result = (Long) report.invoke("Siva");
+	String result = (String) report.invoke(input);
 
-	return "Hello, " + input + "!<br><br>I am running " + serverInfo
-		+ ".<br><br>It looks like you are using:<br>" + userAgent + "XXX " + result;
+	return result;
     }
 
     /**
