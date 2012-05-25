@@ -1,3 +1,10 @@
+(ns org.mathpiper.studentschedule.completescheduleengine.html_creation_engine)
+
+(use 'org.mathpiper.studentschedule.ssu_fall_2012_semester_schedule_map)
+
+(use 'org.mathpiper.studentschedule.completescheduleengine.schedule_engine)
+
+
 (defn formated-days [course]
   (let [{course-number :course-number section-number :section-number} course
         days-and-times (get-in zz2 [course-number :sections section-number :days-and-times])

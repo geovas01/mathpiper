@@ -1,3 +1,7 @@
+(ns org.mathpiper.studentschedule.completescheduleengine.schedule_engine)
+
+(use 'org.mathpiper.studentschedule.ssu_fall_2012_semester_schedule_map)
+
 (defn get-sections [course-number] 
   (let [ {sections :sections} (course-number zz2)
         section-numbers (keys sections)]

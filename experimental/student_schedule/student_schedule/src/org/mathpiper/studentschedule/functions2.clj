@@ -1,5 +1,5 @@
 
-(use 'clojure.math.combinatorics)
+;(use 'clojure.math.combinatorics)
 
 
 (defn formated-days [course]

@@ -1,3 +1,8 @@
+(ns org.mathpiper.studentschedule.completescheduleengine.student_schedules_api)
+
+(use 'org.mathpiper.studentschedule.completescheduleengine.html_creation_engine)
+
+(use 'org.mathpiper.studentschedule.completescheduleengine.schedule_engine)
 
 ;returns at random return-number of schedules made using course-lists
 ;and legal-scheddules.

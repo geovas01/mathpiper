@@ -1,6 +1,3 @@
-(ns org.mathpiper.studentschedule.ssu_fall_2012_semester_schedule_map)
-
-
 (def zz2 {
 :BUAC1010 {:name "Accounting Principles 1" :sections {:01 {:days-and-times [[80 168 20] ] :faculty ["STAFF" ] :enrolled 23 :capacity 30 :open? true} :02 {:days-and-times [[80 120 20] ] :faculty ["Hurley, Thomas K" ] :enrolled 17 :capacity 30 :open? true} :51 {:days-and-times [[16 222 40] ] :faculty ["STAFF" ] :enrolled 25 :capacity 30 :open? true} }}
 :GEOG3350 {:name "Reg Geog:Geog of North America" :sections {:01 {:days-and-times [[80 168 15] ] :faculty ["Dzik, Anthony J" ] :enrolled 25 :capacity 43 :open? true} }}
