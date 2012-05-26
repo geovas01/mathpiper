@@ -27,6 +27,26 @@
        )
 #_(use 'clojure.math.combinatorics)
 
+(use 'org.mathpiper.studentschedule.ssu_fall_2012_semester_schedule_map)
+
+
+
+(defn open-section? [course-section]
+  (let [{course-number :course-number section-number :section-number} course-section
+        open-boolean (get-in zz2 [course-number :sections section-number :open?])
+        ]
+    open-boolean)
+  )
+
+;test code for open-section?
+
+#_(for [course-number (keys zz2)
+        section-number (keys (get-in zz2 [course-number :sections]))
+        
+        ]
+    (if (not (open-section? {:course-number course-number :section-number section-number})) (println course-number section-number) ))
+
+
 
 
 
@@ -39,6 +59,14 @@
   )
 )
 
+(defn get-open-sections [course-number] 
+  (let [ {sections :sections} (course-number zz2)
+        section-numbers (filter #(open-section? {:course-number course-number :section-number %}) (keys sections))]
+    (vec (for [section-number section-numbers]
+      {:course-number course-number :section-number section-number})
+    )    
+  ))
+ 
 
 
 (defn combine [seq-of-seqs]
@@ -51,13 +79,49 @@
   )
 
 
-(defn tabulate-schedules [course-list]
+
+
+(defn course-in-list? [ course-number-in course-listing]
+  
+ (vec (filter (fn [{course-number :course-number section-number :section-nimber}] (= course-number course-number-in) ) course-listing))
+ )
+
+
+#_(tabulate-schedules [[:MATH1010] [:ENGL1101]] [{:course-number :MATH1010 :section-number :01}
+                                              {:course-number :ENGL1101 :section-number :01}])
+
+#_(tabulate-schedules [[:MATH1010] [:ENGL1101]] [])
+
+
+
+
+
+(defn tabulate-schedules 
+  ([course-list]
   (let [courses-possible (combine course-list)
         schedules (reduce concat 
                           (map (fn [possible-course-list]
-                                  (combine (map #(get-sections %)  possible-course-list)) ) courses-possible)) ]     
+                                  (combine (map #(get-open-sections %)  possible-course-list)) ) courses-possible)) ]     
+     schedules) )
+  
+([course-list picked-courses]
+    
+    (let [courses-possible (combine course-list)
+        schedules (reduce concat 
+                          (map (fn [possible-course-list]
+                                  (combine (map #_(println %) #(if (not= (course-in-list? % picked-courses ) [])
+                                                   (course-in-list? % picked-courses  )
+                                                   (get-open-sections %)
+                                                   )
+                                             
+                                             possible-course-list
+                                             )) )
+                               courses-possible))
+        ]     
      schedules)
-  )
+  
+    )
+)
 
 (defn overlap? [{course-number-1 :course-number section-number-1 :section-number} {course-number-2 :course-number section-number-2 :section-number}]
   (let [time-codes-1 (get-in zz2 [course-number-1 :sections section-number-1 :days-and-times])
@@ -96,8 +160,17 @@
 )
 
 
-(defn legal-schedules [course-list]
+(defn legal-schedules 
+  
+  
+  ([course-list]
   (vec (filter legal-schedule? (tabulate-schedules course-list)))
+  )
+  
+  ([course-list picked-courses]
+  (vec (filter legal-schedule? (tabulate-schedules course-list picked-courses)))
+  )
+  
   )
 
 
