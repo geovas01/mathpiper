@@ -5,9 +5,9 @@
 (use 'org.mathpiper.studentschedule.completescheduleengine.schedule_engine)
 
 
-(defn formated-days [course]
+(defn formated-days [course course-map]
   (let [{course-number :course-number section-number :section-number} course
-        days-and-times (get-in zz2 [course-number :sections section-number :days-and-times])
+        days-and-times (get-in course-map [course-number :sections section-number :days-and-times])
         all-days-bin (reduce #(bit-or %1 %2) (map (fn [day-and-time] (nth day-and-time 0) )  days-and-times) )]
     (str (if (not= (bit-and 2r1000000 all-days-bin) 0) "M" "-")
          (if (not= (bit-and 2r0100000 all-days-bin) 0) "T" "-")
@@ -48,17 +48,17 @@
 
 
 
-(defn unbundleDaysAndTimes [schedule-colored]
+(defn unbundleDaysAndTimes [schedule-colored course-map]
   (vec (for [{courseName :course-number courseSection :section-number courseColor :color} schedule-colored,
-             dayAndTime (get-in zz2 [courseName :sections courseSection :days-and-times])
+             dayAndTime (get-in course-map [courseName :sections courseSection :days-and-times])
             ]
          
          [courseName courseSection dayAndTime courseColor])))
   
   
   
-  (defn orderIntoDays [schedule]
-  (let [unbundled (unbundleDaysAndTimes (addColorsToCourses schedule))]
+  (defn orderIntoDays [schedule course-map]
+  (let [unbundled (unbundleDaysAndTimes (addColorsToCourses schedule) course-map)]
         
     (vec (for [daybit [64 32 16 8 4 2 1]]
         
@@ -73,10 +73,10 @@
   
   
   
-  (defn addOpenTimeBlocks [schedule]
+  (defn addOpenTimeBlocks [schedule course-map]
   
 
-    (let [week (orderIntoDays schedule)]
+    (let [week (orderIntoDays schedule course-map)]
     
     (vec (for [day week]
       (do
@@ -108,9 +108,9 @@
   
   
   
-(defn createHtmlScheduleTable [schedule] 
+(defn createHtmlScheduleTable [schedule course-map] 
   
-  (let [days (addOpenTimeBlocks schedule) accumulator [] 
+  (let [days (addOpenTimeBlocks schedule course-map) accumulator [] 
         earliest (reduce min (map (fn [class] (let [[courseName courseSection dayAndTime courseColor]  class, [dayCode startTime duration] dayAndTime] startTime)) (unbundleDaysAndTimes schedule)))
         latest   (reduce max (map (fn [class] (let [[courseName courseSection dayAndTime courseColor]  class, [dayCode startTime duration] dayAndTime] (+ startTime duration))) (unbundleDaysAndTimes schedule))) 
         earliestCorrected (- earliest (mod earliest 12) )
@@ -187,7 +187,7 @@
   
   
   
-(defn createHtmlScheduleTables [schedules]
+(defn createHtmlScheduleTables [schedules course-map]
 
   
   
@@ -230,8 +230,8 @@
                    
                   
                  (str "<tr> <td>" (inc index2) "</td>" "<td " (str "BGCOLOR=\"" (first backgroundColor) "\"") ">" (name courseName) "</td> <td align=center>" (name courseSection) "</td>
-                  <td>"  (get-in zz2 [courseName :name]) "</td>
-                  <td>"  (first (get-in zz2 [courseName :sections courseSection :faculty])) "</td>
+                  <td>"  (get-in course-map [courseName :name]) "</td>
+                  <td>"  (first (get-in course-map [courseName :sections courseSection :faculty])) "</td>
                   <td>" "-" "</td>
                   <td>" "-" "</td>
                   <td>"  (formated-days {:course-number courseName  :section-number courseSection}) "</td>
@@ -246,7 +246,7 @@
                    
        
        
-    (createHtmlScheduleTable (nth schedules index))
+    (createHtmlScheduleTable (nth schedules index) course-map)
 
 "<br /> <br /> <br />")
 ))

@@ -75,14 +75,14 @@
   
   )
 
-(defn time-of-day-ratio-corrected [schedule timeofday weight]
+(defn time-of-day-ratio-corrected [schedule timeofday weight course-map]
   (let [ timeofdaycode (cond (= :morning timeofday) [127 0 144]
          (= :afternoon timeofday) [127 144 60]
          (= :evening timeofday) [127 204 84]
          )
         scheduletimecodes (reduce concat (map (fn
                                                 [{course-number :course-number section-number :section-number}]
-                                                (get-in zz2 [course-number :sections section-number :days-and-times]) ) schedule))
+                                                (get-in course-map [course-number :sections section-number :days-and-times]) ) schedule))
         overlaprate (overlapingratio [timeofdaycode] scheduletimecodes)
         spread (spread-from-optimum-ratio timeofdaycode scheduletimecodes weight)
         ]
@@ -93,8 +93,10 @@
 )
 
 
-(defn sortbytime [schedules timeofday weight]
-  (reduce (fn [schedule1 schedule2] 
-            (if (> (time-of-day-ratio-corrected schedule1 timeofday weight) (time-of-day-ratio-corrected schedule2 timeofday weight)) schedule1 schedule2  )) schedules)
+
+(defn sort-by-time [schedules time-of-day weight course-map]
+  (reduce (fn [schedule-1 schedule-2] 
+            (if (> (time-of-day-ratio-corrected schedule-1 time-of-day weight course-map)
+                   (time-of-day-ratio-corrected schedule-2 time-of-day weight course-map)) schedule-1 schedule-2  )) schedules)
   
   )

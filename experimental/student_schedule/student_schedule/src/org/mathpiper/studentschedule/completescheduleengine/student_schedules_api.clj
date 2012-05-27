@@ -4,18 +4,21 @@
 
 (use 'org.mathpiper.studentschedule.completescheduleengine.schedule_engine)
 
+(use 'org.mathpiper.studentschedule.ssu_fall_2012_semester_schedule_map)
+
+
 ;returns at random return-number of schedules made using course-lists
 ;and legal-scheddules.
 
 (defn find-schedules [string]
   (let [
-        {course-lists :course-lists time-of-day :time-of-day return-number :return-number} (load-string string)
-        legal-schedules-output (legal-schedules course-lists)
+        {course-lists :course-lists time-of-day :time-of-day return-number :return-number custom-courses :custom-courses} (load-string string)
+        custom-course-map (merge zz2 custom-courses)
+        legal-schedules-output (legal-schedules course-lists custom-course-map)
         ]
     
-    (createHtmlScheduleTables
-      (for [index (range return-number) ]
-        (nth  legal-schedules-output (rand-int (count  legal-schedules-output)) ) ))
+    (createHtmlScheduleTables (sort-by-time legal-schedules-output time-of-day 1  custom-course-map)
+       custom-course-map)
     
     )
   )
@@ -27,3 +30,6 @@
  :time-of-day :morning :return-number 11}")
 
 #_(spit "../student_schedule.html" (find-schedules ali) )
+
+#_(for [index (range return-number) ]
+        (nth  legal-schedules-output (rand-int (count  legal-schedules-output)) ) )

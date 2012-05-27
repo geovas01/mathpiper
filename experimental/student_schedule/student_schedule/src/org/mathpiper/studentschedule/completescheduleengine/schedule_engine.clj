@@ -2,17 +2,17 @@
 
 (use 'org.mathpiper.studentschedule.ssu_fall_2012_semester_schedule_map)
 
-(defn open-section? [course-section]
+(defn open-section? [course-section course-map]
   (let [{course-number :course-number section-number :section-number} course-section
-        open-boolean (get-in zz2 [course-number :sections section-number :open?])
+        open-boolean (get-in course-map [course-number :sections section-number :open?])
         ]
     open-boolean)
   )
 
 
-(defn get-open-sections [course-number] 
-  (let [ {sections :sections} (course-number zz2)
-        section-numbers (filter #(open-section? {:course-number course-number :section-number %}) (keys sections))]
+(defn get-open-sections [course-number course-map] 
+  (let [ {sections :sections} (course-number course-map)
+        section-numbers (filter #(open-section? {:course-number course-number :section-number %} course-map) (keys sections))]
     (vec (for [section-number section-numbers]
       {:course-number course-number :section-number section-number})
     )    
@@ -37,21 +37,21 @@
 
 
 (defn tabulate-schedules 
-  ([course-list]
+  ([course-list course-map]
   (let [courses-possible (combine course-list)
         schedules (reduce concat 
                           (map (fn [possible-course-list]
-                                  (combine (map #(get-open-sections %)  possible-course-list)) ) courses-possible)) ]     
+                                  (combine (map #(get-open-sections % course-map)  possible-course-list)) ) courses-possible)) ]     
      schedules) )
   
-([course-list picked-courses]
+([course-list picked-courses course-map]
     
     (let [courses-possible (combine course-list)
         schedules (reduce concat 
                           (map (fn [possible-course-list]
                                   (combine (map #_(println %) #(if (not= (course-in-list? % picked-courses ) [])
                                                    (course-in-list? % picked-courses  )
-                                                   (get-open-sections %)
+                                                   (get-open-sections % course-map)
                                                    )
                                              
                                              possible-course-list
@@ -65,9 +65,9 @@
 
 
 
-(defn overlap? [{course-number-1 :course-number section-number-1 :section-number} {course-number-2 :course-number section-number-2 :section-number}]
-  (let [time-codes-1 (get-in zz2 [course-number-1 :sections section-number-1 :days-and-times])
-        time-codes-2 (get-in zz2 [course-number-2 :sections section-number-2 :days-and-times])
+(defn overlap? [{course-number-1 :course-number section-number-1 :section-number} {course-number-2 :course-number section-number-2 :section-number} course-map]
+  (let [time-codes-1 (get-in course-map [course-number-1 :sections section-number-1 :days-and-times])
+        time-codes-2 (get-in course-map [course-number-2 :sections section-number-2 :days-and-times])
        
      boolean-list (for [time-code-1 time-codes-1 time-code-2 time-codes-2]
            (let [[day-code-1 start-time-1 duration-1] time-code-1
@@ -88,12 +88,12 @@
 
 
 
-(defn legal-schedule? [schedule]
+(defn legal-schedule? [schedule course-map]
 (let [boolean-list
       (for [course-1 schedule course-2 schedule]
         
         (if (and (= (:course-number course-1) (:course-number course-2)) (= (:section-number course-1) (:section-number course-2)))
-          true (not  (overlap? course-1 course-2))
+          true (not  (overlap? course-1 course-2 course-map))
           )
        )]
         (every? (fn [bool]  bool) boolean-list)
@@ -105,17 +105,17 @@
 (defn legal-schedules 
   
   
-  ([course-list]
-  (vec (filter legal-schedule? (tabulate-schedules course-list)))
+  ([course-list course-map]
+  (vec (filter #(legal-schedule? % course-map) (tabulate-schedules course-list course-map)))
   )
   
-  ([course-list picked-courses]
-  (vec (filter legal-schedule? (tabulate-schedules course-list picked-courses)))
+  ([course-list picked-courses course-map]
+  (vec (filter #(legal-schedule? % course-map) (tabulate-schedules course-list picked-courses course-map)))
   )
   
   )
 
 
-#_(legal-schedules [[:MATH1010] [:ENGL1101]] [{:course-number :MATH1010 :section-number :01}
-                                              {:course-number :ENGL1101 :section-number :01}])
+#_(legal-schedules [[:MATH1300] [:ENGL1101]] #_[{:course-number :MATH1010 :section-number :01}
+                                              {:course-number :ENGL1101 :section-number :01}] zz2)
 
