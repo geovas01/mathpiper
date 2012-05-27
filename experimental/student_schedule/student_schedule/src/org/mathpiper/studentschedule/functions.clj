@@ -17,6 +17,11 @@
 
 ;(filter #( query2 2r0101000) legalSchedules)
 
+(use 'org.mathpiper.studentschedule.ssu_fall_2012_semester_schedule_map)
+
+(defn days-in [day-code]
+ (apply + (map #(if (not= (bit-and day-code %) 0) 1 0)  [2r1000000 2r0100000 2r0010000 2r0001000 2r0000100 2r0000010 2r0000001])))
+
 
 ;overlap takes two timecodes and finds their overlap
 (defn overlap [timecode1 timecode2]
@@ -24,17 +29,18 @@
         [daycode2 starttime2 duration2] timecode2
         endtime1 (+ starttime1 duration1) 
         endtime2 (+ starttime2 duration2)]
-    (if (and (not (= (bit-and daycode1 daycode2) 0)) (> endtime2 starttime1) (>  endtime1 starttime2))
+    (if (and (> endtime2 starttime1) (>  endtime1 starttime2))
       (let 
         [
+         
         highesttime (reduce max [starttime1 starttime2 endtime1 endtime2])
         lowesttime (reduce min [starttime1 starttime2 endtime1 endtime2])
         range (- highesttime lowesttime)
         startdiff (Math/abs (- starttime1 starttime2))
         enddiff (Math/abs (- endtime1 endtime2))
         overlaps (- range (+ startdiff enddiff))]       
-       overlaps)
-      0))
+       (* (days-in (bit-and daycode1 daycode2)) overlaps))
+      0)) 
 )
 
 
@@ -42,7 +48,7 @@
 
 ;countSectionPatterns counts the number of schedules that con be made from
 ;the given courses
-(defn countSectionPatterns [possible]
+#_(defn countSectionPatterns [possible]
   (apply + (map (fn [courselist]
          (apply * (map 
            #(count (% fall2012Schedule)) courselist) )) possible)) 
@@ -60,7 +66,7 @@
      
      (apply + 0.0 (map 
                 (fn
-                  [timecode2] (let [ [daycode2 starttime2 duration2] timecode2 ] duration2) ) timecodes2))
+                  [timecode2] (let [ [daycode2 starttime2 duration2] timecode2 ] (* (days-in daycode2) duration2)) ) timecodes2))
      ) 
 )
 
@@ -68,7 +74,7 @@
 
 ;finds the ratio of classes that fall into timeofday (morning afternoon or eveninig)
 ;and intorpolates ???.
-(defn timeofdayratio [schedule timeofday]
+#_(defn timeofdayratio [schedule timeofday]
   (let [ timeofdaycode (cond (= :morning timeofday) [127 0 144]
          (= :afternoon timeofday) [127 144 60]
          (= :evening timeofday) [127 204 84]
@@ -121,11 +127,13 @@
   (weightfn (distancefromoptimum timecode optimumtimecode measuremethod) option)  )
 
 
+
 (defn distance-from-optimum-linear-ratio [timecode optimumtimecode]
   (distancefromoptimumratio timecode optimumtimecode [0.5 0.5] linearweight nil))
 
 (defn spread-from-optimum-ratio [optimum-timecode time-codes weight]
-  (* 1.0 weight (/ (apply + (map #(distance-from-optimum-linear-ratio % optimum-timecode) time-codes)) (count time-codes)))
+  (* 1.0 weight (/ (apply + (map #(* ( distance-from-optimum-linear-ratio % optimum-timecode) (* (nth % 2) (days-in (nth % 0)))) time-codes))
+                   (apply + (map #(* (nth % 2) (days-in (nth % 0))) time-codes))))
   
   
   )
@@ -169,15 +177,23 @@
          (= :afternoon timeofday) [127 144 60]
          (= :evening timeofday) [127 204 84]
          )
-        scheduletimecodes (reduce concat (map #(% 2) schedule))
+        scheduletimecodes (reduce concat (map (fn
+                                                [{course-number :course-number section-number :section-number}]
+                                                (get-in zz2 [course-number :sections section-number :days-and-times]) ) schedule))
         overlaprate (overlapingratio [timeofdaycode] scheduletimecodes)
         spread (spread-from-optimum-ratio timeofdaycode scheduletimecodes weight)
         ]
     (/ (+ overlaprate spread) ( + 1 weight))
     
+    
     )
 )
 
+
+#_(for [schedule (legal-schedules course-lists)] 
+  (time-of-day-ratio-corrected schedule :evening 0.3))
+
+#_((time-of-day-ratio-corrected (nth (legal-schedules course-lists) 0) :evening 0.3))
 
 #_(do (def x 3000) (time-of-day-ratio-corrected (nth legalSchedules x) :evening)
     (spit "../student_schedule.html" (createHtmlScheduleTable (nth legalSchedules x)))
@@ -198,9 +214,69 @@
 
 
 ;test for sortbytime3
-#_(spit "../student_schedule.html" (createHtmlScheduleTables   (map #(sortbytime3 legalSchedules :evening (/ % 10.0)) (range 0 20))))
-  
 
+#_(def course-lists [[:ETCO1120] [:ETEM1110] [:MATH1300] [:ENGL1101] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 :PHIL3300 :THAR1000]])
+#_(spit "../student_schedule.html" (createHtmlScheduleTables   (map #(sortbytime3 (legal-schedules course-lists) :evening (/ % 10.0)) (range 0 20))))
+
+#_(spit "../student_schedule.html" (createHtmlScheduleTables   [[] (sortbytime3 (legal-schedules course-lists) :evening 1.0)] ))
+
+#_(sortbytime3 (legal-schedules course-lists) :afternoon 1)
+
+#_(def course-lists2 [[:ETCO1120] [:ETEM1110] [:MATH1300] [:ENGL1101] [:THAR1000] #_[:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 :PHIL3300 :THAR1000]])
+
+#_(def test-sched [{:course-number :ETCO1120, :section-number :52}
+                   {:course-number :ETEM1110, :section-number :51}
+                   #_{:course-number :MATH1300, :section-number :04}
+                   {:course-number :ENGL1101, :section-number :53} 
+                   {:course-number :THAR1000, :section-number :04}]
+
+    
+    
+    
+    #_[{:course-number :ETCO1120, :section-number :52}
+                   {:course-number :ETEM1110, :section-number :51}
+                   #_{:course-number :MATH1300, :section-number :04} 
+                   {:course-number :ENGL1101, :section-number :53}
+                   #_{:course-number :MUSI1201, :section-number :02}])
+
+#_(spit "../student_schedule.html" (createHtmlScheduleTables (legal-schedules course-lists2 test-sched)  ))
+
+
+#_(def test-sched2 [{:course-number :ETCO1120, :section-number :52}
+                    {:course-number :ETEM1110, :section-number :51}
+                    {:course-number :MATH1300, :section-number :04}
+                    {:course-number :ENGL1101, :section-number :18} 
+                    {:course-number :THAR1000, :section-number :04}]
+
+    
+    
+    #_[{:course-number :ETCO1120, :section-number :52}
+                    {:course-number :ETEM1110, :section-number :01}
+                    {:course-number :MATH1300, :section-number :04}
+                    {:course-number :ENGL1101, :section-number :21} 
+                    {:course-number :THAR1000, :section-number :04}]
+
+    
+    
+    #_[{:course-number :ETCO1120, :section-number :52}
+                    {:course-number :ETEM1110, :section-number :51}
+                    {:course-number :MATH1300, :section-number :04}
+                    {:course-number :ENGL1101, :section-number :21}
+                    {:course-number :THAR1000, :section-number :04}]
+
+)
+
+#_(spit "../student_schedule.html" (createHtmlScheduleTables (legal-schedules course-lists2 test-sched2)  ))
+#_(spit "../student_schedule.html" (createHtmlScheduleTables  [
+                                                               (sortbytime3 (legal-schedules course-lists) :morning 1)
+] ))
+
+
+#_(time-of-day-ratio-corrected [{:course-number :ETCO1120, :section-number :52}
+                     {:course-number :ETEM1110, :section-number :51}
+                     {:course-number :MATH1300, :section-number :04}
+                     {:course-number :ENGL1101, :section-number :21}
+                     {:course-number :THAR1000, :section-number :04}]  :afternoon 1)
 
 ;;(def zzz12 (sortbytime2 legalSchedules :morning))
 ;;(def zzz22 (sortbytime2 legalSchedules :afternoon))
