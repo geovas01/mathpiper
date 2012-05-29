@@ -30,7 +30,7 @@
 
  ;
 #_(def ali "{:course-lists [[:ETCO1120] [:ETEM1110] [:MATH1010] [:ENGL1101] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 :PHIL3300 :THAR1000]]
- :time-of-day :evening :return-number 5 :custom-courses {}}")
+ :time-of-day :morning :return-number 5 :custom-courses {}}")
 
  
 #_(time (spit "../student_schedule.html" (find-schedules ali) ))

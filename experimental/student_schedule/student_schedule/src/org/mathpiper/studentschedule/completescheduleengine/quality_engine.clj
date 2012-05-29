@@ -129,7 +129,7 @@
 (defn sort-by-time-3 [schedules time-of-day weight allowence course-map]
 
   (let [list-of-pairs (pmap #(list (time-of-day-ratio-corrected % time-of-day weight course-map) %)   schedules)
-        best (reduce max (pmap first list-of-pairs))
+        best (time (reduce max (pmap first list-of-pairs)) )
         list-of-best (filter #(>= (first %) (- best allowence)) list-of-pairs)
         ]
     (for [pair list-of-best] (second pair) )
@@ -137,4 +137,17 @@
 )
   
   
+)
+
+
+#_(defn sort-by-time-4 [schedules time-of-day weight allowence course-map]
+
+  (let [list-of-pairs (pmap #(list (time-of-day-ratio-corrected % time-of-day weight course-map) %)   schedules)
+        
+        best 
+        list-of-best (filter #(>= (first %) (- best allowence)) list-of-pairs)
+        ]
+    (for [pair list-of-best] (second pair) )
+
+)  
 )
