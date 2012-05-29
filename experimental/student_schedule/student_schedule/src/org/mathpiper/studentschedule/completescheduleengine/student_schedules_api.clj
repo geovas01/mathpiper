@@ -19,7 +19,7 @@
         legal-schedules-output  (legal-schedules course-lists custom-course-map)
         ]
     
-    (createHtmlScheduleTables [( time (sort-by-time legal-schedules-output time-of-day 1  custom-course-map))]
+     (createHtmlScheduleTables (take return-number  (sort-by-time-3 legal-schedules-output time-of-day 1 0.0  custom-course-map))
        custom-course-map)
     
     
@@ -29,10 +29,11 @@
  ; test string:
 
  ;
-#_(def ali "{:course-lists [[:ETCO1120] [:ETEM1110] [:MATH1300] [:ENGL1101] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 :PHIL3300 :THAR1000]]
- :time-of-day :morning :return-number 11 :custom-courses {}}")
+#_(def ali "{:course-lists [[:ETCO1120] [:ETEM1110] [:MATH1010] [:ENGL1101] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 :PHIL3300 :THAR1000]]
+ :time-of-day :evening :return-number 5 :custom-courses {}}")
 
-#_(spit "../student_schedule.html" (find-schedules ali) )
+ 
+#_(time (spit "../student_schedule.html" (find-schedules ali) ))
 
 #_(def course-list [[:ETCO1120] [:ETEM1110] [:MATH1300] [:ENGL1101] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 :PHIL3300 :THAR1000]])
 
@@ -42,3 +43,25 @@
 
 #_(for [index (range return-number) ]
         (nth  legal-schedules-output (rand-int (count  legal-schedules-output)) ) )
+
+
+#_(time (do  (def best (reduce max
+          (map (fn [schedule]
+                 (time-of-day-ratio-corrected schedule :morning 1 zz2))
+               (legal-schedules course-list zz2))))
+
+
+
+    (filter #(=  (time-of-day-ratio-corrected % :morning 1 zz2)
+    best)
+    
+    (legal-schedules course-list zz2))
+
+
+))
+
+#_(time (sort-by-time-2 (legal-schedules course-list zz2) :morning 1 zz2))
+
+#_(time (def coll-test (doall (map #(list (time-of-day-ratio-corrected % :morning 1 zz2) %)   (legal-schedules course-list zz2)))))
+
+
