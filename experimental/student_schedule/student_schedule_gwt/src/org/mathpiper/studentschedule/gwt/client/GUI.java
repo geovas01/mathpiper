@@ -21,6 +21,8 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.DecoratorPanel;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.CheckBox;
 
 public class GUI implements EntryPoint {
 
@@ -45,9 +47,12 @@ public class GUI implements EntryPoint {
 	tabPanel.add(verticalPanel, "Enter Courses", false);
 	verticalPanel.setSize("490px", "328px");
 
+	HorizontalPanel horizontalPanel = new HorizontalPanel();
+	verticalPanel.add(horizontalPanel);
+
 	DecoratorPanel decoratorPanel_1 = new DecoratorPanel();
+	horizontalPanel.add(decoratorPanel_1);
 	decoratorPanel_1.setStyleName("border");
-	verticalPanel.add(decoratorPanel_1);
 
 	FlexTable flexTable = new FlexTable();
 	decoratorPanel_1.setWidget(flexTable);
@@ -57,18 +62,10 @@ public class GUI implements EntryPoint {
 	Label lblNewLabel_1 = new Label("Course Numbers");
 	flexTable.setWidget(0, 0, lblNewLabel_1);
 
-	Label lblGep = new Label("GEP");
-	flexTable.setWidget(0, 1, lblGep);
-
 	TextBox textBox0 = new TextBox();
 	textBox0.setText("ETCO1120");
 	flexTable.setWidget(1, 0, textBox0);
 	coursesList.add(textBox0);
-
-	ListBox comboBox = new ListBox();
-	comboBox.addItem("None");
-	comboBox.addItem("Fine Arts");
-	flexTable.setWidget(1, 1, comboBox);
 
 	TextBox textBox1 = new TextBox();
 	textBox1.setText("ETEM1110");
@@ -86,13 +83,55 @@ public class GUI implements EntryPoint {
 	coursesList.add(textBox3);
 
 	TextBox textBox4 = new TextBox();
-	textBox4.setText("ARTH1101");
 	flexTable.setWidget(5, 0, textBox4);
 	coursesList.add(textBox4);
 
 	TextBox textBox5 = new TextBox();
 	flexTable.setWidget(6, 0, textBox5);
 	coursesList.add(textBox5);
+
+	DecoratorPanel gep_decorator_panel = new DecoratorPanel();
+	horizontalPanel.add(gep_decorator_panel);
+
+	FlexTable flexTable_3 = new FlexTable();
+	gep_decorator_panel.setWidget(flexTable_3);
+
+	Label lblFineArts = new Label("Fine Arts");
+	flexTable_3.setWidget(0, 0, lblFineArts);
+
+	Button btnAll = new Button("All");
+	btnAll.setText("Check All");
+	flexTable_3.setWidget(1, 0, btnAll);
+
+	CheckBox chckbxNewCheckBox = new CheckBox("ARTH1101");
+	chckbxNewCheckBox
+		.setTitle("ARTH 1101 - Introduction to Art - Credits: 3 - The course is an introduction to the visual arts. It encompasses the world of western and non-western art. It deals with the principles of art, formal and contextual elements and the basic vocabulary necessary in order to articulate opinions about the arts. The course has a studio component that will allow the student hands on experience to encourage visual communication through the visual arts.");
+	flexTable_3.setWidget(2, 0, chckbxNewCheckBox);
+
+	CheckBox chckbxEngl = new CheckBox("ENGL2275");
+	chckbxEngl
+		.setTitle("ENGL 2275 - American Film History - Credits: 3 - Chronological study of the influence of American history upon American film, and vice versa. Students become acquainted with the work and themes of some of America’s significant film directors and major genres of American popular film. Prereq: ENGL 1105 or ENGL 1107.");
+	flexTable_3.setWidget(3, 0, chckbxEngl);
+
+	CheckBox chckbxMusi = new CheckBox("MUSI1201");
+	chckbxMusi
+		.setTitle("MUSI 1201 - Music Appreciation - Credits: 3 - A survey of musical highlights throughout history including pieces, composers, forms, styles, and performance media from the Fall of the Roman Empire to the emergence of the music video.");
+	flexTable_3.setWidget(4, 0, chckbxMusi);
+
+	CheckBox chckbxMusi_1 = new CheckBox("MUSI2211");
+	chckbxMusi_1
+		.setTitle("MUSI 2211 - Music History 1 -Credits: 3 - A detailed survey of music including pieces, composers, forms, styles, and performance media from the Fall of the Roman Empire through the Classical Period.");
+	flexTable_3.setWidget(5, 0, chckbxMusi_1);
+
+	CheckBox chckbxPhil = new CheckBox("PHIL3300");
+	chckbxPhil
+		.setTitle("PHIL 3300 - Philosophy and Film - Credits: 3 - Viewing, analysis, and interpretation of international and domestic films and their philosophical, aesthetic, and moral dimensions.");
+	flexTable_3.setWidget(6, 0, chckbxPhil);
+
+	CheckBox chckbxThar = new CheckBox("THAR1000");
+	chckbxThar
+		.setTitle("THAR 1000 - Introduction to Theater- Credits: 3 - Survey of development of theater from classical to modern times, emphasizing the artists and craftspersons of the theater and their contributions to its development.");
+	flexTable_3.setWidget(7, 0, chckbxThar);
 
 	DecoratorPanel decoratorPanel = new DecoratorPanel();
 	decoratorPanel.setStyleName("border");
