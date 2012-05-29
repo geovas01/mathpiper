@@ -1,3 +1,5 @@
+(ns org.mathpiper.studentschedule.completescheduleengine.quality_engine)
+
 (use 'org.mathpiper.studentschedule.ssu_fall_2012_semester_schedule_map)
 
 (defn days-in [day-code]
@@ -96,7 +98,7 @@
 
 (defn sort-by-time [schedules time-of-day weight course-map]
   (reduce (fn [schedule-1 schedule-2] 
-            (if (> (time-of-day-ratio-corrected schedule-1 time-of-day weight course-map)
+             (if (> (time-of-day-ratio-corrected schedule-1 time-of-day weight course-map)
                    (time-of-day-ratio-corrected schedule-2 time-of-day weight course-map)) schedule-1 schedule-2  )) schedules)
   
   )

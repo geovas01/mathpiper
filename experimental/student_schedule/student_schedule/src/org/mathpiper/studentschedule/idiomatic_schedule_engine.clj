@@ -167,7 +167,7 @@
   (vec (filter legal-schedule? (tabulate-schedules course-list)))
   )
   
-  ([course-list picked-courses]
+  #_([course-list picked-courses]
   (vec (filter legal-schedule? (tabulate-schedules course-list picked-courses)))
   )
   
@@ -181,7 +181,7 @@
 #_(def sample-sched [{:course-number :ETCO1120, :section-number :51} {:course-number :ETEM1110, :section-number :01} {:course-number :MATH1010, :section-number :05} {:course-number :ENGL1101, :section-number :05} {:course-number :ARTH1101, :section-number :09}])
 
 
-#_(def scheds (tabulate-schedules [[:ETCO1120] [:ETEM1110] [:MATH1300] [:ENGL1101] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 :PHIL3300 :THAR1000]]))
+#_(time (def scheds (tabulate-schedules [[:ETCO1120] [:ETEM1110] [:MATH1010] [:ENGL1101] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 :PHIL3300 :THAR1000]])))
 
 #_(time (def legs (legal-schedules [[:ETCO1120] [:ETEM1110] [:MATH1010] [:ENGL1101] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 :PHIL3300 :THAR1000]]))
 )

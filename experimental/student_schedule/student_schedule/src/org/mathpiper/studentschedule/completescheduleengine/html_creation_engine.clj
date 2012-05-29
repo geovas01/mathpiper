@@ -111,8 +111,8 @@
 (defn createHtmlScheduleTable [schedule course-map] 
   
   (let [days (addOpenTimeBlocks schedule course-map) accumulator [] 
-        earliest (reduce min (map (fn [class] (let [[courseName courseSection dayAndTime courseColor]  class, [dayCode startTime duration] dayAndTime] startTime)) (unbundleDaysAndTimes schedule)))
-        latest   (reduce max (map (fn [class] (let [[courseName courseSection dayAndTime courseColor]  class, [dayCode startTime duration] dayAndTime] (+ startTime duration))) (unbundleDaysAndTimes schedule))) 
+        earliest (reduce min (map (fn [class] (let [[courseName courseSection dayAndTime courseColor]  class, [dayCode startTime duration] dayAndTime] startTime)) (unbundleDaysAndTimes schedule course-map)))
+        latest   (reduce max (map (fn [class] (let [[courseName courseSection dayAndTime courseColor]  class, [dayCode startTime duration] dayAndTime] (+ startTime duration))) (unbundleDaysAndTimes schedule course-map))) 
         earliestCorrected (- earliest (mod earliest 12) )
         latestCorrected   (+ latest (- 12 (mod latest 12)) )
        ]
@@ -234,7 +234,7 @@
                   <td>"  (first (get-in course-map [courseName :sections courseSection :faculty])) "</td>
                   <td>" "-" "</td>
                   <td>" "-" "</td>
-                  <td>"  (formated-days {:course-number courseName  :section-number courseSection}) "</td>
+                  <td>"  (formated-days {:course-number courseName  :section-number courseSection} course-map) "</td>
 
 
                  </tr> ")

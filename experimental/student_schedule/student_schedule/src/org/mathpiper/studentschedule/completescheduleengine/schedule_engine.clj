@@ -106,12 +106,12 @@
   
   
   ([course-list course-map]
-  (vec (filter #(legal-schedule? % course-map) (tabulate-schedules course-list course-map)))
-  )
+  (filter #(legal-schedule? % course-map) (tabulate-schedules course-list course-map)))
+  
   
   ([course-list picked-courses course-map]
-  (vec (filter #(legal-schedule? % course-map) (tabulate-schedules course-list picked-courses course-map)))
-  )
+   (filter #(legal-schedule? % course-map) (tabulate-schedules course-list picked-courses course-map)))
+  
   
   )
 
