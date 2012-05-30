@@ -34,12 +34,12 @@
     )
   )
 
-(defn  formated-courses-in-map []
-  (apply str (map #(str (name %) ",") (keys zz2)))
+(defn  course-list []
+  (apply str (name (first (keys zz2))) (map #(str "," (name %) ) (rest (keys zz2))))
   
   )
 
-(formated-courses-in-map)
+#_(course-list)
 
  ; test string:
 
