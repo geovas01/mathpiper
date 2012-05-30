@@ -32,6 +32,7 @@
     
     
     )
+  
   )
 
 (defn  course-list []
@@ -44,12 +45,13 @@
  ; test string:
 
  ;
-#_(def ali "{:course-lists [[:ETCO1120] [:ETEM1110] [:MATH1300] [:ENGL1101] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 :PHIL3300 :THAR1000]]
-  :return-number 6 :quality-fn-and-vals [[time-of-day-ratio-corrected [:afternoon 1]]] :custom-courses {}}")
+#_(def ali "{:course-lists [[:ETCO1120] [:ETEM1110] [:MATH1300] [:ENGL1101] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 #_:PHIL3300 :THAR1000]]
+  :return-number 6 :quality-fn-and-vals [[\"time-of-day-ratio-corrected\" [:afternoon 1]]] :custom-courses {}}")
 
  
  
 #_(time (spit "../student_schedule.html" (find-schedules ali) ))
+#_(find-schedules ali)
 
 #_(def course-list [[:ETCO1120] [:ETEM1110] [:MATH1300] [:ENGL1101] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 :PHIL3300 :THAR1000]])
 

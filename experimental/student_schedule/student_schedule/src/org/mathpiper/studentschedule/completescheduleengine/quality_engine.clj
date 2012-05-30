@@ -2,7 +2,6 @@
 
 (use 'org.mathpiper.studentschedule.ssu_fall_2012_semester_schedule_map)
 
-(use 'org.mathpiper.studentschedule.completescheduleengine.schedule_engine)
 
 
 (defn days-in [day-code]
@@ -101,7 +100,7 @@
 (defn complete-quality [schedule quality-fn-and-vals course-map] 
   (let [range-denom (range (count quality-fn-and-vals)) 
         denoms (map #(/ 1.0 (inc %)) range-denom)
-        output (apply + (map #(* (apply (first %) (concat [schedule] (second %) [course-map]) ) %2)  quality-fn-and-vals denoms))
+        output (apply + (map #(* (apply (resolve (symbol (first %))) (concat [schedule] (second %) [course-map]) ) %2)  quality-fn-and-vals denoms))
         ]
     (/ output (apply + denoms))
     )
