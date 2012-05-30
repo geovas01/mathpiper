@@ -2,6 +2,9 @@
 
 (use 'org.mathpiper.studentschedule.ssu_fall_2012_semester_schedule_map)
 
+(use 'org.mathpiper.studentschedule.completescheduleengine.schedule_engine)
+
+
 (defn days-in [day-code]
  (apply + (map #(if (not= (bit-and day-code %) 0) 1 0)  [2r1000000 2r0100000 2r0010000 2r0001000 2r0000100 2r0000010 2r0000001])))
 
@@ -95,6 +98,40 @@
 )
 
 
+(defn complete-quality [schedule quality-fn-and-vals course-map] 
+  (let [range-denom (range (count quality-fn-and-vals)) 
+        denoms (map #(/ 1.0 (inc %)) range-denom)
+        output (apply + (map #(* (apply (first %) (concat [schedule] (second %) [course-map]) ) %2)  quality-fn-and-vals denoms))
+        ]
+    (/ output (apply + denoms))
+    )
+  
+  )
+
+#_(def course-list [[:ETCO1120] [:ETEM1110] [:MATH1300] [:ENGL1101] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 :PHIL3300 :THAR1000]])
+
+
+#_(complete-quality (first (legal-schedules course-list zz2))
+                    [[time-of-day-ratio-corrected [:morning 1]]] zz2)
+
+#_(time-of-day-ratio-corrected (first (legal-schedules course-list zz2)) :morning 1 zz2 )
+
+
+(defn sort-by-quality [schedules quality-fn-and-vals allowence course-map]
+
+  (let [list-of-pairs (time (doall (pmap #(list (complete-quality % quality-fn-and-vals course-map) %)   schedules)))
+        best  (reduce max (pmap first list-of-pairs)) 
+        list-of-best (filter #(>= (first %) (- best allowence)) list-of-pairs)
+        ]
+    (for [pair list-of-best] (second pair) )
+
+)
+  
+  
+)
+
+
+
 
 (defn sort-by-time [schedules time-of-day weight course-map]
   (reduce (fn [schedule-1 schedule-2] 
@@ -128,8 +165,8 @@
 
 (defn sort-by-time-3 [schedules time-of-day weight allowence course-map]
 
-  (let [list-of-pairs (pmap #(list (time-of-day-ratio-corrected % time-of-day weight course-map) %)   schedules)
-        best (time (reduce max (pmap first list-of-pairs)) )
+  (let [list-of-pairs (time (doall (pmap #(list (time-of-day-ratio-corrected % time-of-day weight course-map) %)   schedules)))
+        best  (reduce max (pmap first list-of-pairs)) 
         list-of-best (filter #(>= (first %) (- best allowence)) list-of-pairs)
         ]
     (for [pair list-of-best] (second pair) )
