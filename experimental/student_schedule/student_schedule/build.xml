@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright (C) 2008 Ted Kosan (license information is at the end of this document.) -->
+<project id="mathpiper" name="mathpiper" default="dist" basedir=".">
+    <description>Build file for student schedule.</description>
+
+    <property name="compile.source" value="1.6" />
+
+    <property name="compile.target" value="1.6" />
+
+    <property name="src.dir" value="${basedir}/src" />
+
+    <property name="build.dir" value="${basedir}/build" />
+
+    <property name="library.dir" value="${basedir}/../lib" />
+    
+    <property name="gwt_lib.dir" value="${basedir}" />
+
+    <property name="mathpiper.dir" value="${basedir}" />  
+	
+    <property name="gwt_dist.dir" value="${library.dir}/gwt_dist/student_schedule" />
+
+    <path id="build_classpath">
+		<!-- <pathelement path="${library.dir}/jfreechart-1.0.13.jar" /> -->
+
+    </path>
+
+<!-- <property name="version" value=".01" /> -->
+    <property name="build.classes.dir" value="${build.dir}" />
+
+    <condition property="isMac">
+        <os family="mac" />
+    </condition>
+
+    <condition property="isWindows">
+        <os family="windows" />
+    </condition>
+
+    <condition property="isUnix">
+        <os family="unix" />
+    </condition>
+
+    <target id="noop" name="noop" description="Do nothing." />
+
+    <target id="clean" name="clean" description="Deletes the MathPiper build directory">
+        <echo message="Removing the build directory...." />
+
+        <delete dir="${build.dir}" />
+    </target>
+
+    <target name="init" >
+        <condition property="IsUnix" value="true">
+            <os family="unix" />
+        </condition>
+
+        <tstamp>
+            <format property="build.time" pattern="MM/dd/yyyy hh:mm aa" />
+        </tstamp>
+
+        <mkdir dir="${build.dir}" />
+
+        <mkdir dir="${build.dir}/tests" />
+    </target>
+
+
+  
+    <!-- ======================================== GWT ========================================================= -->
+    
+
+    <target id="gwt_dist" name="gwt_dist" depends="">
+        <delete dir="gwt_dist.dir" />
+
+        <mkdir dir="${gwt_dist.dir}" />
+
+        <mkdir dir="${gwt_dist.dir}/src" />
+
+        <mkdir dir="${gwt_dist.dir}/war" />
+        
+        <mkdir dir="${gwt_dist.dir}/war/WEB-INF" />
+        
+        <mkdir dir="${gwt_dist.dir}/war/WEB-INF/lib" />
+
+        <copy todir="${gwt_dist.dir}/src">
+            <fileset dir="${mathpiper.dir}/src/">
+                <include name="org/mathpiper/builtin/" />
+                <exclude name="org/mathpiper/builtin/functions/optional/" />
+                <exclude name="org/mathpiper/builtin/functions/plugins/" />
+                <exclude name="org/mathpiper/builtin/library/" />
+
+                <include name="org/mathpiper/exceptions/" />
+
+                <include name="org/mathpiper/interpreters/EvaluationResponse.java" />
+                <include name="org/mathpiper/interpreters/Interpreter.java" />
+                <include name="org/mathpiper/interpreters/SynchronousInterpreter.java" />
+                <include name="org/mathpiper/interpreters/ResponseListener.java" />
+                <include name="org/mathpiper/ui/gui/gwt/" />
+
+
+                <include name="org/mathpiper/io/" />
+
+                <include name="org/mathpiper/lisp/" />
+
+                
+
+                <include name="org/mathpiper/Scripts.java" />
+
+                <include name="org/mathpiper/Version.java" />
+            </fileset>
+        </copy>
+
+        <copy file="${gwt_lib.dir}/google_web_toolkit/module.gwt.xml" todir="${gwt_dist.dir}/src/org" />
+
+        <copy todir="${gwt_dist.dir}/">
+            <fileset dir="${gwt_lib.dir}/google_web_toolkit">
+                <include name="compile.sh" if="isUnix" />
+
+                <include name="debug.sh" if="isUnix" />
+
+                <include name="compile.bat" if="isWindows" />
+
+                <include name="debug.bat" if="isWindows" />
+            </fileset>
+        </copy>
+
+        <copy file="${gwt_lib.dir}/google_web_toolkit/mathpiper.html" todir="${gwt_dist.dir}/war" />
+        <copy file="${gwt_lib.dir}/google_web_toolkit/WebConsole.css" todir="${gwt_dist.dir}/war" />
+    	<copy file="${gwt_lib.dir}/google_web_toolkit/icons.gif" todir="${gwt_dist.dir}/war" />
+        <copy file="${gwt_lib.dir}/google_web_toolkit/RichTextToolbar.css" todir="${gwt_dist.dir}/war" />
+        
+        <copy file="${gwt_lib.dir}/google_web_toolkit/dot_classpath" tofile="${gwt_dist.dir}/.classpath" />
+        <copy file="${gwt_lib.dir}/google_web_toolkit/dot_project" tofile="${gwt_dist.dir}/.project" />
+        
+        <copy file="${gwt_lib.dir}/google_web_toolkit/WEB-INF/web.xml" todir="${gwt_dist.dir}/war/WEB-INF" />
+        <copy file="${library.dir}/gwt-servlet.jar" todir="${gwt_dist.dir}/war/WEB-INF/lib" />
+        
+        
+    </target>
+    
+    
+
+
+    
+</project>
+
+
+
+

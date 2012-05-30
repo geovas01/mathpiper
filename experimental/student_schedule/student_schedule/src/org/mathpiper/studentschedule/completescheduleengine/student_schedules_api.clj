@@ -19,7 +19,7 @@
         legal-schedules-output  (legal-schedules course-lists custom-course-map)
         ]
     
-     (createHtmlScheduleTables (take return-number  (sort-by-time-3 legal-schedules-output time-of-day 1 0.0  custom-course-map))
+     (createHtmlScheduleTables (take return-number  (sort-by-time-3 legal-schedules-output time-of-day 1 0.01  custom-course-map))
        custom-course-map)
     
     
