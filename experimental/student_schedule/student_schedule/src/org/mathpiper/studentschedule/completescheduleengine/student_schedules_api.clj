@@ -20,12 +20,14 @@
         courses-not-in-map (filter (fn [course] (not (course  zz2))) all-courses)
         legal-schedules-output  (legal-schedules course-lists  custom-course-map)
         ]
-    (cond (not= courses-not-in-map '())
+    (cond 
+      (not= courses-not-in-map '())
             (apply str (concat ["The following course numbers either are not offered this semester or do not exist \n"] (map #(str "   " (name %) " \n " ) courses-not-in-map) ) )
             
-            (and (not= quality-fn-and-vals []))
-     (createHtmlScheduleTables (take return-number  (sort-by-quality legal-schedules-output quality-fn-and-vals 0.0 custom-course-map))
-       custom-course-map)
+      (and (not= quality-fn-and-vals []))
+            (createHtmlScheduleTables (take return-number  (sort-by-quality legal-schedules-output quality-fn-and-vals 0.0 custom-course-map))
+             custom-course-map)
+       :default (createHtmlScheduleTables (for [_ (range return-number)]  (nth legal-schedules-output (rand-int (count legal-schedules-output)) )) custom-course-map)
      
      
      )
@@ -46,7 +48,7 @@
 
  ;
 #_(def ali "{:course-lists [[:ETCO1120] [:ETEM1110] [:MATH1300] [:ENGL1101] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 #_:PHIL3300 :THAR1000]]
-  :return-number 6 :quality-fn-and-vals [[\"time-of-day-ratio-corrected\" [:afternoon 1]]] :custom-courses {}}")
+  :return-number 6 :quality-fn-and-vals [] #_[[\"time-of-day-ratio-corrected\" [:afternoon 1]]] :custom-courses {}}")
 
  
  
