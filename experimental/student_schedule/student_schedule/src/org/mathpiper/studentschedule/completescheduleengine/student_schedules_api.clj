@@ -22,7 +22,10 @@
         ]
     (cond 
       (not= courses-not-in-map '())
+            #_(throw (IllegalArgumentException ))
             (apply str (concat ["The following course numbers either are not offered this semester or do not exist \n"] (map #(str "   " (name %) " \n " ) courses-not-in-map) ) )
+      (distinct? all-courses) (throw (Exception. "There were two or more course numbers that were the same."))
+            
             
       (and (not= quality-fn-and-vals []))
             (createHtmlScheduleTables (take return-number  (sort-by-quality legal-schedules-output quality-fn-and-vals 0.0 custom-course-map))
