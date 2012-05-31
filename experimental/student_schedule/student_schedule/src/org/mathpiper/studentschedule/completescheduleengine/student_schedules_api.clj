@@ -18,13 +18,13 @@
         custom-course-map (merge zz2 custom-courses)
         all-courses (apply concat course-lists)
         courses-not-in-map (filter (fn [course] (not (course  zz2))) all-courses)
-        legal-schedules-output  (legal-schedules course-lists  custom-course-map)
+        legal-schedules-output  (legal-schedules course-lists [] custom-course-map)
         ]
     (cond 
       (not= courses-not-in-map '())
             #_(throw (IllegalArgumentException ))
             (apply str (concat ["The following course numbers either are not offered this semester or do not exist \n"] (map #(str "   " (name %) " \n " ) courses-not-in-map) ) )
-      (distinct? all-courses) (throw (Exception. "There were two or more course numbers that were the same."))
+      (not (apply distinct? all-courses)) (throw (Exception. "There were two or more course numbers that were the same."))
             
             
       (and (not= quality-fn-and-vals []))
@@ -50,8 +50,8 @@
  ; test string:
 
  ;
-#_(def ali "{:course-lists [[:ETCO1120] [:ETEM1110] [:MATH1300] [:ENGL1101] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 #_:PHIL3300 :THAR1000]]
-  :return-number 6 :quality-fn-and-vals [] #_[[\"time-of-day-ratio-corrected\" [:afternoon 1]]] :custom-courses {}}")
+#_(def ali "{:course-lists [[:ETCO1120] [:ETEM1110] [:MATH1010] [:ENGL1105] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 #_:PHIL3300 :THAR1000]]
+  :return-number 6 :quality-fn-and-vals [[\"time-of-day-ratio-corrected\" [:afternoon 1]]] :custom-courses {}}")
 
  
  
