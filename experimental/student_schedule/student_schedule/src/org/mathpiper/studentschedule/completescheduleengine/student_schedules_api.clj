@@ -28,7 +28,7 @@
             
             
       (and (not= quality-fn-and-vals []))
-            (createHtmlScheduleTables (take return-number  (sort-by-quality legal-schedules-output quality-fn-and-vals 0.0 custom-course-map))
+            (createHtmlScheduleTables (take return-number  (sort-by-quality legal-schedules-output quality-fn-and-vals 0.01 custom-course-map))
              custom-course-map)
        :default (createHtmlScheduleTables (for [_ (range return-number)]  (nth legal-schedules-output (rand-int (count legal-schedules-output)) )) custom-course-map)
      
