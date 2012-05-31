@@ -23,8 +23,8 @@
     (cond 
       (not= courses-not-in-map '())
             #_(throw (IllegalArgumentException ))
-            (apply str (concat ["The following course numbers either are not offered this semester or do not exist \n"] (map #(str "   " (name %) " \n " ) courses-not-in-map) ) )
-      (not (apply distinct? all-courses)) (throw (Exception. "There were two or more course numbers that were the same."))
+            (throw (IllegalArgumentException. (apply str (concat ["The following course numbers either are not offered this semester or do not exist:\n"] (map #(str "   " (name %) " \n " ) courses-not-in-map) )) ))
+      (not (apply distinct? all-courses)) (throw (IllegalArgumentException. "Each course can only be entered once."))
             
             
       (and (not= quality-fn-and-vals []))

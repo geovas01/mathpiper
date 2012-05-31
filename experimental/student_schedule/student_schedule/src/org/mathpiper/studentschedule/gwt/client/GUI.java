@@ -257,7 +257,16 @@ public class GUI implements EntryPoint {
 		studentScheduleService.findSchedules(toClojure(),
 			new AsyncCallback<String>() {
 			    public void onFailure(Throwable caught) {
-				Window.alert("Failure: " + caught.getMessage());
+				
+				if(caught instanceof IllegalArgumentException)
+				{
+				    Window.alert(caught.getMessage());
+				}
+				else
+				{
+				    Window.alert("Error :" + caught.getMessage());
+				}
+				
 			    }
 
 			    public void onSuccess(String result) {
