@@ -22,11 +22,12 @@
 
 
 (defn addColorsToCourses [schedule]
-  ( vec(map  #(assoc (nth schedule %2) :color %1 )   (cycle [["#99CCFF" "Blue(Light)"]
+  ( vec(map  #(assoc (nth schedule %2) :color %1 )   (cycle [
+ ["#99CCFF" "Blue(Light)"]
  ["#F6F6CC" "Beige"]
- ["#9FCC9F" "Green(Pale)"]
- ["#C9C9F3" "Quartz"]
  ["#FF6F60" "Coral"]
+ ["#C9C9F3" "Quartz"]
+ ["#9FCC9F" "Green(Pale)"]
  ["#CCCC60" "Goldenrod"]])
         
         (range (count schedule))) ))
