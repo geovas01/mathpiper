@@ -9,4 +9,6 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("greet")
 public interface StudentScheduleService extends RemoteService {
     String findSchedules(String name) throws IllegalArgumentException;
+    
+    String courseList();
 }

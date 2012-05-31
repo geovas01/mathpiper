@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Style.Position;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -13,6 +14,8 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.ui.DecoratedTabPanel;
+import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
+import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -29,7 +32,7 @@ public class GUI implements EntryPoint {
     private final StudentScheduleServiceAsync studentScheduleService = GWT
 	    .create(StudentScheduleService.class);
 
-    private List<TextBox> coursesList = new ArrayList<TextBox>();
+    private List<SuggestBox> coursesList = new ArrayList<SuggestBox>();
 
     private List<CheckBox> fineArtsGEPList = new ArrayList<CheckBox>();
 
@@ -40,14 +43,30 @@ public class GUI implements EntryPoint {
     private int tabNumber = 1;
 
     final DecoratedTabPanel tabPanel = new DecoratedTabPanel();
-    
+
     private List<HTML> tabList = new ArrayList<HTML>();
+
+    private MultiWordSuggestOracle suggestOracle = new MultiWordSuggestOracle();
 
     @Override
     public void onModuleLoad() {
-	// TODO Auto-generated method stub
 
-	RootPanel rootPanel = RootPanel.get();
+	studentScheduleService.courseList(new AsyncCallback<String>() {
+	    public void onFailure(Throwable caught) {
+		Window.alert("Failure: " + caught.getMessage());
+	    }
+
+	    public void onSuccess(String result) {
+		String[] courses = result.split(",");
+		for (String course : courses) {
+		    suggestOracle.add(course);
+		}
+
+	    }
+	});
+
+	RootPanel rootPanel = RootPanel.get("appContainer");
+	rootPanel.getElement().getStyle().setPosition(Position.RELATIVE);
 
 	rootPanel.add(tabPanel, 10, 10);
 	tabPanel.setSize("700", "537px");
@@ -71,31 +90,37 @@ public class GUI implements EntryPoint {
 	Label lblNewLabel_1 = new Label("Course Numbers");
 	flexTable.setWidget(0, 0, lblNewLabel_1);
 
-	TextBox textBox0 = new TextBox();
+	SuggestBox textBox0 = new SuggestBox(suggestOracle);
 	textBox0.setText("ETCO1120");
+	textBox0.setLimit(10);
 	flexTable.setWidget(1, 0, textBox0);
 	coursesList.add(textBox0);
 
-	TextBox textBox1 = new TextBox();
+	SuggestBox textBox1 = new SuggestBox(suggestOracle);
 	textBox1.setText("ETEM1110");
+	textBox1.setLimit(10);
 	flexTable.setWidget(2, 0, textBox1);
 	coursesList.add(textBox1);
 
-	TextBox textBox2 = new TextBox();
+	SuggestBox textBox2 = new SuggestBox(suggestOracle);
 	textBox2.setText("MATH1300");
+	textBox2.setLimit(10);
 	flexTable.setWidget(3, 0, textBox2);
 	coursesList.add(textBox2);
 
-	TextBox textBox3 = new TextBox();
+	SuggestBox textBox3 = new SuggestBox(suggestOracle);
 	textBox3.setText("ENGL1101");
+	textBox3.setLimit(10);
 	flexTable.setWidget(4, 0, textBox3);
 	coursesList.add(textBox3);
 
-	TextBox textBox4 = new TextBox();
+	SuggestBox textBox4 = new SuggestBox(suggestOracle);
+	textBox4.setLimit(10);
 	flexTable.setWidget(5, 0, textBox4);
 	coursesList.add(textBox4);
 
-	TextBox textBox5 = new TextBox();
+	SuggestBox textBox5 = new SuggestBox(suggestOracle);
+	textBox5.setLimit(10);
 	flexTable.setWidget(6, 0, textBox5);
 	coursesList.add(textBox5);
 
@@ -107,53 +132,53 @@ public class GUI implements EntryPoint {
 
 	Label lblFineArts = new Label("Fine Arts");
 	flexTable_3.setWidget(0, 0, lblFineArts);
-	
-		CheckBox chckbxNewCheckBox = new CheckBox("ARTH1101");
-		chckbxNewCheckBox
-			.setTitle("ARTH 1101 - Introduction to Art - Credits: 3 - The course is an introduction to the visual arts. It encompasses the world of western and non-western art. It deals with the principles of art, formal and contextual elements and the basic vocabulary necessary in order to articulate opinions about the arts. The course has a studio component that will allow the student hands on experience to encourage visual communication through the visual arts.");
-		flexTable_3.setWidget(1, 0, chckbxNewCheckBox);
-		fineArtsGEPList.add(chckbxNewCheckBox);
-	
-		CheckBox chckbxEngl = new CheckBox("ENGL2275");
-		chckbxEngl
-			.setTitle("ENGL 2275 - American Film History - Credits: 3 - Chronological study of the influence of American history upon American film, and vice versa. Students become acquainted with the work and themes of some of America’s significant film directors and major genres of American popular film. Prereq: ENGL 1105 or ENGL 1107.");
-		flexTable_3.setWidget(2, 0, chckbxEngl);
-		fineArtsGEPList.add(chckbxEngl);
-	
-		CheckBox chckbxMusi = new CheckBox("MUSI1201");
-		chckbxMusi
-			.setTitle("MUSI 1201 - Music Appreciation - Credits: 3 - A survey of musical highlights throughout history including pieces, composers, forms, styles, and performance media from the Fall of the Roman Empire to the emergence of the music video.");
-		flexTable_3.setWidget(3, 0, chckbxMusi);
-		fineArtsGEPList.add(chckbxMusi);
-	
-		CheckBox chckbxMusi_1 = new CheckBox("MUSI2211");
-		chckbxMusi_1
-			.setTitle("MUSI 2211 - Music History 1 -Credits: 3 - A detailed survey of music including pieces, composers, forms, styles, and performance media from the Fall of the Roman Empire through the Classical Period.");
-		flexTable_3.setWidget(4, 0, chckbxMusi_1);
-		fineArtsGEPList.add(chckbxMusi_1);
-	
-		CheckBox chckbxPhil = new CheckBox("PHIL3300");
-		chckbxPhil
-			.setTitle("PHIL 3300 - Philosophy and Film - Credits: 3 - Viewing, analysis, and interpretation of international and domestic films and their philosophical, aesthetic, and moral dimensions.");
-		flexTable_3.setWidget(5, 0, chckbxPhil);
-		fineArtsGEPList.add(chckbxPhil);
-		
-			CheckBox chckbxThar = new CheckBox("THAR1000");
-			chckbxThar
-				.setTitle("THAR 1000 - Introduction to Theater- Credits: 3 - Survey of development of theater from classical to modern times, emphasizing the artists and craftspersons of the theater and their contributions to its development.");
-			flexTable_3.setWidget(6, 0, chckbxThar);
-			fineArtsGEPList.add(chckbxThar);
-		
-			Button btnAll = new Button("All");
-			btnAll.addClickHandler(new ClickHandler() {
-			    public void onClick(ClickEvent event) {
-				for (CheckBox checkBox : fineArtsGEPList) {
-				    checkBox.setValue(true);
-				}
-			    }
-			});
-			btnAll.setText("Check All");
-			flexTable_3.setWidget(7, 0, btnAll);
+
+	CheckBox chckbxNewCheckBox = new CheckBox("ARTH1101");
+	chckbxNewCheckBox
+		.setTitle("ARTH 1101 - Introduction to Art - Credits: 3 - The course is an introduction to the visual arts. It encompasses the world of western and non-western art. It deals with the principles of art, formal and contextual elements and the basic vocabulary necessary in order to articulate opinions about the arts. The course has a studio component that will allow the student hands on experience to encourage visual communication through the visual arts.");
+	flexTable_3.setWidget(1, 0, chckbxNewCheckBox);
+	fineArtsGEPList.add(chckbxNewCheckBox);
+
+	CheckBox chckbxEngl = new CheckBox("ENGL2275");
+	chckbxEngl
+		.setTitle("ENGL 2275 - American Film History - Credits: 3 - Chronological study of the influence of American history upon American film, and vice versa. Students become acquainted with the work and themes of some of America’s significant film directors and major genres of American popular film. Prereq: ENGL 1105 or ENGL 1107.");
+	flexTable_3.setWidget(2, 0, chckbxEngl);
+	fineArtsGEPList.add(chckbxEngl);
+
+	CheckBox chckbxMusi = new CheckBox("MUSI1201");
+	chckbxMusi
+		.setTitle("MUSI 1201 - Music Appreciation - Credits: 3 - A survey of musical highlights throughout history including pieces, composers, forms, styles, and performance media from the Fall of the Roman Empire to the emergence of the music video.");
+	flexTable_3.setWidget(3, 0, chckbxMusi);
+	fineArtsGEPList.add(chckbxMusi);
+
+	CheckBox chckbxMusi_1 = new CheckBox("MUSI2211");
+	chckbxMusi_1
+		.setTitle("MUSI 2211 - Music History 1 -Credits: 3 - A detailed survey of music including pieces, composers, forms, styles, and performance media from the Fall of the Roman Empire through the Classical Period.");
+	flexTable_3.setWidget(4, 0, chckbxMusi_1);
+	fineArtsGEPList.add(chckbxMusi_1);
+
+	CheckBox chckbxPhil = new CheckBox("PHIL3300");
+	chckbxPhil
+		.setTitle("PHIL 3300 - Philosophy and Film - Credits: 3 - Viewing, analysis, and interpretation of international and domestic films and their philosophical, aesthetic, and moral dimensions.");
+	flexTable_3.setWidget(5, 0, chckbxPhil);
+	fineArtsGEPList.add(chckbxPhil);
+
+	CheckBox chckbxThar = new CheckBox("THAR1000");
+	chckbxThar
+		.setTitle("THAR 1000 - Introduction to Theater- Credits: 3 - Survey of development of theater from classical to modern times, emphasizing the artists and craftspersons of the theater and their contributions to its development.");
+	flexTable_3.setWidget(6, 0, chckbxThar);
+	fineArtsGEPList.add(chckbxThar);
+
+	Button btnAll = new Button("All");
+	btnAll.addClickHandler(new ClickHandler() {
+	    public void onClick(ClickEvent event) {
+		for (CheckBox checkBox : fineArtsGEPList) {
+		    checkBox.setValue(true);
+		}
+	    }
+	});
+	btnAll.setText("Check All");
+	flexTable_3.setWidget(7, 0, btnAll);
 
 	DecoratorPanel decoratorPanel = new DecoratorPanel();
 	decoratorPanel.setStyleName("border");
@@ -215,14 +240,11 @@ public class GUI implements EntryPoint {
 		timeComboBox.setItemSelected(0, true);
 		tabNumber = 1;
 
-
-		for (HTML html: tabList) {
+		for (HTML html : tabList) {
 		    tabPanel.remove(html);
 		}
-		
+
 		tabList.clear();
-		
-		
 
 		for (CheckBox checkBox : fineArtsGEPList) {
 		    checkBox.setValue(false);
@@ -242,7 +264,7 @@ public class GUI implements EntryPoint {
 				// Window.alert("Success!: " + result);
 				HTML html = new HTML(result);
 				tabPanel.add(html, "" + tabNumber++);
-				
+
 				tabList.add(html);
 
 			    }
@@ -262,7 +284,7 @@ public class GUI implements EntryPoint {
 
 	sb.append("[");
 
-	for (TextBox textBox : coursesList) {
+	for (SuggestBox textBox : coursesList) {
 	    String courseNumber = textBox.getText().trim();
 
 	    if (!courseNumber.equals("")) {
@@ -297,9 +319,17 @@ public class GUI implements EntryPoint {
 	sb.append(":return-number ");
 	sb.append(numberReturned.getValue(numberReturned.getSelectedIndex()));
 
-	sb.append(" :time-of-day :");
-	sb.append(timeComboBox.getValue(timeComboBox.getSelectedIndex())
-		.toLowerCase());
+	sb.append(" :quality-fn-and-vals [");
+	String dayTimePreference = timeComboBox.getValue(
+		timeComboBox.getSelectedIndex()).toLowerCase();
+	if (!dayTimePreference.equals("none")) {
+	    sb.append("[\"time-of-day-ratio-corrected\" [:");
+	    sb.append(dayTimePreference);
+	    sb.append(" 1]]");
+	}
+	sb.append("]");
+
+	// :quality-fn-and-vals [[time-of-day-ratio-corrected [:afternoon 1]]]
 
 	sb.append(" :custom-courses {}");
 

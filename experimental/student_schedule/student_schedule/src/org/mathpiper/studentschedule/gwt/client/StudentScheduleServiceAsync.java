@@ -8,4 +8,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 public interface StudentScheduleServiceAsync {
     void findSchedules(String input, AsyncCallback<String> callback)
 	    throws IllegalArgumentException;
+    
+    void courseList(AsyncCallback<String> callback);
 }

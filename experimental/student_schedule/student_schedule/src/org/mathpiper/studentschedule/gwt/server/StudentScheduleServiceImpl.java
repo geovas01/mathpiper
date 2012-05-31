@@ -15,7 +15,9 @@ import clojure.lang.Var;
 public class StudentScheduleServiceImpl extends RemoteServiceServlet implements
 	StudentScheduleService {
     
-    private Var report;
+    private Var findSchedules;
+    
+    private Var courseList;;
     
     
     public StudentScheduleServiceImpl()
@@ -27,7 +29,13 @@ public class StudentScheduleServiceImpl extends RemoteServiceServlet implements
 	    //report = RT.var("org.mathpiper.studentschedule.gwt-test", "print-report");
 	    
 	    RT.loadResourceScript("org/mathpiper/studentschedule/completescheduleengine/student_schedules_api.clj");
-	    report = RT.var("org.mathpiper.studentschedule.completescheduleengine.student_schedules_api", "find-schedules");
+	    findSchedules = RT.var("org.mathpiper.studentschedule.completescheduleengine.student_schedules_api", "find-schedules");
+	    
+	    courseList = RT.var("org.mathpiper.studentschedule.completescheduleengine.student_schedules_api", "course-list");
+	    //String courseListString = (String) courseList.invoke();
+	    
+	    
+	    //System.out.println(courseListString);
 	} catch (IOException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
@@ -52,13 +60,19 @@ public class StudentScheduleServiceImpl extends RemoteServiceServlet implements
 	// Escape data from the client to avoid cross-site script vulnerabilities.
 	input = escapeHtml(input);
 	
-	System.out.println(input);
+	System.out.println("XXX " + input);
 	
 	userAgent = escapeHtml(userAgent);
 	
-	String result = (String) report.invoke(input);
+	String result = (String) findSchedules.invoke(input);
 
 	return result;
+    }//end method.
+    
+    
+    
+    public String courseList() {
+	return (String) courseList.invoke();
     }
 
     /**
