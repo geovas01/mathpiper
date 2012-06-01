@@ -259,3 +259,71 @@
 
 
 
+(defn create-html-sections-table [course-list course-map]
+
+  
+  
+(str 
+"<html>
+<head>
+<title>Section listings</title>
+</head>
+<body>"
+
+             
+               (apply str (for [course-number course-list]
+                            (str
+                               "
+                               <table border=1  cellpadding=3 align=\"center\">
+                               <tr>
+                               <th BGCOLOR=#EEEEEE >Course</th>
+                               <th BGCOLOR=#EEEEEE >Name</th>
+                               <th BGCOLOR=#EEEEEE >Section</th>
+                               <th BGCOLOR=#EEEEEE >Faculty</th>
+                               <th BGCOLOR=#EEEEEE >Capacity</th>
+                               <th BGCOLOR=#EEEEEE >Credits</th>
+                               <th BGCOLOR=#EEEEEE >Times</th> 
+                               <th BGCOLOR=#EEEEEE >Days</th>
+                               </tr>
+                               "  
+                              
+                              
+                              
+                              
+                              "<tr>  <td align=\"top\" rowspan=" (count (keys (get-in course-map [course-number :sections])))  ">" (name course-number) "</td>" 
+                               "<td align=\"top\" rowspan=" (count (keys (get-in course-map [course-number :sections])))  "> "  (get-in course-map [course-number :name]) "</td>"
+                                 (apply str (for [section-number (keys (get-in course-map [course-number :sections]))] 
+                       
+                   
+                  
+                 (str  " <td align=center>" (name section-number) "</td>
+                  
+                  <td>"  (first (get-in course-map [course-number :sections section-number :faculty])) "</td>
+                  <td>" "-" "</td>
+                  <td>" "-" "</td>
+                  <td>" "-" "</td>
+                  <td>"  (formated-days {:course-number course-number  :section-number section-number} course-map) "</td>
+
+
+                 </tr> ")
+                 ))
+                   
+                  "</table> <br />"
+                  "<br /> <br /> <br />"
+                                 
+                                 
+                                 )
+                 )
+               )
+   
+"</body>
+</html>" ))
+
+
+
+
+#_(def course-lists [[:ETCO1120] [:ETEM1110] [:MATH1300] [:ENGL1101] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 :PHIL3300 :THAR1000]])
+
+#_(spit "../student_schedule.html" (create-html-sections-table (apply concat course-lists) zz2))
+
+#_(create-html-sections-table [:MATH1010 :ENGL1101] zz2)

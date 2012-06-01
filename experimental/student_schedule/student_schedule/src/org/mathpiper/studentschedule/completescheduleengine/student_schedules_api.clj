@@ -45,6 +45,12 @@
   
   )
 
+(defn show-sections [string]
+  (let [{course-lists :course-lists} (load-string string )]
+  (create-html-sections-table (apply concat course-lists) zz2)
+  )
+  )
+
 #_(course-list)
 
  ; test string:
@@ -54,7 +60,8 @@
   :return-number 6 :quality-fn-and-vals [[\"time-of-day-ratio-corrected\" [:afternoon 1]]] :custom-courses {}}")
 
  
- 
+#_(time (spit "../student_schedule.html" (show-sections ali) ))
+
 #_(time (spit "../student_schedule.html" (find-schedules ali) ))
 #_(find-schedules ali)
 
