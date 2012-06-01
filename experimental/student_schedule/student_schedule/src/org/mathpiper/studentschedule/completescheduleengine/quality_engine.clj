@@ -118,8 +118,8 @@
 
 (defn sort-by-quality [schedules quality-fn-and-vals allowence course-map]
 
-  (let [list-of-pairs (time (doall (pmap #(list (complete-quality % quality-fn-and-vals course-map) %)   schedules)))
-        best  (reduce max (pmap first list-of-pairs)) 
+  (let [list-of-pairs  (map #( list (complete-quality % quality-fn-and-vals course-map) %)   schedules)
+        best  (reduce max (map first list-of-pairs)) 
         list-of-best (filter #(>= (first %) (- best allowence)) list-of-pairs)
         ]
     (for [pair list-of-best] (second pair) )
@@ -164,8 +164,8 @@
 
 (defn sort-by-time-3 [schedules time-of-day weight allowence course-map]
 
-  (let [list-of-pairs (time (doall (pmap #(list (time-of-day-ratio-corrected % time-of-day weight course-map) %)   schedules)))
-        best  (reduce max (pmap first list-of-pairs)) 
+  (let [list-of-pairs  (map #(list (time-of-day-ratio-corrected % time-of-day weight course-map) %)   schedules)
+        best  (reduce max (map first list-of-pairs)) 
         list-of-best (filter #(>= (first %) (- best allowence)) list-of-pairs)
         ]
     (for [pair list-of-best] (second pair) )

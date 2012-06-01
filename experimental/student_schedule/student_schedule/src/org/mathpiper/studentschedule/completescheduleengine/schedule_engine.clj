@@ -2,6 +2,9 @@
 
 (use 'org.mathpiper.studentschedule.ssu_fall_2012_semester_schedule_map)
 
+(use 'clojure.math.combinatorics)
+
+
 (defn open-section? [course-section course-map]
   (let [{course-number :course-number section-number :section-number} course-section
         open-boolean (get-in course-map [course-number :sections section-number :open?])
@@ -20,7 +23,7 @@
 
 
 
-(defn combine [seq-of-seqs]
+#_(defn combine [seq-of-seqs]
  (loop [remainder seq-of-seqs currant-state-of-seq [[]] ]
   (let [next-seq (first remainder)
         rest-remainder (rest remainder)
@@ -38,18 +41,18 @@
 
 (defn tabulate-schedules 
   ([course-list course-map]
-  (let [courses-possible (combine course-list)
+  (let [courses-possible (apply cartesian-product course-list)
         schedules (reduce concat 
                           (map (fn [possible-course-list]
-                                  (combine (map #(get-open-sections % course-map)  possible-course-list)) ) courses-possible)) ]     
+                                  (apply cartesian-product (map #(get-open-sections % course-map)  possible-course-list)) ) courses-possible)) ]     
      schedules) )
   
 ([course-list picked-courses course-map]
     
-    (let [courses-possible (combine course-list)
+    (let [courses-possible (apply cartesian-product course-list)
         schedules (reduce concat 
                           (map (fn [possible-course-list]
-                                  (combine (map #_(println %) #(if (not= (course-in-list? % picked-courses ) [])
+                                  (apply cartesian-product (map #_(println %) #(if (not= (course-in-list? % picked-courses ) [])
                                                    (course-in-list? % picked-courses  )
                                                    (get-open-sections % course-map)
                                                    )
