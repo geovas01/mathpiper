@@ -6,7 +6,9 @@ import java.util.List;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.Style.Position;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -14,8 +16,12 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.ui.DecoratedTabPanel;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
+import com.google.gwt.user.client.ui.RootLayoutPanel;
+import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SuggestBox;
+import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -26,6 +32,10 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.CheckBox;
+import com.google.gwt.user.client.ui.MenuBar;
+import com.google.gwt.user.client.ui.InlineLabel;
+import com.google.gwt.user.client.ui.LayoutPanel;
+import com.google.gwt.user.client.ui.DockLayoutPanel;
 
 public class GUI implements EntryPoint {
 
@@ -42,11 +52,13 @@ public class GUI implements EntryPoint {
 
     private int tabNumber = 1;
 
-    final DecoratedTabPanel tabPanel = new DecoratedTabPanel();
+    final TabLayoutPanel tabPanel = new TabLayoutPanel(2.3, Unit.EM);
 
-    private List<HTML> tabList = new ArrayList<HTML>();
+    private List<ScrollPanel> tabList = new ArrayList<ScrollPanel>();
 
     private MultiWordSuggestOracle suggestOracle = new MultiWordSuggestOracle();
+
+    private RootLayoutPanel rootPanel;
 
     @Override
     public void onModuleLoad() {
@@ -65,15 +77,36 @@ public class GUI implements EntryPoint {
 	    }
 	});
 
-	RootPanel rootPanel = RootPanel.get("appContainer");
-	rootPanel.getElement().getStyle().setPosition(Position.RELATIVE);
+	rootPanel = RootLayoutPanel.get();
 
-	rootPanel.add(tabPanel, 10, 10);
-	tabPanel.setSize("700", "537px");
+	DockLayoutPanel dockLayoutPanel = new DockLayoutPanel(Unit.EM);
+	rootPanel.add(dockLayoutPanel);
+
+	FlowPanel flowPanel = new FlowPanel();
+	dockLayoutPanel.addNorth(flowPanel, 8
+		);
+	
+	VerticalPanel verticalPanel_2 = new VerticalPanel();
+	flowPanel.add(verticalPanel_2);
+	//verticalPanel_2.setHeight("53px");
+		
+		HTML htmlNewHtml = new HTML("<h2>SSU Student Schedule Generator v.004<h2>", true);
+		htmlNewHtml.setStyleName("none");
+		htmlNewHtml.setDirectionEstimator(true);
+		verticalPanel_2.add(htmlNewHtml);
+	
+		Button btnNewButton = new Button("Help");
+		btnNewButton.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+			    Window.open("/help/help.html", "_blank", "");
+			}
+		});
+		verticalPanel_2.add(btnNewButton);
 
 	VerticalPanel verticalPanel = new VerticalPanel();
+	dockLayoutPanel.add(tabPanel);
+
 	tabPanel.add(verticalPanel, "Enter Courses", false);
-	verticalPanel.setSize("490px", "328px");
 
 	HorizontalPanel horizontalPanel = new HorizontalPanel();
 	verticalPanel.add(horizontalPanel);
@@ -240,7 +273,7 @@ public class GUI implements EntryPoint {
 		timeComboBox.setItemSelected(0, true);
 		tabNumber = 1;
 
-		for (HTML html : tabList) {
+		for (ScrollPanel html : tabList) {
 		    tabPanel.remove(html);
 		}
 
@@ -257,24 +290,37 @@ public class GUI implements EntryPoint {
 		studentScheduleService.findSchedules(toClojure(),
 			new AsyncCallback<String>() {
 			    public void onFailure(Throwable caught) {
-				
-				if(caught instanceof IllegalArgumentException)
-				{
+
+				if (caught instanceof IllegalArgumentException) {
 				    Window.alert(caught.getMessage());
+				} else {
+				    Window.alert("Error :"
+					    + caught.getMessage());
 				}
-				else
-				{
-				    Window.alert("Error :" + caught.getMessage());
-				}
-				
+
 			    }
 
 			    public void onSuccess(String result) {
 				// Window.alert("Success!: " + result);
 				HTML html = new HTML(result);
-				tabPanel.add(html, "" + tabNumber++);
+				Label tabLabel = new Label("" + tabNumber++);
+				tabLabel.setStyleName("newTab");
+				tabLabel.setWidth("10px");
 
-				tabList.add(html);
+				ScrollPanel scrollPanel = new ScrollPanel(html);
+				tabPanel.add(scrollPanel, tabLabel); // "" +
+								     // tabNumber++);
+
+				// tabPanel.add(html,tabLabel);
+
+				tabList.add(scrollPanel);
+
+				/*
+				 * Scheduler.get().scheduleDeferred(new
+				 * Scheduler.ScheduledCommand() { public void
+				 * execute() { tabPanel.fireEvent(GwtEvent.) }
+				 * });
+				 */
 
 			    }
 			});
