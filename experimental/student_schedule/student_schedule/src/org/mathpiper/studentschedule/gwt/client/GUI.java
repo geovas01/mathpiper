@@ -9,6 +9,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.Style.Position;
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -17,7 +18,9 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.ui.DecoratedTabPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
+import com.google.gwt.user.client.ui.NotificationMole;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SuggestBox;
@@ -36,6 +39,7 @@ import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
 
 public class GUI implements EntryPoint {
 
@@ -59,9 +63,19 @@ public class GUI implements EntryPoint {
     private MultiWordSuggestOracle suggestOracle = new MultiWordSuggestOracle();
 
     private RootLayoutPanel rootPanel;
+    
+    private Timer blinkTimer;
+    
+    private Image processingImage = new Image("processing.gif");
+    
+    private HorizontalPanel horizontalPanel_1;
+    
+    private SimplePanel simplePanel;
+
 
     @Override
     public void onModuleLoad() {
+	
 
 	studentScheduleService.courseList(new AsyncCallback<String>() {
 	    public void onFailure(Throwable caught) {
@@ -83,25 +97,35 @@ public class GUI implements EntryPoint {
 	rootPanel.add(dockLayoutPanel);
 
 	FlowPanel flowPanel = new FlowPanel();
-	dockLayoutPanel.addNorth(flowPanel, 8
-		);
-	
+	dockLayoutPanel.addNorth(flowPanel, 8);
+
 	VerticalPanel verticalPanel_2 = new VerticalPanel();
 	flowPanel.add(verticalPanel_2);
-	//verticalPanel_2.setHeight("53px");
-		
-		HTML htmlNewHtml = new HTML("<h2>SSU Student Schedule Generator v.004<h2>", true);
-		htmlNewHtml.setStyleName("none");
-		htmlNewHtml.setDirectionEstimator(true);
-		verticalPanel_2.add(htmlNewHtml);
+	// verticalPanel_2.setHeight("53px");
+
+	HTML htmlNewHtml = new HTML(
+		"<h2>SSU Student Schedule Generator v.004<h2>", true);
+	htmlNewHtml.setStyleName("none");
+	htmlNewHtml.setDirectionEstimator(true);
+	verticalPanel_2.add(htmlNewHtml);
+
+	Button btnNewButton = new Button("Help");
+	btnNewButton.addClickHandler(new ClickHandler() {
+	    public void onClick(ClickEvent event) {
+		Window.open("/help/help.html", "_blank", "");
+	    }
+	});
+	verticalPanel_2.add(btnNewButton);
 	
-		Button btnNewButton = new Button("Help");
-		btnNewButton.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-			    Window.open("/help/help.html", "_blank", "");
-			}
-		});
-		verticalPanel_2.add(btnNewButton);
+	/*NotificationMole notificationMole = new NotificationMole();
+	notificationMole.setAnimationDuration(2000);
+        notificationMole.setTitle("Title");
+        notificationMole.setHeight("100px");
+        notificationMole.setWidth("200px");
+        notificationMole.setMessage("Test message to be shown in mole");
+	notificationMole.hide();
+	verticalPanel_2.add(notificationMole);*/
+	
 
 	VerticalPanel verticalPanel = new VerticalPanel();
 	dockLayoutPanel.add(tabPanel);
@@ -113,6 +137,9 @@ public class GUI implements EntryPoint {
 
 	DecoratorPanel decoratorPanel_1 = new DecoratorPanel();
 	horizontalPanel.add(decoratorPanel_1);
+	
+
+	
 	decoratorPanel_1.setStyleName("border");
 
 	FlexTable flexTable = new FlexTable();
@@ -260,11 +287,10 @@ public class GUI implements EntryPoint {
 	timeComboBox.addItem("Evening");
 	flexTable_2.setWidget(0, 1, timeComboBox);
 
-	HorizontalPanel horizontalPanel_1 = new HorizontalPanel();
+	horizontalPanel_1 = new HorizontalPanel();
 	verticalPanel.add(horizontalPanel_1);
 
-	Button btnSubmit = new Button("Submit");
-	horizontalPanel_1.add(btnSubmit);
+
 
 	Button btnReset = new Button("Reset");
 	btnReset.addClickHandler(new ClickHandler() {
@@ -285,11 +311,28 @@ public class GUI implements EntryPoint {
 	    }
 	});
 	horizontalPanel_1.add(btnReset);
+	
+	final Button btnSubmit = new Button("Submit");
+	horizontalPanel_1.add(btnSubmit);
+	
+	simplePanel = new SimplePanel();
+	horizontalPanel_1.add(simplePanel);
+	simplePanel.setSize("49px", "29px");
+	
 	btnSubmit.addClickHandler(new ClickHandler() {
 	    public void onClick(ClickEvent event) {
+		//notificationMole.show();
+		simplePanel.add(processingImage);
+		
+		btnSubmit.setEnabled(false);
+		
 		studentScheduleService.findSchedules(toClojure(),
 			new AsyncCallback<String>() {
 			    public void onFailure(Throwable caught) {
+				
+				simplePanel.remove(processingImage);
+				
+				btnSubmit.setEnabled(true);
 
 				if (caught instanceof IllegalArgumentException) {
 				    Window.alert(caught.getMessage());
@@ -303,7 +346,7 @@ public class GUI implements EntryPoint {
 			    public void onSuccess(String result) {
 				// Window.alert("Success!: " + result);
 				HTML html = new HTML(result);
-				Label tabLabel = new Label("" + tabNumber++);
+				final Label tabLabel = new Label("" + tabNumber++);
 				tabLabel.setStyleName("newTab");
 				tabLabel.setWidth("10px");
 
@@ -321,7 +364,42 @@ public class GUI implements EntryPoint {
 				 * execute() { tabPanel.fireEvent(GwtEvent.) }
 				 * });
 				 */
-
+				
+				
+				   blinkTimer = new Timer()
+                                    {
+				       
+				       private boolean toggle = true;
+				       
+				       private int count = 6;
+                                        @Override
+                                        public void run()
+                                        {
+                                            if(toggle)
+                                            {
+                                        	tabLabel.setStyleName("newTab");
+                                        	toggle = false;
+                                            }
+                                            else
+                                            {
+                                        	tabLabel.setStyleName("normalTab");
+                                        	toggle = true;
+                                            }
+                                            
+                                            count--;
+                                            
+                                            if(count == 0)
+                                            {
+                                        	blinkTimer.cancel();
+                                            }
+                                            
+                                        }
+                                    };
+                                
+                                    blinkTimer.scheduleRepeating(600);
+                                    //notificationMole.hide();
+                                    simplePanel.remove(processingImage);
+                                    btnSubmit.setEnabled(true);
 			    }
 			});
 
@@ -329,6 +407,7 @@ public class GUI implements EntryPoint {
 	});
 
 	tabPanel.selectTab(0);
+
 
     }// end method
 
