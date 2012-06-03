@@ -25,16 +25,16 @@
             #_(throw (IllegalArgumentException ))
             (throw (IllegalArgumentException. (apply str (concat ["The following course numbers either are not offered this semester or do not exist:\n"] (map #(str "   " (name %) " \n " ) courses-not-in-map) )) ))
       (not (apply distinct? all-courses)) (throw (IllegalArgumentException. "Each course can only be entered once."))
+       (= legal-schedules-output '())  (throw (IllegalArgumentException. "There are either no schedules that do not have conflicts or there are no open sections in the courses you have selected. "))   
             
-            
-      (and (not= quality-fn-and-vals []))
-            (createHtmlScheduleTables (take return-number  (sort-by-quality legal-schedules-output quality-fn-and-vals 0.01 custom-course-map))
+      (and  (not= quality-fn-and-vals []))
+            (createHtmlScheduleTables (take return-number (sort-by-quality legal-schedules-output quality-fn-and-vals 0.01 custom-course-map))
              custom-course-map)
        :default (createHtmlScheduleTables (for [_ (range return-number)]  (nth legal-schedules-output (rand-int (count legal-schedules-output)) )) custom-course-map)
      
      
-     )
-    
+     )    
+    legal-schedules-output
     
     )
   
@@ -56,9 +56,10 @@
  ; test string:
 
  ;
-#_(def ali "{:course-lists [[:ETCO1120] [:PSYC1101] [:ETEM1110] [:MATH1010] [:ENGL1105] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 #_:PHIL3300 :THAR1000]]
+#_(def ali "{:course-lists #_[[:ARTS2311]] #_[[:ETEC2101]] [[:ETCO1120] [:PSYC1101] [:ETEM1110] [:MATH1010] [:ENGL1105] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 #_:PHIL3300 :THAR1000]]
   :return-number 6 :quality-fn-and-vals [[\"time-of-day-ratio-corrected\" [:afternoon 1]]] :custom-courses {}}")
 
+#_(legal-schedules [[:ETEC2101]] [] zz2)
  
 #_(time (spit "../student_schedule.html" (show-sections ali) ))
 
