@@ -145,10 +145,15 @@ public class SemesterSchedule {
 
 	String openClosedString = fields[5];
 
-	// System.out.println(courseNumber + ", " + courseSection + ", " +
-	// enrolled + ", " + capacity + ", " + openClosedString);
+	 System.out.println(courseNumber + ", " + courseSection + ", " +
+	 enrolled + ", " + capacity + ", " + openClosedString);
+	 
+	 if(courseNumber.equalsIgnoreCase("ETEC2101"))
+	 {
+	     int xx = 1;
+	 }
 
-	if (openClosedString.equalsIgnoreCase("open")) {
+	if (openClosedString.toLowerCase().contains("open")) {
 	    section.setIsOpen(true);
 	} else {
 	    section.setIsOpen(false);
@@ -159,10 +164,10 @@ public class SemesterSchedule {
 	String[] daysAndTimesAndLocations = compoundDaysAndTimesAndLocations
 		.split("\n");
 
-	if (courseNumber.equalsIgnoreCase("MATH1300")) {
+	/*if (courseNumber.equalsIgnoreCase("EDVA4490")) {
 	    int xx = 1;
 
-	}
+	}*/
 
 	for (String daysAndTimesAndLocationComposite : daysAndTimesAndLocations) {
 	    // System.out.println(daysAndTimesAndLocationComposite);
@@ -407,14 +412,14 @@ public class SemesterSchedule {
     public static void main(String[] args) {
 	SemesterSchedule schedule = new SemesterSchedule();
 
-	File scheduleDSV = new File("ssu_course_schedule_fall_2012.dsv");
+	File scheduleDSV = new File("ssu_course_schedule_fall_2012_6_2.dsv");
 
 	try {
 	    schedule.loadSchedule(scheduleDSV);
 
 	    String output = schedule.toClojureMaps();
 
-	    System.out.println(output);
+	    //System.out.println(output);
 
 	    BufferedWriter writer = null;
 	    try {
