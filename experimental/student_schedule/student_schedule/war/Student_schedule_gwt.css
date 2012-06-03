@@ -66,10 +66,13 @@ h1 {
 
 .gwt-TabLayoutPanel {
  height: 100%;
+
 }
 
+
 /** the tab bar */
-.gwt-TabLayoutPanel .gwt-TabLayoutPanelTabs {
+.gwt-TabLayoutPanel.gwt-TabLayoutPanelTabs {
+	background-color: #5372DB;
 }
 
 /** the individual tab in the tab bar */
