@@ -23,10 +23,9 @@
         legal-schedules-output  (doall (legal-schedules course-lists unpacked-selected-courses custom-course-map))
         ]
     
-    (println unpacked-selected-courses)
     (cond 
       (not= courses-not-in-map '())
-            #_(throw (IllegalArgumentException ))
+            
             (throw (IllegalArgumentException. (apply str (concat ["The following course numbers either are not offered this semester or do not exist:\n"] (map #(str "   " (name %) " \n " ) courses-not-in-map) )) ))
       (not (apply distinct? all-courses)) (throw (IllegalArgumentException. "Each course can only be entered once."))
       (= legal-schedules-output '()) 
@@ -55,12 +54,15 @@
   )
   )
 
-(defn give-sections [course-number-string]
+(defn get-sections [course-number-string]
   (let [course-number (load-string course-number-string)
         ]
-    
+(if    (not (course-number zz2))
+            
+            (throw (IllegalArgumentException. (str "The following course number either is not offered this semester or does not exist: " (name  course-number) )) )
+      
       (apply str (name (first (keys (get-in zz2 [course-number :sections])))) (map #(str "," (name %) ) (rest (keys (get-in zz2 [course-number :sections])))))
-
+)
     ))
 
 #_(course-list)
@@ -68,7 +70,7 @@
  ; test string:
 
  ;
-#_(def ali "{:selected-courses [{:course-number :MATH1010 :section-numbers [:01 :02]} {:course-number :ARTH1101 :section-numbers [:51]}] :course-lists #_[[:ARTS2311]] #_[[:ETEC2101]] [[:ETCO1120] #_[:PSYC1101] [:ETEM1110] [:MATH1010] [:ENGL1105] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 #_:PHIL3300 :THAR1000]]
+#_(def ali "{:selected-courses [] #_[{:course-number :MATH1010 :section-numbers [:01 :02]} {:course-number :ARTH1101 :section-numbers [:51]}] :course-lists #_[[:ARTS2311]] #_[[:ETEC2101]] [[:ETCO1120] #_[:PSYC1101] [:ETEM1110] [:MATH1010] [:ENGL1105] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 #_:PHIL3300 :THAR1000]]
   :return-number 6 :quality-fn-and-vals [[\"time-of-day-ratio-corrected\" [:afternoon 1]]] :custom-courses {}}")
 
 #_(legal-schedules [[:MATH1010]] [{:course-number :MATH1010 :section-number :01}] zz2)
