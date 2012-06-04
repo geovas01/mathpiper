@@ -11,4 +11,6 @@ public interface StudentScheduleService extends RemoteService {
     String findSchedules(String name) throws IllegalArgumentException;
     
     String courseList();
+    
+    String getSections(String name);
 }

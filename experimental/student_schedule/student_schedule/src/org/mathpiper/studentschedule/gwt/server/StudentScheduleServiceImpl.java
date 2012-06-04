@@ -17,7 +17,9 @@ public class StudentScheduleServiceImpl extends RemoteServiceServlet implements
 
     private Var findSchedules;
 
-    private Var courseList;;
+    private Var courseList;
+    
+    private Var getSections;
 
     public StudentScheduleServiceImpl() {
 	super();
@@ -35,6 +37,11 @@ public class StudentScheduleServiceImpl extends RemoteServiceServlet implements
 	    courseList = RT
 		    .var("org.mathpiper.studentschedule.completescheduleengine.student_schedules_api",
 			    "course-list");
+	    
+	    
+	    getSections = RT
+		    .var("org.mathpiper.studentschedule.completescheduleengine.student_schedules_api",
+			    "get-sections");
 	    // String courseListString = (String) courseList.invoke();
 
 	    // System.out.println(courseListString);
@@ -68,13 +75,16 @@ public class StudentScheduleServiceImpl extends RemoteServiceServlet implements
 	
 	result = (String) findSchedules.invoke(input);
 
-
-
 	return result;
     }// end method.
 
     public String courseList() {
 	return (String) courseList.invoke();
+    }
+    
+    
+    public String getSections(String name) {
+	return (String) getSections.invoke(name);
     }
 
     /**

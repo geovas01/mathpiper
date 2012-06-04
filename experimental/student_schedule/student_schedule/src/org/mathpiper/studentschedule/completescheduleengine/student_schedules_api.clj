@@ -83,7 +83,7 @@
 
 #_(def course-list [[:ETCO1120] [:ETEM1110] [:MATH1300] [:ENGL1101] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 :PHIL3300 :THAR1000]])
 
-#_(give-sections ":MATH1300")
+#_(get-sections ":MATH1300")
 
 #_(time (legal-schedules course-list zz2))
 
