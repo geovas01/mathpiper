@@ -56,12 +56,13 @@
 
 (defn get-sections [course-number-string]
   (let [course-number (load-string course-number-string)
-        ]
+        ordered-keys (sort #(< (Integer/parseInt (name %1)) (Integer/parseInt (name %2))) (keys (get-in zz2 [course-number :sections])))
+        ] 
 (if    (not (course-number zz2))
             
             (throw (IllegalArgumentException. (str "The following course number either is not offered this semester or does not exist: " (name  course-number) )) )
       
-      (apply str (name (first (keys (get-in zz2 [course-number :sections])))) (map #(str "," (name %) ) (rest (keys (get-in zz2 [course-number :sections])))))
+      (apply str (name (first ordered-keys)) (map #(str "," (name %) ) (rest ordered-keys)))
 )
     ))
 

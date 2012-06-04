@@ -5,6 +5,7 @@
 (use 'org.mathpiper.studentschedule.completescheduleengine.schedule_engine)
 
 
+
 (defn formated-days [course course-map]
   (let [{course-number :course-number section-number :section-number} course
         days-and-times (get-in course-map [course-number :sections section-number :days-and-times])
@@ -18,6 +19,18 @@
          ) 
     ))
 
+
+
+(defn formated-daycode [day-code]
+  
+    (str (if (not= (bit-and 2r1000000 day-code) 0) "M" "-")
+         (if (not= (bit-and 2r0100000 day-code) 0) "T" "-")
+         (if (not= (bit-and 2r0010000 day-code) 0) "W" "-")
+         (if (not= (bit-and 2r0001000 day-code) 0) "R" "-")
+         (if (not= (bit-and 2r0000100 day-code) 0) "F" "-")
+         
+         ) 
+    )
 
 
 
@@ -41,7 +54,7 @@
         minute (mod (* timeinblock 5) 60)
        ]
   (cond
-    (= hour 0) "12:00AM"
+    (= hour 0) "12:00PM"
     (>= hour 13) (str (- hour 12) ":" (if (< minute 10) (str "0" minute) minute) "PM" )
     (<  hour 13) (str (if (= hour 0) (str "12" ) hour) ":" (if (< minute 10) (str "0" minute) minute) (if (= hour 12) "PM" "AM")  )
     )  )
@@ -292,8 +305,8 @@
                               
                               "<tr>  <td align=\"top\" rowspan=" (count (keys (get-in course-map [course-number :sections])))  ">" (name course-number) "</td>" 
                                "<td align=\"top\" rowspan=" (count (keys (get-in course-map [course-number :sections])))  "> "  (get-in course-map [course-number :name]) "</td>"
-                                 (apply str (for [section-number (keys (get-in course-map [course-number :sections]))] 
-                       
+                                 (apply str (for [section-number 
+                                                  (sort #(< (Integer/parseInt (name %1)) (Integer/parseInt (name %2))) (keys (get-in zz2 [course-number :sections])))] 
                    
                   
                  (str  " <td align=center>" (name section-number) "</td>
@@ -301,7 +314,8 @@
                   <td>"  (first (get-in course-map [course-number :sections section-number :faculty])) "</td>
                   <td>" "-" "</td>
                   <td>" "-" "</td>
-                  <td>" "-" "</td>
+                  <td>" (apply str (for [[day-code start-time duration] (get-in course-map [course-number :sections section-number :days-and-times])]
+                                     (str (time-in-blocks-to-time start-time) "-" (time-in-blocks-to-time (+ start-time duration)) " " (formated-daycode day-code) "\n") )) "</td>
                   <td>"  (formated-days {:course-number course-number  :section-number section-number} course-map) "</td>
 
 
