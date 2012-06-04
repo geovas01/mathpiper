@@ -15,17 +15,21 @@
 (defn find-schedules [string]
   (let [
         {selected-courses :selected-courses course-lists :course-lists quality-fn-and-vals :quality-fn-and-vals return-number :return-number custom-courses :custom-courses} (load-string string)
+        unpacked-selected-courses (for [course selected-courses  section-number (:section-numbers course )]
+                                    {:course-number (:course-number course) :section-number section-number})
         custom-course-map (merge zz2 custom-courses)
         all-courses (apply concat course-lists)
         courses-not-in-map (filter (fn [course] (not (course  zz2))) all-courses)
-        legal-schedules-output  (doall (legal-schedules course-lists selected-courses custom-course-map))
+        legal-schedules-output  (doall (legal-schedules course-lists unpacked-selected-courses custom-course-map))
         ]
+    
+    (println unpacked-selected-courses)
     (cond 
       (not= courses-not-in-map '())
             #_(throw (IllegalArgumentException ))
             (throw (IllegalArgumentException. (apply str (concat ["The following course numbers either are not offered this semester or do not exist:\n"] (map #(str "   " (name %) " \n " ) courses-not-in-map) )) ))
       (not (apply distinct? all-courses)) (throw (IllegalArgumentException. "Each course can only be entered once."))
-       (= legal-schedules-output '()) 
+      (= legal-schedules-output '()) 
             (throw (IllegalArgumentException. "There are either no schedules that do not have conflicts or there are no open sections in the courses you have selected. "))   
             
       (and  (not= quality-fn-and-vals []))
@@ -51,12 +55,20 @@
   )
   )
 
+(defn give-sections [course-number-string]
+  (let [course-number (load-string course-number-string)
+        ]
+    
+      (apply str (name (first (keys (get-in zz2 [course-number :sections])))) (map #(str "," (name %) ) (rest (keys (get-in zz2 [course-number :sections])))))
+
+    ))
+
 #_(course-list)
 
  ; test string:
 
  ;
-#_(def ali "{:selected-courses [{:course-number :MATH1010 :section-number :02} {:course-number :ANTH1101 :section-number :61}] :course-lists #_[[:ARTS2311]] #_[[:ETEC2101]] [[:ETCO1120] #_[:PSYC1101] [:ETEM1110] [:MATH1010] [:ENGL1105] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 #_:PHIL3300 :THAR1000]]
+#_(def ali "{:selected-courses [{:course-number :MATH1010 :section-numbers [:01 :02]} {:course-number :ARTH1101 :section-numbers [:51]}] :course-lists #_[[:ARTS2311]] #_[[:ETEC2101]] [[:ETCO1120] #_[:PSYC1101] [:ETEM1110] [:MATH1010] [:ENGL1105] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 #_:PHIL3300 :THAR1000]]
   :return-number 6 :quality-fn-and-vals [[\"time-of-day-ratio-corrected\" [:afternoon 1]]] :custom-courses {}}")
 
 #_(legal-schedules [[:MATH1010]] [{:course-number :MATH1010 :section-number :01}] zz2)
@@ -68,6 +80,8 @@
 #_(find-schedules ali)
 
 #_(def course-list [[:ETCO1120] [:ETEM1110] [:MATH1300] [:ENGL1101] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 :PHIL3300 :THAR1000]])
+
+#_(give-sections ":MATH1300")
 
 #_(time (legal-schedules course-list zz2))
 
