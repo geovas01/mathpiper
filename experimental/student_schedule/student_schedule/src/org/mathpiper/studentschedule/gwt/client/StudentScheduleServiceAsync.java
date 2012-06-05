@@ -11,5 +11,5 @@ public interface StudentScheduleServiceAsync {
     
     void courseList(AsyncCallback<String> callback);
     
-    void getSections(String name, AsyncCallback<String> callback);
+    void getSections(String name, AsyncCallback<String> callback) throws IllegalArgumentException;
 }

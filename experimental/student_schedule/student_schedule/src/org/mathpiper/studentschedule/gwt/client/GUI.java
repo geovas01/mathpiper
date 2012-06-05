@@ -10,10 +10,20 @@ import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.dom.client.FocusHandler;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.user.client.ui.ChangeListener;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.FocusListener;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
@@ -32,6 +42,7 @@ import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
+import com.google.gwt.user.client.ui.Widget;
 
 public class GUI implements EntryPoint {
 
@@ -62,23 +73,21 @@ public class GUI implements EntryPoint {
 
     final SuggestBox textBox0 = new SuggestBox(suggestOracle);
     private HorizontalPanel horizontalPanel00;
-    
+
     final SuggestBox textBox1 = new SuggestBox(suggestOracle);
     private HorizontalPanel horizontalPanel11;
-    
+
     final SuggestBox textBox2 = new SuggestBox(suggestOracle);
     private HorizontalPanel horizontalPanel22;
-    
+
     final SuggestBox textBox3 = new SuggestBox(suggestOracle);
     private HorizontalPanel horizontalPanel33;
-    
+
     final SuggestBox textBox4 = new SuggestBox(suggestOracle);
     private HorizontalPanel horizontalPanel44;
-    
+
     final SuggestBox textBox5 = new SuggestBox(suggestOracle);
     private HorizontalPanel horizontalPanel55;
-
-    
 
     @Override
     public void onModuleLoad() {
@@ -110,7 +119,7 @@ public class GUI implements EntryPoint {
 	// verticalPanel_2.setHeight("53px");
 
 	HTML htmlNewHtml = new HTML(
-		"<h2>SSU Student Schedule Generator v.004<h2>", true);
+		"<h2>SSU Student Schedule Generator v.004 beta<h2>", true);
 	htmlNewHtml.setStyleName("none");
 	htmlNewHtml.setDirectionEstimator(true);
 	verticalPanel_2.add(htmlNewHtml);
@@ -118,7 +127,7 @@ public class GUI implements EntryPoint {
 	Button btnNewButton = new Button("Help");
 	btnNewButton.addClickHandler(new ClickHandler() {
 	    public void onClick(ClickEvent event) {
-		Window.open("/help/help.html", "_blank", "");
+		Window.open("/studentschedule/help/help.html", "_blank", "");
 	    }
 	});
 	verticalPanel_2.add(btnNewButton);
@@ -146,48 +155,51 @@ public class GUI implements EntryPoint {
 
 	Label lblNewLabel_1 = new Label("Course Numbers");
 	flexTable.setWidget(0, 0, lblNewLabel_1);
-	
-	
-	//Suggest box 0.
+
+	// Suggest box 0.
 	textBox0.setText("ETCO1120");
 	textBox0.setLimit(10);
 	HorizontalPanel horizontalPanel0 = new HorizontalPanel();
 	horizontalPanel0.add(textBox0);
-	ToggleButton pushButton0 = new ToggleButton("Sections");
+	final ToggleButton pushButton0 = new ToggleButton("Sections");
 	pushButton0.addClickHandler(new ClickHandler() {
 	    public void onClick(ClickEvent event) {
-		
-		ToggleButton button = (ToggleButton) event.getSource();
-		
-		if (button.isDown() == true)
-		{
-		    
-		
-		studentScheduleService.getSections(":" + textBox0.getValue(),
-			new AsyncCallback<String>() {
-			    public void onFailure(Throwable caught) {
-				if (caught instanceof IllegalArgumentException) {
-				    Window.alert(caught.getMessage());
-				} else {
-				    Window.alert("Error :"
-					    + caught.getMessage());
-				}
-			    }
 
-			    public void onSuccess(String result) {
-
-				String[] sections = result.split(",");
-				for (String section : sections) {
-				    CheckBox checkBox = new CheckBox(section);
-				    checkBox.setValue(true);
-				    checkBox.setWordWrap(false);
-				    horizontalPanel00.add(checkBox);
-				}
-
-			    }
-			});
+		if (textBox0.getValue().equals("")) {
+		    return;
 		}
-		else {
+		
+
+		ToggleButton button = (ToggleButton) event.getSource();
+
+		if (button.isDown() == true) {
+
+		    studentScheduleService.getSections(
+			    ":" + textBox0.getValue(),
+			    new AsyncCallback<String>() {
+				public void onFailure(Throwable caught) {
+				    if (caught instanceof IllegalArgumentException) {
+					Window.alert(caught.getMessage());
+				    } else {
+					Window.alert("Error :"
+						+ caught.getMessage());
+				    }
+				}
+
+				public void onSuccess(String result) {
+
+				    String[] sections = result.split(",");
+				    for (String section : sections) {
+					CheckBox checkBox = new CheckBox(
+						section);
+					checkBox.setValue(true);
+					checkBox.setWordWrap(false);
+					horizontalPanel00.add(checkBox);
+				    }
+
+				}
+			    });
+		} else {
 		    horizontalPanel00.clear();
 		}
 	    }
@@ -203,52 +215,65 @@ public class GUI implements EntryPoint {
 	horizontalPanel0.add(horizontalPanel00);
 	horizontalPanel0.setCellVerticalAlignment(horizontalPanel00,
 		HasVerticalAlignment.ALIGN_MIDDLE);
+	textBox0.getTextBox().addFocusHandler(new FocusHandler() {
+	    @Override
+	    public void onFocus(FocusEvent event) {
+		horizontalPanel00.clear();
+		pushButton0.setDown(false);
+	    }
+	});
+	textBox0.addKeyPressHandler(new KeyPressHandler() {
+	    public void onKeyPress(KeyPressEvent event) {
+		if (textBox0.getText().length() >= 8) {
+		    textBox0.getTextBox().cancelKey();
+		}
+	    }
+	});
 
-	
-	
-	
-	
-	
-	//Suggest box 1.
+
+	// Suggest box 1.
 	textBox1.setText("ETEM1110");
 	textBox1.setLimit(10);
 	HorizontalPanel horizontalPanel1 = new HorizontalPanel();
 	horizontalPanel1.add(textBox1);
-	ToggleButton pushButton1 = new ToggleButton("Sections");
+	final ToggleButton pushButton1 = new ToggleButton("Sections");
 	pushButton1.addClickHandler(new ClickHandler() {
 	    public void onClick(ClickEvent event) {
-		
-		ToggleButton button = (ToggleButton) event.getSource();
-		
-		if (button.isDown() == true)
-		{
-		    
-		
-		studentScheduleService.getSections(":" + textBox1.getValue(),
-			new AsyncCallback<String>() {
-			    public void onFailure(Throwable caught) {
-				if (caught instanceof IllegalArgumentException) {
-				    Window.alert(caught.getMessage());
-				} else {
-				    Window.alert("Error :"
-					    + caught.getMessage());
-				}
-			    }
 
-			    public void onSuccess(String result) {
-
-				String[] sections = result.split(",");
-				for (String section : sections) {
-				    CheckBox checkBox = new CheckBox(section);
-				    checkBox.setValue(true);
-				    checkBox.setWordWrap(false);
-				    horizontalPanel11.add(checkBox);
-				}
-
-			    }
-			});
+		if (textBox1.getValue().equals("")) {
+		    return;
 		}
-		else {
+
+		ToggleButton button = (ToggleButton) event.getSource();
+
+		if (button.isDown() == true) {
+
+		    studentScheduleService.getSections(
+			    ":" + textBox1.getValue(),
+			    new AsyncCallback<String>() {
+				public void onFailure(Throwable caught) {
+				    if (caught instanceof IllegalArgumentException) {
+					Window.alert(caught.getMessage());
+				    } else {
+					Window.alert("Error :"
+						+ caught.getMessage());
+				    }
+				}
+
+				public void onSuccess(String result) {
+
+				    String[] sections = result.split(",");
+				    for (String section : sections) {
+					CheckBox checkBox = new CheckBox(
+						section);
+					checkBox.setValue(true);
+					checkBox.setWordWrap(false);
+					horizontalPanel11.add(checkBox);
+				    }
+
+				}
+			    });
+		} else {
 		    horizontalPanel11.clear();
 		}
 	    }
@@ -263,49 +288,66 @@ public class GUI implements EntryPoint {
 	horizontalPanel11 = new HorizontalPanel();
 	horizontalPanel1.add(horizontalPanel11);
 	horizontalPanel1.setCellVerticalAlignment(horizontalPanel11,
-	HasVerticalAlignment.ALIGN_MIDDLE);
+		HasVerticalAlignment.ALIGN_MIDDLE);
+	textBox1.getTextBox().addFocusHandler(new FocusHandler() {
+	    @Override
+	    public void onFocus(FocusEvent event) {
+		horizontalPanel11.clear();
+		pushButton1.setDown(false);
+	    }
+	});
+	textBox1.addKeyPressHandler(new KeyPressHandler() {
+	    public void onKeyPress(KeyPressEvent event) {
+		if (textBox1.getText().length() >= 8) {
+		    textBox1.getTextBox().cancelKey();
+		}
+	    }
+	});
+	
 
-
-	//Suggest box 2.
+	// Suggest box 2.
 	textBox2.setText("MATH1300");
 	textBox2.setLimit(10);
 	HorizontalPanel horizontalPanel2 = new HorizontalPanel();
 	horizontalPanel2.add(textBox2);
-	ToggleButton pushButton2 = new ToggleButton("Sections");
+	final ToggleButton pushButton2 = new ToggleButton("Sections");
 	pushButton2.addClickHandler(new ClickHandler() {
 	    public void onClick(ClickEvent event) {
-		
-		ToggleButton button = (ToggleButton) event.getSource();
-		
-		if (button.isDown() == true)
-		{
-		    
-		
-		studentScheduleService.getSections(":" + textBox2.getValue(),
-			new AsyncCallback<String>() {
-			    public void onFailure(Throwable caught) {
-				if (caught instanceof IllegalArgumentException) {
-				    Window.alert(caught.getMessage());
-				} else {
-				    Window.alert("Error :"
-					    + caught.getMessage());
-				}
-			    }
 
-			    public void onSuccess(String result) {
-
-				String[] sections = result.split(",");
-				for (String section : sections) {
-				    CheckBox checkBox = new CheckBox(section);
-				    checkBox.setValue(true);
-				    checkBox.setWordWrap(false);
-				    horizontalPanel22.add(checkBox);
-				}
-
-			    }
-			});
+		if (textBox2.getValue().equals("")) {
+		    return;
 		}
-		else {
+
+		ToggleButton button = (ToggleButton) event.getSource();
+
+		if (button.isDown() == true) {
+
+		    studentScheduleService.getSections(
+			    ":" + textBox2.getValue(),
+			    new AsyncCallback<String>() {
+				public void onFailure(Throwable caught) {
+				    if (caught instanceof IllegalArgumentException) {
+					Window.alert(caught.getMessage());
+				    } else {
+					Window.alert("Error :"
+						+ caught.getMessage());
+				    }
+				}
+
+				public void onSuccess(String result) {
+
+				    String[] sections = result.split(",");
+				    for (String section : sections) {
+					CheckBox checkBox = new CheckBox(
+						section);
+					checkBox.setValue(true);
+					checkBox.setWordWrap(false);
+					horizontalPanel22.add(checkBox);
+				    }
+
+				}
+			    });
+		} else {
 		    horizontalPanel22.clear();
 		}
 	    }
@@ -320,49 +362,65 @@ public class GUI implements EntryPoint {
 	horizontalPanel22 = new HorizontalPanel();
 	horizontalPanel2.add(horizontalPanel22);
 	horizontalPanel2.setCellVerticalAlignment(horizontalPanel22,
-	HasVerticalAlignment.ALIGN_MIDDLE);
+		HasVerticalAlignment.ALIGN_MIDDLE);
+	textBox2.getTextBox().addFocusHandler(new FocusHandler() {
+	    @Override
+	    public void onFocus(FocusEvent event) {
+		horizontalPanel22.clear();
+		pushButton2.setDown(false);
+	    }
+	});
+	textBox2.addKeyPressHandler(new KeyPressHandler() {
+	    public void onKeyPress(KeyPressEvent event) {
+		if (textBox2.getText().length() >= 8) {
+		    textBox2.getTextBox().cancelKey();
+		}
+	    }
+	});
 
-
-	//Suggest box 3.
+	// Suggest box 3.
 	textBox3.setText("ENGL1101");
 	textBox3.setLimit(10);
 	HorizontalPanel horizontalPanel3 = new HorizontalPanel();
 	horizontalPanel3.add(textBox3);
-	ToggleButton pushButton3 = new ToggleButton("Sections");
+	final ToggleButton pushButton3 = new ToggleButton("Sections");
 	pushButton3.addClickHandler(new ClickHandler() {
 	    public void onClick(ClickEvent event) {
-		
-		ToggleButton button = (ToggleButton) event.getSource();
-		
-		if (button.isDown() == true)
-		{
-		    
-		
-		studentScheduleService.getSections(":" + textBox3.getValue(),
-			new AsyncCallback<String>() {
-			    public void onFailure(Throwable caught) {
-				if (caught instanceof IllegalArgumentException) {
-				    Window.alert(caught.getMessage());
-				} else {
-				    Window.alert("Error :"
-					    + caught.getMessage());
-				}
-			    }
 
-			    public void onSuccess(String result) {
-
-				String[] sections = result.split(",");
-				for (String section : sections) {
-				    CheckBox checkBox = new CheckBox(section);
-				    checkBox.setValue(true);
-				    checkBox.setWordWrap(false);
-				    horizontalPanel33.add(checkBox);
-				}
-
-			    }
-			});
+		if (textBox3.getValue().equals("")) {
+		    return;
 		}
-		else {
+
+		ToggleButton button = (ToggleButton) event.getSource();
+
+		if (button.isDown() == true) {
+
+		    studentScheduleService.getSections(
+			    ":" + textBox3.getValue(),
+			    new AsyncCallback<String>() {
+				public void onFailure(Throwable caught) {
+				    if (caught instanceof IllegalArgumentException) {
+					Window.alert(caught.getMessage());
+				    } else {
+					Window.alert("Error :"
+						+ caught.getMessage());
+				    }
+				}
+
+				public void onSuccess(String result) {
+
+				    String[] sections = result.split(",");
+				    for (String section : sections) {
+					CheckBox checkBox = new CheckBox(
+						section);
+					checkBox.setValue(true);
+					checkBox.setWordWrap(false);
+					horizontalPanel33.add(checkBox);
+				    }
+
+				}
+			    });
+		} else {
 		    horizontalPanel33.clear();
 		}
 	    }
@@ -377,49 +435,65 @@ public class GUI implements EntryPoint {
 	horizontalPanel33 = new HorizontalPanel();
 	horizontalPanel3.add(horizontalPanel33);
 	horizontalPanel3.setCellVerticalAlignment(horizontalPanel33,
-	HasVerticalAlignment.ALIGN_MIDDLE);
+		HasVerticalAlignment.ALIGN_MIDDLE);
+	textBox3.getTextBox().addFocusHandler(new FocusHandler() {
+	    @Override
+	    public void onFocus(FocusEvent event) {
+		horizontalPanel33.clear();
+		pushButton3.setDown(false);
+	    }
+	});
+	textBox3.addKeyPressHandler(new KeyPressHandler() {
+	    public void onKeyPress(KeyPressEvent event) {
+		if (textBox3.getText().length() >= 8) {
+		    textBox3.getTextBox().cancelKey();
+		}
+	    }
+	});
 
-
-	//Suggest box 4.
-	//textBox0.setText("ETCO1120");
+	// Suggest box 4.
+	// textBox0.setText("ETCO1120");
 	textBox4.setLimit(10);
 	HorizontalPanel horizontalPanel4 = new HorizontalPanel();
 	horizontalPanel4.add(textBox4);
-	ToggleButton pushButton4 = new ToggleButton("Sections");
+	final ToggleButton pushButton4 = new ToggleButton("Sections");
 	pushButton4.addClickHandler(new ClickHandler() {
 	    public void onClick(ClickEvent event) {
-		
-		ToggleButton button = (ToggleButton) event.getSource();
-		
-		if (button.isDown() == true)
-		{
-		    
-		
-		studentScheduleService.getSections(":" + textBox4.getValue(),
-			new AsyncCallback<String>() {
-			    public void onFailure(Throwable caught) {
-				if (caught instanceof IllegalArgumentException) {
-				    Window.alert(caught.getMessage());
-				} else {
-				    Window.alert("Error :"
-					    + caught.getMessage());
-				}
-			    }
 
-			    public void onSuccess(String result) {
-
-				String[] sections = result.split(",");
-				for (String section : sections) {
-				    CheckBox checkBox = new CheckBox(section);
-				    checkBox.setValue(true);
-				    checkBox.setWordWrap(false);
-				    horizontalPanel44.add(checkBox);
-				}
-
-			    }
-			});
+		if (textBox4.getValue().equals("")) {
+		    return;
 		}
-		else {
+
+		ToggleButton button = (ToggleButton) event.getSource();
+
+		if (button.isDown() == true) {
+
+		    studentScheduleService.getSections(
+			    ":" + textBox4.getValue(),
+			    new AsyncCallback<String>() {
+				public void onFailure(Throwable caught) {
+				    if (caught instanceof IllegalArgumentException) {
+					Window.alert(caught.getMessage());
+				    } else {
+					Window.alert("Error :"
+						+ caught.getMessage());
+				    }
+				}
+
+				public void onSuccess(String result) {
+
+				    String[] sections = result.split(",");
+				    for (String section : sections) {
+					CheckBox checkBox = new CheckBox(
+						section);
+					checkBox.setValue(true);
+					checkBox.setWordWrap(false);
+					horizontalPanel44.add(checkBox);
+				    }
+
+				}
+			    });
+		} else {
 		    horizontalPanel44.clear();
 		}
 	    }
@@ -434,49 +508,65 @@ public class GUI implements EntryPoint {
 	horizontalPanel44 = new HorizontalPanel();
 	horizontalPanel4.add(horizontalPanel44);
 	horizontalPanel4.setCellVerticalAlignment(horizontalPanel44,
-	HasVerticalAlignment.ALIGN_MIDDLE);
+		HasVerticalAlignment.ALIGN_MIDDLE);
+	textBox4.getTextBox().addFocusHandler(new FocusHandler() {
+	    @Override
+	    public void onFocus(FocusEvent event) {
+		horizontalPanel44.clear();
+		pushButton4.setDown(false);
+	    }
+	});
+	textBox4.addKeyPressHandler(new KeyPressHandler() {
+	    public void onKeyPress(KeyPressEvent event) {
+		if (textBox4.getText().length() >= 8) {
+		    textBox4.getTextBox().cancelKey();
+		}
+	    }
+	});
 
-
-	//Suggest box 5.
-	//textBox0.setText("ETCO1120");
+	// Suggest box 5.
+	// textBox0.setText("ETCO1120");
 	textBox5.setLimit(10);
 	HorizontalPanel horizontalPanel5 = new HorizontalPanel();
 	horizontalPanel5.add(textBox5);
-	ToggleButton pushButton5 = new ToggleButton("Sections");
+	final ToggleButton pushButton5 = new ToggleButton("Sections");
 	pushButton5.addClickHandler(new ClickHandler() {
 	    public void onClick(ClickEvent event) {
-		
-		ToggleButton button = (ToggleButton) event.getSource();
-		
-		if (button.isDown() == true)
-		{
-		    
-		
-		studentScheduleService.getSections(":" + textBox5.getValue(),
-			new AsyncCallback<String>() {
-			    public void onFailure(Throwable caught) {
-				if (caught instanceof IllegalArgumentException) {
-				    Window.alert(caught.getMessage());
-				} else {
-				    Window.alert("Error :"
-					    + caught.getMessage());
-				}
-			    }
 
-			    public void onSuccess(String result) {
-
-				String[] sections = result.split(",");
-				for (String section : sections) {
-				    CheckBox checkBox = new CheckBox(section);
-				    checkBox.setValue(true);
-				    checkBox.setWordWrap(false);
-				    horizontalPanel55.add(checkBox);
-				}
-
-			    }
-			});
+		if (textBox5.getValue().equals("")) {
+		    return;
 		}
-		else {
+
+		ToggleButton button = (ToggleButton) event.getSource();
+
+		if (button.isDown() == true) {
+
+		    studentScheduleService.getSections(
+			    ":" + textBox5.getValue(),
+			    new AsyncCallback<String>() {
+				public void onFailure(Throwable caught) {
+				    if (caught instanceof IllegalArgumentException) {
+					Window.alert(caught.getMessage());
+				    } else {
+					Window.alert("Error :"
+						+ caught.getMessage());
+				    }
+				}
+
+				public void onSuccess(String result) {
+
+				    String[] sections = result.split(",");
+				    for (String section : sections) {
+					CheckBox checkBox = new CheckBox(
+						section);
+					checkBox.setValue(true);
+					checkBox.setWordWrap(false);
+					horizontalPanel55.add(checkBox);
+				    }
+
+				}
+			    });
+		} else {
 		    horizontalPanel55.clear();
 		}
 	    }
@@ -492,7 +582,20 @@ public class GUI implements EntryPoint {
 	horizontalPanel5.add(horizontalPanel55);
 	horizontalPanel5.setCellVerticalAlignment(horizontalPanel55,
 		HasVerticalAlignment.ALIGN_MIDDLE);
-
+	textBox5.getTextBox().addFocusHandler(new FocusHandler() {
+	    @Override
+	    public void onFocus(FocusEvent event) {
+		horizontalPanel55.clear();
+		pushButton5.setDown(false);
+	    }
+	});
+	textBox5.addKeyPressHandler(new KeyPressHandler() {
+	    public void onKeyPress(KeyPressEvent event) {
+		if (textBox5.getText().length() >= 8) {
+		    textBox5.getTextBox().cancelKey();
+		}
+	    }
+	});
 
 	DecoratorPanel decoratorPanel = new DecoratorPanel();
 	// decoratorPanel.setStyleName("border");
@@ -503,7 +606,8 @@ public class GUI implements EntryPoint {
 	decoratorPanel.setWidget(flexTable_1);
 	flexTable_1.setBorderWidth(0);
 
-	Label lblNumberOfSchedules = new Label("Maximum Number Of Schedules To Generate");
+	Label lblNumberOfSchedules = new Label(
+		"Maximum Number Of Schedules To Generate");
 	flexTable_1.setWidget(0, 0, lblNumberOfSchedules);
 
 	numberReturned = new ListBox();
@@ -556,6 +660,13 @@ public class GUI implements EntryPoint {
 		}
 
 		tabList.clear();
+
+		horizontalPanel00.clear();
+		horizontalPanel11.clear();
+		horizontalPanel22.clear();
+		horizontalPanel33.clear();
+		horizontalPanel44.clear();
+		horizontalPanel55.clear();
 
 	    }
 	});
@@ -704,152 +815,127 @@ public class GUI implements EntryPoint {
 	sb.append(" :selected-courses");
 
 	sb.append("[");
-	
-	
-	//Course 0.
-	if(horizontalPanel00.getWidgetCount() > 0)
-	{
+
+	// Course 0.
+	if (horizontalPanel00.getWidgetCount() > 0) {
 	    sb.append("{");
 	    sb.append(":course-number :" + textBox0.getValue());
 	    sb.append(" :section-numbers [");
-	    
+
 	    int widgetCount = horizontalPanel00.getWidgetCount();
-	    for(int index = 0; index < widgetCount; index++)
-	    {
-		CheckBox checkBox = (CheckBox) horizontalPanel00.getWidget(index);
-		if(checkBox.getValue() == true)
-		{
-    			sb.append(" :");
-    			sb.append(checkBox.getText());
+	    for (int index = 0; index < widgetCount; index++) {
+		CheckBox checkBox = (CheckBox) horizontalPanel00
+			.getWidget(index);
+		if (checkBox.getValue() == true) {
+		    sb.append(" :");
+		    sb.append(checkBox.getText());
 		}
 	    }
 	    sb.append("]");
 	    sb.append("}");
-	    
+
 	}
-	
-	
-	//Course 1.
-	if(horizontalPanel11.getWidgetCount() > 0)
-	{
+
+	// Course 1.
+	if (horizontalPanel11.getWidgetCount() > 0) {
 	    sb.append("{");
 	    sb.append(":course-number :" + textBox1.getValue());
 	    sb.append(" :section-numbers [");
-	    
+
 	    int widgetCount = horizontalPanel11.getWidgetCount();
-	    for(int index = 0; index < widgetCount; index++)
-	    {
-		CheckBox checkBox = (CheckBox) horizontalPanel11.getWidget(index);
-		if(checkBox.getValue() == true)
-		{
-    			sb.append(" :");
-    			sb.append(checkBox.getText());
+	    for (int index = 0; index < widgetCount; index++) {
+		CheckBox checkBox = (CheckBox) horizontalPanel11
+			.getWidget(index);
+		if (checkBox.getValue() == true) {
+		    sb.append(" :");
+		    sb.append(checkBox.getText());
 		}
 	    }
 	    sb.append("]");
 	    sb.append("}");
-	    
+
 	}
-	
-	
-	
-	//Course 2.
-	if(horizontalPanel22.getWidgetCount() > 0)
-	{
+
+	// Course 2.
+	if (horizontalPanel22.getWidgetCount() > 0) {
 	    sb.append("{");
 	    sb.append(":course-number :" + textBox2.getValue());
 	    sb.append(" :section-numbers [");
-	    
+
 	    int widgetCount = horizontalPanel22.getWidgetCount();
-	    for(int index = 0; index < widgetCount; index++)
-	    {
-		CheckBox checkBox = (CheckBox) horizontalPanel22.getWidget(index);
-		if(checkBox.getValue() == true)
-		{
-    			sb.append(" :");
-    			sb.append(checkBox.getText());
+	    for (int index = 0; index < widgetCount; index++) {
+		CheckBox checkBox = (CheckBox) horizontalPanel22
+			.getWidget(index);
+		if (checkBox.getValue() == true) {
+		    sb.append(" :");
+		    sb.append(checkBox.getText());
 		}
 	    }
 	    sb.append("]");
 	    sb.append("}");
-	    
+
 	}
-	
-	
-	
-	//Course 3.
-	if(horizontalPanel33.getWidgetCount() > 0)
-	{
+
+	// Course 3.
+	if (horizontalPanel33.getWidgetCount() > 0) {
 	    sb.append("{");
 	    sb.append(":course-number :" + textBox3.getValue());
 	    sb.append(" :section-numbers [");
-	    
+
 	    int widgetCount = horizontalPanel33.getWidgetCount();
-	    for(int index = 0; index < widgetCount; index++)
-	    {
-		CheckBox checkBox = (CheckBox) horizontalPanel33.getWidget(index);
-		if(checkBox.getValue() == true)
-		{
-    			sb.append(" :");
-    			sb.append(checkBox.getText());
+	    for (int index = 0; index < widgetCount; index++) {
+		CheckBox checkBox = (CheckBox) horizontalPanel33
+			.getWidget(index);
+		if (checkBox.getValue() == true) {
+		    sb.append(" :");
+		    sb.append(checkBox.getText());
 		}
 	    }
 	    sb.append("]");
 	    sb.append("}");
-	    
+
 	}
-	
-	
-	
-	//Course 4.
-	if(horizontalPanel44.getWidgetCount() > 0)
-	{
+
+	// Course 4.
+	if (horizontalPanel44.getWidgetCount() > 0) {
 	    sb.append("{");
 	    sb.append(":course-number :" + textBox4.getValue());
 	    sb.append(" :section-numbers [");
-	    
+
 	    int widgetCount = horizontalPanel44.getWidgetCount();
-	    for(int index = 0; index < widgetCount; index++)
-	    {
-		CheckBox checkBox = (CheckBox) horizontalPanel44.getWidget(index);
-		if(checkBox.getValue() == true)
-		{
-    			sb.append(" :");
-    			sb.append(checkBox.getText());
+	    for (int index = 0; index < widgetCount; index++) {
+		CheckBox checkBox = (CheckBox) horizontalPanel44
+			.getWidget(index);
+		if (checkBox.getValue() == true) {
+		    sb.append(" :");
+		    sb.append(checkBox.getText());
 		}
 	    }
 	    sb.append("]");
 	    sb.append("}");
-	    
+
 	}
-	
-	
-	
-	//Course 5.
-	if(horizontalPanel55.getWidgetCount() > 0)
-	{
+
+	// Course 5.
+	if (horizontalPanel55.getWidgetCount() > 0) {
 	    sb.append("{");
 	    sb.append(":course-number :" + textBox5.getValue());
 	    sb.append(" :section-numbers [");
-	    
+
 	    int widgetCount = horizontalPanel55.getWidgetCount();
-	    for(int index = 0; index < widgetCount; index++)
-	    {
-		CheckBox checkBox = (CheckBox) horizontalPanel55.getWidget(index);
-		if(checkBox.getValue() == true)
-		{
-    			sb.append(" :");
-    			sb.append(checkBox.getText());
+	    for (int index = 0; index < widgetCount; index++) {
+		CheckBox checkBox = (CheckBox) horizontalPanel55
+			.getWidget(index);
+		if (checkBox.getValue() == true) {
+		    sb.append(" :");
+		    sb.append(checkBox.getText());
 		}
 	    }
 	    sb.append("]");
 	    sb.append("}");
-	    
+
 	}
-	
-	
-	
-	
+
 	sb.append("]");
 
 	sb.append("}");

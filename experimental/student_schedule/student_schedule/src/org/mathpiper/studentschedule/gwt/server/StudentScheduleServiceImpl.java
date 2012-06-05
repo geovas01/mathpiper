@@ -92,7 +92,7 @@ public class StudentScheduleServiceImpl extends RemoteServiceServlet implements
 	return (String) courseList.invoke();
     }
 
-    public String getSections(String name) {
+    public String getSections(String name) throws IllegalArgumentException {
 	return (String) getSections.invoke(name);
     }
 
