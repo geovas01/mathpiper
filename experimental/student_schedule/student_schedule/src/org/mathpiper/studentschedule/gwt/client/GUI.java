@@ -503,7 +503,7 @@ public class GUI implements EntryPoint {
 	decoratorPanel.setWidget(flexTable_1);
 	flexTable_1.setBorderWidth(0);
 
-	Label lblNumberOfSchedules = new Label("Number Of Schedules");
+	Label lblNumberOfSchedules = new Label("Maximum Number Of Schedules To Generate");
 	flexTable_1.setWidget(0, 0, lblNumberOfSchedules);
 
 	numberReturned = new ListBox();
