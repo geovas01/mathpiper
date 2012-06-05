@@ -16,6 +16,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
+import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -127,7 +128,7 @@ public class GUI implements EntryPoint {
 	Button btnNewButton = new Button("Help");
 	btnNewButton.addClickHandler(new ClickHandler() {
 	    public void onClick(ClickEvent event) {
-		Window.open("/studentschedule/help/help.html", "_blank", "");
+		Window.open("help/help.html", "_blank", "");
 	    }
 	});
 	verticalPanel_2.add(btnNewButton);
@@ -175,7 +176,7 @@ public class GUI implements EntryPoint {
 		if (button.isDown() == true) {
 
 		    studentScheduleService.getSections(
-			    ":" + textBox0.getValue(),
+			    ":" + cleanCourseText(textBox0.getValue()),
 			    new AsyncCallback<String>() {
 				public void onFailure(Throwable caught) {
 				    if (caught instanceof IllegalArgumentException) {
@@ -184,6 +185,7 @@ public class GUI implements EntryPoint {
 					Window.alert("Error :"
 						+ caught.getMessage());
 				    }
+				    pushButton0.setDown(false);
 				}
 
 				public void onSuccess(String result) {
@@ -222,13 +224,19 @@ public class GUI implements EntryPoint {
 		pushButton0.setDown(false);
 	    }
 	});
-	textBox0.addKeyPressHandler(new KeyPressHandler() {
+	/*textBox0.addKeyPressHandler(new KeyPressHandler() {
 	    public void onKeyPress(KeyPressEvent event) {
+		
+		if(event.getCharCode()== 8 || event.getCharCode()== 127)
+		{
+		    return;
+		}
+		
 		if (textBox0.getText().length() >= 8) {
 		    textBox0.getTextBox().cancelKey();
 		}
 	    }
-	});
+	});*/
 
 
 	// Suggest box 1.
@@ -249,7 +257,7 @@ public class GUI implements EntryPoint {
 		if (button.isDown() == true) {
 
 		    studentScheduleService.getSections(
-			    ":" + textBox1.getValue(),
+			    ":" + cleanCourseText(textBox1.getValue()),
 			    new AsyncCallback<String>() {
 				public void onFailure(Throwable caught) {
 				    if (caught instanceof IllegalArgumentException) {
@@ -258,6 +266,7 @@ public class GUI implements EntryPoint {
 					Window.alert("Error :"
 						+ caught.getMessage());
 				    }
+				    pushButton1.setDown(false);
 				}
 
 				public void onSuccess(String result) {
@@ -296,13 +305,7 @@ public class GUI implements EntryPoint {
 		pushButton1.setDown(false);
 	    }
 	});
-	textBox1.addKeyPressHandler(new KeyPressHandler() {
-	    public void onKeyPress(KeyPressEvent event) {
-		if (textBox1.getText().length() >= 8) {
-		    textBox1.getTextBox().cancelKey();
-		}
-	    }
-	});
+
 	
 
 	// Suggest box 2.
@@ -323,7 +326,7 @@ public class GUI implements EntryPoint {
 		if (button.isDown() == true) {
 
 		    studentScheduleService.getSections(
-			    ":" + textBox2.getValue(),
+			    ":" + cleanCourseText(textBox2.getValue()),
 			    new AsyncCallback<String>() {
 				public void onFailure(Throwable caught) {
 				    if (caught instanceof IllegalArgumentException) {
@@ -332,6 +335,7 @@ public class GUI implements EntryPoint {
 					Window.alert("Error :"
 						+ caught.getMessage());
 				    }
+				    pushButton2.setDown(false);
 				}
 
 				public void onSuccess(String result) {
@@ -370,13 +374,7 @@ public class GUI implements EntryPoint {
 		pushButton2.setDown(false);
 	    }
 	});
-	textBox2.addKeyPressHandler(new KeyPressHandler() {
-	    public void onKeyPress(KeyPressEvent event) {
-		if (textBox2.getText().length() >= 8) {
-		    textBox2.getTextBox().cancelKey();
-		}
-	    }
-	});
+
 
 	// Suggest box 3.
 	textBox3.setText("ENGL1101");
@@ -396,7 +394,7 @@ public class GUI implements EntryPoint {
 		if (button.isDown() == true) {
 
 		    studentScheduleService.getSections(
-			    ":" + textBox3.getValue(),
+			    ":" + cleanCourseText(textBox3.getValue()),
 			    new AsyncCallback<String>() {
 				public void onFailure(Throwable caught) {
 				    if (caught instanceof IllegalArgumentException) {
@@ -405,6 +403,7 @@ public class GUI implements EntryPoint {
 					Window.alert("Error :"
 						+ caught.getMessage());
 				    }
+				    pushButton3.setDown(false);
 				}
 
 				public void onSuccess(String result) {
@@ -443,13 +442,7 @@ public class GUI implements EntryPoint {
 		pushButton3.setDown(false);
 	    }
 	});
-	textBox3.addKeyPressHandler(new KeyPressHandler() {
-	    public void onKeyPress(KeyPressEvent event) {
-		if (textBox3.getText().length() >= 8) {
-		    textBox3.getTextBox().cancelKey();
-		}
-	    }
-	});
+
 
 	// Suggest box 4.
 	// textBox0.setText("ETCO1120");
@@ -469,7 +462,7 @@ public class GUI implements EntryPoint {
 		if (button.isDown() == true) {
 
 		    studentScheduleService.getSections(
-			    ":" + textBox4.getValue(),
+			    ":" + cleanCourseText(textBox4.getValue()),
 			    new AsyncCallback<String>() {
 				public void onFailure(Throwable caught) {
 				    if (caught instanceof IllegalArgumentException) {
@@ -478,6 +471,7 @@ public class GUI implements EntryPoint {
 					Window.alert("Error :"
 						+ caught.getMessage());
 				    }
+				    pushButton4.setDown(false);
 				}
 
 				public void onSuccess(String result) {
@@ -516,13 +510,7 @@ public class GUI implements EntryPoint {
 		pushButton4.setDown(false);
 	    }
 	});
-	textBox4.addKeyPressHandler(new KeyPressHandler() {
-	    public void onKeyPress(KeyPressEvent event) {
-		if (textBox4.getText().length() >= 8) {
-		    textBox4.getTextBox().cancelKey();
-		}
-	    }
-	});
+
 
 	// Suggest box 5.
 	// textBox0.setText("ETCO1120");
@@ -542,7 +530,7 @@ public class GUI implements EntryPoint {
 		if (button.isDown() == true) {
 
 		    studentScheduleService.getSections(
-			    ":" + textBox5.getValue(),
+			    ":" + cleanCourseText(textBox5.getValue()),
 			    new AsyncCallback<String>() {
 				public void onFailure(Throwable caught) {
 				    if (caught instanceof IllegalArgumentException) {
@@ -551,6 +539,7 @@ public class GUI implements EntryPoint {
 					Window.alert("Error :"
 						+ caught.getMessage());
 				    }
+				    pushButton5.setDown(false);
 				}
 
 				public void onSuccess(String result) {
@@ -589,13 +578,7 @@ public class GUI implements EntryPoint {
 		pushButton5.setDown(false);
 	    }
 	});
-	textBox5.addKeyPressHandler(new KeyPressHandler() {
-	    public void onKeyPress(KeyPressEvent event) {
-		if (textBox5.getText().length() >= 8) {
-		    textBox5.getTextBox().cancelKey();
-		}
-	    }
-	});
+
 
 	DecoratorPanel decoratorPanel = new DecoratorPanel();
 	// decoratorPanel.setStyleName("border");
@@ -667,6 +650,20 @@ public class GUI implements EntryPoint {
 		horizontalPanel33.clear();
 		horizontalPanel44.clear();
 		horizontalPanel55.clear();
+		
+		textBox0.setText("");
+		textBox1.setText("");
+		textBox2.setText("");
+		textBox3.setText("");
+		textBox4.setText("");
+		textBox5.setText("");
+		
+		pushButton4.setDown(false);
+		pushButton1.setDown(false);
+		pushButton2.setDown(false);
+		pushButton3.setDown(false);
+		pushButton4.setDown(false);
+		pushButton5.setDown(false);
 
 	    }
 	});
@@ -779,7 +776,7 @@ public class GUI implements EntryPoint {
 	sb.append("[");
 
 	for (SuggestBox textBox : coursesList) {
-	    String courseNumber = textBox.getText().trim();
+	    String courseNumber = cleanCourseText(textBox.getText());
 
 	    if (!courseNumber.equals("")) {
 
@@ -819,7 +816,7 @@ public class GUI implements EntryPoint {
 	// Course 0.
 	if (horizontalPanel00.getWidgetCount() > 0) {
 	    sb.append("{");
-	    sb.append(":course-number :" + textBox0.getValue());
+	    sb.append(":course-number :" + cleanCourseText(textBox0.getValue()));
 	    sb.append(" :section-numbers [");
 
 	    int widgetCount = horizontalPanel00.getWidgetCount();
@@ -839,7 +836,7 @@ public class GUI implements EntryPoint {
 	// Course 1.
 	if (horizontalPanel11.getWidgetCount() > 0) {
 	    sb.append("{");
-	    sb.append(":course-number :" + textBox1.getValue());
+	    sb.append(":course-number :" + cleanCourseText(textBox1.getValue()));
 	    sb.append(" :section-numbers [");
 
 	    int widgetCount = horizontalPanel11.getWidgetCount();
@@ -859,7 +856,7 @@ public class GUI implements EntryPoint {
 	// Course 2.
 	if (horizontalPanel22.getWidgetCount() > 0) {
 	    sb.append("{");
-	    sb.append(":course-number :" + textBox2.getValue());
+	    sb.append(":course-number :" + cleanCourseText(textBox2.getValue()));
 	    sb.append(" :section-numbers [");
 
 	    int widgetCount = horizontalPanel22.getWidgetCount();
@@ -879,7 +876,7 @@ public class GUI implements EntryPoint {
 	// Course 3.
 	if (horizontalPanel33.getWidgetCount() > 0) {
 	    sb.append("{");
-	    sb.append(":course-number :" + textBox3.getValue());
+	    sb.append(":course-number :" + cleanCourseText(textBox3.getValue()));
 	    sb.append(" :section-numbers [");
 
 	    int widgetCount = horizontalPanel33.getWidgetCount();
@@ -899,7 +896,7 @@ public class GUI implements EntryPoint {
 	// Course 4.
 	if (horizontalPanel44.getWidgetCount() > 0) {
 	    sb.append("{");
-	    sb.append(":course-number :" + textBox4.getValue());
+	    sb.append(":course-number :" + cleanCourseText(textBox4.getValue()));
 	    sb.append(" :section-numbers [");
 
 	    int widgetCount = horizontalPanel44.getWidgetCount();
@@ -919,7 +916,7 @@ public class GUI implements EntryPoint {
 	// Course 5.
 	if (horizontalPanel55.getWidgetCount() > 0) {
 	    sb.append("{");
-	    sb.append(":course-number :" + textBox5.getValue());
+	    sb.append(":course-number :" + cleanCourseText(textBox5.getValue()));
 	    sb.append(" :section-numbers [");
 
 	    int widgetCount = horizontalPanel55.getWidgetCount();
@@ -943,4 +940,27 @@ public class GUI implements EntryPoint {
 	return sb.toString();
 
     }
+    
+    
+    private String cleanCourseText(String text)
+    {
+	text = text.trim();
+	
+	text = text.toUpperCase();
+	
+	if(text.length() > 8)
+	{
+	    text = text.substring(0,8);
+	}
+	
+	text = text.replace("(", ".");
+	text = text.replace(")", ".");
+	text = text.replace("[", ".");
+	text = text.replace("]", ".");
+	text = text.replace("{", ".");
+	text = text.replace("}", ".");
+	
+	return text;
+    }
+    
 }
