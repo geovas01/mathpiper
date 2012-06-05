@@ -26,7 +26,7 @@
     (cond 
       (not= courses-not-in-map '())
             
-            (throw (IllegalArgumentException. (apply str (concat ["The following course numbers either are not offered this semester or do not exist:\n"] (map #(str "   " (name %) " \n " ) courses-not-in-map) )) ))
+            (throw (IllegalArgumentException. (apply str (concat ["The following course numbers are not offered this semester, are mistyped, or do not exist:\n"] (map #(str "   " (name %) " \n " ) courses-not-in-map) )) ))
       (not (apply distinct? all-courses)) (throw (IllegalArgumentException. "Each course can only be entered once."))
       (= legal-schedules-output '()) 
             (throw (IllegalArgumentException. "There are either no schedules that do not have conflicts or there are no open sections in the courses you have selected. "))   
