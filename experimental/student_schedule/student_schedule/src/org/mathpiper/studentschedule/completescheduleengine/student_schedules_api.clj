@@ -26,6 +26,9 @@
         ]
     
     (cond 
+      
+      (= all-courses '()) (throw (ArgumentException. "You must enter at least one course to make a schedule."))
+
       (not= courses-not-in-map '())
             
             (throw (ArgumentException. (apply str (concat ["The following course numbers are not offered this semester, are mistyped, or do not exist:\n"] (map #(str "   " (name %) " \n " ) courses-not-in-map) )) ))
@@ -85,7 +88,9 @@
  ; test string:
 
  ;
-#_(def ali "{:selected-courses [] #_[{:course-number :MATH1010 :section-numbers [:01 :02]} {:course-number :ARTH1101 :section-numbers [:51]}] :course-lists #_[[:ARTS2311]] #_[[:ETEC2101]] [[:ETCO1120] #_[:PSYC1101] [:ETEM1110] [:MATH1010] [:ENGL1105] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 #_:PHIL3300 :THAR1000]]
+#_(def ali "{:selected-courses [] #_[{:course-number :MATH1010 :section-numbers [:01 :02]}
+ {:course-number :ARTH1101 :section-numbers [:51]}]
+ :course-lists [] #_[[:ARTS2311]] #_[[:ETEC2101]] #_[[:ETCO1120] #_[:PSYC1101] [:ETEM1110] [:MATH1010] [:ENGL1105] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 #_:PHIL3300 :THAR1000]]
   :return-number 6 :quality-fn-and-vals [[\"time-of-day-ratio-corrected\" [:afternoon 1]]] :custom-courses {}}")
 
 #_(legal-schedules [[:MATH1010]] [{:course-number :MATH1010 :section-number :01}] zz2)
