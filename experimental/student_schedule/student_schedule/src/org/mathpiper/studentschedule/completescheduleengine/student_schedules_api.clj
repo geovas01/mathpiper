@@ -135,4 +135,3 @@
 #_(complete-quality (first (legal-schedules course-list zz2))
                     [[time-of-day-ratio-corrected [:morning 1]]] zz2)
 
-#_
