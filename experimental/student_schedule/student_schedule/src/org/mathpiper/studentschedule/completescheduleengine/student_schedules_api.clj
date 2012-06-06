@@ -46,9 +46,20 @@
   )
 
 (defn  course-list []
-  (apply str (name (first (keys zz2))) (map #(str "," (name %) ) (rest (keys zz2))))
+  (let [open-courses (filter
+                       (fn [course]
+                         (not (every? (fn [course-section] (not(open-section? course-section zz2))) (map
+                                   (fn [section] (do {:course-number course :section-number section}) ) 
+                                   (keys (get-in zz2 [course :sections]))))) ) (keys zz2))
+        
+        ]
   
+  (apply str (name (first open-courses)) (map #(str "," (name %) ) (rest open-courses)))
   )
+  )
+
+
+
 
 (defn show-sections [string]
   (let [{course-lists :course-lists} (load-string string )]
@@ -58,13 +69,14 @@
 
 (defn get-sections [course-number-string]
   (let [course-number (load-string course-number-string)
-        ordered-keys (sort #(< (Integer/parseInt (name %1)) (Integer/parseInt (name %2))) (keys (get-in zz2 [course-number :sections])))
+        open-section-keys (filter #(open-section? {:course-number course-number :section-number %} zz2) (keys (get-in zz2 [course-number :sections])))
+        ordered-keys (sort #(< (Integer/parseInt (name %1)) (Integer/parseInt (name %2))) open-section-keys)
         ] 
-(if    (not (course-number zz2))
-            
-            (throw (ArgumentException. (str "The following course number either is not offered this semester or does not exist: " (name  course-number) )) )
-      
-      (apply str (name (first ordered-keys)) (map #(str "," (name %) ) (rest ordered-keys)))
+
+(cond    (not (course-number zz2)) (throw (ArgumentException. (str "The following course number either is not offered this semester or does not exist: " (name  course-number) )) )
+      (= open-section-keys '()) (throw (ArgumentException. (str "The following course number has no open sections " (name  course-number) )) )
+      :default (apply str (name (first ordered-keys)) (map #(str "," (name %) ) (rest ordered-keys)))
+
 )
     ))
 
@@ -86,7 +98,7 @@
 
 #_(def course-list [[:ETCO1120] [:ETEM1110] [:MATH1300] [:ENGL1101] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 :PHIL3300 :THAR1000]])
 
-#_(get-sections ":MATH1300")
+#_(get-sections ":SIGN1112")
 
 #_(time (legal-schedules course-list zz2))
 
@@ -123,3 +135,4 @@
 #_(complete-quality (first (legal-schedules course-list zz2))
                     [[time-of-day-ratio-corrected [:morning 1]]] zz2)
 
+#_
