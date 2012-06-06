@@ -2,8 +2,11 @@ package org.mathpiper.studentschedule.gwt.server;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 import org.mathpiper.studentschedule.gwt.client.StudentScheduleService;
+import org.mathpiper.studentschedule.gwt.shared.ArgumentException;
 import org.mathpiper.studentschedule.gwt.shared.FieldVerifier;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import clojure.lang.RT;
@@ -69,7 +72,7 @@ public class StudentScheduleServiceImpl extends RemoteServiceServlet implements
 
     }
 
-    public String findSchedules(String input) throws IllegalArgumentException {
+    public String findSchedules(String input) throws ArgumentException {
 	// Verify that the input is valid.
 	/*
 	 * if (!FieldVerifier.isValidName(input)) { // If the input is not
@@ -78,12 +81,33 @@ public class StudentScheduleServiceImpl extends RemoteServiceServlet implements
 	 * "Name must be at least 4 characters long"); }
 	 */
 
-	LOGGER.info(getThreadLocalRequest().getRemoteHost() + ", "
-		+ getThreadLocalRequest().getRemoteHost() + ", " + input);
+	LOGGER.info("Host:" + getThreadLocalRequest().getRemoteHost() + ", Address:"
+			+ getThreadLocalRequest().getRemoteAddr() + ", " + input);
 
 	String result = "";
 
-	result = (String) findSchedules.invoke(input);
+	try {
+	    result = (String) findSchedules.invoke(input);
+	} catch (Throwable e) {
+	    if (e instanceof ArgumentException) {
+		LOGGER.info("Host:" + getThreadLocalRequest().getRemoteHost() + ", Address:"
+			+ getThreadLocalRequest().getRemoteAddr() + ", "
+			+ input + e.getMessage());
+		throw ((ArgumentException)e);
+	    } else {
+		
+		StringWriter stringWriter = new StringWriter();
+                PrintWriter printWriter = new PrintWriter(stringWriter);
+                e.printStackTrace(printWriter);
+                
+		LOGGER.severe("Host:" + getThreadLocalRequest().getRemoteHost() + ", Address:"
+			+ getThreadLocalRequest().getRemoteAddr() + ", " + ", "
+			+ input + stringWriter.toString());
+
+		throw new ArgumentException(
+			"Error on the server. Check the server log for the error message.");
+	    }
+	}
 
 	return result;
     }// end method.
@@ -121,7 +145,8 @@ public class StudentScheduleServiceImpl extends RemoteServiceServlet implements
 	    // Create Logger.
 	    Logger logger = Logger.getLogger("");
 	    logger.setLevel(Level.INFO);
-	    fileTxt = new FileHandler(webAppPath + "WEB-INF" + File.separator + "logs" + File.separator + "log.txt");
+	    fileTxt = new FileHandler(webAppPath + "WEB-INF" + File.separator
+		    + "logs" + File.separator + "log.txt");
 
 	    // Create text Formatter.
 	    formatterTxt = new SimpleFormatter();
@@ -131,9 +156,7 @@ public class StudentScheduleServiceImpl extends RemoteServiceServlet implements
 	} catch (IOException e) {
 
 	    e.printStackTrace();
-	}
-	finally
-	{
+	} finally {
 	    super.init(config);
 	}
 

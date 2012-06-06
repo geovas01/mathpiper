@@ -8,6 +8,8 @@
 
 (use 'org.mathpiper.studentschedule.ssu_fall_2012_semester_schedule_map)
 
+(import 'org.mathpiper.studentschedule.gwt.shared.ArgumentException)
+
 
 ;returns at random return-number of schedules made using course-lists
 ;and legal-scheddules.
@@ -26,10 +28,10 @@
     (cond 
       (not= courses-not-in-map '())
             
-            (throw (IllegalArgumentException. (apply str (concat ["The following course numbers are not offered this semester, are mistyped, or do not exist:\n"] (map #(str "   " (name %) " \n " ) courses-not-in-map) )) ))
-      (not (apply distinct? all-courses)) (throw (IllegalArgumentException. "Each course can only be entered once."))
+            (throw (ArgumentException. (apply str (concat ["The following course numbers are not offered this semester, are mistyped, or do not exist:\n"] (map #(str "   " (name %) " \n " ) courses-not-in-map) )) ))
+      (not (apply distinct? all-courses)) (throw (ArgumentException. "Each course can only be entered once."))
       (= legal-schedules-output '()) 
-            (throw (IllegalArgumentException. "There are either no schedules that do not have conflicts or there are no open sections in the courses you have selected. "))   
+            (throw (ArgumentException. "There are either no schedules that do not have conflicts or there are no open sections in the courses you have selected. "))   
             
       (and  (not= quality-fn-and-vals []))
             (createHtmlScheduleTables (take return-number (sort-by-quality legal-schedules-output quality-fn-and-vals 0.01 custom-course-map))
@@ -60,7 +62,7 @@
         ] 
 (if    (not (course-number zz2))
             
-            (throw (IllegalArgumentException. (str "The following course number either is not offered this semester or does not exist: " (name  course-number) )) )
+            (throw (ArgumentException. (str "The following course number either is not offered this semester or does not exist: " (name  course-number) )) )
       
       (apply str (name (first ordered-keys)) (map #(str "," (name %) ) (rest ordered-keys)))
 )

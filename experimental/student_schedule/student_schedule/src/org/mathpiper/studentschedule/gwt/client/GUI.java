@@ -10,21 +10,12 @@ import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.event.dom.client.ChangeEvent;
-import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyPressEvent;
-import com.google.gwt.event.dom.client.KeyPressHandler;
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.google.gwt.user.client.ui.ChangeListener;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.FocusListener;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
@@ -41,9 +32,9 @@ import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
-import com.google.gwt.user.client.ui.Widget;
+
+import org.mathpiper.studentschedule.gwt.shared.ArgumentException;
 
 public class GUI implements EntryPoint {
 
@@ -179,7 +170,7 @@ public class GUI implements EntryPoint {
 			    ":" + cleanCourseText(textBox0.getValue()),
 			    new AsyncCallback<String>() {
 				public void onFailure(Throwable caught) {
-				    if (caught instanceof IllegalArgumentException) {
+				    if (caught instanceof ArgumentException) {
 					Window.alert(caught.getMessage());
 				    } else {
 					Window.alert("Error :"
@@ -260,7 +251,7 @@ public class GUI implements EntryPoint {
 			    ":" + cleanCourseText(textBox1.getValue()),
 			    new AsyncCallback<String>() {
 				public void onFailure(Throwable caught) {
-				    if (caught instanceof IllegalArgumentException) {
+				    if (caught instanceof ArgumentException) {
 					Window.alert(caught.getMessage());
 				    } else {
 					Window.alert("Error :"
@@ -329,7 +320,7 @@ public class GUI implements EntryPoint {
 			    ":" + cleanCourseText(textBox2.getValue()),
 			    new AsyncCallback<String>() {
 				public void onFailure(Throwable caught) {
-				    if (caught instanceof IllegalArgumentException) {
+				    if (caught instanceof ArgumentException) {
 					Window.alert(caught.getMessage());
 				    } else {
 					Window.alert("Error :"
@@ -397,7 +388,7 @@ public class GUI implements EntryPoint {
 			    ":" + cleanCourseText(textBox3.getValue()),
 			    new AsyncCallback<String>() {
 				public void onFailure(Throwable caught) {
-				    if (caught instanceof IllegalArgumentException) {
+				    if (caught instanceof ArgumentException) {
 					Window.alert(caught.getMessage());
 				    } else {
 					Window.alert("Error :"
@@ -465,7 +456,7 @@ public class GUI implements EntryPoint {
 			    ":" + cleanCourseText(textBox4.getValue()),
 			    new AsyncCallback<String>() {
 				public void onFailure(Throwable caught) {
-				    if (caught instanceof IllegalArgumentException) {
+				    if (caught instanceof ArgumentException) {
 					Window.alert(caught.getMessage());
 				    } else {
 					Window.alert("Error :"
@@ -533,7 +524,7 @@ public class GUI implements EntryPoint {
 			    ":" + cleanCourseText(textBox5.getValue()),
 			    new AsyncCallback<String>() {
 				public void onFailure(Throwable caught) {
-				    if (caught instanceof IllegalArgumentException) {
+				    if (caught instanceof ArgumentException) {
 					Window.alert(caught.getMessage());
 				    } else {
 					Window.alert("Error :"
@@ -693,7 +684,7 @@ public class GUI implements EntryPoint {
 
 				btnSubmit.setEnabled(true);
 
-				if (caught instanceof IllegalArgumentException) {
+				if (caught instanceof ArgumentException) {
 				    Window.alert(caught.getMessage());
 				} else {
 				    Window.alert("Error :"
