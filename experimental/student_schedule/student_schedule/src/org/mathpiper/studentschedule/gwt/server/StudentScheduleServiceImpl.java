@@ -12,7 +12,9 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import clojure.lang.RT;
 import clojure.lang.Var;
 
+import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
+import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
@@ -137,28 +139,27 @@ public class StudentScheduleServiceImpl extends RemoteServiceServlet implements
     }
 
     public void init(ServletConfig config) throws ServletException {
-	ServletContext sc = config.getServletContext();
+	//ServletContext sc = config.getServletContext();
 
-	String webAppPath = sc.getRealPath("/");
+	//String webAppPath = sc.getRealPath("/");
 
-	try {
 	    // Create Logger.
 	    Logger logger = Logger.getLogger("");
 	    logger.setLevel(Level.INFO);
-	    fileTxt = new FileHandler(webAppPath + "WEB-INF" + File.separator
+	    Handler consoleHandler = new ConsoleHandler();
+	    logger.addHandler(consoleHandler); 
+	    
+	    
+	    /*fileTxt = new FileHandler(webAppPath + "WEB-INF" + File.separator
 		    + "logs" + File.separator + "log.txt");
 
 	    // Create text Formatter.
 	    formatterTxt = new SimpleFormatter();
 	    fileTxt.setFormatter(formatterTxt);
-	    logger.addHandler(fileTxt);
+	    logger.addHandler(fileTxt);*/
 
-	} catch (IOException e) {
-
-	    e.printStackTrace();
-	} finally {
 	    super.init(config);
-	}
+	
 
     }
 }

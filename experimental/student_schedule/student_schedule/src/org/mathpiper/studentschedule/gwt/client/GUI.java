@@ -63,23 +63,30 @@ public class GUI implements EntryPoint {
 
     private SimplePanel simplePanel;
 
-    final SuggestBox textBox0 = new SuggestBox(suggestOracle);
+    private final SuggestBox textBox0 = new SuggestBox(suggestOracle);
     private HorizontalPanel horizontalPanel00;
 
-    final SuggestBox textBox1 = new SuggestBox(suggestOracle);
+    private final SuggestBox textBox1 = new SuggestBox(suggestOracle);
     private HorizontalPanel horizontalPanel11;
 
-    final SuggestBox textBox2 = new SuggestBox(suggestOracle);
+    private final SuggestBox textBox2 = new SuggestBox(suggestOracle);
     private HorizontalPanel horizontalPanel22;
 
-    final SuggestBox textBox3 = new SuggestBox(suggestOracle);
+    private final SuggestBox textBox3 = new SuggestBox(suggestOracle);
     private HorizontalPanel horizontalPanel33;
 
-    final SuggestBox textBox4 = new SuggestBox(suggestOracle);
+    private final SuggestBox textBox4 = new SuggestBox(suggestOracle);
     private HorizontalPanel horizontalPanel44;
 
-    final SuggestBox textBox5 = new SuggestBox(suggestOracle);
+    private final SuggestBox textBox5 = new SuggestBox(suggestOracle);
     private HorizontalPanel horizontalPanel55;
+
+    private ToggleButton pushButton0;
+    private ToggleButton pushButton1;
+    private ToggleButton pushButton2;
+    private ToggleButton pushButton3;
+    private ToggleButton pushButton4;
+    private ToggleButton pushButton5;
 
     @Override
     public void onModuleLoad() {
@@ -119,7 +126,7 @@ public class GUI implements EntryPoint {
 	Button btnNewButton = new Button("Help");
 	btnNewButton.addClickHandler(new ClickHandler() {
 	    public void onClick(ClickEvent event) {
-		Window.open("help/help.html", "_blank", "");
+		Window.open(GWT.getHostPageBaseURL() + "help/help.html", "_blank", "");
 	    }
 	});
 	verticalPanel_2.add(btnNewButton);
@@ -153,21 +160,21 @@ public class GUI implements EntryPoint {
 	textBox0.setLimit(10);
 	HorizontalPanel horizontalPanel0 = new HorizontalPanel();
 	horizontalPanel0.add(textBox0);
-	final ToggleButton pushButton0 = new ToggleButton("Sections");
+	pushButton0 = new ToggleButton("Sections");
+	pushButton0.setTitle("Show the open sections that are being offered for this course.");
 	pushButton0.addClickHandler(new ClickHandler() {
 	    public void onClick(ClickEvent event) {
 
 		if (textBox0.getValue().equals("")) {
 		    return;
 		}
-		
 
 		ToggleButton button = (ToggleButton) event.getSource();
 
 		if (button.isDown() == true) {
 
-		    studentScheduleService.getSections(
-			    ":" + cleanCourseText(textBox0.getValue()),
+		    studentScheduleService.getSections(":"
+			    + cleanCourseText(textBox0.getValue()),
 			    new AsyncCallback<String>() {
 				public void onFailure(Throwable caught) {
 				    if (caught instanceof ArgumentException) {
@@ -215,27 +222,23 @@ public class GUI implements EntryPoint {
 		pushButton0.setDown(false);
 	    }
 	});
-	/*textBox0.addKeyPressHandler(new KeyPressHandler() {
-	    public void onKeyPress(KeyPressEvent event) {
-		
-		if(event.getCharCode()== 8 || event.getCharCode()== 127)
-		{
-		    return;
-		}
-		
-		if (textBox0.getText().length() >= 8) {
-		    textBox0.getTextBox().cancelKey();
-		}
-	    }
-	});*/
-
+	/*
+	 * textBox0.addKeyPressHandler(new KeyPressHandler() { public void
+	 * onKeyPress(KeyPressEvent event) {
+	 * 
+	 * if(event.getCharCode()== 8 || event.getCharCode()== 127) { return; }
+	 * 
+	 * if (textBox0.getText().length() >= 8) {
+	 * textBox0.getTextBox().cancelKey(); } } });
+	 */
 
 	// Suggest box 1.
 	textBox1.setText("ETEM1110");
 	textBox1.setLimit(10);
 	HorizontalPanel horizontalPanel1 = new HorizontalPanel();
 	horizontalPanel1.add(textBox1);
-	final ToggleButton pushButton1 = new ToggleButton("Sections");
+	pushButton1 = new ToggleButton("Sections");
+	pushButton1.setTitle("Show the open sections that are being offered for this course.");
 	pushButton1.addClickHandler(new ClickHandler() {
 	    public void onClick(ClickEvent event) {
 
@@ -247,8 +250,8 @@ public class GUI implements EntryPoint {
 
 		if (button.isDown() == true) {
 
-		    studentScheduleService.getSections(
-			    ":" + cleanCourseText(textBox1.getValue()),
+		    studentScheduleService.getSections(":"
+			    + cleanCourseText(textBox1.getValue()),
 			    new AsyncCallback<String>() {
 				public void onFailure(Throwable caught) {
 				    if (caught instanceof ArgumentException) {
@@ -297,14 +300,13 @@ public class GUI implements EntryPoint {
 	    }
 	});
 
-	
-
 	// Suggest box 2.
 	textBox2.setText("MATH1300");
 	textBox2.setLimit(10);
 	HorizontalPanel horizontalPanel2 = new HorizontalPanel();
 	horizontalPanel2.add(textBox2);
-	final ToggleButton pushButton2 = new ToggleButton("Sections");
+	pushButton2 = new ToggleButton("Sections");
+	pushButton2.setTitle("Show the open sections that are being offered for this course.");
 	pushButton2.addClickHandler(new ClickHandler() {
 	    public void onClick(ClickEvent event) {
 
@@ -316,8 +318,8 @@ public class GUI implements EntryPoint {
 
 		if (button.isDown() == true) {
 
-		    studentScheduleService.getSections(
-			    ":" + cleanCourseText(textBox2.getValue()),
+		    studentScheduleService.getSections(":"
+			    + cleanCourseText(textBox2.getValue()),
 			    new AsyncCallback<String>() {
 				public void onFailure(Throwable caught) {
 				    if (caught instanceof ArgumentException) {
@@ -366,13 +368,13 @@ public class GUI implements EntryPoint {
 	    }
 	});
 
-
 	// Suggest box 3.
 	textBox3.setText("ENGL1101");
 	textBox3.setLimit(10);
 	HorizontalPanel horizontalPanel3 = new HorizontalPanel();
 	horizontalPanel3.add(textBox3);
-	final ToggleButton pushButton3 = new ToggleButton("Sections");
+	pushButton3 = new ToggleButton("Sections");
+	pushButton3.setTitle("Show the open sections that are being offered for this course.");
 	pushButton3.addClickHandler(new ClickHandler() {
 	    public void onClick(ClickEvent event) {
 
@@ -384,8 +386,8 @@ public class GUI implements EntryPoint {
 
 		if (button.isDown() == true) {
 
-		    studentScheduleService.getSections(
-			    ":" + cleanCourseText(textBox3.getValue()),
+		    studentScheduleService.getSections(":"
+			    + cleanCourseText(textBox3.getValue()),
 			    new AsyncCallback<String>() {
 				public void onFailure(Throwable caught) {
 				    if (caught instanceof ArgumentException) {
@@ -434,13 +436,13 @@ public class GUI implements EntryPoint {
 	    }
 	});
 
-
 	// Suggest box 4.
 	// textBox0.setText("ETCO1120");
 	textBox4.setLimit(10);
 	HorizontalPanel horizontalPanel4 = new HorizontalPanel();
 	horizontalPanel4.add(textBox4);
-	final ToggleButton pushButton4 = new ToggleButton("Sections");
+	pushButton4 = new ToggleButton("Sections");
+	pushButton4.setTitle("Show the open sections that are being offered for this course.");
 	pushButton4.addClickHandler(new ClickHandler() {
 	    public void onClick(ClickEvent event) {
 
@@ -452,8 +454,8 @@ public class GUI implements EntryPoint {
 
 		if (button.isDown() == true) {
 
-		    studentScheduleService.getSections(
-			    ":" + cleanCourseText(textBox4.getValue()),
+		    studentScheduleService.getSections(":"
+			    + cleanCourseText(textBox4.getValue()),
 			    new AsyncCallback<String>() {
 				public void onFailure(Throwable caught) {
 				    if (caught instanceof ArgumentException) {
@@ -502,13 +504,13 @@ public class GUI implements EntryPoint {
 	    }
 	});
 
-
 	// Suggest box 5.
 	// textBox0.setText("ETCO1120");
 	textBox5.setLimit(10);
 	HorizontalPanel horizontalPanel5 = new HorizontalPanel();
 	horizontalPanel5.add(textBox5);
-	final ToggleButton pushButton5 = new ToggleButton("Sections");
+	pushButton5 = new ToggleButton("Sections");
+	pushButton5.setTitle("Show the open sections that are being offered for this course.");
 	pushButton5.addClickHandler(new ClickHandler() {
 	    public void onClick(ClickEvent event) {
 
@@ -520,8 +522,8 @@ public class GUI implements EntryPoint {
 
 		if (button.isDown() == true) {
 
-		    studentScheduleService.getSections(
-			    ":" + cleanCourseText(textBox5.getValue()),
+		    studentScheduleService.getSections(":"
+			    + cleanCourseText(textBox5.getValue()),
 			    new AsyncCallback<String>() {
 				public void onFailure(Throwable caught) {
 				    if (caught instanceof ArgumentException) {
@@ -569,7 +571,6 @@ public class GUI implements EntryPoint {
 		pushButton5.setDown(false);
 	    }
 	});
-
 
 	DecoratorPanel decoratorPanel = new DecoratorPanel();
 	// decoratorPanel.setStyleName("border");
@@ -623,44 +624,25 @@ public class GUI implements EntryPoint {
 	verticalPanel.add(horizontalPanel_1);
 
 	Button btnReset = new Button("Reset");
+	btnReset.setTitle("Reset the application, but do not clear the course numbers.");
 	btnReset.addClickHandler(new ClickHandler() {
 	    public void onClick(ClickEvent event) {
-		numberReturned.setItemSelected(0, true);
-		timeComboBox.setItemSelected(0, true);
-		tabNumber = 1;
-
-		for (ScrollPanel html : tabList) {
-		    tabPanel.remove(html);
-		}
-
-		tabList.clear();
-
-		horizontalPanel00.clear();
-		horizontalPanel11.clear();
-		horizontalPanel22.clear();
-		horizontalPanel33.clear();
-		horizontalPanel44.clear();
-		horizontalPanel55.clear();
-		
-		textBox0.setText("");
-		textBox1.setText("");
-		textBox2.setText("");
-		textBox3.setText("");
-		textBox4.setText("");
-		textBox5.setText("");
-		
-		pushButton4.setDown(false);
-		pushButton1.setDown(false);
-		pushButton2.setDown(false);
-		pushButton3.setDown(false);
-		pushButton4.setDown(false);
-		pushButton5.setDown(false);
-
+		reset();
 	    }
 	});
 	horizontalPanel_1.add(btnReset);
+	
+	Button btnResetAll = new Button("Reset All");
+	btnResetAll.setTitle("Reset the application.");
+	btnResetAll.addClickHandler(new ClickHandler() {
+		public void onClick(ClickEvent event) {
+		    resetAll();
+		}
+	});
+	horizontalPanel_1.add(btnResetAll);
 
-	final Button btnSubmit = new Button("Submit");
+	final Button btnSubmit = new Button("Generate Schedule");
+	btnSubmit.setTitle("Generate a schedule.");
 	horizontalPanel_1.add(btnSubmit);
 
 	simplePanel = new SimplePanel();
@@ -931,27 +913,63 @@ public class GUI implements EntryPoint {
 	return sb.toString();
 
     }
-    
-    
-    private String cleanCourseText(String text)
-    {
+
+    private String cleanCourseText(String text) {
 	text = text.trim();
-	
+
 	text = text.toUpperCase();
-	
-	if(text.length() > 8)
-	{
-	    text = text.substring(0,8);
+
+	if (text.length() > 8) {
+	    text = text.substring(0, 8);
 	}
-	
+
 	text = text.replace("(", ".");
 	text = text.replace(")", ".");
 	text = text.replace("[", ".");
 	text = text.replace("]", ".");
 	text = text.replace("{", ".");
 	text = text.replace("}", ".");
-	
+
 	return text;
     }
-    
-}
+
+    private void reset() {
+	numberReturned.setItemSelected(0, true);
+	timeComboBox.setItemSelected(0, true);
+	tabNumber = 1;
+
+	for (ScrollPanel html : tabList) {
+	    tabPanel.remove(html);
+	}
+
+	tabList.clear();
+
+	horizontalPanel00.clear();
+	horizontalPanel11.clear();
+	horizontalPanel22.clear();
+	horizontalPanel33.clear();
+	horizontalPanel44.clear();
+	horizontalPanel55.clear();
+	
+	pushButton0.setDown(false);
+	pushButton1.setDown(false);
+	pushButton2.setDown(false);
+	pushButton3.setDown(false);
+	pushButton4.setDown(false);
+	pushButton5.setDown(false);
+
+    }
+
+    private void resetAll() {
+	reset();
+
+	textBox0.setText("");
+	textBox1.setText("");
+	textBox2.setText("");
+	textBox3.setText("");
+	textBox4.setText("");
+	textBox5.setText("");
+
+    }
+
+}// end class.
