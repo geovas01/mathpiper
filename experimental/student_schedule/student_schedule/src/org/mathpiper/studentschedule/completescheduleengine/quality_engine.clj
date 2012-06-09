@@ -96,16 +96,45 @@
     )
 )
 
+(defn minimize-days [schedule course-map]
+  (let [timecodes (apply concat (for [{course-number :course-number section-number :section-number} schedule] (get-in course-map [course-number :sections section-number :days-and-times]) ))
+        class-on-days  (reduce (fn [daycode-1 daycode-2] (bit-or daycode-1 daycode-2)) (map (fn [[daycode start-time duraiton]] daycode ) timecodes))
+        number-of-days (apply + (map #(if (not= (bit-and % class-on-days) 0) 1 0) '(2r1000000 2r0100000 2r0010000 2r0001000 2r0000100 2r0000010 2r0000001)))
+        ] 
+    #_(println  class-on-days)
+    (- 1 (/ number-of-days 7))
+    
+    )
+ 
+  )
+
+
+(defn choose-days [schedule chosen-daycode course-map]
+  (let [timecodes (apply concat (for [{course-number :course-number section-number :section-number} schedule] (get-in course-map [course-number :sections section-number :days-and-times]) ))
+        class-on-days  (reduce (fn [daycode-1 daycode-2] (bit-or daycode-1 daycode-2)) (map (fn [[daycode start-time duraiton]] daycode ) timecodes))
+        bad-days (bit-and class-on-days (bit-not chosen-daycode))
+        number-of-bad-days (apply + (map #(if (not= (bit-and % bad-days) 0) 1 0) '(2r1000000 2r0100000 2r0010000 2r0001000 2r0000100 2r0000010 2r0000001)))
+        ]
+    
+    (- 1 (/ number-of-bad-days 7))
+  )
+  )
+
+
 
 (defn complete-quality [schedule quality-fn-and-vals course-map] 
   (let [range-denom (range (count quality-fn-and-vals)) 
         denoms (map #(/ 1.0 (inc %)) range-denom)
         output (apply + (map #(* (apply (ns-resolve 'org.mathpiper.studentschedule.completescheduleengine.quality_engine (symbol (first %))) (concat [schedule] (second %) [course-map]) ) %2)  quality-fn-and-vals denoms))
         ]
+    
     (/ output (apply + denoms))
     )
   
   )
+
+
+
 
 #_(def course-list [[:ETCO1120] [:ETEM1110] [:MATH1300] [:ENGL1101] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 :PHIL3300 :THAR1000]])
 

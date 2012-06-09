@@ -16,7 +16,8 @@
 
 (defn find-schedules [string]
   (let [
-        {selected-courses :selected-courses course-lists :course-lists quality-fn-and-vals :quality-fn-and-vals return-number :return-number custom-courses :custom-courses} (load-string string)
+        clean-string (apply str (filter #(and (not= % \( ) (not= % \) )) string))
+        {selected-courses :selected-courses course-lists :course-lists quality-fn-and-vals :quality-fn-and-vals return-number :return-number custom-courses :custom-courses} (load-string clean-string)
         unpacked-selected-courses (for [course selected-courses  section-number (:section-numbers course )]
                                     {:course-number (:course-number course) :section-number section-number})
         custom-course-map (merge zz2 custom-courses)
@@ -47,6 +48,9 @@
     )
   
   )
+
+
+
 
 (defn  course-list []
   (let [open-courses (filter
@@ -90,8 +94,8 @@
  ;
 #_(def ali "{:selected-courses [] #_[{:course-number :MATH1010 :section-numbers [:01 :02]}
  {:course-number :ARTH1101 :section-numbers [:51]}]
- :course-lists [] #_[[:ARTS2311]] #_[[:ETEC2101]] #_[[:ETCO1120] #_[:PSYC1101] [:ETEM1110] [:MATH1010] [:ENGL1105] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 #_:PHIL3300 :THAR1000]]
-  :return-number 6 :quality-fn-and-vals [[\"time-of-day-ratio-corrected\" [:afternoon 1]]] :custom-courses {}}")
+ :course-lists #_[] #_[[:ARTS2311]] #_[[:ETEC2101]] [[:ETCO1120] #_[:PSYC1101] [:ETEM1110] [:MATH1010] [:ENGL1105] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 #_:PHIL3300 :THAR1000]]
+  :return-number 6 :quality-fn-and-vals [[\"time-of-day-ratio-corrected\" [:morning 1]] [\"choose-days\" [2r0101100]] #_[\"minimize-days\" []] ] :custom-courses {}}")
 
 #_(legal-schedules [[:MATH1010]] [{:course-number :MATH1010 :section-number :01}] zz2)
  
