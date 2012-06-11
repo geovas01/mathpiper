@@ -287,7 +287,7 @@
                (apply str (for [course-number course-list]
                             (str
                                "
-                               <table border=1  cellpadding=3 align=\"left\">
+                               <table border=1  cellpadding=3 align=\"top\">
                                <tr>
                                <th BGCOLOR=#EEEEEE >Course</th>
                                <th BGCOLOR=#EEEEEE >Name</th>
@@ -309,7 +309,8 @@
                                                   (sort #(< (Integer/parseInt (name %1)) (Integer/parseInt (name %2))) (keys (get-in zz2 [course-number :sections])))] 
                    
                   
-                 (str  " <td align=center>" (name section-number) "</td>
+                 (str (if (not= section-number (first (sort #(< (Integer/parseInt (name %1)) (Integer/parseInt (name %2))) (keys (get-in zz2 [course-number :sections]))) ))
+                        "<tr>")  " <td align=center>" (name section-number) "</td>
                   
                   <td>"  (first (get-in course-map [course-number :sections section-number :faculty])) "</td>
                   <td>" "-" "</td>
@@ -322,8 +323,8 @@
                  </tr> ")
                  ))
                    
-                  "</table> <br />"
-                  "<br /> <br /> <br />"
+                  "</table>  <br />"
+                  #_"<br /> <br /> <br />"
                                  
                                  
                                  )
@@ -336,7 +337,7 @@
 
 
 
-#_(def course-lists [[:ETCO1120] [:ETEM1110] [:MATH1300] [:ENGL1101] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 :PHIL3300 :THAR1000]])
+#_(def course-lists #_[[:ETCO1120] [:ETEM1110]] [[:ETCO1120] [:ETEM1110] [:MATH1300] [:ENGL1101] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 :PHIL3300 :THAR1000]])
 
 #_(spit "../student_schedule.html" (create-html-sections-table (apply concat course-lists) zz2))
 
