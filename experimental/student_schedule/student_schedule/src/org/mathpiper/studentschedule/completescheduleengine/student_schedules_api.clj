@@ -38,7 +38,7 @@
             (throw (ArgumentException. "There are either no schedules that do not have conflicts or there are no open sections in the courses you have selected. "))   
             
       (and  (not= quality-fn-and-vals []))
-            (createHtmlScheduleTables (take return-number (sort-by-quality legal-schedules-output quality-fn-and-vals 0.01 custom-course-map))
+            (createHtmlScheduleTables (sort-by-quality (take return-number (selected-by-quality legal-schedules-output quality-fn-and-vals 0.01 custom-course-map))  quality-fn-and-vals custom-course-map)
              custom-course-map)
        :default (createHtmlScheduleTables (for [_ (range return-number)]  (nth legal-schedules-output (rand-int (count legal-schedules-output)) )) custom-course-map)
      
@@ -69,13 +69,25 @@
 
 
 (defn show-sections [string]
-  (let [{course-lists :course-lists} (load-string string )]
-  (create-html-sections-table (apply concat course-lists) zz2)
+  (let [clean-string (apply str (filter #(and (not= % \( ) (not= % \) )) string))
+        {course-lists :course-lists} (load-string clean-string )
+        all-courses (apply concat course-lists)
+        courses-not-in-map (filter (fn [course] (not (course  zz2))) all-courses)
+        ]
+  (cond
+    (not= courses-not-in-map '())
+            
+            (throw (ArgumentException. (apply str (concat ["The following course numbers are not offered this semester, are mistyped, or do not exist:\n"] (map #(str "   " (name %) " \n " ) courses-not-in-map) )) ))
+
+    
+   :default (create-html-sections-table (apply concat course-lists) zz2)
+  )
   )
   )
 
 (defn get-sections [course-number-string]
-  (let [course-number (load-string course-number-string)
+  (let [clean-string (apply str (filter #(and (not= % \( ) (not= % \) )) course-number-string))
+        course-number (load-string clean-string)
         open-section-keys (filter #(open-section? {:course-number course-number :section-number %} zz2) (keys (get-in zz2 [course-number :sections])))
         ordered-keys (sort #(< (Integer/parseInt (name %1)) (Integer/parseInt (name %2))) open-section-keys)
         ] 
@@ -95,7 +107,7 @@
 #_(def ali "{:selected-courses [] #_[{:course-number :MATH1010 :section-numbers [:01 :02]}
  {:course-number :ARTH1101 :section-numbers [:51]}]
  :course-lists #_[] #_[[:ARTS2311]] #_[[:ETEC2101]] [[:ETCO1120] #_[:PSYC1101] [:ETEM1110] [:MATH1010] [:ENGL1105] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 #_:PHIL3300 :THAR1000]]
-  :return-number 6 :quality-fn-and-vals [[\"time-of-day-ratio-corrected\" [:morning 1]] [\"choose-days\" [2r0101100]] #_[\"minimize-days\" []] ] :custom-courses {}}")
+  :return-number 6 :quality-fn-and-vals [#_[\"time-of-day-ratio-corrected\" [:morning 1]] [\"choose-days\" [2r1010100]] #_[\"minimize-days\" []] ] :custom-courses {}}")
 
 #_(legal-schedules [[:MATH1010]] [{:course-number :MATH1010 :section-number :01}] zz2)
  

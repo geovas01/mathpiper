@@ -145,7 +145,7 @@
 #_(time-of-day-ratio-corrected (first (legal-schedules course-list zz2)) :morning 1 zz2 )
 
 
-(defn sort-by-quality [schedules quality-fn-and-vals allowence course-map]
+(defn selected-by-quality [schedules quality-fn-and-vals allowence course-map]
 
   (let [list-of-pairs  (map #( list (complete-quality % quality-fn-and-vals course-map) %)   schedules)
         best  (reduce max (map first list-of-pairs)) 
@@ -158,6 +158,13 @@
   
 )
 
+
+(defn sort-by-quality [schedules quality-fn-and-vals course-map]
+  (sort (fn [schedule-1 schedule-2] 
+              (< (complete-quality schedule-1 quality-fn-and-vals course-map)
+                   (complete-quality schedule-2 quality-fn-and-vals course-map))  ) schedules)
+  
+  )
 
 
 

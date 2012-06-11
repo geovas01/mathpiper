@@ -287,7 +287,7 @@
                (apply str (for [course-number course-list]
                             (str
                                "
-                               <table border=1  cellpadding=3 align=\"center\">
+                               <table border=1  cellpadding=3 align=\"left\">
                                <tr>
                                <th BGCOLOR=#EEEEEE >Course</th>
                                <th BGCOLOR=#EEEEEE >Name</th>
