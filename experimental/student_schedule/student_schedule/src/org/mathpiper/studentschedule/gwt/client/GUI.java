@@ -16,6 +16,7 @@ import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.HTMLTable;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
@@ -35,6 +36,9 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 
 import org.mathpiper.studentschedule.gwt.shared.ArgumentException;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.event.dom.client.ChangeHandler;
+import com.google.gwt.event.dom.client.ChangeEvent;
 
 public class GUI implements EntryPoint {
 
@@ -88,6 +92,17 @@ public class GUI implements EntryPoint {
     private ToggleButton pushButton4;
     private ToggleButton pushButton5;
 
+    private CheckBox minimizeDaysCheckBox;
+
+    private CheckBox chckbxM;
+    private CheckBox chckbxT;
+    private CheckBox chckbxW;
+    private CheckBox chckbxR;
+    private CheckBox chckbxF;
+    
+    private ListBox comboBox;
+    private ListBox comboBox_2;
+
     @Override
     public void onModuleLoad() {
 
@@ -126,7 +141,8 @@ public class GUI implements EntryPoint {
 	Button btnNewButton = new Button("Help");
 	btnNewButton.addClickHandler(new ClickHandler() {
 	    public void onClick(ClickEvent event) {
-		Window.open(GWT.getHostPageBaseURL() + "help/help.html", "_blank", "");
+		Window.open(GWT.getHostPageBaseURL() + "help/help.html",
+			"_blank", "");
 	    }
 	});
 	verticalPanel_2.add(btnNewButton);
@@ -148,6 +164,8 @@ public class GUI implements EntryPoint {
 	decoratorPanel_1.setStyleName("border");
 
 	FlexTable flexTable = new FlexTable();
+	// flexTable.setStyleName("FlexTable");
+
 	decoratorPanel_1.setWidget(flexTable);
 	flexTable.setBorderWidth(0);
 	flexTable.setSize("445px", "116px");
@@ -161,7 +179,8 @@ public class GUI implements EntryPoint {
 	HorizontalPanel horizontalPanel0 = new HorizontalPanel();
 	horizontalPanel0.add(textBox0);
 	pushButton0 = new ToggleButton("Sections");
-	pushButton0.setTitle("Show the open sections that are being offered for this course.");
+	pushButton0
+		.setTitle("Show the open sections that are being offered for this course.");
 	pushButton0.addClickHandler(new ClickHandler() {
 	    public void onClick(ClickEvent event) {
 
@@ -238,7 +257,8 @@ public class GUI implements EntryPoint {
 	HorizontalPanel horizontalPanel1 = new HorizontalPanel();
 	horizontalPanel1.add(textBox1);
 	pushButton1 = new ToggleButton("Sections");
-	pushButton1.setTitle("Show the open sections that are being offered for this course.");
+	pushButton1
+		.setTitle("Show the open sections that are being offered for this course.");
 	pushButton1.addClickHandler(new ClickHandler() {
 	    public void onClick(ClickEvent event) {
 
@@ -306,7 +326,8 @@ public class GUI implements EntryPoint {
 	HorizontalPanel horizontalPanel2 = new HorizontalPanel();
 	horizontalPanel2.add(textBox2);
 	pushButton2 = new ToggleButton("Sections");
-	pushButton2.setTitle("Show the open sections that are being offered for this course.");
+	pushButton2
+		.setTitle("Show the open sections that are being offered for this course.");
 	pushButton2.addClickHandler(new ClickHandler() {
 	    public void onClick(ClickEvent event) {
 
@@ -374,7 +395,8 @@ public class GUI implements EntryPoint {
 	HorizontalPanel horizontalPanel3 = new HorizontalPanel();
 	horizontalPanel3.add(textBox3);
 	pushButton3 = new ToggleButton("Sections");
-	pushButton3.setTitle("Show the open sections that are being offered for this course.");
+	pushButton3
+		.setTitle("Show the open sections that are being offered for this course.");
 	pushButton3.addClickHandler(new ClickHandler() {
 	    public void onClick(ClickEvent event) {
 
@@ -442,7 +464,8 @@ public class GUI implements EntryPoint {
 	HorizontalPanel horizontalPanel4 = new HorizontalPanel();
 	horizontalPanel4.add(textBox4);
 	pushButton4 = new ToggleButton("Sections");
-	pushButton4.setTitle("Show the open sections that are being offered for this course.");
+	pushButton4
+		.setTitle("Show the open sections that are being offered for this course.");
 	pushButton4.addClickHandler(new ClickHandler() {
 	    public void onClick(ClickEvent event) {
 
@@ -510,7 +533,8 @@ public class GUI implements EntryPoint {
 	HorizontalPanel horizontalPanel5 = new HorizontalPanel();
 	horizontalPanel5.add(textBox5);
 	pushButton5 = new ToggleButton("Sections");
-	pushButton5.setTitle("Show the open sections that are being offered for this course.");
+	pushButton5
+		.setTitle("Show the open sections that are being offered for this course.");
 	pushButton5.addClickHandler(new ClickHandler() {
 	    public void onClick(ClickEvent event) {
 
@@ -598,27 +622,177 @@ public class GUI implements EntryPoint {
 	DecoratorPanel decoratorPanel_2 = new DecoratorPanel();
 	decoratorPanel_2.setStyleName("border");
 	verticalPanel.add(decoratorPanel_2);
-	decoratorPanel_2.setWidth("223px");
+	decoratorPanel_2.setWidth("390px");
 
 	VerticalPanel verticalPanel_1 = new VerticalPanel();
 	decoratorPanel_2.setWidget(verticalPanel_1);
 	verticalPanel_1.setWidth("213px");
 
-	Label lblPreferences = new Label("Preferences");
-	verticalPanel_1.add(lblPreferences);
-
 	FlexTable flexTable_2 = new FlexTable();
+	// flexTable_2.addStyleName("FlexTable");
+	HTMLTable.RowFormatter rf = flexTable_2.getRowFormatter();
+
+	for (int row = 1; row < flexTable.getRowCount(); ++row) {
+	    rf.addStyleName(row, "FlexTable-Cell");
+	}
 	verticalPanel_1.add(flexTable_2);
+	flexTable_2.setWidth("387px");
+
+	Label lblPreference = new Label("Preference");
+	flexTable_2.setWidget(0, 0, lblPreference);
+
+	Label lblValue = new Label("Value");
+	flexTable_2.setWidget(0, 1, lblValue);
+
+	Label lblPriority = new Label("Priority");
+	flexTable_2.setWidget(0, 2, lblPriority);
 
 	Label lblTime = new Label("Time");
-	flexTable_2.setWidget(0, 0, lblTime);
+	flexTable_2.setWidget(1, 0, lblTime);
 
 	timeComboBox = new ListBox();
 	timeComboBox.addItem("None");
 	timeComboBox.addItem("Morning");
 	timeComboBox.addItem("Afternoon");
 	timeComboBox.addItem("Evening");
-	flexTable_2.setWidget(0, 1, timeComboBox);
+	flexTable_2.setWidget(1, 1, timeComboBox);
+
+	comboBox = new ListBox();
+	comboBox.addChangeHandler(new ChangeHandler() {
+		public void onChange(ChangeEvent event) {
+		    
+		    ListBox listBox = (ListBox) event.getSource();
+		    
+		    if(listBox.getValue(listBox.getSelectedIndex()).equals("1"))
+		    {
+			comboBox_2.setItemSelected(1, true);
+		    }
+		    else
+		    {
+			comboBox_2.setItemSelected(0, true);
+		    }
+		}
+	});
+	comboBox.addItem("1");
+	comboBox.addItem("2");
+	flexTable_2.setWidget(1, 2, comboBox);
+	flexTable_2.getCellFormatter().setHorizontalAlignment(0, 1,
+		HasHorizontalAlignment.ALIGN_CENTER);
+	flexTable_2.getCellFormatter().setHorizontalAlignment(0, 2,
+		HasHorizontalAlignment.ALIGN_CENTER);
+	flexTable_2.getCellFormatter().setHorizontalAlignment(0, 0,
+		HasHorizontalAlignment.ALIGN_CENTER);
+	flexTable_2.getCellFormatter().setHorizontalAlignment(1, 2,
+		HasHorizontalAlignment.ALIGN_CENTER);
+	flexTable_2.getCellFormatter().setHorizontalAlignment(1, 1,
+		HasHorizontalAlignment.ALIGN_CENTER);
+
+	Label lblSelectDays = new Label("Select Days");
+	lblSelectDays.setWordWrap(false);
+	flexTable_2.setWidget(2, 0, lblSelectDays);
+
+	HorizontalPanel horizontalPanel_2 = new HorizontalPanel();
+	flexTable_2.setWidget(2, 1, horizontalPanel_2);
+
+	chckbxM = new CheckBox("M");
+	chckbxM.addClickHandler(new ClickHandler() {
+	    public void onClick(ClickEvent event) {
+		minimizeDaysCheckBox.setValue(false);
+	    }
+	});
+	chckbxM.setHTML("M,");
+	chckbxM.setValue(true);
+	chckbxM.setWordWrap(false);
+	horizontalPanel_2.add(chckbxM);
+
+	chckbxT = new CheckBox("T");
+	chckbxT.addClickHandler(new ClickHandler() {
+	    public void onClick(ClickEvent event) {
+		minimizeDaysCheckBox.setValue(false);
+	    }
+	});
+	chckbxT.setHTML("T,");
+	chckbxT.setValue(true);
+	chckbxT.setWordWrap(false);
+	horizontalPanel_2.add(chckbxT);
+
+	chckbxW = new CheckBox("W");
+	chckbxW.addClickHandler(new ClickHandler() {
+	    public void onClick(ClickEvent event) {
+		minimizeDaysCheckBox.setValue(false);
+	    }
+	});
+	chckbxW.setHTML("W,");
+	chckbxW.setValue(true);
+	chckbxW.setWordWrap(false);
+	horizontalPanel_2.add(chckbxW);
+
+	chckbxR = new CheckBox("R");
+	chckbxR.addClickHandler(new ClickHandler() {
+	    public void onClick(ClickEvent event) {
+		minimizeDaysCheckBox.setValue(false);
+	    }
+	});
+	chckbxR.setHTML("R,");
+	chckbxR.setValue(true);
+	chckbxR.setWordWrap(false);
+	horizontalPanel_2.add(chckbxR);
+
+	chckbxF = new CheckBox("F");
+	chckbxF.addClickHandler(new ClickHandler() {
+	    public void onClick(ClickEvent event) {
+		minimizeDaysCheckBox.setValue(false);
+	    }
+	});
+	chckbxF.setHTML("F;");
+	chckbxF.setValue(true);
+	chckbxF.setWordWrap(false);
+	horizontalPanel_2.add(chckbxF);
+
+	minimizeDaysCheckBox = new CheckBox("New check box");
+	minimizeDaysCheckBox.addClickHandler(new ClickHandler() {
+	    public void onClick(ClickEvent event) {
+
+		CheckBox checkBox = (CheckBox) event.getSource();
+
+		if (checkBox.getValue() == true) {
+		    clearDays();
+		} else {
+		    setDays();
+		}
+	    }
+	});
+	minimizeDaysCheckBox.setWordWrap(false);
+	horizontalPanel_2.add(minimizeDaysCheckBox);
+	minimizeDaysCheckBox.setHTML("Minimize");
+
+	comboBox_2 = new ListBox();
+		comboBox_2.addChangeHandler(new ChangeHandler() {
+		public void onChange(ChangeEvent event) {
+		    ListBox listBox = (ListBox) event.getSource();
+		    if(listBox.getValue(listBox.getSelectedIndex()).equals("1"))
+		    {
+			comboBox.setItemSelected(1, true);
+		    }
+		    else
+		    {
+			comboBox.setItemSelected(0, true);
+		    }
+		}
+	});
+	comboBox_2.addItem("1");
+	comboBox_2.addItem("2");
+	comboBox_2.setItemSelected(1, true);
+	flexTable_2.setWidget(2, 2, comboBox_2);
+	flexTable_2.getCellFormatter().setHorizontalAlignment(3, 2,
+		HasHorizontalAlignment.ALIGN_CENTER);
+	flexTable_2.getCellFormatter().setHorizontalAlignment(1, 0,
+		HasHorizontalAlignment.ALIGN_RIGHT);
+	flexTable_2.getCellFormatter().setHorizontalAlignment(3, 1,
+		HasHorizontalAlignment.ALIGN_CENTER);
+	flexTable_2.getCellFormatter().setHorizontalAlignment(3, 0,
+		HasHorizontalAlignment.ALIGN_RIGHT);
+	flexTable_2.getCellFormatter().setHorizontalAlignment(2, 2, HasHorizontalAlignment.ALIGN_CENTER);
 
 	horizontalPanel_1 = new HorizontalPanel();
 	verticalPanel.add(horizontalPanel_1);
@@ -631,13 +805,13 @@ public class GUI implements EntryPoint {
 	    }
 	});
 	horizontalPanel_1.add(btnReset);
-	
+
 	Button btnResetAll = new Button("Reset All");
 	btnResetAll.setTitle("Reset the application.");
 	btnResetAll.addClickHandler(new ClickHandler() {
-		public void onClick(ClickEvent event) {
-		    resetAll();
-		}
+	    public void onClick(ClickEvent event) {
+		resetAll();
+	    }
 	});
 	horizontalPanel_1.add(btnResetAll);
 
@@ -766,15 +940,93 @@ public class GUI implements EntryPoint {
 	sb.append(":return-number ");
 	sb.append(numberReturned.getValue(numberReturned.getSelectedIndex()));
 
+	// ===============================================================
 	sb.append(" :quality-fn-and-vals [");
+
+	StringBuilder dayTimeStringBuilder = null;
 	String dayTimePreference = timeComboBox.getValue(
 		timeComboBox.getSelectedIndex()).toLowerCase();
 	if (!dayTimePreference.equals("none")) {
-	    sb.append("[\"time-of-day-ratio-corrected\" [:");
-	    sb.append(dayTimePreference);
-	    sb.append(" 1]]");
+	    dayTimeStringBuilder = new StringBuilder();
+	    dayTimeStringBuilder.append("[\"time-of-day-ratio-corrected\" [:");
+	    dayTimeStringBuilder.append(dayTimePreference);
+	    dayTimeStringBuilder.append(" 1]]");
 	}
-	sb.append("]");
+
+	// -----------------------------
+	
+	StringBuilder daysSB = null;
+
+	if (minimizeDaysCheckBox.getValue() == true) {
+	    daysSB = new StringBuilder();
+	    daysSB.append("[\"minimize-days\" [] ]");
+	}else if (!(chckbxM.getValue() == true && chckbxT.getValue() == true
+		&& chckbxW.getValue() == true && chckbxR.getValue() == true && chckbxF
+		    .getValue() == true)) {
+	    // [\"choose-days\" [2r0101100]]
+	    daysSB = new StringBuilder();
+	    
+
+	    daysSB.append("[\"choose-days\" [2r");
+
+	    if (chckbxM.getValue() == true) {
+		daysSB.append("1");
+	    } else {
+		daysSB.append("0");
+	    }
+	    if (chckbxT.getValue() == true) {
+		daysSB.append("1");
+	    } else {
+		daysSB.append("0");
+	    }
+	    if (chckbxW.getValue() == true) {
+		daysSB.append("1");
+	    } else {
+		daysSB.append("0");
+	    }
+	    if (chckbxR.getValue() == true) {
+		daysSB.append("1");
+	    } else {
+		daysSB.append("0");
+	    }
+	    if (chckbxF.getValue() == true) {
+		daysSB.append("1");
+	    } else {
+		daysSB.append("0");
+	    }
+
+	    daysSB.append("00]]");
+	}
+	
+	
+	//Encode priority of the dayTime preference and the days preference.
+	if(dayTimeStringBuilder != null && daysSB == null)
+	{
+	    sb.append(dayTimeStringBuilder.toString());
+	}
+	else if (dayTimeStringBuilder == null && daysSB != null)
+	{
+	    sb.append(daysSB.toString());
+	}
+	else if (dayTimeStringBuilder != null && daysSB != null)
+	{
+	    if(comboBox.getValue(comboBox.getSelectedIndex()).equals("1"))
+	    {
+		sb.append(dayTimeStringBuilder.toString());
+		sb.append(daysSB.toString());
+	    }
+	    else
+	    {
+		sb.append(daysSB.toString());
+		sb.append(dayTimeStringBuilder.toString());
+	    }
+	}
+
+	
+	// ------------------------------
+
+	sb.append("]"); // end quality-fn-and-vals
+	// =============================
 
 	// :quality-fn-and-vals [[time-of-day-ratio-corrected [:afternoon 1]]]
 
@@ -950,13 +1202,20 @@ public class GUI implements EntryPoint {
 	horizontalPanel33.clear();
 	horizontalPanel44.clear();
 	horizontalPanel55.clear();
-	
+
 	pushButton0.setDown(false);
 	pushButton1.setDown(false);
 	pushButton2.setDown(false);
 	pushButton3.setDown(false);
 	pushButton4.setDown(false);
 	pushButton5.setDown(false);
+	
+	minimizeDaysCheckBox.setValue(false);
+	
+	comboBox.setItemSelected(0, true);
+	comboBox_2.setItemSelected(1, true);
+	
+	setDays();
 
     }
 
@@ -970,6 +1229,22 @@ public class GUI implements EntryPoint {
 	textBox4.setText("");
 	textBox5.setText("");
 
+    }
+
+    private void clearDays() {
+	chckbxM.setValue(false);
+	chckbxT.setValue(false);
+	chckbxW.setValue(false);
+	chckbxR.setValue(false);
+	chckbxF.setValue(false);
+    }
+
+    private void setDays() {
+	chckbxM.setValue(true);
+	chckbxT.setValue(true);
+	chckbxW.setValue(true);
+	chckbxR.setValue(true);
+	chckbxF.setValue(true);
     }
 
 }// end class.
