@@ -10,6 +10,10 @@ h1 {
   text-align: center;
 }
 
+.labelBold {
+	font-weight: bold;
+}
+
 .sendButton {
   display: block;
   font-size: 16pt;
@@ -34,6 +38,7 @@ h1 {
 }
 .border {
 	border: 1px solid;
+	border-collapse:collapse;
 }
 
 .newTab {
@@ -125,8 +130,25 @@ h1 {
   border-width: 1px 1px 1px 1px;
   border-style: solid;
   border-color: black;
-  padding: 5px;
+/*   padding: 5px; */
 }
 
 
+/* stock list header row */
+.watchListHeader {
+  background-color: #2062B8;
+  color: white;
+  font-style: italic;
+}
 
+/* stock list flex table */
+.watchList {
+	background-color: #2062B8;
+  border: 5px solid black;
+/*   padding: 8px; */
+/*   margin-bottom:6px; */
+}
+
+.collapse{
+	border-collapse:collapse;
+}

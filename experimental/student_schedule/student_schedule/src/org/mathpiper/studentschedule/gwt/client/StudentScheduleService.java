@@ -12,6 +12,8 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface StudentScheduleService extends RemoteService {
     String findSchedules(String name) throws ArgumentException;
     
+    String sectionsInformation(String name) throws ArgumentException;
+    
     String courseList();
     
     String getSections(String name) throws ArgumentException;

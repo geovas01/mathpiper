@@ -10,6 +10,8 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 public interface StudentScheduleServiceAsync {
     void findSchedules(String input, AsyncCallback<String> callback);
     
+    void sectionsInformation(String input, AsyncCallback<String> callback);
+    
     void courseList(AsyncCallback<String> callback);
     
     void getSections(String name, AsyncCallback<String> callback);

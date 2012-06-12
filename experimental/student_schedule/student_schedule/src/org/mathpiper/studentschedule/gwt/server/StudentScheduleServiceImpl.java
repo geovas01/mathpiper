@@ -34,14 +34,13 @@ public class StudentScheduleServiceImpl extends RemoteServiceServlet implements
 	    .getLogger(StudentScheduleServiceImpl.class.getName());
 
     private Var findSchedules;
+    
+     private Var sectionsInformation;
 
     private Var courseList;
 
     private Var getSections;
 
-    static private FileHandler fileTxt;
-
-    static private SimpleFormatter formatterTxt;
 
     public StudentScheduleServiceImpl() {
 	super();
@@ -56,6 +55,10 @@ public class StudentScheduleServiceImpl extends RemoteServiceServlet implements
 	    findSchedules = RT
 		    .var("org.mathpiper.studentschedule.completescheduleengine.student_schedules_api",
 			    "find-schedules");
+	    
+	    sectionsInformation = RT
+		    .var("org.mathpiper.studentschedule.completescheduleengine.student_schedules_api",
+			    "show-sections");
 
 	    courseList = RT
 		    .var("org.mathpiper.studentschedule.completescheduleengine.student_schedules_api",
@@ -83,8 +86,8 @@ public class StudentScheduleServiceImpl extends RemoteServiceServlet implements
 	 * "Name must be at least 4 characters long"); }
 	 */
 
-	LOGGER.info("Host:" + getThreadLocalRequest().getRemoteHost() + ", Address:"
-			+ getThreadLocalRequest().getRemoteAddr() + ", " + input);
+	LOGGER.info("Host:" + getThreadLocalRequest().getRemoteHost() + ", User Agent:"
+			+ getThreadLocalRequest().getHeader("user-agent") + ", " + input);
 
 	String result = "";
 
@@ -92,8 +95,8 @@ public class StudentScheduleServiceImpl extends RemoteServiceServlet implements
 	    result = (String) findSchedules.invoke(input);
 	} catch (Throwable e) {
 	    if (e instanceof ArgumentException) {
-		LOGGER.info("Host:" + getThreadLocalRequest().getRemoteHost() + ", Address:"
-			+ getThreadLocalRequest().getRemoteAddr() + ", "
+		LOGGER.info("Host:" + getThreadLocalRequest().getRemoteHost() + ", User Agent:"
+			+ getThreadLocalRequest().getHeader("user-agent") + ", "
 			+ input + e.getMessage());
 		throw ((ArgumentException)e);
 	    } else {
@@ -102,8 +105,8 @@ public class StudentScheduleServiceImpl extends RemoteServiceServlet implements
                 PrintWriter printWriter = new PrintWriter(stringWriter);
                 e.printStackTrace(printWriter);
                 
-		LOGGER.severe("Host:" + getThreadLocalRequest().getRemoteHost() + ", Address:"
-			+ getThreadLocalRequest().getRemoteAddr() + ", " + ", "
+		LOGGER.severe("Host:" + getThreadLocalRequest().getRemoteHost() + ", User Agent:"
+			+ getThreadLocalRequest().getHeader("user-agent") + ", " + ", "
 			+ input + stringWriter.toString());
 
 		throw new ArgumentException(
@@ -113,6 +116,10 @@ public class StudentScheduleServiceImpl extends RemoteServiceServlet implements
 
 	return result;
     }// end method.
+    
+    public String sectionsInformation(String input) {
+	return (String) sectionsInformation.invoke(input);
+    }
 
     public String courseList() {
 	return (String) courseList.invoke();

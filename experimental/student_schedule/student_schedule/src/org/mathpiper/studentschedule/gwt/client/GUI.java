@@ -126,14 +126,14 @@ public class GUI implements EntryPoint {
 	rootPanel.add(dockLayoutPanel);
 
 	FlowPanel flowPanel = new FlowPanel();
-	dockLayoutPanel.addNorth(flowPanel, 8);
+	dockLayoutPanel.addNorth(flowPanel, 7.2);
 
 	VerticalPanel verticalPanel_2 = new VerticalPanel();
 	flowPanel.add(verticalPanel_2);
 	// verticalPanel_2.setHeight("53px");
 
 	HTML htmlNewHtml = new HTML(
-		"<h2>SSU Student Schedule Generator v.004 beta<h2>", true);
+		"<h2>SSU Student Schedule Generator v.005 beta<h2>", true);
 	htmlNewHtml.setStyleName("none");
 	htmlNewHtml.setDirectionEstimator(true);
 	verticalPanel_2.add(htmlNewHtml);
@@ -148,6 +148,7 @@ public class GUI implements EntryPoint {
 	verticalPanel_2.add(btnNewButton);
 
 	VerticalPanel verticalPanel = new VerticalPanel();
+	verticalPanel.setSpacing(5);
 	// tabPanel.addStyleName("gwt-TabLayoutPanel .gwt-TabLayoutPanelTabs");
 	dockLayoutPanel.add(tabPanel);
 
@@ -163,15 +164,16 @@ public class GUI implements EntryPoint {
 
 	decoratorPanel_1.setStyleName("border");
 
-	FlexTable flexTable = new FlexTable();
+	FlexTable courseNumbersFlexTable = new FlexTable();
 	// flexTable.setStyleName("FlexTable");
 
-	decoratorPanel_1.setWidget(flexTable);
-	flexTable.setBorderWidth(0);
-	flexTable.setSize("445px", "116px");
+	decoratorPanel_1.setWidget(courseNumbersFlexTable);
+	courseNumbersFlexTable.setBorderWidth(0);
+	courseNumbersFlexTable.setSize("445px", "116px");
 
 	Label lblNewLabel_1 = new Label("Course Numbers");
-	flexTable.setWidget(0, 0, lblNewLabel_1);
+	lblNewLabel_1.addStyleName("labelBold");
+	courseNumbersFlexTable.setWidget(0, 0, lblNewLabel_1);
 
 	// Suggest box 0.
 	textBox0.setText("ETCO1120");
@@ -226,7 +228,7 @@ public class GUI implements EntryPoint {
 	horizontalPanel0.add(pushButton0);
 	horizontalPanel0.setCellVerticalAlignment(pushButton0,
 		HasVerticalAlignment.ALIGN_MIDDLE);
-	flexTable.setWidget(1, 0, horizontalPanel0);
+	courseNumbersFlexTable.setWidget(1, 0, horizontalPanel0);
 	textBox0.setWidth("90px");
 	coursesList.add(textBox0);
 
@@ -304,7 +306,7 @@ public class GUI implements EntryPoint {
 	horizontalPanel1.add(pushButton1);
 	horizontalPanel1.setCellVerticalAlignment(pushButton1,
 		HasVerticalAlignment.ALIGN_MIDDLE);
-	flexTable.setWidget(2, 0, horizontalPanel1);
+	courseNumbersFlexTable.setWidget(2, 0, horizontalPanel1);
 	textBox1.setWidth("90px");
 	coursesList.add(textBox1);
 
@@ -373,7 +375,7 @@ public class GUI implements EntryPoint {
 	horizontalPanel2.add(pushButton2);
 	horizontalPanel2.setCellVerticalAlignment(pushButton2,
 		HasVerticalAlignment.ALIGN_MIDDLE);
-	flexTable.setWidget(3, 0, horizontalPanel2);
+	courseNumbersFlexTable.setWidget(3, 0, horizontalPanel2);
 	textBox2.setWidth("90px");
 	coursesList.add(textBox2);
 
@@ -442,7 +444,7 @@ public class GUI implements EntryPoint {
 	horizontalPanel3.add(pushButton3);
 	horizontalPanel3.setCellVerticalAlignment(pushButton3,
 		HasVerticalAlignment.ALIGN_MIDDLE);
-	flexTable.setWidget(4, 0, horizontalPanel3);
+	courseNumbersFlexTable.setWidget(4, 0, horizontalPanel3);
 	textBox3.setWidth("90px");
 	coursesList.add(textBox3);
 
@@ -511,7 +513,7 @@ public class GUI implements EntryPoint {
 	horizontalPanel4.add(pushButton4);
 	horizontalPanel4.setCellVerticalAlignment(pushButton4,
 		HasVerticalAlignment.ALIGN_MIDDLE);
-	flexTable.setWidget(5, 0, horizontalPanel4);
+	courseNumbersFlexTable.setWidget(5, 0, horizontalPanel4);
 	textBox4.setWidth("90px");
 	coursesList.add(textBox4);
 
@@ -580,7 +582,7 @@ public class GUI implements EntryPoint {
 	horizontalPanel5.add(pushButton5);
 	horizontalPanel5.setCellVerticalAlignment(pushButton5,
 		HasVerticalAlignment.ALIGN_MIDDLE);
-	flexTable.setWidget(6, 0, horizontalPanel5);
+	courseNumbersFlexTable.setWidget(6, 0, horizontalPanel5);
 	textBox5.setWidth("90px");
 	coursesList.add(textBox5);
 
@@ -597,17 +599,17 @@ public class GUI implements EntryPoint {
 	});
 
 	DecoratorPanel decoratorPanel = new DecoratorPanel();
-	// decoratorPanel.setStyleName("border");
-	decoratorPanel.addStyleName("border");
+	decoratorPanel.setStyleName("border");
+	//decoratorPanel.addStyleName("border");
 	verticalPanel.add(decoratorPanel);
 
-	FlexTable flexTable_1 = new FlexTable();
-	decoratorPanel.setWidget(flexTable_1);
-	flexTable_1.setBorderWidth(0);
+	FlexTable configurationFlexTable = new FlexTable();
+	decoratorPanel.setWidget(configurationFlexTable);
+	configurationFlexTable.setBorderWidth(0);
 
 	Label lblNumberOfSchedules = new Label(
 		"Maximum Number Of Schedules To Generate");
-	flexTable_1.setWidget(0, 0, lblNumberOfSchedules);
+	configurationFlexTable.setWidget(0, 0, lblNumberOfSchedules);
 
 	numberReturned = new ListBox();
 	numberReturned.addItem("1");
@@ -617,7 +619,7 @@ public class GUI implements EntryPoint {
 	numberReturned.addItem("5");
 	numberReturned.addItem("10");
 	numberReturned.addItem("20");
-	flexTable_1.setWidget(0, 1, numberReturned);
+	configurationFlexTable.setWidget(0, 1, numberReturned);
 
 	DecoratorPanel decoratorPanel_2 = new DecoratorPanel();
 	decoratorPanel_2.setStyleName("border");
@@ -628,34 +630,35 @@ public class GUI implements EntryPoint {
 	decoratorPanel_2.setWidget(verticalPanel_1);
 	verticalPanel_1.setWidth("213px");
 
-	FlexTable flexTable_2 = new FlexTable();
+	FlexTable preferencesFlexTable = new FlexTable();
 	// flexTable_2.addStyleName("FlexTable");
-	HTMLTable.RowFormatter rf = flexTable_2.getRowFormatter();
+	//HTMLTable.RowFormatter rf = preferencesFlexTable.getRowFormatter();
 
-	for (int row = 1; row < flexTable.getRowCount(); ++row) {
-	    rf.addStyleName(row, "FlexTable-Cell");
-	}
-	verticalPanel_1.add(flexTable_2);
-	flexTable_2.setWidth("387px");
+	//for (int row = 1; row < courseNumbersFlexTable.getRowCount(); ++row) {
+	//    rf.addStyleName(row, "FlexTable-Cell");
+	//}
+	verticalPanel_1.add(preferencesFlexTable);
+	preferencesFlexTable.setSize("387px", "");
 
 	Label lblPreference = new Label("Preference");
-	flexTable_2.setWidget(0, 0, lblPreference);
+	preferencesFlexTable.setWidget(0, 0, lblPreference);
 
 	Label lblValue = new Label("Value");
-	flexTable_2.setWidget(0, 1, lblValue);
+	preferencesFlexTable.setWidget(0, 1, lblValue);
 
 	Label lblPriority = new Label("Priority");
-	flexTable_2.setWidget(0, 2, lblPriority);
+	preferencesFlexTable.setWidget(0, 2, lblPriority);
 
 	Label lblTime = new Label("Time");
-	flexTable_2.setWidget(1, 0, lblTime);
+	lblTime.addStyleName("labelBold");
+	preferencesFlexTable.setWidget(1, 0, lblTime);
 
 	timeComboBox = new ListBox();
 	timeComboBox.addItem("None");
 	timeComboBox.addItem("Morning");
 	timeComboBox.addItem("Afternoon");
 	timeComboBox.addItem("Evening");
-	flexTable_2.setWidget(1, 1, timeComboBox);
+	preferencesFlexTable.setWidget(1, 1, timeComboBox);
 
 	comboBox = new ListBox();
 	comboBox.addChangeHandler(new ChangeHandler() {
@@ -675,24 +678,25 @@ public class GUI implements EntryPoint {
 	});
 	comboBox.addItem("1");
 	comboBox.addItem("2");
-	flexTable_2.setWidget(1, 2, comboBox);
-	flexTable_2.getCellFormatter().setHorizontalAlignment(0, 1,
+	preferencesFlexTable.setWidget(1, 2, comboBox);
+	preferencesFlexTable.getCellFormatter().setHorizontalAlignment(0, 1,
 		HasHorizontalAlignment.ALIGN_CENTER);
-	flexTable_2.getCellFormatter().setHorizontalAlignment(0, 2,
+	preferencesFlexTable.getCellFormatter().setHorizontalAlignment(0, 2,
 		HasHorizontalAlignment.ALIGN_CENTER);
-	flexTable_2.getCellFormatter().setHorizontalAlignment(0, 0,
+	preferencesFlexTable.getCellFormatter().setHorizontalAlignment(0, 0,
 		HasHorizontalAlignment.ALIGN_CENTER);
-	flexTable_2.getCellFormatter().setHorizontalAlignment(1, 2,
+	preferencesFlexTable.getCellFormatter().setHorizontalAlignment(1, 2,
 		HasHorizontalAlignment.ALIGN_CENTER);
-	flexTable_2.getCellFormatter().setHorizontalAlignment(1, 1,
+	preferencesFlexTable.getCellFormatter().setHorizontalAlignment(1, 1,
 		HasHorizontalAlignment.ALIGN_CENTER);
 
 	Label lblSelectDays = new Label("Select Days");
+	lblSelectDays.addStyleName("labelBold");
 	lblSelectDays.setWordWrap(false);
-	flexTable_2.setWidget(2, 0, lblSelectDays);
+	preferencesFlexTable.setWidget(2, 0, lblSelectDays);
 
 	HorizontalPanel horizontalPanel_2 = new HorizontalPanel();
-	flexTable_2.setWidget(2, 1, horizontalPanel_2);
+	preferencesFlexTable.setWidget(2, 1, horizontalPanel_2);
 
 	chckbxM = new CheckBox("M");
 	chckbxM.addClickHandler(new ClickHandler() {
@@ -783,18 +787,15 @@ public class GUI implements EntryPoint {
 	comboBox_2.addItem("1");
 	comboBox_2.addItem("2");
 	comboBox_2.setItemSelected(1, true);
-	flexTable_2.setWidget(2, 2, comboBox_2);
-	flexTable_2.getCellFormatter().setHorizontalAlignment(3, 2,
+	preferencesFlexTable.setWidget(2, 2, comboBox_2);
+	preferencesFlexTable.getCellFormatter().setHorizontalAlignment(2, 2,
 		HasHorizontalAlignment.ALIGN_CENTER);
-	flexTable_2.getCellFormatter().setHorizontalAlignment(1, 0,
-		HasHorizontalAlignment.ALIGN_RIGHT);
-	flexTable_2.getCellFormatter().setHorizontalAlignment(3, 1,
+	preferencesFlexTable.getCellFormatter().setHorizontalAlignment(2, 1,
 		HasHorizontalAlignment.ALIGN_CENTER);
-	flexTable_2.getCellFormatter().setHorizontalAlignment(3, 0,
-		HasHorizontalAlignment.ALIGN_RIGHT);
-	flexTable_2.getCellFormatter().setHorizontalAlignment(2, 2, HasHorizontalAlignment.ALIGN_CENTER);
+	preferencesFlexTable.getCellFormatter().setHorizontalAlignment(2, 2, HasHorizontalAlignment.ALIGN_CENTER);
 
 	horizontalPanel_1 = new HorizontalPanel();
+	horizontalPanel_1.setSpacing(2);
 	verticalPanel.add(horizontalPanel_1);
 
 	Button btnReset = new Button("Reset");
@@ -814,6 +815,86 @@ public class GUI implements EntryPoint {
 	    }
 	});
 	horizontalPanel_1.add(btnResetAll);
+	
+	final Button btnCourseInfo = new Button("Sections Info");
+	btnCourseInfo.addClickHandler(new ClickHandler() {
+		public void onClick(ClickEvent event) {
+
+		btnCourseInfo.setEnabled(false);
+
+		studentScheduleService.sectionsInformation(toClojure(),
+			new AsyncCallback<String>() {
+			    public void onFailure(Throwable caught) {
+
+				btnCourseInfo.setEnabled(true);
+
+				if (caught instanceof ArgumentException) {
+				    Window.alert(caught.getMessage());
+				} else {
+				    Window.alert("Error :"
+					    + caught.getMessage());
+				}
+
+			    }
+
+			    public void onSuccess(String result) {
+				// Window.alert("Success!: " + result);
+				HTML html = new HTML(result);
+				final Label tabLabel = new Label(""
+					+ tabNumber++);
+				tabLabel.setStyleName("newTab");
+				tabLabel.setWidth("10px");
+
+				ScrollPanel scrollPanel = new ScrollPanel(html);
+				tabPanel.add(scrollPanel, tabLabel); // "" +
+								     // tabNumber++);
+
+				// tabPanel.add(html,tabLabel);
+
+				tabList.add(scrollPanel);
+
+				/*
+				 * Scheduler.get().scheduleDeferred(new
+				 * Scheduler.ScheduledCommand() { public void
+				 * execute() { tabPanel.fireEvent(GwtEvent.) }
+				 * });
+				 */
+
+				Timer blinkTimer = new Timer() {
+
+				    private boolean toggle = true;
+
+				    private int count = 6;
+
+				    @Override
+				    public void run() {
+					if (toggle) {
+					    tabLabel.setStyleName("newTab");
+					    toggle = false;
+					} else {
+					    tabLabel.setStyleName("normalTab");
+					    toggle = true;
+					}
+
+					count--;
+
+					if (count == 0) {
+					    cancel();
+					}
+
+				    }
+				};
+
+				blinkTimer.scheduleRepeating(600);
+				// notificationMole.hide();
+				btnCourseInfo.setEnabled(true);
+			    }
+			});
+
+	    
+		}
+	});
+	horizontalPanel_1.add(btnCourseInfo);
 
 	final Button btnSubmit = new Button("Generate Schedule");
 	btnSubmit.setTitle("Generate a schedule.");
@@ -908,6 +989,28 @@ public class GUI implements EntryPoint {
 	});
 
 	tabPanel.selectTab(0);
+	
+   //preferencesFlexTable.getRowFormatter().setStyleName(1,"watchList");
+	
+
+    preferencesFlexTable.getRowFormatter().addStyleName(0, "watchListHeader");
+    
+    
+    for (int row = 0; row < preferencesFlexTable.getRowCount(); row++)
+    {
+
+	for (int column = 0; column < preferencesFlexTable.getCellCount(row); column++)
+	{
+	
+	preferencesFlexTable.getCellFormatter().addStyleName(row, column, "border");
+		
+	}
+    }
+    
+    
+    preferencesFlexTable.addStyleName("collapse");
+    preferencesFlexTable.getCellFormatter().setHorizontalAlignment(1, 0, HasHorizontalAlignment.ALIGN_CENTER);
+    preferencesFlexTable.getCellFormatter().setHorizontalAlignment(2, 0, HasHorizontalAlignment.ALIGN_CENTER);
 
     }// end method
 
@@ -1174,6 +1277,8 @@ public class GUI implements EntryPoint {
 	if (text.length() > 8) {
 	    text = text.substring(0, 8);
 	}
+	
+	text = text.replace(" ", "");
 
 	text = text.replace("(", ".");
 	text = text.replace(")", ".");
