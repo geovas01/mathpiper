@@ -125,30 +125,28 @@ public class GUI implements EntryPoint {
 	DockLayoutPanel dockLayoutPanel = new DockLayoutPanel(Unit.EM);
 	rootPanel.add(dockLayoutPanel);
 
-	FlowPanel flowPanel = new FlowPanel();
-	dockLayoutPanel.addNorth(flowPanel, 7.2);
-
-	VerticalPanel verticalPanel_2 = new VerticalPanel();
-	flowPanel.add(verticalPanel_2);
-	// verticalPanel_2.setHeight("53px");
-
-	HTML htmlNewHtml = new HTML(
-		"<h2>SSU Student Schedule Generator v.005 beta<h2>", true);
-	htmlNewHtml.setStyleName("none");
-	htmlNewHtml.setDirectionEstimator(true);
-	verticalPanel_2.add(htmlNewHtml);
-
-	Button btnNewButton = new Button("Help");
-	btnNewButton.addClickHandler(new ClickHandler() {
-	    public void onClick(ClickEvent event) {
-		Window.open(GWT.getHostPageBaseURL() + "help/help.html",
-			"_blank", "");
-	    }
-	});
-	verticalPanel_2.add(btnNewButton);
-
 	VerticalPanel verticalPanel = new VerticalPanel();
 	verticalPanel.setSpacing(5);
+	
+	HorizontalPanel horizontalPanel_3 = new HorizontalPanel();
+	dockLayoutPanel.addNorth(horizontalPanel_3, 3.7);
+	
+		Button btnNewButton = new Button("Help");
+		horizontalPanel_3.add(btnNewButton);
+		horizontalPanel_3.setCellVerticalAlignment(btnNewButton, HasVerticalAlignment.ALIGN_MIDDLE);
+		// verticalPanel_2.setHeight("53px");
+
+		HTML htmlNewHtml = new HTML(
+			"<h2>&nbsp;&nbsp;&nbsp;SSU Student Schedule Generator v.005 beta<h2>", false);
+		horizontalPanel_3.add(htmlNewHtml);
+		htmlNewHtml.setStyleName("none");
+		htmlNewHtml.setDirectionEstimator(true);
+		btnNewButton.addClickHandler(new ClickHandler() {
+		    public void onClick(ClickEvent event) {
+			Window.open(GWT.getHostPageBaseURL() + "help/help.html",
+				"_blank", "");
+		    }
+		});
 	// tabPanel.addStyleName("gwt-TabLayoutPanel .gwt-TabLayoutPanelTabs");
 	dockLayoutPanel.add(tabPanel);
 
