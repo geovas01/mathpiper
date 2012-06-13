@@ -206,11 +206,11 @@
   
   
 (str 
-"<html>
-<head>
-<title>Student schedule</title>
-</head>
-<body>"
+;"<html>
+;<head>
+;<title>Student schedule</title>
+;</head>
+;<body>"
   
    
 
@@ -220,7 +220,7 @@
                 
      (str 
        
-       "<hr /> <h2 align=\"center\"> Schedule " (inc index) "</h2> \n" 
+       "<h2 align=\"center\"> Schedule " (inc index) "</h2> \n" 
        
 "
 <table border=1  cellpadding=3 align=\"center\">
@@ -262,11 +262,13 @@
        
     (createHtmlScheduleTable (nth schedules index) course-map)
 
-"<br /> <br /> <br />")
+;"<br /> <br /> <br />"
+"|")
 ))
     
-"</body>
-</html>" ))
+;"</body>
+;</html>" 
+))
 
 
 

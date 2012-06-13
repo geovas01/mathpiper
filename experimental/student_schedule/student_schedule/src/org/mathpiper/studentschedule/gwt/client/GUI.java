@@ -928,22 +928,47 @@ public class GUI implements EntryPoint {
 			    public void onSuccess(String result) {
 				// Window.alert("Success!: " + result);
 
-				final HTML html = new HTML("<iframe id=\"__printingFrame\" style=\"width:0;height:0;border:0\"></iframe>" + result);
+				final HTML allTablesHtml = new HTML(
+					"<iframe id=\"__printingFrame\" style=\"width:0;height:0;border:0\"></iframe>"
+						+ result.replace("|", ""));
 				final Label tabLabel = new Label(""
 					+ tabNumber++);
 				tabLabel.setStyleName("newTab");
 				tabLabel.setWidth("10px");
 
+				Button printAllButton = new Button("Print All");
+				printAllButton
+					.addClickHandler(new ClickHandler() {
+					    public void onClick(ClickEvent event) {
+						Print.it(allTablesHtml);
+					    }
+					});
 				VerticalPanel verticalPanel = new VerticalPanel();
+				verticalPanel.add(printAllButton);
+				verticalPanel.add(new HTML("<br />"));
 
-				Button printButton = new Button("Print");
-				printButton.addClickHandler(new ClickHandler() {
-				    public void onClick(ClickEvent event) {
-					Print.it(html);
-				    }
-				});
-				verticalPanel.add(printButton);
-				verticalPanel.add(html);
+				String[] tables = result.split("\\|");
+
+				for (String table : tables) {
+				    final HTML tableHtml = new HTML(
+					    "<iframe id=\"__printingFrame\" style=\"width:0;height:0;border:0\"></iframe>"
+						    + table);
+				    
+				    
+				    Button printButton = new Button("Print");
+				    printButton
+					    .addClickHandler(new ClickHandler() {
+						public void onClick(
+							ClickEvent event) {
+						    Print.it(tableHtml);
+						}
+					    });
+				    verticalPanel.add(new HTML("<hr /> "));
+				    verticalPanel.add(printButton);
+				    verticalPanel.add(tableHtml);
+				    verticalPanel.add(new HTML("<br /> <br /> <br />"));
+				}
+
 				ScrollPanel scrollPanel = new ScrollPanel(
 					verticalPanel);
 
