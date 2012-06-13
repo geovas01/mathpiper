@@ -99,7 +99,7 @@ public class GUI implements EntryPoint {
     private CheckBox chckbxW;
     private CheckBox chckbxR;
     private CheckBox chckbxF;
-    
+
     private ListBox comboBox;
     private ListBox comboBox_2;
 
@@ -600,7 +600,7 @@ public class GUI implements EntryPoint {
 
 	DecoratorPanel decoratorPanel = new DecoratorPanel();
 	decoratorPanel.setStyleName("border");
-	//decoratorPanel.addStyleName("border");
+	// decoratorPanel.addStyleName("border");
 	verticalPanel.add(decoratorPanel);
 
 	FlexTable configurationFlexTable = new FlexTable();
@@ -632,11 +632,12 @@ public class GUI implements EntryPoint {
 
 	FlexTable preferencesFlexTable = new FlexTable();
 	// flexTable_2.addStyleName("FlexTable");
-	//HTMLTable.RowFormatter rf = preferencesFlexTable.getRowFormatter();
+	// HTMLTable.RowFormatter rf = preferencesFlexTable.getRowFormatter();
 
-	//for (int row = 1; row < courseNumbersFlexTable.getRowCount(); ++row) {
-	//    rf.addStyleName(row, "FlexTable-Cell");
-	//}
+	// for (int row = 1; row < courseNumbersFlexTable.getRowCount(); ++row)
+	// {
+	// rf.addStyleName(row, "FlexTable-Cell");
+	// }
 	verticalPanel_1.add(preferencesFlexTable);
 	preferencesFlexTable.setSize("387px", "");
 
@@ -662,19 +663,16 @@ public class GUI implements EntryPoint {
 
 	comboBox = new ListBox();
 	comboBox.addChangeHandler(new ChangeHandler() {
-		public void onChange(ChangeEvent event) {
-		    
-		    ListBox listBox = (ListBox) event.getSource();
-		    
-		    if(listBox.getValue(listBox.getSelectedIndex()).equals("1"))
-		    {
-			comboBox_2.setItemSelected(1, true);
-		    }
-		    else
-		    {
-			comboBox_2.setItemSelected(0, true);
-		    }
+	    public void onChange(ChangeEvent event) {
+
+		ListBox listBox = (ListBox) event.getSource();
+
+		if (listBox.getValue(listBox.getSelectedIndex()).equals("1")) {
+		    comboBox_2.setItemSelected(1, true);
+		} else {
+		    comboBox_2.setItemSelected(0, true);
 		}
+	    }
 	});
 	comboBox.addItem("1");
 	comboBox.addItem("2");
@@ -771,18 +769,15 @@ public class GUI implements EntryPoint {
 	minimizeDaysCheckBox.setHTML("Minimize");
 
 	comboBox_2 = new ListBox();
-		comboBox_2.addChangeHandler(new ChangeHandler() {
-		public void onChange(ChangeEvent event) {
-		    ListBox listBox = (ListBox) event.getSource();
-		    if(listBox.getValue(listBox.getSelectedIndex()).equals("1"))
-		    {
-			comboBox.setItemSelected(1, true);
-		    }
-		    else
-		    {
-			comboBox.setItemSelected(0, true);
-		    }
+	comboBox_2.addChangeHandler(new ChangeHandler() {
+	    public void onChange(ChangeEvent event) {
+		ListBox listBox = (ListBox) event.getSource();
+		if (listBox.getValue(listBox.getSelectedIndex()).equals("1")) {
+		    comboBox.setItemSelected(1, true);
+		} else {
+		    comboBox.setItemSelected(0, true);
 		}
+	    }
 	});
 	comboBox_2.addItem("1");
 	comboBox_2.addItem("2");
@@ -792,7 +787,8 @@ public class GUI implements EntryPoint {
 		HasHorizontalAlignment.ALIGN_CENTER);
 	preferencesFlexTable.getCellFormatter().setHorizontalAlignment(2, 1,
 		HasHorizontalAlignment.ALIGN_CENTER);
-	preferencesFlexTable.getCellFormatter().setHorizontalAlignment(2, 2, HasHorizontalAlignment.ALIGN_CENTER);
+	preferencesFlexTable.getCellFormatter().setHorizontalAlignment(2, 2,
+		HasHorizontalAlignment.ALIGN_CENTER);
 
 	horizontalPanel_1 = new HorizontalPanel();
 	horizontalPanel_1.setSpacing(2);
@@ -815,10 +811,10 @@ public class GUI implements EntryPoint {
 	    }
 	});
 	horizontalPanel_1.add(btnResetAll);
-	
+
 	final Button btnCourseInfo = new Button("Sections Info");
 	btnCourseInfo.addClickHandler(new ClickHandler() {
-		public void onClick(ClickEvent event) {
+	    public void onClick(ClickEvent event) {
 
 		btnCourseInfo.setEnabled(false);
 
@@ -891,8 +887,7 @@ public class GUI implements EntryPoint {
 			    }
 			});
 
-	    
-		}
+	    }
 	});
 	horizontalPanel_1.add(btnCourseInfo);
 
@@ -932,13 +927,26 @@ public class GUI implements EntryPoint {
 
 			    public void onSuccess(String result) {
 				// Window.alert("Success!: " + result);
-				HTML html = new HTML(result);
+
+				final HTML html = new HTML("<iframe id=\"__printingFrame\" style=\"width:0;height:0;border:0\"></iframe>" + result);
 				final Label tabLabel = new Label(""
 					+ tabNumber++);
 				tabLabel.setStyleName("newTab");
 				tabLabel.setWidth("10px");
 
-				ScrollPanel scrollPanel = new ScrollPanel(html);
+				VerticalPanel verticalPanel = new VerticalPanel();
+
+				Button printButton = new Button("Print");
+				printButton.addClickHandler(new ClickHandler() {
+				    public void onClick(ClickEvent event) {
+					Print.it(html);
+				    }
+				});
+				verticalPanel.add(printButton);
+				verticalPanel.add(html);
+				ScrollPanel scrollPanel = new ScrollPanel(
+					verticalPanel);
+
 				tabPanel.add(scrollPanel, tabLabel); // "" +
 								     // tabNumber++);
 
@@ -989,28 +997,28 @@ public class GUI implements EntryPoint {
 	});
 
 	tabPanel.selectTab(0);
-	
-   //preferencesFlexTable.getRowFormatter().setStyleName(1,"watchList");
-	
 
-    preferencesFlexTable.getRowFormatter().addStyleName(0, "watchListHeader");
-    
-    
-    for (int row = 0; row < preferencesFlexTable.getRowCount(); row++)
-    {
+	// preferencesFlexTable.getRowFormatter().setStyleName(1,"watchList");
 
-	for (int column = 0; column < preferencesFlexTable.getCellCount(row); column++)
-	{
-	
-	preferencesFlexTable.getCellFormatter().addStyleName(row, column, "border");
-		
+	preferencesFlexTable.getRowFormatter().addStyleName(0,
+		"watchListHeader");
+
+	for (int row = 0; row < preferencesFlexTable.getRowCount(); row++) {
+
+	    for (int column = 0; column < preferencesFlexTable
+		    .getCellCount(row); column++) {
+
+		preferencesFlexTable.getCellFormatter().addStyleName(row,
+			column, "border");
+
+	    }
 	}
-    }
-    
-    
-    preferencesFlexTable.addStyleName("collapse");
-    preferencesFlexTable.getCellFormatter().setHorizontalAlignment(1, 0, HasHorizontalAlignment.ALIGN_CENTER);
-    preferencesFlexTable.getCellFormatter().setHorizontalAlignment(2, 0, HasHorizontalAlignment.ALIGN_CENTER);
+
+	preferencesFlexTable.addStyleName("collapse");
+	preferencesFlexTable.getCellFormatter().setHorizontalAlignment(1, 0,
+		HasHorizontalAlignment.ALIGN_CENTER);
+	preferencesFlexTable.getCellFormatter().setHorizontalAlignment(2, 0,
+		HasHorizontalAlignment.ALIGN_CENTER);
 
     }// end method
 
@@ -1057,18 +1065,17 @@ public class GUI implements EntryPoint {
 	}
 
 	// -----------------------------
-	
+
 	StringBuilder daysSB = null;
 
 	if (minimizeDaysCheckBox.getValue() == true) {
 	    daysSB = new StringBuilder();
 	    daysSB.append("[\"minimize-days\" [] ]");
-	}else if (!(chckbxM.getValue() == true && chckbxT.getValue() == true
+	} else if (!(chckbxM.getValue() == true && chckbxT.getValue() == true
 		&& chckbxW.getValue() == true && chckbxR.getValue() == true && chckbxF
 		    .getValue() == true)) {
 	    // [\"choose-days\" [2r0101100]]
 	    daysSB = new StringBuilder();
-	    
 
 	    daysSB.append("[\"choose-days\" [2r");
 
@@ -1100,32 +1107,22 @@ public class GUI implements EntryPoint {
 
 	    daysSB.append("00]]");
 	}
-	
-	
-	//Encode priority of the dayTime preference and the days preference.
-	if(dayTimeStringBuilder != null && daysSB == null)
-	{
+
+	// Encode priority of the dayTime preference and the days preference.
+	if (dayTimeStringBuilder != null && daysSB == null) {
 	    sb.append(dayTimeStringBuilder.toString());
-	}
-	else if (dayTimeStringBuilder == null && daysSB != null)
-	{
+	} else if (dayTimeStringBuilder == null && daysSB != null) {
 	    sb.append(daysSB.toString());
-	}
-	else if (dayTimeStringBuilder != null && daysSB != null)
-	{
-	    if(comboBox.getValue(comboBox.getSelectedIndex()).equals("1"))
-	    {
+	} else if (dayTimeStringBuilder != null && daysSB != null) {
+	    if (comboBox.getValue(comboBox.getSelectedIndex()).equals("1")) {
 		sb.append(dayTimeStringBuilder.toString());
 		sb.append(daysSB.toString());
-	    }
-	    else
-	    {
+	    } else {
 		sb.append(daysSB.toString());
 		sb.append(dayTimeStringBuilder.toString());
 	    }
 	}
 
-	
 	// ------------------------------
 
 	sb.append("]"); // end quality-fn-and-vals
@@ -1277,7 +1274,7 @@ public class GUI implements EntryPoint {
 	if (text.length() > 8) {
 	    text = text.substring(0, 8);
 	}
-	
+
 	text = text.replace(" ", "");
 
 	text = text.replace("(", ".");
@@ -1314,12 +1311,12 @@ public class GUI implements EntryPoint {
 	pushButton3.setDown(false);
 	pushButton4.setDown(false);
 	pushButton5.setDown(false);
-	
+
 	minimizeDaysCheckBox.setValue(false);
-	
+
 	comboBox.setItemSelected(0, true);
 	comboBox_2.setItemSelected(1, true);
-	
+
 	setDays();
 
     }
