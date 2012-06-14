@@ -23,7 +23,10 @@ import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
+import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.ToggleButton;
+import com.google.gwt.user.client.ui.Tree;
+import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -137,7 +140,7 @@ public class GUI implements EntryPoint {
 		// verticalPanel_2.setHeight("53px");
 
 		HTML htmlNewHtml = new HTML(
-			"<h2>&nbsp;&nbsp;&nbsp;SSU Student Schedule Generator v.005 beta<h2>", false);
+			"<h2>&nbsp;&nbsp;&nbsp;SSU Student Schedule Generator v.006 beta<h2>", false);
 		horizontalPanel_3.add(htmlNewHtml);
 		htmlNewHtml.setStyleName("none");
 		htmlNewHtml.setDirectionEstimator(true);
@@ -1042,6 +1045,9 @@ public class GUI implements EntryPoint {
 		HasHorizontalAlignment.ALIGN_CENTER);
 	preferencesFlexTable.getCellFormatter().setHorizontalAlignment(2, 0,
 		HasHorizontalAlignment.ALIGN_CENTER);
+	
+	
+	tabPanel.add(new ScrollPanel(makeGEPTree()), "GEP", false);
 
     }// end method
 
@@ -1371,5 +1377,265 @@ public class GUI implements EntryPoint {
 	chckbxR.setValue(true);
 	chckbxF.setValue(true);
     }
+    
+    
+    
+    private Tree makeGEPTree()
+    {
+	/*Tree tree = new Tree();
+       /// initWidget(tree);
+        TreeItem outerRoot = new TreeItem("Item 1");
+        outerRoot.addItem("Item 1-1");
+        outerRoot.addItem("Item 1-2");
+        outerRoot.addItem("Item 1-3");
+        outerRoot.addItem(new CheckBox("Item 1-4"));
+        tree.addItem(outerRoot);
+
+        TreeItem innerRoot = new TreeItem("Item 1-5");
+        innerRoot.addItem("Item 1-5-1");
+        innerRoot.addItem("Item 1-5-2");
+        innerRoot.addItem("Item 1-5-3");
+        innerRoot.addItem("Item 1-5-4");
+        innerRoot.addItem(new CheckBox("Item 1-5-5"));
+        outerRoot.addItem(innerRoot);*/
+        
+        Tree categories = new Tree();
+        
+        String descriptionWidth = "400px";
+        int charactersPerLine = 38;
+        
+        
+        
+        
+        //==================== Fine Arts.
+        TreeItem fineArtsCategory = new TreeItem("Fine And Performing Arts (Select 3 Hours).");
+        categories.addItem(fineArtsCategory);
+        
+        //ARTH1101.
+        TreeItem ARTH1101 = new TreeItem("ARTH1101 - Introduction to Art.");
+        TextArea textArea = new TextArea();
+        textArea.setText("The course is an introduction to the visual arts. It encompasses the world of western and non-western art. It deals with the principles of art, formal and contextual elements and the basic vocabulary necessary in order to articulate opinions about the arts. The course has a studio component that will allow the student hands on experience to encourage visual communication through the visual arts. Credits: 3");
+        textArea.setReadOnly(true);
+        textArea.setWidth(descriptionWidth);
+        textArea.setVisibleLines(textArea.getText().length()/charactersPerLine);
+        ARTH1101.addItem(textArea);
+        fineArtsCategory.addItem(ARTH1101);
+
+        
+        
+        
+        //ENGL2275.
+        TreeItem ENGL2275 = new TreeItem("ENGL2275 - American Film History (Prereq: ENGL 1105 or ENGL 1107).");
+        textArea = new TextArea();
+        textArea.setText("Chronological study of the influence of American history upon American film, and vice versa. Students become acquainted with the work and themes of some of America’s significant film directors and major genres of American popular film. Credits: 3.");
+        textArea.setReadOnly(true);
+        textArea.setWidth(descriptionWidth);
+        textArea.setVisibleLines(textArea.getText().length()/charactersPerLine);
+        ENGL2275.addItem(textArea);
+        fineArtsCategory.addItem(ENGL2275);
+
+        
+
+        
+        //MUSI1201.
+        TreeItem MUSI1201 = new TreeItem("MUSI1201 - Music Appreciation.");
+        textArea = new TextArea();
+        textArea.setText("A survey of musical highlights throughout history including pieces, composers, forms, styles, and performance media from the Fall of the Roman Empire to the emergence of the music video. Credits: 3");
+        textArea.setReadOnly(true);
+        textArea.setWidth(descriptionWidth);
+        textArea.setVisibleLines(textArea.getText().length()/charactersPerLine);
+        MUSI1201.addItem(textArea);
+        fineArtsCategory.addItem(MUSI1201);
+        
+        
+        
+        
+        //MUSI2211.
+        TreeItem MUSI2211 = new TreeItem("MUSI2211 - Music History 1.");
+        textArea = new TextArea();
+        textArea.setText("A detailed survey of music including pieces, composers, forms, styles, and performance media from the Fall of the Roman Empire through the Classical Period. Credits: 3");
+        textArea.setReadOnly(true);
+        textArea.setWidth(descriptionWidth);
+        textArea.setVisibleLines(textArea.getText().length()/charactersPerLine);
+        MUSI2211.addItem(textArea);
+        fineArtsCategory.addItem(MUSI2211);
+        
+        
+        
+
+        //PHIL3300.
+        TreeItem PHIL3300 = new TreeItem("PHIL3300 - Philosophy and Film.");
+        textArea = new TextArea();
+        textArea.setText("Viewing, analysis, and interpretation of international and domestic films and their philosophical, aesthetic, and moral dimensions. Credits: 3");
+        textArea.setReadOnly(true);
+        textArea.setWidth(descriptionWidth);
+        textArea.setVisibleLines(textArea.getText().length()/charactersPerLine);
+        PHIL3300.addItem(textArea);
+        fineArtsCategory.addItem(PHIL3300);
+        
+        
+        
+        
+        //THAR1000.
+        TreeItem THAR1000 = new TreeItem("THAR1000 - Introduction to Theater.");
+        textArea = new TextArea();
+        textArea.setText("Survey of development of theater from classical to modern times, emphasizing the artists and craftspersons of the theater and their contributions to its development. Credits 3");
+        textArea.setReadOnly(true);
+        textArea.setWidth(descriptionWidth);
+        textArea.setVisibleLines(textArea.getText().length()/charactersPerLine);
+        THAR1000.addItem(textArea);
+        fineArtsCategory.addItem(THAR1000);
+        
+        
+        
+        
+        
+        
+        //==================== Social Sciences.
+        TreeItem socialSciencesCategory = new TreeItem("Social Sciences (Select 3 Hours).");
+        categories.addItem(socialSciencesCategory);
+        
+        //ANTH3350.
+        TreeItem ANTH3350 = new TreeItem("ANTH3350 - Biological Anthropology.");
+        textArea = new TextArea();
+        textArea.setText("This course provides an introduction to the basic concepts and principles of Biological Anthropology.  Topics to be covered include evolution in general, primate and human evolution, and genetics of human populations. 3 lecture hours 1 lab hours. Credits: 4");
+        textArea.setReadOnly(true);
+        textArea.setWidth(descriptionWidth);
+        textArea.setVisibleLines(textArea.getText().length()/charactersPerLine);
+        ANTH3350.addItem(textArea);
+        socialSciencesCategory.addItem(ANTH3350);
+
+        
+        
+        
+        //GOVT2250.
+        TreeItem GOVT2250 = new TreeItem("GOVT2250 - Intro to Political Science.");
+        textArea = new TextArea();
+        textArea.setText("This course, required for all Social Science majors, explains the fundamentals of the field of political science and offers introductory treatments on the four subfields of the discipline (i.e. political theory, comparative politics, international relations, and American government). Credits: 3.");
+        textArea.setReadOnly(true);
+        textArea.setWidth(descriptionWidth);
+        textArea.setVisibleLines(textArea.getText().length()/charactersPerLine);
+        GOVT2250.addItem(textArea);
+        socialSciencesCategory.addItem(GOVT2250);
+
+        
+
+        
+        //HIST2430.
+        TreeItem HIST2430 = new TreeItem("HIST2430 - World History I.");
+        textArea = new TextArea();
+        textArea.setText("Introduction to the development of human civilizations from their Paleolithic origins through the formation of ancient empires and modern nation states in the Middle East, Africa, Asia, Europe, Oceania, and the Americas by 1600 CE. Credits: 3");
+        textArea.setReadOnly(true);
+        textArea.setWidth(descriptionWidth);
+        textArea.setVisibleLines(textArea.getText().length()/charactersPerLine);
+        HIST2430.addItem(textArea);
+        socialSciencesCategory.addItem(HIST2430);
+        
+        
+        
+        
+        //HIST2440.
+        TreeItem HIST2440 = new TreeItem("HIST2440 - World History II.");
+        textArea = new TextArea();
+        textArea.setText("Introduction to the development of human civilizations from approximately the year 1600 CE to the present, focusing on the growing interaction of cultures and civilizations of the Middle East, Africa, Asia, Europe, Oceania, and the Americas. Credits: 3");
+        textArea.setReadOnly(true);
+        textArea.setWidth(descriptionWidth);
+        textArea.setVisibleLines(textArea.getText().length()/charactersPerLine);
+        HIST2440.addItem(textArea);
+        socialSciencesCategory.addItem(HIST2440);
+        
+        
+        
+
+        //HIST2530.
+        TreeItem HIST2530 = new TreeItem("HIST2530 - World Prehistory and Archaeology: Origins and the Development of Human Societies.");
+        textArea = new TextArea();
+        textArea.setText("Survey of world prehistory from human origins to the rise of complex societies and an introduction to the methods archaeologists use to study these past human achievements and solve some the world’s oldest mysteries. 3 lecture hours. Credits: 3");
+        textArea.setReadOnly(true);
+        textArea.setWidth(descriptionWidth);
+        textArea.setVisibleLines(textArea.getText().length()/charactersPerLine);
+        HIST2530.addItem(textArea);
+        socialSciencesCategory.addItem(HIST2530);
+        
+        
+        
+        
+        //HIST4110.
+        TreeItem HIST4110 = new TreeItem("HIST4110 - Intellectual History.");
+        textArea = new TextArea();
+        textArea.setText("An examination of humanity’s ideas about our cosmos, our earth, and our species from pre-history to the modern era. Credits 3");
+        textArea.setReadOnly(true);
+        textArea.setWidth(descriptionWidth);
+        textArea.setVisibleLines(textArea.getText().length()/charactersPerLine);
+        HIST4110.addItem(textArea);
+        socialSciencesCategory.addItem(HIST4110);
+        
+        
+        
+        
+        //PHIL3360 - Social and Political Philosophy.
+        TreeItem PHIL3360 = new TreeItem("PHIL3360 - Social and Political Philosophy.");
+        textArea = new TextArea();
+        textArea.setText("An examination of theories of society and the state that have significantly influenced Western thought from Plato to Aquinas to Rawls. A comparison of religious and secular understandings of liberal democracy and the state more generally is emphasized. HONORS SECTION: Designed to enable Honors students to explore the perennial questions of social and political thought through the most significant thinkers, both traditional and contemporary, of Western civilization. Credits 3");
+        textArea.setReadOnly(true);
+        textArea.setWidth(descriptionWidth);
+        textArea.setVisibleLines(textArea.getText().length()/charactersPerLine);
+        PHIL3360.addItem(textArea);
+        socialSciencesCategory.addItem(PHIL3360);
+        
+        
+        
+        
+        //PSYC1101.
+        TreeItem PSYC1101 = new TreeItem("PSYC1101 - Introduction to Psychology.");
+        textArea = new TextArea();
+        textArea.setText("Survey of topics in experimental and clinical psychology, including physiological bases of behavior, sensation, perception, learning, memory, human development, social processes, personality and abnormal. 3 lecture hours. Credits 3");
+        textArea.setReadOnly(true);
+        textArea.setWidth(descriptionWidth);
+        textArea.setVisibleLines(textArea.getText().length()/charactersPerLine);
+        PSYC1101.addItem(textArea);
+        socialSciencesCategory.addItem(PSYC1101);
+        
+        
+        
+        
+        //SOCI1101.
+        TreeItem SOCI1101 = new TreeItem("SOCI1101 - Introduction to Sociology.");
+        textArea = new TextArea();
+        textArea.setText("Studies the nature of human society and factors affecting its development, including concepts of culture, groups, organizations, collective behavior, and institutions. Required course for all social science majors. TAG course. 3 lecture hours. Credits 3");
+        textArea.setReadOnly(true);
+        textArea.setWidth(descriptionWidth);
+        textArea.setVisibleLines(textArea.getText().length()/charactersPerLine);
+        SOCI1101.addItem(textArea);
+        socialSciencesCategory.addItem(SOCI1101);
+        
+        
+        
+        
+        //SOSC1110.
+        TreeItem SOSC1110 = new TreeItem("SOSC1110 - Foundations of Social Science.");
+        textArea = new TextArea();
+        textArea.setText("Introduction to the methods and concerns of social science. Studies perspectives of anthropology, economics, history, geography, political science, psychology, and sociology as related to specific themes or topics. HONORS SECTION: Explores a specific interdisciplinary theme in the social sciences. Examples include an examination of the causes of the 9/11 terrorist attacks on the U.S. or of Jared Diamond’s Guns, Germs and Steel. Credits 3");
+        textArea.setReadOnly(true);
+        textArea.setWidth(descriptionWidth);
+        textArea.setVisibleLines(textArea.getText().length()/charactersPerLine);
+        SOSC1110.addItem(textArea);
+        socialSciencesCategory.addItem(SOSC1110);
+        
+        
+        
+        //===============================
+        return categories;
+        
+        
+    }
 
 }// end class.
+
+
+
+
+
+
+
+
