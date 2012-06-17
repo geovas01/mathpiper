@@ -44,6 +44,8 @@ package org.mathpiper.studentschedule.gwt.client;
  */
 
 
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.dom.client.TextAreaElement;
 import com.google.gwt.dom.client.InputElement;
@@ -123,11 +125,21 @@ public class Print {
 		    };
 		timer.schedule(TIMER_DELAY * 1000);
 	    } else {
-		DeferredCommand.addCommand(new Command() {
+		/*DeferredCommand.addCommand(new Command() {
 			public void execute() {
 			    printFrame();
 			}
-		    });
+		    });*/
+		
+		Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+
+			@Override
+			public void execute() {
+				printFrame();
+
+			}
+		});
+		
 	    }
 
 	} catch (Throwable exc) {
@@ -153,6 +165,7 @@ public class Print {
 	frame = frame.contentWindow;
 	frame.focus();
 	frame.print();
+	@org.mathpiper.studentschedule.gwt.client.Print::buildFrame(Ljava/lang/String;)('');
     }-*/;
 
     // Great contribution from mgrushinskiy to print form element
