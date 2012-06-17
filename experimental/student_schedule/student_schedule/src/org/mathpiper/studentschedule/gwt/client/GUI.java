@@ -15,8 +15,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.user.client.ui.CheckBox;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.HTMLTable;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
@@ -140,7 +138,7 @@ public class GUI implements EntryPoint {
 		// verticalPanel_2.setHeight("53px");
 
 		HTML htmlNewHtml = new HTML(
-			"<h2>&nbsp;&nbsp;&nbsp;SSU Student Schedule Generator v.006 beta<h2>", false);
+			"<h2>&nbsp;&nbsp;&nbsp;SSU Student Schedule Generator v.007 beta<h2>", false);
 		horizontalPanel_3.add(htmlNewHtml);
 		htmlNewHtml.setStyleName("none");
 		htmlNewHtml.setDirectionEstimator(true);
@@ -845,6 +843,8 @@ public class GUI implements EntryPoint {
 				ScrollPanel scrollPanel = new ScrollPanel(html);
 				tabPanel.add(scrollPanel, tabLabel); // "" +
 								     // tabNumber++);
+				
+				scrollPanel.scrollToTop();
 
 				// tabPanel.add(html,tabLabel);
 
@@ -976,6 +976,7 @@ public class GUI implements EntryPoint {
 				tabPanel.add(scrollPanel, tabLabel); // "" +
 								     // tabNumber++);
 
+				scrollPanel.scrollToTop();
 				// tabPanel.add(html,tabLabel);
 
 				tabList.add(scrollPanel);
