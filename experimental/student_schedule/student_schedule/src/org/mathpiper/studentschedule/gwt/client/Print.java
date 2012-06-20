@@ -75,32 +75,32 @@ public class Print {
 	$wnd.print();
     }-*/;
 
-    public static void it(UIObject obj) {
-	it("", obj);
+    public static void it(UIObject obj, int sequenceNumber) {
+	it("", obj, sequenceNumber);
     }
 
-    public static void it(Element element) {
-	it("", element);
+    public static void it(Element element, int sequenceNumber) {
+	it("", element, sequenceNumber);
     }
 
-    public static void it(String style, UIObject obj) {
-	it(style, obj.getElement());
+    public static void it(String style, UIObject obj, int sequenceNumber) {
+	it(style, obj.getElement(), sequenceNumber);
     }
 
-    public static void it(String docType, String style, UIObject obj) {
-	it(docType, style, obj.getElement());
+    public static void it(String docType, String style, UIObject obj, int sequenceNumber) {
+	it(docType, style, obj.getElement(), sequenceNumber);
     }
 
-    public static void it(String style, Element element) {
-	it("", style, element);
+    public static void it(String style, Element element, int sequenceNumber) {
+	it("", style, element, sequenceNumber);
     }
 
-    public static void it(String docType, String style, Element element) {
+    public static void it(String docType, String style, Element element, int sequenceNumber) {
         updateFieldsDOM(element);
-	it(docType, style, DOM.toString(element));
+	it(docType, style, DOM.toString(element), sequenceNumber);
     }
 
-    public static void it(String docType, String style, String it) {
+    public static void it(String docType, String style, String it, int sequenceNumber) {
 	it(docType
 	   +"<html>"
 	   +"<head>"
@@ -110,17 +110,20 @@ public class Print {
 	   +"</head>"+"<body>"
 	   +	it
 	   +"</body>"+
-	   "</html>");
+	   "</html>", sequenceNumber);
     }
 
-    public static void it(String html) {
+    public static void it(String html, int sequenceNumber) {
+	
+
 	try {
-	    buildFrame(html);
+	    	final int sequenceNumber2 = sequenceNumber;
+	    buildFrame(html, sequenceNumber);
 
 	    if (USE_TIMER) {
 		Timer timer	= new Timer() {
 			public void run() {
-			    printFrame();
+			    printFrame(sequenceNumber2);
 			}
 		    };
 		timer.schedule(TIMER_DELAY * 1000);
@@ -135,7 +138,7 @@ public class Print {
 
 			@Override
 			public void execute() {
-				printFrame();
+				printFrame(sequenceNumber2);
 
 			}
 		});
@@ -147,8 +150,8 @@ public class Print {
 	}
     }
 
-    public static native void buildFrame(String html) /*-{
-	var frame = $doc.getElementById('__printingFrame');
+    public static native void buildFrame(String html, int sequenceNumber) /*-{
+	var frame = $doc.getElementById("__printingFrame" + sequenceNumber);
 	if (!frame) {
 	    $wnd.alert("Error: Can't find printing frame.");
 	    return;
@@ -160,12 +163,12 @@ public class Print {
 
     }-*/;
 
-    public static native void printFrame() /*-{
-	var frame = $doc.getElementById('__printingFrame');
+    public static native void printFrame(int sequenceNumber) /*-{
+	var frame = $doc.getElementById("__printingFrame" + sequenceNumber);
 	frame = frame.contentWindow;
 	frame.focus();
 	frame.print();
-	@org.mathpiper.studentschedule.gwt.client.Print::buildFrame(Ljava/lang/String;)('');
+	@org.mathpiper.studentschedule.gwt.client.Print::buildFrame(Ljava/lang/String;I)('', sequenceNumber);
     }-*/;
 
     // Great contribution from mgrushinskiy to print form element

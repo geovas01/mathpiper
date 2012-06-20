@@ -103,6 +103,8 @@ public class GUI implements EntryPoint {
 
     private ListBox comboBox;
     private ListBox comboBox_2;
+    
+    private int iFrameSequenceNumber = 0;
 
     @Override
     public void onModuleLoad() {
@@ -138,7 +140,7 @@ public class GUI implements EntryPoint {
 		// verticalPanel_2.setHeight("53px");
 
 		HTML htmlNewHtml = new HTML(
-			"<h2>&nbsp;&nbsp;&nbsp;SSU Student Schedule Generator v.007 beta<h2>", false);
+			"<h2>&nbsp;&nbsp;&nbsp;SSU Student Schedule Generator v.008 beta<h2>", false);
 		horizontalPanel_3.add(htmlNewHtml);
 		htmlNewHtml.setStyleName("none");
 		htmlNewHtml.setDirectionEstimator(true);
@@ -928,9 +930,11 @@ public class GUI implements EntryPoint {
 
 			    public void onSuccess(String result) {
 				// Window.alert("Success!: " + result);
+				
+				final int sequenceNumber2 = iFrameSequenceNumber++;
 
 				final HTML allTablesHtml = new HTML(
-					"<iframe id=\"__printingFrame\" style=\"width:0;height:0;border:0\"></iframe>"
+					"<iframe id=\"__printingFrame" + sequenceNumber2 + "\" style=\"width:0;height:0;border:0\"></iframe>"
 						+ result.replace("|", ""));
 				final Label tabLabel = new Label(""
 					+ tabNumber++);
@@ -941,7 +945,7 @@ public class GUI implements EntryPoint {
 				printAllButton
 					.addClickHandler(new ClickHandler() {
 					    public void onClick(ClickEvent event) {
-						Print.it(allTablesHtml);
+						Print.it(allTablesHtml, sequenceNumber2);
 					    }
 					});
 				VerticalPanel verticalPanel = new VerticalPanel();
@@ -951,8 +955,9 @@ public class GUI implements EntryPoint {
 				String[] tables = result.split("\\|");
 
 				for (String table : tables) {
+				    final int sequenceNumber3 = iFrameSequenceNumber++;
 				    final HTML tableHtml = new HTML(
-					    "<iframe id=\"__printingFrame\" style=\"width:0;height:0;border:0\"></iframe>"
+					    "<iframe id=\"__printingFrame" + sequenceNumber3 + "\" style=\"width:0;height:0;border:0\"></iframe>"
 						    + table);
 				    
 				    
@@ -961,7 +966,7 @@ public class GUI implements EntryPoint {
 					    .addClickHandler(new ClickHandler() {
 						public void onClick(
 							ClickEvent event) {
-						    Print.it(tableHtml);
+						    Print.it(tableHtml, sequenceNumber3);
 						}
 					    });
 				    verticalPanel.add(new HTML("<hr /> "));
