@@ -135,7 +135,7 @@
   (str
       
 "
-<table border=1 cellpadding="4" width=90%>
+<table border=1 cellpadding=\"3\" width=90% style=\"margin-top:5px;\">
 <tr>
 <td BGCOLOR=#EEEEEE align=center nowrap><b>Time</b></td>
 <th BGCOLOR=#EEEEEE width=18%>Monday</th>
@@ -223,14 +223,14 @@
        "<h2 align=\"center\"> Schedule " (inc index) "</h2> \n" 
        
 "
-<table border=1  cellpadding=3 align=\"center\">
+<table border=1  cellpadding=3 align=\"left\" style=\"margin-bottom:10px;\">
 <tr>
 <td BGCOLOR=#EEEEEE align=center nowrap><b>#</b></td>
 <th BGCOLOR=#EEEEEE >Course</th>
 <th BGCOLOR=#EEEEEE >Section</th>
 <th BGCOLOR=#EEEEEE >Name</th>
 <th BGCOLOR=#EEEEEE >Faculty</th>
-<th BGCOLOR=#EEEEEE >Credits</th>
+<th BGCOLOR=#EEEEEE >Credit Hours</th>
 <th BGCOLOR=#EEEEEE >Days</th>
 </tr>
 "  
@@ -251,13 +251,15 @@
 
                  </tr> ")
                  )
+            
                )
                
-       "</table>
- credits: "
-      (apply + (map #(get-in course-map [% :credit-hours])
-            (map (fn [{course-number :course-number section-number :section-number}] course-number) (nth schedules index))))
-       " <br />"
+               (str "<tr><td></td><td></td><td></td><td></td><td align=\"right\"><b>Total</b></td><td align=\"center\"> <b>" (apply + (map #(get-in course-map [% :credit-hours])
+            (map (fn [{course-number :course-number section-number :section-number}] course-number) (nth schedules index)))) "</b></td><td></td></tr>")
+               
+       "</table>"
+
+
        
                    
        

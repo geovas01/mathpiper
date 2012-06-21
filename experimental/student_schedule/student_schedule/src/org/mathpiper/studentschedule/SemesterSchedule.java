@@ -422,7 +422,7 @@ public class SemesterSchedule {
     public static void main(String[] args) {
 	SemesterSchedule schedule = new SemesterSchedule();
 
-	File scheduleDSV = new File("ssu_course_schedule_fall_2012_6_2.dsv");
+	File scheduleDSV = new File("ssu_course_schedule_fall_2012_6_20.dsv");
 
 	try {
 	    schedule.loadSchedule(scheduleDSV);
