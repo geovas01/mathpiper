@@ -253,7 +253,11 @@
                  )
                )
                
-       "</table> <br />"
+       "</table>
+ credits: "
+      (apply + (map #(get-in course-map [% :credit-hours])
+            (map (fn [{course-number :course-number section-number :section-number}] course-number) (nth schedules index))))
+       " <br />"
        
                    
        
@@ -267,6 +271,10 @@
 ;"</body>
 ;</html>" 
 ))
+
+
+
+
 
 
 
@@ -292,6 +300,7 @@
                                <th BGCOLOR=#EEEEEE >Course</th>
                                <th BGCOLOR=#EEEEEE >Name</th>
                                <th BGCOLOR=#EEEEEE >Section</th>
+                               <th BGCOLOR=#EEEEEE >Status</th>
                                <th BGCOLOR=#EEEEEE >Faculty</th>
                                <th BGCOLOR=#EEEEEE >Capacity</th>
                                <th BGCOLOR=#EEEEEE >Credits</th>
@@ -311,8 +320,10 @@
                   
                  (str (if (not= section-number (first (sort #(< (Integer/parseInt (name %1)) (Integer/parseInt (name %2))) (keys (get-in zz2 [course-number :sections]))) ))
                         "<tr>")  " <td align=center>" (name section-number) "</td>
-                  
+
+                  <td>" (if (get-in course-map [course-number :sections section-number :open?]) "Open"  "Closed" ) "</td>
                   <td>"  (first (get-in course-map [course-number :sections section-number :faculty])) "</td>
+                  
                   <td>" "-" "</td>
                   <td>" "-" "</td>
                   <td>" (apply str (for [[day-code start-time duration] (get-in course-map [course-number :sections section-number :days-and-times])]
@@ -337,7 +348,8 @@
 
 
 
-#_(def course-lists #_[[:ETCO1120] [:ETEM1110]] [[:ETCO1120] [:ETEM1110] [:MATH1300] [:ENGL1101] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 :PHIL3300 :THAR1000]])
+
+#_(def course-lists  [[:SIGN1112]] #_[[:ETCO1120] [:ETEM1110]] #_[[:ETCO1120] [:ETEM1110] [:MATH1300] [:ENGL1101] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 :PHIL3300 :THAR1000]])
 
 #_(spit "../student_schedule.html" (create-html-sections-table (apply concat course-lists) zz2))
 

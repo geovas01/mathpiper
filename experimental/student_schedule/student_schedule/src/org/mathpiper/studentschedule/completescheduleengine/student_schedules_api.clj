@@ -99,6 +99,9 @@
 )
     ))
 
+(defn test-html-tables [string] (str "<html> <body> " (find-schedules string) "</html> </body> ")
+  )
+
 #_(course-list)
 
  ; test string:
@@ -109,6 +112,8 @@
  :course-lists #_[] #_[[:ARTS2311]] #_[[:ETEC2101]] [[:ETCO1120] #_[:PSYC1101] [:ETEM1110] [:MATH1010] [:ENGL1105] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 #_:PHIL3300 :THAR1000]]
   :return-number 6 :quality-fn-and-vals [#_[\"time-of-day-ratio-corrected\" [:morning 1]] [\"choose-days\" [2r1010100]] #_[\"minimize-days\" []] ] :custom-courses {}}")
 
+#_(spit "../student_schedule.html" (test-html-tables ali))
+ 
 #_(legal-schedules [[:MATH1010]] [{:course-number :MATH1010 :section-number :01}] zz2)
  
 #_(time (spit "../student_schedule.html" (show-sections ali) ))
