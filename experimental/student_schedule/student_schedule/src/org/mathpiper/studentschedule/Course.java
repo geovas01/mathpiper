@@ -12,14 +12,18 @@ public class Course{
     
     private String name;
     
+    private int creditHours;
     
-    public Course(String courseNumber, String courseName)
+    
+    public Course(String courseNumber, String courseName, int creditHours)
     {
 	super();
 	
 	this.courseNumber = courseNumber;
 	
 	this.name = courseName;
+	
+	this.creditHours = creditHours;
     }
     
     
@@ -54,6 +58,18 @@ public class Course{
     public void setName(String name) {
         this.name = name;
     }
+
+
+    public int getCreditHours() {
+        return creditHours;
+    }
+
+
+    public void setCreditHours(int creditHours) {
+        this.creditHours = creditHours;
+    }
+    
+    
     
     
 

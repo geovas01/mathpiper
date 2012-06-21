@@ -87,7 +87,7 @@ public class SemesterSchedule {
 		    currentCourseNumber = section.getCourseNumber();
 
 		    currentCourse = new Course(currentCourseNumber,
-			    section.getCourseName());
+			    section.getCourseName(), section.getCreditHours());
 
 		    courses.put(currentCourseNumber, currentCourse);
 		}
@@ -148,10 +148,10 @@ public class SemesterSchedule {
 	 System.out.println(courseNumber + ", " + courseSection + ", " +
 	 enrolled + ", " + capacity + ", " + openClosedString);
 	 
-	 if(courseNumber.equalsIgnoreCase("ETEC2101"))
+	 /*if(courseNumber.equalsIgnoreCase("ETEC2101"))
 	 {
 	     int xx = 1;
-	 }
+	 }*/
 
 	if (openClosedString.toLowerCase().contains("open")) {
 	    section.setIsOpen(true);
@@ -234,8 +234,12 @@ public class SemesterSchedule {
 	    // System.out.println(daysAndTimes);
 
 	    section.addDaysAndTimes(daysAndTimes);
+	   
 
 	}// end for.
+	
+	    String creditHours = fields[7].trim();
+	    section.setCreditHours(Integer.parseInt(creditHours));
 
 	// System.out.println(section.toString());
 
@@ -334,8 +338,8 @@ public class SemesterSchedule {
 
     public String toClojureMaps() {
 
-	StringBuilder mp = new StringBuilder();
-
+	StringBuilder mp = new StringBuilder(); 
+	mp.append("(ns org.mathpiper.studentschedule.ssu_fall_2012_semester_schedule_map)\n\n");
 	mp.append("(def zz2 {\n");
 
 	for (Course course : courses.values()) {
@@ -343,6 +347,7 @@ public class SemesterSchedule {
 
 	    // ========= Name map.
 	    mp.append(":name \"" + course.getName() + "\" ");
+	    
 
 	    // ========= Sections map
 	    mp.append(":sections {");
@@ -399,6 +404,11 @@ public class SemesterSchedule {
 	    }// end for.
 
 	    mp.append("}");// end section.
+	    
+	    // Credit hours?
+	   mp.append(" ");
+	   mp.append(":credit-hours ");
+	   mp.append(course.getCreditHours());
 
 	    mp.append("}\n");// end course.
 

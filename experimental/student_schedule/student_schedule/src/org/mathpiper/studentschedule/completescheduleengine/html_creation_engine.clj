@@ -230,7 +230,6 @@
 <th BGCOLOR=#EEEEEE >Section</th>
 <th BGCOLOR=#EEEEEE >Name</th>
 <th BGCOLOR=#EEEEEE >Faculty</th>
-<th BGCOLOR=#EEEEEE >Capacity</th>
 <th BGCOLOR=#EEEEEE >Credits</th>
 <th BGCOLOR=#EEEEEE >Days</th>
 </tr>
@@ -246,8 +245,7 @@
                  (str "<tr> <td>" (inc index2) "</td>" "<td " (str "BGCOLOR=\"" (first backgroundColor) "\"") ">" (name courseName) "</td> <td align=center>" (name courseSection) "</td>
                   <td>"  (get-in course-map [courseName :name]) "</td>
                   <td>"  (first (get-in course-map [courseName :sections courseSection :faculty])) "</td>
-                  <td>" "-" "</td>
-                  <td>" "-" "</td>
+                  <td align=\"center\" >"  (get-in course-map [courseName :credit-hours]) "</td>
                   <td>"  (formated-days {:course-number courseName  :section-number courseSection} course-map) "</td>
 
 
