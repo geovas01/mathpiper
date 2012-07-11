@@ -338,6 +338,25 @@ Echo("Critical t-score: ", criticalTScore);
 ======== Exercises
 
 
+%mathpiper,title="Exercise 1"
+
+standardErrorOfTheDifferenceBetweenTwoMeans := StandardErrorOfTheDifferenceBetweenTwoMeans(105, 45,114,38);
+
+calculatedZScore := CalculatedZScore(552,530,0,standardErrorOfTheDifferenceBetweenTwoMeans);
+
+criticalZScore := ConfidenceLevelToZScore(1-.05);
+
+Echo("Calculated z-score: ", calculatedZScore);
+
+Echo("Critical z-score: ", criticalZScore);
+
+
+%/mathpiper
+
+
+
+
+
 %group,title="Exercise 3."
 
 %mathpiper,title=""
