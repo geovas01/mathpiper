@@ -140,7 +140,7 @@ public class GUI implements EntryPoint {
 		// verticalPanel_2.setHeight("53px");
 
 		HTML htmlNewHtml = new HTML(
-			"<h2>&nbsp;&nbsp;&nbsp;SSU Student Schedule Generator v.008 beta<h2>", false);
+			"<h2>&nbsp;&nbsp;&nbsp;SSU Student Schedule Generator v.009 beta<h2>", false);
 		horizontalPanel_3.add(htmlNewHtml);
 		htmlNewHtml.setStyleName("none");
 		htmlNewHtml.setDirectionEstimator(true);
@@ -931,26 +931,26 @@ public class GUI implements EntryPoint {
 			    public void onSuccess(String result) {
 				// Window.alert("Success!: " + result);
 				
-				final int sequenceNumber2 = iFrameSequenceNumber++;
+				//final int sequenceNumber2 = iFrameSequenceNumber++;
 
-				final HTML allTablesHtml = new HTML(
+				/*final HTML allTablesHtml = new HTML(
 					"<iframe id=\"__printingFrame" + sequenceNumber2 + "\" style=\"width:0;height:0;border:0\"></iframe>"
-						+ result.replace("|", ""));
+						+ result.replace("|", ""));*/
 				final Label tabLabel = new Label(""
 					+ tabNumber++);
 				tabLabel.setStyleName("newTab");
 				tabLabel.setWidth("10px");
 
-				Button printAllButton = new Button("Print All");
+				/*Button printAllButton = new Button("Print All");
 				printAllButton
 					.addClickHandler(new ClickHandler() {
 					    public void onClick(ClickEvent event) {
 						Print.it(allTablesHtml, sequenceNumber2);
 					    }
-					});
+					});*/
 				VerticalPanel verticalPanel = new VerticalPanel();
-				verticalPanel.add(printAllButton);
-				verticalPanel.add(new HTML("<br />"));
+				//verticalPanel.add(printAllButton);
+				//verticalPanel.add(new HTML("<br />"));
 
 				String[] tables = result.split("\\|");
 
