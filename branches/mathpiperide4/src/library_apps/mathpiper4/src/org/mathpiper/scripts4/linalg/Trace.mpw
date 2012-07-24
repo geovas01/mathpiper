@@ -3,7 +3,7 @@
 //Retract("Trace",*);
 
 Trace(matrix_List?) <--
-[
+⊕
    Local(i,j,n,d,r,aux,result);
    
    d:=Dimensions(matrix);
@@ -15,14 +15,14 @@ Trace(matrix_List?) <--
    result:=0;
    
    For(i:=1,i<=?n,i++)
-   [
+   ⊕
       aux:=matrix[i];
       For(j:=2,j<=?r,j++)
          aux:=aux[i];
       result:=result+aux;
-   ];
+   ⊖;
    result;
-];
+⊖;
 
 %/mathpiper
 

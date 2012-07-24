@@ -8,13 +8,13 @@
 10 # CanBeMonomial(_expr)<--Not? (HasFunction?(expr,ToAtom("+")) Or? HasFunction?(expr,ToAtom("-")));
 
 10 # Monomial?(expr_CanBeMonomial) <-- 
-[
+⊕
     Local(r);
     If( RationalFunction?(expr),
         r := (VarList(Denominator(expr)) =? {}),
         r := True
     );
-];
+⊖;
 
 15 # Monomial?(_expr) <-- False;
 

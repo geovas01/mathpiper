@@ -3,10 +3,10 @@
 /// even/odd double factorial: product of even or odd integers up to n
 1# (n_PositiveInteger?)!! _ (n<=?3) <-- n;
 2# (n_PositiveInteger?)!! <--
-[
+⊕
         Check(n<=?65535, "Argument", "Double factorial: Error: the argument " ~ ( PipeToString() Write(n) ) ~ " is too large, you may want to avoid exact calculation");
         Factorialdouble(2+Modulo(n, 2), n);
-];
+⊖;
 // special cases
 3# (_n)!! _ (n=? -1 Or? n=?0)<-- 1;
 

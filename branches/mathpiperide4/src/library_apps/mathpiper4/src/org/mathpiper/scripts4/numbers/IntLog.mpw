@@ -4,42 +4,42 @@
 10 # IntLog(_x, _base) _ (base<=?1) <-- Undefined;
 /// Use variable steps to speed up operation for large numbers x
 20 # IntLog(_x, _base) <--
-[
+⊕
         Local(result, step, oldstep, factor, oldfactor);
         result := 0;
         oldstep := step := 1;
         oldfactor := factor := base;
         // first loop: increase step
         While (x >=? factor)
-        [
+        ⊕
                 oldfactor := factor;
                 factor := factor*factor;
                 oldstep := step;
                 step := step*2;
-        ];
+        ⊖;
         If(x >=? base,
-          [
+          ⊕
                 step := oldstep;
                 result := step;
                 x := Quotient(x, oldfactor);
-          ],
+          ⊖,
           step := 0
         );
         // second loop: decrease step
         While (step >? 0 And? x !=? 1)
-        [
+        ⊕
                 step := Quotient(step,2);        // for each step size down to 1, divide by factor if x is up to it
                 factor := base^step;
                 If(
                         x >=? factor,
-                        [
+                        ⊕
                                 x:=Quotient(x, factor);
                                 result := result + step;
-                        ]
+                        ⊖
                 );
-        ];
+        ⊖;
         result;
-];
+⊖;
 
 %/mathpiper
 

@@ -1,13 +1,13 @@
 %mathpiper,def="EigenVectors"
 
 EigenVectors(_matrix,_eigenvalues) <--
-[
+⊕
   Local(result,n);
 /*  eigenvalues:=N(Eval(eigenvalues));  */
   n:=Length(eigenvalues);
   result:={};
   ForEach(e,eigenvalues)
-  [
+  ⊕
     Local(possible);
 /* Echo({"1...",result}); */
     possible:=OldSolve(matrix*MakeVector(k,n)==e*MakeVector(k,n),MakeVector(k,n))[1];
@@ -18,9 +18,9 @@ EigenVectors(_matrix,_eigenvalues) <--
       DestructiveAppend(result,possible)
       );
 /* Echo({"3..."}); */
-  ];
+  ⊖;
   result;
-];
+⊖;
 
 %/mathpiper
 

@@ -9,9 +9,9 @@ UnFence("DoFlatten",1);
 
 
 Function("Flatten",{body,flattenoper})
-[
+⊕
   DoFlatten(body);
-];
+⊖;
 
 %/mathpiper
 

@@ -1,13 +1,13 @@
 %mathpiper,def="Remove"
 
 Remove(list, expression) :=
-[
+⊕
    Local(result);
    Bind(result,{});
    ForEach(item,list)
    If(item !=? expression, DestructiveAppend(result,item));
    result;
-];
+⊖;
 
 %/mathpiper
 

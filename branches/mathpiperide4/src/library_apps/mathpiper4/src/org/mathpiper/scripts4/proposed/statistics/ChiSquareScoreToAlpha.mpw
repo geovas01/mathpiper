@@ -26,7 +26,7 @@
 */
 
 ChiSquareScoreToAlpha(score, degreesOfFreedom) :=
-[
+⊕
     Local(a, y, s, e, c, z, LogSqrtPi, ISqrtPi,result);                     
     
     y := 0;
@@ -36,65 +36,65 @@ ChiSquareScoreToAlpha(score, degreesOfFreedom) :=
     ISqrtPi := 0.5641895835477562869480795;   /* 1 / sqrt(pi) */
     
     if(score <=? 0.0 Or? degreesOfFreedom <? 1) 
-    [
+    ⊕
         result := 1.0;
-    ]
+    ⊖
     else
-    [
+    ⊕
         a := N(0.5 * score);
         
         if (degreesOfFreedom >? 1) 
-        [
+        ⊕
             y := If(-a <? -20, 0, ExpN(-a));
-        ];
+        ⊖;
         
         s := If(Even?(degreesOfFreedom), y , (2.0 * ZScoreToProbability(-SqrtN(score))));
         
         if (degreesOfFreedom >? 2) 
-        [
+        ⊕
             score := 0.5 * (degreesOfFreedom - 1.0);
             
             z := If(Even?(degreesOfFreedom), 1.0, 0.5);
             
             if (a >? 20) 
-            [
+            ⊕
                 e := If(Even?(degreesOfFreedom), 0.0, LogSqrtPi);
                 
                 c := LogN(a);
                 
                 While(z <=? score) 
-                [
+                ⊕
                     e := LogN(z) + e;
                     s := s + If(c * z - a - e <? -20, 0, ExpN(c * z - a - e));
                     z := z + 1.0;
-                ];
+                ⊖;
                 result := s;
-            ] 
+            ⊖ 
             else 
-            [
+            ⊕
                 e := If(Even?(degreesOfFreedom) , 1.0, (ISqrtPi / SqrtN(a)));
                 
                 c := 0.0;
                 
                 While(z <=? score) 
-                [
+                ⊕
                     e := e * (a / z);
                     c := c + e;
                     z := z + 1.0;
-                ];
+                ⊖;
                 
                 result := c * y + s;
-            ];
-        ]
+            ⊖;
+        ⊖
         else
-        [
+        ⊕
             result := s;
-        ];
+        ⊖;
     
-    ];
+    ⊖;
     
     N(result);
-];
+⊖;
 
 
 

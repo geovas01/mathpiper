@@ -2,19 +2,19 @@
 
 // (a or b) and (c or d) -> (a and c) or (a and d) or (b and c) or (b and d)
 20 # (list_List? AddTo _rest) <--
-[
+⊕
   Local(res);
   res:={};
   ForEach(item,list)
-  [
+  ⊕
     res := Concat(res,item AddTo rest);
-  ];
+  ⊖;
   res;
-];
+⊖;
 30 # (_aitem AddTo list_List?) <--
-[
+⊕
   MapSingle({{orig},aitem And? orig},list);
-];
+⊖;
 40 # (_aitem AddTo _b) <-- aitem And? b;
 
 %/mathpiper

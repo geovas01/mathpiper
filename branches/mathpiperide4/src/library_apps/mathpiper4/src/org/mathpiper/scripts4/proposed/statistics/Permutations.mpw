@@ -3,21 +3,21 @@
 //Retract("Permutations", *);
 
 Permutations(n) :=
-[
+⊕
     Check(Integer?(n), "Argument", "Argument must be an integer");
 
     n!;
-];
+⊖;
 
 
 Permutations(n, r) :=
-[
+⊕
     Check(Integer?(n), "Argument", "Argument 1 must be an integer");
     
     Check(Integer?(r), "Argument", "Argument 2 must be an integer");
     
     n! /(n-r)!;
-];
+⊖;
 
 %/mathpiper
 

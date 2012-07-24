@@ -1,21 +1,21 @@
 %mathpiper,def="Map"
 
 LocalSymbols(func,lists,mapsingleresult,mapsingleitem)
-[
+⊕
   TemplateFunction("Map",{func,lists})
-  [
+  ⊕
     Local(mapsingleresult,mapsingleitem);
     mapsingleresult:={};
     lists:=Transpose(lists);
     ForEach(mapsingleitem,lists)
-    [
+    ⊕
       DestructiveInsert(mapsingleresult,1,Apply(func,mapsingleitem));
-    ];
+    ⊖;
     DestructiveReverse(mapsingleresult);
-  ];
+  ⊖;
   UnFence("Map",2);
   HoldArgument("Map",func);
-];
+⊖;
 
 %/mathpiper
 

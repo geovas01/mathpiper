@@ -9,7 +9,7 @@ RulebaseListedHoldArguments("GeoGebraPlot",{arg1,arg2});
 
 
 20 # GeoGebraPlot(function_Function?, options_List?)_(Not? List?(function)) <--
-[
+⊕
     Local(command);
     
     function := (Subst(==,=) function);
@@ -17,13 +17,13 @@ RulebaseListedHoldArguments("GeoGebraPlot",{arg1,arg2});
     command := ConcatStrings(PipeToString()Write(function));
     
     JavaCall(geogebra,"evalCommand",command);
-];
+⊖;
 
 
 
 
 10 # GeoGebraPlot(list_List?, _options)_(NumericList?(list) )  <--
-[
+⊕
     If(List?(options), options := OptionsToAssociativeList(options), options := OptionsToAssociativeList({options}));
 
     Local(length, index, labelIndex, pointTemplate, segmentCommandTemplate, segmentElementTemplate, command, code, x, y, pointSize);
@@ -47,7 +47,7 @@ RulebaseListedHoldArguments("GeoGebraPlot",{arg1,arg2});
     //JavaCall(geogebra, "setLayerVisible", "0", "False");
     
     While(index <? length+1)
-    [
+    ⊕
         x := list[index];
         index++;
         y := list[index];
@@ -60,7 +60,7 @@ RulebaseListedHoldArguments("GeoGebraPlot",{arg1,arg2});
         JavaCall(geogebra,"evalXML",code);
         
         If(options["lines"] =? "True" And? labelIndex >? 1,
-        [
+        ⊕
             
             command := PatchString("a<?Write(labelIndex-1);?> = Segment[A<?Write(labelIndex-1);?>,A<?Write(labelIndex);?>]");
             JavaCall(geogebra, "evalCommand", command);
@@ -68,33 +68,33 @@ RulebaseListedHoldArguments("GeoGebraPlot",{arg1,arg2});
             
             code := PatchString(segmentElementTemplate);
             JavaCall(geogebra,"evalXML",code);
-        ]
+        ⊖
         );
        
         labelIndex++;
-    ]; //end while.
+    ⊖; //end while.
     
      //todo:tk: this does not seem to be working  JavaCall(geogebra, "setRepaintingActive", "true");
      //JavaCall(geogebra, "setLayerVisible", "0", "True");
 
-];
+⊖;
 
 
 5 # GeoGebraPlot(list_List?, _options)_(Matrix?(list)) <--
-[
+⊕
     Local(flatList);
     
     flatList := {};
     
     ForEach(subList,list)
-    [
+    ⊕
         DestructiveAppend(flatList,subList[1]);
         DestructiveAppend(flatList, subList[2]);
-    ];
+    ⊖;
     
     GeoGebraPlot(flatList, options);
 
-];
+⊖;
 
 //HoldArgument("GeoGebraPlot",arg2);
 

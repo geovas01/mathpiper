@@ -10,8 +10,8 @@
      SimpMul(SimpFlatten(x),SimpFlatten(x^(n-1)));
 
 100 # SimpFlatten(_x) <--
-[
+⊕
   x;
-];
+⊖;
 
 %/mathpiper

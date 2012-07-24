@@ -23,27 +23,27 @@ NewStack() := {{},{}};
 
 10 # PushStackFrame(_stack,unfenced)
    <--
-   [
+   ⊕
      DestructiveInsert(stack[1],1,{});
      DestructiveInsert(stack[2],1,True);
-   ];
+   ⊖;
 10 # PushStackFrame(_stack,fenced)
    <--
-   [
+   ⊕
      DestructiveInsert(stack[1],1,{});
      DestructiveInsert(stack[2],1,False);
-   ];
+   ⊖;
 PopStackFrame(stack):=
-[
+⊕
   DestructiveDelete(stack[1],1);
   DestructiveDelete(stack[2],1);
-];
+⊖;
 StackDepth(_stack) <-- Length(stack[1]);
 
 AddToStack(stack,element)  :=
-[
+⊕
   DestructiveInsert(stack[1][1],1,{element,{}});
-];
+⊖;
 
 DropOneFrame(_stack) <-- {Rest(stack[1]),Rest(stack[2])};
 
@@ -52,11 +52,11 @@ DropOneFrame(_stack) <-- {Rest(stack[1]),Rest(stack[2])};
 20 # IsOnStack(_stack,_element)_(StackDepth(stack)>?0 And? stack[2][1] =? True)
    <-- IsOnStack(DropOneFrame(stack),element);
 30 # IsOnStack(_stack,_element) <--
-[
+⊕
 //Echo("stack depth = ",StackDepth(stack));
 //Echo(stack[2][1]);
 False;
-];
+⊖;
 10 # FindOnStack(_stack,_element)_(stack[1][1][element] !=? Empty)
    <-- stack[1][1][element];
 20 # FindOnStack(_stack,_element)_(StackDepth(stack)>?0 And? stack[2][1] =? True)
@@ -72,7 +72,7 @@ False;
 %mathpiper,name="scopestack",subtype="automatic_test"
 
 LocalSymbols(st)
-[
+⊕
   st:=NewStack();
   Verify(IsOnStack(st,"c"),False);
   PushStackFrame(st,fenced);
@@ -97,6 +97,6 @@ LocalSymbols(st)
 
   PopStackFrame(st);
   Verify(StackDepth(st),0);
-];
+⊖;
 
 %/mathpiper

@@ -9,27 +9,27 @@ HoldArgument(":=", aRightAssign);
 
 // assign a variable
 RuleHoldArguments(":=", 2, 0, Atom?(aLeftAssign))
-[
+⊕
     Check( Not? Number?(aLeftAssign), "Argument", "Only a variable can be placed on the left side of an := operator." );
 
     MacroBind(aLeftAssign,Eval(aRightAssign));
 
     Eval(aLeftAssign);
-];
+⊖;
 
 
 
 // assign lists
 RuleHoldArguments(":=",2 , 0, List?(aLeftAssign))
-[
+⊕
     Map(":=",{aLeftAssign,Eval(aRightAssign)});
-];
+⊖;
 
 
 
 // a[x] := ... assigns to an array element
 RuleHoldArguments(":=", 2, 10, Function?(aLeftAssign) And? (First(FunctionToList(aLeftAssign)) =? Nth))
-[
+⊕
     Local(listOrAssociationList, indexOrKey, argumentsList);
 
     Bind(argumentsList, (FunctionToList(aLeftAssign)));
@@ -43,13 +43,13 @@ RuleHoldArguments(":=", 2, 10, Function?(aLeftAssign) And? (First(FunctionToList
     Bind(indexOrKey, Eval(First(argumentsList)));
 
     AssignArray(listOrAssociationList, indexOrKey, Eval(aRightAssign));
-];
+⊖;
 
 
 
 // f(x):=... defines a new function
 RuleHoldArguments(":=", 2, 30, Function?(aLeftAssign) And? Not?(Equal?(aLeftAssign[0], ToAtom(":="))) )
-[
+⊕
     Check( Not? Equal?(aLeftAssign[0], ToAtom("/")), "Argument", "Only a variable can be placed on the left side of an := operator." );
 
     Local(oper,args,arity);
@@ -61,7 +61,7 @@ RuleHoldArguments(":=", 2, 30, Function?(aLeftAssign) And? Not?(Equal?(aLeftAssi
     If(
         And?(GreaterThan?(Length(args), 1), Equal?( MathNth(args, Length(args)), ToAtom("...") )),
         // function with variable number of arguments
-        [
+        ⊕
             DestructiveDelete(args, Length(args)); // remove trailing "..."
 
             Bind(arity, Length(args));
@@ -69,21 +69,21 @@ RuleHoldArguments(":=", 2, 30, Function?(aLeftAssign) And? Not?(Equal?(aLeftAssi
             Retract(oper, arity);
 
             RulebaseListedEvaluateArguments(oper, args);
-        ],
+        ⊖,
         // function with a fixed number of arguments
-        [
+        ⊕
             Bind(arity, Length(args));
 
             Retract(oper, arity);
 
             RulebaseEvaluateArguments(oper, args);
-        ]
+        ⊖
     );
 
     Unholdable(aRightAssign);
 
     RuleEvaluateArguments(oper, arity, 1025, True) aRightAssign;
-];
+⊖;
 
 %/mathpiper
 

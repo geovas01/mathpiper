@@ -7,22 +7,22 @@
 10 # LogicSimplify(_proposition, _level)_(level<?2)  <-- CNF(proposition);
 
 20 # LogicSimplify(_proposition, _level) <--
-[
+⊕
   Local(cnf, list, clauses);
   Check(level >? 1, "Argument", "Wrong level");
   // First get the CNF version of the proposition
   Bind(cnf, CNF(proposition));
 
-  If(level <=? 1, cnf, [
+  If(level <=? 1, cnf, ⊕
     Bind(list, Flatten(cnf, "And?"));
     Bind(clauses, {});
     ForEach(clause, list)
-    [
+    ⊕
       Local(newclause);
       //newclause := BubbleSort(LogicRemoveTautologies(Flatten(clause, "Or?")), LessThan);
       Bind(newclause, LogicRemoveTautologies(Flatten(clause, "Or?")));
       If(newclause !=? {True}, DestructiveAppend(clauses, newclause));
-    ];
+    ⊖;
 
     /*
         Note that we sort each of the clauses so that they look the same,
@@ -31,25 +31,25 @@
     */
     Bind(clauses, RemoveDuplicates(clauses));
 
-    If(Equal?(level, 3) And? (Length(clauses) !=? 0), [
+    If(Equal?(level, 3) And? (Length(clauses) !=? 0), ⊕
         Bind(clauses, DoUnitSubsumptionAndResolution(clauses));
         Bind(clauses, LogicCombine(clauses));
-    ]);
+    ⊖);
 
     Bind(clauses, RemoveDuplicates(clauses));
 
-    If(Equal?(Length(clauses), 0), True, [
+    If(Equal?(Length(clauses), 0), True, ⊕
         /* assemble the result back into a boolean expression */
         Local(result);
         Bind(result, True);
         ForEach(item,clauses)
-        [
+        ⊕
             Bind(result, result And? UnFlatten(item, "Or?", False));
-        ];
+        ⊖;
 
         result;
-    ]);
-  ]);
-];
+    ⊖);
+  ⊖);
+⊖;
 
 %/mathpiper

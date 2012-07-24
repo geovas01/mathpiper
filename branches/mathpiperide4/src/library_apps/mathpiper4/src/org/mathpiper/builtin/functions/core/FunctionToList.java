@@ -90,13 +90,13 @@ Result: {*,3,a};
 // FunctionToList and ListToFunction coredumped when their arguments were invalid.
 Verify(FunctionToList(Cos(x)),{Cos,x});
 
-[
+⊕
   Local(exception);
 
   exception := False;
   ExceptionCatch(FunctionToList(1.2), exception := ExceptionGet());
   Verify(exception =? False, False);
-];
+⊖;
 
 %/mathpiper
 */

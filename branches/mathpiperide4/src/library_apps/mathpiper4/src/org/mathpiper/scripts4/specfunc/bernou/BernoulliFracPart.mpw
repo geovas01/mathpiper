@@ -2,7 +2,7 @@
 
 /// Find the fractional part of Bernoulli number with even index >=2
 /// return negative if the sign of the Bernoulli number is negative
-BernoulliFracPart(n_Even?)_(n>=?2) <-- [
+BernoulliFracPart(n_Even?)_(n>=?2) <-- ⊕
         Local(p, sum);
         // always 2 and 3
         sum := 1/2+1/3;
@@ -18,6 +18,6 @@ BernoulliFracPart(n_Even?)_(n>=?2) <-- [
         Quotient(Numerator(sum), Denominator(sum)) - sum
                  + Modulo(n/2,2);        // we'll return a negative number if the Bernoulli itself is negative -- slightly against our definitions in the manual
                 //+ 1;        // this would be exactly like the manual says
-];
+⊖;
 
 %/mathpiper

@@ -34,8 +34,8 @@
 
 
 40 # BesselI(_n,x_Complex?)_(Constant?(x) And? Abs(x)<=? 2*Gamma(n) )  <--
-[
+⊕
 ApproxInfSum((x/2)^(2*k+c[1])/(k! * Gamma(k+c[1]+1) ),0,x,{n} );
-];
+⊖;
 
 %/mathpiper

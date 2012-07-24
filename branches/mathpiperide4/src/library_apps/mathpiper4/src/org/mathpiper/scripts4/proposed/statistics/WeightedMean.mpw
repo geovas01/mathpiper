@@ -2,7 +2,7 @@
 
 
 WeightedMean(list) :=
-[
+⊕
 
     Check(List?(list), "Argument", "Argument must be a list.");
     
@@ -14,7 +14,7 @@ WeightedMean(list) :=
     
     
     ForEach(element,list)
-    [        
+    ⊕        
         Check(List?(element), "Argument", "Values and their associated weights must be in a list.");
         
         Check(Length(element) =? 2, "Argument", "Each value and its associated weight must be in a two element list.");
@@ -22,11 +22,11 @@ WeightedMean(list) :=
         values := values ~ element[1];
 
         weights := weights ~ element[2];
-    ];
+    ⊖;
     
     Sum(values * weights)/Sum(weights);
 
-];
+⊖;
 
 %/mathpiper
 

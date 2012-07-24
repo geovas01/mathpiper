@@ -1,9 +1,9 @@
 %mathpiper,def="FermatNumber"
 
-Function("FermatNumber",{n})[
+Function("FermatNumber",{n})⊕
         Check(PositiveInteger?(n), "Argument", "FermatNumber: argument must be a positive integer");
         2^(2^n)+1;
-];
+⊖;
 
 %/mathpiper
 

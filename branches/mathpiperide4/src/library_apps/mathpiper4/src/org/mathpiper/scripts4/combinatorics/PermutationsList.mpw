@@ -1,34 +1,34 @@
 %mathpiper,def="PermutationsList"
 
 Function("PermutationsList",{result,list})
-[
+⊕
   If(Length(list) =? 0,
-  [
+  ⊕
     result;
-  ],
-  [
+  ⊖,
+  ⊕
     Local(head);
     Local(newresult);
     Local(i);
     head:=list[1];
     newresult:={};
     ForEach(item,result)
-    [
+    ⊕
       For(i:=Length(item)+1,i>?0,i--)
-      [
+      ⊕
         DestructiveInsert(newresult,1,Insert(item,i,head));
-      ];
-    ];
+      ⊖;
+    ⊖;
     newresult:=DestructiveReverse(newresult);
     PermutationsList(newresult,Rest(list));
-  ]);
-];
+  ⊖);
+⊖;
 
 
 Function("PermutationsList",{list})
-[
+⊕
   PermutationsList({{}},list);
-];
+⊖;
 
 %/mathpiper
 

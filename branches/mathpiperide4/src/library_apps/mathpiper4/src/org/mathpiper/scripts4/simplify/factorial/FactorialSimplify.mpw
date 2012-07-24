@@ -16,7 +16,7 @@
 */
 
 FactorialNormalForm(x):=
-[
+⊕
   // Substitute binomials
   x:=(x/:{BinomialCoefficient(_n,_m)<- (n!)/((m!)*(n-m)!)});
   // Expand expression as much as possible so that the terms become
@@ -37,13 +37,13 @@ FactorialNormalForm(x):=
           (_b-_c)/_a <- b/a-c/a
      }));
   x;
-];
+⊖;
 
 FactorialSimplify(x):=
-[
+⊕
   x := FactorialNormalForm(x);
   FactorialSimplifyWorker(x);
-];
+⊖;
 
 
 /* CommonDivisors takes two parameters x and y as input, determines a common divisor g
@@ -80,10 +80,10 @@ FactorialSimplify(x):=
 10 # FactorialSimplifyWorker(_x-_y) <-- FactorialSimplifyWorker(x)-FactorialSimplifyWorker(y);
 10 # FactorialSimplifyWorker(  -_y) <--                     -FactorialSimplifyWorker(y);
 
-LocalSymbols(x,y,i,j,n,d)[
+LocalSymbols(x,y,i,j,n,d)⊕
 
 20 # FactorialSimplifyWorker(_x/_y) <--
-[
+⊕
   // first separate out factors of the denominator
   Local(numerCommon,numerTerms);
   {numerCommon,numerTerms}:=FactorialGroupCommonDivisors(x);
@@ -92,12 +92,12 @@ LocalSymbols(x,y,i,j,n,d)[
   Local(n,d,c);
   {n,d,c} := FactorialDivideTerms(numerCommon,denomCommon);
   (n/d)*Simplify((numerTerms)/(denomTerms));
-];
+⊖;
 
 
 
 20 # FactorialGcd(_x,_y) <--
-[
+⊕
   // first separate out factors of the denominator
   Local(numerCommon,numerTerms);
   {numerCommon,numerTerms}:=FactorialGroupCommonDivisors(x);
@@ -106,7 +106,7 @@ LocalSymbols(x,y,i,j,n,d)[
   Local(n,d,c);
   {n,d,c} := FactorialDivideTerms(numerCommon,denomCommon);
   c;
-];
+⊖;
 
 
 
@@ -114,33 +114,33 @@ LocalSymbols(x,y,i,j,n,d)[
 
 10 # FactorialDivideTerms(- _x,- _y) <-- FactorialDivideTermsAux(x,y);
 LocalSymbols(n,d,c)
-[
+⊕
   20 # FactorialDivideTerms(- _x,  _y)
     <--
-    [
+    ⊕
       Local(n,d,c);
       {n,d,c} := FactorialDivideTermsAux(x,y);
       {-n,d,c};
-    ];
+    ⊖;
   30 # FactorialDivideTerms(  _x,- _y)
     <--
-    [
+    ⊕
       Local(n,d,c);
       {n,d,c} := FactorialDivideTermsAux(x,y);
       {n,-d,c};
-    ];
-];
+    ⊖;
+⊖;
 40 # FactorialDivideTerms(  _x,  _y)
    <--
-   [
+   ⊕
 //     Echo("GOTHERE 40");
      FactorialDivideTermsAux(x,y);
-   ];
+   ⊖;
 
 LocalSymbols(n,d,c)
-[
+⊕
   10 # FactorialDivideTermsAux(_x,_y) <--
-  [
+  ⊕
     x:=Flatten(x,"*");
     y:=Flatten(y,"*");
 
@@ -148,7 +148,7 @@ LocalSymbols(n,d,c)
     common:=1;
     For(i:=1,i<=?Length(x),i++)
     For(j:=1,j<=?Length(y),j++)
-    [
+    ⊕
       Local(n,d,c);
 //Echo("inp is ",x[i]," ",y[j]);
       {n,d,c} := CommonDivisors(x[i],y[j]);
@@ -157,23 +157,23 @@ LocalSymbols(n,d,c)
       x[i] := n;
       y[j] := d;
       common:=common*c;
-    ];
+    ⊖;
 //Echo("final ",{x,y,common});
 //Echo("finalor ",{Product(x),Product(y),common});
     {Product(x),Product(y),common};
-  ];
-];
+  ⊖;
+⊖;
 
-];
+⊖;
 
 60000 # FactorialSimplifyWorker(_x)
       <--
-      [
+      ⊕
   // first separate out factors of the denominator
   Local(numerCommon,numerTerms);
   {numerCommon,numerTerms}:=FactorialGroupCommonDivisors(x);
   numerCommon*numerTerms;
-      ];
+      ⊖;
 
 /* FactorialFlattenAddition accepts an expression of form a+b+c-d+e-f+ ... +z with arbitrary additions
    and subtractions, and converts it to a list of terms. Terms that need to be subtracted start with a
@@ -185,29 +185,29 @@ LocalSymbols(n,d,c)
 20 # FactorialFlattenAddition(_x   ) <--                           {x};
 
 LocalSymbols(n,d,c)
-[
+⊕
   10 # FactorialGroupCommonDivisors(_x) <--
-  [
+  ⊕
     Local(terms,common,tail);
     terms:=FactorialFlattenAddition(x);
 //Echo("terms is ",terms);
     common := First(terms);
     tail:=Rest(terms);
     While (tail !=? {})
-    [
+    ⊕
       Local(n,d,c);
       {n,d,c} := FactorialDivideTerms(common,First(tail));
 
 //Echo(common, " ",First(tail)," ",c);
       common := c;
       tail:=Rest(tail);
-    ];
+    ⊖;
     Local(i,j);
 
 //  Echo("common is ",common);
 
     For(j:=1,j<=?Length(terms),j++)
-    [
+    ⊕
       Local(n,d,c);
 //  Echo("IN = ",terms[j]," ",common);
 //  Echo("n = ",n);
@@ -215,9 +215,9 @@ LocalSymbols(n,d,c)
 //  Echo("n = ",n);
 //  Echo("{n,d,c} = ",{n,d,c});
       Check(d =? 1, "Math",
-        PipeToString()[
+        PipeToString()⊕
         Echo("FactorialGroupCommonDivisors failure 1 : ",d);
-        ]);
+        ⊖);
 /*
       Check(Simplify(c-common) = 0, "Math",
         PipeToString()
@@ -228,12 +228,12 @@ LocalSymbols(n,d,c)
         ]);
 */
       terms[j] := n;
-    ];
+    ⊖;
     terms:=Add(terms);
 
     common:=Flatten(common,"*");
     For(j:=1,j<=?Length(common),j++)
-    [
+    ⊕
       Local(f1,f2);
       {f1,f2}:=CommonFactors(common[j],terms);
       common[j]:=f1;
@@ -241,16 +241,16 @@ LocalSymbols(n,d,c)
 
       For(i:=1,i<=?Length(common),i++)
       If(i !=? j,
-        [
+        ⊕
           {f1,f2}:=CommonFactors(common[j],common[i]);
           common[j]:=f1;
           common[i]:=f2;
-        ]);
-    ];
+        ⊖);
+    ⊖;
     common := Product(common);
     {common,terms};
-  ];
-];
+  ⊖;
+⊖;
 
 
 

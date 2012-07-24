@@ -8,14 +8,14 @@ RulebaseHoldArguments("DefinePattern",{leftOperand, rightOperand, rulePrecedence
 
 
 RuleHoldArguments("DefinePattern",4,9,Equal?(Type(leftOperand),"_"))
-[
+⊕
     DefinePattern(leftOperand[1], rightOperand, rulePrecedence, leftOperand[2]);
-];
+⊖;
 
 
 
 RuleHoldArguments("DefinePattern",4,10,True)
-[
+⊕
       Local(patternFlat,patternVariables, pattern, patternOperator, arg, arity);
       
       Bind(patternFlat, FunctionToList(leftOperand)); //Turn the pattern into a list.
@@ -32,9 +32,9 @@ RuleHoldArguments("DefinePattern",4,10,True)
             If the function does not exist, create it.
       */
       If(Not?(RulebaseDefined(patternOperator,arity)),
-         [
+         ⊕
           RulebaseEvaluateArguments(patternOperator,MakeVector(arg,arity));
-         ]
+         ⊖
         );
     
       Bind(pattern,PatternCreate(patternVariables,postPredicate));
@@ -42,7 +42,7 @@ RuleHoldArguments("DefinePattern",4,10,True)
       RulePatternEvaluateArguments(patternOperator,arity,rulePrecedence, pattern)rightOperand;
     
       True;
-];
+⊖;
 
 %/mathpiper
 

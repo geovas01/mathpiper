@@ -9,7 +9,7 @@
 // When {n} is not, it is pretty slow due to Gamma()
 
 Function("BesselNsmall",{n,x,modified})
-[
+⊕
         Local(term,result,k);
         Local(prec,eps,tmp);
         prec:=BuiltinPrecisionGet();
@@ -19,7 +19,7 @@ Function("BesselNsmall",{n,x,modified})
         term:=1;
         k:=0;
         result:=0;
-        While( Abs(term) >=? eps )[
+        While( Abs(term) >=? eps )⊕
                 term:=x^(2*k+n);
                 // The only difference between BesselJ and BesselI
                 // is an alternating term
@@ -28,12 +28,12 @@ Function("BesselNsmall",{n,x,modified})
                 //Echo({"term is ",term});
                 result:=result+term;
                 k:=k+1;
-        ];
+        ⊖;
         BuiltinPrecisionSet(prec);
         // This should not round, only truncate
         // some outputs will be off by one in the last digit
         RoundTo(result,prec);
 
-];
+⊖;
 
 %/mathpiper

@@ -1,12 +1,12 @@
 %mathpiper,def="MapArgs"
 
 TemplateFunction("MapArgs",{expr,oper})
-[
+⊕
   Bind(expr,FunctionToList(expr));
    ListToFunction(Concat({expr[1]},
      Apply("MapSingle",{oper,Rest(expr)})
    ) );
-];
+⊖;
 UnFence("MapArgs",2);
 HoldArgument("MapArgs",oper);
 

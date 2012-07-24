@@ -1,10 +1,10 @@
 %mathpiper,def="ProperDivisors"
 
 10 # ProperDivisors(_n) <--
-[
+⊕
         Check(PositiveInteger?(n), "Argument", "ProperDivisors: argument must be positive integer");
         Divisors(n)-1;
-];
+⊖;
 
 %/mathpiper
 

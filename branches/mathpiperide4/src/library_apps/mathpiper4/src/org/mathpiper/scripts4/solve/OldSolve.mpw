@@ -7,16 +7,16 @@ SolveSystem(_eqns, _vars) <-- SolveSimpleBackSubstitution(eqns,vars);
 // Check(False, "Unimplemented", "SolveSystem: not implemented");
 
 10 # SolveSimpleBackSubstitutionFindAlternativeForms((_lx) == (_rx)) <--
-[
+⊕
   Local(newEq);
   newEq := (Simplify(lx) == Simplify(rx));
   If (newEq !=? (lx == rx) And? newEq !=? (0==0),DestructiveAppend(eq,newEq));
   newEq := (Simplify(lx - rx) == 0);
   If (newEq !=? (lx == rx) And? newEq !=? (0==0),DestructiveAppend(eq,newEq));
-];
+⊖;
 20 # SolveSimpleBackSubstitutionFindAlternativeForms(_equation) <--
-[
-];
+⊕
+⊖;
 UnFence("SolveSimpleBackSubstitutionFindAlternativeForms",1);
 
 /* Solving sets of equations using simple backsubstitution.
@@ -27,7 +27,7 @@ UnFence("SolveSimpleBackSubstitutionFindAlternativeForms",1);
  * set of solutions.
  */
 10 # SolveSimpleBackSubstitution(eq_List?,var_List?) <--
-[
+⊕
  If(InVerboseMode(), Echo({"Entering SolveSimpleBackSubstitution"}));
 
   Local(result,i,j,nrvar,nreq,sub,nrSet,origEq);
@@ -39,10 +39,10 @@ UnFence("SolveSimpleBackSubstitutionFindAlternativeForms",1);
 
 //Echo("Before: ",eq);
   ForEach(equation,origEq)
-  [
+  ⊕
 //Echo("equation ",equation);
     SolveSimpleBackSubstitutionFindAlternativeForms(equation);
-  ];
+  ⊖;
 //  eq:=Simplify(eq);
 //Echo("After: ",eq);
 
@@ -53,11 +53,11 @@ UnFence("SolveSimpleBackSubstitutionFindAlternativeForms",1);
 /* Echo({eq});  */
 
   For(j:=1,j<=?nreq And? nrSet <? nrvar,j++)
-  [
+  ⊕
     Local(vlist);
     vlist:=VarListAll(eq[j],`Lambda({pt},Contains?(@var,pt)));
     For(i:=1,i<=?nrvar And? nrSet <? nrvar,i++)
-    [
+    ⊕
 
 //Echo("eq[",j,"] = ",eq[j]);
 //Echo("var[",i,"] = ",var[i]);
@@ -65,7 +65,7 @@ UnFence("SolveSimpleBackSubstitutionFindAlternativeForms",1);
 //Echo();
 
       If(Count(vlist,var[i]) =? 1,
-         [
+         ⊕
            sub := FunctionToList(eq[j]);
            sub := sub[2]-sub[3];
 //Echo("using ",sub);
@@ -83,7 +83,7 @@ UnFence("SolveSimpleBackSubstitutionFindAlternativeForms",1);
            reset:=False;
            For(k:=1,k<=?nreq  And? nrSet <? nrvar,k++)
            If(Contains?(VarListAll(eq[k],`Lambda({pt},Contains?(@var,pt))),var[i]),
-           [
+           ⊕
              Local(original);
              original:=eq[k];
              eq[k]:=Subst(var[i],sub)eq[k];
@@ -95,15 +95,15 @@ UnFence("SolveSimpleBackSubstitutionFindAlternativeForms",1);
 //             eq[k]:=Simplify(eq[k]); //@@@??? TODO I found one example where simplifying twice gives a different result from simplifying once!
              If(original!=?(0==0) And? eq[k] =? (0 == 0),reset:=True);
              If(InVerboseMode(), Echo({"   ",original," simplifies to ",eq[k]}));
-           ]);
+           ⊖);
            nreq:=Length(eq);
            vlist:=VarListAll(eq[j],`Lambda({pt},Contains?(@var,pt)));
            i:=nrvar+1;
            // restart at the beginning of the variables.
            If(reset,j:=1);
-         ]);
-    ];
-  ];
+         ⊖);
+    ⊖;
+  ⊖;
 
 
 //Echo("Finished finding results ",var," = ",result);
@@ -114,7 +114,7 @@ UnFence("SolveSimpleBackSubstitutionFindAlternativeForms",1);
 //  zeroeq:=FillList(0==0,nreq);
 
   ForEach(item,result)
-  [
+  ⊕
 /*
     Local(eqSimplified);
     eqSimplified := eq;
@@ -132,14 +132,14 @@ UnFence("SolveSimpleBackSubstitutionFindAlternativeForms",1);
     ]);
 */
     DestructiveAppend(tested,Map("==",{var,item}));
-  ];
+  ⊖;
 
 
 
 /* Echo({"tested is ",tested});  */
  If(InVerboseMode(), Echo({"Leaving SolveSimpleBackSubstitution"}));
   tested;
-];
+⊖;
 
 
 

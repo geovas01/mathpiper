@@ -1,10 +1,10 @@
 %mathpiper,def="Conjugate"
 
 LocalSymbols(a,x)
-[
+⊕
 Function("Conjugate",{a})
   Substitute(a,{{x},Type(x)=?"Complex"},{{x},Complex(x[1],-(x[2]))});
-]; // LocalSymbols(a,x)
+⊖; // LocalSymbols(a,x)
 
 %/mathpiper
 

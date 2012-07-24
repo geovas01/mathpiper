@@ -1,7 +1,7 @@
 %mathpiper,def="VerifyNumeric"
 
 VerifyNumeric(expression1, expression2, optionsList) :=
-[
+⊕
     Local(variablesList1, variablesList2, numericValue1, numericValue2, numericDifference, optionsVariableNamesList, optionsValuesList, associativeList);
  
     variablesList1 := VarList(expression1);
@@ -9,13 +9,13 @@ VerifyNumeric(expression1, expression2, optionsList) :=
     variablesList2 := VarList(expression2);
     
     if(Length(variablesList1) =? 0 And? Length(variablesList2) =? 0)
-    [
+    ⊕
         numericValue1 := N(expression1);
         
         numericValue2 := N(expression2);
-    ]
+    ⊖
     else
-    [
+    ⊕
         optionsList := HeapSort(optionsList, Lambda({x,y},LessThan?(x[1],y[1])));
         
         associativeList := OptionsToAssociativeList(optionsList);
@@ -37,7 +37,7 @@ VerifyNumeric(expression1, expression2, optionsList) :=
         Echo(Map("->",{variablesList1, optionsValuesList}));
         
         NewLine();
-    ];
+    ⊖;
     
     Echo(expression1, "-> ", numericValue1);
     
@@ -52,15 +52,15 @@ VerifyNumeric(expression1, expression2, optionsList) :=
     Echo("Difference between the numeric values: ", numericDifference);
     
     numericDifference;
-];
+⊖;
 
 
 
 
 VerifyNumeric(expression1, expression2) :=
-[
+⊕
     VerifyNumeric(expression1, expression2, {});
-];
+⊖;
 
 %/mathpiper
 

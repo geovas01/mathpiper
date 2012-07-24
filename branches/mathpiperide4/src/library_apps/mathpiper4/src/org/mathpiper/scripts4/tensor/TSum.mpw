@@ -13,18 +13,18 @@ RulebaseHoldArguments("TSum",{indices,body});
    be invoked when using TExplicitSum. */
 20 # (TSum(_indices)(_body))_(Integer?(Ndim)) <--
     LocalSymbols(index,i,sum)
-    [
+    ⊕
       Local(index,i,sum);
       index:=indices[1];
       sum:=0;
       MacroLocal(index);
       For(i:=1,i<=?Ndim,i++)
-      [
+      ⊕
         MacroBind(index,i);
         sum:=sum+Eval(TSum(Rest(indices))body);
-      ];
+      ⊖;
       sum;
-    ];
+    ⊖;
 
 UnFence("TSum",2);
 

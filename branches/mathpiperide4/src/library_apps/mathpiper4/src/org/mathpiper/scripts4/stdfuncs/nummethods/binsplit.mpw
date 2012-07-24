@@ -34,9 +34,9 @@ BinSplitCombine({_P1, _Q1, _B1, _T1}, {_P2, _Q2, _B2, _T2}) <-- {P1*P2, Q1*Q2, B
 
 // main recursion step
 20 # BinSplitData(_m, _n, _a, _b, _p, _q) <--
-[
+⊕
         BinSplitCombine(BinSplitData(m,(m+n)>>1, a,b,p,q), BinSplitData(1+((m+n)>>1),n, a,b,p,q));
-];
+⊖;
 
 
 %/mathpiper

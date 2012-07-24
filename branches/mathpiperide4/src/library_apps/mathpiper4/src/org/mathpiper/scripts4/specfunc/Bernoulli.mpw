@@ -15,25 +15,25 @@
 20 # Bernoulli(n_Even?)_(n<=?Bernoulli1Threshold()) <-- InternalBernoulliArray(n)[n+1];
 20 # Bernoulli(n_Even?)_(n>?Bernoulli1Threshold()) <-- Bernoulli1(n);
 
-LocalSymbols(bernoulli1Threshold) [
+LocalSymbols(bernoulli1Threshold) ⊕
   /// Bernoulli1Threshold could in principle be set by the user
   If(Not? Bound?(bernoulli1Threshold), bernoulli1Threshold := 20);
 
   Bernoulli1Threshold() := bernoulli1Threshold;
-  SetBernoulli1Threshold(threshold) := [ bernoulli1Threshold := threshold;];
+  SetBernoulli1Threshold(threshold) := ⊕ bernoulli1Threshold := threshold;⊖;
 
-] ; // LocalSymbols(bernoulli1Threshold)
+⊖ ; // LocalSymbols(bernoulli1Threshold)
 
 /// Bernoulli polynomials of degree n in variable x
-Bernoulli(n_Integer?, _x) <-- [
+Bernoulli(n_Integer?, _x) <-- ⊕
         Local(B, i, result);
         B := InternalBernoulliArray(n);
         result := B[1];
-        For(i:=n-1, i>=?0, i--) [
+        For(i:=n-1, i>=?0, i--) ⊕
                 result := result * x + B[n-i+1]*BinomialCoefficient(n,i);
-        ];
+        ⊖;
         result;
-];
+⊖;
 
 %/mathpiper
 

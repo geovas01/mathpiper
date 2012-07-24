@@ -3,51 +3,51 @@
 //Retract("Intersection",*);
 
 10 # Intersection( LoL_List? )_(AllSatisfy?("List?",LoL)) <--
-[
+⊕
   //If(InVerboseMode(),Tell("Intersection_listOfLists",LoL));
   Local(nLists,L0,L1,ii,result,LI);
   nLists := Length(LoL);
   //Tell("  ",nLists);
   If( nLists =? 1,
-    [
+    ⊕
         result := LoL[1];
-    ],
-    [
+    ⊖,
+    ⊕
       L0 := FlatCopy(LoL[1]);
       For( ii:=2,ii<=?nLists,ii++)
-      [
+      ⊕
           L1 := FlatCopy(LoL[ii]);
           //If(InVerboseMode(),Tell("    ",{ii,L0,L1}));
           LI := Intersection(L0,L1);
           //If(InVerboseMode(),Tell("  -->",LI));
           L0 := FlatCopy(LI);
-      ];
+      ⊖;
       //If(InVerboseMode(),Tell("  result ",L0));
       result := L0;
-    ]
+    ⊖
   );
   result;
-];
+⊖;
   
 
 11 # Intersection(list1_List?,list2_List?) <--
-[
+⊕
     //If(InVerboseMode(),Tell("Intersection_pairOfLists",{list1,list2}));
     Local(l2,index,result);
     l2:=FlatCopy(list2);
     result:={};
     ForEach(item,list1)
-    [
+    ⊕
         Bind(index, Find(l2,item));
         If(index>?0,
-          [
+          ⊕
              DestructiveDelete(l2,index);
              DestructiveInsert(result,1,item);
-          ]
+          ⊖
         );
-    ];
+    ⊖;
     DestructiveReverse(result);
-];
+⊖;
 
 
 %/mathpiper

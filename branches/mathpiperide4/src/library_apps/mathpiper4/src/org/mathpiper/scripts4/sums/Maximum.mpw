@@ -34,12 +34,12 @@ Function() Maximum(l1, l2, l3, ...);
 
 
 20 # Maximum(list_List?) <--
-[
+⊕
   Local(result);
   result:= list[1];
   ForEach(item,Rest(list)) result:=Maximum(result,item);
   result;
-];
+⊖;
 
 
 30 # Maximum(_x) <-- x;

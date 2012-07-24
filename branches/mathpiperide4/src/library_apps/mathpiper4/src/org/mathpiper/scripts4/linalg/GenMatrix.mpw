@@ -1,7 +1,7 @@
 %mathpiper,def="GenMatrix"
 
 Function("GenMatrix",{func,m,n})
-[
+⊕
   Local(i,j,result);
   result:=ZeroMatrix(m,n);
 
@@ -10,7 +10,7 @@ Function("GenMatrix",{func,m,n})
           result[i][j]:=ApplyFast(func,{i,j});
 
   result;
-];
+⊖;
 HoldArgument("GenMatrix",func);
 UnFence("GenMatrix",3);
 

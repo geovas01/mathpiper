@@ -1,12 +1,12 @@
 %mathpiper,def="CompilePatterns;LocProcess;LocProcessSingle;LocPredicate;LocChange"
 
-LocalSymbols(localResult) [
+LocalSymbols(localResult) ⊕
 
   localResult := True;
   
   
   10 # LocPredicate(exp_Atom?) <--
-  [
+  ⊕
     Local(tr, result);
     
     tr := patterns;
@@ -14,9 +14,9 @@ LocalSymbols(localResult) [
     result := False;
     
     While (tr !=? {})
-    [
+    ⊕
       If (First(First(tr)) =? exp,
-      [
+      ⊕
         If(InVerboseMode() =? True,  Echo(Last(First(tr))));
         
         Bind(localResult,Eval(First(Rest(First(tr)))));
@@ -24,19 +24,19 @@ LocalSymbols(localResult) [
         result := True;
         
         tr:={};
-      ],
-      [
+      ⊖,
+      ⊕
         tr := Rest(tr);
-      ]);
-    ];
+      ⊖);
+    ⊖;
     
     result;
-  ];
+  ⊖;
   
   
 
   10 # LocPredicate(exp_Function?) <--
-  [
+  ⊕
     Local(tr, result, head);
     
     tr := patterns;
@@ -44,11 +44,11 @@ LocalSymbols(localResult) [
     result := False;
     
     While (tr !=? {})
-    [
+    ⊕
       Bind(head, First(First(tr)));
       
       If (Not?(Atom?(head)) And? exp[0] =? head[1] And? PatternMatches(head[2], exp),
-      [
+      ⊕
         If(InVerboseMode() =? True, Echo(Last(First(tr))));
         
         Bind(localResult, Eval(First(Rest(First(tr)))));
@@ -56,14 +56,14 @@ LocalSymbols(localResult) [
         Bind(result, True);
         
         Bind(tr, {});
-      ],
-      [
+      ⊖,
+      ⊕
         Bind(tr, Rest(tr));
-      ]);
-    ];
+      ⊖);
+    ⊖;
     
     result;
-  ];
+  ⊖;
   
   
   
@@ -74,7 +74,7 @@ LocalSymbols(localResult) [
   LocChange(_exp) <-- localResult;
   
   
-]; // LocalSymbols(localResult)
+⊖; // LocalSymbols(localResult)
 
 UnFence("LocPredicate",1);
 
@@ -99,50 +99,50 @@ UnFence("LocChange",1);
     I suspect that the other rules for this Rulebase have problems too. 
 */
 40 # LocProcessSingle(pat_Function? <- _exp) <-- 
-[
+⊕
     Local(justPattern, postPredicate, ruleName);
     
     justPattern := pat;
     
     If(Type(justPattern) =? "_",
-        [
+        ⊕
             //A post predicate was submitted.
 	        justPattern := pat[1];
 	        postPredicate := pat[2];
-        ],
-        [
+        ⊖,
+        ⊕
             //No post predicate was submitted.
             postPredicate := True;
-        ]
+        ⊖
     );
             
             
             
     If(Type(justPattern) =? "#",
-        [
+        ⊕
            //A name has been given to the rule.
            ruleName := pat[1];
            justPattern := pat[2];
            
            If(Function?(justPattern),
-             [
+             ⊕
                { {justPattern[0], PatternCreate(justPattern, postPredicate)}, exp , ruleName};
-             ],
-             [
+             ⊖,
+             ⊕
                //Atom.
                { justPattern, exp, ruleName };
-             ]
+             ⊖
            
            );
-        ],
-        [
+        ⊖,
+        ⊕
            ruleName := "UNNAMED";
            justPattern := pat;
            { {justPattern[0], PatternCreate(justPattern, postPredicate)}, exp , ruleName};
-        ]
+        ⊖
     );
             
-];
+⊖;
 
 
 
@@ -155,9 +155,9 @@ UnFence("LocChange",1);
  Convert
 */
 LocProcess(patterns) :=
-[
+⊕
   MapSingle("LocProcessSingle", patterns);
-];
+⊖;
 
 
 

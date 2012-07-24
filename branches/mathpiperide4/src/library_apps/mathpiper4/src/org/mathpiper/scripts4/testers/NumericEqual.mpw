@@ -3,7 +3,7 @@
 //Retract("NumericEqual",*);
 
 10 # NumericEqual(left_Decimal?, right_Decimal?, precision_PositiveInteger?) <--
-[
+⊕
     If(InVerboseMode(),Tell("NumericEqual",{left,right}));
     Local(repL,repR,precL,precR,newL,newR,plo,phi,replo,rephi);
     Local(newhi,newrepL,newlo,newrepR,ans);
@@ -21,21 +21,21 @@
     ans      := Verify( newrepL[1] - newrepR[1], 0 );
     If(InVerboseMode(),Tell("        ",ans));
     ans;
-];
+⊖;
 
 
 15 # NumericEqual(left_Integer?, right_Integer?, precision_PositiveInteger?) <--
-[
+⊕
     If(InVerboseMode(),Tell("NumericEqualInt",{left,right}));
     left =? right;
-];
+⊖;
 
 
 20 # NumericEqual(left_Number?, right_Number?, precision_PositiveInteger?) <--
-[
+⊕
     If(InVerboseMode(),Tell("NumericEqualNum",{left,right}));
     Local(nI,nD,repI,repD,precI,precD,intAsDec,newDec,newrepI,newrepD,ans);
-    If( Integer?(left), [nI:=left; nD:=right;], [nI:=right; nD:=left;]);
+    If( Integer?(left), ⊕nI:=left; nD:=right;⊖, ⊕nI:=right; nD:=left;⊖);
     // the integer can be converted to the equivalent decimal at any precision
     repI  := NumberToRep(nI);
     repD  := NumberToRep(nD);
@@ -46,22 +46,22 @@
     newrepI  := NumberToRep( intAsDec );
     newrepD  := NumberToRep( newDec   );
     If(InVerboseMode(),
-      [
+      ⊕
           Tell("        ",{nI,nD});
           Tell("    ",{repI,repD});
           Tell("  ",{precI,precD});
           Tell("       ",{intAsDec,newDec});
           Tell("       ",{newrepI,newrepD});
-       ]
+       ⊖
     );
     ans      := Verify( newrepI[1] - newrepD[1], 0 );
     If(InVerboseMode(),Tell("        ",ans));
     ans;
-];
+⊖;
 
 
 25 # NumericEqual(left_Complex?, right_Complex?, precision_PositiveInteger?) <--
-[
+⊕
     If(InVerboseMode(),Tell("NumericEqualC",{left,right}));
     Local(rrL,iiL,rrR,iiR,ans);
     rrL := Re(left);
@@ -69,14 +69,14 @@
     rrR := Re(right);
     iiR := Im(right);
     If(InVerboseMode(),
-      [
+      ⊕
          Tell("  ",{left,right});
          Tell("  ",{rrL,rrR});
          Tell("  ",{iiL,iiR});
-      ]
+      ⊖
     );
     ans := (NumericEqual(rrL,rrR,precision) And? NumericEqual(iiL,iiR,precision));
-];
+⊖;
 
 %/mathpiper
 

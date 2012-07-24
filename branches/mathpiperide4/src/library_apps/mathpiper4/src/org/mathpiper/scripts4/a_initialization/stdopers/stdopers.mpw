@@ -4,7 +4,7 @@
 
 RulebaseHoldArguments(StandardOperatorsLoad,{});
 RuleHoldArguments(StandardOperatorsLoad, 0, 1, True)
-[
+⊕
     /* stdopers is loaded immediately after MathPiper is started. It contains
      * the definitions of the infix operators, so the parser can already
      * parse expressions containing these operators, even though the
@@ -130,7 +130,7 @@ RuleHoldArguments(StandardOperatorsLoad, 0, 1, True)
 
     Infix(":*:",3);
 
-];
+⊖;
 
 
 %/mathpiper

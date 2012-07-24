@@ -12,7 +12,7 @@
 10 # NearRational(_x) <-- NearRational(x, Floor(1/2*BuiltinPrecisionGet()));
 
 15 # NearRational(x_RationalOrNumber?, prec_Integer?) <-- 
-[
+⊕
         Local(x1, x2, i,  oldprec);
         oldprec := BuiltinPrecisionGet();
     BuiltinPrecisionSet(prec + 8);        // 8 guard digits (?)
@@ -54,17 +54,17 @@
         x1[i] := x1[i] + If(i=?Length(x1), 0, 1);
         BuiltinPrecisionSet(oldprec);
         ContFracEval(Take(x1, i));
-];
+⊖;
 
 
 20 # NearRational(_z, prec_Integer?)_
       (And?(Im(z)!=?0,RationalOrNumber?(Im(z)),RationalOrNumber?(Re(z)))) <--
-[
+⊕
     Local(rr,ii);
     rr := Re(z);
     ii := Im(z);
     Complex( NearRational(rr,prec), NearRational(ii,prec) );
-];
+⊖;
 
 %/mathpiper
 

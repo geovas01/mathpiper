@@ -6,7 +6,7 @@
 
 10 # Ceil(x_RationalOrNumber?)
    <--
-   [
+   ⊕
      x:=N(x);
      Local(prec,result,n);
      Bind(prec,BuiltinPrecisionGet());
@@ -19,7 +19,7 @@
      Bind(result,CeilN(x));
      BuiltinPrecisionSet(prec);
      result;
-   ];
+   ⊖;
 //   CeilN (N(x));
 
 %/mathpiper

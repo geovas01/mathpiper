@@ -1,7 +1,7 @@
 %mathpiper,def="UniGcd"
 
 Function("UniGcd",{u,v})
-[
+⊕
   Local(l,div,mod,m);
 
   DropEndZeroes(u);
@@ -38,6 +38,6 @@ Function("UniGcd",{u,v})
      v,
 /*     v/v[Length(v)], */
      UniGcd(v,mod));
-];
+⊖;
 
 %/mathpiper

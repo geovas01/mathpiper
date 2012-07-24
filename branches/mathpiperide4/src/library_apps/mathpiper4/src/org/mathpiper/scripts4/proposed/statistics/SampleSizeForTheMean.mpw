@@ -3,13 +3,13 @@
 //Retract("SampleSizeForTheMean",*);
 
 SampleSizeForTheMean(standardDeviation,confidenceLevel,marginOfError) :=
-[
+⊕
     Local(minimumSampleSize);
     
     zScore := ConfidenceLevelToZScore(confidenceLevel);
     
     minimumSampleSize := N(((zScore*standardDeviation)/marginOfError)^2);
-];
+⊖;
 
 
 %/mathpiper

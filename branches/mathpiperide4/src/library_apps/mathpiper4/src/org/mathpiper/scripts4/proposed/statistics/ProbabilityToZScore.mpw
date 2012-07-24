@@ -23,7 +23,7 @@ relying on the monotonicity of pochisq(). */
 //Retract("ProbabilityToZScore",*);
 
 ProbabilityToZScore(probability) :=
-[
+⊕
     Local(ZMAX,ZEPSILON,minimumZ,maximumZ,zValue,probabilityValue);
     
     probability := N(probability);
@@ -41,23 +41,23 @@ ProbabilityToZScore(probability) :=
     zValue := 0.0;
 
     While ((maximumZ - minimumZ) >? ZEPSILON) 
-    [
+    ⊕
         probabilityValue := ZScoreToProbability(zValue);
         
         if (probabilityValue >? probability) 
-        [
+        ⊕
             maximumZ := zValue;
-        ] 
+        ⊖ 
         else 
-        [
+        ⊕
             minimumZ := zValue;
-        ];
+        ⊖;
         
         zValue := (maximumZ + minimumZ) * 0.5;
-    ];
+    ⊖;
     
     zValue;
-];
+⊖;
 
 
 %/mathpiper

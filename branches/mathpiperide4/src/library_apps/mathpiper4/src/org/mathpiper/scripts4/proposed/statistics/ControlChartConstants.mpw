@@ -1,7 +1,7 @@
 %mathpiper,def="ControlChartConstants"
 
 ControlChartConstants(n) :=
-[   
+⊕   
     Check(n >=? 2 And? n <=? 15, "Argument", "The argument n must be 2 <=? n <=? 20.");
     
     Local(result, table);
@@ -41,7 +41,7 @@ ControlChartConstants(n) :=
     result["A2"] := table[n][1];
     
     result;
-];
+⊖;
 
 
 %/mathpiper

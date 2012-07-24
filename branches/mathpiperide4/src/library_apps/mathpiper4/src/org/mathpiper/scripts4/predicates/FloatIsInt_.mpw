@@ -4,7 +4,7 @@
 /// zeroes after the decimal point
 // but in fact this should be a call to BigNumber::IsIntValue()
 FloatIsInt?(_x) <--
-   [
+   ⊕
      x:=N(Eval(x));
      Local(prec,result,n);
      Bind(prec,BuiltinPrecisionGet());
@@ -17,7 +17,7 @@ FloatIsInt?(_x) <--
      Bind(result,Zero?(RoundTo(x-Floor(x),prec)) Or? Zero?(RoundTo(x-Ceil(x),prec)));
      BuiltinPrecisionSet(prec);
      result;
-   ];
+   ⊖;
 //  
 
 %/mathpiper

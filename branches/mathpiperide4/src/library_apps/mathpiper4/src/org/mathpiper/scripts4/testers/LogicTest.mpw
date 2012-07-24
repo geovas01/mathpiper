@@ -2,20 +2,20 @@
 
 /* LogicTest compares the truth tables of two expressions. */
 LocalSymbols(TrueFalse)
-[
+⊕
   RulebaseEvaluateArguments(TrueFalse,{var,expr});
   10 # TrueFalse(var_Atom?,_expr) <-- `{(@expr) Where (@var)==False,(@expr) Where (@var)==True};
   20 # TrueFalse({},_expr) <-- `(@expr);
   30 # TrueFalse(var_List?,_expr) <--
-  `[
+  ` ⊕ 
     Local(t,h);
     Bind(h,First(@var));
     Bind(t,Rest(@var));
     TrueFalse(h,TrueFalse(t,@expr));
-  ];
+  ⊖;
 
   Macro(LogicTest,{vars,expr1,expr2}) Verify(TrueFalse((@vars),(@expr1)), TrueFalse((@vars),(@expr2)));
-];
+⊖;
 
 %/mathpiper
 

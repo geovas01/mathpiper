@@ -3,7 +3,7 @@
 // perform unit subsumption and resolutiuon for a unit clause # i
 // a boolean indicated whether there was a change is returned
 DoUnitSubsumptionAndResolution(_list) <--
-[
+⊕
     Local(i, j, k, isFalse, isTrue, changed);
     Bind(isFalse, False);
     Bind(isTrue,  False);
@@ -11,53 +11,53 @@ DoUnitSubsumptionAndResolution(_list) <--
 
     //Echo({"In DoUnitSubsumptionAndResolution", Nl()});
 
-    While(changed) [
+    While(changed) ⊕
       Bind(changed, False);
 
       For(i:=1, (Not? isFalse And? Not? isTrue) And? i <=? Length(list), i++)
-      [
-        If(Length(list[i]) =? 1, [
+      ⊕
+        If(Length(list[i]) =? 1, ⊕
           Local(x); Bind(x, list[i][1]); //n := SimpleNegate(x);
           //Echo({"Unit clause ", x, Nl()});
 
           // found a unit clause, {x}, not use it to modify other clauses
           For(j:=1, (Not? isFalse And? Not? isTrue) And? j <=? Length(list), j++)
-          [
-              If(i !=?j, [
+          ⊕
+              If(i !=?j, ⊕
                 Local(deletedClause); Bind(deletedClause, False);
                 For(k:=1, (Not? isFalse And? Not? isTrue And? Not? deletedClause) And? k <=? Length(list[j]),  k++)
-                [
+                ⊕
                     // In both of these, if a clause becomes empty, the whole thing is False
 
                     //Echo({"   ", x, " subsumes ", list[j][k], i,j, Subsumes(x, list[j][k]), Nl()});
 
                     // unit subsumption -- this kills clause j
-                    If(Subsumes(x, list[j][k]), [
+                    If(Subsumes(x, list[j][k]), ⊕
                         // delete this clause
                         DestructiveDelete(list, j);
                         j--;
                         If(i>?j, i--);   // i also needs to be decremented
                         Bind(deletedClause, True);
                         Bind(changed, True);
-                        If(Length(list) =? 0, [Bind(isTrue, True);]);
-                    ],
+                        If(Length(list) =? 0, ⊕Bind(isTrue, True);⊖);
+                    ⊖,
                       // else, try unit resolution
-                    If(Contradict(x, list[j][k]), [
+                    If(Contradict(x, list[j][k]), ⊕
                         //Echo({x, " contradicts", list[j][k], Nl()});
                         DestructiveDelete(list[j], k);
                         k--;
                         Bind(changed, True);
-                        If(Length(list[j]) =? 0, [Bind(isFalse, True);]);
-                    ])
+                        If(Length(list[j]) =? 0, ⊕Bind(isFalse, True);⊖);
+                    ⊖)
                     );
-                ];
-              ]);
-          ];
-        ]);
-      ];
-    ];
+                ⊖;
+              ⊖);
+          ⊖;
+        ⊖);
+      ⊖;
+    ⊖;
 
     list;
-];
+⊖;
 
 %/mathpiper

@@ -19,7 +19,7 @@
  */
 
 ExtendedEuclidean(_f,_g) <--
-[
+⊕
    Local(r,s,t,i);
 
    /* Initialize the loop */
@@ -31,7 +31,7 @@ ExtendedEuclidean(_f,_g) <--
    Local(q,newr,news,newt);
    newr:=1;
    While(newr !=? 0)
-   [
+   ⊕
      newr:=Rem(r[i],r[i+1]);
      q   :=Quotient(r[i],r[i+1]);
      news  :=(s[i]-q*s[i+1]);
@@ -40,8 +40,8 @@ ExtendedEuclidean(_f,_g) <--
      DestructiveAppend(s,news);
      DestructiveAppend(t,newt);
      i++;
-   ];
+   ⊖;
    {r[i],s[i],t[i]};
-];
+⊖;
 
 %/mathpiper

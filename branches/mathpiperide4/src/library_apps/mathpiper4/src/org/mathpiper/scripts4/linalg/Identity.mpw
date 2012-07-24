@@ -1,15 +1,15 @@
 %mathpiper,def="Identity"
 
 Identity(n_NonNegativeInteger?) <--
-[
+⊕
     Local(i,result);
     result:={};
     For(i:=1,i<=?n,i++)
-    [
+    ⊕
       DestructiveAppend(result,BaseVector(i,n));
-    ];
+    ⊖;
     result;
-];
+⊖;
 
 %/mathpiper
 

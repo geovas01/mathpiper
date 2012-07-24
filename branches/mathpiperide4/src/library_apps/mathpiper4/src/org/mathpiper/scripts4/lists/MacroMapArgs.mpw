@@ -2,7 +2,7 @@
 
 /* Another Macro... hack for /: to work. */
 Macro("MacroMapArgs",{expr,oper})
-[
+⊕
   Local(ex,tl,op);
   Bind(op,@oper);
   Bind(ex,FunctionToList(@expr));
@@ -11,7 +11,7 @@ Macro("MacroMapArgs",{expr,oper})
    ListToFunction(Concat({ex[1]},
      `MacroMapSingle(@op,Hold(@tl)))
    );
-];
+⊖;
 
 UnFence("MacroMapArgs",2);
 HoldArgument("MacroMapArgs",oper);

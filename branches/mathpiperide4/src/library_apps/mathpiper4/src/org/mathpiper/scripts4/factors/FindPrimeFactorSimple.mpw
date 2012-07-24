@@ -4,19 +4,19 @@
 
 /* simpler method but slower on worstcase such as p^n or n! */
 FindPrimeFactorSimple(n, prime) :=
-[
+⊕
         Local(power, factor);
         power := 0;
         factor := prime;
         While(Modulo(n, factor)=?0)
-        [
+        ⊕
                 factor := factor*prime;
                 power++;
-        ];
+        ⊖;
         {n/(factor/prime), power};
-];
+⊖;
 
-%/mathpipe
+%/mathpiper
 
 
 

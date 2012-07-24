@@ -10,7 +10,7 @@ RuleHoldArguments("YacasPSolve",1,1,UniVar?(uni) And? Degree(uni) =? 1)
 
 
 RuleHoldArguments("YacasPSolve",1,1,UniVar?(uni) And? Degree(uni) =? 2)
-    [
+    ⊕
      Local(a,b,c,d,q,r);
      c:=Coef(uni,0);
      b:=Coef(uni,1);
@@ -22,13 +22,13 @@ RuleHoldArguments("YacasPSolve",1,1,UniVar?(uni) And? Degree(uni) =? 2)
      //     q := Complex(RadSimp(Re(q)), RadSimp(Im(q))),
      //     q := RadSimp(q));
      r:=-b/(2*a);
-     If(InVerboseMode(),[ Tell("   ",{c,b,a,d}); Tell("   ",{q,r}); ]);
+     If(InVerboseMode(),⊕ Tell("   ",{c,b,a,d}); Tell("   ",{q,r}); ⊖);
      {r+q,r-q};
-    ];
+    ⊖;
 
 
 RuleHoldArguments("YacasPSolve",1,1,UniVar?(uni) And? Degree(uni) =? 3 )
-    [
+    ⊕
      Local(p,q,r,w,ww,a,b);
      Local(coef0,coef1,coef3,adjust);
 
@@ -79,7 +79,7 @@ RuleHoldArguments("YacasPSolve",1,1,UniVar?(uni) And? Degree(uni) =? 3 )
   b:=(-r/2 - Sqrt(q^3/27+ r*r/4))^(1/3);
 
   {a+b+adjust,w*a+ww*b+adjust,ww*a+w*b+adjust};
-];
+⊖;
 
 /*
 How to solve the quartic equation?
@@ -115,7 +115,7 @@ factor plus the two roots of the second quadratic factor.
 */
 
 RuleHoldArguments("YacasPSolve",1,1,UniVar?(uni) And? Degree(uni) =? 4 )
-[
+⊕
     Local(coef4,a1,a2,a3,a4,y,y1,z,t,s);
 
     coef4:=Coef(uni,4);
@@ -130,14 +130,14 @@ RuleHoldArguments("YacasPSolve",1,1,UniVar?(uni) And? Degree(uni) =? 4 )
     If(t=?0, s:=Sqrt(y1+a1^2/4-a2), s:=(a1*y1-2*a3)/(4*t));
     Concat(YacasPSolve(z^2+(a1/2+s)*z+y1/2+t,z),
            YacasPSolve(z^2+(a1/2-s)*z+y1/2-t,z));
-];
+⊖;
 
-Function("YacasPSolve",{uni,var}) [
+Function("YacasPSolve",{uni,var}) ⊕
      Local(u, factors, f, r, s);
 
      u := MakeUni(uni, var);
 
-     If(Type(u) =? "UniVariate" And? (And? @ (Lambda({x}, Number?(x) Or? Rational?(x)) /@ u[3])), [
+     If(Type(u) =? "UniVariate" And? (And? @ (Lambda({x}, Number?(x) Or? Rational?(x)) /@ u[3])), ⊕
          Local(coeffs);
          coeffs := Rationalize(u[3]);
          coeffs := If(Length(coeffs) >? 1, 
@@ -147,18 +147,18 @@ Function("YacasPSolve",{uni,var}) [
          factors := If(Degree(u)>?0, 
                         Factors(NormalForm(u)), 
                         {NormalForm(u), 1});
-     ], [
+     ⊖, ⊕
          factors := {{uni, 1}};
-     ]);
+     ⊖);
 
      r := {};
-     ForEach(f, factors) [
+     ForEach(f, factors) ⊕
          s := YacasPSolve(MakeUni(f[1],var));
          r := Union(r, If(List?(s), s, {s}));
-     ];
+     ⊖;
 
      If(Length(r) =? 1, r[1], r);
-];
+⊖;
 
 %/mathpiper
 

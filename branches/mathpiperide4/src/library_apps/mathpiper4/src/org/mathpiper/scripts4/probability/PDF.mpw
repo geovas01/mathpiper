@@ -32,11 +32,11 @@
 10 # PDF(ContinuousUniformDistribution(_a,_b),x)_(a<?b) <-- If(x<?a Or? x>?b,0,1/(b-a));
 
 10 # PDF(DiscreteDistribution( dom_List?, prob_List?), _x)_( Length(dom)=?Length(prob) And? Simplify(Add(prob))=?1) <--
-    [
+    ⊕
       Local(i);
       i:=Find(dom,x);
       If(i =? -1,0,prob[i]);
-    ];
+    ⊖;
 10 # PDF( ChiSquareDistribution( _m),x_RationalOrNumber?)_(x<=?0) <-- 0;
 20 # PDF( ChiSquareDistribution( _m),_x) <-- x^(m/2-1)*Exp(-x/2)/2^(m/2)/Gamma(m/2);
 

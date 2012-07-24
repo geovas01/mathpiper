@@ -1,6 +1,6 @@
 %mathpiper,def="Tell"
-Macro("Tell",{id})    [Echo(<<,@id,>>);];
-Macro("Tell",{id,x})  [Echo(<<,@id,>>,Hold(@x),": ",Eval(@x));];
+Macro("Tell",{id})    ⊕Echo(<<,@id,>>);⊖;
+Macro("Tell",{id,x})  ⊕Echo(<<,@id,>>,Hold(@x),": ",Eval(@x));⊖;
 %/mathpiper
 
     %output,preserve="false"

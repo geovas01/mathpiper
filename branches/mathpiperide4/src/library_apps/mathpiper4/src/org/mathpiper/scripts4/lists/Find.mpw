@@ -1,18 +1,18 @@
 %mathpiper,def="Find"
 
 10 # Find( list_List?, _element ) <--
-  [
+  ⊕
      Local(result,count);
      result := -1;
      count  := 1;
      While( And?( result <? 0, Not? ( Equal? (list, {}) )))
-     [
+     ⊕
        If(Equal?(First(list), element), result := count );
        list := Rest(list);
        count++;
-     ];
+     ⊖;
      result;
-  ];
+  ⊖;
 
 %/mathpiper
 
