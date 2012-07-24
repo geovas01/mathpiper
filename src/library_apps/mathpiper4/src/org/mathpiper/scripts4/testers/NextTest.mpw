@@ -1,11 +1,9 @@
 %mathpiper,def="NextTest"
 
-Function("NextTest",{aLeft})
+Function("NextTest",[aLeft])
 ⊕
 // curline++;
-WriteString("
-Test suite for "~aLeft~" : "
-           );
+  WriteString("Test suite for "~aLeft~" : ");
   NewLine();
 ⊖;
 
