@@ -237,7 +237,7 @@ public class MathPiperPrinter extends LispPrinter {
 
                     visitedLists.add(atomCons);*/
 
-                    WriteToken(aOutput, "{");
+                    WriteToken(aOutput, "[");
 
                     while (consTraverser != null) {
                         Print(aEnvironment, aStackTop, consTraverser, aOutput, KMaxPrecedence);
@@ -247,14 +247,14 @@ public class MathPiperPrinter extends LispPrinter {
                         }
                     }//end while.
 
-                    WriteToken(aOutput, "}");
+                    WriteToken(aOutput, "]");
 
                     // }//end else.
                 } else if (functionOrOperatorName.equals(iCurrentEnvironment.iProgAtom)) // Program block brackets.
                 {
                     aOutput.write("\n" + spaces.toString());
 
-                    WriteToken(aOutput, "[");
+                    WriteToken(aOutput, "{");
                     aOutput.write("\n");
                     spaces.append("    ");
 
@@ -268,7 +268,7 @@ public class MathPiperPrinter extends LispPrinter {
 
                     spaces.delete(0, 4);
                     aOutput.write(spaces.toString());
-                    WriteToken(aOutput, "]");
+                    WriteToken(aOutput, "}");
                     //aOutput.write("\n");
 
                 } else if (functionOrOperatorName.equals(iCurrentEnvironment.iNthAtom)) {
