@@ -1,13 +1,13 @@
 %mathpiper,def="VerifyDiv"
 
 VerifyDiv(_u,_v) <--
-⊕
+{
   Local(q,r);
   q:=Quotient(u,v);
   r:=Rem(u,v);
 
   Verify(Expand(u),Expand(q*v+r));
-⊖;
+};
 
 %/mathpiper
 

@@ -1,21 +1,21 @@
 %mathpiper,def="Horner"
 
 Horner(_e,_v) <--
-⊕
+{
   Local(uni,coefs,result);
   uni := MakeUni(e,v);
   coefs:=DestructiveReverse(uni[3]);
   result:=0;
 
   While(coefs !=? [])
-  ⊕
+  {
     result := result*v;
     result := result+First(coefs);
     coefs  := Rest(coefs);
-  ⊖;
+  };
   result:=result*v^uni[2];
   result;
-⊖;
+};
 
 %/mathpiper
 

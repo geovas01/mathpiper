@@ -40,13 +40,13 @@
 220 # (xlist_List? + ylist_List?)_(Length(xlist)=?Length(ylist)) <-- Map("+",[xlist,ylist]);
 
 SumListSide(_x, y_List?) <--
-⊕
+{
    Local(i,result);
    result:=[];
    For(i:=1,i<=?Length(y),i++)
-   ⊕ DestructiveInsert(result,i,x + y[i]); ⊖;
+   { DestructiveInsert(result,i,x + y[i]); };
    result;
-⊖;
+};
 
 240 # (x_List? + _y)_Not?(List?(y)) <-- SumListSide(y,x);
 241 # (_x + y_List?)_Not?(List?(x)) <-- SumListSide(x,y);

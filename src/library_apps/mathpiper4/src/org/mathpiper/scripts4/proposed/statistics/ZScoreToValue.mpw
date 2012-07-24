@@ -1,9 +1,9 @@
 %mathpiper,def="ZScoreToValue"
 
 ZScoreToValue(zScore, mean, standardDeviation) :=
-⊕
+{
     -((-mean)/standardDeviation - zScore)*standardDeviation;
-⊖;
+};
 
 
 %/mathpiper

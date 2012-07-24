@@ -12,13 +12,13 @@
 
 /// Compute Sin(x), Taylor series for Sin(x)/x
 SinNTaylor(x) :=
-⊕
+{
         Local(numterms, prec, Bx);
         prec := QuotientN(BuiltinPrecisionGet()*3919, 1702); // P*Ln(10)
         Bx := -QuotientN(MathBitCount(x)*1143, 1649)-2; // -Ln(x)-2
         numterms := QuotientN( QuotientN( prec+Bx, QuotientN( MathBitCount( prec+Bx)*1588, 2291)+Bx)+1, 2)+1;
         // (P*Ln(10)-Ln(x)-2)/(Ln(P*Ln(10)-Ln(x)-2)-Ln(x)-2); use Ln(x)<=?B(x)*Ln(2)
         x*SumTaylorNum(MultiplyN(x,x), 1, [[k], -1/(2*k*(2*k+1))], numterms);
-⊖;
+};
 
 %/mathpiper

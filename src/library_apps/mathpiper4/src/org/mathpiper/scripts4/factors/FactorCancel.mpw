@@ -5,7 +5,7 @@
 10 # FactorCancel( p_Rational? ) <-- Factor(p);
 
 15 # FactorCancel( p_RationalFunction? ) <--
-⊕
+{
     If(InVerboseMode(),Tell(FactorCancel,p));
     Local(pp,ff,n,d,fn,fd,f,tnu,newn,newd,s,k);
     pp   := Simplify(p);
@@ -18,25 +18,25 @@
     newd := [];
     If(InVerboseMode(),Tell("      ",tnu));
     ForEach(f,tnu)
-    ⊕
+    {
        s := Select(ff,Lambda([X],X[1]=?f));
        If(InVerboseMode(),Tell("      ",[f,s]));
        If( s !=? [],
-         ⊕
+         {
             k := Sum(Transpose(s)[2]);
             If(InVerboseMode(),Tell("      ",[s,k]));
             If( k >? 0, DestructiveAppend(newn,[f,k]) );
             If( k <? 0, DestructiveAppend(newd,[f,-k]) );
-         ⊖,
-         ⊕
+         },
+         {
             k := 1;
             DestructiveAppend(newn,[f,k]);
-         ⊖
+         }
        );
-    ⊖;
+    };
     If(InVerboseMode(),Tell("    ",[newn,newd]));
     FW(newn)/FW(newd);
-⊖;
+};
 
 20 # FactorCancel( _p ) <-- Factor(p);
 

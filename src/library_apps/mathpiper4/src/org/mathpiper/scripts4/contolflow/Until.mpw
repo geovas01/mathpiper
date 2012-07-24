@@ -1,14 +1,14 @@
 %mathpiper,def="Until"
 
 TemplateFunction("Until",[predicate,body])
-⊕
+{
   Eval(body);
   While (Equal?(Eval(predicate),False))
-  ⊕
+  {
     Eval(body);
-  ⊖;
+  };
   True;
-⊖;
+};
 UnFence("Until",2);
 HoldArgumentNumber("Until",2,1);
 HoldArgumentNumber("Until",2,2);

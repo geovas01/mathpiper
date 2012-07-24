@@ -1,13 +1,13 @@
 %mathpiper,def="MatrixRowReplace"
 
 MatrixRowReplace( M_Matrix?, iRow_PositiveInteger?, v_Vector? )_(Length(v)=?Length(M[1])) <--
-⊕
+{
     If( Not? Bound?(iDebug), iDebug := False );
     If( iDebug, Tell(MatrixRowReplace,[M,iRow,v]) );
     Local(mRows,nCols);
     [mRows,nCols] := Dimensions(M);
     If( iRow <=? mRows, DestructiveReplace(M,iRow,v) );
     M;
-⊖;
+};
 
 %/MathPiper

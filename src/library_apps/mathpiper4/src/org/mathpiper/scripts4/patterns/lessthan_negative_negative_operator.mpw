@@ -5,16 +5,16 @@ RulebaseHoldArguments("<--",[leftOperand,rightOperand]);
 
 
 RuleHoldArguments("<--",2,1,Equal?(Type(leftOperand),"#"))
-⊕
+{
   DefinePattern(leftOperand[2],rightOperand,leftOperand[1],True);
-⊖;
+};
 
 
 
 RuleHoldArguments("<--",2,2,Function?(leftOperand))
-⊕
+{
  DefinePattern(leftOperand,rightOperand,0,True);
-⊖;
+};
 
 HoldArgument("<--",leftOperand);
 HoldArgument("<--",rightOperand);

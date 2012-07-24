@@ -1,12 +1,12 @@
 %mathpiper,def="RealRootsCount"
 
 RealRootsCount(_p) <--
-⊕
+{
   Local(S);
   p:=SquareFree(Rationalize(p));
   S:=SturmSequence(p);
   SturmVariations(S,-Infinity)-SturmVariations(S,Infinity);
-⊖;
+};
 
 %/mathpiper
 

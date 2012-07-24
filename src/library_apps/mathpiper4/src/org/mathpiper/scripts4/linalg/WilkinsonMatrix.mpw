@@ -8,6 +8,6 @@
 // numerical eigenvalue algorithms
 WilkinsonMatrix(N):=GenMatrix([[i,j],
                 If( Abs(i-j)=?1,1,
-                ⊕ If(i=?j,Abs( (N-1)/2 - i+1 ),0 ); ⊖ )], N,N );
+                { If(i=?j,Abs( (N-1)/2 - i+1 ),0 ); } )], N,N );
 
 %/mathpiper

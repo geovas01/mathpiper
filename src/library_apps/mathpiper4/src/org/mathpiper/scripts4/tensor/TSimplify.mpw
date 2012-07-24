@@ -6,9 +6,9 @@
 /* TSimplify : expand brackets, and send the expression of addition
    of terms to TSimplifyAux */
 TSimplify(TSum(_indices)(_f)) <--
-⊕
+{
   TSimplifyAux(TSum(indices)ExpandBrackets(f));
-⊖;
+};
 
 
 /* TSimplifyAux : simplify each term independently */
@@ -22,7 +22,7 @@ TSimplify(TSum(_indices)(_f)) <--
                                     -  TSimplifyAux(TSum(indices)(g));
 
 40 # TSimplifyAux(TSum(_indices)_body) <--
-⊕
+{
   Local(flat);
 
   /* Convert expressions of the form (a*b*c) to [a,b,c] */
@@ -42,6 +42,6 @@ TSimplify(TSum(_indices)(_f)) <--
 
   /* Return result, still summing over the indices not removed by deltas */
   Ndim^nrdims*TSum(independ)flat;
-⊖;
+};
 
 %/mathpiper

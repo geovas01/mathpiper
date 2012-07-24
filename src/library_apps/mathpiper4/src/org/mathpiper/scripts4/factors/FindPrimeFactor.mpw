@@ -6,37 +6,37 @@
 /// E.g. FindPrimeFactor(63, 3) returns [7, 2] and FindPrimeFactor(42,17) returns [42, 0]
 // use variable step loops, like in IntLog()
 FindPrimeFactor(n, prime) :=
-⊕
+{
         Local(power, factor, oldfactor, step);
         power := 1;
         oldfactor := 1;        // in case the power should be 0
         factor := prime;
         // first loop: increase step
         While(Modulo(n, factor)=?0)        // avoid division, just compute Modulo()
-        ⊕
+        {
                 oldfactor := factor;        // save old value here, avoid sqrt
                 factor := factor^2;
                 power := power*2;
-        ⊖;
+        };
         power := Quotient(power,2);
         factor := oldfactor;
         n := Quotient(n, factor);
         // second loop: decrease step
         step := Quotient(power,2);
         While(step>?0 And? n >? 1)
-        ⊕
+        {
                 factor := prime^step;
                 If(
                         Modulo(n, factor)=?0,
-                        ⊕
+                        {
                                 n := Quotient(n, factor);
                                 power := power + step;
-                        ⊖
+                        }
                 );
                 step := Quotient(step, 2);
-        ⊖;
+        };
         [n, power];
-⊖;
+};
 
 %/mathpiper
 

@@ -9,27 +9,27 @@ HoldArgument("Macro",body);
 RuleHoldArguments("Macro",3,2047,
         And?(GreaterThan?(Length(args), 1), Equal?( MathNth(args, Length(args)), ToAtom("...") ))
 )
-⊕
+{
   DestructiveDelete(args,Length(args));        // remove trailing "..."
   Retract(oper,Length(args));
   `MacroRulebaseListedHoldArguments(@oper,@args);
   RuleEvaluateArguments(oper,Length(args),1025,True) body;        // at precedence 1025, for flexibility
-⊖;
+};
 
 // macro with a fixed number of arguments
 RuleHoldArguments("Macro",3,2048,True)
-⊕
+{
   Retract(oper,Length(args));
   `MacroRulebaseHoldArguments(@oper,@args);
   RuleEvaluateArguments(oper,Length(args),1025,True) body;
-⊖;
+};
 
 RulebaseHoldArguments("Macro",[oper]);
 // macro with variable number of arguments: Macro() f(x,y, ...)
 RuleHoldArguments("Macro",1,2047,
         And?(Function?(oper), GreaterThan?(Length(oper), 1), Equal?( MathNth(oper, Length(oper)), ToAtom("...") ))
 )
-⊕
+{
         Local(args,name);
         Bind(args,Rest(FunctionToList(oper)));
         DestructiveDelete(args,Length(args));        // remove trailing "..."
@@ -38,22 +38,22 @@ RuleHoldArguments("Macro",1,2047,
                 False,        // do nothing
                 `MacroRulebaseListedHoldArguments(@name,@args)
         );
-⊖;
+};
 // macro with a fixed number of arguments
 RuleHoldArguments("Macro",1,2048,
         And?(Function?(oper))
 )
-⊕
+{
         Local(args,name);
         Bind(args,Rest(FunctionToList(oper)));
   Bind(name,Type(oper));
         If(RulebaseDefined(Type(oper),Length(args)),
                 False,        // do nothing
-                ⊕
+                {
       `MacroRulebaseHoldArguments(@name,@args);
-    ⊖
+    }
         );
-⊖;
+};
 
 %/mathpiper
 
@@ -120,7 +120,7 @@ Result: 10;
 
 %mathpiper,name="Macro",subtype="automatic_test"
 
-⊕
+{
   Local(a,b,c,d);
   MacroRulebaseHoldArguments(foo,[a,b]);
 
@@ -140,34 +140,34 @@ Result: 10;
   Verify(foo(2,3),foo(2,3));
   Verify(foo(B),foo(B));
   */
-⊖;
+};
 
-⊕
+{
   Local(a,i,tot);
   a:=100;
   Retract(forloop,4);
   Macro(forloop,[init,pred,inc,body])
-  ⊕
+  {
     @init;
     While(@pred)
-    ⊕
+    {
       @body;
       @inc;
-    ⊖;
+    };
     True;
-  ⊖;
+  };
   tot:=0;
   forloop(i:=1,i<=?10,i++,tot:=tot+a*i);
   Verify(i,11);
   Verify(tot,5500);
-⊖;
+};
 
-⊕
+{
   Macro("bar",[list,...]) Length(@list);
   Verify(bar(a,b,list,bar,list),5);
-⊖;
+};
 
-⊕
+{
   Local(x,y,z);
   RulebaseHoldArguments("@",[x]);
   y:=x;
@@ -181,31 +181,31 @@ Result: 10;
   Verify(`[@x,@y],[x,[u,u]]);
   Verify(`[@x,`(@y)],[x,[u,u]]);
   Retract("@",1);
-⊖;
+};
 
 // check that a macro can reach a local from the calling environment.
-⊕
+{
   Macro(foo,[x]) a*(@x);
   Function(bar,[x])
-  ⊕
+  {
     Local(a);
     a:=2;
     foo(x);
-  ⊖;
+  };
   Verify(bar(3),6);
-⊖;
+};
 
 //check that with nested backquotes expansion only expands the top-level expression
-⊕
+{
   Local(a,b);
   a:=2;
   b:=3;
   Verify(
-  ` ⊕
+  `{
      Local(c);
      c:=@a+@b;
      `((@c)*(@c));
-  ⊖,25);
-⊖;
+  },25);
+};
 
 %/mathpiper

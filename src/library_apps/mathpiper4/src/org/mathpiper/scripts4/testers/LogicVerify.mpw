@@ -1,11 +1,11 @@
 %mathpiper,def="LogicVerify"
 
 Function("LogicVerify",[aLeft,aRight])
-⊕
+{
   If(aLeft !=? aRight,
     Verify(CanProve(aLeft  Implies?  aRight),True)
   );
-⊖;
+};
 
 %/mathpiper
 

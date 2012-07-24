@@ -20,22 +20,22 @@
 
 // otherwise
 40 # Simplify(_expr)_(Type(expr)=?"Ln") <--
-⊕
+{
     //If(InVerboseMode(),Tell("Simplify_Ln",expr));
     LnCombine(expr);
-⊖;
+};
 
 40 # Simplify(_expr)_(Type(expr)=?"Exp") <--
-⊕
+{
     //If(InVerboseMode(),Tell("Simplify_Exp",expr));
     expr;
-⊖;
+};
 
 50 # Simplify(_expr) <-- 
-⊕
+{
     //If(InVerboseMode(),Tell("Simplify_other",expr));
     MultiSimp(Eval(expr));
-⊖;
+};
 
 %/mathpiper
 
@@ -111,24 +111,24 @@ ExpandBrackets(ExpandFrac((x+1)/(x-1)+1/x))
 );
 
 // these used to fail. Added by Serge, resolved by Ayal
-Verify(⊕Local(a);a:=0.1;Simplify(a*b);⊖, 0.1*b);
-Verify(⊕Local(a);a:=0.1;Simplify(a/b);⊖, 0.1/b);
+Verify({Local(a);a:=0.1;Simplify(a*b);}, 0.1*b);
+Verify({Local(a);a:=0.1;Simplify(a/b);}, 0.1/b);
 
 
 
 
-Verify(⊕Local(a);a:=0.1;Simplify((a*b*c)/(a*c*b));⊖,1);
+Verify({Local(a);a:=0.1;Simplify((a*b*c)/(a*c*b));},1);
 
 
 LocalSymbols(p,a,x)
-⊕
+{
   p := a+2-(a+1);
   Verify(Simplify(x^p),x);
-⊖;
+};
 
 
 LocalSymbols(f,p,a,b,x,n,simple,u,v)
-⊕
+{
   simple := [
             Exp(_a)*Exp(_b) <- Exp(a+b),
             Exp(_a)*_u*Exp(_b) <- u*Exp(a+b),
@@ -149,7 +149,7 @@ LocalSymbols(f,p,a,b,x,n,simple,u,v)
   Verify(Simplify(a-(1-x)),0);
   Verify(Simplify(b-(1-x)),0);
 
-⊖;
+};
 
 
 // The following line catches a bug reported where Simplify
@@ -169,7 +169,7 @@ Verify(Simplify(x^(-2)/(1-x)^3) !=? 0, True);
 /* In MatchLinear and MatchPureSquare, the matched coefficients were
  * assigned to global variables that were not protected with LocalSymbols.
  */
-⊕
+{
   Local(a,b,A);
   a:=mystr;
   A:=mystr;
@@ -177,7 +177,7 @@ Verify(Simplify(x^(-2)/(1-x)^3) !=? 0, True);
    * fact that variables a or A are set.
    */
   Verify(Simplify((Integrate(x,a,b)Sin(x))-Cos(a)+Cos(b)),0);
-⊖;
+};
 
 
 /* Bug reported by Michael Borcherds: Simplify(((4*x)-2.25)/2)

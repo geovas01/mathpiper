@@ -4,7 +4,7 @@
    from Knuth seminumerical algorithms */
 
 ReversePoly(_f,_g,_var,_newvar,_degree) <--
-⊕
+{
   Local(orig,origg,G,V,W,U,n,initval,firstder,j,k,newsum);
   orig:=MakeUni(f,var);
   origg:=MakeUni(g,var);
@@ -20,34 +20,34 @@ ReversePoly(_f,_g,_var,_newvar,_degree) <--
   U[1]:=1/firstder;
   n:=1;
   While(n<?degree-1)
-  ⊕
+  {
     n++;
     For(k:=0,k<?n-1,k++)
-    ⊕
+    {
       newsum:=U[k+1];
       For(j:=2,j<=?k+1,j++)
-      ⊕
+      {
         newsum:=newsum-U[k+2-j]*V[j];
-      ⊖;
+      };
       U[k+1]:=newsum/firstder;
-    ⊖;
+    };
     newsum:=0;
     For(k:=2,k<=?n,k++)
-    ⊕
+    {
       newsum:=newsum - k*U[n+1-k]*V[k];
-    ⊖;
+    };
     U[n]:=newsum/firstder;
     newsum:=0;
     For(k:=1,k<=?n,k++)
-    ⊕
+    {
       newsum:=newsum + k*U[n+1-k]*G[k]/n;
-    ⊖;
+    };
     W[n]:=newsum;
-  ⊖;
+  };
   DestructiveInsert(W,1,Coef(origg,0));
   Subst(newvar,newvar-initval)
     NormalForm(UniVariate(newvar,0,W));
-⊖;
+};
 
 %/mathpiper
 

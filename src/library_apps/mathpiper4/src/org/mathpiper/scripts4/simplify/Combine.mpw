@@ -5,11 +5,11 @@
 10 # Combine(expr_Zero?) <-- 0;
 
 20 # Combine(_expr) <-- 
-⊕
+{
     Local(L);
     L := ReassembleListTerms(DisassembleExpression(expr));
     UnFlatten(L,"+",0);
-⊖;
+};
 
 %/mathpiper
 

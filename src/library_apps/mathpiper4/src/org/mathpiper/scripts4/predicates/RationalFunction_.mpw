@@ -9,20 +9,20 @@
 10 # RationalFunction?(expr_RationalOrNumber?,_var) <-- False;
 
 15 # RationalFunction?(_expr,var_Atom?)_(Type(expr)=?"/" Or? Type(-expr)=?"/") <--
-⊕
+{
     If (Polynomial?(Numerator(expr),var) And? Polynomial?(Denominator(expr),var),
         Contains?(VarList(Denominator(expr)),var),
         False
     );
-⊖;
+};
 
 20 # RationalFunction?(_expr,vars_List?)_(Type(expr)=?"/" Or? Type(-expr)=?"/") <--
-⊕
+{
     If (Polynomial?(Numerator(expr),vars) And? Polynomial?(Denominator(expr),vars),
         Intersection(vars, VarList(expr)) !=? [],
         False
     );
-⊖;
+};
 
 60000 # RationalFunction?(_expr,_var) <-- False;
 

@@ -17,7 +17,7 @@
 10 # BisectSqrt(1) <-- 1;
 
 20 # BisectSqrt(N_PositiveInteger?) <--
-⊕
+{
   Local(l2,u,v,u2,v2,uv2,n);
 
   // Find highest set bit, l2
@@ -36,7 +36,7 @@
 
   // Now for each lower bit:
   While( l2 !=? 0 )
-  ⊕
+  {
           l2--;
      // Get that bit in v, and v2 == v^2.
       v  := 1<<l2;
@@ -56,12 +56,12 @@
       // bit l2 is set in the result, and
       // add v to u.
       if( n <=? N )
-      ⊕
+      {
         u  := u+v;  // u <- u+v
         u2 := n;    // u^2 <- u^2 + 2*u*v + v^2
-      ⊖;
-    ⊖;
+      };
+    };
     u; // return result, accumulated in u.
-⊖;
+};
 
 %/mathpiper

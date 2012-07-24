@@ -42,7 +42,7 @@ TexForm
 //Retract("TeXForm", *);
 
 /// TeXmacs prettyprinter
-TexForm(_expr) <-- ⊕DumpErrors();WriteString(TeXForm(expr));NewLine();⊖;
+TexForm(_expr) <-- {DumpErrors();WriteString(TeXForm(expr));NewLine();};
 
 RulebaseHoldArguments("TeXForm",[expression]);
 RulebaseHoldArguments("TeXForm",[expression, precedence]);
@@ -53,19 +53,19 @@ RulebaseHoldArguments("TeXForm",[expression, precedence]);
 /* this function will put TeX brackets around the string if predicate holds */
 
 Function ("TeXFormBracketIf", [predicate, string])
-⊕
+{
         Check(Boolean?(predicate) And? String?(string), "Argument", "TeXForm internal error: non-boolean and/or non-string argument of TeXFormBracketIf");
         If(predicate, ConcatStrings("( ", string, ") "), string);
-⊖;
+};
 
 
 
 
 Function ("TeXFormMatrixBracketIf", [predicate, string])
-⊕
+{
         Check(Boolean?(predicate) And? String?(string), "Argument", "TeXForm internal error: non-boolean and/or non-string argument of TeXFormMatrixBracketIf");
         If(predicate, ConcatStrings("\\left[ ", string, "\\right]"), string);
-⊖;
+};
 
 
 
@@ -86,16 +86,16 @@ TeXFormMaxPrec() := 60000;         /* This precedence will never be bracketed. I
 
 /* Strings must be quoted but not bracketed */
 100 # TeXForm(x_String?, _p) <--
-⊕
+{
     Local(characterList);
 
     characterList := [];
     ForEach(character, x)
-    ⊕
+    {
         If(character !=? " ", DestructiveAppend(characterList, character), DestructiveAppend(characterList, "\\hspace[2 mm]"));
-    ⊖;
+    };
     ConcatStrings("\\mathrm[''", ListToString(characterList), "'']");
-⊖;
+};
 
 
 
@@ -159,7 +159,7 @@ TeXFormMaxPrec() := 60000;         /* This precedence will never be bracketed. I
 /* functions */
 
 
-LocalSymbols(TeXFormRegularOps, TeXFormRegularPrefixOps, TeXFormGreekLetters, TeXFormSpecialNames) ⊕
+LocalSymbols(TeXFormRegularOps, TeXFormRegularPrefixOps, TeXFormGreekLetters, TeXFormSpecialNames) {
 
         /* addition, subtraction, multiplication, all comparison and logical operations are "regular" */
 
@@ -207,7 +207,7 @@ LocalSymbols(TeXFormRegularOps, TeXFormRegularPrefixOps, TeXFormGreekLetters, Te
 
   /* this function will take a user-defined variable or function name and output either this name unmodified if it's only 2 characters long, or the name in normal text if it's longer, or a TeX Greek letter code */
   Function ("TeXFormTeXify", [string])
-  ⊕
+  {
     Check(String?(string), "Argument", "TeXForm internal error: non-string argument of TeXFormTeXify");
     /* Check if it's a greek letter or a special name */
     If (Contains?(AssocIndices(TeXFormSpecialNames), string), TeXFormSpecialNames[string],
@@ -218,15 +218,15 @@ LocalSymbols(TeXFormRegularOps, TeXFormRegularPrefixOps, TeXFormGreekLetters, Te
     If (Length(string) >? 2, ConcatStrings("\\mathrm[ ", string, " ]"),
     string
     ))))));
-  ⊖;
+  };
 
-⊖;
+};
 
 /* */
 
 /* Unknown bodied function */
 
-200 # TeXForm(x_Function?, _p) _ (Bodied?(Type(x))) <-- ⊕
+200 # TeXForm(x_Function?, _p) _ (Bodied?(Type(x))) <-- {
         Local(func, args, lastarg);
         func := Type(x);
         args := Rest(FunctionToList(x));
@@ -234,7 +234,7 @@ LocalSymbols(TeXFormRegularOps, TeXFormRegularPrefixOps, TeXFormGreekLetters, Te
         TeXFormBracketIf(p<?PrecedenceGet(func), ConcatStrings(
           TeXFormTeXify(func), TeXForm(args, TeXFormMaxPrec()),  TeXForm(lastarg, PrecedenceGet(func))
         ));
-⊖;
+};
 
 /* Unknown infix function : already done above
 210 # TeXForm(x_Function?, _p)_(Infix?(Type(x))) <-- ConcatStrings(TeXFormTeXify(Type(x)), TeXForm(Rest(FunctionToList(x)), TeXFormMaxPrec()) );
@@ -249,7 +249,7 @@ LocalSymbols(TeXFormRegularOps, TeXFormRegularPrefixOps, TeXFormGreekLetters, Te
 100 # TeXForm(Exp(_x), _p) <-- TeXFormBracketIf(p<?PrecedenceGet("/"), ConcatStrings("\\exp ", TeXFormBracketIf(True, TeXForm(x, TeXFormMaxPrec())) ) );
 
 
-LocalSymbols(TeXFormMathFunctions, TeXFormMathFunctions2) ⊕
+LocalSymbols(TeXFormMathFunctions, TeXFormMathFunctions2) {
 
   /* Sin, Cos, etc. and their argument is bracketed when it's a sum or product but not bracketed when it's a power. */
   /// supported MathPiper functions: "mathematical" functions of one argument which sometimes do not require parentheses (e.g. $\sin x$ )
@@ -283,7 +283,7 @@ LocalSymbols(TeXFormMathFunctions, TeXFormMathFunctions2) ⊕
     )
   );
 
-⊖; // LocalSymbols(TeXFormMathFunctions, TeXFormMathFunctions2)
+}; // LocalSymbols(TeXFormMathFunctions, TeXFormMathFunctions2)
 
 
 /* Complex numbers */
@@ -372,7 +372,7 @@ RulebaseHoldArguments("TeXFormNth",[x,y]);
 80 # TeXForm(M_Matrix?, _p) <-- TeXFormMatrixBracketIf(True, TeXFormPrintMatrix(M));
 
 Function ("TeXFormPrintMatrix", [M])
-⊕
+{
 /*
         Want something like "\begin[array][cc] a & b \\ c & d \\ e & f \end[array]"
         here, "cc" is alignment and must be given for each column
@@ -382,14 +382,14 @@ Function ("TeXFormPrintMatrix", [M])
         ForEach(col, M[1]) result:=ConcatStrings(result, "c");
         result := ConcatStrings(result, "]");
 
-        ForEach(row, 1 .. Length(M)) ⊕
-                ForEach(col, 1 .. Length(M[row])) ⊕
+        ForEach(row, 1 .. Length(M)) {
+                ForEach(col, 1 .. Length(M[row])) {
                         result := ConcatStrings( result, " ", TeXForm(M[row][col], TeXFormMaxPrec()), If(col =? Length(M[row]), If(row =? Length(M), "", " \\\\"), " &"));
-                ⊖;
-        ⊖;
+                };
+        };
 
         ConcatStrings(result, " \\end[array] ");
-⊖;
+};
 
 %/mathpiper
 

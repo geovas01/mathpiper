@@ -9,21 +9,21 @@
 
 
 20 # ListToString(list_List?) <--
-⊕
+{
     Local(resultString, character);
     
     resultString := "";
     
     ForEach(element, list)
-    ⊕
+    {
         If(String?(element), character := element, character := ToString(element));
         
         resultString := resultString ~ character;
-    ⊖;
+    };
     
     resultString;
 
-⊖;
+};
 
 %/mathpiper
 

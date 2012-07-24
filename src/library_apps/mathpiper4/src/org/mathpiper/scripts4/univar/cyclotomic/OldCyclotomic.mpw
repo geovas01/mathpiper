@@ -11,39 +11,39 @@
 
 
 10 # OldInternalCyclotomic(n_Even?,_x,WantNormalForm_Boolean?) <--
-     ⊕
+     {
       Local(k,m,p);
        k := 1;
        m := n;
         While(Even?(m))
-       ⊕
+       {
         k := k*2;
         m := m/2;
-       ⊖;
+       };
        k := k/2 ;
-       If(m>?1, ⊕
+       If(m>?1, {
                  p := OldInternalCyclotomic(m,x,False);
                  If (WantNormalForm, SubstituteAndExpandInUniVar(p,k),SubstituteInUniVar(p,k));
-               ⊖,
+               },
                  If (WantNormalForm, x^k+1, UniVariateBinomial(x,k,1))
         );
-     ⊖;
+     };
 
 20 # OldInternalCyclotomic(n_Odd?,_x,WantNormalForm_Boolean?)_(n>?1) <--
-⊕
+{
  Local(divisors,poly1,poly2,q,d,f,result);
  divisors := MoebiusDivisorsList(n);
  poly1 :=1 ;
  poly2 := 1;
  ForEach (d,divisors)
- ⊕
+ {
    q:=n/d[1];
    f:=UniVariateBinomial(x,q,-1);
    If (d[2]=?1,poly1:=poly1*f,poly2:=poly2*f);
- ⊖;
+ };
  result := Quotient(poly1,poly2);
  If(WantNormalForm,NormalForm(result),result);
-⊖;
+};
 
 10  # OldCyclotomic(1,_x) <-- _x-1;
 20  # OldCyclotomic(n_Integer?,_x) <-- OldInternalCyclotomic(n,x,True);

@@ -19,7 +19,7 @@ Plot3DS<backend> on that data.
 */
 
         LocalSymbols(var, func, xrange, yrange, option, optionslist, xdelta, ydelta, optionshash, cx, cy, fc, allvalues, dummy)
-⊕
+{
 
 // declaration of Plot3DS with variable number of arguments
 Function() Plot3DS(func);
@@ -38,7 +38,7 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
 /// Top-level 3D plotting routine:
 /// plot several functions sharing the same ranges and other options
 4 # Plot3DS(funclist_List?, _xrange, _yrange, optionslist_List?) <--
-⊕
+{
         Local(var, func, xdelta, ydelta, optionshash, cx, cy, fc, allvalues, dummy);
         // this will be a list of all computed values
         allvalues := [];
@@ -51,19 +51,19 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
         // parse range
         If (
                 Type(xrange) =? "->",        // variable also specified -- ignore for now, store in options
-                ⊕
+                {
                         // store alternative variable name
                         optionshash["xname"] := ToString(xrange[1]);
                         xrange := xrange[2];
-                ⊖
+                }
         );
         If (
                 Type(yrange) =? "->" ,        // variable also specified -- ignore for now, store in options
-                ⊕
+                {
                         // store alternative variable name
                         optionshash["yname"] := ToString(yrange[1]);
                         yrange := yrange[2];
-                ⊖
+                }
         );
         If(
                 Type(xrange) =? "~",        // simple range
@@ -133,7 +133,7 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
         );
         // loop over functions in the list
         ForEach(func, funclist)
-        ⊕
+        {
                 // obtain name of variable
                 var := VarList(func);        // variable names in a list
             Check(Length(var)<=?2, "Argument", "Plot3DS: Error: expression is not a function of at most two variables: "
@@ -170,10 +170,10 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
                 DestructiveAppend(allvalues, RemoveRepeated(HeapSort( Plot3DSgetdata(func, var, [cx, cy, fc], [xdelta, ydelta], optionshash), Hold([[x,y],x[1]<?y[1] Or? x[1] =? y[1] And? x[2] <=? y[2] ] ) )) );
                 If(InVerboseMode(), Echo(["Plot3DS: using ", Length(allvalues[Length(allvalues)]), " points for function ", func]), True);
                 If(InVerboseMode(), Echo(["Plot3DS: max. used ", 2^(optionshash["depth"] - optionshash["used depth"]), "subdivisions for ", func]), True);
-        ⊖;
+        };
         // call the specified output backend
         Plot3DSoutputs()[optionshash["output"]] @ [allvalues, optionshash];
-⊖;
+};
 
 HoldArgumentNumber("Plot3DS", 3, 2);
 HoldArgumentNumber("Plot3DS", 3, 3);
@@ -186,7 +186,7 @@ HoldArgumentNumber("Plot3DS", 4, 4);
 /// func must be just one function (not a list).
 /// initvalues is a list with values [x,y,f]; deltas is a list [deltax, deltay].
 Plot3DSgetdata(_func, _var, _initvalues, _deltas, _optionshash) <--
-⊕
+{
         Local(i, j, xa, ya, fa, xb, yb, fb, result, rowcache);
         // compute all grid points in the 0th row in the y direction;
         // store this array in a temporary cache;
@@ -195,14 +195,14 @@ Plot3DSgetdata(_func, _var, _initvalues, _deltas, _optionshash) <--
         // in cases when depth=0, the adaptive routine gives no extra points, and we must make sure that the "result" array contains the grid in exact order
         rowcache := [initvalues];
         For(i:=1, i<=?optionshash["ypoints"], i++)
-        ⊕
+        {
                 ya := N(Eval(initvalues[2]+i*deltas[2]));
                 DestructiveAppend(rowcache, [initvalues[1], ya, N(Eval(Apply([var, func], [initvalues[1], ya])))]);
-        ⊖;
+        };
         result := rowcache;
         // now loop over the x direction
         For(i:=1, i<=?optionshash["xpoints"], i++)
-        ⊕
+        {
                 // start the next row
                 // the 0th point
                 xa := N(Eval(initvalues[1]+i*deltas[1]));
@@ -211,7 +211,7 @@ Plot3DSgetdata(_func, _var, _initvalues, _deltas, _optionshash) <--
                 DestructiveAppend(result, [xa, ya, fa]);
                 // now loop at each grid point in y direction
                 For(j:=1, j<=?optionshash["ypoints"], j++)
-                ⊕        // now we need to plot the data inside the following square:
+                {        // now we need to plot the data inside the following square:
                         //        p  b
                         //        r  a
                         // xa, ya, fa are the values at the point a; the points p and r are stored as rowcache[j+1] and rowcache[j]. We just need to compute the point q and update the rowcache with the value at point a, and update xa, ya, fa also with b.
@@ -225,11 +225,11 @@ Plot3DSgetdata(_func, _var, _initvalues, _deltas, _optionshash) <--
                         ya := yb;
                         fa := fb;
                         DestructiveAppend(result, [xa, ya, fa]);
-                ⊖;
-        ⊖;
+                };
+        };
 
         result;
-⊖;
+};
 
 //////////////////////////////////////////////////
 /// Plot3DSadaptive --- core routine to collect data
@@ -245,7 +245,7 @@ Plot3DSgetdata(_func, _var, _initvalues, _deltas, _optionshash) <--
 
 10 # Plot3DSadaptive(_func, _var, _square, 0, _epsilon, _optionshash) <-- [];
 20 # Plot3DSadaptive(_func, _var, [_x1, _y1, _x2, _y2, _f11, _f12, _f21, _f22], _depth, _epsilon, _optionshash) <--
-⊕
+{
         Local(x3, y3, f13, f31, f33, f32, f23, result);
 
         // if we are here, it means we used one more recursion level
@@ -294,9 +294,9 @@ y1        11  31  21
                         Plot3DSadaptive(func, var, [x3, y3, x2, y2, f33, f32, f23, f22], depth-1, epsilon*4, optionshash)
                 )
         );
-⊖;
+};
 
-⊖;        // LocalSymbols()
+};        // LocalSymbols()
 
 
 %/mathpiper
@@ -424,11 +424,11 @@ Result: True;
 /* I stringified the results for now, as that is what the tests used to mean. The correct way to deal with this
  * would be to compare the resulting numbers to accepted precision.
  */
-⊕
+{
   Local(result);
   result:="[[[-1,-1,-1],[-1,0,-1],[-1,1,-1],[0,-1,0],[0,0,0],[0,1,0],[1,-1,1],[1,0,1],[1,1,1]]]";
   Verify(PipeToString()Write(Plot3DS(a,-1:1,-1:1,output->data,points->2)), result);
   Verify(PipeToString()Write(Plot3DS(x1,x1 -> -1:1,x2 -> -1:1,output->data,points->2)), result);
-⊖;
+};
 
 %/mathpiper

@@ -13,14 +13,14 @@ VarListAll(_expr) <-- VarListAll(expr,"Variable?");
 
 /* Otherwise check all leafs of a function. */
 20 # VarListAll(expr_Function?,_filter) <--
-⊕
+{
   Local(item,result, flatlist);
   Bind(flatlist,Rest(FunctionToList(expr)));
   Bind(result,[]);
   ForEach(item,flatlist)
     Bind(result,Concat(result,VarListAll(item,filter)));
   result;
-⊖;
+};
 
 /* Else it doesn't depend on any variable. */
 30 # VarListAll(_expr,_filter) <-- [];

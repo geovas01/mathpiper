@@ -3,7 +3,7 @@
 //Retract("Sample",*);
 
 Sample(list, sampleSize) :=
-⊕
+{
     Check(List?(list), "Argument", "The first argument must be a list.");
     
     Check(Integer?(sampleSize) And? sampleSize >? 0, "Argument", "The second argument must be an integer which is greater than 0.");
@@ -11,7 +11,7 @@ Sample(list, sampleSize) :=
     list := Shuffle(list);
 
     Take(list, sampleSize);
-⊖;
+};
 
 %/mathpiper
 

@@ -4,7 +4,7 @@
 /// These are only called if InNumericMode() returns True
 
 ArcSinNum(x) :=
-⊕
+{
         // need to be careful when |x| close to 1
         If(
                 239*Abs(x) >=? 169,        // 169/239 is a good enough approximation of 1/Sqrt(2)
@@ -12,6 +12,6 @@ ArcSinNum(x) :=
                 Sign(x)*(InternalPi()/2-ArcSinN(Sqrt(1-x^2))),
                 ArcSinN(x)
         );
-⊖;
+};
 
 %/mathpiper

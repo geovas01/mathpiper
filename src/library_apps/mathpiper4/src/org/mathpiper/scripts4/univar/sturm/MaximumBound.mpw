@@ -9,12 +9,12 @@
  */
  5 # MaximumBound(_p)_(Zero?(p Where x==0)) <-- MaximumBound(Simplify(p/x));
 10 # MaximumBound(_p)_(Degree(p)>?0) <--
-⊕
+{
   Local(an);
   an:=Coef(p,(Degree(p)-1) .. 0)/Coef(p,Degree(p));
   an := N(Eval(Abs(an)^(1/(1 .. Degree(p)))));
   Rationalize(2*Maximum(an));
-⊖;
+};
 
 20 # MaximumBound(_p) <-- Infinity;
 

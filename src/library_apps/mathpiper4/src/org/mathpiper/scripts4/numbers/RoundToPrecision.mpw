@@ -3,7 +3,7 @@
 //Retract("RoundToPrecision",*);
 
 10 # RoundToPrecision( N_Decimal?, newPrec_PositiveInteger? ) <--
-⊕
+{
     //If(InVerboseMode(),Tell("RoundToPrecision_D",[N,newPrec]));
     Local(rep,sgn,oldInt,oldPrec,oldScale,strOInt,LS,BIP0);
     Local(newInt,newScale,newRep,ans);
@@ -28,9 +28,9 @@
     
     Local(first,secnd,rem,ad);
     if ( newPrec =? oldPrec )
-        ⊕ ans := N; ⊖
+        { ans := N; }
     else if ( newPrec <? oldPrec )
-        ⊕
+        {
             first    := StringMidGet(1, newPrec, strOInt); 
             secnd    := StringMidGet(newPrec+1, LS-newPrec, strOInt);
             rem      := ToAtom(ConcatStrings(".",secnd));
@@ -47,9 +47,9 @@
             //      Tell("         ",ans);
             //   ]
             //);
-        ⊖
+        }
     else
-        ⊕
+        {
             //If(InVerboseMode(),Tell("   newPrec >? oldPrec "));
             Local(diffPrec);
             diffPrec := oldPrec - newPrec;
@@ -58,14 +58,14 @@
             newRep   := [newInt,newPrec,newScale];
             //If(InVerboseMode(),[Tell("         ",diffPrec);Tell("         ",newRep);]);
             ans      := RepToNumber(newRep);
-        ⊖;
+        };
     BuiltinPrecisionSet(BIP0);
     ans;
-⊖;
+};
 
 
 15 # RoundToPrecision( N_Integer?, newPrec_PositiveInteger? ) <--
-⊕
+{
     //If(InVerboseMode(),Tell("RoundToPrecision_I",[N,newPrec]));
     Local(oldRep,oldPrec,decN,newDecN,ans);
     oldRep   := NumberToRep(N);
@@ -81,17 +81,17 @@
         ans := Round(newDecN*10^(newPrec-oldPrec))
     );
     ans;
-⊖;
+};
 
 
 20 # RoundToPrecision( N_Complex?, newPrec_PositiveInteger? ) <--
-⊕
+{
     //If(InVerboseMode(),Tell("RoundToPrecision_C",[N,newPrec]));
     Local(rr,ii);
     rr := Re(N);
     ii := Im(N);
     Complex(RoundToPrecision(rr,newPrec),RoundToPrecision(ii,newPrec));
-⊖;
+};
 
 %/mathpiper
 

@@ -1,18 +1,18 @@
 %mathpiper,def="ArrayCreateFromList"
 
 ArrayCreateFromList(list):=
-⊕
+{
   Local(result,i);
   result:=ArrayCreate(Length(list),0);
   i:=1;
   while (list !=? [])
-  ⊕
+  {
     result[i]:=First(list);
     i++;
     list:=Rest(list);
-  ⊖;
+  };
   result;
-⊖;
+};
 
 %/mathpiper
 

@@ -20,7 +20,7 @@
 
 /// Calculation using the Hardy-Ramanujan series.
 10 # PartitionsPHR(n_PositiveInteger?) <--
-⊕
+{
         Local(P0, A, lambda, mu, muk, result, term, j, k, l, prec, epsilon);
         result:=0;
         term:=1;        // initial value must be nonzero
@@ -51,11 +51,11 @@
         // to calculate and the theoretic bounds have arbitrary constants
         // use at most 5+Sqrt(n)/2 terms, stop when the term is nonzero and result stops to change at precision prec
         For(k:=1, k<=?5+Quotient(IntNthRoot(n,2),2) And? (A=?0 Or? Abs(term)>?epsilon), k++)
-        ⊕
+        {
                 // compute A(k,n)
                 A:=0;
                 For(l:=1,l<=?k,l++)
-                ⊕
+                {
                         If(
                                 Gcd(l,k)=?1,
                                 A := A + Cos(Pi*
@@ -65,31 +65,31 @@
                                   )/k)
                         );
                         A:=N(A);        // avoid accumulating symbolic Cos() expressions
-                ⊖;
+                };
 
                 term := If(
                         A=?0,        // avoid long calculations if the term is 0
                         0,
                         N( A*Sqrt(k)*(
-                          ⊕
+                          {
                                   muk := mu/k;        // save time, compute mu/k once
                             Exp(muk-mu)*(muk-1) + Exp(-muk-mu)*(muk+1);
-                          ⊖
+                          }
                         )/(mu-1) )
                 );
 //                Echo("k=", k, "term=", term);
                 result := result + term;
 //                Echo("result", newresult* P0);
-        ⊖;
+        };
         result := result * P0;
         BuiltinPrecisionSet(GlobalPop());
         Round(result);
-⊖;
+};
 
 // old code for comparison
 
 10 # PartitionsP1(n_PositiveInteger?) <--
- ⊕
+ {
                  Local(C,A,lambda,m,pa,k,h,term);
            GlobalPush(BuiltinPrecisionGet());
            // this is an overshoot, but seems to work up to at least n=4096
@@ -100,35 +100,35 @@
            term:=1;
            // this is a heuristic, because the next term error is expensive
            // to calculate and the theoretic bounds have arbitrary constants
-           For(k:=1,k<=?5+Floor(SqrtN(n)*0.5) And? ( term=?0 Or? Abs(term)>?0.1) ,k++)⊕
+           For(k:=1,k<=?5+Floor(SqrtN(n)*0.5) And? ( term=?0 Or? Abs(term)>?0.1) ,k++){
                            A:=0;
-                           For(h:=1,h<=?k,h++)⊕
-                                           if( Gcd(h,k)=?1 )⊕
+                           For(h:=1,h<=?k,h++){
+                                           if( Gcd(h,k)=?1 ){
                                                            A:=A+Exp(I*Pi*Sum(j,1,k-1,(j/k)*((h*j)/k - Floor((h*j)/k) -1/2))
 - 2*Pi*I*h*n/k );
-                                           ⊖;
-                           ⊖;
+                                           };
+                           };
                            If(A!=?0, term:= N(A*Sqrt(k)*(Deriv(m) Sinh(C*lambda)/lambda) Where m==n ),term:=0 );
 //                           Echo("Term ",k,"is ",N(term/(Pi*Sqrt(2))));
                            pa:=pa+term;
 //                           Echo("result", N(pa/(Pi*Sqrt(2))));
-           ⊖;
+           };
            pa:=N(pa/(Pi*Sqrt(2)));
            BuiltinPrecisionSet(GlobalPop());
            Round(pa);
- ⊖;
+ };
 
 /// integer partitions by recurrence relation P(n) = Sum(k,1,n, (-1)^(k+1)*( P(n-k*(3*k-1)/2)+P(n-k*(3*k+1)/2) ) ) = P(n-1)+P(n-2)-P(n-5)-P(n-7)+...
 /// where 1, 2, 5, 7, ... is the "generalized pentagonal sequence"
 /// this method is faster with internal math for number<300 or so.
 PartitionsPrecur(number_PositiveInteger?) <--
-⊕
+{
         // need storage of n values PartitionsP(k) for k=1,...,n
         Local(sign, cache, n, k, pentagonal, P);
         cache:=ArrayCreate(number+1,1);        // cache[n] = PartitionsP(n-1)
         n := 1;
         While(n<?number)        // this will never execute if number=1
-        ⊕
+        {
                 n++;
                 // compute PartitionsP(n) now
                 P := 0;
@@ -136,16 +136,16 @@ PartitionsPrecur(number_PositiveInteger?) <--
                 pentagonal := 1;        // pentagonal is always equal to the first element in the k-th pair of the "pentagonal sequence" of pairs [k*(3*k-1)/2, k*(3*k+1)/2]
                 sign := 1;
                 While(pentagonal<=?n)
-                ⊕
+                {
                         P := P + (cache[n-pentagonal+1]+If(pentagonal+k<=?n, cache[n-pentagonal-k+1], 0))*sign;
                         pentagonal := pentagonal + 3*k+1;
                         k++;
                         sign := -sign;
-                ⊖;
+                };
                 cache[n+1] := P;        // P(n) computed, store result
-        ⊖;
+        };
         cache[number+1];
-⊖;
+};
 PartitionsPrecur(0) <-- 1;
 
 %/mathpiper

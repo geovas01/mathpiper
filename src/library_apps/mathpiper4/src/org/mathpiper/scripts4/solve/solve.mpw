@@ -24,38 +24,38 @@
  */
 
 LocalSymbols(res)
-⊕
+{
   10  # Solve(expr_List?, var_List?) <-- SolveSystem(expr, var);
   12  # Solve(_expr, var_List?)_(Length(var)=?1) <--
-        ⊕ [Solve(expr,var[1])]; ⊖;
+        { [Solve(expr,var[1])]; };
   
   20  # Solve(_expr, _var)_(Number?(var) Or? String?(var)) <--
-        ⊕ Assert("SolveTypeError", "Second argument, "~(PipeToString() Write(var))~", is not the name of a variable") False; []; ⊖;
+        { Assert("SolveTypeError", "Second argument, "~(PipeToString() Write(var))~", is not the name of a variable") False; []; };
   22  # Solve(_expr, _var)_(Not? Atom?(var) And? Not? HasExpression?(expr,var)) <--
-        ⊕ Assert("SolveTypeError", "Second argument, "~(PipeToString() Write(var))~", is not the name of a variable") False; []; ⊖;
+        { Assert("SolveTypeError", "Second argument, "~(PipeToString() Write(var))~", is not the name of a variable") False; []; };
   24  # Solve(False,_var) <-- Check(False, "Argument", "Bad input: possibly '=' instead of '==' ");
 
   30  # Solve(_lhs == _rhs, _var) <-- Solve(lhs - rhs, var);
   40  # Solve(0, _var) <-- [var == var];
   41  # Solve(a_Constant?, _var) <-- [];
   42  # Solve(_expr, _var)_(Not? HasExpression?(expr,var)) <--
-        ⊕ Assert("Solve", "expression "~(PipeToString() Write(expr))~" does not depend on "~PipeToString() Write(var)) False; []; ⊖;
+        { Assert("Solve", "expression "~(PipeToString() Write(expr))~" does not depend on "~PipeToString() Write(var)) False; []; };
   50  # Solve(_expr, _var)_((res := SolvePoly(expr, var)) !=? Failed) <-- res;
-  60  # Solve(_e1 * _e2, _var) <-- ⊕
+  60  # Solve(_e1 * _e2, _var) <-- {
       Local(t,u,s);
       t := Union(Solve(e1,var), Solve(e2,var));
       u := [];
-      ForEach(s, t) ⊕
+      ForEach(s, t) {
          Local(v1,v2);
          v1 := WithValue(var, s[2], e1);
          v2 := WithValue(var, s[2], e2);
          If(Not? (Infinity?(v1) Or? (v1 =? Undefined) Or?
                  Infinity?(v2) Or? (v2 =? Undefined)),
              DestructiveAppend(u, s));
-      ⊖;
+      };
       u;
-  ⊖;
-  70  # Solve(_e1 / _e2, _var) <-- ⊕
+  };
+  70  # Solve(_e1 / _e2, _var) <-- {
       Local(tn, t, s);
       tn := Solve(e1, var);
       t := [];
@@ -64,7 +64,7 @@ LocalSymbols(res)
               DestructiveAppend(t, s)
           );
       t;
-  ⊖;
+  };
   80  # Solve(_e1 + _e2, _var)_(Not? HasExpression?(e2,var) And? (res := SolveSimple(e1,-e2,var)) !=? Failed) <-- res;
   80  # Solve(_e1 + _e2, _var)_(Not? HasExpression?(e1,var) And? (res := SolveSimple(e2,-e1,var)) !=? Failed) <-- res;
   80  # Solve(_e1 - _e2, _var)_(Not? HasExpression?(e2,var) And? (res := SolveSimple(e1,e2,var)) !=? Failed) <-- res;
@@ -74,8 +74,8 @@ LocalSymbols(res)
   95  # Solve(_expr, _var)_((res := SolveDivide(expr, var)) !=? Failed) <-- res;
   100 # Solve(_expr, _var)_((res := Simplify(expr)) !=? expr) <-- Solve(res, var);
   110 # Solve(_expr, _var) <--
-        ⊕ Assert("SolveFails", "cannot solve equation "~(PipeToString() Write(expr))~" for "~PipeToString() Write(var)) False; []; ⊖;
-⊖;
+        { Assert("SolveFails", "cannot solve equation "~(PipeToString() Write(expr))~" for "~PipeToString() Write(var)) False; []; };
+};
 
 /********** SolvePoly **********/
 
@@ -95,7 +95,7 @@ LocalSymbols(res)
 
 20 # SolvePoly(_expr, _var) <--
 LocalSymbols(x)
-⊕
+{
   Local(roots);
   roots := PSolve(expr, var);
   If(Type(roots) =? "YacasPSolve",
@@ -103,7 +103,7 @@ LocalSymbols(x)
      If(Type(roots) =? "List",
         MapSingle([[x],var==x], roots),                  /* Case 2 */
         [var == roots]));                                /* Case 1 */
-⊖;
+};
 
 /********** SolveReduce **********/
 
@@ -111,41 +111,41 @@ LocalSymbols(x)
 /* Returns Failed if this doesn't work, and the solution otherwise */
 
 10 # SolveReduce(_expr, _var) <--
-⊕
+{
   ClearError("SolveFails"); // ..in case one was left over from prior failure
   Local(context, expr2, var2, res, sol, sol2, i);
   context := SolveContext(expr, var);
   If(context =? False,
      res := Failed,
-     ⊕
+     {
        expr2 := Eval(Subst(context, var2) expr);
        If(CanBeUni(var2, expr2) And? (Degree(expr2, var2) =? 0 Or? (Degree(expr2, var2) =? 1 And? Coef(expr2, var2, 1) =? 1)),
           res := Failed, /* to prevent infinite recursion */
-          ⊕
+          {
                 sol2 := Solve(expr2, var2);
             If(Error?("SolveFails"),
-               ⊕
+               {
                  ClearError("SolveFails");
                  res := Failed;
-               ⊖,
-                   ⊕
+               },
+                   {
                      res := [];
                      i := 1;
-                     While(i <=? Length(sol2) And? res !=? Failed) ⊕
+                     While(i <=? Length(sol2) And? res !=? Failed) {
                        sol := Solve(context == (var2 Where sol2[i]), var);
                    If(Error?("SolveFails"),
-                      ⊕
+                      {
                         ClearError("SolveFails");
                         res := Failed;
-                      ⊖,
+                      },
                           res := Union(res, sol));
                        i++;
-                     ⊖;
-                   ⊖);
-                 ⊖);
-     ⊖);
+                     };
+                   });
+                 });
+     });
   res;
-⊖;
+};
 
 /********** SolveContext **********/
 
@@ -156,29 +156,29 @@ LocalSymbols(x)
 10 # SolveContext(expr_Atom?, _var) <-- If(expr=?var, var, []);
 
 20 # SolveContext(_expr, _var) <--
-⊕
+{
   Local(lst, foundVarP, context, i, res);
   lst := FunctionToList(expr);
   foundVarP := False;
   i := 2;
-  While(i <=? Length(lst) And? Not? foundVarP) ⊕
+  While(i <=? Length(lst) And? Not? foundVarP) {
     foundVarP := (lst[i] =? var);
     i++;
-  ⊖;
+  };
   If(foundVarP,
      context := expr,
-     ⊕
+     {
        context := [];
        i := 2;
-       While(i <=? Length(lst) And? context !=? False) ⊕
+       While(i <=? Length(lst) And? context !=? False) {
          res := SolveContext(lst[i], var);
          If(res !=? [] And? context !=? [] And? res !=? context, context := False);
          If(res !=? [] And? context =? [], context := res);
          i++;
-       ⊖;
-     ⊖);
+       };
+     });
   context;
-⊖;
+};
 
 /********** SolveSimple **********/
 
@@ -208,12 +208,12 @@ LocalSymbols(x)
 20 # SolveSimple(_e1 / _e2, _rhs, _var)_(e2 =? var And? Not? HasExpression?(e1,var)) <-- [ var == e1/rhs ];
 
 LocalSymbols(x)
-⊕
+{
   20 # SolveSimple(_e1 ^ _n, _rhs, _var)_(e1 =? var And? PositiveInteger?(n))
        <-- MapSingle([[x], var == rhs^(1/n)*x], Exp(2*Pi*I*(1 .. n)/n));
   20 # SolveSimple(_e1 ^ _n, _rhs, _var)_(e1 =? var And? NegativeInteger?(n))
        <-- MapSingle([[x], var == rhs^(1/n)*x], Exp(2*Pi*I*(1 .. (-n))/(-n)));
-⊖;
+};
 
 20 # SolveSimple(_e1 ^ _e2, _rhs, _var)
      _ (PositiveReal?(e1) And? e1 !=? 0 And? e2 =? var And? PositiveReal?(rhs) And? rhs !=? 0)
@@ -391,12 +391,12 @@ VerifySolve(Solve([2*x-2*y+z==(-7),3*x+y+2*z==(-2),5*x+3*y-3*z==(-7)], [x,y,z]),
 VerifySolve(Solve([3*x-2*y+z==1,x-y-z==2,6*x-4*y+2*z==3], [x,y,z]), []);
 VerifySolve(Solve([2*x+3*y==6,4*x+6*y==12], [x,y]), [x==3-(3*y)/2,y==y]);
 
-⊕
+{
   Local(eq,res);
   eq:=[a-b==c,b==c];
   res:=Solve(eq,[a,b]);
   Verify(eq Where res,[c==c,c==c]);
-⊖;
+};
 
 VerifySolve(Solve(a+x*y == z, x), [ x == (z-a)/y ]);
 

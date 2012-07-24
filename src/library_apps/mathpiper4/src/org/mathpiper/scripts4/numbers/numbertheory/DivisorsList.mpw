@@ -6,19 +6,19 @@
 /* DivisorsList(n) = the list of divisors of n */
 
 DivisorsList(n_PositiveInteger?) <--
-⊕
+{
  Local(nFactors,f,result,oldresult,x);
  nFactors:= Factors(n);
  result := [1];
  ForEach (f,nFactors)
-    ⊕
+    {
       oldresult := result;
       For (k:=1,k<=?f[2],k++)
         ForEach (x,oldresult)
           result:=Append(result,x*f[1]^k);
-    ⊖;
+    };
   result;
-⊖;
+};
 
 %/mathpiper
 

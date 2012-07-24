@@ -12,14 +12,14 @@
 //Retract("N",*);
 
 LocalSymbols(numericMode)
-⊕
+{
 
   numericMode := False;
 
   // N function: evaluate numerically with given precision.
   LocalSymbols(previousNumericMode, previousPrecision, numericResult) 
   Macro("N",[expression, precision])
-  ⊕
+  {
     //If(InVerboseMode(),
     //    [Tell("N",[expression,precision]); Tell("  ",[@expression,@precision]);]
     //);
@@ -47,7 +47,7 @@ LocalSymbols(numericMode)
 
     numericMode := previousNumericMode;
 
-    If(Not? numericMode, ⊕ ClearCachedConstantsN(); ⊖ );
+    If(Not? numericMode, { ClearCachedConstantsN(); } );
 
     BuiltinPrecisionSet(previousPrecision);
 
@@ -55,7 +55,7 @@ LocalSymbols(numericMode)
 
     numericResult;
 
-  ⊖;
+  };
 
 
 
@@ -63,32 +63,32 @@ LocalSymbols(numericMode)
   // N function: evaluate numerically with default precision.
   LocalSymbols(precision,heldExpression) 
   Macro("N",[expression])
-  ⊕
+  {
      Local(precision, heldExpression);
      precision      :=  BuiltinPrecisionGet();
      heldExpression :=  Hold(@expression);
 
      `N(@heldExpression, @precision);
-  ⊖;
+  };
 
   
   // NoN function.
   LocalSymbols(result) 
   Macro("NonN",[expression])
-  ⊕
+  {
     Local(result);
     GlobalPush(numericMode);
     numericMode := False;
     result      := (@expression);
     numericMode := GlobalPop();
     result;
-  ⊖;
+  };
 
 
   // InNumericMode function.
   Function("InNumericMode",[]) numericMode;
 
-⊖; //LocalSymbols(numericMode)
+}; //LocalSymbols(numericMode)
 
 %/mathpiper
 

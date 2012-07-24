@@ -15,12 +15,12 @@ See the Algo book for documentation.
 20 # JacobiSymbol(_a, b_Odd?)_(a>=?Abs(b) Or? a<?0) <-- JacobiSymbol(Modulo(a,Abs(b)),Abs(b));
 
 30 # JacobiSymbol(a_Even?, b_Odd?) <--
-⊕
+{
         Local(c, s);
         // compute c,s where a=c*2^s and c is odd
         [c,s]:=FindPrimeFactorSimple(a, 2);        // use the "Simple" function because we don't expect a worst case here
         If(Modulo(s,2)=?1 And? Abs(Modulo(b,8)-4)=?1, -1, 1) * JacobiSymbol(c,b);
-⊖;
+};
 
 40 # JacobiSymbol(a_Odd?, b_Odd?) <-- If(Modulo(a,4)=?3 And? Modulo(b,4)=?3, -1, 1) * JacobiSymbol(b,a);
 

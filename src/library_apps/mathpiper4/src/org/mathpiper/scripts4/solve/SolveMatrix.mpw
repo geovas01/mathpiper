@@ -1,7 +1,7 @@
 %mathpiper,def="SolveMatrix"
 
 Function("SolveMatrix",[matrix,vector])
-⊕
+{
   If(InVerboseMode(),Tell("   SolveMatrix",[matrix,vector]));
   Local(perms,indices,inv,det,n);
   n:=Length(matrix);
@@ -10,20 +10,20 @@ Function("SolveMatrix",[matrix,vector])
   inv:=ZeroVector(n);
   det:=0;
   ForEach(item,perms)
-  ⊕
+  {
     Local(i,lc);
     lc := LeviCivita(item);
     det:=det+Product(i,1,n,matrix[i][item[i] ])* lc;
     For(i:=1,i<=?n,i++)
-        ⊕
+        {
          inv[i] := inv[i]+
            Product(j,1,n,
            If(item[j] =? i,vector[j ],matrix[j][item[j] ]))*lc;
-        ⊖;
-  ⊖;
+        };
+  };
   Check(det !=? 0, "Math", "Zero determinant");
   (1/det)*inv;
-⊖;
+};
 
 %/mathpiper
 

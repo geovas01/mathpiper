@@ -13,18 +13,18 @@
    Moebius inversion formula. */
 
 MoebiusDivisorsList(n_PositiveInteger?) <--
-⊕
+{
  Local(nFactors,f,result,oldresult,x);
  nFactors:= Factors(n);
  result := [[1,1]];
  ForEach (f,nFactors)
-    ⊕
+    {
       oldresult := result;
         ForEach (x,oldresult)
           result:=Append(result,[x[1]*f[1],-x[2]]);
-    ⊖;
+    };
   result;
-⊖;
+};
 
 %/mathpiper
 

@@ -1,6 +1,6 @@
 %mathpiper,def="NN"
 
-LocalSymbols(complexReduce) ⊕
+LocalSymbols(complexReduce) {
 
   Bind(complexReduce,
     Hold(
@@ -9,14 +9,14 @@ LocalSymbols(complexReduce) ⊕
     ]));
 
   NN(_c) <--
-  ⊕
+  {
     Local(result);
     c := (c /:: complexReduce);
     result := Coef(Expand(c,II),II,[0,1]);
     result;
-  ⊖;
+  };
 
-⊖; //LocalSymbols(complexReduce)
+}; //LocalSymbols(complexReduce)
 
 %/mathpiper
 

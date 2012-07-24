@@ -12,17 +12,17 @@
    Scope */
 
 Function ("SumForDivisors",[sumvar,n,sumbody]) LocalSymbols(s,d)
-⊕
+{
    Local(s,d);
    s:=0;
    ForEach (d,DivisorsList(n))
-   ⊕
+   {
     MacroLocal(sumvar);
     MacroBind(sumvar,d);
     s:=s+Eval(sumbody);
-   ⊖;
+   };
    s;
-⊖;
+};
 UnFence("SumForDivisors",3);
 HoldArgument("SumForDivisors",sumvar);
 HoldArgument("SumForDivisors",sumbody); 

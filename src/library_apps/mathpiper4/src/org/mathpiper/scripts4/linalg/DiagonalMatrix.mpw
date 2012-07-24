@@ -1,16 +1,16 @@
 %mathpiper,def="DiagonalMatrix"
 
 Function("DiagonalMatrix",[list])
-⊕
+{
   Local(result,i,n);
   n:=Length(list);
   result:=Identity(n);
   For(i:=1,i<=?n,i++)
-  ⊕
+  {
     result[i][i] := list[i];
-  ⊖;
+  };
   result;
-⊖;
+};
 
 %/mathpiper
 

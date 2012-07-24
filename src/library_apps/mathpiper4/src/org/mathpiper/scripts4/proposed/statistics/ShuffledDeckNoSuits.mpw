@@ -4,9 +4,9 @@
 
 
 ShuffledDeckNoSuits() := 
-⊕
+{
    Shuffle(Concat(1 .. 13, 1 .. 13, 1 .. 13, 1 .. 13));
-⊖;
+};
 
 %/mathpiper
 

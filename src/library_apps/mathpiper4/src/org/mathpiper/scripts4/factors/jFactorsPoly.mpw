@@ -19,7 +19,7 @@
 /* -------------    POLYNOMIALS -- CAN BE UNI   --------------*/
 
 50 # jFactorsPoly( poly_CanBeUni ) <--
-⊕
+{
     If(InVerboseMode(),Tell("jFactorsPoly_100612",poly));
     Local(content,pp,ppFactors,monomialFactors,result,moreDetails);
     Local(vars,nvars,disassem,degrees,mpoly,nterms,allCoeffs,allPowers);
@@ -34,19 +34,19 @@
     //  If so, convert to approximate integers (with divisor).
     hasRealCoefficients := HasRealCoefficients(poly);
     If( hasRealCoefficients, 
-      ⊕
+      {
          Local(realPoly);
          realPoly  := poly;   //  just in case -- save original form
          allPowers := Flatten(disassem[2],"List");
          poly      := RealToRationalConvert(poly);
          // From now on we operate on a polynomial over Integers
-         hasRealCoefficients := False;          ⊖
+         hasRealCoefficients := False;          }
     );
     
     //  Also, check to see if the polynomial has Rational coeffs
     hasRationalCoefficients := HasRationalCoefficients(poly);
     If(hasRationalCoefficients, 
-      ⊕
+      {
          Local(rationalPoly);
          rationalPoly  := poly;   //  just in case -- save original form
          If(InVerboseMode(),Tell("   RATIONAL",rationalPoly));
@@ -54,7 +54,7 @@
          poly := RationalToIntegerConvert(poly);
          // From now on we operate on a polynomial over Integers
          hasRationalCoefficients := False;    
-      ⊖
+      }
     );
 
     // Now: get Content and Primitive Part
@@ -64,7 +64,7 @@
     If(InVerboseMode(),Tell("   ",[content,pp]));
     //If(Constant?(pp) And? Length(VarList(content))>?0,[content,pp]:=[pp,content]);
     If( Length(VarList(pp))=?0, result := [[pp*content,1]],
-      ⊕
+      {
          //If(InVerboseMode(),Tell("  ",[content,pp]));
          vars     := VarList(pp);
          nvars    := Length(vars);
@@ -74,22 +74,22 @@
          allCoeffs         := disassem[3];
          allPowers         := Flatten(disassem[2],"List");
          If(nvars >? 0,
-           ⊕
+           {
              ForEach(v,vars)
-                ⊕ DestructiveAppend(degrees,Degree(pp,v)); ⊖;
-             isHomogeneous     := ⊕
+                { DestructiveAppend(degrees,Degree(pp,v)); };
+             isHomogeneous     := {
                  // A polynomial is homogeneous of degree n 
                  // if all terms have degree n.   
                  Local(sd,cmp); 
                  sd  := Sum /@ disassem[2];
                  cmp := FillList(sd[1],Length(sd));
                  ZeroVector?(sd - cmp);
-             ⊖;
-           ⊖
+             };
+           }
          );
     
          If(InVerboseMode() And? moreDetails,
-           ⊕
+           {
              Tell("               ",vars);
              Tell("              ",nvars);
              Tell("             ",nterms);
@@ -99,7 +99,7 @@
              Tell("          ",allPowers);
              Tell("      ",isHomogeneous);
              NewLine();
-           ⊖
+           }
          );
     
          //  Does the Content have factors?  If so, get them.
@@ -111,13 +111,13 @@
          ppFactors := jFactorsPrimitivePart( pp );
          If(InVerboseMode(),Tell("                    ",ppFactors));
          If( Not? ListOfLists?(ppFactors),
-           ⊕
+           {
                Local(L,op,var,exp);
                L := If(Atom?(ppFactors[1]), ppFactors, FunctionToList(ppFactors[1]) );
                If(InVerboseMode(),Tell("                    ",L));
                If( L[1] =? ^, ppFactors := [L[2],L[3]] );
                ppFactors := [ppFactors];
-           ⊖
+           }
          );
          If(InVerboseMode(),Tell("  ",ppFactors));
     
@@ -127,19 +127,19 @@
              //result := Concat(monomialFactors,[ppFactors])    // hso 100801
              result := Concat(monomialFactors,ppFactors)      // hso 100803
          );
-      ⊖
+      }
     );
     
     If(InVerboseMode(),
-      ⊕
+      {
           NewLine();
           Tell("  ",monomialFactors);
           Tell("        ",ppFactors);
           Tell("  final    ",result);
-      ⊖
+      }
     );
     result;
-⊖;
+};
 UnFence("jFactorsPoly",1);
 
 
@@ -148,49 +148,49 @@ UnFence("jFactorsPoly",1);
 
      //  special case: binomials
 60 # jFactorsPrimitivePart( _pp )_(isHomogeneous And? nterms=?2 And? nvars=?2) <--
-⊕
+{
     If(InVerboseMode(),Tell("Bivariate Binomial",pp));
     Local(ppFactors,isDiagonal);
     isDiagonal := Diagonal?(disassem[2]);   //  mod hso 10-11-25
     ppFactors := If(isDiagonal,jFactorsBivariateBinomial(pp),jasFactorsInt(pp) );
-⊖;
+};
 UnFence("jFactorsPrimitivePart",1);
 
 
      //  special case: homogeneous bivariates
 65 # jFactorsPrimitivePart( _pp )_(isHomogeneous And? nterms>?1 And? nvars=?2) <--
-⊕
+{
     If(InVerboseMode(),Tell("Homogeneous and Bivariate"));
     Local(ppFactors);
     ppFactors := jFactorsHomogeneousBivariate(disassem);
-⊖;
+};
 UnFence("jFactorsPrimitivePart",1);
 
 
      //  special case:  no variables in pp!
 70 # jFactorsPrimitivePart( _pp )_(nvars=?0) <--
-⊕
+{
     Local(ppFactors);
     ppfactors := [];
-⊖;
+};
 
 
      //  general case
 100 # jFactorsPrimitivePart( _pp ) <-- 
-⊕
+{
     If(InVerboseMode(),Tell("jFactorsPrimitivePart_usingJAS",pp));
     Local(answer);
     answer := If(Monomial?(pp),[pp,1],jasFactorsInt(pp));
     If(InVerboseMode(),Tell("          ",answer));
     answer;
-⊖;
+};
 UnFence("jFactorsPrimitivePart",1);
 
 // ------------------  HOMOGENEOUS BIVARIATE  ------------------
 
 10 # jFactorsHomogeneousBivariate( dis_List? ) <-- 
-⊕
-    If(InVerboseMode(),⊕NewLine();Tell("jFactorsHomogeneousBivariate",dis);⊖);
+{
+    If(InVerboseMode(),{NewLine();Tell("jFactorsHomogeneousBivariate",dis);});
     Local(dis1,f,dis2,poly1,ppFactors,residuals);
     Local(ii,lst,f,preassem);
     dis1  := [[xi],[[X],[X[1]]] /@ dis[2],dis[3]];
@@ -200,15 +200,15 @@ UnFence("jFactorsPrimitivePart",1);
     ppFactors := BinaryFactors(poly1);
     [ppFactors,residuals] := FixUpMonicFactors(ppFactors);
     For(ii:=1,ii<=?Length(ppFactors),ii++)
-    ⊕
+    {
         f := ppFactors[ii];
         If(InVerboseMode(),Tell("          ",f[1]));
         lst := DisassembleExpression(f[1]);
         If(InVerboseMode(),
-          ⊕
+          {
              Tell("               ",lst);
              Tell("                            ",dis[1]);
-          ⊖
+          }
         );
         DestructiveReplace(lst,1,dis[1]);
         DestructiveAppend(lst[2][1],0);
@@ -218,37 +218,37 @@ UnFence("jFactorsPrimitivePart",1);
         preassem  := Sum(ReassembleListTerms(lst)) ;
         If(InVerboseMode(),Tell("               ",preassem));
         ppFactors[ii][1] := preassem;
-    ⊖;
-    If(InVerboseMode(),⊕Tell("   ",ppFactors); Tell("   ",residuals);NewLine();⊖ );  
+    };
+    If(InVerboseMode(),{Tell("   ",ppFactors); Tell("   ",residuals);NewLine();} );  
     ppFactors;
-⊖;
+};
 UnFence("jFactorsHomogeneousBivariate",1);
 
 // ---------------------   OTHER STUFF ------------------------
 
 10 # RealToRationalConvert( poly_Polynomial? ) <--
-⊕
+{
     // If the polynomial has REAL coefficients, convert them to
     // approximate RATIONALS
-    If(InVerboseMode(),⊕NewLine();Tell("  REAL",poly);⊖);
+    If(InVerboseMode(),{NewLine();Tell("  REAL",poly);});
     Local(coeffs,gcd,lcm);
     coeffs := Rationalize /@ (allCoeffs);
-    If(InVerboseMode(),⊕Tell("      to-Q",coeffs);Tell("      to-Z",coeffs);⊖);
+    If(InVerboseMode(),{Tell("      to-Q",coeffs);Tell("      to-Z",coeffs);});
     Local(gcd,lcm);
     gcd    := Gcd(Numerator /@ coeffs);
     lcm    := Lcm(Denominator /@ coeffs);
-    If(InVerboseMode(),⊕Tell("       ",gcd);Tell("       ",lcm);⊖);
+    If(InVerboseMode(),{Tell("       ",gcd);Tell("       ",lcm);});
     disassem[3] := coeffs;
     allCoeffs   := coeffs;
     poly        := Sum(ReassembleListTerms(disassem));
     If(InVerboseMode(),Tell("   new",poly));
     poly;
-⊖;
+};
 UnFence("RealToRationalConvert",1);
 
 
 10 # RationalToIntegerConvert( poly_Polynomial? ) <--
-⊕
+{
     // If the polynomial has RATIONAL coefficients, convert to
     // approximate INTEGER
     Local(coeffs,gcd,lcm);
@@ -256,84 +256,84 @@ UnFence("RealToRationalConvert",1);
     If(InVerboseMode(),Tell("  ",coeffs));
     lcm         := Lcm(Denominator /@ coeffs);
     extraFactor := lcm;
-    If(InVerboseMode(),⊕Tell("     ",extraFactor);⊖);
+    If(InVerboseMode(),{Tell("     ",extraFactor);});
     poly := Simplify(extraFactor*poly);
     If(InVerboseMode(),Tell("  new ",poly));
     poly;
-⊖;
+};
 UnFence("RationalToIntegerConvert",1);
 
 
 100 # CombineNumericalFactors( factrs_List? ) <--
-⊕
+{
       If( InVerboseMode(), Tell("Combine",factrs) );
       Local(q,a,b,t,f,ff,err);
       err := False;
       t   := 1;
       f   := [];
       ForEach(q,factrs)
-      ⊕
+      {
           If( InVerboseMode(), Tell(1,q) );
           If( List?(q) And? Length(q)=?2,
-            ⊕
+            {
                 [a,b] := q;
                 If( InVerboseMode(), Echo("     ",[a,b]) );
                 If( NumericList?( [a,b] ),
                     t := t * a^b,
                     f := [a,b]~f
                 );
-            ⊖,
+            },
               err := True
           );
-      ⊖;
+      };
       If( InVerboseMode(),
-        ⊕
+        {
             Echo("      t = ",t);
             Echo("      f = ",f);
             Echo("    err = ",err);
-        ⊖
+        }
       );
       ff := If(Not? err And? t !=? 1, [t,1]~Reverse(f), factrs);
       ff := Select(Lambda([x],x!=?[1,1]),ff);
       If(ff[1]<?0,ff[1]:=-ff[1]);
-⊖;
+};
 
 
 // ----------------  RATIONAL POLYNOMIALS  -----------------
 
 150 # jFactors( expr_RationalFunction? )_
         (Polynomial?(Numerator(expr)) And? Polynomial?(Denominator(expr))) <--
-⊕
-    If(InVerboseMode(),⊕NewLine();Tell("jFactors_Rational_Function",expr);⊖);
+{
+    If(InVerboseMode(),{NewLine();Tell("jFactors_Rational_Function",expr);});
     Local(Numer,Denom,fNumer,fDenom);
     Numer  := Numerator(expr);
     Denom  := Denominator(expr);
     fNumer := jFactors(Numer);
     fDenom := jFactors(Denom);
-    If(InVerboseMode(),⊕Tell("   ",fNumer); Tell("   ",fDenom);⊖);
+    If(InVerboseMode(),{Tell("   ",fNumer); Tell("   ",fDenom);});
     fNumer/fDenom;
-⊖;
+};
 
 
 152 # jFactors( expr_RationalFunction? )_
         (Constant?(Numerator(expr)) And? Polynomial?(Denominator(expr))) <--
-⊕
-    If(InVerboseMode(),⊕NewLine();Tell("jFactors_Rational_Denom",expr);⊖);
+{
+    If(InVerboseMode(),{NewLine();Tell("jFactors_Rational_Denom",expr);});
     Local(Numer,Denom,fNumer,fDenom);
     Numer  := Numerator(expr);
     Denom  := Denominator(expr);
     fNumer := jFactors(Numer);
     fDenom := jFactors(Denom);
-    If(InVerboseMode(),⊕Tell("   ",fNumer); Tell("   ",fDenom);⊖);
+    If(InVerboseMode(),{Tell("   ",fNumer); Tell("   ",fDenom);});
     fNumer/fDenom;
-⊖;
+};
 
 
 // ----------   POSSIBLE NON-INTEGER EXPONENTS  ----------
 
 200 # jFactors( _expr )_(Length(VarList(expr)) =? 1) <--
-⊕
-    If(InVerboseMode(),⊕NewLine();Tell("Some other kind of expression",expr);⊖);
+{
+    If(InVerboseMode(),{NewLine();Tell("Some other kind of expression",expr);});
     Local(dis,X,pows);
     dis := DisassembleExpression(expr);
     X   := VarList(expr)[1];
@@ -343,7 +343,7 @@ UnFence("RationalToIntegerConvert",1);
     p := Sum(ReassembleListTerms(dis));
     If(InVerboseMode(),Tell("    new ",p));
     jFactors(p);
-⊖;
+};
 
 
 
@@ -355,7 +355,7 @@ UnFence("RationalToIntegerConvert",1);
  *-------------------------------------------------------------------*/
 
 10 # jFactorsBivariateBinomial( poly_Polynomial? )_(Length(VarList(poly))=?2)  <--
-⊕
+{
     If(InVerboseMode(),Tell(jFactorsBivariateBinomial,poly));
     Local(dis,n,X,Y,vars,A,B,s,Ar,Br,Arr,Brr,DAr,DBr,result);
     dis := DisassembleExpression(poly);
@@ -372,32 +372,32 @@ UnFence("RationalToIntegerConvert",1);
     Ar    := N(A^(1/n));    Arr := Round(Ar);   DAr := Abs(Ar-Arr);
     Br    := N(B^(1/n));    Brr := Round(Br);   DBr := Abs(Br-Brr);
     If(InVerboseMode(),
-      ⊕
+      {
           Tell("       ",[n,X,Y]); 
           Tell("       ",[vars,A,B]);
           Tell("       ",[Ar,Br,s]);
           Tell("       ",[Arr,Brr]);
           Tell("       ",[DAr,DBr]);
           Tell("       ",dis);
-      ⊖
+      }
     );
     result := If( DAr <? 10^(-9) And? DBr <? 10^(-9), jFB(dis), [[poly,1]] );
     result;
-⊖;
+};
 UnFence("jFactorsBivariateBinomial",1);
 
 
 50 # jFB( dis_List? )_(Length(dis)=?3 And? Length(dis[3])=?2) <--
-⊕
-    If(InVerboseMode(),⊕NewLine();Tell("jFB",dis);⊖);
+{
+    If(InVerboseMode(),{NewLine();Tell("jFB",dis);});
     Local(ns,ii,fn,mx,my,fac);
     If(InVerboseMode(),
-      ⊕
+      {
          Tell("     ",n);
          Tell("     ",[X,Y]);
          Tell("     ",[A,B,s]);
          Tell("     ",[Ar,Br]);
-      ⊖
+      }
     );
     X     := Arr*X;
     Y     := Brr*Y;
@@ -405,43 +405,43 @@ UnFence("jFactorsBivariateBinomial",1);
     
     fac  := jFac( X/Y,n,s);    //  factor using JAS and normalized variable
     If(InVerboseMode(),
-      ⊕
+      {
           NewLine();
           Tell("      ",X/Y);
           Tell("      ",fac);
-      ⊖
+      }
     );
     
     // now convert factorization back to actual variables if required
     If( Y !=? 1,
-      ⊕
+      {
           Local(f,d,fs);
           For(ii:=1,ii<=?Length(fac),ii++)
-          ⊕
+          {
               f := fac[ii][1];
               d := Degree(f,x);
               If(InVerboseMode(),Tell("             ",[ii,f,d]));
               fs := Subst(x,X/Y) f;
               If(InVerboseMode(),Tell("               ",[fs,d]));
               fac[ii][1] := Simplify(Simplify(Y^d*fs));
-          ⊖;
-      ⊖
+          };
+      }
     );
     fac;
-⊖;
+};
 UnFence("jFB",1);
 
 
 
 60 # jFac( _var, n_PositiveInteger?, s_Integer? ) <--
-⊕
+{
     //  Uses JAS to factor polynomial of form x^n � 1.
-    If(InVerboseMode(),⊕NewLine();Tell("jFac",[var,n,s]);⊖);
+    If(InVerboseMode(),{NewLine();Tell("jFac",[var,n,s]);});
     Local(x,poly,result);
     poly := x^n+s;
     If(InVerboseMode(),Tell("   ",poly));
     result := jasFactorsInt(poly);     
-⊖;
+};
 UnFence("jFac",3);
 
 
@@ -450,22 +450,22 @@ UnFence("jFac",3);
 12 # IsPureRational( _N ) <-- False;
 
 10 # HasRealCoefficients( poly_Polynomial? ) <--
-⊕
+{
     Local(disassem);
     disassem := DisassembleExpression(poly);
     (Length(Select(disassem[3],"Decimal?")) >? 0);
-⊖;
+};
 
 10 # HasRealCoefficients( poly_Monomial? ) <--
-⊕
+{
     Local(disassem);
     disassem := DisassembleExpression(poly);
     (Length(Select(disassem[3],"Decimal?")) >? 0);
-⊖;
+};
 
 
 10 # HasRationalCoefficients( poly_Polynomial? ) <--
-⊕
+{
     Local(disassem,answer);
     If(InVerboseMode(),Tell("  HasRationalCoefficients",poly));
     disassem := DisassembleExpression(poly);
@@ -473,29 +473,29 @@ UnFence("jFac",3);
     answer := (Length(Select(disassem[3],"IsPureRational")) >? 0);
     If(InVerboseMode(),Tell("   ",answer));
     answer;
-⊖;
+};
 
 10 # HasRationalCoefficients( poly_Monomial?) <--
-⊕
+{
     Local(disassem);
     disassem := DisassembleExpression(poly);
     (Length(Select(disassem[3],"IsPureRational")) >? 0);
-⊖;
+};
 
 
 10 # FixUpMonicFactors( factrs_List? ) <--
-⊕
-    If(InVerboseMode(),⊕ NewLine(); Tell("   doing monic fixup"); ⊖ );
+{
+    If(InVerboseMode(),{ NewLine(); Tell("   doing monic fixup"); } );
     Local(factrsnew,residuals,f,uni,);
     factrsnew := [];
     residuals := [];
     ForEach(f,factrs)
-    ⊕
+    {
         If(InVerboseMode(),Tell("               ",f));
         uni := MakeUni(f[1]);
         If(InVerboseMode(),Tell("                    ",uni));
         If( Degree(f[1])=?1,
-          ⊕
+          {
             Local(cc,lcm,fnew);
             If(InVerboseMode(),Tell("                          ",Degree(f[1])));
             cc      := Coef(f[1],uni[1],0 .. 1);
@@ -504,37 +504,37 @@ UnFence("jFac",3);
             uni[3]  := lcm * cc;
             fnew    := NormalForm(uni);
             If( hasRationalCoefficients,
-              ⊕
+              {
                  DestructiveAppend(factrsnew,f);
-              ⊖,
-              ⊕ 
+              },
+              { 
                  DestructiveAppend(factrsnew,[fnew,f[2]]);
-              ⊖
+              }
             );
-          ⊖
+          }
         );
         If( Degree(f[1])=?2,
-          ⊕
+          {
             If(InVerboseMode(),Tell("                          ",Degree(f[1])));
             Local(pq);
             pq      := PrimitivePart(f[1]);
             DestructiveAppend(factrsnew,[pq,f[2]]);
-          ⊖
+          }
         );
         //  If any factors have degree >=3, store them in a 'residuals' array
         //  for further analysis
         If( Degree(f[1]) >? 2,
-          ⊕
+          {
             If(InVerboseMode(),Tell("                          ",Degree(f[1])));
             Local(pq);
             pq      := PrimitivePart(f[1]);
             DestructiveAppend(residuals,[pq,f[2]]);
             If(InVerboseMode(),Tell("                   appending to residuals",pq));
-          ⊖
+          }
         );       
-    ⊖;
+    };
     [factrsnew,residuals];
-⊖;
+};
 UnFence("FixUpMonicFactors",1);
 
 

@@ -3,21 +3,21 @@
 //Retract("ElementCount",*);
 
 ElementCount(list) :=
-⊕   
+{   
     if(Length(list) =? 0)
-    ⊕
+    {
         0;
-    ⊖
+    }
     else if(Atom?(list))
-    ⊕
+    {
         1;
-    ⊖
+    }
     else
-    ⊕
+    {
         ElementCount(First(list)) + ElementCount(Rest(list));
-    ⊖;
+    };
 
-⊖;
+};
 
 %/mathpiper
 

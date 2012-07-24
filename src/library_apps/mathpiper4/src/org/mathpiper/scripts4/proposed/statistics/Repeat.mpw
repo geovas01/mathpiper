@@ -10,7 +10,7 @@
     body is unfenced and expressions in the body could see them
     otherwise.
 */
-LocalSymbols(count, iterations, body)⊕
+LocalSymbols(count, iterations, body){
 
 
 RulebaseHoldArguments("Repeat",[iterations,body]);
@@ -24,21 +24,21 @@ RulebaseHoldArguments("Repeat",[iterations,body]);
 */
 
 RuleHoldArguments("Repeat",2,10,Integer?(iterations) And? iterations >? 0)
-⊕
+{
     Local(count);
 
     count := 0;
 
     While (iterations >? 0)
-    ⊕
+    {
         Eval(body);
         iterations--;
         count++;
-    ⊖;
+    };
 
     count;
 
-⊖;
+};
 
 
 
@@ -48,20 +48,20 @@ RulebaseHoldArguments("Repeat",[body]);
 
 
 RuleHoldArguments("Repeat",1,20,True)
-⊕
+{
     Local(count);
 
     count := 0;
     While (True)
-    ⊕
+    {
         Eval(body);
         count++;
-    ⊖;
+    };
 
     count;
-⊖;
+};
 
-⊖;//end LocalSymbols
+};//end LocalSymbols
 
 UnFence("Repeat",2);
 HoldArgumentNumber("Repeat",2,2);

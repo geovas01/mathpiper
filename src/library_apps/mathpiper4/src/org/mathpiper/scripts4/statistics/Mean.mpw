@@ -1,11 +1,11 @@
 %mathpiper,def="Mean"
 
 Mean(list) := 
-⊕
+{
     Check(List?(list), "Argument", "Argument must be a list.");
     
     Sum(list)/Length(list);
-⊖;
+};
 
 %/mathpiper
 

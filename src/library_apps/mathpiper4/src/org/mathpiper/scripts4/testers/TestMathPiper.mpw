@@ -7,14 +7,14 @@
 
 /*
 Macro ("TestMathPiper", [expr, ans])
-⊕
+{
         Local(diff,exprEval, ansEval);
   exprEval:= @expr;
   ansEval:= @ans;
 
         diff := Simplify(exprEval - ansEval);
                 If (Simplify(diff)=0, True,
-                        ⊕
+                        {
                           WriteString("******************");
                           NewLine();
                           ShowLine();
@@ -34,19 +34,19 @@ Macro ("TestMathPiper", [expr, ans])
                           WriteString("******************");
                           NewLine();
                           False;
-                         ⊖
+                         }
                         );
-⊖;
+};
 */
 
 
 
 Function ("TestMathPiper", [expr, ans])
-⊕
+{
         Local(diff);
         diff := Simplify(Eval(expr)-Eval(ans));
                 If (Simplify(diff)=?0, True,
-                        ⊕
+                        {
                           WriteString("******************");
                           NewLine();
                           ShowLine();
@@ -66,9 +66,9 @@ Function ("TestMathPiper", [expr, ans])
                           WriteString("******************");
                           NewLine();
                           False;
-                         ⊖
+                         }
                         );
-⊖;
+};
 
 HoldArgument("TestMathPiper", expr);
 HoldArgument("TestMathPiper", ans);

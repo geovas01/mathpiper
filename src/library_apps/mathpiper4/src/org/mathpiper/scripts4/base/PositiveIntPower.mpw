@@ -5,17 +5,17 @@
 
 // power x^n only for non-negative integer n
 Defun("PositiveIntPower", [x,n])
-⊕
+{
   Local(result,unit);
   If(LessThan?(n,0), False,
-  ⊕
+  {
         Bind(unit,1);         // this is a constant, initial value of the power
         Bind(result, unit);
         If(Equal?(n,0),unit,
          If(Equal?(n,1),x,
-          ⊕
+          {
                 While(GreaterThan?(n,0))
-                ⊕
+                {
                         If(
                                 Equal?(BitAnd(n,1), 1),
 //                                If(
@@ -26,13 +26,13 @@ Defun("PositiveIntPower", [x,n])
                         );
                         Bind(x, MultiplyN(x,x));
                         Bind(n,ShiftRight(n,1));
-                ⊖;
+                };
                 result;
-          ⊖
+          }
          )
         );
-  ⊖);
-⊖;
+  });
+};
 
 %/mathpiper
 

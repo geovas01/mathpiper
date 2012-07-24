@@ -1,11 +1,11 @@
 %mathpiper,def="Variance"
 
 Variance(list) := 
-⊕
+{
     Check(List?(list), "Argument", "Argument must be a list.");
 
     Sum((list - Mean(list))^2)/Length(list);
-⊖;
+};
 
 %/mathpiper
 

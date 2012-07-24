@@ -1,5 +1,5 @@
-Thu Apr 12 15:59:13 EDT 2012.
-MathPiper version: js:mp4:.088.
+Tue Jul 24 00:51:41 EDT 2012.
+MathPiper version: js:mp4:.089.
 Running all tests except the following: Solve,PSolve.
 Beginning of tests:
 
@@ -322,11 +322,11 @@ Testing Differentiate in file </org/mathpiper/scripts4/deriv/Differentiate.mpw>:
 File: /org/mathpiper/scripts4/deriv/Differentiate.mpw, Line: 8 
 
 
-[
+{
     Local(poly);
     poly:=x^2;
     Differentiate(x)poly;
-]
+}
  evaluates to 
 0
  which differs from 
@@ -857,9 +857,9 @@ File: /org/mathpiper/scripts4/sums/Taylor.mpw, Line: 311
 
 $pp1826
  evaluates to 
-TaylorLPS(1,{-2,0,1/3,0},t,TaylorLPSScalarMult(-1,TaylorLPS(1,{2,0,(-1)/3,0},t,TaylorLPSScalarMult(2,TaylorLPS(1,{1,0,(-1)/6,0},t,Sin(t))))))
+TaylorLPS(1,[-2,0,1/3,0],t,TaylorLPSScalarMult(-1,TaylorLPS(1,[2,0,(-1)/3,0],t,TaylorLPSScalarMult(2,TaylorLPS(1,[1,0,(-1)/6,0],t,Sin(t))))))
  which differs from 
-TaylorLPS(1,{-2,0,1/3,0},t,TaylorLPSScalarMult(-2,TaylorLPS(1,{1,0,(-1)/6,0},t,Sin(t))))
+TaylorLPS(1,[-2,0,1/3,0],t,TaylorLPSScalarMult(-2,TaylorLPS(1,[1,0,(-1)/6,0],t,Sin(t))))
 ******************
 
 
@@ -917,6 +917,6 @@ Testing | in file </org/mathpiper/scripts4/a_initialization/standard/vertical_ba
 GlobalVariables: Result: True
 
 Side Effects:
-{$a52,$a921,$b52,$b921,$bernoulli1Threshold37,$CacheOfConstantsN12,$CFormAllFunctions48,$cformMathFunctions46,$cformRegularOps45,$cindent47,$ErrorTableau40,$GlobalStack27,$intpred51,$knownOrthoPoly913,$knownRNGDists30,$knownRNGEngines30,$lastcoef44,$LoadResult,$localResult19,$mathExpThreshold39,$mNum11,$nmax54,$nNum11,$NthRootTable357,$numericMode7,$omindent910,$omsymbol912,$omsymbolreverse912,$omtoken911,$options916,$p01826,$p11826,$p21826,$p28,$p31826,$p41826,$p920,$pc241826,$pc351826,$pc461826,$pc571826,$pc681826,$pj1826,$pj401826,$pj501826,$pj511826,$pj521826,$pj531826,$pj541826,$pju01826,$pp1826,$RandSeed31,$res932,$simple921,$st918,$TeXFormGreekLetters1893,$TeXFormMathFunctions1894,$TeXFormMathFunctions21894,$TeXFormRegularOps1893,$TeXFormRegularPrefixOps1893,$TeXFormSpecialNames1893,$Verbose21,%,I,iDebug,True} 
+[$a52,$a921,$b52,$b921,$bernoulli1Threshold37,$CacheOfConstantsN12,$CFormAllFunctions48,$cformMathFunctions46,$cformRegularOps45,$cindent47,$ErrorTableau40,$GlobalStack27,$intpred51,$knownOrthoPoly913,$knownRNGDists30,$knownRNGEngines30,$lastcoef44,$LoadResult,$localResult19,$mathExpThreshold39,$mNum11,$nmax54,$nNum11,$NthRootTable357,$numericMode7,$omindent910,$omsymbol912,$omsymbolreverse912,$omtoken911,$options916,$p01826,$p11826,$p21826,$p28,$p31826,$p41826,$p920,$pc241826,$pc351826,$pc461826,$pc571826,$pc681826,$pj1826,$pj401826,$pj501826,$pj511826,$pj521826,$pj531826,$pj541826,$pju01826,$pp1826,$RandSeed31,$res932,$simple921,$st918,$TeXFormGreekLetters1893,$TeXFormMathFunctions1894,$TeXFormMathFunctions21894,$TeXFormRegularOps1893,$TeXFormRegularPrefixOps1893,$TeXFormSpecialNames1893,$Verbose21,%,I,iDebug,True] 
 
-Elapsed Time: 1:53
+Elapsed Time: 1:44

@@ -4,10 +4,10 @@
 
 10 # 0! <-- 1;
 10 # (Infinity)! <-- Infinity;
-20 # ((n_PositiveInteger?)!) <-- ⊕
+20 # ((n_PositiveInteger?)!) <-- {
         Check(n <=? 65535, "Argument", "Factorial: Error: the argument " ~ ( PipeToString() Write(n) ) ~ " is too large, you may want to avoid exact calculation");
         MathFac(n);
-⊖;
+};
 
 25 # ((x_Constant?)!)_(FloatIsInt?(x) And? x>?0) <-- (Round(x)!);
 

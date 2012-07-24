@@ -1,7 +1,7 @@
 %mathpiper,def="Trigonometry"
 
 Defun("Trigonometry",[x,i,sum,term])
-⊕
+{
   Local(x2,orig,eps,previousPrec,newPrec);
   Bind(previousPrec,BuiltinPrecisionGet());
   Bind(newPrec,AddN(BuiltinPrecisionGet(),2));
@@ -9,7 +9,7 @@ Defun("Trigonometry",[x,i,sum,term])
   BuiltinPrecisionSet(newPrec);
   Bind(eps,MathIntPower(10,MathNegate(previousPrec)));
   While(GreaterThan?(AbsN(term),eps))
-  ⊕
+  {
     Bind(term,MultiplyN(term,x2));
     Bind(i,AddN(i,1.0));
     Bind(term,DivideN(term,i));
@@ -18,10 +18,10 @@ Defun("Trigonometry",[x,i,sum,term])
     BuiltinPrecisionSet(previousPrec);
     Bind(sum, AddN(sum, term));
     BuiltinPrecisionSet(newPrec);
-  ⊖;
+  };
   BuiltinPrecisionSet(previousPrec);
   sum;
-⊖;
+};
 
 %/mathpiper
 

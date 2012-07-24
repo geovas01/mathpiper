@@ -15,23 +15,23 @@ RuleHoldArguments("Nth",2,10,
 RuleHoldArguments("Nth",2,14,
      And?(Equal?(String?(alist),True),List?(aindex))
     )
-⊕
+{
   Local(result);
   result:="";
-  ForEach(i,aindex) ⊕ result := result ~ StringMidGet(i,1,alist); ⊖;
+  ForEach(i,aindex) { result := result ~ StringMidGet(i,1,alist); };
   result;
-⊖;
+};
 
 RuleHoldArguments("Nth",2,15,Equal?(String?(alist),True))
-⊕
+{
   StringMidGet(aindex,1,alist);
-⊖;
+};
 
 
 RuleHoldArguments("Nth",2,20,Equal?(List?(aindex),True))
-⊕
+{
   Map([[ii],alist[ii]],[aindex]);
-⊖;
+};
 
 RuleHoldArguments("Nth",2,30,
    And?(
@@ -40,19 +40,19 @@ RuleHoldArguments("Nth",2,30,
            Equal?(Integer?(aindex),True)
           )
     )
-⊕
+{
   ArrayGet(alist,aindex);
-⊖;
+};
 
 
 
 RuleHoldArguments("Nth",2,40,Equal?(String?(aindex),True))
-⊕
+{
   Local(as);
   as := Assoc(aindex,alist);
   If (Not?(Equal?(as,Empty)),Bind(as,Nth(as,2)));
   as;
-⊖;
+};
 
 
 %/mathpiper

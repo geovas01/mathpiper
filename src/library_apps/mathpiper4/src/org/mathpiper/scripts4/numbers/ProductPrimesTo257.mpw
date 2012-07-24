@@ -2,16 +2,16 @@
 
 /// Product of small primes <= 257. Computed only once.
 LocalSymbols(p, q)
-⊕
+{
         // p:= 1;
-        ProductPrimesTo257() := 2*3* ⊕
+        ProductPrimesTo257() := 2*3* {
                 If(
                         Integer?(p),
                         p,
                 p := Product(Select( 5 .. 257, [[q], Modulo(q^2,24)=?1 And? SmallPrime?(q)]))
                 );
 //                p;
-        ⊖;
-⊖;
+        };
+};
 
 %/mathpiper

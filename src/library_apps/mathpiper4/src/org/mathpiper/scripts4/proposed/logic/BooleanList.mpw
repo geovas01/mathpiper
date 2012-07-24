@@ -1,7 +1,7 @@
 %mathpiper,def="BooleanList"
 
 BooleanList(elements, integerBitPattern) :=
-⊕
+{
     Local(stringBitPattern, leadingDigitsCount, atomBitPattern);
     
     Check(Integer?(elements) And? elements >? 0, "Argument", "The first argument must be an integer that is > 0.");
@@ -19,7 +19,7 @@ BooleanList(elements, integerBitPattern) :=
     
     atomBitPattern /: [0 <- False, 1 <- True];
     
-⊖;
+};
 
 %/mathpiper
 

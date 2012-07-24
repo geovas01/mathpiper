@@ -5,7 +5,7 @@
  10 # MakeNewPoly( _poly ) <-- MakeNewPoly(poly,[x,y,z]);
  
  20 # MakeNewPoly( _poly, polyVars_List? ) <--
- ⊕
+ {
     //------------------------------------------------------------------
     // INPUT:  a polynomial, in usual MathPiper format,
     //         and a list of Variables to be used, in Order of ">".
@@ -19,23 +19,23 @@
     nTerms := Length(dexp[3]);
     pVars  := dexp[1];
     If(InVerboseMode(),
-      ⊕
+      {
         Tell("    ",nTerms); 
         Tell("      ",ReassembleListTerms(dexp)); 
         Tell("    ",[pVars,npVars]);
-      ⊖
+      }
     );
     newDexp := FlatCopy(dexp);
     newDexp[1] := npVars;
     pwrProd := dexp[2];
-    If(InVerboseMode(), ⊕Tell("    ",newDexp); Tell("    ",pwrProd);⊖);
+    If(InVerboseMode(), {Tell("    ",newDexp); Tell("    ",pwrProd);});
     pwrProdT := Transpose(pwrProd);
     polyExp  := Concat([dexp[3]],pwrProdT);
     polyExp  := Push(Transpose(polyExp),npVars);
     polyExp  := Push(polyExp,NP);
     If(InVerboseMode(),Tell("    ",polyExp));
     polyExp;
- ⊖;
+ };
  UnFence("MakeNewPoly",2);
 
 %/mathpiper

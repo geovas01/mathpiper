@@ -3,7 +3,7 @@
 //Retract("ConfidenceIntervalOfTheMean",*);
 
 ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnown,sampleSize,confidenceLevel) :=
-⊕
+{
     Check(Boolean?(standardDeviationIsKnown), "Argument", "The third argument must be True or False.");
     
     Local(criticalZScore,criticalTScore,standardErrorOfTheMean,upperLimitValue,lowerLimitValue,resultList);
@@ -11,7 +11,7 @@ ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnow
     resultList := [];
     
     If(sampleSize >=? 30 Or? standardDeviationIsKnown =? True,
-    ⊕
+    {
         criticalZScore := N(ConfidenceLevelToZScore(confidenceLevel));
         
         resultList["criticalZScore"] := criticalZScore;
@@ -24,15 +24,15 @@ ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnow
 
         
         If(InVerboseMode(),
-            ⊕
+            {
                 Echo("Using the normal distribution.");
                 
                 Echo("Critical z-score: ", criticalZScore);
                 
                 Echo("Standard error of the mean: ", standardErrorOfTheMean);
-            ⊖);
-    ⊖,
-    ⊕   
+            });
+    },
+    {   
         criticalTScore := OneTailAlphaToTScore(sampleSize - 1, N((1 - confidenceLevel)/2));
         
         resultList["criticalTScore"] := criticalTScore;
@@ -45,22 +45,22 @@ ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnow
         
         
         If(InVerboseMode(),
-            ⊕
+            {
                 Echo("Using the t-distribution.");
                 
                 Echo("Critical t-score: ", criticalTScore);
                 
                 Echo("Standard error of the mean: ", standardErrorOfTheMean);
-            ⊖);
+            });
     
-    ⊖);
+    });
     
     resultList["upperLimit"] := upperLimitValue;
     
     resultList["lowerLimit"] := lowerLimitValue;
 
     resultList;
-⊖;
+};
 
 
 %/mathpiper

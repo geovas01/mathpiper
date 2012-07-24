@@ -30,26 +30,26 @@ NthRootClear
 //                NthRootClear)
 LocalSymbols(m,n,r,
              NthRootTable)
-⊕
+{
 
 // interface function for nth root of m
 // m>=0, n>1, integers
 // m^(1/n) --> f*(r^(1/n))
 NthRoot(m_NonNegativeInteger?,n_Integer?)_(n>?1) <--
-⊕
+{
    Local(r);
    r:=NthRootRestore(m,n);
    If(Length(r)=?0,
-   ⊕
+   {
       r:=NthRootCalc(m,n);
       NthRootSave(m,n,r);
-   ⊖);
+   });
    r;
-⊖;
+};
 
 // internal functions
 Function("NthRootCalc",[m,n])
-⊕
+{
    Local(i,j,f,r,in);
    Bind(i,2);
    Bind(j,Ceil(FastPower(m,N(1.0/n))+1));
@@ -61,68 +61,68 @@ Function("NthRootCalc",[m,n])
    // faster in general?
 //Echo("i j ",i," ",j);
    While(LessThan?(i,j))
-   ⊕
+   {
       Bind(in,PowerN(i,n));
 //Echo("r in mod ",r, " ",in," ",ModuloN(r,in));
       While(Equal?(ModuloN(r,in),0))
-      ⊕
+      {
          Bind(f,MultiplyN(f,i));
          Bind(r,QuotientN(r,in));
-      ⊖;
+      };
       While(Equal?(ModuloN(r,i),0))   //
          Bind(r,QuotientN(r,i));         //
       //Bind(i,NextPrime(i));
       Bind(i,NextPseudoPrime(i));
       Bind(j,Ceil(FastPower(r,N(1.0/n))+1));
-   ⊖;
+   };
    //List(f,r);
    List(f,QuotientN(m,PowerN(f,n))); //
-⊖;
+};
 
 // lookup table utilities
 Function("NthRootList",[n])
-⊕
+{
    If(Length(NthRootTable)>?0,
-   ⊕
+   {
       Local(p,xx);
       p:=Select(NthRootTable, [[xx],First(xx)=?n]);
       If(Length(p)=?1,Rest(p[1]),List());
-   ⊖,
+   },
    List());
-⊖;
+};
 
 Function("NthRootRestore",[m,n])
-⊕
+{
    Local(p);
    p:=NthRootList(n);
    If(Length(p)>?0,
-   ⊕
+   {
       Local(r,xx);
       r:=Select(p, [[xx],First(xx)=?m]);
       If(Length(r)=?1,First(Rest(r[1])),List());
-   ⊖,
+   },
    List());
-⊖;
+};
 
 Function("NthRootSave",[m,n,r])
-⊕
+{
    Local(p);
    p:=NthRootList(n);
    If(Length(p)=?0,
    // create power list and save root
    DestructiveInsert(NthRootTable,1,List(n,List(m,r))),
-   ⊕
+   {
       Local(rr,xx);
       rr:=Select(p, [[xx],First(xx)=?m]);
       If(Length(rr)=?0,
-      ⊕
+      {
          // save root only
          DestructiveAppend(p,List(m,r));
-      ⊖,
+      },
       // already saved
       False);
-   ⊖);
-⊖;
+   });
+};
 
 //TODO why is NthRootTable both lazy global and protected with LocalSymbols?
 Function("NthRootClear",[]) SetGlobalLazyVariable(NthRootTable,List());
@@ -130,7 +130,7 @@ Function("NthRootClear",[]) SetGlobalLazyVariable(NthRootTable,List());
 // create empty table
 NthRootClear();
 
-⊖; // LocalSymbols(m,n,r,NthRootTable);
+}; // LocalSymbols(m,n,r,NthRootTable);
 
 //////
 //////

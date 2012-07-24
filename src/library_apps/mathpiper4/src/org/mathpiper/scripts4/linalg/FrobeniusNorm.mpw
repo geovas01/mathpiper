@@ -1,7 +1,7 @@
 %mathpiper,def="FrobeniusNorm"
 
 FrobeniusNorm(matrix_Matrix?) <--
-⊕
+{
         Local(i,j,result);
         result:=0;
         For(i:=1,i<=?Length(matrix),i++)
@@ -10,7 +10,7 @@ FrobeniusNorm(matrix_Matrix?) <--
 
         Sqrt(result);
 
-⊖;
+};
 
 %/mathpiper
 

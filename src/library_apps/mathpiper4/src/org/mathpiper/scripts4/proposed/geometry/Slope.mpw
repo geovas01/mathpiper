@@ -1,7 +1,7 @@
 %mathpiper,def="Slope"
 
 10 # Slope(PointA_Point?,PointB_Point?) <--
-⊕
+{
     Local(x1,x2,y1,y2,slope);
 
     x1 := PointA[1];
@@ -10,12 +10,12 @@
     y2 := PointB[2];
     
     slope := (y2 - y1)/(x2 - x1);
-⊖;
+};
 
 
 
 10 # Slope(segment_List?)_(Length(segment) =? 2 And? Length(segment[1]) =? 2 And? Length(segment[2]) =? 2) <--
-⊕
+{
     Local(x1,x2,y1,y2,slope);
     
     x1 := segment[1][1]; //PointA[1];
@@ -26,7 +26,7 @@
     y2 := segment[2][2]; //PointB[2];
 
     slope := (y2 - y1)/(x2 - x1);
-⊖;
+};
 
 %/mathpiper
 

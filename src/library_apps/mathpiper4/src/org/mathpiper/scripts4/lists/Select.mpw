@@ -1,20 +1,20 @@
 %mathpiper,def="Select"
 
 LocalSymbols(predicate,list,result,item)
-⊕
+{
   Function("Select",[list,predicate])
-  ⊕
+  {
     Local(result);
     result:=[];
     ForEach(item,list)
-    ⊕
+    {
       If(Apply(predicate,[item]),DestructiveAppend(result,item));
-    ⊖;
+    };
     result;
-  ⊖;
+  };
   HoldArgument("Select",predicate);
   UnFence("Select",2);
-⊖;
+};
 
 %/mathpiper
 

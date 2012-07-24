@@ -10,7 +10,7 @@
 
 /// auxiliary utility: compute the number of common decimal digits of x and y (using relative precision)
 Commondigits(x,y) :=
-⊕
+{
         Local(diff);
         diff := Abs(x-y);
         If(
@@ -19,7 +19,7 @@ Commondigits(x,y) :=
                 // use approximation Ln(2)/Ln(10) >? 351/1166
                 Quotient(IntLog(FloorN(DivideN(Maximum(Abs(x), Abs(y)), diff)), 2)*351, 1166)
         );         // this many decimal digits in common
-⊖;
+};
 
 ///interface
 NewtonNum(_func, _x0) <-- NewtonNum(func, x0, 5);        // default prec0
@@ -30,11 +30,11 @@ NewtonNum(_func, _x0, _prec0) <-- NewtonNum(func, x0, prec0, 2);
 // order is the order of convergence of the given sequence (e.g. 2 or 3).
 // x0 must be close enough so that x1 has a few common digits with x0 after at most 5 iterations.
 NewtonNum(_func, _xinit, _prec0, _order) <--
-⊕
+{
         Check(prec0>=?4, "Argument", "NewtonNum: Error: initial precision must be at least 4");
         Check(Integer?(order) And? order>?1, "Argument", "NewtonNum: Error: convergence order must be an integer and at least 2");
         Local(x0, x1, prec, exactdigits, intpart, initialtries);
-  N(⊕
+  N({
     x0 := xinit;
     prec := BuiltinPrecisionGet();
     intpart := IntLog(Ceil(Abs(x0)), 10);        // how many extra digits for numbers like 100.2223
@@ -45,40 +45,40 @@ NewtonNum(_func, _xinit, _prec0, _order) <--
     exactdigits := 0;
     initialtries := 5;        // stop the loop the the initial value is not good
     While(exactdigits*order <? prec0 And? initialtries>?0)
-    ⊕
+    {
       initialtries--;
       x0 := x1;
       x1 := (func @ x0);
       exactdigits := Commondigits(x0, x1);
   //                If(InVerboseMode(), Echo("NewtonNum: Info: got", exactdigits, "exact digits at prec. ", BuiltinPrecisionGet()));
-    ⊖;
+    };
     // need to check that the initial precision is achieved
     If(
       Assert("value", ["NewtonNum: Error: need a more accurate initial value than", xinit])
         exactdigits >=? 1,
-    ⊕
+    {
     exactdigits :=Minimum(exactdigits, prec0+2);
     // run until get prec/order exact digits
     intpart := IntLog(Ceil(Abs(x1)), 10);        // how many extra digits for numbers like 100.2223
     While(exactdigits*order <=? prec)
-    ⊕
+    {
       exactdigits := exactdigits*order;
       BuiltinPrecisionSet(2+Minimum(exactdigits, Quotient(prec,order)+1)-intpart);
       x0 := x1;
       x1 := (func @ x0);
   //                If(InVerboseMode(), Echo("NewtonNum: Info: got", Commondigits(x0, x1), "exact digits at prec. ", BuiltinPrecisionGet()));
-    ⊖;
+    };
     // last iteration by hand
     BuiltinPrecisionSet(2+prec);
     x1 := RoundTo( (func @ x1), prec);
-    ⊖,
+    },
     // did not get a good initial value, so return what we were given
     x1 := xinit
     );
     BuiltinPrecisionSet(prec);
-  ⊖);
+  });
         x1;
-⊖;
+};
 
 
 /*

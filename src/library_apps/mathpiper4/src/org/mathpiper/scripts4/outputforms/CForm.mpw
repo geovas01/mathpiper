@@ -24,23 +24,23 @@ RulebaseHoldArguments("CForm",[expression]);
 RulebaseHoldArguments("CForm",[expression, precedence]);
 
 Function ("CFormBracketIf", [predicate, string])
-⊕
+{
         Check(Boolean?(predicate) And? String?(string), "Argument", "CForm internal error: non-boolean and/or non-string argument of CFormBracketIf");
         If(predicate, ConcatStrings("( ", string, ") "), string);
-⊖;
+};
 
 CFormDoublePrecisionNumber(x_Number?) <--
-⊕
+{
     Local(i,n,s,f);
     s := ToString(x);
     n := Length(s);
     f := False;
     For(i := 1, i <=? n, i++)
-    ⊕
+    {
         If(s[i] =? "e" Or? s[i] =? ".", f := True);
-    ⊖;
+    };
     If(f, s, s ~ ".");
-⊖;
+};
 
 /* Proceed just like TeXForm()
 */
@@ -69,7 +69,7 @@ CFormMaxPrec() := 60000;         /* This precedence will never be bracketed. It 
 /* addition, subtraction, multiplication, all comparison and logical operations are "regular" */
 
 
-LocalSymbols(cformRegularOps) ⊕
+LocalSymbols(cformRegularOps) {
   cformRegularOps := [ ["+"," + "], ["-"," - "], ["*"," * "],
                        ["/"," / "], [":="," = "], ["=="," == "],
                        ["=?"," == "], ["!=?"," != "], ["<=?"," <=? "],
@@ -80,7 +80,7 @@ LocalSymbols(cformRegularOps) ⊕
                      ];
 
   CFormRegularOps() := cformRegularOps;
-⊖; // LocalSymbols(cformRegularOps)
+}; // LocalSymbols(cformRegularOps)
 
         /* This is the template for "regular" binary infix operators:
 100 # CForm(_x + _y, _p) <-- CFormBracketIf(p<?PrecedenceGet("+"), ConcatStrings(CForm(x, LeftPrecedenceGet("+")), " + ", CForm(y, RightPrecedenceGet("+")) ) );
@@ -99,7 +99,7 @@ LocalSymbols(cformRegularOps) ⊕
 100 # CForm(_left else _right, _p) <-- CForm(left)~" else "~CForm(right);
 
 
-LocalSymbols(cformMathFunctions) ⊕
+LocalSymbols(cformMathFunctions) {
   cformMathFunctions :=
     [
       ["Sqrt","sqrt"],
@@ -127,7 +127,7 @@ LocalSymbols(cformMathFunctions) ⊕
 
   CFormMathFunctions() := cformMathFunctions;
 
-⊖; // LocalSymbols(cformMathFunctions)
+}; // LocalSymbols(cformMathFunctions)
 
 /* Precedence of 120 because we'd like to process some special functions like pow() first */
 
@@ -147,23 +147,23 @@ LocalSymbols(cformMathFunctions) ⊕
 /* Unknown function, precedence 200. Leave as is, never bracket the function itself and bracket the argumentPointer(s) automatically since it's a list. Other functions are precedence 100 */
 
 CFormArgs(list_List?) <--
-⊕
+{
   Local(i,nr,result);
   result:="";
   nr:=Length(list);
   For (i:=1,i<=?nr,i++)
-  ⊕
+  {
     result:=result~CForm(list[i]);
     If (i<?nr, result:=result~", ");
-  ⊖;
+  };
   result;
-⊖;
+};
 
 
 200 # CForm(_x, _p)_(Function?(x)) <--
-⊕
+{
   ConcatStrings(Type(x), "(", CFormArgs(Rest(FunctionToList(x))),")" );
-⊖;
+};
 
 /* Complex numbers */
 100 # CForm(Complex(0, 1), _p) <-- "I";
@@ -182,11 +182,11 @@ CFormArgs(list_List?) <--
 //100 # CForm(_x [ _i ], _p) <-- ConcatStrings(CForm(x, CFormMaxPrec()), "[", CForm(i, CFormMaxPrec()), "]");
 100 # CForm(Nth(_x, _i), _p) <-- ConcatStrings(CForm(x, CFormMaxPrec()), "[", CForm(i, CFormMaxPrec()), "]");
 
-LocalSymbols(cindent) ⊕
+LocalSymbols(cindent) {
   cindent:=1;
 
   NlIndented():=
-  ⊕
+  {
     Local(result);
 // carriage return, so needs to start at the beginning of the line
     result:=
@@ -194,36 +194,36 @@ LocalSymbols(cindent) ⊕
 ";
     Local(i);
     For(i:=1,i<?cindent,i++)
-    ⊕
+    {
       result:=result~"  ";
-    ⊖;
+    };
     result;
-  ⊖;
+  };
   CIndent() :=
-  ⊕
+  {
   (cindent++);
   "";
-  ⊖;
+  };
   CUndent() :=
-  ⊕
+  {
   (cindent--);
   "";
-  ⊖;
-⊖; // LocalSymbols(cindent)
+  };
+}; // LocalSymbols(cindent)
 
 CFormStatement(_x) <-- CForm(x) ~ ";" ~ NlIndented();
 
 120 # CForm(_x,_p)_(Type(x) =? "Prog") <--
-⊕
+{
   Local(result);
   result:=CIndent()~"["~NlIndented();
   ForEach(item,Rest(FunctionToList(x)))
-  ⊕
+  {
     result:=result~CFormStatement(item);
-  ⊖;
+  };
   result:=result~"]"~CUndent()~NlIndented();
   result;
-⊖;
+};
 
 120 # CForm(For(_from,_to,_step)_body,_p) <--
   "for(" ~ CForm(from,CFormMaxPrec()) ~ ";"
@@ -276,7 +276,7 @@ CForm(Hold(Cos(A-B)*Sin(a)*func(b,c,d*(e+Pi))*Sqrt(Abs(C)+D)-(g(a+b)^(c+d))^(c+d
 );
 
 Verify(
-CForm(Hold(⊕i:=0;While(i<?10)⊕i++; a:=a+Floor(i);⊖;⊖))
+CForm(Hold({i:=0;While(i<?10){i++; a:=a+Floor(i);};}))
 , "[
   i = 0;
   while(i <? 10)
@@ -292,7 +292,7 @@ CForm(Hold(⊕i:=0;While(i<?10)⊕i++; a:=a+Floor(i);⊖;⊖))
 
 /* Check that we can still force numbers to be floats in stead of integers if we want to */
 Verify(
-CForm(Hold(⊕i:=0.;While(i<?10.)⊕i++; a:=a+Floor(i);⊖;⊖))
+CForm(Hold({i:=0.;While(i<?10.){i++; a:=a+Floor(i);};}))
 , "[
   i = 0.;
   while(i <? 10.)

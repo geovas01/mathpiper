@@ -2,16 +2,16 @@
 
 /// post an error if assertion fails
 (Assert(_errorclass, _errorobject) _predicate) <--
-⊕
+{
         CheckErrorTableau();
         If(Equal?(predicate, True),        // if it does not evaluate to True, its an error
                 True,
-                ⊕        // error occurred, need to post errorobject
+                {        // error occurred, need to post errorobject
                         DestructiveAppend(GetErrorTableau(), [errorclass, errorobject]);
                         False;
-                ⊖
+                }
         );
-⊖;
+};
 
 /// interface
 (Assert(_errorclass) _predicate) <-- Assert(errorclass, True) predicate;

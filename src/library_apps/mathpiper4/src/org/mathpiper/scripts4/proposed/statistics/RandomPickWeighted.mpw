@@ -3,7 +3,7 @@
 //Retract("RandomPickWeighted",*);
 
 RandomPickWeighted(list) :=
-⊕
+{
 
     Check(List?(list), "Argument", "Argument must be a list.");
     
@@ -19,11 +19,11 @@ RandomPickWeighted(list) :=
     
     //Make sure that the probabilities sum to 1.
     ForEach(element,list)
-    ⊕        
+    {        
         probability := element[2];
 
         probabilities := probabilities + probability;
-    ⊖;
+    };
     
     Check(probabilities =? 1, "Argument", "The probabilities must sum to 1.");
     
@@ -31,13 +31,13 @@ RandomPickWeighted(list) :=
     
     //Place items in a list and associate it with a subrange in the range between 0 and 1.
     ForEach(element,list)
-    ⊕
+    {
         probability := element[2];
         
         item := element[1];
         
         items := Append(items, [item, [lastWeight, lastWeight := lastWeight + N(probability)]] );
-    ⊖;
+    };
     
     
     
@@ -45,15 +45,15 @@ RandomPickWeighted(list) :=
     randomNumber := Random();
     
     ForEach(itemData,items)
-    ⊕
+    {
         If(randomNumber >=? itemData[2][1] And? randomNumber <=? itemData[2][2], result := itemData[1] );
-    ⊖;
+    };
     
     
     
     result;
 
-⊖;
+};
 
 %/mathpiper
 

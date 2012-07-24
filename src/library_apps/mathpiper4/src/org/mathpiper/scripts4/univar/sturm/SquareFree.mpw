@@ -10,7 +10,7 @@
 14 # SquareFree(_p,_var)_(Not? Polynomial?(p,var)) <-- Check(False,"Argument","Input must be Univariate Polynomial");
 
 16 # SquareFree(_p,_var) <--
-⊕
+{
   /*
   Local(dp,gcd);
   dp:=MakeMultiNomial(`(Differentiate(var)(@p)),[var]);
@@ -20,7 +20,7 @@
   NormalForm(MultiDivide(p,[gcd])[1][1]);
   */
   Quotient(p,Gcd(p,(`(Differentiate(@var)(@p)))));
-⊖;
+};
 
 %/mathpiper
 

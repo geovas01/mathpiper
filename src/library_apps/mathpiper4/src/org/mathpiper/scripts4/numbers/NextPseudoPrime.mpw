@@ -5,7 +5,7 @@
 2# NextPseudoPrime(2) <-- 3;
 //2# NextPseudoPrime(3) <-- 5;
 3# NextPseudoPrime(i_Odd?) <--
-⊕
+{
         // this sequence generates numbers not divisible by 2 or 3
         i := i+2;
         If(Modulo(i,3)=?0, i:=i+2, i);
@@ -23,7 +23,7 @@
                 i
         );
 */
-⊖;
+};
 // this works only for even i>=4
 4# NextPseudoPrime(i_Even?) <-- NextPseudoPrime(i-1);
 

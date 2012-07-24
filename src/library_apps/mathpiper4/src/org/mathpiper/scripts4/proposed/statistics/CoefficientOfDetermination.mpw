@@ -1,7 +1,7 @@
 %mathpiper,def="CoefficientOfDetermination"
 
 CoefficientOfDetermination(x,y) :=
-⊕   
+{   
     Check(List?(x), "Argument", "The first argument must be a list.");
     
     Check(List?(y), "Argument", "The second argument must be a list.");
@@ -9,7 +9,7 @@ CoefficientOfDetermination(x,y) :=
     Check(Length(x) =? Length(y), "Argument", "The lists for argument 1 and argument 2 must have the same length.");
     
     N(CorrelationCoefficient(x,y)^2);
-⊖;
+};
 
 %/mathpiper
 

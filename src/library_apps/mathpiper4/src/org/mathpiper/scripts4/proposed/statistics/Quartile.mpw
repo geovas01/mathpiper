@@ -3,23 +3,23 @@
 //Retract("Quartile",*);
 
 Quartile(list) :=
-⊕
+{
     sortedList := HeapSort(list,"<?");
     
     secondQuartile := Median(sortedList);
     
     If(Odd?(Length(sortedList)),
-    ⊕   
+    {   
         secondQuartileIndex := Find(sortedList, secondQuartile);
         
         leftList := Take(sortedList, secondQuartileIndex-1);
         rightList := Take(sortedList, -(Length(sortedList) - (secondQuartileIndex) ) );
-    ⊖,
-    ⊕
+    },
+    {
 
         leftList := Take(sortedList, Length(sortedList)/2);
         rightList := Take(sortedList, -Length(sortedList)/2);
-    ⊖
+    }
     );
     
     firstQuartile := Median(leftList);
@@ -30,7 +30,7 @@ Quartile(list) :=
     
     [firstQuartile, secondQuartile, thirdQuartile, interquartileRange];
 
-⊖;
+};
 
 %/mathpiper
 

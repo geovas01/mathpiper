@@ -3,27 +3,27 @@
 //Retract("jSolveUniPoly",*);
 
 10 # jSolveUniPoly( _lhs==_rhs, var_Atom? ) <--
-⊕
+{
    jSolveUniPoly(lhs-rhs,var);
-⊖;
+};
 
 15 # jSolveUniPoly( poly_Polynomial?, var_Atom? )_(Length(VarList(poly))=?1) <--
-⊕
+{
    If(InVerboseMode(),Tell(jSolveUniPoly,[poly,var]));
    Local(factorList,f,fac,mult,ii,answer);
    factorList := Factors(poly);
    If(InVerboseMode(),Tell("   ",factorList));
    answer := [];
    ForEach(f,factorList)
-    ⊕
+    {
         [fac,mult] := f;
         soln := Solve(fac,var);
-        If(InVerboseMode(),⊕Tell("      ",[fac,mult]);Tell("      ",soln);⊖);
+        If(InVerboseMode(),{Tell("      ",[fac,mult]);Tell("      ",soln);});
         ForEach(ii,1 .. mult)
-         ⊕  DestructiveAppend(answer,soln); ⊖;
-    ⊖;
+         {  DestructiveAppend(answer,soln); };
+    };
     answer;
-⊖;
+};
 
 20 # jSolveUniPoly( poly_Polynomial?, var_Atom? ) <-- Failed;
 

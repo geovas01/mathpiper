@@ -1,12 +1,12 @@
 %mathpiper,def="HoldArgumentNumber"
 
 Function("HoldArgumentNumber",[function,arity,index])
-⊕
+{
   Local(args);
   args:=RulebaseArgumentsList(function,arity);
 /* Echo(["holdnr ",args]); */
   ApplyFast("HoldArgument",[function,args[index]]);
-⊖;
+};
 
 %/mathpiper
 

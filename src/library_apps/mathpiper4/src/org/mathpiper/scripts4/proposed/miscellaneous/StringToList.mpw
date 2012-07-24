@@ -6,19 +6,19 @@
 
 
 20 # StringToList(string_String?) <--
-⊕
+{
     Local(resultList);
     
     resultList := [];
     
     ForEach(character, string)
-    ⊕
+    {
         resultList := Append(resultList, character);
-    ⊖;
+    };
     
     resultList;
 
-⊖;
+};
 
 
 

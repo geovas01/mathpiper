@@ -55,7 +55,7 @@ The "RNG distribution adaptor API": calling RngCreate with distribution->SomeDis
 
 /// The idea is that options must be easy to type, but procedure names could be long.
 
-LocalSymbols(knownRNGEngines, knownRNGDists) ⊕
+LocalSymbols(knownRNGEngines, knownRNGDists) {
   knownRNGEngines :=
   [
     [ "default", "RNGEngineLCG2"],
@@ -72,7 +72,7 @@ LocalSymbols(knownRNGEngines, knownRNGDists) ⊕
 
   KnownRNGDists() := knownRNGDists;
   KnownRNGEngines() := knownRNGEngines;
-⊖;
+};
 
 
 //////////////////////////////////////////////////
@@ -100,7 +100,7 @@ RngCreate() <-- RngCreate(0);
 
 // expect a list of options
 30 # RngCreate(options_List?) <--
-⊕
+{
         options := OptionsListToHash @ [options];
 
         // check options and assign defaults
@@ -124,27 +124,27 @@ RngCreate() <-- RngCreate(0);
                 // initialize object with given seed using "SomeEngine"(seed)
                 KnownRNGEngines()[options["engine"] ] @ [ options["seed"] ]
         ];
-⊖;
+};
 
 /// accessor function: will call SomeDist(r) and update r
 Rng(_r) <--
-⊕
+{
         Local(state, result);
         [state, result] := (r[1] @ [r]);        // this calls SomeDist(r)
         DestructiveReplace(r, 3, state);        // update RNG object
         result;        // return floating-point number
-⊖;
+};
 
 /// set seed: will call SomeEngine(r, seed) and update r
 RngSeed(_r, seed_Integer?) <--
-⊕
+{
         Local(state);
         (Assert("warning", ["RngSeed: seed must be positive", seed]) seed >? 0
         ) Or? (seed:=76544321);
         state := (r[2] @ [seed]);        // this calls SomeEngine(r)
         DestructiveReplace(r, 3, state);        // update object
         True;
-⊖;
+};
 
 //////////////////////////////////////////////////
 /// RNG distribution adaptors
@@ -166,7 +166,7 @@ FlatRNGDist(_r) <-- (r[2] @ [r[3]]);        // this calls SomeEngine(state)
    Volume 2 (Seminumerical algorithms, third edition), section 3.4.1
  */
 GaussianRNGDist(_rng) <--
-⊕
+{
         // a Gaussian distributed complex number p + I*q is made up of two uniformly distributed numbers x,y according to the formula:
         // a:=2*x-1, b:=2*y-1, m:=a^2+b^2; p =? a*Sqrt(-2*Ln(m)/m); q:=b*Sqrt(-2*Ln(m)/m);
         // here we need to make sure that m is nonzero and strictly less than 1.
@@ -174,15 +174,15 @@ GaussianRNGDist(_rng) <--
         newstate := rng[3];        // this will be updated at the end
         m:=0;
         While(m=?0 Or? m>=?1)        // repeat generating new x,y  - should not take more than one iteration really
-        ⊕
+        {
                 [newstate, rnumber] := (rng[2] @ [newstate]);
                 a:=2*rnumber-1;
                 [newstate, rnumber] := (rng[2] @ [newstate]);
                 b:=2*rnumber-1;
                 m:=a*a+b*b;
-        ⊖;
+        };
         [newstate, (a+I*b)*SqrtN(-2*DivideN(InternalLnNum(m),m))];
-⊖;
+};
 
 
 //////////////////////////////////////////////////
@@ -231,7 +231,7 @@ RandomLCG(_state, _im, _ia, _ic) <--
 
 // first method: initialize a state object with given seed
 RNGEngineLEcuyer(aseed_Integer?) <--
-⊕
+{
         // use LCG2 as auxiliary RNG to fill the seeds
         Local(rngaux, result);
         rngaux := (RngCreate @ [aseed]);
@@ -240,17 +240,17 @@ RNGEngineLEcuyer(aseed_Integer?) <--
         // fill the state object with random numbers
         Local(i);
         For(i:=1, i<=?6, i++)
-        ⊕
+        {
                 Rng(rngaux);
                 result[i] := rngaux[3][1];        // hack to get the integer part
-        ⊖;
+        };
         // return the state object
         result;
-⊖;
+};
 
 // second method: update state object and return a new random number (floating-point)
 RNGEngineLEcuyer(state_List?) <--
-⊕
+{
         Local(newstate, result);
         newstate := [
                 Modulo(1403580*state[2]-810728*state[3], 4294967087), state[1], state[2],
@@ -261,7 +261,7 @@ RNGEngineLEcuyer(state_List?) <--
                 newstate,
                 DivideN(If(result=?0, 4294967087, result), 4294967088)
         ];
-⊖;
+};
 
 //////////////////////////////////////////////////
 /// old interface: using one global RNG object
@@ -272,7 +272,7 @@ Random() := Rng(GlobalRNG);
 RandomSeed(seed) := RngSeed(GlobalRNG, seed);
 */
 
-LocalSymbols(RandSeed) ⊕
+LocalSymbols(RandSeed) {
   // initial seed should be nonzero
   RandSeed := SystemTimer(); //Was 76544321.
 
@@ -281,11 +281,11 @@ LocalSymbols(RandSeed) ⊕
 
   /// Linear congruential generator
   RandomLCG(_im, _ia, _ic) <--
-  ⊕
+  {
     RandSeed:=ModuloN(RandSeed*ia+ic,im);
     DivideN(RandSeed,im);        // should never give 1
-  ⊖;
-⊖; // LocalSymbols(RandSeed)
+  };
+}; // LocalSymbols(RandSeed)
 
 
 Function("Random1",[]) RandomLCG(4294967296,1103515245,12345);

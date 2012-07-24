@@ -7,7 +7,7 @@ UnFence("AssignArray", 3);
 
 // Assign association lists.
 RuleHoldArguments("AssignArray", 3, 1, String?(indexOrKey))
-⊕
+{
     Local(keyValuePair);
 
     keyValuePair := Assoc(indexOrKey, listOrAssociationList);
@@ -20,23 +20,23 @@ RuleHoldArguments("AssignArray", 3, 1, String?(indexOrKey))
     );
 
     True;
-⊖;
+};
 
 
 
 // Assign generic arrays.
 RuleHoldArguments("AssignArray",3,1, And?( Equal?(Generic?(listOrAssociationList), True), Equal?(GenericTypeName(listOrAssociationList), "Array")))
-⊕
+{
     ArraySet(listOrAssociationList, indexOrKey, newValue);
-⊖;
+};
 
 
 RuleHoldArguments("AssignArray",3 , 2, True)
-⊕
+{
     DestructiveReplace(listOrAssociationList, indexOrKey, newValue);
 
     True;
-⊖;
+};
 
 
 %/mathpiper

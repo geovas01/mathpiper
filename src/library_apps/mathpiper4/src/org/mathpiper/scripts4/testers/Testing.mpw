@@ -1,10 +1,10 @@
 %mathpiper,def="Testing"
 
 Function("Testing",[aLeft])
-⊕
+{
     WriteString("--");
     WriteString(aLeft);
     NewLine();
-⊖;
+};
 
 %/mathpiper

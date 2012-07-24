@@ -9,30 +9,30 @@
 SmallSortIndexed(_list, _first, _last, _compare)_(last=?first) <-- list;
 
 SmallSortIndexed(_list, _first, _last, _compare)_(last=?first+1) <--
-⊕
+{
         Local(temp);
         temp := list[first];
         If(
                 Apply(compare,[temp[1],list[last][1]]),
                 list,
-                ⊕
+                {
                         list[first] := list[last];
                         list[last] := temp;
-                ⊖        //Swap(list, first, last)
+                }        //Swap(list, first, last)
         );
         list;
-⊖;
+};
 
 SmallSortIndexed(_list, _first, _last, _compare)_(last=?first+2) <--
-⊕
+{
         Local(temp);
         temp := list[first];
         If(
                 Apply(compare,[list[first+1][1],temp[1]]),
-                ⊕
+                {
                         list[first] := list[first+1];
                         list[first+1] := temp;
-                ⊖        //Swap(list, first, first+1)        // x>y, z
+                }        //Swap(list, first, first+1)        // x>y, z
         );
         // x<y, z
         temp := list[last];
@@ -41,19 +41,19 @@ SmallSortIndexed(_list, _first, _last, _compare)_(last=?first+2) <--
                 If(        // z>x<y
                         Apply(compare,[list[first+1][1],temp[1]]),
                         list,
-                        ⊕
+                        {
                                 list[last] := list[first+1];
                                 list[first+1] := temp;
-                        ⊖        //Swap(list, first+1, last)        // 1, 3, 2
+                        }        //Swap(list, first+1, last)        // 1, 3, 2
                 ),
-                ⊕        // 2, 3, 1 -> 1, 2, 3
+                {        // 2, 3, 1 -> 1, 2, 3
                         list[last] := list[first+1];
                         list[first+1] := list[first];
                         list[first] := temp;
-                ⊖
+                }
         );
         list;
-⊖;
+};
 
 %/mathpiper
 

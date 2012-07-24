@@ -1,12 +1,12 @@
 %mathpiper,def="Pop"
 
 Function("Pop",[stack,index])
-⊕
+{
   Local(result);
   result:=stack[index];
   DestructiveDelete(stack,index);
   result;
-⊖;
+};
 
 %/mathpiper
 

@@ -13,17 +13,17 @@
 /// Identity transformation, compute Exp(x)-1 from value=Exp(x/2^n)-1
 
 ExpNDoubling1(value, n) :=
-⊕
+{
         Local(shift, result);
         shift := n;
         result := value;
         While (shift>?0)        // lose 'shift' bits of precision here
-        ⊕
+        {
                 result := MathMul2Exp(result, 1) + MultiplyN(result, result);
                 shift--;
-        ⊖;
+        };
         result;
-⊖;
+};
 
 /// Identity transformation, compute Exp(x) from value=Exp(x/2^n)
 /*

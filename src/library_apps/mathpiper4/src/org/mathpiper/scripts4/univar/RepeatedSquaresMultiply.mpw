@@ -8,19 +8,19 @@
 15 #  RepeatedSquaresMultiply(UniVariate(_var,_first,[_coef]),(n_Integer?)) <--
       UniVariate(var,first*n,[coef^n]);
 20 # RepeatedSquaresMultiply(_a,n_Integer?) <--
-⊕
+{
   Local(m,b);
   Bind(m,1);
   Bind(b,1);
   While(m<=?n) Bind(m,(ShiftLeft(m,1)));
   Bind(m, ShiftRight(m,1));
   While(m>?0)
-  ⊕
+  {
     Bind(b,b*b);
     If (Not?(Equal?(BitAnd(m,n), 0)),Bind(b,b*a));
     Bind(m, ShiftRight(m,1));
-  ⊖;
+  };
   b;
-⊖;
+};
 
 %/mathpiper

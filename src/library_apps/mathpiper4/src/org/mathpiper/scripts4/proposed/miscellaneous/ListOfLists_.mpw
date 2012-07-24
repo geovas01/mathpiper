@@ -1,25 +1,25 @@
 %mathpiper,def="ListOfLists?"
 
 ListOfLists?(listOfLists) :=
-⊕
+{
     Local(result);
     
     result := True;
     
     if(Not? List?(listOfLists))
-    ⊕
+    {
         result := False;
-    ⊖
+    }
     else 
-    ⊕
+    {
         ForEach(list, listOfLists)
-        ⊕
+        {
             If(Not? List?(list), result := False);
-        ⊖;
-    ⊖;
+        };
+    };
     
     result;
-⊖;
+};
 
 %/mathpiper
 

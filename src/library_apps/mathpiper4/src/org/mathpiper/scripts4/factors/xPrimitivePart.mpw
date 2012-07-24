@@ -3,34 +3,34 @@
 //Retract("xPrimitivePart",*);
     
 10 # xPrimitivePart(poly_CanBeUni) <-- 
-⊕
+{
     Local(cont,pp);
     If(InVerboseMode(),Tell("  xPrimitivePart1",poly));
     cont := xContent(poly);
     pp   := poly / cont;
     //pp   := Simplify(Simplify(pp));
-⊖;
+};
 
 
 Macro("xPrimitivePart",[poly,xcont])
-⊕
+{
     Local(pp);
     If(InVerboseMode(),Tell("  xPrimitivePart2",[poly,xcont]));
     
     If( Bound?(@xcont), 
-      ⊕
+      {
           pp := Eval(@poly) / Eval(@xcont);
-      ⊖,
-      ⊕
+      },
+      {
           Local(xCont);
           xCont  := xContent(Eval(@poly));
           @xcont := xCont;
           pp     := Eval(@poly) / xCont;
-      ⊖
+      }
     );
     pp;
     //pp   := Simplify(Simplify(pp));
-⊖;
+};
 
 %/mathpiper
 

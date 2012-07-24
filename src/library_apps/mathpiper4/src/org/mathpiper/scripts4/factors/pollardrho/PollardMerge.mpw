@@ -5,11 +5,11 @@
   DestructiveInsert(list,1,item);
 
 20 # PollardMerge(_list,_item) <--
-⊕
+{
   Local(assoc);
   assoc := Assoc(item[1],list);
   assoc[2]:=assoc[2]+item[2];
-⊖;
+};
 
 %/mathpiper
 
