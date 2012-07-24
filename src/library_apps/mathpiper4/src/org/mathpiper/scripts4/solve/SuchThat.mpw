@@ -3,18 +3,18 @@
 10 # ContainsExpression(_body,_body) <-- True;
 15 # ContainsExpression(body_Atom?,_expr) <-- False;
 20 # ContainsExpression(body_Function?,_expr) <--
-[
+⊕
   Local(result,args);
   result:=False;
   args:=Rest(FunctionToList(body));
   While(args !=? {})
-  [
+  ⊕
     result:=ContainsExpression(First(args),expr);
     args:=Rest(args);
     if (result =? True) (args:={});
-  ];
+  ⊖;
   result;
-];
+⊖;
 
 
 SuchThat(_function,_var) <-- SuchThat(function,0,var);

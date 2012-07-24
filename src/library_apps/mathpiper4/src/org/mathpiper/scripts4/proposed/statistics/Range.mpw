@@ -1,11 +1,11 @@
 %mathpiper,def="Range"
 
 Range(list) :=
-[
+⊕
     Check(Length(list) >? 0 And? NumericList?(list), "Argument", "Argument must be a nonempty numeric list.");
     
     Maximum(list) - Minimum(list);
-];
+⊖;
 
 %/mathpiper
 

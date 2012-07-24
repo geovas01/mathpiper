@@ -3,9 +3,9 @@
 //Retract("ValueToZScore",*);
 
 ValueToZScore(value,mean,standardDeviation) :=
-[
+⊕
     (value - mean)/standardDeviation;
-];
+⊖;
 
 %/mathpiper
 

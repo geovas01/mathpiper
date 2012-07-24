@@ -28,39 +28,39 @@
 105 # (_x * f_NegativeNumber?)  <-- -(-f)*x;
 
 95 # x_Matrix? * y_Matrix? <--
-[
+⊕
    Local(i,j,k,row,result);
    result:=ZeroMatrix(Length(x),Length(y[1]));
    For(i:=1,i<=?Length(x),i++)
    For(j:=1,j<=?Length(y),j++)
    For(k:=1,k<=?Length(y[1]),k++)
-   [
+   ⊕
      row:=result[i];
      row[k]:= row[k]+x[i][j]*y[j][k];
-   ];
+   ⊖;
    result;
-];
+⊖;
 
 
 96 # x_Matrix? * y_List? <--
-[
+⊕
    Local(i,result);
    result:={};
    For(i:=1,i<=?Length(x),i++)
-   [ DestructiveInsert(result,i,Dot(x[i], y)); ];
+   ⊕ DestructiveInsert(result,i,Dot(x[i], y)); ⊖;
    result;
-];
+⊖;
 
 
 97 # (x_List? * y_NonObject?)_Not?(List?(y)) <-- y*x;
 98 # (x_NonObject? * y_List?)_Not?(List?(x)) <--
-[
+⊕
    Local(i,result);
    result:={};
    For(i:=1,i<=?Length(y),i++)
-   [ DestructiveInsert(result,i,x * y[i]); ];
+   ⊕ DestructiveInsert(result,i,x * y[i]); ⊖;
    result;
-];
+⊖;
 
 
 50  # _x * Undefined <-- Undefined;

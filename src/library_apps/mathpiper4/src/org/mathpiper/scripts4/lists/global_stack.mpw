@@ -6,30 +6,30 @@
 
 
 LocalSymbols(GlobalStack, x)
-[
+⊕
   GlobalStack := {};
 
         GlobalPop(x_Atom?) <--
-        [
+        ⊕
                 Check(Length(GlobalStack)>?0, "Invariant", "GlobalPop: Error: empty GlobalStack");
                 MacroBind(x, PopFront(GlobalStack));
                 Eval(x);
-        ];
+        ⊖;
 
         HoldArgumentNumber("GlobalPop", 1, 1);
 
         GlobalPop() <--
-        [
+        ⊕
                 Check(Length(GlobalStack)>?0, "Invariant", "GlobalPop: Error: empty GlobalStack");
                 PopFront(GlobalStack);
-        ];
+        ⊖;
 
         GlobalPush(_x) <--
-        [
+        ⊕
                 Push(GlobalStack, x);
                 x;
-        ];
-];
+        ⊖;
+⊖;
 
 %/mathpiper
 

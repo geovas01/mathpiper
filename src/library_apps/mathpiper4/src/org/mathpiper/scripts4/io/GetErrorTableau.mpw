@@ -9,7 +9,7 @@ GetError
 /// ErrorTableau, Assert, Error? --- global error reporting
 //////////////////////////////////////////////////
 
-LocalSymbols(ErrorTableau) [
+LocalSymbols(ErrorTableau) ⊕
 
   /// global error tableau. Its entries do not have to be lists.
   Bind(ErrorTableau, {});
@@ -25,12 +25,12 @@ LocalSymbols(ErrorTableau) [
     Bind(ErrorTableau, {{"general", "corrupted ErrorTableau"}})
   );
 
-]; // LocalSymbols(ErrorTableau)
+⊖; // LocalSymbols(ErrorTableau)
 
 
 /// obtain error object
 GetError(errorclass_String?) <--
-[
+⊕
         Local(error);
         error := GetErrorTableau()[errorclass];
         If(
@@ -38,7 +38,7 @@ GetError(errorclass_String?) <--
                 error,
                 False
         );
-];
+⊖;
 
 
 /// delete error

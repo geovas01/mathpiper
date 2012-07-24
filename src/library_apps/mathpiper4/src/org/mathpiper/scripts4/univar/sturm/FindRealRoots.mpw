@@ -5,7 +5,7 @@ iDebug:=False;
 //Retract("FindRealRoots",*);
 
 FindRealRoots(_p) <--
-[
+⊕
     If(iDebug,Tell("FindRealRoots",p));
     Local(vars,var,cc,pp,vlcc,zeroRoot,minb,maxb,rr);
     vars := VarList(p);
@@ -23,11 +23,11 @@ FindRealRoots(_p) <--
     rr := FindRealRoots(p,minb,maxb);
     If(zeroRoot,DestructiveAppend(rr,0));
     rr;
-];
+⊖;
 
 
 FindRealRoots(_p,_Mmin,_Mmax) <--
-[
+⊕
     If(iDebug,Tell("  FindRealRoots3",{p,Mmin,Mmax}));
     Local(bounds,result,i,prec,requiredPrec);
     bounds := BoundRealRoots(p,Mmin,Mmax);
@@ -38,7 +38,7 @@ FindRealRoots(_p,_Mmin,_Mmax) <--
     prec:=10^-(requiredPrec+1);
 
     For(i:=1,i<=?Length(bounds),i++)
-    [
+    ⊕
         If(iDebug,Tell(i));
         Local(a,b,c,r);
         {a,b} := bounds[i];
@@ -46,35 +46,35 @@ FindRealRoots(_p,_Mmin,_Mmax) <--
         If(iDebug,Tell("         ",{a,b,c}));
         r := Fail;
         If(iDebug,Tell("         newt1",`Hold(Newton(@p,x,@c,@prec,@a,@b))));
-        if (a !=? b) [r := `Newton(@p,x,@c,prec,a,b);];
+        if (a !=? b) ⊕r := `Newton(@p,x,@c,prec,a,b);⊖;
         If(iDebug,Tell("         newt2",r));
         if (r =? Fail)
-          [
+          ⊕
              Local(c,cold,pa,pb,pc);
              pa:=(p Where x==a);
              pb:=(p Where x==b);
              c:=((a+b)/2);
              cold := a;
              While (Abs(cold-c)>?prec)
-             [
+             ⊕
                  pc:=(p Where x==c);
                  If(iDebug,Tell("              ",{a,b,c}));
                  if (Abs(pc) <? prec)
-                   [ a:=c; b:=c; ]
+                   ⊕ a:=c; b:=c; ⊖
                  else if (pa*pc <? 0)
-                   [ b:=c; pb:=pc; ]
+                   ⊕ b:=c; pb:=pc; ⊖
                  else
-                   [ a:=c; pa:=pc; ];
+                   ⊕ a:=c; pa:=pc; ⊖;
                    cold:=c;
                    c:=((a+b)/2);
-             ];
+             ⊖;
              r:=c;
-          ];
+          ⊖;
         result[i] := N(Eval((r/10)*(10)),requiredPrec);
-    ];
+    ⊖;
     BuiltinPrecisionSet(requiredPrec);
     result;
-];
+⊖;
 
 %/mathpiper
 

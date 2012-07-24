@@ -2,7 +2,7 @@
 
 
 ControlChart(data) :=
-[
+⊕
     A2 := .577;
     D3 := 0;
     D4 := 2.144;
@@ -15,7 +15,7 @@ ControlChart(data) :=
     
     index := 1;
     ForEach(group, data)
-    [
+    ⊕
         groupMean := Mean(group);
         means := N(Append(means, groupMean));
         meansPoints := N(Append(meansPoints,{index, groupMean} ));
@@ -26,7 +26,7 @@ ControlChart(data) :=
         rangesPoints := N(Append(rangesPoints,{index, groupRange} ));
         
         index++;
-    ];
+    ⊖;
     
     xBarBar := N(Mean(means));
     
@@ -39,7 +39,7 @@ ControlChart(data) :=
     rUCL := N(D4*rBar);
     
     rLCL := N(D3*rBar);
-];
+⊖;
 
 
 

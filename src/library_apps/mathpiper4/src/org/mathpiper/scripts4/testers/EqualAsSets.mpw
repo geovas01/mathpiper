@@ -3,19 +3,19 @@
 //Retract("EqualAsSets",*);
 
 10 # EqualAsSets( A_List?, B_List? )_(Length(A)=?Length(B)) <--
-[
+⊕
     Local(Acopy,b,nba,result);
     Acopy  := FlatCopy(A);
     result := True;
     ForEach(b,B)
-     [
+     ⊕
          nba := Find(Acopy,b);
-         If( nba <? 0, [ result := False; Break(); ] );
+         If( nba <? 0, ⊕ result := False; Break(); ⊖ );
          DestructiveDelete(Acopy,nba);
-     ];
+     ⊖;
      If( Not? result, result := Length(Acopy)=?0 );
      result;
-];
+⊖;
 
 20 # EqualAsSets( _A, _B ) <-- False;
 

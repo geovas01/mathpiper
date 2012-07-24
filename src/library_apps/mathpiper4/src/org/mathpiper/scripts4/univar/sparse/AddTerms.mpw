@@ -6,12 +6,12 @@ but it seems like it was meant to be a published function.
 */
 
 Function("AddTerms",{terms1,terms2})
-[
+⊕
   Local(result,begining,t);
   begining :=1;
   ForEach (t,terms2)
      begining :=AddTerm(terms1,t,begining);
   terms1;
-];
+⊖;
 
 %/mathpiper

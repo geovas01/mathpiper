@@ -27,7 +27,7 @@ Verify(BaseVector(2,3),{0,1,0});
 Verify(Identity(3),{{1,0,0},{0,1,0},{0,0,1}});
 
 Testing("Checking comment syntax supported");
-[
+⊕
   Local(a);
   /* something here */
   a:= 3;
@@ -41,7 +41,7 @@ Testing("Checking comment syntax supported");
 
   // Check parsing
   a==-b; // This would generate a parse error in Yacas versions 1.0.54 and earlier
-];
+⊖;
 
 Testing("Yacas tutorials and journal entries.");
 Verify(1+1,2);
@@ -136,7 +136,7 @@ BuiltinPrecisionSet(OriginalPrecision);
 // numbers were not converted to strings any more. In the situation
 // -n*10^-m where n and m positive integers, the number got truncated
 // prematurely, resulting in a wrong rounding.
-[
+⊕
   Local(n,m,nkeep,lcl);
   n:=7300 + 12*I;
   m:=2700 + 100*I;
@@ -145,17 +145,17 @@ BuiltinPrecisionSet(OriginalPrecision);
   m:=nkeep - m*Round(nkeep/m);
   lcl:=Re(N(n/m))+0.5;
   Verify(FloorN(lcl),-3);
-];
+⊖;
 
 
 /* Bug reported by Adrian Vontobel. */
-[
+⊕
   Local(A1,A2);
   A1:=Pi*20^2; // 400*Pi
   A2:=Pi*18^2; // 324*Pi
   Verify(Minimum(A1,A2), 324*Pi);
   Verify(Maximum(A1,A2), 400*Pi);
-];
+⊖;
 
 //======================== The following tests are from sturm.mpt.
 
@@ -174,7 +174,7 @@ Testing("From: sturm.mpt");
 VerifyZero(x) := (Abs(x)<?10^ -BuiltinPrecisionGet());
 
 TryRandomPoly(deg,coefmin,coefmax):=
-[
+⊕
   Local(Coefs,monicCoefs,p,mp,roots,px);
   Coefs := Table(FloorN(coefmin+Random()*(coefmax-coefmin)),i,1,deg+1,1);
   p  := Add(Coefs*x^(0 .. deg));
@@ -187,12 +187,12 @@ TryRandomPoly(deg,coefmin,coefmax):=
   roots:=FindRealRoots(mp);
   px := (mp Where x==roots);
   Verify(Dot(px, px) <? 0.01, True);
-];
+⊖;
 TryRandomPoly(5,5,1000);
 
 
 TryRandomRoots(deg,coefmin,coefmax):=
-[
+⊕
   Local(coefs,p,roots,px,mult,sqf);
   coefs:=RemoveDuplicates(Table(FloorN(coefmin+Random()*(coefmax-coefmin)),i,1,deg+1,1));
   deg:=Length(coefs)-1;
@@ -206,16 +206,16 @@ TryRandomRoots(deg,coefmin,coefmax):=
   px := (p Where x==roots);
   Verify(Dot(px, px) <? 0.01, True);
   
-];
+⊖;
 TryRandomRoots(3,-10,10);
 
 
 
-[
+⊕
   Local(p);
   p := FindRealRoots((x+2)^9*(x-4)^5*(x-1)^4)-{-2.,1.,4.};
   Verify(VerifyZero(Dot(p,p)),True);
-];
+⊖;
 
 // Bounds on coefficients
 Verify(MinimumBound(4),-Infinity);
@@ -233,25 +233,25 @@ TestMathPiper(Monic(SquareFree((x-1)^2*(x-3)^3)),Monic((x-1)*(x-3)));
 
 // Check the rare case where the bounds finder lands on
 // exactly a root
-[
+⊕
   Local(p);
   p:=FindRealRoots((x+4)*(x-6),1,7)-{-4.,6.};
   Verify(VerifyZero(Dot(p, p)),True);
-];
+⊖;
 
-[
+⊕
   Local(p);
   p:=Expand((x-3.1)*(x+6.23));
   p:=FindRealRoots(p)-{-6.23,3.1};
   Verify(VerifyZero(Dot(p, p)),True);
-];
+⊖;
 
 Verify(BuiltinPrecisionGet(),6);
-[
+⊕
   Local(res);
   res:=FindRealRoots(Expand((x-3.1)*(x+6.23)))-{-6.23,3.1};
   Verify(VerifyZero(Dot(res, res)) , True);
-];
+⊖;
 
 //====================== end of strum.mpt tests.
 

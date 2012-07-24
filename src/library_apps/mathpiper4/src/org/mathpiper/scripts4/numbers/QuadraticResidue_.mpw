@@ -4,11 +4,11 @@
 // Elementary Number Theory, David M. Burton
 // Theorem 9.1 p187
 10 # QuadraticResidue?(_a,_p) <--
-[
+⊕
         Check( Integer?(a) And? Integer?(p) And? p>?2 And? Coprime?(a,p) And? Prime?(p),
                 "Argument", "QuadraticResidue?: Invalid arguments");
         If(a^((p-1)/2) % p =? 1, True, False);
-];
+⊖;
 
 %/mathpiper
 

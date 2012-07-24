@@ -4,7 +4,7 @@
 
 RulebaseHoldArguments("Degree",{expr});
 RuleHoldArguments("Degree",1,0, UniVar?(expr))
-[
+⊕
 
   Local(i,min,max);
   min:=expr[2];
@@ -12,7 +12,7 @@ RuleHoldArguments("Degree",1,0, UniVar?(expr))
   i:=max;
   While(i >=? min And? Zero?(Coef(expr,i))) i--;
   i;
-];
+⊖;
 
 10 # Degree(poly_CanBeUni)                           <-- Degree(MakeUni(poly));
 
@@ -21,7 +21,7 @@ RuleHoldArguments("Degree",1,0, UniVar?(expr))
 20 # Degree(_poly,_var)_(Type(poly)=?"Sqrt")          <-- Degree(poly^2,var)/2;
 
 20 # Degree(_poly,_var)_(FunctionToList(poly)[1]=? ^) <--
-[
+⊕
     Local(ex,pwr,deg);
     ex  := FunctionToList(poly)[3];
     pwr := 1/ex;
@@ -29,7 +29,7 @@ RuleHoldArguments("Degree",1,0, UniVar?(expr))
     deg := Degree(poly^pwr,var);
     //Tell("     ",deg);
     deg*ex;
-];
+⊖;
 
 %/mathpiper
 

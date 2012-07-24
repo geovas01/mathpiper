@@ -173,18 +173,19 @@ public class MathPiperParser extends Parser
         for (;;)
         {
             //Handle special case: a[b]. a is matched with lowest precedence!!
-            if (iLookAhead[0].equals(iEnvironment.iProgOpenAtom))
+            if (iLookAhead[0].equals(iEnvironment.iIndexOrNameOpenAtom))
             {
                 // Match opening bracket
                 matchToken(aStackTop, iLookAhead[0]);
                 // Read "index" argument
                 readExpression(aEnvironment, aStackTop, MathPiperPrinter.KMaxPrecedence);
                 // Match closing bracket
-                if (!iLookAhead[0].equals(iEnvironment.iProgCloseAtom))
+                if (!iLookAhead[0].equals(iEnvironment.iIndexOrNameCloseAtom))
                 {
                     LispError.raiseError("Expected a ***( ] )*** close bracket token for program block but found ***( " + iLookAhead[0] + " )*** instead.", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
                     return;
                 }
+                
                 matchToken(aStackTop, iLookAhead[0]);
                 // Build into Ntn(...)
                 String theOperator = (String) iEnvironment.iNthAtom;
@@ -312,6 +313,9 @@ public class MathPiperParser extends Parser
         } // parse prog bodies
         else if (iLookAhead[0].equals(iEnvironment.iProgOpenAtom))
         {
+            
+    
+    
             int nrargs = 0;
 
             matchToken(aStackTop, iLookAhead[0]);
@@ -329,6 +333,25 @@ public class MathPiperParser extends Parser
                     return;
                 }
             }
+            
+    //-----
+/*    String fileName = iInput.iStatus.getFileName();
+    int commaIndex = fileName.indexOf(",");
+    if(commaIndex != -1)
+    {
+    fileName = fileName.substring(0, commaIndex);
+    
+    
+  System.out.println("convert(\"/home/tkosan/workspace/mathpiper4/src" + fileName + "\"," + (iInput.iStatus.getLineNumber()) + "," + (iInput.iStatus.getLineIndex()) + ");" );//Note:tk:remove.
+    }
+    else
+    {
+	    System.out.println(" XXX ," + fileName);
+    }
+    */
+    //-----
+            
+            
             matchToken(aStackTop, iLookAhead[0]);
             String theOperator = (String) iEnvironment.iProgAtom;
             insertAtom(aEnvironment, aStackTop, theOperator);

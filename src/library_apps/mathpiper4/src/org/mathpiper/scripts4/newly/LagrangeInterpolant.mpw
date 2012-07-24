@@ -1,25 +1,25 @@
 %mathpiper,def="LagrangeInterpolant"
 
 LagrangeInt(_var,_list) <--
-[
+⊕
   Local(nr);
   nr:=Length(list);
   Product(FillList(var,nr)-list);
-];
+⊖;
 
 LagrangeInterpolant(list_List?,_values,_var) <--
-[
+⊕
   Local(i,nr,sublist);
   nr:=Length(list);
   result:=0;
   For(i:=1,i<=?nr,i++)
-  [
+  ⊕
     sublist:=FlatCopy(list);
     DestructiveDelete(sublist,i);
     result:=result + values[i]*LagrangeInt(var,sublist)/LagrangeInt(list[i],sublist);
-  ];
+  ⊖;
   result;
-];
+⊖;
 
 %/mathpiper
 

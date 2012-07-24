@@ -1,9 +1,9 @@
 %mathpiper,def="Substitute"
 
 Function("Substitute", {body, predicate, change})
-[
+⊕
   Substitute(body);
-];
+⊖;
 
 HoldArgument("Substitute", predicate);
 
@@ -18,16 +18,16 @@ UnFence("Substitute", 1);
 
 
 RuleHoldArguments("Substitute", 1, 1, Apply(predicate, {body}) =? True)
-[
+⊕
   Apply(change,{body});
-];
+⊖;
 
 
 
 RuleHoldArguments("Substitute", 1, 2, Function?(body))
-[
+⊕
   Apply("MapArgs",{body,"Substitute"});
-];
+⊖;
 
 
 

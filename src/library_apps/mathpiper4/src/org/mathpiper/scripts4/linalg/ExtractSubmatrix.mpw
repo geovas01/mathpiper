@@ -5,29 +5,29 @@
 10 # ExtractSubMatrix( mat_Matrix?, _row1, _col1, _row2, _col2 )_
        (And?(PositiveInteger?(row1),PositiveInteger?(col1),
             PositiveInteger?(row2),PositiveInteger?(col2))) <--
-[
+⊕
     Local(nrows,ncols,r,row,result);
     {nrows,ncols} := Dimensions( mat );
     Check(And?(row1>?0,col1>?0,row1<?nrows,col1<?ncols), "Math", "ERROR: UL out of range");
     Check(And?(row2>?row1,col2>?col1,row2<=?nrows,col2<=?ncols), "Math", "ERROR: LR out of range");
     result := {};
     For(r:=row1,r<=?row2,r++)
-    [
+    ⊕
         row := Take( MatrixRow(mat,r), {col1,col2} );
         result := DestructiveAppend( result, row );
-    ];
+    ⊖;
     result;
-];
+⊖;
 
 
 10 # ExtractSubMatrix( mat_Matrix?, _row1, _col1 )_
               (And?(PositiveInteger?(row1),PositiveInteger?(col1))) <--
-[
+⊕
     Local(nrows,ncols);
     {nrows,ncols} := Dimensions( mat );
     Check(And?(row1>?0,col1>?0,row1<?nrows,col1<?ncols), "Math", "ERROR: UL out of range");
     ExtractSubMatrix( mat, row1, col1, nrows, ncols );
-];
+⊖;
 
 %/mathpiper
 

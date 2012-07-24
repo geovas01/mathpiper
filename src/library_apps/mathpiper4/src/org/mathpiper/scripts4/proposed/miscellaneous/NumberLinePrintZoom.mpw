@@ -5,17 +5,17 @@
 //Retract("ZoomInOnce", *);
 
 LocalSymbols(ZoomInOnce)
-[
+⊕
 
     10 # NumberLinePrintZoom(_lowValue, _highValue, divisions_PositiveInteger?, depth_PositiveInteger?)_(lowValue <? highValue) <-- 
-    [
+    ⊕
     
         Local(numbers, stepAmount, zoomIndexes, nextZoomIndex, outputWidth, numbersString, output, randomStep, randomZoomNumber, iteration);
         
         iteration := 1;
         
         While(iteration <=? depth)
-        [
+        ⊕
             {numbers, stepAmount} := ZoomInOnce(lowValue, highValue, divisions);
             
             zoomIndexes := {};
@@ -25,7 +25,7 @@ LocalSymbols(ZoomInOnce)
             numbersString := "";
             
             ForEach(number, numbers)
-            [
+            ⊕
                 output := PipeToString() Write(number);
                 
                 zoomIndexes := Append(zoomIndexes, Length(output));
@@ -34,7 +34,7 @@ LocalSymbols(ZoomInOnce)
                 
                 outputWidth := outputWidth + Length(output) + 3;
             
-            ];
+            ⊖;
             
             randomStep := RandomInteger(divisions);
             
@@ -46,7 +46,7 @@ LocalSymbols(ZoomInOnce)
             
             Echo(numbersString);
             
-            If(iteration !=? depth,[Space(nextZoomIndex);Echo("|");]);
+            If(iteration !=? depth,⊕Space(nextZoomIndex);Echo("|");⊖);
             
             lowValue := numbers[randomStep];
             
@@ -54,15 +54,15 @@ LocalSymbols(ZoomInOnce)
             
             iteration++;
             
-        ];
+        ⊖;
     
-    ];
+    ⊖;
     
     
     
     
     ZoomInOnce(_lowValue, _highValue, divisions_PositiveInteger?)_(lowValue <? highValue) <--
-    [
+    ⊕
         Local(stepAmount, x, numbers);
         
         stepAmount := If(Decimal?(lowValue) Or? Decimal?(highValue), N((highValue-lowValue)/divisions), (highValue-lowValue)/divisions);
@@ -72,20 +72,20 @@ LocalSymbols(ZoomInOnce)
         numbers := {};
         
         While(x <=? highValue)
-        [
+        ⊕
         
             numbers := Append(numbers, x);
             
             x := x + stepAmount;
         
-        ];
+        ⊖;
         
         {numbers, stepAmount};
     
-    ];
+    ⊖;
 
 
-];
+⊖;
 
 %/mathpiper
 

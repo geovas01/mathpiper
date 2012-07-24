@@ -67,6 +67,8 @@ public final class Environment {
 	public String iEndStatementAtom;
 	public String iProgOpenAtom;
 	public String iProgCloseAtom;
+	public String iIndexOrNameOpenAtom;
+	public String iIndexOrNameCloseAtom;
 	public String iNthAtom;
 	public String iComplexAtom;
 	public String iBracketOpenAtom;
@@ -132,8 +134,10 @@ public final class Environment {
 
 		iEndOfFileAtom = new AtomCons("EndOfFile");
 		iEndStatementAtom = ";";
-		iProgOpenAtom = ("[");
-		iProgCloseAtom = ("]");
+		iProgOpenAtom = ("⊕");
+		iProgCloseAtom = ("⊖");
+		iIndexOrNameOpenAtom = ("[");
+		iIndexOrNameCloseAtom = ("]");
 		iNthAtom = ("Nth");
 		iComplexAtom = ("Complex");
 		iBracketOpenAtom = ("(");

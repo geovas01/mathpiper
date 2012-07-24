@@ -1,7 +1,7 @@
 %mathpiper,def="Easter"
 
 // http://en.wikipedia.org/wiki/Computus#Anonymous_Gregorian_algorithm
-Easter(year) := [
+Easter(year) := ⊕
 
     Check(PositiveInteger?(year), "Argument", "The argument must be a positive integer");
 
@@ -23,7 +23,7 @@ Easter(year) := [
     day := Modulo(h + L - 7*m + 114, 31) + 1;
 
     { month, day };
-];
+⊖;
 
 %/mathpiper
 

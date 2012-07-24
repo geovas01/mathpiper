@@ -16,7 +16,7 @@ Function() MultiplyNum(x);
 10 # MultiplyNum(x_List?)_(Length(x)>?1) <-- MultiplyNum(First(x), Rest(x));
 
 10 # MultiplyNum(x_Rational?, y_RationalOrNumber?) <--
-[
+⊕
         If(
         Type(y) =? "/",  // Rational?(y), changed by Nobbi before redefinition of Rational?
                 DivideN(Numerator(x)*Numerator(y), Denominator(x)*Denominator(y)),
@@ -32,7 +32,7 @@ Function() MultiplyNum(x);
                         )
                 )
         );
-];
+⊖;
 
 20 # MultiplyNum(x_Number?, y_Rational?) <-- MultiplyNum(y, x);
 

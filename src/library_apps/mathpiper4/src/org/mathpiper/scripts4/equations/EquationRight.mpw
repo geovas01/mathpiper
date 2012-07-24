@@ -1,13 +1,13 @@
 %mathpiper,def="EquationRight"
 
 EquationRight(_symbolicEquation)_(Type(symbolicEquation) =? "==")  <--
-[
+⊕
     Local(listForm);
     
     listForm := FunctionToList(symbolicEquation);
     
     listForm[3];
-];
+⊖;
 
 %/mathpiper
 

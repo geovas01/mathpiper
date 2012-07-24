@@ -4,12 +4,12 @@ Function() Add(val, ...);
 
 10 # Add({}) <-- 0;
 20 # Add(values_List?) <--
-[
+⊕
    Local(i, sum);
    sum:=0;
-   ForEach(i, values) [ sum := sum + i; ];
+   ForEach(i, values) ⊕ sum := sum + i; ⊖;
    sum;
-];
+⊖;
 
 // Add(1) should return 1
 30 # Add(_value) <-- value;
@@ -56,7 +56,7 @@ Verify(Add({}), 0);
 Verify(Add(1,2,3,4), 10);
 Verify(Add(1), 1);
 
-[
+⊕
   Local(list);
   list:={1,2,3,4,5};
   Verify(Add(list)/Length(list), 3);
@@ -64,6 +64,6 @@ Verify(Add(1), 1);
   Verify(Add(list)/Length(list), 0);
   list:={};
   Verify(Add(list)/Length(list), Undefined);
-];
+⊖;
 
 %/mathpiper

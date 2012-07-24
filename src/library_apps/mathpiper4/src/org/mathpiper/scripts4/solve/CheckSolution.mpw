@@ -3,7 +3,7 @@
 //Retract("CheckSolution",*);
 
 10 # CheckSolution( _expr, _var, solution_List? )_(Not? FreeOf?(var,expr)) <--
-  [
+  ⊕
       Local(expr0,result,s,r);
       If( Equation?(expr),
           Bind(expr0,EquationLeft(expr)-EquationRight(expr)),
@@ -11,12 +11,12 @@
       );
       result := {};
       ForEach(s,solution) 
-        [
+        ⊕
             r := ( expr0 Where s );
             If(r=?0,Push(result,s));
-        ];
+        ⊖;
         Reverse(result);
-  ];
+  ⊖;
   
   
 20 # CheckSolution( _expr, _var, _solution ) <-- False;

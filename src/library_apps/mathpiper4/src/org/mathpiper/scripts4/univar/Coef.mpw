@@ -1,15 +1,15 @@
 %mathpiper,def="Coef"
 
 5 # Coef(uv_UniVar?,order_List?) <--
-[
+⊕
   Local(result);
   result:={};
   ForEach(item,order)
-  [
+  ⊕
     DestructiveAppend(result,Coef(uv,item));
-  ];
+  ⊖;
   result;
-];
+⊖;
 
 10 # Coef(uv_UniVar?,order_Integer?)_(order<?uv[2]) <-- 0;
 10 # Coef(uv_UniVar?,order_Integer?)_(order>=?uv[2]+Length(uv[3])) <-- 0;

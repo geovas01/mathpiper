@@ -12,40 +12,40 @@
 //55 # x_Number? / y_NegativeNumber? <-- (-x)/(-y);
 
 56 # (x_NonZeroInteger? / y_NonZeroInteger?)_(GcdN(x,y) >? 1) <--
-     [
+     ⊕
        Local(gcd);
        Bind(x,x);
        Bind(y,y);
        Bind(gcd,GcdN(x,y));
        QuotientN(x,gcd)/QuotientN(y,gcd);
-     ];
+     ⊖;
 
 57 # ((x_NonZeroInteger? * _expr) / y_NonZeroInteger?)_(GcdN(x,y) >? 1) <--
-     [
+     ⊕
        Local(gcd);
        Bind(x,x);
        Bind(y,y);
        Bind(gcd,GcdN(x,y));
        (QuotientN(x,gcd)*expr)/QuotientN(y,gcd);
-     ];
+     ⊖;
 
 57 # ((x_NonZeroInteger?) / (y_NonZeroInteger? * _expr))_(GcdN(x,y) >? 1) <--
-     [
+     ⊕
        Local(gcd);
        Bind(x,x);
        Bind(y,y);
        Bind(gcd,GcdN(x,y));
        QuotientN(x,gcd)/(QuotientN(y,gcd)*expr);
-     ];
+     ⊖;
 
 57 # ((x_NonZeroInteger? * _p) / (y_NonZeroInteger? * _q))_(GcdN(x,y) >? 1) <--
-     [
+     ⊕
        Local(gcd);
        Bind(x,x);
        Bind(y,y);
        Bind(gcd,GcdN(x,y));
        (QuotientN(x,gcd)*p)/(QuotientN(y,gcd)*q);
-     ];
+     ⊖;
 
 60 # (x_Decimal? / y_Number?)  <-- DivideN(x,y);
 60 # (x_Number?  / y_Decimal?) <-- DivideN(x,y); 
@@ -101,22 +101,22 @@
 
 
 250 # (x_List? / _y)_(Not?(List?(y))) <--
-[
+⊕
    Local(i,result);
    result:={};
    For(i:=1,i<=?Length(x),i++)
-   [ DestructiveInsert(result,i,x[i] / y); ];
+   ⊕ DestructiveInsert(result,i,x[i] / y); ⊖;
    result;
-];
+⊖;
 
 250 # (_x / y_List?)_(Not?(List?(x))) <--
-[
+⊕
    Local(i,result);
    result:={};
    For(i:=1,i<=?Length(y),i++)
-   [ DestructiveInsert(result,i,x/y[i]); ];
+   ⊕ DestructiveInsert(result,i,x/y[i]); ⊖;
    result;
-];
+⊖;
 
 250 # _x / Infinity <-- 0;
 250 # _x / (-Infinity) <-- 0;

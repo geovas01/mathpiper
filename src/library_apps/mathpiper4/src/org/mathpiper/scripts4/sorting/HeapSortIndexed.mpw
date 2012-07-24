@@ -6,7 +6,7 @@
 HeapSortIndexed( L_List?, _compare ) <-- HeapSortIndexed1( FlatCopy(L), compare );
 
 HeapSortIndexed1( L_List?, _compare ) <--
-[
+⊕
   Local(list,indices,pairs,sortedPairs);
 
   list    := FlatCopy(L);
@@ -18,7 +18,7 @@ HeapSortIndexed1( L_List?, _compare ) <--
      HeapSort( pairs, Lambda({X,Y},X[1] >? Y[1]) )
   );
   Transpose(sortedPairs);
-];
+⊖;
 
 %/mathpiper
 

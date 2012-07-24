@@ -5,21 +5,21 @@
 10 # Rationalize(aNumber_List?) <-- Rationalize /@ aNumber;
 
 20 # Rationalize( _aNumber ) <--
-[
+⊕
     Local(result,n,d);
     result:=Substitute(aNumber,{{x},Number?(x) And? Not?(Integer?(x))},"RationalizeNumber");
     If(InVerboseMode(),Tell("",result));
     If(Length(VarList(aNumber))=?0,
-      [
+      ⊕
         n:=Numerator(result);
         If(Type(n)=?"Numerator",n:=result);
         d:=Denominator(result);
         If(Type(d)=?"Denominator",d:=1);
         result := n*(1/d);
-      ]
+      ⊖
     );
     result;
-];
+⊖;
 %/mathpiper
 
    

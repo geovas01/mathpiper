@@ -11,20 +11,20 @@ RulebaseHoldArguments("Function",{oper,args,body});
 RuleHoldArguments("Function",3,2047,
         And?(GreaterThan?(Length(args), 1), Equal?( MathNth(args, Length(args)), ToAtom("...") ))
 )
-[
+⊕
   DestructiveDelete(args,Length(args));        // remove trailing "..."
   Retract(oper,Length(args));
   RulebaseListedEvaluateArguments(oper,args);
   RuleEvaluateArguments(oper,Length(args),1025,True) body;        // at precedence 1025, for flexibility
-];
+⊖;
 
 // function with a fixed number of arguments
 RuleHoldArguments("Function",3,2048,True)
-[
+⊕
   Retract(oper,Length(args));
   RulebaseEvaluateArguments(oper,args);
   RuleEvaluateArguments(oper,Length(args),1025,True) body;
-];
+⊖;
 
 
 /// shorthand function declarations
@@ -33,7 +33,7 @@ RulebaseHoldArguments("Function",{oper});
 RuleHoldArguments("Function",1,2047,
         And?(Function?(oper), GreaterThan?(Length(oper), 1), Equal?( MathNth(oper, Length(oper)), ToAtom("...") ))
 )
-[
+⊕
         Local(args);
         Bind(args,Rest(FunctionToList(oper)));
         DestructiveDelete(args,Length(args));        // remove trailing "..."
@@ -41,21 +41,21 @@ RuleHoldArguments("Function",1,2047,
                 False,        // do nothing
                 RulebaseListedEvaluateArguments(Type(oper),args)
         );
-];
+⊖;
 
 
 // function with a fixed number of arguments
 RuleHoldArguments("Function",1,2048,
         And?(Function?(oper))
 )
-[
+⊕
         Local(args);
         Bind(args,Rest(FunctionToList(oper)));
         If(RulebaseDefined(Type(oper),Length(args)),
                 False,        // do nothing
                 RulebaseEvaluateArguments(Type(oper),args)
         );
-];
+⊖;
 
 
 HoldArgument("Function",oper);
@@ -139,16 +139,16 @@ Result: " 1 2 3";
 %mathpiper,name="Function",subtype="automatic_test"
 
 Function("count",{from,to})
-[
+⊕
    Local(i);
    Local(sum);
    Bind(sum,0);
    For(i:=from,i<?to,i:=i+1)
-   [
+   ⊕
      Bind(sum,sum+i);
-   ];
+   ⊖;
    sum;
-];
+⊖;
 
 Testing("Function definitions");
 Verify(count(1,11),55);

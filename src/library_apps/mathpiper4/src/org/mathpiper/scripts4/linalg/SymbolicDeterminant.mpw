@@ -1,7 +1,7 @@
 %mathpiper,def="SymbolicDeterminant"
 
 20 # SymbolicDeterminant(_matrix) <--
-[
+⊕
   Local(perms,indices,result);
   Check((Matrix?(matrix)), "Argument", "Determinant: Argument must be a matrix");
   indices:=Table(i,i,1,Length(matrix),1);
@@ -11,7 +11,7 @@
      result:=result+Product(i,1,Length(matrix),matrix[i][item[i] ])*
                     LeviCivita(item);
   result;
-];
+⊖;
 
 %/mathpiper
 

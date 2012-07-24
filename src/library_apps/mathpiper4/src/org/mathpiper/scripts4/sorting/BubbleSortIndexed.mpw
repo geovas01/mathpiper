@@ -3,7 +3,7 @@
 //Retract("BubbleSortIndexed",*);
 
 BubbleSortIndexed( L_List?, _compare ) <--
-[
+⊕
   Local(list,indices,pairs,sortedPairs);
 
   list    := FlatCopy(L);
@@ -14,7 +14,7 @@ BubbleSortIndexed( L_List?, _compare ) <--
      BubbleSort( pairs, Lambda({X,Y},X[1] >? Y[1]) )
   );
   Transpose(sortedPairs);
-];
+⊖;
 
 %/mathpiper
 

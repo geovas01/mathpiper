@@ -8,7 +8,7 @@ SquareMatrix?
 */
 
 LocalSymbols(p,x)
-[
+⊕
 // test for a scalar
 Function("Scalar?",{x}) Not?(List?(x));
 
@@ -22,56 +22,56 @@ Function("Vector?",{x})
 
 // test for a vector w/ element test p
 Function("Vector?",{p,x})
-[
+⊕
    If(List?(x),
-   [
+   ⊕
       Local(i,n,result);
       n:=Length(x);
       i:=1;
       result:=True;
       While(i<=?n And? result)
-      [
+      ⊕
          result:=Apply(p,{x[i]});
          i++;
-      ];
+      ⊖;
       result;
-   ],
+   ⊖,
    False);
-];
+⊖;
 
 // test for a matrix (dr)
 Function("Matrix?",{x})
 If(List?(x) And? Length(x)>?0,
-[
+⊕
    Local(n);
    n:=Length(x);
    If(Length(Select(x, Vector?))=?n,
    MapSingle(Length,x)=?Length(x[1])+ZeroVector(n),
    False);
-],
+⊖,
 False);
 
 // test for a matrix w/ element test p (dr)
 Function("Matrix?",{p,x})
 If(Matrix?(x),
-[
+⊕
    Local(i,j,m,n,result);
    m:=Length(x);
    n:=Length(x[1]);
    i:=1;
    result:=True;
    While(i<=?m And? result)
-   [
+   ⊕
       j:=1;
       While(j<=?n And? result)
-      [
+      ⊕
          result:=Apply(p,{x[i][j]});
          j++;
-      ];
+      ⊖;
       i++;
-   ];
+   ⊖;
    result;
-],
+⊖,
 False);
 
 /* remove? (dr)
@@ -88,7 +88,7 @@ Function("SquareMatrix?",{x}) Matrix?(x) And? Length(x)=?Length(x[1]);
 // test for a square matrix w/ element test p (dr)
 Function("SquareMatrix?",{p,x}) Matrix?(p,x) And? Length(x)=?Length(x[1]);
 
-]; // LocalSymbols(p,x)
+⊖; // LocalSymbols(p,x)
 
 %/mathpiper
 

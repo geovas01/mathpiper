@@ -35,20 +35,20 @@
       CosMap(Coef(v,Pi,1));
 
 400 # Cos(x_RationalOrNumber?) <--
-    [
+    ⊕
      Local(ll);
      ll:= FloorN(N(Eval(x/Pi)));
      If(Even?(ll),x:=(x - Pi*ll),x:=(-x + Pi*(ll+1)));
      ListToFunction({Cos,x});
-     ];
+     ⊖;
 
 400 # Cos(x_RationalOrNumber?) <--
-    [
+    ⊕
      Local(ll);
      ll:= FloorN(N(Eval(Abs(x)/Pi)));
      If(Even?(ll),x:=(Abs(x) - Pi*ll),x:=(-Abs(x) + Pi*(ll+1)));
      ListToFunction({Cos,x});
-     ];
+     ⊖;
 
 
 

@@ -3,7 +3,7 @@
 //Retract("RoundToPlace",*);
 
 10 # RoundToPlace( N_Decimal?, place_Integer? ) <--
-[
+⊕
     //If(InVerboseMode(),Tell("RoundToPlace_D",{N,place}));
     Local(rep,sgn,oldInt,oldPrec,oldScale,oldPlaces,strOInt,LS);
     Local(newInt,newScale,newRep,ans);
@@ -30,11 +30,11 @@
         ans := 0.
     );
     ans;
-];
+⊖;
 
 
 15 # RoundToPlace( N_Integer?, place_Integer? )_(place <=? 0) <--
-[
+⊕
     //If(InVerboseMode(),Tell("RoundToPlace_I",{N,place}));
     Local(oldRep,oldPrec,decN,newDecN,ans);
     oldRep   := NumberToRep(N);
@@ -50,18 +50,18 @@
         ans := Round(newDecN*10^(place-oldPrec))
     );
     ans;
-];
+⊖;
 
 
 
 20 # RoundToPlace( N_Complex?, place_Integer? )_(Not? Integer?(N)) <--
-[
+⊕
     //If(InVerboseMode(),Tell("RoundToPlace_C",{N,place}));
     Local(rr,ii);
     rr := Re(N);
     ii := Im(N);
     Complex(RoundToPlace(rr,place),RoundToPlace(ii,place));
-];
+⊖;
 
 %/mathpiper
 

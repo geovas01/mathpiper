@@ -1,17 +1,17 @@
 %mathpiper,def="/:"
 
 5 # (_expression /: LocPatterns(_patterns)) <--
-[
+⊕
   MacroSubstitute(expression,"LocPredicate","LocChange");
-];
+⊖;
 
 
 10 # (_expression /: _patterns) <--
-[
+⊕
   Bind(patterns, LocProcess(patterns));
   
   MacroSubstitute(expression,"LocPredicate","LocChange");
-];
+⊖;
 
 %/mathpiper
 

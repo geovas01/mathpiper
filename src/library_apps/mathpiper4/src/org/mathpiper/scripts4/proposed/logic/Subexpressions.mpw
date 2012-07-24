@@ -1,7 +1,7 @@
 %mathpiper,def="Subexpressions"
 
 Subexpressions(expression) :=
-[
+⊕
     Local(subexpressions, uniqueSubexpressions, variables, functions, sortedFunctions);
     
      subexpressions := SubexpressionsHelper(expression,{});
@@ -15,18 +15,18 @@ Subexpressions(expression) :=
      sortedFunctions := Sort(functions,Lambda({x,y},Length(FunctionListAllHelper(x)) + Length(VarList(x)) <? Length(FunctionListAllHelper(y)) + Length(VarList(y))));
      
      Concat(variables, sortedFunctions);
-];
+⊖;
 
 
 
 SubexpressionsHelper(expression, list) :=
-[
+⊕
 
     Local(first, rest);
     
     
     if((Not? Atom?(expression)) And? (Length(expression) !=? 0))
-    [
+    ⊕
     
         first := First(expression);
         
@@ -37,33 +37,33 @@ SubexpressionsHelper(expression, list) :=
         If(Length(rest) !=? 0, rest := First(rest));
      
         If(Length(rest) !=? 0, list := SubexpressionsHelper(rest, list));
-    ];
+    ⊖;
     
     Append(list, expression);
-];
+⊖;
 
 
 
 //Similar to FuncList, but does not remove duplicates.
 FunctionListAllHelper(expression) :=
-[
+⊕
     if(Atom?(expression))
-    [
+    ⊕
        {}; 
-    ]
+    ⊖
     else if (Function?(expression))
-    [
+    ⊕
     
       Concat( {First(FunctionToList(expression))},
          Apply("Concat", MapSingle("FunctionListAllHelper", Rest(FunctionToList(expression)))));
-    ]
+    ⊖
     else
-    [
+    ⊕
         Check(False, "Argument", "The argument must be an atom or a function.");
     
-    ];
+    ⊖;
 
-];
+⊖;
 
 %/mathpiper
 

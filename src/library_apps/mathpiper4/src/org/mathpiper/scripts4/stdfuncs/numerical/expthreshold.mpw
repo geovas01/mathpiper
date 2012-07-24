@@ -12,12 +12,12 @@ SetMathExpThreshold
 /// Exponent
 //////////////////////////////////////////////////
 
-LocalSymbols(mathExpThreshold) [
+LocalSymbols(mathExpThreshold) ⊕
   // improve convergence of Exp(x) for large x
   mathExpThreshold := If(Not? Bound?(mathExpThreshold), 500);
 
   MathExpThreshold() := mathExpThreshold;
-  SetMathExpThreshold(threshold) := [mathExpThreshold:= threshold; ];
-];
+  SetMathExpThreshold(threshold) := ⊕mathExpThreshold:= threshold; ⊖;
+⊖;
 
 %/mathpiper

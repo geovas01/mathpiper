@@ -1,11 +1,11 @@
 %mathpiper,def="UniqueConstant"
 
 UniqueConstant() <--
-[
+⊕
   Local(result);
   result := ToString(LocalSymbols(C)(C));
   ToAtom(StringMidGet(2,Length(result)-1,result));
-];
+⊖;
 
 %/mathpiper
 

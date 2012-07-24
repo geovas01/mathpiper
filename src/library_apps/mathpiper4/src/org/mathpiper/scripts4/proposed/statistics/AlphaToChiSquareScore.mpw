@@ -25,7 +25,7 @@
 
 
 AlphaToChiSquareScore(p, df) :=
-[
+⊕
     Local(ChiEpsilon, ChiMax, minchisq, maxchisq, chisqval, result);
     
     ChiEpsilon := 0.000001;   /* Accuracy of critchi approximation */
@@ -39,45 +39,45 @@ AlphaToChiSquareScore(p, df) :=
     p := N(p);
     
     if( p <=? 0.0 Or? p >=? 1.0)
-    [
+    ⊕
     
         if (p <=? 0.0) 
-        [
+        ⊕
             result := maxchisq;
-        ] 
+        ⊖ 
         else 
-        [
+        ⊕
             if (p >=? 1.0) 
-            [
+            ⊕
                 result := 0.0;
-            ];
-        ];
+            ⊖;
+        ⊖;
     
-    ]
+    ⊖
     else
-    [
+    ⊕
         chisqval := N(df / SqrtN(p));
         
         /* fair first value */
         While ((maxchisq - minchisq) >? ChiEpsilon) 
-        [
+        ⊕
             if (ChiSquareScoreToAlpha(chisqval, df) <? p) 
-            [
+            ⊕
                 maxchisq := chisqval;
-            ] 
+            ⊖ 
             else 
-            [
+            ⊕
                 minchisq := chisqval;
-            ];
+            ⊖;
             chisqval := (maxchisq + minchisq) * 0.5;
-        ];
+        ⊖;
         
         result := chisqval;
     
-    ];
+    ⊖;
     
     N(result);
-];
+⊖;
 
 
 %/mathpiper

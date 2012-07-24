@@ -2,11 +2,11 @@
 
 /// Delete an element of an associative list.
 LocalSymbols(hash, key, element, hashexpr)
-[
+⊕
 
 /// AssocDelete(hash,{"key", value})
 10 # AssocDelete(hash_List?, element_List?) <--
-[
+⊕
         Local(index);
         index := Find(hash, element);
         If(
@@ -15,14 +15,14 @@ LocalSymbols(hash, key, element, hashexpr)
         );
         index>?0;        // return False if nothing found
 
-];
+⊖;
 
 
 /// AssocDelete(hash, "key")
 20 # AssocDelete(hash_List?, key_String?) <--
-[
+⊕
         AssocDelete(hash, BuiltinAssoc(key, hash));
-];
+⊖;
 
 30 # AssocDelete(hash_List?, Empty) <-- False;
 
@@ -30,7 +30,7 @@ LocalSymbols(hash, key, element, hashexpr)
 //UnFence("AssocDelete", 1);
 //UnFence("AssocDelete", 2);
 
-];        // LocalSymbols(hash, ...)
+⊖;        // LocalSymbols(hash, ...)
 
 %/mathpiper
 

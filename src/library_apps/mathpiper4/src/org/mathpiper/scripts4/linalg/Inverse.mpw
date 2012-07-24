@@ -1,7 +1,7 @@
 %mathpiper,def="Inverse"
 
 Function("Inverse",{matrix})
-[
+⊕
   Local(perms,indices,inv,det,n);
   n:=Length(matrix);
   indices:=Table(i,i,1,n,1);
@@ -9,20 +9,20 @@ Function("Inverse",{matrix})
   inv:=ZeroMatrix(n,n);
   det:=0;
   ForEach(item,perms)
-  [
+  ⊕
     Local(i,lc);
     lc := LeviCivita(item);
     det:=det+Product(i,1,n,matrix[i][item[i] ])* lc;
     For(i:=1,i<=?n,i++)
-        [
+        ⊕
          inv[item[i] ][i] := inv[item[i] ][i]+
            Product(j,1,n,
              If(j=?i,1,matrix[j][item[j] ]))*lc;
-        ];
-  ];
+        ⊖;
+  ⊖;
   Check(det !=? 0, "Math", "Zero determinant");
   (1/det)*inv;
-];
+⊖;
 
 %/mathpiper
 

@@ -1,11 +1,11 @@
 %mathpiper,def="UnbiasedVariance"
 
 UnbiasedVariance(list) := 
-[
+⊕
     Check(List?(list), "Argument", "Argument must be a list.");
     
     Sum((list - Mean(list))^2)/(Length(list)-1);
-];
+⊖;
 
 %/mathpiper
 

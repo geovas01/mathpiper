@@ -4,31 +4,31 @@
 LocalSymbols(TraceStart,TraceEnter,TraceLeave,DebugStart,DebugEnter,
              DebugLeave,ProfileStart,ProfileEnter,result,
              WriteLines,ClearScreenString,DebugFileLoaded, DebugFileLines, DebugNrLines,
-             debugstepoverfile, debugstepoverline) [
+             debugstepoverfile, debugstepoverline) ⊕
 
-TraceStart() := [indent := 0;];
+TraceStart() := ⊕indent := 0;⊖;
 TraceEnter() :=
-[
+⊕
     indent++;
     Space(2*indent);
     Echo("Enter ",CustomEvalExpression());
-];
+⊖;
 TraceLeave() :=
-[
+⊕
     Space(2*indent);
     Echo("Leave ",CustomEvalResult());
     indent--;
-];
+⊖;
 Macro(TraceExp,{expression})
-[
+⊕
     TraceStart();
     CustomEval(TraceEnter(),TraceLeave(),CustomEvalStop(),@expression);
-];
+⊖;
 
 
 
 DebugStart():=
-[
+⊕
    debugging:=True;
    debugstopdepth := -1;
    breakpoints:={};
@@ -37,94 +37,94 @@ DebugStart():=
    debugverbose:=False;
    debugcallstack:={};
    breakpredicate:=False;
-];
-DebugRun():= [debugging:=False;True;];
-DebugStep():=[debugging:=False;nextdebugging:=True;];
+⊖;
+DebugRun():= ⊕debugging:=False;True;⊖;
+DebugStep():= ⊕debugging:=False;nextdebugging:=True;⊖;
 
 DebugStepOver():=
-[
+⊕
   debugging:=False;
   debugstepoverfile := DebugFile(CustomEvalExpression());
   debugstepoverline := DebugLine(CustomEvalExpression());
   debugstopdepth := Length(debugcallstack);
-];
+⊖;
 DebugBreakAt(file,line):=
-[
+⊕
   Check(DebugMode?(), "Mode", "DebugBreakAt only supported in the debug build of MathPiper");
   If(filebreakpoints[file] =? Empty,filebreakpoints[file]:={});
   DestructiveAppend(filebreakpoints[file],line);
-];
+⊖;
 DebugRemoveBreakAt(file,line):=
-[
+⊕
   Check(DebugMode?(), "Mode", "DebugRemoveBreakAt only supported in the debug build of MathPiper");
   If(filebreakpoints[file] =? Empty,filebreakpoints[file]:={});
   filebreakpoints[file] := Difference(filebreakpoints[file],{line});
-];
+⊖;
 
 
-DebugStop():=[debugging:=False;debugstopped:=True;CustomEvalStop();];
-DebugVerbose(verbose):=[debugverbose:=verbose;];
-DebugAddBreakpoint(fname_String?) <-- [ breakpoints := fname~breakpoints;];
+DebugStop():= ⊕debugging:=False;debugstopped:=True;CustomEvalStop();⊖;
+DebugVerbose(verbose):= ⊕debugverbose:=verbose;⊖;
+DebugAddBreakpoint(fname_String?) <-- ⊕ breakpoints := fname~breakpoints;⊖;
 Macro(DebugBreakIf,{predicate})
-[
+⊕
   breakpredicate:= Hold(@predicate);
-];
+⊖;
 
 BreakpointsClear() <--
-[
+⊕
   breakpredicate:=False;
   breakpoints := {};
-];
+⊖;
 Macro(DebugLocals,{})
-[
+⊕
   Echo("");
   Echo("*************** Current locals on the stack ****************");
   ForEach(item,CustomEvalLocals())
-  [
+  ⊕
     Echo("      ",item," : ",Eval(item));
-  ];
+  ⊖;
   Echo("");
-];
+⊖;
 DebugCallstack() <--
-[
+⊕
   Echo("");
   Echo("*************** Function call stack ****************");
   ForEach(item,debugcallstack)
-  [
+  ⊕
     if(Function?(item))
       Echo("      Function ",Type(item)," : ",item)
     else
       Echo("      Variable ",item);
-  ];
+  ⊖;
   Echo("");
-];
+⊖;
 
 Macro(DebugEnter,{})
-[
+⊕
   debugcallstack := CustomEvalExpression()~debugcallstack;
   // custom breakpoint (custom predicate thought up by the programmer)
   If(debugging =? False And?
       Eval(breakpredicate) =? True,
-      [
+      ⊕
         breakpredicate:=False;
         debugging:=True;
-      ]);
+      ⊖);
 
   If(debugging =? False And? DebugMode?(),
-  [
+  ⊕
     Local(file,line);
     file := DebugFile(CustomEvalExpression());
     If(filebreakpoints[file] !=? Empty,
-    [
+    ⊕
       line := DebugLine(CustomEvalExpression());
       If(Not?(file =? debugstepoverfile And? line =? debugstepoverline) And?
          Contains?(filebreakpoints[file],line),
-         [
+         ⊕
            debugging:=True;
-         ]
+         ⊖
         );
-    ]);
-  ]);
+    ⊖);
+  ⊖);
 
 
   // the standard breakpoint
@@ -133,67 +133,67 @@ Macro(DebugEnter,{})
       Contains?(breakpoints,Type(CustomEvalExpression())),   debugging:=True);
    nextdebugging:=False;
    If (debugging,
-   [
+   ⊕
      If(DebugMode?(),DebugShowCode());
      Echo(">>> ",CustomEvalExpression());
      While(debugging)
-     [
+     ⊕
         Echo("DebugResult: ",Eval(PipeFromString(ReadCmdLineString("Debug> ")~";")Read()));
     //      If(debugging,Echo("DebugResult: ",debugRes));
        If(IsExitRequested(),debugging:=False);
-     ];
-    ]);
+     ⊖;
+    ⊖);
    debugging:=nextdebugging;
 
    If(IsExitRequested(),debugstopped:=True);
 
-];
+⊖;
 Macro(DebugLeave,{})
-[
+⊕
   If(debugging =? False And? debugstopdepth >=? 0 And? Length(debugcallstack) =? debugstopdepth,
-  [
+  ⊕
     debugstepoverline := -1;
     debugging := True;
     debugstopdepth := -1;
-  ]);
+  ⊖);
 
   debugcallstack := Rest(debugcallstack);
   If(debugverbose,Echo(CustomEvalResult()," <-- ",CustomEvalExpression()));
-];
+⊖;
 Macro(Debug,{expression})
 PipeToStdout()
-[
+⊕
    DebugStart();
-   CustomEval(DebugEnter(),DebugLeave(),If(debugstopped,Check(False, "Debug", ""),[debugging:=True;debugcallstack := Rest(debugcallstack);]),@expression);
-];
+   CustomEval(DebugEnter(),DebugLeave(),If(debugstopped,Check(False, "Debug", ""),⊕debugging:=True;debugcallstack := Rest(debugcallstack);⊖),@expression);
+⊖;
 
 
 ProfileStart():=
-[
+⊕
     profilefn:={};
-];
+⊖;
 10 # ProfileEnter()_(Function?(CustomEvalExpression())) <--
-[
+⊕
     Local(fname);
     fname:=Type(CustomEvalExpression());
     If(profilefn[fname]=?Empty,profilefn[fname]:=0);
     profilefn[fname] := profilefn[fname]+1;
-];
+⊖;
 Macro(Profile,{expression})
-[
+⊕
     ProfileStart();
     CustomEval(ProfileEnter(),True,CustomEvalStop(),@expression);
     ForEach(item,profilefn)
       Echo("Function ",item[1]," called ",item[2]," times");
-];
+⊖;
 
 /// Measure the time taken by evaluation and print results.
 Macro(EchoTime,{expression})
-[
+⊕
         Local(result);
         Echo(Time()Bind(result, @expression), "seconds taken.");
         result;
-];
+⊖;
 
 
 
@@ -202,13 +202,13 @@ ClearScreenString := UnicodeToString(27)~"[2J"~UnicodeToString(27)~"[1;1H";
 
 // WriteLines: do the actual outputting of lines of a file to screen
 WriteLines(filename,lines,from,nrlines,breakpoints,current):=
-[
+⊕
   Local(i,nr);
   nr:=Length(lines);
   WriteString(ClearScreenString);
   Echo("File ",filename," at line ",current);
   For(i:=from,i<?from+nrlines And? i<?nr,i++)
-  [
+  ⊕
 
     if (current =? i)
       WriteString(">")
@@ -220,8 +220,8 @@ WriteLines(filename,lines,from,nrlines,breakpoints,current):=
       WriteString(" ");
     WriteString("| ");
     Echo(lines[i][1]);
-  ];
-];
+  ⊖;
+⊖;
 DebugFileLoaded := "";
 DebugFileLines := {};
 DebugNrLines:=20;
@@ -233,11 +233,11 @@ DebugNrLines:=20;
 // Currently unimplemented, should we remove?
 //
 DebugShowCode():=
-[
+⊕
   False;
-];
+⊖;
 
-]; //LocalSymbols
+⊖; //LocalSymbols
 
 
 %/mathpiper

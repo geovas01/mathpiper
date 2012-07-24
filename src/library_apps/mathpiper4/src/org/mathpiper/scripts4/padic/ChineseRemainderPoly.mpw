@@ -1,7 +1,7 @@
 %mathpiper,def="ChineseRemainderPoly"
 
 ChineseRemainderPoly(mlist_List?,vlist_List?) <--
-[
+⊕
   Local(m,i,nr,result,msub,euclid,clist);
   clist:={};
   m:=Product(mlist);
@@ -12,7 +12,7 @@ ChineseRemainderPoly(mlist_List?,vlist_List?) <--
 
   nr:=Length(mlist);
   For(i:=1,i<=?nr,i++)
-  [
+  ⊕
     msub:=Quotient(m,mlist[i]);
 
 /* Echo({Factor(msub)}); */
@@ -26,8 +26,8 @@ ChineseRemainderPoly(mlist_List?,vlist_List?) <--
 
     DestructiveAppend(clist,c);
     result:=result + msub * c;
-  ];
+  ⊖;
   {Expand(result),clist};
-];
+⊖;
 
 %/mathpiper

@@ -1,7 +1,7 @@
 %mathpiper,def="RationalizeNumber"
 
 Function("RationalizeNumber",{x})
-[
+⊕
   Check(Number?(x), "Argument", "RationalizeNumber: Error: " ~ (PipeToString()Write(x)) ~" is not a number");
   Local(n,i,bip,m);
   n   := 1;
@@ -9,14 +9,14 @@ Function("RationalizeNumber",{x})
   bip := BuiltinPrecisionGet();
   // We can not take for granted that the internal representation is rounded properly...
   While(i<=?bip And? Not?(FloatIsInt?(x)))
-  [
+  ⊕
     n := n*10; 
     x := x*10;
     i := i+1;
-  ];
+  ⊖;
   m := Floor(x+0.5);
   (m/n);
-];
+⊖;
 
 %/mathpiper
 

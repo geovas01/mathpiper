@@ -24,17 +24,17 @@ The function has real values for real $x >= -Exp(-1)$. (This point is a logarith
 */
 10 # InternalLambertWNum(x_Number?)_(x <? -ExpN(-1)) <-- Undefined;
 20 # InternalLambertWNum(x_Number?) <--
-[
+⊕
         Local(W);
         NewtonNum(
           `Hold(
           {
           {W},
-          [
+          ⊕
                   Local(a);
                 a:=W- @x*ExpN(-W);
                 W-a/(W+1-(W+2)/(W+1)*a/2.);
-          ]}),
+          ⊖}),
         // initial approximation is the two-point global Pade:
           If(
                 x<?0,
@@ -44,7 +44,7 @@ The function has real values for real $x >= -Exp(-1)$. (This point is a logarith
           10,        // initial approximation is good to about 3 digits
           3        // 3rd order scheme
         );
-];
+⊖;
 
 %/mathpiper
 

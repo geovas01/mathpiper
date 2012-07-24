@@ -1,9 +1,9 @@
 %mathpiper,def="Union"
 
 Function("Union",{list1,list2})
-[
+⊕
   RemoveDuplicates(Concat(list1,list2));
-];
+⊖;
 
 %/mathpiper
 

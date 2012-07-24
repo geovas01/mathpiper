@@ -7,20 +7,20 @@
  */
 
 TemplateFunction("Table",{body,var,countfrom,countto,step})
-  [
+  ⊕
     MacroLocal(var);
     Local(result,nr,ii);
     result:={};
     nr := (countto - countfrom) / step;
     ii := 0;
     While( ii <=? nr )
-      [
+      ⊕
        MacroBind( var, countfrom + ii * step );
        DestructiveInsert( result,1,Eval(body) );
        Bind(ii,AddN(ii,1));
-      ];
+      ⊖;
     DestructiveReverse(result);
-  ];
+  ⊖;
 HoldArgumentNumber("Table",5,1); /* body */
 HoldArgumentNumber("Table",5,2); /* var */
 UnFence("Table",5);

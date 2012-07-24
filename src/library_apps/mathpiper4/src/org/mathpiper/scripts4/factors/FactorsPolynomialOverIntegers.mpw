@@ -6,18 +6,18 @@
 //---------------------------------------------------------------------------
 
 10 # FactorsPolynomialOverIntegers(_expr)_PolynomialOverIntegers?(expr) <--
-[
+⊕
     Local(x);
     x := VarList(expr)[1];
     FactorsPolynomialOverIntegers(expr,x);
 
-];
+⊖;
 
 15 # FactorsPolynomialOverIntegers(_expr) <-- expr;
 
 
 10 # FactorsPolynomialOverIntegers(_expr,_var)_(PolynomialOverIntegers?(expr,var)) <--
-[
+⊕
     Local(factorsList,factListTransp,factrs,multiplicities,factrsUnMonic);
     Local(polyFactors,normalizations,normDivisor,polyFactors,factList);
     Local(n,result,newResult,gtotal,r,rr,d,g);
@@ -88,26 +88,26 @@
     Local(newResult,gtotal,d,g,rr);
     newResult := {};
     gtotal    := 1;
-    ForEach(r,result) [
+    ForEach(r,result) ⊕
         d := Degree(r[1],var);
         g := Gcd(Coef(r[1],var,0 .. d));
         If( g >? 1,   //  need to remove common numerical factor
-               [ gtotal:=g*gtotal; 
+               ⊕ gtotal:=g*gtotal; 
                  r[1]:=Simplify(r[1]/g);
-               ]
+               ⊖
           );
         If(d >? 2,
-            [
+            ⊕
                 //  polynomial is NOT irreducible, but can we reduce it?
                 rr := TryToReduceSpecialPolynomial(r[1]);
                 If( List?(rr),newResult := Concat(newResult,rr) );
-            ],
+            ⊖,
                 If( r !=? {1,1}, newResult := r~newResult )
           );
-    ];  
+    ⊖;  
     If(gtotal>?1,newResult:={gtotal,1}~newResult);
     newResult;
-];
+⊖;
 
 
 //---------------------------------------------------------------------------

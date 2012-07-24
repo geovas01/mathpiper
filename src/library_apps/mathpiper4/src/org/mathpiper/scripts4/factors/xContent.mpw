@@ -10,7 +10,7 @@
 
 //10 # xContent( poly_Polynomial? ) <--
 10 # xContent( poly_CanBeUni ) <--
-[
+⊕
     Local(disassem,gcdCoefs,lc,minExpts);
     disassem := DisassembleExpression(poly);
     gcdCoefs := Gcd(disassem[3]);
@@ -19,7 +19,7 @@
     //minExpts := Minimum /@ Transpose(disassem[2]);
     //gcdCoefs * Product(disassem[1]^minExpts);
     gcdCoefs;
-];
+⊖;
 
 %/mathpiper
 

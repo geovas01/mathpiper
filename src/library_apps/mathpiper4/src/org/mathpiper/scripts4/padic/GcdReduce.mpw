@@ -2,7 +2,7 @@
 
 /* Reduce rational function by dividing gcd away */
 GcdReduce(_f,_var)<--
-[
+⊕
   Local(rat,gcd);
   rat:=RationalForm(f,var);
   gcd:=Gcd(rat[1],rat[2]);
@@ -15,6 +15,6 @@ GcdReduce(_f,_var)<--
   numer:=numer/lc;
   denom:=denom/lc;
   Expand(numer)/Expand(denom);
-];
+⊖;
 
 %/mathpiper

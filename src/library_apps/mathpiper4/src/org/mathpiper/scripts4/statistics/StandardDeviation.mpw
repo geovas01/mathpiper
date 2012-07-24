@@ -1,11 +1,11 @@
 %mathpiper,def="StandardDeviation"
 
 StandardDeviation(list) := 
-[
+⊕
     Check(List?(list), "Argument", "Argument must be a list.");
 
     Sqrt(UnbiasedVariance(list));
-];
+⊖;
 
 
 %/mathpiper

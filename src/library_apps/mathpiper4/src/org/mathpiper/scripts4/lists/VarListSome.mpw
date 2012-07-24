@@ -11,12 +11,12 @@
 // a function in the looking list - traverse its arguments
 30 # VarListSome(expr_Function?, looklist_List?) <--
 RemoveDuplicates(
-                [        // obtain a list of functions, considering only functions in looklist
+                ⊕        // obtain a list of functions, considering only functions in looklist
                         Local(item, result);
                         result := {};
                         ForEach(item, expr) result := Concat(result, VarListSome(item, looklist));
                         result;
-                ]
+                ⊖
 );
 
 %/mathpiper

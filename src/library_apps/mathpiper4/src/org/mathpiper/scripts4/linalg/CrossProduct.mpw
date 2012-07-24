@@ -1,7 +1,7 @@
 %mathpiper,def="CrossProduct"
 
 Function("CrossProduct",{aLeft,aRight})
-[
+⊕
   Local(length);
   length:=Length(aLeft);
   Check(length =? 3, "Argument", "OutProduct: error, vectors not of dimension 3");
@@ -15,12 +15,12 @@ Function("CrossProduct",{aLeft,aRight})
 
   Local(term);
   ForEach(term,perms)
-  [
+  ⊕
     result[ term[1] ] := result[ term[1] ] +
       LeviCivita(term) * aLeft[ term[2] ] * aRight[ term[3] ] ;
-  ];
+  ⊖;
   result;
-];
+⊖;
 
 %/mathpiper
 

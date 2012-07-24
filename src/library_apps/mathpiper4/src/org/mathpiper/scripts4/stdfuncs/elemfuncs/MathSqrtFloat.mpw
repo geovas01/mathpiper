@@ -13,7 +13,7 @@
 // This function is *only* for float and positive A!
 // The answer is only obtained at the current precision.
 MathSqrtFloat(_A) <--
-[
+⊕
         Local(bitshift, a0, x0, x0sq, targetbits, subtargetbits, gotbits, targetprec);
         bitshift := ShiftRight(MathBitCount(A)-1,1);
         // this is how many bits of precision we need
@@ -35,14 +35,14 @@ MathSqrtFloat(_A) <--
 //        Echo("debug: subtargetbits=", subtargetbits, "a0=", a0, "targetbits=", targetbits, "bitshift=", bitshift, "targetprec=", targetprec);
         // now perform Halley iterations until we get at least subtargetbits, then start with subtargetbits and perform further Halley iterations
         While(gotbits <? targetbits)
-        [
+        ⊕
                 gotbits := 3*gotbits+1;        // Halley iteration; get 3n+2 bits, allow 1 bit for roundoff
                 // check for suboptimal last iterations
                 If(gotbits >=? subtargetbits,
-                [        // it could be very suboptimal to continue with our value of gotbits, so we curb precision for the last 2 iterations which dominate the calculation time at high precision
+                ⊕        // it could be very suboptimal to continue with our value of gotbits, so we curb precision for the last 2 iterations which dominate the calculation time at high precision
                         gotbits := subtargetbits;
                         subtargetbits := targetbits*4;        // make sure that the above condition never becomes true again
-                ]);
+                ⊖);
                 BuiltinPrecisionSet(BitsToDigits(gotbits, 10)+2);        // guard digits
                 x0 := SetExactBitsN(x0, gotbits+6);        // avoid roundoff
                 x0sq := MultiplyN(x0, x0);
@@ -50,12 +50,12 @@ MathSqrtFloat(_A) <--
 // rather use this equivalent formula:
                 x0 := AddN(x0, MultiplyN(x0*2, DivideN(a0-x0sq, a0+3*x0sq)));
 //                Echo("debug: ", gotbits, x0, GetExactBitsN(x0), BuiltinPrecisionGet());
-        ];
+        ⊖;
         // avoid truncating a precise result in x0 by calling BuiltinPrecisionSet() too soon
         x0 := SetExactBitsN(MathMul2Exp(x0, bitshift), gotbits);
         BuiltinPrecisionSet(targetprec);
 //        Echo("debug: answer=", x0);
         x0;
-];
+⊖;
 
 %/mathpiper

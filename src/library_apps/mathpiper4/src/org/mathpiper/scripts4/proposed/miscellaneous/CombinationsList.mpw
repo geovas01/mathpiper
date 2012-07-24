@@ -6,7 +6,7 @@
     by Kenneth H. Rosen.
 */
 CombinationsList(inputList, r) :=
-[
+⊕
     Local(n,manipulatedIndexes,totalCombinations,combinationsList,combinationsLeft,combination,i,j,currentIndexes);
     
     Check(List?(inputList) And? Length(inputList) >=? 1, "Argument", "The first argument must be a list with 1 or more elements.");
@@ -24,46 +24,46 @@ CombinationsList(inputList, r) :=
     combinationsList := {};
     
     While(combinationsLeft >? 0)
-    [
+    ⊕
         combination := {};
       
         if(combinationsLeft =? totalCombinations)
-        [ 
+        ⊕ 
           combinationsLeft := combinationsLeft - 1;
           
           currentIndexes := manipulatedIndexes;
-        ]
+        ⊖
         else
-        [
+        ⊕
             i := r;
         
             While(manipulatedIndexes[i] =? n - r + i)
-            [
+            ⊕
               i--;
-            ];
+            ⊖;
             
             manipulatedIndexes[i] := manipulatedIndexes[i] + 1;
             
             For(j := i + 1, j <=? r, j++) 
-            [
+            ⊕
               manipulatedIndexes[j] := manipulatedIndexes[i] + j - i;
-            ];
+            ⊖;
         
             combinationsLeft := combinationsLeft - 1;
             
             currentIndexes := manipulatedIndexes;
-        ];
+        ⊖;
 
         For(i := 1, i <=? Length(currentIndexes), i++) 
-        [
+        ⊕
             combination := Append(combination,(inputList[currentIndexes[i]]));
-        ];
+        ⊖;
       
         combinationsList := Append(combinationsList,combination);
-    ];
+    ⊖;
     
     combinationsList;
-];
+⊖;
 
 
 %/mathpiper

@@ -1,7 +1,7 @@
 %mathpiper,def="Midpoint"
 
 Midpoint(PointA_Point?,PointB_Point?) <-- 
-[
+⊕
     Local(x1,x2,y1,y2,midpointX,midpointY);
     
     x1 := PointA[1];
@@ -14,12 +14,12 @@ Midpoint(PointA_Point?,PointB_Point?) <--
     
     {midpointX,midpointY};
 
-];
+⊖;
 
 
 
 Midpoint(segment_Segment?) <-- 
-[
+⊕
     Local(x1,x2,y1,y2,midpointX,midpointY);
     
     x1 := segment[1][1];
@@ -32,7 +32,7 @@ Midpoint(segment_Segment?) <--
     
     {midpointX,midpointY};
 
-];
+⊖;
 
 %/mathpiper
 

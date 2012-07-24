@@ -5,18 +5,18 @@
 //////
 
 MatrixPower(x_SquareMatrix?, n_NonNegativeInteger?) <--
-[
+⊕
    Local(result);
    result:=Identity(Length(x));
    While(n !=? 0)
-   [
+   ⊕
       If(Odd?(n),
          result:=Dot(result,x));
       x:=Dot(x,x);
       n:=n>>1;
-   ];
+   ⊖;
    result;
-];
+⊖;
 
 MatrixPower(x_SquareMatrix?, n_NegativeInteger?) <--
    MatrixPower(Inverse(x),-n);

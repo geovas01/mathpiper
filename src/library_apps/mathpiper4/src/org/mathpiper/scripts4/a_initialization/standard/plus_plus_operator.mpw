@@ -1,11 +1,11 @@
 %mathpiper,def="++"
 
 Function("++",{aVar})
-[
+⊕
    MacroBind(aVar,AddN(Eval(aVar),1));
 
    Eval(aVar);
-];
+⊖;
 
 UnFence("++",1);
 

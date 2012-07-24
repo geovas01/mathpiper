@@ -20,7 +20,7 @@
 14 # Factors(p_GaussianInteger?)        <-- GaussianFactors(p);
 
 20 # Factors(p_CanBeUni)_(Length(VarList(p)) =? 1) <--
-[
+⊕
     Local(x,d,coeffs,nterms,factorsList,result);
     x := VarList(p)[1];
     d := Degree(p,x);
@@ -31,8 +31,8 @@
     /*  If nterms = 2, it is a binomial, and might be most easily
      *  factored by some special-purpose algorithms                      */
     If( nterms =? 2 And? d >? 2,
-      [  result := FactorsBinomials(p);  ],    
-      [  // nterms !=? 2, so try other techniques
+      ⊕  result := FactorsBinomials(p);  ⊖,    
+      ⊕  // nterms !=? 2, so try other techniques
         factorsList := BinaryFactors(p);
            // BinaryFactors is the internal MathPiper function that
            // creates a double list of factors and their multiplicities
@@ -41,11 +41,11 @@
          *  integers", by examining all its coefficients
          */
         If( AllSatisfy?("Integer?",coeffs),
-          [
+          ⊕
               // Yes -- all integer coefficients
               result := FactorsPolynomialOverIntegers(p,x);
-          ],
-          [
+          ⊖,
+          ⊕
               // No -- at least one non-integer coefficient
               // Check for FLOAT or RATIONAL coefficients
               Local(notInt,rat,dd,lcm,newCoeffs,newPoly,facs);
@@ -56,7 +56,7 @@
               newCoeffs := lcm * rat;
               newPoly := NormalForm(UniVariate(x,0,newCoeffs));
               facs := FactorsPolynomialOverIntegers(newPoly);
-              If( InVerboseMode(), [
+              If( InVerboseMode(), ⊕
                   Echo("coeffs ",coeffs);
                   Echo("notInt ",notInt);
                   Echo("rat ",rat);
@@ -65,20 +65,20 @@
                   Echo("newCoeffs ",newCoeffs);
                   Echo("newPoly ",newPoly);
                   Echo("facs ",facs);
-                 ]
+                 ⊖
               );
               result := {(1/lcm),1}~facs;
               //NOT FINISHED YET
-        ]
+        ⊖
       );
-    ]
+    ⊖
    );
       CombineNumericalFactors( result );
-];
+⊖;
 
 
 30 # Factors(p_CanBeUni) <--
-[
+⊕
     /* 
      * This may be a multi-variate polynomial, or it may be something else.
      * Original YT function Factors() did not attempt to factor such.
@@ -93,18 +93,18 @@
     coeffs := Coef(p,x,0 .. 8);
     If(InVerboseMode(),Tell("CBU",{vl,nvars,coeffs}));
     If (nvars >? 1, 
-         [
+         ⊕
             If( InVerboseMode(), Echo(" special ",p));
             result := FactorsMultivariateSpecialCases(p);
-         ], 
+         ⊖, 
             result := FactorsSomethingElse(p) 
        );
        CombineNumericalFactors( result );
-];
+⊖;
 
 
 40 # Factors(_p) <--
-[
+⊕
     /*
      * This may may be a polynomial with non-integer exponents.  Let's check.
      */
@@ -115,7 +115,7 @@
      result := {{p,1}};
      CombineNumericalFactors( result );
      
-];
+⊖;
 
 //------------------------------------------------------------------------
 //                    S P E C I A L     C A S E S
@@ -123,13 +123,13 @@
 
 10 # FactorsMultivariateSpecialCases(-_expr) <-- {-1,1}~FactorsMultivariateSpecialCases(expr);
 
-10 # FactorsMultivariateSpecialCases(x_Atom? + y_Atom?) <-- [If(InVerboseMode(),Tell(1));{{x+y,1}};];
+10 # FactorsMultivariateSpecialCases(x_Atom? + y_Atom?) <-- ⊕If(InVerboseMode(),Tell(1));{{x+y,1}};⊖;
 
-10 # FactorsMultivariateSpecialCases(x_Atom? - y_Atom?) <-- [If(InVerboseMode(),Tell(2));{{x-y,1}};];
+10 # FactorsMultivariateSpecialCases(x_Atom? - y_Atom?) <-- ⊕If(InVerboseMode(),Tell(2));{{x-y,1}};⊖;
 
-10 # FactorsMultivariateSpecialCases(_n*_x^p_Integer? + _n*_y) <-- [If(InVerboseMode(),Tell(3));{n,1}~FactorsMultivariateSpecialCases(x+y);];
+10 # FactorsMultivariateSpecialCases(_n*_x^p_Integer? + _n*_y) <-- ⊕If(InVerboseMode(),Tell(3));{n,1}~FactorsMultivariateSpecialCases(x+y);⊖;
 
-10 # FactorsMultivariateSpecialCases(_n*_x^p_Integer? - _n*_y) <-- [If(InVerboseMode(),Tell(4));{n,1}~FactorsMultivariateSpecialCases(x-y);];
+10 # FactorsMultivariateSpecialCases(_n*_x^p_Integer? - _n*_y) <-- ⊕If(InVerboseMode(),Tell(4));{n,1}~FactorsMultivariateSpecialCases(x-y);⊖;
 
 10 # FactorsMultivariateSpecialCases(n_Integer?*_x + m_Integer?*_y)_(Gcd(n,m)>?1) <-- {{Gcd(n,m),1},{(Simplify((n*x+m*y)/Gcd(n,m))),1}};
 
@@ -144,49 +144,49 @@
 10 # FactorsMultivariateSpecialCases(_x^n_Integer? + _y) <-- FactorsBinomials(x^n + y); 
 
 20 # FactorsSomethingElse(_p) <-- 
-  [
+  ⊕
       If( InVerboseMode(),
-          [
+          ⊕
               ECHO("   *** FactorsSomethingElse: NOT IMPLEMENTED YET ***");
-          ]
+          ⊖
       );
       p;
-  ];
+  ⊖;
 
 //------------------------------------------------------------------------
 
 
 10 # CombineNumericalFactors( factrs_List? ) <--
-  [
+  ⊕
       If( InVerboseMode(), Tell("Combine",factrs) );
       Local(q,a,b,t,f,err);
       err := False;
       t   := 1;
       f   := {};
       ForEach(q,factrs)
-      [
+      ⊕
           If( InVerboseMode(), Tell(1,q) );
           If( List?(q) And? Length(q)=?2,
-              [
+              ⊕
                   {a,b} := q;
                   If( InVerboseMode(), Echo("     ",{a,b}) );
                   If( NumericList?( {a,b} ),
                       t := t * a^b,
                       f := {a,b}~f
                   );
-              ],
+              ⊖,
               err := True
           );
-      ];
+      ⊖;
       If( InVerboseMode(),
-        [
+        ⊕
             Echo("      t = ",t);
             Echo("      f = ",f);
             Echo("    err = ",err);
-        ]
+        ⊖
       );
       If(Not? err And? t !=? 1, {t,1}~Reverse(f), factrs);
-  ];
+  ⊖;
 
 %/mathpiper
 

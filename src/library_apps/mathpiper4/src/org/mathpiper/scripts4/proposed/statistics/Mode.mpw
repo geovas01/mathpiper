@@ -1,7 +1,7 @@
 %mathpiper,def="Mode"
 
 Mode(list) :=
-[
+⊕
     Check(Length(list) >? 0 And? NumericList?(list), "Argument", "Argument must be a nonempty numeric list.");
     
     Local(noDuplicatesList, countsList, sortedList, highestCountsList, resultList);
@@ -11,9 +11,9 @@ Mode(list) :=
     countsList := {};
     
     ForEach(element, noDuplicatesList)
-    [
+    ⊕
         countsList := Append(countsList, {Count(list, element), element} );
-    ];
+    ⊖;
     
     sortedList := HeapSort(countsList,Lambda({x,y},x[1] >? y[1]));
     
@@ -21,7 +21,7 @@ Mode(list) :=
     
     resultList := MapSingle(Lambda({x},x[2]), highestCountsList);
 
-];
+⊖;
 
 %/mathpiper
 

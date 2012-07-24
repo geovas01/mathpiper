@@ -82,7 +82,7 @@ RulebaseHoldArguments("TaylorLPSCompose",{lps1,lps2});
    <-- Check(False, "Argument", "Third argument to Taylor should be a nonnegative integer");
 
 20 # (Taylor2(_x, 0, _n) _y) <--
-[
+⊕
    Local(res);
    res := TaylorLPSPowerSeries(TaylorLPSConstruct(x, y), n, x);
    If (ClearError("singularity"),
@@ -90,7 +90,7 @@ RulebaseHoldArguments("TaylorLPSCompose",{lps1,lps2});
    If (ClearError("dunno"),
        Echo("Cannot determine power series of", y));
    res;
-];
+⊖;
 
 30 # (Taylor2(_x, _a, _n) _y)
    <-- Subst(x,x-a) Taylor2(x,0,n) Subst(x,x+a) y;
@@ -134,22 +134,22 @@ TaylorLPSParam1() := 15;
  */
 
 TaylorLPSCoeffs(_lps, _n1, _n2) <--
-[
+⊕
    Local(res, finished, order, j, k, n, tmp, c1, c2);
    finished := False;
 
    /* Case 1: Zero power series */
 
    If (lps[1] =? Infinity,
-   [
+   ⊕
       res := FillList(0, n2-n1+1);
       finished := True;
-   ]);
+   ⊖);
 
    /* Case 2: Coefficients are already computed */
 
    If (Not? finished And? lps[1] !=? Undefined And? n2 <? lps[1]+Length(lps[2]),
-   [
+   ⊕
       If (n1 >=? lps[1],
           res := Take(lps[2], {n1-lps[1]+1, n2-lps[1]+1}),
           If (n2 >=? lps[1],
@@ -157,85 +157,85 @@ TaylorLPSCoeffs(_lps, _n1, _n2) <--
                              Take(lps[2], n2-lps[1]+1)),
               res := FillList(0, n2-n1+1)));
       finished := True;
-   ]);
+   ⊖);
 
    /* Case 3: We need to compute the coefficients */
 
    If (Not? finished,
-   [
+   ⊕
       /* Subcase 3a: Expression is recognized by TaylorLPSCompOrder */
 
       order := TaylorLPSCompOrder(lps[3], lps[4]);
       If (Not? ClearError("dunno"),
-      [
+      ⊕
          If (lps[1] =? Undefined,
-         [
+         ⊕
             lps[1] := order;
             If (order <=? n2,
-            [
+            ⊕
                lps[2] := Table(TaylorLPSCompCoeff(lps[3], lps[4], n),
                                n, order, n2, 1);
-            ]);
-         ],[
+            ⊖);
+         ⊖,⊕
             tmp := Table(TaylorLPSCompCoeff(lps[3], lps[4], n),
                          n, lps[1]+Length(lps[2]), n2, 1);
             lps[2] := Concat(lps[2], tmp);
-         ]);
+         ⊖);
          finished := True;
-      ]);
+      ⊖);
 
       /* Subcase 3b: Addition */
 
       If (Not? finished And? lps[4][0] =? TaylorLPSAdd,
-      [
+      ⊕
          lps[1] := Minimum(TaylorLPSGetOrder(lps[4][1])[1],
                        TaylorLPSGetOrder(lps[4][2])[1], n2);
          If (Error?("dunno"),
-         [
+         ⊕
             ClearError("dunno");
             ClearError("dunno");
-         ],[
+         ⊖,⊕
                If (lps[1] <=? n2,
-            [
+            ⊕
                c1 := TaylorLPSCoeffs(lps[4][1], lps[1] + Length(lps[2]), n2);
                c2 := TaylorLPSCoeffs(lps[4][2], lps[1] + Length(lps[2]), n2);
                   lps[2] := Concat(lps[2], c1 + c2);
-            ]);
+            ⊖);
                finished := True;
-         ]);
-      ]);
+         ⊖);
+      ⊖);
 
       /* Subcase 3c: Scalar multiplication */
 
       If (Not? finished And? lps[4][0] =? TaylorLPSScalarMult,
-      [
+      ⊕
          lps[1] := Minimum(TaylorLPSGetOrder(lps[4][2])[1], n2);
          If (Not? ClearError("dunno"),
-         [
+         ⊕
                If (lps[1] <=? n2,
-            [
+            ⊕
                tmp := TaylorLPSCoeffs(lps[4][2],
                                         lps[1] + Length(lps[2]), n2);
                tmp := lps[4][1] * tmp;
                lps[2] := Concat(lps[2], tmp);
-            ]);
+            ⊖);
                finished := True;
-         ]);
-      ]);
+         ⊖);
+      ⊖);
 
       /* Subcase 3d: Multiplication */
 
       If (Not? finished And? lps[4][0] =? TaylorLPSMultiply,
-      [
+      ⊕
          lps[1] := TaylorLPSGetOrder(lps[4][1])[1]
                    + TaylorLPSGetOrder(lps[4][2])[1];
          If (Error?("dunno"),
-         [
+         ⊕
             ClearError("dunno");
             ClearError("dunno");
-         ],[
+         ⊖,⊕
                If (lps[1] <=? n2,
-            [
+            ⊕
                c1 := TaylorLPSCoeffs(lps[4][1], lps[4][1][1],
                                        n2 - lps[4][2][1]);
                c2 := TaylorLPSCoeffs(lps[4][2], lps[4][2][1],
@@ -244,60 +244,60 @@ TaylorLPSCoeffs(_lps, _n1, _n2) <--
                ForEach(k, (Length(lps[2])+1) .. Length(c1))
                   tmp := Append(tmp, Sum(j, 1, k, c1[j]*c2[k+1-j]));
                lps[2] := tmp;
-            ]);
+            ⊖);
                finished := True;
-         ]);
-      ]);
+         ⊖);
+      ⊖);
 
       /* Subcase 3e: Inversion */
 
       If (Not? finished And? lps[4][0] =? TaylorLPSInverse,
-      [
+      ⊕
          If (lps[4][1][1] =? Infinity,
-         [
+         ⊕
             Assert("div-by-zero") False;
             finished := True;
-         ]);
+         ⊖);
          If (Not? finished And? lps[2] =? {},
-         [
+         ⊕
             order := TaylorLPSGetOrder(lps[4][1])[1];
             n := order;
             c1 := TaylorLPSCoeffs(lps[4][1], n, n)[1];
             While (c1 =? 0 And? n <? order + TaylorLPSParam1())
-            [
+            ⊕
                n := n + 1;
                 c1 := TaylorLPSCoeffs(lps[4][1], n, n)[1];
-            ];
+            ⊖;
             If (c1 =? 0,
-            [
+            ⊕
                Assert("maybe-div-by-zero") False;
                finished := True;
-            ]);
-         ]);
+            ⊖);
+         ⊖);
          If (Not? finished,
-         [
+         ⊕
             lps[1] := -lps[4][1][1];
             c1 := TaylorLPSCoeffs(lps[4][1], lps[4][1][1],
                                     lps[4][1][1]+n2-lps[1]);
             tmp := lps[2];
             If (tmp =? {}, tmp := {1/c1[1]});
             If (Length(c1)>?1,
-            [
+            ⊕
                ForEach(k, (Length(tmp)+1) .. Length(c1))
-               [
+               ⊕
                   n := -Sum(j, 1, k-1, c1[k+1-j]*tmp[j]) / c1[1];
                   tmp := Append(tmp, n);
-               ];
-            ]);
+               ⊖;
+            ⊖);
             lps[2] := tmp;
             finished := True;
-         ]);
-      ]);
+         ⊖);
+      ⊖);
 
       /* Subcase 3f: Composition */
 
       If (Not? finished And? lps[4][0] =? TaylorLPSCompose,
-      [
+      ⊕
          j := TaylorLPSGetOrder(lps[4][1])[1];
          Check(j >=? 0, "Math", "Expansion of f(g(x)) where f has a"
                        ~ "singularity is not implemented");
@@ -308,41 +308,41 @@ TaylorLPSCoeffs(_lps, _n1, _n2) <--
          lps[1] := c1[1];
          lps[2] := c1[2];
          finished := True;
-      ]);
+      ⊖);
 
       /* Case 3: The end */
 
       If (finished,
-      [
+      ⊕
          /* normalization: remove initial zeros from lps[2] */
 
          While (lps[2] !=? {} And? lps[2][1] =? 0)
-         [
+         ⊕
             lps[1] := lps[1] + 1;
             lps[2] := Rest(lps[2]);
-         ];
+         ⊖;
 
          /* get result */
 
          If (Not? Error?("dunno") And? Not? Error?("div-by-zero")
              And? Not? Error?("maybe-div-by-zero"),
-         [
+         ⊕
             If (lps[1] <=? n1,
                 res := Take(lps[2], {n1-lps[1]+1, n2-lps[1]+1}),
                 If (lps[1] <=? n2,
                     res := Concat(FillList(0, lps[1]-n1), lps[2]),
                     res := FillList(0, n2-n1+1)));
-         ]);
-      ],[
+         ⊖);
+      ⊖,⊕
          Assert("dunno") False;
          res := False;
-      ]);
-   ]);
+      ⊖);
+   ⊖);
 
    /* Return res */
 
    res;
-];
+⊖;
 
 
 /**********************************************************************
@@ -366,42 +366,42 @@ TaylorLPSCoeffs(_lps, _n1, _n2) <--
 
 
 10 # TaylorTPSAdd({_n1,_c1}, {_n2,_c2}) <--
-[
+⊕
    Local(n, len, c1b, c2b);
    n := Minimum(n1,n2);
    len := Minimum(n1+Length(c1), n2+Length(c2)) - n;
    c1b := Take(Concat(FillList(0, n1-n), c1), len);
    c2b := Take(Concat(FillList(0, n2-n), c2), len);
    {n, c1b+c2b};
-];
+⊖;
 
 10 # TaylorTPSScalarMult(_a, {_n2,_c2}) <-- {n2, a*c2};
 
 10 # TaylorTPSMultiply({_n1,_c1}, {_n2,_c2}) <--
-[
+⊕
    Local(j,k,c);
    c := {};
    For (k:=1, k<=?Minimum(Length(c1), Length(c2)), k++)
-   [
+   ⊕
       c := c ~ Sum(j, 1, k, c1[j]*c2[k+1-j]);
-   ];
+   ⊖;
    {n1+n2, c};
-];
+⊖;
 
 10 # TaylorTPSCompose({_n1,_c1}, {_n2,_c2}) <--
-[
+⊕
    Local(res, tps, tps2, k, n);
    n := Minimum(n1+Length(c1)-1, n2+Length(c2)-1);
    tps := {0, 1 ~ FillList(0, n)}; // tps =? {n2,c2} ^ k
    res := TaylorTPSScalarMult(TaylorTPSGetCoeff({n1,c1}, 0), tps);
    For (k:=1, k<=?n, k++)
-   [
+   ⊕
       tps := TaylorTPSMultiply(tps, {n2,c2});
       tps2 := TaylorTPSScalarMult(TaylorTPSGetCoeff({n1,c1}, k), tps);
       res := TaylorTPSAdd(res, tps2);
-   ];
+   ⊖;
    res;
-];
+⊖;
 
 
 
@@ -414,7 +414,7 @@ TaylorLPSCoeffs(_lps, _n1, _n2) <--
  */
 
 5 # TaylorLPSNormalizeExpr(_var, _e1)
-  _ [TaylorLPSCompOrder(var,e1); Not? ClearError("dunno");]
+  _ ⊕TaylorLPSCompOrder(var,e1); Not? ClearError("dunno");⊖
   <-- e1;
 
 10 # TaylorLPSNormalizeExpr(_var, _e1 + _e2)
@@ -464,46 +464,46 @@ TaylorLPSCoeffs(_lps, _n1, _n2) <--
         Where e3 == TaylorLPSInverse(TaylorLPSConstruct(var, Cos(x))));
 
 LocalSymbols(res)
-[
+⊕
 50 # TaylorLPSNormalizeExpr(_var, _e1)
-_[
+_⊕
     Local(c, lps1, lps2, lps3, success);
     success := True;
     If (Atom?(e1), success := False);
     If (success And? Length(e1) !=? 1, success := False);
     If (success And? Atom?(e1[1]), success := False);
     If (success And? CanBeUni(var, e1[1]) And? Degree(e1[1], var) =? 1,
-    [
+    ⊕
        success := False;
-    ]);
+    ⊖);
     If (success,
-    [
+    ⊕
        lps2 := TaylorLPSConstruct(var, e1[1]);
        c := TaylorLPSCoeffs(lps2, 0, 0)[1];
        If (Error?(),
-       [
+       ⊕
           ClearErrors();
           success := False;
-       ]);
+       ⊖);
        If (success And? TaylorLPSGetOrder(lps2)[1] <? 0,
-       [
+       ⊕
           success := False;
-       ],[
+       ⊖,⊕
           If (c =? 0,
-          [
+          ⊕
              lps1 := TaylorLPSConstruct(var, Apply(e1[0], {var}));
              res := TaylorLPSCompose(lps1, lps2);
-          ],[
+          ⊖,⊕
              lps1 := TaylorLPSConstruct(var, Apply(e1[0], {var+c}));
              lps3 := TaylorLPSConstruct(var, -c);
              lps2 := TaylorLPSConstruct(var, TaylorLPSAdd(lps2, lps3));
              res := TaylorLPSCompose(lps1, lps2);
-          ]);
-       ]);
-    ]);
+          ⊖);
+       ⊖);
+    ⊖);
     success;
- ] <-- res;
-];
+ ⊖ <-- res;
+⊖;
 
 60000 # TaylorLPSNormalizeExpr(_var, _e1) <-- e1;
 
@@ -562,10 +562,10 @@ _[
 
 51 # TaylorLPSCompCoeff(_x, Sqrt(_y), _n)
    _ (CanBeUni(x,y) And? Degree(y,x) =? 1 And? Coef(y,x,0) !=? 0) <--
-[
+⊕
    Local(j);
    Coef(y,x,0)^(1/2-n) * Product(j,0,n-1,1/2-j) * Coef(y,x,1)^n/n!;
-];
+⊖;
 
 /* Exp */
 
@@ -628,28 +628,28 @@ TaylorLPSAcceptDeriv(_expr) <--
 
 200 # TaylorLPSCompOrder(_x, (_expr))_(TaylorLPSAcceptDeriv(expr))
     <--
-    [
+    ⊕
 //Echo("CompOrder for ",expr);
 //      0; //generic case, assume zeroeth coefficient is non-zero.
       Local(n);
       n:=0;
       While ((Limit(x,0)expr) =? 0 And? n<?TaylorLPSParam1())
-      [
+      ⊕
         expr := Deriv(x)expr;
         n++;
-      ];
+      ⊖;
 //Echo(" is ",n);
       n;
-    ];
+    ⊖;
 200 # TaylorLPSCompCoeff(_x, (_expr), _n)_
       (TaylorLPSAcceptDeriv(expr) And? n>=?0 ) <--
-    [
+    ⊕
     // This routine is written out for debugging purposes
       Local(result);
       result:=(Limit(x,0)(Deriv(x,n)expr))/(n!);
 Echo(expr," ",n," ",result);
       result;
-    ];
+    ⊖;
 
 /* Default */
 
@@ -677,106 +677,106 @@ Echo(expr," ",n," ",result);
    <-- {order, coeffs !=? {}};
 
 40 # TaylorLPSGetOrder(_lps) <--
-[
+⊕
    Local(res, computed, exact, res1, res2);
    computed := False;
 
    res := TaylorLPSCompOrder(lps[3], lps[4]);
    If (Not? ClearError("dunno"),
-   [
+   ⊕
       res := {res, True};
       computed := True;
-   ]);
+   ⊖);
 
    If (Not? computed And? lps[4][0] =? TaylorLPSAdd,
-   [
+   ⊕
       res1 := TaylorLPSGetOrder(lps[4][1]);
       If (Not? ClearError("dunno"),
-      [
+      ⊕
          res2 := TaylorLPSGetOrder(lps[4][2]);
          If (Not? ClearError("dunno"),
-         [
+         ⊕
             res := {Minimum(res1[1],res2[1]), False};
             /* flag = False, since terms may cancel */
             computed := True;
-         ]);
-      ]);
-   ]);
+         ⊖);
+      ⊖);
+   ⊖);
 
    If (Not? computed And? lps[4][0] =? TaylorLPSScalarMult,
-   [
+   ⊕
       res := TaylorLPSGetOrder(lps[4][2]);
       If (Not? ClearError("dunno"), computed := True);
-   ]);
+   ⊖);
 
    If (Not? computed And? lps[4][0] =? TaylorLPSMultiply,
-   [
+   ⊕
       res1 := TaylorLPSGetOrder(lps[4][1]);
       If (Not? ClearError("dunno"),
-      [
+      ⊕
          res2 := TaylorLPSGetOrder(lps[4][2]);
          If (Not? ClearError("dunno"),
-         [
+         ⊕
             res := {res1[1]+res2[1], res1[1] And? res2[1]};
             computed := True;
-         ]);
-      ]);
-   ]);
+         ⊖);
+      ⊖);
+   ⊖);
 
    If (Not? computed And? lps[4][0] =? TaylorLPSInverse,
-   [
+   ⊕
       res := TaylorLPSGetOrder(lps[4][1]);
       If (Not? ClearError("dunno"),
-      [
+      ⊕
          If (res[1] =? Infinity,
-         [
+         ⊕
             res[1] =? Undefined;
             Assert("div-by-zero") False;
             computed := True;
-         ]);
+         ⊖);
          If (Not? computed And? res[2] =? False,
-         [
+         ⊕
             Local(c, n);
             n := res[1];
             c := TaylorLPSCoeffs(lps[4][1], res[1], res[1])[1];
             While (c =? 0 And? res[1] <? n + TaylorLPSParam1())
-            [
+            ⊕
                res[1] := res[1] + 1;
                 c := TaylorLPSCoeffs(lps[4][1], res[1], res[1])[1];
-            ];
+            ⊖;
             If (c =? 0,
-            [
+            ⊕
                res[1] := Undefined;
                Assert("maybe-div-by-zero") False;
                computed := True;
-            ]);
-         ]);
+            ⊖);
+         ⊖);
          If (Not? computed,
-         [
+         ⊕
             res := {-res[1], True};
             computed := True;
-         ]);
-      ]);
-   ]);
+         ⊖);
+      ⊖);
+   ⊖);
 
    If (Not? computed And? lps[4][0] =? TaylorLPSCompose,
-   [
+   ⊕
       res1 := TaylorLPSGetOrder(lps[4][1]);
       If (Not? ClearError("dunno"),
-      [
+      ⊕
          res2 := TaylorLPSGetOrder(lps[4][2]);
          If (Not? ClearError("dunno"),
-         [
+         ⊕
             res := {res1[1]*res2[1], res1[1] And? res2[1]};
             computed := True;
-         ]);
-      ]);
-   ]);
+         ⊖);
+      ⊖);
+   ⊖);
 
    If (computed, lps[1] := res[1]);
    Assert("dunno") computed;
    res;
-];
+⊖;
 
 /**********************************************************************
  *
@@ -788,22 +788,22 @@ Echo(expr," ",n," ",result);
  */
 
 10 # TaylorLPSPowerSeries(_lps, _n, _var) <--
-[
+⊕
    Local(ord, k, coeffs);
    coeffs := TaylorLPSCoeffs(lps, 0, n);
    If (Error?("dunno"),
-   [
+   ⊕
       False;
-   ],[
+   ⊖,⊕
       If (lps[1] <? 0,
-      [
+      ⊕
          Assert("singularity") False;
          Undefined;
-      ],[
+      ⊖,⊕
          Sum(k, 0, n, coeffs[k+1]*var^k);
-      ]);
-   ]);
-];
+      ⊖);
+   ⊖);
+⊖;
 
 
 %/mathpiper

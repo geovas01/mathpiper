@@ -8,17 +8,17 @@ HoldArgument("Unholdable",var);
 UnFence("Unholdable",1);
 
 RuleHoldArguments("Unholdable",1,10,Equal?(Type(Eval(var)),"Eval"))
-[
+⊕
     MacroBind(var,Eval(Eval(var)));
     //Echo({"unheld",var,Eval(var)});
-];
+⊖;
 
 
 RuleHoldArguments("Unholdable",1,20,True)
-[
+⊕
     //Echo({"held"});
   True;
-];
+⊖;
 
 %/mathpiper
 

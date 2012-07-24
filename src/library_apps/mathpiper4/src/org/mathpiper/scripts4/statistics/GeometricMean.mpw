@@ -1,11 +1,11 @@
 %mathpiper,def="GeometricMean"
 
 GeometricMean(list) := 
-[
+⊕
     Check(List?(list), "Argument", "Argument must be a list.");
     
     Product(list)^(1/Length(list));
-];
+⊖;
 
 %/mathpiper
 
