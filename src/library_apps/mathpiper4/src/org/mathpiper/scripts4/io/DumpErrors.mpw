@@ -6,7 +6,7 @@ DumpErrors() <--
         Local(errorobject, errorword);
         CheckErrorTableau();
         ForEach(errorobject, GetErrorTableau())
-        ⊕        // errorobject might be e.g. {"critical", {"bad bad", -1000}}
+        ⊕        // errorobject might be e.g. ["critical", ["bad bad", -1000]]
                 If(
                         List?(errorobject),
                         ⊕
@@ -19,7 +19,7 @@ DumpErrors() <--
                                         errorword := "Error: "        // important hack: insert ": " here but not after "Warning"
                                 );
 
-                                If(        // special case: {"errorclass", True}
+                                If(        // special case: ["errorclass", True]
                                         Length(errorobject)=?2 And? errorobject[2]=?True,
                                         Echo(errorword, errorobject[1]),
                                         ⊕
@@ -48,7 +48,7 @@ DumpErrors() <--
 
 *DESC
 
-{DumpErrors} is a simple error handler for the global error reporting mechanism. It prints all errors posted using {Assert} and clears the error tableau.
+[DumpErrors] is a simple error handler for the global error reporting mechanism. It prints all errors posted using [Assert] and clears the error tableau.
 
 *SEE Assert, Error?, ClearErrors
 

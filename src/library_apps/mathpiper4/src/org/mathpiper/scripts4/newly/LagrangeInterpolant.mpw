@@ -33,11 +33,11 @@ LagrangeInterpolant(list_List?,_values,_var) <--
 
 *PARMS
 
-{xlist} -- list of argument values
+[xlist] -- list of argument values
 
-{ylist} -- list of function values
+[ylist] -- list of function values
 
-{var} -- free variable for resulting polynomial
+[var] -- free variable for resulting polynomial
 
 *DESC
 
@@ -56,8 +56,8 @@ polynomial.
 
 *E.G.
 
-In> f := LagrangeInterpolant({0,1,2}, \
-          {0,1,1}, x);
+In> f := LagrangeInterpolant([0,1,2], \
+          [0,1,1], x);
 Result: (x*(x-1))/2-x*(x-2);
 In> Eval(Subst(x,0) f);
 Result: 0;
@@ -70,7 +70,7 @@ In> PrettyPrinterSet("PrettyForm");
         
         True
         
-In> LagrangeInterpolant({x1,x2,x3}, {y1,y2,y3}, x)
+In> LagrangeInterpolant([x1,x2,x3], [y1,y2,y3], x)
         
         y1 * ( x - x2 ) * ( x - x3 ) 
         ---------------------------- 

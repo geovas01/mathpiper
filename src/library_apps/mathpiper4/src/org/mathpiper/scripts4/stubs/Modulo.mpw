@@ -27,8 +27,8 @@
   Modulo(n1*m2,m1*n2)/(n2*m2);
 ⊖;
 
-6 # Modulo(n_List?,m_List?) <-- Map("Modulo",{n,m});
-7 # Modulo(n_List?,_m) <-- Map("Modulo",{n,FillList(m,Length(n))});
+6 # Modulo(n_List?,m_List?) <-- Map("Modulo",[n,m]);
+7 # Modulo(n_List?,_m) <-- Map("Modulo",[n,FillList(m,Length(n))]);
 
 
 30 # Modulo(n_CanBeUni,m_CanBeUni) <--
@@ -71,14 +71,14 @@
 
 *PARMS
 
-{x}, {y} -- integers or univariate polynomials
-{vars}   -- a list containing the name of the (single) variable appearing in both polynomials
+[x], [y] -- integers or univariate polynomials
+[vars]   -- a list containing the name of the (single) variable appearing in both polynomials
 
 *DESC
 
-{Modulo} returns the remainder after division.  {Modulo} is also defined for univariate polynomials.
+[Modulo] returns the remainder after division.  [Modulo] is also defined for univariate polynomials.
 
-If {Quotient(x,y)} returns "a" and {Modulo(x,y)} equals "b", then these numbers satisfy $x =a*y + b$ and $0 <= b < y$.
+If [Quotient(x,y)] returns "a" and [Modulo(x,y)] equals "b", then these numbers satisfy $x =a*y + b$ and $0 <= b < y$.
 
 The second form of the function contains a third parameter, and is used in the special case where the 
 the "divisor" polynomial contains an unbound "variable" which is really just a parameter.  
@@ -98,7 +98,7 @@ Result: -2
 In> Modulo(x^2-5*x+2,x-k)
 Result: x^2-5*x+2          
             NOTE: answer is INCORRECT
-In> Modulo(x^2-5*x+2,x-k,{x})
+In> Modulo(x^2-5*x+2,x-k,[x])
 Result: (k-5)*k+2
             NOTE: answer is now CORRECT
 
@@ -123,7 +123,7 @@ Verify(Modulo(-12/10,34/10),11/5);
 
 // Make sure Mod works threaded
 Verify(Modulo(2,Infinity),2);
-Verify(Modulo({2,1},{2,2}),{0,1});
-Verify(Modulo({5,1},4),{1,1});
+Verify(Modulo([2,1],[2,2]),[0,1]);
+Verify(Modulo([5,1],4),[1,1]);
 
 %/mathpiper

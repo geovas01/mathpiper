@@ -10,24 +10,24 @@
 
 
 %mathpiper_docs,name="NonObject?",categories="User Functions;Predicates"
-*CMD NonObject? --- test whether argument is not an {Object()}
+*CMD NonObject? --- test whether argument is not an [Object()]
 *STD
 *CALL
         NonObject?(expr)
 
 *PARMS
 
-{expr} -- the expression to examine
+[expr] -- the expression to examine
 
 *DESC
 
-This function returns {True} if "expr" is not of
-the form {Object(...)} and {False}
+This function returns [True] if "expr" is not of
+the form [Object(...)] and [False]
 otherwise.
 
 *HEAD Bugs
 
-In fact, the result is always {True}.
+In fact, the result is always [True].
 
 *SEE Object
 %/mathpiper_docs

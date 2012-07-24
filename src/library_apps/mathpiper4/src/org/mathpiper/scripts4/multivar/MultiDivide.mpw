@@ -8,7 +8,7 @@
     f - a multivariate polynomial
     g[1 .. n] - a list of polynomials to divide by
   output
-    {q[1 .. n],r} such that f = q[1]*g[1] + ... + q[n]*g[n] + r
+    [q[1 .. n],r] such that f = q[1]*g[1] + ... + q[n]*g[n] + r
 
   Basically quotient and remainder after division by a group of
   polynomials.
@@ -18,7 +18,7 @@
 
 20 # MultiDivide(_f,g_List?) <--
 ⊕
-  If(InVerboseMode(),Tell("MultiDivide_1",{f,g}));
+  If(InVerboseMode(),Tell("MultiDivide_1",[f,g]));
   Local(i,v,q,r,nr);
   v  := MultiExpressionList(f+Sum(g));
   f  := MakeMultiNomial(f,v);
@@ -28,16 +28,16 @@
     g[i] := MakeMultiNomial(g[i],v);
   ⊖;
   If(Not? Multi?(f),Break());
-  {q,r} := MultiDivide(f,g);
+  [q,r] := MultiDivide(f,g);
   q     := MapSingle("NormalForm",q);
   r     := NormalForm(r);
-  {q,r};
+  [q,r];
 ⊖;
 
 
 10 # MultiDivide(f_Multi?,g_List?) <--
 ⊕
-  If(InVerboseMode(),Tell("MultiDivide_2",{f,g}));
+  If(InVerboseMode(),Tell("MultiDivide_2",[f,g]));
   Local(i,nr,q,r,p,v,finished);
   nr := Length(g);
   v  := MultiVars(f);
@@ -53,13 +53,13 @@
     ⊕
       glt := MultiLT(g[i]);
 
-      if (MultiLM(glt) =? MultiLM(plt) Or? MultiTermLess({MultiLM(glt),1}, {MultiLM(plt),1}))
+      if (MultiLM(glt) =? MultiLM(plt) Or? MultiTermLess([MultiLM(glt),1], [MultiLM(plt),1]))
       ⊕
         //   corrected if-select statement  110708    hso
-        if (Select(MultiLM(plt)-MultiLM(glt),{{n},n<?0}) =? {} )
+        if (Select(MultiLM(plt)-MultiLM(glt),[[n],n<?0]) =? [] )
         ⊕
           Local(ff,ltbefore,ltafter);
-          ff := CreateTerm(v,{MultiLM(plt)-MultiLM(glt),MultiLC(plt)/MultiLC(glt)});
+          ff := CreateTerm(v,[MultiLM(plt)-MultiLM(glt),MultiLC(plt)/MultiLC(glt)]);
           If(InVerboseMode(),Tell("      ",NormalForm(ff)));
           q[i] := q[i] + ff;
           ltbefore := MultiLeadingTerm(p);
@@ -84,7 +84,7 @@
     );
     finished := MultiZero(p);
   ⊖;
-  {q,r};
+  [q,r];
 ⊖;
 
 %/mathpiper

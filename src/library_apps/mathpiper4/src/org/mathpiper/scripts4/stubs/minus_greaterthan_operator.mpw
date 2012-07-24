@@ -1,6 +1,6 @@
 %mathpiper,def="->"
 
-RulebaseHoldArguments("->",{left,right});
+RulebaseHoldArguments("->",[left,right]);
 
 HoldArgument("->",left);
 
@@ -17,12 +17,12 @@ HoldArgument("->",left);
         option -> value
 
 *PARMS
-{option} -- an option name
+[option] -- an option name
 
-{value} -- the value to associate with the option
+[value] -- the value to associate with the option
 
 *DESC
-The -> operator is used to create options.  {option} and {value}
+The -> operator is used to create options.  [option] and [value]
 need to be placed in quotes if they are not meant to be evaluated.
 
 %/mathpiper_docs

@@ -4,7 +4,7 @@ TruthTable(booleanExpression) :=
 ⊕
     Local(resultList, variables, booleanPatterns, subexpressions, substitutionList, evaluation);
     
-    resultList := {};
+    resultList := [];
     
     variables := VarList(booleanExpression);
     
@@ -17,7 +17,7 @@ TruthTable(booleanExpression) :=
 
     ForEach(booleanPattern, booleanPatterns)
     ⊕
-        substitutionList := Map("==", {variables, booleanPattern});
+        substitutionList := Map("==", [variables, booleanPattern]);
         
         evaluation := `(subexpressions Where @substitutionList);
         
@@ -44,7 +44,7 @@ TruthTable(booleanExpression) :=
         TruthTable(booleanExpression)
 
 *PARMS
-{booleanExpression} -- a boolean expression.
+[booleanExpression] -- a boolean expression.
 
 *DESC
 Returns a list that contains a truth table for a boolean expression. The truth table is returned as a 
@@ -52,11 +52,11 @@ list of lists.
 
 *E.G.
 In> za := TruthTable(a And? b)
-Result: {{a,b,a And? b},{True,True,True},{True,False,False},{False,True,False},{False,False,False}}
+Result: [[a,b,a And? b],[True,True,True],[True,False,False],[False,True,False],[False,False,False]]
 
 //Substitute T and F for True and False.
-In> zb := (za /: {True <- T, False <- F})
-Result: {{a,b,a And? b},{T,T,T},{T,F,F},{F,T,F},{F,F,F}}
+In> zb := (za /: [True <- T, False <- F])
+Result: [[a,b,a And? b],[T,T,T],[T,F,F],[F,T,F],[F,F,F]]
 
 //View the table in traditional mathematics format.
 In> ViewMath(zb)
@@ -78,7 +78,7 @@ Result: class javax.swing.JFrame
 
 Unbind(a,b);
 
-Verify(TruthTable(a And? b), {{a,b,a And? b},{True,True,True},{True,False,False},{False,True,False},{False,False,False}});
+Verify(TruthTable(a And? b), [[a,b,a And? b],[True,True,True],[True,False,False],[False,True,False],[False,False,False]]);
 
 %/mathpiper
 

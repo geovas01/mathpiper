@@ -8,7 +8,7 @@ LocalSymbols(p, q)
                 If(
                         Integer?(p),
                         p,
-                p := Product(Select( 5 .. 257, {{q}, Modulo(q^2,24)=?1 And? SmallPrime?(q)}))
+                p := Product(Select( 5 .. 257, [[q], Modulo(q^2,24)=?1 And? SmallPrime?(q)]))
                 );
 //                p;
         ⊖;

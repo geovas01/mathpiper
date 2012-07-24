@@ -1,6 +1,6 @@
 %mathpiper,def="PopBack"
 
-Function("PopBack",{stack})  Pop(stack,Length(stack));
+Function("PopBack",[stack])  Pop(stack,Length(stack));
 
 %/mathpiper
 
@@ -14,7 +14,7 @@ Function("PopBack",{stack})  Pop(stack,Length(stack));
 
 *PARMS
 
-{stack} -- a list (which serves as the stack container)
+[stack] -- a list (which serves as the stack container)
 
 *DESC
 
@@ -25,18 +25,18 @@ be empty.
 
 *E.G.
 
-In> stack := {};
-Result: {};
+In> stack := [];
+Result: [];
 In> Push(stack, x);
-Result: {x};
+Result: [x];
 In> Push(stack, x2);
-Result: {x2,x};
+Result: [x2,x];
 In> Push(stack, x3);
-Result: {x3,x2,x};
+Result: [x3,x2,x];
 In> PopBack(stack);
 Result: x;
 In> stack;
-Result: {x3,x2};
+Result: [x3,x2];
 
 *SEE Push, Pop, PopFront
 %/mathpiper_docs

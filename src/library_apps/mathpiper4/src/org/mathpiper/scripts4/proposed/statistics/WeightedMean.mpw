@@ -8,9 +8,9 @@ WeightedMean(list) :=
     
     Local( values, lastWeight, weights );
     
-    values := {};
+    values := [];
     
-    weights := {};
+    weights := [];
     
     
     ForEach(element,list)
@@ -40,23 +40,23 @@ WeightedMean(list) :=
 *CMD WeightedMean --- weighted mean
 *STD
 *CALL 
-        WeightedMean({{value, weight},...})
+        WeightedMean([[value, weight],...])
 
 *PARMS
 
-{value} -- a value.
+[value] -- a value.
 
-{weight} -- the weight to associate with the value.
+[weight] -- the weight to associate with the value.
 
 *DESC 
 This function allows more weight to be associated with certain values and
 less weight to others when calculating their mean.
 
 *E.G.
-In>  WeightedMean({{92,50}, {87,40}, {76,10}})
+In>  WeightedMean([[92,50], [87,40], [76,10]])
 Result: 442/5
 
-In>  N(WeightedMean({{92,50}, {87,40}, {76,10}}))
+In>  N(WeightedMean([[92,50], [87,40], [76,10]]))
 Result: 88.4
 
 *SEE Mean, Median, Mode, GeometricMean

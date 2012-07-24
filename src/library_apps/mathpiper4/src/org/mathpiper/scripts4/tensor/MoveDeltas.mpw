@@ -11,7 +11,7 @@
 MoveDeltas(_list) <--
 ⊕
   Local(result,i,nr);
-  result:={};
+  result:=[];
   nr:=Length(list);
   For(i:=1,i<=?nr,i++)
   ⊕

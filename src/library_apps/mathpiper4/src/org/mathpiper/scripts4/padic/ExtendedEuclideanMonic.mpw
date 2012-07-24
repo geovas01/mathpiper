@@ -5,15 +5,15 @@ ExtendedEuclideanMonic(_f,_g) <--
    Local(rho,r,s,t,i);
 
 /*
-Echo({f,g});
-Echo({});
+Echo([f,g]);
+Echo([]);
 */
 
    /* Initialize the loop */
-   rho:={LeadingCoef(f),LeadingCoef(g)};
-   r:={Monic(f),Monic(g)};
-   s:={1/(rho[1]),0};
-   t:={0,1/(rho[2])};
+   rho:=[LeadingCoef(f),LeadingCoef(g)];
+   r:=[Monic(f),Monic(g)];
+   s:=[1/(rho[1]),0];
+   t:=[0,1/(rho[2])];
    i:=1;
 
    Local(q,newr,news,newt,newrho);
@@ -41,11 +41,11 @@ Echo({});
    ⊖;
 
 /*
-TableForm({i,r,s,t});
-Echo({});
+TableForm([i,r,s,t]);
+Echo([]);
 */
 
-   {r[i],s[i],t[i]};
+   [r[i],s[i],t[i]];
 ⊖;
 
 %/mathpiper

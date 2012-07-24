@@ -2,7 +2,7 @@
 
 Function() Add(val, ...);
 
-10 # Add({}) <-- 0;
+10 # Add([]) <-- 0;
 20 # Add(values_List?) <--
 ⊕
    Local(i, sum);
@@ -23,13 +23,13 @@ Function() Add(val, ...);
 *STD
 *CALL
         Add(val1, val2, ...)
-        Add({list})
+        Add([list])
 
 *PARMS
 
-{val1}, {val2} -- expressions
+[val1], [val2] -- expressions
 
-{{list}} -- list of expressions to add
+[[list]] -- list of expressions to add
 
 *DESC
 
@@ -50,19 +50,19 @@ Result: 55;
 
 %mathpiper,name="Add",subtype="automatic_test"
 
-Verify(Add({1,2,3,4}), 10);
-Verify(Add({1}), 1);
-Verify(Add({}), 0);
+Verify(Add([1,2,3,4]), 10);
+Verify(Add([1]), 1);
+Verify(Add([]), 0);
 Verify(Add(1,2,3,4), 10);
 Verify(Add(1), 1);
 
 ⊕
   Local(list);
-  list:={1,2,3,4,5};
+  list:=[1,2,3,4,5];
   Verify(Add(list)/Length(list), 3);
-  list:={0};
+  list:=[0];
   Verify(Add(list)/Length(list), 0);
-  list:={};
+  list:=[];
   Verify(Add(list)/Length(list), Undefined);
 ⊖;
 

@@ -14,12 +14,12 @@ SquareFree?(n_Integer?)        <-- ( Moebius(n) !=? 0 );
 
 *PARMS
 
-{n} -- positive integer
+[n] -- positive integer
 
 *DESC
 
-This function uses the {Moebius} function to tell if the given number is square-free, which
-means it has distinct prime factors. If $Moebius(n)!=0$, then {n} is square free. All prime
+This function uses the [Moebius] function to tell if the given number is square-free, which
+means it has distinct prime factors. If $Moebius(n)!=0$, then [n] is square free. All prime
 numbers are trivially square-free.
 
 *E.G.

@@ -1,6 +1,6 @@
 %mathpiper,def="PAdicExpandInternal"
 
-10 # PAdicExpandInternal(0,_y) <-- {};
+10 # PAdicExpandInternal(0,_y) <-- [];
 20 # PAdicExpandInternal(_x,_y) <--
 ⊕
   Modulo(x,y) ~ PAdicExpandInternal(Quotient(x,y),y);

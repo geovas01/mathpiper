@@ -8,15 +8,15 @@
     n      := Abs(N);         // make sure its positive
     limit  := Ceil(SqrtN(n)); // upper bound for largest possible factor 
         prime  := 2;                  // first prime
-    result := {};
+    result := [];
         While( prime <=? limit And? n >? 1 And? prime*prime <=? n )
         ⊕        // find the max power of prime which divides n
-                {n, power} := FindPrimeFactor(n, prime);
-                If(        power >? 0,        DestructiveAppend(result, {prime,power}) );
+                [n, power] := FindPrimeFactor(n, prime);
+                If(        power >? 0,        DestructiveAppend(result, [prime,power]) );
                 prime := NextPseudoPrime(prime);        // faster than NextPrime and we don't need real primes here
         ⊖;
         // Add the last prime (with multiplicity 1) to end of list 
-        If( n >? 1, DestructiveAppend(result, {n,1}) );
+        If( n >? 1, DestructiveAppend(result, [n,1]) );
     result;
 ⊖;
 
@@ -37,11 +37,11 @@
 
 *PARMS
 
-{x} -- a small integer
+[x] -- a small integer
 
 *DESC
 
-This function decomposes the integer number {x} into its prime factors.
+This function decomposes the integer number [x] into its prime factors.
 The method used is not suitable for large integers, although it will work.
 This function is best reserved for integers less than, say, 10,000 or so.
 
@@ -49,13 +49,13 @@ The factorization is returned as a list of pairs. The first member of
 each pair is the factor, while the second member denotes the power to
 which this factor should be raised. So the factorization
 $x = p1^n1 * ... * p9^n9$
-is returned as {{{p1,n1}, ..., {p9,n9}}}.
+is returned as [[[p1,n1], ..., [p9,n9]]].
 
 Programmer: Yacas Team + Sherm Ostrowsky
 
 *E.G.
 In> FactorsSmallInteger(24)
-Result: {{2,3},{3,1}}
+Result: [[2,3],[3,1]]
 
 *SEE Factors, Prime?, FactorizeInt
 %/mathpiper_docs

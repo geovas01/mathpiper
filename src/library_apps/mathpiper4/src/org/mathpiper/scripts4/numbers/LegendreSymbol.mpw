@@ -22,7 +22,7 @@
         LegendreSymbol(m,n)
 
 *PARMS
-{m}, {n} -- integers, $n$ must be odd and positive
+[m], [n] -- integers, $n$ must be odd and positive
 
 *DESC
 

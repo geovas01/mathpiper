@@ -1,6 +1,6 @@
 %mathpiper,def="RationalizeNumber"
 
-Function("RationalizeNumber",{x})
+Function("RationalizeNumber",[x])
 ⊕
   Check(Number?(x), "Argument", "RationalizeNumber: Error: " ~ (PipeToString()Write(x)) ~" is not a number");
   Local(n,i,bip,m);

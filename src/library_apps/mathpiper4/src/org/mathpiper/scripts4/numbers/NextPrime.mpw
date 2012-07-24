@@ -19,7 +19,7 @@
 
 *PARMS
 
-{i} -- integer value
+[i] -- integer value
 
 *DESC
 
@@ -28,7 +28,7 @@ integer value.
 
 The routine generates "candidate numbers" using the formula $n+2*Modulo(-n,3)$
 where $n$ is an odd number (this generates the sequence 5, 7, 11, 13, 17,
-19, ...) and {Prime?()} to test whether the next candidate number is in
+19, ...) and [Prime?()] to test whether the next candidate number is in
 fact prime.
 
 *E.G.

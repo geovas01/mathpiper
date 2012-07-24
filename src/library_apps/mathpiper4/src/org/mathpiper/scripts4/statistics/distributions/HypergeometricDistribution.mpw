@@ -19,9 +19,9 @@ HypergeometricDistribution(N_RationalOrNumber?, M_RationalOrNumber?, n_RationalO
 
 *PARMS
 
-{N} -- number, a finite population
-{M} -- number of items from N that fall into a class of interest
-{n} -- number of items drawn from N
+[N] -- number, a finite population
+[M] -- number of items from N that fall into a class of interest
+[n] -- number of items drawn from N
 
 *DESC
 

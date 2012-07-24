@@ -22,9 +22,9 @@ Verify(Magnitude(I+1),Sqrt(2));
 Verify(Re(2+I*3),2);
 Verify(Im(2+I*3),3);
 // Shouldn't these be in linalg.yts?
-Verify(ZeroVector(3),{0,0,0});
-Verify(BaseVector(2,3),{0,1,0});
-Verify(Identity(3),{{1,0,0},{0,1,0},{0,0,1}});
+Verify(ZeroVector(3),[0,0,0]);
+Verify(BaseVector(2,3),[0,1,0]);
+Verify(Identity(3),[[1,0,0],[0,1,0],[0,0,1]]);
 
 Testing("Checking comment syntax supported");
 ⊕
@@ -37,7 +37,7 @@ Testing("Checking comment syntax supported");
 
   /* // test3 */
 
-  //Echo({a, Nl()});
+  //Echo([a, Nl()]);
 
   // Check parsing
   a==-b; // This would generate a parse error in Yacas versions 1.0.54 and earlier
@@ -56,8 +56,8 @@ Verify(Number?(N(1/3)),True);
 Verify(Sin(Pi),0);
 Verify(Minimum(5,1,3,-5,10),-5);
 Verify(Sqrt(2),Sqrt(2));
-Verify({1,2,3},{1,2,3});
-Verify({a,b,c}[2],b);
+Verify([1,2,3],[1,2,3]);
+Verify([a,b,c][2],b);
 Verify("abc"[2],"b");
 Verify(x^(1/2),Sqrt(x));
 
@@ -213,7 +213,7 @@ TryRandomRoots(3,-10,10);
 
 ⊕
   Local(p);
-  p := FindRealRoots((x+2)^9*(x-4)^5*(x-1)^4)-{-2.,1.,4.};
+  p := FindRealRoots((x+2)^9*(x-4)^5*(x-1)^4)-[-2.,1.,4.];
   Verify(VerifyZero(Dot(p,p)),True);
 ⊖;
 
@@ -224,9 +224,9 @@ Verify(MaximumBound(4),Infinity);
 // RealRootsCount
 Verify(RealRootsCount(x^2-1),2);
 Verify(RealRootsCount(x^2+1),0);
-Verify(FindRealRoots((x^2+20)*(x^2+10)),{});
+Verify(FindRealRoots((x^2+20)*(x^2+10)),[]);
 Verify(RealRootsCount((x^2+20)*(x^2+10)),0);
-Verify(Difference(FindRealRoots(Expand((x*(x-10)^3*(x+2)^2))),{0,-2.,10.}),{});
+Verify(Difference(FindRealRoots(Expand((x*(x-10)^3*(x+2)^2))),[0,-2.,10.]),[]);
 
 // Simple test on Squarefree
 TestMathPiper(Monic(SquareFree((x-1)^2*(x-3)^3)),Monic((x-1)*(x-3)));
@@ -235,21 +235,21 @@ TestMathPiper(Monic(SquareFree((x-1)^2*(x-3)^3)),Monic((x-1)*(x-3)));
 // exactly a root
 ⊕
   Local(p);
-  p:=FindRealRoots((x+4)*(x-6),1,7)-{-4.,6.};
+  p:=FindRealRoots((x+4)*(x-6),1,7)-[-4.,6.];
   Verify(VerifyZero(Dot(p, p)),True);
 ⊖;
 
 ⊕
   Local(p);
   p:=Expand((x-3.1)*(x+6.23));
-  p:=FindRealRoots(p)-{-6.23,3.1};
+  p:=FindRealRoots(p)-[-6.23,3.1];
   Verify(VerifyZero(Dot(p, p)),True);
 ⊖;
 
 Verify(BuiltinPrecisionGet(),6);
 ⊕
   Local(res);
-  res:=FindRealRoots(Expand((x-3.1)*(x+6.23)))-{-6.23,3.1};
+  res:=FindRealRoots(Expand((x-3.1)*(x+6.23)))-[-6.23,3.1];
   Verify(VerifyZero(Dot(res, res)) , True);
 ⊖;
 

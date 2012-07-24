@@ -1,6 +1,6 @@
 %mathpiper,def="Count"
 
-Function("Count",{list,element})
+Function("Count",[list,element])
 ⊕
    Local(result);
    Bind(result,0);
@@ -20,9 +20,9 @@ Function("Count",{list,element})
 
 *PARMS
 
-{list} -- the list to examine
+[list] -- the list to examine
 
-{expr} -- expression to look for in "list"
+[expr] -- expression to look for in "list"
 
 *DESC
 
@@ -31,8 +31,8 @@ occurs in "list" and returns this number.
 
 *E.G.
 
-In> lst := {a,b,c,b,a};
-Result: {a,b,c,b,a};
+In> lst := [a,b,c,b,a];
+Result: [a,b,c,b,a];
 In> Count(lst, a);
 Result: 2;
 In> Count(lst, c);

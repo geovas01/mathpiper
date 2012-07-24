@@ -1,8 +1,8 @@
 %mathpiper,def="Diverge"
 
-RulebaseHoldArguments("Diverge", {aFunc, aBasis});
+RulebaseHoldArguments("Diverge", [aFunc, aBasis]);
 RuleHoldArguments("Diverge", 2, 1, List?(aBasis) And? List?(aFunc) And? Length(aBasis) =? Length(aFunc))
-        Add(Map("Differentiate", {aBasis,aFunc}));
+        Add(Map("Differentiate", [aBasis,aFunc]));
 
 %/mathpiper
 
@@ -16,9 +16,9 @@ RuleHoldArguments("Diverge", 2, 1, List?(aBasis) And? List?(aFunc) And? Length(a
 
 *PARMS
 
-{vector} -- vector field to calculate the divergence of
+[vector] -- vector field to calculate the divergence of
 
-{basis} -- list of variables forming the basis
+[basis] -- list of variables forming the basis
 
 *DESC
 
@@ -27,12 +27,12 @@ with respect to the variables "basis". The divergence is defined as
 
         Diverge(f,x) = Differentiate(x[1]) f[1] + ...
             + Differentiate(x[n]) f[n],
-where {n} is the length of the lists "vector" and
+where [n] is the length of the lists "vector" and
 "basis". These lists should have equal length.
 
 *E.G.
 
-In> Diverge({x*y,x*y,x*y},{x,y,z})
+In> Diverge([x*y,x*y,x*y],[x,y,z])
 Result: y+x;
 
 *SEE D, Curl
@@ -45,6 +45,6 @@ Result: y+x;
 %mathpiper,name="Diverge",subtype="automatic_test"
 
 /* One place where we forgot to change Sum to Add */
-TestMathPiper(Diverge({x*y,x*y,x*y},{x,y,z}),x+y);
+TestMathPiper(Diverge([x*y,x*y,x*y],[x,y,z]),x+y);
 
 %/mathpiper

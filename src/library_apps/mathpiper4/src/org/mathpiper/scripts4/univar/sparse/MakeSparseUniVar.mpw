@@ -4,24 +4,24 @@
 
 10 # MakeSparseUniVar(poly_CanBeUni,var_Atom?) <--
 ⊕
-    If(InVerboseMode(),Tell("MakeSparseUniVar",{var,poly}));
+    If(InVerboseMode(),Tell("MakeSparseUniVar",[var,poly]));
     Local(uni,first,coeffs,n,c,lc,termlist,term);
     uni    := MakeUni(poly,var);
     If(InVerboseMode(),Tell("      ",uni));
     first  := uni[2];
     coeffs := (uni[3]);
     If(InVerboseMode(),⊕Tell("    ",first); Tell("   ",coeffs);⊖);
-    termlist := {};
+    termlist := [];
     lc       := Length(coeffs);
     For(n:=0,n<?lc,n++)
     ⊕
         c    := coeffs[n+1];
-        term := {n+first,c};
+        term := [n+first,c];
         If(InVerboseMode(),Tell("        ",term));
         If(c !=? 0, Push(termlist,term));
     ⊖;
-    If(InVerboseMode(),Tell("   ",{var,termlist}));
-    {var,termlist};
+    If(InVerboseMode(),Tell("   ",[var,termlist]));
+    [var,termlist];
 ⊖;
 %/mathpiper
 

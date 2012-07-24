@@ -19,10 +19,10 @@
 
 //Retract("Echo",*);
 
-RulebaseListedHoldArguments("Echo",{firstParameter, parametersList});
+RulebaseListedHoldArguments("Echo",[firstParameter, parametersList]);
 
 //Handle no option call.
-5 # Echo(_firstParameter) <-- Echo(firstParameter, {});
+5 # Echo(_firstParameter) <-- Echo(firstParameter, []);
 
 
 //Main routine.  It will automatically accept 1 or more option calls because the
@@ -37,7 +37,7 @@ RulebaseListedHoldArguments("Echo",{firstParameter, parametersList});
 
 
 //Handle a single option call because the option does not come in a list for some reason.
-20 # Echo(_firstParameter, _secondParameter) <-- Echo(firstParameter, {secondParameter});
+20 # Echo(_firstParameter, _secondParameter) <-- Echo(firstParameter, [secondParameter]);
 
 
 //No argument Echo simply prints a newline.
@@ -61,21 +61,21 @@ Echo() := NewLine();
 
 *PARMS
 
-{item} -- the items to be printed
+[item] -- the items to be printed
 
 
 *DESC
 
-If passed a single item, {Echo} will evaluate it and print it to the
-current output, followed by a newline. If {item} is a string, it is
+If passed a single item, [Echo] will evaluate it and print it to the
+current output, followed by a newline. If [item] is a string, it is
 printed without quotation marks.
 
-If {Echo} is called with a variable number of arguments, they will all
+If [Echo] is called with a variable number of arguments, they will all
 be printed with spaces inbetween them and finally a newline will be printed.
 
-If no arguments are passed to {Echo}, it will simply output a newline.
+If no arguments are passed to [Echo], it will simply output a newline.
 
-{Echo} always returns {True}.
+[Echo] always returns [True].
 
 *E.G.
 In> Echo(5+3);
@@ -90,10 +90,10 @@ Side Effects:
 The square of two is 4 
 
 
-In> Echo({a,b,c});
+In> Echo([a,b,c]);
 Result: True
 Side Effects:
-{a,b,c} 
+[a,b,c] 
 
 *SEE PrettyForm, Write, WriteString, RulebaseListedHoldArguments
 %/mathpiper_docs

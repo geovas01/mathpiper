@@ -7,13 +7,13 @@ but it seems like it was meant to be a published function.
 
 // Multiply a list of terms by a Single term.
 
-Function("MultiplySingleTerm",{termlist,term})
+Function("MultiplySingleTerm",[termlist,term])
 ⊕
  Local(result,t);
- result:={};
+ result:=[];
  If(term[2]!=?0,
        ForEach (t,termlist)
-         DestructiveAppend(result,{t[1]+term[1],t[2]*term[2]}) );
+         DestructiveAppend(result,[t[1]+term[1],t[2]*term[2]]) );
  result;
 ⊖;
 

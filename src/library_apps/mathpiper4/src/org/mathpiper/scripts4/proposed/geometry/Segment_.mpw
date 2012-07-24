@@ -17,7 +17,7 @@ Segment?(list_List?) <--
         Segment?(s)
 *PARMS
 
-{s} -- segment to test
+[s] -- segment to test
 
 
 *DESC
@@ -29,7 +29,7 @@ Tests if a value is a segment.
 In> Segment?(Segment(Point(0,0), Point(3,4)))
 Result: True
         
-In> Segment?({3,4})
+In> Segment?([3,4])
 Result: False
         
 *SEE Point, Midpoint, Distance, Slope, Segment

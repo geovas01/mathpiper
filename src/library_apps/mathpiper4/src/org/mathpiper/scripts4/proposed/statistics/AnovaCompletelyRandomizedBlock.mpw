@@ -46,13 +46,13 @@ AnovaCompletelyRandomizedBlock(levelsList, alpha) :=
         bottomOfSummary
     );
     
-    meansList := {};
+    meansList := [];
     
-    variancesList := {};
+    variancesList := [];
     
-    sumsList := {};
+    sumsList := [];
     
-    lengthsList := {};
+    lengthsList := [];
     
     
     //ANOVA calculations.
@@ -76,7 +76,7 @@ AnovaCompletelyRandomizedBlock(levelsList, alpha) :=
     
     
     //Block calculations.
-    blockMeansList := {};
+    blockMeansList := [];
     
     index := 1;
     
@@ -224,7 +224,7 @@ AnovaCompletelyRandomizedBlock(levelsList, alpha) :=
                 
                 
                 
-     result := {};
+     result := [];
      
      result["html"] := htmlJavaString;
      
@@ -275,16 +275,16 @@ AnovaCompletelyRandomizedBlock(levelsList, alpha) :=
         AnovaCompletelyRandomizedBlock(2dMatrix,alpha)
 
 *PARMS
-{2dMatrix} -- a two dimensional matrix which contain the data to be analyzed
+[2dMatrix] -- a two dimensional matrix which contain the data to be analyzed
 
-{alpha} -- the alpha value to use in the analysis.
+[alpha] -- the alpha value to use in the analysis.
 
 *DESC
 This function performs an ANOVA completely randomized block analysis.  The various values that are
 calculated during the analysis are returned in an association list and these
 values are listed in the keys of the returned list (see the examples section).
 
-If the {html} key is passed to the {ViewHtml} function, the results of the analysis
+If the [html] key is passed to the [ViewHtml] function, the results of the analysis
 are displayed in a graphcs window as rendered HTML.
 
 *E.G.
@@ -292,13 +292,13 @@ are displayed in a graphcs window as rendered HTML.
 
 alpha := .05;
 
-factor1List := {10.2,8.5,8.4,10.5,9.0,8.1};
+factor1List := [10.2,8.5,8.4,10.5,9.0,8.1];
 
-factor2List := {11.6,12.0,9.2,10.3,9.9,12.5};
+factor2List := [11.6,12.0,9.2,10.3,9.9,12.5];
 
-factor3List := {8.1,9.0,10.7,9.1,10.5,9.5};
+factor3List := [8.1,9.0,10.7,9.1,10.5,9.5];
 
-Echo(anovaBlock := AnovaCompletelyRandomizedBlock({factor1List,factor2List,factor3List}, alpha));
+Echo(anovaBlock := AnovaCompletelyRandomizedBlock([factor1List,factor2List,factor3List], alpha));
 
 NewLine();
 
@@ -312,9 +312,9 @@ ViewHtml(anovaBlock["html"]);
       Result: True
       
       Side Effects:
-      {"criticalFScoreBlock",3.325834530} {"fScoreBlock",0.08045614890} {"criticalFScore",4.102821015} {"fScore",3.078377024} 
-      {"meanSquareBlock",0.1418888884} {"meanSquareWithin",1.763555556} {"meanSquareBetween",5.428888905} {"sumOfSquaresTotal",29.20277781} 
-      {"sumOfSquaresBlock",0.7094444419} {"sumOfSquaresBetween",10.85777781} {"sumOfSquaresWithin",17.63555556} {"html",java.lang.String} 
+      ["criticalFScoreBlock",3.325834530] ["fScoreBlock",0.08045614890] ["criticalFScore",4.102821015] ["fScore",3.078377024] 
+      ["meanSquareBlock",0.1418888884] ["meanSquareWithin",1.763555556] ["meanSquareBetween",5.428888905] ["sumOfSquaresTotal",29.20277781] 
+      ["sumOfSquaresBlock",0.7094444419] ["sumOfSquaresBetween",10.85777781] ["sumOfSquaresWithin",17.63555556] ["html",java.lang.String] 
       
       F-Score of the block: 0.08045614890 
       
@@ -339,13 +339,13 @@ ViewHtml(anovaBlock["html"]);
 
 alpha := .05;
 
-factor1List := {10.2,8.5,8.4,10.5,9.0,8.1};
+factor1List := [10.2,8.5,8.4,10.5,9.0,8.1];
 
-factor2List := {11.6,12.0,9.2,10.3,9.9,12.5};
+factor2List := [11.6,12.0,9.2,10.3,9.9,12.5];
 
-factor3List := {8.1,9.0,10.7,9.1,10.5,9.5};
+factor3List := [8.1,9.0,10.7,9.1,10.5,9.5];
 
-Echo(anovaBlock := AnovaCompletelyRandomizedBlock({factor1List,factor2List,factor3List}, alpha));
+Echo(anovaBlock := AnovaCompletelyRandomizedBlock([factor1List,factor2List,factor3List], alpha));
 
 NewLine();
 
@@ -359,7 +359,7 @@ ViewHtml(anovaBlock["html"]);
       Result: True
       
       Side Effects:
-      {"criticalFScoreBlock",3.325834530} {"fScoreBlock",0.08045614890} {"criticalFScore",4.102821015} {"fScore",3.078377024} {"meanSquareBlock",0.1418888884} {"meanSquareWithin",1.763555556} {"meanSquareBetween",5.428888905} {"sumOfSquaresTotal",29.20277781} {"sumOfSquaresBlock",0.7094444419} {"sumOfSquaresBetween",10.85777781} {"sumOfSquaresWithin",17.63555556} {"html",java.lang.String} 
+      ["criticalFScoreBlock",3.325834530] ["fScoreBlock",0.08045614890] ["criticalFScore",4.102821015] ["fScore",3.078377024] ["meanSquareBlock",0.1418888884] ["meanSquareWithin",1.763555556] ["meanSquareBetween",5.428888905] ["sumOfSquaresTotal",29.20277781] ["sumOfSquaresBlock",0.7094444419] ["sumOfSquaresBetween",10.85777781] ["sumOfSquaresWithin",17.63555556] ["html",java.lang.String] 
       
       F-Score of the block: 0.08045614890 
       

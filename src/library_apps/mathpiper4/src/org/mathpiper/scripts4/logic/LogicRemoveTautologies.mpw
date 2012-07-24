@@ -19,8 +19,8 @@ LocalCmp(_e1, _e2)                  <-- LessThan?(PipeToString() Write(e1), Pipe
 100 # SimplifyExpression(_x)        <-- x;
 
 // Return values:
-//  {True} means True
-//  {} means False
+//  [True] means True
+//  [] means False
 LogicRemoveTautologies(_e) <--
 ⊕
   Local(i, len, negationfound); Bind(len, Length(e));
@@ -33,7 +33,7 @@ LogicRemoveTautologies(_e) <--
   ⊕
     Local(x, n, j);
     // we can register other simplification rules for expressions
-    //e[i] := MathNth(e,i) /:: {gamma(_y) <- SimplifyExpression(gamma(y))};
+    //e[i] := MathNth(e,i) /:: [gamma(_y) <- SimplifyExpression(gamma(y))];
     Bind(x, MathNth(e,i));
     Bind(n, SimpleNegate(x));                    /* this is all we have to do because of
                                                 the kind of expressions we can have coming in */
@@ -44,14 +44,14 @@ LogicRemoveTautologies(_e) <--
 
         If(Equal?(y, n),
             ⊕
-                //Echo({"Deleting from ", e, " i=", i, ", j=", j, Nl()});
+                //Echo(["Deleting from ", e, " i=", i, ", j=", j, Nl()]);
 
                 Bind(negationfound, True);
-                //Echo({"Removing clause ", i, Nl()});
+                //Echo(["Removing clause ", i, Nl()]);
             ⊖,
         If(Equal?(y, x),
             ⊕
-                //Echo({"Deleting from ", e, " j=", j, Nl()});
+                //Echo(["Deleting from ", e, " j=", j, Nl()]);
                 DestructiveDelete(e, j);
                 Bind(len,SubtractN(len,1));
             ⊖)
@@ -60,7 +60,7 @@ LogicRemoveTautologies(_e) <--
     Check(len =? Length(e), "Math", "The length computation is incorrect");
   ⊖;
 
-  If(negationfound, {True}, e);            /* note that a list is returned */
+  If(negationfound, [True], e);            /* note that a list is returned */
 ⊖;
 
 %/mathpiper

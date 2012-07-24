@@ -1,8 +1,8 @@
 %mathpiper,def="SolveMatrix"
 
-Function("SolveMatrix",{matrix,vector})
+Function("SolveMatrix",[matrix,vector])
 ⊕
-  If(InVerboseMode(),Tell("   SolveMatrix",{matrix,vector}));
+  If(InVerboseMode(),Tell("   SolveMatrix",[matrix,vector]));
   Local(perms,indices,inv,det,n);
   n:=Length(matrix);
   indices:=Table(i,i,1,n,1);
@@ -41,25 +41,25 @@ Function("SolveMatrix",{matrix,vector})
 
 *PARMS
 
-{M} -- a matrix
+[M] -- a matrix
 
-{v} -- a vector
+[v] -- a vector
 
 *DESC
 
-{SolveMatrix} returns the vector $x$ that satisfies
+[SolveMatrix] returns the vector $x$ that satisfies
 the equation $M*x = v$. The determinant of $M$ should be non-zero.
 
 *E.G.
 
-In> A := {{1,2}, {3,4}};
-Result: {{1,2},{3,4}};
-In> v := {5,6};
-Result: {5,6};
+In> A := [[1,2], [3,4]];
+Result: [[1,2],[3,4]];
+In> v := [5,6];
+Result: [5,6];
 In> x := SolveMatrix(A, v);
-Result: {-4,9/2};
+Result: [-4,9/2];
 In> A * x;
-Result: {5,6};
+Result: [5,6];
 
 *SEE Inverse, Solve, PSolve, Determinant
 %/mathpiper_docs

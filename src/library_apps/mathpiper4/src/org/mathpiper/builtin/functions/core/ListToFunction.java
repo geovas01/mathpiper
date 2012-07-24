@@ -96,7 +96,7 @@ Result: 1-x^2/2+x^4/24;
 %mathpiper,name="ListToFunction",subtype="automatic_test"
 
 // FunctionToList and ListToFunction coredumped when their arguments were invalid.
-Verify(ListToFunction({Cos,x}),Cos(x));
+Verify(ListToFunction([Cos,x]),Cos(x));
 
 ⊕
   Local(exception);

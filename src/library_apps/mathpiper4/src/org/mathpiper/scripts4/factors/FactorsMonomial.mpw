@@ -16,21 +16,21 @@
       num := Flatten(expr,"*");
     ]
   );
-  If(InVerboseMode(),Tell("     ",{num,den}));
+  If(InVerboseMode(),Tell("     ",[num,den]));
   Ns  := Select(num, "Complex?");
   If(InVerboseMode(),Tell("     ",Ns));
-  If( Ns =? {},
+  If( Ns =? [],
        If( den !=? 1, DestructiveInsert(num,1,1/den)),
        DestructiveReplace(num,Find(num,Ns[1]),Ns[1]/den)
   );
   If(InVerboseMode(),Tell("     ",num));
-  result := {};
+  result := [];
   ForEach(f,num)
   [
       If( Complex?(f), 
-          DestructiveAppend(result,{(f),1}),
+          DestructiveAppend(result,[(f),1]),
           If( Atom?(f),
-              DestructiveAppend(result,{f,1}),
+              DestructiveAppend(result,[f,1]),
               DestructiveAppend(result,DestructiveDelete(FunctionToList(f),1))
           )
       );
@@ -53,11 +53,11 @@
 
 *PARMS
 
-{expr} -- an expression representing a Monomial
+[expr] -- an expression representing a Monomial
 
 *DESC
 
-This function decomposes the {expr} into a product of numbers and variables 
+This function decomposes the [expr] into a product of numbers and variables 
 raised to various powers.
 
 The factorization is returned as a list of pairs.  The first member of
@@ -67,25 +67,25 @@ raised.
 
 Thus, the factorization  
 $expr = p1^n1 * ... * p9^n9$ 
-is returned as {{(p1,n1), ..., (p9,n9)}}.
+is returned as [[(p1,n1), ..., (p9,n9)]].
 
-If {expr} is not a monomial, the function returns unevaluated.
+If [expr] is not a monomial, the function returns unevaluated.
 
 NOTE: numerical factors are not decomposed into their prime factorization.
 
 *E.G.
 
 In> FactorsMonomial(24)
-Result: {{24,1}}
+Result: [[24,1]]
 
 In> FactorsMonomial(24/15)
-Result: {{8/5,1}}
+Result: [[8/5,1]]
 
 In> FactorsMonomial(24*a*x^2*y^3)
-Result: {{24,1},{a,1},{x,2},{y,3}}
+Result: [[24,1],[a,1],[x,2],[y,3]]
 
 In> FactorsMonomial(24*a*x^2*y^3/15)
-Result: {{8/5,1},{a,1},{x,2},{y,3}}
+Result: [[8/5,1],[a,1],[x,2],[y,3]]
 
 In> FactorsMonomial(24*a*x^2*y^3/15+1)
 Result: FactorsMonomial((24*a*x^2*y^3)/15+1)

@@ -12,29 +12,29 @@
     If(InVerboseMode(),Tell("  ",pp));
     ff   := Factors(pp);
     If(InVerboseMode(),Tell("  ",ff));
-    tnu  := {ff[1]};
+    tnu  := [ff[1]];
     If(ListOfLists?(ff), tnu  := RemoveDuplicates(Transpose(ff)[1]));
-    newn := {};
-    newd := {};
+    newn := [];
+    newd := [];
     If(InVerboseMode(),Tell("      ",tnu));
     ForEach(f,tnu)
     ⊕
-       s := Select(ff,Lambda({X},X[1]=?f));
-       If(InVerboseMode(),Tell("      ",{f,s}));
-       If( s !=? {},
+       s := Select(ff,Lambda([X],X[1]=?f));
+       If(InVerboseMode(),Tell("      ",[f,s]));
+       If( s !=? [],
          ⊕
             k := Sum(Transpose(s)[2]);
-            If(InVerboseMode(),Tell("      ",{s,k}));
-            If( k >? 0, DestructiveAppend(newn,{f,k}) );
-            If( k <? 0, DestructiveAppend(newd,{f,-k}) );
+            If(InVerboseMode(),Tell("      ",[s,k]));
+            If( k >? 0, DestructiveAppend(newn,[f,k]) );
+            If( k <? 0, DestructiveAppend(newd,[f,-k]) );
          ⊖,
          ⊕
             k := 1;
-            DestructiveAppend(newn,{f,k});
+            DestructiveAppend(newn,[f,k]);
          ⊖
        );
     ⊖;
-    If(InVerboseMode(),Tell("    ",{newn,newd}));
+    If(InVerboseMode(),Tell("    ",[newn,newd]));
     FW(newn)/FW(newd);
 ⊖;
 
@@ -60,21 +60,21 @@
 FactorCancel( expr )
 
 *PARMS
-{expr} -- A function which is a quotient of two polynomials
+[expr] -- A function which is a quotient of two polynomials
 
 *DESC
 A quotient of two polynomials P(z) and Q(z),
     R(z)=(P(z))/(Q(z)),
 is called a rational function, or sometimes a rational polynomial function.
 
-By convention, the {Domain} of the function {excludes} any points which are
+By convention, the [Domain] of the function [excludes] any points which are
 zeros of the denominator, even though some of these may be cancelable by
-equivalent zeros in the numerator.   Therefore, the function {Factor}, when
+equivalent zeros in the numerator.   Therefore, the function [Factor], when
 applied to such a function, retains all the factors of both numerator and
 denominator, whether or not they might subsequently cancel.
 
 But sometimes a user might want to see the factored function in the form which
-results when such cancellation has been performed.  {FactorCancel} performs
+results when such cancellation has been performed.  [FactorCancel] performs
 this operation.
 
 *E.G.

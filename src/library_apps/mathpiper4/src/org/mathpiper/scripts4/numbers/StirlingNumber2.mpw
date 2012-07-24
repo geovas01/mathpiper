@@ -8,18 +8,18 @@
 
 
 %mathpiper_docs,name="StirlingNumber2",categories="User Functions;Number Theory"
-*CMD StirlingNumber2 --- return the {n m}th Stirling Number of the second kind
+*CMD StirlingNumber2 --- return the [n m]th Stirling Number of the second kind
 *STD
 *CALL
         StirlingNumber1(n,m)
 *PARMS
 
-{n}, {m}        -- positive integers
+[n], [m]        -- positive integers
 
 *DESC
 
 This function returns the Stirling Number of the second kind.
-All Stirling Numbers are positive integers. If $ m > n $, then {StirlingNumber2} returns
+All Stirling Numbers are positive integers. If $ m > n $, then [StirlingNumber2] returns
 $0$.
 
 *E.G.

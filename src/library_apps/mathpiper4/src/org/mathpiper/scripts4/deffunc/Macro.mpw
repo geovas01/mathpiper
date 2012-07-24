@@ -1,11 +1,11 @@
 %mathpiper,def="Macro"
 
-RulebaseHoldArguments("Macro",{oper,args,body});
+RulebaseHoldArguments("Macro",[oper,args,body]);
 HoldArgument("Macro",oper);
 HoldArgument("Macro",args);
 HoldArgument("Macro",body);
 
-// macro with variable number of arguments: Macro("func",{x,y, ...})body;
+// macro with variable number of arguments: Macro("func",[x,y, ...])body;
 RuleHoldArguments("Macro",3,2047,
         And?(GreaterThan?(Length(args), 1), Equal?( MathNth(args, Length(args)), ToAtom("...") ))
 )
@@ -24,7 +24,7 @@ RuleHoldArguments("Macro",3,2048,True)
   RuleEvaluateArguments(oper,Length(args),1025,True) body;
 ⊖;
 
-RulebaseHoldArguments("Macro",{oper});
+RulebaseHoldArguments("Macro",[oper]);
 // macro with variable number of arguments: Macro() f(x,y, ...)
 RuleHoldArguments("Macro",1,2047,
         And?(Function?(oper), GreaterThan?(Length(oper), 1), Equal?( MathNth(oper, Length(oper)), ToAtom("...") ))
@@ -65,36 +65,36 @@ RuleHoldArguments("Macro",1,2048,
 *CALL
         Macro() func(arglist)
         Macro() func(arglist, ...)
-        Macro("op", {arglist}) body
-        Macro("op", {arglist, ...}) body
+        Macro("op", [arglist]) body
+        Macro("op", [arglist, ...]) body
 
 *PARMS
 
-{func(args)} -- function declaration, e.g. {f(x,y)}
+[func(args)] -- function declaration, e.g. [f(x,y)]
 
-{"op"} -- string, name of the function
+["op"] -- string, name of the function
 
-{{arglist}} -- list of atoms, formal arguments to the function
+[[arglist]] -- list of atoms, formal arguments to the function
 
-{...} -- literal ellipsis symbol "{...}" used to denote a variable number of arguments
+[...] -- literal ellipsis symbol "[...]" used to denote a variable number of arguments
 
-{body} -- expression comprising the body of the function
+[body] -- expression comprising the body of the function
 
 *DESC
 
-This does the same as {Function}, but for macros. One can define a macro
-easily with this function, in stead of having to use {MacroRulebaseHoldArguments}.
+This does the same as [Function], but for macros. One can define a macro
+easily with this function, in stead of having to use [MacroRulebaseHoldArguments].
 
 *E.G. notest
 
 the following example defines a looping function.
 
-In> Macro("myfor",{init,pred,inc,body}) [@init;While(@pred)[@body;@inc;];True;];
+In> Macro("myfor",[init,pred,inc,body]) [@init;While(@pred)[@body;@inc;];True;];
 Result: True;
 In> a:=10
 Result: 10;
 
-Here this new macro {myfor} is used to loop, using a variable {a} from the
+Here this new macro [myfor] is used to loop, using a variable [a] from the
 calling environment.
 
 In> myfor(i:=1,i<?10,i++,Echo(a*i))
@@ -122,15 +122,15 @@ Result: 10;
 
 ⊕
   Local(a,b,c,d);
-  MacroRulebaseHoldArguments(foo,{a,b});
+  MacroRulebaseHoldArguments(foo,[a,b]);
 
   // Simple check
-  foo(_c,_d) <-- {@c,@d};
-  Verify(foo(2,3),Hold({2,3}));
+  foo(_c,_d) <-- [@c,@d];
+  Verify(foo(2,3),Hold([2,3]));
 
-  Macro("foo",{a}) {@a,a};
+  Macro("foo",[a]) [@a,a];
   a:=A;
-  Verify(foo(B),{B,A});
+  Verify(foo(B),[B,A]);
 
   /*
   Removed from the test because the system now throws exceptions when\
@@ -146,7 +146,7 @@ Result: 10;
   Local(a,i,tot);
   a:=100;
   Retract(forloop,4);
-  Macro(forloop,{init,pred,inc,body})
+  Macro(forloop,[init,pred,inc,body])
   ⊕
     @init;
     While(@pred)
@@ -163,30 +163,30 @@ Result: 10;
 ⊖;
 
 ⊕
-  Macro("bar",{list,...}) Length(@list);
+  Macro("bar",[list,...]) Length(@list);
   Verify(bar(a,b,list,bar,list),5);
 ⊖;
 
 ⊕
   Local(x,y,z);
-  RulebaseHoldArguments("@",{x});
+  RulebaseHoldArguments("@",[x]);
   y:=x;
-  Verify(`{@x,@y},{x,x});
+  Verify(`[@x,@y],[x,x]);
   z:=u;
-  y:={@z,@z};
-  Verify(`{@x,@y},{x,{@z,@z}});
-  Verify(`{@x,`(@y)},{x,{@u,@u}});
-  y:=Hold(`{@z,@z});
+  y:=[@z,@z];
+  Verify(`[@x,@y],[x,[@z,@z]]);
+  Verify(`[@x,`(@y)],[x,[@u,@u]]);
+  y:=Hold(`[@z,@z]);
 
-  Verify(`{@x,@y},{x,{u,u}});
-  Verify(`{@x,`(@y)},{x,{u,u}});
+  Verify(`[@x,@y],[x,[u,u]]);
+  Verify(`[@x,`(@y)],[x,[u,u]]);
   Retract("@",1);
 ⊖;
 
 // check that a macro can reach a local from the calling environment.
 ⊕
-  Macro(foo,{x}) a*(@x);
-  Function(bar,{x})
+  Macro(foo,[x]) a*(@x);
+  Function(bar,[x])
   ⊕
     Local(a);
     a:=2;

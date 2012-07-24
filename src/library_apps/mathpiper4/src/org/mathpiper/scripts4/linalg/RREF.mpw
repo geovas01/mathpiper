@@ -16,7 +16,7 @@
     If( Not? Bound?(iDebug), iDebug := False );
     If(iDebug,Tell("RREF",AM));
     Local(mRows,nCols,nVars,varVec,ir,jc,col,am,e,ii,pivot);
-    {mRows,nCols} := Dimensions(AM);
+    [mRows,nCols] := Dimensions(AM);
     am            := FlatCopy(AM); //  so as not to mess with original matrix!
     
     Local(cc,cr,col,cnz);  // cc = current column,  cr = current row
@@ -33,8 +33,8 @@
         For(ic:=1,ic<=?nCols,ic++)   
          ⊕ 
             col := MatrixColumn(am,ic);
-            If( cr >? 1, col := Drop( col, {1,cr-1} ) );
-            //Tell("         ",{ic,col});
+            If( cr >? 1, col := Drop( col, [1,cr-1] ) );
+            //Tell("         ",[ic,col]);
             If(Not? ZeroVector?(col), ⊕cnz := ic; Break();⊖); 
          ⊖;
         cc := cnz;
@@ -47,8 +47,8 @@
          ⊕  
             If( am[ir][cc] !=? 0 And? ir !=? 1, 
               ⊕
-                {am[ir],am[cr]} := {am[cr],am[ir]};
-                If(iDebug, Tell("   swapping rows ",{cr,ir}));
+                [am[ir],am[cr]] := [am[cr],am[ir]];
+                If(iDebug, Tell("   swapping rows ",[cr,ir]));
                 Break();
               ⊖
             );
@@ -94,7 +94,7 @@
     For(ir:=mRows,ir>?1,ir--)
      ⊕ 
          
-         If(iDebug,Tell("",{ir,am[ir]}));
+         If(iDebug,Tell("",[ir,am[ir]]));
          If(ZeroVector?(am[ir]),
            ⊕If(iDebug,Tell("    trailing row of zeros:  row ",ir)); ir:=ir-1;Continue();⊖,
            ⊕
@@ -126,12 +126,12 @@
 
 *PARMS
 
-{AugmentedMatrix} -- Augmented matrix describing the system of equations
+[AugmentedMatrix] -- Augmented matrix describing the system of equations
 
 
 *DESC
 
-{RREF} solves a system of linear equations by using the Gauss-Jordan
+[RREF] solves a system of linear equations by using the Gauss-Jordan
 elimination method with partial pivoting, to convert the augmented matrix to the
 (unique) reduced row echelon form.  
 The original matrix is not modified.
@@ -144,15 +144,15 @@ a form like
 where the diagonal form of the left submatrix indicates that the solution is unique
 and has been found, and the right-hand column is the vector of solutions.
 
-If the system of equations has {no} solution, this function returns a matrix in
+If the system of equations has [no] solution, this function returns a matrix in
 a form like
 [  1  0  0  a]
 [  0  1  0  b]
 [  0  0  0  c]
-where the presence of a row like {0 0 0 c} at the bottom indicates that the system is
+where the presence of a row like [0 0 0 c] at the bottom indicates that the system is
 inconsistent and has no solution (0==c).
 
-If the system of equations is {dependent} and has a family of valid solutions, this
+If the system of equations is [dependent] and has a family of valid solutions, this
 function returns a matrix in a form like
 [  1  0  q  a]
 [  0  1  0  b]
@@ -164,31 +164,31 @@ for the remaining variables.
 
 *E.G.
 
-In> AM := {{2,-3,2,3},{4,8,1,2},{1,7,-3,-14}};
-Result: {{2,-3,2,3},{4,8,1,2},{1,7,-3,-14}}
+In> AM := [[2,-3,2,3],[4,8,1,2],[1,7,-3,-14]];
+Result: [[2,-3,2,3],[4,8,1,2],[1,7,-3,-14]]
 
 In> RREF(AM)
-Result: {{1,0,0,-3},{0,1,0,1},{0,0,1,6}}
+Result: [[1,0,0,-3],[0,1,0,1],[0,0,1,6]]
 
 NOTE:  This is fully solved.  The solution is
-       {{x==-3},{y==1},{z==6}}
+       [[x==-3],[y==1],[z==6]]
 
-In> AM := {{2,-1,3},{6,-3,9}};
-Result: {{2,-1,3},{6,-3,9}}
+In> AM := [[2,-1,3],[6,-3,9]];
+Result: [[2,-1,3],[6,-3,9]]
 
 In> RREF(AM)
-Result: {{1,(-1)/2,3/2},{0,0,0}}
+Result: [[1,(-1)/2,3/2],[0,0,0]]
 
 NOTE:  This is a "dependent" set of equations.
        The presence of a row of zeros at the bottom of the result
        shows that the solution is
-       {{x==x},{y==2*x-3}} for any real x.
+       [[x==x],[y==2*x-3]] for any real x.
 
-In> AM := {{2,-4,6,5},{-1,3,-2,-1},{1,-2,3,1}};
-Result: {{2,-4,6,5},{-1,3,-2,-1},{1,-2,3,1}}
+In> AM := [[2,-4,6,5],[-1,3,-2,-1],[1,-2,3,1]];
+Result: [[2,-4,6,5],[-1,3,-2,-1],[1,-2,3,1]]
 
 In> RREF(AM)
-Result: {{1,0,5,0},{0,1,1,0},{0,0,0,1}}
+Result: [[1,0,5,0],[0,1,1,0],[0,0,0,1]]
 NOTE:  This is an "inconsistent" set of equations.
        The last row, which states that 0==1, shows
        that there is no solution.

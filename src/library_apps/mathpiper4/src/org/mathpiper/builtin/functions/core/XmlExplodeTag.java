@@ -40,7 +40,7 @@ public class XmlExplodeTag extends BuiltinFunction {
 
             this.functionName = functionName;
             
-            Utility.lispEvaluate(aEnvironment, -1, "RulebaseHoldArguments(\"XmlTag\",{x,y,z});");
+            Utility.lispEvaluate(aEnvironment, -1, "RulebaseHoldArguments(\"XmlTag\",[x,y,z]);");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -207,8 +207,8 @@ Result: XmlTag("BR",{},"OpenClose");
 %mathpiper,name="XmlExplodeTag",subtype="automatic_test"
 
 // Reported by Serge: xml tokenizer not general enough
-Verify(XmlExplodeTag("<p/>"),   XmlTag("P",{},"OpenClose"));
-Verify(XmlExplodeTag("<p / >"), XmlTag("P",{},"OpenClose"));
+Verify(XmlExplodeTag("<p/>"),   XmlTag("P",[],"OpenClose"));
+Verify(XmlExplodeTag("<p / >"), XmlTag("P",[],"OpenClose"));
 
 %/mathpiper
 */

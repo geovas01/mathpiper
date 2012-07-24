@@ -45,7 +45,7 @@
 96 # x_Matrix? * y_List? <--
 ⊕
    Local(i,result);
-   result:={};
+   result:=[];
    For(i:=1,i<=?Length(x),i++)
    ⊕ DestructiveInsert(result,i,Dot(x[i], y)); ⊖;
    result;
@@ -56,7 +56,7 @@
 98 # (x_NonObject? * y_List?)_Not?(List?(x)) <--
 ⊕
    Local(i,result);
-   result:={};
+   result:=[];
    For(i:=1,i<=?Length(y),i++)
    ⊕ DestructiveInsert(result,i,x * y[i]); ⊖;
    result;
@@ -110,7 +110,7 @@
  * matrices, since they are lists also.
  */
 230 # (aLeft_List? * aRight_List?)_(Length(aLeft)=?Length(aRight)) <--
-         Map("*",{aLeft,aRight});
+         Map("*",[aLeft,aRight]);
 // fractions
 242 # (x_Integer? / y_Integer?) * (v_Integer? / w_Integer?) <-- (x*v)/(y*w);
 243 #  x_Integer? * (y_Integer? / z_Integer?) <--  (x*y)/z;
@@ -136,7 +136,7 @@ Precedence:
 
 *PARMS
 
-{x} and {y} -- objects for which arithmetic multiplication is defined
+[x] and [y] -- objects for which arithmetic multiplication is defined
 
 *DESC
 
@@ -167,7 +167,7 @@ Verify(Infinity*0,Undefined);
 // multiplication of 0 with a vector returns a zero vector.
 // This would automatically be caught with type checking.
 // More tests of this ilk are possible: 0*matrix, etcetera.
-Verify(0*{a,b,c},{0,0,0});
+Verify(0*[a,b,c],[0,0,0]);
 
 Verify(Undefined*0,Undefined);
 

@@ -5,7 +5,7 @@
 //tk:this code was moved here from Integrate.mpw because it was causing a 
 // "rulebase with this arity already defined" error.
 //hso:but the Rulebase line causes hang when processing in fold
-//RulebaseHoldArguments("IntegrateMultiplicative",{var,from,a,b});
+//RulebaseHoldArguments("IntegrateMultiplicative",[var,from,a,b]);
 
 //Retract("AntiDeriv",*);
 //Retract("IntFunc",*);
@@ -62,7 +62,7 @@
      ⊕
        Local(cf);
        cf:=anti*Deriv(var)exy;
-//  Echo({exy*anti,exy*exx,cf});
+//  Echo([exy*anti,exy*exx,cf]);
        exy*anti - `(AntiDeriv(@var,@cf));
      ⊖;
 

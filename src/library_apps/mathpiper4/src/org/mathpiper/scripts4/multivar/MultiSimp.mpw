@@ -4,7 +4,7 @@ MultiSimp(_expr) <--
 ⊕
   Local(vars);
   vars:=MultiExpressionList(expr);
-//Echo({"step1 ",MM(expr,vars)});
+//Echo(["step1 ",MM(expr,vars)]);
   MultiSimp2(MM(expr,vars));
 ⊖;
 
@@ -53,12 +53,12 @@ MultiContentTerm(multi_Multi?)
   Bind(least, MultiDegree(multi));
   Bind(gcd,MultiLeadingCoef(multi));
   ScanMultiNomial("MultiContentScan",multi);
-  {least,gcd};
+  [least,gcd];
 ⊖;
 
 MultiContentScan(_coefs,_fact) <--
 ⊕
-  Bind(least,Minimum({least,coefs}));
+  Bind(least,Minimum([least,coefs]));
   Bind(gcd,Gcd(gcd,fact));
 ⊖;
 UnFence("MultiContentScan",2);
@@ -68,7 +68,7 @@ MultiPrimitivePart(MultiNomial(vars_List?,_terms))
 ⊕
   Local(cont);
   Bind(cont,MultiContentTerm(MultiNomial(vars,terms)));
-  Bind(cont,CreateTerm(vars,{-cont[1],1/Rationalize(cont[2])}));
+  Bind(cont,CreateTerm(vars,[-cont[1],1/Rationalize(cont[2])]));
   MultiNomialMultiply(MultiNomial(vars,terms), cont);
 ⊖;
 
@@ -76,16 +76,16 @@ MultiPrimitivePart(MultiNomial(vars_List?,_terms))
 ⊕
   Local(gcd);
   Bind(gcd,MultiGcd(x,y));
-  Bind(x,MultiDivide(x,{gcd})[1][1]);
-  Bind(y,MultiDivide(y,{gcd})[1][1]);
+  Bind(x,MultiDivide(x,[gcd])[1][1]);
+  Bind(y,MultiDivide(y,[gcd])[1][1]);
   x/y;
 ⊖;
 20 # MultiRemoveGcd(_x) <-- x;
 
 
 
-5 # MultiDegree(MultiNomial(_vars,_term))_(Not?(List?(term))) <-- {};
-10 # MultiDegree(MultiNomial(_vars,{})) <-- FillList(-Infinity,Length(vars));
+5 # MultiDegree(MultiNomial(_vars,_term))_(Not?(List?(term))) <-- [];
+10 # MultiDegree(MultiNomial(_vars,[])) <-- FillList(-Infinity,Length(vars));
 20 # MultiDegree(MultiNomial(_vars,_terms))
    <-- (MultiLeadingTerm(MultiNomial(vars,terms))[1]);
 
@@ -93,7 +93,7 @@ MultiPrimitivePart(MultiNomial(vars_List?,_terms))
 10 # MultiLeadingCoef(MultiNomial(_vars,_terms))
    <-- (MultiLeadingTerm(MultiNomial(vars,terms))[2]);
 
-10 # MultiLeadingMono(MultiNomial(_vars,{})) <-- 0;
+10 # MultiLeadingMono(MultiNomial(_vars,[])) <-- 0;
 20 # MultiLeadingMono(MultiNomial(_vars,_terms))
    <-- Product(vars^(MultiDegree(MultiNomial(vars,terms))));
 
@@ -106,7 +106,7 @@ MultiVars(MultiNomial(_vars,_terms)) <-- vars;
 
 10 # MultiLM(multi_Multi?) <-- MultiDegree(multi);
 
-10 # MultiLC(MultiNomial(_vars,{})) <-- 0;
+10 # MultiLC(MultiNomial(_vars,[])) <-- 0;
 20 # MultiLC(multi_Multi?) <-- MultiLeadingCoef(multi);
 
 DropZeroLC(multi_Multi?) <-- MultiDropLeadingZeroes(multi);

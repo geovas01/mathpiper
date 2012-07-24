@@ -14,7 +14,7 @@ Unitary?(A_Matrix?) <-- (Transpose(Conjugate(A))*A =? Identity(Length(A)));
 
 *PARMS
 
-{A} -- a square matrix
+[A] -- a square matrix
 
 *DESC
 
@@ -22,13 +22,13 @@ This function tries to find out if A is unitary.
 
 A matrix $A$ is orthogonal iff $A^(-1)$ = Transpose( Conjugate($A$) ). This is
 equivalent to the fact that the columns of $A$ build an orthonormal system
-(with respect to the scalar product defined by {InProduct}).
+(with respect to the scalar product defined by [InProduct]).
 
 *E.G.
 
-In> Unitary?({{0,I},{-I,0}})
+In> Unitary?([[0,I],[-I,0]])
 Result: True;
-In> Unitary?({{0,I},{2,0}})
+In> Unitary?([[0,I],[2,0]])
 Result: False;
 
 *SEE Hermitian?, Symmetric?
@@ -40,8 +40,8 @@ Result: False;
 
 %mathpiper,name="Unitary?",subtype="automatic_test"
 
-Verify(Unitary?({{0,I},{-I,0}}),True);
-Verify(Unitary?({{0,I},{-I,1}}),False);
-Verify(Unitary?({{0,I},{-2*I,0}}),False);
+Verify(Unitary?([[0,I],[-I,0]]),True);
+Verify(Unitary?([[0,I],[-I,1]]),False);
+Verify(Unitary?([[0,I],[-2*I,0]]),False);
 
 %/mathpiper

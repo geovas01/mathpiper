@@ -4,7 +4,7 @@
  * "Modern Computer Algebra". It does a Gcd calculation, but
  * returns the intermediate results also.
  *
- * Returns {l,r,s,t}
+ * Returns [l,r,s,t]
  * where
  * - l the number of steps required
  * - r[i] the i-th remainder
@@ -23,9 +23,9 @@ ExtendedEuclidean(_f,_g) <--
    Local(r,s,t,i);
 
    /* Initialize the loop */
-   r:={f,g};
-   s:={1,0};
-   t:={0,1};
+   r:=[f,g];
+   s:=[1,0];
+   t:=[0,1];
    i:=1;
 
    Local(q,newr,news,newt);
@@ -41,7 +41,7 @@ ExtendedEuclidean(_f,_g) <--
      DestructiveAppend(t,newt);
      i++;
    ⊖;
-   {r[i],s[i],t[i]};
+   [r[i],s[i],t[i]];
 ⊖;
 
 %/mathpiper

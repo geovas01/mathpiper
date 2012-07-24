@@ -25,7 +25,7 @@ TSimplify(TSum(_indices)(_f)) <--
 ⊕
   Local(flat);
 
-  /* Convert expressions of the form (a*b*c) to {a,b,c} */
+  /* Convert expressions of the form (a*b*c) to [a,b,c] */
   flat:=Flatten(body,"*");
 
   /* Move the deltas to the front. */

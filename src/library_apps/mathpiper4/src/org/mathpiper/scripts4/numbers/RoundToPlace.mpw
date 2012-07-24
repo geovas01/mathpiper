@@ -4,7 +4,7 @@
 
 10 # RoundToPlace( N_Decimal?, place_Integer? ) <--
 ⊕
-    //If(InVerboseMode(),Tell("RoundToPlace_D",{N,place}));
+    //If(InVerboseMode(),Tell("RoundToPlace_D",[N,place]));
     Local(rep,sgn,oldInt,oldPrec,oldScale,oldPlaces,strOInt,LS);
     Local(newInt,newScale,newRep,ans);
     sgn      := Sign(N);
@@ -21,7 +21,7 @@
     //    Tell("         ",oldInt);
     //    Tell("         ",strOInt);
     //    Tell("         ",LS);
-    //    Tell("         ",{place,oldPrec});
+    //    Tell("         ",[place,oldPrec]);
     //    Tell("         ",oldPlaces);
     //   ]
     //);
@@ -35,7 +35,7 @@
 
 15 # RoundToPlace( N_Integer?, place_Integer? )_(place <=? 0) <--
 ⊕
-    //If(InVerboseMode(),Tell("RoundToPlace_I",{N,place}));
+    //If(InVerboseMode(),Tell("RoundToPlace_I",[N,place]));
     Local(oldRep,oldPrec,decN,newDecN,ans);
     oldRep   := NumberToRep(N);
     oldPrec  := oldRep[2];
@@ -56,7 +56,7 @@
 
 20 # RoundToPlace( N_Complex?, place_Integer? )_(Not? Integer?(N)) <--
 ⊕
-    //If(InVerboseMode(),Tell("RoundToPlace_C",{N,place}));
+    //If(InVerboseMode(),Tell("RoundToPlace_C",[N,place]));
     Local(rr,ii);
     rr := Re(N);
     ii := Im(N);
@@ -80,27 +80,27 @@
 *CALL
         RoundToPlace(number,place)
 *PARMS
-{number} -- a number (Decimal, Integer, or Complex) whose precision is to be changed
-{place}  -- the decimal place to which to round
+[number] -- a number (Decimal, Integer, or Complex) whose precision is to be changed
+[place]  -- the decimal place to which to round
 
 
 *DESC
-This function rounds an {arbitrary-precision number} (A.P.N.) to the given
-decimal place.  The variable {place} is an integer counting from the current
-position of the decimal point in {number}.  If {place} is positive, the
+This function rounds an [arbitrary-precision number] (A.P.N.) to the given
+decimal place.  The variable [place] is an integer counting from the current
+position of the decimal point in [number].  If [place] is positive, the
 number will be rounded to the position that many places to the right of
-the current decimal point.  If {place} is negative, the number will be rounded
+the current decimal point.  If [place] is negative, the number will be rounded
 to the position that many places to the left of the current decimal point. 
 
 The examples shown below will hopefully clarify the above description.
 
-See the documentation for the related function {RoundToPrecision} for a
+See the documentation for the related function [RoundToPrecision] for a
 detailed description of the way MathPiper internally represents A.P.N.s.
 
 NOTE:  It is important to recognize the distinction (often misused or misunderstood)
 between rounding "to a specified decimal place" (which this function does) and 
 rounding "to a specified precision", which in MathPiper is accomplished by
-the function {RoundToPrecision} (q.v.).  
+the function [RoundToPrecision] (q.v.).  
 
 For Decimal numbers and Decimal Complex numbers, the concept of Rounding to a 
 given decimal place to the left or right of the current decimal point is well 
@@ -110,11 +110,11 @@ further to the right than the last decimal place of the number just adds
 trailing zeros.
 
 For Integers and Complex Integers (Gaussian Integers), the concept of
-Rounding to a decimal position {within} the integer (place < 0 ) makes sense,
+Rounding to a decimal position [within] the integer (place < 0 ) makes sense,
 and will be accomplished by this function.  Digits between the rounding digit
 and the end of the integer will be replaced by zeros. 
 However, it makes no sense to try to round an integer to a decimal place
-{outside} the integer, and this function will return unevaluated if place > 0.
+[outside] the integer, and this function will return unevaluated if place > 0.
 *E.G.
 In> dec:=123.45678
 Result: 123.45678

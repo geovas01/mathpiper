@@ -10,14 +10,14 @@ LogicCombine(_list) <--
   Local(i, j);
   For(Bind(i,1), i<=?Length(list), Bind(i,AddN(i,1)))
   ⊕
-    //Echo({"list[", i, "/", Length(list), "]: ", list[i], Nl()});
+    //Echo(["list[", i, "/", Length(list), "]: ", list[i], Nl()]);
 
     For(j := 1, (j<=?Length(list[i])), j++)
     ⊕
       Local(tocombine, n, k);
       Bind(n, list[i][j]);
 
-      {tocombine, k} := LogicFindWith(list, i, n);// search forward for n, tocombine is the list we
+      [tocombine, k] := LogicFindWith(list, i, n);// search forward for n, tocombine is the list we
                                                   // will combine the current one with
       If(tocombine !=? -1,
       ⊕
@@ -25,8 +25,8 @@ LogicCombine(_list) <--
         Check(k !=? -1, "Math", "k is -1");
 
         Bind(combination, LogicRemoveTautologies(Concat(list[i], list[tocombine])));
-        If(combination =? {},                      // the combined clause is false, so the whole thing is false
-          ⊕ Bind(list, {{}}); Bind(i, Length(list)+1);⊖, ⊕ /*Bind(i, 0);*/ ⊖);
+        If(combination =? [],                      // the combined clause is false, so the whole thing is false
+          ⊕ Bind(list, [[]]); Bind(i, Length(list)+1);⊖, ⊕ /*Bind(i, 0);*/ ⊖);
       ⊖);
     ⊖;
   ⊖;

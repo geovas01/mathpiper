@@ -28,7 +28,7 @@ LocalSymbols(CacheOfConstantsN) ⊕
 
 /// declare a new cached constant Catom and its associated function Catom().
 /// Catom() will call Cfunc() at current precision to evaluate Catom if it has not yet been cached at that precision. (note: any arguments to Cfunc() must be included)
-RulebaseHoldArguments("CachedConstant", {Ccache, Catom, Cfunc});
+RulebaseHoldArguments("CachedConstant", [Ccache, Catom, Cfunc]);
 UnFence("CachedConstant", 3);        // not sure if this is useful
 HoldArgument("CachedConstant", Cfunc);
 HoldArgument("CachedConstant", Ccache);        // name of the cache
@@ -41,23 +41,23 @@ RuleHoldArguments("CachedConstant", 3, 10, And?(Atom?(Catom), Function?(Cfunc)))
 
         If(        // create the cache it if it does not already exist
                 Atom?(Eval(Ccache)),
-                MacroBind(Eval(Ccache), {})
+                MacroBind(Eval(Ccache), [])
         );
-//        Write({"debug step 0: ", Ccache, Eval(Ccache), Catom, Cfunc, Cname});
+//        Write(["debug step 0: ", Ccache, Eval(Ccache), Catom, Cfunc, Cname]);
         // check that the constant is not already defined
         If(
           Equal?(BuiltinAssoc(Cname, Eval(Ccache)), Empty),        // the constant is not already defined, so need to define "Catom" and the corresponding function "Catom"()
           ⊕        // e.g. Catom evaluates to Pi, Ccache to a name e.g. CacheOfConstantsN, which is bound to a hash
                 MacroUnbind(Catom);
-//                Write({"debug step 1: ", Cachename, Ccache, Eval(Ccache)});
+//                Write(["debug step 1: ", Cachename, Ccache, Eval(Ccache)]);
                 // add the new constant to the cache
-//                MacroBind(Cachename, Insert(Eval(Ccache), 1, {Cname, 0, 0}));
-                DestructiveInsert(Eval(Ccache), 1, {Cname, 0, 0});
-//                Write({"debug step 2: ", Cachename, Ccache, Eval(Ccache)});
+//                MacroBind(Cachename, Insert(Eval(Ccache), 1, [Cname, 0, 0]));
+                DestructiveInsert(Eval(Ccache), 1, [Cname, 0, 0]);
+//                Write(["debug step 2: ", Cachename, Ccache, Eval(Ccache)]);
                 // define the new function "Catom"()
                 // note: this should not use N() because it may be called from inside N() itself
 
-                RulebaseEvaluateArguments(CfunctionName, {});
+                RulebaseEvaluateArguments(CfunctionName, []);
                 `( RuleHoldArguments(@CfunctionName, 0, 1024, True)
                 ⊕
                         Local(newprec, newC, cachedC);
@@ -79,7 +79,7 @@ RuleHoldArguments("CachedConstant", 3, 10, And?(Atom?(Catom), Function?(Cfunc)))
                 ⊖);
 
                 // calculate Catom at current precision for the first time
-//                Eval(ListToFunction({Catom}));        // "Cname"();
+//                Eval(ListToFunction([Catom]));        // "Cname"();
                 // we do not need this until the constant is used; it will just slow us down
           ⊖,
           // the constant is defined
@@ -92,7 +92,7 @@ RuleHoldArguments("CachedConstant", 3, 20, True)
 
 /// assign numerical values to all cached constants: using fixed cache "CacheOfConstantsN"
 // this is called from N()
-Function("AssignCachedConstantsN", {})
+Function("AssignCachedConstantsN", [])
 ⊕
         Local(var,fname);
         ForEach(var, AssocIndices(CacheOfConstantsN))
@@ -101,14 +101,14 @@ Function("AssignCachedConstantsN", {})
     Bind(fname,ConcatStrings("Internal",var));
     Bind(var,ToAtom(var));
                 // this way the routine InternalPi() will be actually called only when the variable Pi is used, etcetera.
-    `SetGlobalLazyVariable((@var), ListToFunction({ToAtom(fname)}));
+    `SetGlobalLazyVariable((@var), ListToFunction([ToAtom(fname)]));
         ⊖;
 ⊖;
 UnFence("AssignCachedConstantsN", 0);
 
 /// clear values from all cached constants: using fixed cache "CacheOfConstantsN"
 // this is called from N()
-Function("ClearCachedConstantsN", {})
+Function("ClearCachedConstantsN", [])
 ⊕
         Local(centry);
         ForEach(centry, CacheOfConstantsN)
@@ -152,7 +152,7 @@ CachedConstant(CacheOfConstantsN, Catalan, CatalanConstNum() );
 *DESC
 
 This symbol represents the imaginary unit, which equals the square
-root of -1. It evaluates to {Complex(0,1)}.
+root of -1. It evaluates to [Complex(0,1)].
 
 *E.G.
 
@@ -175,9 +175,9 @@ Result: True;
 
 *DESC
 
-Pi symbolically represents the exact value of $pi$. When the {N()} function is
-used, {Pi} evaluates to a numerical value according to the current precision.
-It is better to use {Pi} than {N(Pi)} except in numerical calculations, because exact
+Pi symbolically represents the exact value of $pi$. When the [N()] function is
+used, [Pi] evaluates to a numerical value according to the current precision.
+It is better to use [Pi] than [N(Pi)] except in numerical calculations, because exact
 simplification will be possible.
 
 This is a "cached constant" which is recalculated only when precision is increased.
@@ -211,9 +211,9 @@ The ancient Greeks defined the "golden ratio" as follows:
 If one divides a length 1 into two pieces $x$ and $1-x$, such that the ratio of 1 to $x$ is the same as the ratio of $x$ to $1-x$, then $1/x <=> 1.618$... is the "golden ratio".
 
 
-The constant is available symbolically as {GoldenRatio} or numerically through {N(GoldenRatio)}.
+The constant is available symbolically as [GoldenRatio] or numerically through [N(GoldenRatio)].
 This is a "cached constant" which is recalculated only when precision is increased.
-The numerical value of the constant can also be obtained as {N(GoldenRatio)}.
+The numerical value of the constant can also be obtained as [N(GoldenRatio)].
 
 
 *E.G.
@@ -246,10 +246,10 @@ Result: 1.6180339887498948482;
 
 These functions compute Catalans Constant $Catalan<=>0.9159655941$.
 
-The constant is available symbolically as {Catalan} or numerically through {N(Catalan)} with {N(...)} the usual operator used to try to coerce an expression in to a numeric approximation of that expression.
+The constant is available symbolically as [Catalan] or numerically through [N(Catalan)] with [N(...)] the usual operator used to try to coerce an expression in to a numeric approximation of that expression.
 This is a "cached constant" which is recalculated only when precision is increased.
-The numerical value of the constant can also be obtained as {N(Catalan)}.
-The low-level numerical computations are performed by the routine {CatalanConstNum}.
+The numerical value of the constant can also be obtained as [N(Catalan)].
+The low-level numerical computations are performed by the routine [CatalanConstNum].
 
 
 *E.G.
@@ -280,12 +280,12 @@ Result: 0.91596559417721901505;
 
 These functions compute Eulers constant $gamma<=>0.57722$...
 
-The constant is available symbolically as {gamma} or numerically through using the usual function {N(...)} to get a numeric result, {N(gamma)}.
+The constant is available symbolically as [gamma] or numerically through using the usual function [N(...)] to get a numeric result, [N(gamma)].
 This is a "cached constant" which is recalculated only when precision is increased.
-The numerical value of the constant can also be obtained as {N(gamma)}.
-The low-level numerical computations are performed by the routine {GammaConstNum}.
+The numerical value of the constant can also be obtained as [N(gamma)].
+The low-level numerical computations are performed by the routine [GammaConstNum].
 
-Note that Eulers Gamma function $Gamma(x)$ is the capitalized {Gamma} in MathPiper.
+Note that Eulers Gamma function $Gamma(x)$ is the capitalized [Gamma] in MathPiper.
 
 *E.G.
 
@@ -313,37 +313,37 @@ Result: 0.57721566490153286061;
         CachedConstant(cache, Cname, Cfunc)
 
 *PARMS
-{cache} -- atom, name of the cache
+[cache] -- atom, name of the cache
 
-{Cname} -- atom, name of the constant
+[Cname] -- atom, name of the constant
 
-{Cfunc} -- expression that evaluates the constant
+[Cfunc] -- expression that evaluates the constant
 
 *DESC
 
 This function is used to create precomputed multiple-precision values of
 constants. Caching these values will save time if they are frequently used.
 
-The call to {CachedConstant} defines a new function named {Cname()} that
+The call to [CachedConstant] defines a new function named [Cname()] that
 returns the value of the constant at given precision. If the precision is
-changed, the value will be recalculated as necessary, otherwise calling {Cname()} will take very little time.
+changed, the value will be recalculated as necessary, otherwise calling [Cname()] will take very little time.
 
-The parameter {Cfunc} must be an expression that can be evaluated and returns
+The parameter [Cfunc] must be an expression that can be evaluated and returns
 the value of the desired constant at the current precision. (Most arbitrary-precision mathematical functions do this by default.)
 
-The associative list {cache} contains elements of the form {{Cname, prec, value}}, as illustrated in the example. If this list does not exist, it will be created.
+The associative list [cache] contains elements of the form [[Cname, prec, value]], as illustrated in the example. If this list does not exist, it will be created.
 
-This mechanism is currently used by {N()} to precompute the values of $Pi$ and $gamma$ (and the golden ratio through {GoldenRatio}, and {Catalan}).
-The name of the cache for {N()} is {CacheOfConstantsN}.
-The code in the function {N()} assigns unevaluated calls to {InternalPi()} and {Internalgamma()} to the atoms {Pi} and {gamma} and declares them to be lazy global variables through {SetGlobalLazyVariable} (with equivalent functions assigned to other constants that are added to the list of cached constants).
+This mechanism is currently used by [N()] to precompute the values of $Pi$ and $gamma$ (and the golden ratio through [GoldenRatio], and [Catalan]).
+The name of the cache for [N()] is [CacheOfConstantsN].
+The code in the function [N()] assigns unevaluated calls to [InternalPi()] and [Internalgamma()] to the atoms [Pi] and [gamma] and declares them to be lazy global variables through [SetGlobalLazyVariable] (with equivalent functions assigned to other constants that are added to the list of cached constants).
 
-The result is that the constants will be recalculated only when they are used in the expression under {N()}.
-In other words, the code in {N()} does the equivalent of
+The result is that the constants will be recalculated only when they are used in the expression under [N()].
+In other words, the code in [N()] does the equivalent of
 
         SetGlobalLazyVariable(mypi,Hold(InternalPi()));
         SetGlobalLazyVariable(mygamma,Hold(Internalgamma()));
 
-After this, evaluating an expression such as {1/2+gamma} will call the function {Internalgamma()} but not the function {InternalPi()}.
+After this, evaluating an expression such as [1/2+gamma] will call the function [Internalgamma()] but not the function [InternalPi()].
 
 *E.G. notest
 
@@ -356,7 +356,7 @@ In> V(N(InternalLn2(),20))
           recalculated at precision 20 
 Result: 0.69314718055994530942;
 In> mycache
-Result: {{"Ln2",20,0.69314718055994530942}};
+Result: [["Ln2",20,0.69314718055994530942]];
 
 
 *SEE N, BuiltinPrecisionSet, Pi, GoldenRatio, Catalan, gamma

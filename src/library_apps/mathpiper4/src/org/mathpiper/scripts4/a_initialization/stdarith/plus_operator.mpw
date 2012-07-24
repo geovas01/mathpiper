@@ -37,12 +37,12 @@
 
 //  220 # + x_List?          <-- MapSingle("+",x);        // this rule is never active
 
-220 # (xlist_List? + ylist_List?)_(Length(xlist)=?Length(ylist)) <-- Map("+",{xlist,ylist});
+220 # (xlist_List? + ylist_List?)_(Length(xlist)=?Length(ylist)) <-- Map("+",[xlist,ylist]);
 
 SumListSide(_x, y_List?) <--
 ⊕
    Local(i,result);
-   result:={};
+   result:=[];
    For(i:=1,i<=?Length(y),i++)
    ⊕ DestructiveInsert(result,i,x + y[i]); ⊖;
    result;
@@ -79,7 +79,7 @@ Precedence:
 
 *PARMS
 
-{x} and {y} -- objects for which arithmetic addition is defined
+[x] and [y] -- objects for which arithmetic addition is defined
 
 
 *DESC

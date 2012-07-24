@@ -2,8 +2,8 @@
 
 LocalSymbols(a,x)
 ⊕
-Function("Conjugate",{a})
-  Substitute(a,{{x},Type(x)=?"Complex"},{{x},Complex(x[1],-(x[2]))});
+Function("Conjugate",[a])
+  Substitute(a,[[x],Type(x)=?"Complex"],[[x],Complex(x[1],-(x[2]))]);
 ⊖; // LocalSymbols(a,x)
 
 %/mathpiper
@@ -18,7 +18,7 @@ Function("Conjugate",{a})
 
 *PARMS
 
-{x} -- argument to the function
+[x] -- argument to the function
 
 *DESC
 
@@ -43,6 +43,6 @@ Result: Complex(a,-b);
 %mathpiper,name="Conjugate",subtype="automatic_test"
 
 // the following broke evaluation (dr)
-Verify(Conjugate({a}),{a});
+Verify(Conjugate([a]),[a]);
 
 %/mathpiper

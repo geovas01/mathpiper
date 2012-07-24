@@ -13,7 +13,7 @@
 LocalSymbols(count, iterations, body)⊕
 
 
-RulebaseHoldArguments("Repeat",{iterations,body});
+RulebaseHoldArguments("Repeat",[iterations,body]);
 
 /*
   A Rule function needed to be used here because 10 # xxx <--
@@ -44,7 +44,7 @@ RuleHoldArguments("Repeat",2,10,Integer?(iterations) And? iterations >? 0)
 
 
 
-RulebaseHoldArguments("Repeat",{body});
+RulebaseHoldArguments("Repeat",[body]);
 
 
 RuleHoldArguments("Repeat",1,20,True)
@@ -85,16 +85,16 @@ HoldArgumentNumber("Repeat",1,1);
 
 *PARMS
 
-{count} -- a positive integer, the number of times to loop
+[count] -- a positive integer, the number of times to loop
 
-{body} -- expression to loop over
+[body] -- expression to loop over
 
 *DESC
 
-The first version of Repeat executes {body} the number of times
-which are specified by {count}.  The second version
-executes {body} indefinitely and the only way to exit the loop
-is to execute the Break function inside of {body}.
+The first version of Repeat executes [body] the number of times
+which are specified by [count].  The second version
+executes [body] indefinitely and the only way to exit the loop
+is to execute the Break function inside of [body].
 
 Repeat returns the number of times it looped as a result.
 

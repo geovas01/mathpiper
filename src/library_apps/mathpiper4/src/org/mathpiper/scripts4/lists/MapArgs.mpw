@@ -1,10 +1,10 @@
 %mathpiper,def="MapArgs"
 
-TemplateFunction("MapArgs",{expr,oper})
+TemplateFunction("MapArgs",[expr,oper])
 ⊕
   Bind(expr,FunctionToList(expr));
-   ListToFunction(Concat({expr[1]},
-     Apply("MapSingle",{oper,Rest(expr)})
+   ListToFunction(Concat([expr[1]],
+     Apply("MapSingle",[oper,Rest(expr)])
    ) );
 ⊖;
 UnFence("MapArgs",2);
@@ -22,9 +22,9 @@ HoldArgument("MapArgs",oper);
 
 *PARMS
 
-{expr} -- an expression to work on
+[expr] -- an expression to work on
 
-{fn} -- an operation to perform on each argument
+[fn] -- an operation to perform on each argument
 
 *DESC
 
@@ -37,8 +37,8 @@ pure functions).
 
 In> MapArgs(f(x,y,z),"Sin");
 Result: f(Sin(x),Sin(y),Sin(z));
-In> MapArgs({3,4,5,6}, {{x},x^2});
-Result: {9,16,25,36};
+In> MapArgs([3,4,5,6], [[x],x^2]);
+Result: [9,16,25,36];
 
 *SEE MapSingle, Map, Apply
 %/mathpiper_docs

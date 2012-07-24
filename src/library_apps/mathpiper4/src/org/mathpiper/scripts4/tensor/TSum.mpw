@@ -3,11 +3,11 @@
 /* Tensor package. This code intends to simplify tensorial expressions.
  */
 
-RulebaseHoldArguments("TSum",{indices,body});
+RulebaseHoldArguments("TSum",[indices,body]);
 
 /* The only TSum summation simplification: summing over no indices
    means no summation. */
-10 # (TSum({})(_body)) <-- body;
+10 # (TSum([])(_body)) <-- body;
 
 /* Explicit summation when Ndim is defined. This summation will
    be invoked when using TExplicitSum. */
@@ -36,30 +36,30 @@ UnFence("TSum",2);
 
 %mathpiper,name="tensors",subtype="automatic_test"
 
-RulebaseHoldArguments("v",{x}); //A function for testing purposes. It is retracted at the end of the testing code.
-RulebaseHoldArguments("X",{x}); //A function for testing purposes. It is retracted at the end of the testing code.
+RulebaseHoldArguments("v",[x]); //A function for testing purposes. It is retracted at the end of the testing code.
+RulebaseHoldArguments("X",[x]); //A function for testing purposes. It is retracted at the end of the testing code.
 
-TestMathPiper(TSimplify( TSum({j}) Delta(i,j)*v(j) ),v(i));
-TestMathPiper(TSimplify( TSum({j,i}) Delta(i,j)*Delta(i,j) ), Ndim);
-TestMathPiper(TSimplify( TSum({j,i}) Delta(i,j)*Delta(j,i) ), Ndim);
-TestMathPiper(TSimplify( TSum({j}) Delta(i,j)*Delta(j,k) ), Delta(i,k));
-TestMathPiper(TSimplify( TSum({i}) v(i)*v(i) ), TSum({i})(v(i)^2));
+TestMathPiper(TSimplify( TSum([j]) Delta(i,j)*v(j) ),v(i));
+TestMathPiper(TSimplify( TSum([j,i]) Delta(i,j)*Delta(i,j) ), Ndim);
+TestMathPiper(TSimplify( TSum([j,i]) Delta(i,j)*Delta(j,i) ), Ndim);
+TestMathPiper(TSimplify( TSum([j]) Delta(i,j)*Delta(j,k) ), Delta(i,k));
+TestMathPiper(TSimplify( TSum([i]) v(i)*v(i) ), TSum([i])(v(i)^2));
 Retract("v",1);
-RulebaseHoldArguments("v",{ii});
+RulebaseHoldArguments("v",[ii]);
 f(i,j):=v(i)*v(j);
 TestMathPiper(f(i,i),v(i)^2);
-TestMathPiper(TSimplify( TSum({i}) f(i,i) ),TSum({i})(v(i)^2));
-TestMathPiper(TSimplify( TSum({j}) Delta(i,j)*f(j,k) ),v(i)*v(k));
+TestMathPiper(TSimplify( TSum([i]) f(i,i) ),TSum([i])(v(i)^2));
+TestMathPiper(TSimplify( TSum([j]) Delta(i,j)*f(j,k) ),v(i)*v(k));
 
-TestMathPiper(TSimplify(TSum({i,j}) Delta(i,j)*f(i,j) ),  TSum({j})v(j)^2);
-TestMathPiper(TSimplify(TSum({i})X(j)*TD(i)X(i)),  Ndim*X(j));
-TestMathPiper(TSimplify(TSum({i}) TD(i)(X(i)*X(j)) ), Ndim*X(j)+X(j));
-TestMathPiper(TSimplify(TSum({i}) X(i)*TD(i)X(j) ), X(j));
-TestMathPiper(TSimplify(TSum({i})TD(i)v(i)),  TSum({i})TD(i)v(i));
+TestMathPiper(TSimplify(TSum([i,j]) Delta(i,j)*f(i,j) ),  TSum([j])v(j)^2);
+TestMathPiper(TSimplify(TSum([i])X(j)*TD(i)X(i)),  Ndim*X(j));
+TestMathPiper(TSimplify(TSum([i]) TD(i)(X(i)*X(j)) ), Ndim*X(j)+X(j));
+TestMathPiper(TSimplify(TSum([i]) X(i)*TD(i)X(j) ), X(j));
+TestMathPiper(TSimplify(TSum([i])TD(i)v(i)),  TSum([i])TD(i)v(i));
 
-TestMathPiper(TSimplify(TSum({i,j})TD(i)TD(j)(X(i)*X(j))), Ndim+Ndim^2);
-TestMathPiper(TSimplify(TSum({i})TD(i)(X(i)*X(j)*X(j))),  Ndim*X(j)^2+2*X(j)^2);
-TestMathPiper(TSimplify(TSum({i,j,k})TD(i)TD(j)TD(k)(X(i)*X(j)*X(k))),  3*Ndim^2+2*Ndim+Ndim^3);
+TestMathPiper(TSimplify(TSum([i,j])TD(i)TD(j)(X(i)*X(j))), Ndim+Ndim^2);
+TestMathPiper(TSimplify(TSum([i])TD(i)(X(i)*X(j)*X(j))),  Ndim*X(j)^2+2*X(j)^2);
+TestMathPiper(TSimplify(TSum([i,j,k])TD(i)TD(j)TD(k)(X(i)*X(j)*X(k))),  3*Ndim^2+2*Ndim+Ndim^3);
 
 
 Retract("v",1);

@@ -28,8 +28,8 @@ CoefficientOfDetermination(x,y) :=
 
 *PARMS
 
-{xList} -- the list of domain values
-{yList} -- the list of range values
+[xList] -- the list of domain values
+[yList] -- the list of range values
 
 *DESC
 This function calculates the correlation coefficient between two lists of values.
@@ -37,8 +37,8 @@ This function calculates the correlation coefficient between two lists of values
 *E.G.
 /%mathpiper
 
-x := {4,3,5,2,3,4,3};
-y := {83,86,92,78,82,95,80};
+x := [4,3,5,2,3,4,3];
+y := [83,86,92,78,82,95,80];
 
 CoefficientOfDetermination(x,y);
 

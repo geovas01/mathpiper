@@ -46,7 +46,7 @@ LocalSymbols(x,y,xarg,yarg)
 ⊕
   10 # ((x_List?) - (y_List?))_(Length(x)=?Length(y)) <--
   ⊕
-    Map({{xarg,yarg},xarg-yarg},{x,y});
+    Map([[xarg,yarg],xarg-yarg],[x,y]);
   ⊖;
 ⊖;
 
@@ -55,7 +55,7 @@ LocalSymbols(x,y,xarg,yarg)
 241 # (x_NonObject? - y_List?)_Not?(List?(x)) <--
 ⊕
    Local(i,result);
-   result:={};
+   result:=[];
    For(i:=1,i<=?Length(y),i++)
    ⊕ DestructiveInsert(result,i,x - y[i]); ⊖;
    result;
@@ -92,7 +92,7 @@ Precedence: left-side:
 
 *PARMS
 
-{x} and {y} -- objects for which subtraction is defined
+[x] and [y] -- objects for which subtraction is defined
 
 *DESC
 

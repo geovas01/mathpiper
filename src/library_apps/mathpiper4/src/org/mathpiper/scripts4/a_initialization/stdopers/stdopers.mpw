@@ -2,7 +2,7 @@
 
 
 
-RulebaseHoldArguments(StandardOperatorsLoad,{});
+RulebaseHoldArguments(StandardOperatorsLoad,[]);
 RuleHoldArguments(StandardOperatorsLoad, 0, 1, True)
 ⊕
     /* stdopers is loaded immediately after MathPiper is started. It contains
@@ -25,7 +25,7 @@ RuleHoldArguments(StandardOperatorsLoad, 0, 1, True)
     Infix(":=",10000);
     RightAssociativeSet(":=");
     
-    RulebaseHoldArguments(":",{left,right});
+    RulebaseHoldArguments(":",[left,right]);
     Infix(":",900);
 
     Infix("+",70);

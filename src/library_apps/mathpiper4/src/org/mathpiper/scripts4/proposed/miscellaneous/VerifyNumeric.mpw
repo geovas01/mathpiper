@@ -16,7 +16,7 @@ VerifyNumeric(expression1, expression2, optionsList) :=
     ⊖
     else
     ⊕
-        optionsList := HeapSort(optionsList, Lambda({x,y},LessThan?(x[1],y[1])));
+        optionsList := HeapSort(optionsList, Lambda([x,y],LessThan?(x[1],y[1])));
         
         associativeList := OptionsToAssociativeList(optionsList);
         
@@ -34,7 +34,7 @@ VerifyNumeric(expression1, expression2, optionsList) :=
         
         numericValue2 := N(WithValue(variablesList2, optionsValuesList, expression2 ));
         
-        Echo(Map("->",{variablesList1, optionsValuesList}));
+        Echo(Map("->",[variablesList1, optionsValuesList]));
         
         NewLine();
     ⊖;
@@ -59,7 +59,7 @@ VerifyNumeric(expression1, expression2, optionsList) :=
 
 VerifyNumeric(expression1, expression2) :=
 ⊕
-    VerifyNumeric(expression1, expression2, {});
+    VerifyNumeric(expression1, expression2, []);
 ⊖;
 
 %/mathpiper
@@ -83,25 +83,25 @@ VerifyNumeric(expression1, expression2) :=
     Verify(numericExpression1,numericExpression2)
 
 *PARMS
-{symbolicExpression1} -- a symbolic expression
+[symbolicExpression1] -- a symbolic expression
 
-{symbolicExpression2} -- a symbolic expression
+[symbolicExpression2] -- a symbolic expression
 
-{variableAssignmentList} -- a list which contains variable assignments in the form {b->7,a->4}
+[variableAssignmentList] -- a list which contains variable assignments in the form [b->7,a->4]
 
-{numericExpression1} -- a numeric expression
+[numericExpression1] -- a numeric expression
 
-{numericExpression2} -- a numeric expression
+[numericExpression2] -- a numeric expression
 
 *DESC
 The symbolic expression version of this function numerically evaluates two symbolic expressions to indicate if
-they may be equivalent or not.  The values to set the variables to are contained in {variableAssignmentList}.
+they may be equivalent or not.  The values to set the variables to are contained in [variableAssignmentList].
 
 The numeric expression version of this function evaluates two numeric expressions to indicate if they are
 equivalent or not.
 
 *E.G.
-In> VerifyNumeric((72*a^3*b^5)^(1/2), 6*a*b^2*(2*a*b)^(1/2), {b->7,a->4})
+In> VerifyNumeric((72*a^3*b^5)^(1/2), 6*a*b^2*(2*a*b)^(1/2), [b->7,a->4])
 Result: 0.000000
 Side Effects:
 a->4 b->7 

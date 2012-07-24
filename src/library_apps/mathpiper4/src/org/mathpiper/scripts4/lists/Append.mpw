@@ -1,6 +1,6 @@
 %mathpiper,def="Append"
 
-Function("Append",{list,element})
+Function("Append",[list,element])
 ⊕
   Check(List?(list), "Argument", "The first argument must be a list.");
 
@@ -20,9 +20,9 @@ Function("Append",{list,element})
 
 *PARMS
 
-{list} -- list to append "expr" to
+[list] -- list to append "expr" to
 
-{expr} -- expression to append to the list
+[expr] -- expression to append to the list
 
 *DESC
 
@@ -36,8 +36,8 @@ constant.
 
 *E.G.
 
-In> Append({a,b,c,d}, 1);
-Result: {a,b,c,d,1};
+In> Append([a,b,c,d], 1);
+Result: [a,b,c,d,1];
 
 *SEE Concat, :, DestructiveAppend
 %/mathpiper_docs

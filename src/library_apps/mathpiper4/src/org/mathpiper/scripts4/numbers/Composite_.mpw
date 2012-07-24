@@ -15,11 +15,11 @@
 
 *PARMS
 
-{n} -- positive integer
+[n] -- positive integer
 
 *DESC
 
-This function is the logical negation of {Prime?}, except for the number 1, which is
+This function is the logical negation of [Prime?], except for the number 1, which is
 neither prime nor composite.
 
 *E.G.
@@ -31,7 +31,7 @@ Result: False;
 In> Composite?(8)
 Result: True;
 In> Select(1 .. 20, Composite?)
-Result: {4,6,8,9,10,12,14,15,16,18,20};
+Result: [4,6,8,9,10,12,14,15,16,18,20];
 
 *SEE Prime?
 %/mathpiper_docs

@@ -9,16 +9,16 @@
 
 15 # jSolveUniPoly( poly_Polynomial?, var_Atom? )_(Length(VarList(poly))=?1) <--
 ⊕
-   If(InVerboseMode(),Tell(jSolveUniPoly,{poly,var}));
+   If(InVerboseMode(),Tell(jSolveUniPoly,[poly,var]));
    Local(factorList,f,fac,mult,ii,answer);
    factorList := Factors(poly);
    If(InVerboseMode(),Tell("   ",factorList));
-   answer := {};
+   answer := [];
    ForEach(f,factorList)
     ⊕
-        {fac,mult} := f;
+        [fac,mult] := f;
         soln := Solve(fac,var);
-        If(InVerboseMode(),⊕Tell("      ",{fac,mult});Tell("      ",soln);⊖);
+        If(InVerboseMode(),⊕Tell("      ",[fac,mult]);Tell("      ",soln);⊖);
         ForEach(ii,1 .. mult)
          ⊕  DestructiveAppend(answer,soln); ⊖;
     ⊖;
@@ -45,19 +45,19 @@
 
 *PARMS
 
-{eq} -- equation to solve
+[eq] -- equation to solve
 
-{var} -- variable to solve for
+[var] -- variable to solve for
 
 *DESC
 
 This command tries to solve the polynomial equation by factoring. 
-If {eq} does not contain the {==} operator, it is assumed that the 
+If [eq] does not contain the [==] operator, it is assumed that the 
 user wants to solve $eq ==0$. 
-The result is a list of equations of the form {var == value}, each
-representing a solution of the given equation. The {Where} operator
+The result is a list of equations of the form [var == value], each
+representing a solution of the given equation. The [Where] operator
 can be used to substitute this solution in another expression. If the
-given equation {eq} does not have any solutions, or if {jSolveUniPoly} is
+given equation [eq] does not have any solutions, or if [jSolveUniPoly] is
 unable to find any, then an empty list is returned.
 
 *SEE Solve, PSolve, Where, ==

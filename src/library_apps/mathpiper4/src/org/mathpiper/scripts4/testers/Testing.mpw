@@ -1,6 +1,6 @@
 %mathpiper,def="Testing"
 
-Function("Testing",{aLeft})
+Function("Testing",[aLeft])
 ⊕
     WriteString("--");
     WriteString(aLeft);

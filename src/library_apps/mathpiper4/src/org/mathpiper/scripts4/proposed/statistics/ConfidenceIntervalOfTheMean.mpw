@@ -8,7 +8,7 @@ ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnow
     
     Local(criticalZScore,criticalTScore,standardErrorOfTheMean,upperLimitValue,lowerLimitValue,resultList);
     
-    resultList := {};
+    resultList := [];
     
     If(sampleSize >=? 30 Or? standardDeviationIsKnown =? True,
     ⊕
@@ -79,35 +79,35 @@ ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnow
 *CALL
         ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnown,sampleSize,confidenceLevel)
 *PARMS
-{sampleMean} -- the mean of the sample
-{standardDeviation} -- the standard deviation of the sample
-{standardDeviationIsKnown} -- True or False
-{sampleSize} -- the size of the sample
-{confidenceLevel} -- the desired confidence level
+[sampleMean] -- the mean of the sample
+[standardDeviation] -- the standard deviation of the sample
+[standardDeviationIsKnown] -- True or False
+[sampleSize] -- the size of the sample
+[confidenceLevel] -- the desired confidence level
 
 *DESC
 This function calculates a confidence interval for a mean.  It returns an association list
 which contains the lower limit, the upper limit, and either the critical Z score or the t value.
-If the sample size is <30 or {standardDeviationIsKnown} is False, then
+If the sample size is <30 or [standardDeviationIsKnown] is False, then
 Student's t-distribution is used during the calculation.
 
 If the function is run in verbose mode, it returns additional information as a side effect.
 
 *E.G.
 In> result := ConfidenceIntervalOfTheMean(78.25,37.50,True,32,.90)
-Result: {{"lowerLimit",67.34605578},{"upperLimit",89.15394422},{"criticalZScore",1.644853952}}
+Result: [["lowerLimit",67.34605578],["upperLimit",89.15394422],["criticalZScore",1.644853952]]
 
 In> result["upperLimit"]
 Result: 89.15394422
 
 In> result := ConfidenceIntervalOfTheMean(78.25,37.50,False,25,.90)
-Result: {{"lowerLimit",65.41838440},{"upperLimit",91.08161560},{"criticalTScore",1.710882080}}
+Result: [["lowerLimit",65.41838440],["upperLimit",91.08161560],["criticalTScore",1.710882080]]
 
 In> result["criticalTScore"]
 Result: 1.710882080
 
 In> result := V(ConfidenceIntervalOfTheMean(78.25,37.50,True,32,.90))
-Result: {{"lowerLimit",67.34605578},{"upperLimit",89.15394422},{"criticalZScore",1.644853952}}
+Result: [["lowerLimit",67.34605578],["upperLimit",89.15394422],["criticalZScore",1.644853952]]
 Side Effects:
 Using the normal distribution.
 Critical Z-Score: 1.644853952 

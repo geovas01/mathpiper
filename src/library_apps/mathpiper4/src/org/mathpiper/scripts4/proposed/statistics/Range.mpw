@@ -23,7 +23,7 @@ Range(list) :=
 
 *PARMS
 
-{list} -- list of values
+[list] -- list of values
 
 *DESC
 
@@ -31,7 +31,7 @@ This function calculates the Range of a list of values.  The Range is the value
 that occurs most frequently.
 
 *E.G.
-In> Range({2,3,4,3,4,5,5})
+In> Range([2,3,4,3,4,5,5])
 Result: 3
 
 *SEE Mean, WeightedMean, Median, GeometricMean

@@ -1,11 +1,11 @@
 %mathpiper,def="Assoc"
 
-/* Assoc : given an assoc list like for example l:={{a,2},{b,3}},
-   Assoc(b,l) will return {b,3}. if the key is not in the list,
+/* Assoc : given an assoc list like for example l:=[[a,2],[b,3]],
+   Assoc(b,l) will return [b,3]. if the key is not in the list,
    it will return the atom Empty.
 */
 
-Function("Assoc",{key,list})  BuiltinAssoc(key,list);
+Function("Assoc",[key,list])  BuiltinAssoc(key,list);
 
 %/mathpiper
 
@@ -19,27 +19,27 @@ Function("Assoc",{key,list})  BuiltinAssoc(key,list);
 
 *PARMS
 
-{key} -- string, key under which element is stored
+[key] -- string, key under which element is stored
 
-{alist} -- association list to examine
+[alist] -- association list to examine
 
 *DESC
 
 The association list "alist" is searched for an entry stored with
 index "key". If such an entry is found, it is returned. Otherwise
-the atom {Empty} is returned.
+the atom [Empty] is returned.
 
 Association lists are represented as a list of two-entry lists. The
 first element in the two-entry list is the key, the second element is
 the value stored under this key.
 
-The call {Assoc(key, alist)} can (probably more
-intuitively) be accessed as {alist[key]}.
+The call [Assoc(key, alist)] can (probably more
+intuitively) be accessed as [alist[key]].
 
 *E.G.
 
-In> writer := {};
-Result: {};
+In> writer := [];
+Result: [];
 In> writer["Iliad"] := "Homer";
 Result: True;
 In> writer["Henry IV"] := "Shakespeare";
@@ -47,7 +47,7 @@ Result: True;
 In> writer["Ulysses"] := "James Joyce";
 Result: True;
 In> Assoc("Henry IV", writer);
-Result: {"Henry IV","Shakespeare"};
+Result: ["Henry IV","Shakespeare"];
 In> Assoc("War and Peace", writer);
 Result: Empty;
 

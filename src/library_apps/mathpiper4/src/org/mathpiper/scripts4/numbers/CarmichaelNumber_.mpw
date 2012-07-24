@@ -36,11 +36,11 @@ CarmichaelNumber?(n_List?) <-- MapSingle("CarmichaelNumber?",n);
 
 *PARMS
 
-{n} -- positive integer
+[n] -- positive integer
 
 *DESC
 
-This function returns {True} if {n} is a Carmichael number, also called an absolute pseudoprime.
+This function returns [True] if [n] is a Carmichael number, also called an absolute pseudoprime.
 They have the property that $ b^(n-1) % n == 1 $ for all $b$ satisfying $Gcd(b,n)==1$. These numbers
 cannot be proved composite by Fermat's little theorem. Because the previous property is extremely
 slow to test, the following equivalent property is tested by MathPiper: for all prime factors $p[i]$ of $n$,
@@ -54,7 +54,7 @@ In> CarmichaelNumber?(561)
 Result: True;
 In> EchoTime() Select(1 .. 10000, CarmichaelNumber?)
         504.19 seconds taken
-Result: {561,1105,1729,2465,2821,6601,8911};
+Result: [561,1105,1729,2465,2821,6601,8911];
 
 *SEE SquareFree?, Composite?
 %/mathpiper_docs
@@ -65,7 +65,7 @@ Result: {561,1105,1729,2465,2821,6601,8911};
 
 %mathpiper,name="CarmichaelNumber?",subtype="automatic_test"
 
-Verify( CarmichaelNumber?( {561,1105,1729,2465,2821,6601,8911} ),{True,True,True,True,True,True,True} );
-Verify( CarmichaelNumber?( {0,1,2,1727,2463,2823,6603} ),{False,False,False,False,False,False,False} );
+Verify( CarmichaelNumber?( [561,1105,1729,2465,2821,6601,8911] ),[True,True,True,True,True,True,True] );
+Verify( CarmichaelNumber?( [0,1,2,1727,2463,2823,6603] ),[False,False,False,False,False,False,False] );
 
 %/mathpiper

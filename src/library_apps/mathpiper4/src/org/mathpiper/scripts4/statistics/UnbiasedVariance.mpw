@@ -22,17 +22,17 @@ UnbiasedVariance(list) :=
 
 *PARMS
 
-{list} -- list of values
+[list] -- list of values
 
 *DESC
 
 This function calculates the unbiased variance of a list of values.
 
 *E.G.
-In> UnbiasedVariance({73,94,80,37,57,94,40,21,7,26})
+In> UnbiasedVariance([73,94,80,37,57,94,40,21,7,26])
 Result: 88009/90
 
-In> N(UnbiasedVariance({73,94,80,37,57,94,40,21,7,26}))
+In> N(UnbiasedVariance([73,94,80,37,57,94,40,21,7,26]))
 Result: 977.8777778
 
 *SEE Variance, StandardDeviation

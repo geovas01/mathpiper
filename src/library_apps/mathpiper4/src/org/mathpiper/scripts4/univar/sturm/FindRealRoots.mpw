@@ -12,14 +12,14 @@ FindRealRoots(_p) <--
     var  := vars[1];
     cc   := Content(p);
     pp   := PrimitivePart(p);
-    If(iDebug,Tell("   ",{cc,pp}));
+    If(iDebug,Tell("   ",[cc,pp]));
     vlcc := VarList(cc);
     If(Length(vlcc)>?0 And? Contains?(vlcc,var), zeroRoot:=True,zeroRoot:=False);
     p:=SquareFree(Rationalize(pp));
     If(iDebug,Tell("   after sqf",p));
     minb := MinimumBound(p);
     maxb := MaximumBound(p);
-    If(iDebug,Tell("   ",{minb,maxb}));
+    If(iDebug,Tell("   ",[minb,maxb]));
     rr := FindRealRoots(p,minb,maxb);
     If(zeroRoot,DestructiveAppend(rr,0));
     rr;
@@ -28,10 +28,10 @@ FindRealRoots(_p) <--
 
 FindRealRoots(_p,_Mmin,_Mmax) <--
 ⊕
-    If(iDebug,Tell("  FindRealRoots3",{p,Mmin,Mmax}));
+    If(iDebug,Tell("  FindRealRoots3",[p,Mmin,Mmax]));
     Local(bounds,result,i,prec,requiredPrec);
     bounds := BoundRealRoots(p,Mmin,Mmax);
-    If(iDebug,Tell("      ",{bounds,Length(bounds)}));
+    If(iDebug,Tell("      ",[bounds,Length(bounds)]));
     result:=FillList(0,Length(bounds));
     requiredPrec := BuiltinPrecisionGet();
     BuiltinPrecisionSet(BuiltinPrecisionGet()+4);
@@ -41,9 +41,9 @@ FindRealRoots(_p,_Mmin,_Mmax) <--
     ⊕
         If(iDebug,Tell(i));
         Local(a,b,c,r);
-        {a,b} := bounds[i];
+        [a,b] := bounds[i];
         c:=N(Eval((a+b)/2));
-        If(iDebug,Tell("         ",{a,b,c}));
+        If(iDebug,Tell("         ",[a,b,c]));
         r := Fail;
         If(iDebug,Tell("         newt1",`Hold(Newton(@p,x,@c,@prec,@a,@b))));
         if (a !=? b) ⊕r := `Newton(@p,x,@c,prec,a,b);⊖;
@@ -58,7 +58,7 @@ FindRealRoots(_p,_Mmin,_Mmax) <--
              While (Abs(cold-c)>?prec)
              ⊕
                  pc:=(p Where x==c);
-                 If(iDebug,Tell("              ",{a,b,c}));
+                 If(iDebug,Tell("              ",[a,b,c]));
                  if (Abs(pc) <? prec)
                    ⊕ a:=c; b:=c; ⊖
                  else if (pa*pc <? 0)
@@ -88,7 +88,7 @@ FindRealRoots(_p,_Mmin,_Mmax) <--
 
 *PARMS
 
-{p} - a polynomial in {x}
+[p] - a polynomial in [x]
 
 *DESC
 
@@ -102,7 +102,7 @@ In> p:=Expand((x+3.1)^5*(x-6.23))
 Result: x^6+9.27*x^5-0.465*x^4-300.793*x^3-
         1394.2188*x^2-2590.476405*x-1783.5961073;
 In> FindRealRoots(p)
-Result: {-3.1,6.23};
+Result: [-3.1,6.23];
 
 *SEE SquareFree, RealRootsCount, MinimumBound, MaximumBound, Factor
 %/mathpiper_docs

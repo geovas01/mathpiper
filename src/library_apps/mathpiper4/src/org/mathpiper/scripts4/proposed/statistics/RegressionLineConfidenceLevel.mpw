@@ -26,7 +26,7 @@ RegressionLineConfidenceInterval(x,y,xValue,confidenceLevel) :=
 
     part := N(criticalTScore * standardErrorOfTheEstimate * Sqrt(1/n + ((xValue - xMean)^2)/(Sum(x^2) - Sum(x)^2/n)));
     
-    result := {};
+    result := [];
     
     result["upper"] := f(xValue) + part;
     
@@ -38,7 +38,7 @@ RegressionLineConfidenceInterval(x,y,xValue,confidenceLevel) :=
 %/mathpiper
 
     %output,preserve="false"
-      Result: {{"lower",f(8)-1.954274717},{"upper",f(8)+1.954274717}}
+      Result: [["lower",f(8)-1.954274717],["upper",f(8)+1.954274717]]
 .   %/output
 
 
@@ -52,10 +52,10 @@ RegressionLineConfidenceInterval(x,y,xValue,confidenceLevel) :=
 
 *PARMS
 
-{xList} -- the list of domain values
-{yList} -- the list of range values
-{xValue} -- a value of x to calculate the confidence interval around
-{confidenceLevel} -- the desired level of confidence
+[xList] -- the list of domain values
+[yList] -- the list of range values
+[xValue] -- a value of x to calculate the confidence interval around
+[confidenceLevel] -- the desired level of confidence
 
 *DESC
 This function calculates the correlation coefficient between two lists of values.
@@ -63,12 +63,12 @@ This function calculates the correlation coefficient between two lists of values
 *E.G.
 /%mathpiper,title="Confidence interval for the regression line."
 xList := 1 .. 10;
-yList := {5,6,10,6,11,13,9,12,15,17};
+yList := [5,6,10,6,11,13,9,12,15,17];
 RegressionLineConfidenceInterval(xList,yList,8,.95);
 /%/mathpiper
 
     /%output,preserve="false"
-      Result: {{"lower",51.59027286},{"upper",55.49882230}}
+      Result: [["lower",51.59027286],["upper",55.49882230]]
 .   /%/output
 
 %/mathpiper_docs

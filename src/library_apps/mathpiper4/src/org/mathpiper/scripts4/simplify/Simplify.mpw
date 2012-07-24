@@ -15,8 +15,8 @@
 20 # Simplify((_xex) !== (_yex)) <-- (Simplify(xex-yex) !== 0);
 
 // conditionals
-25 # Simplify(if (_a) _b) <-- "if" @ {Simplify(a), Simplify(b)};
-25 # Simplify(_a else _b) <-- "else" @ {Simplify(a), Simplify(b)};
+25 # Simplify(if (_a) _b) <-- "if" @ [Simplify(a), Simplify(b)];
+25 # Simplify(_a else _b) <-- "else" @ [Simplify(a), Simplify(b)];
 
 // otherwise
 40 # Simplify(_expr)_(Type(expr)=?"Ln") <--
@@ -49,11 +49,11 @@
 
 *PARMS
 
-{expr} -- expression to simplify
+[expr] -- expression to simplify
 
 *DESC
 
-This function tries to simplify the expression {expr} as much
+This function tries to simplify the expression [expr] as much
 as possible. It does this by grouping powers within terms, and then
 grouping similar terms.
 
@@ -129,7 +129,7 @@ LocalSymbols(p,a,x)
 
 LocalSymbols(f,p,a,b,x,n,simple,u,v)
 ⊕
-  simple := {
+  simple := [
             Exp(_a)*Exp(_b) <- Exp(a+b),
             Exp(_a)*_u*Exp(_b) <- u*Exp(a+b),
             _u*Exp(_a)*Exp(_b) <- u*Exp(a+b),
@@ -138,7 +138,7 @@ LocalSymbols(f,p,a,b,x,n,simple,u,v)
             Exp(_a)*_u*Exp(_b)*_v <- u*v*Exp(a+b),
             _u*Exp(_a)*Exp(_b)*_v <- u*v*Exp(a+b),
             _u*Exp(_a)*_v*Exp(_b)*_w <- u*v*w*Exp(a+b)
-          };
+          ];
 
   a := Simplify(Exp(x)*(Differentiate(x) x*Exp(-x)));
   b := Exp(x)*Exp(-x)-Exp(x)*x*Exp(-x);

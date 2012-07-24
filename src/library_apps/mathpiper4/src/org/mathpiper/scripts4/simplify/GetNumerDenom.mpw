@@ -1,12 +1,12 @@
 %mathpiper,def="GetNumerDenom;ExpandFracadd;ExpandFracmultiply;ExpandFracdivide"
 
 /// GetNumerDenom(x) returns a pair of expressions representing normalized numerator and denominator; GetNumerDenom(x, a) multiplies the numerator by the number a
-GetNumerDenom(_expr, _a) <-- GetNumerDenom(expr)*{a,1};
+GetNumerDenom(_expr, _a) <-- GetNumerDenom(expr)*[a,1];
 
 // on expressions that are not fractions, we return unit denominator
-10 # GetNumerDenom(_expr)_Not?(HasFunctionSome?(expr, "/", {ToAtom("+"), ToAtom("-"), *, /, ^})) <-- {expr, 1};
+10 # GetNumerDenom(_expr)_Not?(HasFunctionSome?(expr, "/", [ToAtom("+"), ToAtom("-"), *, /, ^])) <-- [expr, 1];
 // rational numbers are not simplified
-15 # GetNumerDenom(a_RationalOrNumber?) <-- {a, 1};
+15 # GetNumerDenom(a_RationalOrNumber?) <-- [a, 1];
 // arithmetic
 20 # GetNumerDenom(_a + _b) <-- ExpandFracadd(GetNumerDenom(a), GetNumerDenom(b));
 20 # GetNumerDenom(_a - _b) <-- ExpandFracadd(GetNumerDenom(a), GetNumerDenom(b, -1));
@@ -19,11 +19,11 @@ GetNumerDenom(_expr, _a) <-- GetNumerDenom(expr)*{a,1};
 20 # GetNumerDenom(_a ^ b_Integer?)_(b <? -1) <-- ExpandFracdivide(GetNumerDenom(1), GetNumerDenom(a^(-b)));
 20 # GetNumerDenom(_a ^ b_Integer?)_(b =? -1) <-- ExpandFracdivide(GetNumerDenom(1), GetNumerDenom(a));
 // non-integer powers are not considered to be rational functions
-25 # GetNumerDenom(_a ^ _b) <-- {a^b, 1};
+25 # GetNumerDenom(_a ^ _b) <-- [a^b, 1];
 
 // arithmetic on fractions; not doing any simplification here, whereas we might want to
-ExpandFracadd({_a, _b}, {_c, _d}) <-- {a*d+b*c, b*d};
-ExpandFracmultiply({_a, _b}, {_c, _d}) <-- {a*c, b*d};
-ExpandFracdivide({_a, _b}, {_c, _d}) <-- {a*d, b*c};
+ExpandFracadd([_a, _b], [_c, _d]) <-- [a*d+b*c, b*d];
+ExpandFracmultiply([_a, _b], [_c, _d]) <-- [a*c, b*d];
+ExpandFracdivide([_a, _b], [_c, _d]) <-- [a*d, b*c];
 
 %/mathpiper

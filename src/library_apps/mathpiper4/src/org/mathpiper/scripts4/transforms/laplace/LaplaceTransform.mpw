@@ -51,7 +51,7 @@ LapTranDef(_in,_out) <--
 LapTranDef( (_t)^(n_Constant?),        Gamma(n+1)/s^(n+1) );
 LapTranDef( _t,                         1/s^2 );
 LapTranDef( Sqrt(_t),                         Sqrt(Pi)/(2*s^(3/2)) );
-LapTranDef( c_FreeOf?({t,s}),                c/s );
+LapTranDef( c_FreeOf?([t,s]),                c/s );
 LapTranDef( Sin(_t),                         1/(s^2+1) );
 LapTranDef( Cos(_t),                         s/(s^2+1) );
 LapTranDef( Sinh(_t),                        c/(s^2-1) );
@@ -76,20 +76,20 @@ LapTranDef( Erf(Sqrt(_t)),                1/(Sqrt(s+1)*s) );
         LaplaceTransform(t,s,func)        
 *PARMS
 
-{t} -- independent variable that is being transformed
+[t] -- independent variable that is being transformed
 
-{s} -- independent variable that is being transformed into
+[s] -- independent variable that is being transformed into
 
-{f} -- function
+[f] -- function
 
 *DESC
 
-This function attempts to take the function {f(t)} and find the Laplace transform
-of it,{F(s)}, which is defined as {Integrate(t,0,Infinity) Exp(-s*t)*f}. This is
-also sometimes referred to the "unilateral" Laplace tranform. {LaplaceTransform}
+This function attempts to take the function [f(t)] and find the Laplace transform
+of it,[F(s)], which is defined as [Integrate(t,0,Infinity) Exp(-s*t)*f]. This is
+also sometimes referred to the "unilateral" Laplace tranform. [LaplaceTransform]
 can transform most elementary functions that do not require a convolution integral,
 as well as any polynomial times an elementary function. If a transform cannot
-be found then {LaplaceTransform} will return unevaluated. This can happen
+be found then [LaplaceTransform] will return unevaluated. This can happen
 for function which are not of "exponential order", which means that they grow
 faster than exponential functions.
 

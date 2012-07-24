@@ -2,9 +2,9 @@
 
 /// ListHasFunction? --- test for one of the elements of a list to contain a function
 /// this is mainly useful to test whether a list has nested lists, 
-/// i.e. ListHasFunction?({1,2,3}, List)=False and ListHasFunction?({1,2,{3}}, List)=True.
+/// i.e. ListHasFunction?([1,2,3], List)=False and ListHasFunction?([1,2,[3]], List)=True.
 // need to exclude the List atom itself, so don't use FunctionToList
-19 # ListHasFunction?({}, _atom) <-- False;
+19 # ListHasFunction?([], _atom) <-- False;
 20 # ListHasFunction?(expr_List?, atom_Atom?) <-- HasFunction?(First(expr), atom) Or? ListHasFunction?(Rest(expr), atom);
 
 %/mathpiper
@@ -20,18 +20,18 @@
 
 *PARMS
 
-{list} - a list of expressions
+[list] - a list of expressions
 
-{func} - a function atom to be found
+[func] - a function atom to be found
 
 *DESC
 
 Given a list of expressions and and a function name, this command returns 
-{True} if the list contains the function name.
+[True] if the list contains the function name.
 
 *E.G.
-In> lst := {Ln(x),Sinh(a*x),ArcTan(3/x)}
-Result: {Ln(x),Sinh(a*x),ArcTan(3/x)}
+In> lst := [Ln(x),Sinh(a*x),ArcTan(3/x)]
+Result: [Ln(x),Sinh(a*x),ArcTan(3/x)]
 
 In> ListHasFunction?(lst,Sqrt)
 Result: False

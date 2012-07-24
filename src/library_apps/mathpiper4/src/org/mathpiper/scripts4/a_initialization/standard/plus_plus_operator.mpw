@@ -1,6 +1,6 @@
 %mathpiper,def="++"
 
-Function("++",{aVar})
+Function("++",[aVar])
 ⊕
    MacroBind(aVar,AddN(Eval(aVar),1));
 
@@ -24,13 +24,13 @@ HoldArgument("++",aVar);
 
 *PARMS
 
-{var} -- variable to increment
+[var] -- variable to increment
 
 *DESC
 
 The variable with name "var" is incremented, i.e. the number 1 is
-added to it. The expression {x++} is equivalent to
-the assignment {x := x + 1}.
+added to it. The expression [x++] is equivalent to
+the assignment [x := x + 1].
 
 *E.G.
 In> x := 5;

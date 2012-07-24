@@ -1,9 +1,9 @@
 %mathpiper,def="ZeroVector"
 
-Function("ZeroVector",{n})
+Function("ZeroVector",[n])
 ⊕
     Local(i,result);
-    result:={};
+    result:=[];
     For(i:=1,i<=?n,i++)
     ⊕
       DestructiveInsert(result,1,0);
@@ -23,7 +23,7 @@ Function("ZeroVector",{n})
 
 *PARMS
 
-{n} -- length of the vector to return
+[n] -- length of the vector to return
 
 *DESC
 
@@ -32,7 +32,7 @@ This command returns a vector of length "n", filled with zeroes.
 *E.G.
 
 In> ZeroVector(4)
-Result: {0,0,0,0};
+Result: [0,0,0,0];
 
 *SEE BaseVector, ZeroMatrix, ZeroVector?
 %/mathpiper_docs

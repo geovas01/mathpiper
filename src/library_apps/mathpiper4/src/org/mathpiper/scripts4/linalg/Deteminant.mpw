@@ -18,7 +18,7 @@
 15 # Determinant(_matrix)_(Length(Select(Diagonal(matrix), "Zero?")) >? 0) <-- SymbolicDeterminant(matrix);
 
 // Not numeric entries, so lets treat it symbolically.
-16 # Determinant(_matrix)_(VarList(matrix) !=? {}) <-- SymbolicDeterminant(matrix);
+16 # Determinant(_matrix)_(VarList(matrix) !=? []) <-- SymbolicDeterminant(matrix);
 
 20 # Determinant(_matrix) <-- GaussianDeterminant(matrix);
 
@@ -34,7 +34,7 @@
 
 *PARMS
 
-{M} -- a matrix
+[M] -- a matrix
 
 *DESC
 
@@ -43,7 +43,7 @@ Returns the determinant of a matrix M.
 *E.G.
 
 In> A:=DiagonalMatrix(1 .. 4)
-Result: {{1,0,0,0},{0,2,0,0},{0,0,3,0},{0,0,0,4}};
+Result: [[1,0,0,0],[0,2,0,0],[0,0,3,0],[0,0,0,4]];
 In> Determinant(A)
 Result: 24;
 %/mathpiper_docs
@@ -58,6 +58,6 @@ Result: 24;
 // to return "Undefined" when one of the elements of the diagonal of a matrix
 // was zero. This was due to the numeric determinant algorithm applying
 // Gaussian elimination, but taking the elements on the diagonal as pivot points.
-Verify(Zero?(Determinant( {{1,-1,0,0},{0,0,-1,1},{1,0,0,1},{0,1,1,0}} )),True);
+Verify(Zero?(Determinant( [[1,-1,0,0],[0,0,-1,1],[1,0,0,1],[0,1,1,0]] )),True);
 
 %/mathpiper

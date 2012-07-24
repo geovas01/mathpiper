@@ -18,11 +18,11 @@
 10 # xFactor( L_List? ) <-- 
 ⊕
     Local (result,x,f);
-    result := {};
+    result := [];
     ForEach(x,L)
     ⊕
         f := xFactors(x);
-        If( f =? {}, f := 0, f := FW(f) );
+        If( f =? [], f := 0, f := FW(f) );
         DestructiveAppend(result,f);
     ⊖;
     result;

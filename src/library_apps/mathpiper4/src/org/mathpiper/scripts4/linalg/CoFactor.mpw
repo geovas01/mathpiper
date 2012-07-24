@@ -1,6 +1,6 @@
 %mathpiper,def="CoFactor"
 
-Function("CoFactor",{matrix,ii,jj})
+Function("CoFactor",[matrix,ii,jj])
 ⊕
   Local(perms,indices,result);
   indices:=Table(i,i,1,Length(matrix),1);
@@ -27,20 +27,20 @@ Function("CoFactor",{matrix,ii,jj})
 
 *PARMS
 
-{M} -- a matrix
+[M] -- a matrix
 
-{i}, {j} - positive integers
+[i], [j] - positive integers
 
 *DESC
 
-{CoFactor} returns the cofactor of a matrix around
+[CoFactor] returns the cofactor of a matrix around
 the element ($i$, $j$). The cofactor is the minor times
 $(-1)^(i+j)$.
 
 *E.G.
 
-In> A := {{1,2,3}, {4,5,6}, {7,8,9}};
-Result: {{1,2,3},{4,5,6},{7,8,9}};
+In> A := [[1,2,3], [4,5,6], [7,8,9]];
+Result: [[1,2,3],[4,5,6],[7,8,9]];
 In> PrettyForm(A);
         
         /                    \

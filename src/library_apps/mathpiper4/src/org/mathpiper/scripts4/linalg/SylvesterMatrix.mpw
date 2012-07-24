@@ -2,14 +2,14 @@
 
 /* SylvesterMatrix */
 
-Function("SylvesterMatrix",{poly1, poly2, var})
+Function("SylvesterMatrix",[poly1, poly2, var])
 ⊕
   Local(i,m,p,q,y,z,result);
   y:=Degree(poly1,var);
   z:=Degree(poly2,var);
   m:=y+z;
-  p:={};
-  q:={};
+  p:=[];
+  q:=[];
   result:=ZeroMatrix(m,m);
 
   For(i:=y,i>=?0,i--)
@@ -53,15 +53,15 @@ Function("SylvesterMatrix",{poly1, poly2, var})
 
 *PARMS
 
-{poly1} -- polynomial
+[poly1] -- polynomial
 
-{poly2} -- polynomial
+[poly2] -- polynomial
 
-{variable} -- variable to express the matrix for
+[variable] -- variable to express the matrix for
 
 *DESC
 
-The function {SylvesterMatrix} calculates the Sylvester matrix
+The function [SylvesterMatrix] calculates the Sylvester matrix
 for a pair of polynomials.
 
 The Sylvester matrix is closely related to the resultant, which
@@ -75,8 +75,8 @@ Result: x^2+2*x-a;
 In> ex2:= x^2+a*x-4
 Result: x^2+a*x-4;
 In> A:=SylvesterMatrix(ex1,ex2,x)
-Result: {{1,2,-a,0},{0,1,2,-a},
-          {1,a,-4,0},{0,1,a,-4}};
+Result: [[1,2,-a,0],[0,1,2,-a],
+          [1,a,-4,0],[0,1,a,-4]];
 In> B:=Determinant(A)
 Result: 16-a^2*a- -8*a-4*a+a^2- -2*a^2-16-4*a;
 In> Simplify(B)

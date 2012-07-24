@@ -34,7 +34,7 @@ OrdBuild(vector,q):=
 ⊖;
 
 
-Function(AddFoundSolutionSingle,{p})
+Function(AddFoundSolutionSingle,[p])
 ⊕
   Local(calc);
 //  If ( Not? Contains?(result,p),
@@ -47,28 +47,28 @@ Function(AddFoundSolutionSingle,{p})
       root := p;
       Local(rem);
 
-      rem:={-root,1};
-      {testpoly,rem}:=MkfactD(testpoly,rem);
+      rem:=[-root,1];
+      [testpoly,rem]:=MkfactD(testpoly,rem);
 
-      rem:={-root,1};
-      {newlist,rem}:=MkfactD(poly,rem);
-      While (rem =? {})
+      rem:=[-root,1];
+      [newlist,rem]:=MkfactD(poly,rem);
+      While (rem =? [])
       ⊕
         count++;
         Bind(poly,newlist);
-        rem:={-root,1};
-        {newlist,rem}:=MkfactD(poly,rem);
+        rem:=[-root,1];
+        [newlist,rem]:=MkfactD(poly,rem);
       ⊖;
 
       Local(lgcd,lc);
-      Bind(lgcd,Gcd({andiv,an,root}));
+      Bind(lgcd,Gcd([andiv,an,root]));
       Bind(lc,Quotient(an,lgcd));
-      Bind(result,{var+ (-(Quotient(root,lgcd)/lc)),count}~result);
+      Bind(result,[var+ (-(Quotient(root,lgcd)/lc)),count]~result);
       Bind(andiv,Quotient(andiv,lgcd^count));
       Bind(anmul,anmul*lc^count);
 
 //      factor:=(x-root);
-//      Bind(result,{factor,count}:result);
+//      Bind(result,[factor,count]:result);
 
       Local(p,q);
       Bind(lastcoef, LastCoef(testpoly,p));
@@ -78,14 +78,14 @@ Function(AddFoundSolutionSingle,{p})
 ⊖;
 UnFence(AddFoundSolutionSingle,1);
 
-Function(AddFoundSolution,{p})
+Function(AddFoundSolution,[p])
 ⊕
   AddFoundSolutionSingle(p);
   AddFoundSolutionSingle(-2*q+p);
 ⊖;
 UnFence(AddFoundSolution,1);
 
-Function(Fct,{poly,var})
+Function(Fct,[poly,var])
 ⊕
   Local(maxNrRoots,result,ord,p,q,accu,calc,twoq,mask);
 
@@ -142,7 +142,7 @@ Function(Fct,{poly,var})
     Local(q,r,next);
     q:=poly;
     r:=deriv;
-    While(r !=? {})
+    While(r !=? [])
     ⊕
 //Echo(q,r);
       next := MkfactD(q,r)[2];
@@ -160,12 +160,12 @@ Function(Fct,{poly,var})
 //  Bind(testpoly,poly); //@@@
 
   Bind(maxNrRoots,Length(testpoly)-1);
-  Bind(result, {});
+  Bind(result, []);
 
   Bind(lastcoef, LastCoef(testpoly,p));
   Bind(ord, OrdBuild(testpoly,q));
 
-  Bind(accu,{});
+  Bind(accu,[]);
   Bind(q,1);
   Bind(twoq,MultiplyN(q,2));
   Bind(mask,AddN(twoq,MathNegate(1)));
@@ -187,7 +187,7 @@ Function(Fct,{poly,var})
   While(Length(result)<?maxNrRoots And? Length(accu)>?0 And? q<=?Abs(testpoly[1]))
   ⊕
     Local(newaccu);
-    Bind(newaccu,{});
+    Bind(newaccu,[]);
     ForEach(p,accu)
     ⊕
       Bind(calc,Eval(lastcoef));
@@ -227,9 +227,9 @@ Function(Fct,{poly,var})
   Bind(poly,gcd*anmul*poly);
   //TODO had to add this if statement, what was andiv again, and why would it become zero? This happens with for example Factor(2*x^2)
   If(Not? Zero?(unrat * andiv ),Bind(poly,poly/(unrat * andiv )));
-  If(poly !=? {1},
+  If(poly !=? [1],
   ⊕
-    result:={(Add(poly*var^(0 .. (Length(poly)-1)))),1}~result;
+    result:=[(Add(poly*var^(0 .. (Length(poly)-1)))),1]~result;
   ⊖);
   result;
 ⊖;
@@ -289,7 +289,7 @@ MkfactD(numer,denom):=
   Bind(r,Reverse(r));
   DropEndZeroes(q);
   DropEndZeroes(r);
-  {q,r};
+  [q,r];
 ⊖;
 
 ⊖; //LocalSymbols
@@ -335,11 +335,11 @@ TestPoly(poly,requiredResult):=
 
 //Echo(requiredResult,realResult);
   Local(intersection);
-  intersection:={};
+  intersection:=[];
   ForEach(item1,requiredResult)
     ForEach(item2,realResult)
     ⊕
-      If(Simplify(item1-item2) =? {0,0},
+      If(Simplify(item1-item2) =? [0,0],
         intersection := (item1~intersection));
     ⊖;
   Verify(Length(realResult),Length(intersection/*Intersection(requiredResult,realResult)*/));
@@ -347,44 +347,44 @@ TestPoly(poly,requiredResult):=
 ⊖;
 
 // Simple factorizations
-TestPoly((x+1)*(x-1),{{x+1,1},{x-1,1}});
+TestPoly((x+1)*(x-1),[[x+1,1],[x-1,1]]);
 
 // Simple with multiple factors
-TestPoly((x+1)^2,{{x+1,2}});
+TestPoly((x+1)^2,[[x+1,2]]);
 
 // Test: term with lowest power not zero power
-TestPoly(x^2*(x+1)*(x-1),{{x,2},{x+1,1},{x-1,1}});
-TestPoly(x^3*(x+1)*(x-1),{{x,3},{x+1,1},{x-1,1}});
+TestPoly(x^2*(x+1)*(x-1),[[x,2],[x+1,1],[x-1,1]]);
+TestPoly(x^3*(x+1)*(x-1),[[x,3],[x+1,1],[x-1,1]]);
 
 // Variable different from x
-TestPoly((y+1)*(y-1),{{y+1,1},{y-1,1}});
+TestPoly((y+1)*(y-1),[[y+1,1],[y-1,1]]);
 
 // Test from Wester 1994 test
-TestPoly(Differentiate(x)(x+1)^20,{{20,1},{x+1,19}});
+TestPoly(Differentiate(x)(x+1)^20,[[20,1],[x+1,19]]);
 
 // From regression test, and verify that polys with unfactorizable parts works
-TestPoly((x^6-1),{{x^4+x^2+1,1},{x+1,1},{x-1,1}});
+TestPoly((x^6-1),[[x^4+x^2+1,1],[x+1,1],[x-1,1]]);
 
 // Non-monic polynomials
-TestPoly((x+13)^2*(3*x-5)^3,{{27,1},{x+13,2},{x-5/3,3}});
-TestPoly((x+13)^2*(4*x-5)^3,{{64,1},{x+13,2},{x-5/4,3}});
+TestPoly((x+13)^2*(3*x-5)^3,[[27,1],[x+13,2],[x-5/3,3]]);
+TestPoly((x+13)^2*(4*x-5)^3,[[64,1],[x+13,2],[x-5/4,3]]);
 
 // Heavy: binary coefficients
-TestPoly((x+1024)*(x+2048),{{x+1024,1},{x+2048,1}});
-TestPoly((x+1024)^2*(x+2048)^3,{{x+1024,2},{x+2048,3}});
-TestPoly((16*x+1024)*(x+2048),{{16,1},{x+64,1},{x+2048,1}});
-TestPoly((x+1024)*(x+2047),{{x+1024,1},{x+2047,1}});
-TestPoly((x+1024)*(x+2049),{{x+1024,1},{x+2049,1}});
+TestPoly((x+1024)*(x+2048),[[x+1024,1],[x+2048,1]]);
+TestPoly((x+1024)^2*(x+2048)^3,[[x+1024,2],[x+2048,3]]);
+TestPoly((16*x+1024)*(x+2048),[[16,1],[x+64,1],[x+2048,1]]);
+TestPoly((x+1024)*(x+2047),[[x+1024,1],[x+2047,1]]);
+TestPoly((x+1024)*(x+2049),[[x+1024,1],[x+2049,1]]);
 
-TestPoly((x+1024)*(x-2047),{{x+1024,1},{x-2047,1}});
-TestPoly((x-1024)*(x+2047),{{x-1024,1},{x+2047,1}});
-TestPoly((x-1024)*(x-2047),{{x-1024,1},{x-2047,1}});
+TestPoly((x+1024)*(x-2047),[[x+1024,1],[x-2047,1]]);
+TestPoly((x-1024)*(x+2047),[[x-1024,1],[x+2047,1]]);
+TestPoly((x-1024)*(x-2047),[[x-1024,1],[x-2047,1]]);
 
 // Rational coefficients
-TestPoly((x+4/7)*(x-5/9),{{x+4/7,1},{x-5/9,1}});
+TestPoly((x+4/7)*(x-5/9),[[x+4/7,1],[x-5/9,1]]);
 
 // More than two factors ;-)
-TestPoly((x+1)*(x-2)*(x+3)*(x-4)*(x+5)*(x-6),{{x+1,1},{x-2,1},{x+3,1},{x-4,1},{x+5,1},{x-6,1}});
+TestPoly((x+1)*(x-2)*(x+3)*(x-4)*(x+5)*(x-6),[[x+1,1],[x-2,1],[x+3,1],[x-4,1],[x+5,1],[x-6,1]]);
 
 
 %/mathpiper

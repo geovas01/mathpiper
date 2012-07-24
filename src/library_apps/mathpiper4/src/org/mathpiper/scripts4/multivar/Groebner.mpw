@@ -4,7 +4,7 @@
   Groebner : Calculate the Groebner basis of a set of polynomials.
   Nice example of its power is
 
-In> TableForm(Groebner({x*(y-1),y*(x-1)}))
+In> TableForm(Groebner([x*(y-1),y*(x-1)]))
  x*y-x
  x*y-y
  y-x
@@ -25,14 +25,14 @@ Groebner(f_List?) <--
   ⊕
     f[i] := MakeMultiNomial(f[i],vars);
   ⊖;
-  S:={};
+  S:=[];
   For(i:=1,i<?nr,i++)
   For(j:=i+1,j<=?nr,j++)
   ⊕
     r := (MultiDivide(MultiS(f[i],f[j],f[i]),f)[2]);
     If(NormalForm(r) !=? 0, S:= r~S);
     f:=Concat(f,S);
-    S:={};
+    S:=[];
     nr:=Length(f);
   ⊖;
   MapSingle("NormalForm",Concat(f));
@@ -48,6 +48,6 @@ Groebner(f_List?) <--
 
 // Actually, the following Groebner test is just to check that the program doesn't crash on this,
 // more than on the exact result (which is hopefully correct also ;-) )
-Verify(Groebner({x*(y-1),y*(x-1)}),{x*y-x,x*y-y,y-x,y^2-y});
+Verify(Groebner([x*(y-1),y*(x-1)]),[x*y-x,x*y-y,y-x,y^2-y]);
 
 %/mathpiper

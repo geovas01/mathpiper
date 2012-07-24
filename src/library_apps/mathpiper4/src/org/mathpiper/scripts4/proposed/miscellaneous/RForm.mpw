@@ -7,10 +7,10 @@
 //Retract("RUndent",*);
 //Retract("RNlIndented",*); 
 
-RulebaseHoldArguments("RForm",{expression});
-RulebaseHoldArguments("RForm",{expression, precedence});
+RulebaseHoldArguments("RForm",[expression]);
+RulebaseHoldArguments("RForm",[expression, precedence]);
 
-Function ("RFormBracketIf", {predicate, string})
+Function ("RFormBracketIf", [predicate, string])
 ⊕
         Check(Boolean?(predicate) And? String?(string), "Argument", "RForm internal error: non-boolean and/or non-string argument of RFormBracketIf");
         If(predicate, ConcatStrings("( ", string, ") "), string);
@@ -46,27 +46,27 @@ RFormMaxPrec() := 60000;         /* This precedence will never be bracketed. It 
 
 LocalSymbols(rFormRegularOps) ⊕
   rFormRegularOps := 
-  { 
-    {"+","+"},
-    {"-","-"},
-    {"*","*"},
-    {"/","/"},
-    {"/","/"},
-    {"^","^"},
-    {"=?","=="},
-    {">=?",">="},
-    {">?",">"},
-    {"<=?","<="},
-    {"<?","<"},
-    {"!=","!="},
-    {"..",":"},
-    {"Not?","!"},
-    {":=","<-"},
-    {"sequence",":"},
-    {"True","TRUE"},
-    {"Modulo","%%"},
-    {"Quotient","%/%"},
-  };
+  [ 
+    ["+","+"],
+    ["-","-"],
+    ["*","*"],
+    ["/","/"],
+    ["/","/"],
+    ["^","^"],
+    ["=?","=="],
+    [">=?",">="],
+    [">?",">"],
+    ["<=?","<="],
+    ["<?","<"],
+    ["!=","!="],
+    ["..",":"],
+    ["Not?","!"],
+    [":=","<-"],
+    ["sequence",":"],
+    ["True","TRUE"],
+    ["Modulo","%%"],
+    ["Quotient","%/%"],
+  ];
 
   RFormRegularOps() := rFormRegularOps;
 ⊖; // LocalSymbols(rFormRegularOps)
@@ -76,37 +76,37 @@ LocalSymbols(rFormRegularOps) ⊕
 
 LocalSymbols(rFormMathFunctions) ⊕
   rFormMathFunctions :=
-  {
-    {"NthRoot","root"},
-    {"Infinite","Inf"},
-    {"Undefined","NaN"},
-    {"Sin","sin"},
-    {"Cos","cos"},
-    {"Tan","tan"},
-    {"ArcSin","asin"},
-    {"ArcCos","acos"},
-    {"ArcTan","atan"},
-    {"ArcSinh","asinh"},
-    {"ArcCosh","acosh"},
-    {"ArcTanh","atanh"},
-    {"ArcCsc","acsc"},
-    {"ArcCsch","acsch"},
-    {"ArcSec","asec"},
-    {"ArcSech","asech"},
-    {"ArcCot","acot"},
-    {"ArcCoth","acoth"},
-    {"Exp","exp"},
-    {"Ln","log"},
-    {"Sqrt","sqrt"},
-    {"Bin","choose"},
-    {"Gamma","gamma"},
-    {"!","factorial"},
-    {"Limit","limit"},
-    {"Deriv","deriv"},
-    {"Integrate","integrate"},
-    {"Taylor","?"},
-    {"List","list"},
-  };
+  [
+    ["NthRoot","root"],
+    ["Infinite","Inf"],
+    ["Undefined","NaN"],
+    ["Sin","sin"],
+    ["Cos","cos"],
+    ["Tan","tan"],
+    ["ArcSin","asin"],
+    ["ArcCos","acos"],
+    ["ArcTan","atan"],
+    ["ArcSinh","asinh"],
+    ["ArcCosh","acosh"],
+    ["ArcTanh","atanh"],
+    ["ArcCsc","acsc"],
+    ["ArcCsch","acsch"],
+    ["ArcSec","asec"],
+    ["ArcSech","asech"],
+    ["ArcCot","acot"],
+    ["ArcCoth","acoth"],
+    ["Exp","exp"],
+    ["Ln","log"],
+    ["Sqrt","sqrt"],
+    ["Bin","choose"],
+    ["Gamma","gamma"],
+    ["!","factorial"],
+    ["Limit","limit"],
+    ["Deriv","deriv"],
+    ["Integrate","integrate"],
+    ["Taylor","?"],
+    ["List","list"],
+  ];
 
   RFormMathFunctions() := rFormMathFunctions;
 
@@ -218,12 +218,12 @@ RFormStatement(_x) <-- RForm(x) ~ ";" ~ RNlIndented();
 120 # RForm(_x,_p)_(Type(x) =? "Prog") <--
 ⊕
   Local(result);
-  result:=RIndent()~"{"~RNlIndented();
+  result:=RIndent()~"["~RNlIndented();
   ForEach(item,Rest(FunctionToList(x)))
   ⊕
     result:=result~RFormStatement(item);
   ⊖;
-  result:=result~"}"~RUndent()~RNlIndented();
+  result:=result~"]"~RUndent()~RNlIndented();
   result;
 ⊖;
 
@@ -255,11 +255,11 @@ RFormStatement(_x) <-- RForm(x) ~ ";" ~ RNlIndented();
 
 *PARMS
 
-{expr} -- expression to be exported
+[expr] -- expression to be exported
 
 *DESC
 
-{RForm} returns a string containing R code that attempts to implement the MathPiper expression {expr}.
+[RForm] returns a string containing R code that attempts to implement the MathPiper expression [expr].
 Currently the exporter handles most expression types but not all.
 
 *E.G.
@@ -278,46 +278,46 @@ Result: "sin(a1) + 2 * cos(b1)";
 
 
 http://code.google.com/p/ryacas/source/browse/trunk/R/OpenMath2R.R
-OpenMath2R <- function(x) {
+OpenMath2R <- function(x) [
  out <- c()
- recurse <- function( x ) {
-        if ("name" %in% names(xmlAttrs(x))) {
+ recurse <- function( x ) [
+        if ("name" %in% names(xmlAttrs(x))) [
                 out <<- c(out, trans(xmlAttrs(x)[["name"]], from="OM", to="R"), " ")
-        }
+        ]
         if (xmlName(x) == "text") out <<- c(out, xmlValue(x), " ")
         if (xmlName(x) == "OMF") out <<- c(out, xmlAttrs(x)[["dec"]], " ")
-        if (xmlName(x) == "OMS") {
+        if (xmlName(x) == "OMS") [
         if (xmlAttrs(x)[["cd"]] == "logic1" && "name" %in% names(xmlAttrs(x))
-                && xmlAttrs(x)[["name"]] %in% c("true", "false")) {}
+                && xmlAttrs(x)[["name"]] %in% c("true", "false")) []
            else if ((xmlAttrs(x)[["cd"]] != "nums1") ||
                                 (xmlAttrs(x)[["name"]] == "rational")) 
                         out <<- c(out, xmlValue(x), "(")
-        }
+        ]
         # if (xmlName(x) == "OMS") out <<- c(out, "(")
-        if (xmlName(x) == "OMSTR") {
+        if (xmlName(x) == "OMSTR") [
         # out <<- c(out, sQuote(gsub("", "\\\\", xmlValue(x))))
         out <<- c(out, paste("", gsub("", "\\\\", xmlValue(x)), "", sep=""))
-        } else if ( length( xmlChildren(x) ) >? 0 )
-                for( i in seq( along = xmlChildren(x) ) ) {
+        ] else if ( length( xmlChildren(x) ) >? 0 )
+                for( i in seq( along = xmlChildren(x) ) ) [
                         Recall( x[[i]] )
                         if (i >? 1 && i <? length(xmlChildren(x))) 
                                 out <<- c(out, ",")
-                }
+                ]
         if (xmlName(x) == "OMA" || xmlName(x) == "OMBIND") out <<- c(out, xmlValue(x), ")")
- }
+ ]
  x <- paste(x, "\n", collapse = "")
  x <- xmlTreeParse(x, asText = TRUE)
  x <- xmlRoot(x)
  recurse(x)
  paste(out, collapse = "")
-}
+]
 
-trans <- function(x, ttab=transtab, from, to) {
+trans <- function(x, ttab=transtab, from, to) [
    idx <- match(x, ttab[,from], nomatch = 0)
    res <- if (idx >? 0) ttab[idx,to] else x
    if (tolower(substr(res, 1, 1)) %in% letters) res
    else paste(", res, ", sep="")
-}
+]
 
 transtab <- matrix( c(
         #R                        OM                        yacas
@@ -391,9 +391,9 @@ colnames(transtab) <- c("R", "OM", "yacas")
 
 # Used for expressions not handled by R
 
-root <- function(x, y) {
+root <- function(x, y) [
         (x)^(1/(y))
-}
+]
 
 
 

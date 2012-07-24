@@ -1,6 +1,6 @@
 %mathpiper,def="FermatNumber"
 
-Function("FermatNumber",{n})⊕
+Function("FermatNumber",[n])⊕
         Check(PositiveInteger?(n), "Argument", "FermatNumber: argument must be a positive integer");
         2^(2^n)+1;
 ⊖;
@@ -10,17 +10,17 @@ Function("FermatNumber",{n})⊕
 
 
 %mathpiper_docs,name="FermatNumber",categories="User Functions;Number Theory"
-*CMD FermatNumber --- return the {n}th Fermat Number
+*CMD FermatNumber --- return the [n]th Fermat Number
 *STD
 *CALL
         FermatNumber(n)
 *PARMS  
 
-{n}     -- positive integer
+[n]     -- positive integer
 
 *DESC
 
-This function returns the {n}-th Fermat number, which is defined as
+This function returns the [n]-th Fermat number, which is defined as
 $2^(2^n) + 1$. 
 
 *E.G.

@@ -1,5 +1,5 @@
 %mathpiper,def="SimpDiv"
 
-RulebaseHoldArguments("SimpDiv",{x,y});
+RulebaseHoldArguments("SimpDiv",[x,y]);
 
 %/mathpiper

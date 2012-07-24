@@ -1,9 +1,9 @@
 %mathpiper,def="FillList"
 
-Function("FillList", {aItem, aLength})
+Function("FillList", [aItem, aLength])
 ⊕
   Local(i, aResult);
-  aResult:={};
+  aResult:=[];
   For(i:=0, i<?aLength, i++)
     DestructiveInsert(aResult,1,aItem);
   aResult;
@@ -21,9 +21,9 @@ Function("FillList", {aItem, aLength})
 
 *PARMS
 
-{expr} -- expression to fill the list with
+[expr] -- expression to fill the list with
 
-{n} -- the length of the list to construct
+[n] -- the length of the list to construct
 
 *DESC
 
@@ -33,7 +33,7 @@ the expression "expr" and returns this list.
 *E.G.
 
 In> FillList(x, 5);
-Result: {x,x,x,x,x};
+Result: [x,x,x,x,x];
 
 *SEE MakeVector, ZeroVector, RandomIntegerList
 %/mathpiper_docs

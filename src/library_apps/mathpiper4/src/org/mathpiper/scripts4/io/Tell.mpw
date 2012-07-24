@@ -1,6 +1,6 @@
 %mathpiper,def="Tell"
-Macro("Tell",{id})    ⊕Echo(<<,@id,>>);⊖;
-Macro("Tell",{id,x})  ⊕Echo(<<,@id,>>,Hold(@x),": ",Eval(@x));⊖;
+Macro("Tell",[id])    ⊕Echo(<<,@id,>>);⊖;
+Macro("Tell",[id,x])  ⊕Echo(<<,@id,>>,Hold(@x),": ",Eval(@x));⊖;
 %/mathpiper
 
     %output,preserve="false"
@@ -18,28 +18,28 @@ Macro("Tell",{id,x})  ⊕Echo(<<,@id,>>,Hold(@x),": ",Eval(@x));⊖;
 
 *PARMS
 
-{ID} -- an arbitrary identifier for this printout
+[ID] -- an arbitrary identifier for this printout
 
-{list} -- a list of items to be printed (may be a single item)
+[list] -- a list of items to be printed (may be a single item)
 
 *DESC
 
-If passed a single item, {Tell} will display it using Echo().  
+If passed a single item, [Tell] will display it using Echo().  
 The dispayed value will be enclosed with << >> (see below).
 If ID consists of more than one word, it should be quoted.
 
 If there are two arguments, the first should be an ID as above, and the second 
 should be a list of variables which are bound to values at the place where
-{Tell} is called.  Using Echo(), the list of variable names will be printed
+[Tell] is called.  Using Echo(), the list of variable names will be printed
 out, along with a list of their currently bound values.
 
-{Tell} can be called with any number of variable names in the list.
+[Tell] can be called with any number of variable names in the list.
 
-{Tell} always returns {True}.
+[Tell] always returns [True].
 
-Because {Tell} uses Echo(), it prints to Standard Output.  If you are debuging
-a program which may hang, you may get no printout.  In that case, use {TellNow}
-instead of {Tell}
+Because [Tell] uses Echo(), it prints to Standard Output.  If you are debuging
+a program which may hang, you may get no printout.  In that case, use [TellNow]
+instead of [Tell]
 
 *E.G. notest
 In> var1:=123
@@ -52,18 +52,18 @@ In> Tell(ID1)
 Result: True
         Side Effects>
         << ID1 >>
-In> Tell(ID2,{var1})
+In> Tell(ID2,[var1])
 Result: True
         Side Effects>
-        << ID2 >> {var1} :  {123} 
-In> Tell(ID3,{var1,var2})
+        << ID2 >> [var1] :  [123] 
+In> Tell(ID3,[var1,var2])
 Result: True
         Side Effects>
-        << ID3 >> {var1,var2} {123,"a string"} 
-In> Tell(ID4,{var1,var2,var3})
+        << ID3 >> [var1,var2] [123,"a string"] 
+In> Tell(ID4,[var1,var2,var3])
 Result: True
         Side Effects>
-        << ID4 >> {var1,var2,var3} :  {123,"a string",Sin(x)+Exp(x)} 
+        << ID4 >> [var1,var2,var3] :  [123,"a string",Sin(x)+Exp(x)] 
 
 
 *SEE TellNow

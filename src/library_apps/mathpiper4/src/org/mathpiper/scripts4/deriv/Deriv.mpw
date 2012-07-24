@@ -44,9 +44,9 @@
 2 # (Deriv(_var)(Sign(_x))) <-- 0;
 
 2 # (Deriv(_var)(if(_cond)(_body))) <--
-        ListToFunction({ToAtom("if"),cond,Deriv(var)body});
+        ListToFunction([ToAtom("if"),cond,Deriv(var)body]);
 2 # (Deriv(_var)((_left) else (_right))) <--
-        ListToFunction({ToAtom("else"), (Deriv(var)left), (Deriv(var)right) } );
+        ListToFunction([ToAtom("else"), (Deriv(var)left), (Deriv(var)right) ] );
 
 3 # (Deriv(_var)(_x ^ _n)) <-- (x^n)*Deriv(var)(n*Ln(x));
 
@@ -75,7 +75,7 @@ LocalSymbols(var,var2,a,b,y)⊕
 
 
 2 # (Deriv(_var)func_List?)_(Not?(List?(var))) <--
-    Map("Deriv",{FillList(var,Length(func)),func});
+    Map("Deriv",[FillList(var,Length(func)),func]);
 
 
 2 # (Deriv(_var)UniVariate(_var,_first,_coefs)) <--

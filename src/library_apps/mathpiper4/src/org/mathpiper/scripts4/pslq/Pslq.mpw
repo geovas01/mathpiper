@@ -26,8 +26,8 @@ Given a list of constants x find coefficients sol[i] such that
 
     Example:
 
-    In> Pslq({2*Pi-4*Exp(1),Pi,Exp(1)},20)
-    Result: {1,-2,4};
+    In> Pslq([2*Pi-4*Exp(1),Pi,Exp(1)],20)
+    Result: [1,-2,4];
 
 */
 
@@ -291,11 +291,11 @@ Echo("************** H[i][j] = ",H[i][j]);
 //Echo("maxi 7...",maxi);
     ⊖;
     /* following line may be commented */
-//Echo({"Norm bound:",norme," Min=",mini," Conf=",mini/maxi," required ",Confidence});
+//Echo(["Norm bound:",norme," Min=",mini," Conf=",mini/maxi," required ",Confidence]);
     if ((mini/maxi) <? Confidence) /*prefered to : if mini <? 10^(- precision) then*/
     ⊕
     /* following line may be commented */
-/*      Echo({"Found with Confidence ",mini/maxi}); */
+/*      Echo(["Found with Confidence ",mini/maxi]); */
       BuiltinPrecisionSet(ndigits);
       result:=Transpose(B)[m];
       found:=True;
@@ -341,9 +341,9 @@ Echo("************** H[i][j] = ",H[i][j]);
 
 *PARMS
 
-{xlist} -- list of numbers
+[xlist] -- list of numbers
 
-{precision} -- required number of digits precision of calculation
+[precision] -- required number of digits precision of calculation
 
 *DESC
 
@@ -354,12 +354,12 @@ $a[1]*x[1]$ + ... + $a[n]*x[n] = 0$.
 The list of integer coefficients is returned.
 
 The numbers in "xlist" must evaluate to floating point numbers if
-the {N} operator is applied on them.
+the [N] operator is applied on them.
 
 *E.G.
 
-In> Pslq({ 2*Pi+3*Exp(1), Pi, Exp(1) },20)
-Result: {1,-2,-3};
+In> Pslq([ 2*Pi+3*Exp(1), Pi, Exp(1) ],20)
+Result: [1,-2,-3];
 
 Note: in this example the system detects correctly that
 $1 * (2*Pi+3*e) + (-2) * Pi + (-3) * e = 0$.
@@ -380,7 +380,7 @@ VerifyPslq(left,right):=
     `Verify(@left,-(@right)));
 ⊖;
 
-VerifyPslq(Pslq({ Pi+2*Exp(1) , Pi , Exp(1) },20),{1,-1,-2});
-VerifyPslq(Pslq({ 2*Pi+3*Exp(1) , Pi , Exp(1) },20),{1,-2,-3});
+VerifyPslq(Pslq([ Pi+2*Exp(1) , Pi , Exp(1) ],20),[1,-1,-2]);
+VerifyPslq(Pslq([ 2*Pi+3*Exp(1) , Pi , Exp(1) ],20),[1,-2,-3]);
 
 %/mathpiper

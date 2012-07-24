@@ -1,6 +1,6 @@
 %mathpiper,def="!=="
 
-RulebaseHoldArguments("!==",{left,right});
+RulebaseHoldArguments("!==",[left,right]);
 
 %/mathpiper
 
@@ -15,7 +15,7 @@ RulebaseHoldArguments("!==",{left,right});
 
 *PARMS
 
-{expression} -- an expression
+[expression] -- an expression
 
 *DESC
 

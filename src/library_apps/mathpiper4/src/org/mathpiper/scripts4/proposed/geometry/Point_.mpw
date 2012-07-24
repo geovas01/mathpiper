@@ -13,7 +13,7 @@ Point?(p) := If(List?(p) And? (Length(p) =? 2 Or? Length(p) =? 3),True,False);
         Point?(p)
 *PARMS
 
-{p} -- point to test
+[p] -- point to test
 
 
 *DESC
@@ -23,7 +23,7 @@ Tests if a value is a point.
 *E.G.
 
 In> p := Point(2,3)
-Result: {2,3}
+Result: [2,3]
         
 In> Point?(p)
 Result: True

@@ -22,12 +22,12 @@ RandVerifyArithmetic(_n)<--
 
 *PARMS
 
-{n} -- integer arguments
+[n] -- integer arguments
 
 *DESC
 
-{RandVerifyArithmetic(n)} calls {VerifyArithmetic} with
-random values, {n} times.
+[RandVerifyArithmetic(n)] calls [VerifyArithmetic] with
+random values, [n] times.
 
 *E.G.
 

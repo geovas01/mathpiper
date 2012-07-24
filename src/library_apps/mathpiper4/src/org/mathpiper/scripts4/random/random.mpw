@@ -30,7 +30,7 @@ New interface allows creating many RNG objects:
 More "RNG engines" and "RNG distribution adaptors" can be defined later (at run time).
 
 RngCreate() will return an object of the following structure:
-        {SomeDist, SomeEngine, state }
+        [SomeDist, SomeEngine, state ]
 
 here SomeEngine is a function atom that describes the RNG engine,
 SomeDist is a function atom that specifies the distribution adaptor,
@@ -41,10 +41,10 @@ It will re-initialize the RNG object r1 with the given seed.
 
 The "RNG engine API": calling RngCreate with engine->SomeEngine expects that:
         SomeEngine(seed_Integer?) will create and initialize a state object with given seed and return the new state object (a list). SomeEngine can assume that "seed" is a positive integer.
-        SomeEngine(state1_List?) will update the RNG state object state1 and return the pair {new state object, new number}.
+        SomeEngine(state1_List?) will update the RNG state object state1 and return the pair [new state object, new number].
 
 The "RNG distribution adaptor API": calling RngCreate with distribution->SomeDist expects that:
-        SomeDist(r1) will update the RNG object r1 and return the pair {new state object, new number}. r1 is a full RNG object, not just a state object.
+        SomeDist(r1) will update the RNG object r1 and return the pair [new state object, new number]. r1 is a full RNG object, not just a state object.
 
 
 */
@@ -57,18 +57,18 @@ The "RNG distribution adaptor API": calling RngCreate with distribution->SomeDis
 
 LocalSymbols(knownRNGEngines, knownRNGDists) ⊕
   knownRNGEngines :=
-  {
-    { "default", "RNGEngineLCG2"},
-    { "advanced", "RNGEngineLEcuyer"},
-  };
+  [
+    [ "default", "RNGEngineLCG2"],
+    [ "advanced", "RNGEngineLEcuyer"],
+  ];
 
   knownRNGDists :=
-  {
-    {"default", "FlatRNGDist"},
-    {"flat", "FlatRNGDist"},
-  //        {"uniform", "FlatRNGDist"},        // we probably don't need this alias...
-    {"gauss", "GaussianRNGDist"},
-  };
+  [
+    ["default", "FlatRNGDist"],
+    ["flat", "FlatRNGDist"],
+  //        ["uniform", "FlatRNGDist"],        // we probably don't need this alias...
+    ["gauss", "GaussianRNGDist"],
+  ];
 
   KnownRNGDists() := knownRNGDists;
   KnownRNGEngines() := knownRNGEngines;
@@ -93,15 +93,15 @@ Function() Rng(r);
 
 RngCreate() <-- RngCreate(0);
 
-10 # RngCreate(aseed_Integer?) <-- (RngCreate @ {seed -> aseed});
+10 # RngCreate(aseed_Integer?) <-- (RngCreate @ [seed -> aseed]);
 
 // a single option given: convert explicitly to a list
-20 # RngCreate(_key -> _value) <-- `(RngCreate({@key -> value}));
+20 # RngCreate(_key -> _value) <-- `(RngCreate([@key -> value]));
 
 // expect a list of options
 30 # RngCreate(options_List?) <--
 ⊕
-        options := OptionsListToHash @ {options};
+        options := OptionsListToHash @ [options];
 
         // check options and assign defaults
         If(
@@ -109,28 +109,28 @@ RngCreate() <-- RngCreate(0);
                 options["seed"] := 76544321        // some default seed out of the blue sky
         );
         If(
-                options["engine"] =? Empty Or? Not? (Assert("warning", {"RngCreate: invalid engine", options["engine"]}) KnownRNGEngines()[options["engine"] ] !=? Empty),
+                options["engine"] =? Empty Or? Not? (Assert("warning", ["RngCreate: invalid engine", options["engine"]]) KnownRNGEngines()[options["engine"] ] !=? Empty),
                 options["engine"] := "default"
         );
         If(
-                options["dist"] =? Empty Or? Not? (Assert("warning", {"RngCreate: invalid distribution", options["dist"]}) KnownRNGDists()[options["dist"] ] !=? Empty),
+                options["dist"] =? Empty Or? Not? (Assert("warning", ["RngCreate: invalid distribution", options["dist"]]) KnownRNGDists()[options["dist"] ] !=? Empty),
                 options["dist"] := "default"
         );
 
         // construct a new RNG object
-        // a RNG object has the form {"SomeDist", "SomeEngine", {state}}
-        {
+        // a RNG object has the form ["SomeDist", "SomeEngine", [state]]
+        [
                 KnownRNGDists()[options["dist"] ], KnownRNGEngines()[options["engine"] ],
                 // initialize object with given seed using "SomeEngine"(seed)
-                KnownRNGEngines()[options["engine"] ] @ { options["seed"] }
-        };
+                KnownRNGEngines()[options["engine"] ] @ [ options["seed"] ]
+        ];
 ⊖;
 
 /// accessor function: will call SomeDist(r) and update r
 Rng(_r) <--
 ⊕
         Local(state, result);
-        {state, result} := (r[1] @ {r});        // this calls SomeDist(r)
+        [state, result] := (r[1] @ [r]);        // this calls SomeDist(r)
         DestructiveReplace(r, 3, state);        // update RNG object
         result;        // return floating-point number
 ⊖;
@@ -139,9 +139,9 @@ Rng(_r) <--
 RngSeed(_r, seed_Integer?) <--
 ⊕
         Local(state);
-        (Assert("warning", {"RngSeed: seed must be positive", seed}) seed >? 0
+        (Assert("warning", ["RngSeed: seed must be positive", seed]) seed >? 0
         ) Or? (seed:=76544321);
-        state := (r[2] @ {seed});        // this calls SomeEngine(r)
+        state := (r[2] @ [seed]);        // this calls SomeEngine(r)
         DestructiveReplace(r, 3, state);        // update object
         True;
 ⊖;
@@ -152,13 +152,13 @@ RngSeed(_r, seed_Integer?) <--
 
 /// trivial distribution adaptor: flat distribution, simply calls SomeEngine(r)
 /* we have to return whole objects; we can't use references b/c the core
-function ApplyFast will not work properly on references, i.e. if r =? {"", "", {1}} so that
-r[3] =? {1}, then LCG2(r[3]) modifies r[3], but LCG2 @ r[3] or
-ApplyFast("LCG2", {r[3]}) do not actually modify r[3].
+function ApplyFast will not work properly on references, i.e. if r =? ["", "", [1]] so that
+r[3] =? [1], then LCG2(r[3]) modifies r[3], but LCG2 @ r[3] or
+ApplyFast("LCG2", [r[3]]) do not actually modify r[3].
 */
 
-// return pair {state, number}
-FlatRNGDist(_r) <-- (r[2] @ {r[3]});        // this calls SomeEngine(state)
+// return pair [state, number]
+FlatRNGDist(_r) <-- (r[2] @ [r[3]]);        // this calls SomeEngine(state)
 
 /// Gaussian distribution adaptor, returns a complex number with normal distribution with unit variance, i.e. Re and Im are independent and both have unit variance
 /* Gaussian random number, Using the Box-Muller transform, from Knuth,
@@ -175,13 +175,13 @@ GaussianRNGDist(_rng) <--
         m:=0;
         While(m=?0 Or? m>=?1)        // repeat generating new x,y  - should not take more than one iteration really
         ⊕
-                {newstate, rnumber} := (rng[2] @ {newstate});
+                [newstate, rnumber] := (rng[2] @ [newstate]);
                 a:=2*rnumber-1;
-                {newstate, rnumber} := (rng[2] @ {newstate});
+                [newstate, rnumber] := (rng[2] @ [newstate]);
                 b:=2*rnumber-1;
                 m:=a*a+b*b;
         ⊖;
-        {newstate, (a+I*b)*SqrtN(-2*DivideN(InternalLnNum(m),m))};
+        [newstate, (a+I*b)*SqrtN(-2*DivideN(InternalLnNum(m),m))];
 ⊖;
 
 
@@ -192,22 +192,22 @@ GaussianRNGDist(_rng) <--
 /// default RNG engine: the LCG generator
 
 // first method: initialize a state object with given seed
-RNGEngineLCG1(seed_Integer?) <-- {seed};
+RNGEngineLCG1(seed_Integer?) <-- [seed];
 // second method: update state object and return new number
 RNGEngineLCG1(state_List?) <-- LCG1(state);
 
 // first method: initialize a state object with given seed
-RNGEngineLCG2(seed_Integer?) <-- {seed};
+RNGEngineLCG2(seed_Integer?) <-- [seed];
 // second method: update state object and return new number
 RNGEngineLCG2(state_List?) <-- LCG2(state);
 
 // first method: initialize a state object with given seed
-RNGEngineLCG3(seed_Integer?) <-- {seed};
+RNGEngineLCG3(seed_Integer?) <-- [seed];
 // second method: update state object and return new number
 RNGEngineLCG3(state_List?) <-- LCG3(state);
 
 // first method: initialize a state object with given seed
-RNGEngineLCG4(seed_Integer?) <-- {seed};
+RNGEngineLCG4(seed_Integer?) <-- [seed];
 // second method: update state object and return new number
 RNGEngineLCG4(state_List?) <-- LCG4(state);
 
@@ -220,21 +220,21 @@ LCG4(state) := RandomLCG(state, 18014398509481984,2783377640906189,0);
 /// Linear congruential generator engine: backend
 // state is a list with one element
 RandomLCG(_state, _im, _ia, _ic) <--
-{
+[
         DestructiveReplace(state,1, ModuloN(state[1]*ia+ic,im)),
         DivideN(state[1], im)        // division should never give 1
-};
+];
 
 /// Advanced RNG engine due to LEcuyer et al.
 /// RNG from P. Lecuyer et al (2000). Period approximately 2^191
-// state information: 6 32-bit integers, corresponding to {x3,x2,x1,y3,y2,y1}
+// state information: 6 32-bit integers, corresponding to [x3,x2,x1,y3,y2,y1]
 
 // first method: initialize a state object with given seed
 RNGEngineLEcuyer(aseed_Integer?) <--
 ⊕
         // use LCG2 as auxiliary RNG to fill the seeds
         Local(rngaux, result);
-        rngaux := (RngCreate @ {aseed});
+        rngaux := (RngCreate @ [aseed]);
         // this will be the state vector
         result:=ZeroVector(6);
         // fill the state object with random numbers
@@ -252,15 +252,15 @@ RNGEngineLEcuyer(aseed_Integer?) <--
 RNGEngineLEcuyer(state_List?) <--
 ⊕
         Local(newstate, result);
-        newstate := {
+        newstate := [
                 Modulo(1403580*state[2]-810728*state[3], 4294967087), state[1], state[2],
                 Modulo(527612*state[4]-1370589*state[6], 4294944433), state[4], state[5]
-        };
+        ];
         result:=Modulo(state[1]-state[4], 4294967087);
-        {
+        [
                 newstate,
                 DivideN(If(result=?0, 4294967087, result), 4294967088)
-        };
+        ];
 ⊖;
 
 //////////////////////////////////////////////////
@@ -277,7 +277,7 @@ LocalSymbols(RandSeed) ⊕
   RandSeed := SystemTimer(); //Was 76544321.
 
   /// assign random seed
-  Function("RandomSeed", {seed}) Bind(RandSeed, seed);
+  Function("RandomSeed", [seed]) Bind(RandSeed, seed);
 
   /// Linear congruential generator
   RandomLCG(_im, _ia, _ic) <--
@@ -288,16 +288,16 @@ LocalSymbols(RandSeed) ⊕
 ⊖; // LocalSymbols(RandSeed)
 
 
-Function("Random1",{}) RandomLCG(4294967296,1103515245,12345);
-Function("Random6",{}) RandomLCG(1771875,2416,374441);
+Function("Random1",[]) RandomLCG(4294967296,1103515245,12345);
+Function("Random6",[]) RandomLCG(1771875,2416,374441);
 /// parameters from P. Hellekalek, 1994; see G. S. Fishman, Math. Comp. vol. 54, 331 (1990)
-Function("Random2",{}) RandomLCG(2147483647,950706376,0);
-Function("Random3",{}) RandomLCG(4294967296,1099087573,0);
-Function("Random4",{}) RandomLCG(281474976710656,68909602460261,0);
-Function("Random5",{}) RandomLCG(18014398509481984,2783377640906189,0);
+Function("Random2",[]) RandomLCG(2147483647,950706376,0);
+Function("Random3",[]) RandomLCG(4294967296,1099087573,0);
+Function("Random4",[]) RandomLCG(281474976710656,68909602460261,0);
+Function("Random5",[]) RandomLCG(18014398509481984,2783377640906189,0);
 
 // select one of them
-Function("Random",{}) Random3();
+Function("Random",[]) Random3();
 
 
 %/mathpiper
@@ -314,15 +314,15 @@ Function("Random",{}) Random3();
         RandomSeed(init)
 
 *PARAMS
-{init} -- positive integer, initial random seed
+[init] -- positive integer, initial random seed
 
 *DESC
 
-The function {Random} returns a random number, uniformly distributed in the
+The function [Random] returns a random number, uniformly distributed in the
 interval between 0 and 1. The same sequence of random numbers is
 generated in every MathPiper session.
 
-The random number generator can be initialized by calling {RandomSeed} with an integer value.
+The random number generator can be initialized by calling [RandomSeed] with an integer value.
 Each seed value will result in the same sequence of pseudo-random numbers.
 
 *SEE RandomInteger, RandomPoly, Rng, Random, RandomIntegerList, RandomIntegerMatrix
@@ -345,36 +345,36 @@ Each seed value will result in the same sequence of pseudo-random numbers.
         Rng(r)
         
 *PARMS
-{init} -- integer, initial seed value
+[init] -- integer, initial seed value
 
-{option} -- atom, option name
+[option] -- atom, option name
 
-{value} -- atom, option value
+[value] -- atom, option value
 
-{r} -- a list, RNG object
+[r] -- a list, RNG object
 
 *DESC
 These commands are an object-oriented interface to (pseudo-)random number generators (RNGs).
 
-{RngCreate} returns a list which is a well-formed RNG object.
-Its value should be saved in a variable and used to call {Rng} and {RngSeed}.
+[RngCreate] returns a list which is a well-formed RNG object.
+Its value should be saved in a variable and used to call [Rng] and [RngSeed].
 
-{Rng(r)} returns a floating-point random number between 0 and 1 and updates the RNG object {r}.
+[Rng(r)] returns a floating-point random number between 0 and 1 and updates the RNG object [r].
 (Currently, the Gaussian option makes a RNG return a <i>complex</i> random number instead of a real random number.)
 
-{RngSeed(r,init)} re-initializes the RNG object {r} with the seed value {init}.
+[RngSeed(r,init)] re-initializes the RNG object [r] with the seed value [init].
 The seed value should be a positive integer.
 
-The {RngCreate} function accepts several options as arguments.
+The [RngCreate] function accepts several options as arguments.
 Currently the following options are available:
 
-*        {seed} -- specify initial seed value, must be a positive integer
-*        {dist} -- specify the distribution of the random number; currently {flat} and {gauss} are implemented, and the default is the flat (uniform) distribution
-*        {engine} -- specify the RNG engine; currently {default} and {advanced} are available ("advanced" is slower but has much longer period)
+*        [seed] -- specify initial seed value, must be a positive integer
+*        [dist] -- specify the distribution of the random number; currently [flat] and [gauss] are implemented, and the default is the flat (uniform) distribution
+*        [engine] -- specify the RNG engine; currently [default] and [advanced] are available ("advanced" is slower but has much longer period)
 
 If the initial seed is not specified, the value of 76544321 will be used.
 
-The {gauss} option will create a RNG object that generates pairs of Gaussian distributed random numbers as a complex random number.
+The [gauss] option will create a RNG object that generates pairs of Gaussian distributed random numbers as a complex random number.
 The real and the imaginary parts of this number are independent random numbers taken from a Gaussian (i.e. "normal") distribution with unit variance.
 
 For the Gaussian distribution, the Box-Muller transform method is used.
@@ -383,14 +383,14 @@ generates normally distributed random numbers, can be found in Knuth,
 "The Art of Computer Programming", Volume 2 (Seminumerical algorithms, third 
 edition), section 3.4.1 
 
-Note that unlike the global {Random} function, the RNG objects created with {RngCreate} are independent RNGs and do not affect each other.
+Note that unlike the global [Random] function, the RNG objects created with [RngCreate] are independent RNGs and do not affect each other.
 They generate independent streams of pseudo-random numbers.
-However, the {Random} function is slightly faster.
+However, the [Random] function is slightly faster.
 
 *E.G.
 
 In> r1:=RngCreate(seed->1,dist->gauss)
-Result: {"GaussianRNGDist","RNGEngineLCG2",{1}}
+Result: ["GaussianRNGDist","RNGEngineLCG2",[1]]
 In> Rng(r1)
 Result: Complex(-1.6668466417,0.228904004);
 In> Rng(r1);
@@ -398,7 +398,7 @@ Result: Complex(0.0279296109,-0.5382405341);
 The second RNG gives a uniform distribution (default option) but uses a more complicated algorithm:
 In> [r2:=RngCreate(engine->advanced);Rng(r2);]
 Result: 0.3653615377;
-The generator {r1} can be re-initialized with seed 1 again to obtain the same sequence:
+The generator [r1] can be re-initialized with seed 1 again to obtain the same sequence:
 In> RngSeed(r1, 1)
 Result: True;
 In> Rng(r1)

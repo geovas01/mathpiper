@@ -1,6 +1,6 @@
 %mathpiper,def="TableForm"
 
-Function("TableForm",{list})
+Function("TableForm",[list])
 ⊕
   Local(i);
   ForEach(i,list)
@@ -24,11 +24,11 @@ Function("TableForm",{list})
 
 *PARMS
 
-{list} -- list to print
+[list] -- list to print
 
 *DESC
 
-This functions writes out the list {list} in a better readable form, by
+This functions writes out the list [list] in a better readable form, by
 printing every element in the list on a separate line.
 
 *E.G.

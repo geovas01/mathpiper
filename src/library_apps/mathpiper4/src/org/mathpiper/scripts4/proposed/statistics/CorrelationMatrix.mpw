@@ -55,7 +55,7 @@ CorrelationMatrix(dataLists) :=
 
 *PARMS
 
-{listOfLists} -- a list of lists which contains data to be correlated
+[listOfLists] -- a list of lists which contains data to be correlated
 
 *DESC
 Creates a correlation coefficient matrix from a list of lists which contain data values.
@@ -65,18 +65,18 @@ CorrelationCoefficient function is used to calculate the individual correlations
 *E.G.
 /%mathpiper
 
-dataLists :={
-{"Age",25,16,8,23,31,19,15,31,21,26,24,25,36,45,16,23,31,53,11,33},
-{"Level",1,2,2,3,4,4,4,5,1,1,5,5,4,4,4,1,2,2,3,2},
-{"Score",78,66,78,89,87,90,98,76,56,72,84,87,69,87,88,92,97,69,79,69},
-};
+dataLists :=[
+["Age",25,16,8,23,31,19,15,31,21,26,24,25,36,45,16,23,31,53,11,33],
+["Level",1,2,2,3,4,4,4,5,1,1,5,5,4,4,4,1,2,2,3,2],
+["Score",78,66,78,89,87,90,98,76,56,72,84,87,69,87,88,92,97,69,79,69],
+];
 
 CorrelationMatrix(dataLists);
 
 /%/mathpiper
 
     /%output,preserve="false"
-      Result: {{"","Age","Level","Score"},{"Age",1,0.056,-0.15},{"Level",0.056,1,0.39},{"Score",-0.15,0.39,1}}
+      Result: [["","Age","Level","Score"],["Age",1,0.056,-0.15],["Level",0.056,1,0.39],["Score",-0.15,0.39,1]]
 .   /%/output
 
 *SEE CorrelationCoefficient

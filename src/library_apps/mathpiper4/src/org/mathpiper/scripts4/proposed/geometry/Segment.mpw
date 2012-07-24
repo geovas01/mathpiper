@@ -9,7 +9,7 @@ Segment(PointA_Point?,PointB_Point?) <--
     y1 := PointA[2];
     y2 := PointB[2];
 
-    {{x1,y1},{x2,y2}};
+    [[x1,y1],[x2,y2]];
 ⊖;
 
 %/mathpiper
@@ -23,9 +23,9 @@ Segment(PointA_Point?,PointB_Point?) <--
         Segment(p1, p2)
 *PARMS
 
-{p1} -- the first endpoint
+[p1] -- the first endpoint
 
-{p2} -- the second endpoint
+[p2] -- the second endpoint
 
 *DESC
 
@@ -34,13 +34,13 @@ This function returns a list which represents a segment by its endpoints.
 *E.G.
 
 In> PointA := Point(2,3)
-Result: {2,3}
+Result: [2,3]
         
 In> PointB := Point(6,8)
-Result: {6,8}
+Result: [6,8]
         
 In> Segment(PointA,PointB)
-Result: {{2,3},{6,8}}
+Result: [[2,3],[6,8]]
 
 *SEE Point?, Point, Distance, Slope
 %/mathpiper_docs

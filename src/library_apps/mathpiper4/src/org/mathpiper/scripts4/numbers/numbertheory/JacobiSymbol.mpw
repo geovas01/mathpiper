@@ -18,7 +18,7 @@ See the Algo book for documentation.
 ⊕
         Local(c, s);
         // compute c,s where a=c*2^s and c is odd
-        {c,s}:=FindPrimeFactorSimple(a, 2);        // use the "Simple" function because we don't expect a worst case here
+        [c,s]:=FindPrimeFactorSimple(a, 2);        // use the "Simple" function because we don't expect a worst case here
         If(Modulo(s,2)=?1 And? Abs(Modulo(b,8)-4)=?1, -1, 1) * JacobiSymbol(c,b);
 ⊖;
 
@@ -35,7 +35,7 @@ See the Algo book for documentation.
         JacobiSymbol(m,n)
 
 *PARMS
-{m}, {n} -- integers, $n$ must be odd and positive
+[m], [n] -- integers, $n$ must be odd and positive
 
 *DESC
 

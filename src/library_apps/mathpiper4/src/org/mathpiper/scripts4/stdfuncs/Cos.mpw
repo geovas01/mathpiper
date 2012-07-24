@@ -1,6 +1,6 @@
 %mathpiper,def="Cos;CosMap"
 
-1 # CosMap( _n )_(Not?(RationalOrNumber?(n))) <-- ListToFunction({ToAtom("Cos"),n*Pi});
+1 # CosMap( _n )_(Not?(RationalOrNumber?(n))) <-- ListToFunction([ToAtom("Cos"),n*Pi]);
 2 # CosMap( _n )_(n<?0) <-- CosMap(-n);
 2 # CosMap( _n )_(n>?2) <-- CosMap(Modulo(n,2));
 3 # CosMap( _n )_(n>?1) <-- CosMap(2-n);
@@ -13,7 +13,7 @@
 5 # CosMap( 1/2 ) <-- 0;
 5 # CosMap( 2/5 ) <-- (Sqrt(5)-1)/4;
 
-10 # CosMap(_n) <-- ListToFunction({ToAtom("Cos"),n*Pi});
+10 # CosMap(_n) <-- ListToFunction([ToAtom("Cos"),n*Pi]);
 
 
 
@@ -39,7 +39,7 @@
      Local(ll);
      ll:= FloorN(N(Eval(x/Pi)));
      If(Even?(ll),x:=(x - Pi*ll),x:=(-x + Pi*(ll+1)));
-     ListToFunction({Cos,x});
+     ListToFunction([Cos,x]);
      ⊖;
 
 400 # Cos(x_RationalOrNumber?) <--
@@ -47,7 +47,7 @@
      Local(ll);
      ll:= FloorN(N(Eval(Abs(x)/Pi)));
      If(Even?(ll),x:=(Abs(x) - Pi*ll),x:=(-Abs(x) + Pi*(ll+1)));
-     ListToFunction({Cos,x});
+     ListToFunction([Cos,x]);
      ⊖;
 
 
@@ -68,20 +68,20 @@ Cos(xlist_List?) <-- MapSingle("Cos",xlist);
 
 *PARMS
 
-{x} -- argument to the function, in radians
+[x] -- argument to the function, in radians
 
 *DESC
 
 This function represents the trigonometric function cosine. MathPiper leaves 
 expressions alone even if x is a number, trying to keep the result as 
 exact as possible. The floating point approximations of these functions 
-can be forced by using the {N} function.
+can be forced by using the [N] function.
 
 MathPiper knows some trigonometric identities, so it can simplify to exact
-results even if {N} is not used. This is the case, for instance,
+results even if [N] is not used. This is the case, for instance,
 when the argument is a multiple of $Pi$/6 or $Pi$/4.
 
-These functions are threaded, meaning that if the argument {x} is a
+These functions are threaded, meaning that if the argument [x] is a
 list, the function is applied to all entries in the list.
 
 *E.G.

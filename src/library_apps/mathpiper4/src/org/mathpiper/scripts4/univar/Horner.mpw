@@ -7,7 +7,7 @@ Horner(_e,_v) <--
   coefs:=DestructiveReverse(uni[3]);
   result:=0;
 
-  While(coefs !=? {})
+  While(coefs !=? [])
   ⊕
     result := result*v;
     result := result+First(coefs);
@@ -29,9 +29,9 @@ Horner(_e,_v) <--
 
 *PARMS
 
-{expr} -- a polynomial in "var"
+[expr] -- a polynomial in "var"
 
-{var} -- a variable
+[var] -- a variable
 
 *DESC
 

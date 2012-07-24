@@ -1,6 +1,6 @@
 %mathpiper,def="AssignArray"
 
-RulebaseHoldArguments("AssignArray", {listOrAssociationList, indexOrKey, newValue});
+RulebaseHoldArguments("AssignArray", [listOrAssociationList, indexOrKey, newValue]);
 
 UnFence("AssignArray", 3);
 
@@ -14,7 +14,7 @@ RuleHoldArguments("AssignArray", 3, 1, String?(indexOrKey))
 
     If(keyValuePair =? Empty,
 
-        DestructiveInsert(listOrAssociationList, 1 , {indexOrKey, newValue}),
+        DestructiveInsert(listOrAssociationList, 1 , [indexOrKey, newValue]),
 
         DestructiveReplace(keyValuePair, 2 , newValue)
     );
@@ -53,11 +53,11 @@ RuleHoldArguments("AssignArray",3 , 2, True)
 
 *PARMS
 
-{listOrAssociationList} -- a list or an association list
+[listOrAssociationList] -- a list or an association list
 
-{indexOrKey} -- an index or a string which is a key
+[indexOrKey] -- an index or a string which is a key
 
-{newValue} -- the new value to place into the list or the association list
+[newValue] -- the new value to place into the list or the association list
 
 
 *DESC
@@ -68,38 +68,38 @@ Generic object.
 
 *E.G.
 // Change a normal list.
-In> list := {7,8,9}
-Result> {7,8,9}
+In> list := [7,8,9]
+Result> [7,8,9]
 
 In> AssignArray(list, 2, "eight")
 Result> True
 
 In> list
-Result> {7,"eight",9}
+Result> [7,"eight",9]
 
 
 
 // Change an association list.
-In> list := {{"seven", 7}, {"eight", 8}, {"nine", 9}}
-Result> {{"seven",7},{"eight",8},{"nine",9}}
+In> list := [["seven", 7], ["eight", 8], ["nine", 9]]
+Result> [["seven",7],["eight",8],["nine",9]]
 
 In> AssignArray(list, "eight", "EIGHT")
 Result> True
 
 In> list
-Result> {{"seven",7},{"eight","EIGHT"},{"nine",9}}
+Result> [["seven",7],["eight","EIGHT"],["nine",9]]
 
 
 
 // Add an association to an association list.
-In> list := {{"seven", 7}, {"eight", 8}, {"nine", 9}}
-Result> {{"seven",7},{"eight",8},{"nine",9}}
+In> list := [["seven", 7], ["eight", 8], ["nine", 9]]
+Result> [["seven",7],["eight",8],["nine",9]]
 
 In> AssignArray(list, "ten", 10)
 Result> True
 
 In> list
-Result> {{"ten",10},{"seven",7},{"eight",8},{"nine",9}}
+Result> [["ten",10],["seven",7],["eight",8],["nine",9]]
 
 *SEE :=
 %/mathpiper_docs

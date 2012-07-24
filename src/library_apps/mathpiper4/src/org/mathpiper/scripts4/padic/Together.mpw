@@ -40,7 +40,7 @@
 
 *PARMS
 
-{expression} -- a sum
+[expression] -- a sum
 
 *DESC
 This function places terms in a sum over a common denominator and cancels factors in the result.

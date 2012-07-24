@@ -4,14 +4,14 @@
   Could you check to see if you agree with my changes? If that is correct, perhaps we can start calling Taylor2
   by default in stead of Taylor1.
  */
-Function("Taylor",{taylorvariable,taylorat,taylororder,taylorfunction})
+Function("Taylor",[taylorvariable,taylorat,taylororder,taylorfunction])
   Taylor1(taylorvariable,taylorat,taylororder)(taylorfunction);
 
 /*COMMENT FROM AYAL: this is the old slow but working version of Taylor series expansion. Jitse wrote a
  * faster version which resides in taylor.mpi, and uses lazy power series. This slow but correct version is still
  * useful for tests (the old and the new routine should yield identical results).
  */
-Function("Taylor1",{taylorvariable,taylorat,taylororder,taylorfunction})
+Function("Taylor1",[taylorvariable,taylorat,taylororder,taylorfunction])
 ⊕
   Local(n,result,dif,polf);
   ⊕
@@ -23,7 +23,7 @@ Function("Taylor1",{taylorvariable,taylorat,taylororder,taylorfunction})
     ⊖;
     If(result=?Undefined,
     ⊕
-      result:=Apply("Limit",{taylorvariable,taylorat,taylorfunction});
+      result:=Apply("Limit",[taylorvariable,taylorat,taylorfunction]);
     ⊖);
 /*
     MacroBind(taylorvariable,taylorat);
@@ -44,11 +44,11 @@ Function("Taylor1",{taylorvariable,taylorat,taylororder,taylorfunction})
     ⊖;
     If(term=?Undefined,
     ⊕
-      term:=Apply("Limit",{taylorvariable,taylorat,dif});
+      term:=Apply("Limit",[taylorvariable,taylorat,dif]);
     ⊖);
 
     result:=result+(term/(n!))*(polf^n);
-/*    result:=result+Apply("Limit",{taylorvariable,taylorat,(dif/(n!))})*(polf^n); */
+/*    result:=result+Apply("Limit",[taylorvariable,taylorat,(dif/(n!))])*(polf^n); */
 /*
     MacroBind(taylorvariable,taylorat);
     result:=result+(Eval(dif)/(n!))*(polf^n);
@@ -69,13 +69,13 @@ Function("Taylor1",{taylorvariable,taylorat,taylororder,taylorfunction})
 
 *PARMS
 
-{var} -- variable
+[var] -- variable
 
-{at} -- point to get Taylor series around
+[at] -- point to get Taylor series around
 
-{order} -- order of approximation
+[order] -- order of approximation
 
-{expr} -- expression to get Taylor series for
+[expr] -- expression to get Taylor series for
 
 *DESC
 
@@ -107,7 +107,7 @@ Result: True;
 
 %mathpiper,name="Taylor",subtype="automatic_test"
 
-RulebaseHoldArguments("jn",{x}); //Temporary function used for testing. It is retracted at the end of all the test code.
+RulebaseHoldArguments("jn",[x]); //Temporary function used for testing. It is retracted at the end of all the test code.
 
 /* bug reported by Jonathan:
    All functions that do not have Taylor Expansions about
@@ -166,84 +166,84 @@ Verify((Taylor2(x,0,10) Exp(jn(x))),
 
 // Some examples of power series
 LocalSymbols(p1,p2,p3,p4,p0,pj,pp,pju0,pj40,pj50,pj51,pj52,pj53,pj54,pc24,pc35,pc46,pc57,pc68) ⊕
-p1 := TaylorLPS(0, {1,1,1/2,1/6}, x, Exp(x));
-p2 := TaylorLPS(1, {1,0,-1/6,0,1/120,0}, t, Sin(t));
-p3 := TaylorLPS(0, {a0,a1,a2,a3}, x, jn(x));
-p4 := TaylorLPS(-2, {1,0,-1/2,0,1/24}, x, Cos(x)/x^2);
-p0 := TaylorLPS(Infinity, {}, x, 0); // special case: zero
+p1 := TaylorLPS(0, [1,1,1/2,1/6], x, Exp(x));
+p2 := TaylorLPS(1, [1,0,-1/6,0,1/120,0], t, Sin(t));
+p3 := TaylorLPS(0, [a0,a1,a2,a3], x, jn(x));
+p4 := TaylorLPS(-2, [1,0,-1/2,0,1/24], x, Cos(x)/x^2);
+p0 := TaylorLPS(Infinity, [], x, 0); // special case: zero
 
 // TaylorLPS should not evaluate
 
-Verify(p1, Hold(TaylorLPS(0, {1,1,1/2,1/6}, x, Exp(x))));
+Verify(p1, Hold(TaylorLPS(0, [1,1,1/2,1/6], x, Exp(x))));
 
 // TaylorLPSCoeffs can get pre-computed coefficients
 
-Verify(TaylorLPSCoeffs(p1, 0, 3), {1,1,1/2,1/6});
-Verify(TaylorLPSCoeffs(p1, -3, -1), {0,0,0});
-Verify(TaylorLPSCoeffs(p2, -1, 3), {0,0,1,0,-1/6});
-Verify(TaylorLPSCoeffs(p3, 0, 3), {a0,a1,a2,a3});
-Verify(TaylorLPSCoeffs(p4, -1, 1), {0,-1/2,0});
-Verify(TaylorLPSCoeffs(p0, 1, 5), {0,0,0,0,0});
+Verify(TaylorLPSCoeffs(p1, 0, 3), [1,1,1/2,1/6]);
+Verify(TaylorLPSCoeffs(p1, -3, -1), [0,0,0]);
+Verify(TaylorLPSCoeffs(p2, -1, 3), [0,0,1,0,-1/6]);
+Verify(TaylorLPSCoeffs(p3, 0, 3), [a0,a1,a2,a3]);
+Verify(TaylorLPSCoeffs(p4, -1, 1), [0,-1/2,0]);
+Verify(TaylorLPSCoeffs(p0, 1, 5), [0,0,0,0,0]);
 
 // Conversion to power series
 
 Verify(TaylorLPSPowerSeries(p1, 3, x), 1+x+x^2/2+x^3/6);
 Verify(TaylorLPSPowerSeries(p2, 4, t), t-t^3/6);
 Verify(TaylorLPSPowerSeries(p3, 3, s), a0+a1*s+a2*s^2+a3*s^3);
-Verify({TaylorLPSPowerSeries(p4, 2, x), ClearError("singularity")},
-       {Undefined, True});
+Verify([TaylorLPSPowerSeries(p4, 2, x), ClearError("singularity")],
+       [Undefined, True]);
 Verify(TaylorLPSPowerSeries(p0, 3, x), 0);
 
 // Construction of new LPS
 
-Verify(TaylorLPSConstruct(x, 1), TaylorLPS(Undefined, {}, x, 1));
+Verify(TaylorLPSConstruct(x, 1), TaylorLPS(Undefined, [], x, 1));
 
 // TaylorLPSCoeffs can compute new coefficients in-place
 
-Verify(TaylorLPSCoeffs(p1, 0, 4), {1,1,1/2,1/6,1/24});
-Verify(p1, TaylorLPS(0, {1,1,1/2,1/6,1/24}, x, Exp(x)));
-p1 := TaylorLPS(0, {1,1,1/2,1/6}, x, Exp(x));
+Verify(TaylorLPSCoeffs(p1, 0, 4), [1,1,1/2,1/6,1/24]);
+Verify(p1, TaylorLPS(0, [1,1,1/2,1/6,1/24], x, Exp(x)));
+p1 := TaylorLPS(0, [1,1,1/2,1/6], x, Exp(x));
 
 Verify(TaylorLPSCoeffs(TaylorLPSConstruct(x, 1), 0, 7),
-       {1, 0, 0, 0, 0, 0, 0, 0});
+       [1, 0, 0, 0, 0, 0, 0, 0]);
 Verify(TaylorLPSCoeffs(TaylorLPSConstruct(x, 0), 0, 7),
-       {0, 0, 0, 0, 0, 0, 0, 0});
+       [0, 0, 0, 0, 0, 0, 0, 0]);
 Verify(TaylorLPSCoeffs(TaylorLPSConstruct(x, 1/x), 0, 7),
-       {0, 0, 0, 0, 0, 0, 0, 0});
+       [0, 0, 0, 0, 0, 0, 0, 0]);
 Verify(TaylorLPSCoeffs(TaylorLPSConstruct(x, x^2), 0, 7),
-       {0, 0, 1, 0, 0, 0, 0, 0});
+       [0, 0, 1, 0, 0, 0, 0, 0]);
 Verify(TaylorLPSCoeffs(TaylorLPSConstruct(x, Exp(x)), 0, 7),
-       {1, 1, 1/2, 1/6, 1/24, 1/120, 1/720, 1/5040});
+       [1, 1, 1/2, 1/6, 1/24, 1/120, 1/720, 1/5040]);
 Verify(TaylorLPSCoeffs(TaylorLPSConstruct(x, Ln(1+x)), 0, 7),
-       {0, 1, -1/2, 1/3, -1/4, 1/5, -1/6, 1/7});
+       [0, 1, -1/2, 1/3, -1/4, 1/5, -1/6, 1/7]);
 Verify(TaylorLPSCoeffs(TaylorLPSConstruct(x, Sin(x)), 0, 7),
-       {0, 1, 0, -1/6, 0, 1/120, 0, -1/5040});
+       [0, 1, 0, -1/6, 0, 1/120, 0, -1/5040]);
 Verify(TaylorLPSCoeffs(TaylorLPSConstruct(x, Cos(x)), 0, 7),
-       {1, 0, -1/2, 0, 1/24, 0, -1/720, 0});
+       [1, 0, -1/2, 0, 1/24, 0, -1/720, 0]);
 
 // Check order of power series
 
-Verify(TaylorLPSGetOrder(p1), {0,True});
-Verify(TaylorLPSGetOrder(TaylorLPSConstruct(x, Cos(x))), {0,True});
-Verify(TaylorLPSGetOrder(TaylorLPSConstruct(x, Sin(x))), {1,True});
-Verify(TaylorLPSGetOrder(TaylorLPSConstruct(x, x-Sin(x))), {1,False});
-Verify(TaylorLPSGetOrder(TaylorLPSConstruct(x, 1/x)), {-1,True});
+Verify(TaylorLPSGetOrder(p1), [0,True]);
+Verify(TaylorLPSGetOrder(TaylorLPSConstruct(x, Cos(x))), [0,True]);
+Verify(TaylorLPSGetOrder(TaylorLPSConstruct(x, Sin(x))), [1,True]);
+Verify(TaylorLPSGetOrder(TaylorLPSConstruct(x, x-Sin(x))), [1,False]);
+Verify(TaylorLPSGetOrder(TaylorLPSConstruct(x, 1/x)), [-1,True]);
 
 // User-defined power series
 
-pju0 := TaylorLPS(Undefined, {}, x, jn(x));
-pj40 := TaylorLPS(5, {}, x, jn(x));
-pj50 := TaylorLPS(5, {}, x, jn(x));
-pj51 := TaylorLPS(5, {jn5}, x, jn(x));
-pj52 := TaylorLPS(5, {jn5,jn6}, x, jn(x));
-pj53 := TaylorLPS(5, {jn5,jn6,jn7}, x, jn(x));
-pj54 := TaylorLPS(5, {jn5,jn6,jn7,jn8}, x, jn(x));
+pju0 := TaylorLPS(Undefined, [], x, jn(x));
+pj40 := TaylorLPS(5, [], x, jn(x));
+pj50 := TaylorLPS(5, [], x, jn(x));
+pj51 := TaylorLPS(5, [jn5], x, jn(x));
+pj52 := TaylorLPS(5, [jn5,jn6], x, jn(x));
+pj53 := TaylorLPS(5, [jn5,jn6,jn7], x, jn(x));
+pj54 := TaylorLPS(5, [jn5,jn6,jn7,jn8], x, jn(x));
 
-pc24 := {0,0,0};
-pc35 := {0,0,jn5};
-pc46 := {0,jn5,jn6};
-pc57 := {jn5,jn6,jn7};
-pc68 := {jn6,jn7,jn8};
+pc24 := [0,0,0];
+pc35 := [0,0,jn5];
+pc46 := [0,jn5,jn6];
+pc57 := [jn5,jn6,jn7];
+pc68 := [jn6,jn7,jn8];
 
 tlc(_a,_b,_c) <-- TaylorLPSCoeffs(a,b,c);  // abbreviation
 
@@ -291,94 +291,94 @@ pj := FlatCopy(pj54); Verify(tlc(pj,6,8), pc68); Verify(pj, pj54);
 
 // Addition
 
-pp := TaylorLPS(Undefined, {}, x,
+pp := TaylorLPS(Undefined, [], x,
                  TaylorLPSAdd(FlatCopy(p1), FlatCopy(p3)));
-Verify(TaylorLPSCoeffs(pp, 0, 3), {1+a0,1+a1,1/2+a2,1/6+a3});
-Verify(pp, TaylorLPS(0, {1+a0,1+a1,1/2+a2,1/6+a3}, x,
+Verify(TaylorLPSCoeffs(pp, 0, 3), [1+a0,1+a1,1/2+a2,1/6+a3]);
+Verify(pp, TaylorLPS(0, [1+a0,1+a1,1/2+a2,1/6+a3], x,
                       TaylorLPSAdd(p1,p3)));
 
-pp := TaylorLPS(0, {1+a0}, x,
+pp := TaylorLPS(0, [1+a0], x,
                  TaylorLPSAdd(FlatCopy(p1), FlatCopy(p3)));
-Verify(TaylorLPSCoeffs(pp, 0, 3), {1+a0,1+a1,1/2+a2,1/6+a3});
-Verify(pp, TaylorLPS(0, {1+a0,1+a1,1/2+a2,1/6+a3}, x,
+Verify(TaylorLPSCoeffs(pp, 0, 3), [1+a0,1+a1,1/2+a2,1/6+a3]);
+Verify(pp, TaylorLPS(0, [1+a0,1+a1,1/2+a2,1/6+a3], x,
                       TaylorLPSAdd(p1,p3)));
 
 pp := TaylorLPSConstruct(x, 1+Ln(x+1));
-Verify(TaylorLPSCoeffs(pp, 0, 4), {1, 1, -1/2, 1/3, -1/4});
-Verify(pp, TaylorLPS(0, {1,1,-1/2,1/3,-1/4}, x, TaylorLPSAdd(pp2,pp1))
-           Where {pp1 == TaylorLPS(0, {1,0,0,0,0}, x, 1),
-                  pp2 == TaylorLPS(1, {1,-1/2,1/3,-1/4}, x, Ln(x+1))});
+Verify(TaylorLPSCoeffs(pp, 0, 4), [1, 1, -1/2, 1/3, -1/4]);
+Verify(pp, TaylorLPS(0, [1,1,-1/2,1/3,-1/4], x, TaylorLPSAdd(pp2,pp1))
+           Where [pp1 == TaylorLPS(0, [1,0,0,0,0], x, 1),
+                  pp2 == TaylorLPS(1, [1,-1/2,1/3,-1/4], x, Ln(x+1))]);
 
 pp := TaylorLPSConstruct(a, Exp(a)+jn(a));
-Verify(TaylorLPSCoeffs(pp, -1, 5), {0, 1, 1, 1/2, 1/6, 1/24, 1/120+jn5});
-Verify(pp, TaylorLPS(0, {1, 1, 1/2, 1/6, 1/24, 1/120+jn5},
+Verify(TaylorLPSCoeffs(pp, -1, 5), [0, 1, 1, 1/2, 1/6, 1/24, 1/120+jn5]);
+Verify(pp, TaylorLPS(0, [1, 1, 1/2, 1/6, 1/24, 1/120+jn5],
                       a, TaylorLPSAdd(pp1,pp2))
-           Where {pp1 == TaylorLPS(0, {1,1,1/2,1/6,1/24,1/120}, a, Exp(a)),
-                  pp2 == TaylorLPS(5, {jn5}, a, jn(a))});
+           Where [pp1 == TaylorLPS(0, [1,1,1/2,1/6,1/24,1/120], a, Exp(a)),
+                  pp2 == TaylorLPS(5, [jn5], a, jn(a))]);
 
 // Scalar multiplication
 
-pp := TaylorLPS(Undefined, {}, x, TaylorLPSScalarMult(5, FlatCopy(p1)));
-Verify(TaylorLPSCoeffs(pp, 0, 3), {5,5,5/2,5/6});
-Verify(pp, TaylorLPS(0, {5,5,5/2,5/6}, x, TaylorLPSScalarMult(5,p1)));
+pp := TaylorLPS(Undefined, [], x, TaylorLPSScalarMult(5, FlatCopy(p1)));
+Verify(TaylorLPSCoeffs(pp, 0, 3), [5,5,5/2,5/6]);
+Verify(pp, TaylorLPS(0, [5,5,5/2,5/6], x, TaylorLPSScalarMult(5,p1)));
 
-pp := TaylorLPS(0, {5,5}, x, TaylorLPSScalarMult(5, FlatCopy(p1)));
-Verify(TaylorLPSCoeffs(pp, 0, 3), {5,5,5/2,5/6});
-Verify(pp, TaylorLPS(0, {5,5,5/2,5/6}, x, TaylorLPSScalarMult(5,p1)));
+pp := TaylorLPS(0, [5,5], x, TaylorLPSScalarMult(5, FlatCopy(p1)));
+Verify(TaylorLPSCoeffs(pp, 0, 3), [5,5,5/2,5/6]);
+Verify(pp, TaylorLPS(0, [5,5,5/2,5/6], x, TaylorLPSScalarMult(5,p1)));
 
 pp := TaylorLPSConstruct(t, (-2)*Sin(t));
-Verify(TaylorLPSCoeffs(pp, -1, 4), {0, 0, -2, 0, 1/3, 0});
-Verify(pp, TaylorLPS(1, {-2,0,1/3,0}, t, TaylorLPSScalarMult(-2, pp1))
-           Where pp1 == TaylorLPS(1, {1,0,-1/6,0}, t, Sin(t)));
+Verify(TaylorLPSCoeffs(pp, -1, 4), [0, 0, -2, 0, 1/3, 0]);
+Verify(pp, TaylorLPS(1, [-2,0,1/3,0], t, TaylorLPSScalarMult(-2, pp1))
+           Where pp1 == TaylorLPS(1, [1,0,-1/6,0], t, Sin(t)));
 
 // Subtraction
 
 pp := TaylorLPSConstruct(x, Exp(x)-Cos(x));
       // zero order term cancels!
-Verify(TaylorLPSCoeffs(pp, 0, 4), {0, 1, 1, 1/6, 0});
-Verify(pp, TaylorLPS(1, {1,1,1/6,0}, x, TaylorLPSAdd(pp1, pp2))
-           Where pp1 == TaylorLPS(0, {1,1,1/2,1/6,1/24}, x, Exp(x))
-           Where pp2 == TaylorLPS(0, {-1,0,1/2,0,-1/24}, x,
+Verify(TaylorLPSCoeffs(pp, 0, 4), [0, 1, 1, 1/6, 0]);
+Verify(pp, TaylorLPS(1, [1,1,1/6,0], x, TaylorLPSAdd(pp1, pp2))
+           Where pp1 == TaylorLPS(0, [1,1,1/2,1/6,1/24], x, Exp(x))
+           Where pp2 == TaylorLPS(0, [-1,0,1/2,0,-1/24], x,
                                    TaylorLPSScalarMult(-1, pp3))
-           Where pp3 == TaylorLPS(0, {1,0,-1/2,0,1/24}, x, Cos(x)));
+           Where pp3 == TaylorLPS(0, [1,0,-1/2,0,1/24], x, Cos(x)));
 
 // Multiplication
 
-pp := TaylorLPS(Undefined, {}, x,
+pp := TaylorLPS(Undefined, [], x,
                  TaylorLPSMultiply(FlatCopy(p1), FlatCopy(p3)));
-Verify(TaylorLPSCoeffs(pp, 0, 2), {a0, a1+a0, a2+a1+1/2*a0});
-Verify(pp, TaylorLPS(0, {a0, a1+a0, a2+a1+1/2*a0}, x,
+Verify(TaylorLPSCoeffs(pp, 0, 2), [a0, a1+a0, a2+a1+1/2*a0]);
+Verify(pp, TaylorLPS(0, [a0, a1+a0, a2+a1+1/2*a0], x,
                       TaylorLPSMultiply(p1,p3)));
 
-pp := TaylorLPS(0, {a0}, x,
+pp := TaylorLPS(0, [a0], x,
                  TaylorLPSMultiply(FlatCopy(p1), FlatCopy(p3)));
-Verify(TaylorLPSCoeffs(pp, 0, 2), {a0, a1+a0, a2+a1+1/2*a0});
-Verify(pp, TaylorLPS(0, {a0, a1+a0, a2+a1+1/2*a0}, x,
+Verify(TaylorLPSCoeffs(pp, 0, 2), [a0, a1+a0, a2+a1+1/2*a0]);
+Verify(pp, TaylorLPS(0, [a0, a1+a0, a2+a1+1/2*a0], x,
                       TaylorLPSMultiply(p1,p3)));
 
 pp := TaylorLPSConstruct(x, x^2*Ln(x+1));
-Verify(TaylorLPSCoeffs(pp, 0, 4), {0, 0, 0, 1, -1/2});
-Verify(pp, TaylorLPS(3, {1,-1/2}, x, TaylorLPSMultiply(pp1,pp2))
-           Where {pp1 == TaylorLPS(2, {1,0}, x, x^2),
-                  pp2 == TaylorLPS(1, {1,-1/2}, x, Ln(x+1))});
+Verify(TaylorLPSCoeffs(pp, 0, 4), [0, 0, 0, 1, -1/2]);
+Verify(pp, TaylorLPS(3, [1,-1/2], x, TaylorLPSMultiply(pp1,pp2))
+           Where [pp1 == TaylorLPS(2, [1,0], x, x^2),
+                  pp2 == TaylorLPS(1, [1,-1/2], x, Ln(x+1))]);
 
 // Inversion
 
-pp := TaylorLPS(Undefined, {}, x, TaylorLPSInverse(FlatCopy(p1)));
-Verify(TaylorLPSCoeffs(pp, 0, 3), {1,-1,1/2,-1/6});
-Verify(pp, TaylorLPS(0, {1,-1,1/2,-1/6}, x, TaylorLPSInverse(p1)));
+pp := TaylorLPS(Undefined, [], x, TaylorLPSInverse(FlatCopy(p1)));
+Verify(TaylorLPSCoeffs(pp, 0, 3), [1,-1,1/2,-1/6]);
+Verify(pp, TaylorLPS(0, [1,-1,1/2,-1/6], x, TaylorLPSInverse(p1)));
 
-pp := TaylorLPS(Undefined, {}, t, TaylorLPSInverse(FlatCopy(p2)));
-Verify(TaylorLPSCoeffs(pp, 0, 2), {0,1/6,-0});
-Verify(pp, TaylorLPS(-1, {1,0,1/6,0}, t, TaylorLPSInverse(p2)));
+pp := TaylorLPS(Undefined, [], t, TaylorLPSInverse(FlatCopy(p2)));
+Verify(TaylorLPSCoeffs(pp, 0, 2), [0,1/6,-0]);
+Verify(pp, TaylorLPS(-1, [1,0,1/6,0], t, TaylorLPSInverse(p2)));
 
-pp := TaylorLPS(Undefined, {}, x, TaylorLPSInverse(FlatCopy(p0)));
+pp := TaylorLPS(Undefined, [], x, TaylorLPSInverse(FlatCopy(p0)));
 Verify(⊕TaylorLPSCoeffs(pp, 0, 0); ClearError("div-by-zero");⊖, True);
 
 pp := TaylorLPSConstruct(x, 1/jn(x));
-Verify(TaylorLPSCoeffs(pp, -7, -4), {0,0,1/jn5,-jn6/jn5^2});
-Verify(pp, TaylorLPS(-5, {1/jn5,-jn6/jn5^2}, x, TaylorLPSInverse(pp1))
-           Where pp1 == TaylorLPS(5, {jn5,jn6}, x, jn(x)));
+Verify(TaylorLPSCoeffs(pp, -7, -4), [0,0,1/jn5,-jn6/jn5^2]);
+Verify(pp, TaylorLPS(-5, [1/jn5,-jn6/jn5^2], x, TaylorLPSInverse(pp1))
+           Where pp1 == TaylorLPS(5, [jn5,jn6], x, jn(x)));
 
 pp := TaylorLPSConstruct(x, 1/(Cos(x)^2+Sin(x)^2-1));
 Verify(⊕TaylorLPSCoeffs(pp, 0, 5); ClearError("maybe-div-by-zero");⊖, True);
@@ -386,12 +386,12 @@ Verify(⊕TaylorLPSCoeffs(pp, 0, 5); ClearError("maybe-div-by-zero");⊖, True);
 // Division
 
 pp := TaylorLPSConstruct(x, Exp(x)/Cos(x));
-Verify(TaylorLPSCoeffs(pp, 0, 4), {1, 1, 1, 2/3, 1/2});
-Verify(pp, TaylorLPS(0, {1,1,1,2/3,1/2}, x, TaylorLPSMultiply(pp1, pp2))
-           Where pp1 == TaylorLPS(0, {1,1,1/2,1/6,1/24}, x, Exp(x))
-           Where pp2 == TaylorLPS(0, {1,0,1/2,0,5/24}, x,
+Verify(TaylorLPSCoeffs(pp, 0, 4), [1, 1, 1, 2/3, 1/2]);
+Verify(pp, TaylorLPS(0, [1,1,1,2/3,1/2], x, TaylorLPSMultiply(pp1, pp2))
+           Where pp1 == TaylorLPS(0, [1,1,1/2,1/6,1/24], x, Exp(x))
+           Where pp2 == TaylorLPS(0, [1,0,1/2,0,5/24], x,
                                    TaylorLPSInverse(pp3))
-           Where pp3 == TaylorLPS(0, {1,0,-1/2,0,1/24}, x, Cos(x)));
+           Where pp3 == TaylorLPS(0, [1,0,-1/2,0,1/24], x, Cos(x)));
 
 // Raising to a natural power
 
@@ -400,21 +400,21 @@ Verify(pp, TaylorLPS(0, {1,1,1,2/3,1/2}, x, TaylorLPSMultiply(pp1, pp2))
 // Composition
 
 Verify(TaylorLPSConstruct(x, Ln(Sin(x))),
-       TaylorLPS(Undefined, {}, x, TaylorLPSCompose(pp1,pp2))
-       Where {pp1 == TaylorLPS(Undefined, {}, x, Ln(x)),
-              pp2 == TaylorLPS(1, {}, x, Sin(x))});
+       TaylorLPS(Undefined, [], x, TaylorLPSCompose(pp1,pp2))
+       Where [pp1 == TaylorLPS(Undefined, [], x, Ln(x)),
+              pp2 == TaylorLPS(1, [], x, Sin(x))]);
 
 Verify(TaylorLPSConstruct(x, Ln(Cos(x))),
-       TaylorLPS(Undefined, {}, x, TaylorLPSCompose(pp1,pp2))
-       Where {pp1 == TaylorLPS(Undefined, {}, x, Ln(1+x)),
-              pp2 == TaylorLPS(Undefined, {}, x, TaylorLPSAdd(pp3,pp4)),
-              pp3 == TaylorLPS(0, {1}, x, Cos(x)),
-              pp4 == TaylorLPS(Undefined, {}, x, -1)});
+       TaylorLPS(Undefined, [], x, TaylorLPSCompose(pp1,pp2))
+       Where [pp1 == TaylorLPS(Undefined, [], x, Ln(1+x)),
+              pp2 == TaylorLPS(Undefined, [], x, TaylorLPSAdd(pp3,pp4)),
+              pp3 == TaylorLPS(0, [1], x, Cos(x)),
+              pp4 == TaylorLPS(Undefined, [], x, -1)]);
 
-pp := TaylorLPS(Undefined, {}, x,
+pp := TaylorLPS(Undefined, [], x,
                  TaylorLPSCompose(FlatCopy(p1), FlatCopy(p2)));
-Verify(TaylorLPSCoeffs(pp, 0, 3), {1, 1, 1/2, 0});
-Verify(pp, TaylorLPS(0, {1,1,1/2,0}, x, TaylorLPSCompose(p1,p2)));
+Verify(TaylorLPSCoeffs(pp, 0, 3), [1, 1, 1/2, 0]);
+Verify(pp, TaylorLPS(0, [1,1,1/2,0], x, TaylorLPSCompose(p1,p2)));
 
 ⊖; // LocalSymbols(p*)
 

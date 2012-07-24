@@ -4,7 +4,7 @@ Subexpressions(expression) :=
 ⊕
     Local(subexpressions, uniqueSubexpressions, variables, functions, sortedFunctions);
     
-     subexpressions := SubexpressionsHelper(expression,{});
+     subexpressions := SubexpressionsHelper(expression,[]);
      
      uniqueSubexpressions := RemoveDuplicates(subexpressions);
      
@@ -12,7 +12,7 @@ Subexpressions(expression) :=
      
      functions := Select(uniqueSubexpressions, "Function?");
 
-     sortedFunctions := Sort(functions,Lambda({x,y},Length(FunctionListAllHelper(x)) + Length(VarList(x)) <? Length(FunctionListAllHelper(y)) + Length(VarList(y))));
+     sortedFunctions := Sort(functions,Lambda([x,y],Length(FunctionListAllHelper(x)) + Length(VarList(x)) <? Length(FunctionListAllHelper(y)) + Length(VarList(y))));
      
      Concat(variables, sortedFunctions);
 ⊖;
@@ -49,12 +49,12 @@ FunctionListAllHelper(expression) :=
 ⊕
     if(Atom?(expression))
     ⊕
-       {}; 
+       []; 
     ⊖
     else if (Function?(expression))
     ⊕
     
-      Concat( {First(FunctionToList(expression))},
+      Concat( [First(FunctionToList(expression))],
          Apply("Concat", MapSingle("FunctionListAllHelper", Rest(FunctionToList(expression)))));
     ⊖
     else
@@ -77,7 +77,7 @@ FunctionListAllHelper(expression) :=
         Subexpressions(expression)
 
 *PARMS
-{expression} -- an expression.
+[expression] -- an expression.
 
 *DESC
 Returns a list that contains all of the subexpressions in an expression. The list does not contain any duplicates 
@@ -85,7 +85,7 @@ and the subexpressions are arranged in order from shortest to longest.
 
 *E.G.
 In> Subexpressions(a*b+c)
-Result: {a,b,c,a*b,a*b+c}
+Result: [a,b,c,a*b,a*b+c]
 
 *SEE TruthTable
 
@@ -103,7 +103,7 @@ Result: {a,b,c,a*b,a*b+c}
 
 Unbind(a,b,c);
 
-Verify(Subexpressions(a*b+c), {a,b,c,a*b,a*b+c});
+Verify(Subexpressions(a*b+c), [a,b,c,a*b,a*b+c]);
 
 %/mathpiper
 

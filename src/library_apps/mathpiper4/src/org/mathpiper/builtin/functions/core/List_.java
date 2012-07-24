@@ -81,7 +81,7 @@ Result: False;
 
 %mathpiper,name="List?",subtype="automatic_test"
 
-Verify(List?({a,b,c}),True);
+Verify(List?([a,b,c]),True);
 Verify(List?(a),False);
 
 %/mathpiper

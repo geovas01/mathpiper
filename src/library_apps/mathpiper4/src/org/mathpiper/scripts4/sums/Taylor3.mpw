@@ -5,7 +5,7 @@
 /* Taylor3, implementation of Taylor series expansion by doing calculation on series directly.
  */
 
-Defun("Taylor3MultiplyCoefs",{coefs1,coefs2,degree})
+Defun("Taylor3MultiplyCoefs",[coefs1,coefs2,degree])
 ⊕
   Local(result,i,j,jset,ilimit,jlimit);
   Bind(result, ArrayCreate(AddN(degree,1),0));
@@ -127,7 +127,7 @@ Defun("Taylor3MultiplyCoefs",{coefs1,coefs2,degree})
       (
         ⊕
           Local(result);
-          result:= Deriv(var)ListToFunction({ToAtom(any),var});
+          result:= Deriv(var)ListToFunction([ToAtom(any),var]);
           Type(result) !=? "Deriv";
         ⊖
       )           <--
@@ -137,7 +137,7 @@ Defun("Taylor3MultiplyCoefs",{coefs1,coefs2,degree})
 210 # Taylor3CompCoeff(_any, n_Integer?)
     <--
     ⊕
-      Limit(var,0)(Deriv(var,n)(ListToFunction({ToAtom(any),var}))/n!);
+      Limit(var,0)(Deriv(var,n)(ListToFunction([ToAtom(any),var]))/n!);
     ⊖;
 
 

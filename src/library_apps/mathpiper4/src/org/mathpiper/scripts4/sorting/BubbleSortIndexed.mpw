@@ -8,10 +8,10 @@ BubbleSortIndexed( L_List?, _compare ) <--
 
   list    := FlatCopy(L);
   indices := Table(i,i,1,Length(list),1);
-  pairs   := Transpose(list~{indices});
-  sortedPairs := If( Apply(compare,{3,5}), 
-     BubbleSort( pairs, Lambda({X,Y},X[1] <? Y[1]) ),
-     BubbleSort( pairs, Lambda({X,Y},X[1] >? Y[1]) )
+  pairs   := Transpose(list~[indices]);
+  sortedPairs := If( Apply(compare,[3,5]), 
+     BubbleSort( pairs, Lambda([X,Y],X[1] <? Y[1]) ),
+     BubbleSort( pairs, Lambda([X,Y],X[1] >? Y[1]) )
   );
   Transpose(sortedPairs);
 ⊖;
@@ -33,37 +33,37 @@ BubbleSortIndexed( L_List?, _compare ) <--
 
 *PARMS
 
-{list} -- list to sort
+[list] -- list to sort
 
-{compare} -- function used to compare elements of {list}
+[compare] -- function used to compare elements of [list]
 
 *DESC
 
-This command returns {list} after it is sorted using {compare} to
-compare elements. The function {compare} should accept two arguments,
-which will be elements of {list}, and compare them. It should return
-{True} if in the sorted list the second argument
-should come after the first one, and {False}
-otherwise.  The function {compare} can either be a string which
+This command returns [list] after it is sorted using [compare] to
+compare elements. The function [compare] should accept two arguments,
+which will be elements of [list], and compare them. It should return
+[True] if in the sorted list the second argument
+should come after the first one, and [False]
+otherwise.  The function [compare] can either be a string which
 contains the name of a function or a pure function.
 
-The function {BubbleSortIndexed} uses the so-called "bubble sort" algorithm to do the
+The function [BubbleSortIndexed] uses the so-called "bubble sort" algorithm to do the
 sorting by swapping elements that are out of order. This algorithm is easy to
 implement, though it is not particularly fast. The sorting time is proportional
 to $n^2$ where $n$ is the length of the list.
 
-An {IndexedSort}, performs the same action as a "regular" sort, but also
+An [IndexedSort], performs the same action as a "regular" sort, but also
 return an Index list, which gives the order that the sorted items 
 had in the original list before sorting.
 
-The original {list} is left unmodified.
+The original [list] is left unmodified.
 
 *E.G.
-In> BubbleSortIndexed({-1,88,4,7,23,53,-2,1}, ">?")
-Result: {{88,53,23,7,4,1,-1,-2},{2,6,5,4,3,8,1,7}}
+In> BubbleSortIndexed([-1,88,4,7,23,53,-2,1], ">?")
+Result: [[88,53,23,7,4,1,-1,-2],[2,6,5,4,3,8,1,7]]
 
-BubbleSortIndexed({-1,88,4,7,23,53,-2,1}, Lambda({x,y},x<?y))
-Result: {{-2,-1,1,4,7,23,53,88},{7,1,8,3,4,5,6,2}}
+BubbleSortIndexed([-1,88,4,7,23,53,-2,1], Lambda([x,y],x<?y))
+Result: [[-2,-1,1,4,7,23,53,88],[7,1,8,3,4,5,6,2]]
 
 *SEE HeapSort, Lambda
 %/mathpiper_docs

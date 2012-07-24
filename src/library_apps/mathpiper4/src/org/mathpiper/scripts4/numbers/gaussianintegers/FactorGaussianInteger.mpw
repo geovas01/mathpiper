@@ -11,7 +11,7 @@
 // I've leave this here so that you can compare the eficiency of one
 // function against the other
 
-Function("FactorGaussianInteger",{x}) ⊕
+Function("FactorGaussianInteger",[x]) ⊕
         Check( GaussianInteger?(x), "Argument", "FactorGaussianInteger: argument must be a Gaussian integer");
         Local(re,im,norm,a,b,d,i,j);
 

@@ -1,6 +1,6 @@
 %mathpiper,def="Trigonometry"
 
-Defun("Trigonometry",{x,i,sum,term})
+Defun("Trigonometry",[x,i,sum,term])
 ⊕
   Local(x2,orig,eps,previousPrec,newPrec);
   Bind(previousPrec,BuiltinPrecisionGet());

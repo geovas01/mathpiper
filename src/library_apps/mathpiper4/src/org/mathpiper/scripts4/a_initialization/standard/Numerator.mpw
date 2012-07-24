@@ -20,7 +20,7 @@
 
 *PARMS
 
-{expr} -- expression to determine numerator of
+[expr] -- expression to determine numerator of
 
 *DESC
 

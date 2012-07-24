@@ -2,7 +2,7 @@
 
 // The arguments of the following functions should be checked
 // this takes 1 func in N vars
-HessianMatrix(f,v):=GenMatrix({{i,j}, Deriv(v[i]) Deriv(v[j]) f},Length(v),Length(v));
+HessianMatrix(f,v):=GenMatrix([[i,j], Deriv(v[i]) Deriv(v[j]) f],Length(v),Length(v));
 
 %/mathpiper
 
@@ -15,13 +15,13 @@ HessianMatrix(f,v):=GenMatrix({{i,j}, Deriv(v[i]) Deriv(v[j]) f},Length(v),Lengt
         HessianMatrix(function,var)
 *PARMS
 
-{function} -- a function in $n$ variables
+[function] -- a function in $n$ variables
 
-{var} -- an $n$-dimensional vector of variables
+[var] -- an $n$-dimensional vector of variables
 
 *DESC
 
-The function {HessianMatrix} calculates the Hessian matrix
+The function [HessianMatrix] calculates the Hessian matrix
 of a vector.
 
 If $f(x)$ is a function of an $n$-dimensional vector $x$, then the ($i$,$j$)-th element of the Hessian matrix of the function $f(x)$ is defined as 
@@ -36,8 +36,8 @@ minimum or a saddle point.
 
 *E.G.
 
-In> HessianMatrix(3*x^2-2*x*y+y^2-8*y, {x,y} )
-Result: {{6,-2},{-2,2}};
+In> HessianMatrix(3*x^2-2*x*y+y^2-8*y, [x,y] )
+Result: [[6,-2],[-2,2]];
 In> PrettyForm(%)
 
         /                \

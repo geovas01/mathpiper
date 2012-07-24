@@ -20,12 +20,12 @@ NegativeReal?(_r) <--
 
 *PARMS
 
-{expr} -- expression to test
+[expr] -- expression to test
 
 *DESC
 
-This function tries to approximate {expr} numerically. It returns {True} if this approximation is negative. In case no
-approximation can be found, the function returns {False}. Note that round-off errors may cause incorrect
+This function tries to approximate [expr] numerically. It returns [True] if this approximation is negative. In case no
+approximation can be found, the function returns [False]. Note that round-off errors may cause incorrect
 results.
 
 *E.G.
@@ -37,8 +37,8 @@ Result: True;
 In> NegativeReal?(Exp(x));
 Result: False;
 
-The last result is because {Exp(x)} cannot be
-numerically approximated if {x} is not known. Hence
+The last result is because [Exp(x)] cannot be
+numerically approximated if [x] is not known. Hence
 MathPiper can not determine the sign of this expression.
 
 *SEE PositiveReal?, NegativeNumber?, N

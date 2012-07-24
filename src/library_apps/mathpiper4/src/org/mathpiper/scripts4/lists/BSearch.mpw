@@ -6,7 +6,7 @@ LocalSymbols(max,f,result)
   ⊕
     Local(result);
     Bind(result, FindIsq(max,f));
-    If(Apply(f,{result})!=?0,Bind(result,-1));
+    If(Apply(f,[result])!=?0,Bind(result,-1));
     result;
   ⊖;
 ⊖;

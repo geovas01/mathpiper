@@ -35,7 +35,7 @@
 
 10 # CDF(BinomialDistribution(_p,_n),m_Number?)_(m<?0) <-- 0;
 10 # CDF(BinomialDistribution(_p,n_Integer?),m_Number?)_(m>?n) <-- 1;
-10 # CDF(BinomialDistribution(_p,_n),_m) <-- Sum @ { i, 0, Floor(m), PMF(BinomialDistribution(p,n),i)};
+10 # CDF(BinomialDistribution(_p,_n),_m) <-- Sum @ [ i, 0, Floor(m), PMF(BinomialDistribution(p,n),i)];
 
 10 # CDF(DiscreteUniformDistribution( a_Number?, b_Number?), x_Number?)_(x<=?a) <-- 0;
 10 # CDF(DiscreteUniformDistribution( a_Number?, b_Number?), x_Number?)_(x>?b) <-- 1;
@@ -43,7 +43,7 @@
 11 # CDF(DiscreteUniformDistribution( _a, _b), _x) <--Hold(If(x<=?a,0,If(x<=?b,(x-a)/(b-a),1)));
 
 10 # CDF(PoissonDistribution(_l), x_Number?)_(x<=?0) <-- 0;
-10 # CDF(PoissonDistribution(_l), _x) <-- Sum @ {i,0,x,PMF(PoissonDistribution(l),i)};
+10 # CDF(PoissonDistribution(_l), _x) <-- Sum @ [i,0,x,PMF(PoissonDistribution(l),i)];
 
 10 # CDF(ChiSquareDistribution(_m), _x) <-- IncompleteGamma(m/2,x/2)/Gamma(x/2);
 10 # CDF(DiscreteDistribution( dom_List?, prob_List?), _x)   <--
@@ -59,7 +59,7 @@
 
 10 # CDF(HypergeometricDistribution( N_Number?, M_Number?, n_Number?), x_Number?)_(M <=? N And? n <=? N) <-- 
 ⊕
-    Sum @ {i,0,x,PMF(HypergeometricDistribution(N, M, n),i)};
+    Sum @ [i,0,x,PMF(HypergeometricDistribution(N, M, n),i)];
 ⊖;
 
 
@@ -83,9 +83,9 @@
         CDF(dist,x)
 
 *PARMS
-{dist} -- a distribution type
+[dist] -- a distribution type
 
-{x} -- a value of random variable
+[x] -- a value of random variable
 
 *DESC
 The cumulative distribution function (CDF) (or just distribution function) describes the 

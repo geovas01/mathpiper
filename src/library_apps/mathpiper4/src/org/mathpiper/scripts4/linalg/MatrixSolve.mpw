@@ -4,7 +4,7 @@
 
 10 # MatrixSolve(matrix_Diagonal?,b_Vector?) <--
 ⊕
-    If(InVerboseMode(),Tell("   MatrixSolve_diag",{matrix,b}));
+    If(InVerboseMode(),Tell("   MatrixSolve_diag",[matrix,b]));
         Local(rowsm,rowsb,x);
     rowsm:=Length(matrix);
         rowsb:=Length(b);
@@ -18,7 +18,7 @@
 // Backward Substitution
 15 # MatrixSolve(matrix_UpperTriangular?,b_Vector?) <--
 ⊕
-    If(InVerboseMode(),Tell("   MatrixSolve_ut",{matrix,b}));
+    If(InVerboseMode(),Tell("   MatrixSolve_ut",[matrix,b]));
     Local(rowsm,rowsb,x,s);
     rowsm:=Length(matrix);
     rowsb:=Length(b);
@@ -26,7 +26,7 @@
     x:=ZeroVector(rowsb);
 
         x[rowsb]:=b[rowsb]/matrix[rowsb][rowsb];
-        If(InVerboseMode(),Echo({"set x[",rowsb,"] =? ",b[rowsb]/matrix[rowsb][rowsb]}));
+        If(InVerboseMode(),Echo(["set x[",rowsb,"] =? ",b[rowsb]/matrix[rowsb][rowsb]]));
 
         ForEach(i,(rowsb-1) .. 1 )⊕
                 s:=b[i];
@@ -34,7 +34,7 @@
                         s:= s - matrix[i][j]*x[j];
                 ⊖;
                 x[i]:= s/matrix[i][i];
-                If(InVerboseMode(),Echo({"set x[",i,"] =? ",s/matrix[i][i]}));
+                If(InVerboseMode(),Echo(["set x[",i,"] =? ",s/matrix[i][i]]));
         ⊖;
         x;
 ⊖;
@@ -42,7 +42,7 @@
 // Forward Substitution
 15 # MatrixSolve(matrix_LowerTriangular?,b_Vector?) <--
 ⊕
-    If(InVerboseMode(),Tell("   MatrixSolve_lt",{matrix,b}));
+    If(InVerboseMode(),Tell("   MatrixSolve_lt",[matrix,b]));
         Local(rowsm,rowsb,x,s);
         rowsm:=Length(matrix);
         rowsb:=Length(b);
@@ -50,7 +50,7 @@
         x:=ZeroVector(rowsb);
 
         x[1]:=b[1]/matrix[1][1];
-        If(InVerboseMode(),Echo({"set x[1] =? ",b[1]/matrix[1][1]}));
+        If(InVerboseMode(),Echo(["set x[1] =? ",b[1]/matrix[1][1]]));
 
         ForEach(i,2 .. rowsb )⊕
                 s:=b[i];
@@ -58,7 +58,7 @@
                         s:= s - matrix[i][j]*x[j];
                 ⊖;
                 x[i]:= s/matrix[i][i];
-                If(InVerboseMode(),Echo({"set x[",i,"] =? ",s/matrix[i][i]}));
+                If(InVerboseMode(),Echo(["set x[",i,"] =? ",s/matrix[i][i]]));
         ⊖;
         x;
 ⊖;
@@ -66,7 +66,7 @@
 // pivoting not implemented yet
 20 # MatrixSolve(matrix_Matrix?,b_Vector?) <--
 ⊕
-    If(InVerboseMode(),Tell("   MatrixSolve",{matrix,b}));
+    If(InVerboseMode(),Tell("   MatrixSolve",[matrix,b]));
         Local(aug,rowsm,rowsb,x,s);
     rowsm:=Length(matrix);
     rowsb:=Length(b);
@@ -89,7 +89,7 @@
                         Local(p,tmp);
                         p:=i+1;
                         While( aug[p][p] =? 0 )⊕ p++; ⊖;
-                        If(InVerboseMode(), Echo({"switching row ",i,"with ",p}) );
+                        If(InVerboseMode(), Echo(["switching row ",i,"with ",p]) );
                         tmp:=aug[i];
                         aug[i]:=aug[p];
                         aug[p]:=tmp;
@@ -100,14 +100,14 @@
                         s:=aug[k][i];
                         ForEach(j, i .. (rowsb+1) )⊕
                                 aug[k][j] := aug[k][j] - (s/aug[i][i])*aug[i][j];
-                                //Echo({"aug[",k,"][",j,"] =", aug[k][j]," - ",
-                                //        aug[k][i],"/",aug[i][i],"*",aug[i][j]," k i =", k,i  });
+                                //Echo(["aug[",k,"][",j,"] =", aug[k][j]," - ",
+                                //        aug[k][i],"/",aug[i][i],"*",aug[i][j]," k i =", k,i  ]);
                         ⊖;
                 ⊖;
         ⊖;
         //PrettyForm(aug);
         x[rowsb]:=aug[rowsb][rowsb+1]/aug[rowsb][rowsb];
-        If(InVerboseMode(),Echo({"set x[",rowsb,"] =? ",x[rowsb] }));
+        If(InVerboseMode(),Echo(["set x[",rowsb,"] =? ",x[rowsb] ]));
 
         ForEach(i,(rowsb-1) .. 1 )⊕
                 s:=aug[i][rowsb+1];
@@ -115,7 +115,7 @@
                         s := s - aug[i][j]*x[j];
                 ⊖;
                 x[i]:=Simplify(s/aug[i][i]);
-                If(InVerboseMode(),Echo({"set x[",i,"] = ",x[i] }));
+                If(InVerboseMode(),Echo(["set x[",i,"] = ",x[i] ]));
         ⊖;
         x;
 ⊖;
@@ -136,22 +136,22 @@
 
 *PARMS
 
-{A} -- coefficient matrix
+[A] -- coefficient matrix
 
-{b} -- row vector
+[b] -- row vector
 
 *DESC
 
-{MatrixSolve} solves the matrix equations {A*x = b} using Gaussian Elimination
+[MatrixSolve] solves the matrix equations [A*x = b] using Gaussian Elimination
 with Backward substitution. If your matrix is triangular or diagonal, it will
 be recognized as such and a faster algorithm will be used.
 
 *E.G.
 
-In> A:={{2,4,-2,-2},{1,2,4,-3},{-3,-3,8,-2},{-1,1,6,-3}};
-Result: {{2,4,-2,-2},{1,2,4,-3},{-3,-3,8,-2},{-1,1,6,-3}};
-In> b:={-4,5,7,7};
-Result: {-4,5,7,7};
+In> A:=[[2,4,-2,-2],[1,2,4,-3],[-3,-3,8,-2],[-1,1,6,-3]];
+Result: [[2,4,-2,-2],[1,2,4,-3],[-3,-3,8,-2],[-1,1,6,-3]];
+In> b:=[-4,5,7,7];
+Result: [-4,5,7,7];
 In> MatrixSolve(A,b);
-Result: {1,2,3,4};
+Result: [1,2,3,4];
 %/mathpiper_docs

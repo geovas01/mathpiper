@@ -1,6 +1,6 @@
 %mathpiper,def="CharacteristicEquation"
 
-Function("CharacteristicEquation",{matrix,var})
+Function("CharacteristicEquation",[matrix,var])
    SymbolicDeterminant(matrix-var*Identity(Length(matrix)));
 HoldArgument("CharacteristicEquation",var);
 
@@ -16,9 +16,9 @@ HoldArgument("CharacteristicEquation",var);
 
 *PARMS
 
-{matrix} -- a matrix
+[matrix] -- a matrix
 
-{var} -- a free variable
+[var] -- a free variable
 
 *DESC
 
@@ -29,8 +29,8 @@ of the matrix, Det(matrix-I*var);
 
 *E.G.
 
-In> A:=DiagonalMatrix({a,b,c})
-Result: {{a,0,0},{0,b,0},{0,0,c}};
+In> A:=DiagonalMatrix([a,b,c])
+Result: [[a,0,0],[0,b,0],[0,0,c]];
 In> B:=CharacteristicEquation(A,x)
 Result: (a-x)*(b-x)*(c-x);
 In> Expand(B,x)

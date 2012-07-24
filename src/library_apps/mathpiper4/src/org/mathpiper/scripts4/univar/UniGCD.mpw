@@ -1,6 +1,6 @@
 %mathpiper,def="UniGcd"
 
-Function("UniGcd",{u,v})
+Function("UniGcd",[u,v])
 ⊕
   Local(l,div,mod,m);
 
@@ -32,7 +32,7 @@ Function("UniGcd",{u,v})
   DropEndZeroes(mod);
   m := Length(mod);
 
-/* Echo({"v,mod = ",v,mod}); */
+/* Echo(["v,mod = ",v,mod]); */
 /*  If(m <=? 1, */
   If(m =? 0,
      v,

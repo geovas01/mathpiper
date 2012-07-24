@@ -9,11 +9,11 @@ BoundRealRoots(_p,_Mmin,_Mmax) <--
 ⊕
   Local(S,N,work,result,Vmin,Vmax,a,b,Va,Vb,c,Vc,x);
 
-  result:={};
+  result:=[];
   if (Zero?(p Where x==0))
   ⊕
     p:=Simplify(p/x);
-    result:={{0,0}};
+    result:=[[0,0]];
   ⊖;
   S:=SturmSequence(p);
   Vmin := SturmVariations(S,-Infinity);
@@ -26,24 +26,24 @@ BoundRealRoots(_p,_Mmin,_Mmax) <--
 //Echo("N = ",N);
 
 //Echo("Mmin,Mmax = ",Mmin,Mmax);
-  work:={};
+  work:=[];
   if (N=?1)
   ⊕
-    result:={{-Mmax,Mmax}};
+    result:=[[-Mmax,Mmax]];
   ⊖;
   if (N>?1)
   ⊕
     work :=
-    {
-      {-Mmax,-Mmin,Vmin,SturmVariations(S,-Mmin)},
-      { Mmin, Mmax,SturmVariations(S, Mmin),Vmax}
-    };
+    [
+      [-Mmax,-Mmin,Vmin,SturmVariations(S,-Mmin)],
+      [ Mmin, Mmax,SturmVariations(S, Mmin),Vmax]
+    ];
   ⊖;
 
 //Echo("Work start = ",work);
-    While(work !=? {})
+    While(work !=? [])
     ⊕
-      {a,b,Va,Vb} := First(work);
+      [a,b,Va,Vb] := First(work);
       work := Rest(work);
       c:=(a+b)/2;
 //Echo(a,b,c);
@@ -56,42 +56,42 @@ BoundRealRoots(_p,_Mmin,_Mmax) <--
 //Echo("Mi = ",M);
         Vcmin  := SturmVariations(S, c-M);
         Vcplus := SturmVariations(S, c+M);
-        result:=Concat(result,{{c,c}});
+        result:=Concat(result,[[c,c]]);
 
         if (Va =? Vcmin+1)
         ⊕
-          result:=Concat(result,{{a,c-M}});
+          result:=Concat(result,[[a,c-M]]);
         ⊖;
         if (Va >? Vcmin+1)
         ⊕
-          work:=Concat(work,{{a,c-M,Va,Vcmin}});
+          work:=Concat(work,[[a,c-M,Va,Vcmin]]);
         ⊖;
         if (Vb =? Vcplus-1)
         ⊕
-          result:=Concat(result,{{c+M,b}});
+          result:=Concat(result,[[c+M,b]]);
         ⊖;
         if (Vb <? Vcplus-1)
         ⊕
-          work:=Concat(work,{{c+M,b,Vcplus,Vb}});
+          work:=Concat(work,[[c+M,b,Vcplus,Vb]]);
         ⊖;
       ⊖
       else
       ⊕
         if (Va =? Vc+1)
         ⊕
-          result:=Concat(result,{{a,c}});
+          result:=Concat(result,[[a,c]]);
         ⊖;
         if (Va >? Vc+1)
         ⊕
-          work:=Concat(work,{{a,c,Va,Vc}});
+          work:=Concat(work,[[a,c,Va,Vc]]);
         ⊖;
         if (Vb =? Vc-1)
         ⊕
-          result:=Concat(result,{{c,b}});
+          result:=Concat(result,[[c,b]]);
         ⊖;
         if (Vb <? Vc-1)
         ⊕
-          work:=Concat(work,{{c,b,Vc,Vb}});
+          work:=Concat(work,[[c,b,Vc,Vb]]);
         ⊖;
       ⊖;
     ⊖;

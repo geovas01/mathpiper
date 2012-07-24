@@ -1,6 +1,6 @@
 %mathpiper,def="MatrixRow"
 
-Function("MatrixRow",{matrix,row})
+Function("MatrixRow",[matrix,row])
 ⊕
   Check(row >? 0, "Argument", "MatrixRow: row index out of range");
   Check(row <=? Length(matrix), "Argument", "MatrixRow: row index out of range");
@@ -23,18 +23,18 @@ Function("MatrixRow",{matrix,row})
         MatrixRow(matrix,row)
 
 *PARMS
-{matrix} -- a matrix
-{row} -- the index of a matrix row
+[matrix] -- a matrix
+[row] -- the index of a matrix row
 
 *DESC
-Returns the row of a matrix which is specified by {row}.
+Returns the row of a matrix which is specified by [row].
 
 *E.G.
-In> A := {{1,2}, {3,4}};
-Result: {{1,2},{3,4}}
+In> A := [[1,2], [3,4]];
+Result: [[1,2],[3,4]]
 
 In> MatrixRow(A,1)
-Result: {1,2}
+Result: [1,2]
 
 *SEE MatrixColumn
 %/mathpiper_docs

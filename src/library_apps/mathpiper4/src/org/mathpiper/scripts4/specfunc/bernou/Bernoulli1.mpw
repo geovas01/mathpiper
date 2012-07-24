@@ -11,7 +11,7 @@ Bernoulli1(n_Even?)_(n>=?2) <-- ⊕
         BuiltinPrecisionSet(
                 Ceil(N((1/2*Ln(8*Pi*n)-n+n*Ln(n/2/Pi))/Ln(10)))+3        // 3 guard digits
         );
-        If (InVerboseMode(), Echo({"Bernoulli: using zeta funcion, precision ", BuiltinPrecisionSet(), ", n = ", n}));
+        If (InVerboseMode(), Echo(["Bernoulli: using zeta funcion, precision ", BuiltinPrecisionSet(), ", n = ", n]));
         B := Floor(N(        // compute integer part of B
                 If(        // use different methods to compute Zeta function
                         n>?250,        // threshold is roughly right for internal math

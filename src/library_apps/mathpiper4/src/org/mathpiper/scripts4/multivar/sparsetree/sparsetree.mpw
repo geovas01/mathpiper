@@ -12,7 +12,7 @@ SparseTreeGet
 /* Implementation of a sparse tree of Multidimensional matrix elements.
 */
 
-10 # SparseTreeGet({},_tree) <-- tree;
+10 # SparseTreeGet([],_tree) <-- tree;
 20 # SparseTreeGet(_key,_tree) <--
 ⊕
   SparseTreeGet2(Rest(key),Assoc(First(key),tree));
@@ -20,7 +20,7 @@ SparseTreeGet
 10 # SparseTreeGet2(_key,Empty) <-- 0;
 20 # SparseTreeGet2(_key,_item) <-- SparseTreeGet(key,First(Rest(item)));
 
-10 # SparseTreeSet({_i},_tree,_newvalue)
+10 # SparseTreeSet([_i],_tree,_newvalue)
    <--
 ⊕
   Local(Current,assoc,result);
@@ -29,7 +29,7 @@ SparseTreeGet
   ⊕
     Bind(Current,0);
     Bind(result,Eval(newvalue));
-    AddSparseTrees(1,tree,CreateSparseTree({i},result));
+    AddSparseTrees(1,tree,CreateSparseTree([i],result));
   ⊖
   else
   ⊕
@@ -53,37 +53,37 @@ UnFence("SparseTreeSet2",2);
 LocalSymbols(SparseTreeMap2,SparseTreeScan2,Muaddterm,MuMuaddterm,
               meradd,meraddmap) ⊕
 
-10 # CreateSparseTree({},_fact) <-- fact;
+10 # CreateSparseTree([],_fact) <-- fact;
 
 20 # CreateSparseTree(_coefs,_fact)
     <-- CreateSparseTree(First(coefs),Rest(coefs),fact);
-10 # CreateSparseTree(_first,{},_fact) <-- {{first,fact}};
+10 # CreateSparseTree(_first,[],_fact) <-- [[first,fact]];
 20 # CreateSparseTree(_first,_coefs,_fact)
-    <-- {{first,CreateSparseTree(First(coefs),Rest(coefs),fact)}};
+    <-- [[first,CreateSparseTree(First(coefs),Rest(coefs),fact)]];
 
-10 # SparseTreeMap(_op,_depth,_list) <-- SparseTreeMap2(list,depth,{});
+10 # SparseTreeMap(_op,_depth,_list) <-- SparseTreeMap2(list,depth,[]);
 10 # SparseTreeMap2(_list,1,_coefs)
    <--
    ForEach(item,list)
    ⊕
-     item[2] := ApplyFast(op,{Concat(coefs,{item[1]}),item[2]});
+     item[2] := ApplyFast(op,[Concat(coefs,[item[1]]),item[2]]);
    ⊖;
 20 # SparseTreeMap2(_list,_depth,_coefs)
    <--
    ForEach(item,list)
    ⊕
-     SparseTreeMap2(item[2],AddN(depth,-1),Concat(coefs,{item[1]}));
+     SparseTreeMap2(item[2],AddN(depth,-1),Concat(coefs,[item[1]]));
    ⊖;
 UnFence("SparseTreeMap", 3);
 ⊕Local(fn);fn:=ToString(SparseTreeMap2);`UnFence(@fn,3);⊖;
 
-10 # SparseTreeScan(_op,_depth,_list) <-- SparseTreeScan2(list,depth,{});
-10 # SparseTreeScan2(_list,0,_coefs)  <-- ApplyFast(op,{coefs,list});
+10 # SparseTreeScan(_op,_depth,_list) <-- SparseTreeScan2(list,depth,[]);
+10 # SparseTreeScan2(_list,0,_coefs)  <-- ApplyFast(op,[coefs,list]);
 20 # SparseTreeScan2(_list,_depth,_coefs)
    <--
    ForEach(item,list)
    ⊕
-     SparseTreeScan2(item[2],AddN(depth,-1),Concat(coefs,{item[1]}));
+     SparseTreeScan2(item[2],AddN(depth,-1),Concat(coefs,[item[1]]));
    ⊖;
 UnFence("SparseTreeScan", 3);
 ⊕Local(fn);fn:=ToString(SparseTreeScan2);`UnFence(@fn,3);⊖;
@@ -97,17 +97,17 @@ UnFence("SparseTreeScan", 3);
   Bind(t1,x);
   Bind(i,1);
   Bind(t2,y);
-  Bind(inspt,{});
-  While(t1 !=? {} And? t2 !=? {})
+  Bind(inspt,[]);
+  While(t1 !=? [] And? t2 !=? [])
   ⊕
     Muaddterm(First(t1),First(t2));
   ⊖;
-  While(t2 !=? {})
+  While(t2 !=? [])
   ⊕
     Bind(x,DestructiveAppend(x,First(t2)));
     Bind(t2,Rest(t2));
   ⊖;
-  While(inspt !=? {})
+  While(inspt !=? [])
   ⊕
     Bind(i,First(inspt));
     Bind(x,DestructiveInsert(x,i[2],i[1]));
@@ -116,7 +116,7 @@ UnFence("SparseTreeScan", 3);
   x;
 ⊖;
 
-10 # Muaddterm({_pow,_list1},{_pow,_list2}) <--
+10 # Muaddterm([_pow,_list1],[_pow,_list2]) <--
 ⊕
   if(depth=?1)
     ⊕ t1[1][2] := list1+list2; ⊖
@@ -126,7 +126,7 @@ UnFence("SparseTreeScan", 3);
 ⊖;
 20 # Muaddterm(_h1,_h2)_(h1[1]<?h2[1]) <--
 ⊕
-  Bind(inspt,{h2,i}~inspt);
+  Bind(inspt,[h2,i]~inspt);
   Bind(t2,Rest(t2));
 ⊖;
 30 # Muaddterm(_h1,_h2)<--
@@ -136,7 +136,7 @@ UnFence("SparseTreeScan", 3);
 ⊖;
 ⊕Local(fn);fn:=ToString(Muaddterm);`UnFence(@fn,2);⊖;
 
-5  # MultiplyAddSparseTrees(0,_x,_y,{},_fact) <-- x+fact*y;
+5  # MultiplyAddSparseTrees(0,_x,_y,[],_fact) <-- x+fact*y;
 10 # MultiplyAddSparseTrees(_depth,_x,_y,_coefs,_fact)
     <--
 ⊕
@@ -144,19 +144,19 @@ UnFence("SparseTreeScan", 3);
   Bind(t1,x);
   Bind(i,1);
   Bind(t2,y);
-  Bind(inspt,{});
-  While(t1 !=? {} And? t2 !=? {})
+  Bind(inspt,[]);
+  While(t1 !=? [] And? t2 !=? [])
   ⊕
     MuMuaddterm(First(t1),First(t2),coefs);
   ⊖;
 
-  While(t2 !=? {})
+  While(t2 !=? [])
   ⊕
     Bind(term,First(t2));
     Bind(x,DestructiveAppend(x,meradd(First(t2),coefs)));
     Bind(t2,Rest(t2));
   ⊖;
-  While(inspt !=? {})
+  While(inspt !=? [])
   ⊕
     Bind(i,First(inspt));
     Bind(x,DestructiveInsert(x,i[2],i[1]));
@@ -165,22 +165,22 @@ UnFence("SparseTreeScan", 3);
   x;
 ⊖;
 
-10 # meradd({_ord,rest_List?},_coefs) <--
+10 # meradd([_ord,rest_List?],_coefs) <--
 ⊕
   Local(head);
   Bind(head,First(coefs));
   Bind(coefs,Rest(coefs));
-  {ord+head,meraddmap(rest,coefs)};
+  [ord+head,meraddmap(rest,coefs)];
 ⊖;
-20 # meradd({_ord,_rest},_coefs) <--
+20 # meradd([_ord,_rest],_coefs) <--
 ⊕
-   {ord+First(coefs),rest*fact};
+   [ord+First(coefs),rest*fact];
 ⊖;
 
 10 # meraddmap(list_List?,_coefs) <--
 ⊕
   Local(result);
-  Bind(result,{});
+  Bind(result,[]);
   ForEach(item,list)
   ⊕
     DestructiveAppend(result,meradd(item,coefs));
@@ -190,20 +190,20 @@ UnFence("SparseTreeScan", 3);
 ⊕Local(fn);fn:=ToString(meradd);`UnFence(@fn,2);⊖;
 ⊕Local(fn);fn:=ToString(meraddmap);`UnFence(@fn,2);⊖;
 
-10 # MuMuaddterm({_pow1,_list1},{_pow2,_list2},_coefs)_(pow1=?pow2+coefs[1]) <--
+10 # MuMuaddterm([_pow1,_list1],[_pow2,_list2],_coefs)_(pow1=?pow2+coefs[1]) <--
 ⊕
   if(depth=?1)
     ⊕ t1[1][2] := list1+fact*list2; ⊖
   else
     ⊕
-      t1[1] := {pow1,MultiplyAddSparseTrees(AddN(depth,-1),list1,list2,Rest(coefs),fact)};
+      t1[1] := [pow1,MultiplyAddSparseTrees(AddN(depth,-1),list1,list2,Rest(coefs),fact)];
     ⊖;
   Bind(t2,Rest(t2));
 ⊖;
 20 # MuMuaddterm(_h1,_h2,_coefs)_(h1[1]<?h2[1]+coefs[1]) <--
 ⊕
-//Echo({"inspt ",h1,h2,coefs});
-  Bind(inspt,{meradd(First(t2),coefs),i}~inspt);
+//Echo(["inspt ",h1,h2,coefs]);
+  Bind(inspt,[meradd(First(t2),coefs),i]~inspt);
   Bind(t2,Rest(t2));
 ⊖;
 30 # MuMuaddterm(_h1,_h2,_coefs)<--

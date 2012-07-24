@@ -2,14 +2,14 @@
 
 //Retract("StringToList", *);
 
-10 # StringToList(string_String?)_(Length(string) =? 0) <-- {};
+10 # StringToList(string_String?)_(Length(string) =? 0) <-- [];
 
 
 20 # StringToList(string_String?) <--
 ⊕
     Local(resultList);
     
-    resultList := {};
+    resultList := [];
     
     ForEach(character, string)
     ⊕
@@ -36,7 +36,7 @@
 
 *PARMS
 
-{string} -- a string to be converted into a list
+[string] -- a string to be converted into a list
 
 *DESC
 
@@ -44,7 +44,7 @@ This function takes each character in a string and places it into a list.
 
 *E.G.
 In> StringToList("Hello")
-Result: {"H","e","l","l","o"}
+Result: ["H","e","l","l","o"]
 
 *SEE ListToString
 %/mathpiper_docs

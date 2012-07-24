@@ -28,7 +28,7 @@ MultiExpressionList(_expr) <-- VarList(expr,"MultiExpression?");
 
 //TODO: shouldn't this be more global? The problem right now is
 // that Constant?/Variable? take Pi to be a constant...
-MultiConstant?(_n) <-- (VarList(n,"IsVr")=?{});
+MultiConstant?(_n) <-- (VarList(n,"IsVr")=?[]);
 10 # IsVr(n_Number?) <-- False;
 10 # IsVr(n_Function?) <-- False;
 10 # IsVr(n_String?) <-- False;
@@ -44,14 +44,14 @@ LocalSymbols(a,vars,pow)  ⊕
   20 #  MultiSingleFactor(_vars,_a,_pow) <--
     ⊕
       Local(term);
-      term:={FillList(0,Length(vars)),1};
+      term:=[FillList(0,Length(vars)),1];
       term[1][Find(vars,a)] := pow;
       CreateTerm(vars,term);
     ⊖;
 ⊖;
 LocalSymbols(x,y,vars)  ⊕
 10 #  MakeMultiNomial(x_MultiConstant?,vars_List?) <--
-      CreateTerm(vars,{FillList(0,Length(vars)),x});
+      CreateTerm(vars,[FillList(0,Length(vars)),x]);
 20 #  MakeMultiNomial(_x,vars_List?)_(Contains?(vars,x)) <-- MultiSingleFactor(vars,x,1);
 30 #  MakeMultiNomial(_x + _y,vars_List?) <--
       MakeMultiNomial(x,vars) + MakeMultiNomial(y,vars);
@@ -66,7 +66,7 @@ LocalSymbols(x,y,vars)  ⊕
 // This rule would accept almost all terms, assuming them to be const.
 100 #  MakeMultiNomial(_x,vars_List?) <--
       ⊕
-      CreateTerm(vars,{FillList(0,Length(vars)),x});
+      CreateTerm(vars,[FillList(0,Length(vars)),x]);
       ⊖;
 
 ⊖;
@@ -171,8 +171,8 @@ MultiNomialMultiply(
 
 10 # MultiNomialMultiply(_a,_b) <--
 ⊕
-  Echo({"ERROR!",a,b});
-  Echo({"ERROR!",Type(a),Type(b)});
+  Echo(["ERROR!",a,b]);
+  Echo(["ERROR!",Type(a),Type(b)]);
 ⊖;
 
 

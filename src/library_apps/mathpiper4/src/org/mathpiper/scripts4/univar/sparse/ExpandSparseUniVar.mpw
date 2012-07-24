@@ -1,6 +1,6 @@
 %mathpiper,def="ExpandSparseUniVar"
 
-Function("ExpandSparseUniVar",{s})
+Function("ExpandSparseUniVar",[s])
 ⊕
  Local(result,t,var,termlist);
  result :=0;

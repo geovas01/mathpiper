@@ -1,6 +1,6 @@
 %mathpiper,def="VandermondeMatrix"
 
-Function("VandermondeMatrix",{vector})⊕
+Function("VandermondeMatrix",[vector])⊕
         Local(len,i,j,item,matrix);
         len:=Length(vector);
         matrix:=ZeroMatrix(len,len);
@@ -25,18 +25,18 @@ Function("VandermondeMatrix",{vector})⊕
         VandermondeMatrix(vector)
 *PARMS
 
-{vector} -- an $n$-dimensional vector 
+[vector] -- an $n$-dimensional vector 
 
 *DESC
 
-The function {VandermondeMatrix} calculates the Vandermonde matrix
+The function [VandermondeMatrix] calculates the Vandermonde matrix
 of a vector.
 
 The ($i$,$j$)-th element of the Vandermonde matrix is defined as $i^(j-1)$.
 
 *E.G.
-In> VandermondeMatrix({1,2,3,4})
-Result: {{1,1,1,1},{1,2,3,4},{1,4,9,16},{1,8,27,64}};
+In> VandermondeMatrix([1,2,3,4])
+Result: [[1,1,1,1],[1,2,3,4],[1,4,9,16],[1,8,27,64]];
 In>PrettyForm(%)
 
         /                            \

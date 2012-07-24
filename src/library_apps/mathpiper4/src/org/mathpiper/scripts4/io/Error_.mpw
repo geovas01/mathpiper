@@ -28,14 +28,14 @@ Error?(errorclass_String?) <--
 
 *PARMS
 
-{"str"} -- string to classify the error
+["str"] -- string to classify the error
 
 *DESC
 
-{Error?()} returns {True} if any custom errors have been reported using {Assert}.
-The second form takes a parameter {"str"} that designates the class of the
-error we are interested in. It returns {True} if any errors of the given class
-{"str"} have been reported.
+[Error?()] returns [True] if any custom errors have been reported using [Assert].
+The second form takes a parameter ["str"] that designates the class of the
+error we are interested in. It returns [True] if any errors of the given class
+["str"] have been reported.
 
 *SEE GetError, ClearError, Assert, Check
 
@@ -53,7 +53,7 @@ Verify(Error?("testing"), False);
 Verify(Assert("testing") 1=?1, True);
 Verify(Error?(), False);
 Verify(Error?("testing"), False);
-Verify(Assert("testing1234", {1,2,3,4}) 1=?1, True);
+Verify(Assert("testing1234", [1,2,3,4]) 1=?1, True);
 Verify(Error?(), False);
 Verify(Error?("testing"), False);
 Verify(Error?("testing1234"), False);
@@ -65,14 +65,14 @@ Verify(Assert("testing") 1=?0, False);
 Verify(Error?(), True);
 Verify(Error?("testing"), True);
 Verify(Error?("testing1234"), False);
-Verify(Assert("testing1234", {1,2,3,4}) 1=?0, False);
+Verify(Assert("testing1234", [1,2,3,4]) 1=?0, False);
 Verify(Error?(), True);
 Verify(Error?("testing"), True);
 Verify(Error?("testing1234"), True);
 
 // report errors
 Verify(PipeToString()DumpErrors(), "Error: testing
-Error: testing1234: {1, 2, 3, 4}
+Error: testing1234: [1, 2, 3, 4]
 ");
 
 // no more errors now
@@ -82,7 +82,7 @@ Verify(Error?("testing1234"), False);
 
 // generate some more errors
 Verify(Assert("testing") 1=?0, False);
-Verify(Assert("testing1234", {1,2,3,4}) 1=?0, False);
+Verify(Assert("testing1234", [1,2,3,4]) 1=?0, False);
 Verify(GetError("testing1234567"), False);
 
 // handle errors
@@ -101,7 +101,7 @@ Verify(Error?(), True);
 Verify(Error?("testing"), False);
 Verify(Error?("testing1234"), True);
 
-Verify(GetError("testing1234"), {1,2,3,4});
+Verify(GetError("testing1234"), [1,2,3,4]);
 Verify(Error?(), True);
 Verify(Error?("testing"), False);
 Verify(Error?("testing1234"), True);

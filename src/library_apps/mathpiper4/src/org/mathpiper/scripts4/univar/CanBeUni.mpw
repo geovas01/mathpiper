@@ -3,7 +3,7 @@
 /* CanBeUni returns whether the function can be converted to a
  * univariate, with respect to a variable.
  */
-Function("CanBeUni",{expression}) CanBeUni(UniVarList(expression),expression);
+Function("CanBeUni",[expression]) CanBeUni(UniVarList(expression),expression);
 
 
 /* Accepting an expression as being convertable to univariate */
@@ -11,7 +11,7 @@ Function("CanBeUni",{expression}) CanBeUni(UniVarList(expression),expression);
 /* Dealing wiht a list of variables. The poly should be expandable
  * to each of these variables (smells like tail recursion)
  */
-10 # CanBeUni({},_expression) <-- True;
+10 # CanBeUni([],_expression) <-- True;
 20 # CanBeUni(var_List?,_expression) <--
     CanBeUni(First(var),expression) And? CanBeUni(Rest(var),expression);
 
@@ -44,6 +44,6 @@ Function("CanBeUni",{expression}) CanBeUni(UniVarList(expression),expression);
 Verify(CanBeUni(x^(-1)),False);
 
 /* Bug report from Magnus Petursson regarding determinants of matrices that have symbolic entries */
-Verify(CanBeUni(Determinant({{a,b},{c,d}})),True);
+Verify(CanBeUni(Determinant([[a,b],[c,d]])),True);
 
 %/mathpiper

@@ -29,7 +29,7 @@ This problem could also be circumvented by trying a different random initial val
 /// Polynomial for the Pollard Rho iteration
 PollardRhoPolynomial(_x) <-- x^2+1;
 
-2# PollardRhoFactorize(n_PrimePower?) <-- {GetPrimePower(n)};
+2# PollardRhoFactorize(n_PrimePower?) <-- [GetPrimePower(n)];
 3# PollardRhoFactorize(_n) <--
 ⊕
   Local(x,y,restarts,gcd,repeat);
@@ -44,7 +44,7 @@ PollardRhoPolynomial(_x) <-- x^2+1;
     /* Initialize loop */
     gcd:=1; y:=x;
         repeat := 4;        // allow at most this many repetitions
-//                Echo({"debug PollardRho: entering gcd loop, n=", n});
+//                Echo(["debug PollardRho: entering gcd loop, n=", n]);
 
     /* loop until failure or success found */
     While(gcd =? 1 And? repeat>=?0)
@@ -60,12 +60,12 @@ PollardRhoPolynomial(_x) <-- x^2+1;
                  ⊖,
                 gcd:=Gcd(x-y,n)
                 );
-//                Echo({"debug PollardRho: gcd=",gcd," x=", x," y=", y});
+//                Echo(["debug PollardRho: gcd=",gcd," x=", x," y=", y]);
            ⊖;
-        If(InVerboseMode() And? repeat<=?0, Echo({"PollardRhoFactorize: Warning: stalled while factorizing ", n, "; counters ", x, y}));
+        If(InVerboseMode() And? repeat<=?0, Echo(["PollardRhoFactorize: Warning: stalled while factorizing ", n, "; counters ", x, y]));
   ⊖;
   Check(restarts>?0, "Math", "PollardRhoFactorize: Error: failed to factorize " ~ ToString(n));
-  If(InVerboseMode() And? gcd >? 1, Echo({"PollardRhoFactorize: Info: while factorizing ", n, " found factor ", gcd}));
+  If(InVerboseMode() And? gcd >? 1, Echo(["PollardRhoFactorize: Info: while factorizing ", n, " found factor ", gcd]));
   /* Return result found */
   PollardCombineLists(PollardRhoFactorize(gcd), PollardRhoFactorize(Quotient(n,gcd)));
 ⊖;

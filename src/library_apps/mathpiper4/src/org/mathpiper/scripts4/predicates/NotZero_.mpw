@@ -21,12 +21,12 @@
 
 *PARMS
 
-{n} -- number to test
+[n] -- number to test
 
 *DESC
 
-{NotZero?(n)} evaluates to {True} if {n} is not zero. In case {n} is not a
-number, the function returns {False}.
+[NotZero?(n)] evaluates to [True] if [n] is not zero. In case [n] is not a
+number, the function returns [False].
 
 *E.G.
 

@@ -14,22 +14,22 @@ LowerTriangular?(A_Matrix?) <-- (UpperTriangular?(Transpose(A)));
 
 *PARMS
 
-{A} -- a matrix
+[A] -- a matrix
 
 *DESC
 
 A lower triangular matrix is a square matrix which has all zero entries below the diagonal.
 
-{LowerTriangular?(A)} returns {True} if {A} is a lower triangular matrix and {False} otherwise.
+[LowerTriangular?(A)] returns [True] if [A] is a lower triangular matrix and [False] otherwise.
 
 *E.G.
 In> LowerTriangular?(Identity(5))
 Result: True;
-In> LowerTriangular?({{1,2},{0,1}})
+In> LowerTriangular?([[1,2],[0,1]])
 Result: False;
 
 A non-square matrix cannot be triangular:
-In> LowerTriangular?({{1,2,3},{0,1,2}})
+In> LowerTriangular?([[1,2,3],[0,1,2]])
 Result: False;
 
 *SEE UpperTriangle?, Diagonal?

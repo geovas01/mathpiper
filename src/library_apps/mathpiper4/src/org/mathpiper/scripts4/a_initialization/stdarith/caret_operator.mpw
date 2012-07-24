@@ -53,10 +53,10 @@
 
 200 # x_Matrix? ^ n_PositiveInteger? <-- x*(x^(n-1));
 204 # (xlist_List? ^ nlist_List?)_(Length(xlist)=?Length(nlist)) <--
-         Map("^",{xlist,nlist});
+         Map("^",[xlist,nlist]);
 205 # (xlist_List? ^ n_Constant?)_(Not?(List?(n))) <--
-         Map({{xx},xx^n},{xlist});
-206 # (_x ^ n_List?)_(Not?(List?(x))) <-- Map({{xx},x^xx},{n});
+         Map([[xx],xx^n],[xlist]);
+206 # (_x ^ n_List?)_(Not?(List?(x))) <-- Map([[xx],x^xx],[n]);
 249 # x_Infinity? ^ 0 <-- Undefined;
 250 # Infinity ^ (_n) <-- Infinity;
 250 # Infinity ^ (_x_Complex?) <-- Infinity;
@@ -97,7 +97,7 @@ Precedence:
 
 *PARMS
 
-{x} and {y} -- objects for which arithmetic operations are defined
+[x] and [y] -- objects for which arithmetic operations are defined
 
 *DESC
 
@@ -122,10 +122,10 @@ Result: 8;
 Verify(1^Infinity,Undefined);
 
 // Matrix operations failed: a^2 performed the squaring on each element.
-Verify({{1,2},{3,4}}^2,{{7,10},{15,22}});
+Verify([[1,2],[3,4]]^2,[[7,10],[15,22]]);
 
 // Check that raising powers still works on lists/vectors (dotproduct?) correctly.
-Verify({2,3}^2,{4,9});
+Verify([2,3]^2,[4,9]);
 
 Verify(0.0000^(24),0);
 

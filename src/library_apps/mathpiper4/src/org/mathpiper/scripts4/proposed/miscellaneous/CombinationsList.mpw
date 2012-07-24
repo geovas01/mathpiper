@@ -21,11 +21,11 @@ CombinationsList(inputList, r) :=
     
     combinationsLeft := totalCombinations;
     
-    combinationsList := {};
+    combinationsList := [];
     
     While(combinationsLeft >? 0)
     ⊕
-        combination := {};
+        combination := [];
       
         if(combinationsLeft =? totalCombinations)
         ⊕ 
@@ -84,17 +84,17 @@ CombinationsList(inputList, r) :=
         CombinationsList(list,r)
 
 *PARMS
-{list} -- a list of elements
+[list] -- a list of elements
 
-{r} -- the combinations from {list} are to be taken {r} at a time
+[r] -- the combinations from [list] are to be taken [r] at a time
 
 *DESC
 This function returns a list which contains all of the combinations of the elements in a 
 given list taken r elements at a time.
 
 *E.G.
-In> CombinationsList({1,2,3},2)
-Result: {{1,2},{1,3},{2,3}}
+In> CombinationsList([1,2,3],2)
+Result: [[1,2],[1,3],[2,3]]
 
 *SEE Combinations, PermutationsList, Permutations, LeviCivita
 %/mathpiper_docs

@@ -10,13 +10,13 @@
 
 LocalSymbols(options)
 ⊕
-    options  := {
-        {"default", "data"},
-        {"data", "Plot2DData"},
-        {"java", "Plot2DJava"},
-    {"geogebra", "Plot2DGeoGebra"},
-    {"jfreechart", "Plot2DJFreeChart"},
-};
+    options  := [
+        ["default", "data"],
+        ["data", "Plot2DData"],
+        ["java", "Plot2DJava"],
+    ["geogebra", "Plot2DGeoGebra"],
+    ["jfreechart", "Plot2DJFreeChart"],
+];
     
 
 Plot2DOutputs() := options;
@@ -27,8 +27,8 @@ Plot2DOutputs() := options;
         How backends work:
         Plot2D<backend>(values, optionsHash)
         optionsHash is a hash that contains all plotting options:
-        ["xrange"] - a list of {x1, x2}, ["xname"] - name of the variable to plot, ["yname"] - array of string representations of the function(s), and perhaps other options relevant to the particular backend.
-        {values} is a list of lists of pairs of the form {{{x1, y1}, {x2, y2}, ...}, {{x1, z1}, {x2, z2}, ...}, ...} corresponding to the functions y(x), z(x), ... to be plotted. The abscissa points x[i] are not the same for all functions.
+        ["xrange"] - a list of [x1, x2], ["xname"] - name of the variable to plot, ["yname"] - array of string representations of the function(s), and perhaps other options relevant to the particular backend.
+        [values] is a list of lists of pairs of the form [[[x1, y1], [x2, y2], ...], [[x1, z1], [x2, z2], ...], ...] corresponding to the functions y(x), z(x), ... to be plotted. The abscissa points x[i] are not the same for all functions.
         The backend should prepare the graph of the function(s). The "datafile" backend Plot2Ddatafile(values, optionsHash) may be used to output all data to file(s), in which case the file name should be given by the value optionsHash["filename"]. Multiple files are created with names obtained by appending numbers to the filename.
         Note that the "data" backend does not do anything and simply returns the data.
         The backend Plot2Ddatafile takes care not to write "Infinity" or "Undefined" data points (it just ignores them). Custom backends should either use Plot2Ddatafile or take care of this themselves.
@@ -51,7 +51,7 @@ Plot2DJava(values_List?, _optionsHash) <--
     count++;
     result:=result~" lines2d "~ToString(Length(function));
 
-    function:=Select(function, Lambda({item},item[2] !=? Undefined));
+    function:=Select(function, Lambda([item],item[2] !=? Undefined));
 
     ForEach(item,function)
     ⊕
@@ -81,7 +81,7 @@ Plot2DGeogebra(values_List?, _optionsHash) <--
   ForEach(function,values)
   ⊕
 
-    function:=Select(function, Lambda({item},item[2] !=? Undefined));
+    function:=Select(function, Lambda([item],item[2] !=? Undefined));
 
     ForEach(item,function)
     ⊕
@@ -104,23 +104,23 @@ Plot2DJFreeChart(values_List?, _optionsHash) <--
     
     
     //Remove Plot2Ds options so that they dont get passed through to LineChart();
-    ForEach(name, {"xrange", "xname", "yname", "output", "precision", "points", "depth"})
+    ForEach(name, ["xrange", "xname", "yname", "output", "precision", "points", "depth"])
     ⊕
         AssocDelete(optionsHash, name);
     ⊖;
     
     
     
-    //Convert {x,y} pairs into {x,x,x,...} {y,y,y,...} form.
-    allProcessedFunctionData := {};
+    //Convert [x,y] pairs into [x,x,x,...] [y,y,y,...] form.
+    allProcessedFunctionData := [];
     
     ForEach(function,values)
     ⊕
-        rangeList := {};
+        rangeList := [];
         
-        domainList := {};
+        domainList := [];
         
-        function := Select(function, Lambda({item},item[2] !=? Undefined));
+        function := Select(function, Lambda([item],item[2] !=? Undefined));
         
         ForEach(item,function)
         ⊕
@@ -137,14 +137,14 @@ Plot2DJFreeChart(values_List?, _optionsHash) <--
 
     
     //Put LineChart() function call into list form so it can be manipulated.
-    lineChartCallListForm := {LineChart, allProcessedFunctionData };
+    lineChartCallListForm := [LineChart, allProcessedFunctionData ];
     
     
     
     //Add any options to the list.
     ForEach(key, AssocIndices(optionsHash))
     ⊕
-        lineChartCallListForm := Append(lineChartCallListForm, Apply("->", {key, optionsHash[key]}));
+        lineChartCallListForm := Append(lineChartCallListForm, Apply("->", [key, optionsHash[key]]));
     ⊖;
     
     

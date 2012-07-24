@@ -28,7 +28,7 @@
 
 10 # Expectation(BinomialDistribution(_p,_n)) <-- n*p;
 
-10 # Expectation( DiscreteDistribution( dom_List?, prob_List?))_( Length(dom)=?Length(prob) And? Simplify(Sum(prob))=?1) <-- Sum @ {i,1,Length(dom),dom[i]*prob[i]};
+10 # Expectation( DiscreteDistribution( dom_List?, prob_List?))_( Length(dom)=?Length(prob) And? Simplify(Sum(prob))=?1) <-- Sum @ [i,1,Length(dom),dom[i]*prob[i]];
 
 
 %/mathpiper
@@ -44,9 +44,9 @@
         Expectation(p,n)
 
 *PARMS
-{p} -- number, probability of an event in a single trial
+[p] -- number, probability of an event in a single trial
 
-{n} -- number of trials
+[n] -- number of trials
 
 
 *SEE CDF, PDF

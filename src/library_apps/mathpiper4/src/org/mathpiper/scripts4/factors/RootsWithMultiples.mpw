@@ -6,7 +6,7 @@
 ⊕
   Local(factors,result,uni,root,i,deg);
   factors:=Factors(poly);
-  result:={};
+  result:=[];
   ForEach(item,factors)
   ⊕
     uni:=MakeUni(item[1]);
@@ -15,9 +15,9 @@
     If(deg >? 0 And? deg <? 3,
       ⊕
         root:= PSolve(uni);
-        If(Not? List?(root),root:={root});
+        If(Not? List?(root),root:=[root]);
         For(i:=1,i<=?Length(root),i++)
-          result:= Concat({{root[i],item[2]}}, result);
+          result:= Concat([[root[i],item[2]]], result);
       ⊖
       );
   ⊖;

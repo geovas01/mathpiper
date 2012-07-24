@@ -9,7 +9,7 @@
 // a list contains an atom if one element contains it
 // we test for lists now because lists are also functions
 // first take care of the empty list:
-19 # HasExpression?({}, _atom) <-- False;
+19 # HasExpression?([], _atom) <-- False;
 20 # HasExpression?(expr_List?, _atom) <-- HasExpression?(First(expr), atom) Or? HasExpression?(Rest(expr), atom);
 // a function contains an atom if one of its arguments contains it
 30 # HasExpression?(expr_Function?, _atom) <-- HasExpression?(Rest(FunctionToList(expr)), atom);
@@ -26,17 +26,17 @@
 
 *PARMS
 
-{expr} -- an expression
+[expr] -- an expression
 
-{x} -- a subexpression to be found
+[x] -- a subexpression to be found
 
 
 
 *DESC
 
-The command {HasExpression?} returns {True} if the expression {expr} contains a literal subexpression {x}. The expression is recursively traversed.
+The command [HasExpression?] returns [True] if the expression [expr] contains a literal subexpression [x]. The expression is recursively traversed.
 
-Note that since the operators "{+}" and "{-}" are prefix as well as infix operators, it is currently required to use {ToAtom("+")} to obtain the unevaluated atom "{+}".
+Note that since the operators "[+]" and "[-]" are prefix as well as infix operators, it is currently required to use [ToAtom("+")] to obtain the unevaluated atom "[+]".
 
 *E.G.
 
@@ -64,9 +64,9 @@ Verify(HasExpressionArithmetic?(a*b+1,1),True);
 Verify(HasExpressionArithmetic?(a+Sin(b*c),c),False);
 Verify(HasExpressionArithmetic?(a+Sin(b*c),Sin(b*c)),True);
 
-RulebaseHoldArguments("f",{a});
-Verify(HasExpression?(a*b+f({b,c}),f),False);
-Verify(HasExpressionArithmetic?(a*b+f({b,c}),c),False);
+RulebaseHoldArguments("f",[a]);
+Verify(HasExpression?(a*b+f([b,c]),f),False);
+Verify(HasExpressionArithmetic?(a*b+f([b,c]),c),False);
 Retract("f",1);
 
 %/mathpiper

@@ -5,7 +5,7 @@ LocalSymbols(Verbose) ⊕
   Bind(Verbose,False);
 
 
-  Function("V",{aNumberBody})
+  Function("V",[aNumberBody])
   ⊕
     Local(prevVerbose,result);
     Bind(prevVerbose,Verbose);
@@ -16,7 +16,7 @@ LocalSymbols(Verbose) ⊕
   ⊖;
 
 
-  Function("InVerboseMode",{}) Verbose;
+  Function("InVerboseMode",[]) Verbose;
 
 ⊖; // LocalSymbols(Verbose)
 
@@ -38,27 +38,27 @@ UnFence("V",1);
 
 *PARMS
 
-{expression} -- expression to be evaluated in verbose mode
+[expression] -- expression to be evaluated in verbose mode
 
 *DESC
 
-The function {V(expression)} will evaluate the expression in
+The function [V(expression)] will evaluate the expression in
 verbose mode. Various parts of MathPiper can show extra information
-about the work done while doing a calculation when using {V}.
+about the work done while doing a calculation when using [V].
 
-In verbose mode, {InVerboseMode()} will return {True}, otherwise
-it will return {False}.
+In verbose mode, [InVerboseMode()] will return [True], otherwise
+it will return [False].
 
 *E.G. notest
 
-In> OldSolve({x+2==0},{x})
-Result: {{-2}};
-In> V(OldSolve({x+2==0},{x}))
+In> OldSolve([x+2==0],[x])
+Result: [[-2]];
+In> V(OldSolve([x+2==0],[x]))
         Entering OldSolve
         From  x+2==0  it follows that  x  = -2
            x+2==0  simplifies to  True
         Leaving OldSolve
-Result: {{-2}};
+Result: [[-2]];
 In> InVerboseMode()
 Result: False
 In> V(InVerboseMode())

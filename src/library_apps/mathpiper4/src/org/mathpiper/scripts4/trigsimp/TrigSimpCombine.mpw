@@ -30,9 +30,9 @@
      adding and multiplying expressions with trig. functions, non-trig.
      functions, constants, etc. a lot easier.
 */
-RulebaseHoldArguments("FSin",{f,x});
-RulebaseHoldArguments("FCos",{f,x});
-RulebaseHoldArguments(":*:",{x,y});
+RulebaseHoldArguments("FSin",[f,x]);
+RulebaseHoldArguments("FCos",[f,x]);
+RulebaseHoldArguments(":*:",[x,y]);
 
 
 IsTrig(f) := (Type(f) =? "Sin" Or? Type(f) =? "Cos");
@@ -48,17 +48,17 @@ IsPow(f):=
 
 
 /* Convert Sin/Cos to FSin/FCos */
-RulebaseHoldArguments("TrigChange",{f});
+RulebaseHoldArguments("TrigChange",[f]);
 RuleHoldArguments("TrigChange",1,1,Type(f)=?"Cos") FCos(1,f[1]);
 RuleHoldArguments("TrigChange",1,1,Type(f)=?"Sin") FSin(1,f[1]);
 
-RulebaseHoldArguments("TrigUnChange",{f});
+RulebaseHoldArguments("TrigUnChange",[f]);
 RuleHoldArguments("TrigUnChange",1,1,Type(f)=?"FCos") Cos(f[2]);
 RuleHoldArguments("TrigUnChange",1,1,Type(f)=?"FSin") Sin(f[2]);
 
 
 /* Do a full replacement to internal format on a term. */
-RulebaseHoldArguments("FReplace",{f});
+RulebaseHoldArguments("FReplace",[f]);
 UnFence("FReplace",1);
 RuleHoldArguments("FReplace",1,1,IsMul(f))  Substitute(f[1]) :*: Substitute(f[2]);
 RuleHoldArguments("FReplace",1,2,IsPow(f))  (Substitute(f[1]) :*: Substitute(f[1])) :*: Substitute(f[1]^(f[2]-2));
@@ -93,7 +93,7 @@ FFromInternal(f):=Substitute(f,"IsMulF","FReplaceBack");
 
 
 /* FSimpTerm simplifies the current term, wrt. trigonometric functions. */
-RulebaseHoldArguments("FSimpTerm",{f,rlist});
+RulebaseHoldArguments("FSimpTerm",[f,rlist]);
 UnFence("FSimpTerm",2);
 
 /* Addition: add all the subterms */
@@ -102,14 +102,14 @@ RuleHoldArguments("FSimpTerm",2,1,Type(f) =? "+")
   Local(result,lst);
   lst:=Flatten(f,"+");
 
-  result:={{},{}};
+  result:=[[],[]];
 FLog("simpadd",lst);
 
   ForEach(tt,lst)
   ⊕
     Local(new);
-    new:=FSimpTerm(tt,{{},{}});
-    result:={Concat(result[1],new[1]),Concat(result[2],new[2])};
+    new:=FSimpTerm(tt,[[],[]]);
+    result:=[Concat(result[1],new[1]),Concat(result[2],new[2])];
   ⊖;
   result;
 ⊖;
@@ -117,7 +117,7 @@ FLog("simpadd",lst);
 
 TrigNegate(f):=
 ⊕
-  ListToFunction({f[0],-(f[1]),f[2]});
+  ListToFunction([f[0],-(f[1]),f[2]]);
 ⊖;
 
 
@@ -126,40 +126,40 @@ FUnTrig(result) := Substitute(result,"IsFTrig","TrigUnChange");
 RuleHoldArguments("FSimpTerm",2,1,Type(f) =? "-" And? ArgumentsCount(f)=?1)
 ⊕
   Local(result);
-  result:=FSimpTerm(f[1],{{},{}});
+  result:=FSimpTerm(f[1],[[],[]]);
   Substitute(result,"IsFTrig","TrigNegate");
 ⊖;
 RuleHoldArguments("FSimpTerm",2,1,Type(f) =? "-" And? ArgumentsCount(f)=?2)
 ⊕
   Local(result1,result2);
-  result1:=FSimpTerm(f[1],{{},{}});
-  result2:=FSimpTerm(-(f[2]),{{},{}});
-  {Concat(result1[1],result2[1]),Concat(result1[2],result2[2])};
+  result1:=FSimpTerm(f[1],[[],[]]);
+  result2:=FSimpTerm(-(f[2]),[[],[]]);
+  [Concat(result1[1],result2[1]),Concat(result1[2],result2[2])];
 ⊖;
 
 RuleHoldArguments("FSimpTerm",2,2,Type(f) =? ":*:")
 ⊕
-  FSimpFactor({Flatten(f,":*:")});
+  FSimpFactor([Flatten(f,":*:")]);
 ⊖;
 RuleHoldArguments("FSimpTerm",2,3,Type(f) =? "FSin")
 ⊕
-  {rlist[1],f~(rlist[2])};
+  [rlist[1],f~(rlist[2])];
 ⊖;
 RuleHoldArguments("FSimpTerm",2,3,Type(f) =? "FCos")
 ⊕
-  {f~(rlist[1]),rlist[2]};
+  [f~(rlist[1]),rlist[2]];
 ⊖;
 
 RuleHoldArguments("FSimpTerm",2,4,True)
 ⊕
-  {(FCos(f,0))~(rlist[1]),rlist[2]};
+  [(FCos(f,0))~(rlist[1]),rlist[2]];
 ⊖;
 
 /* FSimpFactor does the difficult part. it gets a list, representing
-   factors, a*b*c -> {{a,b,c}}, and has to add terms from it.
+   factors, a*b*c -> [[a,b,c]], and has to add terms from it.
    Special cases to deal with:
-   - (a+b)*c -> a*c+b*c -> {{a,c},{b,c}}
-   - {a,b,c} where one of them is not a trig function or an addition:
+   - (a+b)*c -> a*c+b*c -> [[a,c],[b,c]]
+   - [a,b,c] where one of them is not a trig function or an addition:
      replace with FCos(b,0), which is b*Cos(0) = b
    - otherwise, combine two factors and make them into an addition.
    - the lists should get shorter, but the number of lists should
@@ -168,9 +168,9 @@ RuleHoldArguments("FSimpTerm",2,4,True)
 FSimpFactor(flist):=
 ⊕
   Local(rlist);
-  rlist:={{},{}};
+  rlist:=[[],[]];
   /* Loop over each term */
-  While(flist !=? {})
+  While(flist !=? [])
   ⊕
     Local(term);
 FLog("simpfact",flist);
@@ -186,7 +186,7 @@ FLog("rlist",rlist);
 UnFence("FSimpFactor",1);
 
 
-RulebaseHoldArguments("FProcessTerm",{t});
+RulebaseHoldArguments("FProcessTerm",[t]);
 UnFence("FProcessTerm",1);
 
 /* Deal with (a+b)*c -> a*c+b*c */
@@ -325,20 +325,20 @@ RuleHoldArguments("FProcessTerm",1,5,Length(t)>?1)
 ⊖;
 
 /* TrigSimpCombineB : take two FSin/FCos factors, and write them out into two terms */
-RulebaseHoldArguments("TrigSimpCombineB",{x,y});
+RulebaseHoldArguments("TrigSimpCombineB",[x,y]);
 RuleHoldArguments("TrigSimpCombineB",2,1,Type(x) =? "FCos" And? Type(y) =? "FCos")
-     { FCos((x[1]*y[1])/2,x[2]+y[2]) , FCos((x[1]*y[1])/2,x[2]-y[2]) };
+     [ FCos((x[1]*y[1])/2,x[2]+y[2]) , FCos((x[1]*y[1])/2,x[2]-y[2]) ];
 RuleHoldArguments("TrigSimpCombineB",2,1,Type(x) =? "FSin" And? Type(y) =? "FSin")
-     { FCos(-(x[1]*y[1])/2,x[2]+y[2]) , FCos((x[1]*y[1])/2,x[2]-y[2]) };
+     [ FCos(-(x[1]*y[1])/2,x[2]+y[2]) , FCos((x[1]*y[1])/2,x[2]-y[2]) ];
 RuleHoldArguments("TrigSimpCombineB",2,1,Type(x) =? "FSin" And? Type(y) =? "FCos")
-     { FSin((x[1]*y[1])/2,x[2]+y[2]) , FSin( (x[1]*y[1])/2,x[2]-y[2]) };
+     [ FSin((x[1]*y[1])/2,x[2]+y[2]) , FSin( (x[1]*y[1])/2,x[2]-y[2]) ];
 RuleHoldArguments("TrigSimpCombineB",2,1,Type(x) =? "FCos" And? Type(y) =? "FSin")
-     { FSin((x[1]*y[1])/2,x[2]+y[2]) , FSin(-(x[1]*y[1])/2,x[2]-y[2]) };
+     [ FSin((x[1]*y[1])/2,x[2]+y[2]) , FSin(-(x[1]*y[1])/2,x[2]-y[2]) ];
 
 
-RulebaseHoldArguments("TrigSimpCombine",{f});
+RulebaseHoldArguments("TrigSimpCombine",[f]);
 RuleHoldArguments("TrigSimpCombine",1,1,List?(f))
-  Map("TrigSimpCombine",{f});
+  Map("TrigSimpCombine",[f]);
 
 RuleHoldArguments("TrigSimpCombine",1,10,True)
 ⊕
@@ -356,7 +356,7 @@ FLog("Internal",new);
 
   /* rlist gathers the true final result */
   Local(terms);
-  terms:=FSimpTerm(new,{{},{}});
+  terms:=FSimpTerm(new,[[],[]]);
   /* terms now contains two lists: terms[1] is the list of cosines,
      and terms[2] the list of sines.
    */
@@ -366,8 +366,8 @@ FLog("terms",terms);
      arguments as key.
    */
   Local(cassoc,sassoc);
-  cassoc:={};
-  sassoc:={};
+  cassoc:=[];
+  sassoc:=[];
   ForEach(item,terms[1])
   ⊕
     CosAdd(item);
@@ -383,8 +383,8 @@ FLog("sassoc",sassoc);
   Local(result);
   result:=0;
 
-//Echo({cassoc});
-//Echo({sassoc});
+//Echo([cassoc]);
+//Echo([sassoc]);
   ForEach(item,cassoc)
   ⊕
 FLog("item",item);
@@ -411,7 +411,7 @@ CosAdd(t):=
        arg:=Expand(-arg,varlist);
        look:=Assoc(arg,cassoc);
        If(look =? Empty,
-         DestructiveInsert(cassoc,1,{arg,t[1]}),
+         DestructiveInsert(cassoc,1,[arg,t[1]]),
          look[2]:=look[2]+t[1]
          );
      ⊖
@@ -431,7 +431,7 @@ SinAdd(t):=
        arg:=Expand(-arg,varlist);
        look:=Assoc(arg,sassoc);
        If(look =? Empty,
-         DestructiveInsert(sassoc,1,{arg,-(t[1])}),
+         DestructiveInsert(sassoc,1,[arg,-(t[1])]),
          look[2]:=look[2]-(t[1])
          );
      ⊖
@@ -470,16 +470,16 @@ Out( 6 ) = Complex(Cos(a)*Cos(b)+Sin(a)*Sin(b),Sin(a)*Cos(b)-Cos(a)*Sin(b));
 
 *PARMS
 
-{expr} -- expression to simplify
+[expr] -- expression to simplify
 
 *DESC
 
 This function applies the product rules of trigonometry, e.g.
 $Cos(u)*Sin(v) = (1/2)*(Sin(v-u) + Sin(v+u))$. As a
-result, all products of the trigonometric functions {Cos} and {Sin} disappear. The function also tries to simplify the resulting expression as much as
+result, all products of the trigonometric functions [Cos] and [Sin] disappear. The function also tries to simplify the resulting expression as much as
 possible by combining all similar terms.
 
-This function is used in for instance {Integrate},
+This function is used in for instance [Integrate],
 to bring down the expression into a simpler form that hopefully can be
 integrated easily.
 

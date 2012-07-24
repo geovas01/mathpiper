@@ -1,6 +1,6 @@
 %mathpiper,def="'"
 
-    RulebaseHoldArguments("'", {expression});
+    RulebaseHoldArguments("'", [expression]);
 
     RuleHoldArguments("'", 1, 100, True) `(Hold(@expression));
 
@@ -19,7 +19,7 @@
 
 *PARMS
 
-{expression} -- expression to hold
+[expression] -- expression to hold
 
 *DESC
 

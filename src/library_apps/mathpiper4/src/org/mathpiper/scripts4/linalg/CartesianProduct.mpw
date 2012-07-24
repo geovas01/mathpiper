@@ -6,13 +6,13 @@ CartesianProduct(xList_List?, yList_List?) <--
 ⊕
     Local(cartesianProduct);
     
-    cartesianProduct := {};
+    cartesianProduct := [];
     
     ForEach(x, xList)
     ⊕
         ForEach(y, yList)
         ⊕
-            cartesianProduct := DestructiveAppend(cartesianProduct, {x,y});
+            cartesianProduct := DestructiveAppend(cartesianProduct, [x,y]);
         
         ⊖;
     ⊖;
@@ -35,32 +35,32 @@ CartesianProduct(xList_List?, yList_List?) <--
 
 *PARMS
 
-{list1} -- a list
+[list1] -- a list
 
-{list2} -- a list
+[list2] -- a list
 
 *DESC
 
 This function returns the Cartesian product of two lists.
 
 *E.G.
-In> CartesianProduct({a,b}, {c,d})
-Result: {{a,c},{a,d},{b,c},{b,d}}
+In> CartesianProduct([a,b], [c,d])
+Result: [[a,c],[a,d],[b,c],[b,d]]
 
-In> CartesianProduct({2,3,4,5,6,7,8,9,10,Jack,Queen,King,Ace}, {Spades, Hearts, Diamonds, Clubs})
-Result: {{2,Spades},{2,Hearts},{2,Diamonds},{2,Clubs},
-{3,Spades},{3,Hearts},{3,Diamonds},{3,Clubs},
-{4,Spades},{4,Hearts},{4,Diamonds},{4,Clubs},
-{5,Spades},{5,Hearts},{5,Diamonds},{5,Clubs},
-{6,Spades},{6,Hearts},{6,Diamonds},{6,Clubs},
-{7,Spades},{7,Hearts},{7,Diamonds},{7,Clubs},
-{8,Spades},{8,Hearts},{8,Diamonds},{8,Clubs},
-{9,Spades},{9,Hearts},{9,Diamonds},{9,Clubs},
-{10,Spades},{10,Hearts},{10,Diamonds},{10,Clubs},
-{Jack,Spades},{Jack,Hearts},{Jack,Diamonds},{Jack,Clubs},
-{Queen,Spades},{Queen,Hearts},{Queen,Diamonds},{Queen,Clubs},
-{King,Spades},{King,Hearts},{King,Diamonds},{King,Clubs},
-{Ace,Spades},{Ace,Hearts},{Ace,Diamonds},{Ace,Clubs}}
+In> CartesianProduct([2,3,4,5,6,7,8,9,10,Jack,Queen,King,Ace], [Spades, Hearts, Diamonds, Clubs])
+Result: [[2,Spades],[2,Hearts],[2,Diamonds],[2,Clubs],
+[3,Spades],[3,Hearts],[3,Diamonds],[3,Clubs],
+[4,Spades],[4,Hearts],[4,Diamonds],[4,Clubs],
+[5,Spades],[5,Hearts],[5,Diamonds],[5,Clubs],
+[6,Spades],[6,Hearts],[6,Diamonds],[6,Clubs],
+[7,Spades],[7,Hearts],[7,Diamonds],[7,Clubs],
+[8,Spades],[8,Hearts],[8,Diamonds],[8,Clubs],
+[9,Spades],[9,Hearts],[9,Diamonds],[9,Clubs],
+[10,Spades],[10,Hearts],[10,Diamonds],[10,Clubs],
+[Jack,Spades],[Jack,Hearts],[Jack,Diamonds],[Jack,Clubs],
+[Queen,Spades],[Queen,Hearts],[Queen,Diamonds],[Queen,Clubs],
+[King,Spades],[King,Hearts],[King,Diamonds],[King,Clubs],
+[Ace,Spades],[Ace,Hearts],[Ace,Diamonds],[Ace,Clubs]]
 %/mathpiper_docs
 
     %output,preserve="false"

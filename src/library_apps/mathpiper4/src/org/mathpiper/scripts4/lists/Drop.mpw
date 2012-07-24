@@ -7,16 +7,16 @@
 /*
  * Drop( list, n ) gives 'list' with its first n elements dropped
  * Drop( list, -n ) gives 'list' with its last n elements dropped
- * Drop( list, {m,n} ) gives 'list' with elements m through n dropped
+ * Drop( list, [m,n] ) gives 'list' with elements m through n dropped
  */
 
-RulebaseHoldArguments("Drop", {lst, range});
+RulebaseHoldArguments("Drop", [lst, range]);
 
 RuleHoldArguments("Drop", 2, 1, List?(range))
     Concat(Take(lst,range[1]-1), Drop(lst, range[2]));
 
 RuleHoldArguments("Drop", 2, 2, range >=? 0)
-    If( range =? 0 Or? lst =? {}, lst, Drop( Rest(lst), range-1 ));
+    If( range =? 0 Or? lst =? [], lst, Drop( Rest(lst), range-1 ));
 
 RuleHoldArguments("Drop", 2, 2, range <? 0)
     Take( lst, If(AbsN(range) <? Length(lst), Length(lst) + range, 0 ) );
@@ -33,13 +33,13 @@ RuleHoldArguments("Drop", 2, 2, range <? 0)
 *CALL
         Drop(list, n)
         Drop(list, -n)
-        Drop(list, {m,n})
+        Drop(list, [m,n])
 
 *PARMS
 
-{list} -- list to act on
+[list] -- list to act on
 
-{n}, {m} -- positive integers describing the entries to drop
+[n], [m] -- positive integers describing the entries to drop
 
 *DESC
 
@@ -51,14 +51,14 @@ through "n".
 
 *E.G.
 
-In> lst := {a,b,c,d,e,f,g};
-Result: {a,b,c,d,e,f,g};
+In> lst := [a,b,c,d,e,f,g];
+Result: [a,b,c,d,e,f,g];
 In> Drop(lst, 2);
-Result: {c,d,e,f,g};
+Result: [c,d,e,f,g];
 In> Drop(lst, -3);
-Result: {a,b,c,d};
-In> Drop(lst, {2,4});
-Result: {a,e,f,g};
+Result: [a,b,c,d];
+In> Drop(lst, [2,4]);
+Result: [a,e,f,g];
 
 *SEE Take, Select, Remove
 %/mathpiper_docs

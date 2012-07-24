@@ -1,6 +1,6 @@
 %mathpiper,def="MathPi"
 
-Defun("MathPi",{})
+Defun("MathPi",[])
 ⊕
   // Newton's method for finding pi:
   // x[0] := 3.1415926

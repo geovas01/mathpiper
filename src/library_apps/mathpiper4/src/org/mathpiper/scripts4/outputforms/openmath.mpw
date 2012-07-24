@@ -5,20 +5,20 @@
 // Written by Alberto González Palomo and Ayal Pinkus.
 ////////////////////////
 
-RulebaseHoldArguments("OMError", {x,y});
-RulebaseHoldArguments("OMError", {x,y,z});
+RulebaseHoldArguments("OMError", [x,y]);
+RulebaseHoldArguments("OMError", [x,y,z]);
 
 /* The read-eval-print loop */
 /* It can take one parameter, that is the evaluation count. If it is greater
    than zero, only that number of iterations will be performed before
    exiting. This is particularly useful when connecting to MathPiper via pipes.
 */
-RulebaseHoldArguments("OMREP",{});
+RulebaseHoldArguments("OMREP",[]);
 RuleHoldArguments("OMREP",0,1,True)
 ⊕
   OMREP(0);// 0 means keep repeating, as usual.
 ⊖;
-RulebaseHoldArguments("OMREP",{count});
+RulebaseHoldArguments("OMREP",[count]);
 LocalSymbols(input,stringOut,result)
 RuleHoldArguments("OMREP",1,1,True)
 ⊕
@@ -42,9 +42,9 @@ RuleHoldArguments("OMREP",1,1,True)
       SetGlobalLazyVariable(%,result);
       If(PrettyPrinterGet()=?"",
       ⊕
-        Apply("OMForm",{result});
+        Apply("OMForm",[result]);
       ⊖,
-      Apply(PrettyPrinterGet(),{result}));
+      Apply(PrettyPrinterGet(),[result]));
       If(count >? 0 And? (count:=count-1) =? 0, Exit());
     ⊖);
   ⊖;
@@ -180,7 +180,7 @@ LocalSymbols(omindent) ⊕
      // probably obsolete. I'll think about removing it.
      symbolDef := OMSymbol()[ OMSignature(function) ];
      If(symbolDef =? Empty, symbolDef := OMSymbol()[ Type(function) ] );
-     If(symbolDef =? Empty Or? Length(symbolDef) <? 3 Or? symbolDef[3] =? {},
+     If(symbolDef =? Empty Or? Length(symbolDef) <? 3 Or? symbolDef[3] =? [],
         ⊕
         OMEcho("<OMS cd=\""~symbolDef[1]~"\" name=\""~symbolDef[2]~"\"/>");
         ForEach(arg, function) OMFormExpression(arg);
@@ -278,7 +278,7 @@ OMSignature(_function) <-- "";
 OMSignature(function_Function?) <--
 ⊕
   Local(makeSig);
-  makeSig := {ConcatStrings, Type(function), "_"};
+  makeSig := [ConcatStrings, Type(function), "_"];
   Local(type);
   type := "";// If "function" doesn't have parameters, the signature is "f_".
   ForEach(arg, function)
@@ -360,7 +360,7 @@ PipeFromString(str~" EndOfFile")
   Local(result);
   OMNextToken();
   result := ReadOMOBJ(OMToken());
-  MatchClose(XmlTag("OMOBJ",{},"Close"));
+  MatchClose(XmlTag("OMOBJ",[],"Close"));
   result;
 ⊖;
 10 # MatchOMOBJ(XmlTag("OMOBJ",_attributes,"OpenClose")) <--
@@ -378,80 +378,80 @@ PipeFromString(str~" EndOfFile")
   Empty;
 ⊖;
 
-10 # ReadOMOBJ(XmlTag("OMI",{},"Open")) <--
+10 # ReadOMOBJ(XmlTag("OMI",[],"Open")) <--
 ⊕
   Local(result);
   OMNextToken();
   result := ToAtom(OMToken());
   OMNextToken();
-  MatchClose(XmlTag("OMI",{},"Close"));
+  MatchClose(XmlTag("OMI",[],"Close"));
   result;
 ⊖;
 
-10 # ReadOMOBJ(XmlTag("OMV",{{"NAME",_name}},"OpenClose")) <--
+10 # ReadOMOBJ(XmlTag("OMV",[["NAME",_name]],"OpenClose")) <--
 ⊕
   OMNextToken();
   ToAtom(name);
 ⊖;
 
-10 # ReadOMOBJ(XmlTag("OMF",{{"DEC",_dec}},"OpenClose")) <--
+10 # ReadOMOBJ(XmlTag("OMF",[["DEC",_dec]],"OpenClose")) <--
 ⊕
   OMNextToken();
   ToAtom(dec);
 ⊖;
 
-10 # ReadOMOBJ(XmlTag("OMSTR",{},"Open")) <--
+10 # ReadOMOBJ(XmlTag("OMSTR",[],"Open")) <--
 ⊕
   Local(result);
   OMNextToken();
   If(String?(OMToken()), ⊕result := OMToken(); OMNextToken();⊖, result := "");
-  MatchClose(XmlTag("OMSTR",{},"Close"));
+  MatchClose(XmlTag("OMSTR",[],"Close"));
   result;
 ⊖;
-10 # ReadOMOBJ(XmlTag("OMSTR",{},"OpenClose")) <--
+10 # ReadOMOBJ(XmlTag("OMSTR",[],"OpenClose")) <--
 ⊕
   OMNextToken();
   "";
 ⊖;
 
-10 # ReadOMOBJ(XmlTag("OMA",{},"Open")) <--
+10 # ReadOMOBJ(XmlTag("OMA",[],"Open")) <--
 ⊕
   Local(result, new);
-  result:={};
+  result:=[];
   OMNextToken();
-  While (OMToken() !=? XmlTag("OMA",{},"Close"))
+  While (OMToken() !=? XmlTag("OMA",[],"Close"))
   ⊕
     new:=ReadOMOBJ(OMToken());
     DestructiveAppend(result,new);
   ⊖;
-  MatchClose(XmlTag("OMA",{},"Close"));
+  MatchClose(XmlTag("OMA",[],"Close"));
   OMApplyReverseMapping(ListToFunction(result));
 ⊖;
 
-10 # ReadOMOBJ(XmlTag("OMBIND",{},"Open")) <--
+10 # ReadOMOBJ(XmlTag("OMBIND",[],"Open")) <--
 ⊕
   Local(result, new);
-  result:={};
+  result:=[];
   OMNextToken();
-  While (OMToken() !=? XmlTag("OMBIND",{},"Close"))
+  While (OMToken() !=? XmlTag("OMBIND",[],"Close"))
   ⊕
     new:=ReadOMOBJ(OMToken());
     DestructiveAppend(result,new);
   ⊖;
-  MatchClose(XmlTag("OMBIND",{},"Close"));
+  MatchClose(XmlTag("OMBIND",[],"Close"));
   result;
 ⊖;
-10 # ReadOMOBJ(XmlTag("OMBVAR",{},"Open")) <--
+10 # ReadOMOBJ(XmlTag("OMBVAR",[],"Open")) <--
 ⊕
   Local(result, new);
-  result:={};
+  result:=[];
   OMNextToken();
-  While (OMToken() !=? XmlTag("OMBVAR",{},"Close"))
+  While (OMToken() !=? XmlTag("OMBVAR",[],"Close"))
   ⊕
     new:=ReadOMOBJ(OMToken());
     DestructiveAppend(result,new);
   ⊖;
-  MatchClose(XmlTag("OMBVAR",{},"Close"));
+  MatchClose(XmlTag("OMBVAR",[],"Close"));
   result;
 ⊖;
 
@@ -461,7 +461,7 @@ PipeFromString(str~" EndOfFile")
      ⊕
      Local(symbolDef, result);
      symbolDef := OMSymbol()[ Type(piperExp) ];
-     If(symbolDef[4] =? {},
+     If(symbolDef[4] =? [],
         result := piperExp,
         ⊕
           result := OMApplyMapping(piperExp, symbolDef[4]);
@@ -475,7 +475,7 @@ PipeFromString(str~" EndOfFile")
 10 # OMApplyMapping(_function, _mapping) <--
 ⊕
   Local(expandRules, result);
-  expandRules := { _(_path) <- OMPathSelect(path, function) };
+  expandRules := [ _(_path) <- OMPathSelect(path, function) ];
   expandRules[1][2][2] := function;// the "function" variable is not expanded above.
 
   mapping := (mapping /: expandRules);// "/:" has lower precedence than ":=".
@@ -546,7 +546,7 @@ HoldArgumentNumber("OMPathSelect", 2, 2);
   omcd   := attributes["CD"];
   omname := attributes["NAME"];
   If(omcd =? Empty Or? omname =? Empty,
-     OMCheck(False, "Argument", OMError({"moreerrors", "encodingError"}, PipeToString()Echo("missing \"cd\" or \"name\" attribute: ",attributes))),
+     OMCheck(False, "Argument", OMError(["moreerrors", "encodingError"], PipeToString()Echo("missing \"cd\" or \"name\" attribute: ",attributes))),
      ⊕
      Local(cdTable, piperform);
      cdTable := OMSymbolReverse()[ omcd ];
@@ -561,14 +561,14 @@ HoldArgumentNumber("OMPathSelect", 2, 2);
     );
 ⊖;
 
-101 # ReadOMOBJ(_rest) <-- OMCheck(False, "Unimplemented", OMError({"moreerrors", "encodingError"}, PipeToString()Echo("unhandled tag: ",rest)));
+101 # ReadOMOBJ(_rest) <-- OMCheck(False, "Unimplemented", OMError(["moreerrors", "encodingError"], PipeToString()Echo("unhandled tag: ",rest)));
 
 
 
 ///////////////////////////////////////////////////////////////////////
 // Error reporting
 
-Macro(OMCheck,{predicate,error})
+Macro(OMCheck,[predicate,error])
 ⊕
   If(Not?(@predicate),
   ⊕
@@ -588,7 +588,7 @@ OMGetCoreError():=
   If(result !=? False,
      If( Error?("omErrorObject"),
         ⊕result := GetError("omErrorObject");                     ⊖,
-        ⊕result := OMError({"moreerrors", "unexpected"}, result); ⊖)
+        ⊕result := OMError(["moreerrors", "unexpected"], result); ⊖)
     );
   result;
 ⊖;
@@ -600,8 +600,8 @@ OMGetCoreError():=
 
 LocalSymbols(omsymbol, omsymbolreverse) ⊕
   // Initialization of the openmath symbol dictionaries
-  omsymbol := {};
-  omsymbolreverse := {};
+  omsymbol := [];
+  omsymbolreverse := [];
 
   // Access to the dictionaries
   OMSymbol() := omsymbol;
@@ -613,11 +613,11 @@ OMDef(_piperform, omcd_String?, omname_String?, _directMapping, _reverseMapping)
 ⊕
   Local(cdTable);
   If(String?(piperform),
-     OMSymbol()[ piperform ] := {omcd, omname, directMapping, reverseMapping}
+     OMSymbol()[ piperform ] := [omcd, omname, directMapping, reverseMapping]
      );
   cdTable := OMSymbolReverse()[ omcd ];
   If(cdTable =? Empty,
-     OMSymbolReverse()[ omcd ] := {{omname, piperform}},
+     OMSymbolReverse()[ omcd ] := [[omname, piperform]],
      ⊕
        Local(oldMathPiperform);
        oldMathPiperform := cdTable[ omname ];
@@ -641,7 +641,7 @@ OMDef(_piperform, omcd_String?, omname_String?, _directMapping, _reverseMapping)
 ⊖;
 
 OMDef(_piperform, omcd_String?, omname_String?)
-<-- OMDef(piperform, omcd, omname, {}, {});
+<-- OMDef(piperform, omcd, omname, [], []);
 
 OMDef(piperalias_String?, pipername_String?) <--
 ⊕
@@ -652,7 +652,7 @@ HoldArgumentNumber("OMDef", 5, 5);
 
 // Many objects, such as matrices and sets, do not have a specific
 // encoding in MathPiper, but are represented as lists.
-OMDef( {},     "set1","emptyset" );
+OMDef( [],     "set1","emptyset" );
 OMDef( "List", "set1","set"      );
 OMDef( "List", "linalg2","matrix"    );
 OMDef( "List", "linalg2","matrixrow" );
@@ -669,12 +669,12 @@ OMDef( "And?"   ,  "logic1", "and"        );
 //OMDef( "=="    ,  "logic1", "equivalent" );
 /*Note:tk:when I had fixed the syntax error in this code, a redefinition error was created.
 OMDef( "!=?="   ,  "logic1", "not",
-        { "<OMA><OMS cd=\"logic1\" name=\"equivalent\"/>",
+        [ "<OMA><OMS cd=\"logic1\" name=\"equivalent\"/>",
           1,
           2,
           "</OMA>"
-        },
-        {}
+        ],
+        []
       );
 */
 OMDef( "False",  "logic1", "false" );
@@ -686,7 +686,7 @@ OMDef( "&" ,  mathpiper, "bitwise_and" );
 OMDef( "|" ,  mathpiper, "bitwise_or"  );
 OMDef( "%" ,  mathpiper, "bitwise_xor" );
 OMDef( "/" , "arith1", "divide");// This definition is for OM arith1:divide to MathPiper. In all other cases, the next one will be used.
-OMDef( "/" , "nums1", "rational", {$, _1, _2}_(Rational?(_1/_2)) | {OMS("arith1", "divide"), _1, _2}, {/, _1, _2});
+OMDef( "/" , "nums1", "rational", [$, _1, _2]_(Rational?(_1/_2)) | [OMS("arith1", "divide"), _1, _2], [/, _1, _2]);
 OMDef( "-" ,  "arith1", "unary_minus");
 OMDef( "-" ,  "arith1", "minus"  );// We need a way of testing the arity.
 OMDef( "+" ,  "arith1", "plus"   );
@@ -743,7 +743,7 @@ OMDef( "<=?", "relation1","leq" );
 OMDef( "<?" , "relation1","lt"  );
 OMDef( "!=?", "relation1","neq" );
 OMDef( "Gcd", "arith1","gcd" );
-OMDef( "Sqrt", "arith1","root", { $, _1, 2 }, $(_1)_(_2=?2) | (_1^(1/_2)) );
+OMDef( "Sqrt", "arith1","root", [ $, _1, 2 ], $(_1)_(_2=?2) | (_1^(1/_2)) );
 // Test [result: Sqrt(16)]:
 // PipeFromString("<OMOBJ><OMA><OMS cd=\"arith1\" name=\"root\"/><OMI>16</OMI><OMI>2</OMI></OMA></OMOBJ> ")OMRead()
 // Test [result: IntNthRoot(16,3))]:
@@ -784,8 +784,8 @@ OMDef( "Complex?", mathpiper,"is_complex"         );
 
 //LoadScriptOnce("integrate.rep/om.mpi");
 OMDef( "Integrate", "calculus1","defint", // Same argument reordering as Sum.
-       { $, _2 .. _3, OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _4) },
-       { $, _{2,2,1}, _{1,1}, _{1,2}, _{2,3} }
+       [ $, _2 .. _3, OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _4) ],
+       [ $, _[2,2,1], _[1,1], _[1,2], _[2,3] ]
       );
 OMDef( "AntiDeriv", mathpiper,"AntiDeriv" );
 
@@ -794,14 +794,14 @@ OMDef( "AntiDeriv", mathpiper,"AntiDeriv" );
 // [2005-12-28 matmota]: I have to implement some better solution for the
 // MathPiper -> OM mapping for these symbols.
 OMDef( "Minimum", "minmax1","min",
-       { "<OMA>", "<OMS cd=\"set1\" name=\"set\"/>",
+       [ "<OMA>", "<OMS cd=\"set1\" name=\"set\"/>",
          1,2,3,4,5,6,7,8,9,10,11,12,13,14,
-         "</OMS>", "</OMA>" },
+         "</OMS>", "</OMA>" ],
        ($)~_1 );
 OMDef( "Maximum", "minmax1","max",
-       { "<OMA>", "<OMS cd=\"set1\" name=\"set\"/>",
+       [ "<OMA>", "<OMS cd=\"set1\" name=\"set\"/>",
          1,2,3,4,5,6,7,8,9,10,11,12,13,14,
-         "</OMS>", "</OMA>" },
+         "</OMS>", "</OMA>" ],
        ($)~_1 );
 OMDef( "!", "integer1","factorial" );
 OMDef( "BinomialCoefficient", "combinat1","binomial" );
@@ -809,8 +809,8 @@ OMDef( "!!",  mathpiper,"double_factorial" );
 OMDef( "***", mathpiper,"partial_factorial" );
 OMDef( "Add", mathpiper,"Add" );
 OMDef( "Sum", "arith1","sum", // Same argument reordering as Integrate.
-       { $, _2 .. _3, OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _4) },
-       { $, _{2,2,1}, _{1,1}, _{1,2}, _{2,3} }
+       [ $, _2 .. _3, OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _4) ],
+       [ $, _[2,2,1], _[1,1], _[1,2], _[2,3] ]
       );
 OMDef( "Product", mathpiper,"Product" );
 OMDef( "Taylor",    mathpiper,"Taylor" );
@@ -819,12 +819,12 @@ OMDef( "Subfactorial", mathpiper,"Subfactorial" );
 
 //LoadScriptOnce("limit.rep/om.mpi");
 OMDef("Limit", "limit1","limit",
-      {  _0, _2, OMS("limit1", "under"), OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _4) }_(_3=?Left)
-      |{ _0, _2, OMS("limit1", "above"), OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _4) }_(_3=?Right)
-      |{ _0, _2, OMS("limit1", "both_sides"), OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _3) },
-      { _0, _{3,2,1}, _1, Left,  _{3,3}}_(_2=?OMS("limit1", "below"))
-      |{_0, _{3,2,1}, _1, Right, _{3,3}}_(_2=?OMS("limit1", "above"))
-      |{_0, _{3,2,1}, _1, _{3,3}}
+      [  _0, _2, OMS("limit1", "under"), OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _4) ]_(_3=?Left)
+      |[ _0, _2, OMS("limit1", "above"), OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _4) ]_(_3=?Right)
+      |[ _0, _2, OMS("limit1", "both_sides"), OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _3) ],
+      [ _0, _[3,2,1], _1, Left,  _[3,3]]_(_2=?OMS("limit1", "below"))
+      |[_0, _[3,2,1], _1, Right, _[3,3]]_(_2=?OMS("limit1", "above"))
+      |[_0, _[3,2,1], _1, _[3,3]]
      );
 // Test [result Limit(x,0,Right)1/x]: PipeFromString(PipeToString()OMForm(Limit(x,0,Right) 1/x))OMRead()
 
@@ -840,11 +840,11 @@ OMDef("Limit", "limit1","limit",
 //OMDef("Left",  "limit1","below");
 //OMDef("Right", "limit1","above");
 // and then use the following rules instead:
-//      {  _0, _2, Left,  OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _4) }_(_3=Left)
-//      |{ _0, _2, Right, OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _4) }_(_3=Right)
-//      |{ _0, _2, OMS("limit1", "both_sides"), OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _3) },
-//      { _0, _{3,2,1}, _1, _2, _{3,3}}_(_2=Left Or? _2=Right)
-//      |{_0, _{3,2,1}, _1, _{3,3}}
+//      [  _0, _2, Left,  OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _4) ]_(_3=Left)
+//      |[ _0, _2, Right, OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _4) ]_(_3=Right)
+//      |[ _0, _2, OMS("limit1", "both_sides"), OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _3) ],
+//      [ _0, _[3,2,1], _1, _2, _[3,3]]_(_2=Left Or? _2=Right)
+//      |[_0, _[3,2,1], _1, _[3,3]]
 // The result is exactly the same. The only difference is when producing the
 // OMForm of the symbols themselves, outside the limit expression.
 
@@ -964,16 +964,16 @@ OMDef( "DawsonIntegral" , mathpiper, "DawsonIntegral" );
 
 *PARMS
 
-{expression} -- expression to convert
+[expression] -- expression to convert
 
 *DESC
 
-{OMForm} prints an OpenMath representation of the input parameter {expression}
-to standard output. {OMRead} reads an OpenMath expression from standard
+[OMForm] prints an OpenMath representation of the input parameter [expression]
+to standard output. [OMRead] reads an OpenMath expression from standard
 input and returns a normal MathPiper expression that matches the input OpenMath
 expression.
 
-If a MathPiper symbol does not have a mapping defined by {OMDef}, it is translated
+If a MathPiper symbol does not have a mapping defined by [OMDef], it is translated
 to and from OpenMath as the OpenMath symbol in the CD "mathpiper" with the same
 name as it has in MathPiper.
 
@@ -1026,43 +1026,43 @@ Result: True
 
 *PARMS
 
-{mathpiperForm} -- string with the name of a MathPiper symbol, or a MathPiper expression
+[mathpiperForm] -- string with the name of a MathPiper symbol, or a MathPiper expression
 
-{cd} -- OpenMath Content Dictionary for the symbol
+[cd] -- OpenMath Content Dictionary for the symbol
 
-{name} -- OpenMath name for the symbol
+[name] -- OpenMath name for the symbol
 
-{mathpiperToOM} -- rule for translating an application of that symbol in MathPiper into an OpenMath expression
+[mathpiperToOM] -- rule for translating an application of that symbol in MathPiper into an OpenMath expression
 
-{omToMathPiper} -- rule for translating an OpenMath expression into an application of this symbol in MathPiper
+[omToMathPiper] -- rule for translating an OpenMath expression into an application of this symbol in MathPiper
 
 *DESC
 
-{OMDef} defines the translation rules for symbols between the MathPiper
-representation and {OpenMath}.
-The first parameter, {mathpiperForm}, can be a string or an expression. The
-difference is that when giving an expression only the {omToMathPiper} translation
-is defined, and it uses the exact expression given. This is used for {OpenMath}
+[OMDef] defines the translation rules for symbols between the MathPiper
+representation and [OpenMath].
+The first parameter, [mathpiperForm], can be a string or an expression. The
+difference is that when giving an expression only the [omToMathPiper] translation
+is defined, and it uses the exact expression given. This is used for [OpenMath]
 symbols that must be translated into a whole subexpression in MathPiper, such
-as {set1:emptyset} which gets translated to an empty list as follows:
-In> OMDef( {}, "set1","emptyset" )
+as [set1:emptyset] which gets translated to an empty list as follows:
+In> OMDef( [], "set1","emptyset" )
 Result: True
 In> PipeFromString("<OMOBJ><OMS cd=\"set1\" name=\"emptyset\"/></OMOBJ> ")OMRead()
-Result: {}
+Result: []
 In> List?(%)
 Result: True
 Otherwise, a symbol that is not inside an application (OMA) gets translated to
 the MathPiper atom with the given name:
 In> OMDef( "EmptySet", "set1","emptyset" )
-        Warning: the mapping for set1:emptyset was already defined as {} , but is redefined now as EmptySet
+        Warning: the mapping for set1:emptyset was already defined as [] , but is redefined now as EmptySet
 Result: True
 In> PipeFromString("<OMOBJ><OMS cd=\"set1\" name=\"emptyset\"/></OMOBJ> ")OMRead()
 Result: EmptySet
 
 The definitions for the symbols in the MathPiper
-library are in the {*.rep} script subdirectories. In those modules for which
-the mappings are defined, there is a file called {om.ys} that contains the
-{OMDef} calls. Those files are loaded in {openmath.rep/om.ys}, so any new
+library are in the [*.rep] script subdirectories. In those modules for which
+the mappings are defined, there is a file called [om.ys] that contains the
+[OMDef] calls. Those files are loaded in [openmath.rep/om.ys], so any new
 file must be added to the list there, at the end of the file.
 
 A rule is represented as a list of expressions. Since both OM and
@@ -1070,44 +1070,44 @@ MathPiper expressions are actually lists, the syntax is the same in both
 directions. There are two template forms that are expanded before the
 translation:
 
-*        {$}: this symbol stands for the translation of the symbol applied
+*        [$]: this symbol stands for the translation of the symbol applied
 in the original expression.
 
-*        {_path}: a path into the original expression (list) to extract an
+*        [_path]: a path into the original expression (list) to extract an
 element, written as an underscore applied to an integer or a list of integers.
   Those integers are indexes into expressions, and integers in a list are
   applied recursively starting at the original expression.
-  For example, {_2} means the second parameter of the expression, while
-  {_{3,2,1}} means the first parameter of the second parameter of the third
+  For example, [_2] means the second parameter of the expression, while
+  [_[3,2,1]] means the first parameter of the second parameter of the third
   parameter of the original expression.
 
 They can appear anywhere in the rule as expressions or subexpressions.
 
 Finally, several alternative rules can be specified by joining them with
-the {|} symbol, and each of them can be annotated with a post-predicate
-applied with the underscore {_} symbol, in the style of MathPiper' simplification
+the [|] symbol, and each of them can be annotated with a post-predicate
+applied with the underscore [_] symbol, in the style of MathPiper' simplification
 rules. Only the first alternative rule that matches is applied, so the more
 specific rules must be written first.
 
-There are special symbols recognized by {OMForm} to output {OpenMath}
+There are special symbols recognized by [OMForm] to output [OpenMath]
 constructs that have no specific parallel in MathPiper, such as an OpenMath
-symbol having a {CD} and {name}: MathPiper symbols have only a name.
+symbol having a [CD] and [name]: MathPiper symbols have only a name.
 Those special symbols are:
 
-*        {OMS(cd, name)}: {<OMS cd="cd" name="name">}
-*        {OMA(f x y ...)}: {<OMA>f x y ...</OMA>}
-*        {OMBIND(binderSymbol, bvars, expression)}: {<OMBIND>binderSymbol bvars expression</OMBIND>}, where {bvars} must be produced by using {OMBVAR(...)}.
-*        {OMBVAR(x y ...)}: {<OMBVAR>x y ...</OMBVAR>}
-*        {OME(...)}: {<OME>...</OME>}
+*        [OMS(cd, name)]: [<OMS cd="cd" name="name">]
+*        [OMA(f x y ...)]: [<OMA>f x y ...</OMA>]
+*        [OMBIND(binderSymbol, bvars, expression)]: [<OMBIND>binderSymbol bvars expression</OMBIND>], where [bvars] must be produced by using [OMBVAR(...)].
+*        [OMBVAR(x y ...)]: [<OMBVAR>x y ...</OMBVAR>]
+*        [OME(...)]: [<OME>...</OME>]
 
 When translating from OpenMath to MathPiper, we just store unknown symbols as
-{OMS("cd", "name")}. This way we don't have to bother defining bogus symbols
+[OMS("cd", "name")]. This way we don't have to bother defining bogus symbols
 for concepts that MathPiper does not handle, and we can evaluate expressions that
 contain them.
 
 *E.G. notest
 
-In> OMDef( "Sqrt" ,  "arith1", "root", { $, _1, 2 }, $(_1)_(_2=2) | (_1^(1/_2)) );
+In> OMDef( "Sqrt" ,  "arith1", "root", [ $, _1, 2 ], $(_1)_(_2=2) | (_1^(1/_2)) );
 Result: True
 In> OMForm(Sqrt(3))
         <OMOBJ>
@@ -1124,12 +1124,12 @@ In> PipeFromString("<OMOBJ><OMA><OMS cd=\"arith1\" name=\"root\"/><OMI>16</OMI><
 Result: 16^(1/3)
 
 In> OMDef("Limit", "limit1", "limit", \
-              {  $, _2, OMS("limit1", "under"), OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _4) }_(_3=Left)  \
-              |{ $, _2, OMS("limit1", "above"), OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _4) }_(_3=Right) \
-              |{ $, _2, OMS("limit1", "both_sides"), OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _3) },      \
-              { $, _{3,2,1}, _1, Left,  _{3,3}}_(_2=OMS("limit1", "below")) \
-              |{$, _{3,2,1}, _1, Right, _{3,3}}_(_2=OMS("limit1", "above")) \
-              |{$, _{3,2,1}, _1, _{3,3}}                                    \
+              [  $, _2, OMS("limit1", "under"), OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _4) ]_(_3=Left)  \
+              |[ $, _2, OMS("limit1", "above"), OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _4) ]_(_3=Right) \
+              |[ $, _2, OMS("limit1", "both_sides"), OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _3) ],      \
+              [ $, _[3,2,1], _1, Left,  _[3,3]]_(_2=OMS("limit1", "below")) \
+              |[$, _[3,2,1], _1, Right, _[3,3]]_(_2=OMS("limit1", "above")) \
+              |[$, _[3,2,1], _1, _[3,3]]                                    \
              );
 In> OMForm(Limit(x,0) Sin(x)/x)
         <OMOBJ>
@@ -1190,7 +1190,7 @@ Result: Infinity
 
 //Converting to and from OpenMath expressions".
 
-Macro(OMTest1,{expr})
+Macro(OMTest1,[expr])
 ⊕
   Local(string,result);
   string:=PipeToString() OMForm(@expr);

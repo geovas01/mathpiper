@@ -1,6 +1,6 @@
 %mathpiper,def="Product"
 
-Function("Product",{sumvar,sumfrom,sumto,sumbody})
+Function("Product",[sumvar,sumfrom,sumto,sumbody])
 ⊕
    Local(sumi,sumsum);
    sumsum:=1;
@@ -40,19 +40,19 @@ Product(sumlist_List?) <--
 
 *PARMS
 
-{list} -- list of values to multiply
+[list] -- list of values to multiply
 
-{var} -- variable to iterate over
+[var] -- variable to iterate over
 
-{from} -- integer value to iterate from
+[from] -- integer value to iterate from
 
-{to} -- integer value to iterate up to
+[to] -- integer value to iterate up to
 
-{body} -- expression to evaluate for each iteration
+[body] -- expression to evaluate for each iteration
 
 *DESC
 
-The first form of the {Product} command simply
+The first form of the [Product] command simply
 multiplies all the entries in "list" and returns their product.
 
 If the second calling sequence is used, the expression "body" is
@@ -63,7 +63,7 @@ returned. Obviously, "to" should be greater than or equal to
 
 *E.G.
 
-In> Product({1,2,3,4});
+In> Product([1,2,3,4]);
 Result: 24;
 In> Product(i, 1, 4, i);
 Result: 24;

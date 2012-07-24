@@ -61,13 +61,13 @@ ErrorFunction(x) :=
 
 *PARMS
 
-{a} -- a measurement value
+[a] -- a measurement value
 
 *DESC
 
 When the results of a series of measurements are described by a normal distribution 
 with standard deviation \scriptstyle\sigma and expected value 0, then 
-${erf}\,\left(\,\frac{a}{\sigma \sqrt{2}}\,\right)$
+$[erf]\,\left(\,\frac[a][\sigma \sqrt[2]]\,\right)$
 is the probability that the error of a single measurement lies between -a and +a, 
 for positive a. http://en.wikipedia.org/wiki/Error_function.
 

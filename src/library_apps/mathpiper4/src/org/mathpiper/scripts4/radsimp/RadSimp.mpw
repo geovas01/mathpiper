@@ -23,7 +23,7 @@
 20 # RadSimp(_n) <-- n;
 
 
-/*Echo({"Try ",test}); */
+/*Echo(["Try ",test]); */
 
 CheckRadicals(_n,_test) <-- Abs(N(Eval(n-test),20)) <? 0.000001;
 
@@ -40,7 +40,7 @@ RadSimpTry(_n,_result,_current,_max)<--
     Local(i);
 
     // First, look for perfect match
-    i:=BSearch(max,Hold({{try},ClampRadicals(N(Eval((result+Sqrt(try))-n),20))}));
+    i:=BSearch(max,Hold([[try],ClampRadicals(N(Eval((result+Sqrt(try))-n),20))]));
     If(i>?0,
     ⊕
       Bind(result,result+Sqrt(i));
@@ -56,7 +56,7 @@ RadSimpTry(_n,_result,_current,_max)<--
         Local(new, test);
         Bind(test,result+Sqrt(i));
 
-/* Echo({"Full-try ",test}); */
+/* Echo(["Full-try ",test]); */
 
         Bind(new,RadSimpTry(n,test,i,max));
         if (CheckRadicals(n,new))
@@ -87,7 +87,7 @@ RadSimpTry(_n,_result,_current,_max)<--
 
 *PARMS
 
-{expr} -- an expression containing nested radicals
+[expr] -- an expression containing nested radicals
 
 *DESC
 
@@ -97,16 +97,16 @@ so on are natural numbers. The expression "expr" may not contain
 free variables.
 
 It does this by trying all possible combinations for $e1$, $e2$, ...
-Every possibility is numerically evaluated using {N} and compared with the numerical evaluation of
+Every possibility is numerically evaluated using [N] and compared with the numerical evaluation of
 "expr". If the approximations are equal (up to a certain margin),
 this possibility is returned. Otherwise, the expression is returned
 unevaluated.
 
 Note that due to the use of numerical approximations, there is a small
-chance that the expression returned by {RadSimp} is
-close but not equal to {expr}. The last example underneath
+chance that the expression returned by [RadSimp] is
+close but not equal to [expr]. The last example underneath
 illustrates this problem. Furthermore, if the numerical value of
-{expr} is large, the number of possibilities becomes exorbitantly
+[expr] is large, the number of possibilities becomes exorbitantly
 big so the evaluation may take very long.
 
 *E.G.

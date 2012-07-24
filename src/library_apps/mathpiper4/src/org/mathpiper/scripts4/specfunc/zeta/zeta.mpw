@@ -21,7 +21,7 @@ Zeta3
 /// Also $s$ must satisfy $Re(s)+n+1 > 0$
 InternalZetaNum(_s, n_Integer?) <-- ⊕
         Local(result, j, sign);
-        If (InVerboseMode(), Echo({"InternalZetaNum: Borwein's method, precision ", BuiltinPrecisionGet(), ", n = ", n}));
+        If (InVerboseMode(), Echo(["InternalZetaNum: Borwein's method, precision ", BuiltinPrecisionGet(), ", n = ", n]));
         result := 0;
         sign := 1;        // flipping sign
         For(j:=0, j<=?2*n-1, j++)
@@ -35,7 +35,7 @@ InternalZetaNum(_s, n_Integer?) <-- ⊕
 /// direct method -- only good for large s
 InternalZetaNum1(s, limit) := ⊕
         Local(i, sum);
-        If (InVerboseMode(), Echo({"InternalZetaNum: direct method (sum), precision ", BuiltinPrecisionGet(), ", N = ", limit}));
+        If (InVerboseMode(), Echo(["InternalZetaNum: direct method (sum), precision ", BuiltinPrecisionGet(), ", N = ", limit]));
         sum := 0;
         limit := Ceil(N(limit));
         For(i:=2, i<=?limit, i++) sum := sum+N(1/PowerN(i, s));
@@ -46,7 +46,7 @@ InternalZetaNum1(s, limit) := ⊕
 InternalZetaNum2(s, limit) :=
 ⊕
         Local(i, prod);
-        If (InVerboseMode(), Echo({"InternalZetaNum: direct method (product), precision ", BuiltinPrecisionGet(), ", N = ", limit}));
+        If (InVerboseMode(), Echo(["InternalZetaNum: direct method (product), precision ", BuiltinPrecisionGet(), ", N = ", limit]));
         prod := N( (1-1/PowerN(2, s))*(1-1/PowerN(3,s)) );
         limit := Ceil(N(limit));
         For(i:=5, i<=?limit, i:= NextPrime(i))
@@ -104,7 +104,7 @@ Zeta3() :=
                 N(Re(s)) <? 0.5,
                 // call ourselves with a different argument
                 ⊕
-                        If(InVerboseMode(), Echo({"InternalZetaNum: using s->1-s identity, s=", s, ", precision ", prec}));
+                        If(InVerboseMode(), Echo(["InternalZetaNum: using s->1-s identity, s=", s, ", precision ", prec]));
                         result :=  2*Exp(InternalLnGammaNum(1-s)-(1-s)*Ln(2*InternalPi()))*Sin(InternalPi()*s/2) * InternalZetaNum(1-s);
                 ⊖,
                 // choose between methods

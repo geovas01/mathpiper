@@ -24,7 +24,7 @@ FrobeniusNorm(matrix_Matrix?) <--
         FrobeniusNorm(matrix)
 
 *PARMS
-{matrix} -- a matrix
+[matrix] -- a matrix
 
 *DESC
 todo

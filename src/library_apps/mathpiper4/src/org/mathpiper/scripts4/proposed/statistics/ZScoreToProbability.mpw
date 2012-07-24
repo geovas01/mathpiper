@@ -97,7 +97,7 @@ ZScoreToProbability(zScore) :=
 
 *PARMS
 
-{z_score} -- a z-score value
+[z_score] -- a z-score value
 
 *DESC
 

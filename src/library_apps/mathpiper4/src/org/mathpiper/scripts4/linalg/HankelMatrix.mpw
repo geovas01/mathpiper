@@ -1,8 +1,8 @@
 %mathpiper,def="HankelMatrix"
 
 // The arguments of the following functions should be checked
-HankelMatrix(n):=GenMatrix({{i,j}, If(i+j-1>?n,0,i+j-1) }, n,n );
-HankelMatrix(m,n):=GenMatrix({{i,j}, If(i+j-1>?n,0,i+j-1)}, m,n );
+HankelMatrix(n):=GenMatrix([[i,j], If(i+j-1>?n,0,i+j-1) ], n,n );
+HankelMatrix(m,n):=GenMatrix([[i,j], If(i+j-1>?n,0,i+j-1)], m,n );
 
 %/mathpiper
 
@@ -15,8 +15,8 @@ HankelMatrix(m,n):=GenMatrix({{i,j}, If(i+j-1>?n,0,i+j-1)}, m,n );
         HankelMatrix(matrix)
 
 *PARMS
-{n} -- todo
-{m} -- todo
+[n] -- todo
+[m] -- todo
 
 *DESC
 todo

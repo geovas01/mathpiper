@@ -15,9 +15,9 @@ a_NonNegativeInteger? | b_NonNegativeInteger? <-- BitOr(a,b);
 
 *PARMS
 
-{a} -- non negative integer
+[a] -- non negative integer
 
-{b} -- non negative integer
+[b] -- non negative integer
 
 *DESC
 

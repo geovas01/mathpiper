@@ -3,10 +3,10 @@
 //Retract("TestEquivalent",*);
 //Retract("TestTwoLists",*);
 
-Macro("TestEquivalent",{left,right})
+Macro("TestEquivalent",[left,right])
 ⊕
     Local(leftEval,rightEval,diff,vars,isEquiv);
-    If(InVerboseMode(),⊕Tell(TestEquivalent,{left,right});⊖);
+    If(InVerboseMode(),⊕Tell(TestEquivalent,[left,right]);⊖);
     leftEval  := @left;
     rightEval := @right;
     If(InVerboseMode(),
@@ -36,7 +36,7 @@ Macro("TestEquivalent",{left,right})
                             Local(dLHs,dRHS);
                             dLHS := Simplify(EquationLeft(leftEval) - EquationLeft(rightEval));
                             dRHS := Simplify(EquationRight(leftEval) - EquationRight(rightEval));
-                            If(InVerboseMode(),Tell("      ",{dLHS,dRHS}));
+                            If(InVerboseMode(),Tell("      ",[dLHS,dRHS]));
                             isEquiv := dLHS=?0 And? dRHS=?0;
                         ⊖,
                         isEquiv := False
@@ -51,7 +51,7 @@ Macro("TestEquivalent",{left,right})
                             vars := VarList(diff);
                             If(InVerboseMode(),
                               ⊕
-                                 Tell("    ",{leftEval,rightEval});
+                                 Tell("    ",[leftEval,rightEval]);
                                  Tell("    ",vars);
                                  Tell("    ",diff);
                               ⊖

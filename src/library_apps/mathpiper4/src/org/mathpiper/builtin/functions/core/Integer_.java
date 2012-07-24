@@ -100,7 +100,7 @@ Result: False;
 Verify(Integer?(123),True);
 Verify(Integer?(123.123),False);
 Verify(Integer?(a),False);
-Verify(Integer?({a}),False);
+Verify(Integer?([a]),False);
 
 %/mathpiper
  

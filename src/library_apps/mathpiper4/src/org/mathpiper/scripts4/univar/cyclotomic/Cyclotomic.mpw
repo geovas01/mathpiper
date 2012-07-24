@@ -11,10 +11,10 @@
 // Auxiliar function for Cyclotomic: returns the internal representation of
 // x^q+a as an univarate polinomial (like MakeUni(x^q+a) but more efficient)
 
-Function ("UniVariateBinomial",{x,q,a})
+Function ("UniVariateBinomial",[x,q,a])
 ⊕
 Local(L,i);
-L := {a};
+L := [a];
 For (i:=1,i<?q,i++)
  DestructiveAppend(L,0);
 DestructiveAppend(L,1);
@@ -25,11 +25,11 @@ UniVariate(x,0,L);
 // polinomial p the variable x by -x^k. The implementations assumes that
 // the polinomial p starts with x^0
 
-Function("SubstituteInUniVar",{p,k})
+Function("SubstituteInUniVar",[p,k])
 ⊕
  Local(c,i,d,j,NL);
  L  := p[3];  // The coefficients list
- NL := {};    // The new coefficients list
+ NL := [];    // The new coefficients list
  d  := Degree(p);
  i  :=d;
  ForEach(c,L) ⊕
@@ -49,7 +49,7 @@ Function("SubstituteInUniVar",{p,k})
 // polinomial p the variable x by -x^k, but returns the result in
 // expanded form
 
-Function("SubstituteAndExpandInUniVar",{p,k})
+Function("SubstituteAndExpandInUniVar",[p,k])
 ⊕
   Local(result,i,var,first,coefs,c,nc,exponent);
   result:=0;
@@ -68,7 +68,7 @@ Function("SubstituteAndExpandInUniVar",{p,k})
   result;
 ⊖;
 
-// Returns a list of elements of the form {d1,d2,m}
+// Returns a list of elements of the form [d1,d2,m]
 // where
 // 1) d1,d2 runs through the square free divisors of n
 // 2) d1 divides d2 and d2/d1 is a prime factor of n
@@ -79,13 +79,13 @@ CyclotomicDivisorsList(n_PositiveInteger?) <--
 ⊕
  Local(nFactors,f,result,oldresult,x);
  nFactors:= Factors(n);
- result := {{1,nFactors[1][1],1}};
+ result := [[1,nFactors[1][1],1]];
  nFactors := Rest(nFactors);
  ForEach (f,nFactors)
     ⊕
       oldresult := result;
         ForEach (x,oldresult)
-          result:=Append(result,{x[1]*f[1],x[2]*f[1],-x[3]});
+          result:=Append(result,[x[1]*f[1],x[2]*f[1],-x[3]]);
     ⊖;
   result;
 ⊖;
@@ -99,9 +99,9 @@ CyclotomicDivisorsList(n_PositiveInteger?) <--
 
 CyclotomicFactor(_a,_b) <--
 ⊕
- Local(coef,p,i,j,result); p := a/b; result:= {{b*(p-1),1}}; For (i:=
+ Local(coef,p,i,j,result); p := a/b; result:= [[b*(p-1),1]]; For (i:=
  p-2,i>=?0,i--)
-   DestructiveAppend(result,{b*i,1});
+   DestructiveAppend(result,[b*i,1]);
  result;
 ⊖;
 
@@ -114,7 +114,7 @@ CyclotomicFactor(_a,_b) <--
 //  For n even, we write n= m*k, where k is a Power of 2
 //  and m is odd, and redce it to the case m even since:
 //
-//   Cyclotomic(n,x) = Cyclotomic(m,-x^{k/2})
+//   Cyclotomic(n,x) = Cyclotomic(m,-x^[k/2])
 //
 // If m=1, n is a power of 2, and Cyclotomic(n,x)= x^k+1 */
 
@@ -133,11 +133,11 @@ CyclotomicFactor(_a,_b) <--
        If(m>?1, ⊕
                  p:= InternalCyclotomic(m,x)[2];
                  // Substitute x by -x^k
-                 result:={};
+                 result:=[];
                  ForEach(t,p)
-                    DestructiveAppend(result, {t[1]*k,If(Even?(t[1]),t[2],-t[2])});
+                    DestructiveAppend(result, [t[1]*k,If(Even?(t[1]),t[2],-t[2])]);
                ⊖,
-                 result := {{k,1},{0,1}} // x^k+1
+                 result := [[k,1],[0,1]] // x^k+1
         );
         SparseUniVar(x,result);
      ⊖;
@@ -162,8 +162,8 @@ CyclotomicFactor(_a,_b) <--
 ⊕
  Local(divisors,poly1,poly2,q,d,f,coef,i,j,result);
  divisors := CyclotomicDivisorsList(n);
- poly1 := {{0,1}};
- poly2 := {{0,1}};
+ poly1 := [[0,1]];
+ poly2 := [[0,1]];
  ForEach (d,divisors)
  ⊕
    If(InVerboseMode(),Echo("d=",d));
@@ -176,7 +176,7 @@ CyclotomicFactor(_a,_b) <--
      ⊖);
  ⊖;
  If(InVerboseMode(),Echo("End ForEach"));
- result := If(poly2=?{{0,1}},poly1,DivTermList(poly1,poly2));
+ result := If(poly2=?[[0,1]],poly1,DivTermList(poly1,poly2));
  SparseUniVar(x,result);
 ⊖;
 
@@ -198,13 +198,13 @@ CyclotomicFactor(_a,_b) <--
 
 *PARMS
 
-{n} -- positive integer
+[n] -- positive integer
 
-{x} -- variable
+[x] -- variable
 
 *DESC
 
-Returns the cyclotomic polynomial in the variable {x}
+Returns the cyclotomic polynomial in the variable [x]
 (which is the minimal polynomial of the $n$-th primitive
 roots of the unit, over the field of rational numbers).
  
@@ -218,9 +218,9 @@ For $n$ odd, the algorithm is based on the formula
 $$ Cyclotomic(n,x) := Prod((x^(n/d)-1)^mu(d)) $$,
 where $d$ runs through the divisors of $n$.
 In order to compute this in a efficient way, we use the function
-{MoebiusDivisorsList}. Then we compute in {poly1} the product
-of $x^(n/d)-1$ with $mu(d)=1$ , and in {poly2} the product of these polynomials
-with  $mu(d)= -1$. Finally we compute the quotient {poly1}/{poly2}.
+[MoebiusDivisorsList]. Then we compute in [poly1] the product
+of $x^(n/d)-1$ with $mu(d)=1$ , and in [poly2] the product of these polynomials
+with  $mu(d)= -1$. Finally we compute the quotient [poly1]/[poly2].
 
 *SEE RamanujanSum
 %/mathpiper_docs

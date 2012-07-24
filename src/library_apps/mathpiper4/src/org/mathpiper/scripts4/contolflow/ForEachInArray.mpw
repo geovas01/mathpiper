@@ -2,7 +2,7 @@
 
 LocalSymbols(i,nr)
 ⊕
-  TemplateFunction("ForEachInArray",{item,list,body})
+  TemplateFunction("ForEachInArray",[item,list,body])
   ⊕
     Local(i,nr);
     MacroLocal(item);

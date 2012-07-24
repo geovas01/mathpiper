@@ -5,8 +5,8 @@
  */
 10 # RepeatedSquaresMultiply(_a,- (n_Integer?)) <-- 1/RepeatedSquaresMultiply(a,n);
 
-15 #  RepeatedSquaresMultiply(UniVariate(_var,_first,{_coef}),(n_Integer?)) <--
-      UniVariate(var,first*n,{coef^n});
+15 #  RepeatedSquaresMultiply(UniVariate(_var,_first,[_coef]),(n_Integer?)) <--
+      UniVariate(var,first*n,[coef^n]);
 20 # RepeatedSquaresMultiply(_a,n_Integer?) <--
 ⊕
   Local(m,b);

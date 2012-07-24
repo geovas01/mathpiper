@@ -11,7 +11,7 @@
 ⊕
     Local(r);
     If( RationalFunction?(expr),
-        r := (VarList(Denominator(expr)) =? {}),
+        r := (VarList(Denominator(expr)) =? []),
         r := True
     );
 ⊖;
@@ -28,18 +28,18 @@
 
 
 %mathpiper_docs,name="Monomial?",categories="User Functions;Predicates"
-*CMD Monomial? --- determine if {expr} is a Monomial
+*CMD Monomial? --- determine if [expr] is a Monomial
 *STD
 *CALL
         Monomial?(expr)
 
 *PARMS
-{expr} -- an expression
+[expr] -- an expression
 
 *DESC
-This function returns {True} if {expr} satisfies the definition of a {Monomial}.
-Otherwise, {False}.
-A {Monomial} is defined to be a single term, consisting of a product of numbers
+This function returns [True] if [expr] satisfies the definition of a [Monomial].
+Otherwise, [False].
+A [Monomial] is defined to be a single term, consisting of a product of numbers
 and variables.
 
 *E.G.

@@ -9,11 +9,11 @@
 ⊕
   Local(result,i,deg,nt);
   If(InVerboseMode(),Tell(10));
-  result := {p,`Differentiate(@var)(@p)};
+  result := [p,`Differentiate(@var)(@p)];
   deg    := Degree(p,var);
   For(i:=3,i<=?deg+1,i++)
   ⊕
-    nt := -NormalForm(MultiDivide(MM(result[i-2],{var}),{MM(result[i-1],{var})})[2]);//??
+    nt := -NormalForm(MultiDivide(MM(result[i-2],[var]),[MM(result[i-1],[var])])[2]);//??
     DestructiveAppend(result,nt);
   ⊖;
   result;

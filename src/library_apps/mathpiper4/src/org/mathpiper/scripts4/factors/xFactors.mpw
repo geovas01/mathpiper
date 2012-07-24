@@ -43,13 +43,13 @@
 
 
 14 # xFactors(p_Rational?)_(Denominator(p) !=? 1) <-- 
-             { {xFactor(Numerator(p)) / xFactor(Denominator(p) ) , 1} }; 
+             [ [xFactor(Numerator(p)) / xFactor(Denominator(p) ) , 1] ]; 
              
 
 16 # xFactors(p_GaussianInteger?)        <-- GaussianFactors(p);
 
 
-18 # xFactors(_p)_(Length(VarList(p))=?0) <-- {{p,1}};
+18 # xFactors(_p)_(Length(VarList(p))=?0) <-- [[p,1]];
 
 
 
@@ -82,12 +82,12 @@
     // Now: get Content and Primitive Part
     content := xContent( poly );
     pp      := xPrimitivePart( poly, content );
-    If(InVerboseMode(),Tell("  ",{content,pp}));
+    If(InVerboseMode(),Tell("  ",[content,pp]));
     vars     := VarList(pp);
     nvars    := Length(vars);
     disassem := DisassembleExpression(pp);
     nterms   := Length(disassem[3]);
-    degrees  := {};
+    degrees  := [];
     allCoeffs         := disassem[3];
     allPowers         := Flatten(disassem[2],"List");
     If(nvars >? 0,
@@ -173,7 +173,7 @@ UnFence("xFactorsPrimitivePart",1);
 14 # xFactorsPrimitivePart( _pp )_(nvars=?0) <--
 ⊕
     Local(ppFactors);
-    ppfactors := {};
+    ppfactors := [];
 ⊖;
 
 
@@ -218,11 +218,11 @@ UnFence("xFactorsPrimitivePart",1);
     //    Also, separate out any 'residual' factors -- defined here as
     // factors of degree >? 2.
     
-    {factrsnew,residuals} := FixUpMonicFactors(factrs);
+    [factrsnew,residuals] := FixUpMonicFactors(factrs);
     
     //  See if we can do something with the residuals
     Local(residOut);
-    residOut := {};
+    residOut := [];
     If(Length(residuals) >? 0, residOut := xFactorsResiduals( residuals ) );
     
     If(InVerboseMode(),
@@ -272,12 +272,12 @@ UnFence("xFactorsMultivariate",1);
 ⊕
     If(InVerboseMode(),⊕NewLine();Tell("xFactorsHomogeneousBivariate",dis);⊖);
     Local(dis1,f,lst,dis2,poly1,ppFactors,residuals,ii,preassem);
-    dis1  := {{xi},{{X},{X[1]}} /@ dis[2],dis[3]};
+    dis1  := [[xi],[[X],[X[1]]] /@ dis[2],dis[3]];
     If(InVerboseMode(),Tell("   ",dis1));
     poly1 := Sum(ReassembleListTerms(dis1));
     If(InVerboseMode(),Tell("   ",poly1));
     ppFactors := BinaryFactors(poly1);
-    {ppFactors,residuals} := FixUpMonicFactors(ppFactors);
+    [ppFactors,residuals] := FixUpMonicFactors(ppFactors);
     For(ii:=1,ii<=?Length(ppFactors),ii++)
     ⊕
         f := ppFactors[ii];
@@ -309,22 +309,22 @@ UnFence("xFactorsHomogeneousBivariate",1);
 ⊕
     If(InVerboseMode(),⊕NewLine();Tell("CheckForSpecialForms",final);⊖);
     Local(LL,ii,fact,mult,dis,new);
-    new := {};
+    new := [];
     LL  := Length(final);
     For(ii:=1,ii<=?LL,ii++)
     ⊕
         fact := final[ii][1];
         mult := final[ii][2];
-        If(InVerboseMode(),Tell("   ",{fact,mult}));
+        If(InVerboseMode(),Tell("   ",[fact,mult]));
         dis := DisassembleExpression( fact );
         If(InVerboseMode(),Tell("   ",dis));
         Local(var);
         var := dis[1][1];
-        if ( dis[2]=?{{4},{2},{0}} And? dis[3]=?{1,1,1} )
+        if ( dis[2]=?[[4],[2],[0]] And? dis[3]=?[1,1,1] )
             ⊕
                 Local(new1,new2);
-                new1 := {var^2-var+1,mult};
-                new2 := {var^2+var+1,mult};
+                new1 := [var^2-var+1,mult];
+                new2 := [var^2+var+1,mult];
                 DestructiveAppend(new,new1);
                 DestructiveAppend(new,new2);
                 If(InVerboseMode(),Tell("   ",new));
@@ -332,7 +332,7 @@ UnFence("xFactorsHomogeneousBivariate",1);
         else
             ⊕
                 If(InVerboseMode(),Tell("   no special form"));
-                DestructiveAppend(new,{fact,mult});
+                DestructiveAppend(new,[fact,mult]);
             ⊖;
         );
     ⊖;
@@ -370,17 +370,17 @@ UnFence("ApproximateRealCoefficients",1);
       Local(q,a,b,t,f,ff,err);
       err := False;
       t   := 1;
-      f   := {};
+      f   := [];
       ForEach(q,factrs)
       ⊕
           If( InVerboseMode(), Tell(1,q) );
           If( List?(q) And? Length(q)=?2,
             ⊕
-                {a,b} := q;
-                If( InVerboseMode(), Echo("     ",{a,b}) );
-                If( NumericList?( {a,b} ),
+                [a,b] := q;
+                If( InVerboseMode(), Echo("     ",[a,b]) );
+                If( NumericList?( [a,b] ),
                     t := t * a^b,
-                    f := {a,b}~f
+                    f := [a,b]~f
                 );
             ⊖,
               err := True
@@ -393,8 +393,8 @@ UnFence("ApproximateRealCoefficients",1);
             Echo("    err = ",err);
         ⊖
       );
-      ff := If(Not? err And? t !=? 1, {t,1}~Reverse(f), factrs);
-      ff := Select(Lambda({x},x!=?{1,1}),ff);
+      ff := If(Not? err And? t !=? 1, [t,1]~Reverse(f), factrs);
+      ff := Select(Lambda([x],x!=?[1,1]),ff);
       If(ff[1]<?0,ff[1]:=-ff[1]);
 ⊖;
 
@@ -488,8 +488,8 @@ UnFence("ApproximateRealCoefficients",1);
 ⊕
     If(InVerboseMode(),⊕ NewLine(); Tell("   doing monic fixup"); ⊖ );
     Local(factrsnew,residuals,uni);
-    factrsnew := {};
-    residuals := {};
+    factrsnew := [];
+    residuals := [];
     ForEach(f,factrs)
     ⊕
         If(InVerboseMode(),Tell("               ",f));
@@ -509,7 +509,7 @@ UnFence("ApproximateRealCoefficients",1);
                  DestructiveAppend(factrsnew,f);
               ⊖,
               ⊕ 
-                 DestructiveAppend(factrsnew,{fnew,f[2]});
+                 DestructiveAppend(factrsnew,[fnew,f[2]]);
               ⊖
             );
           ⊖
@@ -519,7 +519,7 @@ UnFence("ApproximateRealCoefficients",1);
             If(InVerboseMode(),Tell("                          ",Degree(f[1])));
             Local(pq);
             pq      := PrimitivePart(f[1]);
-            DestructiveAppend(factrsnew,{pq,f[2]});
+            DestructiveAppend(factrsnew,[pq,f[2]]);
           ⊖
         );
         //  If any factors have degree >=3, store them in a 'residuals' array
@@ -529,12 +529,12 @@ UnFence("ApproximateRealCoefficients",1);
             If(InVerboseMode(),Tell("                          ",Degree(f[1])));
             Local(pq);
             pq      := PrimitivePart(f[1]);
-            DestructiveAppend(residuals,{pq,f[2]});
+            DestructiveAppend(residuals,[pq,f[2]]);
             If(InVerboseMode(),Tell("                   appending to residuals",pq));
           ⊖
         );       
     ⊖;
-    {factrsnew,residuals};
+    [factrsnew,residuals];
 ⊖;
 UnFence("FixUpMonicFactors",1);
 
@@ -556,7 +556,7 @@ UnFence("FixUpMonicFactors",1);
     For(ii:=-3*deg,ii<=?3*deg,ii:=ii+3)
     ⊕
         res := N(Subst(x,ii) poly);
-        //Tell("      ",{ii,res,Prime?(res)});
+        //Tell("      ",[ii,res,Prime?(res)]);
         If(Abs(res)=?1 Or? Prime?(res), nprimes := nprimes + 1, );
     ⊖;
     Tell("   ",nprimes);

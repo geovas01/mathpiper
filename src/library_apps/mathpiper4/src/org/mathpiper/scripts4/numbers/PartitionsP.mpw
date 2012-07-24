@@ -133,7 +133,7 @@ PartitionsPrecur(number_PositiveInteger?) <--
                 // compute PartitionsP(n) now
                 P := 0;
                 k := 1;
-                pentagonal := 1;        // pentagonal is always equal to the first element in the k-th pair of the "pentagonal sequence" of pairs {k*(3*k-1)/2, k*(3*k+1)/2}
+                pentagonal := 1;        // pentagonal is always equal to the first element in the k-th pair of the "pentagonal sequence" of pairs [k*(3*k-1)/2, k*(3*k+1)/2]
                 sign := 1;
                 While(pentagonal<=?n)
                 ⊕

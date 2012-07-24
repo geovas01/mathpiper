@@ -261,17 +261,17 @@ Bernoulli(40)
 Testing("Continued Fraction");
 Verify(
 ContFracList(355/113)
-, {3,7,16}
+, [3,7,16]
 );
 
 Verify(
 ContFracList(-24, 4)
-, {-24}
+, [-24]
 );
 
 Verify(
 ContFracList(-355/113)
-, {-4,1,6,16}
+, [-4,1,6,16]
 );
 
 //BuiltinPrecisionSet(7);//Echo("BIP set to ",7);

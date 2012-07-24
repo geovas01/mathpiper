@@ -15,23 +15,23 @@ Reverse(list):=DestructiveReverse(FlatCopy(list));
 
 *PARMS
 
-{list} -- list to reverse
+[list] -- list to reverse
 
 *DESC
 
 This function returns a list reversed, without changing the
-original list. It is similar to {DestructiveReverse}, but safer
+original list. It is similar to [DestructiveReverse], but safer
 and slower.
 
 
 *E.G.
 
-In> lst:={a,b,c,13,19}
-Result: {a,b,c,13,19};
+In> lst:=[a,b,c,13,19]
+Result: [a,b,c,13,19];
 In> revlst:=Reverse(lst)
-Result: {19,13,c,b,a};
+Result: [19,13,c,b,a];
 In> lst
-Result: {a,b,c,13,19};
+Result: [a,b,c,13,19];
 
 *SEE FlatCopy, DestructiveReverse
 %/mathpiper_docs

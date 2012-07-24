@@ -78,7 +78,7 @@ ProbabilityToZScore(probability) :=
 
 *PARMS
 
-{probability} -- a probability value
+[probability] -- a probability value
 
 *DESC
 

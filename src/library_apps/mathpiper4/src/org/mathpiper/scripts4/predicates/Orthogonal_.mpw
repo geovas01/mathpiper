@@ -14,18 +14,18 @@ Orthogonal?(A_Matrix?) <-- (Transpose(A)*A=?Identity(Length(A)));
 
 *PARMS
 
-{A} -- square matrix
+[A] -- square matrix
 
 *DESC
 
-{Orthogonal?(A)} returns {True} if {A} is orthogonal and {False} 
+[Orthogonal?(A)] returns [True] if [A] is orthogonal and [False] 
 otherwise. $A$ is orthogonal iff $A$*Transpose($A$) = Identity, or
 equivalently Inverse($A$) = Transpose($A$).
 
 *E.G.
 
-In> A := {{1,2,2},{2,1,-2},{-2,2,-1}};
-Result: {{1,2,2},{2,1,-2},{-2,2,-1}};
+In> A := [[1,2,2],[2,1,-2],[-2,2,-1]];
+Result: [[1,2,2],[2,1,-2],[-2,2,-1]];
 In> PrettyForm(A/3)
 
         /                      \

@@ -40,14 +40,14 @@
 
 *PARMS
 
-{expression} -- an expression
+[expression] -- an expression
 
-{patterns} -- a list of patterns
+[patterns] -- a list of patterns
 
 *DESC
 
-It might be necessary sometimes to use the {/::} operator, which
-repeatedly applies the {/:} operator until the result doesn't change
+It might be necessary sometimes to use the [/::] operator, which
+repeatedly applies the [/:] operator until the result doesn't change
 any more. Caution is required, since rules can contradict each other,
 which could result in an infinite loop. To detect this situation,
 just use /: repeatedly on the expression. The repetitive nature
@@ -57,7 +57,7 @@ should become apparent.
 
 *E.G.
 
-In> Sin(u)*Ln(a*b) /:: { a <- 2, b <- 3 }
+In> Sin(u)*Ln(a*b) /:: [ a <- 2, b <- 3 ]
 Result: Sin(u)*Ln(6);
 
 *SEE /:, Subst

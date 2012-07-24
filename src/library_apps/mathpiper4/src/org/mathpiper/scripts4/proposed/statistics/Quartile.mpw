@@ -28,7 +28,7 @@ Quartile(list) :=
     
     interquartileRange := thirdQuartile - firstQuartile;
     
-    {firstQuartile, secondQuartile, thirdQuartile, interquartileRange};
+    [firstQuartile, secondQuartile, thirdQuartile, interquartileRange];
 
 ⊖;
 
@@ -47,7 +47,7 @@ Quartile(list) :=
 
 *PARMS
 
-{list} -- a list which contains values
+[list] -- a list which contains values
 
 *DESC
 Returns all of the quartiles and the interquartile range of a list of values.  The first
@@ -57,7 +57,7 @@ the third value is the third quartile, and the fourth value is the interquartile
 *E.G.
 /%mathpiper,title=""
 
-samples := {
+samples := [
 438,413,444,468,445,472,474,454,455,449,
 450,450,450,459,466,470,457,441,450,445,
 487,430,446,450,456,433,455,459,423,455,
@@ -68,14 +68,14 @@ samples := {
 461,453,452,438,445,435,454,428,454,434,
 432,431,455,447,454,435,425,449,449,452,
 471,458,445,463,423,451,440,442,441,439
-};
+];
 
 N(Quartile(samples));
 
 /%/mathpiper
 
     /%output,preserve="false"
-      Result: {441,450,458.5,17.5}
+      Result: [441,450,458.5,17.5]
 .   /%/output
 
 %/mathpiper_docs

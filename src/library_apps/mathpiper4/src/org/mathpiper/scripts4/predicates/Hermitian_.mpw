@@ -14,19 +14,19 @@ Hermitian?(A_Matrix?) <-- (Conjugate(Transpose(A))=?A);
 
 *PARMS
 
-{A} -- a square matrix
+[A] -- a square matrix
 
 *DESC
 
-Hermitian?(A) returns {True} if {A} is Hermitian and {False}
+Hermitian?(A) returns [True] if [A] is Hermitian and [False]
 otherwise. $A$ is a Hermitian matrix iff Conjugate( Transpose $A$ )=$A$.
 If $A$ is a real matrix, it must be symmetric to be Hermitian.
 
 *E.G.
 
-In> Hermitian?({{0,I},{-I,0}})
+In> Hermitian?([[0,I],[-I,0]])
 Result: True;
-In> Hermitian?({{0,I},{2,0}})
+In> Hermitian?([[0,I],[2,0]])
 Result: False;
 
 *SEE Unitary?
@@ -38,8 +38,8 @@ Result: False;
 
 %mathpiper,name="Hermitian?",subtype="automatic_test"
 
-Verify(Hermitian?({{0,I},{-I,0}}),True);
-Verify(Hermitian?({{0,I},{-I,1}}),True);
-Verify(Hermitian?({{0,I},{-2*I,0}}),False);
+Verify(Hermitian?([[0,I],[-I,0]]),True);
+Verify(Hermitian?([[0,I],[-I,1]]),True);
+Verify(Hermitian?([[0,I],[-2*I,0]]),False);
 
 %/mathpiper

@@ -1,7 +1,7 @@
 %mathpiper,def="PNorm"
 
 // p-norm, reduces to euclidean norm when p = 2
-Function("PNorm",{v,p})
+Function("PNorm",[v,p])
 ⊕
         Local(result,i);
         Check(p>=?1, "Argument", "PNorm: p must be >=? 1");
@@ -26,8 +26,8 @@ Function("PNorm",{v,p})
         PNorm(v,p)
 
 *PARMS
-{v} -- ?
-{p} -- ?
+[v] -- ?
+[p] -- ?
 
 *DESC
 ?

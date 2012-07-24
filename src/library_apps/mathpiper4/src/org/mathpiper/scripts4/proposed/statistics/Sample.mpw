@@ -26,16 +26,16 @@ Sample(list, sampleSize) :=
         Sample(list,sampleSize)
 
 *PARMS
-{list} -- a list of elements
-{sampleSize} -- the size of the sample to take from the list
+[list] -- a list of elements
+[sampleSize] -- the size of the sample to take from the list
 
 *DESC
 This function takes a random sample of items from a list and returns
 a list which contains the sample.
 
 *E.G.
-In> Sample({a,b,c,d,e,f,g},3)
-Result: {a,c,g}
+In> Sample([a,b,c,d,e,f,g],3)
+Result: [a,c,g]
 
 %/mathpiper_docs
 

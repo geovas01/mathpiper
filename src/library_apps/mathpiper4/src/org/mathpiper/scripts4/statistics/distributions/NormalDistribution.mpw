@@ -18,8 +18,8 @@ NormalDistribution( _m , s2_RationalOrNumber?)_(s2<=?0) <-- Undefined;
 
 *PARMS
 
-{mean} -- Number, the mean of the distribution
-{sigma} -- Number, the standard deviation of the distribution
+[mean] -- Number, the mean of the distribution
+[sigma] -- Number, the standard deviation of the distribution
 
 *DESC
 The normal distribution.

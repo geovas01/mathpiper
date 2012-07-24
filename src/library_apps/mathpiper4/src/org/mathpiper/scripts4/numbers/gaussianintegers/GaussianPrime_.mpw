@@ -1,6 +1,6 @@
 %mathpiper,def="GaussianPrime?"
 
-Function("GaussianPrime?",{x})
+Function("GaussianPrime?",[x])
 ⊕
         if( GaussianInteger?(x) )⊕
                 if( Zero?(Re(x)) )⊕
@@ -33,12 +33,12 @@ Function("GaussianPrime?",{x})
         GaussianPrime?(z)
 *PARMS
 
-{z} -- a complex or real number
+[z] -- a complex or real number
 
 *DESC
 
-This function returns {True} if the argument
-is a Gaussian prime and {False} otherwise.
+This function returns [True] if the argument
+is a Gaussian prime and [False] otherwise.
 
 A prime element $x$ of a ring is divisible only by the units of
 the ring and by associates of $x$.
