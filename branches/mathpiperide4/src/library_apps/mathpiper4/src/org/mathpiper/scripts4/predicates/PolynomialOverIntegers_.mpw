@@ -3,24 +3,24 @@
 //Retract("PolynomialOverIntegers?",*);
 
 10 # PolynomialOverIntegers?(expr_Function?) <-- 
-⊕
+{
     Local(x,vars);
     vars := VarList(expr);
     If(Length(vars)>?1,vars:=HeapSort(vars,"GreaterThan?"));    
     x := vars[1];
     PolynomialOverIntegers?(expr,x);
-⊖;
+};
 
 15 # PolynomialOverIntegers?(_expr) <-- False;
 
 
 10 # PolynomialOverIntegers?(_expr,_var)_(CanBeUni(var,expr)) <--
-⊕
+{
     If( AllSatisfy?("Integer?",Coef(expr,var,0 .. Degree(expr,var))),
         True,
         False
       );
-⊖;
+};
 
 15 # PolynomialOverIntegers?(_expr,_var) <-- False;
 

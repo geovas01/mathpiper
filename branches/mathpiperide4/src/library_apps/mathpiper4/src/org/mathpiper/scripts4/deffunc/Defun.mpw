@@ -7,7 +7,7 @@
  */
 MacroRulebaseHoldArguments("Defun",[func,args,body]);
 RuleHoldArguments("Defun",3,0,True)
-⊕
+{
   Local(nrargs);
   Bind(nrargs,Length(@args));
   Retract(@func, `(@nrargs));
@@ -15,7 +15,7 @@ RuleHoldArguments("Defun",3,0,True)
   Local(fn,bd);
   Bind(fn,Hold(@func)); Bind(bd,Hold(@body));
   `RuleHoldArguments(@fn, @nrargs, 0,True)(@bd);
-⊖;
+};
 
 %/mathpiper
 

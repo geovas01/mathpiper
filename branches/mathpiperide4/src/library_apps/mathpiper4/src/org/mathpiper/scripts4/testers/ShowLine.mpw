@@ -2,8 +2,8 @@
 
 // print current file and line
 ShowLine() :=
-⊕
+{
     Echo("File: ", CurrentFile(),", Line: ", CurrentLine());
-⊖;
+};
 
 %/mathpiper

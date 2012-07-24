@@ -5,12 +5,12 @@
 0 # Modulo(_n,m_RationalOrNumber?)_(m<?0) <-- `Hold(Modulo(@n,@m));
 
 1 # Modulo(n_NegativeInteger?,m_PositiveInteger?) <--
-⊕
+{
   Local(result);
   result := ModuloN(n,m);
   If (result <? 0,result := result + m);
   result;
-⊖;
+};
 1 # Modulo(n_PositiveInteger?,m_PositiveInteger?) <-- ModuloN(n,m);
 2 # Modulo(0,_m) <-- 0;
 2 # Modulo(n_PositiveInteger?,Infinity) <-- n;
@@ -18,41 +18,41 @@
 4 # Modulo(n_Number?,m_Number?) <-- NonN(Modulo(Rationalize(n),Rationalize(m)));
 
 5 # Modulo(n_RationalOrNumber?,m_RationalOrNumber?)/*_(n>?0 And? m>?0)*/ <--
-⊕
+{
   Local(n1,n2,m1,m2);
   n1:=Numerator(n);
   n2:=Denominator(n);
   m1:=Numerator(m);
   m2:=Denominator(m);
   Modulo(n1*m2,m1*n2)/(n2*m2);
-⊖;
+};
 
 6 # Modulo(n_List?,m_List?) <-- Map("Modulo",[n,m]);
 7 # Modulo(n_List?,_m) <-- Map("Modulo",[n,FillList(m,Length(n))]);
 
 
 30 # Modulo(n_CanBeUni,m_CanBeUni) <--
-⊕
+{
   Local(vars);
   vars:=VarList(n+m);
   NormalForm(Modulo(MakeUni(n,vars),MakeUni(m,vars)));
-⊖;
+};
 
 
 //Note:tk:moved here from univariate.rep.
 0 # Modulo(n_UniVar?,m_UniVar?)_(Degree(n) <? Degree(m)) <-- n;
 1 # Modulo(n_UniVar?,m_UniVar?)_
     (n[1] =? m[1] And? Degree(n) >=? Degree(m)) <--
-⊕
+{
     UniVariate(n[1],0,
                UniDivide(Concat(ZeroVector(n[2]),n[3]),
                          Concat(ZeroVector(m[2]),m[3]))[2]);
-⊖;
+};
 
 10 # Modulo(n_CanBeUni, m_CanBeUni, vars_List?)_(Length(vars)=?1) <--
-⊕
+{
     NormalForm(Modulo(MakeUni(n,vars),MakeUni(m,vars)));
-⊖;
+};
 
 %/mathpiper
 

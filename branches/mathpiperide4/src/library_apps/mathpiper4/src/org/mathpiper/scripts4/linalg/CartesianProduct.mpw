@@ -3,22 +3,22 @@
 //Retract("CartesianProduct",*);
 
 CartesianProduct(xList_List?, yList_List?) <--
-⊕
+{
     Local(cartesianProduct);
     
     cartesianProduct := [];
     
     ForEach(x, xList)
-    ⊕
+    {
         ForEach(y, yList)
-        ⊕
+        {
             cartesianProduct := DestructiveAppend(cartesianProduct, [x,y]);
         
-        ⊖;
-    ⊖;
+        };
+    };
 
     cartesianProduct;
-⊖;
+};
 
 %/mathpiper
 

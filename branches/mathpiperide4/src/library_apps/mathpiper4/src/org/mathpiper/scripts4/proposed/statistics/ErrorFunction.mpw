@@ -23,7 +23,7 @@ technique is known as Horner's method. John D. Cook."
 //Retract("ErrorFunction",*);
 
 ErrorFunction(x) :=
-⊕
+{
     Local(a1,a2,a3,a4,a5,p,sign,t,y);
     //constants
     a1 :=  0.254829592;
@@ -45,7 +45,7 @@ ErrorFunction(x) :=
     y := N(1.0 - (((((a5*t + a4)*t) + a3)*t + a2)*t + a1)*t*Exp(-x*x));
 
     sign*y;
-⊖;
+};
 
 
 

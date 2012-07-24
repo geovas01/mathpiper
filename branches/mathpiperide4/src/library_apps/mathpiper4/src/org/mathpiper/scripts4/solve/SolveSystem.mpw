@@ -28,12 +28,12 @@
 */
 
 10 # SolveSystem( eqns_List?, vars_List? )_(Length(eqns)=?1 And? Length(vars)=?1) <--
-⊕
+{
     [Solve(eqns[1],vars[1])];
-⊖;
+};
 
 12 # SolveSystem( eqns_List?, vars_List? ) <--
-⊕
+{
     // This is the first try at a better algorithm for doing this
     If(InVerboseMode(),Tell("SolveSystem",[eqns,vars]));
     
@@ -41,10 +41,10 @@
     // express as set of polynomials, to be equated to zero
     exprns := [];
     ForEach(eq,eqns)
-     ⊕
+     {
          expr := If( Equation?(eq), EquationLeft(eq)-EquationRight(eq), eq );
          DestructiveAppend(exprns,expr);
-     ⊖;
+     };
     If(InVerboseMode(),Tell(" ",exprns));
     
     // are all polynomials linear in given variables?
@@ -63,30 +63,30 @@
     If(InVerboseMode(),Tell("",ans));
 
     ans;
-⊖;
+};
 
 
 10 # VarsAndDegs(exs_List?,vars_List?) <--
-⊕
+{
     Local(ex,v,result);
     result := [];
     ForEach(ex,exs)
-     ⊕
+     {
          Local(res);
          res := [];
          ForEach(v,vars)
-          ⊕
+          {
               DestructiveAppend(res,Apply("Degree",[ex,v]));
-          ⊖;
+          };
           DestructiveAppend(result,res);
-     ⊖;
+     };
     result;
-⊖;
+};
 
 
 
 10 # SolveLinearSystem( polys_List?, vars_List? ) <--
-⊕
+{
     Local(A, E);
 
     If(InVerboseMode(),Tell("   SolveLinearSystem",[polys,vars]));
@@ -104,27 +104,27 @@
     If(Contains?(E,BaseVector(Dimensions(E)[2],Dimensions(E)[2])),
         [],
         MatrixColumn(E,Dimensions(E)[2]) - (ExtractSubMatrix(E, 1, 1, Length(E), Length(E)) - Identity(Length(E))) * vars);
-⊖;
+};
 
 
 
 10 # MakeCoefMatrix(polys_List?,vars_List?) <--
-⊕
+{
     If(InVerboseMode(),Tell("      MakeCoefMatrix",[polys,vars]));
     Local(p,v,result);
     result := [];
     ForEach(p,polys)
-     ⊕
+     {
          Local(res);
          res := [];
          ForEach(v,vars)
-          ⊕
+          {
               DestructiveAppend(res,Apply("Coef",[p,v,1]));
-          ⊖;
+          };
           DestructiveAppend(result,res);
-     ⊖;
+     };
     result;
-⊖;
+};
 
 
 

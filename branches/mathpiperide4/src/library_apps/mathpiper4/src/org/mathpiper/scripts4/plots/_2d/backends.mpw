@@ -9,7 +9,7 @@
 /// Add any new backends here
 
 LocalSymbols(options)
-⊕
+{
     options  := [
         ["default", "data"],
         ["data", "Plot2DData"],
@@ -21,7 +21,7 @@ LocalSymbols(options)
 
 Plot2DOutputs() := options;
 
-⊖;
+};
 
 /*
         How backends work:
@@ -39,14 +39,14 @@ Plot2DData(values_List?, _optionsHash) <-- values;
 
 /// The Java back-end generates a call-list that the Java graph plotter can handle
 Plot2DJava(values_List?, _optionsHash) <--
-⊕
+{
   Local(result,count);
   count := 0;
   result:="$plot2d:";
 
   result := result~" pensize 2.0 ";
   ForEach(function,values)
-  ⊕
+  {
     result := result~ColorForGraphNr(count);
     count++;
     result:=result~" lines2d "~ToString(Length(function));
@@ -54,13 +54,13 @@ Plot2DJava(values_List?, _optionsHash) <--
     function:=Select(function, Lambda([item],item[2] !=? Undefined));
 
     ForEach(item,function)
-    ⊕
+    {
       result := result~" "~ToString(item[1])~" "~ToString(item[2])~" ";
-    ⊖;
-  ⊖;
+    };
+  };
   WriteString(result~"$");
   True;
-⊖;
+};
 
 10 # ColorForGraphNr(0) <-- " pencolor 64 64 128 ";
 10 # ColorForGraphNr(1) <-- " pencolor 128 64 64 ";
@@ -72,25 +72,25 @@ Plot2DJava(values_List?, _optionsHash) <--
 
 //GeoGebra backend.
 Plot2DGeogebra(values_List?, _optionsHash) <--
-⊕
+{
   Local(result,count);
   count := 0;
   result:="";
 
 
   ForEach(function,values)
-  ⊕
+  {
 
     function:=Select(function, Lambda([item],item[2] !=? Undefined));
 
     ForEach(item,function)
-    ⊕
+    {
       result := result~"("~ToString(item[1])~","~ToString(item[2])~")"~Nl();
-    ⊖;
-  ⊖;
+    };
+  };
   WriteString(result);
   True;
-⊖;
+};
 
 
 
@@ -98,16 +98,16 @@ Plot2DGeogebra(values_List?, _optionsHash) <--
 //JFreeChart backend.
 //Retract("Plot2DJFreeChart", *);
 Plot2DJFreeChart(values_List?, _optionsHash) <--
-⊕
+{
     Local(rangeList, domainList, function, allProcessedFunctionData, lineChartCallListForm);
     
     
     
     //Remove Plot2Ds options so that they dont get passed through to LineChart();
     ForEach(name, ["xrange", "xname", "yname", "output", "precision", "points", "depth"])
-    ⊕
+    {
         AssocDelete(optionsHash, name);
-    ⊖;
+    };
     
     
     
@@ -115,7 +115,7 @@ Plot2DJFreeChart(values_List?, _optionsHash) <--
     allProcessedFunctionData := [];
     
     ForEach(function,values)
-    ⊕
+    {
         rangeList := [];
         
         domainList := [];
@@ -123,16 +123,16 @@ Plot2DJFreeChart(values_List?, _optionsHash) <--
         function := Select(function, Lambda([item],item[2] !=? Undefined));
         
         ForEach(item,function)
-        ⊕
+        {
             rangeList := Append(rangeList, item[1]);
           
             domainList := Append(domainList, item[2]);
-        ⊖;
+        };
         
         allProcessedFunctionData := Append(allProcessedFunctionData, rangeList);
         allProcessedFunctionData := Append(allProcessedFunctionData, domainList);
     
-    ⊖;
+    };
 
 
     
@@ -143,9 +143,9 @@ Plot2DJFreeChart(values_List?, _optionsHash) <--
     
     //Add any options to the list.
     ForEach(key, AssocIndices(optionsHash))
-    ⊕
+    {
         lineChartCallListForm := Append(lineChartCallListForm, Apply("->", [key, optionsHash[key]]));
-    ⊖;
+    };
     
     
     
@@ -153,7 +153,7 @@ Plot2DJFreeChart(values_List?, _optionsHash) <--
     Eval(ListToFunction(lineChartCallListForm));
     
 
-⊖;
+};
 
 
 

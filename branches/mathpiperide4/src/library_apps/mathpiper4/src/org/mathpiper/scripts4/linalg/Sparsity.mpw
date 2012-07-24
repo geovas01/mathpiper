@@ -1,7 +1,7 @@
 %mathpiper,def="Sparsity"
 
 Function("Sparsity",[matrix])
-⊕
+{
         Local(rows,cols,nonzero);
         nonzero:=0;
         rows:=Length(matrix);
@@ -11,7 +11,7 @@ Function("Sparsity",[matrix])
                         If(matrix[i][j] !=? 0, nonzero:=nonzero+1 );
 
         N(1 - nonzero/(rows*cols));
-⊖;
+};
 
 %/mathpiper
 

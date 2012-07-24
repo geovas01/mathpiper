@@ -12,16 +12,16 @@
 
 /// Compute Ln(x) from Ln(x^(2^(1/n)))
 MathLnDoubling(value, n) :=
-⊕
+{
         Local(shift, result);
         shift := n;
         result := value;
         While (shift>?0)        // lose 'shift' bits of precision here
-        ⊕
+        {
                 result := MultiplyN(result, result);
                 shift--;
-        ⊖;
+        };
         result;
-⊖;
+};
 
 %/mathpiper

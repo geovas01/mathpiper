@@ -37,7 +37,7 @@ import java.util.Map;
  */
 public class Build {
 
-    private boolean strip = false; //Set to false to have unaltered scripts placed into Scripts.java.
+    private boolean strip = true; //Set to false to have unaltered scripts placed into Scripts.java.
     
     private java.io.File scriptsDir;
     //private java.io.FileWriter packagesFile;

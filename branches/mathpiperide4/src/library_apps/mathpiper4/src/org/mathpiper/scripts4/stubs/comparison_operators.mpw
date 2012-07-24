@@ -31,9 +31,9 @@
 
 // If n and m are symbolic after a single evaluation, see if they can be coerced in to a real-valued number.
 LocalSymbols(nNum,mNum)
-⊕
-  10 # (_n <? _m)_⊕nNum:=N(Eval(n)); mNum:=N(Eval(m));Number?(nNum) And? Number?(mNum);⊖ <-- LessThan?(nNum-mNum,0);
-⊖;
+{
+  10 # (_n <? _m)_{nNum:=N(Eval(n)); mNum:=N(Eval(m));Number?(nNum) And? Number?(mNum);} <-- LessThan?(nNum-mNum,0);
+};
 
 // Deal with Infinity
 20 #  (Infinity <? _n)_(Not?(Infinity?(n)))  <-- False;

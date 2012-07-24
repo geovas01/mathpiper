@@ -4,17 +4,17 @@
 10 # LeadingCoef(uv_UniVar?) <-- Coef(uv,Degree(uv));
 
 20 # LeadingCoef(uv_CanBeUni) <--
-⊕
+{
   Local(uvi);
   uvi:=MakeUni(uv);
   Coef(uvi,Degree(uvi));
-⊖;
+};
 10 # LeadingCoef(uv_CanBeUni(var),_var) <--
-⊕
+{
   Local(uvi);
   uvi:=MakeUni(uv,var);
   Coef(uvi,var,Degree(uvi));
-⊖;
+};
 
 %/mathpiper
 

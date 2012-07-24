@@ -1,13 +1,13 @@
 %mathpiper,def="Determinant"
 
 10 # Determinant(_matrix)_(UpperTriangular?(matrix) Or? LowerTriangular?(matrix)) <--
-⊕
+{
         Local(result);
         result:=1;
         ForEach(i, Diagonal(matrix) )
                 result:=result*i;
         result;
-⊖;
+};
 
 //
 // The fast determinant routine that does the determinant numerically, rule 20,

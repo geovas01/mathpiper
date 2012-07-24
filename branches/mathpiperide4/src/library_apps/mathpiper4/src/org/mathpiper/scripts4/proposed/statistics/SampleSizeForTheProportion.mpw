@@ -3,7 +3,7 @@
 //Retract("SampleSizeForTheProportion",*);
 
 SampleSizeForTheProportion(probabilityOfSuccess,confidenceLevel,marginOfError) :=
-⊕
+{
     Check(probabilityOfSuccess >=?0 And? probabilityOfSuccess <=? 1, "Argument", "The first argument must be between 0 and 1.");
 
     Local(minimumSampleSize,zScore);
@@ -11,7 +11,7 @@ SampleSizeForTheProportion(probabilityOfSuccess,confidenceLevel,marginOfError) :
     zScore := ConfidenceLevelToZScore(confidenceLevel);
     
     minimumSampleSize := N(probabilityOfSuccess*(1 - probabilityOfSuccess)*(zScore/marginOfError)^2);
-⊖;
+};
 
 
 %/mathpiper

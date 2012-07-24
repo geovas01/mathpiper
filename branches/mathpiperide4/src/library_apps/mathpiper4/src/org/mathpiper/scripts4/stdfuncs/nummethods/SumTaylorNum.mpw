@@ -42,43 +42,43 @@ If(
 
 /// straightforward algorithms for a small number of terms
 1# SumTaylorNum0(_x, _nthtermfunc, [], _nterms) <--
-⊕
+{
         Local(sum, k);
-  N(⊕
+  N({
     // use Horner scheme starting from the last term
     x:=Eval(x);
     sum := 0;
     For(k:=nterms, k>=?0, k--)
       sum := AddN(sum*x, nthtermfunc @ k);
-  ⊖);
+  });
         sum;
-⊖;
+};
 
 //HoldArgumentNumber(SumTaylorNum0, 3, 2);
 
 2# SumTaylorNum0(_x, _nthtermfunc, _nexttermfactor, _nterms) <--
-⊕
+{
         Local(sum, k, term, delta);
-  N(⊕
+  N({
     x:=Eval(x);        // x must be floating-point
     If (Constant?(nthtermfunc),
       term := nthtermfunc,
       term := (nthtermfunc @ [0]),
     );
     sum := term;        // sum must be floating-point
-  ⊖);
-  NonN(⊕
+  });
+  NonN({
     delta := 1;
     For(k:=1, k<=?nterms And? delta !=? 0, k++)
-    ⊕
+    {
       term := MultiplyNum(term, nexttermfactor @ [k], x);        // want to keep exact fractions here, but the result is floating-point
       delta := sum;
       sum := sum + term;        // term must be floating-point
       delta := Abs(sum-delta);        // check for underflow
-    ⊖;
-  ⊖);
+    };
+  });
         sum;
-⊖;
+};
 
 /// interface
 SumTaylorNum0(_x, _nthtermfunc, _nterms) <-- SumTaylorNum0(x, nthtermfunc, [], nterms);
@@ -92,10 +92,10 @@ SumTaylorNum0(_x, _nthtermfunc, _nterms) <-- SumTaylorNum0(x, nthtermfunc, [], n
 /// In this case, nthtermfunc must be a function applicable to one argument.
 /// Need IntLog(nterms, 10) + 1 guard digits due to accumulated roundoff error.
 SumTaylorNum1(x, nthtermfunc, nexttermfactor, nterms) :=
-⊕
+{
         // need Sqrt(nterms/2) units of storage (rows) and Sqrt(nterms*2) columns. Let's underestimate the storage.
         Local(sum, rows, cols, rowstmp, lastpower, i, j, xpower, termtmp);
-  N(⊕ // want to keep exact fractions
+  N({ // want to keep exact fractions
     x:=Eval(x);        // x must be floating-point
     rows := IntNthRoot(nterms+1, 2);
     cols := Quotient(nterms+rows, rows);        // now: rows*cols >=? nterms+1
@@ -115,37 +115,37 @@ SumTaylorNum1(x, nthtermfunc, nexttermfactor, nterms) :=
         termtmp := (nthtermfunc @ [0]),
       )
     );
-  ⊖);
-  NonN(⊕ // want to keep exact fractions below
+  });
+  NonN({ // want to keep exact fractions below
     // do horizontal summation using termtmp to get the first element
     For(i:=0, i<?cols, i++)
-    ⊕
+    {
       // add i'th term to each row
       For(j:=0, j<?rows And? (i<?cols-1 Or? i*rows+j<=?nterms), j++)        // do this unless we are beyond the last term in the last column
-      ⊕
+      {
         // if we are using nexttermfactor, then termtmp is x^(rows*i)*a[rows*i]
         // if we are not using it, then termtmp is x^(rows*i)
         If(
           nexttermfactor =? [],        // no nexttermfactor, so nthtermfunc must be given
-          ⊕
+          {
             rowstmp[j+1] := rowstmp[j+1] + MultiplyNum(termtmp, nthtermfunc @ [i*rows+j]);
-          ⊖,
-          ⊕
+          },
+          {
             rowstmp[j+1] := rowstmp[j+1] + termtmp;        // floating-point
             termtmp := MultiplyNum(termtmp, nexttermfactor @ [i*rows+j+1]);        // arguments may be rational but the result is floating-point
-          ⊖
+          }
         );
-      ⊖;
+      };
       // update termtmp for the next column
       termtmp := termtmp*xpower;        // both floating-point
-    ⊖;
+    };
     // do vertical summation using Horner's scheme
     // now xpower = x^cols
-    For(⊕j:=rows; sum:=0;⊖, j>?0, j--)
+    For({j:=rows; sum:=0;}, j>?0, j--)
       sum := sum*x + rowstmp[j];
-  ⊖);
+  });
         sum;
-⊖;
+};
 
 //HoldArgumentNumber(SumTaylorNum, 4, 2);
 //HoldArgumentNumber(SumTaylorNum, 4, 3);

@@ -11,10 +11,10 @@ RulebaseHoldArguments("RForm",[expression]);
 RulebaseHoldArguments("RForm",[expression, precedence]);
 
 Function ("RFormBracketIf", [predicate, string])
-⊕
+{
         Check(Boolean?(predicate) And? String?(string), "Argument", "RForm internal error: non-boolean and/or non-string argument of RFormBracketIf");
         If(predicate, ConcatStrings("( ", string, ") "), string);
-⊖;
+};
 
 /* Proceed just like TeXForm()
 */
@@ -44,7 +44,7 @@ RFormMaxPrec() := 60000;         /* This precedence will never be bracketed. It 
 /* addition, subtraction, multiplication, all comparison and logical operations are "regular" */
 
 
-LocalSymbols(rFormRegularOps) ⊕
+LocalSymbols(rFormRegularOps) {
   rFormRegularOps := 
   [ 
     ["+","+"],
@@ -69,12 +69,12 @@ LocalSymbols(rFormRegularOps) ⊕
   ];
 
   RFormRegularOps() := rFormRegularOps;
-⊖; // LocalSymbols(rFormRegularOps)
+}; // LocalSymbols(rFormRegularOps)
 
 
 
 
-LocalSymbols(rFormMathFunctions) ⊕
+LocalSymbols(rFormMathFunctions) {
   rFormMathFunctions :=
   [
     ["NthRoot","root"],
@@ -110,7 +110,7 @@ LocalSymbols(rFormMathFunctions) ⊕
 
   RFormMathFunctions() := rFormMathFunctions;
 
-⊖; // LocalSymbols(RFormMathFunctions)
+}; // LocalSymbols(RFormMathFunctions)
 
 
 
@@ -149,23 +149,23 @@ LocalSymbols(rFormMathFunctions) ⊕
 /* Unknown function, precedence 200. Leave as is, never bracket the function itself and bracket the argumentPointer(s) automatically since it's a list. Other functions are precedence 100 */
 
 RFormArgs(list_List?) <--
-⊕
+{
   Local(i,nr,result);
   result:="";
   nr:=Length(list);
   For (i:=1,i<=?nr,i++)
-  ⊕
+  {
     result:=result~RForm(list[i]);
     If (i<?nr, result:=result~", ");
-  ⊖;
+  };
   result;
-⊖;
+};
 
 
 200 # RForm(_x, _p)_(Function?(x)) <--
-⊕
+{
   ConcatStrings(Type(x), "(", RFormArgs(Rest(FunctionToList(x))),")" );
-⊖;
+};
 
 /* Complex numbers */
 100 # RForm(Complex(0, 1), _p) <-- "I";
@@ -184,11 +184,11 @@ RFormArgs(list_List?) <--
 //100 # RForm(_x [ _i ], _p) <-- ConcatStrings(RForm(x, RFormMaxPrec()), "[", RForm(i, RFormMaxPrec()), "]");
 100 # RForm(Nth(_x, _i), _p) <-- ConcatStrings(RForm(x, RFormMaxPrec()), "[", RForm(i, RFormMaxPrec()), "]");
 
-LocalSymbols(RIndent) ⊕
+LocalSymbols(RIndent) {
   RIndent:=1;
 
   RNlIndented():=
-  ⊕
+  {
     Local(result);
 // carriage return, so needs to start at the beginning of the line
     result:=
@@ -196,36 +196,36 @@ LocalSymbols(RIndent) ⊕
 ";
     Local(i);
     For(i:=1,i<?RIndent,i++)
-    ⊕
+    {
       result:=result~"  ";
-    ⊖;
+    };
     result;
-  ⊖;
+  };
   RIndent() :=
-  ⊕
+  {
   (RIndent++);
   "";
-  ⊖;
+  };
   RUndent() :=
-  ⊕
+  {
   (RIndent--);
   "";
-  ⊖;
-⊖; // LocalSymbols(RIndent)
+  };
+}; // LocalSymbols(RIndent)
 
 RFormStatement(_x) <-- RForm(x) ~ ";" ~ RNlIndented();
 
 120 # RForm(_x,_p)_(Type(x) =? "Prog") <--
-⊕
+{
   Local(result);
   result:=RIndent()~"["~RNlIndented();
   ForEach(item,Rest(FunctionToList(x)))
-  ⊕
+  {
     result:=result~RFormStatement(item);
-  ⊖;
+  };
   result:=result~"]"~RUndent()~RNlIndented();
   result;
-⊖;
+};
 
 120 # RForm(For(_from,_to,_step)_body,_p) <--
   "for(" ~ RForm(from,RFormMaxPrec()) ~ ";"

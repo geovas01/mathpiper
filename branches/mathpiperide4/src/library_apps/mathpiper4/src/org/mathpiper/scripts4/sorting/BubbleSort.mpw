@@ -3,7 +3,7 @@
 //Retract("BubbleSort",*);
 
 Function("BubbleSort",[list,compare])
-⊕
+{
   Local(i,j,length,left,right);
   
   //Tell("BubbleSort");
@@ -15,23 +15,23 @@ Function("BubbleSort",[list,compare])
   //Tell("  ",length);
 
   For (j:=length,j>?1,j--)
-  ⊕
+  {
     For(i:=1,i<?j,i++)
-    ⊕
+    {
       left:=list[i];
       right:=list[i+1];
       //Tell("    ",[i,j,left,right]);
       //Tell("      ",Apply(compare,[left,right]));
       If(Not?(Apply(compare,[left,right])),
-        ⊕
+        {
           DestructiveInsert(DestructiveDelete(list,i),i+1,left);
-        ⊖
+        }
       );
       //Tell("   ",list);
-    ⊖;
-  ⊖;
+    };
+  };
   list;
-⊖;
+};
 
 %/mathpiper
 

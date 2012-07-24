@@ -134,8 +134,8 @@ public final class Environment {
 
 		iEndOfFileAtom = new AtomCons("EndOfFile");
 		iEndStatementAtom = ";";
-		iProgOpenAtom = ("⊕");
-		iProgCloseAtom = ("⊖");
+		iProgOpenAtom = ("{");
+		iProgCloseAtom = ("}");
 		iIndexOrNameOpenAtom = ("[");
 		iIndexOrNameCloseAtom = ("]");
 		iNthAtom = ("Nth");

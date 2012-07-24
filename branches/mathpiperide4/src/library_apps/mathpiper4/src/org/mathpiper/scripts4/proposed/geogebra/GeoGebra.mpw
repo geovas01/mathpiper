@@ -3,7 +3,7 @@
 //Retract("GeoGebra",*);
 
 LocalSymbols(options)
-⊕
+{
     options  := [];
     
     Local(updateObjects);
@@ -21,7 +21,7 @@ GeoGebra(list) := (options := list);
 
 
 
-⊖;
+};
 
 %/mathpiper
 

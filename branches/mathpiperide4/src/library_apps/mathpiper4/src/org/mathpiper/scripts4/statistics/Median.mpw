@@ -1,7 +1,7 @@
 %mathpiper,def="Median"
 
 Median(list) :=
-⊕
+{
     Check(List?(list), "Argument", "Argument must be a list.");
     
     Local(sx,n,n2); // s[orted]x
@@ -13,7 +13,7 @@ Median(list) :=
     n2 := (n>>1);
     
     If(Modulo(n,2) =? 1, sx[n2+1], (sx[n2]+sx[n2+1])/2);
-⊖;
+};
 
 %/mathpiper
 

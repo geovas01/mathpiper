@@ -6,13 +6,13 @@
 15 # Polynomial?( expr_Constant? ) <-- True;
  
 20 # Polynomial?(_expr) <-- 
-⊕
+{
     Local(x,vars);
     vars := VarList(expr);
     If(Length(vars)>?1,vars:=HeapSort(vars,"GreaterThan?"));    
     x := vars[1];
     Polynomial?(expr,x);
-⊖;
+};
 
 25 # Polynomial?(_expr) <-- False;
 

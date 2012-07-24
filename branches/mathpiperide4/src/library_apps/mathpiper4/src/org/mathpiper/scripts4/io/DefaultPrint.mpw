@@ -2,13 +2,13 @@
 
 /// The new default pretty-printer: DefaultPrint
 Function("DefaultPrint", [x])
-⊕
+{
         DumpErrors();
         WriteString("Result: ");
         Write(x);
         WriteString(";
 ");
-⊖;
+};
 HoldArgument("DefaultPrint", x);
 
 %/mathpiper

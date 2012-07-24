@@ -1,15 +1,15 @@
 %mathpiper,def="BSearch"
 
 LocalSymbols(max,f,result)
-⊕
+{
   BSearch(max,f)  :=
-  ⊕
+  {
     Local(result);
     Bind(result, FindIsq(max,f));
     If(Apply(f,[result])!=?0,Bind(result,-1));
     result;
-  ⊖;
-⊖;
+  };
+};
 UnFence("BSearch",2);
 
 %/mathpiper

@@ -47,20 +47,20 @@
 
 10 # CDF(ChiSquareDistribution(_m), _x) <-- IncompleteGamma(m/2,x/2)/Gamma(x/2);
 10 # CDF(DiscreteDistribution( dom_List?, prob_List?), _x)   <--
-      ⊕
+      {
          Local(i,cdf,y);
 
          i := 1;
          cdf:=0;
          y:=dom[i];
-         While(y<?x) ⊕cdf:=cdf+prob[i];i++;⊖;
+         While(y<?x) {cdf:=cdf+prob[i];i++;};
          cdf;
-      ⊖;
+      };
 
 10 # CDF(HypergeometricDistribution( N_Number?, M_Number?, n_Number?), x_Number?)_(M <=? N And? n <=? N) <-- 
-⊕
+{
     Sum @ [i,0,x,PMF(HypergeometricDistribution(N, M, n),i)];
-⊖;
+};
 
 
 //Continuous distributions.

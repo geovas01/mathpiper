@@ -5,8 +5,8 @@ around  "oldfunc", called "newfunc", which will return "oldfunc(arglist)"
 only when all arguments are numbers and will return unevaluated
 "newfunc(arglist)" otherwise. */
 LocalSymbols(NFunctionNumberize)
-⊕
-NFunction(newname_String?, oldname_String?, arglist_List?) <-- ⊕
+{
+NFunction(newname_String?, oldname_String?, arglist_List?) <-- {
         RulebaseEvaluateArguments(newname, arglist);
         RuleEvaluateArguments(newname, Length(arglist), 0,        // check whether all args are numeric
                 ListToFunction([NumericList?, arglist])
@@ -20,7 +20,7 @@ NFunction(newname_String?, oldname_String?, arglist_List?) <-- ⊕
                         NFunctionNumberize(ListToFunction([ToAtom("@"), oldname, arglist]));
                         // cannot use bare '@' b/c get a syntax error
 
-⊖;
+};
 
 // this function is local to NFunction.
 // special handling for numerical errors: return Undefined unless given a number.
@@ -28,7 +28,7 @@ NFunction(newname_String?, oldname_String?, arglist_List?) <-- ⊕
 20 # NFunctionNumberize(x_Atom?) <-- Undefined;
 // do nothing unless given an atom
 
-⊖;        // LocalSymbols()
+};        // LocalSymbols()
 
 %/mathpiper
 

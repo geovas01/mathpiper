@@ -3,23 +3,23 @@
 //Retract("ReassembleListTerms",*);
 
 10 # ReassembleListTerms( disassembly_List? ) <--
-⊕
+{
     Local(vars,lst,powers,coeffs,ii,pows,coef,term);
     vars   := disassembly[1];
     powers := disassembly[2];
     coeffs := disassembly[3];
     lst    := [];
     For(ii:=1,ii<=?Length(powers),ii++)
-    ⊕
+    {
         pows := powers[ii];
         coef := coeffs[ii];
         //Tell("     ",[pows,coef]);
         term  := coef*Product(vars^pows);
         //Tell("          ",term);
         DestructiveAppend(lst,term);
-    ⊖;
+    };
     lst;
-⊖;
+};
 
 %/mathpiper
 

@@ -9,14 +9,14 @@ k-th primitive roots of the identity */
 10 # RamanujanSum(k_PositiveInteger?,0) <-- Totient(k);
 
 20 # RamanujanSum(k_PositiveInteger?,n_PositiveInteger?) <--
-⊕
+{
  Local(s,gcd,d);
  s:= 0;
  gcd := Gcd(n,k);
  ForEach (d,DivisorsList(gcd))
   s:=s+d*Moebius(k/d);
  s;
-⊖;
+};
 
 %/mathpiper
 

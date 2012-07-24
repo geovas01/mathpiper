@@ -4,7 +4,7 @@
 
 
 10 # NumberToRep( N_Number? ) <--
-⊕
+{
     //If(InVerboseMode(),Tell(NumberToRep,N));
     Local(oldPrec,sgn,assoc,typ,val,prec,rep);
     oldPrec  := BuiltinPrecisionGet();
@@ -21,33 +21,33 @@
     typ := Assoc("type",assoc)[2];
     //If(InVerboseMode(),Tell("   ",typ));
     If( typ =? "BigDecimal",
-       ⊕
+       {
           rep := [ sgn*Assoc("unscaledValue",assoc)[2],
                    Assoc("precision",    assoc)[2],
                    Assoc("scale",        assoc)[2] 
                  ];
-       ⊖,
-       ⊕
+       },
+       {
           Local(val,prec);
           val  := Assoc("value",assoc)[2];
           prec := Length(ExpressionToString(val));
           rep := [ sgn*val, prec ];
-       ⊖
+       }
     );
     //If(InVerboseMode(),Tell("   ",rep));
     BuiltinPrecisionSet(oldPrec);
     rep;
-⊖;
+};
 
 
 
 12 # NumberToRep( N_Complex? ) <-- 
-⊕
+{
     If(Zero?(Re(N)),
         [NumberToRep(0.0),NumberToRep(Im(N))],
         [NumberToRep(Re(N)),NumberToRep(Im(N))]
     );
-⊖;
+};
 
 %/mathpiper
 

@@ -2,7 +2,7 @@
 
 10 # Decimal( n_Integer? ) <-- [n,[0]];
 10 # Decimal( (n_PositiveInteger?) / (d_PositiveInteger?) ) <--
-⊕
+{
   Local(result,rev,first,period,repeat,static);
   result:=[Quotient(n,d)];
   Decimal(result,Modulo(n,d),d,350);
@@ -12,21 +12,21 @@
   repeat:=result[first .. (first+period-1)];
   static:=result[1 .. (first-1)];
   DestructiveAppend(static,repeat);
-⊖;
+};
 20 # Decimal(_n/_m)_((n/m)<?0) <-- "-"~Decimal(-n/m);
 
 10 # Decimal(_result , _n , _d,_count ) <--
-⊕
+{
   While(count>?0)
-  ⊕
+  {
     DestructiveAppend(result,Quotient(10*n,d));
     n:=Modulo(10*n,d);
     count--;
-  ⊖;
-⊖;
+  };
+};
 
 DecimalFindPeriod(_list) <--
-⊕
+{
   Local(period,nr,reversed,first,i);
   reversed:=Rest(DestructiveReverse(FlatCopy(Rest(list))));
   nr:=Length(reversed)>>1;
@@ -34,37 +34,37 @@ DecimalFindPeriod(_list) <--
   first:=reversed[1];
 
   For(i:=1,i<?nr,i++)
-  ⊕
+  {
     If(reversed[i+1] =? first And? DecimalMatches(reversed,i),
-      ⊕
+      {
         period:=i;
         i:=nr;
-      ⊖
+      }
       );
-  ⊖;
+  };
 
   first:=Length(list)-period;
   While(first>?1 And? list[first] =? list[first+period]) first--;
   first++;
 
   [first,period];
-⊖;
+};
 
 DecimalMatches(_reversed,_period) <--
-⊕
+{
   Local(nr,matches,first);
   nr:=0;
   matches:=True;
   first:=1;
   While((nr<?100) And? matches)
-  ⊕
+  {
     matches := (matches And?
        (reversed[first .. (first+period-1)] =? reversed[(first+period) .. (first+2*period-1)]));
     first:=first+period;
     nr:=nr+period;
-  ⊖;
+  };
   matches;
-⊖;
+};
 
 %/mathpiper
 

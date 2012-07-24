@@ -6,22 +6,22 @@
 //Retract("Assumed?",*);
 //Retract("AssumptionsGet",*);
 
-LocalSymbols(assumptions) ⊕
+LocalSymbols(assumptions) {
 
 assumptions := [];
 
 10 # Assume( L_List? ) <--
-⊕
+{
     If(InVerboseMode(),Tell("AssumeLst",L));
     Local(len,s);
     len := Length(L);
-    If( len >? 0, ForEach(s,L) ⊕ Assume(s); ⊖ );
+    If( len >? 0, ForEach(s,L) { Assume(s); } );
     assumptions;
-⊖;
+};
 
 
 10 # Assume( _x -> _y ) <--
-⊕ 
+{ 
     If(InVerboseMode(),Tell("AssumeItem",[x,y]));
     Local(key,value);
     key   := Hold(x); 
@@ -30,25 +30,25 @@ assumptions := [];
     
     DestructiveAppend(assumptions,[Eval(key),Eval(value)]);
     assumptions;
-⊖;
+};
 
 
 10 # AssumptionsGet() <-- assumptions;
 
 
 10 # AssumptionsAbout(_key) <--
-⊕
+{
     Local(props);
     props := Select(assumptions,Lambda([X],X[1]=?key));
     If( Length(props) >? 0, Transpose(props)[2], [] );
-⊖;
+};
 
 
 10 # Assumed?( _key, _valueExpected ) <-- Contains?(AssumptionsAbout(key),valueExpected);
 
 
 10 # UnAssume( _x )_(Contains?(AssocIndices(assumptions),x)) <--
-⊕
+{
     Local(lst,len,jj);
     lst := Lambda([X],If(List?(X),X[1])) /@ assumptions;
     jj := Find(lst,x);
@@ -56,9 +56,9 @@ assumptions := [];
     lst := Lambda([X],If(List?(X),X[1])) /@ assumptions;
     jj := Find(lst,x);
     If( jj >? 0, UnAssume(x), True );
-⊖;
+};
 
-⊖;  //  LocalSymbols
+};  //  LocalSymbols
 
 %/mathpiper
 

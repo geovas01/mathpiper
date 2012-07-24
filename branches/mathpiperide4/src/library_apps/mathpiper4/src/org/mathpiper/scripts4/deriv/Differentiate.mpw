@@ -9,10 +9,10 @@ RuleHoldArguments("Differentiate",2,1,List?(aVar) And? List?(aFunc))
         Map("Differentiate",[aVar,aFunc]);
 
 RuleHoldArguments("Differentiate",2,3,True)
-⊕
+{
   MacroLocal(aVar);
   Apply("Deriv",[aVar,1,aFunc]);
-⊖;
+};
 
 RuleHoldArguments("Differentiate",3,1,List?(aVar) And? Not?(List?(aFunc)))
         Map("Differentiate",[aVar,
@@ -23,10 +23,10 @@ RuleHoldArguments("Differentiate",3,1,List?(aVar) And? List?(aFunc))
                  FillList(aCount, Length(aVar)),
                  aFunc]);
 RuleHoldArguments("Differentiate",3,3,True)
-⊕
+{
   MacroLocal(aVar);
   Apply("Deriv",[aVar,aCount,aFunc]);
-⊖;
+};
 
 
 HoldArgument("Differentiate",aVar);
@@ -99,9 +99,9 @@ Verify(Differentiate(x) (x+x),2);
 Verify(Differentiate(x) (x*x),2*x);
 Verify(Differentiate(x) Differentiate(x) Sin(x),-Sin(x));
 
-Verify(⊕Local(poly); poly := x^2; Differentiate(x) poly;⊖, 2*x);
+Verify({Local(poly); poly := x^2; Differentiate(x) poly;}, 2*x);
 
-⊕
+{
   /*
       Differentiate does not currently work when the expression is in a local variable.
       This test actually fails but the failure happens to return a 0 which matches
@@ -112,7 +112,7 @@ Verify(⊕Local(poly); poly := x^2; Differentiate(x) poly;⊖, 2*x);
   // This function satisfies Laplaces eqn: Differentiate(x,2)z + Differentiate(y,2)z = 0
   z:= ArcTan((2*x*y)/(x^2 - y^2));
   Verify(Simplify((Differentiate(x,2) z) + Differentiate(y,2) z), 0 );
-⊖;
+};
 
 Verify( Differentiate(x,0) Sin(x), Sin(x) );
 

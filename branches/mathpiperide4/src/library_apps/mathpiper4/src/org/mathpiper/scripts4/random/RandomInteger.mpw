@@ -4,22 +4,22 @@
 
 
 10 # RandomInteger(_n) <--
-⊕
+{
     Check(PositiveInteger?(n), "Argument", "The argument must be a positive integer.");
 
     CeilN(Random() * n);
-⊖;
+};
 
 
 
 10 # RandomInteger(_lowerBoundInclusive, _upperBoundInclusive) <--
-⊕
+{
     Check(Integer?(lowerBoundInclusive) And? Integer?(upperBoundInclusive), "Argument", "Both arguments must be integers.");
 
     Check(lowerBoundInclusive <? upperBoundInclusive, "Argument", "The first argument must be less than the second argument.");
 
     FloorN(lowerBoundInclusive + Random() * (upperBoundInclusive + 1 - lowerBoundInclusive) );
-⊖;
+};
 
 
 %/mathpiper

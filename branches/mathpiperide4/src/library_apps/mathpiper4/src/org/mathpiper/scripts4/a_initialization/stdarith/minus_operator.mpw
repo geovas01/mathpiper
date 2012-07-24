@@ -15,9 +15,9 @@
 110 # - (_x - _y) <-- y-x;
 111 # - (x_Number? / _y) <-- (-x)/y;        
 LocalSymbols(x)
-⊕
+{
   200 # - (x_List?) <-- MapSingle("-",x);
-⊖;
+};
 
 /* Subtraction arity 2 */
 50  # x_Number? - y_Number? <-- SubtractN(x,y);
@@ -43,23 +43,23 @@ LocalSymbols(x)
 
 /* TODO move to this precedence everywhere? */
 LocalSymbols(x,y,xarg,yarg)
-⊕
+{
   10 # ((x_List?) - (y_List?))_(Length(x)=?Length(y)) <--
-  ⊕
+  {
     Map([[xarg,yarg],xarg-yarg],[x,y]);
-  ⊖;
-⊖;
+  };
+};
 
 240 # (x_List? - y_NonObject?)_Not?(List?(y)) <-- -(y-x);
 
 241 # (x_NonObject? - y_List?)_Not?(List?(x)) <--
-⊕
+{
    Local(i,result);
    result:=[];
    For(i:=1,i<=?Length(y),i++)
-   ⊕ DestructiveInsert(result,i,x - y[i]); ⊖;
+   { DestructiveInsert(result,i,x - y[i]); };
    result;
-⊖;
+};
 
 250 # z_Infinity? - Complex(_x,_y) <-- Complex(-x+z,-y);
 250 # Complex(_x,_y) - z_Infinity? <-- Complex(x-z,y);

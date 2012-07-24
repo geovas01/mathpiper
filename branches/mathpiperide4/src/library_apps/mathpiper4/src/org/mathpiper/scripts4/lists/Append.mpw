@@ -1,11 +1,11 @@
 %mathpiper,def="Append"
 
 Function("Append",[list,element])
-⊕
+{
   Check(List?(list), "Argument", "The first argument must be a list.");
 
   Insert(list,Length(list)+1,element);
-⊖;
+};
 
 
 %/mathpiper

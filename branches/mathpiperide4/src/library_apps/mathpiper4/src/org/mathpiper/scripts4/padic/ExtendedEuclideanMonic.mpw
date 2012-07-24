@@ -1,7 +1,7 @@
 %mathpiper,def="ExtendedEuclideanMonic"
 
 ExtendedEuclideanMonic(_f,_g) <--
-⊕
+{
    Local(rho,r,s,t,i);
 
 /*
@@ -19,7 +19,7 @@ Echo([]);
    Local(q,newr,news,newt,newrho);
    newr:=r[2];
    While(newr !=? 0)
-   ⊕
+   {
      q   :=Quotient(r[i],r[i+1]);
      newr:=Modulo(r[i],r[i+1]);
      newrho:=LeadingCoef(newr);
@@ -29,16 +29,16 @@ Echo([]);
      news  :=(s[i]-q*s[i+1]);
      newt  :=(t[i]-q*t[i+1]);
      If(newrho !=? 0,
-       ⊕
+       {
          news:=news/newrho;
          newt:=newt/newrho;
-       ⊖);
+       });
      DestructiveAppend(rho,newrho);
      DestructiveAppend(r  ,newr);
      DestructiveAppend(s,news);
      DestructiveAppend(t,newt);
      i++;
-   ⊖;
+   };
 
 /*
 TableForm([i,r,s,t]);
@@ -46,6 +46,6 @@ Echo([]);
 */
 
    [r[i],s[i],t[i]];
-⊖;
+};
 
 %/mathpiper

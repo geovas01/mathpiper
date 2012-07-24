@@ -2,7 +2,7 @@
 
 
 AnovaCompletelyRandomizedBlock(levelsList, alpha) :=
-⊕
+{
     Check(Matrix?(levelsList), "Argument", "The first argument must be a list of equal-length lists.");
     
     Check(alpha >=? 0 And? alpha <=? 1, "Argument", "The second argument must be a number between 0 and 1.");
@@ -57,7 +57,7 @@ AnovaCompletelyRandomizedBlock(levelsList, alpha) :=
     
     //ANOVA calculations.
     ForEach(levelList, levelsList)
-    ⊕
+    {
         meansList := meansList ~ N(Mean(levelList));
         
         variancesList := variancesList ~ N(UnbiasedVariance(levelList));
@@ -65,7 +65,7 @@ AnovaCompletelyRandomizedBlock(levelsList, alpha) :=
         sumsList := sumsList ~ N(Sum(levelList));
 
         lengthsList := lengthsList ~ Length(levelList);
-    ⊖;
+    };
     
     sumOfSquaresWithin := Sum((lengthsList - 1) * variancesList);
 
@@ -81,13 +81,13 @@ AnovaCompletelyRandomizedBlock(levelsList, alpha) :=
     index := 1;
     
     While(index <=? Length(First(levelsList)) )
-    ⊕
+    {
         row := MatrixColumn(levelsList, index);
         
         blockMeansList := Append(blockMeansList,N(Mean(row)));
     
         index++;
-    ⊖;
+    };
     
     b := Length(blockMeansList);
     
@@ -145,11 +145,11 @@ AnovaCompletelyRandomizedBlock(levelsList, alpha) :=
     index := 1;
     
     While(index <=? Length(levelsList))
-    ⊕
+    {
         summaryTableRows := summaryTableRows ~ PatchString(summaryTableRow);
     
         index++;
-    ⊖;
+    };
     
 
     //Block summary.
@@ -159,13 +159,13 @@ AnovaCompletelyRandomizedBlock(levelsList, alpha) :=
     index := 1;
     
     While(index <=? Length(First(levelsList)) )
-    ⊕
+    {
         row := MatrixColumn(levelsList, index);
         
         summaryTableRows := summaryTableRows ~ PatchString(blockSummaryTableRow);
     
         index++;
-    ⊖;
+    };
     
     
     
@@ -251,7 +251,7 @@ AnovaCompletelyRandomizedBlock(levelsList, alpha) :=
      result["criticalFScoreBlock"] := criticalFScoreBlock;
      
      result;
-⊖;
+};
 
 
 %/mathpiper

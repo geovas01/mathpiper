@@ -1,7 +1,7 @@
 %mathpiper,def="CorrelationCoefficient"
 
 CorrelationCoefficient(x,y) :=
-⊕   
+{   
     Check(List?(x), "Argument", "The first argument must be a list.");
     
     Check(List?(y), "Argument", "The second argument must be a list.");
@@ -13,7 +13,7 @@ CorrelationCoefficient(x,y) :=
     n := Length(x);
     
     N((n*Sum(x*y)-Sum(x)*Sum(y))/Sqrt((n*Sum(x^2)-(Sum(x))^2)*(n*Sum(y^2)-(Sum(y)^2))) );
-⊖;
+};
 
 %/mathpiper
 

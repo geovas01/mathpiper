@@ -1,20 +1,20 @@
 %mathpiper,def="BoundRealRoots"
 
 BoundRealRoots(_p) <--
-⊕
+{
   BoundRealRoots(p,MinimumBound(p),MaximumBound(p));
-⊖;
+};
 
 BoundRealRoots(_p,_Mmin,_Mmax) <--
-⊕
+{
   Local(S,N,work,result,Vmin,Vmax,a,b,Va,Vb,c,Vc,x);
 
   result:=[];
   if (Zero?(p Where x==0))
-  ⊕
+  {
     p:=Simplify(p/x);
     result:=[[0,0]];
-  ⊖;
+  };
   S:=SturmSequence(p);
   Vmin := SturmVariations(S,-Infinity);
   Vmax := SturmVariations(S,Infinity);
@@ -28,28 +28,28 @@ BoundRealRoots(_p,_Mmin,_Mmax) <--
 //Echo("Mmin,Mmax = ",Mmin,Mmax);
   work:=[];
   if (N=?1)
-  ⊕
+  {
     result:=[[-Mmax,Mmax]];
-  ⊖;
+  };
   if (N>?1)
-  ⊕
+  {
     work :=
     [
       [-Mmax,-Mmin,Vmin,SturmVariations(S,-Mmin)],
       [ Mmin, Mmax,SturmVariations(S, Mmin),Vmax]
     ];
-  ⊖;
+  };
 
 //Echo("Work start = ",work);
     While(work !=? [])
-    ⊕
+    {
       [a,b,Va,Vb] := First(work);
       work := Rest(work);
       c:=(a+b)/2;
 //Echo(a,b,c);
       Vc := SturmVariations(S,c);
       if (Zero?(p Where x == c))
-      ⊕
+      {
         Local(M,Vcmin,Vcplus,pnew);
         pnew := Simplify((p Where x == x+c)/x);
         M:=MinimumBound(pnew);
@@ -59,43 +59,43 @@ BoundRealRoots(_p,_Mmin,_Mmax) <--
         result:=Concat(result,[[c,c]]);
 
         if (Va =? Vcmin+1)
-        ⊕
+        {
           result:=Concat(result,[[a,c-M]]);
-        ⊖;
+        };
         if (Va >? Vcmin+1)
-        ⊕
+        {
           work:=Concat(work,[[a,c-M,Va,Vcmin]]);
-        ⊖;
+        };
         if (Vb =? Vcplus-1)
-        ⊕
+        {
           result:=Concat(result,[[c+M,b]]);
-        ⊖;
+        };
         if (Vb <? Vcplus-1)
-        ⊕
+        {
           work:=Concat(work,[[c+M,b,Vcplus,Vb]]);
-        ⊖;
-      ⊖
+        };
+      }
       else
-      ⊕
+      {
         if (Va =? Vc+1)
-        ⊕
+        {
           result:=Concat(result,[[a,c]]);
-        ⊖;
+        };
         if (Va >? Vc+1)
-        ⊕
+        {
           work:=Concat(work,[[a,c,Va,Vc]]);
-        ⊖;
+        };
         if (Vb =? Vc-1)
-        ⊕
+        {
           result:=Concat(result,[[c,b]]);
-        ⊖;
+        };
         if (Vb <? Vc-1)
-        ⊕
+        {
           work:=Concat(work,[[c,b,Vc,Vb]]);
-        ⊖;
-      ⊖;
-    ⊖;
+        };
+      };
+    };
     result;
-⊖;
+};
 
 %/mathpiper

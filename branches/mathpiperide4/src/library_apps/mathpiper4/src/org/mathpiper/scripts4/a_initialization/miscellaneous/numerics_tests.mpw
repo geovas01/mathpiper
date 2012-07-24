@@ -107,7 +107,7 @@ RoundToPrecision(N(PowerN(13, -23)), 50)
 
 Testing("Newton");
 NumericEqual(
-RoundToPrecision(⊕Local(x);x:=Newton(x*Exp(x)-4,x,1,10^(-49)); N(x*Exp(x));⊖, 49)
+RoundToPrecision({Local(x);x:=Newton(x*Exp(x)-4,x,1,10^(-49)); N(x*Exp(x));}, 49)
 , 4
 ,49);
 
@@ -346,13 +346,13 @@ NumericEqual(RoundToPrecision(N(1/2+gamma+Pi), 19), 4.2188083184913260991,19);
 Verify( RoundToPrecision(N(PolyLog(2,-0.001)+0.00099975011104865108,20),20),0);
 
 // Round-off errors
-N(⊕
+N({
   Local(a,b);
   a:= 77617;
   b:= 33096;
   // this expression gives a wrong answer on any hardware floating-point platform
   NumericEqual( 333.75*b^6 + a^2*(11*a^2*b^2-b^6-121*b^4-2)+5.5*b^8 +a/(2*b), -0.827396,6);
-⊖,40);
+},40);
 
 %/mathpiper
 

@@ -4,7 +4,7 @@
 // algorithm using floating-point math
 10 # IntNthRoot(_n, 2) <-- Floor(SqrtN(n));
 20 # IntNthRoot(_n, s_Integer?) <--
-⊕
+{
         Local(result, k);
         GlobalPush(BuiltinPrecisionGet());
         // find integer k such that 2^k <=? n^(1/s) < 2^(k+1)
@@ -15,7 +15,7 @@
         BuiltinPrecisionSet(GlobalPop());
         // result is rounded and so it may overshoot (we do not use Floor above because numerical calculations may undershoot)
         If(result^s>?n, result-1, result);
-⊖;
+};
 
 /* algorithm using only integer arithmetic.
 (this is slower than the floating-point algorithm for large numbers because all calculations are with long integers)

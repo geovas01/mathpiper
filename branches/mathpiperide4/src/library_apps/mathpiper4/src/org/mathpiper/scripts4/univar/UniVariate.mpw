@@ -3,10 +3,10 @@
 //Auxiliary function.
 ShiftUniVar(UniVariate(_var,_first,_coefs),_fact,_shift)
    <--
-   ⊕
+   {
 //Echo("fact, coefs = ",fact,coefs);
      UniVariate(var,first+shift,fact*coefs);
-   ⊖;
+   };
 
 
 
@@ -18,7 +18,7 @@ RuleHoldArguments("UniVariate",3,1000,Complex?(var) Or? List?(var))
     ExpandUniVariate(var,first,coefs);
 
 500 # UniVariate(_var,_f1,_c1) + UniVariate(_var,_f2,_c2) <--
-⊕
+{
   Local(from,result);
   Local(curl,curr,left,right);
 
@@ -30,46 +30,46 @@ RuleHoldArguments("UniVariate",3,1000,Complex?(var) Or? List?(var))
   Bind(from, Minimum(curl,curr));
 
   While(And?(LessThan?(curl,curr),left !=? []))
-  ⊕
+  {
     DestructiveAppend(result,First(left));
     Bind(left,Rest(left));
     Bind(curl,AddN(curl,1));
-  ⊖;
+  };
   While(LessThan?(curl,curr))
-  ⊕
+  {
     DestructiveAppend(result,0);
     Bind(curl,AddN(curl,1));
-  ⊖;
+  };
   While(And?(LessThan?(curr,curl), right !=? []))
-  ⊕
+  {
     DestructiveAppend(result,First(right));
     Bind(right,Rest(right));
     Bind(curr,AddN(curr,1));
-  ⊖;
+  };
   While(LessThan?(curr,curl))
-  ⊕
+  {
     DestructiveAppend(result,0);
     Bind(curr,AddN(curr,1));
-  ⊖;
+  };
   While(And?(left !=? [], right !=? []))
-  ⊕
+  {
     DestructiveAppend(result,First(left)+First(right));
     Bind(left, Rest(left));
     Bind(right, Rest(right));
-  ⊖;
+  };
   While(left !=? [])
-  ⊕
+  {
     DestructiveAppend(result,First(left));
     Bind(left, Rest(left));
-  ⊖;
+  };
   While(right !=? [])
-  ⊕
+  {
     DestructiveAppend(result,First(right));
     Bind(right, Rest(right));
-  ⊖;
+  };
 
   UniVariate(var,from,result);
-⊖;
+};
 
 
 200 # UniVariate(_var,_first,_coefs) + a_Number? <--
@@ -90,22 +90,22 @@ RuleHoldArguments("UniVariate",3,1000,Complex?(var) Or? List?(var))
 
 
 200 # UniVariate(_var,_f1,_c1) * UniVariate(_var,_f2,_c2) <--
-⊕
+{
   Local(i,j,n,shifted,result);
   Bind(result,MakeUni(0,var));
 //Echo("c1 = ",var,f1,c1);
 //Echo("c2 = ",var,f2,c2);
   Bind(n,Length(c1));
   For(i:=1,i<=?n,i++)
-  ⊕
+  {
 //Echo("before = ",result);
 //Echo("parms = ",var,c1,c2,f1,f2,f1+i-1);
     Bind(result,result+ShiftUniVar(UniVariate(var,f2,c2),MathNth(c1,i),f1+i-1));
 //Echo("after = ",result);
-  ⊖;
+  };
 //Echo("result = ",result);
   result;
-⊖;
+};
 
 
 

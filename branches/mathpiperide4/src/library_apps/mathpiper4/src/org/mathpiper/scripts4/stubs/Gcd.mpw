@@ -16,34 +16,34 @@
 4 # Gcd(n_Integer?,Sqrt(m_Integer?)) <-- Sqrt(Gcd(n^2,m));
 
 5 # Gcd(n_Rational?,m_Rational?) <--
-⊕
+{
   Gcd(Numerator(n),Numerator(m))/Lcm(Denominator(n),Denominator(m));
-⊖;
+};
 
 
 10 # Gcd(list_List?)_(Length(list)>?2) <--
-    ⊕
+    {
       Local(first);
       first:=Gcd(list[1],list[2]);
       Gcd(first~Rest(Rest(list)));
-    ⊖;
+    };
 14 # Gcd([0]) <-- 1;
 15 # Gcd([_head]) <-- head;
 
 20 # Gcd(list_List?)_(Length(list)=?2) <-- Gcd(list[1],list[2]);
 
 30 # Gcd(n_CanBeUni,m_CanBeUni)_(Length(VarList(n*m))=?1) <--
-⊕
+{
   Local(vars);
   vars:=VarList(n+m);
   NormalForm(Gcd(MakeUni(n,vars),MakeUni(m,vars)));
-⊖;
+};
 
 100 # Gcd(n_Constant?,m_Constant?) <-- 1;
 110 # Gcd(_m,_n) <--
-⊕
+{
   Echo("Not simplified");
-⊖;
+};
 
 
 //Note:tk:moved here from univar.rep.
@@ -52,11 +52,11 @@
 
 1 # Gcd(nn_UniVar?,mm_UniVar?)_
     (nn[1] =? mm[1] And? Degree(nn) >=? Degree(mm)) <--
-⊕
+{
    UniVariate(nn[1],0,
                 UniGcd(Concat(ZeroVector(nn[2]),nn[3]),
                        Concat(ZeroVector(mm[2]),mm[3])));
-⊖;
+};
 
 %/mathpiper
 
@@ -137,13 +137,13 @@ Verify(Gcd([0]),1);
 
 
 VerifyGaussianGcd(x,y):=
-⊕
+{
   Local(gcd);
   gcd:=Gcd(x,y);
 //  Echo(x/gcd);
 //  Echo(y/gcd);
   Verify(GaussianInteger?(x/gcd) And? GaussianInteger?(y/gcd),True);
-⊖;
+};
 VerifyGaussianGcd(324 + 1608*I, -11800 + 7900*I);
 VerifyGaussianGcd(7300 + 12*I, 2700 + 100*I);
 VerifyGaussianGcd(120-I*200,-336+50*I);

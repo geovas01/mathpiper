@@ -1,14 +1,14 @@
 %mathpiper,def="OrthonormalBasis"
 
 // Like orthogonalization, only normalize all vectors
-Function("OrthonormalBasis",[W])⊕
+Function("OrthonormalBasis",[W]){
         Local(i);
         W:=OrthogonalBasis(W);
-        For(i:=1,i<=?Length(W),i++)⊕
+        For(i:=1,i<=?Length(W),i++){
                 W[i]:=W[i]/Norm(W[i]);
-        ⊖;
+        };
         W;
-⊖;
+};
 
 %/mathpiper
 

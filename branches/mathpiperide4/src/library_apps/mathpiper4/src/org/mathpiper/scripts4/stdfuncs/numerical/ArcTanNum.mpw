@@ -4,14 +4,14 @@
 /// These are only called if InNumericMode() returns True
 
 ArcTanNum(x) :=
-⊕
+{
         // using trigonometric identities is faster for now
         If(
                 Abs(x)>?1,
                 Sign(x)*(InternalPi()/2-ArcSin(1/Sqrt(x^2+1))),
                 ArcSin(x/Sqrt(x^2+1))
         );
-⊖;
+};
 
 
 

@@ -4,7 +4,7 @@
 /// CFormable?
 //////////////////////////////////////////////////
 
-LocalSymbols(CFormAllFunctions) ⊕
+LocalSymbols(CFormAllFunctions) {
 
   /// predicate to test whether an expression can be successfully exported to C code
 
@@ -14,19 +14,19 @@ LocalSymbols(CFormAllFunctions) ⊕
 
   // need to check that expr contains only allowed functions
   CFormable?(_expr, funclist_List?) <--
-  ⊕
+  {
     Local(badfunctions);
     badfunctions := Difference(`FuncList(@expr), Concat(CFormAllFunctions, funclist));
     If(Length(badfunctions)=?0,
       True,
-      ⊕
+      {
         If(InVerboseMode(),
           Echo(Concat(["CFormable?: Info: unexportable function(s): "], badfunctions))
         );
         False;
-      ⊖
+      }
     );
-  ⊖;
+  };
   HoldArgumentNumber("CFormable?", 1, 1);
   HoldArgumentNumber("CFormable?", 2, 1);
 
@@ -48,7 +48,7 @@ LocalSymbols(CFormAllFunctions) ⊕
   ));
 
 
-⊖; // LocalSymbols(CFormAllFunctions)
+}; // LocalSymbols(CFormAllFunctions)
 
 %/mathpiper
 
@@ -116,11 +116,11 @@ CFormable?(e+Pi*Cos(A-B)/3-Floor(3.14)*2+badfunc(x+y), [badfunc])
 , True
 );
 Verify(
-CFormable?(⊕i:=0;While(i<?10)⊕i++; a:=a+i;⊖;⊖)
+CFormable?({i:=0;While(i<?10){i++; a:=a+i;};})
 , True
 );
 Verify(
-CFormable?(⊕i:=0;While(i<?10)⊕i++; a:=a+i; [];⊖;⊖)
+CFormable?({i:=0;While(i<?10){i++; a:=a+i; [];};})
 , False
 );
 

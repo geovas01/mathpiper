@@ -1,7 +1,7 @@
 %mathpiper,def="InProduct"
 
 Function("InProduct",[aLeft,aRight])
-⊕
+{
   Local(length);
   length:=Length(aLeft);
   Check(length =? Length(aRight), "Argument", "InProduct: error, vectors not of the same dimension");
@@ -10,11 +10,11 @@ Function("InProduct",[aLeft,aRight])
   result:=0;
   Local(i);
   For(i:=1,i<=?length,i++)
-  ⊕
+  {
     result := result + aLeft[i] * aRight[i];
-  ⊖;
+  };
   result;
-⊖;
+};
 
 %/mathpiper
 

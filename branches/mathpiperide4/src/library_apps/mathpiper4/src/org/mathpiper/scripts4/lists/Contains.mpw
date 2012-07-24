@@ -1,18 +1,18 @@
 %mathpiper,def="Contains?"
 
 Function("Contains?",[list,element])
-⊕
+{
   Local(result);
   Bind(result,False);
   While(And?(Not?(result), Not?(Equal?(list, []))))
-  ⊕
+  {
     If(Equal?(First(list),element),
       Bind(result, True),
       Bind(list, Rest(list))
       );
-  ⊖;
+  };
   result;
-⊖;
+};
 
 %/mathpiper
 

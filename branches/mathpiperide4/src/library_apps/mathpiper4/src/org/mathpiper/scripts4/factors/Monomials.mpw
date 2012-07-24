@@ -7,30 +7,30 @@
 10 # CanBeMonomial(_expr)<--Not? (HasFunction?(expr,ToAtom("+")) Or? HasFunction?(expr,ToAtom("-")));
 
 10 # Monomial?(expr_CanBeMonomial) <-- 
-⊕
+{
     Local(r);
     If( RationalFunction?(expr),
         r := (VarList(Denominator(expr)) =? []),
         r := True
     );
-⊖;
+};
 
 15 # Monomial?(_expr) <-- False;
 
 
 10 # FactorsMonomial(expr_Monomial?) <--
-⊕
+{
   If(InVerboseMode(),Tell("FactorsMonomial",expr));
   Local(den,num,Ns,flat,prod,quot,result,f,ff);
   If( RationalFunction?(expr),
-    ⊕
+    {
       den := Denominator(expr);
       num := Flatten(Numerator(expr),"*");
-    ⊖,
-    ⊕
+    },
+    {
       den := 1;
       num := Flatten(expr,"*");
-    ⊖
+    }
   );
   If(InVerboseMode(),Tell("     ",[num,den]));
   Ns  := Select(num, "Complex?");
@@ -42,7 +42,7 @@
   If(InVerboseMode(),Tell("     ",num));
   result := [];
   ForEach(f,num)
-  ⊕
+  {
       If( Complex?(f), 
           DestructiveAppend(result,[(f),1]),
           If( Atom?(f),
@@ -50,9 +50,9 @@
               DestructiveAppend(result,DestructiveDelete(FunctionToList(f),1))
           )
       );
-  ⊖;
+  };
   result;
-⊖;
+};
 
 %/mathpiper
 

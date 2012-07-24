@@ -10,7 +10,7 @@ LoadLibraryFunction("AntiDeriv");
 20 # (Integrate(_var)(_expr)) <-- IntSub(var,expr,AntiDeriv(var,IntClean(var,expr)));
 
 20 # (Integrate(_var, optionsList_List?)(_expr)) <--
-⊕
+{
     Local(result);
 
     optionsList := OptionsToAssociativeList(optionsList);
@@ -20,7 +20,7 @@ LoadLibraryFunction("AntiDeriv");
     If( optionsList["logAbs"] =? "True", result := ( result /: [Ln(_x) <- Ln(Abs(x))]) );
 
     result;
-⊖;
+};
 
 
 10 # IntSub(_var,_expr,Integrate(_var)(_expr2)) <--
@@ -43,7 +43,7 @@ LoadLibraryFunction("AntiDeriv");
 
 
 20 # (Integrate(_var,_from,_to,optionsList_List?)(_expr)) <--
-⊕
+{
     Local(result);
 
     optionsList := OptionsToAssociativeList(optionsList);
@@ -53,7 +53,7 @@ LoadLibraryFunction("AntiDeriv");
     If( optionsList["logAbs"] =? "True", result := ( result /: [Ln(_x) <- Ln(Abs(x))]) );
 
     result;
-⊖;
+};
 
 ////////////////////////////////////////////////
 //
@@ -117,15 +117,15 @@ LoadLibraryFunction("AntiDeriv");
 // of terms in var, then avoid premature simplification.
 ////////////////////////////////////////////////
 10 # IntClean(_var,_expr) <--
-⊕
-        if( FreeOf?(var,expr) Or? SumOfTerms?(var,expr) )⊕
+{
+        if( FreeOf?(var,expr) Or? SumOfTerms?(var,expr) ){
                 expr;
-        ⊖ else if ( HasFunction?(expr,Sin) Or? HasFunction?(expr,Cos) )⊕
+        } else if ( HasFunction?(expr,Sin) Or? HasFunction?(expr,Cos) ){
                 Simplify(TrigSimpCombine(expr));
-        ⊖ else ⊕
+        } else {
                 Simplify(expr);
-        ⊖;
-⊖;
+        };
+};
 
 %/mathpiper
 
@@ -248,29 +248,29 @@ Verify((Integrate(x,0,1) [1,x*x,1+x])-[1,1/3,3/2],[0,0,0]);
 
 
 // Test MatchLinear: code heavily used with integration
-LocalSymbols(TestMatchLinearTrue,TestMatchLinearFalse) ⊕
+LocalSymbols(TestMatchLinearTrue,TestMatchLinearFalse) {
 
   TestMatchLinearTrue(_var,_expr,_expected) <--
-  ⊕
+  {
     Local(a,b);
     Verify(MatchLinear(var,expr),True);
     a:=Simplify(Matcheda()-expected[1]);
     b:=Simplify(Matchedb()-expected[2]);
     `TestMathPiper(@a,0);
     `TestMathPiper(@b,0);
-  ⊖;
+  };
   TestMatchLinearFalse(_var,_expr) <--
-  ⊕
+  {
     Local(a,b);
     Verify(MatchLinear(var,expr),False);
-  ⊖;
+  };
 
   TestMatchLinearTrue(x,(R+1)*x+(T-1),[(R+1),(T-1)]);
   TestMatchLinearTrue(x,x+T,[1,T]);
   TestMatchLinearTrue(x,a*x+b,[a,b]);
   TestMatchLinearFalse(x,Sin(x)*x+(T-1));
   TestMatchLinearFalse(x,x+Sin(x));
-⊖;
+};
 
 Verify(Integrate(x) z^100, z^100*x );
 Verify(Integrate(x) x^(-1),Ln(x) );

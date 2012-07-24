@@ -40,11 +40,11 @@
 Expand(x); /* TODO no idea why this is needed! Mod/Div/UniVariate thing :-( */
 
 10 # PAdicExpand(_x,_y) <--
-⊕
+{
   Local(coefs);
   coefs:=PAdicExpandInternal(x,y);
   Subst(p,y)Add(coefs*(p^(0 .. Length(coefs))));
-⊖;
+};
 
 %/mathpiper
 

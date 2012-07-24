@@ -1,8 +1,8 @@
 %mathpiper,def="Magnitude"
 
-Function("Magnitude",[x]) ⊕
+Function("Magnitude",[x]) {
         Sqrt(Re(x)^2 + Im(x)^2);
-⊖;
+};
 
 %/mathpiper
 

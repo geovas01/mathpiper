@@ -23,24 +23,24 @@ can be found to uncomment it.
 6 # GcdN(_x, 0) <-- 0;
 
 10 # GcdN(x_Integer?, y_Integer?) <--
-⊕
+{
         Local(z);
         While(x!=?y)
-        ⊕
+        {
                 While(x<?y)
-                ⊕
+                {
                         y:=y-x;
                         While((y&1) = 0)
-                        ⊕
+                        {
                                 y := ShiftRight(y,1);
-                        ⊖;
-                ⊖;
+                        };
+                };
                 z:=x;
                 x:=y;
                 y:=z;
-        ⊖;
+        };
         x;
-⊖;
+};
  */
 
 %/mathpiper

@@ -91,7 +91,7 @@
 30 # CNFInEq(_exp)                    <-- (CNFInEqSimplify(exp));
 
 10 # CNFInEqSimplify((_x) - (_x))     <-- 0;        // strictly speaking, this is not always valid, i.e. 1/0 - 1/0 != 0...
-100# CNFInEqSimplify(_x)              <-- ⊕ /*Echo(["Hit the bottom of CNFInEqSimplify with ", x, Nl()]);*/ x;⊖;
+100# CNFInEqSimplify(_x)              <-- { /*Echo(["Hit the bottom of CNFInEqSimplify with ", x, Nl()]);*/ x;};
                                                     // former "Simplify";
 %/mathpiper
 

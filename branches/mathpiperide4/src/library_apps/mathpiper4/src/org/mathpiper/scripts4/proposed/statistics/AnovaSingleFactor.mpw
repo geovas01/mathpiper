@@ -3,7 +3,7 @@
 //Retract("AnovaSingleFactor",*);
 
 AnovaSingleFactor(levelsList, alpha) :=
-⊕
+{
     Check(ListOfLists?(levelsList), "Argument", "The first argument must be a list of lists.");
     
     Check(alpha >=? 0 And? alpha <=? 1, "Argument", "The second argument must be a number between 0 and 1.");
@@ -48,7 +48,7 @@ AnovaSingleFactor(levelsList, alpha) :=
     lengthsList := [];
     
     ForEach(levelList, levelsList)
-    ⊕
+    {
         meansList := meansList ~ N(Mean(levelList));
         
         variancesList := variancesList ~ N(UnbiasedVariance(levelList));
@@ -56,7 +56,7 @@ AnovaSingleFactor(levelsList, alpha) :=
         sumsList := sumsList ~ N(Sum(levelList));
 
         lengthsList := lengthsList ~ Length(levelList);
-    ⊖;
+    };
     
     sumOfSquaresWithin := Sum((lengthsList - 1) * variancesList);
 
@@ -105,11 +105,11 @@ AnovaSingleFactor(levelsList, alpha) :=
     
     index := 1;
     While(index <=? Length(levelsList))
-    ⊕
+    {
         summaryTableRows := summaryTableRows ~ PatchString(summaryTableRow);
     
         index++;
-    ⊖;
+    };
     
     
     bottomOfSummary :=
@@ -188,7 +188,7 @@ AnovaSingleFactor(levelsList, alpha) :=
      result["criticalFScore"] := criticalFScore;
      
      result;
-⊖;
+};
 
 %/mathpiper
 

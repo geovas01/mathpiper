@@ -1,7 +1,7 @@
 %mathpiper,def="TruthTable"
 
 TruthTable(booleanExpression) :=
-⊕
+{
     Local(resultList, variables, booleanPatterns, subexpressions, substitutionList, evaluation);
     
     resultList := [];
@@ -16,17 +16,17 @@ TruthTable(booleanExpression) :=
     
 
     ForEach(booleanPattern, booleanPatterns)
-    ⊕
+    {
         substitutionList := Map("==", [variables, booleanPattern]);
         
         evaluation := `(subexpressions Where @substitutionList);
         
         DestructiveAppend(resultList, evaluation);
     
-    ⊖;
+    };
     
     resultList;
-⊖;
+};
 
 %/mathpiper
 

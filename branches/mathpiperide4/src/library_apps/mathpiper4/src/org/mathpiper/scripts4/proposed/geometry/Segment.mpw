@@ -1,7 +1,7 @@
 %mathpiper,def="Segment"
 
 Segment(PointA_Point?,PointB_Point?) <--
-⊕
+{
     Local(x1,x2,y1,y2);
     
     x1 := PointA[1];
@@ -10,7 +10,7 @@ Segment(PointA_Point?,PointB_Point?) <--
     y2 := PointB[2];
 
     [[x1,y1],[x2,y2]];
-⊖;
+};
 
 %/mathpiper
 

@@ -9,51 +9,51 @@ Retract("GREVLEXgt",*);
 Retract("GREVLEXlt",*);
  
 10 # npOrderTerms( expr_NP?, _termOrder ) <--
- ⊕
+ {
     //---------------------------------------------------------------------
     // INPUT:  a polynomial, in the Sparse representation, with Markers
     // OUTPUT: the polynomial, in the Sparse representation, with Markers,
     //         with the terms reordered in specified term Order.
     //---------------------------------------------------------------------
-    If(InVerboseMode(),⊕Tell("npOrderTerms",expr); Tell("       ",termOrder);⊖);
+    If(InVerboseMode(),{Tell("npOrderTerms",expr); Tell("       ",termOrder);});
     Local(np,v,out);
     v   := expr[2];
     np  := npTerms(expr);
     out := NP~v~npOrderTerms(np,termOrder);
-   ⊖;
+   };
 ];
  
 10 # npOrderTerms( expr_List?, _termOrder ) <--
- ⊕
+ {
     //---------------------------------------------------------------------
     // INPUT:  a polynomial, in the Sparse representation, NO Markers
     // OUTPUT: the polynomial, in the Sparse representation, NO Markers,
     //         with the terms reordered in specified term Order.
     //---------------------------------------------------------------------
-    If(InVerboseMode(),⊕Tell("npOrderTerms",expr); Tell("       ",termOrder);⊖);
+    If(InVerboseMode(),{Tell("npOrderTerms",expr); Tell("       ",termOrder);});
     Local(np,out);
     np := FlatCopy(expr);
     
     if ( termOrder =? LEX )
-      ⊕
+      {
           If(InVerboseMode(),Tell("    ordering terms by LEX"));
           out := Sort( np, LEXgt );
-      ⊖
+      }
     else if ( termOrder =? GRLEX )
-      ⊕
+      {
           If(InVerboseMode(),Tell("    ordering terms by GRLEX"));    
           out := Sort( np, GRLEXgt );
-      ⊖
+      }
     else if ( termOrder =? GREVLEX )
-      ⊕
+      {
           If(InVerboseMode(),Tell("    ordering terms by GREVLEX"));
           out := Sort( np, GREVLEXgt );
-      ⊖
+      }
     else 
-      ⊕ Check(False,"TermOrder","npOrderTerms should never reach this point"); ⊖;
+      { Check(False,"TermOrder","npOrderTerms should never reach this point"); };
 
     out;
-   ⊖;
+   };
 ];
  
 20 # npOrderTerms( expr_NP? )   <-- npOrderTerms(expr,LEX);
@@ -73,58 +73,58 @@ Retract("GREVLEXlt",*);
  // ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
  
 10 # LEXgt(term1_List?,term2_List?)_(Length(term1)=?Length(term2)) <--
- ⊕
+ {
      Local(nonzero);
      nonzero := Select(Rest(term1-term2),"NotZero?");
      Length(nonzero) !=? 0 And? First(nonzero) >? 0;
- ⊖; 
+ }; 
 
 10 # LEXlt(term1_List?,term2_List?)_(Length(term1)=?Length(term2)) <--
- ⊕
+ {
      Local(nonzero);
      nonzero := Select(Rest(term1-term2),"NotZero?");
      Length(nonzero) !=? 0 And? First(nonzero) <? 0;
- ⊖; 
+ }; 
 
 10 # GRLEXgt(term1_List?,term2_List?)_(Length(term1)=?Length(term2)) <--
- ⊕
+ {
      Local(sum1,sum2,nonzero);
      sum1 := Sum(Rest(term1));    sum2 := Sum(Rest(term2));
      nonzero := Select(Rest(term1-term2),"NotZero?");
      If(sum1 >? sum2, True,
        If(sum1=?sum2 And? (Length(nonzero)!=?0 And? First(nonzero)>?0),True,False)
      );
- ⊖; 
+ }; 
 
 10 # GRLEXlt(term1_List?,term2_List?)_(Length(term1)=?Length(term2)) <--
- ⊕
+ {
      Local(sum1,sum2,nonzero);
      sum1 := Sum(Rest(term1));    sum2 := Sum(Rest(term2));
      nonzero := Select(Rest(term1-term2),"NotZero?");
      If(sum1 <? sum2, True,
        If(sum1=?sum2 And? (Length(nonzero)!=?0 And? First(nonzero)<?0),True,False)
      );
- ⊖; 
+ }; 
 
 10 # GREVLEXgt(term1_List?,term2_List?)_(Length(term1)=?Length(term2)) <--
- ⊕
+ {
      Local(sum1,sum2,revnonzero);
      sum1 := Sum(Rest(term1));    sum2 := Sum(Rest(term2));
      revnonzero := Reverse(Select(Rest(term1-term2),"NotZero?"));
      If(sum1 >? sum2, True,
        If(sum1=?sum2 And? (Length(revnonzero)!=?0 And? First(revnonzero)<?0),True,False)
      );
- ⊖; 
+ }; 
 
 10 # GREVLEXlt(term1_List?,term2_List?)_(Length(term1)=?Length(term2)) <--
- ⊕
+ {
      Local(sum1,sum2,revnonzero);
      sum1 := Sum(Rest(term1));    sum2 := Sum(Rest(term2));
      revnonzero := Reverse(Select(Rest(term1-term2),"NotZero?"));
      If(sum1 <? sum2, True,
        If(sum1=?sum2 And? (Length(revnonzero)!=?0 And? First(revnonzero)>?0),True,False)
      );
- ⊖; 
+ }; 
 
 %/mathpiper
 

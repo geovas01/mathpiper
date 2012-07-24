@@ -1,13 +1,13 @@
 %mathpiper,def="RemoveDuplicates"
 
 Function("RemoveDuplicates",[list])
-⊕
+{
    Local(result);
    Bind(result,[]);
    ForEach(item,list)
      If(Not?(Contains?(result,item)),DestructiveAppend(result,item));
    result;
-⊖;
+};
 
 %/mathpiper
 

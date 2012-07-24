@@ -1,46 +1,46 @@
 %mathpiper,def="CorrelationMatrix"
 
 CorrelationMatrix(dataLists) := 
-⊕
+{
     Local(namesList, correlationMatrix);
     
     ForEach(dataList, dataLists)
-    ⊕
+    {
         Check(Matrix?(dataLists), "Argument", "All lists must have the same number of elements.");
-    ⊖;
+    };
 
     namesList := MatrixColumn(dataLists,1);
     
     namesList := "" ~ namesList;
     
     ForEach(dataList, dataLists)
-    ⊕
+    {
         PopFront(dataList);
-    ⊖;
+    };
     
     correlationMatrix := ZeroMatrix(Length(dataLists)+1);
     
     ForEach(rowIndex, 1 .. Length(dataLists) + 1)
-    ⊕
+    {
         ForEach(columnIndex, 1 .. Length(dataLists) + 1)
-        ⊕
+        {
             if(rowIndex >=? 2 And? columnIndex >=? 2)
-            ⊕
+            {
                 correlationMatrix[rowIndex][columnIndex] := N(CorrelationCoefficient(dataLists[rowIndex - 1],dataLists[columnIndex - 1]),2);
-            ⊖
+            }
             else if(rowIndex =? 1)
-            ⊕
+            {
                 correlationMatrix[rowIndex][columnIndex] := namesList[columnIndex];
-            ⊖
+            }
             else
-            ⊕
+            {
                 correlationMatrix[rowIndex][columnIndex] := namesList[rowIndex];
-            ⊖;
-        ⊖;
-    ⊖;
+            };
+        };
+    };
     
     correlationMatrix;
-⊖;
+};
 
 %/mathpiper
 

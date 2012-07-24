@@ -1,7 +1,7 @@
 %mathpiper,def="CoFactor"
 
 Function("CoFactor",[matrix,ii,jj])
-⊕
+{
   Local(perms,indices,result);
   indices:=Table(i,i,1,Length(matrix),1);
   perms:=PermutationsList(indices);
@@ -13,7 +13,7 @@ Function("CoFactor",[matrix,ii,jj])
          If(ii=?i,1,matrix[i][item[i] ])
                   )*LeviCivita(item));
   result;
-⊖;
+};
 
 %/mathpiper
 

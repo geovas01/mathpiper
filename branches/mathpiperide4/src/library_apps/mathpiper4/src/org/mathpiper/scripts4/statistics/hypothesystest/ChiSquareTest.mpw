@@ -7,7 +7,7 @@ Retract(ChiSquareTest,*);
 
 
 10 # ChiSquareTest( observedFrequenciesMatrix_Matrix?, expectedFrequenciesMatrix_Matrix?) <--
-⊕
+{
 
     Local(observedFrequenciesList, expectedFrequenciesList);
     
@@ -42,13 +42,13 @@ Retract(ChiSquareTest,*);
     resultList["chiSquareScore"] := chi2;
     
     N(resultList);
-⊖;
+};
 
 
 
 
 20 # ChiSquareTest( observedFrequenciesList_List?, expectedFrequenciesList_List?) <--
-⊕
+{
     Check(Length(observedFrequenciesList) >? 0, "Argument", "The first argument must be a nonempty list.");
     
     Check(Length(expectedFrequenciesList) >? 0, "Argument", "The second argument must be a nonempty list.");
@@ -76,7 +76,7 @@ Retract(ChiSquareTest,*);
     resultList["chiSquareScore"] := chi2;
     
     N(resultList);
-⊖;
+};
 
 %/mathpiper
 

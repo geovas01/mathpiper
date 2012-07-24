@@ -3,13 +3,13 @@
 5  # ZeroMatrix(n_NonNegativeInteger?) <--  ZeroMatrix(n,n);
 
 10 # ZeroMatrix(n_NonNegativeInteger?,m_NonNegativeInteger?) <--
-⊕
+{
   Local(i,result);
   result:=[];
   For(i:=1,i<=?n,i++)
     DestructiveInsert(result,i,ZeroVector(m));
   result;
-⊖;
+};
 
 %/mathpiper
 

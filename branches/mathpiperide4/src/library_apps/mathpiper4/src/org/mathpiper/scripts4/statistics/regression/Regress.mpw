@@ -15,7 +15,7 @@
 
 
 Regress(x,y) :=
-⊕
+{
  Local(xy,x2,i,mx,my);
 
  mx := Mean(x);
@@ -23,7 +23,7 @@ Regress(x,y) :=
  xy := Add((x-mx)*(y-my));
  x2 := Add((x-mx)^2);
  [alpha <- (my-xy*mx/x2) , beta <-  xy/x2];
-⊖;
+};
 
 
 

@@ -4,9 +4,9 @@
 VarList(_expr) <-- VarList(expr,"Variable?");
 
 Function("VarList",[expr,filter])
-⊕
+{
   RemoveDuplicates(VarListAll(expr,filter));
-⊖;
+};
 
 %/mathpiper
 

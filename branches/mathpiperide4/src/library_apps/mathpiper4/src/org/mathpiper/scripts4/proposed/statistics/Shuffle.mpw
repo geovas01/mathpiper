@@ -8,7 +8,7 @@
  http://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle .
 */
 Shuffle(list) :=
-⊕
+{
     Check(List?(list), "Argument", "Argument must be a list.");
     
     Local(index, randomIndex, temporary);
@@ -18,7 +18,7 @@ Shuffle(list) :=
     index := Length(list);
     
     While(index >? 1)
-    ⊕
+    {
         randomIndex := RandomInteger(1,index);
         
         temporary := list[randomIndex];
@@ -28,10 +28,10 @@ Shuffle(list) :=
         list[index] := temporary;
         
         index--;
-    ⊖;      
+    };      
     
     list;
-⊖;
+};
 
 %/mathpiper
 

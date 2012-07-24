@@ -2,7 +2,7 @@
 
 // simple Taylor expansion, use only for 0<=x<1
 Defun("MathExpTaylor0",[x])
-⊕
+{
   Check(x<=?1 And? x>=?0,""," Argument must be between 0 and 1 inclusive.");
   Local(i,aResult,term,eps);
   // Exp(x)=Sum(i=0 to Inf)  x^(i) /(i)!
@@ -18,16 +18,16 @@ Defun("MathExpTaylor0",[x])
   // While (term>?epsilon)
   
   While(GreaterThan?(AbsN(term),eps))
-  ⊕
+  {
     //   i <- i+1
     Bind(i,AddN(i,1));
     //   term <- term*x/(i)
     Bind(term,DivideN(MultiplyN(term,x),i));
     //   sum <- sum+term
     Bind(aResult,AddN(aResult,term));
-  ⊖;
+  };
   aResult;
-⊖;
+};
 
 %/mathpiper
 
@@ -76,7 +76,7 @@ Result: 1.141587685
 
 
 %mathpiper,name="MathExpTaylor0",subtype="automatic_test"
-⊕
+{
 Local(precision);
 precision := BuiltinPrecisionGet();
 BuiltinPrecisionSet(10);
@@ -85,7 +85,7 @@ Verify(MathExpTaylor0(.2), 1.221402759);
 Verify(MathExpTaylor0(1),  2.718281830);
 Verify(MathExpTaylor0(.234563),  1.264356123);
 BuiltinPrecisionSet(precision);
-⊖;
+};
 %/mathpiper
 
 

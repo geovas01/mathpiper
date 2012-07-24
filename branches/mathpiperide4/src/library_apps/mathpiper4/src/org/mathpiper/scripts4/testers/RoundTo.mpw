@@ -4,7 +4,7 @@
 
 /* Round to specified number of digits */
 10 # RoundTo(x_Number?, precision_PositiveInteger?) <--
-⊕
+{
   Local(oldPrec,result);
 
   oldPrec:=BuiltinPrecisionGet();
@@ -16,7 +16,7 @@
   BuiltinPrecisionSet(oldPrec);
 
   result;
-⊖;
+};
 
 
 

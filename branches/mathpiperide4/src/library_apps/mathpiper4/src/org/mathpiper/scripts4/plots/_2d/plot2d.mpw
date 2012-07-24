@@ -21,7 +21,7 @@ Plot2D<backend> on that data.
 */
 
 LocalSymbols(var, func, range, option, optionslist, delta, optionshash, c, fc, allvalues, dummy)
-⊕
+{
 
 // declaration of Plot2D with variable number of arguments
 Function() Plot2D(func);
@@ -39,7 +39,7 @@ Function() Plot2D(func, range, options, ...);
 /// Top-level 2D plotting routine:
 /// plot several functions sharing the same xrange and other options
 4 # Plot2D(funclist_List?, _range, optionslist_List?) <--
-⊕
+{
         Local(var, func, delta, optionshash, c, fc, allvalues, dummy);
         allvalues := [];
         optionshash := "OptionsListToHash" @ [optionslist];
@@ -52,11 +52,11 @@ Function() Plot2D(func, range, options, ...);
         // parse range
         If (
                 Type(range) =? "->",        // variable also specified -- ignore for now, store in options
-                ⊕
+                {
                         // store alternative variable name
                         optionshash["xname"] := ToString(range[1]);
                         range := range[2];
-                ⊖
+                }
         );
         If(
                 Type(range) =? ":",        // simple range
@@ -110,7 +110,7 @@ Function() Plot2D(func, range, options, ...);
         );
         // loop over functions in the list
         ForEach(func, funclist)
-        ⊕
+        {
                 // obtain name of variable
                 var := VarList(func);        // variable name in a one-element list
                 Check(Length(var)<=?1, "Argument", "Plot2D: Error: expression is not a function of one variable: "
@@ -142,11 +142,11 @@ Function() Plot2D(func, range, options, ...);
                 DestructiveAppend(allvalues,  Plot2Dgetdata(func, var, c, fc, delta, optionshash) );
         
                 If(InVerboseMode(), Echo(["Plot2D: using ", Length(allvalues[Length(allvalues)]), " points for function ", func]), True);
-        ⊖;
+        };
     
         // call the specified output backend
         Plot2DOutputs()[optionshash["output"]] @ [allvalues, optionshash];
-⊖;
+};
 
 //HoldArgument("Plot2D", range);
 //HoldArgument("Plot2D", options);
@@ -161,12 +161,12 @@ HoldArgumentNumber("Plot2D", 3, 3);
 /// grid, calls the adaptive routine, and gathers data points.
 /// func must be just one function (not a list)
 Plot2Dgetdata(_func, _var, _xinit, _yinit, _deltax, _optionshash) <--
-⊕
+{
         Local(i, a, fa, b, fb, c, fc, result);
         // initialize list by first points (later will always use Rest() to exclude first points of subintervals)
         result := [ [c,fc] := [xinit, yinit] ];
         For(i:=0, i<?optionshash["points"], i++)
-        ⊕
+        {
                 [a,fa] := [c, fc];        // this is to save time but here a = xinit + i*deltax
                 // build subintervals
                 [b, c] := N(Eval([xinit + (i+1/2)*deltax, xinit + (i+1)*deltax]));        // this is not computed using "a" to reduce roundoff error
@@ -175,10 +175,10 @@ Plot2Dgetdata(_func, _var, _xinit, _yinit, _deltax, _optionshash) <--
                         Rest(Plot2Dadaptive(func, var, [a,b,c], [fa, fb, fc], optionshash["depth"],
                                 // since we are dividing into "points" subintervals, we need to relax precision
                                 optionshash["precision"]*optionshash["points"] )));
-        ⊖;
+        };
     
         result;
-⊖;
+};
 
 //////////////////////////////////////////////////
 /// Plot2Dadaptive --- core routine to collect data
@@ -191,7 +191,7 @@ Plot2Dgetdata(_func, _var, _xinit, _yinit, _deltax, _optionshash) <--
 
 //Retract("Plot2Dadaptive", *);
 Plot2Dadaptive(_func, _var, [_a,_b,_c], [_fa, _fb, _fc], _depth, _epsilon) <--
-⊕
+{
         Local(a1, b1, fa1, fb1);
 
         a1 := N(Eval((a+b)/2));
@@ -219,9 +219,9 @@ Plot2Dadaptive(_func, _var, [_a,_b,_c], [_fa, _fb, _fc], _depth, _epsilon) <--
                         Rest(Plot2Dadaptive(func, var, [b, b1, c], [fb, fb1, fc], depth-1, epsilon*2))
                 )
         );
-⊖;
+};
 
-⊖;        // LocalSymbols()
+};        // LocalSymbols()
 
 
 %/mathpiper

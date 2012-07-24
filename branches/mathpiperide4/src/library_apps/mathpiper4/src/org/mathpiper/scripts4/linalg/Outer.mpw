@@ -2,7 +2,7 @@
 
 // outer product of vectors
 Outer(t1_Vector?, t2_Vector?) <--
-⊕
+{
    Local(i,j,n,m,result);
    n:=Length(t1);
    m:=Length(t2);
@@ -11,7 +11,7 @@ Outer(t1_Vector?, t2_Vector?) <--
       For(j:=1,j<=?m,j++)
          result[i][j]:=t1[i]*t2[j];
    result;
-⊖;
+};
 
 %/mathpiper
 

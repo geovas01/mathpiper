@@ -1,7 +1,7 @@
 %mathpiper,def="MatrixColumn"
 
 Function("MatrixColumn",[matrix,col])
-⊕
+{
   Local(m);
   m:=matrix[1];
 
@@ -14,7 +14,7 @@ Function("MatrixColumn",[matrix,col])
     DestructiveAppend(result,matrix[i][col]);
 
   result;
-⊖;
+};
 
 %/mathpiper
 

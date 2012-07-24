@@ -2,12 +2,12 @@
 
 /*
 Macro("Verify",[aLeft,aRight])
-⊕
+{
 
         Local(result);
         result := @aLeft;        // to save time
   If (Not?(Equal?(result,@aRight)),
-    ⊕
+    {
       WriteString("******************");
       NewLine();
       ShowLine();
@@ -24,20 +24,20 @@ Macro("Verify",[aLeft,aRight])
       WriteString("******************");
       NewLine();
       False;
-    ⊖,
+    },
     True
   );
-⊖;
+};
 */
 
 
 Function("Verify",[aLeft,aRight])
-⊕
+{
 
         Local(result);
         result := Eval(aLeft);        // to save time
   If (Not?(Equal?(result,aRight)),
-    ⊕
+    {
       WriteString("******************");
       NewLine();
       ShowLine();
@@ -55,10 +55,10 @@ Function("Verify",[aLeft,aRight])
       WriteString("******************");
       NewLine();
       False;
-    ⊖,
+    },
     True
   );
-⊖;
+};
 HoldArgument("Verify",aLeft);
 UnFence("Verify",2);
 /*
@@ -66,10 +66,10 @@ HoldArgument("Verify",aRight);
 */
 
 Macro("Verify", [a,b,message])
-⊕
+{
         Echo("test ", @message);
         Verify(@a, @b);
-⊖;
+};
 
 
 %/mathpiper

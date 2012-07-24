@@ -1,9 +1,9 @@
 %mathpiper,def="ArcTanN"
 
 ArcTanN(x) :=
-⊕
+{
     FastArcTan(x);
-⊖;
+};
 
 %/mathpiper
 

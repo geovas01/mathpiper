@@ -11,17 +11,17 @@ MatchPureSquared
 
 /** MatchLinear(variable,expression)
  */
-LocalSymbols(a,b)⊕
+LocalSymbols(a,b){
 
 10 # MatchLinear(var_Atom?,expr_CanBeUni(var)) <--
-⊕
+{
   Bind(expr,MakeUni(expr,var));
   MatchLinear(expr);
-⊖;
+};
 20 # MatchLinear(_var,_expr) <-- False;
 
 10 # MatchLinear(_expr)_(Degree(expr,var)<?2) <--
-⊕
+{
   Check(UniVar?(expr), "Argument", PipeToString()Echo(["Incorrect argument ",expr," passed to MatchLinear"]));
 
 //TODO if I enable these checks, then integration fails (only users of this function any way). Can this be removed? Where are these variables cleared any way?
@@ -31,7 +31,7 @@ LocalSymbols(a,b)⊕
   a := Coef(expr,1);
   b := Coef(expr,0);
   True;
-⊖;
+};
 20 # MatchLinear(_expr) <-- False;
 UnFence("MatchLinear",1);
 UnFence("MatchLinear",2);
@@ -40,10 +40,10 @@ UnFence("MatchLinear",2);
  *  of the form a*x^2+b.
  */
 10 # MatchPureSquared(var_Atom?,_sign2,_sign0,expr_CanBeUni(var)) <--
-⊕
+{
   Bind(expr,MakeUni(expr,var));
   MatchPureSquared(expr,sign2,sign0);
-⊖;
+};
 20 # MatchPureSquared(_var,_sign2,_sign0,_expr) <-- False;
 
 10 # MatchPureSquared(_expr,_sign2,_sign0)_(Degree(expr,var)=?2 And?
@@ -53,7 +53,7 @@ UnFence("MatchLinear",2);
                                     Coef(expr,0)*sign0 >? 0 And?
                                     Coef(expr,2)*sign2 >? 0
                                     ) <--
-⊕
+{
   Check(UniVar?(expr), "Argument", PipeToString()Echo(["Incorrect argument ",expr," passed to MatchLinear"]));
 //TODO if I enable these checks, then integration fails (only users of this function any way). Can this be removed? Where are these variables cleared any way?
 //  Check(a = Hold(a), "Invariant", "Found bound variable which should have been unbound, in MatchLinear");
@@ -61,7 +61,7 @@ UnFence("MatchLinear",2);
   a := Coef(expr,2);
   b := Coef(expr,0);
   True;
-⊖;
+};
 20 # MatchPureSquared(_expr,_sign2,_sign0) <-- False;
 UnFence("MatchPureSquared",3);
 UnFence("MatchPureSquared",4);
@@ -71,7 +71,7 @@ Matchedb() := b;
 
 
 
-⊖; // LocalSymbols a,b
+}; // LocalSymbols a,b
 
 
 %/mathpiper

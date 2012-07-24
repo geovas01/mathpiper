@@ -65,7 +65,7 @@ Result: Cos(a)-Sin(a)^2
 %mathpiper,name="Apply",subtype="automatic_test"
 
 Verify(Apply("+",[2,3]),5);
-⊕
+{
   Local(x,y);
   Verify(Apply([[x,y],x+y],[2,3]),5);
   Verify(Apply(Lambda([x,y],x+y),[2,3]),5);
@@ -85,7 +85,7 @@ Verify(Apply("+",[2,3]),5);
   Testing("ThreadingListables");
   x:=[bb,cc,dd];
   Verify(Sin(aa*x),[Sin(aa*bb),Sin(aa*cc),Sin(aa*dd)]);
-⊖;
+};
 
 %/mathpiper
 
@@ -96,7 +96,7 @@ Verify(Apply("+",[2,3]),5);
 %mathpiper,name="Apply",subtype="automatic_test"
 
 LocalSymbols(f,x,n)
-⊕
+{
   RulebaseHoldArguments(f,[n]);
 
   f(_n) <-- Apply("Differentiate",[x,n, x^n]);
@@ -104,6 +104,6 @@ LocalSymbols(f,x,n)
   Verify(f(10),(10!));
 
   Retract(f,1);
-⊖;
+};
 
 %/mathpiper

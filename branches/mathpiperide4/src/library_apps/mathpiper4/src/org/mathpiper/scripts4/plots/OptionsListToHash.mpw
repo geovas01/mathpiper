@@ -5,7 +5,7 @@
 /// The argument list is kept unevaluated using "HoldArgumentNumber()".
 /// Note that symbolic values of type atom are automatically converted to strings, e.g. ListToHash([a -> b]) returns [["a", "b"]]
 OptionsListToHash(list) :=
-⊕
+{
         Local(item, result);
         result := [];
         ForEach(item, list)
@@ -20,7 +20,7 @@ OptionsListToHash(list) :=
                 );
         
         result;
-⊖;
+};
 
 HoldArgumentNumber("OptionsListToHash", 1, 1);
 

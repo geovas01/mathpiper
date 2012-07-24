@@ -3,7 +3,7 @@
 //Retract("ConfidenceIntervalOfTheProportion",*);
 
 ConfidenceIntervalOfTheProportion(numberOfSuccesses,sampleSize,confidenceLevel) :=
-⊕
+{
     Check(Integer?(numberOfSuccesses) And? numberOfSuccesses >=? 0, "Argument", "The first argument must be an integer which is >=?0");
     
     Check(Integer?(sampleSize) And? sampleSize >=? 0, "Argument", "The second argument must be an integer which is >=?0");
@@ -25,20 +25,20 @@ ConfidenceIntervalOfTheProportion(numberOfSuccesses,sampleSize,confidenceLevel) 
     lowerLimit := N(proportion - criticalZScore * approximateStandardErrorOfTheProportion);
     
     If(InVerboseMode(),
-        ⊕
+        {
             Echo("Critical z-score: ", criticalZScore);
             
             Echo("Proportion: ", proportion);
             
             Echo("Standard error of the proportion: ", N(approximateStandardErrorOfTheProportion));
-        ⊖);
+        });
     
     resultList["upperLimit"] := upperLimit;
     
     resultList["lowerLimit"] := lowerLimit;
     
     resultList;
-⊖;
+};
 
 
 %/mathpiper

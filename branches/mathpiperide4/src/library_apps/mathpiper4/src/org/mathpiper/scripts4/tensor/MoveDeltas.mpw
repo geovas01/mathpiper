@@ -9,15 +9,15 @@
    returned by Flatten(expressions,"*")
    */
 MoveDeltas(_list) <--
-⊕
+{
   Local(result,i,nr);
   result:=[];
   nr:=Length(list);
   For(i:=1,i<=?nr,i++)
-  ⊕
+  {
     ApplyDelta(result,list[i]);
-  ⊖;
+  };
   result;
-⊖;
+};
 
 %/mathpiper

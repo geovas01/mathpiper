@@ -28,13 +28,13 @@ This is like FuncList except only looks at arguments of a given list of function
 RemoveDuplicates(
         Concat(
                 [First(FunctionToList(expr))],
-                ⊕        // gave up trying to do it using Map and MapSingle... so writing a loop now.
+                {        // gave up trying to do it using Map and MapSingle... so writing a loop now.
                         // obtain a list of functions, considering only functions in looklist
                         Local(item, result);
                         result := [];
                         ForEach(item, expr) result := Concat(result, FuncList(item, looklist));
                         result;
-                ⊖
+                }
         )
 );
 

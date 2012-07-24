@@ -4,17 +4,17 @@
 
 /*TODO remove? Not yet. If the code above (ForEachExperimental) can be made to work we can do away with this version. */
 TemplateFunction("ForEach",[item,listOrString,body])
-⊕
+{
   If(And?(Equal?(Generic?(listOrString),True),
          Equal?(GenericTypeName(listOrString),"Array")
          ),
     `ForEachInArray(@item,listOrString,@body),
-    ⊕
+    {
 
       MacroLocal(item);
       
       If(String?(listOrString),
-      ⊕
+      {
           
           Local(index, stringLength);
           
@@ -22,27 +22,27 @@ TemplateFunction("ForEach",[item,listOrString,body])
           
           index := 1;
           While(index <=? stringLength )
-          ⊕
+          {
              MacroBind(item,listOrString[index] );
              
              Eval(body);
              
              index++;
-          ⊖;
+          };
 
-      ⊖,
-      ⊕
+      },
+      {
           Local(foreachtail);
           Bind(foreachtail,listOrString);
           While(Not?(Equal?(foreachtail,[])))
-          ⊕
+          {
             MacroBind(item,First(foreachtail));
             Eval(body);
             Bind(foreachtail,Rest(foreachtail));
-          ⊖;
-      ⊖);
-    ⊖);
-⊖;
+          };
+      });
+    });
+};
 UnFence("ForEach",3);
 HoldArgumentNumber("ForEach",3,1);
 HoldArgumentNumber("ForEach",3,3);

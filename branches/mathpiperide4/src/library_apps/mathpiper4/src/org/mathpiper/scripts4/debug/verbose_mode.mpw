@@ -1,24 +1,24 @@
 %mathpiper,def="V;InVerboseMode"
 
-LocalSymbols(Verbose) ⊕
+LocalSymbols(Verbose) {
 
   Bind(Verbose,False);
 
 
   Function("V",[aNumberBody])
-  ⊕
+  {
     Local(prevVerbose,result);
     Bind(prevVerbose,Verbose);
     Bind(Verbose,True);
     Bind(result,Eval(aNumberBody));
     Bind(Verbose,prevVerbose);
     result;
-  ⊖;
+  };
 
 
   Function("InVerboseMode",[]) Verbose;
 
-⊖; // LocalSymbols(Verbose)
+}; // LocalSymbols(Verbose)
 
 HoldArgument("V",aNumberBody);
 UnFence("V",1);

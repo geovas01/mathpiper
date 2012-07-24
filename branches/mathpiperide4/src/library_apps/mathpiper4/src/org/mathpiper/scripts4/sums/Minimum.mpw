@@ -29,12 +29,12 @@ Function() Minimum(l1, l2, l3, ...);
 10 # Minimum([]) <-- Undefined;
 
 20 # Minimum(list_List?) <--
-⊕
+{
   Local(result);
   result:= list[1];
   ForEach(item,Rest(list)) result:=Minimum(result,item);
   result;
-⊖;
+};
 
 30 # Minimum(_x) <-- x;
 
