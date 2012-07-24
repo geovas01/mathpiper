@@ -1,5 +1,7 @@
 (ns org.mathpiper.studentschedule.completescheduleengine.student_schedules_api)
 
+;The namespace student_schedule_api holds all the functions that talk to the client along with some test code.
+
 (use 'org.mathpiper.studentschedule.completescheduleengine.html_creation_engine)
 
 (use 'org.mathpiper.studentschedule.completescheduleengine.schedule_engine)
@@ -11,12 +13,31 @@
 (import 'org.mathpiper.studentschedule.gwt.shared.ArgumentException)
 
 
-;returns at random return-number of schedules made using course-lists
-;and legal-scheddules.
 
-(defn find-schedules [string]
+
+(defn find-schedules
+  "     The function find-schedueles takes a single string as input in the following form:
+
+\"{:selected-courses selected-courses :course-lists course-lists
+ :quality-fn-and-vals quality-fn-and-vals :return-number return-number :custom-courses custom-courses}\".
+
+Where selected-courses is a vector that contains all the sections that have been selected,
+course-lists is a vector of vectors that each contain course-numbers to be used to find schedules,
+quality-fn-and-vals contains all the quality functions and their values to be used in finding  the best schedules,
+return-number is a positive integer, and
+custom-courses is a map that is a custom add-on to the normal course map and is in that format.
+
+     The function find-schedules outputs HTML without html or body tags.
+The output is in the form of schedules that are seprated by | so that 
+the client can print only one schedule at a time.
+
+
+
+"
+  
+  [string]
   (let [
-        clean-string (apply str (filter #(and (not= % \( ) (not= % \) )) string))
+        clean-string (apply str (filter #(and (not= % \( ) (not= % \) )) string)) ;This line prevents clojure code from being passed to the rest of the function.
         {selected-courses :selected-courses course-lists :course-lists quality-fn-and-vals :quality-fn-and-vals return-number :return-number custom-courses :custom-courses} (load-string clean-string)
         unpacked-selected-courses (for [course selected-courses  section-number (:section-numbers course )]
                                     {:course-number (:course-number course) :section-number section-number})
@@ -25,21 +46,22 @@
         courses-not-in-map (filter (fn [course] (not (course  zz2))) all-courses)
         legal-schedules-output  (doall (legal-schedules course-lists unpacked-selected-courses custom-course-map))
         ]
-    
+    ;This cond checks to see if there is any bad input before going through the time comsuming quality system.
     (cond 
       
       (= all-courses '()) (throw (ArgumentException. "You must enter at least one course to make a schedule."))
 
-      (not= courses-not-in-map '())
-            
-            (throw (ArgumentException. (apply str (concat ["The following course numbers are not offered this semester, are mistyped, or do not exist:\n"] (map #(str "   " (name %) " \n " ) courses-not-in-map) )) ))
+      (not= courses-not-in-map '()) (throw (ArgumentException. (apply str (concat ["The following course numbers are not offered this semester, are mistyped, or do not exist:\n"] (map #(str "   " (name %) " \n " ) courses-not-in-map) )) ))
+      
       (not (apply distinct? all-courses)) (throw (ArgumentException. "Each course can only be entered once."))
+      
       (= legal-schedules-output '()) 
             (throw (ArgumentException. "There are either no schedules that do not have conflicts or there are no open sections in the courses you have selected. "))   
             
       (and  (not= quality-fn-and-vals []))
             (createHtmlScheduleTables (sort-by-quality (take return-number (selected-by-quality legal-schedules-output quality-fn-and-vals 0.01 custom-course-map))  quality-fn-and-vals custom-course-map)
              custom-course-map)
+            
        :default (createHtmlScheduleTables (for [_ (range return-number)]  (nth legal-schedules-output (rand-int (count legal-schedules-output)) )) custom-course-map)
      
      
@@ -52,7 +74,9 @@
 
 
 
-(defn  course-list []
+(defn course-list
+  "     Returns a string with a  comma seperated list, withour brackets, of all the open course names."
+  []
   (let [open-courses (filter
                        (fn [course]
                          (not (every? (fn [course-section] (not(open-section? course-section zz2))) (map
@@ -68,7 +92,17 @@
 
 
 
-(defn show-sections [string]
+(defn show-sections
+  "     The function show-sections takes a string that holds a map in the following format:
+
+\"{:course-lists course-lists}\"
+
+Where course-lists is a vector of vectors with course numbers of the courses who's section info will be returned. For example:
+[[:ETCO1120] [:PSYC1101] [:ETEM1110] [:MATH1010] [:ENGL1105] [:ARTH1101 :ENGL2275 :MUSI1201 :MUSI2211 :PHIL3300 :THAR1000]]
+
+The function show-sections returns HTML tables in a string that contains all infomation for the sections of the courses in course-list.
+"
+  [string]
   (let [clean-string (apply str (filter #(and (not= % \( ) (not= % \) )) string))
         {course-lists :course-lists} (load-string clean-string )
         all-courses (apply concat course-lists)
@@ -85,7 +119,11 @@
   )
   )
 
-(defn get-sections [course-number-string]
+(defn get-sections
+  "     The function get-sections takes a course number as input
+and returns a string that contains all the section numbers of
+that course seprated by commas."
+  [course-number-string]
   (let [clean-string (apply str (filter #(and (not= % \( ) (not= % \) )) course-number-string))
         course-number (load-string clean-string)
         open-section-keys (filter #(open-section? {:course-number course-number :section-number %} zz2) (keys (get-in zz2 [course-number :sections])))
