@@ -3,9 +3,9 @@
 10 # FindAll( list_List?, _element ) <--
   ⊕
      Local(results,count);
-     results := {};
+     results := [];
      count   := 1;
-     While( Not? list =? {} )
+     While( Not? list =? [] )
      ⊕
        If(Equal?( First(list), element), DestructiveAppend(results,count) );
        list := Rest(list);
@@ -26,30 +26,30 @@
 
 *PARMS
 
-{list} -- the list to examine
+[list] -- the list to examine
 
-{expr} -- expression to look for in "list"
+[expr] -- expression to look for in "list"
 
 *DESC
 
 This commands returns a list of all the indexes at which the 
 expression "expr" occurs in "list". If "expr" occurs only once, 
 ithat ndex is returned as a list. If "expr" does not occur at all,
-the empty list, {}, is returned.
+the empty list, [], is returned.
 
 *E.G.
 
-In> FindAll({a,b,c,d,e,f}, d);
-Result: {4}
-In> FindAll({1,2,3,2,1}, 2);
+In> FindAll([a,b,c,d,e,f], d);
+Result: [4]
+In> FindAll([1,2,3,2,1], 2);
 
     %output,preserve="false"
       Result: No script returned for function: FindAll from Scripts.java. In function: LoadScript.  Error near line 44 starting at index -1.
 .   %/output
 
-esult: {2,4}
-In> FindAll({1,2,3,2,1}, 4);
-Result: {}
+esult: [2,4]
+In> FindAll([1,2,3,2,1], 4);
+Result: []
 
 
 *SEE Find, FindFirst, Contains?

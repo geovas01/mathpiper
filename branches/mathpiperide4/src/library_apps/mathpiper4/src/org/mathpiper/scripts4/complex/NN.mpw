@@ -4,15 +4,15 @@ LocalSymbols(complexReduce) ⊕
 
   Bind(complexReduce,
     Hold(
-    {
+    [
       Exp(x_ComplexII?) <- Exp(ReII(x))*(Cos(ImII(x))+II*Sin(ImII(x)))
-    }));
+    ]));
 
   NN(_c) <--
   ⊕
     Local(result);
     c := (c /:: complexReduce);
-    result := Coef(Expand(c,II),II,{0,1});
+    result := Coef(Expand(c,II),II,[0,1]);
     result;
   ⊖;
 

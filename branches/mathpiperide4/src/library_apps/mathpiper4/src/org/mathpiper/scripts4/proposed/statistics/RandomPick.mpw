@@ -32,22 +32,22 @@ RandomPick(list) :=
 
 *PARMS
 
-{list} -- a list which contains elements
+[list] -- a list which contains elements
 
 *DESC
 Randomly picks an element from the given list.  
 
 *E.G.
-In> RandomPick({HEADS, TAILS})
+In> RandomPick([HEADS, TAILS])
 Result: HEADS
 
-In> RandomPick({DOOR1, DOOR2, DOOR3})
+In> RandomPick([DOOR1, DOOR2, DOOR3])
 Result: DOOR2
 
-In> RandomPick({DOG, CAT, BIRD, MOUSE, TURTLE})
+In> RandomPick([DOG, CAT, BIRD, MOUSE, TURTLE])
 Result: BIRD
 
-In> RandomPick({23,56,87,92,15})
+In> RandomPick([23,56,87,92,15])
 Result: 56
 
 *SEE RandomPickWeighted, RandomPickVector
@@ -61,7 +61,7 @@ Result: 56
 
 %mathpiper,scope="nobuild",subtype="manual_test"
 
-RandomPick({A,B,C});
+RandomPick([A,B,C]);
 
 %/mathpiper
 

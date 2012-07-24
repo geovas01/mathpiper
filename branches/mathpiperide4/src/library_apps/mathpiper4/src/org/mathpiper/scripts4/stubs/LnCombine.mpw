@@ -81,12 +81,12 @@ LnCombine(_a) <-- DoLnCombine(CanonicalAdd(a));
 
 *PARMS
 
-{expr} -- an expression possibly containing multiple {Ln} terms to be combined
+[expr] -- an expression possibly containing multiple [Ln] terms to be combined
 
 *DESC
 
-{LnCombine} finds {Ln} terms in the expression it is given, and combines them
-using logarithm rules.  It is intended to be the exact converse of {LnExpand}.
+[LnCombine] finds [Ln] terms in the expression it is given, and combines them
+using logarithm rules.  It is intended to be the exact converse of [LnExpand].
 
 *E.G.
 In> LnCombine(Ln(a)+Ln(b)*n)

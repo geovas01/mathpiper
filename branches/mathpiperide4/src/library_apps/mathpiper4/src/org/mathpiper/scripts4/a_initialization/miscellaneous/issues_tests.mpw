@@ -23,15 +23,15 @@ Verify(Factor( a^2 + 2*a*b + b^2 ), (a+b)^2);   // OK
 Verify(Factor(x^2 + x^3), x^2*(x+1) );          // OK
 
 //Issue09
-Verify(Solve(x^2==21,x), {x==Sqrt(21),x==-Sqrt(21)} );      // OK
+Verify(Solve(x^2==21,x), [x==Sqrt(21),x==-Sqrt(21)] );      // OK
 
 //Issue10
-Verify(Solve({x + y == 2, y == x}, {x, y}), {x==1,y==1} );          //  OK
+Verify(Solve([x + y == 2, y == x], [x, y]), [x==1,y==1] );          //  OK
 
 //Issue11
-Verify(Solve(x^3==x,x), {x==0,x==1,x==(-1)});
-Verify(Solve(x^3==x^2,x), {x==0,x==1} );
-Verify(Solve(x^4==x^2,x), {x==0,x==1,x==(-1)});        // OK
+Verify(Solve(x^3==x,x), [x==0,x==1,x==(-1)]);
+Verify(Solve(x^3==x^2,x), [x==0,x==1] );
+Verify(Solve(x^4==x^2,x), [x==0,x==1,x==(-1)]);        // OK
 
 //Issue12
 Verify(Factor( t^2-9 ), (t-3)*(t+3));       // OK
@@ -56,7 +56,7 @@ KnownFailure(Limit(x,-Infinity)(Sin(1/x)*x^2-x*Cos(1/x))/x^2 = 0);
 Verify(Limit(x,Infinity)(Sqrt((4 * (x)^(2)) - (2 * x))) - (2 * x), 0);
 
 //Issue 37
-Verify(Solve((x) * (Ln(x)) == 0, x), {x==1});
+Verify(Solve((x) * (Ln(x)) == 0, x), [x==1]);
 
 //Issue 40
 Verify(Factor(x^2-2),x^2-2);
@@ -71,7 +71,7 @@ Verify(FactorCancel((x+3)/(x^2+2)),(x+3)/(x^2+2));
 
 //Issue 44
 //Verify(Solve(pmt == loan * (rate * (1+rate)^n) / ((1+rate)^n -1), rate), );
-Verify(Solve(E == R * r * (r^n - 1)/(r - 1), n), {n==Ln(((E-(-R*r)/(r-1))*(r-1))/(R*r))/Ln(r)});
+Verify(Solve(E == R * r * (r^n - 1)/(r - 1), n), [n==Ln(((E-(-R*r)/(r-1))*(r-1))/(R*r))/Ln(r)]);
 
 //Issue 50
 TestEquivalent(Factor(5*a*x+5*b*x-2*b*y-2*a*y),(5*x-2*y)*(a+b));
@@ -86,19 +86,19 @@ TestEquivalent(Factor(s^2 - r^2),(s-r)*(r+s));
 TestEquivalent(Factor(5 * a - 10 * b^2),5*(a-2*b^2));
 
 //Issue 57a
-Verify(Solve(3*(3*x-4)+2*(3*x-7)==3*(5*x-6)-8, x),{x==x});
+Verify(Solve(3*(3*x-4)+2*(3*x-7)==3*(5*x-6)-8, x),[x==x]);
 
 //Issue 57b
-Verify(Solve((2*x - 1)*(4*x + 3) == (8*x - 3)*(x + 4) - 3*(9*x + 1), x),{});
+Verify(Solve((2*x - 1)*(4*x + 3) == (8*x - 3)*(x + 4) - 3*(9*x + 1), x),[]);
 
 //Issue 58
 Verify(Simplify(Ln(3)),Ln(3));
 
 //Issue 59
-Verify(Solve((x - 1)*(x - 2)*(x - 3)==0, x),{x==3,x==2,x==1});
+Verify(Solve((x - 1)*(x - 2)*(x - 3)==0, x),[x==3,x==2,x==1]);
 
 //Issue 60
-Verify(Solve(-3*x^3+10*x^2-11*x+4==0, x),{x==1,x==4/3});
+Verify(Solve(-3*x^3+10*x^2-11*x+4==0, x),[x==1,x==4/3]);
 
 //Issue 61
 Verify(TrigSimpCombine(ExpandBrackets((2*x^2-x+3)-(2*x^2-x+3))),0);
@@ -124,13 +124,13 @@ Verify(Factor(Rationalize(x^2-0.5*x+0.5), Hold(1/2*(2*x^2-x+1))));
 Verify(Factor(Rationalize(x^2-0.7*x-2.6)), Hold(1/10*(x-2)*(10*x+13)));
 
 //Issue 80
-Verify(Solve((-((10 * c) + (3)))/(2 * ((4 * (c)^(2)) - (9))) == (-1)/(2 * ((2 * c) - (3))), c), {c==0});
+Verify(Solve((-((10 * c) + (3)))/(2 * ((4 * (c)^(2)) - (9))) == (-1)/(2 * ((2 * c) - (3))), c), [c==0]);
 
 //Issue 82
-Verify(Solve((x^3-6*x^2+32)/8==x^2-4, x),{x==(-2),x==8+2^(5/2),x==8-2^(5/2)});
+Verify(Solve((x^3-6*x^2+32)/8==x^2-4, x),[x==(-2),x==8+2^(5/2),x==8-2^(5/2)]);
 
 // Issue 83
-Verify(Solve({a*x + b*y == c, d*x + e*y == f}, {x, y}),{x==f/d-((c-(a*f)/d)*e)/(d*(b-(a*e)/d)),y==(c-(a*f)/d)/(b-(a*e)/d)});
+Verify(Solve([a*x + b*y == c, d*x + e*y == f], [x, y]),[x==f/d-((c-(a*f)/d)*e)/(d*(b-(a*e)/d)),y==(c-(a*f)/d)/(b-(a*e)/d)]);
 
 //Issue 84
 TestEquivalent(Factor((9 * (a)^(2)) - (3 * a * b)),3*a*(3*a-b));
@@ -139,7 +139,7 @@ TestEquivalent(Factor((9 * (a)^(2)) - (3 * a * b)),3*a*(3*a-b));
 Verify(Sum(i, 0, n-1, r^i), (1-r^(n-1+1))/(1-r));
 
 // Issue 93
-Verify(Solve({x + y == 2, 2*y+2*x==4}, {x, y}), {x==2-y,y==y});
+Verify(Solve([x + y == 2, 2*y+2*x==4], [x, y]), [x==2-y,y==y]);
 
 // Issue 98
 Verify(Simplify(3.15 * 3), 9.45);
@@ -160,14 +160,14 @@ Verify(ExpandBrackets(1/4 * (x+1)), Hold(x/4+1/4));
 Verify(CForm(2.), "2.");
 
 // Issue 109
-Verify(Rationalize({2.25,-33.333,8}),{9/4,(-33333)/1000,8});
+Verify(Rationalize([2.25,-33.333,8]),[9/4,(-33333)/1000,8]);
 Verify(Rationalize(Sqrt(6.1 - Sqrt(7.2))),Sqrt(61/10-Sqrt(36/5)));
 
 // Issue 113
 Verify(Simplify(TrigSimpCombine(FactorCancel((x) + (0.2 * x)))), (6*x)/5);
 
 // Issue 115
-Verify(Solve(a * b^x == c, x), {x==Ln(c/a)/Ln(b)});
+Verify(Solve(a * b^x == c, x), [x==Ln(c/a)/Ln(b)]);
 
 // Issue 116
 Verify(a/3+2*a/3,a);

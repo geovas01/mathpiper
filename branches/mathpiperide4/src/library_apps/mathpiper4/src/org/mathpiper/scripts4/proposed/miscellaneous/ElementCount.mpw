@@ -35,15 +35,15 @@ ElementCount(list) :=
         ElementCount(list)
 
 *PARMS
-{list} -- a list or nested list
+[list] -- a list or nested list
 
 *DESC
 Counts the number of elements in a list or nested list.
 
 *E.G.
-In> ElementCount({1,2,3,4})
+In> ElementCount([1,2,3,4])
 Result: 4
 
-In> ElementCount({1,2,{3,4},5,6})
+In> ElementCount([1,2,[3,4],5,6])
 Result: 6
 %/mathpiper_docs

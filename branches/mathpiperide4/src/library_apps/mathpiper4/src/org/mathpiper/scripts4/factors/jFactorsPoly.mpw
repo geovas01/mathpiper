@@ -61,16 +61,16 @@
     content := xContent( poly );
     pp      := Simplify( poly / content );
     If(Bound?(extraFactor),content := content / extraFactor);
-    If(InVerboseMode(),Tell("   ",{content,pp}));
-    //If(Constant?(pp) And? Length(VarList(content))>?0,{content,pp}:={pp,content});
-    If( Length(VarList(pp))=?0, result := {{pp*content,1}},
+    If(InVerboseMode(),Tell("   ",[content,pp]));
+    //If(Constant?(pp) And? Length(VarList(content))>?0,[content,pp]:=[pp,content]);
+    If( Length(VarList(pp))=?0, result := [[pp*content,1]],
       ⊕
-         //If(InVerboseMode(),Tell("  ",{content,pp}));
+         //If(InVerboseMode(),Tell("  ",[content,pp]));
          vars     := VarList(pp);
          nvars    := Length(vars);
          disassem := DisassembleExpression(pp);
          nterms   := Length(disassem[3]);
-         degrees  := {};
+         degrees  := [];
          allCoeffs         := disassem[3];
          allPowers         := Flatten(disassem[2],"List");
          If(nvars >? 0,
@@ -115,8 +115,8 @@
                Local(L,op,var,exp);
                L := If(Atom?(ppFactors[1]), ppFactors, FunctionToList(ppFactors[1]) );
                If(InVerboseMode(),Tell("                    ",L));
-               If( L[1] =? ^, ppFactors := {L[2],L[3]} );
-               ppFactors := {ppFactors};
+               If( L[1] =? ^, ppFactors := [L[2],L[3]] );
+               ppFactors := [ppFactors];
            ⊖
          );
          If(InVerboseMode(),Tell("  ",ppFactors));
@@ -124,7 +124,7 @@
          // Next, include the factors of the Content, if any
          If( monomialFactors[1][1] =? 1,
              result := ppFactors,        
-             //result := Concat(monomialFactors,{ppFactors})    // hso 100801
+             //result := Concat(monomialFactors,[ppFactors])    // hso 100801
              result := Concat(monomialFactors,ppFactors)      // hso 100803
          );
       ⊖
@@ -171,7 +171,7 @@ UnFence("jFactorsPrimitivePart",1);
 70 # jFactorsPrimitivePart( _pp )_(nvars=?0) <--
 ⊕
     Local(ppFactors);
-    ppfactors := {};
+    ppfactors := [];
 ⊖;
 
 
@@ -180,7 +180,7 @@ UnFence("jFactorsPrimitivePart",1);
 ⊕
     If(InVerboseMode(),Tell("jFactorsPrimitivePart_usingJAS",pp));
     Local(answer);
-    answer := If(Monomial?(pp),{pp,1},jasFactorsInt(pp));
+    answer := If(Monomial?(pp),[pp,1],jasFactorsInt(pp));
     If(InVerboseMode(),Tell("          ",answer));
     answer;
 ⊖;
@@ -193,12 +193,12 @@ UnFence("jFactorsPrimitivePart",1);
     If(InVerboseMode(),⊕NewLine();Tell("jFactorsHomogeneousBivariate",dis);⊖);
     Local(dis1,f,dis2,poly1,ppFactors,residuals);
     Local(ii,lst,f,preassem);
-    dis1  := {{xi},{{X},{X[1]}} /@ dis[2],dis[3]};
+    dis1  := [[xi],[[X],[X[1]]] /@ dis[2],dis[3]];
     If(InVerboseMode(),Tell("   ",dis1));
     poly1 := Sum(ReassembleListTerms(dis1));
     If(InVerboseMode(),Tell("   ",poly1));
     ppFactors := BinaryFactors(poly1);
-    {ppFactors,residuals} := FixUpMonicFactors(ppFactors);
+    [ppFactors,residuals] := FixUpMonicFactors(ppFactors);
     For(ii:=1,ii<=?Length(ppFactors),ii++)
     ⊕
         f := ppFactors[ii];
@@ -270,17 +270,17 @@ UnFence("RationalToIntegerConvert",1);
       Local(q,a,b,t,f,ff,err);
       err := False;
       t   := 1;
-      f   := {};
+      f   := [];
       ForEach(q,factrs)
       ⊕
           If( InVerboseMode(), Tell(1,q) );
           If( List?(q) And? Length(q)=?2,
             ⊕
-                {a,b} := q;
-                If( InVerboseMode(), Echo("     ",{a,b}) );
-                If( NumericList?( {a,b} ),
+                [a,b] := q;
+                If( InVerboseMode(), Echo("     ",[a,b]) );
+                If( NumericList?( [a,b] ),
                     t := t * a^b,
-                    f := {a,b}~f
+                    f := [a,b]~f
                 );
             ⊖,
               err := True
@@ -293,8 +293,8 @@ UnFence("RationalToIntegerConvert",1);
             Echo("    err = ",err);
         ⊖
       );
-      ff := If(Not? err And? t !=? 1, {t,1}~Reverse(f), factrs);
-      ff := Select(Lambda({x},x!=?{1,1}),ff);
+      ff := If(Not? err And? t !=? 1, [t,1]~Reverse(f), factrs);
+      ff := Select(Lambda([x],x!=?[1,1]),ff);
       If(ff[1]<?0,ff[1]:=-ff[1]);
 ⊖;
 
@@ -373,15 +373,15 @@ UnFence("RationalToIntegerConvert",1);
     Br    := N(B^(1/n));    Brr := Round(Br);   DBr := Abs(Br-Brr);
     If(InVerboseMode(),
       ⊕
-          Tell("       ",{n,X,Y}); 
-          Tell("       ",{vars,A,B});
-          Tell("       ",{Ar,Br,s});
-          Tell("       ",{Arr,Brr});
-          Tell("       ",{DAr,DBr});
+          Tell("       ",[n,X,Y]); 
+          Tell("       ",[vars,A,B]);
+          Tell("       ",[Ar,Br,s]);
+          Tell("       ",[Arr,Brr]);
+          Tell("       ",[DAr,DBr]);
           Tell("       ",dis);
       ⊖
     );
-    result := If( DAr <? 10^(-9) And? DBr <? 10^(-9), jFB(dis), {{poly,1}} );
+    result := If( DAr <? 10^(-9) And? DBr <? 10^(-9), jFB(dis), [[poly,1]] );
     result;
 ⊖;
 UnFence("jFactorsBivariateBinomial",1);
@@ -394,14 +394,14 @@ UnFence("jFactorsBivariateBinomial",1);
     If(InVerboseMode(),
       ⊕
          Tell("     ",n);
-         Tell("     ",{X,Y});
-         Tell("     ",{A,B,s});
-         Tell("     ",{Ar,Br});
+         Tell("     ",[X,Y]);
+         Tell("     ",[A,B,s]);
+         Tell("     ",[Ar,Br]);
       ⊖
     );
     X     := Arr*X;
     Y     := Brr*Y;
-    If(InVerboseMode(),Tell("     ",{X,Y}));
+    If(InVerboseMode(),Tell("     ",[X,Y]));
     
     fac  := jFac( X/Y,n,s);    //  factor using JAS and normalized variable
     If(InVerboseMode(),
@@ -420,9 +420,9 @@ UnFence("jFactorsBivariateBinomial",1);
           ⊕
               f := fac[ii][1];
               d := Degree(f,x);
-              If(InVerboseMode(),Tell("             ",{ii,f,d}));
+              If(InVerboseMode(),Tell("             ",[ii,f,d]));
               fs := Subst(x,X/Y) f;
-              If(InVerboseMode(),Tell("               ",{fs,d}));
+              If(InVerboseMode(),Tell("               ",[fs,d]));
               fac[ii][1] := Simplify(Simplify(Y^d*fs));
           ⊖;
       ⊖
@@ -436,7 +436,7 @@ UnFence("jFB",1);
 60 # jFac( _var, n_PositiveInteger?, s_Integer? ) <--
 ⊕
     //  Uses JAS to factor polynomial of form x^n � 1.
-    If(InVerboseMode(),⊕NewLine();Tell("jFac",{var,n,s});⊖);
+    If(InVerboseMode(),⊕NewLine();Tell("jFac",[var,n,s]);⊖);
     Local(x,poly,result);
     poly := x^n+s;
     If(InVerboseMode(),Tell("   ",poly));
@@ -487,8 +487,8 @@ UnFence("jFac",3);
 ⊕
     If(InVerboseMode(),⊕ NewLine(); Tell("   doing monic fixup"); ⊖ );
     Local(factrsnew,residuals,f,uni,);
-    factrsnew := {};
-    residuals := {};
+    factrsnew := [];
+    residuals := [];
     ForEach(f,factrs)
     ⊕
         If(InVerboseMode(),Tell("               ",f));
@@ -508,7 +508,7 @@ UnFence("jFac",3);
                  DestructiveAppend(factrsnew,f);
               ⊖,
               ⊕ 
-                 DestructiveAppend(factrsnew,{fnew,f[2]});
+                 DestructiveAppend(factrsnew,[fnew,f[2]]);
               ⊖
             );
           ⊖
@@ -518,7 +518,7 @@ UnFence("jFac",3);
             If(InVerboseMode(),Tell("                          ",Degree(f[1])));
             Local(pq);
             pq      := PrimitivePart(f[1]);
-            DestructiveAppend(factrsnew,{pq,f[2]});
+            DestructiveAppend(factrsnew,[pq,f[2]]);
           ⊖
         );
         //  If any factors have degree >=3, store them in a 'residuals' array
@@ -528,12 +528,12 @@ UnFence("jFac",3);
             If(InVerboseMode(),Tell("                          ",Degree(f[1])));
             Local(pq);
             pq      := PrimitivePart(f[1]);
-            DestructiveAppend(residuals,{pq,f[2]});
+            DestructiveAppend(residuals,[pq,f[2]]);
             If(InVerboseMode(),Tell("                   appending to residuals",pq));
           ⊖
         );       
     ⊖;
-    {factrsnew,residuals};
+    [factrsnew,residuals];
 ⊖;
 UnFence("FixUpMonicFactors",1);
 

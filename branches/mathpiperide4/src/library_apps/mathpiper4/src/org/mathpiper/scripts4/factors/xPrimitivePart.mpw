@@ -12,10 +12,10 @@
 ⊖;
 
 
-Macro("xPrimitivePart",{poly,xcont})
+Macro("xPrimitivePart",[poly,xcont])
 ⊕
     Local(pp);
-    If(InVerboseMode(),Tell("  xPrimitivePart2",{poly,xcont}));
+    If(InVerboseMode(),Tell("  xPrimitivePart2",[poly,xcont]));
     
     If( Bound?(@xcont), 
       ⊕
@@ -46,8 +46,8 @@ Macro("xPrimitivePart",{poly,xcont})
 
 *PARMS
 
-{expr} -- a univariate or multivariate polynomial
-{cont} -- the Content of this polynomial
+[expr] -- a univariate or multivariate polynomial
+[cont] -- the Content of this polynomial
 
 *DESC
 
@@ -55,12 +55,12 @@ This is an experimental version of the existing function PrimitivePart(),
 with extended features.  It is provided primarily for testing purposes,
 until it is ready to replace the older version.
 
-This command determines the {primitive part} of a polynomial. 
-The {primitive part} is what remains after the content (the
+This command determines the [primitive part] of a polynomial. 
+The [primitive part] is what remains after the content (the
 greatest common divisor of all the terms) is divided out. 
 
-Every polynomial can be written as the product of its {content} (q.v.)
-and its {primitive part}. This representation is usually the
+Every polynomial can be written as the product of its [content] (q.v.)
+and its [primitive part]. This representation is usually the
 first step in any attempt to factor the polynomial.
 
 NOTE: If the first calling sequence is used ('arity' = 1), the function

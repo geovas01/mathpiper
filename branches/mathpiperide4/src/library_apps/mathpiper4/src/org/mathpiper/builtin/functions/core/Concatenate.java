@@ -110,7 +110,7 @@ Result: {5,a,b,c,{f(x)}};
 
 %mathpiper,name="Concat",subtype="automatic_test"
 
-Verify(Concat({a,b},{c,d}), {a,b,c,d});
+Verify(Concat([a,b],[c,d]), [a,b,c,d]);
 
 %/mathpiper
 

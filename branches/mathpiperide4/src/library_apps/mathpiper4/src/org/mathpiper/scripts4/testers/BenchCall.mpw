@@ -1,6 +1,6 @@
 %mathpiper,def="BenchCall"
 
-Function("BenchCall",{expr})
+Function("BenchCall",[expr])
 ⊕
   Echo("In&gt ",expr);
   WriteString("<font color=ff0000>");

@@ -1,11 +1,11 @@
 %mathpiper,def="GeoGebraPlot"
 //Retract("GeoGebraPlot",*);
 
-RulebaseListedHoldArguments("GeoGebraPlot",{arg1,arg2});
+RulebaseListedHoldArguments("GeoGebraPlot",[arg1,arg2]);
 
 
 
-5 # GeoGebraPlot(_arg1) <-- GeoGebraPlot(arg1,{});  //Handle single argument call.
+5 # GeoGebraPlot(_arg1) <-- GeoGebraPlot(arg1,[]);  //Handle single argument call.
 
 
 20 # GeoGebraPlot(function_Function?, options_List?)_(Not? List?(function)) <--
@@ -24,7 +24,7 @@ RulebaseListedHoldArguments("GeoGebraPlot",{arg1,arg2});
 
 10 # GeoGebraPlot(list_List?, _options)_(NumericList?(list) )  <--
 ⊕
-    If(List?(options), options := OptionsToAssociativeList(options), options := OptionsToAssociativeList({options}));
+    If(List?(options), options := OptionsToAssociativeList(options), options := OptionsToAssociativeList([options]));
 
     Local(length, index, labelIndex, pointTemplate, segmentCommandTemplate, segmentElementTemplate, command, code, x, y, pointSize);
     
@@ -84,7 +84,7 @@ RulebaseListedHoldArguments("GeoGebraPlot",{arg1,arg2});
 ⊕
     Local(flatList);
     
-    flatList := {};
+    flatList := [];
     
     ForEach(subList,list)
     ⊕
@@ -111,7 +111,7 @@ RulebaseListedHoldArguments("GeoGebraPlot",{arg1,arg2});
 
 %mathpiper,title="",scope="nobuild",subtype="manual_test"
 
-GeoGebraPlot({1,1,2,2,3,3,4,4,5,5,6,6}, lines -> True);
+GeoGebraPlot([1,1,2,2,3,3,4,4,5,5,6,6], lines -> True);
 
 %/mathpiper
 
@@ -124,7 +124,7 @@ GeoGebraPlot({1,1,2,2,3,3,4,4,5,5,6,6}, lines -> True);
 
 %mathpiper,title="",scope="nobuild",subtype="manual_test"
 
-GeoGebraPlot({{0,0}, {0,-1},{0,-2},{1,-2},{1,-1},{2,-1},{3,-1},{4,-1},{4,-2},{5,-2},{6,-2},{6,-1},{6,-2},{7,-2},{7,-1},{8,-1},{8,0},{8,-1},{9,-1},{8,-1},{7,-1}},lines -> True, labels -> False);
+GeoGebraPlot([[0,0], [0,-1],[0,-2],[1,-2],[1,-1],[2,-1],[3,-1],[4,-1],[4,-2],[5,-2],[6,-2],[6,-1],[6,-2],[7,-2],[7,-1],[8,-1],[8,0],[8,-1],[9,-1],[8,-1],[7,-1]],lines -> True, labels -> False);
 
 %/mathpiper
 

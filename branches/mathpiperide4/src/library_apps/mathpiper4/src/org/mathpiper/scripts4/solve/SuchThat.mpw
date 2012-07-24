@@ -7,11 +7,11 @@
   Local(result,args);
   result:=False;
   args:=Rest(FunctionToList(body));
-  While(args !=? {})
+  While(args !=? [])
   ⊕
     result:=ContainsExpression(First(args),expr);
     args:=Rest(args);
-    if (result =? True) (args:={});
+    if (result =? True) (args:=[]);
   ⊖;
   result;
 ⊖;
@@ -96,19 +96,19 @@ SuchThat(_function,_var) <-- SuchThat(function,0,var);
 
 *PARMS
 
-{expr} -- expression to make zero
+[expr] -- expression to make zero
 
-{var} -- variable (or subexpression) to solve for
+[var] -- variable (or subexpression) to solve for
 
 *DESC
 
 This functions tries to find a value of the variable "var" which
 makes the expression "expr" zero. It is also possible to pass a
-subexpression as "var", in which case {SuchThat}
+subexpression as "var", in which case [SuchThat]
 will try to solve for that subexpression.
 
 Basically, only expressions in which "var" occurs only once are
-handled; in fact, {SuchThat} may even give wrong
+handled; in fact, [SuchThat] may even give wrong
 results if the variables occurs more than once. This is a consequence
 of the implementation, which repeatedly applies the inverse of the top
 function until the variable "var" is reached.

@@ -2,7 +2,7 @@
 
 // check that all items in the list are numbers
 NumericList?(_arglist) <-- List?(arglist) And?
-        ("And?" @ (MapSingle(Hold({{x},Number?(N(Eval(x)))}), arglist)));
+        ("And?" @ (MapSingle(Hold([[x],Number?(N(Eval(x)))]), arglist)));
 
 %/mathpiper
 
@@ -12,14 +12,14 @@ NumericList?(_arglist) <-- List?(arglist) And?
 *CMD NumericList? --- test for a list of numbers
 *STD
 *CALL
-        NumericList?({list})
+        NumericList?([list])
 
 *PARMS
 
-{{list}} -- a list
+[[list]] -- a list
 
 *DESC
-Returns {True} when called on a list of numbers or expressions that evaluate to numbers using {N()}. Returns {False} otherwise.
+Returns [True] when called on a list of numbers or expressions that evaluate to numbers using [N()]. Returns [False] otherwise.
 
 *SEE N, Number?
 %/mathpiper_docs

@@ -9,7 +9,7 @@ DivisorsList(n_PositiveInteger?) <--
 ⊕
  Local(nFactors,f,result,oldresult,x);
  nFactors:= Factors(n);
- result := {1};
+ result := [1];
  ForEach (f,nFactors)
     ⊕
       oldresult := result;
@@ -31,11 +31,11 @@ DivisorsList(n_PositiveInteger?) <--
         DivisorsList(n)
 *PARMS
 
-{n} -- positive integer
+[n] -- positive integer
 
 *DESC
 
-{DivisorsList} creates a list of the divisors of $n$.
+[DivisorsList] creates a list of the divisors of $n$.
 This is useful for loops like
 
         ForEach(d,DivisorsList(n))
@@ -43,7 +43,7 @@ This is useful for loops like
 *E.G.
 
 In> DivisorsList(18)
-Result: {1,2,3,6,9,18};
+Result: [1,2,3,6,9,18];
 
 *SEE DivisorsSum
 %/mathpiper_docs

@@ -61,7 +61,7 @@
 110 # (Complex(_r,_i) ^ x_RationalOrNumber?)_(Not?(Integer?(x))) <-- Exp(x*Ln(Complex(r,i)));
 
 // This is commented out because it used PowerN so (2*I)^(-10) became a floating-point number. Now everything is handled by binary algorithm below
-//120 # Complex(r_Zero?,_i) ^ n_Integer? <-- {1,I,-1,-I}[1+Modulo(n,4)] * i^n;
+//120 # Complex(r_Zero?,_i) ^ n_Integer? <-- [1,I,-1,-I][1+Modulo(n,4)] * i^n;
 
 123 # Complex(_r, _i) ^ n_NegativeInteger? <-- 1/Complex(r, i)^(-n);
 
@@ -112,9 +112,9 @@
 
 *PARMS
 
-{r} -- real part
+[r] -- real part
 
-{c} -- imaginary part
+[c] -- imaginary part
 
 *DESC
 
@@ -125,7 +125,7 @@ real.
 
 Note that, at the moment, many functions in MathPiper assume that all
 numbers are real unless it is obvious that it is a complex
-number. Hence {Im(Sqrt(x))} evaluates to {0} which is only true for nonnegative "x".
+number. Hence [Im(Sqrt(x))] evaluates to [0] which is only true for nonnegative "x".
 
 *E.G.
 

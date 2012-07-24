@@ -88,7 +88,7 @@ Result: {*,3,a};
 %mathpiper,name="FunctionToList",subtype="automatic_test"
 
 // FunctionToList and ListToFunction coredumped when their arguments were invalid.
-Verify(FunctionToList(Cos(x)),{Cos,x});
+Verify(FunctionToList(Cos(x)),[Cos,x]);
 
 ⊕
   Local(exception);

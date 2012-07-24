@@ -1,6 +1,6 @@
 %mathpiper,def="=="
 
-RulebaseHoldArguments("==",{left,right});
+RulebaseHoldArguments("==",[left,right]);
 
 %/mathpiper
 
@@ -15,7 +15,7 @@ RulebaseHoldArguments("==",{left,right});
 
 *PARMS
 
-{expression} -- an expression
+[expression] -- an expression
 
 *DESC
 
@@ -26,7 +26,7 @@ a comparison operation on two expressions.
 *E.G.
 
 In> Solve(y == m*x + b, x)
-Result: {x==(y-b)/m}
+Result: [x==(y-b)/m]
 
 *SEE !==
 %/mathpiper_docs

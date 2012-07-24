@@ -1,6 +1,6 @@
 %mathpiper,def="<--"
 
-RulebaseHoldArguments("<--",{leftOperand,rightOperand});
+RulebaseHoldArguments("<--",[leftOperand,rightOperand]);
 
 
 
@@ -39,8 +39,8 @@ arg1_PredicateFunction operator arg2_PredicateFunction_(PredicateExpression) <--
 
 *PARMS
 
-{arg} -- an expression
-{operator} -- an operator
+[arg] -- an expression
+[operator] -- an operator
 
 *DESC
 Mathematical calculations require versatile transformations on symbolic quantities.
@@ -58,7 +58,7 @@ f(n)=n*f(n-1) if n>0 and 1 if n=0 to evaluate the factorial.
 We start with the simple termination condition, which is that f(n) should return
 one if n is zero:
 
-{10 # f(0) <-- 1;}
+[10 # f(0) <-- 1;]
 
 You can verify that this already works for input value zero, with f(0).
 
@@ -120,7 +120,7 @@ long as there are no other rules concerning the function f, the assignment of nu
 usually a good idea however to keep some space between these numbers, so you have
 room to insert new transformation rules later on.
 
-Predicates can be combined: for example, {IntegerGreaterThanZero?()} could also
+Predicates can be combined: for example, [IntegerGreaterThanZero?()] could also
 have been defined as:
 10 # IntegerGreaterThanZero?(n_Integer?)_(n>?0) <-- True;
 20 # IntegerGreaterThanZero?(_n) <-- False;

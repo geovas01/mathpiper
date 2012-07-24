@@ -14,11 +14,11 @@ _x o _y <-- Outer(x,y);
 
 *PARMS
 
-{t1,t2} -- tensor lists (currently only vectors are supported)
+[t1,t2] -- tensor lists (currently only vectors are supported)
 
 *DESC
 
-See the {Outer} function for more information.
+See the [Outer] function for more information.
 
 *SEE Outer
 %/mathpiper_docs

@@ -12,7 +12,7 @@ Midpoint(PointA_Point?,PointB_Point?) <--
     midpointX := (x1 + x2)/2;
     midpointY := (y1 + y2)/2;
     
-    {midpointX,midpointY};
+    [midpointX,midpointY];
 
 ⊖;
 
@@ -30,7 +30,7 @@ Midpoint(segment_Segment?) <--
     midpointX := (x1 + x2)/2;
     midpointY := (y1 + y2)/2;
     
-    {midpointX,midpointY};
+    [midpointX,midpointY];
 
 ⊖;
 
@@ -46,11 +46,11 @@ Midpoint(segment_Segment?) <--
         Midpoint(s)
 *PARMS
 
-{p1} -- the first point
+[p1] -- the first point
 
-{p2} -- the second point
+[p2] -- the second point
 
-{s} -- a segment
+[s] -- a segment
 
 *DESC
 
@@ -60,16 +60,16 @@ midpoint formula.
 *E.G.
 
 In> PointA := Point(2,3)
-Result: {2,3}
+Result: [2,3]
         
 In> PointB := Point(6,8)
-Result: {6,8}
+Result: [6,8]
         
 In> Midpoint(PointA, PointB)
-Result: {4,11/2}
+Result: [4,11/2]
 
 In> Midpoint(Segment(Point(0,0), Point(3,4)))
-Result: {3/2,2}
+Result: [3/2,2]
 
 *SEE Point?, Point, Distance, Slope, Segment
 %/mathpiper_docs

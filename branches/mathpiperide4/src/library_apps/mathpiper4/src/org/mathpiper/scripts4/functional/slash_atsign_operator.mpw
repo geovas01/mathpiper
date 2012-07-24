@@ -1,6 +1,6 @@
 %mathpiper,def="/@"
 
-Function("/@",{func,lst}) Apply("MapSingle",{func,lst});
+Function("/@",[func,lst]) Apply("MapSingle",[func,lst]);
 
 %/mathpiper
 
@@ -16,12 +16,12 @@ Precedence:
 
 *PARMS
 
-{fn} -- function to apply
+[fn] -- function to apply
 
-{list} -- list of arguments
+[list] -- list of arguments
 
 *DESC
-This function is a shorthand for {MapSingle}. It
+This function is a shorthand for [MapSingle]. It
 successively applies the function "fn" to all the entries in
 "list" and returns a list contains the results. The parameter "fn"
 can either be a string containing the name of a function or a pure
@@ -31,10 +31,10 @@ This operator can help the user to program in the style of functional programmin
 
 *E.G.
 
-In> "Sin" /@ {a,b}
-Result: {Sin(a),Sin(b)};
-In> {{a},Sin(a)*a} /@ {a,b}
-Result: {Sin(a)*a,Sin(b)*b};
+In> "Sin" /@ [a,b]
+Result: [Sin(a),Sin(b)];
+In> [[a],Sin(a)*a] /@ [a,b]
+Result: [Sin(a)*a,Sin(b)*b];
 
 *SEE MapSingle, Map, MapArgs
 %/mathpiper_docs

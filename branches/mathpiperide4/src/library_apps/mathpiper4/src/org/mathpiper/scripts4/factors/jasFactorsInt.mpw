@@ -26,8 +26,8 @@ jasFactorsInt(poly_Polynomial?) <--
     entrySet  := JavaCall(resultSet,"entrySet");
     iterator  := JavaCall(entrySet,"iterator");
     // now we can iterate through the Map and make a MathPiper List whose
-    // elements are {factor,multiplicity} pairs
-    result    := {};
+    // elements are [factor,multiplicity] pairs
+    result    := [];
     While ( JavaAccess(iterator,"hasNext")=True)
     [
         entrySet := JavaCall(iterator,"next");
@@ -43,7 +43,7 @@ jasFactorsInt(poly_Polynomial?) <--
         ];
         fact   := ListToString(lst);
         factor := PipeFromString(fact:";") Read();
-        DestructiveAppend( result, {factor,mult} );
+        DestructiveAppend( result, [factor,mult] );
     ];
     
     JavaCall(jasI,"terminate");

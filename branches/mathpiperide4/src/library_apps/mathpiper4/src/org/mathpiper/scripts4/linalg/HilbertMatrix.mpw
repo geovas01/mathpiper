@@ -2,8 +2,8 @@
 
 // The arguments of the following functions should be checked
 // notoriously hard to manipulate numerically
-HilbertMatrix(n):=GenMatrix({{i,j}, 1/(i+j-1)}, n,n );
-HilbertMatrix(m,n):=GenMatrix({{i,j}, 1/(i+j-1)}, m,n );
+HilbertMatrix(n):=GenMatrix([[i,j], 1/(i+j-1)], n,n );
+HilbertMatrix(m,n):=GenMatrix([[i,j], 1/(i+j-1)], m,n );
 
 
 %/mathpiper
@@ -18,13 +18,13 @@ HilbertMatrix(m,n):=GenMatrix({{i,j}, 1/(i+j-1)}, m,n );
         HilbertMatrix(n,m)
 *PARMS
 
-{n,m} -- positive integers
+[n,m] -- positive integers
 
 *DESC
 
-The function {HilbertMatrix} returns the {n} by {m} Hilbert matrix
-if given two arguments, and the square {n} by {n} Hilbert matrix
-if given only one. The Hilbert matrix is defined as {A(i,j) = 1/(i+j-1)}.
+The function [HilbertMatrix] returns the [n] by [m] Hilbert matrix
+if given two arguments, and the square [n] by [n] Hilbert matrix
+if given only one. The Hilbert matrix is defined as [A(i,j) = 1/(i+j-1)].
 The Hilbert matrix is extremely sensitive to manipulate and invert numerically.
 
 *E.G.

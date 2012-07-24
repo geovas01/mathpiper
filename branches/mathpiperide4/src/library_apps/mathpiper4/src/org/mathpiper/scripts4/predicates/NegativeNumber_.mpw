@@ -14,12 +14,12 @@ NegativeNumber?(x):= Number?(x) And? x <? 0;
 
 *PARMS
 
-{n} -- number to test
+[n] -- number to test
 
 *DESC
 
-{NegativeNumber?(n)} evaluates to {True} if $n$ is (strictly) negative, i.e.
-if $n<0$. If {n} is not a number, the functions return {False}. 
+[NegativeNumber?(n)] evaluates to [True] if $n$ is (strictly) negative, i.e.
+if $n<0$. If [n] is not a number, the functions return [False]. 
 
 *E.G.
 

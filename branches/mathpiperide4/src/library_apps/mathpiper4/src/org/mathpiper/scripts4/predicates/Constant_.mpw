@@ -1,6 +1,6 @@
 %mathpiper,def="Constant?"
 
-Constant?(_n) <-- (VarList(n) =? {});
+Constant?(_n) <-- (VarList(n) =? []);
 
 %/mathpiper
 
@@ -14,14 +14,14 @@ Constant?(_n) <-- (VarList(n) =? {});
 
 *PARMS
 
-{expr} -- some expression
+[expr] -- some expression
 
 *DESC
 
-{Constant?} returns {True} if the
+[Constant?] returns [True] if the
 expression is some constant or a function with constant arguments. It
 does this by checking that no variables are referenced in the
-expression. {Pi} is considered a constant.
+expression. [Pi] is considered a constant.
 
 *E.G.
 

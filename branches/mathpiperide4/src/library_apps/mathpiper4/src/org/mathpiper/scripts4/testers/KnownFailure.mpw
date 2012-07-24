@@ -1,11 +1,11 @@
 %mathpiper,def="KnownFailure"
 
-Function("KnownFailure",{expr})
+Function("KnownFailure",[expr])
 ⊕
   Local(rfail);
   Echo("Known failure: ", expr);
   Bind(rfail,Eval(expr));
-  If(rfail,Echo({"Failure resolved!"}));
+  If(rfail,Echo(["Failure resolved!"]));
 ⊖;
 HoldArgument("KnownFailure",expr);
 
@@ -22,16 +22,16 @@ HoldArgument("KnownFailure",expr);
 
 *PARMS
 
-{test} -- expression that should return {False} on failure
+[test] -- expression that should return [False] on failure
 
 *DESC
 
-The command {KnownFailure} marks a test as known to fail
+The command [KnownFailure] marks a test as known to fail
 by displaying a message to that effect on screen.
 
 This might be used by developers when they have no time
 to fix the defect, but do not wish to alarm users who download
-MathPiper and type {make test}.
+MathPiper and type [make test].
 
 *E.G.
 

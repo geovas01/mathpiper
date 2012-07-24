@@ -3,7 +3,7 @@
 /* Tensor package. This code intends to simplify tensorial expressions.
  */
 
-10 # TSumRest({}) <-- 1;
+10 # TSumRest([]) <-- 1;
 20 # TSumRest(_list) <--
 ⊕
    TSumSimplify(TList(First(list),Rest(list)));

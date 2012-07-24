@@ -22,24 +22,24 @@
 10 # SolveSystem( eqns_List?, vars_List? ) <--
 [
     // This is the old, now obsolete method
-    If(InVerboseMode(),Tell("SolveSystem0",{eqns,vars}));
+    If(InVerboseMode(),Tell("SolveSystem0",[eqns,vars]));
     SolveSimpleBackSubstitution(eqns,vars);
 ];
 */
 
 10 # SolveSystem( eqns_List?, vars_List? )_(Length(eqns)=?1 And? Length(vars)=?1) <--
 ⊕
-    {Solve(eqns[1],vars[1])};
+    [Solve(eqns[1],vars[1])];
 ⊖;
 
 12 # SolveSystem( eqns_List?, vars_List? ) <--
 ⊕
     // This is the first try at a better algorithm for doing this
-    If(InVerboseMode(),Tell("SolveSystem",{eqns,vars}));
+    If(InVerboseMode(),Tell("SolveSystem",[eqns,vars]));
     
     Local(eq,expr,exprns,VaD,isLinearSet,ans);
     // express as set of polynomials, to be equated to zero
-    exprns := {};
+    exprns := [];
     ForEach(eq,eqns)
      ⊕
          expr := If( Equation?(eq), EquationLeft(eq)-EquationRight(eq), eq );
@@ -58,7 +58,7 @@
         ans:=SolveNonlinearSystem( exprns, vars )
     );
 
-    If(ans !=? {}, ans := Map("==",{vars,ans}));
+    If(ans !=? [], ans := Map("==",[vars,ans]));
 
     If(InVerboseMode(),Tell("",ans));
 
@@ -69,14 +69,14 @@
 10 # VarsAndDegs(exs_List?,vars_List?) <--
 ⊕
     Local(ex,v,result);
-    result := {};
+    result := [];
     ForEach(ex,exs)
      ⊕
          Local(res);
-         res := {};
+         res := [];
          ForEach(v,vars)
           ⊕
-              DestructiveAppend(res,Apply("Degree",{ex,v}));
+              DestructiveAppend(res,Apply("Degree",[ex,v]));
           ⊖;
           DestructiveAppend(result,res);
      ⊖;
@@ -89,7 +89,7 @@
 ⊕
     Local(A, E);
 
-    If(InVerboseMode(),Tell("   SolveLinearSystem",{polys,vars}));
+    If(InVerboseMode(),Tell("   SolveLinearSystem",[polys,vars]));
     // note  Coef(polys[1],vars[1],1) etc, to create matrix of coefficients
     Local(lhs,rhs,zeros);
     lhs := MakeCoefMatrix(polys,vars);
@@ -98,11 +98,11 @@
     rhs := -WithValue(vars,zeros,polys);
     If(InVerboseMode(),Tell("       ",rhs));
     
-    A := Transpose(Concat(Transpose(lhs),{rhs}));
+    A := Transpose(Concat(Transpose(lhs),[rhs]));
     E := RREF(A);
 
     If(Contains?(E,BaseVector(Dimensions(E)[2],Dimensions(E)[2])),
-        {},
+        [],
         MatrixColumn(E,Dimensions(E)[2]) - (ExtractSubMatrix(E, 1, 1, Length(E), Length(E)) - Identity(Length(E))) * vars);
 ⊖;
 
@@ -110,16 +110,16 @@
 
 10 # MakeCoefMatrix(polys_List?,vars_List?) <--
 ⊕
-    If(InVerboseMode(),Tell("      MakeCoefMatrix",{polys,vars}));
+    If(InVerboseMode(),Tell("      MakeCoefMatrix",[polys,vars]));
     Local(p,v,result);
-    result := {};
+    result := [];
     ForEach(p,polys)
      ⊕
          Local(res);
-         res := {};
+         res := [];
          ForEach(v,vars)
           ⊕
-              DestructiveAppend(res,Apply("Coef",{p,v,1}));
+              DestructiveAppend(res,Apply("Coef",[p,v,1]));
           ⊖;
           DestructiveAppend(result,res);
      ⊖;

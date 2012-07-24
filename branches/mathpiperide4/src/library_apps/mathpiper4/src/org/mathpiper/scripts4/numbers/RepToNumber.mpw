@@ -23,7 +23,7 @@
     If( Length(rep) >? 2, scale := rep[3] );
     strBI     := ExpressionToString(Abs(bigInt));
     LS        := Length(strBI);
-    //If(InVerboseMode(),[Tell("   ",{bigInt,precision,scale,sgn});Tell("   ",strBI);]);
+    //If(InVerboseMode(),[Tell("   ",[bigInt,precision,scale,sgn]);Tell("   ",strBI);]);
     If( Length(rep)=?2,
        ⊕ numStr := strBI; ⊖,
        ⊕
@@ -31,7 +31,7 @@
            first := strBI[1];
            secnd := StringMidGet(2,LS-1,strBI);   
            third := ExpressionToString(index-1);
-           //If(InVerboseMode(),Tell("     ",{index,first,secnd,third}));
+           //If(InVerboseMode(),Tell("     ",[index,first,secnd,third]));
            if ( index >? 0 )
                ⊕
                    if ( index <? precision )
@@ -79,7 +79,7 @@
         
 *PARMS
 
-{rep} -- A list representing MathPiper's internal structure for a number
+[rep] -- A list representing MathPiper's internal structure for a number
 
 
 *DESC
@@ -87,20 +87,20 @@
 This function returns a Decimal, Integer, or Complex number, when given a data
 structure containing MathPiper's internal representation of the number.
 
-Internally, MathPiper represents {arbitrary precision} numbers as Java BigIntegers or
+Internally, MathPiper represents [arbitrary precision] numbers as Java BigIntegers or
 BigDecimals.  Java code handles calculations using such numbers.
 
 All the information needed to correctly understand the precision attached to a number,
 and the rounding and comparison thereof, is contained in the Java structure.
 
 For a Decimal number (essentially anything with a decimal point), the representation
-consists of an arbitrary-precision integer containing {all} the significant digits of
-the number, and a {scale factor} telling where the implied decimal point is supposed to
-be placed with respect to the end of the integer.  The {precision} of the number is
+consists of an arbitrary-precision integer containing [all] the significant digits of
+the number, and a [scale factor] telling where the implied decimal point is supposed to
+be placed with respect to the end of the integer.  The [precision] of the number is
 just the number of digits in the integer.
 
 The three components of the List representing a decimal number are, respectively,
-{{BigInteger (unscaled), Precision, ScaleFactor}}.
+[[BigInteger (unscaled), Precision, ScaleFactor]].
 Note that the second of these is redundent: only the BigInteger and the ScaleFactor
 are needed to completely define the number.
 
@@ -111,23 +111,23 @@ as first component and its precision as second.
 For a Complex number, the representation is a List of Lists,
 containing the representations of the Real and Imaginary parts of the number.
 
-The best way to {consistently} deal with precision and rounding issues is by making use
+The best way to [consistently] deal with precision and rounding issues is by making use
 of the information given by the representation (or "rep" for short)..
 
 *E.G.
-In> RepToNumber({12345678,8,5})
+In> RepToNumber([12345678,8,5])
 Result: 123.45678
 
-In> RepToNumber({34700,5})
+In> RepToNumber([34700,5])
 Result: 34700
 
-In> RepToNumber({{150,3,2},{675,3,2}})
+In> RepToNumber([[150,3,2],[675,3,2]])
 Result: Complex(1.50,6.75)
 
-In> RepToNumber({12345678,8,15})
+In> RepToNumber([12345678,8,15])
 Result: 0.000000012345678   :   BETTER WOULD BE 123.45678E-10
 
-In> RepToNumber({12345678,8,-5})
+In> RepToNumber([12345678,8,-5])
 Result: 1234567800000       :   BETTER WOULD BE 123.45678E+10
     
 *SEE NumberToRep, DumpNumber

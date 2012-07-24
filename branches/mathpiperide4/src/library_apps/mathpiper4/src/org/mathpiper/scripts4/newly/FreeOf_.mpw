@@ -1,9 +1,9 @@
 %mathpiper,def="FreeOf?"
 
-1 # FreeOf?({},_expr) <-- True;
+1 # FreeOf?([],_expr) <-- True;
 2 # FreeOf?(var_List?, _expr) <-- And?(FreeOf?(First(var),expr), FreeOf?(Rest(var),expr));
 
-4 # FreeOf?(_var,{}) <-- True;
+4 # FreeOf?(_var,[]) <-- True;
 5 # FreeOf?(_var,expr_List?) <-- And?(FreeOf?(var,First(expr)), FreeOf?(var,Rest(expr)));
 
 /* Accept any variable. */
@@ -24,22 +24,22 @@
 *STD
 *CALL
         FreeOf?(var, expr)
-        FreeOf?({var, ...}, expr)
+        FreeOf?([var, ...], expr)
 
 *PARMS
 
-{expr} -- expression to test
+[expr] -- expression to test
 
-{var} -- variable to look for in "expr"
+[var] -- variable to look for in "expr"
 
 *DESC
 
 This function checks whether the expression "expr" (after being
-evaluated) depends on the variable "var". It returns {False} if this is the case and {True}
+evaluated) depends on the variable "var". It returns [False] if this is the case and [True]
 otherwise.
 
 The second form test whether the expression depends on <i>any</i> of
-the variables named in the list. The result is {True} if none of the variables appear in the expression and {False} otherwise.
+the variables named in the list. The result is [True] if none of the variables appear in the expression and [False] otherwise.
 
 *E.G.
 
@@ -49,11 +49,11 @@ In> FreeOf?(y, Sin(x));
 Result: True;
 In> FreeOf?(x, Differentiate(x) a*x+b);
 Result: True;
-In> FreeOf?({x,y}, Sin(x));
+In> FreeOf?([x,y], Sin(x));
 Result: False;
 
-The third command returns {True} because the
-expression {Differentiate(x) a*x+b} evaluates to {a}, which does not depend on {x}.
+The third command returns [True] because the
+expression [Differentiate(x) a*x+b] evaluates to [a], which does not depend on [x].
 
 *SEE Contains?
 %/mathpiper_docs

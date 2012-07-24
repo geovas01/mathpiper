@@ -34,24 +34,24 @@
 
 *PARMS
 
-{var} -- a variable name
+[var] -- a variable name
 
-{expr} -- an expression to be tested
+[expr] -- an expression to be tested
 
 *DESC
 
-The command {SumOfTerms?} returns {True} if the expression {expr} can be 
-considered to be a "sum of terms" in the given variable {var}.  The criteria
+The command [SumOfTerms?] returns [True] if the expression [expr] can be 
+considered to be a "sum of terms" in the given variable [var].  The criteria
 are reasonable but somewhat arbitrary.  The criteria were selected after
 a lot of experimentation, specifically to aid the logic used in Integration.
 
-The criteria for {expr} to be a sum of terms in {var} are:
-     o  {expr} is a function of variable {var}
-     o  {expr} can best be described as a sum (or difference) of two or more
-        functions of {var}  OR
-        {expr} is a monomial in {var} (this latter is to simplify the logic)
-     o  {expr} is not better described as a product of functions of {var}
-     o  {expr} is not better described as a quotient of functions of {var}
+The criteria for [expr] to be a sum of terms in [var] are:
+     o  [expr] is a function of variable [var]
+     o  [expr] can best be described as a sum (or difference) of two or more
+        functions of [var]  OR
+        [expr] is a monomial in [var] (this latter is to simplify the logic)
+     o  [expr] is not better described as a product of functions of [var]
+     o  [expr] is not better described as a quotient of functions of [var]
         (i.e., is a rational function)
 
 Note that the last three criteria are somewhat subjective!  

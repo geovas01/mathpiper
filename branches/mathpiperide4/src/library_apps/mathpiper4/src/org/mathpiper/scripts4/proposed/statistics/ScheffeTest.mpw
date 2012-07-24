@@ -38,13 +38,13 @@ ScheffeTest(levelsList, alpha) :=
     
     scheffeStatisticCalculated := (k-1)*anova["criticalFScore"];
     
-    resultList := {};
+    resultList := [];
     
     resultList["scheffeStatisticCalculated"] := scheffeStatisticCalculated;
     
-    meansList := {};
+    meansList := [];
     
-    countsList := {};
+    countsList := [];
     
     ForEach(levelList,levelsList)
     ⊕
@@ -55,7 +55,7 @@ ScheffeTest(levelsList, alpha) :=
     
     pairsList := CombinationsList(1 .. Length(levelsList),2);
     
-    summaryList := {};
+    summaryList := [];
     
     index := 1;
     
@@ -77,7 +77,7 @@ ScheffeTest(levelsList, alpha) :=
         
         scheffeStatistic := ScheffeStatistic(xBarA,nA,xBarB,nB,ssw,k,countsList);
         
-        oneComparisonList := {};
+        oneComparisonList := [];
         
         oneComparisonList["conclusion"] := If(scheffeStatistic <=? scheffeStatisticCalculated, "No Difference", "Difference");
         
@@ -192,16 +192,16 @@ ScheffeStatistic(xBarA,nA,xBarB,nB,ssw,k,countsList) :=
         ScheffeTest(listOfLists,alpha)
 
 *PARMS
-{listOfLists} -- a list which contains lists which contain the data to be analyzed
+[listOfLists] -- a list which contains lists which contain the data to be analyzed
 
-{alpha} -- the alpha value to use in the analysis.
+[alpha] -- the alpha value to use in the analysis.
 
 *DESC
 This function performs a Scheffe pairwise analysis.  The various values that are
 calculated during the analysis are returned in an association list and these
 values are listed in the keys of the returned list (see the examples section).
 
-If the {html} key is passed to the {ViewHtml} function, the results of the analysis
+If the [html] key is passed to the [ViewHtml] function, the results of the analysis
 are displayed in a graphcs window as rendered HTML.
 
 *E.G.
@@ -209,13 +209,13 @@ are displayed in a graphcs window as rendered HTML.
 
 alpha := .05;
 
-data1List := {10.2,8.5,8.4,10.5,9.0,8.1};
+data1List := [10.2,8.5,8.4,10.5,9.0,8.1];
 
-data2List := {11.6,12.0,9.2,10.3,9.9,12.5};
+data2List := [11.6,12.0,9.2,10.3,9.9,12.5];
 
-data3List := {8.1,9.0,10.7,9.1,10.5,9.5};
+data3List := [8.1,9.0,10.7,9.1,10.5,9.5];
 
-Echo(scheffeResult := ScheffeTest({data1List,data2List,data3List}, alpha));
+Echo(scheffeResult := ScheffeTest([data1List,data2List,data3List], alpha));
 
 Echo("Scheffe statistic of the first pair: ", scheffeResult["scheffeStatistic"]);
 
@@ -227,12 +227,12 @@ ViewHtml(scheffeResult["html"]);
       Result: True
       
       Side Effects:
-      {"scheffeStatisticCalculated",7.364640688} 
-      {"summary",
-      {{"pair3",{{"pair",{2,3}},{"scheffeStatistic",5.039520331},{"conclusion","No Difference"}}},
-      {"pair2",{{"pair",{1,3}},{"scheffeStatistic",0.3297901324},{"conclusion","No Difference"}}},
-      {"pair1",{{"pair",{1,2}},{"scheffeStatistic",7.947669691},{"conclusion","Difference"}}}}} 
-      {"html",java.lang.String}
+      ["scheffeStatisticCalculated",7.364640688] 
+      ["summary",
+      [["pair3",[["pair",[2,3]],["scheffeStatistic",5.039520331],["conclusion","No Difference"]]],
+      ["pair2",[["pair",[1,3]],["scheffeStatistic",0.3297901324],["conclusion","No Difference"]]],
+      ["pair1",[["pair",[1,2]],["scheffeStatistic",7.947669691],["conclusion","Difference"]]]]] 
+      ["html",java.lang.String]
       
       Scheffe statistic of the first pair: 7.364640688 
       
@@ -252,13 +252,13 @@ ViewHtml(scheffeResult["html"]);
 
 alpha := .05;
 
-data1List := {10.2,8.5,8.4,10.5,9.0,8.1};
+data1List := [10.2,8.5,8.4,10.5,9.0,8.1];
 
-data2List := {11.6,12.0,9.2,10.3,9.9,12.5};
+data2List := [11.6,12.0,9.2,10.3,9.9,12.5];
 
-data3List := {8.1,9.0,10.7,9.1,10.5,9.5};
+data3List := [8.1,9.0,10.7,9.1,10.5,9.5];
 
-Echo(scheffeResult := ScheffeTest({data1List,data2List,data3List}, alpha));
+Echo(scheffeResult := ScheffeTest([data1List,data2List,data3List], alpha));
 
 NewLine();
 
@@ -272,7 +272,7 @@ ViewHtml(scheffeResult["html"]);
       Result: True
       
       Side Effects:
-      {"scheffeStatisticCalculated",7.364640688} {"summary",{{"pair3",{{"pair",{2,3}},{"scheffeStatistic",5.039520331},{"conclusion","No Difference"}}},{"pair2",{{"pair",{1,3}},{"scheffeStatistic",0.3297901324},{"conclusion","No Difference"}}},{"pair1",{{"pair",{1,2}},{"scheffeStatistic",7.947669691},{"conclusion","Difference"}}}}} {"html",java.lang.String} 
+      ["scheffeStatisticCalculated",7.364640688] ["summary",[["pair3",[["pair",[2,3]],["scheffeStatistic",5.039520331],["conclusion","No Difference"]]],["pair2",[["pair",[1,3]],["scheffeStatistic",0.3297901324],["conclusion","No Difference"]]],["pair1",[["pair",[1,2]],["scheffeStatistic",7.947669691],["conclusion","Difference"]]]]] ["html",java.lang.String] 
       
       Scheffe statistic of the first pair: 7.364640688 
       

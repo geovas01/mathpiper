@@ -57,7 +57,7 @@
                 // so why didnt you ask me? :) -- Serge
         //terms:=Floor(10 + N(prec*Ln(10)/Ln(prec) - 1));
         //BuiltinPrecisionSet( prec + Floor(N(Ln(6*terms)/Ln(10))) );
-        //result:=SumTaylorNum(x, {{k}, x^(k+1)/(k+1)^n }, terms );
+        //result:=SumTaylorNum(x, [[k], x^(k+1)/(k+1)^n ], terms );
         term:=1;
         For(k:=1,Abs(term)>?eps,k++)[
                 term:=N(x^k/k^n);
@@ -78,7 +78,7 @@
 //        Echo("used", terms, "terms");
         If(terms <? 4, terms := 4);
         BuiltinPrecisionSet(prec+2*IntLog(prec,10)+5);
-        result := x*SumTaylorNum(x, {{k}, 1/(k+1)^n}, terms);
+        result := x*SumTaylorNum(x, [[k], 1/(k+1)^n], terms);
         BuiltinPrecisionSet(prec);
         RoundTo(result, prec);
 ⊖;

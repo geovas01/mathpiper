@@ -31,16 +31,16 @@ RandomPickVector(list, count) :=
 
 *PARMS
 
-{list} -- a list which contains elements
+[list] -- a list which contains elements
 
-{count} -- an integer which indicates how many elements to return
+[count] -- an integer which indicates how many elements to return
 
 *DESC
-Randomly picks {count} elements from the given list.
+Randomly picks [count] elements from the given list.
 
 *E.G.
-In> RandomPickVector({ONE,TWO,THREE},7);
-Result: {THREE,ONE,THREE,THREE,ONE,TWO,TWO}
+In> RandomPickVector([ONE,TWO,THREE],7);
+Result: [THREE,ONE,THREE,THREE,ONE,TWO,TWO]
 
 *SEE RandomPick, RandomPickWeighted
 %/mathpiper_docs
@@ -58,12 +58,12 @@ Result: {THREE,ONE,THREE,THREE,ONE,TWO,TWO}
 
 %mathpiper,scope="nobuild",subtype="manual_test"
 
-RandomPickVector({ONE,TWO,THREE},7);
+RandomPickVector([ONE,TWO,THREE],7);
 
 %/mathpiper
 
     %output,preserve="false"
-      Result: {TWO,THREE,ONE,THREE,THREE,TWO,THREE}
+      Result: [TWO,THREE,ONE,THREE,THREE,TWO,THREE]
 .   %/output
 
 

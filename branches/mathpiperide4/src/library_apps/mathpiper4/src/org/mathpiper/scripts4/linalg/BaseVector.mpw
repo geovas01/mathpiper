@@ -1,6 +1,6 @@
 %mathpiper,def="BaseVector"
 
-Function("BaseVector",{row,n})
+Function("BaseVector",[row,n])
 ⊕
     Local(i,result);
     result:=ZeroVector(n);
@@ -20,9 +20,9 @@ Function("BaseVector",{row,n})
 
 *PARMS
 
-{k} -- index of the base vector to construct
+[k] -- index of the base vector to construct
 
-{n} -- dimension of the vector
+[n] -- dimension of the vector
 
 *DESC
 
@@ -33,7 +33,7 @@ entry, which contains a 1.
 *E.G.
 
 In> BaseVector(2,4)
-Result: {0,1,0,0};
+Result: [0,1,0,0];
 
 *SEE ZeroVector, Identity
 %/mathpiper_docs

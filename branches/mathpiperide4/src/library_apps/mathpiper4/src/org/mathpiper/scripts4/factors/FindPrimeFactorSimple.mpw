@@ -13,7 +13,7 @@ FindPrimeFactorSimple(n, prime) :=
                 factor := factor*prime;
                 power++;
         ⊖;
-        {n/(factor/prime), power};
+        [n/(factor/prime), power];
 ⊖;
 
 %/mathpiper

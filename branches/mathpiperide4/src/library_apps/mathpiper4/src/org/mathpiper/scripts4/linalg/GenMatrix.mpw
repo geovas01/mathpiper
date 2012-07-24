@@ -1,13 +1,13 @@
 %mathpiper,def="GenMatrix"
 
-Function("GenMatrix",{func,m,n})
+Function("GenMatrix",[func,m,n])
 ⊕
   Local(i,j,result);
   result:=ZeroMatrix(m,n);
 
   For(i:=1,i<=?m,i++)
     For(j:=1,j<=?n,j++)
-          result[i][j]:=ApplyFast(func,{i,j});
+          result[i][j]:=ApplyFast(func,[i,j]);
 
   result;
 ⊖;
@@ -26,16 +26,16 @@ UnFence("GenMatrix",3);
         GenMatrix(function,m,n)
 
 *PARMS
-{function} -- a pure function
-{m} -- row index
-{n} -- column index
+[function] -- a pure function
+[m] -- row index
+[n] -- column index
 
 *DESC
 Generate a matrix with a pure function.
 
 *E.G.
-In> GenMatrix(Lambda({m,n},m*n),3,3)
-Result: {{1,2,3},{2,4,6},{3,6,9}}
+In> GenMatrix(Lambda([m,n],m*n),3,3)
+Result: [[1,2,3],[2,4,6],[3,6,9]]
 %/mathpiper_docs
 
     %output,preserve="false"

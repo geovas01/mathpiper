@@ -20,17 +20,17 @@ GeometricMean(list) :=
 
 *PARMS
 
-{list} -- list of values
+[list] -- list of values
 
 *DESC
 
 This function calculates the geometric mean of a list of values.
 
 *E.G.
-In> Mean({73,94,80,37,56,94,40,21,7,24})
+In> Mean([73,94,80,37,56,94,40,21,7,24])
 Result: 263/5
 
-In> N(Mean({73,94,80,37,56,94,40,21,7,24}))
+In> N(Mean([73,94,80,37,56,94,40,21,7,24]))
 Result: 52.6
 
 *SEE Mean, WeightedMean, Median, Mode

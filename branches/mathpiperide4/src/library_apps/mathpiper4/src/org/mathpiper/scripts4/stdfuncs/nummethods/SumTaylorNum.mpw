@@ -19,9 +19,9 @@
 /// nthtermfunc and nexttermfunc must be functions applicable to one argument.
 
 /// interface
-SumTaylorNum0(_x, _nthtermfunc, _nterms) <-- SumTaylorNum0(x, nthtermfunc, {}, nterms);
+SumTaylorNum0(_x, _nthtermfunc, _nterms) <-- SumTaylorNum0(x, nthtermfunc, [], nterms);
 
-SumTaylorNum1(_x, _nthtermfunc, _nterms) <-- SumTaylorNum1(x, nthtermfunc, {}, nterms);
+SumTaylorNum1(_x, _nthtermfunc, _nterms) <-- SumTaylorNum1(x, nthtermfunc, [], nterms);
 
 /// interface
 SumTaylorNum(_x, _nthtermfunc, _nterms) <--
@@ -41,7 +41,7 @@ If(
 //HoldArgumentNumber(SumTaylorNum, 3, 2);
 
 /// straightforward algorithms for a small number of terms
-1# SumTaylorNum0(_x, _nthtermfunc, {}, _nterms) <--
+1# SumTaylorNum0(_x, _nthtermfunc, [], _nterms) <--
 ⊕
         Local(sum, k);
   N(⊕
@@ -63,7 +63,7 @@ If(
     x:=Eval(x);        // x must be floating-point
     If (Constant?(nthtermfunc),
       term := nthtermfunc,
-      term := (nthtermfunc @ {0}),
+      term := (nthtermfunc @ [0]),
     );
     sum := term;        // sum must be floating-point
   ⊖);
@@ -71,7 +71,7 @@ If(
     delta := 1;
     For(k:=1, k<=?nterms And? delta !=? 0, k++)
     ⊕
-      term := MultiplyNum(term, nexttermfactor @ {k}, x);        // want to keep exact fractions here, but the result is floating-point
+      term := MultiplyNum(term, nexttermfactor @ [k], x);        // want to keep exact fractions here, but the result is floating-point
       delta := sum;
       sum := sum + term;        // term must be floating-point
       delta := Abs(sum-delta);        // check for underflow
@@ -81,7 +81,7 @@ If(
 ⊖;
 
 /// interface
-SumTaylorNum0(_x, _nthtermfunc, _nterms) <-- SumTaylorNum0(x, nthtermfunc, {}, nterms);
+SumTaylorNum0(_x, _nthtermfunc, _nterms) <-- SumTaylorNum0(x, nthtermfunc, [], nterms);
 
 //HoldArgumentNumber(SumTaylorNum0, 4, 2);
 //HoldArgumentNumber(SumTaylorNum0, 4, 3);
@@ -107,12 +107,12 @@ SumTaylorNum1(x, nthtermfunc, nexttermfactor, nterms) :=
     // if we are using nexttermfactor, then termtmp is x^(rows*i)*a[rows*i]
     // if we are not using it, then termtmp is x^(rows*i)
     If(
-      nexttermfactor =? {},
+      nexttermfactor =? [],
       termtmp := 1,
   //                termtmp := (nthtermfunc @ 0)        // floating-point
       If (Constant?(nthtermfunc),
         termtmp := nthtermfunc,
-        termtmp := (nthtermfunc @ {0}),
+        termtmp := (nthtermfunc @ [0]),
       )
     );
   ⊖);
@@ -126,13 +126,13 @@ SumTaylorNum1(x, nthtermfunc, nexttermfactor, nterms) :=
         // if we are using nexttermfactor, then termtmp is x^(rows*i)*a[rows*i]
         // if we are not using it, then termtmp is x^(rows*i)
         If(
-          nexttermfactor =? {},        // no nexttermfactor, so nthtermfunc must be given
+          nexttermfactor =? [],        // no nexttermfactor, so nthtermfunc must be given
           ⊕
-            rowstmp[j+1] := rowstmp[j+1] + MultiplyNum(termtmp, nthtermfunc @ {i*rows+j});
+            rowstmp[j+1] := rowstmp[j+1] + MultiplyNum(termtmp, nthtermfunc @ [i*rows+j]);
           ⊖,
           ⊕
             rowstmp[j+1] := rowstmp[j+1] + termtmp;        // floating-point
-            termtmp := MultiplyNum(termtmp, nexttermfactor @ {i*rows+j+1});        // arguments may be rational but the result is floating-point
+            termtmp := MultiplyNum(termtmp, nexttermfactor @ [i*rows+j+1]);        // arguments may be rational but the result is floating-point
           ⊖
         );
       ⊖;
@@ -152,9 +152,9 @@ SumTaylorNum1(x, nthtermfunc, nexttermfactor, nterms) :=
 
 /*
 Examples:
-In> SumTaylorNum(1,{{k}, 1/k!},{{k}, 1/k}, 10 )
+In> SumTaylorNum(1,[[k], 1/k!],[[k], 1/k], 10 )
 Result: 2.7182818006;
-In> SumTaylorNum(1,{{k},1/k!}, 10 )
+In> SumTaylorNum(1,[[k],1/k!], 10 )
 Result: 2.7182818007;
 */
 
@@ -172,44 +172,44 @@ Result: 2.7182818007;
 
 *PARMS
 
-{NthTerm} -- a function specifying $n$-th coefficient of the series
+[NthTerm] -- a function specifying $n$-th coefficient of the series
 
-{ZerothTerm} -- value of the $0$-th coefficient of the series
+[ZerothTerm] -- value of the $0$-th coefficient of the series
 
-{x} -- number, value of the expansion variable
+[x] -- number, value of the expansion variable
 
-{TermFactor} -- a function specifying the ratio of $n$-th term to the previous one
+[TermFactor] -- a function specifying the ratio of $n$-th term to the previous one
 
-{order} -- power of $x$ in the last term
+[order] -- power of $x$ in the last term
 
 *DESC
 
-{SumTaylorNum} computes a Taylor series $Sum(k,0,n,a[k]*x^k)$
+[SumTaylorNum] computes a Taylor series $Sum(k,0,n,a[k]*x^k)$
 numerically. This function allows very efficient computations of
 functions given by Taylor series, although some tweaking of the
 parameters is required for good results.
 
-The coefficients $a[k]$ of the Taylor series are given as functions of one integer variable ($k$). It is convenient to pass them to {SumTaylorNum} as closures.
-For example, if a function {a(k)} is defined, then
-        SumTaylorNum(x, {{k}, a(k)}, n)
+The coefficients $a[k]$ of the Taylor series are given as functions of one integer variable ($k$). It is convenient to pass them to [SumTaylorNum] as closures.
+For example, if a function [a(k)] is defined, then
+        SumTaylorNum(x, [[k], a(k)], n)
 computes the series $Sum(k, 0, n, a(k)*x^k)$.
 
 Often a simple relation between successive coefficients $a[k-1]$,
 $a[k]$ of the series is available; usually they are related by a
-rational factor. In this case, the second form of {SumTaylorNum} should
+rational factor. In this case, the second form of [SumTaylorNum] should
 be used because it will compute the series faster. The function
-{TermFactor} applied to an integer $k>=1$ must return the ratio
-$a[k]$/$a[k-1]$. (If possible, the function {TermFactor} should return
+[TermFactor] applied to an integer $k>=1$ must return the ratio
+$a[k]$/$a[k-1]$. (If possible, the function [TermFactor] should return
 a rational number and not a floating-point number.) The function
-{NthTerm} may also be given, but the current implementation only calls
-{NthTerm(0)} and obtains all other coefficients by using {TermFactor}.
-Instead of the function {NthTerm}, a number giving the $0$-th term can be given.
+[NthTerm] may also be given, but the current implementation only calls
+[NthTerm(0)] and obtains all other coefficients by using [TermFactor].
+Instead of the function [NthTerm], a number giving the $0$-th term can be given.
 
 The algorithm is described elsewhere in the documentation.
-The number of terms {order}+1
+The number of terms [order]+1
 must be specified and a sufficiently high precision must be preset in
 advance to achieve the desired accuracy.
-(The function {SumTaylorNum} does not change the current precision.)
+(The function [SumTaylorNum] does not change the current precision.)
 
 *E.G.
 To compute 20 digits of $Exp(1)$ using the Taylor series, one needs 21
@@ -217,11 +217,11 @@ digits of working precision and 21 terms of the series.
 
 In> BuiltinPrecisionSet(21)
 Result: True;
-In> SumTaylorNum(1, {{k},1/k!}, 21)
+In> SumTaylorNum(1, [[k],1/k!], 21)
 Result: 2.718281828459045235351;
-In> SumTaylorNum(1, 1, {{k},1/k}, 21)
+In> SumTaylorNum(1, 1, [[k],1/k], 21)
 Result: 2.71828182845904523535;
-In> SumTaylorNum(1, {{k},1/k!}, {{k},1/k}, 21)
+In> SumTaylorNum(1, [[k],1/k!], [[k],1/k], 21)
 Result: 2.71828182845904523535;
 In> RoundTo(N(Ln(%)),20)
 Result: 1;
@@ -237,7 +237,7 @@ Result: 1;
 %mathpiper,name="SumTaylorNum",subtype="automatic_test"
 
 BuiltinPrecisionSet(22);
-NumericEqual(RoundTo(SumTaylorNum(1, {{k},1/k!}, {{k},1/k}, 21),21), 2.718281828459045235359,21);
-NumericEqual(RoundTo(SumTaylorNum(1, {{k},1/k!}, 21),21), 2.718281828459045235359,21);
+NumericEqual(RoundTo(SumTaylorNum(1, [[k],1/k!], [[k],1/k], 21),21), 2.718281828459045235359,21);
+NumericEqual(RoundTo(SumTaylorNum(1, [[k],1/k!], 21),21), 2.718281828459045235359,21);
 
 %/mathpiper

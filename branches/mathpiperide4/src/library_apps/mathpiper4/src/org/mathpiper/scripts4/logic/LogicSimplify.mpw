@@ -15,13 +15,13 @@
 
   If(level <=? 1, cnf, ⊕
     Bind(list, Flatten(cnf, "And?"));
-    Bind(clauses, {});
+    Bind(clauses, []);
     ForEach(clause, list)
     ⊕
       Local(newclause);
       //newclause := BubbleSort(LogicRemoveTautologies(Flatten(clause, "Or?")), LessThan);
       Bind(newclause, LogicRemoveTautologies(Flatten(clause, "Or?")));
-      If(newclause !=? {True}, DestructiveAppend(clauses, newclause));
+      If(newclause !=? [True], DestructiveAppend(clauses, newclause));
     ⊖;
 
     /*

@@ -19,9 +19,9 @@ If (VerifySolveEqual(Eval(e1), Eval(e2)),
     ⊖); 
 HoldArgumentNumber("VerifySolve", 2, 1);
 
-10 # VerifySolveEqual({}, {}) <-- True;
+10 # VerifySolveEqual([], []) <-- True;
 
-20 # VerifySolveEqual({}, e2_List?) <-- False;
+20 # VerifySolveEqual([], e2_List?) <-- False;
 
 30 # VerifySolveEqual(e1_List?, e2_List?) <--
 ⊕
@@ -59,9 +59,9 @@ HoldArgumentNumber("VerifySolve", 2, 1);
 
 *PARMS
 
-{expression} -- expression to be checked
+[expression] -- expression to be checked
 
-{answer} -- expected result
+[answer] -- expected result
 
 
 *DESC
@@ -73,9 +73,9 @@ something "equal" to 'answer', and complains explicitly if it doesn't.
    o  for lists: having the same entries, possibly in a different order;
    o  for equations: having the same right-hand sides, possibly after 'Simplify';
    o  in all other cases: equality, possible after 'Simplify'.
-  Hence, { a == 1, a == x+1 } is "equal" to { a == 1+x, a == 1 }.
+  Hence, [ a == 1, a == x+1 ] is "equal" to [ a == 1+x, a == 1 ].
 
-The command {VerifySolve} is usually employed to verify that an equation or
+The command [VerifySolve] is usually employed to verify that an equation or
 set of equations has been solved correctly.   
 
 But it also has a wider applicability.
@@ -87,19 +87,19 @@ use as a general tool.  Now it has been made available.
 
 *E.G.
 
-In> VerifySolve(Solve(a+x*y==z,x),{x==(z-a)/y});
+In> VerifySolve(Solve(a+x*y==z,x),[x==(z-a)/y]);
 Result: True
 
-In> VerifySolve(Solve(a+x*y==z,x),{x==(a-z)/y});
+In> VerifySolve(Solve(a+x*y==z,x),[x==(a-z)/y]);
 Result: False
 Side Effects:
 ******************
 none: -1 
 Solve(a+x*y==z,x)
  evaluates to
-{x==-(a-z)/y}
+[x==-(a-z)/y]
  which differs from
-{x==(a-z)/y}
+[x==(a-z)/y]
 ******************
 
 In> Verify(x*(1+x),x+x^2)

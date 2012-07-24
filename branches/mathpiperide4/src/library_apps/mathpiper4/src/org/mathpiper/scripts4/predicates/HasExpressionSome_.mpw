@@ -7,7 +7,7 @@ HasExpressionSome?(_expr, _atom, _looklist) _ Equal?(expr, atom) <-- True;
 // a list contains an atom if one element contains it
 // we test for lists now because lists are also functions
 // first take care of the empty list:
-19 # HasExpressionSome?({}, _atom, _looklist) <-- False;
+19 # HasExpressionSome?([], _atom, _looklist) <-- False;
 20 # HasExpressionSome?(expr_List?, _atom, _looklist) <-- HasExpressionSome?(First(expr), atom, looklist) Or? HasExpressionSome?(Rest(expr), atom, looklist);
 // a function contains an atom if one of its arguments contains it
 // first deal with functions that do not belong to the list: return False since we have already checked it at #15
@@ -27,23 +27,23 @@ HasExpressionSome?(_expr, _atom, _looklist) _ Equal?(expr, atom) <-- True;
 
 *PARMS
 
-{expr} -- an expression
+[expr] -- an expression
 
-{x} -- a subexpression to be found
+[x] -- a subexpression to be found
 
-{list} -- list of function atoms to be considered "transparent"
+[list] -- list of function atoms to be considered "transparent"
 
 *DESC
 
-The command {HasExpressionSome?} does the same as {HasExpression?}, except it only looks at arguments of a given {list} of functions. All other functions become "opaque" (as if they do not contain anything).
+The command [HasExpressionSome?] does the same as [HasExpression?], except it only looks at arguments of a given [list] of functions. All other functions become "opaque" (as if they do not contain anything).
 
-Note that since the operators "{+}" and "{-}" are prefix as well as infix operators, it is currently required to use {ToAtom("+")} to obtain the unevaluated atom "{+}".
+Note that since the operators "[+]" and "[-]" are prefix as well as infix operators, it is currently required to use [ToAtom("+")] to obtain the unevaluated atom "[+]".
 
 *E.G.
 
-In> HasExpressionSome?({a+b*2,c/d},c/d,{List})
+In> HasExpressionSome?([a+b*2,c/d],c/d,[List])
 Result: True;
-In> HasExpressionSome?({a+b*2,c/d},c,{List})
+In> HasExpressionSome?([a+b*2,c/d],c,[List])
 Result: False;
 
 *SEE HasExpression?, HasExpressionArithmetic?, FuncList, VarList, HasFunction?

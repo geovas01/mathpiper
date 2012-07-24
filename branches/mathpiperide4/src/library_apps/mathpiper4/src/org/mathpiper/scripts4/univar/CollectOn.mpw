@@ -24,29 +24,29 @@
 
 
 %mathpiper_docs,name="CollectOn",categories="User Functions;Polynomials (Operations)"
-*CMD CollectOn -- Collect terms of a polynomial-like expression on powers of {var}, starting with power 0.
+*CMD CollectOn -- Collect terms of a polynomial-like expression on powers of [var], starting with power 0.
 
 *CALL
 CollectOn( var, expr )
 *PARMS
-{var}  -- The variable on which to collect
-{expr} -- a polynomial-like expression containing one or more terms in variable {var}
+[var]  -- The variable on which to collect
+[expr] -- a polynomial-like expression containing one or more terms in variable [var]
 *DESC
-This function collects the terms of {expr} into a list according to the power of 
-variable {var}. The list always begins with the zeroth power in {var} and 
-contains {n+1} elements, where {n} is the highest power of {var} present in {expr}.
+This function collects the terms of [expr] into a list according to the power of 
+variable [var]. The list always begins with the zeroth power in [var] and 
+contains [n+1] elements, where [n] is the highest power of [var] present in [expr].
     
 
 *E.G.
 In> CollectOn(x,2*x-2*y-a*x+x*y)
-Result: {-2*y,2-a+y}
+Result: [-2*y,2-a+y]
    NOTE 1: This result indicates that the given expression could be rewritten in
    the form  -2*y+(2-a+y)*x.
    NOTE 2: If P is the list output by a call to CollectOn, this rewriting could
    be done by evaluating Dot(P,FillList(var,Length(P))^(0 .. Length(P)-1)).
     
 In> CollectOn(y,2*x-2*y-a*x+x*y)
-Result: {2*x-a*x,x-2}
+Result: [2*x-a*x,x-2]
    NOTE 1: This result indicates that the given expression could be rewritten in
    the form  (2*x-a*x)+(x-2)*y.
    NOTE 2: The collection is ONLY made on the given variable; any other variable

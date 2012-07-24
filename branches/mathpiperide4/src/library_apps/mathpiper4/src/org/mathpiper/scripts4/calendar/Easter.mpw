@@ -22,7 +22,7 @@ Easter(year) := ⊕
     month := Quotient(h + L - 7*m + 114, 31);
     day := Modulo(h + L - 7*m + 114, 31) + 1;
 
-    { month, day };
+    [ month, day ];
 ⊖;
 
 %/mathpiper
@@ -40,7 +40,7 @@ Easter(year) := ⊕
 
 *PARMS
 
-{year} -- year
+[year] -- year
 
 *DESC
 
@@ -49,7 +49,7 @@ Calculates the date of Easter in the Gregorian calendar.
 *E.G. notest
 
 In> Easter(2011);
-Result: {4,24}
+Result: [4,24]
 
 %/mathpiper_docs
 
@@ -59,10 +59,10 @@ Result: {4,24}
 
 %mathpiper,name="Easter",subtype="automatic_test"
 
-Verify(Easter(1777), {3, 30});
-Verify(Easter(1961), {4, 2});
-Verify(Easter(2009), {4, 12});
-Verify(Easter(2011), {4, 24});
+Verify(Easter(1777), [3, 30]);
+Verify(Easter(1961), [4, 2]);
+Verify(Easter(2009), [4, 12]);
+Verify(Easter(2011), [4, 24]);
 
 
 %/mathpiper

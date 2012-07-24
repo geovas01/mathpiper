@@ -1,6 +1,6 @@
 %mathpiper,def="TemplateFunction"
 
-RulebaseHoldArguments("TemplateFunction",{oper,args,body});
+RulebaseHoldArguments("TemplateFunction",[oper,args,body]);
 
 HoldArgument("TemplateFunction",oper);
 
@@ -14,7 +14,7 @@ RuleHoldArguments("TemplateFunction",3,2047,True)
   Local(arglist);
   arglist:=FlatCopy(args);
 
-  DestructiveAppend(arglist,{args,ListToFunction({Hold,body})});
+  DestructiveAppend(arglist,[args,ListToFunction([Hold,body])]);
   arglist:=ApplyFast("LocalSymbols",arglist);
 
   RulebaseEvaluateArguments(oper,arglist[1]);
@@ -33,16 +33,16 @@ RuleHoldArguments("TemplateFunction",3,2047,True)
         TemplateFunction("operator",parameter)
 
 *PARMS
-{"operator"} -- string, name of a function
+["operator"] -- string, name of a function
 
-{parameter} -- atom, symbolic name of parameter
+[parameter] -- atom, symbolic name of parameter
 
 *DESC
 Defines a function.
 
 *E.G.
 /%mathpiper
-TemplateFunction("MyUntil",{predicate,body})
+TemplateFunction("MyUntil",[predicate,body])
 [
   Eval(body);
   While (Equal?(Eval(predicate),False))

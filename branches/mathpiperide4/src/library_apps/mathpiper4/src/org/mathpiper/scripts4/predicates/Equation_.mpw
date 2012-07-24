@@ -13,7 +13,7 @@
 
 %mathpiper_docs,name="Equation?",categories="User Functions;Predicates"
 
-*CMD Equation? --- Return true if {expr} is an Equation False otherwise
+*CMD Equation? --- Return true if [expr] is an Equation False otherwise
 
 *STD
 *CALL
@@ -21,13 +21,13 @@
 
 *PARMS
 
-{expr} -- mathematical expression
+[expr] -- mathematical expression
 
 *DESC
 
-This function returns {True} if MathPiper can determine that the expression is an equation.  
-Otherwise, {False}.
-Equations are defined by the property that they are of the form {a==b}.
+This function returns [True] if MathPiper can determine that the expression is an equation.  
+Otherwise, [False].
+Equations are defined by the property that they are of the form [a==b].
 
 *E.G.
 

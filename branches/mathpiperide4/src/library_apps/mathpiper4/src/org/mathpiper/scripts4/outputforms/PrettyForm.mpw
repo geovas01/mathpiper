@@ -191,12 +191,12 @@ AlignBase(i1,i2):=
 
 
 
-10 # BuildArgs({}) <-- Formula(ToAtom(" "));
+10 # BuildArgs([]) <-- Formula(ToAtom(" "));
 
 
 
 
-20 # BuildArgs({_head}) <-- head;
+20 # BuildArgs([_head]) <-- head;
 
 
 
@@ -212,7 +212,7 @@ AlignBase(i1,i2):=
         MoveOper(comma,AddN(item1[3],1),base);
 
         MoveOper(item2,comma[1]+comma[3]+1,SubtractN(base,(item2[7])));
-        Bind(newitem, MakeOper(0,0,AddN(item2[1],item2[3]),Maximum(item1[4],item2[4]),"Func",{item1,comma,item2},base));
+        Bind(newitem, MakeOper(0,0,AddN(item2[1],item2[3]),Maximum(item1[4],item2[4]),"Func",[item1,comma,item2],base));
         BuildArgs(newitem~Rest(Rest(any)));
       ⊖;
 
@@ -229,13 +229,13 @@ FormulaBracket(f):=
   MoveOper(left,f[1],f[2]);
   MoveOper(f,2,0);
   MoveOper(right,f[1]+f[3]+1,f[2]);
-  MakeOper(0,0,right[1]+right[3],f[4],"Func",{left,f,right},f[7]);
+  MakeOper(0,0,right[1]+right[3],f[4],"Func",[left,f,right],f[7]);
 ⊖;
 
 
 
 
-/* RulebaseHoldArguments("Formula",{f}); */
+/* RulebaseHoldArguments("Formula",[f]); */
 
 1 # Formula(f_Atom?) <--
   MakeOper(0,0,Length(ToString(f)),1,"ToAtom",ToString(f),0);
@@ -250,7 +250,7 @@ FormulaBracket(f):=
   Bind(r, BracketOn(Formula(yy),yy,RightPrecedenceGet("^")));
   MoveOper(l,0,r[4]);
   MoveOper(r,l[3],0);
-  MakeOper(0,0,AddN(l[3],r[3]),AddN(l[4],r[4]),"Func",{l,r},l[2]+l[4]-1);
+  MakeOper(0,0,AddN(l[3],r[3]),AddN(l[4],r[4]),"Func",[l,r],l[2]+l[4]-1);
 ⊖;
 
 
@@ -259,7 +259,7 @@ FormulaBracket(f):=
 10 # FormulaArrayItem(xx_List?) <--
 ⊕
   Local(sub,height);
-  sub := {};
+  sub := [];
   height := 0;
   ForEach(item,xx)
   ⊕
@@ -281,7 +281,7 @@ FormulaBracket(f):=
 2 # Formula(xx_List?) <--
 ⊕
   Local(sub,width,height);
-  sub:={};
+  sub:=[];
   width := 0;
   height := 1;
 
@@ -355,13 +355,13 @@ FormulaBracket(f):=
   MoveOper(dash,0,l[4]);
   MoveOper(l,(SubtractN(width,l[3])>>1),0);
   MoveOper(r,(SubtractN(width,r[3])>>1),AddN(dash[2], dash[4]));
-  MakeOper(0,0,width,AddN(r[2], r[4]),"Func",{l,r,dash},dash[2]);
+  MakeOper(0,0,width,AddN(r[2], r[4]),"Func",[l,r,dash],dash[2]);
 ⊖;
 
 
 
 
-RulebaseHoldArguments("BracketOn",{op,f,prec});
+RulebaseHoldArguments("BracketOn",[op,f,prec]);
 
 RuleHoldArguments("BracketOn",3,1,Function?(f) And? ArgumentsCount(f) =? 2
      And? Infix?(Type(f)) And? PrecedenceGet(Type(f)) >? prec)
@@ -397,7 +397,7 @@ RuleHoldArguments("BracketOn",3,2,True)
   MoveOper(l,0,SubtractN(base,(l[7])));
   Bind(height, Maximum(AddN(l[2], l[4]),AddN(r[2], r[4])));
 
-  MakeOper(0,0,AddN(r[1], r[3]),height,"Func",{l,r,oper},base);
+  MakeOper(0,0,AddN(r[1], r[3]),height,"Func",[l,r,oper],base);
 ⊖;
 
 
@@ -409,16 +409,16 @@ RuleHoldArguments("BracketOn",3,2,True)
   Bind(head, Formula(f[0]));
   Bind(all, Rest(FunctionToList(f)));
 
-  Bind(args, FormulaBracket(BuildArgs(MapSingle("Formula",Apply("Hold",{all})))));
+  Bind(args, FormulaBracket(BuildArgs(MapSingle("Formula",Apply("Hold",[all])))));
   AlignBase(head,args);
   MoveOper(args,head[3],0);
 
-  MakeOper(0,0,args[1]+args[3],Maximum(head[4],args[4]),"Func",{head,args},head[7]);
+  MakeOper(0,0,args[1]+args[3],Maximum(head[4],args[4]),"Func",[head,args],head[7]);
 ⊖;
 
 
 
-RulebaseHoldArguments("RenderFormula",{cf,f,x,y});
+RulebaseHoldArguments("RenderFormula",[cf,f,x,y]);
 
 /*
 /   /  /
@@ -490,7 +490,7 @@ LocalSymbols(formulaMaxWidth) ⊕
 
 
 
-Function("PrettyForm",{ff})
+Function("PrettyForm",[ff])
 ⊕
   Local(cf,f);
 
@@ -515,14 +515,14 @@ HoldArgument("PrettyForm",ff);
 EvalFormula(f):=
 ⊕
   Local(result);
-  result:= ListToFunction({ToAtom("=?"),f,Eval(f)});
+  result:= ListToFunction([ToAtom("=?"),f,Eval(f)]);
   PrettyForm(result);
   True;
 ⊖;
 HoldArgument("EvalFormula",f);
 
 /*
-{x,y,width,height,oper,args,base}
+[x,y,width,height,oper,args,base]
 */
 
 %/mathpiper
@@ -537,11 +537,11 @@ HoldArgument("EvalFormula",f);
 
 *PARMS
 
-{expr} -- an expression
+[expr] -- an expression
 
 *DESC
 
-{PrettyForm} renders an expression in a nicer way, using ascii art.
+[PrettyForm] renders an expression in a nicer way, using ascii art.
 This is generally useful when the result of a calculation is more
 complex than a simple number.
 
@@ -571,11 +571,11 @@ Result: True;
 
 *PARMS
 
-{expr} -- an expression
+[expr] -- an expression
 
 *DESC
 
-Show an evaluation in a nice way, using {PrettyPrinterSet}
+Show an evaluation in a nice way, using [PrettyPrinterSet]
 to show 'input = output'.
 
 *E.G.

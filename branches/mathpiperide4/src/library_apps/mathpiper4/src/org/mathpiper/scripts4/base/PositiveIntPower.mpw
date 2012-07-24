@@ -4,7 +4,7 @@
 // Later, the PowerN function will be defined through IntPower and MathLn/ExpN. Note that ExpN uses IntPower.
 
 // power x^n only for non-negative integer n
-Defun("PositiveIntPower", {x,n})
+Defun("PositiveIntPower", [x,n])
 ⊕
   Local(result,unit);
   If(LessThan?(n,0), False,

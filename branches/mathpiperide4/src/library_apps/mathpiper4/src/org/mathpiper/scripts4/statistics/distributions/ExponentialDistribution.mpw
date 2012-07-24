@@ -18,7 +18,7 @@ ExponentialDistribution(l_RationalOrNumber?)_(l<?0) <-- Undefined;
 
 *PARMS
 
-{lambda} -- number, the rate parameter
+[lambda] -- number, the rate parameter
 
 
 *SEE BinomialDistribution, BernoulliDistribution, ChiSquareDistribution, DiscreteUniformDistribution, ContinuousUniformDistribution, GeometricDistribution, NormalDistribution, PoissonDistribution, tDistribution

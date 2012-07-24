@@ -4,7 +4,7 @@
 
 // LnExpand
 1 # LnExpand(Ln(x_Integer?))
-                            <-- Add(Map({{n,m},m*Ln(n)},Transpose(Factors(x))));
+                            <-- Add(Map([[n,m],m*Ln(n)],Transpose(Factors(x))));
 1 # LnExpand(Ln(_a*_b))     <-- LnExpand(Ln(a))+LnExpand(Ln(b));
 1 # LnExpand(Ln(_a/_b))     <-- LnExpand(Ln(a))-LnExpand(Ln(b));
 1 # LnExpand(Ln(_a^_n))     <-- LnExpand(Ln(a))*n;
@@ -22,16 +22,16 @@
 
 *PARMS
 
-{expr} -- the logarithm of an expression
+[expr] -- the logarithm of an expression
 
 *DESC
 
-{LnExpand} takes an expression of the form $Ln(expr)$, and applies logarithm
-rules to expand this into multiple {Ln} expressions where possible.  An
+[LnExpand] takes an expression of the form $Ln(expr)$, and applies logarithm
+rules to expand this into multiple [Ln] expressions where possible.  An
 expression like $Ln(a*b^n)$ would be expanded to $Ln(a)+n*Ln(b)$.
 
-If the logarithm of an integer is discovered, it is factorised using {Factors}
-and expanded as though {LnExpand} had been given the factorised form.  So 
+If the logarithm of an integer is discovered, it is factorised using [Factors]
+and expanded as though [LnExpand] had been given the factorised form.  So 
 $Ln(18)$ goes to $Ln(x)+2*Ln(3)$.
 
 *E.G.

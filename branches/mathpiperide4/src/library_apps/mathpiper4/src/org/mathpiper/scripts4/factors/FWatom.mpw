@@ -1,7 +1,7 @@
 %mathpiper,def="FWatom"
 
-10 # FWatom({_a,1}) <-- a;
-20 # FWatom({_a,_n}) <-- ListToFunction({ToAtom("^"),a, n});
+10 # FWatom([_a,1]) <-- a;
+20 # FWatom([_a,_n]) <-- ListToFunction([ToAtom("^"),a, n]);
 
 %/mathpiper
 

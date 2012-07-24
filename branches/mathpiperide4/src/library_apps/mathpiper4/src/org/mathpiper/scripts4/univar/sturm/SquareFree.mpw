@@ -13,11 +13,11 @@
 ⊕
   /*
   Local(dp,gcd);
-  dp:=MakeMultiNomial(`(Differentiate(var)(@p)),{var});
+  dp:=MakeMultiNomial(`(Differentiate(var)(@p)),[var]);
 
-  p:=MakeMultiNomial(p,{var});
+  p:=MakeMultiNomial(p,[var]);
   gcd:=MultiGcd(p,dp);
-  NormalForm(MultiDivide(p,{gcd})[1][1]);
+  NormalForm(MultiDivide(p,[gcd])[1][1]);
   */
   Quotient(p,Gcd(p,(`(Differentiate(@var)(@p)))));
 ⊖;
@@ -43,7 +43,7 @@
 
 *PARMS
 
-{p} - a univariate polynomial
+[p] - a univariate polynomial
 
 *DESC
 

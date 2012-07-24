@@ -6,10 +6,10 @@
 
 10 # xSolveSystem( eqns_List?, vars_List? ) <--
 [
-    If(iDebug=True,Tell("xSolveSystem",{eqns,vars}));
+    If(iDebug=True,Tell("xSolveSystem",[eqns,vars]));
     Local(zeros,expr,const,newEquations);
     zeros        := FillList(0,Length(vars));
-    newEquations := {};
+    newEquations := [];
     ForEach(eqn,eqns)
     [
         expr  := EquationLeft(eqn) - EquationRight(eqn);
@@ -39,14 +39,14 @@
 10 # xSolveLinearSystemViaMatrix( eqns_List?, vars_List? ) <--
 [
     Local(LE,LV,E,LHS,X,M,RHS,LL,eqn,row,ans,Det);
-    If(iDebug=True,Tell(xSolveLinearSystemViaMatrix,{eqns,vars}));
+    If(iDebug=True,Tell(xSolveLinearSystemViaMatrix,[eqns,vars]));
     LE := Length(eqns);
     LV := Length(vars);
     E  := Assert() LE=LV;
     Check(E, "Argument", "Number of equations != Number of variables");
     
-    LHS := {};
-    RHS := {};
+    LHS := [];
+    RHS := [];
     X   := vars;
     M   := FillList(1,LE);
     ForEach(eqn,eqns) 
@@ -55,7 +55,7 @@
         E   := FunctionToList(eqn);
         LL  := E[2];
         RHS := E[3]:RHS;
-        row := Map("Coef",{FillList(LL,LE),X,M});
+        row := Map("Coef",[FillList(LL,LE),X,M]);
         LHS := row:LHS;   
     ];
     LHS := DestructiveReverse(LHS);
@@ -72,7 +72,7 @@
     */
     ans := MatrixSolve(LHS,RHS);
     //If(iDebug=True,Tell("ans ",ans));
-    ans := Map("==",{vars,ans});
+    ans := Map("==",[vars,ans]);
 ];
 
 12 # xSolveLinearSystemViaMatrix( _eqns, _vars ) <-- False;

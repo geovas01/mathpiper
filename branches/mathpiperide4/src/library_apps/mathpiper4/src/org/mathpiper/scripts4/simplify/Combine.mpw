@@ -28,13 +28,13 @@
 
 *PARMS
 
-{expr} -- expression to simplify
+[expr] -- expression to simplify
 
 *DESC
 
-This function tries to simplify the expression {expr} by combining like
+This function tries to simplify the expression [expr] by combining like
 terms or factors that will cancel. 
-Unlike the related function {Simplify}, it does not manipulate the expression 
+Unlike the related function [Simplify], it does not manipulate the expression 
 any further.
 
 See Issue #14 for a description of why this function may be necessary.

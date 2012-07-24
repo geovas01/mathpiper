@@ -9,7 +9,7 @@ DoUnitSubsumptionAndResolution(_list) <--
     Bind(isTrue,  False);
     Bind(changed, True);
 
-    //Echo({"In DoUnitSubsumptionAndResolution", Nl()});
+    //Echo(["In DoUnitSubsumptionAndResolution", Nl()]);
 
     While(changed) ⊕
       Bind(changed, False);
@@ -18,9 +18,9 @@ DoUnitSubsumptionAndResolution(_list) <--
       ⊕
         If(Length(list[i]) =? 1, ⊕
           Local(x); Bind(x, list[i][1]); //n := SimpleNegate(x);
-          //Echo({"Unit clause ", x, Nl()});
+          //Echo(["Unit clause ", x, Nl()]);
 
-          // found a unit clause, {x}, not use it to modify other clauses
+          // found a unit clause, [x], not use it to modify other clauses
           For(j:=1, (Not? isFalse And? Not? isTrue) And? j <=? Length(list), j++)
           ⊕
               If(i !=?j, ⊕
@@ -29,7 +29,7 @@ DoUnitSubsumptionAndResolution(_list) <--
                 ⊕
                     // In both of these, if a clause becomes empty, the whole thing is False
 
-                    //Echo({"   ", x, " subsumes ", list[j][k], i,j, Subsumes(x, list[j][k]), Nl()});
+                    //Echo(["   ", x, " subsumes ", list[j][k], i,j, Subsumes(x, list[j][k]), Nl()]);
 
                     // unit subsumption -- this kills clause j
                     If(Subsumes(x, list[j][k]), ⊕
@@ -43,7 +43,7 @@ DoUnitSubsumptionAndResolution(_list) <--
                     ⊖,
                       // else, try unit resolution
                     If(Contradict(x, list[j][k]), ⊕
-                        //Echo({x, " contradicts", list[j][k], Nl()});
+                        //Echo([x, " contradicts", list[j][k], Nl()]);
                         DestructiveDelete(list[j], k);
                         k--;
                         Bind(changed, True);

@@ -1,6 +1,6 @@
 %mathpiper,def="if"
 
-RulebaseHoldArguments("if",{predicate,body});
+RulebaseHoldArguments("if",[predicate,body]);
 
 (if(True) _body) <-- Eval(body);
 
@@ -21,9 +21,9 @@ UnFence("if",2);
 
 *PARMS
 
-{predicate} -- predicate to test
+[predicate] -- predicate to test
 
-{body} -- expression to evaluate if the predicate is true
+[body] -- expression to evaluate if the predicate is true
 
 *DESC
 

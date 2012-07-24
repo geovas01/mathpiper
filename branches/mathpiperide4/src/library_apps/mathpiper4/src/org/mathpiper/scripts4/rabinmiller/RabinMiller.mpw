@@ -41,7 +41,7 @@ FastModularPower(a_PositiveInteger?, b_PositiveInteger?, n_PositiveInteger?) <--
  * Composed strongly-probably-prime numbers for base b
  * are called `strong pseudoprimes for base b.
  */
-// this will return a pair {root, True/False}
+// this will return a pair [root, True/False]
 IsStronglyProbablyPrime(b_PositiveInteger?, n_PositiveInteger?) <--
 ⊕
   Local(m, q, r, a, flag, i, root);
@@ -67,7 +67,7 @@ IsStronglyProbablyPrime(b_PositiveInteger?, n_PositiveInteger?) <--
     i++;
   ⊖;
 
-  {root, flag};        // return a root of -1 (or 0 if not found)
+  [root, flag];        // return a root of -1 (or 0 if not found)
 ⊖;
 
 
@@ -93,13 +93,13 @@ IsStronglyProbablyPrime(b_PositiveInteger?, n_PositiveInteger?) <--
   continue := True;
   prime := True;
   i := 1;
-  primetable := {2, 3, 5, 7, 11, 13, 17};
-  pseudotable := {2047, 1373653, 25326001, 3215031751, 2152302898747,
-                  3474749660383, 34155071728321};
+  primetable := [2, 3, 5, 7, 11, 13, 17];
+  pseudotable := [2047, 1373653, 25326001, 3215031751, 2152302898747,
+                  3474749660383, 34155071728321];
   // if n is strongly probably prime for all bases up to and including primetable[i], then n is actually prime unless it is >= pseudotable[i].
   While (continue And? prime And? (i <? 8))
   ⊕        // we do not really need to collect the information about roots of -1 here, so we do not do anything with root
-    {root, prime} := IsStronglyProbablyPrime(primetable[i], n);
+    [root, prime] := IsStronglyProbablyPrime(primetable[i], n);
     //If(InVerboseMode() And? prime, Echo("RabinMiller: Info: ", n, "is spp base", primetable[i]));
     continue := (n >=? pseudotable[i]);
     i++;
@@ -130,19 +130,19 @@ IsStronglyProbablyPrime(b_PositiveInteger?, n_PositiveInteger?) <--
   k := 1+IntLog(IntLog(n,2),4)+p;        // find k such that Ln(n)*4^(-k) < 4^(-p)
   b := 1;
   prime := True;
-  rootsofminus1 := {0};        // accumulate the set of roots of -1 modulo n
+  rootsofminus1 := [0];        // accumulate the set of roots of -1 modulo n
   While (prime And? k>?0)
     ⊕
       b := NextPseudoPrime(b);        // use only prime bases, as suggested by Davenport; weak pseudo-primes are good enough
-      {root, prime} := IsStronglyProbablyPrime(b, n);
-          If(prime, rootsofminus1 := Union(rootsofminus1, {root}));
+      [root, prime] := IsStronglyProbablyPrime(b, n);
+          If(prime, rootsofminus1 := Union(rootsofminus1, [root]));
           If(Length(rootsofminus1)>?3, prime := False);
           //If(InVerboseMode() And? prime, Echo("RabinMiller: Info: ", n, "is spp base", b));
           If( // this whole If() clause is only working when InVerboseMode() is in effect and the test is terminated in the unusual way
                   InVerboseMode() And? Length(rootsofminus1)>?3,
                   ⊕        // we can actually find a factor of n now
                         Local(factor);
-                        rootsofminus1 := Difference(rootsofminus1,{0});
+                        rootsofminus1 := Difference(rootsofminus1,[0]);
                         //Echo("RabinMiller: Info: ", n, "is composite via roots of -1 ; ", rootsofminus1);
                         factor := Gcd(n, If(
                                 rootsofminus1[1]+rootsofminus1[2]=?n,

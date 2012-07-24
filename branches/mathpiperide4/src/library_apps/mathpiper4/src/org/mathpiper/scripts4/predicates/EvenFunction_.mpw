@@ -15,8 +15,8 @@ EvenFunction?(f,x):= (f =? Eval(Subst(x,-x)f));
 
 *PARMS
 
-{expression} -- mathematical expression
-{variable} -- variable
+[expression] -- mathematical expression
+[variable] -- variable
 
 *DESC
 
@@ -26,7 +26,7 @@ defined to be functions that have the property:
 
 $$ f(x) = f(-x) $$
 
-{Cos(x)} is an example of an even function.
+[Cos(x)] is an example of an even function.
 
 As a side note, one can decompose a function into an
 even and an odd part:

@@ -9,7 +9,7 @@
 
 LocalSymbols(NormalMultiNomial) ⊕
 
-CreateTerm(_vars,{_coefs,_fact})
+CreateTerm(_vars,[_coefs,_fact])
   <-- MultiNomial(vars,CreateSparseTree(coefs,fact));
 
 /************************************************************
@@ -24,7 +24,7 @@ MultiNomialMultiplyAdd(MultiNomial(_vars,_x), MultiNomial(_vars,_y),_coefs,_fact
 MultiNomialNegate(MultiNomial(_vars,_terms))
     <--
     ⊕
-      SparseTreeMap(Hold({{coefs,list},-list}),Length(vars),terms);
+      SparseTreeMap(Hold([[coefs,list],-list]),Length(vars),terms);
       MultiNomial(vars,terms);
     ⊖;
 MultiNomialMultiply(MultiNomial(_vars,_x),_multi2)
@@ -46,7 +46,7 @@ UnFence("muadm",2);
    for speed. This routine is a lot faster!
  */
 
-RulebaseHoldArguments("NormalForm",{expression});
+RulebaseHoldArguments("NormalForm",[expression]);
 RuleHoldArguments("NormalForm",1,1000,True) expression;
 0 # NormalForm(UniVariate(_var,_first,_coefs)) <--
     ExpandUniVariate(var,first,coefs);
@@ -57,7 +57,7 @@ RuleHoldArguments("NormalForm",1,1000,True) expression;
 
 
 
-10 # NormalMultiNomial({},_term,_prefact) <-- prefact*term;
+10 # NormalMultiNomial([],_term,_prefact) <-- prefact*term;
 20 # NormalMultiNomial(_vars,_list,_prefact)
     <--
     ⊕
@@ -79,19 +79,19 @@ MultiLeadingTerm(MultiNomial(_vars,_terms))
     ⊕
       Local(coefs,fact);
       Bind(coefs,MultiDegreeScanHead(terms,Length(vars)));
-      {coefs,fact};
+      [coefs,fact];
     ⊖;
 10 # MultiDegreeScanHead(_tree,0)
    <--
    ⊕
      Bind(fact,tree);
-     {};
+     [];
    ⊖;
 10 # MultiDegreeScanHead(_tree,1)
    <--
    ⊕
      Bind(fact,tree[1][2]);
-     {tree[1][1]};
+     [tree[1][1]];
    ⊖;
 20 # MultiDegreeScanHead(_tree,_depth)
    <--
@@ -112,7 +112,7 @@ MultiDropLeadingZeroes(MultiNomial(_vars,_terms))
       MultiNomial(vars,terms);
     ⊖;
 10 # MultiDropScan(0,0) <-- True;
-10 # MultiDropScan({_n,0},0) <-- True;
+10 # MultiDropScan([_n,0],0) <-- True;
 20 # MultiDropScan(_n,0)
    <--
    ⊕
@@ -134,26 +134,26 @@ MultiDropLeadingZeroes(MultiNomial(_vars,_terms))
          i:=Length(tree);
        ⊖;
      ⊖;
-     (tree =? {});
+     (tree =? []);
    ⊖;
 UnFence("MultiDropScan",2);
 
 
-MultiTermLess({_deg1,_fact1},{_deg2,_fact2}) <--
+MultiTermLess([_deg1,_fact1],[_deg2,_fact2]) <--
   ⊕
     Local(deg);
     Bind(deg, deg1-deg2);
-    While(deg !=? {} And? First(deg) =? 0) ⊕ Bind(deg, Rest(deg));⊖;
+    While(deg !=? [] And? First(deg) =? 0) ⊕ Bind(deg, Rest(deg));⊖;
 
-    ((deg =? {}) And? (fact1-fact2 <? 0)) Or?
-    ((deg !=? {}) And? (deg[1] <? 0));
+    ((deg =? []) And? (fact1-fact2 <? 0)) Or?
+    ((deg !=? []) And? (deg[1] <? 0));
   ⊖;
 
 20 # MultiZero(multi_Multi?) <--
 ⊕
   CheckMultiZero(DropZeroLC(multi));
 ⊖;
-10 # CheckMultiZero(MultiNomial(_vars,{})) <-- True;
+10 # CheckMultiZero(MultiNomial(_vars,[])) <-- True;
 20 # CheckMultiZero(MultiNomial(_vars,_terms)) <-- False;
 
 
@@ -172,7 +172,7 @@ MultiTermLess({_deg1,_fact1},{_deg2,_fact2}) <--
 
 *PARMS
 
-{expression} -- an expression
+[expression] -- an expression
 
 *DESC
 

@@ -1,11 +1,11 @@
 %mathpiper,def="MakeUni"
 
-Function("MakeUni",{expression}) MakeUni(expression,UniVarList(expression));
+Function("MakeUni",[expression]) MakeUni(expression,UniVarList(expression));
 
 /* Convert normal form to univariate expression */
-RulebaseHoldArguments("MakeUni",{expression,var});
+RulebaseHoldArguments("MakeUni",[expression,var]);
 
-5 # MakeUni(_expr,{}) <-- UniVariate(dummyvar,0,{expression});
+5 # MakeUni(_expr,[]) <-- UniVariate(dummyvar,0,[expression]);
 6 # MakeUni(_expr,var_List?) <--
 ⊕
   Local(result,item);
@@ -23,7 +23,7 @@ RulebaseHoldArguments("MakeUni",{expression,var});
 20 # MakeUni(UniVariate(_v,_first,_coefs),_var) <--
 ⊕
   Local(reslist,item);
-  reslist:={};
+  reslist:=[];
   ForEach(item,expression[3])
   ⊕
     If(FreeOf?(var,item),
@@ -38,8 +38,8 @@ RulebaseHoldArguments("MakeUni",{expression,var});
 LocalSymbols(a,b,var,expression)
 ⊕
   20 # MakeUni(expression_FreeOf?(var),_var)
-       <-- UniVariate(var,0,{expression});
-  30 # MakeUni(_var,_var) <-- UniVariate(var,1,{1});
+       <-- UniVariate(var,0,[expression]);
+  30 # MakeUni(_var,_var) <-- UniVariate(var,1,[1]);
   30 # MakeUni(_a + _b,_var) <-- MakeUni(a,var) + MakeUni(b,var);
   30 # MakeUni(_a - _b,_var) <-- MakeUni(a,var) - MakeUni(b,var);
   30 # MakeUni(   - _b,_var) <--                - MakeUni(b,var);

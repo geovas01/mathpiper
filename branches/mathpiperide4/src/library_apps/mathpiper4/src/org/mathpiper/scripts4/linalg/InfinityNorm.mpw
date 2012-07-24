@@ -6,7 +6,7 @@
 10 # InfinityNorm( M_Matrix? ) <--
 ⊕
         Local(sumlist,row);
-        sumlist := {};
+        sumlist := [];
     ForEach(row,M)
         Push(sumlist,Sum(Abs(row)));
     Maximum(sumlist);
@@ -29,12 +29,12 @@
         InfinityNorm(Matrix)
 *PARMS
 
-{Matrix} -- a Matrix or Vector
+[Matrix] -- a Matrix or Vector
 
 
 *DESC
 
-The function {InfinityNorm} calculates one of the most valuable types
+The function [InfinityNorm] calculates one of the most valuable types
 of Norm for Matrices.  It can also be applied to Vectors, but is less
 often used that way.
 
@@ -45,7 +45,7 @@ the largest of these row sums.
 
 *E.G.
 
-In> InfinityNorm({{3,5,7},{2,-6,4},{0,2,8}})
+In> InfinityNorm([[3,5,7],[2,-6,4],[0,2,8]])
 Result: 15
 
 %/mathpiper_docs

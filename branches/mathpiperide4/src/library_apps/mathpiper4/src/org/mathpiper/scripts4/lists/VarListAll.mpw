@@ -8,21 +8,21 @@
 
 VarListAll(_expr) <-- VarListAll(expr,"Variable?");
 
-10 # VarListAll(_expr,_filter)_(Apply(filter,{expr}) =? True) <--
-     {expr};
+10 # VarListAll(_expr,_filter)_(Apply(filter,[expr]) =? True) <--
+     [expr];
 
 /* Otherwise check all leafs of a function. */
 20 # VarListAll(expr_Function?,_filter) <--
 ⊕
   Local(item,result, flatlist);
   Bind(flatlist,Rest(FunctionToList(expr)));
-  Bind(result,{});
+  Bind(result,[]);
   ForEach(item,flatlist)
     Bind(result,Concat(result,VarListAll(item,filter)));
   result;
 ⊖;
 
 /* Else it doesn't depend on any variable. */
-30 # VarListAll(_expr,_filter) <-- {};
+30 # VarListAll(_expr,_filter) <-- [];
 
 %/mathpiper

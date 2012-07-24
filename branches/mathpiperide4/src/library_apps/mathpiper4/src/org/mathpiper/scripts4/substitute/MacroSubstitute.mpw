@@ -7,7 +7,7 @@
  
  
  
-Function("MacroSubstitute", {body, predicate, change})
+Function("MacroSubstitute", [body, predicate, change])
 ⊕
   `MacroSubstitute((Hold(@body)));
 ⊖;
@@ -20,22 +20,22 @@ HoldArgument("MacroSubstitute", change);
 
 UnFence("MacroSubstitute", 3);
 
-RulebaseHoldArguments("MacroSubstitute", {body});
+RulebaseHoldArguments("MacroSubstitute", [body]);
 
 UnFence("MacroSubstitute", 1);
 
 
 
-RuleHoldArguments("MacroSubstitute", 1, 1, `ApplyFast(predicate, {Hold(Hold(@body))}) =? True)
+RuleHoldArguments("MacroSubstitute", 1, 1, `ApplyFast(predicate, [Hold(Hold(@body))]) =? True)
 ⊕
-  `ApplyFast(change, {Hold(Hold(@body))});
+  `ApplyFast(change, [Hold(Hold(@body))]);
 ⊖;
 
 
 
 RuleHoldArguments("MacroSubstitute", 1, 2, `Function?(Hold(@body)))
 ⊕
-  `ApplyFast("MacroMapArgs", {Hold(Hold(@body)), "MacroSubstitute"});
+  `ApplyFast("MacroMapArgs", [Hold(Hold(@body)), "MacroSubstitute"]);
 ⊖;
 
 

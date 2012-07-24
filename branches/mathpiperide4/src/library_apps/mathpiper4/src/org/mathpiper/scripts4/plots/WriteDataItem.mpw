@@ -1,6 +1,6 @@
 %mathpiper,def="WriteDataItem"
 
-/// service function. WriteDataItem({1,2,3}, {}) will output "1 2 3" on a separate line.
+/// service function. WriteDataItem([1,2,3], []) will output "1 2 3" on a separate line.
 /// Writes data points to the current output stream, omits non-numeric values.
 WriteDataItem(tuple_List?, _optionshash) <--
 ⊕

@@ -28,27 +28,27 @@ Precedence:
 
 *PARMS
 
-{t1,t2} -- tensor lists (currently only vectors are supported)
+[t1,t2] -- tensor lists (currently only vectors are supported)
 
 *DESC
 
-{Outer} returns the outer product of two tensors t1 and t2. Currently
-{Outer} work works only for vectors, i.e. tensors of rank 1. The outer
+[Outer] returns the outer product of two tensors t1 and t2. Currently
+[Outer] work works only for vectors, i.e. tensors of rank 1. The outer
 product of two vectors yields a matrix.
 
 *E.G.
 
-In> Outer({1,2},{3,4,5})
-Result: {{3,4,5},{6,8,10}};
-In> Outer({a,b},{c,d})
-Result: {{a*c,a*d},{b*c,b*d}};
+In> Outer([1,2],[3,4,5])
+Result: [[3,4,5],[6,8,10]];
+In> Outer([a,b],[c,d])
+Result: [[a*c,a*d],[b*c,b*d]];
 
         Or, using the "o"-Operator:
 
-In> {1,2} o {3,4,5}
-Result: {{3,4,5},{6,8,10}};
-In> {a,b} o {c,d}
-Result: {{a*c,a*d},{b*c,b*d}};
+In> [1,2] o [3,4,5]
+Result: [[3,4,5],[6,8,10]];
+In> [a,b] o [c,d]
+Result: [[a*c,a*d],[b*c,b*d]];
 
 
 *SEE InProduct, Dot, Cross
@@ -60,15 +60,15 @@ Result: {{a*c,a*d},{b*c,b*d}};
 
 %mathpiper,name="Outer",subtype="automatic_test"
 
-Verify(Outer({},{}),{});
-Verify(Outer({{}},{}),Hold(Outer({{}},{})));
-Verify(Outer({},{{}}),Hold(Outer({},{{}})));
-Verify(Outer({{}},{{}}),Hold(Outer({{}},{{}})));
+Verify(Outer([],[]),[]);
+Verify(Outer([[]],[]),Hold(Outer([[]],[])));
+Verify(Outer([],[[]]),Hold(Outer([],[[]])));
+Verify(Outer([[]],[[]]),Hold(Outer([[]],[[]])));
 Verify(Outer(a,b),Hold(Outer(a,b)));
-Verify(Outer({a},{b}),{{a*b}});
-Verify(Outer({a,b},{c}),{{a*c},{b*c}});
-Verify(Outer({a},{b,c}),{{a*b,a*c}});
-Verify(Outer({a,b},{c,d,e}),{{a*c,a*d,a*e},{b*c,b*d,b*e}});
-Verify(Outer({a,b,c},{d,e}),{{a*d,a*e},{b*d,b*e},{c*d,c*e}});
+Verify(Outer([a],[b]),[[a*b]]);
+Verify(Outer([a,b],[c]),[[a*c],[b*c]]);
+Verify(Outer([a],[b,c]),[[a*b,a*c]]);
+Verify(Outer([a,b],[c,d,e]),[[a*c,a*d,a*e],[b*c,b*d,b*e]]);
+Verify(Outer([a,b,c],[d,e]),[[a*d,a*e],[b*d,b*e],[c*d,c*e]]);
 
 %/mathpiper

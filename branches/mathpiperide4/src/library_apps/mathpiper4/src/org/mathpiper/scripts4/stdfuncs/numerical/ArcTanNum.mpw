@@ -77,7 +77,7 @@ MyArcTan(x, n) :=
         // start evaluating from the last term upwards
         For(i:=n, i>=?1, i--)
         [
-                //{p,q} := {p + q*(i*x)^2/(4*i^2-1), p};
+                //[p,q] := [p + q*(i*x)^2/(4*i^2-1), p];
         //        t := p*(2*i-1) + q*(i*x)^2; then have to start with p:=2*n+1
                 t := p + q*(i*x)^2/(4*i^2-1);
                 q := p;

@@ -4,7 +4,7 @@
  */
 
 /* functions internal to tensors */
-RulebaseHoldArguments("Delta",{ind1,ind2});
+RulebaseHoldArguments("Delta",[ind1,ind2]);
 
 //Not defined in the scripts. todo:tk.
 

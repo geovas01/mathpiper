@@ -24,17 +24,17 @@
 *CALL
         npTerms(newPoly)
 *PARMS
-{{newPoly} -- a NewPolynomial as created by {MakeNewPoly()}
+[[newPoly] -- a NewPolynomial as created by [MakeNewPoly()]
 *DESC
-Given a newPolynomial such as $${NP,{x,y,z},{2,1,2,0},{-3,0,1,1}}$$,
-this function removes the two {Markers}, namely {NP} and $${x,y,z}$$,
-and returns only the list of terms, here $${{2,1,2,0},{-3,0,1,1}}$$.
+Given a newPolynomial such as $$[NP,[x,y,z],[2,1,2,0],[-3,0,1,1]]$$,
+this function removes the two [Markers], namely [NP] and $$[x,y,z]$$,
+and returns only the list of terms, here $$[[2,1,2,0],[-3,0,1,1]]$$.
 *E.G.
 In> p1 := MakeNewPoly(2*x*y^2-3*y*z)
-Result: {NP,{x,y,z},{2,1,2,0},{-3,0,1,1}}
+Result: [NP,[x,y,z],[2,1,2,0],[-3,0,1,1]]
 
 In> npTerms(p1)
-Result: {{2,1,2,0},{-3,0,1,1}}
+Result: [[2,1,2,0],[-3,0,1,1]]
 *SEE MakeNewPoly
 %/mathpiper_docs
    
@@ -44,13 +44,13 @@ Result: {{2,1,2,0},{-3,0,1,1}}
 *CALL
         npNumTerms(newPoly)
 *PARMS
-{{newPoly} -- a NewPolynomial as created by {MakeNewPoly()}
+[[newPoly] -- a NewPolynomial as created by [MakeNewPoly()]
 *DESC
-Given a newPolynomial such as $${NP,{x,y,z},{2,1,2,0},{-3,0,1,1}}$$,
+Given a newPolynomial such as $$[NP,[x,y,z],[2,1,2,0],[-3,0,1,1]]$$,
 this function returns the number of terms, here 2.
 *E.G.
 In> p1 := MakeNewPoly(2*x*y^2-3*y*z)
-Result: {NP,{x,y,z},{2,1,2,0},{-3,0,1,1}}
+Result: [NP,[x,y,z],[2,1,2,0],[-3,0,1,1]]
 
 In> npNumTerms(p1)
 Result: 2
@@ -63,12 +63,12 @@ Result: 2
 *CALL
         NP?(input)
 *PARMS
-{input} -- anything
+[input] -- anything
 *DESC
 Returns True for NewPolynomial, False otherwise.
 *E.G.
 In> p1 := MakeNewPoly(2*x*y^2-3*y*z)
-Result: {NP,{x,y,z},{2,1,2,0},{-3,0,1,1}}
+Result: [NP,[x,y,z],[2,1,2,0],[-3,0,1,1]]
 
 In> NP?(p1)
 Result: True

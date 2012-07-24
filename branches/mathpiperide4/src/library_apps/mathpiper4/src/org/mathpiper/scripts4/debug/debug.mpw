@@ -19,7 +19,7 @@ TraceLeave() :=
     Echo("Leave ",CustomEvalResult());
     indent--;
 ⊖;
-Macro(TraceExp,{expression})
+Macro(TraceExp,[expression])
 ⊕
     TraceStart();
     CustomEval(TraceEnter(),TraceLeave(),CustomEvalStop(),@expression);
@@ -31,11 +31,11 @@ DebugStart():=
 ⊕
    debugging:=True;
    debugstopdepth := -1;
-   breakpoints:={};
-   filebreakpoints := {};
+   breakpoints:=[];
+   filebreakpoints := [];
    debugstopped:=False;
    debugverbose:=False;
-   debugcallstack:={};
+   debugcallstack:=[];
    breakpredicate:=False;
 ⊖;
 DebugRun():= ⊕debugging:=False;True;⊖;
@@ -51,21 +51,21 @@ DebugStepOver():=
 DebugBreakAt(file,line):=
 ⊕
   Check(DebugMode?(), "Mode", "DebugBreakAt only supported in the debug build of MathPiper");
-  If(filebreakpoints[file] =? Empty,filebreakpoints[file]:={});
+  If(filebreakpoints[file] =? Empty,filebreakpoints[file]:=[]);
   DestructiveAppend(filebreakpoints[file],line);
 ⊖;
 DebugRemoveBreakAt(file,line):=
 ⊕
   Check(DebugMode?(), "Mode", "DebugRemoveBreakAt only supported in the debug build of MathPiper");
-  If(filebreakpoints[file] =? Empty,filebreakpoints[file]:={});
-  filebreakpoints[file] := Difference(filebreakpoints[file],{line});
+  If(filebreakpoints[file] =? Empty,filebreakpoints[file]:=[]);
+  filebreakpoints[file] := Difference(filebreakpoints[file],[line]);
 ⊖;
 
 
 DebugStop():= ⊕debugging:=False;debugstopped:=True;CustomEvalStop();⊖;
 DebugVerbose(verbose):= ⊕debugverbose:=verbose;⊖;
 DebugAddBreakpoint(fname_String?) <-- ⊕ breakpoints := fname~breakpoints;⊖;
-Macro(DebugBreakIf,{predicate})
+Macro(DebugBreakIf,[predicate])
 ⊕
   breakpredicate:= Hold(@predicate);
 ⊖;
@@ -73,9 +73,9 @@ Macro(DebugBreakIf,{predicate})
 BreakpointsClear() <--
 ⊕
   breakpredicate:=False;
-  breakpoints := {};
+  breakpoints := [];
 ⊖;
-Macro(DebugLocals,{})
+Macro(DebugLocals,[])
 ⊕
   Echo("");
   Echo("*************** Current locals on the stack ****************");
@@ -99,7 +99,7 @@ DebugCallstack() <--
   Echo("");
 ⊖;
 
-Macro(DebugEnter,{})
+Macro(DebugEnter,[])
 ⊕
   debugcallstack := CustomEvalExpression()~debugcallstack;
   // custom breakpoint (custom predicate thought up by the programmer)
@@ -148,7 +148,7 @@ Macro(DebugEnter,{})
    If(IsExitRequested(),debugstopped:=True);
 
 ⊖;
-Macro(DebugLeave,{})
+Macro(DebugLeave,[])
 ⊕
   If(debugging =? False And? debugstopdepth >=? 0 And? Length(debugcallstack) =? debugstopdepth,
   ⊕
@@ -160,7 +160,7 @@ Macro(DebugLeave,{})
   debugcallstack := Rest(debugcallstack);
   If(debugverbose,Echo(CustomEvalResult()," <-- ",CustomEvalExpression()));
 ⊖;
-Macro(Debug,{expression})
+Macro(Debug,[expression])
 PipeToStdout()
 ⊕
    DebugStart();
@@ -170,7 +170,7 @@ PipeToStdout()
 
 ProfileStart():=
 ⊕
-    profilefn:={};
+    profilefn:=[];
 ⊖;
 10 # ProfileEnter()_(Function?(CustomEvalExpression())) <--
 ⊕
@@ -179,7 +179,7 @@ ProfileStart():=
     If(profilefn[fname]=?Empty,profilefn[fname]:=0);
     profilefn[fname] := profilefn[fname]+1;
 ⊖;
-Macro(Profile,{expression})
+Macro(Profile,[expression])
 ⊕
     ProfileStart();
     CustomEval(ProfileEnter(),True,CustomEvalStop(),@expression);
@@ -188,7 +188,7 @@ Macro(Profile,{expression})
 ⊖;
 
 /// Measure the time taken by evaluation and print results.
-Macro(EchoTime,{expression})
+Macro(EchoTime,[expression])
 ⊕
         Local(result);
         Echo(Time()Bind(result, @expression), "seconds taken.");
@@ -223,7 +223,7 @@ WriteLines(filename,lines,from,nrlines,breakpoints,current):=
   ⊖;
 ⊖;
 DebugFileLoaded := "";
-DebugFileLines := {};
+DebugFileLines := [];
 DebugNrLines:=20;
 
 //
@@ -253,20 +253,20 @@ DebugShowCode():=
 
 *PARMS
 
-{expr} -- expression to trace
+[expr] -- expression to trace
 
 *DESC
 
 The expression "expr" is evaluated with the tracing facility turned
 on. This means that every subexpression, which is evaluated, is shown
 before and after evaluation. Before evaluation, it is shown in the
-form {TrEnter(x)}, where {x}
+form [TrEnter(x)], where [x]
 denotes the subexpression being evaluated. After the evaluation the
-line {TrLeave(x,y)} is printed, where {y} is the result of the evaluation. The indentation
+line [TrLeave(x,y)] is printed, where [y] is the result of the evaluation. The indentation
 shows the nesting level.
 
 Note that this command usually generates huge amounts of output. A
-more specific form of tracing (eg. {TraceRule}) is
+more specific form of tracing (eg. [TraceRule]) is
 probably more useful  for all but very simple expressions.
 
 *E.G. notest
@@ -308,15 +308,15 @@ Result: 5;
 *CALL
         EchoTime()expr
 *PARMS
-{expr} -- any expression
+[expr] -- any expression
 *DESC
 
-The function {EchoTime()expr} evaluates the expression {expr} and prints the time in seconds needed for the evaluation.
+The function [EchoTime()expr] evaluates the expression [expr] and prints the time in seconds needed for the evaluation.
 The time is printed to the current output stream.
-The built-in function {Time} is used for timing.
+The built-in function [Time] is used for timing.
 
 The result is the "user time" as reported by the OS, not the real ("wall clock") time.
-Therefore, any CPU-intensive processes running alongside MathPiper will not significantly affect the result of {EchoTime}.
+Therefore, any CPU-intensive processes running alongside MathPiper will not significantly affect the result of [EchoTime].
 
 *E.G. notest
 In> EchoTime() N(MathLog(1000),40)

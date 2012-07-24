@@ -142,8 +142,8 @@ public final class Environment {
 		iComplexAtom = ("Complex");
 		iBracketOpenAtom = ("(");
 		iBracketCloseAtom = (")");
-		iListOpenAtom = ("{");
-		iListCloseAtom = ("}");
+		iListOpenAtom = ("[");
+		iListCloseAtom = ("]");
 		iCommaAtom = (",");
 		iSetAtom = ("Set");
 		iProgAtom = ("Prog");

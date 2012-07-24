@@ -50,9 +50,9 @@
 
 20 # Print(_x,_n)_(Type(x) =? "List") <--
 ⊕
-  WriteString("{");
+  WriteString("[");
   PrintArg(x);
-  WriteString("}");
+  WriteString("]");
 ⊖;
 
 20 # Print(_x,_n)_(Type(x) =? "Prog") <--
@@ -79,14 +79,14 @@
 
 
 /* Print the arguments of an ordinary function */
-10 # PrintArg({}) <-- True;
+10 # PrintArg([]) <-- True;
 
 20 # PrintArg(_list) <--
 ⊕
   Print(First(list),60000);
   PrintArgComma(Rest(list));
 ⊖;
-10 # PrintArgComma({}) <-- True;
+10 # PrintArgComma([]) <-- True;
 20 # PrintArgComma(_list) <--
 ⊕
   WriteString(",");
@@ -102,7 +102,7 @@
 
 
 /* Tail-recursive printing the body of a compound statement */
-10 # PrintArgProg({}) <-- True;
+10 # PrintArgProg([]) <-- True;
 20 # PrintArgProg(_list) <--
 ⊕
    Print(First(list),60000);

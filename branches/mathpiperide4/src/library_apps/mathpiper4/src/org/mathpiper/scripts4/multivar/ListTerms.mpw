@@ -10,11 +10,11 @@
     If(InVerboseMode(),Tell("ListTerms",expr));
     Local(termList);
     Local(op,x2,x3);
-    termList := {};
+    termList := [];
     If(Function?(expr),
       ⊕
-         {op,x2,x3} := FunctionToList(expr);
-         If(InVerboseMode(),Tell("          ",{op,x2,x3})); 
+         [op,x2,x3] := FunctionToList(expr);
+         If(InVerboseMode(),Tell("          ",[op,x2,x3])); 
          terms(op,x2,x3);
       ⊖,
       ⊕
@@ -27,7 +27,7 @@
 
 10 # terms(_op,_x2,_x3)_(op=?ToAtom("+") Or? op=?ToAtom("-")) <--
 ⊕
-    If(InVerboseMode(),⊕Tell("   terms10",op);Tell("         ",{x2,x3});⊖);
+    If(InVerboseMode(),⊕Tell("   terms10",op);Tell("         ",[x2,x3]);⊖);
     Local(sgn);
     If(op=?ToAtom("+"),sgn:=1,sgn:=-1);
     Push(termList,sgn*x3);
@@ -49,9 +49,9 @@ UnFence("terms",3);
 
 20 # terms(_op,_x2,_x3) <--
 ⊕
-    If(InVerboseMode(),⊕Tell("   terms20",op);Tell("         ",{x2,x3});⊖);
+    If(InVerboseMode(),⊕Tell("   terms20",op);Tell("         ",[x2,x3]);⊖);
     Local(F);
-    F := ListToFunction({op,x2,x3});
+    F := ListToFunction([op,x2,x3]);
     Push(termList,F);
     If(InVerboseMode(),Tell("         ",termList));
     termList;
@@ -78,30 +78,30 @@ UnFence("terms",3);
         ListTerms(expr)
 
 *PARMS
-{expr} -- a mathematical expression composed of sums and differences of terms=
+[expr] -- a mathematical expression composed of sums and differences of terms=
 
 *DESC
-Given an expression {expr} containing (at top level) terms connected by
+Given an expression [expr] containing (at top level) terms connected by
 "+" and/or "-" signs, this function generates a list of all such terms 
 in the expression.
 
 If the expression has only products, powers, or rational expressions (but not
-sums or differences) at the top level, this function will {not} expand them, 
+sums or differences) at the top level, this function will [not] expand them, 
 and thus will not list any "terms".  If the user wants the expression to be
 expanded, s/he must do so explicitly.
 
 *E.G.   
 In> ListTerms(Sin(Sqrt(x))-Sqrt(x+1)-Exp(-2*x))
-Result: {Sin(Sqrt(x)),-Sqrt(x+1),-Exp(-2*x)}
+Result: [Sin(Sqrt(x)),-Sqrt(x+1),-Exp(-2*x)]
 
 In> ListTerms((a+b*x)/(x-d*x)-(e-f*x^2)/(g+h*x))
-Result: {(a+b*x)/(x-d*x),(f*x^2-e)/(g+h*x)}
+Result: [(a+b*x)/(x-d*x),(f*x^2-e)/(g+h*x)]
 
 In> ListTerms((3*x+5*y)^5)
-Result: {(3*x+5*y)^5}
+Result: [(3*x+5*y)^5]
 
 In> ListTerms(ExpandBrackets((3*x+5*y)^5))
-Result: {243*x^5,2025*x^4*y,6750*x^3*y^2,11250*x^2*y^3,9375*x*y^4,3125*y^5}
+Result: [243*x^5,2025*x^4*y,6750*x^3*y^2,11250*x^2*y^3,9375*x*y^4,3125*y^5]
 
 
 %/mathpiper_docs

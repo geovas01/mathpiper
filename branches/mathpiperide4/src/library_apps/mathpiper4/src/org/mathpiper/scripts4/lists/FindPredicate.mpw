@@ -1,14 +1,14 @@
 %mathpiper,def="FindPredicate"
 
 // Find the first thingy that matches a predicate
-Function("FindPredicate",{list,predicate})
+Function("FindPredicate",[list,predicate])
 ⊕
   Local(result,count);
   Bind(result, -1);
   Bind(count, 1);
-  While(And?(result<?0, Not?(Equal?(list, {}))))
+  While(And?(result<?0, Not?(Equal?(list, []))))
   ⊕
-    If(Apply(predicate,{First(list)}),
+    If(Apply(predicate,[First(list)]),
       Bind(result, count)
       );
     Bind(list,Rest(list));

@@ -1,7 +1,7 @@
 %mathpiper,def="Nth"
 
 /* Implementation of Nth that allows extending. */
-RulebaseHoldArguments("Nth",{alist,aindex});
+RulebaseHoldArguments("Nth",[alist,aindex]);
 RuleHoldArguments("Nth",2,10,
     And?(Equal?(Function?(alist),True),
             Equal?(Integer?(aindex),True),
@@ -30,7 +30,7 @@ RuleHoldArguments("Nth",2,15,Equal?(String?(alist),True))
 
 RuleHoldArguments("Nth",2,20,Equal?(List?(aindex),True))
 ⊕
-  Map({{ii},alist[ii]},{aindex});
+  Map([[ii],alist[ii]],[aindex]);
 ⊖;
 
 RuleHoldArguments("Nth",2,30,
@@ -67,9 +67,9 @@ RuleHoldArguments("Nth",2,40,Equal?(String?(aindex),True))
 
 *PARMS
 
-{list} -- list to choose from
+[list] -- list to choose from
 
-{n} -- index of entry to pick
+[n] -- index of entry to pick
 
 *DESC
 
@@ -77,22 +77,22 @@ The entry with index "n" from "list" is returned. The first entry
 has index 1. It is possible to pick several entries of the list by
 taking "n" to be a list of indices.
 
-More generally, {Nth} returns the n-th operand of the
+More generally, [Nth] returns the n-th operand of the
 expression passed as first argument.
 
-An alternative but equivalent form of {Nth(list, n)} is
-{list[n]}.
+An alternative but equivalent form of [Nth(list, n)] is
+[list[n]].
 
 *E.G.
 
-In> lst := {a,b,c,13,19};
-Result: {a,b,c,13,19};
+In> lst := [a,b,c,13,19];
+Result: [a,b,c,13,19];
 In> Nth(lst, 3);
 Result: c;
 In> lst[3];
 Result: c;
-In> Nth(lst, {3,4,1});
-Result: {c,13,a};
+In> Nth(lst, [3,4,1]);
+Result: [c,13,a];
 In> Nth(b*(a+c), 2);
 Result: a+c;
 

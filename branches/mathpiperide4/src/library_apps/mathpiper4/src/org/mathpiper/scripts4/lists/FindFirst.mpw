@@ -5,7 +5,7 @@
      Local(result,count);
      result := -1;
      count  := 1;
-     While( And?( result <? 0, Not? ( Equal? (list, {}) )))
+     While( And?( result <? 0, Not? ( Equal? (list, []) )))
      ⊕
        If(Equal?(First(list), element), result := count );
        list := Rest(list);
@@ -26,24 +26,24 @@
 
 *PARMS
 
-{list} -- the list to examine
+[list] -- the list to examine
 
-{expr} -- expression to look for in "list"
+[expr] -- expression to look for in "list"
 
 *DESC
 
 This commands returns the index at which the expression "expr"
 first occurs in "list". If "expr" occurs more than once, the lowest
 index is returned. If "expr" does not occur at all,
-{-1} is returned.
+[-1] is returned.
 
 *E.G.
 
-In> FindFirst({a,b,c,d,e,f}, d);
+In> FindFirst([a,b,c,d,e,f], d);
 Result: 4;
-In> FindFirst({1,2,3,2,1}, 2);
+In> FindFirst([1,2,3,2,1], 2);
 Result: 2;
-In> FindFirst({1,2,3,2,1}, 4);
+In> FindFirst([1,2,3,2,1], 4);
 Result: -1;
 
 *SEE Find, FindAll, Contains?

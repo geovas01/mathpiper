@@ -19,11 +19,11 @@ StringToNumber( str_String? ) <-- FromBase(10,str);
 
 *PARMS
 
-{numberString} -- a decimal (base-10) number represented as a string
+[numberString] -- a decimal (base-10) number represented as a string
 
 *DESC
 
-{StringToNumber} Converts the string representation of a number into the value of that number
+[StringToNumber] Converts the string representation of a number into the value of that number
 
 
 

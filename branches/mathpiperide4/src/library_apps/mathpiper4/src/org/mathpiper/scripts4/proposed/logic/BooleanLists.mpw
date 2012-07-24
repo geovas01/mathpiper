@@ -23,17 +23,17 @@ BooleanLists(elements) :=
         BooleanLists(elements)
 
 *PARMS
-{elements} -- an integer that contains the desired number of boolean lists in the returned list.
+[elements] -- an integer that contains the desired number of boolean lists in the returned list.
 
 
 *DESC
 Returns a list that contains lists that hold a sequence of boolean values. The first list in the sequence 
-contains all {False} values and the rest of the lists contain patterns of boolean values up through 
-all {True} values.
+contains all [False] values and the rest of the lists contain patterns of boolean values up through 
+all [True] values.
 
 *E.G.
 In> BooleanLists(2)
-Result: {{False,False},{False,True},{True,False},{True,True}}
+Result: [[False,False],[False,True],[True,False],[True,True]]
 
 *SEE BooleanList, TruthTable
 
@@ -49,7 +49,7 @@ Result: {{False,False},{False,True},{True,False},{True,True}}
 
 %mathpiper,name="BooleanLists",subtype="automatic_test"
 
-Verify(BooleanLists(2), {{False,False},{False,True},{True,False},{True,True}});
+Verify(BooleanLists(2), [[False,False],[False,True],[True,False],[True,True]]);
 
 %/mathpiper
 

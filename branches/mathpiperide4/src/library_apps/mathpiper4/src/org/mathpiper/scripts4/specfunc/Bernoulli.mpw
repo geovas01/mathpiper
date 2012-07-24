@@ -48,13 +48,13 @@ Bernoulli(n_Integer?, _x) <-- ⊕
 
 *PARMS
 
-{x} -- expression that will be the variable in the polynomial
+[x] -- expression that will be the variable in the polynomial
 
-{index} -- expression that can be evaluated to an integer
+[index] -- expression that can be evaluated to an integer
 
 *DESC
 
-{Bernoulli(n)} evaluates the $n$-th Bernoulli number. {Bernoulli(n, x)} returns the $n$-th Bernoulli polynomial in the variable $x$. The polynomial is returned in the Horner form.
+[Bernoulli(n)] evaluates the $n$-th Bernoulli number. [Bernoulli(n, x)] returns the $n$-th Bernoulli polynomial in the variable $x$. The polynomial is returned in the Horner form.
 
 *E.G.
 

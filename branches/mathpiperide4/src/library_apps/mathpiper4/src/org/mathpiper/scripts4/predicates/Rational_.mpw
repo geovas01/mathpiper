@@ -1,9 +1,9 @@
 %mathpiper,def="Rational?"
 
 /* changed definition of Rational?, Nobbi 030529
-Function("Rational?",{aLeft}) Type(aLeft) = "/";
+Function("Rational?",[aLeft]) Type(aLeft) = "/";
 
-Function("RationalNumeric?",{aLeft})
+Function("RationalNumeric?",[aLeft])
     Type(aLeft) = "/" And?
     Number?(aLeft[1]) And?
     Number?(aLeft[2]);
@@ -33,7 +33,7 @@ RationalOrNumber?(_x) <-- (Number?(x) Or? RationalNumeric?(x));
 
 *PARMS
 
-{expr} -- expression to test
+[expr] -- expression to test
 
 *DESC
 

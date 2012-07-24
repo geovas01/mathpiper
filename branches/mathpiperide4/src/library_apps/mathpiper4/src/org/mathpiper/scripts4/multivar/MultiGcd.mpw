@@ -13,20 +13,20 @@
 ⊖;
 
 
-5 # MultiGcd(f_Multi?,g_Multi?)_(MultiTermLess({MultiLM(f),1},{MultiLM(g),1})) <--
+5 # MultiGcd(f_Multi?,g_Multi?)_(MultiTermLess([MultiLM(f),1],[MultiLM(g),1])) <--
 ⊕
 //Echo("lesser");
   MultiGcd(g,f);
 ⊖;
 
 5  # MultiGcd(MultiNomial(_vars,_terms),g_Multi?)_(MultiLM(MultiNomial(vars,terms)) =? MultiLM(g))
-     <-- CreateTerm(vars,{FillList(0,Length(vars)),1});
+     <-- CreateTerm(vars,[FillList(0,Length(vars)),1]);
 
-5  # MultiGcd(MultiNomial(_vars,_terms),g_Multi?)_( Select(MultiLM(MultiNomial(vars,terms))-MultiLM(g), {{n},n<?0} ) !=? {})
-     <-- CreateTerm(vars,{FillList(0,Length(vars)),1});
+5  # MultiGcd(MultiNomial(_vars,_terms),g_Multi?)_( Select(MultiLM(MultiNomial(vars,terms))-MultiLM(g), [[n],n<?0] ) !=? [])
+     <-- CreateTerm(vars,[FillList(0,Length(vars)),1]);
 
 5  # MultiGcd(MultiNomial(_vars,_terms),g_Multi?)_(NormalForm(g) =? 0)
-     <-- CreateTerm(vars,{FillList(0,Length(vars)),1});
+     <-- CreateTerm(vars,[FillList(0,Length(vars)),1]);
 10 # MultiGcd(f_Multi?,g_Multi?) <--
 ⊕
   LocalSymbols(a)
@@ -39,7 +39,7 @@
   ⊕
 //Echo("before f",f,NormalForm(f));
 //Echo("before g",g,NormalForm(g));
-    Bind(new, MultiDivide(f,{g}));
+    Bind(new, MultiDivide(f,[g]));
 //Echo("new g",NormalForm(new[1][1]),NormalForm(new[2]));
 If(new[1][1]=?0,
 ⊕

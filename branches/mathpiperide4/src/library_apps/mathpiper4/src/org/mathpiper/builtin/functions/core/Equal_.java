@@ -78,8 +78,8 @@ the same, and "False" otherwise.
 
 Verify(Equal?(a,b),False);
 Verify(Equal?(a,a),True);
-Verify(Equal?({a,b},{a}),False);
-Verify(Equal?({a,b},{a,b}),True);
+Verify(Equal?([a,b],[a]),False);
+Verify(Equal?([a,b],[a,b]),True);
 
 %/mathpiper
 

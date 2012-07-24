@@ -13,7 +13,7 @@ LocalSymbols(localResult) ⊕
     
     result := False;
     
-    While (tr !=? {})
+    While (tr !=? [])
     ⊕
       If (First(First(tr)) =? exp,
       ⊕
@@ -23,7 +23,7 @@ LocalSymbols(localResult) ⊕
         
         result := True;
         
-        tr:={};
+        tr:=[];
       ⊖,
       ⊕
         tr := Rest(tr);
@@ -43,7 +43,7 @@ LocalSymbols(localResult) ⊕
     
     result := False;
     
-    While (tr !=? {})
+    While (tr !=? [])
     ⊕
       Bind(head, First(First(tr)));
       
@@ -55,7 +55,7 @@ LocalSymbols(localResult) ⊕
         
         Bind(result, True);
         
-        Bind(tr, {});
+        Bind(tr, []);
       ⊖,
       ⊕
         Bind(tr, Rest(tr));
@@ -84,17 +84,17 @@ UnFence("LocChange",1);
 //============== LocProcessSingle ===============================
 //Convert a local rule into a rule which has its pattern replaced by a ParametersPatternMatchers.
 
-10 # LocProcessSingle({_pat, _post, _exp}) <-- { {pat[0], PatternCreate(pat, post)}, exp, "UNNAMED" };
+10 # LocProcessSingle([_pat, _post, _exp]) <-- [ [pat[0], PatternCreate(pat, post)], exp, "UNNAMED" ];
 
 
-20 # LocProcessSingle({pat_Function?, _exp}) <-- { {pat[0], PatternCreate(pat,True)}, exp, "UNNAMED" };
+20 # LocProcessSingle([pat_Function?, _exp]) <-- [ [pat[0], PatternCreate(pat,True)], exp, "UNNAMED" ];
 
 
-30 # LocProcessSingle({pat_Atom?, _exp}) <-- { pat, exp, "UNNAMED" };
+30 # LocProcessSingle([pat_Atom?, _exp]) <-- [ pat, exp, "UNNAMED" ];
 
 
 /*
-    40 # LocProcessSingle(pat_Function? <- _exp) <-- { {pat[0],PatternCreate(pat,True)},exp };
+    40 # LocProcessSingle(pat_Function? <- _exp) <-- [ [pat[0],PatternCreate(pat,True)],exp ];
     todo:tk:this rule was not handling post predicates so I replaced it with a new version that does.
     I suspect that the other rules for this Rulebase have problems too. 
 */
@@ -126,11 +126,11 @@ UnFence("LocChange",1);
            
            If(Function?(justPattern),
              ⊕
-               { {justPattern[0], PatternCreate(justPattern, postPredicate)}, exp , ruleName};
+               [ [justPattern[0], PatternCreate(justPattern, postPredicate)], exp , ruleName];
              ⊖,
              ⊕
                //Atom.
-               { justPattern, exp, ruleName };
+               [ justPattern, exp, ruleName ];
              ⊖
            
            );
@@ -138,7 +138,7 @@ UnFence("LocChange",1);
         ⊕
            ruleName := "UNNAMED";
            justPattern := pat;
-           { {justPattern[0], PatternCreate(justPattern, postPredicate)}, exp , ruleName};
+           [ [justPattern[0], PatternCreate(justPattern, postPredicate)], exp , ruleName];
         ⊖
     );
             
@@ -146,7 +146,7 @@ UnFence("LocChange",1);
 
 
 
-50 # LocProcessSingle(pat_Atom? <- _exp) <-- { pat, exp, "UNNAMED" };
+50 # LocProcessSingle(pat_Atom? <- _exp) <-- [ pat, exp, "UNNAMED" ];
 
 
 

@@ -1,6 +1,6 @@
 %mathpiper,def="ZeroVector?"
 
-Function("ZeroVector?",{aList}) aList =? ZeroVector(Length(aList));
+Function("ZeroVector?",[aList]) aList =? ZeroVector(Length(aList));
 
 %/mathpiper
 
@@ -14,19 +14,19 @@ Function("ZeroVector?",{aList}) aList =? ZeroVector(Length(aList));
 
 *PARMS
 
-{list} -- list to compare against the zero vector
+[list] -- list to compare against the zero vector
 
 *DESC
 
-The only argument given to {ZeroVector?} should be
-a list. The result is {True} if the list contains
-only zeroes and {False} otherwise.
+The only argument given to [ZeroVector?] should be
+a list. The result is [True] if the list contains
+only zeroes and [False] otherwise.
 
 *E.G.
 
-In> ZeroVector?({0, x, 0});
+In> ZeroVector?([0, x, 0]);
 Result: False;
-In> ZeroVector?({x-x, 1 - Differentiate(x) x});
+In> ZeroVector?([x-x, 1 - Differentiate(x) x]);
 Result: True;
 
 *SEE List?, ZeroVector

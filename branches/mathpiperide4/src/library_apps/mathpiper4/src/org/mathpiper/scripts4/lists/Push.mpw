@@ -1,6 +1,6 @@
 %mathpiper,def="Push"
 
-Function("Push",{stack,element})
+Function("Push",[stack,element])
 ⊕
   DestructiveInsert(stack,1,element);
 ⊖;
@@ -17,9 +17,9 @@ Function("Push",{stack,element})
 
 *PARMS
 
-{stack} -- a list (which serves as the stack container)
+[stack] -- a list (which serves as the stack container)
 
-{expr} -- expression to push on "stack"
+[expr] -- expression to push on "stack"
 
 *DESC
 
@@ -29,12 +29,12 @@ top of the stack, and returns the stack afterwards.
 
 *E.G.
 
-In> stack := {};
-Result: {};
+In> stack := [];
+Result: [];
 In> Push(stack, x);
-Result: {x};
+Result: [x];
 In> Push(stack, x2);
-Result: {x2,x};
+Result: [x2,x];
 In> PopFront(stack);
 Result: x2;
 

@@ -16,7 +16,7 @@ but it seems like it was meant to be a published function.
 // The function returns the position at which the new term is added plus 1.
 // (to be used as begining for sucesive AddTerm calls
 
-Function("AddTerm",{termlist,term,begining})
+Function("AddTerm",[termlist,term,begining])
 ⊕
  Local(l,i);
  l := Length(termlist);
@@ -29,7 +29,7 @@ Function("AddTerm",{termlist,term,begining})
           If (term[1]=?termlist[i][1],
              ⊕ Local(nc);
                nc:=termlist[i][2]+term[2];
-                 If(nc!=?0,DestructiveReplace(termlist,i,{term[1],nc}),
+                 If(nc!=?0,DestructiveReplace(termlist,i,[term[1],nc]),
                           ⊕DestructiveDelete(termlist,i);i--;⊖);
              ⊖,  DestructiveInsert(termlist,i,term))
      );

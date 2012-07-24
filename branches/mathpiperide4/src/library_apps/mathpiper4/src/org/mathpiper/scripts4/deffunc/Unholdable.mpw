@@ -1,7 +1,7 @@
 %mathpiper,def="Unholdable"
 
 
-RulebaseHoldArguments("Unholdable",{var});
+RulebaseHoldArguments("Unholdable",[var]);
 
 HoldArgument("Unholdable",var);
 
@@ -10,13 +10,13 @@ UnFence("Unholdable",1);
 RuleHoldArguments("Unholdable",1,10,Equal?(Type(Eval(var)),"Eval"))
 ⊕
     MacroBind(var,Eval(Eval(var)));
-    //Echo({"unheld",var,Eval(var)});
+    //Echo(["unheld",var,Eval(var)]);
 ⊖;
 
 
 RuleHoldArguments("Unholdable",1,20,True)
 ⊕
-    //Echo({"held"});
+    //Echo(["held"]);
   True;
 ⊖;
 
@@ -34,7 +34,7 @@ RuleHoldArguments("Unholdable",1,20,True)
 
 *PARMS
 
-{var} -- a variable
+[var] -- a variable
 
 *DESC
 This function makes a variable unholdable.  It is used to make sure that an :=

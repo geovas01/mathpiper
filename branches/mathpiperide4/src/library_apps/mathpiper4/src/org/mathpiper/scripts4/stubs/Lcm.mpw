@@ -29,26 +29,26 @@
 
 *PARMS
 
-{n}, {m} -- integers or univariate polynomials
-{list}         -- list of integers
+[n], [m] -- integers or univariate polynomials
+[list]         -- list of integers
 
 *DESC
 
 This command returns the least common multiple of "n" and "m" or all of
-the integers in the list {list}.
+the integers in the list [list].
 The least common multiple of two numbers "n" and "m" is the lowest
 number which is an integer multiple of both "n" and "m".
 It is calculated with the formula
 $$Lcm(n,m) = Quotient(n*m,Gcd(n,m))$$.
 
-This means it also works on polynomials, since {Div}, {Gcd} and multiplication are also defined for
+This means it also works on polynomials, since [Div], [Gcd] and multiplication are also defined for
 them.
 
 *E.G.
 
 In> Lcm(60,24)
 Result: 120;
-In> Lcm({3,5,7,9})
+In> Lcm([3,5,7,9])
 Result: 315;
 
 
@@ -62,6 +62,6 @@ Result: 315;
 
 %mathpiper,name="Lcm",subtype="automatic_test"
 
-Verify( Lcm({7,11,13,17}), 7*11*13*17 );
+Verify( Lcm([7,11,13,17]), 7*11*13*17 );
 
 %/mathpiper

@@ -1,6 +1,6 @@
 %mathpiper,def="TellNow"
-Macro("TellNow",{id})    ⊕SysOut("<< ",@id," >>");⊖;
-Macro("TellNow",{id,x})  ⊕SysOut("<< ",@id," >> ",Hold(@x),": ",Eval(@x));⊖;
+Macro("TellNow",[id])    ⊕SysOut("<< ",@id," >>");⊖;
+Macro("TellNow",[id,x])  ⊕SysOut("<< ",@id," >> ",Hold(@x),": ",Eval(@x));⊖;
 %/mathpiper
 
     %output,preserve="false"
@@ -18,26 +18,26 @@ Macro("TellNow",{id,x})  ⊕SysOut("<< ",@id," >> ",Hold(@x),": ",Eval(@x));⊖;
 
 *PARMS
 
-{ID} -- an arbitrary identifier for this printout
+[ID] -- an arbitrary identifier for this printout
 
-{list} -- a list of items to be printed (may be a single item)
+[list] -- a list of items to be printed (may be a single item)
 
 *DESC
 
-If passed a single item, {TellNow} will display it using SysOut().  
+If passed a single item, [TellNow] will display it using SysOut().  
 The dispayed value will be enclosed with << >> (see below).
 If ID consists of more than one word, it should be quoted.
 
 If there are two arguments, the first should be an ID as above, and the second 
 should be a list of variables which are bound to values at the place where
-{TellNow} is called.  Using SysOut(), the list of variable names will be printed
+[TellNow] is called.  Using SysOut(), the list of variable names will be printed
 out, along with a list of their currently bound values.
 
-{TellNow} can be called with any number of variable names in the list.
+[TellNow] can be called with any number of variable names in the list.
 
-{TellNow} always returns {True}.
+[TellNow] always returns [True].
 
-Because {TellNow} uses SysOut() to print its output, the output will be visible
+Because [TellNow] uses SysOut() to print its output, the output will be visible
 both on Standard Output and also on the Shell console (if MathPiper is started
 this way), or on the MathPiperIDE Activity Log (if started in MathPiperIDE).  
 The latter is very useful for debugging programs which hang in a loop or
@@ -55,18 +55,18 @@ In> TellNow(ID1)
 Result: True
         Side Effects>
         << ID1 >>
-In> TellNow(ID2,{var1})
+In> TellNow(ID2,[var1])
 Result: True
         Side Effects>
-        << ID2 >> {var1}:  {123}
-In> TellNow(ID3,{var1,var2})
+        << ID2 >> [var1]:  [123]
+In> TellNow(ID3,[var1,var2])
 Result: True
         Side Effects>
-        << ID3 >> {var1,var2}:  {123,a string}
-In> TellNow(ID4,{var1,var2,var3})
+        << ID3 >> [var1,var2]:  [123,a string]
+In> TellNow(ID4,[var1,var2,var3])
 Result: True
         Side Effects>
-        << ID4 >> {var1,var2,var3}:  {123,a string,Sin(x)+Exp(x)}
+        << ID4 >> [var1,var2,var3]:  [123,a string,Sin(x)+Exp(x)]
 
 *SEE Tell
 %/mathpiper_docs

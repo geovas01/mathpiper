@@ -1,6 +1,6 @@
 %mathpiper,def="DestructiveAppendList"
 
-Function("DestructiveAppendList",{list,toadd})
+Function("DestructiveAppendList",[list,toadd])
 ⊕
   Local(i,nr);
   nr:=Length(toadd);

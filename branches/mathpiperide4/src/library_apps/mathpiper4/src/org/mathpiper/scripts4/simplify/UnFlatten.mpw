@@ -1,8 +1,8 @@
 %mathpiper,def="UnFlatten"
 
-10 # UnFlatten({},_op,_identity) <-- identity;
+10 # UnFlatten([],_op,_identity) <-- identity;
 20 # UnFlatten(list_List?,_op,_identity) <--
-     Apply(op,{First(list),UnFlatten(Rest(list),op,identity)});
+     Apply(op,[First(list),UnFlatten(Rest(list),op,identity)]);
 
 %/mathpiper
 
@@ -16,11 +16,11 @@
 
 *PARMS
 
-{list} -- list of objects the operator is to work on
+[list] -- list of objects the operator is to work on
 
-{operator} -- infix operator
+[operator] -- infix operator
 
-{identity} -- identity of the operator
+[identity] -- identity of the operator
 
 *DESC
 
@@ -33,9 +33,9 @@ a+0=a). For multiplication the identity element would be 1.
 
 *E.G.
 
-In> UnFlatten({a,b,c},"+",0)
+In> UnFlatten([a,b,c],"+",0)
 Result: a+b+c;
-In> UnFlatten({a,b,c},"*",1)
+In> UnFlatten([a,b,c],"*",1)
 Result: a*b*c;
 
 *SEE Flatten

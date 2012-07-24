@@ -4,7 +4,7 @@
 20 # (list_List? AddTo _rest) <--
 ⊕
   Local(res);
-  res:={};
+  res:=[];
   ForEach(item,list)
   ⊕
     res := Concat(res,item AddTo rest);
@@ -13,7 +13,7 @@
 ⊖;
 30 # (_aitem AddTo list_List?) <--
 ⊕
-  MapSingle({{orig},aitem And? orig},list);
+  MapSingle([[orig],aitem And? orig],list);
 ⊖;
 40 # (_aitem AddTo _b) <-- aitem And? b;
 
@@ -29,14 +29,14 @@
 
 *PARMS
 
-{eq} - (set of) set of equations
+[eq] - (set of) set of equations
 
 *DESC
 
 Given two (sets of) sets of equations, the command AddTo combines
 multiple sets of equations into one. 
 
-A list {a,b} means that a is a solution, OR b is a solution.
+A list [a,b] means that a is a solution, OR b is a solution.
 AddTo then acts as a AND operation:
 
         (a or b) and (c or d) => 
@@ -46,11 +46,11 @@ AddTo then acts as a AND operation:
 
 This function is useful for adding an identity to an already
 existing set of equations. Suppose a solve command returned
-{a>=?0 And? x==a,a<?0 And? x== -a} from an expression x==Abs(a),
+[a>=?0 And? x==a,a<?0 And? x== -a] from an expression x==Abs(a),
 then a new identity a==2 could be added as follows:
 
-In> a==2 AddTo {a>=?0 And? x==a,a<?0 And? x== -a}
-Result: {a==2 And? a>=?0 And? x==a,a==2 And? a<?0 And? x== -a};
+In> a==2 AddTo [a>=?0 And? x==a,a<?0 And? x== -a]
+Result: [a==2 And? a>=?0 And? x==a,a==2 And? a<?0 And? x== -a];
 
 Passing this set of set of identities back to solve, solve
 should recognize that the second one is not a possibility
@@ -60,10 +60,10 @@ This operator can help the user to program in the style of functional programmin
 
 *E.G.
 
-In> {A==2,c==d} AddTo {b==3 And? d==2}
-Result: {A==2 And? b==3 And? d==2,c==d And? b==3 And? d==2};
-In> {A==2,c==d} AddTo {b==3, d==2}
-Result: {A==2 And? b==3,A==2 And? d==2,c==d And? b==3,c==d And? d==2};
+In> [A==2,c==d] AddTo [b==3 And? d==2]
+Result: [A==2 And? b==3 And? d==2,c==d And? b==3 And? d==2];
+In> [A==2,c==d] AddTo [b==3, d==2]
+Result: [A==2 And? b==3,A==2 And? d==2,c==d And? b==3,c==d And? d==2];
 
 *SEE Where, Solve
 %/mathpiper_docs

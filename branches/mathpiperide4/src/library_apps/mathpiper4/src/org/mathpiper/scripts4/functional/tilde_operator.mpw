@@ -4,9 +4,9 @@
 
 /* a ~ b will now return unevaluated (rather than cause error of invalid argument in Concat) if neither a nor b is a list and if one of them is not a string
 */
-RulebaseHoldArguments("~",{head,tail});
-RuleHoldArguments("~",2,20,List?(head) And? Not? List?(tail) ) Concat(head,{tail});
-RuleHoldArguments("~",2,30,List?(tail) ) Concat({head},tail);
+RulebaseHoldArguments("~",[head,tail]);
+RuleHoldArguments("~",2,20,List?(head) And? Not? List?(tail) ) Concat(head,[tail]);
+RuleHoldArguments("~",2,30,List?(tail) ) Concat([head],tail);
 RuleHoldArguments("~",2,10,String?(tail) And? String?(head)) ConcatStrings(head,tail);
 UnFence("~",2);
 
@@ -26,13 +26,13 @@ UnFence("~",2);
 Precedence = 70
 
 *PARMS
-{item} -- an item to append or prepend to a list
+[item] -- an item to append or prepend to a list
 
-{list} -- a list
+[list] -- a list
 
-{string1} -- a string
+[string1] -- a string
 
-{string2} -- a string
+[string2] -- a string
 
 *DESC
 
@@ -45,17 +45,17 @@ This operator can help the user to program in the style of functional programmin
 
 *E.G.
 
-In> {}~a
-Result: {a}
+In> []~a
+Result: [a]
 
-In> {a,b}~c
-Result: {a,b,c}
+In> [a,b]~c
+Result: [a,b,c]
 
-In> a~b~c~{}
-Result: {a,b,c};
+In> a~b~c~[]
+Result: [a,b,c];
 
-In> a~b~{c}~d
-Result: {a,b,c,d}
+In> a~b~[c]~d
+Result: [a,b,c,d]
 
 In> "This"~"Is"~"A"~"String"
 Result: "ThisIsAString";

@@ -49,7 +49,7 @@
         );
         // recipe: x1dd 1 to the lx1st term unless it's the lx1st in the originx1l sequence
         //Ayal added this line, i could become bigger than Length(x1)!
-        //If(InVerboseMode(), Echo({"NearRational: using ", i, "terms of the continued fraction"}));
+        //If(InVerboseMode(), Echo(["NearRational: using ", i, "terms of the continued fraction"]));
         If(i>?Length(x1),i:=Length(x1));
         x1[i] := x1[i] + If(i=?Length(x1), 0, 1);
         BuiltinPrecisionSet(oldprec);
@@ -85,33 +85,33 @@
 
 *PARMS
 
-{x} -- a number to be approximated (must be already evaluated to floating-point)
-{z} -- a complex number to be approximated (Re and Im as above)
+[x] -- a number to be approximated (must be already evaluated to floating-point)
+[z] -- a complex number to be approximated (Re and Im as above)
 
-{digits} -- desired number of decimal digits (integer)
+[digits] -- desired number of decimal digits (integer)
 
 *DESC
 
-The functions {GuessRational(x)} and {NearRational(x)} attempt to find "optimal"
-rational approximations to a given value {x}. The approximations are "optimal"
+The functions [GuessRational(x)] and [NearRational(x)] attempt to find "optimal"
+rational approximations to a given value [x]. The approximations are "optimal"
 in the sense of having smallest numerators and denominators among all rational
-numbers close to {x}. This is done by computing a continued fraction
-representation of {x} and truncating it at a suitably chosen term.  Both
-functions return a rational number which is an approximation of {x}.
+numbers close to [x]. This is done by computing a continued fraction
+representation of [x] and truncating it at a suitably chosen term.  Both
+functions return a rational number which is an approximation of [x].
 
-Unlike the function {Rationalize()} which converts floating-point numbers to
-rationals without loss of precision, the functions {GuessRational()} and
-{NearRational()} are intended to find the best rational that is <i>approximately</i>
+Unlike the function [Rationalize()] which converts floating-point numbers to
+rationals without loss of precision, the functions [GuessRational()] and
+[NearRational()] are intended to find the best rational that is <i>approximately</i>
 equal to a given value.
 
-The function {NearRational(x)} is useful if one needs to
+The function [NearRational(x)] is useful if one needs to
 approximate a given value, i.e. to find an "optimal" rational number
-that lies in a certain small interval around a certain value {x}. This
-function takes an optional second parameter {digits} which has slightly
+that lies in a certain small interval around a certain value [x]. This
+function takes an optional second parameter [digits] which has slightly
 different meaning: it specifies the number of digits of precision of
-the approximation; in other words, the difference between {x} and the
+the approximation; in other words, the difference between [x] and the
 resulting rational number should be at most one digit of that
-precision. The parameter {digits} also defaults to half of the current
+precision. The parameter [digits] also defaults to half of the current
 precision.
 
 *E.G.

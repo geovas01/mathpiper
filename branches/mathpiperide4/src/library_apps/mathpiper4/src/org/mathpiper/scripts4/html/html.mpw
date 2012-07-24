@@ -30,45 +30,45 @@ MySQLQuery
 
 
 /* Global defines */
-anchor:={};
+anchor:=[];
 anchor["0"]:="a";
 anchor["name"]:="";
 
-link:={};
+link:=[];
 link["0"]:="a";
 link["href"]:="";
 
-frameset:={};
+frameset:=[];
 frameset["0"]:="frameset";
 frameset["border"]:="0";
 
-frame:={};
+frame:=[];
 frame["0"]:="frame";
 
-caption:={};
+caption:=[];
 caption["0"]:="caption";
 
-table:={};
+table:=[];
 table["0"]:="table";
 
-form:={};
+form:=[];
 form["0"]:="form";
 
-textarea:={};
+textarea:=[];
 textarea["0"]:="textarea";
 
-textfield:={};
+textfield:=[];
 textfield["0"]:="input";
 textfield["TYPE"]:="text";
 
-button:={};
+button:=[];
 button["0"]:="input";
 button["TYPE"]:="submit";
 
-bullets:={};
+bullets:=[];
 bullets["0"]:="ul";
 
-bullet:={};
+bullet:=[];
 bullet["0"]:="li";
 
 newline:="
@@ -215,8 +215,8 @@ HtmlFile(file) := ⊕htmldir ~ file;⊖;
 
 
 /* loading and saving site info */
-site:={};
-ClearSite() := ⊕site:={};⊖;
+site:=[];
+ClearSite() := ⊕site:=[];⊖;
 LoadSite():=
 ⊕
   PipeFromFile("siteall")

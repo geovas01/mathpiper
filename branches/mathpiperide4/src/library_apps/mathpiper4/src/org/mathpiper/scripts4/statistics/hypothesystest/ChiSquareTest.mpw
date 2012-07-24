@@ -23,7 +23,7 @@ Retract(ChiSquareTest,*);
 
     Local( numerator, chi2, pValue, categoriesCount, degreesOfFreedom, resultList);
    
-    resultList := {};
+    resultList := [];
 
     categoriesCount := Length(observedFrequenciesList);
 
@@ -57,7 +57,7 @@ Retract(ChiSquareTest,*);
 
     Local( numerator, chi2, pValue, categoriesCount, degreesOfFreedom, resultList);
    
-    resultList := {};
+    resultList := [];
 
     categoriesCount := Length(observedFrequenciesList);
 
@@ -94,21 +94,21 @@ Retract(ChiSquareTest,*);
         ChiSquareTest(observed,expected)
 
 *PARMS
-{observed} -- list of observed frequencies
+[observed] -- list of observed frequencies
 
-{expected} -- list of expected frequencies
+[expected] -- list of expected frequencies
 
 *DESC
-{ChiSquareTest} is intended to determine if a sample was drawn from a
+[ChiSquareTest] is intended to determine if a sample was drawn from a
 given distribution or not. To find this out, one has to calculate
 observed frequencies into certain intervals and expected ones.
 
 *E.G.
 /%mathpiper,title=""
 
-observedList := {145,128,73,32,22};
+observedList := [145,128,73,32,22];
 
-expectedList := {160,120,80,20,20};
+expectedList := [160,120,80,20,20];
 
 a := ChiSquareTest(observedList, expectedList);
 
@@ -120,9 +120,9 @@ TableForm(a);
       Result: True
       
       Side Effects:
-      {"chiSquareScore",9.952083333}
-      {"pValue",0.0412426135}
-      {"degreesOfFreedom",4}
+      ["chiSquareScore",9.952083333]
+      ["pValue",0.0412426135]
+      ["degreesOfFreedom",4]
       
 .   /%/output
 

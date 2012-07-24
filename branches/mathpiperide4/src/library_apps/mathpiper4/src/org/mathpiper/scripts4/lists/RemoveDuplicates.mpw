@@ -1,9 +1,9 @@
 %mathpiper,def="RemoveDuplicates"
 
-Function("RemoveDuplicates",{list})
+Function("RemoveDuplicates",[list])
 ⊕
    Local(result);
-   Bind(result,{});
+   Bind(result,[]);
    ForEach(item,list)
      If(Not?(Contains?(result,item)),DestructiveAppend(result,item));
    result;
@@ -21,7 +21,7 @@ Function("RemoveDuplicates",{list})
 
 *PARMS
 
-{list} -- list to act on
+[list] -- list to act on
 
 *DESC
 
@@ -32,8 +32,8 @@ third, the fourth, etc.
 
 *E.G.
 
-In> RemoveDuplicates({1,2,3,2,1});
-Result: {1,2,3};
-In> RemoveDuplicates({a,1,b,1,c,1});
-Result: {a,1,b,c};
+In> RemoveDuplicates([1,2,3,2,1]);
+Result: [1,2,3];
+In> RemoveDuplicates([a,1,b,1,c,1]);
+Result: [a,1,b,c];
 %/mathpiper_docs

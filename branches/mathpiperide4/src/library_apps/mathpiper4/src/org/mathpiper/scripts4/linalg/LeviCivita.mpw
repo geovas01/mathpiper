@@ -1,7 +1,7 @@
 %mathpiper,def="LeviCivita"
 
 /* Levi-civita symbol */
-Function("LeviCivita",{indices})
+Function("LeviCivita",[indices])
 ⊕
   Local(i,j,length,left,right,factor);
   length:=Length(indices);
@@ -17,7 +17,7 @@ Function("LeviCivita",{indices})
       If (Equal?(left,right),
       ⊕ factor := 0 ; ⊖,
       ⊕
-        If(Not?(Apply("<?",{left,right})),
+        If(Not?(Apply("<?",[left,right])),
         ⊕
 /*
           Swap(indices,i,i+1);
@@ -43,24 +43,24 @@ Function("LeviCivita",{indices})
 
 *PARMS
 
-{list} -- a list of integers 1 .. n in some order
+[list] -- a list of integers 1 .. n in some order
 
 *DESC
 
-{LeviCivita} implements the Levi-Civita symbol. This is generally
-useful for tensor calculus.  {list}  should be a list of integers,
+[LeviCivita] implements the Levi-Civita symbol. This is generally
+useful for tensor calculus.  [list]  should be a list of integers,
 and this function returns 1 if the integers are in successive order,
-eg. {LeviCivita( {1,2,3,...} )}  would return 1. Swapping two elements of this
-list would return -1. So, {LeviCivita( {2,1,3} )} would evaluate
+eg. [LeviCivita( [1,2,3,...] )]  would return 1. Swapping two elements of this
+list would return -1. So, [LeviCivita( [2,1,3] )] would evaluate
 to -1.
 
 *E.G.
 
-In> LeviCivita({1,2,3})
+In> LeviCivita([1,2,3])
 Result: 1;
-In> LeviCivita({2,1,3})
+In> LeviCivita([2,1,3])
 Result: -1;
-In> LeviCivita({2,2,3})
+In> LeviCivita([2,2,3])
 Result: 0;
 
 *SEE PermutationsList

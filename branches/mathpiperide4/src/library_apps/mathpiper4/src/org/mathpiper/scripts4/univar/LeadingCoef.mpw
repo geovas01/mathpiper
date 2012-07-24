@@ -29,9 +29,9 @@
 
 *PARMS
 
-{poly} -- a polynomial
+[poly] -- a polynomial
 
-{var} -- a variable
+[var] -- a variable
 
 *DESC
 

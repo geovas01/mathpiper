@@ -1,12 +1,12 @@
 %mathpiper,def="WithValue"
 
-TemplateFunction("WithValue",{var,val,expr})
+TemplateFunction("WithValue",[var,val,expr])
 ⊕
   If(List?(var),
      ApplyFast("MacroLocal",var),
      MacroLocal(var)
     );
-  ApplyFast(":=",{var,val});
+  ApplyFast(":=",[var,val]);
   Eval(expr);
 ⊖;
 
@@ -19,22 +19,22 @@ TemplateFunction("WithValue",{var,val,expr})
 *STD
 *CALL
         WithValue(var, val, expr)
-        WithValue({var,...}, {val,...}, expr)
+        WithValue([var,...], [val,...], expr)
 
 *PARMS
 
-{var} -- variable to assign to
+[var] -- variable to assign to
 
-{val} -- value to be assigned to "var"
+[val] -- value to be assigned to "var"
 
-{expr} -- expression to evaluate with "var" equal to "val"
+[expr] -- expression to evaluate with "var" equal to "val"
 
 *DESC
 
 First, the expression "val" is assigned to the variable
 "var". Then, the expression "expr" is evaluated and
 returned. Finally, the assignment is reversed so that the variable
-"var" has the same value as it had before {WithValue} was evaluated.
+"var" has the same value as it had before [WithValue] was evaluated.
 
 The second calling sequence assigns the first element in the list of
 values to the first element in the list of variables, the second value
@@ -44,7 +44,7 @@ to the second variable, etc.
 
 In> WithValue(x, 3, x^2+y^2+1);
 Result: y^2+10;
-In> WithValue({x,y}, {3,2}, x^2+y^2+1);
+In> WithValue([x,y], [3,2], x^2+y^2+1);
 Result: 14;
 
 *SEE Subst, /:, Where

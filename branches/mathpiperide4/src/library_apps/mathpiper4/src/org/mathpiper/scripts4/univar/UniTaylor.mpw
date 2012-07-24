@@ -1,9 +1,9 @@
 %mathpiper,def="UniTaylor"
 
-Function("UniTaylor",{taylorfunction,taylorvariable,taylorat,taylororder})
+Function("UniTaylor",[taylorfunction,taylorvariable,taylorat,taylororder])
 ⊕
   Local(n,result,dif,polf);
-  result:={};
+  result:=[];
   ⊕
     MacroLocal(taylorvariable);
     MacroBind(taylorvariable,taylorat);

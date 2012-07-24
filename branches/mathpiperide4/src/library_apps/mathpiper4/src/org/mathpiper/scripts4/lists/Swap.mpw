@@ -1,6 +1,6 @@
 %mathpiper,def="Swap"
 
-Function("Swap",{list,index1,index2})
+Function("Swap",[list,index1,index2])
 ⊕
   Local(item1,item2);
   item1:=list[index1];
@@ -21,9 +21,9 @@ Function("Swap",{list,index1,index2})
 
 *PARMS
 
-{list} -- the list in which a pair of entries should be swapped
+[list] -- the list in which a pair of entries should be swapped
 
-{i1, i2} -- indices of the entries in "list" to swap
+[i1, i2] -- indices of the entries in "list" to swap
 
 *DESC
 
@@ -33,14 +33,14 @@ and the entry at "i2" is put at index "i1". Both indices should be
 valid to address elements in the list. Then the updated list is
 returned.
 
-{Swap()} works also on generic arrays.
+[Swap()] works also on generic arrays.
 
 *E.G.
 
-In> lst := {a,b,c,d,e,f};
-Result: {a,b,c,d,e,f};
+In> lst := [a,b,c,d,e,f];
+Result: [a,b,c,d,e,f];
 In> Swap(lst, 2, 4);
-Result: {a,d,c,b,e,f};
+Result: [a,d,c,b,e,f];
 
 *SEE Replace, DestructiveReplace, ArrayCreate
 %/mathpiper_docs

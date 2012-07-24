@@ -17,14 +17,14 @@ BernoulliDistribution(p_RationalOrNumber?)_(p<?0 Or? p>?1) <-- Undefined;
 
 *PARMS
 
-{p} -- number, probability of an event in a single trial
+[p] -- number, probability of an event in a single trial
 
 *DESC 
-A random variable has a Bernoulli distribution with probability {p} if
-it can be interpreted as an indicator of an event, where {p} is the
+A random variable has a Bernoulli distribution with probability [p] if
+it can be interpreted as an indicator of an event, where [p] is the
 probability to observe the event in a single trial.
 
-Numerical value of {p} must satisfy $0<p<1$.
+Numerical value of [p] must satisfy $0<p<1$.
 
 *SEE BinomialDistribution, ChiSquareDistribution, DiscreteUniformDistribution, ExponentionalDistribution, GeometricDistribution, NormalDistribution, PoissonDistribution, tDistribution
 %/mathpiper_docs

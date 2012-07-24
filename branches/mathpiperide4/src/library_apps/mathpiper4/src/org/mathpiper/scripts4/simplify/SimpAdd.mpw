@@ -1,5 +1,5 @@
 %mathpiper,def="SimpAdd"
 
-RulebaseHoldArguments("SimpAdd",{x,y});
+RulebaseHoldArguments("SimpAdd",[x,y]);
 
 %/mathpiper

@@ -7,7 +7,7 @@
 
 LocalSymbols(GlobalStack, x)
 ⊕
-  GlobalStack := {};
+  GlobalStack := [];
 
         GlobalPop(x_Atom?) <--
         ⊕
@@ -46,16 +46,16 @@ LocalSymbols(GlobalStack, x)
 
 *PARMS
 
-{var} -- atom, name of variable to restore from the stack
+[var] -- atom, name of variable to restore from the stack
 
-{expr} -- expression, value to save on the stack
+[expr] -- expression, value to save on the stack
 
 *DESC
 
 These functions operate with a global stack, currently implemented as a list that is not accessible externally (it is protected 
-through {LocalSymbols}).
+through [LocalSymbols]).
 
-{GlobalPush} stores a value on the stack. {GlobalPop} removes the last pushed value from the stack. If a variable name is given, the variable is assigned, otherwise the popped value is returned.
+[GlobalPush] stores a value on the stack. [GlobalPop] removes the last pushed value from the stack. If a variable name is given, the variable is assigned, otherwise the popped value is returned.
 
 If the global stack is empty, an error message is printed.
 

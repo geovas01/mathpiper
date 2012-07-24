@@ -10,14 +10,14 @@ LoadScript("incompletegamma.mpi");
 LoadScript("hypothesystest.mpi");
 
 
-Function("DoTest",{size})
+Function("DoTest",[size])
 [
   Local(arr,of,ef,i,j,m);
 //  size:=200; // sample size
   arr := Table(Random(),i,1,size,1);
   arr := HeapSort(arr,"<?");
-  of := {};
-  ef :={};
+  of := [];
+  ef :=[];
   m:=1;
   For(i:=1, i<=?10 And? m<=?size, i++)
    [

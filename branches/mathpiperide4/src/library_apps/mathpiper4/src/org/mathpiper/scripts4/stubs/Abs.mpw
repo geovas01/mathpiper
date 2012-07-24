@@ -29,7 +29,7 @@
 
 *PARMS
 
-{x} -- argument to the function
+[x] -- argument to the function
 
 *DESC
 
@@ -39,10 +39,10 @@ This function returns the absolute value (also called the modulus) of
 the modulus is the "r" in the polar decomposition
 $x = r *Exp(I*phi)$.
 
-This function is connected to the {Sign} function by
+This function is connected to the [Sign] function by
 the identity "Abs(x) * Sign(x) = x" for real "x".
 
-This function is threaded, meaning that if the argument {x} is a
+This function is threaded, meaning that if the argument [x] is a
 list, the function is applied to all entries in the list.
 
 *E.G.

@@ -14,7 +14,7 @@
       //Consider only non-zero entries
       If(Not?(Equal?(matrix[1][i],0)),
         //Transpose and Drop eliminate row 1, column i
-        result:=result+matrix[1][i]*(-1)^(i+1)* RecursiveDeterminant(Transpose(Drop(Transpose(Drop(matrix,{1,1})),{i,i}))));
+        result:=result+matrix[1][i]*(-1)^(i+1)* RecursiveDeterminant(Transpose(Drop(Transpose(Drop(matrix,[1,1])),[i,i]))));
     result;
   ⊖);
 ⊖;
@@ -31,7 +31,7 @@
         RecursiveDeterminant(matrix)
 
 *PARMS
-{matrix} -- a matrix
+[matrix] -- a matrix
 *DESC
 Computes a determinant recursively by summing the product of each (nonzero) element 
 on the first row of the matrix by +/- the determinant of the submatrix with the 

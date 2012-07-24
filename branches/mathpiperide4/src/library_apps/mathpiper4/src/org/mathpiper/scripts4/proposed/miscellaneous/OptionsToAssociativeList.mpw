@@ -3,7 +3,7 @@ OptionsToAssociativeList(optionList) :=
 ⊕
     Local(associativeList, key, value);
     
-    associativeList := {};
+    associativeList := [];
     
     ForEach(option, optionList)
     ⊕
@@ -12,7 +12,7 @@ OptionsToAssociativeList(optionList) :=
             If(String?(option[1]), key := option[1], key := ToString(option[1]));
             If(String?(option[2]), value := option[2], value := ToString(option[2]));
             
-            associativeList := {key, value} ~ associativeList;
+            associativeList := [key, value] ~ associativeList;
         
         ⊖);
     
@@ -30,15 +30,15 @@ OptionsToAssociativeList(optionList) :=
         OptionsToAssociativeList(optionsList)
 
 *PARMS
-{optionsList} -- an options list to be converted into an associative list
+[optionsList] -- an options list to be converted into an associative list
 
 *DESC
-This function converts a list of options in the form of {name -> value, name -> value}
+This function converts a list of options in the form of [name -> value, name -> value]
 into an associative list.
 
 *E.G.
-In> OptionsToAssociativeList({a ->1, b -> 2})
-Result> {{"b","2"},{"a","1"}}
+In> OptionsToAssociativeList([a ->1, b -> 2])
+Result> [["b","2"],["a","1"]]
 
 %/mathpiper_docs
 
@@ -47,7 +47,7 @@ Result> {{"b","2"},{"a","1"}}
 
 %mathpiper,title="",scope="nobuild",subtype="manual_test"
 
-OptionsToAssociativeList({ lines -> True, labels -> False });
+OptionsToAssociativeList([ lines -> True, labels -> False ]);
 
 %/mathpiper
 

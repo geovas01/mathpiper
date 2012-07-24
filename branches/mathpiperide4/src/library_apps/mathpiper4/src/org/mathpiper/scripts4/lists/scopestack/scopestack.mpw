@@ -19,18 +19,18 @@
 
 */
 
-NewStack() := {{},{}};
+NewStack() := [[],[]];
 
 10 # PushStackFrame(_stack,unfenced)
    <--
    ⊕
-     DestructiveInsert(stack[1],1,{});
+     DestructiveInsert(stack[1],1,[]);
      DestructiveInsert(stack[2],1,True);
    ⊖;
 10 # PushStackFrame(_stack,fenced)
    <--
    ⊕
-     DestructiveInsert(stack[1],1,{});
+     DestructiveInsert(stack[1],1,[]);
      DestructiveInsert(stack[2],1,False);
    ⊖;
 PopStackFrame(stack):=
@@ -42,12 +42,12 @@ StackDepth(_stack) <-- Length(stack[1]);
 
 AddToStack(stack,element)  :=
 ⊕
-  DestructiveInsert(stack[1][1],1,{element,{}});
+  DestructiveInsert(stack[1][1],1,[element,[]]);
 ⊖;
 
-DropOneFrame(_stack) <-- {Rest(stack[1]),Rest(stack[2])};
+DropOneFrame(_stack) <-- [Rest(stack[1]),Rest(stack[2])];
 
-10 # IsOnStack({{},{}},_element) <-- False;
+10 # IsOnStack([[],[]],_element) <-- False;
 11 # IsOnStack(_stack,_element)_(stack[1][1][element] !=? Empty) <-- True;
 20 # IsOnStack(_stack,_element)_(StackDepth(stack)>?0 And? stack[2][1] =? True)
    <-- IsOnStack(DropOneFrame(stack),element);
@@ -80,9 +80,9 @@ LocalSymbols(st)
     AddToStack(st,"b");
     Verify(IsOnStack(st,"a"),True);
     Verify(IsOnStack(st,"c"),False);
-    Verify(FindOnStack(st,"a"),{});
+    Verify(FindOnStack(st,"a"),[]);
     FindOnStack(st,"b")["set"]:=True;
-    Verify(FindOnStack(st,"b"),{{"set",True}});
+    Verify(FindOnStack(st,"b"),[["set",True]]);
     PushStackFrame(st,unfenced);
       AddToStack(st,"c");
       Verify(IsOnStack(st,"c"),True);

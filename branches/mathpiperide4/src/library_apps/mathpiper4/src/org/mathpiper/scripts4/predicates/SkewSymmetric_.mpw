@@ -14,17 +14,17 @@ SkewSymmetric?(A_Matrix?) <-- (Transpose(A)=?(-1*A));
 
 *PARMS
 
-{A} -- a square matrix
+[A] -- a square matrix
 
 *DESC
 
-{SkewSymmetric?(A)} returns {True} if {A} is skew symmetric and {False} otherwise.
+[SkewSymmetric?(A)] returns [True] if [A] is skew symmetric and [False] otherwise.
 $A$ is skew symmetric iff $Transpose(A)$ =$-A$. 
 
 *E.G.
 
-In> A := {{0,-1},{1,0}}
-Result: {{0,-1},{1,0}};
+In> A := [[0,-1],[1,0]]
+Result: [[0,-1],[1,0]];
 In> PrettyForm(%)
 
         /               \

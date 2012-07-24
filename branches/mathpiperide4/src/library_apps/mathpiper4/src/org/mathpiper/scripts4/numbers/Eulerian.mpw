@@ -14,7 +14,7 @@ Eulerian(n_Integer?,k_Integer?) <-- Sum(j,0,k+1,(-1)^j*BinomialCoefficient(n+1,j
 
 *PARMS
 
-{n}, {m} --- integers
+[n], [m] --- integers
 
 *DESC
 

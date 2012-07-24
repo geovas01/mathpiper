@@ -1,6 +1,6 @@
 %mathpiper,def="InProduct"
 
-Function("InProduct",{aLeft,aRight})
+Function("InProduct",[aLeft,aRight])
 ⊕
   Local(length);
   length:=Length(aLeft);
@@ -28,7 +28,7 @@ Function("InProduct",{aLeft,aRight})
 
 *PARMS
 
-{a}, {b} -- vectors of equal length
+[a], [b] -- vectors of equal length
 
 *DESC
 
@@ -37,7 +37,7 @@ vectors need to have the same size.
 
 *E.G.
 
-In> Dot({a,b,c}, {d,e,f});
+In> Dot([a,b,c], [d,e,f]);
 Result: a*d+b*e+c*f;
 
 *SEE Outer, Dot, CrossProduct

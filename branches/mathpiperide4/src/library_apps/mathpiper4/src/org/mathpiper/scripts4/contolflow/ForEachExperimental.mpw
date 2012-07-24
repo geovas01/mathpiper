@@ -15,7 +15,7 @@ LocalSymbols(foreachtail)
     Local(foreachtail);
     Local(@i);
     Bind(foreachtail,@L);
-    While(Not?(Equal?(foreachtail,{})))
+    While(Not?(Equal?(foreachtail,[])))
     [
       Bind(@i,First(foreachtail));
       @B;

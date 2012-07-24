@@ -1,6 +1,6 @@
 %mathpiper,def="DiagonalMatrix"
 
-Function("DiagonalMatrix",{list})
+Function("DiagonalMatrix",[list])
 ⊕
   Local(result,i,n);
   n:=Length(list);
@@ -24,7 +24,7 @@ Function("DiagonalMatrix",{list})
 
 *PARMS
 
-{d} -- list of values to put on the diagonal
+[d] -- list of values to put on the diagonal
 
 *DESC
 
@@ -35,7 +35,7 @@ whose off-diagonal entries are all zero. The elements of the vector
 *E.G.
 
 In> DiagonalMatrix(1 .. 4)
-Result: {{1,0,0,0},{0,2,0,0},{0,0,3,0},{0,0,0,4}};
+Result: [[1,0,0,0],[0,2,0,0],[0,0,3,0],[0,0,0,4]];
 
 *SEE Identity, ZeroMatrix
 %/mathpiper_docs

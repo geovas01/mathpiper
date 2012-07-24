@@ -22,11 +22,11 @@
 
 *PARMS
 
-{expr} -- a polynomial expression
+[expr] -- a polynomial expression
 
-{var} -- a variable
+[var] -- a variable
 
-{varlist} -- a list of variables
+[varlist] -- a list of variables
 
 *DESC
 
@@ -60,7 +60,7 @@ In> Expand((1+x-y)^2, x);
          2                                2
         x  + 2 * ( 1 - y ) * x + ( 1 - y )
 
-In> Expand((1+x-y)^2, {x,y});
+In> Expand((1+x-y)^2, [x,y]);
         
          2                         2
         x  + ( -2 * y + 2 ) * x + y  - 2 * y + 1

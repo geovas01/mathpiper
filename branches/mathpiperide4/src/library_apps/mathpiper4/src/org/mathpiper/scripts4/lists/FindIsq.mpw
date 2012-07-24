@@ -11,8 +11,8 @@ FindIsq(max,f)  :=
   While(high>?low And? mid>?1)
   ⊕
     Bind(mid,((high+low)>>1));
-    Bind(current,Apply(f,{mid}));
-//Echo({low,high,current});
+    Bind(current,Apply(f,[mid]));
+//Echo([low,high,current]);
     If(current =? 0,
        high:=low-1,
        If(current >? 0,

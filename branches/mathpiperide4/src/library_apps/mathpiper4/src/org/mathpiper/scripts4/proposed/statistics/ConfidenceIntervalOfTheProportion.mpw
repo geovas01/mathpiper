@@ -10,7 +10,7 @@ ConfidenceIntervalOfTheProportion(numberOfSuccesses,sampleSize,confidenceLevel) 
     
     Local(criticalZScore,approximateStandardErrorOfTheProportion,upperLimit,lowerLimit,resultList,proportion);
     
-    resultList := {};
+    resultList := [];
     
     criticalZScore := ConfidenceLevelToZScore(confidenceLevel);
     
@@ -57,9 +57,9 @@ ConfidenceIntervalOfTheProportion(numberOfSuccesses,sampleSize,confidenceLevel) 
 *CALL
         ConfidenceIntervalOfTheProportion(numberOfSuccesses,sampleSize,confidenceLevel)
 *PARMS
-{numberOfSuccesses} -- the number of successes in the sample
-{sampleSize} -- the size of the sample
-{confidenceLevel} -- the desired confidence level
+[numberOfSuccesses] -- the number of successes in the sample
+[sampleSize] -- the size of the sample
+[confidenceLevel] -- the desired confidence level
 
 *DESC
 
@@ -68,7 +68,7 @@ which contains the lower limit, the upper limit, and the critical Z score.
 
 *E.G.
 In> ConfidenceIntervalOfTheProportion(110,175,.90)
-Result: {{"lowerLimit",0.5684923463},{"upperLimit",0.6886505109},{"criticalZScore",1.644853952}}
+Result: [["lowerLimit",0.5684923463],["upperLimit",0.6886505109],["criticalZScore",1.644853952]]
 
 *SEE ConfidenceIntervalOfTheMean, V, Assoc
 %/mathpiper_docs

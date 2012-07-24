@@ -75,11 +75,11 @@ UnFence("xFactorsResiduals",1);
             f1 := sqf;
             f2 := Simplify(resid[1]/sqf);
             If( f2 =? f1,
-                 factrsnew := Concat({{f1,2*resid[2]}},factrsnew),
-                 factrsnew := Concat({{f1,resid[2]},{f2,resid[2]}},factrsnew)
+                 factrsnew := Concat([[f1,2*resid[2]]],factrsnew),
+                 factrsnew := Concat([[f1,resid[2]],[f2,resid[2]]],factrsnew)
             );
             //HSO experimental
-            residuals := Difference(residuals,{resid});
+            residuals := Difference(residuals,[resid]);
             If(InVerboseMode(),Tell("                       new",residuals));
             residualList := residuals;
           ⊖,
@@ -113,7 +113,7 @@ UnFence("trySQF",1);
         If(InVerboseMode(),
           ⊕ Tell("            this ",resid[1]); Tell("            ",nrr); ⊖
         );
-        If( nrr >? 0, rr := FindRealRoots(resid[1]), rr := {} );
+        If( nrr >? 0, rr := FindRealRoots(resid[1]), rr := [] );
         processRealRoots(rr);
         
         If( nrr =? 2,
@@ -132,10 +132,10 @@ UnFence("trySQF",1);
                   Local(u,X);
                   u := MakeUni(resid[1]);
                   X := u[1];
-                  If( u[2]=?0 And? u[3]=?{1,0,1,0,1},
+                  If( u[2]=?0 And? u[3]=?[1,0,1,0,1],
                     ⊕ 
-                       DestructiveAppend(residOut,{X^2-X+1,1});
-                       DestructiveAppend(residOut,{X^2+X+1,1});
+                       DestructiveAppend(residOut,[X^2-X+1,1]);
+                       DestructiveAppend(residOut,[X^2+X+1,1]);
                        If(InVerboseMode(),
                          ⊕
                             Tell("     found ",factrsnew);
@@ -152,11 +152,11 @@ UnFence("trySQF",1);
                   rr := FindRealRoots(resid[1]);
                   If(InVerboseMode(),Tell("    ",rr));
                   // try them pairwise
-                  goodptry := {};
+                  goodptry := [];
                   For(ii:=1,ii<?nrr,ii++)
                       For(jj:=ii+1,jj<=?nrr,jj++)
                       ⊕
-                          If(InVerboseMode(),Tell("   ",{ii,jj}));
+                          If(InVerboseMode(),Tell("   ",[ii,jj]));
                           ptry     := Expand((x-rr[ii])*(x-rr[jj]));
                           uptry    := MakeUni(ptry);
                           uptry[3] := "NearRational" /@ uptry[3];
@@ -169,7 +169,7 @@ UnFence("trySQF",1);
                   If(Length(goodptry) >? 0,
                     ⊕
                        ForEach(pt,goodptry)
-                         ⊕ DestructiveAppend(residOut,{pt,1}); ⊖;
+                         ⊕ DestructiveAppend(residOut,[pt,1]); ⊖;
                     ⊖
                   );
                ⊖
@@ -221,7 +221,7 @@ UnFence("processRealRoots",1);
          Local(f1,f2,new);
          f1    := ptry;
          f2    := Simplify(resid[1]/f1);
-         new   := {{f1,resid[2]},{f2,resid[2]}};
+         new   := [[f1,resid[2]],[f2,resid[2]]];
          If(InVerboseMode(),Tell("    ",new));
          resid := new;
          residOut := new;
@@ -238,11 +238,11 @@ UnFence("processRealRoots",1);
      //  more than 2 real solutions -- have to do a bit more work
      If(InVerboseMode(),Tell("    ",rr));
      // try them pairwise
-     goodptry := {};
+     goodptry := [];
      For(ii:=1,ii<?nrr,ii++)
          For(jj:=ii+1,jj<=?nrr,jj++)
          ⊕
-             If(InVerboseMode(),Tell("   ",{ii,jj}));
+             If(InVerboseMode(),Tell("   ",[ii,jj]));
              ptry     := Expand((x-rr[ii])*(x-rr[jj]));
              uptry    := MakeUni(ptry);
              uptry[3] := "NearRational" /@ uptry[3];
@@ -255,7 +255,7 @@ UnFence("processRealRoots",1);
          If(Length(goodptry) >? 0,
            ⊕
                ForEach(pt,goodptry)
-               ⊕ DestructiveAppend(residOut,{pt,1}); ⊖;
+               ⊕ DestructiveAppend(residOut,[pt,1]); ⊖;
            ⊖
          );
      ⊖;

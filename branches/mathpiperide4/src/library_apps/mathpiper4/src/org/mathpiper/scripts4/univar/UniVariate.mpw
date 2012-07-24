@@ -10,7 +10,7 @@ ShiftUniVar(UniVariate(_var,_first,_coefs),_fact,_shift)
 
 
 
-RulebaseHoldArguments("UniVariate",{var,first,coefs});
+RulebaseHoldArguments("UniVariate",[var,first,coefs]);
 
 RuleHoldArguments("UniVariate",3,10,Length(coefs)>?0 And? coefs[1]=?0)
   UniVariate(var,first+1,Rest(coefs));
@@ -26,10 +26,10 @@ RuleHoldArguments("UniVariate",3,1000,Complex?(var) Or? List?(var))
   Bind(curr, f2);
   Bind(left, c1);
   Bind(right, c2);
-  Bind(result, {});
+  Bind(result, []);
   Bind(from, Minimum(curl,curr));
 
-  While(And?(LessThan?(curl,curr),left !=? {}))
+  While(And?(LessThan?(curl,curr),left !=? []))
   ⊕
     DestructiveAppend(result,First(left));
     Bind(left,Rest(left));
@@ -40,7 +40,7 @@ RuleHoldArguments("UniVariate",3,1000,Complex?(var) Or? List?(var))
     DestructiveAppend(result,0);
     Bind(curl,AddN(curl,1));
   ⊖;
-  While(And?(LessThan?(curr,curl), right !=? {}))
+  While(And?(LessThan?(curr,curl), right !=? []))
   ⊕
     DestructiveAppend(result,First(right));
     Bind(right,Rest(right));
@@ -51,18 +51,18 @@ RuleHoldArguments("UniVariate",3,1000,Complex?(var) Or? List?(var))
     DestructiveAppend(result,0);
     Bind(curr,AddN(curr,1));
   ⊖;
-  While(And?(left !=? {}, right !=? {}))
+  While(And?(left !=? [], right !=? []))
   ⊕
     DestructiveAppend(result,First(left)+First(right));
     Bind(left, Rest(left));
     Bind(right, Rest(right));
   ⊖;
-  While(left !=? {})
+  While(left !=? [])
   ⊕
     DestructiveAppend(result,First(left));
     Bind(left, Rest(left));
   ⊖;
-  While(right !=? {})
+  While(right !=? [])
   ⊕
     DestructiveAppend(result,First(right));
     Bind(right, Rest(right));
@@ -73,9 +73,9 @@ RuleHoldArguments("UniVariate",3,1000,Complex?(var) Or? List?(var))
 
 
 200 # UniVariate(_var,_first,_coefs) + a_Number? <--
-      UniVariate(var,first,coefs) + UniVariate(var,0,{a});
+      UniVariate(var,first,coefs) + UniVariate(var,0,[a]);
 200 # a_Number? + UniVariate(_var,_first,_coefs) <--
-      UniVariate(var,first,coefs) + UniVariate(var,0,{a});
+      UniVariate(var,first,coefs) + UniVariate(var,0,[a]);
 
 
 200 # - UniVariate(_var,_first,_coefs) <-- UniVariate(var,first,-coefs);

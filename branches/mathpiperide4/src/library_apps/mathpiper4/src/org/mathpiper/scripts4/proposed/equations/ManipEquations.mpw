@@ -120,7 +120,7 @@ Unbind(eqns,eq1,eq2,eq3,eq5,eq6,eq7,X,Y,solution);
 //       2*x + 3*y == 7
 //       3*x - 2*y == 4
 
-eqns := { 2*x+3*y==7, 3*x-2*y==4 };
+eqns := [ 2*x+3*y==7, 3*x-2*y==4 ];
 Tell(0,eqns);
 NewLine();
 
@@ -154,7 +154,7 @@ Y := Solve(eq7,y);
 Tell(8,Y);
 NewLine();
 
-solution := {X,Y};
+solution := [X,Y];
 Tell(9,solution);
 
 
@@ -164,21 +164,21 @@ Tell(9,solution);
       Result: True
       
       Side effects:
-      << 0 >> eqns {2*x+3*y==7,3*x-2*y==4} 
+      << 0 >> eqns [2*x+3*y==7,3*x-2*y==4] 
       
       << 1 >> eq1 4*x+6*y==14 
       << 2 >> eq2 9*x-6*y==12 
       
       << Eq2+Eq3 >> eq3 13*x==26 
-      << 4 >> X {x==2} 
+      << 4 >> X [x==2] 
       
       << 5 >> eq5 6*x+9*y==21 
       << 6 >> eq6 6*x-4*y==8 
       
       << Eq5-Eq6 >> eq7 13*y==13 
-      << 8 >> Y {y==1} 
+      << 8 >> Y [y==1] 
       
-      << 9 >> solution {{x==2},{y==1}}
+      << 9 >> solution [[x==2],[y==1]]
 .   %/output
 
 

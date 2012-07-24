@@ -2,7 +2,7 @@
 
 //Retract("BubbleSort",*);
 
-Function("BubbleSort",{list,compare})
+Function("BubbleSort",[list,compare])
 ⊕
   Local(i,j,length,left,right);
   
@@ -20,9 +20,9 @@ Function("BubbleSort",{list,compare})
     ⊕
       left:=list[i];
       right:=list[i+1];
-      //Tell("    ",{i,j,left,right});
-      //Tell("      ",Apply(compare,{left,right}));
-      If(Not?(Apply(compare,{left,right})),
+      //Tell("    ",[i,j,left,right]);
+      //Tell("      ",Apply(compare,[left,right]));
+      If(Not?(Apply(compare,[left,right])),
         ⊕
           DestructiveInsert(DestructiveDelete(list,i),i+1,left);
         ⊖
@@ -45,33 +45,33 @@ Function("BubbleSort",{list,compare})
 
 *PARMS
 
-{list} -- list to sort
+[list] -- list to sort
 
-{compare} -- function used to compare elements of {list}
+[compare] -- function used to compare elements of [list]
 
 *DESC
 
-This command returns {list} after it is sorted using {compare} to
-compare elements. The function {compare} should accept two arguments,
-which will be elements of {list}, and compare them. It should return
-{True} if in the sorted list the second argument
-should come after the first one, and {False}
-otherwise.  The function {compare} can either be a string which
+This command returns [list] after it is sorted using [compare] to
+compare elements. The function [compare] should accept two arguments,
+which will be elements of [list], and compare them. It should return
+[True] if in the sorted list the second argument
+should come after the first one, and [False]
+otherwise.  The function [compare] can either be a string which
 contains the name of a function or a pure function.
 
-The function {BubbleSort} uses the so-called "bubble sort" algorithm to do the
+The function [BubbleSort] uses the so-called "bubble sort" algorithm to do the
 sorting by swapping elements that are out of order. This algorithm is easy to
 implement, though it is not particularly fast. The sorting time is proportional
 to $n^2$ where $n$ is the length of the list.
 
-The original {list} is left unmodified.
+The original [list] is left unmodified.
 
 *E.G.
-In> BubbleSort({4,7,23,53,-2,1}, ">?")
-Result: {53,23,7,4,1,-2}
+In> BubbleSort([4,7,23,53,-2,1], ">?")
+Result: [53,23,7,4,1,-2]
 
-In> BubbleSort({3,5,2},Lambda({x,y},x<?y))
-Result: {2,3,5}
+In> BubbleSort([3,5,2],Lambda([x,y],x<?y))
+Result: [2,3,5]
 
 *SEE HeapSort, Lambda
 %/mathpiper_docs

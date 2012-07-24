@@ -6,7 +6,7 @@
 /* AddGaussianFactor: auxiliary function for Gaussian Factors.
 L is a lists of factors of the Gaussian integer z and p is a Gaussian prime
 that we want to add to the list. We first find the exponent e of p in the
-decomposition of z (into Gaussian primes). If it is not zero, we add {p,e}
+decomposition of z (into Gaussian primes). If it is not zero, we add [p,e]
 to the list */
 
 AddGaussianFactor(L_List?,z_GaussianInteger?,p_GaussianInteger?) <--
@@ -14,7 +14,7 @@ AddGaussianFactor(L_List?,z_GaussianInteger?,p_GaussianInteger?) <--
  Local(e);
  e :=0;
  While (GaussianInteger?(z:= z/p)) e++;
- If (e !=? 0, DestructiveAppend(L,{p,e}));
+ If (e !=? 0, DestructiveAppend(L,[p,e]));
 ⊖;
 
 
@@ -32,15 +32,15 @@ its integer prime factors.
   // Chosing to factor this integer as a Gaussian Integer
   Local(ifactors,gfactors,p,alpha);
   ifactors := FactorizeInt(n);  // since we know it is an integer
-  gfactors := {};
+  gfactors := [];
   ForEach(p,ifactors)
   ⊕
-     If (p[1]=?2, ⊕ DestructiveAppend(gfactors,{1+I,p[2]});
-                   DestructiveAppend(gfactors,{1-I,p[2]}); ⊖);
+     If (p[1]=?2, ⊕ DestructiveAppend(gfactors,[1+I,p[2]]);
+                   DestructiveAppend(gfactors,[1-I,p[2]]); ⊖);
      If (Modulo(p[1],4)=?3, DestructiveAppend(gfactors,p));
      If (Modulo(p[1],4)=?1, ⊕ alpha := GaussianFactorPrime(p[1]);
-                          DestructiveAppend(gfactors,{alpha,p[2]});
-                          DestructiveAppend(gfactors,{Conjugate(alpha),p[2]});
+                          DestructiveAppend(gfactors,[alpha,p[2]]);
+                          DestructiveAppend(gfactors,[Conjugate(alpha),p[2]]);
                         ⊖);
   ⊖;
 gfactors;
@@ -54,7 +54,7 @@ by factoring its norm
 20 # GaussianFactors(z_GaussianInteger?) <--
 ⊕
  Local(n,nfactors,gfactors,p);
-  gfactors :={};
+  gfactors :=[];
   n := GaussianNorm(z);
   nfactors := Factors(n);
   ForEach(p,nfactors)
@@ -86,11 +86,11 @@ by factoring its norm
 
 *PARMS
 
-{z} -- Gaussian integer
+[z] -- Gaussian integer
 
 *DESC
 
-This function decomposes a Gaussian integer number {z} into a product of
+This function decomposes a Gaussian integer number [z] into a product of
 Gaussian prime factors.
 A Gaussian integer is a complex number with integer real and imaginary parts.
 A Gaussian integer $z$ can be decomposed into Gaussian primes essentially in a
@@ -102,13 +102,13 @@ where $u$ is a Gaussian unit and $p[1]$, $p[2]$, ..., $p[s]$ are Gaussian primes
 The factorization is returned as a list of pairs. The first member of
 each pair is the factor (a Gaussian integer) and the second member denotes the power to
 which this factor should be raised. So the factorization is returned as 
-a list, e.g. {{{p1,n1}, {p2,n2}, ...}}.
+a list, e.g. [[[p1,n1], [p2,n2], ...]].
 
 *E.G.
 In> GaussianFactors(5)
-Result: {{Complex(2,1),1},{Complex(2,-1),1}};
+Result: [[Complex(2,1),1],[Complex(2,-1),1]];
 In> GaussianFactors(3+I)
-Result: {{Complex(1,1),1},{Complex(2,-1),1}};
+Result: [[Complex(1,1),1],[Complex(2,-1),1]];
 
 *SEE Factors, GaussianPrime?, GaussianUnit?
 %/mathpiper_docs
@@ -150,18 +150,18 @@ TestGaussianFactors(-1+2*I);
 TestGaussianFactors(17);
 TestGaussianFactors(41);
 
-Verify(GaussianFactors(157+28*I), {{Complex(5,2),1},{Complex(-29,6),1}});
-Verify(GaussianFactors(1), {});        // is this the correct behavior? why not {{}} or {{1,1}}?
-Verify(GaussianFactors(-1), {});        // is this the correct behavior?
-Verify(GaussianFactors(I), {});        // is this the correct behavior?
-Verify(GaussianFactors(0), {});        // is this the correct behavior?
-Verify(GaussianFactors(2), {{Complex(1,1),1},{Complex(1,-1),1}});
-Verify(GaussianFactors(-2), {{Complex(1,1),1},{Complex(1,-1),1}});
-Verify(GaussianFactors(3), {{3,1}});
-Verify(GaussianFactors(3*I), {{3,1}});
-Verify(GaussianFactors(4), {{Complex(1,1),2},{Complex(1,-1),2}});
-Verify(GaussianFactors(-5*I), {{Complex(2,1),1},{Complex(2,-1),1}});
-Verify(GaussianFactors(Complex(1,1)^11*163^4),{{Complex(1,1),11},{163,4}});
+Verify(GaussianFactors(157+28*I), [[Complex(5,2),1],[Complex(-29,6),1]]);
+Verify(GaussianFactors(1), []);        // is this the correct behavior? why not [[]] or [[1,1]]?
+Verify(GaussianFactors(-1), []);        // is this the correct behavior?
+Verify(GaussianFactors(I), []);        // is this the correct behavior?
+Verify(GaussianFactors(0), []);        // is this the correct behavior?
+Verify(GaussianFactors(2), [[Complex(1,1),1],[Complex(1,-1),1]]);
+Verify(GaussianFactors(-2), [[Complex(1,1),1],[Complex(1,-1),1]]);
+Verify(GaussianFactors(3), [[3,1]]);
+Verify(GaussianFactors(3*I), [[3,1]]);
+Verify(GaussianFactors(4), [[Complex(1,1),2],[Complex(1,-1),2]]);
+Verify(GaussianFactors(-5*I), [[Complex(2,1),1],[Complex(2,-1),1]]);
+Verify(GaussianFactors(Complex(1,1)^11*163^4),[[Complex(1,1),11],[163,4]]);
 
 %/mathpiper
 

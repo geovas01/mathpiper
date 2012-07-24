@@ -5,10 +5,10 @@
 // When x is <=? 1, the series is monotonely decreasing from the
 // start, so we don't have to worry about loss of precision from the
 // series definition.
-// When {n} is an integer, this is fast.
-// When {n} is not, it is pretty slow due to Gamma()
+// When [n] is an integer, this is fast.
+// When [n] is not, it is pretty slow due to Gamma()
 
-Function("BesselNsmall",{n,x,modified})
+Function("BesselNsmall",[n,x,modified])
 ⊕
         Local(term,result,k);
         Local(prec,eps,tmp);
@@ -25,7 +25,7 @@ Function("BesselNsmall",{n,x,modified})
                 // is an alternating term
                 If( k%2=?1 And? modified=?0 , term:=term*-1 );
                 term:=N(term/(2^(2*k+n)* k! * Gamma(k+n+1) ));
-                //Echo({"term is ",term});
+                //Echo(["term is ",term]);
                 result:=result+term;
                 k:=k+1;
         ⊖;

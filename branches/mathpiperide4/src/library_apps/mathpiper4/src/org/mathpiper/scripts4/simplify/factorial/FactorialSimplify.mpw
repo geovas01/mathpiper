@@ -18,12 +18,12 @@
 FactorialNormalForm(x):=
 ⊕
   // Substitute binomials
-  x:=(x/:{BinomialCoefficient(_n,_m)<- (n!)/((m!)*(n-m)!)});
+  x:=(x/:[BinomialCoefficient(_n,_m)<- (n!)/((m!)*(n-m)!)]);
   // Expand expression as much as possible so that the terms become
   // simple rationals.
 
   x:=(
-      x/::Hold({
+      x/::Hold([
           (_a/_b)/_c <- (a)/(b*c),
           (-(_a/_b))/_c <- (-a)/(b*c),
           (_a/_b)*_c <- (a*c)/b,
@@ -35,7 +35,7 @@ FactorialNormalForm(x):=
           _a*(_b-_c) <- a*b-a*c,
           (_b-_c)*_a <- a*b-a*c,
           (_b-_c)/_a <- b/a-c/a
-     }));
+     ]));
   x;
 ⊖;
 
@@ -47,34 +47,34 @@ FactorialSimplify(x):=
 
 
 /* CommonDivisors takes two parameters x and y as input, determines a common divisor g
-   and then returns {x/g,y/g,g}.
+   and then returns [x/g,y/g,g].
  */
-10 # CommonDivisors(_x^(_n),_x^(_m)) <-- {x^Simplify(n-m),1,x^m};
-10 # CommonDivisors(_x^(_n),_x)  <-- {x^Simplify(n-1),1,x};
-10 # CommonDivisors(_x,_x^(_m)) <-- {x^Simplify(1-m),1,x^m};
-10 # CommonDivisors((_x) !,_x) <-- {(x-1)!,1,x};
-10 # CommonDivisors(_x,_x) <-- {1,1,x};
-10 # CommonDivisors(- _x,_x) <-- {-1,1,x};
-10 # CommonDivisors(_x,- _x) <-- {1,-1,x};
-10 # CommonDivisors((_x),(_x)!) <-- {1,(x-1)!,x};
+10 # CommonDivisors(_x^(_n),_x^(_m)) <-- [x^Simplify(n-m),1,x^m];
+10 # CommonDivisors(_x^(_n),_x)  <-- [x^Simplify(n-1),1,x];
+10 # CommonDivisors(_x,_x^(_m)) <-- [x^Simplify(1-m),1,x^m];
+10 # CommonDivisors((_x) !,_x) <-- [(x-1)!,1,x];
+10 # CommonDivisors(_x,_x) <-- [1,1,x];
+10 # CommonDivisors(- _x,_x) <-- [-1,1,x];
+10 # CommonDivisors(_x,- _x) <-- [1,-1,x];
+10 # CommonDivisors((_x),(_x)!) <-- [1,(x-1)!,x];
 10 # CommonDivisors((_x)!, (_y)!)_Integer?(Simplify(x-y))  <-- CommonFact(Simplify(x-y),y);
 
 
 10 # CommonDivisors((_x)! ^ _m, (_y)! ^ _m)_Integer?(Simplify(x-y))  <-- CommonFact(Simplify(x-y),y)^m;
 
 10 # CommonFact(dist_NegativeInteger?,_y)
-   <-- {1,Product(i,1,-dist,Simplify(y+i+dist)),Simplify(y+dist)!};
+   <-- [1,Product(i,1,-dist,Simplify(y+i+dist)),Simplify(y+dist)!];
 11 # CommonFact(_dist,_y)
-   <-- {Product(i,1,dist,Simplify(y+i)),1,Simplify(y)!};
-60000 # CommonDivisors(_x,_y) <-- {x,y,1};
+   <-- [Product(i,1,dist,Simplify(y+i)),1,Simplify(y)!];
+60000 # CommonDivisors(_x,_y) <-- [x,y,1];
 
-10 # CommonFactors((_x)!,_y)_(Simplify(y-x) =? 1) <-- {y!,1};
-10 # CommonFactors((_x)!,_y)_(Simplify((-y)-x) =? 1) <-- {(-y)!,-1};
+10 # CommonFactors((_x)!,_y)_(Simplify(y-x) =? 1) <-- [y!,1];
+10 # CommonFactors((_x)!,_y)_(Simplify((-y)-x) =? 1) <-- [(-y)!,-1];
 
-10 # CommonFactors(_x^_n,_x^_m) <-- {x^Simplify(n+m),1};
-10 # CommonFactors(_x^_n,_x) <-- {x^Simplify(n+1),1};
+10 # CommonFactors(_x^_n,_x^_m) <-- [x^Simplify(n+m),1];
+10 # CommonFactors(_x^_n,_x) <-- [x^Simplify(n+1),1];
 
-60000 # CommonFactors(_x,_y) <-- {x,y};
+60000 # CommonFactors(_x,_y) <-- [x,y];
 
 10 # FactorialSimplifyWorker(_x+_y) <-- FactorialSimplifyWorker(x)+FactorialSimplifyWorker(y);
 10 # FactorialSimplifyWorker(_x-_y) <-- FactorialSimplifyWorker(x)-FactorialSimplifyWorker(y);
@@ -86,11 +86,11 @@ LocalSymbols(x,y,i,j,n,d)⊕
 ⊕
   // first separate out factors of the denominator
   Local(numerCommon,numerTerms);
-  {numerCommon,numerTerms}:=FactorialGroupCommonDivisors(x);
+  [numerCommon,numerTerms]:=FactorialGroupCommonDivisors(x);
   Local(denomCommon,denomTerms);
-  {denomCommon,denomTerms}:=FactorialGroupCommonDivisors(y);
+  [denomCommon,denomTerms]:=FactorialGroupCommonDivisors(y);
   Local(n,d,c);
-  {n,d,c} := FactorialDivideTerms(numerCommon,denomCommon);
+  [n,d,c] := FactorialDivideTerms(numerCommon,denomCommon);
   (n/d)*Simplify((numerTerms)/(denomTerms));
 ⊖;
 
@@ -100,11 +100,11 @@ LocalSymbols(x,y,i,j,n,d)⊕
 ⊕
   // first separate out factors of the denominator
   Local(numerCommon,numerTerms);
-  {numerCommon,numerTerms}:=FactorialGroupCommonDivisors(x);
+  [numerCommon,numerTerms]:=FactorialGroupCommonDivisors(x);
   Local(denomCommon,denomTerms);
-  {denomCommon,denomTerms}:=FactorialGroupCommonDivisors(y);
+  [denomCommon,denomTerms]:=FactorialGroupCommonDivisors(y);
   Local(n,d,c);
-  {n,d,c} := FactorialDivideTerms(numerCommon,denomCommon);
+  [n,d,c] := FactorialDivideTerms(numerCommon,denomCommon);
   c;
 ⊖;
 
@@ -119,15 +119,15 @@ LocalSymbols(n,d,c)
     <--
     ⊕
       Local(n,d,c);
-      {n,d,c} := FactorialDivideTermsAux(x,y);
-      {-n,d,c};
+      [n,d,c] := FactorialDivideTermsAux(x,y);
+      [-n,d,c];
     ⊖;
   30 # FactorialDivideTerms(  _x,- _y)
     <--
     ⊕
       Local(n,d,c);
-      {n,d,c} := FactorialDivideTermsAux(x,y);
-      {n,-d,c};
+      [n,d,c] := FactorialDivideTermsAux(x,y);
+      [n,-d,c];
     ⊖;
 ⊖;
 40 # FactorialDivideTerms(  _x,  _y)
@@ -151,16 +151,16 @@ LocalSymbols(n,d,c)
     ⊕
       Local(n,d,c);
 //Echo("inp is ",x[i]," ",y[j]);
-      {n,d,c} := CommonDivisors(x[i],y[j]);
+      [n,d,c] := CommonDivisors(x[i],y[j]);
 
-//Echo("aux is ",{n,d,c});
+//Echo("aux is ",[n,d,c]);
       x[i] := n;
       y[j] := d;
       common:=common*c;
     ⊖;
-//Echo("final ",{x,y,common});
-//Echo("finalor ",{Product(x),Product(y),common});
-    {Product(x),Product(y),common};
+//Echo("final ",[x,y,common]);
+//Echo("finalor ",[Product(x),Product(y),common]);
+    [Product(x),Product(y),common];
   ⊖;
 ⊖;
 
@@ -171,7 +171,7 @@ LocalSymbols(n,d,c)
       ⊕
   // first separate out factors of the denominator
   Local(numerCommon,numerTerms);
-  {numerCommon,numerTerms}:=FactorialGroupCommonDivisors(x);
+  [numerCommon,numerTerms]:=FactorialGroupCommonDivisors(x);
   numerCommon*numerTerms;
       ⊖;
 
@@ -182,7 +182,7 @@ LocalSymbols(n,d,c)
 10 # FactorialFlattenAddition(_x+_y) <-- Concat(FactorialFlattenAddition(x), FactorialFlattenAddition(y));
 10 # FactorialFlattenAddition(_x-_y) <-- Concat(FactorialFlattenAddition(x),-FactorialFlattenAddition(y));
 10 # FactorialFlattenAddition(  -_y) <--                           -FactorialFlattenAddition(y);
-20 # FactorialFlattenAddition(_x   ) <--                           {x};
+20 # FactorialFlattenAddition(_x   ) <--                           [x];
 
 LocalSymbols(n,d,c)
 ⊕
@@ -193,10 +193,10 @@ LocalSymbols(n,d,c)
 //Echo("terms is ",terms);
     common := First(terms);
     tail:=Rest(terms);
-    While (tail !=? {})
+    While (tail !=? [])
     ⊕
       Local(n,d,c);
-      {n,d,c} := FactorialDivideTerms(common,First(tail));
+      [n,d,c] := FactorialDivideTerms(common,First(tail));
 
 //Echo(common, " ",First(tail)," ",c);
       common := c;
@@ -211,9 +211,9 @@ LocalSymbols(n,d,c)
       Local(n,d,c);
 //  Echo("IN = ",terms[j]," ",common);
 //  Echo("n = ",n);
-      {n,d,c} := FactorialDivideTerms(terms[j],common);
+      [n,d,c] := FactorialDivideTerms(terms[j],common);
 //  Echo("n = ",n);
-//  Echo("{n,d,c} = ",{n,d,c});
+//  Echo("[n,d,c] = ",[n,d,c]);
       Check(d =? 1, "Math",
         PipeToString()⊕
         Echo("FactorialGroupCommonDivisors failure 1 : ",d);
@@ -235,20 +235,20 @@ LocalSymbols(n,d,c)
     For(j:=1,j<=?Length(common),j++)
     ⊕
       Local(f1,f2);
-      {f1,f2}:=CommonFactors(common[j],terms);
+      [f1,f2]:=CommonFactors(common[j],terms);
       common[j]:=f1;
       terms:=f2;
 
       For(i:=1,i<=?Length(common),i++)
       If(i !=? j,
         ⊕
-          {f1,f2}:=CommonFactors(common[j],common[i]);
+          [f1,f2]:=CommonFactors(common[j],common[i]);
           common[j]:=f1;
           common[i]:=f2;
         ⊖);
     ⊖;
     common := Product(common);
-    {common,terms};
+    [common,terms];
   ⊖;
 ⊖;
 
@@ -266,11 +266,11 @@ LocalSymbols(n,d,c)
 
 *PARMS
 
-{expression} -- expression to simplify
+[expression] -- expression to simplify
 
 *DESC
 
-{FactorialSimplify} takes an expression that may contain factorials,
+[FactorialSimplify] takes an expression that may contain factorials,
 and tries to simplify it. An expression like $ (n+1)! / n! $ would
 simplify to $(n+1)$. 
 
@@ -281,7 +281,7 @@ The following steps are taken to simplify:
 *        3. expressions like $ p^n/p^m $ are reduced to $p^(n-m)$ if $n-m$ is an integer
 *        4. expressions like $ n! / m! $ are simplified if $n-m$ is an integer
 
-The function {Simplify} is used to determine if the relevant expressions $n-m$
+The function [Simplify] is used to determine if the relevant expressions $n-m$
 are integers.
 
 *E.G.

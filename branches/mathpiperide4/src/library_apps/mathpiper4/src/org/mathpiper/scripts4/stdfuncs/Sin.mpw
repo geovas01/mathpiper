@@ -1,7 +1,7 @@
 %mathpiper,def="Sin;SinMap"
 
 
-1 # SinMap( _n )_(Not?(RationalOrNumber?(n))) <-- ListToFunction({ToAtom("Sin"),n*Pi});
+1 # SinMap( _n )_(Not?(RationalOrNumber?(n))) <-- ListToFunction([ToAtom("Sin"),n*Pi]);
 2 # SinMap( _n )_(n<?0) <-- -SinMap(-n);
 2 # SinMap( _n )_(n>?2) <-- SinMap(Modulo(n,2));
 3 # SinMap( _n )_(n>?1) <-- SinMap(n-2);
@@ -14,7 +14,7 @@
 5 # SinMap( 1/2 ) <-- 1;
 5 # SinMap( 1/10) <-- (Sqrt(5)-1)/4;
 
-10 # SinMap(_n) <-- ListToFunction({ToAtom("Sin"),n*Pi});
+10 # SinMap(_n) <-- ListToFunction([ToAtom("Sin"),n*Pi]);
 
 
 
@@ -53,20 +53,20 @@ Sin(xlist_List?) <-- MapSingle("Sin",xlist);
 
 *PARMS
 
-{x} -- argument to the function, in radians
+[x] -- argument to the function, in radians
 
 *DESC
 
 This function represents the trigonometric function sine. MathPiper leaves 
 expressions alone even if x is a number, trying to keep the result as 
 exact as possible. The floating point approximations of these functions 
-can be forced by using the {N} function.
+can be forced by using the [N] function.
 
 MathPiper knows some trigonometric identities, so it can simplify to exact
-results even if {N} is not used. This is the case, for instance,
+results even if [N] is not used. This is the case, for instance,
 when the argument is a multiple of $Pi$/6 or $Pi$/4.
 
-These functions are threaded, meaning that if the argument {x} is a
+These functions are threaded, meaning that if the argument [x] is a
 list, the function is applied to all entries in the list.
 
 *E.G.

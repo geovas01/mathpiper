@@ -2,18 +2,18 @@
 
 /// VarListSome is just like FuncList(x,y)
 
-10 # VarListSome({}, _looklist) <-- {};
+10 # VarListSome([], _looklist) <-- [];
 // an atom should be a variable to qualify
-10 # VarListSome(expr_Variable?, _looklist) <-- {expr};
-15 # VarListSome(expr_Atom?, _looklist) <-- {};
+10 # VarListSome(expr_Variable?, _looklist) <-- [expr];
+15 # VarListSome(expr_Atom?, _looklist) <-- [];
 // a function not in the looking list - return it whole
-20 # VarListSome(expr_Function?, looklist_List?)_(Not? Contains?(looklist, ToAtom(Type(expr)))) <-- {expr};
+20 # VarListSome(expr_Function?, looklist_List?)_(Not? Contains?(looklist, ToAtom(Type(expr)))) <-- [expr];
 // a function in the looking list - traverse its arguments
 30 # VarListSome(expr_Function?, looklist_List?) <--
 RemoveDuplicates(
                 ⊕        // obtain a list of functions, considering only functions in looklist
                         Local(item, result);
-                        result := {};
+                        result := [];
                         ForEach(item, expr) result := Concat(result, VarListSome(item, looklist));
                         result;
                 ⊖
@@ -35,38 +35,38 @@ RemoveDuplicates(
 
 *PARMS
 
-{expr} -- an expression
+[expr] -- an expression
 
-{list} -- a list of function atoms
+[list] -- a list of function atoms
 
 *DESC
 
-The command {VarList(expr)} returns a list of all variables that appear in the
-expression {expr}. The expression is traversed recursively.
+The command [VarList(expr)] returns a list of all variables that appear in the
+expression [expr]. The expression is traversed recursively.
 
-The command {VarListSome} looks only at arguments of functions in the {list}. All other functions are considered "opaque" (as if they do not contain any variables) and their arguments are not checked.
-For example, {VarListSome(a + Sin(b-c))} will return {{a, b, c}}, but {VarListSome(a*Sin(b-c), {*})} will not look at arguments of {Sin()} and will return {{a,Sin(b-c)}}. Here {Sin(b-c)} is considered a "variable" because the function {Sin} does not belong to {list}.
+The command [VarListSome] looks only at arguments of functions in the [list]. All other functions are considered "opaque" (as if they do not contain any variables) and their arguments are not checked.
+For example, [VarListSome(a + Sin(b-c))] will return [[a, b, c]], but [VarListSome(a*Sin(b-c), [*])] will not look at arguments of [Sin()] and will return [[a,Sin(b-c)]]. Here [Sin(b-c)] is considered a "variable" because the function [Sin] does not belong to [list].
 
 
-The command {VarListArith} returns a list of all variables that appear
-arithmetically in the expression {expr}. This is implemented through
-{VarListSome} by restricting to the arithmetic functions {+}, {-}, {*}, {/}.
+The command [VarListArith] returns a list of all variables that appear
+arithmetically in the expression [expr]. This is implemented through
+[VarListSome] by restricting to the arithmetic functions [+], [-], [*], [/].
 Arguments of other functions are not checked.
 
-Note that since the operators "{+}" and "{-}" are prefix as well as infix operators, it is currently required to use {ToAtom("+")} to obtain the unevaluated atom "{+}".
+Note that since the operators "[+]" and "[-]" are prefix as well as infix operators, it is currently required to use [ToAtom("+")] to obtain the unevaluated atom "[+]".
 
 *E.G.
 
 In> VarList(Sin(x))
-Result: {x};
+Result: [x];
 In> VarList(x+a*y)
-Result: {x,a,y};
-In> VarListSome(x+a*y, {ToAtom("+")})
-Result: {x,a*y};
+Result: [x,a,y];
+In> VarListSome(x+a*y, [ToAtom("+")])
+Result: [x,a*y];
 In> VarListArith(x+y*Cos(Ln(x)/x))
-Result: {x,y,Cos(Ln(x)/x)}
+Result: [x,y,Cos(Ln(x)/x)]
 In> VarListArith(x+a*y^2-1)
-Result: {x,a,y^2};
+Result: [x,a,y^2];
 
 *SEE FreeOf?, Variable?, FuncList, HasExpression?, HasFunction?
 %/mathpiper_docs

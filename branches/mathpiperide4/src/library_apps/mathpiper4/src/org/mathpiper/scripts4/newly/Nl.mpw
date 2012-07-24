@@ -19,7 +19,7 @@ character. This may be useful for building strings to send to some
 output in the end.
 
 Note that the second letter in the name of this command is a lower
-case {L} (from "line").
+case [L] (from "line").
 
 *E.G. notest
 

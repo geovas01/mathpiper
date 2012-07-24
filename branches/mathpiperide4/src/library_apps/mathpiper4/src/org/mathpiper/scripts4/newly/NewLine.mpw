@@ -24,11 +24,11 @@
 
 *PARMS
 
-{nr} -- the number of newline characters to print
+[nr] -- the number of newline characters to print
 
 *DESC
 
-The command {NewLine()} prints one newline character
+The command [NewLine()] prints one newline character
 on the current output. The second form prints "nr" newlines on the
 current output. The result is always True.
 

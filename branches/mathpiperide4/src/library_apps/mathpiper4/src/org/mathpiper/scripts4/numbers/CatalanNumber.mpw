@@ -11,17 +11,17 @@ CatalanNumber(_n) <--
 
 
 %mathpiper_docs,name="CatalanNumber",categories="User Functions;Number Theory"
-*CMD CatalanNumber --- return the {n}th Catalan Number
+*CMD CatalanNumber --- return the [n]th Catalan Number
 *STD
 *CALL
         CatalanNumber(n)
 *PARMS
 
-{n}        -- positive integer
+[n]        -- positive integer
 
 *DESC
 
-This function returns the {n}-th Catalan number, defined as $BinomialCoefficient(2*n,n)/(n+1)$.
+This function returns the [n]-th Catalan number, defined as $BinomialCoefficient(2*n,n)/(n+1)$.
 
 *E.G.
 

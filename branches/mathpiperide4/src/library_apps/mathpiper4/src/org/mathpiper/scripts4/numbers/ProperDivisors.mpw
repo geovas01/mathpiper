@@ -17,12 +17,12 @@
         ProperDivisors(n)
 *PARMS
 
-{n}     -- positive integer
+[n]     -- positive integer
 
 *DESC
 
-{ProperDivisors} returns the number of proper divisors, i.e {Divisors(n)-1},
-since {n} is not counted. 
+[ProperDivisors] returns the number of proper divisors, i.e [Divisors(n)-1],
+since [n] is not counted. 
 An integer $n$ is prime if and only if it has 1 proper divisor.
 
 *E.G.

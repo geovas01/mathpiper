@@ -19,8 +19,8 @@ ContinuousUniformDistribution(a_RationalOrNumber?, b_RationalOrNumber?)_(a>=?b)
 
 *PARMS
 
-{a} -- number, lower range value
-{b} -- number, upper range value
+[a] -- number, lower range value
+[b] -- number, upper range value
 
 
 *SEE BinomialDistribution, BernoulliDistribution, ChiSquareDistribution, DiscreteUniformDistribution, ExponentionalDistribution, GeometricDistribution, NormalDistribution, PoissonDistribution, tDistribution

@@ -24,8 +24,8 @@ GaussianDeterminant(matrix):=
       ForEach(j, i .. n )
       ⊕
         matrix[k][j] := matrix[k][j] - (s/matrix[i][i])*matrix[i][j];
-        //Echo({"matrix[",k,"][",j,"] =", aug[k][j]," - ",
-        //      matrix[k][i],"/",matrix[i][i],"*",matrix[i][j]," k i =", k,i  });
+        //Echo(["matrix[",k,"][",j,"] =", aug[k][j]," - ",
+        //      matrix[k][i],"/",matrix[i][i],"*",matrix[i][j]," k i =", k,i  ]);
       ⊖;
     ⊖;
   ⊖;
@@ -50,7 +50,7 @@ GaussianDeterminant(matrix):=
         GaussianDeterminant(matrix)
 
 *PARMS
-{matrix} -- a matrix
+[matrix] -- a matrix
 
 *DESC
 todo

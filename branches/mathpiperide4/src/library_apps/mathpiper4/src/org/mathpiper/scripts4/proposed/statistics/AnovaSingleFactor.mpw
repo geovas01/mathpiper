@@ -39,13 +39,13 @@ AnovaSingleFactor(levelsList, alpha) :=
         topOfSummary,
         variancesList);
 
-    meansList := {};
+    meansList := [];
     
-    variancesList := {};
+    variancesList := [];
     
-    sumsList := {};
+    sumsList := [];
     
-    lengthsList := {};
+    lengthsList := [];
     
     ForEach(levelList, levelsList)
     ⊕
@@ -165,7 +165,7 @@ AnovaSingleFactor(levelsList, alpha) :=
                 
                 
                 
-     result := {};
+     result := [];
      
      result["html"] := htmlJavaString;
      
@@ -211,16 +211,16 @@ AnovaSingleFactor(levelsList, alpha) :=
         AnovaSingleFactor(listOfLists,alpha)
 
 *PARMS
-{listOfLists} -- a list which contains lists which contain the data to be analyzed
+[listOfLists] -- a list which contains lists which contain the data to be analyzed
 
-{alpha} -- the alpha value to use in the analysis.
+[alpha] -- the alpha value to use in the analysis.
 
 *DESC
 This function performs an ANOVA single factor analysis.  The various values that are
 calculated during the analysis are returned in an association list and these
 values are listed in the keys of the returned list (see the examples section).
 
-If the {html} key is passed to the {ViewHtml} function, the results of the analysis
+If the [html] key is passed to the [ViewHtml] function, the results of the analysis
 are displayed in a graphcs window as rendered HTML.
 
 *E.G.
@@ -228,13 +228,13 @@ are displayed in a graphcs window as rendered HTML.
 
 alpha := .05;
 
-factor1List := {10.2,8.5,8.4,10.5,9.0,8.1};
+factor1List := [10.2,8.5,8.4,10.5,9.0,8.1];
 
-factor2List := {11.6,12.0,9.2,10.3,9.9,12.5};
+factor2List := [11.6,12.0,9.2,10.3,9.9,12.5];
 
-factor3List := {8.1,9.0,10.7,9.1,10.5,9.5};
+factor3List := [8.1,9.0,10.7,9.1,10.5,9.5];
 
-Echo(anova := AnovaSingleFactor({factor1List,factor2List,factor3List}, alpha));
+Echo(anova := AnovaSingleFactor([factor1List,factor2List,factor3List], alpha));
 
 NewLine();
 
@@ -248,10 +248,10 @@ ViewHtml(anova["html"]);
       Result: True
       
       Side Effects:
-      {"criticalFScore",3.682320344} {"fScore",4.438993381} {"meanSquareWithin",1.22300000} 
-      {"meanSquareBetween",5.428888905} {"degreesOfFreedomWithin",15} {"degreesOfFreedomBetween",2} 
-      {"sumOfSquaresTotal",29.20277781} {"sumOfSquaresBetween",10.85777781} 
-      {"sumOfSquaresWithin",18.34500000} {"html",java.lang.String} 
+      ["criticalFScore",3.682320344] ["fScore",4.438993381] ["meanSquareWithin",1.22300000] 
+      ["meanSquareBetween",5.428888905] ["degreesOfFreedomWithin",15] ["degreesOfFreedomBetween",2] 
+      ["sumOfSquaresTotal",29.20277781] ["sumOfSquaresBetween",10.85777781] 
+      ["sumOfSquaresWithin",18.34500000] ["html",java.lang.String] 
       
       F-Score of the data: 4.438993381 
       
@@ -276,13 +276,13 @@ ViewHtml(anova["html"]);
 
 alpha := .05;
 
-factor1List := {10.2,8.5,8.4,10.5,9.0,8.1};
+factor1List := [10.2,8.5,8.4,10.5,9.0,8.1];
 
-factor2List := {11.6,12.0,9.2,10.3,9.9,12.5};
+factor2List := [11.6,12.0,9.2,10.3,9.9,12.5];
 
-factor3List := {8.1,9.0,10.7,9.1,10.5,9.5};
+factor3List := [8.1,9.0,10.7,9.1,10.5,9.5];
 
-Echo(anova := AnovaSingleFactor({factor1List,factor2List,factor3List}, alpha));
+Echo(anova := AnovaSingleFactor([factor1List,factor2List,factor3List], alpha));
 
 Echo("F-Score of the data: ", anova["fScore"]);
 
@@ -294,7 +294,7 @@ ViewHtml(anova["html"]);
       Result: True
       
       Side Effects:
-      {"criticalFScore",3.682320344} {"fScore",4.438993381} {"meanSquareWithin",1.22300000} {"meanSquareBetween",5.428888905} {"degreesOfFreedomWithin",15} {"degreesOfFreedomBetween",2} {"sumOfSquaresTotal",29.20277781} {"sumOfSquaresBetween",10.85777781} {"sumOfSquaresWithin",18.34500000} {"html",java.lang.String} 
+      ["criticalFScore",3.682320344] ["fScore",4.438993381] ["meanSquareWithin",1.22300000] ["meanSquareBetween",5.428888905] ["degreesOfFreedomWithin",15] ["degreesOfFreedomBetween",2] ["sumOfSquaresTotal",29.20277781] ["sumOfSquaresBetween",10.85777781] ["sumOfSquaresWithin",18.34500000] ["html",java.lang.String] 
       F-Score of the data: 4.438993381 
       
 .   %/output

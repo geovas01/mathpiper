@@ -1,6 +1,6 @@
 %mathpiper,def="<-"
 
-RulebaseHoldArguments("<-",{left,right});
+RulebaseHoldArguments("<-",[left,right]);
 HoldArgument("<-",left);
 HoldArgument("<-",right);
 

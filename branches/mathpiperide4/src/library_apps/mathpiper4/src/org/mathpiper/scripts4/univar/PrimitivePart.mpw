@@ -16,7 +16,7 @@
 
 *PARMS
 
-{expr} -- univariate polynomial
+[expr] -- univariate polynomial
 
 *DESC
 

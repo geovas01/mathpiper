@@ -39,7 +39,7 @@ HeapSort(L_List?, _compare) <--
                 // the smallest element of the right half is at iright
                 // the smallest element of the left half is at ileft, access through tmplist
         If(        // we copy an element from ileft either if it is smaller or if the right half is finished; it is unnecessary to copy the remainder of the right half since the right half stays in the "list"
-                iright>?last Or? Apply(compare,{tmplist[ileft],L[iright]}),
+                iright>?last Or? Apply(compare,[tmplist[ileft],L[iright]]),
                 ⊕        // take element from ileft
                         L[pleft] := tmplist[ileft];
                         ileft++;
@@ -64,32 +64,32 @@ HeapSort(L_List?, _compare) <--
 
 *PARMS
 
-{list} -- list to sort
+[list] -- list to sort
 
-{compare} -- function used to compare elements of {list}
+[compare] -- function used to compare elements of [list]
 
 *DESC
 
-This command returns {list} after it is sorted using {compare} to
-compare elements. The function {compare} should accept two arguments,
-which will be elements of {list}, and compare them. It should return
-{True} if in the sorted list the second argument
-should come after the first one, and {False}
-otherwise.  The function {compare} can either be a string which
+This command returns [list] after it is sorted using [compare] to
+compare elements. The function [compare] should accept two arguments,
+which will be elements of [list], and compare them. It should return
+[True] if in the sorted list the second argument
+should come after the first one, and [False]
+otherwise.  The function [compare] can either be a string which
 contains the name of a function or a pure function.
 
-The function {HeapSort} uses a recursive algorithm "heapsort" and is much
+The function [HeapSort] uses a recursive algorithm "heapsort" and is much
 faster for large lists. The sorting time is proportional to $n*Ln(n)$ where $n$
 is the length of the list.
 
-The original {list} is left unmodified.
+The original [list] is left unmodified.
 
 *E.G.
-In> HeapSort({4,7,23,53,-2,1}, ">?")
-Result: {53,23,7,4,1,-2}
+In> HeapSort([4,7,23,53,-2,1], ">?")
+Result: [53,23,7,4,1,-2]
 
-In> HeapSort({3,5,2},Lambda({x,y},x<?y))
-Result: {2,3,5}
+In> HeapSort([3,5,2],Lambda([x,y],x<?y))
+Result: [2,3,5]
 
 *SEE HeapSortIndexed, BubbleSort, BubbleSortListed, Lambda
 %/mathpiper_docs

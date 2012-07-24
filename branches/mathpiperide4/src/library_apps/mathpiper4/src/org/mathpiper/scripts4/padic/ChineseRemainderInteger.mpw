@@ -5,7 +5,7 @@
 ChineseRemainderInteger(mlist_List?,vlist_List?) <--
 ⊕
   Local(m,i,nr,result,msub,euclid,clist);
-  clist:={};
+  clist:=[];
   m:=Product(mlist);
   result:=0;
 
@@ -20,7 +20,7 @@ ChineseRemainderInteger(mlist_List?,vlist_List?) <--
     DestructiveAppend(clist,c);
     result:=result + msub * c;
   ⊖;
-  {result,clist};
+  [result,clist];
 ⊖;
 
 %/mathpiper

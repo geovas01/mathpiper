@@ -14,12 +14,12 @@ NonZeroInteger?(x) := (Integer?(x) And? x !=? 0);
 
 *PARMS
 
-{n} -- integer to test
+[n] -- integer to test
 
 *DESC
 
-This function tests whether the integer {n} is not zero. If {n} is
-not an integer, the result is {False}.
+This function tests whether the integer [n] is not zero. If [n] is
+not an integer, the result is [False].
 
 *E.G.
 

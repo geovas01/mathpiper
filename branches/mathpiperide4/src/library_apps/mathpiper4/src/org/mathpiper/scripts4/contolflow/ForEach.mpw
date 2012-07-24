@@ -3,7 +3,7 @@
 //Retract("ForEach" , *);
 
 /*TODO remove? Not yet. If the code above (ForEachExperimental) can be made to work we can do away with this version. */
-TemplateFunction("ForEach",{item,listOrString,body})
+TemplateFunction("ForEach",[item,listOrString,body])
 ⊕
   If(And?(Equal?(Generic?(listOrString),True),
          Equal?(GenericTypeName(listOrString),"Array")
@@ -34,7 +34,7 @@ TemplateFunction("ForEach",{item,listOrString,body})
       ⊕
           Local(foreachtail);
           Bind(foreachtail,listOrString);
-          While(Not?(Equal?(foreachtail,{})))
+          While(Not?(Equal?(foreachtail,[])))
           ⊕
             MacroBind(item,First(foreachtail));
             Eval(body);
@@ -63,23 +63,23 @@ HoldArgumentNumber("ForEach",3,3);
 
 *PARMS
 
-{var} -- looping variable
+[var] -- looping variable
 
-{list} -- list of values or string of characters to assign to "var"
+[list] -- list of values or string of characters to assign to "var"
 
-{body} -- expression to evaluate with different values of "var"
+[body] -- expression to evaluate with different values of "var"
 
 *DESC
 
 The expression "body" is evaluated multiple times. The first time,
 "var" has the value of the first element of "list" or the first
 character in "string", then it gets
-the value of the second element and so on. {ForEach}
-returns {True}.
+the value of the second element and so on. [ForEach]
+returns [True].
 
 *E.G. notest
 
-In> ForEach(i,{2,3,5,7,11}) Echo({i, i!});
+In> ForEach(i,[2,3,5,7,11]) Echo([i, i!]);
 2  2
 3  6
 5  120

@@ -21,7 +21,7 @@ EquationLeft(_symbolicEquation)_(Type(symbolicEquation) =? "==")  <--
         
 *PARMS
 
-{equation} -- symbolic equation.
+[equation] -- symbolic equation.
 
 
 *DESC

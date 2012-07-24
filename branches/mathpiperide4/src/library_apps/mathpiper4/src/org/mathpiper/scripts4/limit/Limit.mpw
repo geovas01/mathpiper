@@ -142,7 +142,7 @@
      (infx And? infy)
      );
 ⊖ )
-<-- Lim(var, tar, dir, ApplyFast("Differentiate", {var, x})/ApplyFast("Differentiate", {var, y}));
+<-- Lim(var, tar, dir, ApplyFast("Differentiate", [var, x])/ApplyFast("Differentiate", [var, y]));
 
 /*  Special limit #6: null denominator  */
 /*  Probably there are still some problems.  */
@@ -153,8 +153,8 @@ Dir(Left) <-- -1;
 /*  To get the sign of the denominator on one side:  */
 Sign(_var, _tar, _dir, _exp, _n)
 <-- ⊕
-  Local(der, coef); der := ApplyFast("Differentiate", {var, exp});
-  coef := Eval(ApplyFast("Subst", {var, tar, der}));
+  Local(der, coef); der := ApplyFast("Differentiate", [var, exp]);
+  coef := Eval(ApplyFast("Subst", [var, tar, der]));
   If ( coef =? 0,
        Sign(var, tar, dir, der, n+1),
        (Sign(coef)*Dir(dir)) ^ n
@@ -164,7 +164,7 @@ Sign(_var, _tar, _dir, _exp, _n)
 /*  To avoid infinite recursion (with 1/Exp(-x) for instance)  */
 310 # Lim(_var, _tar, _dir, _x / _y)_
 (Infinity?(tar) And? Zero?(Lim(var, tar, dir, y)))
-<-- Sign(Lim(var, tar, dir, x))*Sign(Lim(var, tar, dir, ApplyFast("Differentiate", {var, y})))*tar;
+<-- Sign(Lim(var, tar, dir, x))*Sign(Lim(var, tar, dir, ApplyFast("Differentiate", [var, y])))*tar;
 
 320 # Lim(_var, _tar, _dir, _x / _y)_Zero?(Lim(var, tar, dir, y))
 <-- Sign(Lim(var, tar, dir, x))*Sign(var, tar, dir, y, 1)*Infinity;
@@ -208,8 +208,8 @@ Sign(_var, _tar, _dir, _exp, _n)
 410 # Lim(_var, _tar, _dir, _x * _y)_
 ((Zero?(Lim(var, tar, dir, x)) And? Infinity?(Lim(var, tar, dir, y)))
   Or? (Infinity?(Lim(var, tar, dir, x)) And? Zero?(Lim(var, tar, dir, y))))
-<-- Lim(var, tar, dir, Simplify(ApplyFast("Differentiate", {var, y})/ApplyFast("Differentiate",
-{var, 1/x})));
+<-- Lim(var, tar, dir, Simplify(ApplyFast("Differentiate", [var, y])/ApplyFast("Differentiate",
+[var, 1/x])));
 
 /*  Default rule  */
 420 # Lim(_var, _tar, _dir, _x * _y) <-- ⊕
@@ -283,7 +283,7 @@ LimitArgs(_arg) <-- Lim(var,tar,dir,arg);
 UnFence("LimitArgs",1); /* Allow LimitArgs to have access to the local variables of the caller. */
 
 701 # Lim(_var, _tar, _dir, _exp)
-<-- Eval(ApplyFast("Subst", {var, tar, exp}));
+<-- Eval(ApplyFast("Subst", [var, tar, exp]));
 
 
 /*  Limit without direction  */
@@ -331,26 +331,26 @@ UnFence("Limit",3);
 
 *PARMS
 
-{var} -- a variable
+[var] -- a variable
 
-{val} -- a number
+[val] -- a number
 
-{dir} -- a direction ({Left} or {Right})
+[dir] -- a direction ([Left] or [Right])
 
-{expr} -- an expression
+[expr] -- an expression
 
 *DESC
 
 This command tries to determine the value that the expression "expr"
 converges to when the variable "var" approaches "val". One may use
-{Infinity} or {-Infinity} for
-"val". The result of {Limit} may be one of the
-symbols {Undefined} (meaning that the limit does not
-exist), {Infinity}, or {-Infinity}.
+[Infinity] or [-Infinity] for
+"val". The result of [Limit] may be one of the
+symbols [Undefined] (meaning that the limit does not
+exist), [Infinity], or [-Infinity].
 
 The second calling sequence is used for unidirectional limits. If one
-gives "dir" the value {Left}, the limit is taken as
-"var" approaches "val" from the positive infinity; and {Right} will take the limit from the negative infinity.
+gives "dir" the value [Left], the limit is taken as
+"var" approaches "val" from the positive infinity; and [Right] will take the limit from the negative infinity.
 
 *E.G.
 

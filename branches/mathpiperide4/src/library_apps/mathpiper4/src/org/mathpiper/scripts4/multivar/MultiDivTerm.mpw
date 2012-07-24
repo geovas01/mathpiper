@@ -5,7 +5,7 @@ MultiDivTerm(MultiNomial(_vars,_term1),MultiNomial(_vars,_term2)) <--
   Local(lm1,lm2);
   Bind(lm1,MultiLeadingTerm(MultiNomial(vars,term1)) );
   Bind(lm2,MultiLeadingTerm(MultiNomial(vars,term2)) );
-  CreateTerm(vars,{lm1[1]-lm2[1],lm1[2] / lm2[2]});
+  CreateTerm(vars,[lm1[1]-lm2[1],lm1[2] / lm2[2]]);
 ⊖;
 MultiS(_g,_h,MultiNomial(_vars,_terms)) <--
 ⊕

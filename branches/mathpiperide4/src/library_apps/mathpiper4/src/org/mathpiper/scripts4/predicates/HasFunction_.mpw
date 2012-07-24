@@ -22,15 +22,15 @@
 
 *PARMS
 
-{expr} -- an expression
+[expr] -- an expression
 
-{func} -- a function atom to be found
+[func] -- a function atom to be found
 
 *DESC
 
-The command {HasFunction?} returns {True} if the expression {expr} contains a function {func}. The expression is recursively traversed.
+The command [HasFunction?] returns [True] if the expression [expr] contains a function [func]. The expression is recursively traversed.
 
-Note that since the operators "{+}" and "{-}" are prefix as well as infix operators, it is currently required to use {ToAtom("+")} to obtain the unevaluated atom "{+}".
+Note that since the operators "[+]" and "[-]" are prefix as well as infix operators, it is currently required to use [ToAtom("+")] to obtain the unevaluated atom "[+]".
 
 *E.G.
 
@@ -52,8 +52,8 @@ Verify(HasFunction?(a*b+1,*),True);
 Verify(HasFunction?(a+Sin(b*c),*),True);
 Verify(HasFunction?(a*b+1,List),False);
 
-RulebaseHoldArguments("f",{a});
-Verify(HasFunction?(a*b+f({b,c}),List),True);
+RulebaseHoldArguments("f",[a]);
+Verify(HasFunction?(a*b+f([b,c]),List),True);
 Retract("f",1);
 
 %/mathpiper

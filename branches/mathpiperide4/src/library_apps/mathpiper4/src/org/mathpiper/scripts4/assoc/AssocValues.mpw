@@ -1,7 +1,7 @@
 %mathpiper,def="AssocValues"
 
 AssocValues(assocvalueslist_List?) <--
-  DestructiveReverse(MapSingle(Lambda({x},First(Rest(x))),assocvalueslist));
+  DestructiveReverse(MapSingle(Lambda([x],First(Rest(x))),assocvalueslist));
 
 %/mathpiper
 
@@ -15,7 +15,7 @@ AssocValues(assocvalueslist_List?) <--
 
 *PARMS
 
-{alist} -- association list to examine
+[alist] -- association list to examine
 
 *DESC
 
@@ -24,8 +24,8 @@ and this list is returned.
 
 *E.G.
 
-In> writer := {};
-Result: {};
+In> writer := [];
+Result: [];
 In> writer["Iliad"] := "Homer";
 Result: True;
 In> writer["Henry IV"] := "Shakespeare";
@@ -33,7 +33,7 @@ Result: True;
 In> writer["Ulysses"] := "James Joyce";
 Result: True;
 In> AssocIndices(writer);
-Result: {"Homer","ShakespeareJames Joyce"};
+Result: ["Homer","ShakespeareJames Joyce"];
 
 *SEE Assoc, AssocDelete, AssocIndices
 %/mathpiper_docs

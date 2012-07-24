@@ -66,13 +66,13 @@ Verify(ExceptionCatch(RandomInteger(4, 1), "Exception"), "Exception");
 
     randomNumbers:= Table( RandomInteger(-2, 2),x,1,10000,1);
 
-    chiSquareTest := ChiSquareTest({
+    chiSquareTest := ChiSquareTest([
                                 Count(randomNumbers,-2),
                                 Count(randomNumbers,-1),
                                 Count(randomNumbers,0),
                                 Count(randomNumbers,1),
-                                Count(randomNumbers,2)},
-                                {2000,2000,2000,2000,2000});
+                                Count(randomNumbers,2)],
+                                [2000,2000,2000,2000,2000]);
 
     criticalChiSquareScore := AlphaToChiSquareScore(.001, chiSquareTest["degreesOfFreedom"]);
 
@@ -94,7 +94,7 @@ Verify(ExceptionCatch(RandomInteger(4, 1), "Exception"), "Exception");
       Result: class org.jfree.chart.ChartPanel
 
       Side Effects:
-      {{"chiSquareScore",3.357},{"pValue",0.6879909930},{"degreesOfFreedom",4}}
+      [["chiSquareScore",3.357],["pValue",0.6879909930],["degreesOfFreedom",4]]
 
       Calculated chi-squ value: 3.357
       Critical chi-square value: 18.46682719
@@ -116,9 +116,9 @@ Verify(ExceptionCatch(RandomInteger(4, 1), "Exception"), "Exception");
 
 *PARMS
 
-{lower_bound} -- the smallest integer that can be generated
+[lower_bound] -- the smallest integer that can be generated
 
-{upper_bound} -- the largest integer that can be generated
+[upper_bound] -- the largest integer that can be generated
 
 
 *DESC

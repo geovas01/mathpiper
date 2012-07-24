@@ -6,11 +6,11 @@
  * (since they are defined as local symbols).
  */
 
-TemplateFunction("Table",{body,var,countfrom,countto,step})
+TemplateFunction("Table",[body,var,countfrom,countto,step])
   ⊕
     MacroLocal(var);
     Local(result,nr,ii);
-    result:={};
+    result:=[];
     nr := (countto - countfrom) / step;
     ii := 0;
     While( ii <=? nr )
@@ -37,15 +37,15 @@ UnFence("Table",5);
 
 *PARMS
 
-{body} -- expression to evaluate multiple times
+[body] -- expression to evaluate multiple times
 
-{var} -- variable to use as loop variable
+[var] -- variable to use as loop variable
 
-{from} -- initial value for "var"
+[from] -- initial value for "var"
 
-{to} -- final value for "var"
+[to] -- final value for "var"
 
-{step} -- step size with which "var" is incremented
+[step] -- step size with which "var" is incremented
 
 *DESC
 
@@ -60,19 +60,19 @@ the results are assembled in a list and this list is returned.
 
 *E.G.
 In> Table(i!, i, 1, 9, 1);
-Result: {1,2,6,24,120,720,5040,40320,362880}
+Result: [1,2,6,24,120,720,5040,40320,362880]
 
 In> Table(i, i, 3, 16, 4);
-Result: {3,7,11,15}
+Result: [3,7,11,15]
 
 In> Table(i^2, i, 10, 1, -1);
-Result: {100,81,64,49,36,25,16,9,4,1}
+Result: [100,81,64,49,36,25,16,9,4,1]
 
 In> Table(a+b, b, 0, 2, 1)
-Result: {a,a+1,a+2}
+Result: [a,a+1,a+2]
 
 In> Table(Table(a+b, b, 0, 2, 1), a, 0, 2, 1)
-Result: {{0,1,2},{1,2,3},{2,3,4}}
+Result: [[0,1,2],[1,2,3],[2,3,4]]
 
 *SEE For, MapSingle, .., TableForm
 %/mathpiper_docs

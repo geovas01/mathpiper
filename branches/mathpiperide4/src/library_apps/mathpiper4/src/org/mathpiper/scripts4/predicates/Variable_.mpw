@@ -15,7 +15,7 @@ Variable?(_expr) <-- (Atom?(expr) And? Not?(expr =? True) And? Not?(expr =? Fals
 
 *PARMS
 
-{var} -- variable to test
+[var] -- variable to test
 
 *DESC
 

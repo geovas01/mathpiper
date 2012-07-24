@@ -13,7 +13,7 @@ SmallSortIndexed(_list, _first, _last, _compare)_(last=?first+1) <--
         Local(temp);
         temp := list[first];
         If(
-                Apply(compare,{temp[1],list[last][1]}),
+                Apply(compare,[temp[1],list[last][1]]),
                 list,
                 ⊕
                         list[first] := list[last];
@@ -28,7 +28,7 @@ SmallSortIndexed(_list, _first, _last, _compare)_(last=?first+2) <--
         Local(temp);
         temp := list[first];
         If(
-                Apply(compare,{list[first+1][1],temp[1]}),
+                Apply(compare,[list[first+1][1],temp[1]]),
                 ⊕
                         list[first] := list[first+1];
                         list[first+1] := temp;
@@ -37,9 +37,9 @@ SmallSortIndexed(_list, _first, _last, _compare)_(last=?first+2) <--
         // x<y, z
         temp := list[last];
         If(
-                Apply(compare,{list[first][1],temp[1]}),
+                Apply(compare,[list[first][1],temp[1]]),
                 If(        // z>x<y
-                        Apply(compare,{list[first+1][1],temp[1]}),
+                        Apply(compare,[list[first+1][1],temp[1]]),
                         list,
                         ⊕
                                 list[last] := list[first+1];

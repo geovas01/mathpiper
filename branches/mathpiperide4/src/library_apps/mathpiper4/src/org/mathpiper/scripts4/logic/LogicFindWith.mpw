@@ -17,7 +17,7 @@ LogicFindWith(_list, _i, _n) <--
         ⊕Bind(result, j); Bind(index, k);⊖);
     ⊖;
   ⊖;
-  {result, index};
+  [result, index];
 ⊖;
 
 %/mathpiper

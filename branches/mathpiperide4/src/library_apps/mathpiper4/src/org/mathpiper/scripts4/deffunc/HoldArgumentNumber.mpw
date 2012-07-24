@@ -1,11 +1,11 @@
 %mathpiper,def="HoldArgumentNumber"
 
-Function("HoldArgumentNumber",{function,arity,index})
+Function("HoldArgumentNumber",[function,arity,index])
 ⊕
   Local(args);
   args:=RulebaseArgumentsList(function,arity);
-/* Echo({"holdnr ",args}); */
-  ApplyFast("HoldArgument",{function,args[index]});
+/* Echo(["holdnr ",args]); */
+  ApplyFast("HoldArgument",[function,args[index]]);
 ⊖;
 
 %/mathpiper
@@ -19,16 +19,16 @@ Function("HoldArgumentNumber",{function,arity,index})
         HoldArgumentNumber("function", arity, argNum)
 
 *PARMS
-{"function"} -- string, function name
+["function"] -- string, function name
 
-{arity}, {argNum} -- positive integers
+[arity], [argNum] -- positive integers
 
 *DESC
 
-Declares the argument numbered {argNum} of the function named {"function"} with
-specified {arity} to be unevaluated ("held"). Useful if you don't know symbolic
+Declares the argument numbered [argNum] of the function named ["function"] with
+specified [arity] to be unevaluated ("held"). Useful if you don't know symbolic
 names of parameters, for instance, when the function was not declared using an
-explicit {RulebaseHoldArguments} call. Otherwise you could use {HoldArgument}.
+explicit [RulebaseHoldArguments] call. Otherwise you could use [HoldArgument].
 
 *SEE HoldArgument, RulebaseHoldArguments
 %/mathpiper_docs

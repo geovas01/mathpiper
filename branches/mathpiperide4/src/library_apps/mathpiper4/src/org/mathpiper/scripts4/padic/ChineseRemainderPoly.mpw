@@ -3,11 +3,11 @@
 ChineseRemainderPoly(mlist_List?,vlist_List?) <--
 ⊕
   Local(m,i,nr,result,msub,euclid,clist);
-  clist:={};
+  clist:=[];
   m:=Product(mlist);
   result:=0;
 
-/* Echo({mlist,m}); */
+/* Echo([mlist,m]); */
 
 
   nr:=Length(mlist);
@@ -15,7 +15,7 @@ ChineseRemainderPoly(mlist_List?,vlist_List?) <--
   ⊕
     msub:=Quotient(m,mlist[i]);
 
-/* Echo({Factor(msub)}); */
+/* Echo([Factor(msub)]); */
 
     euclid := ExtendedEuclideanMonic(msub,mlist[i]);
     Local(c);
@@ -27,7 +27,7 @@ ChineseRemainderPoly(mlist_List?,vlist_List?) <--
     DestructiveAppend(clist,c);
     result:=result + msub * c;
   ⊖;
-  {Expand(result),clist};
+  [Expand(result),clist];
 ⊖;
 
 %/mathpiper
