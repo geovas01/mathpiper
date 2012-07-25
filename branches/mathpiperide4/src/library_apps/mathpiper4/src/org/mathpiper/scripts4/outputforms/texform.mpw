@@ -17,7 +17,7 @@ TexForm
         0.4 added nth roots, Sum, Limit, Integrate, hyperbolics, set operations, Abs, Max, Min, "==", ":=", Infinity; support indexed expressions A[i] and matrices.
         0.4.1 bugfixes for [] operator, support for multiple indices a[1][2][3]
         0.4.2 fix for variable names ending on digits "a2" represented as $a_2$
-        0.4.3 bugfixes: complex I, indeterminate integration; relaxed bracketing of Sin()-like functions; implemented $TeX$ and $LaTeX$ correctly now (using \textrm[])
+        0.4.3 bugfixes: complex I, indeterminate integration; relaxed bracketing of Sin()-like functions; implemented $TeX$ and $LaTeX$ correctly now (using \textrm{})
         0.4.4 use ordinary instead of partial derivative if expression has only one variable
         0.4.5 fixes for bracketing of Sum(); added <> to render as \sim and <=> to render as \approx; added BinomialCoefficient()
         0.4.6 moved the <> and <=> operators to initialization.rep/stdopers.mpi
@@ -27,7 +27,7 @@ TexForm
         0.4.10 cosmetic change: insert \cdot between numbers in cases like 2*10^n
         0.4.11 added DumpErrors() to TexForm for the benefit of TeXmacs notebooks
         0.4.12 implement the % operation as Mod
-        0.4.13 added Bessel[I,J,K,Y], Ortho[H,P,T,U], with a general framework for usual two-argument functions of the form $A_n(x)$; fix for Max, Min
+        0.4.13 added Bessel{I,J,K,Y}, Ortho{H,P,T,U}, with a general framework for usual two-argument functions of the form $A_n(x)$; fix for Max, Min
         0.4.14 added mathematical notation for Floor(), Ceil()
         0.4.15 added Prog() represented by ( )
         0.4.16 added Zeta()
@@ -92,18 +92,18 @@ TeXFormMaxPrec() := 60000;         /* This precedence will never be bracketed. I
     characterList := [];
     ForEach(character, x)
     {
-        If(character !=? " ", DestructiveAppend(characterList, character), DestructiveAppend(characterList, "\\hspace[2 mm]"));
+        If(character !=? " ", DestructiveAppend(characterList, character), DestructiveAppend(characterList, "\\hspace{2 mm}"));
     };
-    ConcatStrings("\\mathrm[''", ListToString(characterList), "'']");
+    ConcatStrings("\\mathrm{''", ListToString(characterList), "''}");
 };
 
 
 
 /* FunctionToList(...) can generate lists with atoms that would otherwise result in unparsable expressions. */
-100 # TeXForm(x_Atom?, _p)_(Infix?(ToString(x))) <-- ConcatStrings("\\mathrm[", ToString(x), "]");
+100 # TeXForm(x_Atom?, _p)_(Infix?(ToString(x))) <-- ConcatStrings("\\mathrm{", ToString(x), "}");
 
 
-/* Lists: make sure to have matrices processed before them. Enveloping precedence is irrelevant because lists are always bracketed. List items are never bracketed. Note that TeXFormFinishList([a,b]) generates ",a,b" */
+/* Lists: make sure to have matrices processed before them. Enveloping precedence is irrelevant because lists are always bracketed. List items are never bracketed. Note that TeXFormFinishList({a,b}) generates ",a,b" */
 
 100 # TeXForm(x_List?, _p)_(Length(x)=?0) <-- TeXFormBracketIf(True, "");
 110 # TeXForm(x_List?, _p) <-- TeXFormBracketIf(True, ConcatStrings(TeXForm(First(x), TeXFormMaxPrec()), TeXFormFinishList(Rest(x)) ) );
@@ -143,17 +143,17 @@ TeXFormMaxPrec() := 60000;         /* This precedence will never be bracketed. I
 ) );
 
         /* fraction and its operands are never bracketed except when they are under power */
-100 # TeXForm(_x / _y, _p) <-- TeXFormBracketIf(p<?PrecedenceGet("/"), ConcatStrings("\\frac[", TeXForm(x, TeXFormMaxPrec()), "][", TeXForm(y, TeXFormMaxPrec()), "] ") );
+100 # TeXForm(_x / _y, _p) <-- TeXFormBracketIf(p<?PrecedenceGet("/"), ConcatStrings("\\frac{", TeXForm(x, TeXFormMaxPrec()), "}{", TeXForm(y, TeXFormMaxPrec()), "} ") );
 
         /* power's argument is never bracketed but it must be put in braces. Chained powers must be bracketed. Powers of 1/n are displayed as roots. */
-100 # TeXForm(_x ^ (1/2), _p) <-- ConcatStrings("\\sqrt[", TeXForm(x, TeXFormMaxPrec()), "]");
-101 # TeXForm(_x ^ (1/_y), _p) <-- ConcatStrings("\\sqrt[", TeXForm(y, TeXFormMaxPrec()), "][", TeXForm(x, TeXFormMaxPrec()), "]");
+100 # TeXForm(_x ^ (1/2), _p) <-- ConcatStrings("\\sqrt{", TeXForm(x, TeXFormMaxPrec()), "}");
+101 # TeXForm(_x ^ (1/_y), _p) <-- ConcatStrings("\\sqrt[", TeXForm(y, TeXFormMaxPrec()), "]{", TeXForm(x, TeXFormMaxPrec()), "}");
 
 
-120 # TeXForm(_x ^ _y, _p) <-- TeXFormBracketIf(p<=?PrecedenceGet("^"), ConcatStrings(TeXForm(x, PrecedenceGet("^")), " ^[", TeXForm(y, TeXFormMaxPrec()), "]" ) );
+120 # TeXForm(_x ^ _y, _p) <-- TeXFormBracketIf(p<=?PrecedenceGet("^"), ConcatStrings(TeXForm(x, PrecedenceGet("^")), " ^{", TeXForm(y, TeXFormMaxPrec()), "}" ) );
 
-100 # TeXForm(if(_pred)_body, _p) <-- "\\textrm[if ]("~TeXForm(pred,60000)~") "~TeXForm(body,60000);
-100 # TeXForm(_left else _right, _p) <-- TeXForm(left,60000)~"\\textrm[ else ]"~TeXForm(right,60000);
+100 # TeXForm(if(_pred)_body, _p) <-- "\\textrm{if }(":TeXForm(pred,60000):") ":TeXForm(body,60000);
+100 # TeXForm(_left else _right, _p) <-- TeXForm(left,60000):"\\textrm{ else }":TeXForm(right,60000);
 
 
 /* functions */
@@ -196,8 +196,8 @@ LocalSymbols(TeXFormRegularOps, TeXFormRegularPrefixOps, TeXFormGreekLetters, Te
     ["I", "\\imath "],        // this prevents a real uppercase I, use BesselI instead
     ["Pi", "\\pi "],        // this makes it impossible to have an uppercase Pi... hopefully it's not needed
     ["Infinity", "\\infty "],
-    ["TeX", "\\textrm[\\TeX\\/]"],
-    ["LaTeX", "\\textrm[\\LaTeX\\/]"],
+    ["TeX", "\\textrm{\\TeX\\/}"],
+    ["LaTeX", "\\textrm{\\LaTeX\\/}"],
     ["Maximum", "\\max "],        // this replaces these function names
     ["Minimum", "\\min "],
     ["Prog", " "],
@@ -214,8 +214,8 @@ LocalSymbols(TeXFormRegularOps, TeXFormRegularPrefixOps, TeXFormGreekLetters, Te
     If (Contains?(TeXFormGreekLetters, string), ConcatStrings("\\", string, " "),
     If (Contains?(AssocIndices(TeXFormRegularOps), string), TeXFormRegularOps[string],
     If (Contains?(AssocIndices(TeXFormRegularPrefixOps), string), TeXFormRegularPrefixOps[string],
-    If (Length(string) >=? 2 And? Number?(ToAtom(StringMidGet(2, Length(string)-1, string))), ConcatStrings(StringMidGet(1,1,string), "_[", StringMidGet(2, Length(string)-1, string), "]"),
-    If (Length(string) >? 2, ConcatStrings("\\mathrm[ ", string, " ]"),
+    If (Length(string) >=? 2 And? Number?(ToAtom(StringMidGet(2, Length(string)-1, string))), ConcatStrings(StringMidGet(1,1,string), "_{", StringMidGet(2, Length(string)-1, string), "}"),
+    If (Length(string) >? 2, ConcatStrings("\\mathrm{ ", string, " }"),
     string
     ))))));
   };
@@ -243,7 +243,7 @@ LocalSymbols(TeXFormRegularOps, TeXFormRegularPrefixOps, TeXFormGreekLetters, Te
 220 # TeXForm(x_Function?, _p) <-- ConcatStrings(TeXFormTeXify(Type(x)), TeXForm(Rest(FunctionToList(x)), TeXFormMaxPrec()) );
 
         /* Never bracket Sqrt or its arguments */
-100 # TeXForm(Sqrt(_x), _p) <-- ConcatStrings("\\sqrt[", TeXForm(x, TeXFormMaxPrec()), "]");
+100 # TeXForm(Sqrt(_x), _p) <-- ConcatStrings("\\sqrt{", TeXForm(x, TeXFormMaxPrec()), "}");
 
         /* Always bracket Exp's arguments */
 100 # TeXForm(Exp(_x), _p) <-- TeXFormBracketIf(p<?PrecedenceGet("/"), ConcatStrings("\\exp ", TeXFormBracketIf(True, TeXForm(x, TeXFormMaxPrec())) ) );
@@ -253,8 +253,8 @@ LocalSymbols(TeXFormMathFunctions, TeXFormMathFunctions2) {
 
   /* Sin, Cos, etc. and their argument is bracketed when it's a sum or product but not bracketed when it's a power. */
   /// supported MathPiper functions: "mathematical" functions of one argument which sometimes do not require parentheses (e.g. $\sin x$ )
-  TeXFormMathFunctions := [ ["Cos","\\cos "], ["Sin","\\sin "], ["Tan","\\tan "], ["Cosh","\\cosh "], ["Sinh","\\sinh "], ["Tanh","\\tanh "], ["Ln","\\ln "], ["ArcCos","\\arccos "], ["ArcSin","\\arcsin "], ["ArcTan","\\arctan "], ["ArcCosh","\\mathrm[arccosh]\\, "], ["ArcSinh","\\mathrm[arcsinh]\\, "], ["ArcTanh","\\mathrm[arctanh]\\, "],
-  ["Erf", "\\mathrm[erf]\\, "], ["Erfc", "\\mathrm[erfc]\\, "],
+  TeXFormMathFunctions := [ ["Cos","\\cos "], ["Sin","\\sin "], ["Tan","\\tan "], ["Cosh","\\cosh "], ["Sinh","\\sinh "], ["Tanh","\\tanh "], ["Ln","\\ln "], ["ArcCos","\\arccos "], ["ArcSin","\\arcsin "], ["ArcTan","\\arctan "], ["ArcCosh","\\mathrm{arccosh}\\, "], ["ArcSinh","\\mathrm{arcsinh}\\, "], ["ArcTanh","\\mathrm{arctanh}\\, "],
+  ["Erf", "\\mathrm{erf}\\, "], ["Erfc", "\\mathrm{erfc}\\, "],
   ];
 
   /// supported MathPiper functions: functions of two arguments of the form $A_n(x)$
@@ -276,9 +276,9 @@ LocalSymbols(TeXFormMathFunctions, TeXFormMathFunctions2) {
   120 # TeXForm(expr_Function?, _p) _ (ArgumentsCount(expr)=?2 And? Contains?(AssocIndices(TeXFormMathFunctions2), Type(expr)) ) <-- TeXFormBracketIf(p<?PrecedenceGet("*"),
     ConcatStrings(
     TeXFormMathFunctions2[Type(expr)],
-    "_[",
+    "_{",
     TeXForm( FunctionToList(expr)[2], TeXFormMaxPrec()),        // never bracket the subscript
-    "]",
+    "}",
     TeXFormBracketIf(True, TeXForm(FunctionToList(expr)[3], TeXFormMaxPrec()) ) // always bracket the function argument
     )
   );
@@ -314,20 +314,20 @@ LocalSymbols(TeXFormMathFunctions, TeXFormMathFunctions2) {
 100 # TeXForm(Contains?(_x, _y), _p) <-- TeXFormBracketIf(p<?PrecedenceGet("/"), ConcatStrings(TeXForm(y, PrecedenceGet("/")), "\\in ", TeXForm(x, PrecedenceGet("/")) ) );
 
 /// Binomial coefficients: always bracketed
-100 # TeXForm(BinomialCoefficient(_n, _m), _p) <-- TeXFormBracketIf(False, ConcatStrings("[", TeXForm(n, TeXFormMaxPrec()), " \\choose ", TeXForm(m, TeXFormMaxPrec()), "]" )
+100 # TeXForm(BinomialCoefficient(_n, _m), _p) <-- TeXFormBracketIf(False, ConcatStrings("{", TeXForm(n, TeXFormMaxPrec()), " \\choose ", TeXForm(m, TeXFormMaxPrec()), "}" )
 );
 
 /* Some functions with limits: Lim, Sum, Integrate */
 
-100 # TeXForm(Sum(_x, _x1, _x2, _expr), _p) <-- TeXFormBracketIf(p<?PrecedenceGet("/"), ConcatStrings("\\sum _[", TeXForm(x, TeXFormMaxPrec()), " = ", TeXForm(x1, TeXFormMaxPrec()), "] ^[", TeXForm(x2, TeXFormMaxPrec()), "] ", TeXForm(expr, PrecedenceGet("*")) ) );
+100 # TeXForm(Sum(_x, _x1, _x2, _expr), _p) <-- TeXFormBracketIf(p<?PrecedenceGet("/"), ConcatStrings("\\sum _{", TeXForm(x, TeXFormMaxPrec()), " = ", TeXForm(x1, TeXFormMaxPrec()), "} ^{", TeXForm(x2, TeXFormMaxPrec()), "} ", TeXForm(expr, PrecedenceGet("*")) ) );
 
 100 # TeXForm(Sum(_expr), _p) <-- TeXFormBracketIf(p <? PrecedenceGet("/"), ConcatStrings("\\sum ", TeXForm(expr, PrecedenceGet("*")) ) );
 
 
-100 # TeXForm(Product(_x, _x1, _x2, _expr), _p) <-- TeXFormBracketIf(p<?PrecedenceGet("/"), ConcatStrings("\\prod _[", TeXForm(x, TeXFormMaxPrec()), " = ", TeXForm(x1, TeXFormMaxPrec()), "] ^[", TeXForm(x2, TeXFormMaxPrec()), "] ", TeXForm(expr, PrecedenceGet("*")) ) );
+100 # TeXForm(Product(_x, _x1, _x2, _expr), _p) <-- TeXFormBracketIf(p<?PrecedenceGet("/"), ConcatStrings("\\prod _{", TeXForm(x, TeXFormMaxPrec()), " = ", TeXForm(x1, TeXFormMaxPrec()), "} ^{", TeXForm(x2, TeXFormMaxPrec()), "} ", TeXForm(expr, PrecedenceGet("*")) ) );
 
 100 # TeXForm(Integrate(_x, _x1, _x2) _expr, _p) <-- TeXFormBracketIf(p<?PrecedenceGet("/"), ConcatStrings(
-"\\int _[", TeXForm(x1, TeXFormMaxPrec()), "] ^[", TeXForm(x2, TeXFormMaxPrec()), " ] ", TeXForm(expr, PrecedenceGet("*")), " d", TeXForm(x, TeXFormMaxPrec())
+"\\int _{", TeXForm(x1, TeXFormMaxPrec()), "} ^{", TeXForm(x2, TeXFormMaxPrec()), " } ", TeXForm(expr, PrecedenceGet("*")), " d", TeXForm(x, TeXFormMaxPrec())
 ) );
 
 /* indeterminate integration */
@@ -335,21 +335,21 @@ LocalSymbols(TeXFormMathFunctions, TeXFormMathFunctions2) {
 "\\int ", TeXForm(expr, PrecedenceGet("*")), " d", TeXForm(x, TeXFormMaxPrec())
 ) );
 
-100 # TeXForm(Limit(_x, _x1) _expr, _p) <-- TeXFormBracketIf(p<?PrecedenceGet("/"), ConcatStrings("\\lim _[", TeXForm(x, TeXFormMaxPrec()), "\\rightarrow ", TeXForm(x1, TeXFormMaxPrec()), "] ", TeXForm(expr, PrecedenceGet("/")) ) );
+100 # TeXForm(Limit(_x, _x1) _expr, _p) <-- TeXFormBracketIf(p<?PrecedenceGet("/"), ConcatStrings("\\lim _{", TeXForm(x, TeXFormMaxPrec()), "\\rightarrow ", TeXForm(x1, TeXFormMaxPrec()), "} ", TeXForm(expr, PrecedenceGet("/")) ) );
 
 /* Derivatives */
 
 /* Use partial derivative only when the expression has several variables */
 100 # TeXForm(Deriv(_x)_y, _p) <-- TeXFormBracketIf(p<?PrecedenceGet("-"), ConcatStrings(
-        If(Length(VarList(y))>?1, "\\frac[\\partial][\\partial ", "\\frac[d][d "
-        ), TeXForm(x, PrecedenceGet("^")), "]", TeXForm(y, PrecedenceGet("/")) ) );
+        If(Length(VarList(y))>?1, "\\frac{\\partial}{\\partial ", "\\frac{d}{d "
+        ), TeXForm(x, PrecedenceGet("^")), "}", TeXForm(y, PrecedenceGet("/")) ) );
 
 100 # TeXForm(Deriv(_x, _n)_y, _p) <-- TeXFormBracketIf(p<?PrecedenceGet("-"), ConcatStrings(
         If(
                 Length(VarList(y))>?1,
-                "\\frac[\\partial^" ~ TeXForm(n, TeXFormMaxPrec()) ~ "][\\partial ",
-                "\\frac[d^" ~ TeXForm(n, TeXFormMaxPrec()) ~ "][d "
-        ), TeXForm(x, PrecedenceGet("^")), " ^", TeXForm(n, TeXFormMaxPrec()), "]", TeXForm(y, PrecedenceGet("/")) ) );
+                "\\frac{\\partial^" ~ TeXForm(n, TeXFormMaxPrec()) ~ "}{\\partial ",
+                "\\frac{d^" ~ TeXForm(n, TeXFormMaxPrec()) ~ "}{d "
+        ), TeXForm(x, PrecedenceGet("^")), " ^", TeXForm(n, TeXFormMaxPrec()), "}", TeXForm(y, PrecedenceGet("/")) ) );
 100 # TeXForm(Differentiate(_x)_y, _p) <-- TeXForm(Deriv(x) y, p);
 100 # TeXForm(Differentiate(_x, _n)_y, _p) <-- TeXForm(Deriv(x, n) y, p);
 
@@ -357,15 +357,15 @@ LocalSymbols(TeXFormMathFunctions, TeXFormMathFunctions2) {
 
 /* This seems not to work because x[i] is replaced by Nth(x,i) */
 /*
-100 # TeXForm(_x [ _i ], _p) <-- ConcatStrings(TeXForm(x, TeXFormMaxPrec()), " _[", TeXForm(i, TeXFormMaxPrec()), "]");
+100 # TeXForm(_x [ _i ], _p) <-- ConcatStrings(TeXForm(x, TeXFormMaxPrec()), " _{", TeXForm(i, TeXFormMaxPrec()), "}");
 */
 /* Need to introduce auxiliary function, or else have trouble with arguments of Nth being lists */
 RulebaseHoldArguments("TeXFormNth",[x,y]);
 100 # TeXForm(Nth(Nth(_x, i_List?), _j), _p) <-- TeXForm(TeXFormNth(x, Append(i,j)), p);
 100 # TeXForm(TeXFormNth(Nth(_x, i_List?), _j), _p) <-- TeXForm(TeXFormNth(x, Append(i,j)), p);
 110 # TeXForm(Nth(Nth(_x, _i), _j), _p) <-- TeXForm(TeXFormNth(x, List(i,j)), p);
-120 # TeXForm(Nth(_x, _i), _p) <-- ConcatStrings(TeXForm(x, TeXFormMaxPrec()), " _[", TeXForm(i, TeXFormMaxPrec()), "]");
-120 # TeXForm(TeXFormNth(_x, _i), _p) <-- ConcatStrings(TeXForm(x, TeXFormMaxPrec()), " _[", TeXForm(i, TeXFormMaxPrec()), "]");
+120 # TeXForm(Nth(_x, _i), _p) <-- ConcatStrings(TeXForm(x, TeXFormMaxPrec()), " _{", TeXForm(i, TeXFormMaxPrec()), "}");
+120 # TeXForm(TeXFormNth(_x, _i), _p) <-- ConcatStrings(TeXForm(x, TeXFormMaxPrec()), " _{", TeXForm(i, TeXFormMaxPrec()), "}");
 
 /* Matrices are always bracketed. Precedence 80 because lists are at 100. */
 
@@ -374,13 +374,13 @@ RulebaseHoldArguments("TeXFormNth",[x,y]);
 Function ("TeXFormPrintMatrix", [M])
 {
 /*
-        Want something like "\begin[array][cc] a & b \\ c & d \\ e & f \end[array]"
+        Want something like "\begin{array}{cc} a & b \\ c & d \\ e & f \end{array}"
         here, "cc" is alignment and must be given for each column
 */
         Local(row, col, result, ncol);
-        result := "\\begin[array][";
+        result := "\\begin{array}{";
         ForEach(col, M[1]) result:=ConcatStrings(result, "c");
-        result := ConcatStrings(result, "]");
+        result := ConcatStrings(result, "}");
 
         ForEach(row, 1 .. Length(M)) {
                 ForEach(col, 1 .. Length(M[row])) {
@@ -388,7 +388,7 @@ Function ("TeXFormPrintMatrix", [M])
                 };
         };
 
-        ConcatStrings(result, " \\end[array] ");
+        ConcatStrings(result, " \\end{array} ");
 };
 
 %/mathpiper
@@ -407,16 +407,16 @@ Function ("TeXFormPrintMatrix", [M])
 
 *PARMS
 
-[expr] -- an expression to be exported
+{expr} -- an expression to be exported
 
 *DESC
 
-[TeXForm] returns a string containing a $LaTeX$ representation of the MathPiper expression [expr]. Currently the exporter handles most expression types but not all.
+{TeXForm} returns a string containing a $LaTeX$ representation of the MathPiper expression {expr}. Currently the exporter handles most expression types but not all.
 
 *E.G.
 
 In> TeXForm(Sin(a1)+2*Cos(b1))
-Result: "\$\sin a_[1] + 2 \cos b_[1]\$";
+Result: "\$\sin a_{1} + 2 \cos b_{1}\$";
 
 *SEE PrettyForm, CForm
 %/mathpiper_docs
@@ -436,17 +436,17 @@ Verify(TeXForm(g), ...);
 
 Verify(
 TeXForm(Hold(Cos(A-B)*Sqrt(C+D)-(a+b)*c^d+2*I+Complex(a+b,a-b)/Complex(0,1)))
-,"$\\cos ( A - B)  \\cdot \\sqrt[C + D] - ( a + b)  \\cdot c ^[d] + 2 \\cdot \\imath  + \\frac[a + b + \\imath  \\cdot ( a - b) ][\\imath ] $"
+,"$\\cos ( A - B)  \\cdot \\sqrt{C + D} - ( a + b)  \\cdot c ^{d} + 2 \\cdot \\imath  + \\frac{a + b + \\imath  \\cdot ( a - b) }{\\imath } $"
 );
 
 Verify(
 TeXForm(Hold(Exp(A*B)/C/D/(E+F)*G-(-(a+b)-(c-d))-b^(c^d) -(a^b)^c))
-,"$\\frac[\\frac[\\frac[\\exp ( A \\cdot B) ][C] ][D] ][E + F]  \\cdot G - (  - ( a + b)  - ( c - d) )  - b ^[c ^[d]] - ( a ^[b])  ^[c]$"
+,"$\\frac{\\frac{\\frac{\\exp ( A \\cdot B) }{C} }{D} }{E + F}  \\cdot G - (  - ( a + b)  - ( c - d) )  - b ^{c ^{d}} - ( a ^{b})  ^{c}$"
 );
 
 Verify(
 TeXForm(Hold(Cos(A-B)*Sin(a)*f(b,c,d*(e+1))*Sqrt(C+D)-(g(a+b)^(c+d))^(c+d)))
-,"$\\cos ( A - B)  \\cdot \\sin a \\cdot f( b, c, d \\cdot ( e + 1) )  \\cdot \\sqrt[C + D] - ( g( a + b)  ^[c + d])  ^[c + d]$"
+,"$\\cos ( A - B)  \\cdot \\sin a \\cdot f( b, c, d \\cdot ( e + 1) )  \\cdot \\sqrt{C + D} - ( g( a + b)  ^{c + d})  ^{c + d}$"
 );
 
 
@@ -454,14 +454,14 @@ TeXForm(Hold(Cos(A-B)*Sin(a)*f(b,c,d*(e+1))*Sqrt(C+D)-(g(a+b)^(c+d))^(c+d)))
 // testing latest features: \\cdot, %, (a/b)^n, BinomialCoefficient(), BesselI, OrthoH
 Verify(
 TeXForm(3*2^n+Hold(x*10!) + (x/y)^2 + BinomialCoefficient(x,y) + BesselI(n,x) + Maximum(a,b) + OrthoH(n,x))
-, "$3\\cdot 2 ^[n] + x\\cdot 10! + ( \\frac[x][y] )  ^[2] + [x \\choose y] + I _[n]( x)  + \\max ( a, b)  + H _[n]( x) $"
+, "$3\\cdot 2 ^{n} + x\\cdot 10! + ( \\frac{x}{y} )  ^{2} + {x \\choose y} + I _{n}( x)  + \\max ( a, b)  + H _{n}( x) $"
 );
 */
 
 /* this fails because of a bug that Differentiate(x) f(y) does not go to 0 */ /*
 Verify(
 TeXForm(3*Differentiate(x)f(x,y,z)*Cos(Omega)*Modulo(Sin(a)*4,5/a^b))
-,"$3 ( \\frac[\\partial][\\partial x]f( x, y, z) )  ( \\cos \\Omega )  ( 4 ( \\sin a) ) \\bmod \\frac[5][a ^[b]] $"
+,"$3 ( \\frac{\\partial}{\\partial x}f( x, y, z) )  ( \\cos \\Omega )  ( 4 ( \\sin a) ) \\bmod \\frac{5}{a ^{b}} $"
 );
 */
 
@@ -469,18 +469,18 @@ TeXForm(3*Differentiate(x)f(x,y,z)*Cos(Omega)*Modulo(Sin(a)*4,5/a^b))
 RulebaseHoldArguments("f",[x]);
 Verify(
 TeXForm(Hold(Differentiate(x)f(x)))
-,"$\\frac[d][d x]f( x) $");
+,"$\\frac{d}{d x}f( x) $");
 Retract("f",1);
 
 Verify(
 TeXForm(Hold(Not? (c<?0) And? (a+b)*c>=? -d^e And? (c<=?0 Or? b+1>?0) Or? a!=?0 And? Not? (p=?q)))
-,"$ \\neg c < 0\\wedge ( a + b)  \\cdot c\\geq  - d ^[e]\\wedge ( c\\leq 0\\vee b + 1 > 0) \\vee a\\neq 0\\wedge  \\neg p = q$"
+,"$ \\neg c < 0\\wedge ( a + b)  \\cdot c\\geq  - d ^{e}\\wedge ( c\\leq 0\\vee b + 1 > 0) \\vee a\\neq 0\\wedge  \\neg p = q$"
 );
 
 RulebaseHoldArguments("f",[x,y,z]);
 Verify(
 TeXForm((Differentiate(x)f(x,y,z))*Cos(Omega)*Modulo(Sin(a)*4,5/a^b))
-,"$( \\frac[\\partial][\\partial x]f( x, y, z) )  \\cdot \\cos \\Omega  \\cdot ( 4 \\cdot \\sin a) \\bmod \\frac[5][a ^[b]] $"
+,"$( \\frac{\\partial}{\\partial x}f( x, y, z) )  \\cdot \\cos \\Omega  \\cdot ( 4 \\cdot \\sin a) \\bmod \\frac{5}{a ^{b}} $"
 );
 Retract("f",3);
 
@@ -488,14 +488,14 @@ RulebaseHoldArguments("g",[x]);
 RulebaseHoldArguments("theta",[x]);
 Verify(
 TeXForm(Pi+Exp(1)-Theta-Integrate(x,x1,3/g(Pi))2*theta(x)*Exp(1/x))
-,"$\\pi  + \\exp ( 1)  - \\Theta  - \\int _[x_[1]] ^[\\frac[3][g( \\pi ) ]  ] 2 \\cdot \\theta ( x)  \\cdot \\exp ( \\frac[1][x] )  dx$"
+,"$\\pi  + \\exp ( 1)  - \\Theta  - \\int _{x_{1}} ^{\\frac{3}{g( \\pi ) }  } 2 \\cdot \\theta ( x)  \\cdot \\exp ( \\frac{1}{x} )  dx$"
 );
 Retract("g",1);
 Retract("theta",1);
 
 Verify(
 TeXForm([a[3]*b[5]-c[1][2],[a,b,c,d]])
-,"$( a _[3] \\cdot b _[5] - c _[( 1, 2) ], ( a, b, c, d) ) $"
+,"$( a _{3} \\cdot b _{5} - c _{( 1, 2) }, ( a, b, c, d) ) $"
 );
 
 
@@ -506,14 +506,14 @@ RulebaseHoldArguments("bar", [x,y]);
 Infix("bar", 100);
 Verify(
 TeXForm(aa(x,y) z + 1 bar y!)
-,"$aa( x, y) z + 1\\mathrm[ bar ]y!$"
+,"$aa( x, y) z + 1\\mathrm{ bar }y!$"
 );
 Retract("aa",3);
 Retract("bar",2);
 
 Verify(
 TeXForm(x^(1/3)+x^(1/2))
-, "$\\sqrt[3][x] + \\sqrt[x]$"
+, "$\\sqrt[3]{x} + \\sqrt{x}$"
 );
 
 /*
