@@ -216,12 +216,12 @@ CFormStatement(_x) <-- CForm(x) ~ ";" ~ NlIndented();
 120 # CForm(_x,_p)_(Type(x) =? "Prog") <--
 {
   Local(result);
-  result:=CIndent()~"["~NlIndented();
+  result:=CIndent()~"{"~NlIndented();
   ForEach(item,Rest(FunctionToList(x)))
   {
     result:=result~CFormStatement(item);
   };
-  result:=result~"]"~CUndent()~NlIndented();
+  result:=result~"}"~CUndent()~NlIndented();
   result;
 };
 
@@ -249,11 +249,11 @@ CFormStatement(_x) <-- CForm(x) ~ ";" ~ NlIndented();
         
 *PARMS
 
-[expr] -- expression to be exported
+{expr} -- expression to be exported
 
 *DESC
 
-[CForm] returns a string containing C++ code that attempts to implement the MathPiper expression [expr]. Currently the exporter handles most expression types but not all.
+{CForm} returns a string containing C++ code that attempts to implement the MathPiper expression {expr}. Currently the exporter handles most expression types but not all.
 
 *E.G.
 
@@ -277,32 +277,32 @@ CForm(Hold(Cos(A-B)*Sin(a)*func(b,c,d*(e+Pi))*Sqrt(Abs(C)+D)-(g(a+b)^(c+d))^(c+d
 
 Verify(
 CForm(Hold({i:=0;While(i<?10){i++; a:=a+Floor(i);};}))
-, "[
+, "{
   i = 0;
   while(i <? 10)
-    [
+    {
       ++(i);
       a = a + floor(i);
-      ]
+      }
     ;
     ;
-  ]
+  }
 "
 );
 
 /* Check that we can still force numbers to be floats in stead of integers if we want to */
 Verify(
 CForm(Hold({i:=0.;While(i<?10.){i++; a:=a+Floor(i);};}))
-, "[
+, "{
   i = 0.;
   while(i <? 10.)
-    [
+    {
       ++(i);
       a = a + floor(i);
-      ]
+      }
     ;
     ;
-  ]
+  }
 "
 );
 

@@ -63,21 +63,21 @@ LocalSymbols(CFormAllFunctions) {
         
 *PARMS
 
-[expr] -- expression to be exported (this argument is not evaluated)
+{expr} -- expression to be exported (this argument is not evaluated)
 
-[funclist] -- list of "allowed" function atoms
+{funclist} -- list of "allowed" function atoms
 
 *DESC
 
-[CFormable?] returns [True] if the MathPiper expression [expr] can be exported
-into C++ code. This is a check whether the C++ exporter [CForm] can be safely
+{CFormable?} returns {True} if the MathPiper expression {expr} can be exported
+into C++ code. This is a check whether the C++ exporter {CForm} can be safely
 used on the expression.
 
-A MathPiper expression is considered exportable if it contains only functions that can be translated into C++ (e.g. [ListToFunction] cannot be exported). All variables and constants are considered exportable.
+A MathPiper expression is considered exportable if it contains only functions that can be translated into C++ (e.g. {ListToFunction} cannot be exported). All variables and constants are considered exportable.
 
 The verbose option prints names of functions that are not exportable.
 
-The second calling format of [CFormable?] can be used to "allow" certain function names that will be available in the C++ code.
+The second calling format of {CFormable?} can be used to "allow" certain function names that will be available in the C++ code.
 
 *E.G. notest
 
@@ -87,7 +87,7 @@ In> V(CFormable?(1+func123(b1)))
         CFormable?: Info: unexportable function(s):
           func123
 Result: False;
-This returned [False] because the function [func123] is not available in C++. We can
+This returned {False} because the function {func123} is not available in C++. We can
 explicitly allow this function and then the expression will be considered
 exportable:
 
