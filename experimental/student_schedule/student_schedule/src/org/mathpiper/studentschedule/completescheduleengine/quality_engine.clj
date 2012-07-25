@@ -148,8 +148,6 @@ The option parameter is an optional input for the weighting function.
 The function distancefromoptimumratio returns a number from 0 to 1. If the diffrence bettween the first measure point and the second 
 measure point is 0 the function will return 1, if the diffrence is 288 the function will return 0. if the diffrence is bettween 0 and 288
 output will depend on weightfn and option but is will be bettween 0 and 1.
-
-
 "
   
   [timecode optimumtimecode measuremethod weightfn option]
@@ -158,15 +156,44 @@ output will depend on weightfn and option but is will be bettween 0 and 1.
 
 
 (defn distance-from-optimum-linear-ratio 
-"     The function distancefromoptimumratio takes two timecodes. The first is the proposed timecode, and the second is the desired
-timecode.
+"     The function distancefromoptimumratio takes two timecodes in the following form:
+[daycode start-time duration]
+
+where daycode, start-time and duration are positive integers. 
+daycode is in the form of a binary number of sevan bits, where each bit detimremines if the timecode is on that day.
+start-time is the number of five-minute blocks the start time is from midnight.
+duration is the number of five-minute blocks that are in the period of the timecode.
+
+     The first timecode is the proposed timecode, and the second is the desired timecode. The function measures the distance bettween the
+timecodes from the middle of the timecodes. The function measures the diffrence in five-minute time blocks. The function returns a
+number from 0 to 1. If the diffrence bettween the first measure point and the second measure point is 0 the function will return 1, if
+the diffrence is 288 the function will return 0. if the diffrence is bettween 0 and 288, the function will linearly drop from 1 to 0.
+
 
 "
   
   [timecode optimumtimecode]
   (distancefromoptimumratio timecode optimumtimecode [0.5 0.5] linearweight nil))
 
-(defn spread-from-optimum-ratio [optimum-timecode time-codes weight]
+
+
+
+(defn spread-from-optimum-ratio
+"     The spread-from-optimum-ratio function takes an optimum timecode and a vector of timecodes, optimum-timecode and time-codes
+respectfully. Where the timecodes are in the form:
+[daycode start-time duration]
+
+where daycode, start-time and duration are positive integers. 
+daycode is in the form of a binary number of sevan bits, where each bit detimremines if the timecode is on that day.
+start-time is the number of five-minute blocks the start time is from midnight.
+duration is the number of five-minute blocks that are in the period of the timecode.
+
+     The function uses distance-from-optimum-linear-ratio on each of the timecodes in time-codes, using optimum-timecode as the optimum
+timecode input for distance-from-optimum-linear-ratio. The function spread-from-optimum-ratio will then take a weighted average of the 
+outputs from istance-from-optimum-linear-ratio, using total time during the week (in five-minute time blocks) for each timecode's weight.
+The function returns this number multiplied by the weight parameter, which is a positive floating point number.
+"  
+  [optimum-timecode time-codes weight]
   (* 1.0 weight (/ (apply + (map #(* ( distance-from-optimum-linear-ratio % optimum-timecode) (* (nth % 2) (days-in (nth % 0)))) time-codes))
                    (apply + (map #(* (nth % 2) (days-in (nth % 0))) time-codes))))
   
