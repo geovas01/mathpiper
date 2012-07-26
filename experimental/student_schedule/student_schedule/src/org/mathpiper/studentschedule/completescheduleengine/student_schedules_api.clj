@@ -75,7 +75,7 @@ the client can print only one schedule at a time.
 
 
 (defn course-list
-  "     Returns a string with a  comma seperated list, withour brackets, of all the open course names."
+  "     Returns a string with a  comma seperated list, without brackets, of all the open course names."
   []
   (let [open-courses (filter
                        (fn [course]

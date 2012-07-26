@@ -1,5 +1,11 @@
 (ns org.mathpiper.studentschedule.completescheduleengine.quality_engine)
 
+;The quality_engine nuamspace contains all the functions needed to evaluate a given schedules or schedules for their quality 
+;compared to ideal or optimum parameters.
+
+;Note: all functions that have 'ratio' in their names return numbers from 0 to 1 that are ment to represent the quality of the schedule
+;that has been inputed compared to the optimum.
+
 (use 'org.mathpiper.studentschedule.ssu_fall_2012_semester_schedule_map)
 
 
@@ -200,7 +206,33 @@ The function returns this number multiplied by the weight parameter, which is a 
   
   )
 
-(defn time-of-day-ratio-corrected [schedule timeofday weight course-map]
+(defn time-of-day-ratio-corrected
+"     The function time-of-day-ratio-corrected takes the schedule parameter is a vector that holds each course and section number
+ in the form of a map like:
+[{:course-number :ENGL1101 :section-number :01} {:course-number :MATH1300 :section-number :51}]
+
+The timeofday parameter can take the following three legal values, in the form of keys:
+
+:morning 
+:afternoon
+:evening.
+
+Each key is associated with a timecode for which the function will base its quality number. The timecodes that are associated with the
+keys are as follows:
+
+:morning    [127 0 144]
+:afternoon  [127 144 60]
+:evening    [127 204 84]
+
+To get the final output number the function uses the overlapingratio and spread-from-optimum-ratio functions on all
+timecodes in the schedule to produce a number from 0 to 1 that reflects the quality, how closely the schedule's timecodes are to the
+optimum timecode chosen using the timeofday parameter. The weight parameter is multiplied by the output of the
+spread-from-optimum-ratio function to determine how much of an effect that function's output has on the overall number.
+
+The course-map parameter is in the standard course map format. 
+"  
+  
+  [schedule timeofday weight course-map]
   (let [ timeofdaycode (cond (= :morning timeofday) [127 0 144]
          (= :afternoon timeofday) [127 144 60]
          (= :evening timeofday) [127 204 84]
@@ -217,7 +249,20 @@ The function returns this number multiplied by the weight parameter, which is a 
     )
 )
 
-(defn minimize-days [schedule course-map]
+(defn minimize-days
+  "     The function minimize-days takes the schedule parameter is a vector that holds each course and section number
+ in the form of a map like:
+[{:course-number :ENGL1101 :section-number :01} {:course-number :MATH1300 :section-number :51}]
+
+The course-map parameter is in the standard course map format. 
+
+The function returns a number from 0 to 1. The functions finds total number of days that the schedule is has timecodes on and divides by
+7. The function then subtracts this number from 1 and putputs the result.
+
+"
+  
+  
+  [schedule course-map]
   (let [timecodes (apply concat (for [{course-number :course-number section-number :section-number} schedule] (get-in course-map [course-number :sections section-number :days-and-times]) ))
         class-on-days  (reduce (fn [daycode-1 daycode-2] (bit-or daycode-1 daycode-2)) (map (fn [[daycode start-time duraiton]] daycode ) timecodes))
         number-of-days (apply + (map #(if (not= (bit-and % class-on-days) 0) 1 0) '(2r1000000 2r0100000 2r0010000 2r0001000 2r0000100 2r0000010 2r0000001)))
@@ -230,7 +275,24 @@ The function returns this number multiplied by the weight parameter, which is a 
   )
 
 
-(defn choose-days [schedule chosen-daycode course-map]
+
+(defn choose-days
+"     The function choose-days takes the schedule parameter as a vector that holds each course and section number
+ in the form of many maps like:
+[{:course-number :ENGL1101 :section-number :01} {:course-number :MATH1300 :section-number :51}]
+
+The daycode parameter is in the form of a binary number of sevan bits, where each bit is a day, if the function will count those
+given days as more desirable.
+
+The course-map parameter is in the standard course map format. 
+
+The function returns a number from 0 to 1. It finds the number of days in schedule that do not fall on the days in daycode, divides this
+number by 7 and substracts that number from 1 then outputs the result.
+
+
+"  
+  
+  [schedule chosen-daycode course-map]
   (let [timecodes (apply concat (for [{course-number :course-number section-number :section-number} schedule] (get-in course-map [course-number :sections section-number :days-and-times]) ))
         class-on-days  (reduce (fn [daycode-1 daycode-2] (bit-or daycode-1 daycode-2)) (map (fn [[daycode start-time duraiton]] daycode ) timecodes))
         bad-days (bit-and class-on-days (bit-not chosen-daycode))
@@ -243,7 +305,29 @@ The function returns this number multiplied by the weight parameter, which is a 
 
 
 
-(defn complete-quality [schedule quality-fn-and-vals course-map] 
+(defn complete-quality
+"The function complete-quality takes the schedule parameter as a vector that holds each course and section number
+ in the form of many maps like:
+[{:course-number :ENGL1101 :section-number :01} {:course-number :MATH1300 :section-number :51}]
+
+The course-map parameter is in the standard course map format.
+
+The function uses the quality-fn-and-vals to find the the quality number of the given schedule. The quality-fn-and-vals parameter is a
+vector of vectors. Each vector in quality-fn-and-vals contains a string, which is the name of a quality function, and a vector, which
+contains parameters for that function. The parameters do not include the first parameter, the schedule, or the last parameter, the
+course map. These parameters will be added to the function call using the parameters passed to complete-quality. An example of a legal
+quality-fn-and-vals parameter would be:
+
+[[\"time-of-day-ratio-corrected\" [:morning 1]] [\"choose-days\" [2r1010100]] [\"minimize-days\" []]] 
+
+The order in which the functions in quality-fn-and-vals are placed determines the weighting for each function. Each function is
+evalulated using the given parameters. The outputs are then avraged using a weights that decrese hyperbolicly as follows: The first 
+output from the first function in quality-fn-and-vals will have weight 1/1, the second 1/2, the third 1/3, and, in general, the nth 
+function output will have weight 1/n. This average is returned. 
+
+"  
+
+  [schedule quality-fn-and-vals course-map] 
   (let [range-denom (range (count quality-fn-and-vals)) 
         denoms (map #(/ 1.0 (inc %)) range-denom)
         output (apply + (map #(* (apply (ns-resolve 'org.mathpiper.studentschedule.completescheduleengine.quality_engine (symbol (first %))) (concat [schedule] (second %) [course-map]) ) %2)  quality-fn-and-vals denoms))
