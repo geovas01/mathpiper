@@ -22,10 +22,11 @@ public class InputStatus {
     private int iLineNumber;
     private int iLineIndex;
     
+    private InputStatus() {
+    }
 
-
-    public InputStatus() {
-        iFileName = "none";
+    public InputStatus(String iSourceName) {
+        iFileName = iSourceName;
         iLineNumber = 1;
         iLineIndex = 0;
     }

@@ -92,7 +92,7 @@ public final class Environment {
 	public MathPiperOutputStream iInitialOutput = null;
 	public LispPrinter iCurrentPrinter = null;
 	private MathPiperInputStream iCurrentInput = null;
-	public InputStatus iInputStatus = new InputStatus();
+	public InputStatus iInputStatus = new InputStatus("ENVIRONMENT_1");
 	public MathPiperTokenizer iCurrentTokenizer;
 	public MathPiperTokenizer iDefaultTokenizer = new MathPiperTokenizer();
 	public MathPiperTokenizer iXmlTokenizer = new XmlTokenizer();
@@ -115,11 +115,11 @@ public final class Environment {
 
 		/*
 		 * Assign a default input stream to iInputStream so that various places
-		 * in the code that evaluate expressoins without using a stream do not
+		 * in the code that evaluate expressions without using a stream do not
 		 * cause code that checks for line numbers to throw a null pointer
 		 * exception.
 		 */
-		InputStatus status = new InputStatus();
+		InputStatus status = new InputStatus("ENVIRONMENT_2");
 		StringInputStream defaultInputStream = new StringInputStream("", status);
 		this.iCurrentInput = defaultInputStream;
 

@@ -56,7 +56,7 @@ public class LoadScript extends BuiltinFunction
 
         scriptString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, scriptString);
 
-        InputStatus status = new InputStatus();
+        InputStatus status = new InputStatus("LOADSCRIPT_EVALUATE");
 
         StringInputStream functionInputStream = new StringInputStream(scriptString,status); //aEnvironment.iCurrentInput.iStatus);
 

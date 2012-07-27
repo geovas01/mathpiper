@@ -62,7 +62,7 @@ public class AnalyzeScripts {
 
                 String scriptCode = scriptCodeArray[1];
 
-                InputStatus inputStatus = new InputStatus();
+                InputStatus inputStatus = new InputStatus("ANALYZESCRIPTS");
 
                 inputStatus.setTo(scriptCodeArray[2]);
 
