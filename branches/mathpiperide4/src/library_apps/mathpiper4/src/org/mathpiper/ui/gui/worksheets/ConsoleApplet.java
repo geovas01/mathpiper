@@ -416,7 +416,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
                         org.mathpiper.ui.gui.applets.storage.DatahubApplet cons = (org.mathpiper.ui.gui.applets.storage.DatahubApplet) dataHub;
                         cons.setProgramMode(programMode);
 
-                        String programContentsToLoad = "[" + cons.getProgram() + "];";
+                        String programContentsToLoad = "{" + cons.getProgram() + "};";
                         gotDatahubInit = true; // We're already satisfied here, as we got the contents from the datahub.
                         invokeCalculationSilent(programContentsToLoad);
                     }
@@ -839,7 +839,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
                 if (dataHub != null)
                 {
                     org.mathpiper.ui.gui.applets.storage.DatahubApplet cons = (org.mathpiper.ui.gui.applets.storage.DatahubApplet) dataHub;
-                    String programContentsToLoad = "[" + cons.getTestcode() + "];";
+                    String programContentsToLoad = "{" + cons.getTestcode() + "};";
                     invokeCalculationSilent(programContentsToLoad);
                 }
             } catch (Exception e)

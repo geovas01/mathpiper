@@ -46,7 +46,7 @@ public class MathPiperParser extends Parser
     boolean iError;
     boolean iEndOfFile;
     String[] iLookAhead;
-    public Cons parsedExpression;;
+    public Cons parsedExpression;
     private String locateFunctionOrOperatorName = null;
     private ArrayList<Map> functionOrOperatorLocationsList;
 
@@ -182,7 +182,7 @@ public class MathPiperParser extends Parser
                 // Match closing bracket
                 if (!iLookAhead[0].equals(iEnvironment.iIndexOrNameCloseAtom))
                 {
-                    LispError.raiseError("Expected a ***( ] )*** close bracket token for program block but found ***( " + iLookAhead[0] + " )*** instead.", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
+                    LispError.raiseError("Expected a ***( " + iEnvironment.iIndexOrNameCloseAtom + " )*** close bracket token for program block but found ***( " + iLookAhead[0] + " )*** instead.", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
                     return;
                 }
                 
@@ -301,7 +301,7 @@ public class MathPiperParser extends Parser
                     matchToken(aStackTop, iLookAhead[0]);
                 } else if (!iLookAhead[0].equals(iEnvironment.iListCloseAtom))
                 {
-                    LispError.raiseError("Expected a ***( } )*** close bracket token for a list but found ***( " + iLookAhead[0] + " )*** instead.", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
+                    LispError.raiseError("Expected a ***( " + iEnvironment.iListCloseAtom + " )*** close bracket token for a list but found ***( " + iLookAhead[0] + " )*** instead.", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
                     return;
                 }
             }

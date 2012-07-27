@@ -1,4 +1,4 @@
-Tue Jul 24 00:51:41 EDT 2012.
+Fri Jul 27 00:08:59 EDT 2012.
 MathPiper version: js:mp4:.089.
 Running all tests except the following: Solve,PSolve.
 Beginning of tests:
@@ -919,4 +919,4 @@ GlobalVariables: Result: True
 Side Effects:
 [$a52,$a921,$b52,$b921,$bernoulli1Threshold37,$CacheOfConstantsN12,$CFormAllFunctions48,$cformMathFunctions46,$cformRegularOps45,$cindent47,$ErrorTableau40,$GlobalStack27,$intpred51,$knownOrthoPoly913,$knownRNGDists30,$knownRNGEngines30,$lastcoef44,$LoadResult,$localResult19,$mathExpThreshold39,$mNum11,$nmax54,$nNum11,$NthRootTable357,$numericMode7,$omindent910,$omsymbol912,$omsymbolreverse912,$omtoken911,$options916,$p01826,$p11826,$p21826,$p28,$p31826,$p41826,$p920,$pc241826,$pc351826,$pc461826,$pc571826,$pc681826,$pj1826,$pj401826,$pj501826,$pj511826,$pj521826,$pj531826,$pj541826,$pju01826,$pp1826,$RandSeed31,$res932,$simple921,$st918,$TeXFormGreekLetters1893,$TeXFormMathFunctions1894,$TeXFormMathFunctions21894,$TeXFormRegularOps1893,$TeXFormRegularPrefixOps1893,$TeXFormSpecialNames1893,$Verbose21,%,I,iDebug,True] 
 
-Elapsed Time: 1:44
+Elapsed Time: 1:42

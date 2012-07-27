@@ -602,7 +602,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                     if (code.length() > 0) {
                         interpreter.addResponseListener(this);
                         Environment.saveDebugInformation = true;
-                        interpreter.evaluate("[" + code + "];", true);
+                        interpreter.evaluate("{" + code + "};", true);
                         haltButton.setEnabled(true);
 
                     }//end if.

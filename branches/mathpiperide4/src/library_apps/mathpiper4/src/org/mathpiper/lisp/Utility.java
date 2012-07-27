@@ -1348,7 +1348,7 @@ public class Utility {
 
     public static Cons mathPiperParse(Environment aEnvironment, int aStackTop, String inputExpression) throws Exception {
         MathPiperTokenizer tokenizer = new MathPiperTokenizer();
-        InputStatus someStatus = new InputStatus();
+        InputStatus someStatus = new InputStatus("UTILITY_MATHPIPERPARSE");
 
         StringBuffer inp = new StringBuffer();
         inp.append(inputExpression);
@@ -1463,7 +1463,11 @@ public class Utility {
 
              */
             
-            StringInputStream functionInputStream = new StringInputStream(scriptString, aEnvironment.getCurrentInput().iStatus);
+            InputStatus inputStatus = new InputStatus("UTILITY_LOADLIBRARYFUNCTION< " + functionName + " >");
+            
+            inputStatus.nextLine();
+            
+            StringInputStream functionInputStream = new StringInputStream(scriptString, inputStatus); // aEnvironment.getCurrentInput().iStatus);
 
             scriptCode[0] = "+";
 
