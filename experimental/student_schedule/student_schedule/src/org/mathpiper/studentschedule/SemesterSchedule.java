@@ -145,13 +145,12 @@ public class SemesterSchedule {
 
 	String openClosedString = fields[5];
 
-	 System.out.println(courseNumber + ", " + courseSection + ", " +
-	 enrolled + ", " + capacity + ", " + openClosedString);
-	 
-	 /*if(courseNumber.equalsIgnoreCase("ETEC2101"))
-	 {
-	     int xx = 1;
-	 }*/
+	System.out.println(courseNumber + ", " + courseSection + ", "
+		+ enrolled + ", " + capacity + ", " + openClosedString);
+
+	/*
+	 * if(courseNumber.equalsIgnoreCase("ETEC2101")) { int xx = 1; }
+	 */
 
 	if (openClosedString.toLowerCase().contains("open")) {
 	    section.setIsOpen(true);
@@ -164,10 +163,11 @@ public class SemesterSchedule {
 	String[] daysAndTimesAndLocations = compoundDaysAndTimesAndLocations
 		.split("\n");
 
-	/*if (courseNumber.equalsIgnoreCase("EDVA4490")) {
-	    int xx = 1;
-
-	}*/
+	/*
+	 * if (courseNumber.equalsIgnoreCase("EDVA4490")) { int xx = 1;
+	 * 
+	 * }
+	 */
 
 	for (String daysAndTimesAndLocationComposite : daysAndTimesAndLocations) {
 	    // System.out.println(daysAndTimesAndLocationComposite);
@@ -234,12 +234,11 @@ public class SemesterSchedule {
 	    // System.out.println(daysAndTimes);
 
 	    section.addDaysAndTimes(daysAndTimes);
-	   
 
 	}// end for.
-	
-	    String creditHours = fields[7].trim();
-	    section.setCreditHours(Integer.parseInt(creditHours));
+
+	String creditHours = fields[7].trim();
+	section.setCreditHours(Integer.parseInt(creditHours));
 
 	// System.out.println(section.toString());
 
@@ -338,7 +337,7 @@ public class SemesterSchedule {
 
     public String toClojureMaps() {
 
-	StringBuilder mp = new StringBuilder(); 
+	StringBuilder mp = new StringBuilder();
 	mp.append("(ns org.mathpiper.studentschedule.ssu_fall_2012_semester_schedule_map)\n\n");
 	mp.append("(def zz2 {\n");
 
@@ -347,68 +346,69 @@ public class SemesterSchedule {
 
 	    // ========= Name map.
 	    mp.append(":name \"" + course.getName() + "\" ");
-	    
 
 	    // ========= Sections map
 	    mp.append(":sections {");
 	    for (Section section : course.getSections()) {
 
-		mp.append(":" + section.getCourseSection() + " {");// Begin
-								   // section.
+		if (section.isOpen()) {
 
-		// Days and times.
-		mp.append(":days-and-times ");
-		mp.append("[");
-		for (DaysAndTimes daysAndTimes : section.getDaysAndTimesList()) {
+		    mp.append(":" + section.getCourseSection() + " {");// Begin
+								       // section.
+
+		    // Days and times.
+		    mp.append(":days-and-times ");
 		    mp.append("[");
+		    for (DaysAndTimes daysAndTimes : section
+			    .getDaysAndTimesList()) {
+			mp.append("[");
 
-		    mp.append(daysAndTimes.getDaysPattern() + " ");
+			mp.append(daysAndTimes.getDaysPattern() + " ");
 
-		    mp.append(daysAndTimes.getStartSlot() + " ");
+			mp.append(daysAndTimes.getStartSlot() + " ");
 
-		    mp.append(daysAndTimes.getSlotsLength());
+			mp.append(daysAndTimes.getSlotsLength());
 
+			mp.append("] ");
+		    }
 		    mp.append("] ");
+		    // mp.append("} ");
+
+		    // Faculty.
+		    mp.append(":faculty [");
+		    String allFaculty = section.getInstructors();
+		    for (String faculty : allFaculty.split("\n")) {
+			mp.append("\"" + faculty.trim() + "\" ");
+		    }
+		    mp.append("]");
+
+		    // Enrolled
+		    mp.append(" ");
+		    mp.append(":enrolled ");
+		    mp.append(section.getEnrolled());
+
+		    // Capacity.
+		    mp.append(" ");
+		    mp.append(":capacity ");
+		    mp.append(section.getCapacity());
+
+		    // Open?
+		    mp.append(" ");
+		    mp.append(":open? ");
+		    mp.append(section.isOpen());
+
+		    mp.append("} ");
+
 		}
-		mp.append("] ");
-		//mp.append("} ");
-
-		// Faculty.
-		mp.append(":faculty [");
-		String allFaculty = section.getInstructors();
-		for (String faculty : allFaculty.split("\n")) {
-		    mp.append("\"" + faculty.trim() + "\" ");
-		}
-		mp.append("]");
-
-		// Enrolled
-		mp.append(" ");
-		mp.append(":enrolled ");
-		mp.append(section.getEnrolled());
-
-
-		// Capacity.
-		mp.append(" ");
-		mp.append(":capacity ");
-		mp.append(section.getCapacity());
-
-
-		// Open?
-		mp.append(" ");
-		mp.append(":open? ");
-		mp.append(section.isOpen());
-
-		
-		mp.append("} ");
 
 	    }// end for.
 
 	    mp.append("}");// end section.
-	    
+
 	    // Credit hours?
-	   mp.append(" ");
-	   mp.append(":credit-hours ");
-	   mp.append(course.getCreditHours());
+	    mp.append(" ");
+	    mp.append(":credit-hours ");
+	    mp.append(course.getCreditHours());
 
 	    mp.append("}\n");// end course.
 
@@ -422,18 +422,19 @@ public class SemesterSchedule {
     public static void main(String[] args) {
 	SemesterSchedule schedule = new SemesterSchedule();
 
-	File scheduleDSV = new File("ssu_course_schedule_fall_2012_6_20.dsv");
+	File scheduleDSV = new File("ssu_course_schedule_fall_2012_7_27.dsv");
 
 	try {
 	    schedule.loadSchedule(scheduleDSV);
 
 	    String output = schedule.toClojureMaps();
 
-	    //System.out.println(output);
+	    // System.out.println(output);
 
 	    BufferedWriter writer = null;
 	    try {
-		writer = new BufferedWriter(new FileWriter("ssu_fall_2012_semester_schedule_map.clj"));
+		writer = new BufferedWriter(new FileWriter(
+			"ssu_fall_2012_semester_schedule_map.clj"));
 		writer.write(output);
 
 	    } catch (IOException e) {
