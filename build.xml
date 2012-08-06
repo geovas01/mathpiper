@@ -71,6 +71,8 @@
 		<pathelement path="${non_plugin.jars.dir}/jdom.jar" />
 		<pathelement path="${non_plugin.jars.dir}/mpreduce.jar" />
 		<pathelement path="${non_plugin.jars.dir}/jlog.jar" />
+		<pathelement path="${non_plugin.jars.dir}/hsqldb.jar" />
+		<pathelement path="${non_plugin.jars.dir}/sqltool.jar" />
 		<!--<pathelement path="${master.lib.dir}/jars/bsh-2.0b4.jar" />
 		<pathelement path="${master.lib.dir}/jars/beansheet_plugin.jar" />  
 		-->
@@ -462,9 +464,24 @@
 	</target>
 	
 	
+	
+	<target id="sqldb_plugin" name="sqldb_plugin" depends="mathpiperide_library" >
+		<ant dir="${plugins.src.dir}/sqldb_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
+			<property name="build.dir" value="${plugins.build.dir}/sqldb_plugin"/>
+			<property name="compile.source" value="${master.compile.source}"/>
+			<property name="compile.target" value="${master.compile.target}"/>
+			<property name="src.dir" value="${plugins.src.dir}/sqldb_plugin/src"/>
+			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
+			<reference refid="build_classpath"/>
+		</ant>
+		
+		<copy file="${plugins.build.dir}/sqldb_plugin/dist/sqldb_plugin.jar" todir="${plugins.jars.dir}"/>
+	</target>
+	
+	
 	<!-- -->
 	<target id="all-plugins" name="all-plugins" depends="mathpiper_plugin, mathpiper_docs_plugin, jlog_plugin, 
-		geogebra_plugin, u6502_plugin, jung_plugin, jfreechart_plugin, threedxplormathj_plugin, mpreduce_plugin" />
+		geogebra_plugin, u6502_plugin, jung_plugin, jfreechart_plugin, threedxplormathj_plugin, mpreduce_plugin, sqldb_plugin" />
 	
 	
 	

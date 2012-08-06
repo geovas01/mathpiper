@@ -1,0 +1,83 @@
+# Properties file for SQLDB plugin.
+
+
+#{{{ Must be in order.
+# jEdit only needs to load the plugin the first time the user accesses it
+# the presence of this property also tells jEdit the plugin is using the new API
+plugin.org.mathpiper.ide.sqldbplugin.SQLDBPlugin.activate=defer
+# we only have one dependency, jEdit 4.2, since we use the new plugin API
+# These two properties are required for all plugins
+plugin.org.mathpiper.ide.sqldbplugin.SQLDBPlugin.name=SQLDB
+plugin.org.mathpiper.ide.sqldbplugin.SQLDBPlugin.author=Ted Kosan
+
+# version number == jEdit version number
+plugin.org.mathpiper.ide.sqldbplugin.SQLDBPlugin.version=4.3
+
+# online help
+plugin.org.mathpiper.ide.sqldbplugin.SQLDBPlugin.docs=index.html
+plugin.org.mathpiper.ide.sqldbplugin.SQLDBPlugin.depend.0=jedit 04.02.01.00
+plugin.org.mathpiper.ide.sqldbplugin.SQLDBPlugin.depend.1=jdk 1.5
+plugin.org.mathpiper.ide.sqldbplugin.SQLDBPlugin.2=plugin console.ConsolePlugin 4.3.5
+plugin.org.mathpiper.ide.sqldbplugin.SQLDBPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
+plugin.org.mathpiper.ide.sqldbplugin.SQLDBPlugin.longdescription=description.html
+#}}}
+
+
+
+
+sqldb.shell.msg.info=\nSQLDB Shell \n\
+
+
+sqldb.shell.msg.usage=See http://sqldbic.sourceforge.net for information on how to use SQLDB.
+
+
+
+# plugin menu
+plugin.org.mathpiper.ide.sqldbplugin.SQLDBPlugin.menu=sqldb
+#	- \
+#	sqldb.choose-file \
+#	sqldb.save-file \
+#	sqldb.copy-to-buffer
+
+# action labels for actions supplied by dockables.xml
+sqldb.label=SQLDB
+
+# action labels for actions supplied by actions.xml
+sqldb.choose-file.label=Choose notepad file
+sqldb.save-file.label=Save notepad file
+sqldb.copy-to-buffer.label=Copy notepad to buffer
+
+# plugin option pane
+plugin.org.mathpiper.ide.sqldbplugin.SQLDBPlugin.option-pane=sqldb
+
+# Option pane activation BeanShell snippet
+options.sqldb.code=new org.mathpiper.ide.sqldbplugin.SQLDBOptionPane();
+
+# Option pane labels
+options.sqldb.label=SQLDB
+options.sqldb.file=File:
+options.sqldb.choose-file=Choose
+options.sqldb.choose-file.title=Choose a notepad file
+options.sqldb.choose-font=Font:
+options.sqldb.show-filepath.title=Display notepad file path
+
+# window title
+sqldb.title=SQLDB
+
+# window toolbar buttons
+sqldb.choose-file.icon=Open.png
+sqldb.save-file.icon=Save.png
+sqldb.copy-to-buffer.icon=CopyToBuffer.png
+
+# default settings
+options.sqldb.show-filepath=true
+options.sqldb.font=Monospaced
+options.sqldb.fontstyle=0
+options.sqldb.fontsize=14
+
+# Setting not defined but supplied for completeness
+options.sqldb.path=
+
+#sqldb.path=/home/tkosan/checkouts/usr/local/bin/sqldb
+
+# :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:
