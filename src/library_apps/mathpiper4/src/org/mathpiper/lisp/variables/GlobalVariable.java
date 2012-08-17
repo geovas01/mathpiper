@@ -31,12 +31,17 @@ public class GlobalVariable {
 
     public Cons iValue;
     public boolean iEvalBeforeReturn;
+    public boolean iConstant;
+    
+    
 
 
     public GlobalVariable(GlobalVariable aOther) {
         iValue = aOther.iValue;
         iEvalBeforeReturn = aOther.iEvalBeforeReturn;
+        iConstant = aOther.iConstant;
     }
+
 
 
     public GlobalVariable(Cons aValue) {
@@ -45,10 +50,6 @@ public class GlobalVariable {
     }
 
 
-    public void setEvalBeforeReturn(boolean aEval) {
-        iEvalBeforeReturn = aEval;
-    }
-
 
     @Override
     public String toString() {
@@ -56,9 +57,6 @@ public class GlobalVariable {
     }
 
 
-    public boolean isIEvalBeforeReturn() {
-        return iEvalBeforeReturn;
-    }
 
 
     public Cons getValue() {

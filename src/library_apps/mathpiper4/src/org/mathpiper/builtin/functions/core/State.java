@@ -19,9 +19,11 @@ package org.mathpiper.builtin.functions.core;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Map;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.SublistCons;
@@ -30,24 +32,59 @@ import org.mathpiper.lisp.cons.SublistCons;
  *
  *
  */
-public class GlobalVariablesGet extends BuiltinFunction
+public class State extends BuiltinFunction
 {
-
-    private GlobalVariablesGet()
+    private Map defaultOptions;
+    
+    private State()
     {
     }
 
-    public GlobalVariablesGet(String functionName)
+    public State(String functionName)
     {
         this.functionName = functionName;
+        
+        defaultOptions = new HashMap();
+        defaultOptions.put("showHidden", false);
     }
 
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+	
+	Cons arguments = getArgument(aEnvironment, aStackTop, 1);
 
-        java.util.Set<String> variablesSet = ((Map) aEnvironment.getGlobalState().getMap()).keySet();
+        if(! Utility.isSublist(arguments)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "");
+
+        Cons options = (Cons) arguments.car(); //Go to sub list.
+
+        options = options.cdr(); //Strip List tag.
+
+        Map userOptions = Utility.optionsListToJavaMap(aEnvironment, aStackTop, options, defaultOptions);
+	
         
-        java.util.List variablesList = new ArrayList(variablesSet);
+        Map globalState = (Map) aEnvironment.getGlobalState().getMap();
+	
+        java.util.Set<String> variablesSet = globalState.keySet();
+        
+        java.util.List variablesList = null;
+        
+        
+        if(userOptions.get("showHidden").equals(true))
+        {
+            variablesList = new ArrayList(variablesSet);
+        }
+        else
+        {
+            variablesList = new ArrayList();
+            
+            for(String key : variablesSet)
+            {
+        	if(! key.contains("$"))
+        	{
+        	    variablesList.add(key);
+        	}
+            }
+        }
 
         Collections.sort(variablesList, new NameComparator() );
 
@@ -71,18 +108,18 @@ public class GlobalVariablesGet extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="GlobalVariablesGet",categories="User Functions;Variables"
-*CMD GlobalVariablesGet --- return a list which contains the names of all the global variables
+%mathpiper_docs,name="State",categories="User Functions;Variables"
+*CMD State --- return a list which contains the names of all the global variables
 
 *CALL
-GlobalVariablesGet()
+State()
 
 
 *DESC
-Return a list which contains the names of all the global variables.
+Return a list which contains the values of all the global variables.
 
 *E.G.
-In> GlobalVariablesGet()
+In> State()
 Result> {\$CacheOfConstantsN1,%,I,\$numericMode2}
 
 %/mathpiper_docs

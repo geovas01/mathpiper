@@ -11,6 +11,12 @@ RuleHoldArguments(MathPiperInitLoad, 0, 1, True)
     StandardOperatorsLoad();
 
     Constant(True);
+    
+    Constant(False);
+    
+    Constant(Empty);
+    
+    Constant(Infinity);
 
 };
 

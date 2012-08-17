@@ -719,7 +719,7 @@ public class Utility {
                     Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, readIn);
                     if(aStackTop != -1)
                     {
-                        aEnvironment.setLocalOrGlobalVariable(aStackTop, "$LoadResult", result, false);//Note:tk:added to make the result of executing Loaded code available.
+                        aEnvironment.setLocalOrGlobalVariable(aStackTop, "$LoadResult", result, false, false);//Note:tk:added to make the result of executing Loaded code available.
                     }
                 }
             }//end while.
@@ -727,7 +727,7 @@ public class Utility {
 
 
         } catch (Exception e) {
-            System.out.println(e.getMessage()); e.printStackTrace(); //todo:tk:uncomment for debugging.
+            //System.out.println(e.getMessage()); e.printStackTrace(); //todo:tk:uncomment for debugging.
 
             throw e;
         } finally {
@@ -941,7 +941,7 @@ public class Utility {
             value = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, BuiltinFunction.getArgument(aEnvironment, aStackTop, 2));
         }
         
-        aEnvironment.setLocalOrGlobalVariable(aStackTop, variableString, value, aGlobalLazyVariable); //Variable setting is deligated to Environment.
+        aEnvironment.setLocalOrGlobalVariable(aStackTop, variableString, value, aGlobalLazyVariable, aConstant); //Variable setting is deligated to Environment.
 
 
         BuiltinFunction.setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));

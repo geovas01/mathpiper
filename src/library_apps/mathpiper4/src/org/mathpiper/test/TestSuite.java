@@ -169,7 +169,7 @@ public class TestSuite {
 
 
             //Check the global variables.
-            evaluationResponse = interpreter.evaluate("Echo(GlobalVariablesGet());");
+            evaluationResponse = interpreter.evaluate("Echo(State());");
             output = evaluationResponse(evaluationResponse);
             System.out.println("Global variables: " + output);
             logFile.write("GlobalVariables: " + output);
