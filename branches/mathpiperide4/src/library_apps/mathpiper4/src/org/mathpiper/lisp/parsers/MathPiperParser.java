@@ -193,7 +193,7 @@ public class MathPiperParser extends Parser
                 combine(aEnvironment,aStackTop, 2);
             } else
             {
-                Operator op = (Operator) iInfixOperators.lookUp(iLookAhead[0]);
+                Operator op = (Operator) iInfixOperators.map.get(iLookAhead[0]);
                 if (op == null)
                 {
                     //printf("op [%s]\n",iLookAhead[0].String());
@@ -215,7 +215,7 @@ public class MathPiperParser extends Parser
                             String lookUp = iLookAhead[0].substring(0, len);
 
                             //printf("trunc %s\n",lookUp.String());
-                            op = (Operator) iInfixOperators.lookUp(lookUp);
+                            op = (Operator) iInfixOperators.map.get(lookUp);
                             //if (op) printf("FOUND\n");
                             if (op != null)
                             {
@@ -224,7 +224,7 @@ public class MathPiperParser extends Parser
 
                                 //printf("right: %s (%d)\n",lookUpRight.String(),origlen-len);
 
-                                if (iPrefixOperators.lookUp(lookUpRight) != null)
+                                if (iPrefixOperators.map.get(lookUpRight) != null)
                                 {
                                     //printf("ACCEPT %s\n",lookUp.String());
                                     iLookAhead[0] = lookUp;
@@ -267,7 +267,7 @@ public class MathPiperParser extends Parser
     {
         Operator op;
         // parse prefix operators
-        op = (Operator) iPrefixOperators.lookUp(iLookAhead[0]);
+        op = (Operator) iPrefixOperators.map.get(iLookAhead[0]);
         if (op != null)
         {
             String[] theOperator = new String[4];
@@ -401,7 +401,7 @@ public class MathPiperParser extends Parser
                 }
                 matchToken(aStackTop, iLookAhead[0]);
 
-                op = (Operator) iBodiedOperators.lookUp(theOperator[0]);
+                op = (Operator) iBodiedOperators.map.get(theOperator[0]);
                 if (op != null)
                 {
                     readExpression(aEnvironment,aStackTop, op.iPrecedence); // MathPiperPrinter.KMaxPrecedence
@@ -430,7 +430,7 @@ public class MathPiperParser extends Parser
         }
 
         // parse postfix operators
-        while ((op = (Operator) iPostfixOperators.lookUp(iLookAhead[0])) != null)
+        while ((op = (Operator) iPostfixOperators.map.get(iLookAhead[0])) != null)
         {
             insertAtom(aEnvironment, aStackTop, iLookAhead[0]);
             matchToken(aStackTop, iLookAhead[0]);

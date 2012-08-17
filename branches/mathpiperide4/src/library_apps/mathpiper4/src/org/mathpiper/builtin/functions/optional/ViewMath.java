@@ -59,7 +59,7 @@ public class ViewMath extends BuiltinFunction {
     public void plugIn(Environment aEnvironment)  throws Exception
     {
         this.functionName = "ViewMathInternal";
-        aEnvironment.getBuiltinFunctions().setAssociation(
+        aEnvironment.getBuiltinFunctions().put(
                 this.functionName, new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro) );
 
        String[] parameters = new String[] {"expression","size"};

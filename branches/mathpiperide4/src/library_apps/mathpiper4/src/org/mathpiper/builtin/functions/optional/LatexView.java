@@ -52,7 +52,7 @@ public class LatexView extends BuiltinFunction {
     {
 	this.functionName = "LatexView";
 	
-        aEnvironment.getBuiltinFunctions().setAssociation(
+        aEnvironment.getBuiltinFunctions().put(
                 "LatexView", new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
 
         defaultOptions = new HashMap();

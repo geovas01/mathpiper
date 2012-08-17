@@ -35,7 +35,7 @@ public class MacroExpand extends BuiltinFunction
     public void plugIn(Environment aEnvironment) throws Exception
     {
         this.functionName = "MacroExpand";
-        aEnvironment.getBuiltinFunctions().setAssociation(
+        aEnvironment.getBuiltinFunctions().put(
                 this.functionName, new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro));
 	
 	aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "MacroExpand");

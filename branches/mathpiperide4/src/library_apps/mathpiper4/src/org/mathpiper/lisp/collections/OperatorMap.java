@@ -18,11 +18,15 @@
 
 package org.mathpiper.lisp.collections;
 
+import java.util.Map;
+
 import org.mathpiper.lisp.*;
 
 
-public class OperatorMap extends MathPiperMap // <Operator>
+public class OperatorMap // <Operator>
 {
+    public Map map = new java.util.HashMap();
+    
 	Environment iEnvironment;
 
         public OperatorMap(Environment aEnvironment)
@@ -33,26 +37,26 @@ public class OperatorMap extends MathPiperMap // <Operator>
 	public void setOperator(int aPrecedence,String aString)
 	{
 		Operator op = new Operator(aPrecedence);
-		setAssociation(aString, op);
+		map.put(aString, op);
 	}
 	
 	public void setRightAssociative(int aStackTop, String aString) throws Exception
 	{
-		Operator op = (Operator)lookUp(aString);
+		Operator op = (Operator)map.get(aString);
 		if(op == null) LispError.throwError(iEnvironment, aStackTop, LispError.NOT_AN_INFIX_OPERATOR, aString);
 		op.setRightAssociative();
 	}
 	
 	public void setLeftPrecedence(int aStackTop, String aString,int aPrecedence) throws Exception
 	{
-		Operator op = (Operator)lookUp(aString);
+		Operator op = (Operator)map.get(aString);
 		if(op == null) LispError.throwError(iEnvironment, aStackTop, LispError.NOT_AN_INFIX_OPERATOR, aString);
 		op.setLeftPrecedence(aPrecedence);
 	}
 	
 	public void setRightPrecedence(int aStackTop, String aString, int aPrecedence) throws Exception
 	{
-		Operator op = (Operator)lookUp(aString);
+		Operator op = (Operator)map.get(aString);
 		if(op == null) LispError.throwError(iEnvironment, aStackTop, LispError.NOT_AN_INFIX_OPERATOR, aString);
 		op.setRightPrecedence(aPrecedence);
 	}
