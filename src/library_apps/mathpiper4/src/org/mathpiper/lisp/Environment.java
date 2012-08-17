@@ -18,11 +18,13 @@
 package org.mathpiper.lisp;
 
 import org.mathpiper.lisp.variables.GlobalVariable;
+
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import org.mathpiper.Scripts;
 import org.mathpiper.lisp.stacks.ArgumentStack;
-import org.mathpiper.lisp.collections.MathPiperMap;
 import org.mathpiper.lisp.collections.OperatorMap;
 import org.mathpiper.lisp.cons.AtomCons;
 
@@ -96,9 +98,9 @@ public final class Environment {
     public MathPiperTokenizer iCurrentTokenizer;
     public MathPiperTokenizer iDefaultTokenizer = new MathPiperTokenizer();
     public MathPiperTokenizer iXmlTokenizer = new XmlTokenizer();
-    public MathPiperMap iGlobalState = new MathPiperMap();
-    public MathPiperMap iUserRulebases = new MathPiperMap();
-    public MathPiperMap iBuiltinFunctions = new MathPiperMap();
+    public Map<String, GlobalVariable> iGlobalState = new HashMap<String, GlobalVariable>();
+    public Map iUserRulebases = new HashMap();
+    public Map iBuiltinFunctions = new HashMap();
     public Throwable iException = null;
     public InputDirectories iInputDirectories = new InputDirectories();
     public String iPrettyReaderName = null;
@@ -158,15 +160,15 @@ public final class Environment {
 
     }
 
-    public MathPiperMap getGlobalState() {
+    public Map<String, GlobalVariable> getGlobalState() {
 	return iGlobalState;
     }
 
-    public MathPiperMap getUserFunctions() {
+    public Map getUserFunctions() {
 	return iUserRulebases;
     }
 
-    public MathPiperMap getBuiltinFunctions() {
+    public Map getBuiltinFunctions() {
 	return iBuiltinFunctions;
     }
 
@@ -182,6 +184,11 @@ public final class Environment {
 	    Cons aValue, boolean aGlobalLazyVariable, boolean constant)
 	    throws Exception {
 	
+	if(aVariable.equals("I"))
+	{
+	    int xx = 5;
+	}
+	
 	LocalVariable localVariable = getLocalVariable(aStackTop, aVariable);
 	
 	if (localVariable != null) {
@@ -189,7 +196,7 @@ public final class Environment {
 	    return;
 	}
 
-	Object object = iGlobalState.lookUp(aVariable);
+	Object object = iGlobalState.get(aVariable);
 
 	if (object == null) {
 
@@ -197,7 +204,7 @@ public final class Environment {
 
 	    globalVariable.iConstant = constant;
 
-	    iGlobalState.setAssociation(aVariable, globalVariable);
+	    iGlobalState.put(aVariable, globalVariable);
 
 	    if (aGlobalLazyVariable) {
 		globalVariable.iEvalBeforeReturn = true;
@@ -236,7 +243,7 @@ public final class Environment {
 
 	Cons aResult;
 	GlobalVariable globalVariable = (GlobalVariable) iGlobalState
-		.lookUp(aVariable);
+		.get(aVariable);
 	if (globalVariable != null) {
 	    if (globalVariable.iEvalBeforeReturn) {
 		aResult = iLispExpressionEvaluator.evaluate(this, aStackTop,
@@ -469,14 +476,14 @@ public final class Environment {
 	    this.unbindAllLocalVariables(aStackTop);
 
 	    // Unassign global variables
-	    Set<String> keySet = new HashSet(iGlobalState.getMap().keySet());
+	    Set<String> keySet = new HashSet(iGlobalState.keySet());
 
 	    for (String key : keySet) {
 		if (!key.startsWith("$") && !key.equals("I")
 			&& !key.equals("%") && !key.equals("geogebra")) {
-		    // Do not unbind private variables (which are those which
+		    // Do not unassign private variables (which are those which
 		    // start with a $) or the other listed variables.
-		    iGlobalState.release(key);
+		    iGlobalState.remove(key);
 		}
 	    }
 	} else {
@@ -488,7 +495,7 @@ public final class Environment {
 		return;
 	    }
 
-	    iGlobalState.release(aVariableName);
+	    iGlobalState.remove(aVariableName);
 	}// end else.
 
     }
@@ -528,7 +535,7 @@ public final class Environment {
     public void holdArgument(int aStackTop, String aOperator, String aVariable,
 	    Environment aEnvironment) throws Exception {
 	MultipleArityRulebase multipleArityUserFunc = (MultipleArityRulebase) iUserRulebases
-		.lookUp(aOperator);
+		.get(aOperator);
 	if (multipleArityUserFunc == null)
 	    LispError.throwError(this, aStackTop, LispError.INVALID_ARGUMENT,
 		    aOperator);
@@ -538,7 +545,7 @@ public final class Environment {
     public void retractRule(String aOperator, int aArity, int aStackTop,
 	    Environment aEnvironment) throws Exception {
 	MultipleArityRulebase multipleArityUserFunc = (MultipleArityRulebase) iUserRulebases
-		.lookUp(aOperator);
+		.get(aOperator);
 
 	if (multipleArityUserFunc != null) {
 	    multipleArityUserFunc.deleteRulebaseEntry(aArity, aStackTop,
@@ -549,7 +556,7 @@ public final class Environment {
     public SingleArityRulebase getRulebase(int aStackTop, Cons aArguments)
 	    throws Exception {
 	MultipleArityRulebase multipleArityUserFunc = (MultipleArityRulebase) iUserRulebases
-		.lookUp((String) aArguments.car());
+		.get((String) aArguments.car());
 	if (multipleArityUserFunc != null) {
 	    int arity = Utility.listLength(this, aStackTop, aArguments) - 1;
 	    return multipleArityUserFunc
@@ -561,7 +568,7 @@ public final class Environment {
     public SingleArityRulebase getRulebase(String aName, int aArity,
 	    int aStackTop) throws Exception {
 	MultipleArityRulebase multipleArityUserFunc = (MultipleArityRulebase) iUserRulebases
-		.lookUp(aName);
+		.get(aName);
 	if (multipleArityUserFunc != null) {
 	    return multipleArityUserFunc.getUserFunction(aArity, aStackTop,
 		    this);
@@ -572,7 +579,7 @@ public final class Environment {
     public void unfenceRule(int aStackTop, String aOperator, int aArity)
 	    throws Exception {
 	MultipleArityRulebase multiUserFunc = (MultipleArityRulebase) iUserRulebases
-		.lookUp(aOperator);
+		.get(aOperator);
 
 	if (multiUserFunc == null)
 	    LispError.throwError(this, aStackTop, LispError.INVALID_ARGUMENT,
@@ -591,13 +598,13 @@ public final class Environment {
 	// to the list even if a non-existing function
 	// is being executed or looked for by FindFunction();
 	MultipleArityRulebase multipleArityUserRulebase = (MultipleArityRulebase) iUserRulebases
-		.lookUp(aOperator);
+		.get(aOperator);
 
 	// If none exists, add one to the user rulebases list
 	if (multipleArityUserRulebase == null && create == true) {
 	    multipleArityUserRulebase = new MultipleArityRulebase();
 	    multipleArityUserRulebase.functionName = aOperator;
-	    iUserRulebases.setAssociation(aOperator, multipleArityUserRulebase);
+	    iUserRulebases.put(aOperator, multipleArityUserRulebase);
 
 	}
 	return multipleArityUserRulebase;
@@ -626,7 +633,7 @@ public final class Environment {
 	    int aPrecedence, Cons aPredicate, Cons aBody) throws Exception {
 	// Find existing multiuser rule.
 	MultipleArityRulebase multipleArityRulebase = (MultipleArityRulebase) iUserRulebases
-		.lookUp(aOperator);
+		.get(aOperator);
 	if (multipleArityRulebase == null)
 	    LispError.throwError(this, aStackTop, LispError.CREATING_RULE,
 		    aOperator);
@@ -671,7 +678,7 @@ public final class Environment {
 	    int aPrecedence, Cons aPredicate, Cons aBody) throws Exception {
 	// Find existing multiuser rulebase.
 	MultipleArityRulebase multipleArityRulebase = (MultipleArityRulebase) iUserRulebases
-		.lookUp(aOperator);
+		.get(aOperator);
 	if (multipleArityRulebase == null)
 	    LispError.throwError(this, aStackTop, LispError.CREATING_RULE,
 		    aOperator);

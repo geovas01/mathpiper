@@ -42,7 +42,7 @@ public class JavaCall extends BuiltinFunction {
 
     public void plugIn(Environment aEnvironment) throws Exception {
         this.functionName = "JavaCall";
-        aEnvironment.getBuiltinFunctions().setAssociation(
+        aEnvironment.getBuiltinFunctions().put(
                 this.functionName, new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
     }//end method.
 

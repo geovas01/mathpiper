@@ -904,7 +904,7 @@ public class Utility {
         String orig = (String) evaluated.car();
         if(orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         //
-        Operator op = (Operator) aOperators.lookUp(Utility.getSymbolName(aEnvironment, orig));
+        Operator op = (Operator) aOperators.map.get(Utility.getSymbolName(aEnvironment, orig));
         return op;
     }
 

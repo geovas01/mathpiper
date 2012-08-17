@@ -107,10 +107,10 @@ public class MathPiperPrinter extends LispPrinter {
         } else {
             int length = Utility.listLength(aEnvironment, aStackTop, subList);
             functionOrOperatorName = (String) subList.car();
-            Operator prefix = (Operator) iPrefixOperators.lookUp(functionOrOperatorName);
-            Operator infix = (Operator) iInfixOperators.lookUp(functionOrOperatorName);
-            Operator postfix = (Operator) iPostfixOperators.lookUp(functionOrOperatorName);
-            Operator bodied = (Operator) iBodiedOperators.lookUp(functionOrOperatorName);
+            Operator prefix = (Operator) iPrefixOperators.map.get(functionOrOperatorName);
+            Operator infix = (Operator) iInfixOperators.map.get(functionOrOperatorName);
+            Operator postfix = (Operator) iPostfixOperators.map.get(functionOrOperatorName);
+            Operator bodied = (Operator) iBodiedOperators.map.get(functionOrOperatorName);
             Operator operator = null;
 
             if (length != 2) {

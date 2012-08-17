@@ -44,7 +44,7 @@ public class ScatterPlot extends BuiltinFunction {
 
     public void plugIn(Environment aEnvironment)  throws Exception
     {
-        aEnvironment.getBuiltinFunctions().setAssociation(
+        aEnvironment.getBuiltinFunctions().put(
                 "ScatterPlot", new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
 
         defaultOptions = new HashMap();

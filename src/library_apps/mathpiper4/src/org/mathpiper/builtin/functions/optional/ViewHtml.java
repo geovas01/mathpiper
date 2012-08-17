@@ -41,7 +41,7 @@ public class ViewHtml extends BuiltinFunction {
     public void plugIn(Environment aEnvironment)  throws Exception
     {
         this.functionName = "ViewHtml";
-        aEnvironment.getBuiltinFunctions().setAssociation(
+        aEnvironment.getBuiltinFunctions().put(
                 this.functionName, new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 

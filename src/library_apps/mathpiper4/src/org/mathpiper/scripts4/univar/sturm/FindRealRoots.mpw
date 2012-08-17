@@ -1,6 +1,6 @@
 %mathpiper,def="FindRealRoots"
 
-iDebug:=False;
+//iDebug:=False;
 
 //Retract("FindRealRoots",*);
 

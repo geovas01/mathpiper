@@ -153,7 +153,7 @@ public class LispExpressionEvaluator extends Evaluator {
                         functionName = (String) head.car();
 
                       //Built-in function handler.
-                        BuiltinFunctionEvaluator builtinInFunctionEvaluator = (BuiltinFunctionEvaluator) aEnvironment.getBuiltinFunctions().lookUp(functionName);
+                        BuiltinFunctionEvaluator builtinInFunctionEvaluator = (BuiltinFunctionEvaluator) aEnvironment.getBuiltinFunctions().get(functionName);
                         if (builtinInFunctionEvaluator != null) {
 
                             aEnvironment.iEvalDepth--;

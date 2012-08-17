@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- */ //}}}
+ *///}}}
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin.functions.core;
 
@@ -27,100 +27,101 @@ import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.SublistCons;
+import org.mathpiper.lisp.variables.GlobalVariable;
 
 /**
  *
  *
  */
-public class State extends BuiltinFunction
-{
+public class State extends BuiltinFunction {
     private Map defaultOptions;
-    
-    private State()
-    {
+
+    private State() {
     }
 
-    public State(String functionName)
-    {
-        this.functionName = functionName;
-        
-        defaultOptions = new HashMap();
-        defaultOptions.put("showHidden", false);
+    public State(String functionName) {
+	this.functionName = functionName;
+
+	defaultOptions = new HashMap();
+	defaultOptions.put("showHidden", false);
     }
 
+    public void evaluate(Environment aEnvironment, int aStackTop)
+	    throws Exception {
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
-	
 	Cons arguments = getArgument(aEnvironment, aStackTop, 1);
 
-        if(! Utility.isSublist(arguments)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "");
+	if (!Utility.isSublist(arguments))
+	    LispError.throwError(aEnvironment, aStackTop,
+		    LispError.INVALID_ARGUMENT, "");
 
-        Cons options = (Cons) arguments.car(); //Go to sub list.
+	Cons options = (Cons) arguments.car(); // Go to sub list.
 
-        options = options.cdr(); //Strip List tag.
+	options = options.cdr(); // Strip List tag.
 
-        Map userOptions = Utility.optionsListToJavaMap(aEnvironment, aStackTop, options, defaultOptions);
-	
-        
-        Map globalState = (Map) aEnvironment.getGlobalState().getMap();
-	
-        java.util.Set<String> variablesSet = globalState.keySet();
-        
-        java.util.List variablesList = null;
-        
-        
-        if(userOptions.get("showHidden").equals(true))
-        {
-            variablesList = new ArrayList(variablesSet);
-        }
-        else
-        {
-            variablesList = new ArrayList();
-            
-            for(String key : variablesSet)
-            {
-        	if(! key.contains("$"))
-        	{
-        	    variablesList.add(key);
-        	}
-            }
-        }
+	Map userOptions = Utility.optionsListToJavaMap(aEnvironment, aStackTop,
+		options, defaultOptions);
 
-        Collections.sort(variablesList, new NameComparator() );
+	Map<String, GlobalVariable> globalState = (Map<String, GlobalVariable>) aEnvironment
+		.getGlobalState();
 
-        Cons head = Utility.iterableToList(aEnvironment, aStackTop, variablesList);
+	java.util.Set<String> variablesSet = globalState.keySet();
 
-        setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, head));
+	java.util.List<String> variablesList = null;
 
-    }//end method.
+	variablesList = new ArrayList<String>();
 
+	for (String key : variablesSet) {
+	    if (userOptions.get("showPrivate").equals(true)) {
+		variablesList.add(key + ":" + globalState.get(key));
+	    } else if (!key.contains("$")
+		    && !key.equals("I")
+		    && !key.equals("%")
+		    && ((GlobalVariable) globalState.get(key)).iConstant == false) {
+		variablesList.add(key + ":" + globalState.get(key));
+	    }
 
+	}
 
-    private class NameComparator implements Comparator<String>{
+	Collections.sort(variablesList, new NameComparator());
 
-        public int compare(String s1, String s2) {
-            return s1.compareToIgnoreCase(s2);
-        }//end method.
-    }//end class.
+	Cons head = Utility.iterableToList(aEnvironment, aStackTop,
+		variablesList);
 
-}//end class.
+	setTopOfStack(aEnvironment, aStackTop,
+		SublistCons.getInstance(aEnvironment, head));
 
+    }// end method.
 
+    private class NameComparator implements Comparator<String> {
+
+	public int compare(String s1, String s2) {
+	    return s1.compareToIgnoreCase(s2);
+	}// end method.
+    }// end class.
+
+}// end class.
 
 /*
 %mathpiper_docs,name="State",categories="User Functions;Variables"
-*CMD State --- return a list which contains the names of all the global variables
+*CMD State --- return a list which contains the names and values of the global variables
 
-*CALL
-State()
+*CALL 
+ 
+ State()
+ State(showPrivate -> True)
 
 
-*DESC
+*DESC 
 Return a list which contains the values of all the global variables.
 
-*E.G.
+*E.G. 
+
+In> a := 1; b := 2; c := 3;
+Result> 3
+
 In> State()
-Result> {\$CacheOfConstantsN1,%,I,\$numericMode2}
+Result> [a:1,b:2,c:3]
 
 %/mathpiper_docs
- */
+*/
