@@ -2,7 +2,7 @@
 
 LocalSymbols(complexReduce) {
 
-  Bind(complexReduce,
+  Assign(complexReduce,
     Hold(
     [
       Exp(x_ComplexII?) <- Exp(ReII(x))*(Cos(ImII(x))+II*Sin(ImII(x)))

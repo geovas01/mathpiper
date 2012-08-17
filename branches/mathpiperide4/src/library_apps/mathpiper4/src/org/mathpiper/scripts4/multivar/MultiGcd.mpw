@@ -31,15 +31,15 @@
 {
   LocalSymbols(a)
   {
-    Bind(f,Subst(a,a)f);
-    Bind(g,Subst(a,a)g);
+    Assign(f,Subst(a,a)f);
+    Assign(g,Subst(a,a)g);
   };
   Local(new);
   While(g !=? 0)
   {
 //Echo("before f",f,NormalForm(f));
 //Echo("before g",g,NormalForm(g));
-    Bind(new, MultiDivide(f,[g]));
+    Assign(new, MultiDivide(f,[g]));
 //Echo("new g",NormalForm(new[1][1]),NormalForm(new[2]));
 If(new[1][1]=?0,
 {
@@ -47,9 +47,9 @@ If(new[1][1]=?0,
 //Echo("PRIM ",MultiPrimitivePart(g));
   new[2]:=0;
 });
-    Bind(new, new[2]);
-    Bind(f,g);
-    Bind(g,new);
+    Assign(new, new[2]);
+    Assign(f,g);
+    Assign(g,new);
 
 //Echo("after f",f,NormalForm(f));
 //Echo("after g",g,NormalForm(g));

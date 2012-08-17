@@ -7,14 +7,14 @@ FloatIsInt?(_x) <--
    {
      x:=N(Eval(x));
      Local(prec,result,n);
-     Bind(prec,BuiltinPrecisionGet());
-     If(Zero?(x),Bind(n,2),
+     Assign(prec,BuiltinPrecisionGet());
+     If(Zero?(x),Assign(n,2),
      If(x>?0,
-       Bind(n,2+FloorN(N(FastLog(x)/FastLog(10)))),
-       Bind(n,2+FloorN(N(FastLog(-x)/FastLog(10))))
+       Assign(n,2+FloorN(N(FastLog(x)/FastLog(10)))),
+       Assign(n,2+FloorN(N(FastLog(-x)/FastLog(10))))
        ));
      BuiltinPrecisionSet(n+prec);
-     Bind(result,Zero?(RoundTo(x-Floor(x),prec)) Or? Zero?(RoundTo(x-Ceil(x),prec)));
+     Assign(result,Zero?(RoundTo(x-Floor(x),prec)) Or? Zero?(RoundTo(x-Ceil(x),prec)));
      BuiltinPrecisionSet(prec);
      result;
    };

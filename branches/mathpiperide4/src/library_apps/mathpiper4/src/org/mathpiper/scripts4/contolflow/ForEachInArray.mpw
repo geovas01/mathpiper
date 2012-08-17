@@ -6,13 +6,13 @@ LocalSymbols(i,nr)
   {
     Local(i,nr);
     MacroLocal(item);
-    Bind(i,1);
-    Bind(nr,Length(list));
+    Assign(i,1);
+    Assign(nr,Length(list));
     While(i<=?nr)
     {
-      MacroBind(item,list[i]);
+      MacroAssign(item,list[i]);
       Eval(body);
-      Bind(i,AddN(i,1));
+      Assign(i,AddN(i,1));
     };
   };
 };

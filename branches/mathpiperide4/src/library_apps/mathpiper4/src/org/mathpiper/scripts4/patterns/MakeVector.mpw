@@ -6,11 +6,11 @@ RuleHoldArguments("MakeVector",2,1,True)
     Local(res,i);
     res:=[];
     i:=1;
-    Bind(dimension,AddN(dimension,1));
+    Assign(dimension,AddN(dimension,1));
     While(LessThan?(i,dimension))
     {
       DestructiveInsert(res,1,ToAtom(ConcatStrings(ToString(vec),ToString(i))));
-      Bind(i,AddN(i,1));
+      Assign(i,AddN(i,1));
     };
     DestructiveReverse(res);
 };

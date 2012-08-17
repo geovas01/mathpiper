@@ -12,7 +12,7 @@ RuleHoldArguments(":=", 2, 0, Atom?(aLeftAssign))
 {
     Check( Not? Number?(aLeftAssign), "Argument", "Only a variable can be placed on the left side of an := operator." );
 
-    MacroBind(aLeftAssign,Eval(aRightAssign));
+    MacroAssign(aLeftAssign,Eval(aRightAssign));
 
     Eval(aLeftAssign);
 };
@@ -32,15 +32,15 @@ RuleHoldArguments(":=", 2, 10, Function?(aLeftAssign) And? (First(FunctionToList
 {
     Local(listOrAssociationList, indexOrKey, argumentsList);
 
-    Bind(argumentsList, (FunctionToList(aLeftAssign)));
+    Assign(argumentsList, (FunctionToList(aLeftAssign)));
 
-    Bind(argumentsList, Rest(argumentsList));
+    Assign(argumentsList, Rest(argumentsList));
 
-    Bind(listOrAssociationList, Eval(First(argumentsList)));
+    Assign(listOrAssociationList, Eval(First(argumentsList)));
 
-    Bind(argumentsList, Rest(argumentsList));
+    Assign(argumentsList, Rest(argumentsList));
 
-    Bind(indexOrKey, Eval(First(argumentsList)));
+    Assign(indexOrKey, Eval(First(argumentsList)));
 
     AssignArray(listOrAssociationList, indexOrKey, Eval(aRightAssign));
 };
@@ -54,9 +54,9 @@ RuleHoldArguments(":=", 2, 30, Function?(aLeftAssign) And? Not?(Equal?(aLeftAssi
 
     Local(oper,args,arity);
 
-    Bind(oper,ToString(aLeftAssign[0]));
+    Assign(oper,ToString(aLeftAssign[0]));
 
-    Bind(args,Rest(FunctionToList(aLeftAssign)));
+    Assign(args,Rest(FunctionToList(aLeftAssign)));
 
     If(
         And?(GreaterThan?(Length(args), 1), Equal?( MathNth(args, Length(args)), ToAtom("...") )),
@@ -64,7 +64,7 @@ RuleHoldArguments(":=", 2, 30, Function?(aLeftAssign) And? Not?(Equal?(aLeftAssi
         {
             DestructiveDelete(args, Length(args)); // remove trailing "..."
 
-            Bind(arity, Length(args));
+            Assign(arity, Length(args));
 
             Retract(oper, arity);
 
@@ -72,7 +72,7 @@ RuleHoldArguments(":=", 2, 30, Function?(aLeftAssign) And? Not?(Equal?(aLeftAssi
         },
         // function with a fixed number of arguments
         {
-            Bind(arity, Length(args));
+            Assign(arity, Length(args));
 
             Retract(oper, arity);
 
@@ -220,7 +220,7 @@ In> x1 *&* x2 := x1/x2 + x2/x1;
 Result: True;
 In> Sin(a) *&* Cos(a);
 Result: Tan(1)+Cos(1)/Sin(1);
-In> Unbind(a);
+In> Unassign(a);
 Result: True;
 In> Sin(a) *&* Exp(a);
 Result: Sin(a)/Exp(a)+Exp(a)/Sin(a);
@@ -265,5 +265,5 @@ x^11/39916800+x^13/6227020800-x^15
 -x^23/25852016738884976640000+x^25/
 15511210043330985984000000;
 
-*SEE <--, Bind, Unbind, [], Rule, Infix, Eval, Function
+*SEE <--, Assign, Unassign, [], Rule, Infix, Eval, Function
 %/mathpiper_docs

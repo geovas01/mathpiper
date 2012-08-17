@@ -19,7 +19,7 @@ LocalSymbols(localResult) {
       {
         If(InVerboseMode() =? True,  Echo(Last(First(tr))));
         
-        Bind(localResult,Eval(First(Rest(First(tr)))));
+        Assign(localResult,Eval(First(Rest(First(tr)))));
         
         result := True;
         
@@ -45,20 +45,20 @@ LocalSymbols(localResult) {
     
     While (tr !=? [])
     {
-      Bind(head, First(First(tr)));
+      Assign(head, First(First(tr)));
       
       If (Not?(Atom?(head)) And? exp[0] =? head[1] And? PatternMatches(head[2], exp),
       {
         If(InVerboseMode() =? True, Echo(Last(First(tr))));
         
-        Bind(localResult, Eval(First(Rest(First(tr)))));
+        Assign(localResult, Eval(First(Rest(First(tr)))));
         
-        Bind(result, True);
+        Assign(result, True);
         
-        Bind(tr, []);
+        Assign(tr, []);
       },
       {
-        Bind(tr, Rest(tr));
+        Assign(tr, Rest(tr));
       });
     };
     

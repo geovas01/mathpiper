@@ -35,7 +35,7 @@ HoldArgument("Manipulate",symbolicEquation);
 
 %mathpiper,scope="nobuild",subtype="manual_test"
 
-Unbind(equ,a);
+Unassign(equ,a);
 
 equ := y == m*x+b;
 Tell(1, Manipulate(2*equ));

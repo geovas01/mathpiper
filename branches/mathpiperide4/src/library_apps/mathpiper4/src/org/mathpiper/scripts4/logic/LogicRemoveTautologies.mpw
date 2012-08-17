@@ -23,37 +23,37 @@ LocalCmp(_e1, _e2)                  <-- LessThan?(PipeToString() Write(e1), Pipe
 //  [] means False
 LogicRemoveTautologies(_e) <--
 {
-  Local(i, len, negationfound); Bind(len, Length(e));
-  Bind(negationfound, False);
+  Local(i, len, negationfound); Assign(len, Length(e));
+  Assign(negationfound, False);
 
   //Echo(e);
   e := BubbleSort(e, "LocalCmp");
 
-  For(Bind(i, 1), (i <=? len) And? (Not? negationfound), i++)
+  For(Assign(i, 1), (i <=? len) And? (Not? negationfound), i++)
   {
     Local(x, n, j);
     // we can register other simplification rules for expressions
     //e[i] := MathNth(e,i) /:: [gamma(_y) <- SimplifyExpression(gamma(y))];
-    Bind(x, MathNth(e,i));
-    Bind(n, SimpleNegate(x));                    /* this is all we have to do because of
+    Assign(x, MathNth(e,i));
+    Assign(n, SimpleNegate(x));                    /* this is all we have to do because of
                                                 the kind of expressions we can have coming in */
 
-    For(Bind(j, i+1), (j <=? len) And? (Not? negationfound), j++) {
+    For(Assign(j, i+1), (j <=? len) And? (Not? negationfound), j++) {
         Local(y);
-        Bind(y, MathNth(e,j));
+        Assign(y, MathNth(e,j));
 
         If(Equal?(y, n),
             {
                 //Echo(["Deleting from ", e, " i=", i, ", j=", j, Nl()]);
 
-                Bind(negationfound, True);
+                Assign(negationfound, True);
                 //Echo(["Removing clause ", i, Nl()]);
             },
         If(Equal?(y, x),
             {
                 //Echo(["Deleting from ", e, " j=", j, Nl()]);
                 DestructiveDelete(e, j);
-                Bind(len,SubtractN(len,1));
+                Assign(len,SubtractN(len,1));
             })
         );
     };

@@ -61,7 +61,7 @@ Retract("IsPowerOf2",*);
     If(InVerboseMode(),{NewLine();Tell("xFB1",dis);});
     Local(Y,y,ii,fac1);
     X  := Ar*X;     Y  := Br;
-    Unbind(y);
+    Unassign(y);
     y  := 1;
     If(InVerboseMode(), Tell("     ",[X,Y]));
     fac1  := xFB1( X/Y,n,s);    //  factor using normalized variable

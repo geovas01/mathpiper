@@ -84,7 +84,7 @@ This function shows the expanded form of the Lisp-like macros that MathPiper sup
 Note: only back quoted macros are supported at this time.
 
 *E.G.
-//Bind the variable var to the atom Echo.
+//Assign the variable var to the atom Echo.
 In> var := Echo;
 Result: Echo
 

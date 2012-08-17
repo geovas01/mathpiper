@@ -134,7 +134,7 @@ rules based on parameters.
 
 Make sure that the arguments of {Macro}... commands evaluate to expressions that would normally be used in the non-macro version!
 
-*SEE Bind, Unbind, Local, RulebaseHoldArguments, RuleHoldArguments, `, MacroBind, MacroUnbind, MacroRulebase, MacroRulebaseListed, RuleEvaluateArguments
+*SEE Assign, Unassign, Local, RulebaseHoldArguments, RuleHoldArguments, `, MacroAssign, MacroUnassign, MacroRulebase, MacroRulebaseListed, RuleEvaluateArguments
 %/mathpiper_docs
 
 
@@ -149,7 +149,7 @@ Make sure that the arguments of {Macro}... commands evaluate to expressions that
   Verify(Bound?(a),False);
   a:=1;
   Verify(Bound?(a),True);
-  Unbind(a);
+  Unassign(a);
   Verify(Bound?(a),False);
 };
 

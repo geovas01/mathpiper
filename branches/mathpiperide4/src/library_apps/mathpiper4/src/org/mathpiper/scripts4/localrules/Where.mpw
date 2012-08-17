@@ -9,7 +9,7 @@ UnFence("Where",2);
 20 # (_body Where (_a And? _b))
      <--
 {
-  Bind(body,`(@body Where @a));
+  Assign(body,`(@body Where @a));
   `(@body Where @b);
 };
 

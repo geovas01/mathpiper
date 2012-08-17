@@ -38,7 +38,7 @@
     result:=[];
     ForEach(item,list1)
     {
-        Bind(index, Find(l2,item));
+        Assign(index, Find(l2,item));
         If(index>?0,
           {
              DestructiveDelete(l2,index);

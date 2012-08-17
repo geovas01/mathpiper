@@ -27,14 +27,14 @@ import org.mathpiper.lisp.cons.Cons;
  *
  *  
  */
-public class Unbind extends BuiltinFunction
+public class Unassign extends BuiltinFunction
 {
 
-    private Unbind()
+    private Unassign()
     {
     }
 
-    public Unbind(String functionName)
+    public Unassign(String functionName)
     {
         this.functionName = functionName;
     }
@@ -66,11 +66,11 @@ public class Unbind extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Unbind",categories="User Functions;Variables;Built In"
-*CMD Unbind --- undo an assignment
+%mathpiper_docs,name="Unassign",categories="User Functions;Variables;Built In"
+*CMD Unassign --- undo an assignment
 *CORE
 *CALL
-	Unbind(var, ...)
+	Unassign(var, ...)
 
 *PARMS
 
@@ -91,16 +91,16 @@ Result> 5;
 In> a^2;
 Result> 25;
 
-In> Unbind(a);
+In> Unassign(a);
 Result> True;
 
 In> a^2;
 Result> a^2;
 
-In> Unbind(*)
+In> Unassign(*)
 Result> True
 
-*SEE Bind, :=
+*SEE Assign, :=
 %/mathpiper_docs
 */
 

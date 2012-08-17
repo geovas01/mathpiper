@@ -8,7 +8,7 @@
 
 10 # (_expression /: _patterns) <--
 {
-  Bind(patterns, LocProcess(patterns));
+  Assign(patterns, LocProcess(patterns));
   
   MacroSubstitute(expression,"LocPredicate","LocChange");
 };

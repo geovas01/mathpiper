@@ -76,7 +76,7 @@ Result: class javax.swing.JFrame
 
 %mathpiper,name="TruthTable",subtype="automatic_test"
 
-Unbind(a,b);
+Unassign(a,b);
 
 Verify(TruthTable(a And? b), [[a,b,a And? b],[True,True,True],[True,False,False],[False,True,False],[False,False,False]]);
 

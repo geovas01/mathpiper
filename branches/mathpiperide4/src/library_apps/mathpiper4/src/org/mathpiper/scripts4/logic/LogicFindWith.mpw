@@ -4,17 +4,17 @@
 LogicFindWith(_list, _i, _n) <--
 {
   Local(result, index, j);
-  Bind(result, -1); Bind(index, -1);
+  Assign(result, -1); Assign(index, -1);
 
   For(j := i+1, (result<?0) And? (j <=? Length(list)), j++)
   {
-    Local(k, len); Bind(len, Length(list[j]));
+    Local(k, len); Assign(len, Length(list[j]));
     For(k := 1, (result<?0) And? (k<=?len), k++)
     {
-      Local(el); Bind(el, list[j][k]);
+      Local(el); Assign(el, list[j][k]);
 
       If(Contradict(n, el),
-        {Bind(result, j); Bind(index, k);});
+        {Assign(result, j); Assign(index, k);});
     };
   };
   [result, index];

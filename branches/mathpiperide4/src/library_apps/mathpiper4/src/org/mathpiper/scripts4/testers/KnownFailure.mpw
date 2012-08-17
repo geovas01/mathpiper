@@ -4,7 +4,7 @@ Function("KnownFailure",[expr])
 {
   Local(rfail);
   Echo("Known failure: ", expr);
-  Bind(rfail,Eval(expr));
+  Assign(rfail,Eval(expr));
   If(rfail,Echo(["Failure resolved!"]));
 };
 HoldArgument("KnownFailure",expr);

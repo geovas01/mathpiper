@@ -22,13 +22,13 @@ Ord(vector,q):=
 OrdBuild(vector,q):=
 {
   Local(i,result,n);
-  Bind(i,2);
-  Bind(result, 0);
-  Bind(n, Length(vector));
+  Assign(i,2);
+  Assign(result, 0);
+  Assign(n, Length(vector));
   While (i<=?n)
   {
-    Bind(result,result+(i-1)*vector[i]*p^(i-2));
-    Bind(i, i+2);
+    Assign(result,result+(i-1)*vector[i]*p^(i-2));
+    Assign(i, i+2);
   };
   q*result;
 };
@@ -39,7 +39,7 @@ Function(AddFoundSolutionSingle,[p])
   Local(calc);
 //  If ( Not? Contains?(result,p),
 //  [
-    Bind(calc, Eval(lastcoef));
+    Assign(calc, Eval(lastcoef));
     If (Equal?(calc, 0),
     {
       Local(newlist,count,root);
@@ -55,24 +55,24 @@ Function(AddFoundSolutionSingle,[p])
       While (rem =? [])
       {
         count++;
-        Bind(poly,newlist);
+        Assign(poly,newlist);
         rem:=[-root,1];
         [newlist,rem]:=MkfactD(poly,rem);
       };
 
       Local(lgcd,lc);
-      Bind(lgcd,Gcd([andiv,an,root]));
-      Bind(lc,Quotient(an,lgcd));
-      Bind(result,[var+ (-(Quotient(root,lgcd)/lc)),count]~result);
-      Bind(andiv,Quotient(andiv,lgcd^count));
-      Bind(anmul,anmul*lc^count);
+      Assign(lgcd,Gcd([andiv,an,root]));
+      Assign(lc,Quotient(an,lgcd));
+      Assign(result,[var+ (-(Quotient(root,lgcd)/lc)),count]~result);
+      Assign(andiv,Quotient(andiv,lgcd^count));
+      Assign(anmul,anmul*lc^count);
 
 //      factor:=(x-root);
-//      Bind(result,[factor,count]:result);
+//      Assign(result,[factor,count]:result);
 
       Local(p,q);
-      Bind(lastcoef, LastCoef(testpoly,p));
-      Bind(ord, OrdBuild(testpoly,q));
+      Assign(lastcoef, LastCoef(testpoly,p));
+      Assign(ord, OrdBuild(testpoly,q));
     });
 //  ]);
 };
@@ -91,41 +91,41 @@ Function(Fct,[poly,var])
 
   Local(gcd);
   {
-    Bind(gcd,Gcd(poly));
-    If(poly[Length(poly)] <? 0,Bind(gcd, gcd * -1));
-    Bind(poly,poly/gcd);
+    Assign(gcd,Gcd(poly));
+    If(poly[Length(poly)] <? 0,Assign(gcd, gcd * -1));
+    Assign(poly,poly/gcd);
   };
 
   Local(unrat);
-  Bind(unrat,Lcm(MapSingle("Denominator",poly)));
-  Bind(poly,unrat*poly);
+  Assign(unrat,Lcm(MapSingle("Denominator",poly)));
+  Assign(poly,unrat*poly);
 
   Local(origdegree);
-  Bind(origdegree,Length(poly)-1);
+  Assign(origdegree,Length(poly)-1);
 
   Local(an,andiv,anmul);
-  Bind(an,poly[Length(poly)]);
-  Bind(poly,poly* (an^((origdegree-1) .. -1)));
-  Bind(andiv,an^(origdegree-1));
-  Bind(anmul,1);
+  Assign(an,poly[Length(poly)]);
+  Assign(poly,poly* (an^((origdegree-1) .. -1)));
+  Assign(andiv,an^(origdegree-1));
+  Assign(anmul,1);
 
   Local(leadingcoef,lowestcoef);
-  Bind(leadingcoef,poly[Length(poly)]);
+  Assign(leadingcoef,poly[Length(poly)]);
   {
     Local(i);
-    Bind(i,1);
-    Bind(lowestcoef,Abs(poly[i]));
+    Assign(i,1);
+    Assign(lowestcoef,Abs(poly[i]));
     While (lowestcoef =? 0 And? i<=?Length(poly))
     {
-      Bind(i,i+1);
-      Bind(lowestcoef,Abs(poly[i]));
+      Assign(i,i+1);
+      Assign(lowestcoef,Abs(poly[i]));
     };
   };
   // testpoly is the square-free version of the polynomial, used for finding
   // the factors. the original polynomials is kept around to find the
   // multiplicity of the factor.
   Local(testpoly);
-//  Bind(testpoly,Mkc(Quotient(polynom,Monic(Gcd(polynom,Deriv(var)polynom))),var));
+//  Assign(testpoly,Mkc(Quotient(polynom,Monic(Gcd(polynom,Deriv(var)polynom))),var));
   Local(deriv);
   // First determine a derivative of the original polynomial
   deriv:=Rest(poly);
@@ -157,64 +157,64 @@ Function(Fct,[poly,var])
 //Echo("TESTPOLY = ",testpoly);
   };
 
-//  Bind(testpoly,poly); //@@@
+//  Assign(testpoly,poly); //@@@
 
-  Bind(maxNrRoots,Length(testpoly)-1);
-  Bind(result, []);
+  Assign(maxNrRoots,Length(testpoly)-1);
+  Assign(result, []);
 
-  Bind(lastcoef, LastCoef(testpoly,p));
-  Bind(ord, OrdBuild(testpoly,q));
+  Assign(lastcoef, LastCoef(testpoly,p));
+  Assign(ord, OrdBuild(testpoly,q));
 
-  Bind(accu,[]);
-  Bind(q,1);
-  Bind(twoq,MultiplyN(q,2));
-  Bind(mask,AddN(twoq,MathNegate(1)));
+  Assign(accu,[]);
+  Assign(q,1);
+  Assign(twoq,MultiplyN(q,2));
+  Assign(mask,AddN(twoq,MathNegate(1)));
   if (Even?(testpoly[1]))
   {
-    Bind(accu,0~accu);
+    Assign(accu,0~accu);
     AddFoundSolutionSingle(0);
   };
-  Bind(p,1);
-  Bind(calc, Eval(lastcoef));
+  Assign(p,1);
+  Assign(calc, Eval(lastcoef));
   If (Even?(calc),
   {
-    Bind(accu,1~accu);
+    Assign(accu,1~accu);
     AddFoundSolution(1);
   });
-  Bind(q,twoq);
-  Bind(twoq,MultiplyN(q,2));
-  Bind(mask,AddN(twoq,MathNegate(1)));
+  Assign(q,twoq);
+  Assign(twoq,MultiplyN(q,2));
+  Assign(mask,AddN(twoq,MathNegate(1)));
   While(Length(result)<?maxNrRoots And? Length(accu)>?0 And? q<=?Abs(testpoly[1]))
   {
     Local(newaccu);
-    Bind(newaccu,[]);
+    Assign(newaccu,[]);
     ForEach(p,accu)
     {
-      Bind(calc,Eval(lastcoef));
+      Assign(calc,Eval(lastcoef));
       If (LessThan?(calc,0),
-        Bind(calc, AddN(calc,MultiplyN(twoq,QuotientN(AddN(MathNegate(calc),twoq),twoq))))
+        Assign(calc, AddN(calc,MultiplyN(twoq,QuotientN(AddN(MathNegate(calc),twoq),twoq))))
          );
-      Bind(calc, BitAnd(calc, mask));
+      Assign(calc, BitAnd(calc, mask));
       If ( Equal?(calc, 0),
       {
-        Bind(newaccu, p~newaccu);
+        Assign(newaccu, p~newaccu);
         AddFoundSolutionSingle(-2*q+p);
       });
-      Bind(calc, AddN(calc, Eval(ord)));
+      Assign(calc, AddN(calc, Eval(ord)));
       If (LessThan?(calc,0),
-        Bind(calc, AddN(calc,MultiplyN(twoq,QuotientN(AddN(MathNegate(calc),twoq),twoq))))
+        Assign(calc, AddN(calc,MultiplyN(twoq,QuotientN(AddN(MathNegate(calc),twoq),twoq))))
          );
-      Bind(calc, BitAnd(calc, mask));
+      Assign(calc, BitAnd(calc, mask));
       If ( Equal?(calc, 0),
       {
-        Bind(newaccu, AddN(p,q)~newaccu);
+        Assign(newaccu, AddN(p,q)~newaccu);
         AddFoundSolution(AddN(p,q));
       });
     };
-    Bind(accu, newaccu);
-    Bind(q,twoq);
-    Bind(twoq,MultiplyN(q,2));
-    Bind(mask,AddN(twoq,MathNegate(1)));
+    Assign(accu, newaccu);
+    Assign(q,twoq);
+    Assign(twoq,MultiplyN(q,2));
+    Assign(mask,AddN(twoq,MathNegate(1)));
 
 //Echo("q = ",q);
 //Echo("Length is",Length(accu),"accu = ",accu);
@@ -223,10 +223,10 @@ Function(Fct,[poly,var])
 
   // If the polynom is not one, it is a polynomial which is not reducible any further
   // with this algorithm, return as is.
-  Bind(poly,poly*an^(0 .. (Length(poly)-1)));
-  Bind(poly,gcd*anmul*poly);
+  Assign(poly,poly*an^(0 .. (Length(poly)-1)));
+  Assign(poly,gcd*anmul*poly);
   //TODO had to add this if statement, what was andiv again, and why would it become zero? This happens with for example Factor(2*x^2)
-  If(Not? Zero?(unrat * andiv ),Bind(poly,poly/(unrat * andiv )));
+  If(Not? Zero?(unrat * andiv ),Assign(poly,poly/(unrat * andiv )));
   If(poly !=? [1],
   {
     result:=[(Add(poly*var^(0 .. (Length(poly)-1)))),1]~result;
@@ -257,19 +257,19 @@ MkfactD(numer,denom):=
   Local(q,r,i,j,ln,ld,nq);
   DropEndZeroes(numer);
   DropEndZeroes(denom);
-  Bind(numer,Reverse(numer));
-  Bind(denom,Reverse(denom));
-  Bind(ln,Length(numer));
-  Bind(ld,Length(denom));
-  Bind(q,FillList(0,ln));
-  Bind(r,FillList(0,ln));
+  Assign(numer,Reverse(numer));
+  Assign(denom,Reverse(denom));
+  Assign(ln,Length(numer));
+  Assign(ld,Length(denom));
+  Assign(q,FillList(0,ln));
+  Assign(r,FillList(0,ln));
 
-  Bind(i,1);
+  Assign(i,1);
   If(ld>?0,
   {
     While(Length(numer)>=?Length(denom))
     {
-      Bind(nq,numer[1]/denom[1]);
+      Assign(nq,numer[1]/denom[1]);
       q[ln-(Length(numer)-ld)] := nq;
       For(j:=1,j<=?Length(denom),j++)
       {
@@ -277,7 +277,7 @@ MkfactD(numer,denom):=
       };
       r[i] := r[1] + numer[1];
 
-      Bind(numer, Rest(numer));
+      Assign(numer, Rest(numer));
       i++;
     };
   });
@@ -285,8 +285,8 @@ MkfactD(numer,denom):=
   {
     r[i+j] := r[i+j] + numer[j+1];
   };
-  Bind(q,Reverse(q));
-  Bind(r,Reverse(r));
+  Assign(q,Reverse(q));
+  Assign(r,Reverse(r));
   DropEndZeroes(q);
   DropEndZeroes(r);
   [q,r];

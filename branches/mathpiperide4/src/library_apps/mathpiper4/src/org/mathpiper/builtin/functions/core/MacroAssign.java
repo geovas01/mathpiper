@@ -25,14 +25,14 @@ import org.mathpiper.lisp.Environment;
  *
  *  
  */
-public class MacroBind extends BuiltinFunction
+public class MacroAssign extends BuiltinFunction
 {
 
-    private MacroBind()
+    private MacroAssign()
     {
     }
 
-    public MacroBind(String functionName)
+    public MacroAssign(String functionName)
     {
         this.functionName = functionName;
     }
@@ -47,8 +47,8 @@ public class MacroBind extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="MacroBind",categories="Programmer Functions;Programming;Built In"
-*CMD MacroBind --- define rules in functions
+%mathpiper_docs,name="MacroAssign",categories="Programmer Functions;Programming;Built In"
+*CMD MacroAssign --- define rules in functions
 *CORE
 *DESC
 
@@ -59,6 +59,6 @@ rules based on parameters.
 
 Make sure that the arguments of {Macro}... commands evaluate to expressions that would normally be used in the non-macro version!
 
-*SEE Bind, Unbind, Local, RulebaseHoldArguments, RuleHoldArguments, `, MacroUnbind, MacroLocal, MacroRulebase, MacroRulebaseListed, RuleEvaluateArguments
+*SEE Assign, Unassign, Local, RulebaseHoldArguments, RuleHoldArguments, `, MacroUnassign, MacroLocal, MacroRulebase, MacroRulebaseListed, RuleEvaluateArguments
 %/mathpiper_docs
 */

@@ -23,7 +23,7 @@ This function tests if the argument is a variable.
 
 *E.G.
 
-In> Unbind(x)
+In> Unassign(x)
 Result: True
 
 In> Variable?(x)

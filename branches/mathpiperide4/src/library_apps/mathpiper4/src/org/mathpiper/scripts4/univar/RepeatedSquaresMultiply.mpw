@@ -10,15 +10,15 @@
 20 # RepeatedSquaresMultiply(_a,n_Integer?) <--
 {
   Local(m,b);
-  Bind(m,1);
-  Bind(b,1);
-  While(m<=?n) Bind(m,(ShiftLeft(m,1)));
-  Bind(m, ShiftRight(m,1));
+  Assign(m,1);
+  Assign(b,1);
+  While(m<=?n) Assign(m,(ShiftLeft(m,1)));
+  Assign(m, ShiftRight(m,1));
   While(m>?0)
   {
-    Bind(b,b*b);
-    If (Not?(Equal?(BitAnd(m,n), 0)),Bind(b,b*a));
-    Bind(m, ShiftRight(m,1));
+    Assign(b,b*b);
+    If (Not?(Equal?(BitAnd(m,n), 0)),Assign(b,b*a));
+    Assign(m, ShiftRight(m,1));
   };
   b;
 };

@@ -42,7 +42,7 @@
     pp := m-1;
     qq := (y^(1/m));
     If(Number?(y),qq:=GuessRational(N(qq)));
-    If(InVerboseMode(),Tell("  FBindif.1",[pp,qq]));
+    If(InVerboseMode(),Tell("  FAssignif.1",[pp,qq]));
     
     if      (m =? 2)
         {
@@ -67,7 +67,7 @@
     aa := c^(1/m);
     bb := ((y)^(1/m));
     If(Number?(y),bb:=GuessRational(N(bb)));
-    If(InVerboseMode(),Tell("  FBindif.1b",[aa,bb]));
+    If(InVerboseMode(),Tell("  FAssignif.1b",[aa,bb]));
     r  := FactorsBinomials( (aa*x)^m - bb^m );
 };
 

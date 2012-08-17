@@ -36,22 +36,22 @@ HoldArgument("CachedConstant", Ccache);        // name of the cache
 RuleHoldArguments("CachedConstant", 3, 10, And?(Atom?(Catom), Function?(Cfunc)))
 {
          Local(Cname,CfunctionName);
-        Bind(Cname, ToString(Catom));        // this is for later conveniences
-  Bind(CfunctionName,ConcatStrings("Internal",Cname));
+        Assign(Cname, ToString(Catom));        // this is for later conveniences
+  Assign(CfunctionName,ConcatStrings("Internal",Cname));
 
         If(        // create the cache it if it does not already exist
                 Atom?(Eval(Ccache)),
-                MacroBind(Eval(Ccache), [])
+                MacroAssign(Eval(Ccache), [])
         );
 //        Write(["debug step 0: ", Ccache, Eval(Ccache), Catom, Cfunc, Cname]);
         // check that the constant is not already defined
         If(
           Equal?(BuiltinAssoc(Cname, Eval(Ccache)), Empty),        // the constant is not already defined, so need to define "Catom" and the corresponding function "Catom"()
           {        // e.g. Catom evaluates to Pi, Ccache to a name e.g. CacheOfConstantsN, which is bound to a hash
-                MacroUnbind(Catom);
+                MacroUnassign(Catom);
 //                Write(["debug step 1: ", Cachename, Ccache, Eval(Ccache)]);
                 // add the new constant to the cache
-//                MacroBind(Cachename, Insert(Eval(Ccache), 1, [Cname, 0, 0]));
+//                MacroAssign(Cachename, Insert(Eval(Ccache), 1, [Cname, 0, 0]));
                 DestructiveInsert(Eval(Ccache), 1, [Cname, 0, 0]);
 //                Write(["debug step 2: ", Cachename, Ccache, Eval(Ccache)]);
                 // define the new function "Catom"()
@@ -61,14 +61,14 @@ RuleHoldArguments("CachedConstant", 3, 10, And?(Atom?(Catom), Function?(Cfunc)))
                 `( RuleHoldArguments(@CfunctionName, 0, 1024, True)
                 {
                         Local(newprec, newC, cachedC);
-                        Bind(newprec, BuiltinPrecisionGet());
+                        Assign(newprec, BuiltinPrecisionGet());
                         // fetch the cache entry for this constant
                         // note that this procedure will store the name of the cache here in this statement as Eval(Ccache)
-                        Bind(cachedC, BuiltinAssoc(@Cname, @Ccache));
+                        Assign(cachedC, BuiltinAssoc(@Cname, @Ccache));
                         If( MathNth(cachedC, 2) !=? newprec,
                           {        // need to recalculate at current precision
                                 If(Equal?(InVerboseMode(),True), Echo("CachedConstant: Info: constant ", @Cname, " is being recalculated at precision ", newprec));
-                                Bind(newC, RoundTo(Eval(@Cfunc),newprec));
+                                Assign(newC, RoundTo(Eval(@Cfunc),newprec));
                                 DestructiveReplace(cachedC, 2, newprec);
                                 DestructiveReplace(cachedC, 3, newC);
                                 newC;
@@ -97,9 +97,9 @@ Function("AssignCachedConstantsN", [])
         Local(var,fname);
         ForEach(var, AssocIndices(CacheOfConstantsN))
         {
-                MacroUnbind(ToAtom(var));
-    Bind(fname,ConcatStrings("Internal",var));
-    Bind(var,ToAtom(var));
+                MacroUnassign(ToAtom(var));
+    Assign(fname,ConcatStrings("Internal",var));
+    Assign(var,ToAtom(var));
                 // this way the routine InternalPi() will be actually called only when the variable Pi is used, etcetera.
     `SetGlobalLazyVariable((@var), ListToFunction([ToAtom(fname)]));
         };
@@ -112,7 +112,7 @@ Function("ClearCachedConstantsN", [])
 {
         Local(centry);
         ForEach(centry, CacheOfConstantsN)
-                MacroUnbind(ToAtom(centry[1]));
+                MacroUnassign(ToAtom(centry[1]));
 };
 UnFence("ClearCachedConstantsN", 0);
 
@@ -122,7 +122,7 @@ CachedConstant(CacheOfConstantsN, Pi,
 // so that Cos(0.5*Pi)=0 at precision 10
 // FIXME: find a better solution
 {        Local(result,oldprec);
-  Bind(oldprec,BuiltinPrecisionGet());
+  Assign(oldprec,BuiltinPrecisionGet());
 If(Equal?(InVerboseMode(),True), Echo("Recalculating Pi at precision ",oldprec+5));
         BuiltinPrecisionSet(BuiltinPrecisionGet()+5);
         result := MathPi();

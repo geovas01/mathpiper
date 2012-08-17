@@ -2,7 +2,7 @@
 
 Function("++",[aVar])
 {
-   MacroBind(aVar,AddN(Eval(aVar),1));
+   MacroAssign(aVar,AddN(Eval(aVar),1));
 
    Eval(aVar);
 };
