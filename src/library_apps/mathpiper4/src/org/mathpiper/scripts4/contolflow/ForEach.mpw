@@ -23,7 +23,7 @@ TemplateFunction("ForEach",[item,listOrString,body])
           index := 1;
           While(index <=? stringLength )
           {
-             MacroBind(item,listOrString[index] );
+             MacroAssign(item,listOrString[index] );
              
              Eval(body);
              
@@ -33,12 +33,12 @@ TemplateFunction("ForEach",[item,listOrString,body])
       },
       {
           Local(foreachtail);
-          Bind(foreachtail,listOrString);
+          Assign(foreachtail,listOrString);
           While(Not?(Equal?(foreachtail,[])))
           {
-            MacroBind(item,First(foreachtail));
+            MacroAssign(item,First(foreachtail));
             Eval(body);
-            Bind(foreachtail,Rest(foreachtail));
+            Assign(foreachtail,Rest(foreachtail));
           };
       });
     });

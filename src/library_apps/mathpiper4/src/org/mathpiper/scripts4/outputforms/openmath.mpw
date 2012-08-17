@@ -25,16 +25,16 @@ RuleHoldArguments("OMREP",1,1,True)
   Local(input,stringOut,result);
   While(Not?(IsExitRequested()))
   {
-    Bind(errorObject, False);
-    ExceptionCatch(Bind(input, PipeFromString(ConcatStrings(ReadCmdLineString("")," "))OMRead()), Bind(errorObject,OMGetCoreError()));
+    Assign(errorObject, False);
+    ExceptionCatch(Assign(input, PipeFromString(ConcatStrings(ReadCmdLineString("")," "))OMRead()), Assign(errorObject,OMGetCoreError()));
 
     If(Not?(errorObject =? False), errorObject); //todo:tk:check this code.
 
     If (Not?(IsExitRequested()) And? errorObject =? False,
     {
-      Bind(stringOut,"");
-      Bind(result,False);
-      ExceptionCatch(Bind(stringOut,PipeToString(){Secure(Bind(result,Eval(input)));}), Bind(errorObject,OMGetCoreError()));
+      Assign(stringOut,"");
+      Assign(result,False);
+      ExceptionCatch(Assign(stringOut,PipeToString(){Secure(Assign(result,Eval(input)));}), Assign(errorObject,OMGetCoreError()));
 
       If(Not?(errorObject =? False), errorObject); //todo:tk:check this code.
 

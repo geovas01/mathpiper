@@ -3,12 +3,12 @@
 Function("Contains?",[list,element])
 {
   Local(result);
-  Bind(result,False);
+  Assign(result,False);
   While(And?(Not?(result), Not?(Equal?(list, []))))
   {
     If(Equal?(First(list),element),
-      Bind(result, True),
-      Bind(list, Rest(list))
+      Assign(result, True),
+      Assign(list, Rest(list))
       );
   };
   result;

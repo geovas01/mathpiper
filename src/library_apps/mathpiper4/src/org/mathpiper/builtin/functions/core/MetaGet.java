@@ -85,6 +85,6 @@ held in an associative list.
 
 
 
-*SEE MetaSet, MetaKeys, MetaValues, Unbind
+*SEE MetaSet, MetaKeys, MetaValues, Unassign
 %/mathpiper_docs
  */

@@ -4,16 +4,16 @@
 Defun("ArcSinN",[int1])
 {
   Local(result,eps);
-        Bind(result,FastArcSin(int1));
+        Assign(result,FastArcSin(int1));
   Local(x,q,s,c);
-  Bind(q,SubtractN(SinN(result),int1));
-  Bind(eps,MathIntPower(10,MathNegate(BuiltinPrecisionGet())));
+  Assign(q,SubtractN(SinN(result),int1));
+  Assign(eps,MathIntPower(10,MathNegate(BuiltinPrecisionGet())));
   While(GreaterThan?(AbsN(q),eps))
   {
-        Bind(s,SubtractN(int1,SinN(result)));
-    Bind(c,CosN(result));
-    Bind(q,DivideN(s,c));
-    Bind(result,AddN(result,q));
+        Assign(s,SubtractN(int1,SinN(result)));
+    Assign(c,CosN(result));
+    Assign(q,DivideN(s,c));
+    Assign(result,AddN(result,q));
   };
   result;
 };

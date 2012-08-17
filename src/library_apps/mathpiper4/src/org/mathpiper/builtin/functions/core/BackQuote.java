@@ -109,10 +109,10 @@ In> nSin(1)
 Result: 0.8414709848;
 
 This example assigns the expression {func(value)} to variable {var}. Normally
-the first argument of {Bind} would be unevaluated.
+the first argument of {Assign} would be unevaluated.
 
 In> SetF(var,func,value) := \
-In>     `(Bind(@var,@func(@value)));
+In>     `(Assign(@var,@func(@value)));
 Result: True;
 In> SetF(a,Sin,x)
 Result: True;
@@ -120,6 +120,6 @@ In> a
 Result: Sin(x);
 
 
-*SEE MacroBind, MacroLocal, MacroRulebase, Hold, HoldArgument, MacroRulebaseHoldArguments, MacroExpand
+*SEE MacroAssign, MacroLocal, MacroRulebase, Hold, HoldArgument, MacroRulebaseHoldArguments, MacroExpand
 %/mathpiper_docs
 */

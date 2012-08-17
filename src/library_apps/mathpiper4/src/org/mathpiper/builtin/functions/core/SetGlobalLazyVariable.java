@@ -63,7 +63,7 @@ public class SetGlobalLazyVariable extends BuiltinFunction
 *DESC
 
 {SetGlobalLazyVariable} enforces that a global variable will re-evaluate
-when used. This functionality doesn't survive if {Unbind(var)}
+when used. This functionality doesn't survive if {Unassign(var)}
 is called afterwards.
 
 Places where this is used include the global variables {%} and {I}.
@@ -103,6 +103,6 @@ In> a
 Result: 5
 
 
-*SEE Bind, Unbind, Local, %, I
+*SEE Assign, Unassign, Local, %, I
 %/mathpiper_docs
 */

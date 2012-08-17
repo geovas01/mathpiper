@@ -11,7 +11,7 @@
 
   BuiltinPrecisionSet(precision);
 
-  Bind(result,DivideN( Round( MultiplyN(x, 10^precision) ), 10^precision ));
+  Assign(result,DivideN( Round( MultiplyN(x, 10^precision) ), 10^precision ));
 
   BuiltinPrecisionSet(oldPrec);
 

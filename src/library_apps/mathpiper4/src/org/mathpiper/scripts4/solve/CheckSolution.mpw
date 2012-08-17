@@ -6,8 +6,8 @@
   {
       Local(expr0,result,s,r);
       If( Equation?(expr),
-          Bind(expr0,EquationLeft(expr)-EquationRight(expr)),
-          Bind(expr0,expr)
+          Assign(expr0,EquationLeft(expr)-EquationRight(expr)),
+          Assign(expr0,expr)
       );
       result := [];
       ForEach(s,solution) 

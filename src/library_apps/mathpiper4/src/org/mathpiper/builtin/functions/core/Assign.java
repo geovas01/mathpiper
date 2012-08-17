@@ -25,14 +25,14 @@ import org.mathpiper.lisp.Utility;
  *
  *  
  */
-public class Bind extends BuiltinFunction
+public class Assign extends BuiltinFunction
 {
 
-    private Bind()
+    private Assign()
     {
     }
 
-    public Bind(String functionName)
+    public Assign(String functionName)
     {
         this.functionName = functionName;
     }
@@ -47,11 +47,11 @@ public class Bind extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Bind",categories="User Functions;Variables;Built In"
-*CMD Bind --- assignment
+%mathpiper_docs,name="Assign",categories="User Functions;Variables;Built In"
+*CMD Assign --- assignment
 *CORE
 *CALL
-	Bind(var, exp)
+	Assign(var, exp)
 
 *PARMS
 
@@ -65,17 +65,17 @@ The expression "exp" is evaluated and assigned it to the variable
 named "var". The first argument is not evaluated. The value True
 is returned.
 
-The statement {Bind(var, exp)} is equivalent to {var := exp}, but the {:=} operator
+The statement {Assign(var, exp)} is equivalent to {var := exp}, but the {:=} operator
 has more uses, e.g. changing individual entries in a list.
 
 *E.G.
 
-In> Bind(a, Sin(x)+3);
+In> Assign(a, Sin(x)+3);
 Result: True;
 
 In> a;
 Result: Sin(x)+3;
 
-*SEE Unbind, :=
+*SEE Unassign, :=
 %/mathpiper_docs
 */

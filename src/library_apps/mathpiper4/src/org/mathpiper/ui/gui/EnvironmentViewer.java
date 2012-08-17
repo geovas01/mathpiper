@@ -732,7 +732,7 @@ public class EnvironmentViewer implements ActionListener {
 
 
         JMenuItem unbindMenu = new JMenuItem();
-        unbindMenu.setText("Unbind");
+        unbindMenu.setText("Unassign");
 
         unbindMenu.addActionListener(new ActionListener() {
 

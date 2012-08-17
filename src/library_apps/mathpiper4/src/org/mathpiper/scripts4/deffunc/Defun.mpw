@@ -9,11 +9,11 @@ MacroRulebaseHoldArguments("Defun",[func,args,body]);
 RuleHoldArguments("Defun",3,0,True)
 {
   Local(nrargs);
-  Bind(nrargs,Length(@args));
+  Assign(nrargs,Length(@args));
   Retract(@func, `(@nrargs));
   RulebaseHoldArguments(@func,@args);
   Local(fn,bd);
-  Bind(fn,Hold(@func)); Bind(bd,Hold(@body));
+  Assign(fn,Hold(@func)); Assign(bd,Hold(@body));
   `RuleHoldArguments(@fn, @nrargs, 0,True)(@bd);
 };
 

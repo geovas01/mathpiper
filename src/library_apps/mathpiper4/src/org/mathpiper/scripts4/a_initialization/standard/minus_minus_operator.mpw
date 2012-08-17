@@ -2,7 +2,7 @@
 
 Function("--",[aVar])
 {
-   MacroBind(aVar,SubtractN(Eval(aVar),1));
+   MacroAssign(aVar,SubtractN(Eval(aVar),1));
 
    Eval(aVar);
 };

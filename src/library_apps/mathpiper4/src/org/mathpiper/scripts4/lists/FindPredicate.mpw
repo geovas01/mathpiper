@@ -4,15 +4,15 @@
 Function("FindPredicate",[list,predicate])
 {
   Local(result,count);
-  Bind(result, -1);
-  Bind(count, 1);
+  Assign(result, -1);
+  Assign(count, 1);
   While(And?(result<?0, Not?(Equal?(list, []))))
   {
     If(Apply(predicate,[First(list)]),
-      Bind(result, count)
+      Assign(result, count)
       );
-    Bind(list,Rest(list));
-    Bind(count,AddN(count,1));
+    Assign(list,Rest(list));
+    Assign(count,AddN(count,1));
   };
   result;
 }; 

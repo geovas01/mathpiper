@@ -48,7 +48,7 @@ Verify(aa,Hold(aa));
 
 Verify(CrossProduct([1,2,3] , [4,2,5]) , [4,7,-6]);
 Verify([1,2,3] X [4,2,5],[4,7,-6]);
-Unbind(a,b);
+Unassign(a,b);
 
 NextTest("Identity matrices");
 Verify(Identity(4),
@@ -104,7 +104,7 @@ TestMathPiper(Determinant([[a,b],[c,d]]),a*d-b*c);
   Verify(List?([1,2,3]),True);
   /* Matrix? */
   Verify(Matrix?(ll),True);
-  Unbind(ll);
+  Unassign(ll);
 };
 
 {

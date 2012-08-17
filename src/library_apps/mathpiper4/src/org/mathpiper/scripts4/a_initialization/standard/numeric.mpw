@@ -37,7 +37,7 @@ LocalSymbols(numericMode)
     numericMode         := True;
     exception         := False;
 
-    //ExceptionCatch(Bind(numericResult, Eval(@expression)),Bind(exception,ExceptionGet()));
+    //ExceptionCatch(Assign(numericResult, Eval(@expression)),Assign(exception,ExceptionGet()));
 
     ExceptionCatch( numericResult:=Eval(@expression), exception := ExceptionGet() );
     //If(InVerboseMode(),Tell("  1",numericResult));

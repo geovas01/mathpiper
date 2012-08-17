@@ -35,7 +35,7 @@ RuleHoldArguments("Function",1,2047,
 )
 {
         Local(args);
-        Bind(args,Rest(FunctionToList(oper)));
+        Assign(args,Rest(FunctionToList(oper)));
         DestructiveDelete(args,Length(args));        // remove trailing "..."
         If(RulebaseDefined(Type(oper),Length(args)),
                 False,        // do nothing
@@ -50,7 +50,7 @@ RuleHoldArguments("Function",1,2048,
 )
 {
         Local(args);
-        Bind(args,Rest(FunctionToList(oper)));
+        Assign(args,Rest(FunctionToList(oper)));
         If(RulebaseDefined(Type(oper),Length(args)),
                 False,        // do nothing
                 RulebaseEvaluateArguments(Type(oper),args)
@@ -142,10 +142,10 @@ Function("count",[from,to])
 {
    Local(i);
    Local(sum);
-   Bind(sum,0);
+   Assign(sum,0);
    For(i:=from,i<?to,i:=i+1)
    {
-     Bind(sum,sum+i);
+     Assign(sum,sum+i);
    };
    sum;
 };

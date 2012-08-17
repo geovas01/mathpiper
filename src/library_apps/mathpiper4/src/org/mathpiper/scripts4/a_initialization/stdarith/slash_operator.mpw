@@ -14,36 +14,36 @@
 56 # (x_NonZeroInteger? / y_NonZeroInteger?)_(GcdN(x,y) >? 1) <--
      {
        Local(gcd);
-       Bind(x,x);
-       Bind(y,y);
-       Bind(gcd,GcdN(x,y));
+       Assign(x,x);
+       Assign(y,y);
+       Assign(gcd,GcdN(x,y));
        QuotientN(x,gcd)/QuotientN(y,gcd);
      };
 
 57 # ((x_NonZeroInteger? * _expr) / y_NonZeroInteger?)_(GcdN(x,y) >? 1) <--
      {
        Local(gcd);
-       Bind(x,x);
-       Bind(y,y);
-       Bind(gcd,GcdN(x,y));
+       Assign(x,x);
+       Assign(y,y);
+       Assign(gcd,GcdN(x,y));
        (QuotientN(x,gcd)*expr)/QuotientN(y,gcd);
      };
 
 57 # ((x_NonZeroInteger?) / (y_NonZeroInteger? * _expr))_(GcdN(x,y) >? 1) <--
      {
        Local(gcd);
-       Bind(x,x);
-       Bind(y,y);
-       Bind(gcd,GcdN(x,y));
+       Assign(x,x);
+       Assign(y,y);
+       Assign(gcd,GcdN(x,y));
        QuotientN(x,gcd)/(QuotientN(y,gcd)*expr);
      };
 
 57 # ((x_NonZeroInteger? * _p) / (y_NonZeroInteger? * _q))_(GcdN(x,y) >? 1) <--
      {
        Local(gcd);
-       Bind(x,x);
-       Bind(y,y);
-       Bind(gcd,GcdN(x,y));
+       Assign(x,x);
+       Assign(y,y);
+       Assign(gcd,GcdN(x,y));
        (QuotientN(x,gcd)*p)/(QuotientN(y,gcd)*q);
      };
 

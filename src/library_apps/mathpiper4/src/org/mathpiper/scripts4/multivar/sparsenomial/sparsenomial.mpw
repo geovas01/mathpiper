@@ -31,13 +31,13 @@ MultiNomialMultiply(MultiNomial(_vars,_x),_multi2)
     <--
     {
       Local(result);
-      Bind(result,MakeMultiNomial(0,vars));
+      Assign(result,MakeMultiNomial(0,vars));
       SparseTreeScan("muadm",Length(vars),x);
       result;
     };
 muadm(_coefs,_fact) <--
 {
-  Bind(result,MultiNomialMultiplyAdd(result, multi2,coefs,fact));
+  Assign(result,MultiNomialMultiplyAdd(result, multi2,coefs,fact));
 };
 UnFence("muadm",2);
 
@@ -62,12 +62,12 @@ RuleHoldArguments("NormalForm",1,1000,True) expression;
     <--
     {
       Local(first,rest,result);
-      Bind(first,First(vars));
-      Bind(rest,Rest(vars));
-      Bind(result,0);
+      Assign(first,First(vars));
+      Assign(rest,Rest(vars));
+      Assign(result,0);
       ForEach(item,list)
       {
-        Bind(result,result+NormalMultiNomial(rest,item[2],prefact*first^(item[1])));
+        Assign(result,result+NormalMultiNomial(rest,item[2],prefact*first^(item[1])));
       };
       result;
     };
@@ -78,19 +78,19 @@ MultiLeadingTerm(MultiNomial(_vars,_terms))
     <--
     {
       Local(coefs,fact);
-      Bind(coefs,MultiDegreeScanHead(terms,Length(vars)));
+      Assign(coefs,MultiDegreeScanHead(terms,Length(vars)));
       [coefs,fact];
     };
 10 # MultiDegreeScanHead(_tree,0)
    <--
    {
-     Bind(fact,tree);
+     Assign(fact,tree);
      [];
    };
 10 # MultiDegreeScanHead(_tree,1)
    <--
    {
-     Bind(fact,tree[1][2]);
+     Assign(fact,tree[1][2]);
      [tree[1][1]];
    };
 20 # MultiDegreeScanHead(_tree,_depth)
@@ -142,8 +142,8 @@ UnFence("MultiDropScan",2);
 MultiTermLess([_deg1,_fact1],[_deg2,_fact2]) <--
   {
     Local(deg);
-    Bind(deg, deg1-deg2);
-    While(deg !=? [] And? First(deg) =? 0) { Bind(deg, Rest(deg));};
+    Assign(deg, deg1-deg2);
+    While(deg !=? [] And? First(deg) =? 0) { Assign(deg, Rest(deg));};
 
     ((deg =? []) And? (fact1-fact2 <? 0)) Or?
     ((deg !=? []) And? (deg[1] <? 0));

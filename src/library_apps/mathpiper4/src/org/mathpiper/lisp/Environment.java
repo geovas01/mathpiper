@@ -444,7 +444,7 @@ public final class Environment {
 		if (aVariableName.equals("*")) {
 			this.unbindAllLocalVariables(aStackTop);
 
-			// Unbind global variables
+			// Unassign global variables
 			Set<String> keySet = new HashSet(iGlobalState.getMap().keySet());
 
 			for (String key : keySet) {
@@ -456,7 +456,7 @@ public final class Environment {
 				}
 			}
 		} else {
-			// Unbind local variable.
+			// Unassign local variable.
 			LocalVariable localVariable = getLocalVariable(aStackTop,
 					aVariableName);
 			if (localVariable != null) {

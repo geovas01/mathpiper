@@ -2,16 +2,16 @@
 
 LocalSymbols(Verbose) {
 
-  Bind(Verbose,False);
+  Assign(Verbose,False);
 
 
   Function("V",[aNumberBody])
   {
     Local(prevVerbose,result);
-    Bind(prevVerbose,Verbose);
-    Bind(Verbose,True);
-    Bind(result,Eval(aNumberBody));
-    Bind(Verbose,prevVerbose);
+    Assign(prevVerbose,Verbose);
+    Assign(Verbose,True);
+    Assign(result,Eval(aNumberBody));
+    Assign(Verbose,prevVerbose);
     result;
   };
 

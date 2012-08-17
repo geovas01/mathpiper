@@ -40,8 +40,8 @@ MultiContent(multi_Multi?)
 <--
 {
   Local(least,gcd);
-  Bind(least, MultiDegree(multi));
-  Bind(gcd,MultiLeadingCoef(multi));
+  Assign(least, MultiDegree(multi));
+  Assign(gcd,MultiLeadingCoef(multi));
   ScanMultiNomial("MultiContentScan",multi);
   CreateTerm(MultiVars(multi),MultiContentTerm(multi));
 };
@@ -50,16 +50,16 @@ MultiContentTerm(multi_Multi?)
 <--
 {
   Local(least,gcd);
-  Bind(least, MultiDegree(multi));
-  Bind(gcd,MultiLeadingCoef(multi));
+  Assign(least, MultiDegree(multi));
+  Assign(gcd,MultiLeadingCoef(multi));
   ScanMultiNomial("MultiContentScan",multi);
   [least,gcd];
 };
 
 MultiContentScan(_coefs,_fact) <--
 {
-  Bind(least,Minimum([least,coefs]));
-  Bind(gcd,Gcd(gcd,fact));
+  Assign(least,Minimum([least,coefs]));
+  Assign(gcd,Gcd(gcd,fact));
 };
 UnFence("MultiContentScan",2);
 
@@ -67,17 +67,17 @@ MultiPrimitivePart(MultiNomial(vars_List?,_terms))
 <--
 {
   Local(cont);
-  Bind(cont,MultiContentTerm(MultiNomial(vars,terms)));
-  Bind(cont,CreateTerm(vars,[-cont[1],1/Rationalize(cont[2])]));
+  Assign(cont,MultiContentTerm(MultiNomial(vars,terms)));
+  Assign(cont,CreateTerm(vars,[-cont[1],1/Rationalize(cont[2])]));
   MultiNomialMultiply(MultiNomial(vars,terms), cont);
 };
 
 10 # MultiRemoveGcd(x_Multi?/y_Multi?) <--
 {
   Local(gcd);
-  Bind(gcd,MultiGcd(x,y));
-  Bind(x,MultiDivide(x,[gcd])[1][1]);
-  Bind(y,MultiDivide(y,[gcd])[1][1]);
+  Assign(gcd,MultiGcd(x,y));
+  Assign(x,MultiDivide(x,[gcd])[1][1]);
+  Assign(y,MultiDivide(y,[gcd])[1][1]);
   x/y;
 };
 20 # MultiRemoveGcd(_x) <-- x;

@@ -85,6 +85,6 @@ MetaKeys(value_or_unbound_variable)
 Returns the metadata keys for a value or an unbound variables.  The metadata is
 held in an associative list.
 
-*SEE MetaGet, MetaSet, MetaValues, Unbind
+*SEE MetaGet, MetaSet, MetaValues, Unassign
 %/mathpiper_docs
  */

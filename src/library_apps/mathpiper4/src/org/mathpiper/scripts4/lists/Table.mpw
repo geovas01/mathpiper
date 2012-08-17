@@ -15,9 +15,9 @@ TemplateFunction("Table",[body,var,countfrom,countto,step])
     ii := 0;
     While( ii <=? nr )
       {
-       MacroBind( var, countfrom + ii * step );
+       MacroAssign( var, countfrom + ii * step );
        DestructiveInsert( result,1,Eval(body) );
-       Bind(ii,AddN(ii,1));
+       Assign(ii,AddN(ii,1));
       };
     DestructiveReverse(result);
   };

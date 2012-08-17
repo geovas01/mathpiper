@@ -12,7 +12,7 @@ LocalSymbols(GlobalStack, x)
         GlobalPop(x_Atom?) <--
         {
                 Check(Length(GlobalStack)>?0, "Invariant", "GlobalPop: Error: empty GlobalStack");
-                MacroBind(x, PopFront(GlobalStack));
+                MacroAssign(x, PopFront(GlobalStack));
                 Eval(x);
         };
 

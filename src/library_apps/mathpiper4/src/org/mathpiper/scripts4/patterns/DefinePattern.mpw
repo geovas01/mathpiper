@@ -18,13 +18,13 @@ RuleHoldArguments("DefinePattern",4,10,True)
 {
       Local(patternFlat,patternVariables, pattern, patternOperator, arg, arity);
       
-      Bind(patternFlat, FunctionToList(leftOperand)); //Turn the pattern into a list.
+      Assign(patternFlat, FunctionToList(leftOperand)); //Turn the pattern into a list.
       
-      Bind(patternVariables, Rest(patternFlat)); //Remove the function name from the list.
+      Assign(patternVariables, Rest(patternFlat)); //Remove the function name from the list.
       
-      Bind(patternOperator,ToString(First(patternFlat))); //Obtain the function name.
+      Assign(patternOperator,ToString(First(patternFlat))); //Obtain the function name.
       
-      Bind(arity,Length(patternVariables)); //Obtain the arity of the function.
+      Assign(arity,Length(patternVariables)); //Obtain the arity of the function.
       
       //DefLoadFunction(patternOperator);  //Load the function if it exists.
     
@@ -37,7 +37,7 @@ RuleHoldArguments("DefinePattern",4,10,True)
          }
         );
     
-      Bind(pattern,PatternCreate(patternVariables,postPredicate));
+      Assign(pattern,PatternCreate(patternVariables,postPredicate));
     
       RulePatternEvaluateArguments(patternOperator,arity,rulePrecedence, pattern)rightOperand;
     
