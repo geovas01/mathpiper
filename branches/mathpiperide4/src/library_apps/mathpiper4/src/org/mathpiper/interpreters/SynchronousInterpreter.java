@@ -314,7 +314,7 @@ public class SynchronousInterpreter implements Interpreter {
 
             //Set the % symbol to the result of the current evaluation.
             String percent = "%";
-            iEnvironment.setLocalOrGlobalVariable(-1, percent, result, true);
+            iEnvironment.setLocalOrGlobalVariable(-1, percent, result, true, false);
 
             StringBuffer outputBuffer = new StringBuffer();
             MathPiperOutputStream outputStream = new StringOutputStream(outputBuffer);
