@@ -78,7 +78,18 @@ public class State extends BuiltinFunction {
 		    && !key.equals("I")
 		    && !key.equals("%")
 		    && ((GlobalVariable) globalState.get(key)).iConstant == false) {
-		variablesList.add(key + ":" + globalState.get(key));
+		
+		
+		GlobalVariable globalVariable = globalState.get(key);
+		
+		Object value = globalVariable.iValue;
+		
+		if(value instanceof Cons)
+		{
+		    value = Utility.printMathPiperExpression(aStackTop,  ((Cons) globalVariable.iValue), aEnvironment, 0);
+		}
+
+		variablesList.add(key + ":" + value);
 	    }
 
 	}
