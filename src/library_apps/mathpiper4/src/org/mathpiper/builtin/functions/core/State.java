@@ -43,7 +43,7 @@ public class State extends BuiltinFunction {
 	this.functionName = functionName;
 
 	defaultOptions = new HashMap();
-	defaultOptions.put("showHidden", false);
+	defaultOptions.put("showPrivate", false);
     }
 
     public void evaluate(Environment aEnvironment, int aStackTop)
