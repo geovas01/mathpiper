@@ -1886,7 +1886,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 			
 			latexText = codeText.replace("\\","\\\\");
 			
-			evaluationResponse = synchronousInterpreter.evaluate("ViewLatex(\"" + latexText + "\");");
+			evaluationResponse = synchronousInterpreter.evaluate("Show(LatexView(\"" + latexText + "\"));");
 			
 			
 			
