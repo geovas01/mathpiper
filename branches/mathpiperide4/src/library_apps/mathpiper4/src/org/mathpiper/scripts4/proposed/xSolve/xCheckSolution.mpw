@@ -85,7 +85,7 @@ If expr is a List of simultaneous linear equations, [xSolve] will
 attempt to solve the system.
 
 Solutions returned by [xSolve] will be in the form of a List, such as
-[[var==something,var==something_else]].
+[[var==something,var==something_Else]].
 
 For certain types of expressions or equation, [xSolve] might return
 invalid solutions as well as valid ones in the output List.  To check

@@ -95,8 +95,8 @@ LocalSymbols(cformRegularOps) {
         /* power's argument is never bracketed but it must be put in braces. */
 100 # CForm(_x ^ _y, _p) <-- CFormBracketDecide(p<=?PrecedenceGet("^"), ConcatStrings("pow(", CForm(x, CFormMaxPrec()), ", ", CForm(y, CFormMaxPrec()), ")" ) );
 
-100 # CForm(if(_pred)_body, _p) <-- "if ("~CForm(pred,60000)~") "~CForm(body);
-100 # CForm(_left else _right, _p) <-- CForm(left)~" else "~CForm(right);
+100 # CForm(If(_pred)_body, _p) <-- "If("~CForm(pred,60000)~") "~CForm(body);
+100 # CForm(_left Else _right, _p) <-- CForm(left)~" Else "~CForm(right);
 
 
 LocalSymbols(cformMathFunctions) {

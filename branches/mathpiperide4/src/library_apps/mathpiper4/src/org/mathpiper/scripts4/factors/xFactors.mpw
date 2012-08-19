@@ -320,7 +320,7 @@ UnFence("xFactorsHomogeneousBivariate",1);
         Decide(InVerboseMode(),Tell("   ",dis));
         Local(var);
         var := dis[1][1];
-        if ( dis[2]=?[[4],[2],[0]] And? dis[3]=?[1,1,1] )
+        If( dis[2]=?[[4],[2],[0]] And? dis[3]=?[1,1,1] )
             {
                 Local(new1,new2);
                 new1 := [var^2-var+1,mult];
@@ -329,7 +329,7 @@ UnFence("xFactorsHomogeneousBivariate",1);
                 DestructiveAppend(new,new2);
                 Decide(InVerboseMode(),Tell("   ",new));
             }
-        else
+        Else
             {
                 Decide(InVerboseMode(),Tell("   no special form"));
                 DestructiveAppend(new,[fact,mult]);

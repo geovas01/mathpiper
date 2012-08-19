@@ -38,34 +38,34 @@ AlphaToChiSquareScore(p, df) :=
     
     p := N(p);
     
-    if( p <=? 0.0 Or? p >=? 1.0)
+    If( p <=? 0.0 Or? p >=? 1.0)
     {
     
-        if (p <=? 0.0) 
+        If(p <=? 0.0) 
         {
             result := maxchisq;
         } 
-        else 
+        Else 
         {
-            if (p >=? 1.0) 
+            If(p >=? 1.0) 
             {
                 result := 0.0;
             };
         };
     
     }
-    else
+    Else
     {
         chisqval := N(df / SqrtN(p));
         
         /* fair first value */
         While ((maxchisq - minchisq) >? ChiEpsilon) 
         {
-            if (ChiSquareScoreToAlpha(chisqval, df) <? p) 
+            If(ChiSquareScoreToAlpha(chisqval, df) <? p) 
             {
                 maxchisq := chisqval;
             } 
-            else 
+            Else 
             {
                 minchisq := chisqval;
             };

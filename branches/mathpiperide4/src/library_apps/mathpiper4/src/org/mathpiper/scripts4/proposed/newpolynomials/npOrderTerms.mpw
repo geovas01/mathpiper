@@ -34,22 +34,22 @@ Retract("GREVLEXlt",*);
     Local(np,out);
     np := FlatCopy(expr);
     
-    if ( termOrder =? LEX )
+    If( termOrder =? LEX )
       {
           Decide(InVerboseMode(),Tell("    ordering terms by LEX"));
           out := Sort( np, LEXgt );
       }
-    else if ( termOrder =? GRLEX )
+    Else If( termOrder =? GRLEX )
       {
           Decide(InVerboseMode(),Tell("    ordering terms by GRLEX"));    
           out := Sort( np, GRLEXgt );
       }
-    else if ( termOrder =? GREVLEX )
+    Else If( termOrder =? GREVLEX )
       {
           Decide(InVerboseMode(),Tell("    ordering terms by GREVLEX"));
           out := Sort( np, GREVLEXgt );
       }
-    else 
+    Else 
       { Check(False,"TermOrder","npOrderTerms should never reach this point"); };
 
     out;

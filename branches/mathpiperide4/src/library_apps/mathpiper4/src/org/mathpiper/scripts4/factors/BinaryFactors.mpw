@@ -169,7 +169,7 @@ Function(Fct,[poly,var])
   Assign(q,1);
   Assign(twoq,MultiplyN(q,2));
   Assign(mask,AddN(twoq,MathNegate(1)));
-  if (Even?(testpoly[1]))
+  If(Even?(testpoly[1]))
   {
     Assign(accu,0~accu);
     AddFoundSolutionSingle(0);

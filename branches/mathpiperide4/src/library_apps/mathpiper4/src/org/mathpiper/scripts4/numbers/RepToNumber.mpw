@@ -32,25 +32,25 @@
            secnd := StringMidGet(2,LS-1,strBI);   
            third := ExpressionToString(index-1);
            //Decide(InVerboseMode(),Tell("     ",[index,first,secnd,third]));
-           if ( index >? 0 )
+           If( index >? 0 )
                {
-                   if ( index <? precision )
+                   If( index <? precision )
                        {
                            //Decide(InVerboseMode(),Tell("   index < precision "));
                            numStr := ConcatStrings(first,".",secnd,"E",third);
                        }
-                   else if ( index >=? precision )
+                   Else If( index >=? precision )
                        {
                            //Decide(InVerboseMode(),Tell("   index >=? precision "));
                            numStr := ConcatStrings(first,".",secnd,"E+",third);
                        };
                }
-           else if ( index <? 0 )
+           Else If( index <? 0 )
                {
                    //Decide(InVerboseMode(),Tell("   index < 0 "));
                    numStr := ConcatStrings(first,".",secnd,"E",third);
                }
-           else
+           Else
                {
                    //Decide(InVerboseMode(),Tell("   index = 0 "));
                    first  := "0." ; 

@@ -1,7 +1,7 @@
 %mathpiper,def="RepeatedSquaresMultiply"
 
 /* Repeated squares multiplication
- TODO put somewhere else!!!
+ TODO put somewhere Else!!!
  */
 10 # RepeatedSquaresMultiply(_a,- (n_Integer?)) <-- 1/RepeatedSquaresMultiply(a,n);
 

@@ -4,9 +4,9 @@
 HarmonicNumber(n_Integer?,r_PositiveInteger?) <--
 {
         // small speed up
-        if( r=?1 ){
+        If( r=?1 ){
                 Sum(k,1,n,1/k);
-        } else {
+        } Else {
                 Sum(k,1,n,1/k^r);
         };
 };

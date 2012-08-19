@@ -10,9 +10,9 @@
         factors:=Factors(n);
         carmichael:=True;
         length:=Length(factors);
-        if( length <? 3){
+        If( length <? 3){
                  carmichael:=False;
-        } else {
+        } Else {
                 For(i:=1,i<=?length And? carmichael,i++){
                         //Echo( n-1,"%",factors[i][1]-1,"=?", Modulo(n-1,factors[i][1]-1) );
                         Decide( Modulo(n-1,factors[i][1]-1) !=? 0, carmichael:=False );

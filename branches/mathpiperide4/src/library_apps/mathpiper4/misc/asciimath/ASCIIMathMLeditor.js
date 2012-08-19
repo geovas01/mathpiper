@@ -26,10 +26,10 @@ var AMkeyspressed = 20;
 function initEditor() {
   AMinitSymbols();
   var body = document.getElementsByTagName("body")[0];
-  if (checkForMathML) {
+  If (checkForMathML) {
     checkForMathML = false;
     var nd = AMisMathMLavailable();
-    if (nd != null) body.insertBefore(nd,body.childNodes[0]);
+    If (nd != null) body.insertBefore(nd,body.childNodes[0]);
   }
   AMdisplay(true);
 }
@@ -37,40 +37,40 @@ function initEditor() {
 function AMnode2string(inNode,indent) {
 // thanks to James Frazer for contributing an initial version of this function
    var i, str = "";
-   if(inNode.nodeType == 1) {
+   If(inNode.nodeType == 1) {
        var name = inNode.nodeName.toLowerCase(); // (IE fix)
        str = "\r" + indent + "<" + name;
        for(i=0; i < inNode.attributes.length; i++)
-           if (inNode.attributes[i].nodeValue!="italic" &&
+           If (inNode.attributes[i].nodeValue!="italic" &&
                inNode.attributes[i].nodeValue!="" &&  //stop junk attributes
                inNode.attributes[i].nodeValue!="inherit" && // (mostly IE)
                inNode.attributes[i].nodeValue!=undefined)
                str += " "+inNode.attributes[i].nodeName+"="+
                      "\""+inNode.attributes[i].nodeValue+"\"";
-       if (name == "math") 
+       If (name == "math") 
            str += " xmlns=\"http://www.w3.org/1998/Math/MathML\"";
        str += ">";
        for(i=0; i<inNode.childNodes.length; i++)
            str += AMnode2string(inNode.childNodes[i], indent+"  ");
-       if (name != "mo" && name != "mi" && name != "mn") str += "\r"+indent;
+       If (name != "mo" && name != "mi" && name != "mn") str += "\r"+indent;
        str += "</" + name + ">";
    }
-   else if(inNode.nodeType == 3) {
+   Else If(inNode.nodeType == 3) {
        var st = inNode.nodeValue;
        for (i=0; i<st.length; i++)
-           if (st.charCodeAt(i)<32 || st.charCodeAt(i)>126)
+           If (st.charCodeAt(i)<32 || st.charCodeAt(i)>126)
                str += "&#"+st.charCodeAt(i)+";";
-           else if (st.charAt(i)=="<" && indent != "  ") str += "&lt;";
-           else if (st.charAt(i)==">" && indent != "  ") str += "&gt;";
-           else if (st.charAt(i)=="&" && indent != "  ") str += "&amp;";
-           else str += st.charAt(i);
+           Else If (st.charAt(i)=="<" && indent != "  ") str += "&lt;";
+           Else If (st.charAt(i)==">" && indent != "  ") str += "&gt;";
+           Else If (st.charAt(i)=="&" && indent != "  ") str += "&amp;";
+           Else str += st.charAt(i);
    }
    return str;
 } 
 
 function AMdisplay(now) {
-  if (document.getElementById("inputText") != null) {
-    if (AMkeyspressed == 20 || now) {
+  If (document.getElementById("inputText") != null) {
+    If (AMkeyspressed == 20 || now) {
       var str = document.getElementById("inputText").value;
       var outnode = document.getElementById("outputNode");
       var newnode = AMcreateElementXHTML("div");
@@ -83,7 +83,7 @@ function AMdisplay(now) {
       outnode.appendChild(document.createComment(str+"``"));
       AMprocessNode(outnode,true);
       AMkeyspressed = 0;
-    } else AMkeyspressed++;
+    } Else AMkeyspressed++;
   }
 }
 

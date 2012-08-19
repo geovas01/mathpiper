@@ -25,13 +25,13 @@ SparseTreeGet
 {
   Local(Current,assoc,result);
   Assign(assoc,Assoc(i,tree));
-  if(assoc=?Empty)
+  If(assoc=?Empty)
   {
     Assign(Current,0);
     Assign(result,Eval(newvalue));
     AddSparseTrees(1,tree,CreateSparseTree([i],result));
   }
-  else
+  Else
   {
     Assign(Current,assoc[2]);
     Assign(result,Eval(newvalue));
@@ -118,9 +118,9 @@ UnFence("SparseTreeScan", 3);
 
 10 # Muaddterm([_pow,_list1],[_pow,_list2]) <--
 {
-  if(depth=?1)
+  If(depth=?1)
     { t1[1][2] := list1+list2; }
-  else
+  Else
     { t1[1][2] := AddSparseTrees(AddN(depth,-1),list1,list2);};
   Assign(t2,Rest(t2));
 };
@@ -192,9 +192,9 @@ UnFence("SparseTreeScan", 3);
 
 10 # MuMuaddterm([_pow1,_list1],[_pow2,_list2],_coefs)_(pow1=?pow2+coefs[1]) <--
 {
-  if(depth=?1)
+  If(depth=?1)
     { t1[1][2] := list1+fact*list2; }
-  else
+  Else
     {
       t1[1] := [pow1,MultiplyAddSparseTrees(AddN(depth,-1),list1,list2,Rest(coefs),fact)];
     };

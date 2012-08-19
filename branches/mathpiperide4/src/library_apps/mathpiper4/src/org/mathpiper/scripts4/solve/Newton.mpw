@@ -27,7 +27,7 @@ Function("Newton",[function,variable,initial,accuracy,min,max])
 
   BuiltinPrecisionSet(requiredPrec);
   result:=N(Eval((result/10)*10)); // making sure result is rounded to correct precision
-  if (result <=? min Or? result >=? max) {result := Fail;};
+  If(result <=? min Or? result >=? max) {result := Fail;};
   result;
 };
 

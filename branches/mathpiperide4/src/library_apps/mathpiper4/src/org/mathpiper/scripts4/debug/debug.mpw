@@ -91,9 +91,9 @@ DebugCallstack() <--
   Echo("*************** Function call stack ****************");
   ForEach(item,debugcallstack)
   {
-    if(Function?(item))
+    If(Function?(item))
       Echo("      Function ",Type(item)," : ",item)
-    else
+    Else
       Echo("      Variable ",item);
   };
   Echo("");
@@ -210,13 +210,13 @@ WriteLines(filename,lines,from,nrlines,breakpoints,current):=
   For(i:=from,i<?from+nrlines And? i<?nr,i++)
   {
 
-    if (current =? i)
+    If(current =? i)
       WriteString(">")
-    else
+    Else
       WriteString(" ");
-    if (Contains?(breakpoints,i))
+    If(Contains?(breakpoints,i))
       WriteString("*")
-    else
+    Else
       WriteString(" ");
     WriteString("| ");
     Echo(lines[i][1]);

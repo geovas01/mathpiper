@@ -35,28 +35,28 @@ ChiSquareScoreToAlpha(score, degreesOfFreedom) :=
     
     ISqrtPi := 0.5641895835477562869480795;   /* 1 / sqrt(pi) */
     
-    if(score <=? 0.0 Or? degreesOfFreedom <? 1) 
+    If(score <=? 0.0 Or? degreesOfFreedom <? 1) 
     {
         result := 1.0;
     }
-    else
+    Else
     {
         a := N(0.5 * score);
         
-        if (degreesOfFreedom >? 1) 
+        If(degreesOfFreedom >? 1) 
         {
             y := Decide(-a <? -20, 0, ExpN(-a));
         };
         
         s := Decide(Even?(degreesOfFreedom), y , (2.0 * ZScoreToProbability(-SqrtN(score))));
         
-        if (degreesOfFreedom >? 2) 
+        If(degreesOfFreedom >? 2) 
         {
             score := 0.5 * (degreesOfFreedom - 1.0);
             
             z := Decide(Even?(degreesOfFreedom), 1.0, 0.5);
             
-            if (a >? 20) 
+            If(a >? 20) 
             {
                 e := Decide(Even?(degreesOfFreedom), 0.0, LogSqrtPi);
                 
@@ -70,7 +70,7 @@ ChiSquareScoreToAlpha(score, degreesOfFreedom) :=
                 };
                 result := s;
             } 
-            else 
+            Else 
             {
                 e := Decide(Even?(degreesOfFreedom) , 1.0, (ISqrtPi / SqrtN(a)));
                 
@@ -86,7 +86,7 @@ ChiSquareScoreToAlpha(score, degreesOfFreedom) :=
                 result := c * y + s;
             };
         }
-        else
+        Else
         {
             result := s;
         };

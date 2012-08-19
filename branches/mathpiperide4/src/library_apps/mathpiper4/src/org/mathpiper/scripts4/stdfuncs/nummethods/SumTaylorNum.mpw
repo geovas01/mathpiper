@@ -205,7 +205,7 @@ a rational number and not a floating-point number.) The function
 [NthTerm(0)] and obtains all other coefficients by using [TermFactor].
 Instead of the function [NthTerm], a number giving the $0$-th term can be given.
 
-The algorithm is described elsewhere in the documentation.
+The algorithm is described Elsewhere in the documentation.
 The number of terms [order]+1
 must be specified and a sufficiently high precision must be preset in
 advance to achieve the desired accuracy.

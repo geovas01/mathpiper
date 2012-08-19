@@ -103,7 +103,7 @@ There is another, slightly longer but equivalent way of writing the second rule:
 20 # f(_n)_(IntegerGreaterThanZero?(n)) <-- n*f(n-1);
 
 The underscore after the function object denotes a "postpredicate" that should return
-True or else there is no match. This predicate may be a complicated expression involving
+True or Else there is no match. This predicate may be a complicated expression involving
 several logical operations, unlike the simple checking of just one predicate in the
 n_IntegerGreaterThanZero? construct. The postpredicate can also use the variable
 n (without the underscore).
@@ -114,7 +114,7 @@ for the pattern matching rules, with 0 the lowest allowed precedence value, i.e.
 rules with precedence 0 will be tried first. Multiple rules can have the same number:
 this just means that it doesn't matter what order these patterns are tried in. If no
 number is supplied, 0 is assumed. In our example, the rule f(0) <-- 1 must be applied
-earlier than the recursive rule, or else the recursion will never terminate. But as
+earlier than the recursive rule, or Else the recursion will never terminate. But as
 long as there are no other rules concerning the function f, the assignment of numbers
 10 and 20 is arbitrary, and they could have been 500 and 501 just as well. It is
 usually a good idea however to keep some space between these numbers, so you have

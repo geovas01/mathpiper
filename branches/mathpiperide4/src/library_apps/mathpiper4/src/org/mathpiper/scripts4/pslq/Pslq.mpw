@@ -116,7 +116,7 @@ Echo("************** s[k] = ",s[k]);
   For (i:=1,i<=? n,i++)
   {
 
-    if (i <=? n-1)  { H[i][i]:=N(s[i + 1]/s[i]); };
+    If(i <=? n-1)  { H[i][i]:=N(s[i + 1]/s[i]); };
 
 //Echo("4.1...");
     For (j:= 1,j<=?i-1,j++)
@@ -170,7 +170,7 @@ Echo("************** H[i][j] = ",H[i][j]);
     {
       gami:=gami*gam;
       tmp:=N(gami*Abs(H[i][i]));
-      if (maxi <? tmp)
+      If(maxi <? tmp)
       {
         maxi:=tmp;
 //Echo("maxi 3...",maxi);
@@ -200,7 +200,7 @@ Echo("************** H[i][j] = ",H[i][j]);
       H[m][ i]:=tmp;
     };
 //Echo("7...");
-    if (m <? n-1)
+    If(m <? n-1)
     {
       t0:=N(Eval(Sqrt(H[m][ m]^2 + H[m][ m + 1]^2)));
 
@@ -266,7 +266,7 @@ Echo("************** H[i][j] = ",H[i][j]);
 //Echo("9.1...");
       tmp:=N(Dot(H[j], H[j]),10);
 //Echo("9.2...");
-      if (maxi <? tmp) { maxi:=tmp; };
+      If(maxi <? tmp) { maxi:=tmp; };
 //Echo("maxi 5...",maxi);
 //Echo("9.3...");
     };
@@ -282,17 +282,17 @@ Echo("************** H[i][j] = ",H[i][j]);
     For (j:=2,j<=?n,j++)
     {
       tmp:=N(Eval(Abs(y[j])));
-      if (tmp <? mini)
+      If(tmp <? mini)
       {
         mini:=tmp;
         m:=j;
       };
-      if (tmp >? maxi) { maxi:=tmp; };
+      If(tmp >? maxi) { maxi:=tmp; };
 //Echo("maxi 7...",maxi);
     };
     /* following line may be commented */
 //Echo(["Norm bound:",norme," Min=",mini," Conf=",mini/maxi," required ",Confidence]);
-    if ((mini/maxi) <? Confidence) /*prefered to : if mini <? 10^(- precision) then*/
+    If((mini/maxi) <? Confidence) /*prefered to : if mini <? 10^(- precision) then*/
     {
     /* following line may be commented */
 /*      Echo(["Found with Confidence ",mini/maxi]); */
@@ -300,7 +300,7 @@ Echo("************** H[i][j] = ",H[i][j]);
       result:=Transpose(B)[m];
       found:=True;
     }
-    else
+    Else
     {
       maxi:=Abs(A[1][ 1]);
       For (i:=1,i<=?n,i++)
@@ -310,11 +310,11 @@ Echo("************** H[i][j] = ",H[i][j]);
         {
 //Echo("j = ",j," n = ",n);
           tmp:=Abs(A[i][ j]);
-          if (maxi <? tmp) { maxi:=tmp;};
+          If(maxi <? tmp) { maxi:=tmp;};
         };
       };
 //Echo("maxi = ",maxi);
-      if (maxi >? 10^(precision))
+      If(maxi >? 10^(precision))
       {
         BuiltinPrecisionSet(ndigits);
         result:=Fail;

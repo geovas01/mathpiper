@@ -46,9 +46,9 @@ FindRealRoots(_p,_Mmin,_Mmax) <--
         Decide(iDebug,Tell("         ",[a,b,c]));
         r := Fail;
         Decide(iDebug,Tell("         newt1",`Hold(Newton(@p,x,@c,@prec,@a,@b))));
-        if (a !=? b) {r := `Newton(@p,x,@c,prec,a,b);};
+        If(a !=? b) {r := `Newton(@p,x,@c,prec,a,b);};
         Decide(iDebug,Tell("         newt2",r));
-        if (r =? Fail)
+        If(r =? Fail)
           {
              Local(c,cold,pa,pb,pc);
              pa:=(p Where x==a);
@@ -59,11 +59,11 @@ FindRealRoots(_p,_Mmin,_Mmax) <--
              {
                  pc:=(p Where x==c);
                  Decide(iDebug,Tell("              ",[a,b,c]));
-                 if (Abs(pc) <? prec)
+                 If(Abs(pc) <? prec)
                    { a:=c; b:=c; }
-                 else if (pa*pc <? 0)
+                 Else If(pa*pc <? 0)
                    { b:=c; pb:=pc; }
-                 else
+                 Else
                    { a:=c; pa:=pc; };
                    cold:=c;
                    c:=((a+b)/2);

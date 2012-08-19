@@ -80,11 +80,11 @@
 30 # Factors(p_CanBeUni) <--
 {
     /* 
-     * This may be a multi-variate polynomial, or it may be something else.
+     * This may be a multi-variate polynomial, or it may be something Else.
      * Original YT function Factors() did not attempt to factor such.
      *    If it is a multivariate polynomial, we will try certain
      * Special cases which we can relatively easily factor.
-     *    If it is "something else", we will have to check, on a
+     *    If it is "something Else", we will have to check, on a
      * case-by-case basis.
      */
     Local(vl,nvars,coeffs,result);

@@ -104,7 +104,7 @@
 
 ////////////////////////////////////////////////
 //
-// No simple form, try something else
+// No simple form, try something Else
 //
 ////////////////////////////////////////////////
 100 # AntiDeriv(_var,_exp) <--
@@ -120,19 +120,19 @@
 ////////////////////////////////////////////////
 
 // integrating expressions containing if:
-10 # IntegrateMultiplicative(_var,if(_cond)(_body),_a,_b)
+10 # IntegrateMultiplicative(_var,If(_cond)(_body),_a,_b)
      <--
      {
        body := AntiDeriv(var,body);
-       `Hold(if(@cond)(@body));
+       `Hold(If(@cond)(@body));
      };
-// integrating expressions containing else
-10 # IntegrateMultiplicative(_var,(_left) else (_right),_a,_b)
+// integrating expressions containing Else
+10 # IntegrateMultiplicative(_var,(_left) Else (_right),_a,_b)
      <--
      {
        left  := AntiDeriv(var,left);
        right := AntiDeriv(var,right);
-       `Hold( (@left) else (@right) );
+       `Hold( (@left) Else (@right) );
      };
 
 

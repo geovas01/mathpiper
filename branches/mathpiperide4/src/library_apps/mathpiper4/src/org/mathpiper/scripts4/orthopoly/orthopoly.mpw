@@ -329,7 +329,7 @@ BitList(n) := BitList(n, []);
         T2 := FastOrthoT(2, x);
         ForEach(i, Rest(BitList(n)))        // skip first bit
         [
-                // if the current bit is 1, we need to double the second index, else double the first index.
+                // if the current bit is 1, we need to double the second index, Else double the first index.
                 // Invariant: n[i+1] = 2*n[i] + BitList[i] and we need to have FastOrthoT(n[i]), FastOrthoT(1+n[i]) as T1, T2. Initially n[1]=1 and after the cycle n[i]=n.
                 [T1, T2] := If
                 (
@@ -351,7 +351,7 @@ BitList(n) := BitList(n, []);
         T2 := FastOrthoT(2, x);
         ForEach(i, Rest(BitList(n)))        // skip first bit
         [
-                // if the current bit is 1, we need to double the second index, else double the first index
+                // if the current bit is 1, we need to double the second index, Else double the first index
                 // Invariant: n[i+1] = 2*n[i] + BitList[i] and we need to have U(n[i]), T(n[i]), T(1+n[i]) as U1, T1, T2. Initially n[1]=1 and after the cycle n[i]=n.
                 [U1, T1, T2] := If
                 (

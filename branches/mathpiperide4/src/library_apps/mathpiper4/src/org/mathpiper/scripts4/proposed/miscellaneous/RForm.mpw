@@ -128,8 +128,8 @@ LocalSymbols(rFormMathFunctions) {
         /* power's argument is never bracketed but it must be put in braces. */
 100 # RForm(_x ^ _y, _p) <-- RFormBracketDecide(p <=? PrecedenceGet("^"), ConcatStrings(RForm(x, RFormMaxPrec()), "^", RForm(y, RFormMaxPrec())) );
 
-100 # RForm(if(_pred)_body, _p) <-- "if ("~RForm(pred,60000)~") "~RForm(body);
-100 # RForm(_left else _right, _p) <-- RForm(left)~" else "~RForm(right);
+100 # RForm(If(_pred)_body, _p) <-- "If("~RForm(pred,60000)~") "~RForm(body);
+100 # RForm(_left Else _right, _p) <-- RForm(left)~" Else "~RForm(right);
 
 /* Precedence of 120 because we'd like to process some special functions like pow() first */
 
@@ -281,29 +281,29 @@ http://code.google.com/p/ryacas/source/browse/trunk/R/OpenMath2R.R
 OpenMath2R <- function(x) [
  out <- c()
  recurse <- function( x ) [
-        if ("name" %in% names(xmlAttrs(x))) [
+        If("name" %in% names(xmlAttrs(x))) [
                 out <<- c(out, trans(xmlAttrs(x)[["name"]], from="OM", to="R"), " ")
         ]
-        if (xmlName(x) == "text") out <<- c(out, xmlValue(x), " ")
-        if (xmlName(x) == "OMF") out <<- c(out, xmlAttrs(x)[["dec"]], " ")
-        if (xmlName(x) == "OMS") [
-        if (xmlAttrs(x)[["cd"]] == "logic1" && "name" %in% names(xmlAttrs(x))
+        If(xmlName(x) == "text") out <<- c(out, xmlValue(x), " ")
+        If(xmlName(x) == "OMF") out <<- c(out, xmlAttrs(x)[["dec"]], " ")
+        If(xmlName(x) == "OMS") [
+        If(xmlAttrs(x)[["cd"]] == "logic1" && "name" %in% names(xmlAttrs(x))
                 && xmlAttrs(x)[["name"]] %in% c("true", "false")) []
-           else if ((xmlAttrs(x)[["cd"]] != "nums1") ||
+           Else If((xmlAttrs(x)[["cd"]] != "nums1") ||
                                 (xmlAttrs(x)[["name"]] == "rational")) 
                         out <<- c(out, xmlValue(x), "(")
         ]
-        # if (xmlName(x) == "OMS") out <<- c(out, "(")
-        if (xmlName(x) == "OMSTR") [
+        # If(xmlName(x) == "OMS") out <<- c(out, "(")
+        If(xmlName(x) == "OMSTR") [
         # out <<- c(out, sQuote(gsub("", "\\\\", xmlValue(x))))
         out <<- c(out, paste("", gsub("", "\\\\", xmlValue(x)), "", sep=""))
-        ] else if ( length( xmlChildren(x) ) >? 0 )
+        ] Else If( length( xmlChildren(x) ) >? 0 )
                 for( i in seq( along = xmlChildren(x) ) ) [
                         Recall( x[[i]] )
-                        if (i >? 1 && i <? length(xmlChildren(x))) 
+                        If(i >? 1 && i <? length(xmlChildren(x))) 
                                 out <<- c(out, ",")
                 ]
-        if (xmlName(x) == "OMA" || xmlName(x) == "OMBIND") out <<- c(out, xmlValue(x), ")")
+        If(xmlName(x) == "OMA" || xmlName(x) == "OMBIND") out <<- c(out, xmlValue(x), ")")
  ]
  x <- paste(x, "\n", collapse = "")
  x <- xmlTreeParse(x, asText = TRUE)
@@ -314,9 +314,9 @@ OpenMath2R <- function(x) [
 
 trans <- function(x, ttab=transtab, from, to) [
    idx <- match(x, ttab[,from], nomatch = 0)
-   res <- if (idx >? 0) ttab[idx,to] else x
-   if (tolower(substr(res, 1, 1)) %in% letters) res
-   else paste(", res, ", sep="")
+   res <- If(idx >? 0) ttab[idx,to] Else x
+   If(tolower(substr(res, 1, 1)) %in% letters) res
+   Else paste(", res, ", sep="")
 ]
 
 transtab <- matrix( c(

@@ -48,7 +48,7 @@ The function [Solve] will attempt to find solutions to the equation
 represented by [expr==0] if [expr] is NOT an equation.
 
 Solutions returned by [Solve] will be in the form of a List, such as
-[[var==something,var==something_else]].
+[[var==something,var==something_Else]].
 
 For certain types of expressions or equation, [Solve] might return
 invalid solutions as well as valid ones in the output List.  To check

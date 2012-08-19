@@ -67,7 +67,7 @@ IntNthRoot1(_n, s_Integer?) <--
                                 // Newton's iteration knows what it is doing. Update x2 by bisection
                                 x2 := Quotient(x1+x2, 2)
                         )
-                        // else, xnew reached the midpoint, good progress, continue
+                        // Else, xnew reached the midpoint, good progress, continue
                 );
                 x1 := xnew;
                 y1 := x1^s;

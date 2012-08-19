@@ -100,7 +100,7 @@ Zeta3() :=
 20 # InternalZetaNum(_s) <-- {
         Local(n, prec, result);
         prec := BuiltinPrecisionGet();
-        Decide(        // use identity if s<1/2 to replace with larger s. Also must be sn!=0 or else we get infinity * zero
+        Decide(        // use identity if s<1/2 to replace with larger s. Also must be sn!=0 or Else we get infinity * zero
                 N(Re(s)) <? 0.5,
                 // call ourselves with a different argument
                 {

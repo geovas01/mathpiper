@@ -34,14 +34,14 @@ function AMarr2docFrag(arr) {
   var newFrag=document.createDocumentFragment();
   var tutorComment = false;
   for (var i=0; i<arr.length; i++) {
-    if (tutorComment) {
+    If (tutorComment) {
         var newnode =  AMcreateElementXHTML("span");
         newnode.className = "tutor";
         var messagenode = document.createComment(arr[i]+"``");
         newnode.appendChild(messagenode);
         newFrag.appendChild(newnode);
     }
-    else {
+    Else {
         newFrag.
         //appendChild(AMcreateElementXHTML("span").
         appendChild(document.createComment(arr[i]+"``"));
@@ -61,21 +61,21 @@ var key2 = false;
 // if another key is pressed before the timout occurs.  This allows you to type fast without the display
 // updating (which slows the typing down).
 function AMdisplay(inputNodeId, outputNodeId, now) {
-    if(!now){
-        if(!key1 && !key2) {
+    If(!now){
+        If(!key1 && !key2) {
             key1 = true;
             setTimeout("AMdisplay('"+inputNodeId+"', '"+outputNodeId+"', true);", 250);
-        } else if (key1 && !key2) {
+        } Else If (key1 && !key2) {
             key2 = true;
         }
     }
-    if(now){
-        if (key1 && key2){
+    If(now){
+        If (key1 && key2){
             key2 = false;
             setTimeout("AMdisplay('"+inputNodeId+"', '"+outputNodeId+"', true);", 250);
-        } else if (!key2){
+        } Else If (!key2){
             key1 = false;
-            if (document.getElementById(inputNodeId) != null) {
+            If (document.getElementById(inputNodeId) != null) {
                 var str = document.getElementById(inputNodeId).value;
                 var outnode = document.getElementById(outputNodeId);
                 var newnode = AMcreateElementXHTML("div");
@@ -105,9 +105,9 @@ function AMstrarr2docFrag(arr, linebreaks,usingMathML) {
   var expr = false;
   for (var i=0; i<arr.length; i++) {
     // KB: Added condition to ignore array frags that are empty which otherwise caused mimetex to fail
-    if (expr && !usingMathML && arr[i]!="") newFrag.appendChild(AMTparseMath(arr[i]));
-    else if (expr && usingMathML) newFrag.appendChild(AMparseMath(arr[i]));
-    else {
+    If (expr && !usingMathML && arr[i]!="") newFrag.appendChild(AMTparseMath(arr[i]));
+    Else If (expr && usingMathML) newFrag.appendChild(AMparseMath(arr[i]));
+    Else {
       var arri = (linebreaks ? arr[i].split("\n\n") : [arr[i]]);
       newFrag.appendChild(AMcreateElementXHTML("span").
       appendChild(document.createTextNode(arri[0])));
@@ -128,8 +128,8 @@ function AMstrarr2docFrag(arr, linebreaks,usingMathML) {
 // This function is a variation on the above function but 
 // artificially quotes the input node's value
 function AMdisplayQuoted(inputNodeId,outputNodeId,now) {
-  if (document.getElementById(inputNodeId) != null) {
-    if (AMkeyspressed == 5 || now) {
+  If (document.getElementById(inputNodeId) != null) {
+    If (AMkeyspressed == 5 || now) {
       var str = "`"+document.getElementById(inputNodeId).value+"`";
       var outnode = document.getElementById(outputNodeId);
       var newnode = AMcreateElementXHTML("span");
@@ -143,7 +143,7 @@ function AMdisplayQuoted(inputNodeId,outputNodeId,now) {
       outnode.appendChild(document.createComment(str+"``"));
       AMprocessNode(outnode,true);
       AMkeyspressed = 0;
-    } else AMkeyspressed++;
+    } Else AMkeyspressed++;
   }
 }
 
@@ -154,7 +154,7 @@ function AMchangeColumns(inputNodeId,n) {
 }
 
 
-// View the mathsML - more a debug tool than anything else
+// View the mathsML - more a debug tool than anything Else
 function AMviewMathML(inputNodeId,outputNodeId) {
   AMdisplay(true);
   var str = document.getElementById(inputNodeId).value;

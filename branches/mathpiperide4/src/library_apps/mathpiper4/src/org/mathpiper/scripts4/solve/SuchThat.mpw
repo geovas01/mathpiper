@@ -11,7 +11,7 @@
   {
     result:=ContainsExpression(First(args),expr);
     args:=Rest(args);
-    if (result =? True) (args:=[]);
+    If(result =? True) (args:=[]);
   };
   result;
 };
