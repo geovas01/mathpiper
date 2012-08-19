@@ -18,11 +18,12 @@ GeoGebraPoint("B",3,1);
 
 
 
+
 %mathpiper
 
 //Plot data that is in x,y,x,y,x,y... format.
 
-GeoGebraPlot({1,1,2,2,3,3,4,4,5,5,6,6}, lines -> True);
+GeoGebraPlot([1,1,2,2,3,3,4,4,5,5,6,6], lines -> True);
 
 %/mathpiper
 
@@ -30,9 +31,10 @@ GeoGebraPlot({1,1,2,2,3,3,4,4,5,5,6,6}, lines -> True);
 
 
 
+
 %mathpiper
 
-GeoGebraPlot({{0,0}, {0,-1},{0,-2},{1,-2},{1,-1},{2,-1},{3,-1}},lines -> True, labels -> False);
+GeoGebraPlot([[0,0], [0,-1],[0,-2],[1,-2],[1,-1],[2,-1],[3,-1]],lines -> True, labels -> False);
 
 %/mathpiper
 
@@ -40,17 +42,19 @@ GeoGebraPlot({{0,0}, {0,-1},{0,-2},{1,-2},{1,-1},{2,-1},{3,-1}},lines -> True, l
 
 
 
+
 %mathpiper
 
-//Convert separate x and y coordinate lists into {x,y},{x,y}... format before plotting.
+//Convert separate x and y coordinate lists into [x,y],[x,y]... format before plotting.
 
 xList := 1 .. 10;
 
-yList := {8,6,10,6,10,13,9,11,15,17};
+yList := [8,6,10,6,10,13,9,11,15,17];
 
-GeoGebraPlot(Map("List",{xList,yList})); 
+GeoGebraPlot(Map("List",[xList,yList])); 
 
 %/mathpiper
+
 
 
 
@@ -66,11 +70,13 @@ GeoGebraPlot(x^2);
 
 
 
+
 %mathpiper
 
-GeoGebraPlot(Hold(f(x) = x^3));
+GeoGebraPlot(Hold(f(x) := x^3));
 
 %/mathpiper
+
 
 
 

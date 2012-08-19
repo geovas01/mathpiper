@@ -24,10 +24,12 @@
 
 
 
+
 %mathpiper,title="Fold 2. Add seven numbers together."
 1 + 2 + 3 + 4 + 5 + 6 + 7;
 
 %/mathpiper
+
 
 
 
@@ -44,6 +46,7 @@
 
 
 
+
 %mathpiper,title="Fold 4. Calcuate a numeric value."
 N(9.5/3.2);
 
@@ -54,10 +57,12 @@ N(9.5/3.2);
 
 
 
+
 %mathpiper,title="Fold 5. Add three rational numbers together."
 1/2 + 1/3 + 1/8;
 
 %/mathpiper
+
 
 
 
@@ -75,6 +80,7 @@ Numerator(a);
 
 
 
+
 %mathpiper,title="Fold 7. Factor a number."
 Factor(8);
 
@@ -85,10 +91,12 @@ Factor(8);
 
 
 
+
 %mathpiper,title="Fold 8. Factor a symbolic expression."
 Factor(x^2 + 24*x + 80);
 
 %/mathpiper
+
 
 
 
@@ -115,10 +123,12 @@ Factor(x^2 + 24*x + 80);
 
 
 
+
 %mathpiper,title="Fold 10. Unknown operator error. Should be a forward slash for division."
 3 \ 5;
 
 %/mathpiper
+
 
 
 
