@@ -4,7 +4,7 @@
 
 jasFactorsInt(poly_Polynomial?) <--
 [
-    If(InVerboseMode(),Tell(jasFactorsInt,poly));
+    Decide(InVerboseMode(),Tell(jasFactorsInt,poly));
     Local(polyStr,vars,strVars,ns,ringDescription,defaultPoly,jasI);
     
     // --- get Java class JFactorsPolyInt into MathPiper form
@@ -15,7 +15,7 @@ jasFactorsInt(poly_Polynomial?) <--
     strVars := strVars[2 .. ns-1];      //  remove enclosing braces
 
     jasI    := JavaNew("org.mathpiper.builtin.library.jas.JFactorsPolyInt",polyStr,strVars);
-    If(InVerboseMode(),[Tell("  ",jasI);]);
+    Decide(InVerboseMode(),[Tell("  ",jasI);]);
     
     // --- at last, we're ready to do some factoring
     Local(resultSet,entrySet,iterator,result,mult,fact);
@@ -37,7 +37,7 @@ jasFactorsInt(poly_Polynomial?) <--
         Local(lst,ii,factor);
         lst   := StringToList(fact);
         For(ii:=1,ii<?Length(lst),ii++) [
-             If(lst[ii]=?"*" And? lst[ii+1]=?"*",
+             Decide(lst[ii]=?"*" And? lst[ii+1]=?"*",
                 [ DestructiveReplace(lst,ii,"^"); DestructiveDelete(lst,ii+1); ]
              );
         ];
@@ -48,7 +48,7 @@ jasFactorsInt(poly_Polynomial?) <--
     
     JavaCall(jasI,"terminate");
 
-    If(InVerboseMode(),Tell("  ",result));
+    Decide(InVerboseMode(),Tell("  ",result));
     result;
 ];
 

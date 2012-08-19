@@ -406,11 +406,11 @@ CosAdd(t):=
   Local(look,arg);
   arg:=Expand(t[2],varlist);
   look:=Assoc(arg,cassoc);
-  If(look =? Empty,
+  Decide(look =? Empty,
      {
        arg:=Expand(-arg,varlist);
        look:=Assoc(arg,cassoc);
-       If(look =? Empty,
+       Decide(look =? Empty,
          DestructiveInsert(cassoc,1,[arg,t[1]]),
          look[2]:=look[2]+t[1]
          );
@@ -426,11 +426,11 @@ SinAdd(t):=
   Local(look,arg);
   arg:=Expand(t[2],varlist);
   look:=Assoc(arg,sassoc);
-  If(look =? Empty,
+  Decide(look =? Empty,
      {
        arg:=Expand(-arg,varlist);
        look:=Assoc(arg,sassoc);
-       If(look =? Empty,
+       Decide(look =? Empty,
          DestructiveInsert(sassoc,1,[arg,-(t[1])]),
          look[2]:=look[2]-(t[1])
          );

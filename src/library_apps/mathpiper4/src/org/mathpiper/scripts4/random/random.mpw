@@ -104,15 +104,15 @@ RngCreate() <-- RngCreate(0);
         options := OptionsListToHash @ [options];
 
         // check options and assign defaults
-        If(
+        Decide(
                 options["seed"] =? Empty Or? options["seed"] <=? 0,
                 options["seed"] := 76544321        // some default seed out of the blue sky
         );
-        If(
+        Decide(
                 options["engine"] =? Empty Or? Not? (Assert("warning", ["RngCreate: invalid engine", options["engine"]]) KnownRNGEngines()[options["engine"] ] !=? Empty),
                 options["engine"] := "default"
         );
-        If(
+        Decide(
                 options["dist"] =? Empty Or? Not? (Assert("warning", ["RngCreate: invalid distribution", options["dist"]]) KnownRNGDists()[options["dist"] ] !=? Empty),
                 options["dist"] := "default"
         );
@@ -259,7 +259,7 @@ RNGEngineLEcuyer(state_List?) <--
         result:=Modulo(state[1]-state[4], 4294967087);
         [
                 newstate,
-                DivideN(If(result=?0, 4294967087, result), 4294967088)
+                DivideN(Decide(result=?0, 4294967087, result), 4294967088)
         ];
 };
 

@@ -34,7 +34,7 @@
         // cholesky factorization is upper triangular
         ForEach(i,1 .. n)
                 ForEach(j,1 .. n)
-                        If(i>?j,matrix[i][j] := 0);
+                        Decide(i>?j,matrix[i][j] := 0);
         matrix;
 };
 

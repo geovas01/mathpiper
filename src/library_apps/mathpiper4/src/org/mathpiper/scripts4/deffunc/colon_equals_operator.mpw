@@ -58,7 +58,7 @@ RuleHoldArguments(":=", 2, 30, Function?(aLeftAssign) And? Not?(Equal?(aLeftAssi
 
     Assign(args,Rest(FunctionToList(aLeftAssign)));
 
-    If(
+    Decide(
         And?(GreaterThan?(Length(args), 1), Equal?( MathNth(args, Length(args)), ToAtom("...") )),
         // function with variable number of arguments
         {
@@ -205,7 +205,7 @@ Result: Sin(a)^2;
 
 Defining a function with variable number of arguments:
 
-In> f(x, ...) := If(List?(x),Sum(x),x);
+In> f(x, ...) := Decide(List?(x),Sum(x),x);
 Result: True;
 In> f(2);
 Result: 2;

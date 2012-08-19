@@ -5,7 +5,7 @@ Function("RemoveDuplicates",[list])
    Local(result);
    Assign(result,[]);
    ForEach(item,list)
-     If(Not?(Contains?(result,item)),DestructiveAppend(result,item));
+     Decide(Not?(Contains?(result,item)),DestructiveAppend(result,item));
    result;
 };
 

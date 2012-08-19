@@ -13,10 +13,10 @@ Retract("IsPowerOf2",*);
 
 10 # xFactorsBinomial( poly_Polynomial? )_(Length(VarList(poly))=?1)  <-- 
 {
-    If(InVerboseMode(),Tell(xFactorsBinomial,poly));
+    Decide(InVerboseMode(),Tell(xFactorsBinomial,poly));
     Local(dis,n,X,var,A,B,s,Ar,Br);
     dis := DisassembleExpression(poly);
-    If(InVerboseMode(),Tell("   ",dis));
+    Decide(InVerboseMode(),Tell("   ",dis));
     n      := Maximum(dis[2])[1];
     X      := dis[1][1];
     var    := dis[1][1];
@@ -25,17 +25,17 @@ Retract("IsPowerOf2",*);
     s      := Sign(dis[3][1]*dis[3][2]);
     Ar     := NearRational(N(A^(1/n),20));
     Br     := NearRational(N(B^(1/n),20));
-    If(InVerboseMode(),{Tell("       ",[n,X,var,A,B]); Tell("       ",[Ar,Br,s]);});
-    If( Integer?(Ar) And? Integer?(Br), xFB1(dis), [[poly,1]] );
+    Decide(InVerboseMode(),{Tell("       ",[n,X,var,A,B]); Tell("       ",[Ar,Br,s]);});
+    Decide( Integer?(Ar) And? Integer?(Br), xFB1(dis), [[poly,1]] );
 };
 
 
 10 # xFactorsBinomial( poly_Polynomial? )_(Length(VarList(poly))=?2)  <-- 
 {
-    If(InVerboseMode(),Tell(xFactorsBinomial,poly));
+    Decide(InVerboseMode(),Tell(xFactorsBinomial,poly));
     Local(dis,n,X,Y,vars,A,B,s,Ar,Br);
     dis := DisassembleExpression(poly);
-    If(InVerboseMode(),Tell("   ",dis));
+    Decide(InVerboseMode(),Tell("   ",dis));
     n     := Maximum(dis[2])[1];
     X     := dis[1][1];
     Y     := dis[1][2];
@@ -45,38 +45,38 @@ Retract("IsPowerOf2",*);
     s     := Sign(dis[3][1]*dis[3][2]);
     Ar    := NearRational(N(A^(1/n)));
     Br    := NearRational(N(B^(1/n)));
-    If(InVerboseMode(),
+    Decide(InVerboseMode(),
       {
           Tell("       ",[n,X,Y]); 
           Tell("       ",[vars,A,B]);
           Tell("       ",[Ar,Br,s]);
       }
     );
-    If( Integer?(Ar) And? Integer?(Br), xFB2(dis), [[poly,1]] );
+    Decide( Integer?(Ar) And? Integer?(Br), xFB2(dis), [[poly,1]] );
 };
 
 
 12 # xFB1( dis_List? )_(Length(dis)=?3 And? Length(dis[3])=?2) <--
 {
-    If(InVerboseMode(),{NewLine();Tell("xFB1",dis);});
+    Decide(InVerboseMode(),{NewLine();Tell("xFB1",dis);});
     Local(Y,y,ii,fac1);
     X  := Ar*X;     Y  := Br;
     Unassign(y);
     y  := 1;
-    If(InVerboseMode(), Tell("     ",[X,Y]));
+    Decide(InVerboseMode(), Tell("     ",[X,Y]));
     fac1  := xFB1( X/Y,n,s);    //  factor using normalized variable
     
-    If( InVerboseMode(),Tell("   ",fac1));
+    Decide( InVerboseMode(),Tell("   ",fac1));
     
     // now convert factorization back to actual variable if required
-    If( Y !=? 1,
+    Decide( Y !=? 1,
       {
           Local(f,d);
           For(ii:=1,ii<=?Length(fac1),ii++)
           {
               f := fac1[ii][1];
               d := Degree(f,var);
-              If(InVerboseMode(),Tell("             ",[ii,f,d]));
+              Decide(InVerboseMode(),Tell("             ",[ii,f,d]));
               fac1[ii][1] := Simplify(Y^d*f);
           };
       }
@@ -89,10 +89,10 @@ UnFence("xFB1",1);
 15 # xFB1(_X,n_SmallPrime?,s_NotZero?)_(Odd?(n)) <--
 {
     Local(ans,k);
-    If(InVerboseMode(),{NewLine();Tell("   xFB1prime",[X,n,s]);});
+    Decide(InVerboseMode(),{NewLine();Tell("   xFB1prime",[X,n,s]);});
     ans := [[X+s,1]];
-    If( n >? 1, ans := Concat(ans,[[Sum(k,0,n-1,(-s)^k*X^(n-1-k)),1]]) );
-    If(InVerboseMode(),Tell("          ",ans));
+    Decide( n >? 1, ans := Concat(ans,[[Sum(k,0,n-1,(-s)^k*X^(n-1-k)),1]]) );
+    Decide(InVerboseMode(),Tell("          ",ans));
     ans;
 };
 UnFence("xFB1",3);
@@ -101,7 +101,7 @@ UnFence("xFB1",3);
 20 # xFB1(_X, n_Odd?, s_PositiveInteger?) <--
 {
     Local(ans,ans1);
-    If(InVerboseMode(),{NewLine(); Tell("   xFB1oddsum",[X,Y,n]);});
+    Decide(InVerboseMode(),{NewLine(); Tell("   xFB1oddsum",[X,Y,n]);});
     if ( n =? 9 )
         { ans := [[X+1,1],[X^2-X+1,1],[X^6-X^3+1,1]]; }
     else if ( n =? 15 )
@@ -123,7 +123,7 @@ UnFence("xFB1",3);
 25 # xFB1(_X,n_Odd?, s_NegativeInteger?) <--
 {
     Local(ans);
-    If(InVerboseMode(),{NewLine(); Tell("   xFB1odddif",[X,n]);});
+    Decide(InVerboseMode(),{NewLine(); Tell("   xFB1odddif",[X,n]);});
     if ( n =? 9 )
         { ans := [[X-1,1],[X^2+X+1,1],[X^6+X^3+1,1]]; }
     else if ( n =? 15 )
@@ -139,7 +139,7 @@ UnFence("xFB1",3);
     else
         { ans := BinaryFactors(X^n-1); };  //  may take a long time, and not be complete
     ans;
-    If(InVerboseMode(),Tell("    ",ans));
+    Decide(InVerboseMode(),Tell("    ",ans));
     ans;
 };
 
@@ -147,16 +147,16 @@ UnFence("xFB1",3);
 30 # xFB1(_X, n_Even?, s_PositiveInteger?) <--
 {
     Local(ans,fn,mx,my);
-    If(InVerboseMode(),{NewLine(); Tell("   xFB1evensum",[X,n]);});
+    Decide(InVerboseMode(),{NewLine(); Tell("   xFB1evensum",[X,n]);});
     fn    := [[1,1]];
-    If( n >? 1, fn := FactorsSmallInteger(n) );
-    If(Length(fn)=?1 And? Odd?(fn[1][1]), mx:= fn[1][1]^(fn[1][2]-1));
-    If(Length(fn)>?1,
-         ForEach(f,fn) { If( Odd?(f[1]), mx := f[1]^f[2] ); });
+    Decide( n >? 1, fn := FactorsSmallInteger(n) );
+    Decide(Length(fn)=?1 And? Odd?(fn[1][1]), mx:= fn[1][1]^(fn[1][2]-1));
+    Decide(Length(fn)>?1,
+         ForEach(f,fn) { Decide( Odd?(f[1]), mx := f[1]^f[2] ); });
     my    := n/mx;
-    If(InVerboseMode(),Tell("    ",[mx,my]));
+    Decide(InVerboseMode(),Tell("    ",[mx,my]));
 
-    If( IsPowerOf2(n),
+    Decide( IsPowerOf2(n),
       {
          //  is power of 2,  so does not factor
          ans := [[X^n+1,1]];
@@ -181,7 +181,7 @@ UnFence("xFB1",3);
              { ans := [[X^my+1,1],[Sum(k,0,mx-1,X^(n-my-k*my)*(-1)^k),1]]; };
       }
     );
-    If(InVerboseMode(),Tell("    ",ans));
+    Decide(InVerboseMode(),Tell("    ",ans));
     ans;
 };
 
@@ -189,7 +189,7 @@ UnFence("xFB1",3);
 35 # xFB1(_X, n_Even?, s_NegativeInteger?) <--
 {
     Local(ans);
-    If(InVerboseMode(),{NewLine(); Tell("   xFB1evendif",[X,n]);});
+    Decide(InVerboseMode(),{NewLine(); Tell("   xFB1evendif",[X,n]);});
     if ( n =? 2 )
         { ans := [[X-1,1],[X+1,1]]; }
     else if ( n =? 10 )
@@ -207,7 +207,7 @@ UnFence("xFB1",3);
     else
         { ans := Concat( xFB1(X,n/2,1), xFB1(X,n/2,-1) ); };   
         
-    If(InVerboseMode(),Tell("    ",ans));
+    Decide(InVerboseMode(),Tell("    ",ans));
     ans;
 };
 
@@ -215,9 +215,9 @@ UnFence("xFB1",3);
 
 50 # xFB2( dis_List? )_(Length(dis)=?3 And? Length(dis[3])=?2) <--
 {
-    If(InVerboseMode(),{NewLine();Tell("xFB2",dis);});
+    Decide(InVerboseMode(),{NewLine();Tell("xFB2",dis);});
     Local(ns,ii,fn,mx,my,fac2);
-    If(InVerboseMode(),
+    Decide(InVerboseMode(),
       {
          Tell("     ",n);
          Tell("     ",[X,Y]);
@@ -227,21 +227,21 @@ UnFence("xFB1",3);
     );
     X     := Ar*X;
     Y     := Br*Y;
-    If(InVerboseMode(),Tell("     ",[X,Y]));
+    Decide(InVerboseMode(),Tell("     ",[X,Y]));
     
     fac2  := xFB1( X/Y,n,s);    //  factor using normalized variable
-    If(InVerboseMode(),Tell("      ",fac2));
+    Decide(InVerboseMode(),Tell("      ",fac2));
     
     // now convert factorization back to actual variables if required
 
-    If( Y !=? 1,
+    Decide( Y !=? 1,
       {
           Local(f,d);
           For(ii:=1,ii<=?Length(fac2),ii++)
           {
               f := fac2[ii][1];
               d := Degree(f,vars[1]);
-              If(InVerboseMode(),Tell("             ",[ii,f,d]));
+              Decide(InVerboseMode(),Tell("             ",[ii,f,d]));
               fac2[ii][1] := Simplify(Simplify(Y^d*f));
           };
       }

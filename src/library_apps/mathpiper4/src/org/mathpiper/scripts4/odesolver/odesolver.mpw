@@ -136,7 +136,7 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
   e:=OdeAuxiliaryEquation(e);
   auxeqn:=e;
 
-  If(InVerboseMode(), Echo("OdeSolve: Auxiliary Eqn ",auxeqn) );
+  Decide(InVerboseMode(), Echo("OdeSolve: Auxiliary Eqn ",auxeqn) );
 
 
   /* Solve the resulting polynomial */
@@ -162,7 +162,7 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
 
 
     roots := PSolve(a*x^2+b*x+c,x);
-    If(InVerboseMode(),Echo("OdeSolve: Roots of quadratic:",roots) );
+    Decide(InVerboseMode(),Echo("OdeSolve: Roots of quadratic:",roots) );
 
     // assuming real coefficients, the roots must come in a complex
     // conjugate pair, so we don't have to check both
@@ -173,10 +173,10 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
     if( b=?0 And? c=?0 ){
         Add(OdeConstantList(2)*[1,x]);
     } else if( Number?(N(roots[1])) ){
-        If(InVerboseMode(),Echo("OdeSolve: Real roots"));
+        Decide(InVerboseMode(),Echo("OdeSolve: Real roots"));
         Add(OdeConstantList(2)*[Exp(roots[1]*x),Exp(roots[2]*x)]);
     } else {
-      If(InVerboseMode(),Echo("OdeSolve: Complex conjugate pair roots"));
+      Decide(InVerboseMode(),Echo("OdeSolve: Complex conjugate pair roots"));
       Local(alpha,beta);
       alpha:=Re(roots[1]);
       beta:=Im(roots[1]);
@@ -195,9 +195,9 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
         coefs:=ZeroVector(10); //ugly
         e:=OdeNormalForm(e);
 
-        If(InVerboseMode(),Echo("OdeSolve: Normal form is",e));
+        Decide(InVerboseMode(),Echo("OdeSolve: Normal form is",e));
         h:=OdeFlatTerm(OdeCoefList(e));
-        If(InVerboseMode(),Echo("OdeSolve: Flatterm is",h));
+        Decide(InVerboseMode(),Echo("OdeSolve: Flatterm is",h));
 
         // get the list of coefficients of the derivatives
         // in decreasing order
@@ -223,8 +223,8 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
 // only works for low order equations
 10 # OdeSolve(yPRIME==_expr)_(FreeOf?([y,yPRIME,yPRIMEPRIME],expr)) <--
 {
-        If(InVerboseMode(),Echo("OdeSolve: Integral in disguise!"));
-        If(InVerboseMode(),Echo("OdeSolve: Attempting to integrate ",expr));
+        Decide(InVerboseMode(),Echo("OdeSolve: Integral in disguise!"));
+        Decide(InVerboseMode(),Echo("OdeSolve: Attempting to integrate ",expr));
 
         (Integrate(x) expr)+UniqueConstant();
 };
@@ -233,9 +233,9 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
 {
   Local(h);
   e:=OdeNormalForm(e);
-  If(InVerboseMode(),Echo("OdeSolve: Normal form is",e));
+  Decide(InVerboseMode(),Echo("OdeSolve: Normal form is",e));
   h:=OdeFlatTerm(OdeCoefList(e));
-  If(InVerboseMode(),Echo("OdeSolve: Flatterm is",h));
+  Decide(InVerboseMode(),Echo("OdeSolve: Flatterm is",h));
   if (FreeOf?(Error,h))
   {
     OdeSolveLinear(e,h);

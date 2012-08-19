@@ -9,7 +9,7 @@
         {
                 While(i<?Length(list) And? list[i]=?list[i+1])
                         DestructiveDelete(list, i);
-                If(i=?Length(list), done := True);
+                Decide(i=?Length(list), done := True);
         };
         list;
 };

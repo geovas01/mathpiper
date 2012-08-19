@@ -25,10 +25,10 @@ Echo([]);
      newrho:=LeadingCoef(newr);
 
 
-     If (newr !=? 0, newr:=Monic(newr));
+     Decide(newr !=? 0, newr:=Monic(newr));
      news  :=(s[i]-q*s[i+1]);
      newt  :=(t[i]-q*t[i+1]);
-     If(newrho !=? 0,
+     Decide(newrho !=? 0,
        {
          news:=news/newrho;
          newt:=newt/newrho;

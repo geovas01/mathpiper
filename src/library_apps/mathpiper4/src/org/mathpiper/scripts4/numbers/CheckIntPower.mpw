@@ -7,7 +7,7 @@
 CheckIntPower(n, limit) :=
 {
         Local(s0, s, root);
-        If(limit<=?1, limit:=2);        // guard against too low value of limit
+        Decide(limit<=?1, limit:=2);        // guard against too low value of limit
         // compute the bound on power s
         s0 := IntLog(n, limit);
         // loop: check whether n^(1/s) is integer for all prime s up to s0
@@ -17,14 +17,14 @@ CheckIntPower(n, limit) :=
         {
                 s := NextPseudoPrime(s);
                 root := IntNthRoot(n, s);
-                If(
+                Decide(
                         root^s =? n,        // found root
                         True,
                         root := 0
                 );
         };
         // return result
-        If(
+        Decide(
                 root=?0,
                 [n, 1],
                 [root, s]

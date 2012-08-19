@@ -8,7 +8,7 @@
 {
         Check( Integer?(a) And? Integer?(p) And? p>?2 And? Coprime?(a,p) And? Prime?(p),
                 "Argument", "LegendreSymbol: Invalid arguments");
-        If(QuadraticResidue?(a,p), 1, -1 );
+        Decide(QuadraticResidue?(a,p), 1, -1 );
 };
 
 %/mathpiper

@@ -17,7 +17,7 @@
                 oldstep := step;
                 step := step*2;
         };
-        If(x >=? base,
+        Decide(x >=? base,
           {
                 step := oldstep;
                 result := step;
@@ -30,7 +30,7 @@
         {
                 step := Quotient(step,2);        // for each step size down to 1, divide by factor if x is up to it
                 factor := base^step;
-                If(
+                Decide(
                         x >=? factor,
                         {
                                 x:=Quotient(x, factor);

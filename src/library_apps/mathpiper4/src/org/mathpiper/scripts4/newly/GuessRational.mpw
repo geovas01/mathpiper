@@ -9,9 +9,9 @@ GuessRational(x_RationalOrNumber?, prec_Integer?) <-- {
         cf := ContFracList(x);
         For(i:=2, i<=?Length(cf) And? denomestimate <? 10^prec, i++)
                 {        // estimate the denominator
-                        denomestimate := denomestimate * If(
+                        denomestimate := denomestimate * Decide(
                                 cf[i] =? 1,
-                                If(
+                                Decide(
                                         i+2<=?Length(cf),        // have at least two more terms, do a full estimate
                                         RoundTo(N(Eval(cf[i]+1/(cf[i+1]+1/cf[i+2]))), 3),
                                         // have only one more term
@@ -21,12 +21,12 @@ GuessRational(x_RationalOrNumber?, prec_Integer?) <-- {
                                 cf[i]
                         );
                 };
-        If (denomestimate <? 10^prec,
-                //If(InVerboseMode(), Echo(["GuessRational: all ", i, "terms are within limits"])),
+        Decide(denomestimate <? 10^prec,
+                //Decide(InVerboseMode(), Echo(["GuessRational: all ", i, "terms are within limits"])),
                 i--        // do not use the last term
         );
         i--;        // loop returns one more number
-        //If(InVerboseMode(), Echo(["GuessRational: using ", i, "terms of the continued fraction"]));
+        //Decide(InVerboseMode(), Echo(["GuessRational: using ", i, "terms of the continued fraction"]));
         ContFracEval(Take(cf, i));
 };
 

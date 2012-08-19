@@ -38,7 +38,7 @@ HeapSort(L_List?, _compare) <--
                 // elements before pleft have been stored
                 // the smallest element of the right half is at iright
                 // the smallest element of the left half is at ileft, access through tmplist
-        If(        // we copy an element from ileft either if it is smaller or if the right half is finished; it is unnecessary to copy the remainder of the right half since the right half stays in the "list"
+        Decide(        // we copy an element from ileft either if it is smaller or if the right half is finished; it is unnecessary to copy the remainder of the right half since the right half stays in the "list"
                 iright>?last Or? Apply(compare,[tmplist[ileft],L[iright]]),
                 {        // take element from ileft
                         L[pleft] := tmplist[ileft];

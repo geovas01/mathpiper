@@ -2,11 +2,11 @@
 
 MatrixColumnReplace( M_Matrix?, jCol_PositiveInteger?, v_Vector? )_(Length(v)=?Dimensions(M)[2]) <--
 {
-    If( Not? Bound?(iDebug), iDebug := False );
-    If( iDebug, Tell(MatrixColumnReplace,[M,jCol,v]) );
+    Decide( Not? Bound?(iDebug), iDebug := False );
+    Decide( iDebug, Tell(MatrixColumnReplace,[M,jCol,v]) );
     Local(mRows,nCols,MT);
     [mRows,nCols] := Dimensions(M);
-    If( jCol <=? nCols,
+    Decide( jCol <=? nCols,
        { MT:=Transpose(M); DestructiveReplace(MT,jCol,v); M:=Transpose(MT); }
     );
     M;

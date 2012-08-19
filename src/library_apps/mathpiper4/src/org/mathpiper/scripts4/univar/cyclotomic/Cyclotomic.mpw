@@ -35,9 +35,9 @@ Function("SubstituteInUniVar",[p,k])
  ForEach(c,L) {
   // c is the coefficient of x^i in p
   // We append k-1 zeros
-  If (i<?d, For (j:=1,j<?k,j++) DestructiveAppend(NL,0));
+  Decide(i<?d, For (j:=1,j<?k,j++) DestructiveAppend(NL,0));
   // We append (-1)^i*c as the coefficient of x^(k*i)
-  DestructiveAppend(NL,If(Even?(i),c,-c));
+  DestructiveAppend(NL,Decide(Even?(i),c,-c));
   i--;
  };
  UniVariate(First(p),0,NL);
@@ -61,7 +61,7 @@ Function("SubstituteAndExpandInUniVar",[p,k])
     Local(term);
     exponent := first+i-1;
     c:= coefs[i];
-    nc := If(Even?(exponent),c,-c);
+    nc := Decide(Even?(exponent),c,-c);
     term:=NormalForm(nc*var^(exponent*k));
     result:=result+term;
   };
@@ -130,12 +130,12 @@ CyclotomicFactor(_a,_b) <--
         m := m/2;
        };
        k := k/2 ;
-       If(m>?1, {
+       Decide(m>?1, {
                  p:= InternalCyclotomic(m,x)[2];
                  // Substitute x by -x^k
                  result:=[];
                  ForEach(t,p)
-                    DestructiveAppend(result, [t[1]*k,If(Even?(t[1]),t[2],-t[2])]);
+                    DestructiveAppend(result, [t[1]*k,Decide(Even?(t[1]),t[2],-t[2])]);
                },
                  result := [[k,1],[0,1]] // x^k+1
         );
@@ -166,17 +166,17 @@ CyclotomicFactor(_a,_b) <--
  poly2 := [[0,1]];
  ForEach (d,divisors)
  {
-   If(InVerboseMode(),Echo("d=",d));
+   Decide(InVerboseMode(),Echo("d=",d));
    f:= CyclotomicFactor(n/d[1],n/d[2]);
-   If (d[3]=?1,poly1:=MultiplyTerms(poly1,f),poly2:=MultiplyTerms(poly2,f));
-   If(InVerboseMode(),
+   Decide(d[3]=?1,poly1:=MultiplyTerms(poly1,f),poly2:=MultiplyTerms(poly2,f));
+   Decide(InVerboseMode(),
      {
        Echo("poly1=",poly1);
        Echo("poly2=",poly2);
      });
  };
- If(InVerboseMode(),Echo("End ForEach"));
- result := If(poly2=?[[0,1]],poly1,DivTermList(poly1,poly2));
+ Decide(InVerboseMode(),Echo("End ForEach"));
+ result := Decide(poly2=?[[0,1]],poly1,DivTermList(poly1,poly2));
  SparseUniVar(x,result);
 };
 

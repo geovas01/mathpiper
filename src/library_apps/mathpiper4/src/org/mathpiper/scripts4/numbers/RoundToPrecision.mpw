@@ -4,19 +4,19 @@
 
 10 # RoundToPrecision( N_Decimal?, newPrec_PositiveInteger? ) <--
 {
-    //If(InVerboseMode(),Tell("RoundToPrecision_D",[N,newPrec]));
+    //Decide(InVerboseMode(),Tell("RoundToPrecision_D",[N,newPrec]));
     Local(rep,sgn,oldInt,oldPrec,oldScale,strOInt,LS,BIP0);
     Local(newInt,newScale,newRep,ans);
     BIP0     := BuiltinPrecisionGet();
     sgn      := Sign(N);
-    rep      := NumberToRep( If(sgn<?0,-N,N) );
+    rep      := NumberToRep( Decide(sgn<?0,-N,N) );
     oldInt   := rep[1];
     oldPrec  := rep[2];
     oldScale := rep[3];
-    If( newPrec >? oldPrec, BuiltinPrecisionSet(newPrec) );
+    Decide( newPrec >? oldPrec, BuiltinPrecisionSet(newPrec) );
     strOInt  := ExpressionToString(oldInt);
     LS       := Length(strOInt);
-    //If(InVerboseMode(),
+    //Decide(InVerboseMode(),
     //   [
     //      Tell("   ",rep);
     //      Tell("         ",oldInt);
@@ -34,12 +34,12 @@
             first    := StringMidGet(1, newPrec, strOInt); 
             secnd    := StringMidGet(newPrec+1, LS-newPrec, strOInt);
             rem      := ToAtom(ConcatStrings(".",secnd));
-            ad       := If(rem>=?0.5, 1, 0 );
+            ad       := Decide(rem>=?0.5, 1, 0 );
             newInt   := sgn * ( ToAtom(first) + ad );
             newScale := oldScale - ( oldPrec - newPrec ); 
             newRep   := [newInt,newPrec,newScale];
             ans      := RepToNumber(newRep);
-            //If(InVerboseMode(),
+            //Decide(InVerboseMode(),
             //   [
             //      Tell("         ",[first,secnd]);
             //      Tell("         ",[rem,ad]);
@@ -50,13 +50,13 @@
         }
     else
         {
-            //If(InVerboseMode(),Tell("   newPrec >? oldPrec "));
+            //Decide(InVerboseMode(),Tell("   newPrec >? oldPrec "));
             Local(diffPrec);
             diffPrec := oldPrec - newPrec;
             newInt   := sgn * ToAtom(strOInt) * 10^(-diffPrec) ;
             newScale := oldScale - diffPrec;
             newRep   := [newInt,newPrec,newScale];
-            //If(InVerboseMode(),[Tell("         ",diffPrec);Tell("         ",newRep);]);
+            //Decide(InVerboseMode(),[Tell("         ",diffPrec);Tell("         ",newRep);]);
             ans      := RepToNumber(newRep);
         };
     BuiltinPrecisionSet(BIP0);
@@ -66,17 +66,17 @@
 
 15 # RoundToPrecision( N_Integer?, newPrec_PositiveInteger? ) <--
 {
-    //If(InVerboseMode(),Tell("RoundToPrecision_I",[N,newPrec]));
+    //Decide(InVerboseMode(),Tell("RoundToPrecision_I",[N,newPrec]));
     Local(oldRep,oldPrec,decN,newDecN,ans);
     oldRep   := NumberToRep(N);
     oldPrec  := oldRep[2];
     decN     := N*1.0;
     newDecN  := RoundToPrecision( decN, newPrec );
-    //If(InVerboseMode(),Tell("    ",oldRep));
-    //If(InVerboseMode(),Tell("   ",oldPrec));
-    //If(InVerboseMode(),Tell("   ",newPrec));
-    //If(InVerboseMode(),Tell("   ",newDecN));
-    If( newPrec <=? oldPrec, 
+    //Decide(InVerboseMode(),Tell("    ",oldRep));
+    //Decide(InVerboseMode(),Tell("   ",oldPrec));
+    //Decide(InVerboseMode(),Tell("   ",newPrec));
+    //Decide(InVerboseMode(),Tell("   ",newDecN));
+    Decide( newPrec <=? oldPrec, 
         ans := Round(newDecN),
         ans := Round(newDecN*10^(newPrec-oldPrec))
     );
@@ -86,7 +86,7 @@
 
 20 # RoundToPrecision( N_Complex?, newPrec_PositiveInteger? ) <--
 {
-    //If(InVerboseMode(),Tell("RoundToPrecision_C",[N,newPrec]));
+    //Decide(InVerboseMode(),Tell("RoundToPrecision_C",[N,newPrec]));
     Local(rr,ii);
     rr := Re(N);
     ii := Im(N);

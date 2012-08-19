@@ -20,7 +20,7 @@
 {
         Local(nbits);
         nbits:=0;
-          If(value<?1,
+          Decide(value<?1,
         {        // float value <? 1, need to multiply by 2
                 nbits := 1;
                 While(value<?1)

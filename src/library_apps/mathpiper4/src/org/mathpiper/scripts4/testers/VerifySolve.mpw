@@ -4,7 +4,7 @@
 //Retract("VerifySolveEqual",*);
 
 VerifySolve(_e1, _e2) <--
-If (VerifySolveEqual(Eval(e1), Eval(e2)), 
+Decide(VerifySolveEqual(Eval(e1), Eval(e2)), 
     True,
     { 
       WriteString("******************");    NewLine();
@@ -32,7 +32,7 @@ HoldArgumentNumber("VerifySolve", 2, 1);
     i++;
     found := VerifySolveEqual(First(e1), e2[i]);
   };
-  If (found, VerifySolveEqual(Rest(e1), Delete(e2, i)), False);
+  Decide(found, VerifySolveEqual(Rest(e1), Delete(e2, i)), False);
 };
 
 40 # VerifySolveEqual(_l1 == _r1, _l2 == _r2) 

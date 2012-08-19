@@ -416,7 +416,7 @@ PositionHelper(subTerm, term, list) :=
         [   
             list := PositionHelper(subTerm, term[argPosition], list);
             
-            If(list[1] =? True, [list := Append(list, argPosition);argPosition := -1;]);
+            Decide(list[1] =? True, [list := Append(list, argPosition);argPosition := -1;]);
         
             argPosition--;
         ];
@@ -528,7 +528,7 @@ Isolate(pathNumbers, equation, var) :=
 
         DestructiveAppend(result,[ToAtom(ListToString(Remove(StringToList(rest[3]),"$")))]);
         
-        If(Length(rest) =? 4, DestructiveAppend(result,[TexFormNoDollarSigns(rest[4])]));
+        Decide(Length(rest) =? 4, DestructiveAppend(result,[TexFormNoDollarSigns(rest[4])]));
         
         DestructiveAppend(result,[ToAtom(" \\ ")]);
         
@@ -556,7 +556,7 @@ Isolate2(pathNumbers, equation, var, options) :=
     DestructiveAppend(result, LatexView("Solve \\ \\ " ~ ToString(TexFormNoDollarSigns(equation)) ~ " \\ \\ for \\ " ~ ToString(var) ~ "."));
     
     
-    If(showTree =? "True", DestructiveAppend(result, TreeView(RemoveDollarSigns(equation), scale -> 2)));
+    Decide(showTree =? "True", DestructiveAppend(result, TreeView(RemoveDollarSigns(equation), scale -> 2)));
     
     
     //DestructiveAppend(result,LatexView(" \\vspace[1in]"));
@@ -575,14 +575,14 @@ Isolate2(pathNumbers, equation, var, options) :=
 
         DestructiveAppend(result,LatexView(ListToString(Remove(StringToList(rest[3]),"$"))));
         
-        If(Length(rest) =? 4, [DestructiveAppend(result,LatexView(" \\vspace[.10in]"));
+        Decide(Length(rest) =? 4, [DestructiveAppend(result,LatexView(" \\vspace[.10in]"));
                     DestructiveAppend(result,LatexView(TexFormNoDollarSigns(rest[4])));]);
         
         DestructiveAppend(result,LatexView(" \\vspace[.10in]"));
         
         DestructiveAppend(result, LatexView(TexFormNoDollarSigns(rest[1])));
         
-        If(showTree =? "True", DestructiveAppend(result, TreeView(RemoveDollarSigns(First(rest)), scale -> 2)));
+        Decide(showTree =? "True", DestructiveAppend(result, TreeView(RemoveDollarSigns(First(rest)), scale -> 2)));
         
         //DestructiveAppend(result,LatexView(" \\vspace[.5in]"));
     ];

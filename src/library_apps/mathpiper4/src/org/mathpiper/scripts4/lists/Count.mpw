@@ -4,7 +4,7 @@ Function("Count",[list,element])
 {
    Local(result);
    Assign(result,0);
-   ForEach(item,list) If(Equal?(item, element), Assign(result,AddN(result,1)));
+   ForEach(item,list) Decide(Equal?(item, element), Assign(result,AddN(result,1)));
    result;
 };
 

@@ -13,8 +13,8 @@
 
 10 # RREF( AM_Matrix? ) <--
 {
-    If( Not? Bound?(iDebug), iDebug := False );
-    If(iDebug,Tell("RREF",AM));
+    Decide( Not? Bound?(iDebug), iDebug := False );
+    Decide(iDebug,Tell("RREF",AM));
     Local(mRows,nCols,nVars,varVec,ir,jc,col,am,e,ii,pivot);
     [mRows,nCols] := Dimensions(AM);
     am            := FlatCopy(AM); //  so as not to mess with original matrix!
@@ -28,83 +28,83 @@
         Local(ic);
 
         // STEP 1:  Locate first (sub)column that is NOT all zeros
-        If(iDebug, Tell("  STEP 1"));
+        Decide(iDebug, Tell("  STEP 1"));
         cnz := 0;   //  column number of first non-zero column in submatrix
         For(ic:=1,ic<=?nCols,ic++)   
          { 
             col := MatrixColumn(am,ic);
-            If( cr >? 1, col := Drop( col, [1,cr-1] ) );
+            Decide( cr >? 1, col := Drop( col, [1,cr-1] ) );
             //Tell("         ",[ic,col]);
-            If(Not? ZeroVector?(col), {cnz := ic; Break();}); 
+            Decide(Not? ZeroVector?(col), {cnz := ic; Break();}); 
          };
         cc := cnz;
-        If( iDebug, Tell("     first non-zero column is ",cc));
+        Decide( iDebug, Tell("     first non-zero column is ",cc));
         
         // STEP 2::  Now, find the first row which does not have a zero in column cc,
         // and bring it to the top if necessary
-        If(iDebug, Tell("  STEP 2"));
+        Decide(iDebug, Tell("  STEP 2"));
         For( ir:=cr, ir<=?mRows,ir++ )
          {  
-            If( am[ir][cc] !=? 0 And? ir !=? 1, 
+            Decide( am[ir][cc] !=? 0 And? ir !=? 1, 
               {
                 [am[ir],am[cr]] := [am[cr],am[ir]];
-                If(iDebug, Tell("   swapping rows ",[cr,ir]));
+                Decide(iDebug, Tell("   swapping rows ",[cr,ir]));
                 Break();
               }
             );
          };
-        If(iDebug,{Tell("working matrix");TableForm(am);});
+        Decide(iDebug,{Tell("working matrix");TableForm(am);});
         
         // STEP 3:  If the entry am[cr][cc] = a, then multiply row cr by 1/a
         // in order to introduce a leading 1.
-        If(iDebug, Tell("  STEP 3"));
+        Decide(iDebug, Tell("  STEP 3"));
         am[cr] := am[cr]/am[cr][cc];
-        If(iDebug,TableForm(am));
+        Decide(iDebug,TableForm(am));
         
         // STEP 4:  Add suitable multiples of the top row to the rows below,
         // so that all entries below the leading 1 become zeros.
-        If(iDebug, Tell("  STEP 4"));
+        Decide(iDebug, Tell("  STEP 4"));
         For(ir:=cr+1,ir<=?mRows,ir++)
          {
-           If( am[ir][cc] !=? 0, 
+           Decide( am[ir][cc] !=? 0, 
              {
                 am[ir] := am[ir] - am[ir][cc]*am[cr];
              }
            );
          };
-        If(iDebug,TableForm(am));
+        Decide(iDebug,TableForm(am));
         
         // STEP 5:  Now cover the top row and begin again with STEP 1, 
         // applied to the submatrix that remains.  Continue until the
         // entire matrix is in row-echelon form
-        If(iDebug, Tell("  STEP 5"));
+        Decide(iDebug, Tell("  STEP 5"));
         cr := cr + 1;
-        If(iDebug And? cr <=? mRows, {NewLine();Tell(" ",cr);});
+        Decide(iDebug And? cr <=? mRows, {NewLine();Tell(" ",cr);});
         //Tell("   ",cr);
         //Tell("   ",am[cr]);
-        If( cr=?mRows And? ZeroVector?(am[cr]), Break() );
+        Decide( cr=?mRows And? ZeroVector?(am[cr]), Break() );
     };   // end while cr <=? mRows
     
     // STEP 6:  convert to unique reduced row-echelon form
     //   Beginning with the last non-zero row, and working upward,
     //   add suitable multiples of each row to the rows above to 
     //   introduce zeros above the leading 1's.
-    If(iDebug, Tell("  STEP 6"));
+    Decide(iDebug, Tell("  STEP 6"));
     Local(pc,jr);
     For(ir:=mRows,ir>?1,ir--)
      { 
          
-         If(iDebug,Tell("",[ir,am[ir]]));
-         If(ZeroVector?(am[ir]),
-           {If(iDebug,Tell("    trailing row of zeros:  row ",ir)); ir:=ir-1;Continue();},
+         Decide(iDebug,Tell("",[ir,am[ir]]));
+         Decide(ZeroVector?(am[ir]),
+           {Decide(iDebug,Tell("    trailing row of zeros:  row ",ir)); ir:=ir-1;Continue();},
            {
               pc := Find(am[ir],1);  // find leading 1 in row
-              If(pc >? 0, 
+              Decide(pc >? 0, 
                 {
                    For(jr:=ir-1,jr>=?1,jr--)
                     {
-                       If(am[jr][pc]!=?0, am[jr]:=am[jr]-am[jr][pc]*am[ir]);
-                       If(iDebug,{NewLine();TableForm(am);});
+                       Decide(am[jr][pc]!=?0, am[jr]:=am[jr]-am[jr][pc]*am[ir]);
+                       Decide(iDebug,{NewLine();TableForm(am);});
                     };
                 }
               );

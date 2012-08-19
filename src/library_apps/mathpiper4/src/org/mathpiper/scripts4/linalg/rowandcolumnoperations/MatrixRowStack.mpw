@@ -2,8 +2,8 @@
 
 MatrixRowStack( M_Matrix?, v_Vector? )_(Length(v)=?Dimensions(M)[1]) <--
 {
-    If( Not? Bound?(iDebug), iDebug := False );
-    If( iDebug, Tell(MatrixRowStack,[M,v]) );
+    Decide( Not? Bound?(iDebug), iDebug := False );
+    Decide( iDebug, Tell(MatrixRowStack,[M,v]) );
     Local(mRows,nCols,newMat,ir);
     [mRows,nCols] := Dimensions(M);
     newMat        := ZeroMatrix(mRows+1,nCols);

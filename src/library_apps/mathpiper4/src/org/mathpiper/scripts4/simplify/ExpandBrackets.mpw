@@ -7,7 +7,7 @@ LocalSymbols(AssembleTerms, AssembleTermsRecursive)
     {
         Check(List?(list), "Argument", "The argument must be a list.");
 
-        If(Length(list) =? 1,
+        Decide(Length(list) =? 1,
             First(list),
             AssembleTermsRecursive(Reverse(list)) 
         );
@@ -16,12 +16,12 @@ LocalSymbols(AssembleTerms, AssembleTermsRecursive)
 
     AssembleTermsRecursive(list) :=
     {
-        If(Type(list[1]) =? "-" Or? NegativeNumber?(list[1]) Or? Type(list[1]) =? "/" And? (Type(Numerator(list[1])) =? "-" Or? NegativeNumber?(Numerator(list[1]))),
-            If(Length(list) =? 2,
+        Decide(Type(list[1]) =? "-" Or? NegativeNumber?(list[1]) Or? Type(list[1]) =? "/" And? (Type(Numerator(list[1])) =? "-" Or? NegativeNumber?(Numerator(list[1]))),
+            Decide(Length(list) =? 2,
                 ListToFunction([ToAtom("-"), list[2], -list[1]] ),
                 ListToFunction([ToAtom("-"), AssembleTermsRecursive(Rest(list)), -First(list)] )
             ),
-            If(Length(list) =? 2,
+            Decide(Length(list) =? 2,
                 ListToFunction([ToAtom("+"), list[2], list[1]] ),
                 ListToFunction([ToAtom("+"), AssembleTermsRecursive(Rest(list)), First(list)] )
             )

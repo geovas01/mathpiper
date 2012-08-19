@@ -11,14 +11,14 @@
     //         and a list of Variables to be used, in Order of ">".
     // OUTPUT: the polynomial, in the Sparse representation, with Markers
     //------------------------------------------------------------------
-    If(InVerboseMode(),Tell(" MakeNewPoly",poly));
+    Decide(InVerboseMode(),Tell(" MakeNewPoly",poly));
     Local(p,nTerms,ii,dexp,npVars,pVars,ind,polyExp,pwrProd,pwrProdT,newDexp);
     npVars  := polyVars;
     nVars   := Length(npVars);
     dexp   := DisassembleExpression(poly,npVars);
     nTerms := Length(dexp[3]);
     pVars  := dexp[1];
-    If(InVerboseMode(),
+    Decide(InVerboseMode(),
       {
         Tell("    ",nTerms); 
         Tell("      ",ReassembleListTerms(dexp)); 
@@ -28,12 +28,12 @@
     newDexp := FlatCopy(dexp);
     newDexp[1] := npVars;
     pwrProd := dexp[2];
-    If(InVerboseMode(), {Tell("    ",newDexp); Tell("    ",pwrProd);});
+    Decide(InVerboseMode(), {Tell("    ",newDexp); Tell("    ",pwrProd);});
     pwrProdT := Transpose(pwrProd);
     polyExp  := Concat([dexp[3]],pwrProdT);
     polyExp  := Push(Transpose(polyExp),npVars);
     polyExp  := Push(polyExp,NP);
-    If(InVerboseMode(),Tell("    ",polyExp));
+    Decide(InVerboseMode(),Tell("    ",polyExp));
     polyExp;
  };
  UnFence("MakeNewPoly",2);

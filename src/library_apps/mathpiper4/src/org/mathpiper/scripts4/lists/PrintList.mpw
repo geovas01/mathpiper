@@ -9,8 +9,8 @@
 20 # PrintList(list_List?, padding_String?) <-- PipeToString() {
         Local(i);
         ForEach(i, list) {
-                If(Not?(Equal?(i, First(list))), WriteString(padding));
-                If (String?(i), WriteString(i), If(List?(i), WriteString("[" ~ PrintList(i, padding) ~ "]"), Write(i)));
+                Decide(Not?(Equal?(i, First(list))), WriteString(padding));
+                Decide(String?(i), WriteString(i), Decide(List?(i), WriteString("[" ~ PrintList(i, padding) ~ "]"), Write(i)));
         };
 };
 

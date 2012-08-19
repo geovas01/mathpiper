@@ -13,7 +13,7 @@ Macro ("TestMathPiper", [expr, ans])
   ansEval:= @ans;
 
         diff := Simplify(exprEval - ansEval);
-                If (Simplify(diff)=0, True,
+                Decide(Simplify(diff)=0, True,
                         {
                           WriteString("******************");
                           NewLine();
@@ -45,7 +45,7 @@ Function ("TestMathPiper", [expr, ans])
 {
         Local(diff);
         diff := Simplify(Eval(expr)-Eval(ans));
-                If (Simplify(diff)=?0, True,
+                Decide(Simplify(diff)=?0, True,
                         {
                           WriteString("******************");
                           NewLine();

@@ -19,7 +19,7 @@ ArithmeticGeometricMean(a, b, eps) :=
     
         Local(a1, b1);
         
-        If(InVerboseMode(), Echo("ArithmeticGeometricMean: Info: at prec. ", BuiltinPrecisionGet()));
+        Decide(InVerboseMode(), Echo("ArithmeticGeometricMean: Info: at prec. ", BuiltinPrecisionGet()));
         
         // AGM main loop
         While(Abs(a-b)>=?eps)

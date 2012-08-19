@@ -2,7 +2,7 @@
 
 Function("SolveMatrix",[matrix,vector])
 {
-  If(InVerboseMode(),Tell("   SolveMatrix",[matrix,vector]));
+  Decide(InVerboseMode(),Tell("   SolveMatrix",[matrix,vector]));
   Local(perms,indices,inv,det,n);
   n:=Length(matrix);
   indices:=Table(i,i,1,n,1);
@@ -18,7 +18,7 @@ Function("SolveMatrix",[matrix,vector])
         {
          inv[i] := inv[i]+
            Product(j,1,n,
-           If(item[j] =? i,vector[j ],matrix[j][item[j] ]))*lc;
+           Decide(item[j] =? i,vector[j ],matrix[j][item[j] ]))*lc;
         };
   };
   Check(det !=? 0, "Math", "Zero determinant");

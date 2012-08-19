@@ -34,9 +34,9 @@ SubexpressionsHelper(expression, list) :=
         
         rest := Rest(expression);
         
-        If(Length(rest) !=? 0, rest := First(rest));
+        Decide(Length(rest) !=? 0, rest := First(rest));
      
-        If(Length(rest) !=? 0, list := SubexpressionsHelper(rest, list));
+        Decide(Length(rest) !=? 0, list := SubexpressionsHelper(rest, list));
     };
     
     Append(list, expression);

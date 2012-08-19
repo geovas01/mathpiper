@@ -18,11 +18,11 @@ RuleHoldArguments("YacasPSolve",1,1,UniVar?(uni) And? Degree(uni) =? 2)
      d:=b*b-4*a*c;
      q:=Sqrt(d)/(2*a);
      // Removed to avoid excessive time RadSimp takes for larger numbers
-     // If(Im(q) !=? 0,
+     // Decide(Im(q) !=? 0,
      //     q := Complex(RadSimp(Re(q)), RadSimp(Im(q))),
      //     q := RadSimp(q));
      r:=-b/(2*a);
-     If(InVerboseMode(),{ Tell("   ",[c,b,a,d]); Tell("   ",[q,r]); });
+     Decide(InVerboseMode(),{ Tell("   ",[c,b,a,d]); Tell("   ",[q,r]); });
      [r+q,r-q];
     };
 
@@ -127,7 +127,7 @@ RuleHoldArguments("YacasPSolve",1,1,UniVar?(uni) And? Degree(uni) =? 4 )
     /* y1 = 2q, with q as above. */
     y1:=First(YacasPSolve(y^3-a2*y^2+(a1*a3-4*a4)*y+(4*a2*a4-a3^2-a1^2*a4),y));
     t := Sqrt(y1^2/4-a4);
-    If(t=?0, s:=Sqrt(y1+a1^2/4-a2), s:=(a1*y1-2*a3)/(4*t));
+    Decide(t=?0, s:=Sqrt(y1+a1^2/4-a2), s:=(a1*y1-2*a3)/(4*t));
     Concat(YacasPSolve(z^2+(a1/2+s)*z+y1/2+t,z),
            YacasPSolve(z^2+(a1/2-s)*z+y1/2-t,z));
 };
@@ -137,14 +137,14 @@ Function("YacasPSolve",[uni,var]) {
 
      u := MakeUni(uni, var);
 
-     If(Type(u) =? "UniVariate" And? (And? @ (Lambda([x], Number?(x) Or? Rational?(x)) /@ u[3])), {
+     Decide(Type(u) =? "UniVariate" And? (And? @ (Lambda([x], Number?(x) Or? Rational?(x)) /@ u[3])), {
          Local(coeffs);
          coeffs := Rationalize(u[3]);
-         coeffs := If(Length(coeffs) >? 1, 
+         coeffs := Decide(Length(coeffs) >? 1, 
                        Lcm(Denominator /@ coeffs) * coeffs, 
                        (Denominator /@ coeffs) * coeffs);
          DestructiveReplace(u, 3, coeffs);
-         factors := If(Degree(u)>?0, 
+         factors := Decide(Degree(u)>?0, 
                         Factors(NormalForm(u)), 
                         [NormalForm(u), 1]);
      }, {
@@ -154,10 +154,10 @@ Function("YacasPSolve",[uni,var]) {
      r := [];
      ForEach(f, factors) {
          s := YacasPSolve(MakeUni(f[1],var));
-         r := Union(r, If(List?(s), s, [s]));
+         r := Union(r, Decide(List?(s), s, [s]));
      };
 
-     If(Length(r) =? 1, r[1], r);
+     Decide(Length(r) =? 1, r[1], r);
 };
 
 %/mathpiper

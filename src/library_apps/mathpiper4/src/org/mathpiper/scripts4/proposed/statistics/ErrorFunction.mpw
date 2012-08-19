@@ -36,7 +36,7 @@ ErrorFunction(x) :=
     //Save the sign of x
     sign := 1;
     
-    If(x <? 0, sign := -1);
+    Decide(x <? 0, sign := -1);
     
     x := AbsN(x);
 

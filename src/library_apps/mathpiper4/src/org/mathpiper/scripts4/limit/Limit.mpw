@@ -85,9 +85,9 @@
     pc:=LeadingCoef(p,var);
     qc:=LeadingCoef(q,var);
 
-    If(pd>?qd,
+    Decide(pd>?qd,
         pc/qc*tar,
-        If(pd=?qd,pc/qc,0)
+        Decide(pd=?qd,pc/qc,0)
     );
 };
 
@@ -99,11 +99,11 @@
     lc:=IrrationalFunctionLeadingCoef(expr, var);
     dg:=IrrationalFunctionDegree(expr, var);
 
-    If(lc =? 0,
+    Decide(lc =? 0,
         0,
-        If(dg >? 0,
+        Decide(dg >? 0,
             Sign(tar)^dg * Infinity,
-            If(dg =? 0, lc, 0)
+            Decide(dg =? 0, lc, 0)
         )
     );
 };
@@ -155,7 +155,7 @@ Sign(_var, _tar, _dir, _exp, _n)
 <-- {
   Local(der, coef); der := ApplyFast("Differentiate", [var, exp]);
   coef := Eval(ApplyFast("Subst", [var, tar, der]));
-  If ( coef =? 0,
+  Decide( coef =? 0,
        Sign(var, tar, dir, der, n+1),
        (Sign(coef)*Dir(dir)) ^ n
      );
@@ -179,7 +179,7 @@ Sign(_var, _tar, _dir, _exp, _n)
 
     r := u / v;
 
-    If (u =? Undefined And? Infinity?(v), {
+    Decide(u =? Undefined And? Infinity?(v), {
         Local(li, ls);
 
         li := LimInf(var,tar,dir,x); 
@@ -220,11 +220,11 @@ Sign(_var, _tar, _dir, _exp, _n)
 
     r := u * v;
 
-    If (u =? 0 And? v =? Undefined, {
+    Decide(u =? 0 And? v =? Undefined, {
         li := LimInf(var,tar,dir,y); 
         ls := LimSup(var,tar,dir,y);
         r := u * li * ls;
-    }, If (u =? Undefined And? v =? 0, {
+    }, Decide(u =? Undefined And? v =? 0, {
         li := LimInf(var,tar,dir,x); 
         ls := LimSup(var,tar,dir,x);
         r := v * li * ls;
@@ -293,7 +293,7 @@ UnFence("LimitArgs",1); /* Allow LimitArgs to have access to the local variables
 20 # Lim(_var, _tar, _exp)
 <-- {
   Local(l); l := Lim(var, tar, Left, exp);
-  If ( l =? Lim(var, tar, Right, exp),
+  Decide( l =? Lim(var, tar, Right, exp),
        l,
        Undefined
      );

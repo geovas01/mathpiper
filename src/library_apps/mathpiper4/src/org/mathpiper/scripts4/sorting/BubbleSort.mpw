@@ -22,7 +22,7 @@ Function("BubbleSort",[list,compare])
       right:=list[i+1];
       //Tell("    ",[i,j,left,right]);
       //Tell("      ",Apply(compare,[left,right]));
-      If(Not?(Apply(compare,[left,right])),
+      Decide(Not?(Apply(compare,[left,right])),
         {
           DestructiveInsert(DestructiveDelete(list,i),i+1,left);
         }

@@ -7,11 +7,11 @@
 
 10 # CollectOn(_var,_expr)_(CanBeUni(var,expr)) <--
 {
-    If(InVerboseMode(),Echo("<< Collect on:  ",var," in expression ",expr));
+    Decide(InVerboseMode(),Echo("<< Collect on:  ",var," in expression ",expr));
     
     Local(u,a);
     u := MakeUni(expr,var);
-    If( u[2] >? 0, 
+    Decide( u[2] >? 0, 
       { a := FillList(0,u[2]); u[3] := Concat(a,u[3]); u[2] := 0; }
     );
     u[3];

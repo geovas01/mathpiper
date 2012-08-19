@@ -53,7 +53,7 @@ PollardRhoPolynomial(_x) <-- x^2+1;
              y:= Modulo( PollardRhoPolynomial(
                   Modulo( PollardRhoPolynomial(y), n)        // this is faster for large numbers
           ), n);
-             If(x-y =? 0,
+             Decide(x-y =? 0,
                 {
                          gcd := 1;
                          repeat--;        // guard against "stalling" in an infinite loop but allow a few repetitions
@@ -62,10 +62,10 @@ PollardRhoPolynomial(_x) <-- x^2+1;
                 );
 //                Echo(["debug PollardRho: gcd=",gcd," x=", x," y=", y]);
            };
-        If(InVerboseMode() And? repeat<=?0, Echo(["PollardRhoFactorize: Warning: stalled while factorizing ", n, "; counters ", x, y]));
+        Decide(InVerboseMode() And? repeat<=?0, Echo(["PollardRhoFactorize: Warning: stalled while factorizing ", n, "; counters ", x, y]));
   };
   Check(restarts>?0, "Math", "PollardRhoFactorize: Error: failed to factorize " ~ ToString(n));
-  If(InVerboseMode() And? gcd >? 1, Echo(["PollardRhoFactorize: Info: while factorizing ", n, " found factor ", gcd]));
+  Decide(InVerboseMode() And? gcd >? 1, Echo(["PollardRhoFactorize: Info: while factorizing ", n, " found factor ", gcd]));
   /* Return result found */
   PollardCombineLists(PollardRhoFactorize(gcd), PollardRhoFactorize(Quotient(n,gcd)));
 };

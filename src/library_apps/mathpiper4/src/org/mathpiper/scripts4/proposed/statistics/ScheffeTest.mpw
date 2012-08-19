@@ -79,7 +79,7 @@ ScheffeTest(levelsList, alpha) :=
         
         oneComparisonList := [];
         
-        oneComparisonList["conclusion"] := If(scheffeStatistic <=? scheffeStatisticCalculated, "No Difference", "Difference");
+        oneComparisonList["conclusion"] := Decide(scheffeStatistic <=? scheffeStatisticCalculated, "No Difference", "Difference");
         
         oneComparisonList["scheffeStatistic"] := scheffeStatistic;
         

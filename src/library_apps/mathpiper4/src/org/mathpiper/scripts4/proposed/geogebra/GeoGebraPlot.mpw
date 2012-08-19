@@ -24,15 +24,15 @@ RulebaseListedHoldArguments("GeoGebraPlot",[arg1,arg2]);
 
 10 # GeoGebraPlot(list_List?, _options)_(NumericList?(list) )  <--
 {
-    If(List?(options), options := OptionsToAssociativeList(options), options := OptionsToAssociativeList([options]));
+    Decide(List?(options), options := OptionsToAssociativeList(options), options := OptionsToAssociativeList([options]));
 
     Local(length, index, labelIndex, pointTemplate, segmentCommandTemplate, segmentElementTemplate, command, code, x, y, pointSize);
     
     length := Length(list);
     
-    If(Odd?(length), list := Append(list,list[length])); //Make list even for line drawing.
+    Decide(Odd?(length), list := Append(list,list[length])); //Make list even for line drawing.
     
-    If(options["pointSize"] !=? Empty, pointSize := options["pointSize"], pointSize := "1");
+    Decide(options["pointSize"] !=? Empty, pointSize := options["pointSize"], pointSize := "1");
     
     index := 1;
     
@@ -59,7 +59,7 @@ RulebaseListedHoldArguments("GeoGebraPlot",[arg1,arg2]);
         
         JavaCall(geogebra,"evalXML",code);
         
-        If(options["lines"] =? "True" And? labelIndex >? 1,
+        Decide(options["lines"] =? "True" And? labelIndex >? 1,
         {
             
             command := PatchString("a<?Write(labelIndex-1);?> = Segment[A<?Write(labelIndex-1);?>,A<?Write(labelIndex);?>]");

@@ -7,7 +7,7 @@
      count   := 1;
      While( Not? list =? [] )
      {
-       If(Equal?( First(list), element), DestructiveAppend(results,count) );
+       Decide(Equal?( First(list), element), DestructiveAppend(results,count) );
        list := Rest(list);
        count++;
      };

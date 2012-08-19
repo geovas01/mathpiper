@@ -17,7 +17,7 @@ PartFracExpand(_g,_f) <--
 /* Echo(["g = ",g]); */
 /* Echo(["vlist = ",vlist]); */
 
-  If(Integer?(f),
+  Decide(Integer?(f),
     res:=ChineseRemainderInteger(mlist,vlist)[2],
     res:=ChineseRemainderPoly(mlist,vlist)[2]
     );
@@ -29,7 +29,7 @@ PartFracExpand(_g,_f) <--
 
   divlist:=Map("/",[res,mlist]);
 
-  If(Length(divlist)<?2,
+  Decide(Length(divlist)<?2,
     Add(divlist),
     {
       result:=divlist[1];

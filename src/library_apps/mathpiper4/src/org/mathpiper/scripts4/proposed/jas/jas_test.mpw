@@ -20,7 +20,7 @@ ForEach(variable,gens)
     
     Echo(variableName);
     
-    If(Not? Number?(variableName), MacroAssign(variableName,MetaSet(variableName,"jas",variable)) );
+    Decide(Not? Number?(variableName), MacroAssign(variableName,MetaSet(variableName,"jas",variable)) );
     
 ];
 
@@ -51,7 +51,7 @@ g := a-2;
 
 IsJas(atom) :=
 [
-    If(MetaGet(atom,"jas") !=? Empty, True, False);
+    Decide(MetaGet(atom,"jas") !=? Empty, True, False);
 
 ];
 

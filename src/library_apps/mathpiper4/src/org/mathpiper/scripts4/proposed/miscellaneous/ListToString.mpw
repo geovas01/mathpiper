@@ -16,7 +16,7 @@
     
     ForEach(element, list)
     {
-        If(String?(element), character := element, character := ToString(element));
+        Decide(String?(element), character := element, character := ToString(element));
         
         resultString := resultString ~ character;
     };

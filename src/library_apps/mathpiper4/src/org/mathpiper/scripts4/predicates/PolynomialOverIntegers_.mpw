@@ -6,7 +6,7 @@
 {
     Local(x,vars);
     vars := VarList(expr);
-    If(Length(vars)>?1,vars:=HeapSort(vars,"GreaterThan?"));    
+    Decide(Length(vars)>?1,vars:=HeapSort(vars,"GreaterThan?"));    
     x := vars[1];
     PolynomialOverIntegers?(expr,x);
 };
@@ -16,7 +16,7 @@
 
 10 # PolynomialOverIntegers?(_expr,_var)_(CanBeUni(var,expr)) <--
 {
-    If( AllSatisfy?("Integer?",Coef(expr,var,0 .. Degree(expr,var))),
+    Decide( AllSatisfy?("Integer?",Coef(expr,var,0 .. Degree(expr,var))),
         True,
         False
       );

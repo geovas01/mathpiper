@@ -45,34 +45,34 @@ ChiSquareScoreToAlpha(score, degreesOfFreedom) :=
         
         if (degreesOfFreedom >? 1) 
         {
-            y := If(-a <? -20, 0, ExpN(-a));
+            y := Decide(-a <? -20, 0, ExpN(-a));
         };
         
-        s := If(Even?(degreesOfFreedom), y , (2.0 * ZScoreToProbability(-SqrtN(score))));
+        s := Decide(Even?(degreesOfFreedom), y , (2.0 * ZScoreToProbability(-SqrtN(score))));
         
         if (degreesOfFreedom >? 2) 
         {
             score := 0.5 * (degreesOfFreedom - 1.0);
             
-            z := If(Even?(degreesOfFreedom), 1.0, 0.5);
+            z := Decide(Even?(degreesOfFreedom), 1.0, 0.5);
             
             if (a >? 20) 
             {
-                e := If(Even?(degreesOfFreedom), 0.0, LogSqrtPi);
+                e := Decide(Even?(degreesOfFreedom), 0.0, LogSqrtPi);
                 
                 c := LogN(a);
                 
                 While(z <=? score) 
                 {
                     e := LogN(z) + e;
-                    s := s + If(c * z - a - e <? -20, 0, ExpN(c * z - a - e));
+                    s := s + Decide(c * z - a - e <? -20, 0, ExpN(c * z - a - e));
                     z := z + 1.0;
                 };
                 result := s;
             } 
             else 
             {
-                e := If(Even?(degreesOfFreedom) , 1.0, (ISqrtPi / SqrtN(a)));
+                e := Decide(Even?(degreesOfFreedom) , 1.0, (ISqrtPi / SqrtN(a)));
                 
                 c := 0.0;
                 

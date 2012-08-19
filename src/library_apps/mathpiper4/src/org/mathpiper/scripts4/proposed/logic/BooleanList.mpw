@@ -13,7 +13,7 @@ BooleanList(elements, integerBitPattern) :=
     leadingDigitsCount := elements - Length(stringBitPattern);
     
    
-    If(leadingDigitsCount >? 0, stringBitPattern := Concat(FillList("0",leadingDigitsCount),  StringToList(stringBitPattern)));
+    Decide(leadingDigitsCount >? 0, stringBitPattern := Concat(FillList("0",leadingDigitsCount),  StringToList(stringBitPattern)));
     
     atomBitPattern := MapSingle("ToAtom", stringBitPattern);
     

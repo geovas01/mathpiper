@@ -30,15 +30,15 @@ MathSqrtFloat(_A) <--
         gotbits := 7;
         // find the conditions for the last 2 iterations to be done in almost optimal precision
         subtargetbits := QuotientN(targetbits+8, 9);
-        If(gotbits >=? subtargetbits, subtargetbits := QuotientN(targetbits+2, 3));
-        If(gotbits >=? subtargetbits, subtargetbits := targetbits*4);
+        Decide(gotbits >=? subtargetbits, subtargetbits := QuotientN(targetbits+2, 3));
+        Decide(gotbits >=? subtargetbits, subtargetbits := targetbits*4);
 //        Echo("debug: subtargetbits=", subtargetbits, "a0=", a0, "targetbits=", targetbits, "bitshift=", bitshift, "targetprec=", targetprec);
         // now perform Halley iterations until we get at least subtargetbits, then start with subtargetbits and perform further Halley iterations
         While(gotbits <? targetbits)
         {
                 gotbits := 3*gotbits+1;        // Halley iteration; get 3n+2 bits, allow 1 bit for roundoff
                 // check for suboptimal last iterations
-                If(gotbits >=? subtargetbits,
+                Decide(gotbits >=? subtargetbits,
                 {        // it could be very suboptimal to continue with our value of gotbits, so we curb precision for the last 2 iterations which dominate the calculation time at high precision
                         gotbits := subtargetbits;
                         subtargetbits := targetbits*4;        // make sure that the above condition never becomes true again

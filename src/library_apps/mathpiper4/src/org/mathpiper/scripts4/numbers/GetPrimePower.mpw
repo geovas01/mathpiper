@@ -9,10 +9,10 @@
         Local(s, factors, newfactors);
         // first, separate any small prime factors
         factors := TrialFactorize(n, 257);        // "factors" = [n1, [p1,s1],[p2,s2],...] or just [n] if no factors found
-        If(
+        Decide(
                 Length(factors) >? 1,        // factorized into something
                 // now we return [n, 1] either if we haven't completely factorized, or if we factorized into more than one prime factor; otherwise we return the information about prime factors
-                If(
+                Decide(
                         factors[1] =? 1 And? Length(factors) =? 2,        // factors = [1, [p, s]], so we have a prime power n=p^s
                         factors[2],
                         [n, 1]
@@ -20,15 +20,15 @@
                 // not factorizable into small prime factors -- use main algorithm
                 {
                         factors := CheckIntPower(n, 257);        // now factors = [p, s] with n=p^s
-                        If(
+                        Decide(
                                 factors[2] >? 1,        // factorized into something
                                 // now need to check whether p is a prime or a prime power and recalculate "s"
-                                If(
+                                Decide(
                                         Prime?(factors[1]),
                                         factors,        // ok, prime power, return information
                                         {        // not prime, need to check if it's a prime power
                                                 newfactors := GetPrimePower(factors[1]);        // recursive call; now newfactors = [p1, s1] where n = (p1^s1)^s; we need to check that s1>?1
-                                                If(
+                                                Decide(
                                                         newfactors[2] >? 1,
                                                         [newfactors[1], newfactors[2]*factors[2]],        // recalculate and return prime power information
                                                         [n, 1]        // not a prime power

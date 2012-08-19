@@ -5,19 +5,19 @@
 
 10 # CloseEnough(_expr1,_expr2,_prec) <--
   [
-      If(iDebug=True,Tell("CloseEnough",[expr1,expr2,prec]));
+      Decide(iDebug=True,Tell("CloseEnough",[expr1,expr2,prec]));
       Local(diff,ndiff,ncomp,result);
       diff := expr1 - expr2;
-      If(diff !=? 0 And? HasFunction?(expr1,Sqrt), diff := RadSimp(expr1-expr2));
-      If(diff !=? 0, diff := Simplify(expr1-expr2));      
-      If(iDebug=True,Tell("  ce1",diff));
-      If(diff=0,
+      Decide(diff !=? 0 And? HasFunction?(expr1,Sqrt), diff := RadSimp(expr1-expr2));
+      Decide(diff !=? 0, diff := Simplify(expr1-expr2));      
+      Decide(iDebug=True,Tell("  ce1",diff));
+      Decide(diff=0,
           result:=True,
           [
               ndiff := Abs(N(diff,prec+1));
               ncomp := N(10^(-prec),prec);
-              If(iDebug=True,Tell("  ce2",[ndiff,ncomp,ndiff/ncomp]));
-              If(ndiff/ncomp<?1,result:=True,result:=False);
+              Decide(iDebug=True,Tell("  ce2",[ndiff,ncomp,ndiff/ncomp]));
+              Decide(ndiff/ncomp<?1,result:=True,result:=False);
           ]
       );
       result;
@@ -26,32 +26,32 @@
 
 10 # xCheckSolution( exprs_List?, _var, solutions_List? ) <--
   [
-      If(iDebug=True,Tell("xCheckSolutionL",[exprs,var,solutions]));
+      Decide(iDebug=True,Tell("xCheckSolutionL",[exprs,var,solutions]));
       Local(tests);
       
       tests := Subst(==,ToAtom("-")) (exprs Where solutions);
-      If(iDebug,Tell("  1",tests));
+      Decide(iDebug,Tell("  1",tests));
       tests := AllSatisfy?("Zero?",tests);
   ];
 
   
 12 # xCheckSolution( _expr, _var, solution_List? ) <--
   [
-      If(iDebug=True,Tell("xCheckSolution1",[expr,var,solution]));
+      Decide(iDebug=True,Tell("xCheckSolution1",[expr,var,solution]));
       Local(expr0,result,s,r);
-      If( Equation?(expr),
+      Decide( Equation?(expr),
           Assign(expr0,EquationLeft(expr)-EquationRight(expr)),
           Assign(expr0,expr)
       );
       result := [];
       ForEach(s,solution) 
         [
-            If(iDebug=True,Tell("  cs1",s));
+            Decide(iDebug=True,Tell("  cs1",s));
             r := ( expr0 Where s );
-            If(iDebug=True,Tell("    cs2",[expr0,r]));
-            If(r=0,Push(result,s),If(CloseEnough(r,0,10),Push(result,s)));
+            Decide(iDebug=True,Tell("    cs2",[expr0,r]));
+            Decide(r=0,Push(result,s),Decide(CloseEnough(r,0,10),Push(result,s)));
         ];
-        If(iDebug=True,Tell("  cs4",result)); 
+        Decide(iDebug=True,Tell("  cs4",result)); 
         Reverse(result);
   ];
   

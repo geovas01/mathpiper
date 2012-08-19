@@ -6,14 +6,14 @@
 
 10 # xSolveSystem( eqns_List?, vars_List? ) <--
 [
-    If(iDebug=True,Tell("xSolveSystem",[eqns,vars]));
+    Decide(iDebug=True,Tell("xSolveSystem",[eqns,vars]));
     Local(zeros,expr,const,newEquations);
     zeros        := FillList(0,Length(vars));
     newEquations := [];
     ForEach(eqn,eqns)
     [
         expr  := EquationLeft(eqn) - EquationRight(eqn);
-        //If(iDebug,Tell("  1",expr));
+        //Decide(iDebug,Tell("  1",expr));
         const := WithValue(vars,zeros,expr);
         //Echo("      eqn: ",eqn," ,     const term: ",const);
         Push(newEquations,Simplify(expr - const)==-const);
@@ -30,7 +30,7 @@
 10 # xSolveSystem( eqns_List? ) <--
 [
     Local(vars);
-    If(iDebug=True,Tell("xSolveSystem",eqns));
+    Decide(iDebug=True,Tell("xSolveSystem",eqns));
     vars := VarList(eqns);
     xSolveSystem(eqns,vars);
 ];
@@ -39,7 +39,7 @@
 10 # xSolveLinearSystemViaMatrix( eqns_List?, vars_List? ) <--
 [
     Local(LE,LV,E,LHS,X,M,RHS,LL,eqn,row,ans,Det);
-    If(iDebug=True,Tell(xSolveLinearSystemViaMatrix,[eqns,vars]));
+    Decide(iDebug=True,Tell(xSolveLinearSystemViaMatrix,[eqns,vars]));
     LE := Length(eqns);
     LV := Length(vars);
     E  := Assert() LE=LV;
@@ -51,7 +51,7 @@
     M   := FillList(1,LE);
     ForEach(eqn,eqns) 
     [
-        //If(iDebug,[Echo(EquationLeft(eqn)); Echo(EquationRight(eqn));]);
+        //Decide(iDebug,[Echo(EquationLeft(eqn)); Echo(EquationRight(eqn));]);
         E   := FunctionToList(eqn);
         LL  := E[2];
         RHS := E[3]:RHS;
@@ -62,7 +62,7 @@
     RHS := DestructiveReverse(RHS);
     Det := Determinant(LHS);
     /*
-    If(iDebug=True,
+    Decide(iDebug=True,
         [      
             Tell(" LHS",LHS);
             Tell(" RHS",RHS);
@@ -71,7 +71,7 @@
     );   
     */
     ans := MatrixSolve(LHS,RHS);
-    //If(iDebug=True,Tell("ans ",ans));
+    //Decide(iDebug=True,Tell("ans ",ans));
     ans := Map("==",[vars,ans]);
 ];
 

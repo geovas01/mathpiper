@@ -17,15 +17,15 @@ Function() MultiplyNum(x);
 
 10 # MultiplyNum(x_Rational?, y_RationalOrNumber?) <--
 {
-        If(
+        Decide(
         Type(y) =? "/",  // Rational?(y), changed by Nobbi before redefinition of Rational?
                 DivideN(Numerator(x)*Numerator(y), Denominator(x)*Denominator(y)),
                 // y is floating-point
                 // avoid multiplication or division by 1
-                If(
+                Decide(
                         Numerator(x)=?1,
                         DivideN(y, Denominator(x)),
-                        If(
+                        Decide(
                                 Denominator(x)=?1,
                                 MultiplyN(y, Numerator(x)),
                                 DivideN(MultiplyN(y, Numerator(x)), Denominator(x))

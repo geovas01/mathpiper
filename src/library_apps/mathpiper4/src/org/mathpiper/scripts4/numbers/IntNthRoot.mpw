@@ -14,7 +14,7 @@
         result := Round(ExpN(DivideN(InternalLnNum(DivideN(n, 2^(k*s))), s))*2^k);
         BuiltinPrecisionSet(GlobalPop());
         // result is rounded and so it may overshoot (we do not use Floor above because numerical calculations may undershoot)
-        If(result^s>?n, result-1, result);
+        Decide(result^s>?n, result-1, result);
 };
 
 /* algorithm using only integer arithmetic.
@@ -27,26 +27,26 @@ IntNthRoot1(_n, s_Integer?) <--
         x1 := IntLog(n,2);
         // select initial interval using (the number of bits in n) mod s
         // note that if the answer is 1, the initial guess must also be 1 (not 0)
-        x2 := Quotient(x1, s);        // save these values for the next If()
+        x2 := Quotient(x1, s);        // save these values for the next Decide()
         x1 := Modulo(x1, s)/s;        // this is kept as a fraction
         // now assign the initial interval, x1 <=? root <=? x2
-        [x1, x2] := If(
+        [x1, x2] := Decide(
                 x1 >=? 263/290,        // > Ln(15/8)/Ln(2)
                 Quotient([15,16]*2^x2, 8),
-                If(
+                Decide(
                 x1 >=? 373/462,        // > Ln(7/4)/Ln(2)
                 Quotient([7,8]*2^x2, 4),
-                If(
+                Decide(
                 x1 >=? 179/306,        // > Ln(3/2)/Ln(2)
                 Quotient([6,7]*2^x2, 4),
-                If(
+                Decide(
                 x1 >=? 113/351,        // > Ln(5/4)/Ln(2)
                 Quotient([5,6]*2^x2, 4),
                 Quotient([4,5]*2^x2, 4)        // between x1 and (5/4)*x1
         ))));
         // check whether x2 is the root
         y1 := x2^s;
-        If(
+        Decide(
                 y1=n,
                 x1 := x2,
                 // x2 is not a root, so continue as before with x1
@@ -57,10 +57,10 @@ IntNthRoot1(_n, s_Integer?) <--
         [
 //        Echo([x1, x2]);
                 xnew := Quotient(x1*((s-1)*y1+(s+1)*n), (s+1)*y1+(s-1)*n) + 1;        // add 1 because the floating-point value undershoots
-                If(
+                Decide(
                         xnew <? Quotient(x1+x2, 2),
                         // xnew did not reach the midpoint, need to check progress
-                        If(
+                        Decide(
                                 Quotient(x1+x2, 2)^s <=? n,
                                 // Newton's iteration is not making good progress, so leave x2 in place and update x1 by bisection
                                 xnew := Quotient(x1+x2, 2),
@@ -72,7 +72,7 @@ IntNthRoot1(_n, s_Integer?) <--
                 x1 := xnew;
                 y1 := x1^s;
         ];
-        If(y1=n, x1, x1-1);        // subtract 1 if we overshot
+        Decide(y1=n, x1, x1-1);        // subtract 1 if we overshot
 ];
 */
 

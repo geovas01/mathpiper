@@ -10,10 +10,10 @@
     ForEach(b,B)
      {
          nba := Find(Acopy,b);
-         If( nba <? 0, { result := False; Break(); } );
+         Decide( nba <? 0, { result := False; Break(); } );
          DestructiveDelete(Acopy,nba);
      };
-     If( Not? result, result := Length(Acopy)=?0 );
+     Decide( Not? result, result := Length(Acopy)=?0 );
      result;
 };
 

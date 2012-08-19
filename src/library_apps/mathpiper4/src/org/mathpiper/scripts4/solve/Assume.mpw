@@ -12,21 +12,21 @@ assumptions := [];
 
 10 # Assume( L_List? ) <--
 {
-    If(InVerboseMode(),Tell("AssumeLst",L));
+    Decide(InVerboseMode(),Tell("AssumeLst",L));
     Local(len,s);
     len := Length(L);
-    If( len >? 0, ForEach(s,L) { Assume(s); } );
+    Decide( len >? 0, ForEach(s,L) { Assume(s); } );
     assumptions;
 };
 
 
 10 # Assume( _x -> _y ) <--
 { 
-    If(InVerboseMode(),Tell("AssumeItem",[x,y]));
+    Decide(InVerboseMode(),Tell("AssumeItem",[x,y]));
     Local(key,value);
     key   := Hold(x); 
     value := Hold(y);
-    If(InVerboseMode(),Tell("       ",[key,value]));
+    Decide(InVerboseMode(),Tell("       ",[key,value]));
     
     DestructiveAppend(assumptions,[Eval(key),Eval(value)]);
     assumptions;
@@ -40,7 +40,7 @@ assumptions := [];
 {
     Local(props);
     props := Select(assumptions,Lambda([X],X[1]=?key));
-    If( Length(props) >? 0, Transpose(props)[2], [] );
+    Decide( Length(props) >? 0, Transpose(props)[2], [] );
 };
 
 
@@ -50,12 +50,12 @@ assumptions := [];
 10 # UnAssume( _x )_(Contains?(AssocIndices(assumptions),x)) <--
 {
     Local(lst,len,jj);
-    lst := Lambda([X],If(List?(X),X[1])) /@ assumptions;
+    lst := Lambda([X],Decide(List?(X),X[1])) /@ assumptions;
     jj := Find(lst,x);
-    If( jj >? 0, DestructiveDelete(assumptions,jj) );
-    lst := Lambda([X],If(List?(X),X[1])) /@ assumptions;
+    Decide( jj >? 0, DestructiveDelete(assumptions,jj) );
+    lst := Lambda([X],Decide(List?(X),X[1])) /@ assumptions;
     jj := Find(lst,x);
-    If( jj >? 0, UnAssume(x), True );
+    Decide( jj >? 0, UnAssume(x), True );
 };
 
 };  //  LocalSymbols

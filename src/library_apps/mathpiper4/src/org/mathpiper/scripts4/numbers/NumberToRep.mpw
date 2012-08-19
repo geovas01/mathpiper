@@ -5,7 +5,7 @@
 
 10 # NumberToRep( N_Number? ) <--
 {
-    //If(InVerboseMode(),Tell(NumberToRep,N));
+    //Decide(InVerboseMode(),Tell(NumberToRep,N));
     Local(oldPrec,sgn,assoc,typ,val,prec,rep);
     oldPrec  := BuiltinPrecisionGet();
     BuiltinPrecisionSet(300);
@@ -17,10 +17,10 @@
      
     sgn      := Sign(N); 
     assoc    := DumpNumber(Abs(N));
-    //If(InVerboseMode(),[ Tell("   ",assoc); Tell("   ",sgn); ]);
+    //Decide(InVerboseMode(),[ Tell("   ",assoc); Tell("   ",sgn); ]);
     typ := Assoc("type",assoc)[2];
-    //If(InVerboseMode(),Tell("   ",typ));
-    If( typ =? "BigDecimal",
+    //Decide(InVerboseMode(),Tell("   ",typ));
+    Decide( typ =? "BigDecimal",
        {
           rep := [ sgn*Assoc("unscaledValue",assoc)[2],
                    Assoc("precision",    assoc)[2],
@@ -34,7 +34,7 @@
           rep := [ sgn*val, prec ];
        }
     );
-    //If(InVerboseMode(),Tell("   ",rep));
+    //Decide(InVerboseMode(),Tell("   ",rep));
     BuiltinPrecisionSet(oldPrec);
     rep;
 };
@@ -43,7 +43,7 @@
 
 12 # NumberToRep( N_Complex? ) <-- 
 {
-    If(Zero?(Re(N)),
+    Decide(Zero?(Re(N)),
         [NumberToRep(0.0),NumberToRep(Im(N))],
         [NumberToRep(Re(N)),NumberToRep(Im(N))]
     );

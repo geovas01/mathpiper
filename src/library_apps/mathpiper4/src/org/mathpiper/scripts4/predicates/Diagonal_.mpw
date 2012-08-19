@@ -18,7 +18,7 @@ Diagonal?(A_Matrix?) <--
              };
              i++;
          };
-        If(m=?2, { result := result And? (A=?Transpose(A)); }        );
+        Decide(m=?2, { result := result And? (A=?Transpose(A)); }        );
         result;
 };
 

@@ -128,7 +128,7 @@ loopCount := Repeat()
 [
     Echo(x);
 
-    If(x = 3, Break());
+    Decide(x = 3, Break());
 
     x := x + 1;
 ];

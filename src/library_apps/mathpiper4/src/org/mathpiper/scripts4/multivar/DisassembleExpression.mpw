@@ -13,7 +13,7 @@
 {
     Local(mexpr,func,termList,result,powers,coeffs);
     mexpr    := MakeMultiNomial(expr,vars);
-    func     := Lambda([x,y],If(y!=?0,DestructiveAppend(termList,[x,y])));
+    func     := Lambda([x,y],Decide(y!=?0,DestructiveAppend(termList,[x,y])));
     termList := [];
     ScanMultiNomial(func,mexpr);
     result   := Concat([vars],Transpose(termList));

@@ -7,8 +7,8 @@
 */
 Defun("PowerN", [x,y])
 // avoid PowerN(0,float)
-        If(Equal?(x,0),0, If(Equal?(x,1),1,
-          If(Integer?(y), MathIntPower(x,y), False/*MathFloatPower(x,y)*/)
+        Decide(Equal?(x,0),0, Decide(Equal?(x,1),1,
+          Decide(Integer?(y), MathIntPower(x,y), False/*MathFloatPower(x,y)*/)
         ));
 
 %/mathpiper

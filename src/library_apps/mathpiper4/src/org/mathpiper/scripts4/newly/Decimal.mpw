@@ -35,7 +35,7 @@ DecimalFindPeriod(_list) <--
 
   For(i:=1,i<?nr,i++)
   {
-    If(reversed[i+1] =? first And? DecimalMatches(reversed,i),
+    Decide(reversed[i+1] =? first And? DecimalMatches(reversed,i),
       {
         period:=i;
         i:=nr;

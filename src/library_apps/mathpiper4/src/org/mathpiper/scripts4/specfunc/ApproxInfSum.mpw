@@ -34,7 +34,7 @@ Function("ApproxInfSum",[expr,start,x,c])
                 result:=result+term;
 
         };
-                If(InVerboseMode(), Echo("ApproxInfSum: Info: using ", k, " terms of the series"));
+                Decide(InVerboseMode(), Echo("ApproxInfSum: Info: using ", k, " terms of the series"));
         BuiltinPrecisionSet(prec);
         // This should not round, only truncate
         // some outputs will be off by one in the last digit

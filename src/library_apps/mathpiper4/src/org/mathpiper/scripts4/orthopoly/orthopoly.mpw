@@ -263,7 +263,7 @@ OrthoPolySumCoeffs(name_String?, c_List?, p_List?) <-- {
                 For(jndex:=2, jndex <=? n-index, jndex:=jndex+1) {
                         tmpCoeffs[jndex] := ruleCoeffs[1]*newCoeffs[jndex] + ruleCoeffs1[3]*prevCoeffs[jndex] + ruleCoeffs[2]*newCoeffs[jndex-1];
                 };
-                If(n-index>?0, tmpCoeffs[n-index+1] := ruleCoeffs[2]*newCoeffs[n-index]);
+                Decide(n-index>?0, tmpCoeffs[n-index+1] := ruleCoeffs[2]*newCoeffs[n-index]);
 /*
                 prevCoeffs := FlatCopy(newCoeffs);
                 newCoeffs := FlatCopy(tmpCoeffs);

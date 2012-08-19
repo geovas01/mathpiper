@@ -91,9 +91,9 @@
   rr:=r^n;
   ii:=0;
   For(count:=1,count<=?n,count:=count+2) [
-    sign:=If(Zero?(Modulo(count-1,4)),1,-1);
+    sign:=Decide(Zero?(Modulo(count-1,4)),1,-1);
     ii:=ii+sign*BinomialCoefficient(n,count)*i^count*r^(n-count);
-    If(count<?n,
+    Decide(count<?n,
       rr:=rr-sign*BinomialCoefficient(n,count+1)*i^(count+1)*r^(n-count-1));
   ];
   Complex(rr,ii);

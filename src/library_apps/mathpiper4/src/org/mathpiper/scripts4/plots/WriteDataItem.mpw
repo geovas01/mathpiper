@@ -5,7 +5,7 @@
 WriteDataItem(tuple_List?, _optionshash) <--
 {
   Local(item);
-  If(        // do not write anything if one of the items is not a number
+  Decide(        // do not write anything if one of the items is not a number
           NumericList?(tuple),
         ForEach(item,tuple)
         {

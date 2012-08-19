@@ -6,13 +6,13 @@
         Local(B);
         B:=ArrayCreate(n+1,0);
         B[1] := 1;
-        If(n=?1, B[2] := -1/2);
+        Decide(n=?1, B[2] := -1/2);
         B;
 };
 /// Assume n>=?2
 20 # InternalBernoulliArray(n_Integer?) <-- {
         Local(B, i, k, k2, bin);
-        If (InVerboseMode(), Echo(["InternalBernoulliArray: using direct recursion, n = ", n]));
+        Decide(InVerboseMode(), Echo(["InternalBernoulliArray: using direct recursion, n = ", n]));
         B:=ArrayCreate(n+1, 0);        // array of B[k], k=1,2,... where B[1] is the 0th Bernoulli number
         // it would be better not to store the odd elements but let's optimize this later
         // we could also maintain a global cache of Bernoulli numbers computed so far, but it won't really speed up things at large n

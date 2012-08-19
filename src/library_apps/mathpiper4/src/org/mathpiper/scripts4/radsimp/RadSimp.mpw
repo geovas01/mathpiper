@@ -41,7 +41,7 @@ RadSimpTry(_n,_result,_current,_max)<--
 
     // First, look for perfect match
     i:=BSearch(max,Hold([[try],ClampRadicals(N(Eval((result+Sqrt(try))-n),20))]));
-    If(i>?0,
+    Decide(i>?0,
     {
       Assign(result,result+Sqrt(i));
       Assign(i,AddN(max,1));

@@ -24,7 +24,7 @@ ConfidenceIntervalOfTheProportion(numberOfSuccesses,sampleSize,confidenceLevel) 
     
     lowerLimit := N(proportion - criticalZScore * approximateStandardErrorOfTheProportion);
     
-    If(InVerboseMode(),
+    Decide(InVerboseMode(),
         {
             Echo("Critical z-score: ", criticalZScore);
             

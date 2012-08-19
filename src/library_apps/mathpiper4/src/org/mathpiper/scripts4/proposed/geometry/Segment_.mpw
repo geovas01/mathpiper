@@ -2,7 +2,7 @@
 
 Segment?(list_List?) <--
 {
-    If(List?(list[1]) And? Length(list[1])=?2 And? List?(list[2]) And? Length(list[2])=?2,True,False);
+    Decide(List?(list[1]) And? Length(list[1])=?2 And? List?(list[2]) And? Length(list[2])=?2,True,False);
 
 };
 

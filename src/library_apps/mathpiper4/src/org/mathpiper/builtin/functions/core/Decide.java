@@ -28,14 +28,14 @@ import org.mathpiper.lisp.cons.Cons;
  *
  *  
  */
-public class If extends BuiltinFunction
+public class Decide extends BuiltinFunction
 {
 
-    private If()
+    private Decide()
     {
     }
 
-    public If(String functionName)
+    public Decide(String functionName)
     {
         this.functionName = functionName;
     }
@@ -69,12 +69,12 @@ public class If extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="If",categories="User Functions;Control Flow;Built In"
+%mathpiper_docs,name="Decide",categories="User Functions;Control Flow;Built In"
 *CMD If --- branch point
 *CORE
 *CALL
-	If(pred, then)
-	If(pred, then, else)
+	Decide(pred, then)
+	Decide(pred, then, else)
 
 *PARMS
 
@@ -90,13 +90,13 @@ This command implements a branch point. The predicate "pred" is
 evaluated, which should result in either {True} or {False}. In the first case, the expression "then" is
 evaluated and returned. If the predicate yields {False}, the expression "else" (if present) is evaluated and
 returned. If there is no "else" branch (i.e. if the first calling
-sequence is used), the {If} expression returns {False}.
+sequence is used), the {Decide} expression returns {False}.
 
 *E.G.
 
 The sign function is defined to be 1 if its argument is positive and
 -1 if its argument is negative. A possible implementation is
-In> mysign(x) := If (IsPositiveReal(x), 1, -1);
+In> mysign(x) := Decide (IsPositiveReal(x), 1, -1);
 Result: True;
 In> mysign(Pi);
 Result: 1;
@@ -107,8 +107,8 @@ numerically approximated.
 In> mysign(a);
 Result: -1;
 Hence a better implementation would be
-In> mysign(_x)_Number?(N(x)) <-- If \
-	  (IsPositiveReal(x), 1, -1);
+In> mysign(_x)_Number?(N(x)) <-- Decide \
+	  (PositiveReal?(x), 1, -1);
 Result: True;
 %/mathpiper_docs
 */

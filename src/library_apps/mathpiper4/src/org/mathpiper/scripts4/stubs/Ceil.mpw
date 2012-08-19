@@ -10,12 +10,12 @@
      x:=N(x);
      Local(prec,result,n);
      Assign(prec,BuiltinPrecisionGet());
-     If(Zero?(x),Assign(n,2),
-     If(x>?0,
+     Decide(Zero?(x),Assign(n,2),
+     Decide(x>?0,
        Assign(n,2+FloorN(N(FastLog(x)/FastLog(10)))),
        Assign(n,2+FloorN(N(FastLog(-x)/FastLog(10))))
        ));
-     If(n>?prec,BuiltinPrecisionSet(n));
+     Decide(n>?prec,BuiltinPrecisionSet(n));
      Assign(result,CeilN(x));
      BuiltinPrecisionSet(prec);
      result;

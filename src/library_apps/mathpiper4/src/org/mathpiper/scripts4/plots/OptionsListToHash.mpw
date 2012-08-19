@@ -9,9 +9,9 @@ OptionsListToHash(list) :=
         Local(item, result);
         result := [];
         ForEach(item, list)
-                If(
+                Decide(
                         Function?(item) And? (Type(item) =? "->" ) And? Atom?(item[1]),
-                        result[ToString(item[1])] := If(
+                        result[ToString(item[1])] := Decide(
                                 Atom?(item[2]) And? Not? Number?(item[2]) And? Not? String?(item[2]),
                                 ToString(item[2]),
                                 item[2]
