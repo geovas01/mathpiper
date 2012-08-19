@@ -16,7 +16,7 @@ UnFence -> Unfence
 UnbiasedVariance -> SampleVariance
 Variance -> PopulationVariance
 MakeVector -> MakeIdentifiers
-RulebaseDefined -> IsRulebaseDefined.
+RulebaseDefined -> RulebaseDefined?.
 Map and MapSingle should have the list as the first argument to match Find and Contains.
 Outer -> OuterProduct
 Eval -> Evaluate
@@ -28,20 +28,13 @@ TrapError -> TrapException
 GetErrorTableau -> GetErrorTable
 IsError -> TrapException
 GetError -> GetException
-RulebaseDefined -> IsRulebaseDefined
 BuiltinPrecisionSet -> PrecisionSet
 BuiltinPrecisionGet -> PrecisionGet
 SetGlobalLazyVariable - GlobalLazyVariableSet
 
-If -> Decide
-if -> If
-else -> Else
 
 InVerboseMode -> VerboseMode?
 V() -> Make V a bodied function so it can be more easily added and removed from code.
-
-[] -> {} //Change the code block outfix operator to match the syntax used in other languages.
-{} -> [] //Change the list outfix operator to match the syntax used in other languages.
 
 
 ------------------------------------------------------------------------------------------
@@ -57,7 +50,7 @@ are simply statements.
 >.
 >=.
 Infinity -> Infinity.
-Pi -> Infinity.
+Pi -> Pi.
 e -> e.
 
 
@@ -88,7 +81,8 @@ DestructiveReplace -> ReplaceD
 DestructiveReverse -> ReverseD
 
 
----------------------------- Potential function name changes:
+----- Potential function name changes (Perhaps append an 'H' to the names of functions that have arguments that are held,
+all other functions are assumed to have evaluated arguments.):
     Rulebase -> RulebaseHoldArguments
     RulebaseListed -> RulebaseListedHoldArguments
     Rule -> RuleHoldArguments
@@ -109,18 +103,14 @@ MacroLocal -> LocalEvaluateArguments
     
 
 ----------------------------------
-A bound variable is a concept that is used differently in Lisp and mathematics. MathPiper
-currently uses the Lisp version but it will probably be better to use the mathematics
-version. Therefore, Bind should probably become Assign and Unbind should probably become
-Unassign:
 
-Unbind -> UnassignHoldArguments (and leave Unassign as a synonym)
-Bind -> AssignHoldArguments
-MacroUnbind -> UnassignEvaluateArguments
+Unassign -> UnassignHoldArguments (and leave Unassign as a synonym)
+Assign -> AssignHoldArguments
+MacroAssign -> UnassignEvaluateArguments
 ----------------------------------
 
 
-Prog -> Block //For pedagogical reasons.
+
 
 DestructiveAppend -> AppendDestructive
 
@@ -143,14 +133,36 @@ NotB
 
 @$, @&, @%
 
-All predicate function should end with a ? mark.  For example,
 
+
+
+============================= Changes that have already been done. ===================================
+
+Prog -> Block //For pedagogical reasons.
+
+If -> Decide
+if -> If
+else -> Else
+
+[] -> {} //Change the code block outfix operator to match the syntax used in other languages.
+{} -> [] //Change the list outfix operator to match the syntax used in other languages.
+
+
+All predicate function should end with a ? mark.  For example:
 IsInteger -> Integer?
 IsList -> List?
 etc.
 
 
-============================= Changes that have already been done. ===================================
+A bound variable is a concept that is used differently in Lisp and mathematics. MathPiper
+currently uses the Lisp version but it will probably be better to use the mathematics
+version. Therefore, Bind should probably become Assign and Unbind should probably become
+Unassign:
+Unbind -> Unassign
+Bind -> Assign
+MacroUnbind -> MacroAssign
+
+
 // Changed in early September 2011.
 IsNumber -> Number?
 InDebugMode -> DebugMode?
