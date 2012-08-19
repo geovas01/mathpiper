@@ -216,7 +216,7 @@ public class GeoGebra extends javax.swing.JRootPane
 			org.mathpiper.interpreters.Interpreter synchronousInterpreter = org.mathpiper.interpreters.Interpreters.getSynchronousInterpreter();
 			org.mathpiper.lisp.Environment environment = synchronousInterpreter.getEnvironment();
 			org.mathpiper.builtin.JavaObject javaObject = new org.mathpiper.builtin.JavaObject(ggbPanel.getGeoGebraAPI());
-			environment.setLocalOrGlobalVariable(-1, "geogebra",  org.mathpiper.lisp.cons.BuiltinObjectCons.getInstance(environment, -1, javaObject), false);
+			environment.setLocalOrGlobalVariable(-1, "geogebra",  org.mathpiper.lisp.cons.BuiltinObjectCons.getInstance(environment, -1, javaObject), false, true);
 			
 			//geoGebraApplet.registerAddListener("GeoGebraAddListener");
 			//geoGebraApplet.registerUpdateListener("GeoGebraUpdateListener");
