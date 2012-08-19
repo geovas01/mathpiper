@@ -17,7 +17,7 @@ Macro("xPrimitivePart",[poly,xcont])
     Local(pp);
     Decide(InVerboseMode(),Tell("  xPrimitivePart2",[poly,xcont]));
     
-    Decide( Bound?(@xcont), 
+    Decide( Assigned?(@xcont), 
       {
           pp := Eval(@poly) / Eval(@xcont);
       },

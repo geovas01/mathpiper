@@ -215,7 +215,7 @@
 :Atom?:Atom?(expr):test for an atom:
 :Bodied?:Bodied?("op"):check for function syntax:
 :IsBoolean:IsBoolean(expression):test for a Boolean value:
-:Bound?:Bound?(var):test for a bound variable:
+:Assigned?:Assigned?(var):test for a bound variable:
 :CFormable?:CFormable?(expr):check possibility to export expression to C++ code:
 :CFormable?:CFormable?(expr, funclist)::
 :CarmichaelNumber?:CarmichaelNumber?(n):test for a Carmichael number:

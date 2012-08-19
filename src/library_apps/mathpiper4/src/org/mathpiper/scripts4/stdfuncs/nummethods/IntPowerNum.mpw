@@ -18,7 +18,7 @@
                 Decide(
                         (n&1) =? 1,
                         Decide(
-                                Bound?(result), // if result is already assigned
+                                Assigned?(result), // if result is already assigned
                                 result := Apply(func, [result,x]),
                                 result := x, // avoid multiplication
                         )
