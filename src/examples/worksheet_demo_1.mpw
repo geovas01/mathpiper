@@ -1,4 +1,4 @@
-/*  v 1.16.
+/*  v 1.17.
     This is a MathPiperIDE worksheet file and it consists of folds which contain source
     code.  A fold starts with %<keyword> and ends with %/<keyword>.  Code is entered inside
     a fold and then executed by placing the cursor anywhere inside the code and
@@ -14,13 +14,14 @@
 //Loop demonstration.
 
 x := 1;
-While(x <? 100) 
-[
+While(x <? 100)
+{
   Write(x,,);
   x := x + 1;  
-];
+};
 
 %/mathpiper
+
 
 
 
@@ -42,10 +43,11 @@ While(x <? 100)
 
 
 
+
 %mathpiper,title="factors"
 //Factor each of the following into prime factors: 8,11,14,18,24,29.
 
-a := {8,11,14,18,24,29};
+a := [8,11,14,18,24,29];
 ForEach(x,a)
     Echo(x,"- ", Factor(x));
 
@@ -57,14 +59,17 @@ ForEach(x,a)
 
 
 
+
 %mathpiper,output="geogebra"
 //Define a function and graph it by pressing <shift><enter> in the output fold.
 
-Unbind(x);
+Unassign(x);
 f(x) := 11*x-2*x^2;
 f(x);
 
 %/mathpiper
+
+
 
 
 
@@ -81,6 +86,8 @@ df := Differentiate(x) f(x);
 df;
 
 %/mathpiper
+
+
 
 
 
@@ -350,12 +357,14 @@ left and right to dynamically change the plot.
 
 
 
+
 %geogebra,clear="true"
 //Plot a function in GeoGebra.
 
 f(x)=2*sin(x)
 
 %/geogebra
+
 
 
 
@@ -371,6 +380,7 @@ p1 = 2
 t1 = Tangent[p1, f]
 
 %/geogebra
+
 
 
 
@@ -505,6 +515,7 @@ a, b, and c to change the sin wave.
 
 
 %/geogebra_xml
+
 
 
 
@@ -716,10 +727,12 @@ demonstration.
 
 
 
+
 %mathpiper
 //Execute this fold to render the LaTeX expression it contains.
-ViewLatex("2\\sum_{i=1}^n a_i");
+Show(LatexView("2\\sum_{i=1}^n a_i"));
 %/mathpiper
+
 
 
 
@@ -731,7 +744,7 @@ ViewLatex("2\\sum_{i=1}^n a_i");
 %mathpiper
 //Execute this fold to view the expression it creates in traditional mathematical form..
 
-Unbind(x);
+Unassign(x);
 a := (2*x)*(x+3)*(x+4);
 b := Expand(a);
 
@@ -746,11 +759,12 @@ ViewMath(b);
 
 
 
+
 %mathpiper
 //Execute this fold to view the expression it creates in traditional mathematical form..
 
-Unbind(x);
-a := x^3 - 2*x - 7 == 0;
+Unassign(x);
+a := x^2 - 2*x - 7 == 0;
 b := Solve(a,x);
 
 ViewMath(b);
@@ -764,13 +778,15 @@ ViewMath(b);
 
 
 
+
 %mathpiper
 //Execute this fold to view a MathPiper expression as a Lisp box diagram.
 
-Unbind(x);
+Unassign(x);
 ViewList(x^2 + 3*x + 7);
 
 %/mathpiper
+
 
 
 
@@ -810,6 +826,7 @@ HTML demo.  Execute this code by pressing <shift><enter> inside the fold.
     </html>
 
 %/html
+
 
 
 
@@ -891,9 +908,11 @@ HTML demo.  Execute this code by pressing <shift><enter> inside the fold.
 
 
 
+
 %latex
 \lim_{x \to 0} f(x) = 0
 %/latex
+
 
 
 
@@ -937,6 +956,7 @@ HTML demo.  Execute this code by pressing <shift><enter> inside the fold.
 15 16
 
 %/jung
+
 
 
 
