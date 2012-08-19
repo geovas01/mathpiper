@@ -207,7 +207,7 @@ RuleHoldArguments("xPSolve",1,1,UniVar?(uni) And? Degree(uni) =? 4 )
 
 Function("xPSolve",[expr,var])
 {
-    Decide( Not? Bound?(iDebug), iDebug := False );
+    Decide( Not? Assigned?(iDebug), iDebug := False );
     Decide(iDebug,Tell("xPSolve_notUni",[expr,var]));  
     Local(lhs,rhs,cc,pp,uni,solnpp,solncc,soln);
     Decide( Equation?(expr), 

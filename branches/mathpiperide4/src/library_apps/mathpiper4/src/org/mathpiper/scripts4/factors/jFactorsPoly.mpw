@@ -60,7 +60,7 @@
     // Now: get Content and Primitive Part
     content := xContent( poly );
     pp      := Simplify( poly / content );
-    Decide(Bound?(extraFactor),content := content / extraFactor);
+    Decide(Assigned?(extraFactor),content := content / extraFactor);
     Decide(InVerboseMode(),Tell("   ",[content,pp]));
     //Decide(Constant?(pp) And? Length(VarList(content))>?0,[content,pp]:=[pp,content]);
     Decide( Length(VarList(pp))=?0, result := [[pp*content,1]],

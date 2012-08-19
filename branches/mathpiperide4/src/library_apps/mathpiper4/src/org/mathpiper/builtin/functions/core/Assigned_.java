@@ -27,14 +27,14 @@ import org.mathpiper.lisp.cons.Cons;
  *
  *  
  */
-public class Bound_ extends BuiltinFunction
+public class Assigned_ extends BuiltinFunction
 {
 
-    private Bound_()
+    private Assigned_()
     {
     }
 
-    public Bound_(String functionName)
+    public Assigned_(String functionName)
     {
         this.functionName = functionName;
     }
@@ -61,11 +61,11 @@ public class Bound_ extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Bound?",categories="User Functions;Predicates;Built In"
-*CMD Bound? --- test for a bound variable
+%mathpiper_docs,name="Assigned?",categories="User Functions;Predicates;Built In"
+*CMD Assigned? --- test for a bound variable
 *CORE
 *CALL
-	Bound?(var)
+	Assigned?(var)
 
 *PARMS
 
@@ -78,11 +78,11 @@ it has been assigned a value. The argument "var" is not evaluated.
 
 *E.G.
 
-In> Bound?(x);
+In> Assigned?(x);
 Result: False;
 In> x := 5;
 Result: 5;
-In> Bound?(x);
+In> Assigned?(x);
 Result: True;
 
 *SEE Atom?

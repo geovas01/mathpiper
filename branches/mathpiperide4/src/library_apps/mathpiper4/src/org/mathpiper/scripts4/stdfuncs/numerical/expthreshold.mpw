@@ -14,7 +14,7 @@ SetMathExpThreshold
 
 LocalSymbols(mathExpThreshold) {
   // improve convergence of Exp(x) for large x
-  mathExpThreshold := Decide(Not? Bound?(mathExpThreshold), 500);
+  mathExpThreshold := Decide(Not? Assigned?(mathExpThreshold), 500);
 
   MathExpThreshold() := mathExpThreshold;
   SetMathExpThreshold(threshold) := {mathExpThreshold:= threshold; };

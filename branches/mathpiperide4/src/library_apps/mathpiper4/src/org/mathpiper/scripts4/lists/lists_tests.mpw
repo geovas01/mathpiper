@@ -147,7 +147,7 @@ Verify([1,2]^[3,4],[1,16]);
   Verify(revlst,[19,13,c,b,a]);
   Verify(lst,[a,b,c,13,19]);
 };
-Verify(Bound?(lst),False);
-Verify(Bound?(revlst),False);
+Verify(Assigned?(lst),False);
+Verify(Assigned?(revlst),False);
 
 %/mathpiper

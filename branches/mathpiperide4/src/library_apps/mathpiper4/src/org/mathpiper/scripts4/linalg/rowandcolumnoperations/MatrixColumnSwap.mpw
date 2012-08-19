@@ -3,7 +3,7 @@
 MatrixColumnSwap( M_Matrix?, jCol1_PositiveInteger?, jCol2_PositiveInteger? )_
                           (And?(jCol1<=?Dimensions(M)[2],jCol2<=?Dimensions(M)[2])) <--
 {
-    Decide( Not? Bound?(iDebug), iDebug := False );
+    Decide( Not? Assigned?(iDebug), iDebug := False );
     Decide( iDebug, Tell(MatrixColumnSwap,[M,jCol1,jCol2]) );
     Local(MT);
     MT := Transpose(M);
