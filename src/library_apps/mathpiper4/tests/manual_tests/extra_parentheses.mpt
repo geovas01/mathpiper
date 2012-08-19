@@ -17,7 +17,7 @@ Enter<builtin>{(IsList,IsList(aLeftAssign));
 Leave}(IsList(aLeftAssign),False);
 Enter<builtin>{(IsAtom,IsAtom(aLeftAssign));
 Leave}(IsAtom(aLeftAssign),True);
-Enter<builtin>{(Prog,[
+Enter<builtin>{(Block,[
     MacroSet(aLeftAssign,Eval(aRightAssign));
     Eval(aLeftAssign);
 ]

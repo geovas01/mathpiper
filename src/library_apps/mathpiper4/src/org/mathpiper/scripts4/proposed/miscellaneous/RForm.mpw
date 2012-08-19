@@ -215,7 +215,7 @@ LocalSymbols(RIndent) {
 
 RFormStatement(_x) <-- RForm(x) ~ ";" ~ RNlIndented();
 
-120 # RForm(_x,_p)_(Type(x) =? "Prog") <--
+120 # RForm(_x,_p)_(Type(x) =? "Block") <--
 {
   Local(result);
   result:=RIndent()~"["~RNlIndented();

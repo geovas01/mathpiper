@@ -250,7 +250,7 @@ public class MathPiperPrinter extends LispPrinter {
                     WriteToken(aOutput, "]");
 
                     // }//end else.
-                } else if (functionOrOperatorName.equals(iCurrentEnvironment.iProgAtom)) // Program block brackets.
+                } else if (functionOrOperatorName.equals(iCurrentEnvironment.iBlockAtom)) // Program block brackets.
                 {
                     aOutput.write("\n" + spaces.toString());
 

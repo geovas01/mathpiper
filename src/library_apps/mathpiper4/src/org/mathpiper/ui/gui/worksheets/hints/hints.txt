@@ -451,7 +451,7 @@
 :PrimitivePart:PrimitivePart(expr):primitive part of a univariate polynomial:
 :PrintList:PrintList(list):print list with padding:
 :PrintList:PrintList(list, padding);::
-:Prog:Prog(statement1, statement2, ...):block of statements:
+:Block:Block(statement1, statement2, ...):block of statements:
 :ProperDivisors:ProperDivisors(n):the number of proper divisors:
 :ProperDivisorsSum:ProperDivisorsSum(n):the sum of proper divisors:
 :Pslq:Pslq(xlist,precision):search for integer relations between reals:

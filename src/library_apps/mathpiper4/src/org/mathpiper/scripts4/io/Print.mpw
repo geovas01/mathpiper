@@ -1,4 +1,4 @@
-%mathpiper,def="Print;PrintArg;PrintArgComma;PrintArgProg"
+%mathpiper,def="Print;PrintArg;PrintArgComma;PrintArgBlock"
 
 
 /* A reference print implementation. Expand at own leisure.
@@ -55,10 +55,10 @@
   WriteString("]");
 };
 
-20 # Print(_x,_n)_(Type(x) =? "Prog") <--
+20 # Print(_x,_n)_(Type(x) =? "Block") <--
 {
   WriteString("[");
-  PrintArgProg(Rest(FunctionToList(x)));
+  PrintArgBlock(Rest(FunctionToList(x)));
   WriteString("]");
 };
 20 # Print(_x,_n)_(Type(x) =? "Nth") <--
@@ -102,12 +102,12 @@
 
 
 /* Tail-recursive printing the body of a compound statement */
-10 # PrintArgProg([]) <-- True;
-20 # PrintArgProg(_list) <--
+10 # PrintArgBlock([]) <-- True;
+20 # PrintArgBlock(_list) <--
 {
    Print(First(list),60000);
    WriteString(";");
-   PrintArgProg(Rest(list));
+   PrintArgBlock(Rest(list));
 };
 
 

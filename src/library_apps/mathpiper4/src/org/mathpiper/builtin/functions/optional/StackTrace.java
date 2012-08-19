@@ -93,10 +93,10 @@ Side Effects:
 
 
 ========================================= Start Of Built In Function Stack Trace
-0: Prog
+0: Block
    1: -> TestFunction()
 -----------------------------------------
-2: Prog
+2: Block
    3: -> index:=1
    4: -> While(index<10)[
     If(index=5,StackTrace());
@@ -112,7 +112,7 @@ Side Effects:
 ]
 
 -----------------------------------------
-7: Prog
+7: Block
    8: -> If(index=5,StackTrace())
    9: -> index++
 -----------------------------------------
@@ -126,13 +126,13 @@ Side Effects:
 
 
 ========================================= Start Of User Function Stack Trace
-0: Prog
+0: Block
 -----------------------------------------
-1: Prog
+1: Block
 -----------------------------------------
 2: TestFunction
 -----------------------------------------
-3: Prog
+3: Block
 -----------------------------------------
 4: <START>
 ========================================= End Of User Function Stack Trace

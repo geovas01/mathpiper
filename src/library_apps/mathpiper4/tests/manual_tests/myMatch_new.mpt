@@ -9,7 +9,7 @@ Leave}(TraceOn(),True);
 Enter<user>{(tellMe,tellMe(x,p1));
 Arg(x,x);
 Arg(p1,x+B);
-Enter<builtin>{(Prog,[
+Enter<builtin>{(Block,[
     Local(m,ccs);
     Tell(CASE,expr);
     m:=myMatchLinear(var,expr);
@@ -55,7 +55,7 @@ Debug> Loading file"org/mathpiper/scripts/testers.rep/code.mpi" for function Tel
                 Leave}(Length(args),1);
             Leave}(GreaterThan(Length(args),1),False);
         Leave}(GreaterThan(Length(args),1)And Equals(MathNth(args,Length(args)),Atom(...)),False);
-        Enter<builtin>{(Prog,[
+        Enter<builtin>{(Block,[
     Retract(oper,Length(args));
     MacroRuleBase(oper,args);
     MacroRule(oper,Length(args),1025,True)body;
@@ -117,7 +117,7 @@ Debug> Loading file"org/mathpiper/scripts/testers.rep/code.mpi" for function Tel
                 Leave}(Length(args),1);
             Leave}(GreaterThan(Length(args),1),False);
         Leave}(GreaterThan(Length(args),1)And Equals(MathNth(args,Length(args)),Atom(...)),False);
-        Enter<builtin>{(Prog,[
+        Enter<builtin>{(Block,[
     Retract(oper,Length(args));
     MacroRuleBase(oper,args);
     MacroRule(oper,Length(args),1025,True)body;
@@ -165,7 +165,7 @@ Debug> Loading file"org/mathpiper/scripts/testers.rep/code.mpi" for function Tel
             Enter<builtin>{(Type,Type(patternleft));
             Leave}(Type(patternleft),#);
         Leave}(Equals(Type(patternleft),#),True);
-        Enter<builtin>{(Prog,[
+        Enter<builtin>{(Block,[
     DefinePattern(patternleft[2],patternright,patternleft[1],True);
 ]
 );
@@ -232,7 +232,7 @@ Debug> Loading file"org/mathpiper/scripts/testers.rep/code.mpi" for function Tel
                     Enter<builtin>{(Type,Type(patternleft));
                     Leave}(Type(patternleft),EchoInternal);
                 Leave}(Equals(Type(patternleft),_),False);
-                Enter<builtin>{(Prog,[
+                Enter<builtin>{(Block,[
     Local(patternflat,patternvars,patt,patternoper,arity);
     Set(patternflat,Listify(patternleft));
     Set(patternvars,Tail(patternflat));
@@ -284,7 +284,7 @@ Debug> Loading file"org/mathpiper/scripts/testers.rep/code.mpi" for function Tel
                             Enter<builtin>{(RuleBaseDefined,RuleBaseDefined(patternoper,arity));
                             Leave}(RuleBaseDefined(patternoper,arity),False);
                         Leave}(Not RuleBaseDefined(patternoper,arity),True);
-                        Enter<builtin>{(Prog,[
+                        Enter<builtin>{(Block,[
     MacroRuleBase(patternoper,MakeVector(arg,arity));
 ]
 );
@@ -293,7 +293,7 @@ Debug> Loading file"org/mathpiper/scripts/testers.rep/code.mpi" for function Tel
                                 Enter<user>{(MakeVector,MakeVector(arg,arity));
                                     Arg(arg,arg);
                                     Arg(arity,1);
-                                    Enter<builtin>{(Prog,[
+                                    Enter<builtin>{(Block,[
     Local(res,i);
     res:={};
     i:=1;
@@ -321,7 +321,7 @@ Debug> Loading file"org/mathpiper/scripts/testers.rep/code.mpi" for function Tel
                                             Leave}(IsList(aLeftAssign),False);
                                             Enter<builtin>{(IsAtom,IsAtom(aLeftAssign));
                                             Leave}(IsAtom(aLeftAssign),True);
-                                            Enter<builtin>{(Prog,[
+                                            Enter<builtin>{(Block,[
     MacroSet(aLeftAssign,Eval(aRightAssign));
     Eval(aLeftAssign);
 ]
