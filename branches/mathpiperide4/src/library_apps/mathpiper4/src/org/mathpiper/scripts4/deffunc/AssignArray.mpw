@@ -12,7 +12,7 @@ RuleHoldArguments("AssignArray", 3, 1, String?(indexOrKey))
 
     keyValuePair := Assoc(indexOrKey, listOrAssociationList);
 
-    If(keyValuePair =? Empty,
+    Decide(keyValuePair =? Empty,
 
         DestructiveInsert(listOrAssociationList, 1 , [indexOrKey, newValue]),
 

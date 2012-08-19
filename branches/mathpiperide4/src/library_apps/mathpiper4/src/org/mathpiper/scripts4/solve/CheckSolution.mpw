@@ -5,7 +5,7 @@
 10 # CheckSolution( _expr, _var, solution_List? )_(Not? FreeOf?(var,expr)) <--
   {
       Local(expr0,result,s,r);
-      If( Equation?(expr),
+      Decide( Equation?(expr),
           Assign(expr0,EquationLeft(expr)-EquationRight(expr)),
           Assign(expr0,expr)
       );
@@ -13,7 +13,7 @@
       ForEach(s,solution) 
         {
             r := ( expr0 Where s );
-            If(r=?0,Push(result,s));
+            Decide(r=?0,Push(result,s));
         };
         Reverse(result);
   };

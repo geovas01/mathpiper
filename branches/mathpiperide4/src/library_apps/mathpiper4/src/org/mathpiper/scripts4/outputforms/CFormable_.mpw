@@ -17,10 +17,10 @@ LocalSymbols(CFormAllFunctions) {
   {
     Local(badfunctions);
     badfunctions := Difference(`FuncList(@expr), Concat(CFormAllFunctions, funclist));
-    If(Length(badfunctions)=?0,
+    Decide(Length(badfunctions)=?0,
       True,
       {
-        If(InVerboseMode(),
+        Decide(InVerboseMode(),
           Echo(Concat(["CFormable?: Info: unexportable function(s): "], badfunctions))
         );
         False;

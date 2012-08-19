@@ -34,7 +34,7 @@ RuleHoldArguments("Macro",1,2047,
         Assign(args,Rest(FunctionToList(oper)));
         DestructiveDelete(args,Length(args));        // remove trailing "..."
   Assign(name,Type(oper));
-        If(RulebaseDefined(Type(oper),Length(args)),
+        Decide(RulebaseDefined(Type(oper),Length(args)),
                 False,        // do nothing
                 `MacroRulebaseListedHoldArguments(@name,@args)
         );
@@ -47,7 +47,7 @@ RuleHoldArguments("Macro",1,2048,
         Local(args,name);
         Assign(args,Rest(FunctionToList(oper)));
   Assign(name,Type(oper));
-        If(RulebaseDefined(Type(oper),Length(args)),
+        Decide(RulebaseDefined(Type(oper),Length(args)),
                 False,        // do nothing
                 {
       `MacroRulebaseHoldArguments(@name,@args);

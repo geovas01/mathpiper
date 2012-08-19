@@ -49,7 +49,7 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
         // this will be a list of strings - printed forms of functions being plotted
         optionshash["zname"] := [];
         // parse range
-        If (
+        Decide(
                 Type(xrange) =? "->",        // variable also specified -- ignore for now, store in options
                 {
                         // store alternative variable name
@@ -57,7 +57,7 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
                         xrange := xrange[2];
                 }
         );
-        If (
+        Decide(
                 Type(yrange) =? "->" ,        // variable also specified -- ignore for now, store in options
                 {
                         // store alternative variable name
@@ -65,46 +65,46 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
                         yrange := yrange[2];
                 }
         );
-        If(
+        Decide(
                 Type(xrange) =? "~",        // simple range
                 xrange := N(Eval([xrange[1], xrange[2]]))
         );
-        If(
+        Decide(
                 Type(yrange) =? "~",        // simple range
                 yrange := N(Eval([yrange[1], yrange[2]]))
         );
         // set default option values
-        If(
+        Decide(
                 optionshash["points"] =? Empty,
                 optionshash["points"] := 10        // default # of points along each axis
         );
-        If(
+        Decide(
                 optionshash["xpoints"] =? Empty,
                 optionshash["xpoints"] := optionshash["points"]
         );
-        If(
+        Decide(
                 optionshash["ypoints"] =? Empty,
                 optionshash["ypoints"] := optionshash["points"]
         );
 
-        If(
+        Decide(
                 optionshash["depth"] =? Empty,
                 optionshash["depth"] := 2
         );
-        If(
+        Decide(
                 optionshash["precision"] =? Empty,
                 optionshash["precision"] := 0.0001
         );
-        If(
+        Decide(
                 optionshash["hidden"] =? Empty Or? Not? Boolean?(optionshash["hidden"]),
                 optionshash["hidden"] := True
         );
-        If(
+        Decide(
                 optionshash["output"] =? Empty Or? String?(optionshash["output"]) And? Plot3DSoutputs()[optionshash["output"]] =? Empty,
                 optionshash["output"] := Plot3DSoutputs()["default"]
         );
         // a "filename" parameter is required when using data file
-        If(
+        Decide(
                 optionshash["output"] =? "datafile" And? optionshash["filename"] =? Empty,
                 optionshash["filename"] := "output.data"
         );
@@ -140,14 +140,14 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
                         ~(PipeToString()Write(func))
                 );
                 // Allow plotting of constant functions
-                If(Length(var)=?0, var:=[dummy, dummy]);
-                If(Length(var)=?1, var:=[var[1], dummy]);
+                Decide(Length(var)=?0, var:=[dummy, dummy]);
+                Decide(Length(var)=?1, var:=[var[1], dummy]);
                 // store variable name if not already done so
-                If(
+                Decide(
                         optionshash["xname"] =? "",
                         optionshash["xname"] := ToString(var[1])
                 );
-                If(
+                Decide(
                         optionshash["yname"] =? "",
                         optionshash["yname"] := ToString(var[2])
                 );
@@ -168,8 +168,8 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
                 );
                 // compute all other data points
                 DestructiveAppend(allvalues, RemoveRepeated(HeapSort( Plot3DSgetdata(func, var, [cx, cy, fc], [xdelta, ydelta], optionshash), Hold([[x,y],x[1]<?y[1] Or? x[1] =? y[1] And? x[2] <=? y[2] ] ) )) );
-                If(InVerboseMode(), Echo(["Plot3DS: using ", Length(allvalues[Length(allvalues)]), " points for function ", func]), True);
-                If(InVerboseMode(), Echo(["Plot3DS: max. used ", 2^(optionshash["depth"] - optionshash["used depth"]), "subdivisions for ", func]), True);
+                Decide(InVerboseMode(), Echo(["Plot3DS: using ", Length(allvalues[Length(allvalues)]), " points for function ", func]), True);
+                Decide(InVerboseMode(), Echo(["Plot3DS: max. used ", 2^(optionshash["depth"] - optionshash["used depth"]), "subdivisions for ", func]), True);
         };
         // call the specified output backend
         Plot3DSoutputs()[optionshash["output"]] @ [allvalues, optionshash];
@@ -270,7 +270,7 @@ y1        11  31  21
 
         x1      x2
 */
-        If(
+        Decide(
                 // condition for the values not to oscillate too rapidly
                 signchange(f11,f13,f12) + signchange(f13,f12,f32) + signchange(f12,f32,f22) <=? 2 And? signchange(f22,f23,f21) + signchange(f23,f21,f31) + signchange(f21,f31,f11) <=? 2 And? 
                 

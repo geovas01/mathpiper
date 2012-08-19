@@ -6,32 +6,32 @@
 
 FindRealRoots(_p) <--
 {
-    If(iDebug,Tell("FindRealRoots",p));
+    Decide(iDebug,Tell("FindRealRoots",p));
     Local(vars,var,cc,pp,vlcc,zeroRoot,minb,maxb,rr);
     vars := VarList(p);
     var  := vars[1];
     cc   := Content(p);
     pp   := PrimitivePart(p);
-    If(iDebug,Tell("   ",[cc,pp]));
+    Decide(iDebug,Tell("   ",[cc,pp]));
     vlcc := VarList(cc);
-    If(Length(vlcc)>?0 And? Contains?(vlcc,var), zeroRoot:=True,zeroRoot:=False);
+    Decide(Length(vlcc)>?0 And? Contains?(vlcc,var), zeroRoot:=True,zeroRoot:=False);
     p:=SquareFree(Rationalize(pp));
-    If(iDebug,Tell("   after sqf",p));
+    Decide(iDebug,Tell("   after sqf",p));
     minb := MinimumBound(p);
     maxb := MaximumBound(p);
-    If(iDebug,Tell("   ",[minb,maxb]));
+    Decide(iDebug,Tell("   ",[minb,maxb]));
     rr := FindRealRoots(p,minb,maxb);
-    If(zeroRoot,DestructiveAppend(rr,0));
+    Decide(zeroRoot,DestructiveAppend(rr,0));
     rr;
 };
 
 
 FindRealRoots(_p,_Mmin,_Mmax) <--
 {
-    If(iDebug,Tell("  FindRealRoots3",[p,Mmin,Mmax]));
+    Decide(iDebug,Tell("  FindRealRoots3",[p,Mmin,Mmax]));
     Local(bounds,result,i,prec,requiredPrec);
     bounds := BoundRealRoots(p,Mmin,Mmax);
-    If(iDebug,Tell("      ",[bounds,Length(bounds)]));
+    Decide(iDebug,Tell("      ",[bounds,Length(bounds)]));
     result:=FillList(0,Length(bounds));
     requiredPrec := BuiltinPrecisionGet();
     BuiltinPrecisionSet(BuiltinPrecisionGet()+4);
@@ -39,15 +39,15 @@ FindRealRoots(_p,_Mmin,_Mmax) <--
 
     For(i:=1,i<=?Length(bounds),i++)
     {
-        If(iDebug,Tell(i));
+        Decide(iDebug,Tell(i));
         Local(a,b,c,r);
         [a,b] := bounds[i];
         c:=N(Eval((a+b)/2));
-        If(iDebug,Tell("         ",[a,b,c]));
+        Decide(iDebug,Tell("         ",[a,b,c]));
         r := Fail;
-        If(iDebug,Tell("         newt1",`Hold(Newton(@p,x,@c,@prec,@a,@b))));
+        Decide(iDebug,Tell("         newt1",`Hold(Newton(@p,x,@c,@prec,@a,@b))));
         if (a !=? b) {r := `Newton(@p,x,@c,prec,a,b);};
-        If(iDebug,Tell("         newt2",r));
+        Decide(iDebug,Tell("         newt2",r));
         if (r =? Fail)
           {
              Local(c,cold,pa,pb,pc);
@@ -58,7 +58,7 @@ FindRealRoots(_p,_Mmin,_Mmax) <--
              While (Abs(cold-c)>?prec)
              {
                  pc:=(p Where x==c);
-                 If(iDebug,Tell("              ",[a,b,c]));
+                 Decide(iDebug,Tell("              ",[a,b,c]));
                  if (Abs(pc) <? prec)
                    { a:=c; b:=c; }
                  else if (pa*pc <? 0)

@@ -16,11 +16,11 @@ RuleHoldArguments("Take", 2, 1, List?(range))
     Take( Drop(lst, range[1] -1), range[2] - range[1] + 1);
 
 RuleHoldArguments("Take", 2, 2, range >=? 0)
-    If( Length(lst)=?0 Or? range=?0, [],
+    Decide( Length(lst)=?0 Or? range=?0, [],
         Concat([First(lst)], Take(Rest(lst), range-1)));
 
 RuleHoldArguments("Take", 2, 2, range <? 0)
-    Drop( lst, If(AbsN(range) <? Length(lst), Length(lst) + range, 0 ));
+    Drop( lst, Decide(AbsN(range) <? Length(lst), Length(lst) + range, 0 ));
 
 %/mathpiper
 

@@ -20,7 +20,7 @@
         x2 := ContFracList(N(Eval(x-10^(-prec))));
 
     /*
-    If(InVerboseMode(),
+    Decide(InVerboseMode(),
       [
          Echo("NearRational: x      = ", N(Eval(x           ))));
          Echo("NearRational: xplus  = ", N(Eval(x+10^(-prec)))));
@@ -34,11 +34,11 @@
         // find where the continued fractions for "x1" and "x2" differ
         // prepare result in "x1" and length of result in "i"
         For (i:=1, i<=?Length(x1) And? i<=?Length(x2) And? x1[i]=?x2[i], i++ ) True;
-        If(
+        Decide(
                 i>?Length(x1),
                 // "x1" ended but matched, so use "x2" as "x1"
                 x1:=x2,
-                If(
+                Decide(
                         i>?Length(x2),
                 // "x2" ended but matched, so use "x1"
                         True,
@@ -49,9 +49,9 @@
         );
         // recipe: x1dd 1 to the lx1st term unless it's the lx1st in the originx1l sequence
         //Ayal added this line, i could become bigger than Length(x1)!
-        //If(InVerboseMode(), Echo(["NearRational: using ", i, "terms of the continued fraction"]));
-        If(i>?Length(x1),i:=Length(x1));
-        x1[i] := x1[i] + If(i=?Length(x1), 0, 1);
+        //Decide(InVerboseMode(), Echo(["NearRational: using ", i, "terms of the continued fraction"]));
+        Decide(i>?Length(x1),i:=Length(x1));
+        x1[i] := x1[i] + Decide(i=?Length(x1), 0, 1);
         BuiltinPrecisionSet(oldprec);
         ContFracEval(Take(x1, i));
 };

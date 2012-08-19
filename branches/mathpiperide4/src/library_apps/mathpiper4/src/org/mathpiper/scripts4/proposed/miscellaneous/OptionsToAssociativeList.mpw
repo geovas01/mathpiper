@@ -7,10 +7,10 @@ OptionsToAssociativeList(optionList) :=
     
     ForEach(option, optionList)
     {
-        If(option[0] =? ->,
+        Decide(option[0] =? ->,
         {
-            If(String?(option[1]), key := option[1], key := ToString(option[1]));
-            If(String?(option[2]), value := option[2], value := ToString(option[2]));
+            Decide(String?(option[1]), key := option[1], key := ToString(option[1]));
+            Decide(String?(option[2]), value := option[2], value := ToString(option[2]));
             
             associativeList := [key, value] ~ associativeList;
         

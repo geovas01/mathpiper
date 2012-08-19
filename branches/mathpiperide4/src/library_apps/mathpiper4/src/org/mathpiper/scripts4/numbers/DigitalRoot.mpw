@@ -1,7 +1,7 @@
 %mathpiper,def="DigitalRoot"
 
 // Digital root of n (repeatedly add digits until reach a single digit).
-10 # DigitalRoot(n_PositiveInteger?) <-- If(n%9=?0,9,n%9);
+10 # DigitalRoot(n_PositiveInteger?) <-- Decide(n%9=?0,9,n%9);
 
 %/mathpiper
 

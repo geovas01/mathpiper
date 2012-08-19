@@ -51,13 +51,13 @@ DebugStepOver():=
 DebugBreakAt(file,line):=
 {
   Check(DebugMode?(), "Mode", "DebugBreakAt only supported in the debug build of MathPiper");
-  If(filebreakpoints[file] =? Empty,filebreakpoints[file]:=[]);
+  Decide(filebreakpoints[file] =? Empty,filebreakpoints[file]:=[]);
   DestructiveAppend(filebreakpoints[file],line);
 };
 DebugRemoveBreakAt(file,line):=
 {
   Check(DebugMode?(), "Mode", "DebugRemoveBreakAt only supported in the debug build of MathPiper");
-  If(filebreakpoints[file] =? Empty,filebreakpoints[file]:=[]);
+  Decide(filebreakpoints[file] =? Empty,filebreakpoints[file]:=[]);
   filebreakpoints[file] := Difference(filebreakpoints[file],[line]);
 };
 
@@ -103,21 +103,21 @@ Macro(DebugEnter,[])
 {
   debugcallstack := CustomEvalExpression()~debugcallstack;
   // custom breakpoint (custom predicate thought up by the programmer)
-  If(debugging =? False And?
+  Decide(debugging =? False And?
       Eval(breakpredicate) =? True,
       {
         breakpredicate:=False;
         debugging:=True;
       });
 
-  If(debugging =? False And? DebugMode?(),
+  Decide(debugging =? False And? DebugMode?(),
   {
     Local(file,line);
     file := DebugFile(CustomEvalExpression());
-    If(filebreakpoints[file] !=? Empty,
+    Decide(filebreakpoints[file] !=? Empty,
     {
       line := DebugLine(CustomEvalExpression());
-      If(Not?(file =? debugstepoverfile And? line =? debugstepoverline) And?
+      Decide(Not?(file =? debugstepoverfile And? line =? debugstepoverline) And?
          Contains?(filebreakpoints[file],line),
          {
            debugging:=True;
@@ -128,29 +128,29 @@ Macro(DebugEnter,[])
 
 
   // the standard breakpoint
-  If(debugging =? False And?
+  Decide(debugging =? False And?
       Function?(CustomEvalExpression()) And?
       Contains?(breakpoints,Type(CustomEvalExpression())),   debugging:=True);
    nextdebugging:=False;
-   If (debugging,
+   Decide(debugging,
    {
-     If(DebugMode?(),DebugShowCode());
+     Decide(DebugMode?(),DebugShowCode());
      Echo(">>> ",CustomEvalExpression());
      While(debugging)
      {
         Echo("DebugResult: ",Eval(PipeFromString(ReadCmdLineString("Debug> ")~";")Read()));
-    //      If(debugging,Echo("DebugResult: ",debugRes));
-       If(IsExitRequested(),debugging:=False);
+    //      Decide(debugging,Echo("DebugResult: ",debugRes));
+       Decide(IsExitRequested(),debugging:=False);
      };
     });
    debugging:=nextdebugging;
 
-   If(IsExitRequested(),debugstopped:=True);
+   Decide(IsExitRequested(),debugstopped:=True);
 
 };
 Macro(DebugLeave,[])
 {
-  If(debugging =? False And? debugstopdepth >=? 0 And? Length(debugcallstack) =? debugstopdepth,
+  Decide(debugging =? False And? debugstopdepth >=? 0 And? Length(debugcallstack) =? debugstopdepth,
   {
     debugstepoverline := -1;
     debugging := True;
@@ -158,13 +158,13 @@ Macro(DebugLeave,[])
   });
 
   debugcallstack := Rest(debugcallstack);
-  If(debugverbose,Echo(CustomEvalResult()," <-- ",CustomEvalExpression()));
+  Decide(debugverbose,Echo(CustomEvalResult()," <-- ",CustomEvalExpression()));
 };
 Macro(Debug,[expression])
 PipeToStdout()
 {
    DebugStart();
-   CustomEval(DebugEnter(),DebugLeave(),If(debugstopped,Check(False, "Debug", ""),{debugging:=True;debugcallstack := Rest(debugcallstack);}),@expression);
+   CustomEval(DebugEnter(),DebugLeave(),Decide(debugstopped,Check(False, "Debug", ""),{debugging:=True;debugcallstack := Rest(debugcallstack);}),@expression);
 };
 
 
@@ -176,7 +176,7 @@ ProfileStart():=
 {
     Local(fname);
     fname:=Type(CustomEvalExpression());
-    If(profilefn[fname]=?Empty,profilefn[fname]:=0);
+    Decide(profilefn[fname]=?Empty,profilefn[fname]:=0);
     profilefn[fname] := profilefn[fname]+1;
 };
 Macro(Profile,[expression])

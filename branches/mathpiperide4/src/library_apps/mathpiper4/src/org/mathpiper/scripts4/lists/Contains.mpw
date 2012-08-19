@@ -6,7 +6,7 @@ Function("Contains?",[list,element])
   Assign(result,False);
   While(And?(Not?(result), Not?(Equal?(list, []))))
   {
-    If(Equal?(First(list),element),
+    Decide(Equal?(First(list),element),
       Assign(result, True),
       Assign(list, Rest(list))
       );

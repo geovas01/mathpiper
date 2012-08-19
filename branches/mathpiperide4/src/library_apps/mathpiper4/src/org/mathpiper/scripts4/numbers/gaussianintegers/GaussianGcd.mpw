@@ -2,7 +2,7 @@
 
 10 # GaussianGcd(n_GaussianInteger?,m_GaussianInteger?) <--
 {
-        If(N(Abs(m))=?0,n, GaussianGcd(m,n - m*Round(n/m) ) );
+        Decide(N(Abs(m))=?0,n, GaussianGcd(m,n - m*Round(n/m) ) );
 };
 
 %/mathpiper

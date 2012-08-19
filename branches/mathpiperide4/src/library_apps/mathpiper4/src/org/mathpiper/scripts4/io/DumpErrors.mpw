@@ -7,10 +7,10 @@ DumpErrors() <--
         CheckErrorTableau();
         ForEach(errorobject, GetErrorTableau())
         {        // errorobject might be e.g. ["critical", ["bad bad", -1000]]
-                If(
+                Decide(
                         List?(errorobject),
                         {
-                                If( // special case: error class "warning"
+                                Decide( // special case: error class "warning"
                                         Length(errorobject) >? 0 And? errorobject[1] =? "warning",
                                         {
                                                 errorword := "Warning";
@@ -19,7 +19,7 @@ DumpErrors() <--
                                         errorword := "Error: "        // important hack: insert ": " here but not after "Warning"
                                 );
 
-                                If(        // special case: ["errorclass", True]
+                                Decide(        // special case: ["errorclass", True]
                                         Length(errorobject)=?2 And? errorobject[2]=?True,
                                         Echo(errorword, errorobject[1]),
                                         {

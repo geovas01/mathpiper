@@ -20,16 +20,16 @@ Function("AddTerm",[termlist,term,begining])
 {
  Local(l,i);
  l := Length(termlist);
- If(term[2]!=?0,
+ Decide(term[2]!=?0,
  {
   i:=begining;
 // Fix-me: search by using binary search ?
-  If (l>=?1, While ((i<=?l) And? (term[1]<?termlist[i][1])) i++);
-  If  (i>?l, {DestructiveAppend(termlist,term);i++;},
-          If (term[1]=?termlist[i][1],
+  Decide(l>=?1, While ((i<=?l) And? (term[1]<?termlist[i][1])) i++);
+  Decide(i>?l, {DestructiveAppend(termlist,term);i++;},
+          Decide(term[1]=?termlist[i][1],
              { Local(nc);
                nc:=termlist[i][2]+term[2];
-                 If(nc!=?0,DestructiveReplace(termlist,i,[term[1],nc]),
+                 Decide(nc!=?0,DestructiveReplace(termlist,i,[term[1],nc]),
                           {DestructiveDelete(termlist,i);i--;});
              },  DestructiveInsert(termlist,i,term))
      );

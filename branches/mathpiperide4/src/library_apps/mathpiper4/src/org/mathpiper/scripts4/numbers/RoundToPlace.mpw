@@ -4,7 +4,7 @@
 
 10 # RoundToPlace( N_Decimal?, place_Integer? ) <--
 {
-    //If(InVerboseMode(),Tell("RoundToPlace_D",[N,place]));
+    //Decide(InVerboseMode(),Tell("RoundToPlace_D",[N,place]));
     Local(rep,sgn,oldInt,oldPrec,oldScale,oldPlaces,strOInt,LS);
     Local(newInt,newScale,newRep,ans);
     sgn      := Sign(N);
@@ -15,7 +15,7 @@
     oldPlaces:= oldPrec - oldScale;
     strOInt  := ExpressionToString(oldInt);
     LS       := Length(strOInt);
-    //If(InVerboseMode(),
+    //Decide(InVerboseMode(),
     //   [
     //    Tell("   ",rep);
     //    Tell("         ",oldInt);
@@ -25,7 +25,7 @@
     //    Tell("         ",oldPlaces);
     //   ]
     //);
-    If(oldPlaces+place>?0,
+    Decide(oldPlaces+place>?0,
         ans := RoundToPrecision(N,oldPlaces+place),
         ans := 0.
     );
@@ -35,17 +35,17 @@
 
 15 # RoundToPlace( N_Integer?, place_Integer? )_(place <=? 0) <--
 {
-    //If(InVerboseMode(),Tell("RoundToPlace_I",[N,place]));
+    //Decide(InVerboseMode(),Tell("RoundToPlace_I",[N,place]));
     Local(oldRep,oldPrec,decN,newDecN,ans);
     oldRep   := NumberToRep(N);
     oldPrec  := oldRep[2];
     decN     := N*1.0;
     newDecN  := RoundToPlace( decN, place );
-    //If(InVerboseMode(),Tell("    ",oldRep));
-    //If(InVerboseMode(),Tell("   ",oldPrec));
-    //If(InVerboseMode(),Tell("   ",place));
-    //If(InVerboseMode(),Tell("   ",newDecN));
-    If( place <=? oldPrec, 
+    //Decide(InVerboseMode(),Tell("    ",oldRep));
+    //Decide(InVerboseMode(),Tell("   ",oldPrec));
+    //Decide(InVerboseMode(),Tell("   ",place));
+    //Decide(InVerboseMode(),Tell("   ",newDecN));
+    Decide( place <=? oldPrec, 
         ans := Round(newDecN),
         ans := Round(newDecN*10^(place-oldPrec))
     );
@@ -56,7 +56,7 @@
 
 20 # RoundToPlace( N_Complex?, place_Integer? )_(Not? Integer?(N)) <--
 {
-    //If(InVerboseMode(),Tell("RoundToPlace_C",[N,place]));
+    //Decide(InVerboseMode(),Tell("RoundToPlace_C",[N,place]));
     Local(rr,ii);
     rr := Re(N);
     ii := Im(N);

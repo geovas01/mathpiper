@@ -8,7 +8,7 @@ Function("FindPredicate",[list,predicate])
   Assign(count, 1);
   While(And?(result<?0, Not?(Equal?(list, []))))
   {
-    If(Apply(predicate,[First(list)]),
+    Decide(Apply(predicate,[First(list)]),
       Assign(result, count)
       );
     Assign(list,Rest(list));

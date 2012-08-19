@@ -4,7 +4,7 @@
    Anti-nominalism */
 
 BinomialDistribution(_p, _n)_
-        (If(RationalOrNumber?(p),p<?0 Or? p>?1, False)
+        (Decide(RationalOrNumber?(p),p<?0 Or? p>?1, False)
          Or? (Constant?(n) And? Not? PositiveInteger?(n)) )
         <-- Undefined;
 

@@ -30,7 +30,7 @@
         };
         ForEach(i,1 .. n){
                 ForEach(j,1 .. n){
-                        If(i<=?j,U[i][j]:=matrix[i][j],L[i][j]:=matrix[i][j]);
+                        Decide(i<=?j,U[i][j]:=matrix[i][j],L[i][j]:=matrix[i][j]);
                 };
                 // diagonal of L is always 1's
                 L[i][i]:=1;

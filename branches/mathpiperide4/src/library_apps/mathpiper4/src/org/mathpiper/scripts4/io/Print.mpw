@@ -21,11 +21,11 @@
 {
   Local(bracket);
   bracket:= (PrecedenceGet(Type(x)) >? n);
-  If(bracket,WriteString("("));
+  Decide(bracket,WriteString("("));
   Print(x[1],LeftPrecedenceGet(Type(x)));
   Write(x[0]);
   Print(x[2],RightPrecedenceGet(Type(x)));
-  If(bracket,WriteString(")"));
+  Decide(bracket,WriteString(")"));
 };
 
 10 # Print(_x,_n)_(Prefix?(Type(x)) And? ArgumentsCount(x) =? 1) <--
@@ -33,19 +33,19 @@
   Local(bracket);
   bracket:= (PrecedenceGet(Type(x)) >? n);
   Write(x[0]);
-  If(bracket,WriteString("("));
+  Decide(bracket,WriteString("("));
   Print(x[1],RightPrecedenceGet(Type(x)));
-  If(bracket,WriteString(")"));
+  Decide(bracket,WriteString(")"));
 };
 
 10 # Print(_x,_n)_(Postfix?(Type(x))And? ArgumentsCount(x) =? 1) <--
 {
   Local(bracket);
   bracket:= (PrecedenceGet(Type(x)) >? n);
-  If(bracket,WriteString("("));
+  Decide(bracket,WriteString("("));
   Print(x[1],LeftPrecedenceGet(Type(x)));
   Write(x[0]);
-  If(bracket,WriteString(")"));
+  Decide(bracket,WriteString(")"));
 };
 
 20 # Print(_x,_n)_(Type(x) =? "List") <--

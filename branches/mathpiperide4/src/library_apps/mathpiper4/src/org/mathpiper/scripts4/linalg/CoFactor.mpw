@@ -7,10 +7,10 @@ Function("CoFactor",[matrix,ii,jj])
   perms:=PermutationsList(indices);
   result:=0;
   ForEach(item,perms)
-     If(item[ii] =? jj,
+     Decide(item[ii] =? jj,
        result:=result+
          Product(i,1,Length(matrix),
-         If(ii=?i,1,matrix[i][item[i] ])
+         Decide(ii=?i,1,matrix[i][item[i] ])
                   )*LeviCivita(item));
   result;
 };

@@ -2,7 +2,7 @@
 
 Function("LogicVerify",[aLeft,aRight])
 {
-  If(aLeft !=? aRight,
+  Decide(aLeft !=? aRight,
     Verify(CanProve(aLeft  Implies?  aRight),True)
   );
 };

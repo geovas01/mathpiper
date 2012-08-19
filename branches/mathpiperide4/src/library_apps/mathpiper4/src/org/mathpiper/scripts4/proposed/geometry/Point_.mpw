@@ -1,6 +1,6 @@
 %mathpiper,def="Point?"
 
-Point?(p) := If(List?(p) And? (Length(p) =? 2 Or? Length(p) =? 3),True,False);
+Point?(p) := Decide(List?(p) And? (Length(p) =? 2 Or? Length(p) =? 3),True,False);
 
 %/mathpiper
 

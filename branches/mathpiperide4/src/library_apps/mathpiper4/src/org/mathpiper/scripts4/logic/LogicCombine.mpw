@@ -19,13 +19,13 @@ LogicCombine(_list) <--
 
       [tocombine, k] := LogicFindWith(list, i, n);// search forward for n, tocombine is the list we
                                                   // will combine the current one with
-      If(tocombine !=? -1,
+      Decide(tocombine !=? -1,
       {
         Local(combination);
         Check(k !=? -1, "Math", "k is -1");
 
         Assign(combination, LogicRemoveTautologies(Concat(list[i], list[tocombine])));
-        If(combination =? [],                      // the combined clause is false, so the whole thing is false
+        Decide(combination =? [],                      // the combined clause is false, so the whole thing is false
           { Assign(list, [[]]); Assign(i, Length(list)+1);}, { /*Assign(i, 0);*/ });
       });
     };

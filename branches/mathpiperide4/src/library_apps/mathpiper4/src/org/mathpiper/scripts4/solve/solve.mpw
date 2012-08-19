@@ -49,7 +49,7 @@ LocalSymbols(res)
          Local(v1,v2);
          v1 := WithValue(var, s[2], e1);
          v2 := WithValue(var, s[2], e2);
-         If(Not? (Infinity?(v1) Or? (v1 =? Undefined) Or?
+         Decide(Not? (Infinity?(v1) Or? (v1 =? Undefined) Or?
                  Infinity?(v2) Or? (v2 =? Undefined)),
              DestructiveAppend(u, s));
       };
@@ -60,7 +60,7 @@ LocalSymbols(res)
       tn := Solve(e1, var);
       t := [];
       ForEach(s, tn)
-          If(Not?(Zero?(WithValue(var, s[2], e2))), 
+          Decide(Not?(Zero?(WithValue(var, s[2], e2))), 
               DestructiveAppend(t, s)
           );
       t;
@@ -98,9 +98,9 @@ LocalSymbols(x)
 {
   Local(roots);
   roots := PSolve(expr, var);
-  If(Type(roots) =? "YacasPSolve",
-     If(roots =? YacasPSolve(0), [var == var], Failed),   /* Case 3 */
-     If(Type(roots) =? "List",
+  Decide(Type(roots) =? "YacasPSolve",
+     Decide(roots =? YacasPSolve(0), [var == var], Failed),   /* Case 3 */
+     Decide(Type(roots) =? "List",
         MapSingle([[x],var==x], roots),                  /* Case 2 */
         [var == roots]));                                /* Case 1 */
 };
@@ -115,15 +115,15 @@ LocalSymbols(x)
   ClearError("SolveFails"); // ..in case one was left over from prior failure
   Local(context, expr2, var2, res, sol, sol2, i);
   context := SolveContext(expr, var);
-  If(context =? False,
+  Decide(context =? False,
      res := Failed,
      {
        expr2 := Eval(Subst(context, var2) expr);
-       If(CanBeUni(var2, expr2) And? (Degree(expr2, var2) =? 0 Or? (Degree(expr2, var2) =? 1 And? Coef(expr2, var2, 1) =? 1)),
+       Decide(CanBeUni(var2, expr2) And? (Degree(expr2, var2) =? 0 Or? (Degree(expr2, var2) =? 1 And? Coef(expr2, var2, 1) =? 1)),
           res := Failed, /* to prevent infinite recursion */
           {
                 sol2 := Solve(expr2, var2);
-            If(Error?("SolveFails"),
+            Decide(Error?("SolveFails"),
                {
                  ClearError("SolveFails");
                  res := Failed;
@@ -133,7 +133,7 @@ LocalSymbols(x)
                      i := 1;
                      While(i <=? Length(sol2) And? res !=? Failed) {
                        sol := Solve(context == (var2 Where sol2[i]), var);
-                   If(Error?("SolveFails"),
+                   Decide(Error?("SolveFails"),
                       {
                         ClearError("SolveFails");
                         res := Failed;
@@ -153,7 +153,7 @@ LocalSymbols(x)
 /* or [] if 'var' does not occur in 'expr',       */
 /* or False if the context is not unique.         */
 
-10 # SolveContext(expr_Atom?, _var) <-- If(expr=?var, var, []);
+10 # SolveContext(expr_Atom?, _var) <-- Decide(expr=?var, var, []);
 
 20 # SolveContext(_expr, _var) <--
 {
@@ -165,15 +165,15 @@ LocalSymbols(x)
     foundVarP := (lst[i] =? var);
     i++;
   };
-  If(foundVarP,
+  Decide(foundVarP,
      context := expr,
      {
        context := [];
        i := 2;
        While(i <=? Length(lst) And? context !=? False) {
          res := SolveContext(lst[i], var);
-         If(res !=? [] And? context !=? [] And? res !=? context, context := False);
-         If(res !=? [] And? context =? [], context := res);
+         Decide(res !=? [] And? context !=? [] And? res !=? context, context := False);
+         Decide(res !=? [] And? context =? [], context := res);
          i++;
        };
      });

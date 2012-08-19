@@ -25,7 +25,7 @@ SumTaylorNum1(_x, _nthtermfunc, _nterms) <-- SumTaylorNum1(x, nthtermfunc, [], n
 
 /// interface
 SumTaylorNum(_x, _nthtermfunc, _nterms) <--
-If(
+Decide(
         nterms >=? 30,        // threshold for calculation with nexttermfactor
         // use the rectangular algorithm for large enough number of terms
         SumTaylorNum1(x, nthtermfunc, nterms),
@@ -33,7 +33,7 @@ If(
 );
 
 SumTaylorNum(_x, _nthtermfunc, _nexttermfactor, _nterms) <--
-If(
+Decide(
         nterms >=? 5,        // threshold for calculation with nexttermfactor
         SumTaylorNum1(x, nthtermfunc, nexttermfactor, nterms),
         SumTaylorNum0(x, nthtermfunc, nexttermfactor, nterms)
@@ -61,7 +61,7 @@ If(
         Local(sum, k, term, delta);
   N({
     x:=Eval(x);        // x must be floating-point
-    If (Constant?(nthtermfunc),
+    Decide(Constant?(nthtermfunc),
       term := nthtermfunc,
       term := (nthtermfunc @ [0]),
     );
@@ -106,11 +106,11 @@ SumTaylorNum1(x, nthtermfunc, nexttermfactor, nterms) :=
     // prepare termtmp for the first element
     // if we are using nexttermfactor, then termtmp is x^(rows*i)*a[rows*i]
     // if we are not using it, then termtmp is x^(rows*i)
-    If(
+    Decide(
       nexttermfactor =? [],
       termtmp := 1,
   //                termtmp := (nthtermfunc @ 0)        // floating-point
-      If (Constant?(nthtermfunc),
+      Decide(Constant?(nthtermfunc),
         termtmp := nthtermfunc,
         termtmp := (nthtermfunc @ [0]),
       )
@@ -125,7 +125,7 @@ SumTaylorNum1(x, nthtermfunc, nexttermfactor, nterms) :=
       {
         // if we are using nexttermfactor, then termtmp is x^(rows*i)*a[rows*i]
         // if we are not using it, then termtmp is x^(rows*i)
-        If(
+        Decide(
           nexttermfactor =? [],        // no nexttermfactor, so nthtermfunc must be given
           {
             rowstmp[j+1] := rowstmp[j+1] + MultiplyNum(termtmp, nthtermfunc @ [i*rows+j]);

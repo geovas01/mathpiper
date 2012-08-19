@@ -40,13 +40,13 @@ LocalSymbols(ZoomInOnce)
             
             randomZoomNumber := Sum(Take(zoomIndexes, randomStep));
             
-            If(randomStep =? 1, nextZoomIndex := randomZoomNumber + 1, nextZoomIndex := 3*(randomStep-1) + randomZoomNumber + 1);
+            Decide(randomStep =? 1, nextZoomIndex := randomZoomNumber + 1, nextZoomIndex := 3*(randomStep-1) + randomZoomNumber + 1);
          
-            If(iteration >? 1, Echo(ListToString(FillList("-", outputWidth-3)))); 
+            Decide(iteration >? 1, Echo(ListToString(FillList("-", outputWidth-3)))); 
             
             Echo(numbersString);
             
-            If(iteration !=? depth,{Space(nextZoomIndex);Echo("|");});
+            Decide(iteration !=? depth,{Space(nextZoomIndex);Echo("|");});
             
             lowValue := numbers[randomStep];
             
@@ -65,7 +65,7 @@ LocalSymbols(ZoomInOnce)
     {
         Local(stepAmount, x, numbers);
         
-        stepAmount := If(Decimal?(lowValue) Or? Decimal?(highValue), N((highValue-lowValue)/divisions), (highValue-lowValue)/divisions);
+        stepAmount := Decide(Decimal?(lowValue) Or? Decimal?(highValue), N((highValue-lowValue)/divisions), (highValue-lowValue)/divisions);
         
         x := lowValue;
         

@@ -12,22 +12,22 @@
 
 10 # xSolveReduce(_expr, _var) <--
   [
-      If(iDebug,Tell("xSolveReduce",[expr,var]));
+      Decide(iDebug,Tell("xSolveReduce",[expr,var]));
       ClearError("SolveFails");  // in case left-over from previous failure!
       Local(context, expr2, var2, res, sol, sol2, i);
       context := xSolveContext(expr, var);
-      If(iDebug,Tell(" xSolveReduce",context));
-      If(context = False,
+      Decide(iDebug,Tell(" xSolveReduce",context));
+      Decide(context = False,
          [
-             If(iDebug,Tell(" 31bReduce",expr));
+             Decide(iDebug,Tell(" 31bReduce",expr));
              res := Failed;
          ],
          [
              expr2 := Eval(Subst(context, var2) expr);
-             If(iDebug,Tell(" 31cReduce",expr2));
-             If(CanBeUni(var2, expr2) And? (Degree(expr2, var2) = 0 Or? (Degree(expr2, var2) = 1 And? Coef(expr2, var2, 1) = 1)),
+             Decide(iDebug,Tell(" 31cReduce",expr2));
+             Decide(CanBeUni(var2, expr2) And? (Degree(expr2, var2) = 0 Or? (Degree(expr2, var2) = 1 And? Coef(expr2, var2, 1) = 1)),
                  [
-                     If(iDebug=True,
+                     Decide(iDebug=True,
                        [
                          Tell(" 31dReduce",expr2);
                          Tell(" 31eReduce -- Quitting to avoid infinite recursion",Degree(expr2,var2));
@@ -38,22 +38,22 @@
                  [
                      //Tell(" 31XReduce",GetErrorTableau());
                          sol2 := Solve(expr2, var2);
-                     If(iDebug,Tell(" 31fReduce",sol2));
-                     If(Error?("SolveFails"),
+                     Decide(iDebug,Tell(" 31fReduce",sol2));
+                     Decide(Error?("SolveFails"),
                              [
-                             If(iDebug,Tell(" 31gReduce_error"));
+                             Decide(iDebug,Tell(" 31gReduce_error"));
                                  ClearError("SolveFails");
                                      res := Failed;
                          ],
                              [
-                             If(iDebug,Tell(" 31hReduce",sol2));
+                             Decide(iDebug,Tell(" 31hReduce",sol2));
                                      res := [];
                                      i := 1;
                                      While(i <=? Length(sol2) And? res !=? Failed) 
                              [
                                          sol := Solve(context == (var2 Where sol2[i]), var);
-                                 If(iDebug,Tell(" 31iReduce",[i,sol]));
-                                     If(Error?("SolveFails"),
+                                 Decide(iDebug,Tell(" 31iReduce",[i,sol]));
+                                     Decide(Error?("SolveFails"),
                                              [
                                                   ClearError("SolveFails");
                                                   res := Failed;
@@ -62,7 +62,7 @@
                                  );
                                          i++;
                                      ];
-                             If(iDebug,Tell(" 31jReduce",[sol1,sol2,res]));
+                             Decide(iDebug,Tell(" 31jReduce",[sol1,sol2,res]));
                              ]
                      );
                        ]
@@ -84,38 +84,38 @@
 
 10 # xSolveContext(expr_Atom?, _var) <-- 
   [
-      If(iDebug,Tell("xSolveContext",[expr,var]));
-      If(expr=var, var, []);
+      Decide(iDebug,Tell("xSolveContext",[expr,var]));
+      Decide(expr=var, var, []);
   ];
 
 20 # xSolveContext(_expr, _var) <--
   [
-      If(iDebug,Tell("xSolveContext",[expr,var]));
+      Decide(iDebug,Tell("xSolveContext",[expr,var]));
       Local(lst, foundVarP, context, i, res);
       lst := FunctionToList(expr);
-      If(iDebug,Tell(" 42aContext",lst));
+      Decide(iDebug,Tell(" 42aContext",lst));
       foundVarP := False;
       i := 2;
       While(i <=? Length(lst) And? Not? foundVarP) [
           foundVarP := (lst[i] =? var);
           i++;
       ];
-      If(iDebug,Tell(" 42bContext",[foundVarP,expr]));
-      If(foundVarP,
+      Decide(iDebug,Tell(" 42bContext",[foundVarP,expr]));
+      Decide(foundVarP,
           [
               context := expr;
-              If(iDebug,Tell("  42cContext_found",[foundVarP,context]));
+              Decide(iDebug,Tell("  42cContext_found",[foundVarP,context]));
           ],
           [
               context := [];
               i := 2;
               While(i <=? Length(lst) And? context !=? False) [
                   res := xSolveContext(lst[i], var);
-                      If(res !=? [] And? context !=? [] And? res !=? context, [context := False;If(iDebug,Tell("  42caContext",res));]);
-                      If(res !=? [] And? context = [], [context := res;If(iDebug,Tell("  42cbContext",context));]);
+                      Decide(res !=? [] And? context !=? [] And? res !=? context, [context := False;Decide(iDebug,Tell("  42caContext",res));]);
+                      Decide(res !=? [] And? context = [], [context := res;Decide(iDebug,Tell("  42cbContext",context));]);
                       i++;
               ];
-              If(iDebug,Tell("  42dContext_solved",[i,context]));
+              Decide(iDebug,Tell("  42dContext_solved",[i,context]));
           ]
       );
       context;

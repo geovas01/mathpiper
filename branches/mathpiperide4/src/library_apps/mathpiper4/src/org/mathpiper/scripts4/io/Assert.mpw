@@ -4,7 +4,7 @@
 (Assert(_errorclass, _errorobject) _predicate) <--
 {
         CheckErrorTableau();
-        If(Equal?(predicate, True),        // if it does not evaluate to True, its an error
+        Decide(Equal?(predicate, True),        // if it does not evaluate to True, its an error
                 True,
                 {        // error occurred, need to post errorobject
                         DestructiveAppend(GetErrorTableau(), [errorclass, errorobject]);

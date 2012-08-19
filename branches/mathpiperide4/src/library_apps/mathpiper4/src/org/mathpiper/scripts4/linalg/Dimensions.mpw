@@ -12,7 +12,7 @@ LocalSymbols(x,i,n,m,aux,dim,result)
     {
       Local(i,n,m,aux,dim,result);
       result:=List(Length(x));
-      If(Length(x)>?0 And? Length(Select(x, List?))=?Length(x),
+      Decide(Length(x)>?0 And? Length(Select(x, List?))=?Length(x),
         {
           n:=Length(x);
               dim:=MapSingle(Dimensions,x);
@@ -20,7 +20,7 @@ LocalSymbols(x,i,n,m,aux,dim,result)
               For(i:=1,i<=?m,i++)
               {
                 aux:=Table(dim[j][i],j,1,n,1);
-                If(Minimum(aux)=?Maximum(aux),
+                Decide(Minimum(aux)=?Maximum(aux),
                    result:=DestructiveAppend(result,dim[1][i]),
                    i:=m+1
             );

@@ -6,7 +6,7 @@
    which of course does a much better job of it. Corollary is that this function can be defined when we also
    have InternalLnNum in this file.
 Defun("MathFloatPower", [x,y])
-        If(Integer?(y), False, ExpN(MultiplyN(y,LogN(x))));
+        Decide(Integer?(y), False, ExpN(MultiplyN(y,LogN(x))));
 */
 
 %/mathpiper

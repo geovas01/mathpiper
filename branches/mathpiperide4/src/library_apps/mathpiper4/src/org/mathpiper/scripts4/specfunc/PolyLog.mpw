@@ -76,7 +76,7 @@
         terms := Floor(-prec*Ln(10)/Ln(x));
         terms := Floor(-(prec*Ln(10)-(n-1)*Ln(terms))/Ln(x));
 //        Echo("used", terms, "terms");
-        If(terms <? 4, terms := 4);
+        Decide(terms <? 4, terms := 4);
         BuiltinPrecisionSet(prec+2*IntLog(prec,10)+5);
         result := x*SumTaylorNum(x, [[k], 1/(k+1)^n], terms);
         BuiltinPrecisionSet(prec);

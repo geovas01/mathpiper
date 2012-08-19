@@ -26,7 +26,7 @@ RulebaseHoldArguments("MakeUni",[expression,var]);
   reslist:=[];
   ForEach(item,expression[3])
   {
-    If(FreeOf?(var,item),
+    Decide(FreeOf?(var,item),
       DestructiveAppend(reslist,item),
       DestructiveAppend(reslist,MakeUni(item,var))
       );

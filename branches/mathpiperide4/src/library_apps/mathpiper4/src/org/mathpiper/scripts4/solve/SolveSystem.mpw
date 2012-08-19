@@ -22,7 +22,7 @@
 10 # SolveSystem( eqns_List?, vars_List? ) <--
 [
     // This is the old, now obsolete method
-    If(InVerboseMode(),Tell("SolveSystem0",[eqns,vars]));
+    Decide(InVerboseMode(),Tell("SolveSystem0",[eqns,vars]));
     SolveSimpleBackSubstitution(eqns,vars);
 ];
 */
@@ -35,32 +35,32 @@
 12 # SolveSystem( eqns_List?, vars_List? ) <--
 {
     // This is the first try at a better algorithm for doing this
-    If(InVerboseMode(),Tell("SolveSystem",[eqns,vars]));
+    Decide(InVerboseMode(),Tell("SolveSystem",[eqns,vars]));
     
     Local(eq,expr,exprns,VaD,isLinearSet,ans);
     // express as set of polynomials, to be equated to zero
     exprns := [];
     ForEach(eq,eqns)
      {
-         expr := If( Equation?(eq), EquationLeft(eq)-EquationRight(eq), eq );
+         expr := Decide( Equation?(eq), EquationLeft(eq)-EquationRight(eq), eq );
          DestructiveAppend(exprns,expr);
      };
-    If(InVerboseMode(),Tell(" ",exprns));
+    Decide(InVerboseMode(),Tell(" ",exprns));
     
     // are all polynomials linear in given variables?
     VaD := VarsAndDegs(exprns,vars);
-    If(InVerboseMode(),Tell(" ",VaD));
+    Decide(InVerboseMode(),Tell(" ",VaD));
     isLinearSet := Maximum(Flatten(VaD,"List"))=?1;
-    If(InVerboseMode(),Tell(" ",isLinearSet));
+    Decide(InVerboseMode(),Tell(" ",isLinearSet));
     
-    If( isLinearSet,
+    Decide( isLinearSet,
         ans:=SolveLinearSystem( exprns, vars ),
         ans:=SolveNonlinearSystem( exprns, vars )
     );
 
-    If(ans !=? [], ans := Map("==",[vars,ans]));
+    Decide(ans !=? [], ans := Map("==",[vars,ans]));
 
-    If(InVerboseMode(),Tell("",ans));
+    Decide(InVerboseMode(),Tell("",ans));
 
     ans;
 };
@@ -89,19 +89,19 @@
 {
     Local(A, E);
 
-    If(InVerboseMode(),Tell("   SolveLinearSystem",[polys,vars]));
+    Decide(InVerboseMode(),Tell("   SolveLinearSystem",[polys,vars]));
     // note  Coef(polys[1],vars[1],1) etc, to create matrix of coefficients
     Local(lhs,rhs,zeros);
     lhs := MakeCoefMatrix(polys,vars);
-    If(InVerboseMode(),Tell("       ",lhs));
+    Decide(InVerboseMode(),Tell("       ",lhs));
     zeros := ZeroVector(Length(vars));
     rhs := -WithValue(vars,zeros,polys);
-    If(InVerboseMode(),Tell("       ",rhs));
+    Decide(InVerboseMode(),Tell("       ",rhs));
     
     A := Transpose(Concat(Transpose(lhs),[rhs]));
     E := RREF(A);
 
-    If(Contains?(E,BaseVector(Dimensions(E)[2],Dimensions(E)[2])),
+    Decide(Contains?(E,BaseVector(Dimensions(E)[2],Dimensions(E)[2])),
         [],
         MatrixColumn(E,Dimensions(E)[2]) - (ExtractSubMatrix(E, 1, 1, Length(E), Length(E)) - Identity(Length(E))) * vars);
 };
@@ -110,7 +110,7 @@
 
 10 # MakeCoefMatrix(polys_List?,vars_List?) <--
 {
-    If(InVerboseMode(),Tell("      MakeCoefMatrix",[polys,vars]));
+    Decide(InVerboseMode(),Tell("      MakeCoefMatrix",[polys,vars]));
     Local(p,v,result);
     result := [];
     ForEach(p,polys)

@@ -37,10 +37,10 @@ OrdBuild(vector,q):=
 Function(AddFoundSolutionSingle,[p])
 {
   Local(calc);
-//  If ( Not? Contains?(result,p),
+//  Decide( Not? Contains?(result,p),
 //  [
     Assign(calc, Eval(lastcoef));
-    If (Equal?(calc, 0),
+    Decide(Equal?(calc, 0),
     {
       Local(newlist,count,root);
       count:=0;
@@ -92,7 +92,7 @@ Function(Fct,[poly,var])
   Local(gcd);
   {
     Assign(gcd,Gcd(poly));
-    If(poly[Length(poly)] <? 0,Assign(gcd, gcd * -1));
+    Decide(poly[Length(poly)] <? 0,Assign(gcd, gcd * -1));
     Assign(poly,poly/gcd);
   };
 
@@ -176,7 +176,7 @@ Function(Fct,[poly,var])
   };
   Assign(p,1);
   Assign(calc, Eval(lastcoef));
-  If (Even?(calc),
+  Decide(Even?(calc),
   {
     Assign(accu,1~accu);
     AddFoundSolution(1);
@@ -191,21 +191,21 @@ Function(Fct,[poly,var])
     ForEach(p,accu)
     {
       Assign(calc,Eval(lastcoef));
-      If (LessThan?(calc,0),
+      Decide(LessThan?(calc,0),
         Assign(calc, AddN(calc,MultiplyN(twoq,QuotientN(AddN(MathNegate(calc),twoq),twoq))))
          );
       Assign(calc, BitAnd(calc, mask));
-      If ( Equal?(calc, 0),
+      Decide( Equal?(calc, 0),
       {
         Assign(newaccu, p~newaccu);
         AddFoundSolutionSingle(-2*q+p);
       });
       Assign(calc, AddN(calc, Eval(ord)));
-      If (LessThan?(calc,0),
+      Decide(LessThan?(calc,0),
         Assign(calc, AddN(calc,MultiplyN(twoq,QuotientN(AddN(MathNegate(calc),twoq),twoq))))
          );
       Assign(calc, BitAnd(calc, mask));
-      If ( Equal?(calc, 0),
+      Decide( Equal?(calc, 0),
       {
         Assign(newaccu, AddN(p,q)~newaccu);
         AddFoundSolution(AddN(p,q));
@@ -226,8 +226,8 @@ Function(Fct,[poly,var])
   Assign(poly,poly*an^(0 .. (Length(poly)-1)));
   Assign(poly,gcd*anmul*poly);
   //TODO had to add this if statement, what was andiv again, and why would it become zero? This happens with for example Factor(2*x^2)
-  If(Not? Zero?(unrat * andiv ),Assign(poly,poly/(unrat * andiv )));
-  If(poly !=? [1],
+  Decide(Not? Zero?(unrat * andiv ),Assign(poly,poly/(unrat * andiv )));
+  Decide(poly !=? [1],
   {
     result:=[(Add(poly*var^(0 .. (Length(poly)-1)))),1]~result;
   });
@@ -265,7 +265,7 @@ MkfactD(numer,denom):=
   Assign(r,FillList(0,ln));
 
   Assign(i,1);
-  If(ld>?0,
+  Decide(ld>?0,
   {
     While(Length(numer)>=?Length(denom))
     {
@@ -339,7 +339,7 @@ TestPoly(poly,requiredResult):=
   ForEach(item1,requiredResult)
     ForEach(item2,realResult)
     {
-      If(Simplify(item1-item2) =? [0,0],
+      Decide(Simplify(item1-item2) =? [0,0],
         intersection := (item1~intersection));
     };
   Verify(Length(realResult),Length(intersection/*Intersection(requiredResult,realResult)*/));

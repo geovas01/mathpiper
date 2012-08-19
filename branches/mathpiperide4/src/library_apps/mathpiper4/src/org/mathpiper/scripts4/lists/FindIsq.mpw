@@ -13,9 +13,9 @@ FindIsq(max,f)  :=
     Assign(mid,((high+low)>>1));
     Assign(current,Apply(f,[mid]));
 //Echo([low,high,current]);
-    If(current =? 0,
+    Decide(current =? 0,
        high:=low-1,
-       If(current >? 0,
+       Decide(current >? 0,
           Assign(high,mid),
           Assign(low,mid+1)
           )

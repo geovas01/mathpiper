@@ -14,10 +14,10 @@ Function("LeviCivita",[indices])
       left:=indices[i];
       right:=indices[i+1];
 
-      If (Equal?(left,right),
+      Decide(Equal?(left,right),
       { factor := 0 ; },
       {
-        If(Not?(Apply("<?",[left,right])),
+        Decide(Not?(Apply("<?",[left,right])),
         {
 /*
           Swap(indices,i,i+1);

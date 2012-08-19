@@ -9,7 +9,7 @@
 {
     Local(x,vars);
     vars := VarList(expr);
-    If(Length(vars)>?1,vars:=HeapSort(vars,"GreaterThan?"));    
+    Decide(Length(vars)>?1,vars:=HeapSort(vars,"GreaterThan?"));    
     x := vars[1];
     Polynomial?(expr,x);
 };

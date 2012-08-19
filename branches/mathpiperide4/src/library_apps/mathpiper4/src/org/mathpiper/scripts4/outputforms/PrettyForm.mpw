@@ -100,7 +100,7 @@ ColumnFilled(charfield,column):=
   len:=Length(charfield);
   For(Assign(i, 1),(result =? False) And? (i<=?len),Assign(i,AddN(i,1)))
   {
-    If(StringMidGet(column,1,charfield[i]) !=? " ",result:=True);
+    Decide(StringMidGet(column,1,charfield[i]) !=? " ",result:=True);
   };
   result;
 };
@@ -117,7 +117,7 @@ WriteCharField(charfield,width):=
   {
     Local(i,thiswidth);
     Assign(thiswidth, width);
-    If(thiswidth>?(length-pos)+1,
+    Decide(thiswidth>?(length-pos)+1,
       {
         Assign(thiswidth, AddN(SubtractN(length,pos),1));
       },
@@ -126,7 +126,7 @@ WriteCharField(charfield,width):=
         {
           Assign(thiswidth,SubtractN(thiswidth,1));
         };
-        If(thiswidth =? 1, Assign(thiswidth, width));
+        Decide(thiswidth =? 1, Assign(thiswidth, width));
       }
     );
     len:=Length(charfield);
@@ -265,7 +265,7 @@ FormulaBracket(f):=
   {
     Local(made);
     made := FormulaBracket(Formula(item));
-    If(made[4] >? height,Assign(height,made[4]));
+    Decide(made[4] >? height,Assign(height,made[4]));
     DestructiveAppend(sub,made);
   };
   MakeOper(0,0,0,height,"List",sub,height>>1);
@@ -290,7 +290,7 @@ FormulaBracket(f):=
     Local(made);
     made := FormulaArrayItem(item);
 
-    If(made[3] >? width,Assign(width,made[3]));
+    Decide(made[3] >? width,Assign(width,made[3]));
     MoveOper(made,0,height);
     Assign(height,AddN(height,AddN(made[4],1)));
     DestructiveAppend(sub,made);
@@ -305,7 +305,7 @@ FormulaBracket(f):=
     if (maxlength<?thislength) {maxlength:=thislength;};
   };
 
-  If(maxlength>?0,
+  Decide(maxlength>?0,
   {
     Local(i,j);
     width:=0;
@@ -316,7 +316,7 @@ FormulaBracket(f):=
       For(i:=1,i<=?Length(sub),i++)
       {
         if (List?(xx[i]) And? j<=?Length(xx[i]))
-          If(sub[i][6][j][3] >? w,w := sub[i][6][j][3]);
+          Decide(sub[i][6][j][3] >? w,w := sub[i][6][j][3]);
       };
 
       For(i:=1,i<=?Length(sub),i++)

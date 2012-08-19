@@ -27,13 +27,13 @@ SqrtN(x) := MathSqrt1(x);        // to have another function is easier for debug
 20 # MathSqrt1(x_Integer?) _ (GreaterThan?(x,0)) <--
 {
         Local(result);
-        If(ModuloN(x,4)<?2 And? ModuloN(x,3)<?2 And? ModuloN(x+1,5)<?3,
+        Decide(ModuloN(x,4)<?2 And? ModuloN(x,3)<?2 And? ModuloN(x+1,5)<?3,
                 // now the number x has a nonzero chance of being an exact square
                 {
                         // check whether increased precision would be at all necessary
 //                        Echo("checking integer case");
                         GlobalPush(BuiltinPrecisionGet());
-                        If(MathBitCount(x)+3>?DigitsToBits(BuiltinPrecisionGet(), 10),
+                        Decide(MathBitCount(x)+3>?DigitsToBits(BuiltinPrecisionGet(), 10),
                           BuiltinPrecisionSet(BitsToDigits(MathBitCount(x), 10)+1));
                                 // need one more digit to decide whether Sqrt(x) is integer
                         // otherwise the current precision is sufficient
@@ -41,7 +41,7 @@ SqrtN(x) := MathSqrt1(x);        // to have another function is easier for debug
                         // convert x to float and use the float routine
                         result := MathSqrtFloat(x+0.);
                         // decide whether result is integer: decrease precision and compare
-                        If(FloatIsInt?(SetExactBitsN(result, GetExactBitsN(result)-3)), result:= Floor(result+0.5));
+                        Decide(FloatIsInt?(SetExactBitsN(result, GetExactBitsN(result)-3)), result:= Floor(result+0.5));
                         BuiltinPrecisionSet(GlobalPop());
                 },
                 // now the number x cannot be an exact square; current precision is sufficient

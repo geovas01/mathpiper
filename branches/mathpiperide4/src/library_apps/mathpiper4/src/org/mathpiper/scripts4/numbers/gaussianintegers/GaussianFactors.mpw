@@ -14,7 +14,7 @@ AddGaussianFactor(L_List?,z_GaussianInteger?,p_GaussianInteger?) <--
  Local(e);
  e :=0;
  While (GaussianInteger?(z:= z/p)) e++;
- If (e !=? 0, DestructiveAppend(L,[p,e]));
+ Decide(e !=? 0, DestructiveAppend(L,[p,e]));
 };
 
 
@@ -35,10 +35,10 @@ its integer prime factors.
   gfactors := [];
   ForEach(p,ifactors)
   {
-     If (p[1]=?2, { DestructiveAppend(gfactors,[1+I,p[2]]);
+     Decide(p[1]=?2, { DestructiveAppend(gfactors,[1+I,p[2]]);
                    DestructiveAppend(gfactors,[1-I,p[2]]); });
-     If (Modulo(p[1],4)=?3, DestructiveAppend(gfactors,p));
-     If (Modulo(p[1],4)=?1, { alpha := GaussianFactorPrime(p[1]);
+     Decide(Modulo(p[1],4)=?3, DestructiveAppend(gfactors,p));
+     Decide(Modulo(p[1],4)=?1, { alpha := GaussianFactorPrime(p[1]);
                           DestructiveAppend(gfactors,[alpha,p[2]]);
                           DestructiveAppend(gfactors,[Conjugate(alpha),p[2]]);
                         });
@@ -59,9 +59,9 @@ by factoring its norm
   nfactors := Factors(n);
   ForEach(p,nfactors)
   {
-   If (p[1]=?2, { AddGaussianFactor(gfactors,z,1+I);});
-   If (Modulo(p[1],4)=?3, AddGaussianFactor(gfactors,z,p[1]));
-   If (Modulo(p[1],4)=?1, { Local(alpha);
+   Decide(p[1]=?2, { AddGaussianFactor(gfactors,z,1+I);});
+   Decide(Modulo(p[1],4)=?3, AddGaussianFactor(gfactors,z,p[1]));
+   Decide(Modulo(p[1],4)=?1, { Local(alpha);
                         alpha := GaussianFactorPrime(p[1]);
                         AddGaussianFactor(gfactors,z,alpha);
                         AddGaussianFactor(gfactors,z,Conjugate(alpha));
@@ -141,7 +141,7 @@ TestGaussianFactors(z_GaussianInteger?) <--
  };
 // Echo(r);
  Ok := Ok And? GaussianUnit?(r/z);
- If(Ok,True,Echo("FAILED: GaussianFactors(", z, ")=", gfactors, " which is wrong."));
+ Decide(Ok,True,Echo("FAILED: GaussianFactors(", z, ")=", gfactors, " which is wrong."));
 };
 
 TestGaussianFactors((9!)+1);

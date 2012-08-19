@@ -2,8 +2,8 @@
 
 MatrixColumnAugment( M_Matrix?, v_Vector? )_(Length(v)=?Dimensions(M)[2]) <--
 [
-    If( Not? Bound?(iDebug), iDebug := False );
-    If( iDebug, Tell(MatrixColumnAugment,[M,v]) );
+    Decide( Not? Bound?(iDebug), iDebug := False );
+    Decide( iDebug, Tell(MatrixColumnAugment,[M,v]) );
     Local(mRows,nCols,newMat,ir);
     Local(MT,MA);
     MT := Transpose(M);

@@ -39,7 +39,7 @@ NthRoot(m_NonNegativeInteger?,n_Integer?)_(n>?1) <--
 {
    Local(r);
    r:=NthRootRestore(m,n);
-   If(Length(r)=?0,
+   Decide(Length(r)=?0,
    {
       r:=NthRootCalc(m,n);
       NthRootSave(m,n,r);
@@ -82,11 +82,11 @@ Function("NthRootCalc",[m,n])
 // lookup table utilities
 Function("NthRootList",[n])
 {
-   If(Length(NthRootTable)>?0,
+   Decide(Length(NthRootTable)>?0,
    {
       Local(p,xx);
       p:=Select(NthRootTable, [[xx],First(xx)=?n]);
-      If(Length(p)=?1,Rest(p[1]),List());
+      Decide(Length(p)=?1,Rest(p[1]),List());
    },
    List());
 };
@@ -95,11 +95,11 @@ Function("NthRootRestore",[m,n])
 {
    Local(p);
    p:=NthRootList(n);
-   If(Length(p)>?0,
+   Decide(Length(p)>?0,
    {
       Local(r,xx);
       r:=Select(p, [[xx],First(xx)=?m]);
-      If(Length(r)=?1,First(Rest(r[1])),List());
+      Decide(Length(r)=?1,First(Rest(r[1])),List());
    },
    List());
 };
@@ -108,13 +108,13 @@ Function("NthRootSave",[m,n,r])
 {
    Local(p);
    p:=NthRootList(n);
-   If(Length(p)=?0,
+   Decide(Length(p)=?0,
    // create power list and save root
    DestructiveInsert(NthRootTable,1,List(n,List(m,r))),
    {
       Local(rr,xx);
       rr:=Select(p, [[xx],First(xx)=?m]);
-      If(Length(rr)=?0,
+      Decide(Length(rr)=?0,
       {
          // save root only
          DestructiveAppend(p,List(m,r));

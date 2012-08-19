@@ -12,7 +12,7 @@ Median(list) :=
     
     n2 := (n>>1);
     
-    If(Modulo(n,2) =? 1, sx[n2+1], (sx[n2]+sx[n2+1])/2);
+    Decide(Modulo(n,2) =? 1, sx[n2+1], (sx[n2]+sx[n2+1])/2);
 };
 
 %/mathpiper

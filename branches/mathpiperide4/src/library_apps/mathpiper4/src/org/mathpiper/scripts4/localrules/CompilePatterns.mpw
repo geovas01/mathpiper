@@ -15,9 +15,9 @@ LocalSymbols(localResult) {
     
     While (tr !=? [])
     {
-      If (First(First(tr)) =? exp,
+      Decide(First(First(tr)) =? exp,
       {
-        If(InVerboseMode() =? True,  Echo(Last(First(tr))));
+        Decide(InVerboseMode() =? True,  Echo(Last(First(tr))));
         
         Assign(localResult,Eval(First(Rest(First(tr)))));
         
@@ -47,9 +47,9 @@ LocalSymbols(localResult) {
     {
       Assign(head, First(First(tr)));
       
-      If (Not?(Atom?(head)) And? exp[0] =? head[1] And? PatternMatches(head[2], exp),
+      Decide(Not?(Atom?(head)) And? exp[0] =? head[1] And? PatternMatches(head[2], exp),
       {
-        If(InVerboseMode() =? True, Echo(Last(First(tr))));
+        Decide(InVerboseMode() =? True, Echo(Last(First(tr))));
         
         Assign(localResult, Eval(First(Rest(First(tr)))));
         
@@ -104,7 +104,7 @@ UnFence("LocChange",1);
     
     justPattern := pat;
     
-    If(Type(justPattern) =? "_",
+    Decide(Type(justPattern) =? "_",
         {
             //A post predicate was submitted.
 	        justPattern := pat[1];
@@ -118,13 +118,13 @@ UnFence("LocChange",1);
             
             
             
-    If(Type(justPattern) =? "#",
+    Decide(Type(justPattern) =? "#",
         {
            //A name has been given to the rule.
            ruleName := pat[1];
            justPattern := pat[2];
            
-           If(Function?(justPattern),
+           Decide(Function?(justPattern),
              {
                [ [justPattern[0], PatternCreate(justPattern, postPredicate)], exp , ruleName];
              },

@@ -13,7 +13,7 @@
   // First get the CNF version of the proposition
   Assign(cnf, CNF(proposition));
 
-  If(level <=? 1, cnf, {
+  Decide(level <=? 1, cnf, {
     Assign(list, Flatten(cnf, "And?"));
     Assign(clauses, []);
     ForEach(clause, list)
@@ -21,7 +21,7 @@
       Local(newclause);
       //newclause := BubbleSort(LogicRemoveTautologies(Flatten(clause, "Or?")), LessThan);
       Assign(newclause, LogicRemoveTautologies(Flatten(clause, "Or?")));
-      If(newclause !=? [True], DestructiveAppend(clauses, newclause));
+      Decide(newclause !=? [True], DestructiveAppend(clauses, newclause));
     };
 
     /*
@@ -31,14 +31,14 @@
     */
     Assign(clauses, RemoveDuplicates(clauses));
 
-    If(Equal?(level, 3) And? (Length(clauses) !=? 0), {
+    Decide(Equal?(level, 3) And? (Length(clauses) !=? 0), {
         Assign(clauses, DoUnitSubsumptionAndResolution(clauses));
         Assign(clauses, LogicCombine(clauses));
     });
 
     Assign(clauses, RemoveDuplicates(clauses));
 
-    If(Equal?(Length(clauses), 0), True, {
+    Decide(Equal?(Length(clauses), 0), True, {
         /* assemble the result back into a boolean expression */
         Local(result);
         Assign(result, True);

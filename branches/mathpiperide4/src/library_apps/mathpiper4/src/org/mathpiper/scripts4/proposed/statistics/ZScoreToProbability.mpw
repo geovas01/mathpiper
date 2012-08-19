@@ -73,7 +73,7 @@ ZScoreToProbability(zScore) :=
     };
     
         
-    If(zScore >? 0.0 , result := (x + 1.0) * 0.5 , result := (1.0 - x) * 0.5);
+    Decide(zScore >? 0.0 , result := (x + 1.0) * 0.5 , result := (1.0 - x) * 0.5);
     
     result;
 };

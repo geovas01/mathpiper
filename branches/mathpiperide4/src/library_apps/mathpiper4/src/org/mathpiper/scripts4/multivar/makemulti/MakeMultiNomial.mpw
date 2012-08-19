@@ -111,9 +111,9 @@ LocalSymbols(x,n,vars)  {
         Assign(result,MakeMultiNomial(1,vars));
         While(n>?0)
         {
-          If(n&1 !=? 0, Assign(result, MultiNomialMultiply(result,mult)));
+          Decide(n&1 !=? 0, Assign(result, MultiNomialMultiply(result,mult)));
           Assign(n,n>>1);
-          If(n!=?0,Assign(mult,MultiNomialMultiply(mult,mult)));
+          Decide(n!=?0,Assign(mult,MultiNomialMultiply(mult,mult)));
         };
         result;
       };
@@ -124,7 +124,7 @@ LocalSymbols(x,n,vars)  {
   50 #  MakeMultiNomial(_x ^ (_n),vars_List?)_(Contains?(vars,x)) <--
         {
           Assign(n,Simplify(n));
-          If(Integer?(n),
+          Decide(Integer?(n),
             MultiSingleFactor(vars,x,n),
             MultiSingleFactor(vars,x^n,1)
               );

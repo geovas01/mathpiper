@@ -2,7 +2,7 @@
 
 Function("PermutationsList",[result,list])
 {
-  If(Length(list) =? 0,
+  Decide(Length(list) =? 0,
   {
     result;
   },

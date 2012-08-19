@@ -14,7 +14,7 @@ ListOfLists?(listOfLists) :=
     {
         ForEach(list, listOfLists)
         {
-            If(Not? List?(list), result := False);
+            Decide(Not? List?(list), result := False);
         };
     };
     

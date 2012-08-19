@@ -12,14 +12,14 @@ HoldArgument("Manipulate",symbolicEquation);
     
     operator := listForm[1];
     
-    If(HasFunction?(Eval(listForm[2]),"==" ), {operandIndex := 3; equationIndex := 2; }, { operandIndex := 2; equationIndex := 3;});
+    Decide(HasFunction?(Eval(listForm[2]),"==" ), {operandIndex := 3; equationIndex := 2; }, { operandIndex := 2; equationIndex := 3;});
     
     operand := listForm[operandIndex];
     equation := Eval(listForm[equationIndex]);
     left := EquationLeft(equation);
     right := EquationRight(equation);
     
-    If(operandIndex =? 3, { leftOrder := `([left,operand]);rightOrder := `([right,operand]);},  {leftOrder := `([operand,left]); rightOrder := `([operand,right]);});
+    Decide(operandIndex =? 3, { leftOrder := `([left,operand]);rightOrder := `([right,operand]);},  {leftOrder := `([operand,left]); rightOrder := `([operand,right]);});
     
     
     leftManipulated := ExpandBrackets(Simplify(Apply(ToString(operator), leftOrder)));

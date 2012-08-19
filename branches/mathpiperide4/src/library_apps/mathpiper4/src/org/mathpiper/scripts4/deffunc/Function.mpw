@@ -37,7 +37,7 @@ RuleHoldArguments("Function",1,2047,
         Local(args);
         Assign(args,Rest(FunctionToList(oper)));
         DestructiveDelete(args,Length(args));        // remove trailing "..."
-        If(RulebaseDefined(Type(oper),Length(args)),
+        Decide(RulebaseDefined(Type(oper),Length(args)),
                 False,        // do nothing
                 RulebaseListedEvaluateArguments(Type(oper),args)
         );
@@ -51,7 +51,7 @@ RuleHoldArguments("Function",1,2048,
 {
         Local(args);
         Assign(args,Rest(FunctionToList(oper)));
-        If(RulebaseDefined(Type(oper),Length(args)),
+        Decide(RulebaseDefined(Type(oper),Length(args)),
                 False,        // do nothing
                 RulebaseEvaluateArguments(Type(oper),args)
         );
@@ -121,7 +121,7 @@ In> FirstOf([a,b,c]);
 Result: a;
 
 The following function will print all arguments to a string:
-In> Function("PrintAll",[x, ...]) If(List?(x),
+In> Function("PrintAll",[x, ...]) Decide(List?(x),
           PrintList(x), PipeToString()Write(x));
 Result: True;
 In> PrintAll(1):

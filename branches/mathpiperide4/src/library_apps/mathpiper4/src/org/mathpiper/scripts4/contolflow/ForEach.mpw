@@ -5,7 +5,7 @@
 /*TODO remove? Not yet. If the code above (ForEachExperimental) can be made to work we can do away with this version. */
 TemplateFunction("ForEach",[item,listOrString,body])
 {
-  If(And?(Equal?(Generic?(listOrString),True),
+  Decide(And?(Equal?(Generic?(listOrString),True),
          Equal?(GenericTypeName(listOrString),"Array")
          ),
     `ForEachInArray(@item,listOrString,@body),
@@ -13,7 +13,7 @@ TemplateFunction("ForEach",[item,listOrString,body])
 
       MacroLocal(item);
       
-      If(String?(listOrString),
+      Decide(String?(listOrString),
       {
           
           Local(index, stringLength);

@@ -10,7 +10,7 @@ ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnow
     
     resultList := [];
     
-    If(sampleSize >=? 30 Or? standardDeviationIsKnown =? True,
+    Decide(sampleSize >=? 30 Or? standardDeviationIsKnown =? True,
     {
         criticalZScore := N(ConfidenceLevelToZScore(confidenceLevel));
         
@@ -23,7 +23,7 @@ ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnow
         upperLimitValue := N(sampleMean + criticalZScore * standardErrorOfTheMean);
 
         
-        If(InVerboseMode(),
+        Decide(InVerboseMode(),
             {
                 Echo("Using the normal distribution.");
                 
@@ -44,7 +44,7 @@ ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnow
         upperLimitValue := N(sampleMean + criticalTScore * standardErrorOfTheMean);
         
         
-        If(InVerboseMode(),
+        Decide(InVerboseMode(),
             {
                 Echo("Using the t-distribution.");
                 

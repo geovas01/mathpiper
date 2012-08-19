@@ -1,6 +1,6 @@
 %mathpiper,def="StirlingNumber2"
 
-10 # StirlingNumber2(n_Integer?,0) <-- If(n=?0,1,0);
+10 # StirlingNumber2(n_Integer?,0) <-- Decide(n=?0,1,0);
 20 # StirlingNumber2(n_Integer?,k_Integer?) <-- Sum(i,0,k-1,(-1)^i*BinomialCoefficient(k,i)*(k-i)^n)/ k! ;
 
 %/mathpiper

@@ -50,7 +50,7 @@ RuleHoldArguments("Nth",2,40,Equal?(String?(aindex),True))
 {
   Local(as);
   as := Assoc(aindex,alist);
-  If (Not?(Equal?(as,Empty)),Assign(as,Nth(as,2)));
+  Decide(Not?(Equal?(as,Empty)),Assign(as,Nth(as,2)));
   as;
 };
 

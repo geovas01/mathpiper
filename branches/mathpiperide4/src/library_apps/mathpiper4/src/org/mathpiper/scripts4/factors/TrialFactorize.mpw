@@ -14,7 +14,7 @@
 [
         Local(factorization);
         factorization := TrialFactorize(n, n);        // TrialFactorize will limit to Sqrt(n) automatically
-        If(
+        Decide(
                 First(factorization) = 1,        // all factors were smaller than Sqrt(n)
                 Rest(factorization),
                 // the first element needs to be replaced
@@ -34,7 +34,7 @@ TrialFactorize(n, limit) :=
         While(prime <=? limit And? n>?1 And? prime*prime <=? n)
         {        // find the max power of prime which divides n
                 [n, power] := FindPrimeFactor(n, prime);
-                If(
+                Decide(
                         power>?0,
                         DestructiveAppend(result, [prime,power])
                 );

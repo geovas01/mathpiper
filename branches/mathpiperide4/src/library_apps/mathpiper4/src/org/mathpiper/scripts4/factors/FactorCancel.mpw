@@ -6,27 +6,27 @@
 
 15 # FactorCancel( p_RationalFunction? ) <--
 {
-    If(InVerboseMode(),Tell(FactorCancel,p));
+    Decide(InVerboseMode(),Tell(FactorCancel,p));
     Local(pp,ff,n,d,fn,fd,f,tnu,newn,newd,s,k);
     pp   := Simplify(p);
-    If(InVerboseMode(),Tell("  ",pp));
+    Decide(InVerboseMode(),Tell("  ",pp));
     ff   := Factors(pp);
-    If(InVerboseMode(),Tell("  ",ff));
+    Decide(InVerboseMode(),Tell("  ",ff));
     tnu  := [ff[1]];
-    If(ListOfLists?(ff), tnu  := RemoveDuplicates(Transpose(ff)[1]));
+    Decide(ListOfLists?(ff), tnu  := RemoveDuplicates(Transpose(ff)[1]));
     newn := [];
     newd := [];
-    If(InVerboseMode(),Tell("      ",tnu));
+    Decide(InVerboseMode(),Tell("      ",tnu));
     ForEach(f,tnu)
     {
        s := Select(ff,Lambda([X],X[1]=?f));
-       If(InVerboseMode(),Tell("      ",[f,s]));
-       If( s !=? [],
+       Decide(InVerboseMode(),Tell("      ",[f,s]));
+       Decide( s !=? [],
          {
             k := Sum(Transpose(s)[2]);
-            If(InVerboseMode(),Tell("      ",[s,k]));
-            If( k >? 0, DestructiveAppend(newn,[f,k]) );
-            If( k <? 0, DestructiveAppend(newd,[f,-k]) );
+            Decide(InVerboseMode(),Tell("      ",[s,k]));
+            Decide( k >? 0, DestructiveAppend(newn,[f,k]) );
+            Decide( k <? 0, DestructiveAppend(newd,[f,-k]) );
          },
          {
             k := 1;
@@ -34,7 +34,7 @@
          }
        );
     };
-    If(InVerboseMode(),Tell("    ",[newn,newd]));
+    Decide(InVerboseMode(),Tell("    ",[newn,newd]));
     FW(newn)/FW(newd);
 };
 

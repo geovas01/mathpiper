@@ -20,7 +20,7 @@ LocalSymbols(ErrorTableau) {
 
   /// aux function to check for corrupt tableau
   CheckErrorTableau() <--
-  If(
+  Decide(
     Not? List?(ErrorTableau),
     Assign(ErrorTableau, [["general", "corrupted ErrorTableau"]])
   );
@@ -33,7 +33,7 @@ GetError(errorclass_String?) <--
 {
         Local(error);
         error := GetErrorTableau()[errorclass];
-        If(
+        Decide(
                 error !=? Empty,
                 error,
                 False

@@ -7,7 +7,7 @@
      count  := 1;
      While( And?( result <? 0, Not? ( Equal? (list, []) )))
      {
-       If(Equal?(First(list), element), result := count );
+       Decide(Equal?(First(list), element), result := count );
        list := Rest(list);
        count++;
      };

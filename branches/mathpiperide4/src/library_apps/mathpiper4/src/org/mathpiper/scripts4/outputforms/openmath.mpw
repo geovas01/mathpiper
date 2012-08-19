@@ -28,24 +28,24 @@ RuleHoldArguments("OMREP",1,1,True)
     Assign(errorObject, False);
     ExceptionCatch(Assign(input, PipeFromString(ConcatStrings(ReadCmdLineString("")," "))OMRead()), Assign(errorObject,OMGetCoreError()));
 
-    If(Not?(errorObject =? False), errorObject); //todo:tk:check this code.
+    Decide(Not?(errorObject =? False), errorObject); //todo:tk:check this code.
 
-    If (Not?(IsExitRequested()) And? errorObject =? False,
+    Decide(Not?(IsExitRequested()) And? errorObject =? False,
     {
       Assign(stringOut,"");
       Assign(result,False);
       ExceptionCatch(Assign(stringOut,PipeToString(){Secure(Assign(result,Eval(input)));}), Assign(errorObject,OMGetCoreError()));
 
-      If(Not?(errorObject =? False), errorObject); //todo:tk:check this code.
+      Decide(Not?(errorObject =? False), errorObject); //todo:tk:check this code.
 
-      If(Not?(stringOut =? ""), WriteString(stringOut));
+      Decide(Not?(stringOut =? ""), WriteString(stringOut));
       SetGlobalLazyVariable(%,result);
-      If(PrettyPrinterGet()=?"",
+      Decide(PrettyPrinterGet()=?"",
       {
         Apply("OMForm",[result]);
       },
       Apply(PrettyPrinterGet(),[result]));
-      If(count >? 0 And? (count:=count-1) =? 0, Exit());
+      Decide(count >? 0 And? (count:=count-1) =? 0, Exit());
     });
   };
 };
@@ -71,8 +71,8 @@ LocalSymbols(omindent) {
      OMClearIndent();
      OMEcho("<OMOBJ>");
      OMIndent();
-     If(Atom?(expression),
-        If(expression =? ToAtom("%"),
+     Decide(Atom?(expression),
+        Decide(expression =? ToAtom("%"),
            Secure(expression := Eval(expression))
            )
         );
@@ -103,7 +103,7 @@ LocalSymbols(omindent) {
      <--
      {
      Local(cd, name);
-     If(List?(function[1]),
+     Decide(List?(function[1]),
         { cd := function[1][1]; name := function[1][2]; },
         { cd := "error";        name := function[1];    });
      OMEcho("<OME>");
@@ -169,7 +169,7 @@ LocalSymbols(omindent) {
      Local(arity);
      arity := Length(function);
      OMEcho("<OMS cd=\"piper\" name=\""~Type(function)~"\"/>");
-     If(arity >? 0, ForEach(arg, function) OMFormExpression(arg));
+     Decide(arity >? 0, ForEach(arg, function) OMFormExpression(arg));
      };
 10 # OMFormFunction(function_Function?)_(OMSymbol()[ Type(function) ] !=? Empty)
      <--
@@ -179,8 +179,8 @@ LocalSymbols(omindent) {
      // matching, but now that we have real predicates in the mappings it's
      // probably obsolete. I'll think about removing it.
      symbolDef := OMSymbol()[ OMSignature(function) ];
-     If(symbolDef =? Empty, symbolDef := OMSymbol()[ Type(function) ] );
-     If(symbolDef =? Empty Or? Length(symbolDef) <? 3 Or? symbolDef[3] =? [],
+     Decide(symbolDef =? Empty, symbolDef := OMSymbol()[ Type(function) ] );
+     Decide(symbolDef =? Empty Or? Length(symbolDef) <? 3 Or? symbolDef[3] =? [],
         {
         OMEcho("<OMS cd=\""~symbolDef[1]~"\" name=\""~symbolDef[2]~"\"/>");
         ForEach(arg, function) OMFormExpression(arg);
@@ -189,13 +189,13 @@ LocalSymbols(omindent) {
         Local(result);
         result := OMApplyMapping(function, symbolDef[3]);
         //Check(List?(result), "Return Type", PipeToString()Echo("Mapping result is not a list: ", result));
-        If(List?(result),
+        Decide(List?(result),
            {
            result := ListToFunction(Subst($, function[0]) result);
            OMFormExpression(result[0]);
            ForEach(i, result) OMFormExpression(i);
            },
-           If(result =? Empty,
+           Decide(result =? Empty,
               Echo("No rule matched ", function, symbolDef[3]),
               Echo("Unexpected result value from OMApplyMapping(): ", result)
              )
@@ -226,7 +226,7 @@ OMEcho(expression_List?) <--
 {
   ForEach(arg, expression)
   {
-    If (String?(arg), WriteString(arg), Write(arg));
+    Decide(String?(arg), WriteString(arg), Write(arg));
   };
   NewLine();
 };
@@ -262,7 +262,7 @@ OMEchoEscape(expression_List?) <--
   WriteString("<![CDATA[");
   ForEach(arg, expression)
   {
-    If (String?(arg), WriteString(arg), Write(arg));
+    Decide(String?(arg), WriteString(arg), Write(arg));
   };
   WriteString("]]>");
   NewLine();
@@ -283,11 +283,11 @@ OMSignature(function_Function?) <--
   type := "";// If "function" doesn't have parameters, the signature is "f_".
   ForEach(arg, function)
   {
-    If(Type(arg) =? "List",
+    Decide(Type(arg) =? "List",
        type := "L",
-       If(Function?(arg),
+       Decide(Function?(arg),
           type := "F",
-          If(Integer?(arg),
+          Decide(Integer?(arg),
              type := "I",
              type := "V"
              )
@@ -404,7 +404,7 @@ PipeFromString(str~" EndOfFile")
 {
   Local(result);
   OMNextToken();
-  If(String?(OMToken()), {result := OMToken(); OMNextToken();}, result := "");
+  Decide(String?(OMToken()), {result := OMToken(); OMNextToken();}, result := "");
   MatchClose(XmlTag("OMSTR",[],"Close"));
   result;
 };
@@ -461,12 +461,12 @@ PipeFromString(str~" EndOfFile")
      {
      Local(symbolDef, result);
      symbolDef := OMSymbol()[ Type(piperExp) ];
-     If(symbolDef[4] =? [],
+     Decide(symbolDef[4] =? [],
         result := piperExp,
         {
           result := OMApplyMapping(piperExp, symbolDef[4]);
           result := Subst($, piperExp[0]) result;
-          If(List?(result), result := ListToFunction(result));
+          Decide(List?(result), result := ListToFunction(result));
         }
        );
      result;
@@ -482,22 +482,22 @@ PipeFromString(str~" EndOfFile")
 
   Local(ruleMatched);
   ruleMatched := False;
-  If(Type(mapping) =? "|",
+  Decide(Type(mapping) =? "|",
      {
      mapping := Flatten(mapping, "|");
      ForEach(rule, mapping)
-       If(Not? ruleMatched,
+       Decide(Not? ruleMatched,
           {
-          If(Type(rule) =? "_",
-             If( Eval(rule[2]), { result := rule[1]; ruleMatched := True; } ),
+          Decide(Type(rule) =? "_",
+             Decide( Eval(rule[2]), { result := rule[1]; ruleMatched := True; } ),
              { result := rule; ruleMatched := True; }
             );
           }
          );
      },
      {
-     If(Type(mapping) =? "_",
-        If(Eval(mapping[2]),
+     Decide(Type(mapping) =? "_",
+        Decide(Eval(mapping[2]),
            result := mapping[1],
            result := FunctionToList(function)
           ),
@@ -507,9 +507,9 @@ PipeFromString(str~" EndOfFile")
      }
     );
 
-  If(ruleMatched,
-     If(Type(result) =? "~",
-        If(Length(result) =? 2,
+  Decide(ruleMatched,
+     Decide(Type(result) =? "~",
+        Decide(Length(result) =? 2,
            result[1]~result[2],
            result),// Perhaps we should give a warning here.
         result),
@@ -518,14 +518,14 @@ PipeFromString(str~" EndOfFile")
 
 11 # OMPathSelect(path_Number?, _expression) <--
 {
-  If(path >=? 0 And? path <=? Length(expression),
+  Decide(path >=? 0 And? path <=? Length(expression),
      expression[path],
      Undefined);
 };
 11 # OMPathSelect(path_List?, _expression) <--
 {
   ForEach(i, path)
-    If(Function?(expression) And? i >=? 0 And? i <=? Length(expression),
+    Decide(Function?(expression) And? i >=? 0 And? i <=? Length(expression),
        expression := expression[i],
        Undefined);
   expression;
@@ -545,18 +545,18 @@ HoldArgumentNumber("OMPathSelect", 2, 2);
   Local(omcd, omname);
   omcd   := attributes["CD"];
   omname := attributes["NAME"];
-  If(omcd =? Empty Or? omname =? Empty,
+  Decide(omcd =? Empty Or? omname =? Empty,
      OMCheck(False, "Argument", OMError(["moreerrors", "encodingError"], PipeToString()Echo("missing \"cd\" or \"name\" attribute: ",attributes))),
      {
      Local(cdTable, piperform);
      cdTable := OMSymbolReverse()[ omcd ];
-     If(cdTable !=? Empty, piperform := cdTable[ omname ]);
+     Decide(cdTable !=? Empty, piperform := cdTable[ omname ]);
      // We can not optimize here by checking first whether the CD is mathpiper
      // and avoiding the table lookup then, because for some symbols the
      // OM name have to be different from the MathPiper name (e.g. "/@").
-     If(piperform =? Empty,
-        If(cd =? mathpiper, ToAtom(omname), OMS(omcd, omname)),
-        If(String?(piperform), ToAtom(piperform), piperform));
+     Decide(piperform =? Empty,
+        Decide(cd =? mathpiper, ToAtom(omname), OMS(omcd, omname)),
+        Decide(String?(piperform), ToAtom(piperform), piperform));
      }
     );
 };
@@ -570,7 +570,7 @@ HoldArgumentNumber("OMPathSelect", 2, 2);
 
 Macro(OMCheck,[predicate,error])
 {
-  If(Not?(@predicate),
+  Decide(Not?(@predicate),
   {
     Assert("omErrorObject", @error) False;
     Check(False, "Undefined", "omErrorObject");
@@ -585,8 +585,8 @@ OMGetCoreError():=
 {
   Local(result);
   result := ExceptionGet(); //todo:tk:verify that ExceptionCheck works properly with the soft error handling functions.
-  If(result !=? False,
-     If( Error?("omErrorObject"),
+  Decide(result !=? False,
+     Decide( Error?("omErrorObject"),
         {result := GetError("omErrorObject");                     },
         {result := OMError(["moreerrors", "unexpected"], result); })
     );
@@ -612,19 +612,19 @@ LocalSymbols(omsymbol, omsymbolreverse) {
 OMDef(_piperform, omcd_String?, omname_String?, _directMapping, _reverseMapping) <--
 {
   Local(cdTable);
-  If(String?(piperform),
+  Decide(String?(piperform),
      OMSymbol()[ piperform ] := [omcd, omname, directMapping, reverseMapping]
      );
   cdTable := OMSymbolReverse()[ omcd ];
-  If(cdTable =? Empty,
+  Decide(cdTable =? Empty,
      OMSymbolReverse()[ omcd ] := [[omname, piperform]],
      {
        Local(oldMathPiperform);
        oldMathPiperform := cdTable[ omname ];
-       If(oldMathPiperform =? Empty,
+       Decide(oldMathPiperform =? Empty,
           cdTable[ omname ] := piperform,
           {
-          If(oldMathPiperform !=? piperform,
+          Decide(oldMathPiperform !=? piperform,
              {
              cdTable[ omname ] := piperform;
              Echo("Warning: the mapping for ", omcd, ":", omname,

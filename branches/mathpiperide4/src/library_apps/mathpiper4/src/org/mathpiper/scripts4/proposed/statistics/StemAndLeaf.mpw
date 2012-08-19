@@ -4,7 +4,7 @@
 
 trunc(x):= [
 
-  If(x <? 0, s := -1, s := 1);
+  Decide(x <? 0, s := -1, s := 1);
 s* Floor(Abs(x));
 ];
 
@@ -25,7 +25,7 @@ intlabels(y1,y2,tnumint) := [
     yy := yy + x;
     //i++;
     xx++;
-    If (xx >? 100, breakLoop := True);
+    Decide(xx >? 100, breakLoop := True);
   ];
   L[i] = yy;
         L;

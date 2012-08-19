@@ -42,14 +42,14 @@ LogicRemoveTautologies(_e) <--
         Local(y);
         Assign(y, MathNth(e,j));
 
-        If(Equal?(y, n),
+        Decide(Equal?(y, n),
             {
                 //Echo(["Deleting from ", e, " i=", i, ", j=", j, Nl()]);
 
                 Assign(negationfound, True);
                 //Echo(["Removing clause ", i, Nl()]);
             },
-        If(Equal?(y, x),
+        Decide(Equal?(y, x),
             {
                 //Echo(["Deleting from ", e, " j=", j, Nl()]);
                 DestructiveDelete(e, j);
@@ -60,7 +60,7 @@ LogicRemoveTautologies(_e) <--
     Check(len =? Length(e), "Math", "The length computation is incorrect");
   };
 
-  If(negationfound, [True], e);            /* note that a list is returned */
+  Decide(negationfound, [True], e);            /* note that a list is returned */
 };
 
 %/mathpiper

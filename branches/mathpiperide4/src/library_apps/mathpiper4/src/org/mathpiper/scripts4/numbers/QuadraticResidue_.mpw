@@ -7,7 +7,7 @@
 {
         Check( Integer?(a) And? Integer?(p) And? p>?2 And? Coprime?(a,p) And? Prime?(p),
                 "Argument", "QuadraticResidue?: Invalid arguments");
-        If(a^((p-1)/2) % p =? 1, True, False);
+        Decide(a^((p-1)/2) % p =? 1, True, False);
 };
 
 %/mathpiper

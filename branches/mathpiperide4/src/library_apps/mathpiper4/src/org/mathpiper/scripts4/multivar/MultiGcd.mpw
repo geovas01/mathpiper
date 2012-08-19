@@ -41,7 +41,7 @@
 //Echo("before g",g,NormalForm(g));
     Assign(new, MultiDivide(f,[g]));
 //Echo("new g",NormalForm(new[1][1]),NormalForm(new[2]));
-If(new[1][1]=?0,
+Decide(new[1][1]=?0,
 {
   g:=MakeMultiNomial(1,MultiVars(f));
 //Echo("PRIM ",MultiPrimitivePart(g));

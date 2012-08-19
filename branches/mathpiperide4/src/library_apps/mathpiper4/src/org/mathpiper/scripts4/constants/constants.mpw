@@ -39,13 +39,13 @@ RuleHoldArguments("CachedConstant", 3, 10, And?(Atom?(Catom), Function?(Cfunc)))
         Assign(Cname, ToString(Catom));        // this is for later conveniences
   Assign(CfunctionName,ConcatStrings("Internal",Cname));
 
-        If(        // create the cache it if it does not already exist
+        Decide(        // create the cache it if it does not already exist
                 Atom?(Eval(Ccache)),
                 MacroAssign(Eval(Ccache), [])
         );
 //        Write(["debug step 0: ", Ccache, Eval(Ccache), Catom, Cfunc, Cname]);
         // check that the constant is not already defined
-        If(
+        Decide(
           Equal?(BuiltinAssoc(Cname, Eval(Ccache)), Empty),        // the constant is not already defined, so need to define "Catom" and the corresponding function "Catom"()
           {        // e.g. Catom evaluates to Pi, Ccache to a name e.g. CacheOfConstantsN, which is bound to a hash
                 MacroUnassign(Catom);
@@ -65,9 +65,9 @@ RuleHoldArguments("CachedConstant", 3, 10, And?(Atom?(Catom), Function?(Cfunc)))
                         // fetch the cache entry for this constant
                         // note that this procedure will store the name of the cache here in this statement as Eval(Ccache)
                         Assign(cachedC, BuiltinAssoc(@Cname, @Ccache));
-                        If( MathNth(cachedC, 2) !=? newprec,
+                        Decide( MathNth(cachedC, 2) !=? newprec,
                           {        // need to recalculate at current precision
-                                If(Equal?(InVerboseMode(),True), Echo("CachedConstant: Info: constant ", @Cname, " is being recalculated at precision ", newprec));
+                                Decide(Equal?(InVerboseMode(),True), Echo("CachedConstant: Info: constant ", @Cname, " is being recalculated at precision ", newprec));
                                 Assign(newC, RoundTo(Eval(@Cfunc),newprec));
                                 DestructiveReplace(cachedC, 2, newprec);
                                 DestructiveReplace(cachedC, 3, newC);
@@ -123,10 +123,10 @@ CachedConstant(CacheOfConstantsN, Pi,
 // FIXME: find a better solution
 {        Local(result,oldprec);
   Assign(oldprec,BuiltinPrecisionGet());
-If(Equal?(InVerboseMode(),True), Echo("Recalculating Pi at precision ",oldprec+5));
+Decide(Equal?(InVerboseMode(),True), Echo("Recalculating Pi at precision ",oldprec+5));
         BuiltinPrecisionSet(BuiltinPrecisionGet()+5);
         result := MathPi();
-If(Equal?(InVerboseMode(),True),Echo("Switching back to precision ",oldprec));
+Decide(Equal?(InVerboseMode(),True),Echo("Switching back to precision ",oldprec));
         BuiltinPrecisionSet(oldprec);
         result;
 }

@@ -8,7 +8,7 @@ LocalSymbols(predicate,list,result,item)
     result:=[];
     ForEach(item,list)
     {
-      If(Apply(predicate,[item]),DestructiveAppend(result,item));
+      Decide(Apply(predicate,[item]),DestructiveAppend(result,item));
     };
     result;
   };

@@ -7,18 +7,18 @@
 Defun("PositiveIntPower", [x,n])
 {
   Local(result,unit);
-  If(LessThan?(n,0), False,
+  Decide(LessThan?(n,0), False,
   {
         Assign(unit,1);         // this is a constant, initial value of the power
         Assign(result, unit);
-        If(Equal?(n,0),unit,
-         If(Equal?(n,1),x,
+        Decide(Equal?(n,0),unit,
+         Decide(Equal?(n,1),x,
           {
                 While(GreaterThan?(n,0))
                 {
-                        If(
+                        Decide(
                                 Equal?(BitAnd(n,1), 1),
-//                                If(
+//                                Decide(
 //                                        Equal?(result,unit), // if result is already assigned
 //                                        Assign(result, x), // avoid multiplication
                                         Assign(result, MultiplyN(result,x))

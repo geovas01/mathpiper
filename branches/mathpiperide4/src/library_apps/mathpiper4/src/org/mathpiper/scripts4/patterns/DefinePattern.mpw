@@ -31,7 +31,7 @@ RuleHoldArguments("DefinePattern",4,10,True)
       /*
             If the function does not exist, create it.
       */
-      If(Not?(RulebaseDefined(patternOperator,arity)),
+      Decide(Not?(RulebaseDefined(patternOperator,arity)),
          {
           RulebaseEvaluateArguments(patternOperator,MakeVector(arg,arity));
          }

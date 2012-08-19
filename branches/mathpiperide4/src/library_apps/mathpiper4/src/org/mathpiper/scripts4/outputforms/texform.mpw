@@ -55,7 +55,7 @@ RulebaseHoldArguments("TeXForm",[expression, precedence]);
 Function ("TeXFormBracketIf", [predicate, string])
 {
         Check(Boolean?(predicate) And? String?(string), "Argument", "TeXForm internal error: non-boolean and/or non-string argument of TeXFormBracketIf");
-        If(predicate, ConcatStrings("( ", string, ") "), string);
+        Decide(predicate, ConcatStrings("( ", string, ") "), string);
 };
 
 
@@ -64,7 +64,7 @@ Function ("TeXFormBracketIf", [predicate, string])
 Function ("TeXFormMatrixBracketIf", [predicate, string])
 {
         Check(Boolean?(predicate) And? String?(string), "Argument", "TeXForm internal error: non-boolean and/or non-string argument of TeXFormMatrixBracketIf");
-        If(predicate, ConcatStrings("\\left[ ", string, "\\right]"), string);
+        Decide(predicate, ConcatStrings("\\left[ ", string, "\\right]"), string);
 };
 
 
@@ -92,7 +92,7 @@ TeXFormMaxPrec() := 60000;         /* This precedence will never be bracketed. I
     characterList := [];
     ForEach(character, x)
     {
-        If(character !=? " ", DestructiveAppend(characterList, character), DestructiveAppend(characterList, "\\hspace{2 mm}"));
+        Decide(character !=? " ", DestructiveAppend(characterList, character), DestructiveAppend(characterList, "\\hspace{2 mm}"));
     };
     ConcatStrings("\\mathrm{''", ListToString(characterList), "''}");
 };
@@ -210,12 +210,12 @@ LocalSymbols(TeXFormRegularOps, TeXFormRegularPrefixOps, TeXFormGreekLetters, Te
   {
     Check(String?(string), "Argument", "TeXForm internal error: non-string argument of TeXFormTeXify");
     /* Check if it's a greek letter or a special name */
-    If (Contains?(AssocIndices(TeXFormSpecialNames), string), TeXFormSpecialNames[string],
-    If (Contains?(TeXFormGreekLetters, string), ConcatStrings("\\", string, " "),
-    If (Contains?(AssocIndices(TeXFormRegularOps), string), TeXFormRegularOps[string],
-    If (Contains?(AssocIndices(TeXFormRegularPrefixOps), string), TeXFormRegularPrefixOps[string],
-    If (Length(string) >=? 2 And? Number?(ToAtom(StringMidGet(2, Length(string)-1, string))), ConcatStrings(StringMidGet(1,1,string), "_{", StringMidGet(2, Length(string)-1, string), "}"),
-    If (Length(string) >? 2, ConcatStrings("\\mathrm{ ", string, " }"),
+    Decide(Contains?(AssocIndices(TeXFormSpecialNames), string), TeXFormSpecialNames[string],
+    Decide(Contains?(TeXFormGreekLetters, string), ConcatStrings("\\", string, " "),
+    Decide(Contains?(AssocIndices(TeXFormRegularOps), string), TeXFormRegularOps[string],
+    Decide(Contains?(AssocIndices(TeXFormRegularPrefixOps), string), TeXFormRegularPrefixOps[string],
+    Decide(Length(string) >=? 2 And? Number?(ToAtom(StringMidGet(2, Length(string)-1, string))), ConcatStrings(StringMidGet(1,1,string), "_{", StringMidGet(2, Length(string)-1, string), "}"),
+    Decide(Length(string) >? 2, ConcatStrings("\\mathrm{ ", string, " }"),
     string
     ))))));
   };
@@ -341,11 +341,11 @@ LocalSymbols(TeXFormMathFunctions, TeXFormMathFunctions2) {
 
 /* Use partial derivative only when the expression has several variables */
 100 # TeXForm(Deriv(_x)_y, _p) <-- TeXFormBracketIf(p<?PrecedenceGet("-"), ConcatStrings(
-        If(Length(VarList(y))>?1, "\\frac{\\partial}{\\partial ", "\\frac{d}{d "
+        Decide(Length(VarList(y))>?1, "\\frac{\\partial}{\\partial ", "\\frac{d}{d "
         ), TeXForm(x, PrecedenceGet("^")), "}", TeXForm(y, PrecedenceGet("/")) ) );
 
 100 # TeXForm(Deriv(_x, _n)_y, _p) <-- TeXFormBracketIf(p<?PrecedenceGet("-"), ConcatStrings(
-        If(
+        Decide(
                 Length(VarList(y))>?1,
                 "\\frac{\\partial^" ~ TeXForm(n, TeXFormMaxPrec()) ~ "}{\\partial ",
                 "\\frac{d^" ~ TeXForm(n, TeXFormMaxPrec()) ~ "}{d "
@@ -369,7 +369,7 @@ RulebaseHoldArguments("TeXFormNth",[x,y]);
 
 /* Matrices are always bracketed. Precedence 80 because lists are at 100. */
 
-80 # TeXForm(M_Matrix?, _p) <-- TeXFormMatrixBracketIf(True, TeXFormPrintMatrix(M));
+80 # TeXForm(M_Matrix?, _p) <-- TeXFormMatrixBracketDecide(True, TeXFormPrintMatrix(M));
 
 Function ("TeXFormPrintMatrix", [M])
 {
@@ -384,7 +384,7 @@ Function ("TeXFormPrintMatrix", [M])
 
         ForEach(row, 1 .. Length(M)) {
                 ForEach(col, 1 .. Length(M[row])) {
-                        result := ConcatStrings( result, " ", TeXForm(M[row][col], TeXFormMaxPrec()), If(col =? Length(M[row]), If(row =? Length(M), "", " \\\\"), " &"));
+                        result := ConcatStrings( result, " ", TeXForm(M[row][col], TeXFormMaxPrec()), Decide(col =? Length(M[row]), Decide(row =? Length(M), "", " \\\\"), " &"));
                 };
         };
 

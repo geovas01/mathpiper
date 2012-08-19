@@ -8,7 +8,7 @@
 {
   Local(result);
   result := ModuloN(n,m);
-  If (result <? 0,result := result + m);
+  Decide(result <? 0,result := result + m);
   result;
 };
 1 # Modulo(n_PositiveInteger?,m_PositiveInteger?) <-- ModuloN(n,m);

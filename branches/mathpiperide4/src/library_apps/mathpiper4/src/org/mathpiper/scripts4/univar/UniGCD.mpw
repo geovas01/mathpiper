@@ -7,14 +7,14 @@ Function("UniGcd",[u,v])
   DropEndZeroes(u);
   DropEndZeroes(v);
 /*
-  If(Length(v)>?Length(u),
+  Decide(Length(v)>?Length(u),
     [
       Locap(swap);
       swap:=u;
       u:=v;
       v:=swap;
     ] );
-  If(Length(u)=Length(v) And? v[Length(v)] >? u[Length(u)],
+  Decide(Length(u)=Length(v) And? v[Length(v)] >? u[Length(u)],
     [
       Locap(swap);
       swap:=u;
@@ -33,8 +33,8 @@ Function("UniGcd",[u,v])
   m := Length(mod);
 
 /* Echo(["v,mod = ",v,mod]); */
-/*  If(m <=? 1, */
-  If(m =? 0,
+/*  Decide(m <=? 1, */
+  Decide(m =? 0,
      v,
 /*     v/v[Length(v)], */
      UniGcd(v,mod));

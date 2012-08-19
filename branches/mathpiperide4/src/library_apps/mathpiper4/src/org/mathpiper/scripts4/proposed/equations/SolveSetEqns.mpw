@@ -17,7 +17,7 @@
     /***       needs some more work to get answers into desired form */ 
 
     Local(LE,LV,E,LHS,X,M,RHS,LL,eqn,row,ans,Det);
-    If(InVerboseMode(),Tell(SolveLinearSysViaMatrix,[eqns,vars]));
+    Decide(InVerboseMode(),Tell(SolveLinearSysViaMatrix,[eqns,vars]));
     LE := Length(eqns);
     LV := Length(vars);
     E  := Assert() LE=LV;
@@ -53,22 +53,22 @@
     /***** WARNING: This version is valid for TWO equations only *****/
 
     Local(LE,LV,E,E2,s,s1,s2,s3,ans);
-    If(InVerboseMode(),Tell(SolveLinearSysViaGauss,[eqns,vars]));
+    Decide(InVerboseMode(),Tell(SolveLinearSysViaGauss,[eqns,vars]));
     LE := Length(eqns);
     LV := Length(vars);
     E  := Assert() LE=LV;
     Check(E, "Argument", "Number of equations !=? Number of variables");
     
-    If(InVerboseMode(),Tell(0,[LE,LV,E]));
+    Decide(InVerboseMode(),Tell(0,[LE,LV,E]));
     s  := Solve( eqns, vars )[1];
-    If(InVerboseMode(),Tell(1,s));
+    Decide(InVerboseMode(),Tell(1,s));
     s1 := s[1];
     s2 := s[2];
     s3 := s[3];
     E2 := FunctionToList(s3);
     s2 := (s2 Where s3);
     s1 := (s1 Where s2 And? s3);
-    If( E2[2]=?E2[3], ans:=Inconsistent-Set, ans:=List(s1,s2,s3));
+    Decide( E2[2]=?E2[3], ans:=Inconsistent-Set, ans:=List(s1,s2,s3));
     ans;
 ];
 
@@ -80,16 +80,16 @@
 10 # CheckEquationSolution( eqn_Equation?, soln_List? ) <--
 [
     Local(EL,LHS,RHS,L,svar,sval);
-    If(InVerboseMode(),Tell(CheckOneEq,[eqn,soln]));
+    Decide(InVerboseMode(),Tell(CheckOneEq,[eqn,soln]));
     EL   := FunctionToList(eqn);
     LHS  := Expand(Simplify( EL[2] ));
     RHS  := Expand(Simplify( EL[3] ));
     L    := FunctionToList(soln[1]);
     svar := L[2];
     sval := L[3];
-    If( InVerboseMode(), [Tell(2,[LHS,RHS]); Tell(3,[svar,sval]);]);
+    Decide( InVerboseMode(), [Tell(2,[LHS,RHS]); Tell(3,[svar,sval]);]);
     V    := Eliminate(svar,sval,LHS);
-    If(InVerboseMode(),Tell(4,V));
+    Decide(InVerboseMode(),Tell(4,V));
     V = RHS;
 ];
 

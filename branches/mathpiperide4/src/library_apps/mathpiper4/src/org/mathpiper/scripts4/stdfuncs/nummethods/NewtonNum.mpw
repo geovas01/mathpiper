@@ -13,7 +13,7 @@ Commondigits(x,y) :=
 {
         Local(diff);
         diff := Abs(x-y);
-        If(
+        Decide(
                 diff=?0,
                 Infinity,
                 // use approximation Ln(2)/Ln(10) >? 351/1166
@@ -50,10 +50,10 @@ NewtonNum(_func, _xinit, _prec0, _order) <--
       x0 := x1;
       x1 := (func @ x0);
       exactdigits := Commondigits(x0, x1);
-  //                If(InVerboseMode(), Echo("NewtonNum: Info: got", exactdigits, "exact digits at prec. ", BuiltinPrecisionGet()));
+  //                Decide(InVerboseMode(), Echo("NewtonNum: Info: got", exactdigits, "exact digits at prec. ", BuiltinPrecisionGet()));
     };
     // need to check that the initial precision is achieved
-    If(
+    Decide(
       Assert("value", ["NewtonNum: Error: need a more accurate initial value than", xinit])
         exactdigits >=? 1,
     {
@@ -66,7 +66,7 @@ NewtonNum(_func, _xinit, _prec0, _order) <--
       BuiltinPrecisionSet(2+Minimum(exactdigits, Quotient(prec,order)+1)-intpart);
       x0 := x1;
       x1 := (func @ x0);
-  //                If(InVerboseMode(), Echo("NewtonNum: Info: got", Commondigits(x0, x1), "exact digits at prec. ", BuiltinPrecisionGet()));
+  //                Decide(InVerboseMode(), Echo("NewtonNum: Info: got", Commondigits(x0, x1), "exact digits at prec. ", BuiltinPrecisionGet()));
     };
     // last iteration by hand
     BuiltinPrecisionSet(2+prec);

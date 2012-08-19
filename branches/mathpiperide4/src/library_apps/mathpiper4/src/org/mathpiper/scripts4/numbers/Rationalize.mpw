@@ -8,13 +8,13 @@
 {
     Local(result,n,d);
     result:=Substitute(aNumber,[[x],Number?(x) And? Not?(Integer?(x))],"RationalizeNumber");
-    If(InVerboseMode(),Tell("",result));
-    If(Length(VarList(aNumber))=?0,
+    Decide(InVerboseMode(),Tell("",result));
+    Decide(Length(VarList(aNumber))=?0,
       {
         n:=Numerator(result);
-        If(Type(n)=?"Numerator",n:=result);
+        Decide(Type(n)=?"Numerator",n:=result);
         d:=Denominator(result);
-        If(Type(d)=?"Denominator",d:=1);
+        Decide(Type(d)=?"Denominator",d:=1);
         result := n*(1/d);
       }
     );

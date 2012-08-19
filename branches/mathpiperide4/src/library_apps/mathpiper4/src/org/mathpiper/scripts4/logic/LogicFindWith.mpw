@@ -13,7 +13,7 @@ LogicFindWith(_list, _i, _n) <--
     {
       Local(el); Assign(el, list[j][k]);
 
-      If(Contradict(n, el),
+      Decide(Contradict(n, el),
         {Assign(result, j); Assign(index, k);});
     };
   };

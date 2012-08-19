@@ -5,7 +5,7 @@
 10 # xPrimitivePart(poly_CanBeUni) <-- 
 {
     Local(cont,pp);
-    If(InVerboseMode(),Tell("  xPrimitivePart1",poly));
+    Decide(InVerboseMode(),Tell("  xPrimitivePart1",poly));
     cont := xContent(poly);
     pp   := poly / cont;
     //pp   := Simplify(Simplify(pp));
@@ -15,9 +15,9 @@
 Macro("xPrimitivePart",[poly,xcont])
 {
     Local(pp);
-    If(InVerboseMode(),Tell("  xPrimitivePart2",[poly,xcont]));
+    Decide(InVerboseMode(),Tell("  xPrimitivePart2",[poly,xcont]));
     
-    If( Bound?(@xcont), 
+    Decide( Bound?(@xcont), 
       {
           pp := Eval(@poly) / Eval(@xcont);
       },

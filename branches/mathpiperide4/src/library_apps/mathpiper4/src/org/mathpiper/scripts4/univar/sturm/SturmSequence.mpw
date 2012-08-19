@@ -8,7 +8,7 @@
 10 # SturmSequence(_p,_var) <--
 {
   Local(result,i,deg,nt);
-  If(InVerboseMode(),Tell(10));
+  Decide(InVerboseMode(),Tell(10));
   result := [p,`Differentiate(@var)(@p)];
   deg    := Degree(p,var);
   For(i:=3,i<=?deg+1,i++)

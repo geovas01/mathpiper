@@ -15,9 +15,9 @@
         // unity might be of non-scalar type, avoid assignment
         While(n >? 0)
         {
-                If(
+                Decide(
                         (n&1) =? 1,
-                        If(
+                        Decide(
                                 Bound?(result), // if result is already assigned
                                 result := Apply(func, [result,x]),
                                 result := x, // avoid multiplication

@@ -15,7 +15,7 @@ Retract("GREVLEXlt",*);
     // OUTPUT: the polynomial, in the Sparse representation, with Markers,
     //         with the terms reordered in specified term Order.
     //---------------------------------------------------------------------
-    If(InVerboseMode(),{Tell("npOrderTerms",expr); Tell("       ",termOrder);});
+    Decide(InVerboseMode(),{Tell("npOrderTerms",expr); Tell("       ",termOrder);});
     Local(np,v,out);
     v   := expr[2];
     np  := npTerms(expr);
@@ -30,23 +30,23 @@ Retract("GREVLEXlt",*);
     // OUTPUT: the polynomial, in the Sparse representation, NO Markers,
     //         with the terms reordered in specified term Order.
     //---------------------------------------------------------------------
-    If(InVerboseMode(),{Tell("npOrderTerms",expr); Tell("       ",termOrder);});
+    Decide(InVerboseMode(),{Tell("npOrderTerms",expr); Tell("       ",termOrder);});
     Local(np,out);
     np := FlatCopy(expr);
     
     if ( termOrder =? LEX )
       {
-          If(InVerboseMode(),Tell("    ordering terms by LEX"));
+          Decide(InVerboseMode(),Tell("    ordering terms by LEX"));
           out := Sort( np, LEXgt );
       }
     else if ( termOrder =? GRLEX )
       {
-          If(InVerboseMode(),Tell("    ordering terms by GRLEX"));    
+          Decide(InVerboseMode(),Tell("    ordering terms by GRLEX"));    
           out := Sort( np, GRLEXgt );
       }
     else if ( termOrder =? GREVLEX )
       {
-          If(InVerboseMode(),Tell("    ordering terms by GREVLEX"));
+          Decide(InVerboseMode(),Tell("    ordering terms by GREVLEX"));
           out := Sort( np, GREVLEXgt );
       }
     else 
@@ -91,8 +91,8 @@ Retract("GREVLEXlt",*);
      Local(sum1,sum2,nonzero);
      sum1 := Sum(Rest(term1));    sum2 := Sum(Rest(term2));
      nonzero := Select(Rest(term1-term2),"NotZero?");
-     If(sum1 >? sum2, True,
-       If(sum1=?sum2 And? (Length(nonzero)!=?0 And? First(nonzero)>?0),True,False)
+     Decide(sum1 >? sum2, True,
+       Decide(sum1=?sum2 And? (Length(nonzero)!=?0 And? First(nonzero)>?0),True,False)
      );
  }; 
 
@@ -101,8 +101,8 @@ Retract("GREVLEXlt",*);
      Local(sum1,sum2,nonzero);
      sum1 := Sum(Rest(term1));    sum2 := Sum(Rest(term2));
      nonzero := Select(Rest(term1-term2),"NotZero?");
-     If(sum1 <? sum2, True,
-       If(sum1=?sum2 And? (Length(nonzero)!=?0 And? First(nonzero)<?0),True,False)
+     Decide(sum1 <? sum2, True,
+       Decide(sum1=?sum2 And? (Length(nonzero)!=?0 And? First(nonzero)<?0),True,False)
      );
  }; 
 
@@ -111,8 +111,8 @@ Retract("GREVLEXlt",*);
      Local(sum1,sum2,revnonzero);
      sum1 := Sum(Rest(term1));    sum2 := Sum(Rest(term2));
      revnonzero := Reverse(Select(Rest(term1-term2),"NotZero?"));
-     If(sum1 >? sum2, True,
-       If(sum1=?sum2 And? (Length(revnonzero)!=?0 And? First(revnonzero)<?0),True,False)
+     Decide(sum1 >? sum2, True,
+       Decide(sum1=?sum2 And? (Length(revnonzero)!=?0 And? First(revnonzero)<?0),True,False)
      );
  }; 
 
@@ -121,8 +121,8 @@ Retract("GREVLEXlt",*);
      Local(sum1,sum2,revnonzero);
      sum1 := Sum(Rest(term1));    sum2 := Sum(Rest(term2));
      revnonzero := Reverse(Select(Rest(term1-term2),"NotZero?"));
-     If(sum1 <? sum2, True,
-       If(sum1=?sum2 And? (Length(revnonzero)!=?0 And? First(revnonzero)>?0),True,False)
+     Decide(sum1 <? sum2, True,
+       Decide(sum1=?sum2 And? (Length(revnonzero)!=?0 And? First(revnonzero)>?0),True,False)
      );
  }; 
 

@@ -240,7 +240,7 @@ LocalSymbols(n,d,c)
       terms:=f2;
 
       For(i:=1,i<=?Length(common),i++)
-      If(i !=? j,
+      Decide(i !=? j,
         {
           [f1,f2]:=CommonFactors(common[j],common[i]);
           common[j]:=f1;

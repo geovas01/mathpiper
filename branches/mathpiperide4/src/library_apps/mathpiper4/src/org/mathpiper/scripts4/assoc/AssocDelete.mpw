@@ -9,7 +9,7 @@ LocalSymbols(hash, key, element, hashexpr)
 {
         Local(index);
         index := Find(hash, element);
-        If(
+        Decide(
                 index >? 0,
                 DestructiveDelete(hash, index)
         );

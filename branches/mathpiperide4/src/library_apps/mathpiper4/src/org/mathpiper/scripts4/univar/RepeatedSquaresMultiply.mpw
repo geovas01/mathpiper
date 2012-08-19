@@ -17,7 +17,7 @@
   While(m>?0)
   {
     Assign(b,b*b);
-    If (Not?(Equal?(BitAnd(m,n), 0)),Assign(b,b*a));
+    Decide(Not?(Equal?(BitAnd(m,n), 0)),Assign(b,b*a));
     Assign(m, ShiftRight(m,1));
   };
   b;

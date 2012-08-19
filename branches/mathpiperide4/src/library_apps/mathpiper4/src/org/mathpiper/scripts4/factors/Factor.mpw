@@ -4,17 +4,17 @@
 
 10 # Factor( p_Rational? )_(Denominator(p) !=? 1) <--
 [
-    If(InVerboseMode(),Tell("Factor_ratNum",p));
+    Decide(InVerboseMode(),Tell("Factor_ratNum",p));
     Local(fs,num,den,dent,n,d);
     fs := Factors(p);
-    If(InVerboseMode(),Tell("   ",fs));
+    Decide(InVerboseMode(),Tell("   ",fs));
     num := Select(fs,Lambda([X],X[2]>=?0));
     den := Select(fs,Lambda([X],X[2]<?0));
-    If(InVerboseMode(),Tell("   ",[num,den]));
+    Decide(InVerboseMode(),Tell("   ",[num,den]));
     dent := Transpose(den);
     dent[2] := -1 * dent[2];
     den  := Transpose(dent);
-    If(InVerboseMode(),Tell("   ",[num,den]));
+    Decide(InVerboseMode(),Tell("   ",[num,den]));
     n  := FW(num);
     d  := FW(den);
     n/d;
@@ -24,27 +24,27 @@
 
 12 # Factor( p_CanBeUni ) <-- 
 [
-    If(InVerboseMode(),Tell("Factor_uni",p));
+    Decide(InVerboseMode(),Tell("Factor_uni",p));
     Local(facList);
     facList := Factors(p);
-    If(InVerboseMode(),[Tell("   ",facList);]);
+    Decide(InVerboseMode(),[Tell("   ",facList);]);
     FW(facList);
 ];
 
 
 20 # Factor( p_RationalFunction? ) <--
 [
-    If(InVerboseMode(),Tell("Factor_ratFunc",p));
+    Decide(InVerboseMode(),Tell("Factor_ratFunc",p));
     Local(fs,num,den,dent,n,d);
     fs := Factors( p );
-    If(InVerboseMode(),Tell("  ",fs));
+    Decide(InVerboseMode(),Tell("  ",fs));
     num := Select(fs,Lambda([X],X[2]>=?0));
     den := Select(fs,Lambda([X],X[2]<?0));
-    If(InVerboseMode(),Tell("   ",[num,den]));
+    Decide(InVerboseMode(),Tell("   ",[num,den]));
     dent := Transpose(den);
     dent[2] := -1 * dent[2];
     den  := Transpose(dent);
-    If(InVerboseMode(),Tell("   ",[num,den]));
+    Decide(InVerboseMode(),Tell("   ",[num,den]));
     n  := FW(num);
     d  := FW(den);
     n/d;
@@ -58,7 +58,7 @@
     ForEach(x,L)
     [
         f := Factors(x);
-        If( f = [], f := 0, f := FW(f) );
+        Decide( f = [], f := 0, f := FW(f) );
         DestructiveAppend(result,f);
     ];
     result;

@@ -21,11 +21,11 @@
         m := m/2;
        };
        k := k/2 ;
-       If(m>?1, {
+       Decide(m>?1, {
                  p := OldInternalCyclotomic(m,x,False);
-                 If (WantNormalForm, SubstituteAndExpandInUniVar(p,k),SubstituteInUniVar(p,k));
+                 Decide(WantNormalForm, SubstituteAndExpandInUniVar(p,k),SubstituteInUniVar(p,k));
                },
-                 If (WantNormalForm, x^k+1, UniVariateBinomial(x,k,1))
+                 Decide(WantNormalForm, x^k+1, UniVariateBinomial(x,k,1))
         );
      };
 
@@ -39,10 +39,10 @@
  {
    q:=n/d[1];
    f:=UniVariateBinomial(x,q,-1);
-   If (d[2]=?1,poly1:=poly1*f,poly2:=poly2*f);
+   Decide(d[2]=?1,poly1:=poly1*f,poly2:=poly2*f);
  };
  result := Quotient(poly1,poly2);
- If(WantNormalForm,NormalForm(result),result);
+ Decide(WantNormalForm,NormalForm(result),result);
 };
 
 10  # OldCyclotomic(1,_x) <-- _x-1;
