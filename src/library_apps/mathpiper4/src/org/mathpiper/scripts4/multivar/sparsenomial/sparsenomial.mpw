@@ -124,12 +124,12 @@ MultiDropLeadingZeroes(MultiNomial(_vars,_terms))
      Local(i);
      For(i:=1,i<=?Length(tree),i++)
      {
-       if (MultiDropScan(tree[i][2],depth-1))
+       If(MultiDropScan(tree[i][2],depth-1))
        {
          DestructiveDelete(tree,i);
          i--;
        }
-       else
+       Else
        {
          i:=Length(tree);
        };

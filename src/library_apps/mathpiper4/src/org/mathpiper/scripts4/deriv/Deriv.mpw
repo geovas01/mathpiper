@@ -43,10 +43,10 @@
 2 # (Deriv(_var)(Abs(_x)))  <-- (x/Abs(x))*(Deriv(var)x);
 2 # (Deriv(_var)(Sign(_x))) <-- 0;
 
-2 # (Deriv(_var)(if(_cond)(_body))) <--
-        ListToFunction([ToAtom("if"),cond,Deriv(var)body]);
-2 # (Deriv(_var)((_left) else (_right))) <--
-        ListToFunction([ToAtom("else"), (Deriv(var)left), (Deriv(var)right) ] );
+2 # (Deriv(_var)(If(_cond)(_body))) <--
+        ListToFunction([ToAtom("If"),cond,Deriv(var)body]);
+2 # (Deriv(_var)((_left) Else (_right))) <--
+        ListToFunction([ToAtom("Else"), (Deriv(var)left), (Deriv(var)right) ] );
 
 3 # (Deriv(_var)(_x ^ _n)) <-- (x^n)*Deriv(var)(n*Ln(x));
 

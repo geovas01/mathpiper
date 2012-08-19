@@ -118,11 +118,11 @@ LoadLibraryFunction("AntiDeriv");
 ////////////////////////////////////////////////
 10 # IntClean(_var,_expr) <--
 {
-        if( FreeOf?(var,expr) Or? SumOfTerms?(var,expr) ){
+        If( FreeOf?(var,expr) Or? SumOfTerms?(var,expr) ){
                 expr;
-        } else if ( HasFunction?(expr,Sin) Or? HasFunction?(expr,Cos) ){
+        } Else If( HasFunction?(expr,Sin) Or? HasFunction?(expr,Cos) ){
                 Simplify(TrigSimpCombine(expr));
-        } else {
+        } Else {
                 Simplify(expr);
         };
 };

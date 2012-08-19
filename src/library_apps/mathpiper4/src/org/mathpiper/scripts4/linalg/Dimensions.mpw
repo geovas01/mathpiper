@@ -58,7 +58,7 @@ This command returns an array of dimensions [nrows,ncols,...] corresponding to t
 The input array can be 1-dimensional (i.e., vector), 2-dimensional (i.e., matrix),
 or higher dimensioned (tensor).  
 
-If multidimensional, the array must not be "ragged", else this function will give 
+If multidimensional, the array must not be "ragged", Else this function will give 
 an incorrect result.
 
 *E.G.

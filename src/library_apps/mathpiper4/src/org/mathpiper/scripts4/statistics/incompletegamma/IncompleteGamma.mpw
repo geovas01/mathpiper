@@ -9,7 +9,7 @@
    (see D.S.Kouznetsov. Special functions. Vysshaia Shkola, Moscow, 1965)
    for small x, and on asymptotic expansion
    IncompleteGamma(a,x)=Gamma(x)-x^(a-1)*Exp(-x)*(1+(a-1)/z+(a-1)(a-2)/z^2+...)
-   (see O.E.Barndorf-Nielsen & D.R.Cox. Asymptotic techniques for Use
+   (see O.E.Barndorf-NiElsen & D.R.Cox. Asymptotic techniques for Use
    in Statistics.. Russian translation is also available)
    for large x.
 */

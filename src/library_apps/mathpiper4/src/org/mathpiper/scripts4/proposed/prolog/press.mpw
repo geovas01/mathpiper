@@ -398,17 +398,17 @@ PositionHelper(subTerm, term, list) :=
 [   
     Local(argPosition);
 
-    if(Atom?(term) And? (subTerm =? term))
+    If(Atom?(term) And? (subTerm =? term))
     [
         list[1] := True;
         
         list;
     ]
-    else if(Atom?(term) )
+    Else If(Atom?(term) )
     [
         list;
     ]
-    else
+    Else
     [
         argPosition := Length(term);
         

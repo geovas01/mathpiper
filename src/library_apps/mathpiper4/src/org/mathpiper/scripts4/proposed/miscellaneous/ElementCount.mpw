@@ -4,15 +4,15 @@
 
 ElementCount(list) :=
 {   
-    if(Length(list) =? 0)
+    If(Length(list) =? 0)
     {
         0;
     }
-    else if(Atom?(list))
+    Else If(Atom?(list))
     {
         1;
     }
-    else
+    Else
     {
         ElementCount(First(list)) + ElementCount(Rest(list));
     };

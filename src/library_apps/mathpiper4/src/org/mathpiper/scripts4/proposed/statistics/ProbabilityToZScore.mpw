@@ -44,11 +44,11 @@ ProbabilityToZScore(probability) :=
     {
         probabilityValue := ZScoreToProbability(zValue);
         
-        if (probabilityValue >? probability) 
+        If(probabilityValue >? probability) 
         {
             maximumZ := zValue;
         } 
-        else 
+        Else 
         {
             minimumZ := zValue;
         };

@@ -120,12 +120,12 @@ UnFence("trySQF",1);
           {
              Decide( nrr =? 0,
                {
-                  //  OhOh - no real solutions -- have to try something else
+                  //  OhOh - no real solutions -- have to try something Else
                   Decide(InVerboseMode(),
                     {
                        NewLine();
                        Tell("               NO real solutions");
-                       Tell("               try something else");
+                       Tell("               try something Else");
                     }
                   );
                   //  Here go some ad-hoc solutions that can be useful....

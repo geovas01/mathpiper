@@ -27,13 +27,13 @@ CombinationsList(inputList, r) :=
     {
         combination := [];
       
-        if(combinationsLeft =? totalCombinations)
+        If(combinationsLeft =? totalCombinations)
         { 
           combinationsLeft := combinationsLeft - 1;
           
           currentIndexes := manipulatedIndexes;
         }
-        else
+        Else
         {
             i := r;
         

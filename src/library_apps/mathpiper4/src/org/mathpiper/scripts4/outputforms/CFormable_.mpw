@@ -40,8 +40,8 @@ LocalSymbols(CFormAllFunctions) {
     "Nth",
     "Modulo",
     "Complex",
-    "if",
-    "else",
+    "If",
+    "Else",
     "++",
     "--",
   ]

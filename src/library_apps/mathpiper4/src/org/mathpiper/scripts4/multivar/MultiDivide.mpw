@@ -53,10 +53,10 @@
     {
       glt := MultiLT(g[i]);
 
-      if (MultiLM(glt) =? MultiLM(plt) Or? MultiTermLess([MultiLM(glt),1], [MultiLM(plt),1]))
+      If(MultiLM(glt) =? MultiLM(plt) Or? MultiTermLess([MultiLM(glt),1], [MultiLM(plt),1]))
       {
         //   corrected if-select statement  110708    hso
-        if (Select(MultiLM(plt)-MultiLM(glt),[[n],n<?0]) =? [] )
+        If(Select(MultiLM(plt)-MultiLM(glt),[[n],n<?0]) =? [] )
         {
           Local(ff,ltbefore,ltafter);
           ff := CreateTerm(v,[MultiLM(plt)-MultiLM(glt),MultiLC(plt)/MultiLC(glt)]);
@@ -65,7 +65,7 @@
           ltbefore := MultiLeadingTerm(p);
           p := p - ff*g[i];
           ltafter := MultiLeadingTerm(p);
-          if (ltbefore[1] =? ltafter[1])
+          If(ltbefore[1] =? ltafter[1])
           {
             ltafter := MultiLT(p);
             p       := p-ltafter;

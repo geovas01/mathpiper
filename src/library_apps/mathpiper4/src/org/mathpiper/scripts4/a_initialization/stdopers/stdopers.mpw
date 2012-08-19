@@ -93,9 +93,9 @@ RuleHoldArguments(StandardOperatorsLoad, 0, 1, True)
     Infix("Equivales?",10000); /* equivalence. */
 
 
-    Bodied("if",5);
-    Infix("else",60000);
-    RightAssociativeSet("else");
+    Bodied("If",5);
+    Infix("Else",60000);
+    RightAssociativeSet("Else");
     /* Bitwise operations we REALLY need. Perhaps we should define them
        also as MathPiper operators?
      */

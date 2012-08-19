@@ -10,7 +10,7 @@
 
   result:=0;
   an:=2*Maximum(an);
-  if(Not? Zero?(an)) {result := 1/an;};
+  If(Not? Zero?(an)) {result := 1/an;};
   Simplify(Rationalize(result));
 };
 30 # MinimumBound(_p) <-- -Infinity;

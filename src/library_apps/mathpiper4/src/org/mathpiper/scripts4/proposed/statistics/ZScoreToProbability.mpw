@@ -36,19 +36,19 @@ ZScoreToProbability(zScore) :=
     
     ZMAX := 6; // Maximum �z value
     
-    if(zScore =? 0.0)
+    If(zScore =? 0.0)
     {
         x := 0.0;
     }
-    else
+    Else
     {
         y := 0.5 * AbsN(zScore);
         
-        if(y >? ZMAX * 0.5)
+        If(y >? ZMAX * 0.5)
         {
             x := 1.0;
         }
-        else if(y <? 1.0)
+        Else If(y <? 1.0)
         {
             w := y * y;
             x := ((((((((0.000124818987 * w
@@ -57,7 +57,7 @@ ZScoreToProbability(zScore) :=
             - 0.151968751364) * w + 0.319152932694) * w
             - 0.531923007300) * w + 0.797884560593) * y * 2.0;
         }
-        else
+        Else
         {
             y := y - 2.0;
             

@@ -301,8 +301,8 @@ FormulaBracket(f):=
   ForEach(item,xx)
   {
     thislength:=0;
-    if(List?(item)) {thislength:=Length(item);};
-    if (maxlength<?thislength) {maxlength:=thislength;};
+    If(List?(item)) {thislength:=Length(item);};
+    If(maxlength<?thislength) {maxlength:=thislength;};
   };
 
   Decide(maxlength>?0,
@@ -315,13 +315,13 @@ FormulaBracket(f):=
       w := 0;
       For(i:=1,i<=?Length(sub),i++)
       {
-        if (List?(xx[i]) And? j<=?Length(xx[i]))
+        If(List?(xx[i]) And? j<=?Length(xx[i]))
           Decide(sub[i][6][j][3] >? w,w := sub[i][6][j][3]);
       };
 
       For(i:=1,i<=?Length(sub),i++)
       {
-        if (List?(xx[i]) And? j<=?Length(xx[i]))
+        If(List?(xx[i]) And? j<=?Length(xx[i]))
           MoveOper(sub[i][6][j],width,0);
       };
       width := width+w+1;

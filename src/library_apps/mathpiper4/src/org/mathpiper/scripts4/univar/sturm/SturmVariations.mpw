@@ -30,14 +30,14 @@ SturmVariations(_S) <--
   result:=0;
   While(Length(S)>?0 And? Zero?(S[1])) S:=Rest(S);
 //Echo("S = ",S);
-  if (Length(S)>?0)
+  If(Length(S)>?0)
   {
     prev:=S[1];
     ForEach(item,Rest(S))
     {
-      if(Not? Zero?(item))
+      If(Not? Zero?(item))
       {
-        if (prev*item <? 0) {result++;};
+        If(prev*item <? 0) {result++;};
         prev:=item;
       };
     };

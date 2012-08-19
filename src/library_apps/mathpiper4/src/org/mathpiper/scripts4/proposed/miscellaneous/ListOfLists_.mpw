@@ -6,11 +6,11 @@ ListOfLists?(listOfLists) :=
     
     result := True;
     
-    if(Not? List?(listOfLists))
+    If(Not? List?(listOfLists))
     {
         result := False;
     }
-    else 
+    Else 
     {
         ForEach(list, listOfLists)
         {

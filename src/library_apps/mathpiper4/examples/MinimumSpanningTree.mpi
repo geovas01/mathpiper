@@ -45,12 +45,12 @@ cheapest network */
        CurrentEdge := Edges[Traverser];
 
        /* If not both nodes are already in the network */
-       if (Not(Contains(CurrentNetwork,CurrentEdge[2]) And
+       If (Not(Contains(CurrentNetwork,CurrentEdge[2]) And
 Contains(CurrentNetwork,CurrentEdge[3])))
        [
           /* If the first node is already in the network, this edge adds the
 second */
-         if (Contains(CurrentNetwork,CurrentEdge[2]))
+         If (Contains(CurrentNetwork,CurrentEdge[2]))
           [
             EdgeFound := Traverser;
             NodeAdded := CurrentEdge[3];
@@ -58,7 +58,7 @@ second */
 
           /* If the second node is already in the network, this edge adds the
 first */
-         if (Contains(CurrentNetwork,CurrentEdge[3]))
+         If (Contains(CurrentNetwork,CurrentEdge[3]))
           [
             EdgeFound := Traverser;
             NodeAdded := CurrentEdge[2];
@@ -69,12 +69,12 @@ first */
 
      /* If no edge was found, there is no tree connecting all the nodes to the
 network. */
-     if (EdgeFound = 0)
+     If (EdgeFound = 0)
      [
        Failed := True;
        Result := {};
      ]
-     else
+     Else
      [
        /* Add the cheapest found edge */
        DestructiveAppend(CurrentNetwork,NodeAdded);

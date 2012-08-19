@@ -103,7 +103,7 @@
            For(k:=1,k<=?5+Floor(SqrtN(n)*0.5) And? ( term=?0 Or? Abs(term)>?0.1) ,k++){
                            A:=0;
                            For(h:=1,h<=?k,h++){
-                                           if( Gcd(h,k)=?1 ){
+                                           If( Gcd(h,k)=?1 ){
                                                            A:=A+Exp(I*Pi*Sum(j,1,k-1,(j/k)*((h*j)/k - Floor((h*j)/k) -1/2))
 - 2*Pi*I*h*n/k );
                                            };

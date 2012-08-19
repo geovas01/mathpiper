@@ -27,9 +27,9 @@
     //);
     
     Local(first,secnd,rem,ad);
-    if ( newPrec =? oldPrec )
+    If( newPrec =? oldPrec )
         { ans := N; }
-    else if ( newPrec <? oldPrec )
+    Else If( newPrec <? oldPrec )
         {
             first    := StringMidGet(1, newPrec, strOInt); 
             secnd    := StringMidGet(newPrec+1, LS-newPrec, strOInt);
@@ -48,7 +48,7 @@
             //   ]
             //);
         }
-    else
+    Else
         {
             //Decide(InVerboseMode(),Tell("   newPrec >? oldPrec "));
             Local(diffPrec);

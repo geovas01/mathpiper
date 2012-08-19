@@ -144,7 +144,7 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
   e := RemoveDuplicates(e);
 
   /* Generate dummy constants */
-  if( Length(e) >? 0 ){
+  If( Length(e) >? 0 ){
     roots:=Transpose(e);
     consts:= MapSingle(Hold([[nn],Add(OdeConstantList(nn)*(x^(0 .. (nn-1))))]),roots[2]);
     roots:=roots[1];
@@ -152,7 +152,7 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
     /* Return results */
     //Sum(consts * Exp(roots*x));
     Add( consts * Exp(roots*x) );
-  } else if ( Degree(auxeqn,x) =? 2 ) {
+  } Else If( Degree(auxeqn,x) =? 2 ) {
     // we can solve second order equations without RootsWithMultiples
     Local(a,b,c,roots);
     roots:=ZeroVector(2);
@@ -170,12 +170,12 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
     // RootsWithMultiples (hopefully) catches those, except for
     // the case b,c=0
 
-    if( b=?0 And? c=?0 ){
+    If( b=?0 And? c=?0 ){
         Add(OdeConstantList(2)*[1,x]);
-    } else if( Number?(N(roots[1])) ){
+    } Else If( Number?(N(roots[1])) ){
         Decide(InVerboseMode(),Echo("OdeSolve: Real roots"));
         Add(OdeConstantList(2)*[Exp(roots[1]*x),Exp(roots[2]*x)]);
-    } else {
+    } Else {
       Decide(InVerboseMode(),Echo("OdeSolve: Complex conjugate pair roots"));
       Local(alpha,beta);
       alpha:=Re(roots[1]);
@@ -183,7 +183,7 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
       Exp(alpha*x)*Add( OdeConstantList(2)*[Sin(beta*x),Cos(beta*x)] );
     };
 
-  } else {
+  } Else {
     Echo("OdeSolve: Could not find roots of auxilliary equation");
   };
 };
@@ -236,11 +236,11 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
   Decide(InVerboseMode(),Echo("OdeSolve: Normal form is",e));
   h:=OdeFlatTerm(OdeCoefList(e));
   Decide(InVerboseMode(),Echo("OdeSolve: Flatterm is",h));
-  if (FreeOf?(Error,h))
+  If(FreeOf?(Error,h))
   {
     OdeSolveLinear(e,h);
   }
-  else
+  Else
     OdeUnsolved(e);
 };
 
@@ -274,7 +274,7 @@ OdeBoundaries(_solution,bounds_List?) <--
 OdeTest(_e,_solution) <--
 {
   Local(s);
-  s:= `Lambda([n],if (n>?0)(Differentiate(x,n)(@solution)) else (@solution));
+  s:= `Lambda([n],If(n>?0)(Differentiate(x,n)(@solution)) Else (@solution));
   e:=OdeNormalForm(e);
   e:=Apply("OdeSubstitute",[e,s]);
   e:=Simplify(e);

@@ -2,15 +2,15 @@
 
 Function("GaussianPrime?",[x])
 {
-        if( GaussianInteger?(x) ){
-                if( Zero?(Re(x)) ){
+        If( GaussianInteger?(x) ){
+                If( Zero?(Re(x)) ){
                         ( Abs(Im(x)) % 4 =? 3 And? Prime?(Abs(Im(x))) );
-                } else if ( Zero?(Im(x)) ) {
+                } Else If( Zero?(Im(x)) ) {
                         ( Abs(Re(x)) % 4 =? 3 And? Prime?(Abs(Re(x))) );
-                } else {
+                } Else {
                         Prime?(Re(x)^2 + Im(x)^2);
                 };
-        } else {
+        } Else {
                 False;
         };
 

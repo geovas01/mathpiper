@@ -24,15 +24,15 @@ CorrelationMatrix(dataLists) :=
     {
         ForEach(columnIndex, 1 .. Length(dataLists) + 1)
         {
-            if(rowIndex >=? 2 And? columnIndex >=? 2)
+            If(rowIndex >=? 2 And? columnIndex >=? 2)
             {
                 correlationMatrix[rowIndex][columnIndex] := N(CorrelationCoefficient(dataLists[rowIndex - 1],dataLists[columnIndex - 1]),2);
             }
-            else if(rowIndex =? 1)
+            Else If(rowIndex =? 1)
             {
                 correlationMatrix[rowIndex][columnIndex] := namesList[columnIndex];
             }
-            else
+            Else
             {
                 correlationMatrix[rowIndex][columnIndex] := namesList[rowIndex];
             };

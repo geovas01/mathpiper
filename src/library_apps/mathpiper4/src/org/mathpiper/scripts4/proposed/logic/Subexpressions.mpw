@@ -25,7 +25,7 @@ SubexpressionsHelper(expression, list) :=
     Local(first, rest);
     
     
-    if((Not? Atom?(expression)) And? (Length(expression) !=? 0))
+    If((Not? Atom?(expression)) And? (Length(expression) !=? 0))
     {
     
         first := First(expression);
@@ -47,17 +47,17 @@ SubexpressionsHelper(expression, list) :=
 //Similar to FuncList, but does not remove duplicates.
 FunctionListAllHelper(expression) :=
 {
-    if(Atom?(expression))
+    If(Atom?(expression))
     {
        []; 
     }
-    else if (Function?(expression))
+    Else If(Function?(expression))
     {
     
       Concat( [First(FunctionToList(expression))],
          Apply("Concat", MapSingle("FunctionListAllHelper", Rest(FunctionToList(expression)))));
     }
-    else
+    Else
     {
         Check(False, "Argument", "The argument must be an atom or a function.");
     
