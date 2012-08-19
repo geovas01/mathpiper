@@ -92,7 +92,7 @@ StackTraceOff();
       0: LoadScript
          1: -> "/tmp/mathpiperide917565545585604790.mpw_tmp"
       -----------------------------------------
-      2: Prog
+      2: Block
          3: -> LessThan?(Complex(1,1),3)
       -----------------------------------------
       4: LessThan?
@@ -103,7 +103,7 @@ StackTraceOff();
       ****** THE PROBLEM IS EITHER IMMEDIATELY ABOVE THIS LINE OR IMMEDIATELY BELOW THIS LINE ******
 
       ========================================= Start Of User Function Stack Trace
-      0: Prog
+      0: Block
       -----------------------------------------
       1: TestFunction
       -----------------------------------------

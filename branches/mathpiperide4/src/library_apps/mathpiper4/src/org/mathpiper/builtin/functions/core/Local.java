@@ -88,7 +88,7 @@ variable has the same value everywhere. But sometimes it is useful to
 have a private copy of some variable, either to prevent the outside
 world from changing it or to prevent accidental changes to the outside
 world. This can be achieved by declaring the variable local. Now only
-expressions within the {Prog} block (or its
+expressions within the {Block} block (or its
 syntactic equivalent, the {[  ]} block) can access
 and change it. Functions called within this block cannot access the
 local copy unless this is specifically allowed with {UnFence}.
@@ -116,7 +116,7 @@ is defined to be local and now the value outside the block stays the
 same, even though {a} is assigned the value 5 inside
 the block.
 
-*SEE LocalSymbols, Prog, [], UnFence
+*SEE LocalSymbols, Block, [], UnFence
 %/mathpiper_docs
 */
 

@@ -214,7 +214,7 @@ public class AnalyzeScripts {
     }//end method.
 
     private static void processLocalSymbols(Cons prog, String[] scriptCodeArray, Object[] result) throws Exception {
-        //Scan past variables to the Prog.
+        //Scan past variables to the Block.
         while (prog.cdr() != null) {
             prog = prog.cdr();
         }

@@ -36,7 +36,7 @@ LocalSymbols(CFormAllFunctions) {
   [
     "For",
     "While",
-    "Prog",
+    "Block",
     "Nth",
     "Modulo",
     "Complex",

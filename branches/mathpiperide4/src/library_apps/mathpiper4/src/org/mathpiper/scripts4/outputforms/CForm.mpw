@@ -213,7 +213,7 @@ LocalSymbols(cindent) {
 
 CFormStatement(_x) <-- CForm(x) ~ ";" ~ NlIndented();
 
-120 # CForm(_x,_p)_(Type(x) =? "Prog") <--
+120 # CForm(_x,_p)_(Type(x) =? "Block") <--
 {
   Local(result);
   result:=CIndent()~"{"~NlIndented();

@@ -29,7 +29,7 @@ TexForm
         0.4.12 implement the % operation as Mod
         0.4.13 added Bessel{I,J,K,Y}, Ortho{H,P,T,U}, with a general framework for usual two-argument functions of the form $A_n(x)$; fix for Max, Min
         0.4.14 added mathematical notation for Floor(), Ceil()
-        0.4.15 added Prog() represented by ( )
+        0.4.15 added Block() represented by ( )
         0.4.16 added Zeta()
 */
 
@@ -200,7 +200,7 @@ LocalSymbols(TeXFormRegularOps, TeXFormRegularPrefixOps, TeXFormGreekLetters, Te
     ["LaTeX", "\\textrm{\\LaTeX\\/}"],
     ["Maximum", "\\max "],        // this replaces these function names
     ["Minimum", "\\min "],
-    ["Prog", " "],
+    ["Block", " "],
     ["Zeta", "\\zeta "],
   ];
 

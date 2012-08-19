@@ -27,14 +27,14 @@ import org.mathpiper.lisp.cons.Cons;
  *
  *  
  */
-public class Prog extends BuiltinFunction
+public class Block extends BuiltinFunction
 {
 
-    private Prog()
+    private Block()
     {
     }
 
-    public Prog(String functionName)
+    public Block(String functionName)
     {
         this.functionName = functionName;
     }
@@ -42,7 +42,7 @@ public class Prog extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
         // Allow accessing previous locals.
-        aEnvironment.pushLocalFrame(false, "Prog");
+        aEnvironment.pushLocalFrame(false, "Block");
 
         try {
 
@@ -73,11 +73,11 @@ public class Prog extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Prog",categories="Programmer Functions;Programming;Built In"
-*CMD Prog --- block of statements
+%mathpiper_docs,name="Block",categories="Programmer Functions;Programming;Built In"
+*CMD Block --- block of statements
 *CORE
 *CALL
-	Prog(statement1, statement2, ...)
+	Block(statement1, statement2, ...)
 
 *PARMS
 
@@ -85,12 +85,12 @@ public class Prog extends BuiltinFunction
 
 *DESC
 
-The {Prog} and the {[ ... ]} construct have the same effect: they evaluate all
+The {Block} and the {[ ... ]} construct have the same effect: they evaluate all
 arguments in order and return the result of the last evaluated expression.
 
-{Prog(a,b);} is the same as typing {[a;b;];} and is very useful for writing out
+{Block(a,b);} is the same as typing {[a;b;];} and is very useful for writing out
 function bodies. The {[ ... ]} construct is a syntactically nicer version of the
-{Prog} call; it is converted into {Prog(...)} during the parsing stage.
+{Block} call; it is converted into {Block(...)} during the parsing stage.
 
 *SEE [, ], ReturnFromBlock
 %/mathpiper_docs
