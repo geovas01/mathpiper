@@ -431,6 +431,16 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 					filePath = textArea.getBuffer().getPath();
 				
 					errorSource.clear();
+					
+					if(startIndex == endIndex)
+					{
+						if(startIndex > 0)
+						{
+							startIndex--;
+						}
+						
+						endIndex++;
+					}
 				
 					errorSource.addError(new DefaultErrorSource.DefaultError( errorSource, ErrorSource.ERROR, filePath, adjustedErrorLineNumber, startIndex, endIndex, errorResult ) );
 					
@@ -538,6 +548,16 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 					filePath = textArea.getBuffer().getPath();
 				
 					errorSource.clear();
+					
+					if(startIndex == endIndex)
+					{
+						if(startIndex > 0)
+						{
+							startIndex--;
+						}
+						
+						endIndex++;
+					}
 				
 					errorSource.addError(new DefaultErrorSource.DefaultError( errorSource, ErrorSource.ERROR, filePath, adjustedErrorLineNumber, startIndex, endIndex, errorResult ) );
 					

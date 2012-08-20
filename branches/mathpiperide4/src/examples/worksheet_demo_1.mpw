@@ -29,7 +29,6 @@ While(x <? 100)
 
 
 
-
 %mathpiper,title="series"
 //Automatically generate a sequence of numbers.
 
