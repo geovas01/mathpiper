@@ -140,18 +140,13 @@ NotB
 
 Prog -> Block //For pedagogical reasons.
 
+//This should fix the problem of people becoming confused on the difference between the If function and the if function.
 If -> Decide
 if -> If
 else -> Else
 
 [] -> {} //Change the code block outfix operator to match the syntax used in other languages.
 {} -> [] //Change the list outfix operator to match the syntax used in other languages.
-
-
-All predicate function should end with a ? mark.  For example:
-IsInteger -> Integer?
-IsList -> List?
-etc.
 
 
 A bound variable is a concept that is used differently in Lisp and mathematics. MathPiper
@@ -161,6 +156,17 @@ Unassign:
 Unbind -> Unassign
 Bind -> Assign
 MacroUnbind -> MacroAssign
+
+: -> ~
+: -> Is now an operator that can be used to associate two things.
+
+All predicate function should end with a ? mark.  For example:
+IsInteger -> Integer?
+IsList -> List?
+etc.
+
+
+
 
 
 // Changed in early September 2011.
