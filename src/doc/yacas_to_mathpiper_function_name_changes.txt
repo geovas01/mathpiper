@@ -160,7 +160,7 @@ MacroUnbind -> MacroAssign
 : -> ~
 : -> Is now an operator that can be used to associate two things.
 
-All predicate function should end with a ? mark.  For example:
+All predicate functions now with a ? mark.  For example:
 IsInteger -> Integer?
 IsList -> List?
 etc.
