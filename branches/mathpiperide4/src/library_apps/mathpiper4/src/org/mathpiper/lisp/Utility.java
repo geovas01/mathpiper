@@ -1293,10 +1293,6 @@ public class Utility {
         Cons head = null;
         head = subList;
 
-     if(head == null)
-     {
-         int xx = 1;
-     }
         if (!(head.car() instanceof String)) {
             return "";
         }//end if.
