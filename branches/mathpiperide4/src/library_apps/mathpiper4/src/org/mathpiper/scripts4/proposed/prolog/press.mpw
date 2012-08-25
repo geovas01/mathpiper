@@ -1,6 +1,363 @@
-%mathpiper, def=""
+
+%mathpiper,def="Position;PositionHelper;Occurrence;SingleOccurrence?;SolveEquation;Isolate2;RemoveDollarSigns;AddDollarSigns;TexFormNoDollarSigns;Isolax"
+
+//Note:tk:Perhaps create a function called Value that obtains the value that is assigned to a variable
+// without evaluating the variable first.
+
+
+    Retract("+$", *);
+    Retract("-$", *);
+    Retract("/$", *);
+    Retract("*$", *);
+    Retract("^$", *);
+
+
+    
+
+    Infix("+$",70);
+    Infix("-$",70);
+    RightPrecedenceSet("-$",40);
+    Infix("/$",30);
+    Infix("*$",40);
+    Infix("^$",20);
+    LeftPrecedenceSet("^$",19); //Added to make expressions like x^n^2 unambiguous.
+    RightAssociativeSet("^$");
+    Prefix("+$",50);
+    Prefix("-$",50);
+    RightPrecedenceSet("-$",40);
+    
+    
+    RulebaseEvaluateArguments("+$",[lhs, rhs]);
+    RulebaseEvaluateArguments("-$",[lhs, rhs]);
+    RulebaseEvaluateArguments("/$",[lhs, rhs]);
+    RulebaseEvaluateArguments("*$",[lhs, rhs]);
+    RulebaseEvaluateArguments("^$",[lhs, rhs]);
+    RulebaseEvaluateArguments("+$",[operand]);
+    RulebaseEvaluateArguments("-$",[operand]);
+
+    
+
+
+Position(subTerm, term) :=
+{
+    Local(positionList);
+    
+    Check(Function?(term), "Argument", "The argument must be an expression that contains a function.");
+    
+    positionList := PositionHelper(subTerm, term,[False]);
+    
+    positionList := Rest(positionList);
+    
+    Rest(Reverse(positionList));
+
+};
+
+
+
+
+PositionHelper(subTerm, term, list) :=
+{   
+    Local(argPosition);
+
+    If(Atom?(term) And? (subTerm =? term))
+    {
+        list[1] := True;
+        
+        list;
+    }
+    Else If(Atom?(term) )
+    {
+        list;
+    }
+    Else
+    {
+        argPosition := Length(term);
+        
+        While(argPosition >? 0)
+        {  
+            list := PositionHelper(subTerm, term[argPosition], list);
+            
+            Decide(list[1] =? True, {list := Append(list, argPosition);argPosition := -1;});
+        
+            argPosition--;
+        };
+        
+        list;
+    };
+};
+
+
+
+
+Occurrence(subTerm, term) :=
+{
+    Check(Function?(term), "Argument", "The argument must be an expression that contains a function.");
+
+    Count(VarListAll(term), subTerm);
+};
+
+
+
+SingleOccurrence?(subTerm, term) :=
+{
+    Occurrence(subTerm, term) =? 1;
+};
+
+
+
+
+//====================================================================
+Retract("SolveEquation",*);
+
+/*
+
+RulebaseHoldArguments("SolveEquation",[equation,var]);
+
+RuleHoldArguments("SolveEquation",2,20,True)
+[
+    Local(path);
+    
+    equation := AddDollarSigns(equation);
+    
+    path := Position(var, equation);
+    
+    Isolate2(path, equation, var);
+];
+
+HoldArgumentNumber("SolveEquation",2,1);
+HoldArgumentNumber("SolveEquation",2,2);
+*/
+
+
+
+
+
+
+
+
+RulebaseListedHoldArguments("SolveEquation",[equation, variable, optionsList]);
+
+//Handle no option call.
+5 # SolveEquation(_equation, _variable) <-- SolveEquation(equation, variable, []);
+
+
+//Main routine.  It will automatically accept 2 or more option calls because the
+//options come in a list.
+10 # SolveEquation(_equation, _variable, optionsList_List?) <--
+{
+    Local(options, path);
+    
+    options := OptionsToAssociativeList(optionsList);
+    
+    equation := AddDollarSigns(equation);
+    
+    path := Position(variable, equation);
+    
+    Isolate2(path, equation, variable, options);
+};
+
+
+//Handle a single option call because the option does not come in a list for some reason.
+20 # SolveEquation(_equation, _variable, _singleOption) <-- SolveEquation(equation, variable, [singleOption]);
+
+
+
+//===================================================================
+
+
+//Obsolete.
+Isolate(pathNumbers, equation, var) :=
+{
+    Local(result, rest);
+    
+    result := [];
+    
+    DestructiveAppend(result,[ToAtom("Solve \\ \\ " ~ ToString(TexFormNoDollarSigns(equation)) ~ " \\ \\ for \\ " ~ ToString(var) ~ ".")]);
+    
+    //ViewLatex("Solve \\ \\ " ~ ToString(TexFormNoDollarSigns(equation)) ~ " \\ \\ for \\ " ~ ToString(var) ~ ".",2);
+    
+    DestructiveAppend(result,[ToAtom(" \\ ")]);
+    
+    rest := [equation];
+    
+
+    ForEach(pathNumber, pathNumbers)
+    {
+        rest := Isolax(pathNumber, First(rest));
+        
+        DestructiveAppend(result,[ToAtom(" \\ ")]);
+
+        DestructiveAppend(result,[ToAtom(ListToString(Remove(StringToList(rest[3]),"$")))]);
+        
+        Decide(Length(rest) =? 4, DestructiveAppend(result,[TexFormNoDollarSigns(rest[4])]));
+        
+        DestructiveAppend(result,[ToAtom(" \\ ")]);
+        
+        DestructiveAppend(result,[TexFormNoDollarSigns(rest[1])]);
+        
+        DestructiveAppend(result,[ToAtom(" \\ ")]);
+    };
+    
+    result;
+};
+
+
+
+
+Isolate2(pathNumbers, equation, var, options) :=
+{
+    Local(result, rest, currentEquation, showTree);
+    
+    result := [];
+    
+    DestructiveAppend(result, LatexView("Solve \\ \\ " ~ ToString(TexFormNoDollarSigns(equation)) ~ " \\ \\ for \\ " ~ ToString(var) ~ "."));
+    
+    
+    Decide(options["showTree"] =? "True", DestructiveAppend(result, TreeView(RemoveDollarSigns(equation), scale -> 2)));
+    
+    
+    //DestructiveAppend(result,LatexView(" \\vspace[1in]"));
+    
+    
+    rest := [equation];
+    
+
+    ForEach(pathNumber, pathNumbers)
+    {
+        currentEquation := First(rest);
+    
+        rest := Isolax(pathNumber, currentEquation);
+        
+        //Echo(rest);
+        
+        If(Not? List?(rest[1]))
+        {
+            result := Compose(result, rest[1], rest[3], rest[4], Length(rest) =? 4, options["showTree"]);
+        }
+        Else
+        {
+            result := Compose(result, rest[1][1], rest[3][1], rest[4][1], Length(rest) =? 4, options["showTree"]);
+            
+            result := Compose(result, rest[1][2], rest[3][2], rest[4][2], Length(rest) =? 4, options["showTree"]);
+        };
+        
+        //DestructiveAppend(result,LatexView(" \\vspace[.5in]"));
+    };
+
+    
+    result;
+};
+
+
+
+Compose(result, newExpression, explanation, beforeSimplification, lengthFour?, showTree?) :=
+{
+        DestructiveAppend(result,LatexView(" \\vspace{.75in}"));
+
+        DestructiveAppend(result,LatexView(ListToString(Remove(StringToList(explanation),"$"))));
+        
+        Decide(lengthFour?, {DestructiveAppend(result,LatexView(" \\vspace{.10in}"));
+                DestructiveAppend(result,LatexView(TexFormNoDollarSigns(beforeSimplification)));});
+        
+        DestructiveAppend(result,LatexView(" \\vspace{.10in}"));
+        
+        DestructiveAppend(result, LatexView(TexFormNoDollarSigns(newExpression)));
+        
+        Decide(showTree? =? "True", DestructiveAppend(result, TreeView(RemoveDollarSigns(newExpression), scale -> 2)));
+        
+        result;   
+};
+
+
+
+
+
+RemoveDollarSigns(equation) :=
+{
+    equation := Subst(ToAtom("+$"),ToAtom("+")) equation;
+    equation := Subst(ToAtom("-$"),ToAtom("-")) equation;
+    equation := Subst(ToAtom("*$"),ToAtom("*")) equation;
+    equation := Subst(ToAtom("/$"),ToAtom("/")) equation;
+    equation := Subst(ToAtom("^$"),ToAtom("^")) equation;
+};
+
+
+AddDollarSigns(equation) :=
+{
+    equation := Subst(ToAtom("+"),ToAtom("+$")) equation;
+    equation := Subst(ToAtom("-"),ToAtom("-$")) equation;
+    equation := Subst(ToAtom("*"),ToAtom("*$")) equation;
+    equation := Subst(ToAtom("/"),ToAtom("/$")) equation;
+    equation := Subst(ToAtom("^"),ToAtom("^$")) equation;
+};
+
+
+
+TexFormNoDollarSigns(equation) := 
+{
+    ToAtom(ListToString(Remove(StringToList(TeXForm(RemoveDollarSigns(equation))),"$")));
+};
+
+
+
+
+Isolax(side, equation) :=
+{
+    side : equation /: [
+    
+     1: -$ _lhs == _rhs <- [lhs == -$ rhs, "UnaryMinus", "Multiply \\ both \\ sides \\ by \\ " ~ ExpressionToString(-1) ~ ":", -1 *$ -$ lhs == rhs *$ -1],
+     
+     1: _term1 +$ _term2 == _rhs <- [term1 == rhs -$ term2, "Addition1", "Subtract \\ " ~ ExpressionToString(term2) ~ " \\ from \\ both \\ sides:", -$ term2 +$ term1 +$ term2 == rhs -$ term2],
+     2: _term1 +$ _term2 == _rhs <- [term2 == rhs -$ term1, "Addition2", "Subtract \\ " ~ ExpressionToString(term1) ~ " \\ from \\ both \\ sides:", -$ term1 +$ term1 +$ term2 == rhs -$ term1],
+     
+     1: _term1 -$ _term2 == _rhs <- [term1 == rhs +$ term2, "Subtraction1", "Add \\ " ~ ExpressionToString(term2) ~ " \\ to \\ both \\ sides:", term2 +$ term1 -$ term2 == rhs +$ term2],
+     2: _term1 -$ _term2 == _rhs <- [term2 == term1 -$ rhs, "Subtraction2", "Add \\ " ~ ExpressionToString(term1) ~ " \\ to \\ both \\ sides:", term1 +$ term1 -$ term2 == rhs +$ term1],
+     
+     1: _term1 *$ _term2 == _rhs <- [term1 == rhs /$ term2, "Multiplication1", "Divide \\ both \\ sides \\ by \\ " ~ ExpressionToString(term2) ~ ":", (term1 *$ term2) /$ term2 == rhs /$ term2],
+     2: _term1 *$ _term2 == _rhs <- [term2 == rhs /$ term1, "Multiplication2", "Divide \\ both \\ sides \\ by \\ " ~ ExpressionToString(term1) ~ ":", (term1 *$ term2) /$ term1 == rhs /$ term1],
+     
+     1: _term1 /$ _term2 == _rhs <- [term1 == rhs *$ term2, "Division1", "Multiply \\ both \\ sides \\ by \\ " ~ ExpressionToString(term2) ~ ":", term2 *$ (term1 /$ term2) == rhs *$ term2],
+     2: _term1 /$ _term2 == _rhs <- [[rhs *$ term2 == term1, term2 == term1 /$ rhs], "Division2", ["Multiply \\ both \\ sides \\ by \\ " ~ ExpressionToString(term2) ~ " \\ and \\ exchange \\ sides:", "Divide \\ both \\ sides \\ by \\ " ~ ToString(TexFormNoDollarSigns(rhs)) ~ ":"], [(term1 /$ term2) *$ term2 == rhs *$ term2, (rhs *$ term2) /$ rhs == term1 /$ rhs]],
+     
+     
+     
+     //1: _term1 ^$ 2 == _rhs <- [term1 == Sqrt(rhs), "Exponentiation1a", "Take \\ the \\ square \\ root \\ of \\ both \\ sides:", Sqrt(term1 ^$ 2) == Sqrt(rhs)],
+     
+     1: _term1 ^$ _term2 == _rhs <- [term1 == rhs^$(1/$term2), "Exponentiation1b", "Take \\ root \\ " ~ ExpressionToString(term2) ~ " \\ of \\ both \\ sides:", (term1 ^$ term2)^$(1/term2) == rhs^$(1/$ term2)],
+    //"Exponentiation2" # 2 : _term1 ^ _term2 == _rhs <- term2 == Log(rhs)//Log(base(term1), rhs)
+                      
+    ];                 
+};
+
+
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+
+
+
+Show(SolveEquation( '( ((- a) * b )/ c + d == e ), a, showTree -> True))
+
+Show(SolveEquation( '( ((- a) * b^f)/c+d == e), b , showTree -> True))
+
+Show(SolveEquation( '( ((- a) * b^2)/c+d == e), b , showTree -> True))
+
+Show(SolveEquation( '( ((a^2 * 7/b)/c^3 * d^2)/ 5* e == f), b , showTree -> True))
+
+Show(SolveEquation( '( 7/b == c), b, showTree -> True))
+
+
+
+
+
 
 
 %prolog
@@ -335,339 +692,6 @@ or air traffic  control systems unless youre a bit of a gambler.
 
 
 
-
-
-
-%mathpiper,title="MathPiper version of PRESS."
-
-//Note:tk:Perhaps create a function called Value that obtains the value that is assigned to a variable
-// without evaluating the variable first.
-
-
-    Retract("+$", *);
-    Retract("-$", *);
-    Retract("/$", *);
-    Retract("*$", *);
-    Retract("^$", *);
-
-
-    
-
-    Infix("+$",70);
-    Infix("-$",70);
-    RightPrecedenceSet("-$",40);
-    Infix("/$",30);
-    Infix("*$",40);
-    Infix("^$",20);
-    LeftPrecedenceSet("^$",19); //Added to make expressions like x^n^2 unambiguous.
-    RightAssociativeSet("^$");
-    Prefix("+$",50);
-    Prefix("-$",50);
-    RightPrecedenceSet("-$",40);
-    
-    
-    RulebaseEvaluateArguments("+$",[lhs, rhs]);
-    RulebaseEvaluateArguments("-$",[lhs, rhs]);
-    RulebaseEvaluateArguments("/$",[lhs, rhs]);
-    RulebaseEvaluateArguments("*$",[lhs, rhs]);
-    RulebaseEvaluateArguments("^$",[lhs, rhs]);
-    RulebaseEvaluateArguments("+$",[operand]);
-    RulebaseEvaluateArguments("-$",[operand]);
-
-    
-
-
-Position(subTerm, term) :=
-{
-    Local(positionList);
-    
-    Check(Function?(term), "Argument", "The argument must be an expression that contains a function.");
-    
-    positionList := PositionHelper(subTerm, term,[False]);
-    
-    positionList := Rest(positionList);
-    
-    Rest(Reverse(positionList));
-
-};
-
-
-
-
-PositionHelper(subTerm, term, list) :=
-{   
-    Local(argPosition);
-
-    If(Atom?(term) And? (subTerm =? term))
-    {
-        list[1] := True;
-        
-        list;
-    }
-    Else If(Atom?(term) )
-    {
-        list;
-    }
-    Else
-    {
-        argPosition := Length(term);
-        
-        While(argPosition >? 0)
-        {  
-            list := PositionHelper(subTerm, term[argPosition], list);
-            
-            Decide(list[1] =? True, {list := Append(list, argPosition);argPosition := -1;});
-        
-            argPosition--;
-        };
-        
-        list;
-    };
-};
-
-
-
-
-Occurrence(subTerm, term) :=
-{
-    Check(Function?(term), "Argument", "The argument must be an expression that contains a function.");
-
-    Count(VarListAll(term), subTerm);
-};
-
-
-
-SingleOccurrence?(subTerm, term) :=
-{
-    Occurrence(subTerm, term) =? 1;
-};
-
-
-
-
-//====================================================================
-Retract("SolveEquation",*);
-
-/*
-
-RulebaseHoldArguments("SolveEquation",[equation,var]);
-
-RuleHoldArguments("SolveEquation",2,20,True)
-[
-    Local(path);
-    
-    equation := AddDollarSigns(equation);
-    
-    path := Position(var, equation);
-    
-    Isolate2(path, equation, var);
-];
-
-HoldArgumentNumber("SolveEquation",2,1);
-HoldArgumentNumber("SolveEquation",2,2);
-*/
-
-
-
-
-
-
-
-
-RulebaseListedHoldArguments("SolveEquation",[equation, variable, optionsList]);
-
-//Handle no option call.
-5 # SolveEquation(_equation, _variable) <-- SolveEquation(equation, variable, []);
-
-
-//Main routine.  It will automatically accept 2 or more option calls because the
-//options come in a list.
-10 # SolveEquation(_equation, _variable, optionsList_List?) <--
-{
-    Local(options, path);
-    
-    options := OptionsToAssociativeList(optionsList);
-    
-    equation := AddDollarSigns(equation);
-    
-    path := Position(variable, equation);
-    
-    Isolate2(path, equation, variable, options);
-};
-
-
-//Handle a single option call because the option does not come in a list for some reason.
-20 # SolveEquation(_equation, _variable, _singleOption) <-- SolveEquation(equation, variable, [singleOption]);
-
-
-
-//===================================================================
-
-
-//Obsolete.
-Isolate(pathNumbers, equation, var) :=
-{
-    Local(result, rest);
-    
-    result := [];
-    
-    DestructiveAppend(result,[ToAtom("Solve \\ \\ " ~ ToString(TexFormNoDollarSigns(equation)) ~ " \\ \\ for \\ " ~ ToString(var) ~ ".")]);
-    
-    //ViewLatex("Solve \\ \\ " ~ ToString(TexFormNoDollarSigns(equation)) ~ " \\ \\ for \\ " ~ ToString(var) ~ ".",2);
-    
-    DestructiveAppend(result,[ToAtom(" \\ ")]);
-    
-    rest := [equation];
-    
-
-    ForEach(pathNumber, pathNumbers)
-    {
-        rest := Isolax(pathNumber, First(rest));
-        
-        DestructiveAppend(result,[ToAtom(" \\ ")]);
-
-        DestructiveAppend(result,[ToAtom(ListToString(Remove(StringToList(rest[3]),"$")))]);
-        
-        Decide(Length(rest) =? 4, DestructiveAppend(result,[TexFormNoDollarSigns(rest[4])]));
-        
-        DestructiveAppend(result,[ToAtom(" \\ ")]);
-        
-        DestructiveAppend(result,[TexFormNoDollarSigns(rest[1])]);
-        
-        DestructiveAppend(result,[ToAtom(" \\ ")]);
-    };
-    
-    result;
-};
-
-
-
-
-Isolate2(pathNumbers, equation, var, options) :=
-{
-    Local(result, rest, currentEquation, showTree);
-    
-    showTree := options["showTree"];
-    
-    Echo(showTree);
-    
-    result := [];
-    
-    DestructiveAppend(result, LatexView("Solve \\ \\ " ~ ToString(TexFormNoDollarSigns(equation)) ~ " \\ \\ for \\ " ~ ToString(var) ~ "."));
-    
-    
-    Decide(showTree =? "True", DestructiveAppend(result, TreeView(RemoveDollarSigns(equation), scale -> 2)));
-    
-    
-    //DestructiveAppend(result,LatexView(" \\vspace[1in]"));
-    
-    
-    rest := [equation];
-    
-
-    ForEach(pathNumber, pathNumbers)
-    {
-        currentEquation := First(rest);
-    
-        rest := Isolax(pathNumber, currentEquation);
-        
-        DestructiveAppend(result,LatexView(" \\vspace{.75in}"));
-
-        DestructiveAppend(result,LatexView(ListToString(Remove(StringToList(rest[3]),"$"))));
-        
-        Decide(Length(rest) =? 4, {DestructiveAppend(result,LatexView(" \\vspace{.10in}"));
-                    DestructiveAppend(result,LatexView(TexFormNoDollarSigns(rest[4])));});
-        
-        DestructiveAppend(result,LatexView(" \\vspace{.10in}"));
-        
-        DestructiveAppend(result, LatexView(TexFormNoDollarSigns(rest[1])));
-        
-        Decide(showTree =? "True", DestructiveAppend(result, TreeView(RemoveDollarSigns(First(rest)), scale -> 2)));
-        
-        //DestructiveAppend(result,LatexView(" \\vspace[.5in]"));
-    };
-    
-    result;
-};
-
-
-
-RemoveDollarSigns(equation) :=
-{
-    equation := Subst(ToAtom("+$"),ToAtom("+")) equation;
-    equation := Subst(ToAtom("-$"),ToAtom("-")) equation;
-    equation := Subst(ToAtom("*$"),ToAtom("*")) equation;
-    equation := Subst(ToAtom("/$"),ToAtom("/")) equation;
-    equation := Subst(ToAtom("^$"),ToAtom("^")) equation;
-};
-
-
-AddDollarSigns(equation) :=
-{
-    equation := Subst(ToAtom("+"),ToAtom("+$")) equation;
-    equation := Subst(ToAtom("-"),ToAtom("-$")) equation;
-    equation := Subst(ToAtom("*"),ToAtom("*$")) equation;
-    equation := Subst(ToAtom("/"),ToAtom("/$")) equation;
-    equation := Subst(ToAtom("^"),ToAtom("^$")) equation;
-};
-
-
-
-TexFormNoDollarSigns(equation) := 
-{
-    ToAtom(ListToString(Remove(StringToList(TeXForm(RemoveDollarSigns(equation))),"$")));
-};
-
-
-
-
-Isolax(side, equation) :=
-{
-    side : equation /: [
-    
-     1: -$ _lhs == _rhs <- [lhs == -$ rhs, "UnaryMinus", "Multiply \\ both \\ sides \\ by \\ " ~ ExpressionToString(-1) ~ ":", -1 *$ -$ lhs == rhs *$ -1],
-     
-     1: _term1 +$ _term2 == _rhs <- [term1 == rhs -$ term2, "Addition1", "Subtract \\ " ~ ExpressionToString(term2) ~ " \\ from \\ both \\ sides:", -$ term2 +$ term1 +$ term2 == rhs -$ term2],
-     2: _term1 +$ _term2 == _rhs <- [term2 == rhs -$ term1, "Addition2", "Subtract \\ " ~ ExpressionToString(term1) ~ " \\ from \\ both \\ sides:", -$ term1 +$ term1 +$ term2 == rhs -$ term1],
-     
-     1: _term1 -$ _term2 == _rhs <- [term1 == rhs +$ term2, "Subtraction1", "Add \\ " ~ ExpressionToString(term2) ~ " \\ to \\ both \\ sides:", term2 +$ term1 -$ term2 == rhs +$ term2],
-     2: _term1 -$ _term2 == _rhs <- [term2 == term1 -$ rhs, "Subtraction2", "Add \\ " ~ ExpressionToString(term1) ~ " \\ to \\ both \\ sides:", term1 +$ term1 -$ term2 == rhs +$ term1],
-     
-     1: _term1 *$ _term2 == _rhs <- [term1 == rhs /$ term2, "Multiplication1", "Divide \\ both \\ sides \\ by \\ " ~ ExpressionToString(term2) ~ ":", (term1 *$ term2) /$ term2 == rhs /$ term2],
-     2: _term1 *$ _term2 == _rhs <- [term2 == rhs /$ term1, "Multiplication2", "Divide \\ both \\ sides \\ by \\ " ~ ExpressionToString(term1) ~ ":", (term1 *$ term2) /$ term1 == rhs /$ term1],
-     
-     1: _term1 /$ _term2 == _rhs <- [term1 == rhs *$ term2, "Division1", "Multiply \\ both \\ sides \\ by \\ " ~ ExpressionToString(term2) ~ ":", term2 *$ (term1 /$ term2) == rhs *$ term2],
-     2: _term1 /$ _term2 == _rhs <- [term2 == term1 /$ rhs, "Division2", "Multiply \\ both \\ sides \\ by \\ " ~ ExpressionToString(term1) ~ ":", term1 *$ (term1 /$ term2) == rhs *$ term1],
-     
-     //1: _term1 ^$ 2 == _rhs <- [term1 == Sqrt(rhs), "Exponentiation1a", "Take \\ the \\ square \\ root \\ of \\ both \\ sides:", Sqrt(term1 ^$ 2) == Sqrt(rhs)],
-     
-     1: _term1 ^$ _term2 == _rhs <- [term1 == rhs^$(1/$term2), "Exponentiation1b", "Take \\ root \\ " ~ ExpressionToString(term2) ~ " \\ of \\ both \\ sides:", (term1 ^$ term2)^$(1/term2) == rhs^$(1/$ term2)],
-    //"Exponentiation2" # 2 : _term1 ^ _term2 == _rhs <- term2 == Log(rhs)//Log(base(term1), rhs)
-                      
-    ];                 
-};
-
-
-%/mathpiper
-
-    %output,preserve="false"
-      Result: True
-.   %/output
-
-
-
-
-
-
-
-
-Show(SolveEquation( '( ((- a) * b )/ c + d == e ), a, showTree -> True))
-
-Show(SolveEquation( '( ((- a) * b^f)/c+d == e), b , showTree -> True))
-
-Show(SolveEquation( '( ((- a) * b^2)/c+d == e), b , showTree -> True))
-
-Show(SolveEquation( '( ((a^2 * 7/b)/c^3 * d^2)/ 5* e == f), b , showTree -> True))
 
 
 
