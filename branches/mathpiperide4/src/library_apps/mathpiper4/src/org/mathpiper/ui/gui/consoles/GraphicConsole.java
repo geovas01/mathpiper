@@ -767,7 +767,15 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         int exceptionOffset = 0;
         int exceptionLength = 0;
         if (response.isExceptionThrown()) {
-            exceptionOffset = responseOffset + result.length() + sideEffectsOffset;
+            
+            if(!response.getSideEffects().equalsIgnoreCase(""))
+            {
+        	exceptionOffset = sideEffectsOffset + sideEffectsLength;
+            }
+            else
+            {
+        	exceptionOffset = responseOffset + result.length();
+            }
             
             Exception exception = response.getException();
             
