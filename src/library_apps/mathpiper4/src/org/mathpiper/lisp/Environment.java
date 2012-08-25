@@ -184,11 +184,6 @@ public final class Environment {
 	    Cons aValue, boolean aGlobalLazyVariable, boolean constant)
 	    throws Exception {
 	
-	if(aVariable.equals("I"))
-	{
-	    int xx = 5;
-	}
-	
 	LocalVariable localVariable = getLocalVariable(aStackTop, aVariable);
 	
 	if (localVariable != null) {
