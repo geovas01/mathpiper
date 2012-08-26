@@ -119,7 +119,7 @@ RuleHoldArguments(StandardOperatorsLoad, 0, 1, True)
     Bodied("Function",60000);
     Bodied("Macro",60000);
 
-    Bodied(Assert, 60000);
+    Bodied("Assert", 60000);
 
     // Defining very simple functions, in scripts that can be converted to plugin.
     Bodied("Defun",0);

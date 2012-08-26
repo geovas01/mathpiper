@@ -873,9 +873,12 @@ public class Utility {
 
     public static void multiFix(Environment aEnvironment, int aStackTop, OperatorMap aOps) throws Exception {
         // Get operator
-        if(BuiltinFunction.getArgument(aEnvironment, aStackTop, 1) == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        String orig = (String) BuiltinFunction.getArgument(aEnvironment, aStackTop, 1).car();
+	Cons argument = BuiltinFunction.getArgument(aEnvironment, aStackTop, 1);
+        if(argument == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        String orig = (String) argument.car();
         if(orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        
+        if(! orig.startsWith("\"")) LispError.checkArgumentTypeWithError(aEnvironment, aStackTop, 1, "The argument <" + orig + "> must be a string.");
 
         
         Cons precedence = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, BuiltinFunction.getArgument(aEnvironment, aStackTop, 2));
@@ -888,19 +891,25 @@ public class Utility {
 
     public static void singleFix(int aPrecedence, Environment aEnvironment, int aStackTop, OperatorMap aOps) throws Exception {
         // Get operator
-        if(BuiltinFunction.getArgument(aEnvironment, aStackTop, 1) == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        String orig = (String) BuiltinFunction.getArgument(aEnvironment, aStackTop, 1).car();
+        Cons argument = BuiltinFunction.getArgument(aEnvironment, aStackTop, 1);
+        if(argument == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        String orig = (String) argument.car();
         if(orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        
+        if(! orig.startsWith("\"")) LispError.checkArgumentTypeWithError(aEnvironment, aStackTop, 1, "The argument <" + orig + "> must be a string.");
+                
         aOps.setOperator(aPrecedence, Utility.getSymbolName(aEnvironment, orig));
         BuiltinFunction.setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }
 
     public static Operator operatorInfo(Environment aEnvironment, int aStackTop, OperatorMap aOperators) throws Exception {
         // Get operator
-        if(BuiltinFunction.getArgument(aEnvironment, aStackTop, 1) == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+	
+	Cons evaluated = BuiltinFunction.getArgument(aEnvironment, aStackTop, 1);
+	
+        if(evaluated == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
-        Cons evaluated = BuiltinFunction.getArgument(aEnvironment, aStackTop, 1);
-
+        
         String orig = (String) evaluated.car();
         if(orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         //
