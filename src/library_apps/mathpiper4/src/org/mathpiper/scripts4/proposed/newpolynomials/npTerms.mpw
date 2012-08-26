@@ -1,4 +1,4 @@
-%mathpiper,def="npTerms;npNumTerms;NP_"
+%mathpiper,def="npTerms;npNumTerms;NP?"
 
 //Retract("npTerms",*);
 //Retract("npNumTerms",*);
