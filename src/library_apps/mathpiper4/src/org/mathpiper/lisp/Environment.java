@@ -251,6 +251,11 @@ public final class Environment {
 		return aResult;
 	    }
 	}
+	
+	//if(!aVariable.startsWith("\""))
+	//{
+	//    System.out.println(aVariable);
+	//}
 
 	return null;
 
