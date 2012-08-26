@@ -20,6 +20,7 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.Cons;
 
 import org.mathpiper.lisp.cons.SublistCons;
@@ -45,7 +46,12 @@ public class FunctionToList extends BuiltinFunction
     {
         if(! (getArgument(aEnvironment, aStackTop, 1).car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackTop, 1);
         Cons head = aEnvironment.iListAtom.copy(false);
-        head.setCdr((Cons) getArgument(aEnvironment, aStackTop, 1).car());
+        Cons operatorCons = (Cons) getArgument(aEnvironment, aStackTop, 1).car();
+        
+        //Uncomment to make each operator a string instead of an atom.
+        //operatorCons.setCar(Utility.toMathPiperString(aEnvironment, aStackTop,(String)operatorCons.car()));
+        
+        head.setCdr(operatorCons);
         setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,head));
     }
 }
