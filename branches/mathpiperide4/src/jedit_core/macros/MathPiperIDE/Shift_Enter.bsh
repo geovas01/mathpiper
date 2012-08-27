@@ -27,6 +27,7 @@ import org.gjt.sp.jedit.textarea.Selection.Range;
 import org.gjt.sp.jedit.textarea.Selection;
 import errorlist.*;
 import org.gjt.sp.jedit.bsh.EvalError;
+import java.util.regex.*;
 
 import org.apache.commons.collections15.Factory;
 	Factory edgeFactory = new Factory() 
@@ -202,6 +203,22 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 		foldStartLine = fold.getStartLine();
 		foldEndLine = fold.getEndLine();
 		foldStartLineText = textArea.getLineText(foldStartLine);
+		
+		
+		pattern = Pattern.compile("%[a-z0-9_]+$|%[a-z0-9_]+([,][a-zA-Z_]+=\"[^,\"\\n]*\")+$");
+		matcher = pattern.matcher(foldStartLineText);
+		if(matcher.find() == false)
+		{	
+			textArea.selectNone();
+			filePath = textArea.getBuffer().getPath();
+			errorSource.clear();
+			errorSource.addError(new DefaultErrorSource.DefaultError( MathPiperInterpreter.getErrorSource(), ErrorSource.ERROR, filePath, foldStartLine, 0, foldStartLineText.length(), "There is a syntax error in the fold's header." ) );
+			textArea.setCaretPosition(currentCaretPosition);
+			jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "error-list" );
+			return;
+		}
+		
+		
 		if(!foldStartLineText.trim().startsWith("%"))
 		{
 			org.gjt.sp.jedit.Macros.message(jEdit.getActiveView(),"You must place the cursor inside of a fold to execute it with <shift><Enter>.");
@@ -2090,7 +2107,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						date = new java.util.Date();
 						timestamp = new java.sql.Timestamp(date.getTime());
 						
-						textArea.setSelectedText(beforeNewlines + indentAmount + output_fold_type + ",sequence=" + mpwExecutionCount + ",timestamp=" + timestamp + ",preserve=\"" +  preserveSetting  + "\"\n" + result + "\n" + indentAmountPeriod + "%/" + output_fold_type.substring(1,output_fold_type.length() ) + afterNewlines, false);
+						textArea.setSelectedText(beforeNewlines + indentAmount + output_fold_type + ",sequence=\"" + mpwExecutionCount + "\",timestamp=\"" + timestamp + "\",preserve=\"" +  preserveSetting  + "\"\n" + result + "\n" + indentAmountPeriod + "%/" + output_fold_type.substring(1,output_fold_type.length() ) + afterNewlines, false);
 						
 						//textArea.setSelection(null);
 						//("\n\n     " + output_fold_type + "\n      "+ result + "\n     %end\n",false);
