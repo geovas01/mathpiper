@@ -59,6 +59,10 @@ ChangeToForwardSlash(tempFilePath)
 //errorSource = new DefaultErrorSource("MathPiperIDE");
 //ErrorSource.registerErrorSource(errorSource);
 
+
+mpwExecutionCount++;
+
+
 errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
 errorSource.clear();
 					
@@ -112,6 +116,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 		properties = new java.util.Hashtable();
 		properties.put("type","");
 		properties.put("preserve","true");
+		properties.put("preserve_output","false");
 		properties.put("input","");
 		properties.put("width","600");
 		properties.put("height","500");
@@ -124,6 +129,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 		properties.put("scope","local");
 		properties.put("ver","");
 		properties.put("truncate","");
+		properties.put("log","false");
 		
 		if(startLine > -1)
 		{
@@ -719,8 +725,16 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 			//wm.addDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME);
 			wm.getDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME).setHaltButtonState(true);
 			
-			output_fold_type = "%output";
-			result = "Processing...";
+			if(foldProperties.get("log").equalsIgnoreCase("true"))
+			{
+				output_fold_type = "%info";
+				result = codeText.replace("\n","|");
+			}
+			else
+			{
+				output_fold_type = "%info";
+				result = "Processing...";
+			}
 
 					
 		}//end if }}}
@@ -2063,7 +2077,20 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						result = result.replaceAll("\n","\n" + indentAmount + "  ");//("\n","\n      ");
 						result = indentAmount + "  " + result;
 						indentAmountPeriod = indentAmount.toString().replaceFirst(" ",".");
-						textArea.setSelectedText(beforeNewlines + indentAmount + output_fold_type + ",preserve=\"false\"\n" + result + "\n" + indentAmountPeriod + "%/" + output_fold_type.substring(1,output_fold_type.length() ) + afterNewlines, false);
+						
+						if(output_fold_type.equals("%info") && foldProperties.get("log").equals("false"))
+						{
+							preserveSetting = "false";
+						}
+						else
+						{
+							preserveSetting = foldProperties.get("preserve_output");
+						}
+						
+						date = new java.util.Date();
+						timestamp = new java.sql.Timestamp(date.getTime());
+						
+						textArea.setSelectedText(beforeNewlines + indentAmount + output_fold_type + ",sequence=" + mpwExecutionCount + ",timestamp=" + timestamp + ",preserve=\"" +  preserveSetting  + "\"\n" + result + "\n" + indentAmountPeriod + "%/" + output_fold_type.substring(1,output_fold_type.length() ) + afterNewlines, false);
 						
 						//textArea.setSelection(null);
 						//("\n\n     " + output_fold_type + "\n      "+ result + "\n     %end\n",false);
