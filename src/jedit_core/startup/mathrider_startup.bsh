@@ -6,3 +6,6 @@ bsi.source("jars/scripts/startup/mathpiperide_functions.bsh");
 //globalMethods = bsi.getNameSpace().getMethods();
 //	for( method : globalMethods )
 //	    print(method);
+
+//The variable is incremented each time a fold is evaluated.
+mpwExecutionCount = 0;
