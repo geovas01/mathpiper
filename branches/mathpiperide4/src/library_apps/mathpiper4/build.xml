@@ -138,19 +138,6 @@
 
         <copy file="${basedir}/tests/win_test.bat" todir="${build.dir}" />
         
-        
-        <!--<copy file="${src.dir}/ubc/cs/JLog/Builtins/INIT_BUILTINSLIB.TOC" todir="${build.classes.dir}"/>-->
-        
-        
-        
-        
-        
-        <copy todir="${build.classes.dir}" flatten="true">
-            <fileset dir="${src.dir}/ubc/">
-                <include name="**/*.TOC" />
-            </fileset>
-        </copy>
-        
     </target>
     
     
