@@ -74,7 +74,7 @@ public class Tests {
         builtInFunctionsTestsMap.put("FromBase",testString);
 
         testString = new String[3];
-        testString[0] = "88";
+        testString[0] = "94";
         testString[1] = "\n// FunctionToList and ListToFunction coredumped when their arguments were invalid.\nVerify(FunctionToList(Cos(x)),[Cos,x]);\n\n{\n  Local(exception);\n\n  exception := False;\n  ExceptionCatch(FunctionToList(1.2), exception := ExceptionGet());\n  Verify(exception =? False, False);\n};\n\n";
         testString[2] = "/org/mathpiper/builtin/functions/core/FunctionToList.java";
         builtInFunctionsTestsMap.put("FunctionToList",testString);
