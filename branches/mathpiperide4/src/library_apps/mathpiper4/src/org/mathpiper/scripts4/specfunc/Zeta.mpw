@@ -30,13 +30,15 @@
 
 *PARMS
 
-[x] -- expression
+{x} -- expression
 
-[number] -- expression that can be evaluated to a number
+{number} -- expression that can be evaluated to a number
 
 *DESC
 
-[Zeta(x)] is an interface to Riemann's Zeta function $zeta(s)$. It returns exact values on integer and half-integer arguments. [N(Zeta(x)] takes a numeric parameter and always returns a floating-point number in the current precision.
+{Zeta(x)} is an interface to Riemann's Zeta function $zeta(s)$. It returns exact values on integer 
+and half-integer arguments. {N(Zeta(x)} takes a numeric parameter and always returns a floating-point 
+number in the current precision.
 
 *E.G.
 

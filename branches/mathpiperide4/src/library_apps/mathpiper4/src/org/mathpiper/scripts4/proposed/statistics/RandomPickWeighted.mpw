@@ -72,7 +72,7 @@ RandomPickWeighted(list) :=
 
 *PARMS
 
-[list] -- a list which contains elements and their respective weights
+{list} -- a list which contains elements and their respective weights
 
 *DESC
 Randomly picks an element from the given list with a probability which is determined by the element's weight. 

@@ -16,9 +16,9 @@ HoldArgument("CharacteristicEquation",var);
 
 *PARMS
 
-[matrix] -- a matrix
+{matrix} -- a matrix
 
-[var] -- a free variable
+{var} -- a free variable
 
 *DESC
 

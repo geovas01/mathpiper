@@ -23,7 +23,7 @@ Function("ZeroVector",[n])
 
 *PARMS
 
-[n] -- length of the vector to return
+{n} -- length of the vector to return
 
 *DESC
 

@@ -113,8 +113,8 @@ ChiSquareScoreToAlpha(score, degreesOfFreedom) :=
         ChiSquareScoreToAlpha(chiSquareScore, degreesOfFreedom)
 
 *PARMS
-[chiSquareScore] -- a chi square score
-[degreesOfFreedom] -- the degrees of freedom
+{chiSquareScore} -- a chi square score
+{degreesOfFreedom} -- the degrees of freedom
 
 *DESC
 This function calculates the alpha probability of a chi square score.

@@ -27,15 +27,15 @@ Function("CoFactor",[matrix,ii,jj])
 
 *PARMS
 
-[M] -- a matrix
+{M} -- a matrix
 
-[i], [j] - positive integers
+{i}, {j} - positive integers
 
 *DESC
 
-[CoFactor] returns the cofactor of a matrix around
+{CoFactor} returns the cofactor of a matrix around
 the element ($i$, $j$). The cofactor is the minor times
-$(-1)^(i+j)$.
+$(-1)^{i+j}$.
 
 *E.G.
 

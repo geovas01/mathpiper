@@ -14,7 +14,7 @@ Function("PopBack",[stack])  Pop(stack,Length(stack));
 
 *PARMS
 
-[stack] -- a list (which serves as the stack container)
+{stack} -- a list (which serves as the stack container)
 
 *DESC
 

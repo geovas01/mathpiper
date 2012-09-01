@@ -253,20 +253,20 @@ DebugShowCode():=
 
 *PARMS
 
-[expr] -- expression to trace
+{expr} -- expression to trace
 
 *DESC
 
 The expression "expr" is evaluated with the tracing facility turned
 on. This means that every subexpression, which is evaluated, is shown
 before and after evaluation. Before evaluation, it is shown in the
-form [TrEnter(x)], where [x]
+form {TrEnter(x)}, where {x}
 denotes the subexpression being evaluated. After the evaluation the
-line [TrLeave(x,y)] is printed, where [y] is the result of the evaluation. The indentation
+line {TrLeave(x,y)} is printed, where {y} is the result of the evaluation. The indentation
 shows the nesting level.
 
 Note that this command usually generates huge amounts of output. A
-more specific form of tracing (eg. [TraceRule]) is
+more specific form of tracing (eg. {TraceRule}) is
 probably more useful  for all but very simple expressions.
 
 *E.G. notest
@@ -308,15 +308,16 @@ Result: 5;
 *CALL
         EchoTime()expr
 *PARMS
-[expr] -- any expression
+{expr} -- any expression
+
 *DESC
 
-The function [EchoTime()expr] evaluates the expression [expr] and prints the time in seconds needed for the evaluation.
+The function {EchoTime()expr} evaluates the expression {expr} and prints the time in seconds needed for the evaluation.
 The time is printed to the current output stream.
-The built-in function [Time] is used for timing.
+The built-in function {Time} is used for timing.
 
 The result is the "user time" as reported by the OS, not the real ("wall clock") time.
-Therefore, any CPU-intensive processes running alongside MathPiper will not significantly affect the result of [EchoTime].
+Therefore, any CPU-intensive processes running alongside MathPiper will not significantly affect the result of {EchoTime}.
 
 *E.G. notest
 In> EchoTime() N(MathLog(1000),40)

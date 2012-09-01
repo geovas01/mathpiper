@@ -20,9 +20,9 @@ Function("Append",[list,element])
 
 *PARMS
 
-[list] -- list to append "expr" to
+{list} -- list to append "expr" to
 
-[expr] -- expression to append to the list
+{expr} -- expression to append to the list
 
 *DESC
 

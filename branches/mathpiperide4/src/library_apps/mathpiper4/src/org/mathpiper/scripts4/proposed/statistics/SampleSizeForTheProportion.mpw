@@ -30,9 +30,9 @@ SampleSizeForTheProportion(probabilityOfSuccess,confidenceLevel,marginOfError) :
 *CALL
         SampleSizeForTheProportion(probabilityOfSuccess,confidenceLevel,marginOfError)
 *PARMS
-[probabilityOfSuccess] -- the probability of success for the sample
-[confidenceLevel] -- the desired confidence level
-[marginOfError] -- the desired margin of error
+{probabilityOfSuccess} -- the probability of success for the sample
+{confidenceLevel} -- the desired confidence level
+{marginOfError} -- the desired margin of error
 
 *DESC
 This function calculates the minimum sample size for the proportion to provide

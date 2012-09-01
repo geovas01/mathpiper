@@ -168,16 +168,16 @@
 
 *PARMS
 
-[deg] -- degree of the resulting univariate polynomial
+{deg} -- degree of the resulting univariate polynomial
 
-[var] -- free variable for the resulting univariate polynomial
+{var} -- free variable for the resulting univariate polynomial
 
 *DESC
 
 RandomInterestingPolynomial generates a random "interesting" polynomial in 
-variable [var], of degree [deg], with integer coefficients.
+variable {var}, of degree {deg}, with integer coefficients.
 
-Unlike the similar function [RandomPoly], which merely generates
+Unlike the similar function {RandomPoly}, which merely generates
 polynomials with random integer coefficients, the current function 
 generates polynomials which are constructed by multiplying simpler 
 random polynomials (with integer coefficients).  In this way, the
@@ -189,8 +189,8 @@ especially in a learning context.
 
 If you would like to construct higher degree polynomials having certain
 specific kinds of roots, you can write a custom function to do this, 
-using [RandomIrreducibleQuadraticWithRealRoots] or 
-[RandomIrreducibleQuadraticWithComplexRoots] to create quadratics
+using {RandomIrreducibleQuadraticWithRealRoots} or 
+{RandomIrreducibleQuadraticWithComplexRoots} to create quadratics
 with which to compose the higher polynomial.
 
 *E.G.

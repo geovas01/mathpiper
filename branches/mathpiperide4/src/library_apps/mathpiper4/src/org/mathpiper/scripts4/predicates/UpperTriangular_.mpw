@@ -32,13 +32,13 @@ UpperTriangular?(A_Matrix?) <--
 
 *PARMS
 
-[A] -- a matrix
+{A} -- a matrix
 
 *DESC
 
 An upper triangular matrix is a square matrix which has all zero entries above the diagonal.
 
-[UpperTriangular?(A)] returns [True] if [A] is an upper triangular matrix and [False] otherwise.
+{UpperTriangular?(A)} returns {True} if {A} is an upper triangular matrix and {False} otherwise.
 
 *E.G.
 In> UpperTriangular?(Identity(5))

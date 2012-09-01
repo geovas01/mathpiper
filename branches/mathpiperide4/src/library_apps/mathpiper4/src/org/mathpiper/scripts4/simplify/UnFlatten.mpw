@@ -16,11 +16,11 @@
 
 *PARMS
 
-[list] -- list of objects the operator is to work on
+{list} -- list of objects the operator is to work on
 
-[operator] -- infix operator
+{operator} -- infix operator
 
-[identity] -- identity of the operator
+{identity} -- identity of the operator
 
 *DESC
 

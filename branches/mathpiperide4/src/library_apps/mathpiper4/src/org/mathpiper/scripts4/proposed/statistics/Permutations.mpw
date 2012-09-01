@@ -34,8 +34,8 @@ Permutations(n, r) :=
 
 *PARMS
 
-[n] -- integer - total number of objects
-[r] -- integer - number of objects chosen
+{n} -- integer - total number of objects
+{r} -- integer - number of objects chosen
 
 *DESC
 

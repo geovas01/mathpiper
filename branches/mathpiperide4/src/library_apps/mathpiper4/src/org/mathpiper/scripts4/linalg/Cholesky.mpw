@@ -50,12 +50,12 @@
 
 *PARMS
 
-[A] -- a square positive definite matrix
+{A} -- a square positive definite matrix
 
 *DESC
 
-[Cholesky] returns a upper triangular matrix [R] such that [Transpose(R)*R = A].
-The matrix [A] must be positive definite, [Cholesky] will notify the user if the matrix
+{Cholesky} returns a upper triangular matrix {R} such that {Transpose(R)*R = A}.
+The matrix {A} must be positive definite, {Cholesky} will notify the user if the matrix
 is not. Some families of positive definite matrices are all symmetric matrices, diagonal
 matrices with positive elements and Hilbert matrices.
 

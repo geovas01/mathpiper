@@ -138,9 +138,11 @@ Retract("GREVLEXlt",*);
 *CALL
         npOrderTerms(newPoly,termOrder)
         npOrderTerms(newPoly).
+        
 *PARMS
-[[newPoly]   -- a NewPolynomial as created by [MakeNewPoly()]]
-[[termOrder] -- the Name of the term ordering to be used]
+{newPoly}   -- a NewPolynomial as created by {MakeNewPoly()}
+{termOrder} -- the Name of the term ordering to be used
+
 *DESC
 Given a newPolynomial such as $$[NP,[x,y,z],[2,1,2,0],[-3,0,1,1]]$$,
 this function specifies which of the acceptable term ordering modes
@@ -148,7 +150,7 @@ is to be used with this polynomial.
 
 Terms ordering is meaningless for univariate polynomials, but is very
 important for multivariate polynomials, because it specifies how the
-predicates [>] and [<] are to be interpreted with respect to the individual
+predicates {>} and {<} are to be interpreted with respect to the individual
 terms (actually, the power-products) in this polynomial.  
 
 Please consult a book or an article on multivariate polynomial arithmetic
@@ -156,11 +158,12 @@ to learn the reasons why this is significant, and the specific meanings and
 applications of the acceptable term orderings.
 
 Currently, The available acceptable Term Orderings are
-[LEX],
-[GRLEX],
-[GREVLEX]
+{LEX},
+{GRLEX},
+{GREVLEX}
 
-NOTE:  If [termOrder] is not specified, the [default] Term Ordering is [LEX].
+NOTE:  If {termOrder} is not specified, the {default} Term Ordering is {LEX}.
+
 *E.G.
 In> poly1 := MakeNewPoly(3*y^3-2*x^2+5*z+7);
 Result: [NP,[x,y,z],[-2,2,0,0],[3,0,3,0],[5,0,0,1],[7,0,0,0]]
@@ -192,21 +195,24 @@ Result: [NP,[x,y,z],[3,0,3,0],[-2,2,0,0],[5,0,0,1],[7,0,0,0]]
         GRLEXlt(term1,term2)
         GREVLEXgt(term1,term2)
         GREVLEXlt(term1,term2)
+        
 *PARMS
-[[term1] -- a single term]
-[[term2] -- another single term]
+{term1} -- a single term
+{term2} -- another single term
+
 *DESC
-LEXgt(term1,term2) returns [True] if term1 > term2 according to LEX ordering.
+LEXgt(term1,term2) returns {True} if term1 > term2 according to LEX ordering.
 
-LEXlt(term1,term2) returns [True] if term1 < term2 according to LEX ordering.
+LEXlt(term1,term2) returns {True} if term1 < term2 according to LEX ordering.
 
-GRLEXgt(term1,term2) returns [True] if term1 > term2 according to GRLEX ordering.
+GRLEXgt(term1,term2) returns {True} if term1 > term2 according to GRLEX ordering.
 
-GRLEXlt(term1,term2) returns [True] if term1 < term2 according to GRLEX ordering.
+GRLEXlt(term1,term2) returns {True} if term1 < term2 according to GRLEX ordering.
 
-GREVLEXgt(term1,term2) returns [True] if term1 > term2 according to GREVLEX ordering.
+GREVLEXgt(term1,term2) returns {True} if term1 > term2 according to GREVLEX ordering.
 
-GREVLEXlt(term1,term2) returns [True] if term1 < term2 according to GREVLEX ordering.
+GREVLEXlt(term1,term2) returns {True} if term1 < term2 according to GREVLEX ordering.
+
 *E.G.
 
 In> LEXgt([-2,2,0,0],[3,0,3,0])

@@ -57,9 +57,9 @@ Function() Maximum(l1, l2, l3, ...);
 
 *PARMS
 
-[x], [y] -- pair of values to determine the maximum of
+{x}, {y} -- pair of values to determine the maximum of
 
-[list] -- list of values from which the maximum is sought
+{list} -- list of values from which the maximum is sought
 
 *DESC
 

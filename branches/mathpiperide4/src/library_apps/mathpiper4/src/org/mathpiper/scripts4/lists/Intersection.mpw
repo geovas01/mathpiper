@@ -69,9 +69,9 @@ or
 
 *PARMS
 
-[L1], [L2] -- two lists
+{L1}, {L2} -- two lists
 or
-[ListOfLists]  --  a List of two or more lists
+{ListOfLists}  --  a List of two or more lists
 
 *DESC
 

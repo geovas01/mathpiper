@@ -14,7 +14,7 @@ AmicablePair?(m_PositiveInteger?,n_PositiveInteger?) <-- ( ProperDivisorsSum(m)=
 
 *PARMS
 
-[m], [n] -- positive integers
+{m}, {n} -- positive integers
 
 *DESC
 

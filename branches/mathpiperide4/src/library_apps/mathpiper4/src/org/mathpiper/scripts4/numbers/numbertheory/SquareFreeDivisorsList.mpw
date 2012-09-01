@@ -29,11 +29,11 @@ SquareFreeDivisorsList(n_PositiveInteger?) <--
         SquareFreeDivisorsList(n)
 *PARMS
 
-[n] -- positive integer
+{n} -- positive integer
 
 *DESC
 
-[SquareFreeDivisorsList] creates a list of the square-free divisors of $n$.
+{SquareFreeDivisorsList} creates a list of the square-free divisors of $n$.
 Square-free numbers are numbers that have only simple prime factors (no prime powers).
 For example, $18=2*3*3$ is not square-free because it contains a square of $3$ as a factor.
 

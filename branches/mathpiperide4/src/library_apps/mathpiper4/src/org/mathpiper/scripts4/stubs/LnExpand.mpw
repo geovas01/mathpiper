@@ -22,16 +22,16 @@
 
 *PARMS
 
-[expr] -- the logarithm of an expression
+{expr} -- the logarithm of an expression
 
 *DESC
 
-[LnExpand] takes an expression of the form $Ln(expr)$, and applies logarithm
-rules to expand this into multiple [Ln] expressions where possible.  An
+{LnExpand} takes an expression of the form $Ln(expr)$, and applies logarithm
+rules to expand this into multiple {Ln} expressions where possible.  An
 expression like $Ln(a*b^n)$ would be expanded to $Ln(a)+n*Ln(b)$.
 
-If the logarithm of an integer is discovered, it is factorised using [Factors]
-and expanded as though [LnExpand] had been given the factorised form.  So 
+If the logarithm of an integer is discovered, it is factorised using {Factors}
+and expanded as though {LnExpand} had been given the factorised form.  So 
 $Ln(18)$ goes to $Ln(x)+2*Ln(3)$.
 
 *E.G.

@@ -40,9 +40,9 @@ Apart(_f,_var) <--
 
 *PARMS
 
-[expression] -- a rational function
+{expression} -- a rational function
 
-[var] -- specify that all variables other than [var] are constants
+{var} -- specify that all variables other than {var} are constants
 
 *DESC
 Creates a partial fraction expansion of a rational function.

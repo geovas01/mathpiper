@@ -198,13 +198,13 @@ CyclotomicFactor(_a,_b) <--
 
 *PARMS
 
-[n] -- positive integer
+{n} -- positive integer
 
-[x] -- variable
+{x} -- variable
 
 *DESC
 
-Returns the cyclotomic polynomial in the variable [x]
+Returns the cyclotomic polynomial in the variable {x}
 (which is the minimal polynomial of the $n$-th primitive
 roots of the unit, over the field of rational numbers).
  
@@ -218,9 +218,9 @@ For $n$ odd, the algorithm is based on the formula
 $$ Cyclotomic(n,x) := Prod((x^(n/d)-1)^mu(d)) $$,
 where $d$ runs through the divisors of $n$.
 In order to compute this in a efficient way, we use the function
-[MoebiusDivisorsList]. Then we compute in [poly1] the product
-of $x^(n/d)-1$ with $mu(d)=1$ , and in [poly2] the product of these polynomials
-with  $mu(d)= -1$. Finally we compute the quotient [poly1]/[poly2].
+{MoebiusDivisorsList}. Then we compute in {poly1} the product
+of $x^{n/d}-1$ with $mu(d)=1$ , and in {poly2} the product of these polynomials
+with  $mu(d)= -1$. Finally we compute the quotient {poly1}/{poly2}.
 
 *SEE RamanujanSum
 %/mathpiper_docs

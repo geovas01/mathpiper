@@ -33,11 +33,11 @@ LagrangeInterpolant(list_List?,_values,_var) <--
 
 *PARMS
 
-[xlist] -- list of argument values
+{xlist} -- list of argument values
 
-[ylist] -- list of function values
+{ylist} -- list of function values
 
-[var] -- free variable for resulting polynomial
+{var} -- free variable for resulting polynomial
 
 *DESC
 

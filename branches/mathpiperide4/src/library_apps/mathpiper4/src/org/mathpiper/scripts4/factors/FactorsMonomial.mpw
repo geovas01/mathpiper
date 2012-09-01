@@ -53,11 +53,11 @@
 
 *PARMS
 
-[expr] -- an expression representing a Monomial
+{expr} -- an expression representing a Monomial
 
 *DESC
 
-This function decomposes the [expr] into a product of numbers and variables 
+This function decomposes the {expr} into a product of numbers and variables 
 raised to various powers.
 
 The factorization is returned as a list of pairs.  The first member of
@@ -67,9 +67,9 @@ raised.
 
 Thus, the factorization  
 $expr = p1^n1 * ... * p9^n9$ 
-is returned as [[(p1,n1), ..., (p9,n9)]].
+is returned as {[(p1,n1), ..., (p9,n9)]}.
 
-If [expr] is not a monomial, the function returns unevaluated.
+If {expr} is not a monomial, the function returns unevaluated.
 
 NOTE: numerical factors are not decomposed into their prime factorization.
 

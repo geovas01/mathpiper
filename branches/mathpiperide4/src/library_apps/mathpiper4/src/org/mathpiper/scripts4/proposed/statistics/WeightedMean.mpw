@@ -44,9 +44,9 @@ WeightedMean(list) :=
 
 *PARMS
 
-[value] -- a value.
+{value} -- a value.
 
-[weight] -- the weight to associate with the value.
+{weight} -- the weight to associate with the value.
 
 *DESC 
 This function allows more weight to be associated with certain values and

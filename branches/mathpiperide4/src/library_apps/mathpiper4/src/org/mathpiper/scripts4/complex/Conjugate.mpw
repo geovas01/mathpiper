@@ -18,7 +18,7 @@ Function("Conjugate",[a])
 
 *PARMS
 
-[x] -- argument to the function
+{x} -- argument to the function
 
 *DESC
 

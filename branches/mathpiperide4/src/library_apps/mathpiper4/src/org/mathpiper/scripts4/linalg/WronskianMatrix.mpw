@@ -15,13 +15,13 @@ WronskianMatrix(f,v):=GenMatrix([[i,j], Deriv(v,i-1) f[j]], Length(f), Length(f)
         WronskianMatrix(func,var)
 *PARMS
 
-[func] -- an $n$-dimensional vector of functions
+{func} -- an $n$-dimensional vector of functions
 
-[var] -- a variable to differentiate with respect to
+{var} -- a variable to differentiate with respect to
 
 *DESC
 
-The function [WronskianMatrix] calculates the Wronskian matrix
+The function {WronskianMatrix} calculates the Wronskian matrix
 of $n$ functions.
 
 The Wronskian matrix is created by putting each function as the

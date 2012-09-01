@@ -17,7 +17,7 @@ Function("Union",[list1,list2])
 
 *PARMS
 
-[l1], [l2] -- two lists
+{l1}, {l2} -- two lists
 
 *DESC
 

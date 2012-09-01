@@ -51,7 +51,7 @@ Shuffle(list) :=
 
 *PARMS
 
-[list] -- a list of elements
+{list} -- a list of elements
 
 *DESC
 This function takes a list of elements and shuffles them.  A new

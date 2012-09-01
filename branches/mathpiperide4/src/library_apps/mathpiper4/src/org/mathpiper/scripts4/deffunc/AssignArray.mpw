@@ -53,11 +53,11 @@ RuleHoldArguments("AssignArray",3 , 2, True)
 
 *PARMS
 
-[listOrAssociationList] -- a list or an association list
+{listOrAssociationList} -- a list or an association list
 
-[indexOrKey] -- an index or a string which is a key
+{indexOrKey} -- an index or a string which is a key
 
-[newValue] -- the new value to place into the list or the association list
+{newValue} -- the new value to place into the list or the association list
 
 
 *DESC

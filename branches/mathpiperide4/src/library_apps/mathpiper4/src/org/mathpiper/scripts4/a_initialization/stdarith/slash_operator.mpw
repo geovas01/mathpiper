@@ -142,7 +142,7 @@ Precedence:
 
 *PARMS
 
-[x] and [y] -- objects for which arithmetic division is defined
+{x} and {y} -- objects for which arithmetic division is defined
 
 *DESC
 

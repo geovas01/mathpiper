@@ -84,9 +84,9 @@ CombinationsList(inputList, r) :=
         CombinationsList(list,r)
 
 *PARMS
-[list] -- a list of elements
+{list} -- a list of elements
 
-[r] -- the combinations from [list] are to be taken [r] at a time
+{r} -- the combinations from {list} are to be taken {r} at a time
 
 *DESC
 This function returns a list which contains all of the combinations of the elements in a 

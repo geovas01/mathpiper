@@ -59,9 +59,9 @@ HoldArgumentNumber("VerifySolve", 2, 1);
 
 *PARMS
 
-[expression] -- expression to be checked
+{expression} -- expression to be checked
 
-[answer] -- expected result
+{answer} -- expected result
 
 
 *DESC
@@ -73,9 +73,9 @@ something "equal" to 'answer', and complains explicitly if it doesn't.
    o  for lists: having the same entries, possibly in a different order;
    o  for equations: having the same right-hand sides, possibly after 'Simplify';
    o  in all other cases: equality, possible after 'Simplify'.
-  Hence, [ a == 1, a == x+1 ] is "equal" to [ a == 1+x, a == 1 ].
+  Hence, { a == 1, a == x+1 } is "equal" to { a == 1+x, a == 1 }.
 
-The command [VerifySolve] is usually employed to verify that an equation or
+The command {VerifySolve} is usually employed to verify that an equation or
 set of equations has been solved correctly.   
 
 But it also has a wider applicability.

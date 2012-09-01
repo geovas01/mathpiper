@@ -35,9 +35,9 @@ CartesianProduct(xList_List?, yList_List?) <--
 
 *PARMS
 
-[list1] -- a list
+{list1} -- a list
 
-[list2] -- a list
+{list2} -- a list
 
 *DESC
 

@@ -43,7 +43,7 @@
 
 *PARMS
 
-[p] - a univariate polynomial
+{p} - a univariate polynomial
 
 *DESC
 

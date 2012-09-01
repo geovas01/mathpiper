@@ -136,7 +136,7 @@ Precedence:
 
 *PARMS
 
-[x] and [y] -- objects for which arithmetic multiplication is defined
+{x} and {y} -- objects for which arithmetic multiplication is defined
 
 *DESC
 

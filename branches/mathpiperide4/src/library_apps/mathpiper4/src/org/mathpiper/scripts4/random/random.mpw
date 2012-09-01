@@ -314,15 +314,15 @@ Function("Random",[]) Random3();
         RandomSeed(init)
 
 *PARAMS
-[init] -- positive integer, initial random seed
+{init} -- positive integer, initial random seed
 
 *DESC
 
-The function [Random] returns a random number, uniformly distributed in the
+The function {Random} returns a random number, uniformly distributed in the
 interval between 0 and 1. The same sequence of random numbers is
 generated in every MathPiper session.
 
-The random number generator can be initialized by calling [RandomSeed] with an integer value.
+The random number generator can be initialized by calling {RandomSeed} with an integer value.
 Each seed value will result in the same sequence of pseudo-random numbers.
 
 *SEE RandomInteger, RandomPoly, Rng, Random, RandomIntegerList, RandomIntegerMatrix
@@ -345,36 +345,36 @@ Each seed value will result in the same sequence of pseudo-random numbers.
         Rng(r)
         
 *PARMS
-[init] -- integer, initial seed value
+{init} -- integer, initial seed value
 
-[option] -- atom, option name
+{option} -- atom, option name
 
-[value] -- atom, option value
+{value} -- atom, option value
 
-[r] -- a list, RNG object
+{r} -- a list, RNG object
 
 *DESC
 These commands are an object-oriented interface to (pseudo-)random number generators (RNGs).
 
-[RngCreate] returns a list which is a well-formed RNG object.
-Its value should be saved in a variable and used to call [Rng] and [RngSeed].
+{RngCreate} returns a list which is a well-formed RNG object.
+Its value should be saved in a variable and used to call {Rng} and {RngSeed}.
 
-[Rng(r)] returns a floating-point random number between 0 and 1 and updates the RNG object [r].
+{Rng(r)} returns a floating-point random number between 0 and 1 and updates the RNG object {r}.
 (Currently, the Gaussian option makes a RNG return a <i>complex</i> random number instead of a real random number.)
 
-[RngSeed(r,init)] re-initializes the RNG object [r] with the seed value [init].
+{RngSeed(r,init)} re-initializes the RNG object {r} with the seed value {init}.
 The seed value should be a positive integer.
 
-The [RngCreate] function accepts several options as arguments.
+The {RngCreate} function accepts several options as arguments.
 Currently the following options are available:
 
-*        [seed] -- specify initial seed value, must be a positive integer
-*        [dist] -- specify the distribution of the random number; currently [flat] and [gauss] are implemented, and the default is the flat (uniform) distribution
-*        [engine] -- specify the RNG engine; currently [default] and [advanced] are available ("advanced" is slower but has much longer period)
+*        {seed} -- specify initial seed value, must be a positive integer
+*        {dist} -- specify the distribution of the random number; currently {flat} and {gauss} are implemented, and the default is the flat (uniform) distribution
+*        {engine} -- specify the RNG engine; currently {default} and {advanced} are available ("advanced" is slower but has much longer period)
 
 If the initial seed is not specified, the value of 76544321 will be used.
 
-The [gauss] option will create a RNG object that generates pairs of Gaussian distributed random numbers as a complex random number.
+The {gauss} option will create a RNG object that generates pairs of Gaussian distributed random numbers as a complex random number.
 The real and the imaginary parts of this number are independent random numbers taken from a Gaussian (i.e. "normal") distribution with unit variance.
 
 For the Gaussian distribution, the Box-Muller transform method is used.
@@ -383,9 +383,9 @@ generates normally distributed random numbers, can be found in Knuth,
 "The Art of Computer Programming", Volume 2 (Seminumerical algorithms, third 
 edition), section 3.4.1 
 
-Note that unlike the global [Random] function, the RNG objects created with [RngCreate] are independent RNGs and do not affect each other.
+Note that unlike the global {Random} function, the RNG objects created with {RngCreate} are independent RNGs and do not affect each other.
 They generate independent streams of pseudo-random numbers.
-However, the [Random] function is slightly faster.
+However, the {Random} function is slightly faster.
 
 *E.G.
 

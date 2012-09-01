@@ -28,17 +28,17 @@ LocalSymbols(predicate,list,result,item)
 
 *PARMS
 
-[pred] -- a predicate
+{pred} -- a predicate
 
-[list] -- a list of elements to select from
+{list} -- a list of elements to select from
 
 *DESC
 
-[Select] returns a sublist of "list" which contains all
+{Select} returns a sublist of "list" which contains all
 the entries for which the predicate "pred" returns
-[True] when applied to this entry.
+{True} when applied to this entry.
 
-The [Lambda] function can be used in place of a predicate function
+The {Lambda} function can be used in place of a predicate function
 if desired.
 
 *E.G.

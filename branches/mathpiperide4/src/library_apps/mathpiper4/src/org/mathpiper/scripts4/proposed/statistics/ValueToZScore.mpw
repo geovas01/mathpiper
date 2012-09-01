@@ -25,9 +25,9 @@ ValueToZScore(value,mean,standardDeviation) :=
 
 *PARMS
 
-[numericalValue] -- a numerical value
-[mean] -- the mean
-[standardDeviation] -- the standard deviation
+{numericalValue} -- a numerical value
+{mean} -- the mean
+{standardDeviation} -- the standard deviation
 
 *DESC
 This function calculates the z-score for a given numerical value.

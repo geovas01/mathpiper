@@ -86,7 +86,7 @@ by factoring its norm
 
 *PARMS
 
-[z] -- Gaussian integer
+{z} -- Gaussian integer
 
 *DESC
 
@@ -102,7 +102,7 @@ where $u$ is a Gaussian unit and $p[1]$, $p[2]$, ..., $p[s]$ are Gaussian primes
 The factorization is returned as a list of pairs. The first member of
 each pair is the factor (a Gaussian integer) and the second member denotes the power to
 which this factor should be raised. So the factorization is returned as 
-a list, e.g. [[[p1,n1], [p2,n2], ...]].
+a list, e.g. {[[p1,n1], [p2,n2], ...]}.
 
 *E.G.
 In> GaussianFactors(5)

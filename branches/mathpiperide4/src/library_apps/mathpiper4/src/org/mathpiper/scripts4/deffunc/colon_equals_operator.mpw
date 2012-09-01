@@ -102,19 +102,19 @@ Precedence:
 
 *PARMS
 
-[var] -- atom, variable which should be assigned
+{var} -- atom, variable which should be assigned
 
-[expr] -- expression to assign to the variable or body of function
+{expr} -- expression to assign to the variable or body of function
 
-[i] -- index (can be integer or string)
+{i} -- index (can be integer or string)
 
-[fn] -- atom, name of a new function to define
+{fn} -- atom, name of a new function to define
 
-[arg1], [arg2] -- atoms, names of arguments of the new function [fn]
+{arg1}, {arg2} -- atoms, names of arguments of the new function {fn}
 
 *DESC
 
-The [:=] operator can be used
+The {:=} operator can be used
 in a number of ways. In all cases, some sort of assignment or definition takes
 place.
 
@@ -139,17 +139,17 @@ the list is at least "i". If the index "i" is a string, then
 "var" is considered to be an associative list (sometimes called hash
 table), and the key "i" is paired with the value "exp". In both
 cases, the right-hand side is evaluated before the assignment and the
-result of the assignment is [True].
+result of the assignment is {True}.
 
-The last form defines a function. For example, the assignment [fn(x) := x^2]
-removes any rules previously associated with [fn(x)] and defines the rule
-[fn(_x) <-- x^2]. Note that the left-hand side may take a different form if
-[fn] is defined to be a prefix, infix or bodied function. This case
+The last form defines a function. For example, the assignment {fn(x) := x^2}
+removes any rules previously associated with {fn(x)} and defines the rule
+{fn(_x) <-- x^2}. Note that the left-hand side may take a different form if
+{fn} is defined to be a prefix, infix or bodied function. This case
 is special since the right-hand side is not evaluated
-immediately, but only when the function [fn] is used. If this takes
-time, it may be better to force an immediate evaluation with [Eval]
+immediately, but only when the function {fn} is used. If this takes
+time, it may be better to force an immediate evaluation with {Eval}
 (see the last example). If the expression on the right hand side begins
-with [Eval()], then it <i>will</i> be evaluated before defining the new function.
+with {Eval()}, then it <i>will</i> be evaluated before defining the new function.
 
 A variant of the function definition can be used to make a function
 accepting a variable number of arguments.

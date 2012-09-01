@@ -21,9 +21,9 @@ Remove(list, expression) :=
 
 *PARMS
 
-[list] -- list to act on
+{list} -- list to act on
 
-[expr] -- expression to look for in "list"
+{expr} -- expression to look for in "list"
 
 *DESC
 

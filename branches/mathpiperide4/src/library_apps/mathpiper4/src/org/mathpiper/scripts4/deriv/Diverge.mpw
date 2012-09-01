@@ -16,9 +16,9 @@ RuleHoldArguments("Diverge", 2, 1, List?(aBasis) And? List?(aFunc) And? Length(a
 
 *PARMS
 
-[vector] -- vector field to calculate the divergence of
+{vector} -- vector field to calculate the divergence of
 
-[basis] -- list of variables forming the basis
+{basis} -- list of variables forming the basis
 
 *DESC
 
@@ -27,7 +27,7 @@ with respect to the variables "basis". The divergence is defined as
 
         Diverge(f,x) = Differentiate(x[1]) f[1] + ...
             + Differentiate(x[n]) f[n],
-where [n] is the length of the lists "vector" and
+where {n} is the length of the lists "vector" and
 "basis". These lists should have equal length.
 
 *E.G.

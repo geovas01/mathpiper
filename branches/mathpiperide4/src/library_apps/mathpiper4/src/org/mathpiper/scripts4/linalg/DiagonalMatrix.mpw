@@ -24,7 +24,7 @@ Function("DiagonalMatrix",[list])
 
 *PARMS
 
-[d] -- list of values to put on the diagonal
+{d} -- list of values to put on the diagonal
 
 *DESC
 

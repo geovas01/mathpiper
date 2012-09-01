@@ -28,13 +28,15 @@
 
 *CALL
 CollectOn( var, expr )
+
 *PARMS
-[var]  -- The variable on which to collect
-[expr] -- a polynomial-like expression containing one or more terms in variable [var]
+{var}  -- The variable on which to collect
+{expr} -- a polynomial-like expression containing one or more terms in variable {var}
+
 *DESC
-This function collects the terms of [expr] into a list according to the power of 
-variable [var]. The list always begins with the zeroth power in [var] and 
-contains [n+1] elements, where [n] is the highest power of [var] present in [expr].
+This function collects the terms of {expr} into a list according to the power of 
+variable {var}. The list always begins with the zeroth power in {var} and 
+contains {n+1} elements, where {n} is the highest power of {var} present in {expr}.
     
 
 *E.G.

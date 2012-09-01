@@ -28,30 +28,30 @@ HoldArgumentNumber("For",4,4);
 
 *PARMS
 
-[init] -- expression for performing the initialization
+{init} -- expression for performing the initialization
 
-[pred] -- predicate deciding whether to continue the loop
+{pred} -- predicate deciding whether to continue the loop
 
-[incr] -- expression to increment the counter
+{incr} -- expression to increment the counter
 
-[body] -- expression to loop over
+{body} -- expression to loop over
 
 *DESC
 
-This commands implements a C style [for] loop. First
+This commands implements a C style {for} loop. First
 of all, the expression "init" is evaluated. Then the predicate
-"pred" is evaluated, which should return [True] or
-[False]. Next the loop is executed as long as the
-predicate yields [True]. One traversal of the loop
+"pred" is evaluated, which should return {True} or
+{False}. Next the loop is executed as long as the
+predicate yields {True}. One traversal of the loop
 consists of the subsequent evaluations of "body", "incr", and
-"pred". Finally, the value [True] is returned.
+"pred". Finally, the value {True} is returned.
 
-This command is most often used in a form such as [For(i := 1, i <=? 10, i++) body], which evaluates [body] with
-[i] subsequently set to 1, 2, 3, 4, 5, 6, 7, 8, 9,
+This command is most often used in a form such as {For(i := 1, i <=? 10, i++) body}, which evaluates {body} with
+{i} subsequently set to 1, 2, 3, 4, 5, 6, 7, 8, 9,
 and 10.
 
-The expression [For(init, pred, incr) body] is
-equivalent to [init; While(pred) [body; incr;]].
+The expression {For(init, pred, incr) body} is
+equivalent to {init; While(pred) {body; incr;}}.
 
 *E.G. notest
 

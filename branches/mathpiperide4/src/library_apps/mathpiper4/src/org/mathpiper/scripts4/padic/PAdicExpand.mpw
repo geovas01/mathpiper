@@ -58,9 +58,9 @@ Expand(x); /* TODO no idea why this is needed! Mod/Div/UniVariate thing :-( */
 
 *PARMS
 
-[n] -- number or polynomial to expand
+{n} -- number or polynomial to expand
 
-[p] -- base to expand in
+{p} -- base to expand in
 
 *DESC
 

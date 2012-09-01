@@ -36,12 +36,12 @@ Function("Inverse",[matrix])
 
 *PARMS
 
-[M] -- a matrix
+{M} -- a matrix
 
 *DESC
 
 Inverse returns the inverse of matrix $M$. The determinant of $M$ should
-be non-zero. Because this function uses [Determinant] for calculating
+be non-zero. Because this function uses {Determinant} for calculating
 the inverse of a matrix, you can supply matrices with non-numeric (symbolic)
 matrix elements.
 

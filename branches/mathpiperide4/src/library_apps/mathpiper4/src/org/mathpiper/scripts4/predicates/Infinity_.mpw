@@ -21,12 +21,12 @@
 
 *PARMS
 
-[expr] -- expression to test
+{expr} -- expression to test
 
 *DESC
 
-This function tests whether [expr] is an infinity. This is only the
-case if [expr] is either [Infinity] or [-Infinity].
+This function tests whether {expr} is an infinity. This is only the
+case if {expr} is either {Infinity} or {-Infinity}.
 
 *E.G.
 

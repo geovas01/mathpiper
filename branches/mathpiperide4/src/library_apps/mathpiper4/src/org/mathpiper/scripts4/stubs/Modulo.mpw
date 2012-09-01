@@ -71,14 +71,14 @@
 
 *PARMS
 
-[x], [y] -- integers or univariate polynomials
-[vars]   -- a list containing the name of the (single) variable appearing in both polynomials
+{x}, {y} -- integers or univariate polynomials
+{vars}   -- a list containing the name of the (single) variable appearing in both polynomials
 
 *DESC
 
-[Modulo] returns the remainder after division.  [Modulo] is also defined for univariate polynomials.
+{Modulo} returns the remainder after division.  {Modulo} is also defined for univariate polynomials.
 
-If [Quotient(x,y)] returns "a" and [Modulo(x,y)] equals "b", then these numbers satisfy $x =a*y + b$ and $0 <= b < y$.
+If {Quotient(x,y)} returns "a" and {Modulo(x,y)} equals "b", then these numbers satisfy $x =a*y + b$ and $0 <= b < y$.
 
 The second form of the function contains a third parameter, and is used in the special case where the 
 the "divisor" polynomial contains an unbound "variable" which is really just a parameter.  

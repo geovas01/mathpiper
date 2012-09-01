@@ -22,8 +22,8 @@ Combinations(n,m) := BinomialCoefficient(n,m);
 
 *PARMS
 
-[n] -- integer - total number of objects
-[r] -- integer - number of objects chosen
+{n} -- integer - total number of objects
+{r} -- integer - number of objects chosen
 
 *DESC
 
@@ -38,7 +38,7 @@ and it is thought of as the coefficient of the x^r term in the polynomial expans
 of the binomial power (1 + x)^n.
 
 The binomial coefficient is defined to be zero
-if "r" is negative or greater than "n"; [BinomialCoefficient(0,0)]=1.
+if "r" is negative or greater than "n"; {BinomialCoefficient(0,0)}=1.
 
 
 *E.G.

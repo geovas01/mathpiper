@@ -14,7 +14,7 @@ GaussianNorm(z_GaussianInteger?) <-- Re(z)^2+Im(z)^2;
 
 *PARMS
 
-[z] -- Gaussian integer
+{z} -- Gaussian integer
 
 *DESC
 

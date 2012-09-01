@@ -33,7 +33,7 @@ RationalOrNumber?(_x) <-- (Number?(x) Or? RationalNumeric?(x));
 
 *PARMS
 
-[expr] -- expression to test
+{expr} -- expression to test
 
 *DESC
 

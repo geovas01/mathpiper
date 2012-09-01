@@ -83,19 +83,19 @@ VerifyNumeric(expression1, expression2) :=
     Verify(numericExpression1,numericExpression2)
 
 *PARMS
-[symbolicExpression1] -- a symbolic expression
+{symbolicExpression1} -- a symbolic expression
 
-[symbolicExpression2] -- a symbolic expression
+{symbolicExpression2} -- a symbolic expression
 
-[variableAssignmentList] -- a list which contains variable assignments in the form [b->7,a->4]
+{variableAssignmentList} -- a list which contains variable assignments in the form {b->7,a->4}
 
-[numericExpression1] -- a numeric expression
+{numericExpression1} -- a numeric expression
 
-[numericExpression2] -- a numeric expression
+{numericExpression2} -- a numeric expression
 
 *DESC
 The symbolic expression version of this function numerically evaluates two symbolic expressions to indicate if
-they may be equivalent or not.  The values to set the variables to are contained in [variableAssignmentList].
+they may be equivalent or not. The values to set the variables to are contained in {variableAssignmentList}.
 
 The numeric expression version of this function evaluates two numeric expressions to indicate if they are
 equivalent or not.

@@ -108,15 +108,15 @@
 *CALL
         RoundToPrecision(number,precision)
 *PARMS
-[number] -- a number (Decimal, Integer, or Complex) whose precision is to be changed
-[precision] -- the new precision to be used
+{number} -- a number (Decimal, Integer, or Complex) whose precision is to be changed
+{precision} -- the new precision to be used
 
 
 *DESC
-This function changes the precision of an [arbitrary-precision number] (A.P.N.).
-If the new precision is less than the original precision, the [significand]
+This function changes the precision of an {arbitrary-precision number} (A.P.N.).
+If the new precision is less than the original precision, the {significand}
 will be appropriately rounded.  If the new precision is greater than the 
-original precision, terminal zeros will be appended to the [significand]
+original precision, terminal zeros will be appended to the {significand}
 and the indicated precision will be reset accordingly.
 
 Internally, MathPiper represents an A.P.N. as Java a BigIntegers or
@@ -126,17 +126,17 @@ All the information needed to correctly understand the precision attached to a n
 and the rounding and comparison thereof, is contained in the Java structure.
 
 For a Decimal number (essentially anything with a decimal point), the representation
-consists of an arbitrary-precision integer (called the [significand]) containing [all]
-the significant digits of the number, and a [scale factor] telling where the implied 
+consists of an arbitrary-precision integer (called the {significand}) containing {all}
+the significant digits of the number, and a {scale factor} telling where the implied 
 decimal point is supposed to be placed with respect to the end of this integer.  
-The [precision] of the number is usually just the number of digits in the 
-[significand].
+The {precision} of the number is usually just the number of digits in the 
+{significand}.
 
 The three components of the List representing a decimal number are, respectively,
-[[BigInteger (unscaled), Precision, ScaleFactor]].
+{{BigInteger (unscaled), Precision, ScaleFactor}}.
 Note that the second of these is redundent: only the BigInteger and the ScaleFactor
 are needed to completely define the number.  The name 'BigInteger' is Java's
-terminology for the [significand].
+terminology for the {significand}.
 
 For an Integer number, the integer is its own significand, and again, the number of
 its digits gives its precision.  The representation is still a list, with the number
@@ -145,13 +145,13 @@ as first component and its precision as second.
 For a Complex number, the representation is a List of Lists,
 containing the representations of the Real and Imaginary parts of the number.
 
-The best way to [consistently] deal with precision and rounding issues is by making use
+The best way to {consistently} deal with precision and rounding issues is by making use
 of the information given by the representation (or "rep" for short)..
 
 NOTE:  It is important to recognize the distinction (often misused or misunderstood)
 between rounding "to a specified precision" (which this function does) and rounding
 "to a specified number of decimal places", which in MathPiper is accomplished by
-the function [RoundToPlace] (q.v.).  
+the function {RoundToPlace} (q.v.).  
 
 For Decimal numbers and Decimal Complex numbers, the concept of Rounding DOWN to a 
 given precision is well understood, and the concept of Rounding UP is pretty
@@ -167,6 +167,7 @@ two trailing zeros appended to it.  In the latter case, the new integer is
 arguably not any kind of approximation of the old one.  
 
 On the whole, it is probably best NOT to round integers UP.
+
 *E.G.
 In> dec:=123.45678
 Result: 123.45678

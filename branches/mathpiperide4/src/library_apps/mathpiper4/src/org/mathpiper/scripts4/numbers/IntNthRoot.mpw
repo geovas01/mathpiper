@@ -88,12 +88,12 @@ IntNthRoot1(_n, s_Integer?) <--
 
 *PARMS
 
-[x], [n] -- positive integers
+{x}, {n} -- positive integers
 
 *DESC
 
-[IntNthRoot] calculates the integer part of the $n$-th root of $x$. The algorithm uses only 
-integer math and may be faster than computing $x^(1/n)$ with floating-point and rounding.
+{IntNthRoot} calculates the integer part of the $n$-th root of $x$. The algorithm uses only 
+integer math and may be faster than computing $x^{1/n}$ with floating-point and rounding.
 
 This function is used to test numbers for prime powers.
 

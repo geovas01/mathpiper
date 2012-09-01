@@ -55,15 +55,15 @@ UnFence("Where",2);
 
 *PARMS
 
-[expr] - expression to evaluate
+{expr} - expression to evaluate
 
-[x] - variable to set
+{x} - variable to set
 
-[v] - value to substitute for variable
+{v} - value to substitute for variable
 
 *DESC
 
-The operator [Where] fills in values for variables, in its simplest form.
+The operator {Where} fills in values for variables, in its simplest form.
 It accepts sets of variable/value pairs defined as 
 
         var1==val1 And? var2==val2 And? ...
@@ -71,9 +71,9 @@ It accepts sets of variable/value pairs defined as
 and fills in the corresponding values. Lists of value pairs are
 also possible, as:
 
-        [var1==val1 And? var2==val2, var1==val3 And? var2==val4]
+        {var1==val1 And? var2==val2, var1==val3 And? var2==val4}
 
-These values might be obtained through [Solve].
+These values might be obtained through {Solve}.
 
 This operator can help the user to program in the style of functional programming languages such as Miranda or Haskell.
 

@@ -23,9 +23,9 @@ Distance(PointA_Point?,PointB_Point?) <--
         Distance(p1, p2)
 *PARMS
 
-[p1] -- the first point
+{p1} -- the first point
 
-[p2] -- the second point
+{p2} -- the second point
 
 *DESC
 

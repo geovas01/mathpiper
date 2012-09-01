@@ -53,15 +53,15 @@ Function("SylvesterMatrix",[poly1, poly2, var])
 
 *PARMS
 
-[poly1] -- polynomial
+{poly1} -- polynomial
 
-[poly2] -- polynomial
+{poly2} -- polynomial
 
-[variable] -- variable to express the matrix for
+{variable} -- variable to express the matrix for
 
 *DESC
 
-The function [SylvesterMatrix] calculates the Sylvester matrix
+The function {SylvesterMatrix} calculates the Sylvester matrix
 for a pair of polynomials.
 
 The Sylvester matrix is closely related to the resultant, which

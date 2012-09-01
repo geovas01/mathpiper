@@ -61,13 +61,13 @@ ReversePoly(_f,_g,_var,_newvar,_degree) <--
 
 *PARMS
 
-[f], [g] -- functions of "var"
+{f}, {g} -- functions of "var"
 
-[var] -- a variable
+{var} -- a variable
 
-[newvar] -- a new variable to express the result in
+{newvar} -- a new variable to express the result in
 
-[degree] -- the degree of the required solution
+{degree} -- the degree of the required solution
 
 *DESC
 

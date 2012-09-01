@@ -52,10 +52,10 @@ RegressionLineConfidenceInterval(x,y,xValue,confidenceLevel) :=
 
 *PARMS
 
-[xList] -- the list of domain values
-[yList] -- the list of range values
-[xValue] -- a value of x to calculate the confidence interval around
-[confidenceLevel] -- the desired level of confidence
+{xList} -- the list of domain values
+{yList} -- the list of range values
+{xValue} -- a value of x to calculate the confidence interval around
+{confidenceLevel} -- the desired level of confidence
 
 *DESC
 This function calculates the correlation coefficient between two lists of values.

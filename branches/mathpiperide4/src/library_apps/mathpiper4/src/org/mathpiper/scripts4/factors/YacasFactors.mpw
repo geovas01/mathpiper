@@ -202,7 +202,7 @@
 
 *PARMS
 
-[x] -- integer or univariate polynomial
+{x} -- integer or univariate polynomial
 
 *DESC
 
@@ -211,10 +211,10 @@ slightly modified for Mathpiper to improve some of its capabilities.
 It has now been superceeded in MathPiper by the function xFactors(),
 which has a large number of improvements.
 
-This function decomposes the integer number [x] into a product of
+This function decomposes the integer number {x} into a product of
 numbers. 
-Alternatively, if [x] is a univariate polynomial, it is
-decomposed into irreducible polynomials.  If [x] is a polynomial
+Alternatively, if {x} is a univariate polynomial, it is
+decomposed into irreducible polynomials.  If {x} is a polynomial
 "over the integers", the irreducible polynomial factors will also
 be returned in the (unique) form with integer coefficients.
 
@@ -222,7 +222,7 @@ The factorization is returned as a list of pairs. The first member of
 each pair is the factor, while the second member denotes the power to
 which this factor should be raised. So the factorization
 $x = p1^n1 * ... * p9^n9$
-is returned as [[[p1,n1], ..., [p9,n9]]].
+is returned as {[[p1,n1], ..., [p9,n9]]}.
 
 Programmer: Yacas Team + Sherm Ostrowsky
 

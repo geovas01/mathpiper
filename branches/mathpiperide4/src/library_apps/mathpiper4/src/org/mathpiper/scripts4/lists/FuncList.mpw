@@ -57,21 +57,21 @@ HoldArgumentNumber("FuncList", 2, 1);
 
 *PARMS
 
-[expr] -- an expression
+{expr} -- an expression
 
-[list] -- list of function atoms to be considered "transparent"
+{list} -- list of function atoms to be considered "transparent"
 
 *DESC
 
-The command [FuncList(expr)] returns a list of all function atoms that appear
-in the expression [expr]. The expression is recursively traversed.
+The command {FuncList(expr)} returns a list of all function atoms that appear
+in the expression {expr}. The expression is recursively traversed.
 
-The command [FuncListSome(expr, list)] does the same, except it only looks at arguments of a given [list] of functions. All other functions become "opaque" (as if they do not contain any other functions).
-For example, [FuncListSome(a + Sin(b-c))] will see that the expression has a "[-]" operation and return [[+,Sin,-]], but [FuncListSome(a + Sin(b-c), [+])] will not look at arguments of [Sin()] and will return [[+,Sin]].
+The command {FuncListSome(expr, list)} does the same, except it only looks at arguments of a given {list} of functions. All other functions become "opaque" (as if they do not contain any other functions).
+For example, {FuncListSome(a + Sin(b-c))} will see that the expression has a "{-}" operation and return {{+,Sin,-}}, but {FuncListSome(a + Sin(b-c), {+})} will not look at arguments of {Sin()} and will return {{+,Sin}}.
 
-[FuncListArith] is defined through [FuncListSome] to look only at arithmetic operations [+], [-], [*], [/].
+{FuncListArith} is defined through {FuncListSome} to look only at arithmetic operations {+}, {-}, {*}, {/}.
 
-Note that since the operators "[+]" and "[-]" are prefix as well as infix operators, it is currently required to use [ToAtom("+")] to obtain the unevaluated atom "[+]".
+Note that since the operators "{+}" and "{-}" are prefix as well as infix operators, it is currently required to use {ToAtom("+")} to obtain the unevaluated atom "{+}".
 
 *E.G. notest
 

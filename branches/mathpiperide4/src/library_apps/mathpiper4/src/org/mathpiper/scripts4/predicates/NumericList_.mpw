@@ -16,10 +16,10 @@ NumericList?(_arglist) <-- List?(arglist) And?
 
 *PARMS
 
-[[list]] -- a list
+{{list}} -- a list
 
 *DESC
-Returns [True] when called on a list of numbers or expressions that evaluate to numbers using [N()]. Returns [False] otherwise.
+Returns {True} when called on a list of numbers or expressions that evaluate to numbers using {N()}. Returns {False} otherwise.
 
 *SEE N, Number?
 %/mathpiper_docs

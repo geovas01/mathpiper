@@ -15,14 +15,14 @@ Function ("Boolean?", [x])
 
 *PARMS
 
-[expression] -- an expression
+{expression} -- an expression
 
 *DESC
 
 Boolean? returns True if the argument is of a boolean type.
 This means it has to be either True, False, or an expression involving
 functions that return a boolean result, e.g.
-[=?], [>?], [<?], [>=?], [<=?], [!=?], [And?], [Not?], [Or?].
+{=?}, {>?}, {<?}, {>=?}, {<=?}, {!=?}, {And?}, {Not?}, {Or?}.
 
 *E.G.
 

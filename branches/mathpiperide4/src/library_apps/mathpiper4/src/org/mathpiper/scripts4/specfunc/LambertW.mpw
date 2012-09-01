@@ -58,7 +58,7 @@ The function has real values for real $x >= -Exp(-1)$. (This point is a logarith
         LambertW(x)
 *PARMS
 
-[x] -- expression, argument of the function
+{x} -- expression, argument of the function
 
 *DESC
 
@@ -68,7 +68,7 @@ This function is sometimes useful to represent solutions of transcendental equat
 
 For real arguments $x$, $W(x)$ is real if $x>= -Exp(-1)$.
 
-To compute the numeric value of the  principal branch of Lambert's $W$ function for real arguments $x>= -Exp(-1)$ to current precision, one can call [N(LambertW(x))] (where the function [N] tries to approximate its argument with a real value).
+To compute the numeric value of the  principal branch of Lambert's $W$ function for real arguments $x>= -Exp(-1)$ to current precision, one can call {N(LambertW(x))} (where the function {N} tries to approximate its argument with a real value).
 
 *E.G.
 In> LambertW(0)

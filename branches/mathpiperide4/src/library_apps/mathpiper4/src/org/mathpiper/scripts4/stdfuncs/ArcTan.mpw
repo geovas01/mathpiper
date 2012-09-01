@@ -37,7 +37,7 @@ ArcTan(xlist_List?) <-- MapSingle("ArcTan",xlist);
 
 *PARMS
 
-[x] -- argument to the function
+{x} -- argument to the function
 
 *DESC
 
@@ -48,14 +48,14 @@ $Tan(y)$ equals $x$.
 Note that the number $y$ is not unique. For instance, $Tan(0)$ and
 $Tan(2*Pi)$ both equal 0, so what should $ArcTan(0)$ be? In MathPiper,
 it is agreed that the value of $ArcTan(x)$ should be in the interval
-[-$Pi$/2,$Pi$/2]. 
+{-$Pi/2$,$Pi/2$}. 
 
 Usually, MathPiper leaves this function alone unless it is forced to do
-a numerical evaluation by the [N] function. MathPiper will try to simplify
+a numerical evaluation by the {N} function. MathPiper will try to simplify
 as much as possible while keeping the result exact. If the argument is 
-complex,  the expression will be rewritten using the [Ln] function.
+complex,  the expression will be rewritten using the {Ln} function.
 
-This function is threaded, meaning that if the argument [x] is a
+This function is threaded, meaning that if the argument {x} is a
 list, the function is applied to all entries in the list.
 
 *E.G.

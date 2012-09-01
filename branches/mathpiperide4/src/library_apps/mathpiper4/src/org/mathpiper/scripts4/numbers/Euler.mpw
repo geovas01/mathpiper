@@ -18,13 +18,13 @@
 
 *PARMS
 
-[x] -- expression that will be the variable in the polynomial
+{x} -- expression that will be the variable in the polynomial
 
-[index] -- expression that can be evaluated to an integer
+{index} -- expression that can be evaluated to an integer
 
 *DESC
 
-[Euler(n)] evaluates the $n$-th Euler number. [Euler(n,x)] returns the $n$-th Euler polynomial in the variable $x$.
+{Euler(n)} evaluates the $n$-th Euler number. {Euler(n,x)} returns the $n$-th Euler polynomial in the variable $x$.
 
 *E.G.
 

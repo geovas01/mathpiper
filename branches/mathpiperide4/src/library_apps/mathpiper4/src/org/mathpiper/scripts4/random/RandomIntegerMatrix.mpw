@@ -18,17 +18,17 @@ RandomIntegerMatrix(_rows,_cols,_coefmin,_coefmax) <--
 
 *PARMS
 
-[rows] -- number of rows in matrix
+{rows} -- number of rows in matrix
 
-[cols] -- number of cols in matrix
+{cols} -- number of cols in matrix
 
-[from] -- lower bound
+{from} -- lower bound
 
-[to] -- upper bound
+{to} -- upper bound
 
 *DESC
 
-This function generates a [rows x cols] matrix of random integers. All
+This function generates a {rows x cols} matrix of random integers. All
 entries lie between "from" and "to", including the boundaries, and
 are uniformly distributed in this interval.
 

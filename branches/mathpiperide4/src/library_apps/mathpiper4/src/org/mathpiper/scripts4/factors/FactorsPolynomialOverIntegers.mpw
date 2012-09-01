@@ -148,25 +148,25 @@
 
 *PARMS
 
-[poly] -- a polynomial which is univariate w.r.t. variable x
-[x]    -- variable of the polynomial
+{poly} -- a polynomial which is univariate w.r.t. variable x
+{x}    -- variable of the polynomial
 
 *DESC
 
-This function decomposes the polynomial [poly], considered as univariate
-in the variable [x], into a product of irreducible polynomials.
+This function decomposes the polynomial {poly}, considered as univariate
+in the variable {x}, into a product of irreducible polynomials.
 
-This function is specialized for polynomials in [x] whose coefficients 
+This function is specialized for polynomials in {x} whose coefficients 
 are all integers.  In such a case, it is often customary to expect the 
 irreducible polynomial factors to be given in a form which also has
 only integer coefficients.  However, the standard MathPiper function 
 Factors() follows a different convention, which returns the constituant
-polynomial factors in a [monic] form.  This means that the results may 
+polynomial factors in a {monic} form.  This means that the results may 
 have rational, rather than integer, coefficients.  
 
 The present function offers an alternative which is guaranted to return
 polynomial factors with integer coefficients.  But it works only for 
-input [polynomials], not [numbers], and only for polynomials all of whose
+input {polynomials}, not {numbers}, and only for polynomials all of whose
 coefficients are integers.  For any other input, this function will simply
 return the input expression unevaluated.
 
@@ -174,7 +174,7 @@ The factorization is returned as a list of pairs. The first member of
 each pair is the factor, while the second member denotes the power to
 which this factor should be raised. So the factorization
 $poly = p1^n1 * ... * p9^n9$
-is returned as [[[p1,n1], ..., [p9,n9]]].
+is returned as {[[p1,n1], ..., [p9,n9]]}.
 
 NOTE: If you want the factorization to be expressed in the nominal
 form    $poly = p1^n1 * ... * p9^n9$,

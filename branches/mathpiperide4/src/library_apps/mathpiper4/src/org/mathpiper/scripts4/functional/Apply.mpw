@@ -18,9 +18,9 @@ UnFence("Apply",2);
 
 *PARMS
 
-[fn] -- function to apply
+{fn} -- function to apply
 
-[arglist] -- list of arguments
+{arglist} -- list of arguments
 
 *DESC
 
@@ -28,12 +28,12 @@ This function applies the function "fn" to the arguments in
 "arglist" and returns the result. The first parameter "fn" can
 either be a string containing the name of a function or a pure
 function. Pure functions, modeled after lambda-expressions, have the
-form "[varlist,body]", where "varlist" is the list of formal
+form "{varlist,body}", where "varlist" is the list of formal
 parameters. Upon application, the formal parameters are assigned the
-values in "arglist" (the second parameter of [Apply]) and the "body" is evaluated.
+values in "arglist" (the second parameter of {Apply}) and the "body" is evaluated.
 
 Another way to define a pure function is with the Lambda construct.
-Here, instead of passing in "[varlist,body]", one can pass in
+Here, instead of passing in "{varlist,body}", one can pass in
 "Lambda(varlist,body)". Lambda has the advantage that its arguments
 are not evaluated (using lists can have undesirable effects because
 lists are evaluated). Lambda can be used everywhere a pure function
@@ -41,7 +41,7 @@ is expected, in principle, because the function Apply is the only function
 dealing with pure functions. So all places where a pure function can
 be passed in will also accept Lambda.
 
-An shorthand for [Apply] is provided by the [@] operator.
+An shorthand for {Apply} is provided by the {@} operator.
 
 *E.G.
 In> Apply("+", [5,9]);

@@ -33,12 +33,12 @@
         DivisorsSum(n)
 *PARMS
 
-[n]        -- positive integer
+{n}        -- positive integer
 
 *DESC
 
-[DivisorsSum] returns the sum all numbers that divide it. A number
-[n] is prime if and only if the sum of its divisors are [n+1].
+{DivisorsSum} returns the sum all numbers that divide it. A number
+{n} is prime if and only if the sum of its divisors are {n+1}.
 
 *E.G.
 

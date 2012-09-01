@@ -20,9 +20,9 @@ Function("Pop",[stack,index])
 
 *PARMS
 
-[stack] -- a list (which serves as the stack container)
+{stack} -- a list (which serves as the stack container)
 
-[n] -- index of the element to remove
+{n} -- index of the element to remove
 
 *DESC
 

@@ -78,13 +78,13 @@ Dot1(_t1,_t2,_m,_n) <--
 
 *PARMS
 
-[t1,t2] -- tensor lists (currently only vectors and matrices are supported)
+{t1,t2} -- tensor lists (currently only vectors and matrices are supported)
 
 *DESC
 
-[Dot] returns the dot (aka inner) product of two tensors t1 and t2. The last
-index of t1 and the first index of t2 are contracted. Currently [Dot] works
-only for vectors and matrices. [Dot]-multiplication of two vectors, a matrix
+{Dot} returns the dot (aka inner) product of two tensors t1 and t2. The last
+index of t1 and the first index of t2 are contracted. Currently {Dot} works
+only for vectors and matrices. {Dot}-multiplication of two vectors, a matrix
 with a vector (and vice versa) or two matrices yields either a scalar, a
 vector or a matrix.
 

@@ -39,29 +39,29 @@ CanProve(_proposition)      <-- CanProveAux( proposition );
 
 *PARMS
 
-[proposition] -- an expression with logical operations
+{proposition} -- an expression with logical operations
 
 *DESC
 
 MathPiper has a small built-in propositional logic theorem prover.
-It can be invoked with a call to [CanProve].
+It can be invoked with a call to {CanProve}.
 
 An example of a proposition is: "if a implies b and b implies c then
 a implies c". MathPiper supports the following logical operations:
 
-[Not?] :     negation, read as "not"
+{Not?} :     negation, read as "not"
 
-[And?]  :   conjunction, read as "and"
+{And?}  :   conjunction, read as "and"
 
-[Or?]  :   disjunction, read as "or"
+{Or?}  :   disjunction, read as "or"
 
-[Implies?]  : implication, read as "implies"
+{Implies?}  : implication, read as "implies"
 
 The abovementioned proposition would be represented by the following expression,
 
         ( (a Implies? b) And? (b Implies? c) )  Implies?  (a Implies? c)
 
-MathPiper can prove that is correct by applying [CanProve]
+MathPiper can prove that is correct by applying {CanProve}
 to it:
 
 In> CanProve(( (a Implies? b) And? (b Implies? c) )  Implies?  (a Implies? c))
@@ -94,7 +94,7 @@ If any of the clauses is false, the entire expression will be false.
 In the next step, clauses are scanned for situations of the form:
 
         (p Or? Y)  And?  ( Not? p Or? Z) --> (Y Or? Z)
-If this combination [(Y Or? Z)] is empty, it is false, and
+If this combination {(Y Or? Z)} is empty, it is false, and
 thus the entire proposition is false.
 
 As a last step, the algorithm negates the result again. This has the

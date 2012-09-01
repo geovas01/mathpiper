@@ -18,8 +18,8 @@ DiscreteDistribution( dom_RationalOrNumber? , prob_RationalOrNumber?) <-- Undefi
 
 *PARMS
 
-[dom] -- list
-[prob] -- list
+{dom} -- list
+{prob} -- list
 
 
 *SEE BinomialDistribution, BernoulliDistribution, ChiSquareDistribution, DiscreteUniformDistribution, ContinuousUniformDistribution, ExponentionalDistribution, GeometricDistribution, NormalDistribution, PoissonDistribution, tDistribution

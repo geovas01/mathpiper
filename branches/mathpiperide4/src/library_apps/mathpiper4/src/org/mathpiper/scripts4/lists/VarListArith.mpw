@@ -20,17 +20,17 @@ VarListArith(expr) := VarListSome(expr, [ToAtom("+"), ToAtom("-"), *, /]);
 
 *PARMS
 
-[expr] -- an expression
+{expr} -- an expression
 
-[list] -- a list of function atoms
+{list} -- a list of function atoms
 
 *DESC
 
-The command [VarList(expr)] returns a list of all variables that appear in the
-expression [expr]. The expression is traversed recursively.
+The command {VarList(expr)} returns a list of all variables that appear in the
+expression {expr}. The expression is traversed recursively.
 
-The command [VarListSome] looks only at arguments of functions in the [list]. All other functions are considered "opaque" (as if they do not contain any variables) and their arguments are not checked.
-For example, [VarListSome(a + Sin(b-c))] will return [[a, b, c]], but [VarListSome(a*Sin(b-c), [*])] will not look at arguments of [Sin()] and will return [[a,Sin(b-c)]]. Here [Sin(b-c)] is considered a "variable" because the function [Sin] does not belong to [list].
+The command {VarListSome} looks only at arguments of functions in the {list}. All other functions are considered "opaque" (as if they do not contain any variables) and their arguments are not checked.
+For example, {VarListSome(a + Sin(b-c))} will return {[a, b, c]}, but {VarListSome(a*Sin(b-c), {*})} will not look at arguments of {Sin()} and will return {[a,Sin(b-c)]}. Here {Sin(b-c)} is considered a "variable" because the function {Sin} does not belong to {list}.
 
 
 The command [VarListArith] returns a list of all variables that appear

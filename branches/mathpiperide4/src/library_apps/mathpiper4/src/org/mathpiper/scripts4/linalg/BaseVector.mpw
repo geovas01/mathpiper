@@ -20,9 +20,9 @@ Function("BaseVector",[row,n])
 
 *PARMS
 
-[k] -- index of the base vector to construct
+{k} -- index of the base vector to construct
 
-[n] -- dimension of the vector
+{n} -- dimension of the vector
 
 *DESC
 

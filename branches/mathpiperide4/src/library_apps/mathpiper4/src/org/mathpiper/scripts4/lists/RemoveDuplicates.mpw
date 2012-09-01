@@ -21,13 +21,12 @@ Function("RemoveDuplicates",[list])
 
 *PARMS
 
-[list] -- list to act on
+{list} -- list to act on
 
 *DESC
 
 This command removes all duplicate elements from a given list and returns the resulting list.
-To be
-precise, the second occurrence of any entry is deleted, as are the
+To be precise, the second occurrence of any entry is deleted, as are the
 third, the fourth, etc.
 
 *E.G.

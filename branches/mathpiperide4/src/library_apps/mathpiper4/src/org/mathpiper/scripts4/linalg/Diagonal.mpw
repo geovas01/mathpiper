@@ -27,12 +27,12 @@ Function("Diagonal",[A])
 
 *PARMS
 
-[A] -- matrix
+{A} -- matrix
 
 *DESC
 
 This command returns a vector of the diagonal components
-of the matrix [A].
+of the matrix {A}.
 
 
 *E.G.

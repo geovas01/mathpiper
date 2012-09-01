@@ -26,16 +26,16 @@
 
 *PARMS
 
-[list] -- the list to examine
+{list} -- the list to examine
 
-[expr] -- expression to look for in "list"
+{expr} -- expression to look for in "list"
 
 *DESC
 
 This commands returns the index at which the expression "expr"
 occurs in "list". If "expr" occurs more than once, the lowest
 index is returned. If "expr" does not occur at all,
-[-1] is returned.
+{-1} is returned.
 NOTE: Find is a synonym for FindFirst.
 
 *E.G.

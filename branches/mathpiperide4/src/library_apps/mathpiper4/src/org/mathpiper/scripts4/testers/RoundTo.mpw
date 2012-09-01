@@ -56,15 +56,15 @@ Macro(NumericEqual,[left,right,precision])
 
 *PARMS
 
-[number] -- number to round off
+{number} -- number to round off
 
-[precision] -- precision to use for round-off
+{precision} -- precision to use for round-off
 
 *DESC
 
-The function [RoundTo] rounds a floating point number to a
+The function {RoundTo} rounds a floating point number to a
 specified precision, allowing for testing for correctness
-using the [Verify] command.
+using the {Verify} command.
 
 *E.G.
 

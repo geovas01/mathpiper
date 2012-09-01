@@ -14,11 +14,11 @@ HilbertInverseMatrix(n):=GenMatrix([[i,j],
         HilbertInverseMatrix(n)
 *PARMS
 
-[n] -- positive integer
+{n} -- positive integer
 
 *DESC
 
-The function [HilbertInverseMatrix] returns the [n] by [n] inverse of the
+The function {HilbertInverseMatrix} returns the {n} by {n} inverse of the
 corresponding Hilbert matrix. All Hilbert inverse matrices have integer
 entries that grow in magnitude rapidly.
 

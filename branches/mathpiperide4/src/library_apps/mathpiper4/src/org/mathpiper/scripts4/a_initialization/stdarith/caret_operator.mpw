@@ -97,7 +97,7 @@ Precedence:
 
 *PARMS
 
-[x] and [y] -- objects for which arithmetic operations are defined
+{x} and {y} -- objects for which arithmetic operations are defined
 
 *DESC
 

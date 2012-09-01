@@ -14,15 +14,15 @@ Unitary?(A_Matrix?) <-- (Transpose(Conjugate(A))*A =? Identity(Length(A)));
 
 *PARMS
 
-[A] -- a square matrix
+{A} -- a square matrix
 
 *DESC
 
 This function tries to find out if A is unitary.
 
-A matrix $A$ is orthogonal iff $A^(-1)$ = Transpose( Conjugate($A$) ). This is
+A matrix $A$ is orthogonal iff $A^{-1}$ = Transpose( Conjugate($A$) ). This is
 equivalent to the fact that the columns of $A$ build an orthonormal system
-(with respect to the scalar product defined by [InProduct]).
+(with respect to the scalar product defined by {InProduct}).
 
 *E.G.
 

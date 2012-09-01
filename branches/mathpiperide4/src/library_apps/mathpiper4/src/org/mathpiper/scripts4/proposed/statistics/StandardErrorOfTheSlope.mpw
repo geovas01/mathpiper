@@ -36,8 +36,8 @@ StandardErrorOfTheSlope(xList,yList) :=
 
 *PARMS
 
-[xList] -- the list of domain values
-[yList] -- the list of range values
+{xList} -- the list of domain values
+{yList} -- the list of range values
 
 *DESC
 This function calculates the correlation coefficient between two lists of values.

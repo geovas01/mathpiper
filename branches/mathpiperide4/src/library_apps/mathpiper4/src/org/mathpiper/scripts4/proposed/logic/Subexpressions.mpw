@@ -77,7 +77,7 @@ FunctionListAllHelper(expression) :=
         Subexpressions(expression)
 
 *PARMS
-[expression] -- an expression.
+{expression} -- an expression.
 
 *DESC
 Returns a list that contains all of the subexpressions in an expression. The list does not contain any duplicates 

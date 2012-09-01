@@ -14,17 +14,17 @@ Eliminate(_var,_replace,_function) <-- Simplify(Subst(var,replace)function);
 
 *PARMS
 
-[var] -- variable (or subexpression) to substitute
+{var} -- variable (or subexpression) to substitute
 
-[value] -- new value of "var"
+{value} -- new value of "var"
 
-[expr] -- expression in which the substitution should take place
+{expr} -- expression in which the substitution should take place
 
 *DESC
 
-This function uses [Subst] to replace all instances
+This function uses {Subst} to replace all instances
 of the variable (or subexpression) "var" in the expression "expr"
-with "value", calls [Simplify] to simplify the
+with "value", calls {Simplify} to simplify the
 resulting expression, and returns the result.
 
 *E.G.

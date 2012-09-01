@@ -27,9 +27,9 @@ RuleHoldArguments("MakeVector",2,1,True)
 
 *PARMS
 
-[var] -- free variable
+{var} -- free variable
 
-[n] -- length of the vector
+{n} -- length of the vector
 
 *DESC
 

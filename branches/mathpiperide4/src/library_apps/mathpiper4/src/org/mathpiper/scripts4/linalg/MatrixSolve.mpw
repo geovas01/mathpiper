@@ -136,13 +136,13 @@
 
 *PARMS
 
-[A] -- coefficient matrix
+{A} -- coefficient matrix
 
-[b] -- row vector
+{b} -- row vector
 
 *DESC
 
-[MatrixSolve] solves the matrix equations [A*x = b] using Gaussian Elimination
+{MatrixSolve} solves the matrix equations {A*x = b} using Gaussian Elimination
 with Backward substitution. If your matrix is triangular or diagonal, it will
 be recognized as such and a faster algorithm will be used.
 

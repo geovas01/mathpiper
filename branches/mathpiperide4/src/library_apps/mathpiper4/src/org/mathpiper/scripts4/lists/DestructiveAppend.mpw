@@ -17,15 +17,15 @@ Function("DestructiveAppend",[list,element])
 
 *PARMS
 
-[list] -- list to append "expr" to
+{list} -- list to append "expr" to
 
-[expr] -- expression to append to the list
+{expr} -- expression to append to the list
 
 *DESC
 
-This is the destructive counterpart of [Append]. This
+This is the destructive counterpart of {Append}. This
 command yields the same result as the corresponding call to
-[Append], but the original list is modified. So if a
+{Append}, but the original list is modified. So if a
 variable is bound to "list", it will now be bound to the list with
 the expression "expr" inserted.
 

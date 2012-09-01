@@ -26,9 +26,9 @@ UnFence("GenMatrix",3);
         GenMatrix(function,m,n)
 
 *PARMS
-[function] -- a pure function
-[m] -- row index
-[n] -- column index
+{function} -- a pure function
+{m} -- row index
+{n} -- column index
 
 *DESC
 Generate a matrix with a pure function.

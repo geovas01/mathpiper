@@ -31,7 +31,8 @@
         RecursiveDeterminant(matrix)
 
 *PARMS
-[matrix] -- a matrix
+{matrix} -- a matrix
+
 *DESC
 Computes a determinant recursively by summing the product of each (nonzero) element 
 on the first row of the matrix by +/- the determinant of the submatrix with the 

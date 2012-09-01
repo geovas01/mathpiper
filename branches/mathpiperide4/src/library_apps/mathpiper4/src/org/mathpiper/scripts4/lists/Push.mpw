@@ -17,9 +17,9 @@ Function("Push",[stack,element])
 
 *PARMS
 
-[stack] -- a list (which serves as the stack container)
+{stack} -- a list (which serves as the stack container)
 
-[expr] -- expression to push on "stack"
+{expr} -- expression to push on "stack"
 
 *DESC
 

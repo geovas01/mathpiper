@@ -34,15 +34,15 @@ EigenVectors(_matrix,_eigenvalues) <--
 
 *PARMS
 
-[matrix] -- a square matrix
+{matrix} -- a square matrix
 
-[eigenvalues] -- list of eigenvalues as returned by [EigenValues]
+{eigenvalues} -- list of eigenvalues as returned by {EigenValues}
 
 *DESC
 
-[EigenVectors] returns a list of the eigenvectors of a matrix.
+{EigenVectors} returns a list of the eigenvectors of a matrix.
 It uses the eigenvalues and the matrix to set up n equations with
-n unknowns for each eigenvalue, and then calls [Solve] to determine
+n unknowns for each eigenvalue, and then calls {Solve} to determine
 the values of each vector.
 
 *E.G.

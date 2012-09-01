@@ -14,13 +14,13 @@ Function("ZeroVector?",[aList]) aList =? ZeroVector(Length(aList));
 
 *PARMS
 
-[list] -- list to compare against the zero vector
+{list} -- list to compare against the zero vector
 
 *DESC
 
-The only argument given to [ZeroVector?] should be
-a list. The result is [True] if the list contains
-only zeroes and [False] otherwise.
+The only argument given to {ZeroVector?} should be
+a list. The result is {True} if the list contains
+only zeroes and {False} otherwise.
 
 *E.G.
 

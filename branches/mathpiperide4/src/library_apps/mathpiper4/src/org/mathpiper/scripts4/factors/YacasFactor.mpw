@@ -16,14 +16,14 @@
 
 *PARMS
 
-[x] -- integer or univariate polynomial
+{x} -- integer or univariate polynomial
 
 *DESC
 
 This is the original Yacas version of the Factor() function.  It has
 b een superceeded in MathPiper by the function xFactor().
 
-This function factorizes "x", similarly to [Factors], but
+This function factorizes "x", similarly to {Factors}, but
 it shows the result in a more human-readable format.
 
 *E.G.

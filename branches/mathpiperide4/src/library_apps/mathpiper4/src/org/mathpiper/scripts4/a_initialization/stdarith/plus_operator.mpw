@@ -79,8 +79,7 @@ Precedence:
 
 *PARMS
 
-[x] and [y] -- objects for which arithmetic addition is defined
-
+{x} and {y} -- objects for which arithmetic addition is defined
 
 *DESC
 

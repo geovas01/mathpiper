@@ -79,7 +79,7 @@
         
 *PARMS
 
-[rep] -- A list representing MathPiper's internal structure for a number
+{rep} -- A list representing MathPiper's internal structure for a number
 
 
 *DESC
@@ -87,20 +87,20 @@
 This function returns a Decimal, Integer, or Complex number, when given a data
 structure containing MathPiper's internal representation of the number.
 
-Internally, MathPiper represents [arbitrary precision] numbers as Java BigIntegers or
+Internally, MathPiper represents {arbitrary precision} numbers as Java BigIntegers or
 BigDecimals.  Java code handles calculations using such numbers.
 
 All the information needed to correctly understand the precision attached to a number,
 and the rounding and comparison thereof, is contained in the Java structure.
 
 For a Decimal number (essentially anything with a decimal point), the representation
-consists of an arbitrary-precision integer containing [all] the significant digits of
-the number, and a [scale factor] telling where the implied decimal point is supposed to
-be placed with respect to the end of the integer.  The [precision] of the number is
+consists of an arbitrary-precision integer containing {all} the significant digits of
+the number, and a {scale factor} telling where the implied decimal point is supposed to
+be placed with respect to the end of the integer.  The {precision} of the number is
 just the number of digits in the integer.
 
 The three components of the List representing a decimal number are, respectively,
-[[BigInteger (unscaled), Precision, ScaleFactor]].
+{{BigInteger (unscaled), Precision, ScaleFactor}}.
 Note that the second of these is redundent: only the BigInteger and the ScaleFactor
 are needed to completely define the number.
 
@@ -111,8 +111,8 @@ as first component and its precision as second.
 For a Complex number, the representation is a List of Lists,
 containing the representations of the Real and Imaginary parts of the number.
 
-The best way to [consistently] deal with precision and rounding issues is by making use
-of the information given by the representation (or "rep" for short)..
+The best way to {consistently} deal with precision and rounding issues is by making use
+of the information given by the representation (or "rep" for short).
 
 *E.G.
 In> RepToNumber([12345678,8,5])

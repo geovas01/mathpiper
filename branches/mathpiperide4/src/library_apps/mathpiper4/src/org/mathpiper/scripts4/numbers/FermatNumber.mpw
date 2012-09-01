@@ -16,11 +16,11 @@ Function("FermatNumber",[n]){
         FermatNumber(n)
 *PARMS  
 
-[n]     -- positive integer
+{n}     -- positive integer
 
 *DESC
 
-This function returns the [n]-th Fermat number, which is defined as
+This function returns the {n}-th Fermat number, which is defined as
 $2^(2^n) + 1$. 
 
 *E.G.

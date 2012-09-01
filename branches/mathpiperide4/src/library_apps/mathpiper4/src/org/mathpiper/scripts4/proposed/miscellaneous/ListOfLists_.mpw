@@ -40,10 +40,10 @@ ListOfLists?(listOfLists) :=
         List?(list)
 
 *PARMS
-[expr] -- a list
+{expr} -- a list
 
 *DESC
-This function returns [True] if [list] is a list of lists and [False] otherwise.
+This function returns {True} if {list} is a list of lists and {False} otherwise.
 
 *E.G.
 In> ListOfLists?(aa);

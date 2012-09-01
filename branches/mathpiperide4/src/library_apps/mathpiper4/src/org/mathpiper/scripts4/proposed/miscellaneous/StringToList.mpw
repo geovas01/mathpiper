@@ -36,7 +36,7 @@
 
 *PARMS
 
-[string] -- a string to be converted into a list
+{string} -- a string to be converted into a list
 
 *DESC
 

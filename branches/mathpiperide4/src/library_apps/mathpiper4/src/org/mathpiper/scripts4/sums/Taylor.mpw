@@ -69,13 +69,13 @@ Function("Taylor1",[taylorvariable,taylorat,taylororder,taylorfunction])
 
 *PARMS
 
-[var] -- variable
+{var} -- variable
 
-[at] -- point to get Taylor series around
+{at} -- point to get Taylor series around
 
-[order] -- order of approximation
+{order} -- order of approximation
 
-[expr] -- expression to get Taylor series for
+{expr} -- expression to get Taylor series for
 
 *DESC
 

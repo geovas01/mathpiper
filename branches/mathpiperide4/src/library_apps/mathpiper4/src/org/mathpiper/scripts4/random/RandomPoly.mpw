@@ -18,13 +18,13 @@ RandomPoly(_var,_degree,_coefmin,_coefmax) <--
 
 *PARMS
 
-[var] -- free variable for resulting univariate polynomial
+{var} -- free variable for resulting univariate polynomial
 
-[deg] -- degree of resulting univariate polynomial
+{deg} -- degree of resulting univariate polynomial
 
-[coefmin] -- minimum value for coefficients
+{coefmin} -- minimum value for coefficients
 
-[coefmax] -- maximum value for coefficients
+{coefmax} -- maximum value for coefficients
 
 *DESC
 

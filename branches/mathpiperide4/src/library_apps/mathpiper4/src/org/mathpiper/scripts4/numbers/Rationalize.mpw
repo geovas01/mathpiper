@@ -35,7 +35,7 @@
 
 *PARMS
 
-[expr] -- an expression containing real numbers
+{expr} -- an expression containing real numbers
 
 *DESC
 

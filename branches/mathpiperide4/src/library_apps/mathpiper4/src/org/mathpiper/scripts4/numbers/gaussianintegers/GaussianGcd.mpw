@@ -17,7 +17,7 @@
 
 *PARMS
 
-[z], [w] -- Gaussian integers 
+{z}, {w} -- Gaussian integers 
 
 *DESC
 

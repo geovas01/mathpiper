@@ -112,9 +112,9 @@
 
 *PARMS
 
-[r] -- real part
+{r} -- real part
 
-[c] -- imaginary part
+{c} -- imaginary part
 
 *DESC
 
@@ -125,7 +125,7 @@ real.
 
 Note that, at the moment, many functions in MathPiper assume that all
 numbers are real unless it is obvious that it is a complex
-number. Hence [Im(Sqrt(x))] evaluates to [0] which is only true for nonnegative "x".
+number. Hence {Im(Sqrt(x))} evaluates to {0} which is only true for nonnegative "x".
 
 *E.G.
 

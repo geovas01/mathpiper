@@ -20,12 +20,12 @@ RealRootsCount(_p) <--
 
 *PARMS
 
-[p] - a polynomial in [x]
+{p} - a polynomial in {x}
 
 *DESC
 
 Returns the number of real roots of a polynomial $ p $.
-The polynomial must use the variable [x] and no other variables.
+The polynomial must use the variable {x} and no other variables.
 
 *E.G.
 

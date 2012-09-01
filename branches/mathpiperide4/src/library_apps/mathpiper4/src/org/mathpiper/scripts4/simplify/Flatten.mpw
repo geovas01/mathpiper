@@ -25,9 +25,9 @@ Function("Flatten",[body,flattenoper])
 
 *PARMS
 
-[expression] -- an expression
+{expression} -- an expression
 
-[operator] -- string with the contents of an infix operator.
+{operator} -- string with the contents of an infix operator.
 
 *DESC
 

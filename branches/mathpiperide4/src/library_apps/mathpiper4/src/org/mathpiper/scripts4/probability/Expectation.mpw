@@ -44,9 +44,9 @@
         Expectation(p,n)
 
 *PARMS
-[p] -- number, probability of an event in a single trial
+{p} -- number, probability of an event in a single trial
 
-[n] -- number of trials
+{n} -- number of trials
 
 
 *SEE CDF, PDF

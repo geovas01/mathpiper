@@ -28,11 +28,11 @@ RuleHoldArguments("Defun",3,0,True)
 
 *PARMS
 
-[function] -- A function name
+{function} -- A function name
 
-[[arglist]] -- list of atoms, formal arguments to the function
+{{arglist}} -- list of atoms, formal arguments to the function
 
-[body] -- expression comprising the body of the function
+{body} -- expression comprising the body of the function
 
 *DESC
 

@@ -55,7 +55,7 @@ CorrelationMatrix(dataLists) :=
 
 *PARMS
 
-[listOfLists] -- a list of lists which contains data to be correlated
+{listOfLists} -- a list of lists which contains data to be correlated
 
 *DESC
 Creates a correlation coefficient matrix from a list of lists which contain data values.

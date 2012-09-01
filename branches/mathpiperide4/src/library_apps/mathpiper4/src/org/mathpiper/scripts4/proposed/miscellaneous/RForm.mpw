@@ -255,11 +255,11 @@ RFormStatement(_x) <-- RForm(x) ~ ";" ~ RNlIndented();
 
 *PARMS
 
-[expr] -- expression to be exported
+{expr} -- expression to be exported
 
 *DESC
 
-[RForm] returns a string containing R code that attempts to implement the MathPiper expression [expr].
+{RForm} returns a string containing R code that attempts to implement the MathPiper expression {expr}.
 Currently the exporter handles most expression types but not all.
 
 *E.G.

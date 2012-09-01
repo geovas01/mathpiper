@@ -15,8 +15,8 @@ HankelMatrix(m,n):=GenMatrix([[i,j], Decide(i+j-1>?n,0,i+j-1)], m,n );
         HankelMatrix(matrix)
 
 *PARMS
-[n] -- todo
-[m] -- todo
+{n} -- todo
+{m} -- todo
 
 *DESC
 todo

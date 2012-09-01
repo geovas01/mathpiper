@@ -30,16 +30,16 @@ UnFence("Else",2);
 
 *PARMS
 
-[predicate] -- predicate to test
+{predicate} -- predicate to test
 
-[body] -- expression to evaluate if the predicate is [True].
+{body} -- expression to evaluate if the predicate is {True}.
 
-[otherwise] -- expression to evaluate if the predicate if [False].
+{otherwise} -- expression to evaluate if the predicate if {False}.
 
 *DESC
 
 (This description under in development.)
 
 
-*SEE If, if
+*SEE If, Decide
 %/mathpiper_docs

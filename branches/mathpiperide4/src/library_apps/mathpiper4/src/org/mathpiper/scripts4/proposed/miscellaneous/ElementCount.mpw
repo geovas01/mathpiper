@@ -35,7 +35,7 @@ ElementCount(list) :=
         ElementCount(list)
 
 *PARMS
-[list] -- a list or nested list
+{list} -- a list or nested list
 
 *DESC
 Counts the number of elements in a list or nested list.

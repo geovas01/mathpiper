@@ -37,15 +37,15 @@ UnFence("Table",5);
 
 *PARMS
 
-[body] -- expression to evaluate multiple times
+{body} -- expression to evaluate multiple times
 
-[var] -- variable to use as loop variable
+{var} -- variable to use as loop variable
 
-[from] -- initial value for "var"
+{from} -- initial value for "var"
 
-[to] -- final value for "var"
+{to} -- final value for "var"
 
-[step] -- step size with which "var" is incremented
+{step} -- step size with which "var" is incremented
 
 *DESC
 

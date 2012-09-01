@@ -19,11 +19,11 @@
 
 *PARMS
 
-[poly] -- a univariate polynomial
+{poly} -- a univariate polynomial
 
-[var] -- a free variable
+{var} -- a free variable
 
-[degree] -- positive integer
+{degree} -- positive integer
 
 *DESC
 

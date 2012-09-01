@@ -83,9 +83,9 @@
         CDF(dist,x)
 
 *PARMS
-[dist] -- a distribution type
+{dist} -- a distribution type
 
-[x] -- a value of random variable
+{x} -- a value of random variable
 
 *DESC
 The cumulative distribution function (CDF) (or just distribution function) describes the 

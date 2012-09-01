@@ -22,11 +22,11 @@ VerifyDiv(_u,_v) <--
 
 *PARMS
 
-[u], [v] -- integer arguments
+{u}, {v} -- integer arguments
 
 *DESC
 
-[VerifyDiv(u,v)] checks that
+{VerifyDiv(u,v)} checks that
 $$ u = v*Quotient(u,v) + Modulo(u,v) $$.
 
 

@@ -98,8 +98,8 @@ AlphaToChiSquareScore(p, df) :=
         AlphaToChiSquareScore(alphaProbability, degreesOfFreedom)
 
 *PARMS
-[alphaProbability] -- an alpha probability
-[degreesOfFreedom] -- the degrees of freedom
+{alphaProbability} -- an alpha probability
+{degreesOfFreedom} -- the degrees of freedom
 
 *DESC
 This function calculates the chi square score of a given probability.

@@ -33,9 +33,9 @@ RuleHoldArguments("TemplateFunction",3,2047,True)
         TemplateFunction("operator",parameter)
 
 *PARMS
-["operator"] -- string, name of a function
+{"operator"} -- string, name of a function
 
-[parameter] -- atom, symbolic name of parameter
+{parameter} -- atom, symbolic name of parameter
 
 *DESC
 Defines a function.

@@ -29,9 +29,9 @@ Horner(_e,_v) <--
 
 *PARMS
 
-[expr] -- a polynomial in "var"
+{expr} -- a polynomial in "var"
 
-[var] -- a variable
+{var} -- a variable
 
 *DESC
 

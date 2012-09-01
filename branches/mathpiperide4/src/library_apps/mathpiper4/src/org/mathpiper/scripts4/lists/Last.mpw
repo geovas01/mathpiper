@@ -12,8 +12,9 @@ Last(LL_List?)_(Length(LL)>?0) <-- First(Reverse(LL));
 *STD
 *CALL
         Last(list)
+        
 *PARMS
-[list] -- a list
+{list} -- a list
 
 *DESC
 This function returns the last element of a list. 

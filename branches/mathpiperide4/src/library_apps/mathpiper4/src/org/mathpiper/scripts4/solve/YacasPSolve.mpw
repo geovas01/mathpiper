@@ -172,9 +172,9 @@ Function("YacasPSolve",[uni,var]) {
 
 *PARMS
 
-[poly] -- a polynomial in "var"
+{poly} -- a polynomial in "var"
 
-[var] -- a variable
+{var} -- a variable
 
 *DESC
 

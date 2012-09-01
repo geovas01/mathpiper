@@ -10,16 +10,16 @@
 
 *DESC
 
-Type [quit] or [restart] at the MathPiper prompt to exit or to restart the interpreter.
+Type {quit} or {restart} at the MathPiper prompt to exit or to restart the interpreter.
 
-The directives [quit] and [restart] are <i>not</i> reserved words or variable names.
+The directives {quit} and {restart} are <i>not</i> reserved words or variable names.
 They take effect only when typed as first characters at a prompt.
 
-Pressing [Ctrl-C] will stop the currently running calculation.
-If there is no currently running calculation, [Ctrl-C] will quit the interpreter.
+Pressing {Ctrl-C} will stop the currently running calculation.
+If there is no currently running calculation, {Ctrl-C} will quit the interpreter.
 
 When the interpreter quits, it saves the command history
-(so quitting by [Ctrl-C] does not mean a "crash").
+(so quitting by {Ctrl-C} does not mean a "crash").
 
 This command is not a function but a special directive that only applies while running MathPiper interactively.  It should not be used in scripts.
 
@@ -49,12 +49,12 @@ Result: restart;
 
 *DESC
 
-[%] evaluates to the previous result on the command line. [%] is a global
+{%} evaluates to the previous result on the command line. {%} is a global
 variable that is bound to the previous result from the command line.
-Using [%] will evaluate the previous result. (This uses the functionality
-offered by the [SetGlobalLazyVariable] command).
+Using {%} will evaluate the previous result. (This uses the functionality
+offered by the {SetGlobalLazyVariable} command).
 
-Typical examples are [Simplify(%)] and [PrettyForm(%)] to simplify and show the result in a nice
+Typical examples are {Simplify(%)} and {PrettyForm(%)} to simplify and show the result in a nice
 form respectively.
 
 *E.G.
@@ -88,8 +88,8 @@ In> PrettyForm(%)
 
 *DESC
 
-[True] and [False] are typically a result
-of boolean expressions such as [2 < 3] or [True And? False].
+{True} and {False} are typically a result
+of boolean expressions such as {2 <? 3} or {True And? False}.
 
 *SEE And?, Or?, Not?
 %/mathpiper_docs
@@ -108,7 +108,7 @@ of boolean expressions such as [2 < 3] or [True And? False].
 *DESC
 
 End of file marker when reading from file. If a file
-contains the expression [EndOfFile;] the
+contains the expression {EndOfFile;} the
 operation will stop reading the file at that point.
 %/mathpiper_docs
 
@@ -128,8 +128,8 @@ operation will stop reading the file at that point.
 Infinity represents infinitely large values. It can be the result of certain
 calculations.
 
-Note that for most analytic functions MathPiper understands [Infinity] as a positive number.
-Thus [Infinity*2] will return [Infinity], and [a < Infinity] will evaluate to [True].
+Note that for most analytic functions MathPiper understands {Infinity} as a positive number.
+Thus {Infinity*2} will return {Infinity}, and {a < Infinity} will evaluate to {True}.
 
 *E.G.
 
@@ -151,10 +151,10 @@ Result: True;
 
 *DESC
 
-[Undefined] is a token that can be returned by a function when it considers
+{Undefined} is a token that can be returned by a function when it considers
 its input to be invalid or when no meaningful answer can be given. The result is then "undefined".
 
-Most functions also return [Undefined] when evaluated on it.
+Most functions also return {Undefined} when evaluated on it.
 
 *E.G.
 
@@ -185,7 +185,7 @@ Result: Undefined;
 *DESC
 
 Introduce a comment block in a source file, similar to C++ comments.
-[//] makes everything until the end of the line a comment, while [/*] and [*/] may delimit a multi-line comment.
+{//} makes everything until the end of the line a comment, while {/*} and {*/} may delimit a multi-line comment.
 
 *E.G.
 

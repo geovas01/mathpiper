@@ -30,19 +30,20 @@
     n!!
 
 *PARMS
-[n] -- integer, half-integer, or list
+{n} -- integer, half-integer, or list
 
 *DESC
-The "double factorial" function [n!!] calculates $n*(n-2)*(n-4)*...$. 
+The "double factorial" function {n!!} calculates $n*(n-2)*(n-4)*...$. 
 This product terminates either with $1$ or with $2$ depending on 
 whether $n$ is odd or even. If $n=0$ the function returns $1$.
 
-The factorial functions are threaded, meaning that if the argument [n] is a
+The factorial functions are threaded, meaning that if the argument {n} is a
 list, the function will be applied to each element of the list.
 
 The factorial functions terminate and print an error message if the arguments are too large (currently the limit 
 is $n < 65535$) because exact factorials of such large numbers are computationally expensive and most probably 
-not useful. One can call [InternalLnGammaNum()] to evaluate logarithms of such factorials to desired precision.
+not useful. One can call {InternalLnGammaNum()} to evaluate logarithms of such factorials to desired precision.
+
 *E.G.
 In> 7!!;
 Result: 105;

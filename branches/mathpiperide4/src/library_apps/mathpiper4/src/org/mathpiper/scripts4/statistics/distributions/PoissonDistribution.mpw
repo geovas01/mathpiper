@@ -18,7 +18,7 @@ PoissonDistribution(l_RationalOrNumber?)_(l<=?0) <-- Undefined;
         PoissonDistribution(lambda)
 
 *PARMS
-[lambda] -- number, the expected number of occurrences that occur during the given interval
+{lambda} -- number, the expected number of occurrences that occur during the given interval
 
 *DESC
 The poisson distribution.

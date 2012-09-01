@@ -57,7 +57,7 @@ ClearError(errorclass_String?) <-- AssocDelete(GetErrorTableau(), errorclass);
 
 *DESC
 
-[ClearErrors] is a trivial error handler that does nothing except it clears the tableau.
+{ClearErrors} is a trivial error handler that does nothing except it clears the tableau.
 
 *SEE Assert, Error?, DumpErrors
 
@@ -78,21 +78,21 @@ ClearError(errorclass_String?) <-- AssocDelete(GetErrorTableau(), errorclass);
 
 *PARMS
 
-["str"] -- string to classify the error
+{"str"} -- string to classify the error
 
 *DESC
 
 These functions can be used to create a custom error handler.
 
-[GetError] returns the error object if a custom error of class ["str"] has been
-reported using [Assert], or [False] if no errors of this class have been
+{GetError} returns the error object if a custom error of class {"str"} has been
+reported using {Assert}, or {False} if no errors of this class have been
 reported.
 
-[ClearError("str")] deletes the same error object that is returned by
-[GetError("str")]. It deletes at most one error object. It returns [True] if an
-object was found and deleted, and [False] otherwise.
+{ClearError("str")} deletes the same error object that is returned by
+{GetError("str")}. It deletes at most one error object. It returns {True} if an
+object was found and deleted, and {False} otherwise.
 
-[GetErrorTableau()] returns the entire association list of currently reported errors.
+{GetErrorTableau()} returns the entire association list of currently reported errors.
 
 *E.G.
 

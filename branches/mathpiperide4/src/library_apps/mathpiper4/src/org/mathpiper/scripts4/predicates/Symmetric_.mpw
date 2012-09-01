@@ -14,11 +14,11 @@ Symmetric?(A_Matrix?) <-- (Transpose(A)=?A);
 
 *PARMS
 
-[A] -- a matrix
+{A} -- a matrix
 
 *DESC
 
-[Symmetric?(A)] returns [True] if [A] is symmetric and [False] otherwise.
+{Symmetric?(A)} returns {True} if {A} is symmetric and {False} otherwise.
 $A$ is symmetric iff Transpose ($A$) =$A$.
 
 *E.G.
