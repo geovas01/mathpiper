@@ -75,3 +75,24 @@ partsoflist([P|Tail], Total):- partsof(P, Headparts), partsoflist(Tail, Tailpart
 
 
 
+%prolog,title=""
+
+% "Programming in Prolog" Clocksin and Mellish, 5th edition, Springer, p. 152-153.
+
+hanoi(N) :- move(N, left, right, center).
+
+move(0, _, _, _) :- !.
+
+move(N, A, C, B) :-
+    M is N-1,
+    % write(M), nl,
+    move(M, A, B, C), inform(A, C), move(M, B, C, A).
+    
+inform(X, Y) :-
+    write([move,a,disc,from,the,X,pole,to, the, Y,pole]),
+    nl.
+    
+% ?- hanoi(3).
+
+%/prolog
+
