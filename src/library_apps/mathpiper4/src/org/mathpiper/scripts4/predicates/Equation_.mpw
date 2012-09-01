@@ -21,13 +21,13 @@
 
 *PARMS
 
-[expr] -- mathematical expression
+{expr} -- mathematical expression
 
 *DESC
 
-This function returns [True] if MathPiper can determine that the expression is an equation.  
-Otherwise, [False].
-Equations are defined by the property that they are of the form [a==b].
+This function returns {True} if MathPiper can determine that the expression is an equation.  
+Otherwise, {False}.
+Equations are defined by the property that they are of the form {a==b}.
 
 *E.G.
 

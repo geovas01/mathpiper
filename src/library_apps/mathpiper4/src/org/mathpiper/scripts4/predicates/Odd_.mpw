@@ -14,7 +14,7 @@ Odd?(n)  := Integer?(n) And? ( BitAnd(n,1)  =? 1 );
 
 *PARMS
 
-[n] -- integer to test
+{n} -- integer to test
 
 *DESC
 

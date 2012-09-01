@@ -110,25 +110,25 @@ LocalSymbols(numericMode)
         N(expression, precision)
 *PARMS
 
-[expression] -- expression to evaluate
+{expression} -- expression to evaluate
 
-[precision] -- integer, precision to use
+{precision} -- integer, precision to use
 
 *DESC
 
-The function [N] instructs [MathPiper] to try to coerce an expression in to a numerical approximation to the
-expression [expr], using [prec] digits precision if the second calling
+The function {N} instructs {MathPiper} to try to coerce an expression in to a numerical approximation to the
+expression {expr}, using {prec} digits precision if the second calling
 sequence is used, and the default precision otherwise. This overrides the normal
-behaviour, in which expressions are kept in symbolic form (eg. [Sqrt(2)] instead of [1.41421]).
+behaviour, in which expressions are kept in symbolic form (eg. {Sqrt(2)} instead of {1.41421}).
 
-Application of the [N] operator will make MathPiper
+Application of the {N} operator will make MathPiper
 calculate floating point representations of functions whenever
-possible. In addition, the variable [Pi] is bound to
+possible. In addition, the variable {Pi} is bound to
 the value of $Pi$ calculated at the current precision.
-(This value is a "cached constant", so it is not recalculated each time [N] is used, unless the precision is increased.)
+(This value is a "cached constant", so it is not recalculated each time {N} is used, unless the precision is increased.)
 
 
-[N] is a macro. Its argument [expr] will only
+{N} is a macro. Its argument {expr} will only
 be evaluated after switching to numeric mode.
 
 *E.G.
@@ -160,18 +160,18 @@ Result: 3.1415926535897932385
 
 *DESC
 
-When in numeric mode, [InNumericMode()] will return [True], else it will
-return [False]. [MathPiper] is in numeric mode when evaluating an expression
-with the function [N]. Thus when calling [N(expr)], [InNumericMode()] will
-return [True] while [expr] is being evaluated.
+When in numeric mode, {InNumericMode()} will return {True}, else it will
+return {False}. {MathPiper} is in numeric mode when evaluating an expression
+with the function {N}. Thus when calling {N(expr)}, {InNumericMode()} will
+return {True} while {expr} is being evaluated.
 
-[InNumericMode()] would typically be used to define a transformation rule
+{InNumericMode()} would typically be used to define a transformation rule
 that defines how to get a numeric approximation of some expression. One
 could define a transformation rule
 
-        f(_x)_InNumericMode() <- [... some code to get a numeric approximation of f(x) ... ];
+        f(_x)_InNumericMode() <- {... some code to get a numeric approximation of f(x) ... };
 
-[InNumericMode()] usually returns [False], so transformation rules that check for this
+{InNumericMode()} usually returns {False}, so transformation rules that check for this
 predicate are usually left alone.
 
 
@@ -195,13 +195,13 @@ Result: True
         NonN(expr)
 
 *PARMS
-[expr] -- expression to evaluate
+{expr} -- expression to evaluate
 
 *DESC
-When in numeric mode, [NonN] can be called to switch back to non-numeric
+When in numeric mode, {NonN} can be called to switch back to non-numeric
 mode temporarily.
 
-[NonN] is a macro. Its argument [expr] will only
+{NonN} is a macro. Its argument {expr} will only
 be evaluated after the numeric mode has been set appropriately.
 
 *E.G.

@@ -20,14 +20,14 @@
 
 *PARMS
 
-[list] - a list of expressions
+{list} - a list of expressions
 
-[func] - a function atom to be found
+{func} - a function atom to be found
 
 *DESC
 
 Given a list of expressions and and a function name, this command returns 
-[True] if the list contains the function name.
+{True} if the list contains the function name.
 
 *E.G.
 In> lst := [Ln(x),Sinh(a*x),ArcTan(3/x)]

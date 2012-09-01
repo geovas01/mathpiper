@@ -171,27 +171,27 @@ UnFence("SolveSimpleBackSubstitutionFindAlternativeForms",1);
 
 *PARMS
 
-[eq] -- single identity equation
+{eq} -- single identity equation
 
-[var] -- single variable
+{var} -- single variable
 
-[eqlist] -- list of identity equations
+{eqlist} -- list of identity equations
 
-[varlist] -- list of variables
+{varlist} -- list of variables
 
 *DESC
 
-This is an older version of [Solve]. It is retained for two
+This is an older version of {Solve}. It is retained for two
 reasons. The first one is philosophical: it is good to have multiple
 algorithms available. The second reason is more practical: the newer
-version cannot handle systems of equations, but [OldSolve] can.
+version cannot handle systems of equations, but {OldSolve} can.
 
 This command tries to solve one or more equations. Use the first form
 to solve a single equation and the second one for systems of
 equations.
 
 The first calling sequence solves the equation "eq" for the variable
-"var". Use the [==] operator to form the equation.
+"var". Use the {==} operator to form the equation.
 The value of "var" which satisfies the equation, is returned. Note
 that only one solution is found and returned.
 
@@ -202,10 +202,10 @@ returned, and each result is a list containing the values of the
 variables in "varlist". Again, at most a single solution is
 returned.
 
-The task of solving a single equation is simply delegated to [SuchThat]. Multiple equations are solved recursively:
+The task of solving a single equation is simply delegated to {SuchThat}. Multiple equations are solved recursively:
 firstly, an equation is sought in which one of the variables occurs
-exactly once; then this equation is solved with [SuchThat]; and finally the solution is substituted in the
-other equations by [Eliminate] decreasing the number
+exactly once; then this equation is solved with {SuchThat}; and finally the solution is substituted in the
+other equations by {Eliminate} decreasing the number
 of equations by one. This suffices for all linear equations and a
 large group of simple nonlinear equations.
 

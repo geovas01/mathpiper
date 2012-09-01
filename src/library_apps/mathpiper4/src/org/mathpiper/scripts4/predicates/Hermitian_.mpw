@@ -14,11 +14,11 @@ Hermitian?(A_Matrix?) <-- (Conjugate(Transpose(A))=?A);
 
 *PARMS
 
-[A] -- a square matrix
+{A} -- a square matrix
 
 *DESC
 
-Hermitian?(A) returns [True] if [A] is Hermitian and [False]
+Hermitian?(A) returns {True} if {A} is Hermitian and {False}
 otherwise. $A$ is a Hermitian matrix iff Conjugate( Transpose $A$ )=$A$.
 If $A$ is a real matrix, it must be symmetric to be Hermitian.
 

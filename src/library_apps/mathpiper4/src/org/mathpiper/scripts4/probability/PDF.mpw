@@ -58,12 +58,12 @@
         PDF(dist,x)
 
 *PARMS
-[dist] -- a distribution type
+{dist} -- a distribution type
 
-[x] -- a value of random variable
+{x} -- a value of random variable
 
 *DESC
-[PDF]
+{PDF}
 returns the density function at point $x$.
 
 The probability density function (PDF) of a continuous distribution is defined as the 

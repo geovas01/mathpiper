@@ -23,13 +23,13 @@ HarmonicNumber(n_Integer?,r_PositiveInteger?) <--
         HarmonicNumber(n,r)
 *PARMS
 
-[n], [r]        -- positive integers
+{n}, {r}        -- positive integers
 
 *DESC
 
-This function returns the [n]-th Harmonic number, which is defined
+This function returns the {n}-th Harmonic number, which is defined
 as $Sum(k,1,n,1/k)$. If given a second argument, the Harmonic number
-of order $r$ is returned, which is defined as $Sum(k,1,n,k^(-r))$.
+of order $r$ is returned, which is defined as $Sum(k,1,n,k^{-r})$.
 
 *E.G.
 

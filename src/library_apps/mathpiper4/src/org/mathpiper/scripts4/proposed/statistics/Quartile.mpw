@@ -47,7 +47,7 @@ Quartile(list) :=
 
 *PARMS
 
-[list] -- a list which contains values
+{list} -- a list which contains values
 
 *DESC
 Returns all of the quartiles and the interquartile range of a list of values.  The first

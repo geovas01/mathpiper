@@ -64,13 +64,13 @@ LocalSymbols(AssembleTerms, AssembleTermsRecursive)
 
 *PARMS
 
-[expr] -- an expression
+{expr} -- an expression
 
 *DESC
 
 This command tries to expand all the brackets by repeatedly using the
 distributive laws $a * (b+c) = a*b + a*c$ and $(a+b) * c = a*c + b*c$.
-It goes further than [Expand], in that it expands all brackets.
+It goes further than {Expand}, in that it expands all brackets.
 
 *E.G.
 

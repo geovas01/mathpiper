@@ -19,7 +19,7 @@
 
 *PARMS
 
-[expression] -- expression to hold
+{expression} -- expression to hold
 
 *DESC
 

@@ -78,12 +78,12 @@ DecimalMatches(_reversed,_period) <--
 
 *PARMS
 
-[frac] -- a rational number
+{frac} -- a rational number
 
 *DESC
 
 This function returns the infinite decimal representation of a
-rational number [frac].  It returns a list, with the first element
+rational number {frac}.  It returns a list, with the first element
 being the number before the decimal point and the last element the
 sequence of digits that will repeat forever. All the intermediate list
 elements are the initial digits before the period sets in.

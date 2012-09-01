@@ -116,13 +116,13 @@ N(NumberLineZoom(0,1,8,5), 50);
 
 *PARMS
 
-[low_value] -- lowest number in the zoom range
+{low_value} -- lowest number in the zoom range
 
-[high_value] -- highest number in the zoom range
+{high_value} -- highest number in the zoom range
 
-[divisions] -- how many parts to divide the range into
+{divisions} -- how many parts to divide the range into
 
-[depth] -- continue the zooming process to depth levels
+{depth} -- continue the zooming process to depth levels
 
 *DESC
 

@@ -43,28 +43,28 @@ GuessRational(x_RationalOrNumber?, prec_Integer?) <-- {
 
 *PARMS
 
-[x] -- a number to be approximated (must be already evaluated to floating-point)
+{x} -- a number to be approximated (must be already evaluated to floating-point)
 
-[digits] -- desired number of decimal digits (integer)
+{digits} -- desired number of decimal digits (integer)
 
 *DESC
 
-The functions [GuessRational(x)] and [NearRational(x)] attempt to find "optimal"
-rational approximations to a given value [x]. The approximations are "optimal"
+The functions {GuessRational(x)} and {NearRational(x)} attempt to find "optimal"
+rational approximations to a given value {x}. The approximations are "optimal"
 in the sense of having smallest numerators and denominators among all rational
-numbers close to [x]. This is done by computing a continued fraction
-representation of [x] and truncating it at a suitably chosen term.  Both
-functions return a rational number which is an approximation of [x].
+numbers close to {x}. This is done by computing a continued fraction
+representation of {x} and truncating it at a suitably chosen term.  Both
+functions return a rational number which is an approximation of {x}.
 
-Unlike the function [Rationalize()] which converts floating-point numbers to
-rationals without loss of precision, the functions [GuessRational()] and
-[NearRational()] are intended to find the best rational that is <i>approximately</i>
+Unlike the function {Rationalize()} which converts floating-point numbers to
+rationals without loss of precision, the functions {GuessRational()} and
+{NearRational()} are intended to find the best rational that is <i>approximately</i>
 equal to a given value.
 
-The function [GuessRational()] is useful if you have obtained a
+The function {GuessRational()} is useful if you have obtained a
 floating-point representation of a rational number and you know
 approximately how many digits its exact representation should contain.
-This function takes an optional second parameter [digits] which limits
+This function takes an optional second parameter {digits} which limits
 the number of decimal digits in the denominator of the resulting
 rational number. If this parameter is not given, it defaults to half
 the current precision. This function truncates the continuous fraction

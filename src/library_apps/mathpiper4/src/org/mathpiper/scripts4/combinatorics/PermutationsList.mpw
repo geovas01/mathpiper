@@ -42,7 +42,7 @@ Function("PermutationsList",[list])
 
 *PARMS
 
-[list] -- a list of elements
+{list} -- a list of elements
 
 *DESC
 

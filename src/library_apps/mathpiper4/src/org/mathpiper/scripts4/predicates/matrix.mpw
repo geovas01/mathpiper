@@ -103,11 +103,11 @@ Function("SquareMatrix?",[p,x]) Matrix?(p,x) And? Length(x)=?Length(x[1]);
 
 *PARMS
 
-[expr] -- a mathematical object
+{expr} -- a mathematical object
 
 *DESC
 
-[Scalar?] returns [True] if [expr] is a scalar, [False] otherwise.
+{Scalar?} returns {True} if {expr} is a scalar, {False} otherwise.
 Something is considered to be a scalar if it's not a list.
 
 *E.G.
@@ -134,17 +134,17 @@ Result: False;
 
 *PARMS
 
-[expr] -- expression to test
+{expr} -- expression to test
 
-[pred] -- predicate test (e.g. Number?, Integer?, ...)
+{pred} -- predicate test (e.g. Number?, Integer?, ...)
 
 *DESC
 
-[Vector?(expr)] returns [True] if [expr] is a vector, [False] otherwise.
+{Vector?(expr)} returns {True} if {expr} is a vector, {False} otherwise.
 Something is considered to be a vector if it's a list of scalars.
-[Vector?(pred,expr)] returns [True] if [expr] is a vector and if the
-predicate test [pred] returns [True] when applied to every element of
-the vector [expr], [False] otherwise.
+{Vector?(pred,expr)} returns {True} if {expr} is a vector and if the
+predicate test {pred} returns {True} when applied to every element of
+the vector {expr}, {False} otherwise.
 
 *E.G.
 In> Vector?([a,b,c])
@@ -171,18 +171,18 @@ Result: False;
 
 *PARMS
 
-[expr] -- expression to test
+{expr} -- expression to test
 
-[pred] -- predicate test (e.g. Number?, Integer?, ...)
+{pred} -- predicate test (e.g. Number?, Integer?, ...)
 
 *DESC
 
-[Matrix?(expr)] returns [True] if [expr] is a matrix, [False] otherwise.
+{Matrix?(expr)} returns {True} if {expr} is a matrix, {False} otherwise.
 Something is considered to be a matrix if it's a list of vectors of equal
 length.
-[Matrix?(pred,expr)] returns [True] if [expr] is a matrix and if the
-predicate test [pred] returns [True] when applied to every element of
-the matrix [expr], [False] otherwise.
+{Matrix?(pred,expr)} returns {True} if {expr} is a matrix and if the
+predicate test {pred} returns {True} when applied to every element of
+the matrix {expr}, {False} otherwise.
 
 *E.G.
 
@@ -212,18 +212,18 @@ Result: True;
 
 *PARMS
 
-[expr] -- expression to test
+{expr} -- expression to test
 
-[pred] -- predicate test (e.g. Number?, Integer?, ...)
+{pred} -- predicate test (e.g. Number?, Integer?, ...)
 
 *DESC
 
-[SquareMatrix?(expr)] returns [True] if [expr] is a square matrix,
-[False] otherwise. Something is considered to be a square matrix if
+{SquareMatrix?(expr)} returns {True} if {expr} is a square matrix,
+{False} otherwise. Something is considered to be a square matrix if
 it's a matrix having the same number of rows and columns.
-[Matrix?(pred,expr)] returns [True] if [expr] is a square matrix and
-if the predicate test [pred] returns [True] when applied to every
-element of the matrix [expr], [False] otherwise.
+{Matrix?(pred,expr)} returns {True} if {expr} is a square matrix and
+if the predicate test {pred} returns {True} when applied to every
+element of the matrix {expr}, {False} otherwise.
 
 *E.G.
 

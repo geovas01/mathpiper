@@ -22,11 +22,11 @@
 
 *PARMS
 
-[expr] -- a polynomial expression
+{expr} -- a polynomial expression
 
-[var] -- a variable
+{var} -- a variable
 
-[varlist] -- a list of variables
+{varlist} -- a list of variables
 
 *DESC
 

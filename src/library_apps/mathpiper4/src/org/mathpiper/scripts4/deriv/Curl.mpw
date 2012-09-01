@@ -21,9 +21,9 @@ RuleHoldArguments("Curl", 2, 1, Length(aBasis)=?Length(aFunc))
 
 *PARMS
 
-[vector] -- vector field to take the curl of
+{vector} -- vector field to take the curl of
 
-[basis] -- list of variables forming the basis
+{basis} -- list of variables forming the basis
 
 *DESC
 

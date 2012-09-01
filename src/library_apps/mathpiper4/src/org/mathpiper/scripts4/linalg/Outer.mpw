@@ -28,12 +28,12 @@ Precedence:
 
 *PARMS
 
-[t1,t2] -- tensor lists (currently only vectors are supported)
+{t1,t2} -- tensor lists (currently only vectors are supported)
 
 *DESC
 
-[Outer] returns the outer product of two tensors t1 and t2. Currently
-[Outer] work works only for vectors, i.e. tensors of rank 1. The outer
+{Outer} returns the outer product of two tensors t1 and t2. Currently
+{Outer} work works only for vectors, i.e. tensors of rank 1. The outer
 product of two vectors yields a matrix.
 
 *E.G.

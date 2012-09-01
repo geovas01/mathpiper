@@ -31,12 +31,12 @@ RandomPickVector(list, count) :=
 
 *PARMS
 
-[list] -- a list which contains elements
+{list} -- a list which contains elements
 
-[count] -- an integer which indicates how many elements to return
+{count} -- an integer which indicates how many elements to return
 
 *DESC
-Randomly picks [count] elements from the given list.
+Randomly picks {count} elements from the given list.
 
 *E.G.
 In> RandomPickVector([ONE,TWO,THREE],7);

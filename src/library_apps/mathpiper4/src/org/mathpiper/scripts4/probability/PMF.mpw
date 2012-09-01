@@ -68,14 +68,14 @@
         PMF(dist,x)
 
 *PARMS
-[dist] -- a distribution type
+{dist} -- a distribution type
 
-[x] -- a value of random variable
+{x} -- a value of random variable
 
 *DESC
-[PMF] returns the
-probability for a random variable with distribution [dist] to take a
-value of [x].
+{PMF} returns the
+probability for a random variable with distribution {dist} to take a
+value of {x}.
 
 
 *SEE CDF, PDF, Expectation

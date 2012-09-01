@@ -126,12 +126,12 @@
 
 *PARMS
 
-[AugmentedMatrix] -- Augmented matrix describing the system of equations
+{AugmentedMatrix} -- Augmented matrix describing the system of equations
 
 
 *DESC
 
-[RREF] solves a system of linear equations by using the Gauss-Jordan
+{RREF} solves a system of linear equations by using the Gauss-Jordan
 elimination method with partial pivoting, to convert the augmented matrix to the
 (unique) reduced row echelon form.  
 The original matrix is not modified.
@@ -144,7 +144,7 @@ a form like
 where the diagonal form of the left submatrix indicates that the solution is unique
 and has been found, and the right-hand column is the vector of solutions.
 
-If the system of equations has [no] solution, this function returns a matrix in
+If the system of equations has {no} solution, this function returns a matrix in
 a form like
 [  1  0  0  a]
 [  0  1  0  b]

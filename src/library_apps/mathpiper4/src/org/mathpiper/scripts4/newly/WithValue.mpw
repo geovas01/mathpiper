@@ -23,18 +23,18 @@ TemplateFunction("WithValue",[var,val,expr])
 
 *PARMS
 
-[var] -- variable to assign to
+{var} -- variable to assign to
 
-[val] -- value to be assigned to "var"
+{val} -- value to be assigned to "var"
 
-[expr] -- expression to evaluate with "var" equal to "val"
+{expr} -- expression to evaluate with "var" equal to "val"
 
 *DESC
 
 First, the expression "val" is assigned to the variable
 "var". Then, the expression "expr" is evaluated and
 returned. Finally, the assignment is reversed so that the variable
-"var" has the same value as it had before [WithValue] was evaluated.
+"var" has the same value as it had before {WithValue} was evaluated.
 
 The second calling sequence assigns the first element in the list of
 values to the first element in the list of variables, the second value

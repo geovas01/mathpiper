@@ -45,15 +45,15 @@ LocalSymbols(hash, key, element, hashexpr)
 
 *PARMS
 
-[alist] -- association list
+{alist} -- association list
 
-["key"] -- string, association key
+{"key"} -- string, association key
 
-[value] -- value of the key to be deleted
+{value} -- value of the key to be deleted
 
 *DESC
 
-The key ["key"] in the association list [alist] is deleted. (The list itself is modified.) If the key was found and successfully deleted, returns [True], otherwise if the given key was not found, the function returns [False].
+The key {"key"} in the association list {alist} is deleted. (The list itself is modified.) If the key was found and successfully deleted, returns {True}, otherwise if the given key was not found, the function returns {False}.
 
 The second, longer form of the function deletes the entry that has both the
 specified key and the specified value. It can be used for two purposes:

@@ -28,16 +28,16 @@ Ln(xlist_List?) <-- MapSingle("Ln",xlist);
 
 *PARMS
 
-[x] -- argument to the function
+{x} -- argument to the function
 
 *DESC
 
 This function calculates the natural logarithm of "x". This is the
-inverse function of the exponential function, [Exp], i.e. $Ln(x) = y$ implies that $Exp(y) = x$. For complex
+inverse function of the exponential function, {Exp}, i.e. $Ln(x) = y$ implies that $Exp(y) = x$. For complex
 arguments, the imaginary part of the logarithm is in the interval
-(-$Pi$,$Pi$]. This is compatible with the branch cut of [Arg].
+(-$Pi$,$Pi$}. This is compatible with the branch cut of {Arg}.
 
-This function is threaded, meaning that if the argument [x] is a
+This function is threaded, meaning that if the argument {x} is a
 list, the function is applied to all entries in the list.
 
 *E.G.

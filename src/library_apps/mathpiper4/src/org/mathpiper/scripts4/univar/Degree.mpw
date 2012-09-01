@@ -49,9 +49,9 @@ RuleHoldArguments("Degree",1,0, UniVar?(expr))
 
 *PARMS
 
-[expr] -- a polynomial
+{expr} -- a polynomial
 
-[var] -- a variable occurring in "expr"
+{var} -- a variable occurring in "expr"
 
 *DESC
 
@@ -62,13 +62,13 @@ respect to the variable "var". The degree is the highest power of
 should use the second form in which the variable is explicitly
 mentioned.
 
-If [expr] is not a polynomial in the accepted sense of the word,
-this command will return unevaluated.  In particular, if [expr] 
+If {expr} is not a polynomial in the accepted sense of the word,
+this command will return unevaluated.  In particular, if {expr} 
 contains negative powers of the variable, it is not a polynomial.
 
-However, if [expr] is a simple root of a polynomial -- i.e., of 
-the form poly^(1/n), and [poly] is of degree n in [var], then the
-call [Degree(expr,var)] will correctly identify the "degree" of 
+However, if {expr} is a simple root of a polynomial -- i.e., of 
+the form poly^(1/n), and {poly} is of degree n in {var}, then the
+call {Degree(expr,var)} will correctly identify the "degree" of 
 this non-polynomial.
 
 *E.G.

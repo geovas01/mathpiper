@@ -24,13 +24,13 @@ HoldArgument("--",aVar);
 
 *PARMS
 
-[var] -- variable to decrement
+{var} -- variable to decrement
 
 *DESC
 
 The variable with name "var" is decremented, i.e. the number 1 is
-subtracted from it. The expression [x--] is
-equivalent to the assignment [x := x - 1].
+subtracted from it. The expression {x--} is
+equivalent to the assignment {x := x - 1}.
 
 *E.G.
 In> x := 5;

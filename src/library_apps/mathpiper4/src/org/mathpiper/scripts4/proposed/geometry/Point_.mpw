@@ -13,7 +13,7 @@ Point?(p) := Decide(List?(p) And? (Length(p) =? 2 Or? Length(p) =? 3),True,False
         Point?(p)
 *PARMS
 
-[p] -- point to test
+{p} -- point to test
 
 
 *DESC

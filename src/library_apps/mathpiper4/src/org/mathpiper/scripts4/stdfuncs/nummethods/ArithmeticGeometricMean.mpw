@@ -50,9 +50,9 @@ ArithmeticGeometricMean(a, b, eps) :=
         ArithmeticGeometricMean(a,b,precision)
 
 *PARMS
-[a] -- a positive real number
-[b] -- a positive real number
-[precision] -- a positive integer which specifies the precision to use during the calculation
+{a} -- a positive real number
+{b} -- a positive real number
+{precision} -- a positive integer which specifies the precision to use during the calculation
 
 *DESC
 Computes the arithmetic geometric mean of two positive real numbers.

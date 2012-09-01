@@ -33,13 +33,13 @@ BooleanList(elements, integerBitPattern) :=
         BooleanList(elements, integerBitPattern)
 
 *PARMS
-[elements] -- an integer that contains the desired number of elements in the returned list.
+{elements} -- an integer that contains the desired number of elements in the returned list.
 
-[integerBitPattern] -- a integer that (when converted to binary) has a bit pattern that matches the desired boolean pattern.
+{integerBitPattern} -- a integer that (when converted to binary) has a bit pattern that matches the desired boolean pattern.
 
 *DESC
-Returns a list that contains boolean values that match the binary equivalent of the integer in [integerBitPattern]. 
-The list is padded with leading [False] values to match the specified number of elements, if needed.
+Returns a list that contains boolean values that match the binary equivalent of the integer in {integerBitPattern}. 
+The list is padded with leading {False} values to match the specified number of elements, if needed.
 
 *E.G.
 In> BooleanList(8, 5)

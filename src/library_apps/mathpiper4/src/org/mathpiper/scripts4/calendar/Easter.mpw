@@ -40,7 +40,7 @@ Easter(year) := {
 
 *PARMS
 
-[year] -- year
+{year} -- year
 
 *DESC
 

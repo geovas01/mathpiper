@@ -1,6 +1,6 @@
 %mathpiper,def="Partition"
 
-/* ���� Partition ���� */
+/* Partition */
 
 /* Partition( list, n ) partitions 'list' into non-overlapping sublists of length n */
 
@@ -20,9 +20,9 @@ Partition(lst, len):=
 
 *PARMS
 
-[list] -- list to partition
+{list} -- list to partition
 
-[n] -- length of partitions
+{n} -- length of partitions
 
 *DESC
 

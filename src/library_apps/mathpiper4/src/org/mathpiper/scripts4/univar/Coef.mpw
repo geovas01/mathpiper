@@ -33,11 +33,11 @@ Function("Coef",[expression,var,order])
 
 *PARMS
 
-[expr] -- a polynomial
+{expr} -- a polynomial
 
-[var] -- a variable occurring in "expr"
+{var} -- a variable occurring in "expr"
 
-[order] -- integer or list of integers
+{order} -- integer or list of integers
 
 *DESC
 

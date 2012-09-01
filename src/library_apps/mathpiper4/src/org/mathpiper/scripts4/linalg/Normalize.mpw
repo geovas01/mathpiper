@@ -23,11 +23,11 @@ Function("Normalize",[vector])
 
 *PARMS
 
-[v] -- a vector
+{v} -- a vector
 
 *DESC
 
-Return the normalized (unit) vector parallel to [v]: a vector having the same
+Return the normalized (unit) vector parallel to {v}: a vector having the same
 direction but with length 1.
 
 *E.G.

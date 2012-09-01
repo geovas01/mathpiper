@@ -15,13 +15,13 @@ RuleHoldArguments("Object",2,0,Apply(pred,[x])=?True) x;
 
 *PARMS
 
-[pred] -- name of the predicate to apply
+{pred} -- name of the predicate to apply
 
-[exp] -- expression on which "pred" should be applied
+{exp} -- expression on which "pred" should be applied
 
 *DESC
 
-This function returns "obj" as soon as "pred" returns [True] when applied on "obj". This is used to declare
+This function returns "obj" as soon as "pred" returns {True} when applied on "obj". This is used to declare
 so-called incomplete types.
 
 *E.G.

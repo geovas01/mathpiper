@@ -116,9 +116,9 @@ Verify(ExceptionCatch(RandomInteger(4, 1), "Exception"), "Exception");
 
 *PARMS
 
-[lower_bound] -- the smallest integer that can be generated
+{lower_bound} -- the smallest integer that can be generated
 
-[upper_bound] -- the largest integer that can be generated
+{upper_bound} -- the largest integer that can be generated
 
 
 *DESC

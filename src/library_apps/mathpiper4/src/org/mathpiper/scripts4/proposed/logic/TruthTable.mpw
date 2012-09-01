@@ -44,7 +44,7 @@ TruthTable(booleanExpression) :=
         TruthTable(booleanExpression)
 
 *PARMS
-[booleanExpression] -- a boolean expression.
+{booleanExpression} -- a boolean expression.
 
 *DESC
 Returns a list that contains a truth table for a boolean expression. The truth table is returned as a 

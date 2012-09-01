@@ -23,9 +23,9 @@ Segment(PointA_Point?,PointB_Point?) <--
         Segment(p1, p2)
 *PARMS
 
-[p1] -- the first endpoint
+{p1} -- the first endpoint
 
-[p2] -- the second endpoint
+{p2} -- the second endpoint
 
 *DESC
 

@@ -15,7 +15,7 @@ AssocValues(assocvalueslist_List?) <--
 
 *PARMS
 
-[alist] -- association list to examine
+{alist} -- association list to examine
 
 *DESC
 

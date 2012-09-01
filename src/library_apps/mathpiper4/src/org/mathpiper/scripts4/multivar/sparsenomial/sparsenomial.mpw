@@ -172,7 +172,7 @@ MultiTermLess([_deg1,_fact1],[_deg2,_fact2]) <--
 
 *PARMS
 
-[expression] -- an expression
+{expression} -- an expression
 
 *DESC
 

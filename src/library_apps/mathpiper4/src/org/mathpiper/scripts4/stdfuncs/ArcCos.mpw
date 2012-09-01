@@ -33,7 +33,7 @@ ArcCos(xlist_List?) <-- MapSingle("ArcCos",xlist);
 
 *PARMS
 
-[x] -- argument to the function
+{x} -- argument to the function
 
 *DESC
 
@@ -43,15 +43,15 @@ $Cos(y)$ equals $x$.
 
 Note that the number $y$ is not unique. For instance, $Cos(Pi/2)$ and
 $Cos(3*Pi/2)$ both equal 0, so what should $ArcCos(0)$ be? In MathPiper,
-it is agreed that the value of $ArcCos(x)$ should be in the interval [0,$Pi$] .
+it is agreed that the value of $ArcCos(x)$ should be in the interval {0,$Pi$} .
 
 Usually, MathPiper leaves this function alone unless it is forced to do
-a numerical evaluation by the [N] function. If the
+a numerical evaluation by the {N} function. If the
 argument is -1, 0, or 1 however, MathPiper will simplify the
 expression. If the argument is complex,  the expression will be
-rewritten using the [Ln] function.
+rewritten using the {Ln} function.
 
-This function is threaded, meaning that if the argument [x] is a
+This function is threaded, meaning that if the argument {x} is a
 list, the function is applied to all entries in the list.
 
 *E.G.

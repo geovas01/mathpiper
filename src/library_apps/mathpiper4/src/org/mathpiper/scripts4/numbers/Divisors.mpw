@@ -31,11 +31,11 @@
         Divisors(n)
 *PARMS
 
-[n] -- positive integer
+{n} -- positive integer
 
 *DESC
 
-[Divisors] returns the number of positive divisors of a number.
+{Divisors} returns the number of positive divisors of a number.
 A number is prime if and only if it has two divisors, 1 and itself.
 
 *E.G.

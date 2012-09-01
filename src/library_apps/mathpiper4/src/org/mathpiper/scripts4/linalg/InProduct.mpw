@@ -28,7 +28,7 @@ Function("InProduct",[aLeft,aRight])
 
 *PARMS
 
-[a], [b] -- vectors of equal length
+{a}, {b} -- vectors of equal length
 
 *DESC
 

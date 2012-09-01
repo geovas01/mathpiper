@@ -22,16 +22,16 @@
 
 *PARMS
 
-[n] -- integer. the first entry in the list
+{n} -- integer. the first entry in the list
 
-[m] -- integer, the last entry in the list
+{m} -- integer, the last entry in the list
 
 *DESC
 
-This command returns the list [[n, n+1, n+2, ..., m]]. If [m] is
-smaller than [n], the empty list is returned. Note that the
-[..] operator should be surrounded by spaces to keep the
-parser happy, if "n" is a number. So one should write "[1 .. 4]" instead of "[1..4]".
+This command returns the list {[n, n+1, n+2, ..., m]}. If {m} is
+smaller than {n}, the empty list is returned. Note that the
+{..} operator should be surrounded by spaces to keep the
+parser happy, if "n" is a number. So one should write "{1 .. 4}" instead of "{1..4}".
 
 This operator can help the user to program in the style of functional programming languages such as Miranda or Haskell.
 

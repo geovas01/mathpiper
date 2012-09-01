@@ -19,13 +19,13 @@
 
 *PARMS
 
-[expr] -- expression to determine denominator of
+{expr} -- expression to determine denominator of
 
 *DESC
 
 This function determines the denominator of the rational expression
 "expr" and returns it. As a special case, if its argument is numeric
-but not rational, it returns [1]. If "expr" is
+but not rational, it returns {1}. If "expr" is
 neither rational nor numeric, the function returns unevaluated.
 
 *E.G.

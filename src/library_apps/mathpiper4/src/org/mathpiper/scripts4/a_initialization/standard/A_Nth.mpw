@@ -67,9 +67,9 @@ RuleHoldArguments("Nth",2,40,Equal?(String?(aindex),True))
 
 *PARMS
 
-[list] -- list to choose from
+{list} -- list to choose from
 
-[n] -- index of entry to pick
+{n} -- index of entry to pick
 
 *DESC
 
@@ -77,11 +77,11 @@ The entry with index "n" from "list" is returned. The first entry
 has index 1. It is possible to pick several entries of the list by
 taking "n" to be a list of indices.
 
-More generally, [Nth] returns the n-th operand of the
+More generally, {Nth} returns the n-th operand of the
 expression passed as first argument.
 
-An alternative but equivalent form of [Nth(list, n)] is
-[list[n]].
+An alternative but equivalent form of {Nth(list, n)} is
+{list{n}}.
 
 *E.G.
 

@@ -63,7 +63,7 @@ ControlChartConstants(n) :=
 
 *PARMS
 
-[n] -- subgroup size (2 - 20)
+{n} -- subgroup size (2 - 20)
 
 *DESC
 Returns the control chart constants $A_2, d_2, D_3, D_4$.

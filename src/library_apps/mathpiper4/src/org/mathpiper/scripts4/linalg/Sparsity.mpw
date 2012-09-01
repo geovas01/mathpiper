@@ -24,13 +24,13 @@ Function("Sparsity",[matrix])
         Sparsity(matrix)
 *PARMS
 
-[matrix] -- a matrix
+{matrix} -- a matrix
 
 *DESC
 
-The function [Sparsity] returns a number between [0] and [1] which 
+The function {Sparsity} returns a number between {0} and {1} which 
 represents the percentage of zero entries in the matrix. Although
-there is no definite critical value, a sparsity of [0.75]  or more
+there is no definite critical value, a sparsity of {0.75}  or more
 is almost universally considered a "sparse" matrix. These type of
 matrices can be handled in a different manner than "full" matrices
 which speedup many calculations by orders of magnitude.

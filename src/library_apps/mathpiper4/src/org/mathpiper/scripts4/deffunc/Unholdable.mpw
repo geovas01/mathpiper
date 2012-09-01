@@ -34,7 +34,7 @@ RuleHoldArguments("Unholdable",1,20,True)
 
 *PARMS
 
-[var] -- a variable
+{var} -- a variable
 
 *DESC
 This function makes a variable unholdable.  It is used to make sure that an :=

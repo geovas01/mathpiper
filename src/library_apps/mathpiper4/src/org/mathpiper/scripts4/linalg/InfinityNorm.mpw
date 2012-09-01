@@ -29,12 +29,12 @@
         InfinityNorm(Matrix)
 *PARMS
 
-[Matrix] -- a Matrix or Vector
+{Matrix} -- a Matrix or Vector
 
 
 *DESC
 
-The function [InfinityNorm] calculates one of the most valuable types
+The function {InfinityNorm} calculates one of the most valuable types
 of Norm for Matrices.  It can also be applied to Vectors, but is less
 often used that way.
 

@@ -37,9 +37,9 @@ RuleHoldArguments("Drop", 2, 2, range <? 0)
 
 *PARMS
 
-[list] -- list to act on
+{list} -- list to act on
 
-[n], [m] -- positive integers describing the entries to drop
+{n}, {m} -- positive integers describing the entries to drop
 
 *DESC
 

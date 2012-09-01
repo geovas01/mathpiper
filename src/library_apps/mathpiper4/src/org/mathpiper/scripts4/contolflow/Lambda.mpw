@@ -20,7 +20,7 @@ MacroRulebaseHoldArguments("Lambda",[args,body]);
 
 *PARMS
 
-[arglist] -- list of arguments
+{arglist} -- list of arguments
 
 *DESC
 

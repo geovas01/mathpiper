@@ -30,7 +30,7 @@ k-th primitive roots of the identity */
 
 *PARMS
 
-[k], [n] -- positive integers
+{k}, {n} -- positive integers
 
 *DESC
 This function computes the Ramanujan sum, i.e. the sum of the $n$-th powers of 

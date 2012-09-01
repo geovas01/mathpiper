@@ -23,19 +23,19 @@ Function("InverseTaylor",[var,val,degree,func])
 
 *PARMS
 
-[var] -- variable
+{var} -- variable
 
-[at] -- point to get inverse Taylor series around
+{at} -- point to get inverse Taylor series around
 
-[order] -- order of approximation
+{order} -- order of approximation
 
-[expr] -- expression to get inverse Taylor series for
+{expr} -- expression to get inverse Taylor series for
 
 *DESC
 
 This function builds the Taylor series expansion of the inverse of the
 expression "expr" with respect to the variable "var" around "at"
-up to order "order". It uses the function [ReversePoly] to perform the task.
+up to order "order". It uses the function {ReversePoly} to perform the task.
 
 *E.G.
 

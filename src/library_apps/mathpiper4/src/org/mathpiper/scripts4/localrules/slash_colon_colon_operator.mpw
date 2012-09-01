@@ -40,14 +40,14 @@
 
 *PARMS
 
-[expression] -- an expression
+{expression} -- an expression
 
-[patterns] -- a list of patterns
+{patterns} -- a list of patterns
 
 *DESC
 
-It might be necessary sometimes to use the [/::] operator, which
-repeatedly applies the [/:] operator until the result doesn't change
+It might be necessary sometimes to use the {/::} operator, which
+repeatedly applies the {/:} operator until the result doesn't change
 any more. Caution is required, since rules can contradict each other,
 which could result in an infinite loop. To detect this situation,
 just use /: repeatedly on the expression. The repetitive nature

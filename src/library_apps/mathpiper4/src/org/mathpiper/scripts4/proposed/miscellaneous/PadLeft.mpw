@@ -32,9 +32,9 @@
 
 *PARMS
 
-[number] -- an integer or a decimal number to convert to a string
+{number} -- an integer or a decimal number to convert to a string
 
-[string_width] -- the width of the string
+{string_width} -- the width of the string
 
 *DESC
 

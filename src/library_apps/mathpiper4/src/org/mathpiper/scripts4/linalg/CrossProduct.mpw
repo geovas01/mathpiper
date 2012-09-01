@@ -37,7 +37,7 @@ Precedence:
 
 *PARMS
 
-[a], [b] -- three-dimensional vectors
+{a}, {b} -- three-dimensional vectors
 
 *DESC
 

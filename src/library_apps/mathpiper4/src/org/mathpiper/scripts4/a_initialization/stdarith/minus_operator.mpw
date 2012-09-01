@@ -92,7 +92,7 @@ Precedence: left-side:
 
 *PARMS
 
-[x] and [y] -- objects for which subtraction is defined
+{x} and {y} -- objects for which subtraction is defined
 
 *DESC
 

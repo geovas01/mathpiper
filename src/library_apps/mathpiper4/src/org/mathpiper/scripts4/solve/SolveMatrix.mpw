@@ -41,13 +41,13 @@ Function("SolveMatrix",[matrix,vector])
 
 *PARMS
 
-[M] -- a matrix
+{M} -- a matrix
 
-[v] -- a vector
+{v} -- a vector
 
 *DESC
 
-[SolveMatrix] returns the vector $x$ that satisfies
+{SolveMatrix} returns the vector $x$ that satisfies
 the equation $M*x = v$. The determinant of $M$ should be non-zero.
 
 *E.G.

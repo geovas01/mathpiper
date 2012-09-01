@@ -39,7 +39,7 @@
 
 *PARMS
 
-[list] -- a list to be converted into a string
+{list} -- a list to be converted into a string
 
 *DESC
 This function converts each of the elementes in a list into a string and then concatenates these

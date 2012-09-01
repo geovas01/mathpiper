@@ -15,12 +15,12 @@ Reverse(list):=DestructiveReverse(FlatCopy(list));
 
 *PARMS
 
-[list] -- list to reverse
+{list} -- list to reverse
 
 *DESC
 
 This function returns a list reversed, without changing the
-original list. It is similar to [DestructiveReverse], but safer
+original list. It is similar to {DestructiveReverse}, but safer
 and slower.
 
 

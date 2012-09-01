@@ -14,7 +14,7 @@ Function("PopFront",[stack]) Pop(stack,1);
 
 *PARMS
 
-[stack] -- a list (which serves as the stack container)
+{stack} -- a list (which serves as the stack container)
 
 *DESC
 

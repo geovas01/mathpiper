@@ -25,8 +25,8 @@ StandardErrorOfTheProportion(meanOfSampleProportions, sampleSize) :=
         StandardErrorOfTheProportion(meanOfSampleProportions,sampleSize)
 
 *PARMS
-[meanOfSampleProportions] -- the mean of the sample proportions
-[sampleSize] -- the size of the proportion samples
+{meanOfSampleProportions} -- the mean of the sample proportions
+{sampleSize} -- the size of the proportion samples
 
 *DESC
 This function calculates the standard error of the proportion.

@@ -78,15 +78,15 @@ UnFence("terms",3);
         ListTerms(expr)
 
 *PARMS
-[expr] -- a mathematical expression composed of sums and differences of terms=
+{expr} -- a mathematical expression composed of sums and differences of terms=
 
 *DESC
-Given an expression [expr] containing (at top level) terms connected by
+Given an expression {expr} containing (at top level) terms connected by
 "+" and/or "-" signs, this function generates a list of all such terms 
 in the expression.
 
 If the expression has only products, powers, or rational expressions (but not
-sums or differences) at the top level, this function will [not] expand them, 
+sums or differences) at the top level, this function will {not} expand them, 
 and thus will not list any "terms".  If the user wants the expression to be
 expanded, s/he must do so explicitly.
 

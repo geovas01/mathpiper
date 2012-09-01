@@ -29,9 +29,9 @@ LocalSymbols(func,lists,mapsingleresult,mapsingleitem)
 
 *PARMS
 
-[fn] -- function to apply
+{fn} -- function to apply
 
-[list] -- list of lists of arguments
+{list} -- list of lists of arguments
 
 *DESC
 

@@ -79,16 +79,16 @@ ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnow
 *CALL
         ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnown,sampleSize,confidenceLevel)
 *PARMS
-[sampleMean] -- the mean of the sample
-[standardDeviation] -- the standard deviation of the sample
-[standardDeviationIsKnown] -- True or False
-[sampleSize] -- the size of the sample
-[confidenceLevel] -- the desired confidence level
+{sampleMean} -- the mean of the sample
+{standardDeviation} -- the standard deviation of the sample
+{standardDeviationIsKnown} -- True or False
+{sampleSize} -- the size of the sample
+{confidenceLevel} -- the desired confidence level
 
 *DESC
 This function calculates a confidence interval for a mean.  It returns an association list
 which contains the lower limit, the upper limit, and either the critical Z score or the t value.
-If the sample size is <30 or [standardDeviationIsKnown] is False, then
+If the sample size is <30 or {standardDeviationIsKnown} is False, then
 Student's t-distribution is used during the calculation.
 
 If the function is run in verbose mode, it returns additional information as a side effect.

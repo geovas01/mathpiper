@@ -51,7 +51,7 @@
         LU(matrix)
 
 *PARMS
-[matrix] -- a matrix
+{matrix} -- a matrix
 
 *DESC
 todo

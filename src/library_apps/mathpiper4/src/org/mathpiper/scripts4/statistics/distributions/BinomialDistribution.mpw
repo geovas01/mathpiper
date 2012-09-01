@@ -19,21 +19,21 @@ BinomialDistribution(_p, _n)_
         BinomialDistribution(p,n)
 
 *PARMS
-[p] -- number, probability to observe an event in single trial
+{p} -- number, probability to observe an event in single trial
 
-[n] -- number of trials
+{n} -- number of trials
 
 *DESC
-Suppose we repeat a trial [n] times, the probability to observe an
-event in a single trial is [p] and outcomes in all trials are mutually
+Suppose we repeat a trial {n} times, the probability to observe an
+event in a single trial is {p} and outcomes in all trials are mutually
 independent. Then the number of trials when the event occurred
 is distributed according to the binomial distribution. The probability
-of that is [BinomialDistribution][(p,n)].
+of that is {BinomialDistribution}{(p,n)}.
 
 Describes the number of successes for draws with replacement.
 
-Numerical value of [p] must satisfy $0<p<1$. Numerical value
-of [n] must be a positive integer. 
+Numerical value of {p} must satisfy $0<p<1$. Numerical value
+of {n} must be a positive integer. 
 
 *E.G.
 /%mathpiper,title=""

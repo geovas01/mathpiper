@@ -43,14 +43,14 @@
         ExtractSubMatrix(matrix,row1,col1,row2,col2)
 
 *PARMS
-[matrix] -- matrix from which to extract a submatrix
-[row1,col1] -- UpperLeft  (UL) corner of submatrix
-[row2,col2] -- LowerRight (LR) corner of submatrix
+{matrix} -- matrix from which to extract a submatrix
+{row1,col1} -- UpperLeft  (UL) corner of submatrix
+{row2,col2} -- LowerRight (LR) corner of submatrix
 
 *DESC
-Given a  [matrix]  with [nr] rows and [nc] columns, not necessarily square,
+Given a  {matrix}  with {nr} rows and {nc} columns, not necessarily square,
 this command extracts and return the specified submatrix.  
-If [row2,col2] are omitted, they default to [nr,nc].
+If {row2,col2} are omitted, they default to {nr,nc}.
 The original matrix is left unchanged.
 The inputs are checked for sanity.
 

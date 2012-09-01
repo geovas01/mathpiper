@@ -39,16 +39,16 @@
 
 *PARMS
 
-[expr] -- an expression
+{expr} -- an expression
 
-[vars] -- a list of variable names
+{vars} -- a list of variable names
 
 *DESC
 
 This function is primarily used to succinctly describe the components of a
 polynomial, but it can also be used with some non-polynomial expressions.  
 
-The command [DisassembleExpression(expr)] returns a list composed of three elements:
+The command {DisassembleExpression(expr)} returns a list composed of three elements:
 
     1. a list of the variable names in the expression
     
@@ -59,18 +59,18 @@ The command [DisassembleExpression(expr)] returns a list composed of three eleme
 This list-of-lists comprises in essence a sparse database containing a 
 complete representation of the expression.  Any function which needs to 
 examine and process the terms of an expression, in sequence, can use
-[DisassembleExpression] as a starting point.
+{DisassembleExpression} as a starting point.
 
-If the first form, [DisassembleExpression(expr)], is used, MathPiper will
+If the first form, {DisassembleExpression(expr)}, is used, MathPiper will
 employ the function "MultiExpressionList" to try to extract the names of all the
 "variables" in the expression -- which may or may not result in
-the list you would prefer to get.  In particular, if [expr] contains
+the list you would prefer to get.  In particular, if {expr} contains
 "parameters" in addition to "variables", MathPiper cannot distinguish them,
 and considers them all to be "variables".
 This is where the user should employ the second form, in which a preferred set
 of variables is explicitly given.  See the examples below.
 
-The pair of functions, [DisassembleExpression] and [ReassembleListTerms], 
+The pair of functions, {DisassembleExpression} and {ReassembleListTerms}, 
 together constitute a foundation for the analysis of polynomials and -- more
 generally -- any expressions which can be regarded as sum or difference of terms.
 

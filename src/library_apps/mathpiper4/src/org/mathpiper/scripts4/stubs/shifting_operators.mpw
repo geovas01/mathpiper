@@ -23,7 +23,7 @@ n_Integer? >> m_Integer? <-- ShiftRight(n,m);
 
 *PARMS
 
-[n], [m] -- integers
+{n}, {m} -- integers
 
 *DESC
 

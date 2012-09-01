@@ -289,38 +289,38 @@ LocalSymbols(x)
 
 *PARMS
 
-[eq] -- equation to solve
+{eq} -- equation to solve
 
-[var] -- variable to solve for
+{var} -- variable to solve for
 
 *DESC
 
-This command tries to solve an equation. If [eq] does not contain the
-[==] operator, it is assumed that the user wants to solve
-$eq == 0$. The result is a list of equations of the form [var == value], each
-representing a solution of the given equation. The [Where] operator
+This command tries to solve an equation. If {eq} does not contain the
+{==} operator, it is assumed that the user wants to solve
+$eq == 0$. The result is a list of equations of the form {var == value}, each
+representing a solution of the given equation. The {Where} operator
 can be used to substitute this solution in another expression. If the
-given equation [eq] does not have any solutions, or if [Solve] is
+given equation {eq} does not have any solutions, or if {Solve} is
 unable to find any, then an empty list is returned.
 
 The current implementation is far from perfect. In particular, the
 user should keep the following points in mind:
-*        [Solve] cannot solve all equations. If it is given a equation
-it can not solve, it raises an error via [Check]. Unfortunately, this
-is not displayed by the inline pretty-printer; call [PrettyPrinterSet] to
+*        {Solve} cannot solve all equations. If it is given a equation
+it can not solve, it raises an error via {Check}. Unfortunately, this
+is not displayed by the inline pretty-printer; call {PrettyPrinterSet} to
 change this. If an equation cannot be solved analytically, you may
-want to call [Newton] to get a numerical solution.
+want to call {Newton} to get a numerical solution.
 *        Systems of equations are not handled yet. For linear systems,
-[MatrixSolve] can be used. The old version of [Solve], with the name
-[OldSolve] might be able to solve nonlinear systems of equations.
-*        The periodicity of the trigonometric functions [Sin], [Cos],
-and [Tan] is not taken into account. The same goes for the (imaginary)
-periodicity of [Exp]. This causes [Solve] to miss solutions.
+{MatrixSolve} can be used. The old version of {Solve}, with the name
+{OldSolve} might be able to solve nonlinear systems of equations.
+*        The periodicity of the trigonometric functions {Sin}, {Cos},
+and {Tan} is not taken into account. The same goes for the (imaginary)
+periodicity of {Exp}. This causes {Solve} to miss solutions.
 *        It is assumed that all denominators are nonzero. Hence, a
-solution reported by [Solve] may in fact fail to be a solution because
+solution reported by {Solve} may in fact fail to be a solution because
 a denominator vanishes.
 *        In general, it is wise not to have blind trust in the results
-returned by [Solve]. A good strategy is to substitute the solutions
+returned by {Solve}. A good strategy is to substitute the solutions
 back in the equation.
 
 *E.G. notest

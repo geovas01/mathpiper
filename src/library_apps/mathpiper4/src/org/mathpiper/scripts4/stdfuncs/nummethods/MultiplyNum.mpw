@@ -62,16 +62,16 @@ Function() MultiplyNum(x);
 
 *PARMS
 
-[x], [y], [z] -- integer, rational or floating-point numbers to multiply
+{x}, {y}, {z} -- integer, rational or floating-point numbers to multiply
 
 *DESC
-The function [MultiplyNum] is used to speed up multiplication of floating-point numbers with rational numbers. 
+The function {MultiplyNum} is used to speed up multiplication of floating-point numbers with rational numbers. 
 Suppose we need to compute $(p/q)*x$ where $p$, $q$ are integers and $x$ is a floating-point number. 
 At high precision, it is faster to multiply $x$ by an integer $p$ and divide by an integer $q$ than to 
-compute $p/q$ to high precision and then multiply by $x$. The function  [MultiplyNum] performs this optimization.
+compute $p/q$ to high precision and then multiply by $x$. The function  {MultiplyNum} performs this optimization.
 
 The function accepts any number of arguments (not less than two) or a list of numbers. The result is always 
-a floating-point number (even if [InNumericMode()] returns False).
+a floating-point number (even if {InNumericMode()} returns False).
 
 *E.G.
 In> MultiplyNum(1.2, 1/2)

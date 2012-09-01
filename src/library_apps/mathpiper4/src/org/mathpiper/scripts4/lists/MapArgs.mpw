@@ -22,9 +22,9 @@ HoldArgument("MapArgs",oper);
 
 *PARMS
 
-[expr] -- an expression to work on
+{expr} -- an expression to work on
 
-[fn] -- an operation to perform on each argument
+{fn} -- an operation to perform on each argument
 
 *DESC
 

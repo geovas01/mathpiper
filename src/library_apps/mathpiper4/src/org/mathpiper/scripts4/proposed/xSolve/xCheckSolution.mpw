@@ -71,23 +71,23 @@
 
 *PARMS
 
-[expr]     -- a mathematical expression, or List of simultaneous equations
-[var]      -- a varible identifier, or List of variables
-[solution] -- a List containing solutions to the equation(s).
+{expr}     -- a mathematical expression, or List of simultaneous equations
+{var}      -- a varible identifier, or List of variables
+{solution} -- a List containing solutions to the equation(s).
 
 
 *DESC
 
-The function [xSolve] will attempt to find solutions to the equation
-[expr], if [expr] is an actual equatio), or to the equivalent equation
-represented by [expr==0] if [expr] is NOT an equation.  
-If expr is a List of simultaneous linear equations, [xSolve] will
+The function {xSolve} will attempt to find solutions to the equation
+{expr}, if {expr} is an actual equatio), or to the equivalent equation
+represented by {expr==0} if {expr} is NOT an equation.  
+If expr is a List of simultaneous linear equations, {xSolve} will
 attempt to solve the system.
 
-Solutions returned by [xSolve] will be in the form of a List, such as
-[[var==something,var==something_Else]].
+Solutions returned by {xSolve} will be in the form of a List, such as
+{{var==something,var==something_Else}}.
 
-For certain types of expressions or equation, [xSolve] might return
+For certain types of expressions or equation, {xSolve} might return
 invalid solutions as well as valid ones in the output List.  To check
 the list of solutions, call the function xCheckSolutions().  This function
 will return a list containing only the valid solutions from among those

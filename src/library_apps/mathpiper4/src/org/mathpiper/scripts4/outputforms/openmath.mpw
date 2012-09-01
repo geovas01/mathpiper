@@ -964,16 +964,16 @@ OMDef( "DawsonIntegral" , mathpiper, "DawsonIntegral" );
 
 *PARMS
 
-[expression] -- expression to convert
+{expression} -- expression to convert
 
 *DESC
 
-[OMForm] prints an OpenMath representation of the input parameter [expression]
-to standard output. [OMRead] reads an OpenMath expression from standard
+{OMForm} prints an OpenMath representation of the input parameter {expression}
+to standard output. {OMRead} reads an OpenMath expression from standard
 input and returns a normal MathPiper expression that matches the input OpenMath
 expression.
 
-If a MathPiper symbol does not have a mapping defined by [OMDef], it is translated
+If a MathPiper symbol does not have a mapping defined by {OMDef}, it is translated
 to and from OpenMath as the OpenMath symbol in the CD "mathpiper" with the same
 name as it has in MathPiper.
 
@@ -1026,43 +1026,49 @@ Result: True
 
 *PARMS
 
-[mathpiperForm] -- string with the name of a MathPiper symbol, or a MathPiper expression
+{mathpiperForm} -- string with the name of a MathPiper symbol, or a MathPiper expression
 
-[cd] -- OpenMath Content Dictionary for the symbol
+{cd} -- OpenMath Content Dictionary for the symbol
 
-[name] -- OpenMath name for the symbol
+{name} -- OpenMath name for the symbol
 
-[mathpiperToOM] -- rule for translating an application of that symbol in MathPiper into an OpenMath expression
+{mathpiperToOM} -- rule for translating an application of that symbol in MathPiper into an OpenMath expression
 
-[omToMathPiper] -- rule for translating an OpenMath expression into an application of this symbol in MathPiper
+{omToMathPiper} -- rule for translating an OpenMath expression into an application of this symbol in MathPiper
 
 *DESC
 
-[OMDef] defines the translation rules for symbols between the MathPiper
-representation and [OpenMath].
-The first parameter, [mathpiperForm], can be a string or an expression. The
-difference is that when giving an expression only the [omToMathPiper] translation
-is defined, and it uses the exact expression given. This is used for [OpenMath]
+{OMDef} defines the translation rules for symbols between the MathPiper
+representation and {OpenMath}.
+The first parameter, {mathpiperForm}, can be a string or an expression. The
+difference is that when giving an expression only the {omToMathPiper} translation
+is defined, and it uses the exact expression given. This is used for {OpenMath}
 symbols that must be translated into a whole subexpression in MathPiper, such
-as [set1:emptyset] which gets translated to an empty list as follows:
-In> OMDef( [], "set1","emptyset" )
+as {set1:emptyset} which gets translated to an empty list as follows:
+
+In> OMDef( {}, "set1","emptyset" )
 Result: True
+
 In> PipeFromString("<OMOBJ><OMS cd=\"set1\" name=\"emptyset\"/></OMOBJ> ")OMRead()
-Result: []
+Result: {}
+
 In> List?(%)
 Result: True
+
 Otherwise, a symbol that is not inside an application (OMA) gets translated to
 the MathPiper atom with the given name:
+
 In> OMDef( "EmptySet", "set1","emptyset" )
         Warning: the mapping for set1:emptyset was already defined as [] , but is redefined now as EmptySet
 Result: True
+
 In> PipeFromString("<OMOBJ><OMS cd=\"set1\" name=\"emptyset\"/></OMOBJ> ")OMRead()
 Result: EmptySet
 
 The definitions for the symbols in the MathPiper
-library are in the [*.rep] script subdirectories. In those modules for which
-the mappings are defined, there is a file called [om.ys] that contains the
-[OMDef] calls. Those files are loaded in [openmath.rep/om.ys], so any new
+library are in the {*.rep} script subdirectories. In those modules for which
+the mappings are defined, there is a file called {om.ys} that contains the
+{OMDef} calls. Those files are loaded in {openmath.rep/om.ys}, so any new
 file must be added to the list there, at the end of the file.
 
 A rule is represented as a list of expressions. Since both OM and
@@ -1070,38 +1076,38 @@ MathPiper expressions are actually lists, the syntax is the same in both
 directions. There are two template forms that are expanded before the
 translation:
 
-*        [$]: this symbol stands for the translation of the symbol applied
+*        {$}: this symbol stands for the translation of the symbol applied
 in the original expression.
 
-*        [_path]: a path into the original expression (list) to extract an
+*        {_path}: a path into the original expression (list) to extract an
 element, written as an underscore applied to an integer or a list of integers.
   Those integers are indexes into expressions, and integers in a list are
   applied recursively starting at the original expression.
-  For example, [_2] means the second parameter of the expression, while
-  [_[3,2,1]] means the first parameter of the second parameter of the third
+  For example, {_2} means the second parameter of the expression, while
+  {_[3,2,1]} means the first parameter of the second parameter of the third
   parameter of the original expression.
 
 They can appear anywhere in the rule as expressions or subexpressions.
 
 Finally, several alternative rules can be specified by joining them with
-the [|] symbol, and each of them can be annotated with a post-predicate
-applied with the underscore [_] symbol, in the style of MathPiper' simplification
+the {|} symbol, and each of them can be annotated with a post-predicate
+applied with the underscore {_} symbol, in the style of MathPiper' simplification
 rules. Only the first alternative rule that matches is applied, so the more
 specific rules must be written first.
 
-There are special symbols recognized by [OMForm] to output [OpenMath]
+There are special symbols recognized by {OMForm} to output {OpenMath}
 constructs that have no specific parallel in MathPiper, such as an OpenMath
-symbol having a [CD] and [name]: MathPiper symbols have only a name.
+symbol having a {CD} and {name}: MathPiper symbols have only a name.
 Those special symbols are:
 
-*        [OMS(cd, name)]: [<OMS cd="cd" name="name">]
-*        [OMA(f x y ...)]: [<OMA>f x y ...</OMA>]
-*        [OMBIND(binderSymbol, bvars, expression)]: [<OMBIND>binderSymbol bvars expression</OMBIND>], where [bvars] must be produced by using [OMBVAR(...)].
-*        [OMBVAR(x y ...)]: [<OMBVAR>x y ...</OMBVAR>]
-*        [OME(...)]: [<OME>...</OME>]
+*        {OMS(cd, name)}: {<OMS cd="cd" name="name">}
+*        {OMA(f x y ...)}: {<OMA>f x y ...</OMA>}
+*        {OMBIND(binderSymbol, bvars, expression)}: {<OMBIND>binderSymbol bvars expression</OMBIND>}, where {bvars} must be produced by using {OMBVAR(...)}.
+*        {OMBVAR(x y ...)}: {<OMBVAR>x y ...</OMBVAR>}
+*        {OME(...)}: {<OME>...</OME>}
 
 When translating from OpenMath to MathPiper, we just store unknown symbols as
-[OMS("cd", "name")]. This way we don't have to bother defining bogus symbols
+{OMS("cd", "name")}. This way we don't have to bother defining bogus symbols
 for concepts that MathPiper does not handle, and we can evaluate expressions that
 contain them.
 

@@ -21,15 +21,15 @@
 
 *PARMS
 
-[x] -- argument to the function
+{x} -- argument to the function
 
 *DESC
 
 This function returns the argument of "x". The argument is the angle
 with the positive real axis in the Argand diagram, or the angle
 "phi" in the polar representation $r * Exp(I*phi)$ of "x". The
-result is in the range ($-Pi$, $Pi$], that is, excluding $-Pi$ but including $Pi$. The
-argument of 0 is [Undefined].
+result is in the range [$-Pi$, $Pi$], that is, excluding $-Pi$ but including $Pi$. The
+argument of 0 is {Undefined}.
 
 *E.G.
 

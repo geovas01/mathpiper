@@ -14,11 +14,11 @@
 
 *PARMS
 
-[v] -- a vector
+{v} -- a vector
 
 *DESC
 
-Return the norm (i.e., the magnitude, or length) of vector [v]
+Return the norm (i.e., the magnitude, or length) of vector {v}
 
 *E.G.
 

@@ -63,19 +63,19 @@ HoldArgumentNumber("ForEach",3,3);
 
 *PARMS
 
-[var] -- looping variable
+{var} -- looping variable
 
-[list] -- list of values or string of characters to assign to "var"
+{list} -- list of values or string of characters to assign to "var"
 
-[body] -- expression to evaluate with different values of "var"
+{body} -- expression to evaluate with different values of "var"
 
 *DESC
 
 The expression "body" is evaluated multiple times. The first time,
 "var" has the value of the first element of "list" or the first
 character in "string", then it gets
-the value of the second element and so on. [ForEach]
-returns [True].
+the value of the second element and so on. {ForEach}
+returns {True}.
 
 *E.G. notest
 

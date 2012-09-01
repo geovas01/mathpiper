@@ -54,23 +54,23 @@ HalfIntegerFactorial(n_Odd?) _ (n<?0)  <--
         n!!
         
 *PARMS
-[n] -- integer, half-integer, or list
+{n} -- integer, half-integer, or list
 
 *DESC
-The factorial function [n!] calculates the factorial of integer or half-integer numbers. For
+The factorial function {n!} calculates the factorial of integer or half-integer numbers. For
 nonnegative integers, $n! := n*(n-1)*(n-2)*...*1$. The factorial of
 half-integers is defined via Euler's Gamma function, $z! := Gamma(z+1)$. If $n=0$ the function returns $1$.
 
-The factorial functions are threaded, meaning that if the argument [n] is a
+The factorial functions are threaded, meaning that if the argument {n} is a
 list, the function will be applied to each element of the list.
 
-Note: For reasons of MathPiper syntax, the factorial sign [!] cannot precede other
-non-letter symbols such as [+] or [*]. Therefore, you should enter a space
-after [!] in expressions such as [x! +1].
+Note: For reasons of MathPiper syntax, the factorial sign {!} cannot precede other
+non-letter symbols such as {+} or {*}. Therefore, you should enter a space
+after {!} in expressions such as {x! +1}.
 
 The factorial functions terminate and print an error message if the arguments are too large (currently the limit 
 is $n < 65535$) because exact factorials of such large numbers are computationally expensive and most probably 
-not useful. One can call [InternalLnGammaNum()] to evaluate logarithms of such factorials to desired precision.
+not useful. One can call {InternalLnGammaNum()} to evaluate logarithms of such factorials to desired precision.
 
 *E.G.
 

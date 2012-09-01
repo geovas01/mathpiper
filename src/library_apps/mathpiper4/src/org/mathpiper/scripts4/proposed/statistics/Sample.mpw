@@ -26,8 +26,8 @@ Sample(list, sampleSize) :=
         Sample(list,sampleSize)
 
 *PARMS
-[list] -- a list of elements
-[sampleSize] -- the size of the sample to take from the list
+{list} -- a list of elements
+{sampleSize} -- the size of the sample to take from the list
 
 *DESC
 This function takes a random sample of items from a list and returns

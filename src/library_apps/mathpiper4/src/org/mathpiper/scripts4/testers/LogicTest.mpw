@@ -31,15 +31,15 @@ LocalSymbols(TrueFalse)
 
 *PARMS
 
-[variables] -- list of variables
+{variables} -- list of variables
 
-[exprN] -- Some boolean expression
+{exprN} -- Some boolean expression
 
 *DESC
 
-The command [LogicTest] can be used to verify that an
+The command {LogicTest} can be used to verify that an
 expression is <I>equivalent</I> to  a correct answer after evaluation.
-It returns [True] or [False].
+It returns {True} or {False}.
 
 
 *E.G.

@@ -19,12 +19,12 @@
         StirlingNumber1(n,m)
 *PARMS
 
-[n], [m]        -- positive integers
+{n}, {m}        -- positive integers
 
 *DESC
 
 This function returns the signed Stirling Number of the first kind.
-All Stirling Numbers are integers. If $ m > n $, then [StirlingNumber1] returns
+All Stirling Numbers are integers. If $ m > n $, then {StirlingNumber1} returns
 $0$.
 
 *E.G.

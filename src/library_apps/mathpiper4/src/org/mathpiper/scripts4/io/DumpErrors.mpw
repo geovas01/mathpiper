@@ -48,7 +48,7 @@ DumpErrors() <--
 
 *DESC
 
-[DumpErrors] is a simple error handler for the global error reporting mechanism. It prints all errors posted using [Assert] and clears the error tableau.
+{DumpErrors} is a simple error handler for the global error reporting mechanism. It prints all errors posted using {Assert} and clears the error tableau.
 
 *SEE Assert, Error?, ClearErrors
 

@@ -46,11 +46,11 @@ Midpoint(segment_Segment?) <--
         Midpoint(s)
 *PARMS
 
-[p1] -- the first point
+{p1} -- the first point
 
-[p2] -- the second point
+{p2} -- the second point
 
-[s] -- a segment
+{s} -- a segment
 
 *DESC
 

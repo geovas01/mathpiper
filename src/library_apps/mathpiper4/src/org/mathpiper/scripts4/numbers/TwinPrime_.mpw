@@ -13,11 +13,11 @@ TwinPrime?(n_PositiveInteger?)        <-- (Prime?(n) And? Prime?(n+2));
         TwinPrime?(n)
 *PARMS
 
-[n] -- positive integer
+{n} -- positive integer
 
 *DESC
 
-This function returns [True] if [n] is a twin prime. By definition, a twin
+This function returns {True} if {n} is a twin prime. By definition, a twin
 prime is a prime number $n$ such that $n+2$ is also a prime number. 
 
 *E.G.

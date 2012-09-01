@@ -49,12 +49,12 @@ LocalSymbols(x,i,n,m,aux,dim,result)
 
 *PARMS
 
-[Matrix] -- a matrix
+{Matrix} -- a matrix
 
 
 *DESC
 
-This command returns an array of dimensions [nrows,ncols,...] corresponding to the input array.
+This command returns an array of dimensions {nrows,ncols,...} corresponding to the input array.
 The input array can be 1-dimensional (i.e., vector), 2-dimensional (i.e., matrix),
 or higher dimensioned (tensor).  
 

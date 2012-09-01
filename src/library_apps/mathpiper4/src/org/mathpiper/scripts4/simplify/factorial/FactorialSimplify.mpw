@@ -266,11 +266,11 @@ LocalSymbols(n,d,c)
 
 *PARMS
 
-[expression] -- expression to simplify
+{expression} -- expression to simplify
 
 *DESC
 
-[FactorialSimplify] takes an expression that may contain factorials,
+{FactorialSimplify} takes an expression that may contain factorials,
 and tries to simplify it. An expression like $ (n+1)! / n! $ would
 simplify to $(n+1)$. 
 
@@ -281,7 +281,7 @@ The following steps are taken to simplify:
 *        3. expressions like $ p^n/p^m $ are reduced to $p^(n-m)$ if $n-m$ is an integer
 *        4. expressions like $ n! / m! $ are simplified if $n-m$ is an integer
 
-The function [Simplify] is used to determine if the relevant expressions $n-m$
+The function {Simplify} is used to determine if the relevant expressions $n-m$
 are integers.
 
 *E.G.

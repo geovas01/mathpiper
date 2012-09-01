@@ -16,15 +16,15 @@ HasFunctionArithmetic?(expr, atom) := HasFunctionSome?(expr, atom, [ToAtom("+"),
 
 *PARMS
 
-[expr] -- an expression
+{expr} -- an expression
 
-[func] -- a function atom to be found
+{func} -- a function atom to be found
 
 *DESC
 
-[HasFunctionArithmetic?] is defined through [HasFunctionSome?] to look only at arithmetic operations [+], [-], [*], [/].
+{HasFunctionArithmetic?} is defined through {HasFunctionSome?} to look only at arithmetic operations {+}, {-}, {*}, {/}.
 
-Note that since the operators "[+]" and "[-]" are prefix as well as infix operators, it is currently required to use [ToAtom("+")] to obtain the unevaluated atom "[+]".
+Note that since the operators "{+}" and "{-}" are prefix as well as infix operators, it is currently required to use {ToAtom("+")} to obtain the unevaluated atom "{+}".
 
 *E.G.
 

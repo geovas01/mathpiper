@@ -94,12 +94,12 @@ Retract(ChiSquareTest,*);
         ChiSquareTest(observed,expected)
 
 *PARMS
-[observed] -- list of observed frequencies
+{observed} -- list of observed frequencies
 
-[expected] -- list of expected frequencies
+{expected} -- list of expected frequencies
 
 *DESC
-[ChiSquareTest] is intended to determine if a sample was drawn from a
+{ChiSquareTest} is intended to determine if a sample was drawn from a
 given distribution or not. To find this out, one has to calculate
 observed frequencies into certain intervals and expected ones.
 

@@ -17,7 +17,7 @@ Segment?(list_List?) <--
         Segment?(s)
 *PARMS
 
-[s] -- segment to test
+{s} -- segment to test
 
 
 *DESC

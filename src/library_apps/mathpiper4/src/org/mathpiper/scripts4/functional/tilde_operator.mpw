@@ -19,20 +19,20 @@ UnFence("~",2);
 *STD
 *CALL
     list ~ item
-        item ~ list
+    item ~ list
     item ~ item ~ list
-        string1 ~ string2
+    string1 ~ string2
     
 Precedence = 70
 
 *PARMS
-[item] -- an item to append or prepend to a list
+{item} -- an item to append or prepend to a list
 
-[list] -- a list
+{list} -- a list
 
-[string1] -- a string
+{string1} -- a string
 
-[string2] -- a string
+{string2} -- a string
 
 *DESC
 

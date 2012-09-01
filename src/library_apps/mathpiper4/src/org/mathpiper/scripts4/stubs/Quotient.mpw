@@ -47,13 +47,13 @@
 
 *PARMS
 
-[x], [y] -- integers or univariate polynomials
+{x}, {y} -- integers or univariate polynomials
 
 *DESC
 
-[Quotient] performs integer division. [Quotient] is also defined for polynomials.
+{Quotient} performs integer division. {Quotient} is also defined for polynomials.
 
-If [Quotient(x,y)] returns "a" and [Modulo(x,y)] equals "b", then these numbers satisfy $x =a*y + b$ and $0 <= b < y$.
+If {Quotient(x,y)} returns "a" and {Modulo(x,y)} equals "b", then these numbers satisfy $x =a*y + b$ and $0 <= b < y$.
 
 *E.G.
 

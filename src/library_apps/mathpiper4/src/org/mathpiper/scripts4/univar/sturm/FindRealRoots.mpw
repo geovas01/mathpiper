@@ -88,7 +88,7 @@ FindRealRoots(_p,_Mmin,_Mmax) <--
 
 *PARMS
 
-[p] - a polynomial in [x]
+{p} - a polynomial in {x}
 
 *DESC
 

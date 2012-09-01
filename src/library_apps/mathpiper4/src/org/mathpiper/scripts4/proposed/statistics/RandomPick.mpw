@@ -32,7 +32,7 @@ RandomPick(list) :=
 
 *PARMS
 
-[list] -- a list which contains elements
+{list} -- a list which contains elements
 
 *DESC
 Randomly picks an element from the given list.  

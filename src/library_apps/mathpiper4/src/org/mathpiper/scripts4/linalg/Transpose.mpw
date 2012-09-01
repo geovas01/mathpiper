@@ -22,11 +22,11 @@ Transpose(matrix_List?)_(Length(Dimensions(matrix))>?1) <--
 
 *PARMS
 
-[M] -- a matrix
+{M} -- a matrix
 
 *DESC
 
-[Transpose] returns the transpose of a matrix $M$. Because matrices are
+{Transpose} returns the transpose of a matrix $M$. Because matrices are
 just lists of lists, this is a useful operation too for lists.
 
 *E.G.

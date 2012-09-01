@@ -83,30 +83,32 @@
 *CMD Factor -- Factorization of almost anything factorable
 *CALL
 Factor( expr )
+
 *PARMS
-[expr] -- An Integer, Rational number, Gaussian Integer, Polynomial, or Rational Function
+{expr} -- An Integer, Rational number, Gaussian Integer, Polynomial, or Rational Function
+
 *DESC
-This function decomposes an integer number [expr] into a product of its prime factors. 
+This function decomposes an integer number {expr} into a product of its prime factors. 
     
-If [expr] is a Rational number (quotient of integers), it is decomposed into a
+If {expr} is a Rational number (quotient of integers), it is decomposed into a
 quotient of prime factors divided by prime factors, in lowest terms.
     
-If [expr] is a Gaussian integer (complex number whose Re and Im parts are integers),
+If {expr} is a Gaussian integer (complex number whose Re and Im parts are integers),
 it is decomposed into a product of Gaussian primes.
     
-If [expr] is a univariate polynomial, it is decomposed into a product of
-irreducible polynomials.  If the coefficients of [expr] are all Integers, the
-factors will be irreducible over the Integers.  If the coefficients of [expr]
+If {expr} is a univariate polynomial, it is decomposed into a product of
+irreducible polynomials.  If the coefficients of {expr} are all Integers, the
+factors will be irreducible over the Integers.  If the coefficients of {expr}
 are Rational numbers, the factors will be irreducible over the Rationals.
-If any of the coefficients are in [R] but not in [Z] or [Q], they will be 
+If any of the coefficients are in {R} but not in {Z} or {Q}, they will be 
 converted to approximate Rationals before factoring.
     
-If [expr] is a multivariate polynomial, it may or may not be factorized by this
-function.  In general, [bivariate binomials] and [homogeneous bivariate polynomials]
+If {expr} is a multivariate polynomial, it may or may not be factorized by this
+function.  In general, {bivariate binomials} and {homogeneous bivariate polynomials}
 will be factored correctly.  Factoring of other types of multivariate polynomials
 is not yet fully implemented.
     
-If [expr] is a Rational [function] (quotient of polynomials), it is decomposed into a
+If {expr} is a Rational {function} (quotient of polynomials), it is decomposed into a
 quotient of irreducible factors divided by irreducible factors, but not in lowest terms.
     
 *E.G.

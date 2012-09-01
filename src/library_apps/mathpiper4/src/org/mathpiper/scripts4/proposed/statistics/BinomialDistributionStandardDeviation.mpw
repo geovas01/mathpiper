@@ -31,9 +31,9 @@ BinomialDistributionStandardDeviation(probability,numberOfTrials) :=
         BinomialDistributionStandardDeviation(p,n)
 
 *PARMS
-[p] -- number, the probability of a success in a single trial
+{p} -- number, the probability of a success in a single trial
 
-[n] -- number of trials
+{n} -- number of trials
 
 *DESC
 This function calculates the standard deviation of a binomial distribution. 

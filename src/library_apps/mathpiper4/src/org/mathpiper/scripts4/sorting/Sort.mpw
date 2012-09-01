@@ -49,25 +49,25 @@
 
 *PARMS
 
-[list]    -- list of items to sort
+{list}    -- list of items to sort
 
-[compare] -- a comparison operator, according to which items are sorted
+{compare} -- a comparison operator, according to which items are sorted
 
 *DESC
 
-The first form of the [Sort] command simply sorts all the
-objects in [list], according to the default comparison 
-operator ["<?"].
+The first form of the {Sort} command simply sorts all the
+objects in {list}, according to the default comparison 
+operator {"<?"}.
 
 The second form allows the user to input also a chosen comparison 
-operator, [compare], to be used instead of the default.  The function 
-[compare] should accept two arguments, which will be elements of [list],
-and compare them. It should return [True] if in the sorted list the 
-second argument should come after the first one, and [False]
-otherwise.  The function [compare] can either be a string which
+operator, {compare}, to be used instead of the default.  The function 
+{compare} should accept two arguments, which will be elements of {list},
+and compare them. It should return {True} if in the sorted list the 
+second argument should come after the first one, and {False}
+otherwise.  The function {compare} can either be a string which
 contains the name of a function or a pure function.
 
-The third and fourth forms, [SortIndexed], do the same, but also
+The third and fourth forms, {SortIndexed}, do the same, but also
 return an Index list, which tells the order that the sorted items 
 had in the original list before sorting.
 
@@ -77,7 +77,8 @@ This is because BubbleSort tends to be faster for short lists, and
 HeapSort tends to be faster for long lists.  The choice of the number
 20 as the division point is heuristic and somewhat arbitrary.
 
-In all cases, the original [list] is left unmodified.
+In all cases, the original {list} is left unmodified.
+
 *E.G.
 
 In> L:=RandomIntegerList(12,-10,10)

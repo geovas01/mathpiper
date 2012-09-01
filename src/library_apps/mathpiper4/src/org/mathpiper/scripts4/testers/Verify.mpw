@@ -87,16 +87,16 @@ Macro("Verify", [a,b,message])
 
 *PARMS
 
-[question] -- expression to check for
+{question} -- expression to check for
 
-[answer] -- expected result after evaluation
+{answer} -- expected result after evaluation
 
 
 *DESC
 
-The command [Verify] can be used to verify that an
+The command {Verify} can be used to verify that an
 expression is <I>equivalent</I> to  a correct answer after evaluation.
-It returns [True] or [False].
+It returns {True} or {False}.
 
 For some calculations, the demand that two expressions
 are <I>identical</I> syntactically is too stringent. The
@@ -111,16 +111,16 @@ this problem by having domain-specific comparisons.
 
 The comparison commands do the following comparison types:
 
-*        [Verify] -- verify for literal equality.
+*        {Verify} -- verify for literal equality.
 This is the fastest and simplest comparison, and can be
 used, for example, to test that an expression evaluates to $ 2 $.
-*        [TestMathPiper] -- compare two expressions after simplification as
+*        {TestMathPiper} -- compare two expressions after simplification as
 multivariate polynomials. If the two arguments are equivalent
-multivariate polynomials, this test succeeds. [TestMathPiper] uses [Simplify]. Note: [TestMathPiper] currently should not be used to test equality of lists.
-*        [LogicVerify] -- Perform a test by using [CanProve] to verify that from
-[question] the expression [answer] follows. This test command is
+multivariate polynomials, this test succeeds. {TestMathPiper} uses {Simplify}. Note: {TestMathPiper} currently should not be used to test equality of lists.
+*        {LogicVerify} -- Perform a test by using {CanProve} to verify that from
+{question} the expression {answer} follows. This test command is
 used for testing the logic theorem prover in MathPiper.
-*        [LogicTest] -- Generate a truth table for the two expressions and compare these two tables. They should be the same if the two expressions are logically the same.
+*        {LogicTest} -- Generate a truth table for the two expressions and compare these two tables. They should be the same if the two expressions are logically the same.
 
 *E.G.
 In> Verify(1+2,3)

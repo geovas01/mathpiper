@@ -56,11 +56,11 @@ D2Value(k,n) :=
 
 *PARMS
 
-[k] -- the number of times each part was measured (sample size, 1 - 15) or 0 to obtain a d2 control limits constant
-[n] -- the number of parts measured (number of samples, 2 - 15)
+{k} -- the number of times each part was measured (sample size, 1 - 15) or 0 to obtain a d2 control limits constant
+{n} -- the number of parts measured (number of samples, 2 - 15)
 
 *DESC
-Converts average range $\bar[R]$ into estimated standard deviation $\hat[\sigma]_x$.  If k is set to 0,
+Converts average range $\bar{R}$ into estimated standard deviation $\hat{\sigma}_x$.  If k is set to 0,
 the d2 control limits constant is returned.
 
 *E.G.

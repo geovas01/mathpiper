@@ -38,11 +38,11 @@ Diagonal?(A_Matrix?) <--
 
 *PARMS
 
-[A] -- a matrix
+{A} -- a matrix
 
 *DESC
 
-[Diagonal?(A)] returns [True] if [A] is a diagonal square matrix and [False] otherwise.
+{Diagonal?(A)} returns {True} if {A} is a diagonal square matrix and {False} otherwise.
 
 *E.G.
 In> Diagonal?(Identity(5))

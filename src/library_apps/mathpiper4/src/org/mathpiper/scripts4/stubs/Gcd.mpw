@@ -71,20 +71,20 @@
 
 *PARMS
 
-[n], [m] -- integers or Gaussian integers or univariate polynomials
+{n}, {m} -- integers or Gaussian integers or univariate polynomials
 
-[list] -- a list of all integers or all univariate polynomials
+{list} -- a list of all integers or all univariate polynomials
 
 *DESC
 
 This function returns the greatest common divisor of "n" and "m".
 The gcd is the largest number that divides "n" and "m".  It is
 also known as the highest common factor (hcf).  The library code calls
-[MathGcd], which is an internal function.  This
+{MathGcd}, which is an internal function.  This
 function implements the "binary Euclidean algorithm" for determining the
 greatest common divisor:
 
-*HEAD        Routine for calculating [Gcd(n,m)]
+*HEAD        Routine for calculating {Gcd(n,m)}
         
 *        1. if $n = m$ then return $n$
 *        2. if both $n$ and $m$ are even then return $2*Gcd(n/2,m/2)$
@@ -94,7 +94,7 @@ greatest common divisor:
 This is a rather fast algorithm on computers that can efficiently shift
 integers. When factoring Gaussian integers, a slower recursive algorithm is used.
 
-If the second calling form is used, [Gcd] will
+If the second calling form is used, {Gcd} will
 return the greatest common divisor of all the integers or polynomials
 in "list". It uses the identity
 $$Gcd(a,b,c) = Gcd(Gcd(a,b),c)$$.

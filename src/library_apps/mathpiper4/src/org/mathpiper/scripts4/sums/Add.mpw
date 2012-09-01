@@ -27,9 +27,9 @@ Function() Add(val, ...);
 
 *PARMS
 
-[val1], [val2] -- expressions
+{val1}, {val2} -- expressions
 
-[[list]] -- list of expressions to add
+{[list]} -- list of expressions to add
 
 *DESC
 

@@ -18,11 +18,11 @@ RandomIntegerList(_count,_coefmin,_coefmax) <--
 
 *PARMS
 
-[nr] -- number of integers to generate
+{nr} -- number of integers to generate
 
-[from] -- lower bound
+{from} -- lower bound
 
-[to] -- upper bound
+{to} -- upper bound
 
 *DESC
 

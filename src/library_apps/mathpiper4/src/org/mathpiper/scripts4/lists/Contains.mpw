@@ -26,15 +26,15 @@ Function("Contains?",[list,element])
 
 *PARMS
 
-[list] -- list to examine
+{list} -- list to examine
 
-[expr] -- expression to look for in "list"
+{expr} -- expression to look for in "list"
 
 *DESC
 
 This command tests whether "list" contains the expression "expr"
-as an entry. It returns [True] if it does and
-[False] otherwise. Only the top level of "list" is
+as an entry. It returns {True} if it does and
+{False} otherwise. Only the top level of "list" is
 examined. The parameter "list" may also be a general expression, in
 that case the top-level operands are tested for the occurrence of
 "expr".

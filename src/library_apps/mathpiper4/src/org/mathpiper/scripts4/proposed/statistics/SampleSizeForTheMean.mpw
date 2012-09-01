@@ -28,9 +28,9 @@ SampleSizeForTheMean(standardDeviation,confidenceLevel,marginOfError) :=
 *CALL
         SampleSizeForTheMean(standardDeviation,confidenceLevel,marginOfError)
 *PARMS
-[standardDeviation] -- the standard deviation of the sample
-[confidenceLevel] -- the desired level of confidence
-[marginOfError] -- the desired margin of error
+{standardDeviation} -- the standard deviation of the sample
+{confidenceLevel} -- the desired level of confidence
+{marginOfError} -- the desired margin of error
 
 *DESC
 This function calculates the minimum sample size for the mean to provide

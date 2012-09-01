@@ -368,9 +368,9 @@ UnFence("xPSolveCubic",1);
 
 *PARMS
 
-[poly] -- a polynomial in "var"
+{poly} -- a polynomial in "var"
 
-[var] -- a variable
+{var} -- a variable
 
 *DESC
 

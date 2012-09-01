@@ -15,8 +15,8 @@ OddFunction?(f,x):= (f =? Eval(-Subst(x,-x)f));
 
 *PARMS
 
-[expression] -- mathematical expression
-[variable] -- variable
+{expression} -- mathematical expression
+{variable} -- variable
 
 *DESC
 
@@ -25,7 +25,7 @@ function is odd.  Odd functions have the property:
 
 $$ f(x) = -f(-x) $$
 
-[Sin(x)] is an example of an odd function.
+{Sin(x)} is an example of an odd function.
 
 As a side note, one can decompose a function into an
 even and an odd part:

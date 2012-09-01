@@ -21,9 +21,9 @@ Function("FillList", [aItem, aLength])
 
 *PARMS
 
-[expr] -- expression to fill the list with
+{expr} -- expression to fill the list with
 
-[n] -- the length of the list to construct
+{n} -- the length of the list to construct
 
 *DESC
 

@@ -15,11 +15,11 @@
 
 *PARMS
 
-[n] -- positive integer
+{n} -- positive integer
 
 *DESC
 
-This function is the logical negation of [Prime?], except for the number 1, which is
+This function is the logical negation of {Prime?}, except for the number 1, which is
 neither prime nor composite.
 
 *E.G.

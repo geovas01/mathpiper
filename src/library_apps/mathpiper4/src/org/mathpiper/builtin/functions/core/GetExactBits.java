@@ -71,7 +71,7 @@ Each floating-point number in MathPiper has an internal precision counter that s
 The number of exact bits is automatically updated after each arithmetic operation to reflect the gain or loss of precision due to round-off.
 The functions {GetExactBitsN} queries the precision flags of individual number objects.
 
-{GetExactBitsN(x)} returns an integer number $n$ such that {x} represents a real number in the interval [$x*(1-2^(-n))$, $x*(1+2^(-n))$] if $x!=0$ and in the interval [$-2^(-n)$, $2^(-n)$] if $x=0$.
+{GetExactBitsN(x)} returns an integer number $n$ such that {x} represents a real number in the interval [$x*(1-2^{-n})$, $x*(1+2^{-n})$] if $x!=0$ and in the interval [$-2^(-n)$, $2^(-n)$] if $x=0$.
 The integer $n$ is always nonnegative unless {x} is zero (a "floating zero").
 A floating zero can have a negative value of the number $n$ of exact bits.
 

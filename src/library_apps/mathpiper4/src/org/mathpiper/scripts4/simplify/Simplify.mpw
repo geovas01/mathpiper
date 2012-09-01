@@ -49,11 +49,11 @@
 
 *PARMS
 
-[expr] -- expression to simplify
+{expr} -- expression to simplify
 
 *DESC
 
-This function tries to simplify the expression [expr] as much
+This function tries to simplify the expression {expr} as much
 as possible. It does this by grouping powers within terms, and then
 grouping similar terms.
 

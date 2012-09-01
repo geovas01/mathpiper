@@ -15,7 +15,7 @@ RulebaseHoldArguments("!==",[left,right]);
 
 *PARMS
 
-[expression] -- an expression
+{expression} -- an expression
 
 *DESC
 

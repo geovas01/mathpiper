@@ -27,9 +27,9 @@ HoldArgument("MapSingle",func);
 
 *PARMS
 
-[fn] -- function to apply
+{fn} -- function to apply
 
-[list] -- list of arguments
+{list} -- list of arguments
 
 *DESC
 
@@ -38,8 +38,8 @@ The function "fn" is successively applied to all entries in
 returned. The function can be given either as a string or as a pure
 function (see Apply for more information on pure functions).
 
-The [/@] operator provides a shorthand for
-[MapSingle].
+The {/@} operator provides a shorthand for
+{MapSingle}.
 
 *E.G.
 

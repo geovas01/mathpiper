@@ -24,18 +24,18 @@
 
 *PARMS
 
-[expression] -- an expression
+{expression} -- an expression
 
-[patterns] -- a list of patterns
+{patterns} -- a list of patterns
 
 *DESC
 
 Sometimes you have an expression, and you want to use specific
 simplification rules on it that are not done by default. This
-can be done with the [/:] and the [/::] operators. Suppose we have the
-expression containing things such as [Ln(a*b)], and we want
-to change these into [Ln(a)+Ln(b)], the easiest way
-to do this is using the [/:] operator, as follows:
+can be done with the {/:} and the {/::} operators. Suppose we have the
+expression containing things such as {Ln(a*b)}, and we want
+to change these into {Ln(a)+Ln(b)}, the easiest way
+to do this is using the {/:} operator, as follows:
 
 In> Sin(x)*Ln(a*b)
 Result: Sin(x)*Ln(a*b);
@@ -45,18 +45,18 @@ Result: Sin(x)*(Ln(a)+Ln(b));
 
 A whole list of simplification rules can be built up in the list,
 and they will be applied to the expression on the left hand side
-of [/:] .
+of {/:} .
 
 The forms the patterns can have are one of:
 
         pattern <- replacement
-        [pattern,replacement]
-        [pattern,postpredicate,replacement]
+        {pattern,replacement}
+        {pattern,postpredicate,replacement}
 
-Note that for these local rules, [<-] should be used instead of
-[<--] which would be used in a global rule.
+Note that for these local rules, {<-} should be used instead of
+{<--} which would be used in a global rule.
 
-The [/:] operator traverses an expression much as [Subst] does, that is, top
+The {/:} operator traverses an expression much as {Subst} does, that is, top
 down, trying to apply the rules from the beginning of the list of
 rules to the end of the list of rules. If the rules cannot be applied
 to an expression, it will try subexpressions of that
@@ -64,7 +64,7 @@ expression and so on.
 
 A local rule that is defined by the <- operator can be given a name by using the # operator:
 
-"RuleName" # Ln(_x*_y) <- Ln(x) + Ln(y)]
+"RuleName" # Ln(_x*_y) <- Ln(x) + Ln(y)}
 
 Each time the rule is selected while the system is in verbose mode, the name of the rule will be
 printed as a side effect.

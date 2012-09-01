@@ -17,11 +17,11 @@ CatalanNumber(_n) <--
         CatalanNumber(n)
 *PARMS
 
-[n]        -- positive integer
+{n}        -- positive integer
 
 *DESC
 
-This function returns the [n]-th Catalan number, defined as $BinomialCoefficient(2*n,n)/(n+1)$.
+This function returns the {n}-th Catalan number, defined as $BinomialCoefficient(2*n,n)/(n+1)$.
 
 *E.G.
 

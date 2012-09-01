@@ -87,15 +87,15 @@ HoldArgument("TestMathPiper", ans);
 
 *PARMS
 
-[question] -- expression to check for
+{question} -- expression to check for
 
-[answer] -- expected result after evaluation
+{answer} -- expected result after evaluation
 
 *DESC
 
-The command [TestMathPiper] can be used to verify that an
+The command {TestMathPiper} can be used to verify that an
 expression is <I>equivalent</I> to  a correct answer after evaluation.
-It returns [True] or [False].
+It returns {True} or {False}.
 
 *E.G.
 In> TestMathPiper(x*(1+x),x^2+x)

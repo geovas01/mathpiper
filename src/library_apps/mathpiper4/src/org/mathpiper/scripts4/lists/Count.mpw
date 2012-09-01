@@ -20,9 +20,9 @@ Function("Count",[list,element])
 
 *PARMS
 
-[list] -- the list to examine
+{list} -- the list to examine
 
-[expr] -- expression to look for in "list"
+{expr} -- expression to look for in "list"
 
 *DESC
 

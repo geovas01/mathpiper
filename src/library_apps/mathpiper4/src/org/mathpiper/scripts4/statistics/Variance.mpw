@@ -26,7 +26,7 @@ Variance(list) :=
 
 *PARMS
 
-[list] -- list of values
+{list} -- list of values
 
 *DESC
 

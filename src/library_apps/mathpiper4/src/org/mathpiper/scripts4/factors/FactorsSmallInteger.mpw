@@ -37,11 +37,11 @@
 
 *PARMS
 
-[x] -- a small integer
+{x} -- a small integer
 
 *DESC
 
-This function decomposes the integer number [x] into its prime factors.
+This function decomposes the integer number {x} into its prime factors.
 The method used is not suitable for large integers, although it will work.
 This function is best reserved for integers less than, say, 10,000 or so.
 
@@ -49,7 +49,7 @@ The factorization is returned as a list of pairs. The first member of
 each pair is the factor, while the second member denotes the power to
 which this factor should be raised. So the factorization
 $x = p1^n1 * ... * p9^n9$
-is returned as [[[p1,n1], ..., [p9,n9]]].
+is returned as {[[p1,n1], ..., [p9,n9]]}.
 
 Programmer: Yacas Team + Sherm Ostrowsky
 

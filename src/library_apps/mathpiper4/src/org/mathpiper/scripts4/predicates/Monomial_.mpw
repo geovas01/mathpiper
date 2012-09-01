@@ -34,12 +34,12 @@
         Monomial?(expr)
 
 *PARMS
-[expr] -- an expression
+{expr} -- an expression
 
 *DESC
-This function returns [True] if [expr] satisfies the definition of a [Monomial].
-Otherwise, [False].
-A [Monomial] is defined to be a single term, consisting of a product of numbers
+This function returns {True} if {expr} satisfies the definition of a {Monomial}.
+Otherwise, {False}.
+A {Monomial} is defined to be a single term, consisting of a product of numbers
 and variables.
 
 *E.G.

@@ -143,34 +143,33 @@ LoadLibraryFunction("AntiDeriv");
 
 *PARMS
 
-[var] -- atom, variable to integrate over
+{var} -- atom, variable to integrate over
 
-[optionsList] -- a list which contains options that affect integration
+{optionsList} -- a list which contains options that affect integration
 
-[x1] -- first point of definite integration
+{x1} -- first point of definite integration
 
-[x2] -- second point of definite integration
+{x2} -- second point of definite integration
 
-[expr] -- expression to integrate
+{expr} -- expression to integrate
 
 *DESC
 
-This function integrates the expression [expr] with respect to the
-variable [var]. The first calling format is used to perform
+This function integrates the expression {expr} with respect to the
+variable {var}. The first calling format is used to perform
 definite integration: the integration is carried out from $var=x1$
 to $var=x2$. The second form is for indefinite integration.
 
 Some simple integration rules have currently been
 implemented. Polynomials, some quotients of polynomials,
 trigonometric functions and their inverses, hyperbolic functions
-and their inverses, [Exp], and [Ln], and products of these
+and their inverses, {Exp}, and {Ln}, and products of these
 functions with polynomials can be integrated.
 
 
+{Options}:
 
-[Options]:
-
-[logAbs] -- For results which contain logs, the result is given in terms of Ln(Abs(...))
+{logAbs} -- For results which contain logs, the result is given in terms of Ln(Abs(...))
 if logAbs is True, but in terms of Ln(...) if logAbs is not set or is set to anything other than True.
 
 

@@ -57,9 +57,9 @@ ConfidenceIntervalOfTheProportion(numberOfSuccesses,sampleSize,confidenceLevel) 
 *CALL
         ConfidenceIntervalOfTheProportion(numberOfSuccesses,sampleSize,confidenceLevel)
 *PARMS
-[numberOfSuccesses] -- the number of successes in the sample
-[sampleSize] -- the size of the sample
-[confidenceLevel] -- the desired confidence level
+{numberOfSuccesses} -- the number of successes in the sample
+{sampleSize} -- the size of the sample
+{confidenceLevel} -- the desired confidence level
 
 *DESC
 

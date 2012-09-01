@@ -51,9 +51,9 @@ Function() Minimum(l1, l2, l3, ...);
 
 *PARMS
 
-[x], [y] -- pair of values to determine the minimum of
+{x}, {y} -- pair of values to determine the minimum of
 
-[list] -- list of values from which the minimum is sought
+{list} -- list of values from which the minimum is sought
 
 *DESC
 

@@ -42,12 +42,12 @@ UnFence("V",1);
 
 *DESC
 
-The function [V(expression)] will evaluate the expression in
+The function {V(expression)} will evaluate the expression in
 verbose mode. Various parts of MathPiper can show extra information
-about the work done while doing a calculation when using [V].
+about the work done while doing a calculation when using {V}.
 
-In verbose mode, [InVerboseMode()] will return [True], otherwise
-it will return [False].
+In verbose mode, {InVerboseMode()} will return {True}, otherwise
+it will return {False}.
 
 *E.G. notest
 

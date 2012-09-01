@@ -480,9 +480,9 @@ OrthoPolyCoeffs("Tscheb2", n_Integer?, []) <-- ChebUCoeffs(n);
 
 *PARMS
 
-[coeffs] -- a list of coefficients
+{coeffs} -- a list of coefficients
 
-[x] -- expression
+{x} -- expression
 
 *DESC
 
@@ -508,17 +508,17 @@ Result: a+x*(b+x*(c+x*d));
 
 *PARMS
 
-[n] -- degree of polynomial
+{n} -- degree of polynomial
 
-[x] -- point to evaluate polynomial at
+{x} -- point to evaluate polynomial at
 
-[a], [b] -- parameters for Jacobi polynomial
+{a}, {b} -- parameters for Jacobi polynomial
 
 *DESC
 
 The first calling format with two arguments evaluates the Legendre polynomial
-of degree [n] at the point [x]. The second form does the same for the Jacobi
-polynomial with parameters [a] and [b], which should be both greater than -1.
+of degree {n} at the point {x}. The second form does the same for the Jacobi
+polynomial with parameters {a} and {b}, which should be both greater than -1.
 
 The Jacobi polynomials are orthogonal with respect to the weight
 function $(1-x)^a *(1+x)^b$ on the interval [-1,1]. They satisfy the
@@ -615,14 +615,14 @@ In> OrthoP(3, 1, 2, 0.5);
 
 *PARMS
 
-[n] -- degree of polynomial
+{n} -- degree of polynomial
 
-[x] -- point to evaluate polynomial at
+{x} -- point to evaluate polynomial at
 
 *DESC
 
-This function evaluates the Hermite polynomial of degree [n] at the
-point [x].
+This function evaluates the Hermite polynomial of degree {n} at the
+point {x}.
 
 The Hermite polynomials are orthogonal with respect to the weight
 function $Exp(-x^2/2)$ on the entire real axis. They satisfy the
@@ -632,7 +632,7 @@ for $n > 1$, with
 $H(0,x) = 1$,
 $H(1,x) = 2*x$.
 
-Most of the work is performed by the internal function [OrthoPoly].
+Most of the work is performed by the internal function {OrthoPoly}.
 
 *E.G.
 
@@ -654,20 +654,20 @@ Result: 31;
 
 *PARMS
 
-[n] -- degree of polynomial
+{n} -- degree of polynomial
 
-[a] -- parameter
+{a} -- parameter
 
-[x] -- point to evaluate polynomial at
+{x} -- point to evaluate polynomial at
 
 *DESC
 
 This function evaluates the Gegenbauer (or ultraspherical) polynomial
-with parameter [a] and degree [n] at the point [x]. The
-parameter [a] should be greater than -1/2.
+with parameter {a} and degree {n} at the point {x}. The
+parameter {a} should be greater than -1/2.
 
 The Gegenbauer polynomials are orthogonal with respect to the weight
-function $(1-x^2)^(a-1/2)$ on the interval [-1,1]. Hence they are
+function $(1-x^2)^{a-1/2}$ on the interval [-1,1]. Hence they are
 connected to the Jacobi polynomials via 
 $$ G(n, a, x) = P(n, a-1/2, a-1/2, x) $$.
 They satisfy the recurrence relation
@@ -708,16 +708,16 @@ Result: 2;
 
 *PARMS
 
-[n] -- degree of polynomial
+{n} -- degree of polynomial
 
-[a] -- parameter
+{a} -- parameter
 
-[x] -- point to evaluate polynomial at
+{x} -- point to evaluate polynomial at
 
 *DESC
 
-This function evaluates the Laguerre polynomial with parameter [a]
-and degree [n] at the point [x]. The parameter [a] should be
+This function evaluates the Laguerre polynomial with parameter {a}
+and degree {n} at the point {x}. The parameter {a} should be
 greater than -1.
 
 The Laguerre polynomials are orthogonal with respect to the weight
@@ -763,9 +763,9 @@ Result: 1.2005208334;
 
 *PARMS
 
-[n] -- degree of polynomial
+{n} -- degree of polynomial
 
-[x] -- point to evaluate polynomial at
+{x} -- point to evaluate polynomial at
 
 *DESC
 
@@ -821,22 +821,24 @@ Result: -2.2234571776;
 
 *PARMS
 
-[c] -- list of coefficients
+{c} -- list of coefficients
 
-[a], [b] -- parameters of specific polynomials
+{a}, {b} -- parameters of specific polynomials
 
-[x] -- point to evaluate polynomial at
+{x} -- point to evaluate polynomial at
 
 *DESC
 
-These functions evaluate the sum of series of orthogonal polynomials at the point [x], with given list of coefficients [c] of the series and fixed polynomial parameters [a], [b] (if applicable).
+These functions evaluate the sum of series of orthogonal polynomials at the point {x}, with given 
+list of coefficients {c} of the series and fixed polynomial parameters {a}, {b} (if applicable).
 
 The list of coefficients starts with the lowest order, so that for example
 OrthoLSum(c, a, x) = c[1] L[0](a,x) + c[2] L[1](a,x) + ... + c[N] L[N-1](a,x).
 
 See pages for specific orthogonal polynomials for more details on the parameters of the polynomials.
 
-Most of the work is performed by the internal function [OrthoPolySum]. The individual polynomials entering the series are not computed, only the sum of the series.
+Most of the work is performed by the internal function {OrthoPolySum}. The individual polynomials 
+entering the series are not computed, only the sum of the series.
 
 *E.G.
 
@@ -859,32 +861,32 @@ Result: (7068985*x^4)/3981312+(1648577*x^3)/995328+
 
 *PARMS
 
-[name] -- string containing name of orthogonal family
+{name} -- string containing name of orthogonal family
 
-[n] -- degree of the polynomial
+{n} -- degree of the polynomial
 
-[par] -- list of values for the parameters
+{par} -- list of values for the parameters
 
-[x] -- point to evaluate at
+{x} -- point to evaluate at
 
 *DESC
 
 This function is used internally to construct orthogonal
-polynomials. It returns the [n]-th polynomial from the family
-[name] with parameters [par] at the point [x].
+polynomials. It returns the {n}-th polynomial from the family
+{name} with parameters {par} at the point {x}.
 
-All known families are stored in the association list returned by the function [KnownOrthoPoly()]. The name serves as key. At the moment
-the following names are known to MathPiper: ["Jacobi"], ["Gegenbauer"], ["Laguerre"], ["Hermite"], ["Tscheb1"],
-and ["Tscheb2"]. The value associated to the key
-is a pure function that takes two arguments: the order [n] and the
-extra parameters [p], and returns a list of two lists: the first list
-contains the coefficients [A,B] of the n=1 polynomial, i.e. $A+B*x$;
-the second list contains the coefficients [A,B,C] in the recurrence
+All known families are stored in the association list returned by the function {KnownOrthoPoly()}. The name serves as key. At the moment
+the following names are known to MathPiper: {"Jacobi"}, {"Gegenbauer"}, {"Laguerre"}, {"Hermite"}, {"Tscheb1"},
+and {"Tscheb2"}. The value associated to the key
+is a pure function that takes two arguments: the order {n} and the
+extra parameters {p}, and returns a list of two lists: the first list
+contains the coefficients {A,B} of the n=1 polynomial, i.e. $A+B*x$;
+the second list contains the coefficients {A,B,C} in the recurrence
 relation, i.e. $P[n] = (A+B*x)*P[n-1]+C*P[n-2]$. (There are
 only 3 coefficients in the second list, because none of the polynomials use $C+D*x$ instead of $C$ in the recurrence relation. This is assumed in the implementation!)
 
-If the argument [x] is numerical, the function [OrthoPolyNumeric] is called. Otherwise, the function [OrthoPolyCoeffs] computes a list of coefficients, and
-[EvaluateHornerScheme] converts this list into a
+If the argument {x} is numerical, the function {OrthoPolyNumeric} is called. Otherwise, the function {OrthoPolyCoeffs} computes a list of coefficients, and
+{EvaluateHornerScheme} converts this list into a
 polynomial expression.
 
 *SEE OrthoP, OrthoG, OrthoH, OrthoL, OrthoT, OrthoU, OrthoPolySum
@@ -900,27 +902,27 @@ polynomial expression.
 
 *PARMS
 
-[name] -- string containing name of orthogonal family
+{name} -- string containing name of orthogonal family
 
-[c] -- list of coefficients
+{c} -- list of coefficients
 
-[par] -- list of values for the parameters
+{par} -- list of values for the parameters
 
-[x] -- point to evaluate at
+{x} -- point to evaluate at
 
 *DESC
 
 This function is used internally to compute series of orthogonal polynomials.
-It is similar to the function [OrthoPoly] and returns the result of the
-summation of series of polynomials from the family [name] with parameters [par]
-at the point [x], where [c] is the list of coefficients of the series.
+It is similar to the function {OrthoPoly} and returns the result of the
+summation of series of polynomials from the family {name} with parameters {par}
+at the point {x}, where {c} is the list of coefficients of the series.
 
 The algorithm used to compute the series without first computing the individual polynomials is the Clenshaw-Smith recurrence scheme.
 (See the algorithms book for explanations.)
 
-If the argument [x] is numerical, the function [OrthoPolySumNumeric] is called.
-Otherwise, the function [OrthoPolySumCoeffs] computes the list of coefficients
-of the resulting polynomial, and [EvaluateHornerScheme] converts this list into
+If the argument {x} is numerical, the function {OrthoPolySumNumeric} is called.
+Otherwise, the function {OrthoPolySumCoeffs} computes the list of coefficients
+of the resulting polynomial, and {EvaluateHornerScheme} converts this list into
 a polynomial expression.
 
 *SEE OrthoPSum, OrthoGSum, OrthoHSum, OrthoLSum, OrthoTSum, OrthoUSum, OrthoPoly

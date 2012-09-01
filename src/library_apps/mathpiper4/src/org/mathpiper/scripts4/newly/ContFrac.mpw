@@ -40,16 +40,16 @@
 
 *PARMS
 
-[x] -- number or polynomial to expand in continued fractions
+{x} -- number or polynomial to expand in continued fractions
 
-[depth] -- integer, maximum required depth of result
+{depth} -- integer, maximum required depth of result
 
 *DESC
 
-This command returns the continued fraction expansion of [x], which
+This command returns the continued fraction expansion of {x}, which
 should be either a floating point number or a polynomial. If
-[depth] is not specified, it defaults to 6. The remainder is
-denoted by [rest].
+{depth} is not specified, it defaults to 6. The remainder is
+denoted by {rest}.
 
 This is especially useful for polynomials, since series expansions
 that converge slowly will typically converge a lot faster if

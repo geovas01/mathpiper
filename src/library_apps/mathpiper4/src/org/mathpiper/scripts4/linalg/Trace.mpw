@@ -40,11 +40,11 @@ Trace(matrix_List?) <--
 
 *PARMS
 
-[M] -- a matrix
+{M} -- a matrix
 
 *DESC
 
-[Trace] returns the trace of a matrix $M$ (defined as the sum of the
+{Trace} returns the trace of a matrix $M$ (defined as the sum of the
 elements on the diagonal of the matrix).
 
 *E.G.

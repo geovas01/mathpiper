@@ -28,11 +28,11 @@ Function("MatrixColumn",[matrix,col])
         MatrixColumn(matrix,column)
 
 *PARMS
-[matrix] -- a matrix
-[column] -- the index of a matrix column
+{matrix} -- a matrix
+{column} -- the index of a matrix column
 
 *DESC
-Returns the column of a matrix which is specified by [column].
+Returns the column of a matrix which is specified by {column}.
 
 *E.G.
 In> A := [[1,2], [3,4]];

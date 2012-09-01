@@ -192,16 +192,16 @@ ScheffeStatistic(xBarA,nA,xBarB,nB,ssw,k,countsList) :=
         ScheffeTest(listOfLists,alpha)
 
 *PARMS
-[listOfLists] -- a list which contains lists which contain the data to be analyzed
+{listOfLists} -- a list which contains lists which contain the data to be analyzed
 
-[alpha] -- the alpha value to use in the analysis.
+{alpha} -- the alpha value to use in the analysis.
 
 *DESC
 This function performs a Scheffe pairwise analysis.  The various values that are
 calculated during the analysis are returned in an association list and these
 values are listed in the keys of the returned list (see the examples section).
 
-If the [html] key is passed to the [ViewHtml] function, the results of the analysis
+If the {html} key is passed to the {ViewHtml} function, the results of the analysis
 are displayed in a graphcs window as rendered HTML.
 
 *E.G.

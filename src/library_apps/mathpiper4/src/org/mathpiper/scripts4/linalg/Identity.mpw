@@ -23,7 +23,7 @@ Identity(n_NonNegativeInteger?) <--
 
 *PARMS
 
-[n] -- size of the matrix
+{n} -- size of the matrix
 
 *DESC
 

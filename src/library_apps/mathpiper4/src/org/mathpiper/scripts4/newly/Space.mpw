@@ -16,12 +16,12 @@ Space(n):= WriteN(" ",n);
 
 *PARMS
 
-[nr] -- the number of spaces to print
+{nr} -- the number of spaces to print
 
 *DESC
 
-The command [Space()] prints one space on the
-current output. The second form prints [nr] spaces on the current
+The command {Space()} prints one space on the
+current output. The second form prints {nr} spaces on the current
 output. The result is always True.
 
 *E.G. notest

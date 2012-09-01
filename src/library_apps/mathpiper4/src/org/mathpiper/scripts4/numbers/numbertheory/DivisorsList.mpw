@@ -31,14 +31,12 @@ DivisorsList(n_PositiveInteger?) <--
         DivisorsList(n)
 *PARMS
 
-[n] -- positive integer
+{n} -- positive integer
 
 *DESC
 
-[DivisorsList] creates a list of the divisors of $n$.
-This is useful for loops like
-
-        ForEach(d,DivisorsList(n))
+{DivisorsList} creates a list of the divisors of $n$.
+This is useful for loops like ForEach(d,DivisorsList(n))
 
 *E.G.
 

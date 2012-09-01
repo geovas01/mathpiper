@@ -18,7 +18,7 @@ GeometricDistribution(p_RationalOrNumber?)_(p<?0 Or? p>?1) <-- Undefined;
 
 *PARMS
 
-[p] -- number, probability of an event in a single trial
+{p} -- number, probability of an event in a single trial
 
 
 *SEE BinomialDistribution, BernoulliDistribution, DiscreteUniformDistribution, ChiSquareDistribution, ContinuousUniformDistribution, ExponentionalDistribution, NormalDistribution, PoissonDistribution, tDistribution
