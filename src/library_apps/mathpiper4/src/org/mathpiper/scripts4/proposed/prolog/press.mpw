@@ -1,5 +1,5 @@
 
-%mathpiper,def="Position;PositionHelper;Occurrence;SingleOccurrence?;SolveEquation;Isolate2;RemoveDollarSigns;AddDollarSigns;TexFormNoDollarSigns;Isolax"
+%mathpiper,def="Position;PositionHelper;Occurrence;SingleOccurrence?;SolveEquation;Isolate2;RemoveDollarSigns;AddDollarSigns;TexFormNoDollarSigns;Isolax;StepsView;ToLatex"
 
 //Note:tk:Perhaps create a function called Value that obtains the value that is assigned to a variable
 // without evaluating the variable first.
