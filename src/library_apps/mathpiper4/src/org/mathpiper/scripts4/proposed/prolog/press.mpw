@@ -113,23 +113,21 @@ Retract("SolveEquation",*);
 
 RulebaseListedHoldArguments("SolveEquation",[equation, variable, optionsList]);
 
-//Handle no option call.
+//Handle no options call.
 5 # SolveEquation(_equation, _variable) <-- SolveEquation(equation, variable, []);
 
 
-//Main routine.  It will automatically accept 2 or more option calls because the
+//Main routine.  It will automatically accept two or more option calls because the
 //options come in a list.
 10 # SolveEquation(_equation, _variable, optionsList_List?) <--
 {
-    Local(options, path);
+    Local(options, path, steps);
     
     options := OptionsToAssociativeList(optionsList);
     
     equation := AddDollarSigns(equation);
-    
-    path := Position(variable, equation);
-    
-    Isolate2(path, equation, variable, options);
+     
+    steps := Isolate2(variable, equation);
 };
 
 
@@ -145,32 +143,69 @@ RulebaseListedHoldArguments("SolveEquation",[equation, variable, optionsList]);
 
 
 
-Isolate2(pathNumbers, equation, var, options) :=
+
+Isolate2(variable, equation) :=
 {
-    Local(result, rest, currentEquation, showTree);
-    
+    Local(result, rest, currentEquation, path, showTree);
+
     result := [];
     
-    DestructiveAppend(result, LatexView(ToLatex("Solve  " ~ ToString(TexFormNoDollarSigns(equation)) ~ "  for  " ~ ToString(var) ~ ".")));
+    path := Position(variable, equation);
     
-    
-    Decide(options["showTree"] =? "True", DestructiveAppend(result, TreeView(RemoveDollarSigns(equation), scale -> 2)));
-    
-    
-    //DestructiveAppend(result,LatexView(" \\vspace[1in]"));
-    
+    DestructiveAppend(result, [equation,"Equation", "The original equation.", variable]);
     
     rest := [equation];
-    
 
-    ForEach(pathNumber, pathNumbers)
+    ForEach(pathNumber, path)
     {
         currentEquation := First(rest);
     
         rest := Isolax(pathNumber, currentEquation);
         
-        //Echo(rest);
-        
+        DestructiveAppend(result, rest);
+    };
+
+    
+    result;
+};
+
+
+
+
+//================================================
+
+
+Retract("StepsView",*);
+
+
+
+RulebaseListedHoldArguments("StepsView",[steps, optionsList]);
+
+//Handle no options call.
+5 # StepsView(_steps) <-- StepsView(StepsView, []);
+
+
+//Main routine.  It will automatically accept two or more option calls because the
+//options come in a list.
+10 # StepsView(_steps, optionsList_List?) <--
+{
+    Local(result, currentEquation, options);
+    
+    result := [];
+    
+    options := OptionsToAssociativeList(optionsList);
+    
+    DestructiveAppend(result, LatexView(ToLatex("Solve  " ~ ToString(TexFormNoDollarSigns(steps[1][1])) ~ "  for  " ~ ToString(steps[1][4]) ~ ".")));
+    
+    
+    Decide(options["showTree"] =? "True", DestructiveAppend(result, TreeView(RemoveDollarSigns(steps[1][1]), scale -> 2)));
+    
+    
+    steps := Rest(steps);
+    
+
+    ForEach(rest, steps)
+    {   
         If(Not? List?(rest[1]))
         {
             result := Compose(result, rest[1], rest[3], rest[4], Length(rest) =? 4, options["showTree"]);
@@ -182,12 +217,21 @@ Isolate2(pathNumbers, equation, var, options) :=
             result := Compose(result, rest[1][2], rest[3][2], rest[4][2], Length(rest) =? 4, options["showTree"]);
         };
         
-        //DestructiveAppend(result,LatexView(" \\vspace[.5in]"));
+
     };
 
     
     result;
 };
+
+
+//Handle a single option call because the option does not come in a list for some reason.
+20 # StepsView(_steps, _singleOption) <-- StepsView(steps, [singleOption]);
+
+
+
+//====================================================
+
 
 
 
@@ -298,7 +342,7 @@ Isolax(side, equation) :=
 
 %/mathpiper
 
-    %output,sequence="1",timestamp="2012-09-09 01:40:58.304",preserve="false"
+    %output,sequence="3",timestamp="2012-09-09 02:38:47.14",preserve="false"
       Result: True
 .   %/output
 
@@ -306,18 +350,18 @@ Isolax(side, equation) :=
 
 
 
+Show(StepsView(SolveEquation( '( ((- a) * b )/ c + d == e ), a), showTree -> True))
 
 
+Show(StepsView(SolveEquation( '( ((- a) * b )/ c + d == e ), a), showTree -> True))
 
-Show(SolveEquation( '( ((- a) * b )/ c + d == e ), a, showTree -> True))
+Show(StepsView(SolveEquation( '( ((- a) * b^f)/c+d == e), b), showTree -> True))
 
-Show(SolveEquation( '( ((- a) * b^f)/c+d == e), b , showTree -> True))
+Show(StepsView(SolveEquation( '( ((- a) * b^2)/c+d == e), b), showTree -> True))
 
-Show(SolveEquation( '( ((- a) * b^2)/c+d == e), b , showTree -> True))
+Show(StepsView(SolveEquation( '( ((a^2 * 7/b)/c^3 * d^2)/ 5* e == f), b) , showTree -> True))
 
-Show(SolveEquation( '( ((a^2 * 7/b)/c^3 * d^2)/ 5* e == f), b , showTree -> True))
-
-Show(SolveEquation( '( 7/b == c), b, showTree -> True))
+Show(StepsView(SolveEquation( '( 7/b == c), b), showTree -> True))
 
 
 
@@ -329,13 +373,9 @@ Show([LatexView("a + b", scale->300, slider->True, )])
 
 Show([LatexView("a + b"), LatexView("a + b")])
 
-
-
 Show(LatexView("a + b", scale->300, slider->True, ), title -> "TEST")
 
-
 Show(TreeView(x^2, scale -> 3, slider -> True))
-
 
 Show(TreeView(x^2, scale -> 3, slider -> False))
 
