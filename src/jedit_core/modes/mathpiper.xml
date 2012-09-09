@@ -36,7 +36,8 @@
 		</SPAN>
         
         
-		<SEQ TYPE="OPERATOR">$</SEQ>
+        <SEQ TYPE="OPERATOR">/&#58;&#58;</SEQ>
+        <SEQ TYPE="OPERATOR">/&#58;</SEQ>
         <SEQ TYPE="OPERATOR">&amp;</SEQ>
         <SEQ TYPE="OPERATOR">&lt;-</SEQ>
         <SEQ TYPE="OPERATOR">&lt;--</SEQ>
@@ -61,17 +62,21 @@
         <SEQ TYPE="OPERATOR">^</SEQ>
         <SEQ TYPE="OPERATOR">-</SEQ>
         <SEQ TYPE="OPERATOR">+</SEQ>
-        <SEQ TYPE="OPERATOR">/</SEQ>
         <SEQ TYPE="OPERATOR">:=</SEQ>
         <SEQ TYPE="OPERATOR">@</SEQ>
         <SEQ TYPE="OPERATOR">..</SEQ>
         <SEQ TYPE="OPERATOR">/@</SEQ>
         <SEQ TYPE="OPERATOR">~</SEQ>
-        <SEQ TYPE="OPERATOR">/::</SEQ>
-        <SEQ TYPE="OPERATOR">/:</SEQ>
         <SEQ TYPE="OPERATOR">***</SEQ>
         <SEQ TYPE="OPERATOR">!!</SEQ>
-        <SEQ TYPE="OPERATOR">!</SEQ>		
+        <SEQ TYPE="OPERATOR">!</SEQ>
+        <SEQ TYPE="OPERATOR">/</SEQ>
+        
+        <SEQ TYPE="KEYWORD2">&#44;</SEQ> <!-- Comma. -->
+        
+        <SEQ TYPE="LITERAL4">&#59;</SEQ> <!-- Semicolon. -->
+        
+        <SEQ TYPE="COMMENT2">$</SEQ>
 		
 
         <SEQ TYPE="KEYWORD1">[</SEQ>

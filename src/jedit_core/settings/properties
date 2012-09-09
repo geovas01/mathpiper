@@ -212,3 +212,4 @@ options.voxspellcheck.non_markup_modes=html xml mail mathpiperide
 view.style.operator=color\:\#ff6600 style\:b
 view.style.keyword4=color\:\#cc00cc style\:b
 view.style.digit=color\:\#990066
+view.style.literal4=color\:\#000000 bgColor\:\#ffff66
