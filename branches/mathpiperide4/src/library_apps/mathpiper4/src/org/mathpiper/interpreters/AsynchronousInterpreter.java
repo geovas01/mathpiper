@@ -114,6 +114,11 @@ class AsynchronousInterpreter implements Interpreter
     {
         interpreter.haltEvaluation();
     }
+    
+    public void haltEvaluation(String message)
+    {
+        interpreter.haltEvaluation(message);
+    }
 
     public Environment getEnvironment()
     {

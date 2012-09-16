@@ -86,7 +86,7 @@ public class LispExpressionEvaluator extends Evaluator {
         if (Environment.haltEvaluation == true) {
             Environment.haltEvaluation = false;
 
-            LispError.raiseError("User halted calculation.", aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex(), aStackTop, aEnvironment);
+            LispError.raiseError(Environment.haltEvaluationMessage, aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex(), aStackTop, aEnvironment);
         }
 
 

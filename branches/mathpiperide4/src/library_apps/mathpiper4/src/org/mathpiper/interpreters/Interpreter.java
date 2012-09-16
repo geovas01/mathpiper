@@ -65,6 +65,12 @@ public interface Interpreter
      * Halts the current evaluation.
      */
     public void haltEvaluation();
+    
+    
+    /**
+     * Halts the current evaluation.
+     */
+    public void haltEvaluation(String message);
 
    
     /**
