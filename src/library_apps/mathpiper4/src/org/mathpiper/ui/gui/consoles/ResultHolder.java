@@ -59,7 +59,7 @@ public class ResultHolder extends JPanel implements RenderingComponent, MouseLis
 
 
         renderedResult.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-        renderedResult.setToolTipText("Click to see text versions of this expression.");
+        //renderedResult.setToolTipText("Click to see text versions of this expression.");
         renderedResult.addMouseListener(new MouseAdapter() {
 
             public void mouseClicked(MouseEvent e) {
