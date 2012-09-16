@@ -17,6 +17,7 @@
 package org.mathpiper.lisp;
 
 import org.mathpiper.lisp.collections.OperatorMap;
+import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.lisp.cons.SublistCons;
 import org.mathpiper.lisp.cons.AtomCons;
 
@@ -30,6 +31,7 @@ import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.io.InputStatus;
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.lisp.substitute.BackQuoteSubstitute;
 import org.mathpiper.lisp.substitute.Substitute;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
@@ -1339,7 +1341,11 @@ public class Utility {
             }
             else
             {
-                throw new Exception("Operation not supported.");
+        	JavaObject response = new JavaObject(object);
+        	
+        	BuiltinObjectCons builtinObjectCons = BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response);
+        	
+                cons.setCdr(builtinObjectCons);
             }
 
             cons = cons.cdr();
