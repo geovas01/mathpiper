@@ -114,7 +114,8 @@ all other loop commands are based. It is equivalent to the {while} command in th
 *E.G. notest
 
 In> x := 0;
-Result: 0;
+Result: 0
+
 In> While (x ! <? 10^6) [ Echo({x, x!}); x++; ];
 Result: True
 Side Effects:
