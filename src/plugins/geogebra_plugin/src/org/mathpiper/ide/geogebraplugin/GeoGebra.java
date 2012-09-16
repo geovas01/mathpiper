@@ -222,7 +222,7 @@ public class GeoGebra extends javax.swing.JRootPane
 			//geoGebraApplet.registerUpdateListener("GeoGebraUpdateListener");
 			
 			//System.out.println("HHHHHHHHHHHHHHHHHHH GeoGebra listeners registered.");
-		}catch(Exception e)
+		}catch(Throwable e)
 		{
 			e.printStackTrace();
 		}
