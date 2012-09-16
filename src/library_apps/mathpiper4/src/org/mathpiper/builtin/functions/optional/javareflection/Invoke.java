@@ -219,9 +219,9 @@ public class Invoke {
     Object[] result1 = methodTable0(c, name, isStatic,isPrivileged);
     if (result1 == null || result1.length == 0)
 	if (isStatic)
-	    return ((Object[]) E.error ("ERROR: \nNO STATIC METHOD  OF TYPE  \n\n  ("+ c.getName()+"."+ name+ " ...)"));
+	    return ((Object[]) E.error ("ERROR: NO STATIC METHOD  OF TYPE  ("+ c.getName()+"."+ name+ " ...)"));
         else
-	    return ((Object[]) E.error("ERROR: \nNO INSTANCE METHOD OF TYPE \n\n  (."+ name+ " "+ c.getName() +" ...)"));
+	    return ((Object[]) E.error("ERROR: NO INSTANCE METHOD <"+ name +">"));
     else return result1;
   }
 

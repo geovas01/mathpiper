@@ -16,6 +16,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin.functions.optional;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import org.mathpiper.builtin.BigNumber;
@@ -64,9 +65,6 @@ public class JavaCall extends BuiltinFunction {
 
             if (argumentCons != null) {
 
-
-
-
                 if (argumentCons.car() instanceof String) {
                     String firstArgumentString = (String) argumentCons.car();
                     //Strip leading and trailing quotes.
@@ -79,7 +77,6 @@ public class JavaCall extends BuiltinFunction {
 
 
                 if (builtinContainer != null) {
-
 
                     consTraverser = consTraverser.cdr();
                     argumentCons = consTraverser;
@@ -156,8 +153,16 @@ public class JavaCall extends BuiltinFunction {
                                 LispError.raiseError("Method or field " + methodName + " does not exist.", -2, null);
                             }
                         }
-                    } else {
-                        returnObject = Invoke.invokeInstance(targetObject, methodName, argumentsArray, true);
+                    } else 
+                    {
+                        try
+                        {
+                            returnObject = Invoke.invokeInstance(targetObject, methodName, argumentsArray, true);
+                        }
+                        catch(InvocationTargetException ite)
+                        {
+                            throw ite.getTargetException();
+                        }
                     }
 
                     if (returnObject instanceof List) {
