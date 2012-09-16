@@ -39,7 +39,7 @@ public class ReadToken extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         MathPiperTokenizer tok = aEnvironment.iCurrentTokenizer;
         String result;

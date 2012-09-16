@@ -134,7 +134,7 @@ public class ScreenCapture
 	}
 
 	public static void main(String args[])
-		throws Exception
+		throws Throwable
 	{
 		final JFrame frame = new JFrame();
 		final JTextArea textArea = new JTextArea(30, 60);
@@ -165,7 +165,7 @@ public class ScreenCapture
 							frame.repaint();
 							ScreenCapture.createImage(frame, "frame.jpg");
 						}
-						catch(Exception exc) { System.out.println(exc); }
+						catch(Throwable exc) { System.out.println(exc); }
 					}
 				}.start();
 			};
@@ -196,7 +196,7 @@ public class ScreenCapture
 					Rectangle r = new Rectangle(0, 0, 100, 16);
 					ScreenCapture.createImage(textArea, r, "region.png");
 				}
-				catch(Exception exc) { System.out.println(exc); }
+				catch(Throwable exc) { System.out.println(exc); }
 			}
 		});
 		frame.getContentPane().add(button, BorderLayout.SOUTH);
@@ -208,7 +208,7 @@ public class ScreenCapture
 			textArea.read( br, null );
 			br.close();
 		}
-		catch(Exception e) {}
+		catch(Throwable e) {}
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();

@@ -30,7 +30,7 @@ public class AtomCons extends Cons
 
 
 
-    public AtomCons(String aString) throws Exception
+    public AtomCons(String aString) throws Throwable
     {
         //Make sure to use aEnvironment.getTokenHash().lookUp(aString) with aString before calling this constructor.
         
@@ -39,7 +39,7 @@ public class AtomCons extends Cons
 
     }
 
-    public static Cons getInstance(Environment aEnvironment, int aStackTop, String aString) throws Exception
+    public static Cons getInstance(Environment aEnvironment, int aStackTop, String aString) throws Throwable
     {
         Cons self = null;
         if (Utility.isNumber(aString, true))  // check if aString is a number (int or float)
@@ -62,7 +62,7 @@ public class AtomCons extends Cons
     }
 
 
-    public void setCar(Object object) throws Exception
+    public void setCar(Object object) throws Throwable
     {
         iCar = (String) object;
     }
@@ -79,7 +79,7 @@ public class AtomCons extends Cons
 
 
 
-    public Cons copy(boolean aRecursed) throws Exception
+    public Cons copy(boolean aRecursed) throws Throwable
     {
         Cons atomCons = new AtomCons(iCar);
 

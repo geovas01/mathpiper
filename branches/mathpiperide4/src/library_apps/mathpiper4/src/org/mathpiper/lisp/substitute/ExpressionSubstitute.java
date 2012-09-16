@@ -24,7 +24,7 @@ public class ExpressionSubstitute
 
 
     public Cons matches(Environment aEnvironment, int aStackTop, Cons aElement)
-            throws Exception {
+            throws Throwable {
 
         if (Utility.equals(iEnvironment, aStackTop, aElement, iToMatch)) {
             return iToReplaceWith.copy(false);

@@ -26,5 +26,5 @@ import org.mathpiper.lisp.cons.Cons;
  */
 public interface Substitute
 {
-    public Cons matches(Environment aEnvironment, int aStackTop, Cons aElement) throws Exception;
+    public Cons matches(Environment aEnvironment, int aStackTop, Cons aElement) throws Throwable;
 };

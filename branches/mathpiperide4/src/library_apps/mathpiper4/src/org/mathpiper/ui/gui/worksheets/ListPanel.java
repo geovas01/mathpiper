@@ -151,7 +151,7 @@ public class ListPanel extends JPanel implements ViewPanel {
                 }
             }
 
-        } catch (Exception e) {
+        } catch (Throwable e) {
             e.printStackTrace();
         }
 

@@ -31,7 +31,7 @@ import org.mathpiper.lisp.Utility;
 public class TraceOff extends BuiltinFunction
 {
 
-    public void plugIn(Environment aEnvironment) throws Exception
+    public void plugIn(Environment aEnvironment) throws Throwable
     {
         this.functionName = "TraceOff";
         aEnvironment.getBuiltinFunctions().put(
@@ -39,7 +39,7 @@ public class TraceOff extends BuiltinFunction
     }//end method.
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
          Evaluator.traceOff();
          aEnvironment.write("Tracing is off.\n");

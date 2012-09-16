@@ -47,7 +47,7 @@ public class State extends BuiltinFunction {
     }
 
     public void evaluate(Environment aEnvironment, int aStackTop)
-	    throws Exception {
+	    throws Throwable {
 
 	Cons arguments = getArgument(aEnvironment, aStackTop, 1);
 

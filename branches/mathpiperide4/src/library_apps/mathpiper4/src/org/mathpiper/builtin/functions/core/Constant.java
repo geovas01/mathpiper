@@ -38,7 +38,7 @@ public class Constant extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         Utility.setVariableOrConstant(aEnvironment, aStackTop, false, false, true);
     }

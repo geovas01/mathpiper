@@ -27,21 +27,21 @@ public abstract class BuiltinFunction {
 
     protected String functionName = "";
 
-    public abstract void evaluate(Environment aEnvironment, int aStackTop) throws Exception;
+    public abstract void evaluate(Environment aEnvironment, int aStackTop) throws Throwable;
 
-    public static Cons getTopOfStack(Environment aEnvironment, int aStackTop) throws Exception {
+    public static Cons getTopOfStack(Environment aEnvironment, int aStackTop) throws Throwable {
         return aEnvironment.iArgumentStack.getElement(aStackTop, aStackTop, aEnvironment);
     }
 
-    public static void setTopOfStack(Environment aEnvironment, int aStackTop, Cons cons) throws Exception {
+    public static void setTopOfStack(Environment aEnvironment, int aStackTop, Cons cons) throws Throwable {
         aEnvironment.iArgumentStack.setElement(aStackTop, aStackTop, aEnvironment, cons);
     }
 
-    public static Cons getArgument(Environment aEnvironment, int aStackTop, int argumentPosition) throws Exception {
+    public static Cons getArgument(Environment aEnvironment, int aStackTop, int argumentPosition) throws Throwable {
         return aEnvironment.iArgumentStack.getElement(aStackTop + argumentPosition, aStackTop, aEnvironment);
     }
 
-    public static Cons getArgument(Environment aEnvironment, int aStackTop, Cons cur, int n) throws Exception {
+    public static Cons getArgument(Environment aEnvironment, int aStackTop, Cons cur, int n) throws Throwable {
         if(n < 0)LispError.lispAssert(aEnvironment, aStackTop);
 
         Cons loop = cur;
@@ -52,7 +52,7 @@ public abstract class BuiltinFunction {
         return loop;
     }
 
-    public void plugIn(Environment aEnvironment) throws Exception {
+    public void plugIn(Environment aEnvironment) throws Throwable {
     }//end method.
 
     public static void addCoreFunctions(Environment aEnvironment) {

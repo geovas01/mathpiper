@@ -41,7 +41,7 @@ public class Not_ extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         Cons evaluated = getArgument(aEnvironment, aStackTop, 1);
 

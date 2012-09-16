@@ -286,7 +286,7 @@ public class ConsolePanel extends JPanel implements KeyListener, FocusListener, 
                     fname = fname.substring(0, ind + 1) + "piper.gif";
                     //piperLogo = getImage(new URL(fname)); //todo
                 }
-            } catch (Exception e)
+            } catch (Throwable e)
             {
             }
         }
@@ -357,7 +357,7 @@ public class ConsolePanel extends JPanel implements KeyListener, FocusListener, 
                 {
                     java.util.zip.ZipFile z = new java.util.zip.ZipFile(new File(new java.net.URI(zipFileName)));
                     UtilityFunctions.zipFile = z;
-                } catch (Exception e)
+                } catch (Throwable e)
                 {
                     out.println("Failed to find mathpiper.jar");
                     out.println("" + zipFileName + " : \n");
@@ -381,7 +381,7 @@ public class ConsolePanel extends JPanel implements KeyListener, FocusListener, 
         try
         {
             out.println("");
-        } catch (Exception e)
+        } catch (Throwable e)
         {
             out.println(e);
         }
@@ -455,7 +455,7 @@ public class ConsolePanel extends JPanel implements KeyListener, FocusListener, 
                         gotDatahubInit = true; // We're already satisfied here, as we got the contents from the datahub.
                         invokeCalculationSilent(programContentsToLoad);
                     }
-                } catch (Exception e)
+                } catch (Throwable e)
                 {
                 }
             }
@@ -613,7 +613,7 @@ public class ConsolePanel extends JPanel implements KeyListener, FocusListener, 
                         repaint();
                         return;
                     }
-                } catch (Exception ex)
+                } catch (Throwable ex)
                 {
                 }
             } else
@@ -882,7 +882,7 @@ public class ConsolePanel extends JPanel implements KeyListener, FocusListener, 
                     String programContentsToLoad = "[" + cons.getTestcode() + "];";
                     invokeCalculationSilent(programContentsToLoad);
                 }
-            } catch (Exception e)
+            } catch (Throwable e)
             {
             }
             return true;
@@ -891,7 +891,7 @@ public class ConsolePanel extends JPanel implements KeyListener, FocusListener, 
             try
             {
                 getAppletContext().showDocument(new URL("gpl.html"), "license");
-            } catch (Exception e)
+            } catch (Throwable e)
             {
             }
             return true;
@@ -1211,7 +1211,7 @@ public class ConsolePanel extends JPanel implements KeyListener, FocusListener, 
         {
             URL url = new URL(filename);
             opened = file.open(url);
-        } catch (Exception e)
+        } catch (Throwable e)
         {
         }
         if (opened != 0)

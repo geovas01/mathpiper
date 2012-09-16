@@ -32,14 +32,14 @@ import org.mathpiper.lisp.cons.SublistCons;
  */
 public class JavaToValue extends BuiltinFunction {
 
-    public void plugIn(Environment aEnvironment) throws Exception {
+    public void plugIn(Environment aEnvironment) throws Throwable {
         this.functionName = "JavaToValue";
         aEnvironment.getBuiltinFunctions().put(
                 this.functionName, new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 
     //private StandardFileOutputStream out = new StandardFileOutputStream(System.out);
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable {
 
         Object argument = getArgument(aEnvironment, aStackTop, 1).car();
 

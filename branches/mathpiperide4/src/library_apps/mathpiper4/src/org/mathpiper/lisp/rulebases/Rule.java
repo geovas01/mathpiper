@@ -27,11 +27,11 @@ import org.mathpiper.lisp.cons.Cons;
 public abstract class Rule
 {
 
-    public abstract boolean matches(Environment aEnvironment, int aStackTop, Cons[] aArguments) throws Exception;
+    public abstract boolean matches(Environment aEnvironment, int aStackTop, Cons[] aArguments) throws Throwable;
 
     public abstract int getPrecedence();
 
-    public abstract Cons getPredicateOrPattern(Environment aEnvironment, int aStackTop) throws Exception;
+    public abstract Cons getPredicateOrPattern(Environment aEnvironment, int aStackTop) throws Throwable;
 
     public abstract Cons getBody();
 }

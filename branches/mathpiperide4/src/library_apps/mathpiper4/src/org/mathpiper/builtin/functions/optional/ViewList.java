@@ -19,7 +19,7 @@ import org.mathpiper.ui.gui.worksheets.ScreenCapturePanel;
 
 public class ViewList extends BuiltinFunction {
 
-    public void plugIn(Environment aEnvironment) throws Exception {
+    public void plugIn(Environment aEnvironment) throws Throwable {
         this.functionName = "ViewList";
         aEnvironment.getBuiltinFunctions().put(
                 this.functionName, new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
@@ -27,7 +27,7 @@ public class ViewList extends BuiltinFunction {
 
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable {
 
         Cons expression = getArgument(aEnvironment, aStackTop, 1);
 
@@ -38,7 +38,7 @@ public class ViewList extends BuiltinFunction {
     }//end method.
 
 
-    public static JFrame showFrame(Cons expression) throws Exception
+    public static JFrame showFrame(Cons expression) throws Throwable
     {
         JFrame frame = new JFrame();
         Container contentPane = frame.getContentPane();

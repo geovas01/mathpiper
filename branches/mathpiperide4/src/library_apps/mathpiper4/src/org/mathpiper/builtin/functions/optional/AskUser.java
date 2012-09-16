@@ -31,13 +31,13 @@ import org.mathpiper.lisp.cons.AtomCons;
  */
 public class AskUser extends BuiltinFunction {
 
-    public void plugIn(Environment aEnvironment) throws Exception {
+    public void plugIn(Environment aEnvironment) throws Throwable {
         this.functionName = "AskUser";
         aEnvironment.getBuiltinFunctions().put(
 		        this.functionName, new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable {
         if (getArgument(aEnvironment, aStackTop, 1) == null) {
             LispError.checkArgument(aEnvironment, aStackTop, 1);
         }

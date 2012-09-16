@@ -10,19 +10,19 @@ import org.mathpiper.lisp.LispError;
 public class E {
 
   /** Throw an error message with an associated object. **/
-  public static Object error(String message, Object x) throws Exception {
+  public static Object error(String message, Object x) throws Throwable {
       //throw new SchemeException(message,x);
       LispError.raiseError(message, -2, null);
       return null;
   }
   
 
-  public static Object error(String message) throws Exception{
+  public static Object error(String message) throws Throwable{
     return  error(message,null);
   }
 
   /** Call error, complaining that we got the wrong type. **/
-  public static Object typeError(String type, Object x) throws Exception{
+  public static Object typeError(String type, Object x) throws Throwable{
     return error("expected object of type " + type + ", but got: ", x);
   }
 

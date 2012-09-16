@@ -44,7 +44,7 @@ public class Time extends BuiltinFunction
         aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "Time");
     }//end constructor.
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         BigDecimal startTime = new BigDecimal(System.currentTimeMillis());
 

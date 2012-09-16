@@ -28,7 +28,7 @@ public class XmlTokenizer
     /// or an empty list.
     @Override
     public String nextToken(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput)
-            throws Exception {
+            throws Throwable {
 
         char c;
         int firstpos = 0;

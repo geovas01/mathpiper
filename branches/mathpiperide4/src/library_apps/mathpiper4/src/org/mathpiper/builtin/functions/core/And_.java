@@ -40,7 +40,7 @@ public class And_ extends BuiltinFunction
         this.functionName = functionName;
     }
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         Cons argument = null;
         int numberOfArguments = 0;

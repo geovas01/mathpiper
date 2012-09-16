@@ -43,7 +43,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
         iFlags = aFlags;
     }
 
-    public Cons evaluate(Environment aEnvironment, int aStackTop, Cons aArguments) throws Exception {
+    public Cons evaluate(Environment aEnvironment, int aStackTop, Cons aArguments) throws Throwable {
         Cons[] argumentsResultArray = null;
 
 

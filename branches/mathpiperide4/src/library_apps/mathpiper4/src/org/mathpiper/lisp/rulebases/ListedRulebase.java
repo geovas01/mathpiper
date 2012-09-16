@@ -23,7 +23,7 @@ import org.mathpiper.lisp.cons.SublistCons;
 
 public class ListedRulebase extends SingleArityRulebase {
 
-    public ListedRulebase(Environment aEnvironment, int aStackTop, Cons aParameters, String functionName) throws Exception {
+    public ListedRulebase(Environment aEnvironment, int aStackTop, Cons aParameters, String functionName) throws Throwable {
         super(aEnvironment, aStackTop, aParameters, functionName);
     }
 
@@ -35,7 +35,7 @@ public class ListedRulebase extends SingleArityRulebase {
 
 
     @Override
-    public Cons evaluate(Environment aEnvironment, int aStackTop, Cons aArguments) throws Exception {
+    public Cons evaluate(Environment aEnvironment, int aStackTop, Cons aArguments) throws Throwable {
         Cons aResult;
 
         Cons newArgs = null;

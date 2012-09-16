@@ -39,7 +39,7 @@ public class PromptShown_ extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         aEnvironment.write("Function not yet implemented : PromptShown?");//TODO FIXME
 

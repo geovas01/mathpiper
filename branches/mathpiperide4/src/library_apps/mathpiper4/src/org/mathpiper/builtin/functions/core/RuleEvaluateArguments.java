@@ -37,7 +37,7 @@ public class RuleEvaluateArguments extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         org.mathpiper.lisp.Utility.newRule(aEnvironment, aStackTop, false);
     }

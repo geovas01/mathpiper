@@ -32,7 +32,7 @@ import org.mathpiper.lisp.printers.MathPiperPrinter;
  */
 public class MacroExpand extends BuiltinFunction
 {
-    public void plugIn(Environment aEnvironment) throws Exception
+    public void plugIn(Environment aEnvironment) throws Throwable
     {
         this.functionName = "MacroExpand";
         aEnvironment.getBuiltinFunctions().put(
@@ -43,7 +43,7 @@ public class MacroExpand extends BuiltinFunction
 
 
     //todo:tk:this function is not complete yet.  It currently only expands backquoted expressions.
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         org.mathpiper.lisp.substitute.BackQuoteSubstitute behaviour = new org.mathpiper.lisp.substitute.BackQuoteSubstitute(aEnvironment);
 

@@ -67,7 +67,7 @@ public class LispExpressionEvaluator extends Evaluator {
      * @param aExpression     the expression to evaluate
      * @throws java.lang.Exception
      */
-    public Cons evaluate(Environment aEnvironment, int aStackTop, Cons aExpression) throws Exception {
+    public Cons evaluate(Environment aEnvironment, int aStackTop, Cons aExpression) throws Throwable {
 
         if(aExpression == null) 
         {
@@ -228,7 +228,7 @@ public class LispExpressionEvaluator extends Evaluator {
         return aExpression.copy(false);
     }
 
-    SingleArityRulebase getUserFunction(Environment aEnvironment, int aStackTop, Cons subList) throws Exception {
+    SingleArityRulebase getUserFunction(Environment aEnvironment, int aStackTop, Cons subList) throws Throwable {
         Cons head = subList;
 
         if(! (head.car() instanceof String)) LispError.throwError(aEnvironment, aStackTop, "No function name specified.");

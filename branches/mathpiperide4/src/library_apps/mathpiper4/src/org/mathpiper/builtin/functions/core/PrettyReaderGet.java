@@ -39,7 +39,7 @@ public class PrettyReaderGet extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         if (aEnvironment.iPrettyReaderName == null)
         {

@@ -38,7 +38,7 @@ public class TraceOn extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable {
         Evaluator.traceOn();
         aEnvironment.write("Tracing is on.\n");
         setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));

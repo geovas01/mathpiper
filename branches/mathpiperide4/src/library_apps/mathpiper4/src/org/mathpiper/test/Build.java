@@ -59,7 +59,7 @@ public class Build {
     private Build() {
     }//end constructor.
 
-    public Build(String sourceDirectory, String outputDirectory) throws Exception {
+    public Build(String sourceDirectory, String outputDirectory) throws Throwable {
     	    
     	this.sourceDirectory = sourceDirectory;
     	
@@ -72,7 +72,7 @@ public class Build {
 
     }
 
-    public void initializeFiles() throws Exception {
+    public void initializeFiles() throws Throwable {
   
 	    documentationFile = new DataOutputStream(new java.io.FileOutputStream(documentationOutputDirectory + "org/mathpiper/ui/gui/help/data/documentation.txt"));
 	
@@ -82,7 +82,7 @@ public class Build {
 
     }
 
-    public void compileScripts() throws Exception {
+    public void compileScripts() throws Throwable {
 
 
         //System.out.println("XXXXX " + sourceDirectory);
@@ -319,7 +319,7 @@ public class Build {
 
 
 
-    private void processMPWFile(File mpwFile) throws Exception {
+    private void processMPWFile(File mpwFile) throws Throwable {
 
         String mpwFilePath = mpwFile.getAbsolutePath();
         mpwFilePath = mpwFilePath.substring(mpwFilePath.indexOf(File.separator + "org" + File.separator + "mathpiper" + File.separator)); //"/org/mathpiper/";
@@ -406,7 +406,7 @@ public class Build {
                         StringInputStream functionInputStream = new StringInputStream(foldContents, inputStatus);
                         try {
                         processedScript = parsePrintScript(mathpiper.getEnvironment(), -1, functionInputStream, false);
-                        } catch (Exception e) {
+                        } catch (Throwable e) {
                         System.out.println(inputStatus.getFileName() + ": Line: " + inputStatus.getLineNumber());
                         throw (e);
                         }
@@ -489,7 +489,7 @@ public class Build {
         }
     }//end method.
 
-    private void processMathPiperDocsFold(Fold fold, String mpwFilePath) throws Exception {
+    private void processMathPiperDocsFold(Fold fold, String mpwFilePath) throws Throwable {
         if (documentationFile != null) {
 
             String functionNamesString = "";
@@ -510,7 +510,7 @@ public class Build {
                     /*
                     try{
                     individualDocumentationFile =  new DataOutputStream(new java.io.FileOutputStream(outputDirectory + functionName));
-                    }catch(Exception ex)
+                    }catch(Throwable ex)
                     {
                     ex.printStackTrace();
                     }*/
@@ -605,7 +605,7 @@ public class Build {
         }//end if.
     }//end method
 
-    private void processAutomaticTestFold(Fold fold, String filePath, boolean builtin) throws Exception {
+    private void processAutomaticTestFold(Fold fold, String filePath, boolean builtin) throws Throwable {
 
         String foldContents = fold.getContents();
 
@@ -643,7 +643,7 @@ public class Build {
 
     }//end method.
 
-    public void execute() throws Exception {
+    public void execute() throws Throwable {
         //execute() method is needed by ant to run this class.
         System.out.println("****************** Compiling scripts *******");
         System.out.println("Source directory: " + this.sourceScriptsDirectory);
@@ -681,7 +681,7 @@ public class Build {
         }//end method.
     }//end class.
 
-    private void processBuiltinDocs(String sourceDirectoryPath, String outputDirectoryPath, String pluginFilePath) throws Exception {
+    private void processBuiltinDocs(String sourceDirectoryPath, String outputDirectoryPath, String pluginFilePath) throws Throwable {
         // try {
         System.out.println("\n***** Processing built in docs *****");
 
@@ -791,7 +791,7 @@ public class Build {
 
     /*
 
-    public static String parsePrintScript(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput, boolean evaluate) throws Exception {
+    public static String parsePrintScript(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput, boolean evaluate) throws Throwable {
 
     StringBuffer printedScriptStringBuffer = new StringBuffer();
 
@@ -828,7 +828,7 @@ public class Build {
 
     return printedScriptStringBuffer.toString();
 
-    } catch (Exception e) {
+    } catch (Throwable e) {
     System.out.println(e.getMessage());
     e.printStackTrace(); //todo:tk:uncomment for debugging.
 
@@ -840,7 +840,7 @@ public class Build {
     }
 
 
-    public static void printExpression(StringBuffer outString, Environment aEnvironment, ConsPointer aExpression) throws Exception {
+    public static void printExpression(StringBuffer outString, Environment aEnvironment, ConsPointer aExpression) throws Throwable {
     MathPiperPrinter printer = new MathPiperPrinter(aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
     //LispPrinter printer = new LispPrinter(false);
 
@@ -975,7 +975,7 @@ public class Build {
 
 
 
-        } catch (Exception e) {
+        } catch (Throwable e) {
             e.printStackTrace();
         }
 

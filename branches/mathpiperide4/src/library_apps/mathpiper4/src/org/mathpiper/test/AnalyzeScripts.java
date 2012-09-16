@@ -47,7 +47,7 @@ public class AnalyzeScripts {
 
     }
 
-    public void findOperator(String functionOrOperatorName) throws Exception {
+    public void findOperator(String functionOrOperatorName) throws Throwable {
         Map scriptsMap = scripts.getMap();
 
         Collection values = scriptsMap.values();
@@ -73,7 +73,7 @@ public class AnalyzeScripts {
         }
     }
 
-    public static String analyzeScript(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput, String functionOrOperatorName, String[] scriptCodeArray, boolean evaluate) throws Exception {
+    public static String analyzeScript(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput, String functionOrOperatorName, String[] scriptCodeArray, boolean evaluate) throws Throwable {
 
         StringBuffer printedScriptStringBuffer = new StringBuffer();
 
@@ -188,7 +188,7 @@ public class AnalyzeScripts {
 
             return printedScriptStringBuffer.toString();
 
-        } catch (Exception e) {
+        } catch (Throwable e) {
             //System.out.println(e.getMessage());
             //e.printStackTrace(); //todo:tk:uncomment for debugging.
 
@@ -213,7 +213,7 @@ public class AnalyzeScripts {
         return "";
     }//end method.
 
-    private static void processLocalSymbols(Cons prog, String[] scriptCodeArray, Object[] result) throws Exception {
+    private static void processLocalSymbols(Cons prog, String[] scriptCodeArray, Object[] result) throws Throwable {
         //Scan past variables to the Block.
         while (prog.cdr() != null) {
             prog = prog.cdr();
@@ -248,7 +248,7 @@ public class AnalyzeScripts {
         }
     }
 
-    private static void dumpRule(Cons cons, String[] scriptCodeArray, Object[] result) throws Exception {
+    private static void dumpRule(Cons cons, String[] scriptCodeArray, Object[] result) throws Throwable {
 
 
         String string = "";
@@ -316,7 +316,7 @@ public class AnalyzeScripts {
 
         try {
             analyze.findOperator(":");
-        } catch (Exception e) {
+        } catch (Throwable e) {
             //e.printStackTrace();
               
             

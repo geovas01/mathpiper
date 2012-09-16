@@ -31,7 +31,7 @@ import org.mathpiper.lisp.Utility;
 public class TraceToStdio extends BuiltinFunction
 {
 
-    public void plugIn(Environment aEnvironment) throws Exception
+    public void plugIn(Environment aEnvironment) throws Throwable
     {
         this.functionName = "TraceToStdio";
         aEnvironment.getBuiltinFunctions().put(
@@ -39,7 +39,7 @@ public class TraceToStdio extends BuiltinFunction
     }//end method.
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
          Evaluator.TRACE_TO_STANDARD_OUT = true;
 

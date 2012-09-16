@@ -47,15 +47,15 @@ public class Invoke {
       parameterTypes and the corresponding method or constructor. **/
   public static final int BUCKET_SIZE = 2;
 
-  public static Object peek(Object target, String name) throws Exception {
+  public static Object peek(Object target, String name) throws Throwable {
     return peek0(target.getClass(), name, target);
   }
   
-  public static Object peekStatic(Class c, String name) throws Exception {
+  public static Object peekStatic(Class c, String name) throws Throwable {
     return peek0(c, name, c);
   }
 
-  private static Object peek0(Class c, String name, Object target) throws Exception {
+  private static Object peek0(Class c, String name, Object target) throws Throwable {
     try {
       return c.getField(name).get(target);
     } catch (NoSuchFieldException e) {
@@ -65,16 +65,16 @@ public class Invoke {
     }
   }
 
-  public static Object poke(Object target, String name, Object value) throws Exception {
+  public static Object poke(Object target, String name, Object value) throws Throwable {
     return poke0(target.getClass(), name, target, value);
   }
   
-  public static Object pokeStatic(Class c, String name, Object value) throws Exception {
+  public static Object pokeStatic(Class c, String name, Object value) throws Throwable {
     return poke0(c, name, c, value);
   }
 
   private static Object poke0(Class c, String name, Object target, 
-			      Object value) throws Exception {
+			      Object value) throws Throwable {
     try {
       c.getField(name).set(target, value);
       return value;
@@ -85,12 +85,12 @@ public class Invoke {
     }
   }
 
-  public static Object invokeConstructor(String c, Object[] args) throws Exception{
+  public static Object invokeConstructor(String c, Object[] args) throws Throwable{
     Object[] ms = constructorTable(c, false);
     return invokeRawConstructor (((Constructor) findMethod(ms, args)), args);
   }
 
-  public static Object invokeRawConstructor(Constructor m, Object[] args) throws Exception{
+  public static Object invokeRawConstructor(Constructor m, Object[] args) throws Throwable{
     try {
       return m.newInstance(args);
     } catch (InvocationTargetException e) { 
@@ -103,24 +103,24 @@ public class Invoke {
     }
   }
 
-  public static Object invokeStatic(Class c, String name, Object[] args) throws Exception{
+  public static Object invokeStatic(Class c, String name, Object[] args) throws Throwable{
     return invokeMethod(c, c, name, args, true, false);
   }
 
   public static Object invokeInstance(Object target, String name,
-				      Object[] args,boolean isPrivileged) throws Exception{
+				      Object[] args,boolean isPrivileged) throws Throwable{
     return invokeMethod(target.getClass(), target, name, args, false,
 			isPrivileged);
   }
 
   public static Object invokeMethod(Class c, Object target, String name,
 				    Object[] args, boolean isStatic,
-				    boolean isPrivileged) throws Exception{
+				    boolean isPrivileged) throws Throwable{
     Object[] ms = methodTable(c, name, isStatic,isPrivileged);
     return invokeRawMethod((Method) findMethod(ms, args), target, args);
   }
 
-  public static Object invokeRawMethod(Method m, Object target, Object[] args) throws Exception{
+  public static Object invokeRawMethod(Method m, Object target, Object[] args) throws Throwable{
     try {
 	  return m.invoke(target, args);
     } catch (InvocationTargetException e) {
@@ -137,18 +137,18 @@ public class Invoke {
   public static final Hashtable constructorCachePriv = new Hashtable(50);
 
   /** Return the constructor table for the named class. **/
-  public static Object[] constructorTable(String c, boolean isPrivileged) throws Exception {
+  public static Object[] constructorTable(String c, boolean isPrivileged) throws Throwable {
     if (isPrivileged) return constructorTable0Priv(c);
     else return constructorTable0(c);
   }
 
-  public static Object[] constructorTable0Priv(String c) throws Exception {
+  public static Object[] constructorTable0Priv(String c) throws Throwable {
     Object[] result = ((Object[]) constructorCachePriv.get(c));
     if (result == null) {
 	try{
 	  result = methodArray(makeAccessible(Import.classNamed(c).
 					      getDeclaredConstructors()));
-        }catch(Exception e){
+        }catch(Throwable e){
 	    result = methodArray(Import.classNamed(c).getConstructors());}
       constructorCachePriv.put(c, result);
     }
@@ -158,7 +158,7 @@ public class Invoke {
     else return result;
   }
 
-  public static Object[] constructorTable0(String c) throws Exception {
+  public static Object[] constructorTable0(String c) throws Throwable {
     Object[] result = ((Object[]) constructorCache.get(c));
     if (result == null) {
       result = methodArray(Import.classNamed(c).getConstructors());
@@ -215,7 +215,7 @@ public class Invoke {
   }
 
   public static Object[] methodTable
-    (Class c, String name, boolean isStatic,boolean isPrivileged) throws Exception {
+    (Class c, String name, boolean isStatic,boolean isPrivileged) throws Throwable {
     Object[] result1 = methodTable0(c, name, isStatic,isPrivileged);
     if (result1 == null || result1.length == 0)
 	if (isStatic)
@@ -330,13 +330,13 @@ public class Invoke {
       getMethods() has already handled the "this" argument, so
       instance and static methods are matched the same way. **/
 
-  public static Object findMethod(Object[] methods, Object[] args) throws Exception {
+  public static Object findMethod(Object[] methods, Object[] args) throws Throwable {
     if (methods.length == BUCKET_SIZE)
          return methods[1]; // Hope it works!
     return findMethodNoOpt(methods,args);
    }
 
-  static Object findMethodNoOpt(Object[] methods, Object[] args) throws Exception {
+  static Object findMethodNoOpt(Object[] methods, Object[] args) throws Throwable {
     int best = -1;
     for(int m1 = 0; m1 < methods.length; m1 = m1 + BUCKET_SIZE) {
       Class[] p1 = ((Class[]) methods[m1]);
@@ -376,7 +376,7 @@ public class Invoke {
 		   "\n\n");
   }
 
-  public static boolean isApplicable (Class[] types, Object[] args) throws Exception {
+  public static boolean isApplicable (Class[] types, Object[] args) throws Throwable {
     if (types.length == args.length) {
       for (int i = 0; i < args.length; i++)
 	if (! isArgApplicable(types[i], args[i])) return false;
@@ -386,14 +386,14 @@ public class Invoke {
   
       // Applets don't allow .getClass for non-public objects x
       // but (x instanceof C) is OK
-  private static boolean isArgApplicable(Class p, Object a) throws Exception {
+  private static boolean isArgApplicable(Class p, Object a) throws Throwable {
     return (a == null  && Object.class.isAssignableFrom(p)) ||
 	p.isInstance(a) || 
       p.isPrimitive() && (primitiveWrapperType(p)).isInstance(a);
   }
 
   /** Given a primitive type return its wrapper class. **/
-  private static Class primitiveWrapperType(Class p) throws Exception {
+  private static Class primitiveWrapperType(Class p) throws Throwable {
     return 
       p == Byte.TYPE ? Byte.class :
       p == Long.TYPE ? Long.class :
@@ -418,7 +418,7 @@ public class Invoke {
       declaring class, and a list of argument type names.
       <P>This is only used by (method).
   **/
-  public static Method findMethod(String name, Object target, Cons types) throws Exception {
+  public static Method findMethod(String name, Object target, Cons types) throws Throwable {
     try {
       return U.toClass(target).getMethod(name, toClassArray(types, 0));
     } catch(NoSuchMethodException e) {
@@ -430,7 +430,7 @@ public class Invoke {
       declaring class, and a list of argument type names.
       <p>This is only used by (constructor).
   **/
-  public static Constructor findConstructor(Object target, Cons types) throws Exception{
+  public static Constructor findConstructor(Object target, Cons types) throws Throwable{
     try {
       return U.toClass(target).getConstructor(toClassArray(types, 0));
     } catch(NoSuchMethodException e) {
@@ -438,7 +438,7 @@ public class Invoke {
     }
   }
 
-  public static Constructor findConstructor(String target, Object[] arguments) throws Exception{
+  public static Constructor findConstructor(String target, Object[] arguments) throws Throwable{
      Class[] argumentsArray = new Class[arguments.length];
 
      for(int index = 0; index < arguments.length; index++)
@@ -457,7 +457,7 @@ public class Invoke {
      return constructor;
   }
 
-  public static Class[] toClassArray(Cons types, int n) throws Exception{
+  public static Class[] toClassArray(Cons types, int n) throws Throwable{
     if (types == null /*types == Pair.EMPTY*/) return new Class[n];
     else {
       Class[] cs = toClassArray(((Cons) types.cdr()), n + 1);
@@ -485,7 +485,7 @@ public class Invoke {
   private static Method[] getAllMethods(Class c,boolean isPrivileged) {
       if (isPrivileged)
           try{return ((Method[]) makeAccessible(getAllMethods0(c)));}
-          catch(Exception e){return null;}
+          catch(Throwable e){return null;}
       else return null;
   }
 
@@ -500,7 +500,7 @@ public class Invoke {
     try {
       Invoke.class.getDeclaredMethods();
       return true;
-    } catch (Exception e) {return false;}}
+    } catch (Throwable e) {return false;}}
 
   private static Method[] getAllMethods0 (Class c) {
     if (CAN_GET_DECLARED_METHODS) {
@@ -534,7 +534,7 @@ public class Invoke {
       Class c = Class.forName("java.lang.reflect.AccessibleObject");
       Class ca = Class.forName("[Ljava.lang.reflect.AccessibleObject;");
       return c.getMethod("setAccessible", new Class[] { ca, Boolean.TYPE });
-    } catch (Exception e) {return null;}}
+    } catch (Throwable e) {return null;}}
 
   /** Items should be of type AccessibleObject[] but we can't say that
       on JVM's older than JDK 1.2
@@ -545,7 +545,7 @@ public class Invoke {
       // AccessibleObject.setAccessible(items, true);
       try {
 	SETACCESSIBLE.invoke(null, new Object[] { items, Boolean.TRUE });
-      } catch (Exception e) {}
+      } catch (Throwable e) {}
     }
     return items;
   }

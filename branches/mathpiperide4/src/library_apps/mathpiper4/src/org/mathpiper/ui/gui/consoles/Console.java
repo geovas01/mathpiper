@@ -311,7 +311,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         }//end if/else.
     }//end method.
 
-    public void putChar(char aChar) throws Exception {
+    public void putChar(char aChar) throws Throwable {
         if (rawOutputTextArea != null && currentOutput != null) {
             this.rawOutputTextArea.append("" + aChar);
             this.rawOutputTextArea.setCaretPosition(this.rawOutputTextArea.getDocument().getLength());
@@ -319,7 +319,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         }//end if.
     }//end method.
 
-    public void write(String aString) throws Exception {
+    public void write(String aString) throws Throwable {
         int i;
         for (i = 0; i < aString.length(); i++) {
             putChar(aString.charAt(i));
@@ -541,7 +541,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
                 response = syncronousInterpreter.evaluate(inputExpressionPointer);
             }
-            catch(Exception e)
+            catch(Throwable e)
             {
                 e.printStackTrace();
             }

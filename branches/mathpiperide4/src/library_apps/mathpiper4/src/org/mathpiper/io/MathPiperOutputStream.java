@@ -23,6 +23,6 @@ package org.mathpiper.io;
 public interface MathPiperOutputStream //Note:tk: Made this interface public.
 {
 	/// write out one character.
-	public void putChar(char aChar) throws Exception;
-        public void write(String aString) throws Exception;
+	public void putChar(char aChar) throws Throwable;
+        public void write(String aString) throws Throwable;
 };

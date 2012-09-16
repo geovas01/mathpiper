@@ -42,7 +42,7 @@ public class LocalSymbolSubstitute implements Substitute {
     }
 
 
-    public Cons matches(Environment aEnvironment, int aStackTop, Cons aElement) throws Exception {
+    public Cons matches(Environment aEnvironment, int aStackTop, Cons aElement) throws Throwable {
 
         if (!(aElement.car() instanceof String)) {
             return null;

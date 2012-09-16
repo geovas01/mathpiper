@@ -40,7 +40,7 @@ public class Parser {
     }
 
 
-    public Cons parse(int aStackTop) throws Exception {
+    public Cons parse(int aStackTop) throws Throwable {
         Cons aResult;
 
         String token;
@@ -56,7 +56,7 @@ public class Parser {
     }
 
 
-    Cons parseList(Environment aEnvironment, int aStackTop) throws Exception {
+    Cons parseList(Environment aEnvironment, int aStackTop) throws Throwable {
         String token;
 
         Cons result = null;
@@ -100,7 +100,7 @@ public class Parser {
     }
 
 
-    Cons parseAtom(Environment aEnvironment, int aStackTop, String aToken) throws Exception {
+    Cons parseAtom(Environment aEnvironment, int aStackTop, String aToken) throws Throwable {
         // if token is empty string, return null pointer (no expression)
         if (aToken.length() == 0) //TODO FIXME either token == null or token.length() == 0?
         {

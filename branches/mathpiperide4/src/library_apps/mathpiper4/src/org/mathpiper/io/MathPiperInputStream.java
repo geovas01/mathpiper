@@ -37,12 +37,12 @@ public abstract class MathPiperInputStream
 	}
 
 	/// Return the next character in the file
-	public abstract char next() throws Exception;
+	public abstract char next() throws Throwable;
 
 	/** peek at the next character in the file, without advancing the file
 	 *  pointer.
 	 */
-	public abstract char peek() throws Exception;
+	public abstract char peek() throws Throwable;
 
 	public InputStatus status()
 	{

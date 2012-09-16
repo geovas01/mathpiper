@@ -45,7 +45,7 @@ public class TreeView extends BuiltinFunction {
 
     private Map defaultOptions;
     
-    public void plugIn(Environment aEnvironment)  throws Exception
+    public void plugIn(Environment aEnvironment)  throws Throwable
     {
 	this.functionName = "TreeView";
 	
@@ -60,7 +60,7 @@ public class TreeView extends BuiltinFunction {
 
     }//end method.
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable {
 	
         Cons arguments = getArgument(aEnvironment, aStackTop, 1);
 

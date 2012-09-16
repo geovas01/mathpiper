@@ -110,7 +110,7 @@ public final class Environment {
     public static boolean saveDebugInformation = false;
 
     public Environment(MathPiperOutputStream aCurrentOutput/* TODO FIXME */)
-	    throws Exception {
+	    throws Throwable {
 	iCurrentTokenizer = iDefaultTokenizer;
 	iInitialOutput = aCurrentOutput;
 	iCurrentOutput = aCurrentOutput;
@@ -176,13 +176,13 @@ public final class Environment {
 	return iPrecision;
     }
 
-    public void setPrecision(int aPrecision) throws Exception {
+    public void setPrecision(int aPrecision) throws Throwable {
 	iPrecision = aPrecision; // getPrecision in decimal digits
     }
 
     public void setLocalOrGlobalVariable(int aStackTop, String aVariable,
 	    Cons aValue, boolean aGlobalLazyVariable, boolean constant)
-	    throws Exception {
+	    throws Throwable {
 	
 	LocalVariable localVariable = getLocalVariable(aStackTop, aVariable);
 	
@@ -220,7 +220,7 @@ public final class Environment {
     }
 
     public Cons getLocalOrGlobalVariable(int aStackTop, String aVariable)
-	    throws Exception {
+	    throws Throwable {
 	Cons aResult;
 	LocalVariable localVariable = getLocalVariable(aStackTop, aVariable);
 	if (localVariable != null) {
@@ -234,7 +234,7 @@ public final class Environment {
     }
 
     public Cons getGlobalVariable(int aStackTop, String aVariable)
-	    throws Exception {
+	    throws Throwable {
 
 	Cons aResult;
 	GlobalVariable globalVariable = (GlobalVariable) iGlobalState
@@ -262,7 +262,7 @@ public final class Environment {
     }
 
     public LocalVariable getLocalVariable(int aStackTop, String aVariable)
-	    throws Exception {
+	    throws Throwable {
 	if (iLocalVariablesFrame == null)
 	    LispError.throwError(this, aStackTop, LispError.INVALID_STACK, "");
 	// check(iLocalsList.iFirst != null,INVALID_STACK);
@@ -277,7 +277,7 @@ public final class Environment {
 	return null;
     }// end method.
 
-    public void unbindAllLocalVariables(int aStackTop) throws Exception {
+    public void unbindAllLocalVariables(int aStackTop) throws Throwable {
 	if (iLocalVariablesFrame == null)
 	    LispError.throwError(this, aStackTop, LispError.INVALID_STACK, "");
 
@@ -290,7 +290,7 @@ public final class Environment {
 
     }// end method.
 
-    public String getLocalVariables(int aStackTop) throws Exception {
+    public String getLocalVariables(int aStackTop) throws Throwable {
 	if (iLocalVariablesFrame == null) {
 	    // LispError.throwError(this, aStackTop, LispError.INVALID_STACK,
 	    // "", "INTERNAL"); todo:tk:this error was probably introduced
@@ -327,7 +327,7 @@ public final class Environment {
 
     }// end method.
 
-    public String dumpLocalVariablesFrame(int aStackTop) throws Exception {
+    public String dumpLocalVariablesFrame(int aStackTop) throws Throwable {
 
 	if (iLocalVariablesFrame == null)
 	    LispError.throwError(this, aStackTop, LispError.INVALID_STACK, "");
@@ -456,7 +456,7 @@ public final class Environment {
 
     // Dumps the built-in and user stacks.
     public String dumpStacks(Environment aEnvironment, int aStackTop)
-	    throws Exception {
+	    throws Throwable {
 	String dump = aEnvironment.iArgumentStack.dump(aStackTop, aEnvironment)
 		+
 
@@ -470,7 +470,7 @@ public final class Environment {
     }
 
     public void unbindVariable(int aStackTop, String aVariableName)
-	    throws Exception {
+	    throws Throwable {
 
 	if (aVariableName.equals("*")) {
 	    this.unbindAllLocalVariables(aStackTop);
@@ -501,7 +501,7 @@ public final class Environment {
     }
 
     public void newLocalVariable(String aVariable, Cons aValue, int aStackTop)
-	    throws Exception {
+	    throws Throwable {
 	if (iLocalVariablesFrame == null)
 	    LispError.lispAssert(this, aStackTop);
 	iLocalVariablesFrame.add(new LocalVariable(this, aVariable, aValue));
@@ -520,7 +520,7 @@ public final class Environment {
 	}
     }
 
-    public void popLocalFrame(int aStackTop) throws Exception {
+    public void popLocalFrame(int aStackTop) throws Throwable {
 	if (iLocalVariablesFrame == null)
 	    LispError.lispAssert(this, aStackTop);
 	LocalVariableFrame nextLocalVariableFrame = iLocalVariablesFrame.iNext;
@@ -533,7 +533,7 @@ public final class Environment {
     }
 
     public void holdArgument(int aStackTop, String aOperator, String aVariable,
-	    Environment aEnvironment) throws Exception {
+	    Environment aEnvironment) throws Throwable {
 	MultipleArityRulebase multipleArityUserFunc = (MultipleArityRulebase) iUserRulebases
 		.get(aOperator);
 	if (multipleArityUserFunc == null)
@@ -543,7 +543,7 @@ public final class Environment {
     }
 
     public void retractRule(String aOperator, int aArity, int aStackTop,
-	    Environment aEnvironment) throws Exception {
+	    Environment aEnvironment) throws Throwable {
 	MultipleArityRulebase multipleArityUserFunc = (MultipleArityRulebase) iUserRulebases
 		.get(aOperator);
 
@@ -554,7 +554,7 @@ public final class Environment {
     }
 
     public SingleArityRulebase getRulebase(int aStackTop, Cons aArguments)
-	    throws Exception {
+	    throws Throwable {
 	MultipleArityRulebase multipleArityUserFunc = (MultipleArityRulebase) iUserRulebases
 		.get((String) aArguments.car());
 	if (multipleArityUserFunc != null) {
@@ -566,7 +566,7 @@ public final class Environment {
     }
 
     public SingleArityRulebase getRulebase(String aName, int aArity,
-	    int aStackTop) throws Exception {
+	    int aStackTop) throws Throwable {
 	MultipleArityRulebase multipleArityUserFunc = (MultipleArityRulebase) iUserRulebases
 		.get(aName);
 	if (multipleArityUserFunc != null) {
@@ -577,7 +577,7 @@ public final class Environment {
     }
 
     public void unfenceRule(int aStackTop, String aOperator, int aArity)
-	    throws Exception {
+	    throws Throwable {
 	MultipleArityRulebase multiUserFunc = (MultipleArityRulebase) iUserRulebases
 		.get(aOperator);
 
@@ -593,7 +593,7 @@ public final class Environment {
     }
 
     public MultipleArityRulebase getMultipleArityRulebase(int aStackTop,
-	    String aOperator, boolean create) throws Exception {
+	    String aOperator, boolean create) throws Throwable {
 	// Find existing multiuser func. Todo:tk:a user function name is added
 	// to the list even if a non-existing function
 	// is being executed or looked for by FindFunction();
@@ -611,7 +611,7 @@ public final class Environment {
     }
 
     public void defineRulebase(int aStackTop, String aOperator,
-	    Cons aParameters, boolean aListed) throws Exception {
+	    Cons aParameters, boolean aListed) throws Throwable {
 
 	MultipleArityRulebase multipleArityUserFunction = getMultipleArityRulebase(
 		aStackTop, aOperator, true);
@@ -630,7 +630,7 @@ public final class Environment {
     }
 
     public void defineRule(int aStackTop, String aOperator, int aArity,
-	    int aPrecedence, Cons aPredicate, Cons aBody) throws Exception {
+	    int aPrecedence, Cons aPredicate, Cons aBody) throws Throwable {
 	// Find existing multiuser rule.
 	MultipleArityRulebase multipleArityRulebase = (MultipleArityRulebase) iUserRulebases
 		.get(aOperator);
@@ -656,7 +656,7 @@ public final class Environment {
     }
 
     public void defineMacroRulebase(int aStackTop, String aFunctionName,
-	    Cons aParameters, boolean aListed) throws Exception {
+	    Cons aParameters, boolean aListed) throws Throwable {
 
 	MultipleArityRulebase multipleArityRulebase = getMultipleArityRulebase(
 		aStackTop, aFunctionName, true);
@@ -675,7 +675,7 @@ public final class Environment {
     }
 
     public void definePatternRule(int aStackTop, String aOperator, int aArity,
-	    int aPrecedence, Cons aPredicate, Cons aBody) throws Exception {
+	    int aPrecedence, Cons aPredicate, Cons aBody) throws Throwable {
 	// Find existing multiuser rulebase.
 	MultipleArityRulebase multipleArityRulebase = (MultipleArityRulebase) iUserRulebases
 		.get(aOperator);
@@ -701,7 +701,7 @@ public final class Environment {
      * @param aString
      * @throws java.lang.Exception
      */
-    public void write(String aString) throws Exception {
+    public void write(String aString) throws Throwable {
 	iCurrentOutput.write(aString);
     }
 
@@ -720,7 +720,7 @@ public final class Environment {
 	this.iCurrentInput = iCurrentInput;
     }
 
-    public void resetArgumentStack(int aStackTop) throws Exception {
+    public void resetArgumentStack(int aStackTop) throws Throwable {
 	this.iArgumentStack.reset(aStackTop, this);
     }// end method.
 

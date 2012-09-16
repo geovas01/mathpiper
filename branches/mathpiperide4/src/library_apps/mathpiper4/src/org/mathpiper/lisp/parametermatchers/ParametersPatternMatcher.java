@@ -64,7 +64,7 @@ public class ParametersPatternMatcher {
      *collected in iParamMatchers. Additionally, aPostPredicate
      *is copied, and the copy is added to iPredicates.
      */
-    public ParametersPatternMatcher(Environment aEnvironment, int aStackTop, Cons aPattern, Cons aPostPredicate) throws Exception {
+    public ParametersPatternMatcher(Environment aEnvironment, int aStackTop, Cons aPattern, Cons aPostPredicate) throws Throwable {
 
         Cons  consTraverser =  aPattern;
 
@@ -97,7 +97,7 @@ public class ParametersPatternMatcher {
     is called again, but now in the current LispLocalFrame, and
     this function returns true.
      */
-    public boolean matches(Environment aEnvironment, int aStackTop, Cons aArguments) throws Exception {
+    public boolean matches(Environment aEnvironment, int aStackTop, Cons aArguments) throws Throwable {
         int i;
 
         Cons[] argumentsCons = null;
@@ -131,7 +131,7 @@ public class ParametersPatternMatcher {
                 if (!checkPredicates(aEnvironment, aStackTop)) {
                     return false;
                 }
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 throw e;
             } finally {
                 aEnvironment.popLocalFrame(aStackTop);
@@ -150,7 +150,7 @@ public class ParametersPatternMatcher {
      *This function does the same as matches(Environment, Cons),
      *but differs in the type of the arguments.
      */
-    public boolean matches(Environment aEnvironment, int aStackTop, Cons[] aArguments) throws Exception {
+    public boolean matches(Environment aEnvironment, int aStackTop, Cons[] aArguments) throws Throwable {
         int i;
 
         Cons[] arguments = null;
@@ -179,7 +179,7 @@ public class ParametersPatternMatcher {
                 if (!checkPredicates(aEnvironment, aStackTop)) {
                     return false;
                 }
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 throw e;
             } finally {
                 aEnvironment.popLocalFrame(aStackTop);
@@ -213,7 +213,7 @@ public class ParametersPatternMatcher {
     SublistCons, which is returned.
     - Otherwise, this function returns #null.
      */
-    protected PatternParameterMatcher makeParameterMatcher(Environment aEnvironment, int aStackTop, Cons aPattern) throws Exception {
+    protected PatternParameterMatcher makeParameterMatcher(Environment aEnvironment, int aStackTop, Cons aPattern) throws Throwable {
 
         if (aPattern == null) {
             return null;
@@ -321,7 +321,7 @@ public class ParametersPatternMatcher {
      *variable is made for every entry in the array, and the
      *corresponding argument is assigned to it.
      */
-    protected void setPatternVariables(Environment aEnvironment, Cons[] arguments, int aStackTop) throws Exception {
+    protected void setPatternVariables(Environment aEnvironment, Cons[] arguments, int aStackTop) throws Throwable {
         int i;
         for (i = 0; i < iVariables.size(); i++) {
             //Set the variable to the new value
@@ -337,7 +337,7 @@ public class ParametersPatternMatcher {
      *of these results IsFalse(). An error is raised if any result
      *that is neither IsTrue() nor IsFalse().
      */
-    protected boolean checkPredicates(Environment aEnvironment, int aStackTop) throws Exception {
+    protected boolean checkPredicates(Environment aEnvironment, int aStackTop) throws Throwable {
         int i;
         for (i = 0; i < iPredicates.size(); i++) {
 

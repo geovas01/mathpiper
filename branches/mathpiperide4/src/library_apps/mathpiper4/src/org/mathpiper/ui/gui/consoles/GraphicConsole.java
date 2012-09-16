@@ -409,7 +409,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
     }//end method.
 
 
-    public void putChar(char aChar) throws Exception {
+    public void putChar(char aChar) throws Throwable {
         if (rawOutputTextArea != null && currentOutput != null) {
             this.rawOutputTextArea.append("" + aChar);
             this.rawOutputTextArea.setCaretPosition(this.rawOutputTextArea.getDocument().getLength());
@@ -418,7 +418,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
     }//end method.
 
 
-    public void write(String aString) throws Exception {
+    public void write(String aString) throws Throwable {
         int i;
         for (i = 0; i < aString.length(); i++) {
             putChar(aString.charAt(i));
@@ -713,7 +713,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                         iEnvironment.setLocalOrGlobalVariable(-1, percent, response.getResultList(), true, false);
 
 
-                    } catch (Exception e) {
+                    } catch (Throwable e) {
                         e.printStackTrace();
                     }
                 } else {
@@ -777,7 +777,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         	exceptionOffset = responseOffset + result.length();
             }
             
-            Exception exception = response.getException();
+            Throwable exception = response.getException();
             
             exceptionMessage = "\nException: " + exception.getMessage();
             

@@ -40,7 +40,7 @@ public class BackQuote extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         org.mathpiper.lisp.substitute.BackQuoteSubstitute behaviour = new org.mathpiper.lisp.substitute.BackQuoteSubstitute(aEnvironment);
 

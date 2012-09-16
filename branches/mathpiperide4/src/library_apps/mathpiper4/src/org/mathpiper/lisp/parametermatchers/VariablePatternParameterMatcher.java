@@ -45,7 +45,7 @@ public class VariablePatternParameterMatcher extends PatternParameterMatcher {
      *entry. Otherwise, the pattern only matches if the entry equals
      *aExpression.
      */
-    public boolean argumentMatches(Environment aEnvironment, int aStackTop, Cons aExpression, Cons[] arguments) throws Exception {
+    public boolean argumentMatches(Environment aEnvironment, int aStackTop, Cons aExpression, Cons[] arguments) throws Throwable {
 
         if (arguments[iVarIndex] == null) {
             arguments[iVarIndex] = aExpression;

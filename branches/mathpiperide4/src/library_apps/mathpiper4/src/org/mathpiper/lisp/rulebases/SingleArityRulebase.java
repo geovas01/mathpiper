@@ -60,7 +60,7 @@ public class SingleArityRulebase extends Evaluator {
      * @param aParameters linked list constaining the names of the arguments
      * @throws java.lang.Exception
      */
-    public SingleArityRulebase(Environment aEnvironment, int aStackTop, Cons aParameters, String functionName) throws Exception {
+    public SingleArityRulebase(Environment aEnvironment, int aStackTop, Cons aParameters, String functionName) throws Throwable {
         iEnvironment = aEnvironment;
         this.functionName = functionName;
 
@@ -105,7 +105,7 @@ public class SingleArityRulebase extends Evaluator {
      * @param aArguments the arguments to the function
      * @throws java.lang.Exception
      */
-    public Cons evaluate(Environment aEnvironment, int aStackTop, Cons aArguments) throws Exception {
+    public Cons evaluate(Environment aEnvironment, int aStackTop, Cons aArguments) throws Throwable {
 
         Cons aResult;
         int arity = arity();
@@ -225,7 +225,7 @@ public class SingleArityRulebase extends Evaluator {
     }
 
 
-    protected Cons[] evaluateArguments(Environment aEnvironment, int aStackTop, Cons aArguments) throws Exception {
+    protected Cons[] evaluateArguments(Environment aEnvironment, int aStackTop, Cons aArguments) throws Throwable {
         int arity = arity();
         int parameterIndex;
 
@@ -350,7 +350,7 @@ public class SingleArityRulebase extends Evaluator {
      * @param aBody
      * @throws java.lang.Exception
      */
-    public void definePredicateRule(int aStackTop, int aPrecedence, Cons aPredicate, Cons aBody) throws Exception {
+    public void definePredicateRule(int aStackTop, int aPrecedence, Cons aPredicate, Cons aBody) throws Throwable {
         // New branching rule.
         PredicateRule newRule = new PredicateRule(iEnvironment, aPrecedence, aPredicate, aBody);
         //LispError.check(iEnvironment, aStackTop, newRule != null, LispError.CREATING_RULE, "INTERNAL");
@@ -367,7 +367,7 @@ public class SingleArityRulebase extends Evaluator {
      * @param aBody
      * @throws java.lang.Exception
      */
-    public void defineTrueRule(int aStackTop, int aPrecedence, Cons aBody) throws Exception {
+    public void defineTrueRule(int aStackTop, int aPrecedence, Cons aBody) throws Throwable {
         // New branching rule.
         PredicateRule newRule = new TrueRule(iEnvironment, aPrecedence, aBody);
         //LispError.check(iEnvironment, aStackTop, newRule != null, LispError.CREATING_RULE, "INTERNAL");
@@ -385,7 +385,7 @@ public class SingleArityRulebase extends Evaluator {
      * @param aBody
      * @throws java.lang.Exception
      */
-    public void definePatternRule(int aStackTop, int aPrecedence, Cons aPredicate, Cons aBody) throws Exception {
+    public void definePatternRule(int aStackTop, int aPrecedence, Cons aPredicate, Cons aBody) throws Throwable {
         // New branching rule.
         PatternRule newRule = new PatternRule(iEnvironment, aStackTop, aPrecedence, aPredicate, aBody);
         //LispError.check(iEnvironment, aStackTop, newRule != null, LispError.CREATING_RULE, "INTERNAL");

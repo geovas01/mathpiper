@@ -14,14 +14,14 @@ import org.mathpiper.lisp.Environment;
 
 public class NormalDistributionValue extends BuiltinFunction{
 
-    public void plugIn(Environment aEnvironment) throws Exception
+    public void plugIn(Environment aEnvironment) throws Throwable
     {
         this.functionName = "NormalDistributionValue";
         aEnvironment.getBuiltinFunctions().put(
                 this.functionName, new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         BigNumber mean = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
 

@@ -38,7 +38,7 @@ public class MPWSFile {
 	}
 	
 	
-	public static Map getFoldsMap(InputStream inputStream) throws Exception
+	public static Map getFoldsMap(InputStream inputStream) throws Throwable
 	{
 		
 		Map<String,Fold> namedFolds = new HashMap();
@@ -68,7 +68,7 @@ public class MPWSFile {
 	
 	
 	
-    public static List scanSourceFile(InputStream inputStream) throws Exception {
+    public static List scanSourceFile(InputStream inputStream) throws Throwable {
 
         //Uncomment for debugging.
         /*
@@ -166,7 +166,7 @@ public class MPWSFile {
     		
     		
     	}
-    	catch(Exception e)
+    	catch(Throwable e)
     	{
     		e.printStackTrace();
     	}

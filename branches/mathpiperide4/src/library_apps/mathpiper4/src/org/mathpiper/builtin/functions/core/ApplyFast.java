@@ -41,7 +41,7 @@ public class ApplyFast extends BuiltinFunction
         this.functionName = functionName;
     }
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
 
         Cons oper = getArgument(aEnvironment, aStackTop, 1);

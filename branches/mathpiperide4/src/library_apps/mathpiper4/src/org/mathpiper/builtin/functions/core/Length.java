@@ -44,7 +44,7 @@ public class Length extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         Object argument = getArgument(aEnvironment, aStackTop, 1).car();
         

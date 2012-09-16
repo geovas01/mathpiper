@@ -37,7 +37,7 @@ public class XmlTokenizer extends BuiltinFunction
         this.functionName = functionName;
     }
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         aEnvironment.iCurrentTokenizer = aEnvironment.iXmlTokenizer;
         setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));

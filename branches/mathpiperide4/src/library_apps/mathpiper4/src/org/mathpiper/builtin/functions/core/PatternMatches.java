@@ -43,7 +43,7 @@ public class PatternMatches extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         Cons pattern = getArgument(aEnvironment, aStackTop, 1);
         

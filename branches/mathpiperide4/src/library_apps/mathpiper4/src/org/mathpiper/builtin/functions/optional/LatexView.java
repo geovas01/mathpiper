@@ -48,7 +48,7 @@ public class LatexView extends BuiltinFunction {
 
     private Map defaultOptions;
     
-    public void plugIn(Environment aEnvironment)  throws Exception
+    public void plugIn(Environment aEnvironment)  throws Throwable
     {
 	this.functionName = "LatexView";
 	
@@ -66,7 +66,7 @@ public class LatexView extends BuiltinFunction {
 
     }//end method.
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable {
 	
         Cons arguments = getArgument(aEnvironment, aStackTop, 1);
 

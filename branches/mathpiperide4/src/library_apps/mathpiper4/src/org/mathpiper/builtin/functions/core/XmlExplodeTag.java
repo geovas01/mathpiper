@@ -41,12 +41,12 @@ public class XmlExplodeTag extends BuiltinFunction {
             this.functionName = functionName;
             
             Utility.lispEvaluate(aEnvironment, -1, "RulebaseHoldArguments(\"XmlTag\",[x,y,z]);");
-        } catch (Exception e) {
+        } catch (Throwable e) {
             e.printStackTrace();
         }
     }
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable {
         Cons out = getArgument(aEnvironment, aStackTop, 1);
         LispError.checkIsString(aEnvironment, aStackTop, out, 1);
 

@@ -44,7 +44,7 @@ public class RulebaseArgumentsList extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         Cons name = getArgument(aEnvironment, aStackTop, 1);
         String orig = (String) name.car();

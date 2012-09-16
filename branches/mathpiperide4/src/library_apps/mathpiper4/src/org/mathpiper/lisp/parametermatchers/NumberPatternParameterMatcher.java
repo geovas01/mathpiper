@@ -32,7 +32,7 @@ public class NumberPatternParameterMatcher extends PatternParameterMatcher {
     }
 
 
-    public boolean argumentMatches(Environment aEnvironment, int aStackTop, Cons aExpression, Cons[] arguments) throws Exception {
+    public boolean argumentMatches(Environment aEnvironment, int aStackTop, Cons aExpression, Cons[] arguments) throws Throwable {
 
         BigNumber bigNumber = (BigNumber) aExpression.getNumber(aEnvironment.getPrecision(), aEnvironment);
         

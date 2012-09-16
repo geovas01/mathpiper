@@ -12,26 +12,26 @@ public class JavaConstructor extends StaticReflector {
   private transient Object[] methods;
 
   /** Depricated! **/
-  public JavaConstructor(Class c) throws Exception {
+  public JavaConstructor(Class c) throws Throwable {
     this(c.getName());
   }
 
-  public JavaConstructor(String c, boolean isPrivileged) throws Exception {
+  public JavaConstructor(String c, boolean isPrivileged) throws Throwable {
     this.name = c;
     this.isPrivileged = isPrivileged;
     this.reset();
   }
 
-  public JavaConstructor(String c) throws Exception {
+  public JavaConstructor(String c) throws Throwable {
       this(c,false);
   }
 
-  public Object apply(Object[] args) throws Exception{
+  public Object apply(Object[] args) throws Throwable{
     return Invoke.invokeRawConstructor
       (((Constructor) Invoke.findMethod(methods, args)), args);
   }
 
-  protected synchronized void reset() throws Exception {
+  protected synchronized void reset() throws Throwable {
     methods = Invoke.constructorTable(name, isPrivileged);
 
     int min = Integer.MAX_VALUE;

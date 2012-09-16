@@ -41,7 +41,7 @@ public class MultipleArityRulebase {
     /**
      *Return user function with given arity.
      */
-    public SingleArityRulebase getUserFunction(int aArity, int aStackTop, Environment aEnvironment) throws Exception {
+    public SingleArityRulebase getUserFunction(int aArity, int aStackTop, Environment aEnvironment) throws Throwable {
         int ruleIndex;
         //Find function body with the right arity
         int numberOfRules = iFunctions.size();
@@ -63,7 +63,7 @@ public class MultipleArityRulebase {
     /**
      * Specify that some argument should be held.
      */
-    public void holdArgument(String aVariable, int aStackTop, Environment aEnvironment) throws Exception {
+    public void holdArgument(String aVariable, int aStackTop, Environment aEnvironment) throws Throwable {
         int ruleIndex;
         for (ruleIndex = 0; ruleIndex < iFunctions.size(); ruleIndex++) {
             if(iFunctions.get(ruleIndex) == null) LispError.lispAssert(aEnvironment, aStackTop);
@@ -75,7 +75,7 @@ public class MultipleArityRulebase {
     /**
      *Add another SingleArityRulebase to #iFunctions.
      */
-    public void addRulebaseEntry(Environment aEnvironment, int aStackTop, SingleArityRulebase aNewFunction) throws Exception {
+    public void addRulebaseEntry(Environment aEnvironment, int aStackTop, SingleArityRulebase aNewFunction) throws Throwable {
         int ruleIndex;
         //Find function body with the right arity
         int numberOfRules = iFunctions.size();
@@ -92,7 +92,7 @@ public class MultipleArityRulebase {
     /**
      *Delete user function with given arity.  If arity is -1 then delete all functions regardless of arity.
      */
-    public void deleteRulebaseEntry(int aArity, int aStackTop, Environment aEnvironment) throws Exception {
+    public void deleteRulebaseEntry(int aArity, int aStackTop, Environment aEnvironment) throws Throwable {
         if (aArity == -1) //Retract all functions regardless of arity.
         {
             iFunctions.clear();

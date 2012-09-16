@@ -41,7 +41,7 @@ public class FlatCopy extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         
         Cons copied = Utility.flatCopy(aEnvironment, aStackTop, (Cons) getArgument(aEnvironment, aStackTop, 1).car());

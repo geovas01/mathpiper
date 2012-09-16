@@ -40,7 +40,7 @@ public class Subst extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         Cons from = getArgument(aEnvironment, aStackTop, 1);
         Cons to = getArgument(aEnvironment, aStackTop, 2);
