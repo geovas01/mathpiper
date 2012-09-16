@@ -445,7 +445,15 @@ public class SynchronousInterpreter implements Interpreter {
         //evaluationThread.interrupt();
         //}
         Environment.haltEvaluation = true;
+        
+        Environment.haltEvaluationMessage = "User halted evaluation.";
+    }
+    
+    public void haltEvaluation(String message) {
 
+        Environment.haltEvaluation = true;
+        
+        Environment.haltEvaluationMessage = message;
     }
 
     public Environment getEnvironment() {
