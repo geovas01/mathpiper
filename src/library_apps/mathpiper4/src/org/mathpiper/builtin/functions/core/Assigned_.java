@@ -40,7 +40,7 @@ public class Assigned_ extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         
         if (getArgument(aEnvironment, aStackTop, 1).car() instanceof String)

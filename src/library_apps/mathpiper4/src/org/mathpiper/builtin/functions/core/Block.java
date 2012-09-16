@@ -40,7 +40,7 @@ public class Block extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable {
         // Allow accessing previous locals.
         aEnvironment.pushLocalFrame(false, "Block");
 
@@ -60,7 +60,7 @@ public class Block extends BuiltinFunction
 
             setTopOfStack(aEnvironment, aStackTop, result);
 
-        } catch (Exception e) {
+        } catch (Throwable e) {
             throw e;
         } finally {
             aEnvironment.popLocalFrame(aStackTop);

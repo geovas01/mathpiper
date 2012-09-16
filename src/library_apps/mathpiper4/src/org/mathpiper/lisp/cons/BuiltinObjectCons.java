@@ -31,12 +31,12 @@ public class BuiltinObjectCons extends Cons {
 
 
 
-    private BuiltinObjectCons(BuiltinContainer aClass) throws Exception  {
+    private BuiltinObjectCons(BuiltinContainer aClass) throws Throwable  {
         super();
         iCarBuiltin = aClass;
     }
 
-    public static BuiltinObjectCons getInstance(Environment aEnvironment, int aStackTop, BuiltinContainer aClass) throws Exception {
+    public static BuiltinObjectCons getInstance(Environment aEnvironment, int aStackTop, BuiltinContainer aClass) throws Throwable {
         if(aClass == null) LispError.lispAssert(aEnvironment, aStackTop);
         BuiltinObjectCons self = new BuiltinObjectCons(aClass);
         //LispError.check(aEnvironment, aStackTop, self != null, LispError.NOT_ENOUGH_MEMORY, "INTERNAL");
@@ -49,7 +49,7 @@ public class BuiltinObjectCons extends Cons {
     }
 
 
-    public void setCar(Object object) throws Exception
+    public void setCar(Object object) throws Throwable
     {
         iCarBuiltin = (BuiltinContainer) object;
     }
@@ -64,7 +64,7 @@ public class BuiltinObjectCons extends Cons {
     }
 
     
-    public Cons copy(boolean aRecursed) throws Exception  {
+    public Cons copy(boolean aRecursed) throws Throwable  {
 
         Cons copied = new BuiltinObjectCons(iCarBuiltin);
 

@@ -35,13 +35,13 @@ import org.mathpiper.ui.gui.help.FunctionTreePanel;
  */
 public class ViewHelp extends BuiltinFunction {
 
-    public void plugIn(Environment aEnvironment) throws Exception {
+    public void plugIn(Environment aEnvironment) throws Throwable {
         this.functionName = "ViewHelp";
         aEnvironment.getBuiltinFunctions().put(
                 this.functionName, new BuiltinFunctionEvaluator(this, 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable {
 
 
         try {
@@ -56,7 +56,7 @@ public class ViewHelp extends BuiltinFunction {
 
     }//end method.
 
-    public static JFrame showFrame() throws Exception {
+    public static JFrame showFrame() throws Throwable {
         JFrame frame = new javax.swing.JFrame();
 
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -90,7 +90,7 @@ public class ViewHelp extends BuiltinFunction {
     {
         try{showFrame();
         }
-        catch(Exception e)
+        catch(Throwable e)
         {
             e.printStackTrace();
         }

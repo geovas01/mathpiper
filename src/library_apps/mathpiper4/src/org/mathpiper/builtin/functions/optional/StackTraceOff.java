@@ -31,14 +31,14 @@ import org.mathpiper.lisp.Utility;
 public class StackTraceOff extends BuiltinFunction
 {
 
-    public void plugIn(Environment aEnvironment) throws Exception
+    public void plugIn(Environment aEnvironment) throws Throwable
     {
         this.functionName = "StackTraceOff";
         aEnvironment.getBuiltinFunctions().put(
                 this.functionName, new BuiltinFunctionEvaluator(this, 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
          Evaluator.stackTraceOff();
          aEnvironment.write("Stack tracing is off.\n");

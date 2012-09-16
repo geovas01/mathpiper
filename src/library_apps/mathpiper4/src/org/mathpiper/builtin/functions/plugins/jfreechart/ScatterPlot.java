@@ -42,7 +42,7 @@ public class ScatterPlot extends BuiltinFunction {
 
     private Map defaultOptions;
 
-    public void plugIn(Environment aEnvironment)  throws Exception
+    public void plugIn(Environment aEnvironment)  throws Throwable, Throwable
     {
         aEnvironment.getBuiltinFunctions().put(
                 "ScatterPlot", new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
@@ -61,7 +61,7 @@ public class ScatterPlot extends BuiltinFunction {
     }//end method.
 
     //private StandardFileOutputStream out = new StandardFileOutputStream(System.out);
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable {
 
         Cons arguments = getArgument(aEnvironment, aStackTop, 1);
 

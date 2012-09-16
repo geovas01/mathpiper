@@ -39,7 +39,7 @@ public class FastIsPrime extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         //TODO fixme this routine should actually be called SlowIsPrime ;-)
         BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);

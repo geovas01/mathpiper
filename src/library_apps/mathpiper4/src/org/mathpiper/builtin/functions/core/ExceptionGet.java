@@ -44,7 +44,7 @@ public class ExceptionGet extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         if(aEnvironment.iException == null)
         {
@@ -170,7 +170,7 @@ Result: False
 
 
  
-In> ExceptionCatch(Check(1 = 2, "Test", "Throwing a test exception."), Echo(ExceptionGet()))
+In> ExceptionCatch(Check(1 = 2, "Test", "Throwing a test exception."), Echo(ThrowableGet()))
 Result: True
 Side Effects:
 {{"type","Test"},{"message","Throwing a test exception."},{"exceptionObject",class org.mathpiper.exceptions.EvaluationException}}

@@ -43,7 +43,7 @@ public class CharacterDataReader
 			//      while(null != (aLine = in.readLine()))
 			//        System.out.println(aLine);
 		}
-		catch(Exception e)
+		catch(Throwable e)
 		{
 			in = null;
 			//       e.printStackTrace();
@@ -61,7 +61,7 @@ public class CharacterDataReader
 			String mark = in.readLine();
 			return mark;
 		}
-		catch (Exception e)
+		catch (Throwable e)
 		{
 		}
 		return null;
@@ -76,7 +76,7 @@ public class CharacterDataReader
 				in.close();
 			}
 		}
-		catch (Exception e)
+		catch (Throwable e)
 		{
 		}
 		in = null;

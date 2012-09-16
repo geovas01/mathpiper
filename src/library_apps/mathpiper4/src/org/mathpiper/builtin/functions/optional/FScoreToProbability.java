@@ -13,14 +13,14 @@ import org.mathpiper.lisp.LispError;
 
 public class FScoreToProbability extends BuiltinFunction{
 
-    public void plugIn(Environment aEnvironment) throws Exception
+    public void plugIn(Environment aEnvironment) throws Throwable
     {
         this.functionName = "FScoreToProbability";
         aEnvironment.getBuiltinFunctions().put(
                 this.functionName, new BuiltinFunctionEvaluator(this, 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         BigNumber degreesOfFreedom1 = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
 

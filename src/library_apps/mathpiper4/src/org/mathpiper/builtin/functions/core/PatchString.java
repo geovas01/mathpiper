@@ -42,7 +42,7 @@ public class PatchString extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable {
         String unpatchedString = 
         (String) getArgument(aEnvironment, aStackTop, 1).car();
         

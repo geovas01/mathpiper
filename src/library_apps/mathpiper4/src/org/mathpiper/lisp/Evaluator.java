@@ -42,7 +42,7 @@ public abstract class Evaluator {
         public static boolean iStackTraced = false;
 	UserStackInformation iBasicInfo = new UserStackInformation();
 
-	public static void showExpression(StringBuffer outString, Environment aEnvironment, Cons aExpression) throws Exception {
+	public static void showExpression(StringBuffer outString, Environment aEnvironment, Cons aExpression) throws Throwable {
 		MathPiperPrinter infixprinter = new MathPiperPrinter(aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
 		// Print out the current expression
 		//StringOutput stream(outString);
@@ -59,7 +59,7 @@ public abstract class Evaluator {
 
 	}//end method.
 
-	public static void traceShowEnter(Environment aEnvironment, Cons aExpression, String extraInfo) throws Exception {
+	public static void traceShowEnter(Environment aEnvironment, Cons aExpression, String extraInfo) throws Throwable {
 		for (int i = 0; i < evalDepth; i++) {
 			// aEnvironment.iEvalDepth; i++) {
 			if (TRACE_TO_STANDARD_OUT) {
@@ -136,7 +136,7 @@ public abstract class Evaluator {
 		evalDepth++;
 	}//end method.
 
-	public static void traceShowArg(Environment aEnvironment, Cons aParam, Cons aValue) throws Exception {
+	public static void traceShowArg(Environment aEnvironment, Cons aParam, Cons aValue) throws Throwable {
 		for (int i = 0; i < evalDepth; i++) {
 			//aEnvironment.iEvalDepth; i++) {
 			if (TRACE_TO_STANDARD_OUT) {
@@ -164,7 +164,7 @@ public abstract class Evaluator {
 		}
 	}//end method.
 
-	public static void traceShowExpression(Environment aEnvironment, Cons aExpression) throws Exception {
+	public static void traceShowExpression(Environment aEnvironment, Cons aExpression) throws Throwable {
 		StringBuffer outString = new StringBuffer();
 
 		showExpression(outString, aEnvironment, aExpression);
@@ -179,7 +179,7 @@ public abstract class Evaluator {
 		}
 	}//end method.
 
-	public static void traceShowRule(Environment aEnvironment, Cons aExpression, String ruleDump) throws Exception {
+	public static void traceShowRule(Environment aEnvironment, Cons aExpression, String ruleDump) throws Throwable {
 
 		for (int i = 0; i < evalDepth; i++) {
 			// aEnvironment.iEvalDepth; i++) {
@@ -211,7 +211,7 @@ public abstract class Evaluator {
 		}
 	}//end method.
 
-	public static void traceShowLeave(Environment aEnvironment, Cons aResult, Cons aExpression, String extraInfo, String localVariables) throws Exception {
+	public static void traceShowLeave(Environment aEnvironment, Cons aResult, Cons aExpression, String extraInfo, String localVariables) throws Throwable {
 		if (evalDepth != 0) {
 			evalDepth--;
 		}
@@ -285,7 +285,7 @@ public abstract class Evaluator {
 		iStackTraced = true;
 	}
 
-	public abstract Cons evaluate(Environment aEnvironment, int aStackTop, Cons aArgumentsOrExpression) throws Exception;
+	public abstract Cons evaluate(Environment aEnvironment, int aStackTop, Cons aArgumentsOrExpression) throws Throwable;
 
 
 	public UserStackInformation stackInformation() {

@@ -58,7 +58,7 @@ public class LispError {
     public static final int MAXIMUM_NUMBER_OF_ERRORS = 31;
 
 
-    public static String errorString(int aError) throws Exception {
+    public static String errorString(int aError) throws Throwable {
         //lispAssert(aError >= 0 && aError < MAXIMUM_NUMBER_OF_ERRORS, aEnvironment, aStackTop);
 
         if (aError < 0 || aError >= MAXIMUM_NUMBER_OF_ERRORS) {
@@ -167,12 +167,12 @@ public class LispError {
 
     //========================================
 
-    public static void throwError(Environment aEnvironment, int aStackTop, int aError, Object aErrorMessage) throws Exception {
+    public static void throwError(Environment aEnvironment, int aStackTop, int aError, Object aErrorMessage) throws Throwable {
 
         throwError(aEnvironment, aStackTop, aError, aErrorMessage, aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex());
     }
 
-    public static void throwError(Environment aEnvironment, int aStackTop, int aError, Object aErrorMessage, int lineNumber, int tokenStartIndex, int tokenEndIndex) throws Exception {
+    public static void throwError(Environment aEnvironment, int aStackTop, int aError, Object aErrorMessage, int lineNumber, int tokenStartIndex, int tokenEndIndex) throws Throwable {
 
             if(aError == LispError.INVALID_ARGUMENT)
             {
@@ -187,11 +187,11 @@ public class LispError {
 
     //========================================
 
-    public static void throwError(Environment aEnvironment, int aStackTop, Object aErrorMessage) throws Exception {
+    public static void throwError(Environment aEnvironment, int aStackTop, Object aErrorMessage) throws Throwable {
         throwError(aEnvironment, aStackTop, aErrorMessage, aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex());
     }
 
-    public static void throwError(Environment aEnvironment, int aStackTop, Object aErrorMessage, int lineNumber, int tokenStartIndex, int tokenEndIndex) throws Exception {
+    public static void throwError(Environment aEnvironment, int aStackTop, Object aErrorMessage, int lineNumber, int tokenStartIndex, int tokenEndIndex) throws Throwable {
     
             String stackTrace = "";
 
@@ -222,11 +222,11 @@ public class LispError {
 
 
     //========================================
-    public static void throwError(Environment aEnvironment, int aStackTop, int errNo) throws Exception {
+    public static void throwError(Environment aEnvironment, int aStackTop, int errNo) throws Throwable {
         throwError(aEnvironment, aStackTop, errNo, aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex());
     }
 
-    public static void throwError(Environment aEnvironment, int aStackTop, int errNo, int lineNumber, int tokenStartIndex, int tokenEndIndex) throws Exception {
+    public static void throwError(Environment aEnvironment, int aStackTop, int errNo, int lineNumber, int tokenStartIndex, int tokenEndIndex) throws Throwable {
 
             String stackTrace = "";
 
@@ -252,17 +252,17 @@ public class LispError {
     }
 
     //========================================
-    public static void raiseError(String errorMessage, int aStackTop, Environment aEnvironment) throws Exception {
+    public static void raiseError(String errorMessage, int aStackTop, Environment aEnvironment) throws Throwable {
         raiseError(errorMessage,  aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex(), aStackTop, aEnvironment);
     }
 
-    public static void raiseError(String errorMessage, int lineNumber, int tokenStartIndex, int tokenEndIndex, int aStackTop, Environment aEnvironment) throws Exception {
+    public static void raiseError(String errorMessage, int lineNumber, int tokenStartIndex, int tokenEndIndex, int aStackTop, Environment aEnvironment) throws Throwable {
         throwError( aEnvironment, aStackTop, errorMessage, lineNumber, tokenStartIndex, tokenEndIndex);
     }
 
     //========================================
 
-    public static void checkNumberOfArguments(int aStackTop, int n, Cons aArguments, Environment aEnvironment) throws Exception {
+    public static void checkNumberOfArguments(int aStackTop, int n, Cons aArguments, Environment aEnvironment) throws Throwable {
         int nrArguments = Utility.listLength(aEnvironment, aStackTop, aArguments);
         if (nrArguments != n) {
             errorNumberOfArguments(n - 1, nrArguments - 1, aArguments, aEnvironment, aStackTop);
@@ -271,11 +271,11 @@ public class LispError {
 
 
     //========================================
-    public static void errorNumberOfArguments(int needed, int passed, Cons aArguments, Environment aEnvironment, int aStackTop) throws Exception {
+    public static void errorNumberOfArguments(int needed, int passed, Cons aArguments, Environment aEnvironment, int aStackTop) throws Throwable {
         errorNumberOfArguments(needed, passed, aArguments, aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex(), aEnvironment, aStackTop);
     }
 
-    public static void errorNumberOfArguments(int needed, int passed, Cons aArguments,  int lineNumber, int tokenStartIndex, int tokenEndIndex, Environment aEnvironment, int aStackTop) throws Exception {
+    public static void errorNumberOfArguments(int needed, int passed, Cons aArguments,  int lineNumber, int tokenStartIndex, int tokenEndIndex, Environment aEnvironment, int aStackTop) throws Throwable {
         String stackTrace = "";
 
         if (Evaluator.isStackTraced() && aStackTop >= 0) {
@@ -304,7 +304,7 @@ public class LispError {
     }
     //========================================
 
-    public static String showFunctionError(Cons aArguments, Environment aEnvironment) throws Exception {
+    public static String showFunctionError(Cons aArguments, Environment aEnvironment) throws Throwable {
         if (aArguments == null) {
             return "Error in compiled code. ";
         } else {
@@ -318,7 +318,7 @@ public class LispError {
 
 
 
-    public static void lispAssert(Environment aEnvironment, int aStackTop) throws Exception {
+    public static void lispAssert(Environment aEnvironment, int aStackTop) throws Throwable {
   
             //throw new EvaluationException("Assertion failed.","none",-1);
             throwError(aEnvironment, aStackTop, "Assertion error.");
@@ -326,27 +326,27 @@ public class LispError {
     }
 
 
-    public static void checkArgument(Environment aEnvironment, int aStackTop, int aArgNr) throws Exception {
+    public static void checkArgument(Environment aEnvironment, int aStackTop, int aArgNr) throws Throwable {
         checkArgumentTypeWithError(aEnvironment, aStackTop, aArgNr, "");
     }
 
 
-    public static void checkIsList(Environment aEnvironment, int aStackTop, Cons evaluated, int aArgNr) throws Exception {
+    public static void checkIsList(Environment aEnvironment, int aStackTop, Cons evaluated, int aArgNr) throws Throwable {
         if(! Utility.isSublist(evaluated)) checkArgumentTypeWithError(aEnvironment, aStackTop, aArgNr, "argument is not a list.");
     }
 
 
-    public static void checkIsString(Environment aEnvironment, int aStackTop, Cons evaluated, int aArgNr) throws Exception {
+    public static void checkIsString(Environment aEnvironment, int aStackTop, Cons evaluated, int aArgNr) throws Throwable {
         if(! Utility.isString(evaluated.car())) checkArgumentTypeWithError(aEnvironment, aStackTop, aArgNr, "argument is not a string.");
     }
 
 
     //========================================
-    public static void checkArgumentTypeWithError(Environment aEnvironment, int aStackTop, int aArgNr, String aErrorDescription) throws Exception {
+    public static void checkArgumentTypeWithError(Environment aEnvironment, int aStackTop, int aArgNr, String aErrorDescription) throws Throwable {
         checkArgumentTypeWithError(aEnvironment, aStackTop, aArgNr, aErrorDescription, aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex());
     }
 
-    public static void checkArgumentTypeWithError(Environment aEnvironment, int aStackTop, int aArgNr, String aErrorDescription, int lineNumber, int startIndex, int endIndex) throws Exception {
+    public static void checkArgumentTypeWithError(Environment aEnvironment, int aStackTop, int aArgNr, String aErrorDescription, int lineNumber, int startIndex, int endIndex) throws Throwable {
 
             String stackTrace = "";
 

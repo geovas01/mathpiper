@@ -40,21 +40,21 @@ public class OperatorMap // <Operator>
 		map.put(aString, op);
 	}
 	
-	public void setRightAssociative(int aStackTop, String aString) throws Exception
+	public void setRightAssociative(int aStackTop, String aString) throws Throwable
 	{
 		Operator op = (Operator)map.get(aString);
 		if(op == null) LispError.throwError(iEnvironment, aStackTop, LispError.NOT_AN_INFIX_OPERATOR, aString);
 		op.setRightAssociative();
 	}
 	
-	public void setLeftPrecedence(int aStackTop, String aString,int aPrecedence) throws Exception
+	public void setLeftPrecedence(int aStackTop, String aString,int aPrecedence) throws Throwable
 	{
 		Operator op = (Operator)map.get(aString);
 		if(op == null) LispError.throwError(iEnvironment, aStackTop, LispError.NOT_AN_INFIX_OPERATOR, aString);
 		op.setLeftPrecedence(aPrecedence);
 	}
 	
-	public void setRightPrecedence(int aStackTop, String aString, int aPrecedence) throws Exception
+	public void setRightPrecedence(int aStackTop, String aString, int aPrecedence) throws Throwable
 	{
 		Operator op = (Operator)map.get(aString);
 		if(op == null) LispError.throwError(iEnvironment, aStackTop, LispError.NOT_AN_INFIX_OPERATOR, aString);

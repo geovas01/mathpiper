@@ -44,7 +44,7 @@ public class While extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable {
         Cons arg1 = getArgument(aEnvironment, aStackTop, 1);
         Cons arg2 = getArgument(aEnvironment, aStackTop, 2);
 

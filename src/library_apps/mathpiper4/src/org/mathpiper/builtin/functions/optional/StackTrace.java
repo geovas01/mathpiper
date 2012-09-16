@@ -30,7 +30,7 @@ import org.mathpiper.lisp.Utility;
 public class StackTrace extends BuiltinFunction
 {
 
-    public void plugIn(Environment aEnvironment) throws Exception
+    public void plugIn(Environment aEnvironment) throws Throwable
     {
         this.functionName = "StackTrace";
         aEnvironment.getBuiltinFunctions().put(
@@ -38,7 +38,7 @@ public class StackTrace extends BuiltinFunction
     }//end method.
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
          String dump = aEnvironment.iArgumentStack.dump(aStackTop, aEnvironment);
 

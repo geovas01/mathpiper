@@ -46,7 +46,7 @@ class AppletOutput {
         }
     }
 
-    public void println(Exception e) {
+    public void println(Throwable e) {
         println(e.getMessage());
     }
 

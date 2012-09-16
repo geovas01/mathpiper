@@ -40,7 +40,7 @@ public class BackQuoteSubstitute implements Substitute {
     }
 
 
-    public Cons matches(Environment aEnvironment, int aStackTop, Cons aElement) throws Exception {
+    public Cons matches(Environment aEnvironment, int aStackTop, Cons aElement) throws Throwable {
         if (!(aElement instanceof SublistCons)) {
             return null;
         }

@@ -251,7 +251,7 @@ public class Interpreters {
 
 
 
-        } catch (Exception e) {
+        } catch (Throwable e) {
             e.printStackTrace();
         }
 

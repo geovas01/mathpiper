@@ -41,11 +41,11 @@ public class ArgumentStack {
         return iStackTopIndex;
     }
 
-    public void raiseStackOverflowError(int aStackTop, Environment aEnvironment) throws Exception {
+    public void raiseStackOverflowError(int aStackTop, Environment aEnvironment) throws Throwable {
         LispError.raiseError("Argument stack reached maximum. Please extend argument stack with --stack argument on the command line.", aStackTop, aEnvironment);
     }
 
-    public void pushArgumentOnStack(Cons aCons, int aStackTop, Environment aEnvironment) throws Exception {
+    public void pushArgumentOnStack(Cons aCons, int aStackTop, Environment aEnvironment) throws Throwable {
         if (iStackTopIndex >= iArgumentStack.size()) {
             raiseStackOverflowError(aStackTop, aEnvironment);
         }
@@ -53,24 +53,24 @@ public class ArgumentStack {
         iStackTopIndex++;
     }
 
-    public void pushNulls(int aNr, int aStackTop, Environment aEnvironment) throws Exception {
+    public void pushNulls(int aNr, int aStackTop, Environment aEnvironment) throws Throwable {
         if (iStackTopIndex + aNr > iArgumentStack.size()) {
             raiseStackOverflowError(aStackTop, aEnvironment);
         }
         iStackTopIndex += aNr;
     }
 
-    public Cons getElement(int aPos, int aStackTop, Environment aEnvironment) throws Exception {
+    public Cons getElement(int aPos, int aStackTop, Environment aEnvironment) throws Throwable {
         if(aPos < 0 || aPos >= iStackTopIndex) LispError.lispAssert(aEnvironment, aStackTop);
         return iArgumentStack.getElement(aPos);
     }
 
-    public void setElement(int aPos, int aStackTop, Environment aEnvironment, Cons cons) throws Exception {
+    public void setElement(int aPos, int aStackTop, Environment aEnvironment, Cons cons) throws Throwable {
         if(aPos < 0 || aPos >= iStackTopIndex) LispError.lispAssert(aEnvironment, aStackTop);
         iArgumentStack.setElement(aPos, cons);
     }
 
-    public void popTo(int aTop, int aStackTop, Environment aEnvironment) throws Exception {
+    public void popTo(int aTop, int aStackTop, Environment aEnvironment) throws Throwable {
         if(aTop > iStackTopIndex) LispError.lispAssert(aEnvironment, aStackTop);
         while (iStackTopIndex > aTop) {
             iStackTopIndex--;
@@ -78,11 +78,11 @@ public class ArgumentStack {
         }
     }
 
-    public void reset(int aStackTop, Environment aEnvironment) throws Exception {
+    public void reset(int aStackTop, Environment aEnvironment) throws Throwable {
         this.popTo(0, aStackTop, aEnvironment);
     }//end method.
 
-    public String dump(int aStackTop, Environment aEnvironment) throws Exception {
+    public String dump(int aStackTop, Environment aEnvironment) throws Throwable {
 
         StringBuilder stringBuilder = new StringBuilder();
 

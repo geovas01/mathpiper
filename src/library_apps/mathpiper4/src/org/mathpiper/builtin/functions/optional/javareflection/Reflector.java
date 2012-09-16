@@ -19,7 +19,7 @@ public abstract class Reflector {  // todo:tk extends { Procedure {
   public static final Vector reflectors = new Vector(100);
 
   /** Reset all know reflectors **/
-  public static void resetAll() throws Exception {
+  public static void resetAll() throws Throwable {
     Enumeration i = reflectors.elements();
     while (i.hasMoreElements())
       ((Reflector) i.nextElement()).reset();
@@ -35,9 +35,9 @@ public abstract class Reflector {  // todo:tk extends { Procedure {
   /** Reset your classpath dependent state.  This method can't be
       abstract.
   **/
-  protected synchronized void reset() throws Exception {}
+  protected synchronized void reset() throws Throwable {}
 
-  protected Object readResolve() throws Exception {
+  protected Object readResolve() throws Throwable {
     reset();
     return this;
   }

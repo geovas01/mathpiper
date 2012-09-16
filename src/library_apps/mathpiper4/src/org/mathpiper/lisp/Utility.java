@@ -163,7 +163,7 @@ public class Utility {
         return true;
     }
 
-    public static int listLength(Environment aEnvironment, int aStackTop, Cons aOriginal) throws Exception {
+    public static int listLength(Environment aEnvironment, int aStackTop, Cons aOriginal) throws Throwable {
         
         int length = 0;
         while (aOriginal != null) {
@@ -195,7 +195,7 @@ public class Utility {
         return previous;
     }
 
-    public static Cons returnUnEvaluated(int aStackTop, Cons aArguments, Environment aEnvironment) throws Exception {
+    public static Cons returnUnEvaluated(int aStackTop, Cons aArguments, Environment aEnvironment) throws Throwable {
         Cons full = aArguments.copy(false);
 
         Cons resultCons = SublistCons.getInstance(aEnvironment, full);
@@ -215,7 +215,7 @@ public class Utility {
     }
 
     //Evaluate a function which is in string form.
-    public static Cons applyString(Environment aEnvironment, int aStackTop, String aOperator, Cons aArgs) throws Exception {
+    public static Cons applyString(Environment aEnvironment, int aStackTop, String aOperator, Cons aArgs) throws Throwable {
         if(! isString(aOperator)) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_STRING, aOperator);
 
         Cons head = AtomCons.getInstance(aEnvironment, aStackTop, getSymbolName(aEnvironment, aOperator));
@@ -225,7 +225,7 @@ public class Utility {
         return result;
     }
 
-    public static Cons applyPure(int aStackTop, Cons oper, Cons args2, Environment aEnvironment) throws Exception {
+    public static Cons applyPure(int aStackTop, Cons oper, Cons args2, Environment aEnvironment) throws Throwable {
         if(!(oper.car() instanceof Cons)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, args2);
         if(((Cons) oper.car()) == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, args2);
 
@@ -262,15 +262,15 @@ public class Utility {
 
     }
 
-    public static Cons getTrueAtom(Environment aEnvironment) throws Exception {
+    public static Cons getTrueAtom(Environment aEnvironment) throws Throwable {
         return aEnvironment.iTrueAtom.copy(false);
     }
 
-    public static Cons getFalseAtom(Environment aEnvironment) throws Exception {
+    public static Cons getFalseAtom(Environment aEnvironment) throws Throwable {
         return aEnvironment.iFalseAtom.copy(false);
     }
 
-    public static Cons getBooleanAtom(Environment aEnvironment, boolean aValue) throws Exception {
+    public static Cons getBooleanAtom(Environment aEnvironment, boolean aValue) throws Throwable {
         if (aValue) {
             return getTrueAtom(aEnvironment);
         } else {
@@ -278,7 +278,7 @@ public class Utility {
         }
     }
 
-    public static Cons nth(Environment aEnvironment, int aStackTop, Cons aArg, int n) throws Exception {
+    public static Cons nth(Environment aEnvironment, int aStackTop, Cons aArg, int n) throws Throwable {
         if(aArg == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, aArg);
         if(! (aArg.car() instanceof Cons)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, aArg);
         if(n < 0) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, aArg);
@@ -293,7 +293,7 @@ public class Utility {
         return consTraverser.copy(false);
     }
 
-    public static Cons tail(Environment aEnvironment, int aStackTop, Cons aArg) throws Exception {
+    public static Cons tail(Environment aEnvironment, int aStackTop, Cons aArg) throws Throwable {
         if(aArg == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, aArg);
         if(! (aArg.car() instanceof Cons)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, aArg);
 
@@ -304,7 +304,7 @@ public class Utility {
     }
 
 
-    public static boolean isTrue(Environment aEnvironment, Cons aExpression, int aStackTop) throws Exception {
+    public static boolean isTrue(Environment aEnvironment, Cons aExpression, int aStackTop) throws Throwable {
         if(aExpression == null) LispError.lispAssert(aEnvironment, aStackTop);
 
         //return aExpression.car() == aEnvironment.iTrueAtom.car();
@@ -331,7 +331,7 @@ public class Utility {
         }*/
 
     }//end method.
-    public static boolean isFalse(Environment aEnvironment, Cons aExpression, int aStackTop) throws Exception {
+    public static boolean isFalse(Environment aEnvironment, Cons aExpression, int aStackTop) throws Throwable {
         if(aExpression == null) LispError.lispAssert(aEnvironment, aStackTop);
         return aExpression.car() instanceof String && ((String) aExpression.car()).equals(aEnvironment.iFalseString);
 
@@ -340,7 +340,7 @@ public class Utility {
          */
     }
 
-    public static String getSymbolName(Environment aEnvironment, String aSymbol) throws Exception {
+    public static String getSymbolName(Environment aEnvironment, String aSymbol) throws Throwable {
         if (aSymbol.charAt(0) == '\"') {
             return Utility.stripEndQuotesIfPresent(aEnvironment, -1, aSymbol);
         } else {
@@ -348,7 +348,7 @@ public class Utility {
         }
     }
 
-    public static boolean isSublist(Cons aPtr) throws Exception {
+    public static boolean isSublist(Cons aPtr) throws Throwable {
         /**
          * todo:tk: I am currently not sure why non nested lists are not supported in Yacas.
          */
@@ -369,7 +369,7 @@ public class Utility {
 
     }//end method.
 
-    public static boolean isList(Cons aPtr) throws Exception {
+    public static boolean isList(Cons aPtr) throws Throwable {
         /**
          * todo:tk: I am currently not sure why non nested lists are not supported in Yacas.
          */
@@ -390,7 +390,7 @@ public class Utility {
 
     }//end method.
 
-    public static boolean isNestedList(Environment aEnvironment, int aStackTop, Cons clientList) throws Exception {
+    public static boolean isNestedList(Environment aEnvironment, int aStackTop, Cons clientList) throws Throwable {
 
         Cons list = clientList;
 
@@ -406,7 +406,7 @@ public class Utility {
         return true;
     }//end method.
 
-    public static Map optionsListToJavaMap(Environment aEnvironment, int aStackTop, Cons arguments, Map defaultOptions) throws Exception {
+    public static Map optionsListToJavaMap(Environment aEnvironment, int aStackTop, Cons arguments, Map defaultOptions) throws Throwable {
 
         Map userOptions = (Map) ((HashMap) defaultOptions).clone();
 
@@ -470,7 +470,7 @@ public class Utility {
     }//end method
 
 
-    public static String stripEndDollarSigns(String aOriginal) throws Exception {
+    public static String stripEndDollarSigns(String aOriginal) throws Throwable {
         //If there are not dollar signs on both ends of the string then return without any changes.
         aOriginal = aOriginal.trim();
         if (aOriginal.startsWith("$") && aOriginal.endsWith("$")) {
@@ -481,7 +481,7 @@ public class Utility {
         return aOriginal;
     }//end method.
 
-    public static Cons not(int aStackTop, Environment aEnvironment, Cons aExpression) throws Exception {
+    public static Cons not(int aStackTop, Environment aEnvironment, Cons aExpression) throws Throwable {
         if (isTrue(aEnvironment, aExpression, aStackTop)) {
             return getFalseAtom(aEnvironment);
         } else {
@@ -490,7 +490,7 @@ public class Utility {
         }
     }
 
-    public static Cons flatCopy(Environment aEnvironment, int aStackTop, Cons aOriginal) throws Exception {
+    public static Cons flatCopy(Environment aEnvironment, int aStackTop, Cons aOriginal) throws Throwable {
         Cons orig = aOriginal;
         Cons copied = null;
         Cons head = null;
@@ -523,7 +523,7 @@ public class Utility {
         return head;
     }
 
-    public static boolean equals(Environment aEnvironment, int aStackTop, Cons aExpression1, Cons aExpression2) throws Exception {
+    public static boolean equals(Environment aEnvironment, int aStackTop, Cons aExpression1, Cons aExpression2) throws Throwable {
         // Handle pointers to same, or null
         if (aExpression1 == aExpression2) {
             return true;
@@ -594,7 +594,7 @@ public class Utility {
         return false;
     }
 
-    public static Cons substitute(Environment aEnvironment, int aStackTop, Cons aSource, Substitute aBehaviour) throws Exception {
+    public static Cons substitute(Environment aEnvironment, int aStackTop, Cons aSource, Substitute aBehaviour) throws Throwable {
         
         Cons sourceCons = aSource;
 
@@ -667,7 +667,7 @@ public class Utility {
     }
 
 
-    public static String stripEndQuotesIfPresent(Environment aEnvironment, int aStackTop, String aOriginal) throws Exception {
+    public static String stripEndQuotesIfPresent(Environment aEnvironment, int aStackTop, String aOriginal) throws Throwable {
         //If there are not quotes on both ends of the string then return without any changes.
         if (aOriginal.startsWith("\"") && aOriginal.endsWith("\"")) {
             aOriginal = aOriginal.substring(1, aOriginal.length());
@@ -679,7 +679,7 @@ public class Utility {
 
     
 
-    public static String toNormalString(Environment aEnvironment, int aStackTop, String aOriginal) throws Exception {
+    public static String toNormalString(Environment aEnvironment, int aStackTop, String aOriginal) throws Throwable {
         if( aOriginal == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "Empty argument.");
         if(aOriginal.charAt(0) != '\"') LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "Missing left quote character.");
         int nrc = aOriginal.length() - 1;
@@ -687,13 +687,13 @@ public class Utility {
         return aOriginal.substring(1, nrc);
     }
 
-    public static String toMathPiperString(Environment aEnvironment, int aStackTop, String aOriginal) throws Exception {
+    public static String toMathPiperString(Environment aEnvironment, int aStackTop, String aOriginal) throws Throwable {
         if( aOriginal == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "Empty argument.");
 
         return "\"" + aOriginal + "\"";
     }
 
-    public static void doInternalLoad(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput) throws Exception {
+    public static void doInternalLoad(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput) throws Throwable {
         MathPiperInputStream previous = aEnvironment.getCurrentInput();
         try {
             aEnvironment.setCurrentInput(aInput);
@@ -726,7 +726,7 @@ public class Utility {
 
 
 
-        } catch (Exception e) {
+        } catch (Throwable e) {
             //System.out.println(e.getMessage()); e.printStackTrace(); //todo:tk:uncomment for debugging.
 
             throw e;
@@ -737,7 +737,7 @@ public class Utility {
 
 
 
-    public static void doPatchString(String unpatchedString, MathPiperOutputStream aOutput, Environment aEnvironment, int aStackTop) throws Exception
+    public static void doPatchString(String unpatchedString, MathPiperOutputStream aOutput, Environment aEnvironment, int aStackTop) throws Throwable
     {
         String[] tags = unpatchedString.split("\\?\\>");
         if (tags.length > 1) {
@@ -754,7 +754,7 @@ public class Utility {
                     try {
                         aEnvironment.iCurrentOutput = aOutput;
                         Utility.doInternalLoad(aEnvironment, aStackTop, scriptStream);
-                    } catch(Exception e) {
+                    } catch(Throwable e) {
                         throw e;
                     } finally {
                         aEnvironment.iCurrentOutput = previous;
@@ -767,7 +767,7 @@ public class Utility {
         }
     }
 
-    public static String printMathPiperExpression(int aStackTop, Cons aExpression, Environment aEnvironment, int aMaxChars) throws Exception {
+    public static String printMathPiperExpression(int aStackTop, Cons aExpression, Environment aEnvironment, int aMaxChars) throws Throwable {
         if(aExpression == null)
         {
             return "NULL";
@@ -790,7 +790,7 @@ public class Utility {
     }//end method.
 
 
-    public static String printLispExpression( int aStackTop, Cons aExpression, Environment aEnvironment, int aMaxChars) throws Exception {
+    public static String printLispExpression( int aStackTop, Cons aExpression, Environment aEnvironment, int aMaxChars) throws Throwable {
         if(aExpression == null)
         {
             return "NULL";
@@ -822,7 +822,7 @@ public class Utility {
     }
     // table look-up of small integer logarithms, for converting the number of digits to binary and back
 
-    static double log2TableLookup(int n) throws Exception {
+    static double log2TableLookup(int n) throws Throwable {
         if (n <= log2_table_size && n >= 2) {
             return log2_table[n - 1];
         } else {
@@ -839,7 +839,7 @@ public class Utility {
      * @return the number of bits
      * @throws java.lang.Exception
      */
-    public static long digitsToBits(long digits, int base) throws Exception {
+    public static long digitsToBits(long digits, int base) throws Throwable {
         return (long) Math.ceil(((double) digits) * log2TableLookup(base));
     }
 
@@ -852,7 +852,7 @@ public class Utility {
      * @return the number of digits
      * @throws java.lang.Exception
      */
-    public static long bitsToDigits(long bits, int base) throws Exception {
+    public static long bitsToDigits(long bits, int base) throws Throwable {
         return (long) Math.floor(((double) bits) / log2TableLookup(base));
     }
 
@@ -865,13 +865,13 @@ public class Utility {
      * @return a BigNumber.
      * @throws java.lang.Exception
      */
-    public static BigNumber getNumber(Environment aEnvironment, int aStackTop, int aArgNr) throws Exception {
+    public static BigNumber getNumber(Environment aEnvironment, int aStackTop, int aArgNr) throws Throwable {
         BigNumber x = (BigNumber) BuiltinFunction.getArgument(aEnvironment, aStackTop, aArgNr).getNumber(aEnvironment.iPrecision, aEnvironment);
         if( x == null) LispError.checkArgument(aEnvironment, aStackTop, aArgNr);
         return x;
     }
 
-    public static void multiFix(Environment aEnvironment, int aStackTop, OperatorMap aOps) throws Exception {
+    public static void multiFix(Environment aEnvironment, int aStackTop, OperatorMap aOps) throws Throwable {
         // Get operator
 	Cons argument = BuiltinFunction.getArgument(aEnvironment, aStackTop, 1);
         if(argument == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
@@ -889,7 +889,7 @@ public class Utility {
         BuiltinFunction.setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }
 
-    public static void singleFix(int aPrecedence, Environment aEnvironment, int aStackTop, OperatorMap aOps) throws Exception {
+    public static void singleFix(int aPrecedence, Environment aEnvironment, int aStackTop, OperatorMap aOps) throws Throwable {
         // Get operator
         Cons argument = BuiltinFunction.getArgument(aEnvironment, aStackTop, 1);
         if(argument == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
@@ -902,7 +902,7 @@ public class Utility {
         BuiltinFunction.setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }
 
-    public static Operator operatorInfo(Environment aEnvironment, int aStackTop, OperatorMap aOperators) throws Exception {
+    public static Operator operatorInfo(Environment aEnvironment, int aStackTop, OperatorMap aOperators) throws Throwable {
         // Get operator
 	
 	Cons evaluated = BuiltinFunction.getArgument(aEnvironment, aStackTop, 1);
@@ -925,7 +925,7 @@ public class Utility {
      * @param aGlobalLazyVariable
      * @throws java.lang.Exception
      */
-    public static void setVariableOrConstant(Environment aEnvironment, int aStackTop, boolean aMacroMode, boolean aGlobalLazyVariable, boolean aConstant) throws Exception {
+    public static void setVariableOrConstant(Environment aEnvironment, int aStackTop, boolean aMacroMode, boolean aGlobalLazyVariable, boolean aConstant) throws Throwable {
         String variableString = null;
         if (aMacroMode) {
             Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, BuiltinFunction.getArgument(aEnvironment, aStackTop, 1));
@@ -958,7 +958,7 @@ public class Utility {
 
 
 
-    public static void delete(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception {
+    public static void delete(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Throwable {
         Cons evaluated = BuiltinFunction.getArgument(aEnvironment, aStackTop, 1);
         LispError.checkIsList(aEnvironment, aStackTop, evaluated, 1);
 
@@ -989,7 +989,7 @@ public class Utility {
         BuiltinFunction.setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, copied));
     }
 
-    public static void insert(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception {
+    public static void insert(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Throwable {
         Cons evaluated = BuiltinFunction.getArgument(aEnvironment, aStackTop, 1);
         LispError.checkIsList(aEnvironment, aStackTop, evaluated, 1);
 
@@ -1023,7 +1023,7 @@ public class Utility {
         BuiltinFunction.setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, copied));
     }
 
-    public static void replace(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception {
+    public static void replace(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Throwable {
 
         Cons evaluated = BuiltinFunction.getArgument(aEnvironment, aStackTop, 1);
         // Ok, so lets not check if it is a list, but it needs to be at least a 'function'
@@ -1067,7 +1067,7 @@ public class Utility {
      *Implements the MathPiper functions Rulebase and MacroRulebase .
      * The real work is done by Environment.defineRulebase().
      */
-    public static void defineRulebase(Environment aEnvironment, int aStackTop, boolean aListed) throws Exception {
+    public static void defineRulebase(Environment aEnvironment, int aStackTop, boolean aListed) throws Throwable {
 
         // Get operator
         String functionName = null;
@@ -1088,7 +1088,7 @@ public class Utility {
         BuiltinFunction.setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }
 
-    public static void newRule(Environment aEnvironment, int aStackTop, boolean aPattern) throws Exception {
+    public static void newRule(Environment aEnvironment, int aStackTop, boolean aPattern) throws Throwable {
 
         int arity;
         int precedence;
@@ -1136,7 +1136,7 @@ public class Utility {
         BuiltinFunction.setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }
 
-    public static void defineMacroRulebase(Environment aEnvironment, int aStackTop, boolean aListed) throws Exception {
+    public static void defineMacroRulebase(Environment aEnvironment, int aStackTop, boolean aListed) throws Throwable {
         // Get operator
         String orig = null;
 
@@ -1256,14 +1256,14 @@ public class Utility {
 
 
 
-        } catch (Exception ex) {
+        } catch (Throwable ex) {
             ex.printStackTrace();
         }
         return dumpResult.toString();
 
     }//end method.
 
-    public static Cons associativeListGet(Environment aEnvironment, int aStackTop, Cons key, Cons listCons) throws Exception {
+    public static Cons associativeListGet(Environment aEnvironment, int aStackTop, Cons key, Cons listCons) throws Throwable {
 
 
         while (listCons != null) {
@@ -1293,7 +1293,7 @@ public class Utility {
      * @param expression
      * @throws java.lang.Exception
      */
-    public static String functionType(Cons expression) throws Exception {
+    public static String functionType(Cons expression) throws Throwable {
         if (!(expression.car() instanceof Cons)) {
             return "";
         }
@@ -1318,7 +1318,7 @@ public class Utility {
      * @return cons
      * @throws java.lang.Exception
      */
-    public static Cons iterableToList(Environment aEnvironment, int aStackTop, java.lang.Iterable iterable) throws Exception {
+    public static Cons iterableToList(Environment aEnvironment, int aStackTop, java.lang.Iterable iterable) throws Throwable {
         
         Cons head = aEnvironment.iListAtom.copy(false);
 
@@ -1351,7 +1351,7 @@ public class Utility {
     }//end method.
 
 
-    public static Cons mathPiperParse(Environment aEnvironment, int aStackTop, String inputExpression) throws Exception {
+    public static Cons mathPiperParse(Environment aEnvironment, int aStackTop, String inputExpression) throws Throwable {
         MathPiperTokenizer tokenizer = new MathPiperTokenizer();
         InputStatus someStatus = new InputStatus("UTILITY_MATHPIPERPARSE");
 
@@ -1369,7 +1369,7 @@ public class Utility {
 
 
 
-    public static Cons lispEvaluate(Environment aEnvironment, int aStackTop, String inputExpression) throws Exception {
+    public static Cons lispEvaluate(Environment aEnvironment, int aStackTop, String inputExpression) throws Throwable {
 
         Cons inputExpressionCons = mathPiperParse(aEnvironment, aStackTop, inputExpression);
 
@@ -1379,7 +1379,7 @@ public class Utility {
 
 
 
-    public static Cons lispEvaluate(Environment aEnvironment, int aStackTop, Cons inputExpression) throws Exception {
+    public static Cons lispEvaluate(Environment aEnvironment, int aStackTop, Cons inputExpression) throws Throwable {
 
         return aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, inputExpression);
 
@@ -1387,7 +1387,7 @@ public class Utility {
 
 
 
-    public static void declareFunction(String functionName, String[] parameters, String body, Environment aEnvironment, int aStackTop) throws Exception
+    public static void declareFunction(String functionName, String[] parameters, String body, Environment aEnvironment, int aStackTop) throws Throwable
     {
 
         Cons parameterTraverser = null;
@@ -1424,7 +1424,7 @@ public class Utility {
 
 
 
-    public static void loadLibraryFunction(String functionName, Environment aEnvironment, int aStackTop) throws Exception {
+    public static void loadLibraryFunction(String functionName, Environment aEnvironment, int aStackTop) throws Throwable {
         Scripts scripts = aEnvironment.scripts;
 
         String[] scriptCode = scripts.getScript(functionName);

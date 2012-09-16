@@ -127,7 +127,7 @@ public class SynchronousInterpreter implements Interpreter {
 
                     EvaluationResponse initializationEvaluationResponse = evaluate("MathPiperInitLoad();");
                     if (initializationEvaluationResponse.isExceptionThrown()) {
-                        Exception ex = initializationEvaluationResponse.getException();
+                        Throwable ex = initializationEvaluationResponse.getException();
                         throw ex;
                     }
 
@@ -193,7 +193,7 @@ public class SynchronousInterpreter implements Interpreter {
 
 
 
-        } catch (Exception e) //Note:tk:need to handle exceptions better here.  should return exception to user in an EvaluationResponse.
+        } catch (Throwable e) //Note:tk:need to handle exceptions better here.  should return exception to user in an EvaluationResponse.
         {
             if (e instanceof EvaluationException) {
                 EvaluationException ee = (EvaluationException) e;
@@ -261,7 +261,7 @@ public class SynchronousInterpreter implements Interpreter {
 
             return evaluate(parsedOrAppliedInputExpression, notifyEvaluationListeners);
 
-        } catch (Exception exception) {
+        } catch (Throwable exception) {
             this.handleException(exception, evaluationResponse);
         } finally {
             iEnvironment.setCurrentInput(previous);
@@ -349,7 +349,7 @@ public class SynchronousInterpreter implements Interpreter {
 
 
 
-        } catch (Exception exception) {
+        } catch (Throwable exception) {
             this.handleException(exception, evaluationResponse);
         }//end catch.
 
@@ -383,7 +383,7 @@ public class SynchronousInterpreter implements Interpreter {
                     }//end if.
                 }//if.
             }//end if
-        } catch (Exception e) {
+        } catch (Throwable e) {
             evaluationResponse.setException(e);
         }
 
@@ -394,7 +394,7 @@ public class SynchronousInterpreter implements Interpreter {
         return evaluationResponse;
     }
 
-    private void handleException(Exception exception, EvaluationResponse evaluationResponse) {
+    private void handleException(Throwable exception, EvaluationResponse evaluationResponse) {
         //exception.printStackTrace();  //todo:tk:uncomment for debugging.
 
         Evaluator.DEBUG = false;
@@ -405,7 +405,7 @@ public class SynchronousInterpreter implements Interpreter {
 
         try {
             iEnvironment.iArgumentStack.reset(-1, iEnvironment);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             e.printStackTrace();
         }
 

@@ -32,7 +32,7 @@ public class StringInputStream
 
 
     public char next()
-            throws Exception {
+            throws Throwable {
 
         if (iCurrentPosition == iString.length()) {
             return '\0';
@@ -53,7 +53,7 @@ public class StringInputStream
 
 
     public char peek()
-            throws Exception {
+            throws Throwable {
 
         if (iCurrentPosition == iString.length()) {
             return '\0';

@@ -39,14 +39,14 @@ public class PipeToStdout extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         MathPiperOutputStream previous = aEnvironment.iCurrentOutput;
         aEnvironment.iCurrentOutput = aEnvironment.iInitialOutput;
         try
         {
             setTopOfStack(aEnvironment, aStackTop, aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1)));
-        } catch (Exception e)
+        } catch (Throwable e)
         {
             throw e;
         } finally

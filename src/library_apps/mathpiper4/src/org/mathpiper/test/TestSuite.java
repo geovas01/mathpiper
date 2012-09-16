@@ -185,7 +185,7 @@ public class TestSuite {
 
             logFile.close();
 
-        } catch (Exception e) {
+        } catch (Throwable e) {
             //e.printStackTrace();
             System.out.flush();
             System.err.flush();
@@ -194,7 +194,7 @@ public class TestSuite {
 
     }//end method.
 
-    private void runSingleTest(String testName) throws Exception {
+    private void runSingleTest(String testName) throws Throwable {
         String[] testScriptArray = (String[]) tests.getBuiltInFunctionsMap().get(testName);
 
         if (testScriptArray == null) {
@@ -223,7 +223,7 @@ public class TestSuite {
 
             evaluateTestScript(interpreter.getEnvironment(), -1, new StringInputStream(testScript, interpreter.getEnvironment().iInputStatus), true);
 
-        } catch (Exception e) {
+        } catch (Throwable e) {
 
             System.out.println(e.getMessage());
             logFile.write(e.getMessage());
@@ -258,7 +258,7 @@ public class TestSuite {
         return result;
     }
 
-    public String evaluateTestScript(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput, boolean evaluate) throws Exception {
+    public String evaluateTestScript(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput, boolean evaluate) throws Throwable {
 
         StringBuffer printedScriptStringBuffer = new StringBuffer();
 
@@ -322,7 +322,7 @@ public class TestSuite {
 
             return printedScriptStringBuffer.toString();
 
-        } catch (Exception e) {
+        } catch (Throwable e) {
             //System.out.println(e.getMessage());
             //e.printStackTrace(); //todo:tk:uncomment for debugging.
             
@@ -346,7 +346,7 @@ public class TestSuite {
         }
     }
 
-    public static void printExpression(StringBuffer outString, Environment aEnvironment, Cons aExpression) throws Exception {
+    public static void printExpression(StringBuffer outString, Environment aEnvironment, Cons aExpression) throws Throwable {
         MathPiperPrinter infixprinter = new MathPiperPrinter(aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
 
         MathPiperOutputStream stream = new StringOutputStream(outString);

@@ -29,7 +29,7 @@ import org.mathpiper.lisp.cons.SublistCons;
 
 public class MacroRulebase extends SingleArityRulebase {
 
-    public MacroRulebase(Environment aEnvironment, int aStackTop, Cons aParameters, String functionName) throws Exception {
+    public MacroRulebase(Environment aEnvironment, int aStackTop, Cons aParameters, String functionName) throws Throwable {
         super(aEnvironment, aStackTop, aParameters, functionName);
         Cons parameterTraverser =  aParameters;
         int i = 0;
@@ -59,7 +59,7 @@ public class MacroRulebase extends SingleArityRulebase {
 
 
     @Override
-    public Cons evaluate(Environment aEnvironment, int aStackTop, Cons aArguments) throws Exception {
+    public Cons evaluate(Environment aEnvironment, int aStackTop, Cons aArguments) throws Throwable {
         Cons aResult;
         int arity = arity();
         Cons[] argumentsResultArray = evaluateArguments(aEnvironment, aStackTop, aArguments);

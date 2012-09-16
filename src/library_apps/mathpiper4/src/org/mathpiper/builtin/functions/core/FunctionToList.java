@@ -42,7 +42,7 @@ public class FunctionToList extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         if(! (getArgument(aEnvironment, aStackTop, 1).car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackTop, 1);
         Cons head = aEnvironment.iListAtom.copy(false);

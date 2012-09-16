@@ -30,7 +30,7 @@ public class MathPiperTokenizer {
 
     /// NextToken returns a string representing the next token,
     /// or an empty list.
-    public String nextToken(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput) throws Exception {
+    public String nextToken(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput) throws Throwable {
         char streamCharacter;
         int firstPosition = 0; //aInput.position();
 

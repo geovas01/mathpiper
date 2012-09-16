@@ -40,7 +40,7 @@ public class JavaMethod extends Reflector {
       </pre>
    **/
 
-   public JavaMethod(String name, Class c, boolean isStatic, boolean isPrivileged) throws Exception {
+   public JavaMethod(String name, Class c, boolean isStatic, boolean isPrivileged) throws Throwable {
     this.name = name;
     if (c != null) this.methodClass = c.getName();
     this.isStatic = isStatic;
@@ -50,15 +50,15 @@ public class JavaMethod extends Reflector {
     reset();
    }
 
-    public JavaMethod(String name, Class c, boolean isStatic) throws Exception {
+    public JavaMethod(String name, Class c, boolean isStatic) throws Throwable {
       this(name,c,isStatic,false);
     }
 
-    public JavaMethod(String name, Class c) throws Exception {
+    public JavaMethod(String name, Class c) throws Throwable {
       this(name,c,(c!=null));
     }      
 
-  protected synchronized void reset() throws Exception {
+  protected synchronized void reset() throws Throwable {
     if (isSpecific) {
       methodTable = Invoke.methodTable0(Import.classNamed(methodClass),
 					name,
@@ -72,7 +72,7 @@ public class JavaMethod extends Reflector {
     } else classMethodTable = new Hashtable(5);
   }
 
-  public Object[] instanceMethodTable(Class c) throws Exception {
+  public Object[] instanceMethodTable(Class c) throws Throwable {
     Object[] ms = ((Object[]) classMethodTable.get(c));
     if (ms != null) return ms;
     ms = Invoke.methodTable0(c, name, isStatic, isPrivileged);
@@ -86,7 +86,7 @@ public class JavaMethod extends Reflector {
      For a static method, args is an Object[] of arguments.
      For an instance method, args is (vector target (vector arguments));
    **/
-  public Object apply(Object[] args) throws Exception{
+  public Object apply(Object[] args) throws Throwable{
     if (!(isSpecific)) {
       Object[] methodTable = instanceMethodTable(args[0].getClass());
       Object[] as = (Object[]) args[1];

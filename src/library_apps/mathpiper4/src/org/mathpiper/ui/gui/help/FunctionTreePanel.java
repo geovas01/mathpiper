@@ -243,7 +243,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
             operatorsData = (String[][]) operators.toArray(new String[operators.size()][]);
 
         }
-        catch (Exception e)
+        catch (Throwable e)
         {
             e.printStackTrace();
         }
@@ -1046,7 +1046,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
                                 inputStream.close();
                             }
-                            catch(Exception e)
+                            catch(Throwable e)
                             {
                                 System.out.println(e.getMessage());
                             }

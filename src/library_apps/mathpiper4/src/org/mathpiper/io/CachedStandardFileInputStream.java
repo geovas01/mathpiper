@@ -30,7 +30,7 @@ public class CachedStandardFileInputStream extends MathPiperInputStream
 		rewind();
 	}
         
-	public char next() throws Exception
+	public char next() throws Throwable
 	{
 		int c = peek();
 		iCurrentPos++;
@@ -39,7 +39,7 @@ public class CachedStandardFileInputStream extends MathPiperInputStream
 		return (char)c;
 	}
         
-	public char peek() throws Exception
+	public char peek() throws Throwable
 	{
 		if (iCurrentPos == iBuffer.length())
 		{

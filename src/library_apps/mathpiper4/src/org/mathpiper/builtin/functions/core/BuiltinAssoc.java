@@ -43,7 +43,7 @@ public class BuiltinAssoc extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable {
         // key to find
         Cons key = getArgument(aEnvironment, aStackTop, 1);
 

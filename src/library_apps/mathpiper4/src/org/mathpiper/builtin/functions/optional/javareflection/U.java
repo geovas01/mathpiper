@@ -7,7 +7,7 @@ import org.mathpiper.lisp.cons.Cons;
 
 public class U {
 
-  public static Class toClass(Object c) throws Exception {
+  public static Class toClass(Object c) throws Throwable {
     if (c instanceof Class) return (Class) c;
     else return Import.classNamed(stringify(c, false));
   }

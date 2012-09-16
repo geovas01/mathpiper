@@ -46,7 +46,7 @@ public class NumberCons extends Cons {
      * @param aNumber
      * @param aString
      */
-    public NumberCons(BigNumber aNumber, String aString) throws Exception {
+    public NumberCons(BigNumber aNumber, String aString) throws Throwable {
         super();
         iCarStringNumber = aString;
         iCarBigNumber = aNumber;
@@ -56,7 +56,7 @@ public class NumberCons extends Cons {
      * Construct a number from a BigNumber.
      * @param aNumber
      */
-    public NumberCons(BigNumber aNumber) throws Exception {
+    public NumberCons(BigNumber aNumber) throws Throwable {
         super();
         iCarStringNumber = null;
         iCarBigNumber = aNumber;
@@ -68,7 +68,7 @@ public class NumberCons extends Cons {
      * @param aString a number in decimal format
      * @param aBasePrecision the number of decimal digits for the number
      */
-    public NumberCons(String aString, int aBasePrecision) throws Exception {
+    public NumberCons(String aString, int aBasePrecision) throws Throwable {
         super();
         //(also create a number object).
         iCarStringNumber = aString;
@@ -80,7 +80,7 @@ public class NumberCons extends Cons {
 
 
 
-    public void setCar(Object object) throws Exception
+    public void setCar(Object object) throws Throwable
     {
         if(object instanceof String)
         {
@@ -108,7 +108,7 @@ public class NumberCons extends Cons {
         iCdr = aCdr;
     }
 
-    public Cons copy(boolean aRecursed) throws Exception  {
+    public Cons copy(boolean aRecursed) throws Throwable  {
 
         NumberCons numberCons = new NumberCons(iCarBigNumber, iCarStringNumber);
 
@@ -131,7 +131,7 @@ public class NumberCons extends Cons {
      * @return string representation of the number
      * @throws java.lang.Exception
      */
-    public Object car() throws Exception {
+    public Object car() throws Throwable {
         if (iCarStringNumber == null) {
             //LispError.lispAssert(iCarBigNumber != null, aEnvironment, aStackTop);  // either the string is null or the number but not both.
 
@@ -154,7 +154,7 @@ public class NumberCons extends Cons {
      * @throws java.lang.Exception
      */
     @Override
-    public Object getNumber(int aPrecision, Environment aEnvironment) throws Exception {
+    public Object getNumber(int aPrecision, Environment aEnvironment) throws Throwable {
         /// If necessary, will create a BigNumber object out of the stored string, at given precision (in decimal?)
         if (iCarBigNumber == null) {  // create and store a BigNumber out of the string representation.
             

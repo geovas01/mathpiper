@@ -41,7 +41,7 @@ public class DestructiveReverse extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         Cons reversed = aEnvironment.iListAtom.copy(false);
         reversed.setCdr(Utility.reverseList(aEnvironment, ((Cons) getArgument(aEnvironment, aStackTop, 1).car()).cdr()));

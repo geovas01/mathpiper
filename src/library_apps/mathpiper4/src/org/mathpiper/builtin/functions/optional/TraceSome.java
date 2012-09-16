@@ -35,7 +35,7 @@ import org.mathpiper.lisp.printers.MathPiperPrinter;
 public class TraceSome extends BuiltinFunction
 {
 
-    public void plugIn(Environment aEnvironment) throws Exception
+    public void plugIn(Environment aEnvironment) throws Throwable
     {
         this.functionName = "TraceSome";
         aEnvironment.getBuiltinFunctions().put(
@@ -43,7 +43,7 @@ public class TraceSome extends BuiltinFunction
         aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "TraceSome");
     }//end method.
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
 
         Cons functionList = getArgument(aEnvironment, aStackTop, 1);

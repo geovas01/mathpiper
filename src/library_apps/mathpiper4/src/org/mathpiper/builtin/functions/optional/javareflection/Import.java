@@ -47,7 +47,7 @@ public class Import {
    try {
          Thread.currentThread().setContextClassLoader
             (Import.class.getClassLoader());}
-   catch (Exception e) {;}
+   catch (Throwable e) {;}
   }
     
   /** Get the ClassLoader used to look up classes. **/
@@ -98,7 +98,7 @@ public class Import {
      interpreted as absolute specifications for package-less classes
      for historical reasons.  
    **/
-  public static Class classNamed(String name) throws Exception {
+  public static Class classNamed(String name) throws Throwable {
     Class c = maybeClassNamed(name);
     return (c == null) ?
       (Class) E.error("Can't find class " + name + "."):
@@ -106,7 +106,7 @@ public class Import {
   }
 
   /** Returns a class or return null. **/
-  public static synchronized Class maybeClassNamed(String name) throws Exception {
+  public static synchronized Class maybeClassNamed(String name) throws Throwable {
     Class c = ((Class) table.get(name)); // Cached?
     if (c != null) return c;
     c = classNamedLookup(name);
@@ -114,7 +114,7 @@ public class Import {
     return c;
   }
 
-  private static Class classNamedLookup(String name) throws Exception {
+  private static Class classNamedLookup(String name) throws Throwable {
     if (name.endsWith("[]"))
       return classNamedArray(name.substring(0, name.length() - "[]".length()));
     Class c = classNamedImported(name);
@@ -159,7 +159,7 @@ public class Import {
   }
 
   /** name is the name of the component class. **/
-  private static Class classNamedArray(String name)  throws Exception {
+  private static Class classNamedArray(String name)  throws Throwable {
     Class c = classNamed(name);
     if (c.isPrimitive()) return classNamedArrayPrimitive(c);
     if (c.isArray()) return Import.forName("[" + c.getName());

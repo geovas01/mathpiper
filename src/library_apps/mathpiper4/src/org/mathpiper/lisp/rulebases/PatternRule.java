@@ -41,7 +41,7 @@ public class PatternRule extends Rule {
      * @param aPattern Cons that holds a PatternContainer
      * @param aBody body of the rule
      */
-    public PatternRule(Environment aEnvironment, int aStackTop, int aPrecedence, Cons aPattern, Cons aBody) throws Exception {
+    public PatternRule(Environment aEnvironment, int aStackTop, int aPrecedence, Cons aPattern, Cons aBody) throws Throwable {
         
         iPrecedence = aPrecedence;
 
@@ -57,7 +57,7 @@ public class PatternRule extends Rule {
     }
 
     //Return true if the corresponding pattern matches.
-    public boolean matches(Environment aEnvironment, int aStackTop, Cons[] aArguments) throws Exception {
+    public boolean matches(Environment aEnvironment, int aStackTop, Cons[] aArguments) throws Throwable {
         return iPattern.matches(aEnvironment, aStackTop, aArguments);
     }
 
@@ -66,7 +66,7 @@ public class PatternRule extends Rule {
         return iPrecedence;
     }
 
-    public Cons getPredicateOrPattern(Environment aEnvironment, int aStackTop) throws Exception {
+    public Cons getPredicateOrPattern(Environment aEnvironment, int aStackTop) throws Throwable {
 
 	return BuiltinObjectCons.getInstance(aEnvironment, aStackTop, this.iPattern);
     }

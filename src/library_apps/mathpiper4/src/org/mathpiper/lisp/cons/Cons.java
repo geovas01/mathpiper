@@ -36,15 +36,15 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
     protected Map metadataMap;
 
-    public Cons() throws Exception
+    public Cons() throws Throwable
     {
         metadataMap = null; //aEnvironment.iEmptyAtom;
     }//end constructor.
 
 
-    public abstract Object car() throws Exception;
+    public abstract Object car() throws Throwable;
 
-    public abstract void setCar(Object object) throws Exception;
+    public abstract void setCar(Object object) throws Throwable;
 
     public abstract Cons cdr();
 
@@ -57,11 +57,11 @@ public abstract class Cons //Note:tk:was MathPiperObject.
     /**
      * If this is a number, return a BigNumber representation of it.
      */
-    public Object getNumber(int aPrecision, Environment aEnvironment) throws Exception {
+    public Object getNumber(int aPrecision, Environment aEnvironment) throws Throwable {
         return null;
     }
 
-    public abstract Cons copy(boolean aRecursed) throws Exception;
+    public abstract Cons copy(boolean aRecursed) throws Throwable;
 
 
 
@@ -84,7 +84,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
 
-    public boolean isEqual(Cons aOther) throws Exception {
+    public boolean isEqual(Cons aOther) throws Throwable {
         // iCdr line handles the fact that either one is a string
         if(car() instanceof String && aOther.car() instanceof String){
             if (! (((String)car()).equals(((String)aOther.car())))) {
@@ -126,7 +126,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
         LispPrinter printer = new LispPrinter();
         try {
             printer.print(-1, this, out, null);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             e.printStackTrace();
         }
         return out.toString();
@@ -136,7 +136,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
 
-    public static Object car(Object cons) throws Exception
+    public static Object car(Object cons) throws Throwable
     {
         return ((Cons)cons).car();
     }
@@ -144,14 +144,14 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
 
-    public static Object cdr(Object cons) throws Exception
+    public static Object cdr(Object cons) throws Throwable
     {
         return ((Cons)cons).cdr();
     }
 
 
 
-    public static Object cadar(Object cons) throws Exception
+    public static Object cadar(Object cons) throws Throwable
     {
         cons = ((Cons)cons).car();
         cons = ((Cons)cons).cdr();
@@ -160,7 +160,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
     
-    public static Object caaaar(Object cons) throws Exception
+    public static Object caaaar(Object cons) throws Throwable
     {
         cons = ((Cons)cons).car();
         cons = ((Cons)cons).car();
@@ -170,7 +170,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
 
-    public static Object caaadr(Object cons) throws Exception
+    public static Object caaadr(Object cons) throws Throwable
     {
         cons = ((Cons)cons).cdr();
         cons = ((Cons)cons).car();
@@ -180,7 +180,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
 
-    public static Object caaar(Object cons) throws Exception
+    public static Object caaar(Object cons) throws Throwable
     {
         cons = ((Cons)cons).car();
         cons = ((Cons)cons).car();
@@ -189,7 +189,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
 
-    public static Object caadar(Object cons) throws Exception
+    public static Object caadar(Object cons) throws Throwable
     {
         cons = ((Cons)cons).car();
         cons = ((Cons)cons).cdr();
@@ -199,7 +199,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
 
-    public static Object caaddr(Object cons) throws Exception
+    public static Object caaddr(Object cons) throws Throwable
     {
         cons = ((Cons)cons).cdr();
         cons = ((Cons)cons).cdr();
@@ -210,7 +210,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
 
-    public static Object caadr(Object cons) throws Exception
+    public static Object caadr(Object cons) throws Throwable
     {
         cons = ((Cons)cons).cdr();
         cons = ((Cons)cons).car();
@@ -219,7 +219,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
 
-    public static Object caar(Object cons) throws Exception
+    public static Object caar(Object cons) throws Throwable
     {
         cons = ((Cons)cons).car();
         return ((Cons)cons).car();
@@ -227,7 +227,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
 
-    public static Object cadaar(Object cons) throws Exception
+    public static Object cadaar(Object cons) throws Throwable
     {
         cons = ((Cons)cons).car();
         cons = ((Cons)cons).car();
@@ -237,7 +237,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
 
-    public static Object cadadr(Object cons) throws Exception
+    public static Object cadadr(Object cons) throws Throwable
     {
         cons = ((Cons)cons).cdr();
         cons = ((Cons)cons).car();
@@ -247,7 +247,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
 
-    public static Object adar(Object cons) throws Exception
+    public static Object adar(Object cons) throws Throwable
     {
         cons = ((Cons)cons).car();
         cons = ((Cons)cons).cdr();
@@ -256,7 +256,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
 
-    public static Object caddar(Object cons) throws Exception
+    public static Object caddar(Object cons) throws Throwable
     {
         cons = ((Cons)cons).car();
         cons = ((Cons)cons).cdr();
@@ -267,7 +267,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
 
-    public static Object cadddr(Object cons) throws Exception
+    public static Object cadddr(Object cons) throws Throwable
     {
         cons = ((Cons)cons).cdr();
         cons = ((Cons)cons).cdr();
@@ -277,7 +277,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
 
-    public static Object caddr(Object cons) throws Exception
+    public static Object caddr(Object cons) throws Throwable
     {
         cons = ((Cons)cons).cdr();
         cons = ((Cons)cons).cdr();
@@ -286,7 +286,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
 
-    public static Object cadr(Object cons) throws Exception
+    public static Object cadr(Object cons) throws Throwable
     {
         cons = ((Cons)cons).cdr();
         return ((Cons)cons).car();
@@ -294,7 +294,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
 
-    public static Object cdaaar(Object cons) throws Exception
+    public static Object cdaaar(Object cons) throws Throwable
     {
         cons = ((Cons)cons).car();
         cons = ((Cons)cons).car();
@@ -304,7 +304,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
 
-    public static Object cdaadr(Object cons) throws Exception
+    public static Object cdaadr(Object cons) throws Throwable
     {
         cons = ((Cons)cons).cdr();
         cons = ((Cons)cons).car();
@@ -314,7 +314,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
 
-    public static Object cdaar(Object cons) throws Exception
+    public static Object cdaar(Object cons) throws Throwable
     {
         cons = ((Cons)cons).car();
         cons = ((Cons)cons).car();
@@ -323,7 +323,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
 
-    public static Object cdadar(Object cons) throws Exception
+    public static Object cdadar(Object cons) throws Throwable
     {
         cons = ((Cons)cons).car();
         cons = ((Cons)cons).cdr();
@@ -333,7 +333,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
 
-    public static Object cdaddr(Object cons) throws Exception
+    public static Object cdaddr(Object cons) throws Throwable
     {
         cons = ((Cons)cons).cdr();
         cons = ((Cons)cons).cdr();
@@ -343,7 +343,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
 
-    public static Object cdadr(Object cons) throws Exception
+    public static Object cdadr(Object cons) throws Throwable
     {
         cons = ((Cons)cons).cdr();
         cons = ((Cons)cons).car();
@@ -352,7 +352,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
 
-    public static Object cdar(Object cons) throws Exception
+    public static Object cdar(Object cons) throws Throwable
     {
         cons = ((Cons)cons).car();
         return ((Cons)cons).cdr();
@@ -360,7 +360,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
 
-    public static Object cddaar(Object cons) throws Exception
+    public static Object cddaar(Object cons) throws Throwable
     {
         cons = ((Cons)cons).car();
         cons = ((Cons)cons).car();
@@ -370,7 +370,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
 
-    public static Object cddadr(Object cons) throws Exception
+    public static Object cddadr(Object cons) throws Throwable
     {
         cons = ((Cons)cons).cdr();
         cons = ((Cons)cons).car();
@@ -380,7 +380,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
 
-    public static Object cddar(Object cons) throws Exception
+    public static Object cddar(Object cons) throws Throwable
     {
         cons = ((Cons)cons).car();
         cons = ((Cons)cons).cdr();
@@ -389,7 +389,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
 
-    public static Object cdddar(Object cons) throws Exception
+    public static Object cdddar(Object cons) throws Throwable
     {
         cons = ((Cons)cons).car();
         cons = ((Cons)cons).cdr();
@@ -399,7 +399,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
 
-    public static Object cddddr(Object cons) throws Exception
+    public static Object cddddr(Object cons) throws Throwable
     {
         cons = ((Cons)cons).cdr();
         cons = ((Cons)cons).cdr();
@@ -409,7 +409,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
 
-    public static Object cdddr(Object cons) throws Exception
+    public static Object cdddr(Object cons) throws Throwable
     {
         cons = ((Cons)cons).cdr();
         cons = ((Cons)cons).cdr();
@@ -418,7 +418,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
 
-    public static Object cddr(Object cons) throws Exception
+    public static Object cddr(Object cons) throws Throwable
     {
         cons = ((Cons)cons).cdr();
         return ((Cons)cons).cdr();

@@ -56,7 +56,7 @@ import org.scilab.forge.jlatexmath.TeXFormula;
  */
 public class ViewMath extends BuiltinFunction {
 
-    public void plugIn(Environment aEnvironment)  throws Exception
+    public void plugIn(Environment aEnvironment)  throws Throwable
     {
         this.functionName = "ViewMathInternal";
         aEnvironment.getBuiltinFunctions().put(
@@ -72,7 +72,7 @@ public class ViewMath extends BuiltinFunction {
 
     }//end method.
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable {
 
         //Utility.lispEvaluate(aEnvironment, "TeXForm(x^2);");
 

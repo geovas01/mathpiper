@@ -71,7 +71,7 @@ public class MathPiperParser extends Parser
     }
 
 
-    public Object[] parseAndFind(int aStackTop, String functionOrOperatorName) throws Exception
+    public Object[] parseAndFind(int aStackTop, String functionOrOperatorName) throws Throwable
     {
 
         locateFunctionOrOperatorName = functionOrOperatorName;
@@ -88,7 +88,7 @@ public class MathPiperParser extends Parser
     }
 
 
-    public Cons parse(int aStackTop) throws Exception
+    public Cons parse(int aStackTop) throws Throwable
     {
         readToken(aStackTop); //The character is placed into lookAhead.
 
@@ -128,7 +128,7 @@ public class MathPiperParser extends Parser
         return parsedExpression;
     }
 
-    void readToken(int aStackTop) throws Exception
+    void readToken(int aStackTop) throws Throwable
     {
         // Get token.
 
@@ -157,7 +157,7 @@ public class MathPiperParser extends Parser
         }
     }
 
-    void matchToken(int aStackTop, String aToken) throws Exception
+    void matchToken(int aStackTop, String aToken) throws Throwable
     {
         if (!aToken.equals(iLookAhead[0]))
         {
@@ -166,7 +166,7 @@ public class MathPiperParser extends Parser
         readToken(aStackTop);
     }
 
-    void readExpression(Environment aEnvironment,int aStackTop, int depth) throws Exception
+    void readExpression(Environment aEnvironment,int aStackTop, int depth) throws Throwable
     {
         readAtom(aEnvironment, aStackTop);
 
@@ -263,7 +263,7 @@ public class MathPiperParser extends Parser
         }
     }
 
-    void readAtom(Environment aEnvironment, int aStackTop) throws Exception
+    void readAtom(Environment aEnvironment, int aStackTop) throws Throwable
     {
         Operator op;
         // parse prefix operators
@@ -438,7 +438,7 @@ public class MathPiperParser extends Parser
         }
     }
 
-    void getOtherSide(Environment aEnvironment, int aStackTop, int aNrArgsToCombine, int depth) throws Exception
+    void getOtherSide(Environment aEnvironment, int aStackTop, int aNrArgsToCombine, int depth) throws Throwable
     {
         String theOperator = iLookAhead[0];
         matchToken(aStackTop, iLookAhead[0]);
@@ -447,7 +447,7 @@ public class MathPiperParser extends Parser
         combine(aEnvironment, aStackTop, aNrArgsToCombine);
     }
 
-    void combine(Environment aEnvironment, int aStackTop, int aNrArgsToCombine) throws Exception
+    void combine(Environment aEnvironment, int aStackTop, int aNrArgsToCombine) throws Throwable
     {
         Cons subList = SublistCons.getInstance(aEnvironment,parsedExpression);
         Cons consTraverser =  parsedExpression;
@@ -478,14 +478,14 @@ public class MathPiperParser extends Parser
         parsedExpression = subList;
     }
 
-    void insertAtom(Environment aEnvironment, int aStackTop, String aString) throws Exception
+    void insertAtom(Environment aEnvironment, int aStackTop, String aString) throws Throwable
     {
         String[] string = new String[4];
         string[0] = aString;
         insertAtom(aEnvironment, aStackTop, string);
     }
 
-    void insertAtom(Environment aEnvironment, int aStackTop, String[] aString) throws Exception
+    void insertAtom(Environment aEnvironment, int aStackTop, String[] aString) throws Throwable
     {
 
         Cons newCons = AtomCons.getInstance(iEnvironment, aStackTop, aString[0]);
@@ -503,7 +503,7 @@ public class MathPiperParser extends Parser
         parsedExpression = newCons;
     }
 
-    void fail(int aStackTop) throws Exception // called when parsing fails, raising an exception
+    void fail(int aStackTop) throws Throwable // called when parsing fails, raising an exception
     {
         iError = true;
         if (iLookAhead[0] != null)

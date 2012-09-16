@@ -42,12 +42,12 @@ public class Array extends BuiltinContainer
 	{
 		return iArray.size();
 	}
-	public Cons getElement(int aItem, int aStackTop, Environment aEnvironment) throws Exception
+	public Cons getElement(int aItem, int aStackTop, Environment aEnvironment) throws Throwable
 	{
 		if(aItem <= 0 || aItem > iArray.size()) LispError.lispAssert(aEnvironment, aStackTop);
 		return iArray.getElement(aItem-1);
 	}
-	public void setElement(int aItem,Cons aObject, int aStackTop, Environment aEnvironment) throws Exception
+	public void setElement(int aItem,Cons aObject, int aStackTop, Environment aEnvironment) throws Throwable
 	{
 		if(aItem <= 0|| aItem > iArray.size()) 
                 {

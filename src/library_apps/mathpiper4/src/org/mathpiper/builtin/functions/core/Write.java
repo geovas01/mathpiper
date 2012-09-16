@@ -39,7 +39,7 @@ public class Write extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         Cons arguments = getArgument(aEnvironment, aStackTop, 1);
         

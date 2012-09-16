@@ -1164,11 +1164,11 @@ public class MultiSplitLayout implements LayoutManager {
     }
 
 
-    private static void throwParseException(StreamTokenizer st, String msg) throws Exception {
+    private static void throwParseException(StreamTokenizer st, String msg) throws Throwable {
 	throw new Exception("MultiSplitLayout.parseModel Error: " + msg);
     }
 
-    private static void parseAttribute(String name, StreamTokenizer st, Node node) throws Exception {
+    private static void parseAttribute(String name, StreamTokenizer st, Node node) throws Throwable {
 	if ((st.nextToken() != '=')) {
 	    throwParseException(st, "expected '=' after " + name);
 	}
@@ -1210,7 +1210,7 @@ public class MultiSplitLayout implements LayoutManager {
 	parent.setChildren(children);
     }
 
-    private static void parseLeaf(StreamTokenizer st, Split parent) throws Exception {
+    private static void parseLeaf(StreamTokenizer st, Split parent) throws Throwable {
 	Leaf leaf = new Leaf();
 	int token;
 	while ((token = st.nextToken()) != StreamTokenizer.TT_EOF) {
@@ -1227,7 +1227,7 @@ public class MultiSplitLayout implements LayoutManager {
 	addSplitChild(parent, leaf);
     }
 
-    private static void parseSplit(StreamTokenizer st, Split parent) throws Exception {
+    private static void parseSplit(StreamTokenizer st, Split parent) throws Throwable {
 	int token;
 	while ((token = st.nextToken()) != StreamTokenizer.TT_EOF) {
 	    if (token == ')') {
@@ -1269,7 +1269,7 @@ public class MultiSplitLayout implements LayoutManager {
 	    parseSplit(st, root);
 	    return root.getChildren().get(0);
 	}
-	catch (Exception e) {
+	catch (Throwable e) {
 	    System.err.println(e);
 	}
 	finally {

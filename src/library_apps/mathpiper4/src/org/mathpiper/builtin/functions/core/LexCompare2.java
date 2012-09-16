@@ -37,7 +37,7 @@ abstract public class LexCompare2
 
     abstract boolean numFunction(BigNumber n1, BigNumber n2);
 
-    void Compare(Environment aEnvironment, int aStackTop) throws Exception
+    void Compare(Environment aEnvironment, int aStackTop) throws Throwable
     {
         Cons argument1 = BuiltinFunction.getArgument(aEnvironment, aStackTop, 1);
 

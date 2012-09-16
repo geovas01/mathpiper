@@ -55,7 +55,7 @@ public class Console {
                 line.append((char) c);
                 c = aStream.read();
             }
-        } catch (Exception e) {
+        } catch (Throwable e) {
             System.out.println(e.toString());
         }
         return line.toString();

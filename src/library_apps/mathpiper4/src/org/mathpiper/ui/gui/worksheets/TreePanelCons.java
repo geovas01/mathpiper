@@ -58,7 +58,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
         
         try {
 	    listToTree(rootNode, expressionCons);
-	} catch (Exception e) {
+	} catch (Throwable e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
@@ -76,7 +76,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
     
     
     
-    private void listToTree(SymbolNode node, Cons cons) throws Exception
+    private void listToTree(SymbolNode node, Cons cons) throws Throwable
     {
 	
 	Cons r = (Cons) cons.car(); //Go into sublist.

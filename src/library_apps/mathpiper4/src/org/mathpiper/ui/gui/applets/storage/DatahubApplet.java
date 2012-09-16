@@ -183,14 +183,14 @@ public class DatahubApplet extends Applet
 							break;
 						prog = prog + mark + "\n";
 					}
-					catch (Exception e)
+					catch (Throwable e)
 					{
 					}
 				}
 				in.close();
 			}
 		}
-		catch(Exception e)
+		catch(Throwable e)
 		{
 		}
 		return prog;

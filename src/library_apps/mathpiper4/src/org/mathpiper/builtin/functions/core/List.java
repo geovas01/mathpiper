@@ -34,7 +34,7 @@ public class List extends BuiltinFunction {
         this.functionName = functionName;
     }
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable {
 
         Cons all = aEnvironment.iListAtom.copy(false);
         Cons tail = all;

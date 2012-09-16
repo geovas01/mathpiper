@@ -32,7 +32,7 @@ public class StringOutputStream implements MathPiperOutputStream {
     }
 
 
-    public void write(String aString) throws Exception {
+    public void write(String aString) throws Throwable {
         int i;
         for (i = 0; i < aString.length(); i++) {
             putChar(aString.charAt(i));

@@ -15,7 +15,7 @@ public class EvaluationResponse {
     private String result = "";
     private String sideEffects = "";
     private boolean exceptionThrown = false;
-    private Exception exception = null;
+    private Throwable exception = null;
     private String sourceFileName = "";
     private Object object = null;
     private Cons resultList = null;
@@ -99,7 +99,7 @@ public class EvaluationResponse {
      *
      * @return the exception object
      */
-    public Exception getException()
+    public Throwable getException()
     {
         return exception;
     }
@@ -109,7 +109,7 @@ public class EvaluationResponse {
      *
      * @param exception the exception object
      */
-    public void setException(Exception exception)
+    public void setException(Throwable exception)
     {
         this.exceptionThrown = true;
         this.exception = exception;

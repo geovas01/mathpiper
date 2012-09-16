@@ -16,6 +16,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin.functions.optional;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
@@ -34,13 +35,13 @@ import org.mathpiper.lisp.cons.NumberCons;
  */
 public class JavaNew extends BuiltinFunction {
 
-    public void plugIn(Environment aEnvironment) throws Exception {
+    public void plugIn(Environment aEnvironment) throws Throwable {
         this.functionName = "JavaNew";
         aEnvironment.getBuiltinFunctions().put(
                 this.functionName, new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
     }//end method.
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable {
 
         if (getArgument(aEnvironment, aStackTop, 1).car() instanceof Cons) {
 
@@ -96,21 +97,31 @@ public class JavaNew extends BuiltinFunction {
                 }//end while.
 
                 Object[] argumentsArray = (Object[]) argumentArrayList.toArray(new Object[0]);
+                
+                try
+                {
 
-                Object o = Invoke.invokeConstructor(fullyQualifiedClassName, argumentsArray);
+                    Object o = Invoke.invokeConstructor(fullyQualifiedClassName, argumentsArray);
+                    
+                    JavaObject response = new JavaObject(o);
 
-                JavaObject response = new JavaObject(o);
+                    //JavaObject response = JavaObject.instantiate(fullyQualifiedClassName, argumentsArray);
+                    //System.out.println("XXXXXXXXXXX: " + response);
+    
+                    if (response == null) {
+                        setTopOfStack(aEnvironment, aStackTop, Utility.getFalseAtom(aEnvironment));
+                        return;
+                    } else {
+                        setTopOfStack(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
+                        return;
+                    }//end if/else.
+                }
+                catch(InvocationTargetException ite)
+                {
+                    throw ite.getTargetException();
+                }
+                
 
-                //JavaObject response = JavaObject.instantiate(fullyQualifiedClassName, argumentsArray);
-                //System.out.println("XXXXXXXXXXX: " + response);
-
-                if (response == null) {
-                    setTopOfStack(aEnvironment, aStackTop, Utility.getFalseAtom(aEnvironment));
-                    return;
-                } else {
-                    setTopOfStack(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
-                    return;
-                }//end if/else.
 
 
 

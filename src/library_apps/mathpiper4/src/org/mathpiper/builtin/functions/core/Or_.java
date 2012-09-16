@@ -41,7 +41,7 @@ public class Or_ extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         Cons  nogos = null;
         int numberOfArguments = 0;

@@ -41,7 +41,7 @@ public class MetaValues extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable {
 
         Cons objectCons = getArgument(aEnvironment, aStackTop, 1);
 

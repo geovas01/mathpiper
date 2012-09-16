@@ -28,14 +28,14 @@ public class JavaField extends Reflector {
      Priviledged fields are made accessible if the JVM allows it.
      <p>Memoized.
   **/
-  public static Field getField(Class c, String name, boolean isPrivileged) throws Exception {
+  public static Field getField(Class c, String name, boolean isPrivileged) throws Throwable {
     try{
       return isPrivileged
 	? getDeclaredField(c, name)
 	: c.getField(name);
     } catch(NoSuchFieldException e2) {
       return((Field)E.error("no such field: " + c+"."+name));
-    } catch(Exception e) {
+    } catch(Throwable e) {
       return((Field)E.error
 	     ("error accessing field: " + c+"."+name+ " is "+e));
     }
@@ -64,7 +64,7 @@ public class JavaField extends Reflector {
     if (s != null) return getDeclaredField(s, name);
     else return ((Field) E.error
 		 ("\n\nERROR: no field: \""+name+"\" for class \""+c+"\""));
-   }catch(Exception e) {
+   }catch(Throwable e) {
        return c.getField(name);}
   }
 
@@ -74,18 +74,18 @@ public class JavaField extends Reflector {
   /** Map Class -> Field **/
   transient Hashtable classTable;
 
-  public JavaField(String name, Class c) throws Exception {
+  public JavaField(String name, Class c) throws Throwable {
     this(name, c, false);
   }
 
-  public JavaField(String name, Class c, boolean isPrivileged) throws Exception {
+  public JavaField(String name, Class c, boolean isPrivileged) throws Throwable {
     this.name = name;
     this.isPrivileged=isPrivileged;
     if (c != null) this.className = c.getName();
     reset();
   }
 
-  protected synchronized void reset() throws Exception {
+  protected synchronized void reset() throws Throwable {
     Class c = (className == null) ? null : Import.classNamed(className);
     if (c != null) {
       f = getField(c, name, isPrivileged);
@@ -100,7 +100,7 @@ public class JavaField extends Reflector {
 
 
 
-  public Object apply(Object[] args) throws Exception {
+  public Object apply(Object[] args) throws Throwable {
     int L = args.length;
     if (isStatic) {
       if (L == 1) return setStaticFieldValue(f, args[0]);
@@ -113,7 +113,7 @@ public class JavaField extends Reflector {
     }
   }
 
-  public Field getTargetField(Object target) throws Exception {
+  public Field getTargetField(Object target) throws Throwable {
     if (f != null) return f;
     Class c = target.getClass();
     Field it = ((Field) classTable.get(c));
@@ -126,7 +126,7 @@ public class JavaField extends Reflector {
     return it;
   }
 
-  public Object getFieldValue(Object target, Field f) throws Exception {
+  public Object getFieldValue(Object target, Field f) throws Throwable {
     try { return f.get(target); }
     catch (IllegalAccessException e) {
       return ((Object) E.error("Illegal Access to field: " + f + " in " +

@@ -32,7 +32,7 @@ public class LispPrinter {
 
     //private List<Cons> visitedLists = new ArrayList<Cons>();
 
-    public void print(int aStackTop, Cons aExpression, MathPiperOutputStream aOutput, Environment aEnvironment) throws Exception {
+    public void print(int aStackTop, Cons aExpression, MathPiperOutputStream aOutput, Environment aEnvironment) throws Throwable {
         printExpression(aExpression, aOutput, aEnvironment, 0);
 
         //visitedLists.clear();
@@ -43,7 +43,7 @@ public class LispPrinter {
     }
 
 
-    void printExpression(Cons aExpression, MathPiperOutputStream aOutput, Environment aEnvironment, int aDepth /* =0 */) throws Exception {
+    void printExpression(Cons aExpression, MathPiperOutputStream aOutput, Environment aEnvironment, int aDepth /* =0 */) throws Throwable {
 
         Cons consWalker = aExpression;
         int item = 0;
@@ -103,7 +103,7 @@ public class LispPrinter {
     }//end method.
 
 
-    void indent(MathPiperOutputStream aOutput, int aDepth) throws Exception {
+    void indent(MathPiperOutputStream aOutput, int aDepth) throws Throwable {
         aOutput.write(newLineCharacter);
         int i;
         for (i = aDepth; i > 0; i--) {

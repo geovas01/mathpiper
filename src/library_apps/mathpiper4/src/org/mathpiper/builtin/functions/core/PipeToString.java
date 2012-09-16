@@ -42,7 +42,7 @@ public class PipeToString extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         StringBuffer oper = new StringBuffer();
         StringOutputStream newOutput = new StringOutputStream(oper);
@@ -55,7 +55,7 @@ public class PipeToString extends BuiltinFunction
 
             //Return the getTopOfStackPointer
             setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, Utility.toMathPiperString(aEnvironment, aStackTop, oper.toString())));
-        } catch (Exception e)
+        } catch (Throwable e)
         {
             throw e;
         } finally

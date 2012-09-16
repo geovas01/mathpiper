@@ -40,7 +40,7 @@ public class ConcatenateStrings extends BuiltinFunction
     }
 
 
-    void ConcatenateStrings(StringBuffer aStringBuffer, Environment aEnvironment, int aStackTop) throws Exception
+    void ConcatenateStrings(StringBuffer aStringBuffer, Environment aEnvironment, int aStackTop) throws Throwable
     {
         aStringBuffer.append('\"');
         int arg = 1;
@@ -59,7 +59,7 @@ public class ConcatenateStrings extends BuiltinFunction
         aStringBuffer.append('\"');
     }
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         StringBuffer strBuffer = new StringBuffer("");
         ConcatenateStrings(strBuffer, aEnvironment, aStackTop);

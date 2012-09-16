@@ -40,7 +40,7 @@ public class Rest extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         Cons first = Utility.tail(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1));
         setTopOfStack(aEnvironment, aStackTop, Utility.tail(aEnvironment, aStackTop, first));

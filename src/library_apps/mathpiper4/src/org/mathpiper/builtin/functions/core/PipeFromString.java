@@ -44,7 +44,7 @@ public class PipeFromString extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
 
         Cons evaluated = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1));
@@ -65,7 +65,7 @@ public class PipeFromString extends BuiltinFunction
         {
             // Evaluate the body
             setTopOfStack(aEnvironment, aStackTop, aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 2)));
-        } catch (Exception e)
+        } catch (Throwable e)
         {
             throw e;
         } finally

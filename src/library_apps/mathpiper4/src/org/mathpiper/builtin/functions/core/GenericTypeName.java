@@ -42,7 +42,7 @@ public class GenericTypeName extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         Cons evaluated = getArgument(aEnvironment, aStackTop, 1);
         if(! (evaluated.car() instanceof BuiltinContainer)) LispError.checkArgument(aEnvironment, aStackTop, 1);

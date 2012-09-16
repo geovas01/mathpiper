@@ -56,7 +56,7 @@ class PredicateRule extends Rule {
      */
     // iPredicate is evaluated in \a Environment. If the result
     /// IsTrue(), this function returns true
-    public boolean matches(Environment aEnvironment, int aStackTop, Cons[] aArguments) throws Exception {
+    public boolean matches(Environment aEnvironment, int aStackTop, Cons[] aArguments) throws Throwable {
         
         Cons pred = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, iPredicate);
         return Utility.isTrue(aEnvironment, pred, aStackTop);

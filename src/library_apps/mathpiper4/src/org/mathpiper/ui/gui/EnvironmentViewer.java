@@ -523,7 +523,7 @@ public class EnvironmentViewer implements ActionListener {
                 //System.out.println(data);
                 textArea.append(name + ": " + data + "\n");
                 textArea.setCaretPosition(textArea.getDocument().getLength());
-            } catch (Exception ex) {
+            } catch (Throwable ex) {
                 System.out.print(ex);
             }
 

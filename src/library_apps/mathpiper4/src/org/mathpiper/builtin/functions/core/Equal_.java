@@ -39,7 +39,7 @@ public class Equal_ extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         Cons evaluated1 = getArgument(aEnvironment, aStackTop, 1);
 

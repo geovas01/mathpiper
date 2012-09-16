@@ -143,7 +143,7 @@ public class Grapher {
                 }
                 nextToken();
             }
-        } catch (Exception e) {
+        } catch (Throwable e) {
             //TODO handle exception here
         }
     }

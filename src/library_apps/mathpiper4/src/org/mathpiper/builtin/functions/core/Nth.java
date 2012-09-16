@@ -39,7 +39,7 @@ public class Nth extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         String str;
         str = (String) getArgument(aEnvironment, aStackTop, 2).car();

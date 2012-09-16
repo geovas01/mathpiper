@@ -40,7 +40,7 @@ public class Implies_ extends BuiltinFunction
         this.functionName = functionName;
     }
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
 	
 	Cons argument1Cons = getArgument(aEnvironment, aStackTop, 1);

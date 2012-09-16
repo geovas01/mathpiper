@@ -51,7 +51,7 @@ public class MathPiperPrinter extends LispPrinter {
     }
 
     @Override
-    public void print(int aStackTop, Cons aExpression,  MathPiperOutputStream aOutput, Environment aEnvironment) throws Exception {
+    public void print(int aStackTop, Cons aExpression,  MathPiperOutputStream aOutput, Environment aEnvironment) throws Throwable {
         iCurrentEnvironment = aEnvironment;
 
 
@@ -65,7 +65,7 @@ public class MathPiperPrinter extends LispPrinter {
         iPrevLastChar = aChar;
     }
 
-    void Print(Environment aEnvironment, int aStackTop, Cons aExpression, MathPiperOutputStream aOutput, int iPrecedence) throws Exception {
+    void Print(Environment aEnvironment, int aStackTop, Cons aExpression, MathPiperOutputStream aOutput, int iPrecedence) throws Throwable {
 
         if(aExpression == null) 
         {
@@ -330,7 +330,7 @@ public class MathPiperPrinter extends LispPrinter {
         }//end sublist if.
     }
 
-    void WriteToken(MathPiperOutputStream aOutput, String aString) throws Exception {
+    void WriteToken(MathPiperOutputStream aOutput, String aString) throws Throwable {
         /*if (MathPiperTokenizer.isAlNum(iPrevLastChar) && (MathPiperTokenizer.isAlNum(aString.charAt(0)) || aString.charAt(0)=='_'))
         {
         aOutput.write(" ");

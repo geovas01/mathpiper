@@ -40,14 +40,14 @@ import org.mathpiper.lisp.cons.SublistCons;
  */
 public class JavaCall extends BuiltinFunction {
 
-    public void plugIn(Environment aEnvironment) throws Exception {
+    public void plugIn(Environment aEnvironment) throws Throwable {
         this.functionName = "JavaCall";
         aEnvironment.getBuiltinFunctions().put(
                 this.functionName, new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
     }//end method.
 
     //private StandardFileOutputStream out = new StandardFileOutputStream(System.out);
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable {
 
         if (getArgument(aEnvironment, aStackTop, 1).car() instanceof Cons) {
 
@@ -149,10 +149,10 @@ public class JavaCall extends BuiltinFunction {
                     if (targetObject instanceof Class) {
                         try {
                             returnObject = Invoke.invokeStatic((Class) targetObject, methodName, argumentsArray);
-                        } catch (Exception e1) {
+                        } catch (Throwable e1) {
                             try {
                                 returnObject = JavaField.getField((Class) targetObject, methodName, true).get(null);
-                            } catch (Exception e2) {
+                            } catch (Throwable e2) {
                                 LispError.raiseError("Method or field " + methodName + " does not exist.", -2, null);
                             }
                         }

@@ -31,13 +31,13 @@ public class SublistCons extends Cons {
     // in the debugger easier.
     private Cons iCdr;
 
-    private SublistCons(Cons aSubList) throws Exception {
+    private SublistCons(Cons aSubList) throws Throwable {
         super();
 
         iCar = aSubList;
     }
 
-    public static SublistCons getInstance(Environment aEnvironment, Cons aSubList) throws Exception {
+    public static SublistCons getInstance(Environment aEnvironment, Cons aSubList) throws Throwable {
         return new SublistCons(aSubList);
     }
 
@@ -47,7 +47,7 @@ public class SublistCons extends Cons {
     }
 
 
-    public void setCar(Object object) throws Exception
+    public void setCar(Object object) throws Throwable
     {
         iCar = (Cons) object;
     }
@@ -68,7 +68,7 @@ public class SublistCons extends Cons {
     {
     return iCar.toString();
     }*/
-    public Cons copy(boolean aRecursed) throws Exception {
+    public Cons copy(boolean aRecursed) throws Throwable {
         //TODO recursed copy needs to be implemented still
         //LispError.lispAssert(aRecursed == false, aEnvironment, aStackTop);
 

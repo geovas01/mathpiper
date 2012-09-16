@@ -29,13 +29,13 @@ import org.mathpiper.lisp.cons.Cons;
  */
 public class JavaAccess extends BuiltinFunction {
 
-    public void plugIn(Environment aEnvironment) throws Exception {
+    public void plugIn(Environment aEnvironment) throws Throwable {
         this.functionName = "JavaAccess";
         aEnvironment.getBuiltinFunctions().put(
                 this.functionName, new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
     }//end method.
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable {
 
         Cons args = getArgument(aEnvironment, aStackTop, 1);
 

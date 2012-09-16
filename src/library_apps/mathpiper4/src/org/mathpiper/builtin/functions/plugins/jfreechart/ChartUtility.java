@@ -37,7 +37,7 @@ import org.mathpiper.lisp.cons.Cons;
 public class ChartUtility {
 
 
-    public static Map optionsListToJavaMap(Environment aEnvironment, int aStackTop, Cons arguments, Map defaultOptions) throws Exception {
+    public static Map optionsListToJavaMap(Environment aEnvironment, int aStackTop, Cons arguments, Map defaultOptions) throws Throwable {
 
         Map userOptions = Utility.optionsListToJavaMap(aEnvironment, aStackTop, arguments, defaultOptions);
 
@@ -57,7 +57,7 @@ public class ChartUtility {
 
 
 
-    public static HistogramDataset listToHistogramDataset(Environment aEnvironment, int aStackTop, Cons dataList, Map userOptions) throws Exception {
+    public static HistogramDataset listToHistogramDataset(Environment aEnvironment, int aStackTop, Cons dataList, Map userOptions) throws Throwable {
 
         HistogramDataset dataSet = new HistogramDataset();
 
@@ -126,7 +126,7 @@ public class ChartUtility {
     }//end method.
 
 
-    public static XYBarDataset listToCumulativeDataset(Environment aEnvironment, int aStackTop, Cons dataList, Map userOptions) throws Exception {
+    public static XYBarDataset listToCumulativeDataset(Environment aEnvironment, int aStackTop, Cons dataList, Map userOptions) throws Throwable {
 
         if(Utility.isNestedList(aEnvironment, aStackTop, dataList)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "");
 
@@ -205,7 +205,7 @@ public class ChartUtility {
 
 
 
-    public static DefaultXYDataset listToXYDataset(Environment aEnvironment, int aStackTop, Cons dataList, Map userOptions) throws Exception {
+    public static DefaultXYDataset listToXYDataset(Environment aEnvironment, int aStackTop, Cons dataList, Map userOptions) throws Throwable {
 
         if(!Utility.isNestedList(aEnvironment, aStackTop, dataList)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "");
 
@@ -238,7 +238,7 @@ public class ChartUtility {
 
 
 
-    public static IntervalXYDataset listToIntervalXYDataset(Environment aEnvironment, int aStackTop, Cons dataList, Map userOptions) throws Exception {
+    public static IntervalXYDataset listToIntervalXYDataset(Environment aEnvironment, int aStackTop, Cons dataList, Map userOptions) throws Throwable {
 
         DefaultXYDataset xYDataset = listToXYDataset(aEnvironment, aStackTop, dataList, userOptions);
 

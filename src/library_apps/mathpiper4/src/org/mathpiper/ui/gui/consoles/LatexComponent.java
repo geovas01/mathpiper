@@ -289,7 +289,7 @@ public class LatexComponent extends JPanel implements RenderingComponent, MouseL
 
             latexString = Utility.stripEndDollarSigns(latexString);
             }
-            catch(Exception e)
+            catch(Throwable e)
             {
 
             }
@@ -308,7 +308,7 @@ public class LatexComponent extends JPanel implements RenderingComponent, MouseL
             
             
             texFormula = texFormula2;
-        } catch (Exception ex) {
+        } catch (Throwable ex) {
         }
 
     }

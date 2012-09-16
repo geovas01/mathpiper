@@ -39,7 +39,7 @@ public class CustomEvalExpression extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         aEnvironment.write("Function not yet implemented : CustomEvalExpression");////TODO fixme
 

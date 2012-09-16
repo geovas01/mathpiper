@@ -43,7 +43,7 @@ public class LineChart extends BuiltinFunction {
     private Map defaultOptions;
 
 
-    public void plugIn(Environment aEnvironment)  throws Exception
+    public void plugIn(Environment aEnvironment)  throws Throwable
     {
         aEnvironment.getBuiltinFunctions().put(
                 "LineChart", new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
@@ -63,7 +63,7 @@ public class LineChart extends BuiltinFunction {
 
     //private StandardFileOutputStream out = new StandardFileOutputStream(System.out);
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable {
 
         Cons arguments = getArgument(aEnvironment, aStackTop, 1);
 

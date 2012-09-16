@@ -39,7 +39,7 @@ public class StackTrace extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
          aEnvironment.dumpStacks(aEnvironment, aStackTop);
          
