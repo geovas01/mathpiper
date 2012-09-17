@@ -136,6 +136,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 		properties.put("truncate","");
 		properties.put("log","false");
 		properties.put("timeout","-1");
+		properties.put("parent","");
 		
 		if(startLine > -1)
 		{
@@ -556,7 +557,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						public class MyTimerTask extends TimerTask
 						{
 							public void run() {
-								asynchronousInterpreter.haltEvaluation();
+								asynchronousInterpreter.haltEvaluation("Evaluation timeout exceeded.");
 								timer.cancel();
 							}
 						}
@@ -2083,6 +2084,27 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 					// to wait for the buffer to be saved (which was requested earlier).
 					void run()
 					{
+						
+						//Collapse all preserved output folds.
+						textAreaLineCount = textArea.getLineCount();
+						for(int i = 1; i < textAreaLineCount; i++)
+						{
+							if(buffer.isFoldStart(i))
+							{
+								thisFoldsProperties = getFoldProperties(i);
+								thisFoldType = thisFoldsProperties.get("type");
+								if(thisFoldType.equalsIgnoreCase("%info") || thisFoldType.equalsIgnoreCase("%error") || thisFoldType.equalsIgnoreCase("%output"))
+								{
+									if(thisFoldsProperties.get("preserve").equalsIgnoreCase("true"))
+									{
+										textArea.getDisplayManager().collapseFold(i);
+									}
+								}
+							}//end if.
+						}//end for.
+						
+						
+						
 						textArea.setSelection(null);
 						
 						boolean isLastFold = true;
@@ -2153,7 +2175,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 								{
 								
 									result = result.substring(0, truncateLength);
-									result = result + " TRUNCATED...";
+									result = result + "\nTRUNCATED...";
 								}
 							}
 							catch(NumberFormatException nfe)
@@ -2175,17 +2197,27 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						
 						if(output_fold_type.equals("%info") && foldProperties.get("log").equals("false"))
 						{
-							preserveSetting = "false";
+							preserveProperty = "false";
 						}
 						else
 						{
-							preserveSetting = foldProperties.get("preserve_output");
+							preserveProperty = foldProperties.get("preserve_output");
+						}
+						
+						
+						if(foldProperties.get("name").equals(""))
+						{
+							parentProperty = "";
+						}
+						else
+						{
+							parentProperty = "parent=\"" + foldProperties.get("name") + "\",";
 						}
 						
 						date = new java.util.Date();
 						timestamp = new java.sql.Timestamp(date.getTime());
 						
-						textArea.setSelectedText(beforeNewlines + indentAmount + output_fold_type + ",sequence=\"" + mpwExecutionCount + "\",timestamp=\"" + timestamp + "\",preserve=\"" +  preserveSetting  + "\"\n" + result + "\n" + indentAmountPeriod + "%/" + output_fold_type.substring(1,output_fold_type.length() ) + afterNewlines, false);
+						textArea.setSelectedText(beforeNewlines + indentAmount + output_fold_type + "," + parentProperty + "sequence=\"" + mpwExecutionCount + ",timestamp=\"" + timestamp + "\",preserve=\"" +  preserveProperty  + "\"\n" + result + "\n" + indentAmountPeriod + "%/" + output_fold_type.substring(1,output_fold_type.length() ) + afterNewlines, false);
 						
 						//textArea.setSelection(null);
 						//("\n\n     " + output_fold_type + "\n      "+ result + "\n     %end\n",false);
