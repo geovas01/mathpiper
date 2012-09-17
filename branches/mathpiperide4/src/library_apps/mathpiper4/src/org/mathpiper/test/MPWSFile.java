@@ -90,29 +90,42 @@ public class MPWSFile {
         String line;
         //Read File Line By Line
         while ((line = br.readLine()) != null) {
-            //line = line.trim();
+            
             //System.out.println(line);
             lineCounter++;
 
-            if (line.startsWith("%/")) {
+            if (line.contains("%/")) {
+        	
+        	String tempLine = line;
+        	
+	        if(tempLine.startsWith("."))
+	        {
+	            tempLine = line.substring(1);
+	        }
+	       
+	            
+	        if (tempLine.trim().startsWith("%/"))
+	        {
+	            	        
+                    if (inFold == false) {
+                        throw new Exception("Opening fold tag missing on line " + lineCounter);
+                    }
+        
+                    Fold fold = new Fold(startLineNumber, foldHeader, foldContents.toString());
+                    foldContents.delete(0, foldContents.length());
+                    folds.add(fold);
+                    inFold = false;
+	        }
+	        
 
-                if (inFold == false) {
-                    throw new Exception("Opening fold tag missing.");
-                }
-
-                Fold fold = new Fold(startLineNumber, foldHeader, foldContents.toString());
-                foldContents.delete(0, foldContents.length());
-                folds.add(fold);
-                inFold = false;
-
-            } else if (line.startsWith("%") && line.charAt(1) != ' ') {
-
+            } else if (line.trim().startsWith("%") && line.trim().length() > 2 && line.trim().charAt(1) != ' ') {
+        	
                 if (inFold == true) {
-                    throw new Exception("Closing fold tag missing.");
+                    throw new Exception("Closing fold tag missing on line " + lineCounter);
                 }
 
                 startLineNumber = lineCounter;
-                foldHeader = line;
+                foldHeader = line.trim();
                 inFold = true;
             } else if (inFold == true) {
                 foldContents.append(line);
@@ -122,7 +135,7 @@ public class MPWSFile {
         }//end while.
 
         if (inFold == true) {
-            throw new Exception("Opening or closing fold tag missing.");
+            throw new Exception("Opening or closing fold tag missing on line " + lineCounter);
         }
 
         //Close the input stream
@@ -137,7 +150,7 @@ public class MPWSFile {
     
     public static void main(String[] args)
     {
-    	File mpwFile = new File("/home/tkosan/workspace/mathpiper2/src/org/mathpiper/scripts4/proposed/exercisesystem/arithmetic.mpw");
+    	File mpwFile = new File("/home/tkosan/workspace/mathpiper4/src/org/mathpiper/scripts4/proposed/miscellaneous/CombinationsList.mpw");
     	
     	try
     	{
