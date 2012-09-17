@@ -41,13 +41,10 @@ the empty list, [], is returned.
 
 In> FindAll([a,b,c,d,e,f], d);
 Result: [4]
+
 In> FindAll([1,2,3,2,1], 2);
+Result: [2,4]
 
-    %output,preserve="false"
-      Result: No script returned for function: FindAll from Scripts.java. In function: LoadScript.  Error near line 44 starting at index -1.
-.   %/output
-
-esult: [2,4]
 In> FindAll([1,2,3,2,1], 4);
 Result: []
 
