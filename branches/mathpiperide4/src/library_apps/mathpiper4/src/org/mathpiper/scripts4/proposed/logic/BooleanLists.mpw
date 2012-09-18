@@ -8,7 +8,7 @@ BooleanLists(elements) :=
     
     numberOfPatterns := 2^elements - 1;
     
-    Table(BooleanList(elements, pattern), pattern,0, numberOfPatterns, 1);
+    BuildList(BooleanList(elements, pattern), pattern,0, numberOfPatterns, 1);
 };
 
 %/mathpiper

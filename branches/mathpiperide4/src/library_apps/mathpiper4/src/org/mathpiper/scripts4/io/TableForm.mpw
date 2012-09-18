@@ -33,7 +33,7 @@ printing every element in the list on a separate line.
 
 *E.G.
 
-In> TableForm(Table(i!, i, 1, 10, 1));
+In> TableForm(BuildList(i!, i, 1, 10, 1));
 
          1
          2

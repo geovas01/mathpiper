@@ -56,7 +56,7 @@ ControlChart(data) :=
 
 %mathpiper,scope="nobuild",subtype="manual_test"
 
-data := GenMatrix(Lambda([m,n],Distribution(5,2)),25,5);
+data := BuildMatrix(Lambda([m,n],Distribution(5,2)),25,5);
 
 
 
@@ -182,7 +182,7 @@ line of
 commenting!
 */
 
-zz3 := GenMatrix(Lambda([m,n],m,n),4,5);
+zz3 := BuildMatrix(Lambda([m,n],m,n),4,5);
 
 %/mathpiper
 

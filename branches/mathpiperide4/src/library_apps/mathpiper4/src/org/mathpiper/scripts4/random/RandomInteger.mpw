@@ -64,7 +64,7 @@ Verify(ExceptionCatch(RandomInteger(4, 1), "Exception"), "Exception");
 
     Local(randomNumbers, chiSquareTest, criticalChiSquareScore);
 
-    randomNumbers:= Table( RandomInteger(-2, 2),x,1,10000,1);
+    randomNumbers:= BuildList( RandomInteger(-2, 2),x,1,10000,1);
 
     chiSquareTest := ChiSquareTest([
                                 Count(randomNumbers,-2),

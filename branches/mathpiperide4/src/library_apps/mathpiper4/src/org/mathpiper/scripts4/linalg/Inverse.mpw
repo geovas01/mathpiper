@@ -4,7 +4,7 @@ Function("Inverse",[matrix])
 {
   Local(perms,indices,inv,det,n);
   n:=Length(matrix);
-  indices:=Table(i,i,1,n,1);
+  indices:=BuildList(i,i,1,n,1);
   perms:=PermutationsList(indices);
   inv:=ZeroMatrix(n,n);
   det:=0;

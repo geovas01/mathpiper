@@ -2,7 +2,7 @@
 
 // The arguments of the following functions should be checked
 // this takes N funcs in 1 var
-WronskianMatrix(f,v):=GenMatrix([[i,j], Deriv(v,i-1) f[j]], Length(f), Length(f) );
+WronskianMatrix(f,v):=BuildMatrix([[i,j], Deriv(v,i-1) f[j]], Length(f), Length(f) );
 
 %/mathpiper
 

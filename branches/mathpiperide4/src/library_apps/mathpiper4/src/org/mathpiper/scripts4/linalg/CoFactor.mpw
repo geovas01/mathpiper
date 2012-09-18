@@ -3,7 +3,7 @@
 Function("CoFactor",[matrix,ii,jj])
 {
   Local(perms,indices,result);
-  indices:=Table(i,i,1,Length(matrix),1);
+  indices:=BuildList(i,i,1,Length(matrix),1);
   perms:=PermutationsList(indices);
   result:=0;
   ForEach(item,perms)

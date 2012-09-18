@@ -176,7 +176,7 @@ VerifyZero(x) := (Abs(x)<?10^ -BuiltinPrecisionGet());
 TryRandomPoly(deg,coefmin,coefmax):=
 {
   Local(Coefs,monicCoefs,p,mp,roots,px);
-  Coefs := Table(FloorN(coefmin+Random()*(coefmax-coefmin)),i,1,deg+1,1);
+  Coefs := BuildList(FloorN(coefmin+Random()*(coefmax-coefmin)),i,1,deg+1,1);
   p  := Add(Coefs*x^(0 .. deg));
   mp := Monic(p);
   monicCoefs := Coef(mp,x,0 .. deg);
@@ -194,9 +194,9 @@ TryRandomPoly(5,5,1000);
 TryRandomRoots(deg,coefmin,coefmax):=
 {
   Local(coefs,p,roots,px,mult,sqf);
-  coefs:=RemoveDuplicates(Table(FloorN(coefmin+Random()*(coefmax-coefmin)),i,1,deg+1,1));
+  coefs:=RemoveDuplicates(BuildList(FloorN(coefmin+Random()*(coefmax-coefmin)),i,1,deg+1,1));
   deg:=Length(coefs)-1;
-  mult:=1+Abs(Table(FloorN(coefmin+Random()*(coefmax-coefmin)),i,1,deg+1,1));
+  mult:=1+Abs(BuildList(FloorN(coefmin+Random()*(coefmax-coefmin)),i,1,deg+1,1));
   p:=Product((x-coefs)^mult);
   p:=Rationalize(p);
   sqf := SquareFree(p);

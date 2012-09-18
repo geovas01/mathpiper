@@ -1,8 +1,8 @@
 %mathpiper,def="HankelMatrix"
 
 // The arguments of the following functions should be checked
-HankelMatrix(n):=GenMatrix([[i,j], Decide(i+j-1>?n,0,i+j-1) ], n,n );
-HankelMatrix(m,n):=GenMatrix([[i,j], Decide(i+j-1>?n,0,i+j-1)], m,n );
+HankelMatrix(n):=BuildMatrix([[i,j], Decide(i+j-1>?n,0,i+j-1) ], n,n );
+HankelMatrix(m,n):=BuildMatrix([[i,j], Decide(i+j-1>?n,0,i+j-1)], m,n );
 
 %/mathpiper
 

@@ -5,7 +5,7 @@ Function("SolveMatrix",[matrix,vector])
   Decide(InVerboseMode(),Tell("   SolveMatrix",[matrix,vector]));
   Local(perms,indices,inv,det,n);
   n:=Length(matrix);
-  indices:=Table(i,i,1,n,1);
+  indices:=BuildList(i,i,1,n,1);
   perms:=PermutationsList(indices);
   inv:=ZeroVector(n);
   det:=0;

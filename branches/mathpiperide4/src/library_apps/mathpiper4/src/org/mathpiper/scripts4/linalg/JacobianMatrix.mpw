@@ -2,7 +2,7 @@
 
 // The arguments of the following functions should be checked
 // this takes N funcs in N vars
-JacobianMatrix(f,v):=GenMatrix([[i,j],Deriv(v[j])f[i]],Length(f),Length(f));
+JacobianMatrix(f,v):=BuildMatrix([[i,j],Deriv(v[j])f[i]],Length(f),Length(f));
 
 %/mathpiper
 
