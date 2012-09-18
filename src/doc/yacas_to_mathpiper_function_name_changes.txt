@@ -10,8 +10,7 @@ FWatom -> ?
 
 All Gets and Sets should be at the end of a function's name.
 
-Table -> GenerateList (Perhaps make the body the last argument or make a postfix function.  Also look at Sum.)
-GenMatrix -> GenerateMatrix
+
 UnFence -> Unfence
 UnbiasedVariance -> SampleVariance
 Variance -> PopulationVariance
@@ -137,6 +136,9 @@ NotB
 
 
 ============================= Changes that have already been done. ===================================
+
+Table -> BuildList (Perhaps make the body the last argument or make a postfix function.  Also look at Sum.)
+GenMatrix -> BuildMatrix
 
 Prog -> Block //For pedagogical reasons.
 
