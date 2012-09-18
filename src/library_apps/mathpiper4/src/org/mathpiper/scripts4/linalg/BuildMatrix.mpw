@@ -1,6 +1,6 @@
-%mathpiper,def="GenMatrix"
+%mathpiper,def="BuildMatrix"
 
-Function("GenMatrix",[func,m,n])
+Function("BuildMatrix",[func,m,n])
 {
   Local(i,j,result);
   result:=ZeroMatrix(m,n);
@@ -11,8 +11,8 @@ Function("GenMatrix",[func,m,n])
 
   result;
 };
-HoldArgument("GenMatrix",func);
-UnFence("GenMatrix",3);
+HoldArgument("BuildMatrix",func);
+UnFence("BuildMatrix",3);
 
 %/mathpiper
 
@@ -20,10 +20,10 @@ UnFence("GenMatrix",3);
 
 
 
-%mathpiper_docs,name="GenMatrix",categories="User Functions;Linear Algebra"
-*CMD GenMatrix --- generate a matrix with a function
+%mathpiper_docs,name="BuildMatrix",categories="User Functions;Linear Algebra"
+*CMD BuildMatrix --- generate a matrix with a function
 *CALL
-        GenMatrix(function,m,n)
+        BuildMatrix(function,m,n)
 
 *PARMS
 {function} -- a pure function
@@ -34,7 +34,7 @@ UnFence("GenMatrix",3);
 Generate a matrix with a pure function.
 
 *E.G.
-In> GenMatrix(Lambda([m,n],m*n),3,3)
+In> BuildMatrix(Lambda([m,n],m*n),3,3)
 Result: [[1,2,3],[2,4,6],[3,6,9]]
 %/mathpiper_docs
 

@@ -27,7 +27,7 @@ GeoGebraHistogram(data) :=
     
     largestValue := Ceil(noDuplicatesSorted[Length(noDuplicatesSorted)]);
     
-    classBoundaries := N(Table(x,x,smallestValue-.5,largestValue+.5,1));
+    classBoundaries := N(BuildList(x,x,smallestValue-.5,largestValue+.5,1));
     
     command := PatchString("Histogram[<?Write(classBoundaries);?>,<?Write(data);?>]");
     JavaCall(geogebra, "evalCommand", command);
@@ -80,7 +80,7 @@ GeoGebraHistogram(N([16+3/8, 16+3/8, 17+1/8, 16, 14+3/8, 17+1/4, 16+5/8, 16, 17,
 
 
 %mathpiper,scope="nobuild",subtype="manual_test"
-classBoundaries := N(Table(x,x,14,20,1/4));
+classBoundaries := N(BuildList(x,x,14,20,1/4));
 
 E := N([16+3/8, 16+3/8, 17+1/8, 16, 14+3/8, 17+1/4, 16+5/8, 16, 17, 17+1/4, 17, 15+7/8, 16+5/8, 16+1/8, 17+1/8, 16+7/8, 16+3/8, 16+3/8, 16+7/8, 17+1/8, 17, 16+3/4, 17+1/4, 17+1/8, 15+3/8]);
 

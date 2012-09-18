@@ -8,7 +8,7 @@ RandomPickVector(list, count) :=
     
     Check(Integer?(count), "Argument", "Argument 2 must be an integer.");
     
-    Table(RandomPick(list),x,1,count,1);
+    BuildList(RandomPick(list),x,1,count,1);
 };
 
 %/mathpiper

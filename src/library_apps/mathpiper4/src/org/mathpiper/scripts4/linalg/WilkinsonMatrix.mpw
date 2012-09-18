@@ -6,7 +6,7 @@
 // to 14 decimal places
 // Leto: I am not going to document this until we actually have
 // numerical eigenvalue algorithms
-WilkinsonMatrix(N):=GenMatrix([[i,j],
+WilkinsonMatrix(N):=BuildMatrix([[i,j],
                 Decide( Abs(i-j)=?1,1,
                 { Decide(i=?j,Abs( (N-1)/2 - i+1 ),0 ); } )], N,N );
 

@@ -14,7 +14,7 @@ Function("DoTest",[size])
 [
   Local(arr,of,ef,i,j,m);
 //  size:=200; // sample size
-  arr := Table(Random(),i,1,size,1);
+  arr := BuildList(Random(),i,1,size,1);
   arr := HeapSort(arr,"<?");
   of := [];
   ef :=[];

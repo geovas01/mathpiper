@@ -2,8 +2,8 @@
 
 // The arguments of the following functions should be checked
 // notoriously hard to manipulate numerically
-HilbertMatrix(n):=GenMatrix([[i,j], 1/(i+j-1)], n,n );
-HilbertMatrix(m,n):=GenMatrix([[i,j], 1/(i+j-1)], m,n );
+HilbertMatrix(n):=BuildMatrix([[i,j], 1/(i+j-1)], n,n );
+HilbertMatrix(m,n):=BuildMatrix([[i,j], 1/(i+j-1)], m,n );
 
 
 %/mathpiper

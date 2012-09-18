@@ -7,7 +7,7 @@ BubbleSortIndexed( L_List?, _compare ) <--
   Local(list,indices,pairs,sortedPairs);
 
   list    := FlatCopy(L);
-  indices := Table(i,i,1,Length(list),1);
+  indices := BuildList(i,i,1,Length(list),1);
   pairs   := Transpose(list~[indices]);
   sortedPairs := Decide( Apply(compare,[3,5]), 
      BubbleSort( pairs, Lambda([X,Y],X[1] <? Y[1]) ),

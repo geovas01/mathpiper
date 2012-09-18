@@ -4,9 +4,9 @@
 .. operator is implemented with the Table function.
 */
 10 # (countfrom_Integer? .. countto_Integer?)_(countfrom <=? countto)
-   <-- Table(i,i,countfrom,countto,1);
+   <-- BuildList(i,i,countfrom,countto,1);
 20 # (countfrom_Integer? .. countto_Integer?)
-   <-- Table(i,i,countfrom,countto,-1);
+   <-- BuildList(i,i,countfrom,countto,-1);
 
 %/mathpiper
 

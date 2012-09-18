@@ -4,7 +4,7 @@
 {
   Local(perms,indices,result);
   Check((Matrix?(matrix)), "Argument", "Determinant: Argument must be a matrix");
-  indices:=Table(i,i,1,Length(matrix),1);
+  indices:=BuildList(i,i,1,Length(matrix),1);
   perms:=PermutationsList(indices);
   result:=0;
   ForEach(item,perms)

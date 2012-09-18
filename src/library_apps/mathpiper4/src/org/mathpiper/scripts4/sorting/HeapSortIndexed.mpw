@@ -10,7 +10,7 @@ HeapSortIndexed1( L_List?, _compare ) <--
   Local(list,indices,pairs,sortedPairs);
 
   list    := FlatCopy(L);
-  indices := Table(i,i,1,Length(list),1);
+  indices := BuildList(i,i,1,Length(list),1);
   pairs   := Transpose(list~[indices]);
   SortedPairs := [];
   sortedPairs := Decide( Apply(compare,[3,5]), 

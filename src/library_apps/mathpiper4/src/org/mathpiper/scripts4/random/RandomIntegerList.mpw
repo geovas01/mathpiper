@@ -1,7 +1,7 @@
 %mathpiper,def="RandomIntegerList"
 
 RandomIntegerList(_count,_coefmin,_coefmax) <--
-  Table(FloorN(coefmin+Random()*(coefmax+1-coefmin)),i,1,count,1);
+  BuildList(FloorN(coefmin+Random()*(coefmax+1-coefmin)),i,1,count,1);
 
 %/mathpiper
 

@@ -173,11 +173,11 @@ TaylorLPSCoeffs(_lps, _n1, _n2) <--
             lps[1] := order;
             Decide(order <=? n2,
             {
-               lps[2] := Table(TaylorLPSCompCoeff(lps[3], lps[4], n),
+               lps[2] := BuildList(TaylorLPSCompCoeff(lps[3], lps[4], n),
                                n, order, n2, 1);
             });
          },{
-            tmp := Table(TaylorLPSCompCoeff(lps[3], lps[4], n),
+            tmp := BuildList(TaylorLPSCompCoeff(lps[3], lps[4], n),
                          n, lps[1]+Length(lps[2]), n2, 1);
             lps[2] := Concat(lps[2], tmp);
          });

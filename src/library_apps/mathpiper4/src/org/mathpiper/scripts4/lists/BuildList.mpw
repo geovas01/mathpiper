@@ -1,4 +1,4 @@
-%mathpiper,def="Table"
+%mathpiper,def="BuildList"
 
 /* Juan: TemplateFunction (as defined in the file "deffunc")
  * also makes the arguments to the function local symbols.
@@ -6,7 +6,7 @@
  * (since they are defined as local symbols).
  */
 
-TemplateFunction("Table",[body,var,countfrom,countto,step])
+TemplateFunction("BuildList",[body,var,countfrom,countto,step])
   {
     MacroLocal(var);
     Local(result,nr,ii);
@@ -21,19 +21,19 @@ TemplateFunction("Table",[body,var,countfrom,countto,step])
       };
     DestructiveReverse(result);
   };
-HoldArgumentNumber("Table",5,1); /* body */
-HoldArgumentNumber("Table",5,2); /* var */
-UnFence("Table",5);
+HoldArgumentNumber("BuildList",5,1); /* body */
+HoldArgumentNumber("BuildList",5,2); /* var */
+UnFence("BuildList",5);
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="Table",categories="User Functions;Lists (Operations)"
-*CMD Table --- evaluate while some variable ranges over interval
+%mathpiper_docs,name="BuildList",categories="User Functions;Lists (Operations)"
+*CMD BuildList --- evaluate while some variable ranges over interval
 *STD
 *CALL
-        Table(body, var, from, to, step)
+        BuildList(body, var, from, to, step)
 
 *PARMS
 
@@ -59,19 +59,19 @@ on every iteration, until "var" exceeds "to". At that moment, all
 the results are assembled in a list and this list is returned.
 
 *E.G.
-In> Table(i!, i, 1, 9, 1);
+In> BuildList(i!, i, 1, 9, 1);
 Result: [1,2,6,24,120,720,5040,40320,362880]
 
-In> Table(i, i, 3, 16, 4);
+In> BuildList(i, i, 3, 16, 4);
 Result: [3,7,11,15]
 
-In> Table(i^2, i, 10, 1, -1);
+In> BuildList(i^2, i, 10, 1, -1);
 Result: [100,81,64,49,36,25,16,9,4,1]
 
-In> Table(a+b, b, 0, 2, 1)
+In> BuildList(a+b, b, 0, 2, 1)
 Result: [a,a+1,a+2]
 
-In> Table(Table(a+b, b, 0, 2, 1), a, 0, 2, 1)
+In> BuildList(BuildList(a+b, b, 0, 2, 1), a, 0, 2, 1)
 Result: [[0,1,2],[1,2,3],[2,3,4]]
 
 *SEE For, MapSingle, .., TableForm
