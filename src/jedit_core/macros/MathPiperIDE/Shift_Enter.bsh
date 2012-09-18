@@ -1787,7 +1787,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 					s19 = s19.replaceAll("\n","\n\t");
 					result = result + "*** Executable code ***\n\n"+ "%s19,descrption=\"Execute this fold to send program to U6502 monitor.\"\n\t" + s19 + "\n%/s19";
 					
-					output_fold_type = "%output ";
+					output_fold_type = "%output";
 				}
 				else
 				{
@@ -1812,7 +1812,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 							jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "error-list" );
 					
 					}
-					output_fold_type = "%error ";
+					output_fold_type = "%error";
 				}
 				
 				
@@ -1821,7 +1821,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 			}catch(java.io.IOException e) 
 			{
 				result = e.getMessage();
-				output_fold_type = "%error ";
+				output_fold_type = "%error";
 			}
 		}//end else
 		
@@ -1909,7 +1909,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 			}catch(java.io.IOException e) 
 			{
 				result = e.getMessage();
-				output_fold_type = "%error ";
+				output_fold_type = "%error";
 			}
 			}//end if/else.
 			
