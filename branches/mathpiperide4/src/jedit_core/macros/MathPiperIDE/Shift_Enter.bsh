@@ -2085,6 +2085,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 					void run()
 					{
 						
+						/*
 						//Collapse all preserved output folds.
 						textAreaLineCount = textArea.getLineCount();
 						for(int i = 1; i < textAreaLineCount; i++)
@@ -2102,6 +2103,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 								}
 							}//end if.
 						}//end for.
+						*/
 						
 						
 						
