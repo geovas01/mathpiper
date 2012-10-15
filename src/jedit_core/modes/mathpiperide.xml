@@ -134,7 +134,7 @@
 			<END>%/latex</END>
 		</SPAN_REGEXP>
 		
-		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="mathpiper::MAIN">
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="html::MAIN">
 			<BEGIN>%info[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
 			<END>%/info</END>
 		</SPAN_REGEXP>
