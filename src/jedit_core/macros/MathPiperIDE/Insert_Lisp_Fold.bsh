@@ -29,11 +29,6 @@ void insert_lisp_fold()
 	line = textArea.getCaretLine();
 	
 	offset = textArea.getLineStartOffset(line);
-    
-	if(line == textArea.getLineCount() - 1)
-	{
-		--offset;
-	}
 
 	text = "%lisp,title=\"\"\n\n%/lisp\n\n";
 
