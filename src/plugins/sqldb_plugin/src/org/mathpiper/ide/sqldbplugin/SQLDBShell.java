@@ -73,15 +73,9 @@ public class SQLDBShell extends Shell implements org.mathpiperide.ResponseListen
 		lastRequestConsole.setShell("SQLDB");
 		lastRequestOutput = lastRequestConsole.getOutput();
 
-		if(response.endsWith(":"))
-		{
-			lastRequestOutput.print(null, "\n" + response);
-			printPrompt(lastRequestConsole, lastRequestOutput);
-		}
-		else
-		{
-			lastRequestOutput.print(null, response);
-		}//end if/else/
+		
+		lastRequestOutput.print(null, response);
+
 
 		lastRequestOutput.commandDone();
 	}//end method.
@@ -114,7 +108,7 @@ public class SQLDBShell extends Shell implements org.mathpiperide.ResponseListen
 				{
 					sqldb.addResponseListener(this);
 
-					sqldb.send(command);
+					sqldb.send(command + "\n");
 					
 
 
