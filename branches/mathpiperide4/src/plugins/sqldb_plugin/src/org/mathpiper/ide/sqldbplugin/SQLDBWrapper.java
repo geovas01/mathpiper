@@ -216,6 +216,8 @@ mainLoop: while(keepChecking)
 		}//end while.
 		
 		response = response.replace("sql> ", "");
+		
+		response = response.replace("  +> ", "");
 
 		return response;
 
