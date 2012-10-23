@@ -21,6 +21,7 @@ import org.mathpiper.ide.mathpiperplugin.MathPiperInterpreter;
 import org.mathpiper.ide.pipermeplugin.PiperMEInterpreter;
 import org.mathpiper.ide.maximaplugin.MaximaWrapper;
 import org.mathpiper.ide.fricasplugin.FriCASWrapper;
+import org.mathpiper.ide.sqldbplugin.SQLDBWrapper;
 import java.io.File;
 import java.io.BufferedWriter;
 import org.gjt.sp.jedit.textarea.Selection.Range;
@@ -978,6 +979,63 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 		
 		}//end if }}}
 
+		
+		
+		
+		///{{{ *** %sql ***.
+		else if(foldType.equalsIgnoreCase("%sql"))    
+		{		
+			
+			
+			try 
+			{   
+				org.mathpiperide.ResponseListener responseListener = new org.mathpiperide.ResponseListener() 
+				{
+					response(response)
+					{
+						//System.out.println("XXXXXXX " + response ); //Look for this output in the Activity Log at the lower left of the applicaiton.
+						
+						//The contents of "response" can be manipluated here before assigning it to "result".
+						
+						
+						result = response;//The variable "result" is what gets displayed in the output fold.
+						
+						displayResult();
+						
+					}//end method.
+					
+					remove()
+					{
+						return true;
+					}//end method.
+					
+				};
+	
+				
+				
+				sqlWrapper = SQLDBWrapper.getInstance();
+				
+				sqlWrapper.addResponseListener(responseListener);
+				
+				
+	
+				
+				//sendString = tempFile.getAbsolutePath();
+				
+				codeText = codeText.trim();
+				
+				sqlWrapper.send(codeText + "\n");
+				
+				output_fold_type = "%output";
+			
+					
+			}catch(java.io.IOException ioe) 
+			{
+				result = ioe.getMessage();
+				output_fold_type = "%error ";
+			}
+		
+		}//end if }}}
 		
 
 		

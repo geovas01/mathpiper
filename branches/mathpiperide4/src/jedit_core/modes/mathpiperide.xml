@@ -138,6 +138,11 @@
 			<BEGIN>%info[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
 			<END>%/info</END>
 		</SPAN_REGEXP>
+		
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="pl-sql::MAIN">
+			<BEGIN>%sql[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<END>%/sql</END>
+		</SPAN_REGEXP>
 
 	</RULES>
     

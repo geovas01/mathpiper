@@ -53,7 +53,7 @@ public class SQLDBWrapper implements Runnable
 	private String fileSearchLispAppendResponse;
 	private ArrayList<ResponseListener> responseListeners;
 	private boolean keepRunning;
-	private String prompt = "sql>";
+	private String prompt = "sql> ";
 	private ArrayList<ResponseListener> removeListeners;
 	
 
@@ -65,9 +65,8 @@ public class SQLDBWrapper implements Runnable
 		removeListeners = new ArrayList<ResponseListener>();
 		
 		
-	    RCData conData = new RCData("TestID",
-		    "jdbc:hsqldb:file:/home/tkosan/databases/aip/aip", "SA",
-		    "", null, null, null, null, null);
+	    //RCData conData = new RCData("TestID", "jdbc:hsqldb:file:/home/tkosan/databases/aip/aip", "SA", "", null, null, null, null, null);
+	    RCData conData = new RCData("TestID", "jdbc:hsqldb:hsql://localhost/hotel", "SA", "", null, null, null, null, null);
 
 	    
 	    PipedReader reader = new PipedReader(writer);
@@ -77,7 +76,7 @@ public class SQLDBWrapper implements Runnable
 	    
 
 
-	    final SqlFile sqlFile = new SqlFile(reader, "inputStreamLabel",
+	    final SqlFile sqlFile = new SqlFile(reader, "HSQLDB",
 		    printStream, null, true, null);
 	    sqlFile.setConnection(conData.getConnection());
 		
@@ -90,7 +89,7 @@ public class SQLDBWrapper implements Runnable
 		        sqlFile.execute();
 
 		    } catch (Throwable e) {
-			e.printStackTrace();
+			    notifyListeners(e.toString());
 		    }
 		}
 
@@ -131,7 +130,7 @@ public class SQLDBWrapper implements Runnable
 
 	public synchronized void send(String send) throws Throwable
 	{
-		writer.write(send + "\n");
+		writer.write(send);
 		writer.flush();
 	}//end send.
 
@@ -154,7 +153,7 @@ public class SQLDBWrapper implements Runnable
 			}
 			catch(Throwable e)
 			{
-				e.printStackTrace();
+				notifyListeners(e.toString());
 			}
 		}//end while.
 
@@ -215,6 +214,11 @@ mainLoop: while(keepChecking)
 			}//end if.
 
 		}//end while.
+		
+		if(response.endsWith("sql> "))
+		{
+		    response = response.substring(0, response.length() - 5);
+		}
 
 		return response;
 
