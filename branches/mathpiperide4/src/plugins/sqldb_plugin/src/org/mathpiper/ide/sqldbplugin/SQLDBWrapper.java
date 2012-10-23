@@ -22,7 +22,7 @@ package org.mathpiper.ide.sqldbplugin;
 import java.sql.Connection;
 import java.sql.SQLException;
 import org.hsqldb.lib.RCData;
-import org.hsqldb.cmdline.SqlFile;
+import org.mathpiper.ide.sqldbplugin.SqlFile;
 import org.hsqldb.cmdline.SqlToolError;
 
 import java.util.ArrayList;
@@ -215,10 +215,7 @@ mainLoop: while(keepChecking)
 
 		}//end while.
 		
-		if(response.endsWith("sql> "))
-		{
-		    response = response.substring(0, response.length() - 5);
-		}
+		response = response.replace("sql> ", "");
 
 		return response;
 
