@@ -338,7 +338,7 @@ public class SemesterSchedule {
     public String toClojureMaps() {
 
 	StringBuilder mp = new StringBuilder();
-	mp.append("(ns org.mathpiper.studentschedule.ssu_fall_2012_semester_schedule_map)\n\n");
+	mp.append("(ns org.mathpiper.studentschedule.ssu_spring_2013_semester_schedule_map)\n\n");
 	mp.append("(def zz2 {\n");
 
 	for (Course course : courses.values()) {
@@ -422,7 +422,7 @@ public class SemesterSchedule {
     public static void main(String[] args) {
 	SemesterSchedule schedule = new SemesterSchedule();
 
-	File scheduleDSV = new File("ssu_course_schedule_fall_2012_7_27.dsv");
+	File scheduleDSV = new File("ssu_course_schedule_spring_2013_9_18.dsv");
 
 	try {
 	    schedule.loadSchedule(scheduleDSV);
@@ -434,7 +434,7 @@ public class SemesterSchedule {
 	    BufferedWriter writer = null;
 	    try {
 		writer = new BufferedWriter(new FileWriter(
-			"ssu_fall_2012_semester_schedule_map.clj"));
+			"ssu_spring_2013_semester_schedule_map.clj"));
 		writer.write(output);
 
 	    } catch (IOException e) {

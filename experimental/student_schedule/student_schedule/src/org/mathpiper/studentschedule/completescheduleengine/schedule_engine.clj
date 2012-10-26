@@ -3,7 +3,7 @@
 ;The namespace schedule_engine holds all the functions used to exhaustivly find all
 ;schedules that do not have conflicts.
 
-(use 'org.mathpiper.studentschedule.ssu_fall_2012_semester_schedule_map)
+(use 'org.mathpiper.studentschedule.ssu_spring_2013_semester_schedule_map)
 
 (use 'clojure.math.combinatorics)
 

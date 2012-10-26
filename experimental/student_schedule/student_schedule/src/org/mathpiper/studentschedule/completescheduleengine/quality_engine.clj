@@ -6,7 +6,7 @@
 ;Note: all functions that have 'ratio' in their names return numbers from 0 to 1 that are ment to represent the quality of the schedule
 ;that has been inputed compared to the optimum.
 
-(use 'org.mathpiper.studentschedule.ssu_fall_2012_semester_schedule_map)
+(use 'org.mathpiper.studentschedule.ssu_spring_2013_semester_schedule_map)
 
 
 

@@ -27,7 +27,7 @@
        )
 #_(use 'clojure.math.combinatorics)
 
-(use 'org.mathpiper.studentschedule.ssu_fall_2012_semester_schedule_map)
+(use 'org.mathpiper.studentschedule.ssu_spring_2013_semester_schedule_map)
 
 
 

@@ -140,7 +140,7 @@ public class GUI implements EntryPoint {
 		// verticalPanel_2.setHeight("53px");
 
 		HTML htmlNewHtml = new HTML(
-			"<h2>&nbsp;&nbsp;&nbsp;SSU Student Schedule Generator v.009 beta<h2>", false);
+			"<h2>&nbsp;&nbsp;&nbsp;SSU Student Schedule Generator v.012 beta<h2>", false);
 		horizontalPanel_3.add(htmlNewHtml);
 		htmlNewHtml.setStyleName("none");
 		htmlNewHtml.setDirectionEstimator(true);
@@ -177,7 +177,7 @@ public class GUI implements EntryPoint {
 	courseNumbersFlexTable.setWidget(0, 0, lblNewLabel_1);
 
 	// Suggest box 0.
-	textBox0.setText("ETCO1120");
+	textBox0.setText("ENGL1101");
 	textBox0.setLimit(10);
 	HorizontalPanel horizontalPanel0 = new HorizontalPanel();
 	horizontalPanel0.add(textBox0);
@@ -255,7 +255,7 @@ public class GUI implements EntryPoint {
 	 */
 
 	// Suggest box 1.
-	textBox1.setText("ETEM1110");
+	textBox1.setText("ETEM1111");
 	textBox1.setLimit(10);
 	HorizontalPanel horizontalPanel1 = new HorizontalPanel();
 	horizontalPanel1.add(textBox1);
@@ -393,7 +393,7 @@ public class GUI implements EntryPoint {
 	});
 
 	// Suggest box 3.
-	textBox3.setText("ENGL1101");
+	textBox3.setText("ETCO1115");
 	textBox3.setLimit(10);
 	HorizontalPanel horizontalPanel3 = new HorizontalPanel();
 	horizontalPanel3.add(textBox3);

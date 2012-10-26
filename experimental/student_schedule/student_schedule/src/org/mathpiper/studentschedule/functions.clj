@@ -17,7 +17,7 @@
 
 ;(filter #( query2 2r0101000) legalSchedules)
 
-(use 'org.mathpiper.studentschedule.ssu_fall_2012_semester_schedule_map)
+(use 'org.mathpiper.studentschedule.ssu_spring_2013_semester_schedule_map)
 
 (defn days-in [day-code]
  (apply + (map #(if (not= (bit-and day-code %) 0) 1 0)  [2r1000000 2r0100000 2r0010000 2r0001000 2r0000100 2r0000010 2r0000001])))

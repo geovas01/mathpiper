@@ -8,7 +8,7 @@
 
 (use 'org.mathpiper.studentschedule.completescheduleengine.quality_engine)
 
-(use 'org.mathpiper.studentschedule.ssu_fall_2012_semester_schedule_map)
+(use 'org.mathpiper.studentschedule.ssu_spring_2013_semester_schedule_map)
 
 (import 'org.mathpiper.studentschedule.gwt.shared.ArgumentException)
 
