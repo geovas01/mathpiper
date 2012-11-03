@@ -87,8 +87,6 @@
         
         <SEQ TYPE="KEYWORD1">(</SEQ>
         <SEQ TYPE="KEYWORD1">)</SEQ>
-        
-        <SEQ TYPE="KEYWORD2">N(</SEQ>
 
 		<!-- Function calls 
 		<MARK_PREVIOUS TYPE="FUNCTION" MATCH_TYPE="KEYWORD1">(</MARK_PREVIOUS>
@@ -310,8 +308,8 @@
             <KEYWORD2>Denominator</KEYWORD2>
             <KEYWORD2>NonObject?</KEYWORD2>
             <KEYWORD2>Numerator</KEYWORD2>
-            <KEYWORD2>InNumericMode</KEYWORD2>
-            <KEYWORD2>NonN</KEYWORD2>
+            <KEYWORD2>NumericMode?</KEYWORD2>
+            <KEYWORD2>NonNM</KEYWORD2>
             <KEYWORD2>ArrayCreateFromList</KEYWORD2>
             <KEYWORD2>ArrayToList</KEYWORD2>
             <KEYWORD2>Assoc</KEYWORD2>
@@ -490,6 +488,7 @@
             <KEYWORD2>Map</KEYWORD2>
             <KEYWORD2>MapArgs</KEYWORD2>
             <KEYWORD2>MapSingle</KEYWORD2>
+            <KEYWORD2>NM</KEYWORD2>
             <KEYWORD2>Partition</KEYWORD2>
             <KEYWORD2>Pop</KEYWORD2>
             <KEYWORD2>PopBack</KEYWORD2>
