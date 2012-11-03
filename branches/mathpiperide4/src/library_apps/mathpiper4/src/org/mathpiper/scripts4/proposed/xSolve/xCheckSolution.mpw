@@ -14,8 +14,8 @@
       Decide(diff=0,
           result:=True,
           [
-              ndiff := Abs(N(diff,prec+1));
-              ncomp := N(10^(-prec),prec);
+              ndiff := Abs(NM(diff,prec+1));
+              ncomp := NM(10^(-prec),prec);
               Decide(iDebug=True,Tell("  ce2",[ndiff,ncomp,ndiff/ncomp]));
               Decide(ndiff/ncomp<?1,result:=True,result:=False);
           ]

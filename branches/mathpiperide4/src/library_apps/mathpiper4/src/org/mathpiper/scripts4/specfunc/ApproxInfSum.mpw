@@ -10,7 +10,7 @@ Function("ApproxInfSum",[expr,start,x]){
         ApproxInfSum(expr,start,x,[0]);
 };
 
-/// FIXME this has a roundoff problem when InNumericMode()=True
+/// FIXME this has a roundoff problem when NumericMode?()=True
 // Summation must be on k
 Function("ApproxInfSum",[expr,start,x,c])
 {
@@ -22,13 +22,13 @@ Function("ApproxInfSum",[expr,start,x,c])
 //        eps:=5*10^(-prec);
         eps:=10^(-prec);
 //Echo(expr);
-//Echo("     eps = ",N(Eval(eps)));
+//Echo("     eps = ",NM(Eval(eps)));
 
         term:=1;
         k:=start;
         result:=0;
-        While( N(Abs(term) >=? eps) ){
-                term:=N(Eval(expr));
+        While( NM(Abs(term) >=? eps) ){
+                term:=NM(Eval(expr));
                 //Echo(["term is ",term]);
                 k:=k+1;
                 result:=result+term;
@@ -39,11 +39,11 @@ Function("ApproxInfSum",[expr,start,x,c])
         // This should not round, only truncate
         // some outputs will be off by one in the last digit
 
-//Echo("lastterm = ",N(Eval(term)));
+//Echo("lastterm = ",NM(Eval(term)));
 
 //Echo("r1",result);
 //Echo("r2",RoundTo(result,prec));
-//Echo("r3",N((result/10)*10));
+//Echo("r3",NM((result/10)*10));
 
   result;
 };

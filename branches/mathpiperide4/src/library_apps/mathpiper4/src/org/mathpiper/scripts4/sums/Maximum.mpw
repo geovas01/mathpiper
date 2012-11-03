@@ -27,7 +27,7 @@ Function() Maximum(l1, l2, l3, ...);
 20 # Maximum(l1_RationalOrNumber?,l2_RationalOrNumber?) <-- Decide(l1>?l2,l1,l2);
 
 
-30 # Maximum(l1_Constant?,l2_Constant?) <-- Decide(N(Eval(l1-l2))>?0,l1,l2);
+30 # Maximum(l1_Constant?,l2_Constant?) <-- Decide(NM(Eval(l1-l2))>?0,l1,l2);
 
 // Max on empty lists
 10 # Maximum([]) <-- Undefined;

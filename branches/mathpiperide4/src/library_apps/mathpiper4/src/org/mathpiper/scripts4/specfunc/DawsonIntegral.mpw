@@ -8,7 +8,7 @@
         Local(result,prec);
         prec:=BuiltinPrecisionGet();
         BuiltinPrecisionSet(prec+5);
-        result:=N(I*Sqrt(Pi)*Exp(-x^2)*Erf(-I*x)/2);
+        result:=NM(I*Sqrt(Pi)*Exp(-x^2)*Erf(-I*x)/2);
         BuiltinPrecisionSet(prec);
         RoundTo(result,prec);
 ];

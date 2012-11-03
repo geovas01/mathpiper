@@ -4,7 +4,7 @@ GammaConstNum() :=
 {
   Local(k, n, A, B, Uold, U, Vold, V, prec, result);
   prec:=BuiltinPrecisionGet();
-  NonN({
+  NonNM({
     BuiltinPrecisionSet(prec+IntLog(prec,10)+3);        // 2 guard digits and 1 to compensate IntLog
     n:= 1+Ceil(prec*0.5757+0.2862);        // n>(P*Ln(10)+Ln(Pi))/4
     A:= -InternalLnNum(n);
@@ -19,15 +19,15 @@ GammaConstNum() :=
      k++;
      Uold:=U;
      Vold:=V;
-     // B:=N( B*n^2/k^2 );
+     // B:=NM( B*n^2/k^2 );
      B:=MultiplyNum(B,n^2/k^2);        // slightly faster
-     // A:=N( (A*n^2/k+B)/k );
+     // A:=NM( (A*n^2/k+B)/k );
      A:=MultiplyNum(MultiplyNum(A,n^2/k)+B, 1/k);        // slightly faster
      U:=U+A;
      V:=V+B;
     };
     Decide(InVerboseMode(), Echo("GammaConstNum: Info: used", k, "iterations at working precision", BuiltinPrecisionGet()));
-    result:=DivideN(U,V);        // N(U/V)
+    result:=DivideN(U,V);        // NM(U/V)
   });
   BuiltinPrecisionSet(prec);        // restore precision
   RoundTo(result, prec);        // return correctly rounded result

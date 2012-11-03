@@ -12,7 +12,7 @@ CorrelationCoefficient(x,y) :=
         
     n := Length(x);
     
-    N((n*Sum(x*y)-Sum(x)*Sum(y))/Sqrt((n*Sum(x^2)-(Sum(x))^2)*(n*Sum(y^2)-(Sum(y)^2))) );
+    NM((n*Sum(x*y)-Sum(x)*Sum(y))/Sqrt((n*Sum(x^2)-(Sum(x))^2)*(n*Sum(y^2)-(Sum(y)^2))) );
 };
 
 %/mathpiper

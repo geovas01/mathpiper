@@ -1,7 +1,7 @@
 %mathpiper,def="BrentLn"
 
 /// low-level numerical calculations of elementary functions.
-/// These are only called if InNumericMode() returns True
+/// These are only called if NumericMode?() returns True
 
 /* The BrentLn() algorithm is currently slower in internal math but should be asymptotically faster. */
 
@@ -36,7 +36,7 @@ LocalSymbols(BrentCacheOfConstantsN)
 30 # BrentLn(_x)_(BuiltinPrecisionGet()>?85) <--
 {
         Local(y, n, n1, k, eps);
-  N({
+  NM({
     n := BuiltinPrecisionGet();        // decimal digits
     // effective precision is n+Ln(n)/Ln(10)
     n1 := n + IntLog(n,10);        // Ln(2) < 7050/10171

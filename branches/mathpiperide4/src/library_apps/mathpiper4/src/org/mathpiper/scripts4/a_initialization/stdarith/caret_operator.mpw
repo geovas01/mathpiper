@@ -27,12 +27,12 @@
 // integer powers are very fast
 61 # x_PositiveNumber? ^ y_PositiveInteger? <-- MathIntPower(x,y);
 61 # x_PositiveNumber? ^ y_NegativeInteger? <-- 1/MathIntPower(x,-y);
-65 # (x_PositiveNumber? ^ y_Number?)_InNumericMode() <-- Exp(y*Ln(x));
+65 # (x_PositiveNumber? ^ y_Number?)_NumericMode?() <-- Exp(y*Ln(x));
 
 90 # (-_x)^m_Even? <-- x^m;
-91 # (x_Constant? ^ (m_Odd? / p_Odd?))_(NegativeNumber?(Re(N(Eval(x))))) <--
+91 # (x_Constant? ^ (m_Odd? / p_Odd?))_(NegativeNumber?(Re(NM(Eval(x))))) <--
      -((-x)^(m/p));
-92 # (x_NegativeNumber? ^ y_Number?)_InNumericMode() <-- Exp(y*Ln(x));
+92 # (x_NegativeNumber? ^ y_Number?)_NumericMode?() <-- Exp(y*Ln(x));
 
 
 70  # (_x ^ m_RationalOrNumber?) ^ n_RationalOrNumber? <-- x^(n*m);

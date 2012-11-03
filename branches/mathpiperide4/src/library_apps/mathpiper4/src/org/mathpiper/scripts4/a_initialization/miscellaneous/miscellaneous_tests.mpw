@@ -52,7 +52,7 @@ Verify(-(3*4),-12);
 Verify(2+3*4,14);
 Verify(6/3,2);
 Verify(1/3,1/3);
-Verify(Number?(N(1/3)),True);
+Verify(Number?(NM(1/3)),True);
 Verify(Sin(Pi),0);
 Verify(Minimum(5,1,3,-5,10),-5);
 Verify(Sqrt(2),Sqrt(2));
@@ -129,7 +129,7 @@ BuiltinPrecisionSet(OriginalPrecision);
 
 // With the changes in numerics, RoundTo seems to have been broken. This line demonstrates the problem.
 // The last digit is suddenly rounded down (it used to be 4, correctly, and then gets rounded down to 3).
-// KnownFailure(RoundTo(RoundTo(N(Cot(2),9),9),N(Cot(2),9),9)=0);
+// KnownFailure(RoundTo(RoundTo(NM(Cot(2),9),9),NM(Cot(2),9),9)=0);
 
 
 // Bug that was introduced when going to the new numeric setup where
@@ -143,7 +143,7 @@ BuiltinPrecisionSet(OriginalPrecision);
   nkeep:=n;
   n:=m;
   m:=nkeep - m*Round(nkeep/m);
-  lcl:=Re(N(n/m))+0.5;
+  lcl:=Re(NM(n/m))+0.5;
   Verify(FloorN(lcl),-3);
 };
 

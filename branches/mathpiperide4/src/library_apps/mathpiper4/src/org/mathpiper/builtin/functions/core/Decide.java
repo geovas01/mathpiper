@@ -107,7 +107,7 @@ numerically approximated.
 In> mysign(a);
 Result: -1;
 Hence a better implementation would be
-In> mysign(_x)_Number?(N(x)) <-- Decide \
+In> mysign(_x)_Number?(NM(x)) <-- Decide \
 	  (PositiveReal?(x), 1, -1);
 Result: True;
 %/mathpiper_docs

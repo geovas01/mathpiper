@@ -26,7 +26,7 @@ ProbabilityToZScore(probability) :=
 {
     Local(ZMAX,ZEPSILON,minimumZ,maximumZ,zValue,probabilityValue);
     
-    probability := N(probability);
+    probability := NM(probability);
     
     Check(probability >=? 0.0 And? probability <=? 1.0, "Argument", "The argument must be between 0 and 1.");
     

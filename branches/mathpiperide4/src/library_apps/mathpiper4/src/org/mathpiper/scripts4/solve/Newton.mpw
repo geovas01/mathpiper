@@ -10,23 +10,23 @@ Function("Newton",[function,variable,initial,accuracy,min,max])
   Local(result,adjust,delta,requiredPrec);
   MacroLocal(variable);
   requiredPrec := BuiltinPrecisionGet();
-  accuracy:=N((accuracy/10)*10); // Making sure accuracy is rounded correctly
+  accuracy:=NM((accuracy/10)*10); // Making sure accuracy is rounded correctly
   BuiltinPrecisionSet(requiredPrec+2);
-  function:=N(function);
+  function:=NM(function);
   adjust:= -function/Apply("Differentiate",[variable,function]);
   delta:=10000;
   result:=initial;
   While (result >? min And? result <? max
       // avoid numerical underflow due to fixed point math, FIXME when have real floating math
-      And? N(Eval( Maximum(Re(delta), -Re(delta), Im(delta), -Im(delta)) ) ) >? accuracy)
+      And? NM(Eval( Maximum(Re(delta), -Re(delta), Im(delta), -Im(delta)) ) ) >? accuracy)
   {
     MacroAssign(variable,result);
-    delta:=N(Eval(adjust));
+    delta:=NM(Eval(adjust));
     result:=result+delta;
   };
 
   BuiltinPrecisionSet(requiredPrec);
-  result:=N(Eval((result/10)*10)); // making sure result is rounded to correct precision
+  result:=NM(Eval((result/10)*10)); // making sure result is rounded to correct precision
   If(result <=? min Or? result >=? max) {result := Fail;};
   result;
 };

@@ -10,9 +10,9 @@ VerifyNumeric(expression1, expression2, optionsList) :=
     
     If(Length(variablesList1) =? 0 And? Length(variablesList2) =? 0)
     {
-        numericValue1 := N(expression1);
+        numericValue1 := NM(expression1);
         
-        numericValue2 := N(expression2);
+        numericValue2 := NM(expression2);
     }
     Else
     {
@@ -30,9 +30,9 @@ VerifyNumeric(expression1, expression2, optionsList) :=
         
         Check(variablesList1 =? variablesList2 And? variablesList1 =? optionsVariableNamesList, "Argument", "Both expressions and the options list must have the same variable names and the same number of variables.");
         
-        numericValue1 := N(WithValue(variablesList1, optionsValuesList, expression1));
+        numericValue1 := NM(WithValue(variablesList1, optionsValuesList, expression1));
         
-        numericValue2 := N(WithValue(variablesList2, optionsValuesList, expression2 ));
+        numericValue2 := NM(WithValue(variablesList2, optionsValuesList, expression2 ));
         
         Echo(Map("->",[variablesList1, optionsValuesList]));
         
@@ -45,7 +45,7 @@ VerifyNumeric(expression1, expression2, optionsList) :=
     
     Echo(expression2, "-> ", numericValue2);
     
-    numericDifference := N(numericValue1 - numericValue2);
+    numericDifference := NM(numericValue1 - numericValue2);
         
     NewLine();
     

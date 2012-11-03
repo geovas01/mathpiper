@@ -23,7 +23,7 @@ Function() Minimum(l1, l2, l3, ...);
 
 20 # Minimum(l1_RationalOrNumber?,l2_RationalOrNumber?) <-- Decide(l1<?l2,l1,l2);
 
-30 # Minimum(l1_Constant?,l2_Constant?) <-- Decide(N(Eval(l1-l2))<?0,l1,l2);
+30 # Minimum(l1_Constant?,l2_Constant?) <-- Decide(NM(Eval(l1-l2))<?0,l1,l2);
 
 //Min on an empty list.
 10 # Minimum([]) <-- Undefined;

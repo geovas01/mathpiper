@@ -12,15 +12,15 @@ ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnow
     
     Decide(sampleSize >=? 30 Or? standardDeviationIsKnown =? True,
     {
-        criticalZScore := N(ConfidenceLevelToZScore(confidenceLevel));
+        criticalZScore := NM(ConfidenceLevelToZScore(confidenceLevel));
         
         resultList["criticalZScore"] := criticalZScore;
 
-        standardErrorOfTheMean := N(StandardErrorOfTheMean(standardDeviation,sampleSize));
+        standardErrorOfTheMean := NM(StandardErrorOfTheMean(standardDeviation,sampleSize));
         
-        lowerLimitValue := N(sampleMean - criticalZScore * standardErrorOfTheMean);
+        lowerLimitValue := NM(sampleMean - criticalZScore * standardErrorOfTheMean);
         
-        upperLimitValue := N(sampleMean + criticalZScore * standardErrorOfTheMean);
+        upperLimitValue := NM(sampleMean + criticalZScore * standardErrorOfTheMean);
 
         
         Decide(InVerboseMode(),
@@ -33,15 +33,15 @@ ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnow
             });
     },
     {   
-        criticalTScore := OneTailAlphaToTScore(sampleSize - 1, N((1 - confidenceLevel)/2));
+        criticalTScore := OneTailAlphaToTScore(sampleSize - 1, NM((1 - confidenceLevel)/2));
         
         resultList["criticalTScore"] := criticalTScore;
         
-        standardErrorOfTheMean := N(StandardErrorOfTheMean(standardDeviation,sampleSize));
+        standardErrorOfTheMean := NM(StandardErrorOfTheMean(standardDeviation,sampleSize));
         
-        lowerLimitValue := N(sampleMean - criticalTScore * standardErrorOfTheMean);
+        lowerLimitValue := NM(sampleMean - criticalTScore * standardErrorOfTheMean);
         
-        upperLimitValue := N(sampleMean + criticalTScore * standardErrorOfTheMean);
+        upperLimitValue := NM(sampleMean + criticalTScore * standardErrorOfTheMean);
         
         
         Decide(InVerboseMode(),

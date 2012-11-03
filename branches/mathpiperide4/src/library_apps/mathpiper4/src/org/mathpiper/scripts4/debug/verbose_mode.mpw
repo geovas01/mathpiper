@@ -64,5 +64,5 @@ Result: False
 In> V(InVerboseMode())
 Result: True
 
-*SEE Echo, N, OldSolve
+*SEE Echo, NM, OldSolve
 %/mathpiper_docs

@@ -62,7 +62,7 @@ This operator can help the user to program in the style of functional programmin
 
 
 *E.G. notest
-In> f(x) := N(Sin(x));
+In> f(x) := NM(Sin(x));
 Result: True;
 In> NFunction("f1", "f", [x]);
 Result: True;
@@ -105,7 +105,7 @@ Result: True;
 BuiltinPrecisionSet(10);
 Retract("f",1);
 Retract("f1",1);
-f(x) := N(Abs(1/x-1));
+f(x) := NM(Abs(1/x-1));
 Verify(f(0), Infinity);
 NumericEqual(RoundToN(f(3),BuiltinPrecisionGet()), 0.6666666667,BuiltinPrecisionGet());
 NFunction("f1", "f", [x]);

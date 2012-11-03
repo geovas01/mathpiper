@@ -13,9 +13,9 @@ ArithmeticGeometricMean(a, b, eps) :=
     
     Check(PositiveInteger?(eps), "Argument", "The precision argument must be a positive integer.");
     
-    a := N(a, eps);
+    a := NM(a, eps);
     
-    b := N(b, eps);
+    b := NM(b, eps);
     
         Local(a1, b1);
         
@@ -25,7 +25,7 @@ ArithmeticGeometricMean(a, b, eps) :=
         While(Abs(a-b)>=?eps)
         {
                 a1 := DivideN(a+b, 2);
-                b1 := SqrtN(MultiplyN(a, b));        // avoid Sqrt() which uses N() inside it
+                b1 := SqrtN(MultiplyN(a, b));        // avoid Sqrt() which uses NM() inside it
                 a := a1;
                 b := b1;
         };

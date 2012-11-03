@@ -172,7 +172,7 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
 
     If( b=?0 And? c=?0 ){
         Add(OdeConstantList(2)*[1,x]);
-    } Else If( Number?(N(roots[1])) ){
+    } Else If( Number?(NM(roots[1])) ){
         Decide(InVerboseMode(),Echo("OdeSolve: Real roots"));
         Add(OdeConstantList(2)*[Exp(roots[1]*x),Exp(roots[2]*x)]);
     } Else {

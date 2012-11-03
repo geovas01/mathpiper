@@ -18,13 +18,13 @@ RegressionLineConfidenceInterval(x,y,xValue,confidenceLevel) :=
     
     f(x) := {Eval(regressionLine["line"]);};
     
-    criticalTScore := OneTailAlphaToTScore(n-2, N((1 - confidenceLevel)/2));
+    criticalTScore := OneTailAlphaToTScore(n-2, NM((1 - confidenceLevel)/2));
     
     standardErrorOfTheEstimate := StandardErrorOfTheEstimate(x,y);
 
     xMean := regressionLine["xMean"];
 
-    part := N(criticalTScore * standardErrorOfTheEstimate * Sqrt(1/n + ((xValue - xMean)^2)/(Sum(x^2) - Sum(x)^2/n)));
+    part := NM(criticalTScore * standardErrorOfTheEstimate * Sqrt(1/n + ((xValue - xMean)^2)/(Sum(x^2) - Sum(x)^2/n)));
     
     result := [];
     

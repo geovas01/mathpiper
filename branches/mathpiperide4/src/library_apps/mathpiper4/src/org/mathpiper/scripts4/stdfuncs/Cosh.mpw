@@ -18,7 +18,7 @@
 
 Cosh(xlist_List?) <-- MapSingle("Cosh",xlist);
 
-2 # Cosh(_x)_(InNumericMode() And? (Number?(x) Or? Type(x) =? "Complex")) <-- N(Eval( (Exp(x)+Exp(-x))/2 ));
+2 # Cosh(_x)_(NumericMode?() And? (Number?(x) Or? Type(x) =? "Complex")) <-- NM(Eval( (Exp(x)+Exp(-x))/2 ));
 
 
 

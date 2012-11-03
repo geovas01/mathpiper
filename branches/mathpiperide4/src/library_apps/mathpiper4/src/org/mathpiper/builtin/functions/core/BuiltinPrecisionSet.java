@@ -89,11 +89,11 @@ Also, when typing floating-point numbers, the current value of {BuiltinPrecision
 
 In> BuiltinPrecisionSet(10)
 Result: True;
-In> N(Sin(1))
+In> NM(Sin(1))
 Result: 0.8414709848;
 In> BuiltinPrecisionSet(20)
 Result: True;
-In> x:=N(Sin(1))
+In> x:=NM(Sin(1))
 Result: 0.84147098480789650665;
 
 The value {x} is not changed by a {BuiltinPrecisionSet()} call:

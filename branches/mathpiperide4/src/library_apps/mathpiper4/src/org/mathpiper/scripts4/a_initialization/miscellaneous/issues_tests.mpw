@@ -6,9 +6,9 @@ NextTest("Problems reported as Issues");
 Verify(Rationalize( 1.5 / 0.5 ),3);             // OK
 
 //Issue03
-Verify(N(Sqrt(17.032 * 3.22), 5), 7.4056);      // OK
-Verify(N(Sqrt(17.032 * 3.22), 4), 7.406);       // OK
-Verify(N(Sqrt(17.032 * 3.22), 3), 7.41);        // OK
+Verify(NM(Sqrt(17.032 * 3.22), 5), 7.4056);      // OK
+Verify(NM(Sqrt(17.032 * 3.22), 4), 7.406);       // OK
+Verify(NM(Sqrt(17.032 * 3.22), 3), 7.41);        // OK
 
 //Issue04
 Verify(Factor( Sqrt(61/10-Sqrt(36/5)) ), Sqrt(61/10-Sqrt(36/5)));       // OK

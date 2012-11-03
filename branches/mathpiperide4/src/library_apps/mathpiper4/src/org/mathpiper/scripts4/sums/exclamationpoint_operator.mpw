@@ -11,7 +11,7 @@
 
 25 # ((x_Constant?)!)_(FloatIsInt?(x) And? x>?0) <-- (Round(x)!);
 
-30 # ((x_Number?)!)_InNumericMode() <-- InternalGammaNum(x+1);
+30 # ((x_Number?)!)_NumericMode?() <-- InternalGammaNum(x+1);
 
 40 # (n_List?)! <-- MapSingle("!",n);
 

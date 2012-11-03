@@ -1,6 +1,6 @@
 %mathpiper,def="Tanh"
 
-2 # Tanh(_x)_(InNumericMode() And? (Number?(x) Or? Type(x) =? "Complex")) <-- N(Eval( Sinh(x)/Cosh(x) ));
+2 # Tanh(_x)_(NumericMode?() And? (Number?(x) Or? Type(x) =? "Complex")) <-- NM(Eval( Sinh(x)/Cosh(x) ));
 
 200 # Tanh(0)           <-- 0;
 200 # Tanh(Infinity)    <-- 1;

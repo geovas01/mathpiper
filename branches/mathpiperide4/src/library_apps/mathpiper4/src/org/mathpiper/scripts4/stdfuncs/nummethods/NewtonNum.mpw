@@ -34,7 +34,7 @@ NewtonNum(_func, _xinit, _prec0, _order) <--
         Check(prec0>=?4, "Argument", "NewtonNum: Error: initial precision must be at least 4");
         Check(Integer?(order) And? order>?1, "Argument", "NewtonNum: Error: convergence order must be an integer and at least 2");
         Local(x0, x1, prec, exactdigits, intpart, initialtries);
-  N({
+  NM({
     x0 := xinit;
     prec := BuiltinPrecisionGet();
     intpart := IntLog(Ceil(Abs(x0)), 10);        // how many extra digits for numbers like 100.2223
@@ -91,7 +91,7 @@ LN(x_Number?)_(x>?1 ) <--
         LocalSymbols(y)
 [
 // initial guess is obtained as Ln(x^2)/Ln(2) * (Ln(2)/2)
-        NewtonNum([[y],4*x/(Exp(y)+x)-2+y], N(794/2291*IntLog(Floor(x*x),2),5), 10, 3);
+        NewtonNum([[y],4*x/(Exp(y)+x)-2+y], NM(794/2291*IntLog(Floor(x*x),2),5), 10, 3);
 ];
 */
 

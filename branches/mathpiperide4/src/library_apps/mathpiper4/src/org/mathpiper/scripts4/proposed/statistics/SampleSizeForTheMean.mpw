@@ -8,7 +8,7 @@ SampleSizeForTheMean(standardDeviation,confidenceLevel,marginOfError) :=
     
     zScore := ConfidenceLevelToZScore(confidenceLevel);
     
-    minimumSampleSize := N(((zScore*standardDeviation)/marginOfError)^2);
+    minimumSampleSize := NM(((zScore*standardDeviation)/marginOfError)^2);
 };
 
 

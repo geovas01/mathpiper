@@ -1,7 +1,7 @@
 %mathpiper,def="InternalLnNum"
 
 /// low-level numerical calculations of elementary functions.
-/// These are only called if InNumericMode() returns True
+/// These are only called if NumericMode?() returns True
 
 // natural logarithm: this should be called only for real x>1
 //InternalLnNum(x) := LogN(x);

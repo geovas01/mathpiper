@@ -422,7 +422,7 @@ public class Normal
      *
      *  DESCRIPTION
      *
-     *    Random variates from the STANDARD Normal distribution  N(0,1).
+     *    Random variates from the STANDARD Normal distribution  NM(0,1).
      *
      * Is called from  random(..), but also rt(), rf(), rgamma(), ...
      */

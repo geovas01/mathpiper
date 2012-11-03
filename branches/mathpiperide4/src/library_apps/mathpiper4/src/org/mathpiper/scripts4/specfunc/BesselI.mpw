@@ -25,12 +25,12 @@
 30 # BesselI(_n,_z)_(n<?0 And? Integer?(n) ) <-- BesselI(-n,z);
 
 
-// When I put "And? InNumericMode()" on the next rule, I lose precision. Why ?
+// When I put "And? NumericMode?()" on the next rule, I lose precision. Why ?
 // Also, if I move the the "_Complex?" to the end with "Complex?(x)"
 // I lose precision.
 
 
-//40 # BesselI(_n,x_Complex?)_(Abs(x)<=? 2*Gamma(n) )  <-- N(BesselNsmall(n,x,1));
+//40 # BesselI(_n,x_Complex?)_(Abs(x)<=? 2*Gamma(n) )  <-- NM(BesselNsmall(n,x,1));
 
 
 40 # BesselI(_n,x_Complex?)_(Constant?(x) And? Abs(x)<=? 2*Gamma(n) )  <--

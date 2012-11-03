@@ -70,7 +70,7 @@
 {
     Local(coeffs,ijk);
     coeffs := [1,RandomInteger(-10,10),RandomInteger(1,10)];
-    coeffs[1] := Ceil(N(coeffs[2]^2/(4*coeffs[3]))) + RandomInteger(1,5);
+    coeffs[1] := Ceil(NM(coeffs[2]^2/(4*coeffs[3]))) + RandomInteger(1,5);
     NormalForm(UniVariate(var,0,coeffs));
 };
 
@@ -140,7 +140,7 @@
     m := deg;
     Until( m <? 3 )
     {
-        n := RandomInteger(2,Floor(N(deg/2)));
+        n := RandomInteger(2,Floor(NM(deg/2)));
         Tell("     ",[m,n]);
         Push(p,NewRandomPoly(n,var));
         m := m - n;

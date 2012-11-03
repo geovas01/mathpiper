@@ -56,7 +56,7 @@ less weight to others when calculating their mean.
 In>  WeightedMean([[92,50], [87,40], [76,10]])
 Result: 442/5
 
-In>  N(WeightedMean([[92,50], [87,40], [76,10]]))
+In>  NM(WeightedMean([[92,50], [87,40], [76,10]]))
 Result: 88.4
 
 *SEE Mean, Median, Mode, GeometricMean
