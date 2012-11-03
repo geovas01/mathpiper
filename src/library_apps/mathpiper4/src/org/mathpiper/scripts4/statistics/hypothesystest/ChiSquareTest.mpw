@@ -33,7 +33,7 @@ Retract(ChiSquareTest,*);
 
     degreesOfFreedom := (Dimensions(observedFrequenciesMatrix)[1] - 1)*(Dimensions(observedFrequenciesMatrix)[2] - 1);
 
-    pValue := 1-N(IncompleteGamma(degreesOfFreedom/2,chi2/2)/Gamma(degreesOfFreedom/2));
+    pValue := 1-NM(IncompleteGamma(degreesOfFreedom/2,chi2/2)/Gamma(degreesOfFreedom/2));
 
     resultList["degreesOfFreedom"] := degreesOfFreedom;
     
@@ -41,7 +41,7 @@ Retract(ChiSquareTest,*);
    
     resultList["chiSquareScore"] := chi2;
     
-    N(resultList);
+    NM(resultList);
 };
 
 
@@ -67,7 +67,7 @@ Retract(ChiSquareTest,*);
 
     degreesOfFreedom := categoriesCount - 1;
 
-    pValue := 1-N(IncompleteGamma(degreesOfFreedom/2,chi2/2)/Gamma(degreesOfFreedom/2));
+    pValue := 1-NM(IncompleteGamma(degreesOfFreedom/2,chi2/2)/Gamma(degreesOfFreedom/2));
 
     resultList["degreesOfFreedom"] := degreesOfFreedom;
     
@@ -75,7 +75,7 @@ Retract(ChiSquareTest,*);
    
     resultList["chiSquareScore"] := chi2;
     
-    N(resultList);
+    NM(resultList);
 };
 
 %/mathpiper

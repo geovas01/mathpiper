@@ -41,7 +41,7 @@ ChiSquareScoreToAlpha(score, degreesOfFreedom) :=
     }
     Else
     {
-        a := N(0.5 * score);
+        a := NM(0.5 * score);
         
         If(degreesOfFreedom >? 1) 
         {
@@ -93,7 +93,7 @@ ChiSquareScoreToAlpha(score, degreesOfFreedom) :=
     
     };
     
-    N(result);
+    NM(result);
 };
 
 

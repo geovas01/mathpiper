@@ -55,7 +55,7 @@ RuleHoldArguments("CachedConstant", 3, 10, And?(Atom?(Catom), Function?(Cfunc)))
                 DestructiveInsert(Eval(Ccache), 1, [Cname, 0, 0]);
 //                Write(["debug step 2: ", Cachename, Ccache, Eval(Ccache)]);
                 // define the new function "Catom"()
-                // note: this should not use N() because it may be called from inside N() itself
+                // note: this should not use NM() because it may be called from inside NM() itself
 
                 RulebaseEvaluateArguments(CfunctionName, []);
                 `( RuleHoldArguments(@CfunctionName, 0, 1024, True)
@@ -91,7 +91,7 @@ RuleHoldArguments("CachedConstant", 3, 20, True)
         Echo("CachedConstant: Error: ", Catom, " must be an atom and ", Cfunc, " must be a function.");
 
 /// assign numerical values to all cached constants: using fixed cache "CacheOfConstantsN"
-// this is called from N()
+// this is called from NM()
 Function("AssignCachedConstantsN", [])
 {
         Local(var,fname);
@@ -107,7 +107,7 @@ Function("AssignCachedConstantsN", [])
 UnFence("AssignCachedConstantsN", 0);
 
 /// clear values from all cached constants: using fixed cache "CacheOfConstantsN"
-// this is called from N()
+// this is called from NM()
 Function("ClearCachedConstantsN", [])
 {
         Local(centry);
@@ -132,7 +132,7 @@ Decide(Equal?(InVerboseMode(),True),Echo("Switching back to precision ",oldprec)
 }
 );
 CachedConstant(CacheOfConstantsN, gamma, GammaConstNum());
-CachedConstant(CacheOfConstantsN, GoldenRatio, N( (1+Sqrt(5))/2 ) );
+CachedConstant(CacheOfConstantsN, GoldenRatio, NM( (1+Sqrt(5))/2 ) );
 CachedConstant(CacheOfConstantsN, Catalan, CatalanConstNum() );
 
 }; // LocalSymbols(CacheOfConstantsN)
@@ -175,9 +175,9 @@ Result: True;
 
 *DESC
 
-Pi symbolically represents the exact value of $pi$. When the {N()} function is
+Pi symbolically represents the exact value of $pi$. When the {NM()} function is
 used, {Pi} evaluates to a numerical value according to the current precision.
-It is better to use {Pi} than {N(Pi)} except in numerical calculations, because exact
+It is better to use {Pi} than {NM(Pi)} except in numerical calculations, because exact
 simplification will be possible.
 
 This is a "cached constant" which is recalculated only when precision is increased.
@@ -188,10 +188,10 @@ In> Sin(3*Pi/2)
 Result: -1;
 In> Pi+1
 Result: Pi+1;
-In> N(Pi)
+In> NM(Pi)
 Result: 3.14159265358979323846;
 
-*SEE Sin, Cos, N, CachedConstant
+*SEE Sin, Cos, NM, CachedConstant
 %/mathpiper_docs
 
 
@@ -211,27 +211,27 @@ The ancient Greeks defined the "golden ratio" as follows:
 If one divides a length 1 into two pieces $x$ and $1-x$, such that the ratio of 1 to $x$ is the same as the ratio of $x$ to $1-x$, then $1/x <=> 1.618$... is the "golden ratio".
 
 
-The constant is available symbolically as {GoldenRatio} or numerically through {N(GoldenRatio)}.
+The constant is available symbolically as {GoldenRatio} or numerically through {NM(GoldenRatio)}.
 This is a "cached constant" which is recalculated only when precision is increased.
-The numerical value of the constant can also be obtained as {N(GoldenRatio)}.
+The numerical value of the constant can also be obtained as {NM(GoldenRatio)}.
 
 
 *E.G.
 
 In> x:=GoldenRatio - 1
 Result: GoldenRatio-1;
-In> N(x)
+In> NM(x)
 Result: 0.6180339887;
-In> N(1/GoldenRatio)
+In> NM(1/GoldenRatio)
 Result: 0.6180339887;
-In> V(N(GoldenRatio,20));
+In> V(NM(GoldenRatio,20));
 
         CachedConstant: Info: constant GoldenRatio is
         being recalculated at precision 20 
 Result: 1.6180339887498948482;
 
 
-*SEE N, CachedConstant
+*SEE NM, CachedConstant
 %/mathpiper_docs
 
 
@@ -246,26 +246,26 @@ Result: 1.6180339887498948482;
 
 These functions compute Catalans Constant $Catalan<=>0.9159655941$.
 
-The constant is available symbolically as {Catalan} or numerically through {N(Catalan)} with {N(...)} the usual operator used to try to coerce an expression in to a numeric approximation of that expression.
+The constant is available symbolically as {Catalan} or numerically through {NM(Catalan)} with {NM(...)} the usual operator used to try to coerce an expression in to a numeric approximation of that expression.
 This is a "cached constant" which is recalculated only when precision is increased.
-The numerical value of the constant can also be obtained as {N(Catalan)}.
+The numerical value of the constant can also be obtained as {NM(Catalan)}.
 The low-level numerical computations are performed by the routine {CatalanConstNum}.
 
 
 *E.G.
 
-In> N(Catalan)
+In> NM(Catalan)
 Result: 0.9159655941;
 In> DirichletBeta(2)
 Result: Catalan;
-In> V(N(Catalan,20))
+In> V(NM(Catalan,20))
 
         CachedConstant: Info: constant Catalan is
         being recalculated at precision 20
 Result: 0.91596559417721901505;
 
 
-*SEE N, CachedConstant
+*SEE NM, CachedConstant
 %/mathpiper_docs
 
 
@@ -280,9 +280,9 @@ Result: 0.91596559417721901505;
 
 These functions compute Eulers constant $gamma<=>0.57722$...
 
-The constant is available symbolically as {gamma} or numerically through using the usual function {N(...)} to get a numeric result, {N(gamma)}.
+The constant is available symbolically as {gamma} or numerically through using the usual function {NM(...)} to get a numeric result, {NM(gamma)}.
 This is a "cached constant" which is recalculated only when precision is increased.
-The numerical value of the constant can also be obtained as {N(gamma)}.
+The numerical value of the constant can also be obtained as {NM(gamma)}.
 The low-level numerical computations are performed by the routine {GammaConstNum}.
 
 Note that Eulers Gamma function $Gamma(x)$ is the capitalized {Gamma} in MathPiper.
@@ -291,9 +291,9 @@ Note that Eulers Gamma function $Gamma(x)$ is the capitalized {Gamma} in MathPip
 
 In> gamma+Pi
 Result: gamma+Pi;
-In> N(gamma+Pi)
+In> NM(gamma+Pi)
 Result: 3.7188083184;
-In> V(N(gamma,20))
+In> V(NM(gamma,20))
         
         CachedConstant: Info: constant gamma is being
           recalculated at precision 20 
@@ -301,7 +301,7 @@ In> V(N(gamma,20))
           working precision 24 
 Result: 0.57721566490153286061;
 
-*SEE Gamma, N, CachedConstant
+*SEE Gamma, NM, CachedConstant
 %/mathpiper_docs
 
 
@@ -333,12 +333,12 @@ the value of the desired constant at the current precision. (Most arbitrary-prec
 
 The associative list {cache} contains elements of the form {[Cname, prec, value]}, as illustrated in the example. If this list does not exist, it will be created.
 
-This mechanism is currently used by {N()} to precompute the values of $Pi$ and $gamma$ (and the golden ratio through {GoldenRatio}, and {Catalan}).
-The name of the cache for {N()} is {CacheOfConstantsN}.
-The code in the function {N()} assigns unevaluated calls to {InternalPi()} and {Internalgamma()} to the atoms {Pi} and {gamma} and declares them to be lazy global variables through {SetGlobalLazyVariable} (with equivalent functions assigned to other constants that are added to the list of cached constants).
+This mechanism is currently used by {NM()} to precompute the values of $Pi$ and $gamma$ (and the golden ratio through {GoldenRatio}, and {Catalan}).
+The name of the cache for {NM()} is {CacheOfConstantsN}.
+The code in the function {NM()} assigns unevaluated calls to {InternalPi()} and {Internalgamma()} to the atoms {Pi} and {gamma} and declares them to be lazy global variables through {SetGlobalLazyVariable} (with equivalent functions assigned to other constants that are added to the list of cached constants).
 
-The result is that the constants will be recalculated only when they are used in the expression under {N()}.
-In other words, the code in {N()} does the equivalent of
+The result is that the constants will be recalculated only when they are used in the expression under {NM()}.
+In other words, the code in {NM()} does the equivalent of
 
         SetGlobalLazyVariable(mypi,Hold(InternalPi()));
         SetGlobalLazyVariable(mygamma,Hold(Internalgamma()));
@@ -351,7 +351,7 @@ In> CachedConstant( mycache, Ln2, InternalLnNum(2) )
 Result: True;
 In> InternalLn2()
 Result: 0.6931471806;
-In> V(N(InternalLn2(),20))
+In> V(NM(InternalLn2(),20))
         CachedConstant: Info: constant Ln2 is being
           recalculated at precision 20 
 Result: 0.69314718055994530942;
@@ -359,5 +359,5 @@ In> mycache
 Result: [["Ln2",20,0.69314718055994530942]];
 
 
-*SEE N, BuiltinPrecisionSet, Pi, GoldenRatio, Catalan, gamma
+*SEE NM, BuiltinPrecisionSet, Pi, GoldenRatio, Catalan, gamma
 %/mathpiper_docs

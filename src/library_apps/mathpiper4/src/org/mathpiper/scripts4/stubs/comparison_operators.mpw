@@ -32,7 +32,7 @@
 // If n and m are symbolic after a single evaluation, see if they can be coerced in to a real-valued number.
 LocalSymbols(nNum,mNum)
 {
-  10 # (_n <? _m)_{nNum:=N(Eval(n)); mNum:=N(Eval(m));Number?(nNum) And? Number?(mNum);} <-- LessThan?(nNum-mNum,0);
+  10 # (_n <? _m)_{nNum:=NM(Eval(n)); mNum:=NM(Eval(m));Number?(nNum) And? Number?(mNum);} <-- LessThan?(nNum-mNum,0);
 };
 
 // Deal with Infinity
@@ -54,13 +54,13 @@ LocalSymbols(nNum,mNum)
 // Add other functions here!  Everything we can compare to 0 should be here.
 40 # (Sqrt(_x))_(x >? 0) <? 0          <--  False;
 
-40 # (Sin(_x) <? 0)_(Not?(Even?(N(x/Pi))) And? Even?(N(Floor(x/Pi)))) <-- False;
-40 # (Sin(_x) <? 0)_(Not?(Odd? (N(x/Pi))) And? Odd? (N(Floor(x/Pi)))) <-- True;
+40 # (Sin(_x) <? 0)_(Not?(Even?(NM(x/Pi))) And? Even?(NM(Floor(x/Pi)))) <-- False;
+40 # (Sin(_x) <? 0)_(Not?(Odd? (NM(x/Pi))) And? Odd? (NM(Floor(x/Pi)))) <-- True;
 
 40 # Cos(_x) <? 0 <-- Sin(Pi/2-x) <? 0;
 
-40 # (Tan(_x) <? 0)_(Not?(Even?(N(2*x/Pi))) And? Even?(N(Floor(2*x/Pi)))) <-- False;
-40 # (Tan(_x) <? 0)_(Not?(Odd? (N(2*x/Pi))) And? Odd? (N(Floor(2*x/Pi)))) <-- True;
+40 # (Tan(_x) <? 0)_(Not?(Even?(NM(2*x/Pi))) And? Even?(NM(Floor(2*x/Pi)))) <-- False;
+40 # (Tan(_x) <? 0)_(Not?(Odd? (NM(2*x/Pi))) And? Odd? (NM(Floor(2*x/Pi)))) <-- True;
 
 // Functions that need special treatment with more than one of the comparison
 // operators as they always return true or false.  For these we must define

@@ -32,7 +32,7 @@ StandardErrorOfTheProportion(meanOfSampleProportions, sampleSize) :=
 This function calculates the standard error of the proportion.
 
 *E.G.
-In> N(StandardErrorOfTheProportion(.164,150))
+In> NM(StandardErrorOfTheProportion(.164,150))
 Result: 0.030232873941
 %/mathpiper_docs
 

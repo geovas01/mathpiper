@@ -17,28 +17,28 @@ ControlChart(data) :=
     ForEach(group, data)
     {
         groupMean := Mean(group);
-        means := N(Append(means, groupMean));
-        meansPoints := N(Append(meansPoints,[index, groupMean] ));
+        means := NM(Append(means, groupMean));
+        meansPoints := NM(Append(meansPoints,[index, groupMean] ));
         
 
         groupRange := Range(group);
-        ranges := N(Append(ranges, groupRange));
-        rangesPoints := N(Append(rangesPoints,[index, groupRange] ));
+        ranges := NM(Append(ranges, groupRange));
+        rangesPoints := NM(Append(rangesPoints,[index, groupRange] ));
         
         index++;
     };
     
-    xBarBar := N(Mean(means));
+    xBarBar := NM(Mean(means));
     
-    rBar := N(Mean(ranges));
+    rBar := NM(Mean(ranges));
     
-    xBarUCL := N(xBarBar + A2*rBar);
+    xBarUCL := NM(xBarBar + A2*rBar);
     
-    xBarLCL := N(xBarBar - A2*rBar);
+    xBarLCL := NM(xBarBar - A2*rBar);
     
-    rUCL := N(D4*rBar);
+    rUCL := NM(D4*rBar);
     
-    rLCL := N(D3*rBar);
+    rLCL := NM(D3*rBar);
 };
 
 
@@ -205,7 +205,7 @@ partsPoints := [];
 index := 1;
 ForEach(part, parts)
 [
-    partsPoints := N(Append(partsPoints,[index, part] ));
+    partsPoints := NM(Append(partsPoints,[index, part] ));
     
     
     index++;

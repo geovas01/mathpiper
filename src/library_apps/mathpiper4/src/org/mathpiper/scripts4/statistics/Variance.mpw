@@ -36,7 +36,7 @@ This function calculates the variance of a list of values.
 In> Variance([73,94,80,37,57,94,40,21,7,26])
 Result: 88009/100
 
-In> N(Variance([73,94,80,37,57,94,40,21,7,26]))
+In> NM(Variance([73,94,80,37,57,94,40,21,7,26]))
 Result: 880.09
 
 *SEE UnbiasedVariance, StandardDeviation

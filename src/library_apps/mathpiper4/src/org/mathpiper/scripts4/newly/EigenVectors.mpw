@@ -3,7 +3,7 @@
 EigenVectors(_matrix,_eigenvalues) <--
 {
   Local(result,n);
-/*  eigenvalues:=N(Eval(eigenvalues));  */
+/*  eigenvalues:=NM(Eval(eigenvalues));  */
   n:=Length(eigenvalues);
   result:=[];
   ForEach(e,eigenvalues)

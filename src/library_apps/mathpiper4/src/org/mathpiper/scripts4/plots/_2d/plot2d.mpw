@@ -60,7 +60,7 @@ Function() Plot2D(func, range, options, ...);
         );
         Decide(
                 Type(range) =? ":",        // simple range
-                range := N(Eval([range[1], range[2]]))
+                range := NM(Eval([range[1], range[2]]))
         );
         // set default option values
         Decide(
@@ -86,16 +86,16 @@ Function() Plot2D(func, range, options, ...);
         );
     
         // we will divide each subinterval in 4 parts, so divide number of points by 4 now
-        optionshash["points"] := N(Eval(Quotient(optionshash["points"]+3, 4)));
+        optionshash["points"] := NM(Eval(Quotient(optionshash["points"]+3, 4)));
     
         // in case it is not a simple number but an unevaluated expression
-        optionshash["precision"] := N(Eval(optionshash["precision"]));
+        optionshash["precision"] := NM(Eval(optionshash["precision"]));
     
         // store range in options
         optionshash["xrange"] := [range[1], range[2]];
     
         // compute the separation between grid points
-        delta := N(Eval( (range[2] - range[1]) / (optionshash["points"]) ));
+        delta := NM(Eval( (range[2] - range[1]) / (optionshash["points"]) ));
     
         // check that the input parameters are valid (all numbers)
         Check(Number?(range[1]) And? Number?(range[2]) And? Number?(optionshash["points"]) And? Number?(optionshash["precision"]),
@@ -127,7 +127,7 @@ Function() Plot2D(func, range, options, ...);
                 DestructiveAppend(optionshash["yname"], PipeToString()Write(func));
                 // compute the first point to see if it's okay
                 c := range[1];
-                fc := N(Eval(Apply([var, func], [c])));
+                fc := NM(Eval(Apply([var, func], [c])));
                 Check(Number?(fc) Or? fc=?Infinity Or? fc=? -Infinity Or? fc=?Undefined,
                         "Argument", 
                         "Plot2D: Error: cannot evaluate function "
@@ -169,8 +169,8 @@ Plot2Dgetdata(_func, _var, _xinit, _yinit, _deltax, _optionshash) <--
         {
                 [a,fa] := [c, fc];        // this is to save time but here a = xinit + i*deltax
                 // build subintervals
-                [b, c] := N(Eval([xinit + (i+1/2)*deltax, xinit + (i+1)*deltax]));        // this is not computed using "a" to reduce roundoff error
-                [fb, fc] := N(Eval(MapSingle([var, func], [b, c])));
+                [b, c] := NM(Eval([xinit + (i+1/2)*deltax, xinit + (i+1)*deltax]));        // this is not computed using "a" to reduce roundoff error
+                [fb, fc] := NM(Eval(MapSingle([var, func], [b, c])));
                 result := Concat(result,
                         Rest(Plot2Dadaptive(func, var, [a,b,c], [fa, fb, fc], optionshash["depth"],
                                 // since we are dividing into "points" subintervals, we need to relax precision
@@ -194,9 +194,9 @@ Plot2Dadaptive(_func, _var, [_a,_b,_c], [_fa, _fb, _fc], _depth, _epsilon) <--
 {
         Local(a1, b1, fa1, fb1);
 
-        a1 := N(Eval((a+b)/2));
-        b1 := N(Eval((b+c)/2));
-        [fa1, fb1] := N(Eval(MapSingle([var, func], [a1, b1])));
+        a1 := NM(Eval((a+b)/2));
+        b1 := NM(Eval((b+c)/2));
+        [fa1, fb1] := NM(Eval(MapSingle([var, func], [a1, b1])));
         Decide(
                 depth<=?0 Or?
                 (
@@ -204,8 +204,8 @@ Plot2Dadaptive(_func, _var, [_a,_b,_c], [_fa, _fb, _fc], _depth, _epsilon) <--
                   signchange(fa, fa1, fb) + signchange(fa1, fb, fb1) + signchange(fb, fb1, fc) <=? 2
                   And?
                   // condition for the values not to change too rapidly
-                  N(Eval(Abs( (fa-5*fa1+9*fb-7*fb1+2*fc)/24 ) ))        // this is the Simpson quadrature for the (fb,fb1) subinterval (using points b,b1,c), subtracted from the 4-point Newton-Cotes quadrature for the (fb,fb1) subinterval (using points a, a1, b, b1)
-                          <=? N(Eval( epsilon*(        // the expression here will be nonnegative because we subtract the minimum value
+                  NM(Eval(Abs( (fa-5*fa1+9*fb-7*fb1+2*fc)/24 ) ))        // this is the Simpson quadrature for the (fb,fb1) subinterval (using points b,b1,c), subtracted from the 4-point Newton-Cotes quadrature for the (fb,fb1) subinterval (using points a, a1, b, b1)
+                          <=? NM(Eval( epsilon*(        // the expression here will be nonnegative because we subtract the minimum value
                     //(fa+fc+2*fb+4*(fa1+fb1))/12        // this is 1/4 of the Simpson quadrature on the whole interval
                         (5*fb+8*fb1-fc)/12        // this is the Simpson quadrature for the (fb,f1) subinterval
                         - Minimum([fa,fa1,fb,fb1,fc]) ) ) )
@@ -266,7 +266,7 @@ Output can be directed to a plotting program (the default is to use
 
 The function parameter {f(x)} must evaluate to a MathPiper expression containing
 at most one variable. (The variable does not have to be called {x}.)
-Also, {N(f(x))} must evaluate to a real (not complex) numerical value when given a numerical value of the argument {x}.
+Also, {NM(f(x))} must evaluate to a real (not complex) numerical value when given a numerical value of the argument {x}.
 If the function {f(x)} does not satisfy these requirements, an error is raised.
 
 Several functions may be specified as a list and they do not have to depend on the same variable, for example, {{f(x), g(y)}}.

@@ -33,7 +33,7 @@ ValueToZScore(value,mean,standardDeviation) :=
 This function calculates the z-score for a given numerical value.
 
 *E.G.
-In> N(ValueToZScore(4.74,5,.332))
+In> NM(ValueToZScore(4.74,5,.332))
 Result: -0.7831325301
 
 *SEE ZScoreToValue,ZScoreToProbability,ProbabilityToZScore,ConfidenceLevelToZScore

@@ -41,7 +41,7 @@
     Local(pp,qq,r,L);
     pp := m-1;
     qq := (y^(1/m));
-    Decide(Number?(y),qq:=GuessRational(N(qq)));
+    Decide(Number?(y),qq:=GuessRational(NM(qq)));
     Decide(InVerboseMode(),Tell("  FAssignif.1",[pp,qq]));
     
     if      (m =? 2)
@@ -66,7 +66,7 @@
     Local(aa,bb,c0,r);
     aa := c^(1/m);
     bb := ((y)^(1/m));
-    Decide(Number?(y),bb:=GuessRational(N(bb)));
+    Decide(Number?(y),bb:=GuessRational(NM(bb)));
     Decide(InVerboseMode(),Tell("  FAssignif.1b",[aa,bb]));
     r  := FactorsBinomials( (aa*x)^m - bb^m );
 };

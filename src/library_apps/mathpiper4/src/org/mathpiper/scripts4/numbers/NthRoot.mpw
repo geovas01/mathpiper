@@ -52,7 +52,7 @@ Function("NthRootCalc",[m,n])
 {
    Local(i,j,f,r,in);
    Assign(i,2);
-   Assign(j,Ceil(FastPower(m,N(1.0/n))+1));
+   Assign(j,Ceil(FastPower(m,NM(1.0/n))+1));
    Assign(f,1);
    Assign(r,m);
    // for large j (approx >4000)
@@ -73,7 +73,7 @@ Function("NthRootCalc",[m,n])
          Assign(r,QuotientN(r,i));         //
       //Assign(i,NextPrime(i));
       Assign(i,NextPseudoPrime(i));
-      Assign(j,Ceil(FastPower(r,N(1.0/n))+1));
+      Assign(j,Ceil(FastPower(r,NM(1.0/n))+1));
    };
    //List(f,r);
    List(f,QuotientN(m,PowerN(f,n))); //

@@ -58,18 +58,18 @@ AnovaCompletelyRandomizedBlock(levelsList, alpha) :=
     //ANOVA calculations.
     ForEach(levelList, levelsList)
     {
-        meansList := meansList ~ N(Mean(levelList));
+        meansList := meansList ~ NM(Mean(levelList));
         
-        variancesList := variancesList ~ N(UnbiasedVariance(levelList));
+        variancesList := variancesList ~ NM(UnbiasedVariance(levelList));
         
-        sumsList := sumsList ~ N(Sum(levelList));
+        sumsList := sumsList ~ NM(Sum(levelList));
 
         lengthsList := lengthsList ~ Length(levelList);
     };
     
     sumOfSquaresWithin := Sum((lengthsList - 1) * variancesList);
 
-    grandMean := N(Mean(meansList));
+    grandMean := NM(Mean(meansList));
     
     sumOfSquaresBetween := Sum(lengthsList*(meansList - grandMean)^2);
     
@@ -84,7 +84,7 @@ AnovaCompletelyRandomizedBlock(levelsList, alpha) :=
     {
         row := MatrixColumn(levelsList, index);
         
-        blockMeansList := Append(blockMeansList,N(Mean(row)));
+        blockMeansList := Append(blockMeansList,NM(Mean(row)));
     
         index++;
     };
@@ -95,19 +95,19 @@ AnovaCompletelyRandomizedBlock(levelsList, alpha) :=
     
     sumOfSquaresBlock := Sum(j,1,b, k*(blockMeansList[j] - grandMean)^2);
     
-    sumOfSquaresTotal := N(sumOfSquaresWithin + sumOfSquaresBetween);
+    sumOfSquaresTotal := NM(sumOfSquaresWithin + sumOfSquaresBetween);
     
-    sumOfSquaresWithin := N(sumOfSquaresTotal - sumOfSquaresBetween - sumOfSquaresBlock);
+    sumOfSquaresWithin := NM(sumOfSquaresTotal - sumOfSquaresBetween - sumOfSquaresBlock);
     
-    meanSquareBetween := N(sumOfSquaresBetween/(k - 1));
+    meanSquareBetween := NM(sumOfSquaresBetween/(k - 1));
     
-    meanSquareWithin := N(sumOfSquaresWithin/((k - 1)*(b - 1)));
+    meanSquareWithin := NM(sumOfSquaresWithin/((k - 1)*(b - 1)));
     
-    fScore := N(meanSquareBetween/meanSquareWithin);
+    fScore := NM(meanSquareBetween/meanSquareWithin);
     
-    meanSquareBlock := N(sumOfSquaresBlock/(b - 1));
+    meanSquareBlock := NM(sumOfSquaresBlock/(b - 1));
     
-    fScoreBlock := N(meanSquareBlock/meanSquareWithin);
+    fScoreBlock := NM(meanSquareBlock/meanSquareWithin);
     
     criticalFScore := ProbabilityToFScore(k - 1, (k - 1)*(b - 1), 1-alpha);
     
@@ -154,7 +154,7 @@ AnovaCompletelyRandomizedBlock(levelsList, alpha) :=
 
     //Block summary.
     
-    blockSummaryTableRow := "<TR> <TD> <?Write(ToAtom(\"Block\"~ToString(index)));?> </TD> <TD align=\"right\"> <?Write(Length(row));?> </TD> <TD> <?Write(N(Sum(row)));?> </TD>  <TD> <?Write(N(Mean(row)));?> </TD> <TD> <?Write(N(UnbiasedVariance(row)));?> </TD> </TR>"~Nl();
+    blockSummaryTableRow := "<TR> <TD> <?Write(ToAtom(\"Block\"~ToString(index)));?> </TD> <TD align=\"right\"> <?Write(Length(row));?> </TD> <TD> <?Write(NM(Sum(row)));?> </TD>  <TD> <?Write(NM(Mean(row)));?> </TD> <TD> <?Write(NM(UnbiasedVariance(row)));?> </TD> </TR>"~Nl();
 
     index := 1;
     

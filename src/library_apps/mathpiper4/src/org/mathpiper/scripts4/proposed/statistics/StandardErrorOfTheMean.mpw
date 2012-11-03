@@ -31,7 +31,7 @@ StandardErrorOfTheMean(sigma, sampleSize) :=
 This function calculates the standard error of the mean.
 
 *E.G.
-In> N(StandardErrorOfTheMean(1.44,2))
+In> NM(StandardErrorOfTheMean(1.44,2))
 Result: 1.018233765
 
 %/mathpiper_docs

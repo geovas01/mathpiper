@@ -67,11 +67,11 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
         );
         Decide(
                 Type(xrange) =? "~",        // simple range
-                xrange := N(Eval([xrange[1], xrange[2]]))
+                xrange := NM(Eval([xrange[1], xrange[2]]))
         );
         Decide(
                 Type(yrange) =? "~",        // simple range
-                yrange := N(Eval([yrange[1], yrange[2]]))
+                yrange := NM(Eval([yrange[1], yrange[2]]))
         );
         // set default option values
         Decide(
@@ -110,16 +110,16 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
         );
         optionshash["used depth"] := optionshash["depth"];
         // we will divide each subsquare in 4 parts, so divide number of points by 2 now
-        optionshash["xpoints"] := N(Eval(Quotient(optionshash["xpoints"]+1, 2)));
-        optionshash["ypoints"] := N(Eval(Quotient(optionshash["ypoints"]+1, 2)));
+        optionshash["xpoints"] := NM(Eval(Quotient(optionshash["xpoints"]+1, 2)));
+        optionshash["ypoints"] := NM(Eval(Quotient(optionshash["ypoints"]+1, 2)));
         // in case it is not a simple number but an unevaluated expression
-        optionshash["precision"] := N(Eval(optionshash["precision"]));
+        optionshash["precision"] := NM(Eval(optionshash["precision"]));
         // store range in options
         optionshash["xrange"] := [xrange[1], xrange[2]];
         optionshash["yrange"] := [yrange[1], yrange[2]];
         // compute the separation between grid points
-        xdelta := N(Eval( (xrange[2] - xrange[1]) / (optionshash["xpoints"]) ) );
-        ydelta := N(Eval( (yrange[2] - yrange[1]) / (optionshash["ypoints"]) ) );
+        xdelta := NM(Eval( (xrange[2] - xrange[1]) / (optionshash["xpoints"]) ) );
+        ydelta := NM(Eval( (yrange[2] - yrange[1]) / (optionshash["ypoints"]) ) );
         // check that the input parameters are valid (all numbers)
         Check(NumericList?([xrange[1], xrange[2], optionshash["xpoints"], optionshash["ypoints"], optionshash["precision"]]),
                 "Argument", 
@@ -155,7 +155,7 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
                 DestructiveAppend(optionshash["zname"], PipeToString()Write(func));
                 // compute the first point to see if it's okay
                 cx := xrange[1]; cy := yrange[1];
-                fc := N(Eval(Apply([var, func], [cx, cy])));
+                fc := NM(Eval(Apply([var, func], [cx, cy])));
                 Check(Number?(fc) Or? fc=?Infinity Or? fc=? -Infinity Or? fc=?Undefined,
                         "Argument", 
                         "Plot3DS: Error: cannot evaluate function "
@@ -196,8 +196,8 @@ Plot3DSgetdata(_func, _var, _initvalues, _deltas, _optionshash) <--
         rowcache := [initvalues];
         For(i:=1, i<=?optionshash["ypoints"], i++)
         {
-                ya := N(Eval(initvalues[2]+i*deltas[2]));
-                DestructiveAppend(rowcache, [initvalues[1], ya, N(Eval(Apply([var, func], [initvalues[1], ya])))]);
+                ya := NM(Eval(initvalues[2]+i*deltas[2]));
+                DestructiveAppend(rowcache, [initvalues[1], ya, NM(Eval(Apply([var, func], [initvalues[1], ya])))]);
         };
         result := rowcache;
         // now loop over the x direction
@@ -205,9 +205,9 @@ Plot3DSgetdata(_func, _var, _initvalues, _deltas, _optionshash) <--
         {
                 // start the next row
                 // the 0th point
-                xa := N(Eval(initvalues[1]+i*deltas[1]));
+                xa := NM(Eval(initvalues[1]+i*deltas[1]));
                 ya := initvalues[2];
-                fa := N(Eval(Apply([var, func], [xa, ya])));
+                fa := NM(Eval(Apply([var, func], [xa, ya])));
                 DestructiveAppend(result, [xa, ya, fa]);
                 // now loop at each grid point in y direction
                 For(j:=1, j<=?optionshash["ypoints"], j++)
@@ -215,8 +215,8 @@ Plot3DSgetdata(_func, _var, _initvalues, _deltas, _optionshash) <--
                         //        p  b
                         //        r  a
                         // xa, ya, fa are the values at the point a; the points p and r are stored as rowcache[j+1] and rowcache[j]. We just need to compute the point q and update the rowcache with the value at point a, and update xa, ya, fa also with b.
-                        yb := N(Eval(initvalues[2] + j*deltas[2]));
-                        fb := N(Eval(Apply([var, func], [xa, yb])));
+                        yb := NM(Eval(initvalues[2] + j*deltas[2]));
+                        fb := NM(Eval(Apply([var, func], [xa, yb])));
                         result := Concat(result, Plot3DSadaptive(func, var, [rowcache[j][1], ya, xa, yb, rowcache[j][3], rowcache[j+1][3], fa, fb], optionshash["depth"],
                                 // since we are dividing into "points" subintervals, we need to relax precision
                                 optionshash["precision"] * optionshash["xpoints"] * optionshash["ypoints"], optionshash ));
@@ -251,15 +251,15 @@ Plot3DSgetdata(_func, _var, _initvalues, _deltas, _optionshash) <--
         // if we are here, it means we used one more recursion level
         optionshash["used depth"] := depth-1;
         // bisection
-        x3 := N(Eval((x1+x2)/2));
-        y3 := N(Eval((y1+y2)/2));
+        x3 := NM(Eval((x1+x2)/2));
+        y3 := NM(Eval((y1+y2)/2));
         // compute new values
         // use the confusing Map semantics: the list of all x's separately from the list of all y's
-        f13 := N(Eval(Apply([var, func], [x1, y3])));
-        f31 := N(Eval(Apply([var, func], [x3, y1])));
-        f33 := N(Eval(Apply([var, func], [x3, y3])));
-        f32 := N(Eval(Apply([var, func], [x3, y2])));
-        f23 := N(Eval(Apply([var, func], [x2, y3])));
+        f13 := NM(Eval(Apply([var, func], [x1, y3])));
+        f31 := NM(Eval(Apply([var, func], [x3, y1])));
+        f33 := NM(Eval(Apply([var, func], [x3, y3])));
+        f32 := NM(Eval(Apply([var, func], [x3, y2])));
+        f23 := NM(Eval(Apply([var, func], [x2, y3])));
         result := [[x1,y3,f13], [x3, y1, f31], [x3, y3, f33], [x3, y2, f32], [x2, y3, f23]];
 /*
 y2        12  32  22
@@ -275,8 +275,8 @@ y1        11  31  21
                 signchange(f11,f13,f12) + signchange(f13,f12,f32) + signchange(f12,f32,f22) <=? 2 And? signchange(f22,f23,f21) + signchange(f23,f21,f31) + signchange(f21,f31,f11) <=? 2 And? 
                 
                 // condition for the values not to change too rapidly
-                N(Eval(Abs( (f11-f23)/2-(f12-f21)/3+(f22-f13)/6+2*(f32-f33)/3 )))
-                        <=? N(Eval( epsilon*(        // the expression here will be nonnegative because we subtract the minimum value
+                NM(Eval(Abs( (f11-f23)/2-(f12-f21)/3+(f22-f13)/6+2*(f32-f33)/3 )))
+                        <=? NM(Eval( epsilon*(        // the expression here will be nonnegative because we subtract the minimum value
                         // cubature normalized to 1
                 (f11 + f12 + f21 + f22)/12 + 2*f33/3
                 - Minimum([f11, f12, f21, f22, f13, f31, f33, f32, f23]) ) ) )
@@ -336,7 +336,7 @@ Output can be directed to a plotting program (the default is to use
 
 The function parameter {f(x,y)} must evaluate to a MathPiper expression containing
 at most two variables. (The variables do not have to be called {x} and {y}.)
-Also, {N(f(x,y))} must evaluate to a real (not complex) numerical value when given numerical values of the arguments {x}, {y}.
+Also, {NM(f(x,y))} must evaluate to a real (not complex) numerical value when given numerical values of the arguments {x}, {y}.
 If the function {f(x,y)} does not satisfy these requirements, an error is raised.
 
 Several functions may be specified as a list but they have to depend on the same symbolic variables, for example, {[f(x,y), g(y,x)]}, but not {[f(x,y), g(a,b)]}.

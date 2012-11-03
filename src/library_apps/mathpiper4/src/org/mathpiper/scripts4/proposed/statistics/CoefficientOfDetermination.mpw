@@ -8,7 +8,7 @@ CoefficientOfDetermination(x,y) :=
     
     Check(Length(x) =? Length(y), "Argument", "The lists for argument 1 and argument 2 must have the same length.");
     
-    N(CorrelationCoefficient(x,y)^2);
+    NM(CorrelationCoefficient(x,y)^2);
 };
 
 %/mathpiper

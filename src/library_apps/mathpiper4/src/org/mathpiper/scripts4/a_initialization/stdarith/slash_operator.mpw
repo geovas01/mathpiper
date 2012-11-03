@@ -49,7 +49,7 @@
 
 60 # (x_Decimal? / y_Number?)  <-- DivideN(x,y);
 60 # (x_Number?  / y_Decimal?) <-- DivideN(x,y); 
-60 # (x_Number?  / y_Number?)_(InNumericMode()) <-- DivideN(x,y);
+60 # (x_Number?  / y_Number?)_(NumericMode?()) <-- DivideN(x,y);
 
 
 90 # x_Infinity? / y_Infinity? <-- Undefined;

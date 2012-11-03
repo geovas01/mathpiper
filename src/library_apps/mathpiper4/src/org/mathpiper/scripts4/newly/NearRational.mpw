@@ -16,15 +16,15 @@
         Local(x1, x2, i,  oldprec);
         oldprec := BuiltinPrecisionGet();
     BuiltinPrecisionSet(prec + 8);        // 8 guard digits (?)
-        x1 := ContFracList(N(Eval(x+10^(-prec))));
-        x2 := ContFracList(N(Eval(x-10^(-prec))));
+        x1 := ContFracList(NM(Eval(x+10^(-prec))));
+        x2 := ContFracList(NM(Eval(x-10^(-prec))));
 
     /*
     Decide(InVerboseMode(),
       [
-         Echo("NearRational: x      = ", N(Eval(x           ))));
-         Echo("NearRational: xplus  = ", N(Eval(x+10^(-prec)))));
-         Echo("NearRational: xmin   = ", N(Eval(x-10^(-prec)))));
+         Echo("NearRational: x      = ", NM(Eval(x           ))));
+         Echo("NearRational: xplus  = ", NM(Eval(x+10^(-prec)))));
+         Echo("NearRational: xmin   = ", NM(Eval(x-10^(-prec)))));
          Echo("NearRational: Length(x1) = ", Length(x1)," ",x1));
          Echo("NearRational: Length(x2) = ", Length(x2)," ",x1));
       ]
@@ -117,7 +117,7 @@ precision.
 *E.G.
 
 Start with a rational number and obtain a floating-point approximation:
-In> x:=N(956/1013)
+In> x:=NM(956/1013)
 Result: 0.9437314906
 In> Rationalize(x)
 Result: 4718657453/5000000000;

@@ -1,7 +1,7 @@
 %mathpiper,def="SinNum"
 
 /// low-level numerical calculations of elementary functions.
-/// These are only called if InNumericMode() returns True
+/// These are only called if NumericMode?() returns True
 
 SinNum(x) :=
 {

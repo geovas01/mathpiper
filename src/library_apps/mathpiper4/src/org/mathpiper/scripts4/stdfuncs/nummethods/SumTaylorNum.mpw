@@ -44,7 +44,7 @@ Decide(
 1# SumTaylorNum0(_x, _nthtermfunc, [], _nterms) <--
 {
         Local(sum, k);
-  N({
+  NM({
     // use Horner scheme starting from the last term
     x:=Eval(x);
     sum := 0;
@@ -59,7 +59,7 @@ Decide(
 2# SumTaylorNum0(_x, _nthtermfunc, _nexttermfactor, _nterms) <--
 {
         Local(sum, k, term, delta);
-  N({
+  NM({
     x:=Eval(x);        // x must be floating-point
     Decide(Constant?(nthtermfunc),
       term := nthtermfunc,
@@ -67,7 +67,7 @@ Decide(
     );
     sum := term;        // sum must be floating-point
   });
-  NonN({
+  NonNM({
     delta := 1;
     For(k:=1, k<=?nterms And? delta !=? 0, k++)
     {
@@ -95,7 +95,7 @@ SumTaylorNum1(x, nthtermfunc, nexttermfactor, nterms) :=
 {
         // need Sqrt(nterms/2) units of storage (rows) and Sqrt(nterms*2) columns. Let's underestimate the storage.
         Local(sum, rows, cols, rowstmp, lastpower, i, j, xpower, termtmp);
-  N({ // want to keep exact fractions
+  NM({ // want to keep exact fractions
     x:=Eval(x);        // x must be floating-point
     rows := IntNthRoot(nterms+1, 2);
     cols := Quotient(nterms+rows, rows);        // now: rows*cols >=? nterms+1
@@ -116,7 +116,7 @@ SumTaylorNum1(x, nthtermfunc, nexttermfactor, nterms) :=
       )
     );
   });
-  NonN({ // want to keep exact fractions below
+  NonNM({ // want to keep exact fractions below
     // do horizontal summation using termtmp to get the first element
     For(i:=0, i<?cols, i++)
     {
@@ -223,7 +223,7 @@ In> SumTaylorNum(1, 1, [[k],1/k], 21)
 Result: 2.71828182845904523535;
 In> SumTaylorNum(1, [[k],1/k!], [[k],1/k], 21)
 Result: 2.71828182845904523535;
-In> RoundTo(N(Ln(%)),20)
+In> RoundTo(NM(Ln(%)),20)
 Result: 1;
 
 

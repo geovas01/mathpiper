@@ -1,6 +1,6 @@
 %mathpiper,def="Exp"
 
-2 # Exp(x_Number?)_InNumericMode() <-- ExpNum(x);
+2 # Exp(x_Number?)_NumericMode?() <-- ExpNum(x);
 4 # Exp(Ln(_x))           <-- x;
 110 # Exp(Complex(_r,_i)) <--  Exp(r)*(Cos(i) + I*Sin(i));
 200 # Exp(0) <-- 1;
@@ -39,7 +39,7 @@ In> Exp(0)
 Result: 1;
 In> Exp(I*Pi)
 Result: -1;
-In> N(Exp(1))
+In> NM(Exp(1))
 Result: 2.7182818284;
 
 *SEE Ln, Sin, Cos, Tan, N

@@ -8,15 +8,15 @@
 10 # Floor(x_RationalOrNumber?)
    <--
    {
-     x:=N(Eval(x));
+     x:=NM(Eval(x));
 //Echo("x = ",x);
      Local(prec,result,n);
      Assign(prec,BuiltinPrecisionGet());
      Decide(Zero?(x),
        Assign(n,2),
        Decide(x>?0,
-         Assign(n,2+FloorN(N(FastLog(x)/FastLog(10)))),
-         Assign(n,2+FloorN(N(FastLog(-x)/FastLog(10))))
+         Assign(n,2+FloorN(NM(FastLog(x)/FastLog(10)))),
+         Assign(n,2+FloorN(NM(FastLog(-x)/FastLog(10))))
        ));
      Decide(n>?prec,BuiltinPrecisionSet(n));
 //Echo("Before");
@@ -26,7 +26,7 @@
      result;
    };
 
-//     FloorN(N(x));
+//     FloorN(NM(x));
 
 
 //todo:tk:should this be removed because it is no longer needed?
@@ -35,9 +35,9 @@
 10 # Ceil (x_Number?) <-- CeilN (x);
 10 # Round(x_Number?) <-- FloorN(x+0.5);
 
-20 # Floor(x_Rational?) _ (Number?(Numerator(x)) And? Number?(Denominator(x))) <-- FloorN(N(x));
-20 # Ceil (x_Rational?) _ (Number?(Numerator(x)) And? Number?(Denominator(x))) <-- CeilN (N(x));
-20 # Round(x_Rational?) _ (Number?(Numerator(x)) And? Number?(Denominator(x))) <-- FloorN(N(x+0.5));
+20 # Floor(x_Rational?) _ (Number?(Numerator(x)) And? Number?(Denominator(x))) <-- FloorN(NM(x));
+20 # Ceil (x_Rational?) _ (Number?(Numerator(x)) And? Number?(Denominator(x))) <-- CeilN (NM(x));
+20 # Round(x_Rational?) _ (Number?(Numerator(x)) And? Number?(Denominator(x))) <-- FloorN(NM(x+0.5));
 */
 
 %/mathpiper

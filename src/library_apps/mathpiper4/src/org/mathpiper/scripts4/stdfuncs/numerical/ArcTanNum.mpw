@@ -1,7 +1,7 @@
 %mathpiper,def="ArcTanNum"
 
 /// low-level numerical calculations of elementary functions.
-/// These are only called if InNumericMode() returns True
+/// These are only called if NumericMode?() returns True
 
 ArcTanNum(x) :=
 {
@@ -19,7 +19,7 @@ ArcTanNum(x) :=
 
 /* old methods -- slower for now
 /// numerical evaluation of ArcTan using continued fractions: top level
-2 # ArcTan(x_Number?)_InNumericMode() <--
+2 # ArcTan(x_Number?)_NumericMode?() <--
 Sign(x) *
 // now we need to compute ArcTan of a nonnegative number Abs(x)
 [
@@ -36,9 +36,9 @@ Sign(x) *
         // find the required number of terms in the continued fraction
         nterms := 1/y;        // this needs to be calculated at full precision
         // see essays book on the choice of the number of terms (added 2 "guard terms").
-        // we need Hold() because otherwise, if InNumericMode() returns True, N(..., 5) will not avoid the full precision calculation of Ln().
+        // we need Hold() because otherwise, if NumericMode?() returns True, NM(..., 5) will not avoid the full precision calculation of Ln().
         // the value of x should not be greater than 1 here!
-        nterms := 2 + Ceil( N(Hold(Ln(10)/(Ln(4)+2*Ln(nterms))), 5) * BuiltinPrecisionGet() );
+        nterms := 2 + Ceil( NM(Hold(Ln(10)/(Ln(4)+2*Ln(nterms))), 5) * BuiltinPrecisionGet() );
         Decide(        // call the actual routine
                 Abs(x)>?1,
                 Pi/2-2*MyArcTan(y, nterms),        // this is for |x|>1

@@ -49,32 +49,32 @@ AnovaSingleFactor(levelsList, alpha) :=
     
     ForEach(levelList, levelsList)
     {
-        meansList := meansList ~ N(Mean(levelList));
+        meansList := meansList ~ NM(Mean(levelList));
         
-        variancesList := variancesList ~ N(UnbiasedVariance(levelList));
+        variancesList := variancesList ~ NM(UnbiasedVariance(levelList));
         
-        sumsList := sumsList ~ N(Sum(levelList));
+        sumsList := sumsList ~ NM(Sum(levelList));
 
         lengthsList := lengthsList ~ Length(levelList);
     };
     
     sumOfSquaresWithin := Sum((lengthsList - 1) * variancesList);
 
-    grandMean := N(Mean(Flatten(levelsList, "List")));
+    grandMean := NM(Mean(Flatten(levelsList, "List")));
     
     sumOfSquaresBetween := Sum(lengthsList*(meansList - grandMean)^2);
     
-    sumOfSquaresTotal := N(sumOfSquaresWithin + sumOfSquaresBetween);
+    sumOfSquaresTotal := NM(sumOfSquaresWithin + sumOfSquaresBetween);
     
     degreesOfFreedomBetween := (Length(levelsList)-1);
     
     degreesOfFreedomWithin := (ElementCount(levelsList) - Length(levelsList));
     
-    meanSquareBetween := N(sumOfSquaresBetween/degreesOfFreedomBetween);
+    meanSquareBetween := NM(sumOfSquaresBetween/degreesOfFreedomBetween);
     
-    meanSquareWithin := N(sumOfSquaresWithin/degreesOfFreedomWithin);
+    meanSquareWithin := NM(sumOfSquaresWithin/degreesOfFreedomWithin);
     
-    fScore := N(meanSquareBetween/meanSquareWithin);
+    fScore := NM(meanSquareBetween/meanSquareWithin);
     
     criticalFScore := ProbabilityToFScore(degreesOfFreedomBetween, degreesOfFreedomWithin, 1-alpha);
     

@@ -70,7 +70,7 @@ samples := [
 471,458,445,463,423,451,440,442,441,439
 ];
 
-N(Quartile(samples));
+NM(Quartile(samples));
 
 /%/mathpiper
 

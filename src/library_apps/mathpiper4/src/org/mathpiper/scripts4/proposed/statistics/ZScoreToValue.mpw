@@ -32,7 +32,7 @@ ZScoreToValue(zScore, mean, standardDeviation) :=
 This function calculates the numerical value for a given z-score.
 
 *E.G.
-In> N(ZScoreToValue(1,5,1))
+In> NM(ZScoreToValue(1,5,1))
 Result: 6
 
 *SEE ValueToZScore,ZScoreToProbability,ProbabilityToZScore,ConfidenceLevelToZScore

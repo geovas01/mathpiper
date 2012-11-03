@@ -48,7 +48,7 @@ ScheffeTest(levelsList, alpha) :=
     
     ForEach(levelList,levelsList)
     {
-        meansList := meansList ~ N(Mean(levelList));
+        meansList := meansList ~ NM(Mean(levelList));
     
         countsList := countsList ~ Length(levelList);
     };
@@ -170,7 +170,7 @@ ScheffeTest(levelsList, alpha) :=
 
 ScheffeStatistic(xBarA,nA,xBarB,nB,ssw,k,countsList) :=
 {
-    N(((xBarA-xBarB)^2)/((ssw/Sum(i,1,k,(countsList[i] - 1))*(1/nA + 1/nB))));   
+    NM(((xBarA-xBarB)^2)/((ssw/Sum(i,1,k,(countsList[i] - 1))*(1/nA + 1/nB))));   
 };
 
 %/mathpiper

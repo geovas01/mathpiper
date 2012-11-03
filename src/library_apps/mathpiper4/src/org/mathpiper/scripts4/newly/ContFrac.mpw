@@ -57,7 +57,7 @@ calculated using a continued fraction expansion.
 
 *E.G.
 
-In> PrettyForm(ContFrac(N(Pi)))
+In> PrettyForm(ContFrac(NM(Pi)))
         
                      1
         --------------------------- + 3

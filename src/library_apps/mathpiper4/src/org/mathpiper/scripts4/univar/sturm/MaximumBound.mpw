@@ -12,7 +12,7 @@
 {
   Local(an);
   an:=Coef(p,(Degree(p)-1) .. 0)/Coef(p,Degree(p));
-  an := N(Eval(Abs(an)^(1/(1 .. Degree(p)))));
+  an := NM(Eval(Abs(an)^(1/(1 .. Degree(p)))));
   Rationalize(2*Maximum(an));
 };
 
@@ -47,7 +47,7 @@ Result: (-40000*x^2-125200*x+772520)/870489;
 In> MaximumBound(p)
 Result: 10986639613/1250000000;
 
-In> N(%)
+In> NM(%)
 Result: 8.7893116904;
 
 *SEE MinimumBound, SquareFree, RealRootsCount, FindRealRoots, Factor

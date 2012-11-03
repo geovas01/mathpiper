@@ -18,7 +18,7 @@ Given a list of constants x find coefficients sol[i] such that
       sum(sol[i]*x[i], i=1..n) = 0    (where n=Length(x))
 
     x is the list of real expressions
-          N(x[i]) must evaluate to floating point numbers!
+          NM(x[i]) must evaluate to floating point numbers!
     precision is the number of digits needed for completion;
           must be greater or equal to log10(max(sol[i]))*n
     returns the list of solutions with initial precision
@@ -38,11 +38,11 @@ Pslq(x, precision) :=
   n:=Length(x);
   ndigits:=BuiltinPrecisionGet();
   BuiltinPrecisionSet(precision+10); // 10 is chosen arbitrarily, but should always be enough. Perhaps we can optimize by lowering this number
-  Confidence:=10^(-FloorN(N(Eval(precision/3))));
+  Confidence:=10^(-FloorN(NM(Eval(precision/3))));
 //Echo("Confidence is ",Confidence);
 
-  gam:=N(Sqrt(4/3));
-  For (i:=1, i<=?n,i++) x[i]:=N(Eval(x[i]));
+  gam:=NM(Sqrt(4/3));
+  For (i:=1, i<=?n,i++) x[i]:=NM(Eval(x[i]));
 
 //Echo("1...");
 
@@ -56,7 +56,7 @@ Pslq(x, precision) :=
   For(k:=1,k<=?n,k++)
   {
     tmp:=0;
-    For (j:=k,j<=?n,j++) tmp:=tmp + N(x[j]^2);
+    For (j:=k,j<=?n,j++) tmp:=tmp + NM(x[j]^2);
 //tmp:=DivideN(tmp,1.0);
 //Echo("tmp is ",tmp);
 //MathDebugInfo(tmp);
@@ -88,7 +88,7 @@ Echo("************** s[k] = ",s[k]);
 
 //Echo("3...");
 
-  tmp:=N(Eval(s[1]));
+  tmp:=NM(Eval(s[1]));
 /*Decide(Not? Number?(tmp),
 [
 Echo("************** tmp = ",tmp);
@@ -96,8 +96,8 @@ Echo("************** tmp = ",tmp);
 
   For (k:= 1,k<=? n,k++)
   {
-    y[k]:=N(Eval(x[k]/tmp));
-    s[k]:=N(Eval(s[k]/tmp));
+    y[k]:=NM(Eval(x[k]/tmp));
+    s[k]:=NM(Eval(s[k]/tmp));
 
 //Echo("1..."," ",y[k]," ",s[k]);
 /*Decide(Not? Number?(y[k]),
@@ -116,13 +116,13 @@ Echo("************** s[k] = ",s[k]);
   For (i:=1,i<=? n,i++)
   {
 
-    If(i <=? n-1)  { H[i][i]:=N(s[i + 1]/s[i]); };
+    If(i <=? n-1)  { H[i][i]:=NM(s[i + 1]/s[i]); };
 
 //Echo("4.1...");
     For (j:= 1,j<=?i-1,j++)
     {
 //Echo("4.2...");
-      H[i][j]:= N(-(y[i]*y[j])/(s[j]*s[j + 1]));
+      H[i][j]:= NM(-(y[i]*y[j])/(s[j]*s[j + 1]));
 //Echo("4.3...");
 
 /*Decide(Not? Number?(H[i][j]),
@@ -162,14 +162,14 @@ Echo("************** H[i][j] = ",H[i][j]);
   {
     m:=1;
 //Echo("maxi 1...",maxi);
-    maxi:=N(gam*Abs(H[1][1]));
+    maxi:=NM(gam*Abs(H[1][1]));
 //Echo("maxi 2...",maxi);
     gami:=gam;
 //Echo("3...");
     For (i:= 2,i<=? n-1,i++)
     {
       gami:=gami*gam;
-      tmp:=N(gami*Abs(H[i][i]));
+      tmp:=NM(gami*Abs(H[i][i]));
       If(maxi <? tmp)
       {
         maxi:=tmp;
@@ -202,20 +202,20 @@ Echo("************** H[i][j] = ",H[i][j]);
 //Echo("7...");
     If(m <? n-1)
     {
-      t0:=N(Eval(Sqrt(H[m][ m]^2 + H[m][ m + 1]^2)));
+      t0:=NM(Eval(Sqrt(H[m][ m]^2 + H[m][ m + 1]^2)));
 
       t1:=H[m][ m]/t0;
       t2:=H[m][ m + 1]/t0;
 
-//      Decide(Zero?(t0),t0:=N(Confidence));
+//      Decide(Zero?(t0),t0:=NM(Confidence));
 //Echo("");
-//Echo("H[m][ m] = ",N(H[m][ m]));
-//Echo("H[m][ m+1] = ",N(H[m][ m+1]));
+//Echo("H[m][ m] = ",NM(H[m][ m]));
+//Echo("H[m][ m+1] = ",NM(H[m][ m+1]));
 
 //Decide(Zero?(t0),[t1:=Infinity;t2:=Infinity;]);
-//Echo("t0=",N(t0));
-//Echo("t1=",N(t1));
-//Echo("t2=",N(t2));
+//Echo("t0=",NM(t0));
+//Echo("t1=",NM(t1));
+//Echo("t2=",NM(t2));
 
       For (i:=m,i<=?n,i++)
       {
@@ -249,14 +249,14 @@ Echo("************** H[i][j] = ",H[i][j]);
         };
       };
     };
-//Echo("9...",N(H[1],10));
+//Echo("9...",NM(H[1],10));
 
     /* BuiltinPrecisionSet(10);*/ /*low precision*/
-//    maxi := N(Dot(H[1],  H[1]),10);
-    maxi := N(Dot(H[1], H[1]));
+//    maxi := NM(Dot(H[1],  H[1]),10);
+    maxi := NM(Dot(H[1], H[1]));
 //Echo("H[1] = ",H[1]);
-//Echo("N(H[1]) = ",N(H[1]));
-//Echo("N(Dot(H[1], H[1])) = ",N(Dot(H[1], H[1])));
+//Echo("NM(H[1]) = ",NM(H[1]));
+//Echo("NM(Dot(H[1], H[1])) = ",NM(Dot(H[1], H[1])));
 //Echo("maxi 4...",maxi);
 
 //Echo("9... maxi = ",maxi);
@@ -264,16 +264,16 @@ Echo("************** H[i][j] = ",H[i][j]);
     For (j:=2,j<=?n,j++)
     {
 //Echo("9.1...");
-      tmp:=N(Dot(H[j], H[j]),10);
+      tmp:=NM(Dot(H[j], H[j]),10);
 //Echo("9.2...");
       If(maxi <? tmp) { maxi:=tmp; };
 //Echo("maxi 5...",maxi);
 //Echo("9.3...");
     };
 //Echo("10...");
-    norme:=N(Eval(1/Sqrt(maxi)));
+    norme:=NM(Eval(1/Sqrt(maxi)));
     m:=1;
-    mini:=N(Eval(Abs(y[1])));
+    mini:=NM(Eval(Abs(y[1])));
 //Echo("y[1] = ",y[1]," mini = ",mini);
     maxi:=mini;
 
@@ -281,7 +281,7 @@ Echo("************** H[i][j] = ",H[i][j]);
 //Echo("11...");
     For (j:=2,j<=?n,j++)
     {
-      tmp:=N(Eval(Abs(y[j])));
+      tmp:=NM(Eval(Abs(y[j])));
       If(tmp <? mini)
       {
         mini:=tmp;

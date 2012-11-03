@@ -16,7 +16,7 @@ StandardErrorOfTheSlope(xList,yList) :=
     
     xMean := Mean(xList);
     
-    N(standardErrorOfTheEstimate/Sqrt(Sum(xList^2) - n*xMean^2));
+    NM(standardErrorOfTheEstimate/Sqrt(Sum(xList^2) - n*xMean^2));
 };
 
 %/mathpiper

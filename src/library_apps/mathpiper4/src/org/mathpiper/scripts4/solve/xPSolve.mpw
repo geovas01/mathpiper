@@ -109,7 +109,7 @@ RuleHoldArguments("xPSolve",1,1,UniVar?(uni) And? Degree(uni) =? 3 )
      a3 := -r/2 + qq;
      b3 := -r/2 - qq;
      // NOTE: If q < 0 and r = 0, then qq is pure imaginary, a3 = qq, b3 = -qq.
-     Decide( iDebug, {Tell("   ",[qq,a3,b3]); Tell("   ",N(a3+b3+r)); Tell("   ",N(a3-b3-2*qq));});
+     Decide( iDebug, {Tell("   ",[qq,a3,b3]); Tell("   ",NM(a3+b3+r)); Tell("   ",NM(a3-b3-2*qq));});
      a  := (a3)^(1/3);
      b  := (b3)^(1/3);
      Decide( iDebug, Tell("   ",[a,b]));
@@ -196,10 +196,10 @@ RuleHoldArguments("xPSolve",1,1,UniVar?(uni) And? Degree(uni) =? 4 )
     Local(r1,r2,r3,r4);
     [r1,r2] := xPSolve( quad1, z );
     [r3,r4] := xPSolve( quad2, z );
-    r1 := NearRational(N(r1,10),8);
-    r2 := NearRational(N(r2,10),8);
-    r3 := NearRational(N(r3,10),8);
-    r4 := NearRational(N(r4,10),8);
+    r1 := NearRational(NM(r1,10),8);
+    r2 := NearRational(NM(r2,10),8);
+    r3 := NearRational(NM(r3,10),8);
+    r4 := NearRational(NM(r4,10),8);
     
     [r1,r2,r3,r4];
 };
@@ -276,9 +276,9 @@ UnFence("xPSolveCubic",1);
     Local(f,g,h,j,m,r1,r2,r3,ans);
     [f,g,h,j] := FlatCopy(xs);
     m   := 2*(-h)^(1/3);
-    r1  := NearRational(N(m - f,10),8);
-    r2  := NearRational(N(-m/2 - f,10),8);
-    r3  := NearRational(N(-m/2 - f,10),8);
+    r1  := NearRational(NM(m - f,10),8);
+    r2  := NearRational(NM(-m/2 - f,10),8);
+    r3  := NearRational(NM(-m/2 - f,10),8);
     ans := [r1,r2,r3];
 };
 
@@ -292,9 +292,9 @@ UnFence("xPSolveCubic",1);
     l2  := (-h - k)^(1/3);
     m   := l1 + l2;
     n   := (l1 - l2)*Sqrt(3)/2;
-    r1  := NearRational(N(m - f,10),8);
-    r2  := NearRational(N(-m/2 - f + I*n,10),8);
-    r3  := NearRational(N(Conjugate(r2),10),8);
+    r1  := NearRational(NM(m - f,10),8);
+    r2  := NearRational(NM(-m/2 - f + I*n,10),8);
+    r3  := NearRational(NM(Conjugate(r2),10),8);
     ans := [r1,r2,r3];
     
 };
@@ -305,9 +305,9 @@ UnFence("xPSolveCubic",1);
     Local(f,g,h,j,p,r1,r2,r3,ans);
     [f,g,h,j] := FlatCopy(xs);
     p   := 2*Sqrt(-g);
-    r1  := NearRational(N(-f,10),8);
-    r2  := NearRational(N( p*Sqrt(3)/2 - f,10),8);
-    r3  := NearRational(N(-p*Sqrt(3)/2 - f,10),8);
+    r1  := NearRational(NM(-f,10),8);
+    r2  := NearRational(NM( p*Sqrt(3)/2 - f,10),8);
+    r3  := NearRational(NM(-p*Sqrt(3)/2 - f,10),8);
     ans := [r1,r2,r3];
 };
 
@@ -325,13 +325,13 @@ UnFence("xPSolveCubic",1);
       {
          Tell("          ",[p,k]);
          Tell("          ",[alpha,beta,gama]);
-         Tell("          ",57.2957795*N([alpha,beta,gama]));
-         Tell("          ",N(Cos(gama)));
+         Tell("          ",57.2957795*NM([alpha,beta,gama]));
+         Tell("          ",NM(Cos(gama)));
       }
     );
-    r1    := NearRational(N(p * Cos(gama) - f,10),8);
-    r2    := NearRational(N(p * Cos(gama+2*Pi/3) - f,10),8);
-    r3    := NearRational(N(p * Cos(gama+4*Pi/3) - f,10),8);
+    r1    := NearRational(NM(p * Cos(gama) - f,10),8);
+    r2    := NearRational(NM(p * Cos(gama+2*Pi/3) - f,10),8);
+    r3    := NearRational(NM(p * Cos(gama+4*Pi/3) - f,10),8);
     ans   := [r1,r2,r3];
 };
 
@@ -346,9 +346,9 @@ UnFence("xPSolveCubic",1);
     beta  := alpha;
     gama  := beta / 3;
     Decide(iDebug,{Tell("          ",[p,k]); Tell("          ",[alpha,beta,gama]);});
-    r1    := NearRational(N(p * Cos(gama) - f,10),8);
-    r2    := NearRational(N(p * Cos(gama+2*Pi/3) - f,10),8);
-    r3    := NearRational(N(p * Cos(gama+4*Pi/3) - f,10),8);
+    r1    := NearRational(NM(p * Cos(gama) - f,10),8);
+    r2    := NearRational(NM(p * Cos(gama+2*Pi/3) - f,10),8);
+    r3    := NearRational(NM(p * Cos(gama+4*Pi/3) - f,10),8);
     ans   := [r1,r2,r3];
 };
 

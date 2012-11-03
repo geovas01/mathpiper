@@ -16,22 +16,22 @@
 
 
 // Forward recursion, works great, but really slow when n << x
-30 # BesselJ(_n,_x)_(Constant?(x) And? Integer?(n) And? N(Abs(x) >? 2*Gamma(n))) <-- N((2*(n+1)/x)*BesselJ(n+1,x) - BesselJ(n+2,x));
+30 # BesselJ(_n,_x)_(Constant?(x) And? Integer?(n) And? NM(Abs(x) >? 2*Gamma(n))) <-- NM((2*(n+1)/x)*BesselJ(n+1,x) - BesselJ(n+2,x));
 
 30 # BesselJ(_n,_z)_(n<?0 And? Integer?(n) ) <-- (-1)^n*BesselJ(-n,z);
 
-// When I put "And? InNumericMode()" on the next rule, I lose precision. Why ?
+// When I put "And? NumericMode?()" on the next rule, I lose precision. Why ?
 // Also, if I move the the "_Complex?" to the end with "Complex?(x)"
 // I lose precision.
 
-//40 # BesselJ(_n,x_Complex?)_(Abs(x)<=? 2*Gamma(n) )  <-- N(BesselNsmall(n,x,0));
+//40 # BesselJ(_n,x_Complex?)_(Abs(x)<=? 2*Gamma(n) )  <-- NM(BesselNsmall(n,x,0));
 
-40 # BesselJ(_n,x_Complex?)_(N(Abs(x)<=? 2*Gamma(n)) )  <--
+40 # BesselJ(_n,x_Complex?)_(NM(Abs(x)<=? 2*Gamma(n)) )  <--
 {
 ApproxInfSum((-1)^k*(x/2)^(2*k+c[1])/(k! * Gamma(k+c[1]+1) ),0,x,[n] );
 };
 
-50 # BesselJ(0,x_Complex?)_(InNumericMode()) <-- N(BesselJN0(x));
+50 # BesselJ(0,x_Complex?)_(NumericMode?()) <-- NM(BesselJN0(x));
 
 //50 # BesselJ(_n_PositiveNumber?,_z_Complex?) <-- BesselJN(n,z);
 

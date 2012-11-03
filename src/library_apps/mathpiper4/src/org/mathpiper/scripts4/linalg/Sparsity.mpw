@@ -10,7 +10,7 @@ Function("Sparsity",[matrix])
                 ForEach(j, 1 .. cols )
                         Decide(matrix[i][j] !=? 0, nonzero:=nonzero+1 );
 
-        N(1 - nonzero/(rows*cols));
+        NM(1 - nonzero/(rows*cols));
 };
 
 %/mathpiper

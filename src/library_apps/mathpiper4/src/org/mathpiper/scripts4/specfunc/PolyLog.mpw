@@ -23,7 +23,7 @@
 10 # PolyLog(3,1/2)                <-- (4*Ln(2)^3 - 2*Pi^2*Ln(2)+21*Zeta(3))/24;
 10 # PolyLog(2,2)                <-- Pi^2/4 - Pi*I*Ln(2);
 
-20 # PolyLog(_n,_x)_(InNumericMode() And?  x <? -1 )  <-- {
+20 # PolyLog(_n,_x)_(NumericMode?() And?  x <? -1 )  <-- {
         Local(prec,result);
         prec:=BuiltinPrecisionGet();
         BuiltinPrecisionSet(prec+5);
@@ -32,9 +32,9 @@
         Sum(r,1,Round(n/2),
                 2^(2*r-2)*Pi^(2*r)*Abs(Bernoulli(2*r))*Ln(-x)^(n-2*r)/( (2*r)! * (n - 2*r)! ) );
         BuiltinPrecisionSet(prec);
-        RoundTo(N(result),prec);
+        RoundTo(NM(result),prec);
 };
-20 # PolyLog(_n,_x)_(InNumericMode() And? x>=? -1 And? x <? 0 ) <-- {
+20 # PolyLog(_n,_x)_(NumericMode?() And? x>=? -1 And? x <? 0 ) <-- {
         // this makes the domain [-1,0) into [0,1],
         // so if the summation representation is used, it is monotone
         Local(prec,result);
@@ -43,11 +43,11 @@
 
         result:=PolyLog(n,x^2)/2^(n-1) - PolyLog(n,-x) ;
         BuiltinPrecisionSet(prec);
-        RoundTo(N(result),prec);
+        RoundTo(NM(result),prec);
 
 };
 /* this is very slow at high precision
-20 # PolyLog(_n,_x)_(InNumericMode() And? x >? 0 And? x <=? 1) <-- [
+20 # PolyLog(_n,_x)_(NumericMode?() And? x >? 0 And? x <=? 1) <-- [
         Local(result,prec,term,k,eps);
         prec:=BuiltinPrecisionGet();
   BuiltinPrecisionSet(prec+5);
@@ -55,12 +55,12 @@
         result:=0;
         // Sorry Serge, I was only getting 2 digits of precision with this
                 // so why didnt you ask me? :) -- Serge
-        //terms:=Floor(10 + N(prec*Ln(10)/Ln(prec) - 1));
-        //BuiltinPrecisionSet( prec + Floor(N(Ln(6*terms)/Ln(10))) );
+        //terms:=Floor(10 + NM(prec*Ln(10)/Ln(prec) - 1));
+        //BuiltinPrecisionSet( prec + Floor(NM(Ln(6*terms)/Ln(10))) );
         //result:=SumTaylorNum(x, [[k], x^(k+1)/(k+1)^n ], terms );
         term:=1;
         For(k:=1,Abs(term)>?eps,k++)[
-                term:=N(x^k/k^n);
+                term:=NM(x^k/k^n);
                 result:=result+term;
         ];
         BuiltinPrecisionSet(prec);
@@ -68,7 +68,7 @@
 ];
 */
 
-20 # PolyLog(_n,_x)_(InNumericMode() And? x >? 0 And? x <? 1) <--
+20 # PolyLog(_n,_x)_(NumericMode?() And? x >? 0 And? x <? 1) <--
 {        // use Taylor series x^(k+1)/(k+1)^n, converges for -1<x<1
         Local(prec, result, terms);
         prec:=BuiltinPrecisionGet();

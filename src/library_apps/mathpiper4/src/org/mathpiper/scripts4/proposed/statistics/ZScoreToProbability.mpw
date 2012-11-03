@@ -30,7 +30,7 @@
 
 ZScoreToProbability(zScore) :=
 {
-    zScore := N(zScore);
+    zScore := NM(zScore);
     
     Local( y, x, w, ZMAX, result);
     

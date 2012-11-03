@@ -17,12 +17,12 @@
 
 
 
-2 # Cos(x_Number?)_InNumericMode() <-- CosNum(x);
+2 # Cos(x_Number?)_NumericMode?() <-- CosNum(x);
 4 # Cos(ArcCos(_x))           <-- x;
 4 # Cos(ArcSin(_x)) <-- Sqrt(1-x^2);
 4 # Cos(ArcTan(_x)) <-- 1/Sqrt(1+x^2);
 5 # Cos(- _x)_(Not? Constant?(x))                 <-- Cos(x);
-6 # (Cos(x_Constant?))_(NegativeNumber?(N(Eval(x))))   <-- Cos(-x);
+6 # (Cos(x_Constant?))_(NegativeNumber?(NM(Eval(x))))   <-- Cos(-x);
 // must prevent it from looping
 
 110 # Cos(Complex(_r,_i)) <--
@@ -31,13 +31,13 @@
 6 # Cos(x_Infinity?) <-- Undefined;
 6 # Cos(Undefined) <-- Undefined;
 
-200 # Cos(v_CanBeUni(Pi))_(Not?(InNumericMode()) And? Degree(v,Pi) <? 2 And? Coef(v,Pi,0) =? 0) <--
+200 # Cos(v_CanBeUni(Pi))_(Not?(NumericMode?()) And? Degree(v,Pi) <? 2 And? Coef(v,Pi,0) =? 0) <--
       CosMap(Coef(v,Pi,1));
 
 400 # Cos(x_RationalOrNumber?) <--
     {
      Local(ll);
-     ll:= FloorN(N(Eval(x/Pi)));
+     ll:= FloorN(NM(Eval(x/Pi)));
      Decide(Even?(ll),x:=(x - Pi*ll),x:=(-x + Pi*(ll+1)));
      ListToFunction([Cos,x]);
      };
@@ -45,7 +45,7 @@
 400 # Cos(x_RationalOrNumber?) <--
     {
      Local(ll);
-     ll:= FloorN(N(Eval(Abs(x)/Pi)));
+     ll:= FloorN(NM(Eval(Abs(x)/Pi)));
      Decide(Even?(ll),x:=(Abs(x) - Pi*ll),x:=(-Abs(x) + Pi*(ll+1)));
      ListToFunction([Cos,x]);
      };
@@ -88,12 +88,12 @@ list, the function is applied to all entries in the list.
 
 In> Cos(1)
 Result: Cos(1);
-In> N(Cos(1),20)
+In> NM(Cos(1),20)
 Result: 0.5403023058681397174;
 In> Cos(Pi/4)
 Result: Sqrt(1/2);
 
-*SEE Sin, Tan, ArcSin, ArcCos, ArcTan, N, Pi
+*SEE Sin, Tan, ArcSin, ArcCos, ArcTan, NM, Pi
 %/mathpiper_docs
 
 
@@ -103,8 +103,8 @@ Result: Sqrt(1/2);
 Verify(Cos(0),1);
 Verify(Cos(2*Pi), 1);
 Verify(Cos(4*Pi), 1);
-Verify(N(Cos(Pi/6)), N(Sqrt(3/4)));
-NumericEqual(N(Cos(Pi/2),BuiltinPrecisionGet()+1), 0,BuiltinPrecisionGet());
+Verify(NM(Cos(Pi/6)), NM(Sqrt(3/4)));
+NumericEqual(NM(Cos(Pi/2),BuiltinPrecisionGet()+1), 0,BuiltinPrecisionGet());
 
 %/mathpiper
 

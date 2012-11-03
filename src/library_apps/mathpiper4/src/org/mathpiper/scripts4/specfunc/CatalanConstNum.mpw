@@ -14,9 +14,9 @@ CatalanConstNum1() :=
   prec:=BuiltinPrecisionGet();
         BuiltinPrecisionSet(10);
         // estimate the number of terms from above
-        nterms := 1+Floor(N((prec*Ln(10)+Ln(prec*Ln(10)/Ln(2)))/Ln(2)));
+        nterms := 1+Floor(NM((prec*Ln(10)+Ln(prec*Ln(10)/Ln(2)))/Ln(2)));
   BuiltinPrecisionSet(prec+5);
-        Aterm:=N(1/2);
+        Aterm:=NM(1/2);
   result:= Aterm;
   Bterm:=Aterm;
   For(n:=1, n<=?nterms, n++ )
@@ -46,17 +46,17 @@ CatalanConstNum() :=
         n := 1+Quotient(prec*1068+642,643); // prec*Ln(10)/Ln(4)
         BuiltinPrecisionSet(prec+2);        // 2 guard digits
 
-        result := N(1/(2*n+1));
+        result := NM(1/(2*n+1));
         While(n>?0)
         {
 /*
-                result := MultiplyNum(result, n/(4*n+2))+N(1/(2*n-1));
+                result := MultiplyNum(result, n/(4*n+2))+NM(1/(2*n-1));
 /* this is faster: */
                 result := DivideN(MultiplyN(result, n), 4*n+2)+DivideN(1,2*n-1);
 /**/
                 n := n-1;
         };
-        result := MultiplyNum(result, 3/8) + N(Pi/8*Ln(2+Sqrt(3)));
+        result := MultiplyNum(result, 3/8) + NM(Pi/8*Ln(2+Sqrt(3)));
         BuiltinPrecisionSet(prec);
         RoundTo(result,prec);
 };
@@ -77,7 +77,7 @@ CatalanConstNum2() :=
         result1 := 0;
         While(n>=?0)
         {
-                result1 := DivideN(result1, 16)+N(
+                result1 := DivideN(result1, 16)+NM(
                         +1/(8*n+1)^2 -1/(8*n+2)^2 +1/2/(8*n+3)^2 -1/4/(8*n+5)^2 +1/4/(8*n+6)^2 -1/8/(8*n+7)^2
                 );
                 n := n-1;
@@ -91,7 +91,7 @@ CatalanConstNum2() :=
         result2 := 0;
         While(n>=?0)
         {
-                result2 := DivideN(result2, 4096)+N(
+                result2 := DivideN(result2, 4096)+NM(
                         +1/(8*n+1)^2 +1/2/(8*n+2)^2 +1/8/(8*n+3)^2 -1/64/(8*n+5)^2 -1/128/(8*n+6)^2 -1/512/(8*n+7)^2
                 );
                 n := n-1;

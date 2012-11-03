@@ -42,7 +42,7 @@ FindRealRoots(_p,_Mmin,_Mmax) <--
         Decide(iDebug,Tell(i));
         Local(a,b,c,r);
         [a,b] := bounds[i];
-        c:=N(Eval((a+b)/2));
+        c:=NM(Eval((a+b)/2));
         Decide(iDebug,Tell("         ",[a,b,c]));
         r := Fail;
         Decide(iDebug,Tell("         newt1",`Hold(Newton(@p,x,@c,@prec,@a,@b))));
@@ -70,7 +70,7 @@ FindRealRoots(_p,_Mmin,_Mmax) <--
              };
              r:=c;
           };
-        result[i] := N(Eval((r/10)*(10)),requiredPrec);
+        result[i] := NM(Eval((r/10)*(10)),requiredPrec);
     };
     BuiltinPrecisionSet(requiredPrec);
     result;

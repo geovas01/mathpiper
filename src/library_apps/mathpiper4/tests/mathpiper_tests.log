@@ -1,5 +1,5 @@
-Sun Sep 16 05:01:20 EDT 2012.
-MathPiper version: js:mp4:.093.
+Sat Nov 03 03:53:05 EDT 2012.
+MathPiper version: js:mp4:.095.
 Running all tests except the following: Solve,PSolve.
 Beginning of tests:
 
@@ -683,7 +683,7 @@ Testing numerics in file </org/mathpiper/scripts4/a_initialization/miscellaneous
 
 --Gamma function
 
-Known failure: NumericEqual(RoundToPrecision(N(InternalGammaNum(-11.5)),20),0.00000002295758104824,20) 
+Known failure: NumericEqual(RoundToPrecision(NM(InternalGammaNum(-11.5)),20),0.00000002295758104824,20) 
 ******************
 File: /org/mathpiper/scripts4/a_initialization/miscellaneous/numerics_tests.mpw, Line: 206 
 
@@ -694,7 +694,7 @@ newrepL[1]-newrepR[1]
 0
 ******************
 
-Known failure: NumericEqual(RoundToPrecision(N(InternalGammaNum(-12.5)),20),-0.00000000183660648386,20) 
+Known failure: NumericEqual(RoundToPrecision(NM(InternalGammaNum(-12.5)),20),-0.00000000183660648386,20) 
 ******************
 File: /org/mathpiper/scripts4/a_initialization/miscellaneous/numerics_tests.mpw, Line: 211 
 
@@ -707,7 +707,7 @@ newrepL[1]-newrepR[1]
 
 --Zeta function
 
-Known failure: NumericEqual(RoundToPrecision(N(Zeta(-11.5)),18),0.020396978715942792,18) 
+Known failure: NumericEqual(RoundToPrecision(NM(Zeta(-11.5)),18),0.020396978715942792,18) 
 ******************
 File: /org/mathpiper/scripts4/a_initialization/miscellaneous/numerics_tests.mpw, Line: 221 
 
@@ -919,4 +919,4 @@ GlobalVariables: Result: True
 Side Effects:
 [] 
 
-Elapsed Time: 1:44
+Elapsed Time: 1:46

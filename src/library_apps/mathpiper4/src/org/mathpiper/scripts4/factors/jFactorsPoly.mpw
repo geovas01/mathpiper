@@ -367,10 +367,10 @@ UnFence("RationalToIntegerConvert",1);
     A     := Abs(dis[3][1]);
     B     := Abs(dis[3][2]);
     s     := Sign(dis[3][1]*dis[3][2]);
-    //Ar    := NearRational(N(A^(1/n)));
-    //Br    := NearRational(N(B^(1/n)));
-    Ar    := N(A^(1/n));    Arr := Round(Ar);   DAr := Abs(Ar-Arr);
-    Br    := N(B^(1/n));    Brr := Round(Br);   DBr := Abs(Br-Brr);
+    //Ar    := NearRational(NM(A^(1/n)));
+    //Br    := NearRational(NM(B^(1/n)));
+    Ar    := NM(A^(1/n));    Arr := Round(Ar);   DAr := Abs(Ar-Arr);
+    Br    := NM(B^(1/n));    Brr := Round(Br);   DBr := Abs(Br-Brr);
     Decide(InVerboseMode(),
       {
           Tell("       ",[n,X,Y]); 

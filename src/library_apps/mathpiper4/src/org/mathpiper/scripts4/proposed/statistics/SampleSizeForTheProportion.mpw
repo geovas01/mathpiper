@@ -10,7 +10,7 @@ SampleSizeForTheProportion(probabilityOfSuccess,confidenceLevel,marginOfError) :
     
     zScore := ConfidenceLevelToZScore(confidenceLevel);
     
-    minimumSampleSize := N(probabilityOfSuccess*(1 - probabilityOfSuccess)*(zScore/marginOfError)^2);
+    minimumSampleSize := NM(probabilityOfSuccess*(1 - probabilityOfSuccess)*(zScore/marginOfError)^2);
 };
 
 

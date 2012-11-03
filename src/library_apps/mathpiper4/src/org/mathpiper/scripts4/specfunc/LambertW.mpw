@@ -15,7 +15,7 @@
 20 # LambertW(_x * Ln(_x)) <-- Ln(x);
 20 # LambertW(Ln(_x) * _x) <-- Ln(x);
 
-30 # LambertW(x_Constant?) _ InNumericMode() <-- InternalLambertWNum(Eval(x));
+30 # LambertW(x_Constant?) _ NumericMode?() <-- InternalLambertWNum(Eval(x));
 
 /* [InternalLambertWNum] computes a numeric approximation of Lamberts $W$ function
 to the current precision. It uses a Halley iteration
@@ -68,12 +68,12 @@ This function is sometimes useful to represent solutions of transcendental equat
 
 For real arguments $x$, $W(x)$ is real if $x>= -Exp(-1)$.
 
-To compute the numeric value of the  principal branch of Lambert's $W$ function for real arguments $x>= -Exp(-1)$ to current precision, one can call {N(LambertW(x))} (where the function {N} tries to approximate its argument with a real value).
+To compute the numeric value of the  principal branch of Lambert's $W$ function for real arguments $x>= -Exp(-1)$ to current precision, one can call {NM(LambertW(x))} (where the function {N} tries to approximate its argument with a real value).
 
 *E.G.
 In> LambertW(0)
 Result: 0;
-In> N(LambertW(-0.24/Sqrt(3*Pi)))
+In> NM(LambertW(-0.24/Sqrt(3*Pi)))
 Result: -0.0851224014;
 
 *SEE Exp

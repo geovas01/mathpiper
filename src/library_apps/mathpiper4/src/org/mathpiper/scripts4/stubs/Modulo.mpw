@@ -15,7 +15,7 @@
 2 # Modulo(0,_m) <-- 0;
 2 # Modulo(n_PositiveInteger?,Infinity) <-- n;
 3 # Modulo(n_Integer?,m_Integer?) <-- ModuloN(n,m);
-4 # Modulo(n_Number?,m_Number?) <-- NonN(Modulo(Rationalize(n),Rationalize(m)));
+4 # Modulo(n_Number?,m_Number?) <-- NonNM(Modulo(Rationalize(n),Rationalize(m)));
 
 5 # Modulo(n_RationalOrNumber?,m_RationalOrNumber?)/*_(n>?0 And? m>?0)*/ <--
 {
@@ -115,10 +115,10 @@ Result: (k-5)*k+2
 Verify(Modulo(1.2,3.4),6/5);
 
 //TODO I need to understand why we need to put Eval here. Modulo(-1.2,3.4)-2.2 returns 0/5 where the 0 is not an integer according to the system. Round-off error?
-NumericEqual(N(Eval(Modulo(-1.2,3.4))),2.2,BuiltinPrecisionGet());
+NumericEqual(NM(Eval(Modulo(-1.2,3.4))),2.2,BuiltinPrecisionGet());
 
 Verify(Modulo(-12/10,34/10),11/5);
-// just a test to see if Verify still gives correct error Verify(N(Modulo(-12/10,34/10)),11/5);
+// just a test to see if Verify still gives correct error Verify(NM(Modulo(-12/10,34/10)),11/5);
 
 
 // Make sure Mod works threaded

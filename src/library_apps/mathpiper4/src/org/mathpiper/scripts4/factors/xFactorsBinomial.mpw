@@ -23,8 +23,8 @@ Retract("IsPowerOf2",*);
     A      := Abs(dis[3][1]);
     B      := Abs(dis[3][2]);
     s      := Sign(dis[3][1]*dis[3][2]);
-    Ar     := NearRational(N(A^(1/n),20));
-    Br     := NearRational(N(B^(1/n),20));
+    Ar     := NearRational(NM(A^(1/n),20));
+    Br     := NearRational(NM(B^(1/n),20));
     Decide(InVerboseMode(),{Tell("       ",[n,X,var,A,B]); Tell("       ",[Ar,Br,s]);});
     Decide( Integer?(Ar) And? Integer?(Br), xFB1(dis), [[poly,1]] );
 };
@@ -43,8 +43,8 @@ Retract("IsPowerOf2",*);
     A     := Abs(dis[3][1]);
     B     := Abs(dis[3][2]);
     s     := Sign(dis[3][1]*dis[3][2]);
-    Ar    := NearRational(N(A^(1/n)));
-    Br    := NearRational(N(B^(1/n)));
+    Ar    := NearRational(NM(A^(1/n)));
+    Br    := NearRational(NM(B^(1/n)));
     Decide(InVerboseMode(),
       {
           Tell("       ",[n,X,Y]); 

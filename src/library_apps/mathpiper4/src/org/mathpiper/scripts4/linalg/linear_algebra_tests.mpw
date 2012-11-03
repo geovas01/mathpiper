@@ -86,10 +86,10 @@ TestMathPiper(Determinant([[a,b],[c,d]]),a*d-b*c);
       ];
   /* CoFactor */
   Testing("CoFactor");
-  Verify(N(CoFactor(ll,1,2)),6);
+  Verify(NM(CoFactor(ll,1,2)),6);
   /* Minor */
   Testing("Minor");
-  Verify(N(Minor(ll,1,2)),-6);
+  Verify(NM(Minor(ll,1,2)),-6);
   /* Inverse */
   Testing("Inverse");
   Verify(Inverse(ll)*ll,Identity(3));

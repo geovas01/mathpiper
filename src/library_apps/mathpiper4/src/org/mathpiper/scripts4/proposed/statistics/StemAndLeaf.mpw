@@ -35,10 +35,10 @@ intlabels(y1,y2,tnumint) := [
 
 
 intervals(diff, NumCats) := [
-    t4 := trunc(N(Ln(diff))) * 0.4342945;
+    t4 := trunc(NM(Ln(diff))) * 0.4342945;
   t4 = Power(10,t4);
   T := [];
-  T := N(t4/10 : t4/5 : t4/2 : t4 : T);
+  T := NM(t4/10 : t4/5 : t4/2 : t4 : T);
 
   
   A := [];
@@ -175,7 +175,7 @@ stemandleaf(x) :=
     ];
    theMax2 := Maximum(theMax,abMin);
    t4 := trunc(theMax2/base);
-  t4 := trunc(N(Ln(t4) * .4342945));
+  t4 := trunc(NM(Ln(t4) * .4342945));
   t4 := Power(10,t4);
    t3 := t4/10;
   If(indexA = 2) 

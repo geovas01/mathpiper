@@ -12,13 +12,13 @@ RegressionLine(x,y) :=
     
     n := Length(x);
     
-    b := N((n*Sum(x*y) - Sum(x)*Sum(y))/(n*Sum(x^2)-(Sum(x))^2));
+    b := NM((n*Sum(x*y) - Sum(x)*Sum(y))/(n*Sum(x^2)-(Sum(x))^2));
     
-    xMean := N(Mean(x));
+    xMean := NM(Mean(x));
     
-    yMean := N(Mean(y));
+    yMean := NM(Mean(y));
     
-    a := N(yMean - b*xMean);
+    a := NM(yMean - b*xMean);
     
     line := a + b*Hold(x);
     

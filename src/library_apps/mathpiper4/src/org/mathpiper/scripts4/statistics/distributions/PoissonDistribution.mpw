@@ -24,10 +24,10 @@ PoissonDistribution(l_RationalOrNumber?)_(l<=?0) <-- Undefined;
 The poisson distribution.
 
 *E.G.
-In> N(PMF(PoissonDistribution(5), 7))
+In> NM(PMF(PoissonDistribution(5), 7))
 Result: 0.1044448631
 
-In> N(CDF(PoissonDistribution(5), 2))
+In> NM(CDF(PoissonDistribution(5), 2))
 Result: 0.1246520197
 
 

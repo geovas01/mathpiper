@@ -6,6 +6,6 @@
 
 20 # LnGamma(n_RationalOrNumber?)_(PositiveInteger?(n) Or? FloatIsInt?(2*n)) <-- Ln((Round(2*n)/2-1)!);
 
-30 # LnGamma(x_Constant?)_(InNumericMode()) <-- InternalLnGammaNum(N(Eval(x)));
+30 # LnGamma(x_Constant?)_(NumericMode?()) <-- InternalLnGammaNum(NM(Eval(x)));
 
 %/mathpiper

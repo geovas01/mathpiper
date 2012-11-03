@@ -18,7 +18,7 @@ StandardErrorOfTheEstimate(xList,yList) :=
     
     b := regressionLine["slope"];
         
-    N(Sqrt((Sum(yList^2) - a*Sum(yList) - b*Sum(xList*yList))/(n-2)));
+    NM(Sqrt((Sum(yList^2) - a*Sum(yList) - b*Sum(xList*yList))/(n-2)));
 };
 
 %/mathpiper
