@@ -136,13 +136,11 @@ public class Histogram extends BuiltinFunction {
 *CORE
 *CALL
 	Histogram(list, option, option, option...)
-    Histogram({list1, list2, list3...}, option, option, option...)
+    Histogram([list1, list2, list3...], option, option, option...)
 
 *PARMS
 
 {list} -- a list which contains the values
-
-{list1, list2, list3...} -- the data for multiple histograms is passed in as a list of lists
 
 {binMinimum} -- the minimum bin value
 
@@ -168,31 +166,31 @@ For example, here is how to set the {title} option: {title -> "Example Title"}.
 *E.G.
 /%mathpiper
 
-Histogram({1.0, 1.1, 1.1, 1.2, 1.7, 2.2, 2.5, 4.0});
+Histogram([1.0, 1.1, 1.1, 1.2, 1.7, 2.2, 2.5, 4.0]);
 
 /%/mathpiper
 
 
 /%mathpiper
 
-Histogram({1.0, 1.1, 1.1, 1.2, 1.7, 2.2, 2.5, 4.0, 4.2}, seriesTitle -> "Options Example", xAxisLabel -> "X Axis", yAxisLabel -> "Y Axis");
+Histogram([1.0, 1.1, 1.1, 1.2, 1.7, 2.2, 2.5, 4.0, 4.2], seriesTitle -> "Options Example", xAxisLabel -> "X Axis", yAxisLabel -> "Y Axis");
 
 /%/mathpiper
 
 
 /%mathpiper
 
-Histogram({1.0, 1.1, 1.1, 1.2, 1.7, 2.2, 2.5, 4.0, 4.2}, orientation -> "horizontal");
+Histogram([1.0, 1.1, 1.1, 1.2, 1.7, 2.2, 2.5, 4.0, 4.2], orientation -> "horizontal");
 
 /%/mathpiper
 
 
 /%mathpiper,title=""
 
-pileESamples := {16.375,16.375,17.125,16,14.375,17.25,16.625,16,17,17.25,17,15.875,16.625,16.125,17.125,16.875,16.375,16.375,16.875,17.125,17,16.75,17.25,17.125,15.375};
-pileDSamples := {18.25,19.25,18.25,15.625,17.625,17.5,17.125,17.125,17.5,14.5,17.375,16.875,17.75,18.875,14.875,19.25,18.125,16.25,16.125,16.75,17.25,17.375,17.125,17.5,16.625};
+pileESamples := [16.375,16.375,17.125,16,14.375,17.25,16.625,16,17,17.25,17,15.875,16.625,16.125,17.125,16.875,16.375,16.375,16.875,17.125,17,16.75,17.25,17.125,15.375];
+pileDSamples := [18.25,19.25,18.25,15.625,17.625,17.5,17.125,17.125,17.5,14.5,17.375,16.875,17.75,18.875,14.875,19.25,18.125,16.25,16.125,16.75,17.25,17.375,17.125,17.5,16.625];
 
-Histogram({pileDSamples, pileESamples}, title -> "Wood Piles", series1Title -> "Pile D", series2Title -> "Pile E");
+Histogram([pileDSamples, pileESamples], title -> "Wood Piles", series1Title -> "Pile D", series2Title -> "Pile E");
 
 /%/mathpiper
 
