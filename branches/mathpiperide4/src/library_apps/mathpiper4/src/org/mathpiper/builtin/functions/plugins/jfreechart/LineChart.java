@@ -134,8 +134,8 @@ public class LineChart extends BuiltinFunction {
 *CMD LineChart --- displays a graphic line chart
 *CORE
 *CALL
-	LineChart({domain_list, range_list}, option, option, option...)
-    LineChart({domain_list_1, range_list_1, domain_list_2, range_list_2,...}, option, option, option...)
+	LineChart([domain_list, range_list], option, option, option...)
+    LineChart([domain_list_1, range_list_1, domain_list_2, range_list_2,...], option, option, option...)
 
 *PARMS
 
@@ -162,8 +162,8 @@ For example, here is how to set the {title} option: {title -> "Example Title"}.
 /%mathpiper,title=""
 
 claim := 1 .. 40;
-days := {48,41,35,36,37,26,36,46,35,47,35,34,36,42,43,36,56,32,46,30,37,43,17,26,28,27,45,33,22,27,16,22,33,30,24,23,22,30,31,17};
-LineChart({claim, days}, title -> "Line Chart", series1Title -> "Series 1", xAxisLabel -> "Claim", yAxisLabel -> "Days");
+days := [48,41,35,36,37,26,36,46,35,47,35,34,36,42,43,36,56,32,46,30,37,43,17,26,28,27,45,33,22,27,16,22,33,30,24,23,22,30,31,17];
+LineChart([claim, days], title -> "Line Chart", series1Title -> "Series 1", xAxisLabel -> "Claim", yAxisLabel -> "Days");
 
 /%/mathpiper
 
@@ -171,9 +171,9 @@ LineChart({claim, days}, title -> "Line Chart", series1Title -> "Series 1", xAxi
 /%mathpiper,title=""
 
 claim := 1 .. 40;
-days1 := {48,41,35,36,37,26,36,46,35,47,35,34,36,42,43,36,56,32,46,30,37,43,17,26,28,27,45,33,22,27,16,22,33,30,24,23,22,30,31,17};
+days1 := [48,41,35,36,37,26,36,46,35,47,35,34,36,42,43,36,56,32,46,30,37,43,17,26,28,27,45,33,22,27,16,22,33,30,24,23,22,30,31,17];
 days2 := RandomIntegerVector(Length(claim), 20, 50);
-LineChart({claim, days1, claim, days2}, title -> "Line Chart", series1Title -> "Series 1", series2Title -> "Series 2", xAxisLabel -> "Claim", yAxisLabel -> "Days");
+LineChart([claim, days1, claim, days2], title -> "Line Chart", series1Title -> "Series 1", series2Title -> "Series 2", xAxisLabel -> "Claim", yAxisLabel -> "Days");
 
 /%/mathpiper
 

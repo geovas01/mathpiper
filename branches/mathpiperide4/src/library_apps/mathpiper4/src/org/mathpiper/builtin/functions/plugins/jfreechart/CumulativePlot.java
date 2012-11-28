@@ -165,7 +165,7 @@ For example, here is how to set the {title} option: {title -> "Example Title"}.
 *E.G.
 /%mathpiper,title=""
 
-samples := {
+samples := [
 438,413,444,468,445,472,474,454,455,449,
 450,450,450,459,466,470,457,441,450,445,
 487,430,446,450,456,433,455,459,423,455,
@@ -176,7 +176,7 @@ samples := {
 461,453,452,438,445,435,454,428,454,434,
 432,431,455,447,454,435,425,449,449,452,
 471,458,445,463,423,451,440,442,441,439
-};
+];
 
 CumulativePlot(samples,numberOfBins -> 10, title -> "Cumulative Plot", xAxisLabel -> "X Axis", yAxisLabel -> "Y Axis", seriesTitle -> "Series Title");
 

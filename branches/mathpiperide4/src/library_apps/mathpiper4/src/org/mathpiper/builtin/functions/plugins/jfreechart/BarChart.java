@@ -140,8 +140,8 @@ public class BarChart extends BuiltinFunction {
 *CMD BarChart --- displays a graphic bar chart
 *CORE
 *CALL
-	BarChart({x_axis_list, y_axis_list}, option, option, option...)
-    BarChart({x_axis_list_1, y_axis_list_1, x_axis_list_2, y_axis_list_2,...}, option, option, option...)
+	BarChart([x_axis_list, y_axis_list], option, option, option...)
+    BarChart([x_axis_list_1, y_axis_list_1, x_axis_list_2, y_axis_list_2,...], option, option, option...)
 
 *PARMS
 
@@ -168,8 +168,8 @@ For example, here is how to set the {title} option: {title -> "Example Title"}.
 /%mathpiper,title=""
 
 claim := 1 .. 40;
-days := {48,41,35,36,37,26,36,46,35,47,35,34,36,42,43,36,56,32,46,30,37,43,17,26,28,27,45,33,22,27,16,22,33,30,24,23,22,30,31,17};
-BarChart({claim, days}, title -> "Bar Chart", series1Title -> "Series 1", xAxisLabel -> "Claim", yAxisLabel -> "Days");
+days := [48,41,35,36,37,26,36,46,35,47,35,34,36,42,43,36,56,32,46,30,37,43,17,26,28,27,45,33,22,27,16,22,33,30,24,23,22,30,31,17];
+BarChart([claim, days], title -> "Bar Chart", series1Title -> "Series 1", xAxisLabel -> "Claim", yAxisLabel -> "Days");
 
 /%/mathpiper
 
@@ -177,9 +177,9 @@ BarChart({claim, days}, title -> "Bar Chart", series1Title -> "Series 1", xAxisL
 /%mathpiper,title=""
 
 claim := 1 .. 40;
-days1 := {48,41,35,36,37,26,36,46,35,47,35,34,36,42,43,36,56,32,46,30,37,43,17,26,28,27,45,33,22,27,16,22,33,30,24,23,22,30,31,17};
+days1 := [48,41,35,36,37,26,36,46,35,47,35,34,36,42,43,36,56,32,46,30,37,43,17,26,28,27,45,33,22,27,16,22,33,30,24,23,22,30,31,17];
 days2 := RandomIntegerVector(Length(claim), 20, 50);
-BarChart({claim, days1, claim, days2}, title -> "Bar Chart", series1Title -> "Series 1", series2Title -> "Series 2", xAxisLabel -> "Claim", yAxisLabel -> "Days");
+BarChart([claim, days1, claim, days2], title -> "Bar Chart", series1Title -> "Series 1", series2Title -> "Series 2", xAxisLabel -> "Claim", yAxisLabel -> "Days");
 
 /%/mathpiper
 
