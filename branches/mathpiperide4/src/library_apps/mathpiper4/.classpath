@@ -6,5 +6,6 @@
 	<classpathentry kind="lib" path="/home/tkosan/workspace/lib/jfreechart-1.0.13.jar"/>
 	<classpathentry kind="lib" path="/home/tkosan/workspace/lib/jlm_cyrillic.jar"/>
 	<classpathentry kind="lib" path="/home/tkosan/workspace/lib/jlm_greek.jar"/>
+	<classpathentry kind="lib" path="/home/tkosan/workspace/lib/jcommon-1.0.16.jar"/>
 	<classpathentry kind="output" path="build"/>
 </classpath>
