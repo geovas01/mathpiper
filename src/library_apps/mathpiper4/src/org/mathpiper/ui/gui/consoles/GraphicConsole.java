@@ -88,6 +88,7 @@ import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.Cons;
 
 import org.mathpiper.lisp.cons.SublistCons;
+import org.mathpiper.ui.gui.help.FunctionTreePanel;
 
 public class GraphicConsole extends javax.swing.JPanel implements ActionListener, KeyListener, ResponseListener, ItemListener, FocusListener, MathPiperOutputStream {
 
@@ -97,7 +98,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
     private final Color purple = new Color(153, 0, 153);
     private Interpreter interpreter = Interpreters.getAsynchronousInterpreter();
     private StringBuilder input = new StringBuilder();
-    private JButton haltButton, clearConsoleButton, clearRawButton, helpButton, smallerFontButton, largerFontButton;
+    private JButton haltButton, clearConsoleButton, clearRawButton, helpButton, docsButton, smallerFontButton, largerFontButton;
     private JCheckBox rawOutputCheckBox;
     private boolean isCodeResult = true;
     private JCheckBox codeResultCheckBox;
@@ -138,7 +139,8 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
             "The console window is an editable text area, so you can add text to it and remove text from \n" +
             "it as needed.\n\n" +
             "Placing ;; after the end of the line of input will suppress the output.\n\n" +
-            "The Raw Output checkbox sends all side effects output to the raw output text area.";
+            "The Show Raw checkbox sends all side effects output to the raw output text area that is" +
+            "at the bottom of the console.";
 
 
     public GraphicConsole() {
@@ -214,7 +216,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         rawOutputTextArea.setEditable(false);
         rawOutputTextArea.setText("Raw output text area.\n\n");
 
-        codeResultCheckBox = new JCheckBox("Math Result");
+        codeResultCheckBox = new JCheckBox("LaTeX Result");
         codeResultCheckBox.setToolTipText("Show results in code format instead of traditional mathematics format.");
         codeResultCheckBox.addItemListener(this);
         consoleButtons.add(codeResultCheckBox);
@@ -239,6 +241,10 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         helpButton = new JButton("Help");
         helpButton.addActionListener(this);
         consoleButtons.add(helpButton);
+        
+        docsButton = new JButton("Docs");
+        docsButton.addActionListener(this);
+        consoleButtons.add(docsButton);
 
 
 
@@ -349,6 +355,37 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
         } else if (src == helpButton) {
             JOptionPane.showMessageDialog(this, this.helpMessage);
+        } else if (src == docsButton) {
+            JFrame frame = new javax.swing.JFrame();
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    
+            FunctionTreePanel functionTreePanel = null;
+    
+            try
+            {
+    
+                functionTreePanel = new FunctionTreePanel();
+    
+                Container contentPane = frame.getContentPane();
+                contentPane.add(functionTreePanel.getToolPanel(), BorderLayout.NORTH);
+                contentPane.add(functionTreePanel, BorderLayout.CENTER);
+    
+                frame.pack();
+    
+                frame.setTitle("MathPiper Docs");
+                frame.setSize(new Dimension(700, 700));
+                //frame.setResizable(false);
+                frame.setPreferredSize(new Dimension(700, 700));
+                frame.setLocationRelativeTo(null); // added
+    
+                frame.setVisible(true);
+    
+            }
+            catch (FileNotFoundException fnfe)
+            {
+                System.out.println(fnfe.getMessage());
+            }
+            
         } else if (src == clearConsoleButton) {
             this.textPane.setText("");
             this.textPane.append(Color.BLACK, "In> \n");
@@ -1341,40 +1378,6 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
     }
 
 
-    public static void main(String[] args) {
-
-
-        final GraphicConsole console = new GraphicConsole();
-
-        Interpreter interpreter = console.getInterpreter();
-        Interpreters.addOptionalFunctions(interpreter.getEnvironment(), "org/mathpiper/builtin/functions/optional/");
-
-        JFrame frame = new javax.swing.JFrame();
-        Container contentPane = frame.getContentPane();
-        contentPane.add(console, BorderLayout.CENTER);
-        //frame.setAlwaysOnTop(true);
-        frame.setSize(new Dimension(800, 600));
-        frame.setDefaultCloseOperation(frame.DISPOSE_ON_CLOSE);
-        frame.setTitle("Graphic Console");
-        //frame.setResizable(false);
-
-        //frame.setJMenuBar(console.getMenuBar());
-
-
-        //Make textField get the focus whenever frame is activated.
-        frame.addWindowFocusListener(new WindowAdapter() {
-
-            public void windowGainedFocus(WindowEvent e) {
-                console.giveFocus();
-            }
-
-        });
-
-        frame.setPreferredSize(new Dimension(800, 600));
-        frame.setLocationRelativeTo(null); // added
-        frame.pack();
-        frame.setVisible(true);
-    }//end main.
 
     class MenuBar extends JMenuBar {
 
@@ -1586,6 +1589,41 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
     }
 
 
+    public static void main(String[] args) {
+
+
+        final GraphicConsole console = new GraphicConsole();
+
+        Interpreter interpreter = console.getInterpreter();
+        Interpreters.addOptionalFunctions(interpreter.getEnvironment(), "org/mathpiper/builtin/functions/optional/");
+        org.mathpiper.interpreters.Interpreters.addOptionalFunctions(interpreter.getEnvironment(),"org/mathpiper/builtin/functions/plugins/jfreechart/");
+
+        JFrame frame = new javax.swing.JFrame();
+        Container contentPane = frame.getContentPane();
+        contentPane.add(console, BorderLayout.CENTER);
+        //frame.setAlwaysOnTop(true);
+        frame.setSize(new Dimension(800, 600));
+        frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
+        frame.setTitle("MathPiper");
+        //frame.setResizable(false);
+
+        //frame.setJMenuBar(console.getMenuBar());
+
+
+        //Make textField get the focus whenever frame is activated.
+        frame.addWindowFocusListener(new WindowAdapter() {
+
+            public void windowGainedFocus(WindowEvent e) {
+                console.giveFocus();
+            }
+
+        });
+
+        frame.setPreferredSize(new Dimension(800, 600));
+        frame.setLocationRelativeTo(null); // added
+        frame.pack();
+        frame.setVisible(true);
+    }//end main.
 
 
 }//end class.

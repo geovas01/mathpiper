@@ -1602,7 +1602,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
             frame.pack();
 
-            frame.setTitle("MathPiper Help");
+            frame.setTitle("MathPiper Docs");
             frame.setSize(new Dimension(700, 700));
             //frame.setResizable(false);
             frame.setPreferredSize(new Dimension(700, 700));
