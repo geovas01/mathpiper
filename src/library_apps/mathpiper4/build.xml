@@ -130,6 +130,11 @@
     <target name="exclude_files_from_compilation">
         <property name="exclude_files" value="org/mathpiper/ui/gui/gwt/" />
     </target>
+    
+    
+    
+    <target name="compile_quick" depends="exclude_files_from_compilation,compile">
+    </target>
 
     
     
