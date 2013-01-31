@@ -8,8 +8,10 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 
 import javax.swing.JComponent;
@@ -27,20 +29,30 @@ public class TreePanelCons extends JComponent implements ViewPanel {
     private Queue<SymbolNode> queue = new LinkedList();
     private int[] lastOnRasterArray = new int[10000];
     private int maxTreeY = 0;
-    private boolean paintedOnce = false;
     private SymbolNode rootNode = null;
     
     private int leftMostPosition = Integer.MAX_VALUE;
     private int rightMostPosition = 0;
-    private int topMostPosition = 0;
-    private double lineThickness = .8;
-    private int fontSize = 10;
+    private double lineThickness = .7;
+    private int fontSize = 11;
+    
+    private Map<String,String> latexMap = new HashMap();
+    
+    private double adjust = 1;
     
    
 
     public TreePanelCons(Cons expressionCons, double viewScale) {
 	
 	super();
+	
+	latexMap.put("+", "+");
+	latexMap.put("-", "-");
+	latexMap.put("/", "\\div");
+	latexMap.put("*", "\\times");
+	latexMap.put("==", "=");
+
+	
 	
 	this.setLayout(null);
 	
@@ -137,9 +149,19 @@ public class TreePanelCons extends JComponent implements ViewPanel {
             if (currentNode != null) {
                 String nodeString = currentNode.toString();
                 
-                int yPositionAdjust = 42;
+                double yPositionAdjust = 30 /*Adjust y position of whole tree, smaller numbers moves the tree down.*/;
+                double xPositionAdjust = .9;/*Adjust x position of whole tree, smaller values moves the tree right.*/
+                
+                String latex = latexMap.get(nodeString);
+                
+                if(latex == null)
+                {
+                    latex = nodeString;
+                }
+                
 
-                sg.drawText(nodeString, currentNode.getTreeX()-(leftMostPosition * Math.pow(viewScale,1/4)), currentNode.getTreeY() -(yPositionAdjust * Math.pow(viewScale,1/2)));//xPosition, yPosition);
+                
+                sg.drawLatex(latex, currentNode.getTreeX()-(leftMostPosition * xPositionAdjust * 1.07), currentNode.getTreeY() -(yPositionAdjust + 10 /*y position of symbol*/));//xPosition, yPosition);
 
                 SymbolNode[] children = currentNode.getChildren();
 
@@ -150,10 +172,10 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
                             sg.setColor(Color.BLACK);
                             sg.setLineThickness(lineThickness);
-                            sg.drawLine(currentNode.getTreeX() + currentNode.getTextWidth(sg)/2 -(leftMostPosition * Math.pow(viewScale,1/4)), 
-                        	    currentNode.getTreeY() -(yPositionAdjust * Math.pow(viewScale,1/2)), 
-                        	    child.getTreeX() + child.getTextWidth(sg)/2 -(leftMostPosition * Math.pow(viewScale,1/4)), 
-                        	    child.getTreeY() - child.getTextHeight(sg) -(yPositionAdjust * Math.pow(viewScale,1/2)));
+                            sg.drawLine(currentNode.getTreeX() + currentNode.getTextWidth(sg)/2 -(leftMostPosition * xPositionAdjust), 
+                        	    currentNode.getTreeY() -(yPositionAdjust * 1/*height of nodes*/), 
+                        	    child.getTreeX() + child.getTextWidth(sg)/2 -(leftMostPosition * xPositionAdjust), 
+                        	    child.getTreeY() - child.getTextHeight(sg) -(yPositionAdjust * 1 /*height of leafs*/));
                         }
                     }
 
@@ -202,6 +224,9 @@ public class TreePanelCons extends JComponent implements ViewPanel {
     
     public void setViewScale(double viewScale) {
         this.viewScale = viewScale;
+	
+	//this.adjust = viewScale;
+	//System.out.println(viewScale);
         this.revalidate();
         this.repaint();
     }
@@ -246,7 +271,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
     //Layout algorithm from "Esthetic Layout of Generalized Trees" by Anthony Bloesch.
     private int layoutTree(SymbolNode tree, int yPosition,  int position, SymbolNode parent, ScaledGraphics sg)
     {
-        int Y_SEPARATION = 35;
+        int Y_SEPARATION = 35 /*y stretch */;
         int MIN_X_SEPARATION = 20;
 
         int branchPosition;
@@ -411,5 +436,15 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 	    }
 
     }
+    
+    public static void main(String[] args)
+    {
+	Double d = Math.pow(3,1/4);
+	
+
+	
+	System.out.println("" + Integer.MAX_VALUE);
+    }
+    
 
 }//end class.
