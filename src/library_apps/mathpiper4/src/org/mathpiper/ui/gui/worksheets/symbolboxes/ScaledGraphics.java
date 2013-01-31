@@ -17,6 +17,13 @@
 package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+
+import javax.swing.JLabel;
+
+import org.scilab.forge.jlatexmath.TeXConstants;
+import org.scilab.forge.jlatexmath.TeXFormula;
+import org.scilab.forge.jlatexmath.TeXIcon;
 
 public class ScaledGraphics {
 
@@ -75,6 +82,24 @@ public class ScaledGraphics {
         iG.drawString(text, (int) (x * viewScale), (int) (y * viewScale));
 
         setFontSize(normalFontSize);
+
+    }
+    
+    
+    public void drawLatex(String text, double x, double y)
+    {
+	
+	TeXFormula texFormula = new TeXFormula(text);
+	//Obtain image example.
+	//http://forge.scilab.org/index.php/p/jlatexmath/source/tree/8b1b0250b95fe80c0e245db2671a817f299ecaf7/examples/Basic/Example1.java
+
+	TeXIcon icon = texFormula.createTeXIcon(TeXConstants.STYLE_DISPLAY, (float)(12 * viewScale));
+
+	JLabel jl = new JLabel();
+
+	jl.setForeground(new Color(0, 0, 0));
+	icon.paintIcon(jl, iG, (int) (x * viewScale), (int)(y * viewScale));
+        
 
     }
 
