@@ -31,6 +31,8 @@ public class MathPanelController extends JPanel implements ChangeListener, ItemL
         this.add(new JLabel("Adjust Scale"));
         this.add(scaleSlider);
 
+        /* 
+         * This code is only needed to debug the Yacas math renderer code.
         JCheckBox drawBoundingBoxCheckBox = new JCheckBox("Draw Bounding Boxes");
 
         drawBoundingBoxCheckBox.setSelected(SymbolBox.isDrawBoundingBox());
@@ -38,6 +40,7 @@ public class MathPanelController extends JPanel implements ChangeListener, ItemL
         drawBoundingBoxCheckBox.addItemListener(this);
 
         this.add(drawBoundingBoxCheckBox);
+        */
 
 
     }

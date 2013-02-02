@@ -16,11 +16,11 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin.functions.optional;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -31,11 +31,15 @@ import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.lisp.cons.Cons;
+import org.mathpiper.lisp.cons.SublistCons;
+import org.mathpiper.ui.gui.worksheets.LatexRenderingController;
 import org.mathpiper.ui.gui.worksheets.MathPanelController;
 import org.mathpiper.ui.gui.worksheets.ScreenCapturePanel;
 import org.mathpiper.ui.gui.worksheets.TreePanelCons;
+import org.scilab.forge.jlatexmath.TeXFormula;
 
 /**
  *
@@ -62,6 +66,12 @@ public class TreeView extends BuiltinFunction {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable {
 	
+
+	
+	
+	
+	
+	
         Cons arguments = getArgument(aEnvironment, aStackTop, 1);
 
         if(! Utility.isSublist(arguments)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "ToDo");
@@ -75,6 +85,22 @@ public class TreeView extends BuiltinFunction {
         
         //if(! (latexStringObject instanceof String)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "ToDo");
 
+	//Obtain LaTeX version of the expression.
+	Cons head = SublistCons.getInstance(aEnvironment, AtomCons.getInstance(aEnvironment, aStackTop, "TeXForm"));
+        ((Cons) head.car()).setCdr(expression);
+        Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, head);
+        String texString = (String) result.car();
+        texString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, texString);
+        texString = texString.substring(1, texString.length());
+        texString = texString.substring(0, texString.length() - 1);
+
+	TeXFormula formula = new TeXFormula(texString);
+	JLabel latexLabel = new JLabel();
+        JPanel latexPanelController = new LatexRenderingController(formula, latexLabel, 40);
+        JPanel latexScreenCapturePanel = new ScreenCapturePanel();
+        latexScreenCapturePanel.add(latexLabel);        
+        
+        
 
         
         
@@ -87,14 +113,20 @@ public class TreeView extends BuiltinFunction {
         
         int viewScale = (int) ((Double)userOptions.get("scale")).doubleValue();
         
-
-        Box box = Box.createVerticalBox();
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
         
-	box.setBackground(Color.white);
+
+        
+	panel.setBackground(Color.white);
 	//box.setOpaque(true);
 
 
         TreePanelCons treePanel = new TreePanelCons(expression, viewScale);
+        
+        JPanel screenCapturePanel = new ScreenCapturePanel();
+        
+        screenCapturePanel.add(treePanel);
         
         //JPanel screenCapturePanel = new ScreenCapturePanel();   
         //screenCapturePanel.add(treePanel);
@@ -104,10 +136,13 @@ public class TreeView extends BuiltinFunction {
 	if(includeSlider)
 	{
 	    MathPanelController treePanelScaler = new MathPanelController(treePanel, viewScale);
-	    JScrollPane treeScrollPane = new JScrollPane(treePanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+	    
+	    JScrollPane treeScrollPane = new JScrollPane(screenCapturePanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-            box.add(treeScrollPane);
-            box.add(treePanelScaler);
+
+            panel.add(treeScrollPane, BorderLayout.CENTER);
+            panel.add(treePanelScaler, BorderLayout.SOUTH);
+            panel.add(latexScreenCapturePanel, BorderLayout.NORTH);
 	}
 	else
 	{
@@ -115,11 +150,11 @@ public class TreeView extends BuiltinFunction {
 	    jPanel.setOpaque(true);
 	    jPanel.setBackground(Color.white);
 	    jPanel.add(treePanel);
-	    box.add(new JPanel().add(jPanel));
+	    panel.add(new JPanel().add(jPanel));
 	}
  
 
-        JavaObject response = new JavaObject(box);
+        JavaObject response = new JavaObject(panel);
 
         setTopOfStack(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
 
