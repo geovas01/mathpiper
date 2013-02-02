@@ -128,7 +128,7 @@ public class Show extends BuiltinFunction {
             dataList = dataList.cdr();
         }
         
-        JScrollPane scrollPane = new JScrollPane(box,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        JScrollPane scrollPane = new JScrollPane(box,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         
         contentPane.add(scrollPane);

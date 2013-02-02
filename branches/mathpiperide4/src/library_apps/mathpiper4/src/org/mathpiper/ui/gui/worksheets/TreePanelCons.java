@@ -33,12 +33,18 @@ public class TreePanelCons extends JComponent implements ViewPanel {
     
     private int leftMostPosition = Integer.MAX_VALUE;
     private int rightMostPosition = 0;
-    private double lineThickness = .7;
+    private double lineThickness = .6;
     private int fontSize = 11;
     
     private Map<String,String> latexMap = new HashMap();
     
+    private double yPositionAdjust = 30; /*Adjust y position of whole tree, smaller numbers moves the tree down.*/
+    private double xPositionAdjust = .6;/*Adjust x position of whole tree, smaller values moves the tree right.*/
+    
     private double adjust = 1;
+    
+    //Show(TreeView( '(a*(b+c) == a*b + a*c)))
+    //Show(TreeView( '(a*(b+c) == a*b + a*c), slider -> True))
     
    
 
@@ -127,12 +133,21 @@ public class TreePanelCons extends JComponent implements ViewPanel {
     }//end method.
     
     
-    
+    /*
+    public void paint(Graphics g)
+    {
+	super.paint(g);
+	Dimension d = getPreferredSize(); 
+	g.drawRect(0, 0, d.width, d.height);
+    }
+    */
     
     
 
     public void paintComponent(Graphics g) {
+	
         super.paintComponent(g);
+        
         Graphics2D g2d = (Graphics2D) g;
         
         ScaledGraphics sg = layoutTree(g2d);
@@ -149,8 +164,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
             if (currentNode != null) {
                 String nodeString = currentNode.toString();
                 
-                double yPositionAdjust = 30 /*Adjust y position of whole tree, smaller numbers moves the tree down.*/;
-                double xPositionAdjust = .9;/*Adjust x position of whole tree, smaller values moves the tree right.*/
+
                 
                 String latex = latexMap.get(nodeString);
                 
@@ -196,10 +210,10 @@ public class TreePanelCons extends JComponent implements ViewPanel {
     
     public Dimension getPreferredSize() {
         
-        int maxHeightScaled = (int) ((maxTreeY) * Math.pow(viewScale, .8));
+        int maxHeightScaled = (int) ((maxTreeY - yPositionAdjust) * viewScale);
         
         int maxWidth = rightMostPosition - leftMostPosition;
-        int maxWidthScaled = (int) ((maxWidth) * Math.pow(viewScale, 1.1));
+        int maxWidthScaled = (int) ((maxWidth) * viewScale * 1.05);
         
         //System.out.println("" + maxWidth + ", " + maxTreeY + ", " + maxWidthScaled + ", " + maxHeightScaled);
 
@@ -216,7 +230,6 @@ public class TreePanelCons extends JComponent implements ViewPanel {
     
     public Dimension getMinimumSize()
     {
-
 	return this.getPreferredSize(); 
     }
     
@@ -438,12 +451,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
     }
     
     public static void main(String[] args)
-    {
-	Double d = Math.pow(3,1/4);
-	
 
-	
-	System.out.println("" + Integer.MAX_VALUE);
     }
     
 
