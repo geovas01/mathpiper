@@ -94,7 +94,7 @@ public class MPWSFile {
             //System.out.println(line);
             lineCounter++;
 
-            if (line.contains("%/")) {
+            if (! line.matches("^ */%/.*$") && ! line.matches("^ *\\. */%/.*$") && line.contains("%/")) {
         	
         	String tempLine = line;
         	
@@ -150,7 +150,7 @@ public class MPWSFile {
     
     public static void main(String[] args)
     {
-    	File mpwFile = new File("/home/tkosan/workspace/mathpiper4/src/org/mathpiper/scripts4/proposed/miscellaneous/CombinationsList.mpw");
+    	File mpwFile = new File("/home/tkosan/workspace/mathpiper4/src/org/mathpiper/scripts4/localrules/slash_colon_operator.mpw");
     	
     	try
     	{
