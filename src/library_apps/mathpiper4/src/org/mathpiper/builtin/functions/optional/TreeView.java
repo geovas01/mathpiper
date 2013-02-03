@@ -58,8 +58,8 @@ public class TreeView extends BuiltinFunction {
                 "TreeView", new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
 
         defaultOptions = new HashMap();
-        defaultOptions.put("scale", 3.0);
-        defaultOptions.put("slider", false);
+        defaultOptions.put("Scale", 2.5);
+        defaultOptions.put("Resizable", false);
 
 
 
@@ -118,7 +118,7 @@ public class TreeView extends BuiltinFunction {
 
 
         
-        int viewScale = (int) ((Double)userOptions.get("scale")).doubleValue();
+        int viewScale = (int) ((Double)userOptions.get("Scale")).doubleValue();
         
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
@@ -138,7 +138,7 @@ public class TreeView extends BuiltinFunction {
         //JPanel screenCapturePanel = new ScreenCapturePanel();   
         //screenCapturePanel.add(treePanel);
 	
-	boolean includeSlider = (Boolean) userOptions.get("slider");
+	boolean includeSlider = (Boolean) userOptions.get("Resizable");
 	
 	if(includeSlider)
 	{
@@ -178,28 +178,32 @@ public class TreeView extends BuiltinFunction {
 
 /*
 %mathpiper_docs,name="TreeView",categories="User Functions;Visualization"
-*CMD TreeView --- display rendered Latex code
+*CMD TreeView --- display an expression tree
 
 *CALL
-    TreeView(string)
+    TreeViewddd(expression, option, option, option...)
 
-*Params
-{string} -- a string which contains Latex code
+*PARMS
+{expression} -- an expression to display as an expression tree
+
+{Options:}
+
+{Scale} -- a value that sets the initial size of the tree
+
+{Resizable} -- if set to True, a resizing slider is displayed
 
 *DESC
-Display rendered Latex code.  Note: backslashes must be escaped
-with a backslash.
+Returns a Java GUI component that contains an expression rendered as an
+expression tree.
+
+Options are entered using the -> operator.
+For example, here is how to set the {Resizable} option: {Resizable -> True}.
+
+Right click on the image to save it.
  
 *E.G.
-In> LatexView("2\\sum_{i=1}^n a_i")
-Result: javax.swing.JFrame
 
-
-
-The XXXView functions all return a reference to the Java Component which they are displayed in.
-The Show function can be used to display these components.
-
-In> component := ViewLatex("2\\sum_{i=1}^n a_i")
+In> Show(TreeView( '(a*(b+c) == a*b + a*c), slider -> True))
 Result: java.awt.Component
 
 

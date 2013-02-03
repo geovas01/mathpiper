@@ -39,7 +39,7 @@ public class LatexRenderingController extends JPanel implements ChangeListener {
         //framesPerSecond.setPaintTicks(true);
         scaleSlider.setPaintLabels(true);
 
-        this.add(new JLabel("Adjust Scale"));
+        this.add(new JLabel("Resize"));
         this.add(scaleSlider);
 
     }

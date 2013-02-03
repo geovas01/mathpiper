@@ -59,7 +59,7 @@ public class Show extends BuiltinFunction {
                 "Show", new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
 
         defaultOptions = new HashMap();
-        defaultOptions.put("title", null);
+        defaultOptions.put("Title", null);
 
 
     }//end method.
@@ -105,7 +105,7 @@ public class Show extends BuiltinFunction {
 
         frame.setAlwaysOnTop(false);
         frame.setTitle((String) userOptions.get("title"));
-        frame.setSize(new Dimension(300, 200));
+        frame.setSize(new Dimension(300, 300));
         frame.setResizable(true);
         frame.setLocationRelativeTo(null);        
         
@@ -174,37 +174,35 @@ public class Show extends BuiltinFunction {
 
 
 /*
-%mathpiper_docs,name="BarChart",categories="User Functions;Visualization"
-*CMD BarChart --- displays a graphic bar chart
+%mathpiper_docs,name="Show",categories="User Functions;Visualization"
+*CMD Show --- displays GUI components
 *CORE
 *CALL
-	BarChart({x_axis_list, y_axis_list}, option, option, option...)
-    BarChart({x_axis_list_1, y_axis_list_1, x_axis_list_2, y_axis_list_2,...}, option, option, option...)
+	Show(component, option, option, option...)
 
 *PARMS
 
-{x_axis_list} -- a list which contains the x axis values
+{component} -- a Java GUI component
 
-{y_axis_list} -- a list which contains the y axis values that go with the x axis values
+{Options:}
 
-{title} -- the title of the scatter plot
+{Title} -- the title of the window
 
-{xAxisLabel} -- the label for the x axis
-
-{yAxisLabel} -- the label for the y axis
-
-{seriesTitle} -- the title for a single data series
-
-{series<x>Title} -- the title for more than one series. <x> can be 1, 2, 3, etc.
 
 *DESC
 
-Creates either a single bar chart or multiple bar charts on the same plot. Options are entered using the -> operator.
-For example, here is how to set the {title} option: {title -> "Example Title"}.
+Displays a GUI window that contains a Java GUI component. These GUI components 
+are usually returned from XXXView functions.
+
+Options are entered using the -> operator.
+For example, here is how to set the {Title} option: {Title -> True}.
+
 
 *E.G.
-In> todo
+In> Show(TreeView( '(a*(b+c) == a*b + a*c), Resizable -> True))
+Result: class javax.swing.JFrame
 
+*SEE TreeView, LatexView
 
 %/mathpiper_docs
 */

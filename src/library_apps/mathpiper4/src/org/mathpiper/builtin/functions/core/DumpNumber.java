@@ -72,7 +72,7 @@ public class DumpNumber extends BuiltinFunction
 *CALL
 	DumpNumber(x)
 
-*PARAMS
+*PARMS
  * 
 {x} -- an integer or decimal number.
 

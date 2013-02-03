@@ -313,7 +313,7 @@ Function("Random",[]) Random3();
         Random()
         RandomSeed(init)
 
-*PARAMS
+*PARMS
 {init} -- positive integer, initial random seed
 
 *DESC

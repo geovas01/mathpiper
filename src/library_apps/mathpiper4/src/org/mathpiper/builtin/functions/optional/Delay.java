@@ -57,7 +57,7 @@ public class Delay extends BuiltinFunction
 *CALL
 	Delay(ms)
 
- *PARAMS
+ *PARMS
  {ms} -- the number of milliseconds to delay
 
 *DESC

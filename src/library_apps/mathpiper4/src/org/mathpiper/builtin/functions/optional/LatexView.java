@@ -56,8 +56,8 @@ public class LatexView extends BuiltinFunction {
                 "LatexView", new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
 
         defaultOptions = new HashMap();
-        defaultOptions.put("scale", 40.0);
-        defaultOptions.put("slider", false);
+        defaultOptions.put("Scale", 40.0);
+        defaultOptions.put("Resizable", false);
 
 
         DefaultTeXFont.registerAlphabet(new CyrillicRegistration());
@@ -95,7 +95,7 @@ public class LatexView extends BuiltinFunction {
         latexString = Utility.stripEndDollarSigns(latexString);
 
         
-        int viewScale = (int) ((Double)userOptions.get("scale")).doubleValue();
+        int viewScale = (int) ((Double)userOptions.get("Scale")).doubleValue();
         
 
 
@@ -142,7 +142,7 @@ public class LatexView extends BuiltinFunction {
         
         screenCapturePanel.add(latexLabel);
 	
-	boolean includeSlider = (Boolean) userOptions.get("slider");
+	boolean includeSlider = (Boolean) userOptions.get("Resizable");
 	
 	if(includeSlider)
 	{
@@ -173,30 +173,32 @@ public class LatexView extends BuiltinFunction {
 
 /*
 %mathpiper_docs,name="LatexView",categories="User Functions;Visualization"
-*CMD ViewLatex --- display rendered Latex code
+*CMD LatexView --- display rendered Latex code
 
 *CALL
-    LatexView(string)
+    LatexView(expression, option, option, option...)
 
-*Params
-{string} -- a string which contains Latex code
+*PARMS
+{expression} -- an expression to display as an expression tree
+
+{Options:}
+
+{Scale} -- a value that sets the initial size of the tree
+
+{Resizable} -- if set to True, a resizing slider is displayed
 
 *DESC
 Display rendered Latex code.  Note: backslashes must be escaped
 with a backslash.
+
+Options are entered using the -> operator.
+For example, here is how to set the {Resizable} option: {Resizable -> True}.
+
+Right click on the image to save it.
  
 *E.G.
-In> LatexView("2\\sum_{i=1}^n a_i")
-Result: javax.swing.JFrame
-
-
-
-The XXXView functions all return a reference to the Java Component which they are displayed in.
-The Show function can be used to display these components.
-
-In> component := ViewLatex("2\\sum_{i=1}^n a_i")
+In> Show(LatexView("2\\sum_{i=1}^n a_i"))
 Result: java.awt.Component
-
 
 
 *SEE Show

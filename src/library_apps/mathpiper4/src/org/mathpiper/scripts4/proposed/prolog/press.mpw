@@ -198,7 +198,7 @@ RulebaseListedHoldArguments("StepsView",[steps, optionsList]);
     DestructiveAppend(result, LatexView(ToLatex("Solve  " ~ ToString(TexFormNoDollarSigns(steps[1][1])) ~ "  for  " ~ ToString(steps[1][4]) ~ ".")));
     
     
-    Decide(options["showTree"] =? "True", DestructiveAppend(result, TreeView(RemoveDollarSigns(steps[1][1]), scale -> 2)));
+    Decide(options["ShowTree"] =? "True", DestructiveAppend(result, TreeView(RemoveDollarSigns(steps[1][1]), Scale -> 2)));
     
     
     steps := Rest(steps);
@@ -208,13 +208,13 @@ RulebaseListedHoldArguments("StepsView",[steps, optionsList]);
     {   
         If(Not? List?(rest[1]))
         {
-            result := Compose(result, rest[1], rest[3], rest[4], Length(rest) =? 4, options["showTree"]);
+            result := Compose(result, rest[1], rest[3], rest[4], Length(rest) =? 4, options["ShowTree"]);
         }
         Else
         {
-            result := Compose(result, rest[1][1], rest[3][1], rest[4][1], Length(rest) =? 4, options["showTree"]);
+            result := Compose(result, rest[1][1], rest[3][1], rest[4][1], Length(rest) =? 4, options["ShowTree"]);
             
-            result := Compose(result, rest[1][2], rest[3][2], rest[4][2], Length(rest) =? 4, options["showTree"]);
+            result := Compose(result, rest[1][2], rest[3][2], rest[4][2], Length(rest) =? 4, options["ShowTree"]);
         };
         
 
@@ -251,7 +251,7 @@ Compose(result, newExpression, explanation, beforeSimplification, lengthFour?, s
     
     DestructiveAppend(result, LatexView(TexFormNoDollarSigns(newExpression)));
     
-    Decide(showTree? =? "True", DestructiveAppend(result, TreeView(RemoveDollarSigns(newExpression), scale -> 2)));
+    Decide(showTree? =? "True", DestructiveAppend(result, TreeView(RemoveDollarSigns(newExpression), Scale -> 2)));
     
     result;   
 };
@@ -350,36 +350,36 @@ Isolax(side, equation) :=
 
 
 
-Show(StepsView(SolveEquation( '( ((- a) * b )/ c + d == e ), a), showTree -> True))
+Show(StepsView(SolveEquation( '( ((- a) * b )/ c + d == e ), a), ShowTree -> True))
 
 
-Show(StepsView(SolveEquation( '( ((- a) * b )/ c + d == e ), a), showTree -> True))
+Show(StepsView(SolveEquation( '( ((- a) * b )/ c + d == e ), a), ShowTree -> True))
 
-Show(StepsView(SolveEquation( '( ((- a) * b^f)/c+d == e), b), showTree -> True))
+Show(StepsView(SolveEquation( '( ((- a) * b^f)/c+d == e), b), ShowTree -> True))
 
-Show(StepsView(SolveEquation( '( ((- a) * b^2)/c+d == e), b), showTree -> True))
+Show(StepsView(SolveEquation( '( ((- a) * b^2)/c+d == e), b), ShowTree -> True))
 
-Show(StepsView(SolveEquation( '( ((a^2 * 7/b)/c^3 * d^2)/ 5* e == f), b) , showTree -> True))
+Show(StepsView(SolveEquation( '( ((a^2 * 7/b)/c^3 * d^2)/ 5* e == f), b) , ShowTree -> True))
 
-Show(StepsView(SolveEquation( '( 7/b == c), b), showTree -> True))
+Show(StepsView(SolveEquation( '( 7/b == c), b), ShowTree -> True))
 
 
 
 
 ===========================================================
-Show([LatexView("a + b", scale:300, slider:True, )])
+Show([LatexView("a + b", Scale:300, Resizable:True, )])
 
-Show([LatexView("a + b", scale->300, slider->True, )])
+Show([LatexView("a + b", Scale->300, Resizable->True, )])
 
 Show([LatexView("a + b"), LatexView("a + b")])
 
-Show(LatexView("a + b", scale->300, slider->True, ), title -> "TEST")
+Show(LatexView("a + b", scale->300, Resizable->True, ), Title -> "TEST")
 
-Show(TreeView(x^2, scale -> 3, slider -> True))
+Show(TreeView(x^2, Scale -> 3, Resizable -> True))
 
-Show(TreeView(x^2, scale -> 3, slider -> False))
+Show(TreeView(x^2, Scale -> 3, Resizable -> False))
 
-Show([TreeView(x^2, scale -> 3, slider -> False), TreeView(x^2, scale -> 3, slider -> False)])
+Show([TreeView(x^2, Scale -> 3, Resizable -> False), TreeView(x^2, Scale -> 3, Resizable -> False)])
 
 
 

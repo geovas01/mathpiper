@@ -83,7 +83,7 @@ public class ViewList extends BuiltinFunction {
 *CALL
     ViewList(expression)
 
-*Params
+*PARMS
 {expression} -- an expression to view
 
 *DESC
