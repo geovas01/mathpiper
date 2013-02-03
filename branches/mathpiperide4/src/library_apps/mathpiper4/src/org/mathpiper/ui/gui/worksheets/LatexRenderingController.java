@@ -1,6 +1,8 @@
 package org.mathpiper.ui.gui.worksheets;
 
 import java.awt.Dimension;
+import java.awt.Insets;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -23,6 +25,7 @@ public class LatexRenderingController extends JPanel implements ChangeListener {
         this.texLabel = texLabel;
 
         TeXIcon icon = texFormula.createTeXIcon(TeXConstants.STYLE_DISPLAY, initialValue);
+        icon.setInsets(new Insets(5, 5, 5, 5));
         texLabel.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
         texLabel.setAlignmentY(icon.getBaseLine());
         texLabel.setIcon(icon);
