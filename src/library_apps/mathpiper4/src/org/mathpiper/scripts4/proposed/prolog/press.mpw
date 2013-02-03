@@ -182,7 +182,7 @@ Retract("StepsView",*);
 RulebaseListedHoldArguments("StepsView",[steps, optionsList]);
 
 //Handle no options call.
-5 # StepsView(_steps) <-- StepsView(StepsView, []);
+5 # StepsView(_steps) <-- StepsView(steps, []);
 
 
 //Main routine.  It will automatically accept two or more option calls because the

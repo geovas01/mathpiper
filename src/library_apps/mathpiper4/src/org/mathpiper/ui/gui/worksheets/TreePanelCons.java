@@ -43,8 +43,9 @@ public class TreePanelCons extends JComponent implements ViewPanel {
     private double adjust = 1;
     
     //Show(TreeView( '(a*(b+c) == a*b + a*c)))
-    //Show(TreeView( '(a*(b+c) == a*b + a*c), Resizable -> True))
-    //Show(TreeView( '(2*3+8-4), Resizable -> True))
+    //Show(TreeView( '(a*(b+c) == a*b + a*c), Resizable -> True, IncludeExpression -> True))
+    //Show(TreeView( '(2*3+8-4), Resizable -> True, IncludeExpression -> True))
+
     
    
 
@@ -452,10 +453,6 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
     }
     
-    public static void main(String[] args)
-    {
-
-    }
     
 
 }//end class.

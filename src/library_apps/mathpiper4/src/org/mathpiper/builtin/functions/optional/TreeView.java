@@ -58,8 +58,11 @@ public class TreeView extends BuiltinFunction {
                 "TreeView", new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
 
         defaultOptions = new HashMap();
+
         defaultOptions.put("Scale", 2.5);
         defaultOptions.put("Resizable", false);
+        defaultOptions.put("IncludeExpression", false);
+
 
 
 
@@ -138,9 +141,14 @@ public class TreeView extends BuiltinFunction {
         //JPanel screenCapturePanel = new ScreenCapturePanel();   
         //screenCapturePanel.add(treePanel);
 	
+<<<<<<< .mine
 	boolean includeSlider = (Boolean) userOptions.get("Resizable");
+	boolean includeExpression = (Boolean) userOptions.get("IncludeExpression");
+=======
+	boolean includeSlider = (Boolean) userOptions.get("Resizable");
+>>>>>>> .r4801
 	
-	if(includeSlider)
+	if(includeSlider && includeExpression)
 	{
 	    MathPanelController treePanelScaler = new MathPanelController(treePanel, viewScale);
 	    
@@ -151,9 +159,17 @@ public class TreeView extends BuiltinFunction {
             panel.add(treePanelScaler, BorderLayout.SOUTH);
 
 	}
-	else
+	else if (includeExpression)
 	{
 	    panel.add(latexScreenCapturePanel, BorderLayout.NORTH);
+	    JPanel jPanel = new JPanel();
+	    jPanel.setOpaque(true);
+	    jPanel.setBackground(Color.white);
+	    jPanel.add(treePanel);
+	    panel.add(jPanel, BorderLayout.CENTER);
+	}
+	else
+	{
 	    JPanel jPanel = new JPanel();
 	    jPanel.setOpaque(true);
 	    jPanel.setBackground(Color.white);
@@ -186,12 +202,23 @@ public class TreeView extends BuiltinFunction {
 *PARMS
 {expression} -- an expression to display as an expression tree
 
+<<<<<<< .mine
 {Options:}
 
 {Scale} -- a value that sets the initial size of the tree
 
 {Resizable} -- if set to True, a resizing slider is displayed
 
+{IncludeExpression} -- if set to True, the algebraic form of the expression is included above the tree
+
+=======
+{Options:}
+
+{Scale} -- a value that sets the initial size of the tree
+
+{Resizable} -- if set to True, a resizing slider is displayed
+
+>>>>>>> .r4801
 *DESC
 Returns a Java GUI component that contains an expression rendered as an
 expression tree.
@@ -203,7 +230,11 @@ Right click on the image to save it.
  
 *E.G.
 
+<<<<<<< .mine
+In> Show(TreeView( '(a*(b+c) == a*b + a*c), Resizable -> True, IncludeExpression -> False))
+=======
 In> Show(TreeView( '(a*(b+c) == a*b + a*c), slider -> True))
+>>>>>>> .r4801
 Result: java.awt.Component
 
 
