@@ -20,7 +20,9 @@ package org.mathpiper.lisp.cons;
 import java.util.Map;
 import org.mathpiper.io.StringOutput;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.printers.LispPrinter;
+import org.mathpiper.lisp.substitute.Substitute;
 
 
 /**
@@ -62,6 +64,71 @@ public abstract class Cons //Note:tk:was MathPiperObject.
     }
 
     public abstract Cons copy(boolean aRecursed) throws Throwable;
+    
+    
+    
+    public static Cons deepCopy(Environment aEnvironment, int aStackTop, Cons aSource) throws Throwable {
+        
+        Cons sourceCons = aSource;
+
+        Cons aDestination = null;
+
+        if(sourceCons == null) LispError.lispAssert(aEnvironment, aStackTop);
+
+
+        Object sourceListCar = sourceCons.car();
+
+        Cons sourceList = null;
+
+        if (sourceListCar instanceof Cons) {
+            Cons cons = (Cons) sourceListCar;
+            sourceList = cons;
+        }
+
+        if (sourceList != null) {
+
+            Cons headCons = null;
+
+            Cons indexCons = null;
+
+            boolean isHead = true;
+
+            while (sourceList != null) {
+
+
+                Cons result = deepCopy(aEnvironment, aStackTop, sourceList);
+
+                if(isHead == true)
+                {
+                    headCons = result;
+                    indexCons = headCons;
+                    isHead = false;
+                }
+                else
+                {
+                    //Point to next cons in the destination list.
+                    indexCons.setCdr(result);
+                    indexCons = result;
+                }
+
+                //Point to next cons in the source list.
+                sourceList = sourceList.cdr();
+
+
+
+            }
+            
+            aDestination = SublistCons.getInstance(aEnvironment, headCons);
+            
+        } else {
+            //Handle atoms.
+            aDestination = sourceCons.copy(false);
+        }
+
+        return aDestination;
+
+    }
+
 
 
 

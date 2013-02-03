@@ -15,8 +15,7 @@ import java.util.Map;
 import java.util.Queue;
 
 import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.SublistCons;
@@ -39,18 +38,21 @@ public class TreePanelCons extends JComponent implements ViewPanel {
     private Map<String,String> latexMap = new HashMap();
     
     private double yPositionAdjust = 30; /*Adjust y position of whole tree, smaller numbers moves the tree down.*/
-    private double xPositionAdjust = .6;/*Adjust x position of whole tree, smaller values moves the tree right.*/
+    private double xPositionAdjust = .9;/*Adjust x position of whole tree, smaller values moves the tree right.*/
     
     private double adjust = 1;
     
     //Show(TreeView( '(a*(b+c) == a*b + a*c)))
     //Show(TreeView( '(a*(b+c) == a*b + a*c), slider -> True))
+    //Show(TreeView( '(2*3+8-4), slider -> True))
     
    
 
     public TreePanelCons(Cons expressionCons, double viewScale) {
 	
 	super();
+	
+	this.setBorder(new EmptyBorder(1,1,1,1));
 	
 	latexMap.put("+", "+");
 	latexMap.put("-", "-");

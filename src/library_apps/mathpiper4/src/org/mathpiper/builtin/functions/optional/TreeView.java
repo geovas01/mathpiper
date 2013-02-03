@@ -18,6 +18,7 @@ package org.mathpiper.builtin.functions.optional;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -85,9 +86,15 @@ public class TreeView extends BuiltinFunction {
         
         //if(! (latexStringObject instanceof String)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "ToDo");
 
+        //Evaluate Hold function.
+        Cons holdAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "Hold");
+        holdAtomCons.setCdr(Cons.deepCopy(aEnvironment, aStackTop, expression));
+        Cons holdSubListCons = SublistCons.getInstance(aEnvironment, holdAtomCons);
+        Cons holdInputExpression = holdSubListCons;        
+        
 	//Obtain LaTeX version of the expression.
 	Cons head = SublistCons.getInstance(aEnvironment, AtomCons.getInstance(aEnvironment, aStackTop, "TeXForm"));
-        ((Cons) head.car()).setCdr(expression);
+        ((Cons) head.car()).setCdr(holdInputExpression);
         Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, head);
         String texString = (String) result.car();
         texString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, texString);
@@ -139,18 +146,19 @@ public class TreeView extends BuiltinFunction {
 	    
 	    JScrollPane treeScrollPane = new JScrollPane(screenCapturePanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-
+            panel.add(latexScreenCapturePanel, BorderLayout.NORTH);
             panel.add(treeScrollPane, BorderLayout.CENTER);
             panel.add(treePanelScaler, BorderLayout.SOUTH);
-            panel.add(latexScreenCapturePanel, BorderLayout.NORTH);
+
 	}
 	else
 	{
+	    panel.add(latexScreenCapturePanel, BorderLayout.NORTH);
 	    JPanel jPanel = new JPanel();
 	    jPanel.setOpaque(true);
 	    jPanel.setBackground(Color.white);
 	    jPanel.add(treePanel);
-	    panel.add(new JPanel().add(jPanel));
+	    panel.add(jPanel, BorderLayout.CENTER);
 	}
  
 
