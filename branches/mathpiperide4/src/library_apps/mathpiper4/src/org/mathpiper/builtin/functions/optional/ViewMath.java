@@ -213,7 +213,7 @@ public class ViewMath extends BuiltinFunction {
 *CALL
     ViewMath(expression)
 
-*Params
+*PARMS
 {expression} -- an expression to view
 
 *DESC

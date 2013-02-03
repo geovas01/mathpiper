@@ -370,14 +370,14 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                 contentPane.add(functionTreePanel.getToolPanel(), BorderLayout.NORTH);
                 contentPane.add(functionTreePanel, BorderLayout.CENTER);
     
-                frame.pack();
+                
     
                 frame.setTitle("MathPiper Docs");
-                frame.setSize(new Dimension(700, 700));
+                frame.setSize(new Dimension(800, 700));
                 //frame.setResizable(false);
-                frame.setPreferredSize(new Dimension(700, 700));
+                frame.setPreferredSize(new Dimension(800, 700));
                 frame.setLocationRelativeTo(null); // added
-    
+                frame.pack();
                 frame.setVisible(true);
     
             }

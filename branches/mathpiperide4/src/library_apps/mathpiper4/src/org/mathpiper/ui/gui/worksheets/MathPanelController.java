@@ -28,7 +28,7 @@ public class MathPanelController extends JPanel implements ChangeListener, ItemL
         //framesPerSecond.setPaintTicks(true);
         scaleSlider.setPaintLabels(true);
 
-        this.add(new JLabel("Adjust Scale"));
+        this.add(new JLabel("Resize"));
         this.add(scaleSlider);
 
         /* 

@@ -106,7 +106,7 @@ public class ViewHtml extends BuiltinFunction {
 *CALL
     ViewHtml(string)
 
-*Params
+*PARMS
 {string} -- a string which contains HTML code
 
 *DESC
