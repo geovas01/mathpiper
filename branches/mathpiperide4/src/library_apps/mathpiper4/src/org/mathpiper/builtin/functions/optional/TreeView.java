@@ -141,12 +141,10 @@ public class TreeView extends BuiltinFunction {
         //JPanel screenCapturePanel = new ScreenCapturePanel();   
         //screenCapturePanel.add(treePanel);
 	
-<<<<<<< .mine
+
 	boolean includeSlider = (Boolean) userOptions.get("Resizable");
 	boolean includeExpression = (Boolean) userOptions.get("IncludeExpression");
-=======
-	boolean includeSlider = (Boolean) userOptions.get("Resizable");
->>>>>>> .r4801
+
 	
 	if(includeSlider && includeExpression)
 	{
