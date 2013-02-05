@@ -195,12 +195,11 @@ public class TreeView extends BuiltinFunction {
 *CMD TreeView --- display an expression tree
 
 *CALL
-    TreeViewddd(expression, option, option, option...)
+    TreeView(expression, option, option, option...)
 
 *PARMS
 {expression} -- an expression to display as an expression tree
 
-<<<<<<< .mine
 {Options:}
 
 {Scale} -- a value that sets the initial size of the tree
@@ -209,14 +208,7 @@ public class TreeView extends BuiltinFunction {
 
 {IncludeExpression} -- if set to True, the algebraic form of the expression is included above the tree
 
-=======
-{Options:}
 
-{Scale} -- a value that sets the initial size of the tree
-
-{Resizable} -- if set to True, a resizing slider is displayed
-
->>>>>>> .r4801
 *DESC
 Returns a Java GUI component that contains an expression rendered as an
 expression tree.
@@ -228,11 +220,8 @@ Right click on the image to save it.
  
 *E.G.
 
-<<<<<<< .mine
 In> Show(TreeView( '(a*(b+c) == a*b + a*c), Resizable -> True, IncludeExpression -> False))
-=======
-In> Show(TreeView( '(a*(b+c) == a*b + a*c), slider -> True))
->>>>>>> .r4801
+
 Result: java.awt.Component
 
 
