@@ -98,17 +98,17 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
     private final Color purple = new Color(153, 0, 153);
     private Interpreter interpreter = Interpreters.getAsynchronousInterpreter();
     private StringBuilder input = new StringBuilder();
-    private JButton haltButton, clearConsoleButton, clearRawButton, helpButton, docsButton, smallerFontButton, largerFontButton;
-    private JCheckBox rawOutputCheckBox;
+    private JButton haltButton, clearConsoleButton, clearRealtimeButton, helpButton, docsButton, smallerFontButton, largerFontButton;
+    private JCheckBox realtimeSideEffectsCheckBox;
     private boolean isCodeResult = true;
     private JCheckBox codeResultCheckBox;
-    private JCheckBox showRawOutputCheckBox;
-    private JTextArea rawOutputTextArea;
+    private JCheckBox showRealtimeOutputCheckBox;
+    private JTextArea realtimeOutputTextArea;
     private ColorPane textPane;
     private MathPiperOutputStream currentOutput;
     private JScrollPane typePane;
     private JPanel consoleButtons;
-    private JPanel rawButtons;
+    private JPanel realtimeButtons;
     private int fontSize = 12;
     private int resultHolderAdjustment = 3;
     private StringBuilder inputLines;
@@ -117,8 +117,8 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
     private boolean noLinesBetweenInAndEndOfTextArea = false;
     private JSplitPane splitPane;
     private int splitPaneDividerLocation = 400;
-    private JScrollPane rawOutputScrollPane;
-    private JPanel rawOutputPanel;
+    private JScrollPane realtimeOutputScrollPane;
+    private JPanel realtimeOutputPanel;
     private JPopupMenu Pmenu;
     private Stack history = new java.util.Stack();
     private boolean controlKeyDown = false;
@@ -139,7 +139,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
             "The console window is an editable text area, so you can add text to it and remove text from \n" +
             "it as needed.\n\n" +
             "Placing ;; after the end of the line of input will suppress the output.\n\n" +
-            "The Show Raw checkbox sends all side effects output to the raw output text area that is" +
+            "The Realtime Output checkbox sends all side effects output to the realtime output text area that is" +
             "at the bottom of the console.";
 
 
@@ -158,10 +158,10 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         consoleButtons.setLayout(new BoxLayout(consoleButtons, BoxLayout.X_AXIS));
 
 
-        rawOutputPanel = new JPanel();
-        rawOutputPanel.setLayout(new BorderLayout());
-        rawButtons = new JPanel();
-        rawButtons.setLayout(new BoxLayout(rawButtons, BoxLayout.X_AXIS));
+        realtimeOutputPanel = new JPanel();
+        realtimeOutputPanel.setLayout(new BorderLayout());
+        realtimeButtons = new JPanel();
+        realtimeButtons.setLayout(new BoxLayout(realtimeButtons, BoxLayout.X_AXIS));
 
 
 
@@ -209,21 +209,22 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         largerFontButton.addActionListener(this);
         consoleButtons.add(largerFontButton);
 
-        rawOutputCheckBox = new JCheckBox("Raw Side Effects");
-        rawOutputCheckBox.addItemListener(this);
-        rawButtons.add(rawOutputCheckBox);
-        this.rawOutputTextArea = new JTextArea();
-        rawOutputTextArea.setEditable(false);
-        rawOutputTextArea.setText("Raw output text area.\n\n");
+        realtimeSideEffectsCheckBox = new JCheckBox("Realtime Side Effects");
+        realtimeSideEffectsCheckBox.addItemListener(this);
+        realtimeButtons.add(realtimeSideEffectsCheckBox);
+        this.realtimeOutputTextArea = new JTextArea();
+        realtimeOutputTextArea.setEditable(false);
+        realtimeOutputTextArea.setText("Realtime output text area.\n\n");
 
         codeResultCheckBox = new JCheckBox("LaTeX Result");
-        codeResultCheckBox.setToolTipText("Show results in code format instead of traditional mathematics format.");
+        codeResultCheckBox.setToolTipText("Show results in traditional mathematics format instead of code format.");
         codeResultCheckBox.addItemListener(this);
         consoleButtons.add(codeResultCheckBox);
 
-        showRawOutputCheckBox = new JCheckBox("Show Raw");
-        showRawOutputCheckBox.addItemListener(this);
-        consoleButtons.add(showRawOutputCheckBox);
+        showRealtimeOutputCheckBox = new JCheckBox("Realtime Output");
+        showRealtimeOutputCheckBox.setToolTipText("Open the realtime output text area that is at the bottom of the console.");
+        showRealtimeOutputCheckBox.addItemListener(this);
+        consoleButtons.add(showRealtimeOutputCheckBox);
 
         consoleButtons.add(Box.createGlue());
 
@@ -233,9 +234,9 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         consoleButtons.add(clearConsoleButton);
 
 
-        clearRawButton = new JButton("Clear Raw");
-        clearRawButton.addActionListener(this);
-        rawButtons.add(clearRawButton);
+        clearRealtimeButton = new JButton("Clear");
+        clearRealtimeButton.addActionListener(this);
+        realtimeButtons.add(clearRealtimeButton);
 
 
         helpButton = new JButton("Help");
@@ -286,13 +287,13 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
         
 
-        this.rawOutputPanel.add(rawButtons, BorderLayout.NORTH);
+        this.realtimeOutputPanel.add(realtimeButtons, BorderLayout.NORTH);
 
         //this.add(guiBox, BorderLayout.CENTER);
 
 
-        rawOutputScrollPane = new JScrollPane(rawOutputTextArea);
-        rawOutputPanel.add(rawOutputScrollPane);
+        realtimeOutputScrollPane = new JScrollPane(realtimeOutputTextArea);
+        realtimeOutputPanel.add(realtimeOutputScrollPane);
 
 
         splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, typePane, null);
@@ -390,8 +391,8 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
             this.textPane.setText("");
             this.textPane.append(Color.BLACK, "In> \n");
             textPane.setCaretPosition(textPane.getDocument().getLength() - 1);
-        } else if (src == clearRawButton) {
-            this.rawOutputTextArea.setText("");
+        } else if (src == clearRealtimeButton) {
+            this.realtimeOutputTextArea.setText("");
         }
 
         textPane.requestFocusInWindow();
@@ -409,7 +410,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                 isCodeResult = true;
             }//end if/else.
         }
-        if (source == rawOutputCheckBox) {
+        if (source == realtimeSideEffectsCheckBox) {
             if (ie.getStateChange() == ItemEvent.SELECTED) {
                 Environment environment = interpreter.getEnvironment();
                 this.currentOutput = environment.iCurrentOutput;
@@ -418,9 +419,9 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                 Environment environment = interpreter.getEnvironment();
                 environment.iCurrentOutput = this.currentOutput;
             }//end if/else.
-        } else if (source == showRawOutputCheckBox) {
+        } else if (source == showRealtimeOutputCheckBox) {
             if (ie.getStateChange() == ItemEvent.SELECTED) {
-                splitPane.add(rawOutputPanel);
+                splitPane.add(realtimeOutputPanel);
                 splitPane.setDividerLocation(splitPaneDividerLocation);
                 splitPane.revalidate();
             } else {
@@ -447,9 +448,9 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
 
     public void putChar(char aChar) throws Throwable {
-        if (rawOutputTextArea != null && currentOutput != null) {
-            this.rawOutputTextArea.append("" + aChar);
-            this.rawOutputTextArea.setCaretPosition(this.rawOutputTextArea.getDocument().getLength());
+        if (realtimeOutputTextArea != null && currentOutput != null) {
+            this.realtimeOutputTextArea.append("" + aChar);
+            this.realtimeOutputTextArea.setCaretPosition(this.realtimeOutputTextArea.getDocument().getLength());
             this.currentOutput.putChar(aChar);
         }//end if.
     }//end method.
@@ -1604,7 +1605,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         //frame.setAlwaysOnTop(true);
         frame.setSize(new Dimension(800, 600));
         frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
-        frame.setTitle("MathPiper");
+        frame.setTitle("MathPiper - version " + org.mathpiper.Version.version());
         //frame.setResizable(false);
 
         //frame.setJMenuBar(console.getMenuBar());
