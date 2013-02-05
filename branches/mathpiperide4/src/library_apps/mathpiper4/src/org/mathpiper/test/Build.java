@@ -659,6 +659,8 @@ public class Build {
 	String versionJavaFile = 
 	    "package org.mathpiper;\n"
             + "\n"
+	    + "//*** GENERATED FILE, DO NOT EDIT ***\n"    
+            + "\n"
             + "public class Version\n"
             + "{\n"
             + "   private static final String version = \"" + this.version +"\";\n"
@@ -667,7 +669,6 @@ public class Build {
             + "   {\n"
             + "       return version;\n"
             + "   }\n"
-            + "\n"
             + "}\n";
 	
 	versionOutputFile.write(versionJavaFile);
