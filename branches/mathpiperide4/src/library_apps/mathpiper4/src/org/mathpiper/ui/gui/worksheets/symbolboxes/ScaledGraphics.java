@@ -86,10 +86,8 @@ public class ScaledGraphics {
     }
     
     
-    public void drawLatex(String text, double x, double y)
+    public void drawLatex(TeXFormula texFormula, int x, int y)
     {
-	
-	TeXFormula texFormula = new TeXFormula(text);
 	//Obtain image example.
 	//http://forge.scilab.org/index.php/p/jlatexmath/source/tree/8b1b0250b95fe80c0e245db2671a817f299ecaf7/examples/Basic/Example1.java
 
@@ -98,9 +96,11 @@ public class ScaledGraphics {
 	JLabel jl = new JLabel();
 
 	jl.setForeground(new Color(0, 0, 0));
-	icon.paintIcon(jl, iG, (int) (x * viewScale), (int)(y * viewScale));
+	
+	icon.paintIcon(jl, iG, (int)(x * viewScale), (int)(y * viewScale));
+	
+	//iG.drawRect((int)(x * viewScale), (int)(y * viewScale), (int)(icon.getIconWidth()), (int)(icon.getIconHeight()));
         
-
     }
 
 
