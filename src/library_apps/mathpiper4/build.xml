@@ -190,7 +190,8 @@
 				</section>
 			</manifest>-->
 			<include name="**/*" />
-			<exclude name="**/*.bat,**/*.sh" />
+			<exclude name="**/*.bat" />
+			<exclude name="**/*.sh" />
 			<exclude name="dist/" />
 			<exclude name="tests/" />
 		</jar> 
@@ -205,6 +206,39 @@
 		    <arg value="${build.classes.dir}/unix_test.sh" />
 	    </exec>
 	</target>
+	
+	
+	
+    <target name="create_runnable_jar" depends="dist">
+        
+        <mkdir dir="${build.dir}/dist/runnable" />
+        
+       <jar destfile="${build.dir}/dist/runnable/mathpiper.jar" filesetmanifest="mergewithoutmain">
+           <manifest>
+               <attribute name="Main-Class" value="org.mathpiper.ui.gui.consoles.GraphicConsole"/>
+               <attribute name="Class-Path" value="."/>
+           </manifest>
+           
+           
+           <fileset dir="/home/tkosan/workspace/mathpiper4/build">
+               <exclude name="**/*.bat" />
+               <exclude name="**/*.sh" />
+               <exclude name="dist/" />
+               <exclude name="tests/" />
+           </fileset>
+           
+           <zipfileset excludes="META-INF/*.SF" src="/home/tkosan/workspace/lib/jlatexmath.jar"/>
+           <zipfileset excludes="META-INF/*.SF" src="/home/tkosan/workspace/lib/jfreechart-1.0.13.jar"/>
+           <zipfileset excludes="META-INF/*.SF" src="/home/tkosan/workspace/lib/jlm_cyrillic.jar"/>
+           <zipfileset excludes="META-INF/*.SF" src="/home/tkosan/workspace/lib/jlm_greek.jar"/>
+           <zipfileset excludes="META-INF/*.SF" src="/home/tkosan/workspace/lib/jcommon-1.0.16.jar"/>
+       </jar>
+       
+        <exec executable="chmod">
+            <arg value="+x" />
+            <arg value="${build.dir}/dist/runnable/mathpiper.jar" />
+        </exec>
+   </target>
   
     <!-- ======================================== GWT ========================================================= -->
     
