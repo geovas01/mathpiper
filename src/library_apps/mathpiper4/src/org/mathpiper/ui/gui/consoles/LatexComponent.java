@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusListener;
@@ -15,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import org.mathpiper.interpreters.EvaluationResponse;
@@ -42,6 +45,8 @@ public class LatexComponent extends JPanel implements RenderingComponent, MouseL
 
 
     public LatexComponent(int fontPointSize, GraphicConsole console) {
+	
+	this.setBorder(new EmptyBorder(1,1,1,1));
 
         this.console = console;
 
@@ -56,6 +61,7 @@ public class LatexComponent extends JPanel implements RenderingComponent, MouseL
         try {
             texFormula = new TeXFormula(latexString);
             TeXIcon icon = texFormula.createTeXIcon(TeXConstants.STYLE_DISPLAY, fontPointSize);
+            icon.setInsets(new Insets(5, 5, 5, 5));
             renderedResult.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
             renderedResult.setAlignmentY(icon.getBaseLine());
             renderedResult.setIcon(icon);
@@ -177,6 +183,7 @@ public class LatexComponent extends JPanel implements RenderingComponent, MouseL
         this.fontPointSize = scaleValue;
 
         TeXIcon icon = texFormula.createTeXIcon(TeXConstants.STYLE_DISPLAY, fontPointSize);
+        icon.setInsets(new Insets(5, 5, 5, 5));
         renderedResult.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
         renderedResult.setAlignmentY(icon.getBaseLine());
         renderedResult.setIcon(icon);
@@ -301,6 +308,7 @@ public class LatexComponent extends JPanel implements RenderingComponent, MouseL
         try {
             texFormula2 = new TeXFormula(latexString);
             TeXIcon icon = texFormula2.createTeXIcon(TeXConstants.STYLE_DISPLAY, this.fontPointSize);
+            icon.setInsets(new Insets(5, 5, 5, 5));
             renderedResult.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
             renderedResult.setAlignmentY(icon.getBaseLine());
             renderedResult.setIcon(icon);
@@ -311,6 +319,14 @@ public class LatexComponent extends JPanel implements RenderingComponent, MouseL
         } catch (Throwable ex) {
         }
 
+    }
+    
+    
+    public void paint(Graphics g)
+    {
+	super.paint(g);
+	Dimension d = getPreferredSize(); 
+	g.drawRect(0, 0, d.width, d.height);
     }
 
 
