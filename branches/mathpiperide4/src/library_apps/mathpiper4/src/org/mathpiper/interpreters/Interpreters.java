@@ -208,9 +208,17 @@ public class Interpreters {
     public static synchronized List addOptionalFunctions(Environment aEnvironment, String functionsPath) {
 
         List failList = new ArrayList();
+        
+        String functionListFileName = "plugins_list.txt";
 
         try {
-            String[] listing = getResourceListing(BuiltinFunction.class, functionsPath);
+            String[] listing = getResourceListing(BuiltinFunction.class, functionsPath, functionListFileName);
+            
+            if(listing == null)
+            {
+        	throw new Exception("Missing the file " + functionsPath + functionListFileName + " that is needed for initializing optional functions.");
+            }
+            
             for (int x = 0; x < listing.length; x++) {
 
                 String fileName = listing[x];
@@ -259,9 +267,9 @@ public class Interpreters {
         return failList;
     }//end method.
 
-    private static String[] getResourceListing(Class loadedClass, String path) throws URISyntaxException, IOException {
+    private static String[] getResourceListing(Class loadedClass, String path, String file) throws URISyntaxException, IOException {
 
-        InputStream inputStream = loadedClass.getClassLoader().getResourceAsStream(path + "plugins_list.txt");
+        InputStream inputStream = loadedClass.getClassLoader().getResourceAsStream(path + file);
 
         if (inputStream == null) {
             return null;
