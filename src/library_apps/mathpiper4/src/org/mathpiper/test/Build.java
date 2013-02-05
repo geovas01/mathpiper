@@ -493,14 +493,16 @@ public class Build {
         if (documentationFile != null) {
 
             String functionNamesString = "";
+            
             if (fold.getAttributes().containsKey("name")) {
+        	
                 functionNamesString = (String) fold.getAttributes().get("name");
 
-                //Uncomment to debug the documentation for a given function..
-                /*if(functionNamesString.equals("RepToNumber"))
+                if(functionNamesString.equals(""))
                 {
-                int xxx = 1;
-                }*/
+                    System.out.print("*** UNNAMED IN DOCUMENTATION ***");
+                    return;
+                }
 
 
                 String[] functionNames = functionNamesString.split(";");
@@ -600,7 +602,11 @@ public class Build {
                         System.out.print(functionName + ": **** Uncategorized ****, ");
                     }
                 }//end for.
-            }//end if.
+            }
+            else
+            {
+        	System.out.print("*** UNNAMED IN DOCUMENTATION ***");
+            }
 
         }//end if.
     }//end method
