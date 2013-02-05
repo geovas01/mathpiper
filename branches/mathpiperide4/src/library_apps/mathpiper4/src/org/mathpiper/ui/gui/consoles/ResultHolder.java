@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -15,6 +16,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
 import org.mathpiper.ui.gui.Utility;
 
 import org.scilab.forge.jlatexmath.JMathTeXException;
@@ -37,6 +40,7 @@ public class ResultHolder extends JPanel implements RenderingComponent, MouseLis
 
     public ResultHolder(String latexString, String resultString, int fontPointSize) {
 
+	this.setBorder(new EmptyBorder(1,1,1,1));
 
         this.latexString = latexString;
         this.resultString = resultString;
@@ -47,6 +51,7 @@ public class ResultHolder extends JPanel implements RenderingComponent, MouseLis
         try {
             texFormula = new TeXFormula(latexString);
             TeXIcon icon = texFormula.createTeXIcon(TeXConstants.STYLE_DISPLAY, fontPointSize);
+            icon.setInsets(new Insets(5, 5, 5, 5));
             renderedResult.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
             renderedResult.setAlignmentY(icon.getBaseLine());
             renderedResult.setIcon(icon);
@@ -152,6 +157,7 @@ public class ResultHolder extends JPanel implements RenderingComponent, MouseLis
     public void setScale(int scaleValue) {
 
         TeXIcon icon = texFormula.createTeXIcon(TeXConstants.STYLE_DISPLAY, scaleValue);
+        icon.setInsets(new Insets(5, 5, 5, 5));
         renderedResult.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
         renderedResult.setAlignmentY(icon.getBaseLine());
         renderedResult.setIcon(icon);

@@ -51,6 +51,7 @@ public class LatexRenderingController extends JPanel implements ChangeListener {
         int intValue = (int) source.getValue();
 
         TeXIcon icon = texFormula.createTeXIcon(TeXConstants.STYLE_DISPLAY, intValue);
+        icon.setInsets(new Insets(5, 5, 5, 5));
         texLabel.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
         texLabel.setAlignmentY(icon.getBaseLine());
         texLabel.setIcon(icon);
