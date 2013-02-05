@@ -595,7 +595,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                             if (object instanceof LatexComponent) {
                                 line = line.subSequence(0, lineIndex) + " " + object.toString() + " " + line.substring(lineIndex);
 
-                                System.out.println(line);
+                                //System.out.println(line);
                             }
                         }
                         lineIndex++;
