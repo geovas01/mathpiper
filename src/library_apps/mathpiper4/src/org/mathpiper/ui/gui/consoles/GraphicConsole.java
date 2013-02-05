@@ -221,7 +221,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         codeResultCheckBox.addItemListener(this);
         consoleButtons.add(codeResultCheckBox);
 
-        showRealtimeOutputCheckBox = new JCheckBox("Realtime Output");
+        showRealtimeOutputCheckBox = new JCheckBox("Show Realtime");
         showRealtimeOutputCheckBox.setToolTipText("Open the realtime output text area that is at the bottom of the console.");
         showRealtimeOutputCheckBox.addItemListener(this);
         consoleButtons.add(showRealtimeOutputCheckBox);

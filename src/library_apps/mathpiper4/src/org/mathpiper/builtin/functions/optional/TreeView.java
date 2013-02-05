@@ -134,9 +134,9 @@ public class TreeView extends BuiltinFunction {
 
         TreePanelCons treePanel = new TreePanelCons(expression, viewScale);
         
-        JPanel screenCapturePanel = new ScreenCapturePanel();
+        JPanel treeScreenCapturePanel = new ScreenCapturePanel();
         
-        screenCapturePanel.add(treePanel);
+        treeScreenCapturePanel.add(treePanel);
         
         //JPanel screenCapturePanel = new ScreenCapturePanel();   
         //screenCapturePanel.add(treePanel);
@@ -150,29 +150,30 @@ public class TreeView extends BuiltinFunction {
 	{
 	    MathPanelController treePanelScaler = new MathPanelController(treePanel, viewScale);
 	    
-	    JScrollPane treeScrollPane = new JScrollPane(screenCapturePanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+	    JScrollPane treeScrollPane = new JScrollPane(treeScreenCapturePanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
             panel.add(latexScreenCapturePanel, BorderLayout.NORTH);
             panel.add(treeScrollPane, BorderLayout.CENTER);
             panel.add(treePanelScaler, BorderLayout.SOUTH);
 
 	}
-	else if (includeExpression)
+	else if(includeSlider)
+	{
+	    MathPanelController treePanelScaler = new MathPanelController(treePanel, viewScale);
+	    
+	    JScrollPane treeScrollPane = new JScrollPane(treeScreenCapturePanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+            panel.add(treeScrollPane, BorderLayout.CENTER);
+            panel.add(treePanelScaler, BorderLayout.SOUTH);
+	}
+	else if(includeExpression)
 	{
 	    panel.add(latexScreenCapturePanel, BorderLayout.NORTH);
-	    JPanel jPanel = new JPanel();
-	    jPanel.setOpaque(true);
-	    jPanel.setBackground(Color.white);
-	    jPanel.add(treePanel);
-	    panel.add(jPanel, BorderLayout.CENTER);
+            panel.add(treeScreenCapturePanel, BorderLayout.CENTER);
 	}
 	else
 	{
-	    JPanel jPanel = new JPanel();
-	    jPanel.setOpaque(true);
-	    jPanel.setBackground(Color.white);
-	    jPanel.add(treePanel);
-	    panel.add(jPanel, BorderLayout.CENTER);
+	    panel.add(treeScreenCapturePanel, BorderLayout.CENTER);
 	}
  
 
@@ -220,7 +221,7 @@ Right click on the image to save it.
  
 *E.G.
 
-In> Show(TreeView( '(a*(b+c) == a*b + a*c), Resizable -> True, IncludeExpression -> False))
+In> Show(TreeView( '(a*(b+c) == a*b + a*c), Resizable -> True, IncludeExpression -> True))
 
 Result: java.awt.Component
 
