@@ -31,7 +31,8 @@
     	<pathelement path="${library.dir}/validation-api-1.0.0.GA-sources.jar" />
     </path>
 
-<!-- <property name="version" value=".58" /> -->
+    <property name="version" value="mp4.v.100" />
+    
     <property name="build.classes.dir" value="${build.dir}" />
 
     <condition property="isMac">
@@ -122,6 +123,7 @@
             <jvmarg line="-Xmx300M -Xms300M -Xss8M" />
             <arg value="${src.dir}/" />
             <arg value="${build.dir}/" />
+            <arg value="${version}" />
             
         </java>
         

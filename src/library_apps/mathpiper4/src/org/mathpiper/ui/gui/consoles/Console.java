@@ -139,7 +139,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         //textArea = new JTextArea(30, 20);
         textPane = new ColorPane();
 
-        textPane.append(purple, "MathPiper version " + org.mathpiper.Version.version + ".\n");
+        textPane.append(purple, "MathPiper version " + org.mathpiper.Version.version() + ".\n");
         textPane.append(purple, "Enter an expression after any In> prompt and press <enter> or <shift><enter> to evaluate it.\n");
 
 
