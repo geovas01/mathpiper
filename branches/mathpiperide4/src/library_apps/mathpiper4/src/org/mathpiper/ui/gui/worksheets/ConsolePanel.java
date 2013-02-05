@@ -337,7 +337,7 @@ public class ConsolePanel extends JPanel implements KeyListener, FocusListener, 
 
             addLineStatic(100, "", "", font, c);
             addLineStatic(100, "", "", font, c);
-            addLineStatic(100, "", "MathPiper version '" + Version.version + "'.", font, c);
+            addLineStatic(100, "", "MathPiper version '" + Version.version() + "'.", font, c);
             addLineStatic(100, "", "Type 'restart' to restart MathPiper, or 'cls' to clear screen.\n", font, c);
             addLineStatic(100, "", "To see example commands, keep typing 'Example();'\n", font, c);
         }

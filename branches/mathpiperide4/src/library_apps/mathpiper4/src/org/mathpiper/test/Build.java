@@ -16,25 +16,16 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.test;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-/**
- *
- * @author tkosan
- */
+
 public class Build {
 
     private boolean strip = true; //Set to false to have unaltered scripts placed into Scripts.java.
@@ -47,45 +38,45 @@ public class Build {
     //private String outputScriptsDirectory = null;
     private String documentationOutputDirectory = null;
     private String sourceDirectory = null;
-    private java.io.DataOutputStream documentationFile;
-    private java.io.FileWriter documentationIndexFile;
+    private java.io.DataOutputStream documentationOutputFile;
+    private java.io.FileWriter documentationOutputIndexFile;
     private long documentationOffset = 0;
-    private java.io.FileWriter functionCategoriesFile;
+    private java.io.FileWriter functionOutputCategoriesFile;
     private List<CategoryEntry> functionCategoriesList = new ArrayList<CategoryEntry>();
     private int documentedFunctionsCount = 0;
     private int undocumentedMPWFileCount = 0;
+    private String version;
     //private Interpreter mathpiper = Interpreters.newSynchronousInterpreter();
 
     private Build() {
     }//end constructor.
 
-    public Build(String sourceDirectory, String outputDirectory) throws Throwable {
+    public Build(String sourceDirectory, String outputDirectory, String version) throws Throwable {
     	    
     	this.sourceDirectory = sourceDirectory;
     	
         documentationOutputDirectory = outputDirectory;
+        
         sourceScriptsDirectory = sourceDirectory + "org/mathpiper/scripts4/";
+        
+        this.version = version;
 
         this.initializeFiles();
-
-
-
     }
 
     public void initializeFiles() throws Throwable {
   
-	    documentationFile = new DataOutputStream(new java.io.FileOutputStream(documentationOutputDirectory + "org/mathpiper/ui/gui/help/data/documentation.txt"));
+	    documentationOutputFile = new DataOutputStream(new java.io.FileOutputStream(documentationOutputDirectory + "org/mathpiper/ui/gui/help/data/documentation.txt"));
 	
-	    documentationIndexFile = new java.io.FileWriter(documentationOutputDirectory + "org/mathpiper/ui/gui/help/data/documentation_index.txt");
+	    documentationOutputIndexFile = new java.io.FileWriter(documentationOutputDirectory + "org/mathpiper/ui/gui/help/data/documentation_index.txt");
 	
-	    functionCategoriesFile = new java.io.FileWriter(documentationOutputDirectory + "org/mathpiper/ui/gui/help/data/function_categories.txt");
-
+	    functionOutputCategoriesFile = new java.io.FileWriter(documentationOutputDirectory + "org/mathpiper/ui/gui/help/data/function_categories.txt");
     }
 
     public void compileScripts() throws Throwable {
-
-
-        //System.out.println("XXXXX " + sourceDirectory);
+	
+	System.out.println("****************** Compiling scripts *******");
+        System.out.println("Source directory: " + this.sourceScriptsDirectory);
 
 
         scriptsJavaFile = new java.io.FileWriter(sourceDirectory + "org/mathpiper/Scripts.java");
@@ -131,7 +122,7 @@ public class Build {
         if (scriptsDir.exists()) {
 
             //Process built in functions first.
-            if (documentationFile != null) {
+            if (documentationOutputFile != null) {
 
                 processBuiltinDocs(sourceDirectory, documentationOutputDirectory, "org/mathpiper/builtin/functions/core");
 
@@ -248,7 +239,7 @@ public class Build {
 
             Collections.sort(functionCategoriesList);
             for (CategoryEntry entry : functionCategoriesList) {
-                functionCategoriesFile.write(entry.toString() + "\n");
+                functionOutputCategoriesFile.write(entry.toString() + "\n");
             }
 
 
@@ -302,11 +293,11 @@ public class Build {
 
 
 
-        if (documentationFile != null) {
+        if (documentationOutputFile != null) {
 
-            documentationFile.close();
-            documentationIndexFile.close();
-            functionCategoriesFile.close();
+            documentationOutputFile.close();
+            documentationOutputIndexFile.close();
+            functionOutputCategoriesFile.close();
         }
 
 
@@ -490,7 +481,7 @@ public class Build {
     }//end method.
 
     private void processMathPiperDocsFold(Fold fold, String mpwFilePath) throws Throwable {
-        if (documentationFile != null) {
+        if (documentationOutputFile != null) {
 
             String functionNamesString = "";
             
@@ -517,23 +508,23 @@ public class Build {
                     ex.printStackTrace();
                     }*/
 
-                    documentationIndexFile.write(functionName + ",");
-                    documentationIndexFile.write(documentationOffset + ",");
+                    documentationOutputIndexFile.write(functionName + ",");
+                    documentationOutputIndexFile.write(documentationOffset + ",");
 
                     String contents = fold.getContents();
 
                     contents = contents + "\n*SOURCE " + mpwFilePath;
 
                     byte[] contentsBytes = contents.getBytes();
-                    documentationFile.write(contentsBytes, 0, contentsBytes.length);
+                    documentationOutputFile.write(contentsBytes, 0, contentsBytes.length);
                     //individualDocumentationFile.write(contentsBytes, 0, contentsBytes.length);
                     //individualDocumentationFile.close();
 
                     documentationOffset = documentationOffset + contents.length();
-                    documentationIndexFile.write(documentationOffset + "\n");
+                    documentationOutputIndexFile.write(documentationOffset + "\n");
 
                     byte[] separator = "\n==========\n".getBytes();
-                    documentationFile.write(separator, 0, separator.length);
+                    documentationOutputFile.write(separator, 0, separator.length);
 
                     documentationOffset = documentationOffset + separator.length;
 
@@ -650,12 +641,40 @@ public class Build {
     }//end method.
 
     public void execute() throws Throwable {
-        //execute() method is needed by ant to run this class.
-        System.out.println("****************** Compiling scripts *******");
-        System.out.println("Source directory: " + this.sourceScriptsDirectory);
+        //This method is needed by ant to run this class.
 
         compileScripts();
+        
+        createVersionJavaFile();
     }//end method.
+    
+    
+    private void createVersionJavaFile() throws Throwable
+    {
+	System.out.println("****************** Creating version file *******");
+	
+        FileWriter versionOutputFile = new java.io.FileWriter(sourceDirectory + "org/mathpiper/Version.java");
+	        
+	        
+	String versionJavaFile = 
+	    "package org.mathpiper;\n"
+            + "\n"
+            + "public class Version\n"
+            + "{\n"
+            + "   private static final String version = \"" + this.version +"\";\n"
+            + "\n"
+            + "   public static String version()\n"
+            + "   {\n"
+            + "       return version;\n"
+            + "   }\n"
+            + "\n"
+            + "}\n";
+	
+	versionOutputFile.write(versionJavaFile);
+	
+	versionOutputFile.close();
+	
+    }
 
     private class CategoryEntry implements Comparable {
 
@@ -940,20 +959,25 @@ public class Build {
             String sourceDirectory = null;
             
             String outputDirectory = null;
+            
+            String version = "UNDEFINED";
 
-            if (args.length == 2) {
+            if (args.length == 3) {
                 sourceDirectory = args[0];
                 outputDirectory = args[1];
+                version = args[2];
+                
+                System.out.println("XXX " + version);
             }
             else
             {
-            	    throw new Exception("Two arguments must be submitted to the main method.");
+            	    throw new Exception("Three arguments must be submitted to the main method.");
             }
 
-            Build build = new Build(sourceDirectory, outputDirectory);
+            Build build = new Build(sourceDirectory, outputDirectory, version);
 
 
-            build.compileScripts();
+            build.execute();
 
 
             /*
