@@ -70,7 +70,7 @@ import org.mathpiper.interpreters.EvaluationResponse;
 import org.mathpiper.interpreters.Interpreter;
 import org.mathpiper.interpreters.Interpreters;
 
-public class FunctionTreePanel extends JPanel implements TreeSelectionListener, HyperlinkListener {
+public class FunctionTreePanel extends JPanel implements TreeSelectionListener, HyperlinkListener, HelpListener {
 
     private JScrollPane docsScrollPane;
     private String[][] userFunctionsData;
@@ -79,6 +79,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
     private DefaultMutableTreeNode userFunctionsNode;
     private DefaultMutableTreeNode programmerFunctionsNode;
     private DefaultMutableTreeNode operatorsNode;
+    private DefaultMutableTreeNode licenseNode;
     private List allFunctions;
     private FunctionInfoTree functionsTree;
     private Map documentationIndex;
@@ -100,6 +101,8 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
     public FunctionTreePanel() throws FileNotFoundException {
 
         helpListeners = new ArrayList<HelpListener>();
+        
+        this.addHelpListener(this);
 
         this.setLayout(new BorderLayout());
 
@@ -518,10 +521,11 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
         populateNode(operatorsNode, operatorsData);
         mathpiperFunctionsRootNode.add(operatorsNode);
+        
+
+        
 
         DefaultTreeModel model = new DefaultTreeModel(mathpiperFunctionsRootNode);
-
-
 
         functionsTree = new FunctionInfoTree(model);
 
@@ -1264,6 +1268,15 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         }//end for.
 
     }//end method.
+    
+    
+    
+    public void helpEvent(HelpEvent he)
+    {
+	String sourceCode = "<html><pre>" + he.getSourceCode() + "</pre></html>";;
+	
+	this.setPage("Source Code", sourceCode, false);
+    }
 
 
 
