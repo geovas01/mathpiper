@@ -76,6 +76,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
     private String[][] userFunctionsData;
     private String[][] programmerFunctionsData;
     private String[][] operatorsData;
+    private String[][] licenseData;
     private DefaultMutableTreeNode userFunctionsNode;
     private DefaultMutableTreeNode programmerFunctionsNode;
     private DefaultMutableTreeNode operatorsNode;
@@ -83,6 +84,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
     private List allFunctions;
     private FunctionInfoTree functionsTree;
     private Map documentationIndex;
+    private Map licenseIndex;
     private RandomAccessFile documentFile;
     private JEditorPane editorPane;
     private static StringBuilder seeFunctionsBuilder = new StringBuilder();
@@ -118,15 +120,25 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
         loadCategories(functionCategoriesStream);
 
+        
+        documentationIndex = new HashMap();
         InputStream documentationIndexStream = FunctionTreePanel.class.getResourceAsStream("/org/mathpiper/ui/gui/help/data/documentation_index.txt");
-
         if (documentationIndexStream == null)
         {
             throw new FileNotFoundException("The file documentation_index.txt was not found.");
         }
+        loadDocumentationIndex(documentationIndexStream, documentationIndex);
+        
+        
+        licenseIndex = new HashMap();
+        InputStream licenseIndexStream = FunctionTreePanel.class.getResourceAsStream("/org/mathpiper/ui/gui/help/data/license_index.txt");
+        if (licenseIndexStream == null)
+        {
+            throw new FileNotFoundException("The file license_index.txt was not found.");
+        }
+        loadDocumentationIndex(licenseIndexStream, licenseIndex);        
 
-        loadDocumentationIndex(documentationIndexStream);
-
+        
         createTree();
 
         ToolTipManager.sharedInstance().registerComponent(functionsTree);
@@ -203,7 +215,8 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         List userFunctions = new ArrayList();
         List programmerFunctions = new ArrayList();
         List operators = new ArrayList();
-
+        List license = new ArrayList();
+        
 
 
 
@@ -216,11 +229,25 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
             while ((line = categoriesFile.readLine()) != null)
             {
-                line = line + ",Alphabetical";
+                //line = line + ",Alphabetical";
 
                 List<String> functionDatalineFields = parseCSV(line);
 
                 String functionCategory = functionDatalineFields.get(0).trim();
+                
+                if(functionCategory.equalsIgnoreCase("User Functions"))
+                {
+                    functionDatalineFields.add("Alphabetical");
+                }
+                else if(functionCategory.equalsIgnoreCase("Programmer Functions"))
+                {
+                    functionDatalineFields.add("Alphabetical");
+                }
+                else if(functionCategory.equalsIgnoreCase("Operators"))
+                {
+                    functionDatalineFields.add("");
+                    //functionDatalineFields.add("Alphabetical");
+                }
 
                 functionDatalineFields.remove(0);
 
@@ -234,9 +261,13 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                 {
                     programmerFunctions.add(functionDatalineFieldsArray);
                 }
-                else
+                else if (functionCategory.equalsIgnoreCase("Operators"))
                 {
                     operators.add(functionDatalineFieldsArray);
+                }
+                else
+                {
+                    license.add(functionDatalineFieldsArray);
                 }
 
             }//end while.
@@ -244,6 +275,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
             userFunctionsData = (String[][]) userFunctions.toArray(new String[userFunctions.size()][]);
             programmerFunctionsData = (String[][]) programmerFunctions.toArray(new String[programmerFunctions.size()][]);
             operatorsData = (String[][]) operators.toArray(new String[operators.size()][]);
+            licenseData = (String[][]) license.toArray(new String[license.size()][]);
 
         }
         catch (Throwable e)
@@ -523,6 +555,10 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         mathpiperFunctionsRootNode.add(operatorsNode);
         
 
+        licenseNode = new DefaultMutableTreeNode(new FunctionInfo("License", "License information."));
+        licenseNode.add(new DefaultMutableTreeNode(new FunctionInfo("MathPiper", "Functions that are related to analytic geometry.")));
+        populateNode(licenseNode, licenseData);
+        mathpiperFunctionsRootNode.add(licenseNode);
         
 
         DefaultTreeModel model = new DefaultTreeModel(mathpiperFunctionsRootNode);
@@ -537,14 +573,14 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
     }//end method.
 
 
-    private void loadDocumentationIndex(InputStream inputStream) {
-        documentationIndex = new HashMap();
+    private void loadDocumentationIndex(InputStream inputStream, Map index) {
+
         try
         {
-            BufferedReader documentationIndexReader = new BufferedReader(new InputStreamReader(inputStream));
+            BufferedReader indexReader = new BufferedReader(new InputStreamReader(inputStream));
 
             String line;
-            while ((line = documentationIndexReader.readLine()) != null)
+            while ((line = indexReader.readLine()) != null)
             {
 
                 String[] values = line.split(",");
@@ -554,16 +590,16 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                     String[] functionNames = values[0].split(";");
                     for (String name : functionNames)
                     {
-                        documentationIndex.put(name, values[1] + "," + values[2]);
+                        index.put(name, values[1] + "," + values[2]);
                     }//end for.
                 }
                 else
                 {
-                    documentationIndex.put(values[0], values[1] + "," + values[2]);
+                    index.put(values[0], values[1] + "," + values[2]);
                 }//end else.
             }//end while.
 
-            documentationIndexReader.close();
+            indexReader.close();
 
         }
         catch (java.io.IOException e)
@@ -647,6 +683,56 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
 
         }
+        else if (this.licenseIndex.containsKey(functionName))
+        {
+
+            String licenseIndexesString = (String) this.licenseIndex.get(functionName);
+            String[] licenseIndexes = licenseIndexesString.split(",");
+            int startIndex = Integer.parseInt(licenseIndexes[0]);
+            int endIndex = Integer.parseInt(licenseIndexes[1]);
+            int length = endIndex - startIndex;
+            byte[] licenseData = new byte[length];
+            //char[] documentationData = new char[length];
+            //System.out.println("yyyy " + functionName + "  " + startIndex + " " + endIndex + " " + length);
+            try
+            {
+
+                BufferedInputStream licenseStream = new BufferedInputStream(FunctionTreePanel.class.getResourceAsStream("/org/mathpiper/ui/gui/help/data/license.txt"));
+
+                if (licenseStream == null)
+                {
+                    throw new FileNotFoundException("The file license.txt was not found.");
+                }
+
+                licenseStream.skip(startIndex);
+                licenseStream.read(licenseData, 0, length);
+                //docsStream.close();
+
+
+
+
+                String licenseDataString = new String(licenseData);
+
+
+                //String html = textToHtml(documentationDataString);
+
+                //html = processLatex(html);
+
+                setPage(functionName, licenseDataString, true);
+
+                //functionInfo = nodeInfo;
+                //displayFunctionDocs(functionInfo.toString());
+            }
+            catch (IOException ex)
+            {
+                ex.printStackTrace();
+            }//end catch.
+
+            return true;
+
+
+        }
+
         else
         {
             return false;
