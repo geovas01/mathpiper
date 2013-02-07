@@ -40,7 +40,10 @@ public class Build {
     private String sourceDirectory = null;
     private java.io.DataOutputStream documentationOutputFile;
     private java.io.FileWriter documentationOutputIndexFile;
+    private java.io.DataOutputStream licenseOutputFile;
+    private java.io.FileWriter licenseOutputIndexFile;
     private long documentationOffset = 0;
+    private long licenseOffset = 0;
     private java.io.FileWriter functionOutputCategoriesFile;
     private List<CategoryEntry> functionCategoriesList = new ArrayList<CategoryEntry>();
     private int documentedFunctionsCount = 0;
@@ -69,6 +72,10 @@ public class Build {
 	    documentationOutputFile = new DataOutputStream(new java.io.FileOutputStream(documentationOutputDirectory + "org/mathpiper/ui/gui/help/data/documentation.txt"));
 	
 	    documentationOutputIndexFile = new java.io.FileWriter(documentationOutputDirectory + "org/mathpiper/ui/gui/help/data/documentation_index.txt");
+
+	    licenseOutputFile = new DataOutputStream(new java.io.FileOutputStream(documentationOutputDirectory + "org/mathpiper/ui/gui/help/data/license.txt"));
+	
+	    licenseOutputIndexFile = new java.io.FileWriter(documentationOutputDirectory + "org/mathpiper/ui/gui/help/data/license_index.txt");
 	
 	    functionOutputCategoriesFile = new java.io.FileWriter(documentationOutputDirectory + "org/mathpiper/ui/gui/help/data/function_categories.txt");
     }
@@ -295,6 +302,12 @@ public class Build {
 
         if (documentationOutputFile != null) {
 
+            licenseOutputFile.close();
+            licenseOutputIndexFile.close();
+        }
+
+        if (documentationOutputFile != null) {
+
             documentationOutputFile.close();
             documentationOutputIndexFile.close();
             functionOutputCategoriesFile.close();
@@ -466,6 +479,12 @@ public class Build {
                 hasDocs = true;
 
                 processMathPiperDocsFold(fold, mpwFilePath);
+            }
+            else if (foldType.equalsIgnoreCase("%html") && fold.getAttributes().containsKey("subtype") && ((String)fold.getAttributes().get("subtype")).equals("license")) {
+                //System.out.println("        **** Contains docs *****");
+                hasDocs = true;
+
+                processLicenseFold(fold, mpwFilePath);
 
             }//end if.
 
@@ -602,6 +621,114 @@ public class Build {
         }//end if.
     }//end method
 
+    
+    private void processLicenseFold(Fold fold, String mpwFilePath) throws Throwable {
+        if (licenseOutputFile != null) {
+
+            String licenseNamesString = "";
+            
+            if (fold.getAttributes().containsKey("name")) {
+        	
+                licenseNamesString = (String) fold.getAttributes().get("name");
+
+                if(licenseNamesString.equals(""))
+                {
+                    System.out.print("*** UNNAMED IN DOCUMENTATION ***");
+                    return;
+                }
+
+
+                String[] licenseNames = licenseNamesString.split(";");
+
+                for (String licenseName : licenseNames) {
+
+                    licenseOutputIndexFile.write(licenseName + ",");
+                    licenseOutputIndexFile.write(licenseOffset + ",");
+
+                    String contents = fold.getContents();
+
+                    byte[] contentsBytes = contents.getBytes();
+                    licenseOutputFile.write(contentsBytes, 0, contentsBytes.length);
+
+                    licenseOffset = licenseOffset + contents.length();
+                    licenseOutputIndexFile.write(licenseOffset + "\n");
+
+                    byte[] separator = "\n==========\n".getBytes();
+                    licenseOutputFile.write(separator, 0, separator.length);
+
+                    licenseOffset = licenseOffset + separator.length;
+
+                    String access = "public";
+
+                    if (fold.getAttributes().containsKey("categories")) {
+
+
+
+                        String description = "NO DESCRIPTTION";
+                        if(fold.getAttributes().containsKey("description"))
+                        {
+                            description = (String) fold.getAttributes().get("description");
+                        }
+                        	
+
+
+                        if (description.contains(",")) {
+                            description = "\"" + description + "\"";
+                        }
+
+                        System.out.print(licenseName + ": " + description + ", ");
+
+                        String functionCategories = (String) fold.getAttributes().get("categories");
+                        String[] categoryNames = functionCategories.split(";");
+                        String categories = "";
+
+                        int categoryIndex = 0;
+                        String functionCategoryName = "";
+
+                        for (String categoryName : categoryNames) {
+                            if (categoryIndex == 0) {
+                                functionCategoryName = categoryName;
+
+                            } else {
+                                categories = categories + categoryName + ",";
+                            }
+                            categoryIndex++;
+                        }//end for.
+
+
+
+                        if (!categories.equalsIgnoreCase("")) {
+                            categories = categories.substring(0, categories.length() - 1);
+
+                        }
+
+                        if (functionCategoryName.equalsIgnoreCase("")) {
+                            functionCategoryName = "Uncategorized";  //todo:tk:perhaps we should throw an exception here.
+                        }
+
+                        if (fold.getAttributes().containsKey("access")) {
+                            access = (String) fold.getAttributes().get("access");
+                        }
+
+                        CategoryEntry categoryEntry = new CategoryEntry(functionCategoryName, licenseName, access, description, categories);
+
+                        functionCategoriesList.add(categoryEntry);
+
+                    } else {
+                        System.out.print(licenseName + ": **** Uncategorized ****, ");
+                    }
+                }//end for.
+            }
+            else
+            {
+        	System.out.print("*** UNNAMED IN DOCUMENTATION ***");
+            }
+
+        }//end if.
+    }//end method
+    
+    
+    
     private void processAutomaticTestFold(Fold fold, String filePath, boolean builtin) throws Throwable {
 
         String foldContents = fold.getContents();
@@ -968,7 +1095,7 @@ public class Build {
                 outputDirectory = args[1];
                 version = args[2];
                 
-                System.out.println("XXX " + version);
+                System.out.println("XXX " + sourceDirectory + ", " + outputDirectory);
             }
             else
             {
