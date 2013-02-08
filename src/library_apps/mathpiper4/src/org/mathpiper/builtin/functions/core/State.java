@@ -72,7 +72,7 @@ public class State extends BuiltinFunction {
 	variablesList = new ArrayList<String>();
 
 	for (String key : variablesSet) {
-	    if (userOptions.get("showPrivate").equals(true)) {
+	    if (userOptions.get("ShowPrivate").equals(true)) {
 		variablesList.add(key + ":" + globalState.get(key));
 	    } else if (!key.contains("$")
 		    && !key.equals("I")
