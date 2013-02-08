@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!-- Copyright (C) 2008 Ted Kosan (license information is at the end of this document.) -->
 <project id="mathpiper" name="mathpiper" default="dist" basedir=".">
+    
     <description>Build file for MathPiper.</description>
+    
+    <property name="version" value="mp4.v.100" />
 
     <property name="compile.source" value="1.5" />
 
@@ -29,7 +32,7 @@
     	<pathelement path="${library.dir}/validation-api-1.0.0.GA-sources.jar" />
     </path>
 
-    <property name="version" value="mp4.v.100" />
+
     
     <property name="build.classes.dir" value="${build.dir}" />
 
@@ -211,9 +214,9 @@
 	
     <target name="create_runnable_jar" depends="dist">
         
-        <mkdir dir="${build.dir}/dist/runnable" />
+       <mkdir dir="${build.dir}/dist/runnable" />
         
-       <jar destfile="${build.dir}/dist/runnable/mathpiper.jar" filesetmanifest="mergewithoutmain">
+       <jar destfile="${build.dir}/dist/runnable/mathpiper.${version}.jar" filesetmanifest="mergewithoutmain">
            <manifest>
                <attribute name="Main-Class" value="org.mathpiper.ui.gui.consoles.GraphicConsole"/>
                <attribute name="Class-Path" value="."/>
@@ -234,7 +237,7 @@
        
         <exec executable="chmod">
             <arg value="+x" />
-            <arg value="${build.dir}/dist/runnable/mathpiper.jar" />
+            <arg value="${build.dir}/dist/runnable/mathpiper.${version}.jar" />
         </exec>
    </target>
   
@@ -375,11 +378,7 @@
         </copy>
         
         
-        
-        
-        
-        
-        
+
         <javac 
 			source="1.6"
 			target="1.6" 
