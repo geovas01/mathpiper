@@ -180,8 +180,8 @@ public class TestSuite {
             
             int minutes = (int) ((elapsedTime / (1000*60)) % 60);
             
-            System.out.println("Elapsed Time: " + minutes + ":" + seconds);
-            logFile.write("\nElapsed Time: " + minutes + ":" + seconds);
+            System.out.println("Elapsed Time: " + minutes + " min " + seconds + " sec");
+            logFile.write("\nElapsed Time: " + minutes  + " min " + seconds + " sec");
 
             logFile.close();
 
