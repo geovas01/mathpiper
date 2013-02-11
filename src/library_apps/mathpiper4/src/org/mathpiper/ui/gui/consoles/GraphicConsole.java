@@ -202,10 +202,10 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
 
 
-        smallerFontButton = new JButton("Font-");
+        smallerFontButton = new JButton("Zoom-");
         smallerFontButton.addActionListener(this);
         consoleButtons.add(smallerFontButton);
-        largerFontButton = new JButton("Font+");
+        largerFontButton = new JButton("Zoom+");
         largerFontButton.addActionListener(this);
         consoleButtons.add(largerFontButton);
 
