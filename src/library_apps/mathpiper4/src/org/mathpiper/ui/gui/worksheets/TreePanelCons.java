@@ -62,6 +62,8 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 	latexMap.put("/", "\\div");
 	latexMap.put("*", "\\times");
 	latexMap.put("==", "=");
+	latexMap.put("^", "^\\wedge");
+	latexMap.put("Sqrt", "\\sqrt");
 
 	this.setLayout(null);
 
