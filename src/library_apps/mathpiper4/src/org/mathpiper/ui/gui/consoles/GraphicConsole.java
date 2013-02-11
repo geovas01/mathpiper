@@ -323,7 +323,15 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         menuAndToolPanel.add(consoleButtons);
 
         this.add(menuAndToolPanel, BorderLayout.NORTH);
-
+        
+        //Initialize the CAS.
+        Interpreter syncronousInterpreter = Interpreters.getSynchronousInterpreter();
+        EvaluationResponse response = syncronousInterpreter.evaluate("2+2;");
+        if(response.isExceptionThrown())
+        {
+            Throwable throwable = response.getException();
+            JOptionPane.showMessageDialog(this, "Error initializing the CAS\n" + throwable.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
 
     }//Constructor.
 
