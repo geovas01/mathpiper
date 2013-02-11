@@ -4,7 +4,7 @@ package org.mathpiper;
 
 public class Version
 {
-   private static final String version = "mp4.v.100";
+   private static final String version = "mp4.v.101";
 
    public static String version()
    {
