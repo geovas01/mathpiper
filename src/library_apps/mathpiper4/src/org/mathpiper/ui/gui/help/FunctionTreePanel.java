@@ -38,6 +38,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -64,6 +65,10 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.text.ComponentView;
+import javax.swing.text.DefaultStyledDocument;
+import javax.swing.text.View;
+import javax.swing.text.html.HTMLDocument;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import org.mathpiper.interpreters.EvaluationResponse;
@@ -98,6 +103,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
     private JSplitPane splitPane;
     private JPanel treePanel;
     private ArrayList<HelpListener> helpListeners;
+    private double viewScale = 1.0;
 
 
     public FunctionTreePanel() throws FileNotFoundException {
@@ -154,7 +160,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
         editorPane = new JEditorPane();
         editorPane.setEditable(false);
-        editorPane.setEditorKit(new javax.swing.text.html.HTMLEditorKit());
+        editorPane.setEditorKit(new ResizableHTMLEditorKit());
         editorPane.addHyperlinkListener(this);
         //editorPane.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
 
@@ -1427,31 +1433,52 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
             add(Box.createGlue());
 
-            //fontSize increase button.
-            fontSizeIncreaseButton = new javax.swing.JButton("Font+");
-            fontSizeIncreaseButton.addActionListener(new ActionListener() {
+            
+            //fontSize decrease button.
+            fontSizeDecreaseButton = new javax.swing.JButton("Zoom-");
+            fontSizeDecreaseButton.addActionListener(new ActionListener() {
 
                         public void actionPerformed(ActionEvent evt) {
 
-                            Font font = editorPane.getFont();
+                          
+                            viewScale -= .2;
+                            
+                            scanViews(editorPane, viewScale);
 
-                            int fontSize = font.getSize();
-                            fontSize = fontSize += 2;
+                     editorPane.getDocument().putProperty("ZOOM_FACTOR", viewScale);
+                     editorPane.repaint();
+                        }//end method.
 
-                            editorPane.setFont(font.deriveFont(fontSize));
+                    }
+                                                    );
+            fontSizeDecreaseButton.setEnabled(true);
+            add(fontSizeDecreaseButton);            
+            
+            
+            //fontSize increase button.
+            fontSizeIncreaseButton = new javax.swing.JButton("Zoom+");
+            fontSizeIncreaseButton.addActionListener(new ActionListener() {
 
-                            System.out.println("Increasing font size.");
+                        public void actionPerformed(ActionEvent evt) {
+                            
+                            viewScale += .2;
+                            
+                            scanViews(editorPane, viewScale);
 
-
-                            //editorPane.
+                     editorPane.getDocument().putProperty("ZOOM_FACTOR", viewScale);
+                     editorPane.repaint();
 
                         }//end method.
 
                     }
                                                     );
             fontSizeIncreaseButton.setEnabled(true);
-            //add(fontSizeIncreaseButton);
+            add(fontSizeIncreaseButton);
+            
+            
 
+            
+            add(Box.createHorizontalStrut(3));
 
 
             //back button.
@@ -1480,6 +1507,9 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                                            );
             forwardButton.setEnabled(false);
             add(forwardButton);
+            
+            
+            add(Box.createHorizontalStrut(3));
 
 
             //Home button.
@@ -1724,4 +1754,45 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
 
     }//end main.
+    
+    
+        public void scanViews(JEditorPane editorPane, double newScale) {
+
+        View root = editorPane.getUI().getRootView(editorPane);
+        Stack<View> nodes = new Stack();
+        nodes.push(root);
+        View currentNode;
+        while (!nodes.isEmpty()) {
+            currentNode = nodes.pop();
+
+            for (int i = 0; i < currentNode.getViewCount(); i++) {
+                View child = currentNode.getView(i);
+
+                nodes.push(child);
+
+            }//end for.
+
+            if (currentNode instanceof ComponentView) {
+                ComponentView componentView = (ComponentView) currentNode;
+
+                //System.out.println(componentView.getParent());
+
+                Object object = componentView.getComponent();
+
+                if(object instanceof RenderedLatex )
+                {
+                    RenderedLatex renderedLatex = (RenderedLatex) object;
+                    renderedLatex.setZoomScale(newScale);
+                }
+            }
+
+            /*if (currentNode instanceof ParagraphView) {
+                ParagraphView paragraphView = (ParagraphView) currentNode;
+
+            }*/
+
+        }//end while.
+
+    }//end method.
+
 }
