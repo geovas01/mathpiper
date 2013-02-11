@@ -1359,7 +1359,12 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
     
     public void helpEvent(HelpEvent he)
     {
-	String sourceCode = "<html><pre>" + he.getSourceCode() + "</pre></html>";;
+	String sourceCode = he.getSourceCode();
+	
+	sourceCode = sourceCode.replace("<", "&lt;");
+	sourceCode = sourceCode.replace(">", "&gt;");
+	
+	sourceCode = "<html><pre>" + sourceCode + "</pre></html>";;
 	
 	this.setPage("Source Code", sourceCode, false);
     }
