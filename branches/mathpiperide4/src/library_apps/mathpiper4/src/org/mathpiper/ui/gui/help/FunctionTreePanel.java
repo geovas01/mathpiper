@@ -19,7 +19,6 @@ package org.mathpiper.ui.gui.help;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -33,7 +32,6 @@ import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -66,9 +64,8 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.text.ComponentView;
-import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.View;
-import javax.swing.text.html.HTMLDocument;
+import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import org.mathpiper.interpreters.EvaluationResponse;
@@ -211,6 +208,11 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         this.add(splitPane);
 
         toolPanel = new ToolPanel();
+        
+        //Preload the Java code used for viewing documentation to reduce the time it takes the
+        //system to service the user's first request.
+        this.viewFunction("Abs",false);
+        
         home();
 
     }//end constructor.
