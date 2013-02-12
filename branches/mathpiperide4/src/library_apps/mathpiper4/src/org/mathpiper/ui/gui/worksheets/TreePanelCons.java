@@ -47,9 +47,12 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 
 
-    //Show(TreeView( '(a*(b+c) == a*b + a*c)))
-    //Show(TreeView( '(a*(b+c) == a*b + a*c), Resizable -> True, IncludeExpression -> True))
-    //Show(TreeView( '(2*3+8-4), Resizable -> True, IncludeExpression -> True))
+    // Show(TreeView( '(a*(b+c) == a*b + a*c)))
+    // Show(TreeView( '(a*(b+c) == a*b + a*c), Resizable -> True, IncludeExpression -> True))
+    // Show(TreeView( '(-500), Resizable -> True, IncludeExpression -> True))
+    // Show(TreeView( '(-500 * a), Resizable -> True, IncludeExpression -> True))
+    // Show(TreeView( '(2*3+8-4), Resizable -> True, IncludeExpression -> True))
+    // Show(TreeView( '(-50000000000000*a), Resizable -> True, IncludeExpression -> True))
 
     public TreePanelCons(Cons expressionCons, double viewScale) {
 
@@ -131,8 +134,8 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 	super.paint(g);
 	Dimension d = getPreferredSize();
 	g.drawRect(0, 0, d.width - 1, d.height - 1);
-    }
-    */
+    }*/
+    
 
 
 
@@ -173,7 +176,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 			    sg.drawLine(currentNode.getTreeX() + currentNode.getNodeWidth() / 2 - (leftMostPosition),
 				    currentNode.getTreeY() + currentNode.getNodeHeight() - (yPositionAdjust * 1/*height of nodes*/),
 				    child.getTreeX() + child.getNodeWidth() / 2 - (leftMostPosition),
-				    child.getTreeY()  - (yPositionAdjust * 1 /*height of leafs*/));
+				    child.getTreeY()  - (yPositionAdjust * 1 /*height of leaves*/));
 			}
 		    }
 
@@ -265,13 +268,13 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 	int Y_SEPARATION = 35 /*y stretch */;
 	int MIN_X_SEPARATION = 20;
 
-	int branchPosition;
+	int branchPosition; //Adjusts the x position of all nodes.
 	int i;
-	int leftPosition;
-	int rightPosition;
-	int width;
+	int leftPosition; //Adjusts the x position of all nodes.
+	int rightPosition; //Adjusts the x position of all nodes.
+	int width; //Adjusting width causes very little change in the tree.
 
-	int interBranchSpace = 75;
+	int interBranchSpace = 75; //Adjusts the x position of all nodes and leaves.
 
 	if (treeNode == null) {
 	    return position;
@@ -281,6 +284,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 	    for (i = yPosition - Y_SEPARATION; i < yPosition + treeNode.getNodeHeight(); i++) {
 		int lastOnRaster = lastOnRasterArray[i];
 
+		/* possibleNewPosition adjusts the horizontal stretch of the whole tree */
 		int possibleNewPosition = (lastOnRaster + MIN_X_SEPARATION + treeNode.getNodeWidth() / 2);
 
 		if (possibleNewPosition > position) {
@@ -326,8 +330,46 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 		}
 
 		position = (leftPosition + rightPosition) / 2;
+		
+		treeNode.setTreeX(position);
+		
+		
 
-	    }//end if tree -> nrBranches >= 1 */
+	    }
+	    else if(parent.getChildren().length == 1)
+	    {
+		leftPosition = (position + (parent.getNodeWidth()/2)) - treeNode.getNodeWidth()/2;
+		
+		rightPosition = position + treeNode.getNodeWidth()/2;
+		
+	        if (leftPosition < leftMostPosition) {
+		    leftMostPosition = leftPosition;
+		}
+
+		if (rightPosition > rightMostPosition) {
+		    rightMostPosition = rightPosition;
+		}
+		
+		treeNode.setTreeX((position + (parent.getNodeWidth()/2)) - treeNode.getNodeWidth()/2);
+		
+		
+	    }
+	    else
+	    {
+		leftPosition = position;
+		
+		rightPosition = position + treeNode.getNodeWidth();
+		
+	        if (leftPosition < leftMostPosition) {
+		    leftMostPosition = leftPosition;
+		}
+
+		if (rightPosition > rightMostPosition) {
+		    rightMostPosition = rightPosition;
+		}
+		
+		treeNode.setTreeX(position);
+	    }
 
 	    /* Add node to list. */
 	    for (i = yPosition - Y_SEPARATION; i < yPosition + treeNode.getNodeHeight(); i++) {
@@ -337,7 +379,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 		}//end if.
 	    }//end for.
 
-	    treeNode.setTreeX(position);
+	    //treeNode.setTreeX(position);
 
 	    treeNode.setTreeY(yPosition);
 
