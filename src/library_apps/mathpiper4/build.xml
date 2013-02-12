@@ -4,7 +4,7 @@
     
     <description>Build file for MathPiper.</description>
     
-    <property name="version" value="mp4.v.101" />
+    <property name="version" value="mp4_alpha_v.102" />
 
     <property name="compile.source" value="1.5" />
 
@@ -216,7 +216,7 @@
         
        <mkdir dir="${build.dir}/dist/runnable" />
         
-       <jar destfile="${build.dir}/dist/runnable/mathpiper.${version}.jar" filesetmanifest="mergewithoutmain">
+       <jar destfile="${build.dir}/dist/runnable/mathpiper_${version}.jar" filesetmanifest="mergewithoutmain">
            <manifest>
                <attribute name="Main-Class" value="org.mathpiper.ui.gui.consoles.GraphicConsole"/>
                <attribute name="Class-Path" value="."/>
@@ -237,7 +237,7 @@
        
         <exec executable="chmod">
             <arg value="+x" />
-            <arg value="${build.dir}/dist/runnable/mathpiper.${version}.jar" />
+            <arg value="${build.dir}/dist/runnable/mathpiper_${version}.jar" />
         </exec>
    </target>
   
