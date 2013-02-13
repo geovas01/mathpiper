@@ -189,13 +189,15 @@ RulebaseListedHoldArguments("StepsView",[steps, optionsList]);
 //options come in a list.
 10 # StepsView(_steps, optionsList_List?) <--
 {
-    Local(result, currentEquation, options);
+    Local(result, currentEquation, options, problemMessage);
     
     result := [];
     
     options := OptionsToAssociativeList(optionsList);
     
-    DestructiveAppend(result, LatexView(ToLatex("Solve  " ~ ToString(TexFormNoDollarSigns(steps[1][1])) ~ "  for  " ~ ToString(steps[1][4]) ~ ".")));
+    problemMessage := "Solve\\ " ~ ToString(TexFormNoDollarSigns(steps[1][1])) ~ "\\ for\\ " ~ ToString(steps[1][4]) ~ ".";
+    
+    DestructiveAppend(result, LatexView(problemMessage));
     
     
     Decide(options["ShowTree"] =? "True", DestructiveAppend(result, TreeView(RemoveDollarSigns(steps[1][1]), Scale -> 2)));
@@ -342,7 +344,7 @@ Isolax(side, equation) :=
 
 %/mathpiper
 
-    %output,sequence="3",timestamp="2012-09-09 02:38:47.14",preserve="false"
+    %output,sequence="11,timestamp="2013-02-13 17:06:57.293",preserve="false"
       Result: True
 .   %/output
 
