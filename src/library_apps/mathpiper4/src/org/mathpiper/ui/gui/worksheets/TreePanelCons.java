@@ -60,13 +60,28 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 	//this.setBorder(new EmptyBorder(1,1,1,1));
 
-	latexMap.put("+", "+");
-	latexMap.put("-", "-");
-	latexMap.put("/", "\\div");
-	latexMap.put("*", "\\times");
-	latexMap.put("==", "=");
-	latexMap.put("^", "^\\wedge");
-	latexMap.put("Sqrt", "\\sqrt");
+	latexMap.put(":=",":=");
+        latexMap.put("=?","=");
+        latexMap.put("!=?","\\neq");
+        latexMap.put("<=?","\\leq");
+        latexMap.put(">=?","\\geq");
+        latexMap.put("<?","<");
+        latexMap.put(">?",">");
+        latexMap.put("And?","\\wedge");
+        latexMap.put("Or?","\\vee");
+        latexMap.put("<>","\\sim");
+        latexMap.put("<=>","\\approx");
+        latexMap.put("Implies?","\\Rightarrow");
+        latexMap.put("Equivales?","\\equiv");
+        latexMap.put("%","\\bmod");
+        latexMap.put("Not?","\\neg");
+        latexMap.put("+","+");
+        latexMap.put("-","-");
+        latexMap.put("/","\\div");
+        latexMap.put("*","\\times");
+        latexMap.put("==","=");
+        latexMap.put("^","^\\wedge");
+        latexMap.put("Sqrt","\\sqrt");
 
 	this.setLayout(null);
 
