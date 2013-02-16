@@ -143,7 +143,7 @@ public class MathPiperPrinter extends LispPrinter {
                     left = subList.cdr();
                 }
 
-                if (iPrecedence < operator.iPrecedence) {
+                if (iPrecedence <= operator.iPrecedence) {
                     WriteToken(aOutput, "(");
                 } else {
                     //Vladimir?    aOutput.write(" ");
@@ -199,7 +199,7 @@ public class MathPiperPrinter extends LispPrinter {
                     }//end if.
                 }
 
-                if (iPrecedence < operator.iPrecedence) {
+                if (iPrecedence <= operator.iPrecedence) {
                     WriteToken(aOutput, ")");
                 }
 
