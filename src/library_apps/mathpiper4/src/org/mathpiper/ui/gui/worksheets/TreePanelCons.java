@@ -44,6 +44,8 @@ public class TreePanelCons extends JComponent implements ViewPanel {
     private int yPositionAdjust = 39; /*Adjust y position of whole tree, smaller numbers moves the tree down.*/
 
     private double adjust = 1;
+    
+    private boolean isCodeForm = false;
 
 
 
@@ -54,7 +56,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
     // Show(TreeView( '(2*3+8-4), Resizable -> True, IncludeExpression -> True))
     // Show(TreeView( '(-50000000000000*a), Resizable -> True, IncludeExpression -> True))
 
-    public TreePanelCons(Cons expressionCons, double viewScale) {
+    public TreePanelCons(Cons expressionCons, double viewScale, boolean isCodeForm) {
 
 	super();
 
@@ -82,6 +84,8 @@ public class TreePanelCons extends JComponent implements ViewPanel {
         latexMap.put("==","=");
         latexMap.put("^","^\\wedge");
         latexMap.put("Sqrt","\\sqrt");
+        
+        this.isCodeForm = isCodeForm;
 
 	this.setLayout(null);
 
@@ -422,10 +426,19 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 	public void setOperator(String symbolString) {
 	    this.symbolString = symbolString;
 
-	    String latex = latexMap.get(symbolString);
-
-	    if (latex == null) {
+	    String latex = "";
+		    
+	    if(isCodeForm)
+	    {
 		latex = symbolString;
+	    }
+	    else
+	    {
+		latex = latexMap.get(symbolString);
+
+		if (latex == null) {
+		    latex = symbolString;
+		}
 	    }
 
 	    texFormula = new TeXFormula(latex);

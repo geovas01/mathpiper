@@ -29,6 +29,7 @@ import javax.swing.JScrollPane;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.builtin.JavaObject;
+import org.mathpiper.io.StringInputStream;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
@@ -36,6 +37,9 @@ import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.SublistCons;
+import org.mathpiper.lisp.parsers.MathPiperParser;
+import org.mathpiper.lisp.parsers.Parser;
+import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 import org.mathpiper.ui.gui.worksheets.LatexRenderingController;
 import org.mathpiper.ui.gui.worksheets.MathPanelController;
 import org.mathpiper.ui.gui.worksheets.ScreenCapturePanel;
@@ -47,6 +51,8 @@ import org.scilab.forge.jlatexmath.TeXFormula;
  *
  */
 public class TreeView extends BuiltinFunction {
+    // Show(TreeView( "a*(b+c) == a*b + a*c",  Resizable -> True, IncludeExpression -> True))
+    // Show(TreeView( "(+ 1 2)", Prefix -> True, Code -> True, Resizable -> True, IncludeExpression -> True))
 
     private Map defaultOptions;
     
@@ -62,6 +68,8 @@ public class TreeView extends BuiltinFunction {
         defaultOptions.put("Scale", 2.5);
         defaultOptions.put("Resizable", false);
         defaultOptions.put("IncludeExpression", false);
+        defaultOptions.put("Prefix", false);
+        defaultOptions.put("Code", false);
 
 
 
@@ -71,38 +79,101 @@ public class TreeView extends BuiltinFunction {
     public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable {
 	
 
-	
-	
-	
-	
-	
         Cons arguments = getArgument(aEnvironment, aStackTop, 1);
-
-        if(! Utility.isSublist(arguments)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "ToDo");
-
-        arguments = (Cons) arguments.car(); //Go to sub list.
-
-        arguments = arguments.cdr(); //Strip List tag.
-
-
-        Cons expression = (Cons) arguments;
         
-        //if(! (latexStringObject instanceof String)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "ToDo");
+        Cons options = (Cons) Cons.cddar(arguments);
 
-        //Evaluate Hold function.
-        Cons holdAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "Hold");
-        holdAtomCons.setCdr(Cons.deepCopy(aEnvironment, aStackTop, expression));
-        Cons holdSubListCons = SublistCons.getInstance(aEnvironment, holdAtomCons);
-        Cons holdInputExpression = holdSubListCons;        
+        Map userOptions = Utility.optionsListToJavaMap(aEnvironment, aStackTop, options, defaultOptions);
         
-	//Obtain LaTeX version of the expression.
-	Cons head = SublistCons.getInstance(aEnvironment, AtomCons.getInstance(aEnvironment, aStackTop, "TeXForm"));
-        ((Cons) head.car()).setCdr(holdInputExpression);
-        Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, head);
-        String texString = (String) result.car();
-        texString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, texString);
-        texString = texString.substring(1, texString.length());
-        texString = texString.substring(0, texString.length() - 1);
+        
+
+        Object argument = ((Cons)getArgument(aEnvironment, aStackTop, 1).car()).cdr().car();
+        
+        String texString = "";
+        
+        Cons expression = null;
+
+        if ((argument instanceof String)) {
+           
+            
+            String expressionString = (String) argument;
+
+            expressionString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, expressionString);
+            
+
+            
+            Parser parser;
+            
+            if(((Boolean)userOptions.get("Prefix")) == true)
+            {
+        	texString = expressionString;
+        	texString = texString.replace(" ", "\\ ");
+            
+                StringInputStream newInput = new StringInputStream(expressionString , aEnvironment.iInputStatus);
+
+        	parser = new Parser(aEnvironment.iCurrentTokenizer, newInput, aEnvironment);
+            }
+            else
+            {
+        	texString = expressionString;
+        	
+        	if (!expressionString.endsWith(";")) {
+                    expressionString = expressionString + ";";
+                }
+                expressionString = expressionString.replaceAll(";;;", ";");
+                expressionString = expressionString.replaceAll(";;", ";");
+            
+                StringInputStream newInput = new StringInputStream(expressionString , aEnvironment.iInputStatus);
+
+        	parser = new MathPiperParser(new MathPiperTokenizer(), newInput, aEnvironment, aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
+            }
+            
+            expression = parser.parse(aStackTop);
+           
+        }
+        else
+        {
+
+            if(! Utility.isSublist(arguments)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "ToDo");
+    
+            arguments = (Cons) arguments.car(); //Go to sub list.
+    
+            arguments = arguments.cdr(); //Strip List tag.
+            
+            expression = (Cons) arguments;
+            //expression = (Cons) argument;
+            
+        }
+
+        
+        
+        if(!((Boolean) userOptions.get("Prefix")))
+        {
+            if(!((Boolean) userOptions.get("Code")))
+            {
+                //Evaluate Hold function.
+                Cons holdAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "Hold");
+                holdAtomCons.setCdr(Cons.deepCopy(aEnvironment, aStackTop, expression));
+                Cons holdSubListCons = SublistCons.getInstance(aEnvironment, holdAtomCons);
+                Cons holdInputExpression = holdSubListCons;        
+                
+        	    //Obtain LaTeX version of the expression.
+        	    Cons head = SublistCons.getInstance(aEnvironment, AtomCons.getInstance(aEnvironment, aStackTop, "TeXForm"));
+                ((Cons) head.car()).setCdr(holdInputExpression);
+                Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, head);
+                texString = (String) result.car();
+                texString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, texString);
+                texString = texString.substring(1, texString.length());
+                texString = texString.substring(0, texString.length() - 1);
+            }
+            else
+            {
+                texString = Utility.printMathPiperExpression(aStackTop, expression, aEnvironment, -1); 
+            }
+        }
+
+
+
 
 	TeXFormula formula = new TeXFormula(texString);
 	JLabel latexLabel = new JLabel();
@@ -110,15 +181,6 @@ public class TreeView extends BuiltinFunction {
         JPanel latexScreenCapturePanel = new ScreenCapturePanel();
         latexScreenCapturePanel.add(latexLabel);        
         
-        
-
-        
-        
-        Cons options = arguments.cdr();
-
-        Map userOptions = Utility.optionsListToJavaMap(aEnvironment, aStackTop, options, defaultOptions);
-        
-
 
         
         int viewScale = (int) ((Double)userOptions.get("Scale")).doubleValue();
@@ -132,7 +194,7 @@ public class TreeView extends BuiltinFunction {
 	//box.setOpaque(true);
 
 
-        TreePanelCons treePanel = new TreePanelCons(expression, viewScale);
+        TreePanelCons treePanel = new TreePanelCons(expression, viewScale, (Boolean)userOptions.get("Code"));
         
         JPanel treeScreenCapturePanel = new ScreenCapturePanel();
         
@@ -199,7 +261,7 @@ public class TreeView extends BuiltinFunction {
     TreeView(expression, option, option, option...)
 
 *PARMS
-{expression} -- an expression to display as an expression tree
+{expression} -- an expression (which may be in string form) to display as an expression tree
 
 {Options:}
 
@@ -209,6 +271,10 @@ public class TreeView extends BuiltinFunction {
 
 {IncludeExpression} -- if set to True, the algebraic form of the expression is included above the tree
 
+{Prefix} -- if set to True, the expression must be a string that is in Prefix form
+
+{Code} -- if set to True, the expression is rendered using code symbols instead of mathematical symbols
+
 
 *DESC
 Returns a Java GUI component that contains an expression rendered as an
@@ -217,14 +283,18 @@ expression tree.
 Options are entered using the -> operator.
 For example, here is how to set the {Resizable} option: {Resizable -> True}.
 
-Right click on the image to save it.
+Right click on the images that are displayed to save them.
  
 *E.G.
 
 In> Show(TreeView( '(a*(b+c) == a*b + a*c), Resizable -> True, IncludeExpression -> True))
-
 Result: java.awt.Component
 
+In> Show(TreeView( "a*(b+c) == a*b + a*c",  Resizable -> True, IncludeExpression -> True))
+Result: java.awt.Component
+
+In> Show(TreeView( "(+ 1 (* 2 3))", Prefix -> True, Code -> True, Resizable -> True, IncludeExpression -> True))
+Result: java.awt.Component
 
 
 *SEE Show

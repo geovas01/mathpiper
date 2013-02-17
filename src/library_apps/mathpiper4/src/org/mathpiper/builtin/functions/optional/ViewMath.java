@@ -130,13 +130,13 @@ public class ViewMath extends BuiltinFunction {
         treeControllerPanel.setLayout(new BorderLayout());
         //
         //TreePanel treePanel = new TreePanel(sBoxExpression,viewScale.toDouble());
-        TreePanelCons treePanel = new TreePanelCons(expression2, viewScale.toDouble());
+        TreePanelCons treePanel = new TreePanelCons(expression2, viewScale.toDouble(), false);
         //
         MathPanelController treePanelScaler = new MathPanelController(treePanel,viewScale.toDouble());
         JScrollPane treeScrollPane = new JScrollPane(treePanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         treeControllerPanel.add(treeScrollPane);
         treeControllerPanel.add(treePanelScaler, BorderLayout.NORTH);
-        tabbedPane.addTab("Parse Tree", null, treeControllerPanel, "Parse tree viewer..");
+        tabbedPane.addTab("Expression Tree", null, treeControllerPanel, "Expression tree viewer..");
         //MathPiper built-in math viewer.
         TexParser parser = new TexParser();
         SymbolBox sBoxExpression = parser.parse(texString);
