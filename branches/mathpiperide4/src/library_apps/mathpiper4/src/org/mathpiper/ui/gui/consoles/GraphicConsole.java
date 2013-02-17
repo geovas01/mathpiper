@@ -131,6 +131,8 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
     private boolean numericResultMode = false;
     private JMenuBar menuBar;
     private JFileChooser fileChooser;
+    private int lineNumber;
+    private int lineCount;
     private String helpMessage =
             "Enter an expression after any In> prompt and press <enter> or <shift><enter> to evaluate it.\n\n" +
             "Type In> on the left end of any line to create your own input prompt.\n\n" +
@@ -581,7 +583,10 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
                 caretPositionWhenEnterWasPressed = textPane.getCaretPosition();
 
-                int lineNumber = textPane.getLineOfOffset(textPane.getCaretPosition());
+                lineNumber = textPane.getLineOfOffset(textPane.getCaretPosition());
+                
+                lineCount = textPane.getLineCount();
+                
                 //lineNumber--;
                 String line = "";
 
@@ -590,6 +595,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                 int lineEndOffset = textPane.getLineEndOffset(lineNumber);
 
                 line = textPane.getText(lineStartOffset, lineEndOffset - lineStartOffset);
+                
 
 
                 if (line.startsWith("In>")) {
@@ -790,7 +796,16 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         final int responseOffset = offsetIndex;
         String result;
         if (this.suppressOutput == false) {
-            result = "Result: ";// + response.getResult().trim();
+            
+            if(lineNumber+1 == lineCount)
+            {
+                result = "\nResult: ";
+            }
+            else
+            {
+        	result = "Result: ";
+            }
+            
             if (isCodeResult) {
                 result = result + response.getResult().trim();
             }
