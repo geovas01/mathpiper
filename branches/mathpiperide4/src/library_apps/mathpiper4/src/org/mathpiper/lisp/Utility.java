@@ -218,7 +218,7 @@ public class Utility {
 
     //Evaluate a function which is in string form.
     public static Cons applyString(Environment aEnvironment, int aStackTop, String aOperator, Cons aArgs) throws Throwable {
-        if(! isString(aOperator)) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_STRING, aOperator);
+        //if(! isString(aOperator)) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_STRING, aOperator);
 
         Cons head = AtomCons.getInstance(aEnvironment, aStackTop, getSymbolName(aEnvironment, aOperator));
         head.setCdr(aArgs);

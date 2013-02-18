@@ -26,14 +26,14 @@ import org.mathpiper.lisp.Environment;
  *
  *  
  */
-public class PrettyReaderGet extends BuiltinFunction
+public class ParserGet extends BuiltinFunction
 {
 
-    private PrettyReaderGet()
+    private ParserGet()
     {
     }
 
-    public PrettyReaderGet(String functionName)
+    public ParserGet(String functionName)
     {
         this.functionName = functionName;
     }
@@ -54,26 +54,26 @@ public class PrettyReaderGet extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="PrettyReaderGet",categories="User Functions;Built In"
-*CMD PrettyReaderGet --- get routine that is currently used as pretty-reader
+%mathpiper_docs,name="ParserGet",categories="User Functions;Built In"
+*CMD ParserGet --- get routine that is currently used as pretty-reader
 
 *CORE
 
 *CALL
-	PrettyReaderGet()
+	ParserGet()
 
 *DESC
 
-{PrettyReaderGet()} returns the current reader, or it returns
+{ParserGet()} returns the current reader, or it returns
 an empty string if the default pretty printer is used.
 
 
 
 *E.G.
 
-In> PrettyReaderGet()
+In> ParserGet()
 Result: ""
 
-*SEE Read, LispRead, OMRead, PrettyPrinterSet, PrettyPrinterGet, PrettyReaderSet
+*SEE Read, ParseLisp, OMRead, PrettyPrinterSet, PrettyPrinterGet, ParserSet
 %/mathpiper_docs
 */

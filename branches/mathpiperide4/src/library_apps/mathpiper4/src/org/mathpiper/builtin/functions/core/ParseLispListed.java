@@ -15,24 +15,26 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
+
 package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.parsers.MathPiperParser;
+import org.mathpiper.lisp.parsers.Parser;
+import org.mathpiper.lisp.parsers.LispParser;
 
 /**
  *
- * 
+ *  
  */
-public class Read extends BuiltinFunction
+public class ParseLispListed extends BuiltinFunction
 {
 
-    private Read()
+    private ParseLispListed()
     {
     }
 
-    public Read(String functionName)
+    public ParseLispListed(String functionName)
     {
         this.functionName = functionName;
     }
@@ -40,12 +42,9 @@ public class Read extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
-        MathPiperParser parser = new MathPiperParser(aEnvironment.iCurrentTokenizer, aEnvironment.getCurrentInput(),
-                aEnvironment,
-                aEnvironment.iPrefixOperators,
-                aEnvironment.iInfixOperators,
-                aEnvironment.iPostfixOperators,
-                aEnvironment.iBodiedOperators);
+        Parser parser = new LispParser(aEnvironment.iCurrentTokenizer, aEnvironment.getCurrentInput(),
+                aEnvironment);
+        parser.iListed = true;
         // Read expression
         setTopOfStack(aEnvironment, aStackTop, parser.parse(aStackTop));
     }
@@ -54,24 +53,25 @@ public class Read extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Read",categories="User Functions;Input/Output;Built In"
-*CMD Read --- read an expression from current input
+%mathpiper_docs,name="ParseLispListed",categories="User Functions;Input/Output;Built In"
+*CMD ParseLispListed --- read expressions in LISP syntax
 *CORE
 *CALL
-	Read()
+	ParseLispListed()
 
 *DESC
 
-Read an expression from the current input, and return it unevaluated. When
-the end of an input file is encountered, the token atom {EndOfFile} is returned.
+The function {ParseLispListed} reads a LISP expression and returns
+it in a list, instead of the form usual to MathPiper (expressions).
+The result can be thought of as applying {FunctionToList} to {ParseLisp}.
+The function {ParseLispListed} is more useful for reading arbitrary LISP expressions, because the
+first object in a list can be itself a list (this is never the case for MathPiper expressions where the first object in a list is always a function atom).
 
-*E.G.
+*E.G. notest
 
-In> PipeFromString("2+5;") Read();
-Result: 2+5;
-In> PipeFromString("") Read();
-Result: EndOfFile;
+In> PipeFromString("(+ a b)")ParseLispListed()
+Result: [+,a,b];
 
-*SEE PipeFromFile, PipeFromString, ParseLisp, ReadToken, Write
+*SEE PipeFromFile, PipeFromString, Read, ReadToken, LispForm, ParseLisp
 %/mathpiper_docs
 */

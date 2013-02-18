@@ -74,6 +74,6 @@ an empty string if the default pretty printer is used.
 In> PrettyPrinterGet()
 Result: ""
 
-*SEE PrettyForm, Write, TeXForm, CForm, OMForm, PrettyReaderSet, PrettyReaderGet, PrettyPrinterSet
+*SEE PrettyForm, Write, TeXForm, CForm, OMForm, ParserSet, ParserGet, PrettyPrinterSet
 %/mathpiper_docs
 */

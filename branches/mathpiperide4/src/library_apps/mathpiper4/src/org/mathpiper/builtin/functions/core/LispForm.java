@@ -83,6 +83,6 @@ internally represented. In the second example, {2*I} is
 first evaluated to {Complex(0,2)} before the expression
 is printed.
 
-*SEE LispRead, ViewList
+*SEE ParseLisp, ViewList
 %/mathpiper_docs
 */

@@ -21,19 +21,20 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.parsers.Parser;
+import org.mathpiper.lisp.parsers.LispParser;
 
 /**
  *
  *  
  */
-public class LispReadListed extends BuiltinFunction
+public class ParseLisp extends BuiltinFunction
 {
 
-    private LispReadListed()
+    private ParseLisp()
     {
     }
 
-    public LispReadListed(String functionName)
+    public ParseLisp(String functionName)
     {
         this.functionName = functionName;
     }
@@ -41,9 +42,8 @@ public class LispReadListed extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
-        Parser parser = new Parser(aEnvironment.iCurrentTokenizer, aEnvironment.getCurrentInput(),
+        Parser parser = new LispParser(aEnvironment.iCurrentTokenizer, aEnvironment.getCurrentInput(),
                 aEnvironment);
-        parser.iListed = true;
         // Read expression
         setTopOfStack(aEnvironment, aStackTop, parser.parse(aStackTop));
     }
@@ -52,25 +52,44 @@ public class LispReadListed extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="LispReadListed",categories="User Functions;Input/Output;Built In"
-*CMD LispReadListed --- read expressions in LISP syntax
+%mathpiper_docs,name="ParseLisp",categories="User Functions;Input/Output;Built In"
+*CMD ParseLisp --- parse expressions in LISP syntax
 *CORE
 *CALL
-	LispReadListed()
+	ParseLisp()
 
 *DESC
 
-The function {LispReadListed} reads a LISP expression and returns
-it in a list, instead of the form usual to MathPiper (expressions).
-The result can be thought of as applying {FunctionToList} to {LispRead}.
-The function {LispReadListed} is more useful for reading arbitrary LISP expressions, because the
-first object in a list can be itself a list (this is never the case for MathPiper expressions where the first object in a list is always a function atom).
+The function {ParseLisp} parses an expression in the LISP syntax from the current input, and returns
+it unevaluated. When the end of an input file is encountered, the
+special token atom {EndOfFile} is returned.
+
+The MathPiper expression {a+b} is written in the LISP syntax as {(+ a b)}. The advantage of this syntax is that it is
+less ambiguous than the infix operator grammar that MathPiper uses by
+default.
 
 *E.G. notest
 
-In> PipeFromString("(+ a b)")LispReadListed()
-Result: [+,a,b];
+In> PipeFromString("(+ a b)") ParseLisp();
+Result: a+b;
+In> PipeFromString("(List (Sin x) (- (Cos x)))") \
+	  ParseLisp();
+Result: {Sin(x),-Cos(x)};
+In> PipeFromString("(+ a b)")ParseLisp()
+Result: a+b;
 
-*SEE PipeFromFile, PipeFromString, Read, ReadToken, LispForm, LispRead
+*SEE PipeFromFile, PipeFromString, Read, ReadToken, LispForm, ParseMathPiper ParseLispListed
 %/mathpiper_docs
+
+
+
+
+
+
+
+%mathpiper,name="ParseLisp",subtype="automatic_test"
+
+Verify(PipeFromString("(+ a b)") ParseLisp(),a+b);
+
+%/mathpiper
 */

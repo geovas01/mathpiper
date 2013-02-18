@@ -19,6 +19,7 @@ package org.mathpiper.interpreters;
 import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.io.InputStatus;
 import org.mathpiper.lisp.printers.MathPiperPrinter;
+import org.mathpiper.lisp.parsers.LispParser;
 import org.mathpiper.lisp.parsers.MathPiperParser;
 import org.mathpiper.io.StringOutputStream;
 import org.mathpiper.io.StringInputStream;
@@ -26,7 +27,6 @@ import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.lisp.Utility;
 
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 import org.mathpiper.lisp.parsers.Parser;
 import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.lisp.printers.LispPrinter;
@@ -54,7 +54,6 @@ public class SynchronousInterpreter implements Interpreter {
     private ArrayList<ResponseListener> removeListeners;
     private ArrayList<ResponseListener> responseListeners;
     private Environment iEnvironment = null;
-    MathPiperTokenizer tokenizer = null;
     LispPrinter printer = null;
     //private String iException = null;
     String defaultDirectory = null;
@@ -117,11 +116,15 @@ public class SynchronousInterpreter implements Interpreter {
                     iEnvironment = new Environment(sideEffectsStream);
 
                     BuiltinFunction.addCoreFunctions(iEnvironment);
+                    
+                    //Initialize parsers.
+                    new LispParser(iEnvironment.iCurrentTokenizer, iEnvironment.getCurrentInput(), iEnvironment);
+                    new MathPiperParser(iEnvironment.iCurrentTokenizer, iEnvironment.getCurrentInput(), iEnvironment, iEnvironment.iPrefixOperators, iEnvironment.iInfixOperators, iEnvironment.iPostfixOperators, iEnvironment.iBodiedOperators);
 
 
                     iEnvironment.pushLocalFrame(true, "<START>");
 
-                    tokenizer = new MathPiperTokenizer();
+                    
                     printer = new MathPiperPrinter(iEnvironment.iPrefixOperators, iEnvironment.iInfixOperators, iEnvironment.iPostfixOperators, iEnvironment.iBodiedOperators);
 
 
@@ -250,14 +253,7 @@ public class SynchronousInterpreter implements Interpreter {
 
             iEnvironment.setCurrentInput(newInput);
 
-            if (iEnvironment.iPrettyReaderName != null) {
-
-                parsedOrAppliedInputExpression = Utility.applyString(iEnvironment, -1, iEnvironment.iPrettyReaderName, null);
-            } else //Else not PrettyReader.
-            {
-                Parser infixParser = new MathPiperParser(tokenizer, newInput, iEnvironment, iEnvironment.iPrefixOperators, iEnvironment.iInfixOperators, iEnvironment.iPostfixOperators, iEnvironment.iBodiedOperators);
-                parsedOrAppliedInputExpression = infixParser.parse(-1);
-            }
+            parsedOrAppliedInputExpression = Utility.applyString(iEnvironment, -1, iEnvironment.iPrettyReaderName, null);
 
             return evaluate(parsedOrAppliedInputExpression, notifyEvaluationListeners);
 
