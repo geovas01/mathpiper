@@ -622,7 +622,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                 } else if (line.startsWith("In>")) {
 
                     //String eol = new String(line);
-                    String code = line.substring(3, line.length());
+                    String code = line.substring(3, line.length()).trim();
                     responseInsertionOffset = lineEndOffset;
 
                     /*if (!eol.endsWith(";") && !eol.endsWith("\\\n")) {
