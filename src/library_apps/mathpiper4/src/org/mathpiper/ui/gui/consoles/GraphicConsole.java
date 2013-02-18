@@ -88,6 +88,7 @@ import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.Cons;
 
 import org.mathpiper.lisp.cons.SublistCons;
+import org.mathpiper.lisp.parsers.Parser;
 import org.mathpiper.ui.gui.help.FunctionTreePanel;
 
 public class GraphicConsole extends javax.swing.JPanel implements ActionListener, KeyListener, ResponseListener, ItemListener, FocusListener, MathPiperOutputStream {
@@ -621,16 +622,14 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                 } else if (line.startsWith("In>")) {
 
                     //String eol = new String(line);
-                    String code = line.substring(3, line.length()).trim();
+                    String code = line.substring(3, line.length());
                     responseInsertionOffset = lineEndOffset;
 
                     /*if (!eol.endsWith(";") && !eol.endsWith("\\\n")) {
                     code = code + ";";
                     }//end if.*/
 
-                    if (!code.endsWith(";")) {
-                        code = code + ";";
-                    }
+
 
                     clearPreviousResponse();
 
@@ -641,8 +640,10 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                         this.suppressOutput = true;
                     }
 
-                    code = code.replaceAll(";;;", ";");
-                    code = code.replaceAll(";;", ";");
+                    String currentParserName = interpreter.getEnvironment().iPrettyReaderName;
+                    Parser currentParserInstance = Parser.getSupportedParser(currentParserName);
+                    code = currentParserInstance.processLineTermination(code);
+
 
                     //code = code.replaceAll("\\\\", "");
 
@@ -654,7 +655,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                     if (code.length() > 0) {
                         interpreter.addResponseListener(this);
                         Environment.saveDebugInformation = true;
-                        interpreter.evaluate("{" + code + "};", true);
+                        interpreter.evaluate(currentParserInstance.processCodeBlock(code), true);
                         haltButton.setEnabled(true);
 
                     }//end if.

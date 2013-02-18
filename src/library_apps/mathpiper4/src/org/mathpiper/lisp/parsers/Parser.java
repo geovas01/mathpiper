@@ -16,19 +16,22 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.parsers;
 
-import org.mathpiper.lisp.cons.SublistCons;
-import org.mathpiper.lisp.cons.AtomCons;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.lisp.*;
 import org.mathpiper.lisp.cons.Cons;
 
-public class Parser {
+public abstract class Parser {
 
     public MathPiperTokenizer iTokenizer;
     public MathPiperInputStream iInput;
     public Environment iEnvironment;
     public boolean iListed;
+    
+    private static Map<String,Parser> supportedParsers = new HashMap<String,Parser>();
 
 
     public Parser(MathPiperTokenizer aTokenizer, MathPiperInputStream aInput,
@@ -40,83 +43,30 @@ public class Parser {
     }
 
 
-    public Cons parse(int aStackTop) throws Throwable {
-        Cons aResult;
-
-        String token;
-        // Get token.
-        token = iTokenizer.nextToken(iEnvironment, aStackTop, iInput);
-        if (token.length() == 0) //TODO FIXME either token == null or token.length() == 0?
-        {
-            aResult = AtomCons.getInstance(iEnvironment, aStackTop, "EndOfFile");
-            return aResult;
-        }
-        aResult = parseAtom(iEnvironment, aStackTop, token);
-        return aResult;
+    public abstract Cons parse(int aStackTop) throws Throwable;
+    
+    
+    public abstract String processLineTermination(String code);
+    
+    public abstract String processCodeBlock(String code);
+    
+    
+    public static boolean isSupportedParser(String parserName)
+    {
+	return supportedParsers.containsKey(parserName);
     }
-
-
-    Cons parseList(Environment aEnvironment, int aStackTop) throws Throwable {
-        String token;
-
-        Cons result = null;
-        Cons iter = null;
-        boolean firstLoop = true;
-        if (iListed) {
-            result = AtomCons.getInstance(iEnvironment, aStackTop, "List");
-            iter = (result.cdr()); //TODO FIXME
-        }
-        
-        for (;;) {
-            //Get token.
-            token = iTokenizer.nextToken(iEnvironment, aStackTop, iInput);
-            // if token is empty string, error!
-            if(token.length() <= 0) LispError.throwError(iEnvironment, aStackTop, LispError.INVALID_TOKEN, "Token empty."); //TODO FIXME
-            // if token is ")" return result.
-            if (token.equals(")")) {
-                return result;
-            }
-            // else parse simple atom with parse, and append it to the
-            // results list.
-
-            Cons atomCons = parseAtom(aEnvironment, aStackTop, token);
-            
-            if(!iListed && firstLoop)
-            {
-        	iter = atomCons;
-        	result = iter;
-        	firstLoop = false;
-            }
-            else
-            {
-        	iter.setCdr(atomCons);
-        	
-        	iter = (iter.cdr()); //TODO FIXME
-            }
-            
-            
-        }//end for.
-        
+    
+    public static void addSupportedParser(String parserName, Parser parser)
+    {
+	if(!supportedParsers.containsKey(parserName))
+	{
+	    supportedParsers.put(parserName, parser);
+	}
     }
-
-
-    Cons parseAtom(Environment aEnvironment, int aStackTop, String aToken) throws Throwable {
-        // if token is empty string, return null pointer (no expression)
-        if (aToken.length() == 0) //TODO FIXME either token == null or token.length() == 0?
-        {
-            return null;
-        }
-        // else if token is "(" read in a whole array of objects until ")",
-        //   and make a sublist
-        if (aToken.equals("(")) {
-            Cons subList = parseList(aEnvironment, aStackTop);
-            Cons aResult = SublistCons.getInstance(aEnvironment, subList);
-            return aResult;
-        }
-        // else make a simple atom, and return it.
-        Cons aResult = AtomCons.getInstance(iEnvironment, aStackTop, aToken);
-
-        return aResult;
+    
+    public static Parser getSupportedParser(String parserName)
+    {
+	return supportedParsers.get(parserName);
     }
 
 }

@@ -23,19 +23,20 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.Cons;
+import org.mathpiper.lisp.parsers.Parser;
 
 /**
  *
  *  
  */
-public class PrettyReaderSet extends BuiltinFunction
+public class ParserSet extends BuiltinFunction
 {
 
-    private PrettyReaderSet()
+    private ParserSet()
     {
     }
 
-    public PrettyReaderSet(String functionName)
+    public ParserSet(String functionName)
     {
         this.functionName = functionName;
     }
@@ -46,7 +47,7 @@ public class PrettyReaderSet extends BuiltinFunction
         int nrArguments = Utility.listLength(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 0));
         if (nrArguments == 1)
         {
-            aEnvironment.iPrettyReaderName = null;
+            aEnvironment.iPrettyReaderName = "";
         } else
         {
             if(nrArguments != 2) LispError.throwError(aEnvironment, aStackTop, LispError.WRONG_NUMBER_OF_ARGUMENTS);
@@ -54,7 +55,14 @@ public class PrettyReaderSet extends BuiltinFunction
             Cons oper = getArgument(aEnvironment, aStackTop, 0);
             oper = oper.cdr();
             LispError.checkIsString(aEnvironment, aStackTop, oper, 1);
-            aEnvironment.iPrettyReaderName = (String) oper.car();
+            
+            String parserName = (String) oper.car();
+            
+            parserName = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, parserName);
+            
+            if(!Parser.isSupportedParser(parserName)) LispError.raiseError("A parser does not exist for <" + parserName + ">.", aStackTop, aEnvironment);
+            
+            aEnvironment.iPrettyReaderName = parserName;
         }
         setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }
@@ -63,14 +71,14 @@ public class PrettyReaderSet extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="PrettyReaderSet",categories="User Functions;Built In"
-*CMD PrettyReaderSet --- set routine to use as pretty-reader
+%mathpiper_docs,name="ParserSet",categories="User Functions;Built In"
+*CMD ParserSet --- set routine to use as pretty-reader
 
 *CORE
 
 *CALL
-	PrettyReaderSet(reader)
-	PrettyReaderSet()
+	ParserSet(reader)
+	ParserSet()
 
 *PARMS
 
@@ -80,7 +88,7 @@ public class PrettyReaderSet extends BuiltinFunction
 *DESC
 
 This function sets up the function reader to read in the input on
-the command line. This can be reset to the internal reader with {PrettyReaderSet()} (when no argument is given, the system returns to the default).
+the command line. This can be reset to the internal reader with {ParserSet()} (when no argument is given, the system returns to the default).
 
 Currently implemented PrettyReaders are: {LispRead}, {OMRead}.
 
@@ -93,11 +101,16 @@ can be useful in the {~/.MathPiperrc} file.
 
 In> Taylor(x,0,5)Sin(x)
 Result: x-x^3/6+x^5/120
-In> PrettyReaderSet("LispRead")
+
+In> ParserSet("ParseLisp")
 Result: True
+
 In> (Taylor x 0 5 (Sin x))
 Result: x-x^3/6+x^5/120
 
-*SEE Read, LispRead, OMRead, PrettyPrinterSet, PrettyPrinterGet, PrettyReaderGet
+In> (ParserSet "ParseMathPiper")
+Result: True
+
+*SEE Read, ParseLisp, OMRead, PrettyPrinterSet, PrettyPrinterGet, ParserGet
 %/mathpiper_docs
 */

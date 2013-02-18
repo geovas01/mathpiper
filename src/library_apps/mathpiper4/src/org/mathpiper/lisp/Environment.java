@@ -112,6 +112,9 @@ public final class Environment {
 
     public Environment(MathPiperOutputStream aCurrentOutput/* TODO FIXME */)
 	    throws Throwable {
+	
+	iPrettyReaderName = "ParseMathPiper";
+	
 	iCurrentTokenizer = iDefaultTokenizer;
 	iInitialOutput = aCurrentOutput;
 	iCurrentOutput = aCurrentOutput;

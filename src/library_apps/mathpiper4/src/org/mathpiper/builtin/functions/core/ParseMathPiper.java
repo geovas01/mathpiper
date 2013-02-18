@@ -1,3 +1,5 @@
+package org.mathpiper.builtin.functions.core;
+
 /* {{{ License.
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -16,34 +18,37 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.parsers.MathPiperParser;
 import org.mathpiper.lisp.parsers.Parser;
+import org.mathpiper.lisp.parsers.LispParser;
 
 /**
  *
  *  
  */
-public class LispRead extends BuiltinFunction
+public class ParseMathPiper extends BuiltinFunction
 {
 
-    private LispRead()
+    private ParseMathPiper()
     {
     }
 
-    public LispRead(String functionName)
+    public ParseMathPiper(String functionName)
     {
         this.functionName = functionName;
     }
+    
 
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
-        Parser parser = new Parser(aEnvironment.iCurrentTokenizer, aEnvironment.getCurrentInput(),
-                aEnvironment);
-        // Read expression
+        Parser parser = new MathPiperParser(aEnvironment.iCurrentTokenizer, aEnvironment.getCurrentInput(), aEnvironment, aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
+        
+        // Parse expression
         setTopOfStack(aEnvironment, aStackTop, parser.parse(aStackTop));
     }
 }
@@ -51,33 +56,25 @@ public class LispRead extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="LispRead",categories="User Functions;Input/Output;Built In"
-*CMD LispRead --- read expressions in LISP syntax
+%mathpiper_docs,name="ParseMathPiper",categories="User Functions;Input/Output;Built In"
+*CMD ParseMathPiper --- parse expressions in MathPiper syntax
 *CORE
 *CALL
-	LispRead()
+	ParseMathPiper()
 
 *DESC
 
-The function {LispRead} reads an expression in the LISP syntax from the current input, and returns
+The function {ParseMathPiper} parses an expression in the MathPiper syntax from the current input, and returns
 it unevaluated. When the end of an input file is encountered, the
 special token atom {EndOfFile} is returned.
 
-The MathPiper expression {a+b} is written in the LISP syntax as {(+ a b)}. The advantage of this syntax is that it is
-less ambiguous than the infix operator grammar that MathPiper uses by
-default.
 
 *E.G. notest
 
-In> PipeFromString("(+ a b)") LispRead();
-Result: a+b;
-In> PipeFromString("(List (Sin x) (- (Cos x)))") \
-	  LispRead();
-Result: {Sin(x),-Cos(x)};
-In> PipeFromString("(+ a b)")LispRead()
+In> PipeFromString("a+b") ParseMathPiper();
 Result: a+b;
 
-*SEE PipeFromFile, PipeFromString, Read, ReadToken, LispForm, LispReadListed
+*SEE PipeFromFile, PipeFromString, Read, ReadToken, LispForm, ParseLispListed
 %/mathpiper_docs
 
 
@@ -86,9 +83,9 @@ Result: a+b;
 
 
 
-%mathpiper,name="LispRead",subtype="automatic_test"
+%mathpiper,name="ParseMathPiper",subtype="automatic_test"
 
-Verify(PipeFromString("(+ a b)") LispRead(),a+b);
+Verify(PipeFromString("a+b;") ParseMathPiper(),a+b);
 
 %/mathpiper
 */

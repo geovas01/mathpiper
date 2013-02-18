@@ -110,12 +110,6 @@ public class Tests {
         builtInFunctionsTestsMap.put("LessThan?",testString);
 
         testString = new String[3];
-        testString[0] = "89";
-        testString[1] = "\nVerify(PipeFromString(\"(+ a b)\") LispRead(),a+b);\n\n";
-        testString[2] = "/org/mathpiper/builtin/functions/core/LispRead.java";
-        builtInFunctionsTestsMap.put("LispRead",testString);
-
-        testString = new String[3];
         testString[0] = "96";
         testString[1] = "\n// FunctionToList and ListToFunction coredumped when their arguments were invalid.\nVerify(ListToFunction([Cos,x]),Cos(x));\n\n{\n  Local(exception);\n \n  exception := False;\n  ExceptionCatch(ListToFunction(1.2), exception := ExceptionGet());\n  Verify(exception =? False, False);\n};\n\n";
         testString[2] = "/org/mathpiper/builtin/functions/core/ListToFunction.java";
@@ -150,6 +144,18 @@ public class Tests {
         testString[1] = "\nVerify(False Or? False,False);\nVerify(True Or? False,True);\nVerify(False Or? True,True);\nVerify(True Or? True,True);\n\n";
         testString[2] = "/org/mathpiper/builtin/functions/core/Or_.java";
         builtInFunctionsTestsMap.put("Or?",testString);
+
+        testString = new String[3];
+        testString[0] = "90";
+        testString[1] = "\nVerify(PipeFromString(\"(+ a b)\") ParseLisp(),a+b);\n\n";
+        testString[2] = "/org/mathpiper/builtin/functions/core/ParseLisp.java";
+        builtInFunctionsTestsMap.put("ParseLisp",testString);
+
+        testString = new String[3];
+        testString[0] = "86";
+        testString[1] = "\nVerify(PipeFromString(\"a+b;\") ParseMathPiper(),a+b);\n\n";
+        testString[2] = "/org/mathpiper/builtin/functions/core/ParseMathPiper.java";
+        builtInFunctionsTestsMap.put("ParseMathPiper",testString);
 
         testString = new String[3];
         testString[0] = "89";

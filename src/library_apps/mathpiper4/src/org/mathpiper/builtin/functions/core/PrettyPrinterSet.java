@@ -108,6 +108,6 @@ Result: True;
 In> Taylor(x,0,5)Sin(x)
 Result: x-x^3/6+x^5/120;
 
-*SEE PrettyForm, Write, TeXForm, CForm, OMForm, PrettyReaderSet, PrettyReaderGet, PrettyPrinterGet
+*SEE PrettyForm, Write, TeXForm, CForm, OMForm, ParserSet, ParserGet, PrettyPrinterGet
 %/mathpiper_docs
 */

@@ -1,5 +1,5 @@
-Sat Nov 03 03:53:05 EDT 2012.
-MathPiper version: js:mp4:.095.
+Mon Feb 18 13:53:41 EST 2013.
+MathPiper version: mp4_alpha_v.102.
 Running all tests except the following: Solve,PSolve.
 Beginning of tests:
 
@@ -64,10 +64,6 @@ Testing LessThan? in file </org/mathpiper/builtin/functions/core/LessThan_.java>
 
 
 ================================================================
-Testing LispRead in file </org/mathpiper/builtin/functions/core/LispRead.java>: 
-
-
-================================================================
 Testing List? in file </org/mathpiper/builtin/functions/core/List_.java>: 
 
 
@@ -89,6 +85,14 @@ Testing Number? in file </org/mathpiper/builtin/functions/core/Number_.java>:
 
 ================================================================
 Testing Or? in file </org/mathpiper/builtin/functions/core/Or_.java>: 
+
+
+================================================================
+Testing ParseLisp in file </org/mathpiper/builtin/functions/core/ParseLisp.java>: 
+
+
+================================================================
+Testing ParseMathPiper in file </org/mathpiper/builtin/functions/core/ParseMathPiper.java>: 
 
 
 ================================================================
@@ -486,7 +490,7 @@ File: /org/mathpiper/scripts4/integrate/Integrate.mpw, Line: 82
 
 (Integrate(x,a,b)Cos(x)^2)-((b-Sin((-2)*b)/2)/2-(a-Sin((-2)*a)/2)/2)
  evaluates to 
-(Sin(2*b)/2+b)/2-(Sin(2*a)/2+a)/2-((b-(-Sin(2*b))/2)/2-(a-(-Sin(2*a))/2)/2)
+((Sin(2*b)/2+b)/2-(Sin(2*a)/2+a)/2)-((b-(-Sin(2*b))/2)/2-(a-(-Sin(2*a))/2)/2)
  which differs from 
 0
 ******************
@@ -855,7 +859,7 @@ Testing Taylor in file </org/mathpiper/scripts4/sums/Taylor.mpw>:
 ******************
 File: /org/mathpiper/scripts4/sums/Taylor.mpw, Line: 311 
 
-$pp1826
+$pp1818
  evaluates to 
 TaylorLPS(1,[-2,0,1/3,0],t,TaylorLPSScalarMult(-1,TaylorLPS(1,[2,0,(-1)/3,0],t,TaylorLPSScalarMult(2,TaylorLPS(1,[1,0,(-1)/6,0],t,Sin(t))))))
  which differs from 
@@ -919,4 +923,4 @@ GlobalVariables: Result: True
 Side Effects:
 [] 
 
-Elapsed Time: 1:46
+Elapsed Time: 1 min 44 sec

@@ -36,6 +36,10 @@ import org.mathpiper.lisp.cons.Cons;
 
 public class MathPiperParser extends Parser
 {
+    {     
+	String parserName = "ParseMathPiper";
+	addSupportedParser(parserName, this);
+    }
 
     public OperatorMap iPrefixOperators;
     public OperatorMap iInfixOperators;
@@ -128,7 +132,7 @@ public class MathPiperParser extends Parser
         return parsedExpression;
     }
 
-    void readToken(int aStackTop) throws Throwable
+    private void readToken(int aStackTop) throws Throwable
     {
         // Get token.
 
@@ -157,7 +161,7 @@ public class MathPiperParser extends Parser
         }
     }
 
-    void matchToken(int aStackTop, String aToken) throws Throwable
+    private void matchToken(int aStackTop, String aToken) throws Throwable
     {
         if (!aToken.equals(iLookAhead[0]))
         {
@@ -166,7 +170,7 @@ public class MathPiperParser extends Parser
         readToken(aStackTop);
     }
 
-    void readExpression(Environment aEnvironment,int aStackTop, int depth) throws Throwable
+    private void readExpression(Environment aEnvironment,int aStackTop, int depth) throws Throwable
     {
         readAtom(aEnvironment, aStackTop);
 
@@ -263,7 +267,7 @@ public class MathPiperParser extends Parser
         }
     }
 
-    void readAtom(Environment aEnvironment, int aStackTop) throws Throwable
+    private void readAtom(Environment aEnvironment, int aStackTop) throws Throwable
     {
         Operator op;
         // parse prefix operators
@@ -438,7 +442,7 @@ public class MathPiperParser extends Parser
         }
     }
 
-    void getOtherSide(Environment aEnvironment, int aStackTop, int aNrArgsToCombine, int depth) throws Throwable
+    private void getOtherSide(Environment aEnvironment, int aStackTop, int aNrArgsToCombine, int depth) throws Throwable
     {
         String theOperator = iLookAhead[0];
         matchToken(aStackTop, iLookAhead[0]);
@@ -447,7 +451,7 @@ public class MathPiperParser extends Parser
         combine(aEnvironment, aStackTop, aNrArgsToCombine);
     }
 
-    void combine(Environment aEnvironment, int aStackTop, int aNrArgsToCombine) throws Throwable
+    private void combine(Environment aEnvironment, int aStackTop, int aNrArgsToCombine) throws Throwable
     {
         Cons subList = SublistCons.getInstance(aEnvironment,parsedExpression);
         Cons consTraverser =  parsedExpression;
@@ -478,14 +482,14 @@ public class MathPiperParser extends Parser
         parsedExpression = subList;
     }
 
-    void insertAtom(Environment aEnvironment, int aStackTop, String aString) throws Throwable
+    private void insertAtom(Environment aEnvironment, int aStackTop, String aString) throws Throwable
     {
         String[] string = new String[4];
         string[0] = aString;
         insertAtom(aEnvironment, aStackTop, string);
     }
 
-    void insertAtom(Environment aEnvironment, int aStackTop, String[] aString) throws Throwable
+    private void insertAtom(Environment aEnvironment, int aStackTop, String[] aString) throws Throwable
     {
 
         Cons newCons = AtomCons.getInstance(iEnvironment, aStackTop, aString[0]);
@@ -503,7 +507,7 @@ public class MathPiperParser extends Parser
         parsedExpression = newCons;
     }
 
-    void fail(int aStackTop) throws Throwable // called when parsing fails, raising an exception
+    private void fail(int aStackTop) throws Throwable // called when parsing fails, raising an exception
     {
         iError = true;
         if (iLookAhead[0] != null)
@@ -512,4 +516,30 @@ public class MathPiperParser extends Parser
         }
         LispError.raiseError("Error parsing expression.", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, iEnvironment);
     }
-};
+    
+    
+    public String processLineTermination(String code)
+    {
+	if(code == null)
+	{
+	    return "";
+	}
+	
+	            if (!code.endsWith(";")) {
+                        code = code + ";";
+                    }
+	            
+	                                code = code.replaceAll(";;;", ";");
+                    code = code.replaceAll(";;", ";");
+                    
+           return code;         
+    }
+    
+    
+    public String processCodeBlock(String code)
+    {
+	return "{" + code + "};";
+    }
+    
+    
+}

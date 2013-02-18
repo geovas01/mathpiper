@@ -39,6 +39,7 @@ import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.SublistCons;
 import org.mathpiper.lisp.parsers.MathPiperParser;
 import org.mathpiper.lisp.parsers.Parser;
+import org.mathpiper.lisp.parsers.LispParser;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 import org.mathpiper.ui.gui.worksheets.LatexRenderingController;
 import org.mathpiper.ui.gui.worksheets.MathPanelController;
@@ -100,8 +101,6 @@ public class TreeView extends BuiltinFunction {
 
             expressionString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, expressionString);
             
-
-            
             Parser parser;
             
             if(((Boolean)userOptions.get("Prefix")) == true)
@@ -111,7 +110,7 @@ public class TreeView extends BuiltinFunction {
             
                 StringInputStream newInput = new StringInputStream(expressionString , aEnvironment.iInputStatus);
 
-        	parser = new Parser(aEnvironment.iCurrentTokenizer, newInput, aEnvironment);
+        	parser = new LispParser(aEnvironment.iCurrentTokenizer, newInput, aEnvironment);
             }
             else
             {
