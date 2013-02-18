@@ -57,7 +57,7 @@ public class DefaultTokenizer extends BuiltinFunction
 *DESC
 
 A "tokenizer" is an internal routine in the kernel that parses the input into MathPiper expressions.
-This affects all input typed in by a user at the prompt and also the input redirected from files or strings using {PipeFromFile} and {FromString} and read using {Read} or {ReadToken}.
+This affects all input typed in by a user at the prompt and also the input redirected from files or strings using {PipeFromFile} and {FromString} and read using {Read} or {ParseMathPiperToken}.
 
 The MathPiper environment currently supports some experimental tokenizers for
 various syntaxes. {DefaultTokenizer} switches to the tokenizer used for
@@ -79,6 +79,6 @@ or else the user will be unable to continue the session
 In>
 
 
-*SEE OMRead, TrapError, XmlExplodeTag, ReadToken, PipeFromFile, FromString, XmlTokenizer
+*SEE OMRead, TrapError, XmlExplodeTag, ParseMathPiperToken, PipeFromFile, FromString, XmlTokenizer
 %/mathpiper_docs
 */

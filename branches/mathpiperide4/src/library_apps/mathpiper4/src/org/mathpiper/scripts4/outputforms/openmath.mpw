@@ -311,7 +311,7 @@ HoldArgumentNumber("OMSignature", 1, 1);
 LocalSymbols(omtoken) {
   OMNextToken() :=
   {
-    omtoken := XmlExplodeTag(ToString(ReadToken()));
+    omtoken := XmlExplodeTag(ToString(ParseMathPiperToken()));
   };
   OMToken() := omtoken;
 }; // LocalSymbols(omtoken)

@@ -44,7 +44,7 @@ public class ParseLisp extends BuiltinFunction
     {
         Parser parser = new LispParser(aEnvironment.iCurrentTokenizer, aEnvironment.getCurrentInput(),
                 aEnvironment);
-        // Read expression
+        // ParseMathPiper expression
         setTopOfStack(aEnvironment, aStackTop, parser.parse(aStackTop));
     }
 }
@@ -78,7 +78,7 @@ Result: {Sin(x),-Cos(x)};
 In> PipeFromString("(+ a b)")ParseLisp()
 Result: a+b;
 
-*SEE PipeFromFile, PipeFromString, Read, ReadToken, LispForm, ParseMathPiper ParseLispListed
+*SEE PipeFromFile, PipeFromString, ParseMathPiper, ParseMathPiperToken, LispForm, ParseMathPiper ParseLispListed
 %/mathpiper_docs
 
 

@@ -57,7 +57,7 @@ public class ParseMathPiper extends BuiltinFunction
 
 /*
 %mathpiper_docs,name="ParseMathPiper",categories="User Functions;Input/Output;Built In"
-*CMD ParseMathPiper --- parse expressions in MathPiper syntax
+*CMD ParseMathPiper --- parse expressions in MathPiper syntax from the current input
 *CORE
 *CALL
 	ParseMathPiper()
@@ -71,10 +71,13 @@ special token atom {EndOfFile} is returned.
 
 *E.G. notest
 
-In> PipeFromString("a+b") ParseMathPiper();
-Result: a+b;
+In> PipeFromString("2+5;") ParseMathPiper();
+Result: 2+5;
 
-*SEE PipeFromFile, PipeFromString, Read, ReadToken, LispForm, ParseLispListed
+In> PipeFromString("") ParseMathPiper();
+Result: EndOfFile;
+
+*SEE PipeFromFile, PipeFromString, ParseMathPiperToken, LispForm, ParseLispListed
 %/mathpiper_docs
 
 

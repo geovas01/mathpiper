@@ -37,7 +37,7 @@ ForEach(e,equations1)
     //Echo(PrettyForm(e));
     
     
-    Echo("MathPiper:    ",Simplify(Eval(FromString(e:";") Read())));
+    Echo("MathPiper:    ",Simplify(Eval(FromString(e:";") ParseMathPiper())));
     
     me := ToString()[WriteString("ratsimp(");Write(Atom(e));WriteString(")");];
     Echo("Maxima:",Maxima(me));
@@ -176,7 +176,7 @@ ForEach(e,equations1)
     
     //Echo(PrettyForm(e));
     
-    Echo("MathPiper:    ",Simplify(Eval(FromString(e:";") Read())));
+    Echo("MathPiper:    ",Simplify(Eval(FromString(e:";") ParseMathPiper())));
     
     me := ToString()[WriteString("ratsimp(");Write(Atom(e));WriteString(")");];
     Echo("Maxima:",Maxima(me));
@@ -334,7 +334,7 @@ ForEach(e,equations1)
     
     //Echo(PrettyForm(e));
     
-    Echo("MathPiper:    ",Simplify(Eval(FromString(e:";") Read())));
+    Echo("MathPiper:    ",Simplify(Eval(FromString(e:";") ParseMathPiper())));
     
     me := ToString()[WriteString("ratsimp(");Write(Atom(e));WriteString(")");];
     Echo("Maxima:",Maxima(me));
@@ -543,7 +543,7 @@ ForEach(e,equations1)
     
     //Echo(PrettyForm(e));
     
-    Echo("MathPiper:    ",Simplify(Eval(FromString(e:";") Read())));
+    Echo("MathPiper:    ",Simplify(Eval(FromString(e:";") ParseMathPiper())));
     
     me := ToString()[WriteString("ratsimp(");Write(Atom(e));WriteString(")");];
     Echo("Maxima:",Maxima(me));
@@ -761,7 +761,7 @@ ForEach(e,equations1)
     
     //Echo(PrettyForm(e));
     
-    Echo("MathPiper:    ",Simplify(Eval(FromString(e:";") Read())));
+    Echo("MathPiper:    ",Simplify(Eval(FromString(e:";") ParseMathPiper())));
     
     me := ToString()[WriteString("ratsimp(");Write(Atom(e));WriteString(")");];
     Echo("Maxima:",Maxima(me));
@@ -880,7 +880,7 @@ ForEach(e,equations1)
     
     //Echo(PrettyForm(e));
     
-    Echo("MathPiper:    ",Simplify(Eval(FromString(e:";") Read())));
+    Echo("MathPiper:    ",Simplify(Eval(FromString(e:";") ParseMathPiper())));
     
     me := ToString()[WriteString("ratsimp(");Write(Atom(e));WriteString(")");];
     Echo("Maxima:",Maxima(me));

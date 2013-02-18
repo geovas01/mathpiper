@@ -47,7 +47,7 @@ public class ParserSet extends BuiltinFunction
         int nrArguments = Utility.listLength(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 0));
         if (nrArguments == 1)
         {
-            aEnvironment.iPrettyReaderName = "";
+            aEnvironment.iPrettyReaderName = "ParseMathPiper";
         } else
         {
             if(nrArguments != 2) LispError.throwError(aEnvironment, aStackTop, LispError.WRONG_NUMBER_OF_ARGUMENTS);
@@ -99,6 +99,18 @@ can be useful in the {~/.MathPiperrc} file.
 
 *E.G.
 
+In> ParserSet("ParseLisp")
+Result: True
+
+In> (+ 1 (* 2 3))
+Result: 7
+
+In> (ParserSet "ParseMathPiper")
+Result: True
+
+
+
+
 In> Taylor(x,0,5)Sin(x)
 Result: x-x^3/6+x^5/120
 
@@ -111,6 +123,6 @@ Result: x-x^3/6+x^5/120
 In> (ParserSet "ParseMathPiper")
 Result: True
 
-*SEE Read, ParseLisp, OMRead, PrettyPrinterSet, PrettyPrinterGet, ParserGet
+*SEE ParseMathPiper, ParseLisp, OMRead, PrettyPrinterSet, PrettyPrinterGet, ParserGet
 %/mathpiper_docs
 */

@@ -101,13 +101,12 @@ result of "body" is returned.
 
 *E.G.
 
-In> PipeFromString("2+5; this is never read") \
-	  res := Read();
+In> PipeFromString("2+5; this is never read") res := ParseMathPiper();
 Result: 2+5;
-In> PipeFromString("2+5; this is never read") \
-	  res := Eval(Read());
+
+In> PipeFromString("2+5; this is never read") res := Eval(ParseMathPiper());
 Result: 7;
 
-*SEE PipeToString, PipeFromFile, Read, ReadToken
+*SEE PipeToString, PipeFromFile, ParseMathPiper, ParseMathPiperToken
 %/mathpiper_docs
 */

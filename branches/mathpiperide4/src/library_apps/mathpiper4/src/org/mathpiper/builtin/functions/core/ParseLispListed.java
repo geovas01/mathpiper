@@ -45,7 +45,7 @@ public class ParseLispListed extends BuiltinFunction
         Parser parser = new LispParser(aEnvironment.iCurrentTokenizer, aEnvironment.getCurrentInput(),
                 aEnvironment);
         parser.iListed = true;
-        // Read expression
+        // ParseMathPiper expression
         setTopOfStack(aEnvironment, aStackTop, parser.parse(aStackTop));
     }
 }
@@ -72,6 +72,6 @@ first object in a list can be itself a list (this is never the case for MathPipe
 In> PipeFromString("(+ a b)")ParseLispListed()
 Result: [+,a,b];
 
-*SEE PipeFromFile, PipeFromString, Read, ReadToken, LispForm, ParseLisp
+*SEE PipeFromFile, PipeFromString, ParseMathPiper, ParseMathPiperToken, LispForm, ParseLisp
 %/mathpiper_docs
 */

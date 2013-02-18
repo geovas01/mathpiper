@@ -1,4 +1,4 @@
-Mon Feb 18 13:53:41 EST 2013.
+Mon Feb 18 14:44:47 EST 2013.
 MathPiper version: mp4_alpha_v.102.
 Running all tests except the following: Solve,PSolve.
 Beginning of tests:
@@ -923,4 +923,4 @@ GlobalVariables: Result: True
 Side Effects:
 [] 
 
-Elapsed Time: 1 min 44 sec
+Elapsed Time: 1 min 43 sec

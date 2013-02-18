@@ -13,8 +13,8 @@ CASCompare(expressions) :=
         Echo("#",count ,"Exercise:   ",e, If(IsBound(answer),ToString()[WriteString("  Answer: " );Write(answer);Clear(answer);],"") );
         
         
-        //Echo("MathPiper:    ",Simplify(Eval(FromString(e:";") Read())));
-        Echo("MathPiper:    ",Eval(FromString(e:";") Read()));
+        //Echo("MathPiper:    ",Simplify(Eval(FromString(e:";") ParseMathPiper())));
+        Echo("MathPiper:    ",Eval(FromString(e:";") ParseMathPiper()));
         
         //me := ToString()[WriteString("ratsimp(");Write(Atom(e));WriteString(")");];
         me := ToString()[WriteString("(");Write(Atom(e));WriteString(")");];
