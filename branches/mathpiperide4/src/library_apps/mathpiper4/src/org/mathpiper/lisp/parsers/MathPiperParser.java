@@ -529,7 +529,7 @@ public class MathPiperParser extends Parser
                         code = code + ";";
                     }
 	            
-	                                code = code.replaceAll(";;;", ";");
+	            code = code.replaceAll(";;;", ";");
                     code = code.replaceAll(";;", ";");
                     
            return code;         
