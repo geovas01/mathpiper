@@ -74,6 +74,6 @@ an empty string if the default pretty printer is used.
 In> ParserGet()
 Result: ""
 
-*SEE Read, ParseLisp, OMRead, PrettyPrinterSet, PrettyPrinterGet, ParserSet
+*SEE ParseMathPiper, ParseLisp, OMRead, PrettyPrinterSet, PrettyPrinterGet, ParserSet
 %/mathpiper_docs
 */

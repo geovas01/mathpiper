@@ -221,7 +221,7 @@ LoadSite():=
 {
   PipeFromFile("siteall")
   {
-    site:=Read();
+    site:=ParseMathPiper();
   };
 };
 
@@ -240,7 +240,7 @@ MySQLQuery(pidstr,string):=
   PipeToFile("sqlin"~pidstr) WriteString(string);
   SystemCall("mysql mysql < "~"sqlin"~pidstr~" > sqlout"~pidstr);
   SystemCall(FindFile("tools/mysqlstubs")~" sqlout"~pidstr~" sqlout_"~pidstr);
-  result:= PipeFromFile("sqlout_"~pidstr)Read();
+  result:= PipeFromFile("sqlout_"~pidstr)ParseMathPiper();
   SystemCall("rm -rf sqlin"~pidstr);
   SystemCall("rm -rf sqlout"~pidstr);
   SystemCall("rm -rf sqlout_"~pidstr);

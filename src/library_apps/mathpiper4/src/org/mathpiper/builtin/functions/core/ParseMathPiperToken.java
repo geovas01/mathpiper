@@ -26,14 +26,14 @@ import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
  *
  * 
  */
-public class ReadToken extends BuiltinFunction
+public class ParseMathPiperToken extends BuiltinFunction
 {
 
-    private ReadToken()
+    private ParseMathPiperToken()
     {
     }
 
-    public ReadToken(String functionName)
+    public ParseMathPiperToken(String functionName)
     {
         this.functionName = functionName;
     }
@@ -57,11 +57,11 @@ public class ReadToken extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="ReadToken",categories="User Functions;Input/Output;Built In"
-*CMD ReadToken --- read a token from current input
+%mathpiper_docs,name="ParseMathPiperToken",categories="User Functions;Input/Output;Built In"
+*CMD ParseMathPiperToken --- read a token from current input
 *CORE
 *CALL
-	ReadToken()
+	ParseMathPiperToken()
 
 *DESC
 
@@ -78,12 +78,12 @@ combination of the semantics of the tokens. Hence {a := foo} consists of three t
 The parsing of the string depends on the syntax of the language.
 The part of the kernel that does the parsing is the "tokenizer".
 MathPiper can parse its own syntax (the default tokenizer) or it can be instructed to parse XML or C++ syntax using the directives {DefaultTokenizer} or {XmlTokenizer}.
-Setting a tokenizer is a global action that affects all {ReadToken} calls.
+Setting a tokenizer is a global action that affects all {ParseMathPiperToken} calls.
 
 *E.G. notest
 
 In> PipeFromString("a := Sin(x)") While \
-	  ((tok := ReadToken()) != EndOfFile) \
+	  ((tok := ParseMathPiperToken()) != EndOfFile) \
 	  Echo(tok);
 	a
 	:=
@@ -94,7 +94,7 @@ In> PipeFromString("a := Sin(x)") While \
 Result: True;
 
 We can read some junk too:
-In> PipeFromString("-$3")ReadToken();
+In> PipeFromString("-$3")ParseMathPiperToken();
 Result: -$;
 The result is an atom with the string representation {-$}.
 MathPiper assumes that {-$} is an operator symbol yet to be defined.
@@ -102,6 +102,6 @@ The "{3}" will be in the next token.
 (The results will be different if a non-default tokenizer is selected.)
 
 
-*SEE PipeFromFile, PipeFromString, Read, ParseLisp, DefaultTokenizer
+*SEE PipeFromFile, PipeFromString, ParseMathPiper, ParseLisp, DefaultTokenizer
 %/mathpiper_docs
 */

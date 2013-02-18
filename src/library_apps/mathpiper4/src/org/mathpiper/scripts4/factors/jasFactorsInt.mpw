@@ -42,7 +42,7 @@ jasFactorsInt(poly_Polynomial?) <--
              );
         ];
         fact   := ListToString(lst);
-        factor := PipeFromString(fact:";") Read();
+        factor := PipeFromString(fact:";") ParseMathPiper();
         DestructiveAppend( result, [factor,mult] );
     ];
     

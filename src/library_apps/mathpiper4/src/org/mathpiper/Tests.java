@@ -152,7 +152,7 @@ public class Tests {
         builtInFunctionsTestsMap.put("ParseLisp",testString);
 
         testString = new String[3];
-        testString[0] = "86";
+        testString[0] = "89";
         testString[1] = "\nVerify(PipeFromString(\"a+b;\") ParseMathPiper(),a+b);\n\n";
         testString[2] = "/org/mathpiper/builtin/functions/core/ParseMathPiper.java";
         builtInFunctionsTestsMap.put("ParseMathPiper",testString);
