@@ -54,7 +54,7 @@ public class ParseLispListed extends BuiltinFunction
 
 /*
 %mathpiper_docs,name="ParseLispListed",categories="User Functions;Input/Output;Built In"
-*CMD ParseLispListed --- read expressions in LISP syntax
+*CMD ParseLispListed --- parse expressions in LISP syntax
 *CORE
 *CALL
 	ParseLispListed()
@@ -65,7 +65,8 @@ The function {ParseLispListed} reads a LISP expression and returns
 it in a list, instead of the form usual to MathPiper (expressions).
 The result can be thought of as applying {FunctionToList} to {ParseLisp}.
 The function {ParseLispListed} is more useful for reading arbitrary LISP expressions, because the
-first object in a list can be itself a list (this is never the case for MathPiper expressions where the first object in a list is always a function atom).
+first object in a list can be itself a list (this is never the case for MathPiper expressions where 
+the first object in a list is always a function atom).
 
 *E.G. notest
 
