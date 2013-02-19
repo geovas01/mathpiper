@@ -23,7 +23,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.Cons;
-import org.mathpiper.lisp.printers.MathPiperPrinter;
+import org.mathpiper.lisp.unparsers.MathPiperUnparser;
 
 /**
  *
@@ -41,7 +41,7 @@ public class Time extends BuiltinFunction
     {
         this.functionName = functionName;
 
-        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "Time");
+        aEnvironment.iBodiedOperators.setOperator(MathPiperUnparser.KMaxPrecedence, "Time");
     }//end constructor.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable

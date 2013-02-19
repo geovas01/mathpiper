@@ -26,14 +26,14 @@ import org.mathpiper.lisp.Environment;
  *
  *  
  */
-public class PrettyPrinterGet extends BuiltinFunction
+public class UnparserGet extends BuiltinFunction
 {
 
-    private PrettyPrinterGet()
+    private UnparserGet()
     {
     }
 
-    public PrettyPrinterGet(String functionName)
+    public UnparserGet(String functionName)
     {
         this.functionName = functionName;
     }
@@ -41,12 +41,12 @@ public class PrettyPrinterGet extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
-        if (aEnvironment.iPrettyPrinterName == null)
+        if (aEnvironment.iUnparserName == null)
         {
             setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "\"\""));
         } else
         {
-            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, aEnvironment.iPrettyPrinterName));
+            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, aEnvironment.iUnparserName));
         }
     }
 }
@@ -54,26 +54,26 @@ public class PrettyPrinterGet extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="PrettyPrinterGet",categories="User Functions;Built In"
-*CMD PrettyPrinterGet --- get routine to use as pretty-printer
+%mathpiper_docs,name="UnparserGet",categories="User Functions;Built In"
+*CMD UnparserGet --- get the name of the current unparser
 
 *CORE
 
 *CALL
-	PrettyPrinterGet()
+	UnparserGet()
 
 *DESC
 
-{PrettyPrinterGet()} returns the current pretty printer, or it returns
-an empty string if the default pretty printer is used.
+{UnparserGet()} returns the current unparser, or it returns
+an empty string if the default unparser is used.
 
 
 
 *E.G.
 
-In> PrettyPrinterGet()
+In> UnparserGet()
 Result: ""
 
-*SEE PrettyForm, Write, TeXForm, CForm, OMForm, ParserSet, ParserGet, PrettyPrinterSet
+*SEE PrettyForm, Write, TeXForm, CForm, OMForm, ParserSet, ParserGet, UnparserSet
 %/mathpiper_docs
 */

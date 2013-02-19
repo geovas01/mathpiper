@@ -28,14 +28,14 @@ import org.mathpiper.lisp.cons.Cons;
  *
  *  
  */
-public class PrettyPrinterSet extends BuiltinFunction
+public class UnparserSet extends BuiltinFunction
 {
 
-    private PrettyPrinterSet()
+    private UnparserSet()
     {
     }
 
-    public PrettyPrinterSet(String functionName)
+    public UnparserSet(String functionName)
     {
         this.functionName = functionName;
     }
@@ -46,14 +46,14 @@ public class PrettyPrinterSet extends BuiltinFunction
         int nrArguments = Utility.listLength(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 0));
         if (nrArguments == 1)
         {
-            aEnvironment.iPrettyPrinterName = null;
+            aEnvironment.iUnparserName = null;
         } else
         {
             if(nrArguments != 2) LispError.throwError(aEnvironment, aStackTop, LispError.WRONG_NUMBER_OF_ARGUMENTS);
             Cons oper = getArgument(aEnvironment, aStackTop, 0);
             oper = oper.cdr();
             LispError.checkIsString(aEnvironment, aStackTop, oper, 1);
-            aEnvironment.iPrettyPrinterName = (String) oper.car();
+            aEnvironment.iUnparserName = (String) oper.car();
         }
         setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }
@@ -62,52 +62,58 @@ public class PrettyPrinterSet extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="PrettyPrinterSet",categories="User Functions;Built In"
-*CMD PrettyPrinterSet --- set routine to use as pretty-printer
+%mathpiper_docs,name="UnparserSet",categories="User Functions;Built In"
+*CMD UnparserSet --- set the current unparser
 
 *CORE
 
 *CALL
-	PrettyPrinterSet(printer)
-	PrettyPrinterSet()
+	UnparserSet(unparser)
+	UnparserSet()
 
 *PARMS
 
-{printer} -- a string containing the name of a function that can "pretty-print" an expression.
+{unparser} -- a string containing the name of an unparser function
 
 
 *DESC
 
-This function sets up the function printer to print out the results on
-the command line. This can be reset to the internal printer with {PrettyPrinterSet()} (when no argument is given, the system returns to the default).
+This function sets the current unparser that outputs results in text form. 
+This can be reset to the default printer with {UnparserSet()} 
+(when no argument is given, the system returns to the default).
 
-Currently implemented prettyprinters are: {PrettyForm}, {TeXForm}, {Print}, {OMForm}, {CForm} and {DefaultPrint}.
+Currently implemented unparsers are: {PrettyForm}, {TeXForm}, {Print}, {OMForm}, {CForm} and {DefaultPrint}.
 
-MathPiper allows you to configure a few things at startup. The file
-{~/.mathpiperrc} is written in the MathPiper language and
-will be executed when MapthPiper is run. This function
-can be useful in the {~/.MathPiperrc} file.
 
 *E.G.
 
 In> Taylor(x,0,5)Sin(x)
-Result: x-x^3/6+x^5/120;
-In> PrettyPrinterSet("PrettyForm");
+Result: (x-x^3/6)+x^5/120
 
-	True
+In> UnparserSet("PrettyForm");
+Result: True
+Side Effects:
+
+True
+
 
 In> Taylor(x,0,5)Sin(x)
+Result: True
+Side Effects:
 
-	     3    5
-	    x    x
-	x - -- + ---
-	    6    120
+     3    5 
+    x    x  
+x - -- + ---
+    6    120
 
-In> PrettyPrinterSet();
-Result: True;
+
+
+In> UnparserSet();
+Result: True
+
 In> Taylor(x,0,5)Sin(x)
-Result: x-x^3/6+x^5/120;
+Result: (x-x^3/6)+x^5/120
 
-*SEE PrettyForm, Write, TeXForm, CForm, OMForm, ParserSet, ParserGet, PrettyPrinterGet
+*SEE PrettyForm, Write, TeXForm, CForm, OMForm, ParserSet, ParserGet, UnparserGet
 %/mathpiper_docs
 */

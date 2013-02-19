@@ -18,7 +18,6 @@ package org.mathpiper.interpreters;
 
 import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.io.InputStatus;
-import org.mathpiper.lisp.printers.MathPiperPrinter;
 import org.mathpiper.lisp.parsers.LispParser;
 import org.mathpiper.lisp.parsers.MathPiperParser;
 import org.mathpiper.io.StringOutputStream;
@@ -29,7 +28,8 @@ import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.parsers.Parser;
 import org.mathpiper.io.MathPiperInputStream;
-import org.mathpiper.lisp.printers.LispPrinter;
+import org.mathpiper.lisp.unparsers.LispUnparser;
+import org.mathpiper.lisp.unparsers.MathPiperUnparser;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -54,7 +54,7 @@ public class SynchronousInterpreter implements Interpreter {
     private ArrayList<ResponseListener> removeListeners;
     private ArrayList<ResponseListener> responseListeners;
     private Environment iEnvironment = null;
-    LispPrinter printer = null;
+    LispUnparser printer = null;
     //private String iException = null;
     String defaultDirectory = null;
     String archive = "";
@@ -125,7 +125,7 @@ public class SynchronousInterpreter implements Interpreter {
                     iEnvironment.pushLocalFrame(true, "<START>");
 
                     
-                    printer = new MathPiperPrinter(iEnvironment.iPrefixOperators, iEnvironment.iInfixOperators, iEnvironment.iPostfixOperators, iEnvironment.iBodiedOperators);
+                    printer = new MathPiperUnparser(iEnvironment.iPrefixOperators, iEnvironment.iInfixOperators, iEnvironment.iPostfixOperators, iEnvironment.iBodiedOperators);
 
 
                     EvaluationResponse initializationEvaluationResponse = evaluate("MathPiperInitLoad();");
@@ -253,7 +253,7 @@ public class SynchronousInterpreter implements Interpreter {
 
             iEnvironment.setCurrentInput(newInput);
 
-            parsedOrAppliedInputExpression = Utility.applyString(iEnvironment, -1, iEnvironment.iPrettyReaderName, null);
+            parsedOrAppliedInputExpression = Utility.applyString(iEnvironment, -1, iEnvironment.iParserName, null);
 
             return evaluate(parsedOrAppliedInputExpression, notifyEvaluationListeners);
 
@@ -315,21 +315,21 @@ public class SynchronousInterpreter implements Interpreter {
             StringBuffer outputBuffer = new StringBuffer();
             MathPiperOutputStream outputStream = new StringOutputStream(outputBuffer);
 
-            if (iEnvironment.iPrettyPrinterName != null) {
-                //Pretty printer.
+            if (iEnvironment.iUnparserName != null) {
+                //Unparser.
 
                 Cons applyResult = null;
 
-                if (iEnvironment.iPrettyPrinterName.equals("\"RForm\"")) {
+                if (iEnvironment.iUnparserName.equals("\"RForm\"")) {
                     Cons holdAtom = AtomCons.getInstance(iEnvironment, -1, "Hold");
 
                     holdAtom.cdr().setCdr(result);
 
                     Cons resultWithHold = SublistCons.getInstance(iEnvironment, holdAtom);
 
-                    applyResult = Utility.applyString(iEnvironment, -1, iEnvironment.iPrettyPrinterName, resultWithHold);
+                    applyResult = Utility.applyString(iEnvironment, -1, iEnvironment.iUnparserName, resultWithHold);
                 } else {
-                    applyResult = Utility.applyString(iEnvironment, -1, iEnvironment.iPrettyPrinterName, result);
+                    applyResult = Utility.applyString(iEnvironment, -1, iEnvironment.iUnparserName, result);
                 }
 
                 printer.rememberLastChar(' ');

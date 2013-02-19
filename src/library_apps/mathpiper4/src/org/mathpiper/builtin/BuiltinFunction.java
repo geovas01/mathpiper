@@ -19,7 +19,7 @@ package org.mathpiper.builtin;
 import org.mathpiper.builtin.functions.core.*;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.printers.MathPiperPrinter;
+import org.mathpiper.lisp.unparsers.MathPiperUnparser;
 
 import org.mathpiper.lisp.cons.Cons;
 
@@ -59,20 +59,20 @@ public abstract class BuiltinFunction {
         String functionNameInit = "";
 
 
-        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "While");
-        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "RuleHoldArguments");
-        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "RuleEvaluateArguments");
-        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "RulePatternHoldArguments");
-        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "RulePatternEvaluateArguments");
-        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "PipeFromFile");
-        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "PipeFromString");
-        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "PipeToFile");
-        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "PipeToString");
-        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "PipeToStdout");
-        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "TraceRule");
-        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "Subst");
-        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "LocalSymbols");
-        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "BackQuote");
+        aEnvironment.iBodiedOperators.setOperator(MathPiperUnparser.KMaxPrecedence, "While");
+        aEnvironment.iBodiedOperators.setOperator(MathPiperUnparser.KMaxPrecedence, "RuleHoldArguments");
+        aEnvironment.iBodiedOperators.setOperator(MathPiperUnparser.KMaxPrecedence, "RuleEvaluateArguments");
+        aEnvironment.iBodiedOperators.setOperator(MathPiperUnparser.KMaxPrecedence, "RulePatternHoldArguments");
+        aEnvironment.iBodiedOperators.setOperator(MathPiperUnparser.KMaxPrecedence, "RulePatternEvaluateArguments");
+        aEnvironment.iBodiedOperators.setOperator(MathPiperUnparser.KMaxPrecedence, "PipeFromFile");
+        aEnvironment.iBodiedOperators.setOperator(MathPiperUnparser.KMaxPrecedence, "PipeFromString");
+        aEnvironment.iBodiedOperators.setOperator(MathPiperUnparser.KMaxPrecedence, "PipeToFile");
+        aEnvironment.iBodiedOperators.setOperator(MathPiperUnparser.KMaxPrecedence, "PipeToString");
+        aEnvironment.iBodiedOperators.setOperator(MathPiperUnparser.KMaxPrecedence, "PipeToStdout");
+        aEnvironment.iBodiedOperators.setOperator(MathPiperUnparser.KMaxPrecedence, "TraceRule");
+        aEnvironment.iBodiedOperators.setOperator(MathPiperUnparser.KMaxPrecedence, "Subst");
+        aEnvironment.iBodiedOperators.setOperator(MathPiperUnparser.KMaxPrecedence, "LocalSymbols");
+        aEnvironment.iBodiedOperators.setOperator(MathPiperUnparser.KMaxPrecedence, "BackQuote");
         
         aEnvironment.iPrefixOperators.setOperator(0, "`");
         aEnvironment.iPrefixOperators.setOperator(0, "'");
@@ -222,8 +222,8 @@ public abstract class BuiltinFunction {
         functionNameInit = "PrecedenceGet"; aEnvironment.iBuiltinFunctions.put(functionNameInit, new BuiltinFunctionEvaluator(new PrecedenceGet(functionNameInit), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
         functionNameInit = "Prefix"; aEnvironment.iBuiltinFunctions.put(functionNameInit, new BuiltinFunctionEvaluator(new Prefix(functionNameInit), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
         functionNameInit = "Prefix?"; aEnvironment.iBuiltinFunctions.put(functionNameInit, new BuiltinFunctionEvaluator(new Prefix_(functionNameInit), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
-        functionNameInit = "PrettyPrinterGet"; aEnvironment.iBuiltinFunctions.put(functionNameInit, new BuiltinFunctionEvaluator(new PrettyPrinterGet(functionNameInit), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
-        functionNameInit = "PrettyPrinterSet"; aEnvironment.iBuiltinFunctions.put(functionNameInit, new BuiltinFunctionEvaluator(new PrettyPrinterSet(functionNameInit), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
+        functionNameInit = "UnparserGet"; aEnvironment.iBuiltinFunctions.put(functionNameInit, new BuiltinFunctionEvaluator(new UnparserGet(functionNameInit), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
+        functionNameInit = "UnparserSet"; aEnvironment.iBuiltinFunctions.put(functionNameInit, new BuiltinFunctionEvaluator(new UnparserSet(functionNameInit), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
         functionNameInit = "Block"; aEnvironment.iBuiltinFunctions.put(functionNameInit, new BuiltinFunctionEvaluator(new Block(functionNameInit), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro));
         functionNameInit = "PromptShown?"; aEnvironment.iBuiltinFunctions.put(functionNameInit, new BuiltinFunctionEvaluator(new PromptShown_(functionNameInit), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
         functionNameInit = "QuotientN"; aEnvironment.iBuiltinFunctions.put(functionNameInit, new BuiltinFunctionEvaluator(new Quotient(functionNameInit), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
@@ -264,12 +264,12 @@ public abstract class BuiltinFunction {
         functionNameInit = "ToBase"; aEnvironment.iBuiltinFunctions.put(functionNameInit, new BuiltinFunctionEvaluator(new ToBase(functionNameInit), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
         functionNameInit = "ToString"; aEnvironment.iBuiltinFunctions.put(functionNameInit, new BuiltinFunctionEvaluator(new ToString(functionNameInit), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
         functionNameInit = "TraceExcept"; aEnvironment.iBuiltinFunctions.put(functionNameInit, new BuiltinFunctionEvaluator(new TraceExcept(functionNameInit), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro));
-        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, functionNameInit);
+        aEnvironment.iBodiedOperators.setOperator(MathPiperUnparser.KMaxPrecedence, functionNameInit);
         functionNameInit = "TraceOff"; aEnvironment.getBuiltinFunctions().put(functionNameInit, new BuiltinFunctionEvaluator(new TraceOff(functionNameInit), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
         functionNameInit = "TraceOn"; aEnvironment.getBuiltinFunctions().put(functionNameInit, new BuiltinFunctionEvaluator(new TraceOn(functionNameInit), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
         functionNameInit = "TraceRule"; aEnvironment.getBuiltinFunctions().put(functionNameInit, new BuiltinFunctionEvaluator(new TraceRule(functionNameInit), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro));
         functionNameInit = "TraceSome"; aEnvironment.getBuiltinFunctions().put(functionNameInit, new BuiltinFunctionEvaluator(new TraceSome(functionNameInit), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro));
-        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, functionNameInit);
+        aEnvironment.iBodiedOperators.setOperator(MathPiperUnparser.KMaxPrecedence, functionNameInit);
         functionNameInit = "TraceStack"; aEnvironment.getBuiltinFunctions().put(functionNameInit, new BuiltinFunctionEvaluator(new TraceStack(functionNameInit), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro));
         functionNameInit = "Type"; aEnvironment.getBuiltinFunctions().put(functionNameInit, new BuiltinFunctionEvaluator(new Type(functionNameInit), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
         functionNameInit = "UnFence"; aEnvironment.getBuiltinFunctions().put(functionNameInit, new BuiltinFunctionEvaluator(new UnFence(functionNameInit), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));

@@ -20,13 +20,13 @@ package org.mathpiper.lisp.parsers;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import org.mathpiper.lisp.printers.MathPiperPrinter;
 
 import org.mathpiper.lisp.Utility;
 
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
+import org.mathpiper.lisp.unparsers.MathPiperUnparser;
 import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.SublistCons;
@@ -102,7 +102,7 @@ public class MathPiperParser extends Parser
             return parsedExpression;
         }
 
-        readExpression(iEnvironment,aStackTop, MathPiperPrinter.KMaxPrecedence);  // least precedence
+        readExpression(iEnvironment,aStackTop, MathPiperUnparser.KMaxPrecedence);  // least precedence
 
         if (!iLookAhead[0].equals(iEnvironment.iEndStatementAtom))
         {
@@ -182,7 +182,7 @@ public class MathPiperParser extends Parser
                 // Match opening bracket
                 matchToken(aStackTop, iLookAhead[0]);
                 // Read "index" argument
-                readExpression(aEnvironment, aStackTop, MathPiperPrinter.KMaxPrecedence);
+                readExpression(aEnvironment, aStackTop, MathPiperUnparser.KMaxPrecedence);
                 // Match closing bracket
                 if (!iLookAhead[0].equals(iEnvironment.iIndexOrNameCloseAtom))
                 {
@@ -288,7 +288,7 @@ public class MathPiperParser extends Parser
         else if (iLookAhead[0].equals(iEnvironment.iBracketOpenAtom))
         {
             matchToken(aStackTop, iLookAhead[0]);
-            readExpression(aEnvironment,aStackTop, MathPiperPrinter.KMaxPrecedence);  // least precedence
+            readExpression(aEnvironment,aStackTop, MathPiperUnparser.KMaxPrecedence);  // least precedence
             matchToken( aStackTop, (String) iEnvironment.iBracketCloseAtom);
         } //parse lists
         else if (iLookAhead[0].equals(iEnvironment.iListOpenAtom))
@@ -297,7 +297,7 @@ public class MathPiperParser extends Parser
             matchToken(aStackTop, iLookAhead[0]);
             while (!iLookAhead[0].equals(iEnvironment.iListCloseAtom))
             {
-                readExpression(aEnvironment,aStackTop, MathPiperPrinter.KMaxPrecedence);  // least precedence
+                readExpression(aEnvironment,aStackTop, MathPiperUnparser.KMaxPrecedence);  // least precedence
                 nrargs++;
 
                 if (iLookAhead[0].equals(iEnvironment.iCommaAtom))
@@ -325,7 +325,7 @@ public class MathPiperParser extends Parser
             matchToken(aStackTop, iLookAhead[0]);
             while (!iLookAhead[0].equals(iEnvironment.iBlockCloseAtom))
             {
-                readExpression(aEnvironment,aStackTop, MathPiperPrinter.KMaxPrecedence);  // least precedence
+                readExpression(aEnvironment,aStackTop, MathPiperUnparser.KMaxPrecedence);  // least precedence
                 nrargs++;
 
                 if (iLookAhead[0].equals(iEnvironment.iEndStatementAtom))
@@ -391,7 +391,7 @@ public class MathPiperParser extends Parser
                 matchToken(aStackTop, iLookAhead[0]);
                 while (!iLookAhead[0].equals(iEnvironment.iBracketCloseAtom))
                 {
-                    readExpression(aEnvironment,aStackTop, MathPiperPrinter.KMaxPrecedence);  // least precedence
+                    readExpression(aEnvironment,aStackTop, MathPiperUnparser.KMaxPrecedence);  // least precedence
                     nrargs++;
 
                     if (iLookAhead[0].equals(iEnvironment.iCommaAtom))
@@ -408,7 +408,7 @@ public class MathPiperParser extends Parser
                 op = (Operator) iBodiedOperators.map.get(theOperator[0]);
                 if (op != null)
                 {
-                    readExpression(aEnvironment,aStackTop, op.iPrecedence); // MathPiperPrinter.KMaxPrecedence
+                    readExpression(aEnvironment,aStackTop, op.iPrecedence); // MathPiperUnparser.KMaxPrecedence
                     nrargs++;
                 }
             }//end if.

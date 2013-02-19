@@ -21,8 +21,8 @@ import java.util.Map;
 import org.mathpiper.io.StringOutput;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.printers.LispPrinter;
 import org.mathpiper.lisp.substitute.Substitute;
+import org.mathpiper.lisp.unparsers.LispUnparser;
 
 
 /**
@@ -190,7 +190,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
     
     public String toString() {
         StringOutput out = new StringOutput();
-        LispPrinter printer = new LispPrinter();
+        LispUnparser printer = new LispUnparser();
         try {
             printer.print(-1, this, out, null);
         } catch (Throwable e) {

@@ -307,7 +307,7 @@ The current implementation is far from perfect. In particular, the
 user should keep the following points in mind:
 *        {Solve} cannot solve all equations. If it is given a equation
 it can not solve, it raises an error via {Check}. Unfortunately, this
-is not displayed by the inline pretty-printer; call {PrettyPrinterSet} to
+is not displayed by the inline unparser; call {UnparserSet} to
 change this. If an equation cannot be solved analytically, you may
 want to call {Newton} to get a numerical solution.
 *        Systems of equations are not handled yet. For linear systems,

@@ -19,7 +19,7 @@ package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.printers.LispPrinter;
+import org.mathpiper.lisp.unparsers.LispUnparser;
 
 /**
  *
@@ -41,7 +41,7 @@ public class LispForm extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         setTopOfStack(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1));
-        LispPrinter printer = new LispPrinter();
+        LispUnparser printer = new LispUnparser();
         printer.print(aStackTop, getTopOfStack(aEnvironment, aStackTop), aEnvironment.iCurrentOutput, aEnvironment);
         aEnvironment.write("\n");
     }

@@ -994,8 +994,8 @@ public class Build {
 
 
     public static void printExpression(StringBuffer outString, Environment aEnvironment, ConsPointer aExpression) throws Throwable {
-    MathPiperPrinter printer = new MathPiperPrinter(aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
-    //LispPrinter printer = new LispPrinter(false);
+    MathPiperUnparser printer = new MathPiperUnparser(aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
+    //LispUnparser printer = new LispUnparser(false);
 
     MathPiperOutputStream stream = new StringOutputStream(outString);
     printer.print(-1, aExpression, stream, aEnvironment);

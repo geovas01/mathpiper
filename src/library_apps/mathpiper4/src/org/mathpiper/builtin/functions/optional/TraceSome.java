@@ -26,7 +26,7 @@ import org.mathpiper.lisp.Evaluator;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.Cons;
 
-import org.mathpiper.lisp.printers.MathPiperPrinter;
+import org.mathpiper.lisp.unparsers.MathPiperUnparser;
 
 /**
  *
@@ -40,7 +40,7 @@ public class TraceSome extends BuiltinFunction
         this.functionName = "TraceSome";
         aEnvironment.getBuiltinFunctions().put(
                 this.functionName, new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro));
-        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "TraceSome");
+        aEnvironment.iBodiedOperators.setOperator(MathPiperUnparser.KMaxPrecedence, "TraceSome");
     }//end method.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable

@@ -14,19 +14,19 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathpiper.lisp.printers;
+package org.mathpiper.lisp.unparsers;
 
 
 import org.mathpiper.lisp.*;
 import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.lisp.cons.Cons;
 
-public class LispPrinter {
+public class LispUnparser {
 
     String newLineCharacter = "\n";
     String spaceCharacter = "  ";
 
-    public LispPrinter() {
+    public LispUnparser() {
 
     }
 

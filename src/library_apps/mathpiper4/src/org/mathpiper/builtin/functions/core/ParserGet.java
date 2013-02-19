@@ -41,12 +41,12 @@ public class ParserGet extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
-        if (aEnvironment.iPrettyReaderName == null)
+        if (aEnvironment.iParserName == null)
         {
             setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "\"\""));
         } else
         {
-            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, aEnvironment.iPrettyReaderName));
+            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, aEnvironment.iParserName));
         }
     }
 }
@@ -55,7 +55,7 @@ public class ParserGet extends BuiltinFunction
 
 /*
 %mathpiper_docs,name="ParserGet",categories="User Functions;Built In"
-*CMD ParserGet --- get routine that is currently used as pretty-reader
+*CMD ParserGet --- get the name of the current parser
 
 *CORE
 
@@ -64,8 +64,8 @@ public class ParserGet extends BuiltinFunction
 
 *DESC
 
-{ParserGet()} returns the current reader, or it returns
-an empty string if the default pretty printer is used.
+{ParserGet()} returns the current parser, or it returns
+an empty string if the default parser is used.
 
 
 
@@ -74,6 +74,6 @@ an empty string if the default pretty printer is used.
 In> ParserGet()
 Result: ""
 
-*SEE ParseMathPiper, ParseLisp, OMRead, PrettyPrinterSet, PrettyPrinterGet, ParserSet
+*SEE ParseMathPiper, ParseLisp, OMRead, UnparserSet, UnparserGet, ParserSet
 %/mathpiper_docs
 */

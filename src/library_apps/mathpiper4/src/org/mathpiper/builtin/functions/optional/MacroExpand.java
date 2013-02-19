@@ -24,7 +24,7 @@ import org.mathpiper.lisp.Environment;
 
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.Cons;
-import org.mathpiper.lisp.printers.MathPiperPrinter;
+import org.mathpiper.lisp.unparsers.MathPiperUnparser;
 
 /**
  *
@@ -38,7 +38,7 @@ public class MacroExpand extends BuiltinFunction
         aEnvironment.getBuiltinFunctions().put(
                 this.functionName, new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro));
 	
-	aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "MacroExpand");
+	aEnvironment.iBodiedOperators.setOperator(MathPiperUnparser.KMaxPrecedence, "MacroExpand");
     }//end method.
 
 

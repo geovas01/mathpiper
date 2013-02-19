@@ -14,7 +14,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathpiper.lisp.printers;
+package org.mathpiper.lisp.unparsers;
 
 import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.io.MathPiperOutputStream;
@@ -27,7 +27,7 @@ import org.mathpiper.lisp.Operator;
 import org.mathpiper.lisp.collections.OperatorMap;
 import org.mathpiper.lisp.cons.Cons;
 
-public class MathPiperPrinter extends LispPrinter {
+public class MathPiperUnparser extends LispUnparser {
 
     StringBuilder spaces = new StringBuilder();
     public static int KMaxPrecedence = 60000;
@@ -39,7 +39,7 @@ public class MathPiperPrinter extends LispPrinter {
     Environment iCurrentEnvironment;
 
     //private List<Cons> visitedLists = new ArrayList<Cons>();
-    public MathPiperPrinter(OperatorMap aPrefixOperators,
+    public MathPiperUnparser(OperatorMap aPrefixOperators,
             OperatorMap aInfixOperators,
             OperatorMap aPostfixOperators,
             OperatorMap aBodiedOperators) {
