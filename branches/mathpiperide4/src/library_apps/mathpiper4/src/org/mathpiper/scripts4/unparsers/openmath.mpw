@@ -40,11 +40,11 @@ RuleHoldArguments("OMREP",1,1,True)
 
       Decide(Not?(stringOut =? ""), WriteString(stringOut));
       SetGlobalLazyVariable(%,result);
-      Decide(PrettyPrinterGet()=?"",
+      Decide(UnparserGet()=?"",
       {
         Apply("OMForm",[result]);
       },
-      Apply(PrettyPrinterGet(),[result]));
+      Apply(UnparserGet(),[result]));
       Decide(count >? 0 And? (count:=count-1) =? 0, Exit());
     });
   };

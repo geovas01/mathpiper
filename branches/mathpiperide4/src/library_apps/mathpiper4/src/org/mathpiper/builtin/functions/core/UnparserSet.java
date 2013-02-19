@@ -82,7 +82,7 @@ This function sets the current unparser that outputs results in text form.
 This can be reset to the default printer with {UnparserSet()} 
 (when no argument is given, the system returns to the default).
 
-Currently implemented unparsers are: {PrettyForm}, {TeXForm}, {Print}, {OMForm}, {CForm} and {DefaultPrint}.
+Currently implemented unparsers are: {UnparseMath2D}, {UnparseLatex}, {Print}, {OMForm}, {UnparseC} and {DefaultPrint}.
 
 
 *E.G.
@@ -90,7 +90,7 @@ Currently implemented unparsers are: {PrettyForm}, {TeXForm}, {Print}, {OMForm},
 In> Taylor(x,0,5)Sin(x)
 Result: (x-x^3/6)+x^5/120
 
-In> UnparserSet("PrettyForm");
+In> UnparserSet("UnparseMath2D");
 Result: True
 Side Effects:
 
@@ -114,6 +114,6 @@ Result: True
 In> Taylor(x,0,5)Sin(x)
 Result: (x-x^3/6)+x^5/120
 
-*SEE PrettyForm, Write, TeXForm, CForm, OMForm, ParserSet, ParserGet, UnparserGet
+*SEE UnparseMath2D, Write, UnparseLatex, UnparseC, OMForm, ParserSet, ParserGet, UnparserGet
 %/mathpiper_docs
 */

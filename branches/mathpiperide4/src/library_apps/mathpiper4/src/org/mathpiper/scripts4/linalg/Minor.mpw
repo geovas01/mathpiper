@@ -28,7 +28,7 @@ deleting the $i$-th row and the $j$-th column.
 
 In> A := [[1,2,3], [4,5,6], [7,8,9]];
 Result: [[1,2,3],[4,5,6],[7,8,9]];
-In> PrettyForm(A);
+In> UnparseMath2D(A);
         
         /                    \
         | ( 1 ) ( 2 ) ( 3 )  |

@@ -74,6 +74,6 @@ an empty string if the default unparser is used.
 In> UnparserGet()
 Result: ""
 
-*SEE PrettyForm, Write, TeXForm, CForm, OMForm, ParserSet, ParserGet, UnparserSet
+*SEE UnparseMath2D, Write, UnparseLatex, UnparseC, OMForm, ParserSet, ParserGet, UnparserSet
 %/mathpiper_docs
 */

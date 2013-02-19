@@ -28,13 +28,13 @@ it shows the result in a more human-readable format.
 
 *E.G.
 
-In> PrettyForm(YacasFactor(24));
+In> UnparseMath2D(YacasFactor(24));
         
          3
         2  * 3
         
 Result: True;
-In> PrettyForm(YacasFactor(2*x^3 + 3*x^2 - 1));
+In> UnparseMath2D(YacasFactor(2*x^3 + 3*x^2 - 1));
         
                      2   /     1 \
         2 * ( x + 1 )  * | x - - |
@@ -42,7 +42,7 @@ In> PrettyForm(YacasFactor(2*x^3 + 3*x^2 - 1));
         
 Result: True;
 
-*SEE YacasFactors, xFactor, Prime?, PrettyForm
+*SEE YacasFactors, xFactor, Prime?, UnparseMath2D
 %/mathpiper_docs
 
 

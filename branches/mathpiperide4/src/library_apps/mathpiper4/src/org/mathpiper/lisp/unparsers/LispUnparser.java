@@ -23,8 +23,8 @@ import org.mathpiper.lisp.cons.Cons;
 
 public class LispUnparser {
 
-    String newLineCharacter = "\n";
-    String spaceCharacter = "  ";
+    String newLineCharacter = "";
+    String spaceCharacter = "";
 
     public LispUnparser() {
 

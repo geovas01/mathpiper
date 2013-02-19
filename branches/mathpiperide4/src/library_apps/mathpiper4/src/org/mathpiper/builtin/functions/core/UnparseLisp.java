@@ -25,14 +25,14 @@ import org.mathpiper.lisp.unparsers.LispUnparser;
  *
  * 
  */
-public class LispForm extends BuiltinFunction
+public class UnparseLisp extends BuiltinFunction
 {
 
-    private LispForm()
+    private UnparseLisp()
     {
     }
 
-    public LispForm(String functionName)
+    public UnparseLisp(String functionName)
     {
         this.functionName = functionName;
     }
@@ -50,11 +50,11 @@ public class LispForm extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="LispForm",categories="User Functions;Input/Output;Built In"
-*CMD LispForm --- print an expression in LISP-format
+%mathpiper_docs,name="UnparseLisp",categories="User Functions;Input/Output;Built In"
+*CMD UnparseLisp --- print an expression in LISP-format
 *CORE
 *CALL
-	LispForm(expr)
+	UnparseLisp(expr)
 
 *PARMS
 
@@ -71,12 +71,15 @@ a certain expression.
 
 *E.G. notest
 
-In> LispForm(a+b+c);
-	(+ (+ a b )c )
-Result: a+b+c;
-In> LispForm(2*I*b^2);
-	(* (Complex 0 2 )(^ b 2 ))
-Result: Complex(0,2)*b^2;
+In> UnparseLisp(a+b+c);
+Result: (a+b)+c
+Side Effects:
+(+ (+ a b) c)
+
+In> UnparseLisp(2*I*b^2);
+Result: Complex(0,2)*b^2
+Side Effects:
+(* (Complex 0 2) (^ b 2))
 
 The first example shows how the expression {a+b+c} is
 internally represented. In the second example, {2*I} is

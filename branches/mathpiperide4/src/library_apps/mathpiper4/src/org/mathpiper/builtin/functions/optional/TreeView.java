@@ -69,7 +69,7 @@ public class TreeView extends BuiltinFunction {
         defaultOptions.put("Scale", 2.5);
         defaultOptions.put("Resizable", false);
         defaultOptions.put("IncludeExpression", false);
-        defaultOptions.put("Prefix", false);
+        defaultOptions.put("Lisp", false);
         defaultOptions.put("Code", false);
 
 
@@ -103,7 +103,7 @@ public class TreeView extends BuiltinFunction {
             
             Parser parser;
             
-            if(((Boolean)userOptions.get("Prefix")) == true)
+            if(((Boolean)userOptions.get("Lisp")) == true)
             {
         	texString = expressionString;
         	texString = texString.replace(" ", "\\ ");
@@ -146,7 +146,7 @@ public class TreeView extends BuiltinFunction {
 
         
         
-        if(!((Boolean) userOptions.get("Prefix")))
+        if(!((Boolean) userOptions.get("Lisp")))
         {
             if(!((Boolean) userOptions.get("Code")))
             {
@@ -157,7 +157,7 @@ public class TreeView extends BuiltinFunction {
                 Cons holdInputExpression = holdSubListCons;        
                 
         	    //Obtain LaTeX version of the expression.
-        	    Cons head = SublistCons.getInstance(aEnvironment, AtomCons.getInstance(aEnvironment, aStackTop, "TeXForm"));
+        	    Cons head = SublistCons.getInstance(aEnvironment, AtomCons.getInstance(aEnvironment, aStackTop, "UnparseLatex"));
                 ((Cons) head.car()).setCdr(holdInputExpression);
                 Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, head);
                 texString = (String) result.car();
@@ -270,7 +270,7 @@ public class TreeView extends BuiltinFunction {
 
 {IncludeExpression} -- if set to True, the algebraic form of the expression is included above the tree
 
-{Prefix} -- if set to True, the expression must be a string that is in Prefix form
+{Lisp} -- if set to True, the expression must be a string that is in Lisp form
 
 {Code} -- if set to True, the expression is rendered using code symbols instead of mathematical symbols
 
@@ -292,7 +292,7 @@ Result: java.awt.Component
 In> Show(TreeView( "a*(b+c) == a*b + a*c",  Resizable -> True, IncludeExpression -> True))
 Result: java.awt.Component
 
-In> Show(TreeView( "(+ 1 (* 2 3))", Prefix -> True, Code -> True, Resizable -> True, IncludeExpression -> True))
+In> Show(TreeView( "(+ 1 (* 2 3))", Lisp -> True, Code -> True, Resizable -> True, IncludeExpression -> True))
 Result: java.awt.Component
 
 

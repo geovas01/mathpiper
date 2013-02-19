@@ -573,7 +573,7 @@ Most of the work is performed by the internal function [OrthoPoly].
 
 *E.G.
 
-In> PrettyPrinterSet("PrettyForm");
+In> UnparserSet("UnparseMath2D");
         
         True
         

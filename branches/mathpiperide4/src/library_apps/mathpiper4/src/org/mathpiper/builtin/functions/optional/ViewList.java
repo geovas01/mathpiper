@@ -111,6 +111,6 @@ Result: True
 In> JavaCall(frame, "dispose")
 Result: True
 
-*SEE LispForm, ViewMath
+*SEE UnparseLisp, ViewMath
 %/mathpiper_docs
 */

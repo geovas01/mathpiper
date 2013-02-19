@@ -34,7 +34,7 @@ ForEach(e,equations1)
     
     Echo("#",count ,"Problem:   ",e, If(IsBound(answer),ToString()[WriteString("  Answer: " );Write(answer);Clear(answer);],"") );
     
-    //Echo(PrettyForm(e));
+    //Echo(Math2DUnparser(e));
     
     
     Echo("MathPiper:    ",Simplify(Eval(FromString(e:";") ParseMathPiper())));
@@ -174,7 +174,7 @@ ForEach(e,equations1)
     
     Echo("#",count ,"Problem:   ",e, If(IsBound(answer),ToString()[WriteString("  Answer: " );Write(answer);Clear(answer);],"") );
     
-    //Echo(PrettyForm(e));
+    //Echo(Math2DUnparser(e));
     
     Echo("MathPiper:    ",Simplify(Eval(FromString(e:";") ParseMathPiper())));
     
@@ -332,7 +332,7 @@ ForEach(e,equations1)
     
     Echo("#",count ,"Problem:   ",e, If(IsBound(answer),ToString()[WriteString("  Answer: " );Write(answer);Clear(answer);],"") );
     
-    //Echo(PrettyForm(e));
+    //Echo(Math2DUnparser(e));
     
     Echo("MathPiper:    ",Simplify(Eval(FromString(e:";") ParseMathPiper())));
     
@@ -541,7 +541,7 @@ ForEach(e,equations1)
     
     Echo("#",count ,"Problem:   ",e, If(IsBound(answer),ToString()[WriteString("  Answer: " );Write(answer);Clear(answer);],"") );
     
-    //Echo(PrettyForm(e));
+    //Echo(Math2DUnparser(e));
     
     Echo("MathPiper:    ",Simplify(Eval(FromString(e:";") ParseMathPiper())));
     
@@ -759,7 +759,7 @@ ForEach(e,equations1)
     
     Echo("#",count ,"Problem:   ",e, If(IsBound(answer),ToString()[WriteString("  Answer: " );Write(answer);Clear(answer);],"") );
     
-    //Echo(PrettyForm(e));
+    //Echo(Math2DUnparser(e));
     
     Echo("MathPiper:    ",Simplify(Eval(FromString(e:";") ParseMathPiper())));
     
@@ -878,7 +878,7 @@ ForEach(e,equations1)
     
     Echo("#",count ,"Problem:   ",e, If(IsBound(answer),ToString()[WriteString("  Answer: " );Write(answer);Clear(answer);],"") );
     
-    //Echo(PrettyForm(e));
+    //Echo(Math2DUnparser(e));
     
     Echo("MathPiper:    ",Simplify(Eval(FromString(e:";") ParseMathPiper())));
     

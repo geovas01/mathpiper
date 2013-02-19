@@ -506,7 +506,7 @@ Result: [0,0];
 If one tries to solve the equation $Exp(x) == Sin(x)$, one finds that
 {xSolve} can not do this.
 
-In> PrettyPrinterSet("DefaultPrint");
+In> UnparserSet("DefaultPrint");
 Result: True;
 In> xSolve(Exp(x) == Sin(x), x);
         Error: SolveFails: cannot solve equation Exp(x)-Sin(x) for x
@@ -529,7 +529,7 @@ Result: [x==0];
 At first sight, the equation $Sqrt(x) == a$ seems to have the solution
 $x == a^2$. However, this is not true for eg. $a == -1$.
 
-In> PrettyPrinterSet("DefaultPrint");
+In> UnparserSet("DefaultPrint");
 Result: True;
 In> xSolve(Sqrt(x) == a, x);
         Error: SolveFails: cannot solve equation Sqrt(x)-a for  x
@@ -539,7 +539,7 @@ Result: [x==4];
 In> xSolve(Sqrt(x) == -1, x);
 Result: [];
 
-*SEE Check, MatrixSolve, Newton, OldSolve, PrettyPrinterSet, PSolve, xCheckSolution, Where, ==
+*SEE Check, MatrixSolve, Newton, OldSolve, UnparserSet, PSolve, xCheckSolution, Where, ==
 %/mathpiper_docs
 
     %output,preserve="false"

@@ -16,7 +16,7 @@ Function ("RFormBracketIf", [predicate, string])
         Decide(predicate, ConcatStrings("( ", string, ") "), string);
 };
 
-/* Proceed just like TeXForm()
+/* Proceed just like UnparseLatex()
 */
 
 // RFormMaxPrec should perhaps only be used from within this file, it is thus not in the .def file.
@@ -267,7 +267,7 @@ Currently the exporter handles most expression types but not all.
 In> RForm(Sin(a1)+2*Cos(b1));
 Result: "sin(a1) + 2 * cos(b1)";
 
-*SEE PrettyForm, TeXForm, CUnparser
+*SEE UnparseMath2D, UnparseLatex, UnparseC
 %/mathpiper_docs
 
 

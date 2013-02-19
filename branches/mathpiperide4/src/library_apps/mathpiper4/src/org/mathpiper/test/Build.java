@@ -357,7 +357,7 @@ public class Build {
 
                     String[] functionsNotToBuild = {""};
 
-                    /*{"CForm", "CUnparsable?", "issues", "debug", "jFactorsPoly", "jasFactorsInt",
+                    /*{"UnparseC", "CUnparsable?", "issues", "debug", "jFactorsPoly", "jasFactorsInt",
                         "xContent", "xFactor", "xFactors", "xFactorsBinomial", "xFactorsResiduals", "xPrimitivePart", "html", "odesolver",
                         "orthopoly", "openmath", "ManipEquations", "Manipulate", "SolveSetEqns", "ControlChart", "GeoGebra", "GeoGebraHistogram",
                         "GeoGebraPlot", "GeoGebraPoint", "ggbLine", "HighschoolForm", "jas_test", "JFreeChartHistogram", "JavaAccess", "RForm",

@@ -98,24 +98,27 @@ This example defines a function that automatically evaluates to a number as
 soon as the argument is a number (a lot of functions  do this only when inside
 a {NM(...)} section).
 
-In> Decl(f1,f2) := \
-In>   `(@f1(x_Number?) <-- NM(@f2(x)));
+In> Decl(f1,f2) :=  `(@f1(x_Number?) <-- NM(@f2(x)));
 Result: True;
+
 In> Decl(nSin,Sin)
 Result: True;
+
 In> Sin(1)
 Result: Sin(1);
+
 In> nSin(1)
 Result: 0.8414709848;
 
 This example assigns the expression {func(value)} to variable {var}. Normally
 the first argument of {Assign} would be unevaluated.
 
-In> SetF(var,func,value) := \
-In>     `(Assign(@var,@func(@value)));
+In> SetF(var,func,value) := `(Assign(@var,@func(@value)));
 Result: True;
+
 In> SetF(a,Sin,x)
 Result: True;
+
 In> a
 Result: Sin(x);
 

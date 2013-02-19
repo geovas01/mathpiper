@@ -25,7 +25,7 @@ $A$ is symmetric iff Transpose ($A$) =$A$.
 
 In> A := [[1,0,0,0,1],[0,2,0,0,0],[0,0,3,0,0],
           [0,0,0,4,0],[1,0,0,0,5]];
-In> PrettyForm(A)
+In> UnparseMath2D(A)
 
         /                                \
         | ( 1 ) ( 0 ) ( 0 ) ( 0 ) ( 1 )  |

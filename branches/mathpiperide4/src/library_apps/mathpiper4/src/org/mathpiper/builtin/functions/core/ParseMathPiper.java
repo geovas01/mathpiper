@@ -77,7 +77,7 @@ Result: 2+5;
 In> PipeFromString("") ParseMathPiper();
 Result: EndOfFile;
 
-*SEE PipeFromFile, PipeFromString, ParseMathPiperToken, LispForm, ParseLispListed
+*SEE PipeFromFile, PipeFromString, ParseMathPiperToken, UnparseLisp, ParseLispListed
 %/mathpiper_docs
 
 

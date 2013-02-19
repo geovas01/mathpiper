@@ -54,14 +54,14 @@ variable that is bound to the previous result from the command line.
 Using {%} will evaluate the previous result. (This uses the functionality
 offered by the {SetGlobalLazyVariable} command).
 
-Typical examples are {Simplify(%)} and {PrettyForm(%)} to simplify and show the result in a nice
+Typical examples are {Simplify(%)} and {UnparseMath2D(%)} to simplify and show the result in a nice
 form respectively.
 
 *E.G.
 
 In> Taylor(x,0,5)Sin(x)
 Result: x-x^3/6+x^5/120;
-In> PrettyForm(%)
+In> UnparseMath2D(%)
 
              3    5
             x    x

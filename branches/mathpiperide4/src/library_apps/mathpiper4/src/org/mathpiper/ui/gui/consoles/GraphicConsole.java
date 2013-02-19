@@ -745,7 +745,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
 
                         //Evaluate TeXForm function.
-                        Cons texFormAtomCons = AtomCons.getInstance(syncronousInterpreter.getEnvironment(), -1, "TeXForm");
+                        Cons texFormAtomCons = AtomCons.getInstance(syncronousInterpreter.getEnvironment(), -1, "UnparseLatex");
                         texFormAtomCons.setCdr(holdInputExpression);
                         Cons texFormSubListCons = SublistCons.getInstance(syncronousInterpreter.getEnvironment(), texFormAtomCons);
 

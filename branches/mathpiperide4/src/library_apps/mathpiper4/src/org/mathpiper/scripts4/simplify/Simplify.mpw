@@ -6,13 +6,12 @@
 
 15 # Simplify(Complex(_r,_i)) <-- Complex(Simplify(r),Simplify(i));
 
-20 # Simplify((_xex) == (_yex)) <-- (Simplify(xex-yex) == 0);
-
+20 # Simplify((_xex) =? (_yex)) <-- (Simplify(xex-yex) =? 0);
 20 # Simplify((_xex) >? (_yex)) <-- (Simplify(xex-yex) >? 0);
 20 # Simplify((_xex) <? (_yex)) <-- (Simplify(xex-yex) <? 0);
 20 # Simplify((_xex) >=? (_yex)) <-- (Simplify(xex-yex) >=? 0);
 20 # Simplify((_xex) <=? (_yex)) <-- (Simplify(xex-yex) <=? 0);
-20 # Simplify((_xex) !== (_yex)) <-- (Simplify(xex-yex) !== 0);
+20 # Simplify((_xex) !=? (_yex)) <-- (Simplify(xex-yex) !=? 0);
 
 // conditionals
 25 # Simplify(If(_a) _b) <-- "If" @ [Simplify(a), Simplify(b)];
@@ -61,8 +60,12 @@ grouping similar terms.
 
 In> a*b*a^2/b-a^3
 Result: (b*a^3)/b-a^3;
+
 In> Simplify(a*b*a^2/b-a^3)
 Result: 0;
+
+In> Simplify('(a*(b+c) =? a*b + a*c))
+Result: True
 
 *SEE TrigSimpCombine, RadSimp, Combine
 %/mathpiper_docs
