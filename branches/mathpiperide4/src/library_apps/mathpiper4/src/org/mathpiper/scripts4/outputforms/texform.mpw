@@ -41,7 +41,7 @@ TexForm
 
 //Retract("TeXForm", *);
 
-/// TeXmacs prettyprinter
+/// TeXmacs unparser
 TexForm(_expr) <-- {DumpErrors();WriteString(TeXForm(expr));NewLine();};
 
 RulebaseHoldArguments("TeXForm",[expression]);

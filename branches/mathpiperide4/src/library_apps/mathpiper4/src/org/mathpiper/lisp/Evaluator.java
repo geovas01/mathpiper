@@ -25,8 +25,8 @@ import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.io.StringOutputStream;
 import org.mathpiper.lisp.cons.Cons;
 
-import org.mathpiper.lisp.printers.MathPiperPrinter;
 import org.mathpiper.lisp.stacks.UserStackInformation;
+import org.mathpiper.lisp.unparsers.MathPiperUnparser;
 import org.mathpiper.lisp.variables.LocalVariableFrame;
 
 // evaluate'
@@ -43,7 +43,7 @@ public abstract class Evaluator {
 	UserStackInformation iBasicInfo = new UserStackInformation();
 
 	public static void showExpression(StringBuffer outString, Environment aEnvironment, Cons aExpression) throws Throwable {
-		MathPiperPrinter infixprinter = new MathPiperPrinter(aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
+		MathPiperUnparser infixprinter = new MathPiperUnparser(aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
 		// Print out the current expression
 		//StringOutput stream(outString);
 		MathPiperOutputStream stream = new StringOutputStream(outString);

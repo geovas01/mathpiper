@@ -640,7 +640,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                         this.suppressOutput = true;
                     }
 
-                    String currentParserName = interpreter.getEnvironment().iPrettyReaderName;
+                    String currentParserName = interpreter.getEnvironment().iParserName;
                     Parser currentParserInstance = Parser.getSupportedParser(currentParserName);
                     code = currentParserInstance.processLineTermination(code);
 

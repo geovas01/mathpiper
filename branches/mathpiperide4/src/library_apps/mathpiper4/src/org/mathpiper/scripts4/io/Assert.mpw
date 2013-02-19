@@ -66,9 +66,9 @@ custom error handler in the portion of the code that is able to handle a certain
 errors. The functions {Error?}, {GetError} and {ClearError} can be used.
 
 Normally, all errors posted to the error tableau during evaluation of an expression should
-be eventually printed to the screen. This is the behavior of prettyprinters
+be eventually printed to the screen. This is the behavior of unparsers
 {DefaultPrint}, {Print}, {PrettyForm} and {TeXForm} (but not of the
-inline prettyprinter, which is enabled by default); they call
+inline unparser, which is enabled by default); they call
 {DumpErrors} after evaluating the expression.
 
 *E.G.

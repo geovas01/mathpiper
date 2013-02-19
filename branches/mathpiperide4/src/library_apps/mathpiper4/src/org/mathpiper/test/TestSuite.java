@@ -35,8 +35,8 @@ import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.Cons;
 
 import org.mathpiper.lisp.parsers.MathPiperParser;
-import org.mathpiper.lisp.printers.MathPiperPrinter;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
+import org.mathpiper.lisp.unparsers.MathPiperUnparser;
 
 public class TestSuite {
 
@@ -347,7 +347,7 @@ public class TestSuite {
     }
 
     public static void printExpression(StringBuffer outString, Environment aEnvironment, Cons aExpression) throws Throwable {
-        MathPiperPrinter infixprinter = new MathPiperPrinter(aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
+        MathPiperUnparser infixprinter = new MathPiperUnparser(aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
 
         MathPiperOutputStream stream = new StringOutputStream(outString);
         infixprinter.print(-1, aExpression, stream, aEnvironment);

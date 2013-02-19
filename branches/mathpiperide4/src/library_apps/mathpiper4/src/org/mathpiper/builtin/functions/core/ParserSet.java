@@ -47,7 +47,7 @@ public class ParserSet extends BuiltinFunction
         int nrArguments = Utility.listLength(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 0));
         if (nrArguments == 1)
         {
-            aEnvironment.iPrettyReaderName = "ParseMathPiper";
+            aEnvironment.iParserName = "ParseMathPiper";
         } else
         {
             if(nrArguments != 2) LispError.throwError(aEnvironment, aStackTop, LispError.WRONG_NUMBER_OF_ARGUMENTS);
@@ -62,7 +62,7 @@ public class ParserSet extends BuiltinFunction
             
             if(!Parser.isSupportedParser(parserName)) LispError.raiseError("A parser does not exist for <" + parserName + ">.", aStackTop, aEnvironment);
             
-            aEnvironment.iPrettyReaderName = parserName;
+            aEnvironment.iParserName = parserName;
         }
         setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }
@@ -72,30 +72,27 @@ public class ParserSet extends BuiltinFunction
 
 /*
 %mathpiper_docs,name="ParserSet",categories="User Functions;Built In"
-*CMD ParserSet --- set routine to use as pretty-reader
+*CMD ParserSet --- set the current parser
 
 *CORE
 
 *CALL
-	ParserSet(reader)
+	ParserSet(parser)
 	ParserSet()
 
 *PARMS
 
-{reader} -- a string containing the name of a function that can read an expression from current input.
+{parser} -- a string containing the name of a function that can parse an expression from current input.
 
 
 *DESC
 
-This function sets up the function reader to read in the input on
-the command line. This can be reset to the internal reader with {ParserSet()} (when no argument is given, the system returns to the default).
+This function sets the current parser that will parse in the input on
+the command line. This can be reset to the default parser with {ParserSet()} 
+(when no argument is given, the system returns to the default).
 
-Currently implemented PrettyReaders are: {LispRead}, {OMRead}.
+Currently implemented Parsers are: {ParseLisp}, {OMRead}.
 
-MathPiper allows you to configure a few things at startup. The file
-{~/.mathpiperrc} is written in the MathPiper language and
-will be executed when MapthPiper is run. This function
-can be useful in the {~/.MathPiperrc} file.
 
 *E.G.
 
@@ -123,6 +120,6 @@ Result: x-x^3/6+x^5/120
 In> (ParserSet "ParseMathPiper")
 Result: True
 
-*SEE ParseMathPiper, ParseLisp, OMRead, PrettyPrinterSet, PrettyPrinterGet, ParserGet
+*SEE ParseMathPiper, ParseLisp, OMRead, UnparserSet, UnparserGet, ParserGet
 %/mathpiper_docs
 */

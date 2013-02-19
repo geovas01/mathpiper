@@ -17,6 +17,8 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp;
 
+import org.mathpiper.lisp.unparsers.LispUnparser;
+import org.mathpiper.lisp.unparsers.MathPiperUnparser;
 import org.mathpiper.lisp.variables.GlobalVariable;
 
 import java.util.HashMap;
@@ -28,7 +30,6 @@ import org.mathpiper.lisp.stacks.ArgumentStack;
 import org.mathpiper.lisp.collections.OperatorMap;
 import org.mathpiper.lisp.cons.AtomCons;
 
-import org.mathpiper.lisp.printers.LispPrinter;
 import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.lisp.tokenizers.XmlTokenizer;
@@ -50,7 +51,6 @@ import org.mathpiper.lisp.rulebases.SingleArityRulebase;
 
 import org.mathpiper.lisp.rulebases.ListedMacroRulebase;
 
-import org.mathpiper.lisp.printers.MathPiperPrinter;
 
 import org.mathpiper.lisp.variables.LocalVariable;
 import org.mathpiper.lisp.variables.LocalVariableFrame;
@@ -92,7 +92,7 @@ public final class Environment {
     public int iLastUniqueId = 1;
     public MathPiperOutputStream iCurrentOutput = null;
     public MathPiperOutputStream iInitialOutput = null;
-    public LispPrinter iCurrentPrinter = null;
+    public LispUnparser iCurrentPrinter = null;
     private MathPiperInputStream iCurrentInput = null;
     public InputStatus iInputStatus = new InputStatus("ENVIRONMENT_1");
     public MathPiperTokenizer iCurrentTokenizer;
@@ -103,8 +103,8 @@ public final class Environment {
     public Map iBuiltinFunctions = new HashMap();
     public Throwable iException = null;
     public InputDirectories iInputDirectories = new InputDirectories();
-    public String iPrettyReaderName = null;
-    public String iPrettyPrinterName = null;
+    public String iParserName = null;
+    public String iUnparserName = null;
     public Scripts scripts = new Scripts();
     public static boolean haltEvaluation = false;
     public static String haltEvaluationMessage = "";
@@ -113,7 +113,7 @@ public final class Environment {
     public Environment(MathPiperOutputStream aCurrentOutput/* TODO FIXME */)
 	    throws Throwable {
 	
-	iPrettyReaderName = "ParseMathPiper";
+	iParserName = "ParseMathPiper";
 	
 	iCurrentTokenizer = iDefaultTokenizer;
 	iInitialOutput = aCurrentOutput;
@@ -129,7 +129,7 @@ public final class Environment {
 	StringInputStream defaultInputStream = new StringInputStream("", status);
 	this.iCurrentInput = defaultInputStream;
 
-	iCurrentPrinter = new MathPiperPrinter(iPrefixOperators,
+	iCurrentPrinter = new MathPiperUnparser(iPrefixOperators,
 		iInfixOperators, iPostfixOperators, iBodiedOperators);
 
 	iListAtom = new AtomCons("List");

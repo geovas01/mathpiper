@@ -35,7 +35,8 @@ import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.lisp.substitute.BackQuoteSubstitute;
 import org.mathpiper.lisp.substitute.Substitute;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
-import org.mathpiper.lisp.printers.MathPiperPrinter;
+import org.mathpiper.lisp.unparsers.LispUnparser;
+import org.mathpiper.lisp.unparsers.MathPiperUnparser;
 import org.mathpiper.lisp.parsers.MathPiperParser;
 import org.mathpiper.io.StringInputStream;
 import org.mathpiper.io.StringOutput;
@@ -45,7 +46,6 @@ import org.mathpiper.lisp.cons.NumberCons;
 import org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher;
 import org.mathpiper.lisp.parametermatchers.PatternParameterMatcher;
 import org.mathpiper.lisp.parsers.Parser;
-import org.mathpiper.lisp.printers.LispPrinter;
 import org.mathpiper.lisp.rulebases.Rule;
 import org.mathpiper.lisp.rulebases.ParameterName;
 import org.mathpiper.lisp.rulebases.MacroRulebase;
@@ -777,7 +777,7 @@ public class Utility {
 
         StringBuffer result = new StringBuffer();
         StringOutputStream newOutput = new StringOutputStream(result);
-        MathPiperPrinter infixprinter = new MathPiperPrinter(aEnvironment.iPrefixOperators,
+        MathPiperUnparser infixprinter = new MathPiperUnparser(aEnvironment.iPrefixOperators,
                 aEnvironment.iInfixOperators,
                 aEnvironment.iPostfixOperators,
                 aEnvironment.iBodiedOperators);
@@ -800,7 +800,7 @@ public class Utility {
 
         StringOutput out = new StringOutput();
 
-        LispPrinter printer = new LispPrinter();
+        LispUnparser printer = new LispUnparser();
 
         printer.print(aStackTop, aExpression, out, aEnvironment);
 
@@ -886,7 +886,7 @@ public class Utility {
         Cons precedence = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, BuiltinFunction.getArgument(aEnvironment, aStackTop, 2));
         if(! (precedence.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2);
         int prec = Integer.parseInt((String) precedence.car(), 10);
-        if(prec > MathPiperPrinter.KMaxPrecedence) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        if(prec > MathPiperUnparser.KMaxPrecedence) LispError.checkArgument(aEnvironment, aStackTop, 2);
         aOps.setOperator(prec, Utility.getSymbolName(aEnvironment, orig));
         BuiltinFunction.setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }
