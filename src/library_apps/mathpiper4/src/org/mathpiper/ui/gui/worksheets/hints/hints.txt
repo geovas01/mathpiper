@@ -216,8 +216,8 @@
 :Bodied?:Bodied?("op"):check for function syntax:
 :IsBoolean:IsBoolean(expression):test for a Boolean value:
 :Assigned?:Assigned?(var):test for a bound variable:
-:CFormable?:CFormable?(expr):check possibility to export expression to C++ code:
-:CFormable?:CFormable?(expr, funclist)::
+:CUnparsable?:CUnparsable?(expr):check possibility to export expression to C++ code:
+:CUnparsable?:CUnparsable?(expr, funclist)::
 :CarmichaelNumber?:CarmichaelNumber?(n):test for a Carmichael number:
 :Composite?:Composite?(n):test for a composite number:
 :IsConstant:IsConstant(expr):test for a constant:

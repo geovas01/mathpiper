@@ -1,15 +1,15 @@
-%mathpiper,def="CForm;CFormDoublePrecisionNumber;CFormArgs;CFormStatement"
+%mathpiper,def="CUnparser;CUnparserDoublePrecisionNumber;CUnparserArgs;CUnparserStatement;CUnparserMathFunctions"
 
-/* CForm: convert MathPiper objects to C/C++ code. */
+/* CUnparser: convert MathPiper objects to C/C++ code. */
 
 /* version 0.3 */
 
 /* Changelog
-        0.1        CForm() derived from TeXForm() v0.4. Have basic functionality. Do not allow list manipulation, unevaluated derivatives, set operations, limits, integrals, Infinity, explicit matrices. Complex numbers and expressions are handled just like real ones. Indexed symbols are assumed to be arrays and handled literally. No declarations or prototypes are supplied. Function definitions are not handled. Sum() is left as is (can be defined as a C function).
+        0.1        CUnparser() derived from TeXForm() v0.4. Have basic functionality. Do not allow list manipulation, unevaluated derivatives, set operations, limits, integrals, Infinity, explicit matrices. Complex numbers and expressions are handled just like real ones. Indexed symbols are assumed to be arrays and handled literally. No declarations or prototypes are supplied. Function definitions are not handled. Sum() is left as is (can be defined as a C function).
         0.2 Fix for extra parens in Sin() and other functions; fixes for Exp(), Abs() and inverse trig functions
         0.3 Fix for indexed expressions: support a[2][3][4]
-        0.3.1 Fix for CForm(integer): add a decimal point
-        0.4 Support While()[]. Added CFormable?. Use Concat() instead of Union() on lists.
+        0.3.1 Fix for CUnparser(integer): add a decimal point
+        0.4 Support While()[]. Added CUnparsable?. Use Concat() instead of Union() on lists.
         0.4.1 Support False, True
   0.4.2 Changed it so that integers are not coerced to floats any more automatically (one can coerce integers to floats manually nowadays by adding a decimal point to the string representation, eg. 1. instead of 1).
 */
@@ -20,16 +20,16 @@
         2. Optimization of C code?
 */
 
-RulebaseHoldArguments("CForm",[expression]);
-RulebaseHoldArguments("CForm",[expression, precedence]);
+RulebaseHoldArguments("CUnparser",[expression]);
+RulebaseHoldArguments("CUnparser",[expression, precedence]);
 
-Function ("CFormBracketIf", [predicate, string])
+Function ("CUnparserBracketIf", [predicate, string])
 {
-        Check(Boolean?(predicate) And? String?(string), "Argument", "CForm internal error: non-boolean and/or non-string argument of CFormBracketIf");
+        Check(Boolean?(predicate) And? String?(string), "Argument", "CUnparser internal error: non-boolean and/or non-string argument of CUnparserBracketIf");
         Decide(predicate, ConcatStrings("( ", string, ") "), string);
 };
 
-CFormDoublePrecisionNumber(x_Number?) <--
+CUnparserDoublePrecisionNumber(x_Number?) <--
 {
     Local(i,n,s,f);
     s := ToString(x);
@@ -45,22 +45,22 @@ CFormDoublePrecisionNumber(x_Number?) <--
 /* Proceed just like TeXForm()
 */
 
-// CFormMaxPrec should perhaps only be used from within this file, it is thus not in the .def file.
-CFormMaxPrec() := 60000;         /* This precedence will never be bracketed. It is equal to KMaxPrec */
+// CUnparserMaxPrec should perhaps only be used from within this file, it is thus not in the .def file.
+CUnparserMaxPrec() := 60000;         /* This precedence will never be bracketed. It is equal to KMaxPrec */
 
-100 # CForm(_x) <-- CForm(x, CFormMaxPrec());
+100 # CUnparser(_x) <-- CUnparser(x, CUnparserMaxPrec());
 
 /* Replace numbers and variables -- never bracketed except explicitly */
-110 # CForm(x_Integer?, _p) <-- ToString(x);
-111 # CForm(x_Zero?, _p) <-- "0.";
-112 # CForm(x_Number?, _p) <-- CFormDoublePrecisionNumber(x);
+110 # CUnparser(x_Integer?, _p) <-- ToString(x);
+111 # CUnparser(x_Zero?, _p) <-- "0.";
+112 # CUnparser(x_Number?, _p) <-- CUnparserDoublePrecisionNumber(x);
 /* Variables are left as is, except some special ones */
-190 # CForm(False, _p) <-- "false";
-190 # CForm(True, _p) <-- "true";
-200 # CForm(x_Atom?, _p) <-- ToString(x);
+190 # CUnparser(False, _p) <-- "false";
+190 # CUnparser(True, _p) <-- "true";
+200 # CUnparser(x_Atom?, _p) <-- ToString(x);
 
 /* Strings must be quoted but not bracketed */
-100 # CForm(x_String?, _p) <-- ConcatStrings("\"", x, "\"");
+100 # CUnparser(x_String?, _p) <-- ConcatStrings("\"", x, "\"");
 
 /* Replace operations */
 
@@ -69,8 +69,8 @@ CFormMaxPrec() := 60000;         /* This precedence will never be bracketed. It 
 /* addition, subtraction, multiplication, all comparison and logical operations are "regular" */
 
 
-LocalSymbols(cformRegularOps) {
-  cformRegularOps := [ ["+"," + "], ["-"," - "], ["*"," * "],
+LocalSymbols(cUnparserRegularOps) {
+  cUnparserRegularOps := [ ["+"," + "], ["-"," - "], ["*"," * "],
                        ["/"," / "], [":="," = "], ["=="," == "],
                        ["=?"," == "], ["!=?"," != "], ["<=?"," <=? "],
                        [">=?"," >= "], ["<?"," < "], [">?"," > "],
@@ -79,28 +79,28 @@ LocalSymbols(cformRegularOps) {
                        [ "%", " % " ], [ "^", " ^ " ],
                      ];
 
-  CFormRegularOps() := cformRegularOps;
-}; // LocalSymbols(cformRegularOps)
+  CUnparserRegularOps() := cUnparserRegularOps;
+}; // LocalSymbols(cUnparserRegularOps)
 
         /* This is the template for "regular" binary infix operators:
-100 # CForm(_x + _y, _p) <-- CFormBracketDecide(p<?PrecedenceGet("+"), ConcatStrings(CForm(x, LeftPrecedenceGet("+")), " + ", CForm(y, RightPrecedenceGet("+")) ) );
+100 # CUnparser(_x + _y, _p) <-- CUnparserBracketDecide(p<?PrecedenceGet("+"), ConcatStrings(CUnparser(x, LeftPrecedenceGet("+")), " + ", CUnparser(y, RightPrecedenceGet("+")) ) );
         */
 
         /* unary addition */
-100 # CForm(+ _y, _p) <-- CFormBracketDecide(p<?PrecedenceGet("+"), ConcatStrings(" + ", CForm(y, RightPrecedenceGet("+")) ) );
+100 # CUnparser(+ _y, _p) <-- CUnparserBracketDecide(p<?PrecedenceGet("+"), ConcatStrings(" + ", CUnparser(y, RightPrecedenceGet("+")) ) );
 
         /* unary subtraction */
-100 # CForm(- _y, _p) <-- CFormBracketDecide(p<?PrecedenceGet("-"), ConcatStrings(" - ", CForm(y, RightPrecedenceGet("-")) ) );
+100 # CUnparser(- _y, _p) <-- CUnparserBracketDecide(p<?PrecedenceGet("-"), ConcatStrings(" - ", CUnparser(y, RightPrecedenceGet("-")) ) );
 
         /* power's argument is never bracketed but it must be put in braces. */
-100 # CForm(_x ^ _y, _p) <-- CFormBracketDecide(p<=?PrecedenceGet("^"), ConcatStrings("pow(", CForm(x, CFormMaxPrec()), ", ", CForm(y, CFormMaxPrec()), ")" ) );
+100 # CUnparser(_x ^ _y, _p) <-- CUnparserBracketDecide(p<=?PrecedenceGet("^"), ConcatStrings("pow(", CUnparser(x, CUnparserMaxPrec()), ", ", CUnparser(y, CUnparserMaxPrec()), ")" ) );
 
-100 # CForm(If(_pred)_body, _p) <-- "If("~CForm(pred,60000)~") "~CForm(body);
-100 # CForm(_left Else _right, _p) <-- CForm(left)~" Else "~CForm(right);
+100 # CUnparser(If(_pred)_body, _p) <-- "If("~CUnparser(pred,60000)~") "~CUnparser(body);
+100 # CUnparser(_left Else _right, _p) <-- CUnparser(left)~" Else "~CUnparser(right);
 
 
-LocalSymbols(cformMathFunctions) {
-  cformMathFunctions :=
+LocalSymbols(cUnparserMathFunctions) {
+  cUnparserMathFunctions :=
     [
       ["Sqrt","sqrt"],
       ["Cos","cos"],
@@ -125,62 +125,62 @@ LocalSymbols(cformMathFunctions) {
     ["!","factorial"]
     ];
 
-  CFormMathFunctions() := cformMathFunctions;
+  CUnparserMathFunctions() := cUnparserMathFunctions;
 
-}; // LocalSymbols(cformMathFunctions)
+}; // LocalSymbols(cUnparserMathFunctions)
 
 /* Precedence of 120 because we'd like to process some special functions like pow() first */
 
 
-120 # CForm(expr_Function?, _p)_(ArgumentsCount(expr)=?2 And? Contains?(AssocIndices(CFormRegularOps()), Type(expr)) ) <--
-      CFormBracketDecide(p<?PrecedenceGet(Type(expr)), ConcatStrings(CForm(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))), CFormRegularOps()[Type(expr)], CForm(FunctionToList(expr)[3], RightPrecedenceGet(Type(expr))) ) );
+120 # CUnparser(expr_Function?, _p)_(ArgumentsCount(expr)=?2 And? Contains?(AssocIndices(CUnparserRegularOps()), Type(expr)) ) <--
+      CUnparserBracketDecide(p<?PrecedenceGet(Type(expr)), ConcatStrings(CUnparser(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))), CUnparserRegularOps()[Type(expr)], CUnparser(FunctionToList(expr)[3], RightPrecedenceGet(Type(expr))) ) );
 
 
 /* Sin, Cos, etc. and their argument is always bracketed */
 
-120 # CForm(expr_Function?, _p) _
-      (ArgumentsCount(expr)=?1 And? Contains?(AssocIndices(CFormMathFunctions()), Type(expr)) ) <--
-      ConcatStrings(CFormMathFunctions()[Type(expr)], "(", CForm( FunctionToList(expr)[2], CFormMaxPrec()),")" );
+120 # CUnparser(expr_Function?, _p) _
+      (ArgumentsCount(expr)=?1 And? Contains?(AssocIndices(CUnparserMathFunctions()), Type(expr)) ) <--
+      ConcatStrings(CUnparserMathFunctions()[Type(expr)], "(", CUnparser( FunctionToList(expr)[2], CUnparserMaxPrec()),")" );
 
 /* functions */
 
 /* Unknown function, precedence 200. Leave as is, never bracket the function itself and bracket the argumentPointer(s) automatically since it's a list. Other functions are precedence 100 */
 
-CFormArgs(list_List?) <--
+CUnparserArgs(list_List?) <--
 {
   Local(i,nr,result);
   result:="";
   nr:=Length(list);
   For (i:=1,i<=?nr,i++)
   {
-    result:=result~CForm(list[i]);
+    result:=result~CUnparser(list[i]);
     Decide(i<?nr, result:=result~", ");
   };
   result;
 };
 
 
-200 # CForm(_x, _p)_(Function?(x)) <--
+200 # CUnparser(_x, _p)_(Function?(x)) <--
 {
-  ConcatStrings(Type(x), "(", CFormArgs(Rest(FunctionToList(x))),")" );
+  ConcatStrings(Type(x), "(", CUnparserArgs(Rest(FunctionToList(x))),")" );
 };
 
 /* Complex numbers */
-100 # CForm(Complex(0, 1), _p) <-- "I";
-100 # CForm(Complex(_x, 0), _p) <-- CForm(x, p);
-110 # CForm(Complex(_x, 1), _p) <-- CForm(x+Hold(I), p);
-110 # CForm(Complex(0, _y), _p) <-- CForm(Hold(I)*y, p);
-120 # CForm(Complex(_x, _y), _p) <-- CForm(x+Hold(I)*y, p);
+100 # CUnparser(Complex(0, 1), _p) <-- "I";
+100 # CUnparser(Complex(_x, 0), _p) <-- CUnparser(x, p);
+110 # CUnparser(Complex(_x, 1), _p) <-- CUnparser(x+Hold(I), p);
+110 # CUnparser(Complex(0, _y), _p) <-- CUnparser(Hold(I)*y, p);
+120 # CUnparser(Complex(_x, _y), _p) <-- CUnparser(x+Hold(I)*y, p);
 
 /* Some special functions: Mod */
 
-100 # CForm(Modulo(_x, _y), _p) <-- CFormBracketDecide(p<?PrecedenceGet("/"), ConcatStrings(CForm(x, PrecedenceGet("/")), " % ", CForm(y, PrecedenceGet("/")) ) )
+100 # CUnparser(Modulo(_x, _y), _p) <-- CUnparserBracketDecide(p<?PrecedenceGet("/"), ConcatStrings(CUnparser(x, PrecedenceGet("/")), " % ", CUnparser(y, PrecedenceGet("/")) ) )
 ;
 
 /* Indexed expressions are never bracketed */
 // the rule with [ ] seems to have no effect?
-//100 # CForm(_x [ _i ], _p) <-- ConcatStrings(CForm(x, CFormMaxPrec()), "[", CForm(i, CFormMaxPrec()), "]");
-100 # CForm(Nth(_x, _i), _p) <-- ConcatStrings(CForm(x, CFormMaxPrec()), "[", CForm(i, CFormMaxPrec()), "]");
+//100 # CUnparser(_x [ _i ], _p) <-- ConcatStrings(CUnparser(x, CUnparserMaxPrec()), "[", CUnparser(i, CUnparserMaxPrec()), "]");
+100 # CUnparser(Nth(_x, _i), _p) <-- ConcatStrings(CUnparser(x, CUnparserMaxPrec()), "[", CUnparser(i, CUnparserMaxPrec()), "]");
 
 LocalSymbols(cindent) {
   cindent:=1;
@@ -211,41 +211,41 @@ LocalSymbols(cindent) {
   };
 }; // LocalSymbols(cindent)
 
-CFormStatement(_x) <-- CForm(x) ~ ";" ~ NlIndented();
+CUnparserStatement(_x) <-- CUnparser(x) ~ ";" ~ NlIndented();
 
-120 # CForm(_x,_p)_(Type(x) =? "Block") <--
+120 # CUnparser(_x,_p)_(Type(x) =? "Block") <--
 {
   Local(result);
   result:=CIndent()~"{"~NlIndented();
   ForEach(item,Rest(FunctionToList(x)))
   {
-    result:=result~CFormStatement(item);
+    result:=result~CUnparserStatement(item);
   };
   result:=result~"}"~CUndent()~NlIndented();
   result;
 };
 
-120 # CForm(For(_from,_to,_step)_body,_p) <--
-  "for(" ~ CForm(from,CFormMaxPrec()) ~ ";"
-        ~ CForm(to,CFormMaxPrec()) ~ ";"
-        ~ CForm(step,CFormMaxPrec()) ~ ")"
+120 # CUnparser(For(_from,_to,_step)_body,_p) <--
+  "for(" ~ CUnparser(from,CUnparserMaxPrec()) ~ ";"
+        ~ CUnparser(to,CUnparserMaxPrec()) ~ ";"
+        ~ CUnparser(step,CUnparserMaxPrec()) ~ ")"
         ~ CIndent() ~ NlIndented()
-        ~ CFormStatement(body) ~ CUndent();
+        ~ CUnparserStatement(body) ~ CUndent();
 
-120 # CForm(While(_pred)_body, _p) <--
-        "while(" ~ CForm(pred,CFormMaxPrec()) ~ ")"
+120 # CUnparser(While(_pred)_body, _p) <--
+        "while(" ~ CUnparser(pred,CUnparserMaxPrec()) ~ ")"
         ~ CIndent() ~ NlIndented()
-        ~ CFormStatement(body) ~ CUndent();
+        ~ CUnparserStatement(body) ~ CUndent();
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="CForm",categories="User Functions;Input/Output"
-*CMD CForm --- export expression to C++ code
+%mathpiper_docs,name="CUnparser",categories="User Functions;Input/Output"
+*CMD CUnparser --- export expression to C++ code
 *STD
 *CALL
-        CForm(expr)
+        CUnparser(expr)
         
 *PARMS
 
@@ -253,14 +253,14 @@ CFormStatement(_x) <-- CForm(x) ~ ";" ~ NlIndented();
 
 *DESC
 
-{CForm} returns a string containing C++ code that attempts to implement the MathPiper expression {expr}. Currently the exporter handles most expression types but not all.
+{CUnparser} returns a string containing C++ code that attempts to implement the MathPiper expression {expr}. Currently the exporter handles most expression types but not all.
 
 *E.G.
 
-In> CForm(Sin(a1)+2*Cos(b1));
+In> CUnparser(Sin(a1)+2*Cos(b1));
 Result: "sin(a1) + 2 * cos(b1)";
 
-*SEE PrettyForm, TeXForm, CFormable?
+*SEE PrettyForm, TeXForm, CUnparsable?
 %/mathpiper_docs
 
 
@@ -268,15 +268,15 @@ Result: "sin(a1) + 2 * cos(b1)";
 
 
 
-%mathpiper,name="CForm",subtype="automatic_test"
+%mathpiper,name="CUnparser",subtype="automatic_test"
 
 Verify(
-CForm(Hold(Cos(A-B)*Sin(a)*func(b,c,d*(e+Pi))*Sqrt(Abs(C)+D)-(g(a+b)^(c+d))^(c+d)))
+CUnparser(Hold(Cos(A-B)*Sin(a)*func(b,c,d*(e+Pi))*Sqrt(Abs(C)+D)-(g(a+b)^(c+d))^(c+d)))
 ,"cos(A - B) * sin(a) * func(b, c, d * ( e + Pi) ) * sqrt(fabs(C) + D) - pow(pow(g(a + b), c + d), c + d)"
 );
 
 Verify(
-CForm(Hold({i:=0;While(i<?10){i++; a:=a+Floor(i);};}))
+CUnparser(Hold({i:=0;While(i<?10){i++; a:=a+Floor(i);};}))
 , "{
   i = 0;
   while(i <? 10)
@@ -292,7 +292,7 @@ CForm(Hold({i:=0;While(i<?10){i++; a:=a+Floor(i);};}))
 
 /* Check that we can still force numbers to be floats in stead of integers if we want to */
 Verify(
-CForm(Hold({i:=0.;While(i<?10.){i++; a:=a+Floor(i);};}))
+CUnparser(Hold({i:=0.;While(i<?10.){i++; a:=a+Floor(i);};}))
 , "{
   i = 0.;
   while(i <? 10.)
@@ -312,14 +312,14 @@ CForm(Hold({i:=0.;While(i<?10.){i++; a:=a+Floor(i);};}))
 
 
 
-%mathpiper,name="CForm",subtype="automatic_test"
+%mathpiper,name="CUnparser",subtype="automatic_test"
 
 /* Jitse's bug report, extended with the changes that do not coerce integers to floats automatically
    any more (just enter a dot and the number becomes float if that is what is intended).
  */
-Verify(CForm(4), "4");
-Verify(CForm(4.), "4.");
-Verify(CForm(0), "0");
-Verify(CForm(0.), "0.");
+Verify(CUnparser(4), "4");
+Verify(CUnparser(4.), "4.");
+Verify(CUnparser(0), "0");
+Verify(CUnparser(0.), "0.");
 
 %/mathpiper
