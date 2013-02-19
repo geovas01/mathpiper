@@ -66,7 +66,7 @@ Result: 1;
 In> Eval(Subst(x,2) f);
 Result: 1;
         
-In> PrettyPrinterSet("PrettyForm");
+In> UnparserSet("UnparseMath2D");
         
         True
         

@@ -285,7 +285,7 @@ AddDollarSigns(equation) :=
 
 TexFormNoDollarSigns(equation) := 
 {
-    ToAtom(ListToString(Remove(StringToList(TeXForm(RemoveDollarSigns(equation))),"$")));
+    ToAtom(ListToString(Remove(StringToList(UnparseLatex(RemoveDollarSigns(equation))),"$")));
 };
 
 

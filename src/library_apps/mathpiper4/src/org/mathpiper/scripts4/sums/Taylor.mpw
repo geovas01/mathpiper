@@ -89,7 +89,7 @@ limit as "var" approaches "at".
 
 *E.G.
 
-In> PrettyForm(Taylor(x,0,9) Sin(x))
+In> UnparseMath2D(Taylor(x,0,9) Sin(x))
         
              3    5      7       9
             x    x      x       x

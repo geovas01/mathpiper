@@ -37,7 +37,7 @@ are dependent, otherwise they are independent.
 In> WronskianMatrix([Sin(x),Cos(x),x^4],x);
 Result: [[Sin(x),Cos(x),x^4],[Cos(x),-Sin(x),4*x^3],
           [-Sin(x),-Cos(x),12*x^2]];
-In> PrettyForm(%)
+In> UnparseMath2D(%)
 
         /                                                 \
         | ( Sin( x ) )      ( Cos( x ) )      /  4 \      |

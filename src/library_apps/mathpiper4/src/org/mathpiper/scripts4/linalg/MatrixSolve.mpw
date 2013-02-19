@@ -105,7 +105,7 @@
                         };
                 };
         };
-        //PrettyForm(aug);
+        //UnparseMath2D(aug);
         x[rowsb]:=aug[rowsb][rowsb+1]/aug[rowsb][rowsb];
         Decide(InVerboseMode(),Echo(["set x[",rowsb,"] =? ",x[rowsb] ]));
 

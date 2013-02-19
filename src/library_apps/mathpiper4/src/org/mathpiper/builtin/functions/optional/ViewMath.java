@@ -76,7 +76,7 @@ public class ViewMath extends BuiltinFunction {
 
         //Utility.lispEvaluate(aEnvironment, "TeXForm(x^2);");
 
-        Cons head = SublistCons.getInstance(aEnvironment, AtomCons.getInstance(aEnvironment, aStackTop, "TeXForm"));
+        Cons head = SublistCons.getInstance(aEnvironment, AtomCons.getInstance(aEnvironment, aStackTop, "UnparseLatex"));
 
         ((Cons) head.car()).setCdr(getArgument(aEnvironment, aStackTop, 1));
         

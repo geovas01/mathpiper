@@ -1,4 +1,4 @@
-%mathpiper,def="PrettyForm;EvalFormula;BuildArgs;FormulaArrayItem"
+%mathpiper,def="UnparseMath2D;EvalFormula;BuildArgs;FormulaArrayItem"
 
 /* def file definitions
 EvalFormula
@@ -490,7 +490,7 @@ LocalSymbols(formulaMaxWidth) {
 
 
 
-Function("PrettyForm",[ff])
+Function("UnparseMath2D",[ff])
 {
   Local(cf,f);
 
@@ -506,7 +506,7 @@ Function("PrettyForm",[ff])
   True;
 };
 /*
-HoldArgument("PrettyForm",ff);
+HoldArgument("UnparseMath2D",ff);
 */
 
 
@@ -516,7 +516,7 @@ EvalFormula(f):=
 {
   Local(result);
   result:= ListToFunction([ToAtom("=?"),f,Eval(f)]);
-  PrettyForm(result);
+  UnparseMath2D(result);
   True;
 };
 HoldArgument("EvalFormula",f);
@@ -529,11 +529,11 @@ HoldArgument("EvalFormula",f);
 
 
 
-%mathpiper_docs,name="PrettyForm",categories="User Functions;Input/Output"
-*CMD PrettyForm --- print an expression nicely with ASCII art
+%mathpiper_docs,name="UnparseMath2D",categories="User Functions;Input/Output"
+*CMD UnparseMath2D --- print an expression nicely with ASCII art
 *STD
 *CALL
-        PrettyForm(expr)
+        UnparseMath2D(expr)
 
 *PARMS
 
@@ -541,7 +541,7 @@ HoldArgument("EvalFormula",f);
 
 *DESC
 
-{PrettyForm} renders an expression in a nicer way, using ascii art.
+{UnparseMath2D} renders an expression in a nicer way, using ascii art.
 This is generally useful when the result of a calculation is more
 complex than a simple number.
 
@@ -549,7 +549,7 @@ complex than a simple number.
 
 In> Taylor(x,0,9)Sin(x)
 Result: x-x^3/6+x^5/120-x^7/5040+x^9/362880;
-In> PrettyForm(%)
+In> UnparseMath2D(%)
         
              3    5      7       9
             x    x      x       x
@@ -558,7 +558,7 @@ In> PrettyForm(%)
         
 Result: True;
 
-*SEE EvalFormula, PrettyPrinterSet
+*SEE EvalFormula, UnparserSet
 %/mathpiper_docs
 
 
@@ -575,7 +575,7 @@ Result: True;
 
 *DESC
 
-Show an evaluation in a nice way, using {PrettyPrinterSet}
+Show an evaluation in a nice way, using {UnparserSet}
 to show 'input = output'.
 
 *E.G.
@@ -588,5 +588,5 @@ In> EvalFormula(Taylor(x,0,7)Sin(x))
                                              6    120
 
 
-*SEE PrettyForm
+*SEE UnparseMath2D
 %/mathpiper_docs

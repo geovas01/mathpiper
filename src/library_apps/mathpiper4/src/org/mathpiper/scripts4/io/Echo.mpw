@@ -95,7 +95,7 @@ Result: True
 Side Effects:
 [a,b,c] 
 
-*SEE PrettyForm, Write, WriteString, RulebaseListedHoldArguments
+*SEE UnparseMath2D, Write, WriteString, RulebaseListedHoldArguments
 %/mathpiper_docs
 
     %output,preserve="false"

@@ -72,13 +72,11 @@ default.
 
 In> PipeFromString("(+ a b)") ParseLisp();
 Result: a+b;
-In> PipeFromString("(List (Sin x) (- (Cos x)))") \
-	  ParseLisp();
-Result: {Sin(x),-Cos(x)};
-In> PipeFromString("(+ a b)")ParseLisp()
-Result: a+b;
 
-*SEE PipeFromFile, PipeFromString, ParseMathPiper, ParseMathPiperToken, LispForm, ParseMathPiper ParseLispListed
+In> PipeFromString("(List (Sin x) (- (Cos x)))") ParseLisp();
+Result: [Sin(x),-Cos(x)];
+
+*SEE PipeFromFile, PipeFromString, ParseMathPiper, ParseMathPiperToken, UnparseLisp, ParseMathPiper ParseLispListed
 %/mathpiper_docs
 
 

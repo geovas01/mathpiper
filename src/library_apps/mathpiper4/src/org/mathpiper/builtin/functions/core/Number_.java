@@ -82,7 +82,7 @@ Result: False;
 In> Number?(-1)
 Result: True
 
-In> LispForm(-1)
+In> UnparseLisp(-1)
 Result: -1
 Side Effects:
 -1
@@ -93,7 +93,7 @@ Result: -1
 In> Number?(Hold(-1))
 Result: False
 
-In> LispForm(Hold(-1))
+In> UnparseLisp(Hold(-1))
 Result: -1
 Side Effects:
 (- 1 )

@@ -72,6 +72,6 @@ first object in a list can be itself a list (this is never the case for MathPipe
 In> PipeFromString("(+ a b)")ParseLispListed()
 Result: [+,a,b];
 
-*SEE PipeFromFile, PipeFromString, ParseMathPiper, ParseMathPiperToken, LispForm, ParseLisp
+*SEE PipeFromFile, PipeFromString, ParseMathPiper, ParseMathPiperToken, UnparseLisp, ParseLisp
 %/mathpiper_docs
 */

@@ -485,7 +485,7 @@ integrated easily.
 
 *E.G.
 
-In> PrettyPrinterSet("PrettyForm");
+In> UnparserSet("UnparseMath2D");
         
         True
         

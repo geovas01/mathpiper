@@ -47,5 +47,5 @@ In> TableForm(BuildList(i!, i, 1, 10, 1));
          3628800
 Result: True;
 
-*SEE PrettyForm, Echo, Table
+*SEE UnparseMath2D, Echo, Table
 %/mathpiper_docs

@@ -23,7 +23,7 @@ corresponding Hilbert matrix. All Hilbert inverse matrices have integer
 entries that grow in magnitude rapidly.
 
 *E.G.
-In> PrettyForm(HilbertInverseMatrix(4))
+In> UnparseMath2D(HilbertInverseMatrix(4))
 
         /                                         \
         | ( 16 )   ( -120 )  ( 240 )   ( -140 )   |

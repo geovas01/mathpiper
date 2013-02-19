@@ -157,7 +157,7 @@ Verify(ExpandBrackets(-(2*x+2*y)), Hold(-2*x-2*y));
 Verify(ExpandBrackets(1/4 * (x+1)), Hold(x/4+1/4));
 
 // Issue 108
-Verify(CUnparser(2.), "2.");
+Verify(UnparseC(2.), "2.");
 
 // Issue 109
 Verify(Rationalize([2.25,-33.333,8]),[9/4,(-33333)/1000,8]);

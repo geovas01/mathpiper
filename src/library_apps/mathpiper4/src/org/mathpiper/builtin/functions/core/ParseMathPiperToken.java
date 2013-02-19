@@ -82,9 +82,7 @@ Setting a tokenizer is a global action that affects all {ParseMathPiperToken} ca
 
 *E.G. notest
 
-In> PipeFromString("a := Sin(x)") While \
-	  ((tok := ParseMathPiperToken()) != EndOfFile) \
-	  Echo(tok);
+In> PipeFromString("a := Sin(x)") While((tok := ParseMathPiperToken()) !=? EndOfFile) Echo(tok);
 	a
 	:=
 	Sin
@@ -96,6 +94,7 @@ Result: True;
 We can read some junk too:
 In> PipeFromString("-$3")ParseMathPiperToken();
 Result: -$;
+
 The result is an atom with the string representation {-$}.
 MathPiper assumes that {-$} is an operator symbol yet to be defined.
 The "{3}" will be in the next token.

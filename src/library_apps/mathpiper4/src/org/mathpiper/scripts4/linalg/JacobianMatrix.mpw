@@ -32,7 +32,7 @@ of $i$-th function with respect to the $j$-th variable.
 
 In> JacobianMatrix( [Sin(x),Cos(y)], [x,y] ); 
 Result: [[Cos(x),0],[0,-Sin(y)]];
-In> PrettyForm(%)
+In> UnparseMath2D(%)
 
         /                                 \
         | ( Cos( x ) ) ( 0 )              |
