@@ -1,38 +1,38 @@
-%mathpiper,def="CFormable?"
+%mathpiper,def="CUnparsable?"
 
 //////////////////////////////////////////////////
-/// CFormable?
+/// CUnparsable?
 //////////////////////////////////////////////////
 
-LocalSymbols(CFormAllFunctions) {
+LocalSymbols(CUnparserAllFunctions) {
 
   /// predicate to test whether an expression can be successfully exported to C code
 
   /// interface with empty extra function list
   // need the backquote stuff b/c we have HoldArgument now
-  CFormable?(_expr) <-- `CFormable?(@expr, []);
+  CUnparsable?(_expr) <-- `CUnparsable?(@expr, []);
 
   // need to check that expr contains only allowed functions
-  CFormable?(_expr, funclist_List?) <--
+  CUnparsable?(_expr, funclist_List?) <--
   {
     Local(badfunctions);
-    badfunctions := Difference(`FuncList(@expr), Concat(CFormAllFunctions, funclist));
+    badfunctions := Difference(`FuncList(@expr), Concat(CUnparserAllFunctions, funclist));
     Decide(Length(badfunctions)=?0,
       True,
       {
         Decide(InVerboseMode(),
-          Echo(Concat(["CFormable?: Info: unexportable function(s): "], badfunctions))
+          Echo(Concat(["CUnparsable?: Info: unexportable function(s): "], badfunctions))
         );
         False;
       }
     );
   };
-  HoldArgumentNumber("CFormable?", 1, 1);
-  HoldArgumentNumber("CFormable?", 2, 1);
+  HoldArgumentNumber("CUnparsable?", 1, 1);
+  HoldArgumentNumber("CUnparsable?", 2, 1);
 
-  /// This is a list of all function atoms which CForm can safely handle
-  CFormAllFunctions := MapSingle(ToAtom, Concat(AssocIndices(CFormMathFunctions()), AssocIndices(CFormRegularOps()),
-  // list of "other" (non-math) functions supported by CForm: needs to be updated when CForm is extended to handle new functions
+  /// This is a list of all function atoms which CUnparser can safely handle
+  CUnparserAllFunctions := MapSingle(ToAtom, Concat(AssocIndices(CUnparserMathFunctions()), AssocIndices(CUnparserRegularOps()),
+  // list of "other" (non-math) functions supported by CUnparser: needs to be updated when CUnparser is extended to handle new functions
   [
     "For",
     "While",
@@ -48,18 +48,18 @@ LocalSymbols(CFormAllFunctions) {
   ));
 
 
-}; // LocalSymbols(CFormAllFunctions)
+}; // LocalSymbols(CUnparserAllFunctions)
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="CFormable?",categories="User Functions;Input/Output;Predicates"
-*CMD CFormable? --- check possibility to export expression to C++ code
+%mathpiper_docs,name="CUnparsable?",categories="User Functions;Input/Output;Predicates"
+*CMD CUnparsable? --- check possibility to export expression to C++ code
 *STD
 *CALL
-        CFormable?(expr)
-        CFormable?(expr, funclist)
+        CUnparsable?(expr)
+        CUnparsable?(expr, funclist)
         
 *PARMS
 
@@ -69,58 +69,58 @@ LocalSymbols(CFormAllFunctions) {
 
 *DESC
 
-{CFormable?} returns {True} if the MathPiper expression {expr} can be exported
-into C++ code. This is a check whether the C++ exporter {CForm} can be safely
+{CUnparsable?} returns {True} if the MathPiper expression {expr} can be exported
+into C++ code. This is a check whether the C++ exporter {CUnparser} can be safely
 used on the expression.
 
 A MathPiper expression is considered exportable if it contains only functions that can be translated into C++ (e.g. {ListToFunction} cannot be exported). All variables and constants are considered exportable.
 
 The verbose option prints names of functions that are not exportable.
 
-The second calling format of {CFormable?} can be used to "allow" certain function names that will be available in the C++ code.
+The second calling format of {CUnparsable?} can be used to "allow" certain function names that will be available in the C++ code.
 
 *E.G. notest
 
-In> CFormable?(Sin(a1)+2*Cos(b1))
+In> CUnparsable?(Sin(a1)+2*Cos(b1))
 Result: True;
-In> V(CFormable?(1+func123(b1)))
-        CFormable?: Info: unexportable function(s):
+In> V(CUnparsable?(1+func123(b1)))
+        CUnparsable?: Info: unexportable function(s):
           func123
 Result: False;
 This returned {False} because the function {func123} is not available in C++. We can
 explicitly allow this function and then the expression will be considered
 exportable:
 
-In> CFormable?(1+func123(b1), [func123])
+In> CUnparsable?(1+func123(b1), [func123])
 Result: True;
 
-*SEE CForm, V
+*SEE CUnparser, V
 %/mathpiper_docs
 
 
 
 
 
-%mathpiper,name="CFormable?",subtype="automatic_test"
+%mathpiper,name="CUnparsable?",subtype="automatic_test"
 
 Verify(
-CFormable?(e+Pi*Cos(A-B)/3-Floor(3.14)*2)
+CUnparsable?(e+Pi*Cos(A-B)/3-Floor(3.14)*2)
 , True
 );
 Verify(
-CFormable?(e+Pi*Cos(A-B)/3-Floor(3.14)*2+badfunc(x+y))
+CUnparsable?(e+Pi*Cos(A-B)/3-Floor(3.14)*2+badfunc(x+y))
 , False
 );
 Verify(
-CFormable?(e+Pi*Cos(A-B)/3-Floor(3.14)*2+badfunc(x+y), [badfunc])
+CUnparsable?(e+Pi*Cos(A-B)/3-Floor(3.14)*2+badfunc(x+y), [badfunc])
 , True
 );
 Verify(
-CFormable?({i:=0;While(i<?10){i++; a:=a+i;};})
+CUnparsable?({i:=0;While(i<?10){i++; a:=a+i;};})
 , True
 );
 Verify(
-CFormable?({i:=0;While(i<?10){i++; a:=a+i; [];};})
+CUnparsable?({i:=0;While(i<?10){i++; a:=a+i; [];};})
 , False
 );
 
