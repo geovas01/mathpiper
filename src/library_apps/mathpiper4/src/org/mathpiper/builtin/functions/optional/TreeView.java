@@ -67,8 +67,8 @@ public class TreeView extends BuiltinFunction {
         defaultOptions = new HashMap();
 
         defaultOptions.put("Scale", 2.5);
-        defaultOptions.put("Resizable", false);
-        defaultOptions.put("IncludeExpression", false);
+        defaultOptions.put("Resizable", true);
+        defaultOptions.put("IncludeExpression", true);
         defaultOptions.put("Lisp", false);
         defaultOptions.put("Code", false);
 
