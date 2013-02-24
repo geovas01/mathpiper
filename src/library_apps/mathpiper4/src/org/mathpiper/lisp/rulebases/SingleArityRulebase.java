@@ -304,7 +304,7 @@ public class SingleArityRulebase extends Evaluator {
 
     /**
      * Put an argument on hold.
-     * The \c iHold flag of the corresponding argument is setCons. This
+     * The \c iHold flag of the corresponding argument is set. This
      * implies that this argument is not evaluated by evaluate().
      * 
      * @param aVariable name of argument to put un hold
