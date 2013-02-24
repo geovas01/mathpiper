@@ -38,7 +38,7 @@ public class ListPanel extends JPanel implements ViewPanel {
         this.viewScale = viewScale;
         this.setBackground(Color.white);
 
-        String sublistName = "(   )";
+        String sublistName = "(  )";
 
         int startY = 0;
 
