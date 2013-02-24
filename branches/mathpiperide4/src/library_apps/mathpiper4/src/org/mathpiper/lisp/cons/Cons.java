@@ -314,14 +314,6 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
 
-    public static Object adar(Object cons) throws Throwable
-    {
-        cons = ((Cons)cons).car();
-        cons = ((Cons)cons).cdr();
-        return ((Cons)cons).car();
-    }
-
-
 
     public static Object caddar(Object cons) throws Throwable
     {

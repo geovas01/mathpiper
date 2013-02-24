@@ -208,10 +208,10 @@ In> a
 Result: b
 
 In> MetaKeys(a)
-Result: {"TAG"}
+Result: ["TAG"]
 
 In> MetaValues(a)
-Result: {DATA}
+Result: [DATA]
 
 In> MetaGet(a,"TAG")
 Result: DATA
@@ -224,10 +224,10 @@ In> a
 Result: 3
 
 In> MetaKeys(a)
-Result: {"TAG"}
+Result: ["TAG"]
 
 In> MetaValues(a)
-Result: {DATA}
+Result: [DATA]
 
 In> MetaGet(a,"TAG")
 Result: DATA
@@ -240,10 +240,10 @@ In> f(x)
 Result: x^2
 
 In> MetaKeys(f(x))
-Result: {"TAG"}
+Result: ["TAG"]
 
 In> MetaValues(f(x))
-Result: {DATA}
+Result: [DATA]
 
 In> MetaGet(f(x),"TAG")
 Result: DATA

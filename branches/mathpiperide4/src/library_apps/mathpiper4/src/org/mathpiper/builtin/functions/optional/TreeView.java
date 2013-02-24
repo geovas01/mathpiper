@@ -54,6 +54,8 @@ import org.scilab.forge.jlatexmath.TeXFormula;
 public class TreeView extends BuiltinFunction {
     // Show(TreeView( "a*(b+c) == a*b + a*c",  Resizable -> True, IncludeExpression -> True))
     // Show(TreeView( "(+ 1 2)", Prefix -> True, Code -> True, Resizable -> True, IncludeExpression -> True))
+    // MetaSet(Car(Cdr(Car('(a+(b+c) == d)))),"op",True)
+    // Show(StepsView(SolveEquation( '( ((- a^2) * b )/ c + d == e ), a), ShowTree -> True))
 
     private Map defaultOptions;
     
@@ -143,6 +145,9 @@ public class TreeView extends BuiltinFunction {
             //expression = (Cons) argument;
             
         }
+        
+        
+        //this.tagOperator(expression, aEnvironment, aStackTop);
 
         
         
@@ -156,8 +161,8 @@ public class TreeView extends BuiltinFunction {
                 Cons holdSubListCons = SublistCons.getInstance(aEnvironment, holdAtomCons);
                 Cons holdInputExpression = holdSubListCons;        
                 
-        	    //Obtain LaTeX version of the expression.
-        	    Cons head = SublistCons.getInstance(aEnvironment, AtomCons.getInstance(aEnvironment, aStackTop, "UnparseLatex"));
+        	//Obtain LaTeX version of the expression.
+        	Cons head = SublistCons.getInstance(aEnvironment, AtomCons.getInstance(aEnvironment, aStackTop, "UnparseLatex"));
                 ((Cons) head.car()).setCdr(holdInputExpression);
                 Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, head);
                 texString = (String) result.car();
@@ -244,6 +249,23 @@ public class TreeView extends BuiltinFunction {
 
 
     }//end method.
+    
+    
+    private void tagOperator(Cons rootCons, Environment aEnvironment, int aStackTop) throws Throwable
+    {
+	Object object = Cons.cadar(rootCons);
+	
+	if(object instanceof Cons)
+	{
+        	Cons cons = (Cons) object;
+        	
+        	Map<String,Cons> map = new HashMap<String,Cons>();
+        	
+        	map.put("\"op\"", AtomCons.getInstance(aEnvironment, aStackTop, "True"));
+        	
+        	cons.setMetadataMap(map);
+	}
+    }
 
 
 }//end class.

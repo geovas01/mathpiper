@@ -15,11 +15,11 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.Cons;
 
@@ -27,14 +27,14 @@ import org.mathpiper.lisp.cons.Cons;
  *
  *  
  */
-public class Assigned_ extends BuiltinFunction
+public class Car extends BuiltinFunction
 {
 
-    private Assigned_()
+    private Car()
     {
     }
 
-    public Assigned_(String functionName)
+    public Car(String functionName)
     {
         this.functionName = functionName;
     }
@@ -42,49 +42,41 @@ public class Assigned_ extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
-        
-        if (getArgument(aEnvironment, aStackTop, 1).car() instanceof String)
-        {
-            String str =  (String) getArgument(aEnvironment, aStackTop, 1).car();
+	Cons argumentCons = getArgument(aEnvironment, aStackTop, 1);
+	
+	if(! (argumentCons.car() instanceof Cons)) 
+	{
+	    LispError.raiseError("Result is not a Cons.", aStackTop, aEnvironment);
+	}
 
-            Cons val = aEnvironment.getLocalOrGlobalVariable(aStackTop, str);
-            if (val != null)
-            {
-                setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
-                return;
-            }
-        }
-        setTopOfStack(aEnvironment, aStackTop, Utility.getFalseAtom(aEnvironment));
+	
+        setTopOfStack(aEnvironment, aStackTop, ((Cons)argumentCons.car()));
     }
 }
 
 
 
 /*
-%mathpiper_docs,name="Assigned?",categories="User Functions;Predicates;Built In"
-*CMD Assigned? --- determine if a variable has a value assigned to it
+%mathpiper_docs,name="Car",categories="Programmer Functions;Programming;Built In"
+*CMD Car --- the first element of a Lisp list
 *CORE
 *CALL
-	Assigned?(var)
+	Car(lispList)
 
 *PARMS
 
-{var} -- variable to test
+{lispList} -- a lisp list
 
 *DESC
 
-This function tests whether the variable "var" has a value assigned to it. 
-The argument "var" is not evaluated.
+This function returns the first element of a Lisp list. An error is
+returned if {lispList} is an atom.
 
 *E.G.
 
-In> Assigned?(x);
-Result: False;
-In> x := 5;
-Result: 5;
-In> Assigned?(x);
-Result: True;
+In> Car([a,b,c])
+Result: List
 
-*SEE Atom?
+*SEE Cdr
 %/mathpiper_docs
 */

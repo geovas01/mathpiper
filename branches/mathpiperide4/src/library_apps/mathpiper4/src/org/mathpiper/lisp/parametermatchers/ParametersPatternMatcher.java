@@ -138,7 +138,7 @@ public class ParametersPatternMatcher {
             }
         }
 
-        // setCons the local variables for sure now
+        // set the local variables for sure now
         setPatternVariables(aEnvironment, argumentsCons, aStackTop);
 
         return true;
@@ -154,40 +154,55 @@ public class ParametersPatternMatcher {
         int i;
 
         Cons[] arguments = null;
+        
         if (iVariables.size() > 0) {
-            arguments = new Cons[iVariables.size()];
+            arguments = new Cons[iVariables.size() + 1 /*An extra position for an operator.*/];
         }
 
 
 
         for (i = 0; i < iParamMatchers.size(); i++) {
+            
             if(i >= aArguments.length) LispError.throwError(aEnvironment, aStackTop, "Listed function definitions need at least two parameters.");
+            
             PatternParameterMatcher patternParameter = (PatternParameterMatcher) iParamMatchers.get(i);
+            
             Cons argument = aArguments[i];
+                        
             if (!patternParameter.argumentMatches(aEnvironment, aStackTop, argument, arguments)) {
                 return false;
             }
         }
 
-        {
-            //Set the local variables.
-            aEnvironment.pushLocalFrame(false, "Pattern");
-            try {
-                setPatternVariables(aEnvironment, arguments, aStackTop);
 
-                //Check the predicates.
-                if (!checkPredicates(aEnvironment, aStackTop)) {
-                    return false;
-                }
-            } catch (Throwable e) {
-                throw e;
-            } finally {
-                aEnvironment.popLocalFrame(aStackTop);
+        //Set the local variables.
+        aEnvironment.pushLocalFrame(false, "Pattern");
+        try {
+            setPatternVariables(aEnvironment, arguments, aStackTop);
+            
+            if(arguments != null && arguments[arguments.length-1] != null)
+            {
+                aEnvironment.newLocalVariable("operatorMetaMap", arguments[arguments.length-1], aStackTop);
             }
+
+            //Check the predicates.
+            if (!checkPredicates(aEnvironment, aStackTop)) {
+                return false;
+            }
+        } catch (Throwable e) {
+            throw e;
+        } finally {
+            aEnvironment.popLocalFrame(aStackTop);
         }
+
 
         // Set the local variables for sure now.
         setPatternVariables(aEnvironment, arguments, aStackTop);
+        
+        if(arguments != null && arguments[arguments.length-1] != null)
+        {
+            aEnvironment.newLocalVariable("operatorMetaMap", arguments[arguments.length-1], aStackTop);
+        }
 
         return true;
     }

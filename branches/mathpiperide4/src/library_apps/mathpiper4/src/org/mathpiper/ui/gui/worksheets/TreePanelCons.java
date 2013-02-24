@@ -36,7 +36,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
     private int leftMostPosition = Integer.MAX_VALUE; //Initialize to maximum possible position.
     private int rightMostPosition = 0; //Initialize to minimum possible position.
-    private double lineThickness = .6;
+    private double defaultLineThickness = .6;
     private int fontSize = 11;
 
     private Map<String, String> latexMap = new HashMap();
@@ -48,7 +48,8 @@ public class TreePanelCons extends JComponent implements ViewPanel {
     private boolean isCodeForm = false;
 
 
-
+    // Show(TreeView(a/b == 3))
+    // 99 # UnparseLatex(_x / _y, _p)_( <-- UnparseLatexBracketIf(p <? PrecedenceGet("/"), ConcatStrings("\\frac{", UnparseLatex(x, UnparseLatexMaxPrec()), "}{", UnparseLatex(y, UnparseLatexMaxPrec()), "} ") );
     // Show(TreeView( '(a*(b+c) == a*b + a*c)))
     // Show(TreeView( '(a*(b+c) == a*b + a*c), Resizable -> True, IncludeExpression -> True))
     // Show(TreeView( '(-500), Resizable -> True, IncludeExpression -> True))
@@ -102,7 +103,6 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 	try {
 	    listToTree(rootNode, expressionCons);
 	} catch (Throwable e) {
-	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
 
@@ -113,35 +113,45 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 	layoutTree(g2d);
 
     }
+    
 
+    private void listToTree(SymbolNode rootNode, Cons rootCons) throws Throwable {
+	
 
+	Cons cons = (Cons) rootCons.car(); //Go into sublist.
+	
+	if(cons.getMetadataMap() != null)
+	{
+	    Map map = cons.getMetadataMap();
+	    
+	    if(map.containsKey("\"op\""))
+	    {
+	       rootNode.setColor(Color.RED);
+	    }
+	}
 
-    private void listToTree(SymbolNode node, Cons cons) throws Throwable {
+	String operator = (String) cons.car();
 
-	Cons r = (Cons) cons.car(); //Go into sublist.
+	rootNode.setOperator(operator);
 
-	String operator = (String) r.car();
+	while (cons.cdr() != null) {
+	    cons = cons.cdr();
 
-	node.setOperator(operator);
-
-	while (r.cdr() != null) {
-	    r = r.cdr();
-
-	    if (r instanceof SublistCons) {
+	    if (cons instanceof SublistCons) {
 		SymbolNode node3 = new SymbolNode();
 
-		listToTree(node3, r);
+		listToTree(node3, cons);
 
-		node.addChild(node3);
+		rootNode.addChild(node3);
 
 	    } else {
 		SymbolNode node2 = new SymbolNode();
 
-		operator = (String) r.car();
+		operator = (String) cons.car();
 
 		node2.setOperator(operator);
 
-		node.addChild(node2);
+		rootNode.addChild(node2);
 	    }
 	}
 
@@ -181,7 +191,16 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 		
 		sg.drawLatex(currentNode.texFormula, currentNode.getTreeX() - (leftMostPosition), currentNode.getTreeY()
 			- (yPositionAdjust  /*height of symbol*/));
-
+		
+		if(currentNode.getColor() != null)
+		{
+		    sg.setColor(Color.RED);
+		    sg.setLineThickness(1.0);
+		    sg.drawArc(currentNode.getTreeX() - (leftMostPosition), currentNode.getTreeY()
+			- (yPositionAdjust  /*height of symbol*/), currentNode.getNodeWidth(), currentNode.getNodeHeight(), 0, 360);
+		    sg.setLineThickness(defaultLineThickness);
+		    sg.setColor(Color.BLACK);
+		}
 		
 		SymbolNode[] children = currentNode.getChildren();
 
@@ -191,7 +210,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 			    queue.add(child);
 
 			    sg.setColor(Color.BLACK);
-			    sg.setLineThickness(lineThickness);
+			    sg.setLineThickness(defaultLineThickness);
 			    sg.drawLine(currentNode.getTreeX() + currentNode.getNodeWidth() / 2 - (leftMostPosition),
 				    currentNode.getTreeY() + currentNode.getNodeHeight() - (yPositionAdjust * 1/*height of nodes*/),
 				    child.getTreeX() + child.getNodeWidth() / 2 - (leftMostPosition),
@@ -420,6 +439,8 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 	private int treeX;
 
 	private int treeY;
+	
+	private Color color;
 
 
 
@@ -500,7 +521,18 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 	public void setTreeY(int treeY) {
 	    this.treeY = treeY;
 	}
+	
+	
+	
 
+	public Color getColor() {
+	    return color;
+	}
+
+
+	public void setColor(Color color) {
+	    this.color = color;
+	}
 
 
 	public String toString() {
