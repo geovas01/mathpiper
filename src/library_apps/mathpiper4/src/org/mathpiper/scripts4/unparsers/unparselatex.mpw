@@ -116,13 +116,17 @@ UnparseLatexMaxPrec() := 60000;         /* This precedence will never be bracket
         /* Template for "regular" binary infix operators:
 100 # UnparseLatex(_x + _y, _p) <-- UnparseLatexBracketIf(p<?PrecedenceGet("+"), ConcatStrings(UnparseLatex(x, LeftPrecedenceGet("+")), " + ", UnparseLatex(y, RightPrecedenceGet("+")) ) );
         */
-// special cases: things like x*2 and 2*10^x look ugly without a period
+        
+// special cases: things like x*2 and 2*10^x look ugly without a multiplication symbol
 // cases like x*2
-115 # UnparseLatex(_expr * n_Number?, _p) <-- UnparseLatexBracketIf(p <? PrecedenceGet("*"), ConcatStrings(UnparseLatex(expr, LeftPrecedenceGet("*")), "\\cdot ", UnparseLatex(n, RightPrecedenceGet("*")) ) );
+115 # UnparseLatex(_expr * n_Number?, _p) <-- UnparseLatexBracketIf(p <? PrecedenceGet("*"), ConcatStrings(UnparseLatex(expr, LeftPrecedenceGet("*")), "\\times ", UnparseLatex(n, RightPrecedenceGet("*")) ) );
 // cases like a*20! and a*10^x
-116 # UnparseLatex(_n * _expr, _p) _ (Function?(expr) And? Contains?(["^", "!", "!!"], Type(expr)) And? Number?(FunctionToList(expr)[2])) <-- UnparseLatexBracketIf(p <? PrecedenceGet("*"), ConcatStrings(UnparseLatex(n, LeftPrecedenceGet("*")), "\\cdot ", UnparseLatex(expr, RightPrecedenceGet("*")) ) );
+
+
+116 # UnparseLatex(_n * _expr, _p) _ (Function?(expr) And? Contains?(["^", "!", "!!"], Type(expr)) And? Number?(FunctionToList(expr)[2])) <-- UnparseLatexBracketIf(p <? PrecedenceGet("*"), ConcatStrings(UnparseLatex(n, LeftPrecedenceGet("*")), "\\times ", UnparseLatex(expr, RightPrecedenceGet("*")) ) );
 
         /* generic binary ops here */
+119 # UnparseLatex(expr_Function?, _p)_(ArgumentsCount(expr) =? 2 And? Infix?(Type(expr)) And? Not? Type(expr) =? "^" And? MetaGet(expr[0],"op") !=? Empty) <-- UnparseLatexBracketIf(p <? PrecedenceGet(Type(expr)), ConcatStrings(UnparseLatex(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))), "\\textcolor{Red}{", UnparseLatexLatexify(Type(expr)), "}", UnparseLatex(FunctionToList(expr)[3], RightPrecedenceGet(Type(expr))) ) );
 120 # UnparseLatex(expr_Function?, _p)_(ArgumentsCount(expr) =? 2 And? Infix?(Type(expr)) ) <-- UnparseLatexBracketIf(p <? PrecedenceGet(Type(expr)), ConcatStrings(UnparseLatex(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))), UnparseLatexLatexify(Type(expr)), UnparseLatex(FunctionToList(expr)[3], RightPrecedenceGet(Type(expr))) ) );
 
         /* Template for "regular" unary prefix operators:
@@ -132,10 +136,10 @@ UnparseLatexMaxPrec() := 60000;         /* This precedence will never be bracket
 
         /* generic unary ops here */
         /* prefix */
-120 # UnparseLatex(expr_Function?, _p)_(ArgumentsCount(expr) =? 1 And? Prefix?(Type(expr))) <-- UnparseLatexBracketIf(p <? PrecedenceGet(Type(expr)), ConcatStrings(
-        UnparseLatexLatexify(Type(expr)),
-        UnparseLatex(FunctionToList(expr)[2], RightPrecedenceGet(Type(expr)))
-) );
+119 # UnparseLatex(expr_Function?, _p)_(ArgumentsCount(expr) =? 1 And? Prefix?(Type(expr)) And? MetaGet(expr[0],"op") !=? Empty) <-- UnparseLatexBracketIf(p <? PrecedenceGet(Type(expr)), ConcatStrings("\\textcolor{Red}{", UnparseLatexLatexify(Type(expr)), "}", UnparseLatex(FunctionToList(expr)[2], RightPrecedenceGet(Type(expr)))) );
+120 # UnparseLatex(expr_Function?, _p)_(ArgumentsCount(expr) =? 1 And? Prefix?(Type(expr))) <-- UnparseLatexBracketIf(p <? PrecedenceGet(Type(expr)), ConcatStrings(UnparseLatexLatexify(Type(expr)), UnparseLatex(FunctionToList(expr)[2], RightPrecedenceGet(Type(expr)))) );
+
+
         /* postfix */
 120 # UnparseLatex(expr_Function?, _p)_(ArgumentsCount(expr) =? 1 And? Postfix?(Type(expr))) <-- UnparseLatexBracketIf(p <? LeftPrecedenceGet(Type(expr)), ConcatStrings(
         UnparseLatex(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))),
@@ -143,6 +147,7 @@ UnparseLatexMaxPrec() := 60000;         /* This precedence will never be bracket
 ) );
 
         /* fraction and its operands are never bracketed except when they are under power */
+98 # UnparseLatex(_x / _y, _p)_(Assigned?(operatorMetaMap)) <-- UnparseLatexBracketIf(p <? PrecedenceGet("/"), ConcatStrings("\\textcolor{Red}{\\frac \\textcolor{Black}{", UnparseLatex(x, UnparseLatexMaxPrec()), "} \\textcolor{Black}{", UnparseLatex(y, UnparseLatexMaxPrec()), "}} ") );
 100 # UnparseLatex(_x / _y, _p) <-- UnparseLatexBracketIf(p <? PrecedenceGet("/"), ConcatStrings("\\frac{", UnparseLatex(x, UnparseLatexMaxPrec()), "}{", UnparseLatex(y, UnparseLatexMaxPrec()), "} ") );
 
         /* power's argument is never bracketed but it must be put in braces. Chained powers must be bracketed. Powers of 1/n are displayed as roots. */
@@ -152,8 +157,8 @@ UnparseLatexMaxPrec() := 60000;         /* This precedence will never be bracket
 
 120 # UnparseLatex(_x ^ _y, _p) <-- UnparseLatexBracketIf(p <=? PrecedenceGet("^"), ConcatStrings(UnparseLatex(x, PrecedenceGet("^")), " ^{", UnparseLatex(y, UnparseLatexMaxPrec()), "}" ) );
 
-100 # UnparseLatex(If(_pred)_body, _p) <-- "\\textrm{if }(":UnparseLatex(pred,60000):") ":UnparseLatex(body,60000);
-100 # UnparseLatex(_left Else _right, _p) <-- UnparseLatex(left,60000):"\\textrm{ Else }":UnparseLatex(right,60000);
+100 # UnparseLatex(If(_pred)_body, _p) <-- "\\textrm{if }(" ~ UnparseLatex(pred,60000) ~ ") " ~ UnparseLatex(body,60000);
+100 # UnparseLatex(_left Else _right, _p) <-- UnparseLatex(left,60000) ~ "\\textrm{ Else }" ~ UnparseLatex(right,60000);
 
 
 /* functions */
@@ -167,7 +172,7 @@ LocalSymbols(UnparseLatexRegularOps, UnparseLatexRegularPrefixOps, UnparseLatexG
   [
     ["+"," + "],
     ["-"," - "],
-    ["*"," \\cdot "],
+    ["*"," \\times "],
     [":="," := "], //\\equiv "],
     ["=="," = "],
     ["=?"," = "],
@@ -436,25 +441,25 @@ Verify(UnparseLatex(g), ...);
 
 Verify(
 UnparseLatex(Hold(Cos(A-B)*Sqrt(C+D)-(a+b)*c^d+2*I+Complex(a+b,a-b)/Complex(0,1)))
-,"$\\cos ( A - B)  \\cdot \\sqrt{C + D} - ( a + b)  \\cdot c ^{d} + 2 \\cdot \\imath  + \\frac{a + b + \\imath  \\cdot ( a - b) }{\\imath } $"
+,"$\\cos ( A - B)  \\times \\sqrt{C + D} - ( a + b)  \\times c ^{d} + 2 \\times \\imath  + \\frac{a + b + \\imath  \\times ( a - b) }{\\imath } $"
 );
 
 Verify(
 UnparseLatex(Hold(Exp(A*B)/C/D/(E+F)*G-(-(a+b)-(c-d))-b^(c^d) -(a^b)^c))
-,"$\\frac{\\frac{\\frac{\\exp ( A \\cdot B) }{C} }{D} }{E + F}  \\cdot G - (  - ( a + b)  - ( c - d) )  - b ^{c ^{d}} - ( a ^{b})  ^{c}$"
+,"$\\frac{\\frac{\\frac{\\exp ( A \\times B) }{C} }{D} }{E + F}  \\times G - (  - ( a + b)  - ( c - d) )  - b ^{c ^{d}} - ( a ^{b})  ^{c}$"
 );
 
 Verify(
 UnparseLatex(Hold(Cos(A-B)*Sin(a)*f(b,c,d*(e+1))*Sqrt(C+D)-(g(a+b)^(c+d))^(c+d)))
-,"$\\cos ( A - B)  \\cdot \\sin a \\cdot f( b, c, d \\cdot ( e + 1) )  \\cdot \\sqrt{C + D} - ( g( a + b)  ^{c + d})  ^{c + d}$"
+,"$\\cos ( A - B)  \\times \\sin a \\times f( b, c, d \\times ( e + 1) )  \\times \\sqrt{C + D} - ( g( a + b)  ^{c + d})  ^{c + d}$"
 );
 
 
 /* This test is commented out because it throws an exception when orthopoly.mpw is removed from the build process.
-// testing latest features: \\cdot, %, (a/b)^n, BinomialCoefficient(), BesselI, OrthoH
+// testing latest features: \\times, %, (a/b)^n, BinomialCoefficient(), BesselI, OrthoH
 Verify(
 UnparseLatex(3*2^n+Hold(x*10!) + (x/y)^2 + BinomialCoefficient(x,y) + BesselI(n,x) + Maximum(a,b) + OrthoH(n,x))
-, "$3\\cdot 2 ^{n} + x\\cdot 10! + ( \\frac{x}{y} )  ^{2} + {x \\choose y} + I _{n}( x)  + \\max ( a, b)  + H _{n}( x) $"
+, "$3\\times 2 ^{n} + x\\times 10! + ( \\frac{x}{y} )  ^{2} + {x \\choose y} + I _{n}( x)  + \\max ( a, b)  + H _{n}( x) $"
 );
 */
 
@@ -474,13 +479,13 @@ Retract("f",1);
 
 Verify(
 UnparseLatex(Hold(Not? (c <? 0) And? (a+b)*c>=? -d^e And? (c <=? 0 Or? b+1 >? 0) Or? a !=? 0 And? Not? (p =? q)))
-,"$ \\neg c < 0\\wedge ( a + b)  \\cdot c\\geq  - d ^{e}\\wedge ( c\\leq 0\\vee b + 1 > 0) \\vee a\\neq 0\\wedge  \\neg p = q$"
+,"$ \\neg c < 0\\wedge ( a + b)  \\times c\\geq  - d ^{e}\\wedge ( c\\leq 0\\vee b + 1 > 0) \\vee a\\neq 0\\wedge  \\neg p = q$"
 );
 
 RulebaseHoldArguments("f",[x,y,z]);
 Verify(
 UnparseLatex((Differentiate(x)f(x,y,z))*Cos(Omega)*Modulo(Sin(a)*4,5/a^b))
-,"$( \\frac{\\partial}{\\partial x}f( x, y, z) )  \\cdot \\cos \\Omega  \\cdot ( 4 \\cdot \\sin a) \\bmod \\frac{5}{a ^{b}} $"
+,"$( \\frac{\\partial}{\\partial x}f( x, y, z) )  \\times \\cos \\Omega  \\times ( 4 \\times \\sin a) \\bmod \\frac{5}{a ^{b}} $"
 );
 Retract("f",3);
 
@@ -488,14 +493,14 @@ RulebaseHoldArguments("g",[x]);
 RulebaseHoldArguments("theta",[x]);
 Verify(
 UnparseLatex(Pi+Exp(1)-Theta-Integrate(x,x1,3/g(Pi))2*theta(x)*Exp(1/x))
-,"$\\pi  + \\exp ( 1)  - \\Theta  - \\int _{x_{1}} ^{\\frac{3}{g( \\pi ) }  } 2 \\cdot \\theta ( x)  \\cdot \\exp ( \\frac{1}{x} )  dx$"
+,"$\\pi  + \\exp ( 1)  - \\Theta  - \\int _{x_{1}} ^{\\frac{3}{g( \\pi ) }  } 2 \\times \\theta ( x)  \\times \\exp ( \\frac{1}{x} )  dx$"
 );
 Retract("g",1);
 Retract("theta",1);
 
 Verify(
 UnparseLatex([a[3]*b[5]-c[1][2],[a,b,c,d]])
-,"$( a _{3} \\cdot b _{5} - c _{( 1, 2) }, ( a, b, c, d) ) $"
+,"$( a _{3} \\times b _{5} - c _{( 1, 2) }, ( a, b, c, d) ) $"
 );
 
 
@@ -524,7 +529,7 @@ UnparseLatex()
 */
 
 /* Bug report from Michael Borcherds. The brackets were missing. */
-Verify(UnparseLatex(Hold(2*x*(-2))), "$2 \\cdot x \\cdot (  - 2) $");
+Verify(UnparseLatex(Hold(2*x*(-2))), "$2 \\times x \\times (  - 2) $");
 
 
 %/mathpiper
