@@ -81,18 +81,22 @@ More generally, {Nth} returns the n-th operand of the
 expression passed as first argument.
 
 An alternative but equivalent form of {Nth(list, n)} is
-{list{n}}.
+{list[n]}.
 
 *E.G.
 
 In> lst := [a,b,c,13,19];
 Result: [a,b,c,13,19];
+
 In> Nth(lst, 3);
 Result: c;
+
 In> lst[3];
 Result: c;
+
 In> Nth(lst, [3,4,1]);
 Result: [c,13,a];
+
 In> Nth(b*(a+c), 2);
 Result: a+c;
 
