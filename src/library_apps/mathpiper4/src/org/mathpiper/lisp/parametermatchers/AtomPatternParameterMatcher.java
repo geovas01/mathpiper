@@ -18,6 +18,7 @@ package org.mathpiper.lisp.parametermatchers;
 
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.NumberCons;
 
@@ -46,6 +47,13 @@ public class AtomPatternParameterMatcher extends PatternParameterMatcher {
                 return false;
             }
         }
+        
+
+    	if(aExpression.getMetadataMap() != null && aExpression.getMetadataMap().containsKey("\"op\""))
+    	{
+    	    arguments[arguments.length-1] = aExpression;
+    	}
+            
 
         return (iString.equals(aExpression.car()));
     }

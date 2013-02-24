@@ -195,12 +195,12 @@ RulebaseListedHoldArguments("StepsView",[steps, optionsList]);
     
     options := OptionsToAssociativeList(optionsList);
     
-    problemMessage := "Solve\\ " ~ ToString(TexFormNoDollarSigns(steps[1][1])) ~ "\\ for\\ " ~ ToString(steps[1][4]) ~ ".";
+    problemMessage := "Solve\\ " ~ ToString(ToAtom(ListToString(Remove(StringToList(UnparseLatex(TagLeftBranchDominantFunction(RemoveDollarSigns(steps[1][1])))),"$"))) ) ~ "\\ for\\ " ~ ToString(steps[1][4]) ~ ".";
     
     DestructiveAppend(result, LatexView(problemMessage));
     
     
-    Decide(options["ShowTree"] =? "True", DestructiveAppend(result, TreeView(RemoveDollarSigns(steps[1][1]), Scale -> 2)));
+    Decide(options["ShowTree"] =? "True", DestructiveAppend(result, TreeView(TagLeftBranchDominantFunction(RemoveDollarSigns(steps[1][1])), Scale -> 2, Resizable -> False, IncludeExpression -> False)));
     
     
     steps := Rest(steps);
@@ -251,11 +251,25 @@ Compose(result, newExpression, explanation, beforeSimplification, lengthFour?, s
     
     DestructiveAppend(result, LatexView(" \\vspace{.10in}"));
     
-    DestructiveAppend(result, LatexView(TexFormNoDollarSigns(newExpression)));
     
-    Decide(showTree? =? "True", DestructiveAppend(result, TreeView(RemoveDollarSigns(newExpression), Scale -> 2)));
+    DestructiveAppend(result, LatexView(ToAtom(ListToString(Remove(StringToList(UnparseLatex(TagLeftBranchDominantFunction(RemoveDollarSigns(newExpression)))),"$"))) ));
+    
+    //Echo(ListToString(Remove(StringToList(UnparseLatex(TagLeftBranchDominantFunction(RemoveDollarSigns(newExpression)))),"$")));
+    
+    Decide(showTree? =? "True", DestructiveAppend(result, TreeView(TagLeftBranchDominantFunction(RemoveDollarSigns(newExpression)), Scale -> 2, Resizable -> False, IncludeExpression -> False)));
     
     result;   
+};
+
+
+TagLeftBranchDominantFunction(expression) :=
+{
+    If(Function?(expression) And? Function?(Cdr(Car(expression))))
+    {
+        MetaSet(Car(Cdr(Car(expression))),"op",True);
+    };
+    
+    expression;
 };
 
 

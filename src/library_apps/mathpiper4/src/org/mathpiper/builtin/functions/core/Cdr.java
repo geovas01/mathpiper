@@ -15,26 +15,27 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.Cons;
+import org.mathpiper.lisp.cons.SublistCons;
 
 /**
  *
  *  
  */
-public class Assigned_ extends BuiltinFunction
+public class Cdr extends BuiltinFunction
 {
 
-    private Assigned_()
+    private Cdr()
     {
     }
 
-    public Assigned_(String functionName)
+    public Cdr(String functionName)
     {
         this.functionName = functionName;
     }
@@ -42,49 +43,46 @@ public class Assigned_ extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
-        
-        if (getArgument(aEnvironment, aStackTop, 1).car() instanceof String)
-        {
-            String str =  (String) getArgument(aEnvironment, aStackTop, 1).car();
+	Cons argumentCons = getArgument(aEnvironment, aStackTop, 1);
 
-            Cons val = aEnvironment.getLocalOrGlobalVariable(aStackTop, str);
-            if (val != null)
-            {
-                setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
-                return;
-            }
-        }
-        setTopOfStack(aEnvironment, aStackTop, Utility.getFalseAtom(aEnvironment));
+	Object object = argumentCons.cdr();
+	
+	if(object == null)
+	{
+	    Cons head = aEnvironment.iListAtom.copy(false);
+
+	    setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, head));
+	}
+	else
+	{
+	    setTopOfStack(aEnvironment, aStackTop, ((Cons)object));
+	}
+        
     }
 }
 
 
 
 /*
-%mathpiper_docs,name="Assigned?",categories="User Functions;Predicates;Built In"
-*CMD Assigned? --- determine if a variable has a value assigned to it
+%mathpiper_docs,name="Cdr",categories="Programmer Functions;Programming;Built In"
+*CMD Cdr --- the rest of a Lisp list
 *CORE
 *CALL
-	Assigned?(var)
+	Cdr(lispList)
 
 *PARMS
 
-{var} -- variable to test
+{lispList} -- a lisp list
 
 *DESC
 
-This function tests whether the variable "var" has a value assigned to it. 
-The argument "var" is not evaluated.
+This function returns the rest of a Lisp list.
 
 *E.G.
 
-In> Assigned?(x);
-Result: False;
-In> x := 5;
-Result: 5;
-In> Assigned?(x);
-Result: True;
+In> Cdr(Car([a,b,c]))
+Result: a
 
-*SEE Atom?
+*SEE Car
 %/mathpiper_docs
 */
