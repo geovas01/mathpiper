@@ -62,6 +62,8 @@ public class EditorPaneStructure extends JPanel {
         treePanel.add(new JLabel("Views structure (Select node to highlight the view's bounds)"), new GridBagConstraints(0, 2, 1, 1, 1, 0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
 
         scroll = new JScrollPane(trView);
+        scroll.getVerticalScrollBar().setUnitIncrement(16);
+        scroll.getVerticalScrollBar().setUnitIncrement(16);
         scroll.setPreferredSize(new Dimension(300, 200));
         treePanel.add(scroll, new GridBagConstraints(0, 3, 1, 1, 1, 1, GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 0, 0));
 

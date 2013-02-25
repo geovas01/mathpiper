@@ -139,6 +139,7 @@ public class ScreenCapture
 		final JFrame frame = new JFrame();
 		final JTextArea textArea = new JTextArea(30, 60);
 		final JScrollPane scrollPane = new JScrollPane( textArea );
+		scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 		frame.getContentPane().add( scrollPane );
 
 		JMenuBar menuBar = new JMenuBar();

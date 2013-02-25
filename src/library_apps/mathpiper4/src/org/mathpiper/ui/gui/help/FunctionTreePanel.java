@@ -150,6 +150,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         treePanel.setLayout(new BorderLayout());
         treePanel.add(functionsTree);
         treeViewScrollPane = new JScrollPane(treePanel);
+        treeViewScrollPane.getVerticalScrollBar().setUnitIncrement(16);
         treeViewScrollPane.getVerticalScrollBar().setUnitIncrement(60);
         treeViewScrollPane.getVerticalScrollBar().setBlockIncrement(180);
 
@@ -163,7 +164,8 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
         //JdocsScrollPane editorScrollPane = new JScrollPane(editorPane);
         docsScrollPane = new JScrollPane(editorPane, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-
+        docsScrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        
 
         JTabbedPane tabbedPane = new JTabbedPane();
 
@@ -1637,7 +1639,8 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
             list.setVisibleRowCount(-1);
 
             listScroller = new JScrollPane(list, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-
+            listScroller.getVerticalScrollBar().setUnitIncrement(16);
+            
             this.add(listScroller);
 
 

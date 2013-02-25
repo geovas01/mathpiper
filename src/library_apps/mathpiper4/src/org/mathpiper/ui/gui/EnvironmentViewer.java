@@ -107,6 +107,7 @@ public class EnvironmentViewer implements ActionListener {
 
         textArea.setEditable(false);
         JScrollPane outputPane = new JScrollPane(textArea);
+        outputPane.getVerticalScrollBar().setUnitIncrement(16);
 
 
         JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, multiSplitPane, outputPane);
@@ -137,6 +138,7 @@ public class EnvironmentViewer implements ActionListener {
         table = this.getUserFunctionsTable(aEnvironment);
         tables.add(table);
         scrollPane = new JScrollPane(table);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         tables.add(scrollPane);
         multiSplitPane.add(scrollPane, "two");
 
@@ -144,6 +146,7 @@ public class EnvironmentViewer implements ActionListener {
         table = this.getBuiltinFunctionsTable(aEnvironment);
         tables.add(table);
         scrollPane = new JScrollPane(table);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         tables.add(scrollPane);
         multiSplitPane.add(scrollPane, "three");
 
@@ -834,6 +837,7 @@ public class EnvironmentViewer implements ActionListener {
     private JScrollPane getJScrollPane() {
         if (jScrollPane == null) {
             jScrollPane = new JScrollPane();
+            jScrollPane.getVerticalScrollBar().setUnitIncrement(16);
             //jScrollPane.setViewportView(getJTable());
         }
         return jScrollPane;

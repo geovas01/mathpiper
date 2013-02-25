@@ -217,7 +217,8 @@ public class TreeView extends BuiltinFunction {
 	    MathPanelController treePanelScaler = new MathPanelController(treePanel, viewScale);
 	    
 	    JScrollPane treeScrollPane = new JScrollPane(treeScreenCapturePanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-
+	    treeScrollPane.getVerticalScrollBar().setUnitIncrement(16);
+	    
             panel.add(latexScreenCapturePanel, BorderLayout.NORTH);
             panel.add(treeScrollPane, BorderLayout.CENTER);
             panel.add(treePanelScaler, BorderLayout.SOUTH);
@@ -228,7 +229,8 @@ public class TreeView extends BuiltinFunction {
 	    MathPanelController treePanelScaler = new MathPanelController(treePanel, viewScale);
 	    
 	    JScrollPane treeScrollPane = new JScrollPane(treeScreenCapturePanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-
+	    treeScrollPane.getVerticalScrollBar().setUnitIncrement(16);
+	    
             panel.add(treeScrollPane, BorderLayout.CENTER);
             panel.add(treePanelScaler, BorderLayout.SOUTH);
 	}
@@ -302,19 +304,19 @@ Returns a Java GUI component that contains an expression rendered as an
 expression tree.
 
 Options are entered using the -> operator.
-For example, here is how to set the {Resizable} option: {Resizable -> True}.
+For example, here is how to disable {Resizable} option: {Resizable -> False}.
 
 Right click on the images that are displayed to save them.
  
 *E.G.
 
-In> Show(TreeView( '(a*(b+c) == a*b + a*c), Resizable -> True, IncludeExpression -> True))
+In> Show(TreeView( '(a*(b+c) == a*b + a*c)))
 Result: java.awt.Component
 
-In> Show(TreeView( "a*(b+c) == a*b + a*c",  Resizable -> True, IncludeExpression -> True))
+In> Show(TreeView( "a*(b+c) == a*b + a*c"))
 Result: java.awt.Component
 
-In> Show(TreeView( "(+ 1 (* 2 3))", Lisp -> True, Code -> True, Resizable -> True, IncludeExpression -> True))
+In> Show(TreeView( "(+ 1 (* 2 3))", Lisp -> True))
 Result: java.awt.Component
 
 

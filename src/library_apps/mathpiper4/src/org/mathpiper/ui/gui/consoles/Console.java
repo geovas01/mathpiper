@@ -155,6 +155,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
         textPane.addKeyListener(this);
         typePane = new JScrollPane(textPane);
+        typePane.getVerticalScrollBar().setUnitIncrement(16);
         //guiBox.add(typePane);
 
 
@@ -231,6 +232,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
 
         rawOutputScrollPane = new JScrollPane(rawOutputTextArea);
+        rawOutputScrollPane.getVerticalScrollBar().setUnitIncrement(16);
         rawOutputPanel.add(rawOutputScrollPane);
 
 
