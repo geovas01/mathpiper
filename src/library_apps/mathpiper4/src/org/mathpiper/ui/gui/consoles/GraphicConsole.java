@@ -170,6 +170,8 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
         //textArea = new JTextArea(30, 20);
         textPane = new ColorPane();
+        
+        textPane.addCaretListener(new BracketMatcher());
 
         textPane.append(purple, "MathPiper version " + org.mathpiper.Version.version() + "\n");
         textPane.append(purple, "Enter an expression after any In> prompt and press <enter> or <shift><enter> to evaluate it.\n");
