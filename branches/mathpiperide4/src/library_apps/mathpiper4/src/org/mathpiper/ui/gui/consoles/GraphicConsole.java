@@ -187,6 +187,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
         textPane.addKeyListener(this);
         typePane = new JScrollPane(textPane);
+        typePane.getVerticalScrollBar().setUnitIncrement(16);
         //guiBox.add(typePane);
 
         StyledDocument document = textPane.getStyledDocument();
@@ -296,6 +297,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
 
         realtimeOutputScrollPane = new JScrollPane(realtimeOutputTextArea);
+        realtimeOutputScrollPane.getVerticalScrollBar().setUnitIncrement(16);
         realtimeOutputPanel.add(realtimeOutputScrollPane);
 
 

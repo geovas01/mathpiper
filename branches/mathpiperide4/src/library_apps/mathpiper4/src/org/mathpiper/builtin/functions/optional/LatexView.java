@@ -147,6 +147,7 @@ public class LatexView extends BuiltinFunction {
 	if(includeSlider)
 	{
             JScrollPane jMathTexScrollPane = new JScrollPane(screenCapturePanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+            jMathTexScrollPane.getVerticalScrollBar().setUnitIncrement(16);
             jMathTexScrollPane.getViewport().setBackground(Color.WHITE);
             box.add(jMathTexScrollPane);
             box.add(latexPanelController);

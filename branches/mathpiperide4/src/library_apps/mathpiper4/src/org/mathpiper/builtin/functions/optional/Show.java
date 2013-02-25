@@ -129,7 +129,7 @@ public class Show extends BuiltinFunction {
         }
         
         JScrollPane scrollPane = new JScrollPane(box,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         
         contentPane.add(scrollPane);
         
@@ -194,12 +194,10 @@ public class Show extends BuiltinFunction {
 Displays a GUI window that contains a Java GUI component. These GUI components 
 are usually returned from XXXView functions.
 
-Options are entered using the -> operator.
-For example, here is how to set the {Title} option: {Title -> True}.
 
 
 *E.G.
-In> Show(TreeView( '(a*(b+c) == a*b + a*c), Resizable -> True))
+In> Show(TreeView( '(a*(b+c) == a*b + a*c)))
 Result: class javax.swing.JFrame
 
 *SEE TreeView, LatexView

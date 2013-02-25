@@ -54,7 +54,7 @@ public class ViewList extends BuiltinFunction {
         screenCapturePanel.add(listPanel);
 
         JScrollPane scrollPane = new JScrollPane(screenCapturePanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         contentPane.add(scrollPane);
         contentPane.add(mathPanelScaler, BorderLayout.NORTH);
 

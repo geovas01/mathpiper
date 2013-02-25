@@ -76,6 +76,7 @@ public class ViewHtml extends BuiltinFunction {
         JEditorPane editorPane = new JEditorPane();
         editorPane.setEditorKit(new javax.swing.text.html.HTMLEditorKit());
         JScrollPane editorScrollPane = new JScrollPane(editorPane);
+        editorScrollPane.getVerticalScrollBar().setUnitIncrement(16);
         editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         editorPane.setEditable(false);
         editorPane.setText(htmlText);

@@ -134,6 +134,7 @@ public class ViewMath extends BuiltinFunction {
         //
         MathPanelController treePanelScaler = new MathPanelController(treePanel,viewScale.toDouble());
         JScrollPane treeScrollPane = new JScrollPane(treePanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        treeScrollPane.getVerticalScrollBar().setUnitIncrement(16);
         treeControllerPanel.add(treeScrollPane);
         treeControllerPanel.add(treePanelScaler, BorderLayout.NORTH);
         tabbedPane.addTab("Expression Tree", null, treeControllerPanel, "Expression tree viewer..");
@@ -147,6 +148,7 @@ public class ViewMath extends BuiltinFunction {
         MathPanel mathPanel = new MathPanel(sBoxExpression, viewScale.toDouble());
         MathPanelController mathPanelScaler = new MathPanelController(mathPanel, viewScale.toDouble());
         JScrollPane scrollPane = new JScrollPane(mathPanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         mathControllerPanel.add(scrollPane);
         mathControllerPanel.add(mathPanelScaler, BorderLayout.NORTH);
         tabbedPane.addTab("Math Form", null, mathControllerPanel, "Math expression viewer.");
@@ -170,6 +172,7 @@ public class ViewMath extends BuiltinFunction {
         screenCapturePanel.add(latexLabel);
 
         JScrollPane jMathTexScrollPane = new JScrollPane(screenCapturePanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         jMathTexScrollPane.getViewport().setBackground(Color.WHITE);
         box.add(jMathTexScrollPane);
 
