@@ -10,7 +10,7 @@ OptionsToAssociativeList(optionList) :=
         Decide(option[0] =? ->,
         {
             Decide(String?(option[1]), key := option[1], key := ToString(option[1]));
-            Decide(String?(option[2]), value := option[2], value := ToString(option[2]));
+            Decide(String?(option[2]) Or? Number?(option[2]) Or? Constant?(option[2]), value := option[2], value := ToString(option[2]));
             
             associativeList := [key, value] ~ associativeList;
         
@@ -38,7 +38,7 @@ into an associative list.
 
 *E.G.
 In> OptionsToAssociativeList([a ->1, b -> 2])
-Result> [["b","2"],["a","1"]]
+Result> [["b",2],["a",1]]
 
 %/mathpiper_docs
 

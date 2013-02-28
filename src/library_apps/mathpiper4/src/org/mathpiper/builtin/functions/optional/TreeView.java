@@ -187,7 +187,7 @@ public class TreeView extends BuiltinFunction {
         
 
         
-        int viewScale = (int) ((Double)userOptions.get("Scale")).doubleValue();
+        double viewScale = ((Double)userOptions.get("Scale")).doubleValue();
         
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());

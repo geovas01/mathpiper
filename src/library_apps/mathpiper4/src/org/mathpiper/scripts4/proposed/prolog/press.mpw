@@ -189,11 +189,22 @@ RulebaseListedHoldArguments("StepsView",[steps, optionsList]);
 //options come in a list.
 10 # StepsView(_steps, optionsList_List?) <--
 {
-    Local(result, currentEquation, options, message);
+    Local(result, currentEquation, options, message, treeScale, latexScale);
     
     result := [];
         
     options := OptionsToAssociativeList(optionsList);
+    
+    If(Number?(options["Scale"]))
+    {
+        treeScale := options["Scale"];
+    }
+    Else
+    {
+        treeScale := 1.5;
+    };
+    
+    latexScale := treeScale * 17;
     
     message := 
 "\\footnotesize \\mbox{
@@ -202,7 +213,7 @@ operator that has the lowest precedence. This is always the top \\\\
 operator on the left branch of the equation's expression tree.\\\\
 \\vspace{.75in}
 The expression tree of an equation that has only one occurrence of \\\\
-the variable to be isolated can be solved using the following simple\\\\
+the variable to be isolated can be solved using the following\\\\
 procedure:\\\\
 \\vspace{.75in}
 1) Identify the operator that is at the top of the left branch of the\\\\
@@ -217,15 +228,16 @@ procedure:\\\\
 \\hspace{.5in}the top of the right branch of the tree.\\\\
 \\vspace{.75in}
 }";
-DestructiveAppend(result, LatexView(message));
+    
+    DestructiveAppend(result, LatexView(message, Scale -> latexScale));
     
 
     
     message := "\\text{Solve}\\ " ~ ToString(ToAtom(ListToString(Remove(StringToList(UnparseLatex(TagLeftBranchDominantFunction(RemoveDollarSigns(steps[1][1])))),"$"))) ) ~ "\\ \\text{for}\\ " ~ ToString(steps[1][4]) ~ ".";
-    DestructiveAppend(result, LatexView(message));
+    DestructiveAppend(result, LatexView(message, Scale -> latexScale));
     
     
-    Decide(options["ShowTree"] =? "True", DestructiveAppend(result, TreeView(TagLeftBranchDominantFunction(RemoveDollarSigns(steps[1][1])), Scale -> 2, Resizable -> False, IncludeExpression -> False)));
+    Decide(options["ShowTree"] =? True, DestructiveAppend(result, TreeView(TagLeftBranchDominantFunction(RemoveDollarSigns(steps[1][1])), Scale -> treeScale, Resizable -> False, IncludeExpression -> False)));
     
     
     steps := Rest(steps);
@@ -235,16 +247,15 @@ DestructiveAppend(result, LatexView(message));
     {   
         If(Not? List?(rest[1]))
         {
-            result := Compose(result, rest[1], rest[3], rest[4], Length(rest) =? 4, options["ShowTree"]);
+            result := Compose(result, rest[1], rest[3], rest[4], Length(rest) =? 4, options["ShowTree"], treeScale, latexScale);
         }
         Else
         {
-            result := Compose(result, rest[1][1], rest[3][1], rest[4][1], Length(rest) =? 4, options["ShowTree"]);
+            result := Compose(result, rest[1][1], rest[3][1], rest[4][1], Length(rest) =? 4, options["ShowTree"],  treeScale, latexScale);
             
-            result := Compose(result, rest[1][2], rest[3][2], rest[4][2], Length(rest) =? 4, options["ShowTree"]);
+            result := Compose(result, rest[1][2], rest[3][2], rest[4][2], Length(rest) =? 4, options["ShowTree"],  treeScale, latexScale);
         };
         
-
     };
 
     
@@ -262,26 +273,26 @@ DestructiveAppend(result, LatexView(message));
 
 
 
-Compose(result, newExpression, explanation, beforeSimplification, lengthFour?, showTree?) :=
+Compose(result, newExpression, explanation, beforeSimplification, lengthFour?, showTree?, treeScale, latexScale) :=
 {
-    DestructiveAppend(result, LatexView(" \\vspace{.75in}"));
+    DestructiveAppend(result, LatexView(" \\vspace{.75in}", Scale -> latexScale));
 
-    DestructiveAppend(result, LatexView(ToLatex(explanation)));
+    DestructiveAppend(result, LatexView(ToLatex(explanation),Scale -> latexScale));
     
     If(lengthFour?)
     {
-        DestructiveAppend(result, LatexView(" \\vspace{.10in}"));
-        DestructiveAppend(result, LatexView(TexFormNoDollarSigns(beforeSimplification)));
+        DestructiveAppend(result, LatexView(" \\vspace{.10in}", Scale -> latexScale));
+        DestructiveAppend(result, LatexView(TexFormNoDollarSigns(beforeSimplification),Scale -> latexScale));
     };
     
-    DestructiveAppend(result, LatexView(" \\vspace{.10in}"));
+    DestructiveAppend(result, LatexView(" \\vspace{.10in}", Scale -> latexScale));
     
     
-    DestructiveAppend(result, LatexView(ToAtom(ListToString(Remove(StringToList(UnparseLatex(TagLeftBranchDominantFunction(RemoveDollarSigns(newExpression)))),"$"))) ));
+    DestructiveAppend(result, LatexView(ToAtom(ListToString(Remove(StringToList(UnparseLatex(TagLeftBranchDominantFunction(RemoveDollarSigns(newExpression)))),"$"))), Scale -> latexScale ));
     
     //Echo(ListToString(Remove(StringToList(UnparseLatex(TagLeftBranchDominantFunction(RemoveDollarSigns(newExpression)))),"$")));
     
-    Decide(showTree? =? "True", DestructiveAppend(result, TreeView(TagLeftBranchDominantFunction(RemoveDollarSigns(newExpression)), Scale -> 2, Resizable -> False, IncludeExpression -> False)));
+    Decide(showTree? =? True, DestructiveAppend(result, TreeView(TagLeftBranchDominantFunction(RemoveDollarSigns(newExpression)), Scale -> treeScale, Resizable -> False, IncludeExpression -> False)));
     
     result;   
 };
@@ -391,17 +402,19 @@ Isolax(side, equation) :=
 
 
 
-Show(StepsView(SolveEquation( '( ((- a) * b )/ c + d == e ), a), ShowTree -> True))
+In> Show(StepsView(SolveEquation( '( ((- a) * b )/ c + d == e ), a), ShowTree -> True))
 
-Show(StepsView(SolveEquation( '( ((- a) * b )/ c + 2*d + 7 == e ), a), ShowTree -> True))
+In> Show(StepsView(SolveEquation( '( ((- a) * b )/ c + d == e ), a), ShowTree -> True, Scale -> 3))
 
-Show(StepsView(SolveEquation( '( ((- a) * b^f)/c+d == e), b), ShowTree -> True))
+In> Show(StepsView(SolveEquation( '( ((- a) * b )/ c + 2*d + 7 == e ), a), ShowTree -> True))
 
-Show(StepsView(SolveEquation( '( ((- a) * b^2)/c+d == e), b), ShowTree -> True))
+In> Show(StepsView(SolveEquation( '( ((- a) * b^f)/c+d == e), b), ShowTree -> True))
 
-Show(StepsView(SolveEquation( '( ((a^2 * 7/b)/c^3 * d^2)/ 5* e == f), b) , ShowTree -> True))
+In> Show(StepsView(SolveEquation( '( ((- a) * b^2)/c+d == e), b), ShowTree -> True))
 
-Show(StepsView(SolveEquation( '( 7/b == c), b), ShowTree -> True))
+In> Show(StepsView(SolveEquation( '( ((a^2 * 7/b)/c^3 * d^2)/ 5* e == f), b) , ShowTree -> True))
+
+In> Show(StepsView(SolveEquation( '( 7/b == c), b), ShowTree -> True))
 
 
 
@@ -439,6 +452,7 @@ Show([TreeView(x^2, Scale -> 3, Resizable -> False), TreeView(x^2, Scale -> 3, R
 {Options:}
 
 {ShowTree} -- if True, include an expression tree with each step
+{Scale} -- sets the size of the output
 
 
 *DESC
@@ -449,6 +463,9 @@ Right click on the images that are displayed to save them.
 *E.G.
 
 In> Show(StepsView(SolveEquation( '( ((- a) * b )/ c + d == e ), a), ShowTree -> True))
+Result: class javax.swing.JFrame
+
+In> Show(StepsView(SolveEquation( '( ((- a) * b )/ c + d == e ), a), ShowTree -> True, Scale -> 2.1))
 Result: class javax.swing.JFrame
 
 In> Show(StepsView(SolveEquation( '( ((- a) * b )/ c + 2*d + 7 == e ), a), ShowTree -> True))

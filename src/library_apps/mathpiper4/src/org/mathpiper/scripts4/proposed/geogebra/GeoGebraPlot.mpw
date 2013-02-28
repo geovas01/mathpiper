@@ -32,7 +32,7 @@ RulebaseListedHoldArguments("GeoGebraPlot",[arg1,arg2]);
     
     Decide(Odd?(length), list := Append(list,list[length])); //Make list even for line drawing.
     
-    Decide(options["pointSize"] !=? Empty, pointSize := options["pointSize"], pointSize := "1");
+    Decide(options["pointSize"] !=? Empty, pointSize := ToString(options["pointSize"]), pointSize := "1");
     
     index := 1;
     
@@ -59,7 +59,7 @@ RulebaseListedHoldArguments("GeoGebraPlot",[arg1,arg2]);
         
         JavaCall(geogebra,"evalXML",code);
         
-        Decide(options["lines"] =? "True" And? labelIndex >? 1,
+        Decide(options["lines"] =? True And? labelIndex >? 1,
         {
             
             command := PatchString("a<?Write(labelIndex-1);?> = Segment[A<?Write(labelIndex-1);?>,A<?Write(labelIndex);?>]");

@@ -17,7 +17,7 @@ LoadLibraryFunction("AntiDeriv");
 
     result := Integrate(var) expr;
 
-    Decide( optionsList["logAbs"] =? "True", result := ( result /: [Ln(_x) <- Ln(Abs(x))]) );
+    Decide( optionsList["logAbs"] =? True, result := ( result /: [Ln(_x) <- Ln(Abs(x))]) );
 
     result;
 };
@@ -50,7 +50,7 @@ LoadLibraryFunction("AntiDeriv");
 
     result := Integrate(var,from,to) expr;
 
-    Decide( optionsList["logAbs"] =? "True", result := ( result /: [Ln(_x) <- Ln(Abs(x))]) );
+    Decide( optionsList["logAbs"] =? True, result := ( result /: [Ln(_x) <- Ln(Abs(x))]) );
 
     result;
 };
