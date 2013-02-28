@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -60,11 +62,14 @@ public class ViewList extends BuiltinFunction {
 
         frame.setAlwaysOnTop(false);
         frame.setTitle("List Viewer");
-        frame.setSize(new Dimension(300, 200));
         frame.setResizable(true);
+        frame.pack();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int height = screenSize.height;
+        int width = screenSize.width;
+        frame.setSize(width/2, height/2);
         frame.setLocationRelativeTo(null);
 
-        frame.pack();
         frame.setVisible(true);
 
         return frame;

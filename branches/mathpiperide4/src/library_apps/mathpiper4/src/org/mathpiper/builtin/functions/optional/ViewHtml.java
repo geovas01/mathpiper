@@ -18,6 +18,8 @@ package org.mathpiper.builtin.functions.optional;
 
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -81,12 +83,15 @@ public class ViewHtml extends BuiltinFunction {
         editorPane.setEditable(false);
         editorPane.setText(htmlText);
         contentPane.add(editorScrollPane);
-        frame.pack();
         frame.setAlwaysOnTop(false);
         frame.setTitle("MathPiper");
-        frame.setSize(new Dimension(750, 650));
+        frame.pack();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int height = screenSize.height;
+        int width = screenSize.width;
+        frame.setSize(width/2, height/2);
         frame.setResizable(true);
-        //frame.setPreferredSize(new Dimension(400, 400));
+
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
