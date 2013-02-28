@@ -212,8 +212,8 @@ The dominant operator on the left side of an equation is the\\\\
 operator that has the lowest precedence. This is always the top \\\\
 operator on the left branch of the equation's expression tree.\\\\
 \\vspace{.75in}
-The expression tree of an equation that has only one occurrence of \\\\
-the variable to be isolated can be solved using the following\\\\
+The expression tree of an equation that has only one occurrence\\\\
+of the variable to be isolated can be solved using the following\\\\
 procedure:\\\\
 \\vspace{.75in}
 1) Identify the operator that is at the top of the left branch of the\\\\

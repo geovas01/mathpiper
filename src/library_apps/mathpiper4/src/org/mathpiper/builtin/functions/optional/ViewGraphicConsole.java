@@ -21,6 +21,8 @@ package org.mathpiper.builtin.functions.optional;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.Toolkit;
+
 import javax.swing.JFrame;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
@@ -51,13 +53,16 @@ public class ViewGraphicConsole extends BuiltinFunction
         Container contentPane = frame.getContentPane();
         contentPane.add(console, BorderLayout.CENTER);
         //frame.setAlwaysOnTop(true);
-        frame.setSize(new Dimension(800, 600));
         frame.setDefaultCloseOperation(frame.DISPOSE_ON_CLOSE);
         //frame.setResizable(false);
         frame.setTitle("Graphic Console");
-        frame.setPreferredSize(new Dimension(800, 600));
-        frame.setLocationRelativeTo(null); // added
+        //frame.setPreferredSize(new Dimension(800, 600));
         frame.pack();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int height = screenSize.height;
+        int width = screenSize.width;
+        frame.setSize(width/2, height/2);
+        frame.setLocationRelativeTo(null); // added
         frame.setVisible(true);
 
         JavaObject response = new JavaObject(frame);

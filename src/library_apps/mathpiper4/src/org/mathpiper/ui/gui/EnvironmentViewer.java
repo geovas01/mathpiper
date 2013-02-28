@@ -172,9 +172,11 @@ public class EnvironmentViewer implements ActionListener {
         frame.pack();
 //frame.setAlwaysOnTop(true);
         frame.setTitle("MathPiper Environment");
-        frame.setSize(new Dimension(700, 400));
-        //frame.setResizable(false);
-        frame.setPreferredSize(new Dimension(700, 400));
+        frame.pack();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int height = screenSize.height;
+        int width = screenSize.width;
+        frame.setSize(width/2, height/2);
         frame.setLocationRelativeTo(null); // added
 
         frame.setVisible(true);

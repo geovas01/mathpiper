@@ -120,7 +120,11 @@ public class InterpreterTest implements ResponseListener
     	ggbPanel.setShowToolbar(true);
     	ggbPanel.buildGUI();
     	contentPane.add(ggbPanel);
-        frame.setBounds ( 10 , 10 , 700 , 700 );
+        frame.pack();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int height = screenSize.height;
+        int width = screenSize.width;
+        frame.setSize(width/2, height/2);
         frame.setVisible(true);
 
         geogebra.plugin.GgbAPI ggbAPI = ggbPanel.getGeoGebraAPI();

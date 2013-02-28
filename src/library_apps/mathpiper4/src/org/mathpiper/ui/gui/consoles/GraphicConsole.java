@@ -23,6 +23,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -389,11 +390,12 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                 
     
                 frame.setTitle("MathPiper Docs");
-                frame.setSize(new Dimension(800, 700));
-                //frame.setResizable(false);
-                frame.setPreferredSize(new Dimension(800, 700));
-                frame.setLocationRelativeTo(null); // added
                 frame.pack();
+                Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+                int height = screenSize.height;
+                int width = screenSize.width;
+                frame.setSize(width/2, height/2);
+                frame.setLocationRelativeTo(null); // added
                 frame.setVisible(true);
     
             }
@@ -1648,9 +1650,13 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
         });
 
-        frame.setPreferredSize(new Dimension(800, 600));
-        frame.setLocationRelativeTo(null); // added
         frame.pack();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int height = screenSize.height;
+        int width = screenSize.width;
+        frame.setSize(width/2, height/2);
+        frame.setLocationRelativeTo(null); // added
+
         frame.setVisible(true);
     }//end main.
 

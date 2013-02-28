@@ -19,6 +19,7 @@ package org.mathpiper.ui.gui.help;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -1743,9 +1744,11 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
             frame.pack();
 
             frame.setTitle("MathPiper Docs");
-            frame.setSize(new Dimension(700, 700));
-            //frame.setResizable(false);
-            frame.setPreferredSize(new Dimension(700, 700));
+            frame.pack();
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            int height = screenSize.height;
+            int width = screenSize.width;
+            frame.setSize(width/2, height/2);
             frame.setLocationRelativeTo(null); // added
 
             frame.setVisible(true);

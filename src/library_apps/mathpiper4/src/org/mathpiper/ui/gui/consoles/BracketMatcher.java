@@ -169,8 +169,13 @@ public class BracketMatcher implements CaretListener
 	f.getContentPane().add(new JScrollPane(p));
 	p.setFont(new Font("Monospaced", 0, 12));
 	p.addCaretListener(new BracketMatcher());
-	f.setSize(400, 400);
 	f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	f.pack();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int height = screenSize.height;
+        int width = screenSize.width;
+        f.setSize(width/2, height/2);
+        f.setLocationRelativeTo(null);
 	f.setVisible(true);
     }
 }

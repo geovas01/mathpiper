@@ -22,6 +22,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.MenuBar;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -105,8 +106,12 @@ public class Show extends BuiltinFunction {
 
         frame.setAlwaysOnTop(false);
         frame.setTitle((String) userOptions.get("title"));
-        frame.setSize(new Dimension(300, 300));
         frame.setResizable(true);
+        frame.pack();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int height = screenSize.height;
+        int width = screenSize.width;
+        frame.setSize(width/2, height/2);
         frame.setLocationRelativeTo(null);        
         
         while(dataList != null)
@@ -150,8 +155,6 @@ public class Show extends BuiltinFunction {
 	menuBar.add(fileMenu);
 	
 	frame.setJMenuBar(menuBar);
-        
-        frame.pack();
 
         frame.setVisible(true);
         
