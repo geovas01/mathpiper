@@ -1953,22 +1953,25 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 			}
 			else
 			{
-			
-			try 
-			{   
-				uart = org.mathpiper.ide.u6502.EMU6551.getInstance();
-				uart.send("L\n");
-				codeText = codeText.replaceAll(" ", "");
-				codeText = codeText.replaceAll("\t", "");
-				uart.send(codeText + "\n");
 				
-				output_fold_type = "%output";
-				
-			}catch(java.io.IOException e) 
-			{
-				result = e.getMessage();
-				output_fold_type = "%error";
-			}
+				try 
+				{   
+					uart = org.mathpiper.ide.u6502.EMU6551.getInstance();
+					uart.send("L\n");
+					codeText = codeText.replaceAll(" ", "");
+					codeText = codeText.replaceAll("\t", "");
+					uart.send(codeText + "\n");
+					
+					output_fold_type = "%output";
+					
+				}catch(Exception e) 
+				{
+					result = e.getMessage();
+					
+					e.printStackTrace();
+										
+					output_fold_type = "%error";
+				}
 			}//end if/else.
 			
 		}//end else
