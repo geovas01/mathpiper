@@ -28,13 +28,18 @@ public class CircularBuffer
 	public CircularBuffer()
 	{
 		super();
-		array = new int[1000];
+		array = new int[10000];
 		head = tail = 0;
 	}//end constructor.
 	
 	
-	public void put(int val)
+	public void put(int val) throws Exception
 	{
+		if(tail + 1 == head)
+		{
+			throw new Exception("Input buffer overrun.");
+		}
+		
 		array[tail++] = val;
 		
 		if(tail == array.length)

@@ -383,6 +383,10 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 			{
 				ev.printStackTrace();
 			}
+			catch(Exception ev)
+			{
+				ev.printStackTrace();
+			}
 		}
 		else
 		{
@@ -392,7 +396,16 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 			{
 				deleteFlag = true;
 			}
-			buffer.put((int) key);
+			
+			try
+			{
+			    buffer.put((int) key);
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+			}
+			
 			setReceiveDataRegisterFull(true);
 		}
 	}
@@ -500,7 +513,7 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
       return instance;
    }//end method.
    
-   public void send(String text)
+   public void send(String text) throws Exception
    {
 	   char[] chars = text.toCharArray();
 	   
