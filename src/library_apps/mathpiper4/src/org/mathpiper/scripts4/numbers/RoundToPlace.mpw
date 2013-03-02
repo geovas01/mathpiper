@@ -13,7 +13,7 @@
     oldPrec  := rep[2];
     oldScale := rep[3];
     oldPlaces:= oldPrec - oldScale;
-    strOInt  := ExpressionToString(oldInt);
+    strOInt  := ToString(oldInt);
     LS       := Length(strOInt);
     //Decide(InVerboseMode(),
     //   [

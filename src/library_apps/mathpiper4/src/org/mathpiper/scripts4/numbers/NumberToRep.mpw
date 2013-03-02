@@ -30,7 +30,7 @@
        {
           Local(val,prec);
           val  := Assoc("value",assoc)[2];
-          prec := Length(ExpressionToString(val));
+          prec := Length(ToString(val));
           rep := [ sgn*val, prec ];
        }
     );
