@@ -21,7 +21,7 @@
     precision := rep[2];
     sgn       := Sign(bigInt);
     Decide( Length(rep) >? 2, scale := rep[3] );
-    strBI     := ExpressionToString(Abs(bigInt));
+    strBI     := ToString(Abs(bigInt));
     LS        := Length(strBI);
     //Decide(InVerboseMode(),[Tell("   ",[bigInt,precision,scale,sgn]);Tell("   ",strBI);]);
     Decide( Length(rep)=?2,
@@ -30,7 +30,7 @@
            index := precision-scale;
            first := strBI[1];
            secnd := StringMidGet(2,LS-1,strBI);   
-           third := ExpressionToString(index-1);
+           third := ToString(index-1);
            //Decide(InVerboseMode(),Tell("     ",[index,first,secnd,third]));
            If( index >? 0 )
                {

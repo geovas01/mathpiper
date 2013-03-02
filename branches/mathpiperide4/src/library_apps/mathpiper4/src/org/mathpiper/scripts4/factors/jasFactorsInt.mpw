@@ -8,9 +8,9 @@ jasFactorsInt(poly_Polynomial?) <--
     Local(polyStr,vars,strVars,ns,ringDescription,defaultPoly,jasI);
     
     // --- get Java class JFactorsPolyInt into MathPiper form
-    polyStr := ExpressionToString(poly); //  polynomial as string
+    polyStr := ToString(poly); //  polynomial as string
     vars    := VarList(poly);
-    strVars := ExpressionToString( vars );  //  variables as string
+    strVars := ToString( vars );  //  variables as string
     ns      := Length(strVars);
     strVars := strVars[2 .. ns-1];      //  remove enclosing braces
 

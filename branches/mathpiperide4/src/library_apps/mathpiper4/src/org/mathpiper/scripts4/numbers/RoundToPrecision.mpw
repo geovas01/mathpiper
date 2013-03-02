@@ -14,7 +14,7 @@
     oldPrec  := rep[2];
     oldScale := rep[3];
     Decide( newPrec >? oldPrec, BuiltinPrecisionSet(newPrec) );
-    strOInt  := ExpressionToString(oldInt);
+    strOInt  := ToString(oldInt);
     LS       := Length(strOInt);
     //Decide(InVerboseMode(),
     //   [

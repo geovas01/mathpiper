@@ -20,6 +20,7 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.AtomCons;
+import org.mathpiper.lisp.cons.SublistCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
@@ -44,25 +45,38 @@ public class ToString extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
-        Cons evaluated = getArgument(aEnvironment, aStackTop, 1);
+        Cons expression = getArgument(aEnvironment, aStackTop, 1);
 
-        // Get operator
-        if(evaluated  == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
-        String orig = null;
-        if(evaluated.car() instanceof String)
+        if(expression  == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+
+        String resultString = null;
+        
+        if(expression.car() instanceof String)
         {
-                 orig = (String) evaluated.car();
+            if(Utility.isString(expression.car()))
+            {
+               resultString = (String) expression.car();
+            }
+            else
+            {
+        	resultString = Utility.toMathPiperString(aEnvironment, aStackTop, (String) expression.car());
+            }
         }
-        else if(evaluated.car() instanceof BuiltinContainer)
+        else if(expression instanceof SublistCons)
         {
-            BuiltinContainer container = (BuiltinContainer) evaluated.car();
-            orig = container.getObject().toString();
+            resultString =  Utility.toMathPiperString(aEnvironment, aStackTop, Utility.printMathPiperExpression(aStackTop, expression, aEnvironment, 0));
+        }
+        else if(expression.car() instanceof BuiltinContainer)
+        {
+            BuiltinContainer container = (BuiltinContainer) expression.car();
+            
+            resultString = Utility.toMathPiperString(aEnvironment, aStackTop,container.getObject().toString());
         }
 
-        if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if( resultString == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
-        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, Utility.toMathPiperString(aEnvironment, aStackTop, orig)));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, resultString));
     }
 }
 
@@ -73,21 +87,25 @@ public class ToString extends BuiltinFunction
 *CMD ToString --- convert atom to string
 *CORE
 *CALL
-	ToString(atom)
+	ToString(expression)
 
 *PARMS
 
-{atom} -- an atom
+{expression} -- an expression
 
 *DESC
 
-{ToString} is the inverse of {ToAtom}: turns {atom} into {"atom"}.
+This function converts a MathPiper expression into a string. If the expression is already a string,
+it is returned unchanged.
 
 *E.G.
 In> ToString(a)
 Result: "a";
 
-*SEE ToAtom, ExpressionToString
+In> ToString(x^2)
+Result> "x^2"
+
+*SEE ToAtom
 %/mathpiper_docs
 
 
@@ -97,6 +115,7 @@ Result: "a";
 %mathpiper,name="ToString",subtype="automatic_test"
 
  Verify(ToString(a),"a");
+ Verify(ToString(x^2),"x^2");
 
 %/mathpiper
 */
