@@ -16,7 +16,7 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathpiper.lisp.substitute;
+package org.mathpiper.lisp.astprocessors;
 
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.Cons;
@@ -24,7 +24,7 @@ import org.mathpiper.lisp.cons.Cons;
 
 /** Behaviour for substituting sub-expressions.
  */
-public interface Substitute
+public interface ASTProcessor
 {
     public Cons matches(Environment aEnvironment, int aStackTop, Cons aElement) throws Throwable;
 };

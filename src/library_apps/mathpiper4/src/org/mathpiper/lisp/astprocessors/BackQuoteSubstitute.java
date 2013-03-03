@@ -14,7 +14,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathpiper.lisp.substitute;
+package org.mathpiper.lisp.astprocessors;
 
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.Utility;
@@ -22,7 +22,7 @@ import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.SublistCons;
 
-/** Substitute behaviour for backquote mechanism as in LISP.
+/** ASTProcessor behaviour for backquote mechanism as in LISP.
  * When typing `(...) all occurrences of @a will be
  * replaced with:
  * 1) a evaluated if a is an atom
@@ -30,7 +30,7 @@ import org.mathpiper.lisp.cons.SublistCons;
  *    head of function if a is a function. For instance, if
  *    a is f(x) and f is g, then f(x) gets replaced by g(x)
  */
-public class BackQuoteSubstitute implements Substitute {
+public class BackQuoteSubstitute implements ASTProcessor {
 
     Environment iEnvironment;
 

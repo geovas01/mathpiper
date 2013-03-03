@@ -16,6 +16,8 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp;
 
+import org.mathpiper.lisp.astprocessors.BackQuoteSubstitute;
+import org.mathpiper.lisp.astprocessors.ASTProcessor;
 import org.mathpiper.lisp.collections.OperatorMap;
 import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.lisp.cons.SublistCons;
@@ -32,8 +34,6 @@ import org.mathpiper.io.InputStatus;
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.JavaObject;
-import org.mathpiper.lisp.substitute.BackQuoteSubstitute;
-import org.mathpiper.lisp.substitute.Substitute;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 import org.mathpiper.lisp.unparsers.LispUnparser;
 import org.mathpiper.lisp.unparsers.MathPiperUnparser;
@@ -596,7 +596,7 @@ public class Utility {
         return false;
     }
 
-    public static Cons substitute(Environment aEnvironment, int aStackTop, Cons aSource, Substitute aBehaviour) throws Throwable {
+    public static Cons substitute(Environment aEnvironment, int aStackTop, Cons aSource, ASTProcessor aBehaviour) throws Throwable {
         
         Cons sourceCons = aSource;
 

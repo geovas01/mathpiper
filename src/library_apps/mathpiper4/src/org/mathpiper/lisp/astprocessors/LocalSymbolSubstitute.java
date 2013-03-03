@@ -14,17 +14,17 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathpiper.lisp.substitute;
+package org.mathpiper.lisp.astprocessors;
 
 
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.Cons;
 
-/** Substitute behaviour for changing the local variables to have unique
+/** ASTProcessor behaviour for changing the local variables to have unique
  * names.
  */
-public class LocalSymbolSubstitute implements Substitute {
+public class LocalSymbolSubstitute implements ASTProcessor {
 
     Environment iEnvironment;
     String[] iOriginalNames;

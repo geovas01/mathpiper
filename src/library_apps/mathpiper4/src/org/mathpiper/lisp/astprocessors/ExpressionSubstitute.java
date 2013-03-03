@@ -1,4 +1,4 @@
-package org.mathpiper.lisp.substitute;
+package org.mathpiper.lisp.astprocessors;
 
 import org.mathpiper.lisp.Utility;
 
@@ -9,7 +9,7 @@ import org.mathpiper.lisp.cons.Cons;
  * of substitution
  */
 public class ExpressionSubstitute
-        implements Substitute {
+        implements ASTProcessor {
 
     Environment iEnvironment;
     Cons iToMatch;
