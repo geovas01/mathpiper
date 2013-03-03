@@ -34,7 +34,7 @@ VerifyNumeric(expression1, expression2, optionsList) :=
         
         numericValue2 := NM(WithValue(variablesList2, optionsValuesList, expression2 ));
         
-        Echo(Map("->",[variablesList1, optionsValuesList]));
+        Echo(Map(":",[variablesList1, optionsValuesList]));
         
         NewLine();
     };
@@ -87,7 +87,7 @@ VerifyNumeric(expression1, expression2) :=
 
 {symbolicExpression2} -- a symbolic expression
 
-{variableAssignmentList} -- a list which contains variable assignments in the form {b->7,a->4}
+{variableAssignmentList} -- a list which contains variable assignments in the form {b: 7,a: 4}
 
 {numericExpression1} -- a numeric expression
 
@@ -101,7 +101,7 @@ The numeric expression version of this function evaluates two numeric expression
 equivalent or not.
 
 *E.G.
-In> VerifyNumeric((72*a^3*b^5)^(1/2), 6*a*b^2*(2*a*b)^(1/2), [b->7,a->4])
+In> VerifyNumeric((72*a^3*b^5)^(1/2), 6*a*b^2*(2*a*b)^(1/2), [b: 7,a: 4])
 Result: 0.000000
 Side Effects:
 a->4 b->7 

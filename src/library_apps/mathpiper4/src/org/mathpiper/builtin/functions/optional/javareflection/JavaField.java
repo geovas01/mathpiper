@@ -14,7 +14,7 @@ import java.util.Hashtable;
 
 public class JavaField extends Reflector {
 
-  /** Maps field name -> Class -> Field **/
+  /** Maps field name: Class -> Field **/
   static final Hashtable fieldTable     = new Hashtable(20);
   static final Hashtable fieldTablePriv = new Hashtable(20);
   

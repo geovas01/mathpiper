@@ -52,10 +52,10 @@ import org.scilab.forge.jlatexmath.TeXFormula;
  *
  */
 public class TreeView extends BuiltinFunction {
-    // Show(TreeView( "a*(b+c) == a*b + a*c",  Resizable -> True, IncludeExpression -> True))
-    // Show(TreeView( "(+ 1 2)", Prefix -> True, Code -> True, Resizable -> True, IncludeExpression -> True))
+    // Show(TreeView( "a*(b+c) == a*b + a*c",  Resizable: True, IncludeExpression: True))
+    // Show(TreeView( "(+ 1 2)", Prefix: True, Code: True, Resizable: True, IncludeExpression: True))
     // MetaSet(Car(Cdr(Car('(a+(b+c) == d)))),"op",True)
-    // Show(StepsView(SolveEquation( '( ((- a^2) * b )/ c + d == e ), a), ShowTree -> True))
+    // Show(StepsView(SolveEquation( '( ((- a^2) * b )/ c + d == e ), a), ShowTree: True))
 
     private Map defaultOptions;
     
@@ -303,8 +303,8 @@ public class TreeView extends BuiltinFunction {
 Returns a Java GUI component that contains an expression rendered as an
 expression tree.
 
-Options are entered using the -> operator.
-For example, here is how to disable {Resizable} option: {Resizable -> False}.
+Options are entered using the : operator.
+For example, here is how to disable {Resizable} option: {Resizable: False}.
 
 Right click on the images that are displayed to save them.
  
@@ -316,7 +316,7 @@ Result: java.awt.Component
 In> Show(TreeView( "a*(b+c) == a*b + a*c"))
 Result: java.awt.Component
 
-In> Show(TreeView( "(+ 1 (* 2 3))", Lisp -> True))
+In> Show(TreeView( "(+ 1 (* 2 3))", Lisp: True))
 Result: java.awt.Component
 
 

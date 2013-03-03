@@ -88,7 +88,7 @@ ControlChart(data);
 
 %mathpiper,scope="nobuild",subtype="manual_test"
 
-GeoGebraPlot(meansPoints, lines -> True, pointSize -> 3);
+GeoGebraPlot(meansPoints, lines: True, pointSize: 3);
 
 
 GeoGebraPoint("M1",-10,xBarBar);
@@ -111,7 +111,7 @@ ggbLine("XBLCL1","XBLCL2");
 
 
 /*
-GeoGebraPlot(rangesPoints, lines -> True, pointSize -> 3);
+GeoGebraPlot(rangesPoints, lines: True, pointSize: 3);
 
 GeoGebraPoint("RM1",-10,rBar);
 GeoGebraPoint("RM2",-10.1,rBar);
@@ -224,7 +224,7 @@ partsPoints;
 
 %mathpiper,scope="nobuild",subtype="manual_test"
 
-GeoGebraPlot(partsPoints, lines -> True, pointSize -> 3);
+GeoGebraPlot(partsPoints, lines: True, pointSize: 3);
 
 %/mathpiper
 

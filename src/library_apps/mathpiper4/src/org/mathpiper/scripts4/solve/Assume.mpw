@@ -20,7 +20,7 @@ assumptions := [];
 };
 
 
-10 # Assume( _x -> _y ) <--
+10 # Assume( _x: _y ) <--
 { 
     Decide(InVerboseMode(),Tell("AssumeItem",[x,y]));
     Local(key,value);
@@ -75,8 +75,8 @@ assumptions := [];
 *CMD Assume --- a suite of functions for specifying and testing "assumptions" about unbound variables
 *STD
 *CALL
-        Assume(v -> prop)
-        Assume([v1 -> prop1, v2 -> prop2]]
+        Assume(v: prop)
+        Assume([v1: prop1, v2: prop2]]
         UnAssume(v)
         AssumptionsGet()
         AssumptionsAbout(v)
@@ -125,7 +125,7 @@ functions are being modified to make use of assumptions where appropriate.
 
 *E.G.
 
-In> Assume(x->real)
+In> Assume(x: real)
 Result: [[x,real]]
 In> AssumptionsGet()
 Result: [[x,real]]
@@ -134,7 +134,7 @@ Result: True
 In> Assumed?(z,complex)
 Result: False
     
-In> Assume([x->positive,y->positive])
+In> Assume([x: positive,y: positive])
 Result: [[x,real],[x,positive],[y,positive]]
 In> AssumptionsGet()
 Result: [[x,real],[x,positive],[y,positive]]

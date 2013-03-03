@@ -247,7 +247,7 @@ birthdayMatchCounter := 0;
 trials := 50;
 Repeat(trials)
 [
-    birthdays := RandomIntegerVector(25,1,365);
+    birthdays := RandomIntegerList(25,1,365);
 
     dayCounter := 1;
     While(dayCounter <= 365)
@@ -286,7 +286,7 @@ Repeat(trials)
 [
     targetPersonBirthday := 213;
     
-    birthdays := RandomIntegerVector(25,1,365);
+    birthdays := RandomIntegerList(25,1,365);
 
     If( Contains(birthdays, targetPersonBirthday), birthdayMatchCounter++);
 

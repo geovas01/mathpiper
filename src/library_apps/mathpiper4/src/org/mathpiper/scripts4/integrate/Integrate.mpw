@@ -183,10 +183,10 @@ Result: Sin(x);
 In> Integrate(x) 1/x;
 Result> Ln(x)
 
-In> Integrate(x, [logAbs -> True]) 1/x;
+In> Integrate(x, [logAbs: True]) 1/x;
 Result> Ln(Abs(x))
 
-In> Integrate(x, a, b, [logAbs -> True])1/x;
+In> Integrate(x, a, b, [logAbs: True])1/x;
 Result> Ln(Abs(b))-Ln(Abs(a))
 
 *SEE Differentiate, UniqueConstant
@@ -227,8 +227,8 @@ Verify(Integrate(x) 1/Cosh(x)^2, Tanh(x) );
 Verify(Integrate(x) 1/Sqrt(3-x^2), ArcSin(x/Sqrt(3)) );
 Verify(Integrate(x) Erf(x), x*Erf(x)+1/(Exp(x^2)*Sqrt(Pi)) );
 Verify(Integrate(x) Sin(x)/(2*y+4),(-Cos(x))/(2*y+4));
-Verify(Integrate(x, [logAbs -> True])1/x, Ln(Abs(x)));
-Verify(Integrate(x,a,b, [logAbs -> True])1/x, Ln(Abs(b))-Ln(Abs(a)));
+Verify(Integrate(x, [logAbs: True])1/x, Ln(Abs(x)));
+Verify(Integrate(x,a,b, [logAbs: True])1/x, Ln(Abs(b))-Ln(Abs(a)));
 
 
 TestNonIntegrable(Integrate(x) x^(1/x));

@@ -144,7 +144,7 @@ Plot2DJFreeChart(values_List?, _optionsHash) <--
     //Add any options to the list.
     ForEach(key, AssocIndices(optionsHash))
     {
-        lineChartCallListForm := Append(lineChartCallListForm, Apply("->", [key, optionsHash[key]]));
+        lineChartCallListForm := Append(lineChartCallListForm, Apply(":", [key, optionsHash[key]]));
     };
     
     

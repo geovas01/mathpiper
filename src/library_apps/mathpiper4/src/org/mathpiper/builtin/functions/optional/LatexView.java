@@ -192,8 +192,8 @@ public class LatexView extends BuiltinFunction {
 Display rendered Latex code.  Note: backslashes must be escaped
 with a backslash.
 
-Options are entered using the -> operator.
-For example, here is how to set the {Resizable} option: {Resizable -> True}.
+Options are entered using the : operator.
+For example, here is how to set the {Resizable} option: {Resizable: True}.
 
 Right click on the image to save it.
  

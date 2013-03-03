@@ -159,8 +159,8 @@ public class CumulativePlot extends BuiltinFunction {
 
 *DESC
 
-Creates a cumulative plot. Options are entered using the -> operator.
-For example, here is how to set the {title} option: {title -> "Example Title"}.
+Creates a cumulative plot. Options are entered using the : operator.
+For example, here is how to set the {title} option: {title: "Example Title"}.
 
 *E.G.
 /%mathpiper,title=""
@@ -178,7 +178,7 @@ samples := [
 471,458,445,463,423,451,440,442,441,439
 ];
 
-CumulativePlot(samples,numberOfBins -> 10, title -> "Cumulative Plot", xAxisLabel -> "X Axis", yAxisLabel -> "Y Axis", seriesTitle -> "Series Title");
+CumulativePlot(samples,numberOfBins: 10, title: "Cumulative Plot", xAxisLabel: "X Axis", yAxisLabel: "Y Axis", seriesTitle: "Series Title");
 
 /%/mathpiper
 

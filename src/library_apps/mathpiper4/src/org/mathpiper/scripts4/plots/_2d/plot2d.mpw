@@ -29,9 +29,9 @@ Function() Plot2D(func, range);
 Function() Plot2D(func, range, options, ...);
 
 /// interface routines
-1 # Plot2D(_func) <-- ("Plot2D" @ [func, -5:5]);
+1 # Plot2D(_func) <-- ("Plot2D" @ [func, -5->5]);
 2 # Plot2D(_func, _range) <-- ("Plot2D" @ [func, range, []]);
-3 # Plot2D(_func, _range, option_Function?) _ (Type(option) =? "->" )  <-- ("Plot2D" @ [func, range, [option]]);
+3 # Plot2D(_func, _range, option_Function?) _ (Type(option) =? ":" )  <-- ("Plot2D" @ [func, range, [option]]);
 
 /// Plot a single function
 5 # Plot2D(_func, _range, optionslist_List?)_(Not? List?(func)) <-- ("Plot2D" @ [[func], range, optionslist]);
@@ -50,16 +50,22 @@ Function() Plot2D(func, range, options, ...);
         // this will be a list of strings - printed forms of functions being plotted
         optionshash["yname"] := [];
         // parse range
+        
+        /*
+        Default plotting range is {-5->5}. Range can also be specified as {x= -5->5} (note the mandatory space separating "{=}" and "{-}");
+        currently the variable name {x} is ignored in this case.
         Decide(
-                Type(range) =? "->",        // variable also specified -- ignore for now, store in options
+                Type(range) =? "==",        // variable also specified -- ignore for now, store in options
                 {
                         // store alternative variable name
                         optionshash["xname"] := ToString(range[1]);
                         range := range[2];
                 }
         );
+        Verify(PipeToString()Write(Plot2D(b,b: -1->1,output: data,points: 4)), "[[[-1,-1],[-0.5,-0.5],[0.0,0.0],[0.5,0.5],[1,1]]]");
+        */
         Decide(
-                Type(range) =? ":",        // simple range
+                Type(range) =? "->",        // simple range
                 range := NM(Eval([range[1], range[2]]))
         );
         // set default option values
@@ -96,7 +102,7 @@ Function() Plot2D(func, range, options, ...);
     
         // compute the separation between grid points
         delta := NM(Eval( (range[2] - range[1]) / (optionshash["points"]) ));
-    
+
         // check that the input parameters are valid (all numbers)
         Check(Number?(range[1]) And? Number?(range[2]) And? Number?(optionshash["points"]) And? Number?(optionshash["precision"]),
                 "Argument",
@@ -238,9 +244,9 @@ Plot2Dadaptive(_func, _var, [_a,_b,_c], [_fa, _fb, _fc], _depth, _epsilon) <--
 *STD
 *CALL
         Plot2D(f(x))
-        Plot2D(f(x), a:b)
-        Plot2D(f(x), a:b, option -> value)
-        Plot2D(f(x), a:b, option -> value, ...)
+        Plot2D(f(x), a->b)
+        Plot2D(f(x), a->b, option: value)
+        Plot2D(f(x), a->b, option: value, ...)
         Plot2D(list, ...)
 
 *PARMS
@@ -285,17 +291,14 @@ The initial grid of {points+1} points is refined between any grid points $a$, $b
 $Integrate(x,a,b)f(x)$ is not approximated to the given precision by
 the existing grid.
 
-Default plotting range is {-5:5}. Range can also be specified as {x= -5:5} (note the mandatory space separating "{=}" and "{-}");
-currently the variable name {x} is ignored in this case.
-
-Options are of the form {option -> value}. Currently supported option names
+Options are of the form {option: value}. Currently supported option names
 are: "points", "precision", "depth", "output", "filename", "yrange". Option values
 are either numbers or special unevaluated atoms such as {data}.
 If you need to use the names of these atoms
 in your script, strings can be used. Several option/value pairs may be specified (the function {Plot2D} has a variable number of arguments).
 
 *        {yrange}: the range of ordinates to use for plotting, e.g.
-{yrange=0:20}. If no range is specified, the default is usually to
+{yrange=0->20}. If no range is specified, the default is usually to
 leave the choice to the plotting backend. 
 *        {points}: initial number of points (default 23) -- at least that
 many points will be plotted. The initial grid of this many points will be
@@ -335,7 +338,6 @@ singularities.)
 /* I stringified the results for now, as that is what the tests used to mean. The correct way to deal with this
  * would be to compare the resulting numbers to accepted precision.
  */
-Verify(PipeToString()Write(Plot2D(a,-1:1,output->data,points->4,depth->0)), "[[[-1,-1],[-0.5,-0.5],[0.0,0.0],[0.5,0.5],[1,1]]]");
-Verify(PipeToString()Write(Plot2D(b,b-> -1:1,output->data,points->4)), "[[[-1,-1],[-0.5,-0.5],[0.0,0.0],[0.5,0.5],[1,1]]]");
+Verify(PipeToString()Write(Plot2D(a,-1->1,output: data,points: 4,depth: 0)), "[[[-1,-1],[-0.5,-0.5],[0.0,0.0],[0.5,0.5],[1,1]]]");
 
 %/mathpiper
