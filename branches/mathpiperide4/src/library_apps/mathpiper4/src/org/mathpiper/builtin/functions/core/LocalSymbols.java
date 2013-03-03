@@ -22,8 +22,8 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.astprocessors.LocalSymbolSubstitute;
 import org.mathpiper.lisp.cons.Cons;
-import org.mathpiper.lisp.substitute.LocalSymbolSubstitute;
 
 /**
  *
