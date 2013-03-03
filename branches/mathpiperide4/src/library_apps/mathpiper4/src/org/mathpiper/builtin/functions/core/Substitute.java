@@ -27,14 +27,14 @@ import org.mathpiper.lisp.cons.Cons;
  *
  *  
  */
-public class Subst extends BuiltinFunction
+public class Substitute extends BuiltinFunction
 {
 
-    private Subst()
+    private Substitute()
     {
     }
 
-    public Subst(String functionName)
+    public Substitute(String functionName)
     {
         this.functionName = functionName;
     }
@@ -52,11 +52,11 @@ public class Subst extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Subst",categories="User Functions;Expression Manipulation;Built In"
-*CMD Subst --- perform a substitution
+%mathpiper_docs,name="Substitute",categories="User Functions;Expression Manipulation;Built In"
+*CMD Substitute --- perform a substitution
 *CORE
 *CALL
-	Subst(from, to) expr
+	Substitute(from, to) expr
 
 *PARMS
 
@@ -74,11 +74,11 @@ occurs as a subexpression are affected.
 
 *E.G.
 
-In> Subst(x, Sin(y)) x^2+x+1;
+In> Substitute(x, Sin(y)) x^2+x+1;
 Result: Sin(y)^2+Sin(y)+1;
-In> Subst(a+b, x) a+b+c;
+In> Substitute(a+b, x) a+b+c;
 Result: x+c;
-In> Subst(b+c, x) a+b+c;
+In> Substitute(b+c, x) a+b+c;
 Result: a+b+c;
 
 The explanation for the last result is that the expression {a+b+c} is internally stored as {(a+b)+c}. Hence {a+b} is a subexpression, but {b+c} is not.

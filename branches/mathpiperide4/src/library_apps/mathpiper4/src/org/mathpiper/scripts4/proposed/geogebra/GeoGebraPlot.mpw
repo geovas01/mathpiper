@@ -12,7 +12,7 @@ RulebaseListedHoldArguments("GeoGebraPlot",[arg1,arg2]);
 {
     Local(command);
     
-    function := (Subst(==,=) function);
+    function := (Substitute(==,=) function);
     
     command := ConcatStrings(PipeToString()Write(function));
     

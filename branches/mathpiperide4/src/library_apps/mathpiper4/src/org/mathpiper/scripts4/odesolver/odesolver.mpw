@@ -22,7 +22,7 @@ OdeNormPred(_e) <-- (e !=? OdeNormChange(e));
 
 OdeNormalForm(_e) <--
 {
-  e := Substitute(OdeLeftHandSideEq(e),"OdeNormPred","OdeNormChange");
+  e := SubstituteApply(OdeLeftHandSideEq(e),"OdeNormPred","OdeNormChange");
 };
 
 /*TODO better OdeNormalForm?
@@ -45,7 +45,7 @@ UnFence("OdeChange",1);
 UnFence("OdePred",1);
 OdeSubstitute(_e,_yn) <--
 {
-  Substitute(e,"OdePred","OdeChange");
+  SubstituteApply(e,"OdePred","OdeChange");
 };
 UnFence("OdeSubstitute",2);
 
@@ -106,7 +106,7 @@ OdeMakeTerm(yyy(_n)) <-- OdeTerm(0,BaseVector(n+1,10));
 
 OdeCoefList(_e) <--
 {
-  Substitute(e,"OdeMakeTermPred","OdeMakeTerm");
+  SubstituteApply(e,"OdeMakeTermPred","OdeMakeTerm");
 };
 OdeTermFail() <-- OdeTerm(Error,FillList(Error,10));
 
@@ -116,8 +116,8 @@ OdeAuxiliaryEquation(_e) <--
         // extra conversion that should be optimized away later
         e:=OdeNormalForm(e);
         e:=OdeSubstitute(e,[[n],aaa^n*Exp(aaa*x)]);
-        e:=Subst(Exp(aaa*x),1)e;
-        Simplify(Subst(aaa,x)e);
+        e:=Substitute(Exp(aaa*x),1)e;
+        Simplify(Substitute(aaa,x)e);
 };
 
 /* Solving a Homogeneous linear differential equation
@@ -129,8 +129,8 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
   /* Try solution Exp(aaa*x), and divide by Exp(aaa*x), which
    * should yield a polynomial in aaa.
   e:=OdeSubstitute(e,[[n],aaa^n*Exp(aaa*x)]);
-  e:=Subst(Exp(aaa*x),1)e;
-  auxeqn:=Simplify(Subst(aaa,x)e);
+  e:=Substitute(Exp(aaa*x),1)e;
+  auxeqn:=Simplify(Substitute(aaa,x)e);
   e:=auxeqn;
   */
   e:=OdeAuxiliaryEquation(e);
@@ -251,7 +251,7 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
 
 100 # OdeSolveLinear(_e,_ode) <-- OdeUnsolved(e);
 
-OdeUnsolved(_e) <-- Subst(yyy,y)e;
+OdeUnsolved(_e) <-- Substitute(yyy,y)e;
 
 
 

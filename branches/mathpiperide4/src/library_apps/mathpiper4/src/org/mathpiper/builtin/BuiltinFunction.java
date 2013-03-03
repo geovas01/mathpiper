@@ -70,7 +70,7 @@ public abstract class BuiltinFunction {
         aEnvironment.iBodiedOperators.setOperator(MathPiperUnparser.KMaxPrecedence, "PipeToString");
         aEnvironment.iBodiedOperators.setOperator(MathPiperUnparser.KMaxPrecedence, "PipeToStdout");
         aEnvironment.iBodiedOperators.setOperator(MathPiperUnparser.KMaxPrecedence, "TraceRule");
-        aEnvironment.iBodiedOperators.setOperator(MathPiperUnparser.KMaxPrecedence, "Subst");
+        aEnvironment.iBodiedOperators.setOperator(MathPiperUnparser.KMaxPrecedence, "Substitute");
         aEnvironment.iBodiedOperators.setOperator(MathPiperUnparser.KMaxPrecedence, "LocalSymbols");
         aEnvironment.iBodiedOperators.setOperator(MathPiperUnparser.KMaxPrecedence, "BackQuote");
         
@@ -255,7 +255,7 @@ public abstract class BuiltinFunction {
         functionNameInit = "StringMidSet"; aEnvironment.iBuiltinFunctions.put(functionNameInit, new BuiltinFunctionEvaluator(new StringMidSet(functionNameInit), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
         functionNameInit = "StringToUnicode"; aEnvironment.iBuiltinFunctions.put(functionNameInit, new BuiltinFunctionEvaluator(new StringToUnicode(functionNameInit), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
         functionNameInit = "String?"; aEnvironment.iBuiltinFunctions.put(functionNameInit, new BuiltinFunctionEvaluator(new String_(functionNameInit), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
-        functionNameInit = "Subst"; aEnvironment.iBuiltinFunctions.put(functionNameInit, new BuiltinFunctionEvaluator(new Subst(functionNameInit), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
+        functionNameInit = "Substitute"; aEnvironment.iBuiltinFunctions.put(functionNameInit, new BuiltinFunctionEvaluator(new Substitute(functionNameInit), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
         functionNameInit = "SubtractN"; aEnvironment.iBuiltinFunctions.put(functionNameInit, new BuiltinFunctionEvaluator(new Subtract(functionNameInit), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
         functionNameInit = "SysOut"; aEnvironment.iBuiltinFunctions.put( functionNameInit, new BuiltinFunctionEvaluator(new SysOut(functionNameInit), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
         functionNameInit = "SystemTimer"; aEnvironment.iBuiltinFunctions.put(functionNameInit, new BuiltinFunctionEvaluator(new SystemTimer(functionNameInit), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));

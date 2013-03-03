@@ -191,7 +191,7 @@ LocalSymbols(omindent) {
         //Check(List?(result), "Return Type", PipeToString()Echo("Mapping result is not a list: ", result));
         Decide(List?(result),
            {
-           result := ListToFunction(Subst($, function[0]) result);
+           result := ListToFunction(Substitute($, function[0]) result);
            OMFormExpression(result[0]);
            ForEach(i, result) OMFormExpression(i);
            },
@@ -465,7 +465,7 @@ PipeFromString(str~" EndOfFile")
         result := piperExp,
         {
           result := OMApplyMapping(piperExp, symbolDef[4]);
-          result := Subst($, piperExp[0]) result;
+          result := Substitute($, piperExp[0]) result;
           Decide(List?(result), result := ListToFunction(result));
         }
        );

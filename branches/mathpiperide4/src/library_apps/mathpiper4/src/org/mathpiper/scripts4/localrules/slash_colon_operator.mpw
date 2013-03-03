@@ -2,7 +2,7 @@
 
 5 # (_expression /: LocPatterns(_patterns)) <--
 {
-  MacroSubstitute(expression,"LocPredicate","LocChange");
+  MacroSubstituteApply(expression,"LocPredicate","LocChange");
 };
 
 
@@ -10,7 +10,7 @@
 {
   Assign(patterns, LocProcess(patterns));
   
-  MacroSubstitute(expression,"LocPredicate","LocChange");
+  MacroSubstituteApply(expression,"LocPredicate","LocChange");
 };
 
 %/mathpiper
@@ -56,7 +56,7 @@ The forms the patterns can have are one of:
 Note that for these local rules, {<-} should be used instead of
 {<--} which would be used in a global rule.
 
-The {/:} operator traverses an expression much as {Subst} does, that is, top
+The {/:} operator traverses an expression much as {Substitute} does, that is, top
 down, trying to apply the rules from the beginning of the list of
 rules to the end of the list of rules. If the rules cannot be applied
 to an expression, it will try subexpressions of that
@@ -98,7 +98,7 @@ Hold((a + b) * (1 + 2) * (2 + 1) * (1/2 + c) * (3/4 + d) ) /:
       Result: (a+b)*m1*m2*m3*(3/4+d)
 .   /%/output
 
-*SEE /::, Subst
+*SEE /::, Substitute
 %/mathpiper_docs
 
 

@@ -189,7 +189,7 @@ Taylor3FuncCoefs(_fname,_degree) <--
 
 (Taylor3(_var,_degree)(_expr)) <-- Add((Taylor3TaylorCoefs(var,degree)(expr))[1 .. degree+1]*var^(0 .. degree));
 10 # (Taylor3(_x,  0, _n) _y) <--              Taylor3(x,n)              y;
-20 # (Taylor3(_x, _a, _n) _y) <-- Subst(x,x-a) Taylor3(x,n) Subst(x,x+a) y;
+20 # (Taylor3(_x, _a, _n) _y) <-- Substitute(x,x-a) Taylor3(x,n) Substitute(x,x+a) y;
 
 
 

@@ -45,7 +45,7 @@ ReversePoly(_f,_g,_var,_newvar,_degree) <--
     W[n]:=newsum;
   };
   DestructiveInsert(W,1,Coef(origg,0));
-  Subst(newvar,newvar-initval)
+  Substitute(newvar,newvar-initval)
     NormalForm(UniVariate(newvar,0,W));
 };
 

@@ -154,7 +154,7 @@ Dir(Left) <-- -1;
 Sign(_var, _tar, _dir, _exp, _n)
 <-- {
   Local(der, coef); der := ApplyFast("Differentiate", [var, exp]);
-  coef := Eval(ApplyFast("Subst", [var, tar, der]));
+  coef := Eval(ApplyFast("Substitute", [var, tar, der]));
   Decide( coef =? 0,
        Sign(var, tar, dir, der, n+1),
        (Sign(coef)*Dir(dir)) ^ n
@@ -283,7 +283,7 @@ LimitArgs(_arg) <-- Lim(var,tar,dir,arg);
 UnFence("LimitArgs",1); /* Allow LimitArgs to have access to the local variables of the caller. */
 
 701 # Lim(_var, _tar, _dir, _exp)
-<-- Eval(ApplyFast("Subst", [var, tar, exp]));
+<-- Eval(ApplyFast("Substitute", [var, tar, exp]));
 
 
 /*  Limit without direction  */

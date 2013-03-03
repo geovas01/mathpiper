@@ -555,7 +555,7 @@ UnFence("FixUpMonicFactors",1);
     nprimes := 0;
     For(ii:=-3*deg,ii<=?3*deg,ii:=ii+3)
     {
-        res := NM(Subst(x,ii) poly);
+        res := NM(Substitute(x,ii) poly);
         //Tell("      ",[ii,res,Prime?(res)]);
         Decide(Abs(res)=?1 Or? Prime?(res), nprimes := nprimes + 1, );
     };

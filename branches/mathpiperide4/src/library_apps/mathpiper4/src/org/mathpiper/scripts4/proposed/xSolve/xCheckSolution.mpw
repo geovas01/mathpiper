@@ -29,7 +29,7 @@
       Decide(iDebug=True,Tell("xCheckSolutionL",[exprs,var,solutions]));
       Local(tests);
       
-      tests := Subst(==,ToAtom("-")) (exprs Where solutions);
+      tests := Substitute(==,ToAtom("-")) (exprs Where solutions);
       Decide(iDebug,Tell("  1",tests));
       tests := AllSatisfy?("Zero?",tests);
   ];

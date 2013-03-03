@@ -38,7 +38,7 @@ UnFence("Where",2);
      };
 
 
-60 # (_body Where _var == _value) <-- Subst(var,value)body;
+60 # (_body Where _var == _value) <-- Substitute(var,value)body;
 
 %/mathpiper
 
@@ -87,5 +87,5 @@ Result: [13];
 In> x^2+y^2 Where [x==2 And? y==3,x==4 And? y==5]
 Result: [13,41];
 
-*SEE Solve, AddTo, Subst, Where, WithValue, /:
+*SEE Solve, AddTo, Substitute, Where, WithValue, /:
 %/mathpiper_docs

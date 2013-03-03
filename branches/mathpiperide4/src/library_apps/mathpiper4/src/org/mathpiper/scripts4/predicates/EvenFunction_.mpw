@@ -1,6 +1,6 @@
 %mathpiper,def="EvenFunction?"
 
-EvenFunction?(f,x):= (f =? Eval(Subst(x,-x)f));
+EvenFunction?(f,x):= (f =? Eval(Substitute(x,-x)f));
 
 %/mathpiper
 
