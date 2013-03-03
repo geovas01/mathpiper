@@ -22,7 +22,7 @@ RuleHoldArguments(StandardOperatorsLoad, 0, 1, True)
     Infix(">=?",90);
     Infix("!=?",90);
 
-    Infix(":=",10000);
+    Infix(":=",22000);
     RightAssociativeSet(":=");
     
     RulebaseHoldArguments(":",[left,right]);
@@ -82,8 +82,8 @@ RuleHoldArguments(StandardOperatorsLoad, 0, 1, True)
     Bodied("Taylor3",60000);
     Bodied("InverseTaylor",60000);
 
-    Infix("<--",10000);
-    Infix("#",9900);
+    Infix("<--",22000);
+    Infix("#",21900);
 
     Bodied("TSum",60000);
     Bodied("TExplicitSum",60000);
