@@ -78,8 +78,8 @@
 
     Decide(i =? nr + 1,
       {
-        r := r + LocalSymbols(a,b)(Subst(a,b)plt);
-        p := p - LocalSymbols(a,b)(Subst(a,b)plt);
+        r := r + LocalSymbols(a,b)(Substitute(a,b)plt);
+        p := p - LocalSymbols(a,b)(Substitute(a,b)plt);
       }
     );
     finished := MultiZero(p);

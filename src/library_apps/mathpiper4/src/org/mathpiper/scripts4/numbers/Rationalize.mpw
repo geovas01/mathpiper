@@ -7,7 +7,7 @@
 20 # Rationalize( _aNumber ) <--
 {
     Local(result,n,d);
-    result:=Substitute(aNumber,[[x],Number?(x) And? Not?(Integer?(x))],"RationalizeNumber");
+    result:=SubstituteApply(aNumber,[[x],Number?(x) And? Not?(Integer?(x))],"RationalizeNumber");
     Decide(InVerboseMode(),Tell("",result));
     Decide(Length(VarList(aNumber))=?0,
       {

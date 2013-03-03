@@ -314,21 +314,21 @@ TagLeftBranchDominantFunction(expression) :=
 
 RemoveDollarSigns(equation) :=
 {
-    equation := Subst(ToAtom("+$"),ToAtom("+")) equation;
-    equation := Subst(ToAtom("-$"),ToAtom("-")) equation;
-    equation := Subst(ToAtom("*$"),ToAtom("*")) equation;
-    equation := Subst(ToAtom("/$"),ToAtom("/")) equation;
-    equation := Subst(ToAtom("^$"),ToAtom("^")) equation;
+    equation := Substitute(ToAtom("+$"),ToAtom("+")) equation;
+    equation := Substitute(ToAtom("-$"),ToAtom("-")) equation;
+    equation := Substitute(ToAtom("*$"),ToAtom("*")) equation;
+    equation := Substitute(ToAtom("/$"),ToAtom("/")) equation;
+    equation := Substitute(ToAtom("^$"),ToAtom("^")) equation;
 };
 
 
 AddDollarSigns(equation) :=
 {
-    equation := Subst(ToAtom("+"),ToAtom("+$")) equation;
-    equation := Subst(ToAtom("-"),ToAtom("-$")) equation;
-    equation := Subst(ToAtom("*"),ToAtom("*$")) equation;
-    equation := Subst(ToAtom("/"),ToAtom("/$")) equation;
-    equation := Subst(ToAtom("^"),ToAtom("^$")) equation;
+    equation := Substitute(ToAtom("+"),ToAtom("+$")) equation;
+    equation := Substitute(ToAtom("-"),ToAtom("-$")) equation;
+    equation := Substitute(ToAtom("*"),ToAtom("*$")) equation;
+    equation := Substitute(ToAtom("/"),ToAtom("/$")) equation;
+    equation := Substitute(ToAtom("^"),ToAtom("^$")) equation;
 };
 
 

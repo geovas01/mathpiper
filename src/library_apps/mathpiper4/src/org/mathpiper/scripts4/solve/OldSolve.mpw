@@ -72,7 +72,7 @@ UnFence("SolveSimpleBackSubstitutionFindAlternativeForms",1);
            sub:=SuchThat(sub,var[i]);
            Decide(InVerboseMode(), Echo(["From ",eq[j]," it follows that ",var[i]," = ",sub]));
            Decide(SolveFullSimplify=?True,
-             result:=Simplify(Subst(var[i],sub)result),
+             result:=Simplify(Substitute(var[i],sub)result),
              result[1][i]:=sub
              );
 //Echo("result = ",result," i = ",i);
@@ -86,7 +86,7 @@ UnFence("SolveSimpleBackSubstitutionFindAlternativeForms",1);
            {
              Local(original);
              original:=eq[k];
-             eq[k]:=Subst(var[i],sub)eq[k];
+             eq[k]:=Substitute(var[i],sub)eq[k];
              Decide(Simplify(Simplify(eq[k])) =? (0 == 0),
                eq[k] := (0 == 0),
                SolveSimpleBackSubstitutionFindAlternativeForms(eq[k])
@@ -120,7 +120,7 @@ UnFence("SolveSimpleBackSubstitutionFindAlternativeForms",1);
     eqSimplified := eq;
     ForEach(map,Transpose([var,item]))
     [
-      eqSimplified := Subst(map[1],map[2])eqSimplified;
+      eqSimplified := Substitute(map[1],map[2])eqSimplified;
     ];
     eqSimplified := Simplify(Simplify(eqSimplified));
 

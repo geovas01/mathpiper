@@ -1,6 +1,6 @@
 %mathpiper,def="OddFunction?"
 
-OddFunction?(f,x):= (f =? Eval(-Subst(x,-x)f));
+OddFunction?(f,x):= (f =? Eval(-Substitute(x,-x)f));
 
 %/mathpiper
 

@@ -21,7 +21,7 @@
   DestructiveDelete(indices,Find(indices,ind2));
 
   /* Return result simplified for this delta */
-  TSumRest( Subst(ind2,ind1)list );
+  TSumRest( Substitute(ind2,ind1)list );
 };
 11 # TSumSimplify(TList(Delta(_ind1,_ind2),_list))_
      Contains?(indices,ind1) <--
@@ -31,7 +31,7 @@
   DestructiveDelete(indices,Find(indices,ind1));
 
   /* Return result simplified for this delta */
-  TSumRest( Subst(ind1,ind2)list );
+  TSumRest( Substitute(ind1,ind2)list );
 };
 
 

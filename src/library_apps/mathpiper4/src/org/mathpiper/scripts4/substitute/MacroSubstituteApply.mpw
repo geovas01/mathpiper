@@ -1,0 +1,48 @@
+%mathpiper,def="MacroSubstituteApply"
+
+/*Extremely hacky workaround, MacroSubstituteApply is actually the same as SubstituteApply,
+  but without re-evaluating its arguments. I could not just change SubstituteApply, as
+  it changed behaviour such that tests started to break.
+ */
+ 
+ 
+ 
+Function("MacroSubstituteApply", [body, predicate, change])
+{
+  `MacroSubstituteApply((Hold(@body)));
+};
+
+
+
+HoldArgument("MacroSubstituteApply", predicate);
+
+HoldArgument("MacroSubstituteApply", change);
+
+UnFence("MacroSubstituteApply", 3);
+
+RulebaseHoldArguments("MacroSubstituteApply", [body]);
+
+UnFence("MacroSubstituteApply", 1);
+
+
+
+RuleHoldArguments("MacroSubstituteApply", 1, 1, `ApplyFast(predicate, [Hold(Hold(@body))]) =? True)
+{
+  `ApplyFast(change, [Hold(Hold(@body))]);
+};
+
+
+
+RuleHoldArguments("MacroSubstituteApply", 1, 2, `Function?(Hold(@body)))
+{
+  `ApplyFast("MacroMapArgs", [Hold(Hold(@body)), "MacroSubstituteApply"]);
+};
+
+
+
+RuleHoldArguments("MacroSubstituteApply", 1, 3, True)
+{
+ `Hold(@body);
+};
+
+%/mathpiper

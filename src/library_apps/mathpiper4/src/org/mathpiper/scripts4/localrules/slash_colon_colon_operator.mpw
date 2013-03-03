@@ -2,7 +2,7 @@
 
 5 # (_expression /:: LocPatterns(_patterns)) <--
 {
-  MacroSubstitute(expression,"LocPredicate","LocChange");
+  MacroSubstituteApply(expression,"LocPredicate","LocChange");
 };
 
 
@@ -15,13 +15,13 @@
   
   Assign(old, expression);
   
-  Assign(expression, MacroSubstitute(expression,"LocPredicate","LocChange"));
+  Assign(expression, MacroSubstituteApply(expression,"LocPredicate","LocChange"));
   
   While (expression !=? old)
   {
     Assign(old, expression);
     
-    Assign(expression, MacroSubstitute(expression,"LocPredicate","LocChange"));
+    Assign(expression, MacroSubstituteApply(expression,"LocPredicate","LocChange"));
   };
   
   expression;
@@ -60,5 +60,5 @@ should become apparent.
 In> Sin(u)*Ln(a*b) /:: [ a <- 2, b <- 3 ]
 Result: Sin(u)*Ln(6);
 
-*SEE /:, Subst
+*SEE /:, Substitute
 %/mathpiper_docs

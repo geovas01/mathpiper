@@ -421,7 +421,7 @@ UnFence("jFactorsBivariateBinomial",1);
               f := fac[ii][1];
               d := Degree(f,x);
               Decide(InVerboseMode(),Tell("             ",[ii,f,d]));
-              fs := Subst(x,X/Y) f;
+              fs := Substitute(x,X/Y) f;
               Decide(InVerboseMode(),Tell("               ",[fs,d]));
               fac[ii][1] := Simplify(Simplify(Y^d*fs));
           };

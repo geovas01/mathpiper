@@ -93,7 +93,7 @@ RulebaseHoldArguments("TaylorLPSCompose",[lps1,lps2]);
 };
 
 30 # (Taylor2(_x, _a, _n) _y)
-   <-- Subst(x,x-a) Taylor2(x,0,n) Subst(x,x+a) y;
+   <-- Substitute(x,x-a) Taylor2(x,0,n) Substitute(x,x+a) y;
 
 /**********************************************************************
  *

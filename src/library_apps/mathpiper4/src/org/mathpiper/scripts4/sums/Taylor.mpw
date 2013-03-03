@@ -151,7 +151,7 @@ TestMathPiper(Taylor2(x,0,7) (Sin(x)/Ln(1+x)),
 TestMathPiper(Taylor2(t,0,7) (Sin(t)^2),
           Taylor2(t,0,7) ((Taylor2(t,0,7) Sin(t))^2));
 TestMathPiper(Taylor2(x,0,7) Cos(Ln(x+1)),
-          Taylor2(x,0,7) (Subst(y,Taylor2(x,0,7)Ln(x+1)) Cos(y)));
+          Taylor2(x,0,7) (Substitute(y,Taylor2(x,0,7)Ln(x+1)) Cos(y)));
 
 100 # TaylorLPSCompOrder(_x, jn(_x)) <-- 5;
 100 # TaylorLPSCompCoeff(_x, jn(_x), _k) <-- ToAtom("jn"~ToString(k));

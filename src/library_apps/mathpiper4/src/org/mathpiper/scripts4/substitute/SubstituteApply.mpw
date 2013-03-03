@@ -1,0 +1,36 @@
+%mathpiper,def="SubstituteApply"
+
+Function("SubstituteApply", [body, predicate, change])
+{
+  SubstituteApply(body);
+};
+
+HoldArgument("SubstituteApply", predicate);
+
+HoldArgument("SubstituteApply", change);
+
+UnFence("SubstituteApply", 3);
+
+RulebaseHoldArguments("SubstituteApply", [body]);
+
+UnFence("SubstituteApply", 1);
+
+
+
+RuleHoldArguments("SubstituteApply", 1, 1, Apply(predicate, [body]) =? True)
+{
+  Apply(change,[body]);
+};
+
+
+
+RuleHoldArguments("SubstituteApply", 1, 2, Function?(body))
+{
+  Apply("MapArgs",[body,"SubstituteApply"]);
+};
+
+
+
+RuleHoldArguments("SubstituteApply", 1, 3, True) body;
+
+%/mathpiper

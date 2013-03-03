@@ -124,5 +124,5 @@ Result: (a+b)*x+c;
 In> SuchThat(A, x)
 Result: (-c)/(a+b);
 
-*SEE Solve, OldSolve, Subst, Simplify
+*SEE Solve, OldSolve, Substitute, Simplify
 %/mathpiper_docs

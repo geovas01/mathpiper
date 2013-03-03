@@ -435,7 +435,7 @@ Result: "\$\sin a_{1} + 2 \cos b_{1}\$";
 /* it worketh no more...
 Testing("Realistic example");
 f:=Exp(I*lambda*eta)*w(T*(k+k1+lambda));
-g:=Simplify(Subst(lambda,0) f+(k+k1)*(Differentiate(lambda)f)+k*k1*Differentiate(lambda)Differentiate(lambda)f );
+g:=Simplify(Substitute(lambda,0) f+(k+k1)*(Differentiate(lambda)f)+k*k1*Differentiate(lambda)Differentiate(lambda)f );
 Verify(UnparseLatex(g), ...);
 */
 
