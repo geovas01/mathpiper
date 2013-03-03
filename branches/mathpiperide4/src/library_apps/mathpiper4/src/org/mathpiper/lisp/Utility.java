@@ -417,7 +417,7 @@ public class Utility {
             Cons option = (Cons) arguments.car();
             if( option.type() != Utility.ATOM) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, arguments);
             String operator = (String) option.car();
-            if(! operator.equals("->")) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, arguments);
+            if(! operator.equals(":")) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, arguments);
 
             //Obtain key.
             option = option.cdr();

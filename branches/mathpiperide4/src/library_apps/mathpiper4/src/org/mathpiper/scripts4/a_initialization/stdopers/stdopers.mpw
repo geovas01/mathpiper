@@ -26,7 +26,12 @@ RuleHoldArguments(StandardOperatorsLoad, 0, 1, True)
     RightAssociativeSet(":=");
     
     RulebaseHoldArguments(":",[left,right]);
-    Infix(":",900);
+    HoldArgument(":",left);
+    Infix(":",960);
+    
+    RulebaseHoldArguments("->",[left,right]);
+    HoldArgument("->",left);
+    Infix("->",950);
 
     Infix("+",70);
     Infix("-",70);
@@ -62,7 +67,7 @@ RuleHoldArguments(StandardOperatorsLoad, 0, 1, True)
 
     Bodied("Repeat", 60000);
 
-    Infix("->",950);
+
 
     /* functional operators */
     Infix("~",70);

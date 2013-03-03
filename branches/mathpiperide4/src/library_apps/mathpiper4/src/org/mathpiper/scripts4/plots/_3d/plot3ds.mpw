@@ -28,9 +28,9 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
 
 
 /// interface routines
-1 # Plot3DS(_func) <-- ("Plot3DS" @ [func, -5:5, -5:5]);
+1 # Plot3DS(_func) <-- ("Plot3DS" @ [func, -5->5, -5->5]);
 2 # Plot3DS(_func, _xrange, _yrange) <-- ("Plot3DS" @ [func, xrange, yrange, []]);
-3 # Plot3DS(_func, _xrange, _yrange, option_Function?) _ (Type(option) =? "->" ) <-- ("Plot3DS" @ [func, xrange, yrange, [option]]);
+3 # Plot3DS(_func, _xrange, _yrange, option_Function?) _ (Type(option) =? ":" ) <-- ("Plot3DS" @ [func, xrange, yrange, [option]]);
 
 /// Plot a single function
 5 # Plot3DS(_func, _xrange, _yrange, optionslist_List?)_(Not? List?(func)) <-- ("Plot3DS" @ [[func], xrange, yrange, optionslist]);
@@ -49,8 +49,13 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
         // this will be a list of strings - printed forms of functions being plotted
         optionshash["zname"] := [];
         // parse range
+        /*
+        Default plotting range is {-5->5} in both coordinates.
+        A range can also be specified with a variable name, e.g. {x= -5->5} (note the mandatory space separating "{=}" and "{-}").
+        The variable name {x} should be the same as that used in the function {f(x,y)}.
+        If ranges are not given with variable names, the first variable encountered in the function {f(x,y)} is associated with the first of the two ranges.
         Decide(
-                Type(xrange) =? "->",        // variable also specified -- ignore for now, store in options
+                Type(xrange) =? "==",        // variable also specified -- ignore for now, store in options
                 {
                         // store alternative variable name
                         optionshash["xname"] := ToString(xrange[1]);
@@ -58,19 +63,21 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
                 }
         );
         Decide(
-                Type(yrange) =? "->" ,        // variable also specified -- ignore for now, store in options
+                Type(yrange) =? "==" ,        // variable also specified -- ignore for now, store in options
                 {
                         // store alternative variable name
                         optionshash["yname"] := ToString(yrange[1]);
                         yrange := yrange[2];
                 }
         );
+        Verify(PipeToString()Write(Plot3DS(x1,x1: -1->1,x2: -1->1,output: data,points: 2)), result);
+        */
         Decide(
-                Type(xrange) =? "~",        // simple range
+                Type(xrange) =? ":",        // simple range
                 xrange := NM(Eval([xrange[1], xrange[2]]))
         );
         Decide(
-                Type(yrange) =? "~",        // simple range
+                Type(yrange) =? ":",        // simple range
                 yrange := NM(Eval([yrange[1], yrange[2]]))
         );
         // set default option values
@@ -308,9 +315,9 @@ y1        11  31  21
 *STD
 *CALL
         Plot3DS(f(x,y))
-        Plot3DS(f(x,y), a:b, c:d)
-        Plot3DS(f(x,y), a:b, c:d, option->value)
-        Plot3DS(f(x,y), a:b, c:d, option->value, ...)
+        Plot3DS(f(x,y), a->b, c->d)
+        Plot3DS(f(x,y), a->b, c->d, option: value)
+        Plot3DS(f(x,y), a->b, c->d, option: value, ...)
         Plot3DS(list, ...)
 
 *PARMS
@@ -355,12 +362,7 @@ The initial rectangular grid of {xpoints+1}*{ypoints+1} points is refined within
 of $f(x,y)$ is not approximated to the given precision by
 the existing grid.
 
-Default plotting range is {-5:5} in both coordinates.
-A range can also be specified with a variable name, e.g. {x= -5:5} (note the mandatory space separating "{=}" and "{-}").
-The variable name {x} should be the same as that used in the function {f(x,y)}.
-If ranges are not given with variable names, the first variable encountered in the function {f(x,y)} is associated with the first of the two ranges.
-
-Options are of the form {option->value}. Currently supported option names
+Options are of the form {option: value}. Currently supported option names
 are "points", "xpoints", "ypoints", "precision", "depth", "output", "filename", "xrange", "yrange", "zrange". Option values
 are either numbers or special unevaluated atoms such as {data}.
 If you need to use the names of these atoms
@@ -368,7 +370,7 @@ in your script, strings can be used (e.g. {output="data"}). Several option/value
 
 *        {xrange}, {yrange}: optionally override coordinate ranges. Note that {xrange} is always the first variable and {yrange} the second variable, regardless of the actual variable names.
 *        {zrange}: the range of the $z$ axis to use for plotting, e.g.
-{zrange=0:20}. If no range is specified, the default is usually to
+{zrange=0->20}. If no range is specified, the default is usually to
 leave the choice to the plotting backend. Automatic choice based on actual values may
 give visually inadequate plots if the function has a singularity.
 *        {points}, {xpoints}, {ypoints}: initial number of points (default 10 each) -- at least that
@@ -401,7 +403,7 @@ Same limitations as {Plot2D}.
 *E.G. notest
 In> Plot3DS(a*b^2)
 Result: True;
-In> V(Plot3DS(Sin(x)*Cos(y),x->0:20, y->0:20,depth->3))
+In> V(Plot3DS(Sin(x)*Cos(y),x: 0->20, y: 0->20,depth: 3))
         CachedConstant: Info: constant Pi is being 
           recalculated at precision 10
         CachedConstant: Info: constant Pi is being
@@ -427,8 +429,7 @@ Result: True;
 {
   Local(result);
   result:="[[[-1,-1,-1],[-1,0,-1],[-1,1,-1],[0,-1,0],[0,0,0],[0,1,0],[1,-1,1],[1,0,1],[1,1,1]]]";
-  Verify(PipeToString()Write(Plot3DS(a,-1:1,-1:1,output->data,points->2)), result);
-  Verify(PipeToString()Write(Plot3DS(x1,x1 -> -1:1,x2 -> -1:1,output->data,points->2)), result);
+  Verify(PipeToString()Write(Plot3DS(a,-1->1,-1->1,output: data,points: 2)), result);
 };
 
 %/mathpiper

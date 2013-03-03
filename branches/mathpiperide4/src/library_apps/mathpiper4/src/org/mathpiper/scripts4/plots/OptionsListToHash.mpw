@@ -3,20 +3,20 @@
 /// utility function: convert options lists of the form
 /// "[key=value, key=value]" into a hash of the same form.
 /// The argument list is kept unevaluated using "HoldArgumentNumber()".
-/// Note that symbolic values of type atom are automatically converted to strings, e.g. ListToHash([a -> b]) returns [["a", "b"]]
+/// Note that symbolic values of type atom are automatically converted to strings, e.g. ListToHash([a: b]) returns [["a", "b"]]
 OptionsListToHash(list) :=
 {
         Local(item, result);
         result := [];
         ForEach(item, list)
                 Decide(
-                        Function?(item) And? (Type(item) =? "->" ) And? Atom?(item[1]),
+                        Function?(item) And? (Type(item) =? ":" ) And? Atom?(item[1]),
                         result[ToString(item[1])] := Decide(
                                 Atom?(item[2]) And? Not? Number?(item[2]) And? Not? String?(item[2]),
                                 ToString(item[2]),
                                 item[2]
                         ),
-                        Echo(["OptionsListToHash: Error: item ", item, " is not of the format a -> b."])
+                        Echo(["OptionsListToHash: Error: item ", item, " is not of the format a: b."])
                 );
         
         result;

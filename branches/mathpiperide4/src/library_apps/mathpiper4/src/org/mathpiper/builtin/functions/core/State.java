@@ -120,7 +120,7 @@ public class State extends BuiltinFunction {
 *CALL 
  
  State()
- State(ShowPrivate -> True)
+ State(ShowPrivate: True)
 
 
 *DESC 

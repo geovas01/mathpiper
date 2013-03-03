@@ -160,8 +160,8 @@ public class Histogram extends BuiltinFunction {
 
 *DESC
 
-Creates either a single histogram or multiple histograms on the same plot. Options are entered using the -> operator.
-For example, here is how to set the {title} option: {title -> "Example Title"}.
+Creates either a single histogram or multiple histograms on the same plot. Options are entered using the : operator.
+For example, here is how to set the {title} option: {title: "Example Title"}.
 
 *E.G.
 /%mathpiper
@@ -173,14 +173,14 @@ Histogram([1.0, 1.1, 1.1, 1.2, 1.7, 2.2, 2.5, 4.0]);
 
 /%mathpiper
 
-Histogram([1.0, 1.1, 1.1, 1.2, 1.7, 2.2, 2.5, 4.0, 4.2], seriesTitle -> "Options Example", xAxisLabel -> "X Axis", yAxisLabel -> "Y Axis");
+Histogram([1.0, 1.1, 1.1, 1.2, 1.7, 2.2, 2.5, 4.0, 4.2], seriesTitle: "Options Example", xAxisLabel: "X Axis", yAxisLabel: "Y Axis");
 
 /%/mathpiper
 
 
 /%mathpiper
 
-Histogram([1.0, 1.1, 1.1, 1.2, 1.7, 2.2, 2.5, 4.0, 4.2], orientation -> "horizontal");
+Histogram([1.0, 1.1, 1.1, 1.2, 1.7, 2.2, 2.5, 4.0, 4.2], orientation: "horizontal");
 
 /%/mathpiper
 
@@ -190,7 +190,7 @@ Histogram([1.0, 1.1, 1.1, 1.2, 1.7, 2.2, 2.5, 4.0, 4.2], orientation -> "horizon
 pileESamples := [16.375,16.375,17.125,16,14.375,17.25,16.625,16,17,17.25,17,15.875,16.625,16.125,17.125,16.875,16.375,16.375,16.875,17.125,17,16.75,17.25,17.125,15.375];
 pileDSamples := [18.25,19.25,18.25,15.625,17.625,17.5,17.125,17.125,17.5,14.5,17.375,16.875,17.75,18.875,14.875,19.25,18.125,16.25,16.125,16.75,17.25,17.375,17.125,17.5,16.625];
 
-Histogram([pileDSamples, pileESamples], title -> "Wood Piles", series1Title -> "Pile D", series2Title -> "Pile E");
+Histogram([pileDSamples, pileESamples], title: "Wood Piles", series1Title: "Pile D", series2Title: "Pile E");
 
 /%/mathpiper
 
@@ -199,9 +199,9 @@ Histogram([pileDSamples, pileESamples], title -> "Wood Piles", series1Title -> "
 
 numberOfRoles := 1000;
 
-dieRolesList := RandomIntegerVector(numberOfRoles,1,6);
+dieRolesList := RandomIntegerList(numberOfRoles,1,6);
 
-Histogram(dieRolesList, binMinimum -> .5, binMaximum -> 6.5, numberOfBins -> 6, title -> "Single Die Rolls", xAxisLabel -> "Number Rolled", yAxisLabel -> "Frequency", seriesTitle -> String(numberOfRoles) : " Roles");
+Histogram(dieRolesList, binMinimum: .5, binMaximum: 6.5, numberOfBins: 6, title: "Single Die Rolls", xAxisLabel: "Number Rolled", yAxisLabel: "Frequency", seriesTitle: ToString(numberOfRoles) ~ " Roles");
 
 /%/mathpiper
 
