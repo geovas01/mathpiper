@@ -1,5 +1,5 @@
 
-%mathpiper,def="Position;PositionHelper;Occurrence;SingleOccurrence?;SolveEquation;Isolate2;RemoveDollarSigns;AddDollarSigns;TexFormNoDollarSigns;Isolax;StepsView;ToLatex"
+%mathpiper,def="Position;PositionHelper;Occurrence;SingleOccurrence?;SolveEquation;Isolate;RemoveDollarSigns;AddDollarSigns;TexFormNoDollarSigns;Isolax;StepsView;ToLatex"
 
 //Note:tk:Perhaps create a function called Value that obtains the value that is assigned to a variable
 // without evaluating the variable first.
@@ -89,18 +89,18 @@ PositionHelper(subTerm, term, list) :=
 
 
 
-Occurrence(subTerm, term) :=
+Occurrence(expression, variable) :=
 {
-    Check(Function?(term), "Argument", "The argument must be an expression that contains a function.");
+    Check(Function?(expression), "Argument", "The argument must be an expression that contains a function.");
 
-    Count(VarListAll(term), subTerm);
+    Count(VarListAll(expression), variable);
 };
 
 
 
-SingleOccurrence?(subTerm, term) :=
+SingleOccurrence?(expression, variable) :=
 {
-    Occurrence(subTerm, term) =? 1;
+    Occurrence(expression, variable) =? 1;
 };
 
 
@@ -125,9 +125,13 @@ RulebaseListedHoldArguments("SolveEquation",[equation, variable, optionsList]);
     
     options := OptionsToAssociativeList(optionsList);
     
+    Check(Occurrence(equation, variable) >? 0, "Argument", "The variable " ~ ToString(variable) ~ " does not occur in the equation.");
+    
+    Check(Occurrence(equation, variable) =? 1, "Argument", "Equations with multiple occurrences of the unknown are not currently supported.");
+    
     equation := AddDollarSigns(equation);
      
-    steps := Isolate2(variable, equation);
+    steps := Isolate(variable, equation);
 };
 
 
@@ -144,7 +148,7 @@ RulebaseListedHoldArguments("SolveEquation",[equation, variable, optionsList]);
 
 
 
-Isolate2(variable, equation) :=
+Isolate(variable, equation) :=
 {
     Local(result, rest, currentEquation, path, showTree);
 
@@ -394,7 +398,7 @@ Isolax(side, equation) :=
 
 %/mathpiper
 
-    %output,sequence="11,timestamp="2013-02-13 17:06:57.293",preserve="false"
+    %output,sequence="11,timestamp="2013-03-04 05:18:49.719",preserve="false"
       Result: True
 .   %/output
 
