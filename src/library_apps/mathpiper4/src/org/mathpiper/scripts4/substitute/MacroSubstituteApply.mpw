@@ -12,8 +12,6 @@ Function("MacroSubstituteApply", [body, predicate, change])
   `MacroSubstituteApply((Hold(@body)));
 };
 
-
-
 HoldArgument("MacroSubstituteApply", predicate);
 
 HoldArgument("MacroSubstituteApply", change);

@@ -1,14 +1,9 @@
 %mathpiper,def="/:"
 
-5 # (_expression /: LocPatterns(_patterns)) <--
-{
-  MacroSubstituteApply(expression,"LocPredicate","LocChange");
-};
-
 
 10 # (_expression /: _patterns) <--
 {
-  Assign(patterns, LocProcess(patterns));
+  Assign(patterns, PatternsCompile(patterns));
   
   MacroSubstituteApply(expression,"LocPredicate","LocChange");
 };
@@ -64,7 +59,7 @@ expression and so on.
 
 A local rule that is defined by the <- operator can be given a name by using the # operator:
 
-"RuleName" # Ln(_x*_y) <- Ln(x) + Ln(y)}
+"RuleName" # Ln(_x*_y) <- Ln(x) + Ln(y)
 
 Each time the rule is selected while the system is in verbose mode, the name of the rule will be
 printed as a side effect.
