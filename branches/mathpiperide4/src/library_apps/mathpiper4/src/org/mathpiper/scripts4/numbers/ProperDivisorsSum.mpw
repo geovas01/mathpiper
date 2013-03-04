@@ -28,6 +28,7 @@ since {n} is not counted.
 *E.G.
 In> ProperDivisorsSum(180)
 Result: 366;
+
 In> ProperDivisorsSum(37)
 Result: 1;
 

@@ -33,10 +33,13 @@ occurs in "list" and returns this number.
 
 In> lst := [a,b,c,b,a];
 Result: [a,b,c,b,a];
+
 In> Count(lst, a);
 Result: 2;
+
 In> Count(lst, c);
 Result: 1;
+
 In> Count(lst, x);
 Result: 0;
 

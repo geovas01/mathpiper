@@ -32,8 +32,10 @@ results.
 
 In> NegativeReal?(Sin(1)-3/4);
 Result: False;
+
 In> NegativeReal?(Sin(1)-6/7);
 Result: True;
+
 In> NegativeReal?(Exp(x));
 Result: False;
 

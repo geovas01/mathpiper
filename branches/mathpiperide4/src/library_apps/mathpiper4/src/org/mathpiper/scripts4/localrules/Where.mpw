@@ -80,10 +80,13 @@ This operator can help the user to program in the style of functional programmin
 *E.G.
 In> x^2+y^2 Where x==2
 Result: y^2+4;
+
 In> x^2+y^2 Where x==2 And? y==3
 Result: 13;
+
 In> x^2+y^2 Where [x==2 And? y==3]
 Result: [13];
+
 In> x^2+y^2 Where [x==2 And? y==3,x==4 And? y==5]
 Result: [13,41];
 

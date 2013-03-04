@@ -26,6 +26,7 @@ to any power is also equal to $A$.
 
 In> Idempotent?(ZeroMatrix(10,10));
 Result: True;
+
 In> Idempotent?(Identity(20))
 Result: True;
 %/mathpiper_docs

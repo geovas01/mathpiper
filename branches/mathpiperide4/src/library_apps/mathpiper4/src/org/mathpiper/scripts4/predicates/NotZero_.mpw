@@ -32,6 +32,7 @@ number, the function returns {False}.
 
 In> NotZero?(3.25);
 Result: True;
+
 In> NotZero?(0);
 Result: False;
 

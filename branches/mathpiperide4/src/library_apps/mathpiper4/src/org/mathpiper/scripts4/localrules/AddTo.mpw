@@ -62,6 +62,7 @@ This operator can help the user to program in the style of functional programmin
 
 In> [A==2,c==d] AddTo [b==3 And? d==2]
 Result: [A==2 And? b==3 And? d==2,c==d And? b==3 And? d==2];
+
 In> [A==2,c==d] AddTo [b==3, d==2]
 Result: [A==2 And? b==3,A==2 And? d==2,c==d And? b==3,c==d And? d==2];
 

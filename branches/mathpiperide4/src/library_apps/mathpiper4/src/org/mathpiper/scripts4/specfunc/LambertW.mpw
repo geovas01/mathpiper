@@ -73,6 +73,7 @@ To compute the numeric value of the  principal branch of Lambert's $W$ function 
 *E.G.
 In> LambertW(0)
 Result: 0;
+
 In> NM(LambertW(-0.24/Sqrt(3*Pi)))
 Result: -0.0851224014;
 

@@ -30,6 +30,7 @@ unbound variables are real.
 
 In> Conjugate(2)
 Result: 2;
+
 In> Conjugate(Complex(a,b))
 Result: Complex(a,-b);
 

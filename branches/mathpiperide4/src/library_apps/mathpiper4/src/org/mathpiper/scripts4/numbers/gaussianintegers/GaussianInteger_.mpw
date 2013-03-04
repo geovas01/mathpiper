@@ -32,8 +32,10 @@ integer if and only if $a$ and $b$ are integers.
 *E.G.
 In> GaussianInteger?(5)
 Result: True;
+
 In> GaussianInteger?(5+6*I)
 Result: True;
+
 In> GaussianInteger?(1+2.5*I)
 Result: False;
 

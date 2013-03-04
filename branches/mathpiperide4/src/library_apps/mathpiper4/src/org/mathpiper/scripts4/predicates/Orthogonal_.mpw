@@ -26,6 +26,7 @@ equivalently Inverse($A$) = Transpose($A$).
 
 In> A := [[1,2,2],[2,1,-2],[-2,2,-1]];
 Result: [[1,2,2],[2,1,-2],[-2,2,-1]];
+
 In> UnparseMath2D(A/3)
 
         /                      \
@@ -42,6 +43,7 @@ In> UnparseMath2D(A/3)
         | \ 3  / \ 3 / \ 3  /  |
         \                      /
 Result: True;
+
 In> Orthogonal?(A/3)
 Result: True;
 %/mathpiper_docs

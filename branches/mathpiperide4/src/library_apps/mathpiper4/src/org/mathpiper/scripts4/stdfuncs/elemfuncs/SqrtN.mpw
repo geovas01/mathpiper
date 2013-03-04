@@ -80,12 +80,16 @@ the functions return a floating-point result which is correct only to the curren
 *E.G.
 In> BuiltinPrecisionSet(10)
 Result: True
+
 In> Sqrt(10)
 Result: Sqrt(10)
+
 In> SqrtN(10)
 Result: 3.16227766
+
 In> SqrtN(490000*2^150)
 Result: 26445252304070013196697600
+
 In> SqrtN(490000*2^150+1)
 Result: 0.264452523e26
 

@@ -81,6 +81,7 @@ list is returned.
 
 In> FunctionToList(Cos(x));
 Result: {Cos,x};
+
 In> FunctionToList(3*a);
 Result: {*,3,a};
 

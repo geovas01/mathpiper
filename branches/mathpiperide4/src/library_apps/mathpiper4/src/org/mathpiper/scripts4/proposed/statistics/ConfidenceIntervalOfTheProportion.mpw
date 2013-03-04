@@ -67,6 +67,7 @@ This function calculates a confidence interval for a proportion.  It returns an 
 which contains the lower limit, the upper limit, and the critical Z score.
 
 *E.G.
+
 In> ConfidenceIntervalOfTheProportion(110,175,.90)
 Result: [["lowerLimit",0.5684923463],["upperLimit",0.6886505109],["criticalZScore",1.644853952]]
 

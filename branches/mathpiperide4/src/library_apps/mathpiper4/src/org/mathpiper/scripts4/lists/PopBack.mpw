@@ -27,14 +27,19 @@ be empty.
 
 In> stack := [];
 Result: [];
+
 In> Push(stack, x);
 Result: [x];
+
 In> Push(stack, x2);
 Result: [x2,x];
+
 In> Push(stack, x3);
 Result: [x3,x2,x];
+
 In> PopBack(stack);
 Result: x;
+
 In> stack;
 Result: [x3,x2];
 

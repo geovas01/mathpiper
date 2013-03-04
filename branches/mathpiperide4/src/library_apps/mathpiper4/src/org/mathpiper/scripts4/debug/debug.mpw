@@ -320,6 +320,7 @@ The result is the "user time" as reported by the OS, not the real ("wall clock")
 Therefore, any CPU-intensive processes running alongside MathPiper will not significantly affect the result of {EchoTime}.
 
 *E.G. notest
+
 In> EchoTime() NM(MathLog(1000),40)
         0.34 seconds taken
 Result: 6.9077552789821370520539743640530926228033;

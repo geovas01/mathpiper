@@ -32,8 +32,10 @@ It also returns {True} if {lst} is not a list, or if {pred} is not a predicate.
 
 *E.G.
 
+
 In> NoneSatisfy?("NegativeInteger?",[1,0,5])
 Result: True
+
 In> NoneSatisfy?("PositiveInteger?",[-1,0,5])
 Result: False
     

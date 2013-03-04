@@ -26,10 +26,13 @@ numbers are trivially square-free.
 
 In> SquareFree?(37)
 Result: True;
+
 In> SquareFree?(4)
 Result: False;
+
 In> SquareFree?(16)
 Result: False;
+
 In> SquareFree?(18)
 Result: False;
 

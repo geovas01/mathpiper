@@ -63,8 +63,10 @@ This command returns the current precision, as set by {BuiltinPrecisionSet}.
 
 In> BuiltinPrecisionGet();
 Result: 10;
+
 In> BuiltinPrecisionSet(20);
 Result: True;
+
 In> BuiltinPrecisionGet();
 Result: 20;
 

@@ -43,6 +43,7 @@ Note that since the operators "{+}" and "{-}" are prefix as well as infix operat
 
 In> HasExpressionSome?([a+b*2,c/d],c/d,[List])
 Result: True;
+
 In> HasExpressionSome?([a+b*2,c/d],c,[List])
 Result: False;
 

@@ -195,12 +195,15 @@ with which to compose the higher polynomial.
 
 *E.G.
 
+
 In> RandomInterestingPolynomial(3,x)
 Result: x^3+2*x^2-12*x-48
     
+
 In> Factor(%)
 Result: (x-4)*(x^2+6*x+12)
     
+
 In> Solve(x^2+6*x+12,x)
 Result: [x==Complex(-3,Sqrt(3)),x==Complex(-3,(-Sqrt(12))/2)]
     
@@ -208,15 +211,19 @@ Notice that although the polynomial is indeed factorable, it is
 not guaranteed to have only linear factors (over the integers), 
 and (some of) the roots of the polynomial may be complex.
     
+
 In> RandomIrreducibleQuadraticWithRealRoots(x)
 Result: 6*x^2+2*x-7
     
+
 In> Solve(%,x)
 Result: [x==(Sqrt(172)-2)/12,x==(-(Sqrt(172)+2))/12]
     
+
 In>  RandomIrreducibleQuadraticWithComplexRoots(x)
 Result: 8*x^2-5*x+3
     
+
 In> Solve(%,x)
 Result: [x==Complex(5/16,Sqrt(71/256)),x==Complex(5/16,(-Sqrt(71))/16)]
 

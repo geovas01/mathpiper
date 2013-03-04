@@ -83,6 +83,7 @@ The second calling format of {CUnparsable?} can be used to "allow" certain funct
 
 In> CUnparsable?(Sin(a1)+2*Cos(b1))
 Result: True;
+
 In> V(CUnparsable?(1+func123(b1)))
         CUnparsable?: Info: unexportable function(s):
           func123

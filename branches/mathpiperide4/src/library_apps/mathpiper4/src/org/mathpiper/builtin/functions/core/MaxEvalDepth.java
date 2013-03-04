@@ -82,6 +82,7 @@ evaluation depth is reached.
 
 In> f(x) := f(x)
 Result: True;
+
 In> f(x)
 	Error on line 1 in file [CommandLine]
 	Max evaluation stack depth reached.
@@ -93,9 +94,11 @@ be reached without the presence of infinite recursion. The function {MaxEvalDept
 
 In> 10 # g(0) <-- 1;
 Result: True;
+
 In> 20 # g(n_PositiveInteger?) <-- \
 	  2 * g(n-1);
 Result: True;
+
 In> g(1001);
 	Error on line 1 in file [CommandLine]
 	Max evaluation stack depth reached.
@@ -104,6 +107,7 @@ In> g(1001);
 
 In> MaxEvalDepth(10000);
 Result: True;
+
 In> g(1001);
 Result: 21430172143725346418968500981200036211228096234
 	1106721488750077674070210224987224498639675763139171

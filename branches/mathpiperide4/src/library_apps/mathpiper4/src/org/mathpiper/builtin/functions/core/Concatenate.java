@@ -99,6 +99,7 @@ concatenated. The resulting big list is returned.
 
 In> Concat({a,b}, {c,d});
 Result: {a,b,c,d};
+
 In> Concat({5}, {a,b,c}, {{f(x)}});
 Result: {5,a,b,c,{f(x)}};
 

@@ -112,6 +112,7 @@ This function also works on strings and arrays.
 
 In> Length({a,b,c})
 Result: 3;
+
 In> Length("abcdef");
 Result: 6;
 

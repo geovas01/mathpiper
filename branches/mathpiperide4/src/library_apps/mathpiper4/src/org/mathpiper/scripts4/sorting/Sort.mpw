@@ -81,26 +81,34 @@ In all cases, the original {list} is left unmodified.
 
 *E.G.
 
+
 In> L:=RandomIntegerList(12,-10,10)
 Result: [7,-6,8,-3,10,5,-5,3,-6,5,10,3]
+
 
 In> Sort(L)
 Result: [-6,-6,-5,-3,3,3,5,5,7,8,10,10]
 
+
 In> Sort(L,">?")
 Result: [10,10,8,7,5,5,3,3,-3,-5,-6,-6]
+
 
 In> SortIndexed(L)
 Result: [[-6,-6,-5,-3,3,3,5,5,7,8,10,10],[2,9,7,4,12,8,6,10,1,3,11,5]]
 
+
 In> SortIndexed(L,">?")
 Result: [[10,10,8,7,5,5,3,3,-3,-5,-6,-6],[5,11,3,1,6,10,12,8,4,7,9,2]]
+
 
 In> L2:=RandomIntegerList(100,-500,500)
 Result: [-123,-459,156,-492,-313, <<SNIP>>, 351,-459,76,27,-144,-80,-91]
 
+
 In> T:=Time() LS:=BubbleSort(L2,"<?")
 Result: 0.621
+
 
 In> T:=Time() LS:=HeapSort(L2,"<?")
 Result: 0.146

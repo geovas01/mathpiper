@@ -92,6 +92,7 @@ elements are the initial digits before the period sets in.
 
 In> Decimal(1/22)
 Result: [0,0,[4,5]];
+
 In> NM(1/22,30)
 Result: 0.045454545454545454545454545454;
 

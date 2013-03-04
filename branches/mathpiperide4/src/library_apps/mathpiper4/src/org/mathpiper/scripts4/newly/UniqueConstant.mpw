@@ -27,6 +27,7 @@ appended to it.
 
 In> UniqueConstant()
 Result: C9
+
 In>  UniqueConstant()
 Result: C10
 

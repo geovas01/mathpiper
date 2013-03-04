@@ -25,6 +25,7 @@ not an integer, the result is {False}.
 
 In> NonZeroInteger?(0)
 Result: False;
+
 In> NonZeroInteger?(-2)
 Result: True;
 

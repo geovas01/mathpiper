@@ -49,9 +49,11 @@ matrix elements.
 
 In> A:=DiagonalMatrix([a,b,c])
 Result: [[a,0,0],[0,b,0],[0,0,c]];
+
 In> B:=Inverse(A)
 Result: [[(b*c)/(a*b*c),0,0],[0,(a*c)/(a*b*c),0],
         [0,0,(a*b)/(a*b*c)]];
+
 In> Simplify(B)
 Result: [[1/a,0,0],[0,1/b,0],[0,0,1/c]];
 

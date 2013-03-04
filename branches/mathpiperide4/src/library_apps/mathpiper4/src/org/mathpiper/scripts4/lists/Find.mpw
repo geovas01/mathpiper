@@ -42,8 +42,10 @@ NOTE: Find is a synonym for FindFirst.
 
 In> Find([a,b,c,d,e,f], d);
 Result: 4;
+
 In> Find([1,2,3,2,1], 2);
 Result: 2;
+
 In> Find([1,2,3,2,1], 4);
 Result: -1;
 

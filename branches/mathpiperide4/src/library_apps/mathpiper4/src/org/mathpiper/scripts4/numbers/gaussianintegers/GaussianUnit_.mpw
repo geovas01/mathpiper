@@ -27,6 +27,7 @@ $1$, $-1$, $I$, and $-I$.
 *E.G.
 In> GaussianInteger?(I)
 Result: True;
+
 In> GaussianUnit?(5+6*I)
 Result: False;
 

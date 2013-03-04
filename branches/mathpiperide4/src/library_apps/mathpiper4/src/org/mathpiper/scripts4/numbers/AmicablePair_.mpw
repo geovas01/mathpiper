@@ -26,6 +26,7 @@ $n$ and the sum of the proper divisors of $n$ is $m$.
 
 In> AmicablePair?(200958394875, 209194708485 )
 Result: True;
+
 In> AmicablePair?(220, 284)
 Result: True;
 

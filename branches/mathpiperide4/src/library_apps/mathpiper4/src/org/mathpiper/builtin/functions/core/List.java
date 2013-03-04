@@ -74,8 +74,10 @@ is "expr2", and so on. This command is equivalent to the expression
 
 In> List();
 Result: {};
+
 In> List(a,b);
 Result: {a,b};
+
 In> List(a,{1,2},d);
 Result: {a,{1,2},d};
 

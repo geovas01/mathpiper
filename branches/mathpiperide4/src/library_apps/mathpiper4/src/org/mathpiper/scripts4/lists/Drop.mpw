@@ -53,10 +53,13 @@ through "n".
 
 In> lst := [a,b,c,d,e,f,g];
 Result: [a,b,c,d,e,f,g];
+
 In> Drop(lst, 2);
 Result: [c,d,e,f,g];
+
 In> Drop(lst, -3);
 Result: [a,b,c,d];
+
 In> Drop(lst, [2,4]);
 Result: [a,e,f,g];
 

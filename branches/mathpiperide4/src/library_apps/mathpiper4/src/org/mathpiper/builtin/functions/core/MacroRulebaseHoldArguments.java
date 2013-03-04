@@ -126,10 +126,13 @@ a variable {a} from the calling environment.
 
 In> MacroRulebaseHoldArguments("myfor",{init,pred,inc,body})
 Result: True;
+
 In> myfor(_init,_pred,_inc,_body)<--[@init;While(@pred)[@body;@inc;];True;];
 Result: True;
+
 In> a:=10
 Result: 10;
+
 In> myfor(i:=1,i<10,i++,Echo(a*i))
 	10
 	20
@@ -141,6 +144,7 @@ In> myfor(i:=1,i<10,i++,Echo(a*i))
 	80
 	90
 Result: True;
+
 In> i
 Result: 10;
 

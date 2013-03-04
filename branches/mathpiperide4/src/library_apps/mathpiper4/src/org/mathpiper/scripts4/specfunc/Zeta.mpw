@@ -44,14 +44,19 @@ number in the current precision.
 
 In> Precision(30)
 Result: True;
+
 In> Zeta(1)
 Result: Infinity;
+
 In> Zeta(1.3)
 Result: Zeta(1.3);
+
 In> NM(Zeta(1.3))
 Result: 3.93194921180954422697490751058798;
+
 In> Zeta(2)
 Result: Pi^2/6;
+
 In> NM(Zeta(2));
 Result: 1.64493406684822643647241516664602;
 

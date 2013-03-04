@@ -34,6 +34,7 @@ Det(matrix-x*identity).
 
 In> M:=[[1,2],[2,1]]
 Result: [[1,2],[2,1]];
+
 In> EigenValues(M)
 Result: [3,-1];
 

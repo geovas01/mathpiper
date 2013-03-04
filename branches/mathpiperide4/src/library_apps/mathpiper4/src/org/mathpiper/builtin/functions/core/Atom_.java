@@ -69,6 +69,7 @@ variables are all atoms.
 
 In> Atom?(x+5);
 Result: False;
+
 In> Atom?(5);
 Result: True;
 

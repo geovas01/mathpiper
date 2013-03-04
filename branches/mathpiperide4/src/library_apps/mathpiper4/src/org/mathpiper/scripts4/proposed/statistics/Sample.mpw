@@ -34,6 +34,7 @@ This function takes a random sample of items from a list and returns
 a list which contains the sample.
 
 *E.G.
+
 In> Sample([a,b,c,d,e,f,g],3)
 Result: [a,c,g]
 

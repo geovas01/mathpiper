@@ -52,6 +52,7 @@ it has recently been proven that there are infinitely many of them.
 
 In> CarmichaelNumber?(561)
 Result: True;
+
 In> EchoTime() Select(1 .. 10000, CarmichaelNumber?)
         504.19 seconds taken
 Result: [561,1105,1729,2465,2821,6601,8911];

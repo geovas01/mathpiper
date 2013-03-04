@@ -64,6 +64,7 @@ Compare decimal numbers or strings (lexicographically).
 *E.G.
 In> LessThan?(1,1)
 Result: False;
+
 In> LessThan?("a","b")
 Result: True;
 

@@ -44,12 +44,16 @@ number, i.e. an integer or a fraction of integers.
 
 In> Rational?(5)
 Result: True;
+
 In> Rational?(2/7)
 Result: True;
+
 In> Rational?(0.5)
 Result: False;
+
 In> Rational?(a/b)
 Result: False;
+
 In> Rational?(x + 1/x)
 Result: False;
 

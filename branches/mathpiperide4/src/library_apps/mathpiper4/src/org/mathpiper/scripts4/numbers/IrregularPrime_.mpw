@@ -46,6 +46,7 @@ are  37, 59 and 67. Asymptotically, roughly 40{%} of primes are irregular.
 
 In> IrregularPrime?(5)
 Result: False;
+
 In> Select(1 .. 100, IrregularPrime?)
 Result: [37,59,67];
 

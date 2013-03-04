@@ -84,6 +84,7 @@ causing MathPiper to flood its stack:
 
 In> f(x):=f(Sin(x))
 Result: True;
+
 In> TraceStack(f(2))
 	Debug> 982 :  f (Rule # 0 in body)
 	Debug> 983 :  f (Rule # 0 in body)

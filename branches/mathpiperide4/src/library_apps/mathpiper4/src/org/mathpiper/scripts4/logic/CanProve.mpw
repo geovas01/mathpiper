@@ -104,12 +104,16 @@ added advantage of simplifying the expression further.
 
 In> CanProve(a  Or?   Not? a)
 Result: True;
+
 In> CanProve(True  Or?  a)
 Result: True;
+
 In> CanProve(False  Or?  a)
 Result: a;
+
 In> CanProve(a  And?   Not? a)
 Result: False;
+
 In> CanProve(a  Or? b Or? (a And? b))
 Result: a Or? b;
         

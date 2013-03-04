@@ -75,17 +75,22 @@ NOTE: numerical factors are not decomposed into their prime factorization.
 
 *E.G.
 
+
 In> FactorsMonomial(24)
 Result: [[24,1]]
+
 
 In> FactorsMonomial(24/15)
 Result: [[8/5,1]]
 
+
 In> FactorsMonomial(24*a*x^2*y^3)
 Result: [[24,1],[a,1],[x,2],[y,3]]
 
+
 In> FactorsMonomial(24*a*x^2*y^3/15)
 Result: [[8/5,1],[a,1],[x,2],[y,3]]
+
 
 In> FactorsMonomial(24*a*x^2*y^3/15+1)
 Result: FactorsMonomial((24*a*x^2*y^3)/15+1)

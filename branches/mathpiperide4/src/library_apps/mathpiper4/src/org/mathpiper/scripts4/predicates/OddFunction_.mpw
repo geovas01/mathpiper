@@ -44,10 +44,13 @@ $$ f_odd(x) = (f(x)-f(-x))/2 $$
 
 In> OddFunction?(Cos(b*x),x)
 Result: False
+
 In> OddFunction?(Sin(b*x),x)
 Result: True
+
 In> OddFunction?(1/x,x)
 Result: True
+
 In> OddFunction?(1/x^2,x)
 Result: False
 

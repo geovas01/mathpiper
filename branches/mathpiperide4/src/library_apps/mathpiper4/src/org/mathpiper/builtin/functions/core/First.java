@@ -70,6 +70,7 @@ returned if "list" is an atom.
 
 In> First({a,b,c})
 Result: a;
+
 In> First(f(a,b,c));
 Result: a;
 

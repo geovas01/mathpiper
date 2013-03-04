@@ -51,6 +51,7 @@ construct in the programming language C.
 
 In> x := 0;
 Result: 0;
+
 In> Until (x! >? 10^6) \
           [ Echo([x, x!]); x++; ];
          0  1

@@ -26,9 +26,11 @@ Tests if a value is a segment.
 
 *E.G.
 
+
 In> Segment?(Segment(Point(0,0), Point(3,4)))
 Result: True
         
+
 In> Segment?([3,4])
 Result: False
         

@@ -37,8 +37,10 @@ list, the function is applied to all entries in the list.
 
 In> Exp(0)
 Result: 1;
+
 In> Exp(I*Pi)
 Result: -1;
+
 In> NM(Exp(1))
 Result: 2.7182818284;
 

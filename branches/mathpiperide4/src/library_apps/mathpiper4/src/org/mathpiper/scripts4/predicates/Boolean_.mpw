@@ -28,8 +28,10 @@ functions that return a boolean result, e.g.
 
 In> Boolean?(a)
 Result: False;
+
 In> Boolean?(True)
 Result: True;
+
 In> Boolean?(a And? b)
 Result: True;
 

@@ -44,8 +44,10 @@ CartesianProduct(xList_List?, yList_List?) <--
 This function returns the Cartesian product of two lists.
 
 *E.G.
+
 In> CartesianProduct([a,b], [c,d])
 Result: [[a,c],[a,d],[b,c],[b,d]]
+
 
 In> CartesianProduct([2,3,4,5,6,7,8,9,10,Jack,Queen,King,Ace], [Spades, Hearts, Diamonds, Clubs])
 Result: [[2,Spades],[2,Hearts],[2,Diamonds],[2,Clubs],

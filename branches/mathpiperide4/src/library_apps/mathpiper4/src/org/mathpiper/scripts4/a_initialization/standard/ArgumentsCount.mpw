@@ -27,8 +27,10 @@ that would lead to an error.
 
 In> ArgumentsCount(f(a,b,c))
 Result: 3;
+
 In> ArgumentsCount(Sin(x));
 Result: 1;
+
 In> ArgumentsCount(a*(b+c));
 Result: 2;
 

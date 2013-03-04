@@ -258,6 +258,7 @@ ViewMath(matrix);
 The ViewXXX functions all return a reference to the Java JFrame windows which they are displayed in.
 This JFrame instance can be used to hide, show, and dispose of the window.
  
+
 In> frame := ViewMath(x^2)
 Result: javax.swing.JFrame
 

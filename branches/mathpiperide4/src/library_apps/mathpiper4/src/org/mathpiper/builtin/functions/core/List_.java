@@ -69,6 +69,7 @@ between curly braces, e.g. {{2, 3, 5}}.
 
 In> List?({2,3,5});
 Result: True;
+
 In> List?(2+3+5);
 Result: False;
 

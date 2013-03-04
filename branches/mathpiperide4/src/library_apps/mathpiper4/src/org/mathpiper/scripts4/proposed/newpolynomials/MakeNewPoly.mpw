@@ -79,11 +79,14 @@ The Rest() of each Term, here $$ {k,m,n} $$, constitutes what is sometimes
 called the "Power-Product" of that term:   {x^k*y^m*z^n}.
 
 *E.G.
+
 In> p1 := MakeNewPoly(2*x*y^2-3*y*z)
 Result: [NP,[x,y,z],[2,1,2,0],[-3,0,1,1]]
 
+
 In> p2 := MakeNewPoly(5*y^3-6*y+7)
 Result: [NP,[x,y,z],[5,0,3,0],[-6,0,1,0],[7,0,0,0]]
+
 
 In> p3 := MakeNewPoly(-2)
 Result: [NP,[x,y,z],[-2,0,0,0]]

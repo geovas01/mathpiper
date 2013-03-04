@@ -128,12 +128,16 @@ infix operators, so you can write {expr1 And? expr}.
 
 In> True And? False
 Result: False;
+
 In> And?(True,True)
 Result: True;
+
 In> False And? a
 Result: False;
+
 In> True And? a
 Result: And?(a);
+
 In> And?(True,a,True,b)
 Result: b And? a;
 

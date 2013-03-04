@@ -63,14 +63,18 @@ the first step in any attempt to factor the polynomial.
 
 *E.G.
 
+
 In> poly2:=2*a*x^2+4*a*x
 Result: 2*a*x^2+4*a*x
+
 
 In> cx:=xContent(poly2)
 Result: 2*a*x
 
+
 In> ppx := xPrimitivePart(poly2)
 Result: x+2
+
 
 In> Expand(ppx*cx)
 Result: 2*a*x^2+4*a*x

@@ -489,15 +489,18 @@ In> UnparserSet("UnparseMath2D");
         
         True
         
+
 In> TrigSimpCombine(Cos(a)^2+Sin(a)^2)
         
         1
         
+
 In> TrigSimpCombine(Cos(a)^2-Sin(a)^2)
         
         Cos( -2 * a )
         
 Result:
+
 In> TrigSimpCombine(Cos(a)^2*Sin(b))
         
         Sin( b )   Sin( -2 * a + b ) 

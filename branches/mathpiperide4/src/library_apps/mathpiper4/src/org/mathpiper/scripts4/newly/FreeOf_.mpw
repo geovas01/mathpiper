@@ -45,10 +45,13 @@ the variables named in the list. The result is {True} if none of the variables a
 
 In> FreeOf?(x, Sin(x));
 Result: False;
+
 In> FreeOf?(y, Sin(x));
 Result: True;
+
 In> FreeOf?(x, Differentiate(x) a*x+b);
 Result: True;
+
 In> FreeOf?([x,y], Sin(x));
 Result: False;
 

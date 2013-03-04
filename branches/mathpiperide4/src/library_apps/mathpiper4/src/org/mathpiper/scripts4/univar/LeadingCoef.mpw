@@ -46,15 +46,20 @@ sequence may be used.
 
 In> poly := 2*x^2 + 4*x;
 Result: 2*x^2+4*x;
+
 In> lc := LeadingCoef(poly);
 Result: 2;
+
 In> m := Monic(poly);
 Result: x^2+2*x;
+
 In> Expand(lc*m);
 Result: 2*x^2+4*x;
         
+
 In> LeadingCoef(2*a^2 + 3*a*b^2 + 5, a);
 Result: 2;
+
 In> LeadingCoef(2*a^2 + 3*a*b^2 + 5, b);
 Result: 3*a;
         

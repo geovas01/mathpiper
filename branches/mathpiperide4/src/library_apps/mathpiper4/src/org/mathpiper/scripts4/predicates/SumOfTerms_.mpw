@@ -59,26 +59,37 @@ Note that the last three criteria are somewhat subjective!
 *E.G.
 In> SumOfTerms?(x,23)
 Result> False
+
 In> SumOfTerms?(x,23*x)
 Result> True
+
 In> SumOfTerms?(x,5*y)
 Result> False
+
 In> SumOfTerms?(x,a*x^2-b*x-c/x)
 Result> True
+
 In> SumOfTerms?(x,Sin(x))
 Result> False
+
 In> SumOfTerms?(x,Sin(x)+Exp(x))
 Result> True
+
 In> SumOfTerms?(x,d*(x^2-1))
 Result> True
+
 In> SumOfTerms?(x,(x^2-1)*d)
 Result> True
+
 In> SumOfTerms?(x,(x^2-1)/d)
 Result> True
+
 In> SumOfTerms?(x,d/(x^2-1))
 Result> False
+
 In> SumOfTerms?(x,(x^2-1)*(x^2+1))
 Result> False
+
 In> SumOfTerms?(x,(x^2-1)/(x^2+1))
     Result> False    
     

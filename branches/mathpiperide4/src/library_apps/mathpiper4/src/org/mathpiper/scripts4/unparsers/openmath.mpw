@@ -995,6 +995,7 @@ Result: "<OMOBJ>
           </OMA>
         </OMOBJ>
         ";
+
 In> PipeFromString(str)OMRead()
 Result: 2+Sin(a*3);
 
@@ -1115,6 +1116,7 @@ contain them.
 
 In> OMDef( "Sqrt" ,  "arith1", "root", [ $, _1, 2 ], $(_1)_(_2=2) | (_1^(1/_2)) );
 Result: True
+
 In> OMForm(Sqrt(3))
         <OMOBJ>
           <OMA>
@@ -1124,8 +1126,10 @@ In> OMForm(Sqrt(3))
           </OMA>
         </OMOBJ>
 Result: True
+
 In> PipeFromString("<OMOBJ><OMA><OMS cd=\"arith1\" name=\"root\"/><?OMI>16</OMI><OMI>2</OMI></OMA></OMOBJ> ")OMRead()
 Result: Sqrt(16)
+
 In> PipeFromString("<OMOBJ><OMA><OMS cd=\"arith1\" name=\"root\"/><OMI>16</OMI><OMI>3</OMI></OMA></OMOBJ> ")OMRead()
 Result: 16^(1/3)
 
@@ -1137,6 +1141,7 @@ In> OMDef("Limit", "limit1", "limit", \
               |[$, _[3,2,1], _1, Right, _[3,3]]_(_2=OMS("limit1", "above")) \
               |[$, _[3,2,1], _1, _[3,3]]                                    \
              );
+
 In> OMForm(Limit(x,0) Sin(x)/x)
         <OMOBJ>
           <OMA>
@@ -1160,6 +1165,7 @@ In> OMForm(Limit(x,0) Sin(x)/x)
           </OMA>
         </OMOBJ>
 Result: True
+
 In> OMForm(Limit(x,0,Right) 1/x)
         <OMOBJ>
           <OMA>
@@ -1180,8 +1186,10 @@ In> OMForm(Limit(x,0,Right) 1/x)
           </OMA>
         </OMOBJ>
 Result: True
+
 In> PipeFromString(PipeToString()OMForm(Limit(x,0,Right) 1/x))OMRead()
 Result: Limit(x,0,Right)1/x
+
 In> %
 Result: Infinity
 

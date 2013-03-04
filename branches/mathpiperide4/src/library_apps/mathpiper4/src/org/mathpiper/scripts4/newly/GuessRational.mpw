@@ -77,14 +77,18 @@ denominator of the correct rational number.
 *E.G.
 
 Start with a rational number and obtain a floating-point approximation:
+
 In> x:=NM(956/1013)
 Result: 0.9437314906
+
 In> Rationalize(x)
 Result: 4718657453/5000000000;
+
 In> V(GuessRational(x))
         
         GuessRational: using 10 terms of the  continued fraction
 Result: 956/1013;
+
 In> ContFracList(x)
 Result: [0,1,16,1,3,2,1,1,1,1,508848,3,1,2,1,2,2];
 

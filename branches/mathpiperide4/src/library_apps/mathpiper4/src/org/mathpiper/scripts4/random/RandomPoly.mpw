@@ -37,6 +37,7 @@ this interval, and are independent of each other.
 
 In> RandomPoly(x,3,-10,10)
 Result: 3*x^3+10*x^2-4*x-6;
+
 In> RandomPoly(x,3,-10,10)
 Result: -2*x^3-8*x^2+8;
 

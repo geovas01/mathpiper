@@ -84,6 +84,7 @@ string. WriteString always returns True.
 
 In> Write("Hello, world!");
 	"Hello, world!"Result: True;
+
 In> WriteString("Hello, world!");
 	Hello, world!Result: True;
 

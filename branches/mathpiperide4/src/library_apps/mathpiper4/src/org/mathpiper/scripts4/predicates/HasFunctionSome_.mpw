@@ -41,6 +41,7 @@ Note that since the operators "{+}" and "{-}" are prefix as well as infix operat
 
 In> HasFunctionSome?([a+b*2,c/d],/,[List])
 Result: True;
+
 In> HasFunctionSome?([a+b*2,c/d],*,[List])
 Result: False;
 

@@ -51,6 +51,7 @@ elements on the diagonal of the matrix).
 
 In> A:=DiagonalMatrix(1 .. 4)
 Result: [[1,0,0,0],[0,2,0,0],[0,0,3,0],[0,0,0,4]];
+
 In> Trace(A)
 Result: 10;
 %/mathpiper_docs

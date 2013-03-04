@@ -59,6 +59,7 @@ If {Quotient(x,y)} returns "a" and {Modulo(x,y)} equals "b", then these numbers 
 
 In> Quotient(5,3)
 Result: 1;
+
 In> Modulo(5,3)
 Result: 2;
 

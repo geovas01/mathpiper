@@ -33,6 +33,7 @@ It returns {True} or {False}
 *E.G.
 In> LogicVerify(a And? c Or? b And? Not? c,a Or? b)
 Result: True;
+
 In> LogicVerify(a And? c Or? b And? Not? c,b Or? a)
 Result: True;
 

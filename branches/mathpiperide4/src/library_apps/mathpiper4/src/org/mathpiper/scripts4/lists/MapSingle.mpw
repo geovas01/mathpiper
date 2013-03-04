@@ -45,6 +45,7 @@ The {/@} operator provides a shorthand for
 
 In> MapSingle("Sin",[a,b,c]);
 Result: [Sin(a),Sin(b),Sin(c)];
+
 In> MapSingle([[x],x^2], [a,2,c]);
 Result: [a^2,4,c^2];
 

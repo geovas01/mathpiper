@@ -77,8 +77,10 @@ Note that since the operators "{+}" and "{-}" are prefix as well as infix operat
 
 In> FuncList(x+y*Cos(Ln(x)/x))
 Result: [+,*,Cos,/,Ln];
+
 In> FuncListArith(x+y*Cos(Ln(x)/x))
 Result: [+,*,Cos];
+
 In> FuncListSome([a+b*2,c/d],[List])
 Result: [List,+,/];
 

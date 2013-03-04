@@ -498,8 +498,10 @@ checked by substituting it back in the quadratic.
 
 In> quadratic := x^2+x;
 Result: x^2+x;
+
 In> xSolve(quadratic, x);
 Result: [x==0,x==(-1)];
+
 In> quadratic Where %;
 Result: [0,0];
 
@@ -508,6 +510,7 @@ If one tries to solve the equation $Exp(x) == Sin(x)$, one finds that
 
 In> UnparserSet("DefaultPrint");
 Result: True;
+
 In> xSolve(Exp(x) == Sin(x), x);
         Error: SolveFails: cannot solve equation Exp(x)-Sin(x) for x
 Result: [];
@@ -531,11 +534,14 @@ $x == a^2$. However, this is not true for eg. $a == -1$.
 
 In> UnparserSet("DefaultPrint");
 Result: True;
+
 In> xSolve(Sqrt(x) == a, x);
         Error: SolveFails: cannot solve equation Sqrt(x)-a for  x
 Result: [];
+
 In> xSolve(Sqrt(x) == 2, x);
 Result: [x==4];
+
 In> xSolve(Sqrt(x) == -1, x);
 Result: [];
 

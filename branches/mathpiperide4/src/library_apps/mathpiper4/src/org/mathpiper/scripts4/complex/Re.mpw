@@ -27,8 +27,10 @@ This function returns the real part of the complex number "x".
 
 In> Re(5)
 Result: 5;
+
 In> Re(I)
 Result: 0;
+
 In> Re(Complex(3,4))
 Result: 3;
 

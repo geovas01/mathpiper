@@ -62,8 +62,10 @@ The function {Version()} returns a string representing the version of the curren
 
 In> Version()
 Result: "1.0.48rev3";
+
 In> LessThan?(Version(), "1.0.47")
 Result: False;
+
 In> GreaterThan(Version(), "1.0.47")
 Result: True;
 
@@ -74,6 +76,7 @@ in the form {d.d.dd} as above.
 
 *REM
 Note that on the Windows platforms the output may be different:
+
 In> Version()
 Result: "Windows-latest";
 

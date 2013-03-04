@@ -77,8 +77,10 @@ this function.
 
 In> lst := {a,b,c,13,19};
 Result: {a,b,c,13,19};
+
 In> revlst := DestructiveReverse(lst);
 Result: {19,13,c,b,a};
+
 In> lst;
 Result: {a};
 

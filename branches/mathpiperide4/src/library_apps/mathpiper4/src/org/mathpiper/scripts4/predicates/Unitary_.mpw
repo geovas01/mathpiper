@@ -28,6 +28,7 @@ equivalent to the fact that the columns of $A$ build an orthonormal system
 
 In> Unitary?([[0,I],[-I,0]])
 Result: True;
+
 In> Unitary?([[0,I],[2,0]])
 Result: False;
 

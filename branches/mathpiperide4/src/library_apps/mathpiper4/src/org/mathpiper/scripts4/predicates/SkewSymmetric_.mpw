@@ -25,6 +25,7 @@ $A$ is skew symmetric iff $Transpose(A)$ =$-A$.
 
 In> A := [[0,-1],[1,0]]
 Result: [[0,-1],[1,0]];
+
 In> UnparseMath2D(%)
 
         /               \
@@ -33,6 +34,7 @@ In> UnparseMath2D(%)
         | ( 1 ) ( 0 )   |
         \               /
 Result: True;
+
 In> SkewSymmetric?(A);
 Result: True;
 

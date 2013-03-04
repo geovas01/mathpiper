@@ -34,8 +34,10 @@
 
 In> Zero?(3.25)
 Result: False;
+
 In> Zero?(0)
 Result: True;
+
 In> Zero?(x)
 Result: False;
 

@@ -112,62 +112,82 @@ If {expr} is a Rational {function} (quotient of polynomials), it is decomposed i
 quotient of irreducible factors divided by irreducible factors, but not in lowest terms.
     
 *E.G.
+
 In> n:=2*2*5*7*11^2
 Result: 16940
+
 
 In> Factor(n)
 Result: 2^2*5*7*11^2
 
+
 In> m:=3*7*11
 Result: 231
+
 
 In> Factor(n/m)
 Result: (2^2*5*11)/3
 
+
 In> g:=Expand((-2+3*I)*(5-6*I))
 Result: Complex(8,27)
+
 
 In> Factor(g)
 Result: Complex(-2,3)*Complex(-5,6)
 
+
 In> f:=Expand(5*x*(x-2)^2*(x^2+x+1)*(x^2-x+1))
 Result: 5*x^7-20*x^6+25*x^5-20*x^4+25*x^3-20*x^2+20*x
+
 
 In> Factor(f)
 Result: 5*x*(x-2)^2*(x^2-x+1)*(x^2+x+1)
 
+
 In> P:=Expand(x^2-1)
 Result: x^2-1
+
 
 In> Q:=Expand((x+1)^2)
 Result: x^2+2*x+1
 
+
 In> F:=P/Q
 Result: (x^2-1)/(x^2+2*x+1)
+
 
 In> Factor(F)
 Result: ((x-1)*(x+1))/(x+1)^2
 
+
 In> f:=Expand((2*x)^6-(3)^6)
 Result: 64*x^6-729
+
 
 In> Factor(f)
 Result: (2*x+3)*(4*x^2-6*x+9)*(2*x-3)*(4*x^2+6*x+9)
 
+
 In> f:=Expand((2*x)^6-(3*y)^6)
 Result: 64*x^6-729*y^6
+
 
 In> Factor(f)
 Result: (3*y+2*x)*(9*y^2-6*y*x+4*x^2)*(2*x-3*y)*(9*y^2+6*y*x+4*x^2)
 
+
 In> f:=Expand((2*x-5*y)^2*(7*x+3*y))
 Result: 28*x^3-128*y*x^2+115*y^2*x+75*y^3
+
 
 In> Factor(f)
 Result: (2*x-5*y)^2*(7*x+3*y)
 
+
 In> f:=(a*x-a*y)/a
 Result: (a*x-a*y)/a
+
 
 In> Factor(f)
 Result: ((-1)*a*(y-x))/a
@@ -175,6 +195,7 @@ Result: ((-1)*a*(y-x))/a
 NOTE:  If you want the result of Factor on a rational function to express
 the answer in lowest terms (i.e., with cancellation), then use the function
 FactorCancel() instead.
+
 
 In> FactorCancel(f)
 Result: x-y

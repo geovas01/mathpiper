@@ -22,8 +22,10 @@ This function returns the last element of a list.
 
 *E.G.
 
+
 In> lst := [a,b,c,d,e,f];
 Result: [a,b,c,d,e,f];
+
 In> Last(lst);
 Result: f
 

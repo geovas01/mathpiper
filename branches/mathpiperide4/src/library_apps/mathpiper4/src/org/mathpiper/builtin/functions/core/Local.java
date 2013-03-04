@@ -100,11 +100,13 @@ Result: 3;
 
 In> [ a := 4; a; ];
 Result: 4;
+
 In> a;
 Result: 4;
 
 In> [ Local(a); a := 5; a; ];
 Result: 5;
+
 In> a;
 Result: 4;
 

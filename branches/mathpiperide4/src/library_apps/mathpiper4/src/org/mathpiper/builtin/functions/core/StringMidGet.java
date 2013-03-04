@@ -92,6 +92,7 @@ accessed using the {[]} operator.
 
 In> StringMidGet(3,2,"abcdef")
 Result: "cd";
+
 In> "abcdefg"[2 .. 4]
 Result: "bcd";
 

@@ -26,6 +26,7 @@ only zeroes and {False} otherwise.
 
 In> ZeroVector?([0, x, 0]);
 Result: False;
+
 In> ZeroVector?([x-x, 1 - Differentiate(x) x]);
 Result: True;
 

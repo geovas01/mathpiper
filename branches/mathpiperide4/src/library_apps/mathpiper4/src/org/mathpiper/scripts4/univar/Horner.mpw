@@ -52,6 +52,7 @@ disappeared.
 
 In> expr1:=Expand((1+x)^4)
 Result: x^4+4*x^3+6*x^2+4*x+1;
+
 In> Horner(expr1,x)
 Result: (((x+4)*x+6)*x+4)*x+1;
 

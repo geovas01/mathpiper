@@ -35,8 +35,10 @@ This operator can help the user to program in the style of functional programmin
 
 In> "Sin" @ a
 Result: Sin(a);
+
 In> [[a],Sin(a)] @ a
 Result: Sin(a);
+
 In> "f" @ [a,b]
 Result: f(a,b);
 

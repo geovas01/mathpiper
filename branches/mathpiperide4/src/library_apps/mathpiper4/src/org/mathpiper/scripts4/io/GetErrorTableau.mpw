@@ -98,12 +98,16 @@ object was found and deleted, and {False} otherwise.
 
 In> x:=1
 Result: 1;
+
 In> Assert("bad value", [x,"must be zero"]) x=0
 Result: False;
+
 In> GetError("bad value")
 Result: [1, "must be zero"];
+
 In> ClearError("bad value");
 Result: True;
+
 In> Error?()
 Result: False;
 

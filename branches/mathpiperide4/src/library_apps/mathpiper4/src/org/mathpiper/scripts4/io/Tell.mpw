@@ -42,24 +42,31 @@ a program which may hang, you may get no printout.  In that case, use {TellNow}
 instead of {Tell}
 
 *E.G. notest
+
 In> var1:=123
 Result: 123
+
 In> var2:= "a string"
 Result: "a string"
+
 In> var3:=Sin(x)+Exp(x)
 Result: Sin(x)+Exp(x)
+
 In> Tell(ID1)
 Result: True
         Side Effects>
         << ID1 >>
+
 In> Tell(ID2,[var1])
 Result: True
         Side Effects>
         << ID2 >> [var1] :  [123] 
+
 In> Tell(ID3,[var1,var2])
 Result: True
         Side Effects>
         << ID3 >> [var1,var2] [123,"a string"] 
+
 In> Tell(ID4,[var1,var2,var3])
 Result: True
         Side Effects>

@@ -54,15 +54,19 @@ This can be important, since many factoring theorems are applicable to such poly
 
 *E.G.
 
+
 In> PolynomialOverIntegers?(2*x^3-3*x^2+5*x-14,x)
 Result: True 
+
 
 In> PolynomialOverIntegers?(2.0*x^3-3*x^2+5*x-14,x)
 Result: False
 
+
 In> PolynomialOverIntegers?(y^2-4)
 Result: True
         NOTE: if variable name is omitted, a reasonable default is taken.
+
 
 In> PolynomialOverIntegers?(x^2-a^2)
 Result: False

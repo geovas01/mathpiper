@@ -117,27 +117,35 @@ However, it makes no sense to try to round an integer to a decimal place
 {outside} the integer, and this function will return unevaluated if place > 0.
 
 *E.G.
+
 In> dec:=123.45678
 Result: 123.45678
     
+
 In> dec2:=RoundToPlace(dec,1)
 Result: 123.5
     
+
 In> dec3:=RoundToPlace(dec,-1)
 Result: 120
     
+
 In> dec3:=RoundToPlace(dec,-4)
 Result: 0.
     
+
 In> dec3:=RoundToPlace(dec,6)
 Result: 123.456780
     
+
 In> int:=12345678
 Result: 12345678
     
+
 In> int2:=RoundToPlace(int,-2)
 Result: 12345700
     
+
 In> int2:=RoundToPlace(int,2)
 Result: RoundToPlace(12345678,2
 

@@ -75,22 +75,30 @@ inline unparser, which is enabled by default); they call
 
 In> Assert("bad value", "must be zero") 1=0
 Result: False;
+
 In> Assert("bad value", "must be one") 1=1
 Result: True;
+
 In> Error?()
 Result: True;
+
 In> Error?("bad value")
 Result: True;
+
 In> Error?("bad file")
 Result: False;
+
 In> GetError("bad value");
 Result: "must be zero";
+
 In> DumpErrors()
         Error: bad value: must be zero
 Result: True;
 No more errors left:
+
 In> Error?()
 Result: False;
+
 In> DumpErrors()
 Result: True;
 

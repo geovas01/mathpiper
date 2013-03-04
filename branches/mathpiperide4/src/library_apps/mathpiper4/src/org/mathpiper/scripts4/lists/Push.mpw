@@ -31,10 +31,13 @@ top of the stack, and returns the stack afterwards.
 
 In> stack := [];
 Result: [];
+
 In> Push(stack, x);
 Result: [x];
+
 In> Push(stack, x2);
 Result: [x2,x];
+
 In> PopFront(stack);
 Result: x2;
 

@@ -95,10 +95,13 @@ In> test
 
 In> Set(a,Hold(2+3))
 Result: True
+
 In> a
 Result: 2+3
+
 In> SetGlobalLazyVariable(a,Hold(2+3))
 Result: True
+
 In> a
 Result: 5
 

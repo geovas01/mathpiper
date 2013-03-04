@@ -26,6 +26,7 @@ negative. The negative integers are -1, -2, -3, -4, -5, etc. If
 
 In> NegativeInteger?(31);
 Result: False;
+
 In> NegativeInteger?(-2);
 Result: True;
 

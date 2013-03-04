@@ -22,12 +22,15 @@ Tests if a value is a point.
 
 *E.G.
 
+
 In> p := Point(2,3)
 Result: [2,3]
         
+
 In> Point?(p)
 Result: True
         
+
 In> Point?(4)
 Result: False
         
