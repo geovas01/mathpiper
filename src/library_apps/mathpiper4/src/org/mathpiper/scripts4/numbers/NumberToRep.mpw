@@ -102,18 +102,23 @@ of the information given by this function.
 
 *E.G.
     
+
 In> NumberToRep(123.45678)
 Result: [12345678,8,5]
     
+
 In> NumberToRep(34700)
 Result: [34700,5]
     
+
 In> NumberToRep(1.5+6.75*I)
 Result: [[150,3,2],[675,3,2]]
     
+
 In> NumberToRep(123.45678E-10)
 Result: [12345678,8,15]
    
+
 In> NumberToRep(123.45678E+10)
 Result: [12345678,8,-5]
     

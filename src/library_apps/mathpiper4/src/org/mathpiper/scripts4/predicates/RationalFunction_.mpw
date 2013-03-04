@@ -59,48 +59,70 @@ test is made w.r.t. the list VarList(expr).
 
 In> RationalFunction?(3,x)  
 Result: False
+
 In> RationalFunction?(3)      
 Result: False;
+
 In> RationalFunction?(3.5,x)
 Result:  False
+
 In> RationalFunction?(3.5)
 Result:  False 
+
 In> RationalFunction?(3/5,x)
 Result:  False 
+
 In> RationalFunction?(3/5)
 Result:  False 
+
 In> RationalFunction?(x,y)
 Result:  False 
+
 In> RationalFunction?(x)
 Result:  False 
+
 In> RationalFunction?(x/y,x)
 Result:  False 
+
 In> RationalFunction?(x/y,y)
 Result:  True
+
 In> RationalFunction?(x/y)
 Result:  True 
+
 In> RationalFunction?(x/5,x)
 Result:  False 
+
 In> RationalFunction?(x/5)
 Result:  False 
+
 In> RationalFunction?(5/x,x)
 Result:  True 
+
 In> RationalFunction?(-5/x,x)
 Result:  True 
+
 In> RationalFunction?(5/x)
 Result:  True 
+
 In> RationalFunction?(-5/x)
 Result:  True 
+
 In> RationalFunction?(5/x,y)
 Result:  False 
+
 In> RationalFunction?(5/x,[y])
 Result:  False 
+
 In> RationalFunction?(5/x,[y,x])
 Result:  False
+
 In> RationalFunction?(5/y)
 Result:  True 
+
 In> RationalFunction?(1-1/x,x)
 Result:  False 
+
 In> RationalFunction?(1-1/x)
 Result:  False
 

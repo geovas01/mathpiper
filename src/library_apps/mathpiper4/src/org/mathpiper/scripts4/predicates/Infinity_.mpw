@@ -32,6 +32,7 @@ case if {expr} is either {Infinity} or {-Infinity}.
 
 In> Infinity?(10^1000);
 Result: False;
+
 In> Infinity?(-Infinity);
 Result: True;
 

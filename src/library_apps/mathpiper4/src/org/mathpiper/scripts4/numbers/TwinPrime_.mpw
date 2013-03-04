@@ -23,8 +23,10 @@ prime is a prime number $n$ such that $n+2$ is also a prime number.
 *E.G.
 In> TwinPrime?(101)
 Result: True;
+
 In> TwinPrime?(7)
 Result: False;
+
 In> Select(1 .. 100, TwinPrime?)
 Result: [3,5,11,17,29,41,59,71];
 

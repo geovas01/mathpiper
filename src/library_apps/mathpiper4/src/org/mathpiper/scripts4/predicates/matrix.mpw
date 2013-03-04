@@ -113,8 +113,10 @@ Something is considered to be a scalar if it's not a list.
 *E.G.
 In> Scalar?(7)
 Result: True;
+
 In> Scalar?(Sin(x)+x)
 Result: True;
+
 In> Scalar?([x,y])
 Result: False;
 
@@ -149,10 +151,13 @@ the vector {expr}, {False} otherwise.
 *E.G.
 In> Vector?([a,b,c])
 Result: True;
+
 In> Vector?([a,[b],c])
 Result: False;
+
 In> Vector?(Integer?,[1,2,3])
 Result: True;
+
 In> Vector?(Integer?,[1,2.5,3])
 Result: False;
 
@@ -188,12 +193,16 @@ the matrix {expr}, {False} otherwise.
 
 In> Matrix?(1)
 Result: False;
+
 In> Matrix?([1,2])
 Result: False;
+
 In> Matrix?([[1,2],[3,4]])
 Result: True;
+
 In> Matrix?(Rational?,[[1,2],[3,4]])
 Result: False;
+
 In> Matrix?(Rational?,[[1/2,2/3],[3/4,4/5]])
 Result: True;
 
@@ -229,10 +238,13 @@ element of the matrix {expr}, {False} otherwise.
 
 In> SquareMatrix?([[1,2],[3,4]]);
 Result: True;
+
 In> SquareMatrix?([[1,2,3],[4,5,6]]);
 Result: False;
+
 In> SquareMatrix?(Boolean?,[[1,2],[3,4]]);
 Result: False;
+
 In> SquareMatrix?(Boolean?,[[True,False],[False,True]]);
 Result: True;
 

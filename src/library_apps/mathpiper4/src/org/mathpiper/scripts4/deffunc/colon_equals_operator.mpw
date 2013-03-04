@@ -160,6 +160,7 @@ A simple assignment:
 
 In> a := Sin(x) + 3;
 Result: Sin(x)+3;
+
 In> a;
 Result: Sin(x)+3;
 
@@ -167,8 +168,10 @@ Multiple assignments:
 
 In> [a,b,c] := [1,2,3];
 Result: [1,2,3];
+
 In> a;
 Result: 1;
+
 In> b+c;
 Result: 5;
 
@@ -176,8 +179,10 @@ Assignment to a list:
 
 In> xs := [ 1,2,3,4,5 ];
 Result: [1,2,3,4,5];
+
 In> xs[3] := 15;
 Result: True;
+
 In> xs;
 Result: [1,2,15,4,5];
 
@@ -185,12 +190,16 @@ Building an associative list:
 
 In> alist := [];
 Result: [];
+
 In> alist["cherry"] := "red";
 Result: True;
+
 In> alist["banana"] := "yellow";
 Result: True;
+
 In> alist["cherry"];
 Result: "red";
+
 In> alist;
 Result: [["banana","yellow"],["cherry","red"]];
 
@@ -198,8 +207,10 @@ Defining a function:
 
 In> f(x) := x^2;
 Result: True;
+
 In> f(3);
 Result: 9;
+
 In> f(Sin(a));
 Result: Sin(a)^2;
 
@@ -207,8 +218,10 @@ Defining a function with variable number of arguments:
 
 In> f(x, ...) := Decide(List?(x),Sum(x),x);
 Result: True;
+
 In> f(2);
 Result: 2;
+
 In> f(1,2,3);
 Result: 6;
 
@@ -216,12 +229,16 @@ Defining a new infix operator:
 
 In> Infix("*&*",10);
 Result: True;
+
 In> x1 *&* x2 := x1/x2 + x2/x1;
 Result: True;
+
 In> Sin(a) *&* Cos(a);
 Result: Tan(1)+Cos(1)/Sin(1);
+
 In> Unassign(a);
 Result: True;
+
 In> Sin(a) *&* Exp(a);
 Result: Sin(a)/Exp(a)+Exp(a)/Sin(a);
 
@@ -230,6 +247,7 @@ expansion. This has to be done every time the function [f] is called.
 
 In> f(a) := Taylor(x,0,25) Sin(x);
 Result: True;
+
 In> f(1);
 Result: x-x^3/6+x^5/120-x^7/5040+x^9/362880-
 x^11/39916800+x^13/6227020800-x^15/
@@ -237,6 +255,7 @@ x^11/39916800+x^13/6227020800-x^15/
 121645100408832000+x^21/51090942171709440000
 -x^23/25852016738884976640000+x^25
 /15511210043330985984000000;
+
 In> f(2);
 Result: x-x^3/6+x^5/120-x^7/5040+x^9/362880-
 x^11/39916800+x^13/6227020800-x^15
@@ -250,6 +269,7 @@ expansion is computed only once.
 
 In> f(a) := Eval(Taylor(x,0,25) Sin(x));
 Result: True;
+
 In> f(1);
 Result: x-x^3/6+x^5/120-x^7/5040+x^9/362880-
 x^11/39916800+x^13/6227020800-x^15/
@@ -257,6 +277,7 @@ x^11/39916800+x^13/6227020800-x^15/
 121645100408832000+x^21/51090942171709440000
 -x^23/25852016738884976640000+x^25
 /15511210043330985984000000;
+
 In> f(2);
 Result: x-x^3/6+x^5/120-x^7/5040+x^9/362880-
 x^11/39916800+x^13/6227020800-x^15

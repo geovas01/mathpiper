@@ -49,8 +49,10 @@ list, the function is applied to all entries in the list.
 
 In> Abs(2);
 Result: 2;
+
 In> Abs(-1/2);
 Result: 1/2;
+
 In> Abs(3+4*I);
 Result: 5;
 

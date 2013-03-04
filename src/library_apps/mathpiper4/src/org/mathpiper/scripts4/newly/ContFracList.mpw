@@ -58,8 +58,10 @@ the result is the same as if {rest=0}.
 
 In> A:=ContFracList(33/7 + 0.000001)
 Result: [4,1,2,1,1,20409,2,1,13,2,1,4,1,1,3,3,2];
+
 In> ContFracEval(Take(A, 5))
 Result: 33/7;
+
 In> ContFracEval(Take(A,3), remainder)
 Result: 1/(1/(remainder+2)+1)+4;
         

@@ -29,6 +29,7 @@ share no common factors.
 
 In> Coprime?([3,4,5,8])
 Result: False;
+
 In> Coprime?(15,17)
 Result: True;
 

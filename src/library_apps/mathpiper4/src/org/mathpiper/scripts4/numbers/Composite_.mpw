@@ -26,10 +26,13 @@ neither prime nor composite.
 
 In> Composite?(1)
 Result: False;
+
 In> Composite?(7)
 Result: False;
+
 In> Composite?(8)
 Result: True;
+
 In> Select(1 .. 20, Composite?)
 Result: [4,6,8,9,10,12,14,15,16,18,20];
 

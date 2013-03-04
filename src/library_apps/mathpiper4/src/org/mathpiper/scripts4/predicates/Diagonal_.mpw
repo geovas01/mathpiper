@@ -47,6 +47,7 @@ Diagonal?(A_Matrix?) <--
 *E.G.
 In> Diagonal?(Identity(5))
 Result: True;
+
 In> Diagonal?(HilbertMatrix(5))
 Result: False;
 %/mathpiper_docs

@@ -63,12 +63,16 @@ If the global stack is empty, an error message is printed.
 
 In> GlobalPush(3)
 Result: 3;
+
 In> GlobalPush(Sin(x))
 Result: Sin(x);
+
 In> GlobalPop(x)
 Result: Sin(x);
+
 In> GlobalPop(x)
 Result: 3;
+
 In> x
 Result: 3;
 

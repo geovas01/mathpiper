@@ -41,8 +41,10 @@ index is returned. If "expr" does not occur at all,
 
 In> FindFirst([a,b,c,d,e,f], d);
 Result: 4;
+
 In> FindFirst([1,2,3,2,1], 2);
 Result: 2;
+
 In> FindFirst([1,2,3,2,1], 4);
 Result: -1;
 

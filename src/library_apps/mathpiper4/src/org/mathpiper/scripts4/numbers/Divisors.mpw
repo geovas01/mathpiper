@@ -41,6 +41,7 @@ A number is prime if and only if it has two divisors, 1 and itself.
 *E.G.
 In> Divisors(180)
 Result: 18;
+
 In> Divisors(37)
 Result: 2;
 

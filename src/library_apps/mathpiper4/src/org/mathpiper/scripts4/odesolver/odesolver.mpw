@@ -311,10 +311,13 @@ may be entered as {y(n)}, where {n} is any integer.
 
 In> OdeSolve( yPRIMEPRIME + y == 0 )
 Result: C42*Sin(x)+C43*Cos(x);
+
 In> OdeSolve( 2*yPRIMEPRIME + 3*yPRIME + 5*y == 0 )
 Result: Exp(((-3)*x)/4)*(C78*Sin(Sqrt(31/16)*x)+C79*Cos(Sqrt(31/16)*x));
+
 In> OdeSolve( yPRIMEPRIME - 4*y == 0 )
 Result: C132*Exp((-2)*x)+C136*Exp(2*x);
+
 In> OdeSolve( yPRIMEPRIME +2*yPRIME + y == 0 )
 Result: (C183+C184*x)*Exp(-x);
 
@@ -344,6 +347,7 @@ on a function.
 
 In> OdeTest(yPRIMEPRIME+y,Sin(x)+Cos(x))
 Result: 0;
+
 In> OdeTest(yPRIMEPRIME+2*y,Sin(x)+Cos(x))
 Result: Sin(x)+Cos(x);
 
@@ -370,8 +374,10 @@ order of the highest derivative. If no derivatives appear, zero is returned.
 
 In> OdeOrder(yPRIMEPRIME + 2*yPRIME == 0)
 Result: 2;
+
 In> OdeOrder(Sin(x)*y(5) + 2*yPRIME == 0)
 Result: 5;
+
 In> OdeOrder(2*y + Sin(y) == 0)
 Result: 0;
 

@@ -134,14 +134,19 @@ be evaluated after switching to numeric mode.
 *E.G.
 In> 1/2
 Result: 1/2;
+
 In> NM(1/2)
 Result: 0.5;
+
 In> Sin(1)
 Result: Sin(1);
+
 In> NM(Sin(1),10)
 Result: 0.8414709848;
+
 In> Pi
 Result: Pi;
+
 In> NM(Pi,20)
 Result: 3.1415926535897932385
 
@@ -178,6 +183,7 @@ predicate are usually left alone.
 *E.G.
 In> NumericMode?()
 Result: False
+
 In> NM(NumericMode?())
 Result: True
 

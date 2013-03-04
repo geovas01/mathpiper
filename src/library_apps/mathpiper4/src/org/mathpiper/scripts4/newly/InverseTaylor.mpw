@@ -43,6 +43,7 @@ In> UnparserSet("UnparseMath2D")
         
         True
         
+
 In> exp1 := Taylor(x,0,7) Sin(x)
         
              3    5      7
@@ -50,6 +51,7 @@ In> exp1 := Taylor(x,0,7) Sin(x)
         x - -- + --- - ----
             6    120   5040
         
+
 In> exp2 := InverseTaylor(x,0,7) ArcSin(x)
         
          5      7     3
@@ -57,6 +59,7 @@ In> exp2 := InverseTaylor(x,0,7) ArcSin(x)
         --- - ---- - -- + x
         120   5040   6
         
+
 In> Simplify(exp1-exp2)
         
         0

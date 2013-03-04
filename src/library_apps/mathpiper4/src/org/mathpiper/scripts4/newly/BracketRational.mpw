@@ -57,6 +57,7 @@ If the approximation with the desired precision cannot be found, the function re
 *E.G.
 
 Find an approximation to $Ln(10)$ good to 8 digits:
+
 In> BracketRational(NM(Ln(10)), 10^(-8))
 Result: [12381/5377,41062/17833];
 

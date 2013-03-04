@@ -33,8 +33,10 @@ The Legendre symbol is equal to $0$ if $m/n$ is an integer.
 
 In> QuadraticResidue?(9,13)
 Result: True;
+
 In> LegendreSymbol(15,23)
 Result: -1;
+
 In> JacobiSymbol(7,15)
 Result: -1;
 

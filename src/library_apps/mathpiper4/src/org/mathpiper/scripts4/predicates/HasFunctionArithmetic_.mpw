@@ -30,6 +30,7 @@ Note that since the operators "{+}" and "{-}" are prefix as well as infix operat
 
 In> HasFunctionArithmetic?(x+y*Cos(Ln(x)/x), Cos)
 Result: True;
+
 In> HasFunctionArithmetic?(x+y*Cos(Ln(x)/x), Ln)
 Result: False;
 

@@ -185,17 +185,22 @@ Programmer:  Sherm Ostrowsky
 
 *E.G.
 
+
 In> u:=Expand((2*x-3)^2*(3*x+5)^3)
 Result: 108*x^5+216*x^4-477*x^3-985*x^2+525*x+1125
+
 
 In> FactorsPolynomialOverIntegers(u,x)
 Result: [[2*x-3,2],[3*x+5,3]]
 
+
 In> FW(%)
 Result: (2*x-3)^2*(3*x+5)^3
 
+
 In> FactorsPolynomialOverIntegers(y^2-4)
 Result: [[y+2,1],[y-2,1]]
+
 
 In> FactorsPolynomialOverIntegers(x^4+x^2+1)
 Result: [[x^2+x+1,1],[x^2-x+1,1]]

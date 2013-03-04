@@ -401,8 +401,10 @@ The {filename} option is optional if using graphical backends, but can be used t
 Same limitations as {Plot2D}.
 
 *E.G. notest
+
 In> Plot3DS(a*b^2)
 Result: True;
+
 In> V(Plot3DS(Sin(x)*Cos(y),x: 0->20, y: 0->20,depth: 3))
         CachedConstant: Info: constant Pi is being 
           recalculated at precision 10

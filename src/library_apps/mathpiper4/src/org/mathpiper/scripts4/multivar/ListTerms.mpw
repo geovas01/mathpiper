@@ -91,14 +91,18 @@ and thus will not list any "terms".  If the user wants the expression to be
 expanded, s/he must do so explicitly.
 
 *E.G.   
+
 In> ListTerms(Sin(Sqrt(x))-Sqrt(x+1)-Exp(-2*x))
 Result: [Sin(Sqrt(x)),-Sqrt(x+1),-Exp(-2*x)]
+
 
 In> ListTerms((a+b*x)/(x-d*x)-(e-f*x^2)/(g+h*x))
 Result: [(a+b*x)/(x-d*x),(f*x^2-e)/(g+h*x)]
 
+
 In> ListTerms((3*x+5*y)^5)
 Result: [(3*x+5*y)^5]
+
 
 In> ListTerms(ExpandBrackets((3*x+5*y)^5))
 Result: [243*x^5,2025*x^4*y,6750*x^3*y^2,11250*x^2*y^3,9375*x*y^4,3125*y^5]

@@ -385,6 +385,7 @@ handled.
 
 In> xPSolve(b*x+a,x)
 Result: -a/b;
+
 In> xPSolve(c*x^2+b*x+a,x)
 Result: [(Sqrt(b^2-4*c*a)-b)/(2*c),(-(b+
         Sqrt(b^2-4*c*a)))/(2*c)];

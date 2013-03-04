@@ -44,8 +44,10 @@ list, the function is applied to all entries in the list.
 
 In> Ln(1)
 Result: 0;
+
 In> Ln(Exp(x))
 Result: x;
+
 In> Differentiate(x) Ln(x)
 Result: 1/x;
 

@@ -32,6 +32,7 @@ ZScoreToValue(zScore, mean, standardDeviation) :=
 This function calculates the numerical value for a given z-score.
 
 *E.G.
+
 In> NM(ZScoreToValue(1,5,1))
 Result: 6
 

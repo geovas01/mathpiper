@@ -288,8 +288,10 @@ are integers.
 
 In> FactorialSimplify( (n-k+1)! / (n-k)! )
 Result: n+1-k
+
 In> FactorialSimplify(n! / BinomialCoefficient(n,k))
 Result: k! *(n-k)!
+
 In> FactorialSimplify(2^(n+1)/2^n)
 Result: 2
 

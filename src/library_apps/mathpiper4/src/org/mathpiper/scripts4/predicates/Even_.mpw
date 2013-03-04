@@ -26,6 +26,7 @@ even if it is divisible by two. Hence the even numbers are 0, 2, 4, 6,
 
 In> Even?(4);
 Result: True;
+
 In> Even?(-1);
 Result: False;
 

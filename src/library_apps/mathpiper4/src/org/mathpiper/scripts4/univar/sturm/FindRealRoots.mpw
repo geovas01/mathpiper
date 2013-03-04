@@ -101,6 +101,7 @@ of the result can be improved by increasing the calculation precision.
 In> p:=Expand((x+3.1)^5*(x-6.23))
 Result: x^6+9.27*x^5-0.465*x^4-300.793*x^3-
         1394.2188*x^2-2590.476405*x-1783.5961073;
+
 In> FindRealRoots(p)
 Result: [-3.1,6.23];
 

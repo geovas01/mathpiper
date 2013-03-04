@@ -58,10 +58,13 @@ if and only if $Re(z)$ is an ordinary prime and $Re(z):=Modulo(3,4)$.
 *E.G.
 In> GaussianPrime?(13)
 Result: False;
+
 In> GaussianPrime?(2+2*I)
 Result: False;
+
 In> GaussianPrime?(2+3*I)
 Result: True;
+
 In> GaussianPrime?(3)
 Result: True;
 

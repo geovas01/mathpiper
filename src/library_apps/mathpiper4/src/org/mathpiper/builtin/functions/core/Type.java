@@ -81,8 +81,10 @@ the result is the empty string {""}.
 
 In> Type({a,b,c});
 Result: "List";
+
 In> Type(a*(b+c));
 Result: "*";
+
 In> Type(123);
 Result: "";
 

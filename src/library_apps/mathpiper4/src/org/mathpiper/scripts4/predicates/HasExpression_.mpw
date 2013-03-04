@@ -42,8 +42,10 @@ Note that since the operators "{+}" and "{-}" are prefix as well as infix operat
 
 In> HasExpression?(x+y*Cos(Ln(z)/z), z)
 Result: True;
+
 In> HasExpression?(x+y*Cos(Ln(z)/z), Ln(z))
 Result: True;
+
 In> HasExpression?(x+y*Cos(Ln(z)/z), z/Ln(z))
 Result: False;
 

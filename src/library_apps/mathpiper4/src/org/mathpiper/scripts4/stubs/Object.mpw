@@ -28,10 +28,13 @@ so-called incomplete types.
 
 In> a := Object("Number?", x);
 Result: Object("Number?",x);
+
 In> Eval(a);
 Result: Object("Number?",x);
+
 In> x := 5;
 Result: 5;
+
 In> Eval(a);
 Result: 5;
 

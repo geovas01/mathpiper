@@ -46,10 +46,13 @@ Note that Euler's constant $gamma<=>0.57722$ is the lowercase {gamma} in MathPip
 
 In> Gamma(1.3)
 Result: Gamma(1.3);
+
 In> NM(Gamma(1.3),30)
 Result: 0.897470696306277188493754954771;
+
 In> Gamma(1.5)
 Result: Sqrt(Pi)/2;
+
 In> NM(Gamma(1.5),30);
 Result: 0.88622692545275801364908374167;
 

@@ -88,8 +88,10 @@ list, the function is applied to all entries in the list.
 
 In> Cos(1)
 Result: Cos(1);
+
 In> NM(Cos(1),20)
 Result: 0.5403023058681397174;
+
 In> Cos(Pi/4)
 Result: Sqrt(1/2);
 

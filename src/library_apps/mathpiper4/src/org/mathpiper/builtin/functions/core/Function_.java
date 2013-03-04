@@ -64,6 +64,7 @@ atom. This includes not only obvious functions such as {f(x)}, but also expressi
 
 In> Function?(x+5);
 Result: True;
+
 In> Function?(x);
 Result: False;
 

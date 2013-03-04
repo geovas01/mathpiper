@@ -36,6 +36,7 @@ Note that since the operators "{+}" and "{-}" are prefix as well as infix operat
 
 In> HasFunction?(x+y*Cos(Ln(z)/z), Ln)
 Result: True;
+
 In> HasFunction?(x+y*Cos(Ln(z)/z), Sin)
 Result: False;
 

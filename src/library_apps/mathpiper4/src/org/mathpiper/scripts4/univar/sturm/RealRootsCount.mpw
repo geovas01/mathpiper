@@ -31,6 +31,7 @@ The polynomial must use the variable {x} and no other variables.
 
 In> RealRootsCount(x^2-1)
 Result: 2;
+
 In> RealRootsCount(x^2+1)
 Result: 0;
 

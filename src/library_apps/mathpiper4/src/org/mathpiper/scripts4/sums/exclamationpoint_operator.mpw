@@ -76,8 +76,10 @@ not useful. One can call {InternalLnGammaNum()} to evaluate logarithms of such f
 
 In> 5!
 Result: 120;
+
 In> 1 * 2 * 3 * 4 * 5
 Result: 120;
+
 In> (1/2)!
 Result: Sqrt(Pi)/2;
 

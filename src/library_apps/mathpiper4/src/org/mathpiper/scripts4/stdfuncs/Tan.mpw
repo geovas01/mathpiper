@@ -67,8 +67,10 @@ list, the function is applied to all entries in the list.
 
 In> Tan(1)
 Result: Tan(1);
+
 In> NM(Tan(1),20)
 Result: 1.5574077246549022305;
+
 In> Tan(Pi/4)
 Result: 1;
 

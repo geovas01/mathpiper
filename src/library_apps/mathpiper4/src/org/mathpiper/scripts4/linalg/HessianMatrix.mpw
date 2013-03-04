@@ -38,6 +38,7 @@ minimum or a saddle point.
 
 In> HessianMatrix(3*x^2-2*x*y+y^2-8*y, [x,y] )
 Result: [[6,-2],[-2,2]];
+
 In> UnparseMath2D(%)
 
         /                \

@@ -82,16 +82,19 @@ Result: 2*a*x^2*y-8*a*y
 
 In>Time() xCont := xContent(poly)
 Result: 0.427442564
+
 In> xCont
 Result: 2*a*y
 
 In> Time() xpp1:=xPrimitivePart(poly)
 Result: 0.697451928
+
 In> xpp1
 Result: x^2-4
 
 In> Time() xpp2:=xPrimitivePart(poly,xCont)
 Result: 0.392679832
+
 In> xpp2
 Result: x^2-4
 
@@ -100,8 +103,10 @@ Result: True
 
 In> Time() xpp3:=xPrimitivePart(poly,cont)
 Result: 0.735463317
+
 In> xpp3
 Result: x^2-4
+
 In> cont
 Result: 2*a*y
 

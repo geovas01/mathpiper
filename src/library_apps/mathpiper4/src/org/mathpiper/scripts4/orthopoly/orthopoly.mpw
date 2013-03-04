@@ -577,6 +577,7 @@ In> UnparserSet("UnparseMath2D");
         
         True
         
+
 In> OrthoP(3, x);
         
             /      2     \
@@ -584,12 +585,14 @@ In> OrthoP(3, x);
         x * | ------ - - |
             \   2      2 /
         
+
 In> OrthoP(3, 1, 2, x);
         
         1       /     / 21 * x   7 \   7 \
         - + x * | x * | ------ - - | - - |
         2       \     \   2      2 /   2 /
         
+
 In> Expand(%)
         
               3        2
@@ -597,6 +600,7 @@ In> Expand(%)
         ----------------------------
                      2
         
+
 In> OrthoP(3, 1, 2, 0.5);
         
         -0.8124999999
@@ -638,6 +642,7 @@ Most of the work is performed by the internal function {OrthoPoly}.
 
 In> OrthoH(3, x);
 Result: x*(8*x^2-12);
+
 In> OrthoH(6, 0.5);
 Result: 31;
 
@@ -692,6 +697,7 @@ Most of the work is performed by the internal function [OrthoPoly].
 
 In> OrthoG(5, 1, x);
 Result: x*((32*x^2-32)*x^2+6);
+
 In> OrthoG(5, 2, -0.5);
 Result: 2;
 
@@ -745,6 +751,7 @@ Most of the work is performed by the internal function [OrthoPoly].
 
 In> OrthoL(3, 1, x);
 Result: x*(x*(2-x/6)-6)+4;
+
 In> OrthoL(3, 1/2, 0.25);
 Result: 1.2005208334;
 
@@ -789,10 +796,13 @@ $U(1,x) = 2*x$.
 
 In> OrthoT(3, x);
 Result: 2*x*(2*x^2-1)-x;
+
 In> OrthoT(10, 0.9);
 Result: -0.2007474688;
+
 In> OrthoU(3, x);
 Result: 4*x*(2*x^2-1);
+
 In> OrthoU(10, 0.9);
 Result: -2.2234571776;
 

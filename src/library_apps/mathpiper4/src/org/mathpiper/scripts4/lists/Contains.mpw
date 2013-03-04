@@ -43,10 +43,13 @@ that case the top-level operands are tested for the occurrence of
 
 In> Contains?([a,b,c,d], b);
 Result: True;
+
 In> Contains?([a,b,c,d], x);
 Result: False;
+
 In> Contains?([a,[1,2,3],z], 1);
 Result: False;
+
 In> Contains?(a*b, b);
 Result: True;
 

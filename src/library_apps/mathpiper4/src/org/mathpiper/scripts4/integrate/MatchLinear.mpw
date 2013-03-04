@@ -105,8 +105,10 @@ with "{a}" and "{b}" not depending on {x} if {x} is given as the variable.
 
 In> MatchLinear(x,(R+1)*x+(T-1))
 Result: True;
+
 In> [a,b];
 Result: [R+1,T-1];
+
 In> MatchLinear(x,Sin(x)*x+(T-1))
 Result: False;
         

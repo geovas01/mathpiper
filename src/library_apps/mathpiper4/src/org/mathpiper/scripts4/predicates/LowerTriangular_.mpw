@@ -25,10 +25,12 @@ A lower triangular matrix is a square matrix which has all zero entries below th
 *E.G.
 In> LowerTriangular?(Identity(5))
 Result: True;
+
 In> LowerTriangular?([[1,2],[0,1]])
 Result: False;
 
 A non-square matrix cannot be triangular:
+
 In> LowerTriangular?([[1,2,3],[0,1,2]])
 Result: False;
 

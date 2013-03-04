@@ -36,12 +36,16 @@ because the latter copy the list before they alter it.
 
 In> lst := [a,b,c,d];
 Result: [a,b,c,d];
+
 In> Append(lst, 1);
 Result: [a,b,c,d,1];
+
 In> lst
 Result: [a,b,c,d];
+
 In> DestructiveAppend(lst, 1);
 Result: [a,b,c,d,1];
+
 In> lst;
 Result: [a,b,c,d,1];
 

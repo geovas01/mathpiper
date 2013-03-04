@@ -39,6 +39,7 @@ RandomPickVector(list, count) :=
 Randomly picks {count} elements from the given list.
 
 *E.G.
+
 In> RandomPickVector([ONE,TWO,THREE],7);
 Result: [THREE,ONE,THREE,THREE,ONE,TWO,TWO]
 

@@ -92,6 +92,7 @@ In> PipeFromString("a := Sin(x)") While((tok := ParseMathPiperToken()) !=? EndOf
 Result: True;
 
 We can read some junk too:
+
 In> PipeFromString("-$3")ParseMathPiperToken();
 Result: -$;
 

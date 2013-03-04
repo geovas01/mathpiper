@@ -60,6 +60,7 @@ Bernoulli(n_Integer?, _x) <-- {
 
 In> Bernoulli(20);
 Result: -174611/330;
+
 In> Bernoulli(4, x);
 Result: ((x-2)*x+1)*x^2-1/30;
 

@@ -78,12 +78,16 @@ because the latter copy the list before they alter it.
 
 In> lst := {a,b,c,d,e,f};
 Result: {a,b,c,d,e,f};
+
 In> Replace(lst, 4, x);
 Result: {a,b,c,x,e,f};
+
 In> lst;
 Result: {a,b,c,d,e,f};
+
 In> DestructiveReplace(lst, 4, x);
 Result: {a,b,c,x,e,f};
+
 In> lst;
 Result: {a,b,c,x,e,f};
 

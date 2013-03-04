@@ -213,6 +213,7 @@ large group of simple nonlinear equations.
 
 In> OldSolve(a+x*y==z,x)
 Result: (z-a)/y;
+
 In> OldSolve([a*x+y==0,x+z==0],[x,y])
 Result: [[-z,z*a]];
 

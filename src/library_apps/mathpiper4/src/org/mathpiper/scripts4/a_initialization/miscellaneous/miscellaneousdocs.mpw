@@ -26,12 +26,15 @@ This command is not a function but a special directive that only applies while r
 *E.G.
 
 To be effective, the directive must be typed immediately after the prompt:
+
 In> quit
         Quitting...
 We can use variables named [quit]:
+
 In> 1+quit
 Result: quit+1;
 There is no effect if we type some spaces first:
+
 In>       restart
 Result: restart;
 
@@ -61,6 +64,7 @@ form respectively.
 
 In> Taylor(x,0,5)Sin(x)
 Result: x-x^3/6+x^5/120;
+
 In> UnparseMath2D(%)
 
              3    5
@@ -135,6 +139,7 @@ Thus {Infinity*2} will return {Infinity}, and {a < Infinity} will evaluate to {T
 
 In> 2*Infinity
 Result: Infinity;
+
 In> 2<?Infinity
 Result: True;
 %/mathpiper_docs
@@ -160,10 +165,13 @@ Most functions also return {Undefined} when evaluated on it.
 
 In> 2*Infinity
 Result: Infinity;
+
 In> 0*Infinity
 Result: Undefined;
+
 In> Sin(Infinity);
 Result: Undefined;
+
 In> Undefined+2*Exp(Undefined);
 Result: Undefined;
 

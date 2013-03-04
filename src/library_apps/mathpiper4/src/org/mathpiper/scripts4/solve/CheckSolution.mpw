@@ -59,13 +59,16 @@ function will return the empty list.
 
 *E.G.
 
+
 In> ss1 := Solve(x^2==4,x)
 
 Result: [x==2,x==(-2)]
 
+
 In> CheckSolution(x^2==4,x,ss1)
 
 Result: [x==2,x==(-2)]
+
 
 In> CheckSolution(x^2==4,x,[x==2,x==3])   // Deliberately incorrect
 

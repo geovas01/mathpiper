@@ -72,6 +72,7 @@ In> UnparseMath2D(ContFrac(NM(Pi)))
         rest + 1
 
 Result: True;
+
 In> UnparseMath2D(ContFrac(x^2+x+1, 3))
         
                x

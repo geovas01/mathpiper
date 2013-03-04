@@ -107,6 +107,7 @@ a list, e.g. {[[p1,n1], [p2,n2], ...]}.
 *E.G.
 In> GaussianFactors(5)
 Result: [[Complex(2,1),1],[Complex(2,-1),1]];
+
 In> GaussianFactors(3+I)
 Result: [[Complex(1,1),1],[Complex(2,-1),1]];
 

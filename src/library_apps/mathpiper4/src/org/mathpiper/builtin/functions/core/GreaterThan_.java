@@ -63,6 +63,7 @@ Compare decimal numbers or strings (lexicographically).
 *E.G.
 In> GreaterThan?(1,1)
 Result: False;
+
 In> GreaterThan?("b","a")
 Result: True;
 

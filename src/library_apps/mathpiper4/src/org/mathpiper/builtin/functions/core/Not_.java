@@ -81,8 +81,10 @@ expression with evaluated arguments.
 
 In> Not? True
 Result: False;
+
 In> Not? False
 Result: True;
+
 In> Not?(a)
 Result: Not? a;
 

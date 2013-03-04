@@ -9,6 +9,7 @@ In> TableForm(Groebner([x*(y-1),y*(x-1)]))
  x*y-y
  y-x
  y^2-y
+
 In> Factor(y^2-y)
 Result: y*(y-1);
 

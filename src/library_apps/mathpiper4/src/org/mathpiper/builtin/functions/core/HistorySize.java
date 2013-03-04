@@ -77,6 +77,7 @@ can be useful in the {~/.MathPiperrc} file.
 
 In> HistorySize(200)
 Result: True;
+
 In> quit
 
 *SEE quit

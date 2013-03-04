@@ -26,6 +26,7 @@ odd if it is not divisible by two. Hence the odd numbers are 1, 3, 5,
 
 In> Odd?(4);
 Result: False;
+
 In> Odd?(-1);
 Result: True;
 

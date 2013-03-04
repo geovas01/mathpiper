@@ -34,6 +34,7 @@ direction but with length 1.
 
 In> v:=Normalize([3,4])
 Result: [3/5,4/5];
+
 In> Dot(v, v)
 Result: 1;
 

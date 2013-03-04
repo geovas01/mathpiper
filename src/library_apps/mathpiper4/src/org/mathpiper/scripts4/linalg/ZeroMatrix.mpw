@@ -38,6 +38,7 @@ it returns the square {n} by {n} zero matrix.
 
 In> ZeroMatrix(3,4)
 Result: [[0,0,0,0],[0,0,0,0],[0,0,0,0]];
+
 In> ZeroMatrix(3)
 Result: [[0,0,0],[0,0,0],[0,0,0]];
 

@@ -80,8 +80,10 @@ The argument "var" is not evaluated.
 
 In> Assigned?(x);
 Result: False;
+
 In> x := 5;
 Result: 5;
+
 In> Assigned?(x);
 Result: True;
 

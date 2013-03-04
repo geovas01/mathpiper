@@ -28,6 +28,7 @@ Creates either a 2D point or a 3D point.
 
 *E.G.
 
+
 In> Point(5,2)
 Result: [5,2]
 

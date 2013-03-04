@@ -85,12 +85,16 @@ inverse of "f".
 
 In> f(x):=Eval(Expand((1+x)^4))
 Result: True;
+
 In> g(x) := x^2
 Result: True;
+
 In> h(y):=Eval(ReversePoly(f(x),g(x),x,y,8))
 Result: True;
+
 In> BigOh(h(f(x)),x,8)
 Result: x^2;
+
 In> h(x)
 Result: (-2695*(x-1)^7)/131072+(791*(x-1)^6)
         /32768 +(-119*(x-1)^5)/4096+(37*(x-1)^4)

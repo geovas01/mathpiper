@@ -107,6 +107,7 @@ This means that functions that are not listed in {.def} files will not be found 
 
 In> FindFunction("Sum")
 Result: "sums.rep/code.ys";
+
 In> FindFunction("Integrate")
 Result: "integrate.rep/code.ys";
 

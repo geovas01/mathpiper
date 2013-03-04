@@ -70,6 +70,7 @@ using the {Verify} command.
 
 In> NM(RoundTo(Exp(1),30),30)
 Result: 2.71828182110230114951959786552;
+
 In> NM(RoundTo(Exp(1),20),20)
 Result: 2.71828182796964237096;
 

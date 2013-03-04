@@ -80,6 +80,7 @@ within quotes, e.g. {"duh"}.
 
 In> String?("duh");
 Result: True;
+
 In> String?(duh);
 Result: False;
 

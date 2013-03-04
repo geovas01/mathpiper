@@ -34,6 +34,7 @@ In> UnparseMath2D(YacasFactor(24));
         2  * 3
         
 Result: True;
+
 In> UnparseMath2D(YacasFactor(2*x^3 + 3*x^2 - 1));
         
                      2   /     1 \

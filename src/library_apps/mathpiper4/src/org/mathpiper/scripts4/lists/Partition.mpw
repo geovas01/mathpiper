@@ -38,6 +38,7 @@ returned.
 
 In> Partition([a,b,c,d,e,f,], 2);
 Result: [[a,b],[c,d],[e,f]];
+
 In> Partition(1 .. 11, 3);
 Result: [[1,2,3],[4,5,6],[7,8,9]];
 

@@ -92,17 +92,22 @@ give the following interaction:
 
 In> f(A)
 Result: f(A);
+
 In> f(A,B)
 Result: f(A,B);
+
 In> f(A,B,C)
 	three args A B C
 Result: True;
+
 In> f(A,B,C,D)
 	four args A B C D
 Result: True;
+
 In> f(A,B,C,D,E)
 	more than four args A B {C,D,E}
 Result: True;
+
 In> f(A,B,C,D,E,E)
 	more than four args A B {C,D,E,E}
 Result: True;

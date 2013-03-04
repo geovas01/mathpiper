@@ -83,6 +83,7 @@ example). {Write} always returns {True}.
 
 In> Write(1);
 	1Result: True;
+
 In> Write(1,2);
 	 1 2Result: True;
 

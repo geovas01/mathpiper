@@ -30,8 +30,10 @@
 
 In> Euler(6)
 Result: -61;
+
 In> A:=Euler(5,x)
 Result: (x-1/2)^5+(-10*(x-1/2)^3)/4+(25*(x-1/2))/16;
+
 In> Simplify(A)
 Result: (2*x^5-5*x^4+5*x^2-1)/2;
 

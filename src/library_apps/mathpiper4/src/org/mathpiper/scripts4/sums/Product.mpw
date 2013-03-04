@@ -65,6 +65,7 @@ returned. Obviously, "to" should be greater than or equal to
 
 In> Product([1,2,3,4]);
 Result: 24;
+
 In> Product(i, 1, 4, i);
 Result: 24;
 

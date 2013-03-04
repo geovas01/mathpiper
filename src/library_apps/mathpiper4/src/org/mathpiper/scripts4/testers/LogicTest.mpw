@@ -46,6 +46,7 @@ It returns {True} or {False}.
 
 In> LogicTest([A,B,C],Not?((Not? A) And? (Not? B)),A Or? B)
 Result: True
+
 In> LogicTest([A,B,C],Not?((Not? A) And? (Not? B)),A Or? C)
         ******************
         CommandLine: 1

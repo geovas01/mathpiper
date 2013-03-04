@@ -40,14 +40,19 @@ intuitively) be accessed as {alist[key]}.
 
 In> writer := [];
 Result: [];
+
 In> writer["Iliad"] := "Homer";
 Result: True;
+
 In> writer["Henry IV"] := "Shakespeare";
 Result: True;
+
 In> writer["Ulysses"] := "James Joyce";
 Result: True;
+
 In> Assoc("Henry IV", writer);
 Result: ["Henry IV","Shakespeare"];
+
 In> Assoc("War and Peace", writer);
 Result: Empty;
 

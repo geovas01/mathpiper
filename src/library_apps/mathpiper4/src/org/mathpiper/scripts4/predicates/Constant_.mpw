@@ -27,8 +27,10 @@ expression. {Pi} is considered a constant.
 
 In> Constant?(Cos(x))
 Result: False;
+
 In> Constant?(Cos(2))
 Result: True;
+
 In> Constant?(Cos(2+x))
 Result: False;
 

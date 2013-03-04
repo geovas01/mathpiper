@@ -46,8 +46,10 @@ The single parameter version of the function is a convenience function for
 calculating the number of ways to choose "n" objects out of "n" objects.
 
 *E.G.
+
 In> Permutations(5)
 Result> 120
+
 
 In> Permutations(10,3)
 Result> 720

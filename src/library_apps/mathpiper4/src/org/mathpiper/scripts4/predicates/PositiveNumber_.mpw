@@ -25,6 +25,7 @@ if $n>0$. If {n} is not a number the function returns {False}.
 
 In> PositiveNumber?(6);
 Result: True;
+
 In> PositiveNumber?(-2.5);
 Result: False;
 

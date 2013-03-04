@@ -131,8 +131,10 @@ number. Hence {Im(Sqrt(x))} evaluates to {0} which is only true for nonnegative 
 
 In> I
 Result: Complex(0,1);
+
 In> 3+4*I
 Result: Complex(3,4);
+
 In> Complex(-2,0)
 Result: -2;
 

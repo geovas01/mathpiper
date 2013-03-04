@@ -96,10 +96,13 @@ sequence is used), the {Decide} expression returns {False}.
 
 The sign function is defined to be 1 if its argument is positive and
 -1 if its argument is negative. A possible implementation is
+
 In> mysign(x) := Decide (IsPositiveReal(x), 1, -1);
 Result: True;
+
 In> mysign(Pi);
 Result: 1;
+
 In> mysign(-2.5);
 Result: -1;
 Note that this will give incorrect results, if "x" cannot be
@@ -107,6 +110,7 @@ numerically approximated.
 In> mysign(a);
 Result: -1;
 Hence a better implementation would be
+
 In> mysign(_x)_Number?(NM(x)) <-- Decide \
 	  (PositiveReal?(x), 1, -1);
 Result: True;

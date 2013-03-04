@@ -76,8 +76,10 @@ occurs as a subexpression are affected.
 
 In> Substitute(x, Sin(y)) x^2+x+1;
 Result: Sin(y)^2+Sin(y)+1;
+
 In> Substitute(a+b, x) a+b+c;
 Result: x+c;
+
 In> Substitute(b+c, x) a+b+c;
 Result: a+b+c;
 

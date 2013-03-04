@@ -69,6 +69,7 @@ Check whether the function with given name {"op"} has been declared as a
 
 In> Bodied?("While");
 Result: True;
+
 In> Bodied?("Sin");
 Result: False;
 

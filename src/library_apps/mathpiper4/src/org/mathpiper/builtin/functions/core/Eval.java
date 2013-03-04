@@ -71,10 +71,13 @@ This function explicitly requests an evaluation of the expression
 
 In> a := x;
 Result: x;
+
 In> x := 5;
 Result: 5;
+
 In> a;
 Result: x;
+
 In> Eval(a);
 Result: 5;
 

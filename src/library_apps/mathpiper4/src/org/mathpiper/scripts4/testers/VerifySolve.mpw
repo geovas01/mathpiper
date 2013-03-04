@@ -87,8 +87,10 @@ use as a general tool.  Now it has been made available.
 
 *E.G.
 
+
 In> VerifySolve(Solve(a+x*y==z,x),[x==(z-a)/y]);
 Result: True
+
 
 In> VerifySolve(Solve(a+x*y==z,x),[x==(a-z)/y]);
 Result: False
@@ -102,6 +104,7 @@ Solve(a+x*y==z,x)
 [x==(a-z)/y]
 ******************
 
+
 In> Verify(x*(1+x),x+x^2)
 Result: False
 Side Effects:
@@ -113,6 +116,7 @@ x*(x+1)
  which differs from
 x+x^2
 ******************
+
 
 In> VerifySolve(x*(1+x),x+x^2)
 Result: True

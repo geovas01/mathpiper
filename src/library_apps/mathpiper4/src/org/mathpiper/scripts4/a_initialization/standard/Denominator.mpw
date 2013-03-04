@@ -32,10 +32,13 @@ neither rational nor numeric, the function returns unevaluated.
 
 In> Denominator(2/7)
 Result: 7;
+
 In> Denominator(a / x^2)
 Result: x^2;
+
 In> Denominator(-a / x^2)
 Result: x^2
+
 In> Denominator(5)
 Result: 1;
 

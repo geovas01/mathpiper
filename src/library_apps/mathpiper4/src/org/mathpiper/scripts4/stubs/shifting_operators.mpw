@@ -35,6 +35,7 @@ shifts, so they act as multiplication or division by powers of 2.
 
 In> 1 << 10
 Result: 1024;
+
 In> -1024 >> 10
 Result: -1;
 %/mathpiper_docs

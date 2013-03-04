@@ -152,8 +152,10 @@ SumTaylorNum1(x, nthtermfunc, nexttermfactor, nterms) :=
 
 /*
 Examples:
+
 In> SumTaylorNum(1,[[k], 1/k!],[[k], 1/k], 10 )
 Result: 2.7182818006;
+
 In> SumTaylorNum(1,[[k],1/k!], 10 )
 Result: 2.7182818007;
 */
@@ -217,12 +219,16 @@ digits of working precision and 21 terms of the series.
 
 In> BuiltinPrecisionSet(21)
 Result: True;
+
 In> SumTaylorNum(1, [[k],1/k!], 21)
 Result: 2.718281828459045235351;
+
 In> SumTaylorNum(1, 1, [[k],1/k], 21)
 Result: 2.71828182845904523535;
+
 In> SumTaylorNum(1, [[k],1/k!], [[k],1/k], 21)
 Result: 2.71828182845904523535;
+
 In> RoundTo(NM(Ln(%)),20)
 Result: 1;
 

@@ -58,8 +58,10 @@ This function takes a list of elements and shuffles them.  A new
 list with the shuffled elements is returned.
 
 *E.G.
+
 In> Shuffle([1,2,3,4,5])
 Result: [5,1,2,4,3]
+
 
 In> Shuffle([one,two,three])
 Result: [two,three,one]

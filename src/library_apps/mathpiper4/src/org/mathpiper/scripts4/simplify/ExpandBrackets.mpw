@@ -76,8 +76,10 @@ It goes further than {Expand}, in that it expands all brackets.
 
 In> Expand((a-x)*(b-x),x)
 Result: x^2-(b+a)*x+a*b;
+
 In> Expand((a-x)*(b-x),[x,a,b])
 Result: x^2-(b+a)*x+b*a;
+
 In> ExpandBrackets((a-x)*(b-x))
 Result: a*b-x*b+x^2-a*x;
 

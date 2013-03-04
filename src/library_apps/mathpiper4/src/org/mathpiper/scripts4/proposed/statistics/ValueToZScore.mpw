@@ -33,6 +33,7 @@ ValueToZScore(value,mean,standardDeviation) :=
 This function calculates the z-score for a given numerical value.
 
 *E.G.
+
 In> NM(ValueToZScore(4.74,5,.332))
 Result: -0.7831325301
 

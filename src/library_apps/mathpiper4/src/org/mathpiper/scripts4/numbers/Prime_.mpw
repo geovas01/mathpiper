@@ -49,12 +49,16 @@ The parameters of the test are such that the probability for a false result is l
 
 In> Prime?(1)
 Result: False;
+
 In> Prime?(2)
 Result: True;
+
 In> Prime?(10)
 Result: False;
+
 In> Prime?(23)
 Result: True;
+
 In> Select(1 .. 100, "Prime?")
 Result: [2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,
           53,59,61,67,71,73,79,83,89,97];

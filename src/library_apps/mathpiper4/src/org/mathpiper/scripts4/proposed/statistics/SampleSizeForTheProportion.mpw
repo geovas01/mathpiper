@@ -39,6 +39,7 @@ This function calculates the minimum sample size for the proportion to provide
 a specific margin of error for a given confidence level.
 
 *E.G.
+
 In> SampleSizeForTheProportion(.5,.99,.06)
 Result: 460.7567390
 %/mathpiper_docs

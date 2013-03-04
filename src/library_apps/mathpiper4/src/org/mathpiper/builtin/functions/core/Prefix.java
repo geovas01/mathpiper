@@ -75,8 +75,10 @@ In> YY x := x+1;
 
 In> Prefix("YY", 2)
 Result: True;
+
 In> YY x := x+1;
 Result: True;
+
 In> YY YY 2*3
 Result: 12;
 

@@ -31,6 +31,7 @@ resulting expression, and returns the result.
 
 In> Substitute(Cos(b), c) (Sin(a)+Cos(b)^2/c)
 Result: Sin(a)+c^2/c;
+
 In> Eliminate(Cos(b), c, Sin(a)+Cos(b)^2/c)
 Result: Sin(a)+c;
 

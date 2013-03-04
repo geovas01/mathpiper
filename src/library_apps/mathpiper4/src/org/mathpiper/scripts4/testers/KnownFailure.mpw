@@ -41,6 +41,7 @@ In> KnownFailure(Verify(1,2))
          1 evaluates to  1 which differs from  2
         ******************
 Result: False;
+
 In> KnownFailure(Verify(1,1))
         Known failure:
         Failure resolved!

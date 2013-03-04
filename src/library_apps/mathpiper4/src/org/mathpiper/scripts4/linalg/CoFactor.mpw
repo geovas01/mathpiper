@@ -41,6 +41,7 @@ $(-1)^{i+j}$.
 
 In> A := [[1,2,3], [4,5,6], [7,8,9]];
 Result: [[1,2,3],[4,5,6],[7,8,9]];
+
 In> UnparseMath2D(A);
         
         /                    \
@@ -51,10 +52,13 @@ In> UnparseMath2D(A);
         | ( 7 ) ( 8 ) ( 9 )  |
         \                    /
 Result: True;
+
 In> CoFactor(A,1,2);
 Result: 6;
+
 In> Minor(A,1,2);
 Result: -6;
+
 In> Minor(A,1,2) * (-1)^(1+2);
 Result: 6;
 

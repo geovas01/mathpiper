@@ -549,6 +549,7 @@ complex than a simple number.
 
 In> Taylor(x,0,9)Sin(x)
 Result: x-x^3/6+x^5/120-x^7/5040+x^9/362880;
+
 In> UnparseMath2D(%)
         
              3    5      7       9

@@ -117,8 +117,10 @@ precision.
 *E.G.
 
 Start with a rational number and obtain a floating-point approximation:
+
 In> x:=NM(956/1013)
 Result: 0.9437314906
+
 In> Rationalize(x)
 Result: 4718657453/5000000000;
 The first 10 terms of this continued fraction correspond to the correct continued fraction for the original rational number.

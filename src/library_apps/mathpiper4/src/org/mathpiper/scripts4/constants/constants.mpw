@@ -158,6 +158,7 @@ root of -1. It evaluates to {Complex(0,1)}.
 
 In> I
 Result: Complex(0,1);
+
 In> I = Sqrt(-1)
 Result: True;
 
@@ -186,8 +187,10 @@ This is a "cached constant" which is recalculated only when precision is increas
 
 In> Sin(3*Pi/2)
 Result: -1;
+
 In> Pi+1
 Result: Pi+1;
+
 In> NM(Pi)
 Result: 3.14159265358979323846;
 
@@ -220,10 +223,13 @@ The numerical value of the constant can also be obtained as {NM(GoldenRatio)}.
 
 In> x:=GoldenRatio - 1
 Result: GoldenRatio-1;
+
 In> NM(x)
 Result: 0.6180339887;
+
 In> NM(1/GoldenRatio)
 Result: 0.6180339887;
+
 In> V(NM(GoldenRatio,20));
 
         CachedConstant: Info: constant GoldenRatio is
@@ -256,8 +262,10 @@ The low-level numerical computations are performed by the routine {CatalanConstN
 
 In> NM(Catalan)
 Result: 0.9159655941;
+
 In> DirichletBeta(2)
 Result: Catalan;
+
 In> V(NM(Catalan,20))
 
         CachedConstant: Info: constant Catalan is
@@ -291,8 +299,10 @@ Note that Eulers Gamma function $Gamma(x)$ is the capitalized {Gamma} in MathPip
 
 In> gamma+Pi
 Result: gamma+Pi;
+
 In> NM(gamma+Pi)
 Result: 3.7188083184;
+
 In> V(NM(gamma,20))
         
         CachedConstant: Info: constant gamma is being
@@ -349,12 +359,15 @@ After this, evaluating an expression such as {1/2+gamma} will call the function 
 
 In> CachedConstant( mycache, Ln2, InternalLnNum(2) )
 Result: True;
+
 In> InternalLn2()
 Result: 0.6931471806;
+
 In> V(NM(InternalLn2(),20))
         CachedConstant: Info: constant Ln2 is being
           recalculated at precision 20 
 Result: 0.69314718055994530942;
+
 In> mycache
 Result: [["Ln2",20,0.69314718055994530942]];
 

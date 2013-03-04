@@ -62,6 +62,7 @@ This function returns $Floor(x)$, the largest integer smaller than or equal to $
 
 In> Floor(1.1)
 Result: 1;
+
 In> Floor(-1.1)
 Result: -2;
 

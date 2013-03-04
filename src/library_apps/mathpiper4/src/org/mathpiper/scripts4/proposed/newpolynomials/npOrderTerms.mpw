@@ -165,14 +165,18 @@ Currently, The available acceptable Term Orderings are
 NOTE:  If {termOrder} is not specified, the {default} Term Ordering is {LEX}.
 
 *E.G.
+
 In> poly1 := MakeNewPoly(3*y^3-2*x^2+5*z+7);
 Result: [NP,[x,y,z],[-2,2,0,0],[3,0,3,0],[5,0,0,1],[7,0,0,0]]
+
 
 In> p1lex := npOrderTerms(poly1,LEX);
 Result: [NP,[x,y,z],[-2,2,0,0],[3,0,3,0],[5,0,0,1],[7,0,0,0]]
 
+
 In> p1grlex := npOrderTerms(poly1,GRLEX);
 Result: [NP,[x,y,z],[3,0,3,0],[-2,2,0,0],[5,0,0,1],[7,0,0,0]]
+
 
 In> p1grevlex := npOrderTerms(poly1,GREVLEX)
 Result: [NP,[x,y,z],[3,0,3,0],[-2,2,0,0],[5,0,0,1],[7,0,0,0]]
@@ -215,11 +219,14 @@ GREVLEXlt(term1,term2) returns {True} if term1 < term2 according to GREVLEX orde
 
 *E.G.
 
+
 In> LEXgt([-2,2,0,0],[3,0,3,0])
 Result: True
 
+
 In> GRLEXgt([-2,2,0,0],[3,0,3,0])
 Result: False
+
 
 In> GREVLEXgt([-2,2,0,0],[3,0,3,0])
 Result: False

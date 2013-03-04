@@ -59,17 +59,22 @@ polynomial.
 In> f := LagrangeInterpolant([0,1,2], \
           [0,1,1], x);
 Result: (x*(x-1))/2-x*(x-2);
+
 In> Eval(Substitute(x,0) f);
 Result: 0;
+
 In> Eval(Substitute(x,1) f);
 Result: 1;
+
 In> Eval(Substitute(x,2) f);
 Result: 1;
         
+
 In> UnparserSet("UnparseMath2D");
         
         True
         
+
 In> LagrangeInterpolant([x1,x2,x3], [y1,y2,y3], x)
         
         y1 * ( x - x2 ) * ( x - x3 ) 

@@ -75,6 +75,7 @@ Precedence is optional (will be set to 0 by default).
 *E.G.
 In> Infix("##", 5)
 Result: True;
+
 In> a ## b ## c
 Result: a##b##c;
 

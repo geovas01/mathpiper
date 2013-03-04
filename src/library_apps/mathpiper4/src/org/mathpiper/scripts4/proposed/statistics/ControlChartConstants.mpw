@@ -69,8 +69,10 @@ ControlChartConstants(n) :=
 Returns the control chart constants $A_2, d_2, D_3, D_4$.
 
 *E.G.
+
 In> ControlChartConstants(2)
 Result: [["A2",1.880],["d2",1.128],["D3",0.000],["D4",3.267]]
+
 
 In> ControlChartConstants(2)["A2"]
 Result: 1.880

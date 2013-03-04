@@ -170,6 +170,7 @@ Result: False
 
 
  
+
 In> ExceptionCatch(Check(1 = 2, "Test", "Throwing a test exception."), Echo(ThrowableGet()))
 Result: True
 Side Effects:

@@ -26,6 +26,7 @@ function returns {False}.
 
 In> PositiveInteger?(31);
 Result: True;
+
 In> PositiveInteger?(-2);
 Result: False;
 

@@ -37,10 +37,13 @@ $Ln(18)$ goes to $Ln(x)+2*Ln(3)$.
 *E.G.
 In> LnExpand(Ln(a*b^n))
 Result: Ln(a)+Ln(b)*n
+
 In> LnExpand(Ln(a^m/b^n))
 Result: Ln(a)*m-Ln(b)*n
+
 In> LnExpand(Ln(60))
 Result: 2*Ln(2)+Ln(3)+Ln(5)
+
 In> LnExpand(Ln(60/25))
 Result: 2*Ln(2)+Ln(3)-Ln(5)
 

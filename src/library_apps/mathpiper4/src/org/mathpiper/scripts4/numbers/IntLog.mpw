@@ -64,10 +64,12 @@ This function can also be used to quickly count the digits in a given number.
 
 *E.G.
 Count the number of bits:
+
 In> IntLog(257^8, 2)
 Result: 64;
 
 Count the number of decimal digits:
+
 In> IntLog(321^321, 10)
 Result: 804;
 

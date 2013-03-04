@@ -40,8 +40,10 @@ The polynomial must use the variable {x}.
 
 In> p:=SquareFree(Rationalize((x-3.1)*(x+6.23)))
 Result: (-40000*x^2-125200*x+772520)/870489;
+
 In> MinimumBound(p)
 Result: 5000000000/2275491039;
+
 In> NM(%)
 Result: 2.1973279236;
 
