@@ -596,7 +596,7 @@ public class Utility {
         return false;
     }
 
-    public static Cons substitute(Environment aEnvironment, int aStackTop, Cons aSource, ASTProcessor aBehaviour) throws Throwable {
+    public static Cons substitute(Environment aEnvironment, int aStackTop, Cons aSource, ASTProcessor astProcessor) throws Throwable {
         
         Cons sourceCons = aSource;
 
@@ -605,7 +605,7 @@ public class Utility {
         if(sourceCons == null) LispError.lispAssert(aEnvironment, aStackTop);
 
 
-        if((aDestination = aBehaviour.matches(aEnvironment, aStackTop,  aSource)) != null)
+        if((aDestination = astProcessor.matches(aEnvironment, aStackTop,  aSource)) != null)
         {
             //Base case.
             return aDestination;
@@ -634,7 +634,7 @@ public class Utility {
                 while (sourceList != null) {
 
 
-                    Cons result = substitute(aEnvironment, aStackTop, sourceList, aBehaviour);
+                    Cons result = substitute(aEnvironment, aStackTop, sourceList, astProcessor);
 
                     if(isHead == true)
                     {

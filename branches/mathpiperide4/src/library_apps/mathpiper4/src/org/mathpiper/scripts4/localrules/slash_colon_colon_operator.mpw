@@ -1,17 +1,12 @@
 %mathpiper,def="/::"
 
-5 # (_expression /:: LocPatterns(_patterns)) <--
-{
-  MacroSubstituteApply(expression,"LocPredicate","LocChange");
-};
-
 
 
 10 # (_expression /:: _patterns) <--
 {
   Local(old);
   
-  Assign(patterns, LocProcess(patterns));
+  Assign(patterns, PatternsCompile(patterns));
   
   Assign(old, expression);
   

@@ -30,14 +30,14 @@ import org.mathpiper.lisp.cons.Cons;
  *
  *  
  */
-public class PatternMatches extends BuiltinFunction
+public class PatternMatch_ extends BuiltinFunction
 {
 
-    private PatternMatches()
+    private PatternMatch_()
     {
     }
 
-    public PatternMatches(String functionName)
+    public PatternMatch_(String functionName)
     {
         this.functionName = functionName;
     }
