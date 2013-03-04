@@ -364,7 +364,7 @@ ToLatex(string) :=
 
 Isolax(side, equation) :=
 {
-    side : equation /: [
+    `(@side : equation) /: [
     
      1: -$ _lhs == _rhs <- [lhs == -$ rhs, "UnaryMinus", "\\text{Multiply both sides by }" ~ ToString(-1) ~ "\\text{:}", -1 *$ -$ lhs == rhs *$ -1],
      
