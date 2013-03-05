@@ -1622,13 +1622,16 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
     public static void main(String[] args) {
 
-
+	
         final GraphicConsole console = new GraphicConsole();
 
         Interpreter interpreter = console.getInterpreter();
         Interpreters.addOptionalFunctions(interpreter.getEnvironment(), "org/mathpiper/builtin/functions/optional/");
         org.mathpiper.interpreters.Interpreters.addOptionalFunctions(interpreter.getEnvironment(),"org/mathpiper/builtin/functions/plugins/jfreechart/");
 
+        interpreter.evaluate("Plot2DOutputs()[\"default\"] := \"jfreechart\";");
+        
+        
         JFrame frame = new javax.swing.JFrame();
         Container contentPane = frame.getContentPane();
         contentPane.add(console, BorderLayout.CENTER);
