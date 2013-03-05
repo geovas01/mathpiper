@@ -27,7 +27,10 @@ RuleHoldArguments(StandardOperatorsLoad, 0, 1, True)
     
     RulebaseHoldArguments(":",[left,right]);
     HoldArgument(":",left);
-    Infix(":",960);
+    Infix(":",3);
+    
+    RulebaseHoldArguments("::",[left,right]);
+    Infix("::",960);
     
     RulebaseHoldArguments("->",[left,right]);
     HoldArgument("->",left);
