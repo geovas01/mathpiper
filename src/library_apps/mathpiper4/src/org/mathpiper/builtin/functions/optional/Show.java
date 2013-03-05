@@ -195,7 +195,7 @@ public class Show extends BuiltinFunction {
 *DESC
 
 Displays a GUI window that contains a Java GUI component. These GUI components 
-are usually returned from XXXView functions.
+are usually returned from XXXView functions and charting functions.
 
 
 
