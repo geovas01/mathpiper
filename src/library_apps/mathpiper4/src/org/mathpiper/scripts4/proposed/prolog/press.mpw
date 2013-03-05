@@ -368,28 +368,28 @@ ToLatex(string) :=
 
 Isolax(side, equation) :=
 {
-    `(@side : equation) /: [
+    side :: equation /: [
     
-     1: -$ _lhs == _rhs <- [lhs == -$ rhs, "UnaryMinus", "\\text{Multiply both sides by }" ~ ToString(-1) ~ "\\text{:}", -1 *$ -$ lhs == rhs *$ -1],
+     1 :: -$ _lhs == _rhs <- [lhs == -$ rhs, "UnaryMinus", "\\text{Multiply both sides by }" ~ ToString(-1) ~ "\\text{:}", -1 *$ -$ lhs == rhs *$ -1],
      
-     1: _term1 +$ _term2 == _rhs <- [term1 == rhs -$ term2, "Addition1", "\\text{Subtract }" ~ ToString(term2) ~ "\\text{ from both sides:}", -$ term2 +$ term1 +$ term2 == rhs -$ term2],
-     2: _term1 +$ _term2 == _rhs <- [term2 == rhs -$ term1, "Addition2", "\\text{Subtract }" ~ ToString(term1) ~ "\\text{ from both sides:}", -$ term1 +$ term1 +$ term2 == rhs -$ term1],
+     1 :: _term1 +$ _term2 == _rhs <- [term1 == rhs -$ term2, "Addition1", "\\text{Subtract }" ~ ToString(term2) ~ "\\text{ from both sides:}", -$ term2 +$ term1 +$ term2 == rhs -$ term2],
+     2 :: _term1 +$ _term2 == _rhs <- [term2 == rhs -$ term1, "Addition2", "\\text{Subtract }" ~ ToString(term1) ~ "\\text{ from both sides:}", -$ term1 +$ term1 +$ term2 == rhs -$ term1],
      
-     1: _term1 -$ _term2 == _rhs <- [term1 == rhs +$ term2, "Subtraction1", "\\text{Add }" ~ ToString(term2) ~ "\\text{ to both sides:}", term2 +$ term1 -$ term2 == rhs +$ term2],
-     2: _term1 -$ _term2 == _rhs <- [term2 == term1 -$ rhs, "Subtraction2", "\\text{Add }" ~ ToString(term1) ~ "\\text{ to both sides:}", term1 +$ term1 -$ term2 == rhs +$ term1],
+     1 :: _term1 -$ _term2 == _rhs <- [term1 == rhs +$ term2, "Subtraction1", "\\text{Add }" ~ ToString(term2) ~ "\\text{ to both sides:}", term2 +$ term1 -$ term2 == rhs +$ term2],
+     2 :: _term1 -$ _term2 == _rhs <- [term2 == term1 -$ rhs, "Subtraction2", "\\text{Add }" ~ ToString(term1) ~ "\\text{ to both sides:}", term1 +$ term1 -$ term2 == rhs +$ term1],
      
-     1: _term1 *$ _term2 == _rhs <- [term1 == rhs /$ term2, "Multiplication1", "\\text{Divide both sides by }" ~ ToString(term2) ~ "\\text{:}", (term1 *$ term2) /$ term2 == rhs /$ term2],
-     2: _term1 *$ _term2 == _rhs <- [term2 == rhs /$ term1, "Multiplication2", "\\text{Divide both sides by }" ~ ToString(term1) ~ "\\text{:}", (term1 *$ term2) /$ term1 == rhs /$ term1],
+     1 :: _term1 *$ _term2 == _rhs <- [term1 == rhs /$ term2, "Multiplication1", "\\text{Divide both sides by }" ~ ToString(term2) ~ "\\text{:}", (term1 *$ term2) /$ term2 == rhs /$ term2],
+     2 :: _term1 *$ _term2 == _rhs <- [term2 == rhs /$ term1, "Multiplication2", "\\text{Divide both sides by }" ~ ToString(term1) ~ "\\text{:}", (term1 *$ term2) /$ term1 == rhs /$ term1],
      
-     1: _term1 /$ _term2 == _rhs <- [term1 == rhs *$ term2, "Division1", "\\text{Multiply both sides by }" ~ ToString(term2) ~ "\\text{:}", term2 *$ (term1 /$ term2) == rhs *$ term2],
-     2: _term1 /$ _term2 == _rhs <- [[rhs *$ term2 == term1, term2 == term1 /$ rhs], "Division2", ["\\text{Multiply both sides by }" ~ ToString(term2) ~ "\\text{ and exchange sides:}", "\\text{Divide both sides by }" ~ ToString(TexFormNoDollarSigns(rhs)) ~ "\\text{:}"], [(term1 /$ term2) *$ term2 == rhs *$ term2, (rhs *$ term2) /$ rhs == term1 /$ rhs]],
+     1 :: _term1 /$ _term2 == _rhs <- [term1 == rhs *$ term2, "Division1", "\\text{Multiply both sides by }" ~ ToString(term2) ~ "\\text{:}", term2 *$ (term1 /$ term2) == rhs *$ term2],
+     2 :: _term1 /$ _term2 == _rhs <- [[rhs *$ term2 == term1, term2 == term1 /$ rhs], "Division2", ["\\text{Multiply both sides by }" ~ ToString(term2) ~ "\\text{ and exchange sides:}", "\\text{Divide both sides by }" ~ ToString(TexFormNoDollarSigns(rhs)) ~ "\\text{:}"], [(term1 /$ term2) *$ term2 == rhs *$ term2, (rhs *$ term2) /$ rhs == term1 /$ rhs]],
      
      
      
-     //1: _term1 ^$ 2 == _rhs <- [term1 == Sqrt(rhs), "Exponentiation1a", "\\text{Take the square root of both sides:}", Sqrt(term1 ^$ 2) == Sqrt(rhs)],
+     //1 :: _term1 ^$ 2 == _rhs <- [term1 == Sqrt(rhs), "Exponentiation1a", "\\text{Take the square root of both sides:}", Sqrt(term1 ^$ 2) == Sqrt(rhs)],
      
-     1: _term1 ^$ _term2 == _rhs <- [term1 == rhs^$(1/$term2), "Exponentiation1b", "\\text{Take root }" ~ ToString(term2) ~ "\\text{ of both sides:}", (term1 ^$ term2)^$(1/term2) == rhs^$(1/$ term2)],
-    //"Exponentiation2" # 2 : _term1 ^ _term2 == _rhs <- term2 == Log(rhs)//Log(base(term1), rhs)
+     1 :: _term1 ^$ _term2 == _rhs <- [term1 == rhs^$(1/$term2), "Exponentiation1b", "\\text{Take root }" ~ ToString(term2) ~ "\\text{ of both sides:}", (term1 ^$ term2)^$(1/term2) == rhs^$(1/$ term2)],
+    //"Exponentiation2" # 2 :: _term1 ^ _term2 == _rhs <- term2 == Log(rhs)//Log(base(term1), rhs)
                       
     ];                 
 };
