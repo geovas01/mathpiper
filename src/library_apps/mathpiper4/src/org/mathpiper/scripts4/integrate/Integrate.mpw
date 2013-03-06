@@ -131,7 +131,7 @@ LoadLibraryFunction("AntiDeriv");
 
 
 
-%mathpiper_docs,name="Integrate",categories="User Functions;Calculus Related (Symbolic)"
+%mathpiper_docs,name="Integrate",categories="Mathematics Functions;Calculus Related (Symbolic)"
 *CMD Integrate --- integration
 
 *STD

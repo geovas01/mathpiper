@@ -115,7 +115,7 @@ public class RoundToN extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="RoundToN",categories="User Functions;Numeric;Built In"
+%mathpiper_docs,name="RoundToN",categories="Mathematics Functions;Numeric;Built In"
 *CMD RoundToN --- rounds a decimal number to a given precision
 *CORE
 *CALL

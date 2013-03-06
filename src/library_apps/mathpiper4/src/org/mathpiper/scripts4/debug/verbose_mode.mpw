@@ -29,7 +29,7 @@ UnFence("V",1);
 
 
 
-%mathpiper_docs,name="V;InVerboseMode",categories="User Functions;Input/Output"
+%mathpiper_docs,name="V;InVerboseMode",categories="Programming Functions;Input/Output"
 *CMD V, InVerboseMode --- set verbose output mode
 *STD
 *CALL

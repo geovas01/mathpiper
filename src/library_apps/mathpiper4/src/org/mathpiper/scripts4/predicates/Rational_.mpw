@@ -25,7 +25,7 @@ RationalOrNumber?(_x) <-- (Number?(x) Or? RationalNumeric?(x));
 
 
 
-%mathpiper_docs,name="Rational?",categories="User Functions;Numbers (Predicates);Predicates"
+%mathpiper_docs,name="Rational?",categories="Programming Functions;Predicates"
 *CMD Rational? --- test whether argument is a rational
 *STD
 *CALL

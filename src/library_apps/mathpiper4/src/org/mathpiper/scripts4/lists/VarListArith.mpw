@@ -8,7 +8,7 @@ VarListArith(expr) := VarListSome(expr, [ToAtom("+"), ToAtom("-"), *, /]);
 
 
 
-%mathpiper_docs,name="VarListArith",categories="User Functions;Lists (Operations)"
+%mathpiper_docs,name="VarListArith",categories="Programming Functions;Lists (Operations)"
 *CMD VarListArith --- list of variables appearing in an expression (without duplicates)
 *STD
 *CALL

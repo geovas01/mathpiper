@@ -93,7 +93,7 @@ public class Length extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Length",categories="User Functions;Lists (Operations);Built In"
+%mathpiper_docs,name="Length",categories="Programming Functions;Lists (Operations);Built In"
 *CMD Length --- the length of a list or string
 *CORE
 *CALL

@@ -79,7 +79,7 @@
 
 
 
-%mathpiper_docs,name="",categories="User Functions;Polynomials (Operations);Number Theory"
+%mathpiper_docs,name="",categories="Mathematics Functions;Polynomials (Operations);Number Theory"
 *CMD Factor -- Factorization of almost anything factorable
 *CALL
 Factor( expr )

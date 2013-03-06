@@ -140,7 +140,7 @@ NthRootClear();
 
 
 
-%mathpiper_docs,name="NthRoot",categories="User Functions;Numbers (Operations)"
+%mathpiper_docs,name="NthRoot",categories="Mathematics Functions;Numbers (Operations)"
 *CMD NthRoot --- calculate/simplify nth root of an integer
 *STD
 *CALL

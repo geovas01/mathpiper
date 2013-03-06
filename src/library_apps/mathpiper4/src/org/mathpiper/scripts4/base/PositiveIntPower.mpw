@@ -40,7 +40,7 @@ Defun("PositiveIntPower", [x,n])
 
 
 
-%mathpiper_docs,name="PositiveIntPower",categories="User Functions",access="undocumented"
+%mathpiper_docs,name="PositiveIntPower",categories="Mathematics Functions",access="undocumented"
 *CMD PositiveIntPower --- *** UNDOCUMENTED ***
 
 *CALL

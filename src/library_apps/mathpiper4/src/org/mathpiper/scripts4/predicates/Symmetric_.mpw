@@ -6,7 +6,7 @@ Symmetric?(A_Matrix?) <-- (Transpose(A)=?A);
 
 
 
-%mathpiper_docs,name="Symmetric?",categories="User Functions;Matrices (Predicates);Predicates"
+%mathpiper_docs,name="Symmetric?",categories="Programming Functions;Predicates"
 *CMD Symmetric? --- test for a symmetric matrix
 *STD
 *CALL

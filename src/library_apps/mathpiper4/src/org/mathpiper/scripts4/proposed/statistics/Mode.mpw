@@ -31,7 +31,7 @@ Mode(list) :=
 
 
 
-%mathpiper_docs,name="Mode",categories="User Functions;Statistics & Probability",access="experimental"
+%mathpiper_docs,name="Mode",categories="Mathematics Functions;Statistics & Probability",access="experimental"
 *CMD Mode --- calculates the mode of a list of values
 *STD
 *CALL

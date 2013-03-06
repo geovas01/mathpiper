@@ -472,7 +472,7 @@ OrthoPolyCoeffs("Tscheb2", n_Integer?, []) <-- ChebUCoeffs(n);
 
 
 
-%mathpiper_docs,name="EvaluateHornerScheme",categories="User Functions;Polynomials (Operations)"
+%mathpiper_docs,name="EvaluateHornerScheme",categories="Mathematics Functions;Polynomials (Operations)"
 *CMD EvaluateHornerScheme --- fast evaluation of polynomials
 *STD
 *CALL
@@ -499,7 +499,7 @@ Result: a+x*(b+x*(c+x*d));
 
 
 
-%mathpiper_docs,name="OrthoP",categories="User Functions;Polynomials (Special)"
+%mathpiper_docs,name="OrthoP",categories="Mathematics Functions;Polynomials (Special)"
 *CMD OrthoP --- Legendre and Jacobi orthogonal polynomials
 *STD
 *CALL
@@ -611,7 +611,7 @@ In> OrthoP(3, 1, 2, 0.5);
 
 
 
-%mathpiper_docs,name="OrthoH",categories="User Functions;Polynomials (Special)"
+%mathpiper_docs,name="OrthoH",categories="Mathematics Functions;Polynomials (Special)"
 *CMD OrthoH --- Hermite orthogonal polynomials
 *STD
 *CALL
@@ -651,7 +651,7 @@ Result: 31;
 
 
 
-%mathpiper_docs,name="OrthoG",categories="User Functions;Polynomials (Special)"
+%mathpiper_docs,name="OrthoG",categories="Mathematics Functions;Polynomials (Special)"
 *CMD OrthoG --- Gegenbauer orthogonal polynomials
 *STD
 *CALL
@@ -706,7 +706,7 @@ Result: 2;
 
 
 
-%mathpiper_docs,name="OrthoL",categories="User Functions;Polynomials (Special)"
+%mathpiper_docs,name="OrthoL",categories="Mathematics Functions;Polynomials (Special)"
 *CMD OrthoL --- Laguerre orthogonal polynomials
 *STD
 *CALL
@@ -760,7 +760,7 @@ Result: 1.2005208334;
 
 
 
-%mathpiper_docs,name="OrthoT;OrthoU",categories="User Functions;Polynomials (Special)"
+%mathpiper_docs,name="OrthoT;OrthoU",categories="Mathematics Functions;Polynomials (Special)"
 *CMD OrthoT --- Chebyshev polynomials
 *CMD OrthoU --- Chebyshev polynomials
 *STD
@@ -812,7 +812,7 @@ Result: -2.2234571776;
 
 
 
-%mathpiper_docs,name="OrthoPSum;OrthoHSum;OrthoLSum;OrthoGSum;OrthoTSum;OrthoUSum",categories="User Functions;Polynomials (Special)"
+%mathpiper_docs,name="OrthoPSum;OrthoHSum;OrthoLSum;OrthoGSum;OrthoTSum;OrthoUSum",categories="Mathematics Functions;Polynomials (Special)"
 *CMD OrthoPSum --- sums of series of orthogonal polynomials
 *CMD OrthoHSum --- sums of series of orthogonal polynomials
 *CMD OrthoLSum --- sums of series of orthogonal polynomials
@@ -863,7 +863,7 @@ Result: (7068985*x^4)/3981312+(1648577*x^3)/995328+
 
 
 
-%mathpiper_docs,name="OrthoPoly",categories="User Functions;Polynomials (Special)"
+%mathpiper_docs,name="OrthoPoly",categories="Mathematics Functions;Polynomials (Special)"
 *CMD OrthoPoly --- internal function for constructing orthogonal polynomials
 *STD
 *CALL
@@ -904,7 +904,7 @@ polynomial expression.
 
 
 
-%mathpiper_docs,name="OrthoPolySum",categories="User Functions;Polynomials (Special)"
+%mathpiper_docs,name="OrthoPolySum",categories="Mathematics Functions;Polynomials (Special)"
 *CMD OrthoPolySum --- internal function for computing series of orthogonal polynomials
 *STD
 *CALL

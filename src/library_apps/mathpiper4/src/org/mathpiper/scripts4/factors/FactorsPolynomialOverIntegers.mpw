@@ -140,7 +140,7 @@
 
 
 
-%mathpiper_docs,name="FactorsPolynomialOverIntegers",categories="User Functions;Number Theory",access="experimental"
+%mathpiper_docs,name="FactorsPolynomialOverIntegers",categories="Mathematics Functions;Number Theory",access="experimental"
 *CMD Factors --- factorization of univariate polynomials over the integers 
 *STD
 *CALL

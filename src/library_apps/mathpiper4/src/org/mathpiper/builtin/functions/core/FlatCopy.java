@@ -52,7 +52,7 @@ public class FlatCopy extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="FlatCopy",categories="User Functions;Lists (Operations);Built In"
+%mathpiper_docs,name="FlatCopy",categories="Programming Functions;Lists (Operations);Built In"
 *CMD FlatCopy --- copy the top level of a list
 *CORE
 *CALL

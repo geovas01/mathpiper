@@ -15,7 +15,7 @@ HarmonicNumber(n_Integer?,r_PositiveInteger?) <--
 
 
 
-%mathpiper_docs,name="HarmonicNumber",categories="User Functions;Number Theory"
+%mathpiper_docs,name="HarmonicNumber",categories="Mathematics Functions;Number Theory"
 *CMD HarmonicNumber --- return the [n]th Harmonic Number
 *STD
 *CALL

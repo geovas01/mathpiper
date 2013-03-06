@@ -69,6 +69,8 @@ import javax.swing.text.View;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.MutableTreeNode;
+
 import org.mathpiper.interpreters.EvaluationResponse;
 import org.mathpiper.interpreters.Interpreter;
 import org.mathpiper.interpreters.Interpreters;
@@ -76,12 +78,12 @@ import org.mathpiper.interpreters.Interpreters;
 public class FunctionTreePanel extends JPanel implements TreeSelectionListener, HyperlinkListener, HelpListener {
 
     private JScrollPane docsScrollPane;
-    private String[][] userFunctionsData;
-    private String[][] programmerFunctionsData;
+    private String[][] mathematicsFunctionsData;
+    private String[][] programmingFunctionsData;
     private String[][] operatorsData;
     private String[][] licenseData;
-    private DefaultMutableTreeNode userFunctionsNode;
-    private DefaultMutableTreeNode programmerFunctionsNode;
+    private DefaultMutableTreeNode mathematicsFunctionsNode;
+    private DefaultMutableTreeNode programmingFunctionsNode;
     private DefaultMutableTreeNode operatorsNode;
     private DefaultMutableTreeNode licenseNode;
     private List allFunctions;
@@ -223,8 +225,8 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
     private void loadCategories(InputStream inputStream) {
         BufferedReader categoriesFile = null;
-        List userFunctions = new ArrayList();
-        List programmerFunctions = new ArrayList();
+        List mathematicsFunctions = new ArrayList();
+        List programmingFunctions = new ArrayList();
         List operators = new ArrayList();
         List license = new ArrayList();
         
@@ -246,31 +248,37 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
                 String functionCategory = functionDatalineFields.get(0).trim();
                 
-                if(functionCategory.equalsIgnoreCase("User Functions"))
+                if(functionCategory.equalsIgnoreCase("Mathematics Functions"))
                 {
                     functionDatalineFields.add("Alphabetical");
                 }
-                else if(functionCategory.equalsIgnoreCase("Programmer Functions"))
+                else if(functionCategory.equalsIgnoreCase("Programming Functions"))
                 {
                     functionDatalineFields.add("Alphabetical");
                 }
                 else if(functionCategory.equalsIgnoreCase("Operators"))
                 {
                     functionDatalineFields.add("");
-                    //functionDatalineFields.add("Alphabetical");
+                }
+                else if(functionCategory.equalsIgnoreCase("License"))
+                {
+                }
+                else
+                {
+                    throw new Exception("The category <" + functionCategory + "> does not exist.");
                 }
 
                 functionDatalineFields.remove(0);
 
                 String[] functionDatalineFieldsArray = functionDatalineFields.toArray(new String[functionDatalineFields.size()]);  //line.split(",");
 
-                if (functionCategory.equalsIgnoreCase("User Functions"))
+                if (functionCategory.equalsIgnoreCase("Mathematics Functions"))
                 {
-                    userFunctions.add(functionDatalineFieldsArray);
+                    mathematicsFunctions.add(functionDatalineFieldsArray);
                 }
-                else if (functionCategory.equalsIgnoreCase("Programmer Functions"))
+                else if (functionCategory.equalsIgnoreCase("Programming Functions"))
                 {
-                    programmerFunctions.add(functionDatalineFieldsArray);
+                    programmingFunctions.add(functionDatalineFieldsArray);
                 }
                 else if (functionCategory.equalsIgnoreCase("Operators"))
                 {
@@ -283,8 +291,8 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
             }//end while.
 
-            userFunctionsData = (String[][]) userFunctions.toArray(new String[userFunctions.size()][]);
-            programmerFunctionsData = (String[][]) programmerFunctions.toArray(new String[programmerFunctions.size()][]);
+            mathematicsFunctionsData = (String[][]) mathematicsFunctions.toArray(new String[mathematicsFunctions.size()][]);
+            programmingFunctionsData = (String[][]) programmingFunctions.toArray(new String[programmingFunctions.size()][]);
             operatorsData = (String[][]) operators.toArray(new String[operators.size()][]);
             licenseData = (String[][]) license.toArray(new String[license.size()][]);
 
@@ -341,64 +349,63 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
 
     private void populateUserFunctionNodeWithCategories() {
-        userFunctionsNode = new DefaultMutableTreeNode(new FunctionInfo("User Functions", "Functions for MathPiper users."));
+        mathematicsFunctionsNode = new DefaultMutableTreeNode(new FunctionInfo("Mathematics Functions", "Functions for MathPiper users."));
 
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Alphabetical", "All functions in alphabetical order.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Analytic Geometry", "Functions that are related to analytic geometry.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Built In", "Functions that are implemented in Java.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Calculus Related (Symbolic)", "Functions for differentiation, integration, and solving of equations.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Calendars", "Functions related to calendars and dates.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Combinatorics", "Combinatorics related functions.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Constants (Mathematical)", "Mathematical constants.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Constants (System)", "System related constants.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Control Flow", "Controls the order in which statements or function calls are executed.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Differential Equations", "In this section, some facilities for solving differential equations are described. Currently only simple equations without auxiliary conditions are supported.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Expression Manipulation", "This section describes functions which allow expressions to be manipulated.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Expression Simplification", "This section describes functions that allow simplification of expressions.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Functional Operators", "These operators can help the user to program in the style of functional programming languages such as Miranda or Haskell.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Input/Output", "Functions for input, output, and plotting.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Linear Algebra", "Functions used to manipulate vectors (represented as lists) and matrices (represented as lists of lists).")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Lists (Operations)", "Most objects that can be of variable size are represented as lists.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Matrices (Predicates)", "Predicates related to matrices.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Matrices (Special)", "Various special matricies")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Numeric", "Functions that calculate numerically (like those found on a scientific calculator.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Numbers (Complex)", "Functions that allow manipulation of complex numbers.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Numbers (Operations)", "Besides the usual arithmetical operations, MathPiper defines some more advanced operations on numbers. Many of them also work on polynomials.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Numbers (Predicates)", "Predicates relating to numbers.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Numbers (Random)", "Random number related functions.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Number Theory", "Functions that are of interest in number theory. They typically operate on integers")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Polynomials (Operations)", "Functions to manipulate polynomials, including functions for constructing and evaluating orthogonal polynomials.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Polynomials (Special)", "Special polynomials.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Predicates", "A predicate is a function that returns a boolean value, i.e. True or False.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Propositional Logic", "Functions for propositional logic.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Series", "Functions which operate on series.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Solvers (Numeric)", "Functions for solving equations numerically.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Solvers (Symbolic)", "By solving one tries to find a mathematical object that meets certain criteria.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Special Functions", "In this section, special and transcendental mathematical functions are described.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Sorting", "Functions for sorting.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Statistics & Probability", "Statistics & Probability.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("String Manipulation", "Functions for manipulating strings.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Transforms", "In this section, some facilities for various transforms are described.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Trigonometry (Numeric)", "Functions for working with trigonometry numerically.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Trigonometry (Symbolic)", "Functions for working with trigonometry symbolically.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Variables", "Functions that work with variables.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Visualization", "Functions that help visualize data.")));
+        mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Alphabetical", "All functions in alphabetical order.")));
+        mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Built In", "Functions that are implemented in Java.")));
+        mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Analytic Geometry", "Functions that are related to analytic geometry.")));
+        mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Calculus Related (Symbolic)", "Functions for differentiation, integration, and solving of equations.")));
+        mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Calendars", "Functions related to calendars and dates.")));
+        mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Combinatorics", "Combinatorics related functions.")));
+        mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Constants", "Mathematical constants.")));
+        mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Differential Equations", "In this section, some facilities for solving differential equations are described. Currently only simple equations without auxiliary conditions are supported.")));
+        mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Expression Manipulation", "This section describes functions which allow expressions to be manipulated.")));
+        mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Expression Simplification", "This section describes functions that allow simplification of expressions.")));
+        mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Linear Algebra", "Functions used to manipulate vectors (represented as lists) and matrices (represented as lists of lists).")));
+        mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Matrices (Special)", "Various special matricies")));
+        mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Numeric", "Functions that calculate numerically (like those found on a scientific calculator.")));
+        mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Numbers (Complex)", "Functions that allow manipulation of complex numbers.")));
+        mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Numbers (Operations)", "Besides the usual arithmetical operations, MathPiper defines some more advanced operations on numbers. Many of them also work on polynomials.")));
+        mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Numbers (Random)", "Random number related functions.")));
+        mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Number Theory", "Functions that are of interest in number theory. They typically operate on integers")));
+        mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Polynomials (Operations)", "Functions to manipulate polynomials, including functions for constructing and evaluating orthogonal polynomials.")));
+        mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Polynomials (Special)", "Special polynomials.")));
+        mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Propositional Logic", "Functions for propositional logic.")));
+        mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Series", "Functions which operate on series.")));
+        mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Solvers (Numeric)", "Functions for solving equations numerically.")));
+        mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Solvers (Symbolic)", "By solving one tries to find a mathematical object that meets certain criteria.")));
+        mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Special Functions", "In this section, special and transcendental mathematical functions are described.")));
+        mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Statistics & Probability", "Statistics & Probability.")));
+        mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Transforms", "In this section, some facilities for various transforms are described.")));
+        mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Trigonometry (Numeric)", "Functions for working with trigonometry numerically.")));
+        mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Trigonometry (Symbolic)", "Functions for working with trigonometry symbolically.")));
+        mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Visualization", "Functions that help visualize data.")));
 
     }//end method.
 
 
     private void populateProgrammerFunctionNodeWithCategories() {
-        programmerFunctionsNode = new DefaultMutableTreeNode(new FunctionInfo("Programmer Functions", "Functions for MathPiper code developers."));
+        programmingFunctionsNode = new DefaultMutableTreeNode(new FunctionInfo("Programming Functions", "Functions for MathPiper code developers."));
 
-        programmerFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Alphabetical", "All functions in alphabetical order.")));
-        programmerFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Built In", "MathPiper has a small set of built-in functions and a large library of user-defined functions. Some built-in functions are in this section.")));
-        programmerFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Debugging", "Functions used for debugging MathPiper code.")));
-        programmerFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Error Reporting", "Functions which are useful for reporting errors to the user.")));
-        programmerFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Native Objects", "Functions for allowing the MathPiper interpreter access native code.")));
-        programmerFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Numerical (Arbitrary Precision)", "Functions for programming numerical calculations with arbitrary precision.")));
-        programmerFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Programming", "Functions which are useful for writing MathPiper scripts.")));
-        programmerFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Testing", "Functions for verifying the correct operation of MathPiper code.")));
+        programmingFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Alphabetical", "All functions in alphabetical order.")));
+        programmingFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Built In", "MathPiper has a small set of built-in functions and a large library of user-defined functions. Some built-in functions are in this section.")));
+        programmingFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Constants", "Programming related constants.")));
+        programmingFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Control Flow", "Controls the order in which statements or function calls are executed.")));
+        programmingFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Debugging", "Functions used for debugging MathPiper code.")));
+        programmingFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Error Reporting", "Functions which are useful for reporting errors to the user.")));
+        programmingFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Functional Operators", "These operators can help the user to program in the style of functional programming languages such as Miranda or Haskell.")));
+        programmingFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Input/Output", "Functions for input, output, and plotting.")));
+        programmingFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Lists (Operations)", "Most objects that can be of variable size are represented as lists.")));
+        programmingFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Miscellaneous", "Miscellaneous functions.")));
+        programmingFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Native Objects", "Functions for allowing the MathPiper interpreter access native code.")));
+        programmingFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Numerical (Arbitrary Precision)", "Functions for programming numerical calculations with arbitrary precision.")));
+        programmingFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Predicates", "A predicate is a function that returns a boolean value, i.e. True or False.")));
+        programmingFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Sorting", "Functions for sorting.")));
+        programmingFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("String Manipulation", "Functions for manipulating strings.")));
+        programmingFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Testing", "Functions for verifying the correct operation of MathPiper code.")));
+        programmingFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Variables", "Functions that work with variables.")));
 
+        
     }//end method.
 
 
@@ -479,10 +486,10 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
             String[] functionData = new String[4];
 
-            if (userFuncDescIndex != userFunctionsData.length && progFuncDescIndex != programmerFunctionsData.length)
+            if (userFuncDescIndex != mathematicsFunctionsData.length && progFuncDescIndex != programmingFunctionsData.length)
             {
 
-                if (userFunctionsData[userFuncDescIndex][0].compareToIgnoreCase(programmerFunctionsData[progFuncDescIndex][0]) == 0)
+                if (mathematicsFunctionsData[userFuncDescIndex][0].compareToIgnoreCase(programmingFunctionsData[progFuncDescIndex][0]) == 0)
                 {
                     //If the same function is in the user function list and the programmer function list, skip the one in the
                     //user function list and use the one which is in the programmer function list.
@@ -490,11 +497,11 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                 }//end if.
 
 
-                if (userFunctionsData[userFuncDescIndex][0].compareToIgnoreCase(programmerFunctionsData[progFuncDescIndex][0]) < 0)
+                if (mathematicsFunctionsData[userFuncDescIndex][0].compareToIgnoreCase(programmingFunctionsData[progFuncDescIndex][0]) < 0)
                 {
-                    functionData[0] = userFunctionsData[userFuncDescIndex][0];
-                    functionData[1] = userFunctionsData[userFuncDescIndex][1];
-                    functionData[2] = userFunctionsData[userFuncDescIndex][2];
+                    functionData[0] = mathematicsFunctionsData[userFuncDescIndex][0];
+                    functionData[1] = mathematicsFunctionsData[userFuncDescIndex][1];
+                    functionData[2] = mathematicsFunctionsData[userFuncDescIndex][2];
                     functionData[3] = "All Functions";
                     allFunctions.add(functionData);
                     //System.out.println("USER: " + desc[0] + " position: " + userFuncDescIndex);
@@ -502,29 +509,29 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                 }
                 else
                 {
-                    functionData[0] = programmerFunctionsData[progFuncDescIndex][0];
-                    functionData[1] = programmerFunctionsData[progFuncDescIndex][1];
-                    functionData[2] = programmerFunctionsData[progFuncDescIndex][2];
+                    functionData[0] = programmingFunctionsData[progFuncDescIndex][0];
+                    functionData[1] = programmingFunctionsData[progFuncDescIndex][1];
+                    functionData[2] = programmingFunctionsData[progFuncDescIndex][2];
                     functionData[3] = "All Functions";
                     allFunctions.add(functionData);
                     //System.out.println("Programmer: " + desc[0] + " position: " + progFuncDescIndex);
                     progFuncDescIndex++;
                 }
             }
-            else if (userFuncDescIndex != userFunctionsData.length)
+            else if (userFuncDescIndex != mathematicsFunctionsData.length)
             {
-                functionData[0] = userFunctionsData[userFuncDescIndex][0];
-                functionData[1] = userFunctionsData[userFuncDescIndex][1];
-                functionData[2] = userFunctionsData[userFuncDescIndex][2];
+                functionData[0] = mathematicsFunctionsData[userFuncDescIndex][0];
+                functionData[1] = mathematicsFunctionsData[userFuncDescIndex][1];
+                functionData[2] = mathematicsFunctionsData[userFuncDescIndex][2];
                 functionData[3] = "All Functions";
                 allFunctions.add(functionData);
                 userFuncDescIndex++;
             }
-            else if (progFuncDescIndex != programmerFunctionsData.length)
+            else if (progFuncDescIndex != programmingFunctionsData.length)
             {
-                functionData[0] = programmerFunctionsData[progFuncDescIndex][0];
-                functionData[1] = programmerFunctionsData[progFuncDescIndex][1];
-                functionData[2] = programmerFunctionsData[progFuncDescIndex][2];
+                functionData[0] = programmingFunctionsData[progFuncDescIndex][0];
+                functionData[1] = programmingFunctionsData[progFuncDescIndex][1];
+                functionData[2] = programmingFunctionsData[progFuncDescIndex][2];
                 functionData[3] = "All Functions";
                 allFunctions.add(functionData);
                 progFuncDescIndex++;
@@ -556,15 +563,16 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
         populateNode(mathpiperFunctionsRootNode, allFunctionsArray);
 
-        populateNode(userFunctionsNode, userFunctionsData);
-        mathpiperFunctionsRootNode.add(userFunctionsNode);
+        populateNode(mathematicsFunctionsNode, mathematicsFunctionsData);
+        mathpiperFunctionsRootNode.add(mathematicsFunctionsNode);
 
-        populateNode(programmerFunctionsNode, programmerFunctionsData);
-        mathpiperFunctionsRootNode.add(programmerFunctionsNode);
-
-        populateNode(operatorsNode, operatorsData);
-        mathpiperFunctionsRootNode.add(operatorsNode);
+        populateNode(programmingFunctionsNode, programmingFunctionsData);
+        mathpiperFunctionsRootNode.add(programmingFunctionsNode); 
         
+        populateNode(operatorsNode, operatorsData);
+        MutableTreeNode operatorMutableTreeNode = (MutableTreeNode) operatorsNode.getChildAt(0);
+        operatorMutableTreeNode.setUserObject(new FunctionInfo("Operators", "Operators."));
+        mathpiperFunctionsRootNode.add(operatorMutableTreeNode);
 
         licenseNode = new DefaultMutableTreeNode(new FunctionInfo("License", "License information."));
         licenseNode.add(new DefaultMutableTreeNode(new FunctionInfo("MathPiper", "Functions that are related to analytic geometry.")));
@@ -1661,27 +1669,27 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
                 int index = 0;
 
-                //Search user functions.
-                hits.add("USER FUNCTIONS:");
+                //Search mathematics functions.
+                hits.add("MATHEMATICS FUNCTIONS:");
 
-                for (index = 0; index < userFunctionsData.length; index++)
+                for (index = 0; index < mathematicsFunctionsData.length; index++)
                 {
-                    if (userFunctionsData[index][0].toLowerCase().contains(searchString) || userFunctionsData[index][2].toLowerCase().contains(searchString))
+                    if (mathematicsFunctionsData[index][0].toLowerCase().contains(searchString) || mathematicsFunctionsData[index][2].toLowerCase().contains(searchString))
                     {
-                        hits.add(userFunctionsData[index][0] + " -- " + userFunctionsData[index][2] + ".");
+                        hits.add(mathematicsFunctionsData[index][0] + " -- " + mathematicsFunctionsData[index][2] + ".");
                     }
                 }//end for.
 
 
-                //Search programmer functions.
+                //Search programming functions.
                 hits.add(" ");
-                hits.add("PROGRAMMER FUNCTIONS:");
+                hits.add("PROGRAMMING FUNCTIONS:");
 
-                for (index = 0; index < programmerFunctionsData.length; index++)
+                for (index = 0; index < programmingFunctionsData.length; index++)
                 {
-                    if (programmerFunctionsData[index][0].toLowerCase().contains(searchString) || programmerFunctionsData[index][2].toLowerCase().contains(searchString))
+                    if (programmingFunctionsData[index][0].toLowerCase().contains(searchString) || programmingFunctionsData[index][2].toLowerCase().contains(searchString))
                     {
-                        hits.add(programmerFunctionsData[index][0] + " -- " + programmerFunctionsData[index][2] + ".");
+                        hits.add(programmingFunctionsData[index][0] + " -- " + programmingFunctionsData[index][2] + ".");
                     }
                 }//end for.
 

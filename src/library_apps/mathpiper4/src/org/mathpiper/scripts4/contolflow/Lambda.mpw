@@ -12,7 +12,7 @@ MacroRulebaseHoldArguments("Lambda",[args,body]);
 
 
 
-%mathpiper_docs,name="Lambda",categories="User Functions;Control Flow"
+%mathpiper_docs,name="Lambda",categories="Programming Functions;Control Flow"
 *CMD Lambda --- a form of pure function that can be passed to functions like Apply and Select
 *STD
 *CALL

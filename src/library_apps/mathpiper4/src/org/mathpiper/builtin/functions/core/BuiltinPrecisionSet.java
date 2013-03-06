@@ -57,7 +57,7 @@ public class BuiltinPrecisionSet extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="BuiltinPrecisionSet",categories="Programmer Functions;Numerical (Arbitrary Precision);Built In"
+%mathpiper_docs,name="BuiltinPrecisionSet",categories="Programming Functions;Numerical (Arbitrary Precision);Built In"
 *CMD BuiltinPrecisionSet --- set the precision
 *CORE
 *CALL

@@ -69,7 +69,7 @@ public class SysOut extends BuiltinFunction {
 
 
 /*
-%mathpiper_docs,name="SysOut",categories="User Functions;Built In;Input/Output",access="experimental"
+%mathpiper_docs,name="SysOut",categories="Programming Functions;Input/Output;Built In",access="experimental"
 *CMD SysOut --- similar to the Write function, except a copy of the output is also sent to Java's System.out stream
 *CALL
     SysOut()

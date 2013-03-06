@@ -86,7 +86,7 @@ public class FindFunction extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="FindFunction",categories="User Functions;Built In"
+%mathpiper_docs,name="FindFunction",categories="Mathematics Functions;Built In"
 *CMD FindFunction --- find the library file where a function is defined
 *CORE
 *CALL

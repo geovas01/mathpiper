@@ -56,7 +56,7 @@ LocalSymbols(AssembleTerms, AssembleTermsRecursive)
 
 
 
-%mathpiper_docs,name="ExpandBrackets",categories="User Functions;Polynomials (Operations)"
+%mathpiper_docs,name="ExpandBrackets",categories="Mathematics Functions;Polynomials (Operations)"
 *CMD ExpandBrackets --- expand all brackets
 *STD
 *CALL

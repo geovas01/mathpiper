@@ -50,7 +50,7 @@ public class First extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="First",categories="User Functions;Lists (Operations);Built In"
+%mathpiper_docs,name="First",categories="Programming Functions;Lists (Operations);Built In"
 *CMD First --- the first element of a list
 *CORE
 *CALL

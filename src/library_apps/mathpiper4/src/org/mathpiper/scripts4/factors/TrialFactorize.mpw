@@ -52,7 +52,7 @@ TrialFactorize(n, limit) :=
 
 
 
-%mathpiper_docs,name="TrialFactorize",categories="User Functions",access="undocumented"
+%mathpiper_docs,name="TrialFactorize",categories="Mathematics Functions",access="undocumented"
 *CMD TrialFactorize --- *** UNDOCUMENTED ***
 
 *CALL

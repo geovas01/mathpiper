@@ -71,7 +71,7 @@ public class MetaKeys extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="MetaKeys",categories="User Functions;Built In"
+%mathpiper_docs,name="MetaKeys",categories="Mathematics Functions;Built In"
 *CMD MetaKeys --- returns the metadata keys for a value or an unbound variable
 *CORE
 *CALL

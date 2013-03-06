@@ -19,7 +19,7 @@ Error?(errorclass_String?) <--
 
 
 
-%mathpiper_docs,name="Error?",categories="Programmer Functions;Error Reporting;Predicates",access="private"
+%mathpiper_docs,name="Error?",categories="Programming Functions;Error Reporting;Predicates",access="private"
 *CMD Error? --- check for custom error
 *STD
 *CALL

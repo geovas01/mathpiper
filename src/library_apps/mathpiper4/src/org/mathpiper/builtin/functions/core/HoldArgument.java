@@ -58,7 +58,7 @@ public class HoldArgument extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="HoldArgument",categories="Programmer Functions;Programming;Built In"
+%mathpiper_docs,name="HoldArgument",categories="Programming Functions;Miscellaneous;Built In"
 *CMD HoldArgument --- mark argument as not evaluated
 *CORE
 *CALL

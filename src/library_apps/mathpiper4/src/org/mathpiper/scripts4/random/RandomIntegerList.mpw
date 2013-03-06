@@ -8,7 +8,7 @@ RandomIntegerList(_count,_coefmin,_coefmax) <--
 
 
 
-%mathpiper_docs,name="RandomIntegerList",categories="User Functions;Numbers (Random)"
+%mathpiper_docs,name="RandomIntegerList",categories="Mathematics Functions;Numbers (Random)"
 *CMD RandomIntegerList --- generate a vector of random integers
 
 *STD

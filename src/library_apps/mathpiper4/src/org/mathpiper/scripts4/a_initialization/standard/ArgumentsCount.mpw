@@ -7,7 +7,7 @@ Function("ArgumentsCount",[aLeft]) Length(FunctionToList(aLeft))-1;
 
 
 
-%mathpiper_docs,name="ArgumentsCount",categories="Programmer Functions;Programming"
+%mathpiper_docs,name="ArgumentsCount",categories="Programming Functions;Miscellaneous"
 *CMD ArgumentsCount --- return number of top-level arguments
 *STD
 *CALL

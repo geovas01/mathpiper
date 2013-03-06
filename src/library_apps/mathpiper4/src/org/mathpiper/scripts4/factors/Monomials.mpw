@@ -62,7 +62,7 @@
 
 
 
-%mathpiper_docs,name="Monomial?",categories="User Functions;Predicates"
+%mathpiper_docs,name="Monomial?",categories="Programming Functions;Predicates"
 *CMD Monomial? --- determine if [expr] is a Monomial
 *STD
 *CALL
@@ -100,7 +100,7 @@ Result: False
 
 
 
-%mathpiper_docs,name="FactorsMonomial",categories="User Functions;Polynomials (Operations)"
+%mathpiper_docs,name="FactorsMonomial",categories="Mathematics Functions;Polynomials (Operations)"
 *CMD FactorsMonomial --- factorization of a monomial expression
 *STD
 *CALL

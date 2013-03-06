@@ -44,7 +44,7 @@ ArithmeticGeometricMean(a, b, eps) :=
 
 
 
-%mathpiper_docs,name="ArithmeticGeometricMean",categories="User Functions;Special Functions"
+%mathpiper_docs,name="ArithmeticGeometricMean",categories="Mathematics Functions;Special Functions"
 *CMD ArithmeticGeometricMean --- calculate the arithmetic geometric mean of two positive real numbers
 *CALL
         ArithmeticGeometricMean(a,b,precision)

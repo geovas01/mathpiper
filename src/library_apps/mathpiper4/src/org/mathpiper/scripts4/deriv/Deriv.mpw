@@ -96,7 +96,7 @@ LocalSymbols(var,var2,a,b,y){
 
 
 
-%mathpiper_docs,name="Deriv",categories="User Functions",access="undocumented"
+%mathpiper_docs,name="Deriv",categories="Mathematics Functions",access="undocumented"
 *CMD Deriv --- *** UNDOCUMENTED ***
 
 *CALL

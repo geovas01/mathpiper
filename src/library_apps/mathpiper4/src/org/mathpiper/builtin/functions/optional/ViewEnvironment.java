@@ -55,7 +55,7 @@ public class ViewEnvironment extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="ViewEnvironment",categories="User Functions;Built In"
+%mathpiper_docs,name="ViewEnvironment",categories="Mathematics Functions;Built In"
 *CMD ViewEnvironment --- show the console window
 *CORE
 *CALL

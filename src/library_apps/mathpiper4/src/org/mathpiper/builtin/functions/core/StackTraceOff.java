@@ -52,7 +52,7 @@ public class StackTraceOff extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="StackTraceOff",categories="Programmer Functions;Built In;Debugging",access="experimental"
+%mathpiper_docs,name="StackTraceOff",categories="Programming Functions;Built In;Debugging",access="experimental"
 *CMD StackTraceOff --- clears the flag which will show a stack trace when an exception is thrown
 *CALL
     StackTraceOff()

@@ -63,7 +63,7 @@ public class TellUser extends BuiltinFunction {
 
 
 /*
-%mathpiper_docs,name="TellUser",categories="User Functions;Input/Output;Built In"
+%mathpiper_docs,name="TellUser",categories="Programming Functions;Input/Output;Built In"
 *CMD AskUser --- displays a message to the user in a dialog.
 *CORE
 *CALL

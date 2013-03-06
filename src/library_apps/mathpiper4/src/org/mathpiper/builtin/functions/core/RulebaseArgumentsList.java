@@ -71,7 +71,7 @@ public class RulebaseArgumentsList extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="RulebaseArgumentsList",categories="Programmer Functions;Programming;Built In"
+%mathpiper_docs,name="RulebaseArgumentsList",categories="Programming Functions;Miscellaneous;Built In"
 *CMD RulebaseArgumentsList --- obtain list of arguments
 *CORE
 *CALL

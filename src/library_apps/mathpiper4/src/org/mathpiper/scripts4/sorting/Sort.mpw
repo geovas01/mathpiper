@@ -38,7 +38,7 @@
 
 
 
-%mathpiper_docs,name="Sort",categories="User Functions;Sorting"
+%mathpiper_docs,name="Sort",categories="Programming Functions;Sorting"
 *CMD Sort --- sort a list, using specified compare(a,b) operator.
 *STD
 *CALL

@@ -54,7 +54,7 @@ LocalSymbols(UnparseCAllFunctions) {
 
 
 
-%mathpiper_docs,name="CUnparsable?",categories="User Functions;Input/Output;Predicates"
+%mathpiper_docs,name="CUnparsable?",categories="Programming Functions;Input/Output;Predicates"
 *CMD CUnparsable? --- check possibility to export expression to C++ code
 *STD
 *CALL

@@ -24,7 +24,7 @@ LocalSymbols(complexReduce) {
 
 
 
-%mathpiper_docs,name="NN",categories="User Functions",access="undocumented"
+%mathpiper_docs,name="NN",categories="Mathematics Functions",access="undocumented"
 *CMD NN --- *** UNDOCUMENTED ***
 
 *CALL

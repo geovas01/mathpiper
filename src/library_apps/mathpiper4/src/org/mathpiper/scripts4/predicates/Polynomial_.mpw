@@ -25,7 +25,7 @@
 
 
 
-%mathpiper_docs,name="Polynomial?",categories="Programmer Functions;Predicates"
+%mathpiper_docs,name="Polynomial?",categories="Programming Functions;Predicates"
 
 *CMD Polynomial? --- Check if [expr] is a polynomial in variable [var] if [var] is specified.
 

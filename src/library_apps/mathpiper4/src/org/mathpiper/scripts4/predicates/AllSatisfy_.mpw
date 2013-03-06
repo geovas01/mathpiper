@@ -11,7 +11,7 @@
 .   %/output
 
 
-%mathpiper_docs,name="AllSatisfy?",categories="User Functions;Predicates"
+%mathpiper_docs,name="AllSatisfy?",categories="Programming Functions;Predicates"
 
 
 *CMD AllSatisfy? --- Check if all elements of list [lst] satisfy predicate [pred]

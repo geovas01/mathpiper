@@ -10,7 +10,7 @@ ExponentialDistribution(l_RationalOrNumber?)_(l<?0) <-- Undefined;
 
 
 
-%mathpiper_docs,name="ExponentialDistribution",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="ExponentialDistribution",categories="Mathematics Functions;Statistics & Probability"
 *CMD ExponentialDistribution --- Exponential distribution
 *STD
 *CALL

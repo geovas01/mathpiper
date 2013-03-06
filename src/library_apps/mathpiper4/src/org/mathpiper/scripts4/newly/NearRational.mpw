@@ -74,7 +74,7 @@
 
 
 
-%mathpiper_docs,name="NearRational",categories="User Functions;Numbers (Operations)"
+%mathpiper_docs,name="NearRational",categories="Mathematics Functions;Numbers (Operations)"
 *CMD NearRational --- find optimal rational approximations
 *STD
 *CALL

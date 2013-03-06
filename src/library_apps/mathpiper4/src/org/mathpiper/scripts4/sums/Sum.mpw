@@ -139,7 +139,7 @@ SumFunc(_k,1,Infinity,(-1)^(_k-1)/_k, Ln(2) );
 
 
 
-%mathpiper_docs,name="Sum",categories="User Functions;Series"
+%mathpiper_docs,name="Sum",categories="Mathematics Functions;Series"
 *CMD Sum --- find sum of a sequence
 *STD
 *CALL

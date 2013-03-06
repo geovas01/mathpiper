@@ -43,7 +43,7 @@ Shuffle(list) :=
 
 
 
-%mathpiper_docs,name="Shuffle",categories="User Functions;Statistics & Probability",access="experimental"
+%mathpiper_docs,name="Shuffle",categories="Mathematics Functions;Statistics & Probability",access="experimental"
 *CMD Shuffle --- randomly shuffles the elements in a list
 *STD
 *CALL

@@ -50,7 +50,7 @@ public class Prefix_ extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Prefix?",categories="User Functions;Predicates;Built In"
+%mathpiper_docs,name="Prefix?",categories="Programming Functions;Predicates;Built In"
 *CMD Prefix? --- check for function syntax
 *CORE
 *CALL

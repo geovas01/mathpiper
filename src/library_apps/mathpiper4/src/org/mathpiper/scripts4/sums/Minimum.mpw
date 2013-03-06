@@ -42,7 +42,7 @@ Function() Minimum(l1, l2, l3, ...);
 
 
 
-%mathpiper_docs,name="Minimum",categories="User Functions;Numbers (Operations)"
+%mathpiper_docs,name="Minimum",categories="Mathematics Functions;Numbers (Operations)"
 *CMD Minimum --- minimum of a number of values
 *STD
 *CALL

@@ -11,7 +11,7 @@ ContinuousUniformDistribution(a_RationalOrNumber?, b_RationalOrNumber?)_(a>=?b)
 
 
 
-%mathpiper_docs,name="ContinuousUniformDistribution",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="ContinuousUniformDistribution",categories="Mathematics Functions;Statistics & Probability"
 *CMD ContinuousUniformDistribution --- Discrete uniform distribution
 *STD
 *CALL

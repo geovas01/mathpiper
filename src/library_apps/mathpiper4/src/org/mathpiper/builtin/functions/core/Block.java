@@ -73,7 +73,7 @@ public class Block extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Block",categories="Programmer Functions;Programming;Built In"
+%mathpiper_docs,name="Block",categories="Programming Functions;Miscellaneous;Built In"
 *CMD Block --- block of statements
 *CORE
 *CALL

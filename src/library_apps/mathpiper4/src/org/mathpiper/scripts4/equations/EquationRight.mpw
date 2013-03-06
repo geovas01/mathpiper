@@ -13,7 +13,7 @@ EquationRight(_symbolicEquation)_(Type(symbolicEquation) =? "==")  <--
 
 
 
-%mathpiper_docs,name="EquationRight",categories="User Functions;Expression Manipulation"
+%mathpiper_docs,name="EquationRight",categories="Mathematics Functions;Expression Manipulation"
 *CMD EquationRight --- return the right side of a symbolic equation
 *STD
 *CALL

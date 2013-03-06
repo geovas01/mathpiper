@@ -28,7 +28,7 @@ CarmichaelNumber?(n_List?) <-- MapSingle("CarmichaelNumber?",n);
 
 
 
-%mathpiper_docs,name="CarmichaelNumber?",categories="User Functions;Number Theory;Predicates"
+%mathpiper_docs,name="CarmichaelNumber?",categories="Programming Functions;Predicates"
 *CMD CarmichaelNumber? --- test for a Carmichael number
 *STD
 *CALL

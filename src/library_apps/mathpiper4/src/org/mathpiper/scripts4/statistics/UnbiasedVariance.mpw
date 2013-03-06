@@ -14,7 +14,7 @@ UnbiasedVariance(list) :=
 
 
 
-%mathpiper_docs,name="UnbiasedVariance",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="UnbiasedVariance",categories="Mathematics Functions;Statistics & Probability"
 *CMD UnbiasedVariance --- calculates the unbiased variance of a list of values
 *STD
 *CALL

@@ -15,7 +15,7 @@
 
 
 
-%mathpiper_docs,name="LegendreSymbol",categories="User Functions;Number Theory"
+%mathpiper_docs,name="LegendreSymbol",categories="Mathematics Functions;Number Theory"
 *CMD LegendreSymbol --- functions related to finite groups
 *STD
 *CALL

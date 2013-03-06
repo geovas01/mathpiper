@@ -33,7 +33,7 @@ public class RulebaseListedEvaluateArguments extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="RulebaseListedEvaluateArguments",categories="Programmer Functions;Programming;Built In"
+%mathpiper_docs,name="RulebaseListedEvaluateArguments",categories="Programming Functions;Miscellaneous;Built In"
 *CMD RulebaseListedEvaluateArguments --- define rules in functions
 *CORE
 *DESC

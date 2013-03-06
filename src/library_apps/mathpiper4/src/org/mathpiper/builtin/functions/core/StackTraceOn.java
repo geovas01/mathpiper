@@ -50,7 +50,7 @@ public class StackTraceOn extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="StackTraceOn",categories="Programmer Functions;Built In;Debugging",access="experimental"
+%mathpiper_docs,name="StackTraceOn",categories="Programming Functions;Built In;Debugging",access="experimental"
 *CMD StackTraceOn --- sets the flag which will show a stack trace when an exception is thrown
 *CALL
     StackTraceOn()

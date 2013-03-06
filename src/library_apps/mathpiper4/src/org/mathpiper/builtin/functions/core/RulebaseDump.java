@@ -81,7 +81,7 @@ public class RulebaseDump extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="RulebaseDump",categories="Programmer Functions;Programming;Built In"
+%mathpiper_docs,name="RulebaseDump",categories="Programming Functions;Miscellaneous;Built In"
 *CMD RulebaseDump --- prints the rules in a rulebase if the rulebase exists
 *CALL
     RulebaseDump("string")

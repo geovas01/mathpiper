@@ -89,7 +89,7 @@ ZScoreToProbability(zScore) :=
 
 
 
-%mathpiper_docs,name="ZScoreToProbability",categories="User Functions;Statistics & Probability",access="experimental"
+%mathpiper_docs,name="ZScoreToProbability",categories="Mathematics Functions;Statistics & Probability",access="experimental"
 *CMD ZScoreToProbability --- calculates the probability of a given z-score
 *STD
 *CALL

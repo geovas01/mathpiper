@@ -23,7 +23,7 @@
 
 
 
-%mathpiper_docs,name="CollectOn",categories="User Functions;Polynomials (Operations)"
+%mathpiper_docs,name="CollectOn",categories="Mathematics Functions;Polynomials (Operations)"
 *CMD CollectOn -- Collect terms of a polynomial-like expression on powers of [var], starting with power 0.
 
 *CALL

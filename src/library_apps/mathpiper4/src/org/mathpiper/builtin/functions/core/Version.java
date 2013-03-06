@@ -48,7 +48,7 @@ public class Version extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Version",categories="User Functions;Built In"
+%mathpiper_docs,name="Version",categories="Mathematics Functions;Built In"
 *CMD Version --- show version of MathPiper
 *CORE
 *CALL

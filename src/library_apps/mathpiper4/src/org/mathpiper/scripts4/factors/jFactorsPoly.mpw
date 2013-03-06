@@ -551,7 +551,7 @@ UnFence("FixUpMonicFactors",1);
 
 
 
-%mathpiper_docs,name="jFactorsPoly",categories="User Functions",access="undocumented"
+%mathpiper_docs,name="jFactorsPoly",categories="Mathematics Functions",access="undocumented"
 *CMD jFactorsPoly --- *** UNDOCUMENTED ***
 
 *CALL

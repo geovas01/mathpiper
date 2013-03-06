@@ -215,7 +215,7 @@ public class ViewMath extends BuiltinFunction {
 
 
 /*
-%mathpiper_docs,name="ViewMath",categories="User Functions;Built In;Visualization"
+%mathpiper_docs,name="ViewMath",categories="Mathematics Functions;Built In;Visualization"
 *CMD ViewMath --- display an expression in traditional form
 
 *CALL

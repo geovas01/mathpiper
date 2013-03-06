@@ -9,7 +9,7 @@
 
 
 
-%mathpiper_docs,name="Re",categories="User Functions;Numbers (Complex)"
+%mathpiper_docs,name="Re",categories="Mathematics Functions;Numbers (Complex)"
 *CMD Re --- real part of a complex number
 *STD
 *CALL

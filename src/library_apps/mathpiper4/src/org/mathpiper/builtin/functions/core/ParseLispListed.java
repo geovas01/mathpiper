@@ -53,7 +53,7 @@ public class ParseLispListed extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="ParseLispListed",categories="User Functions;Input/Output;Built In"
+%mathpiper_docs,name="ParseLispListed",categories="Programming Functions;Input/Output;Built In"
 *CMD ParseLispListed --- parse expressions in LISP syntax
 *CORE
 *CALL

@@ -301,7 +301,7 @@ MkfactD(numer,denom):=
 
 
 
-%mathpiper_docs,name="BinaryFactors",categories="User Functions",access="undocumented"
+%mathpiper_docs,name="BinaryFactors",categories="Mathematics Functions",access="undocumented"
 *CMD BinaryFactors --- *** UNDOCUMENTED ***
 
 *CALL

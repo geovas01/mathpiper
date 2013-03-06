@@ -11,7 +11,7 @@
  
 
 
-%mathpiper_docs,name="Denominator",categories="User Functions;Numbers (Operations)"
+%mathpiper_docs,name="Denominator",categories="Mathematics Functions;Numbers (Operations)"
 *CMD Denominator --- denominator of an expression
 *STD
 *CALL

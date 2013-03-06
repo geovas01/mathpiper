@@ -25,7 +25,7 @@ HeapSortIndexed1( L_List?, _compare ) <--
 
 
 
-%mathpiper_docs,name="HeapSortIndexed",categories="User Functions;Sorting"
+%mathpiper_docs,name="HeapSortIndexed",categories="Programming Functions;Sorting"
 *CMD HeapSortIndexed --- sort a list
 *STD
 *CALL

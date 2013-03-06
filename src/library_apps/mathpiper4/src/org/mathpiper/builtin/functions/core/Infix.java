@@ -47,7 +47,7 @@ public class Infix extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Infix",categories="User Functions;Built In"
+%mathpiper_docs,name="Infix",categories="Mathematics Functions;Built In"
 *CMD Infix --- define function syntax (infix operator)
 *CORE
 *CALL

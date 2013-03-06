@@ -60,7 +60,7 @@ public class Not_ extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Not?",categories="User Functions;Predicates;Built In"
+%mathpiper_docs,name="Not?",categories="Programming Functions;Predicates;Built In"
 *CMD Not? --- logical negation
 *CORE
 *CALL

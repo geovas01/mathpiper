@@ -23,7 +23,7 @@ Median(list) :=
 
 
 
-%mathpiper_docs,name="Median",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="Median",categories="Mathematics Functions;Statistics & Probability"
 *CMD Median --- calculates the median of a list of values
 *STD
 *CALL

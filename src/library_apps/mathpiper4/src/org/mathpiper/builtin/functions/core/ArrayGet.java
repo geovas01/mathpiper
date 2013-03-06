@@ -67,7 +67,7 @@ public class ArrayGet extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="ArrayGet",categories="Programmer Functions;Native Objects;Built In"
+%mathpiper_docs,name="ArrayGet",categories="Programming Functions;Native Objects;Built In"
 *CMD ArrayGet --- fetch array element
 *CORE
 *CALL

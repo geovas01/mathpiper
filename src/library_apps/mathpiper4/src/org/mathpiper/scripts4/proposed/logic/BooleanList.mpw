@@ -26,7 +26,7 @@ BooleanList(elements, integerBitPattern) :=
 
 
 
-%mathpiper_docs,name="BooleanList",categories="User Functions;Propositional Logic",access="experimental"
+%mathpiper_docs,name="BooleanList",categories="Mathematics Functions;Propositional Logic",access="experimental"
 *CMD BooleanList --- returns a list that contains boolean values
 
 *CALL

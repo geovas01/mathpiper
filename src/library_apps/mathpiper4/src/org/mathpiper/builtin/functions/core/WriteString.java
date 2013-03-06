@@ -64,7 +64,7 @@ public class WriteString extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="WriteString",categories="User Functions;Input/Output;Built In"
+%mathpiper_docs,name="WriteString",categories="Programming Functions;Input/Output;Built In"
 *CMD WriteString --- low-level printing routine for strings
 *CORE
 *CALL

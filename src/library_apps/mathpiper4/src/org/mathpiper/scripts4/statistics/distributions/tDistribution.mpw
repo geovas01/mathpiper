@@ -9,7 +9,7 @@ tDistribution(m_RationalOrNumber?)_(Not? PositiveInteger?(m)) <-- Undefined;
 
 
 
-%mathpiper_docs,name="tDistribution",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="tDistribution",categories="Mathematics Functions;Statistics & Probability"
 *CMD tDistribution --- Student's $t$ distribution
 *STD
 *CALL

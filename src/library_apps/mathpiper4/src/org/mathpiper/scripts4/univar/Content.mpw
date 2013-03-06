@@ -7,7 +7,7 @@
 
 
 
-%mathpiper_docs,name="Content",categories="User Functions;Polynomials (Operations)"
+%mathpiper_docs,name="Content",categories="Mathematics Functions;Polynomials (Operations)"
 *CMD Content --- content of a univariate polynomial
 *STD
 *CALL

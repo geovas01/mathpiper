@@ -94,7 +94,7 @@ Function("SquareMatrix?",[p,x]) Matrix?(p,x) And? Length(x)=?Length(x[1]);
 
 
 
-%mathpiper_docs,name="Scalar?",categories="User Functions;Matrices (Predicates);Predicates"
+%mathpiper_docs,name="Scalar?",categories="Programming Functions;Predicates"
 *CMD Scalar? --- test for a scalar
 *STD
 *CALL
@@ -125,7 +125,7 @@ Result: False;
 
 
 
-%mathpiper_docs,name="Vector?",categories="User Functions;Matrices (Predicates);Predicates"
+%mathpiper_docs,name="Vector?",categories="Programming Functions;Predicates"
 *CMD Vector? --- test for a vector
 *STD
 *CALL
@@ -166,7 +166,7 @@ Result: False;
 
 
 
-%mathpiper_docs,name="Matrix?",categories="User Functions;Matrices (Predicates);Predicates"
+%mathpiper_docs,name="Matrix?",categories="Programming Functions;Predicates"
 *CMD Matrix? --- test for a matrix
 *STD
 *CALL
@@ -211,7 +211,7 @@ Result: True;
 
 
 
-%mathpiper_docs,name="SquareMatrix?",categories="User Functions;Matrices (Predicates);Predicates"
+%mathpiper_docs,name="SquareMatrix?",categories="Programming Functions;Predicates"
 *CMD SquareMatrix? --- test for a square matrix
 *STD
 *CALL

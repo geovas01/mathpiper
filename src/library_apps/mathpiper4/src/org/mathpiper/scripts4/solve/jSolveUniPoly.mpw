@@ -37,7 +37,7 @@
 
 
 
-%mathpiper_docs,name="jSolveUniPoly",categories="User Functions;Solvers (Symbolic)"
+%mathpiper_docs,name="jSolveUniPoly",categories="Mathematics Functions;Solvers (Symbolic)"
 *CMD jSolveUniPoly --- solve (find the roots of) a strictly univariate polynomial using JAS
 *STD
 *CALL

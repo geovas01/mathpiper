@@ -44,7 +44,7 @@ FindPrimeFactor(n, prime) :=
 
 
 
-%mathpiper_docs,name="FindPrimeFactor",categories="User Functions",access="undocumented"
+%mathpiper_docs,name="FindPrimeFactor",categories="Mathematics Functions",access="undocumented"
 *CMD FindPrimeFactor --- *** UNDOCUMENTED ***
 
 *CALL

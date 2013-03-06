@@ -138,7 +138,7 @@ public class JavaNew extends BuiltinFunction {
 
 
 /*
-%mathpiper_docs,name="JavaNew",categories="Programmer Functions;Built In;Native Objects",access="experimental"
+%mathpiper_docs,name="JavaNew",categories="Programming Functions;Built In;Native Objects",access="experimental"
 *CMD JavaNew --- instantiates a Java object
 *CALL
     JavaNew(fullyQualifiedClassName, constructorParameter1, constructorParameter2, ...)

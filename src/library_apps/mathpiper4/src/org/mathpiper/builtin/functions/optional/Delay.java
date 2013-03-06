@@ -51,7 +51,7 @@ public class Delay extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Delay",categories="User Functions;Built In;Input/Output"
+%mathpiper_docs,name="Delay",categories="Programming Functions;Input/Output;Built In"
 *CMD Delay --- delays execution of a program for a specified number of milliseconds
 *CORE
 *CALL

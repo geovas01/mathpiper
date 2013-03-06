@@ -67,7 +67,7 @@ public class FastCos extends BuiltinFunction
 
 
 /*
-%mathpiper,name="FastCos",categories="Programmer Functions;Built In"
+%mathpiper,name="FastCos",categories="Programming Functions;Built In"
 *CMD FastCos --- double-precision math function
 *CORE
 *CALL

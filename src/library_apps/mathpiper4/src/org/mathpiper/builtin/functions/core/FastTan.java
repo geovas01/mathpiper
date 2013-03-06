@@ -67,7 +67,7 @@ public class FastTan extends BuiltinFunction
 
 
 /*
-%mathpiper,name="FastTan",categories="Programmer Functions;Built In"
+%mathpiper,name="FastTan",categories="Programming Functions;Built In"
 *CMD FastTan --- double-precision math function
 *CORE
 *CALL

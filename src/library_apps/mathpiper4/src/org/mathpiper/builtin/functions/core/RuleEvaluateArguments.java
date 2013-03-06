@@ -46,7 +46,7 @@ public class RuleEvaluateArguments extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="RuleEvaluateArguments",categories="Programmer Functions;Programming;Built In"
+%mathpiper_docs,name="RuleEvaluateArguments",categories="Programming Functions;Miscellaneous;Built In"
 *CMD RuleEvaluateArguments --- define rules in functions
 *CORE
 *DESC

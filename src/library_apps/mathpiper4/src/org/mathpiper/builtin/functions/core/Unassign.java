@@ -66,7 +66,7 @@ public class Unassign extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Unassign",categories="User Functions;Variables;Built In"
+%mathpiper_docs,name="Unassign",categories="Programming Functions;Variables;Built In"
 *CMD Unassign --- undo an assignment
 *CORE
 *CALL

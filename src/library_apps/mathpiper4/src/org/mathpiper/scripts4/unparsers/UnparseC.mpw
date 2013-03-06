@@ -241,7 +241,7 @@ UnparseCStatement(_x) <-- UnparseC(x) ~ ";" ~ NlIndented();
 
 
 
-%mathpiper_docs,name="UnparseC",categories="User Functions;Input/Output"
+%mathpiper_docs,name="UnparseC",categories="Programming Functions;Input/Output"
 *CMD UnparseC --- export expression to C++ code
 *STD
 *CALL

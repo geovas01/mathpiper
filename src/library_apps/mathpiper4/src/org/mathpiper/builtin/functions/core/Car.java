@@ -57,7 +57,7 @@ public class Car extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Car",categories="Programmer Functions;Programming;Built In"
+%mathpiper_docs,name="Car",categories="Programming Functions;Miscellaneous;Built In"
 *CMD Car --- the first element of a Lisp list
 *CORE
 *CALL

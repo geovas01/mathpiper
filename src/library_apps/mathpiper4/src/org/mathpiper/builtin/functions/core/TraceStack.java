@@ -50,7 +50,7 @@ public class TraceStack extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="TraceStack",categories="User Functions;Control Flow;Built In",access="private"
+%mathpiper_docs,name="TraceStack",categories="Programming Functions;Control Flow;Built In",access="private"
 *CMD TraceStack --- show calling stack after an error occurs
 *CORE
 *CALL

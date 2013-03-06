@@ -64,7 +64,7 @@ public class LoadLibraryFunction extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="LoadLibraryFunction",categories="User Functions;Input/Output;Built In"
+%mathpiper_docs,name="LoadLibraryFunction",categories="Programming Functions;Input/Output;Built In"
 *CMD LoadLibraryFunction --- load a function from the library.
 *CORE
 *CALL

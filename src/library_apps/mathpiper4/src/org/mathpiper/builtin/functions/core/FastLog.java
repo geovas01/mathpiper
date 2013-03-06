@@ -54,7 +54,7 @@ public class FastLog extends BuiltinFunction
 
 
 /*
-%mathpiper,name="FastLog",categories="Programmer Functions;Built In"
+%mathpiper,name="FastLog",categories="Programming Functions;Built In"
 *CMD FastLog --- double-precision natural logarithm
 *CORE
 *CALL

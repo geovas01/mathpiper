@@ -180,7 +180,7 @@ public class MetaSet extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="MetaSet",categories="User Functions;Built In"
+%mathpiper_docs,name="MetaSet",categories="Mathematics Functions;Built In"
  *CMD MetaSet --- set the metadata for a value or an unbound variable
  *CORE
  *CALL

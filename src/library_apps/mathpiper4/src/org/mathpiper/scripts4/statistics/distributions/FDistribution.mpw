@@ -14,7 +14,7 @@ FDistribution(_n1, _n2) <-- Undefined;
 
 
 
-%mathpiper_docs,name="FDistribution",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="FDistribution",categories="Mathematics Functions;Statistics & Probability"
 *CMD FDistribution --- the F distribution
 *CALL
  Not Implemented Yet

@@ -69,7 +69,7 @@ LocalSymbols(itm,lst,bd)
 
 
 
-%mathpiper_docs,name="ForEachExperimental",categories="User Functions",access="undocumented"
+%mathpiper_docs,name="ForEachExperimental",categories="Programming Functions",access="undocumented"
 *CMD ForEachExperimental --- *** UNDOCUMENTED ***
 
 *CALL

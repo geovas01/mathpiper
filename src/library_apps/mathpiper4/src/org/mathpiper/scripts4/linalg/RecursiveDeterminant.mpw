@@ -24,7 +24,7 @@
 
 
 
-%mathpiper_docs,name="RecursiveDeterminant",categories="User Functions;Linear Algebra"
+%mathpiper_docs,name="RecursiveDeterminant",categories="Mathematics Functions;Linear Algebra"
 *CMD RecursiveDeterminant --- computes a determinant recursively
 *STD
 *CALL

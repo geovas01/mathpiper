@@ -277,7 +277,7 @@ public class TreeView extends BuiltinFunction {
 
 
 /*
-%mathpiper_docs,name="TreeView",categories="User Functions;Visualization"
+%mathpiper_docs,name="TreeView",categories="Mathematics Functions;Visualization"
 *CMD TreeView --- display an expression tree
 
 *CALL

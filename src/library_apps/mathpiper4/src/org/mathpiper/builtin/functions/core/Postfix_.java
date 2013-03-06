@@ -50,7 +50,7 @@ public class Postfix_ extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Postfix?",categories="User Functions;Predicates;Built In"
+%mathpiper_docs,name="Postfix?",categories="Programming Functions;Predicates;Built In"
 *CMD Postfix? --- check for function syntax
 *CORE
 *CALL

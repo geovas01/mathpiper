@@ -40,7 +40,7 @@ VarListAll(_expr) <-- VarListAll(expr,"Variable?");
 
 
 
-%mathpiper_docs,name="VarListAll",categories="User Functions;Lists (Operations)"
+%mathpiper_docs,name="VarListAll",categories="Programming Functions;Lists (Operations)"
 *CMD VarListAll --- list of variables appearing in an expression (with duplicates)
 *STD
 *CALL

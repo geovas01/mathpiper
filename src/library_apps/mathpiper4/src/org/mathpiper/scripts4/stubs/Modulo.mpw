@@ -61,7 +61,7 @@
 .   %/output
 
 
-%mathpiper_docs,name="Modulo",categories="User Functions;Numbers (Operations)"
+%mathpiper_docs,name="Modulo",categories="Mathematics Functions;Numbers (Operations)"
 *CMD Modulo --- Determine remainder of two mathematical objects after dividing one by the other
 
 *STD

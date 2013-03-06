@@ -52,7 +52,7 @@ Function() MultiplyNum(x);
 
 
 
-%mathpiper_docs,name="MultiplyNum",categories="User Functions;Numbers (Operations)"
+%mathpiper_docs,name="MultiplyNum",categories="Mathematics Functions;Numbers (Operations)"
 *CMD MultiplyNum --- optimized numerical multiplication
 *STD
 *CALL

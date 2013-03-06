@@ -71,7 +71,7 @@ public class ParserSet extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="ParserSet",categories="User Functions;Built In"
+%mathpiper_docs,name="ParserSet",categories="Mathematics Functions;Built In"
 *CMD ParserSet --- set the current parser
 
 *CORE

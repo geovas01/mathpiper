@@ -53,7 +53,7 @@ public class BitOr extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="BitOr",categories="User Functions;Built In"
+%mathpiper_docs,name="BitOr",categories="Programming Functions;Built In"
 *CMD BitOr --- bitwise or operation
 *CORE
 *CALL

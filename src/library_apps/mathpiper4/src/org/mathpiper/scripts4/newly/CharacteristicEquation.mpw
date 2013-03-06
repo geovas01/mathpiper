@@ -8,7 +8,7 @@ HoldArgument("CharacteristicEquation",var);
 
 
 
-%mathpiper_docs,name="CharacteristicEquation",categories="User Functions;Linear Algebra"
+%mathpiper_docs,name="CharacteristicEquation",categories="Mathematics Functions;Linear Algebra"
 *CMD CharacteristicEquation --- get characteristic polynomial of a matrix
 *STD
 *CALL

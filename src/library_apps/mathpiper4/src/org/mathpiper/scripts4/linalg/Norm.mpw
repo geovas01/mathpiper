@@ -6,7 +6,7 @@
 
 
 
-%mathpiper_docs,name="Norm",categories="User Functions;Linear Algebra"
+%mathpiper_docs,name="Norm",categories="Mathematics Functions;Linear Algebra"
 *CMD Norm --- the norm (magnitude or length) of a vector
 *STD
 *CALL

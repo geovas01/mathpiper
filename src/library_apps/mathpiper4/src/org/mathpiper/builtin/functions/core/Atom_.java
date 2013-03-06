@@ -50,7 +50,7 @@ public class Atom_ extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Atom?",categories="User Functions;Predicates;Built In"
+%mathpiper_docs,name="Atom?",categories="Programming Functions;Predicates;Built In"
 *CMD Atom? --- test for an atom
 *CORE
 *CALL

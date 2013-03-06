@@ -53,7 +53,7 @@ public class DefaultDirectory extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="DefaultDirectory",categories="User Functions;Built In"
+%mathpiper_docs,name="DefaultDirectory",categories="Mathematics Functions;Built In"
 *CMD DefaultDirectory --- add directory to path for MathPiper scripts
 *CORE
 *CALL

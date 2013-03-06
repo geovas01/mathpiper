@@ -58,7 +58,7 @@ public class ExceptionCatch extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="ExceptionCatch",categories="Programmer Functions;Error Reporting;Built In"
+%mathpiper_docs,name="ExceptionCatch",categories="Programming Functions;Error Reporting;Built In"
 *CMD ExceptionCatch --- catches exceptions
 *CORE
 *CALL

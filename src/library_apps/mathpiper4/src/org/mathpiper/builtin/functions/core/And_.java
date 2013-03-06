@@ -96,7 +96,7 @@ public class And_ extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="And?",categories="User Functions;Predicates;Built In"
+%mathpiper_docs,name="And?",categories="Programming Functions;Predicates;Built In"
 *CMD And? --- logical conjunction
 *CORE
 *CALL

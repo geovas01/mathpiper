@@ -64,7 +64,7 @@ public class Cdr extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Cdr",categories="Programmer Functions;Programming;Built In"
+%mathpiper_docs,name="Cdr",categories="Programming Functions;Miscellaneous;Built In"
 *CMD Cdr --- the rest of a Lisp list
 *CORE
 *CALL

@@ -118,7 +118,7 @@
 
 
 
-%mathpiper_docs,name="RREF",categories="User Functions;Linear Algebra"
+%mathpiper_docs,name="RREF",categories="Mathematics Functions;Linear Algebra"
 *CMD RREF --- convert a system of equations to reduced row echelon form
 *STD
 *CALL

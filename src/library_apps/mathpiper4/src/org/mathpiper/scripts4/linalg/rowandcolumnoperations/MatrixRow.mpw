@@ -16,7 +16,7 @@ Function("MatrixRow",[matrix,row])
 
 
 
-%mathpiper_docs,name="MatrixRow",categories="User Functions;Linear Algebra"
+%mathpiper_docs,name="MatrixRow",categories="Mathematics Functions;Linear Algebra"
 *CMD MatrixRow --- obtain the row of a matrix
 *STD
 *CALL

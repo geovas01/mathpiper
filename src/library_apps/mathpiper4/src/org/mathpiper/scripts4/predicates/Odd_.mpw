@@ -6,7 +6,7 @@ Odd?(n)  := Integer?(n) And? ( BitAnd(n,1)  =? 1 );
 
 
 
-%mathpiper_docs,name="Odd?",categories="User Functions;Predicates"
+%mathpiper_docs,name="Odd?",categories="Programming Functions;Predicates"
 *CMD Odd? --- test for an odd integer
 *STD
 *CALL

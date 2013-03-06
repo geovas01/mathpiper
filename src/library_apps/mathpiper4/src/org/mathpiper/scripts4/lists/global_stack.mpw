@@ -35,7 +35,7 @@ LocalSymbols(GlobalStack, x)
 
 
 
-%mathpiper_docs,name="GlobalPop;GlobalPush",categories="User Functions;Lists (Operations)"
+%mathpiper_docs,name="GlobalPop;GlobalPush",categories="Programming Functions;Lists (Operations)"
 *CMD GlobalPop --- restore variables using a global stack
 *CMD GlobalPush --- save variables using a global stack
 *STD

@@ -22,7 +22,7 @@
 
 
 
-%mathpiper_docs,name="MaximumBound",categories="User Functions;Solvers (Numeric)"
+%mathpiper_docs,name="MaximumBound",categories="Mathematics Functions;Solvers (Numeric)"
 *CMD MaximumBound --- return upper bounds on the absolute values of real roots of a polynomial
 *STD
 *CALL

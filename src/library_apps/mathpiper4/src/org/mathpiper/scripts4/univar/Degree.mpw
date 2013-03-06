@@ -40,7 +40,7 @@ RuleHoldArguments("Degree",1,0, UniVar?(expr))
 
 
 
-%mathpiper_docs,name="Degree",categories="User Functions;Polynomials (Operations)"
+%mathpiper_docs,name="Degree",categories="Mathematics Functions;Polynomials (Operations)"
 *CMD Degree --- degree of a polynomial
 *STD
 *CALL

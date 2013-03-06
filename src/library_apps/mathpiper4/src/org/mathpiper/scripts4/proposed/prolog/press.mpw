@@ -444,7 +444,7 @@ Show([TreeView(x^2, Scale: 3, Resizable: False), TreeView(x^2, Scale: 3, Resizab
 
 
 
-%mathpiper_docs,name="StepsView",categories="User Functions;Visualization"
+%mathpiper_docs,name="StepsView",categories="Mathematics Functions;Visualization"
 *CMD StepsView --- create a graphics view of mathematical operation steps
 
 *CALL
@@ -495,7 +495,7 @@ Result: class javax.swing.JFrame
 
 
 
-%mathpiper_docs,name="SolveEquation",categories="User Functions;Visualization"
+%mathpiper_docs,name="SolveEquation",categories="Mathematics Functions;Visualization"
 *CMD SolveEquation --- produce the steps that are needed to solve an equation
 
 *CALL

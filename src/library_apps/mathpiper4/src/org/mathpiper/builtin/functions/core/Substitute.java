@@ -52,7 +52,7 @@ public class Substitute extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Substitute",categories="User Functions;Expression Manipulation;Built In"
+%mathpiper_docs,name="Substitute",categories="Mathematics Functions;Expression Manipulation;Built In"
 *CMD Substitute --- perform a substitution
 *CORE
 *CALL

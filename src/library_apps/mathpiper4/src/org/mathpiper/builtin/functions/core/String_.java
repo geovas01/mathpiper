@@ -61,7 +61,7 @@ public class String_ extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="String?",categories="User Functions;Predicates;Built In"
+%mathpiper_docs,name="String?",categories="Programming Functions;Predicates;Built In"
 *CMD String? --- test for an string
 *CORE
 *CALL

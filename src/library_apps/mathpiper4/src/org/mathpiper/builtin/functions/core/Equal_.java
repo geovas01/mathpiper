@@ -54,7 +54,7 @@ public class Equal_ extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Equal?",categories="User Functions;Built In"
+%mathpiper_docs,name="Equal?",categories="Mathematics Functions;Built In"
 *CMD Equal? --- check equality
 *CORE
 *CALL

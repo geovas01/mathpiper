@@ -12,7 +12,7 @@ GeometricMean(list) :=
 
 
 
-%mathpiper_docs,name="GeometricMean",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="GeometricMean",categories="Mathematics Functions;Statistics & Probability"
 *CMD GeometricMean --- calculates the mean of a list of values
 *STD
 *CALL

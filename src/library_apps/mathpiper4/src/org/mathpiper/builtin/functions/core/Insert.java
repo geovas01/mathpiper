@@ -47,7 +47,7 @@ public class Insert extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Insert",categories="User Functions;Lists (Operations);Built In"
+%mathpiper_docs,name="Insert",categories="Programming Functions;Lists (Operations);Built In"
 *CMD Insert --- insert an element into a list
 *CORE
 *CALL

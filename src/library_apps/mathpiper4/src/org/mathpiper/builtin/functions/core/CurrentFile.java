@@ -49,7 +49,7 @@ public class CurrentFile extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="CurrentFile",categories="Programmer Functions;Error Reporting;Built In"
+%mathpiper_docs,name="CurrentFile",categories="Programming Functions;Error Reporting;Built In"
 *CMD CurrentFile --- return current input file
 *CORE
 *CALL

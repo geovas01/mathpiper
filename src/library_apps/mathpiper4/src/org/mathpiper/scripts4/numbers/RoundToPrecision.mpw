@@ -102,7 +102,7 @@
 
 
 
-%mathpiper_docs,name="RoundToPrecision",categories="Programmer Functions;Numerical (Arbitrary Precision)"
+%mathpiper_docs,name="RoundToPrecision",categories="Programming Functions;Numerical (Arbitrary Precision)"
 *CMD RoundToPrecision --- Rounds or Sets a number to the specified precision
 *STD
 *CALL

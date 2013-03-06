@@ -8,7 +8,7 @@ ComplexII?(_c) <-- (ImII(c) !=? 0);
 
 
 
-%mathpiper_docs,name="ComplexII?",categories="User Functions",access="undocumented"
+%mathpiper_docs,name="ComplexII?",categories="Programming Functions",access="undocumented"
 *CMD ComplexII? --- *** UNDOCUMENTED ***
 
 *CALL

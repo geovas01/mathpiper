@@ -54,7 +54,7 @@ public class ParserGet extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="ParserGet",categories="User Functions;Built In"
+%mathpiper_docs,name="ParserGet",categories="Mathematics Functions;Built In"
 *CMD ParserGet --- get the name of the current parser
 
 *CORE

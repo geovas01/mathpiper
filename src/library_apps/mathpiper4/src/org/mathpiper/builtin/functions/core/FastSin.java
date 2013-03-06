@@ -67,7 +67,7 @@ public class FastSin extends BuiltinFunction
 
 
 /*
-%mathpiper,name="FastSin",categories="Programmer Functions;Built In"
+%mathpiper,name="FastSin",categories="Programming Functions;Built In"
 *CMD FastSin --- double-precision math function
 *CORE
 *CALL

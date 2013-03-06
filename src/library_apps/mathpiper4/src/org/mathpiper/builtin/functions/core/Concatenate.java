@@ -80,7 +80,7 @@ public class Concatenate extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Concat",categories="User Functions;Lists (Operations);Built In"
+%mathpiper_docs,name="Concat",categories="Programming Functions;Lists (Operations);Built In"
 *CMD Concat --- concatenate lists
 *CORE
 *CALL

@@ -7,7 +7,7 @@ Last(LL_List?)_(Length(LL)>?0) <-- First(Reverse(LL));
 
 
 
-%mathpiper_docs,name="Last",categories="User Functions;Lists (Operations)"
+%mathpiper_docs,name="Last",categories="Programming Functions;Lists (Operations)"
 *CMD Last --- returns the last element of a list
 *STD
 *CALL

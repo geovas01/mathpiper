@@ -49,7 +49,7 @@ public class GreaterThan_ extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="GreaterThan?",categories="User Functions;Predicates;Built In"
+%mathpiper_docs,name="GreaterThan?",categories="Programming Functions;Predicates;Built In"
 *CMD GreaterThan? --- comparison predicate
 *CORE
 *CALL

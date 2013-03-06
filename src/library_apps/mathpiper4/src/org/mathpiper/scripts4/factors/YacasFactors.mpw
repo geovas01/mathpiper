@@ -194,7 +194,7 @@
 
 
 
-%mathpiper_docs,name="Factors",categories="User Functions;Number Theory"
+%mathpiper_docs,name="Factors",categories="Mathematics Functions;Number Theory"
 *CMD Factors --- factorization
 *STD
 *CALL

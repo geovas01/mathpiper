@@ -74,7 +74,7 @@ public class LoadScript extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="LoadScript",categories="User Functions;Input/Output;Built In"
+%mathpiper_docs,name="LoadScript",categories="Programming Functions;Input/Output;Built In"
 *CMD LoadScript --- evaluate all expressions in a string
 *CORE
 *CALL

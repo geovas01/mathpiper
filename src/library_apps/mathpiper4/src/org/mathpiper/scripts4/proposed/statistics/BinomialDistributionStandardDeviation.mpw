@@ -24,7 +24,7 @@ BinomialDistributionStandardDeviation(probability,numberOfTrials) :=
 
 
 
-%mathpiper_docs,name="BinomialDistributionStandardDeviation",categories="User Functions;Statistics & Probability",access="experimental"
+%mathpiper_docs,name="BinomialDistributionStandardDeviation",categories="Mathematics Functions;Statistics & Probability",access="experimental"
 *CMD BinomialDistributionStandardDeviation --- the standard deviation of a binomial distribution
 *STD
 *CALL

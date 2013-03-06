@@ -65,7 +65,7 @@ public class Time extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Time",categories="User Functions;Built In;Input/Output"
+%mathpiper_docs,name="Time",categories="Programming Functions;Input/Output;Built In"
 *CMD Time --- measure the time taken by an evaluation
 *CORE
 *CALL

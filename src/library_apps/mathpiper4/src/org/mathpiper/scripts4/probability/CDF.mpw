@@ -76,7 +76,7 @@
 
 
 
-%mathpiper_docs,name="CDF",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="CDF",categories="Mathematics Functions;Statistics & Probability"
 *CMD CDF --- cumulative distribution function
 *STD
 *CALL

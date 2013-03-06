@@ -33,7 +33,7 @@
 
 
 
-%mathpiper_docs,name="Together",categories="User Functions;Number Theory"
+%mathpiper_docs,name="Together",categories="Mathematics Functions;Number Theory"
 *CMD Together --- places terms in a sum over a common denominator and cancels factors in the result
 *CALL
     Together(expression)

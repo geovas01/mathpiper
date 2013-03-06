@@ -12,7 +12,7 @@
 
 
 
-%mathpiper_docs,name="ListHasFunction?",categories="User Functions;Predicates"
+%mathpiper_docs,name="ListHasFunction?",categories="Programming Functions;Predicates"
 *CMD ListHasFunction? --- test for one of the elements of a list to contain a function
 *STD
 *CALL

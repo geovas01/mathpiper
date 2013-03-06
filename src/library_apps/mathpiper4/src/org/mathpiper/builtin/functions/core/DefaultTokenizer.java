@@ -48,7 +48,7 @@ public class DefaultTokenizer extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="DefaultTokenizer",categories="User Functions;Input/Output;Built In"
+%mathpiper_docs,name="DefaultTokenizer",categories="Programming Functions;Input/Output;Built In"
 *CMD DefaultTokenizer --- select the default syntax tokenizer for parsing the input
 *CORE
 *CALL

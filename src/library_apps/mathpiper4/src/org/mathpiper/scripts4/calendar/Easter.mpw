@@ -33,7 +33,7 @@ Easter(year) := {
 
 
 
-%mathpiper_docs,name="Easter",categories="User Functions;Calendars"
+%mathpiper_docs,name="Easter",categories="Mathematics Functions;Calendars"
 *CMD Easter --- Calculates the date of Easter in the Gregorian calendar.
 *CALL
         Easter(year)

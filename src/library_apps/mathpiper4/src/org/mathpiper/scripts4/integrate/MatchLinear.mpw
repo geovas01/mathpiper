@@ -78,7 +78,7 @@ Matchedb() := b;
 
 
 
-%mathpiper_docs,name="MatchLinear",categories="User Functions;Predicates"
+%mathpiper_docs,name="MatchLinear",categories="Programming Functions;Predicates"
 *CMD MatchLinear --- match an expression to a polynomial of degree one in a variable
 *STD
 *CALL

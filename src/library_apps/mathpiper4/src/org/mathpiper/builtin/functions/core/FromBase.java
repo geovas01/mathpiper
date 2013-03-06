@@ -75,7 +75,7 @@ public class FromBase extends BuiltinFunction
 }
 
 /*
-%mathpiper_docs,name="FromBase",categories="User Functions;Numbers (Operations);Built In"
+%mathpiper_docs,name="FromBase",categories="Mathematics Functions;Numbers (Operations);Built In"
 *CMD FromBase --- conversion of a number from non-decimal base to decimal base
 *CORE
 *CALL

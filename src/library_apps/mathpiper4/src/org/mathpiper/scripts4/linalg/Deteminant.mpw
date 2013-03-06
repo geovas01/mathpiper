@@ -26,7 +26,7 @@
 
 
 
-%mathpiper_docs,name="Determinant",categories="User Functions;Linear Algebra"
+%mathpiper_docs,name="Determinant",categories="Mathematics Functions;Linear Algebra"
 *CMD Determinant --- determinant of a matrix
 *STD
 *CALL

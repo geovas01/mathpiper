@@ -30,7 +30,7 @@
 
 
 
-%mathpiper_docs,name="xContent",categories="User Functions;Number Theory"
+%mathpiper_docs,name="xContent",categories="Mathematics Functions;Number Theory"
 *CMD Content --- content of a polynomial
 *STD
 *CALL

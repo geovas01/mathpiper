@@ -24,7 +24,7 @@ SampleSizeForTheProportion(probabilityOfSuccess,confidenceLevel,marginOfError) :
 
 
 
-%mathpiper_docs,name="SampleSizeForTheProportion",categories="User Functions;Statistics & Probability",access="experimental"
+%mathpiper_docs,name="SampleSizeForTheProportion",categories="Mathematics Functions;Statistics & Probability",access="experimental"
 *CMD SampleSizeForTheProportion --- calculates the sample size for the proportion
 *STD
 *CALL

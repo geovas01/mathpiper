@@ -62,7 +62,7 @@ public class Write extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Write",categories="User Functions;Input/Output;Built In"
+%mathpiper_docs,name="Write",categories="Programming Functions;Input/Output;Built In"
 *CMD Write --- low-level printing routine
 *CORE
 *CALL

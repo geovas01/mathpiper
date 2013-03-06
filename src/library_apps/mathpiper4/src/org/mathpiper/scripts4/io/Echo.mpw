@@ -53,7 +53,7 @@ Echo() := NewLine();
 
 
 
-%mathpiper_docs,name="Echo",categories="User Functions;Input/Output"
+%mathpiper_docs,name="Echo",categories="Programming Functions;Input/Output"
 *CMD Echo --- high-level printing routine
 *STD
 *CALL

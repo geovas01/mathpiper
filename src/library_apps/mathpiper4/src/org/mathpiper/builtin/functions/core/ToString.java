@@ -83,7 +83,7 @@ public class ToString extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="ToString",categories="User Functions;String Manipulation;Built In"
+%mathpiper_docs,name="ToString",categories="Programming Functions;String Manipulation;Built In"
 *CMD ToString --- convert atom to string
 *CORE
 *CALL

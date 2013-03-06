@@ -529,7 +529,7 @@ HoldArgument("EvalFormula",f);
 
 
 
-%mathpiper_docs,name="UnparseMath2D",categories="User Functions;Input/Output"
+%mathpiper_docs,name="UnparseMath2D",categories="Programming Functions;Input/Output"
 *CMD UnparseMath2D --- print an expression nicely with ASCII art
 *STD
 *CALL
@@ -564,7 +564,7 @@ Result: True;
 
 
 
-%mathpiper_docs,name="EvalFormula",categories="User Functions;Input/Output"
+%mathpiper_docs,name="EvalFormula",categories="Programming Functions;Input/Output"
 *CMD EvalFormula --- print an evaluation nicely with ASCII art
 *STD
 *CALL

@@ -10,7 +10,7 @@ HilbertMatrix(m,n):=BuildMatrix([[i,j], 1/(i+j-1)], m,n );
 
 
 
-%mathpiper_docs,name="HilbertMatrix",categories="User Functions;Matrices (Special)"
+%mathpiper_docs,name="HilbertMatrix",categories="Mathematics Functions;Matrices (Special)"
 *CMD HilbertMatrix --- create a Hilbert matrix
 *STD
 *CALL

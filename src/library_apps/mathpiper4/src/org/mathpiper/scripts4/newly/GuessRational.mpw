@@ -34,7 +34,7 @@ GuessRational(x_RationalOrNumber?, prec_Integer?) <-- {
 
 
 
-%mathpiper_docs,name="GuessRational",categories="User Functions;Numbers (Operations)"
+%mathpiper_docs,name="GuessRational",categories="Mathematics Functions;Numbers (Operations)"
 *CMD GuessRational --- find optimal rational approximations
 *STD
 *CALL

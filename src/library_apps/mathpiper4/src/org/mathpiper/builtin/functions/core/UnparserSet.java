@@ -62,7 +62,7 @@ public class UnparserSet extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="UnparserSet",categories="User Functions;Built In"
+%mathpiper_docs,name="UnparserSet",categories="Mathematics Functions;Built In"
 *CMD UnparserSet --- set the current unparser
 
 *CORE

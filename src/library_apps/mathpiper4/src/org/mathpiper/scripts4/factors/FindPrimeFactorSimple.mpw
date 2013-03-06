@@ -22,7 +22,7 @@ FindPrimeFactorSimple(n, prime) :=
 
 
 
-%mathpiper_docs,name="FindPrimeFactorSimple",categories="User Functions",access="undocumented"
+%mathpiper_docs,name="FindPrimeFactorSimple",categories="Mathematics Functions",access="undocumented"
 *CMD FindPrimeFactorSimple --- *** UNDOCUMENTED ***
 
 *CALL

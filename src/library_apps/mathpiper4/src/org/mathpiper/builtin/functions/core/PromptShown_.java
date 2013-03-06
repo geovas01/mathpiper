@@ -50,7 +50,7 @@ public class PromptShown_ extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="PromptShown?",categories="Programmer Functions;Built In"
+%mathpiper_docs,name="PromptShown?",categories="Programming Functions;Built In"
 *CMD PromptShown? --- test for the MathPiper prompt option
 *CORE
 *CALL

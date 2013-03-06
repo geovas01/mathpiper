@@ -47,7 +47,7 @@ public class MacroAssign extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="MacroAssign",categories="Programmer Functions;Programming;Built In"
+%mathpiper_docs,name="MacroAssign",categories="Programming Functions;Miscellaneous;Built In"
 *CMD MacroAssign --- define rules in functions
 *CORE
 *DESC

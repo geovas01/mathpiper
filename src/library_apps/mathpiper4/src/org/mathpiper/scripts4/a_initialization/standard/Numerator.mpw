@@ -12,7 +12,7 @@
 
 
 
-%mathpiper_docs,name="Numerator",categories="User Functions;Numbers (Operations)"
+%mathpiper_docs,name="Numerator",categories="Mathematics Functions;Numbers (Operations)"
 *CMD Numerator --- numerator of an expression
 *STD
 *CALL

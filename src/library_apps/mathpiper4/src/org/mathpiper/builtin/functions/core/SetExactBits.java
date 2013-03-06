@@ -59,7 +59,7 @@ public class SetExactBits extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="SetExactBitsN",categories="Programmer Functions;Numerical (Arbitrary Precision);Built In"
+%mathpiper_docs,name="SetExactBitsN",categories="Programming Functions;Numerical (Arbitrary Precision);Built In"
 *CMD SetExactBitsN --- manipulate precision of floating-point numbers
 *CORE
 *CALL

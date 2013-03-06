@@ -15,7 +15,7 @@
 
 
 
-%mathpiper_docs,name="NewLine",categories="User Functions;Input/Output"
+%mathpiper_docs,name="NewLine",categories="Programming Functions;Input/Output"
 *CMD NewLine --- print one or more newline characters
 *STD
 *CALL

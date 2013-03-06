@@ -8,7 +8,7 @@
 
 
 
-%mathpiper_docs,name="Factor",categories="User Functions;Number Theory"
+%mathpiper_docs,name="Factor",categories="Mathematics Functions;Number Theory"
 *CMD Factor --- factorization (in unparsed form)
 *STD
 *CALL

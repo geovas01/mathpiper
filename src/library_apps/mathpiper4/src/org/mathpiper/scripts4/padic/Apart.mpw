@@ -32,7 +32,7 @@ Apart(_f,_var) <--
 
 
 
-%mathpiper_docs,name="Apart",categories="User Functions;Number Theory"
+%mathpiper_docs,name="Apart",categories="Mathematics Functions;Number Theory"
 *CMD Apart --- creates a partial fraction expansion of a polynomial
 *CALL
     Apart(expression)

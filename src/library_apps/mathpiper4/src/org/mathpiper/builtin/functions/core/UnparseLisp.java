@@ -50,7 +50,7 @@ public class UnparseLisp extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="UnparseLisp",categories="User Functions;Input/Output;Built In"
+%mathpiper_docs,name="UnparseLisp",categories="Programming Functions;Input/Output;Built In"
 *CMD UnparseLisp --- print an expression in LISP-format
 *CORE
 *CALL

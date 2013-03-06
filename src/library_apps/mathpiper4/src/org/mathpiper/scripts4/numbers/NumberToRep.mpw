@@ -61,7 +61,7 @@
 
 
 
-%mathpiper_docs,name="NumberToRep",categories="Programmer Functions;Numerical (Arbitrary Precision)"
+%mathpiper_docs,name="NumberToRep",categories="Programming Functions;Numerical (Arbitrary Precision)"
 *CMD NumberToRep --- returns a List showing MathPiper's internal representation of a number
 *STD
 *CALL

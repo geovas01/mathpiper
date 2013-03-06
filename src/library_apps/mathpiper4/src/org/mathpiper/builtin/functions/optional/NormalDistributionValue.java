@@ -46,7 +46,7 @@ public class NormalDistributionValue extends BuiltinFunction{
 
 
 /*
-%mathpiper_docs,name="NormalDistributionValue",categories="User Functions;Built In;Statistics & Probability",access="experimental
+%mathpiper_docs,name="NormalDistributionValue",categories="Mathematics Functions;Built In;Statistics & Probability",access="experimental
 *CMD NormalDistributionValue --- returns a value from the normal distribution
 *CALL
     NormalDistributionValue(mean, standardDeviation)

@@ -104,7 +104,7 @@
 
 
 
-%mathpiper_docs,name="Complex",categories="User Functions;Numbers (Complex)"
+%mathpiper_docs,name="Complex",categories="Mathematics Functions;Numbers (Complex)"
 *CMD Complex --- construct a complex number
 *STD
 *CALL

@@ -79,7 +79,7 @@ HoldArgument("TestMathPiper", ans);
 
 
 
-%mathpiper_docs,name="TestMathPiper",categories="Programmer Functions;Testing"
+%mathpiper_docs,name="TestMathPiper",categories="Programming Functions;Testing"
 *CMD TestMathPiper --- verifying equivalence of two expressions
 *STD
 *CALL

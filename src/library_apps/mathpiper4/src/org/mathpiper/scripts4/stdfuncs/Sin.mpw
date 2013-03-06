@@ -45,7 +45,7 @@ Sin(xlist_List?) <-- MapSingle("Sin",xlist);
 
 
 
-%mathpiper_docs,name="Sin",categories="User Functions;Trigonometry (Symbolic)"
+%mathpiper_docs,name="Sin",categories="Mathematics Functions;Trigonometry (Symbolic)"
 *CMD Sin --- trigonometric sine function
 *STD
 *CALL

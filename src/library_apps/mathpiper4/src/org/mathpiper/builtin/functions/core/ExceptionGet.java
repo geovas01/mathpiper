@@ -149,7 +149,7 @@ public class ExceptionGet extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="ExceptionGet",categories="Programmer Functions;Built In"
+%mathpiper_docs,name="ExceptionGet",categories="Programming Functions;Built In"
 *CMD ExceptionGet --- returns the exception object which was thrown.
 *CORE
 *CALL

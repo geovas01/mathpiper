@@ -105,7 +105,7 @@ public class ViewHelp extends BuiltinFunction {
 
 
 /*
-%mathpiper_docs,name="ViewHelp",categories="User Functions;Built In"
+%mathpiper_docs,name="ViewHelp",categories="Mathematics Functions;Built In"
 *CMD ViewHelp --- display the function help window
 *CORE
 *CALL

@@ -35,7 +35,7 @@ Defun("MathExpTaylor0",[x])
 
 
 
-%mathpiper_docs,name="MathExpTaylor0",categories="User Functions;Series"
+%mathpiper_docs,name="MathExpTaylor0",categories="Mathematics Functions;Series"
 *CMD MathExpTaylor0 -- arbitrary precision partial sum of the Taylor series expansion of e^x around zero 
 *CALL
 	MathExpTaylor0(x)

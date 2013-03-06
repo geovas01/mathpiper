@@ -7,7 +7,7 @@ AssocValues(assocvalueslist_List?) <--
 
 
 
-%mathpiper_docs,name="AssocValues",categories="User Functions;Lists (Operations)",access="experimental"
+%mathpiper_docs,name="AssocValues",categories="Programming Functions;Lists (Operations)",access="experimental"
 *CMD AssocValues --- return the values in an association list
 *STD
 *CALL

@@ -49,7 +49,7 @@ ClearError(errorclass_String?) <-- AssocDelete(GetErrorTableau(), errorclass);
 
 
 
-%mathpiper_docs,name="ClearErrors",categories="Programmer Functions;Error Reporting",access="private"
+%mathpiper_docs,name="ClearErrors",categories="Programming Functions;Error Reporting",access="private"
 *CMD ClearErrors --- simple error handlers
 *STD
 *CALL
@@ -66,7 +66,7 @@ ClearError(errorclass_String?) <-- AssocDelete(GetErrorTableau(), errorclass);
 
 
 
-%mathpiper_docs,name="GetError;ClearError;GetErrorTableau",categories="Programmer Functions;Error Reporting",access="private"
+%mathpiper_docs,name="GetError;ClearError;GetErrorTableau",categories="Programming Functions;Error Reporting",access="private"
 *CMD GetError --- custom errors handlers
 *CMD ClearError --- custom errors handlers
 *CMD GetErrorTableau --- custom errors handlers

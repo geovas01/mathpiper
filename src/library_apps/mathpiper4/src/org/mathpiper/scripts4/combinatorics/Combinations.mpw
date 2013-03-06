@@ -13,7 +13,7 @@ Combinations(n,m) := BinomialCoefficient(n,m);
 
 
 
-%mathpiper_docs,name="Combinations;BinomialCoefficient",categories="User Functions;Combinatorics"
+%mathpiper_docs,name="Combinations;BinomialCoefficient",categories="Mathematics Functions;Combinatorics"
 *CMD Combinations/BinomialCoefficient --- combinations/ binomial coefficient
 *STD
 *CALL

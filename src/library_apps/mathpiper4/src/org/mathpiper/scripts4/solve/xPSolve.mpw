@@ -360,7 +360,7 @@ UnFence("xPSolveCubic",1);
 
 
 
-%mathpiper_docs,name="xPSolve",categories="User Functions;Solvers (Symbolic)"
+%mathpiper_docs,name="xPSolve",categories="Mathematics Functions;Solvers (Symbolic)"
 *CMD xPSolve --- solve a polynomial equation
 *STD
 *CALL

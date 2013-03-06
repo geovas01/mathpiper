@@ -6,7 +6,7 @@ LowerTriangular?(A_Matrix?) <-- (UpperTriangular?(Transpose(A)));
 
 
 
-%mathpiper_docs,name="LowerTriangular?",categories="User Functions;Matrices (Predicates);Predicates"
+%mathpiper_docs,name="LowerTriangular?",categories="Programming Functions;Predicates"
 *CMD LowerTriangular? --- test for a lower triangular matrix
 *STD
 *CALL

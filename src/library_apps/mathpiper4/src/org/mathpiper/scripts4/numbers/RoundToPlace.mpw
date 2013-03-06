@@ -74,7 +74,7 @@
 
 
 
-%mathpiper_docs,name="RoundToPlace",categories="Programmer Functions;Numerical (Arbitrary Precision)"
+%mathpiper_docs,name="RoundToPlace",categories="Programming Functions;Numerical (Arbitrary Precision)"
 *CMD RoundToPlace --- Rounds or Sets a number to the specified "decimal place"
 *STD
 *CALL

@@ -55,7 +55,7 @@ HoldArgumentNumber("ForEach",3,3);
 
 
 
-%mathpiper_docs,name="ForEach",categories="User Functions;Control Flow"
+%mathpiper_docs,name="ForEach",categories="Programming Functions;Control Flow"
 *CMD ForEach --- loop over all entries in a list or a string
 *STD
 *CALL

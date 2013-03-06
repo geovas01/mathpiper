@@ -57,7 +57,7 @@ public class ParseMathPiperToken extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="ParseMathPiperToken",categories="User Functions;Input/Output;Built In"
+%mathpiper_docs,name="ParseMathPiperToken",categories="Programming Functions;Input/Output;Built In"
 *CMD ParseMathPiperToken --- read a token from current input
 *CORE
 *CALL

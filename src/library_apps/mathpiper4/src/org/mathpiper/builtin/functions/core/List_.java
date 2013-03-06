@@ -50,7 +50,7 @@ public class List_ extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="List?",categories="User Functions;Predicates;Built In"
+%mathpiper_docs,name="List?",categories="Programming Functions;Predicates;Built In"
 *CMD List? --- test for a list
 *CORE
 *CALL

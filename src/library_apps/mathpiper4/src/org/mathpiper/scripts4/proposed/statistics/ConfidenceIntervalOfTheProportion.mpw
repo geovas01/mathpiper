@@ -51,7 +51,7 @@ ConfidenceIntervalOfTheProportion(numberOfSuccesses,sampleSize,confidenceLevel) 
 
 
 
-%mathpiper_docs,name="ConfidenceIntervalOfTheProportion",categories="User Functions;Statistics & Probability",access="experimental"
+%mathpiper_docs,name="ConfidenceIntervalOfTheProportion",categories="Mathematics Functions;Statistics & Probability",access="experimental"
 *CMD ConfidenceIntervalOfTheProportion --- calculates a confidence interval for a proportion
 *STD
 *CALL

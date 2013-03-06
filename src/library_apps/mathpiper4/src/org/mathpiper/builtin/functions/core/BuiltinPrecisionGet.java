@@ -49,7 +49,7 @@ public class BuiltinPrecisionGet extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="BuiltinPrecisionGet",categories="Programmer Functions;Numerical (Arbitrary Precision);Built In"
+%mathpiper_docs,name="BuiltinPrecisionGet",categories="Programming Functions;Numerical (Arbitrary Precision);Built In"
 *CMD BuiltinPrecisionGet --- get the current precision
 *CORE
 *CALL

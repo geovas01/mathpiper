@@ -23,7 +23,7 @@ RemoveDuplicates(
 
 
 
-%mathpiper_docs,name="VarListSome",categories="User Functions;Lists (Operations)"
+%mathpiper_docs,name="VarListSome",categories="Programming Functions;Lists (Operations)"
 *CMD VarListSome --- list of variables appearing in an expression (without duplicates)
 *STD
 *CALL

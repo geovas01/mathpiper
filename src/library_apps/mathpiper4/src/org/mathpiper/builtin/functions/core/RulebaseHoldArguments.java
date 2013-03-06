@@ -46,7 +46,7 @@ public class RulebaseHoldArguments extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="RulebaseHoldArguments",categories="Programmer Functions;Programming;Built In"
+%mathpiper_docs,name="RulebaseHoldArguments",categories="Programming Functions;Miscellaneous;Built In"
 *CMD RulebaseHoldArguments --- define function with a fixed number of arguments
 *CORE
 *CALL

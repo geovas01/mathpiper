@@ -8,7 +8,7 @@ RandomIntegerMatrix(_rows,_cols,_coefmin,_coefmax) <--
 
 
 
-%mathpiper_docs,name="RandomIntegerMatrix",categories="User Functions;Numbers (Random)"
+%mathpiper_docs,name="RandomIntegerMatrix",categories="Mathematics Functions;Numbers (Random)"
 *CMD RandomIntegerMatrix --- generate a matrix of random integers
 
 *STD

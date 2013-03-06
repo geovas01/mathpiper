@@ -51,7 +51,7 @@ public class SystemTimer extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="SystemTimer",categories="User Functions;Built In;Input/Output"
+%mathpiper_docs,name="SystemTimer",categories="Programming Functions;Input/Output;Built In"
 *CMD SystemTimer --- return the current time in nanoseconds
 *CORE
 *CALL

@@ -28,7 +28,7 @@ Function("Inverse",[matrix])
 
 
 
-%mathpiper_docs,name="Inverse",categories="User Functions;Linear Algebra"
+%mathpiper_docs,name="Inverse",categories="Mathematics Functions;Linear Algebra"
 *CMD Inverse --- get inverse of a matrix
 *STD
 *CALL

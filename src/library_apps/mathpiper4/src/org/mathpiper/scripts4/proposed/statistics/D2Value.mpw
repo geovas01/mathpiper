@@ -48,7 +48,7 @@ D2Value(k,n) :=
 
 
 
-%mathpiper_docs,name="D2Value",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="D2Value",categories="Mathematics Functions;Statistics & Probability"
 *CMD D2Value --- converts average range $\bar[R]$ into estimated standard deviation $\hat[\sigma]_x$
 *STD
 *CALL

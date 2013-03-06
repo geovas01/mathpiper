@@ -17,7 +17,7 @@ Defun("MathIntPower", [x,y])
 
 
 
-%mathpiper_docs,name="MathIntPower",categories="User Functions",access="undocumented"
+%mathpiper_docs,name="MathIntPower",categories="Mathematics Functions",access="undocumented"
 *CMD MathIntPower --- *** UNDOCUMENTED ***
 
 *CALL

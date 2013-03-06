@@ -131,7 +131,7 @@ public class Histogram extends BuiltinFunction {
 
 
 /*
-%mathpiper_docs,name="Histogram",categories="User Functions;Visualization"
+%mathpiper_docs,name="Histogram",categories="Mathematics Functions;Visualization"
 *CMD Histogram --- displays a graphic histogram
 *CORE
 *CALL

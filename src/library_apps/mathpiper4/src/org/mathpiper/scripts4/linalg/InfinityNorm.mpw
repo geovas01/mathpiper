@@ -22,7 +22,7 @@
 
 
 
-%mathpiper_docs,name="InfinityNorm",categories="User Functions;Linear Algebra"
+%mathpiper_docs,name="InfinityNorm",categories="Mathematics Functions;Linear Algebra"
 *CMD InfinityNorm --- Compute the "Infinity Norm" of a Vector or Matrix
 *STD
 *CALL

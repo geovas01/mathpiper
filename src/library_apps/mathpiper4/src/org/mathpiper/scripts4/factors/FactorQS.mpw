@@ -21,7 +21,7 @@ Function("FactorQS",[n]){
 
 
 
-%mathpiper_docs,name="FactorQS",categories="User Functions",access="undocumented"
+%mathpiper_docs,name="FactorQS",categories="Mathematics Functions",access="undocumented"
 *CMD FactorQS --- *** UNDOCUMENTED ***
 
 *CALL

@@ -56,7 +56,7 @@ HeapSort(L_List?, _compare) <--
 
 
 
-%mathpiper_docs,name="HeapSort",categories="User Functions;Sorting"
+%mathpiper_docs,name="HeapSort",categories="Programming Functions;Sorting"
 *CMD HeapSort --- sort a list
 *STD
 *CALL

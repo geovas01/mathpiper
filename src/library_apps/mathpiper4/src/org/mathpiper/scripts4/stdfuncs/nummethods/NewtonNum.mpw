@@ -99,7 +99,7 @@ LN(x_Number?)_(x>?1 ) <--
 
 
 
-%mathpiper_docs,name="NewtonNum",categories="User Functions;Solvers (Numeric)
+%mathpiper_docs,name="NewtonNum",categories="Mathematics Functions;Solvers (Numeric)
 *CMD NewtonNum --- low-level optimized Newton's iterations
 *STD
 *CALL

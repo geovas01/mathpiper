@@ -30,7 +30,7 @@ MoebiusDivisorsList(n_PositiveInteger?) <--
 
 
 
-%mathpiper_docs,name="MoebiusDivisorsList",categories="User Functions;Number Theory"
+%mathpiper_docs,name="MoebiusDivisorsList",categories="Mathematics Functions;Number Theory"
 *CMD MoebiusDivisorsList --- the list of divisors and Moebius values
 *STD
 *CALL

@@ -48,7 +48,7 @@ public class SetGlobalLazyVariable extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="SetGlobalLazyVariable",categories="User Functions;Variables;Built In"
+%mathpiper_docs,name="SetGlobalLazyVariable",categories="Programming Functions;Variables;Built In"
 *CMD SetGlobalLazyVariable --- global variable is to be evaluated lazily
 *CORE
 *CALL

@@ -19,7 +19,7 @@ RuleHoldArguments("MakeVector",2,1,True)
 
 
 
-%mathpiper_docs,name="MakeVector",categories="User Functions;Lists (Operations)"
+%mathpiper_docs,name="MakeVector",categories="Programming Functions;Lists (Operations)"
 *CMD MakeVector --- vector of uniquely numbered variable names
 *STD
 *CALL

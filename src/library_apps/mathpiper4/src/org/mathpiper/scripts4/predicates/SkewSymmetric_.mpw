@@ -6,7 +6,7 @@ SkewSymmetric?(A_Matrix?) <-- (Transpose(A)=?(-1*A));
 
 
 
-%mathpiper_docs,name="SkewSymmetric?",categories="User Functions;Matrices (Predicates);Predicates"
+%mathpiper_docs,name="SkewSymmetric?",categories="Programming Functions;Predicates"
 *CMD SkewSymmetric? --- test for a skew-symmetric matrix
 *STD
 *CALL

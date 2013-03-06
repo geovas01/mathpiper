@@ -53,7 +53,7 @@ public class Rest extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Rest",categories="User Functions;Lists (Operations);Built In"
+%mathpiper_docs,name="Rest",categories="Programming Functions;Lists (Operations);Built In"
 *CMD Rest --- returns a list without its car element
 *CORE
 *CALL

@@ -25,7 +25,7 @@ BubbleSortIndexed( L_List?, _compare ) <--
 
 
 
-%mathpiper_docs,name="BubbleSortIndexed",categories="User Functions;Sorting"
+%mathpiper_docs,name="BubbleSortIndexed",categories="Programming Functions;Sorting"
 *CMD BubbleSortIndexed --- sort a list
 *STD
 *CALL

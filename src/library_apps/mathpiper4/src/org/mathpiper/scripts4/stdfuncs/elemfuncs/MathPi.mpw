@@ -56,7 +56,7 @@ MathPi() :=
 
 
 
-%mathpiper_docs,name="MathPi",categories="User Functions;Numeric",access="experimental"
+%mathpiper_docs,name="MathPi",categories="Mathematics Functions;Numeric",access="experimental"
 *CMD MathPi --- The constant Pi.
 *CALL
         MathPi()

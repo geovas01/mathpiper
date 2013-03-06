@@ -59,7 +59,7 @@
 
 
 
-%mathpiper_docs,name="Intersection",categories="User Functions;Lists (Operations)"
+%mathpiper_docs,name="Intersection",categories="Programming Functions;Lists (Operations)"
 *CMD Intersection --- return the Intersection of two or more lists
 *STD
 *CALL

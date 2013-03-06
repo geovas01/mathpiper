@@ -10,7 +10,7 @@
 
 
 
-%mathpiper_docs,name="ProperDivisors",categories="User Functions;Number Theory"
+%mathpiper_docs,name="ProperDivisors",categories="Mathematics Functions;Number Theory"
 *CMD ProperDivisors --- the number of proper divisors
 *STD
 *CALL

@@ -11,7 +11,7 @@ DiscreteUniformDistribution(a_RationalOrNumber?, b_RationalOrNumber?)_(a>=?b)
 
 
 
-%mathpiper_docs,name="DiscreteUniformDistribution",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="DiscreteUniformDistribution",categories="Mathematics Functions;Statistics & Probability"
 *CMD DiscreteUniformDistribution --- Discrete uniform distribution
 *STD
 *CALL

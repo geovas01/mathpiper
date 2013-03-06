@@ -85,7 +85,7 @@ public class TraceSome extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="TraceSome",categories="Programmer Functions;Built In;Debugging",access="experimental"
+%mathpiper_docs,name="TraceSome",categories="Programming Functions;Built In;Debugging",access="experimental"
 *CMD TraceSome --- trace the given functions which are evaluated in the given expression
 *CORE
 *CALL

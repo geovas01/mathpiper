@@ -13,7 +13,7 @@ SortFactorList(list) := HeapSort(list, [[a,b], a[1]<?b[1]]);
 
 
 
-%mathpiper_docs,name="SortFactorList",categories="User Functions",access="undocumented"
+%mathpiper_docs,name="SortFactorList",categories="Mathematics Functions",access="undocumented"
 *CMD SortFactorList --- *** UNDOCUMENTED ***
 
 *CALL

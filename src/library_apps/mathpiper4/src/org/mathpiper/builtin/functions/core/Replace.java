@@ -47,7 +47,7 @@ public class Replace extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Replace",categories="User Functions;Lists (Operations);Built In"
+%mathpiper_docs,name="Replace",categories="Programming Functions;Lists (Operations);Built In"
 *CMD Replace --- replace an entry in a list
 
 *CORE

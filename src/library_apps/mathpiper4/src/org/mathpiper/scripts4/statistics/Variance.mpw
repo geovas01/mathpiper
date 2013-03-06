@@ -18,7 +18,7 @@ Variance(list) :=
 
 
 
-%mathpiper_docs,name="Variance",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="Variance",categories="Mathematics Functions;Statistics & Probability"
 *CMD Variance --- calculates the variance of a list of values
 *STD
 *CALL

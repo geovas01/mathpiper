@@ -6,7 +6,7 @@ Orthogonal?(A_Matrix?) <-- (Transpose(A)*A=?Identity(Length(A)));
 
 
 
-%mathpiper_docs,name="Orthogonal?",categories="User Functions;Matrices (Predicates);Predicates"
+%mathpiper_docs,name="Orthogonal?",categories="Programming Functions;Predicates"
 *CMD Orthogonal? --- test for an orthogonal matrix
 *STD
 *CALL

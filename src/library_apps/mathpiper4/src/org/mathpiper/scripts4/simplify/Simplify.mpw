@@ -40,7 +40,7 @@
 
 
 
-%mathpiper_docs,name="Simplify",categories="User Functions;Expression Simplification"
+%mathpiper_docs,name="Simplify",categories="Mathematics Functions;Expression Simplification"
 *CMD Simplify --- try to simplify an expression
 *STD
 *CALL

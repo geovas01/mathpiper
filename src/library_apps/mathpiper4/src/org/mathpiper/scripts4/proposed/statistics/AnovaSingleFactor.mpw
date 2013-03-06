@@ -204,7 +204,7 @@ AnovaSingleFactor(levelsList, alpha) :=
 
 
 
-%mathpiper_docs,name="AnovaSingleFactor",categories="User Functions;Statistics & Probability",access="experimental"
+%mathpiper_docs,name="AnovaSingleFactor",categories="Mathematics Functions;Statistics & Probability",access="experimental"
 *CMD AnovaSingleFactor --- performs an ANOVA single factor analysis
 
 *CALL

@@ -12,7 +12,7 @@ RealRootsCount(_p) <--
 
 
 
-%mathpiper_docs,name="RealRootsCount",categories="User Functions;Solvers (Numeric)"
+%mathpiper_docs,name="RealRootsCount",categories="Mathematics Functions;Solvers (Numeric)"
 *CMD RealRootsCount --- return the number of real roots of a polynomial
 *STD
 *CALL

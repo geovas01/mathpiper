@@ -29,7 +29,7 @@ UnFence("BuildList",5);
 
 
 
-%mathpiper_docs,name="BuildList",categories="User Functions;Lists (Operations)"
+%mathpiper_docs,name="BuildList",categories="Programming Functions;Lists (Operations)"
 *CMD BuildList --- evaluate while some variable ranges over interval
 *STD
 *CALL

@@ -27,7 +27,7 @@
 
 
 
-%mathpiper_docs,name="Rationalize",categories="User Functions;Numbers (Operations)"
+%mathpiper_docs,name="Rationalize",categories="Mathematics Functions;Numbers (Operations)"
 *CMD Rationalize --- convert floating point numbers to fractions
 *STD
 *CALL

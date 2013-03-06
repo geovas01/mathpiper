@@ -462,7 +462,7 @@ Out( 6 ) = Complex(Cos(a)*Cos(b)+Sin(a)*Sin(b),Sin(a)*Cos(b)-Cos(a)*Sin(b));
 
 
 
-%mathpiper_docs,name="TrigSimpCombine",categories="User Functions;Expression Simplification"
+%mathpiper_docs,name="TrigSimpCombine",categories="Mathematics Functions;Expression Simplification"
 *CMD TrigSimpCombine --- combine products of trigonometric functions
 *STD
 *CALL

@@ -8,7 +8,7 @@ HasFunctionArithmetic?(expr, atom) := HasFunctionSome?(expr, atom, [ToAtom("+"),
 
 
 
-%mathpiper_docs,name="HasFunctionArithmetic?",categories="User Functions;Predicates"
+%mathpiper_docs,name="HasFunctionArithmetic?",categories="Programming Functions;Predicates"
 *CMD HasFunctionArithmetic? --- check for expression containing a function
 *STD
 *CALL

@@ -23,7 +23,7 @@ HoldArgument("TruncRadian",r);
 
 
 
-%mathpiper_docs,name="TruncRadian",categories="Programmer Functions;Numerical (Arbitrary Precision)"
+%mathpiper_docs,name="TruncRadian",categories="Programming Functions;Numerical (Arbitrary Precision)"
 *CMD TruncRadian --- remainder modulo $2*Pi$
 *STD
 *CALL

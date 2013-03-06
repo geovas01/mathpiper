@@ -67,7 +67,7 @@ public class FastArcCos extends BuiltinFunction
 
 
 /*
-%mathpiper,name="FastArcCos",categories="Programmer Functions;Built In"
+%mathpiper,name="FastArcCos",categories="Programming Functions;Built In"
 *CMD FastArcCos --- double-precision math function
 *CORE
 *CALL

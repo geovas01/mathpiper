@@ -77,7 +77,7 @@ public class ViewGraphicConsole extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="ViewGraphicConsole",categories="User Functions;Built In",access="experimental"
+%mathpiper_docs,name="ViewGraphicConsole",categories="Mathematics Functions;Built In",access="experimental"
 *CMD ViewConsole --- show the console window
 *CORE
 *CALL

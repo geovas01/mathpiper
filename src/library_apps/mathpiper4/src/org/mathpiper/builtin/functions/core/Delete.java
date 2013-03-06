@@ -47,7 +47,7 @@ public class Delete extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Delete",categories="User Functions;Lists (Operations);Built In"
+%mathpiper_docs,name="Delete",categories="Programming Functions;Lists (Operations);Built In"
 *CMD Delete --- delete an element from a list
 *CORE
 *CALL

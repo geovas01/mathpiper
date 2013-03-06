@@ -136,7 +136,7 @@ public class CumulativePlot extends BuiltinFunction {
 
 
 /*
-%mathpiper_docs,name="CumulativePlot",categories="User Functions;Visualization"
+%mathpiper_docs,name="CumulativePlot",categories="Mathematics Functions;Visualization"
 *CMD CumulativePlot --- displays a graphic cumulative plot
 *CORE
 *CALL

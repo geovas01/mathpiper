@@ -58,7 +58,7 @@ public class LeftPrecedenceGet extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="LeftPrecedenceGet",categories="Programmer Functions;Programming;Built In"
+%mathpiper_docs,name="LeftPrecedenceGet",categories="Programming Functions;Miscellaneous;Built In"
 *CMD LeftPrecedenceGet --- get operator precedence
 *CORE
 *CALL

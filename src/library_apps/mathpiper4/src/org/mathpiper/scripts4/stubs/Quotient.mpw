@@ -38,7 +38,7 @@
 %/mathpiper
 
 
-%mathpiper_docs,name="Quotient",categories="User Functions;Numbers (Operations)"
+%mathpiper_docs,name="Quotient",categories="Mathematics Functions;Numbers (Operations)"
 *CMD Quotient --- Determine quotient of two mathematical objects
 
 *STD

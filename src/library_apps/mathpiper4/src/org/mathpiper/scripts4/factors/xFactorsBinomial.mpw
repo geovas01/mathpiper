@@ -258,7 +258,7 @@ IsPowerOf2( n_PositiveInteger? ) <-- { Count(StringToList(ToBase(2,n)),"1") =? 1
 
 
 
-%mathpiper_docs,name="xFactorsBinomial",categories="User Functions",access="undocumented"
+%mathpiper_docs,name="xFactorsBinomial",categories="Mathematics Functions",access="undocumented"
 *CMD xFactorsBinomial --- *** UNDOCUMENTED ***
 
 *CALL

@@ -14,7 +14,7 @@ Defun("MathFloatPower", [x,y])
 
 
 
-%mathpiper_docs,name="MathFloatPower",categories="User Functions",access="undocumented"
+%mathpiper_docs,name="MathFloatPower",categories="Mathematics Functions",access="undocumented"
 *CMD MathFloatPower --- *** UNDOCUMENTED ***
 
 *CALL

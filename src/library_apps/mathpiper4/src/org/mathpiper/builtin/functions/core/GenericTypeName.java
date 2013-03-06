@@ -53,7 +53,7 @@ public class GenericTypeName extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="GenericTypeName",categories="Programmer Functions;Native Objects;Built In"
+%mathpiper_docs,name="GenericTypeName",categories="Programming Functions;Native Objects;Built In"
 *CMD GenericTypeName --- get type name
 *CORE
 *CALL

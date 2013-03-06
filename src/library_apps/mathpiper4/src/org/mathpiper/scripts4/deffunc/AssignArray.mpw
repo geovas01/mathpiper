@@ -45,7 +45,7 @@ RuleHoldArguments("AssignArray",3 , 2, True)
 
 
 
-%mathpiper_docs,name="AssignArray",categories="Programmer Functions;Programming;Built In",access="private"
+%mathpiper_docs,name="AssignArray",categories="Programming Functions;Miscellaneous;Built In",access="private"
 *CMD AssignArray --- auxiliary function to help assign arrays using :=
 
 *CALL

@@ -71,7 +71,7 @@
 
 
 
-%mathpiper_docs,name="RepToNumber",categories="Programmer Functions;Numerical (Arbitrary Precision)"
+%mathpiper_docs,name="RepToNumber",categories="Programming Functions;Numerical (Arbitrary Precision)"
 *CMD RepToNumber --- Given a List representing a number as MathPiper stores it, returns the number
 *STD
 *CALL

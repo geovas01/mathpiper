@@ -67,7 +67,7 @@ public class PatchString extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="PatchString",categories="User Functions;String Manipulation;Built In"
+%mathpiper_docs,name="PatchString",categories="Programming Functions;String Manipulation;Built In"
 *CMD PatchString --- execute commands between {<?} and {?>} in strings
 *CORE
 *CALL

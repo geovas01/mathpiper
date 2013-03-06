@@ -11,7 +11,7 @@ HypergeometricDistribution(N_RationalOrNumber?, M_RationalOrNumber?, n_RationalO
 
 
 
-%mathpiper_docs,name="HypergeometricDistribution",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="HypergeometricDistribution",categories="Mathematics Functions;Statistics & Probability"
 *CMD HypergeometricDistribution --- Hypergeometric distribution
 *STD
 *CALL

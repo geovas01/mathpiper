@@ -1,4 +1,4 @@
-%mathpiper,def="Prime?",categories="User Functions;Number Theory"
+%mathpiper,def="Prime?",categories="Mathematics Functions;Number Theory"
 
 2 # Prime?(_n)_(Not? Integer?(n) Or? n<=?1) <-- False;
 3 # Prime?(n_Integer?)_(n<=?FastIsPrime(0)) <-- SmallPrime?(n);
@@ -15,7 +15,7 @@
 
 
 
-%mathpiper_docs,name="Prime?",categories="User Functions;Number Theory;Predicates"
+%mathpiper_docs,name="Prime?",categories="Programming Functions;Predicates"
 *CMD Prime? --- test for a prime number
 *CMD SmallPrime? --- test for a (small) prime number
 *STD

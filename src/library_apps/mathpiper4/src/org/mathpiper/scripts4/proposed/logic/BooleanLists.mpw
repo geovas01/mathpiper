@@ -16,7 +16,7 @@ BooleanLists(elements) :=
 
 
 
-%mathpiper_docs,name="BooleanLists",categories="User Functions;Propositional Logic",access="experimental"
+%mathpiper_docs,name="BooleanLists",categories="Mathematics Functions;Propositional Logic",access="experimental"
 *CMD BooleanLists --- returns a list that contains lists that hold a sequence of boolean values
 
 *CALL

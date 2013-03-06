@@ -247,7 +247,7 @@ RFormStatement(_x) <-- RForm(x) ~ ";" ~ RNlIndented();
 
 
 
-%mathpiper_docs,name="RForm",categories="User Functions;Input/Output"
+%mathpiper_docs,name="RForm",categories="Programming Functions;Input/Output"
 *CMD RForm --- export expression to R code
 *STD
 *CALL

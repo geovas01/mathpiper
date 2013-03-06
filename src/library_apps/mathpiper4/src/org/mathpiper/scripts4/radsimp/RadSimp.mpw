@@ -79,7 +79,7 @@ RadSimpTry(_n,_result,_current,_max)<--
 
 
 
-%mathpiper_docs,name="RadSimp",categories="User Functions;Expression Simplification"
+%mathpiper_docs,name="RadSimp",categories="Mathematics Functions;Expression Simplification"
 *CMD RadSimp --- simplify expression with nested radicals
 *STD
 *CALL

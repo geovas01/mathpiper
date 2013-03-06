@@ -26,7 +26,7 @@ Function("GaussianPrime?",[x])
 
 
 
-%mathpiper_docs,name="GaussianPrime?",categories="User Functions;Number Theory;Predicates"
+%mathpiper_docs,name="GaussianPrime?",categories="Programming Functions;Predicates"
 *CMD GaussianPrime? ---  test for a Gaussian prime
 *STD
 *CALL

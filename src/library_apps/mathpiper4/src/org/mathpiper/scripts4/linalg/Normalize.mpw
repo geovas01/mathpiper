@@ -15,7 +15,7 @@ Function("Normalize",[vector])
 
 
 
-%mathpiper_docs,name="Normalize",categories="User Functions;Linear Algebra"
+%mathpiper_docs,name="Normalize",categories="Mathematics Functions;Linear Algebra"
 *CMD Normalize --- normalize a vector
 *STD
 *CALL

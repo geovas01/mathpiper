@@ -164,7 +164,7 @@ Function("YacasPSolve",[uni,var]) {
 
 
 
-%mathpiper_docs,name="YacasPSolve",categories="User Functions;Solvers (Symbolic)"
+%mathpiper_docs,name="YacasPSolve",categories="Mathematics Functions;Solvers (Symbolic)"
 *CMD YacasPSolve --- solve a polynomial equation
 *STD
 *CALL

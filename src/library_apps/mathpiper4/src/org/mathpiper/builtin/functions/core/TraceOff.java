@@ -52,7 +52,7 @@ public class TraceOff extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="TraceOff",categories="Programmer Functions;Built In;Debugging",access="experimental"
+%mathpiper_docs,name="TraceOff",categories="Programming Functions;Built In;Debugging",access="experimental"
 *CMD TraceOff --- disables a complete trace of all the functions that are called when an expression is evaluated
 *CALL
     TraceOff()

@@ -20,7 +20,7 @@ UnFence("BuildMatrix",3);
 
 
 
-%mathpiper_docs,name="BuildMatrix",categories="User Functions;Linear Algebra"
+%mathpiper_docs,name="BuildMatrix",categories="Mathematics Functions;Linear Algebra"
 *CMD BuildMatrix --- generate a matrix with a function
 *CALL
         BuildMatrix(function,m,n)

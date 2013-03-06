@@ -60,7 +60,7 @@ public class Quotient extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="QuotientN",categories="User Functions;Numeric;Built In"
+%mathpiper_docs,name="QuotientN",categories="Mathematics Functions;Numeric;Built In"
 *CMD QuotientN --- integer division result is an integer (arbitrary-precision math function)
 *CORE
 *CALL

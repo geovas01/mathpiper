@@ -57,7 +57,7 @@ public class StringToUnicode extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="StringToUnicode",categories="User Functions;String Manipulation;Built In",access="experimental"
+%mathpiper_docs,name="StringToUnicode",categories="Programming Functions;String Manipulation;Built In",access="experimental"
 *CMD StringToUnicode --- returns the unicode value of the character in a single character string
 *CORE
 *CALL

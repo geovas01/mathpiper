@@ -74,7 +74,7 @@ public class Retract extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Retract",categories="User Functions;Built In"
+%mathpiper_docs,name="Retract",categories="Mathematics Functions;Built In"
 *CMD Retract --- erase rules for a function
 *CORE
 *CALL

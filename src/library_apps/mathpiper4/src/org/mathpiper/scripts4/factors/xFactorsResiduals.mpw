@@ -267,7 +267,7 @@ UnFence("processRealRoots",1);
 
 
 
-%mathpiper_docs,name="xFactorsResiduals",categories="User Functions",access="undocumented"
+%mathpiper_docs,name="xFactorsResiduals",categories="Mathematics Functions",access="undocumented"
 *CMD xFactorsResiduals --- *** UNDOCUMENTED ***
 
 *CALL

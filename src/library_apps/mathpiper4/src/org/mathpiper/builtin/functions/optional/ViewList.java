@@ -82,7 +82,7 @@ public class ViewList extends BuiltinFunction {
 
 
 /*
-%mathpiper_docs,name="ViewList",categories="User Functions;Built In;Visualization"
+%mathpiper_docs,name="ViewList",categories="Mathematics Functions;Built In;Visualization"
 *CMD ViewList --- display an expression in Lisp box diagram form
 
 *CALL

@@ -45,7 +45,7 @@
 
 
 
-%mathpiper_docs,name="FactorsMonomial",categories="User Functions;Number Theory"
+%mathpiper_docs,name="FactorsMonomial",categories="Mathematics Functions;Number Theory"
 *CMD FactorsMonomial --- factorization of a monomial expression
 *STD
 *CALL

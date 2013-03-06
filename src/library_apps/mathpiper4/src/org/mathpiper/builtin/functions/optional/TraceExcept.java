@@ -85,7 +85,7 @@ public class TraceExcept extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="TraceExcept",categories="Programmer Functions;Built In;Debugging",access="experimental"
+%mathpiper_docs,name="TraceExcept",categories="Programming Functions;Built In;Debugging",access="experimental"
 *CMD TraceExcept --- trace all the functions but the given functions an expression
 *CORE
 *CALL

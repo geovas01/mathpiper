@@ -27,7 +27,7 @@
 
 
 
-%mathpiper_docs,name="Monomial?",categories="User Functions;Predicates"
+%mathpiper_docs,name="Monomial?",categories="Programming Functions;Predicates"
 *CMD Monomial? --- determine if [expr] is a Monomial
 *STD
 *CALL

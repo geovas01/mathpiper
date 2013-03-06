@@ -47,7 +47,7 @@ public class DestructiveInsert extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="DestructiveInsert",categories="User Functions;Lists (Operations);Built In"
+%mathpiper_docs,name="DestructiveInsert",categories="Programming Functions;Lists (Operations);Built In"
 *CMD DestructiveInsert --- insert an element destructively into a list
 *CORE
 *CALL

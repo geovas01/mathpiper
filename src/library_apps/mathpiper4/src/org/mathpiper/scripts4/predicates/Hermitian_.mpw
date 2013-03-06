@@ -6,7 +6,7 @@ Hermitian?(A_Matrix?) <-- (Conjugate(Transpose(A))=?A);
 
 
 
-%mathpiper_docs,name="Hermitian?",categories="User Functions;Matrices (Predicates);Predicates"
+%mathpiper_docs,name="Hermitian?",categories="Programming Functions;Predicates"
 *CMD Hermitian? --- test for a Hermitian matrix
 *STD
 *CALL
