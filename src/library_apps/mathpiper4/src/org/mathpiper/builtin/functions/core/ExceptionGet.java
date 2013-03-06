@@ -174,7 +174,7 @@ Result: False
 In> ExceptionCatch(Check(1 = 2, "Test", "Throwing a test exception."), Echo(ThrowableGet()))
 Result: True
 Side Effects:
-{{"type","Test"},{"message","Throwing a test exception."},{"exceptionObject",class org.mathpiper.exceptions.EvaluationException}}
+[["type","Test"],["message","Throwing a test exception."],["exceptionObject",class org.mathpiper.exceptions.EvaluationException]]
 
 *SEE Check, ExceptionCatch
 

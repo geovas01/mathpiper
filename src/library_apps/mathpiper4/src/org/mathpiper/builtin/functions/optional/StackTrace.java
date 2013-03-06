@@ -74,16 +74,16 @@ to be a useful debugging tool.
 *E.G.
 /%mathpiper
 TestFunction() :=
-[
+{
     index := 1;
     While(index < 10)
-    [
+    {
         If(index = 5, StackTrace());
 
         index++;
-    ];
+    };
 
-];
+};
 /%/mathpiper
 
 

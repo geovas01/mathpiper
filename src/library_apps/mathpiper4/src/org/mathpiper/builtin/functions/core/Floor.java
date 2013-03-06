@@ -56,7 +56,7 @@ integer result is returned even if the calculation requires more digits than set
 {BuiltinPrecisionSet}.  However, when the result is mathematically not an integer,
 the functions return a floating-point result which is correct only to the current precision.
 
- *E.G.
+*E.G.
 In>
 Result>
 

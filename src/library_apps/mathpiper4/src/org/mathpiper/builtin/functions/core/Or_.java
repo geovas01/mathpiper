@@ -126,7 +126,7 @@ In> True Or? False
 Result: True;
 
 In> False Or? a
-Result: Or?(a);
+Result: (a);
 
 In> Or?(False,a,b,True)
 Result: True;

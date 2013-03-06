@@ -68,7 +68,7 @@ returned if "list" is an atom.
 
 *E.G.
 
-In> First({a,b,c})
+In> First([a,b,c])
 Result: a;
 
 In> First(f(a,b,c));

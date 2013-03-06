@@ -71,8 +71,10 @@ public class SetExactBits extends BuiltinFunction
 {bits} -- integer, number of bits
 
 *DESC
-Each floating-point number in MathPiper has an internal precision counter that stores the number of exact bits in the mantissa.
-The number of exact bits is automatically updated after each arithmetic operation to reflect the gain or loss of precision due to round-off.
+Each floating-point number in MathPiper has an internal precision counter that 
+stores the number of exact bits in the mantissa. The number of exact bits is 
+automatically updated after each arithmetic operation to reflect the gain or 
+loss of precision due to round-off.
 The function {SetExactBitsN} sets the precision flags of individual number objects.
 
 This function is only meaningful for floating-point numbers.
@@ -85,20 +87,20 @@ For integer {x}, the function {SetExactBitsN} returns the unmodified integer {x}
 The default precision of 10 decimals corresponds to 33 bits:
 
 In> GetExactBitsN(1000.123)
-Result: 33;
+Result: 33
 
 In> x:=SetExactBitsN(10., 20)
-Result: 10.;
+Result: 10.
 
 In> GetExactBitsN(x)
-Result: 20;
+Result: 20
 Prepare a "floating zero" representing an interval [-4, 4]:
 
 In> x:=SetExactBitsN(0., -2)
-Result: 0.;
+Result: 0.
 
 In> x=0
-Result: True;
+Result: True
 
 *SEE BuiltinPrecisionSet, BuiltinPrecisionGet, GetExactBitsN
 %/mathpiper_docs

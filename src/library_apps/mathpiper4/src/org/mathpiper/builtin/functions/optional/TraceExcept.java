@@ -99,8 +99,9 @@ public class TraceExcept extends BuiltinFunction
 
 *DESC
 
-Outputs a trace of all the functions which are evaluated in the given expression except those which are listed in the given string.  An empty
-function list string means trace all of the functions which are evaluated in the given expression.
+Outputs a trace of all the functions which are evaluated in the given expression except 
+those which are listed in the given string. An empty function list string means trace all 
+of the functions which are evaluated in the given expression.
 
 
 *E.G.

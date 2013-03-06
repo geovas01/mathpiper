@@ -68,7 +68,6 @@ public class UnparserGet extends BuiltinFunction
 an empty string if the default unparser is used.
 
 
-
 *E.G.
 
 In> UnparserGet()

@@ -83,7 +83,9 @@ This functionality was required in order to display expressions like {a-(b-c)}
 correctly. Thus, {a+b+c} is the same as {a+(b+c)}, but {a-(b-c)} is not
 the same as {a-b-c}.
 
-Note that the right precedence of an infix operator does not affect the way MathPiper interprets expressions typed by the user. You cannot make MathPiper parse {a-b-c} as {a-(b-c)} unless you declare the operator "{-}" to be right-associative.
+Note that the right precedence of an infix operator does not affect the way MathPiper 
+interprets expressions typed by the user. You cannot make MathPiper parse {a-b-c} as 
+{a-(b-c)} unless you declare the operator "{-}" to be right-associative.
 
 *SEE PrecedenceGet, LeftPrecedenceGet, RightPrecedenceGet, LeftPrecedenceSet, RightAssociativeSet
 %/mathpiper_docs

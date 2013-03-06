@@ -95,8 +95,7 @@ be reached without the presence of infinite recursion. The function {MaxEvalDept
 In> 10 # g(0) <-- 1;
 Result: True;
 
-In> 20 # g(n_PositiveInteger?) <-- \
-	  2 * g(n-1);
+In> 20 # g(n_PositiveInteger?) <-- 2 * g(n-1);
 Result: True;
 
 In> g(1001);

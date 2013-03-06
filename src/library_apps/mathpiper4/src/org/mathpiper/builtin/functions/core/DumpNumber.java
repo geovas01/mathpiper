@@ -83,10 +83,10 @@ This function prints the implementation details of an integer or decimal number.
 
 *E.G.
 In> DumpNumber(4)
-Result> {{"type","BigInteger"},{"value",4}}
+Result> [["type","BigInteger"],["value",4]]
 
 In> DumpNumber(3.2)
-Result> {{"type","BigDecimal"},{"value",3.2},{"precision",2},{"unscaledValue",32},{"scale",1}}
+Result> [["type","BigDecimal"],["value",3.2],["precision",2],["unscaledValue",32],["scale",1]]
 
 In> DumpNumber(3.2)["precision"]
 Result> 2

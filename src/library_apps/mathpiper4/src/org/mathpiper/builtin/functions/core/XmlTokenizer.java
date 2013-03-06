@@ -79,17 +79,6 @@ Note that when reading XML, any plain text between tags is returned as one token
 Any malformed XML will be treated as plain text.
 
 
-*E.G. notest
-
-In> [XmlTokenizer(); q:=ParseMathPiperToken(); \
-	  DefaultTokenizer();q;]
-	<a>Result: <a>;
-
-Note that:
-*	1. after switching to {XmlTokenizer} the {In>} prompt disappeared; the user typed {<a>} and the {Result:} prompt with the resulting expression appeared.
-*	2. The resulting expression is an atom with the string representation {<a>};
-it is <i>not</i> a string.
-
-*SEE OMRead, TrapError, XmlExplodeTag, ParseMathPiperToken, PipeFromFile, FromString, DefaultTokenizer
+*SEE OMRead, TrapError, XmlExplodeTag, ParseMathPiperToken, PipeFromFile, PipeFromString, DefaultTokenizer
 %/mathpiper_docs
 */

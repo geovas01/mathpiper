@@ -87,13 +87,13 @@ public class ApplyFast extends BuiltinFunction
 This function is a fast built-in version of the Apply function.
 
 *E.G.
-In> ApplyFast("+", {5,9});
+In> ApplyFast("+", [5,9]);
 Result: 14
 
-In> ApplyFast({{x,y}, x-y^2}, {Cos(a), Sin(a)});
+In> ApplyFast([[x,y], x-y^2], [Cos(a), Sin(a)]);
 Result: Cos(a)-Sin(a)^2
 
-In>  ApplyFast(Lambda({x,y}, x-y^2), {Cos(a), Sin(a)});
+In>  ApplyFast(Lambda([x,y], x-y^2), [Cos(a), Sin(a)]);
 Result: Cos(a)-Sin(a)^2
 
 *SEE Apply

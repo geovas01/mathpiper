@@ -76,14 +76,14 @@ case, the resulting list is returned.
 
 *E.G.
 
-In> Insert({a,b,c,d}, 4, x);
-Result: {a,b,c,x,d};
+In> Insert([a,b,c,d], 4, x);
+Result: [a,b,c,x,d];
 
-In> Insert({a,b,c,d}, 5, x);
-Result: {a,b,c,d,x};
+In> Insert([a,b,c,d], 5, x);
+Result: [a,b,c,d,x];
 
-In> Insert({a,b,c,d}, 1, x);
-Result: {x,a,b,c,d};
+In> Insert([a,b,c,d], 1, x);
+Result: [x,a,b,c,d];
 
 *SEE DestructiveInsert, :, Append, Delete, Remove
 %/mathpiper_docs

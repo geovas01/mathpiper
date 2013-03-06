@@ -64,7 +64,7 @@ This function is most useful in batch file calculations, where
 there is a need to determine at which line an error occurred.
 One can define a function
 
-	tst() := Echo({CurrentFile(),CurrentLine()});
+	tst() := Echo([CurrentFile(),CurrentLine()]);
 which can then be inserted into the input file at various places,
 to see how far the interpreter reaches before an error occurs.
 

@@ -67,6 +67,16 @@ public class Eval extends BuiltinFunction
 This function explicitly requests an evaluation of the expression
 "expr", and returns the result of this evaluation.
 
+In the examples below, the variable {a} is bound to {x},
+and {x} is bound to 5. Hence evaluating {a} will give {x}. Only when an extra
+evaluation of {a} is requested, the value 5 is
+returned.
+
+Note that the behavior would be different if we had exchanged the
+assignments. If the assignment {a := x} were given
+while {x} had the value 5, the variable {a} would also get the value 5 because the assignment
+operator {:=} evaluates the right-hand side.
+
 *E.G.
 
 In> a := x;
@@ -81,15 +91,7 @@ Result: x;
 In> Eval(a);
 Result: 5;
 
-The variable {a} is bound to {x},
-and {x} is bound to 5. Hence evaluating {a} will give {x}. Only when an extra
-evaluation of {a} is requested, the value 5 is
-returned.
 
-Note that the behavior would be different if we had exchanged the
-assignments. If the assignment {a := x} were given
-while {x} had the value 5, the variable {a} would also get the value 5 because the assignment
-operator {:=} evaluates the right-hand side.
 
 *SEE Hold, HoldArgument, :=
 %/mathpiper_docs

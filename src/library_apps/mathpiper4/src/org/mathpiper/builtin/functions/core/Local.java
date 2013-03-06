@@ -93,30 +93,31 @@ syntactic equivalent, the {[  ]} block) can access
 and change it. Functions called within this block cannot access the
 local copy unless this is specifically allowed with {UnFence}.
 
-*E.G.
-
-In> a := 3;
-Result: 3;
-
-In> [ a := 4; a; ];
-Result: 4;
-
-In> a;
-Result: 4;
-
-In> [ Local(a); a := 5; a; ];
-Result: 5;
-
-In> a;
-Result: 4;
-
-In the car block, {a} is not declared local and
+In the first block below, {a} is not declared local and
 hence defaults to be a global variable. Indeed, changing the variable
 inside the block also changes the value of {a}
 outside the block. However, in the second block {a}
 is defined to be local and now the value outside the block stays the
 same, even though {a} is assigned the value 5 inside
 the block.
+
+*E.G.
+
+In> a := 3;
+Result: 3;
+
+In> [a := 4; a;];
+Result: 4;
+
+In> a;
+Result: 4;
+
+In> [Local(a); a := 5; a;];
+Result: 5;
+
+In> a;
+Result: 4;
+
 
 *SEE LocalSymbols, Block, [], UnFence
 %/mathpiper_docs

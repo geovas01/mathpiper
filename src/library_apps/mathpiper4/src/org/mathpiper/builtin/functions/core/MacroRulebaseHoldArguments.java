@@ -124,7 +124,7 @@ with two arguments, and a macro {foo(a,b,c)} with three arguments.
 The following example defines a macro {myfor}, and shows one use, referencing
 a variable {a} from the calling environment.
 
-In> MacroRulebaseHoldArguments("myfor",{init,pred,inc,body})
+In> MacroRulebaseHoldArguments("myfor",[init,pred,inc,body])
 Result: True;
 
 In> myfor(_init,_pred,_inc,_body)<--[@init;While(@pred)[@body;@inc;];True;];

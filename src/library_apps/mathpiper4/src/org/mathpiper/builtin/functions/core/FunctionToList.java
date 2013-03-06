@@ -80,10 +80,10 @@ list is returned.
 *E.G.
 
 In> FunctionToList(Cos(x));
-Result: {Cos,x};
+Result: [Cos,x];
 
 In> FunctionToList(3*a);
-Result: {*,3,a};
+Result: [*,3,a];
 
 *SEE List, ListToFunction, Atom?
 %/mathpiper_docs
