@@ -89,7 +89,7 @@ public class While extends BuiltinFunction
 }
 
 /*
-%mathpiper_docs,name="While",categories="User Functions;Control Flow;Built In"
+%mathpiper_docs,name="While",categories="Programming Functions;Control Flow;Built In"
 *CMD While --- loop while a condition is met
 *CORE
 *CALL

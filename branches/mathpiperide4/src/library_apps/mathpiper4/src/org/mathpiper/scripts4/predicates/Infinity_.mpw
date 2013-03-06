@@ -13,7 +13,7 @@
 
 
 
-%mathpiper_docs,name="Infinity?",categories="User Functions;Predicates"
+%mathpiper_docs,name="Infinity?",categories="Programming Functions;Predicates"
 *CMD Infinity? --- test for an infinity
 *STD
 *CALL

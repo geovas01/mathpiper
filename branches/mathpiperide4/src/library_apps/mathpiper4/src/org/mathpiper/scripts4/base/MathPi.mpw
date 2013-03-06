@@ -49,7 +49,7 @@ Defun("MathPi",[])
 
 
 
-%mathpiper_docs,name="MathPi",categories="User Functions",access="undocumented"
+%mathpiper_docs,name="MathPi",categories="Mathematics Functions",access="undocumented"
 *CMD MathPi --- *** UNDOCUMENTED ***
 
 *CALL

@@ -48,7 +48,7 @@ public class CurrentLine extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="CurrentLine",categories="Programmer Functions;Error Reporting;Built In"
+%mathpiper_docs,name="CurrentLine",categories="Programming Functions;Error Reporting;Built In"
 *CMD CurrentLine --- return current line number on input
 *CORE
 *CALL

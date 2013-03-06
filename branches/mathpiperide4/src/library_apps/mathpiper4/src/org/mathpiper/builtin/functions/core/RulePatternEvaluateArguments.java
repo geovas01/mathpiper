@@ -48,7 +48,7 @@ public class RulePatternEvaluateArguments extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="RulePatternEvaluateArguments",categories="Programmer Functions;Programming;Built In"
+%mathpiper_docs,name="RulePatternEvaluateArguments",categories="Programming Functions;Miscellaneous;Built In"
 *CMD RulePatternEvaluateArguments --- defines a rule which uses a pattern as its predicate
 
 *CALL

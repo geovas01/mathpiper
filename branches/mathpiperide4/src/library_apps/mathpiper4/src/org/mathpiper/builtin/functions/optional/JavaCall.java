@@ -196,7 +196,7 @@ public class JavaCall extends BuiltinFunction {
 
 
 /*
-%mathpiper_docs,name="JavaCall",categories="Programmer Functions;Built In;Native Objects",access="experimental"
+%mathpiper_docs,name="JavaCall",categories="Programming Functions;Built In;Native Objects",access="experimental"
 *CMD JavaCall --- calls a method on a Java object and returns the result as a Java object
 *CALL
     JavaCall(javaObject, methodName, methodParameter1, methodParameter2, ...)

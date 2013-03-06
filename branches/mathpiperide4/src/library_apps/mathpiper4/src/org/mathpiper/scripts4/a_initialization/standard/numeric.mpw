@@ -102,7 +102,7 @@ LocalSymbols(numericMode)
 
 
 
-%mathpiper_docs,name="NM",categories="User Functions;Numbers (Operations)"
+%mathpiper_docs,name="NM",categories="Mathematics Functions;Numbers (Operations)"
 *CMD NM --- try to determine an numerical approximation of expression
 
 *CALL
@@ -157,7 +157,7 @@ Result: 3.1415926535897932385
 
 
 
-%mathpiper_docs,name="NumericMode?",categories="User Functions;Predicates"
+%mathpiper_docs,name="NumericMode?",categories="Programming Functions;Predicates"
 *CMD NumericMode? --- determine if currently in numeric mode
 
 *CALL
@@ -194,7 +194,7 @@ Result: True
 
 
 
-%mathpiper_docs,name="NonNM",categories="User Functions;Numbers (Operations)"
+%mathpiper_docs,name="NonNM",categories="Mathematics Functions;Numbers (Operations)"
 *CMD NonNM --- calculate part in non-numeric mode
 
 *CALL

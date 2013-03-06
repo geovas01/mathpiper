@@ -128,7 +128,7 @@
 
 
 
-%mathpiper_docs,name="MatrixSolve",categories="User Functions;Solvers (Symbolic);Linear Algebra"
+%mathpiper_docs,name="MatrixSolve",categories="Mathematics Functions;Solvers (Symbolic);Linear Algebra"
 *CMD MatrixSolve --- solve a system of equations
 *STD
 *CALL

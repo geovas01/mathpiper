@@ -46,7 +46,7 @@ public class MacroRulebaseListedHoldArguments extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="MacroRulebaseListedHoldArguments",categories="Programmer Functions;Programming;Built In"
+%mathpiper_docs,name="MacroRulebaseListedHoldArguments",categories="Programming Functions;Miscellaneous;Built In"
 *CMD MacroRulebaseListedHoldArguments --- define macro with variable number of arguments
 *CORE
 *CALL

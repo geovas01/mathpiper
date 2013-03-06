@@ -577,7 +577,7 @@ UnFence("FixUpMonicFactors",1);
 
 
 
-%mathpiper_docs,name="xFactors",categories="User Functions",access="undocumented"
+%mathpiper_docs,name="xFactors",categories="Mathematics Functions",access="undocumented"
 *CMD xFactors --- *** UNDOCUMENTED ***
 
 *CALL

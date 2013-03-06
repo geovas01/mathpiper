@@ -19,7 +19,7 @@
 
 
 
-%mathpiper_docs,name="MinimumBound",categories="User Functions;Solvers (Numeric)
+%mathpiper_docs,name="MinimumBound",categories="Mathematics Functions;Solvers (Numeric)
 *CMD MinimumBound --- return lower bounds on the absolute values of real roots of a polynomial
 *STD
 *CALL

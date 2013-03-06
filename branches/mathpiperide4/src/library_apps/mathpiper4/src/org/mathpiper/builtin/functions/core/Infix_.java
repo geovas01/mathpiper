@@ -50,7 +50,7 @@ public class Infix_ extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Infix?",categories="User Functions;Predicates;Built In"
+%mathpiper_docs,name="Infix?",categories="Programming Functions;Predicates;Built In"
 *CMD Infix? --- check for function syntax
 *CORE
 *CALL

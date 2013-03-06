@@ -10,7 +10,7 @@
       Result: True
 .   %/output
 
-%mathpiper_docs,name="NoneSatisfy?",categories="User Functions;Predicates"
+%mathpiper_docs,name="NoneSatisfy?",categories="Programming Functions;Predicates"
 
 *CMD NoneSatisfy? --- Check if NO element of list [lst] satisfies predicate [pred]
 

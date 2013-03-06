@@ -47,7 +47,7 @@ public class TraceOn extends BuiltinFunction {
 
 
 /*
-%mathpiper_docs,name="TraceOn",categories="Programmer Functions;Built In;Debugging",access="experimental"
+%mathpiper_docs,name="TraceOn",categories="Programming Functions;Built In;Debugging",access="experimental"
 *CMD TraceOn --- enables a complete trace of all the functions that are called when an expression is evaluated
 *CALL
     TraceOn()

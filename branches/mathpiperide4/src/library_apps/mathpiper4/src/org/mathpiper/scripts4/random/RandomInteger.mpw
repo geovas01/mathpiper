@@ -105,7 +105,7 @@ Verify(ExceptionCatch(RandomInteger(4, 1), "Exception"), "Exception");
 
 
 
-%mathpiper_docs,name="RandomInteger",categories="User Functions;Numbers (Random)"
+%mathpiper_docs,name="RandomInteger",categories="Mathematics Functions;Numbers (Random)"
 *CMD RandomInteger --- generate a random integer
 
 *STD

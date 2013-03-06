@@ -12,7 +12,7 @@ Function("BaseVector",[row,n])
 
 
 
-%mathpiper_docs,name="BaseVector",categories="User Functions;Linear Algebra"
+%mathpiper_docs,name="BaseVector",categories="Mathematics Functions;Linear Algebra"
 *CMD BaseVector --- base vector
 *STD
 *CALL

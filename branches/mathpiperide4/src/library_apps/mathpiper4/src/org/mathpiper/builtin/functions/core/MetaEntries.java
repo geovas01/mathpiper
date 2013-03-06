@@ -107,7 +107,7 @@ public class MetaEntries extends BuiltinFunction
     }//end method.
 }//end class.
 /*
-%mathpiper_docs,name="MetaEntries",categories="User Functions;Built In"
+%mathpiper_docs,name="MetaEntries",categories="Mathematics Functions;Built In"
  *CMD MetaValues --- returns the metadata values for a value or an unbound variable
  *CORE
  *CALL

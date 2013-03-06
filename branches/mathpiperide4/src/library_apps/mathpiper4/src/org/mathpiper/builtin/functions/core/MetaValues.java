@@ -102,7 +102,7 @@ public class MetaValues extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="MetaValues",categories="User Functions;Built In"
+%mathpiper_docs,name="MetaValues",categories="Mathematics Functions;Built In"
 *CMD MetaValues --- returns the metadata values for a value or an unbound variable
 *CORE
 *CALL

@@ -53,7 +53,7 @@ ErrorFunction(x) :=
 
 
 
-%mathpiper_docs,name="ErrorFunction",categories="User Functions;Special Functions",access="experimental"
+%mathpiper_docs,name="ErrorFunction",categories="Mathematics Functions;Special Functions",access="experimental"
 *CMD ErrorFunction --- a special function which occurs in probability statistics and partial differential equations
 *STD
 *CALL

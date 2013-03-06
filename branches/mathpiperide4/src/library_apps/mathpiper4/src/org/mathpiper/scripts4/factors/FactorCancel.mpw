@@ -52,7 +52,7 @@
 
 
 
-%mathpiper_docs,name="FactorCancel",categories="User Functions;Polynomials (Operations)"
+%mathpiper_docs,name="FactorCancel",categories="Mathematics Functions;Polynomials (Operations)"
 
 *CMD FactorCancel -- Factors a Rational Function and cancels where possible
 

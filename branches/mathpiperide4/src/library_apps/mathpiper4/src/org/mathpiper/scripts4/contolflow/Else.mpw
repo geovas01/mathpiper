@@ -22,7 +22,7 @@ UnFence("Else",2);
 
 
 
-%mathpiper_docs,name="Else",categories="User Functions;Control Flow"
+%mathpiper_docs,name="Else",categories="Programming Functions;Control Flow"
 *CMD Else --- branch point
 *STD
 *CALL

@@ -32,7 +32,7 @@
 
 
 
-%mathpiper_docs,name="Slope",categories="User Functions;Analytic Geometry",access="experimental",access="experimental"
+%mathpiper_docs,name="Slope",categories="Mathematics Functions;Analytic Geometry",access="experimental",access="experimental"
 *CMD Slope --- returns the slope of a line which is represented by two points
 *STD
 *CALL

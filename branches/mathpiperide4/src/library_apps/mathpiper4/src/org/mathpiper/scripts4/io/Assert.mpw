@@ -23,7 +23,7 @@
 
 
 
-%mathpiper_docs,name="Assert",categories="Programmer Functions;Error Reporting",access="private"
+%mathpiper_docs,name="Assert",categories="Programming Functions;Error Reporting",access="private"
 *CMD Assert --- signal "soft" custom error
 *STD
 *CALL

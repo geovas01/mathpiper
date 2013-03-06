@@ -61,7 +61,7 @@ public class Assigned_ extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Assigned?",categories="User Functions;Predicates;Built In"
+%mathpiper_docs,name="Assigned?",categories="Programming Functions;Predicates;Built In"
 *CMD Assigned? --- determine if a variable has a value assigned to it
 *CORE
 *CALL

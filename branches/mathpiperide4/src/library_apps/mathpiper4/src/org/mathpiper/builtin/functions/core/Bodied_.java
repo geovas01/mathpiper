@@ -50,7 +50,7 @@ public class Bodied_ extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Bodied?",categories="User Functions;Predicates;Built In"
+%mathpiper_docs,name="Bodied?",categories="Programming Functions;Predicates;Built In"
 *CMD Bodied? --- check for function syntax
 *CORE
 *CALL

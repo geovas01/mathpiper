@@ -29,7 +29,7 @@ ArcSinN(x) :=
 
 
 
-%mathpiper_docs,name="ArcSinN",categories="User Functions;Numeric;Trigonometry (Numeric)"
+%mathpiper_docs,name="ArcSinN",categories="Mathematics Functions;Numeric;Trigonometry (Numeric)"
 *CMD ArcSinN --- inverse sine (arbitrary-precision math function)
 *CALL
         ArcSinN(x)

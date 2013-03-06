@@ -154,7 +154,7 @@ public class XmlExplodeTag extends BuiltinFunction {
 
 
 /*
-%mathpiper_docs,name="XmlExplodeTag",categories="User Functions;Input/Output;Built In"
+%mathpiper_docs,name="XmlExplodeTag",categories="Programming Functions;Input/Output;Built In"
 *CMD XmlExplodeTag --- convert XML strings to tag objects
 *CORE
 *CALL

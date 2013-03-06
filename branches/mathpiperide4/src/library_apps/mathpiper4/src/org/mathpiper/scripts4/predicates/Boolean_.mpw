@@ -7,7 +7,7 @@ Function ("Boolean?", [x])
 
 
 
-%mathpiper_docs,name="Boolean?",categories="User Functions;Predicates"
+%mathpiper_docs,name="Boolean?",categories="Programming Functions;Predicates"
 *CMD Boolean? --- test for a Boolean value
 *STD
 *CALL

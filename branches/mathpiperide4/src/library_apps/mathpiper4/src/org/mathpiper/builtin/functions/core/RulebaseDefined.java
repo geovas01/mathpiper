@@ -66,7 +66,7 @@ public class RulebaseDefined extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="RulebaseDefined",categories="Programmer Functions;Programming;Built In"
+%mathpiper_docs,name="RulebaseDefined",categories="Programming Functions;Miscellaneous;Built In"
 *CMD RulebaseDefined --- predicate function which indicates whether or not a rulebase is defined.
 *CORE
 *CALL

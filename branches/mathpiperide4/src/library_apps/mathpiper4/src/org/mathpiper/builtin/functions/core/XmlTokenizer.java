@@ -47,7 +47,7 @@ public class XmlTokenizer extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="XmlTokenizer",categories="User Functions;Input/Output;Built In"
+%mathpiper_docs,name="XmlTokenizer",categories="Programming Functions;Input/Output;Built In"
 *CMD XmlTokenizer --- select an XML syntax tokenizer for parsing the input
 *CORE
 *CALL

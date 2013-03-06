@@ -6,7 +6,7 @@ Constant?(_n) <-- (VarList(n) =? []);
 
 
 
-%mathpiper_docs,name="Constant?",categories="User Functions;Predicates"
+%mathpiper_docs,name="Constant?",categories="Programming Functions;Predicates"
 *CMD Constant? --- test for a constant
 *STD
 *CALL

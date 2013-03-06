@@ -9,7 +9,7 @@ Function("Push",[stack,element])
 
 
 
-%mathpiper_docs,name="Push",categories="User Functions;Lists (Operations)"
+%mathpiper_docs,name="Push",categories="Programming Functions;Lists (Operations)"
 *CMD Push --- add an element on top of a stack
 *STD
 *CALL

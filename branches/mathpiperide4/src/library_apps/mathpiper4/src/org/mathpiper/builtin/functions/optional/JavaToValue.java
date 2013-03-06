@@ -101,7 +101,7 @@ public class JavaToValue extends BuiltinFunction {
 
 
 /*
-%mathpiper_docs,name="JavaToValue",categories="Programmer Functions;Built In;Native Objects",access="experimental"
+%mathpiper_docs,name="JavaToValue",categories="Programming Functions;Built In;Native Objects",access="experimental"
 *CMD JavaToValue --- converts a Java object into a MathPiper data structure
 *CALL
     JavaToValue(javaObject)

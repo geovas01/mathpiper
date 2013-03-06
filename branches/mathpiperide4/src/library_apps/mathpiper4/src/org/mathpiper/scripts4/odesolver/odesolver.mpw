@@ -285,7 +285,7 @@ OdeTest(_e,_solution) <--
 
 
 
-%mathpiper_docs,name="OdeSolve",categories="User Functions;Differential Equations"
+%mathpiper_docs,name="OdeSolve",categories="Mathematics Functions;Differential Equations"
 *CMD OdeSolve --- general ODE solver
 *STD
 *CALL
@@ -326,7 +326,7 @@ Result: (C183+C184*x)*Exp(-x);
 
 
 
-%mathpiper_docs,name="OdeTest",categories="User Functions;Differential Equations"
+%mathpiper_docs,name="OdeTest",categories="Mathematics Functions;Differential Equations"
 *CMD OdeTest --- test the solution of an ODE
 *STD
 *CALL
@@ -356,7 +356,7 @@ Result: Sin(x)+Cos(x);
 
 
 
-%mathpiper_docs,name="OdeOrder",categories="User Functions;Differential Equations"
+%mathpiper_docs,name="OdeOrder",categories="Mathematics Functions;Differential Equations"
 *CMD OdeOrder --- return order of an ODE
 *STD
 *CALL

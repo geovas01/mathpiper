@@ -47,7 +47,7 @@ public class Assign extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Assign",categories="User Functions;Variables;Built In"
+%mathpiper_docs,name="Assign",categories="Programming Functions;Variables;Built In"
 *CMD Assign --- assignment
 *CORE
 *CALL

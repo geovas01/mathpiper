@@ -13,7 +13,7 @@ EquationLeft(_symbolicEquation)_(Type(symbolicEquation) =? "==")  <--
 
 
 
-%mathpiper_docs,name="EquationLeft",categories="User Functions;Expression Manipulation"
+%mathpiper_docs,name="EquationLeft",categories="Mathematics Functions;Expression Manipulation"
 *CMD EquationLeft --- return the left side of a symbolic equation
 *STD
 *CALL

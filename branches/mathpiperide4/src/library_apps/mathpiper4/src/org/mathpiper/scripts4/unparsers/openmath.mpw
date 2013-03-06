@@ -954,7 +954,7 @@ OMDef( "DawsonIntegral" , mathpiper, "DawsonIntegral" );
 
 
 
-%mathpiper_docs,name="OMForm;OMRead",categories="User Functions;Input/Output"
+%mathpiper_docs,name="OMForm;OMRead",categories="Programming Functions;Input/Output"
 *CMD OMForm --- convert MathPiper expression to OpenMath
 *CMD OMRead --- convert expression from OpenMath to MathPiper expression
 *STD
@@ -1017,7 +1017,7 @@ Result: True
 
 
 
-%mathpiper_docs,name="OMDef",categories="User Functions;Input/Output"
+%mathpiper_docs,name="OMDef",categories="Programming Functions;Input/Output"
 *CMD OMDef --- define translations from MathPiper to OpenMath and vice-versa.
 *STD
 *CALL

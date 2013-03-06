@@ -46,7 +46,7 @@ public class MacroRulebaseHoldArguments extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="MacroRulebaseHoldArguments",categories="Programmer Functions;Programming;Built In"
+%mathpiper_docs,name="MacroRulebaseHoldArguments",categories="Programming Functions;Miscellaneous;Built In"
 *CMD MacroRulebaseHoldArguments --- define a function as a macro
 *CORE
 *CALL

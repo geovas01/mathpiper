@@ -24,7 +24,7 @@
 
 
 
-%mathpiper_docs,name="PadLeft",categories="User Functions;Input/Output",access="experimental"
+%mathpiper_docs,name="PadLeft",categories="Programming Functions;Input/Output",access="experimental"
 *CMD PadLeft --- converts a number into a string which has a specified width
 *STD
 *CALL

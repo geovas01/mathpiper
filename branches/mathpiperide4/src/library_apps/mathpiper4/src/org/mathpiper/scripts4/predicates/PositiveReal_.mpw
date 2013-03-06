@@ -11,7 +11,7 @@ PositiveReal?(_r) <--
 
 
 
-%mathpiper_docs,name="PositiveReal?",categories="User Functions;Predicates"
+%mathpiper_docs,name="PositiveReal?",categories="Programming Functions;Predicates"
 *CMD PositiveReal? --- test for a numerically positive value
 *STD
 *CALL

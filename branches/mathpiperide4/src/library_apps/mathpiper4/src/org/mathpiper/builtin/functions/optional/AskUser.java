@@ -71,7 +71,7 @@ public class AskUser extends BuiltinFunction {
 
 
 /*
-%mathpiper_docs,name="AskUser",categories="User Functions;Input/Output;Built In"
+%mathpiper_docs,name="AskUser",categories="Programming Functions;Input/Output;Built In"
 *CMD AskUser --- displays an input dialog to the user
 *CORE
 *CALL

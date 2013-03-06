@@ -86,7 +86,7 @@ Retract(ChiSquareTest,*);
 
 
 
-%mathpiper_docs,name="ChiSquareTest",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="ChiSquareTest",categories="Mathematics Functions;Statistics & Probability"
 *CMD ChiSquareTest --- Pearson's ChiSquare test
 *STD
 

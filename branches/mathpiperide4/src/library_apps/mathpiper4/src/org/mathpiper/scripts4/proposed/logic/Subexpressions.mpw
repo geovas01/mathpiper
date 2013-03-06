@@ -70,7 +70,7 @@ FunctionListAllHelper(expression) :=
 
 
 
-%mathpiper_docs,name="Subexpressions",categories="User Functions;Propositional Logic",access="experimental"
+%mathpiper_docs,name="Subexpressions",categories="Mathematics Functions;Propositional Logic",access="experimental"
 *CMD Subexpressions --- returns a list that contains all of the subexpressions in an expression
 
 *CALL

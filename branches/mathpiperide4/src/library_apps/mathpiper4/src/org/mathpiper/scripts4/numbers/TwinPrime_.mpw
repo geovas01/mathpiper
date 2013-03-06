@@ -6,7 +6,7 @@ TwinPrime?(n_PositiveInteger?)        <-- (Prime?(n) And? Prime?(n+2));
 
 
 
-%mathpiper_docs,name="TwinPrime?",categories="User Functions;Number Theory;Predicates"
+%mathpiper_docs,name="TwinPrime?",categories="Programming Functions;Predicates"
 *CMD TwinPrime? --- test for a twin prime
 *STD
 *CALL

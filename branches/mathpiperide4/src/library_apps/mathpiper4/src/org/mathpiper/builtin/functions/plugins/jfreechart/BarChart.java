@@ -136,7 +136,7 @@ public class BarChart extends BuiltinFunction {
 
 
 /*
-%mathpiper_docs,name="BarChart",categories="User Functions;Visualization"
+%mathpiper_docs,name="BarChart",categories="Mathematics Functions;Visualization"
 *CMD BarChart --- displays a graphic bar chart
 *CORE
 *CALL

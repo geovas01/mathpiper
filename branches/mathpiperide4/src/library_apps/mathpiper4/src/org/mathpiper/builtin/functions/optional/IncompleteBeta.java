@@ -43,7 +43,7 @@ public class IncompleteBeta extends BuiltinFunction{
 
 
 /*
-%mathpiper_docs,name="IncompleteBeta",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="IncompleteBeta",categories="Mathematics Functions;Statistics & Probability"
 *CMD IncompleteBeta --- the incomplete beta function
 *CALL
     IncompleteBeta(a, b, x)

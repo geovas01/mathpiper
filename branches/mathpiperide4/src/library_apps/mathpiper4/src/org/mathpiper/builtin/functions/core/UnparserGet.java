@@ -54,7 +54,7 @@ public class UnparserGet extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="UnparserGet",categories="User Functions;Built In"
+%mathpiper_docs,name="UnparserGet",categories="Mathematics Functions;Built In"
 *CMD UnparserGet --- get the name of the current unparser
 
 *CORE

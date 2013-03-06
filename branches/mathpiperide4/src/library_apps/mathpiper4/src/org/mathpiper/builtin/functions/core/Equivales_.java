@@ -90,7 +90,7 @@ public class Equivales_ extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Equivales?",categories="User Functions;Predicates;Built In"
+%mathpiper_docs,name="Equivales?",categories="Programming Functions;Predicates;Built In"
 *CMD Implies? --- logical conjunction
 *CORE
 *CALL

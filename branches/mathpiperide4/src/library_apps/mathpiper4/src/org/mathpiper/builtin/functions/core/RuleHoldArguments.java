@@ -46,7 +46,7 @@ public class RuleHoldArguments extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="RuleHoldArguments",categories="Programmer Functions;Programming;Built In"
+%mathpiper_docs,name="RuleHoldArguments",categories="Programming Functions;Miscellaneous;Built In"
 *CMD RuleHoldArguments --- define a rewrite rule
 *CORE
 *CALL

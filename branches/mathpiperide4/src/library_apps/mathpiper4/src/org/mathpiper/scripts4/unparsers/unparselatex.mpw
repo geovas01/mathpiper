@@ -404,7 +404,7 @@ Function ("UnparseLatexPrintMatrix", [M])
 
 
 
-%mathpiper_docs,name="UnparseLatex",categories="User Functions;Input/Output"
+%mathpiper_docs,name="UnparseLatex",categories="Programming Functions;Input/Output"
 *CMD UnparseLatex --- export expressions to $LaTeX$
 *STD
 *CALL

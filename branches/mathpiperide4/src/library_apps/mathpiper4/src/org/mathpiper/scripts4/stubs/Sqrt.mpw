@@ -24,7 +24,7 @@ Sqrt(xlist_List?) <-- MapSingle("Sqrt",xlist);
 
 
 
-%mathpiper_docs,name="Sqrt",categories="User Functions;Calculus Related (Symbolic)"
+%mathpiper_docs,name="Sqrt",categories="Mathematics Functions;Calculus Related (Symbolic)"
 *CMD Sqrt --- square root
 *STD
 *CALL

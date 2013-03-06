@@ -10,7 +10,7 @@ DiscreteDistribution( dom_RationalOrNumber? , prob_RationalOrNumber?) <-- Undefi
 
 
 
-%mathpiper_docs,name="DiscreteDistribution",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="DiscreteDistribution",categories="Mathematics Functions;Statistics & Probability"
 *CMD ContinuousUniformDistribution --- Discrete uniform distribution
 *STD
 *CALL

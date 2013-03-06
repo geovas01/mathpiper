@@ -185,7 +185,7 @@ ScheffeStatistic(xBarA,nA,xBarB,nB,ssw,k,countsList) :=
 
 
 
-%mathpiper_docs,name="ScheffeTest",categories="User Functions;Statistics & Probability",access="experimental"
+%mathpiper_docs,name="ScheffeTest",categories="Mathematics Functions;Statistics & Probability",access="experimental"
 *CMD ScheffeTest --- performs a Scheffe pairwise analysis
 
 *CALL

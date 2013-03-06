@@ -32,7 +32,7 @@ Trace(matrix_List?) <--
 
 
 
-%mathpiper_docs,name="Trace",categories="User Functions;Linear Algebra"
+%mathpiper_docs,name="Trace",categories="Mathematics Functions;Linear Algebra"
 *CMD Trace --- trace of a matrix
 *STD
 *CALL

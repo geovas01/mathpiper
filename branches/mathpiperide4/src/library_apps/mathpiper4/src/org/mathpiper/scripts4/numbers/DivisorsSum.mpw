@@ -26,7 +26,7 @@
 
 
 
-%mathpiper_docs,name="DivisorsSum",categories="User Functions;Number Theory"
+%mathpiper_docs,name="DivisorsSum",categories="Mathematics Functions;Number Theory"
 *CMD DivisorsSum --- the sum of  divisors
 *STD
 *CALL

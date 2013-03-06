@@ -6,7 +6,7 @@ Nl():= UnicodeToString(10);
 
 
 
-%mathpiper_docs,name="Nl",categories="User Functions;Input/Output"
+%mathpiper_docs,name="Nl",categories="Programming Functions;Input/Output"
 *CMD Nl --- the newline character
 *STD
 *CALL

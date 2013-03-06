@@ -37,7 +37,7 @@ TruthTable(booleanExpression) :=
 
 
 
-%mathpiper_docs,name="TruthTable",categories="User Functions;Propositional Logic",access="experimental"
+%mathpiper_docs,name="TruthTable",categories="Mathematics Functions;Propositional Logic",access="experimental"
 *CMD TruthTable --- returns a list that contains a truth table for a boolean expression
 
 *CALL

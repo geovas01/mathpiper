@@ -27,7 +27,7 @@
 
 
 
-%mathpiper_docs,name="CheckSolution",categories="User Functions;Solvers (Symbolic)"
+%mathpiper_docs,name="CheckSolution",categories="Mathematics Functions;Solvers (Symbolic)"
 
 *CMD CheckSolution --- Check the validity of solutions returned by the [Solve] function.
 *STD

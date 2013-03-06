@@ -36,7 +36,7 @@
 
 
 
-%mathpiper_docs,name="Expectation",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="Expectation",categories="Mathematics Functions;Statistics & Probability"
 *CMD Expectation --- expectation function
 *STD
 *CALL

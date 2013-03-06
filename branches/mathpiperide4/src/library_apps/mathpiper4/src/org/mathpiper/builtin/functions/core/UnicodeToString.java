@@ -54,7 +54,7 @@ public class UnicodeToString extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="UnicodeToString",categories="User Functions;String Manipulation;Built In",access="experimental"
+%mathpiper_docs,name="UnicodeToString",categories="Programming Functions;String Manipulation;Built In",access="experimental"
 *CMD UnicodeToString --- creates a single character string from the character's unicode value
 *CORE
 *CALL

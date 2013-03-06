@@ -67,7 +67,7 @@ public class Local extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Local",categories="User Functions;Variables;Built In"
+%mathpiper_docs,name="Local",categories="Programming Functions;Variables;Built In"
 *CMD Local --- declare new local variables
 *CORE
 *CALL
@@ -124,7 +124,7 @@ the block.
 
 
 /*
-%mathpiper_docs,name="MacroLocal",categories="Programmer Functions;Programming;Built In"
+%mathpiper_docs,name="MacroLocal",categories="Programming Functions;Miscellaneous;Built In"
 *CMD MacroLocal --- define rules in functions
 *CORE
 *DESC

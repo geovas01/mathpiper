@@ -14,7 +14,7 @@
 
 
 
-%mathpiper_docs,name="Zero?",categories="User Functions;Numbers (Predicates);Predicates"
+%mathpiper_docs,name="Zero?",categories="Programming Functions;Predicates"
 *CMD Zero? --- test whether argument is zero
 *STD
 *CALL

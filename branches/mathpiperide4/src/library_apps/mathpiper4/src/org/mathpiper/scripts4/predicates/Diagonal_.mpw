@@ -30,7 +30,7 @@ Diagonal?(A_Matrix?) <--
 
 
 
-%mathpiper_docs,name="Diagonal?",categories="User Functions;Matrices (Predicates);Predicates"
+%mathpiper_docs,name="Diagonal?",categories="Programming Functions;Predicates"
 *CMD Diagonal? --- test for a diagonal matrix
 *STD
 *CALL

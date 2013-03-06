@@ -68,7 +68,7 @@ public class PipeToString extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="PipeToString",categories="User Functions;Input/Output;Built In"
+%mathpiper_docs,name="PipeToString",categories="Programming Functions;Input/Output;Built In"
 *CMD PipeToString --- connect current output to a string
 *CORE
 *CALL

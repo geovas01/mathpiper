@@ -18,7 +18,7 @@ StandardErrorOfTheProportion(meanOfSampleProportions, sampleSize) :=
 
 
 
-%mathpiper_docs,name="StandardErrorOfTheProportion",categories="User Functions;Statistics & Probability",access="experimental"
+%mathpiper_docs,name="StandardErrorOfTheProportion",categories="Mathematics Functions;Statistics & Probability",access="experimental"
 *CMD StandardErrorOfTheProportion --- calculates the standard error of the proportion
 *STD
 *CALL

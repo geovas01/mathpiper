@@ -44,7 +44,7 @@
 
    
 
-%mathpiper_docs,def="MakeNewPoly",categories="User Functions;Polynomials"
+%mathpiper_docs,def="MakeNewPoly",categories="Mathematics Functions;Polynomials"
 *CMD MakeNewPoly --- Create a NewPolynomial structure from a given polynomial
 *CALL
         MakeNewPoly(poly)

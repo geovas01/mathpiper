@@ -53,7 +53,7 @@ public class BitXor extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="BitXor",categories="User Functions;Built In"
+%mathpiper_docs,name="BitXor",categories="Programming Functions;Built In"
 *CMD BitXor --- bitwise xor operation
 *CORE
 *CALL

@@ -130,7 +130,7 @@ public class LineChart extends BuiltinFunction {
 
 
 /*
-%mathpiper_docs,name="LineChart",categories="User Functions;Visualization"
+%mathpiper_docs,name="LineChart",categories="Mathematics Functions;Visualization"
 *CMD LineChart --- displays a graphic line chart
 *CORE
 *CALL

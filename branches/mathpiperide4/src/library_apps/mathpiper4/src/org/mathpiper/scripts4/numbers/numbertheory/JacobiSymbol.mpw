@@ -28,7 +28,7 @@ See the Algo book for documentation.
 
 
 
-%mathpiper_docs,name="JacobiSymbol",categories="User Functions;Number Theory"
+%mathpiper_docs,name="JacobiSymbol",categories="Mathematics Functions;Number Theory"
 *CMD JacobiSymbol --- functions related to finite groups
 *STD
 *CALL

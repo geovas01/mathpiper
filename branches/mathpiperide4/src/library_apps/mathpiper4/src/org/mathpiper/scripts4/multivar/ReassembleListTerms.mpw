@@ -29,7 +29,7 @@
 
 
 
-%mathpiper_docs,name="ReassembleListTerms",categories="User Functions;Polynomials (Operations)"
+%mathpiper_docs,name="ReassembleListTerms",categories="Mathematics Functions;Polynomials (Operations)"
 
 *CMD ResassembleListTerms --- returns a list of the terms in an expression
 

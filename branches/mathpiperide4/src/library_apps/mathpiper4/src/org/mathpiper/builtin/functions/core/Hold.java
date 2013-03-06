@@ -44,7 +44,7 @@ public class Hold extends BuiltinFunction
 }
 
 /*
-%mathpiper_docs,name="Hold",categories="Programmer Functions;Programming;Built In"
+%mathpiper_docs,name="Hold",categories="Programming Functions;Miscellaneous;Built In"
 *CMD Hold --- keep expression unevaluated
 *CORE
 *CALL

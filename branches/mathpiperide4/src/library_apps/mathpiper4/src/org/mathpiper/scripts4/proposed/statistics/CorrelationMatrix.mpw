@@ -47,7 +47,7 @@ CorrelationMatrix(dataLists) :=
 
 
 
-%mathpiper_docs,name="CorrelationMatrix",categories="User Functions;Statistics & Probability",access="experimental"
+%mathpiper_docs,name="CorrelationMatrix",categories="Mathematics Functions;Statistics & Probability",access="experimental"
 *CMD CorrelationMatrix --- creates a correlation matrix
 *STD
 *CALL

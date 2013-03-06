@@ -21,7 +21,7 @@ Function("MatrixColumn",[matrix,col])
 
 
 
-%mathpiper_docs,name="MatrixColumn",categories="User Functions;Linear Algebra"
+%mathpiper_docs,name="MatrixColumn",categories="Mathematics Functions;Linear Algebra"
 *CMD MatrixColumn --- obtain the column of a matrix
 *STD
 *CALL

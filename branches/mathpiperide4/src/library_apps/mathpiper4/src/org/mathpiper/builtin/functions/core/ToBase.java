@@ -72,7 +72,7 @@ public class ToBase extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="ToBase",categories="User Functions;Numbers (Operations);Built In"
+%mathpiper_docs,name="ToBase",categories="Mathematics Functions;Numbers (Operations);Built In"
 *CMD ToBase --- conversion of a number in decimal base to non-decimal base
 *CORE
 *CALL

@@ -52,7 +52,7 @@ public class Gcd extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="GcdN",categories="User Functions;Numeric;Built In"
+%mathpiper_docs,name="GcdN",categories="Mathematics Functions;Numeric;Built In"
 *CMD GcdN --- Greatest Common Divisor (arbitrary-precision math function)
 *CORE
 *CALL

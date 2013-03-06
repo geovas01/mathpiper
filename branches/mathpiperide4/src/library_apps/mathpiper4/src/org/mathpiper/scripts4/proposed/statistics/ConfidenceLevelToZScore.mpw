@@ -20,7 +20,7 @@ ConfidenceLevelToZScore(probability) :=
 
 
 
-%mathpiper_docs,name="ConfidenceLevelToZScore",categories="User Functions;Statistics & Probability",access="experimental"
+%mathpiper_docs,name="ConfidenceLevelToZScore",categories="Mathematics Functions;Statistics & Probability",access="experimental"
 *CMD ConfidenceLevelToZScore --- calculates the z-score for a given confidence level
 *STD
 *CALL

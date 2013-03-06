@@ -7,7 +7,7 @@ Variable?(_expr) <-- (Atom?(expr) And? Not?(expr =? True) And? Not?(expr =? Fals
 
 
 
-%mathpiper_docs,name="Variable?",categories="User Functions;Predicates"
+%mathpiper_docs,name="Variable?",categories="Programming Functions;Predicates"
 *CMD Variable? --- test for a variable
 *STD
 *CALL

@@ -35,7 +35,7 @@
 
 
 
-%mathpiper_docs,name="SquareFree",categories="User Functions;Polynomials (Operations)"
+%mathpiper_docs,name="SquareFree",categories="Mathematics Functions;Polynomials (Operations)"
 *CMD SquareFree --- return the square-free part of a univariate polynomial
 *STD
 *CALL

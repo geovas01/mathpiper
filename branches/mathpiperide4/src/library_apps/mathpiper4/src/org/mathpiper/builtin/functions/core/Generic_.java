@@ -51,7 +51,7 @@ public class Generic_ extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Generic?",categories="Programmer Functions;Native Objects;Built In"
+%mathpiper_docs,name="Generic?",categories="Programming Functions;Native Objects;Built In"
 *CMD Generic? --- check for generic object
 *CORE
 *CALL

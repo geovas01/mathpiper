@@ -67,7 +67,7 @@ public class FastArcSin extends BuiltinFunction
 
 
 /*
-%mathpiper,name="FastArcSin",categories="Programmer Functions;Built In"
+%mathpiper,name="FastArcSin",categories="Programming Functions;Built In"
 *CMD FastArcSin --- double-precision math function
 *CORE
 *CALL

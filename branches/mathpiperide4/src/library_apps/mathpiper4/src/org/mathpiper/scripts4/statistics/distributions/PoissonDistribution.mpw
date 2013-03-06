@@ -11,7 +11,7 @@ PoissonDistribution(l_RationalOrNumber?)_(l<=?0) <-- Undefined;
 
 
 
-%mathpiper_docs,name="PoissonDistribution",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="PoissonDistribution",categories="Mathematics Functions;Statistics & Probability"
 *CMD PoissonDistribution --- Poisson distribution
 *STD
 *CALL

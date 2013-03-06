@@ -80,7 +80,7 @@ IntNthRoot1(_n, s_Integer?) <--
 
 
 
-%mathpiper_docs,name="IntNthRoot",categories="User Functions;Numbers (Operations)"
+%mathpiper_docs,name="IntNthRoot",categories="Mathematics Functions;Numbers (Operations)"
 *CMD IntNthRoot --- integer part of $n$-th root
 *STD
 *CALL

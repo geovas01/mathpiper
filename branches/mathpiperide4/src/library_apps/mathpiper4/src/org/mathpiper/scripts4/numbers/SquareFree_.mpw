@@ -6,7 +6,7 @@ SquareFree?(n_Integer?)        <-- ( Moebius(n) !=? 0 );
 
 
 
-%mathpiper_docs,name="SquareFree?",categories="User Functions;Number Theory;Predicates"
+%mathpiper_docs,name="SquareFree?",categories="Programming Functions;Predicates"
 *CMD SquareFree? --- test for a square-free number
 *STD
 *CALL

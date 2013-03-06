@@ -33,7 +33,7 @@ ListOfLists?(listOfLists) :=
 
 
 
-%mathpiper_docs,name="ListOfLists?",categories="User Functions;Predicates",access="experimental"
+%mathpiper_docs,name="ListOfLists?",categories="Programming Functions;Predicates",access="experimental"
 *CMD ListOfLists? --- determine if [list] is a list of lists
 *STD
 *CALL

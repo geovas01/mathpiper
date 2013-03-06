@@ -18,7 +18,7 @@ FrobeniusNorm(matrix_Matrix?) <--
 
 
 
-%mathpiper_docs,name="FrobeniusNorm",categories="User Functions;Linear Algebra"
+%mathpiper_docs,name="FrobeniusNorm",categories="Mathematics Functions;Linear Algebra"
 *CMD FrobeniusNorm --- todo
 *CALL
         FrobeniusNorm(matrix)

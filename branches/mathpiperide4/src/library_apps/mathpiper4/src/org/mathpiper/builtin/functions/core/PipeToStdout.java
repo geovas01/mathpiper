@@ -59,7 +59,7 @@ public class PipeToStdout extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="PipeToStdout",categories="User Functions;Input/Output;Built In"
+%mathpiper_docs,name="PipeToStdout",categories="Programming Functions;Input/Output;Built In"
 *CMD PipeToStdout --- select initial output stream for output
 *CORE
 *CALL

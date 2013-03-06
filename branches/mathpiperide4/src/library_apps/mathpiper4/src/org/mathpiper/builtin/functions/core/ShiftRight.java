@@ -54,7 +54,7 @@ public class ShiftRight extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="ShiftRight",categories="User Functions;Built In"
+%mathpiper_docs,name="ShiftRight",categories="Mathematics Functions;Built In"
 *CMD ShiftRight --- built-in bitwise shift right operation
 *CORE
 *CALL

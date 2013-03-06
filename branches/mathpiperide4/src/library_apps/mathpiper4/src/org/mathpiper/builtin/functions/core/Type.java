@@ -60,7 +60,7 @@ public class Type extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Type",categories="User Functions;Lists (Operations);Built In"
+%mathpiper_docs,name="Type",categories="Programming Functions;Lists (Operations);Built In"
 *CMD Type --- return the type of an expression
 *CORE
 *CALL

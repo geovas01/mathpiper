@@ -62,7 +62,7 @@
 
 
 
-%mathpiper_docs,name="xCheckSolution",categories="User Functions;Solvers (Symbolic)",access="experimental"
+%mathpiper_docs,name="xCheckSolution",categories="Mathematics Functions;Solvers (Symbolic)",access="experimental"
 
 *CMD xCheckSolution --- Check the validity of solutions returned by the [xSolve] function.
 *STD

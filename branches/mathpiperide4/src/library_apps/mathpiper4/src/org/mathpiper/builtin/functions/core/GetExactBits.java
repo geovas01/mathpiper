@@ -56,7 +56,7 @@ public class GetExactBits extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="GetExactBitsN",categories="Programmer Functions;Numerical (Arbitrary Precision);Built In"
+%mathpiper_docs,name="GetExactBitsN",categories="Programming Functions;Numerical (Arbitrary Precision);Built In"
 *CMD GetExactBitsN --- manipulate precision of floating-point numbers
 *CORE
 *CALL

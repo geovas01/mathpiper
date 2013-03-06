@@ -56,7 +56,7 @@ public class ParseMathPiper extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="ParseMathPiper",categories="User Functions;Input/Output;Built In"
+%mathpiper_docs,name="ParseMathPiper",categories="Programming Functions;Input/Output;Built In"
 *CMD ParseMathPiper --- parse expressions in MathPiper syntax from the current input
 *CORE
 *CALL

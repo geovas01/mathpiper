@@ -6,7 +6,7 @@ PositiveNumber?(x):= Number?(x) And? x >? 0;
 
 
 
-%mathpiper_docs,name="PositiveNumber?",categories="User Functions;Predicates"
+%mathpiper_docs,name="PositiveNumber?",categories="Programming Functions;Predicates"
 *CMD PositiveNumber? --- test for a positive number
 *STD
 *CALL

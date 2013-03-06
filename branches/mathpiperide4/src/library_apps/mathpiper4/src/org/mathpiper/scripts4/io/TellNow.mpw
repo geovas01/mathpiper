@@ -7,7 +7,7 @@ Macro("TellNow",[id,x])  {SysOut("<< ",@id," >> ",Hold(@x),": ",Eval(@x));};
       Result: True
 .   %/output
 
-%mathpiper_docs,name="TellNow",categories="Programmer Functions;Testing"
+%mathpiper_docs,name="TellNow",categories="Programming Functions;Testing"
 
 *CMD TellNow --- debug routine using SysOut to print ID and (optional) variable(s)
 

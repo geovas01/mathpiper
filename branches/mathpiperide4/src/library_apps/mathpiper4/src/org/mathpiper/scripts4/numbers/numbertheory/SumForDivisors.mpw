@@ -31,7 +31,7 @@ HoldArgument("SumForDivisors",sumbody);
 
 
 
-%mathpiper_docs,name="SumForDivisors",categories="User Functions;Number Theory"
+%mathpiper_docs,name="SumForDivisors",categories="Mathematics Functions;Number Theory"
 *CMD SumForDivisors --- loop over divisors
 *STD
 *CALL

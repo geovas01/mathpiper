@@ -16,7 +16,7 @@ Function("TableForm",[list])
 
 
 
-%mathpiper_docs,name="TableForm",categories="User Functions;Lists (Operations)"
+%mathpiper_docs,name="TableForm",categories="Programming Functions;Lists (Operations)"
 *CMD TableForm --- print each entry in a list on a line
 *STD
 *CALL

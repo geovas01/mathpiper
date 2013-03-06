@@ -63,7 +63,7 @@ public class RightPrecedenceGet extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="RightPrecedenceGet",categories="Programmer Functions;Programming;Built In"
+%mathpiper_docs,name="RightPrecedenceGet",categories="Programming Functions;Miscellaneous;Built In"
 *CMD RightPrecedenceGet --- get operator precedence
 *CORE
 *CALL

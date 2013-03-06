@@ -20,7 +20,7 @@ Function("PNorm",[v,p])
 
 
 
-%mathpiper_docs,name="PNorm",categories="User Functions;Linear Algebra"
+%mathpiper_docs,name="PNorm",categories="Mathematics Functions;Linear Algebra"
 *CMD PNorm --- todo:?
 *CALL
         PNorm(v,p)

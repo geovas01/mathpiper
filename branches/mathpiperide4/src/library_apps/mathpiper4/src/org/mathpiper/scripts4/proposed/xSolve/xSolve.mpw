@@ -445,7 +445,7 @@ LocalSymbols(x)
 
 
 
-%mathpiper_docs,name="xSolve",categories="User Functions;Solvers (Symbolic)",access="experimental"
+%mathpiper_docs,name="xSolve",categories="Mathematics Functions;Solvers (Symbolic)",access="experimental"
 *CMD Solve --- solve an equation or set of linear equations
 *STD
 *CALL

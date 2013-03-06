@@ -32,7 +32,7 @@
     
 
 
-%mathpiper_docs,name="RationalFunction?",categories="Programmer Functions;Predicates",access="experimental"
+%mathpiper_docs,name="RationalFunction?",categories="Programming Functions;Predicates",access="experimental"
 
 *CMD RationalFunction? --- test for a Rational Function
 *STD

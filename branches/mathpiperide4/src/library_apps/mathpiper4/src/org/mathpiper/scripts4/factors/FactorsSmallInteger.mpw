@@ -29,7 +29,7 @@
 
 
 
-%mathpiper_docs,name="FactorsSmallInteger",categories="User Functions;Number Theory"
+%mathpiper_docs,name="FactorsSmallInteger",categories="Mathematics Functions;Number Theory"
 *CMD FactorsSmallInteger --- factorization for small integers
 *STD
 *CALL

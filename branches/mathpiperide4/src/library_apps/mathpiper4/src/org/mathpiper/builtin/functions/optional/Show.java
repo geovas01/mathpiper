@@ -177,7 +177,7 @@ public class Show extends BuiltinFunction {
 
 
 /*
-%mathpiper_docs,name="Show",categories="User Functions;Visualization"
+%mathpiper_docs,name="Show",categories="Mathematics Functions;Visualization"
 *CMD Show --- displays GUI components
 *CORE
 *CALL

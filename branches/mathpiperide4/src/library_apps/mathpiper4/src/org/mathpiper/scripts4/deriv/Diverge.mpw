@@ -8,7 +8,7 @@ RuleHoldArguments("Diverge", 2, 1, List?(aBasis) And? List?(aFunc) And? Length(a
 
 
 
-%mathpiper_docs,name="Diverge",categories="User Functions;Calculus Related (Symbolic)"
+%mathpiper_docs,name="Diverge",categories="Mathematics Functions;Calculus Related (Symbolic)"
 *CMD Diverge --- divergence of a vector field
 *STD
 *CALL

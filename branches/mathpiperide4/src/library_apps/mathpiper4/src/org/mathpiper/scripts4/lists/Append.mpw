@@ -12,7 +12,7 @@ Function("Append",[list,element])
 
 
 
-%mathpiper_docs,name="Append",categories="User Functions;Lists (Operations)"
+%mathpiper_docs,name="Append",categories="Programming Functions;Lists (Operations)"
 *CMD Append --- append an entry at the end of a list
 *STD
 *CALL

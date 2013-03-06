@@ -24,7 +24,7 @@ UpperTriangular?(A_Matrix?) <--
 
 
 
-%mathpiper_docs,name="UpperTriangular?",categories="User Functions;Matrices (Predicates);Predicates"
+%mathpiper_docs,name="UpperTriangular?",categories="Programming Functions;Predicates"
 *CMD UpperTriangular? --- test for an upper triangular matrix
 *STD
 *CALL

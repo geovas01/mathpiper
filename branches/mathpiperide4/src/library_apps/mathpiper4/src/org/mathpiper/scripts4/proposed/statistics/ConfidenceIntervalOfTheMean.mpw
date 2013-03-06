@@ -73,7 +73,7 @@ ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnow
 
 
 
-%mathpiper_docs,name="ConfidenceIntervalOfTheMean",categories="User Functions;Statistics & Probability",access="experimental"
+%mathpiper_docs,name="ConfidenceIntervalOfTheMean",categories="Mathematics Functions;Statistics & Probability",access="experimental"
 *CMD ConfidenceIntervalOfTheMean --- calculates a confidence interval
 *STD
 *CALL

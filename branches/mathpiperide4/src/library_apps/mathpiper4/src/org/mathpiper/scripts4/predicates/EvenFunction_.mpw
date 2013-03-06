@@ -6,7 +6,7 @@ EvenFunction?(f,x):= (f =? Eval(Substitute(x,-x)f));
 
 
 
-%mathpiper_docs,name="EvenFunction?",categories="User Functions;Predicates"
+%mathpiper_docs,name="EvenFunction?",categories="Programming Functions;Predicates"
 *CMD EvenFunction? --- Return true if function is an even function (False otherwise)
 
 *STD

@@ -6,7 +6,7 @@ NonZeroInteger?(x) := (Integer?(x) And? x !=? 0);
 
 
 
-%mathpiper_docs,name="NonZeroInteger?",categories="User Functions;Predicates"
+%mathpiper_docs,name="NonZeroInteger?",categories="Programming Functions;Predicates"
 *CMD NonZeroInteger? --- test for a nonzero integer
 *STD
 *CALL

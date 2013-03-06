@@ -20,7 +20,7 @@ Defun("MathExpDoubling", [value, n])
 
 
 
-%mathpiper_docs,name="MathExpDoubling",categories="User Functions",access="undocumented"
+%mathpiper_docs,name="MathExpDoubling",categories="Mathematics Functions",access="undocumented"
 *CMD MathExpDoubling --- *** UNDOCUMENTED ***
 
 *CALL

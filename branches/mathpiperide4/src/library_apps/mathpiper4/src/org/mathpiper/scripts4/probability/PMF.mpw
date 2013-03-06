@@ -61,7 +61,7 @@
 
 
 
-%mathpiper_docs,name="PMF",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="PMF",categories="Mathematics Functions;Statistics & Probability"
 *CMD PMF --- probability mass function
 *STD
 *CALL

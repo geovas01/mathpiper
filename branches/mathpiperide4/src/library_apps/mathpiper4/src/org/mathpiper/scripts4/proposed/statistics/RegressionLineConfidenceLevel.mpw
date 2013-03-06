@@ -44,7 +44,7 @@ RegressionLineConfidenceInterval(x,y,xValue,confidenceLevel) :=
 
 
 
-%mathpiper_docs,name="RegressionLineConfidenceInterval",categories="User Functions;Statistics & Probability",access="experimental"
+%mathpiper_docs,name="RegressionLineConfidenceInterval",categories="Mathematics Functions;Statistics & Probability",access="experimental"
 *CMD RegressionLineConfidenceInterval --- calculates the correlation coefficient between two lists of values
 *STD
 *CALL

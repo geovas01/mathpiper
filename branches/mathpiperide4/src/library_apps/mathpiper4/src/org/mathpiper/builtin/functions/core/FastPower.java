@@ -54,7 +54,7 @@ public class FastPower extends BuiltinFunction
 
 
 /*
-%mathpiper,name="FastPower",categories="Programmer Functions;Built In"
+%mathpiper,name="FastPower",categories="Programming Functions;Built In"
 *CMD FastPower --- double-precision math function
 *CORE
 *CALL

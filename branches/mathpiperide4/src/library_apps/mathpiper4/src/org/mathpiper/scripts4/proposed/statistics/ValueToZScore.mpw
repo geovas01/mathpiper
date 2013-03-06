@@ -17,7 +17,7 @@ ValueToZScore(value,mean,standardDeviation) :=
 
 
 
-%mathpiper_docs,name="ValueToZScore",categories="User Functions;Statistics & Probability",access="experimental"
+%mathpiper_docs,name="ValueToZScore",categories="Mathematics Functions;Statistics & Probability",access="experimental"
 *CMD ValueToZScore --- calculates the z-score of a numerical value
 *STD
 *CALL

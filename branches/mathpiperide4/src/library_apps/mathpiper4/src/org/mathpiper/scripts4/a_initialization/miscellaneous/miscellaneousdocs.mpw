@@ -1,6 +1,6 @@
 
 
-%mathpiper_docs,name="quit;restart",categories="User Functions;Built In"
+%mathpiper_docs,name="quit;restart",categories="Mathematics Functions;Built In"
 *CMD quit --- stop MathPiper from running (from the command line)
 *CMD restart --- restart MathPiper (to start with a clean slate)
 *CORE
@@ -82,7 +82,7 @@ In> UnparseMath2D(%)
 
 
 
-%mathpiper_docs,name="True;False",categories="User Functions;Constants (System)"
+%mathpiper_docs,name="True;False",categories="Programming Functions;Constants"
 *CMD True --- boolean constant representing true
 *CMD False --- boolean constant representing false
 *CORE
@@ -103,7 +103,7 @@ of boolean expressions such as {2 <? 3} or {True And? False}.
 
 
 
-%mathpiper_docs,name="EndOfFile",categories="User Functions;Constants (System)"
+%mathpiper_docs,name="EndOfFile",categories="Programming Functions"
 *CMD EndOfFile --- end-of-file marker
 *CORE
 *CALL
@@ -120,7 +120,7 @@ operation will stop reading the file at that point.
 
 
 
-%mathpiper_docs,name="Infinity",categories="User Functions;Constants (Mathematical)"
+%mathpiper_docs,name="Infinity",categories="Mathematics Functions;Constants"
 
 *CMD Infinity --- constant representing mathematical infinity
 *STD
@@ -148,7 +148,7 @@ Result: True;
 
 
 
-%mathpiper_docs,name="Undefined",categories="User Functions;Constants (Mathematical)"
+%mathpiper_docs,name="Undefined",categories="Mathematics Functions;Constants"
 *CMD Undefined --- constant signifying an undefined result
 *STD
 *CALL
@@ -205,8 +205,7 @@ Introduce a comment block in a source file, similar to C++ comments.
 
 
 %mathpiper_docs,name="{;}",categories="Operators"
-*CMD { --- beginning of block of statements
-*CMD } --- end of block of statements
+*CMD {} --- encloses a block of statements
 *CORE
 *CALL
 
@@ -226,4 +225,18 @@ function bodies. The {{ ... }} construct is a syntactically nicer version of the
 {Block} call; it is converted into {Block(...)} during the parsing stage.
 
 *SEE Block
+%/mathpiper_docs
+
+
+
+
+%mathpiper_docs,name="Empty",categories="Programming Functions;Constants"
+*CMD Empty --- used with association lists
+*CORE
+*CALL
+        Empty
+
+*DESC
+
+A constant that is used to indicate that an association list does not have a value for a given key.
 %/mathpiper_docs

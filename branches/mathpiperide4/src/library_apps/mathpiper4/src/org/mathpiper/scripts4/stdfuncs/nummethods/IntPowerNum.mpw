@@ -33,7 +33,7 @@
 
 
 
-%mathpiper_docs,name="IntPowerNum",categories="User Functions;Numbers (Operations)"
+%mathpiper_docs,name="IntPowerNum",categories="Mathematics Functions;Numbers (Operations)"
 *CMD IntPowerNum --- optimized computation of integer powers
 *STD
 *CALL

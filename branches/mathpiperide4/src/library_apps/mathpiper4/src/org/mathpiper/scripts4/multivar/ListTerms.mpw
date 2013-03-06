@@ -69,7 +69,7 @@ UnFence("terms",3);
 
 
 
-%mathpiper_docs,name="ListTerms",categories="User Functions;Polynomials (Operations)"
+%mathpiper_docs,name="ListTerms",categories="Mathematics Functions;Polynomials (Operations)"
 
 *CMD ListTerms --- returns a list of the terms in an expression
 

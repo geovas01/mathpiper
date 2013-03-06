@@ -7,7 +7,7 @@ Macro("Tell",[id,x])  {Echo(<<,@id,>>,Hold(@x),": ",Eval(@x));};
       Result: True
 .   %/output
 
-%mathpiper_docs,name="Tell",categories="Programmer Functions;Testing"
+%mathpiper_docs,name="Tell",categories="Programming Functions;Testing"
 
 *CMD Tell --- debug routine using Echo to print ID and (optional) variable(s)
 

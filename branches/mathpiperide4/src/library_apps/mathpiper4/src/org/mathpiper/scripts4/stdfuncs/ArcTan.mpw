@@ -29,7 +29,7 @@ ArcTan(xlist_List?) <-- MapSingle("ArcTan",xlist);
 
 
 
-%mathpiper_docs,name="ArcTan",categories="User Functions;Trigonometry (Symbolic)"
+%mathpiper_docs,name="ArcTan",categories="Mathematics Functions;Trigonometry (Symbolic)"
 *CMD ArcTan --- inverse trigonometric function arc-tangent
 *STD
 *CALL

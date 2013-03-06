@@ -36,7 +36,7 @@
 
 
 
-%mathpiper_docs,name="FactorizeInt",categories="User Functions",access="undocumented"
+%mathpiper_docs,name="FactorizeInt",categories="Mathematics Functions",access="undocumented"
 *CMD FactorizeInt --- *** UNDOCUMENTED ***
 
 *CALL

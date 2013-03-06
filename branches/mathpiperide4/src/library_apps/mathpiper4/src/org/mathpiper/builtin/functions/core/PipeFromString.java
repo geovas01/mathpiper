@@ -81,7 +81,7 @@ public class PipeFromString extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="PipeFromString",categories="User Functions;Input/Output;Built In"
+%mathpiper_docs,name="PipeFromString",categories="Programming Functions;Input/Output;Built In"
 *CMD PipeFromString --- connect current input to a string
 *CORE
 *CALL

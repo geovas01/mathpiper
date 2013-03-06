@@ -29,7 +29,7 @@ ElementCount(list) :=
 
 
 
-%mathpiper_docs,name="ElementCount",categories="User Functions;Lists (Operations)",access="experimental"
+%mathpiper_docs,name="ElementCount",categories="Programming Functions;Lists (Operations)",access="experimental"
 *CMD ElementCount --- counts the number of elements in a list or nested list
 *CALL
         ElementCount(list)

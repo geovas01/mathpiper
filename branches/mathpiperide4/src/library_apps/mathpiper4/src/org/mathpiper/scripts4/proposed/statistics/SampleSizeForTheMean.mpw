@@ -22,7 +22,7 @@ SampleSizeForTheMean(standardDeviation,confidenceLevel,marginOfError) :=
 
 
 
-%mathpiper_docs,name="SampleSizeForTheMean",categories="User Functions;Statistics & Probability",access="experimental"
+%mathpiper_docs,name="SampleSizeForTheMean",categories="Mathematics Functions;Statistics & Probability",access="experimental"
 *CMD SampleSizeForTheMean --- calculates the sample size for the mean
 *STD
 *CALL

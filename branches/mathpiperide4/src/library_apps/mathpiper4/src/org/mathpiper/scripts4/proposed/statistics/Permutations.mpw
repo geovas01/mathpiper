@@ -25,7 +25,7 @@ Permutations(n, r) :=
 
 
 
-%mathpiper_docs,name="Permutations",categories="User Functions;Combinatorics",access="experimental"
+%mathpiper_docs,name="Permutations",categories="Mathematics Functions;Combinatorics",access="experimental"
 *CMD Permutations --- number of permutations
 *STD
 *CALL

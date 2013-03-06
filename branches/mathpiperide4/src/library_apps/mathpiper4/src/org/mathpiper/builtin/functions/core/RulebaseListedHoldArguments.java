@@ -46,7 +46,7 @@ public class RulebaseListedHoldArguments extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="RulebaseListedHoldArguments",categories="Programmer Functions;Programming;Built In"
+%mathpiper_docs,name="RulebaseListedHoldArguments",categories="Programming Functions;Miscellaneous;Built In"
 *CMD RulebaseListedHoldArguments --- define function with variable number of arguments
 *CORE
 *CALL

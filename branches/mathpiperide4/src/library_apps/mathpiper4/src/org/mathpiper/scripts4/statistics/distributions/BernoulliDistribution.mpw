@@ -9,7 +9,7 @@ BernoulliDistribution(p_RationalOrNumber?)_(p<?0 Or? p>?1) <-- Undefined;
 
 
 
-%mathpiper_docs,name="BernoulliDistribution",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="BernoulliDistribution",categories="Mathematics Functions;Statistics & Probability"
 *CMD BernoulliDistribution --- Bernoulli distribution
 *STD
 *CALL 

@@ -6,7 +6,7 @@ Even?(n) := Integer?(n) And? ( BitAnd(n,1)  =? 0 );
 
 
 
-%mathpiper_docs,name="Even?",categories="User Functions;Predicates"
+%mathpiper_docs,name="Even?",categories="Programming Functions;Predicates"
 *CMD Even? --- test for an even integer
 *STD
 *CALL

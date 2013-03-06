@@ -13,7 +13,7 @@
 
 
 
-%mathpiper_docs,name="GaussianInteger?",categories="User Functions;Predicates"
+%mathpiper_docs,name="GaussianInteger?",categories="Programming Functions;Predicates"
 *CMD GaussianInteger? ---  test for a Gaussian integer
 *STD
 *CALL

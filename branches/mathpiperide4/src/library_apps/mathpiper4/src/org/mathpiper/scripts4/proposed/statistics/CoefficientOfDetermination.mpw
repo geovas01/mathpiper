@@ -20,7 +20,7 @@ CoefficientOfDetermination(x,y) :=
 
 
 
-%mathpiper_docs,name="CoefficientOfDetermination",categories="User Functions;Statistics & Probability",access="experimental"
+%mathpiper_docs,name="CoefficientOfDetermination",categories="Mathematics Functions;Statistics & Probability",access="experimental"
 *CMD CoefficientOfDetermination --- calculates the correlation coefficient between two lists of values
 *STD
 *CALL

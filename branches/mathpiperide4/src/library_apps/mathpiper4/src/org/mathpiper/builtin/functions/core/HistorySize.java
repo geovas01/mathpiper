@@ -50,7 +50,7 @@ public class HistorySize extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="HistorySize",categories="User Functions;Built In"
+%mathpiper_docs,name="HistorySize",categories="Mathematics Functions;Built In"
 *CMD HistorySize --- set size of history file
 *CORE
 *CALL

@@ -17,7 +17,7 @@ Outer(t1_Vector?, t2_Vector?) <--
 
 
 
-%mathpiper_docs,name="Outer",categories="User Functions;Linear Algebra"
+%mathpiper_docs,name="Outer",categories="Mathematics Functions;Linear Algebra"
 *CMD Outer, o --- get outer tensor product
 *STD
 *CALL

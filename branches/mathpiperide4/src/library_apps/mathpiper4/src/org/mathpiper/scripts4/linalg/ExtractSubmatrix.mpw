@@ -36,7 +36,7 @@
 
 
 
-%mathpiper_docs,name="ExtractSubMatrix",categories="User Functions;Linear Algebra"
+%mathpiper_docs,name="ExtractSubMatrix",categories="Mathematics Functions;Linear Algebra"
 *CMD ExtractSubMatrix --- Extract a submatrix from a given matrix
 *STD
 *CALL

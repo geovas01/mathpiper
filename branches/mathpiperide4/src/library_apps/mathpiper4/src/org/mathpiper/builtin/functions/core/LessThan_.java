@@ -50,7 +50,7 @@ public class LessThan_ extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="LessThan?",categories="User Functions;Predicates;Built In"
+%mathpiper_docs,name="LessThan?",categories="Programming Functions;Predicates;Built In"
 *CMD LessThan? --- comparison predicate
 *CORE
 *CALL

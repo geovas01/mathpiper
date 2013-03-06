@@ -31,7 +31,7 @@ Product(sumlist_List?) <--
 
 
 
-%mathpiper_docs,name="Product",categories="User Functions;Series"
+%mathpiper_docs,name="Product",categories="Mathematics Functions;Series"
 *CMD Product --- product of a list of values
 *STD
 *CALL

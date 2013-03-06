@@ -59,7 +59,7 @@ RuleHoldArguments("Nth",2,40,Equal?(String?(aindex),True))
 
 
 
-%mathpiper_docs,name="Nth",categories="User Functions;Lists (Operations)"
+%mathpiper_docs,name="Nth",categories="Programming Functions;Lists (Operations)"
 *CMD Nth --- return the $n$-th element of a list
 *CORE
 *CALL

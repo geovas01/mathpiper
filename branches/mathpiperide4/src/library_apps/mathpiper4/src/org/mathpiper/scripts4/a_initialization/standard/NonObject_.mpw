@@ -9,7 +9,7 @@
 
 
 
-%mathpiper_docs,name="NonObject?",categories="User Functions;Predicates"
+%mathpiper_docs,name="NonObject?",categories="Programming Functions;Predicates"
 *CMD NonObject? --- test whether argument is not an [Object()]
 *STD
 *CALL

@@ -24,7 +24,7 @@
 
 
 
-%mathpiper_docs,name="Divisors",categories="User Functions;Number Theory"
+%mathpiper_docs,name="Divisors",categories="Mathematics Functions;Number Theory"
 *CMD Divisors --- number of divisors
 *STD
 *CALL

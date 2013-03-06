@@ -44,7 +44,7 @@ GaussianDeterminant(matrix):=
 
 
 
-%mathpiper_docs,name="GaussianDeterminant",categories="User Functions;Linear Algebra"
+%mathpiper_docs,name="GaussianDeterminant",categories="Mathematics Functions;Linear Algebra"
 *CMD GaussianDeterminant --- todo
 *CALL
         GaussianDeterminant(matrix)

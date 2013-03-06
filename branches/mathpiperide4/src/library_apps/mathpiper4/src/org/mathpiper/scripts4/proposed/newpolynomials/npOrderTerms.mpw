@@ -133,7 +133,7 @@ Retract("GREVLEXlt",*);
 
    
 
-%mathpiper_docs,def="npOrderTerms",categories="User Functions;Polynomials"
+%mathpiper_docs,def="npOrderTerms",categories="Mathematics Functions;Polynomials"
 *CMD npOrderTerms --- Sets the Term Ordering to be used with the New Polynomial
 *CALL
         npOrderTerms(newPoly,termOrder)
@@ -190,7 +190,7 @@ Result: [NP,[x,y,z],[3,0,3,0],[-2,2,0,0],[5,0,0,1],[7,0,0,0]]
 
   
 
-%mathpiper_docs,def="Term Comparison Operators",categories="User Functions;Polynomials"
+%mathpiper_docs,def="Term Comparison Operators",categories="Mathematics Functions;Polynomials"
 *CMD see below -- compares two terms according to specified Term Ordering
 *CALL
         LEXgt(term1,term2)

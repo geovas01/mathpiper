@@ -6,7 +6,7 @@ Eliminate(_var,_replace,_function) <-- Simplify(Substitute(var,replace)function)
 
 
 
-%mathpiper_docs,name="Eliminate",categories="User Functions;Solvers (Symbolic)"
+%mathpiper_docs,name="Eliminate",categories="Mathematics Functions;Solvers (Symbolic)"
 *CMD Eliminate --- substitute and simplify
 *STD
 *CALL

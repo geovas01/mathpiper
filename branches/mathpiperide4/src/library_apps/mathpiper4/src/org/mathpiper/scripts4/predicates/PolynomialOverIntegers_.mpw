@@ -31,7 +31,7 @@
 .   %/output
 
 
-%mathpiper_docs,name="PolynomialOverIntegers?",categories="Programmer Functions;Predicates"
+%mathpiper_docs,name="PolynomialOverIntegers?",categories="Programming Functions;Predicates"
 
 *CMD PolynomialOverIntegers? --- Check if [expr] is a polynomial in variable [var] all of whose coefficients are integers
 

@@ -36,7 +36,7 @@ HoldArgument("Differentiate",aFunc);
 
 
 
-%mathpiper_docs,name="Differentiate",categories="User Functions;Calculus Related (Symbolic)"
+%mathpiper_docs,name="Differentiate",categories="Mathematics Functions;Calculus Related (Symbolic)"
 *CMD Differentiate --- take derivative of expression with respect to variable
 *STD
 *CALL

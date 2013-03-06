@@ -71,7 +71,7 @@ public class ConcatenateStrings extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="ConcatStrings",categories="User Functions;String Manipulation;Built In"
+%mathpiper_docs,name="ConcatStrings",categories="Programming Functions;String Manipulation;Built In"
 *CMD ConcatStrings --- concatenate strings
 *CORE
 *CALL

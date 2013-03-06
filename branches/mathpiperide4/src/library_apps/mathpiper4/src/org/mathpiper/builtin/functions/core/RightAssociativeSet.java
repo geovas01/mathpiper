@@ -54,7 +54,7 @@ public class RightAssociativeSet extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="RightAssociativeSet",categories="Programmer Functions;Programming;Built In"
+%mathpiper_docs,name="RightAssociativeSet",categories="Programming Functions;Miscellaneous;Built In"
 *CMD RightAssociativeSet --- declare associativity
 *CORE
 *CALL

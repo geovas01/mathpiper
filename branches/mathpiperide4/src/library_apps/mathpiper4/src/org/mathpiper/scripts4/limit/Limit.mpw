@@ -322,7 +322,7 @@ UnFence("Limit",3);
 
 
 
-%mathpiper_docs,name="Limit",categories="User Functions;Calculus Related (Symbolic)"
+%mathpiper_docs,name="Limit",categories="Mathematics Functions;Calculus Related (Symbolic)"
 *CMD Limit --- limit of an expression
 *STD
 *CALL

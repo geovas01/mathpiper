@@ -58,7 +58,7 @@ public class StackTrace extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="StackTrace",categories="Programmer Functions;Built In;Debugging",access="experimental"
+%mathpiper_docs,name="StackTrace",categories="Programming Functions;Built In;Debugging",access="experimental"
 *CMD StackTrace --- shows the current state of the user function stack and the built in function stack
 *CALL
     StackTrace()

@@ -25,7 +25,7 @@
 
 %/mathpiper
 
-%mathpiper_docs,name="SumOfTerms?",categories="User Functions;Predicates"
+%mathpiper_docs,name="SumOfTerms?",categories="Programming Functions;Predicates"
 *CMD SumOfTerms? --- check for expression being a sum of terms in variable
 
 *STD

@@ -71,7 +71,7 @@ public class MacroExpand extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="MacroExpand",categories="Programmer Functions;Built In;Programming",access="experimental"
+%mathpiper_docs,name="MacroExpand",categories="Programming Functions;Built In;Programming",access="experimental"
 *CMD MacroExpand --- shows the expanded form of a macro
 *CALL
     MacroExpand() macro

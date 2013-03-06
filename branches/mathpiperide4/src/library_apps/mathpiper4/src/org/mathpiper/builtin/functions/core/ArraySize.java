@@ -58,7 +58,7 @@ public class ArraySize extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="ArraySize",categories="Programmer Functions;Native Objects;Built In"
+%mathpiper_docs,name="ArraySize",categories="Programming Functions;Native Objects;Built In"
 *CMD ArraySize --- get array size
 *CORE
 *CALL

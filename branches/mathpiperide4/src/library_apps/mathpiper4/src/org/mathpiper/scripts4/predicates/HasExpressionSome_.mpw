@@ -19,7 +19,7 @@ HasExpressionSome?(_expr, _atom, _looklist) _ Equal?(expr, atom) <-- True;
 
 
 
-%mathpiper_docs,name="HasExpressionSome?",categories="User Functions;Predicates"
+%mathpiper_docs,name="HasExpressionSome?",categories="Programming Functions;Predicates"
 *CMD HasExpressionSome? --- check for expression containing a subexpression
 *STD
 *CALL

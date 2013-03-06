@@ -19,7 +19,7 @@
 
    
 
-%mathpiper_docs,def="npTerms",categories="User Functions;Polynomials"
+%mathpiper_docs,def="npTerms",categories="Mathematics Functions;Polynomials"
 *CMD npTerms --- Given a NewPolynomial, returns the list of term representations
 *CALL
         npTerms(newPoly)
@@ -43,7 +43,7 @@ Result: [[2,1,2,0],[-3,0,1,1]]
 %/mathpiper_docs
    
 
-%mathpiper_docs,def="npNumTerms",categories="User Functions;Polynomials"
+%mathpiper_docs,def="npNumTerms",categories="Mathematics Functions;Polynomials"
 *CMD npNumTerms --- Given a NewPolynomial, returns the number of terms
 *CALL
         npNumTerms(newPoly)
@@ -66,7 +66,7 @@ Result: 2
 %/mathpiper_docs
    
 
-%mathpiper_docs,def="NP?",categories="User Functions;Polynomials"
+%mathpiper_docs,def="NP?",categories="Mathematics Functions;Polynomials"
 *CMD NP? --- Retruns True if input is a NewPolynomial, False otherwise
 *CALL
         NP?(input)

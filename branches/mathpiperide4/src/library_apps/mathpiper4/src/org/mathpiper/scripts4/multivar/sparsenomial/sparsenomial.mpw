@@ -164,7 +164,7 @@ MultiTermLess([_deg1,_fact1],[_deg2,_fact2]) <--
 
 
 
-%mathpiper_docs,name="NormalForm",categories="User Functions;Polynomials (Operations)"
+%mathpiper_docs,name="NormalForm",categories="Mathematics Functions;Polynomials (Operations)"
 *CMD NormalForm --- return expression in normal form
 *STD
 *CALL

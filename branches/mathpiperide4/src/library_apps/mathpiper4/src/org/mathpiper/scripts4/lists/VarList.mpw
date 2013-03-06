@@ -12,7 +12,7 @@ Function("VarList",[expr,filter])
 
 
 
-%mathpiper_docs,name="VarList",categories="User Functions;Lists (Operations)"
+%mathpiper_docs,name="VarList",categories="Programming Functions;Lists (Operations)"
 *CMD VarList --- list of variables appearing in an expression (without duplicates)
 *STD
 *CALL

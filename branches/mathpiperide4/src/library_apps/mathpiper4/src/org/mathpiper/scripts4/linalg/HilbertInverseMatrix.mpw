@@ -7,7 +7,7 @@ HilbertInverseMatrix(n):=BuildMatrix([[i,j],
 
 
 
-%mathpiper_docs,name="HilbertInverseMatrix",categories="User Functions;Matrices (Special)"
+%mathpiper_docs,name="HilbertInverseMatrix",categories="Mathematics Functions;Matrices (Special)"
 *CMD HilbertInverseMatrix --- create a Hilbert inverse matrix
 *STD
 *CALL

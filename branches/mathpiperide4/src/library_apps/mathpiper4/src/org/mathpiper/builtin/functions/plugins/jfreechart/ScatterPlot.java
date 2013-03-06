@@ -125,7 +125,7 @@ public class ScatterPlot extends BuiltinFunction {
 
 
 /*
-%mathpiper_docs,name="ScatterPlot",categories="User Functions;Visualization"
+%mathpiper_docs,name="ScatterPlot",categories="Mathematics Functions;Visualization"
 *CMD ScatterPlot --- displays a graphic scatter plot
 *CORE
 *CALL

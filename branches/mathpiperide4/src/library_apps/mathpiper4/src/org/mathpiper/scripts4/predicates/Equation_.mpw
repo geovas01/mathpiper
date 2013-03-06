@@ -11,7 +11,7 @@
 
 
 
-%mathpiper_docs,name="Equation?",categories="User Functions;Predicates"
+%mathpiper_docs,name="Equation?",categories="Programming Functions;Predicates"
 
 *CMD Equation? --- Return true if [expr] is an Equation False otherwise
 

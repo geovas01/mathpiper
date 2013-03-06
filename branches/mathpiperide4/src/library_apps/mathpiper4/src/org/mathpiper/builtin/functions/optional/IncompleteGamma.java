@@ -41,7 +41,7 @@ public class IncompleteGamma extends BuiltinFunction{
 
 
 /*
-%mathpiper_docs,name="IncompleteGamma",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="IncompleteGamma",categories="Mathematics Functions;Statistics & Probability"
 *CMD IncompleteGamma --- the incomplete gamma function
 *CORE
 *CALL

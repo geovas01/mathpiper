@@ -54,7 +54,7 @@ public class ShiftLeft extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="ShiftLeft",categories="User Functions;Built In"
+%mathpiper_docs,name="ShiftLeft",categories="Mathematics Functions;Built In"
 *CMD ShiftLeft --- built-in bitwise shift left operation
 *CORE
 *CALL

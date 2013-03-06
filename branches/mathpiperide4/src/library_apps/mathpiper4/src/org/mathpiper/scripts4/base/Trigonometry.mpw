@@ -29,7 +29,7 @@ Defun("Trigonometry",[x,i,sum,term])
 
 
 
-%mathpiper_docs,name="Trigonometry",categories="User Functions",access="undocumented"
+%mathpiper_docs,name="Trigonometry",categories="Mathematics Functions",access="undocumented"
 *CMD Trigonometry --- *** UNDOCUMENTED ***
 
 *CALL

@@ -15,7 +15,7 @@ Range(list) :=
 
 
 
-%mathpiper_docs,name="Range",categories="User Functions;Statistics & Probability",access="experimental"
+%mathpiper_docs,name="Range",categories="Mathematics Functions;Statistics & Probability",access="experimental"
 *CMD Range --- calculates the Range of a list of values
 *STD
 *CALL

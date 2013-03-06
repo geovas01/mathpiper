@@ -51,7 +51,7 @@ HoldArgumentNumber("VerifySolve", 2, 1);
 
 
 
-%mathpiper_docs,name="VerifySolve",categories="Programmer Functions;Testing"
+%mathpiper_docs,name="VerifySolve",categories="Programming Functions;Testing"
 *CMD VerifySolve --- verifies that one expression is mathematically equivalent to another
 *STD
 *CALL

@@ -15,7 +15,7 @@ Mean(list) :=
 
 
 
-%mathpiper_docs,name="Mean",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="Mean",categories="Mathematics Functions;Statistics & Probability"
 *CMD Mean --- calculates the mean of a list of values
 *STD
 *CALL

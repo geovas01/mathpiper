@@ -11,7 +11,7 @@ ArcCosN(x) :=
 
 
 
-%mathpiper_docs,name="ArcCosN",categories="User Functions;Numeric;Trigonometry (Numeric)"
+%mathpiper_docs,name="ArcCosN",categories="Mathematics Functions;Numeric;Trigonometry (Numeric)"
 *CMD ArcCosN --- inverse cosine (arbitrary-precision math function)
 *CALL
         ArcCosN(x)

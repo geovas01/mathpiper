@@ -28,7 +28,7 @@ StandardErrorOfTheSlope(xList,yList) :=
 
 
 
-%mathpiper_docs,name="StandardErrorOfTheSlope",categories="User Functions;Statistics & Probability",access="experimental"
+%mathpiper_docs,name="StandardErrorOfTheSlope",categories="Mathematics Functions;Statistics & Probability",access="experimental"
 *CMD StandardErrorOfTheSlope --- calculates the correlation coefficient between two lists of values
 *STD
 *CALL

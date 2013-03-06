@@ -34,7 +34,7 @@ Function("PermutationsList",[list])
 
 
 
-%mathpiper_docs,name="PermutationsList",categories="User Functions;Combinatorics"
+%mathpiper_docs,name="PermutationsList",categories="Mathematics Functions;Combinatorics"
 *CMD PermutationsList --- return all permutations of a list
 *STD
 *CALL

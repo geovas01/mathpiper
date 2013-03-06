@@ -22,7 +22,7 @@ Function("OrthogonalBasis",[W]){
 
 
 
-%mathpiper_docs,name="OrthogonalBasis",categories="User Functions;Linear Algebra"
+%mathpiper_docs,name="OrthogonalBasis",categories="Mathematics Functions;Linear Algebra"
 *CMD OrthogonalBasis --- create an orthogonal basis 
 *STD
 *CALL

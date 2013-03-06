@@ -35,7 +35,7 @@ public class Floor extends BuiltinFunction
 }//end class.
 
 /*
-%mathpiper_docs,name="FloorN",categories="User Functions;Numeric;Built In"
+%mathpiper_docs,name="FloorN",categories="Mathematics Functions;Numeric;Built In"
  *CMD FloorN --- largest integer not larger than x (arbitrary-precision math function)
  *CORE
  *CALL

@@ -8,7 +8,7 @@ Point(x,y,z) := List(x,y,z);
 
 
 
-%mathpiper_docs,name="Point",categories="User Functions;Analytic Geometry",access="experimental"
+%mathpiper_docs,name="Point",categories="Mathematics Functions;Analytic Geometry",access="experimental"
 *CMD Point --- return a list which contains a point
 *STD
 *CALL

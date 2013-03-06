@@ -61,7 +61,7 @@ public class UnFence extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="UnFence",categories="User Functions;Built In"
+%mathpiper_docs,name="UnFence",categories="Mathematics Functions;Built In"
 *CMD UnFence --- change local variable scope for a function
 *CORE
 *CALL

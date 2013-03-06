@@ -10,7 +10,7 @@ Function("Magnitude",[x]) {
 
 
 
-%mathpiper_docs,name="Magnitude",categories="User Functions",access="undocumented"
+%mathpiper_docs,name="Magnitude",categories="Mathematics Functions",access="undocumented"
 *CMD Magnitude --- *** UNDOCUMENTED ***
 
 *CALL

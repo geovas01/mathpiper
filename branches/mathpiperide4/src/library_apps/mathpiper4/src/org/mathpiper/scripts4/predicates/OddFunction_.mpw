@@ -6,7 +6,7 @@ OddFunction?(f,x):= (f =? Eval(-Substitute(x,-x)f));
 
 
 
-%mathpiper_docs,name="OddFunction?",categories="User Functions;Predicates"
+%mathpiper_docs,name="OddFunction?",categories="Programming Functions;Predicates"
 *CMD OddFunction? --- Return true if function is an odd function (False otherwise)
 
 *STD

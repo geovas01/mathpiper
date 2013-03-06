@@ -21,7 +21,7 @@ RuleHoldArguments("Defun",3,0,True)
 
 
 
-%mathpiper_docs,name="Defun",categories="Programmer Functions;Programming;Built In"
+%mathpiper_docs,name="Defun",categories="Programming Functions;Miscellaneous;Built In"
 *CMD Function --- declare or define a function
 *CALL
         Defun(function, args) body

@@ -47,7 +47,7 @@ public class DestructiveDelete extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="DestructiveDelete",categories="User Functions;Lists (Operations);Built In"
+%mathpiper_docs,name="DestructiveDelete",categories="Programming Functions;Lists (Operations);Built In"
 *CMD DestructiveDelete --- delete an element destructively from a list
 *CORE
 *CALL

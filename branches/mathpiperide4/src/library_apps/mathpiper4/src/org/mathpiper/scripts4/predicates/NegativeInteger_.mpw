@@ -6,7 +6,7 @@ NegativeInteger?(x):= Integer?(x) And? x <? 0;
 
 
 
-%mathpiper_docs,name="NegativeInteger?",categories="User Functions;Predicates"
+%mathpiper_docs,name="NegativeInteger?",categories="Programming Functions;Predicates"
 *CMD NegativeInteger? --- test for a negative integer
 *STD
 *CALL

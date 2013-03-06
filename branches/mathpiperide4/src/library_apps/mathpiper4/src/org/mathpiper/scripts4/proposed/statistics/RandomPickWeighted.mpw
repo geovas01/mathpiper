@@ -64,7 +64,7 @@ RandomPickWeighted(list) :=
 
 
 
-%mathpiper_docs,name="RandomPickWeighted",categories="User Functions;Statistics & Probability",access="experimental"
+%mathpiper_docs,name="RandomPickWeighted",categories="Mathematics Functions;Statistics & Probability",access="experimental"
 *CMD RandomPickWeighted --- randomly pick an element from a list using a given weight
 *STD
 *CALL

@@ -52,7 +52,7 @@ public class DestructiveReverse extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="DestructiveReverse",categories="User Functions;Lists (Operations);Built In"
+%mathpiper_docs,name="DestructiveReverse",categories="Programming Functions;Lists (Operations);Built In"
 *CMD DestructiveReverse --- reverse a list destructively
 *CORE
 *CALL

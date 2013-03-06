@@ -76,7 +76,7 @@ PollardRhoPolynomial(_x) <-- x^2+1;
 
 
 
-%mathpiper_docs,name="PollardRhoFactorize",categories="User Functions",access="undocumented"
+%mathpiper_docs,name="PollardRhoFactorize",categories="Mathematics Functions",access="undocumented"
 *CMD PollardRhoFactorize --- *** UNDOCUMENTED ***
 
 *CALL

@@ -8,7 +8,7 @@ NumericList?(_arglist) <-- List?(arglist) And?
 
 
 
-%mathpiper_docs,name="NumericList?",categories="User Functions;Predicates"
+%mathpiper_docs,name="NumericList?",categories="Programming Functions;Predicates"
 *CMD NumericList? --- test for a list of numbers
 *STD
 *CALL

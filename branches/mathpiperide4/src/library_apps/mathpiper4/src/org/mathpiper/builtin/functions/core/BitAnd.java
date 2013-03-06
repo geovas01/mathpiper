@@ -51,7 +51,7 @@ public class BitAnd extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="BitAnd",categories="User Functions;Built In"
+%mathpiper_docs,name="BitAnd",categories="Programming Functions;Built In"
 *CMD BitAnd --- bitwise and operation
 *CORE
 *CALL

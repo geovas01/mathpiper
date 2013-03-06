@@ -6,7 +6,7 @@ AmicablePair?(m_PositiveInteger?,n_PositiveInteger?) <-- ( ProperDivisorsSum(m)=
 
 
 
-%mathpiper_docs,name="AmicablePair?",categories="User Functions;Number Theory;Predicates"
+%mathpiper_docs,name="AmicablePair?",categories="Programming Functions;Predicates"
 *CMD AmicablePair? --- test for a pair of amicable numbers
 *STD
 *CALL

@@ -59,7 +59,7 @@ public class Secure extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Secure",categories="User Functions;Built In"
+%mathpiper_docs,name="Secure",categories="Mathematics Functions;Built In"
 *CMD Secure --- guard the host OS
 *CORE
 *CALL

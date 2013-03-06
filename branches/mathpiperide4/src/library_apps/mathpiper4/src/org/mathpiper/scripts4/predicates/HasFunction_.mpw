@@ -14,7 +14,7 @@
 
 
 
-%mathpiper_docs,name="HasFunction?",categories="User Functions;Predicates"
+%mathpiper_docs,name="HasFunction?",categories="Programming Functions;Predicates"
 *CMD HasFunction? --- check for expression containing a function
 *STD
 *CALL

@@ -60,7 +60,7 @@ public class Integer_ extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Integer?",categories="User Functions;Predicates;Built In"
+%mathpiper_docs,name="Integer?",categories="Programming Functions;Predicates;Built In"
 *CMD Integer? --- test to see if a number is an integer
 *CORE
 *CALL

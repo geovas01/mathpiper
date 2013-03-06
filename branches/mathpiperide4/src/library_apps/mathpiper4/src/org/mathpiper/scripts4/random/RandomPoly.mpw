@@ -10,7 +10,7 @@ RandomPoly(_var,_degree,_coefmin,_coefmax) <--
 
 
 
-%mathpiper_docs,name="RandomPoly",categories="User Functions;Numbers (Random)"
+%mathpiper_docs,name="RandomPoly",categories="Mathematics Functions;Numbers (Random)"
 *CMD RandomPoly --- construct a random polynomial
 *STD
 *CALL

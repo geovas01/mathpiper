@@ -18,7 +18,7 @@ PollardCombineLists(_left,_right) <--
 
 
 
-%mathpiper_docs,name="PollardCombineLists",categories="User Functions",access="undocumented"
+%mathpiper_docs,name="PollardCombineLists",categories="Programming Functions",access="undocumented"
 *CMD PollardCombineLists --- *** UNDOCUMENTED ***
 
 *CALL

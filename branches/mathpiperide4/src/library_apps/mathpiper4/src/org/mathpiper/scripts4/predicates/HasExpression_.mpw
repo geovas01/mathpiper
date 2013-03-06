@@ -18,7 +18,7 @@
 
 
 
-%mathpiper_docs,name="HasExpression?",categories="User Functions;Predicates"
+%mathpiper_docs,name="HasExpression?",categories="Programming Functions;Predicates"
 *CMD HasExpression? --- check for expression containing a subexpression
 *STD
 *CALL

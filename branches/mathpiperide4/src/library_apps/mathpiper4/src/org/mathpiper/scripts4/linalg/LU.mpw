@@ -45,7 +45,7 @@
 
 
 
-%mathpiper_docs,name="LU",categories="User Functions;Linear Algebra"
+%mathpiper_docs,name="LU",categories="Mathematics Functions;Linear Algebra"
 *CMD LU --- in-place LU decomposition
 *CALL
         LU(matrix)

@@ -61,7 +61,7 @@ public class LeftPrecedenceSet extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="LeftPrecedenceSet",categories="User Functions;Built In"
+%mathpiper_docs,name="LeftPrecedenceSet",categories="Mathematics Functions;Built In"
 *CMD LeftPrecedenceSet --- set operator precedence
 *CORE
 *CALL

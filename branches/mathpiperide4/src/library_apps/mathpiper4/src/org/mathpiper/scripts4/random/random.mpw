@@ -306,7 +306,7 @@ Function("Random",[]) Random3();
 
 
 
-%mathpiper_docs,name="Random;RandomSeed",categories="User Functions;Numbers (Random)"
+%mathpiper_docs,name="Random;RandomSeed",categories="Mathematics Functions;Numbers (Random)"
 *CMD Random, RandomSeed --- (pseudo-) random number generator
 *STD
 *CALL
@@ -332,7 +332,7 @@ Each seed value will result in the same sequence of pseudo-random numbers.
 
 
 
-%mathpiper_docs,name="RngCreate;RngSeed;Rng",categories="User Functions;Numbers (Random)"
+%mathpiper_docs,name="RngCreate;RngSeed;Rng",categories="Mathematics Functions;Numbers (Random)"
 *CMD RngCreate --- manipulate random number generators as objects
 *CMD RngSeed --- manipulate random number generators as objects
 *CMD Rng --- manipulate random number generators as objects

@@ -13,7 +13,7 @@ UnFence("If",2);
 
 
 
-%mathpiper_docs,name="If",categories="User Functions;Control Flow"
+%mathpiper_docs,name="If",categories="Programming Functions;Control Flow"
 *CMD if --- branch point
 *STD
 *CALL

@@ -15,7 +15,7 @@ Identity(n_NonNegativeInteger?) <--
 
 
 
-%mathpiper_docs,name="Identity",categories="User Functions;Linear Algebra"
+%mathpiper_docs,name="Identity",categories="Mathematics Functions;Linear Algebra"
 *CMD Identity --- make identity matrix
 *STD
 *CALL

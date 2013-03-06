@@ -106,7 +106,7 @@ ChiSquareScoreToAlpha(score, degreesOfFreedom) :=
 
 
 
-%mathpiper_docs,name="ChiSquareScoreToAlpha",categories="User Functions;Statistics & Probability",access="experimental"
+%mathpiper_docs,name="ChiSquareScoreToAlpha",categories="Mathematics Functions;Statistics & Probability",access="experimental"
 *CMD ChiSquareScoreToAlpha --- calculates the alpha probability of a chi square score
 *STD
 *CALL

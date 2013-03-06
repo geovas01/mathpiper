@@ -14,7 +14,7 @@ HoldArgument("MapArgs",oper);
 
 
 
-%mathpiper_docs,name="MapArgs",categories="User Functions;Control Flow"
+%mathpiper_docs,name="MapArgs",categories="Programming Functions;Control Flow"
 *CMD MapArgs --- apply a function to all top-level arguments
 *STD
 *CALL

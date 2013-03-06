@@ -49,7 +49,7 @@ public class Number_ extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Number?",categories="User Functions;Predicates;Built In"
+%mathpiper_docs,name="Number?",categories="Programming Functions;Predicates;Built In"
 *CMD Number? --- test for a number
 *CORE
 *CALL

@@ -155,7 +155,7 @@
 
 
 
-%mathpiper_docs,name="RandomInterestingPolynomial",categories="User Functions;Numbers (Random)"
+%mathpiper_docs,name="RandomInterestingPolynomial",categories="Mathematics Functions;Numbers (Random)"
 *CMD RandomInterestingPolynomial --- construct a random "interesting" polynomial
 *CMD RandomIrreducibleQuadraticWithComplexRoots --- constructs a random quadratic polynomial with complex roots
 *CMD RandomIrreducibleQuadraticWithRealRoots --- constructs a random quadratic polynomial with real roots

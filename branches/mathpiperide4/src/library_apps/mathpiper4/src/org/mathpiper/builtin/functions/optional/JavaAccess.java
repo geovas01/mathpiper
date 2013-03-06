@@ -55,7 +55,7 @@ public class JavaAccess extends BuiltinFunction {
 
 
 /*
-%mathpiper_docs,name="JavaAccess",categories="Programmer Functions;Built In;Native Objects",access="experimental"
+%mathpiper_docs,name="JavaAccess",categories="Programming Functions;Built In;Native Objects",access="experimental"
 *CMD JavaAccess --- calls a method on a Java object and converts the result into a MathPiper data structure
 *CALL
     JavaAccess(javaObject, methodName, methodParameter1, methodParameter2, ...)

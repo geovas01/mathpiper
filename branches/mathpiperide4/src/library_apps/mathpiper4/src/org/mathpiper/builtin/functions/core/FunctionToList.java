@@ -59,7 +59,7 @@ public class FunctionToList extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="FunctionToList",categories="User Functions;Lists (Operations);Built In"
+%mathpiper_docs,name="FunctionToList",categories="Programming Functions;Lists (Operations);Built In"
 *CMD FunctionToList --- convert a function application to a list
 *CORE
 *CALL

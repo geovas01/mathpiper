@@ -20,7 +20,7 @@ Function("InProduct",[aLeft,aRight])
 
 
 
-%mathpiper_docs,name="InProduct",categories="User Functions;Linear Algebra"
+%mathpiper_docs,name="InProduct",categories="Mathematics Functions;Linear Algebra"
 *CMD InProduct --- inner product of vectors (deprecated)
 *STD
 *CALL

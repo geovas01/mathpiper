@@ -20,7 +20,7 @@
 
 
 
-%mathpiper_docs,name="Lcm",categories="User Functions;Numbers (Operations)"
+%mathpiper_docs,name="Lcm",categories="Mathematics Functions;Numbers (Operations)"
 *CMD Lcm --- least common multiple
 *STD
 *CALL

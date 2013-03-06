@@ -71,7 +71,7 @@ public class Check extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Check",categories="Programmer Functions;Error Reporting;Built In"
+%mathpiper_docs,name="Check",categories="Programming Functions;Error Reporting;Built In"
 *CMD Check --- throw an exception if a predicate expression returns False
 *CORE
 *CALL

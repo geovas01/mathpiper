@@ -49,7 +49,7 @@ public class Continue extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Continue",categories="User Functions;Control Flow;Built In"
+%mathpiper_docs,name="Continue",categories="Programming Functions;Control Flow;Built In"
 *CMD Continue --- skips executing the remainder of code in this loop iteration and begins the next iteration
 *CORE
 *CALL

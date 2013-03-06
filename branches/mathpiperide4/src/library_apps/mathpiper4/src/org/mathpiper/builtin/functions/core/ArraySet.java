@@ -69,7 +69,7 @@ public class ArraySet extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="ArraySet",categories="Programmer Functions;Native Objects;Built In"
+%mathpiper_docs,name="ArraySet",categories="Programming Functions;Native Objects;Built In"
 *CMD ArraySet --- set array element
 *CORE
 *CALL

@@ -19,7 +19,7 @@
 
 
 
-%mathpiper_docs,name="SymbolicDeterminant",categories="User Functions;Linear Algebra"
+%mathpiper_docs,name="SymbolicDeterminant",categories="Mathematics Functions;Linear Algebra"
 *CMD SymbolicDeterminant --- todo
 *CALL
         SymbolicDeterminant(matrix)

@@ -72,7 +72,7 @@ public class ApplyFast extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="ApplyFast",categories="User Functions;Functional Operators",access="private"
+%mathpiper_docs,name="ApplyFast",categories="Programming Functions;Functional Operators",access="private"
 *CMD ApplyFast --- a fast built-in version of the Apply function
 *CALL
 	ApplyFast(fn, arglist)

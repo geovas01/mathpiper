@@ -28,7 +28,7 @@
 
 
 
-%mathpiper_docs,name="StringToList",categories="User Functions;String Manipulation",access="experimental"
+%mathpiper_docs,name="StringToList",categories="Programming Functions;String Manipulation",access="experimental"
 *CMD StringToList --- converts a string into a list
 *STD
 *CALL

@@ -17,7 +17,7 @@ StandardErrorOfTheMean(sigma, sampleSize) :=
 
 
 
-%mathpiper_docs,name="StandardErrorOfTheMean",categories="User Functions;Statistics & Probability",access="experimental"
+%mathpiper_docs,name="StandardErrorOfTheMean",categories="Mathematics Functions;Statistics & Probability",access="experimental"
 *CMD StandardErrorOfTheMean --- calculates the standard error of the mean
 *STD
 *CALL

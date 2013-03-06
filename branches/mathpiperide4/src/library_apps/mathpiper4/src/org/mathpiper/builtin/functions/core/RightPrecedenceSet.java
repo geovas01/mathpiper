@@ -61,7 +61,7 @@ public class RightPrecedenceSet extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="RightPrecedenceSet",categories="User Functions;Built In"
+%mathpiper_docs,name="RightPrecedenceSet",categories="Mathematics Functions;Built In"
 *CMD RightPrecedenceSet --- set operator precedence
 *CORE
 *CALL

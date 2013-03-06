@@ -18,7 +18,7 @@
 
 
 
-%mathpiper_docs,name="FindFirst",categories="User Functions;Lists (Operations)"
+%mathpiper_docs,name="FindFirst",categories="Programming Functions;Lists (Operations)"
 *CMD Find --- get the index at which a certain element occurs first
 *STD
 *CALL

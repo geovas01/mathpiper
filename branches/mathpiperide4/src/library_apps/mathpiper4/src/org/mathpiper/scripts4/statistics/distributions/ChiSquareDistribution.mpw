@@ -9,7 +9,7 @@ ChiSquareDistribution(m_RationalOrNumber?)_(m<=?0) <-- Undefined;
 
 
 
-%mathpiper_docs,name="ChiSquareDistribution",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="ChiSquareDistribution",categories="Mathematics Functions;Statistics & Probability"
 *CMD ChiSquareDistribution --- Chi square distribution
 *STD
 *CALL

@@ -31,7 +31,7 @@
 
 
 
-%mathpiper_docs,name="ListToString",categories="User Functions;Lists (Operations)",access="experimental"
+%mathpiper_docs,name="ListToString",categories="Programming Functions;Lists (Operations)",access="experimental"
 *CMD ListToString --- converts a list into a string
 *STD
 *CALL

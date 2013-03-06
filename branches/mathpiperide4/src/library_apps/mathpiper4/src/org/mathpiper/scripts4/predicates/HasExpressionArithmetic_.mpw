@@ -9,7 +9,7 @@ HasExpressionArithmetic?(expr, atom) := HasExpressionSome?(expr, atom, [ToAtom("
 
 
 
-%mathpiper_docs,name="HasExpressionArithmetic?",categories="User Functions;Predicates"
+%mathpiper_docs,name="HasExpressionArithmetic?",categories="Programming Functions;Predicates"
 *CMD HasExpressionArithmetic? --- check for expression containing a subexpression
 *STD
 *CALL

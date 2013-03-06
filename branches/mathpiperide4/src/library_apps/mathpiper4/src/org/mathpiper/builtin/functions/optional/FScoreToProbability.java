@@ -53,7 +53,7 @@ public class FScoreToProbability extends BuiltinFunction{
 
 
 /*
-%mathpiper_docs,name="FScoreToProbability",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="FScoreToProbability",categories="Mathematics Functions;Statistics & Probability"
 *CMD FScoreToProbability --- calculates the cumulative probability for a given f-score
 
 *CALL

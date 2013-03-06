@@ -47,7 +47,7 @@ public class Constant extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Constant",categories="User Functions;Variables;Built In"
+%mathpiper_docs,name="Constant",categories="Programming Functions;Variables;Built In"
 *CMD Constant --- assignment
 *CORE
 *CALL

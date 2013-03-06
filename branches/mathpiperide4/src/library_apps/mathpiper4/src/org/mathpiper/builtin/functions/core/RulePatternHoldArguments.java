@@ -48,7 +48,7 @@ public class RulePatternHoldArguments extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="RulePatternHoldArguments",categories="Programmer Functions;Programming;Built In"
+%mathpiper_docs,name="RulePatternHoldArguments",categories="Programming Functions;Miscellaneous;Built In"
 *CMD RulePatternHoldArguments --- defines a rule which uses a pattern as its predicate
  
 *CALL

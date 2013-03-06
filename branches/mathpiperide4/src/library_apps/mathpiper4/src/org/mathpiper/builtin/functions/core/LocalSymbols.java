@@ -73,7 +73,7 @@ public class LocalSymbols extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="LocalSymbols",categories="User Functions;Variables;Built In"
+%mathpiper_docs,name="LocalSymbols",categories="Programming Functions;Variables;Built In"
 *CMD LocalSymbols --- create unique local symbols with given prefix
 *STD
 *CALL

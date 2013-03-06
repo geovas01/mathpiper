@@ -164,7 +164,7 @@ Result: 2.7182818007;
 
 
 
-%mathpiper_docs,name="SumTaylorNum",categories="User Functions;Series"
+%mathpiper_docs,name="SumTaylorNum",categories="Mathematics Functions;Series"
 *CMD SumTaylorNum --- optimized numerical evaluation of Taylor series
 *STD
 *CALL

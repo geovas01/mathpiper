@@ -47,7 +47,7 @@ public class DestructiveReplace extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="DestructiveReplace",categories="User Functions;Lists (Operations);Built In"
+%mathpiper_docs,name="DestructiveReplace",categories="Programming Functions;Lists (Operations);Built In"
 *CMD DestructiveReplace --- replace an entry destructively in a list
 
 *CORE

@@ -69,7 +69,7 @@ public class StringMidGet extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="StringMidGet",categories="User Functions;String Manipulation;Built In"
+%mathpiper_docs,name="StringMidGet",categories="Programming Functions;String Manipulation;Built In"
 *CMD StringMidGet --- retrieve a substring
 *CORE
 *CALL

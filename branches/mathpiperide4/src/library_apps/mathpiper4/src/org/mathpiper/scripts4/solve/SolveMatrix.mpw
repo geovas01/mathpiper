@@ -33,7 +33,7 @@ Function("SolveMatrix",[matrix,vector])
 
 
 
-%mathpiper_docs,name="SolveMatrix",categories="User Functions;Linear Algebra;Solvers (Symbolic)"
+%mathpiper_docs,name="SolveMatrix",categories="Mathematics Functions;Linear Algebra;Solvers (Symbolic)"
 *CMD SolveMatrix --- solve a linear system
 *STD
 *CALL

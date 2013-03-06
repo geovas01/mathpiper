@@ -143,7 +143,7 @@ CachedConstant(CacheOfConstantsN, Catalan, CatalanConstNum() );
 
 
 
-%mathpiper_docs,name="I",categories="User Functions;Constants (Mathematical);Numbers (Complex)"
+%mathpiper_docs,name="I",categories="Mathematics Functions;Constants;Numbers (Complex)"
 *CMD I --- imaginary unit
 *STD
 *CALL
@@ -167,7 +167,7 @@ Result: True;
 
 
 
-%mathpiper_docs,name="Pi",categories="User Functions;Constants (Mathematical)"
+%mathpiper_docs,name="Pi",categories="Mathematics Functions;Constants"
 *CMD Pi --- mathematical constant $pi$
 
 *STD
@@ -199,7 +199,7 @@ Result: 3.14159265358979323846;
 
 
 
-%mathpiper_docs,name="GoldenRatio",categories="User Functions;Constants (Mathematical)"
+%mathpiper_docs,name="GoldenRatio",categories="Mathematics Functions;Constants"
 *CMD GoldenRatio --- the Golden Ratio
 *STD
 *CALL
@@ -242,7 +242,7 @@ Result: 1.6180339887498948482;
 
 
 
-%mathpiper_docs,name="Catalan",categories="User Functions;Constants (Mathematical)"
+%mathpiper_docs,name="Catalan",categories="Mathematics Functions;Constants"
 *CMD Catalan --- Catalans Constant
 *STD
 *CALL
@@ -278,7 +278,7 @@ Result: 0.91596559417721901505;
 
 
 
-%mathpiper_docs,name="gamma",categories="User Functions;Constants (Mathematical)"
+%mathpiper_docs,name="gamma",categories="Mathematics Functions;Constants"
 *CMD gamma --- Eulers constant $gamma$
 *STD
 *CALL
@@ -316,7 +316,7 @@ Result: 0.57721566490153286061;
 
 
 
-%mathpiper_docs,name="CachedConstant",categories="User Functions;Constants (Mathematical)"
+%mathpiper_docs,name="CachedConstant",categories="Programming Functions;Constants"
 *CMD CachedConstant --- precompute multiple-precision constants
 *STD
 *CALL

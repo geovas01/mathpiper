@@ -54,7 +54,7 @@ public class List extends BuiltinFunction {
     }
 }
 /*
-%mathpiper_docs,name="List",categories="User Functions;Lists (Operations);Built In"
+%mathpiper_docs,name="List",categories="Programming Functions;Lists (Operations);Built In"
  *CMD List --- construct a list
  *CORE
  *CALL

@@ -71,7 +71,7 @@ assumptions := [];
 
 
 
-%mathpiper_docs,name="Assume",categories="User Functions;Solvers (Symbolic)"
+%mathpiper_docs,name="Assume",categories="Mathematics Functions;Solvers (Symbolic)"
 *CMD Assume --- a suite of functions for specifying and testing "assumptions" about unbound variables
 *STD
 *CALL

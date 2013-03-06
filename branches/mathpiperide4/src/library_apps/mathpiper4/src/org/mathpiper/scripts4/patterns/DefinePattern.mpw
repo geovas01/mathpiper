@@ -51,7 +51,7 @@ RuleHoldArguments("DefinePattern",4,10,True)
 DefinePattern(leftOperand[2],rightOperand,leftOperand[1],True);
 
 
-%mathpiper_docs,name="DefinePattern",categories="Programmer Functions;Programming;Built In"
+%mathpiper_docs,name="DefinePattern",categories="Programming Functions;Miscellaneous;Built In"
 *CMD DefinePattern --- defines a rule which uses a pattern as its predicate
 
 *CALL

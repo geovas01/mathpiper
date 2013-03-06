@@ -45,7 +45,7 @@
 
 
 
-%mathpiper_docs,name="IntLog",categories="User Functions;Numbers (Operations)"
+%mathpiper_docs,name="IntLog",categories="Mathematics Functions;Numbers (Operations)"
 *CMD IntLog --- integer part of logarithm
 *STD
 *CALL

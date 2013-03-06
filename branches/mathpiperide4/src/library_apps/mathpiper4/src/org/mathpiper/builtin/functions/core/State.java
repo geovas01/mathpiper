@@ -114,7 +114,7 @@ public class State extends BuiltinFunction {
 }// end class.
 
 /*
-%mathpiper_docs,name="State",categories="User Functions;Variables"
+%mathpiper_docs,name="State",categories="Programming Functions;Variables"
 *CMD State --- return a list which contains the names and values of the global variables
 
 *CALL 

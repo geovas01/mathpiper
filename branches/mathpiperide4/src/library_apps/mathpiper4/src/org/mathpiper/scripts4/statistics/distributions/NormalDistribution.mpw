@@ -10,7 +10,7 @@ NormalDistribution( _m , s2_RationalOrNumber?)_(s2<=?0) <-- Undefined;
 
 
 
-%mathpiper_docs,name="NormalDistribution",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="NormalDistribution",categories="Mathematics Functions;Statistics & Probability"
 *CMD NormalDistribution --- The normal distribution.
 *STD
 *CALL

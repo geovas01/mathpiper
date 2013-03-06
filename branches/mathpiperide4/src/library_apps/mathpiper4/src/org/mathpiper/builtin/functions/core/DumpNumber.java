@@ -66,7 +66,7 @@ public class DumpNumber extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="DumpNumber",categories="Programmer Functions;Numerical (Arbitrary Precision);Built In"
+%mathpiper_docs,name="DumpNumber",categories="Programming Functions;Numerical (Arbitrary Precision);Built In"
 *CMD DumpNumber --- prints the implementation details of a number
 *CORE
 *CALL

@@ -173,7 +173,7 @@ public class LatexView extends BuiltinFunction {
 
 
 /*
-%mathpiper_docs,name="LatexView",categories="User Functions;Visualization"
+%mathpiper_docs,name="LatexView",categories="Mathematics Functions;Visualization"
 *CMD LatexView --- display rendered Latex code
 
 *CALL

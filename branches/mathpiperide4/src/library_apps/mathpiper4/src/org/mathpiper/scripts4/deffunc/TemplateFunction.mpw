@@ -27,7 +27,7 @@ RuleHoldArguments("TemplateFunction",3,2047,True)
 
 
 
-%mathpiper_docs,name="TemplateFunction",categories="Programmer Functions;Programming;Built In"
+%mathpiper_docs,name="TemplateFunction",categories="Programming Functions;Miscellaneous;Built In"
 *CMD TemplateFunction --- defines a function
 *CALL
         TemplateFunction("operator",parameter)

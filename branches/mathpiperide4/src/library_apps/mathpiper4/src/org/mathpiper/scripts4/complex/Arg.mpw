@@ -13,7 +13,7 @@
 
 
 
-%mathpiper_docs,name="Arg",categories="User Functions;Numbers (Complex)"
+%mathpiper_docs,name="Arg",categories="Mathematics Functions;Numbers (Complex)"
 *CMD Arg --- argument of a complex number
 *STD
 *CALL
