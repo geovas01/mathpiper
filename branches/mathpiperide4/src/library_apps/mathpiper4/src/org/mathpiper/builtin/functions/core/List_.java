@@ -63,11 +63,11 @@ public class List_ extends BuiltinFunction
 *DESC
 
 This function tests whether "expr" is a list. A list is a sequence
-between curly braces, e.g. {{2, 3, 5}}.
+between square brackets, e.g. {[2, 3, 5]}.
 
 *E.G.
 
-In> List?({2,3,5});
+In> List?([2,3,5]);
 Result: True;
 
 In> List?(2+3+5);

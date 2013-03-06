@@ -89,7 +89,9 @@ The text "hello" is not written out to screen yet. However, evaluating
 the variable {test} forces the expression to be evaluated:
 
 In> test
-	"hello"Result: True
+Result: True
+Side Effects:
+"hello"
 
 *E.G.
 

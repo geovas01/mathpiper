@@ -89,7 +89,7 @@ Result: "This string is returned if an exception is thrown."
 
 
 /%mathpiper,title="Example of how to use ExceptionCatch and ExceptionGet in test code (long version)."
-[
+{
   Local(exception);
 
   exception := False;
@@ -98,7 +98,7 @@ Result: "This string is returned if an exception is thrown."
 
   Verify(exception, True);
 
-];
+};
 /%/mathpiper
 
     /%output,preserve="false"

@@ -74,14 +74,14 @@ public class String_ extends BuiltinFunction
 *DESC
 
 This function tests whether "expr" is a string. A string is a text
-within quotes, e.g. {"duh"}.
+within quotes, e.g. {"rock"}.
 
 *E.G.
 
-In> String?("duh");
+In> String?("rock");
 Result: True;
 
-In> String?(duh);
+In> String?(rock);
 Result: False;
 
 *SEE Atom?, Number?

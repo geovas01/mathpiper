@@ -72,6 +72,9 @@ This function substitutes every occurrence of "from" in "expr" by
 "to". This is a syntactical substitution: only places where "from"
 occurs as a subexpression are affected.
 
+Below, the explanation for the last result is that the expression {a+b+c} is internally 
+stored as {(a+b)+c}. Hence {a+b} is a subexpression, but {b+c} is not.
+
 *E.G.
 
 In> Substitute(x, Sin(y)) x^2+x+1;
@@ -82,8 +85,6 @@ Result: x+c;
 
 In> Substitute(b+c, x) a+b+c;
 Result: a+b+c;
-
-The explanation for the last result is that the expression {a+b+c} is internally stored as {(a+b)+c}. Hence {a+b} is a subexpression, but {b+c} is not.
 
 *SEE WithValue, /:, Where
 %/mathpiper_docs

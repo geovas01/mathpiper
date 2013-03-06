@@ -74,12 +74,6 @@ functions can be used for comparing version numbers. This
 method is only guaranteed, however, if the version is always expressed
 in the form {d.d.dd} as above.
 
-*REM
-Note that on the Windows platforms the output may be different:
-
-In> Version()
-Result: "Windows-latest";
-
 *SEE LessThan?, GreaterThan
 %/mathpiper_docs
 */

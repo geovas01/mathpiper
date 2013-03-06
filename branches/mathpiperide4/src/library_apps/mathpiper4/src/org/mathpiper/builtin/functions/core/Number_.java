@@ -98,7 +98,7 @@ Result: -1
 Side Effects:
 (- 1 )
 
-In> Number?("duh");
+In> Number?("rock");
 Result: False;
 
 *SEE Atom?, String?, Integer?, Decimal?, PositiveNumber?, NegativeNumber?, Complex?

@@ -79,7 +79,7 @@ the result is the empty string {""}.
 
 *E.G.
 
-In> Type({a,b,c});
+In> Type([a,b,c]);
 Result: "List";
 
 In> Type(a*(b+c));

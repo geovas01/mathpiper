@@ -189,16 +189,14 @@ If given a plain text string, the same string is returned.
 In> XmlExplodeTag("some plain text")
 Result: "some plain text";
 
-In> XmlExplodeTag("<a name=\"blah blah\"
-	  align=\"left\">")
-Result: XmlTag("A",{{"ALIGN","left"},
-	  {"NAME","blah blah"}},"Open");
+In> XmlExplodeTag("<a name=\"blah blah\" align=\"left\">")
+Result: XmlTag("A",[["ALIGN","left"], ["NAME","blah blah"]],"Open");
 
 In> XmlExplodeTag("</p>")
-Result: XmlTag("P",{},"Close");
+Result: XmlTag("P",[],"Close");
 
 In> XmlExplodeTag("<br/>")
-Result: XmlTag("BR",{},"OpenClose");
+Result: XmlTag("BR",[],"OpenClose");
 
 *SEE XmlTokenizer
 %/mathpiper_docs

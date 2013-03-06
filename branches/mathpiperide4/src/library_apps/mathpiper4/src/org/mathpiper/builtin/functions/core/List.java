@@ -66,20 +66,20 @@ List(expr1, expr2, ...)
 
  *DESC
 
-A list is constructed whose car entry is "expr1", the second entry
+A list is constructed whose first entry is "expr1", the second entry
 is "expr2", and so on. This command is equivalent to the expression
-"{expr1, expr2, ...}".
+"[expr1, expr2, ...]".
 
  *E.G.
 
 In> List();
-Result: {};
+Result: [];
 
 In> List(a,b);
-Result: {a,b};
+Result: [a,b];
 
-In> List(a,{1,2},d);
-Result: {a,{1,2},d};
+In> List(a,[1,2],d);
+Result: [a,[1,2],d];
 
  *SEE ListToFunction, FunctionToList
 %/mathpiper_docs

@@ -70,7 +70,8 @@ list containing all the remaining arguments.
 
 A function defined using {RulebaseListedHoldArguments} will appear to have the arity equal
 to the number of parameters in the {param} list, and it can accept any number
-of arguments greater or equal than that. As a consequence, it will be impossible to define a new function with the same name and with a greater arity.
+of arguments greater or equal than that. As a consequence, it will be impossible to define a 
+new function with the same name and with a greater arity.
 
 The function body will know that the function is passed more arguments than the
 length of the {param} list, because the last argument will then be a list. The
@@ -82,12 +83,11 @@ arguments. Transformation rules can be defined for the new function as usual.
 
 The definitions
 
-	RulebaseListedHoldArguments("f",{a,b,c})
-	10 # f(_a,_b,{_c,_d}) <--
-	  Echo({"four args",a,b,c,d});
-	20 # f(_a,_b,c_List?) <--
-	  Echo({"more than four args",a,b,c});
-	30 # f(_a,_b,_c) <-- Echo({"three args",a,b,c});
+    RulebaseListedHoldArguments("f",[a,b,c]);
+    10 # f(_a,_b,[_c,_d]) <-- Echo(["four args",a,b,c,d]);
+    20 # f(_a,_b,c_List?) <-- Echo(["more than four args",a,b,c]);
+    30 # f(_a,_b,_c) <-- Echo(["three args",a,b,c]);
+	
 give the following interaction:
 
 In> f(A)
@@ -97,26 +97,29 @@ In> f(A,B)
 Result: f(A,B);
 
 In> f(A,B,C)
-	three args A B C
 Result: True;
+Side Effects:
+three args A B C
 
 In> f(A,B,C,D)
-	four args A B C D
-Result: True;
+Result: True
+Side Effects:
+four args A B C D
 
 In> f(A,B,C,D,E)
-	more than four args A B {C,D,E}
-Result: True;
+Result: True
+Side Effects:
+more than four args A B [C,D,E]
 
 In> f(A,B,C,D,E,E)
-	more than four args A B {C,D,E,E}
-Result: True;
+Result: True
+Side Effects:
+more than four args A B [C,D,E,E]
 
 The function {f} now appears to occupy all arities greater than 3:
 
 In> RulebaseHoldArguments("f", {x,y,z,t});
-	CommandLine(1) : Rule base with this arity
-	  already defined
+	CommandLine(1) : Rule base with this arity already defined
 
 
 *SEE RulebaseHoldArguments, Retract, Echo

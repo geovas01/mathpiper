@@ -82,13 +82,14 @@ example). {Write} always returns {True}.
 *E.G. notest
 
 In> Write(1);
-	1Result: True;
+Result: True
+Side Effects:
+1
 
 In> Write(1,2);
-	 1 2Result: True;
-
-Write does not write a newline, so the {Result:} prompt
-immediately follows the output of {Write}.
+Result: True
+Side Effects:
+1 2
 
 *SEE Echo, WriteString
 %/mathpiper_docs

@@ -73,17 +73,18 @@ are the arguments to this function. So the function referred to in the
 car element of "list" is applied to the other elements.
 
 Note that "list" is evaluated before the function application is
-formed, but the resulting expression is left unevaluated. The functions {ListToFunction()} and {Hold()} both stop the process of evaluation.
+formed, but the resulting expression is left unevaluated. The functions 
+{ListToFunction()} and {Hold()} both stop the process of evaluation.
 
 *E.G.
 
-In> ListToFunction({Cos, x});
+In> ListToFunction([Cos, x]);
 Result: Cos(x);
 
-In> ListToFunction({f});
+In> ListToFunction([f]);
 Result: f();
 
-In> ListToFunction({Taylor,x,0,5,Cos(x)});
+In> ListToFunction([Taylor,x,0,5,Cos(x)]);
 Result: Taylor(x,0,5)Cos(x);
 
 In> Eval(%);

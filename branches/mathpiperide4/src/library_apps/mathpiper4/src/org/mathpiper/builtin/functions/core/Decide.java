@@ -107,6 +107,7 @@ In> mysign(-2.5);
 Result: -1;
 Note that this will give incorrect results, if "x" cannot be
 numerically approximated.
+
 In> mysign(a);
 Result: -1;
 Hence a better implementation would be

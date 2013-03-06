@@ -238,7 +238,7 @@ In> ViewMath(15*x^2 * Hold(Integrate(x,0,Infinity)Exp(-x^2)));
 
 index := 1;
 
-expressionsList := {};
+expressionsList := [];
 
 While(index <= 9)
 [

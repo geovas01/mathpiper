@@ -86,8 +86,7 @@ collected in a string and this string is returned.
 
 *E.G.
 
-In> str := PipeToString() [ WriteString(  \
-	  "The square of 8 is "); Write(8^2); ];
+In> str := PipeToString() [WriteString("The square of 8 is "); Write(8^2);];
 Result: "The square of 8 is  64";
 
 *SEE PipeFromFile, PipeToString, Echo, Write, WriteString

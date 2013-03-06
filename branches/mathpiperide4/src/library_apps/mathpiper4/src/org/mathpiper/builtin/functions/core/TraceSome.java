@@ -112,8 +112,8 @@ Enter<**** user rulebase>{(Factors,Factors(p));
     Enter<**** user rulebase>{(FactorizeInt,FactorizeInt(p));
         Arg(p->8);
         **** Rule in function (FactorizeInt) matched: Precedence: 3, Parameters: arg1<hold=false>, Predicates: (Pattern) Integer?(n), True,     Variables: n,    Types: Variable, Body: [    Local(small'powers);    n:=Abs(n);    If(Gcd(ProductPrimesTo257(),n)>1,small'powers:=TrialFactorize(n,257),small'powers:={n});    n:=small'powers[1];    If(n=1,Tail(small'powers),[        If(InVerboseMode(),Echo({"FactorizeInt: Info: remaining number ",n}));        SortFactorList(PollardCombineLists(Tail(small'powers),PollardRhoFactorize(n)));]);]
-    Leave<**** user rulebase>}(FactorizeInt(p)->{{2,3}});
-Leave<**** user rulebase>}(Factors(p)->{{2,3}});
+    Leave<**** user rulebase>}(FactorizeInt(p)->[[2,3]]);
+Leave<**** user rulebase>}(Factors(p)->[[2,3]]);
 
 
 *SEE TraceExcept, StackTrace, StackTraceOn, StackTraceOff, TraceOff
