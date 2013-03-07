@@ -5,7 +5,7 @@
          version="2.5"
          xmlns="http://java.sun.com/xml/ns/javaee">
 
-  <!-- Servlets -->
+  <!-- Servlets 
   <servlet>
     <servlet-name>testServlet</servlet-name>
     <servlet-class>org.mathpiper.ui.gui.gwt.TestServiceImpl</servlet-class>
@@ -14,7 +14,7 @@
   <servlet-mapping>
     <servlet-name>testServlet</servlet-name>
     <url-pattern>/WebConsole/test</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping>--> 
   
   <!-- Default page to serve -->
   <welcome-file-list>
