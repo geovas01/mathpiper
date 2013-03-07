@@ -19,7 +19,8 @@ NumericList?(_arglist) <-- List?(arglist) And?
 {{list}} -- a list
 
 *DESC
-Returns {True} when called on a list of numbers or expressions that evaluate to numbers using {NM()}. Returns {False} otherwise.
+Returns {True} when called on a list of numbers or expressions that evaluate 
+to numbers using {NM()}. Returns {False} otherwise.
 
 *SEE NM, Number?
 %/mathpiper_docs

@@ -37,7 +37,7 @@ This function converts a list of options in the form of {name: value, name: valu
 into an associative list.
 
 *E.G.
-In> OptionsToAssociativeList([a : 1, b: 2])
+In> OptionsToAssociativeList([a: 1, b: 2])
 Result> [["b",2],["a",1]]
 
 %/mathpiper_docs

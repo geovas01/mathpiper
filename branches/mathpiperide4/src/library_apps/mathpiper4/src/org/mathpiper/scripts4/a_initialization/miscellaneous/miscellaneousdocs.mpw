@@ -21,7 +21,8 @@ If there is no currently running calculation, {Ctrl-C} will quit the interpreter
 When the interpreter quits, it saves the command history
 (so quitting by {Ctrl-C} does not mean a "crash").
 
-This command is not a function but a special directive that only applies while running MathPiper interactively.  It should not be used in scripts.
+This command is not a function but a special directive that only applies while running 
+MathPiper interactively.  It should not be used in scripts.
 
 *E.G.
 

@@ -54,12 +54,14 @@ the execution of the program.
 
 The error object consists of the string {"str"} and an arbitrary
 expression {expr}. The string should be used to classify the kind of error that
-has occurred, for example "domain" or "format". The error object can be any expression that might be useful for handling the error later;
+has occurred, for example "domain" or "format". The error object can be any 
+expression that might be useful for handling the error later;
 for example, a list of erroneous values and explanations.
 The association list of error objects is currently obtainable through
 the function {GetErrorTableau()}.
 
-If the parameter {expr} is missing, {Assert} substitutes {True}. If both optional parameters {"str"} and {expr} are missing, {Assert} creates an error of class {"generic"}.
+If the parameter {expr} is missing, {Assert} substitutes {True}. If both 
+optional parameters {"str"} and {expr} are missing, {Assert} creates an error of class {"generic"}.
 
 Errors can be handled by a
 custom error handler in the portion of the code that is able to handle a certain class of

@@ -76,13 +76,17 @@
 
 *DESC
 
-{Modulo} returns the remainder after division.  {Modulo} is also defined for univariate polynomials.
+{Modulo} returns the remainder after division.  {Modulo} is 
+also defined for univariate polynomials.
 
-If {Quotient(x,y)} returns "a" and {Modulo(x,y)} equals "b", then these numbers satisfy $x =a*y + b$ and $0 <= b < y$.
+If {Quotient(x,y)} returns "a" and {Modulo(x,y)} equals "b", 
+then these numbers satisfy $x =a*y + b$ and $0 <= b < y$.
 
-The second form of the function contains a third parameter, and is used in the special case where the 
-the "divisor" polynomial contains an unbound "variable" which is really just a parameter.  
-In that situation, MathPiper cannot distinguish the variable from the parameter, until you
+The second form of the function contains a third parameter, 
+and is used in the special case where the  the "divisor" 
+polynomial contains an unbound "variable" which is really 
+just a parameter.   In that situation, MathPiper cannot 
+distinguish the variable from the parameter, until you
 specifically name the variable.  See the example below.
 
 *E.G.

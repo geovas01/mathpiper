@@ -36,14 +36,16 @@ The first prime numbers are 2, 3, 5, ...
 
 The function {IsShortPrime} only works for numbers $n<=65537$ but it is very fast.
 
-The function {Prime?} operates on all numbers and uses different algorithms depending on the magnitude of the number $n$.
-For small numbers $n<=65537$, a constant-time table lookup is performed.
-(The function {IsShortPrime} is used for that.)
-For numbers $n$ between $65537$ and $34155071728321$, the function uses the Rabin-Miller test together with table lookups to guarantee correct results.
+The function {Prime?} operates on all numbers and uses different algorithms 
+depending on the magnitude of the number $n$.For small numbers $n<=65537$, 
+a constant-time table lookup is performed.(The function {IsShortPrime} is used 
+for that.)For numbers $n$ between $65537$ and $34155071728321$, the function 
+uses the Rabin-Miller test together with table lookups to guarantee correct results.
 
 For even larger numbers a version of the probabilistic Rabin-Miller test is executed.
-The test can sometimes mistakenly mark a number as prime while it is in fact composite, but a prime number will never be mistakenly declared composite.
-The parameters of the test are such that the probability for a false result is less than $10^{-24}$.
+The test can sometimes mistakenly mark a number as prime while it is in fact composite, 
+but a prime number will never be mistakenly declared composite. The parameters of the 
+test are such that the probability for a false result is less than $10^{-24}$.
 
 *E.G.
 

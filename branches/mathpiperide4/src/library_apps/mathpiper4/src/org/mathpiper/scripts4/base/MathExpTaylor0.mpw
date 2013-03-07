@@ -45,9 +45,10 @@ Defun("MathExpTaylor0",[x])
 {x} -- a real number, where $0 {\leq} x {\leq} 1$  
 
 *DESC
-    MathExpTaylor0 gives a decimal approximation of $e^{x}$ which is obtained by using a partial sum of the Taylor series expansion
-    around zero: $1 + x + \frac{x^2}{2!} + \frac{x^3}{3!}{\cdots} = \sum_{n=0}^{\infty}\frac{x^n}{n!} $. The number of terms used in the partial sum is determined by the
-    built-in precision setting.
+    MathExpTaylor0 gives a decimal approximation of $e^{x}$ which is obtained by using 
+    a partial sum of the Taylor series expansion around zero: $1 + x + \frac{x^2}{2!} + 
+    \frac{x^3}{3!}{\cdots} = \sum_{n=0}^{\infty}\frac{x^n}{n!} $. The number of terms 
+    used in the partial sum is determined by the built-in precision setting.
 
 *E.G.
 In> MathExpTaylor0(0)

@@ -272,11 +272,13 @@ Output can be directed to a plotting program (the default is to use
 
 The function parameter {f(x)} must evaluate to a MathPiper expression containing
 at most one variable. (The variable does not have to be called {x}.)
-Also, {NM(f(x))} must evaluate to a real (not complex) numerical value when given a numerical value of the argument {x}.
-If the function {f(x)} does not satisfy these requirements, an error is raised.
+Also, {NM(f(x))} must evaluate to a real (not complex) numerical value when 
+given a numerical value of the argument {x}. If the function {f(x)} does not 
+satisfy these requirements, an error is raised.
 
-Several functions may be specified as a list and they do not have to depend on the same variable, for example, {{f(x), g(y)}}.
-The functions will be plotted on the same graph using the same coordinate ranges.
+Several functions may be specified as a list and they do not have to depend on 
+the same variable, for example, {{f(x), g(y)}}. The functions will be plotted 
+on the same graph using the same coordinate ranges.
 
 If you have defined a function which accepts a number but does not
 accept an undefined variable, {Plot2D} will fail to plot it.
@@ -286,8 +288,9 @@ Data files are created in a temporary directory {/tmp/plot.tmp/} unless otherwis
 File names
 and other information is printed if {InVerboseMode()} returns {True} on using {V()}.
 
-The current algorithm uses Newton-Cotes quadratures and some heuristics for error estimation (see <*mathpiperdoc://Algo/3/1/*>).
-The initial grid of {points+1} points is refined between any grid points $a$, $b$ if the integral
+The current algorithm uses Newton-Cotes quadratures and some heuristics for error 
+estimation (see <*mathpiperdoc://Algo/3/1/*>). The initial grid of {points+1} 
+points is refined between any grid points $a$, $b$ if the integral
 $Integrate(x,a,b)f(x)$ is not approximated to the given precision by
 the existing grid.
 
@@ -295,7 +298,8 @@ Options are of the form {option: value}. Currently supported option names
 are: "points", "precision", "depth", "output", "filename", "yrange". Option values
 are either numbers or special unevaluated atoms such as {data}.
 If you need to use the names of these atoms
-in your script, strings can be used. Several option/value pairs may be specified (the function {Plot2D} has a variable number of arguments).
+in your script, strings can be used. Several option/value pairs may be specified 
+(the function {Plot2D} has a variable number of arguments).
 
 *        {yrange}: the range of ordinates to use for plotting, e.g.
 {yrange=0->20}. If no range is specified, the default is usually to
@@ -303,17 +307,23 @@ leave the choice to the plotting backend.
 *        {points}: initial number of points (default 23) -- at least that
 many points will be plotted. The initial grid of this many points will be
 adaptively refined. 
-*        {precision}: graphing precision (default $10^(-6)$). This is interpreted as the relative precision of computing the integral of $f(x)-Minimum(f(x))$ using the grid points. For a smooth, non-oscillating function this value should be roughly 1/(number of screen pixels in the plot).
-*        {depth}: max. refinement depth, logarithmic (default 5) -- means there will be at most $2^depth$ extra points per initial grid point.
+*        {precision}: graphing precision (default $10^(-6)$). This is 
+interpreted as the relative precision of computing the integral of 
+$f(x)-Minimum(f(x))$ using the grid points. For a smooth, non-oscillating 
+function this value should be roughly 1/(number of screen pixels in the plot).
+*        {depth}: max. refinement depth, logarithmic (default 5) -- means 
+there will be at most $2^depth$ extra points per initial grid point.
 *        {output}: name of the plotting backend. Supported names: {data} (default).
 The [data] backend will return the data as a list of pairs such as {[[x1,y1], [x2,y2], ...]}.
 *        [filename]: specify name of the created data file. For example: [filename="data1.txt"].
 The default is the name {"output.data"}.
-Note that if several functions are plotted, the data files will have a number appended to the given name, for example {data.txt1}, {data.txt2}.
+Note that if several functions are plotted, the data files will have a number 
+appended to the given name, for example {data.txt1}, {data.txt2}.
 
 Other options may be supported in the future.
 
-The current implementation can deal with a singularity within the plotting range only if the function {f(x)} returns {Infinity}, {-Infinity} or
+The current implementation can deal with a singularity within the plotting range 
+only if the function {f(x)} returns {Infinity}, {-Infinity} or
 {Undefined} at the singularity.
 If the function {f(x)} generates a numerical error and fails at a
 singularity, {Plot2D} will fail if one of the grid points falls on the

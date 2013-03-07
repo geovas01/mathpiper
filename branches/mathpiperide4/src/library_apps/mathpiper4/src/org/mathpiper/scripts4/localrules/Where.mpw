@@ -75,7 +75,8 @@ also possible, as:
 
 These values might be obtained through {Solve}.
 
-This operator can help the user to program in the style of functional programming languages such as Miranda or Haskell.
+This operator can help the user to program in the style of functional 
+programming languages such as Miranda or Haskell.
 
 *E.G.
 In> x^2+y^2 Where x==2

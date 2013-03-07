@@ -157,7 +157,8 @@ NthRootClear();
 {NthRoot(m,n)} calculates the integer part of the $n$-th root $m^{1/n}$ and
 returns a list {[f,r]}. {f} and {r} are both positive integers
 that satisfy $f^n*r$=$m$.
-In other words, $f$ is the largest integer such that $m$ divides $f^n$ and $r$ is the remaining factor.
+In other words, $f$ is the largest integer such that $m$ divides $f^n$ and 
+$r$ is the remaining factor.
 
 For large {m} and small {n}
 {NthRoot} may work quite slowly. Every result {[f,r]} for given

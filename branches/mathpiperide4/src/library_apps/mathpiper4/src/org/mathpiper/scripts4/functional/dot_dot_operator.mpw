@@ -33,7 +33,8 @@ smaller than {n}, the empty list is returned. Note that the
 {..} operator should be surrounded by spaces to keep the
 parser happy, if "n" is a number. So one should write "{1 .. 4}" instead of "{1..4}".
 
-This operator can help the user to program in the style of functional programming languages such as Miranda or Haskell.
+This operator can help the user to program in the style of functional programming 
+languages such as Miranda or Haskell.
 
 *E.G.
 

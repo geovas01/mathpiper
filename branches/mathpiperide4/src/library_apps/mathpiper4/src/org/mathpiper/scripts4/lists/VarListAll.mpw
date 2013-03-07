@@ -54,10 +54,11 @@ VarListAll(_expr) <-- VarListAll(expr,"Variable?");
 
 *DESC
 
-The command {VarListAll(expr)} returns a list of all variables (including duplicates) that appear in the
-expression {expr}. The expression is traversed recursively.
+The command {VarListAll(expr)} returns a list of all variables (including duplicates) 
+that appear in the expression {expr}. The expression is traversed recursively.
 
-Note that since the operators "{+}" and "{-}" are prefix as well as infix operators, it is currently required to use {ToAtom("+")} to obtain the unevaluated atom "{+}".
+Note that since the operators "{+}" and "{-}" are prefix as well as infix operators, 
+it is currently required to use {ToAtom("+")} to obtain the unevaluated atom "{+}".
 
 *E.G.
 

@@ -41,7 +41,8 @@ MoebiusDivisorsList(n_PositiveInteger?) <--
 
 *DESC
 
-Returns a list of pairs of the form {{d,m}}, where {d} runs through the squarefree divisors of $n$ and $m=Moebius(d)$. 
+Returns a list of pairs of the form {{d,m}}, where {d} runs through the 
+squarefree divisors of $n$ and $m=Moebius(d)$. 
 This is more efficient than making a list of all 
 square-free divisors of $n$ and then computing {Moebius} on each of them.
 It is useful for computing the cyclotomic polynomials. 

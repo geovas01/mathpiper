@@ -47,10 +47,13 @@
 
 *DESC
 
-The command {PolynomialOverIntegers?} returns {True} if {expr} is a polynomial in {var} and all of its coefficients are integers.
-It returns {False} if {expr} is not a polynomial in {var} or if any of its coefficients are not integers.
+The command {PolynomialOverIntegers?} returns {True} if {expr} is a 
+polynomial in {var} and all of its coefficients are integers.
+It returns {False} if {expr} is not a polynomial in {var} or if any 
+of its coefficients are not integers.
 
-This can be important, since many factoring theorems are applicable to such polynomials but not others.
+This can be important, since many factoring theorems are applicable 
+to such polynomials but not others.
 
 *E.G.
 

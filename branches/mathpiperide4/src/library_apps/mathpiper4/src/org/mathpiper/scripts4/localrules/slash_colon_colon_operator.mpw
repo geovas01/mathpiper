@@ -49,7 +49,6 @@ just use /: repeatedly on the expression. The repetitive nature
 should become apparent.
 
 
-
 *E.G.
 
 In> Sin(u)*Ln(a*b) /:: [ a <- 2, b <- 3 ]

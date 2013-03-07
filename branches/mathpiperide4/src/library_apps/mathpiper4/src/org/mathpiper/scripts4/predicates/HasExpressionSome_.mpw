@@ -35,9 +35,12 @@ HasExpressionSome?(_expr, _atom, _looklist) _ Equal?(expr, atom) <-- True;
 
 *DESC
 
-The command {HasExpressionSome?} does the same as {HasExpression?}, except it only looks at arguments of a given {list} of functions. All other functions become "opaque" (as if they do not contain anything).
+The command {HasExpressionSome?} does the same as {HasExpression?}, except 
+it only looks at arguments of a given {list} of functions. All other functions 
+become "opaque" (as if they do not contain anything).
 
-Note that since the operators "{+}" and "{-}" are prefix as well as infix operators, it is currently required to use {ToAtom("+")} to obtain the unevaluated atom "{+}".
+Note that since the operators "{+}" and "{-}" are prefix as well as infix 
+operators, it is currently required to use {ToAtom("+")} to obtain the unevaluated atom "{+}".
 
 *E.G.
 

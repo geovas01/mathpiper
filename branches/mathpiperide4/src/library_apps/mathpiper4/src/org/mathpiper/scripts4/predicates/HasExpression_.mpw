@@ -34,9 +34,12 @@
 
 *DESC
 
-The command {HasExpression?} returns {True} if the expression {expr} contains a literal subexpression {x}. The expression is recursively traversed.
+The command {HasExpression?} returns {True} if the expression {expr} 
+contains a literal subexpression {x}. The expression is recursively traversed.
 
-Note that since the operators "{+}" and "{-}" are prefix as well as infix operators, it is currently required to use {ToAtom("+")} to obtain the unevaluated atom "{+}".
+Note that since the operators "{+}" and "{-}" are prefix as well as 
+infix operators, it is currently required to use {ToAtom("+")} to obtain 
+the unevaluated atom "{+}".
 
 *E.G.
 
