@@ -15,6 +15,7 @@
  *///}}}
 package org.mathpiper.ui.gui.gwt;
 
+
 import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.interpreters.EvaluationResponse;
 import org.mathpiper.interpreters.Interpreter;
@@ -23,6 +24,8 @@ import org.mathpiper.interpreters.SynchronousInterpreter;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.RepeatingCommand;
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.IFrameElement;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -31,6 +34,8 @@ import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HTML;
@@ -91,8 +96,6 @@ public class WebConsole implements EntryPoint {
 
 	public void onModuleLoad() {
 
-
-
 		// DockLayoutPanel appPanel = new DockLayoutPanel(Unit.EM);
 		// RootLayoutPanel.get().add(appPanel);
 
@@ -100,15 +103,12 @@ public class WebConsole implements EntryPoint {
 		
 
 		final RichTextArea textArea = new RichTextArea();
-		final RichTextToolbar toolBar = new RichTextToolbar(textArea);
-		// VerticalPanel vp = new VerticalPanel();
 		textArea.setWidth("100%");
-		textArea.setHeight("100%");
-
-
-		// vp.add(toolBar);
-		// vp.add(textArea);
-		hp.setHeaderWidget(toolBar);
+		textArea.setHeight("100%"); 
+		
+		//Toolbar
+		//final RichTextToolbar toolBar = new RichTextToolbar(textArea);
+		//hp.setHeaderWidget(toolBar);
 		
 
 		// RootPanel.get("target").add(vp);
@@ -118,9 +118,11 @@ public class WebConsole implements EntryPoint {
 
 		// inputBox.setMaxLength(80);
 		// inputBox.setVisibleLength(80);
-		final TextArea inputArea = new TextArea();
+		final RichTextArea inputArea = new RichTextArea();
 		inputArea.setWidth("100%");
-		inputArea.setVisibleLines(12);
+		//inputArea.getFormatter().setFontSize(RichTextArea.FontSize.MEDIUM);
+		
+
 		
 		
 		String welcomeMessage = "//MathPiper version " + org.mathpiper.Version.version() + 
@@ -187,7 +189,7 @@ public class WebConsole implements EntryPoint {
 				if (evaluationResponse.isExceptionThrown())
 				{
 
-					Exception exception = evaluationResponse.getException();
+					Throwable exception = evaluationResponse.getException();
 
 					if (exception instanceof org.mathpiper.exceptions.EvaluationException) {
 						EvaluationException evaluationException = (org.mathpiper.exceptions.EvaluationException) exception;
@@ -215,10 +217,10 @@ public class WebConsole implements EntryPoint {
 					if (!evaluationResponse.getSideEffects().equalsIgnoreCase(
 							"")) {
 						result = "<FONT COLOR=\"0000FF\">Result: </FONT>" + errorResult 
-								+ "<br /><br /><FONT COLOR=\"008200\">Side Effects:</FONT><br />"
+								+ "<br /><FONT COLOR=\"008200\">Side Effects:</FONT><br />"
 								+ evaluationResponse.getSideEffects().replace("\n", "<br />\n ");
 					} else {
-						result = "<FONT COLOR=\"0000FF\">Result: " + errorResult + "</FONT>";
+						result = "<FONT COLOR=\"0000FF\">Result: " + errorResult + "</FONT>" + "<br />\n";
 					}
 
 				}
@@ -226,18 +228,22 @@ public class WebConsole implements EntryPoint {
 				else if (!evaluationResponse.getSideEffects().equalsIgnoreCase(
 						"")) {
 					result = "<FONT COLOR=\"0000FF\">Result: </FONT>" + evaluationResponse.getResult()
-							+ "<br />\n <br />\n <FONT COLOR=\"008200\">Side Effects:</FONT><br />\n "
-							+ evaluationResponse.getSideEffects().replace("\n", "<br />\n ");
+							+ "<br />\n  <FONT COLOR=\"008200\">Side Effects:</FONT><br />\n "
+							+ evaluationResponse.getSideEffects();
 				} else {
 					result = "<FONT COLOR=\"0000FF\">Result: </FONT>" + result;
 				}
 				
-				result = result + "<br />\n <br />\n <br />\n ";
+				result = result + "<br />\n <br />\n  ";
 
 				textArea.getFormatter().insertHTML(result);
 				
+				//Scroll to bottom of the text area.
+				IFrameElement iframe = IFrameElement.as(textArea.getElement());
+                                Document document = iframe.getContentDocument();
+                                document.setScrollTop(document.getScrollHeight());
+				
 				inputArea.setFocus(true);
-				int xx = 3;
 			}
 
 		}// end class
@@ -247,6 +253,9 @@ public class WebConsole implements EntryPoint {
 		inputArea.addKeyDownHandler(handler);
 		
 		initializeCAS();
+		
+		inputArea.setFocus(true);
+		
 
 	}// end method.
 }// end class.
