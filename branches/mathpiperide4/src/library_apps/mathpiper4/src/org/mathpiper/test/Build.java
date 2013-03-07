@@ -328,7 +328,7 @@ public class Build {
         String mpwFilePath = mpwFile.getAbsolutePath();
         mpwFilePath = mpwFilePath.substring(mpwFilePath.indexOf(File.separator + "org" + File.separator + "mathpiper" + File.separator)); //"/org/mathpiper/";
 
-        List<Fold> folds = MPWSFile.scanSourceFile(new FileInputStream(mpwFile));
+        List<Fold> folds = MPWSFile.scanSourceFile(mpwFile.getPath(), new FileInputStream(mpwFile));
 
         boolean hasDocs = false;
 
@@ -877,7 +877,7 @@ public class Build {
 
                 this.documentedFunctionsCount++;
 
-                List<Fold> folds = MPWSFile.scanSourceFile(new FileInputStream(javaFile));
+                List<Fold> folds = MPWSFile.scanSourceFile(javaFile.getPath(), new FileInputStream(javaFile));
 
                 boolean hasDocs = false;
 

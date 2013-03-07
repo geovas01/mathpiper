@@ -38,12 +38,12 @@ public class MPWSFile {
 	}
 	
 	
-	public static Map getFoldsMap(InputStream inputStream) throws Throwable
+	public static Map getFoldsMap(String sourceName, InputStream inputStream) throws Throwable
 	{
 		
 		Map<String,Fold> namedFolds = new HashMap();
 		
-		List<Fold> folds = scanSourceFile(inputStream);
+		List<Fold> folds = scanSourceFile(sourceName, inputStream);
 		
 		for(Fold fold:folds)
 		{
@@ -68,13 +68,14 @@ public class MPWSFile {
 	
 	
 	
-    public static List scanSourceFile(InputStream inputStream) throws Throwable {
+    public static List scanSourceFile(String sourceName, InputStream inputStream) throws Throwable {
 
         //Uncomment for debugging.
         /*
         if (getFileName.equals("Factors.mpw")) {
         int xxx = 1;
         }//end if.*/
+	
 
         List<Fold> folds = new ArrayList();
         StringBuilder foldContents = new StringBuilder();
@@ -108,7 +109,7 @@ public class MPWSFile {
 	        {
 	            	        
                     if (inFold == false) {
-                        throw new Exception("Opening fold tag missing on line " + lineCounter);
+                        throw new Exception("Opening fold tag missing in file " + sourceName + " on line " + lineCounter);
                     }
         
                     Fold fold = new Fold(startLineNumber, foldHeader, foldContents.toString());
@@ -121,7 +122,7 @@ public class MPWSFile {
             } else if (line.trim().startsWith("%") && line.trim().length() > 2 && line.trim().charAt(1) != ' ') {
         	
                 if (inFold == true) {
-                    throw new Exception("Closing fold tag missing on line " + lineCounter);
+                    throw new Exception("Closing fold tag missing in file " + sourceName + " on line " + lineCounter);
                 }
 
                 startLineNumber = lineCounter;
@@ -135,7 +136,7 @@ public class MPWSFile {
         }//end while.
 
         if (inFold == true) {
-            throw new Exception("Opening or closing fold tag missing on line " + lineCounter);
+            throw new Exception("Opening or closing fold tag missing in file " + sourceName + " on line " + lineCounter);
         }
 
         //Close the input stream
@@ -154,7 +155,7 @@ public class MPWSFile {
     	
     	try
     	{
-    		List<Fold> folds = scanSourceFile(new FileInputStream(mpwFile));
+    		List<Fold> folds = scanSourceFile(mpwFile.getPath(), new FileInputStream(mpwFile));
     		
     		for(Fold fold:folds)
     		{
