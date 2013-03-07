@@ -56,7 +56,8 @@ Passing this set of set of identities back to solve, solve
 should recognize that the second one is not a possibility
 any more, since a==2 And? a<?0 can never be true at the same time.
 
-This operator can help the user to program in the style of functional programming languages such as Miranda or Haskell.
+This operator can help the user to program in the style of functional 
+programming languages such as Miranda or Haskell.
 
 *E.G.
 

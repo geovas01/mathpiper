@@ -23,8 +23,10 @@ PositiveReal?(_r) <--
 
 *DESC
 
-This function tries to approximate "expr" numerically. It returns {True} if this approximation is positive. In case no
-approximation can be found, the function returns {False}. Note that round-off errors may cause incorrect
+This function tries to approximate "expr" numerically. It returns 
+{True} if this approximation is positive. In case no approximation 
+can be found, the function returns {False}. Note that round-off 
+errors may cause incorrect
 results.
 
 *E.G.

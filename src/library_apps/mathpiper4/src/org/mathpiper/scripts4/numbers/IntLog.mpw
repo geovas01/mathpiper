@@ -57,8 +57,10 @@
 
 *DESC
 
-{IntLog} calculates the integer part of the logarithm of {n} in base {base}. The algorithm uses only integer 
-math and may be faster than computing $$Ln(n)/Ln(base)$$ with multiple precision floating-point math and rounding off to get the integer part.
+{IntLog} calculates the integer part of the logarithm of {n} 
+in base {base}. The algorithm uses only integer  math and may 
+be faster than computing $$Ln(n)/Ln(base)$$ with multiple 
+precision floating-point math and rounding off to get the integer part.
 
 This function can also be used to quickly count the digits in a given number.
 

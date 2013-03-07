@@ -343,10 +343,12 @@ Output can be directed to a plotting program (the default is to use
 
 The function parameter {f(x,y)} must evaluate to a MathPiper expression containing
 at most two variables. (The variables do not have to be called {x} and {y}.)
-Also, {NM(f(x,y))} must evaluate to a real (not complex) numerical value when given numerical values of the arguments {x}, {y}.
+Also, {NM(f(x,y))} must evaluate to a real (not complex) numerical value when given 
+numerical values of the arguments {x}, {y}.
 If the function {f(x,y)} does not satisfy these requirements, an error is raised.
 
-Several functions may be specified as a list but they have to depend on the same symbolic variables, for example, {[f(x,y), g(y,x)]}, but not {[f(x,y), g(a,b)]}.
+Several functions may be specified as a list but they have to depend on the same 
+symbolic variables, for example, {[f(x,y), g(y,x)]}, but not {[f(x,y), g(a,b)]}.
 The functions will be plotted on the same graph using the same coordinate ranges.
 
 If you have defined a function which accepts a number but does not
@@ -357,18 +359,23 @@ Data files are created in a temporary directory {/tmp/plot.tmp/} unless otherwis
 File names
 and other information is printed if {InVerboseMode()} returns {True} on using {V()}.
 
-The current algorithm uses Newton-Cotes cubatures and some heuristics for error estimation (see <*mathpiperdoc://Algo/3/1/*>).
-The initial rectangular grid of {xpoints+1}*{ypoints+1} points is refined within any rectangle where the integral
+The current algorithm uses Newton-Cotes cubatures and some heuristics for error 
+estimation (see <*mathpiperdoc://Algo/3/1/*>).
+The initial rectangular grid of {xpoints+1}*{ypoints+1} points is refined within any 
+rectangle where the integral
 of $f(x,y)$ is not approximated to the given precision by
 the existing grid.
 
 Options are of the form {option: value}. Currently supported option names
-are "points", "xpoints", "ypoints", "precision", "depth", "output", "filename", "xrange", "yrange", "zrange". Option values
+are "points", "xpoints", "ypoints", "precision", "depth", "output", "filename", "xrange", 
+"yrange", "zrange". Option values
 are either numbers or special unevaluated atoms such as {data}.
 If you need to use the names of these atoms
-in your script, strings can be used (e.g. {output="data"}). Several option/value pairs may be specified (the function {Plot3DS} has a variable number of arguments).
+in your script, strings can be used (e.g. {output="data"}). Several option/value pairs 
+may be specified (the function {Plot3DS} has a variable number of arguments).
 
-*        {xrange}, {yrange}: optionally override coordinate ranges. Note that {xrange} is always the first variable and {yrange} the second variable, regardless of the actual variable names.
+*        {xrange}, {yrange}: optionally override coordinate ranges. Note that {xrange} 
+is always the first variable and {yrange} the second variable, regardless of the actual variable names.
 *        {zrange}: the range of the $z$ axis to use for plotting, e.g.
 {zrange=0->20}. If no range is specified, the default is usually to
 leave the choice to the plotting backend. Automatic choice based on actual values may

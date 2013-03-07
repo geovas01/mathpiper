@@ -46,9 +46,13 @@ ContFracEval(list_List?) <-- ContFracEval(list, 0);
 *DESC
 
 The function {ContFracList} computes terms of the continued fraction
-representation of a rational number {frac}.  It returns a list of terms of length {depth}. If {depth} is not specified, it returns all terms.
+representation of a rational number {frac}.  It returns a list of terms 
+of length {depth}. If {depth} is not specified, it returns all terms.
 
-The function {ContFracEval} converts a list of coefficients into a continued fraction expression. The optional parameter {rest} specifies the symbol to put at the end of the expansion. If it is not given, the result is the same as if {rest=0}.
+The function {ContFracEval} converts a list of coefficients into a 
+continued fraction expression. The optional parameter {rest} specifies 
+the symbol to put at the end of the expansion. If it is not given, the 
+result is the same as if {rest=0}.
 
 *E.G.
 

@@ -211,7 +211,8 @@ These functions compute the "golden ratio"
 $$phi <=> 1.6180339887 <=> (1+Sqrt(5))/2 $$.
 
 The ancient Greeks defined the "golden ratio" as follows:
-If one divides a length 1 into two pieces $x$ and $1-x$, such that the ratio of 1 to $x$ is the same as the ratio of $x$ to $1-x$, then $1/x <=> 1.618$... is the "golden ratio".
+If one divides a length 1 into two pieces $x$ and $1-x$, such that the ratio of 1 
+to $x$ is the same as the ratio of $x$ to $1-x$, then $1/x <=> 1.618$... is the "golden ratio".
 
 
 The constant is available symbolically as {GoldenRatio} or numerically through {NM(GoldenRatio)}.

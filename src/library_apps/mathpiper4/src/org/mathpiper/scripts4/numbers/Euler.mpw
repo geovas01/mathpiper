@@ -24,7 +24,8 @@
 
 *DESC
 
-{Euler(n)} evaluates the $n$-th Euler number. {Euler(n,x)} returns the $n$-th Euler polynomial in the variable $x$.
+{Euler(n)} evaluates the $n$-th Euler number. {Euler(n,x)} returns 
+the $n$-th Euler polynomial in the variable $x$.
 
 *E.G.
 

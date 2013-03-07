@@ -630,11 +630,8 @@ point {x}.
 
 The Hermite polynomials are orthogonal with respect to the weight
 function $Exp(-x^2/2)$ on the entire real axis. They satisfy the
-recurrence relation
-$$ H(n,x) = 2*x*H(n-1,x) - 2*(n-1)*H(n-2,x) $$
-for $n > 1$, with
-$H(0,x) = 1$,
-$H(1,x) = 2*x$.
+recurrence relation $$ H(n,x) = 2*x*H(n-1,x) - 2*(n-1)*H(n-2,x) $$
+for $n > 1$, with $H(0,x) = 1$, $H(1,x) = 2*x$.
 
 Most of the work is performed by the internal function {OrthoPoly}.
 

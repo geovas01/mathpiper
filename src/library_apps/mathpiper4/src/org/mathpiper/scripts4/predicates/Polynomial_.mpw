@@ -47,8 +47,8 @@ The command {Polynomial?} returns {True} if {expr} is (or could be) a polynomial
 If {var} is not specified, a heuristic algorithm (which may be wrong!) is used to select a
 likely variable name from among the list of "variables" returned by VarList(expr).
 If you would rather not have an algorithm selecting the variable name, specify it as an
-argument to the function.
-It returns {False} if {expr} is not likely to be a polynomial in {var}.
+argument to the function. It returns {False} if {expr} is not likely to be a polynomial 
+in {var}.
 
 *E.G.
 

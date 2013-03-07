@@ -202,10 +202,11 @@ returned, and each result is a list containing the values of the
 variables in "varlist". Again, at most a single solution is
 returned.
 
-The task of solving a single equation is simply delegated to {SuchThat}. Multiple equations are solved recursively:
-firstly, an equation is sought in which one of the variables occurs
-exactly once; then this equation is solved with {SuchThat}; and finally the solution is substituted in the
-other equations by {Eliminate} decreasing the number
+The task of solving a single equation is simply delegated to {SuchThat}. 
+Multiple equations are solved recursively: firstly, an equation is 
+sought in which one of the variables occurs exactly once; then this 
+equation is solved with {SuchThat}; and finally the solution is 
+substituted in the other equations by {Eliminate} decreasing the number
 of equations by one. This suffices for all linear equations and a
 large group of simple nonlinear equations.
 

@@ -416,7 +416,9 @@ Function ("UnparseLatexPrintMatrix", [M])
 
 *DESC
 
-{UnparseLatex} returns a string containing a $LaTeX$ representation of the MathPiper expression {expr}. Currently the exporter handles most expression types but not all.
+{UnparseLatex} returns a string containing a $LaTeX$ representation 
+of the MathPiper expression {expr}. Currently the exporter handles 
+most expression types but not all.
 
 *E.G.
 

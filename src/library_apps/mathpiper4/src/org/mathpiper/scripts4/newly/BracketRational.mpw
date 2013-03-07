@@ -49,10 +49,13 @@ BracketRational(r,eps):=
 
 *DESC
 
-The function {BracketRational(x,eps)} can be used to find approximations with a given relative precision from above and from below.
-This function returns a list of two rational numbers {[r1,r2]} such that $r1<x<r2$ and $Abs(r2-r1)<Abs(x*eps)$.
-The argument {x} must be already evaluated to enough precision so that this approximation can be meaningfully found.
-If the approximation with the desired precision cannot be found, the function returns an empty list.
+The function {BracketRational(x,eps)} can be used to find approximations 
+with a given relative precision from above and from below. This function 
+returns a list of two rational numbers {[r1,r2]} such that $r1<x<r2$ and 
+$Abs(r2-r1)<Abs(x*eps)$. The argument {x} must be already evaluated to 
+enough precision so that this approximation can be meaningfully found.
+If the approximation with the desired precision cannot be found, the 
+function returns an empty list.
 
 *E.G.
 

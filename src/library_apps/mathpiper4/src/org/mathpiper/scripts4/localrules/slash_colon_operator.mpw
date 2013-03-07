@@ -57,12 +57,13 @@ rules to the end of the list of rules. If the rules cannot be applied
 to an expression, it will try subexpressions of that
 expression and so on.
 
-A local rule that is defined by the <- operator can be given a name by using the # operator:
+A local rule that is defined by the <- operator can be given a name by using the 
+# operator:
 
 "RuleName" # Ln(_x*_y) <- Ln(x) + Ln(y)
 
-Each time the rule is selected while the system is in verbose mode, the name of the rule will be
-printed as a side effect.
+Each time the rule is selected while the system is in verbose mode, the name of 
+the rule will be printed as a side effect.
 
 
 *E.G.

@@ -23,9 +23,11 @@ HasExpressionArithmetic?(expr, atom) := HasExpressionSome?(expr, atom, [ToAtom("
 
 *DESC
 
-{HasExpressionArithmetic?} is defined through {HasExpressionSome?} to look only at arithmetic operations {+}, {-}, {*}, {/}.
+{HasExpressionArithmetic?} is defined through {HasExpressionSome?} to look 
+only at arithmetic operations {+}, {-}, {*}, {/}.
 
-Note that since the operators "{+}" and "{-}" are prefix as well as infix operators, it is currently required to use {ToAtom("+")} to obtain the unevaluated atom "{+}".
+Note that since the operators "{+}" and "{-}" are prefix as well as infix 
+operators, it is currently required to use {ToAtom("+")} to obtain the unevaluated atom "{+}".
 
 *E.G.
 

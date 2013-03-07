@@ -27,7 +27,8 @@ successively applies the function "fn" to all the entries in
 can either be a string containing the name of a function or a pure
 function.
 
-This operator can help the user to program in the style of functional programming languages such as Miranda or Haskell.
+This operator can help the user to program in the style of functional 
+programming languages such as Miranda or Haskell.
 
 *E.G.
 

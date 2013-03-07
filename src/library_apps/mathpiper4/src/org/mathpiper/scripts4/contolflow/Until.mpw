@@ -37,7 +37,8 @@ evaluated, which should yield either {True} or {False}. In the latter case, the 
 and "pred" are again evaluated and this continues as long as
 "pred" is {False}. As soon as "pred" yields {True}, the loop terminates and {Until} returns {True}.
 
-The main difference with {While} is that {Until} always evaluates the body at least once, but {While} may not evaluate the body at all. Besides, the
+The main difference with {While} is that {Until} always evaluates the body at 
+least once, but {While} may not evaluate the body at all. Besides, the
 meaning of the predicate is reversed: {While} stops
 if "pred" is {False} while {Until} stops if "pred" is {True}.
 The command
