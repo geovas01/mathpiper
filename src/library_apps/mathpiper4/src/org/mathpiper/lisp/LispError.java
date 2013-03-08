@@ -205,9 +205,17 @@ public class LispError {
             } else if (aStackTop == -2) {
                 throw new EvaluationException("Error: " + aErrorMessage + stackTrace,  aEnvironment.getCurrentInput().iStatus.getFileName(),  lineNumber, tokenStartIndex, tokenEndIndex);
             } else {
-                Cons arguments = BuiltinFunction.getArgument(aEnvironment, aStackTop, 0);
+        	Cons arguments = null;
+        	try{
+        	    arguments = BuiltinFunction.getArgument(aEnvironment, aStackTop, 0);
+        	}
+        	catch(Throwable t)
+        	{
+        	    //Eat the exception.
+        	}
+        	
                 if (arguments == null) {
-                    throw new EvaluationException("Error in compiled code." + stackTrace,  aEnvironment.getCurrentInput().iStatus.getFileName(),  lineNumber, tokenStartIndex, tokenEndIndex);
+                    throw new EvaluationException("Error in compiled code: " + aErrorMessage + "; " + stackTrace,  aEnvironment.getCurrentInput().iStatus.getFileName(),  lineNumber, tokenStartIndex, tokenEndIndex);
                 } else {
                     //TODO FIXME          ShowStack(aEnvironment);
                     aErrorMessage = aErrorMessage + " " + showFunctionError(arguments, aEnvironment);
