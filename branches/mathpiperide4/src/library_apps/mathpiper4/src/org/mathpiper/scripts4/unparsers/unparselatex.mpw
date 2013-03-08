@@ -323,7 +323,7 @@ LocalSymbols(UnparseLatexMathFunctions, UnparseLatexMathFunctions2) {
 );
 
 /* Some functions with limits: Lim, Sum, Integrate */
-
+/* todo:tk:commenting out for the minimal version of the scripts.
 100 # UnparseLatex(Sum(_x, _x1, _x2, _expr), _p) <-- UnparseLatexBracketIf(p <? PrecedenceGet("/"), ConcatStrings("\\sum _{", UnparseLatex(x, UnparseLatexMaxPrec()), " = ", UnparseLatex(x1, UnparseLatexMaxPrec()), "} ^{", UnparseLatex(x2, UnparseLatexMaxPrec()), "} ", UnparseLatex(expr, PrecedenceGet("*")) ) );
 
 100 # UnparseLatex(Sum(_expr), _p) <-- UnparseLatexBracketIf(p <? PrecedenceGet("/"), ConcatStrings("\\sum ", UnparseLatex(expr, PrecedenceGet("*")) ) );
@@ -334,17 +334,22 @@ LocalSymbols(UnparseLatexMathFunctions, UnparseLatexMathFunctions2) {
 100 # UnparseLatex(Integrate(_x, _x1, _x2) _expr, _p) <-- UnparseLatexBracketIf(p <? PrecedenceGet("/"), ConcatStrings(
 "\\int _{", UnparseLatex(x1, UnparseLatexMaxPrec()), "} ^{", UnparseLatex(x2, UnparseLatexMaxPrec()), " } ", UnparseLatex(expr, PrecedenceGet("*")), " d", UnparseLatex(x, UnparseLatexMaxPrec())
 ) );
+/*
 
 /* indeterminate integration */
+/* todo:tk:commenting out for the minimal version of the scripts.
 100 # UnparseLatex(Integrate(_x) _expr, _p) <-- UnparseLatexBracketIf(p <? PrecedenceGet("/"), ConcatStrings(
 "\\int ", UnparseLatex(expr, PrecedenceGet("*")), " d", UnparseLatex(x, UnparseLatexMaxPrec())
 ) );
 
 100 # UnparseLatex(Limit(_x, _x1) _expr, _p) <-- UnparseLatexBracketIf(p <? PrecedenceGet("/"), ConcatStrings("\\lim _{", UnparseLatex(x, UnparseLatexMaxPrec()), "\\rightarrow ", UnparseLatex(x1, UnparseLatexMaxPrec()), "} ", UnparseLatex(expr, PrecedenceGet("/")) ) );
+*/
+
 
 /* Derivatives */
 
 /* Use partial derivative only when the expression has several variables */
+/* todo:tk:commenting out for the minimal version of the scripts.
 100 # UnparseLatex(Deriv(_x)_y, _p) <-- UnparseLatexBracketIf(p <? PrecedenceGet("-"), ConcatStrings(
         Decide(Length(VarList(y))>?1, "\\frac{\\partial}{\\partial ", "\\frac{d}{d "
         ), UnparseLatex(x, PrecedenceGet("^")), "}", UnparseLatex(y, PrecedenceGet("/")) ) );
@@ -357,6 +362,9 @@ LocalSymbols(UnparseLatexMathFunctions, UnparseLatexMathFunctions2) {
         ), UnparseLatex(x, PrecedenceGet("^")), " ^", UnparseLatex(n, UnparseLatexMaxPrec()), "}", UnparseLatex(y, PrecedenceGet("/")) ) );
 100 # UnparseLatex(Differentiate(_x)_y, _p) <-- UnparseLatex(Deriv(x) y, p);
 100 # UnparseLatex(Differentiate(_x, _n)_y, _p) <-- UnparseLatex(Deriv(x, n) y, p);
+*/
+
+
 
 /* Indexed expressions */
 
@@ -473,16 +481,19 @@ UnparseLatex(3*Differentiate(x)f(x,y,z)*Cos(Omega)*Modulo(Sin(a)*4,5/a^b))
 */
 
 
+Verify(
+UnparseLatex(Hold(Not? (c <? 0) And? (a+b)*c>=? -d^e And? (c <=? 0 Or? b+1 >? 0) Or? a !=? 0 And? Not? (p =? q)))
+,"$ \\neg c < 0\\wedge ( a + b)  \\times c\\geq  - d ^{e}\\wedge ( c\\leq 0\\vee b + 1 > 0) \\vee a\\neq 0\\wedge  \\neg p = q$"
+);
+
+
+/* todo:tk:commenting out for the minimal version of the scripts.
 RulebaseHoldArguments("f",[x]);
 Verify(
 UnparseLatex(Hold(Differentiate(x)f(x)))
 ,"$\\frac{d}{d x}f( x) $");
 Retract("f",1);
 
-Verify(
-UnparseLatex(Hold(Not? (c <? 0) And? (a+b)*c>=? -d^e And? (c <=? 0 Or? b+1 >? 0) Or? a !=? 0 And? Not? (p =? q)))
-,"$ \\neg c < 0\\wedge ( a + b)  \\times c\\geq  - d ^{e}\\wedge ( c\\leq 0\\vee b + 1 > 0) \\vee a\\neq 0\\wedge  \\neg p = q$"
-);
 
 RulebaseHoldArguments("f",[x,y,z]);
 Verify(
@@ -499,6 +510,8 @@ UnparseLatex(Pi+Exp(1)-Theta-Integrate(x,x1,3/g(Pi))2*theta(x)*Exp(1/x))
 );
 Retract("g",1);
 Retract("theta",1);
+*/
+
 
 Verify(
 UnparseLatex([a[3]*b[5]-c[1][2],[a,b,c,d]])

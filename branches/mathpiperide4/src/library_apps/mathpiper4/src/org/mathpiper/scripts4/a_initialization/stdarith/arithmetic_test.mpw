@@ -104,12 +104,13 @@ LocalSymbols(f,ft)
   ft(2.5,1.2);
 };
 
+/* todo:tk:commenting out for the minimal version of the scripts.
 Testing("Factorization");
 Verify(
 Eval(Factors(447738843))
 , [[3,1],[17,1],[2729,1],[3217,1]]
 );
-
+*/
 
 //Exponential notation is now supported in the native arithmetic library too...
 Verify(2e3+1,2001.);

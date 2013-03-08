@@ -1,4 +1,4 @@
-Sun Mar 03 15:50:44 EST 2013.
+Fri Mar 08 02:41:49 EST 2013.
 MathPiper version: mp4_alpha_v.106.
 Running all tests except the following: Solve,PSolve.
 Beginning of tests:
@@ -168,11 +168,9 @@ Testing Add in file </org/mathpiper/scripts4/sums/Add.mpw>:
 
 
 ================================================================
-Testing AmicablePair? in file </org/mathpiper/scripts4/numbers/AmicablePair_.mpw>: 
-
-
-================================================================
 Testing Apply in file </org/mathpiper/scripts4/functional/Apply.mpw>: 
+
+--ThreadingListables
 
 
 ================================================================
@@ -204,20 +202,6 @@ Test suite for Testing math stuff :
 
 --Bases
 
---Factorization
-
-
-================================================================
-Testing Bernoulli in file </org/mathpiper/scripts4/specfunc/Bernoulli.mpw>: 
-
-
-================================================================
-Testing BesselJ in file </org/mathpiper/scripts4/specfunc/BesselJ.mpw>: 
-
-
-================================================================
-Testing BinaryFactors in file </org/mathpiper/scripts4/factors/BinaryFactors.mpw>: 
-
 
 ================================================================
 Testing BinomialCoefficient in file </org/mathpiper/scripts4/combinatorics/Combinations.mpw>: 
@@ -236,37 +220,11 @@ Testing CanBeUni in file </org/mathpiper/scripts4/univar/CanBeUni.mpw>:
 
 
 ================================================================
-Testing CanProve in file </org/mathpiper/scripts4/logic/CanProve.mpw>: 
-
-Test suite for Propositional logic theorem prover: CanProve : 
-
-
-================================================================
-Testing CarmichaelNumber? in file </org/mathpiper/scripts4/numbers/CarmichaelNumber_.mpw>: 
-
-
-================================================================
-Testing CatalanNumber in file </org/mathpiper/scripts4/numbers/CatalanNumber.mpw>: 
-
-
-================================================================
-Testing CNF in file </org/mathpiper/scripts4/logic/CNF.mpw>: 
-
-Test suite for CNF : 
-
-
-================================================================
 Testing Coef in file </org/mathpiper/scripts4/univar/Coef.mpw>: 
 
 
 ================================================================
 Testing Complex in file </org/mathpiper/scripts4/complex/Complex.mpw>: 
-
-Known failure: (Limit(n,Infinity)(n^2*I^n)/(n^3+1))=?0 
-
-
-================================================================
-Testing Composite? in file </org/mathpiper/scripts4/numbers/Composite_.mpw>: 
 
 
 ================================================================
@@ -282,10 +240,6 @@ Testing Content in file </org/mathpiper/scripts4/univar/Content.mpw>:
 
 
 ================================================================
-Testing Coprime? in file </org/mathpiper/scripts4/numbers/Coprime_.mpw>: 
-
-
-================================================================
 Testing Cos in file </org/mathpiper/scripts4/stdfuncs/Cos.mpw>: 
 
 
@@ -294,70 +248,11 @@ Testing Cot in file </org/mathpiper/scripts4/stdfuncs/Cot.mpw>:
 
 
 ================================================================
-Testing CUnparsable? in file </org/mathpiper/scripts4/unparsers/CUnparsable_.mpw>: 
-
-
-================================================================
-Testing Cyclotomic in file </org/mathpiper/scripts4/univar/cyclotomic/Cyclotomic.mpw>: 
-
-Test suite for Cyclotomic Polynomials : 
-
-
-================================================================
 Testing Degree in file </org/mathpiper/scripts4/univar/Degree.mpw>: 
 
 
 ================================================================
-Testing Deriv in file </org/mathpiper/scripts4/deriv/Deriv.mpw>: 
-
-
-================================================================
-Testing Determinant in file </org/mathpiper/scripts4/linalg/Deteminant.mpw>: 
-
-
-================================================================
-Testing Differentiate in file </org/mathpiper/scripts4/deriv/Differentiate.mpw>: 
-
-******************
-File: /org/mathpiper/scripts4/deriv/Differentiate.mpw, Line: 8 
-
-
-{
-    Local(poly);
-    poly:=x^2;
-    Differentiate(x)poly;
-}
- evaluates to 
-0
- which differs from 
-2*x
-******************
-
-Known failure: (Differentiate(z)Conjugate(z))=?Undefined 
-
-
-================================================================
-Testing DigitalRoot in file </org/mathpiper/scripts4/numbers/DigitalRoot.mpw>: 
-
-
-================================================================
 Testing Dimensions in file </org/mathpiper/scripts4/linalg/Dimensions.mpw>: 
-
-
-================================================================
-Testing Diverge in file </org/mathpiper/scripts4/deriv/Diverge.mpw>: 
-
-
-================================================================
-Testing Divisors in file </org/mathpiper/scripts4/numbers/Divisors.mpw>: 
-
-
-================================================================
-Testing Dot in file </org/mathpiper/scripts4/linalg/Dot.mpw>: 
-
-
-================================================================
-Testing Easter in file </org/mathpiper/scripts4/calendar/Easter.mpw>: 
 
 
 ================================================================
@@ -373,33 +268,7 @@ Testing ExpNum in file </org/mathpiper/scripts4/stdfuncs/numerical/ExpNum.mpw>:
 
 
 ================================================================
-Testing Factor in file </org/mathpiper/scripts4/factors/YacasFactor.mpw>: 
-
-******************
-File: /org/mathpiper/scripts4/factors/YacasFactor.mpw, Line: 3 
-
-Factor(2*x^2)
- evaluates to 
-x^2
- which differs from 
-2*x^2
-******************
-
-
-================================================================
 Testing Factorial in file </org/mathpiper/scripts4/sums/exclamationpoint_operator.mpw>: 
-
-
-================================================================
-Testing FactorialSimplify in file </org/mathpiper/scripts4/simplify/factorial/FactorialSimplify.mpw>: 
-
-
-================================================================
-Testing Factors in file </org/mathpiper/scripts4/factors/YacasFactors.mpw>: 
-
---UnivariatePolynomialFactorization
-
---BivariatePolynomialFactorization
 
 
 ================================================================
@@ -427,21 +296,7 @@ Testing Function in file </org/mathpiper/scripts4/deffunc/Function.mpw>:
 
 
 ================================================================
-Testing Gamma in file </org/mathpiper/scripts4/specfunc/Gamma.mpw>: 
-
-
-================================================================
-Testing GaussianFactors in file </org/mathpiper/scripts4/numbers/gaussianintegers/GaussianFactors.mpw>: 
-
-Test suite for Gaussian Integers : 
-
-
-================================================================
 Testing GaussianInteger? in file </org/mathpiper/scripts4/numbers/gaussianintegers/GaussianInteger_.mpw>: 
-
-
-================================================================
-Testing GaussianPrime? in file </org/mathpiper/scripts4/numbers/gaussianintegers/GaussianPrime_.mpw>: 
 
 
 ================================================================
@@ -452,10 +307,6 @@ Known failure: Gcd(10,3.3)!=?3.3 And? Gcd(10,3.3)!=?1
 
 ================================================================
 Testing Groebner in file </org/mathpiper/scripts4/multivar/Groebner.mpw>: 
-
-
-================================================================
-Testing HarmonicNumber in file </org/mathpiper/scripts4/numbers/HarmonicNumber.mpw>: 
 
 
 ================================================================
@@ -471,25 +322,7 @@ Testing HasFunctionArithmetic? in file </org/mathpiper/scripts4/predicates/HasFu
 
 
 ================================================================
-Testing Hermitian? in file </org/mathpiper/scripts4/predicates/Hermitian_.mpw>: 
-
-
-================================================================
 Testing Im in file </org/mathpiper/scripts4/complex/Im.mpw>: 
-
-
-================================================================
-Testing Integrate in file </org/mathpiper/scripts4/integrate/Integrate.mpw>: 
-
-******************
-File: /org/mathpiper/scripts4/integrate/Integrate.mpw, Line: 82 
-
-(Integrate(x,a,b)Cos(x)^2)-((b-Sin((-2)*b)/2)/2-(a-Sin((-2)*a)/2)/2)
- evaluates to 
-((Sin(2*b)/2+b)/2-(Sin(2*a)/2+a)/2)-((b-(-Sin(2*b))/2)/2-(a-(-Sin(2*a))/2)/2)
- which differs from 
-0
-******************
 
 
 ================================================================
@@ -501,65 +334,7 @@ Testing IntLog in file </org/mathpiper/scripts4/numbers/IntLog.mpw>:
 
 
 ================================================================
-Testing IntNthRoot in file </org/mathpiper/scripts4/numbers/IntNthRoot.mpw>: 
-
-
-================================================================
-Testing IntPowerNum in file </org/mathpiper/scripts4/stdfuncs/nummethods/IntPowerNum.mpw>: 
-
-
-================================================================
-Testing IrregularPrime? in file </org/mathpiper/scripts4/numbers/IrregularPrime_.mpw>: 
-
-
-================================================================
-Testing LaplaceTransform in file </org/mathpiper/scripts4/transforms/laplace/LaplaceTransform.mpw>: 
-
-
-================================================================
 Testing Lcm in file </org/mathpiper/scripts4/stubs/Lcm.mpw>: 
-
-
-================================================================
-Testing Limit in file </org/mathpiper/scripts4/limit/Limit.mpw>: 
-
-Known failure: Limit(k,Infinity)((k-phi)/k)^(k+1/2)=?Exp(-phi) 
-
-Known failure: (Limit(x,Infinity)x^n/Ln(x))=?Infinity 
-
-Known failure: (Limit(x,0,Right)x^(Ln(a)/(1+Ln(x))))=?a 
-
-Known failure: (Limit(n,Infinity)n^5/2^n)=?0 
-
-
-================================================================
-Testing linear_algebra in file </org/mathpiper/scripts4/linalg/linear_algebra_tests.mpw>: 
-
---LeviCivita
-
---VectorProducts
-
-Test suite for Inproduct : 
-
-Test suite for Identity matrices : 
-
-Test suite for Check linear algebra : 
-
---Normalize
-
---DiagonalMatrix
-
---ZeroMatrix
-
---Transpose
-
---Determinant
-
---CoFactor
---Minor
---Inverse
---SolveMatrix
---Trace
 
 
 ================================================================
@@ -578,8 +353,6 @@ Test suite for VarList :
 --Nth
 
 --Concat
-
---Binary searching
 
 --AssocDelete
 
@@ -617,33 +390,11 @@ Testing Matrix? in file </org/mathpiper/scripts4/predicates/matrix.mpw>:
 
 
 ================================================================
-Testing MatrixPower in file </org/mathpiper/scripts4/linalg/MatrixPower.mpw>: 
-
-
-================================================================
 Testing Minimum in file </org/mathpiper/scripts4/sums/Minimum.mpw>: 
 
 
 ================================================================
-Testing miscellaneous in file </org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw>: 
-
---From: calculus.mpt
-
---UnaryFunctionInverses
-
---Checking comment syntax supported
-
---Yacas tutorials and journal entries.
-
---From: sturm.mpt
-
-
-================================================================
 Testing Modulo in file </org/mathpiper/scripts4/stubs/Modulo.mpw>: 
-
-
-================================================================
-Testing Newton in file </org/mathpiper/scripts4/solve/Newton.mpw>: 
 
 
 ================================================================
@@ -677,78 +428,7 @@ Testing numerics in file </org/mathpiper/scripts4/a_initialization/miscellaneous
 
 --Trig, Hyperbolic, Log, and Exp functions
 
---Newton
-
 --Trig functions compounded with their Inverses
-
---Gamma function
-
-Known failure: NumericEqual(RoundToPrecision(NM(InternalGammaNum(-11.5)),20),0.00000002295758104824,20) 
-******************
-File: /org/mathpiper/scripts4/a_initialization/miscellaneous/numerics_tests.mpw, Line: 206 
-
-newrepL[1]-newrepR[1]
- evaluates to 
--53768446116670492691
- which differs from 
-0
-******************
-
-Known failure: NumericEqual(RoundToPrecision(NM(InternalGammaNum(-12.5)),20),-0.00000000183660648386,20) 
-******************
-File: /org/mathpiper/scripts4/a_initialization/miscellaneous/numerics_tests.mpw, Line: 211 
-
-newrepL[1]-newrepR[1]
- evaluates to 
--6282627216144394152
- which differs from 
-0
-******************
-
---Zeta function
-
-Known failure: NumericEqual(RoundToPrecision(NM(Zeta(-11.5)),18),0.020396978715942792,18) 
-******************
-File: /org/mathpiper/scripts4/a_initialization/miscellaneous/numerics_tests.mpw, Line: 221 
-
-newrepL[1]-newrepR[1]
- evaluates to 
--467315088652157285
- which differs from 
-0
-******************
-
---Bernoulli number
-
---Continued Fraction
-
---Lambert W function
-
---Bessel functions
-
---Gamma constant
-
-
-================================================================
-Testing OdeSolve in file </org/mathpiper/scripts4/odesolver/odesolver.mpw>: 
-
-
-================================================================
-Testing open_math in file </org/mathpiper/scripts4/unparsers/openmath.mpw>: 
-
-
-================================================================
-Testing ortho_poly in file </org/mathpiper/scripts4/orthopoly/orthopoly.mpw>: 
-
-Test suite for Testing orthogonal polynomials : 
-
-
-================================================================
-Testing Outer in file </org/mathpiper/scripts4/linalg/Outer.mpw>: 
-
-
-================================================================
-Testing Perfect? in file </org/mathpiper/scripts4/numbers/Perfect_.mpw>: 
 
 
 ================================================================
@@ -776,21 +456,7 @@ Testing Product in file </org/mathpiper/scripts4/sums/Product.mpw>:
 
 
 ================================================================
-Testing Pslq in file </org/mathpiper/scripts4/pslq/Pslq.mpw>: 
-
-
-================================================================
 Testing RabinMiller in file </org/mathpiper/scripts4/rabinmiller/RabinMiller.mpw>: 
-
-
-================================================================
-Testing RadSimp in file </org/mathpiper/scripts4/radsimp/RadSimp.mpw>: 
-
-Test suite for Testing simplifying nested radicals : 
-
-
-================================================================
-Testing Repunit in file </org/mathpiper/scripts4/numbers/Repunit.mpw>: 
 
 
 ================================================================
@@ -799,10 +465,6 @@ Testing Reverse in file </org/mathpiper/scripts4/lists/Reverse.mpw>:
 
 ================================================================
 Testing Scalar? in file </org/mathpiper/scripts4/predicates/matrix.mpw>: 
-
-
-================================================================
-Testing scopestack in file </org/mathpiper/scripts4/lists/scopestack/scopestack.mpw>: 
 
 
 ================================================================
@@ -842,53 +504,7 @@ Testing Subfactorial in file </org/mathpiper/scripts4/sums/Subfactorial.mpw>:
 
 
 ================================================================
-Testing Sum in file </org/mathpiper/scripts4/sums/Sum.mpw>: 
-
-
-================================================================
-Testing SumTaylorNum in file </org/mathpiper/scripts4/stdfuncs/nummethods/SumTaylorNum.mpw>: 
-
-
-================================================================
-Testing Taylor in file </org/mathpiper/scripts4/sums/Taylor.mpw>: 
-
-******************
-File: /org/mathpiper/scripts4/sums/Taylor.mpw, Line: 311 
-
-$pp1826
- evaluates to 
-TaylorLPS(1,[-2,0,1/3,0],t,TaylorLPSScalarMult(-1,TaylorLPS(1,[2,0,(-1)/3,0],t,TaylorLPSScalarMult(2,TaylorLPS(1,[1,0,(-1)/6,0],t,Sin(t))))))
- which differs from 
-TaylorLPS(1,[-2,0,1/3,0],t,TaylorLPSScalarMult(-2,TaylorLPS(1,[1,0,(-1)/6,0],t,Sin(t))))
-******************
-
-
-================================================================
-Testing tensors in file </org/mathpiper/scripts4/tensor/TSum.mpw>: 
-
-
-================================================================
-Testing Trace in file </org/mathpiper/scripts4/linalg/Trace.mpw>: 
-
-
-================================================================
-Testing TrigSimpCombine in file </org/mathpiper/scripts4/trigsimp/TrigSimpCombine.mpw>: 
-
-
-================================================================
 Testing TruthTable in file </org/mathpiper/scripts4/proposed/logic/TruthTable.mpw>: 
-
-
-================================================================
-Testing TwinPrime? in file </org/mathpiper/scripts4/numbers/TwinPrime_.mpw>: 
-
-
-================================================================
-Testing Unitary? in file </org/mathpiper/scripts4/predicates/Unitary_.mpw>: 
-
-
-================================================================
-Testing UnparseC in file </org/mathpiper/scripts4/unparsers/UnparseC.mpw>: 
 
 
 ================================================================
@@ -906,12 +522,6 @@ Testing Vector? in file </org/mathpiper/scripts4/predicates/matrix.mpw>:
 
 
 ================================================================
-Testing xFactorsBinomial in file </org/mathpiper/scripts4/factors/xFactorsBinomial.mpw>: 
-
---BinomialPolynomialFactorization
-
-
-================================================================
 Testing | in file </org/mathpiper/scripts4/a_initialization/standard/vertical_bar_operator.mpw>: 
 
 
@@ -923,4 +533,4 @@ GlobalVariables: Result: True
 Side Effects:
 [] 
 
-Elapsed Time: 1 min 43 sec
+Elapsed Time: 0 min 11 sec

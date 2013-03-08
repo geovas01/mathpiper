@@ -93,8 +93,8 @@ Verify(Apply("+",[2,3]),5);
 
 
 
-%mathpiper,name="Apply",subtype="automatic_test"
-
+%mathpiper,name="Apply",subtype="manual_test"
+//todo:tk:switching to manual_test for the minimal version of the scripts.
 LocalSymbols(f,x,n)
 {
   RulebaseHoldArguments(f,[n]);

@@ -147,9 +147,11 @@ Result: -2;
 
 %mathpiper,name="Complex",subtype="automatic_test"
 
+/* todo:tk:commenting out for the minimal version of the scripts.
 Verify( Limit(z,2*I) (I*z^4+3*z^2-10*I), Complex(-12,6) );
 KnownFailure( (Limit(n,Infinity) (n^2*I^n)/(n^3+1)) =? 0 );
 Verify( Limit(n,Infinity) n*I^n, Undefined );
+*/
 
 Verify(1/I, -I);
 Verify(I^2, -1);

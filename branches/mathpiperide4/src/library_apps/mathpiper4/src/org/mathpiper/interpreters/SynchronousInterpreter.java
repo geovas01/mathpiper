@@ -150,7 +150,7 @@ public class SynchronousInterpreter implements Interpreter {
                     functionList.add("Sign");
                     functionList.add("MakeMultiNomial");
                     functionList.add("Complex");
-                    functionList.add("Limit");
+                    //functionList.add("Limit");
                     functionList.add("II");
                     functionList.add("UniVariate");
                     functionList.add("SparseUniVar");

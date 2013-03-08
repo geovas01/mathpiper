@@ -44,7 +44,7 @@ HoldArgument("Sum",sumbodyarg);
 
 
 
-
+/* todo:tk:commenting out for the minimal version of the scripts.
 //============== SumFunc
 LocalSymbols(c,d,expr,from,to,summand,sum,predicate,n,r,var,x) {
 
@@ -135,11 +135,44 @@ SumFunc(_k,1,Infinity,(-1)^(_k-1)/_k, Ln(2) );
 
 };
 
+
+*/
 %/mathpiper
 
 
 
+
 %mathpiper_docs,name="Sum",categories="Mathematics Functions;Series"
+*CMD Sum --- find the sum of the elements in a list
+*STD
+*CALL
+        Sum(list)
+
+*PARMS
+
+{list} -- list of values to sum
+
+
+*DESC
+
+Adds all the entries in "list" and returns their sum.
+
+
+*E.G.
+
+In> Sum([1,2,3])
+Result> 6
+
+In> Sum(1 .. 10);
+Result: 55;
+
+*SEE Product
+%/mathpiper_docs
+
+
+
+
+%mathpiper_commentout_docs,name="Sum",categories="Mathematics Functions;Series"
 *CMD Sum --- find sum of a sequence
 *STD
 *CALL
@@ -185,14 +218,14 @@ In> Sum(i, 1, 3, i^2);
 Result: 14;
 
 *SEE Product
-%/mathpiper_docs
+%/mathpiper_commentedout_docs
 
 
 
 
 
-%mathpiper,name="Sum",subtype="automatic_test"
-
+%mathpiper,name="Sum",subtype="manual_test"
+/* todo:tk:changing to manual_test for the minimal version of the scripts.
 Verify( Sum(k,1,n,k), n*(n+1)/2 );
 Verify( Simplify(Sum(k,1,n,k^3)), Simplify( (n*(n+1))^2 / 4 ) );
 Verify( Sum(k,1,Infinity,1/k^2), Zeta(2) );
@@ -201,5 +234,5 @@ Verify( Sum(i,1,Infinity,1/i), Infinity );
 Verify( Sum(k,1,Infinity,Sqrt(k)), Infinity );
 Verify( Sum(k,2,Infinity,x^k/k!), Exp(x)-(x+1) );
 Verify( Sum(k,1,n,Sin(a)+Sin(b)+p),(Sin(a)+Sin(b)+p)*n );
-
+*/
 %/mathpiper

@@ -84,7 +84,9 @@ TestMathPiper( Simplify((x-y)/(x*y)), 1/y-1/x );
 
 TestMathPiper( Simplify((xx+II)^4), xx^4+4*xx^3*II-6*xx^2-4*xx*II+1 );
 
+/* todo:tk:commenting out for the minimal version of the scripts.
 TestMathPiper( Simplify(Differentiate(x,4)Exp(-x^2/2)), Exp(-x^2/2)*(x^4-6*x^2+3));
+*/
 
 TestMathPiper( Simplify(1),1);
 TestMathPiper( Simplify(1/x ), 1/x );
@@ -130,6 +132,8 @@ LocalSymbols(p,a,x)
 };
 
 
+
+/* todo:tk:commenting out for the minimal version of the scripts.
 LocalSymbols(f,p,a,b,x,n,simple,u,v)
 {
   simple := [
@@ -153,6 +157,7 @@ LocalSymbols(f,p,a,b,x,n,simple,u,v)
   Verify(Simplify(b-(1-x)),0);
 
 };
+*/
 
 
 // The following line catches a bug reported where Simplify
@@ -169,18 +174,22 @@ Verify( Simplify((a^2+b^2)/(2*a)), (a^2+b^2)/(2*a) );
 Verify(Simplify(x^(-2)/(1-x)^3) !=? 0, True);
 
 
+
+
 /* In MatchLinear and MatchPureSquare, the matched coefficients were
  * assigned to global variables that were not protected with LocalSymbols.
  */
+/* todo:tk:commenting out for the minimal version of the scripts.
 {
   Local(a,b,A);
   a:=mystr;
   A:=mystr;
-  /* The real test here is that no error is generated due to the
-   * fact that variables a or A are set.
-   */
+  
+  //The real test here is that no error is generated due to the fact that variables a or A are set.
+   
   Verify(Simplify((Integrate(x,a,b)Sin(x))-Cos(a)+Cos(b)),0);
 };
+*/
 
 
 /* Bug reported by Michael Borcherds: Simplify(((4*x)-2.25)/2)
