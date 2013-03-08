@@ -44,6 +44,8 @@ Function("CanBeUni",[expression]) CanBeUni(UniVarList(expression),expression);
 Verify(CanBeUni(x^(-1)),False);
 
 /* Bug report from Magnus Petursson regarding determinants of matrices that have symbolic entries */
-Verify(CanBeUni(Determinant([[a,b],[c,d]])),True);
+/* todo:tk:commenting out for the minimal version of the scripts.
+//Verify(CanBeUni(Determinant([[a,b],[c,d]])),True);
+*/
 
 %/mathpiper
