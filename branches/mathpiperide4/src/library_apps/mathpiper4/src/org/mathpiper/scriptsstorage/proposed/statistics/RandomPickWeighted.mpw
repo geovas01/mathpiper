@@ -1,0 +1,118 @@
+%mathpiper,def="RandomPickWeighted"
+
+//Retract("RandomPickWeighted",*);
+
+RandomPickWeighted(list) :=
+{
+
+    Check(List?(list), "Argument", "Argument must be a list.");
+    
+    Local(element, probabilities, items, lastWeight, randomNumber, result);
+    
+    probabilities := 0;
+    
+    items := [];
+    
+    lastWeight := 0;
+    
+    
+    
+    //Make sure that the probabilities sum to 1.
+    ForEach(element,list)
+    {        
+        probability := element[2];
+
+        probabilities := probabilities + probability;
+    };
+    
+    Check(probabilities =? 1, "Argument", "The probabilities must sum to 1.");
+    
+    
+    
+    //Place items in a list and associate it with a subrange in the range between 0 and 1.
+    ForEach(element,list)
+    {
+        probability := element[2];
+        
+        item := element[1];
+        
+        items := Append(items, [item, [lastWeight, lastWeight := lastWeight + NM(probability)]] );
+    };
+    
+    
+    
+    //Pick the item which is in the randomly determined range.
+    randomNumber := Random();
+    
+    ForEach(itemData,items)
+    {
+        Decide(randomNumber >=? itemData[2][1] And? randomNumber <=? itemData[2][2], result := itemData[1] );
+    };
+    
+    
+    
+    result;
+
+};
+
+%/mathpiper
+
+
+
+
+
+
+
+
+%mathpiper_docs,name="RandomPickWeighted",categories="Mathematics Functions;Statistics & Probability",access="experimental"
+*CMD RandomPickWeighted --- randomly pick an element from a list using a given weight
+*STD
+*CALL
+        RandomPickWeighted(list)
+
+*PARMS
+
+{list} -- a list which contains elements and their respective weights
+
+*DESC
+Randomly picks an element from the given list with a probability which is determined by the element's weight. 
+
+*E.G.
+
+In> RandomPickWeighted([[HEADS,1/2],[TAILS,1/2]]);
+Result: HEADS
+
+
+In> RandomPickWeighted([[HEADS,.5],[TAILS,.5]]);
+Result: TAILS
+
+
+In> RandomPickWeighted([[DOOR1,2/8], [DOOR2,1/8], [DOOR3,5/8]])
+Result: DOOR1
+
+
+In> RandomPickWeighted([[DOG,.2], [CAT,.3], [BIRD,.1], [MOUSE,.15], [TURTLE,.25]])
+Result: TURTLE
+
+
+In> RandomPickWeighted([[23,5/32],[56,10/32],[87,8/32],[92,6/32],[15,3/32]])
+Result: 15
+
+*SEE RandomPick, RandomPickVector
+%/mathpiper_docs
+
+
+
+
+
+
+
+
+%mathpiper,scope="nobuild",subtype="manual_test"
+
+RandomPickWeighted([[HEADS,1/2],[TAILS,1/2]]);
+
+%/mathpiper
+
+
+

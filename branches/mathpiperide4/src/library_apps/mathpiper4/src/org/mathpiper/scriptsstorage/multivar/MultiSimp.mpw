@@ -1,0 +1,114 @@
+%mathpiper,def="MultiSimp;MultiSimp2;MultiContent;MultiContentTerm;MultiContentScan;MultiPrimitivePart;MultiRemoveGcd;MultiDegree;MultiDegree;MultiLeadingCoef;MultiLeadingMono;MultiLeadingTerm;MultiVars;MultiLT;MultiLM;MultiLC;DropZeroLC"
+
+MultiSimp(_expr) <--
+{
+  Local(vars);
+  vars:=MultiExpressionList(expr);
+//Echo(["step1 ",MM(expr,vars)]);
+  MultiSimp2(MM(expr,vars));
+};
+
+10 # MultiSimp2(_a / _b) <--
+{
+  Local(c1,c2,gcd,cmn,vars);
+
+
+  c1 := MultiContentTerm(a);
+  c2 := MultiContentTerm(b);
+  gcd:=Gcd(c1[2],c2[2]);
+  c1[2] := c1[2]/gcd;
+  c2[2] := c2[2]/gcd;
+
+  cmn:=Minimum(c1[1],c2[1]);
+  c1[1] := c1[1] - cmn;
+  c2[1] := c2[1] - cmn;
+
+  vars:=MultiVars(a);
+  Check(vars =? MultiVars(b), "Argument", "incompatible Multivars to simplify");
+
+  (NormalForm(CreateTerm(vars,c1))/NormalForm(CreateTerm(vars,c2)))
+    *(NormalForm(MultiPrimitivePart(a))/NormalForm(MultiPrimitivePart(b)));
+};
+
+20 # MultiSimp2(expr_Multi?) <--
+{
+  NormalForm(MultiContent(expr))*NormalForm(MultiPrimitivePart(expr));
+};
+30 # MultiSimp2(_expr) <-- expr;
+
+MultiContent(multi_Multi?)
+<--
+{
+  Local(least,gcd);
+  Assign(least, MultiDegree(multi));
+  Assign(gcd,MultiLeadingCoef(multi));
+  ScanMultiNomial("MultiContentScan",multi);
+  CreateTerm(MultiVars(multi),MultiContentTerm(multi));
+};
+
+MultiContentTerm(multi_Multi?)
+<--
+{
+  Local(least,gcd);
+  Assign(least, MultiDegree(multi));
+  Assign(gcd,MultiLeadingCoef(multi));
+  ScanMultiNomial("MultiContentScan",multi);
+  [least,gcd];
+};
+
+MultiContentScan(_coefs,_fact) <--
+{
+  Assign(least,Minimum([least,coefs]));
+  Assign(gcd,Gcd(gcd,fact));
+};
+UnFence("MultiContentScan",2);
+
+MultiPrimitivePart(MultiNomial(vars_List?,_terms))
+<--
+{
+  Local(cont);
+  Assign(cont,MultiContentTerm(MultiNomial(vars,terms)));
+  Assign(cont,CreateTerm(vars,[-cont[1],1/Rationalize(cont[2])]));
+  MultiNomialMultiply(MultiNomial(vars,terms), cont);
+};
+
+10 # MultiRemoveGcd(x_Multi?/y_Multi?) <--
+{
+  Local(gcd);
+  Assign(gcd,MultiGcd(x,y));
+  Assign(x,MultiDivide(x,[gcd])[1][1]);
+  Assign(y,MultiDivide(y,[gcd])[1][1]);
+  x/y;
+};
+20 # MultiRemoveGcd(_x) <-- x;
+
+
+
+5 # MultiDegree(MultiNomial(_vars,_term))_(Not?(List?(term))) <-- [];
+10 # MultiDegree(MultiNomial(_vars,[])) <-- FillList(-Infinity,Length(vars));
+20 # MultiDegree(MultiNomial(_vars,_terms))
+   <-- (MultiLeadingTerm(MultiNomial(vars,terms))[1]);
+
+
+10 # MultiLeadingCoef(MultiNomial(_vars,_terms))
+   <-- (MultiLeadingTerm(MultiNomial(vars,terms))[2]);
+
+10 # MultiLeadingMono(MultiNomial(_vars,[])) <-- 0;
+20 # MultiLeadingMono(MultiNomial(_vars,_terms))
+   <-- Product(vars^(MultiDegree(MultiNomial(vars,terms))));
+
+20 # MultiLeadingTerm(_m) <-- MultiLeadingCoef(m) * MultiLeadingMono(m);
+
+MultiVars(MultiNomial(_vars,_terms)) <-- vars;
+
+20 # MultiLT(multi_Multi?)
+   <-- CreateTerm(MultiVars(multi),MultiLeadingTerm(multi));
+
+10 # MultiLM(multi_Multi?) <-- MultiDegree(multi);
+
+10 # MultiLC(MultiNomial(_vars,[])) <-- 0;
+20 # MultiLC(multi_Multi?) <-- MultiLeadingCoef(multi);
+
+DropZeroLC(multi_Multi?) <-- MultiDropLeadingZeroes(multi);
+
+%/mathpiper

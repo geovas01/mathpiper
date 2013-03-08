@@ -1,0 +1,55 @@
+%mathpiper,def="xFactor"
+
+//Retract("xFactor",*);
+
+10 # xFactor( p_CanBeUni ) <-- FW(xFactors(p));
+
+
+10 # xFactor( p_RationalFunction? ) <--
+{
+    Local(fs,n,d);
+    fs := xFactors( p );
+    n  := FW(Numerator(fs));
+    d  := FW(Denominator(fs));
+    n/d;
+};
+
+
+10 # xFactor( L_List? ) <-- 
+{
+    Local (result,x,f);
+    result := [];
+    ForEach(x,L)
+    {
+        f := xFactors(x);
+        Decide( f =? [], f := 0, f := FW(f) );
+        DestructiveAppend(result,f);
+    };
+    result;
+};
+
+
+
+20 # xFactor( _expr ) <-- expr;
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="xFactor",categories="Mathematics Functions",access="undocumented"
+*CMD xFactor --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

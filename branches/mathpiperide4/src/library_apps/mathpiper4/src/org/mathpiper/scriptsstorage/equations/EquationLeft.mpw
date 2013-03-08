@@ -1,0 +1,43 @@
+%mathpiper,def="EquationLeft"
+
+EquationLeft(_symbolicEquation)_(Type(symbolicEquation) =? "==")  <--
+{
+    Local(listForm);
+    
+    listForm := FunctionToList(symbolicEquation);
+    
+    listForm[2];
+};
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="EquationLeft",categories="Mathematics Functions;Expression Manipulation"
+*CMD EquationLeft --- return the left side of a symbolic equation
+*STD
+*CALL
+        EquationLeft(equation)
+        
+*PARMS
+
+{equation} -- symbolic equation.
+
+
+*DESC
+
+A symbolic equation is an equation which is defined using the == operator.  This
+function returns the left side of a symbolic equation.
+
+*E.G.
+
+
+In> equ := y^2 == 4*p*x
+Result: y^2==4*p*x
+
+
+In> EquationLeft(equ)
+Result: y^2
+
+*SEE ==, EquationRight
+%/mathpiper_docs

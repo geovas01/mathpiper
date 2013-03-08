@@ -1,0 +1,42 @@
+%mathpiper,def="SkewSymmetric?"
+
+SkewSymmetric?(A_Matrix?) <-- (Transpose(A)=?(-1*A));
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="SkewSymmetric?",categories="Programming Functions;Predicates"
+*CMD SkewSymmetric? --- test for a skew-symmetric matrix
+*STD
+*CALL
+        SkewSymmetric?(A)
+
+*PARMS
+
+{A} -- a square matrix
+
+*DESC
+
+{SkewSymmetric?(A)} returns {True} if {A} is skew symmetric and {False} otherwise.
+$A$ is skew symmetric iff $Transpose(A)$ =$-A$. 
+
+*E.G.
+
+In> A := [[0,-1],[1,0]]
+Result: [[0,-1],[1,0]];
+
+In> UnparseMath2D(%)
+
+        /               \
+        | ( 0 ) ( -1 )  |
+        |               |
+        | ( 1 ) ( 0 )   |
+        \               /
+Result: True;
+
+In> SkewSymmetric?(A);
+Result: True;
+
+*SEE Symmetric?, Hermitian?
+%/mathpiper_docs

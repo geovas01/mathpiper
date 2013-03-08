@@ -1,0 +1,73 @@
+%mathpiper,def="DefinePattern;_",private="true"
+
+RulebaseHoldArguments("_",[a]);
+RulebaseHoldArguments("_",[a,b]);
+
+RulebaseHoldArguments("DefinePattern",[leftOperand, rightOperand, rulePrecedence, postPredicate]);
+
+
+
+RuleHoldArguments("DefinePattern",4,9,Equal?(Type(leftOperand),"_"))
+{
+    DefinePattern(leftOperand[1], rightOperand, rulePrecedence, leftOperand[2]);
+};
+
+
+
+RuleHoldArguments("DefinePattern",4,10,True)
+{
+      Local(patternFlat,patternVariables, pattern, patternOperator, arg, arity);
+      
+      Assign(patternFlat, FunctionToList(leftOperand)); //Turn the pattern into a list.
+      
+      Assign(patternVariables, Rest(patternFlat)); //Remove the function name from the list.
+      
+      Assign(patternOperator,ToString(First(patternFlat))); //Obtain the function name.
+      
+      Assign(arity,Length(patternVariables)); //Obtain the arity of the function.
+      
+      //DefLoadFunction(patternOperator);  //Load the function if it exists.
+    
+      /*
+            If the function does not exist, create it.
+      */
+      Decide(Not?(RulebaseDefined(patternOperator,arity)),
+         {
+          RulebaseEvaluateArguments(patternOperator,MakeVector(arg,arity));
+         }
+        );
+    
+      Assign(pattern,PatternCreate(patternVariables,postPredicate));
+    
+      RulePatternEvaluateArguments(patternOperator,arity,rulePrecedence, pattern)rightOperand;
+    
+      True;
+};
+
+%/mathpiper
+
+
+
+DefinePattern(leftOperand[2],rightOperand,leftOperand[1],True);
+
+
+%mathpiper_docs,name="DefinePattern",categories="Programming Functions;Miscellaneous;Built In"
+*CMD DefinePattern --- defines a rule which uses a pattern as its predicate
+
+*CALL
+        DefinePattern("operator", arity, precedence, pattern) body
+*PARMS
+
+{"operator"} -- string, name of function
+
+{arity}, {precedence} -- integers
+
+{pattern} -- a pattern object
+
+{body} -- expression, body of rule
+
+*DESC
+This function defines a rule which uses a pattern as its predicate.
+
+*SEE RulePatternEvaluateArguments
+%/mathpiper_docs

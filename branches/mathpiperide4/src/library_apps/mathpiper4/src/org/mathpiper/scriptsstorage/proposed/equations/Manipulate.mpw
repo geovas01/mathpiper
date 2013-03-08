@@ -1,0 +1,53 @@
+%mathpiper,def="Manipulate"
+
+//Retract("Manipulate",*);
+
+RulebaseHoldArguments("Manipulate",[symbolicEquation]);
+HoldArgument("Manipulate",symbolicEquation);
+10 # Manipulate(_symbolicEquation)_HasFunction?(Eval(symbolicEquation), "==") <--
+{
+    Local(listForm, operator, operand, left, right, leftManipulated, rightManipulated, operandIndex, equationIndex, leftOrder, rightOrder);
+
+    listForm := FunctionToList(symbolicEquation);
+    
+    operator := listForm[1];
+    
+    Decide(HasFunction?(Eval(listForm[2]),"==" ), {operandIndex := 3; equationIndex := 2; }, { operandIndex := 2; equationIndex := 3;});
+    
+    operand := listForm[operandIndex];
+    equation := Eval(listForm[equationIndex]);
+    left := EquationLeft(equation);
+    right := EquationRight(equation);
+    
+    Decide(operandIndex =? 3, { leftOrder := `([left,operand]);rightOrder := `([right,operand]);},  {leftOrder := `([operand,left]); rightOrder := `([operand,right]);});
+    
+    
+    leftManipulated := ExpandBrackets(Simplify(Apply(ToString(operator), leftOrder)));
+    rightManipulated := ExpandBrackets(Simplify(Apply(ToString(operator), rightOrder)));   
+    
+    leftManipulated == rightManipulated;
+
+};
+
+%/mathpiper
+
+
+
+%mathpiper,scope="nobuild",subtype="manual_test"
+
+Unassign(equ,a);
+
+equ := y == m*x+b;
+Tell(1, Manipulate(2*equ));
+Tell(2, Manipulate(equ*2));
+Tell(3, Manipulate(2/equ));
+Tell(4, Manipulate(equ/2));
+Tell(5, Manipulate(equ^2));
+
+equ := Sqrt(a) == 3;
+Tell(6, Manipulate(equ^2));
+
+%/mathpiper
+
+
+

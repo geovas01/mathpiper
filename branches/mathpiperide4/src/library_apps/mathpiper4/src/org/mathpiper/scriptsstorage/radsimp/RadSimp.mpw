@@ -1,0 +1,151 @@
+%mathpiper,def="RadSimp;CheckRadicals;ClampRadicals;RadSimpTry"
+
+//Retract("RadSimp",*);
+
+/* Simplification of nested radicals.
+*/
+
+10 # RadSimp(_n)_(Length(VarList(n))<?1) <--
+{
+  Local(max, result);
+  Assign(max, CeilN(NM(Eval(n^2))));
+  Assign(result,0);
+  Assign(result,RadSimpTry(n,0,1,max));
+
+//Echo("result is ",result);
+  If(CheckRadicals(n,result))
+    result
+  Else
+    n;
+};
+
+
+20 # RadSimp(_n) <-- n;
+
+
+/*Echo(["Try ",test]); */
+
+CheckRadicals(_n,_test) <-- Abs(NM(Eval(n-test),20)) <? 0.000001;
+
+10 # ClampRadicals(_r)_(NM(Eval(Abs(r)), 20)<?0.000001) <-- 0;
+20 # ClampRadicals(_r) <-- r;
+
+
+
+RadSimpTry(_n,_result,_current,_max)<--
+{
+//Echo(result," ",n," ",current);
+  If(LessThan?(NM(Eval(result-n)), 0))
+  {
+    Local(i);
+
+    // First, look for perfect match
+    i:=BSearch(max,Hold([[try],ClampRadicals(NM(Eval((result+Sqrt(try))-n),20))]));
+    Decide(i>?0,
+    {
+      Assign(result,result+Sqrt(i));
+      Assign(i,AddN(max,1));
+      Assign(current,AddN(max,1));
+    });
+
+    // Otherwise, search for another solution
+    If(LessThan?(NM(Eval(result-n)), 0))
+    {
+      For (Assign(i,current),i<=?max,Assign(i,AddN(i,1)))
+      {
+        Local(new, test);
+        Assign(test,result+Sqrt(i));
+
+/* Echo(["Full-try ",test]); */
+
+        Assign(new,RadSimpTry(n,test,i,max));
+        If(CheckRadicals(n,new))
+        {
+          Assign(result,new);
+          Assign(i,AddN(max,1));
+        };
+      };
+    };
+  };
+  result;
+};
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+%mathpiper_docs,name="RadSimp",categories="Mathematics Functions;Expression Simplification"
+*CMD RadSimp --- simplify expression with nested radicals
+*STD
+*CALL
+        RadSimp(expr)
+
+*PARMS
+
+{expr} -- an expression containing nested radicals
+
+*DESC
+
+This function tries to write the expression "expr" as a sum of roots
+of integers: $Sqrt(e1) + Sqrt(e2) + ...$, where $e1$, $e2$ and
+so on are natural numbers. The expression "expr" may not contain
+free variables.
+
+It does this by trying all possible combinations for $e1$, $e2$, ...
+Every possibility is numerically evaluated using {N} and compared 
+with the numerical evaluation of "expr". If the approximations 
+are equal (up to a certain margin), this possibility is returned. 
+Otherwise, the expression is returned unevaluated.
+
+Note that due to the use of numerical approximations, there is a small
+chance that the expression returned by {RadSimp} is
+close but not equal to {expr}. The last example underneath
+illustrates this problem. Furthermore, if the numerical value of
+{expr} is large, the number of possibilities becomes exorbitantly
+big so the evaluation may take very long.
+
+*E.G.
+
+In> RadSimp(Sqrt(9+4*Sqrt(2)))
+Result: Sqrt(8)+1;
+
+In> RadSimp(Sqrt(5+2*Sqrt(6)) \
+          +Sqrt(5-2*Sqrt(6)))
+Result: Sqrt(12);
+
+In> RadSimp(Sqrt(14+3*Sqrt(3+2
+        *Sqrt(5-12*Sqrt(3-2*Sqrt(2))))))
+Result: Sqrt(2)+3;
+
+But this command may yield incorrect results:
+
+In> RadSimp(Sqrt(1+10^(-6)))
+Result: 1;
+
+*SEE Simplify, N
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="RadSimp",subtype="automatic_test"
+
+NextTest("Testing simplifying nested radicals");
+
+TestMathPiper(RadSimp(Sqrt(9+4*Sqrt(2))), 1+Sqrt(8));
+TestMathPiper(RadSimp(Sqrt(5+2*Sqrt(6))+Sqrt(5-2*Sqrt(6))),Sqrt(12));
+TestMathPiper(RadSimp(Sqrt(14+3*Sqrt(3+2*Sqrt(5-12*Sqrt(3-2*Sqrt(2)))))), 3+Sqrt(2));
+
+TestMathPiper(RadSimp(Sqrt(3+2*Sqrt(2))),1+Sqrt(2));
+TestMathPiper(RadSimp(Sqrt(5+2*Sqrt(6))),Sqrt(2)+Sqrt(3));
+
+//FAILS??? TestMathPiper(RadSimp(Sqrt(5*Sqrt(3)+6*Sqrt(2))),Sqrt(Sqrt(27))+Sqrt(Sqrt(12)));
+//??? TestMathPiper(RadSimp(Sqrt(12+2*Sqrt(6)+2*Sqrt(14)+2*Sqrt(21))),Sqrt(2)+Sqrt(3)+Sqrt(7));
+
+%/mathpiper

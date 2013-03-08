@@ -1,0 +1,45 @@
+%mathpiper,def="VarList"
+
+/* VarList: return the variables this expression depends on. */
+VarList(_expr) <-- VarList(expr,"Variable?");
+
+Function("VarList",[expr,filter])
+{
+  RemoveDuplicates(VarListAll(expr,filter));
+};
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="VarList",categories="Programming Functions;Lists (Operations)"
+*CMD VarList --- list of variables appearing in an expression (without duplicates)
+*STD
+*CALL
+        VarList(expr)
+
+*PARMS
+
+{expr} -- an expression
+
+{list} -- a list of function atoms
+
+*DESC
+
+The command {VarList(expr)} returns a list of all variables that appear in 
+the expression {expr}. The expression is traversed recursively.
+
+Note that since the operators "{+}" and "{-}" are prefix as well as infix 
+operators, it is currently required to use {ToAtom("+")} to obtain the 
+unevaluated atom "{+}".
+
+*E.G.
+
+In> VarList(Sin(x))
+Result: [x];
+
+In> VarList(x+a*y)
+Result: [x,a,y];
+
+*SEE VarListArith, VarListSome, VarListAll, FreeOf?, Variable?, FuncList, HasExpression?, HasFunction?
+%/mathpiper_docs

@@ -1,0 +1,57 @@
+%mathpiper,def="Apart"
+
+//Retract("Apart",*);
+
+Apart(_f) <-- Apart(f,x);
+
+Apart(_f,_var) <--
+{
+  Local(rat);
+  //rat:=RationalForm(f,var);  // hso 100215  (this step seems superfluous and wrong!)
+  rat := [Numerator(f),Denominator(f)];
+  Decide(Degree(rat[1],var) =? 0 And? Degree(rat[2],var) =? 0,
+     {
+       rat:=[Coef(rat[1],var,0),Coef(rat[2],var,0)];
+       Local(summed,add);
+       summed := Eval(PartFracExpand(Rem(rat[1],rat[2]),rat[2]));
+       add:=(rat[1]/rat[2] - summed);
+       add + summed;
+     }
+     ,
+     {
+       /*TODO check this one! Do we have to do the same as with the
+        * integers?
+        */
+       Expand(Quotient(rat[1],rat[2])) + PartFracExpand(Rem(rat[1],rat[2]),rat[2]);
+     }
+     );
+};
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="Apart",categories="Mathematics Functions;Number Theory"
+*CMD Apart --- creates a partial fraction expansion of a polynomial
+*CALL
+    Apart(expression)
+    Apart(expression, var)
+
+*PARMS
+
+{expression} -- a rational function
+
+{var} -- specify that all variables other than {var} are constants
+
+*DESC
+Creates a partial fraction expansion of a rational function.
+
+*E.G.
+In> Apart(1/(x^2-1),x);
+Result: 1/(2*(x-1))+(-1)/(2*(x+1))
+
+*SEE Together
+
+%/mathpiper_docs
+

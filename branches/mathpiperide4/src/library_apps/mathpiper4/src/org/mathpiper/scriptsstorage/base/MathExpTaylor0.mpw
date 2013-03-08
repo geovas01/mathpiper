@@ -1,0 +1,93 @@
+%mathpiper,def="MathExpTaylor0"
+
+// simple Taylor expansion, use only for 0<=x<1
+Defun("MathExpTaylor0",[x])
+{
+  Check(x<=?1 And? x>=?0,""," Argument must be between 0 and 1 inclusive.");
+  Local(i,aResult,term,eps);
+  // Exp(x)=Sum(i=0 to Inf)  x^(i) /(i)!
+  // Which incrementally becomes the algorithm:
+  //
+  // i <- 0
+  Assign(i,0);
+  // sum <- 1
+  Assign(aResult,1.0);
+  // term <- 1
+  Assign(term,1.0);
+  Assign(eps,MathIntPower(10,MathNegate(BuiltinPrecisionGet())));
+  // While (term>?epsilon)
+  
+  While(GreaterThan?(AbsN(term),eps))
+  {
+    //   i <- i+1
+    Assign(i,AddN(i,1));
+    //   term <- term*x/(i)
+    Assign(term,DivideN(MultiplyN(term,x),i));
+    //   sum <- sum+term
+    Assign(aResult,AddN(aResult,term));
+  };
+  aResult;
+};
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="MathExpTaylor0",categories="Mathematics Functions;Series"
+*CMD MathExpTaylor0 -- arbitrary precision partial sum of the Taylor series expansion of e^x around zero 
+*CALL
+	MathExpTaylor0(x)
+	
+*PARMS
+
+{x} -- a real number, where $0 {\leq} x {\leq} 1$  
+
+*DESC
+    MathExpTaylor0 gives a decimal approximation of $e^{x}$ which is obtained by using 
+    a partial sum of the Taylor series expansion around zero: $1 + x + \frac{x^2}{2!} + 
+    \frac{x^3}{3!}{\cdots} = \sum_{n=0}^{\infty}\frac{x^n}{n!} $. The number of terms 
+    used in the partial sum is determined by the built-in precision setting.
+
+*E.G.
+In> MathExpTaylor0(0)
+Result: 1.0
+
+In>  MathExpTaylor0(.2)
+Result: 1.221402759
+
+In>  MathExpTaylor0(1)
+Result: 2.718281830
+
+In> MathExpTaylor0(.13242)
+Result: 1.141587685
+
+*SEE  ExpN 
+
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+
+
+
+
+
+%mathpiper,name="MathExpTaylor0",subtype="automatic_test"
+{
+Local(precision);
+precision := BuiltinPrecisionGet();
+BuiltinPrecisionSet(10);
+Verify(MathExpTaylor0(0),1.0);
+Verify(MathExpTaylor0(.2), 1.221402759);
+Verify(MathExpTaylor0(1),  2.718281830);
+Verify(MathExpTaylor0(.234563),  1.264356123);
+BuiltinPrecisionSet(precision);
+};
+%/mathpiper
+
+
+

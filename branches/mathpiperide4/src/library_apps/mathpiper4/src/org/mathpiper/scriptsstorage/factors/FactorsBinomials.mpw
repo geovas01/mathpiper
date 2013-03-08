@@ -1,0 +1,94 @@
+%mathpiper,def="FactorsBinomials;xFactorsBinomials"
+
+//Retract("FactorsBinomials",*);
+
+10 # FactorsBinomials( _x + y_FreeOf?(x) ) <-- [x+y,1];
+
+10 # FactorsBinomials( _x - y_FreeOf?(x) ) <-- [x-y,1];
+
+10 # FactorsBinomials( c_Constant? * _x + y_FreeOf?(x) ) <-- [c*x+y,1];
+
+10 # FactorsBinomials( c_Constant? * _x - y_FreeOf?(x) ) <-- [c*x-y,1];
+
+10 # FactorsBinomials( _x^m_Odd? + _y ) <--
+{
+    Decide(InVerboseMode(),Tell("FactorsBinomialssum",[x,m,y]));
+    Local(nn,qq, r);
+    nn := (m-1)/2;
+    qq := (y^(1/m));
+    Decide(InVerboseMode(),Tell("  FBinsum1",[nn,qq]));
+    r := [[x+qq,1],[Sum(k,0,m-1,(-1)^k*qq^k*x^(m-1-k)),1]];
+};
+
+
+12 # FactorsBinomials( c_Constant? * _x^m_Odd? + _y ) <--
+{
+    Decide(InVerboseMode(),Tell("FactorsBinomialssum",[c,x,m,y]));
+    Local(nn,qq, r);
+    nn := (m-1)/2;
+    qq := ((y/c)^(1/m));
+    Decide(InVerboseMode(),Tell("  FBinsum.1b",[nn,qq]));
+    Decide( c=?1,
+          r := [[x+qq,1],[Sum(k,0,m-1,(-1)^k*qq^k*x^(m-1-k)),1]],
+          r := [[c,1],[x+qq,1],[Sum(k,0,m-1,(-1)^k*qq^k*x^(m-1-k)),1]]
+    );  
+};
+
+
+10 # FactorsBinomials( _x^m_Integer? - _y ) <--
+{
+    Decide(InVerboseMode(),Tell("FactorsBinomialsdif",[x,m,y]));
+    Local(pp,qq,r,L);
+    pp := m-1;
+    qq := (y^(1/m));
+    Decide(Number?(y),qq:=GuessRational(NM(qq)));
+    Decide(InVerboseMode(),Tell("  FAssignif.1",[pp,qq]));
+    
+    if      (m =? 2)
+        {
+            L := FunctionToList(y);
+            Decide(And?(L[1]=?ToAtom("^"),L[3]=?2),qq:=L[2]);
+            r := [[x+qq,1],[x-qq,1]];
+        }
+    Else If(m =? 4)
+        {r := [[x+qq,1],[x-qq,1],[x^2+qq^2,1]];}
+    Else If(m =? 6)
+        {r := [[x+qq,1],[x-qq,1],[x^2+x*qq+qq^2,1],[x^2-x*qq+qq^2,1]];}
+    Else
+        {r := [[x-qq,1],[Sum(k,0,pp,qq^k*x^(pp-k)),1]];};
+    r;
+};
+
+
+12 # xFactorsBinomials( c_Constant? * _x^m_Integer? - _y ) <--
+{
+    Decide(InVerboseMode(),Tell("FactorsBinomialsdif",[c,x,m,y]));
+    Local(aa,bb,c0,r);
+    aa := c^(1/m);
+    bb := ((y)^(1/m));
+    Decide(Number?(y),bb:=GuessRational(NM(bb)));
+    Decide(InVerboseMode(),Tell("  FAssignif.1b",[aa,bb]));
+    r  := FactorsBinomials( (aa*x)^m - bb^m );
+};
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="FactorsBinomials",categories="Mathematics Functions",access="undocumented"
+*CMD FactorsBinomials --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

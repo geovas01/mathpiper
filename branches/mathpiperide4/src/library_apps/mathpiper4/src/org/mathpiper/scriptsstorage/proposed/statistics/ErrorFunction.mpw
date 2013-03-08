@@ -1,0 +1,87 @@
+%mathpiper,def="ErrorFunction"
+
+/*
+This function came from http://www.johndcook.com/blog/2009/01/19/stand-alone-error-function-erf/
+
+"This problem is typical in two ways: Abramowitz & Stegun has a solution, and 
+you've got to know a little background before you can use it.
+
+The formula given in Abramowitz & Stegun is only good for x <=? 0. That's no problem if you 
+know that the error function is an odd function, i.e. erf(-x) = -erf(x). 
+But if you're an engineer who has never heard of the error function but 
+needs to use it, it may take a while to figure out how to handle negative inputs.
+
+One other thing that someone just picking up A&S might not know is the 
+best way to evaluate polynomials. The formula appears as 
+1 - (a1t1 + a2t2 + a3t3 + a4t4 + a5t5)exp(-x2), which is absolutely correct. 
+But directly evaluating an nth order polynomial takes O(n2) operations, 
+while the factorization used in the code above uses O(n) operations. This 
+technique is known as Horner's method. John D. Cook."
+
+*/
+
+//Retract("ErrorFunction",*);
+
+ErrorFunction(x) :=
+{
+    Local(a1,a2,a3,a4,a5,p,sign,t,y);
+    //constants
+    a1 :=  0.254829592;
+    a2 := -0.284496736;
+    a3 :=  1.421413741;
+    a4 := -1.453152027;
+    a5 :=  1.061405429;
+    p  :=  0.3275911;
+
+    //Save the sign of x
+    sign := 1;
+    
+    Decide(x <? 0, sign := -1);
+    
+    x := AbsN(x);
+
+    // Abramowitz & Stegun 7.1.26
+    t := 1.0/(1.0 + p*x);
+    y := NM(1.0 - (((((a5*t + a4)*t) + a3)*t + a2)*t + a1)*t*Exp(-x*x));
+
+    sign*y;
+};
+
+
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="ErrorFunction",categories="Mathematics Functions;Special Functions",access="experimental"
+*CMD ErrorFunction --- a special function which occurs in probability statistics and partial differential equations
+*STD
+*CALL
+        ErrorFunction(a)
+
+*PARMS
+
+{a} -- a measurement value
+
+*DESC
+
+When the results of a series of measurements are described by a normal distribution 
+with standard deviation \scriptstyle\sigma and expected value 0, then 
+${erf}\,\left(\,\frac{a}{\sigma \sqrt{2}}\,\right)$
+is the probability that the error of a single measurement lies between -a and +a, 
+for positive a. http://en.wikipedia.org/wiki/Error_function.
+
+*E.G.
+In> ErrorFunction(1)
+Result: 0.8427006898
+
+*SEE NormalDistribution
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+
+
+

@@ -1,0 +1,88 @@
+%mathpiper,def="LogicTest;TrueFalse"
+
+/* LogicTest compares the truth tables of two expressions. */
+LocalSymbols(TrueFalse)
+{
+  RulebaseEvaluateArguments(TrueFalse,[var,expr]);
+  10 # TrueFalse(var_Atom?,_expr) <-- `[(@expr) Where (@var)==False,(@expr) Where (@var)==True];
+  20 # TrueFalse([],_expr) <-- `(@expr);
+  30 # TrueFalse(var_List?,_expr) <--
+  `{ 
+    Local(t,h);
+    Assign(h,First(@var));
+    Assign(t,Rest(@var));
+    TrueFalse(h,TrueFalse(t,@expr));
+  };
+
+  Macro(LogicTest,[vars,expr1,expr2]) Verify(TrueFalse((@vars),(@expr1)), TrueFalse((@vars),(@expr2)));
+};
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="LogicTest",categories="Programming Functions;Testing"
+*CMD LogicTest --- verifying equivalence of two expressions
+*STD
+*CALL
+        LogicTest(variables,expr1,expr2)
+
+*PARMS
+
+{variables} -- list of variables
+
+{exprN} -- Some boolean expression
+
+*DESC
+
+The command {LogicTest} can be used to verify that an
+expression is <I>equivalent</I> to  a correct answer after evaluation.
+It returns {True} or {False}.
+
+
+*E.G.
+
+In> LogicTest([A,B,C],Not?((Not? A) And? (Not? B)),A Or? B)
+Result: True
+
+In> LogicTest([A,B,C],Not?((Not? A) And? (Not? B)),A Or? C)
+        ******************
+        CommandLine: 1
+
+        $TrueFalse4([A,B,C],Not?(Not? A And? Not? B))
+         evaluates to
+        [[[False,False],[True,True]],[[True,True],[True,True]]]
+         which differs from
+        [[[False,True],[False,True]],[[True,True],[True,True]]]
+        ******************
+Result: False
+
+*SEE Simplify, CanProve, KnownFailure, Verify, TestMathPiper, LogicVerify
+
+%/mathpiper_docs
+
+
+
+
+%mathpiper,name="LogicTest",subtype="automatic_test"
+
+LogicTest([A],A And? A,      A);
+LogicTest([A],A And? True,   A);
+LogicTest([A],A And? False,  False);
+LogicTest([A],A Or?  True,   True);
+LogicTest([A],A Or?  False,  A);
+LogicTest([A],A Or?  Not? A,  True);
+LogicTest([A],A And? Not? A,  False);
+LogicTest([A,B],(A And? B) Or? (A And? B),             A And? B);
+LogicTest([A,B],A Or? (A And? B),                     A And?(A Or? B));
+LogicTest([A,B],(A And? B) And? A,                    (A And? B) And? A);
+LogicTest([A,B],Not? (A And? B) And? A,                (Not? A Or? Not? B) And? A);
+LogicTest([A,B],(A Or? B) And? Not? A,            B And? Not? A);
+LogicTest([A,B,C],(A Or? B) And? (Not? A Or? C),     (A Or? B) And? (C Or? Not? A));
+LogicTest([A,B,C],(B Or? A) And? (Not? A Or? C),     (A Or? B) And? (C Or? Not? A));
+LogicTest([A,B,C], A And? (A Or? B Or? C),       A);
+LogicTest([A,B,C], A And? (Not? A Or? B Or? C),  A And? (B Or? C));
+
+%/mathpiper

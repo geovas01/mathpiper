@@ -1,0 +1,22 @@
+%mathpiper,def="FDistribution"
+
+/* Guard against distribution objects with senseless parameters
+   Anti-nominalism */
+
+//Retract("FDistribution",*);
+FDistribution(_n1, _n2) <-- Undefined;
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+%mathpiper_docs,name="FDistribution",categories="Mathematics Functions;Statistics & Probability"
+*CMD FDistribution --- the F distribution
+*CALL
+ Not Implemented Yet
+
+%/mathpiper_docs

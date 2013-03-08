@@ -1,0 +1,46 @@
+%mathpiper,def="Trigonometry"
+
+Defun("Trigonometry",[x,i,sum,term])
+{
+  Local(x2,orig,eps,previousPrec,newPrec);
+  Assign(previousPrec,BuiltinPrecisionGet());
+  Assign(newPrec,AddN(BuiltinPrecisionGet(),2));
+  Assign(x2,MultiplyN(x,x));
+  BuiltinPrecisionSet(newPrec);
+  Assign(eps,MathIntPower(10,MathNegate(previousPrec)));
+  While(GreaterThan?(AbsN(term),eps))
+  {
+    Assign(term,MultiplyN(term,x2));
+    Assign(i,AddN(i,1.0));
+    Assign(term,DivideN(term,i));
+    Assign(i,AddN(i,1.0));
+    Assign(term,DivideN(MathNegate(term),i));
+    BuiltinPrecisionSet(previousPrec);
+    Assign(sum, AddN(sum, term));
+    BuiltinPrecisionSet(newPrec);
+  };
+  BuiltinPrecisionSet(previousPrec);
+  sum;
+};
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="Trigonometry",categories="Mathematics Functions",access="undocumented"
+*CMD Trigonometry --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

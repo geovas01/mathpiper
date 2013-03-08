@@ -1,0 +1,44 @@
+%mathpiper,def="Equation?"
+
+//Retract("Equation?",*);
+
+10 # Equation?(expr_Atom?) <-- False;
+
+12 # Equation?(_expr) <-- FunctionToList(expr)[1] =? == ;
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="Equation?",categories="Programming Functions;Predicates"
+
+*CMD Equation? --- Return true if [expr] is an Equation False otherwise
+
+*STD
+*CALL
+        Equation?(expr)
+
+*PARMS
+
+{expr} -- mathematical expression
+
+*DESC
+
+This function returns {True} if MathPiper can determine that the expression is an equation.  
+Otherwise, {False}.
+Equations are defined by the property that they are of the form {a==b}.
+
+*E.G.
+
+
+In> Equation?(x^2==4)
+
+Result: True
+
+
+In> Equation?(x^2-4)
+
+Result: False
+
+%/mathpiper_docs

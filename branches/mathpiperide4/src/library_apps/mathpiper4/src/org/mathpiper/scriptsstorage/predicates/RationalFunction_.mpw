@@ -1,0 +1,214 @@
+%mathpiper,def="RationalFunction?"
+
+//Retract("RationalFunction?",*);
+
+10 # RationalFunction?(_expr)_(Length(VarList(expr))=?0) <-- False;
+
+15 # RationalFunction?(_expr) <-- RationalFunction?(expr,VarList(expr));
+
+10 # RationalFunction?(expr_RationalOrNumber?,_var) <-- False;
+
+15 # RationalFunction?(_expr,var_Atom?)_(Type(expr)=?"/" Or? Type(-expr)=?"/") <--
+{
+    Decide(Polynomial?(Numerator(expr),var) And? Polynomial?(Denominator(expr),var),
+        Contains?(VarList(Denominator(expr)),var),
+        False
+    );
+};
+
+20 # RationalFunction?(_expr,vars_List?)_(Type(expr)=?"/" Or? Type(-expr)=?"/") <--
+{
+    Decide(Polynomial?(Numerator(expr),vars) And? Polynomial?(Denominator(expr),vars),
+        Intersection(vars, VarList(expr)) !=? [],
+        False
+    );
+};
+
+60000 # RationalFunction?(_expr,_var) <-- False;
+
+
+%/mathpiper
+
+    
+
+
+%mathpiper_docs,name="RationalFunction?",categories="Programming Functions;Predicates",access="experimental"
+
+*CMD RationalFunction? --- test for a Rational Function
+*STD
+*CALL
+        RationalFunction?(expr)
+        RationalFunction?(expr,var)
+        RationalFunction?(expr,vars)
+
+*PARMS
+
+{expr} -- expression to test
+{var}  -- (optional) variable
+{vars} -- (optional) a list of variables
+
+*DESC
+
+This function tests whether the expression {expr} is a Rational
+Function of the variable {var}.  If a list of variables {vars} is
+provided, the test is made w.r.t.  all the variables in the list, and
+returns True if any one of them succeeds.  If {var} is omitted, the
+test is made w.r.t. the list VarList(expr).
+
+*E.G.
+
+In> RationalFunction?(3,x)  
+Result: False
+
+In> RationalFunction?(3)      
+Result: False;
+
+In> RationalFunction?(3.5,x)
+Result:  False
+
+In> RationalFunction?(3.5)
+Result:  False 
+
+In> RationalFunction?(3/5,x)
+Result:  False 
+
+In> RationalFunction?(3/5)
+Result:  False 
+
+In> RationalFunction?(x,y)
+Result:  False 
+
+In> RationalFunction?(x)
+Result:  False 
+
+In> RationalFunction?(x/y,x)
+Result:  False 
+
+In> RationalFunction?(x/y,y)
+Result:  True
+
+In> RationalFunction?(x/y)
+Result:  True 
+
+In> RationalFunction?(x/5,x)
+Result:  False 
+
+In> RationalFunction?(x/5)
+Result:  False 
+
+In> RationalFunction?(5/x,x)
+Result:  True 
+
+In> RationalFunction?(-5/x,x)
+Result:  True 
+
+In> RationalFunction?(5/x)
+Result:  True 
+
+In> RationalFunction?(-5/x)
+Result:  True 
+
+In> RationalFunction?(5/x,y)
+Result:  False 
+
+In> RationalFunction?(5/x,[y])
+Result:  False 
+
+In> RationalFunction?(5/x,[y,x])
+Result:  False
+
+In> RationalFunction?(5/y)
+Result:  True 
+
+In> RationalFunction?(1-1/x,x)
+Result:  False 
+
+In> RationalFunction?(1-1/x)
+Result:  False
+
+%/mathpiper_docs
+
+
+
+
+%mathpiper,scope="nobuild",subtype="manual_test"
+
+Tell(1,RationalFunction?(3,x));
+Tell(2,RationalFunction?(3.5,x));
+Tell(3,RationalFunction?(3/5,x));
+Tell(4,RationalFunction?(x,y));
+Tell(5,RationalFunction?(x/y,x));
+Tell(6,RationalFunction?(x/5,x));
+Tell(7,RationalFunction?(5/x,x));
+Tell(8,RationalFunction?(5/y,x));
+Tell(9,RationalFunction?(1-1/x,x));
+Tell(11,RationalFunction?(3));
+Tell(12,RationalFunction?(3.5));
+Tell(13,RationalFunction?(3/5));
+Tell(14,RationalFunction?(x));
+Tell(15,RationalFunction?(x/y));
+Tell(16,RationalFunction?(x/5));
+Tell(17,RationalFunction?(5/x));
+Tell(18,RationalFunction?(5/y));
+Tell(19,RationalFunction?(-5/y));
+Tell(20,RationalFunction?(1-1/x));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      << 1 >> RationalFunction?(3,x) : False 
+      << 2 >> RationalFunction?(3.5,x) : False 
+      << 3 >> RationalFunction?(3/5,x) : False 
+      << 4 >> RationalFunction?(x,y) : False 
+      << 15 >> expr : x/y 
+      <<     >> var : x 
+      <<  >> Denominator(expr) : y 
+      << 5 >> RationalFunction?(x/y,x) : False 
+      << 15 >> expr : x/5 
+      <<     >> var : x 
+      <<  >> Denominator(expr) : 5 
+      << 6 >> RationalFunction?(x/5,x) : False 
+      << 15 >> expr : 5/x 
+      <<     >> var : x 
+      <<  >> Denominator(expr) : x 
+      << 7 >> RationalFunction?(5/x,x) : True 
+      << 15 >> expr : 5/y 
+      <<     >> var : x 
+      <<  >> Denominator(expr) : y 
+      << 8 >> RationalFunction?(5/y,x) : False 
+      << 9 >> RationalFunction?(1-1/x,x) : False 
+      << 11 >> RationalFunction?(3) : False 
+      << 12 >> RationalFunction?(3.5) : False 
+      << 13 >> RationalFunction?(3/5) : False 
+      << 14 >> RationalFunction?(x) : False 
+      << 15 >> expr : x/y 
+      <<     >> var : x 
+      <<  >> Denominator(expr) : y 
+      << 15 >> RationalFunction?(x/y) : False 
+      << 15 >> expr : x/5 
+      <<     >> var : x 
+      <<  >> Denominator(expr) : 5 
+      << 16 >> RationalFunction?(x/5) : False 
+      << 15 >> expr : 5/x 
+      <<     >> var : x 
+      <<  >> Denominator(expr) : x 
+      << 17 >> RationalFunction?(5/x) : True 
+      << 15 >> expr : 5/y 
+      <<     >> var : y 
+      <<  >> Denominator(expr) : y 
+      << 18 >> RationalFunction?(5/y) : True 
+      << 15 >> expr : (-5)/y 
+      <<     >> var : y 
+      <<  >> Denominator(expr) : y 
+      << 19 >> RationalFunction?(-5/y) : True 
+      << 20 >> RationalFunction?(1-1/x) : False 
+      
+.   %/output
+
+
+
+
+

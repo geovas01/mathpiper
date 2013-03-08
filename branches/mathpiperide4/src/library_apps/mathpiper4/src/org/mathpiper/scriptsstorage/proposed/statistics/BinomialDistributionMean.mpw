@@ -1,0 +1,45 @@
+%mathpiper,def="BinomialDistributionMean"
+
+
+//Retract("BinomialDistributionMean", *);
+
+BinomialDistributionMean(probability,numberOfTrials) :=
+{
+
+    Check(RationalOrNumber?(probability) And? p >=? 0 And? p <=? 1, "Argument", "The first argument must be a number between 0 and 1.");
+    
+    Check(Integer?(numberOfTrials) And? numberOfTrials >=? 0, "Argument", "The second argument must be an integer which is greater than 0.");
+    
+    numberOfTrials * probability;
+};
+        
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="BinomialDistributionMean",categories="Mathematics Functions;Statistics & Probability",access="experimental"
+*CMD BinomialDistributionMean --- the mean of a binomial distribution
+*STD
+*CALL
+        BinomialDistributionMean(p,n)
+
+*PARMS
+{p} -- number, the probability of a success in a single trial
+
+{n} -- number of trials
+
+*DESC
+This function calculates the mean of a binomial distribution. 
+
+*E.G.
+In> BinomialDistributionMean(.3,5)
+Result: 1.5
+
+*SEE BinomialDistributionStandardDeviation
+%/mathpiper_docs
+
+
+

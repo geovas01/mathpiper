@@ -1,0 +1,100 @@
+%mathpiper,def="npTerms;npNumTerms;NP?"
+
+//Retract("npTerms",*);
+//Retract("npNumTerms",*);
+//Retract("NP?",*);
+ 
+10 # npTerms( expr_NP? ) <-- Rest(Rest(expr));  //  returns the array of terms
+ 
+10 # npNumTerms( expr_NP? ) <-- Length(npTerms(expr));
+ 
+10 # NP?( expr_List? ) <-- expr[1] =? NP;
+ 
+15 # NP?( _expr ) <-- False;
+
+
+%/mathpiper
+
+    
+
+   
+
+%mathpiper_docs,def="npTerms",categories="Mathematics Functions;Polynomials"
+*CMD npTerms --- Given a NewPolynomial, returns the list of term representations
+*CALL
+        npTerms(newPoly)
+*PARMS
+{newPoly} -- a NewPolynomial as created by {MakeNewPoly()}
+
+*DESC
+Given a newPolynomial such as $$[NP,[x,y,z],[2,1,2,0],[-3,0,1,1]]$$,
+this function removes the two [Markers], namely [NP] and $$[x,y,z]$$,
+and returns only the list of terms, here $$[[2,1,2,0],[-3,0,1,1]]$$.
+
+*E.G.
+
+In> p1 := MakeNewPoly(2*x*y^2-3*y*z)
+Result: [NP,[x,y,z],[2,1,2,0],[-3,0,1,1]]
+
+
+In> npTerms(p1)
+Result: [[2,1,2,0],[-3,0,1,1]]
+*SEE MakeNewPoly
+%/mathpiper_docs
+   
+
+%mathpiper_docs,def="npNumTerms",categories="Mathematics Functions;Polynomials"
+*CMD npNumTerms --- Given a NewPolynomial, returns the number of terms
+*CALL
+        npNumTerms(newPoly)
+*PARMS
+{newPoly} -- a NewPolynomial as created by {MakeNewPoly()}
+
+*DESC
+Given a newPolynomial such as $$[NP,[x,y,z],[2,1,2,0],[-3,0,1,1]]$$,
+this function returns the number of terms, here 2.
+
+*E.G.
+
+In> p1 := MakeNewPoly(2*x*y^2-3*y*z)
+Result: [NP,[x,y,z],[2,1,2,0],[-3,0,1,1]]
+
+
+In> npNumTerms(p1)
+Result: 2
+*SEE MakeNewPoly
+%/mathpiper_docs
+   
+
+%mathpiper_docs,def="NP?",categories="Mathematics Functions;Polynomials"
+*CMD NP? --- Retruns True if input is a NewPolynomial, False otherwise
+*CALL
+        NP?(input)
+*PARMS
+{input} -- anything
+
+*DESC
+Returns True for NewPolynomial, False otherwise.
+
+*E.G.
+
+In> p1 := MakeNewPoly(2*x*y^2-3*y*z)
+Result: [NP,[x,y,z],[2,1,2,0],[-3,0,1,1]]
+
+
+In> NP?(p1)
+Result: True
+
+
+In> NP?(1)
+Result: False
+
+
+In> NP?(x)
+Result: False
+
+
+In> NP?("this")
+Result: False
+*SEE MakeNewPoly
+%/mathpiper_docs

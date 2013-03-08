@@ -1,0 +1,120 @@
+%mathpiper,def="xPrimitivePart"
+
+//Retract("xPrimitivePart",*);
+    
+10 # xPrimitivePart(poly_CanBeUni) <-- 
+{
+    Local(cont,pp);
+    Decide(InVerboseMode(),Tell("  xPrimitivePart1",poly));
+    cont := xContent(poly);
+    pp   := poly / cont;
+    //pp   := Simplify(Simplify(pp));
+};
+
+
+Macro("xPrimitivePart",[poly,xcont])
+{
+    Local(pp);
+    Decide(InVerboseMode(),Tell("  xPrimitivePart2",[poly,xcont]));
+    
+    Decide( Assigned?(@xcont), 
+      {
+          pp := Eval(@poly) / Eval(@xcont);
+      },
+      {
+          Local(xCont);
+          xCont  := xContent(Eval(@poly));
+          @xcont := xCont;
+          pp     := Eval(@poly) / xCont;
+      }
+    );
+    pp;
+    //pp   := Simplify(Simplify(pp));
+};
+
+%/mathpiper
+
+ 
+
+
+%mathpiper_docs,name="xPrimitivePart",categories="Mathematics Functions;Number Theory"
+*CMD xPrimitivePart --- primitive part of a polynomial
+*STD
+*CALL
+        PrimitivePart(expr)
+    PrimitivePart(expr,cont)
+
+*PARMS
+
+{expr} -- a univariate or multivariate polynomial
+{cont} -- the Content of this polynomial
+
+*DESC
+
+This is an experimental version of the existing function PrimitivePart(), 
+with extended features.  It is provided primarily for testing purposes,
+until it is ready to replace the older version.
+
+This command determines the {primitive part} of a polynomial. 
+The {primitive part} is what remains after the content (the
+greatest common divisor of all the terms) is divided out. 
+
+Every polynomial can be written as the product of its {content} (q.v.)
+and its {primitive part}. This representation is usually the
+first step in any attempt to factor the polynomial.
+
+NOTE: If the first calling sequence is used ('arity' = 1), the function
+computes xContent(expr) internally, but returns only the primitive part.
+
+    If the second calling sequence is used ('arity' = 2), then
+(a) If the second argument contains a previously-computed value of 
+    xContent(expr), that value will be used in computing the primitive
+    part, thereby saving some work.
+(b) If the second argument is not bound to any value, the function will
+    compute xContent(expr) internally, AND return it in the second argument!
+
+*E.G.
+In> Unassign(a,b,xCont)
+Result: True
+
+In> poly:=2*a*x^2*y-8*a*y
+Result: 2*a*x^2*y-8*a*y
+
+In>Time() xCont := xContent(poly)
+Result: 0.427442564
+
+In> xCont
+Result: 2*a*y
+
+In> Time() xpp1:=xPrimitivePart(poly)
+Result: 0.697451928
+
+In> xpp1
+Result: x^2-4
+
+In> Time() xpp2:=xPrimitivePart(poly,xCont)
+Result: 0.392679832
+
+In> xpp2
+Result: x^2-4
+
+In> Unassign(cont)
+Result: True
+
+In> Time() xpp3:=xPrimitivePart(poly,cont)
+Result: 0.735463317
+
+In> xpp3
+Result: x^2-4
+
+In> cont
+Result: 2*a*y
+
+*SEE Content, PrimitivePart, Gcd, xContent
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+

@@ -1,0 +1,70 @@
+%mathpiper,def="~"
+
+
+
+/* a ~ b will now return unevaluated (rather than cause error of invalid argument in Concat) if neither a nor b is a list and if one of them is not a string
+*/
+RulebaseHoldArguments("~",[head,tail]);
+RuleHoldArguments("~",2,20,List?(head) And? Not? List?(tail) ) Concat(head,[tail]);
+RuleHoldArguments("~",2,30,List?(tail) ) Concat([head],tail);
+RuleHoldArguments("~",2,10,String?(tail) And? String?(head)) ConcatStrings(head,tail);
+UnFence("~",2);
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="~",categories="Operators"
+*CMD ~ --- append one item to a list or prepend one or more items to a list or concatenate strings
+*STD
+*CALL
+    list ~ item
+    item ~ list
+    item ~ item ~ list
+    string1 ~ string2
+    
+Precedence = 70
+
+*PARMS
+{item} -- an item to append or prepend to a list
+
+{list} -- a list
+
+{string1} -- a string
+
+{string2} -- a string
+
+*DESC
+
+The first form appends a single "item" to "list".  The second form 
+prepends one or more "items" to "list"
+The third form concatenates the strings "string1" and
+"string2".
+
+This operator can help the user to program in the style of functional programming languages such as Miranda or Haskell.
+
+*E.G.
+
+In> []~a
+Result: [a]
+
+In> [a,b]~c
+Result: [a,b,c]
+
+In> a~b~c~[]
+Result: [a,b,c];
+
+In> a~b~[c]~d
+Result: [a,b,c,d]
+
+In> "This"~"Is"~"A"~"String"
+Result: "ThisIsAString";
+
+*SEE Concat, ConcatStrings
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+

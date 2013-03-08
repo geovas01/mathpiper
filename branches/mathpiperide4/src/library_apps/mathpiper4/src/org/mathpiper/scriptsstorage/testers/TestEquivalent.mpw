@@ -1,0 +1,104 @@
+%mathpiper,def="TestEquivalent;TestTwoLists"
+
+//Retract("TestEquivalent",*);
+//Retract("TestTwoLists",*);
+
+Macro("TestEquivalent",[left,right])
+{
+    Local(leftEval,rightEval,diff,vars,isEquiv);
+    Decide(InVerboseMode(),{Tell(TestEquivalent,[left,right]);});
+    leftEval  := @left;
+    rightEval := @right;
+    Decide(InVerboseMode(),
+      { NewLine(); Tell("    ",leftEval); Tell("   ",rightEval); });
+    Decide( List?(leftEval),
+      {
+          Decide( List?(rightEval),
+            {
+                // both are lists
+                Decide(InVerboseMode(),Tell("     both are lists "));
+                isEquiv := TestTwoLists(leftEval,rightEval);
+            },
+            isEquiv := False
+          );
+      },
+      {
+          Decide( List?(rightEval), 
+            isEquiv := False,
+            {
+                // neither is a list, so check equality of diff
+                Decide(InVerboseMode(),Tell("     neither is list "));
+                Decide(Equation?(leftEval),
+                  {
+                      Decide(Equation?(rightEval),
+                        {
+                            Decide(InVerboseMode(),Tell("      both are equations"));
+                            Local(dLHs,dRHS);
+                            dLHS := Simplify(EquationLeft(leftEval) - EquationLeft(rightEval));
+                            dRHS := Simplify(EquationRight(leftEval) - EquationRight(rightEval));
+                            Decide(InVerboseMode(),Tell("      ",[dLHS,dRHS]));
+                            isEquiv := dLHS=?0 And? dRHS=?0;
+                        },
+                        isEquiv := False
+                      );
+                  },
+                  {
+                     Decide(Equation?(rightEval),
+                        isEquiv := False,
+                        {
+                            Decide(InVerboseMode(),Tell("      neither is equation"));
+                            diff := Simplify(leftEval - rightEval);
+                            vars := VarList(diff);
+                            Decide(InVerboseMode(),
+                              {
+                                 Tell("    ",[leftEval,rightEval]);
+                                 Tell("    ",vars);
+                                 Tell("    ",diff);
+                              }
+                            );
+                            isEquiv   := ( Zero?(diff) Or? ZeroVector?(diff) );
+                        }
+                      );
+                   }
+                );
+            }
+          );
+      }
+    );
+    Decide(InVerboseMode(),Tell("     Equivalence = ",isEquiv));
+    Decide( Not? isEquiv,
+      {
+                  WriteString("******************");          NewLine();
+                  WriteString("L.H.S. evaluates to: ");
+                  Write(leftEval);                            NewLine();
+                  WriteString("which differs from   ");
+                  Write(rightEval);                           NewLine();
+                  WriteString(" by                  "); 
+                  Write(diff);                                NewLine();
+                  WriteString("******************");          NewLine();
+      }
+    );
+    isEquiv;
+};
+
+
+10 # TestTwoLists( L1_List?, L2_List? ) <--
+{
+    Decide(InVerboseMode(),{Tell("   TestTwoLists");Tell("     ",L1);Tell("     ",L2);});
+    Decide(Length(L1)=?1 And? Length(L2)=?1,
+      {
+          TestEquivalent(L1[1],L2[1]);
+      },
+      {
+          EqualAsSets(L1,L2);
+      }
+    );
+};
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+

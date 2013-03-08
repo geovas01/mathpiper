@@ -1,0 +1,60 @@
+%mathpiper,def="BooleanLists"
+
+BooleanLists(elements) :=
+{
+    Local(numberOfPatterns);
+    
+    Check(elements >? 0, "Argument", "The argument must be > 0.");
+    
+    numberOfPatterns := 2^elements - 1;
+    
+    BuildList(BooleanList(elements, pattern), pattern,0, numberOfPatterns, 1);
+};
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="BooleanLists",categories="Mathematics Functions;Propositional Logic",access="experimental"
+*CMD BooleanLists --- returns a list that contains lists that hold a sequence of boolean values
+
+*CALL
+        BooleanLists(elements)
+
+*PARMS
+{elements} -- an integer that contains the desired number of boolean lists in the returned list.
+
+
+*DESC
+Returns a list that contains lists that hold a sequence of boolean values. The first list in the sequence 
+contains all {False} values and the rest of the lists contain patterns of boolean values up through 
+all {True} values.
+
+*E.G.
+In> BooleanLists(2)
+Result: [[False,False],[False,True],[True,False],[True,True]]
+
+*SEE BooleanList, TruthTable
+
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+
+
+
+
+%mathpiper,name="BooleanLists",subtype="automatic_test"
+
+Verify(BooleanLists(2), [[False,False],[False,True],[True,False],[True,True]]);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+

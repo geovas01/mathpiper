@@ -1,0 +1,41 @@
+%mathpiper,def="VarListArith"
+
+/// VarListArith --- obtain arithmetic variables
+// currently the VarList(x,y) semantic is convoluted so let's introduce a new name; but in principle this needs to be cleaned up
+VarListArith(expr) := VarListSome(expr, [ToAtom("+"), ToAtom("-"), *, /]);
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="VarListArith",categories="Programming Functions;Lists (Operations)"
+*CMD VarListArith --- list of variables appearing in an expression (without duplicates)
+*STD
+*CALL
+        VarListArith(expr)
+
+*PARMS
+
+{expr} -- an expression
+
+{list} -- a list of function atoms
+
+*DESC
+
+The command [VarListArith] returns a list of all variables (without duplicates) that appear
+arithmetically in the expression [expr]. This is implemented through
+[VarListSome] by restricting to the arithmetic functions [+], [-], [*], [/].
+Arguments of other functions are not checked.
+
+Note that since the operators "[+]" and "[-]" are prefix as well as infix operators, it is currently required to use [ToAtom("+")] to obtain the unevaluated atom "[+]".
+
+*E.G.
+
+In> VarListArith(x+y*Cos(Ln(x)/x))
+Result: [x,y,Cos(Ln(x)/x)]
+
+In> VarListArith(x+a*y^2-1)
+Result: [x,a,y^2];
+
+*SEE VarList, VarListSome, VarListAll, FreeOf?, Variable?, FuncList, HasExpression?, HasFunction?
+%/mathpiper_docs

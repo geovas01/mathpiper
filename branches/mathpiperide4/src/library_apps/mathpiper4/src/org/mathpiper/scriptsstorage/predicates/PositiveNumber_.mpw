@@ -1,0 +1,33 @@
+%mathpiper,def="PositiveNumber?"
+
+PositiveNumber?(x):= Number?(x) And? x >? 0;
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="PositiveNumber?",categories="Programming Functions;Predicates"
+*CMD PositiveNumber? --- test for a positive number
+*STD
+*CALL
+        PositiveNumber?(n)
+
+*PARMS
+
+{n} -- number to test
+
+*DESC
+
+{PositiveNumber?(n)} evaluates to {True} if $n$ is (strictly) positive, i.e.
+if $n>0$. If {n} is not a number the function returns {False}.
+
+*E.G.
+
+In> PositiveNumber?(6);
+Result: True;
+
+In> PositiveNumber?(-2.5);
+Result: False;
+
+*SEE Number?, NegativeNumber?, NotZero?, PositiveInteger?, PositiveReal?
+%/mathpiper_docs

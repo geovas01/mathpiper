@@ -1,0 +1,95 @@
+%mathpiper,def="Minimum"
+
+/*  this is disabled because some functions seem to implicitly define Min / Max with a different number of args, 
+and then MathPiper is confused if it hasn't loaded all the Function() declarations beforehand.
+FIXME
+/// Min, Max with many arguments
+*/
+
+//Retract("Minimum", 1);
+//Retract("Minimum", 2);
+//Retract("Minimum", 3);
+
+//Function() Minimum(list);
+
+//Function() Minimum(l1, l2)
+
+Function() Minimum(l1, l2, l3, ...);
+
+10 # Minimum(_l1, _l2, l3_List?) <-- Minimum(Concat([l1, l2], l3));
+20 # Minimum(_l1, _l2, _l3) <-- Minimum([l1, l2, l3]);
+
+10 # Minimum(l1_List?,l2_List?) <-- Map("Minimum",[l1,l2]);
+
+20 # Minimum(l1_RationalOrNumber?,l2_RationalOrNumber?) <-- Decide(l1<?l2,l1,l2);
+
+30 # Minimum(l1_Constant?,l2_Constant?) <-- Decide(NM(Eval(l1-l2))<?0,l1,l2);
+
+//Min on an empty list.
+10 # Minimum([]) <-- Undefined;
+
+20 # Minimum(list_List?) <--
+{
+  Local(result);
+  result:= list[1];
+  ForEach(item,Rest(list)) result:=Minimum(result,item);
+  result;
+};
+
+30 # Minimum(_x) <-- x;
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Minimum",categories="Mathematics Functions;Numbers (Operations)"
+*CMD Minimum --- minimum of a number of values
+*STD
+*CALL
+        Minimum(x,y)
+        Minimum(list)
+
+*PARMS
+
+{x}, {y} -- pair of values to determine the minimum of
+
+{list} -- list of values from which the minimum is sought
+
+*DESC
+
+This function returns the minimum value of its argument(s). If the
+first calling sequence is used, the smaller of "x" and "y" is
+returned. If one uses the second form, the smallest of the entries in
+"list" is returned. In both cases, this function can only be used
+with numerical values and not with symbolic arguments.
+
+*E.G.
+
+In> Minimum(2,3);
+Result: 2;
+
+In> Minimum([5,8,4]);
+Result: 4;
+
+*SEE Maximum, Sum
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Minimum",subtype="automatic_test"
+
+Verify(Minimum(0,1),0);
+Verify(Minimum([]), Undefined);
+Verify(Minimum([x]), x);
+Verify(Minimum(x), x);
+Verify(Minimum(Exp(x)), Exp(x));
+Verify(Minimum([1,2,3]), 1);
+// since Minimum(multiple args) is disabled, comment this out
+Verify(Minimum(1,2,3), 1);
+Verify(Minimum(1,2,0), 0);
+Verify(Minimum(5,2,3,4), 2);
+Verify(Minimum(5,2,0,4), 0);
+
+%/mathpiper

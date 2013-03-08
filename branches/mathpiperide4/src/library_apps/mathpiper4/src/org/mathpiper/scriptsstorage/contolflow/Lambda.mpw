@@ -1,0 +1,51 @@
+%mathpiper,def="Lambda"
+
+/* Lambda was introduced as a form of pure function that can be passed on to the function Apply as a first argument.
+ * The original method, passing it in as a list, had the disadvantage that the list was evaluated, which caused the
+ * arguments to be evaluated too. This resulted in unwanted behaviour sometimes (expressions being prematurely evaluated
+ * in the body of the pure function). The arguments to Lambda are not evaluated.
+ */
+MacroRulebaseHoldArguments("Lambda",[args,body]);
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="Lambda",categories="Programming Functions;Control Flow"
+*CMD Lambda --- a form of pure function that can be passed to functions like Apply and Select
+*STD
+*CALL
+        Lambda(arglist, function body)
+
+*PARMS
+
+{arglist} -- list of arguments
+
+*DESC
+
+Lambda functions are unnamed pure functions which can be used in places where a small function
+is needed and creating a normal function is either inconvenient or impossible.
+
+*E.G.
+In>  Apply(Lambda([x,y], x-y^2), [Cos(a), Sin(a)]);
+Result: Cos(a)-Sin(a)^2
+
+In>  Lambda([x,y], x-y^2) @ [Cos(a), Sin(a)]
+Result: Cos(a)-Sin(a)^2
+
+
+/%mathpiper
+
+list := [1,-3,2,-6,-4,3];
+
+Select(list, Lambda([i], i >? 0 ));
+
+/%/mathpiper
+
+    /%output,preserve="false"
+      Result: [1,2,3]
+.   /%/output
+
+*SEE Apply, @, Select
+%/mathpiper_docs

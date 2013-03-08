@@ -1,0 +1,8 @@
+%mathpiper,def="TanNum"
+TanNum(x) :=
+{
+  Decide(x<?0 Or? 113*x>?710, x:=TruncRadian(x));
+  TanN(x);
+};
+
+%/mathpiper

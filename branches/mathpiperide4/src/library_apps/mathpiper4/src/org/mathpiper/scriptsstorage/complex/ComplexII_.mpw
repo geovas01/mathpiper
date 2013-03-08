@@ -1,0 +1,25 @@
+%mathpiper,def="ComplexII?"
+
+ComplexII?(_c) <-- (ImII(c) !=? 0);
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="ComplexII?",categories="Programming Functions",access="undocumented"
+*CMD ComplexII? --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

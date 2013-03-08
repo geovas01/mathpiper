@@ -1,0 +1,63 @@
+%mathpiper,def="HasFunction?"
+
+/// HasFunction? --- test for an expression containing a function
+/// function name given as string.
+10 # HasFunction?(_expr, string_String?) <-- HasFunction?(expr, ToAtom(string));
+/// function given as atom.
+// atom contains no functions
+10 # HasFunction?(expr_Atom?, atom_Atom?) <-- False;
+// a list contains the function List so we test it together with functions
+// a function contains itself, or maybe an argument contains it
+20 # HasFunction?(expr_Function?, atom_Atom?) <-- Equal?(First(FunctionToList(expr)), atom) Or? ListHasFunction?(Rest(FunctionToList(expr)), atom);
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="HasFunction?",categories="Programming Functions;Predicates"
+*CMD HasFunction? --- check for expression containing a function
+*STD
+*CALL
+        HasFunction?(expr, func)
+
+*PARMS
+
+{expr} -- an expression
+
+{func} -- a function atom to be found
+
+*DESC
+
+The command {HasFunction?} returns {True} if the expression {expr} contains 
+a function {func}. The expression is recursively traversed.
+
+Note that since the operators "{+}" and "{-}" are prefix as well as infix 
+operators, it is currently required to use {ToAtom("+")} to obtain the 
+unevaluated atom "{+}".
+
+*E.G.
+
+In> HasFunction?(x+y*Cos(Ln(z)/z), Ln)
+Result: True;
+
+In> HasFunction?(x+y*Cos(Ln(z)/z), Sin)
+Result: False;
+
+*SEE HasFunctionArithmetic?, HasFunctionSome?, FuncList, VarList, HasExpression?
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="HasFunction?",subtype="automatic_test"
+
+Verify(HasFunction?(a*b+1,*),True);
+Verify(HasFunction?(a+Sin(b*c),*),True);
+Verify(HasFunction?(a*b+1,List),False);
+
+RulebaseHoldArguments("f",[a]);
+Verify(HasFunction?(a*b+f([b,c]),List),True);
+Retract("f",1);
+
+%/mathpiper

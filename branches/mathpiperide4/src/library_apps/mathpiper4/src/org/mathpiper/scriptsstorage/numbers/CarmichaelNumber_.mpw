@@ -1,0 +1,72 @@
+%mathpiper,def="CarmichaelNumber?"
+
+// Carmichael numbers are odd,squarefree and have at least 3 prime factors
+5  # CarmichaelNumber?(n_Even?)                <-- False;
+5  # CarmichaelNumber?(_n)_(n<?561)                <-- False;
+10 # CarmichaelNumber?(n_PositiveInteger?)        <--
+{
+        Local(i,factors,length,carmichael);
+
+        factors:=Factors(n);
+        carmichael:=True;
+        length:=Length(factors);
+        If( length <? 3){
+                 carmichael:=False;
+        } Else {
+                For(i:=1,i<=?length And? carmichael,i++){
+                        //Echo( n-1,"%",factors[i][1]-1,"=?", Modulo(n-1,factors[i][1]-1) );
+                        Decide( Modulo(n-1,factors[i][1]-1) !=? 0, carmichael:=False );
+                        Decide(factors[i][2]>?1,carmichael:=False);        // squarefree
+                };
+        };
+        carmichael;
+};
+
+CarmichaelNumber?(n_List?) <-- MapSingle("CarmichaelNumber?",n);
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="CarmichaelNumber?",categories="Programming Functions;Predicates"
+*CMD CarmichaelNumber? --- test for a Carmichael number
+*STD
+*CALL
+        CarmichaelNumber?(n)
+
+*PARMS
+
+{n} -- positive integer
+
+*DESC
+
+This function returns {True} if {n} is a Carmichael number, also called an absolute pseudoprime.
+They have the property that $ b^(n-1) % n == 1 $ for all $b$ satisfying $Gcd(b,n)==1$. These numbers
+cannot be proved composite by Fermat's little theorem. Because the previous property is extremely
+slow to test, the following equivalent property is tested by MathPiper: for all prime factors $p{i}$ of $n$,
+$(n-1) % (p{i} - 1) == 0$ and $n$ must be square free. Also, Carmichael numbers must be odd and have
+at least three prime factors. Although these numbers are rare (there are only 43 such numbers between $1$ and $10^6$),
+it has recently been proven that there are infinitely many of them.
+
+*E.G. notest
+
+In> CarmichaelNumber?(561)
+Result: True;
+
+In> EchoTime() Select(1 .. 10000, CarmichaelNumber?)
+        504.19 seconds taken
+Result: [561,1105,1729,2465,2821,6601,8911];
+
+*SEE SquareFree?, Composite?
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="CarmichaelNumber?",subtype="automatic_test"
+
+Verify( CarmichaelNumber?( [561,1105,1729,2465,2821,6601,8911] ),[True,True,True,True,True,True,True] );
+Verify( CarmichaelNumber?( [0,1,2,1727,2463,2823,6603] ),[False,False,False,False,False,False,False] );
+
+%/mathpiper

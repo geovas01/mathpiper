@@ -1,0 +1,62 @@
+%mathpiper,title="jasFactorsInt"
+
+//Retract("jasFactorsInt",*);
+
+jasFactorsInt(poly_Polynomial?) <--
+[
+    Decide(InVerboseMode(),Tell(jasFactorsInt,poly));
+    Local(polyStr,vars,strVars,ns,ringDescription,defaultPoly,jasI);
+    
+    // --- get Java class JFactorsPolyInt into MathPiper form
+    polyStr := ToString(poly); //  polynomial as string
+    vars    := VarList(poly);
+    strVars := ToString( vars );  //  variables as string
+    ns      := Length(strVars);
+    strVars := strVars[2 .. ns-1];      //  remove enclosing braces
+
+    jasI    := JavaNew("org.mathpiper.builtin.library.jas.JFactorsPolyInt",polyStr,strVars);
+    Decide(InVerboseMode(),[Tell("  ",jasI);]);
+    
+    // --- at last, we're ready to do some factoring
+    Local(resultSet,entrySet,iterator,result,mult,fact);
+    //  the result returned by the factors() method is a Java SortedMap
+    //  In order to iterate through this Map, we need its first set and
+    //  an iterator.
+    resultSet := JavaCall(jasI,"factors");
+    entrySet  := JavaCall(resultSet,"entrySet");
+    iterator  := JavaCall(entrySet,"iterator");
+    // now we can iterate through the Map and make a MathPiper List whose
+    // elements are [factor,multiplicity] pairs
+    result    := [];
+    While ( JavaAccess(iterator,"hasNext")=True)
+    [
+        entrySet := JavaCall(iterator,"next");
+        mult     := JavaAccess(entrySet,"getValue");
+        fact     := ToString(JavaAccess(JavaCall(entrySet,"getKey"),"toScript"));
+        // convert factor string from "**" to "^" exponent notation
+        Local(lst,ii,factor);
+        lst   := StringToList(fact);
+        For(ii:=1,ii<?Length(lst),ii++) [
+             Decide(lst[ii]=?"*" And? lst[ii+1]=?"*",
+                [ DestructiveReplace(lst,ii,"^"); DestructiveDelete(lst,ii+1); ]
+             );
+        ];
+        fact   := ListToString(lst);
+        factor := PipeFromString(fact:";") ParseMathPiper();
+        DestructiveAppend( result, [factor,mult] );
+    ];
+    
+    JavaCall(jasI,"terminate");
+
+    Decide(InVerboseMode(),Tell("  ",result));
+    result;
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+

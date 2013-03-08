@@ -1,0 +1,305 @@
+%mathpiper,def="xFactorsBinomial;xFB1;xFB2;IsPowerOf"
+
+
+/*-----------------------------------------------------------------
+ *  Factoring Binomial expressions of the form  A X^n � B Y^n,
+ *-----------------------------------------------------------------*/
+
+Retract("xFactorsBinomial",*);
+Retract("xFB1",*);
+Retract("xFB2",*);
+Retract("IsPowerOf2",*);
+
+
+10 # xFactorsBinomial( poly_Polynomial? )_(Length(VarList(poly))=?1)  <-- 
+{
+    Decide(InVerboseMode(),Tell(xFactorsBinomial,poly));
+    Local(dis,n,X,var,A,B,s,Ar,Br);
+    dis := DisassembleExpression(poly);
+    Decide(InVerboseMode(),Tell("   ",dis));
+    n      := Maximum(dis[2])[1];
+    X      := dis[1][1];
+    var    := dis[1][1];
+    A      := Abs(dis[3][1]);
+    B      := Abs(dis[3][2]);
+    s      := Sign(dis[3][1]*dis[3][2]);
+    Ar     := NearRational(NM(A^(1/n),20));
+    Br     := NearRational(NM(B^(1/n),20));
+    Decide(InVerboseMode(),{Tell("       ",[n,X,var,A,B]); Tell("       ",[Ar,Br,s]);});
+    Decide( Integer?(Ar) And? Integer?(Br), xFB1(dis), [[poly,1]] );
+};
+
+
+10 # xFactorsBinomial( poly_Polynomial? )_(Length(VarList(poly))=?2)  <-- 
+{
+    Decide(InVerboseMode(),Tell(xFactorsBinomial,poly));
+    Local(dis,n,X,Y,vars,A,B,s,Ar,Br);
+    dis := DisassembleExpression(poly);
+    Decide(InVerboseMode(),Tell("   ",dis));
+    n     := Maximum(dis[2])[1];
+    X     := dis[1][1];
+    Y     := dis[1][2];
+    vars  := dis[1];
+    A     := Abs(dis[3][1]);
+    B     := Abs(dis[3][2]);
+    s     := Sign(dis[3][1]*dis[3][2]);
+    Ar    := NearRational(NM(A^(1/n)));
+    Br    := NearRational(NM(B^(1/n)));
+    Decide(InVerboseMode(),
+      {
+          Tell("       ",[n,X,Y]); 
+          Tell("       ",[vars,A,B]);
+          Tell("       ",[Ar,Br,s]);
+      }
+    );
+    Decide( Integer?(Ar) And? Integer?(Br), xFB2(dis), [[poly,1]] );
+};
+
+
+12 # xFB1( dis_List? )_(Length(dis)=?3 And? Length(dis[3])=?2) <--
+{
+    Decide(InVerboseMode(),{NewLine();Tell("xFB1",dis);});
+    Local(Y,y,ii,fac1);
+    X  := Ar*X;     Y  := Br;
+    Unassign(y);
+    y  := 1;
+    Decide(InVerboseMode(), Tell("     ",[X,Y]));
+    fac1  := xFB1( X/Y,n,s);    //  factor using normalized variable
+    
+    Decide( InVerboseMode(),Tell("   ",fac1));
+    
+    // now convert factorization back to actual variable if required
+    Decide( Y !=? 1,
+      {
+          Local(f,d);
+          For(ii:=1,ii<=?Length(fac1),ii++)
+          {
+              f := fac1[ii][1];
+              d := Degree(f,var);
+              Decide(InVerboseMode(),Tell("             ",[ii,f,d]));
+              fac1[ii][1] := Simplify(Y^d*f);
+          };
+      }
+    );
+    fac1;
+};
+UnFence("xFB1",1);
+
+
+15 # xFB1(_X,n_SmallPrime?,s_NotZero?)_(Odd?(n)) <--
+{
+    Local(ans,k);
+    Decide(InVerboseMode(),{NewLine();Tell("   xFB1prime",[X,n,s]);});
+    ans := [[X+s,1]];
+    Decide( n >? 1, ans := Concat(ans,[[Sum(k,0,n-1,(-s)^k*X^(n-1-k)),1]]) );
+    Decide(InVerboseMode(),Tell("          ",ans));
+    ans;
+};
+UnFence("xFB1",3);
+
+
+20 # xFB1(_X, n_Odd?, s_PositiveInteger?) <--
+{
+    Local(ans,ans1);
+    Decide(InVerboseMode(),{NewLine(); Tell("   xFB1oddsum",[X,Y,n]);});
+    If( n =? 9 )
+        { ans := [[X+1,1],[X^2-X+1,1],[X^6-X^3+1,1]]; }
+    Else If( n =? 15 )
+        { ans := [[X+1,1],[X^2-X+1,1],[X^4-X^3+X^2-X+1,1],[X^8+X^7-X^5-X^4-X^3+X+1,1]]; }
+    Else If( n =? 21 )
+        { ans := [[X+1,1],[X^2-X+1,1],[X^6-X^5+X^4-X^3+X^2-X+1,1],[X^12+X^11-X^9-X^8+X^6-X^4-X^3+X+1,1]]; }
+    Else If( n =? 25 )
+        { ans := [[X+1,1],[X^4-X^3+X^2-X+1,1],[X^20-X^15+X^10-X^5+1,1]]; }
+    Else If( n =? 35 )
+        { ans := [[X+1,1],[X^4-X^3+X^2-X+1,1],[X^6-X^5+X^4-X^3+X^2-X+1,1],[X^24+X^23-X^19-X^18-X^17-X^16+X^14+X^13+X^12+X^11+X^10-X^8-X^7-X^6-X^5+X+1,1]]; }
+    Else If( n =? 45 )
+        { ans := [[X+1,1],[X^2-X+1,1],[X^4-X^3+X^2-X+1,1],[X^6-X^3+1,1],[X^8+X^7-X^5-X^4-X^3+X+1,1],[X^24+X^21-X^15-X^12-X^9+X^3+1,1]]; }
+    Else
+        { ans := BinaryFactors(X^n+1); };  //  may take a long time, and not be complete
+    ans;
+};
+
+
+25 # xFB1(_X,n_Odd?, s_NegativeInteger?) <--
+{
+    Local(ans);
+    Decide(InVerboseMode(),{NewLine(); Tell("   xFB1odddif",[X,n]);});
+    If( n =? 9 )
+        { ans := [[X-1,1],[X^2+X+1,1],[X^6+X^3+1,1]]; }
+    Else If( n =? 15 )
+        { ans := [[X-1,1],[X^2+X+1,1],[X^4+X^3+X^2+X+1,1],[X^8-X^7+X^5-X^4+X^3-X+1,1]]; }
+    Else If( n =? 21 )
+        { ans := [[X-1,1],[X^2+X+1,1],[X^6+X^5+X^4+X^3+X^2+X+1,1],[X^12-X^11+X^9-X^8+X^6-X^4+X^3-X+1,1]]; }
+    Else If( n =? 25 )
+        { ans := [[X-1,1],[X^4+X^3+X^2+X+1,1],[X^20+X^15+X^10+X^5+1,1]]; }
+    Else If( n =? 35 )
+        { ans := [[X-1,1],[X^4+X^3+X^2+X+1,1],[X^6+X^5+X^4+X^3+X^2+X+1,1],[X^24-X^23+X^19-X^18+X^17-X^16+X^14-X^13+X^12-X^11+X^10-X^8+X^7-X^6+X^5-X+1,1]]; }
+    Else If( n =? 45 )
+        { ans := [[X-1,1],[X^2+X+1,1],[X^4+X^3+X^2+X+1,1],[X^6+X^3+1,1],[X^8-X^7+X^5-X^4+X^3-X+1,1],[X^24-X^21+X^15-X^12+X^9-X^3+1,1]]; }
+    Else
+        { ans := BinaryFactors(X^n-1); };  //  may take a long time, and not be complete
+    ans;
+    Decide(InVerboseMode(),Tell("    ",ans));
+    ans;
+};
+
+
+30 # xFB1(_X, n_Even?, s_PositiveInteger?) <--
+{
+    Local(ans,fn,mx,my);
+    Decide(InVerboseMode(),{NewLine(); Tell("   xFB1evensum",[X,n]);});
+    fn    := [[1,1]];
+    Decide( n >? 1, fn := FactorsSmallInteger(n) );
+    Decide(Length(fn)=?1 And? Odd?(fn[1][1]), mx:= fn[1][1]^(fn[1][2]-1));
+    Decide(Length(fn)>?1,
+         ForEach(f,fn) { Decide( Odd?(f[1]), mx := f[1]^f[2] ); });
+    my    := n/mx;
+    Decide(InVerboseMode(),Tell("    ",[mx,my]));
+
+    Decide( IsPowerOf2(n),
+      {
+         //  is power of 2,  so does not factor
+         ans := [[X^n+1,1]];
+      },
+      {
+         //  is not power of 2  -- check further
+         If( n =? 6 )
+             { ans := [[X^2+1,1],[X^4-X^2+1,1]]; }
+         Else If( n =? 10 )
+             { ans := [[X^2+1,1],[X^8-X^6+X^4-X^2+1,1]]; }
+         Else If( n =? 20 )
+             { ans := [[X^4+1,1],[X^16-X^12+X^8-X^4+1,1]]; }
+         Else If( n =? 30 )
+             { ans := [[X^2+1,1],[X^4-x^2+1,1],[X^8-X^6+X^4-X^2+1,1],[X^16+X^14-X^10-X^8-X^6+X^2+1,1]]; }
+         Else If( n =? 40 )
+             { ans := [[X^8+1,1],[X^32-X^24+X^16-X^8+1,1]]; }
+         Else If( n =? 50 )
+             { ans := [[X^2+1,1],[X^8-X^6+X^4-X^2+1,1],[X^40-X^30+X^20-X^10+1,1]]; }
+         Else If( n =? 100 )
+             { ans := [[X^4+1,1],[X^16-X^12+X^8-X^4+1,1],[X^80-X^60+X^40-X^20+1,1]]; }
+         Else
+             { ans := [[X^my+1,1],[Sum(k,0,mx-1,X^(n-my-k*my)*(-1)^k),1]]; };
+      }
+    );
+    Decide(InVerboseMode(),Tell("    ",ans));
+    ans;
+};
+
+
+35 # xFB1(_X, n_Even?, s_NegativeInteger?) <--
+{
+    Local(ans);
+    Decide(InVerboseMode(),{NewLine(); Tell("   xFB1evendif",[X,n]);});
+    If( n =? 2 )
+        { ans := [[X-1,1],[X+1,1]]; }
+    Else If( n =? 10 )
+        { ans := [[X-1,1],[X+1,1],[X^4+X^3+X^2+X+1,1],[X^4-X^3+X^2-X+1,1]]; }
+    Else If( n =? 20 )
+        { ans := [[X-1,1],[X+1,1],[X^2+1,1],[X^4+X^3+X^2+X+1,1],[X^4-X^3+X^2-X+1,1],[X^8-X^6+X^4-X^2+1,1]]; }
+    Else If( n =? 30 )
+        { ans := [[X-1,1],[X+1,1],[X^2+X+1,1],[X^2-X+1,1],[X^4+X^3+x^2+X+1,1],[X^4-X^3+x^2-X+1,1],[X^8-X^7+X^5-X^4+X^3-X+1,1],[X^8+X^7-X^5-X^4-X^3+X+1,1]]; }
+    Else If( n =? 40 )
+        { ans := [[X-1,1],[X+1,1],[X^2+1,1],[X^4+1,1],[X^4+X^3+X^2+X+1,1],[X^4-X^3+X^2-X+1,1],[X^8-X^6+X^4-X^2+1,1],[X^16-X^12+X^8-X^4+1,1]]; }
+    Else If( n =? 50 )
+        { ans := [[X-1,1],[X+1,1],[X^4+X^3+X^2+X+1,1],[X^4-X^3+X^2-X+1,1],[X^20+X^15+X^10+X^5+1,1],[X^20-X^15+X^10-X^5+1,1]]; }
+    Else If( n =? 100 )
+        { ans := [[X-1,1],[X+1,1],[X^2+1,1],[X^4+X^3+X^2+X+1,1],[X^4-X^3+X^2-X+1,1],[X^8-X^6+X^4-X^2+1,1],[X^20+X^15+X^10+X^5+1,1],[X^20-X^15+X^10-X^5+1,1],[X^40-X^30+X^20-X^10+1,1]];}
+    Else
+        { ans := Concat( xFB1(X,n/2,1), xFB1(X,n/2,-1) ); };   
+        
+    Decide(InVerboseMode(),Tell("    ",ans));
+    ans;
+};
+
+
+
+50 # xFB2( dis_List? )_(Length(dis)=?3 And? Length(dis[3])=?2) <--
+{
+    Decide(InVerboseMode(),{NewLine();Tell("xFB2",dis);});
+    Local(ns,ii,fn,mx,my,fac2);
+    Decide(InVerboseMode(),
+      {
+         Tell("     ",n);
+         Tell("     ",[X,Y]);
+         Tell("     ",[A,B,s]);
+         Tell("     ",[Ar,Br]);
+      }
+    );
+    X     := Ar*X;
+    Y     := Br*Y;
+    Decide(InVerboseMode(),Tell("     ",[X,Y]));
+    
+    fac2  := xFB1( X/Y,n,s);    //  factor using normalized variable
+    Decide(InVerboseMode(),Tell("      ",fac2));
+    
+    // now convert factorization back to actual variables if required
+
+    Decide( Y !=? 1,
+      {
+          Local(f,d);
+          For(ii:=1,ii<=?Length(fac2),ii++)
+          {
+              f := fac2[ii][1];
+              d := Degree(f,vars[1]);
+              Decide(InVerboseMode(),Tell("             ",[ii,f,d]));
+              fac2[ii][1] := Simplify(Simplify(Y^d*f));
+          };
+      }
+    );
+    fac2;
+};
+UnFence("xFB2",1);
+
+IsPowerOf2( n_PositiveInteger? ) <-- { Count(StringToList(ToBase(2,n)),"1") =? 1; };
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="xFactorsBinomial",categories="Mathematics Functions",access="undocumented"
+*CMD xFactorsBinomial --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs
+
+
+
+
+%mathpiper,name="xFactorsBinomial",subtype="automatic_test"
+
+Testing("BinomialPolynomialFactorization");
+
+{
+    Local(n,poly,a,b,result,prod,ok);
+    a := 2;
+    b := 3;
+    For(n:=2,n<=?12,n++)
+    {
+        poly   := ExpandBrackets(a^n*x^n-b^n);
+        result := xFactorsBinomial(poly);
+        prod   := ExpandBrackets(FW(result));
+        Verify(a^n*x^n-b^n,prod);
+        
+        poly   := ExpandBrackets(a^n*x^n+b^n);
+        result := xFactorsBinomial(poly);
+        prod   := ExpandBrackets(FW(result));
+        Verify(a^n*x^n+b^n,prod);
+    };
+};
+
+
+%/mathpiper
+
+

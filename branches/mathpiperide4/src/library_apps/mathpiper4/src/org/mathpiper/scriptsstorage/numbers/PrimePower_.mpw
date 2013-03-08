@@ -1,0 +1,45 @@
+%mathpiper,def="PrimePower?"
+
+/* Returns whether n is a prime^m. */
+10 # PrimePower?(n_Prime?) <-- True;
+10 # PrimePower?(0) <-- False;
+10 # PrimePower?(1) <-- False;
+20 # PrimePower?(n_PositiveInteger?) <-- (GetPrimePower(n)[2] >? 1);
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="PrimePower?",categories="Programming Functions;Predicates"
+*CMD PrimePower? --- test for a power of a prime number
+*STD
+*CALL
+        PrimePower?(n)
+
+*PARMS
+
+{n} -- integer to test
+
+*DESC
+
+This command tests whether "n", which should be a positive integer,
+is a prime power, that is whether it is of the form $p^m$, with
+"p" prime and "m" an integer.
+
+This function does not try to decompose the number $n$ into factors.
+Instead we check for all prime numbers $r=2$, $3$, ... that the $r$-th root of $n$ is an integer, and we find such $r$ and $m$ that $n=m^r$, we check that $m$ is a prime. If it is not a prime, we execute the same function call on $m$.
+
+*E.G.
+
+In> PrimePower?(9)
+Result: True;
+
+In> PrimePower?(10)
+Result: False;
+
+In> Select(1 .. 50, "PrimePower?")
+Result: [2,3,4,5,7,8,9,11,13,16,17,19,23,25,27,
+          29,31,32,37,41,43,47,49];
+
+*SEE Prime?, Factors
+%/mathpiper_docs

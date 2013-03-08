@@ -1,0 +1,82 @@
+%mathpiper,def="PMF"
+
+/* Evaluates distribution dst at point x
+   known distributions are:
+   1. Discrete distributions
+   -- BernoulliDistribution(p)
+   -- BinomialDistribution(p,n)
+   -- DiscreteUniformDistribution(a,b)
+   -- PoissonDistribution(l)
+   
+   2. Continuous distributions
+   -- ExponentialDistribution(l)
+   -- NormalDistrobution(a,s)
+   -- ContinuousUniformDistribution(a,b)
+   -- tDistribution(m)
+   -- GammaDistribution(m)
+   -- ChiSquareDistribution(m)
+
+  DiscreteDistribution(domain,probabilities) represent arbitrary
+  distribution with finite number of possible values; domain list
+  contains possible values such that
+  Pr(X=domain[i])=probabilities[i].
+  TODO: Should domain contain numbers only?
+*/
+
+//Retract("PMF", *);
+
+10 # PMF(BernoulliDistribution(_p),0) <-- p;
+10 # PMF(BernoulliDistribution(_p),1) <-- 1-p;
+10 # PMF(BernoulliDistribution(_p),x_Number?)_(x !=? 0 And? x !=? 1) <-- 0;
+10 # PMF(BernoulliDistribution(_p),_x) <-- Hold(Decide(x=?0,p,Decide(x=?1,1-p,0)));
+
+10 # PMF(BinomialDistribution(_p,_n),_k) <-- BinomialCoefficient(n,k)*p^k*(1-p)^(n-k);
+
+10 # PMF(DiscreteUniformDistribution(_a,_b), x_Number?) <-- Decide(x<?a Or? x>?b, 0 ,1/(b-a+1));
+11 # PMF(DiscreteUniformDistribution(_a,_b), _x) <-- Hold(Decide(x<?a Or? x>?b, 0 ,1/(b-a+1)));
+
+10 # PMF(PoissonDistribution(_l), n_Number?) <-- Decide(n<?0,0,Exp(-l)*l^n/n!);
+11 # PMF(PoissonDistribution(_l),_n) <-- Exp(-l)*l^n/n!;
+
+10 # PMF(GeometricDistribution(_p),_n) <--Decide(n<?0,0,p*(1-p)^n);
+
+
+
+10 # PMF(DiscreteDistribution( dom_List?, prob_List?), _x)_( Length(dom)=?Length(prob) And? Simplify(Add(prob))=?1) <--
+    {
+      Local(i);
+      i:=Find(dom,x);
+      Decide(i =? -1,0,prob[i]);
+    };
+    
+
+
+10 # PMF(HypergeometricDistribution( N_Number?, M_Number?, n_Number?), x_Number?)_(M <=? N And? n <=? N) <-- (BinomialCoefficient(M,x) * BinomialCoefficient(N-M, n-x))/BinomialCoefficient(N,n);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+%mathpiper_docs,name="PMF",categories="Mathematics Functions;Statistics & Probability"
+*CMD PMF --- probability mass function
+*STD
+*CALL
+        PMF(dist,x)
+
+*PARMS
+{dist} -- a distribution type
+
+{x} -- a value of random variable
+
+*DESC
+{PMF} returns the
+probability for a random variable with distribution {dist} to take a
+value of {x}.
+
+
+*SEE CDF, PDF, Expectation
+%/mathpiper_docs

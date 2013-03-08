@@ -1,0 +1,41 @@
+%mathpiper,def="<<;>>"
+
+/* def file definitions
+<<
+>>
+*/
+
+/* Shifting operators */
+
+n_Integer? << m_Integer? <-- ShiftLeft(n,m);
+n_Integer? >> m_Integer? <-- ShiftRight(n,m);
+
+%/mathpiper
+
+
+%mathpiper_docs,name="<<;>>",categories="Operators"
+*CMD << --- binary shift left operator
+*CMD >> --- binary shift right operator
+*STD
+*CALL
+        n<<m
+        n>>m
+
+*PARMS
+
+{n}, {m} -- integers
+
+*DESC
+
+These operators shift integers to the left or to the right.
+They are similar to the C shift operators. These are sign-extended
+shifts, so they act as multiplication or division by powers of 2.
+
+*E.G.
+
+In> 1 << 10
+Result: 1024;
+
+In> -1024 >> 10
+Result: -1;
+%/mathpiper_docs

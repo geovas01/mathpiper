@@ -1,0 +1,218 @@
+%mathpiper,def="NM;NonNM;NumericMode?"
+
+//"+-;/-;*-;^-;:=-;:=+" These were in the def list.
+
+/* See the documentation on the assignment of the precedence of the rules.
+ */
+
+/* Some very basic functions that are used always any way... */
+
+/* Implementation of numeric mode */
+
+//Retract("NM",*);
+
+LocalSymbols(numericMode)
+{
+
+  numericMode := False;
+
+  // NM function: evaluate numerically with given precision.
+  LocalSymbols(previousNumericMode, previousPrecision, numericResult) 
+  Macro("NM",[expression, precision])
+  {
+    //Decide(InVerboseMode(),
+    //    [Tell("NM",[expression,precision]); Tell("  ",[@expression,@precision]);]
+    //);
+    
+    // we were in non-numeric mode
+    Local(previousNumericMode, previousPrecision, numericResult, exception);
+
+    previousPrecision := BuiltinPrecisionGet();
+    //Decide(InVerboseMode(),Tell("  ",previousPrecision));
+    BuiltinPrecisionSet(@precision+5);
+
+    AssignCachedConstantsN();
+
+    previousNumericMode := numericMode;
+    numericMode         := True;
+    exception         := False;
+
+    //ExceptionCatch(Assign(numericResult, Eval(@expression)),Assign(exception,ExceptionGet()));
+
+    ExceptionCatch( numericResult:=Eval(@expression), exception := ExceptionGet() );
+    //Decide(InVerboseMode(),Tell("  1",numericResult));
+
+    Decide(Decimal?(numericResult), numericResult := RoundToN(numericResult, @precision));
+    //Decide(InVerboseMode(),Tell("  2",numericResult));
+
+    numericMode := previousNumericMode;
+
+    Decide(Not? numericMode, { ClearCachedConstantsN(); } );
+
+    BuiltinPrecisionSet(previousPrecision);
+
+    Check(exception =? False, exception["type"], exception["message"]);
+
+    numericResult;
+
+  };
+
+
+
+
+  // NM function: evaluate numerically with default precision.
+  LocalSymbols(precision,heldExpression) 
+  Macro("NM",[expression])
+  {
+     Local(precision, heldExpression);
+     precision      :=  BuiltinPrecisionGet();
+     heldExpression :=  Hold(@expression);
+
+     `NM(@heldExpression, @precision);
+  };
+
+  
+  // NonNM function.
+  LocalSymbols(result) 
+  Macro("NonNM",[expression])
+  {
+    Local(result);
+    GlobalPush(numericMode);
+    numericMode := False;
+    result      := (@expression);
+    numericMode := GlobalPop();
+    result;
+  };
+
+
+  // NumericMode? function.
+  Function("NumericMode?",[]) numericMode;
+
+}; //LocalSymbols(numericMode)
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+   
+
+
+
+
+
+%mathpiper_docs,name="NM",categories="Mathematics Functions;Numbers (Operations)"
+*CMD NM --- try to determine an numerical approximation of expression
+
+*CALL
+        NM(expression)
+        NM(expression, precision)
+*PARMS
+
+{expression} -- expression to evaluate
+
+{precision} -- integer, precision to use
+
+*DESC
+
+The function {NM} instructs {MathPiper} to try to coerce an expression in to a numerical approximation to the
+expression {expr}, using {prec} digits precision if the second calling
+sequence is used, and the default precision otherwise. This overrides the normal
+behaviour, in which expressions are kept in symbolic form (eg. {Sqrt(2)} instead of {1.41421}).
+
+Application of the {NM} operator will make MathPiper
+calculate floating point representations of functions whenever
+possible. In addition, the variable {Pi} is bound to
+the value of $Pi$ calculated at the current precision.
+(This value is a "cached constant", so it is not recalculated each time {NM} is used, unless the precision is increased.)
+
+
+{NM} is a macro. Its argument {expr} will only
+be evaluated after switching to numeric mode.
+
+*E.G.
+In> 1/2
+Result: 1/2;
+
+In> NM(1/2)
+Result: 0.5;
+
+In> Sin(1)
+Result: Sin(1);
+
+In> NM(Sin(1),10)
+Result: 0.8414709848;
+
+In> Pi
+Result: Pi;
+
+In> NM(Pi,20)
+Result: 3.1415926535897932385
+
+*SEE Pi, NumericMode?, NonNM
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper_docs,name="NumericMode?",categories="Programming Functions;Predicates"
+*CMD NumericMode? --- determine if currently in numeric mode
+
+*CALL
+        NumericMode?()
+
+*DESC
+
+When in numeric mode, {NumericMode?()} will return {True}, else it will
+return {False}. {MathPiper} is in numeric mode when evaluating an expression
+with the function {NM}. Thus when calling {NM(expr)}, {NumericMode?()} will
+return {True} while {expr} is being evaluated.
+
+{NumericMode?()} would typically be used to define a transformation rule
+that defines how to get a numeric approximation of some expression. One
+could define a transformation rule
+
+        f(_x)_NumericMode?() <- {... some code to get a numeric approximation of f(x) ... };
+
+{NumericMode?()} usually returns {False}, so transformation rules that check for this
+predicate are usually left alone.
+
+
+*E.G.
+In> NumericMode?()
+Result: False
+
+In> NM(NumericMode?())
+Result: True
+
+*SEE NM, BuiltinPrecisionSet, BuiltinPrecisionGet, Pi, CachedConstant
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper_docs,name="NonNM",categories="Mathematics Functions;Numbers (Operations)"
+*CMD NonNM --- calculate part in non-numeric mode
+
+*CALL
+        NonNM(expr)
+
+*PARMS
+{expr} -- expression to evaluate
+
+*DESC
+When in numeric mode, {NonNM} can be called to switch back to non-numeric
+mode temporarily.
+
+{NonNM} is a macro. Its argument {expr} will only
+be evaluated after the numeric mode has been set appropriately.
+
+*E.G.
+In> NM(NonNM(NumericMode?()))
+Result: False
+
+*SEE NM, BuiltinPrecisionSet, BuiltinPrecisionGet, Pi, CachedConstant
+%/mathpiper_docs

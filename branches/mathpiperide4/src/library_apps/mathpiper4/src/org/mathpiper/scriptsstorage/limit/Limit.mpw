@@ -1,0 +1,514 @@
+%mathpiper,def="Limit;IsIrrationalFunction;IrrationalFunctionDegree;IrrationalFunctionLeadingCoef;Dir;LimitArgs;LimInf;LimSup"
+
+100 # IsIrrationalFunction(Sqrt(_expr), _var)_(Polynomial?(expr, var) And? Degree(expr, var) >? 0 Or? IsIrrationalFunction(expr,var)) <-- True;
+100 # IsIrrationalFunction(_expr^_p, _var)_((Polynomial?(expr, var) Or? IsIrrationalFunction(expr,var)) And? RationalOrNumber?(p) And? Not? Zero?(p) And? Not? PositiveInteger?(p)) <-- True;
+100 # IsIrrationalFunction(_e1 + _e2, _var)_(IsIrrationalFunction(e1, var) And? IsIrrationalFunction(e2, var) Or? Polynomial?(e1, var) And? IsIrrationalFunction(e2, var) Or? IsIrrationalFunction(e1, var) And? Polynomial?(e2, var)) <-- True;
+100 # IsIrrationalFunction(_e1 - _e2, _var)_(IsIrrationalFunction(e1, var) And? IsIrrationalFunction(e2, var) Or? Polynomial?(e1, var) And? IsIrrationalFunction(e2, var) Or? IsIrrationalFunction(e1, var) And? Polynomial?(e2, var)) <-- True;
+100 # IsIrrationalFunction(_e1 * _e2, _var)_(IsIrrationalFunction(e1, var) And? IsIrrationalFunction(e2, var) Or? Polynomial?(e1, var) And? IsIrrationalFunction(e2, var) Or? IsIrrationalFunction(e1, var) And? Polynomial?(e2, var)) <-- True;
+100 # IsIrrationalFunction(_e1 / _e2, _var)_(IsIrrationalFunction(e1, var) And? IsIrrationalFunction(e2, var) Or? Polynomial?(e1, var) And? IsIrrationalFunction(e2, var) Or? IsIrrationalFunction(e1, var) And? Polynomial?(e2, var)) <-- True;
+
+500 # IsIrrationalFunction(_expr, _var) <-- False;
+
+100 # IrrationalFunctionDegree(Sqrt(_expr), _var)_(Polynomial?(expr, var)) <-- Degree(expr, var) / 2;
+105 # IrrationalFunctionDegree(Sqrt(_expr), _var)_(IsIrrationalFunction(expr, var)) <-- IrrationalFunctionDegree(expr, var) / 2;
+110 # IrrationalFunctionDegree(_expr^_p, _var)_(Polynomial?(expr, var) And? RationalOrNumber?(p) And? Not? Zero?(p) And? Not? PositiveInteger?(p)) <-- Degree(expr, var) * p;
+110 # IrrationalFunctionDegree(_e1 - _e2, _var)_(IsIrrationalFunction(e1,var) And? IsIrrationalFunction(e2,var)) <-- Maximum(IrrationalFunctionDegree(e1,var), IrrationalFunctionDegree(e2,var));
+110 # IrrationalFunctionDegree(_e1 - _e2, _var)_(IsIrrationalFunction(e1,var) And? Polynomial?(e2,var)) <-- Maximum(IrrationalFunctionDegree(e1,var), Degree(e2, var));
+110 # IrrationalFunctionDegree(_e1 - _e2, _var)_(Polynomial?(e1,var) And? IsIrrationalFunction(e2,var)) <-- Maximum(Degree(e1, var), IrrationalFunctionDegree(e2,var));
+110 # IrrationalFunctionDegree(_e1 + _e2, _var)_(IsIrrationalFunction(e1,var) And? IsIrrationalFunction(e2,var)) <-- Maximum(IrrationalFunctionDegree(e1,var), IrrationalFunctionDegree(e2,var));
+110 # IrrationalFunctionDegree(_e1 + _e2, _var)_(IsIrrationalFunction(e1,var) And? Polynomial?(e2,var)) <-- Maximum(IrrationalFunctionDegree(e1,var), Degree(e2, var));
+110 # IrrationalFunctionDegree(_e1 + _e2, _var)_(Polynomial?(e1,var) And? IsIrrationalFunction(e2,var)) <-- Maximum(Degree(e1, var), IrrationalFunctionDegree(e2,var));
+110 # IrrationalFunctionDegree(_e1 * _e2, _var)_(IsIrrationalFunction(e1,var) And? IsIrrationalFunction(e2,var)) <-- IrrationalFunctionDegree(e1,var) + IrrationalFunctionDegree(e2,var);
+110 # IrrationalFunctionDegree(_e1 * _e2, _var)_(IsIrrationalFunction(e1,var) And? Polynomial?(e2,var)) <-- IrrationalFunctionDegree(e1,var) + Degree(e2, var);
+110 # IrrationalFunctionDegree(_e1 * _e2, _var)_(Polynomial?(e1,var) And? IsIrrationalFunction(e2,var)) <-- Degree(e1, var) + IrrationalFunctionDegree(e2,var);
+
+110 # IrrationalFunctionDegree(_e1 / _e2, _var)_(IsIrrationalFunction(e1,var) And? IsIrrationalFunction(e2,var)) <-- IrrationalFunctionDegree(e1,var) - IrrationalFunctionDegree(e2,var);
+110 # IrrationalFunctionDegree(_e1 / _e2, _var)_(IsIrrationalFunction(e1,var) And? Polynomial?(e2,var)) <-- IrrationalFunctionDegree(e1,var) - Degree(e2, var);
+110 # IrrationalFunctionDegree(_e1 / _e2, _var)_(Polynomial?(e1,var) And? IsIrrationalFunction(e2,var)) <-- Degree(e1, var) - IrrationalFunctionDegree(e2,var);
+
+100 # IrrationalFunctionLeadingCoef(Sqrt(_expr), _var)_(Polynomial?(expr, var)) <-- Sqrt(LeadingCoef(expr, var));
+105 # IrrationalFunctionLeadingCoef(Sqrt(_expr), _var)_(IsIrrationalFunction(expr, var)) <-- Sqrt(IrrationalFunctionLeadingCoef(expr, var));
+110 # IrrationalFunctionLeadingCoef(_expr^_p, _var)_(Polynomial?(expr, var) And? RationalOrNumber?(p) And? Not? Zero?(p) And? Not? PositiveInteger?(p)) <-- LeadingCoef(expr, var)^p;
+
+110 # IrrationalFunctionLeadingCoef(_e1 + _e2, _var)_(IsIrrationalFunction(e1,var) And? IsIrrationalFunction(e2,var) And? IrrationalFunctionDegree(e1,var) >? IrrationalFunctionDegree(e2,var)) <-- IrrationalFunctionLeadingCoef(e1,var);
+110 # IrrationalFunctionLeadingCoef(_e1 + _e2, _var)_(IsIrrationalFunction(e1,var) And? IsIrrationalFunction(e2,var) And? IrrationalFunctionDegree(e1,var) <? IrrationalFunctionDegree(e2,var)) <-- IrrationalFunctionLeadingCoef(e2,var);
+110 # IrrationalFunctionLeadingCoef(_e1 + _e2, _var)_(IsIrrationalFunction(e1,var) And? IsIrrationalFunction(e2,var) And? IrrationalFunctionDegree(e1,var) =? IrrationalFunctionDegree(e2,var)) <-- IrrationalFunctionLeadingCoef(e1,var) + IrrationalFunctionLeadingCoef(e2,var);
+
+110 # IrrationalFunctionLeadingCoef(_e1 + _e2, _var)_(IsIrrationalFunction(e1,var) And? Polynomial?(e2,var) And? IrrationalFunctionDegree(e1,var) >? Degree(e2,var)) <-- IrrationalFunctionLeadingCoef(e1,var);
+110 # IrrationalFunctionLeadingCoef(_e1 + _e2, _var)_(IsIrrationalFunction(e1,var) And? Polynomial?(e2,var) And? IrrationalFunctionDegree(e1,var) <? Degree(e2,var)) <-- LeadingCoef(e2,var);
+110 # IrrationalFunctionLeadingCoef(_e1 + _e2, _var)_(IsIrrationalFunction(e1,var) And? Polynomial?(e2,var) And? IrrationalFunctionDegree(e1,var) =? Degree(e2,var)) <-- IrrationalFunctionLeadingCoef(e1,var) + LeadingCoef(e2,var);
+
+110 # IrrationalFunctionLeadingCoef(_e1 + _e2, _var)_(Polynomial?(e1,var) And? IsIrrationalFunction(e2,var) And? Degree(e1,var) >? IrrationalFunctionDegree(e2,var)) <-- LeadingCoef(e1,var);
+110 # IrrationalFunctionLeadingCoef(_e1 + _e2, _var)_(Polynomial?(e1,var) And? IsIrrationalFunction(e2,var) And? Degree(e1,var) <? IrrationalFunctionDegree(e2,var)) <-- IrrationalFunctionLeadingCoef(e2,var);
+110 # IrrationalFunctionLeadingCoef(_e1 + _e2, _var)_(IsPolynomiaml(e1,var) And? IsIrrationalFunction(e2,var) And? Degree(e1,var) =? IrrationalFunctionDegree(e2,var)) <-- LeadingCoef(e1,var) + IrrationalFunctionLeadingCoef(e2,var);
+
+110 # IrrationalFunctionLeadingCoef(_e1 - _e2, _var)_(IsIrrationalFunction(e1,var) And? IsIrrationalFunction(e2,var) And? IrrationalFunctionDegree(e1,var) >? IrrationalFunctionDegree(e2,var)) <-- IrrationalFunctionLeadingCoef(e1,var);
+110 # IrrationalFunctionLeadingCoef(_e1 - _e2, _var)_(IsIrrationalFunction(e1,var) And? IsIrrationalFunction(e2,var) And? IrrationalFunctionDegree(e1,var) <? IrrationalFunctionDegree(e2,var)) <-- -IrrationalFunctionLeadingCoef(e2,var);
+110 # IrrationalFunctionLeadingCoef(_e1 - _e2, _var)_(IsIrrationalFunction(e1,var) And? IsIrrationalFunction(e2,var) And? IrrationalFunctionDegree(e1,var) =? IrrationalFunctionDegree(e2,var)) <-- IrrationalFunctionLeadingCoef(e1,var) - IrrationalFunctionLeadingCoef(e2,var);
+
+110 # IrrationalFunctionLeadingCoef(_e1 - _e2, _var)_(IsIrrationalFunction(e1,var) And? Polynomial?(e2,var) And? IrrationalFunctionDegree(e1,var) >? Degree(e2,var)) <-- IrrationalFunctionLeadingCoef(e1,var);
+110 # IrrationalFunctionLeadingCoef(_e1 - _e2, _var)_(IsIrrationalFunction(e1,var) And? Polynomial?(e2,var) And? IrrationalFunctionDegree(e1,var) <? Degree(e2,var)) <-- -LeadingCoef(e2,var);
+110 # IrrationalFunctionLeadingCoef(_e1 - _e2, _var)_(IsIrrationalFunction(e1,var) And? Polynomial?(e2,var) And? IrrationalFunctionDegree(e1,var) =? Degree(e2,var)) <-- IrrationalFunctionLeadingCoef(e1,var) - LeadingCoef(e2,var);
+
+110 # IrrationalFunctionLeadingCoef(_e1 - _e2, _var)_(Polynomial?(e1,var) And? IsIrrationalFunction(e2,var) And? Degree(e1,var) >? IrrationalFunctionDegree(e2,var)) <-- LeadingCoef(e1,var);
+110 # IrrationalFunctionLeadingCoef(_e1 - _e2, _var)_(Polynomial?(e1,var) And? IsIrrationalFunction(e2,var) And? Degree(e1,var) <? IrrationalFunctionDegree(e2,var)) <-- -IrrationalFunctionLeadingCoef(e2,var);
+110 # IrrationalFunctionLeadingCoef(_e1 - _e2, _var)_(IsPolynomiaml(e1,var) And? IsIrrationalFunction(e2,var) And? Degree(e1,var) =? IrrationalFunctionDegree(e2,var)) <-- LeadingCoef(e1,var) - IrrationalFunctionLeadingCoef(e2,var);
+
+110 # IrrationalFunctionLeadingCoef(_e1 * _e2, _var)_(IsIrrationalFunction(e1,var) And? IsIrrationalFunction(e2,var)) <-- IrrationalFunctionLeadingCoef(e1,var) * IrrationalFunctionLeadingCoef(e2,var);
+110 # IrrationalFunctionLeadingCoef(_e1 * _e2, _var)_(IsIrrationalFunction(e1,var) And? Polynomial?(e2,var)) <-- IrrationalFunctionLeadingCoef(e1,var) * LeadingCoef(e2, var);
+110 # IrrationalFunctionLeadingCoef(_e1 * _e2, _var)_(Polynomial?(e1,var) And? IsIrrationalFunction(e2,var)) <-- LeadingCoef(e1, var) * IrrationalFunctionLeadingCoef(e2,var);
+110 # IrrationalFunctionLeadingCoef(_e1 / _e2, _var)_(IsIrrationalFunction(e1,var) And? IsIrrationalFunction(e2,var)) <-- IrrationalFunctionLeadingCoef(e1,var) / IrrationalFunctionLeadingCoef(e2,var);
+110 # IrrationalFunctionLeadingCoef(_e1 / _e2, _var)_(IsIrrationalFunction(e1,var) And? Polynomial?(e2,var)) <-- IrrationalFunctionLeadingCoef(e1,var) / LeadingCoef(e2, var);
+110 # IrrationalFunctionLeadingCoef(_e1 / _e2, _var)_(Polynomial?(e1,var) And? IsIrrationalFunction(e2,var)) <-- LeadingCoef(e1, var) / IrrationalFunctionLeadingCoef(e2,var);
+
+
+
+/*                            */
+/*  Limit operator rule base  */
+/*                            */
+
+/* Special case: limits of polynomials as x approaches infinity */
+100 # Lim(_var, _tar, _dir, _p)_(Polynomial?(p, var) And? Degree(p, var) >? 0 And? Infinity?(tar))
+    <-- LeadingCoef(p,var) * Sign(tar)^Degree(p,var) * Infinity;
+
+/* Special case: limits of rational function as x approaches infinity */
+110 # Lim(_var, _tar, _dir, _r)_(RationalFunction?(r, var) And? Infinity?(tar)) <-- 
+{
+    Local(p,q,pd,qd,pc,qc);
+
+    p:=Numerator(r);
+    q:=Denominator(r);
+
+    pd:=Degree(p,var);
+    qd:=Degree(q,var);
+
+    pc:=LeadingCoef(p,var);
+    qc:=LeadingCoef(q,var);
+
+    Decide(pd>?qd,
+        pc/qc*tar,
+        Decide(pd=?qd,pc/qc,0)
+    );
+};
+
+/* Special case: limits of irrational function as x approaches infinity */
+110 # Lim(_var, _tar, _dir, _expr)_(IsIrrationalFunction(expr, var) And? Infinity?(tar)) <-- 
+{
+    Local(lc,dg);
+
+    lc:=IrrationalFunctionLeadingCoef(expr, var);
+    dg:=IrrationalFunctionDegree(expr, var);
+
+    Decide(lc =? 0,
+        0,
+        Decide(dg >? 0,
+            Sign(tar)^dg * Infinity,
+            Decide(dg =? 0, lc, 0)
+        )
+    );
+};
+
+
+/* Special case: make use of the logarithm properties */
+120 # Lim(_var, _tar, _dir, Ln(_a) + Ln(_b)) <-- Lim(var, tar, dir, Ln(a*b));
+120 # Lim(_var, _tar, _dir, Ln(_a) - Ln(_b)) <-- Lim(var, tar, dir, Ln(a/b));
+
+/*  Exponentiation rules  */
+
+/*  Special limit #1:  0 ^ 0;  #2:  1 ^ Infinity;  #3:  Infinity ^ 0  */
+200 # Lim(_var, _tar, _dir, _x ^ _y)_
+( {
+    Local(lx,ly); lx := Lim(var, tar, dir, x); ly := Lim(var, tar, dir, y);
+    ((Zero?(lx) And? Zero?(ly)) Or? ((lx =? 1) And? Infinity?(ly)) Or? (Infinity?(lx) And? Zero?(ly)));
+} )
+<-- Exp(Lim(var, tar, dir, y * Ln(x)));
+
+/*  Default rule  */
+210 # Lim(_var, _tar, _dir, _x ^ _y)
+<-- Lim(var, tar, dir, x)^Lim(var, tar, dir, y);
+
+
+/*  Division rules  */
+
+/*  Special limit #4:  0 / 0;  #5:  Infinity / Infinity  */
+300 # Lim(_var, _tar, _dir, _x / _y)_
+( {
+    Local(lx,ly,infx,infy);
+     lx := Lim(var, tar, dir, x);
+     ly := Lim(var, tar, dir, y);
+     infx := (Infinity?(lx) Or? (Zero?(Re(lx)) And? Infinity?(Im(lx))));
+     infy := (Infinity?(ly) Or? (Zero?(Re(ly)) And? Infinity?(Im(ly))));
+    ((Zero?(lx) And? Zero?(ly)) Or?
+     (infx And? infy)
+     );
+} )
+<-- Lim(var, tar, dir, ApplyFast("Differentiate", [var, x])/ApplyFast("Differentiate", [var, y]));
+
+/*  Special limit #6: null denominator  */
+/*  Probably there are still some problems.  */
+
+Dir(Right) <-- 1;
+Dir(Left) <-- -1;
+
+/*  To get the sign of the denominator on one side:  */
+Sign(_var, _tar, _dir, _exp, _n)
+<-- {
+  Local(der, coef); der := ApplyFast("Differentiate", [var, exp]);
+  coef := Eval(ApplyFast("Substitute", [var, tar, der]));
+  Decide( coef =? 0,
+       Sign(var, tar, dir, der, n+1),
+       (Sign(coef)*Dir(dir)) ^ n
+     );
+};
+
+/*  To avoid infinite recursion (with 1/Exp(-x) for instance)  */
+310 # Lim(_var, _tar, _dir, _x / _y)_
+(Infinity?(tar) And? Zero?(Lim(var, tar, dir, y)))
+<-- Sign(Lim(var, tar, dir, x))*Sign(Lim(var, tar, dir, ApplyFast("Differentiate", [var, y])))*tar;
+
+320 # Lim(_var, _tar, _dir, _x / _y)_Zero?(Lim(var, tar, dir, y))
+<-- Sign(Lim(var, tar, dir, x))*Sign(var, tar, dir, y, 1)*Infinity;
+
+
+/*  Default rule  */
+330 # Lim(_var, _tar, _dir, _x / _y) <-- {
+    Local(u,v,r);
+
+    u := Lim(var, tar, dir, x);
+    v := Lim(var, tar, dir, y);
+
+    r := u / v;
+
+    Decide(u =? Undefined And? Infinity?(v), {
+        Local(li, ls);
+
+        li := LimInf(var,tar,dir,x); 
+        ls := LimSup(var,tar,dir,x);
+        r := (li * ls) / v;
+    });
+
+    r;
+};
+
+
+/*  Multiplication rules  */
+
+/*  To avoid some infinite recursions  */
+400 # Lim(_var, _tar, _dir, _x * Exp(_y))_
+(Infinity?(Lim(var, tar, dir, x)) And? (Lim(var, tar, dir, y) =? -Infinity))
+<-- Lim(var, tar, dir, x/Exp(-y));
+400 # Lim(_var, _tar, _dir, Exp(_x) * _y)_
+((Lim(var, tar, dir, x) =? -Infinity) And? Infinity?(Lim(var, tar, dir, y)))
+<-- Lim(var, tar, dir, y/Exp(-x));
+400 # Lim(_var, _tar, _dir, Ln(_x) * _y)_
+(Zero?(Lim(var, tar, dir, x)) And? Zero?(Lim(var, tar, dir, y)))
+<-- Lim(var, tar, dir, y*Ln(x));
+
+/*  Special limit #7:  0 * Infinity  */
+410 # Lim(_var, _tar, _dir, _x * _y)_
+((Zero?(Lim(var, tar, dir, x)) And? Infinity?(Lim(var, tar, dir, y)))
+  Or? (Infinity?(Lim(var, tar, dir, x)) And? Zero?(Lim(var, tar, dir, y))))
+<-- Lim(var, tar, dir, Simplify(ApplyFast("Differentiate", [var, y])/ApplyFast("Differentiate",
+[var, 1/x])));
+
+/*  Default rule  */
+420 # Lim(_var, _tar, _dir, _x * _y) <-- {
+    Local(u,v,r);
+
+    u := Lim(var, tar, dir, x);
+    v := Lim(var, tar, dir, y);
+
+    r := u * v;
+
+    Decide(u =? 0 And? v =? Undefined, {
+        li := LimInf(var,tar,dir,y); 
+        ls := LimSup(var,tar,dir,y);
+        r := u * li * ls;
+    }, Decide(u =? Undefined And? v =? 0, {
+        li := LimInf(var,tar,dir,x); 
+        ls := LimSup(var,tar,dir,x);
+        r := v * li * ls;
+    }));
+
+    r;
+};
+
+/*  Substraction rules  */
+
+/*  Special limit #8:  Infinity - Infinity  */
+500 # Lim(_var, _tar, _dir, _x - _y)_
+( {
+    Local(lx,ly); lx := Lim(var, tar, dir, x); ly := Lim(var, tar, dir, y);
+    ((lx =? Infinity) And? (ly =? Infinity)) Or? ((lx =? -Infinity) And? (ly =? -Infinity));
+} )
+<-- Lim(var, tar, dir, x*(1-y/x));
+
+/*  Default rule  */
+510 # Lim(_var, _tar, _dir, _x - _y)
+<-- Lim(var, tar, dir, x)-Lim(var, tar, dir, y);
+
+/*  Unary minus  */
+520 # Lim(_var, _tar, _dir, - _x)
+<-- - Lim(var, tar, dir, x);
+
+
+/*  Addition rules  */
+
+/*  Special limit #9:  Infinity + (-Infinity)  */
+600 # Lim(_var, _tar, _dir, _x + _y)_
+( {
+    Local(lx,ly); lx := Lim(var, tar, dir, x); ly := Lim(var, tar, dir, y);
+    ((lx =? Infinity) And? (ly =? -Infinity)) Or? ((lx =? -Infinity) And? (ly =? Infinity));
+} )
+<-- Lim(var, tar, dir, x*(1+y/x));
+
+603 # Lim(_var, _tar, _dir, _x + _y)_
+(
+    Lim(var, tar, dir, x) =? Infinity And? Lim(var, tar, dir, y) =? Undefined And? LimInf(var, tar, dir, y) !=? -Infinity
+    Or?
+    Lim(var, tar, dir, x) =? Undefined And? LimInf(var, tar, dir, x) !=? -Infinity And? Lim(var, tar, dir, y) =? Infinity
+
+) <-- Infinity;
+
+/*  Default rule  */
+610 # Lim(_var, _tar, _dir, _x + _y)
+<-- Lim(var, tar, dir, x)+Lim(var, tar, dir, y);
+
+/*  Global default rule : evaluate expression  */
+
+700 # Lim(_var, _tar, _dir, exp_Function?)
+<-- Eval(MapArgs(exp,"LimitArgs"));
+
+LimitArgs(_arg) <-- Lim(var,tar,dir,arg);
+UnFence("LimitArgs",1); /* Allow LimitArgs to have access to the local variables of the caller. */
+
+701 # Lim(_var, _tar, _dir, _exp)
+<-- Eval(ApplyFast("Substitute", [var, tar, exp]));
+
+
+/*  Limit without direction  */
+
+10 # Lim(_var, tar_Infinity?, _exp) <-- Lim(var, tar, None, exp);
+
+20 # Lim(_var, _tar, _exp)
+<-- {
+  Local(l); l := Lim(var, tar, Left, exp);
+  Decide( l =? Lim(var, tar, Right, exp),
+       l,
+       Undefined
+     );
+};
+
+
+100 # LimInf(_var, _tar, _dir, Cos( _exp ))_Infinity?(Lim(var,tar,dir,exp)) <-- -1;
+100 # LimInf(_var, _tar, _dir, Sin( _exp ))_Infinity?(Lim(var,tar,dir,exp)) <-- -1;
+
+500 # LimInf(_var, _tar, _dir, _exp) <-- Lim(var,tar,dir,exp);
+
+100 # LimSup(_var, _tar, _dir, Cos( _exp ))_Infinity?(Lim(var,tar,dir,exp)) <-- 1;
+100 # LimSup(_var, _tar, _dir, Sin( _exp ))_Infinity?(Lim(var,tar,dir,exp)) <-- 1;
+
+500 # LimSup(_var, _tar, _dir, _exp) <-- Lim(var,tar,dir,exp);
+
+
+/* User-callable function */
+
+(Limit(_var,_lim)(_fie)) <-- Lim(var,lim,fie);
+(Limit(_var,_lim,_direction)(_fie)) <-- Lim(var,lim,direction,fie);
+UnFence("Limit",3);
+
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Limit",categories="Mathematics Functions;Calculus Related (Symbolic)"
+*CMD Limit --- limit of an expression
+*STD
+*CALL
+        Limit(var, val) expr
+        Limit(var, val, dir) expr
+
+*PARMS
+
+{var} -- a variable
+
+{val} -- a number
+
+{dir} -- a direction ({Left} or {Right})
+
+{expr} -- an expression
+
+*DESC
+
+This command tries to determine the value that the expression "expr"
+converges to when the variable "var" approaches "val". One may use
+{Infinity} or {-Infinity} for
+"val". The result of {Limit} may be one of the
+symbols {Undefined} (meaning that the limit does not
+exist), {Infinity}, or {-Infinity}.
+
+The second calling sequence is used for unidirectional limits. If one
+gives "dir" the value {Left}, the limit is taken as
+"var" approaches "val" from the positive infinity; and {Right} will take the limit from the negative infinity.
+
+*E.G.
+
+In> Limit(x,0) Sin(x)/x
+Result: 1;
+
+In> Limit(x,0) (Sin(x)-Tan(x))/(x^3)
+Result: -1/2;
+
+In> Limit(x,0) 1/x
+Result: Undefined;
+
+In> Limit(x,0,Left) 1/x
+Result: -Infinity;
+
+In> Limit(x,0,Right) 1/x
+Result: Infinity;
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Limit",subtype="automatic_test"
+
+Verify( Limit(x,Infinity) Sin(x), Undefined );
+Verify( Limit(x,Infinity) Cos(x), Undefined );
+Verify( Limit(x,Infinity) Tan(x), Undefined );
+Verify( Limit(x,Infinity) Gamma(x), Infinity );
+Verify( Limit(x,Infinity) Abs(x), Infinity );
+Verify( Limit(x,Infinity) x!, Infinity);
+
+Verify(Limit(x,Infinity) (-x^2+1)/(x+2),-Infinity);
+Verify(Limit(x,-Infinity)Exp(2*x),0);
+Verify(Limit(x,Infinity)(1+1/x)^x,Exp(1));
+Verify(Limit(x,Infinity)(1+2/x)^x,Exp(2));
+Verify(Limit(x,Infinity)(1+1/x)^(2*x),Exp(2));
+Verify(Limit(x,Infinity)-2*x,-Infinity);
+Verify(Limit(x,Infinity)(x^2+1)/(-x^3+1),0);
+Verify(Limit(x,0)1/x,Undefined);
+Verify(Limit(x,0,Right)1/x,Infinity);
+Verify(Limit(x,0,Left)1/x,-Infinity);
+
+Verify( Limit(n, Infinity) (n+1)/(2*n+3)*I, Complex(0,1/2) );
+Verify( Limit(x, Infinity) x*I, Complex(0,Infinity) ); //Changed Ayal: I didn't like the old definition
+
+Verify( Limit(n,Infinity) n*I^n, Undefined );
+
+Verify( Limit(x,0,Right) Ln(x)*Sin(x), 0 );
+KnownFailure( Limit(k,Infinity) ((k-phi)/k)^(k+1/2) =? Exp(-phi) );
+
+// tests adapted from mpreduce
+
+Verify(Limit(x,0)Sin(x)/x, 1);
+Verify(Limit(x,0)Sin(x)^2/x, 0);
+Verify(Limit(x,1)Sin(x)/x, Sin(1));
+/* This is actually a tricky one - for complex it should bring
+   infinity but for real it's undefined. BTW, reduce seems
+   to get it wrong */
+Verify(Limit(x,0)1/x, Undefined);
+Verify(Limit(x,0)(Sin(x)-x)/x^3, -1/6);
+Verify(Limit(x,Infinity)x*Sin(1/x), 1);
+/* reduce seems to get it wrong */
+Verify(Limit(x,0)Sin(x)/x^2, Undefined);
+Verify(Limit(x,Infinity)x^2*Sin(1/x), Infinity);
+
+// tests adapted from mpreduce
+
+Verify(Limit(x,2)x^2-6*x+4,-4);
+Verify(Limit(x,-1)(x+3)*(2*x-1)/(x^2+3*x-2), 3/2);
+Verify(Limit(h,0)(Sqrt(4+h)-2)/h, 1/4);
+Verify(Limit(x,4)(Sqrt(x)-2)/(4-x), -1/4);
+Verify(Limit(x,2)(x^2-4)/(x-2), 4);
+Verify(Limit(x,-1)1/(2*x-5), -1/7);
+Verify(Limit(x,1)Sqrt(x)/(x+1), 1/2);
+Verify(Limit(x,Infinity)(2*x+5)/(3*x-2), 2/3);
+Verify(Limit(x,1)(1/(x+3)-2/(3*x+5))/(x-1), 1/32);
+Verify(Limit(x,0)Sin(3*x)/x, 3);
+Verify(Limit(x,0)(1-Cos(x))/x^2, 1/2);
+Verify(Limit(x,0)(6*x-Sin(2*x))/(2*x+3*Sin(4*x)), 2/7);
+Verify(Limit(x,0)(1-2*Cos(x)+Cos(2*x))/x^2, -1);
+Verify(Simplify(Limit(x,0)(3*Sin(Pi*x) - Sin(3*Pi*x))/x^3), 4*Pi^3);
+Verify(Limit(x,0)(Cos(a*x)-Cos(b*x))/x^2, (-a^2 + b^2)/2);
+Verify(Limit(x,0)(Exp(x)-1)/x, 1);
+Verify(Limit(x,0)(a^x-b^x)/x, Ln(a) - Ln(b));
+
+
+
+// tests adapted from mpreduce
+
+
+Verify(Limit(x,0)Sinh(2*x)^2/Ln(1+x^2), 4);
+// The limit seems to hang mathpiper
+//Verify(Limit(x,Infinity)x^2*(Exp(1/x)-1)*(Ln(x+2)-Ln(x)),2);
+// another tricky problem with the result depending on the sign of
+// alpha; I'm not sure how we should deal with it
+//Limit(x,Infinity)x^alpha*Ln(x+1)^2/Ln(x);
+
+
+//Seems to hang mathpiper: Verify(Limit(x,0)(2*Cosh(x)-2-x^2)/Ln(1+x^2)^2, 1/12);
+Verify(Limit(x,0)(x*Sinh(x)-2+2*Cosh(x))/(x^4+2*x^2), 1);
+Verify(Limit(x,0)(2*Sinh(x)-Tanh(x))/(Exp(x)-1), 1);
+//This test passes, but it takes a long time to do so: Verify(Limit(x,0)x*Tanh(x)/(Sqrt(1-x^2)-1), -2);
+Verify(Limit(x,0)(2*Ln(1+x)+x^2-2*x)/x^3, 2/3);
+
+Verify(Limit(x,0)(Exp(5*x)-2*x)^(1/x), Exp(3));
+Verify(Limit(x,Infinity)Ln(Ln(x))/Ln(x)^2, 0);
+
+
+
+// tests adapted from mpreduce
+
+Verify(Limit(x,0)(Exp(x)-1)/x, 1);
+Verify(Limit(x,1)((1-x)/Ln(x))^2, 1);
+Verify(Limit(x,0)x/(Exp(x)-1), 1);
+Verify(Limit(x,0)x/Ln(x), 0);
+Verify(Limit(x,Infinity)Ln(1+x)/Ln(x), 1);
+Verify(Limit(x,Infinity)Ln(x)/Sqrt(x), 0);
+Verify(Limit(x,0,Right)Sqrt(x)/Sin(x), Infinity);
+Verify(Limit(x,0)x*Ln(x), 0);
+Verify(Limit(x,0)Ln(x)/Ln(2*x), 1);
+Verify(Limit(x,0)x*Ln(x)*(1+x), 0);
+Verify(Limit(x,Infinity)Ln(x)/x,0);
+Verify(Limit(x,Infinity)Ln(x)/Sqrt(x),0);
+Verify(Limit(x,Infinity)Ln(x), Infinity);
+Verify(Limit(x,0)Ln(x+1)/Sin(x), 1);
+//Seems to hang mathpiper: Verify(Limit(x,0)Ln(x+1/x)*Sin(x), 0);
+Verify(Limit(x,0)-Ln(1+x)*(x+2)/Sin(x), -2);
+Verify(Limit(x,Infinity)Ln(x+1)^2/Sqrt(x), 0);
+Verify(Limit(x,Infinity)(Ln(x+1)-Ln(x)), 0);
+Verify(Limit(x,Infinity)-Ln(x+1)^2/Ln(Ln(x)), -Infinity);
+
+
+/* Regression on bug reports from docs/bugs.txt */
+/* Bug #1 */
+/* Can't test: 'Limit(x,0)Differentiate(x,2)Sin(x)/x' never terminates */
+
+/* Bug #2 */
+KnownFailure((Limit(x,Infinity) x^n/Ln(x)) =? Infinity);
+KnownFailure((Limit(x,0,Right) x^(Ln(a)/(1+Ln(x)))) =? a);
+Verify((Limit(x,0) (x+1)^(Ln(a)/x)), a);
+/* Note paren's around bodied operators like Limit, D, Integrate;
+   otherwise it's parsed as Limit (... = ...) */
+
+/* Bug #5 */
+/* How can we test for this? */
+/* Bug says: Limit(n,Infinity) Sqrt(n+1)-Sqrt(n) floods stack */
+/* but 'MaxEvalDepth reached' exits Yacas, even inside ExceptionCatch */
+
+/* Bug #12 */
+KnownFailure((Limit(n, Infinity) n^5/2^n) =? 0);
+
+/* Bug #14 */
+Verify((Limit(x,Infinity) Zeta(x)), 1);
+// Actually, I changed the Factorial(x) to (x!)
+Verify((Limit(x,Infinity) (x!)), Infinity);
+
+
+
+
+%/mathpiper

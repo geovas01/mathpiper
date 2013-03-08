@@ -1,0 +1,135 @@
+%mathpiper,def="VerifySolve;VerifySolveEqual"
+
+//Retract("VerifySolve",*);
+//Retract("VerifySolveEqual",*);
+
+VerifySolve(_e1, _e2) <--
+Decide(VerifySolveEqual(Eval(e1), Eval(e2)), 
+    True,
+    { 
+      WriteString("******************");    NewLine();
+      ShowLine();                           NewLine();
+      Write(e1);                            NewLine();
+      WriteString(" evaluates to ");        NewLine();
+      Write(Eval(e1));                      NewLine();
+      WriteString(" which differs from ");  NewLine();
+      Write(e2);                            NewLine();
+      WriteString("******************");    NewLine();
+      False; 
+    }); 
+HoldArgumentNumber("VerifySolve", 2, 1);
+
+10 # VerifySolveEqual([], []) <-- True;
+
+20 # VerifySolveEqual([], e2_List?) <-- False;
+
+30 # VerifySolveEqual(e1_List?, e2_List?) <--
+{
+  Local(i, found);
+  found := False;
+  i := 0;
+  While(i <? Length(e2) And? Not? found) {
+    i++;
+    found := VerifySolveEqual(First(e1), e2[i]);
+  };
+  Decide(found, VerifySolveEqual(Rest(e1), Delete(e2, i)), False);
+};
+
+40 # VerifySolveEqual(_l1 == _r1, _l2 == _r2) 
+<-- Equal?(l1,l2) And? Simplify(r1-r2)=?0;
+
+50 # VerifySolveEqual(_e1, _e2) <-- Simplify(e1-e2) =? 0;
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+
+%mathpiper_docs,name="VerifySolve",categories="Programming Functions;Testing"
+*CMD VerifySolve --- verifies that one expression is mathematically equivalent to another
+*STD
+*CALL
+        VerifySolve(expression,answer)
+
+*PARMS
+
+{expression} -- expression to be checked
+
+{answer} -- expected result
+
+
+*DESC
+
+VerifySolve(expression, answer) tests whether 'expression' evaluates to 
+something "equal" to 'answer', and complains explicitly if it doesn't. 
+
+  Here, "equal" means:
+   o  for lists: having the same entries, possibly in a different order;
+   o  for equations: having the same right-hand sides, possibly after 'Simplify';
+   o  in all other cases: equality, possible after 'Simplify'.
+  Hence, { a == 1, a == x+1 } is "equal" to { a == 1+x, a == 1 }.
+
+The command {VerifySolve} is usually employed to verify that an equation or
+set of equations has been solved correctly.   
+
+But it also has a wider applicability.
+
+NOTE:
+    This function used to be defined in the test file solve.mpt, where it was
+used extensively.  However, by defining it in that file, it was unavailable for
+use as a general tool.  Now it has been made available.
+
+*E.G.
+
+
+In> VerifySolve(Solve(a+x*y==z,x),[x==(z-a)/y]);
+Result: True
+
+
+In> VerifySolve(Solve(a+x*y==z,x),[x==(a-z)/y]);
+Result: False
+Side Effects:
+******************
+none: -1 
+Solve(a+x*y==z,x)
+ evaluates to
+[x==-(a-z)/y]
+ which differs from
+[x==(a-z)/y]
+******************
+
+
+In> Verify(x*(1+x),x+x^2)
+Result: False
+Side Effects:
+******************
+none: -1 
+x*(1+x)
+ evaluates to
+x*(x+1)
+ which differs from
+x+x^2
+******************
+
+
+In> VerifySolve(x*(1+x),x+x^2)
+Result: True
+
+NOTE: Verify cannot see past the syntactical dissimilarity;  
+      VerifySolve can see the mathematical identity.
+
+*SEE Verify, Simplify, CanProve, KnownFailure, TestMathPiper, LogicVerify, LogicTest
+
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+

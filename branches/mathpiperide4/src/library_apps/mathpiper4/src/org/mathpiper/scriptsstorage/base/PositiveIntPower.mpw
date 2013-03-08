@@ -1,0 +1,57 @@
+%mathpiper,def="PositiveIntPower"
+
+// first define the binary exponentiation algorithm, MathIntPower.
+// Later, the PowerN function will be defined through IntPower and MathLn/ExpN. Note that ExpN uses IntPower.
+
+// power x^n only for non-negative integer n
+Defun("PositiveIntPower", [x,n])
+{
+  Local(result,unit);
+  Decide(LessThan?(n,0), False,
+  {
+        Assign(unit,1);         // this is a constant, initial value of the power
+        Assign(result, unit);
+        Decide(Equal?(n,0),unit,
+         Decide(Equal?(n,1),x,
+          {
+                While(GreaterThan?(n,0))
+                {
+                        Decide(
+                                Equal?(BitAnd(n,1), 1),
+//                                Decide(
+//                                        Equal?(result,unit), // if result is already assigned
+//                                        Assign(result, x), // avoid multiplication
+                                        Assign(result, MultiplyN(result,x))
+//                                )
+                        );
+                        Assign(x, MultiplyN(x,x));
+                        Assign(n,ShiftRight(n,1));
+                };
+                result;
+          }
+         )
+        );
+  });
+};
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="PositiveIntPower",categories="Mathematics Functions",access="undocumented"
+*CMD PositiveIntPower --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

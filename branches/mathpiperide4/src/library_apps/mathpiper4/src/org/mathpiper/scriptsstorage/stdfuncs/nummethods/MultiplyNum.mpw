@@ -1,0 +1,81 @@
+%mathpiper,def="MultiplyNum"
+
+/// coded by Serge Winitzki. See essays documentation for algorithms.
+
+//////////////////////////////////////////////////
+/// Numerical method: multiply floats by rationals
+//////////////////////////////////////////////////
+
+/// aux function: optimized numerical multiplication. Use MultiplyN() and DivideN().
+/// optimization consists of multiplying or dividing by integers if one of the arguments is a rational number. This is presumably always better than floating-point calculations, except if we use Rationalize() on everything.
+/// note that currently this is not a big optimization b/c of slow arithmetic but it already helps for rational numbers under NumericMode?() returns True and it will help even more when faster math is done
+
+Function() MultiplyNum(x, y, ...);
+Function() MultiplyNum(x);
+
+10 # MultiplyNum(x_List?)_(Length(x)>?1) <-- MultiplyNum(First(x), Rest(x));
+
+10 # MultiplyNum(x_Rational?, y_RationalOrNumber?) <--
+{
+        Decide(
+        Type(y) =? "/",  // Rational?(y), changed by Nobbi before redefinition of Rational?
+                DivideN(Numerator(x)*Numerator(y), Denominator(x)*Denominator(y)),
+                // y is floating-point
+                // avoid multiplication or division by 1
+                Decide(
+                        Numerator(x)=?1,
+                        DivideN(y, Denominator(x)),
+                        Decide(
+                                Denominator(x)=?1,
+                                MultiplyN(y, Numerator(x)),
+                                DivideN(MultiplyN(y, Numerator(x)), Denominator(x))
+                        )
+                )
+        );
+};
+
+20 # MultiplyNum(x_Number?, y_Rational?) <-- MultiplyNum(y, x);
+
+25 # MultiplyNum(x_Number?, y_Number?) <-- MultiplyN(x,y);
+
+30 # MultiplyNum(Complex(r_Number?, i_Number?), y_RationalOrNumber?) <-- Complex(MultiplyNum(r, y), MultiplyNum(i, y));
+
+35 # MultiplyNum(y_Number?, Complex(r_Number?, i_RationalOrNumber?)) <-- MultiplyNum(Complex(r, i), y);
+
+40 # MultiplyNum(Complex(r1_Number?, i1_Number?), Complex(r2_Number?, i2_Number?)) <-- Complex(MultiplyNum(r1,r2)-MultiplyNum(i1,i2), MultiplyNum(r1,i2)+MultiplyNum(i1,r2));
+
+/// more than 2 operands
+30 # MultiplyNum(x_RationalOrNumber?, y_NumericList?)_(Length(y)>?1) <-- MultiplyNum(MultiplyNum(x, First(y)), Rest(y));
+40 # MultiplyNum(x_RationalOrNumber?, y_NumericList?)_(Length(y)=?1) <-- MultiplyNum(x, First(y));
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="MultiplyNum",categories="Mathematics Functions;Numbers (Operations)"
+*CMD MultiplyNum --- optimized numerical multiplication
+*STD
+*CALL
+        MultiplyNum(x,y)
+        MultiplyNum(x,y,z,...)
+        MultiplyNum([x,y,z,...])
+
+*PARMS
+
+{x}, {y}, {z} -- integer, rational or floating-point numbers to multiply
+
+*DESC
+The function {MultiplyNum} is used to speed up multiplication of floating-point numbers with rational numbers. 
+Suppose we need to compute $(p/q)*x$ where $p$, $q$ are integers and $x$ is a floating-point number. 
+At high precision, it is faster to multiply $x$ by an integer $p$ and divide by an integer $q$ than to 
+compute $p/q$ to high precision and then multiply by $x$. The function  {MultiplyNum} performs this optimization.
+
+The function accepts any number of arguments (not less than two) or a list of numbers. The result is always 
+a floating-point number (even if {NumericMode?()} returns False).
+
+*E.G.
+In> MultiplyNum(1.2, 1/2)
+Result: 0.6
+
+*SEE MultiplyN
+%/mathpiper_docs
