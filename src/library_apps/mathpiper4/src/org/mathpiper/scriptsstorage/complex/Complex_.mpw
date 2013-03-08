@@ -1,0 +1,28 @@
+%mathpiper,def="Complex?"
+
+/* All things you can request a real and imaginary part for are complex */
+1 # Complex?(x_RationalOrNumber?)     <-- True;
+2 # Complex?(Complex(_r,_i)) <-- True;
+3 # Complex?(_x)             <-- False;
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="Complex?",categories="Programming Functions",access="undocumented"
+*CMD Complex? --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

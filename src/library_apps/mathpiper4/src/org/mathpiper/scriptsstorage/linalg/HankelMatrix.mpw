@@ -1,0 +1,31 @@
+%mathpiper,def="HankelMatrix"
+
+// The arguments of the following functions should be checked
+HankelMatrix(n):=BuildMatrix([[i,j], Decide(i+j-1>?n,0,i+j-1) ], n,n );
+HankelMatrix(m,n):=BuildMatrix([[i,j], Decide(i+j-1>?n,0,i+j-1)], m,n );
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="HankelMatrix",categories="Mathematics Functions;Matrices (Special)"
+*CMD HankelMatrix --- todo
+*CALL
+        HankelMatrix(matrix)
+
+*PARMS
+{n} -- todo
+{m} -- todo
+
+*DESC
+todo
+
+*E.G.
+todo
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+

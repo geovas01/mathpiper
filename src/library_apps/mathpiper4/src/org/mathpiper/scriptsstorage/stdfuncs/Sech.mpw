@@ -1,0 +1,16 @@
+%mathpiper,def="Sech"
+
+100 # Sech(_x) <-- 1/Cosh(x);
+
+
+%/mathpiper
+
+
+
+
+
+%mathpiper,name="Sech",subtype="automatic_test"
+
+Verify(Sech(x),1/Cosh(x));
+
+%/mathpiper

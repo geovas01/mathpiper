@@ -1,0 +1,61 @@
+%mathpiper,def="Mode"
+
+Mode(list) :=
+{
+    Check(Length(list) >? 0 And? NumericList?(list), "Argument", "Argument must be a nonempty numeric list.");
+    
+    Local(noDuplicatesList, countsList, sortedList, highestCountsList, resultList);
+    
+    noDuplicatesList := RemoveDuplicates(list);
+    
+    countsList := [];
+    
+    ForEach(element, noDuplicatesList)
+    {
+        countsList := Append(countsList, [Count(list, element), element] );
+    };
+    
+    sortedList := HeapSort(countsList,Lambda([x,y],x[1] >? y[1]));
+    
+    highestCountsList := Select(sortedList, Lambda([x],x[1] =? sortedList[1][1]));
+    
+    resultList := MapSingle(Lambda([x],x[2]), highestCountsList);
+
+};
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+%mathpiper_docs,name="Mode",categories="Mathematics Functions;Statistics & Probability",access="experimental"
+*CMD Mode --- calculates the mode of a list of values
+*STD
+*CALL
+        Mode(list)
+
+*PARMS
+
+{list} -- list of values
+
+*DESC
+
+This function calculates the mode of a list of values.  The mode is the value
+that occurs most frequently.
+
+*E.G.
+
+In> Mode([73,94,80,37,57,94,40,21,94,26])
+Result: 94
+
+*SEE Mean, WeightedMean, Median, Mode, GeometricMean
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+

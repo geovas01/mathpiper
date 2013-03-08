@@ -1,0 +1,51 @@
+%mathpiper,def="ElementCount"
+
+//Retract("ElementCount",*);
+
+ElementCount(list) :=
+{   
+    If(Length(list) =? 0)
+    {
+        0;
+    }
+    Else If(Atom?(list))
+    {
+        1;
+    }
+    Else
+    {
+        ElementCount(First(list)) + ElementCount(Rest(list));
+    };
+
+};
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+%mathpiper_docs,name="ElementCount",categories="Programming Functions;Lists (Operations)",access="experimental"
+*CMD ElementCount --- counts the number of elements in a list or nested list
+*CALL
+        ElementCount(list)
+
+*PARMS
+{list} -- a list or nested list
+
+*DESC
+Counts the number of elements in a list or nested list.
+
+*E.G.
+
+In> ElementCount([1,2,3,4])
+Result: 4
+
+
+In> ElementCount([1,2,[3,4],5,6])
+Result: 6
+%/mathpiper_docs

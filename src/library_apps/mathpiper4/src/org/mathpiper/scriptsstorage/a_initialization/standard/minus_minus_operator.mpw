@@ -1,0 +1,46 @@
+%mathpiper,def="--"
+
+Function("--",[aVar])
+{
+   MacroAssign(aVar,SubtractN(Eval(aVar),1));
+
+   Eval(aVar);
+};
+
+UnFence("--",1);
+
+HoldArgument("--",aVar);
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="--",categories="Operators"
+*CMD -- --- decrement variable
+*STD
+*CALL
+        var--
+
+*PARMS
+
+{var} -- variable to decrement
+
+*DESC
+
+The variable with name "var" is decremented, i.e. the number 1 is
+subtracted from it. The expression {x--} is
+equivalent to the assignment {x := x - 1}.
+
+*E.G.
+In> x := 5;
+Result: 5;
+
+In> x--;
+Result: 4;
+
+In> x;
+Result: 4;
+
+*SEE ++, :=
+%/mathpiper_docs

@@ -1,0 +1,128 @@
+%mathpiper,def="LaplaceTransform;LapTran;LapTranDef"
+
+10 # LaplaceTransform(_var1,_var2, _expr )        <-- LapTran(var1,var2,expr);
+
+// Linearity properties
+10 # LapTran(_var1,_var2,_x + _y)                      <-- LapTran(var1,var2,x) + LapTran(var1,var2,y);
+10 # LapTran(_var1,_var2,_x - _y)                <-- LapTran(var1,var2,x) - LapTran(var1,var2,y);
+10 # LapTran(_var1,_var2,    - _y)               <-- LapTran(var1,var2,y);
+10 # LapTran(_var1,_var2, c_Constant?*_y)        <-- c*LapTran(var1,var2,y);
+10 # LapTran(_var1,_var2, _y*c_Constant?)        <-- c*LapTran(var1,var2,y);
+10 # LapTran(_var1,_var2, _y/c_Constant?)         <-- LapTran(var1,var2,y)/c;
+
+// Shift properties
+10 # LapTran(_var1,_var2, Exp(c_Constant?*_var1)*_expr  ) <-- LapTran(var1,var2-c,expr);
+10 # LapTran(_var1,_var2, Exp(-c_Constant?*_var1)*_expr ) <-- LapTran(var1,var2+c,expr);
+10 # LapTran(_var1,_var2, _expr*Exp(c_Constant?*_var1)  ) <-- LapTran(var1,var2-c,expr);
+10 # LapTran(_var1,_var2, _expr*Exp(-c_Constant?*_var1) ) <-- LapTran(var1,var2+c,expr);
+
+// Other operational properties
+10 # LapTran(_var1,_var2, _expr/_var1 )                <-- Integrate(var2,var2,Infinity) LapTran(var1,var2,expr) ;
+10 # LapTran(_var1,_var2, _var1*_expr )                <-- - Deriv(var2) LapTran(var1,var2,expr);
+10 # LapTran(_var1,_var2, _var1^(n_Integer?)*_expr )  <-- (-1)^n * Deriv(var2,n) LapTran(var1,var2,expr);
+10 # LapTran(_var1,_var2, _expr*_var1 )                <-- - Deriv(var2) LapTran(var1,var2,expr);
+10 # LapTran(_var1,_var2, _expr*_var1^(n_Integer?)  ) <-- (-1)^n * Deriv(var2,n) LapTran(var1,var2,expr);
+
+// didn't match, return unevaled
+100 # LapTran(_var1,_var2, _expr )        <-- `Hold(LaplaceTransform(@var1,@var2,@expr));
+
+LapTranDef(_in,_out) <--
+{
+  Local(i,o);
+
+  //Echo("50 # LapTran(_t,_s,",in,") <-- ",out,";");
+  `(50 # LapTran(_t,_s,@in) <-- @out );
+
+  i:=Substitute(_t,c_PositiveInteger?*_t) in;
+  o:=Substitute(s,s/c) out;
+
+  //Echo("50 # LapTran(_t,_s,",i,") <-- ",o/c,";");
+  `(50 # LapTran(_t,_s,@i ) <-- @o/c );
+
+  i:=Substitute(_t,_t/c_PositiveInteger?) in;
+  o:=Substitute(s,s*c) out;
+
+  //Echo("50 # LapTran(_t,_s,",i,") <-- ",o/c,";");
+  `(50 # LapTran(_t,_s,@i ) <-- @o*c );
+
+};
+
+// transforms of specific functions
+LapTranDef( (_t)^(n_Constant?),        Gamma(n+1)/s^(n+1) );
+LapTranDef( _t,                         1/s^2 );
+LapTranDef( Sqrt(_t),                         Sqrt(Pi)/(2*s^(3/2)) );
+LapTranDef( c_FreeOf?([t,s]),                c/s );
+LapTranDef( Sin(_t),                         1/(s^2+1) );
+LapTranDef( Cos(_t),                         s/(s^2+1) );
+LapTranDef( Sinh(_t),                        c/(s^2-1) );
+LapTranDef( Cosh(_t),                        s/(s^2-1) );
+LapTranDef( Exp(_t),                        1/(s-1) );
+LapTranDef( BesselJ(n_Constant?,_t),        (Sqrt(s^2+1)-s)^n /Sqrt(s^2+1) );
+LapTranDef( BesselI(n_Constant?,_t),        (s-Sqrt(s^2+1))^n /Sqrt(s^2-1) );
+LapTranDef( Ln(_t),                        -(gamma+Ln(s))/s);
+LapTranDef( Ln(_t)^2,                        Pi^2/(6*s)+(gamma+Ln(s))/s );
+LapTranDef( Erf(_t),                        Exp(s^2/4)*Erfc(s/2)/s );
+LapTranDef( Erf(Sqrt(_t)),                1/(Sqrt(s+1)*s) );
+
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="LaplaceTransform",categories="Mathematics Functions;Transforms"
+*CMD LaplaceTransform --- Laplace Transform
+*STD
+*CALL
+        LaplaceTransform(t,s,func)        
+*PARMS
+
+{t} -- independent variable that is being transformed
+
+{s} -- independent variable that is being transformed into
+
+{f} -- function
+
+*DESC
+
+This function attempts to take the function {f(t)} and find the Laplace transform
+of it,{F(s)}, which is defined as {Integrate(t,0,Infinity) Exp(-s*t)*f}. This is
+also sometimes referred to the "unilateral" Laplace tranform. {LaplaceTransform}
+can transform most elementary functions that do not require a convolution integral,
+as well as any polynomial times an elementary function. If a transform cannot
+be found then {LaplaceTransform} will return unevaluated. This can happen
+for function which are not of "exponential order", which means that they grow
+faster than exponential functions.
+
+
+*E.G.
+
+In> LaplaceTransform(t,s,2*t^5+ t^2/2 )
+Result: 240/s^6+2/(2*s^3);
+
+In> LaplaceTransform(t,s,t*Sin(2*t)*Exp(-3*t) )
+Result: (2*(s+3))/(2*(2*(((s+3)/2)^2+1))^2);
+
+In> LaplaceTransform(t,s, BesselJ(3,2*t) )
+Result: (Sqrt((s/2)^2+1)-s/2)^3/(2*Sqrt((s/2)^2+1));
+
+In> LaplaceTransform(t,s,Exp(t^2)); // not of exponential order
+Result: LaplaceTransform(t,s,Exp(t^2));
+
+In> LaplaceTransform(p,q,Ln(p))
+Result: -(gamma+Ln(q))/q;
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="LaplaceTransform",subtype="automatic_test"
+
+Verify( LaplaceTransform(t,s,1), 1/s );
+Verify( LaplaceTransform(t,s,t^3), 6/s^4);
+Verify( LaplaceTransform(t,s,t), 1/s^2 );
+Verify( LaplaceTransform(t,s,t*Exp(4*t)), 1/(4*(s/4-1))^2 );
+Verify( LaplaceTransform(t,s,Exp(4*t)*Cos(4*t)), (s-4)/(16*(((s-4)/4)^2+1)) );
+Verify( LaplaceTransform(t,s,t^3*Cosh(t)) Where s==2, 82/27 );
+
+%/mathpiper

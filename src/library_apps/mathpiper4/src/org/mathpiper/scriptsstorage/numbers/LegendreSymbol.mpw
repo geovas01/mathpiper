@@ -1,0 +1,44 @@
+%mathpiper,def="LegendreSymbol"
+
+// Algorithm adapted from:
+// Elementary Number Theory, David M. Burton
+// Definition 9.2 p191
+
+10 # LegendreSymbol(_a,_p)        <--
+{
+        Check( Integer?(a) And? Integer?(p) And? p>?2 And? Coprime?(a,p) And? Prime?(p),
+                "Argument", "LegendreSymbol: Invalid arguments");
+        Decide(QuadraticResidue?(a,p), 1, -1 );
+};
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="LegendreSymbol",categories="Mathematics Functions;Number Theory"
+*CMD LegendreSymbol --- functions related to finite groups
+*STD
+*CALL
+        LegendreSymbol(m,n)
+
+*PARMS
+{m}, {n} -- integers, $n$ must be odd and positive
+
+*DESC
+
+The Legendre symbol ($m$/$n$) is defined as $+1$ if $m$ is a quadratic residue modulo $n$ and $-1$ if it is a non-residue.
+The Legendre symbol is equal to $0$ if $m/n$ is an integer.
+
+*E.G.
+
+In> QuadraticResidue?(9,13)
+Result: True;
+
+In> LegendreSymbol(15,23)
+Result: -1;
+
+In> JacobiSymbol(7,15)
+Result: -1;
+
+*SEE Gcd, JacobiSymbol, QuadraticResidue?
+%/mathpiper_docs

@@ -1,0 +1,17 @@
+%mathpiper,def="Perfect?"
+
+Perfect?(n_PositiveInteger?) <-- ProperDivisorsSum(n)=?n;
+
+%/mathpiper
+
+
+
+
+
+%mathpiper,name="Perfect?",subtype="automatic_test"
+
+Verify(Perfect?(2305843008139952128), True );
+Verify(Perfect?(137438691328),True );
+Verify(Perfect?(234325),False );
+
+%/mathpiper

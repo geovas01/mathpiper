@@ -1,0 +1,55 @@
+%mathpiper,def="Variable?"
+
+Variable?(_expr) <-- (Atom?(expr) And? Not?(expr =? True) And? Not?(expr =? False) And? Not?(expr =? Infinity) And? Not?(expr =? -Infinity) And? Not?(expr =? Undefined) And? Not?(Number?(NM(Eval(expr)))));
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="Variable?",categories="Programming Functions;Predicates"
+*CMD Variable? --- test for a variable
+*STD
+*CALL
+        Variable?(var)
+
+*PARMS
+
+{var} -- variable to test
+
+*DESC
+
+This function tests if the argument is a variable.
+
+*E.G.
+
+In> Unassign(x)
+Result: True
+
+In> Variable?(x)
+Result: True
+
+In> x := 3
+Result: 3
+
+In> Variable?(x)
+Result: False
+
+In> Variable?(Infinity)
+Result: False
+
+*SEE VarList, VarListAll
+%/mathpiper_docs
+
+
+
+
+%mathpiper,name="Variable?",subtype="automatic_test"
+
+Verify(Variable?(a),True);
+Verify(Variable?(Sin(a)),False);
+Verify(Variable?(2),False);
+Verify(Variable?(-2),False);
+Verify(Variable?(2.1),False);
+
+%/mathpiper

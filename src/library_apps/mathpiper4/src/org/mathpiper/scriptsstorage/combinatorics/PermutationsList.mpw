@@ -1,0 +1,59 @@
+%mathpiper,def="PermutationsList"
+
+Function("PermutationsList",[result,list])
+{
+  Decide(Length(list) =? 0,
+  {
+    result;
+  },
+  {
+    Local(head);
+    Local(newresult);
+    Local(i);
+    head:=list[1];
+    newresult:=[];
+    ForEach(item,result)
+    {
+      For(i:=Length(item)+1,i>?0,i--)
+      {
+        DestructiveInsert(newresult,1,Insert(item,i,head));
+      };
+    };
+    newresult:=DestructiveReverse(newresult);
+    PermutationsList(newresult,Rest(list));
+  });
+};
+
+
+Function("PermutationsList",[list])
+{
+  PermutationsList([[]],list);
+};
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="PermutationsList",categories="Mathematics Functions;Combinatorics"
+*CMD PermutationsList --- return all permutations of a list
+*STD
+*CALL
+        PermutationsList(list)
+
+*PARMS
+
+{list} -- a list of elements
+
+*DESC
+
+PermutationsList returns a list which contains all the permutations of
+the elements in the original list.
+
+*E.G.
+
+In> PermutationsList([a,b,c])
+Result: [[a,b,c],[a,c,b],[c,a,b],[b,a,c],
+        [b,c,a],[c,b,a]];
+
+*SEE Permutations, Combinations, CombinationsList, LeviCivita
+%/mathpiper_docs

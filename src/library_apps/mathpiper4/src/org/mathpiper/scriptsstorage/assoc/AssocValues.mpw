@@ -1,0 +1,43 @@
+%mathpiper,def="AssocValues"
+
+AssocValues(assocvalueslist_List?) <--
+  DestructiveReverse(MapSingle(Lambda([x],First(Rest(x))),assocvalueslist));
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="AssocValues",categories="Programming Functions;Lists (Operations)",access="experimental"
+*CMD AssocValues --- return the values in an association list
+*STD
+*CALL
+        AssocValues(alist)
+
+*PARMS
+
+{alist} -- association list to examine
+
+*DESC
+
+All the values in the association list "alist" are assembled in a list
+and this list is returned.
+
+*E.G.
+
+In> writer := [];
+Result: [];
+
+In> writer["Iliad"] := "Homer";
+Result: True;
+
+In> writer["Henry IV"] := "Shakespeare";
+Result: True;
+
+In> writer["Ulysses"] := "James Joyce";
+Result: True;
+
+In> AssocIndices(writer);
+Result: ["Homer","ShakespeareJames Joyce"];
+
+*SEE Assoc, AssocDelete, AssocIndices
+%/mathpiper_docs

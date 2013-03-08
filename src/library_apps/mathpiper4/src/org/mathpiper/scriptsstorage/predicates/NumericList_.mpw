@@ -1,0 +1,26 @@
+%mathpiper,def="NumericList?"
+
+// check that all items in the list are numbers
+NumericList?(_arglist) <-- List?(arglist) And?
+        ("And?" @ (MapSingle(Hold([[x],Number?(NM(Eval(x)))]), arglist)));
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="NumericList?",categories="Programming Functions;Predicates"
+*CMD NumericList? --- test for a list of numbers
+*STD
+*CALL
+        NumericList?([list])
+
+*PARMS
+
+{{list}} -- a list
+
+*DESC
+Returns {True} when called on a list of numbers or expressions that evaluate 
+to numbers using {NM()}. Returns {False} otherwise.
+
+*SEE NM, Number?
+%/mathpiper_docs

@@ -1,0 +1,61 @@
+%mathpiper,def="Rational?"
+
+/* changed definition of Rational?, Nobbi 030529
+Function("Rational?",[aLeft]) Type(aLeft) = "/";
+
+Function("RationalNumeric?",[aLeft])
+    Type(aLeft) = "/" And?
+    Number?(aLeft[1]) And?
+    Number?(aLeft[2]);
+
+RationalOrNumber?(_x) <-- (Number?(x) Or? RationalNumeric?(x));
+
+10 # RationalOrInteger?(x_Integer?) <-- True;
+10 # RationalOrInteger?(x_Integer? / y_Integer?) <-- True;
+20 # RationalOrInteger?(_x) <-- False;
+
+*/
+
+10 # Rational?(x_Integer?) <-- True;
+10 # Rational?(x_Integer? / y_Integer?) <-- True;
+10 # Rational?(-(x_Integer? / y_Integer?)) <-- True;
+60000 # Rational?(_x) <-- False;
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Rational?",categories="Programming Functions;Predicates"
+*CMD Rational? --- test whether argument is a rational
+*STD
+*CALL
+        Rational?(expr)
+
+*PARMS
+
+{expr} -- expression to test
+
+*DESC
+
+This commands tests whether the expression "expr" is a rational
+number, i.e. an integer or a fraction of integers.
+
+*E.G.
+
+In> Rational?(5)
+Result: True;
+
+In> Rational?(2/7)
+Result: True;
+
+In> Rational?(0.5)
+Result: False;
+
+In> Rational?(a/b)
+Result: False;
+
+In> Rational?(x + 1/x)
+Result: False;
+
+*SEE Numerator, Denominator
+%/mathpiper_docs

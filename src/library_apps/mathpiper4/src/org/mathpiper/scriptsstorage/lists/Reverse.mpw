@@ -1,0 +1,53 @@
+%mathpiper,def="Reverse"
+
+// Non-destructive Reverse operation
+Reverse(list):=DestructiveReverse(FlatCopy(list));
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Reverse",categories="Programming Functions;Lists (Operations)"
+*CMD Reverse --- return the reversed list (without touching the original)
+*STD
+*CALL
+        Reverse(list)
+
+*PARMS
+
+{list} -- list to reverse
+
+*DESC
+
+This function returns a list reversed, without changing the
+original list. It is similar to {DestructiveReverse}, but safer
+and slower.
+
+
+*E.G.
+
+In> lst:=[a,b,c,13,19]
+Result: [a,b,c,13,19];
+
+In> revlst:=Reverse(lst)
+Result: [19,13,c,b,a];
+
+In> lst
+Result: [a,b,c,13,19];
+
+*SEE FlatCopy, DestructiveReverse
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Reverse",subtype="automatic_test"
+
+/* Reverse and FlatCopy (and some friends) would segfault in the past if passed a string as argument.
+ * I am not opposed to overloading these functions to also work on strings per se, but for now just
+ * check that they return an error in stead of segfaulting.
+ */
+Verify(ExceptionCatch(Reverse("abc"),"Exception"), "Exception");
+
+%/mathpiper

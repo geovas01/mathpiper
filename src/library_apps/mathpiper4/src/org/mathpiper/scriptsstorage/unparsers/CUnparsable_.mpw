@@ -1,0 +1,129 @@
+%mathpiper,def="CUnparsable?"
+
+//////////////////////////////////////////////////
+/// CUnparsable?
+//////////////////////////////////////////////////
+
+LocalSymbols(UnparseCAllFunctions) {
+
+  /// predicate to test whether an expression can be successfully exported to C code
+
+  /// interface with empty extra function list
+  // need the backquote stuff b/c we have HoldArgument now
+  CUnparsable?(_expr) <-- `CUnparsable?(@expr, []);
+
+  // need to check that expr contains only allowed functions
+  CUnparsable?(_expr, funclist_List?) <--
+  {
+    Local(badfunctions);
+    badfunctions := Difference(`FuncList(@expr), Concat(UnparseCAllFunctions, funclist));
+    Decide(Length(badfunctions)=?0,
+      True,
+      {
+        Decide(InVerboseMode(),
+          Echo(Concat(["CUnparsable?: Info: unexportable function(s): "], badfunctions))
+        );
+        False;
+      }
+    );
+  };
+  HoldArgumentNumber("CUnparsable?", 1, 1);
+  HoldArgumentNumber("CUnparsable?", 2, 1);
+
+  /// This is a list of all function atoms which UnparseC can safely handle
+  UnparseCAllFunctions := MapSingle(ToAtom, Concat(AssocIndices(UnparseCMathFunctions()), AssocIndices(UnparseCRegularOps()),
+  // list of "other" (non-math) functions supported by UnparseC: needs to be updated when UnparseC is extended to handle new functions
+  [
+    "For",
+    "While",
+    "Block",
+    "Nth",
+    "Modulo",
+    "Complex",
+    "If",
+    "Else",
+    "++",
+    "--",
+  ]
+  ));
+
+
+}; // LocalSymbols(UnparseCAllFunctions)
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="CUnparsable?",categories="Programming Functions;Input/Output;Predicates"
+*CMD CUnparsable? --- check possibility to export expression to C++ code
+*STD
+*CALL
+        CUnparsable?(expr)
+        CUnparsable?(expr, funclist)
+        
+*PARMS
+
+{expr} -- expression to be exported (this argument is not evaluated)
+
+{funclist} -- list of "allowed" function atoms
+
+*DESC
+
+{CUnparsable?} returns {True} if the MathPiper expression {expr} can be exported
+into C++ code. This is a check whether the C++ exporter {UnparseC} can be safely
+used on the expression.
+
+A MathPiper expression is considered exportable if it contains only functions that can be translated into C++ (e.g. {ListToFunction} cannot be exported). All variables and constants are considered exportable.
+
+The verbose option prints names of functions that are not exportable.
+
+The second calling format of {CUnparsable?} can be used to "allow" certain function names that will be available in the C++ code.
+
+*E.G. notest
+
+In> CUnparsable?(Sin(a1)+2*Cos(b1))
+Result: True;
+
+In> V(CUnparsable?(1+func123(b1)))
+        CUnparsable?: Info: unexportable function(s):
+          func123
+Result: False;
+This returned {False} because the function {func123} is not available in C++. We can
+explicitly allow this function and then the expression will be considered
+exportable:
+
+In> CUnparsable?(1+func123(b1), [func123])
+Result: True;
+
+*SEE UnparseC, V
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="CUnparsable?",subtype="automatic_test"
+
+Verify(
+CUnparsable?(e+Pi*Cos(A-B)/3-Floor(3.14)*2)
+, True
+);
+Verify(
+CUnparsable?(e+Pi*Cos(A-B)/3-Floor(3.14)*2+badfunc(x+y))
+, False
+);
+Verify(
+CUnparsable?(e+Pi*Cos(A-B)/3-Floor(3.14)*2+badfunc(x+y), [badfunc])
+, True
+);
+Verify(
+CUnparsable?({i:=0;While(i<?10){i++; a:=a+i;};})
+, True
+);
+Verify(
+CUnparsable?({i:=0;While(i<?10){i++; a:=a+i; [];};})
+, False
+);
+
+
+%/mathpiper

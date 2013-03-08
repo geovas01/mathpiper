@@ -1,0 +1,28 @@
+%mathpiper,def="->"
+
+RulebaseHoldArguments("->",[left,right]);
+
+HoldArgument("->",left);
+
+//HoldArgument("->",right);
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="->",categories="Operators"
+*CMD -> --- options operator
+*CALL
+        option -> value
+
+*PARMS
+[option] -- an option name
+
+[value] -- the value to associate with the option
+
+*DESC
+The -> operator is used to create options.  [option] and [value]
+need to be placed in quotes if they are not meant to be evaluated.
+
+%/mathpiper_docs

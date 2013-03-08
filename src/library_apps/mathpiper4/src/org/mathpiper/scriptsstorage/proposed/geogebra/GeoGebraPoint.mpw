@@ -1,0 +1,19 @@
+%mathpiper,def="GeoGebraPoint"
+//Retract("GeoGebraPoint",*);
+
+10 # GeoGebraPoint(name_String?, x_Number?, y_Number?)  <--
+{
+    Local(command);
+    
+    command := PatchString("<?Write(ToAtom(name));?>=(<?Write(x);?>,<?Write(y);?>)");
+    
+    JavaCall(geogebra,"evalCommand",command);
+};
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+

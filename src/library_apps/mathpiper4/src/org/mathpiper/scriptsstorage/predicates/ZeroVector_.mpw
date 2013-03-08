@@ -1,0 +1,34 @@
+%mathpiper,def="ZeroVector?"
+
+Function("ZeroVector?",[aList]) aList =? ZeroVector(Length(aList));
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="ZeroVector?",categories="Programming Functions;Predicates"
+*CMD ZeroVector? --- test whether list contains only zeroes
+*STD
+*CALL
+        ZeroVector?(list)
+
+*PARMS
+
+{list} -- list to compare against the zero vector
+
+*DESC
+
+The only argument given to {ZeroVector?} should be
+a list. The result is {True} if the list contains
+only zeroes and {False} otherwise.
+
+*E.G.
+
+In> ZeroVector?([0, x, 0]);
+Result: False;
+
+In> ZeroVector?([x-x, 1 - Differentiate(x) x]);
+Result: True;
+
+*SEE List?, ZeroVector
+%/mathpiper_docs

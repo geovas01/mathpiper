@@ -1,0 +1,58 @@
+%mathpiper,def="OddFunction?"
+
+OddFunction?(f,x):= (f =? Eval(-Substitute(x,-x)f));
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="OddFunction?",categories="Programming Functions;Predicates"
+*CMD OddFunction? --- Return true if function is an odd function (False otherwise)
+
+*STD
+*CALL
+        OddFunction?(expression,variable)
+
+*PARMS
+
+{expression} -- mathematical expression
+{variable} -- variable
+
+*DESC
+
+This function returns True if MathPiper can determine that the
+function is odd.  Odd functions have the property:
+
+$$ f(x) = -f(-x) $$
+
+{Sin(x)} is an example of an odd function.
+
+As a side note, one can decompose a function into an
+even and an odd part:
+
+$$ f(x) = f_even(x) + f_odd(x) $$
+
+Where 
+
+$$ f_even(x) = (f(x)+f(-x))/2 $$
+
+and
+
+$$ f_odd(x) = (f(x)-f(-x))/2 $$
+
+*E.G.
+
+In> OddFunction?(Cos(b*x),x)
+Result: False
+
+In> OddFunction?(Sin(b*x),x)
+Result: True
+
+In> OddFunction?(1/x,x)
+Result: True
+
+In> OddFunction?(1/x^2,x)
+Result: False
+
+*SEE EvenFunction?, Sin, Cos
+%/mathpiper_docs

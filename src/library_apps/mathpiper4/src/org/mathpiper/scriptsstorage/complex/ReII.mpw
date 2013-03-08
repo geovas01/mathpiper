@@ -1,0 +1,25 @@
+%mathpiper,def="ReII"
+
+ReII(_c) <-- NN(c)[1];
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="ReII",categories="Mathematics Functions",access="undocumented"
+*CMD ReII --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

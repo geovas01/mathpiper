@@ -1,0 +1,31 @@
+%mathpiper,def="ArrayCreateFromList"
+
+ArrayCreateFromList(list):=
+{
+  Local(result,i);
+  result:=ArrayCreate(Length(list),0);
+  i:=1;
+  while (list !=? [])
+  {
+    result[i]:=First(list);
+    i++;
+    list:=Rest(list);
+  };
+  result;
+};
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="ArrayCreateFromList",categories="Programming Functions;Native Objects"
+*CMD ArrayCreateFromList --- convert list to array
+*CALL
+        ArrayCreateFromList(list)
+
+*DESC
+Creates an array from the contents of the list passed in.
+
+%/mathpiper_docs

@@ -1,0 +1,96 @@
+%mathpiper,def="IntLog"
+
+/// Return integer part of the logarithm of x in given base. Use only integer arithmetic.
+10 # IntLog(_x, _base) _ (base<=?1) <-- Undefined;
+/// Use variable steps to speed up operation for large numbers x
+20 # IntLog(_x, _base) <--
+{
+        Local(result, step, oldstep, factor, oldfactor);
+        result := 0;
+        oldstep := step := 1;
+        oldfactor := factor := base;
+        // first loop: increase step
+        While (x >=? factor)
+        {
+                oldfactor := factor;
+                factor := factor*factor;
+                oldstep := step;
+                step := step*2;
+        };
+        Decide(x >=? base,
+          {
+                step := oldstep;
+                result := step;
+                x := Quotient(x, oldfactor);
+          },
+          step := 0
+        );
+        // second loop: decrease step
+        While (step >? 0 And? x !=? 1)
+        {
+                step := Quotient(step,2);        // for each step size down to 1, divide by factor if x is up to it
+                factor := base^step;
+                Decide(
+                        x >=? factor,
+                        {
+                                x:=Quotient(x, factor);
+                                result := result + step;
+                        }
+                );
+        };
+        result;
+};
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="IntLog",categories="Mathematics Functions;Numbers (Operations)"
+*CMD IntLog --- integer part of logarithm
+*STD
+*CALL
+        IntLog(n, base)
+
+*PARMS
+
+{n}, {base} -- positive integers
+
+*DESC
+
+{IntLog} calculates the integer part of the logarithm of {n} 
+in base {base}. The algorithm uses only integer  math and may 
+be faster than computing $$Ln(n)/Ln(base)$$ with multiple 
+precision floating-point math and rounding off to get the integer part.
+
+This function can also be used to quickly count the digits in a given number.
+
+*E.G.
+Count the number of bits:
+
+In> IntLog(257^8, 2)
+Result: 64;
+
+Count the number of decimal digits:
+
+In> IntLog(321^321, 10)
+Result: 804;
+
+*SEE IntNthRoot, Quotient, Modulo, Ln
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="IntLog",subtype="automatic_test"
+
+Verify(IntLog(23^45, 67), 33);
+Verify(IntLog(1, 67), 0);
+Verify(IntLog(2, 67), 0);
+Verify(IntLog(0, 67), 0);
+Verify(IntLog(1, 1), Undefined);
+Verify(IntLog(2, 1), Undefined);
+Verify(IntLog(256^8, 4), 32);
+Verify(IntLog(256^8-1, 4), 31);
+
+%/mathpiper

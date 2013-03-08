@@ -1,0 +1,52 @@
+%mathpiper,def="FindFirst"
+
+10 # FindFirst( list_List?, _element ) <--
+  {
+     Local(result,count);
+     result := -1;
+     count  := 1;
+     While( And?( result <? 0, Not? ( Equal? (list, []) )))
+     {
+       Decide(Equal?(First(list), element), result := count );
+       list := Rest(list);
+       count++;
+     };
+     result;
+  };
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="FindFirst",categories="Programming Functions;Lists (Operations)"
+*CMD Find --- get the index at which a certain element occurs first
+*STD
+*CALL
+        FindFirst(list, expr)
+
+*PARMS
+
+{list} -- the list to examine
+
+{expr} -- expression to look for in "list"
+
+*DESC
+
+This commands returns the index at which the expression "expr"
+first occurs in "list". If "expr" occurs more than once, the lowest
+index is returned. If "expr" does not occur at all,
+{-1} is returned.
+
+*E.G.
+
+In> FindFirst([a,b,c,d,e,f], d);
+Result: 4;
+
+In> FindFirst([1,2,3,2,1], 2);
+Result: 2;
+
+In> FindFirst([1,2,3,2,1], 4);
+Result: -1;
+
+*SEE Find, FindAll, Contains?
+%/mathpiper_docs

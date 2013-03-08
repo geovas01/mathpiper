@@ -1,0 +1,58 @@
+%mathpiper,def="VarListSome"
+
+/// VarListSome is just like FuncList(x,y)
+
+10 # VarListSome([], _looklist) <-- [];
+// an atom should be a variable to qualify
+10 # VarListSome(expr_Variable?, _looklist) <-- [expr];
+15 # VarListSome(expr_Atom?, _looklist) <-- [];
+// a function not in the looking list - return it whole
+20 # VarListSome(expr_Function?, looklist_List?)_(Not? Contains?(looklist, ToAtom(Type(expr)))) <-- [expr];
+// a function in the looking list - traverse its arguments
+30 # VarListSome(expr_Function?, looklist_List?) <--
+RemoveDuplicates(
+                {        // obtain a list of functions, considering only functions in looklist
+                        Local(item, result);
+                        result := [];
+                        ForEach(item, expr) result := Concat(result, VarListSome(item, looklist));
+                        result;
+                }
+);
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="VarListSome",categories="Programming Functions;Lists (Operations)"
+*CMD VarListSome --- list of variables appearing in an expression (without duplicates)
+*STD
+*CALL
+        VarListSome(expr, list)
+
+*PARMS
+
+{expr} -- an expression
+
+{list} -- a list of function atoms
+
+*DESC
+
+The command {VarList(expr)} returns a list of variables (without duplicates) that appear in the
+expression {expr}. The command {VarListSome} looks only at arguments of functions in the {list}. 
+All other functions are  considered "opaque" (as if they do not contain any variables) and their 
+arguments are not checked. For example, {VarListSome(a + Sin(b-c))} will return {[a, b, c]}, 
+but [VarListSome(a*Sin(b-c), [*])]  will not look at arguments of [Sin()] and will return 
+{[a,Sin(b-c)]}. Here {Sin(b-c)} is considered a "variable" because the function {Sin} does not 
+belong to {list}.
+
+Note that since the operators "{+}" and "{-}" are prefix as well as infix operators, it is currently 
+required to use {ToAtom("+")} to obtain the unevaluated atom "{+}".
+
+*E.G.
+
+In> VarListSome(x+a*y, [ToAtom("+")])
+Result: [x,a*y];
+
+
+*SEE VarList, VarListArith, VarListAll, FreeOf?, Variable?, FuncList, HasExpression?, HasFunction?
+%/mathpiper_docs

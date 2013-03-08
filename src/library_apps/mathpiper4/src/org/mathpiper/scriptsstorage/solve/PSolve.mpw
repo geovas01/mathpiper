@@ -1,0 +1,47 @@
+%mathpiper,def="PSolve"
+
+PSolve( _uni ) <-- YacasPSolve( uni );
+
+PSolve( _uni, _var ) <-- YacasPSolve( uni, var );
+
+%/mathpiper
+
+
+
+
+
+%mathpiper,name="PSolve",subtype="automatic_test"
+
+/* Linear equations */
+Testing("     Linear");
+
+VerifySolve(PSolve(x,x), 0);
+VerifySolve(PSolve(x+3*Sin(b)-1,x), 1-3*Sin(b));
+VerifySolve(PSolve(2*x-a,x), a/2);
+VerifySolve(PSolve(2*x-a,a), 2*x);
+
+/* Quadratic equations */
+Testing("     Quadratic");
+
+VerifySolve(PSolve(x^2,x), 0);
+VerifySolve(PSolve(4*x^2-1,x), [1/2,-1/2]);
+VerifySolve(PSolve(x^2+1,x), [I,-I]);
+VerifySolve(PSolve(x^2-3*x+2,x), [1,2]);
+
+/* Cubic equations */
+Testing("     Cubic");
+
+VerifySolve(PSolve(x^3,x), 0);
+VerifySolve(PSolve(x^3-1,x), [1, Exp(2/3*Pi*I), Exp(-2/3*Pi*I)]);
+VerifySolve(PSolve(x^3+1,x), [-1, Exp(1/3*Pi*I), Exp(-1/3*Pi*I)]);
+VerifySolve(PSolve(x^3-3*x^2+2*x,x), [0,2,1]);
+
+/* Quartic equations */
+Testing("     Quartic");
+
+VerifySolve(PSolve(x^4,x), 0);
+VerifySolve(PSolve(16*x^4-1,x), [1/2, -1/2, 1/2*I, -1/2*I]);
+VerifySolve(PSolve(x^4-x,x), [0, 1, Exp(2/3*Pi*I), Exp(-2/3*Pi*I)]);
+VerifySolve(PSolve(x^4+x,x), [0, -1, Exp(1/3*Pi*I), Exp(-1/3*Pi*I)]);
+
+%/mathpiper

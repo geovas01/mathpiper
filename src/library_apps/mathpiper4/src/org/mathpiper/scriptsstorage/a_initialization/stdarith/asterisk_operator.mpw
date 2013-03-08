@@ -1,0 +1,174 @@
+%mathpiper,def="*"
+
+/* Multiplication */
+
+50  # x_Number? * y_Number? <-- MultiplyN(x,y);
+100 #  1  * _x  <-- x;
+100 # _x  *  1  <-- x;
+100 # (_f  * _x)_(f=? -1)  <-- -x;
+100 # (_x  * _f)_(f=? -1)  <-- -x;
+
+100  # ((_x)*(_x ^ _m)) <-- x^(m+1);
+100  # ((_x ^ _m)*(_x)) <-- x^(m+1);
+100  # ((_x ^ _n)*(_x ^ _m)) <-- x^(m+n);
+
+100 # Tan(_x)*Cos(_x) <-- Sin(x);
+
+100 # Sinh(_x)*Csch(_x) <-- 1;
+
+100 # Cosh(_x)*Sech(_x) <-- 1;
+
+100 # Cos(_x)*Tan(_x) <-- Sin(x);
+
+100 # Coth(_x)*Sinh(_x) <-- Cosh(x);
+
+100 # Tanh(_x)*Cosh(_x) <-- Sinh(x);
+
+105 # (f_NegativeNumber? * _x)  <-- -(-f)*x;
+105 # (_x * f_NegativeNumber?)  <-- -(-f)*x;
+
+95 # x_Matrix? * y_Matrix? <--
+{
+   Local(i,j,k,row,result);
+   result:=ZeroMatrix(Length(x),Length(y[1]));
+   For(i:=1,i<=?Length(x),i++)
+   For(j:=1,j<=?Length(y),j++)
+   For(k:=1,k<=?Length(y[1]),k++)
+   {
+     row:=result[i];
+     row[k]:= row[k]+x[i][j]*y[j][k];
+   };
+   result;
+};
+
+
+96 # x_Matrix? * y_List? <--
+{
+   Local(i,result);
+   result:=[];
+   For(i:=1,i<=?Length(x),i++)
+   { DestructiveInsert(result,i,Dot(x[i], y)); };
+   result;
+};
+
+
+97 # (x_List? * y_NonObject?)_Not?(List?(y)) <-- y*x;
+98 # (x_NonObject? * y_List?)_Not?(List?(x)) <--
+{
+   Local(i,result);
+   result:=[];
+   For(i:=1,i<=?Length(y),i++)
+   { DestructiveInsert(result,i,x * y[i]); };
+   result;
+};
+
+
+50  # _x * Undefined <-- Undefined;
+50  # Undefined * _y <-- Undefined;
+
+
+100  # 0 * y_Infinity? <-- Undefined;
+100  # x_Infinity? * 0 <-- Undefined;
+
+101 # 0    * (_x) <-- 0;
+101 # (_x) *    0 <-- 0;
+
+100 # x_Number? * (y_Number? * _z) <-- (x*y)*z;
+100 # x_Number? * (_y * z_Number?) <-- (x*z)*y;
+
+100 # (_x * _y) * _y <-- x * y^2;
+100 # (_x * _y) * _x <-- y * x^2;
+100 # _y * (_x * _y) <-- x * y^2;
+100 # _x * (_x * _y) <-- y * x^2;
+100 # _x * (_y / _z) <-- (x*y)/z;
+// fractions
+100 # (_y / _z) * _x <-- (x*y)/z;
+100 # (_x * y_Number?)_Not?(Number?(x)) <-- y*x;
+
+100 # (_x) * (_x) ^ (n_Constant?) <-- x^(n+1);
+100 # (_x) ^ (n_Constant?) * (_x) <-- x^(n+1);
+100 # (_x * _y)* _x ^ n_Constant? <-- y * x^(n+1);
+100 # (_y * _x)* _x ^ n_Constant? <-- y * x^(n+1);
+100 # Sqrt(_x) * (_x) ^ (n_Constant?) <-- x^(n+1/2);
+100 # (_x) ^ (n_Constant?) * Sqrt(_x) <-- x^(n+1/2);
+100 # Sqrt(_x) * (_x) <-- x^(3/2);
+100 # (_x) * Sqrt(_x) <-- x^(3/2);
+
+105 # x_Number? * -(_y) <-- (-x)*y;
+105 # (-(_x)) * (y_Number?) <-- (-y)*x;
+
+106 # _x * -(_y) <-- -(x*y);
+106 # (- _x) * _y <-- -(x*y);
+
+150 # (_x) ^ (n_Constant?) * (_x) <-- x^(n-1);
+
+250  # x_Number? * y_Infinity? <-- Sign(x)*y;
+250  # x_Infinity? * y_Number? <-- Sign(y)*x;
+
+
+/* Note: this rule MUST be past all the transformations on
+ * matrices, since they are lists also.
+ */
+230 # (aLeft_List? * aRight_List?)_(Length(aLeft)=?Length(aRight)) <--
+         Map("*",[aLeft,aRight]);
+// fractions
+242 # (x_Integer? / y_Integer?) * (v_Integer? / w_Integer?) <-- (x*v)/(y*w);
+243 #  x_Integer? * (y_Integer? / z_Integer?) <--  (x*y)/z;
+243 #  (y_Integer? / z_Integer?) * x_Integer? <--  (x*y)/z;
+
+400 # (_x) * (_x) <-- x^2;
+
+400 # x_RationalOrNumber? * Sqrt(y_RationalOrNumber?)  <-- Sign(x)*Sqrt(x^2*y);
+400 # Sqrt(y_RationalOrNumber?) * x_RationalOrNumber?  <-- Sign(x)*Sqrt(x^2*y);
+400 # Sqrt(y_RationalOrNumber?) * Sqrt(x_RationalOrNumber?)  <-- Sqrt(y*x);
+
+%/mathpiper
+
+
+%mathpiper_docs,name="*",categories="Operators"
+*CMD * --- arithmetic multiplication
+*STD
+*CALL
+
+        x*y
+Precedence:
+*EVAL PrecedenceGet("*")
+
+*PARMS
+
+{x} and {y} -- objects for which arithmetic multiplication is defined
+
+*DESC
+
+The multiplication operator can work on integers,
+rational numbers, complex numbers, vectors, matrices and lists.
+
+This operator is implemented in the standard math library (as opposed
+to being built-in). This means that they can be extended by the user.
+
+*E.G.
+
+In> 2*3
+Result: 6;
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="*",subtype="automatic_test"
+
+Verify((-2)*Infinity,-Infinity);
+
+Verify(Infinity*0,Undefined);
+
+// The following is a classical error: 0*x=0 is only true if
+// x is a number! In this case, it is checked for that the
+// multiplication of 0 with a vector returns a zero vector.
+// This would automatically be caught with type checking.
+// More tests of this ilk are possible: 0*matrix, etcetera.
+Verify(0*[a,b,c],[0,0,0]);
+
+Verify(Undefined*0,Undefined);
+
+%/mathpiper

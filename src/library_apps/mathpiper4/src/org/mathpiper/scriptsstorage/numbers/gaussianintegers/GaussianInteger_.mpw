@@ -1,0 +1,55 @@
+%mathpiper,def="GaussianInteger?"
+
+5  # GaussianInteger?(x_List?)        <-- False;
+
+// ?????? why is the following rule needed?
+// 5  # GaussianInteger?(ProductPrimesTo257)        <-- False;
+
+10 # GaussianInteger?(x_Complex?)          <-- (Integer?(Re(x)) And? Integer?(Im(x)));
+// to catch GaussianInteger?(x+2) from Apart
+15 # GaussianInteger?(_x)        <-- False;
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="GaussianInteger?",categories="Programming Functions;Predicates"
+*CMD GaussianInteger? ---  test for a Gaussian integer
+*STD
+*CALL
+        GaussianInteger?(z)
+*PARMS
+
+{z} -- a complex or real number        
+
+*DESC
+
+This function returns {True} if the argument is a Gaussian integer and {False} otherwise.
+A Gaussian integer is a generalization
+of integers into the complex plane. A complex number $a+b*I$ is a Gaussian
+integer if and only if $a$ and $b$ are integers.
+
+*E.G.
+In> GaussianInteger?(5)
+Result: True;
+
+In> GaussianInteger?(5+6*I)
+Result: True;
+
+In> GaussianInteger?(1+2.5*I)
+Result: False;
+
+*SEE  GaussianUnit?, GaussianPrime?
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="GaussianInteger?",subtype="automatic_test"
+
+Verify(GaussianInteger?(3+4*I),True );
+Verify(GaussianInteger?(5),True);
+Verify(GaussianInteger?(1.1), False );
+
+%/mathpiper

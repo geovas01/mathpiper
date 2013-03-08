@@ -1,0 +1,39 @@
+%mathpiper,def="Boolean?"
+
+Function ("Boolean?", [x])
+        (x=?True) Or? (x=?False) Or? Function?(x) And? Contains?(["=?", ">?", "<?", ">=?", "<=?", "!=?", "And?", "Not?", "Or?", "Implies?", "Equivales?"], Type(x));
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Boolean?",categories="Programming Functions;Predicates"
+*CMD Boolean? --- test for a Boolean value
+*STD
+*CALL
+        Boolean?(expression)
+
+*PARMS
+
+{expression} -- an expression
+
+*DESC
+
+Boolean? returns True if the argument is of a boolean type.
+This means it has to be either True, False, or an expression involving
+functions that return a boolean result, e.g.
+{=?}, {>?}, {<?}, {>=?}, {<=?}, {!=?}, {And?}, {Not?}, {Or?}.
+
+*E.G.
+
+In> Boolean?(a)
+Result: False;
+
+In> Boolean?(True)
+Result: True;
+
+In> Boolean?(a And? b)
+Result: True;
+
+*SEE True, False
+%/mathpiper_docs

@@ -1,0 +1,131 @@
+%mathpiper,def="Sort;SortIndexed"
+
+//Retract("Sort",*);
+//Retract("SortIndexed",*);
+
+/*-------------------------------------------------------------------
+ *  Sort()
+ *  SortIndexed()
+ *    Gathering all sorts of Sorts under one roof.
+ *    Currently:  Bubble Sort and Heap Sort, optional: indexing
+ *      Set up so Sort() chooses BubbleSort if Length(List) < 20,
+ *                           and HeapSort   if Length(List) >= 20
+ *
+ *  Indexed sorts return [SortedList,IndexList].
+ *  First version.   111124
+ *-------------------------------------------------------------------*/
+ 
+10 # Sort( L_List? )_(Length(L) <? 20) <-- BubbleSort( L, "<?" );
+
+15 # Sort( L_List?, _compare )_(Length(L) <? 20) <-- 
+                                                    BubbleSort( L, compare );
+
+20 # Sort( L_List? ) <-- HeapSort( L, "<?" );
+
+25 # Sort( L_List?, _compare ) <--   HeapSort( L, compare );
+ 
+10 # SortIndexed( L_List? )_(Length(L) <? 20) <-- BubbleSortIndexed( L, "<?" );
+
+15 # SortIndexed( L_List?, _compare )_(Length(L) <? 20) <-- BubbleSortIndexed( L, compare );
+
+20 # SortIndexed( L_List? ) <-- HeapSortIndexed( L, "<?" );
+
+25 # SortIndexed( L_List?, _compare ) <-- HeapSortIndexed( L, compare );
+
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="Sort",categories="Programming Functions;Sorting"
+*CMD Sort --- sort a list, using specified compare(a,b) operator.
+*STD
+*CALL
+        Sort(list)
+        Sort(list,compare)
+        SortIndexed(list)
+        SortIndexed(list,compare)        
+
+*PARMS
+
+{list}    -- list of items to sort
+
+{compare} -- a comparison operator, according to which items are sorted
+
+*DESC
+
+The first form of the {Sort} command simply sorts all the
+objects in {list}, according to the default comparison 
+operator {"<?"}.
+
+The second form allows the user to input also a chosen comparison 
+operator, {compare}, to be used instead of the default.  The function 
+{compare} should accept two arguments, which will be elements of {list},
+and compare them. It should return {True} if in the sorted list the 
+second argument should come after the first one, and {False}
+otherwise.  The function {compare} can either be a string which
+contains the name of a function or a pure function.
+
+The third and fourth forms, {SortIndexed}, do the same, but also
+return an Index list, which tells the order that the sorted items 
+had in the original list before sorting.
+
+The Sort and SortIndexed functions will use BubbleSort when the list
+contains fewer than 20 elements, and HeapSort for longer lists.  
+This is because BubbleSort tends to be faster for short lists, and 
+HeapSort tends to be faster for long lists.  The choice of the number
+20 as the division point is heuristic and somewhat arbitrary.
+
+In all cases, the original {list} is left unmodified.
+
+*E.G.
+
+
+In> L:=RandomIntegerList(12,-10,10)
+Result: [7,-6,8,-3,10,5,-5,3,-6,5,10,3]
+
+
+In> Sort(L)
+Result: [-6,-6,-5,-3,3,3,5,5,7,8,10,10]
+
+
+In> Sort(L,">?")
+Result: [10,10,8,7,5,5,3,3,-3,-5,-6,-6]
+
+
+In> SortIndexed(L)
+Result: [[-6,-6,-5,-3,3,3,5,5,7,8,10,10],[2,9,7,4,12,8,6,10,1,3,11,5]]
+
+
+In> SortIndexed(L,">?")
+Result: [[10,10,8,7,5,5,3,3,-3,-5,-6,-6],[5,11,3,1,6,10,12,8,4,7,9,2]]
+
+
+In> L2:=RandomIntegerList(100,-500,500)
+Result: [-123,-459,156,-492,-313, <<SNIP>>, 351,-459,76,27,-144,-80,-91]
+
+
+In> T:=Time() LS:=BubbleSort(L2,"<?")
+Result: 0.621
+
+
+In> T:=Time() LS:=HeapSort(L2,"<?")
+Result: 0.146
+
+*SEE BubbleSort, HeapSort, BubbleSortIndexed, HeapSortIndexed
+%/mathpiper_docs
+
+
+
+
+%mathpiper,name="Sort",subtype="automatic_test"
+
+Verify(Sort([4,7,23,53,-2,1], ">?"), [53,23,7,4,1,-2]);
+Verify(SortIndexed([4,7,23,53,-2,1], ">?"), [[53,23,7,4,1,-2],[4,3,2,1,6,5]]);
+Verify(Sort([11,-17,-1,-19,-18,14,4,7,9,-15,13,11,-2,2,7,-19,5,-3,6,4,-1,14,5,-15,11]),
+            [-19,-19,-18,-17,-15,-15,-3,-2,-1,-1,2,4,4,5,5,6,7,7,9,11,11,11,13,14,14]);
+
+%/mathpiper
+
+

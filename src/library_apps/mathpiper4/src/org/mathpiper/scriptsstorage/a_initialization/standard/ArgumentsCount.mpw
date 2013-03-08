@@ -1,0 +1,38 @@
+%mathpiper,def="ArgumentsCount"
+
+Function("ArgumentsCount",[aLeft]) Length(FunctionToList(aLeft))-1;
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="ArgumentsCount",categories="Programming Functions;Miscellaneous"
+*CMD ArgumentsCount --- return number of top-level arguments
+*STD
+*CALL
+        ArgumentsCount(expr)
+
+*PARMS
+
+{expr} -- expression to examine
+
+*DESC
+
+This function evaluates to the number of top-level arguments of the
+expression "expr". The argument "expr" may not be an atom, since
+that would lead to an error.
+
+*E.G.
+
+In> ArgumentsCount(f(a,b,c))
+Result: 3;
+
+In> ArgumentsCount(Sin(x));
+Result: 1;
+
+In> ArgumentsCount(a*(b+c));
+Result: 2;
+
+*SEE Type, Length
+%/mathpiper_docs

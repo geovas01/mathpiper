@@ -1,0 +1,404 @@
+%mathpiper,def="RForm;RFormArgs;RFormStatement"
+
+/* RForm: convert MathPiper objects to R code. */
+
+//Retract("RForm",*);
+//Retract("RIndent",*);
+//Retract("RUndent",*);
+//Retract("RNlIndented",*); 
+
+RulebaseHoldArguments("RForm",[expression]);
+RulebaseHoldArguments("RForm",[expression, precedence]);
+
+Function ("RFormBracketIf", [predicate, string])
+{
+        Check(Boolean?(predicate) And? String?(string), "Argument", "RForm internal error: non-boolean and/or non-string argument of RFormBracketIf");
+        Decide(predicate, ConcatStrings("( ", string, ") "), string);
+};
+
+/* Proceed just like UnparseLatex()
+*/
+
+// RFormMaxPrec should perhaps only be used from within this file, it is thus not in the .def file.
+RFormMaxPrec() := 60000;         /* This precedence will never be bracketed. It is equal to KMaxPrec */
+
+100 # RForm(_x) <-- RForm(x, RFormMaxPrec());
+
+/* Replace numbers and variables -- never bracketed except explicitly */
+110 # RForm(x_Integer?, _p) <-- ToString(x);
+111 # RForm(x_Zero?, _p) <-- "0.";
+112 # RForm(x_Number?, _p) <-- ToString(x);
+/* Variables are left as is, except some special ones */
+190 # RForm(False, _p) <-- "false";
+190 # RForm(True, _p) <-- "true";
+190 # RForm(Pi, _p) <-- "pi";
+200 # RForm(x_Atom?, _p) <-- ToString(x);
+
+/* Strings must be quoted but not bracketed */
+100 # RForm(x_String?, _p) <-- ConcatStrings("\"", x, "\"");
+
+/* Replace operations */
+
+/* arithmetic */
+
+/* addition, subtraction, multiplication, all comparison and logical operations are "regular" */
+
+
+LocalSymbols(rFormRegularOps) {
+  rFormRegularOps := 
+  [ 
+    ["+","+"],
+    ["-","-"],
+    ["*","*"],
+    ["/","/"],
+    ["/","/"],
+    ["^","^"],
+    ["=?","=="],
+    [">=?",">="],
+    [">?",">"],
+    ["<=?","<="],
+    ["<?","<"],
+    ["!=","!="],
+    ["..",":"],
+    ["Not?","!"],
+    [":=","<-"],
+    ["sequence",":"],
+    ["True","TRUE"],
+    ["Modulo","%%"],
+    ["Quotient","%/%"],
+  ];
+
+  RFormRegularOps() := rFormRegularOps;
+}; // LocalSymbols(rFormRegularOps)
+
+
+
+
+LocalSymbols(rFormMathFunctions) {
+  rFormMathFunctions :=
+  [
+    ["NthRoot","root"],
+    ["Infinite","Inf"],
+    ["Undefined","NaN"],
+    ["Sin","sin"],
+    ["Cos","cos"],
+    ["Tan","tan"],
+    ["ArcSin","asin"],
+    ["ArcCos","acos"],
+    ["ArcTan","atan"],
+    ["ArcSinh","asinh"],
+    ["ArcCosh","acosh"],
+    ["ArcTanh","atanh"],
+    ["ArcCsc","acsc"],
+    ["ArcCsch","acsch"],
+    ["ArcSec","asec"],
+    ["ArcSech","asech"],
+    ["ArcCot","acot"],
+    ["ArcCoth","acoth"],
+    ["Exp","exp"],
+    ["Ln","log"],
+    ["Sqrt","sqrt"],
+    ["Bin","choose"],
+    ["Gamma","gamma"],
+    ["!","factorial"],
+    ["Limit","limit"],
+    ["Deriv","deriv"],
+    ["Integrate","integrate"],
+    ["Taylor","?"],
+    ["List","list"],
+  ];
+
+  RFormMathFunctions() := rFormMathFunctions;
+
+}; // LocalSymbols(RFormMathFunctions)
+
+
+
+
+/* This is the template for "regular" binary infix operators:
+100 # RForm(_x + _y, _p) <-- RFormBracketDecide(p<?PrecedenceGet("+"), ConcatStrings(RForm(x, LeftPrecedenceGet("+")), " + ", RForm(y, RightPrecedenceGet("+")) ) );
+        */
+
+        /* unary addition */
+100 # RForm(+ _y, _p) <-- RFormBracketDecide(p<?PrecedenceGet("+"), ConcatStrings(" + ", RForm(y, RightPrecedenceGet("+")) ) );
+
+        /* unary subtraction */
+100 # RForm(- _y, _p) <-- RFormBracketDecide(p<?PrecedenceGet("-"), ConcatStrings(" - ", RForm(y, RightPrecedenceGet("-")) ) );
+
+        /* power's argument is never bracketed but it must be put in braces. */
+100 # RForm(_x ^ _y, _p) <-- RFormBracketDecide(p <=? PrecedenceGet("^"), ConcatStrings(RForm(x, RFormMaxPrec()), "^", RForm(y, RFormMaxPrec())) );
+
+100 # RForm(If(_pred)_body, _p) <-- "If("~RForm(pred,60000)~") "~RForm(body);
+100 # RForm(_left Else _right, _p) <-- RForm(left)~" Else "~RForm(right);
+
+/* Precedence of 120 because we'd like to process some special functions like pow() first */
+
+
+120 # RForm(expr_Function?, _p)_(ArgumentsCount(expr)=?2 And? Contains?(AssocIndices(RFormRegularOps()), Type(expr)) ) <--
+      RFormBracketDecide(p<?PrecedenceGet(Type(expr)), ConcatStrings(RForm(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))), RFormRegularOps()[Type(expr)], RForm(FunctionToList(expr)[3], RightPrecedenceGet(Type(expr))) ) );
+
+
+/* Sin, Cos, etc. and their argument is always bracketed */
+
+120 # RForm(expr_Function?, _p) _
+      (ArgumentsCount(expr)=?1 And? Contains?(AssocIndices(RFormMathFunctions()), Type(expr)) ) <--
+      ConcatStrings(RFormMathFunctions()[Type(expr)], "(", RForm( FunctionToList(expr)[2], RFormMaxPrec()),")" );
+
+/* functions */
+
+/* Unknown function, precedence 200. Leave as is, never bracket the function itself and bracket the argumentPointer(s) automatically since it's a list. Other functions are precedence 100 */
+
+RFormArgs(list_List?) <--
+{
+  Local(i,nr,result);
+  result:="";
+  nr:=Length(list);
+  For (i:=1,i<=?nr,i++)
+  {
+    result:=result~RForm(list[i]);
+    Decide(i<?nr, result:=result~", ");
+  };
+  result;
+};
+
+
+200 # RForm(_x, _p)_(Function?(x)) <--
+{
+  ConcatStrings(Type(x), "(", RFormArgs(Rest(FunctionToList(x))),")" );
+};
+
+/* Complex numbers */
+100 # RForm(Complex(0, 1), _p) <-- "I";
+100 # RForm(Complex(_x, 0), _p) <-- RForm(x, p);
+110 # RForm(Complex(_x, 1), _p) <-- RForm(x+Hold(I), p);
+110 # RForm(Complex(0, _y), _p) <-- RForm(Hold(I)*y, p);
+120 # RForm(Complex(_x, _y), _p) <-- RForm(x+Hold(I)*y, p);
+
+/* Some special functions: Mod */
+
+100 # RForm(Modulo(_x, _y), _p) <-- RFormBracketDecide(p<?PrecedenceGet("/"), ConcatStrings(RForm(x, PrecedenceGet("/")), " % ", RForm(y, PrecedenceGet("/")) ) )
+;
+
+/* Indexed expressions are never bracketed */
+// the rule with [ ] seems to have no effect?
+//100 # RForm(_x [ _i ], _p) <-- ConcatStrings(RForm(x, RFormMaxPrec()), "[", RForm(i, RFormMaxPrec()), "]");
+100 # RForm(Nth(_x, _i), _p) <-- ConcatStrings(RForm(x, RFormMaxPrec()), "[", RForm(i, RFormMaxPrec()), "]");
+
+LocalSymbols(RIndent) {
+  RIndent:=1;
+
+  RNlIndented():=
+  {
+    Local(result);
+// carriage return, so needs to start at the beginning of the line
+    result:=
+"
+";
+    Local(i);
+    For(i:=1,i<?RIndent,i++)
+    {
+      result:=result~"  ";
+    };
+    result;
+  };
+  RIndent() :=
+  {
+  (RIndent++);
+  "";
+  };
+  RUndent() :=
+  {
+  (RIndent--);
+  "";
+  };
+}; // LocalSymbols(RIndent)
+
+RFormStatement(_x) <-- RForm(x) ~ ";" ~ RNlIndented();
+
+120 # RForm(_x,_p)_(Type(x) =? "Block") <--
+{
+  Local(result);
+  result:=RIndent()~"["~RNlIndented();
+  ForEach(item,Rest(FunctionToList(x)))
+  {
+    result:=result~RFormStatement(item);
+  };
+  result:=result~"]"~RUndent()~RNlIndented();
+  result;
+};
+
+120 # RForm(For(_from,_to,_step)_body,_p) <--
+  "for(" ~ RForm(from,RFormMaxPrec()) ~ ";"
+        ~ RForm(to,RFormMaxPrec()) ~ ";"
+        ~ RForm(step,RFormMaxPrec()) ~ ")"
+        ~ RIndent() ~ RNlIndented()
+        ~ RFormStatement(body) ~ RUndent();
+
+120 # RForm(While(_pred)_body, _p) <--
+        "while(" ~ RForm(pred,RFormMaxPrec()) ~ ")"
+        ~ RIndent() ~ RNlIndented()
+        ~ RFormStatement(body) ~ RUndent();
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+%mathpiper_docs,name="RForm",categories="Programming Functions;Input/Output"
+*CMD RForm --- export expression to R code
+*STD
+*CALL
+        RForm(expr)
+
+*PARMS
+
+{expr} -- expression to be exported
+
+*DESC
+
+{RForm} returns a string containing R code that attempts to implement the MathPiper expression {expr}.
+Currently the exporter handles most expression types but not all.
+
+*E.G.
+
+In> RForm(Sin(a1)+2*Cos(b1));
+Result: "sin(a1) + 2 * cos(b1)";
+
+*SEE UnparseMath2D, UnparseLatex, UnparseC
+%/mathpiper_docs
+
+
+
+
+
+
+
+
+http://code.google.com/p/ryacas/source/browse/trunk/R/OpenMath2R.R
+OpenMath2R <- function(x) [
+ out <- c()
+ recurse <- function( x ) [
+        If("name" %in% names(xmlAttrs(x))) [
+                out <<- c(out, trans(xmlAttrs(x)[["name"]], from="OM", to="R"), " ")
+        ]
+        If(xmlName(x) == "text") out <<- c(out, xmlValue(x), " ")
+        If(xmlName(x) == "OMF") out <<- c(out, xmlAttrs(x)[["dec"]], " ")
+        If(xmlName(x) == "OMS") [
+        If(xmlAttrs(x)[["cd"]] == "logic1" && "name" %in% names(xmlAttrs(x))
+                && xmlAttrs(x)[["name"]] %in% c("true", "false")) []
+           Else If((xmlAttrs(x)[["cd"]] != "nums1") ||
+                                (xmlAttrs(x)[["name"]] == "rational")) 
+                        out <<- c(out, xmlValue(x), "(")
+        ]
+        # If(xmlName(x) == "OMS") out <<- c(out, "(")
+        If(xmlName(x) == "OMSTR") [
+        # out <<- c(out, sQuote(gsub("", "\\\\", xmlValue(x))))
+        out <<- c(out, paste("", gsub("", "\\\\", xmlValue(x)), "", sep=""))
+        ] Else If( length( xmlChildren(x) ) >? 0 )
+                for( i in seq( along = xmlChildren(x) ) ) [
+                        Recall( x[[i]] )
+                        If(i >? 1 && i <? length(xmlChildren(x))) 
+                                out <<- c(out, ",")
+                ]
+        If(xmlName(x) == "OMA" || xmlName(x) == "OMBIND") out <<- c(out, xmlValue(x), ")")
+ ]
+ x <- paste(x, "\n", collapse = "")
+ x <- xmlTreeParse(x, asText = TRUE)
+ x <- xmlRoot(x)
+ recurse(x)
+ paste(out, collapse = "")
+]
+
+trans <- function(x, ttab=transtab, from, to) [
+   idx <- match(x, ttab[,from], nomatch = 0)
+   res <- If(idx >? 0) ttab[idx,to] Else x
+   If(tolower(substr(res, 1, 1)) %in% letters) res
+   Else paste(", res, ", sep="")
+]
+
+transtab <- matrix( c(
+        #R                        OM                        yacas
+        "pi",                "pi",                "Pi",
+        
+        "+",                "plus",                "+",
+        "-",                "minus",        "-",
+        "*",                "times",        "*",
+        "/",                "divide",        "/",
+        "/",                "rational",        "/",
+        "^",                "power",        "^",
+        "%%",                "mod",                "Modulo",
+        "%/%",                "div",                "Quotient",
+        "root",                "root",                "NthRoot",
+        "Inf",                "infinity",        "Infinite",
+        "NaN",                "undefined","Undefined",
+        
+        "sin",                "Sin",                "Sin",
+        "cos",                "Cos",                "Cos",
+        "tan",                "Tan",                "Tan",
+        
+        "asin",                "arcsin",        "ArcSin",
+        "acos",                "arccos",        "ArcCos",
+        "atan",         "arctan",         "ArcTan",
+        "asinh",         "arcsinh",         "ArcSinh", 
+        "acosh",         "arccosh",         "ArcCosh", 
+        "atanh",         "arctanh",         "ArcTanh",
+        
+        "acsc",                "arccsc",        "ArcCsc",
+        "acsch",        "arccsch",        "ArcCsch",
+        
+        "asec",                "arcsec",        "ArcSec",
+        "asech",        "arcsech",        "ArcSech",
+        
+        "acot",                "arccot",        "ArcCot",
+        "acoth",        "arccoth",        "ArcCoth",
+        
+        "exp",                 "exp",                 "Exp",
+        "log",                 "ln",                 "Ln",
+        "sqrt",         "sqrt",         "Sqrt",
+        "choose",         "bin",                 "Bin",
+        "gamma",         "gamma",         "Gamma",
+        
+        "!",                "not",                "Not?",
+        "==",                "eq",                "=?",
+        "==",                "equivalent",        "=?",
+        ">=",                "geq",                ">=?",
+        ">",                 "gt",                ">?",
+        "<=",                 "leq",                "<=?",
+        "<",                 "lt",                "<?",
+        "!=",                 "neq",                "!=?",
+        ":",                 "seq",                "sequence",
+        ":",                 "seq",                "..",
+        
+        "factorial","factorial","factorial",
+        "factorial","factorial","!",
+        "limit",         "lim",                 "Limit",
+        "deriv",         "deriv",         "Deriv",
+        "integrate","integrate","Integrate",
+        "?",                "taylor",        "Taylor",
+
+        "list",                "List",         "List",
+        "TRUE",                "true",         "True",
+        "<-",                "?",                ":=",
+        "Expr",                "?",                "",
+        "Exprq",         "?",                "",
+        "expression",         "?",                 ""
+        
+), byrow = TRUE, ncol = 3)
+colnames(transtab) <- c("R", "OM", "yacas")
+
+# Used for expressions not handled by R
+
+root <- function(x, y) [
+        (x)^(1/(y))
+]
+
+
+
+
+
+
+
+

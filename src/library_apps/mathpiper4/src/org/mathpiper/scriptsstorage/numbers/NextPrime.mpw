@@ -1,0 +1,51 @@
+%mathpiper,def="NextPrime"
+
+/// obtain the real next prime number -- use primality testing
+1# NextPrime(_i) <--
+{
+        Until(Prime?(i)) i := NextPseudoPrime(i);
+        i;
+};
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="NextPrime",categories="Mathematics Functions;Number Theory"
+*CMD NextPrime --- generate a prime following a number
+*STD
+*CALL
+        NextPrime(i)
+
+*PARMS
+
+{i} -- integer value
+
+*DESC
+
+The function finds the smallest prime number that is greater than the given
+integer value.
+
+The routine generates "candidate numbers" using the formula $n+2*Modulo(-n,3)$
+where $n$ is an odd number (this generates the sequence 5, 7, 11, 13, 17,
+19, ...) and {Prime?()} to test whether the next candidate number is in
+fact prime.
+
+*E.G.
+In> NextPrime(5)
+Result: 7;
+
+*SEE Prime?
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="NextPrime",subtype="automatic_test"
+
+Verify(NextPrime(65537), 65539);
+Verify(NextPrime(97192831),97192841);
+Verify(NextPrime(14987234876128361),14987234876128369);
+
+%/mathpiper

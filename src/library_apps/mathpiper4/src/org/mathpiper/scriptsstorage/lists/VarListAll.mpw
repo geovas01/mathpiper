@@ -1,0 +1,69 @@
+%mathpiper,def="VarListAll"
+
+/*
+ * Rulebase for VarListAll: recursively traverse an expression looking
+ * up all variables the expression depends on.
+ */
+ 
+ 
+/* Accept any variable. */
+VarListAll(_expr) <-- VarListAll(expr,"Variable?");
+
+
+
+10 # VarListAll(_expr,_filter)_(Apply(filter,[expr]) =? True) <--
+     [expr];
+
+
+
+/* Otherwise check all leafs of a function. */
+20 # VarListAll(expr_Function?,_filter) <--
+{
+    Local(item,result, flatlist);
+    
+    Assign(flatlist,Rest(FunctionToList(expr)));
+    
+    Assign(result,[]);
+    
+    ForEach(item,flatlist) Assign(result,Concat(result,VarListAll(item,filter)));
+    
+    result;
+};
+
+
+
+/* Else it doesn't depend on any variable. */
+30 # VarListAll(_expr,_filter) <-- [];
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="VarListAll",categories="Programming Functions;Lists (Operations)"
+*CMD VarListAll --- list of variables appearing in an expression (with duplicates)
+*STD
+*CALL
+        VarListAll(expr)
+
+*PARMS
+
+{expr} -- an expression
+
+{list} -- a list of function atoms
+
+*DESC
+
+The command {VarListAll(expr)} returns a list of all variables (including duplicates) 
+that appear in the expression {expr}. The expression is traversed recursively.
+
+Note that since the operators "{+}" and "{-}" are prefix as well as infix operators, 
+it is currently required to use {ToAtom("+")} to obtain the unevaluated atom "{+}".
+
+*E.G.
+
+In> VarListAll(x^2 + 2*x + x + a)
+Result: [x,x,x,a]
+
+*SEE VarList, VarListArith, VarListSome, FreeOf?, Variable?, FuncList, HasExpression?, HasFunction?
+%/mathpiper_docs

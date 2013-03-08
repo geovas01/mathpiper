@@ -1,0 +1,109 @@
+%mathpiper,def="FindRealRoots"
+
+//iDebug:=False;
+
+//Retract("FindRealRoots",*);
+
+FindRealRoots(_p) <--
+{
+    Decide(iDebug,Tell("FindRealRoots",p));
+    Local(vars,var,cc,pp,vlcc,zeroRoot,minb,maxb,rr);
+    vars := VarList(p);
+    var  := vars[1];
+    cc   := Content(p);
+    pp   := PrimitivePart(p);
+    Decide(iDebug,Tell("   ",[cc,pp]));
+    vlcc := VarList(cc);
+    Decide(Length(vlcc)>?0 And? Contains?(vlcc,var), zeroRoot:=True,zeroRoot:=False);
+    p:=SquareFree(Rationalize(pp));
+    Decide(iDebug,Tell("   after sqf",p));
+    minb := MinimumBound(p);
+    maxb := MaximumBound(p);
+    Decide(iDebug,Tell("   ",[minb,maxb]));
+    rr := FindRealRoots(p,minb,maxb);
+    Decide(zeroRoot,DestructiveAppend(rr,0));
+    rr;
+};
+
+
+FindRealRoots(_p,_Mmin,_Mmax) <--
+{
+    Decide(iDebug,Tell("  FindRealRoots3",[p,Mmin,Mmax]));
+    Local(bounds,result,i,prec,requiredPrec);
+    bounds := BoundRealRoots(p,Mmin,Mmax);
+    Decide(iDebug,Tell("      ",[bounds,Length(bounds)]));
+    result:=FillList(0,Length(bounds));
+    requiredPrec := BuiltinPrecisionGet();
+    BuiltinPrecisionSet(BuiltinPrecisionGet()+4);
+    prec:=10^-(requiredPrec+1);
+
+    For(i:=1,i<=?Length(bounds),i++)
+    {
+        Decide(iDebug,Tell(i));
+        Local(a,b,c,r);
+        [a,b] := bounds[i];
+        c:=NM(Eval((a+b)/2));
+        Decide(iDebug,Tell("         ",[a,b,c]));
+        r := Fail;
+        Decide(iDebug,Tell("         newt1",`Hold(Newton(@p,x,@c,@prec,@a,@b))));
+        If(a !=? b) {r := `Newton(@p,x,@c,prec,a,b);};
+        Decide(iDebug,Tell("         newt2",r));
+        If(r =? Fail)
+          {
+             Local(c,cold,pa,pb,pc);
+             pa:=(p Where x==a);
+             pb:=(p Where x==b);
+             c:=((a+b)/2);
+             cold := a;
+             While (Abs(cold-c)>?prec)
+             {
+                 pc:=(p Where x==c);
+                 Decide(iDebug,Tell("              ",[a,b,c]));
+                 If(Abs(pc) <? prec)
+                   { a:=c; b:=c; }
+                 Else If(pa*pc <? 0)
+                   { b:=c; pb:=pc; }
+                 Else
+                   { a:=c; pa:=pc; };
+                   cold:=c;
+                   c:=((a+b)/2);
+             };
+             r:=c;
+          };
+        result[i] := NM(Eval((r/10)*(10)),requiredPrec);
+    };
+    BuiltinPrecisionSet(requiredPrec);
+    result;
+};
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="FindRealRoots",categories="Mathematics Functions;Solvers (Numeric)"
+*CMD FindRealRoots --- find the real roots of a polynomial
+*STD
+*CALL
+        FindRealRoots(p)
+
+*PARMS
+
+{p} - a polynomial in {x}
+
+*DESC
+
+Return a list with the real roots of $ p $. It tries to find the real-valued
+roots, and thus requires numeric floating point calculations. The precision
+of the result can be improved by increasing the calculation precision.
+
+*E.G. notest
+
+In> p:=Expand((x+3.1)^5*(x-6.23))
+Result: x^6+9.27*x^5-0.465*x^4-300.793*x^3-
+        1394.2188*x^2-2590.476405*x-1783.5961073;
+
+In> FindRealRoots(p)
+Result: [-3.1,6.23];
+
+*SEE SquareFree, RealRootsCount, MinimumBound, MaximumBound, Factor
+%/mathpiper_docs

@@ -1,0 +1,70 @@
+%mathpiper,def="Add"
+
+Function() Add(val, ...);
+
+10 # Add([]) <-- 0;
+20 # Add(values_List?) <--
+{
+   Local(i, sum);
+   sum:=0;
+   ForEach(i, values) { sum := sum + i; };
+   sum;
+};
+
+// Add(1) should return 1
+30 # Add(_value) <-- value;
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Add",categories="Mathematics Functions;Series",access="private"
+*CMD Add --- find sum of a list of values
+*STD
+*CALL
+        Add(val1, val2, ...)
+        Add([list])
+
+*PARMS
+
+{val1}, {val2} -- expressions
+
+{[list]} -- list of expressions to add
+
+*DESC
+
+This function adds all its arguments and returns their sum. It accepts any
+number of arguments. The arguments can be also passed as a list.
+
+*E.G.
+
+In> Add(1,4,9);
+Result: 14;
+
+In> Add(1 .. 10);
+Result: 55;
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Add",subtype="automatic_test"
+
+Verify(Add([1,2,3,4]), 10);
+Verify(Add([1]), 1);
+Verify(Add([]), 0);
+Verify(Add(1,2,3,4), 10);
+Verify(Add(1), 1);
+
+{
+  Local(list);
+  list:=[1,2,3,4,5];
+  Verify(Add(list)/Length(list), 3);
+  list:=[0];
+  Verify(Add(list)/Length(list), 0);
+  list:=[];
+  Verify(Add(list)/Length(list), Undefined);
+};
+
+%/mathpiper

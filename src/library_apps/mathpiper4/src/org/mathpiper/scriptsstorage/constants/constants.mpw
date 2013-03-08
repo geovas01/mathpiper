@@ -1,0 +1,377 @@
+%mathpiper,def="I;CachedConstant;AssignCachedConstantsN;ClearCachedConstantsN"
+
+/* def file definitions.
+I
+CachedConstant
+AssignCachedConstants
+ClearCachedConstants
+*/
+
+/* Definition of constants. */
+
+/* TODO:
+ * There is a problem with defining I this way: if I is used, but the
+ * file "complex" has not been loaded, the interpreter can not deal
+ * with "Complex".
+ *
+ * Note:tk:10/9/09: Perhaps use SetGlobalLazyVariable(I,Hold(Complex(0,1)));
+ */
+
+SetGlobalLazyVariable(I,Complex(0,1));
+
+//////////////////////////////////////////////////
+/// Cached constants support and definition of Pi
+//////////////////////////////////////////////////
+
+//TODO: here we wrap the entire file in LocalSymbols, this is inefficient in that it slows loading of this file. Needs optimization.
+LocalSymbols(CacheOfConstantsN) {
+
+/// declare a new cached constant Catom and its associated function Catom().
+/// Catom() will call Cfunc() at current precision to evaluate Catom if it has not yet been cached at that precision. (note: any arguments to Cfunc() must be included)
+RulebaseHoldArguments("CachedConstant", [Ccache, Catom, Cfunc]);
+UnFence("CachedConstant", 3);        // not sure if this is useful
+HoldArgument("CachedConstant", Cfunc);
+HoldArgument("CachedConstant", Ccache);        // name of the cache
+// check syntax: must be called on an atom and a function
+RuleHoldArguments("CachedConstant", 3, 10, And?(Atom?(Catom), Function?(Cfunc)))
+{
+         Local(Cname,CfunctionName);
+        Assign(Cname, ToString(Catom));        // this is for later conveniences
+  Assign(CfunctionName,ConcatStrings("Internal",Cname));
+
+        Decide(        // create the cache it if it does not already exist
+                Atom?(Eval(Ccache)),
+                MacroAssign(Eval(Ccache), [])
+        );
+//        Write(["debug step 0: ", Ccache, Eval(Ccache), Catom, Cfunc, Cname]);
+        // check that the constant is not already defined
+        Decide(
+          Equal?(BuiltinAssoc(Cname, Eval(Ccache)), Empty),        // the constant is not already defined, so need to define "Catom" and the corresponding function "Catom"()
+          {        // e.g. Catom evaluates to Pi, Ccache to a name e.g. CacheOfConstantsN, which is bound to a hash
+                MacroUnassign(Catom);
+//                Write(["debug step 1: ", Cachename, Ccache, Eval(Ccache)]);
+                // add the new constant to the cache
+//                MacroAssign(Cachename, Insert(Eval(Ccache), 1, [Cname, 0, 0]));
+                DestructiveInsert(Eval(Ccache), 1, [Cname, 0, 0]);
+//                Write(["debug step 2: ", Cachename, Ccache, Eval(Ccache)]);
+                // define the new function "Catom"()
+                // note: this should not use NM() because it may be called from inside NM() itself
+
+                RulebaseEvaluateArguments(CfunctionName, []);
+                `( RuleHoldArguments(@CfunctionName, 0, 1024, True)
+                {
+                        Local(newprec, newC, cachedC);
+                        Assign(newprec, BuiltinPrecisionGet());
+                        // fetch the cache entry for this constant
+                        // note that this procedure will store the name of the cache here in this statement as Eval(Ccache)
+                        Assign(cachedC, BuiltinAssoc(@Cname, @Ccache));
+                        Decide( MathNth(cachedC, 2) !=? newprec,
+                          {        // need to recalculate at current precision
+                                Decide(Equal?(InVerboseMode(),True), Echo("CachedConstant: Info: constant ", @Cname, " is being recalculated at precision ", newprec));
+                                Assign(newC, RoundTo(Eval(@Cfunc),newprec));
+                                DestructiveReplace(cachedC, 2, newprec);
+                                DestructiveReplace(cachedC, 3, newC);
+                                newC;
+                          },
+                          // return cached value of Catom
+                          MathNth(cachedC, 3)
+                        );
+                });
+
+                // calculate Catom at current precision for the first time
+//                Eval(ListToFunction([Catom]));        // "Cname"();
+                // we do not need this until the constant is used; it will just slow us down
+          },
+          // the constant is defined
+          Echo("CachedConstant: Warning: constant ", Catom, " already defined")
+        );
+};
+
+RuleHoldArguments("CachedConstant", 3, 20, True)
+        Echo("CachedConstant: Error: ", Catom, " must be an atom and ", Cfunc, " must be a function.");
+
+/// assign numerical values to all cached constants: using fixed cache "CacheOfConstantsN"
+// this is called from NM()
+Function("AssignCachedConstantsN", [])
+{
+        Local(var,fname);
+        ForEach(var, AssocIndices(CacheOfConstantsN))
+        {
+                MacroUnassign(ToAtom(var));
+    Assign(fname,ConcatStrings("Internal",var));
+    Assign(var,ToAtom(var));
+                // this way the routine InternalPi() will be actually called only when the variable Pi is used, etcetera.
+    `SetGlobalLazyVariable((@var), ListToFunction([ToAtom(fname)]));
+        };
+};
+UnFence("AssignCachedConstantsN", 0);
+
+/// clear values from all cached constants: using fixed cache "CacheOfConstantsN"
+// this is called from NM()
+Function("ClearCachedConstantsN", [])
+{
+        Local(centry);
+        ForEach(centry, CacheOfConstantsN)
+                MacroUnassign(ToAtom(centry[1]));
+};
+UnFence("ClearCachedConstantsN", 0);
+
+/// declare some constants now
+CachedConstant(CacheOfConstantsN, Pi,
+// it seems necessary to precompute Pi to a few more digits
+// so that Cos(0.5*Pi)=0 at precision 10
+// FIXME: find a better solution
+{        Local(result,oldprec);
+  Assign(oldprec,BuiltinPrecisionGet());
+Decide(Equal?(InVerboseMode(),True), Echo("Recalculating Pi at precision ",oldprec+5));
+        BuiltinPrecisionSet(BuiltinPrecisionGet()+5);
+        result := MathPi();
+Decide(Equal?(InVerboseMode(),True),Echo("Switching back to precision ",oldprec));
+        BuiltinPrecisionSet(oldprec);
+        result;
+}
+);
+CachedConstant(CacheOfConstantsN, gamma, GammaConstNum());
+CachedConstant(CacheOfConstantsN, GoldenRatio, NM( (1+Sqrt(5))/2 ) );
+CachedConstant(CacheOfConstantsN, Catalan, CatalanConstNum() );
+
+}; // LocalSymbols(CacheOfConstantsN)
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="I",categories="Mathematics Functions;Constants;Numbers (Complex)"
+*CMD I --- imaginary unit
+*STD
+*CALL
+        I
+
+*DESC
+
+This symbol represents the imaginary unit, which equals the square
+root of -1. It evaluates to {Complex(0,1)}.
+
+*E.G.
+
+In> I
+Result: Complex(0,1);
+
+In> I = Sqrt(-1)
+Result: True;
+
+*SEE Complex
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="Pi",categories="Mathematics Functions;Constants"
+*CMD Pi --- mathematical constant $pi$
+
+*STD
+*CALL
+        Pi
+
+*DESC
+
+Pi symbolically represents the exact value of $pi$. When the {NM()} function is
+used, {Pi} evaluates to a numerical value according to the current precision.
+It is better to use {Pi} than {NM(Pi)} except in numerical calculations, because exact
+simplification will be possible.
+
+This is a "cached constant" which is recalculated only when precision is increased.
+
+*E.G.
+
+In> Sin(3*Pi/2)
+Result: -1;
+
+In> Pi+1
+Result: Pi+1;
+
+In> NM(Pi)
+Result: 3.14159265358979323846;
+
+*SEE Sin, Cos, NM, CachedConstant
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="GoldenRatio",categories="Mathematics Functions;Constants"
+*CMD GoldenRatio --- the Golden Ratio
+*STD
+*CALL
+        GoldenRatio
+
+*DESC
+
+These functions compute the "golden ratio"
+$$phi <=> 1.6180339887 <=> (1+Sqrt(5))/2 $$.
+
+The ancient Greeks defined the "golden ratio" as follows:
+If one divides a length 1 into two pieces $x$ and $1-x$, such that the ratio of 1 
+to $x$ is the same as the ratio of $x$ to $1-x$, then $1/x <=> 1.618$... is the "golden ratio".
+
+
+The constant is available symbolically as {GoldenRatio} or numerically through {NM(GoldenRatio)}.
+This is a "cached constant" which is recalculated only when precision is increased.
+The numerical value of the constant can also be obtained as {NM(GoldenRatio)}.
+
+
+*E.G.
+
+In> x:=GoldenRatio - 1
+Result: GoldenRatio-1;
+
+In> NM(x)
+Result: 0.6180339887;
+
+In> NM(1/GoldenRatio)
+Result: 0.6180339887;
+
+In> V(NM(GoldenRatio,20));
+
+        CachedConstant: Info: constant GoldenRatio is
+        being recalculated at precision 20 
+Result: 1.6180339887498948482;
+
+
+*SEE NM, CachedConstant
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="Catalan",categories="Mathematics Functions;Constants"
+*CMD Catalan --- Catalans Constant
+*STD
+*CALL
+        Catalan
+
+*DESC
+
+These functions compute Catalans Constant $Catalan<=>0.9159655941$.
+
+The constant is available symbolically as {Catalan} or numerically through {NM(Catalan)} with {NM(...)} the usual operator used to try to coerce an expression in to a numeric approximation of that expression.
+This is a "cached constant" which is recalculated only when precision is increased.
+The numerical value of the constant can also be obtained as {NM(Catalan)}.
+The low-level numerical computations are performed by the routine {CatalanConstNum}.
+
+
+*E.G.
+
+In> NM(Catalan)
+Result: 0.9159655941;
+
+In> DirichletBeta(2)
+Result: Catalan;
+
+In> V(NM(Catalan,20))
+
+        CachedConstant: Info: constant Catalan is
+        being recalculated at precision 20
+Result: 0.91596559417721901505;
+
+
+*SEE NM, CachedConstant
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="gamma",categories="Mathematics Functions;Constants"
+*CMD gamma --- Eulers constant $gamma$
+*STD
+*CALL
+        gamma
+
+*DESC
+
+These functions compute Eulers constant $gamma<=>0.57722$...
+
+The constant is available symbolically as {gamma} or numerically through using the usual function {NM(...)} to get a numeric result, {NM(gamma)}.
+This is a "cached constant" which is recalculated only when precision is increased.
+The numerical value of the constant can also be obtained as {NM(gamma)}.
+The low-level numerical computations are performed by the routine {GammaConstNum}.
+
+Note that Eulers Gamma function $Gamma(x)$ is the capitalized {Gamma} in MathPiper.
+
+*E.G.
+
+In> gamma+Pi
+Result: gamma+Pi;
+
+In> NM(gamma+Pi)
+Result: 3.7188083184;
+
+In> V(NM(gamma,20))
+        
+        CachedConstant: Info: constant gamma is being
+          recalculated at precision 20 
+        GammaConstNum: Info: used 56 iterations at
+          working precision 24 
+Result: 0.57721566490153286061;
+
+*SEE Gamma, NM, CachedConstant
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="CachedConstant",categories="Programming Functions;Constants"
+*CMD CachedConstant --- precompute multiple-precision constants
+*STD
+*CALL
+        CachedConstant(cache, Cname, Cfunc)
+
+*PARMS
+{cache} -- atom, name of the cache
+
+{Cname} -- atom, name of the constant
+
+{Cfunc} -- expression that evaluates the constant
+
+*DESC
+
+This function is used to create precomputed multiple-precision values of
+constants. Caching these values will save time if they are frequently used.
+
+The call to {CachedConstant} defines a new function named {Cname()} that
+returns the value of the constant at given precision. If the precision is
+changed, the value will be recalculated as necessary, otherwise calling {Cname()} will take very little time.
+
+The parameter {Cfunc} must be an expression that can be evaluated and returns
+the value of the desired constant at the current precision. (Most arbitrary-precision mathematical functions do this by default.)
+
+The associative list {cache} contains elements of the form {[Cname, prec, value]}, as illustrated in the example. If this list does not exist, it will be created.
+
+This mechanism is currently used by {NM()} to precompute the values of $Pi$ and $gamma$ (and the golden ratio through {GoldenRatio}, and {Catalan}).
+The name of the cache for {NM()} is {CacheOfConstantsN}.
+The code in the function {NM()} assigns unevaluated calls to {InternalPi()} and {Internalgamma()} to the atoms {Pi} and {gamma} and declares them to be lazy global variables through {SetGlobalLazyVariable} (with equivalent functions assigned to other constants that are added to the list of cached constants).
+
+The result is that the constants will be recalculated only when they are used in the expression under {NM()}.
+In other words, the code in {NM()} does the equivalent of
+
+        SetGlobalLazyVariable(mypi,Hold(InternalPi()));
+        SetGlobalLazyVariable(mygamma,Hold(Internalgamma()));
+
+After this, evaluating an expression such as {1/2+gamma} will call the function {Internalgamma()} but not the function {InternalPi()}.
+
+*E.G. notest
+
+In> CachedConstant( mycache, Ln2, InternalLnNum(2) )
+Result: True;
+
+In> InternalLn2()
+Result: 0.6931471806;
+
+In> V(NM(InternalLn2(),20))
+        CachedConstant: Info: constant Ln2 is being
+          recalculated at precision 20 
+Result: 0.69314718055994530942;
+
+In> mycache
+Result: [["Ln2",20,0.69314718055994530942]];
+
+
+*SEE NM, BuiltinPrecisionSet, Pi, GoldenRatio, Catalan, gamma
+%/mathpiper_docs

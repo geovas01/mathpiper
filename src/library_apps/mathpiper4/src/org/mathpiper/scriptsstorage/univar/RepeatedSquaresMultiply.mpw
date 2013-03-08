@@ -1,0 +1,26 @@
+%mathpiper,def="RepeatedSquaresMultiply"
+
+/* Repeated squares multiplication
+ TODO put somewhere Else!!!
+ */
+10 # RepeatedSquaresMultiply(_a,- (n_Integer?)) <-- 1/RepeatedSquaresMultiply(a,n);
+
+15 #  RepeatedSquaresMultiply(UniVariate(_var,_first,[_coef]),(n_Integer?)) <--
+      UniVariate(var,first*n,[coef^n]);
+20 # RepeatedSquaresMultiply(_a,n_Integer?) <--
+{
+  Local(m,b);
+  Assign(m,1);
+  Assign(b,1);
+  While(m<=?n) Assign(m,(ShiftLeft(m,1)));
+  Assign(m, ShiftRight(m,1));
+  While(m>?0)
+  {
+    Assign(b,b*b);
+    Decide(Not?(Equal?(BitAnd(m,n), 0)),Assign(b,b*a));
+    Assign(m, ShiftRight(m,1));
+  };
+  b;
+};
+
+%/mathpiper
