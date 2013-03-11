@@ -214,22 +214,22 @@ RulebaseListedHoldArguments("StepsView",[steps, optionsList]);
 "\\footnotesize \\mbox{
 The dominant operator on the left side of an equation is the\\\\
 operator that has the lowest precedence. This is always the top \\\\
-operator on the left branch of the equation's expression tree.\\\\
+operator on the left side of the equation's expression tree.\\\\
 \\vspace{.75in}
 The expression tree of an equation that has only one occurrence\\\\
 of the variable to be isolated can be solved using the following\\\\
 procedure:\\\\
 \\vspace{.75in}
-1) Identify the operator that is at the top of the left branch of the\\\\
+1) Identify the operator that is at the top of the left side of the\\\\
 \\hspace{.5in}tree (it is circled in red in the trees below).\\\\
 \\vspace{.75in}
 2) Identify the operand of this operator that does not contain the\\\\
 \\hspace{.75in}variable to be isolated.\\\\
 \\vspace{.75in}
 3) Remove the top operator (along with the operand from step 2)\\\\
-\\hspace{.5in}from the left branch of the tree, and add the inverse of\\\\
+\\hspace{.5in}from the left side of the tree, and add the inverse of\\\\
 \\hspace{.5in}this operator (along with the operand from step 2) to\\\\
-\\hspace{.5in}the top of the right branch of the tree.\\\\
+\\hspace{.5in}the top of the right side of the tree.\\\\
 \\vspace{.75in}
 }";
     
@@ -237,11 +237,11 @@ procedure:\\\\
     
 
     
-    message := "\\text{Solve}\\ " ~ ToString(ToAtom(ListToString(Remove(StringToList(UnparseLatex(TagLeftBranchDominantFunction(RemoveDollarSigns(steps[1][1])))),"$"))) ) ~ "\\ \\text{for}\\ " ~ ToString(steps[1][4]) ~ ".";
+    message := "\\text{Solve}\\ " ~ ToString(ToAtom(ListToString(Remove(StringToList(UnparseLatex(TagLeftSideDominantFunction(RemoveDollarSigns(steps[1][1])))),"$"))) ) ~ "\\ \\text{for}\\ " ~ ToString(steps[1][4]) ~ ".";
     DestructiveAppend(result, LatexView(message, Scale: latexScale));
     
     
-    Decide(options["ShowTree"] =? True, DestructiveAppend(result, TreeView(TagLeftBranchDominantFunction(RemoveDollarSigns(steps[1][1])), Scale: treeScale, Resizable: False, IncludeExpression: False)));
+    Decide(options["ShowTree"] =? True, DestructiveAppend(result, TreeView(TagLeftSideDominantFunction(RemoveDollarSigns(steps[1][1])), Scale: treeScale, Resizable: False, IncludeExpression: False)));
     
     
     steps := Rest(steps);
@@ -292,17 +292,16 @@ Compose(result, newExpression, explanation, beforeSimplification, lengthFour?, s
     DestructiveAppend(result, LatexView(" \\vspace{.10in}", Scale: latexScale));
     
     
-    DestructiveAppend(result, LatexView(ToAtom(ListToString(Remove(StringToList(UnparseLatex(TagLeftBranchDominantFunction(RemoveDollarSigns(newExpression)))),"$"))), Scale: latexScale ));
+    DestructiveAppend(result, LatexView(ToAtom(ListToString(Remove(StringToList(UnparseLatex(TagLeftSideDominantFunction(RemoveDollarSigns(newExpression)))),"$"))), Scale: latexScale ));
     
-    //Echo(ListToString(Remove(StringToList(UnparseLatex(TagLeftBranchDominantFunction(RemoveDollarSigns(newExpression)))),"$")));
     
-    Decide(showTree? =? True, DestructiveAppend(result, TreeView(TagLeftBranchDominantFunction(RemoveDollarSigns(newExpression)), Scale: treeScale, Resizable: False, IncludeExpression: False)));
+    Decide(showTree? =? True, DestructiveAppend(result, TreeView(TagLeftSideDominantFunction(RemoveDollarSigns(newExpression)), Scale: treeScale, Resizable: False, IncludeExpression: False)));
     
     result;   
 };
 
 
-TagLeftBranchDominantFunction(expression) :=
+TagLeftSideDominantFunction(expression) :=
 {
     If(Function?(expression) And? Function?(Cdr(Car(expression))))
     {
