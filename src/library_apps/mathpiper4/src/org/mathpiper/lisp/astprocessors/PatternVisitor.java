@@ -100,5 +100,17 @@ public class PatternVisitor
 
         return null;
     }
+    
+    
+    public Cons getAssociationList(Environment aEnvironment, int aStackTop) throws Throwable
+    {
+	Cons listAtom = AtomCons.getInstance(aEnvironment, aStackTop, "List");
+
+	listAtom.setCdr(associationList);
+
+	Cons sublist = SublistCons.getInstance(aEnvironment, listAtom);
+
+	return sublist;
+    }
 
 };
