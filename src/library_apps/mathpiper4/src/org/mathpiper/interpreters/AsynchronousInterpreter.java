@@ -34,6 +34,7 @@ class AsynchronousInterpreter implements Interpreter
     private static AsynchronousInterpreter singletonInstance;
     private SynchronousInterpreter interpreter;
     private String expression;
+    private ExecutorService es = Executors.newSingleThreadExecutor();
 
     private AsynchronousInterpreter(SynchronousInterpreter interpreter)
     {
@@ -85,9 +86,8 @@ class AsynchronousInterpreter implements Interpreter
     {
 
         FutureTask task = new EvaluationTask(new Evaluator(expression, notifyEvaluationListeners));
-        ExecutorService es = Executors.newSingleThreadExecutor();
+  
         es.submit(task);
-
 
         return EvaluationResponse.newInstance();
 
