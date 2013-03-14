@@ -90,7 +90,9 @@ Result: True
 	
         Cons expression = getArgument(aEnvironment, aStackTop, 1);
         Cons pattern = getArgument(aEnvironment, aStackTop, 2);
-        Cons function = getArgument(aEnvironment, aStackTop, 3);
+        
+        
+        Cons associationList = ((Cons) getArgument(aEnvironment, aStackTop, 3).car()).cdr();
         
         /*
         Cons patternTraverser = pattern;
@@ -103,7 +105,7 @@ Result: True
 
  
         
-        PatternVisitor behaviour = new org.mathpiper.lisp.astprocessors.PatternVisitor(aEnvironment, pattern, function);
+        PatternVisitor behaviour = new org.mathpiper.lisp.astprocessors.PatternVisitor(aEnvironment, pattern, associationList);
         
         
         this.traverse(aEnvironment, aStackTop, expression, behaviour);
@@ -189,7 +191,7 @@ Result: True
 
 
 /*
-%mathpiper_docs,name="TreeVisit",categories="Programmer Functions;Miscellaneous;Built In"
+%mathpiper_docs,name="TreeVisit",categories="Programming Functions;Miscellaneous;Built In"
 *CMD TreeVisit --- visit the nodes in a tree
 *CORE
 *CALL
