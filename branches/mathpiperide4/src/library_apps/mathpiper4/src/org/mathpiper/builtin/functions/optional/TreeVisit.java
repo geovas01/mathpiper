@@ -63,8 +63,34 @@ public class TreeVisit extends BuiltinFunction
 	//TreeVisit(a+b-c,_x + _y, ["xx"])
 	
 /*
+ 
+  
+In> zz := '(a+b-c);
+Result: (a+b)-c
+
+In> TreeVisit(zz,a, [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"op",True);})]])
+Result: [["track",["a"]],["function",Lambda([list,node],
+{
+    DestructiveAppend(list["track"],ToString(node));
+    MetaSet(node,"op",True);
+})]]
+
+In> zz
+Result: (a+b)-c
+
+In> Show(TreeView(zz))
+Result: class javax.swing.JFrame
+
+In> MetaKeys(zz[1][1])
+Result: [startIndex,"op",lineNumber,endIndex]
+  
+  
+  
+==================
+  
 In> TreeVisit(a+b-c,_x + _y, [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));})]])
 Result: True
+
 
 In> zz := PatternCompile( _x + _y <- 3)[1][2]
 Result: class org.mathpiper.builtin.PatternContainer
@@ -105,12 +131,13 @@ Result: True
 
  
         
-        PatternVisitor behaviour = new org.mathpiper.lisp.astprocessors.PatternVisitor(aEnvironment, pattern, associationList);
+        PatternVisitor patternVisitor = new org.mathpiper.lisp.astprocessors.PatternVisitor(aEnvironment, pattern, associationList);
         
         
-        this.traverse(aEnvironment, aStackTop, expression, behaviour);
+        this.traverse(aEnvironment, aStackTop, expression, patternVisitor);
         
-        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
+        
+        setTopOfStack(aEnvironment, aStackTop, patternVisitor.getAssociationList(aEnvironment, aStackTop));
     }
     
     
