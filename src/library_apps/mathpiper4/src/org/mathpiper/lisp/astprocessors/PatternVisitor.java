@@ -1,5 +1,7 @@
 package org.mathpiper.lisp.astprocessors;
 
+import java.util.Map;
+
 import org.mathpiper.builtin.PatternContainer;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
@@ -39,9 +41,14 @@ public class PatternVisitor
             
             operatorString = (String) operator.car(); 
             
-            pattern = operator.cdr();
+            if(! operatorString.equals("_"))
+            {
+                pattern = operator.cdr();
+                
+                matcher = new org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher(aEnvironment, -1, pattern, postPredicate);
+            }
             
-            matcher = new org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher(aEnvironment, -1, pattern, postPredicate);
+            
         //PatternContainer patternContainer = new PatternContainer(matcher);
         }
         else
@@ -59,7 +66,7 @@ public class PatternVisitor
 	Object nodeSymbol =  aElement.car();
 		
 
-	if (operatorString.equals(nodeSymbol)) {
+	if (operatorString.equals(nodeSymbol) || operatorString.equals("_")) {
 	    
 	    if(matcher == null)
 	    {
@@ -83,9 +90,19 @@ public class PatternVisitor
 		
 		Cons sublist = SublistCons.getInstance(aEnvironment, listAtom);
 		
-		sublist.setCdr(aElement.copy(false));
+		Cons storeCdr = aElement.cdr();
+		
+		aElement.setCdr(null); //Done so that Utility.applyPure does not throw an exception.
+		
+		sublist.setCdr(aElement);
 		
 		result = Utility.applyPure(aStackTop, function, sublist, aEnvironment);
+		
+	        aElement.setCdr(storeCdr);
+	        
+	        Map metaMap = result.getMetadataMap();
+	        
+	        aElement.setMetadataMap(metaMap);
 		
 		System.out.println("Match: " + aElement.toString());
 		return null;
