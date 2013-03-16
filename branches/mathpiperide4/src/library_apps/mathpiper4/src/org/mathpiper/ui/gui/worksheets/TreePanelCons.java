@@ -136,16 +136,25 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 	while (cons.cdr() != null) {
 	    cons = cons.cdr();
+	    
+	    SymbolNode node2 = new SymbolNode();
+
+	    if (cons.getMetadataMap() != null) {
+		Map map = cons.getMetadataMap();
+
+		if (map.containsKey("\"op\"")) {
+		    node2.setColor(Color.RED);
+		}
+	    }
 
 	    if (cons instanceof SublistCons) {
-		SymbolNode node3 = new SymbolNode();
 
-		listToTree(node3, cons);
+		listToTree(node2, cons);
 
-		rootNode.addChild(node3);
+		rootNode.addChild(node2);
 
 	    } else {
-		SymbolNode node2 = new SymbolNode();
+		
 
 		operator = (String) cons.car();
 
