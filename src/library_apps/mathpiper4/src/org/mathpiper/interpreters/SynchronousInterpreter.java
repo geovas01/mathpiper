@@ -417,7 +417,7 @@ public class SynchronousInterpreter implements Interpreter {
                 if (errorLineNumber == -1) {
                     errorLineNumber = 1; //Code was probably a single line submitted from the command line or from a single line evaluation request.
                 }
-                evaluationResponse.setSourceFileName(iEnvironment.iInputStatus.getFileName());
+                evaluationResponse.setSourceFileName(iEnvironment.iInputStatus.getSourceName());
             } else {
                 evaluationResponse.setSourceFileName(mpe.getFileName());
             }
@@ -429,7 +429,7 @@ public class SynchronousInterpreter implements Interpreter {
             //if (errorLineNumber == -1) {
             //    errorLineNumber = 1; //Code was probably a single line submitted from the command line or from a single line evaluation request.
             //}
-            evaluationResponse.setSourceFileName(iEnvironment.iInputStatus.getFileName());
+            evaluationResponse.setSourceFileName(iEnvironment.iInputStatus.getSourceName());
         }
 
         evaluationResponse.setException(exception);

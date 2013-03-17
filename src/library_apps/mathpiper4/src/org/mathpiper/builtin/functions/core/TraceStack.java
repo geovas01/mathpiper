@@ -43,7 +43,7 @@ public class TraceStack extends BuiltinFunction
     {
         aEnvironment.write("Function not yet implemented : TraceStack");////TODO fixme
 
-        throw new EvaluationException("Function not yet supported",aEnvironment.getCurrentInput().iStatus.getFileName(), aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex());
+        throw new EvaluationException("Function not yet supported",aEnvironment.getCurrentInput().iStatus.getSourceName(), aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex());
     }
 }
 

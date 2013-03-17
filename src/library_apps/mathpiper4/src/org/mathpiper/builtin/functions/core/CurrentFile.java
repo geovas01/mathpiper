@@ -42,7 +42,7 @@ public class CurrentFile extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
-        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, Utility.toMathPiperString(aEnvironment, aStackTop, aEnvironment.getCurrentInput().iStatus.getFileName())));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, Utility.toMathPiperString(aEnvironment, aStackTop, aEnvironment.getCurrentInput().iStatus.getSourceName())));
     }
 }
 

@@ -43,7 +43,7 @@ public class HistorySize extends BuiltinFunction
     {
         aEnvironment.write("Function not yet implemented : LispHistorySize");//TODO FIXME
 
-        throw new EvaluationException("Function not yet supported",aEnvironment.getCurrentInput().iStatus.getFileName(), -1, aEnvironment.getCurrentInput().iStatus.getLineNumber(), aEnvironment.getCurrentInput().iStatus.getLineIndex());
+        throw new EvaluationException("Function not yet supported",aEnvironment.getCurrentInput().iStatus.getSourceName(), -1, aEnvironment.getCurrentInput().iStatus.getLineNumber(), aEnvironment.getCurrentInput().iStatus.getLineIndex());
     }
 }
 
