@@ -1597,6 +1597,9 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                         reader.close();
 
                         textPane.setText(buffer.toString());
+                        
+                        textPane.setCaretPosition(0);
+                        
                     } catch (FileNotFoundException ex) {
                         JOptionPane.showMessageDialog(null, "The file was not found.");
                     }catch (IOException ex) {
