@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- */ //}}}
+ *///}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
@@ -38,235 +38,158 @@ import org.mathpiper.lisp.cons.SublistCons;
  *
  *  
  */
-public class TreeVisit extends BuiltinFunction
-{
+public class TreeVisit extends BuiltinFunction {
 
     private Map defaultOptions;
 
-    public void plugIn(Environment aEnvironment)  throws Throwable, Throwable
-    {
-        aEnvironment.getBuiltinFunctions().put(
-                "TreeVisit", new BuiltinFunctionEvaluator(this, 3, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
 
-        defaultOptions = new HashMap();
-        defaultOptions.put("title", null);
 
+    public void plugIn(Environment aEnvironment) throws Throwable, Throwable {
+	aEnvironment.getBuiltinFunctions().put("TreeVisit",
+		new BuiltinFunctionEvaluator(this, 3, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
+
+	defaultOptions = new HashMap();
+	defaultOptions.put("title", null);
 
     }//end method.
 
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
-    {
-	
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable {
+
 	//TreeVisit(expression,pattern,function,options)
 	//TreeVisit(a+b-c,_x + _y, ["xx"])
-	
-/*
- 
-  
-In> zz := '(a+b-c);
-Result: (a+b)-c
 
-In> TreeVisit(zz,a, [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"op",True);})]])
-Result: [["track",["a"]],["function",Lambda([list,node],
-{
-    DestructiveAppend(list["track"],ToString(node));
-    MetaSet(node,"op",True);
-})]]
+	/*
+	 
+	  
+	In> zz := '(a+b-c);
+	Result: (a+b)-c
 
-In> zz
-Result: (a+b)-c
+	In> TreeVisit(zz,a, [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"op",True);})]])
+	Result: [["track",["a"]],["function",Lambda([list,node],
+	{
+	    DestructiveAppend(list["track"],ToString(node));
+	    MetaSet(node,"op",True);
+	})]]
 
-In> Show(TreeView(zz))
-Result: class javax.swing.JFrame
+	In> zz
+	Result: (a+b)-c
 
-In> MetaKeys(zz[1][1])
-Result: [startIndex,"op",lineNumber,endIndex]
-  
-  
-  
-==================
-  
-In> zz := '(a+b-c*a);
-Result: (a+b)-(c*a)
+	In> Show(TreeView(zz))
+	Result: class javax.swing.JFrame
 
-In> TreeVisit(zz,_y, [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"op",True);})]])
+	In> MetaKeys(zz[1][1])
+	Result: [startIndex,"op",lineNumber,endIndex]
+	  
+	  
+	  
+	==================
+	  
+	In> zz := '(a+b-c*a);
+	Result: (a+b)-(c*a)
 
-
-In> TreeVisit(zz,ToAtom("+"), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"op",True);})]])
+	In> TreeVisit(zz,_y, [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"op",True);})]])
 
 
-In> TreeVisit(zz,y_Associative?, [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"op",True);})]])
+	In> TreeVisit(zz,ToAtom("+"), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"op",True);})]])
 
 
-In> TreeVisit(zz,y_Associative?:Commutative?, [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"op",True);})]])
-
-In> TreeVisit(zz,(_x + _y)_(x >? 7), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"op",True);})]])
-
-In> TreeVisit(zz,ToAtom("+"), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"op",True);})]])
-In> TreeVisit(zz,ToAtom("+"), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"op",True);})]])
-In> TreeVisit(zz,ToAtom("+"), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"op",True);})]])
-In> TreeVisit(zz,ToAtom("+"), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"op",True);})]])
+	In> TreeVisit(zz,y_Associative?, [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"op",True);})]])
 
 
-In> zz
-Result: (a+b)-c
+	In> TreeVisit(zz,y_Associative?:Commutative?, [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"op",True);})]])
 
-In> Show(TreeView(zz))
-Result: class javax.swing.JFrame
+	In> TreeVisit(zz,(_x + _y)_(x >? 7), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"op",True);})]])
 
-In> MetaKeys(zz[1][1])
-Result: [startIndex,"op",lineNumber,endIndex]
+	In> TreeVisit(zz,ToAtom("+"), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"op",True);})]])
+	In> TreeVisit(zz,ToAtom("+"), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"op",True);})]])
+	In> TreeVisit(zz,ToAtom("+"), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"op",True);})]])
+	In> TreeVisit(zz,ToAtom("+"), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"op",True);})]])
 
-In> Show(TreeView('(y_(Associative?:Commutative?))))
-Result: class javax.swing.JFrame
 
-In> (_x + _y)_(x >? 7)
-Result: (_x+_y)_(7<?x)
+	In> zz
+	Result: (a+b)-c
 
-In> 
+	In> Show(TreeView(zz))
+	Result: class javax.swing.JFrame
 
-=============
+	In> MetaKeys(zz[1][1])
+	Result: [startIndex,"op",lineNumber,endIndex]
 
-In> zz := PatternCompile( _x * _y <- 3)[1][2]
-Result: class org.mathpiper.builtin.PatternContainer
+	In> Show(TreeView('(y_(Associative?:Commutative?))))
+	Result: class javax.swing.JFrame
 
-In> PatternMatch?(zz, '(a/b + c/d))
-Result: True 
+	In> (_x + _y)_(x >? 7)
+	Result: (_x+_y)_(7<?x)
 
- */
-	
-        Cons expression = getArgument(aEnvironment, aStackTop, 1);
-        Cons pattern = getArgument(aEnvironment, aStackTop, 2);
-        
-        
-        Cons associationList = ((Cons) getArgument(aEnvironment, aStackTop, 3).car()).cdr();
-        
-        /*
-        Cons patternTraverser = pattern;
-        if(patternTraverser == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        if(! (patternTraverser.car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        patternTraverser = (Cons) patternTraverser.car();
-        if(patternTraverser == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        */
-        
+	In> 
 
- 
-        
-        PatternVisitor patternVisitor = new org.mathpiper.lisp.astprocessors.PatternVisitor(aEnvironment, pattern, associationList);
-        
-        
-        this.traverse2(aEnvironment, aStackTop, expression, patternVisitor);
-        
-        
-        setTopOfStack(aEnvironment, aStackTop, patternVisitor.getAssociationList(aEnvironment, aStackTop));
+	=============
+
+	In> zz := PatternCompile( _x * _y <- 3)[1][2]
+	Result: class org.mathpiper.builtin.PatternContainer
+
+	In> PatternMatch?(zz, '(a/b + c/d))
+	Result: True 
+
+	 */
+
+	Cons expression = getArgument(aEnvironment, aStackTop, 1);
+	Cons pattern = getArgument(aEnvironment, aStackTop, 2);
+
+	Cons associationList = ((Cons) getArgument(aEnvironment, aStackTop, 3).car()).cdr();
+
+	/*
+	Cons patternTraverser = pattern;
+	if(patternTraverser == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+	if(! (patternTraverser.car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackTop, 1);
+	patternTraverser = (Cons) patternTraverser.car();
+	if(patternTraverser == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+	*/
+
+	PatternVisitor patternVisitor = new org.mathpiper.lisp.astprocessors.PatternVisitor(aEnvironment, pattern, associationList);
+
+	this.traverse(aEnvironment, aStackTop, expression, patternVisitor);
+
+	setTopOfStack(aEnvironment, aStackTop, patternVisitor.getAssociationList(aEnvironment, aStackTop));
     }
-    
-    
-    
-    private Cons traverse(Environment aEnvironment, int aStackTop, Cons aSource, ASTProcessor astProcessor) throws Throwable {
-        
-        Cons sourceCons = aSource;
-
-        Cons aDestination = null;
-
-        if(sourceCons == null) LispError.lispAssert(aEnvironment, aStackTop);
-
-
-        if((aDestination = astProcessor.matches(aEnvironment, aStackTop,  aSource)) != null)
-        {
-            //Base case.
-            return aDestination;
-        }
-        else
-        {
-            //Recursively process list.
-
-            Object sourceListCar = sourceCons.car();
-
-            Cons sourceList = null;
-
-            if (sourceListCar instanceof Cons) {
-                Cons cons = (Cons) sourceListCar;
-                sourceList = cons;
-            }
-
-            if (sourceList != null) {
-
-                Cons headCons = null;
-
-                Cons indexCons = null;
-
-                boolean isHead = true;
-
-                while (sourceList != null) {
-
-
-                    Cons result = traverse(aEnvironment, aStackTop, sourceList, astProcessor);
-
-                    if(isHead == true)
-                    {
-                        headCons = result;
-                        indexCons = headCons;
-                        isHead = false;
-                    }
-                    else
-                    {
-                        //Point to next cons in the destination list.
-                        indexCons.setCdr(result);
-                        indexCons = result;
-                    }
-
-                    //Point to next cons in the source list.
-                    sourceList = sourceList.cdr();
 
 
 
-                }
-                
-                aDestination = SublistCons.getInstance(aEnvironment, headCons);
-                
-            } else {
-                //Handle atoms.
-                aDestination = sourceCons.copy(false);
-            }
-
-            return aDestination;
-
-        }//end matches if.
-    }//end method.
-    
-    
-    
-    private void traverse2(Environment aEnvironment, int aStackTop, Cons rootCons, ASTProcessor astProcessor) throws Throwable {
+    private void traverse(Environment aEnvironment, int aStackTop, Cons rootCons, ASTProcessor astProcessor) throws Throwable {
 	
+	if (rootCons.getMetadataMap() == null) {
+	    rootCons.setMetadataMap(new HashMap());
+	}
+
+	astProcessor.matches(aEnvironment, aStackTop, rootCons.copy(false));
 
 	Cons cons = (Cons) rootCons.car(); //Go into sublist.
-	
-	
-	astProcessor.matches(aEnvironment, aStackTop,  cons);
-	
 
+	if (cons.getMetadataMap() == null) {
+	    cons.setMetadataMap(new HashMap());
+	}
+
+	astProcessor.matches(aEnvironment, aStackTop, cons.copy(false));
 
 	while (cons.cdr() != null) {
 	    cons = cons.cdr();
-	    
+
+	    if (cons.getMetadataMap() == null) {
+		cons.setMetadataMap(new HashMap());
+	    }
 
 	    if (cons instanceof SublistCons) {
-
-		traverse2(aEnvironment, aStackTop, cons, astProcessor);
-
+		traverse(aEnvironment, aStackTop, cons, astProcessor);
 	    } else {
-		
-		astProcessor.matches(aEnvironment, aStackTop,  cons);
+		astProcessor.matches(aEnvironment, aStackTop, cons.copy(false));
 	    }
 	}
 
     }//end method.
 
 }
-
 
 /*
 %mathpiper_docs,name="TreeVisit",categories="Programming Functions;Miscellaneous;Built In"

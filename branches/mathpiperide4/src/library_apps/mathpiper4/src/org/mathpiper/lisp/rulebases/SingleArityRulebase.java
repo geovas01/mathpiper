@@ -212,7 +212,7 @@ public class SingleArityRulebase extends Evaluator {
 
         } catch (EvaluationException ex) {
 
-            //ex.printStackTrace(); System.exit(1);//todo:tk:uncomment for debugging.
+            ex.printStackTrace(); System.exit(1);//todo:tk:uncomment for debugging.
 
             if (ex.getFunctionName() == null) {
                 throw new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", ex.getLineNumber(),ex.getStartIndex(), ex.getEndIndex(), this.functionName);

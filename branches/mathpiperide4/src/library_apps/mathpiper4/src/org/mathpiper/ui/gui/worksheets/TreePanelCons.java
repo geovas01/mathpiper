@@ -44,8 +44,9 @@ public class TreePanelCons extends JComponent implements ViewPanel {
     private int yPositionAdjust = 39; /*Adjust y position of whole tree, smaller numbers moves the tree down.*/
 
     private double adjust = 1;
-    
+
     private boolean isCodeForm = false;
+
 
 
     // Show(TreeView(a/b == 3))
@@ -63,30 +64,30 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 	//this.setBorder(new EmptyBorder(1,1,1,1));
 
-	latexMap.put(":=",":=");
-        latexMap.put("=?","=");
-        latexMap.put("!=?","\\neq");
-        latexMap.put("<=?","\\leq");
-        latexMap.put(">=?","\\geq");
-        latexMap.put("<?","<");
-        latexMap.put(">?",">");
-        latexMap.put("And?","\\wedge");
-        latexMap.put("Or?","\\vee");
-        latexMap.put("<>","\\sim");
-        latexMap.put("<=>","\\approx");
-        latexMap.put("Implies?","\\Rightarrow");
-        latexMap.put("Equivales?","\\equiv");
-        latexMap.put("%","\\bmod");
-        latexMap.put("Not?","\\neg");
-        latexMap.put("+","+");
-        latexMap.put("-","-");
-        latexMap.put("/","\\div");
-        latexMap.put("*","\\times");
-        latexMap.put("==","=");
-        latexMap.put("^","^\\wedge");
-        latexMap.put("Sqrt","\\sqrt");
-        
-        this.isCodeForm = isCodeForm;
+	latexMap.put(":=", ":=");
+	latexMap.put("=?", "=");
+	latexMap.put("!=?", "\\neq");
+	latexMap.put("<=?", "\\leq");
+	latexMap.put(">=?", "\\geq");
+	latexMap.put("<?", "<");
+	latexMap.put(">?", ">");
+	latexMap.put("And?", "\\wedge");
+	latexMap.put("Or?", "\\vee");
+	latexMap.put("<>", "\\sim");
+	latexMap.put("<=>", "\\approx");
+	latexMap.put("Implies?", "\\Rightarrow");
+	latexMap.put("Equivales?", "\\equiv");
+	latexMap.put("%", "\\bmod");
+	latexMap.put("Not?", "\\neg");
+	latexMap.put("+", "+");
+	latexMap.put("-", "-");
+	latexMap.put("/", "\\div");
+	latexMap.put("*", "\\times");
+	latexMap.put("==", "=");
+	latexMap.put("^", "^\\wedge");
+	latexMap.put("Sqrt", "\\sqrt");
+
+	this.isCodeForm = isCodeForm;
 
 	this.setLayout(null);
 
@@ -101,7 +102,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 	rootNode = new SymbolNode();
 
 	try {
-	    listToTree(rootNode, expressionCons);
+	    listToTree(rootNode, expressionCons, false);
 	} catch (Throwable e) {
 	    e.printStackTrace();
 	}
@@ -113,20 +114,18 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 	layoutTree(g2d);
 
     }
-    
 
-    private void listToTree(SymbolNode rootNode, Cons rootCons) throws Throwable {
-	
+
+
+    private void listToTree(SymbolNode rootNode, Cons rootCons, boolean markAll) throws Throwable {
 
 	Cons cons = (Cons) rootCons.car(); //Go into sublist.
-	
-	if(cons.getMetadataMap() != null)
-	{
+
+	if (cons.getMetadataMap() != null) {
 	    Map map = cons.getMetadataMap();
-	    
-	    if(map.containsKey("\"op\""))
-	    {
-	       rootNode.setColor(Color.RED);
+
+	    if (markAll || map.containsKey("\"op\"")) {
+		rootNode.setColor(Color.RED);
 	    }
 	}
 
@@ -136,25 +135,34 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 	while (cons.cdr() != null) {
 	    cons = cons.cdr();
-	    
+
 	    SymbolNode node2 = new SymbolNode();
 
-	    if (cons.getMetadataMap() != null) {
-		Map map = cons.getMetadataMap();
-
-		if (map.containsKey("\"op\"")) {
-		    node2.setColor(Color.RED);
-		}
-	    }
-
 	    if (cons instanceof SublistCons) {
+		
+		boolean markSubtree = false;
+		
+		if (cons.getMetadataMap() != null) {
+		    Map map = cons.getMetadataMap();
 
-		listToTree(node2, cons);
+		    if (markAll || map.containsKey("\"op\"")) {
+			markSubtree = true;
+		    }
+		}
+
+		listToTree(node2, cons, markSubtree);
 
 		rootNode.addChild(node2);
 
 	    } else {
 		
+		if (cons.getMetadataMap() != null) {
+		    Map map = cons.getMetadataMap();
+
+		    if (markAll || map.containsKey("\"op\"")) {
+			node2.setColor(Color.RED);
+		    }
+		}
 
 		operator = (String) cons.car();
 
@@ -167,15 +175,13 @@ public class TreePanelCons extends JComponent implements ViewPanel {
     }//end method.
 
 
+
     /*
     public void paint(Graphics g) {
-	super.paint(g);
-	Dimension d = getPreferredSize();
-	g.drawRect(0, 0, d.width - 1, d.height - 1);
+    super.paint(g);
+    Dimension d = getPreferredSize();
+    g.drawRect(0, 0, d.width - 1, d.height - 1);
     }*/
-    
-
-
 
     public void paintComponent(Graphics g) {
 
@@ -194,23 +200,20 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 	    currentNode = queue.remove();
 
 	    if (currentNode != null) {
-		
 
-	
-		
 		sg.drawLatex(currentNode.texFormula, currentNode.getTreeX() - (leftMostPosition), currentNode.getTreeY()
-			- (yPositionAdjust  /*height of symbol*/));
-		
-		if(currentNode.getColor() != null)
-		{
+			- (yPositionAdjust /*height of symbol*/));
+
+		if (currentNode.getColor() != null) {
 		    sg.setColor(Color.RED);
 		    sg.setLineThickness(1.0);
 		    sg.drawArc(currentNode.getTreeX() - (leftMostPosition), currentNode.getTreeY()
-			- (yPositionAdjust  /*height of symbol*/), currentNode.getNodeWidth(), currentNode.getNodeHeight(), 0, 360);
+			    - (yPositionAdjust /*height of symbol*/), currentNode.getNodeWidth(), currentNode.getNodeHeight(), 0,
+			    360);
 		    sg.setLineThickness(defaultLineThickness);
 		    sg.setColor(Color.BLACK);
 		}
-		
+
 		SymbolNode[] children = currentNode.getChildren();
 
 		if (children != null) {
@@ -221,9 +224,10 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 			    sg.setColor(Color.BLACK);
 			    sg.setLineThickness(defaultLineThickness);
 			    sg.drawLine(currentNode.getTreeX() + currentNode.getNodeWidth() / 2 - (leftMostPosition),
-				    currentNode.getTreeY() + currentNode.getNodeHeight() - (yPositionAdjust * 1/*height of nodes*/),
-				    child.getTreeX() + child.getNodeWidth() / 2 - (leftMostPosition),
-				    child.getTreeY()  - (yPositionAdjust * 1 /*height of leaves*/));
+				    currentNode.getTreeY() + currentNode.getNodeHeight()
+					    - (yPositionAdjust * 1/*height of nodes*/), child.getTreeX() + child.getNodeWidth()
+					    / 2 - (leftMostPosition), child.getTreeY()
+					    - (yPositionAdjust * 1 /*height of leaves*/));
 			}
 		    }
 
@@ -271,7 +275,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 	//this.adjust = viewScale;
 	//System.out.println(viewScale);
-	
+
 	this.revalidate();
 	this.repaint();
     }
@@ -356,16 +360,14 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 		branchPosition = position - width / 2;
 		/* Position far left branch. */
-		leftPosition = layoutTree(treeNode.getChildren()[0], yPosition + Y_SEPARATION,
-			branchPosition, treeNode, sg);
+		leftPosition = layoutTree(treeNode.getChildren()[0], yPosition + Y_SEPARATION, branchPosition, treeNode, sg);
 
 		/* Position the other branches if they exist. */
 		rightPosition = leftPosition;
 		for (i = 1; i < treeNode.getChildren().length; i++) {
 		    branchPosition += MIN_X_SEPARATION
 			    + (treeNode.getChildren()[i - 1].getNodeWidth() + treeNode.getChildren()[i].getNodeWidth()) / 2;
-		    rightPosition = layoutTree(treeNode.getChildren()[i], yPosition + Y_SEPARATION,
-			    branchPosition, treeNode, sg);
+		    rightPosition = layoutTree(treeNode.getChildren()[i], yPosition + Y_SEPARATION, branchPosition, treeNode, sg);
 		} /* for */
 
 		if (leftPosition < leftMostPosition) {
@@ -377,44 +379,37 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 		}
 
 		position = (leftPosition + rightPosition) / 2;
-		
+
 		treeNode.setTreeX(position);
-		
-		
 
-	    }
-	    else if(parent.getChildren().length == 1)
-	    {
-		leftPosition = (position + (parent.getNodeWidth()/2)) - treeNode.getNodeWidth()/2;
-		
-		rightPosition = position + treeNode.getNodeWidth()/2;
-		
-	        if (leftPosition < leftMostPosition) {
+	    } else if (parent.getChildren().length == 1) {
+		leftPosition = (position + (parent.getNodeWidth() / 2)) - treeNode.getNodeWidth() / 2;
+
+		rightPosition = position + treeNode.getNodeWidth() / 2;
+
+		if (leftPosition < leftMostPosition) {
 		    leftMostPosition = leftPosition;
 		}
 
 		if (rightPosition > rightMostPosition) {
 		    rightMostPosition = rightPosition;
 		}
-		
-		treeNode.setTreeX((position + (parent.getNodeWidth()/2)) - treeNode.getNodeWidth()/2);
-		
-		
-	    }
-	    else
-	    {
+
+		treeNode.setTreeX((position + (parent.getNodeWidth() / 2)) - treeNode.getNodeWidth() / 2);
+
+	    } else {
 		leftPosition = position;
-		
+
 		rightPosition = position + treeNode.getNodeWidth();
-		
-	        if (leftPosition < leftMostPosition) {
+
+		if (leftPosition < leftMostPosition) {
 		    leftMostPosition = leftPosition;
 		}
 
 		if (rightPosition > rightMostPosition) {
 		    rightMostPosition = rightPosition;
 		}
-		
+
 		treeNode.setTreeX(position);
 	    }
 
@@ -442,13 +437,13 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 	private List<SymbolNode> children = new ArrayList();
 
 	private TeXIcon icon;
-	
+
 	private TeXFormula texFormula;
 
 	private int treeX;
 
 	private int treeY;
-	
+
 	private Color color;
 
 
@@ -457,13 +452,10 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 	    this.symbolString = symbolString;
 
 	    String latex = "";
-		    
-	    if(isCodeForm)
-	    {
+
+	    if (isCodeForm) {
 		latex = symbolString;
-	    }
-	    else
-	    {
+	    } else {
 		latex = latexMap.get(symbolString);
 
 		if (latex == null) {
@@ -476,10 +468,10 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 	    icon = texFormula.createTeXIcon(TeXConstants.STYLE_DISPLAY, (float) (12));
 
 	}
-	
-	
-	public TeXFormula getTeXFormula()
-	{
+
+
+
+	public TeXFormula getTeXFormula() {
 	    return texFormula;
 	}
 
@@ -530,18 +522,19 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 	public void setTreeY(int treeY) {
 	    this.treeY = treeY;
 	}
-	
-	
-	
+
+
 
 	public Color getColor() {
 	    return color;
 	}
 
 
+
 	public void setColor(Color color) {
 	    this.color = color;
 	}
+
 
 
 	public String toString() {
