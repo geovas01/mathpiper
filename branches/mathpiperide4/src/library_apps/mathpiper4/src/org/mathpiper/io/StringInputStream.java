@@ -21,7 +21,7 @@ public class StringInputStream
         extends MathPiperInputStream {
 
     int iCurrentPosition;
-    String iString;
+    protected String iString;
 
 
     public StringInputStream(String aString, InputStatus aStatus) {

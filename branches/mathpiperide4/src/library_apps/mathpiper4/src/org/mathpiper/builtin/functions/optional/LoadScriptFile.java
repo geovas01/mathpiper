@@ -1,3 +1,4 @@
+
 /* {{{ License.
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -15,50 +16,45 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathpiper.builtin.functions.core;
+package org.mathpiper.builtin.functions.optional;
 
 import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.io.InputStatus;
-import org.mathpiper.io.StringInputStream;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.Cons;
 
-/**
- *
- *  
- */
-public class LoadScript extends BuiltinFunction
+
+public class LoadScriptFile extends BuiltinFunction
 {
 
-    private LoadScript()
+    public void plugIn(Environment aEnvironment) throws Throwable
     {
-    }
-
-    public LoadScript(String functionName)
-    {
-        this.functionName = functionName;
-    }
-
+        this.functionName = "LoadScriptFile";
+        aEnvironment.getBuiltinFunctions().put(
+                this.functionName, new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
+    }//end method.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
+
         if(aEnvironment.iSecure != false) LispError.throwError(aEnvironment, aStackTop, LispError.SECURITY_BREACH);
 
         Cons evaluated = getArgument(aEnvironment, aStackTop, 1);
 
         if(evaluated == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         
-        String scriptString = (String) evaluated.car();
+        String fileName = (String) evaluated.car();
 
-        if( scriptString == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if( fileName == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
-        scriptString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, scriptString);
+        fileName = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, fileName);
 
-        InputStatus status = new InputStatus("LOADSCRIPT_EVALUATE");
+        InputStatus status = new InputStatus("File: " + fileName);
 
-        StringInputStream functionInputStream = new StringInputStream(scriptString,status); //aEnvironment.iCurrentInput.iStatus);
+        FileInputStream functionInputStream = new FileInputStream(fileName, status); //aEnvironment.iCurrentInput.iStatus);
 
         Environment.saveDebugInformation = true;
 
@@ -67,28 +63,30 @@ public class LoadScript extends BuiltinFunction
         Environment.saveDebugInformation = false;
         
         setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
-         
-    }
-}
+
+    }//end method.
+
+}//end class.
+
 
 
 
 /*
-%mathpiper_docs,name="LoadScript",categories="Programming Functions;Input/Output;Built In"
-*CMD LoadScript --- evaluate all expressions that are in a string
+%mathpiper_docs,name="LoadScriptFile",categories="Programming Functions;Input/Output;Built In"
+*CMD LoadScriptFile --- evaluate all expressions that are in a file
 *CORE
 *CALL
-	LoadScript(string)
+	LoadScriptFile(fileName)
 
 *PARMS
 
-{string} -- a string that contains MathPiper code
+{fileName} -- a string that contains the path and name of a file that contains MathPiper code
 
 *DESC
 
-All MathPiper expressions in the string are read and
-evaluated. {LoadScript} always returns {True}.
+All MathPiper expressions in the file are read and
+evaluated. {LoadScriptFile} always returns {True}.
 
-*SEE LoadScriptFile
+*SEE LoadScript
 %/mathpiper_docs
 */

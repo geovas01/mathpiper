@@ -67,7 +67,7 @@ public abstract class MathPiperInputStream
 
         public String toString()
         {
-            return("File: " + iStatus.getFileName());
+            return("File: " + iStatus.getSourceName());
         }
 
 };

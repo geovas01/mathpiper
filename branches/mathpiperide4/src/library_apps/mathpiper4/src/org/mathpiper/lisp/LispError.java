@@ -201,9 +201,9 @@ public class LispError {
 
 
             if (aStackTop == -1) {
-                throw new EvaluationException("Error encountered during initialization or parsing: " + aErrorMessage + stackTrace,  aEnvironment.getCurrentInput().iStatus.getFileName(),  lineNumber, tokenStartIndex, tokenEndIndex);
+                throw new EvaluationException("Error encountered during initialization or parsing: " + aErrorMessage + stackTrace,  aEnvironment.getCurrentInput().iStatus.getSourceName(),  lineNumber, tokenStartIndex, tokenEndIndex);
             } else if (aStackTop == -2) {
-                throw new EvaluationException("Error: " + aErrorMessage + stackTrace,  aEnvironment.getCurrentInput().iStatus.getFileName(),  lineNumber, tokenStartIndex, tokenEndIndex);
+                throw new EvaluationException("Error: " + aErrorMessage + stackTrace,  aEnvironment.getCurrentInput().iStatus.getSourceName(),  lineNumber, tokenStartIndex, tokenEndIndex);
             } else {
         	Cons arguments = null;
         	try{
@@ -215,14 +215,14 @@ public class LispError {
         	}
         	
                 if (arguments == null) {
-                    throw new EvaluationException("Error in compiled code: " + aErrorMessage + "; " + stackTrace,  aEnvironment.getCurrentInput().iStatus.getFileName(),  lineNumber, tokenStartIndex, tokenEndIndex);
+                    throw new EvaluationException("Error in compiled code: " + aErrorMessage + "; " + stackTrace,  aEnvironment.getCurrentInput().iStatus.getSourceName(),  lineNumber, tokenStartIndex, tokenEndIndex);
                 } else {
                     //TODO FIXME          ShowStack(aEnvironment);
                     aErrorMessage = aErrorMessage + " " + showFunctionError(arguments, aEnvironment);
                 }
 
 
-                throw new EvaluationException(aErrorMessage + stackTrace, aEnvironment.getCurrentInput().iStatus.getFileName(),  lineNumber, tokenStartIndex, tokenEndIndex);
+                throw new EvaluationException(aErrorMessage + stackTrace, aEnvironment.getCurrentInput().iStatus.getSourceName(),  lineNumber, tokenStartIndex, tokenEndIndex);
 
             }
         
@@ -243,17 +243,17 @@ public class LispError {
             }
 
             if (aStackTop == -1) {
-                throw new EvaluationException("Error encountered during initialization: " + errorString(errNo) + stackTrace,  aEnvironment.getCurrentInput().iStatus.getFileName(), lineNumber, tokenStartIndex, tokenEndIndex);
+                throw new EvaluationException("Error encountered during initialization: " + errorString(errNo) + stackTrace,  aEnvironment.getCurrentInput().iStatus.getSourceName(), lineNumber, tokenStartIndex, tokenEndIndex);
             } else if (aStackTop == -2) {
-                throw new EvaluationException("Error: " + errorString(errNo) + stackTrace,  aEnvironment.getCurrentInput().iStatus.getFileName(),  lineNumber, tokenStartIndex, tokenEndIndex);
+                throw new EvaluationException("Error: " + errorString(errNo) + stackTrace,  aEnvironment.getCurrentInput().iStatus.getSourceName(),  lineNumber, tokenStartIndex, tokenEndIndex);
             } else {
                 Cons arguments = BuiltinFunction.getArgument(aEnvironment, aStackTop, 0);
                 if (arguments == null) {
-                    throw new EvaluationException("Error in compiled code." + stackTrace,  aEnvironment.getCurrentInput().iStatus.getFileName(),  lineNumber, tokenStartIndex, tokenEndIndex);
+                    throw new EvaluationException("Error in compiled code." + stackTrace,  aEnvironment.getCurrentInput().iStatus.getSourceName(),  lineNumber, tokenStartIndex, tokenEndIndex);
                 } else {
                     String error = "";
                     error = error + showFunctionError(arguments, aEnvironment);
-                    throw new EvaluationException(error + stackTrace, aEnvironment.getCurrentInput().iStatus.getFileName(),  lineNumber, tokenStartIndex, tokenEndIndex);
+                    throw new EvaluationException(error + stackTrace, aEnvironment.getCurrentInput().iStatus.getSourceName(),  lineNumber, tokenStartIndex, tokenEndIndex);
                 }
             }
         
@@ -291,11 +291,11 @@ public class LispError {
         }
 
         if (aArguments == null) {
-            throw new EvaluationException("Error in compiled code." + stackTrace,  aEnvironment.getCurrentInput().iStatus.getFileName(),  lineNumber, tokenStartIndex, tokenEndIndex);
+            throw new EvaluationException("Error in compiled code." + stackTrace,  aEnvironment.getCurrentInput().iStatus.getSourceName(),  lineNumber, tokenStartIndex, tokenEndIndex);
         } else {
             //TODO FIXME      ShowStack(aEnvironment);
             String error = showFunctionError(aArguments, aEnvironment) + "expected " + needed + " arguments, got " + passed + ". ";
-            throw new EvaluationException(error + stackTrace,  aEnvironment.getCurrentInput().iStatus.getFileName(), lineNumber, tokenStartIndex, tokenEndIndex);
+            throw new EvaluationException(error + stackTrace,  aEnvironment.getCurrentInput().iStatus.getSourceName(), lineNumber, tokenStartIndex, tokenEndIndex);
 
             /*TODO FIXME
             LispChar str[20];
@@ -364,7 +364,7 @@ public class LispError {
 
             Cons arguments = BuiltinFunction.getArgument(aEnvironment, aStackTop, 0);
             if (arguments == null) {
-                throw new EvaluationException("Error in compiled code." + stackTrace, aEnvironment.getCurrentInput().iStatus.getFileName(), lineNumber, startIndex, endIndex);
+                throw new EvaluationException("Error in compiled code." + stackTrace, aEnvironment.getCurrentInput().iStatus.getSourceName(), lineNumber, startIndex, endIndex);
             } else {
                 String error = "";
                 error = error + showFunctionError(arguments, aEnvironment) + "\nbad argument number " + aArgNr + "(counting from 1) : \n" + aErrorDescription + "\n";
@@ -382,7 +382,7 @@ public class LispError {
                 error = error + strout;
                 error = error + " )***\n";
 
-                throw new EvaluationException(error + stackTrace,  aEnvironment.getCurrentInput().iStatus.getFileName(), lineNumber, startIndex, endIndex);
+                throw new EvaluationException(error + stackTrace,  aEnvironment.getCurrentInput().iStatus.getSourceName(), lineNumber, startIndex, endIndex);
             }//end else.
 
     }//end method.

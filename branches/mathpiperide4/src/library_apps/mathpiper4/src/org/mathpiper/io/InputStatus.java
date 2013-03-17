@@ -18,44 +18,44 @@ package org.mathpiper.io;
 
 public class InputStatus {
 
-    private String iFileName;
+    private String iSourceName;
     private int iLineNumber;
     private int iLineIndex;
     
     private InputStatus() {
     }
 
-    public InputStatus(String iSourceName) {
-        iFileName = iSourceName;
+    public InputStatus(String aSourceName) {
+        iSourceName = aSourceName;
         iLineNumber = 1;
         iLineIndex = 0;
     }
 
 
     public InputStatus(InputStatus aPreviousStatus) {
-        iFileName = aPreviousStatus.iFileName;
+        iSourceName = aPreviousStatus.iSourceName;
         iLineNumber = aPreviousStatus.iLineNumber;
         iLineIndex = aPreviousStatus.iLineIndex;
-        //System.out.println("InputStatus construct to "+iFileName);
+        //System.out.println("InputStatus construct to "+iSourceName);
     }
 
 
-    public void setTo(String aFileName) {
+    public void setTo(String aSourceName) {
         //System.out.println("InputStatus set to "+aFileName);
 
         //functionLoadSequence.add(new InputStatus(this));
         
-        iFileName = aFileName;
+        iSourceName = aSourceName;
         iLineNumber = 1;
         iLineIndex = 0;
     }
 
 
     public void restoreFrom(InputStatus aPreviousStatus) {
-        iFileName = aPreviousStatus.iFileName;
+        iSourceName = aPreviousStatus.iSourceName;
         iLineNumber = aPreviousStatus.iLineNumber;
         iLineIndex = aPreviousStatus.iLineIndex;
-        //System.out.println("InputStatus restore to "+iFileName);
+        //System.out.println("InputStatus restore to "+iSourceName);
 
     }
 
@@ -65,8 +65,8 @@ public class InputStatus {
     }
 
 
-    public String getFileName() {
-        return iFileName;
+    public String getSourceName() {
+        return iSourceName;
     }
 
 
@@ -99,7 +99,7 @@ public class InputStatus {
             stringBuilder.append("Index: " + index++ + ", Filename: " + inputStatus.getFileName() + ", Line Number: " + inputStatus.getLineNumber() + ", Line Index: " + inputStatus.getLineIndex() + "\n");
         }
 
-        stringBuilder.append("Index: " + index++ + ", Filename: " + iFileName + ", Line Number: " + iLineNumber + ", Line Index: " + iLineIndex + "\n");
+        stringBuilder.append("Index: " + index++ + ", Filename: " + iSourceName + ", Line Number: " + iLineNumber + ", Line Index: " + iLineIndex + "\n");
 
         return stringBuilder.toString();
 

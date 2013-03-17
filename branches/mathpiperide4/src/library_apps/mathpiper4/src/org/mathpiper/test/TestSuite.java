@@ -334,7 +334,7 @@ public class TestSuite {
             {
         	EvaluationException evaluationException = (EvaluationException) e;
         	
-        	errorMessage = errorMessage + aEnvironment.getCurrentInput().iStatus.getFileName() + ", Line: " + evaluationException.getLineNumber() + ", Start Index: " + evaluationException.getStartIndex();
+        	errorMessage = errorMessage + aEnvironment.getCurrentInput().iStatus.getSourceName() + ", Line: " + evaluationException.getLineNumber() + ", Start Index: " + evaluationException.getStartIndex();
             }
             
             
