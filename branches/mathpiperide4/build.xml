@@ -8,7 +8,7 @@
 	</description> 
 	
 	<!-- Misc properties -->
-	<property name="version" value=".81B_mp4_experimental" />
+	<property name="version" value=".81C_mp4_experimental" />
 	<property name="mathpiper.version" value="mathpiper4" />        
 	
 	<property name="master.compile.source" value="1.5" />
@@ -50,13 +50,6 @@
 		<pathelement path="${master.lib.dir}/jars/Console.jar" />
 		<pathelement path="${master.lib.dir}/jars/clojure.jar" />
 		<pathelement path="${master.lib.dir}/non_plugin_jars/abcl.jar" />
-		<pathelement path="${master.lib.dir}/non_plugin_jars/geogebra.jar" />
-		<pathelement path="${master.lib.dir}/non_plugin_jars/geogebra_algos.jar" />
-		<pathelement path="${master.lib.dir}/non_plugin_jars/geogebra_cas.jar" />
-		<pathelement path="${master.lib.dir}/non_plugin_jars/geogebra_export.jar" />
-		<pathelement path="${master.lib.dir}/non_plugin_jars/geogebra_gui.jar" />
-		<pathelement path="${master.lib.dir}/non_plugin_jars/geogebra_main.jar" />
-		<pathelement path="${master.lib.dir}/non_plugin_jars/geogebra_properties.jar" />
 		<pathelement path="${plugins.jars.dir}/mathpiper_plugin.jar" />
 		<pathelement path="${plugins.jars.dir}/jung2.jar" />
 		<pathelement path="${plugins.jars.dir}/mathpiperide_library.jar" />
@@ -457,7 +450,7 @@
 	
 	<!-- -->
 	<target id="all-plugins" name="all-plugins" depends="mathpiper_plugin, mathpiper_docs_plugin, jlog_plugin, 
-		geogebra_plugin, u6502_plugin, jung_plugin, jfreechart_plugin, threedxplormathj_plugin, mpreduce_plugin, sqldb_plugin" />
+		u6502_plugin, jung_plugin, jfreechart_plugin, threedxplormathj_plugin, mpreduce_plugin, sqldb_plugin" />
 	
 	
 	
@@ -483,7 +476,7 @@
 		</copy>
 		
 		
-		<mkdir dir="${master.build.dir}/mathpiperide/settings/jars/geogebra_properties" />
+		<!--<mkdir dir="${master.build.dir}/mathpiperide/settings/jars/geogebra_properties" /> -->
 		
 		
 		<!-- Copy examples directory. -->
@@ -526,7 +519,7 @@
 		
 
 		
-		<copy file="${plugins.src.dir}/geogebra_plugin/init.ggb" todir="${plugins.jars.dir}/scripts"/>
+		<!-- <copy file="${plugins.src.dir}/geogebra_plugin/init.ggb" todir="${plugins.jars.dir}/scripts"/> -->
 		
 		
 		<antcall target="chmod-unix-launch-script">
