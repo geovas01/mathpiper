@@ -87,7 +87,7 @@ public class PatternVisitor implements ASTProcessor {
 
 		    aElement.setMetadataMap(metaMap);
 
-		    System.out.println("Match: " + aElement.toString());
+		    //System.out.println("Match: " + aElement.toString());
 		    return null;
 		}
 	    }
@@ -114,7 +114,7 @@ public class PatternVisitor implements ASTProcessor {
 
 		    aElement.setMetadataMap(metaMap);
 
-		    System.out.println("Match: " + aElement.toString());
+		    //System.out.println("Match: " + aElement.toString());
 		    return null;
 		} else {
 		    if (matcher.matches(aEnvironment, aStackTop, aElement)) {
@@ -138,7 +138,7 @@ public class PatternVisitor implements ASTProcessor {
 
 			aElement.setMetadataMap(metaMap);
 
-			System.out.println("Match: " + aElement.toString());
+			//System.out.println("Match: " + aElement.toString());
 			return null;
 		    }
 		}

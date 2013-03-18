@@ -101,7 +101,7 @@ public class TreeView extends BuiltinFunction {
             
             String expressionString = (String) argument;
 
-            expressionString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, expressionString);
+            expressionString = Utility.stripEndQuotesIfPresent(expressionString);
             
             Parser parser;
             
@@ -147,9 +147,6 @@ public class TreeView extends BuiltinFunction {
         }
         
         
-        //this.tagOperator(expression, aEnvironment, aStackTop);
-
-        
         
         if(!((Boolean) userOptions.get("Lisp")))
         {
@@ -166,7 +163,7 @@ public class TreeView extends BuiltinFunction {
                 ((Cons) head.car()).setCdr(holdInputExpression);
                 Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, head);
                 texString = (String) result.car();
-                texString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, texString);
+                texString = Utility.stripEndQuotesIfPresent(texString);
                 texString = texString.substring(1, texString.length());
                 texString = texString.substring(0, texString.length() - 1);
             }
@@ -252,23 +249,6 @@ public class TreeView extends BuiltinFunction {
 
     }//end method.
     
-    
-    private void tagOperator(Cons rootCons, Environment aEnvironment, int aStackTop) throws Throwable
-    {
-	Object object = Cons.cadar(rootCons);
-	
-	if(object instanceof Cons)
-	{
-        	Cons cons = (Cons) object;
-        	
-        	Map<String,Cons> map = new HashMap<String,Cons>();
-        	
-        	map.put("\"op\"", AtomCons.getInstance(aEnvironment, aStackTop, "True"));
-        	
-        	cons.setMetadataMap(map);
-	}
-    }
-
 
 }//end class.
 

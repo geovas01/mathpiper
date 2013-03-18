@@ -58,7 +58,7 @@ public class ParserSet extends BuiltinFunction
             
             String parserName = (String) oper.car();
             
-            parserName = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, parserName);
+            parserName = Utility.stripEndQuotesIfPresent(parserName);
             
             if(!Parser.isSupportedParser(parserName)) LispError.raiseError("A parser does not exist for <" + parserName + ">.", aStackTop, aEnvironment);
             

@@ -344,7 +344,7 @@ public class Utility {
 
     public static String getSymbolName(Environment aEnvironment, String aSymbol) throws Throwable {
         if (aSymbol.charAt(0) == '\"') {
-            return Utility.stripEndQuotesIfPresent(aEnvironment, -1, aSymbol);
+            return Utility.stripEndQuotesIfPresent(aSymbol);
         } else {
             return aSymbol;
         }
@@ -423,14 +423,14 @@ public class Utility {
             option = option.cdr();
             if( option.type() != Utility.ATOM) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, arguments);
             String key = (String) option.car();
-            key = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, key);
+            key = Utility.stripEndQuotesIfPresent(key);
 
             //Obtain value.
             option = option.cdr();
             if( option.type() != Utility.ATOM && option.type() != Utility.NUMBER) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, arguments);
             if (option.type() == Utility.ATOM) {
                 String value = (String) option.car();
-                value = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, value);
+                value = Utility.stripEndQuotesIfPresent(value);
                 if (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false")) {
                     userOptions.put(key, Boolean.parseBoolean(value));
                 } else {
@@ -669,7 +669,7 @@ public class Utility {
     }
 
 
-    public static String stripEndQuotesIfPresent(Environment aEnvironment, int aStackTop, String aOriginal) throws Throwable {
+    public static String stripEndQuotesIfPresent(String aOriginal) throws Throwable {
         //If there are not quotes on both ends of the string then return without any changes.
         if (aOriginal.startsWith("\"") && aOriginal.endsWith("\"")) {
             aOriginal = aOriginal.substring(1, aOriginal.length());
@@ -936,7 +936,7 @@ public class Utility {
             variableString = (String) BuiltinFunction.getArgument(aEnvironment, aStackTop, 1).car();
         }
         
-        variableString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, variableString);
+        variableString = Utility.stripEndQuotesIfPresent(variableString);
         
         if(variableString == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         if(Utility.isNumber(variableString, true)) LispError.checkArgument(aEnvironment, aStackTop, 1);

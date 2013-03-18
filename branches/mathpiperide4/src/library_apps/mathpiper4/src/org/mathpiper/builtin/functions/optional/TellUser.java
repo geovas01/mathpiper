@@ -52,7 +52,7 @@ public class TellUser extends BuiltinFunction {
             LispError.checkArgument(aEnvironment, aStackTop, 1);
         }
 
-        messageString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, messageString);
+        messageString = Utility.stripEndQuotesIfPresent(messageString);
 
         JOptionPane.showMessageDialog(null, messageString, "Message from MathPiper", JOptionPane.INFORMATION_MESSAGE);
 

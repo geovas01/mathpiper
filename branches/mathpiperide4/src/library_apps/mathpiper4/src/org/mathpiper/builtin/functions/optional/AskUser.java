@@ -56,7 +56,7 @@ public class AskUser extends BuiltinFunction {
         }
 
 
-        messageString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, messageString);
+        messageString = Utility.stripEndQuotesIfPresent(messageString);
 
         String userInputString = JOptionPane.showInputDialog(null, messageString, "Message from MathPiper", JOptionPane.INFORMATION_MESSAGE);
 

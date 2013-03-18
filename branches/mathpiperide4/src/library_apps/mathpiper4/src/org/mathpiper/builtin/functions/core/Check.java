@@ -58,7 +58,7 @@ public class Check extends BuiltinFunction
             LispError.checkIsString(aEnvironment, aStackTop, message, 3);
 
             
-            String errorMessage = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, (String) type.car()) + " Error: " + Utility.toNormalString(aEnvironment, aStackTop, (String) message.car());
+            String errorMessage = Utility.stripEndQuotesIfPresent((String) type.car()) + " Error: " + Utility.toNormalString(aEnvironment, aStackTop, (String) message.car());
             
             LispError.throwError(aEnvironment, aStackTop, errorMessage);
         

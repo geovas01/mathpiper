@@ -20,6 +20,7 @@ package org.mathpiper.builtin.functions.optional;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
+import org.mathpiper.builtin.functions.optional.support.FileInputStream;
 import org.mathpiper.io.InputStatus;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
@@ -50,7 +51,7 @@ public class LoadScriptFile extends BuiltinFunction
 
         if( fileName == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
-        fileName = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, fileName);
+        fileName = Utility.stripEndQuotesIfPresent(fileName);
 
         InputStatus status = new InputStatus("File: " + fileName);
 

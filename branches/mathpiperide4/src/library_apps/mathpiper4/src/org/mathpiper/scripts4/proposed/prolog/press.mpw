@@ -221,7 +221,7 @@ of the variable to be isolated can be solved using the following\\\\
 procedure:\\\\
 \\vspace{.75in}
 1) Identify the operator that is at the top of the left side of the\\\\
-\\hspace{.5in}tree (it is circled in red in the trees below).\\\\
+\\hspace{.5in}tree (it is highlighted in the trees below).\\\\
 \\vspace{.75in}
 2) Identify the operand of this operator that does not contain the\\\\
 \\hspace{.75in}variable to be isolated.\\\\
@@ -305,7 +305,7 @@ TagLeftSideDominantFunction(expression) :=
 {
     If(Function?(expression) And? Function?(Cdr(Car(expression))))
     {
-        MetaSet(Car(Cdr(Car(expression))),"op",True);
+        MetaSet(Car(Cdr(Car(expression))),"HighlightColor","GREEN");
     };
     
     expression;

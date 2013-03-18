@@ -43,7 +43,7 @@ public class RulebaseDump extends BuiltinFunction
         if(rulebaseName.charAt(0) != '\"') LispError.checkArgument(aEnvironment, aStackTop, 1);
         if( rulebaseName.charAt(rulebaseName.length() - 1) != '\"') LispError.checkArgument(aEnvironment, aStackTop, 1);
 
-        rulebaseName = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, rulebaseName);
+        rulebaseName = Utility.stripEndQuotesIfPresent(rulebaseName);
 
         MultipleArityRulebase rulebase = aEnvironment.getMultipleArityRulebase(aStackTop, rulebaseName, false);
 

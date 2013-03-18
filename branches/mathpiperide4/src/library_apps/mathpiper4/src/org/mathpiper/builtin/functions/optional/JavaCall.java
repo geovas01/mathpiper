@@ -68,7 +68,7 @@ public class JavaCall extends BuiltinFunction {
                 if (argumentCons.car() instanceof String) {
                     String firstArgumentString = (String) argumentCons.car();
                     //Strip leading and trailing quotes.
-                    firstArgumentString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, firstArgumentString);
+                    firstArgumentString = Utility.stripEndQuotesIfPresent(firstArgumentString);
                     Object clas = Class.forName(firstArgumentString);
                     builtinContainer = new JavaObject(clas);
                 } else if (argumentCons.car() instanceof BuiltinContainer) {
@@ -82,7 +82,7 @@ public class JavaCall extends BuiltinFunction {
                     argumentCons = consTraverser;
                     String methodName = (String) argumentCons.car();
                     //Strip leading and trailing quotes.
-                    methodName = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, methodName);
+                    methodName = Utility.stripEndQuotesIfPresent(methodName);
 
                     consTraverser = consTraverser.cdr();
 
@@ -107,7 +107,7 @@ public class JavaCall extends BuiltinFunction {
                             if (string != null) {
 
                                 if (Utility.isString(string)) { //MathPiper string.
-                                    argument = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, (String) string);
+                                    argument = Utility.stripEndQuotesIfPresent((String) string);
                                 } else { //Atom.
                                     if (string.equals("True")) {
                                         argument = Boolean.TRUE;

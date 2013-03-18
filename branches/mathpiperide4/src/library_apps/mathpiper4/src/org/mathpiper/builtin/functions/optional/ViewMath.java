@@ -96,7 +96,7 @@ public class ViewMath extends BuiltinFunction {
         result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, head);
 
         String texString = (String) result.car();
-        texString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, texString);
+        texString = Utility.stripEndQuotesIfPresent(texString);
         texString = texString.substring(1, texString.length());
         texString = texString.substring(0, texString.length() - 1);
         
