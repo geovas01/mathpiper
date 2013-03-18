@@ -52,7 +52,7 @@ public class LoadLibraryFunction extends BuiltinFunction
 
         if( scriptString == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
-        scriptString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, scriptString);
+        scriptString = Utility.stripEndQuotesIfPresent(scriptString);
 
         Utility.loadLibraryFunction(scriptString, aEnvironment, aStackTop);
 

@@ -90,7 +90,7 @@ public class LatexView extends BuiltinFunction {
         Map userOptions = Utility.optionsListToJavaMap(aEnvironment, aStackTop, options, defaultOptions);
         
 
-        latexString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, latexString);
+        latexString = Utility.stripEndQuotesIfPresent(latexString);
 
         latexString = Utility.stripEndDollarSigns(latexString);
 

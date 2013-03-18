@@ -49,7 +49,7 @@ public class Retract extends BuiltinFunction
         if( evaluated == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         String orig = (String) evaluated.car();
 
-        orig = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, orig);
+        orig = Utility.stripEndQuotesIfPresent(orig);
         
         if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         String oper = Utility.getSymbolName(aEnvironment, orig);

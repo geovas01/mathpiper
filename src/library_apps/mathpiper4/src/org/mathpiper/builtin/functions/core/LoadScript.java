@@ -54,7 +54,7 @@ public class LoadScript extends BuiltinFunction
 
         if( scriptString == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
-        scriptString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, scriptString);
+        scriptString = Utility.stripEndQuotesIfPresent(scriptString);
 
         InputStatus status = new InputStatus("LOADSCRIPT_EVALUATE");
 

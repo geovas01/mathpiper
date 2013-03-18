@@ -57,7 +57,7 @@ public class ViewHtml extends BuiltinFunction {
         {
             htmlText = (String) argument;
 
-            htmlText = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, htmlText);
+            htmlText = Utility.stripEndQuotesIfPresent(htmlText);
         }
         else if (argument instanceof BuiltinContainer)
         {

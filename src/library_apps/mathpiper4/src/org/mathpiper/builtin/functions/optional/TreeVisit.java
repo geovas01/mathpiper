@@ -50,6 +50,8 @@ public class TreeVisit extends BuiltinFunction {
 
 	defaultOptions = new HashMap();
 	defaultOptions.put("title", null);
+	defaultOptions.put("HighlightColor", "CYAN");
+	defaultOptions.put("HighlightShape", "OVAL");
 
     }//end method.
 
@@ -66,11 +68,11 @@ public class TreeVisit extends BuiltinFunction {
 	In> zz := '(a+b-c);
 	Result: (a+b)-c
 
-	In> TreeVisit(zz,a, [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"op",True);})]])
+	In> TreeVisit(zz,a, [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"HighlightColor","GREEN");})]])
 	Result: [["track",["a"]],["function",Lambda([list,node],
 	{
 	    DestructiveAppend(list["track"],ToString(node));
-	    MetaSet(node,"op",True);
+	    MetaSet(node,"HighlightColor","GREEN");
 	})]]
 
 	In> zz
@@ -89,23 +91,23 @@ public class TreeVisit extends BuiltinFunction {
 	In> zz := '(a+b-c*a);
 	Result: (a+b)-(c*a)
 
-	In> TreeVisit(zz,_y, [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"op",True);})]])
+	In> TreeVisit(zz,_y, [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"HighlightColor","GREEN");})]])
 
 
-	In> TreeVisit(zz,ToAtom("+"), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"op",True);})]])
+	In> TreeVisit(zz,ToAtom("+"), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"HighlightColor","GREEN");})]])
 
 
-	In> TreeVisit(zz,y_Associative?, [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"op",True);})]])
+	In> TreeVisit(zz,y_Associative?, [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"HighlightColor","GREEN");})]])
 
 
-	In> TreeVisit(zz,y_Associative?:Commutative?, [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"op",True);})]])
+	In> TreeVisit(zz,y_Associative?:Commutative?, [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"HighlightColor","GREEN");})]])
 
-	In> TreeVisit(zz,(_x + _y)_(x >? 7), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"op",True);})]])
+	In> TreeVisit(zz,(_x + _y)_(x >? 7), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"HighlightColor","GREEN");})]])
 
-	In> TreeVisit(zz,ToAtom("+"), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"op",True);})]])
-	In> TreeVisit(zz,ToAtom("+"), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"op",True);})]])
-	In> TreeVisit(zz,ToAtom("+"), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"op",True);})]])
-	In> TreeVisit(zz,ToAtom("+"), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"op",True);})]])
+	In> TreeVisit(zz,ToAtom("+"), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"HighlightColor","GREEN");})]])
+	In> TreeVisit(zz,ToAtom("+"), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"HighlightColor","GREEN");})]])
+	In> TreeVisit(zz,ToAtom("+"), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"HighlightColor","GREEN");})]])
+	In> TreeVisit(zz,ToAtom("+"), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"HighlightColor","GREEN");})]])
 
 
 	In> zz

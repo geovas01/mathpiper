@@ -49,7 +49,7 @@ public class AtomPatternParameterMatcher extends PatternParameterMatcher {
         }
         
 
-    	if(aExpression.getMetadataMap() != null && aExpression.getMetadataMap().containsKey("\"op\""))
+    	if(aExpression.getMetadataMap() != null && aExpression.getMetadataMap().containsKey("\"HighlightColor\""))
     	{
     	    arguments[arguments.length-1] = aExpression;
     	}

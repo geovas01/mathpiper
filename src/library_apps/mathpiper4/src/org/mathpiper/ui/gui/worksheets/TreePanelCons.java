@@ -41,6 +41,8 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
     private Map<String, String> latexMap = new HashMap();
 
+    private Map<String, Color> colorMap = new HashMap();
+
     private int yPositionAdjust = 39; /*Adjust y position of whole tree, smaller numbers moves the tree down.*/
 
     private double adjust = 1;
@@ -87,6 +89,19 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 	latexMap.put("^", "^\\wedge");
 	latexMap.put("Sqrt", "\\sqrt");
 
+	colorMap.put("\"RED\"", Color.RED);
+	colorMap.put("\"BLACK\"", Color.BLACK);
+	colorMap.put("\"BLUE\"", Color.BLUE);
+	colorMap.put("\"CYAN\"", Color.CYAN);
+	colorMap.put("\"DARKGRAY\"", Color.DARK_GRAY);
+	colorMap.put("\"GRAY\"", Color.GRAY);
+	colorMap.put("\"GREEN\"", Color.GREEN);
+	colorMap.put("\"MAGENTA\"", Color.MAGENTA);
+	colorMap.put("\"ORANGE\"", Color.ORANGE);
+	colorMap.put("\"RED\"", Color.RED);
+	colorMap.put("\"WHITE\"", Color.WHITE);
+	colorMap.put("\"YELLOW\"", Color.YELLOW);
+
 	this.isCodeForm = isCodeForm;
 
 	this.setLayout(null);
@@ -102,7 +117,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 	rootNode = new SymbolNode();
 
 	try {
-	    listToTree(rootNode, expressionCons, false);
+	    listToTree(rootNode, expressionCons, null);
 	} catch (Throwable e) {
 	    e.printStackTrace();
 	}
@@ -117,15 +132,22 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 
 
-    private void listToTree(SymbolNode rootNode, Cons rootCons, boolean markAll) throws Throwable {
+    private void listToTree(SymbolNode rootNode, Cons rootCons, Color markAllColor) throws Throwable {
 
 	Cons cons = (Cons) rootCons.car(); //Go into sublist.
 
-	if (cons.getMetadataMap() != null) {
+	if (markAllColor != null) {
+	    rootNode.setColor(markAllColor);
+	} else if (cons.getMetadataMap() != null) {
 	    Map map = cons.getMetadataMap();
 
-	    if (markAll || map.containsKey("\"op\"")) {
-		rootNode.setColor(Color.RED);
+	    if (map.containsKey("\"HighlightColor\"")) {
+
+		Cons atomCons = (Cons) map.get("\"HighlightColor\"");
+
+		if (atomCons != null) {
+		    rootNode.setColor(colorMap.get(atomCons.car()));
+		}
 	    }
 	}
 
@@ -139,28 +161,42 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 	    SymbolNode node2 = new SymbolNode();
 
 	    if (cons instanceof SublistCons) {
-		
-		boolean markSubtree = false;
-		
-		if (cons.getMetadataMap() != null) {
+
+		Color markSubtreeColor = null;
+
+		if (markAllColor != null) {
+		    markSubtreeColor = markAllColor;
+		} else if (cons.getMetadataMap() != null) {
 		    Map map = cons.getMetadataMap();
 
-		    if (markAll || map.containsKey("\"op\"")) {
-			markSubtree = true;
+		    if (map.containsKey("\"HighlightColor\"")) {
+
+			Cons atomCons = (Cons) map.get("\"HighlightColor\"");
+
+			if (atomCons != null) {
+			    markSubtreeColor = colorMap.get(atomCons.car());
+			}
 		    }
 		}
 
-		listToTree(node2, cons, markSubtree);
+		listToTree(node2, cons, markSubtreeColor);
 
 		rootNode.addChild(node2);
 
 	    } else {
-		
-		if (cons.getMetadataMap() != null) {
+
+		if (markAllColor != null) {
+		    node2.setColor(markAllColor);
+		} else if (cons.getMetadataMap() != null) {
 		    Map map = cons.getMetadataMap();
 
-		    if (markAll || map.containsKey("\"op\"")) {
-			node2.setColor(Color.RED);
+		    if (map.containsKey("\"HighlightColor\"")) {
+
+			Cons atomCons = (Cons) map.get("\"HighlightColor\"");
+
+			if (atomCons != null) {
+			    node2.setColor(colorMap.get(atomCons.car()));
+			}
 		    }
 		}
 
@@ -192,7 +228,16 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 	ScaledGraphics sg = layoutTree(g2d);
 
 	queue.add(rootNode);
+	paintHighlightLayer(sg);
 
+	queue.add(rootNode);
+	paintDrawingLayer(sg);
+
+    }
+
+
+
+    private void paintHighlightLayer(ScaledGraphics sg) {
 	SymbolNode currentNode;
 
 	while (!queue.isEmpty()) {
@@ -201,35 +246,109 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 	    if (currentNode != null) {
 
-		sg.drawLatex(currentNode.texFormula, currentNode.getTreeX() - (leftMostPosition), currentNode.getTreeY()
-			- (yPositionAdjust /*height of symbol*/));
+		double nodeX0 = currentNode.getTreeX() - (leftMostPosition);
+
+		double nodeY0 = currentNode.getTreeY() - (yPositionAdjust /*height of symbol*/);
+
+		double nodeX1 = nodeX0 + currentNode.getNodeWidth();
+
+		double nodeY1 = nodeY0 + currentNode.getNodeHeight();
 
 		if (currentNode.getColor() != null) {
-		    sg.setColor(Color.RED);
-		    sg.setLineThickness(1.0);
-		    sg.drawArc(currentNode.getTreeX() - (leftMostPosition), currentNode.getTreeY()
-			    - (yPositionAdjust /*height of symbol*/), currentNode.getNodeWidth(), currentNode.getNodeHeight(), 0,
-			    360);
-		    sg.setLineThickness(defaultLineThickness);
+		    sg.setColor(currentNode.getColor());
+		    //sg.setLineThickness(1.0);
+
+		    //sg.fillArc(nodeX0, nodeY0, currentNode.getNodeWidth(), currentNode.getNodeHeight(), 0, 360);
+		    sg.fillRect(nodeX0, nodeY0, currentNode.getNodeWidth(), currentNode.getNodeHeight());
+
+		    //sg.setLineThickness(defaultLineThickness);
 		    sg.setColor(Color.BLACK);
 		}
 
-		SymbolNode[] children = currentNode.getChildren();
+		SymbolNode[] childrenNodes = currentNode.getChildren();
 
-		if (children != null) {
-		    for (SymbolNode child : children) {
-			if (child != null) {
-			    queue.add(child);
+		if (childrenNodes != null) {
+
+		    for (SymbolNode childNode : childrenNodes) {
+			//Draw highlighting. This is done in a separate for loop to prevent overwriting the ends of normal arcs.	
+
+			if (childNode != null) {
+
+			    queue.add(childNode);
+
+			    if (currentNode.getColor() != null && childNode.getColor() != null) {
+
+				double x0 = currentNode.getTreeX() + currentNode.getNodeWidth() / 2 - (leftMostPosition);
+
+				double y0 = currentNode.getTreeY() + currentNode.getNodeHeight()
+					- (yPositionAdjust * 1/*height of nodes*/);
+
+				double x1 = childNode.getTreeX() + childNode.getNodeWidth() / 2 - (leftMostPosition);
+
+				double y1 = childNode.getTreeY() - (yPositionAdjust * 1 /*height of leaves*/);
+
+				sg.setColor(currentNode.getColor());
+				sg.setLineThickness(defaultLineThickness * 4);
+				sg.drawLine(x0, y0, x1, y1);
+			    }
+
+			}
+		    }//end for
+
+		}//end if.
+
+	    } else {
+		System.out.print("<Null>");
+	    }
+
+	}//end while.
+
+    }
+
+
+
+    private void paintDrawingLayer(ScaledGraphics sg) {
+	SymbolNode currentNode;
+
+	while (!queue.isEmpty()) {
+
+	    currentNode = queue.remove();
+
+	    if (currentNode != null) {
+
+		double nodeX0 = currentNode.getTreeX() - (leftMostPosition);
+
+		double nodeY0 = currentNode.getTreeY() - (yPositionAdjust /*height of symbol*/);
+
+		double nodeX1 = nodeX0 + currentNode.getNodeWidth();
+
+		double nodeY1 = nodeY0 + currentNode.getNodeHeight();
+
+		sg.setColor(Color.BLACK);
+		sg.drawLatex(currentNode.texFormula, nodeX0, nodeY0);
+
+		SymbolNode[] childrenNodes = currentNode.getChildren();
+
+		if (childrenNodes != null) {
+
+		    for (SymbolNode childNode : childrenNodes) {
+			if (childNode != null) {
+			    queue.add(childNode);
+
+			    double x0 = currentNode.getTreeX() + currentNode.getNodeWidth() / 2 - (leftMostPosition);
+
+			    double y0 = currentNode.getTreeY() + currentNode.getNodeHeight()
+				    - (yPositionAdjust * 1/*height of nodes*/);
+
+			    double x1 = childNode.getTreeX() + childNode.getNodeWidth() / 2 - (leftMostPosition);
+
+			    double y1 = childNode.getTreeY() - (yPositionAdjust * 1 /*height of leaves*/);
 
 			    sg.setColor(Color.BLACK);
 			    sg.setLineThickness(defaultLineThickness);
-			    sg.drawLine(currentNode.getTreeX() + currentNode.getNodeWidth() / 2 - (leftMostPosition),
-				    currentNode.getTreeY() + currentNode.getNodeHeight()
-					    - (yPositionAdjust * 1/*height of nodes*/), child.getTreeX() + child.getNodeWidth()
-					    / 2 - (leftMostPosition), child.getTreeY()
-					    - (yPositionAdjust * 1 /*height of leaves*/));
+			    sg.drawLine(x0, y0, x1, y1);
 			}
-		    }
+		    }//end for
 
 		}//end if.
 

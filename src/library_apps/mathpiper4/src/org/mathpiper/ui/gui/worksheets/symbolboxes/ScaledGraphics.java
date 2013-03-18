@@ -61,6 +61,20 @@ public class ScaledGraphics {
         iG.drawRect((int) (x * viewScale), (int) (y * viewScale), (int) (width * viewScale), (int) (height * viewScale));
     }
 
+    public void fillRect(double x, double y, double width, double height) {
+        iG.fillRect((int) (x * viewScale), (int) (y * viewScale), (int) (width * viewScale), (int) (height * viewScale));
+    }    
+    
+    public void fillOval(double x, double y, double width, double height) {
+        iG.fillOval((int) (x * viewScale), (int) (y * viewScale), (int) (width * viewScale), (int) (height * viewScale));
+    }
+    
+    public void fillArc(double x,double y,double width,double height,int startAngle,int arcAngle) {
+        //iG.drawLine((int) (x0 * viewScale), (int) (y0 * viewScale), (int) (x1 * viewScale), (int) (y1 * viewScale));
+        iG.fillArc((int) (x * viewScale), (int) (y * viewScale), (int) (width * viewScale), (int) (height * viewScale), startAngle, arcAngle);
+    }    
+    
+    
     public void setGray(int aGray) {
         if (prevGray != aGray) {
             prevGray = aGray;
@@ -86,7 +100,7 @@ public class ScaledGraphics {
     }
     
     
-    public void drawLatex(TeXFormula texFormula, int x, int y)
+    public void drawLatex(TeXFormula texFormula, double x, double y)
     {
 	//Obtain image example.
 	//http://forge.scilab.org/index.php/p/jlatexmath/source/tree/8b1b0250b95fe80c0e245db2671a817f299ecaf7/examples/Basic/Example1.java
