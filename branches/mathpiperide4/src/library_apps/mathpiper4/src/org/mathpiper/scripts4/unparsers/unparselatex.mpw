@@ -126,7 +126,7 @@ UnparseLatexMaxPrec() := 60000;         /* This precedence will never be bracket
 116 # UnparseLatex(_n * _expr, _p) _ (Function?(expr) And? Contains?(["^", "!", "!!"], Type(expr)) And? Number?(FunctionToList(expr)[2])) <-- UnparseLatexBracketIf(p <? PrecedenceGet("*"), ConcatStrings(UnparseLatex(n, LeftPrecedenceGet("*")), "\\times ", UnparseLatex(expr, RightPrecedenceGet("*")) ) );
 
         /* generic binary ops here */
-119 # UnparseLatex(expr_Function?, _p)_(ArgumentsCount(expr) =? 2 And? Infix?(Type(expr)) And? Not? Type(expr) =? "^" And? MetaGet(expr[0],"HighlightColor") !=? Empty) <-- UnparseLatexBracketIf(p <? PrecedenceGet(Type(expr)), ConcatStrings(UnparseLatex(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))), "\\colorbox{Cyan}{", UnparseLatexLatexify(Type(expr)), "}", UnparseLatex(FunctionToList(expr)[3], RightPrecedenceGet(Type(expr))) ) );
+119 # UnparseLatex(expr_Function?, _p)_(ArgumentsCount(expr) =? 2 And? Infix?(Type(expr)) And? Not? Type(expr) =? "^" And? MetaGet(expr[0],"HighlightColor") !=? Empty) <-- UnparseLatexBracketIf(p <? PrecedenceGet(Type(expr)), ConcatStrings(UnparseLatex(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))), "\\colorbox{",MetaGet(expr[0],"HighlightColor"),"}{", UnparseLatexLatexify(Type(expr)), "}", UnparseLatex(FunctionToList(expr)[3], RightPrecedenceGet(Type(expr))) ) );
 120 # UnparseLatex(expr_Function?, _p)_(ArgumentsCount(expr) =? 2 And? Infix?(Type(expr)) ) <-- UnparseLatexBracketIf(p <? PrecedenceGet(Type(expr)), ConcatStrings(UnparseLatex(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))), UnparseLatexLatexify(Type(expr)), UnparseLatex(FunctionToList(expr)[3], RightPrecedenceGet(Type(expr))) ) );
 
         /* Template for "regular" unary prefix operators:
@@ -136,7 +136,7 @@ UnparseLatexMaxPrec() := 60000;         /* This precedence will never be bracket
 
         /* generic unary ops here */
         /* prefix */
-119 # UnparseLatex(expr_Function?, _p)_(ArgumentsCount(expr) =? 1 And? Prefix?(Type(expr)) And? MetaGet(expr[0],"HighlightColor") !=? Empty) <-- UnparseLatexBracketIf(p <? PrecedenceGet(Type(expr)), ConcatStrings("\\colorbox{Cyan}{", UnparseLatexLatexify(Type(expr)), "}", UnparseLatex(FunctionToList(expr)[2], RightPrecedenceGet(Type(expr)))) );
+119 # UnparseLatex(expr_Function?, _p)_(ArgumentsCount(expr) =? 1 And? Prefix?(Type(expr)) And? MetaGet(expr[0],"HighlightColor") !=? Empty) <-- UnparseLatexBracketIf(p <? PrecedenceGet(Type(expr)), ConcatStrings("\\colorbox{",MetaGet(expr[0],"HighlightColor"),"}{", UnparseLatexLatexify(Type(expr)), "}", UnparseLatex(FunctionToList(expr)[2], RightPrecedenceGet(Type(expr)))) );
 120 # UnparseLatex(expr_Function?, _p)_(ArgumentsCount(expr) =? 1 And? Prefix?(Type(expr))) <-- UnparseLatexBracketIf(p <? PrecedenceGet(Type(expr)), ConcatStrings(UnparseLatexLatexify(Type(expr)), UnparseLatex(FunctionToList(expr)[2], RightPrecedenceGet(Type(expr)))) );
 
 
@@ -147,7 +147,7 @@ UnparseLatexMaxPrec() := 60000;         /* This precedence will never be bracket
 ) );
 
         /* fraction and its operands are never bracketed except when they are under power */
-98 # UnparseLatex(_x / _y, _p)_(Assigned?(operatorMetaMap)) <-- UnparseLatexBracketIf(p <? PrecedenceGet("/"), ConcatStrings("\\colorbox{Cyan}{\\frac \\textcolor{Black}{", UnparseLatex(x, UnparseLatexMaxPrec()), "} \\textcolor{Black}{", UnparseLatex(y, UnparseLatexMaxPrec()), "}} ") );
+98 # UnparseLatex(_x / _y, _p)_(Assigned?(operatorMetaMap) And? MetaGet(operatorMetaMap,"HighlightColor") !=? Empty) <-- UnparseLatexBracketIf(p <? PrecedenceGet("/"), ConcatStrings("\\colorbox{",MetaGet(operatorMetaMap,"HighlightColor"),"}{\\frac \\textcolor{Black}{", UnparseLatex(x, UnparseLatexMaxPrec()), "} \\textcolor{Black}{", UnparseLatex(y, UnparseLatexMaxPrec()), "}} ") );
 100 # UnparseLatex(_x / _y, _p) <-- UnparseLatexBracketIf(p <? PrecedenceGet("/"), ConcatStrings("\\frac{", UnparseLatex(x, UnparseLatexMaxPrec()), "}{", UnparseLatex(y, UnparseLatexMaxPrec()), "} ") );
 
         /* power's argument is never bracketed but it must be put in braces. Chained powers must be bracketed. Powers of 1/n are displayed as roots. */

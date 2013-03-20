@@ -18,6 +18,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.border.EmptyBorder;
 
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.SublistCons;
 import org.mathpiper.ui.gui.worksheets.symbolboxes.ScaledGraphics;
@@ -117,7 +118,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 	rootNode = new SymbolNode();
 
 	try {
-	    listToTree(rootNode, expressionCons, null);
+	    listToTree(rootNode, expressionCons, null, null);
 	} catch (Throwable e) {
 	    e.printStackTrace();
 	}
@@ -132,12 +133,12 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 
 
-    private void listToTree(SymbolNode rootNode, Cons rootCons, Color markAllColor) throws Throwable {
+    private void listToTree(SymbolNode rootNode, Cons rootCons, Color markAllColor, String markAllNodeShape) throws Throwable {
 
 	Cons cons = (Cons) rootCons.car(); //Go into sublist.
 
 	if (markAllColor != null) {
-	    rootNode.setColor(markAllColor);
+	    rootNode.setHighlightColor(markAllColor);
 	} else if (cons.getMetadataMap() != null) {
 	    Map map = cons.getMetadataMap();
 
@@ -146,7 +147,22 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 		Cons atomCons = (Cons) map.get("\"HighlightColor\"");
 
 		if (atomCons != null) {
-		    rootNode.setColor(colorMap.get(atomCons.car()));
+		    rootNode.setHighlightColor(colorMap.get(atomCons.car()));
+		}
+	    }
+	}
+
+	if (markAllNodeShape != null) {
+	    rootNode.setHighlightNodeShape(markAllNodeShape);
+	} else if (cons.getMetadataMap() != null) {
+	    Map map = cons.getMetadataMap();
+
+	    if (map.containsKey("\"HighlightNodeShape\"")) {
+
+		Cons atomCons = (Cons) map.get("\"HighlightNodeShape\"");
+
+		if (atomCons != null) {
+		    rootNode.setHighlightNodeShape(Utility.stripEndQuotesIfPresent((String) atomCons.car()));
 		}
 	    }
 	}
@@ -179,14 +195,31 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 		    }
 		}
 
-		listToTree(node2, cons, markSubtreeColor);
+		String markSubtreeNodeShape = null;
+
+		if (markAllNodeShape != null) {
+		    markSubtreeNodeShape = markAllNodeShape;
+		} else if (cons.getMetadataMap() != null) {
+		    Map map = cons.getMetadataMap();
+
+		    if (map.containsKey("\"HighlightNodeShape\"")) {
+
+			Cons atomCons = (Cons) map.get("\"HighlightNodeShape\"");
+
+			if (atomCons != null) {
+			    markSubtreeNodeShape = Utility.stripEndQuotesIfPresent((String) atomCons.car());
+			}
+		    }
+		}
+
+		listToTree(node2, cons, markSubtreeColor, markSubtreeNodeShape);
 
 		rootNode.addChild(node2);
 
 	    } else {
 
 		if (markAllColor != null) {
-		    node2.setColor(markAllColor);
+		    node2.setHighlightColor(markAllColor);
 		} else if (cons.getMetadataMap() != null) {
 		    Map map = cons.getMetadataMap();
 
@@ -195,7 +228,22 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 			Cons atomCons = (Cons) map.get("\"HighlightColor\"");
 
 			if (atomCons != null) {
-			    node2.setColor(colorMap.get(atomCons.car()));
+			    node2.setHighlightColor(colorMap.get(atomCons.car()));
+			}
+		    }
+		}
+
+		if (markAllNodeShape != null) {
+		    node2.setHighlightNodeShape(markAllNodeShape);
+		} else if (cons.getMetadataMap() != null) {
+		    Map map = cons.getMetadataMap();
+
+		    if (map.containsKey("\"HighlightNodeShape\"")) {
+
+			Cons atomCons = (Cons) map.get("\"HighlightNodeShape\"");
+
+			if (atomCons != null) {
+			    node2.setHighlightNodeShape(Utility.stripEndQuotesIfPresent((String) atomCons.car()));
 			}
 		    }
 		}
@@ -254,13 +302,19 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 		double nodeY1 = nodeY0 + currentNode.getNodeHeight();
 
-		if (currentNode.getColor() != null) {
-		    sg.setColor(currentNode.getColor());
+		if (currentNode.getHighlightColor() != null) {
+		    sg.setColor(currentNode.getHighlightColor());
 		    //sg.setLineThickness(1.0);
 
-		    //sg.fillArc(nodeX0, nodeY0, currentNode.getNodeWidth(), currentNode.getNodeHeight(), 0, 360);
-		    sg.fillRect(nodeX0, nodeY0, currentNode.getNodeWidth(), currentNode.getNodeHeight());
-
+		    if(currentNode.getHighlightNodeShape() != null && currentNode.getHighlightNodeShape().equals("RECTANGLE"))
+		    {
+			sg.fillRect(nodeX0, nodeY0, currentNode.getNodeWidth(), currentNode.getNodeHeight());
+		    }
+		    else
+		    {
+			sg.fillArc(nodeX0, nodeY0, currentNode.getNodeWidth(), currentNode.getNodeHeight(), 0, 360);
+		    }
+		    
 		    //sg.setLineThickness(defaultLineThickness);
 		    sg.setColor(Color.BLACK);
 		}
@@ -276,7 +330,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 			    queue.add(childNode);
 
-			    if (currentNode.getColor() != null && childNode.getColor() != null) {
+			    if (currentNode.getHighlightColor() != null && childNode.getHighlightColor() != null) {
 
 				double x0 = currentNode.getTreeX() + currentNode.getNodeWidth() / 2 - (leftMostPosition);
 
@@ -287,7 +341,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 				double y1 = childNode.getTreeY() - (yPositionAdjust * 1 /*height of leaves*/);
 
-				sg.setColor(currentNode.getColor());
+				sg.setColor(currentNode.getHighlightColor());
 				sg.setLineThickness(defaultLineThickness * 4);
 				sg.drawLine(x0, y0, x1, y1);
 			    }
@@ -563,7 +617,9 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 	private int treeY;
 
-	private Color color;
+	private Color highlightColor;
+
+	private String highlightNodeShape = "SQUARE";
 
 
 
@@ -644,14 +700,26 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 
 
-	public Color getColor() {
-	    return color;
+	public Color getHighlightColor() {
+	    return highlightColor;
 	}
 
 
 
-	public void setColor(Color color) {
-	    this.color = color;
+	public void setHighlightColor(Color color) {
+	    this.highlightColor = color;
+	}
+
+
+
+	public String getHighlightNodeShape() {
+	    return highlightNodeShape;
+	}
+
+
+
+	public void setHighlightNodeShape(String hilightNodeShape) {
+	    this.highlightNodeShape = hilightNodeShape;
 	}
 
 
