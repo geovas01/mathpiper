@@ -66,8 +66,6 @@
         </tstamp>
 
         <mkdir dir="${build.dir}" />
-
-        <mkdir dir="${build.dir}/tests" />
     </target>
 
     <target name="compile" depends="init" description="Compiles the application">
