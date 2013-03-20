@@ -44,14 +44,12 @@ public class TreeVisit extends BuiltinFunction {
 
 
 
-    public void plugIn(Environment aEnvironment) throws Throwable, Throwable {
+    public void plugIn(Environment aEnvironment) throws Throwable {
 	aEnvironment.getBuiltinFunctions().put("TreeVisit",
 		new BuiltinFunctionEvaluator(this, 3, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
 
 	defaultOptions = new HashMap();
 	defaultOptions.put("title", null);
-	defaultOptions.put("HighlightColor", "CYAN");
-	defaultOptions.put("HighlightShape", "OVAL");
 
     }//end method.
 

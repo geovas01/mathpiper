@@ -306,6 +306,8 @@ TagLeftSideDominantFunction(expression) :=
     If(Function?(expression) And? Function?(Cdr(Car(expression))))
     {
         MetaSet(Car(Cdr(Car(expression))),"HighlightColor","GREEN");
+        
+        MetaSet(Car(Cdr(Car(expression))),"HighlightNodeShape","RECTANGLE");
     };
     
     expression;
