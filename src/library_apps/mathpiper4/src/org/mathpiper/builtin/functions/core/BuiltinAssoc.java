@@ -58,7 +58,7 @@ public class BuiltinAssoc extends BuiltinFunction
         if( listCons == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
         listCons = listCons.cdr();
 
-        Cons result = Utility.associativeListGet(aEnvironment, aStackTop, key, listCons);
+        Cons result = Utility.associationListGet(aEnvironment, aStackTop, key, listCons);
 
         if (result != null) {
             setTopOfStack(aEnvironment, aStackTop, result);
