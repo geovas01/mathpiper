@@ -80,6 +80,9 @@ stored as {(a+b)+c}. Hence {a+b} is a subexpression, but {b+c} is not.
 In> Substitute(x, Sin(y)) x^2+x+1;
 Result: Sin(y)^2+Sin(y)+1;
 
+In> Substitute(ToAtom("+"), ToAtom("-")) a+b
+Result: a-b
+
 In> Substitute(a+b, x) a+b+c;
 Result: x+c;
 

@@ -1,0 +1,148 @@
+package org.mathpiper.lisp.astprocessors;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.mathpiper.builtin.PatternContainer;
+import org.mathpiper.lisp.LispError;
+import org.mathpiper.lisp.Utility;
+
+import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.cons.AtomCons;
+import org.mathpiper.lisp.cons.Cons;
+import org.mathpiper.lisp.cons.SublistCons;
+import org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher;
+
+public class PatternProcess implements ASTProcessor {
+
+    Environment iEnvironment;
+    ParametersPatternMatcher matcher = null;
+    Cons associationList;
+    String operatorString;
+
+
+
+    public PatternProcess(Environment aEnvironment, Cons pattern, Cons associationList) throws Throwable {
+	iEnvironment = aEnvironment;
+
+	//check that associationList is a compound object
+	if (!(associationList.car() instanceof Cons))
+	    LispError.checkArgument(aEnvironment, -1, 2);
+	if (associationList.car() == null)
+	    LispError.checkArgument(aEnvironment, -1, 2);
+
+	this.associationList = associationList;
+
+	Cons postPredicate = Utility.getTrueAtom(aEnvironment);
+
+	if (pattern.car() instanceof Cons) {
+	    Cons operator = (Cons) pattern.car();
+
+	    operatorString = (String) operator.car();
+
+	    if (!(operatorString.equals("_") && operator.cdr().cdr() == null)) {
+
+		if (!operatorString.equals("_")) {
+		    pattern = operator.cdr();
+		}
+
+		matcher = new org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher(aEnvironment, -1, pattern,
+			postPredicate);
+	    }
+
+	} else {
+	    operatorString = (String) pattern.car();
+	}
+
+    }
+
+
+
+    public Cons matches(Environment aEnvironment, int aStackTop, Cons aElement) throws Throwable {
+
+	try {
+	    Object nodeSymbol;
+	    
+	    Cons elementCopy = aElement.copy(false);
+
+	    Cons returnCons = null;
+
+	    elementCopy.setMetadataMap(new HashMap());
+
+	    if (elementCopy instanceof SublistCons) {
+		nodeSymbol = Cons.caar(elementCopy);
+
+		if (operatorString.equals(nodeSymbol) && matcher != null) {
+
+		    if (matcher.matches(aEnvironment, aStackTop, (Cons) Cons.cdar(elementCopy))) {
+			//Obtain the function from the association list;
+			Cons result = Utility
+				.associationListGet(aEnvironment, aStackTop,
+					AtomCons.getInstance(aEnvironment, aStackTop, "\"function\""),
+					((Cons) associationList.car()).cdr());
+			if (result != null) {
+			    result = ((Cons) result.car()).cdr().cdr();
+			}
+			Cons function = result;
+
+			associationList.setCdr(elementCopy);
+
+			returnCons = Utility.applyPure(aStackTop, function, associationList, aEnvironment);
+
+		    }
+		}
+	    } else {
+		nodeSymbol = elementCopy.car();
+		if (operatorString.equals(nodeSymbol) || operatorString.equals("_")) {
+
+		    if (matcher == null) {
+			//Obtain the function from the association list;
+			Cons result = Utility
+				.associationListGet(aEnvironment, aStackTop,
+					AtomCons.getInstance(aEnvironment, aStackTop, "\"function\""),
+					((Cons) associationList.car()).cdr());
+			if (result != null) {
+			    result = ((Cons) result.car()).cdr().cdr();
+			}
+			Cons function = result;
+
+			associationList.setCdr(elementCopy);
+
+			returnCons = Utility.applyPure(aStackTop, function, associationList, aEnvironment);
+
+
+		    } else {
+			if (matcher.matches(aEnvironment, aStackTop, elementCopy)) {
+			    //Obtain the function from the association list;
+			    Cons result = Utility.associationListGet(aEnvironment, aStackTop,
+				    AtomCons.getInstance(aEnvironment, aStackTop, "\"function\""),
+				    ((Cons) associationList.car()).cdr());
+			    if (result != null) {
+				result = ((Cons) result.car()).cdr().cdr();
+			    }
+			    Cons function = result;
+
+			    associationList.setCdr(elementCopy);
+
+			    returnCons = Utility.applyPure(aStackTop, function, associationList, aEnvironment);
+			}
+		    }
+
+		}//end if.
+
+	    }
+
+	    return returnCons;
+	    
+	} finally {
+	    associationList.setCdr(null);
+	}
+    }
+
+
+
+    public Cons getAssociationList(Environment aEnvironment, int aStackTop) throws Throwable {
+	return associationList;
+    }
+
+};
