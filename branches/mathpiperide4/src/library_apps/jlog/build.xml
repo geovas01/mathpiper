@@ -8,8 +8,24 @@
 	</description>
 	
 	<property name="version" value=".50" />
-	<property name="build.classes.dir" value="${build.dir}/classes" />
+
+    <property name="compile.source" value="1.6" />
+
+    <property name="compile.target" value="1.6" />
+
+    <property name="src.dir" value="${basedir}/src" />
+
+    <property name="build.dir" value="${basedir}/bin" />
+
+    <property name="library.dir" value="${basedir}/../lib" />
+    
+	<property name="build.classes.dir" value="${build.dir}" />
 	
+	    <path id="build_classpath">
+		<!--  <pathelement path="${library.dir}/jfreechart-1.0.13.jar" /> -->
+
+    </path>
+    
 	
 	<target id="noop" name="noop" description="Do nothing." />
 	
