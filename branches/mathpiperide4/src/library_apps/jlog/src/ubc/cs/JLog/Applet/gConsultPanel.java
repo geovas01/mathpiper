@@ -53,6 +53,11 @@ import java.lang.*;
 import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 import ubc.cs.JLog.Foundation.*;
 
@@ -64,12 +69,12 @@ public class gConsultPanel extends Panel {
     protected final static String ERRLABEL = "Status";
     protected final static String SRCLABEL = "Source";
 
-    protected final static int ERRROWS = 3;
+    protected final static int ERRROWS = 12;
 
     // required for consult appearance
     protected TextArea source, errors;
     protected TextField find_field, gotoline_field;
-    protected Button resetdb, consult, find, gotoline;
+    protected Button resetdb, consult, find, gotoline, loadPress;
     protected Label srclabel, errlabel;
 
     // required for consult functionality
@@ -160,6 +165,16 @@ public class gConsultPanel extends Panel {
 	    consult.setBackground(Color.white);
 	    consult.setForeground(Color.black);
 	}
+	{// create load press button
+	    loadPress = new Button("Load Press");
+	    loadPress.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		    gConsultPanel.this.loadPress();
+		}
+	    });
+	    loadPress.setBackground(Color.white);
+	    loadPress.setForeground(Color.black);
+	}
 	{// create find button and field
 	    find = new Button(FIND);
 	    find.addActionListener(new ActionListener() {
@@ -240,6 +255,7 @@ public class gConsultPanel extends Panel {
 
 	    top_buttons.add(resetdb);
 	    bottom_buttons.add(consult);
+	    bottom_buttons.add(loadPress);
 
 	    find_panel.add(new Panel(), BorderLayout.NORTH);
 	    find_panel.add(find_field, BorderLayout.CENTER);
@@ -401,6 +417,97 @@ public class gConsultPanel extends Panel {
 		getErrorsStream())))
 	    errors.append("consult failed. other events pending.\n");
     };
+    
+    public void loadPress() {
+    	
+		errors.setText("");
+    	//todo:tk:test method for loading PRESS.
+    	BufferedReader file = null;
+    	try {
+    		file = new BufferedReader(new FileReader("/home/tkosan/git/press/load.txt"));
+    		String line;
+    		while ((line = file.readLine()) != null && (!line.trim().equals(""))) {
+    			
+    			if(line.startsWith("%"))
+    			{
+    				continue;
+    			}
+
+    			errors.append(line + "\n");
+    			String source = new Scanner(new File(line) ).useDelimiter("\\A").next();
+    			
+
+    			if (!prolog.start(new jConsultSourceThread(prolog, new StringBufferText(new StringBuilder(source)), getErrorsStream())))
+    			{
+    				errors.append("consult failed. other events pending.\n");
+    			}
+    			
+    			while(! prolog.isAvailable())
+    			{
+    				try
+    				{
+    					Thread.sleep(100);
+    				}catch(InterruptedException ie){
+    				}
+    			}
+    			
+    			errors.append("\n\n");
+    			
+    			errors.setCaretPosition(errors.getText().length());
+
+
+    		}
+
+
+
+
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+    	finally
+    	{
+    		if(file != null)
+    		{
+    			try {
+    				file.close();
+    			} catch (IOException e) {
+    				e.printStackTrace();
+    			}
+    		}
+    	}
+
+    };
+    
+    private class StringBufferText implements iPrologServiceText
+    { //todo:tk:hack to allow source code to be read by JLog from a file.
+    	private StringBuilder stringBuffer;
+    	
+    	public StringBufferText(StringBuilder sb)
+    	{
+    		this.stringBuffer = sb;
+    	}
+    	
+        public String getText(){
+        	return stringBuffer.toString();
+        };
+        
+
+        public void setText(String t){};
+
+        public void append(String a){};
+
+        public void insert(String i, int p){};
+
+        public void remove(int s, int e){};
+
+        public void setCaretPosition(int i){};
+
+        public void select(int s, int e){};
+
+        public void selectAll(){};
+
+        public void requestFocus(){};
+    }
 
     public void find() {
 	findSource(find_field.getText());
