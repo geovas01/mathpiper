@@ -107,7 +107,7 @@ public class gConsultWindow extends gWindowBase {
 	add(consult);
 	pack();
 
-	setSize(600, 480);
+	setSize(650, 500);
 
 	{
 	    Point loc = getLocation();
