@@ -62,6 +62,8 @@ abstract public class gWindowBase extends Frame implements
 
     gWindowBase(gJLogApplicationBase b) {
 	parent = b;
+	
+	setResizable(true);
 
 	setMenuBar(parent.createMenuBar(this));
 
