@@ -334,7 +334,7 @@
 				FILE_NAME_GLOB="*.{pov,povray}" />
 
 <MODE NAME="prolog"             FILE="prolog.xml"
-                                FILE_NAME_GLOB="*.pro" />
+                                FILE_NAME_GLOB="*.{pl,pro}" />
 
 <MODE NAME="progress"           FILE="progress.xml"
                                 FILE_NAME_GLOB="*.[piw]" />
