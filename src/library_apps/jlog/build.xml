@@ -46,7 +46,8 @@
 			target="${compile.target}" 
 			srcdir="${src.dir}"
 			destdir="${build.classes.dir}"
-			debug="off"
+			debug="on"
+			debuglevel="lines,vars,source"
 			deprecation="on"
 			optimize="off"
                         includeantruntime="false">
