@@ -25,7 +25,7 @@ public class EvaluationResponse {
     }
 
     /**
-     * A static factory method which is used to crerate new EvaluationResponse objects.
+     * A static factory method which is used to create new EvaluationResponse objects.
      *
      * @return a new EvaluationResponse
      */
