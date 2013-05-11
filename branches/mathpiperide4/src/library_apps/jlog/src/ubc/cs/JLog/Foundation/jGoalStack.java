@@ -61,56 +61,56 @@ import java.util.*;
  * @version %I%, %G%
  */
 public class jGoalStack implements iGoalStack {
-    protected jGoal head;
+	protected jGoal head;
 
-    public jGoalStack() {
-	head = null;
-    };
+	public jGoalStack() {
+		head = null;
+	};
 
-    public boolean empty() {
-	return head == null;
-    };
+	public boolean empty() {
+		return head == null;
+	};
 
-    public jGoal pop() {
-	jGoal top;
+	public jGoal pop() {
+		jGoal top;
 
-	if ((top = head) == null)
-	    throw new EmptyStackException();
+		if ((top = head) == null)
+			throw new EmptyStackException();
 
-	head = top.next;
-	return top;
-    };
+		head = top.next;
+		return top;
+	};
 
-    public jGoal peek() {
-	if (head == null)
-	    throw new EmptyStackException();
+	public jGoal peek() {
+		if (head == null)
+			throw new EmptyStackException();
 
-	return head;
-    };
+		return head;
+	};
 
-    public jGoal peekn(int n) {
-	jGoal g = head;
+	public jGoal peekn(int n) {
+		jGoal g = head;
 
-	for (g = head; g != null && n >= 0; n--) {
-	    if (n == 0)
-		return g;
+		for (g = head; g != null && n >= 0; n--) {
+			if (n == 0)
+				return g;
 
-	    g = g.next;
-	}
+			g = g.next;
+		}
 
-	throw new EmptyStackException();
-    };
+		throw new EmptyStackException();
+	};
 
-    public jGoal push(jGoal item) {
-	item.next = head;
-	head = item;
+	public jGoal push(jGoal item) {
+		item.next = head;
+		head = item;
 
-	return item;
-    };
+		return item;
+	};
 
-    public jGoal cut(jGoal item) {
-	head = item;
+	public jGoal cut(jGoal item) {
+		head = item;
 
-	return item;
-    };
+		return item;
+	};
 };
