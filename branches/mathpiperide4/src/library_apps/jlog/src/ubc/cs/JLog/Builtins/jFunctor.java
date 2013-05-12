@@ -102,6 +102,15 @@ public class jFunctor extends jTrinaryBuiltinPredicate {
 		return false;
 
 	    return t3.unify(new jInteger(ip.getArity()), fg.unified);
+	} 	
+	else if (t1 instanceof jInteger) {
+	    jInteger integer = (jInteger) t1;
+
+	    t2.unify(integer.copy(), fg.unified);
+
+	    t3.unify(new jInteger(0), fg.unified);
+	    
+	    return true;
 	} else
 	    throw new InvalidFunctorArgumentException();
     };
