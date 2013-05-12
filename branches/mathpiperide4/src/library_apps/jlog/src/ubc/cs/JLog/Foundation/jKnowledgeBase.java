@@ -60,10 +60,10 @@ import ubc.cs.JLog.Terms.*;
  * @version %I%, %G%
  */
 public class jKnowledgeBase {
-    protected Hashtable definitions;
+    protected Hashtable<String, jRuleDefinitions> definitions;
 
     public jKnowledgeBase() {
-	definitions = new Hashtable();
+	definitions = new Hashtable<String, jRuleDefinitions>();
     };
 
     /**
@@ -187,4 +187,20 @@ public class jKnowledgeBase {
     protected String getKeyString(iNameArity r) {
 	return r.getName() + "/" + Integer.toString(r.getArity());
     };
+    
+    
+    @Override
+    public String toString()
+    {
+        final StringBuilder builder = new StringBuilder();
+        for (final Map.Entry<String, jRuleDefinitions> entry : definitions.entrySet())
+        {
+            builder.append(entry.getKey());
+            builder.append("=>");
+            builder.append(entry.getValue());
+            builder.append(", ");
+        }
+
+        return builder.toString();
+    }
 };

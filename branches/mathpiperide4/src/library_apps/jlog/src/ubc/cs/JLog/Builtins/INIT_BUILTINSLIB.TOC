@@ -17,6 +17,10 @@ LoadClass: ubc.cs.JLog.Builtins.jCreateArray
 LoadClass: ubc.cs.JLog.Builtins.jGetArrayElement
 LoadClass: ubc.cs.JLog.Builtins.jSetArrayElement
 
+LoadClass: ubc.cs.JLog.Builtins.jRecorda
+LoadClass: ubc.cs.JLog.Builtins.jRecorded
+LoadClass: ubc.cs.JLog.Builtins.jErase
+
 # LoadClass: ubc.cs.JLog.Builtins.jAbs
 # LoadClass: ubc.cs.JLog.Builtins.jACos
 # LoadClass: ubc.cs.JLog.Builtins.jAdd
@@ -140,6 +144,9 @@ LoadClass: ubc.cs.JLog.Builtins.Goals.jNameGoal
 LoadClass: ubc.cs.JLog.Builtins.Goals.jOperatorGoal
 LoadClass: ubc.cs.JLog.Builtins.Goals.jOpGoal
 LoadClass: ubc.cs.JLog.Builtins.Goals.jReadGoal
+LoadClass: ubc.cs.JLog.Builtins.Goals.jRecordaGoal
+LoadClass: ubc.cs.JLog.Builtins.Goals.jRecordedGoal
+LoadClass: ubc.cs.JLog.Builtins.Goals.jEraseGoal
 LoadClass: ubc.cs.JLog.Builtins.Goals.jRepeatGoal
 LoadClass: ubc.cs.JLog.Builtins.Goals.jRetractGoal
 LoadClass: ubc.cs.JLog.Builtins.Goals.jSortGoal
@@ -174,6 +181,9 @@ RegisterGenericPredicateEntry: "assert" 1 ubc.cs.JLog.Builtins.jAssert
 RegisterGenericPredicateEntry: "asserta" 1 ubc.cs.JLog.Builtins.jAsserta 
 RegisterGenericPredicateEntry: "assertz" 1 ubc.cs.JLog.Builtins.jAssertz 
 RegisterGenericPredicateEntry: "retract" 1 ubc.cs.JLog.Builtins.jRetract 
+RegisterGenericPredicateEntry: "recorda" 3 ubc.cs.JLog.Builtins.jRecorda
+RegisterGenericPredicateEntry: "recorded" 3 ubc.cs.JLog.Builtins.jRecorded
+RegisterGenericPredicateEntry: "erase" 1 ubc.cs.JLog.Builtins.jErase
 RegisterGenericPredicateEntry: "op" 3 ubc.cs.JLog.Builtins.jOp 
 RegisterGenericPredicateEntry: "dynamic" 1 ubc.cs.JLog.Builtins.jDynamic 
 RegisterGenericPredicateEntry: "load_library" 1 ubc.cs.JLog.Builtins.jLoadLibrary 

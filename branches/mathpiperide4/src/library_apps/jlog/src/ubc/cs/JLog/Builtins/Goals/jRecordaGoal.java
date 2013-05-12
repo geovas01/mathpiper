@@ -4,8 +4,7 @@
     Created by Glendon Holst for Alan Mackworth and the 
     "Computational Intelligence: A Logical Approach" text.
     
-    Copyright 1998, 2000, 2002, 2008 by University of British Columbia, 
-    Alan Mackworth and Glendon Holst.
+    Copyright 2013 by Ted Kosan
     
     This notice must remain in all files which belong to, or are derived 
     from JLog.
@@ -43,100 +42,70 @@
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
  */
-//#########################################################################
-//	jGoalStack
-//#########################################################################
 
-package ubc.cs.JLog.Foundation;
+
+package ubc.cs.JLog.Builtins.Goals;
 
 import java.lang.*;
 import java.util.*;
+import ubc.cs.JLog.Terms.*;
+import ubc.cs.JLog.Foundation.*;
+import ubc.cs.JLog.Builtins.*;
 
-/**
- * <code>jGoalStack</code> is the default goal stack implementation. It is
- * efficient, with a super-efficient cut operation. The design purpose of this
- * class is purely efficiency.
- * 
- * @author Glendon Holst
- * @version %I%, %G%
- */
-public class jGoalStack implements iGoalStack {
-	protected jGoal head;
 
-	public jGoalStack() {
-		head = null;
-	};
-
-	public boolean empty() {
-		return head == null;
-	};
-
-	public jGoal pop() {
-		jGoal top;
-
-		if ((top = head) == null)
-			throw new EmptyStackException();
-
-		head = top.next;
-		return top;
-	};
-
-	public jGoal peek() {
-		if (head == null)
-			throw new EmptyStackException();
-
-		return head;
-	};
-
-	public jGoal peekn(int n) {
-		jGoal g = head;
-
-		for (g = head; g != null && n >= 0; n--) {
-			if (n == 0)
-				return g;
-
-			g = g.next;
-		}
-
-		throw new EmptyStackException();
-	};
-
-	public jGoal push(jGoal item) {
-		item.next = head;
-		head = item;
-
-		return item;
-	};
-
-	public jGoal cut(jGoal item) {
-		head = item;
-
-		return item;
-	};
+public class jRecordaGoal extends jGoal {
 	
-	
-	@Override
-	public String toString()
-	{
-		jGoal goalPointer = head;
-		
-		if(goalPointer == null)
-		
-		{
-			return("<empty>");
-		}
-		
-		
-		final StringBuilder builder = new StringBuilder();
-		
-		while(goalPointer != null)
-		{
-            builder.append(goalPointer.toString());
-            builder.append(", ");
-            
-            goalPointer = goalPointer.next;
-		}
+	protected jRecorda recorda;
 
-        return builder.toString();
-	}
+    public jTerm term1, term2, term3;
+
+    public jRecordaGoal(jRecorda jra, jTerm t1, jTerm t2,
+	    jTerm t3) {
+	recorda = jra;
+	term1 = t1;
+	term2 = t2;
+	term3 = t3;
+    };
+
+    public boolean prove(iGoalStack goals, iGoalStack proved) {
+    	Thread t;
+
+    	t = Thread.currentThread();
+
+    	if (t instanceof jPrologServiceThread) {
+    	    jPrologServiceThread pst = (jPrologServiceThread) t;
+			jPrologServices prolog = pst.getPrologServices();
+    	    
+
+    	    if (recorda.prove(this, prolog)) {
+    		    proved.push(this);
+    		    return true;
+    	    }
+    	}
+    	goals.push(this); // a retry that follows may need a node to remove or retry
+    	return false;
+    };
+
+    public boolean retry(iGoalStack goals, iGoalStack proved) {
+	goals.push(this); // a retry that follows may need a node to remove or retry
+	return false;
+    };
+
+    public String getName() {
+	return recorda.getName();
+    };
+
+    public int getArity() {
+	return recorda.getArity();
+    };
+
+    public String toString() {
+	StringBuffer sb = new StringBuffer();
+
+	sb.append(getName() + "/" + String.valueOf(getArity()) + " -> ");
+	sb.append(getName() + "(" + term1.toString() + ", " + term2.toString()
+		+ ", " + term3.toString() + ")");
+
+	return sb.toString();
+    };
 };

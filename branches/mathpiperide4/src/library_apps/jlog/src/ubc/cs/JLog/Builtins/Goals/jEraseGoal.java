@@ -4,8 +4,7 @@
     Created by Glendon Holst for Alan Mackworth and the 
     "Computational Intelligence: A Logical Approach" text.
     
-    Copyright 1998, 2000, 2002, 2008 by University of British Columbia, 
-    Alan Mackworth and Glendon Holst.
+    Copyright 2013 by Ted Kosan
     
     This notice must remain in all files which belong to, or are derived 
     from JLog.
@@ -43,100 +42,67 @@
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
  */
-//#########################################################################
-//	jGoalStack
-//#########################################################################
 
-package ubc.cs.JLog.Foundation;
+package ubc.cs.JLog.Builtins.Goals;
 
 import java.lang.*;
 import java.util.*;
+import ubc.cs.JLog.Foundation.*;
+import ubc.cs.JLog.Terms.*;
+import ubc.cs.JLog.Builtins.*;
 
-/**
- * <code>jGoalStack</code> is the default goal stack implementation. It is
- * efficient, with a super-efficient cut operation. The design purpose of this
- * class is purely efficiency.
- * 
- * @author Glendon Holst
- * @version %I%, %G%
- */
-public class jGoalStack implements iGoalStack {
-	protected jGoal head;
+public class jEraseGoal extends jGoal {
+    protected jErase erase;
 
-	public jGoalStack() {
-		head = null;
-	};
+    // for use by assert
+    public jTerm term;
+    public boolean addlast;
 
-	public boolean empty() {
-		return head == null;
-	};
+    public jEraseGoal(jErase a, jTerm t, boolean al) {
+	erase = a;
+	term = t;
+	addlast = al;
+    };
 
-	public jGoal pop() {
-		jGoal top;
+    public boolean prove(iGoalStack goals, iGoalStack proved) {
+	Thread t;
 
-		if ((top = head) == null)
-			throw new EmptyStackException();
+	t = Thread.currentThread();
 
-		head = top.next;
-		return top;
-	};
+	if (t instanceof jPrologServiceThread) {
+	    jPrologServiceThread pst = (jPrologServiceThread) t;
+	    jPrologServices prolog = pst.getPrologServices();
 
-	public jGoal peek() {
-		if (head == null)
-			throw new EmptyStackException();
-
-		return head;
-	};
-
-	public jGoal peekn(int n) {
-		jGoal g = head;
-
-		for (g = head; g != null && n >= 0; n--) {
-			if (n == 0)
-				return g;
-
-			g = g.next;
-		}
-
-		throw new EmptyStackException();
-	};
-
-	public jGoal push(jGoal item) {
-		item.next = head;
-		head = item;
-
-		return item;
-	};
-
-	public jGoal cut(jGoal item) {
-		head = item;
-
-		return item;
-	};
-	
-	
-	@Override
-	public String toString()
-	{
-		jGoal goalPointer = head;
-		
-		if(goalPointer == null)
-		
-		{
-			return("<empty>");
-		}
-		
-		
-		final StringBuilder builder = new StringBuilder();
-		
-		while(goalPointer != null)
-		{
-            builder.append(goalPointer.toString());
-            builder.append(", ");
-            
-            goalPointer = goalPointer.next;
-		}
-
-        return builder.toString();
+	    if (erase.prove(this, prolog)) {
+		proved.push(this);
+		return true;
+	    }
 	}
+	goals.push(this); // a retry that follows may need a node to remove or
+			  // retry
+	return false;
+    };
+
+    public boolean retry(iGoalStack goals, iGoalStack proved) {
+	goals.push(this); // a retry that follows may need a node to remove or
+			  // retry
+	return false;
+    };
+
+    public String getName() {
+	return erase.getName();
+    };
+
+    public int getArity() {
+	return erase.getArity();
+    };
+
+    public String toString() {
+	StringBuffer sb = new StringBuffer();
+
+	sb.append(getName() + "/" + String.valueOf(getArity()) + " -> ");
+	sb.append(getName() + "(" + term.toString() + ")");
+
+	return sb.toString();
+    };
 };
