@@ -426,9 +426,9 @@ public class gConsultPanel extends Panel {
     	try {
     		file = new BufferedReader(new FileReader("/home/tkosan/git/press/load.txt"));
     		String line;
-    		while ((line = file.readLine()) != null && (!line.trim().equals(""))) {
+    		while ((line = file.readLine()) != null ) {
     			
-    			if(line.startsWith("%"))
+    			if(line.startsWith("%") || line.trim().equals(""))
     			{
     				continue;
     			}

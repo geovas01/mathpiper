@@ -80,6 +80,7 @@ public class jPrologServices {
     protected pPredicateRegistry predicates;
     protected pOperatorRegistry operators;
     protected Random rand;
+    protected Map<String, jTerm> recordMap = new HashMap<String, jTerm>();
 
     protected jPrologServiceBroadcaster beginQuery, retryQuery, endQuery;
     protected jPrologServiceBroadcaster beginConsult, endConsult;
@@ -328,6 +329,11 @@ public class jPrologServices {
     public jKnowledgeBase getKnowledgeBase() {
 	return database;
     };
+    
+    public Map<String, jTerm> getRecordMap()
+    {
+    	return recordMap;
+    }
 
     public pPredicateRegistry getPredicateRegistry() {
 	return predicates;

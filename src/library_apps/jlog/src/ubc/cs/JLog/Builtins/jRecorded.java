@@ -4,8 +4,7 @@
     Created by Glendon Holst for Alan Mackworth and the 
     "Computational Intelligence: A Logical Approach" text.
     
-    Copyright 1998, 2000, 2002, 2008 by University of British Columbia, 
-    Alan Mackworth and Glendon Holst.
+    Copyright 2013 by Ted Kosan.
     
     This notice must remain in all files which belong to, or are derived 
     from JLog.
@@ -43,100 +42,78 @@
     http://http://www.mozilla.org/MPL/MPL-1.1.html
     URLs: <http://www.mozilla.org/MPL/>
  */
-//#########################################################################
-//	jGoalStack
-//#########################################################################
 
-package ubc.cs.JLog.Foundation;
 
-import java.lang.*;
+package ubc.cs.JLog.Builtins;
+
 import java.util.*;
+import ubc.cs.JLog.Terms.*;
+import ubc.cs.JLog.Foundation.*;
+import ubc.cs.JLog.Builtins.Goals.*;
 
-/**
- * <code>jGoalStack</code> is the default goal stack implementation. It is
- * efficient, with a super-efficient cut operation. The design purpose of this
- * class is purely efficiency.
- * 
- * @author Glendon Holst
- * @version %I%, %G%
+/*
+ * Todo:tk:this is an incomplete version of recorded. It does not yet support multiple rules for each key.
+ * See http://www.franz.com/support/documentation/9.0/doc/prolog.html.
  */
-public class jGoalStack implements iGoalStack {
-	protected jGoal head;
 
-	public jGoalStack() {
-		head = null;
+public class jRecorded extends jTrinaryBuiltinPredicate {
+
+	public jRecorded(jTerm t1, jTerm t2, jTerm t3) {
+		super(t1, t2, t3, TYPE_BUILTINPREDICATE);
 	};
 
-	public boolean empty() {
-		return head == null;
+	public String getName() {
+		return "recorded";
 	};
 
-	public jGoal pop() {
-		jGoal top;
+	public final boolean prove(jRecordedGoal jredg, jPrologServices prolog) {
+		jTerm t1, t2, t3;
 
-		if ((top = head) == null)
-			throw new EmptyStackException();
+		t1 = jredg.term1.getTerm();
+		t2 = jredg.term2.getTerm();
+		t3 = jredg.term3.getTerm();
 
-		head = top.next;
-		return top;
-	};
-
-	public jGoal peek() {
-		if (head == null)
-			throw new EmptyStackException();
-
-		return head;
-	};
-
-	public jGoal peekn(int n) {
-		jGoal g = head;
-
-		for (g = head; g != null && n >= 0; n--) {
-			if (n == 0)
-				return g;
-
-			g = g.next;
-		}
-
-		throw new EmptyStackException();
-	};
-
-	public jGoal push(jGoal item) {
-		item.next = head;
-		head = item;
-
-		return item;
-	};
-
-	public jGoal cut(jGoal item) {
-		head = item;
-
-		return item;
-	};
-	
-	
-	@Override
-	public String toString()
-	{
-		jGoal goalPointer = head;
+		Map<String, jTerm> recordMap = prolog.getRecordMap();
 		
-		if(goalPointer == null)
+		String name = t1.getName();
 		
+		int arity = 0;
+		
+		if(t1 instanceof jPredicate)
 		{
-			return("<empty>");
+			jPredicate predicate = (jPredicate) t1;
+			
+			arity = predicate.getArity();
 		}
 		
+		Object object = recordMap.get(name + "/" + arity);
 		
-		final StringBuilder builder = new StringBuilder();
-		
-		while(goalPointer != null)
+		if(object == null || !(object instanceof jTerm))
 		{
-            builder.append(goalPointer.toString());
-            builder.append(", ");
-            
-            goalPointer = goalPointer.next;
+			return false;
 		}
+		
+		jTerm valueTerm = (jTerm) object;
+		
+		valueTerm.unify(t2, new jUnifiedVector());
+		
+		t1.unify(t3,new jUnifiedVector());
+		
 
-        return builder.toString();
-	}
+	    return true;
+
+	};
+
+	public void addGoals(jGoal g, jVariable[] vars, iGoalStack goals) {
+		goals.push(new jRecordedGoal(this, term1.duplicate(vars), term2
+				.duplicate(vars), term3.duplicate(vars)));
+	};
+
+	public void addGoals(jGoal g, iGoalStack goals) {
+		goals.push(new jRecordedGoal(this, term1, term2, term3));
+	};
+
+	public jTrinaryBuiltinPredicate duplicate(jTerm t1, jTerm t2, jTerm t3) {
+		return new jRecorded(t1, t2, t3);
+	};
 };
