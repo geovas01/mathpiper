@@ -703,15 +703,21 @@ public class Utility {
 
 
 
-    public static String stripEndQuotesIfPresent(String aOriginal) throws Throwable {
-	//If there are not quotes on both ends of the string then return without any changes.
-	if (aOriginal.startsWith("\"") && aOriginal.endsWith("\"")) {
-	    aOriginal = aOriginal.substring(1, aOriginal.length());
-	    aOriginal = aOriginal.substring(0, aOriginal.length() - 1);
-	}//end if.
+	public static String stripEndQuotesIfPresent(String aOriginal) {
 
-	return aOriginal;
-    }//end method.
+		if (aOriginal == null) {
+			return null;
+		}
+
+		// If there are not quotes on both ends of the string then return
+		// without any changes.
+		if (aOriginal.startsWith("\"") && aOriginal.endsWith("\"")) {
+			aOriginal = aOriginal.substring(1, aOriginal.length());
+			aOriginal = aOriginal.substring(0, aOriginal.length() - 1);
+		}// end if.
+
+		return aOriginal;
+	}// end method.
 
 
 
