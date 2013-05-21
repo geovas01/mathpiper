@@ -24,7 +24,7 @@ import org.mathpiper.lisp.*;
 
 public class MathPiperTokenizer {
 
-    static String symbolics = "~'`!@#$^&*-=+:<>?/\\|⊕⊖⊗⊘";
+    static String symbolics = "~'`!@#$^&*-=+:<>?/\\|⊕⊖⊗⊘∪∩∁⊆⊈⊂⊄=≠∈∉";
     //static String unicodeVariableChars = "αβγ";
     String iToken; //Can be used as a token container.
 
