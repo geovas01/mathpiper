@@ -245,13 +245,13 @@ public class LispError {
             if (aStackTop == -1) {
                 throw new EvaluationException("Error encountered during initialization: " + errorString(errNo) + stackTrace,  aEnvironment.getCurrentInput().iStatus.getSourceName(), lineNumber, tokenStartIndex, tokenEndIndex);
             } else if (aStackTop == -2) {
-                throw new EvaluationException("Error: " + errorString(errNo) + stackTrace,  aEnvironment.getCurrentInput().iStatus.getSourceName(),  lineNumber, tokenStartIndex, tokenEndIndex);
+                throw new EvaluationException(errorString(errNo) + stackTrace,  aEnvironment.getCurrentInput().iStatus.getSourceName(),  lineNumber, tokenStartIndex, tokenEndIndex);
             } else {
                 Cons arguments = BuiltinFunction.getArgument(aEnvironment, aStackTop, 0);
                 if (arguments == null) {
-                    throw new EvaluationException("Error in compiled code." + stackTrace,  aEnvironment.getCurrentInput().iStatus.getSourceName(),  lineNumber, tokenStartIndex, tokenEndIndex);
+                    throw new EvaluationException(errorString(errNo) + " in compiled code." + stackTrace,  aEnvironment.getCurrentInput().iStatus.getSourceName(),  lineNumber, tokenStartIndex, tokenEndIndex);
                 } else {
-                    String error = "";
+                    String error = errorString(errNo) + " ";
                     error = error + showFunctionError(arguments, aEnvironment);
                     throw new EvaluationException(error + stackTrace, aEnvironment.getCurrentInput().iStatus.getSourceName(),  lineNumber, tokenStartIndex, tokenEndIndex);
                 }
