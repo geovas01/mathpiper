@@ -46,3 +46,16 @@ public class CustomEvalLocals extends BuiltinFunction
         throw new EvaluationException("Function not yet supported",aEnvironment.getCurrentInput().iStatus.getSourceName(), aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex());
     }
 }
+
+/*
+%mathpiper_docs,name="CustomEvalLocals",categories="Programming Functions;Native Objects;Built In"
+*CMD CustomEvalLocals --- Not yet implemented
+*CORE
+*CALL
+	CustomEvalLocals()
+
+*DESC
+Not yet implemented
+
+%/mathpiper_docs
+*/

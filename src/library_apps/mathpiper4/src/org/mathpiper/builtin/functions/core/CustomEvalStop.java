@@ -46,3 +46,16 @@ public class CustomEvalStop extends BuiltinFunction
         throw new EvaluationException("Function not yet supported",aEnvironment.getCurrentInput().iStatus.getSourceName(), aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex());
     }
 }
+
+/*
+%mathpiper_docs,name="CustomEvalStop",categories="Programming Functions;Native Objects;Built In"
+*CMD CustomEvalStop --- Not yet implemented
+*CORE
+*CALL
+	CustomEvalStop()
+
+*DESC
+Not yet implemented
+
+%/mathpiper_docs
+*/

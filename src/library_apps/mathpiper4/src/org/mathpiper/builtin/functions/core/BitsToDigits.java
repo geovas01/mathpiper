@@ -61,3 +61,16 @@ public class BitsToDigits extends BuiltinFunction
         setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
     }
 }
+
+/*
+%mathpiper_docs,name="BitstoDigits",categories="Programming Functions;Native Objects;Built In"
+*CMD BitstoDigits --- changes 2 small ints to digits
+*CORE
+*CALL
+	BitstoDigits(int1,int2)
+
+*DESC
+Takes two small ints and changes them into digits to be expressed in binary.
+
+%/mathpiper_docs
+*/

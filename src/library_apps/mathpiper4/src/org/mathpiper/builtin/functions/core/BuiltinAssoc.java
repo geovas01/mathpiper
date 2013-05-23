@@ -73,3 +73,17 @@ public class BuiltinAssoc extends BuiltinFunction
 
 }//end class.
 
+/*
+%mathpiper_docs,name="BuiltinAssoc",categories="Programming Functions;Native Objects;Built In"
+*CMD BuiltinAssoc --- Takes a key and argument and returns element at that key
+*CORE
+*CALL
+	BuiltinAssoc(key,argument)
+
+*DESC
+Takes a key and argument and returns the association or assigns the argument given to
+the associated key.
+
+
+%/mathpiper_docs
+*/
