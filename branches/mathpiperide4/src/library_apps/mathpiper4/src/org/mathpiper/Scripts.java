@@ -27,6 +27,11 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
+        scriptString[1] = "a_NonNegativeInteger? & b_NonNegativeInteger? <-- BitAnd(a,b);";
+        scriptMap.put("&",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
         scriptString[1] = "Function(\"ArgumentsCount\",[aLeft]) Length(FunctionToList(aLeft))-1;";
         scriptMap.put("ArgumentsCount",scriptString);
 
@@ -34,21 +39,6 @@ public class Scripts {
         scriptString[0] = null;
         scriptString[1] = "1 # Denominator(_x / _y) <-- y;1 # Denominator(-_x/ _y) <-- y;2 # Denominator(x_Number?) <-- 1;";
         scriptMap.put("Denominator",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "10 # NonObject?(Object(_x)) <-- False;20 # NonObject?(_x) <-- True;";
-        scriptMap.put("NonObject?",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "1 # Numerator(_x / _y) <-- x;1 # Numerator(-_x/ _y) <-- -x;2 # Numerator(x_Number?) <-- x;";
-        scriptMap.put("Numerator",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "a_NonNegativeInteger? & b_NonNegativeInteger? <-- BitAnd(a,b);";
-        scriptMap.put("&",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
@@ -64,6 +54,16 @@ public class Scripts {
         scriptString[0] = null;
         scriptString[1] = "Function(\"--\",[aVar]){ MacroAssign(aVar,SubtractN(Eval(aVar),1)); Eval(aVar);};UnFence(\"--\",1);HoldArgument(\"--\",aVar);";
         scriptMap.put("--",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
+        scriptString[1] = "10 # NonObject?(Object(_x)) <-- False;20 # NonObject?(_x) <-- True;";
+        scriptMap.put("NonObject?",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
+        scriptString[1] = "1 # Numerator(_x / _y) <-- x;1 # Numerator(-_x/ _y) <-- -x;2 # Numerator(x_Number?) <-- x;";
+        scriptMap.put("Numerator",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
@@ -231,13 +231,13 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "ComplexII?(_c) <-- (ImII(c) !=? 0);";
-        scriptMap.put("ComplexII?",scriptString);
+        scriptString[1] = "1 # Complex?(x_RationalOrNumber?) <-- True;2 # Complex?(Complex(_r,_i)) <-- True;3 # Complex?(_x) <-- False;";
+        scriptMap.put("Complex?",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "1 # Complex?(x_RationalOrNumber?) <-- True;2 # Complex?(Complex(_r,_i)) <-- True;3 # Complex?(_x) <-- False;";
-        scriptMap.put("Complex?",scriptString);
+        scriptString[1] = "ComplexII?(_c) <-- (ImII(c) !=? 0);";
+        scriptMap.put("ComplexII?",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
@@ -330,6 +330,11 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
+        scriptString[1] = "RulebaseHoldArguments(\":=\",[aLeftAssign, aRightAssign]);UnFence(\":=\", 2);HoldArgument(\":=\", aLeftAssign);HoldArgument(\":=\", aRightAssign);RuleHoldArguments(\":=\", 2, 0, Atom?(aLeftAssign)){ Check( Not? Number?(aLeftAssign), \"Argument\", \"Only a variable can be placed on the left side of an := operator.\" ); MacroAssign(aLeftAssign,Eval(aRightAssign)); Eval(aLeftAssign);};RuleHoldArguments(\":=\",2 , 0, List?(aLeftAssign)){ Map(\":=\",[aLeftAssign,Eval(aRightAssign)]);};RuleHoldArguments(\":=\", 2, 10, Function?(aLeftAssign) And? (First(FunctionToList(aLeftAssign)) =? Nth)){ Local(listOrAssociationList, indexOrKey, argumentsList); Assign(argumentsList, (FunctionToList(aLeftAssign))); Assign(argumentsList, Rest(argumentsList)); Assign(listOrAssociationList, Eval(First(argumentsList))); Assign(argumentsList, Rest(argumentsList)); Assign(indexOrKey, Eval(First(argumentsList))); AssignArray(listOrAssociationList, indexOrKey, Eval(aRightAssign));};RuleHoldArguments(\":=\", 2, 30, Function?(aLeftAssign) And? Not?(Equal?(aLeftAssign[0], ToAtom(\":=\"))) ){ Check( Not? Equal?(aLeftAssign[0], ToAtom(\"/\")), \"Argument\", \"Only a variable can be placed on the left side of an := operator.\" ); Local(oper,args,arity); Assign(oper,ToString(aLeftAssign[0])); Assign(args,Rest(FunctionToList(aLeftAssign))); Decide( And?(GreaterThan?(Length(args), 1), Equal?( MathNth(args, Length(args)), ToAtom(\"...\") )),  { DestructiveDelete(args, Length(args));  Assign(arity, Length(args)); Retract(oper, arity); RulebaseListedEvaluateArguments(oper, args); },  { Assign(arity, Length(args)); Retract(oper, arity); RulebaseEvaluateArguments(oper, args); } ); Unholdable(aRightAssign); RuleEvaluateArguments(oper, arity, 1025, True) aRightAssign;};";
+        scriptMap.put(":=",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
         scriptString[1] = "MacroRulebaseHoldArguments(\"Defun\",[func,args,body]);RuleHoldArguments(\"Defun\",3,0,True){ Local(nrargs); Assign(nrargs,Length(@args)); Retract(@func, `(@nrargs)); RulebaseHoldArguments(@func,@args); Local(fn,bd); Assign(fn,Hold(@func)); Assign(bd,Hold(@body)); `RuleHoldArguments(@fn, @nrargs, 0,True)(@bd);};";
         scriptMap.put("Defun",scriptString);
 
@@ -360,11 +365,6 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "RulebaseHoldArguments(\":=\",[aLeftAssign, aRightAssign]);UnFence(\":=\", 2);HoldArgument(\":=\", aLeftAssign);HoldArgument(\":=\", aRightAssign);RuleHoldArguments(\":=\", 2, 0, Atom?(aLeftAssign)){ Check( Not? Number?(aLeftAssign), \"Argument\", \"Only a variable can be placed on the left side of an := operator.\" ); MacroAssign(aLeftAssign,Eval(aRightAssign)); Eval(aLeftAssign);};RuleHoldArguments(\":=\",2 , 0, List?(aLeftAssign)){ Map(\":=\",[aLeftAssign,Eval(aRightAssign)]);};RuleHoldArguments(\":=\", 2, 10, Function?(aLeftAssign) And? (First(FunctionToList(aLeftAssign)) =? Nth)){ Local(listOrAssociationList, indexOrKey, argumentsList); Assign(argumentsList, (FunctionToList(aLeftAssign))); Assign(argumentsList, Rest(argumentsList)); Assign(listOrAssociationList, Eval(First(argumentsList))); Assign(argumentsList, Rest(argumentsList)); Assign(indexOrKey, Eval(First(argumentsList))); AssignArray(listOrAssociationList, indexOrKey, Eval(aRightAssign));};RuleHoldArguments(\":=\", 2, 30, Function?(aLeftAssign) And? Not?(Equal?(aLeftAssign[0], ToAtom(\":=\"))) ){ Check( Not? Equal?(aLeftAssign[0], ToAtom(\"/\")), \"Argument\", \"Only a variable can be placed on the left side of an := operator.\" ); Local(oper,args,arity); Assign(oper,ToString(aLeftAssign[0])); Assign(args,Rest(FunctionToList(aLeftAssign))); Decide( And?(GreaterThan?(Length(args), 1), Equal?( MathNth(args, Length(args)), ToAtom(\"...\") )),  { DestructiveDelete(args, Length(args));  Assign(arity, Length(args)); Retract(oper, arity); RulebaseListedEvaluateArguments(oper, args); },  { Assign(arity, Length(args)); Retract(oper, arity); RulebaseEvaluateArguments(oper, args); } ); Unholdable(aRightAssign); RuleEvaluateArguments(oper, arity, 1025, True) aRightAssign;};";
-        scriptMap.put(":=",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
         scriptString[1] = "EquationLeft(_symbolicEquation)_(Type(symbolicEquation) =? \"==\") <--{ Local(listForm);  listForm := FunctionToList(symbolicEquation);  listForm[2];};";
         scriptMap.put("EquationLeft",scriptString);
 
@@ -380,13 +380,6 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "LocalSymbols(NFunctionNumberize){NFunction(newname_String?, oldname_String?, arglist_List?) <-- { RulebaseEvaluateArguments(newname, arglist); RuleEvaluateArguments(newname, Length(arglist), 0,  ListToFunction([NumericList?, arglist]) )  NFunctionNumberize(ListToFunction([ToAtom(\"@\"), oldname, arglist])); };10 # NFunctionNumberize(x_Number?) <-- x;20 # NFunctionNumberize(x_Atom?) <-- Undefined;}; ";
-        scriptMap.put("NFunction",scriptString);
-        scriptMap.put("NFunctionNumberize",scriptString);
-        scriptMap.put("NFunctionNumberize",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
         scriptString[1] = "RulebaseHoldArguments(\"@\",[func,arg]);RuleHoldArguments(\"@\",2,1,List?(arg)) Apply(func,arg);RuleHoldArguments(\"@\",2,2,True ) Apply(func,[arg]);";
         scriptMap.put("@",scriptString);
 
@@ -394,6 +387,13 @@ public class Scripts {
         scriptString[0] = null;
         scriptString[1] = "10 # (countfrom_Integer? .. countto_Integer?)_(countfrom <=? countto) <-- BuildList(i,i,countfrom,countto,1);20 # (countfrom_Integer? .. countto_Integer?) <-- BuildList(i,i,countfrom,countto,-1);";
         scriptMap.put("..",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
+        scriptString[1] = "LocalSymbols(NFunctionNumberize){NFunction(newname_String?, oldname_String?, arglist_List?) <-- { RulebaseEvaluateArguments(newname, arglist); RuleEvaluateArguments(newname, Length(arglist), 0,  ListToFunction([NumericList?, arglist]) )  NFunctionNumberize(ListToFunction([ToAtom(\"@\"), oldname, arglist])); };10 # NFunctionNumberize(x_Number?) <-- x;20 # NFunctionNumberize(x_Atom?) <-- Undefined;}; ";
+        scriptMap.put("NFunction",scriptString);
+        scriptMap.put("NFunctionNumberize",scriptString);
+        scriptMap.put("NFunctionNumberize",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
@@ -475,21 +475,6 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "Transpose(matrix_List?)_(Length(Dimensions(matrix))>?1) <--{ Local(i,j,result); result:=ZeroMatrix(Length(matrix[1]),Length(matrix)); For(i:=1,i<=?Length(matrix),i++) For(j:=1,j<=?Length(matrix[1]),j++) result[j][i]:=matrix[i][j]; result;};";
-        scriptMap.put("Transpose",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "5 # ZeroMatrix(n_NonNegativeInteger?) <-- ZeroMatrix(n,n);10 # ZeroMatrix(n_NonNegativeInteger?,m_NonNegativeInteger?) <--{ Local(i,result); result:=[]; For(i:=1,i<=?n,i++) DestructiveInsert(result,i,ZeroVector(m)); result;};";
-        scriptMap.put("ZeroMatrix",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "Function(\"ZeroVector\",[n]){ Local(i,result); result:=[]; For(i:=1,i<=?n,i++) { DestructiveInsert(result,1,0); }; result;};";
-        scriptMap.put("ZeroVector",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
         scriptString[1] = "Function(\"MatrixColumn\",[matrix,col]){ Local(m); m:=matrix[1]; Check(col >? 0, \"Argument\", \"MatrixColumn: column index out of range\"); Check(col <=? Length(m), \"Argument\", \"MatrixColumn: column index out of range\"); Local(i,result); result:=[]; For(i:=1,i<=?Length(matrix),i++) DestructiveAppend(result,matrix[i][col]); result;};";
         scriptMap.put("MatrixColumn",scriptString);
 
@@ -527,6 +512,21 @@ public class Scripts {
         scriptString[0] = null;
         scriptString[1] = "MatrixRowSwap( M_Matrix?, iRow1_PositiveInteger?, iRow2_PositiveInteger? )_ (And?(iRow1<=?Dimensions(M)[1],iRow2<=?Dimensions(M)[1])) <--{ Decide( Not? Assigned?(iDebug), iDebug := False ); Decide( iDebug, Tell(MatrixRowSwap,[M,iRow1,iRow2]) ); Local(row1,row2); Decide( iRow1 !=? iRow2, { row1 := MatrixRow(M,iRow1); row2 := MatrixRow(M,iRow2); DestructiveReplace(M,iRow1,row2); DestructiveReplace(M,iRow2,row1); } ); M;};";
         scriptMap.put("MatrixRowSwap",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
+        scriptString[1] = "Transpose(matrix_List?)_(Length(Dimensions(matrix))>?1) <--{ Local(i,j,result); result:=ZeroMatrix(Length(matrix[1]),Length(matrix)); For(i:=1,i<=?Length(matrix),i++) For(j:=1,j<=?Length(matrix[1]),j++) result[j][i]:=matrix[i][j]; result;};";
+        scriptMap.put("Transpose",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
+        scriptString[1] = "5 # ZeroMatrix(n_NonNegativeInteger?) <-- ZeroMatrix(n,n);10 # ZeroMatrix(n_NonNegativeInteger?,m_NonNegativeInteger?) <--{ Local(i,result); result:=[]; For(i:=1,i<=?n,i++) DestructiveInsert(result,i,ZeroVector(m)); result;};";
+        scriptMap.put("ZeroMatrix",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
+        scriptString[1] = "Function(\"ZeroVector\",[n]){ Local(i,result); result:=[]; For(i:=1,i<=?n,i++) { DestructiveInsert(result,1,0); }; result;};";
+        scriptMap.put("ZeroVector",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
@@ -597,6 +597,12 @@ public class Scripts {
         scriptString[0] = null;
         scriptString[1] = "FuncListArith(expr) := FuncList(expr, [ToAtom(\"+\"), ToAtom(\"-\"), *, /]);HoldArgumentNumber(\"FuncListArith\", 1, 1);";
         scriptMap.put("FuncListArith",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
+        scriptString[1] = "LocalSymbols(GlobalStack, x){ GlobalStack := []; GlobalPop(x_Atom?) <-- { Check(Length(GlobalStack)>?0, \"Invariant\", \"GlobalPop: Error: empty GlobalStack\"); MacroAssign(x, PopFront(GlobalStack)); Eval(x); }; HoldArgumentNumber(\"GlobalPop\", 1, 1); GlobalPop() <-- { Check(Length(GlobalStack)>?0, \"Invariant\", \"GlobalPop: Error: empty GlobalStack\"); PopFront(GlobalStack); }; GlobalPush(_x) <-- { Push(GlobalStack, x); x; };};";
+        scriptMap.put("GlobalPush",scriptString);
+        scriptMap.put("GlobalPop",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
@@ -720,19 +726,8 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "LocalSymbols(GlobalStack, x){ GlobalStack := []; GlobalPop(x_Atom?) <-- { Check(Length(GlobalStack)>?0, \"Invariant\", \"GlobalPop: Error: empty GlobalStack\"); MacroAssign(x, PopFront(GlobalStack)); Eval(x); }; HoldArgumentNumber(\"GlobalPop\", 1, 1); GlobalPop() <-- { Check(Length(GlobalStack)>?0, \"Invariant\", \"GlobalPop: Error: empty GlobalStack\"); PopFront(GlobalStack); }; GlobalPush(_x) <-- { Push(GlobalStack, x); x; };};";
-        scriptMap.put("GlobalPush",scriptString);
-        scriptMap.put("GlobalPop",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
         scriptString[1] = "20 # (list_List? AddTo _rest) <--{ Local(res); res:=[]; ForEach(item,list) { res := Concat(res,item AddTo rest); }; res;};30 # (_aitem AddTo list_List?) <--{ MapSingle([[orig],aitem And? orig],list);};40 # (_aitem AddTo _b) <-- aitem And? b;";
         scriptMap.put("AddTo",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "RulebaseHoldArguments(\"Where\",[left,right]);UnFence(\"Where\",2);10 # (_body Where var_Atom? == _value) <-- `{ Local(@var);@var := @value;@body;};20 # (_body Where (_a And? _b)) <--{ Assign(body,`(@body Where @a)); `(@body Where @b);};30 # (_body Where []) <-- [];40 # (_body Where list_List?)_List?(list[1]) <-- { Local(head,rest); head:=First(list); rest:=Rest(list); rest:= `(@body Where @rest); `(@body Where @head) ~ rest; };50 # (_body Where list_List?) <-- { Local(head,rest); While (list !=? []) { head:=First(list); body := `(@body Where @head); list:=Rest(list); }; body; };60 # (_body Where _var == _value) <-- Substitute(var,value)body;";
-        scriptMap.put("Where",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
@@ -759,6 +754,11 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
+        scriptString[1] = "RulebaseHoldArguments(\"Where\",[left,right]);UnFence(\"Where\",2);10 # (_body Where var_Atom? == _value) <-- `{ Local(@var);@var := @value;@body;};20 # (_body Where (_a And? _b)) <--{ Assign(body,`(@body Where @a)); `(@body Where @b);};30 # (_body Where []) <-- [];40 # (_body Where list_List?)_List?(list[1]) <-- { Local(head,rest); head:=First(list); rest:=Rest(list); rest:= `(@body Where @rest); `(@body Where @head) ~ rest; };50 # (_body Where list_List?) <-- { Local(head,rest); While (list !=? []) { head:=First(list); body := `(@body Where @head); list:=Rest(list); }; body; };60 # (_body Where _var == _value) <-- Substitute(var,value)body;";
+        scriptMap.put("Where",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
         scriptString[1] = "10 # DisassembleExpression( _expr ) <--{ Local(vars); vars := MultiExpressionList( expr ); DisassembleExpression( expr, vars );};10 # DisassembleExpression( _expr, vars_List? ) <--{ Local(mexpr,func,termList,result,powers,coeffs); mexpr := MakeMultiNomial(expr,vars); func := Lambda([x,y],Decide(y!=?0,DestructiveAppend(termList,[x,y]))); termList := []; ScanMultiNomial(func,mexpr); result := Concat([vars],Transpose(termList));};";
         scriptMap.put("DisassembleExpression",scriptString);
 
@@ -775,19 +775,31 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
+        scriptString[1] = "MultiExpressionList(_expr) <-- VarList(expr,\"MultiExpression?\");10 # MultiExpression?(_x + _y) <-- False;10 # MultiExpression?(_x - _y) <-- False;10 # MultiExpression?( - _y) <-- False;10 # MultiExpression?(_x * _y) <-- False;10 # MultiExpression?(_x / _y) <-- False;10 # MultiExpression?(_x ^ y_PositiveInteger?) <-- False;11 # MultiExpression?(_x ^ _y)_(PositiveInteger?(Simplify(y))) <-- False;10 # MultiExpression?(x_MultiConstant?) <-- False;MultiConstant?(_n) <-- (VarList(n,\"IsVr\")=?[]);10 # IsVr(n_Number?) <-- False;10 # IsVr(n_Function?) <-- False;10 # IsVr(n_String?) <-- False;20 # IsVr(_n) <-- True;100 # MultiExpression?(_x) <-- True;10 # Multi?(MultiNomial(vars_List?,_terms)) <-- True;20 # Multi?(_anything) <-- False;LocalSymbols(a,vars,pow) { 20 # MultiSingleFactor(_vars,_a,_pow) <-- { Local(term); term:=[FillList(0,Length(vars)),1]; term[1][Find(vars,a)] := pow; CreateTerm(vars,term); };};LocalSymbols(x,y,vars) {10 # MakeMultiNomial(x_MultiConstant?,vars_List?) <-- CreateTerm(vars,[FillList(0,Length(vars)),x]);20 # MakeMultiNomial(_x,vars_List?)_(Contains?(vars,x)) <-- MultiSingleFactor(vars,x,1);30 # MakeMultiNomial(_x + _y,vars_List?) <-- MakeMultiNomial(x,vars) + MakeMultiNomial(y,vars);30 # MakeMultiNomial(_x * _y,vars_List?) <-- MakeMultiNomial(x,vars) * MakeMultiNomial(y,vars);30 # MakeMultiNomial(- _x,vars_List?) <-- -MakeMultiNomial(x,vars);30 # MakeMultiNomial(_x - _y,vars_List?) <-- MakeMultiNomial(x,vars) - MakeMultiNomial(y,vars);30 # MakeMultiNomial(MultiNomial(_vars,_terms),vars_List?) <-- MultiNomial(vars,terms);100 # MakeMultiNomial(_x,vars_List?) <-- { CreateTerm(vars,[FillList(0,Length(vars)),x]); };};LocalSymbols(x,y,z,vars,gcd,a,a) { 20 # MakeMultiNomial(_x / (_y / _z),vars_List?) <-- MakeMultiNomial((x*z) / y,vars_List?); 20 # MakeMultiNomial((_x / _y) / _z,vars_List?) <-- MakeMultiNomial((x*z) / y,vars_List?); 25 # MakeMultiNomial(_x / y_Constant?,vars_List?) <-- MakeMultiNomial(1/y,vars)*MakeMultiNomial(x,vars); 30 # MakeMultiNomial(_x / _y,vars_List?) <-- { Local(result); Assign(result,MultiRemoveGcd(MakeMultiNomial(x,vars)/MakeMultiNomial(y,vars))); result; }; };MultiNomial(_vars,_x) + MultiNomial(_vars,_y) <-- MultiNomialAdd(MultiNomial(vars,x), MultiNomial(vars,y));MultiNomial(_vars,_x) * MultiNomial(_vars,_y) <-- MultiNomialMultiply(MultiNomial(vars,x), MultiNomial(vars,y));MultiNomial(_vars,_x) - MultiNomial(_vars,_y) <-- MultiNomialAdd(MultiNomial(vars,x), MultiNomialNegate(MultiNomial(vars,y))); - MultiNomial(_vars,_y) <-- MultiNomialNegate(MultiNomial(vars,y));MultiNomial(_vars,_x) / MultiNomial(_vars,_x) <-- MakeMultiNomial(1, vars);LocalSymbols(x,n,vars) {30 # MakeMultiNomial(_x ^ n_Integer?,vars_List?)_(Contains?(vars,x)) <-- MultiSingleFactor(vars,x,n);40 # MakeMultiNomial(_x ^ n_PositiveInteger?,vars_List?) <-- { Local(mult,result); Assign(mult,MakeMultiNomial(x,vars)); Assign(result,MakeMultiNomial(1,vars)); While(n>?0) { Decide(n&1 !=? 0, Assign(result, MultiNomialMultiply(result,mult))); Assign(n,n>>1); Decide(n!=?0,Assign(mult,MultiNomialMultiply(mult,mult))); }; result; }; 15 # MakeMultiNomial(_x ^ _n,vars_List?)_(Not?(Integer?(n)) And? Integer?(Simplify(n))) <-- MakeMultiNomial( x ^ Simplify(n),vars); 50 # MakeMultiNomial(_x ^ (_n),vars_List?)_(Contains?(vars,x)) <-- { Assign(n,Simplify(n)); Decide(Integer?(n), MultiSingleFactor(vars,x,n), MultiSingleFactor(vars,x^n,1) ); };};x_Multi? + (y_Multi?/z_Multi?) <-- ((x*z+y)/z);(y_Multi?/z_Multi?) + x_Multi? <-- ((x*z+y)/z);(y_Multi?/z_Multi?) + (x_Multi?/w_Multi?) <-- ((y*w+x*z)/(z*w));(y_Multi?/z_Multi?) - (x_Multi?/w_Multi?) <-- ((y*w-x*z)/(z*w));(y_Multi?/z_Multi?) * (x_Multi?/w_Multi?) <-- ((y*x)/(z*w));(y_Multi?/z_Multi?) / (x_Multi?/w_Multi?) <-- ((y*w)/(z*x));x_Multi? - (y_Multi?/z_Multi?) <-- ((x*z-y)/z);(y_Multi?/z_Multi?) - x_Multi? <-- ((y-x*z)/z);(a_Multi?/(c_Multi?/b_Multi?)) <-- ((a*b)/c);((a_Multi?/c_Multi?)/b_Multi?) <-- (a/(b*c));((a_Multi?/b_Multi?) * c_Multi?) <-- ((a*c)/b);(a_Multi? * (c_Multi?/b_Multi?)) <-- ((a*c)/b);- ((a_Multi?)/(b_Multi?)) <-- (-a)/b;MultiNomialMultiply( MultiNomial(_vars,_terms1)/MultiNomial(_vars,_terms2), MultiNomial(_vars,_terms3)/MultiNomial(_vars,_terms4)) <--{ MultiNomialMultiply(MultiNomial(vars,terms1),MultiNomial(vars,terms3))/ MultiNomialMultiply(MultiNomial(vars,terms2),MultiNomial(vars,terms4));};MultiNomialMultiply( MultiNomial(_vars,_terms1)/MultiNomial(_vars,_terms2), MultiNomial(_vars,_terms3)) <--{ MultiNomialMultiply(MultiNomial(vars,terms1),MultiNomial(vars,terms3))/ MultiNomial(vars,terms2);};MultiNomialMultiply( MultiNomial(_vars,_terms3), MultiNomial(_vars,_terms1)/MultiNomial(_vars,_terms2)) <--{ MultiNomialMultiply(MultiNomial(vars,terms1),MultiNomial(vars,terms3))/ MultiNomial(vars,terms2);};10 # MultiNomialMultiply(_a,_b) <--{ Echo([\"ERROR!\",a,b]); Echo([\"ERROR!\",Type(a),Type(b)]);};";
+        scriptMap.put("MakeMultiNomial",scriptString);
+        scriptMap.put("MultiExpressionList",scriptString);
+        scriptMap.put("MultiExpression?",scriptString);
+        scriptMap.put("MultiConstant?",scriptString);
+        scriptMap.put("IsVr",scriptString);
+        scriptMap.put("MultiSingleFactor",scriptString);
+        scriptMap.put("Multi?",scriptString);
+        scriptMap.put("MultiNomialMultiply",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
         scriptString[1] = "MM(_expr) <-- MM(expr,MultiExpressionList(expr));MM(_expr,_vars) <-- MakeMultiNomial(expr,vars);";
         scriptMap.put("MM",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
+        scriptString[1] = "20 # MultiDivide(_f,g_List?) <--{ Decide(InVerboseMode(),Tell(\"MultiDivide_1\",[f,g])); Local(i,v,q,r,nr); v := MultiExpressionList(f+Sum(g)); f := MakeMultiNomial(f,v); nr := Length(g); For(i:=1,i<=?nr,i++) { g[i] := MakeMultiNomial(g[i],v); }; Decide(Not? Multi?(f),Break()); [q,r] := MultiDivide(f,g); q := MapSingle(\"NormalForm\",q); r := NormalForm(r); [q,r];};10 # MultiDivide(f_Multi?,g_List?) <--{ Decide(InVerboseMode(),Tell(\"MultiDivide_2\",[f,g])); Local(i,nr,q,r,p,v,finished); nr := Length(g); v := MultiVars(f); q := FillList(0,nr); r := 0; p := f; finished := MultiZero(p); Local(plt,glt); While (Not? finished) { plt := MultiLT(p);  For(i:=1,i<=?nr,i++) { glt := MultiLT(g[i]); If(MultiLM(glt) =? MultiLM(plt) Or? MultiTermLess([MultiLM(glt),1], [MultiLM(plt),1])) {  If(Select(MultiLM(plt)-MultiLM(glt),[[n],n<?0]) =? [] ) { Local(ff,ltbefore,ltafter); ff := CreateTerm(v,[MultiLM(plt)-MultiLM(glt),MultiLC(plt)/MultiLC(glt)]); Decide(InVerboseMode(),Tell(\" \",NormalForm(ff))); q[i] := q[i] + ff; ltbefore := MultiLeadingTerm(p); p := p - ff*g[i]; ltafter := MultiLeadingTerm(p); If(ltbefore[1] =? ltafter[1]) { ltafter := MultiLT(p); p := p-ltafter; }; i := nr + 2; }; }; }; Decide(i =? nr + 1, { r := r + LocalSymbols(a,b)(Substitute(a,b)plt); p := p - LocalSymbols(a,b)(Substitute(a,b)plt); } ); finished := MultiZero(p); }; [q,r];};";
+        scriptMap.put("MultiDivide",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
         scriptString[1] = "MultiDivTerm(MultiNomial(_vars,_term1),MultiNomial(_vars,_term2)) <--{ Local(lm1,lm2); Assign(lm1,MultiLeadingTerm(MultiNomial(vars,term1)) ); Assign(lm2,MultiLeadingTerm(MultiNomial(vars,term2)) ); CreateTerm(vars,[lm1[1]-lm2[1],lm1[2] / lm2[2]]);};MultiS(_g,_h,MultiNomial(_vars,_terms)) <--{ Local(gamma); gamma :=Maximum(MultiDegree(g),MultiDegree(h)); Local(result,topterm); topterm := MM(Product(vars^gamma)); result := MultiDivTerm(topterm,MultiLT(g))*g - MultiDivTerm(topterm,MultiLT(h))*h; result;};";
         scriptMap.put("MultiDivTerm",scriptString);
         scriptMap.put("MultiS",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "20 # MultiDivide(_f,g_List?) <--{ Decide(InVerboseMode(),Tell(\"MultiDivide_1\",[f,g])); Local(i,v,q,r,nr); v := MultiExpressionList(f+Sum(g)); f := MakeMultiNomial(f,v); nr := Length(g); For(i:=1,i<=?nr,i++) { g[i] := MakeMultiNomial(g[i],v); }; Decide(Not? Multi?(f),Break()); [q,r] := MultiDivide(f,g); q := MapSingle(\"NormalForm\",q); r := NormalForm(r); [q,r];};10 # MultiDivide(f_Multi?,g_List?) <--{ Decide(InVerboseMode(),Tell(\"MultiDivide_2\",[f,g])); Local(i,nr,q,r,p,v,finished); nr := Length(g); v := MultiVars(f); q := FillList(0,nr); r := 0; p := f; finished := MultiZero(p); Local(plt,glt); While (Not? finished) { plt := MultiLT(p);  For(i:=1,i<=?nr,i++) { glt := MultiLT(g[i]); If(MultiLM(glt) =? MultiLM(plt) Or? MultiTermLess([MultiLM(glt),1], [MultiLM(plt),1])) {  If(Select(MultiLM(plt)-MultiLM(glt),[[n],n<?0]) =? [] ) { Local(ff,ltbefore,ltafter); ff := CreateTerm(v,[MultiLM(plt)-MultiLM(glt),MultiLC(plt)/MultiLC(glt)]); Decide(InVerboseMode(),Tell(\" \",NormalForm(ff))); q[i] := q[i] + ff; ltbefore := MultiLeadingTerm(p); p := p - ff*g[i]; ltafter := MultiLeadingTerm(p); If(ltbefore[1] =? ltafter[1]) { ltafter := MultiLT(p); p := p-ltafter; }; i := nr + 2; }; }; }; Decide(i =? nr + 1, { r := r + LocalSymbols(a,b)(Substitute(a,b)plt); p := p - LocalSymbols(a,b)(Substitute(a,b)plt); } ); finished := MultiZero(p); }; [q,r];};";
-        scriptMap.put("MultiDivide",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
@@ -824,18 +836,6 @@ public class Scripts {
         scriptString[0] = null;
         scriptString[1] = "10 # ReassembleListTerms( disassembly_List? ) <--{ Local(vars,lst,powers,coeffs,ii,pows,coef,term); vars := disassembly[1]; powers := disassembly[2]; coeffs := disassembly[3]; lst := []; For(ii:=1,ii<=?Length(powers),ii++) { pows := powers[ii]; coef := coeffs[ii];  term := coef*Product(vars^pows);  DestructiveAppend(lst,term); }; lst;};";
         scriptMap.put("ReassembleListTerms",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "MultiExpressionList(_expr) <-- VarList(expr,\"MultiExpression?\");10 # MultiExpression?(_x + _y) <-- False;10 # MultiExpression?(_x - _y) <-- False;10 # MultiExpression?( - _y) <-- False;10 # MultiExpression?(_x * _y) <-- False;10 # MultiExpression?(_x / _y) <-- False;10 # MultiExpression?(_x ^ y_PositiveInteger?) <-- False;11 # MultiExpression?(_x ^ _y)_(PositiveInteger?(Simplify(y))) <-- False;10 # MultiExpression?(x_MultiConstant?) <-- False;MultiConstant?(_n) <-- (VarList(n,\"IsVr\")=?[]);10 # IsVr(n_Number?) <-- False;10 # IsVr(n_Function?) <-- False;10 # IsVr(n_String?) <-- False;20 # IsVr(_n) <-- True;100 # MultiExpression?(_x) <-- True;10 # Multi?(MultiNomial(vars_List?,_terms)) <-- True;20 # Multi?(_anything) <-- False;LocalSymbols(a,vars,pow) { 20 # MultiSingleFactor(_vars,_a,_pow) <-- { Local(term); term:=[FillList(0,Length(vars)),1]; term[1][Find(vars,a)] := pow; CreateTerm(vars,term); };};LocalSymbols(x,y,vars) {10 # MakeMultiNomial(x_MultiConstant?,vars_List?) <-- CreateTerm(vars,[FillList(0,Length(vars)),x]);20 # MakeMultiNomial(_x,vars_List?)_(Contains?(vars,x)) <-- MultiSingleFactor(vars,x,1);30 # MakeMultiNomial(_x + _y,vars_List?) <-- MakeMultiNomial(x,vars) + MakeMultiNomial(y,vars);30 # MakeMultiNomial(_x * _y,vars_List?) <-- MakeMultiNomial(x,vars) * MakeMultiNomial(y,vars);30 # MakeMultiNomial(- _x,vars_List?) <-- -MakeMultiNomial(x,vars);30 # MakeMultiNomial(_x - _y,vars_List?) <-- MakeMultiNomial(x,vars) - MakeMultiNomial(y,vars);30 # MakeMultiNomial(MultiNomial(_vars,_terms),vars_List?) <-- MultiNomial(vars,terms);100 # MakeMultiNomial(_x,vars_List?) <-- { CreateTerm(vars,[FillList(0,Length(vars)),x]); };};LocalSymbols(x,y,z,vars,gcd,a,a) { 20 # MakeMultiNomial(_x / (_y / _z),vars_List?) <-- MakeMultiNomial((x*z) / y,vars_List?); 20 # MakeMultiNomial((_x / _y) / _z,vars_List?) <-- MakeMultiNomial((x*z) / y,vars_List?); 25 # MakeMultiNomial(_x / y_Constant?,vars_List?) <-- MakeMultiNomial(1/y,vars)*MakeMultiNomial(x,vars); 30 # MakeMultiNomial(_x / _y,vars_List?) <-- { Local(result); Assign(result,MultiRemoveGcd(MakeMultiNomial(x,vars)/MakeMultiNomial(y,vars))); result; }; };MultiNomial(_vars,_x) + MultiNomial(_vars,_y) <-- MultiNomialAdd(MultiNomial(vars,x), MultiNomial(vars,y));MultiNomial(_vars,_x) * MultiNomial(_vars,_y) <-- MultiNomialMultiply(MultiNomial(vars,x), MultiNomial(vars,y));MultiNomial(_vars,_x) - MultiNomial(_vars,_y) <-- MultiNomialAdd(MultiNomial(vars,x), MultiNomialNegate(MultiNomial(vars,y))); - MultiNomial(_vars,_y) <-- MultiNomialNegate(MultiNomial(vars,y));MultiNomial(_vars,_x) / MultiNomial(_vars,_x) <-- MakeMultiNomial(1, vars);LocalSymbols(x,n,vars) {30 # MakeMultiNomial(_x ^ n_Integer?,vars_List?)_(Contains?(vars,x)) <-- MultiSingleFactor(vars,x,n);40 # MakeMultiNomial(_x ^ n_PositiveInteger?,vars_List?) <-- { Local(mult,result); Assign(mult,MakeMultiNomial(x,vars)); Assign(result,MakeMultiNomial(1,vars)); While(n>?0) { Decide(n&1 !=? 0, Assign(result, MultiNomialMultiply(result,mult))); Assign(n,n>>1); Decide(n!=?0,Assign(mult,MultiNomialMultiply(mult,mult))); }; result; }; 15 # MakeMultiNomial(_x ^ _n,vars_List?)_(Not?(Integer?(n)) And? Integer?(Simplify(n))) <-- MakeMultiNomial( x ^ Simplify(n),vars); 50 # MakeMultiNomial(_x ^ (_n),vars_List?)_(Contains?(vars,x)) <-- { Assign(n,Simplify(n)); Decide(Integer?(n), MultiSingleFactor(vars,x,n), MultiSingleFactor(vars,x^n,1) ); };};x_Multi? + (y_Multi?/z_Multi?) <-- ((x*z+y)/z);(y_Multi?/z_Multi?) + x_Multi? <-- ((x*z+y)/z);(y_Multi?/z_Multi?) + (x_Multi?/w_Multi?) <-- ((y*w+x*z)/(z*w));(y_Multi?/z_Multi?) - (x_Multi?/w_Multi?) <-- ((y*w-x*z)/(z*w));(y_Multi?/z_Multi?) * (x_Multi?/w_Multi?) <-- ((y*x)/(z*w));(y_Multi?/z_Multi?) / (x_Multi?/w_Multi?) <-- ((y*w)/(z*x));x_Multi? - (y_Multi?/z_Multi?) <-- ((x*z-y)/z);(y_Multi?/z_Multi?) - x_Multi? <-- ((y-x*z)/z);(a_Multi?/(c_Multi?/b_Multi?)) <-- ((a*b)/c);((a_Multi?/c_Multi?)/b_Multi?) <-- (a/(b*c));((a_Multi?/b_Multi?) * c_Multi?) <-- ((a*c)/b);(a_Multi? * (c_Multi?/b_Multi?)) <-- ((a*c)/b);- ((a_Multi?)/(b_Multi?)) <-- (-a)/b;MultiNomialMultiply( MultiNomial(_vars,_terms1)/MultiNomial(_vars,_terms2), MultiNomial(_vars,_terms3)/MultiNomial(_vars,_terms4)) <--{ MultiNomialMultiply(MultiNomial(vars,terms1),MultiNomial(vars,terms3))/ MultiNomialMultiply(MultiNomial(vars,terms2),MultiNomial(vars,terms4));};MultiNomialMultiply( MultiNomial(_vars,_terms1)/MultiNomial(_vars,_terms2), MultiNomial(_vars,_terms3)) <--{ MultiNomialMultiply(MultiNomial(vars,terms1),MultiNomial(vars,terms3))/ MultiNomial(vars,terms2);};MultiNomialMultiply( MultiNomial(_vars,_terms3), MultiNomial(_vars,_terms1)/MultiNomial(_vars,_terms2)) <--{ MultiNomialMultiply(MultiNomial(vars,terms1),MultiNomial(vars,terms3))/ MultiNomial(vars,terms2);};10 # MultiNomialMultiply(_a,_b) <--{ Echo([\"ERROR!\",a,b]); Echo([\"ERROR!\",Type(a),Type(b)]);};";
-        scriptMap.put("MakeMultiNomial",scriptString);
-        scriptMap.put("MultiExpressionList",scriptString);
-        scriptMap.put("MultiExpression?",scriptString);
-        scriptMap.put("MultiConstant?",scriptString);
-        scriptMap.put("IsVr",scriptString);
-        scriptMap.put("MultiSingleFactor",scriptString);
-        scriptMap.put("Multi?",scriptString);
-        scriptMap.put("MultiNomialMultiply",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
@@ -956,6 +956,16 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
+        scriptString[1] = "10 # GaussianGcd(n_GaussianInteger?,m_GaussianInteger?) <--{ Decide(NM(Abs(m))=?0,n, GaussianGcd(m,n - m*Round(n/m) ) );};";
+        scriptMap.put("GaussianGcd",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
+        scriptString[1] = "5 # GaussianInteger?(x_List?) <-- False;10 # GaussianInteger?(x_Complex?) <-- (Integer?(Re(x)) And? Integer?(Im(x)));15 # GaussianInteger?(_x) <-- False;";
+        scriptMap.put("GaussianInteger?",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
         scriptString[1] = "10 # IntLog(_x, _base) _ (base<=?1) <-- Undefined;20 # IntLog(_x, _base) <--{ Local(result, step, oldstep, factor, oldfactor); result := 0; oldstep := step := 1; oldfactor := factor := base;  While (x >=? factor) { oldfactor := factor; factor := factor*factor; oldstep := step; step := step*2; }; Decide(x >=? base, { step := oldstep; result := step; x := Quotient(x, oldfactor); }, step := 0 );  While (step >? 0 And? x !=? 1) { step := Quotient(step,2);  factor := base^step; Decide( x >=? factor, { x:=Quotient(x, factor); result := result + step; } ); }; result;};";
         scriptMap.put("IntLog",scriptString);
 
@@ -981,13 +991,13 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "10 # PrimePower?(n_Prime?) <-- True;10 # PrimePower?(0) <-- False;10 # PrimePower?(1) <-- False;20 # PrimePower?(n_PositiveInteger?) <-- (GetPrimePower(n)[2] >? 1);";
-        scriptMap.put("PrimePower?",scriptString);
+        scriptString[1] = "2 # Prime?(_n)_(Not? Integer?(n) Or? n<=?1) <-- False;3 # Prime?(n_Integer?)_(n<=?FastIsPrime(0)) <-- SmallPrime?(n);5 # Prime?(n_PositiveInteger?)_(n >? 4 And? Modulo(n^2-1,24)!=?0) <-- False;10 # Prime?(n_PositiveInteger?) <-- RabinMiller(n);";
+        scriptMap.put("Prime?",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "2 # Prime?(_n)_(Not? Integer?(n) Or? n<=?1) <-- False;3 # Prime?(n_Integer?)_(n<=?FastIsPrime(0)) <-- SmallPrime?(n);5 # Prime?(n_PositiveInteger?)_(n >? 4 And? Modulo(n^2-1,24)!=?0) <-- False;10 # Prime?(n_PositiveInteger?) <-- RabinMiller(n);";
-        scriptMap.put("Prime?",scriptString);
+        scriptString[1] = "10 # PrimePower?(n_Prime?) <-- True;10 # PrimePower?(0) <-- False;10 # PrimePower?(1) <-- False;20 # PrimePower?(n_PositiveInteger?) <-- (GetPrimePower(n)[2] >? 1);";
+        scriptMap.put("PrimePower?",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
@@ -1026,24 +1036,9 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "10 # GaussianGcd(n_GaussianInteger?,m_GaussianInteger?) <--{ Decide(NM(Abs(m))=?0,n, GaussianGcd(m,n - m*Round(n/m) ) );};";
-        scriptMap.put("GaussianGcd",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "5 # GaussianInteger?(x_List?) <-- False;10 # GaussianInteger?(x_Complex?) <-- (Integer?(Re(x)) And? Integer?(Im(x)));15 # GaussianInteger?(_x) <-- False;";
-        scriptMap.put("GaussianInteger?",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
         scriptString[1] = "RulebaseHoldArguments(\"_\",[a]);RulebaseHoldArguments(\"_\",[a,b]);RulebaseHoldArguments(\"DefinePattern\",[leftOperand, rightOperand, rulePrecedence, postPredicate]);RuleHoldArguments(\"DefinePattern\",4,9,Equal?(Type(leftOperand),\"_\")){ DefinePattern(leftOperand[1], rightOperand, rulePrecedence, leftOperand[2]);};RuleHoldArguments(\"DefinePattern\",4,10,True){ Local(patternFlat,patternVariables, pattern, patternOperator, arg, arity);  Assign(patternFlat, FunctionToList(leftOperand));   Assign(patternVariables, Rest(patternFlat));   Assign(patternOperator,ToString(First(patternFlat)));   Assign(arity,Length(patternVariables));      Decide(Not?(RulebaseDefined(patternOperator,arity)), { RulebaseEvaluateArguments(patternOperator,MakeVector(arg,arity)); } );  Assign(pattern,PatternCreate(patternVariables,postPredicate));  RulePatternEvaluateArguments(patternOperator,arity,rulePrecedence, pattern)rightOperand;  True;};";
         scriptMap.put("DefinePattern",scriptString);
         scriptMap.put("_",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "RulebaseHoldArguments(\"MakeVector\",[vec,dimension]);RuleHoldArguments(\"MakeVector\",2,1,True){ Local(res,i); res:=[]; i:=1; Assign(dimension,AddN(dimension,1)); While(LessThan?(i,dimension)) { DestructiveInsert(res,1,ToAtom(ConcatStrings(ToString(vec),ToString(i)))); Assign(i,AddN(i,1)); }; DestructiveReverse(res);};";
-        scriptMap.put("MakeVector",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
@@ -1052,18 +1047,8 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "OptionsListToHash(list) :={ Local(item, result); result := []; ForEach(item, list) Decide( Function?(item) And? (Type(item) =? \":\" ) And? Atom?(item[1]), result[ToString(item[1])] := Decide( Atom?(item[2]) And? Not? Number?(item[2]) And? Not? String?(item[2]), ToString(item[2]), item[2] ), Echo([\"OptionsListToHash: Error: item \", item, \" is not of the format a: b.\"]) );  result;};HoldArgumentNumber(\"OptionsListToHash\", 1, 1);";
-        scriptMap.put("OptionsListToHash",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "10 # RemoveRepeated([]) <-- [];10 # RemoveRepeated([_x]) <-- [x];20 # RemoveRepeated(list_List?) <-- { Local(i, done); done := False; For(i:=0, Not? done, i++) { While(i<?Length(list) And? list[i]=?list[i+1]) DestructiveDelete(list, i); Decide(i=?Length(list), done := True); }; list;};";
-        scriptMap.put("RemoveRepeated",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "WriteDataItem(tuple_List?, _optionshash) <--{ Local(item); Decide(  NumericList?(tuple), ForEach(item,tuple) { Write(item); Space(); } ); NewLine();};";
-        scriptMap.put("WriteDataItem",scriptString);
+        scriptString[1] = "RulebaseHoldArguments(\"MakeVector\",[vec,dimension]);RuleHoldArguments(\"MakeVector\",2,1,True){ Local(res,i); res:=[]; i:=1; Assign(dimension,AddN(dimension,1)); While(LessThan?(i,dimension)) { DestructiveInsert(res,1,ToAtom(ConcatStrings(ToString(vec),ToString(i)))); Assign(i,AddN(i,1)); }; DestructiveReverse(res);};";
+        scriptMap.put("MakeVector",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
@@ -1097,8 +1082,23 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
+        scriptString[1] = "OptionsListToHash(list) :={ Local(item, result); result := []; ForEach(item, list) Decide( Function?(item) And? (Type(item) =? \":\" ) And? Atom?(item[1]), result[ToString(item[1])] := Decide( Atom?(item[2]) And? Not? Number?(item[2]) And? Not? String?(item[2]), ToString(item[2]), item[2] ), Echo([\"OptionsListToHash: Error: item \", item, \" is not of the format a: b.\"]) );  result;};HoldArgumentNumber(\"OptionsListToHash\", 1, 1);";
+        scriptMap.put("OptionsListToHash",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
+        scriptString[1] = "10 # RemoveRepeated([]) <-- [];10 # RemoveRepeated([_x]) <-- [x];20 # RemoveRepeated(list_List?) <-- { Local(i, done); done := False; For(i:=0, Not? done, i++) { While(i<?Length(list) And? list[i]=?list[i+1]) DestructiveDelete(list, i); Decide(i=?Length(list), done := True); }; list;};";
+        scriptMap.put("RemoveRepeated",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
         scriptString[1] = "signchange(x,y,z) :=Decide( Number?(x) And? Number?(y) And? Number?(z) And? Not? ( x>?y And? y<?z Or?   x<?y And? y>?z ), 0, 1); ";
         scriptMap.put("signchange",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
+        scriptString[1] = "WriteDataItem(tuple_List?, _optionshash) <--{ Local(item); Decide(  NumericList?(tuple), ForEach(item,tuple) { Write(item); Space(); } ); NewLine();};";
+        scriptMap.put("WriteDataItem",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
@@ -1107,13 +1107,13 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "0 # BooleanType?(True) <-- True;0 # BooleanType?(False) <-- True;1 # BooleanType?(_anythingElse) <-- False;";
-        scriptMap.put("BooleanType?",scriptString);
+        scriptString[1] = "Function (\"Boolean?\", [x]) (x=?True) Or? (x=?False) Or? Function?(x) And? Contains?([\"=?\", \">?\", \"<?\", \">=?\", \"<=?\", \"!=?\", \"And?\", \"Not?\", \"Or?\", \"Implies?\", \"Equivales?\"], Type(x));";
+        scriptMap.put("Boolean?",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "Function (\"Boolean?\", [x]) (x=?True) Or? (x=?False) Or? Function?(x) And? Contains?([\"=?\", \">?\", \"<?\", \">=?\", \"<=?\", \"!=?\", \"And?\", \"Not?\", \"Or?\", \"Implies?\", \"Equivales?\"], Type(x));";
-        scriptMap.put("Boolean?",scriptString);
+        scriptString[1] = "0 # BooleanType?(True) <-- True;0 # BooleanType?(False) <-- True;1 # BooleanType?(_anythingElse) <-- False;";
+        scriptMap.put("BooleanType?",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
@@ -1127,18 +1127,23 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "EvenFunction?(f,x):= (f =? Eval(Substitute(x,-x)f));";
-        scriptMap.put("EvenFunction?",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
         scriptString[1] = "Even?(n) := Integer?(n) And? ( BitAnd(n,1) =? 0 );";
         scriptMap.put("Even?",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
+        scriptString[1] = "EvenFunction?(f,x):= (f =? Eval(Substitute(x,-x)f));";
+        scriptMap.put("EvenFunction?",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
         scriptString[1] = "FloatIsInt?(_x) <-- { x:=NM(Eval(x)); Local(prec,result,n); Assign(prec,BuiltinPrecisionGet()); Decide(Zero?(x),Assign(n,2), Decide(x>?0, Assign(n,2+FloorN(NM(FastLog(x)/FastLog(10)))), Assign(n,2+FloorN(NM(FastLog(-x)/FastLog(10)))) )); BuiltinPrecisionSet(n+prec); Assign(result,Zero?(RoundTo(x-Floor(x),prec)) Or? Zero?(RoundTo(x-Ceil(x),prec))); BuiltinPrecisionSet(prec); result; };";
         scriptMap.put("FloatIsInt?",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
+        scriptString[1] = "10 # HasExpression?(_expr, _atom) _ Equal?(expr, atom) <-- True;15 # HasExpression?(expr_Atom?, _atom) <-- Equal?(expr, atom);19 # HasExpression?([], _atom) <-- False;20 # HasExpression?(expr_List?, _atom) <-- HasExpression?(First(expr), atom) Or? HasExpression?(Rest(expr), atom);30 # HasExpression?(expr_Function?, _atom) <-- HasExpression?(Rest(FunctionToList(expr)), atom);";
+        scriptMap.put("HasExpression?",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
@@ -1152,8 +1157,8 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "10 # HasExpression?(_expr, _atom) _ Equal?(expr, atom) <-- True;15 # HasExpression?(expr_Atom?, _atom) <-- Equal?(expr, atom);19 # HasExpression?([], _atom) <-- False;20 # HasExpression?(expr_List?, _atom) <-- HasExpression?(First(expr), atom) Or? HasExpression?(Rest(expr), atom);30 # HasExpression?(expr_Function?, _atom) <-- HasExpression?(Rest(FunctionToList(expr)), atom);";
-        scriptMap.put("HasExpression?",scriptString);
+        scriptString[1] = "10 # HasFunction?(_expr, string_String?) <-- HasFunction?(expr, ToAtom(string));10 # HasFunction?(expr_Atom?, atom_Atom?) <-- False;20 # HasFunction?(expr_Function?, atom_Atom?) <-- Equal?(First(FunctionToList(expr)), atom) Or? ListHasFunction?(Rest(FunctionToList(expr)), atom);";
+        scriptMap.put("HasFunction?",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
@@ -1167,13 +1172,13 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "10 # HasFunction?(_expr, string_String?) <-- HasFunction?(expr, ToAtom(string));10 # HasFunction?(expr_Atom?, atom_Atom?) <-- False;20 # HasFunction?(expr_Function?, atom_Atom?) <-- Equal?(First(FunctionToList(expr)), atom) Or? ListHasFunction?(Rest(FunctionToList(expr)), atom);";
-        scriptMap.put("HasFunction?",scriptString);
+        scriptString[1] = "10 # Infinity?(Infinity) <-- True;10 # Infinity?(-(_x)) <-- Infinity?(x);11 # Infinity?(Sign(_x)*y_Infinity?) <-- True;60000 # Infinity?(_x) <-- False;";
+        scriptMap.put("Infinity?",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "10 # Infinity?(Infinity) <-- True;10 # Infinity?(-(_x)) <-- Infinity?(x);11 # Infinity?(Sign(_x)*y_Infinity?) <-- True;60000 # Infinity?(_x) <-- False;";
-        scriptMap.put("Infinity?",scriptString);
+        scriptString[1] = "19 # ListHasFunction?([], _atom) <-- False;20 # ListHasFunction?(expr_List?, atom_Atom?) <-- HasFunction?(First(expr), atom) Or? ListHasFunction?(Rest(expr), atom);";
+        scriptMap.put("ListHasFunction?",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
@@ -1182,8 +1187,11 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "19 # ListHasFunction?([], _atom) <-- False;20 # ListHasFunction?(expr_List?, atom_Atom?) <-- HasFunction?(First(expr), atom) Or? ListHasFunction?(Rest(expr), atom);";
-        scriptMap.put("ListHasFunction?",scriptString);
+        scriptString[1] = "LocalSymbols(p,x){Function(\"Scalar?\",[x]) Not?(List?(x));Function(\"Vector?\",[x]) Decide(List?(x), Length(Select(x, List?))=?0, False);Function(\"Vector?\",[p,x]){ Decide(List?(x), { Local(i,n,result); n:=Length(x); i:=1; result:=True; While(i<=?n And? result) { result:=Apply(p,[x[i]]); i++; }; result; }, False);};Function(\"Matrix?\",[x])Decide(List?(x) And? Length(x)>?0,{ Local(n); n:=Length(x); Decide(Length(Select(x, Vector?))=?n, MapSingle(Length,x)=?Length(x[1])+ZeroVector(n), False);},False);Function(\"Matrix?\",[p,x])Decide(Matrix?(x),{ Local(i,j,m,n,result); m:=Length(x); n:=Length(x[1]); i:=1; result:=True; While(i<=?m And? result) { j:=1; While(j<=?n And? result) { result:=Apply(p,[x[i][j]]); j++; }; i++; }; result;},False);Function(\"SquareMatrix?\",[x]) Matrix?(x) And? Length(x)=?Length(x[1]);Function(\"SquareMatrix?\",[p,x]) Matrix?(p,x) And? Length(x)=?Length(x[1]);}; ";
+        scriptMap.put("Scalar?",scriptString);
+        scriptMap.put("Matrix?",scriptString);
+        scriptMap.put("Vector?",scriptString);
+        scriptMap.put("SquareMatrix?",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
@@ -1208,6 +1216,11 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
+        scriptString[1] = "10 # NoneSatisfy?(pred_String?,lst_List?) <-- Not? Apply(\"Or?\",(MapSingle(pred,lst)));20 # NoneSatisfy?(_pred,_lst) <-- True;";
+        scriptMap.put("NoneSatisfy?",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
         scriptString[1] = "NonNegativeInteger?(x):= Integer?(x) And? x >=? 0;";
         scriptMap.put("NonNegativeInteger?",scriptString);
 
@@ -1223,11 +1236,6 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "10 # NoneSatisfy?(pred_String?,lst_List?) <-- Not? Apply(\"Or?\",(MapSingle(pred,lst)));20 # NoneSatisfy?(_pred,_lst) <-- True;";
-        scriptMap.put("NoneSatisfy?",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
         scriptString[1] = "10 # NotZero?(x_Number?) <-- ( AbsN(x) >=? PowerN(10, -BuiltinPrecisionGet()));10 # NotZero?(x_Infinity?) <-- True;60000 # NotZero?(_x) <-- False;";
         scriptMap.put("NotZero?",scriptString);
 
@@ -1238,13 +1246,13 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "OddFunction?(f,x):= (f =? Eval(-Substitute(x,-x)f));";
-        scriptMap.put("OddFunction?",scriptString);
+        scriptString[1] = "Odd?(n) := Integer?(n) And? ( BitAnd(n,1) =? 1 );";
+        scriptMap.put("Odd?",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "Odd?(n) := Integer?(n) And? ( BitAnd(n,1) =? 1 );";
-        scriptMap.put("Odd?",scriptString);
+        scriptString[1] = "OddFunction?(f,x):= (f =? Eval(-Substitute(x,-x)f));";
+        scriptMap.put("OddFunction?",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
@@ -1253,13 +1261,13 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "10 # PolynomialOverIntegers?(expr_Function?) <-- { Local(x,vars); vars := VarList(expr); Decide(Length(vars)>?1,vars:=HeapSort(vars,\"GreaterThan?\"));  x := vars[1]; PolynomialOverIntegers?(expr,x);};15 # PolynomialOverIntegers?(_expr) <-- False;10 # PolynomialOverIntegers?(_expr,_var)_(CanBeUni(var,expr)) <--{ Decide( AllSatisfy?(\"Integer?\",Coef(expr,var,0 .. Degree(expr,var))), True, False );};15 # PolynomialOverIntegers?(_expr,_var) <-- False;";
-        scriptMap.put("PolynomialOverIntegers?",scriptString);
+        scriptString[1] = "10 # Polynomial?( expr_String? ) <-- False;15 # Polynomial?( expr_Constant? ) <-- True; 20 # Polynomial?(_expr) <-- { Local(x,vars); vars := VarList(expr); Decide(Length(vars)>?1,vars:=HeapSort(vars,\"GreaterThan?\"));  x := vars[1]; Polynomial?(expr,x);};25 # Polynomial?(_expr) <-- False;10 # Polynomial?(_expr,_var)_(CanBeUni(var,expr)) <-- True;15 # Polynomial?(_expr,_var) <-- False;";
+        scriptMap.put("Polynomial?",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "10 # Polynomial?( expr_String? ) <-- False;15 # Polynomial?( expr_Constant? ) <-- True; 20 # Polynomial?(_expr) <-- { Local(x,vars); vars := VarList(expr); Decide(Length(vars)>?1,vars:=HeapSort(vars,\"GreaterThan?\"));  x := vars[1]; Polynomial?(expr,x);};25 # Polynomial?(_expr) <-- False;10 # Polynomial?(_expr,_var)_(CanBeUni(var,expr)) <-- True;15 # Polynomial?(_expr,_var) <-- False;";
-        scriptMap.put("Polynomial?",scriptString);
+        scriptString[1] = "10 # PolynomialOverIntegers?(expr_Function?) <-- { Local(x,vars); vars := VarList(expr); Decide(Length(vars)>?1,vars:=HeapSort(vars,\"GreaterThan?\"));  x := vars[1]; PolynomialOverIntegers?(expr,x);};15 # PolynomialOverIntegers?(_expr) <-- False;10 # PolynomialOverIntegers?(_expr,_var)_(CanBeUni(var,expr)) <--{ Decide( AllSatisfy?(\"Integer?\",Coef(expr,var,0 .. Degree(expr,var))), True, False );};15 # PolynomialOverIntegers?(_expr,_var) <-- False;";
+        scriptMap.put("PolynomialOverIntegers?",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
@@ -1278,6 +1286,11 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
+        scriptString[1] = "10 # Rational?(x_Integer?) <-- True;10 # Rational?(x_Integer? / y_Integer?) <-- True;10 # Rational?(-(x_Integer? / y_Integer?)) <-- True;60000 # Rational?(_x) <-- False;";
+        scriptMap.put("Rational?",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
         scriptString[1] = "10 # RationalFunction?(_expr)_(Length(VarList(expr))=?0) <-- False;15 # RationalFunction?(_expr) <-- RationalFunction?(expr,VarList(expr));10 # RationalFunction?(expr_RationalOrNumber?,_var) <-- False;15 # RationalFunction?(_expr,var_Atom?)_(Type(expr)=?\"/\" Or? Type(-expr)=?\"/\") <--{ Decide(Polynomial?(Numerator(expr),var) And? Polynomial?(Denominator(expr),var), Contains?(VarList(Denominator(expr)),var), False );};20 # RationalFunction?(_expr,vars_List?)_(Type(expr)=?\"/\" Or? Type(-expr)=?\"/\") <--{ Decide(Polynomial?(Numerator(expr),vars) And? Polynomial?(Denominator(expr),vars), Intersection(vars, VarList(expr)) !=? [], False );};60000 # RationalFunction?(_expr,_var) <-- False;";
         scriptMap.put("RationalFunction?",scriptString);
 
@@ -1285,11 +1298,6 @@ public class Scripts {
         scriptString[0] = null;
         scriptString[1] = "10 # RationalOrNumber?(x_Number?) <-- True;10 # RationalOrNumber?(x_Number? / y_Number?) <-- True;10 # RationalOrNumber?(-(x_Number? / y_Number?)) <-- True;60000 # RationalOrNumber?(_x) <-- False;";
         scriptMap.put("RationalOrNumber?",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "10 # Rational?(x_Integer?) <-- True;10 # Rational?(x_Integer? / y_Integer?) <-- True;10 # Rational?(-(x_Integer? / y_Integer?)) <-- True;60000 # Rational?(_x) <-- False;";
-        scriptMap.put("Rational?",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
@@ -1303,21 +1311,13 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "Function(\"ZeroVector?\",[aList]) aList =? ZeroVector(Length(aList));";
-        scriptMap.put("ZeroVector?",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
         scriptString[1] = "10 # Zero?(x_Number?) <-- ( MathSign(x) =? 0 Or? AbsN(x) <? PowerN(10, -BuiltinPrecisionGet()));60000 # Zero?(_x) <-- False;20 # Zero?(UniVariate(_var,_first,_coefs)) <-- ZeroVector?(coefs);";
         scriptMap.put("Zero?",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "LocalSymbols(p,x){Function(\"Scalar?\",[x]) Not?(List?(x));Function(\"Vector?\",[x]) Decide(List?(x), Length(Select(x, List?))=?0, False);Function(\"Vector?\",[p,x]){ Decide(List?(x), { Local(i,n,result); n:=Length(x); i:=1; result:=True; While(i<=?n And? result) { result:=Apply(p,[x[i]]); i++; }; result; }, False);};Function(\"Matrix?\",[x])Decide(List?(x) And? Length(x)>?0,{ Local(n); n:=Length(x); Decide(Length(Select(x, Vector?))=?n, MapSingle(Length,x)=?Length(x[1])+ZeroVector(n), False);},False);Function(\"Matrix?\",[p,x])Decide(Matrix?(x),{ Local(i,j,m,n,result); m:=Length(x); n:=Length(x[1]); i:=1; result:=True; While(i<=?m And? result) { j:=1; While(j<=?n And? result) { result:=Apply(p,[x[i][j]]); j++; }; i++; }; result;},False);Function(\"SquareMatrix?\",[x]) Matrix?(x) And? Length(x)=?Length(x[1]);Function(\"SquareMatrix?\",[p,x]) Matrix?(p,x) And? Length(x)=?Length(x[1]);}; ";
-        scriptMap.put("Scalar?",scriptString);
-        scriptMap.put("Matrix?",scriptString);
-        scriptMap.put("Vector?",scriptString);
-        scriptMap.put("SquareMatrix?",scriptString);
+        scriptString[1] = "Function(\"ZeroVector?\",[aList]) aList =? ZeroVector(Length(aList));";
+        scriptMap.put("ZeroVector?",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
@@ -1482,7 +1482,7 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = " Retract(\"+$\", *); Retract(\"-$\", *); Retract(\"/$\", *); Retract(\"*$\", *); Retract(\"^$\", *);  Infix(\"+$\",70); Infix(\"-$\",70); RightPrecedenceSet(\"-$\",40); Infix(\"/$\",30); Infix(\"*$\",40); Infix(\"^$\",20); LeftPrecedenceSet(\"^$\",19);  RightAssociativeSet(\"^$\"); Prefix(\"+$\",50); Prefix(\"-$\",50); RightPrecedenceSet(\"-$\",40);   RulebaseEvaluateArguments(\"+$\",[lhs, rhs]); RulebaseEvaluateArguments(\"-$\",[lhs, rhs]); RulebaseEvaluateArguments(\"/$\",[lhs, rhs]); RulebaseEvaluateArguments(\"*$\",[lhs, rhs]); RulebaseEvaluateArguments(\"^$\",[lhs, rhs]); RulebaseEvaluateArguments(\"+$\",[operand]); RulebaseEvaluateArguments(\"-$\",[operand]); Position(subTerm, term) :={ Local(positionList);  Check(Function?(term), \"Argument\", \"The argument must be an expression that contains a function.\");  positionList := PositionHelper(subTerm, term,[False]);  positionList := Rest(positionList);  Rest(Reverse(positionList));};PositionHelper(subTerm, term, list) :={  Local(argPosition); If(Atom?(term) And? (subTerm =? term)) { list[1] := True;  list; } Else If(Atom?(term) ) { list; } Else { argPosition := Length(term);  While(argPosition >? 0) {  list := PositionHelper(subTerm, term[argPosition], list);  Decide(list[1] =? True, {list := Append(list, argPosition);argPosition := -1;});  argPosition--; };  list; };};Occurrence(expression, variable) :={ Check(Function?(expression), \"Argument\", \"The argument must be an expression that contains a function.\"); Count(VarListAll(expression), variable);};SingleOccurrence?(expression, variable) :={ Occurrence(expression, variable) =? 1;};Retract(\"SolveEquation\",*);RulebaseListedHoldArguments(\"SolveEquation\",[equation, variable, optionsList]);5 # SolveEquation(_equation, _variable) <-- SolveEquation(equation, variable, []);10 # SolveEquation(_equation, _variable, optionsList_List?) <--{ Local(options, path, steps);  options := OptionsToAssociativeList(optionsList);  Check(Occurrence(equation, variable) >? 0, \"Argument\", \"The variable \" ~ ToString(variable) ~ \" does not occur in the equation.\");  Check(Occurrence(equation, variable) =? 1, \"Argument\", \"Equations with multiple occurrences of the unknown are not currently supported.\");  equation := AddDollarSigns(equation);  steps := Isolate(variable, equation);};20 # SolveEquation(_equation, _variable, _singleOption) <-- SolveEquation(equation, variable, [singleOption]);Isolate(variable, equation) :={ Local(result, rest, currentEquation, path, showTree); result := [];  path := Position(variable, equation);  DestructiveAppend(result, [equation,\"Equation\", \"The original equation.\", variable]);  rest := [equation]; ForEach(pathNumber, path) { currentEquation := First(rest);  rest := Isolax(pathNumber, currentEquation);  DestructiveAppend(result, rest); };  result;};Retract(\"StepsView\",*);RulebaseListedHoldArguments(\"StepsView\",[steps, optionsList]);5 # StepsView(_steps) <-- StepsView(steps, []);10 # StepsView(_steps, optionsList_List?) <--{ Local(result, currentEquation, options, message, treeScale, latexScale);  result := [];  options := OptionsToAssociativeList(optionsList);  If(Number?(options[\"Scale\"])) { treeScale := options[\"Scale\"]; } Else { treeScale := 1.5; };  latexScale := treeScale * 17;  message := \"\\\\footnotesize \\\\mbox{The dominant operator on the left side of an equation is the\\\\\\\\operator that has the lowest precedence. This is always the top \\\\\\\\operator on the left branch of the equation's expression tree.\\\\\\\\\\\\vspace{.75in}The expression tree of an equation that has only one occurrence\\\\\\\\of the variable to be isolated can be solved using the following\\\\\\\\procedure:\\\\\\\\\\\\vspace{.75in}1) Identify the operator that is at the top of the left branch of the\\\\\\\\\\\\hspace{.5in}tree (it is circled in red in the trees below).\\\\\\\\\\\\vspace{.75in}2) Identify the operand of this operator that does not contain the\\\\\\\\\\\\hspace{.75in}variable to be isolated.\\\\\\\\\\\\vspace{.75in}3) Remove the top operator (along with the operand from step 2)\\\\\\\\\\\\hspace{.5in}from the left branch of the tree, and add the inverse of\\\\\\\\\\\\hspace{.5in}this operator (along with the operand from step 2) to\\\\\\\\\\\\hspace{.5in}the top of the right branch of the tree.\\\\\\\\\\\\vspace{.75in}}\";  DestructiveAppend(result, LatexView(message, Scale: latexScale));   message := \"\\\\text{Solve}\\\\ \" ~ ToString(ToAtom(ListToString(Remove(StringToList(UnparseLatex(TagLeftBranchDominantFunction(RemoveDollarSigns(steps[1][1])))),\"$\"))) ) ~ \"\\\\ \\\\text{for}\\\\ \" ~ ToString(steps[1][4]) ~ \".\"; DestructiveAppend(result, LatexView(message, Scale: latexScale));   Decide(options[\"ShowTree\"] =? True, DestructiveAppend(result, TreeView(TagLeftBranchDominantFunction(RemoveDollarSigns(steps[1][1])), Scale: treeScale, Resizable: False, IncludeExpression: False)));   steps := Rest(steps);  ForEach(rest, steps) {  If(Not? List?(rest[1])) { result := Compose(result, rest[1], rest[3], rest[4], Length(rest) =? 4, options[\"ShowTree\"], treeScale, latexScale); } Else { result := Compose(result, rest[1][1], rest[3][1], rest[4][1], Length(rest) =? 4, options[\"ShowTree\"], treeScale, latexScale);  result := Compose(result, rest[1][2], rest[3][2], rest[4][2], Length(rest) =? 4, options[\"ShowTree\"], treeScale, latexScale); };  };  result;};20 # StepsView(_steps, _singleOption) <-- StepsView(steps, [singleOption]);Compose(result, newExpression, explanation, beforeSimplification, lengthFour?, showTree?, treeScale, latexScale) :={ DestructiveAppend(result, LatexView(\" \\\\vspace{.75in}\", Scale: latexScale)); DestructiveAppend(result, LatexView(ToLatex(explanation),Scale: latexScale));  If(lengthFour?) { DestructiveAppend(result, LatexView(\" \\\\vspace{.10in}\", Scale: latexScale)); DestructiveAppend(result, LatexView(TexFormNoDollarSigns(beforeSimplification),Scale: latexScale)); };  DestructiveAppend(result, LatexView(\" \\\\vspace{.10in}\", Scale: latexScale));   DestructiveAppend(result, LatexView(ToAtom(ListToString(Remove(StringToList(UnparseLatex(TagLeftBranchDominantFunction(RemoveDollarSigns(newExpression)))),\"$\"))), Scale: latexScale ));    Decide(showTree? =? True, DestructiveAppend(result, TreeView(TagLeftBranchDominantFunction(RemoveDollarSigns(newExpression)), Scale: treeScale, Resizable: False, IncludeExpression: False)));  result; };TagLeftBranchDominantFunction(expression) :={ If(Function?(expression) And? Function?(Cdr(Car(expression)))) { MetaSet(Car(Cdr(Car(expression))),\"op\",True); };  expression;};RemoveDollarSigns(equation) :={ equation := Substitute(ToAtom(\"+$\"),ToAtom(\"+\")) equation; equation := Substitute(ToAtom(\"-$\"),ToAtom(\"-\")) equation; equation := Substitute(ToAtom(\"*$\"),ToAtom(\"*\")) equation; equation := Substitute(ToAtom(\"/$\"),ToAtom(\"/\")) equation; equation := Substitute(ToAtom(\"^$\"),ToAtom(\"^\")) equation;};AddDollarSigns(equation) :={ equation := Substitute(ToAtom(\"+\"),ToAtom(\"+$\")) equation; equation := Substitute(ToAtom(\"-\"),ToAtom(\"-$\")) equation; equation := Substitute(ToAtom(\"*\"),ToAtom(\"*$\")) equation; equation := Substitute(ToAtom(\"/\"),ToAtom(\"/$\")) equation; equation := Substitute(ToAtom(\"^\"),ToAtom(\"^$\")) equation;};TexFormNoDollarSigns(equation) := { ToAtom(ListToString(Remove(StringToList(UnparseLatex(RemoveDollarSigns(equation))),\"$\")));};ToLatex(string) :={ Local(oldList, newList);  oldList := StringToList(string);  oldList := Remove(oldList, \"$\");  newList := []; ForEach(character, oldList) { DestructiveAppend(newList, Decide(character =? \" \", \"\\\\ \", character)); };  ListToString(newList);};Isolax(side, equation) :={ side :: equation /: [  1 :: -$ _lhs == _rhs <- [lhs == -$ rhs, \"UnaryMinus\", \"\\\\text{Multiply both sides by }\" ~ ToString(-1) ~ \"\\\\text{:}\", -1 *$ -$ lhs == rhs *$ -1],  1 :: _term1 +$ _term2 == _rhs <- [term1 == rhs -$ term2, \"Addition1\", \"\\\\text{Subtract }\" ~ ToString(term2) ~ \"\\\\text{ from both sides:}\", -$ term2 +$ term1 +$ term2 == rhs -$ term2], 2 :: _term1 +$ _term2 == _rhs <- [term2 == rhs -$ term1, \"Addition2\", \"\\\\text{Subtract }\" ~ ToString(term1) ~ \"\\\\text{ from both sides:}\", -$ term1 +$ term1 +$ term2 == rhs -$ term1],  1 :: _term1 -$ _term2 == _rhs <- [term1 == rhs +$ term2, \"Subtraction1\", \"\\\\text{Add }\" ~ ToString(term2) ~ \"\\\\text{ to both sides:}\", term2 +$ term1 -$ term2 == rhs +$ term2], 2 :: _term1 -$ _term2 == _rhs <- [term2 == term1 -$ rhs, \"Subtraction2\", \"\\\\text{Add }\" ~ ToString(term1) ~ \"\\\\text{ to both sides:}\", term1 +$ term1 -$ term2 == rhs +$ term1],  1 :: _term1 *$ _term2 == _rhs <- [term1 == rhs /$ term2, \"Multiplication1\", \"\\\\text{Divide both sides by }\" ~ ToString(term2) ~ \"\\\\text{:}\", (term1 *$ term2) /$ term2 == rhs /$ term2], 2 :: _term1 *$ _term2 == _rhs <- [term2 == rhs /$ term1, \"Multiplication2\", \"\\\\text{Divide both sides by }\" ~ ToString(term1) ~ \"\\\\text{:}\", (term1 *$ term2) /$ term1 == rhs /$ term1],  1 :: _term1 /$ _term2 == _rhs <- [term1 == rhs *$ term2, \"Division1\", \"\\\\text{Multiply both sides by }\" ~ ToString(term2) ~ \"\\\\text{:}\", term2 *$ (term1 /$ term2) == rhs *$ term2], 2 :: _term1 /$ _term2 == _rhs <- [[rhs *$ term2 == term1, term2 == term1 /$ rhs], \"Division2\", [\"\\\\text{Multiply both sides by }\" ~ ToString(term2) ~ \"\\\\text{ and exchange sides:}\", \"\\\\text{Divide both sides by }\" ~ ToString(TexFormNoDollarSigns(rhs)) ~ \"\\\\text{:}\"], [(term1 /$ term2) *$ term2 == rhs *$ term2, (rhs *$ term2) /$ rhs == term1 /$ rhs]],      1 :: _term1 ^$ _term2 == _rhs <- [term1 == rhs^$(1/$term2), \"Exponentiation1b\", \"\\\\text{Take root }\" ~ ToString(term2) ~ \"\\\\text{ of both sides:}\", (term1 ^$ term2)^$(1/term2) == rhs^$(1/$ term2)],   ]; };";
+        scriptString[1] = " Retract(\"+$\", *); Retract(\"-$\", *); Retract(\"/$\", *); Retract(\"*$\", *); Retract(\"^$\", *);  Infix(\"+$\",70); Infix(\"-$\",70); RightPrecedenceSet(\"-$\",40); Infix(\"/$\",30); Infix(\"*$\",40); Infix(\"^$\",20); LeftPrecedenceSet(\"^$\",19);  RightAssociativeSet(\"^$\"); Prefix(\"+$\",50); Prefix(\"-$\",50); RightPrecedenceSet(\"-$\",40);   RulebaseEvaluateArguments(\"+$\",[lhs, rhs]); RulebaseEvaluateArguments(\"-$\",[lhs, rhs]); RulebaseEvaluateArguments(\"/$\",[lhs, rhs]); RulebaseEvaluateArguments(\"*$\",[lhs, rhs]); RulebaseEvaluateArguments(\"^$\",[lhs, rhs]); RulebaseEvaluateArguments(\"+$\",[operand]); RulebaseEvaluateArguments(\"-$\",[operand]); Position(subTerm, term) :={ Local(positionList);  Check(Function?(term), \"Argument\", \"The argument must be an expression that contains a function.\");  positionList := PositionHelper(subTerm, term,[False]);  positionList := Rest(positionList);  Rest(Reverse(positionList));};PositionHelper(subTerm, term, list) :={  Local(argPosition); If(Atom?(term) And? (subTerm =? term)) { list[1] := True;  list; } Else If(Atom?(term) ) { list; } Else { argPosition := Length(term);  While(argPosition >? 0) {  list := PositionHelper(subTerm, term[argPosition], list);  Decide(list[1] =? True, {list := Append(list, argPosition);argPosition := -1;});  argPosition--; };  list; };};Occurrence(expression, variable) :={ Check(Function?(expression), \"Argument\", \"The argument must be an expression that contains a function.\"); Count(VarListAll(expression), variable);};SingleOccurrence?(expression, variable) :={ Occurrence(expression, variable) =? 1;};Retract(\"SolveEquation\",*);RulebaseListedHoldArguments(\"SolveEquation\",[equation, variable, optionsList]);5 # SolveEquation(_equation, _variable) <-- SolveEquation(equation, variable, []);10 # SolveEquation(_equation, _variable, optionsList_List?) <--{ Local(options, path, steps);  options := OptionsToAssociativeList(optionsList);  Check(Occurrence(equation, variable) >? 0, \"Argument\", \"The variable \" ~ ToString(variable) ~ \" does not occur in the equation.\");  Check(Occurrence(equation, variable) =? 1, \"Argument\", \"Equations with multiple occurrences of the unknown are not currently supported.\");  equation := AddDollarSigns(equation);  steps := Isolate(variable, equation);};20 # SolveEquation(_equation, _variable, _singleOption) <-- SolveEquation(equation, variable, [singleOption]);Isolate(variable, equation) :={ Local(result, rest, currentEquation, path, showTree); result := [];  path := Position(variable, equation);  DestructiveAppend(result, [equation,\"Equation\", \"The original equation.\", variable]);  rest := [equation]; ForEach(pathNumber, path) { currentEquation := First(rest);  rest := Isolax(pathNumber, currentEquation);  DestructiveAppend(result, rest); };  result;};Retract(\"StepsView\",*);RulebaseListedHoldArguments(\"StepsView\",[steps, optionsList]);5 # StepsView(_steps) <-- StepsView(steps, []);10 # StepsView(_steps, optionsList_List?) <--{ Local(result, currentEquation, options, message, treeScale, latexScale);  result := [];  options := OptionsToAssociativeList(optionsList);  If(Number?(options[\"Scale\"])) { treeScale := options[\"Scale\"]; } Else { treeScale := 1.5; };  latexScale := treeScale * 17;  message := \"\\\\footnotesize \\\\mbox{The dominant operator on the left side of an equation is the\\\\\\\\operator that has the lowest precedence. This is always the top \\\\\\\\operator on the left side of the equation's expression tree.\\\\\\\\\\\\vspace{.75in}The expression tree of an equation that has only one occurrence\\\\\\\\of the variable to be isolated can be solved using the following\\\\\\\\procedure:\\\\\\\\\\\\vspace{.75in}1) Identify the operator that is at the top of the left side of the\\\\\\\\\\\\hspace{.5in}tree (it is highlighted in the trees below).\\\\\\\\\\\\vspace{.75in}2) Identify the operand of this operator that does not contain the\\\\\\\\\\\\hspace{.75in}variable to be isolated.\\\\\\\\\\\\vspace{.75in}3) Remove the top operator (along with the operand from step 2)\\\\\\\\\\\\hspace{.5in}from the left side of the tree, and add the inverse of\\\\\\\\\\\\hspace{.5in}this operator (along with the operand from step 2) to\\\\\\\\\\\\hspace{.5in}the top of the right side of the tree.\\\\\\\\\\\\vspace{.75in}}\";  DestructiveAppend(result, LatexView(message, Scale: latexScale));   message := \"\\\\text{Solve}\\\\ \" ~ ToString(ToAtom(ListToString(Remove(StringToList(UnparseLatex(TagLeftSideDominantFunction(RemoveDollarSigns(steps[1][1])))),\"$\"))) ) ~ \"\\\\ \\\\text{for}\\\\ \" ~ ToString(steps[1][4]) ~ \".\"; DestructiveAppend(result, LatexView(message, Scale: latexScale));   Decide(options[\"ShowTree\"] =? True, DestructiveAppend(result, TreeView(TagLeftSideDominantFunction(RemoveDollarSigns(steps[1][1])), Scale: treeScale, Resizable: False, IncludeExpression: False)));   steps := Rest(steps);  ForEach(rest, steps) {  If(Not? List?(rest[1])) { result := Compose(result, rest[1], rest[3], rest[4], Length(rest) =? 4, options[\"ShowTree\"], treeScale, latexScale); } Else { result := Compose(result, rest[1][1], rest[3][1], rest[4][1], Length(rest) =? 4, options[\"ShowTree\"], treeScale, latexScale);  result := Compose(result, rest[1][2], rest[3][2], rest[4][2], Length(rest) =? 4, options[\"ShowTree\"], treeScale, latexScale); };  };  result;};20 # StepsView(_steps, _singleOption) <-- StepsView(steps, [singleOption]);Compose(result, newExpression, explanation, beforeSimplification, lengthFour?, showTree?, treeScale, latexScale) :={ DestructiveAppend(result, LatexView(\" \\\\vspace{.75in}\", Scale: latexScale)); DestructiveAppend(result, LatexView(ToLatex(explanation),Scale: latexScale));  If(lengthFour?) { DestructiveAppend(result, LatexView(\" \\\\vspace{.10in}\", Scale: latexScale)); DestructiveAppend(result, LatexView(TexFormNoDollarSigns(beforeSimplification),Scale: latexScale)); };  DestructiveAppend(result, LatexView(\" \\\\vspace{.10in}\", Scale: latexScale));   DestructiveAppend(result, LatexView(ToAtom(ListToString(Remove(StringToList(UnparseLatex(TagLeftSideDominantFunction(RemoveDollarSigns(newExpression)))),\"$\"))), Scale: latexScale ));   Decide(showTree? =? True, DestructiveAppend(result, TreeView(TagLeftSideDominantFunction(RemoveDollarSigns(newExpression)), Scale: treeScale, Resizable: False, IncludeExpression: False)));  result; };TagLeftSideDominantFunction(expression) :={ If(Function?(expression) And? Function?(Cdr(Car(expression)))) { MetaSet(Car(Cdr(Car(expression))),\"HighlightColor\",\"GREEN\");  MetaSet(Car(Cdr(Car(expression))),\"HighlightNodeShape\",\"RECTANGLE\"); };  expression;};RemoveDollarSigns(equation) :={ equation := Substitute(ToAtom(\"+$\"),ToAtom(\"+\")) equation; equation := Substitute(ToAtom(\"-$\"),ToAtom(\"-\")) equation; equation := Substitute(ToAtom(\"*$\"),ToAtom(\"*\")) equation; equation := Substitute(ToAtom(\"/$\"),ToAtom(\"/\")) equation; equation := Substitute(ToAtom(\"^$\"),ToAtom(\"^\")) equation;};AddDollarSigns(equation) :={ equation := Substitute(ToAtom(\"+\"),ToAtom(\"+$\")) equation; equation := Substitute(ToAtom(\"-\"),ToAtom(\"-$\")) equation; equation := Substitute(ToAtom(\"*\"),ToAtom(\"*$\")) equation; equation := Substitute(ToAtom(\"/\"),ToAtom(\"/$\")) equation; equation := Substitute(ToAtom(\"^\"),ToAtom(\"^$\")) equation;};TexFormNoDollarSigns(equation) := { ToAtom(ListToString(Remove(StringToList(UnparseLatex(RemoveDollarSigns(equation))),\"$\")));};ToLatex(string) :={ Local(oldList, newList);  oldList := StringToList(string);  oldList := Remove(oldList, \"$\");  newList := []; ForEach(character, oldList) { DestructiveAppend(newList, Decide(character =? \" \", \"\\\\ \", character)); };  ListToString(newList);};Isolax(side, equation) :={ side :: equation /: [  1 :: -$ _lhs == _rhs <- [lhs == -$ rhs, \"UnaryMinus\", \"\\\\text{Multiply both sides by }\" ~ ToString(-1) ~ \"\\\\text{:}\", -1 *$ -$ lhs == rhs *$ -1],  1 :: _term1 +$ _term2 == _rhs <- [term1 == rhs -$ term2, \"Addition1\", \"\\\\text{Subtract }\" ~ ToString(term2) ~ \"\\\\text{ from both sides:}\", -$ term2 +$ term1 +$ term2 == rhs -$ term2], 2 :: _term1 +$ _term2 == _rhs <- [term2 == rhs -$ term1, \"Addition2\", \"\\\\text{Subtract }\" ~ ToString(term1) ~ \"\\\\text{ from both sides:}\", -$ term1 +$ term1 +$ term2 == rhs -$ term1],  1 :: _term1 -$ _term2 == _rhs <- [term1 == rhs +$ term2, \"Subtraction1\", \"\\\\text{Add }\" ~ ToString(term2) ~ \"\\\\text{ to both sides:}\", term2 +$ term1 -$ term2 == rhs +$ term2], 2 :: _term1 -$ _term2 == _rhs <- [term2 == term1 -$ rhs, \"Subtraction2\", \"\\\\text{Add }\" ~ ToString(term1) ~ \"\\\\text{ to both sides:}\", term1 +$ term1 -$ term2 == rhs +$ term1],  1 :: _term1 *$ _term2 == _rhs <- [term1 == rhs /$ term2, \"Multiplication1\", \"\\\\text{Divide both sides by }\" ~ ToString(term2) ~ \"\\\\text{:}\", (term1 *$ term2) /$ term2 == rhs /$ term2], 2 :: _term1 *$ _term2 == _rhs <- [term2 == rhs /$ term1, \"Multiplication2\", \"\\\\text{Divide both sides by }\" ~ ToString(term1) ~ \"\\\\text{:}\", (term1 *$ term2) /$ term1 == rhs /$ term1],  1 :: _term1 /$ _term2 == _rhs <- [term1 == rhs *$ term2, \"Division1\", \"\\\\text{Multiply both sides by }\" ~ ToString(term2) ~ \"\\\\text{:}\", term2 *$ (term1 /$ term2) == rhs *$ term2], 2 :: _term1 /$ _term2 == _rhs <- [[rhs *$ term2 == term1, term2 == term1 /$ rhs], \"Division2\", [\"\\\\text{Multiply both sides by }\" ~ ToString(term2) ~ \"\\\\text{ and exchange sides:}\", \"\\\\text{Divide both sides by }\" ~ ToString(TexFormNoDollarSigns(rhs)) ~ \"\\\\text{:}\"], [(term1 /$ term2) *$ term2 == rhs *$ term2, (rhs *$ term2) /$ rhs == term1 /$ rhs]],      1 :: _term1 ^$ _term2 == _rhs <- [term1 == rhs^$(1/$term2), \"Exponentiation1b\", \"\\\\text{Take root }\" ~ ToString(term2) ~ \"\\\\text{ of both sides:}\", (term1 ^$ term2)^$(1/term2) == rhs^$(1/$ term2)],   ]; };";
         scriptMap.put("Position",scriptString);
         scriptMap.put("PositionHelper",scriptString);
         scriptMap.put("Occurrence",scriptString);
@@ -1712,6 +1712,23 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
+        scriptString[1] = "LocalSymbols(knownRNGEngines, knownRNGDists) { knownRNGEngines := [ [ \"default\", \"RNGEngineLCG2\"], [ \"advanced\", \"RNGEngineLEcuyer\"], ]; knownRNGDists := [ [\"default\", \"FlatRNGDist\"], [\"flat\", \"FlatRNGDist\"],  [\"gauss\", \"GaussianRNGDist\"], ]; KnownRNGDists() := knownRNGDists; KnownRNGEngines() := knownRNGEngines;};Function() RngCreate();Function() RngCreate(seed, ...);Function() RngSeed(r, seed);Function() Rng(r);RngCreate() <-- RngCreate(0);10 # RngCreate(aseed_Integer?) <-- (RngCreate @ [seed: aseed]);20 # RngCreate(_key: _value) <-- `(RngCreate([@key: value]));30 # RngCreate(options_List?) <--{ options := OptionsListToHash @ [options];  Decide( options[\"seed\"] =? Empty Or? options[\"seed\"] <=? 0, options[\"seed\"] := 76544321  ); Decide( options[\"engine\"] =? Empty Or? Not? (Assert(\"warning\", [\"RngCreate: invalid engine\", options[\"engine\"]]) KnownRNGEngines()[options[\"engine\"] ] !=? Empty), options[\"engine\"] := \"default\" ); Decide( options[\"dist\"] =? Empty Or? Not? (Assert(\"warning\", [\"RngCreate: invalid distribution\", options[\"dist\"]]) KnownRNGDists()[options[\"dist\"] ] !=? Empty), options[\"dist\"] := \"default\" );   [ KnownRNGDists()[options[\"dist\"] ], KnownRNGEngines()[options[\"engine\"] ],  KnownRNGEngines()[options[\"engine\"] ] @ [ options[\"seed\"] ] ];};Rng(_r) <--{ Local(state, result); [state, result] := (r[1] @ [r]);  DestructiveReplace(r, 3, state);  result; };RngSeed(_r, seed_Integer?) <--{ Local(state); (Assert(\"warning\", [\"RngSeed: seed must be positive\", seed]) seed >? 0 ) Or? (seed:=76544321); state := (r[2] @ [seed]);  DestructiveReplace(r, 3, state);  True;};FlatRNGDist(_r) <-- (r[2] @ [r[3]]); GaussianRNGDist(_rng) <--{    Local(a,b,m, newstate, rnumber); newstate := rng[3];  m:=0; While(m=?0 Or? m>=?1)  { [newstate, rnumber] := (rng[2] @ [newstate]); a:=2*rnumber-1; [newstate, rnumber] := (rng[2] @ [newstate]); b:=2*rnumber-1; m:=a*a+b*b; }; [newstate, (a+I*b)*SqrtN(-2*DivideN(InternalLnNum(m),m))];};RNGEngineLCG1(seed_Integer?) <-- [seed];RNGEngineLCG1(state_List?) <-- LCG1(state);RNGEngineLCG2(seed_Integer?) <-- [seed];RNGEngineLCG2(state_List?) <-- LCG2(state);RNGEngineLCG3(seed_Integer?) <-- [seed];RNGEngineLCG3(state_List?) <-- LCG3(state);RNGEngineLCG4(seed_Integer?) <-- [seed];RNGEngineLCG4(state_List?) <-- LCG4(state);LCG1(state) := RandomLCG(state, 2147483647,950706376,0);LCG2(state) := RandomLCG(state, 4294967296,1099087573,0);LCG3(state) := RandomLCG(state, 281474976710656,68909602460261,0);LCG4(state) := RandomLCG(state, 18014398509481984,2783377640906189,0);RandomLCG(_state, _im, _ia, _ic) <--[ DestructiveReplace(state,1, ModuloN(state[1]*ia+ic,im)), DivideN(state[1], im) ];RNGEngineLEcuyer(aseed_Integer?) <--{  Local(rngaux, result); rngaux := (RngCreate @ [aseed]);  result:=ZeroVector(6);  Local(i); For(i:=1, i<=?6, i++) { Rng(rngaux); result[i] := rngaux[3][1];  };  result;};RNGEngineLEcuyer(state_List?) <--{ Local(newstate, result); newstate := [ Modulo(1403580*state[2]-810728*state[3], 4294967087), state[1], state[2], Modulo(527612*state[4]-1370589*state[6], 4294944433), state[4], state[5] ]; result:=Modulo(state[1]-state[4], 4294967087); [ newstate, DivideN(Decide(result=?0, 4294967087, result), 4294967088) ];};LocalSymbols(RandSeed) {  RandSeed := SystemTimer();   Function(\"RandomSeed\", [seed]) Assign(RandSeed, seed);  RandomLCG(_im, _ia, _ic) <-- { RandSeed:=ModuloN(RandSeed*ia+ic,im); DivideN(RandSeed,im);  };}; Function(\"Random1\",[]) RandomLCG(4294967296,1103515245,12345);Function(\"Random6\",[]) RandomLCG(1771875,2416,374441);Function(\"Random2\",[]) RandomLCG(2147483647,950706376,0);Function(\"Random3\",[]) RandomLCG(4294967296,1099087573,0);Function(\"Random4\",[]) RandomLCG(281474976710656,68909602460261,0);Function(\"Random5\",[]) RandomLCG(18014398509481984,2783377640906189,0);Function(\"Random\",[]) Random3();";
+        scriptMap.put("RandomSeed",scriptString);
+        scriptMap.put("Random",scriptString);
+        scriptMap.put("Rng",scriptString);
+        scriptMap.put("RngSeed",scriptString);
+        scriptMap.put("RngCreate",scriptString);
+        scriptMap.put("FlatRNGDist",scriptString);
+        scriptMap.put("GaussianRNGDist",scriptString);
+        scriptMap.put("RNGEngineLCG1",scriptString);
+        scriptMap.put("RNGEngineLCG2",scriptString);
+        scriptMap.put("RNGEngineLCG3",scriptString);
+        scriptMap.put("RNGEngineLCG4",scriptString);
+        scriptMap.put("RandomLCG",scriptString);
+        scriptMap.put("RNGEngineLEcuyer",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
         scriptString[1] = "10 # RandomInteger(_n) <--{ Check(PositiveInteger?(n), \"Argument\", \"The argument must be a positive integer.\"); CeilN(Random() * n);};10 # RandomInteger(_lowerBoundInclusive, _upperBoundInclusive) <--{ Check(Integer?(lowerBoundInclusive) And? Integer?(upperBoundInclusive), \"Argument\", \"Both arguments must be integers.\"); Check(lowerBoundInclusive <? upperBoundInclusive, \"Argument\", \"The first argument must be less than the second argument.\"); FloorN(lowerBoundInclusive + Random() * (upperBoundInclusive + 1 - lowerBoundInclusive) );};";
         scriptMap.put("RandomInteger",scriptString);
 
@@ -1738,23 +1755,6 @@ public class Scripts {
         scriptString[0] = null;
         scriptString[1] = "RandomPoly(_var,_degree,_coefmin,_coefmax) <-- NormalForm(UniVariate(var,0,RandomIntegerList(degree+1,coefmin,coefmax)));";
         scriptMap.put("RandomPoly",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "LocalSymbols(knownRNGEngines, knownRNGDists) { knownRNGEngines := [ [ \"default\", \"RNGEngineLCG2\"], [ \"advanced\", \"RNGEngineLEcuyer\"], ]; knownRNGDists := [ [\"default\", \"FlatRNGDist\"], [\"flat\", \"FlatRNGDist\"],  [\"gauss\", \"GaussianRNGDist\"], ]; KnownRNGDists() := knownRNGDists; KnownRNGEngines() := knownRNGEngines;};Function() RngCreate();Function() RngCreate(seed, ...);Function() RngSeed(r, seed);Function() Rng(r);RngCreate() <-- RngCreate(0);10 # RngCreate(aseed_Integer?) <-- (RngCreate @ [seed: aseed]);20 # RngCreate(_key: _value) <-- `(RngCreate([@key: value]));30 # RngCreate(options_List?) <--{ options := OptionsListToHash @ [options];  Decide( options[\"seed\"] =? Empty Or? options[\"seed\"] <=? 0, options[\"seed\"] := 76544321  ); Decide( options[\"engine\"] =? Empty Or? Not? (Assert(\"warning\", [\"RngCreate: invalid engine\", options[\"engine\"]]) KnownRNGEngines()[options[\"engine\"] ] !=? Empty), options[\"engine\"] := \"default\" ); Decide( options[\"dist\"] =? Empty Or? Not? (Assert(\"warning\", [\"RngCreate: invalid distribution\", options[\"dist\"]]) KnownRNGDists()[options[\"dist\"] ] !=? Empty), options[\"dist\"] := \"default\" );   [ KnownRNGDists()[options[\"dist\"] ], KnownRNGEngines()[options[\"engine\"] ],  KnownRNGEngines()[options[\"engine\"] ] @ [ options[\"seed\"] ] ];};Rng(_r) <--{ Local(state, result); [state, result] := (r[1] @ [r]);  DestructiveReplace(r, 3, state);  result; };RngSeed(_r, seed_Integer?) <--{ Local(state); (Assert(\"warning\", [\"RngSeed: seed must be positive\", seed]) seed >? 0 ) Or? (seed:=76544321); state := (r[2] @ [seed]);  DestructiveReplace(r, 3, state);  True;};FlatRNGDist(_r) <-- (r[2] @ [r[3]]); GaussianRNGDist(_rng) <--{    Local(a,b,m, newstate, rnumber); newstate := rng[3];  m:=0; While(m=?0 Or? m>=?1)  { [newstate, rnumber] := (rng[2] @ [newstate]); a:=2*rnumber-1; [newstate, rnumber] := (rng[2] @ [newstate]); b:=2*rnumber-1; m:=a*a+b*b; }; [newstate, (a+I*b)*SqrtN(-2*DivideN(InternalLnNum(m),m))];};RNGEngineLCG1(seed_Integer?) <-- [seed];RNGEngineLCG1(state_List?) <-- LCG1(state);RNGEngineLCG2(seed_Integer?) <-- [seed];RNGEngineLCG2(state_List?) <-- LCG2(state);RNGEngineLCG3(seed_Integer?) <-- [seed];RNGEngineLCG3(state_List?) <-- LCG3(state);RNGEngineLCG4(seed_Integer?) <-- [seed];RNGEngineLCG4(state_List?) <-- LCG4(state);LCG1(state) := RandomLCG(state, 2147483647,950706376,0);LCG2(state) := RandomLCG(state, 4294967296,1099087573,0);LCG3(state) := RandomLCG(state, 281474976710656,68909602460261,0);LCG4(state) := RandomLCG(state, 18014398509481984,2783377640906189,0);RandomLCG(_state, _im, _ia, _ic) <--[ DestructiveReplace(state,1, ModuloN(state[1]*ia+ic,im)), DivideN(state[1], im) ];RNGEngineLEcuyer(aseed_Integer?) <--{  Local(rngaux, result); rngaux := (RngCreate @ [aseed]);  result:=ZeroVector(6);  Local(i); For(i:=1, i<=?6, i++) { Rng(rngaux); result[i] := rngaux[3][1];  };  result;};RNGEngineLEcuyer(state_List?) <--{ Local(newstate, result); newstate := [ Modulo(1403580*state[2]-810728*state[3], 4294967087), state[1], state[2], Modulo(527612*state[4]-1370589*state[6], 4294944433), state[4], state[5] ]; result:=Modulo(state[1]-state[4], 4294967087); [ newstate, DivideN(Decide(result=?0, 4294967087, result), 4294967088) ];};LocalSymbols(RandSeed) {  RandSeed := SystemTimer();   Function(\"RandomSeed\", [seed]) Assign(RandSeed, seed);  RandomLCG(_im, _ia, _ic) <-- { RandSeed:=ModuloN(RandSeed*ia+ic,im); DivideN(RandSeed,im);  };}; Function(\"Random1\",[]) RandomLCG(4294967296,1103515245,12345);Function(\"Random6\",[]) RandomLCG(1771875,2416,374441);Function(\"Random2\",[]) RandomLCG(2147483647,950706376,0);Function(\"Random3\",[]) RandomLCG(4294967296,1099087573,0);Function(\"Random4\",[]) RandomLCG(281474976710656,68909602460261,0);Function(\"Random5\",[]) RandomLCG(18014398509481984,2783377640906189,0);Function(\"Random\",[]) Random3();";
-        scriptMap.put("RandomSeed",scriptString);
-        scriptMap.put("Random",scriptString);
-        scriptMap.put("Rng",scriptString);
-        scriptMap.put("RngSeed",scriptString);
-        scriptMap.put("RngCreate",scriptString);
-        scriptMap.put("FlatRNGDist",scriptString);
-        scriptMap.put("GaussianRNGDist",scriptString);
-        scriptMap.put("RNGEngineLCG1",scriptString);
-        scriptMap.put("RNGEngineLCG2",scriptString);
-        scriptMap.put("RNGEngineLCG3",scriptString);
-        scriptMap.put("RNGEngineLCG4",scriptString);
-        scriptMap.put("RandomLCG",scriptString);
-        scriptMap.put("RNGEngineLEcuyer",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
@@ -1818,13 +1818,13 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "RulebaseHoldArguments(\"SimpMul\",[x,y]);";
-        scriptMap.put("SimpMul",scriptString);
+        scriptString[1] = "10 # Simplify(expr_List?) <-- MapSingle(\"Simplify\",expr);15 # Simplify(Complex(_r,_i)) <-- Complex(Simplify(r),Simplify(i));20 # Simplify((_xex) =? (_yex)) <-- (Simplify(xex-yex) =? 0);20 # Simplify((_xex) >? (_yex)) <-- (Simplify(xex-yex) >? 0);20 # Simplify((_xex) <? (_yex)) <-- (Simplify(xex-yex) <? 0);20 # Simplify((_xex) >=? (_yex)) <-- (Simplify(xex-yex) >=? 0);20 # Simplify((_xex) <=? (_yex)) <-- (Simplify(xex-yex) <=? 0);20 # Simplify((_xex) !=? (_yex)) <-- (Simplify(xex-yex) !=? 0);25 # Simplify(If(_a) _b) <-- \"If\" @ [Simplify(a), Simplify(b)];25 # Simplify(_a Else _b) <-- \"Else\" @ [Simplify(a), Simplify(b)];40 # Simplify(_expr)_(Type(expr)=?\"Ln\") <--{  LnCombine(expr);};40 # Simplify(_expr)_(Type(expr)=?\"Exp\") <--{  expr;};50 # Simplify(_expr) <-- {  MultiSimp(Eval(expr));};";
+        scriptMap.put("Simplify",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "10 # Simplify(expr_List?) <-- MapSingle(\"Simplify\",expr);15 # Simplify(Complex(_r,_i)) <-- Complex(Simplify(r),Simplify(i));20 # Simplify((_xex) =? (_yex)) <-- (Simplify(xex-yex) =? 0);20 # Simplify((_xex) >? (_yex)) <-- (Simplify(xex-yex) >? 0);20 # Simplify((_xex) <? (_yex)) <-- (Simplify(xex-yex) <? 0);20 # Simplify((_xex) >=? (_yex)) <-- (Simplify(xex-yex) >=? 0);20 # Simplify((_xex) <=? (_yex)) <-- (Simplify(xex-yex) <=? 0);20 # Simplify((_xex) !=? (_yex)) <-- (Simplify(xex-yex) !=? 0);25 # Simplify(If(_a) _b) <-- \"If\" @ [Simplify(a), Simplify(b)];25 # Simplify(_a Else _b) <-- \"Else\" @ [Simplify(a), Simplify(b)];40 # Simplify(_expr)_(Type(expr)=?\"Ln\") <--{  LnCombine(expr);};40 # Simplify(_expr)_(Type(expr)=?\"Exp\") <--{  expr;};50 # Simplify(_expr) <-- {  MultiSimp(Eval(expr));};";
-        scriptMap.put("Simplify",scriptString);
+        scriptString[1] = "RulebaseHoldArguments(\"SimpMul\",[x,y]);";
+        scriptMap.put("SimpMul",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
@@ -1866,36 +1866,6 @@ public class Scripts {
         scriptString[1] = " 10 # Sort( L_List? )_(Length(L) <? 20) <-- BubbleSort( L, \"<?\" );15 # Sort( L_List?, _compare )_(Length(L) <? 20) <--  BubbleSort( L, compare );20 # Sort( L_List? ) <-- HeapSort( L, \"<?\" );25 # Sort( L_List?, _compare ) <-- HeapSort( L, compare ); 10 # SortIndexed( L_List? )_(Length(L) <? 20) <-- BubbleSortIndexed( L, \"<?\" );15 # SortIndexed( L_List?, _compare )_(Length(L) <? 20) <-- BubbleSortIndexed( L, compare );20 # SortIndexed( L_List? ) <-- HeapSortIndexed( L, \"<?\" );25 # SortIndexed( L_List?, _compare ) <-- HeapSortIndexed( L, compare );";
         scriptMap.put("Sort",scriptString);
         scriptMap.put("SortIndexed",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "GeometricMean(list) := { Check(List?(list), \"Argument\", \"Argument must be a list.\");  Product(list)^(1/Length(list));};";
-        scriptMap.put("GeometricMean",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "Mean(list) := { Check(List?(list), \"Argument\", \"Argument must be a list.\");  Sum(list)/Length(list);};";
-        scriptMap.put("Mean",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "Median(list) :={ Check(List?(list), \"Argument\", \"Argument must be a list.\");  Local(sx,n,n2);   sx := HeapSort(list,\"<?\");  n := Length(list);  n2 := (n>>1);  Decide(Modulo(n,2) =? 1, sx[n2+1], (sx[n2]+sx[n2+1])/2);};";
-        scriptMap.put("Median",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "StandardDeviation(list) := { Check(List?(list), \"Argument\", \"Argument must be a list.\"); Sqrt(UnbiasedVariance(list));};";
-        scriptMap.put("StandardDeviation",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "UnbiasedVariance(list) := { Check(List?(list), \"Argument\", \"Argument must be a list.\");  Sum((list - Mean(list))^2)/(Length(list)-1);};";
-        scriptMap.put("UnbiasedVariance",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "Variance(list) := { Check(List?(list), \"Argument\", \"Argument must be a list.\"); Sum((list - Mean(list))^2)/Length(list);};";
-        scriptMap.put("Variance",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
@@ -1964,13 +1934,43 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
+        scriptString[1] = "GeometricMean(list) := { Check(List?(list), \"Argument\", \"Argument must be a list.\");  Product(list)^(1/Length(list));};";
+        scriptMap.put("GeometricMean",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
         scriptString[1] = "Retract(ChiSquareTest,*);10 # ChiSquareTest( observedFrequenciesMatrix_Matrix?, expectedFrequenciesMatrix_Matrix?) <--{ Local(observedFrequenciesList, expectedFrequenciesList);  observedFrequenciesList := Flatten(observedFrequenciesMatrix,\"List\");  expectedFrequenciesList := Flatten(expectedFrequenciesMatrix,\"List\");  Check(Length(observedFrequenciesList) >? 0, \"Argument\", \"The first argument must be a nonempty matrix.\");  Check(Length(expectedFrequenciesList) >? 0, \"Argument\", \"The second argument must be a nonempty matrix.\");  Check(Length(expectedFrequenciesList) =? Length(expectedFrequenciesList), \"Argument\", \"The matrices must be of equal length.\"); Local( numerator, chi2, pValue, categoriesCount, degreesOfFreedom, resultList);  resultList := []; categoriesCount := Length(observedFrequenciesList); numerator := (observedFrequenciesList - expectedFrequenciesList)^2;  chi2 := Sum(i,1,categoriesCount,numerator[i]/(expectedFrequenciesList[i])); degreesOfFreedom := (Dimensions(observedFrequenciesMatrix)[1] - 1)*(Dimensions(observedFrequenciesMatrix)[2] - 1); pValue := 1-NM(IncompleteGamma(degreesOfFreedom/2,chi2/2)/Gamma(degreesOfFreedom/2)); resultList[\"degreesOfFreedom\"] := degreesOfFreedom;  resultList[\"pValue\"] := pValue;  resultList[\"chiSquareScore\"] := chi2;  NM(resultList);};20 # ChiSquareTest( observedFrequenciesList_List?, expectedFrequenciesList_List?) <--{ Check(Length(observedFrequenciesList) >? 0, \"Argument\", \"The first argument must be a nonempty list.\");  Check(Length(expectedFrequenciesList) >? 0, \"Argument\", \"The second argument must be a nonempty list.\");  Check(Length(expectedFrequenciesList) =? Length(expectedFrequenciesList), \"Argument\", \"The lists must be of equal length.\"); Local( numerator, chi2, pValue, categoriesCount, degreesOfFreedom, resultList);  resultList := []; categoriesCount := Length(observedFrequenciesList); numerator := (observedFrequenciesList - expectedFrequenciesList)^2;  chi2 := Sum(i,1,categoriesCount,numerator[i]/(expectedFrequenciesList[i])); degreesOfFreedom := categoriesCount - 1; pValue := 1-NM(IncompleteGamma(degreesOfFreedom/2,chi2/2)/Gamma(degreesOfFreedom/2)); resultList[\"degreesOfFreedom\"] := degreesOfFreedom;  resultList[\"pValue\"] := pValue;  resultList[\"chiSquareScore\"] := chi2;  NM(resultList);};";
         scriptMap.put("ChiSquareTest",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
+        scriptString[1] = "Mean(list) := { Check(List?(list), \"Argument\", \"Argument must be a list.\");  Sum(list)/Length(list);};";
+        scriptMap.put("Mean",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
+        scriptString[1] = "Median(list) :={ Check(List?(list), \"Argument\", \"Argument must be a list.\");  Local(sx,n,n2);   sx := HeapSort(list,\"<?\");  n := Length(list);  n2 := (n>>1);  Decide(Modulo(n,2) =? 1, sx[n2+1], (sx[n2]+sx[n2+1])/2);};";
+        scriptMap.put("Median",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
         scriptString[1] = "Regress(x,y) :={ Local(xy,x2,i,mx,my); mx := Mean(x); my := Mean(y); xy := Add((x-mx)*(y-my)); x2 := Add((x-mx)^2); [alpha <- (my-xy*mx/x2) , beta <- xy/x2];};";
         scriptMap.put("Regress",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
+        scriptString[1] = "StandardDeviation(list) := { Check(List?(list), \"Argument\", \"Argument must be a list.\"); Sqrt(UnbiasedVariance(list));};";
+        scriptMap.put("StandardDeviation",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
+        scriptString[1] = "UnbiasedVariance(list) := { Check(List?(list), \"Argument\", \"Argument must be a list.\");  Sum((list - Mean(list))^2)/(Length(list)-1);};";
+        scriptMap.put("UnbiasedVariance",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
+        scriptString[1] = "Variance(list) := { Check(List?(list), \"Argument\", \"Argument must be a list.\"); Sum((list - Mean(list))^2)/Length(list);};";
+        scriptMap.put("Variance",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
@@ -2032,48 +2032,6 @@ public class Scripts {
         scriptString[0] = null;
         scriptString[1] = "100 # Csch(_x) <-- 1/Sinh(x);";
         scriptMap.put("Csch",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "2 # Exp(x_Number?)_NumericMode?() <-- ExpNum(x);4 # Exp(Ln(_x)) <-- x;110 # Exp(Complex(_r,_i)) <-- Exp(r)*(Cos(i) + I*Sin(i));200 # Exp(0) <-- 1;200 # Exp(-Infinity) <-- 0;200 # Exp(Infinity) <-- Infinity;200 # Exp(Undefined) <-- Undefined;Exp(xlist_List?) <-- MapSingle(\"Exp\",xlist);";
-        scriptMap.put("Exp",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "2 # Ln(0) <-- -Infinity;2 # Ln(1) <-- 0;2 # Ln(Infinity) <-- Infinity;2 # Ln(Undefined) <-- Undefined;2 # Ln(x_NegativeNumber?)_NumericMode?() <-- Complex(Ln(-x), Pi);3 # Ln(x_Number?)_(NumericMode?() And? x>=?1) <-- InternalLnNum(x);4 # Ln(Exp(_x)) <-- x;3 # Ln(Complex(_r,_i)) <-- Complex(Ln(Abs(Complex(r,i))), Arg(Complex(r,i)));4 # Ln(x_NegativeNumber?) <-- Complex(Ln(-x), Pi);5 # Ln(x_Number?)_(NumericMode?() And? x<?1) <-- - InternalLnNum(DivideN(1, x));Ln(xlist_List?) <-- MapSingle(\"Ln\",xlist);";
-        scriptMap.put("Ln",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "100 # Sec(_x) <-- 1/Cos(x);";
-        scriptMap.put("Sec",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "100 # Sech(_x) <-- 1/Cosh(x);";
-        scriptMap.put("Sech",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "1 # SinMap( _n )_(Not?(RationalOrNumber?(n))) <-- ListToFunction([ToAtom(\"Sin\"),n*Pi]);2 # SinMap( _n )_(n<?0) <-- -SinMap(-n);2 # SinMap( _n )_(n>?2) <-- SinMap(Modulo(n,2));3 # SinMap( _n )_(n>?1) <-- SinMap(n-2);4 # SinMap( _n )_(n>?1/2) <-- SinMap(1-n);5 # SinMap( n_Integer? ) <-- 0;5 # SinMap( 1/6 ) <-- 1/2;5 # SinMap( 1/4 ) <-- Sqrt(2)/2;5 # SinMap( 1/3 ) <-- Sqrt(3)/2;5 # SinMap( 1/2 ) <-- 1;5 # SinMap( 1/10) <-- (Sqrt(5)-1)/4;10 # SinMap(_n) <-- ListToFunction([ToAtom(\"Sin\"),n*Pi]);2 # Sin(x_Number?)_NumericMode?() <-- SinNum(x);4 # Sin(ArcSin(_x)) <-- x;4 # Sin(ArcCos(_x)) <-- Sqrt(1-x^2);4 # Sin(ArcTan(_x)) <-- x/Sqrt(1+x^2);5 # Sin(- _x)_(Not? Constant?(x)) <-- -Sin(x);6 # (Sin(x_Constant?))_(NegativeNumber?(NM(Eval(x)))) <-- -Sin(-x);6 # Sin(x_Infinity?) <-- Undefined;6 # Sin(Undefined) <-- Undefined;110 # Sin(Complex(_r,_i)) <-- (Exp(I*Complex(r,i)) - Exp(- I*Complex(r,i))) / (I*2) ;200 # Sin(v_CanBeUni(Pi))_(Not?(NumericMode?()) And? Degree(v,Pi) <? 2 And? Coef(v,Pi,0) =? 0) <--{ SinMap(Coef(v,Pi,1));};Sin(xlist_List?) <-- MapSingle(\"Sin\",xlist);";
-        scriptMap.put("Sin",scriptString);
-        scriptMap.put("SinMap",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "2 # Sinh(_x)_(NumericMode?() And? (Number?(x) Or? Type(x) =? \"Complex\")) <-- NM(Eval( (Exp(x)-Exp(-x))/2 ));5 # Sinh(- _x) <-- -Sinh(x);5 # Sinh(- _x) <-- -Sinh(x);200 # Sinh(0) <-- 0;200 # Sinh(Infinity) <-- Infinity;200 # Sinh(-Infinity) <-- -Infinity;200 # Sinh(ArcSinh(_x)) <-- x;200 # Sinh(ArcCosh(_x)) <-- Sqrt((x-1)/(x+1))*(x+1);200 # Sinh(ArcTanh(_x)) <-- x/Sqrt(1-x^2);200 # Sinh(Undefined) <-- Undefined;Sinh(xlist_List?) <-- MapSingle(\"Sinh\",xlist);";
-        scriptMap.put("Sinh",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "1 # TanMap( _n )_(Not?(RationalOrNumber?(n))) <-- ListToFunction([ToAtom(\"Tan\"),n*Pi]);2 # TanMap( _n )_(n<?0) <-- -TanMap(-n);2 # TanMap( _n )_(n>?1) <-- TanMap(Modulo(n,1));4 # TanMap( _n )_(n>?1/2) <-- -TanMap(1-n);5 # TanMap( 0 ) <-- 0;5 # TanMap( 1/6 ) <-- 1/3*Sqrt(3);5 # TanMap( 1/4 ) <-- 1;5 # TanMap( 1/3 ) <-- Sqrt(3);5 # TanMap( 1/2 ) <-- Infinity;10 # TanMap(_n) <-- ListToFunction([ToAtom(\"Tan\"),n*Pi]);2 # Tan(x_Number?)_NumericMode?() <-- TanNum(x);4 # Tan(ArcTan(_x)) <-- x;4 # Tan(ArcSin(_x)) <-- x/Sqrt(1-x^2);4 # Tan(ArcCos(_x)) <-- Sqrt(1-x^2)/x;5 # Tan(- _x)_(Not? Constant?(x)) <-- -Tan(x);6 # (Tan(x_Constant?))_(NegativeNumber?(NM(Eval(x)))) <-- -Tan(-x);6 # Tan(Infinity) <-- Undefined;6 # Tan(Undefined) <-- Undefined;110 # Tan(Complex(_r,_i)) <-- Sin(Complex(r,i))/Cos(Complex(r,i));200 # Tan(v_CanBeUni(Pi))_(Not?(NumericMode?()) And? Degree(v,Pi) <? 2 And? Coef(v,Pi,0) =? 0) <-- TanMap(Coef(v,Pi,1));Tan(xlist_List?) <-- MapSingle(\"Tan\",xlist);";
-        scriptMap.put("Tan",scriptString);
-        scriptMap.put("TanMap",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "2 # Tanh(_x)_(NumericMode?() And? (Number?(x) Or? Type(x) =? \"Complex\")) <-- NM(Eval( Sinh(x)/Cosh(x) ));200 # Tanh(0) <-- 0;200 # Tanh(Infinity) <-- 1;200 # Tanh(-Infinity) <-- -1;200 # Tanh(ArcTanh(_x)) <-- x;200 # Tanh(ArcSinh(_x)) <-- x/Sqrt(1+x^2);200 # Tanh(ArcCosh(_x)) <-- Sqrt((x-1)/(x+1))*(x+1)/x;200 # Tanh(Undefined) <-- Undefined;Tanh(xlist_List?) <-- MapSingle(\"Tanh\",xlist);";
-        scriptMap.put("Tanh",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
@@ -2168,6 +2126,16 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
+        scriptString[1] = "2 # Exp(x_Number?)_NumericMode?() <-- ExpNum(x);4 # Exp(Ln(_x)) <-- x;110 # Exp(Complex(_r,_i)) <-- Exp(r)*(Cos(i) + I*Sin(i));200 # Exp(0) <-- 1;200 # Exp(-Infinity) <-- 0;200 # Exp(Infinity) <-- Infinity;200 # Exp(Undefined) <-- Undefined;Exp(xlist_List?) <-- MapSingle(\"Exp\",xlist);";
+        scriptMap.put("Exp",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
+        scriptString[1] = "2 # Ln(0) <-- -Infinity;2 # Ln(1) <-- 0;2 # Ln(Infinity) <-- Infinity;2 # Ln(Undefined) <-- Undefined;2 # Ln(x_NegativeNumber?)_NumericMode?() <-- Complex(Ln(-x), Pi);3 # Ln(x_Number?)_(NumericMode?() And? x>=?1) <-- InternalLnNum(x);4 # Ln(Exp(_x)) <-- x;3 # Ln(Complex(_r,_i)) <-- Complex(Ln(Abs(Complex(r,i))), Arg(Complex(r,i)));4 # Ln(x_NegativeNumber?) <-- Complex(Ln(-x), Pi);5 # Ln(x_Number?)_(NumericMode?() And? x<?1) <-- - InternalLnNum(DivideN(1, x));Ln(xlist_List?) <-- MapSingle(\"Ln\",xlist);";
+        scriptMap.put("Ln",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
         scriptString[1] = "ArcSinNum(x) :={  Decide( 239*Abs(x) >=? 169,   Sign(x)*(InternalPi()/2-ArcSinN(Sqrt(1-x^2))), ArcSinN(x) );};";
         scriptMap.put("ArcSinNum",scriptString);
 
@@ -2190,6 +2158,12 @@ public class Scripts {
         scriptString[0] = null;
         scriptString[1] = "10 # ExpNum(x_Number?) _ (x >? MathExpThreshold()) <-- { Local(i, y); i:=0; For(i:=0, x >? MathExpThreshold(), i++) x := DivideN(x, 2.); For(y:= ExpN(x), i>?0, i--) y := MultiplyN(y, y); y;};20 # ExpNum(x_Number?) _ (2*x <? -MathExpThreshold()) <-- DivideN(1, ExpNum(-x));30 # ExpNum(x_Number?) <-- ExpN(x);";
         scriptMap.put("ExpNum",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
+        scriptString[1] = "LocalSymbols(mathExpThreshold) {  mathExpThreshold := Decide(Not? Assigned?(mathExpThreshold), 500); MathExpThreshold() := mathExpThreshold; SetMathExpThreshold(threshold) := {mathExpThreshold:= threshold; };};";
+        scriptMap.put("MathExpThreshold",scriptString);
+        scriptMap.put("SetMathExpThreshold",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
@@ -2223,14 +2197,40 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "LocalSymbols(mathExpThreshold) {  mathExpThreshold := Decide(Not? Assigned?(mathExpThreshold), 500); MathExpThreshold() := mathExpThreshold; SetMathExpThreshold(threshold) := {mathExpThreshold:= threshold; };};";
-        scriptMap.put("MathExpThreshold",scriptString);
-        scriptMap.put("SetMathExpThreshold",scriptString);
+        scriptString[1] = "Commondigits(x,y) :={ Local(diff); diff := Abs(x-y); Decide( diff=?0, Infinity,  Quotient(IntLog(FloorN(DivideN(Maximum(Abs(x), Abs(y)), diff)), 2)*351, 1166) ); };NewtonNum(_func, _x0) <-- NewtonNum(func, x0, 5); NewtonNum(_func, _x0, _prec0) <-- NewtonNum(func, x0, prec0, 2);NewtonNum(_func, _xinit, _prec0, _order) <--{ Check(prec0>=?4, \"Argument\", \"NewtonNum: Error: initial precision must be at least 4\"); Check(Integer?(order) And? order>?1, \"Argument\", \"NewtonNum: Error: convergence order must be an integer and at least 2\"); Local(x0, x1, prec, exactdigits, intpart, initialtries); NM({ x0 := xinit; prec := BuiltinPrecisionGet(); intpart := IntLog(Ceil(Abs(x0)), 10);   BuiltinPrecisionSet(2+prec0-intpart);  x1 := (func @ x0);   exactdigits := 0; initialtries := 5;  While(exactdigits*order <? prec0 And? initialtries>?0) { initialtries--; x0 := x1; x1 := (func @ x0); exactdigits := Commondigits(x0, x1);  };  Decide( Assert(\"value\", [\"NewtonNum: Error: need a more accurate initial value than\", xinit]) exactdigits >=? 1, { exactdigits :=Minimum(exactdigits, prec0+2);  intpart := IntLog(Ceil(Abs(x1)), 10);  While(exactdigits*order <=? prec) { exactdigits := exactdigits*order; BuiltinPrecisionSet(2+Minimum(exactdigits, Quotient(prec,order)+1)-intpart); x0 := x1; x1 := (func @ x0);  };  BuiltinPrecisionSet(2+prec); x1 := RoundTo( (func @ x1), prec); },  x1 := xinit ); BuiltinPrecisionSet(prec); }); x1;};";
+        scriptMap.put("NewtonNum",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "Commondigits(x,y) :={ Local(diff); diff := Abs(x-y); Decide( diff=?0, Infinity,  Quotient(IntLog(FloorN(DivideN(Maximum(Abs(x), Abs(y)), diff)), 2)*351, 1166) ); };NewtonNum(_func, _x0) <-- NewtonNum(func, x0, 5); NewtonNum(_func, _x0, _prec0) <-- NewtonNum(func, x0, prec0, 2);NewtonNum(_func, _xinit, _prec0, _order) <--{ Check(prec0>=?4, \"Argument\", \"NewtonNum: Error: initial precision must be at least 4\"); Check(Integer?(order) And? order>?1, \"Argument\", \"NewtonNum: Error: convergence order must be an integer and at least 2\"); Local(x0, x1, prec, exactdigits, intpart, initialtries); NM({ x0 := xinit; prec := BuiltinPrecisionGet(); intpart := IntLog(Ceil(Abs(x0)), 10);   BuiltinPrecisionSet(2+prec0-intpart);  x1 := (func @ x0);   exactdigits := 0; initialtries := 5;  While(exactdigits*order <? prec0 And? initialtries>?0) { initialtries--; x0 := x1; x1 := (func @ x0); exactdigits := Commondigits(x0, x1);  };  Decide( Assert(\"value\", [\"NewtonNum: Error: need a more accurate initial value than\", xinit]) exactdigits >=? 1, { exactdigits :=Minimum(exactdigits, prec0+2);  intpart := IntLog(Ceil(Abs(x1)), 10);  While(exactdigits*order <=? prec) { exactdigits := exactdigits*order; BuiltinPrecisionSet(2+Minimum(exactdigits, Quotient(prec,order)+1)-intpart); x0 := x1; x1 := (func @ x0);  };  BuiltinPrecisionSet(2+prec); x1 := RoundTo( (func @ x1), prec); },  x1 := xinit ); BuiltinPrecisionSet(prec); }); x1;};";
-        scriptMap.put("NewtonNum",scriptString);
+        scriptString[1] = "100 # Sec(_x) <-- 1/Cos(x);";
+        scriptMap.put("Sec",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
+        scriptString[1] = "100 # Sech(_x) <-- 1/Cosh(x);";
+        scriptMap.put("Sech",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
+        scriptString[1] = "1 # SinMap( _n )_(Not?(RationalOrNumber?(n))) <-- ListToFunction([ToAtom(\"Sin\"),n*Pi]);2 # SinMap( _n )_(n<?0) <-- -SinMap(-n);2 # SinMap( _n )_(n>?2) <-- SinMap(Modulo(n,2));3 # SinMap( _n )_(n>?1) <-- SinMap(n-2);4 # SinMap( _n )_(n>?1/2) <-- SinMap(1-n);5 # SinMap( n_Integer? ) <-- 0;5 # SinMap( 1/6 ) <-- 1/2;5 # SinMap( 1/4 ) <-- Sqrt(2)/2;5 # SinMap( 1/3 ) <-- Sqrt(3)/2;5 # SinMap( 1/2 ) <-- 1;5 # SinMap( 1/10) <-- (Sqrt(5)-1)/4;10 # SinMap(_n) <-- ListToFunction([ToAtom(\"Sin\"),n*Pi]);2 # Sin(x_Number?)_NumericMode?() <-- SinNum(x);4 # Sin(ArcSin(_x)) <-- x;4 # Sin(ArcCos(_x)) <-- Sqrt(1-x^2);4 # Sin(ArcTan(_x)) <-- x/Sqrt(1+x^2);5 # Sin(- _x)_(Not? Constant?(x)) <-- -Sin(x);6 # (Sin(x_Constant?))_(NegativeNumber?(NM(Eval(x)))) <-- -Sin(-x);6 # Sin(x_Infinity?) <-- Undefined;6 # Sin(Undefined) <-- Undefined;110 # Sin(Complex(_r,_i)) <-- (Exp(I*Complex(r,i)) - Exp(- I*Complex(r,i))) / (I*2) ;200 # Sin(v_CanBeUni(Pi))_(Not?(NumericMode?()) And? Degree(v,Pi) <? 2 And? Coef(v,Pi,0) =? 0) <--{ SinMap(Coef(v,Pi,1));};Sin(xlist_List?) <-- MapSingle(\"Sin\",xlist);";
+        scriptMap.put("Sin",scriptString);
+        scriptMap.put("SinMap",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
+        scriptString[1] = "2 # Sinh(_x)_(NumericMode?() And? (Number?(x) Or? Type(x) =? \"Complex\")) <-- NM(Eval( (Exp(x)-Exp(-x))/2 ));5 # Sinh(- _x) <-- -Sinh(x);5 # Sinh(- _x) <-- -Sinh(x);200 # Sinh(0) <-- 0;200 # Sinh(Infinity) <-- Infinity;200 # Sinh(-Infinity) <-- -Infinity;200 # Sinh(ArcSinh(_x)) <-- x;200 # Sinh(ArcCosh(_x)) <-- Sqrt((x-1)/(x+1))*(x+1);200 # Sinh(ArcTanh(_x)) <-- x/Sqrt(1-x^2);200 # Sinh(Undefined) <-- Undefined;Sinh(xlist_List?) <-- MapSingle(\"Sinh\",xlist);";
+        scriptMap.put("Sinh",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
+        scriptString[1] = "1 # TanMap( _n )_(Not?(RationalOrNumber?(n))) <-- ListToFunction([ToAtom(\"Tan\"),n*Pi]);2 # TanMap( _n )_(n<?0) <-- -TanMap(-n);2 # TanMap( _n )_(n>?1) <-- TanMap(Modulo(n,1));4 # TanMap( _n )_(n>?1/2) <-- -TanMap(1-n);5 # TanMap( 0 ) <-- 0;5 # TanMap( 1/6 ) <-- 1/3*Sqrt(3);5 # TanMap( 1/4 ) <-- 1;5 # TanMap( 1/3 ) <-- Sqrt(3);5 # TanMap( 1/2 ) <-- Infinity;10 # TanMap(_n) <-- ListToFunction([ToAtom(\"Tan\"),n*Pi]);2 # Tan(x_Number?)_NumericMode?() <-- TanNum(x);4 # Tan(ArcTan(_x)) <-- x;4 # Tan(ArcSin(_x)) <-- x/Sqrt(1-x^2);4 # Tan(ArcCos(_x)) <-- Sqrt(1-x^2)/x;5 # Tan(- _x)_(Not? Constant?(x)) <-- -Tan(x);6 # (Tan(x_Constant?))_(NegativeNumber?(NM(Eval(x)))) <-- -Tan(-x);6 # Tan(Infinity) <-- Undefined;6 # Tan(Undefined) <-- Undefined;110 # Tan(Complex(_r,_i)) <-- Sin(Complex(r,i))/Cos(Complex(r,i));200 # Tan(v_CanBeUni(Pi))_(Not?(NumericMode?()) And? Degree(v,Pi) <? 2 And? Coef(v,Pi,0) =? 0) <-- TanMap(Coef(v,Pi,1));Tan(xlist_List?) <-- MapSingle(\"Tan\",xlist);";
+        scriptMap.put("Tan",scriptString);
+        scriptMap.put("TanMap",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
+        scriptString[1] = "2 # Tanh(_x)_(NumericMode?() And? (Number?(x) Or? Type(x) =? \"Complex\")) <-- NM(Eval( Sinh(x)/Cosh(x) ));200 # Tanh(0) <-- 0;200 # Tanh(Infinity) <-- 1;200 # Tanh(-Infinity) <-- -1;200 # Tanh(ArcTanh(_x)) <-- x;200 # Tanh(ArcSinh(_x)) <-- x/Sqrt(1+x^2);200 # Tanh(ArcCosh(_x)) <-- Sqrt((x-1)/(x+1))*(x+1)/x;200 # Tanh(Undefined) <-- Undefined;Tanh(xlist_List?) <-- MapSingle(\"Tanh\",xlist);";
+        scriptMap.put("Tanh",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
@@ -2246,6 +2246,15 @@ public class Scripts {
         scriptString[0] = null;
         scriptString[1] = "5 # Ceil(Infinity) <-- Infinity;5 # Ceil(-Infinity) <-- -Infinity;5 # Ceil(Undefined) <-- Undefined;10 # Ceil(x_RationalOrNumber?) <-- { x:=NM(x); Local(prec,result,n); Assign(prec,BuiltinPrecisionGet()); Decide(Zero?(x),Assign(n,2), Decide(x>?0, Assign(n,2+FloorN(NM(FastLog(x)/FastLog(10)))), Assign(n,2+FloorN(NM(FastLog(-x)/FastLog(10)))) )); Decide(n>?prec,BuiltinPrecisionSet(n)); Assign(result,CeilN(x)); BuiltinPrecisionSet(prec); result; };";
         scriptMap.put("Ceil",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
+        scriptString[1] = "1 # Undefined <? _x <-- False;1 # Undefined <=? _x <-- False;1 # Undefined >? _x <-- False;1 # Undefined >=? _x <-- False;1 # _x <? Undefined <-- False;1 # _x <=? Undefined <-- False;1 # _x >? Undefined <-- False;1 # _x >=? Undefined <-- False;5 # (n_Number? <? m_Number?) <-- LessThan?(n-m,0);LocalSymbols(nNum,mNum){ 10 # (_n <? _m)_{nNum:=NM(Eval(n)); mNum:=NM(Eval(m));Number?(nNum) And? Number?(mNum);} <-- LessThan?(nNum-mNum,0);};20 # (Infinity <? _n)_(Not?(Infinity?(n))) <-- False;20 # (-Infinity <? _n)_(Not?(Infinity?(n))) <-- True;20 # (_n <? Infinity)_(Not?(Infinity?(n))) <-- True;20 # (_n <? -Infinity)_(Not?(Infinity?(n))) <-- False;30 # (_n1/_n2) <? 0 <-- (n1 <? 0) !=? (n2 <? 0);30 # (_n1*_n2) <? 0 <-- (n1 <? 0) !=? (n2 <? 0);30 # ((_n1+_n2) <? 0)_((n1 <? 0) And? (n2 <? 0)) <-- True;30 # ((_n1+_n2) <? 0)_((n1 >? 0) And? (n2 >? 0)) <-- False;30 # _x^a_Odd? <? 0 <-- x <? 0;30 # _x^a_Even? <? 0 <-- False; 40 # (Sqrt(_x))_(x >? 0) <? 0 <-- False;40 # (Sin(_x) <? 0)_(Not?(Even?(NM(x/Pi))) And? Even?(NM(Floor(x/Pi)))) <-- False;40 # (Sin(_x) <? 0)_(Not?(Odd? (NM(x/Pi))) And? Odd? (NM(Floor(x/Pi)))) <-- True;40 # Cos(_x) <? 0 <-- Sin(Pi/2-x) <? 0;40 # (Tan(_x) <? 0)_(Not?(Even?(NM(2*x/Pi))) And? Even?(NM(Floor(2*x/Pi)))) <-- False;40 # (Tan(_x) <? 0)_(Not?(Odd? (NM(2*x/Pi))) And? Odd? (NM(Floor(2*x/Pi)))) <-- True;40 # (Complex(_a,_b) <? 0)_(b!=?0) <-- False;40 # (Complex(_a,_b) >=? 0)_(b!=?0) <-- False;40 # (Sqrt(_x))_(x <? 0) <? 0 <-- False;40 # (Sqrt(_x))_(x <? 0) >=? 0 <-- False;50 # -(_x) <? 0 <-- Not?((x<?0) Or? (x=?0));50 # _n >? _m <-- m <? n;50 # _n <=? _m <-- m >=? n;50 # _n >=? _m <-- Not?(n<?m);Function(\"!=?\",[aLeft,aRight]) Not?(aLeft=?aRight);";
+        scriptMap.put("<?",scriptString);
+        scriptMap.put(">?",scriptString);
+        scriptMap.put("<=?",scriptString);
+        scriptMap.put(">=?",scriptString);
+        scriptMap.put("!=?",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
@@ -2280,6 +2289,11 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
+        scriptString[1] = "RulebaseHoldArguments(\"->\",[left,right]);HoldArgument(\"->\",left);";
+        scriptMap.put("->",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
         scriptString[1] = "0 # Modulo(_n,m_RationalOrNumber?)_(m<?0) <-- `Hold(Modulo(@n,@m));1 # Modulo(n_NegativeInteger?,m_PositiveInteger?) <--{ Local(result); result := ModuloN(n,m); Decide(result <? 0,result := result + m); result;};1 # Modulo(n_PositiveInteger?,m_PositiveInteger?) <-- ModuloN(n,m);2 # Modulo(0,_m) <-- 0;2 # Modulo(n_PositiveInteger?,Infinity) <-- n;3 # Modulo(n_Integer?,m_Integer?) <-- ModuloN(n,m);4 # Modulo(n_Number?,m_Number?) <-- NonNM(Modulo(Rationalize(n),Rationalize(m)));5 # Modulo(n_RationalOrNumber?,m_RationalOrNumber?) <--{ Local(n1,n2,m1,m2); n1:=Numerator(n); n2:=Denominator(n); m1:=Numerator(m); m2:=Denominator(m); Modulo(n1*m2,m1*n2)/(n2*m2);};6 # Modulo(n_List?,m_List?) <-- Map(\"Modulo\",[n,m]);7 # Modulo(n_List?,_m) <-- Map(\"Modulo\",[n,FillList(m,Length(n))]);30 # Modulo(n_CanBeUni,m_CanBeUni) <--{ Local(vars); vars:=VarList(n+m); NormalForm(Modulo(MakeUni(n,vars),MakeUni(m,vars)));};0 # Modulo(n_UniVar?,m_UniVar?)_(Degree(n) <? Degree(m)) <-- n;1 # Modulo(n_UniVar?,m_UniVar?)_ (n[1] =? m[1] And? Degree(n) >=? Degree(m)) <--{ UniVariate(n[1],0, UniDivide(Concat(ZeroVector(n[2]),n[3]), Concat(ZeroVector(m[2]),m[3]))[2]);};10 # Modulo(n_CanBeUni, m_CanBeUni, vars_List?)_(Length(vars)=?1) <--{ NormalForm(Modulo(MakeUni(n,vars),MakeUni(m,vars)));};";
         scriptMap.put("Modulo",scriptString);
 
@@ -2305,6 +2319,12 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
+        scriptString[1] = "n_Integer? << m_Integer? <-- ShiftLeft(n,m);n_Integer? >> m_Integer? <-- ShiftRight(n,m);";
+        scriptMap.put("<<",scriptString);
+        scriptMap.put(">>",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
         scriptString[1] = "10 # Sign(n_PositiveNumber?) <-- 1;10 # Sign(n_Zero?) <-- 0;20 # Sign(n_Number?) <-- -1;15 # Sign(n_Infinity?)_(n <? 0) <-- -1;15 # Sign(n_Infinity?)_(n >? 0) <-- 1;15 # Sign(n_Number?/m_Number?) <-- Sign(n)*Sign(m);20 # Sign(n_List?) <-- MapSingle(\"Sign\",n);100 # Sign(_a)^n_Even? <-- 1;100 # Sign(_a)^n_Odd? <-- Sign(a);";
         scriptMap.put("Sign",scriptString);
 
@@ -2312,26 +2332,6 @@ public class Scripts {
         scriptString[0] = null;
         scriptString[1] = "0 # Sqrt(0) <-- 0;0 # Sqrt(Infinity) <-- Infinity;0 # Sqrt(-Infinity) <-- Complex(0,Infinity);0 # Sqrt(Undefined) <-- Undefined;1 # Sqrt(x_PositiveInteger?)_(Integer?(SqrtN(x))) <-- SqrtN(x);2 # Sqrt(x_PositiveNumber?)_NumericMode?() <-- SqrtN(x);2 # Sqrt(x_NegativeNumber?) <-- Complex(0,Sqrt(-x));3 # Sqrt(x_Complex?)_NumericMode?() <-- x^(1/2);Sqrt(xlist_List?) <-- MapSingle(\"Sqrt\",xlist);90 # (Sqrt(x_Constant?))_(NegativeNumber?(NM(x))) <-- Complex(0,Sqrt(-x));110 # Sqrt(Complex(_r,_i)) <-- Exp(Ln(Complex(r,i))/2);400 # Sqrt(x_Integer?)_Integer?(SqrtN(x)) <-- SqrtN(x);400 # Sqrt(x_Integer?/y_Integer?)_(Integer?(SqrtN(x)) And? Integer?(SqrtN(y))) <-- SqrtN(x)/SqrtN(y);";
         scriptMap.put("Sqrt",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "1 # Undefined <? _x <-- False;1 # Undefined <=? _x <-- False;1 # Undefined >? _x <-- False;1 # Undefined >=? _x <-- False;1 # _x <? Undefined <-- False;1 # _x <=? Undefined <-- False;1 # _x >? Undefined <-- False;1 # _x >=? Undefined <-- False;5 # (n_Number? <? m_Number?) <-- LessThan?(n-m,0);LocalSymbols(nNum,mNum){ 10 # (_n <? _m)_{nNum:=NM(Eval(n)); mNum:=NM(Eval(m));Number?(nNum) And? Number?(mNum);} <-- LessThan?(nNum-mNum,0);};20 # (Infinity <? _n)_(Not?(Infinity?(n))) <-- False;20 # (-Infinity <? _n)_(Not?(Infinity?(n))) <-- True;20 # (_n <? Infinity)_(Not?(Infinity?(n))) <-- True;20 # (_n <? -Infinity)_(Not?(Infinity?(n))) <-- False;30 # (_n1/_n2) <? 0 <-- (n1 <? 0) !=? (n2 <? 0);30 # (_n1*_n2) <? 0 <-- (n1 <? 0) !=? (n2 <? 0);30 # ((_n1+_n2) <? 0)_((n1 <? 0) And? (n2 <? 0)) <-- True;30 # ((_n1+_n2) <? 0)_((n1 >? 0) And? (n2 >? 0)) <-- False;30 # _x^a_Odd? <? 0 <-- x <? 0;30 # _x^a_Even? <? 0 <-- False; 40 # (Sqrt(_x))_(x >? 0) <? 0 <-- False;40 # (Sin(_x) <? 0)_(Not?(Even?(NM(x/Pi))) And? Even?(NM(Floor(x/Pi)))) <-- False;40 # (Sin(_x) <? 0)_(Not?(Odd? (NM(x/Pi))) And? Odd? (NM(Floor(x/Pi)))) <-- True;40 # Cos(_x) <? 0 <-- Sin(Pi/2-x) <? 0;40 # (Tan(_x) <? 0)_(Not?(Even?(NM(2*x/Pi))) And? Even?(NM(Floor(2*x/Pi)))) <-- False;40 # (Tan(_x) <? 0)_(Not?(Odd? (NM(2*x/Pi))) And? Odd? (NM(Floor(2*x/Pi)))) <-- True;40 # (Complex(_a,_b) <? 0)_(b!=?0) <-- False;40 # (Complex(_a,_b) >=? 0)_(b!=?0) <-- False;40 # (Sqrt(_x))_(x <? 0) <? 0 <-- False;40 # (Sqrt(_x))_(x <? 0) >=? 0 <-- False;50 # -(_x) <? 0 <-- Not?((x<?0) Or? (x=?0));50 # _n >? _m <-- m <? n;50 # _n <=? _m <-- m >=? n;50 # _n >=? _m <-- Not?(n<?m);Function(\"!=?\",[aLeft,aRight]) Not?(aLeft=?aRight);";
-        scriptMap.put("<?",scriptString);
-        scriptMap.put(">?",scriptString);
-        scriptMap.put("<=?",scriptString);
-        scriptMap.put(">=?",scriptString);
-        scriptMap.put("!=?",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "RulebaseHoldArguments(\"->\",[left,right]);HoldArgument(\"->\",left);";
-        scriptMap.put("->",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "n_Integer? << m_Integer? <-- ShiftLeft(n,m);n_Integer? >> m_Integer? <-- ShiftRight(n,m);";
-        scriptMap.put("<<",scriptString);
-        scriptMap.put(">>",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
@@ -2347,6 +2347,24 @@ public class Scripts {
         scriptString[0] = null;
         scriptString[1] = "Function() Add(val, ...);10 # Add([]) <-- 0;20 # Add(values_List?) <--{ Local(i, sum); sum:=0; ForEach(i, values) { sum := sum + i; }; sum;};30 # Add(_value) <-- value;";
         scriptMap.put("Add",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
+        scriptString[1] = "n1_RationalOrNumber? *** n2_RationalOrNumber? <--{ Check(n2-n1 <=? 65535, \"Argument\", \"Partial factorial: Error: the range \" ~ ( PipeToString() Write(n2-n1) ) ~ \" is too large, you may want to avoid exact calculation\"); Decide(n2-n1<?0, 1, Factorialpartial(n1, n2) );};2# Factorialpartial(_a, _b) _ (b-a>=?4) <-- Factorialpartial(a, a+((b-a)>>1)) * Factorialpartial(a+((b-a)>>1)+1, b);3# Factorialpartial(_a, _b) _ (b-a>=?3) <-- a*(a+1)*(a+2)*(a+3);4# Factorialpartial(_a, _b) _ (b-a>=?2) <-- a*(a+1)*(a+2);5# Factorialpartial(_a, _b) _ (b-a>=?1) <-- a*(a+1);6# Factorialpartial(_a, _b) _ (b-a>=?0) <-- a;";
+        scriptMap.put("***",scriptString);
+        scriptMap.put("Factorialpartial",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
+        scriptString[1] = "1# (n_PositiveInteger?)!! _ (n<=?3) <-- n;2# (n_PositiveInteger?)!! <--{ Check(n<=?65535, \"Argument\", \"Double factorial: Error: the argument \" ~ ( PipeToString() Write(n) ) ~ \" is too large, you may want to avoid exact calculation\"); Factorialdouble(2+Modulo(n, 2), n);};3# (_n)!! _ (n=? -1 Or? n=?0)<-- 1;2# Factorialdouble(_a, _b) _ (b-a>=?6) <-- Factorialdouble(a, Quotient(a+b,2)) * Factorialdouble(Quotient(a+b,2)+1+Modulo(Quotient(a+b,2)+1-a, 2), b);3# Factorialdouble(_a, _b) _ (b-a>=?4) <-- a*(a+2)*(a+4);4# Factorialdouble(_a, _b) _ (b-a>=?2) <-- a*(a+2);5# Factorialdouble(_a, _b) <-- a;30 # (n_List?)!! <-- MapSingle(\"!!\",n);";
+        scriptMap.put("!!",scriptString);
+        scriptMap.put("Factorialdouble",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
+        scriptString[1] = "10 # 0! <-- 1;10 # (Infinity)! <-- Infinity;20 # ((n_PositiveInteger?)!) <-- { Check(n <=? 65535, \"Argument\", \"Factorial: Error: the argument \" ~ ( PipeToString() Write(n) ) ~ \" is too large, you may want to avoid exact calculation\"); MathFac(n);};25 # ((x_Constant?)!)_(FloatIsInt?(x) And? x>?0) <-- (Round(x)!);30 # ((x_Number?)!)_NumericMode?() <-- InternalGammaNum(x+1);40 # (n_List?)! <-- MapSingle(\"!\",n);HalfIntegerFactorial(n_Odd?) _ (n>?0) <-- Sqrt(Pi) * ( n!! / 2^((n+1)/2) );HalfIntegerFactorial(n_Odd?) _ (n<?0) <-- Sqrt(Pi) * ( (-1)^((-n-1)/2)*2^((-n-1)/2) / (-n-2)!! );40 # (n_RationalOrNumber?)! _(Denominator(Rationalize(n))=?2) <-- HalfIntegerFactorial(Numerator(Rationalize(n)));";
+        scriptMap.put("!",scriptString);
+        scriptMap.put("HalfIntegerFactorial",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
@@ -2373,24 +2391,6 @@ public class Scripts {
         scriptString[1] = "RulebaseHoldArguments(\"Sum\",[sumvararg,sumfromarg,sumtoarg,sumbodyarg]);10 # Sum(_sumvar,sumfrom_Number?,sumto_Number?,_sumbody)_(sumfrom>?sumto) <-- 0;20 # Sum(_sumvar,sumfrom_Number?,sumto_Number?,_sumbody)_(sumto<?sumfrom) <-- ApplyFast(\"Sum\",[sumvar,sumto,sumfrom,sumbody]);30 # Sum(_sumvar,sumfrom_Number?,sumto_Number?,_sumbody) <--LocalSymbols(sumi,sumsum){ Local(sumi,sumsum); sumsum:=0; For(sumi:=sumfrom,sumi<=?sumto,sumi++) { MacroLocal(sumvar); MacroAssign(sumvar,sumi); sumsum:=sumsum+Eval(sumbody); }; sumsum;};UnFence(\"Sum\",4);HoldArgument(\"Sum\",sumvararg);HoldArgument(\"Sum\",sumbodyarg);40 # Sum([]) <-- 0;50 # Sum(values_List?) <--{ Local(i, sum); sum:=0; ForEach(i, values) { sum := sum + i; }; sum;};";
         scriptMap.put("Sum",scriptString);
         scriptMap.put("SumFunc",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "n1_RationalOrNumber? *** n2_RationalOrNumber? <--{ Check(n2-n1 <=? 65535, \"Argument\", \"Partial factorial: Error: the range \" ~ ( PipeToString() Write(n2-n1) ) ~ \" is too large, you may want to avoid exact calculation\"); Decide(n2-n1<?0, 1, Factorialpartial(n1, n2) );};2# Factorialpartial(_a, _b) _ (b-a>=?4) <-- Factorialpartial(a, a+((b-a)>>1)) * Factorialpartial(a+((b-a)>>1)+1, b);3# Factorialpartial(_a, _b) _ (b-a>=?3) <-- a*(a+1)*(a+2)*(a+3);4# Factorialpartial(_a, _b) _ (b-a>=?2) <-- a*(a+1)*(a+2);5# Factorialpartial(_a, _b) _ (b-a>=?1) <-- a*(a+1);6# Factorialpartial(_a, _b) _ (b-a>=?0) <-- a;";
-        scriptMap.put("***",scriptString);
-        scriptMap.put("Factorialpartial",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "1# (n_PositiveInteger?)!! _ (n<=?3) <-- n;2# (n_PositiveInteger?)!! <--{ Check(n<=?65535, \"Argument\", \"Double factorial: Error: the argument \" ~ ( PipeToString() Write(n) ) ~ \" is too large, you may want to avoid exact calculation\"); Factorialdouble(2+Modulo(n, 2), n);};3# (_n)!! _ (n=? -1 Or? n=?0)<-- 1;2# Factorialdouble(_a, _b) _ (b-a>=?6) <-- Factorialdouble(a, Quotient(a+b,2)) * Factorialdouble(Quotient(a+b,2)+1+Modulo(Quotient(a+b,2)+1-a, 2), b);3# Factorialdouble(_a, _b) _ (b-a>=?4) <-- a*(a+2)*(a+4);4# Factorialdouble(_a, _b) _ (b-a>=?2) <-- a*(a+2);5# Factorialdouble(_a, _b) <-- a;30 # (n_List?)!! <-- MapSingle(\"!!\",n);";
-        scriptMap.put("!!",scriptString);
-        scriptMap.put("Factorialdouble",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "10 # 0! <-- 1;10 # (Infinity)! <-- Infinity;20 # ((n_PositiveInteger?)!) <-- { Check(n <=? 65535, \"Argument\", \"Factorial: Error: the argument \" ~ ( PipeToString() Write(n) ) ~ \" is too large, you may want to avoid exact calculation\"); MathFac(n);};25 # ((x_Constant?)!)_(FloatIsInt?(x) And? x>?0) <-- (Round(x)!);30 # ((x_Number?)!)_NumericMode?() <-- InternalGammaNum(x+1);40 # (n_List?)! <-- MapSingle(\"!\",n);HalfIntegerFactorial(n_Odd?) _ (n>?0) <-- Sqrt(Pi) * ( n!! / 2^((n+1)/2) );HalfIntegerFactorial(n_Odd?) _ (n<?0) <-- Sqrt(Pi) * ( (-1)^((-n-1)/2)*2^((-n-1)/2) / (-n-2)!! );40 # (n_RationalOrNumber?)! _(Denominator(Rationalize(n))=?2) <-- HalfIntegerFactorial(Numerator(Rationalize(n)));";
-        scriptMap.put("!",scriptString);
-        scriptMap.put("HalfIntegerFactorial",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
@@ -2456,13 +2456,13 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "Function (\"TestMathPiper\", [expr, ans]){ Local(diff); diff := Simplify(Eval(expr)-Eval(ans)); Decide(Simplify(diff)=?0, True, { WriteString(\"******************\"); NewLine(); ShowLine(); Write(expr); WriteString(\" evaluates to \"); NewLine(); Write(Eval(expr)); NewLine(); WriteString(\" which differs from \"); NewLine(); Write(Eval(ans)); NewLine(); WriteString(\" by \"); NewLine(); Write(diff); NewLine(); WriteString(\"******************\"); NewLine(); False; } );};HoldArgument(\"TestMathPiper\", expr);HoldArgument(\"TestMathPiper\", ans);";
-        scriptMap.put("TestMathPiper",scriptString);
+        scriptString[1] = "Function(\"Testing\",[aLeft]){ WriteString(\"--\"); WriteString(aLeft); NewLine();};";
+        scriptMap.put("Testing",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "Function(\"Testing\",[aLeft]){ WriteString(\"--\"); WriteString(aLeft); NewLine();};";
-        scriptMap.put("Testing",scriptString);
+        scriptString[1] = "Function (\"TestMathPiper\", [expr, ans]){ Local(diff); diff := Simplify(Eval(expr)-Eval(ans)); Decide(Simplify(diff)=?0, True, { WriteString(\"******************\"); NewLine(); ShowLine(); Write(expr); WriteString(\" evaluates to \"); NewLine(); Write(Eval(expr)); NewLine(); WriteString(\" which differs from \"); NewLine(); Write(Eval(ans)); NewLine(); WriteString(\" by \"); NewLine(); Write(diff); NewLine(); WriteString(\"******************\"); NewLine(); False; } );};HoldArgument(\"TestMathPiper\", expr);HoldArgument(\"TestMathPiper\", ans);";
+        scriptMap.put("TestMathPiper",scriptString);
 
         scriptString = new String[2];
         scriptString[0] = null;
@@ -2562,37 +2562,6 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "Function(\"UniDivide\",[u,v]){ Local(m,n,q,r,k,j); m := Length(u)-1; n := Length(v)-1; While (m>?0 And? Zero?(u[m+1])) m--; While (n>?0 And? Zero?(v[n+1])) n--; q := ZeroVector(m-n+1); r := FlatCopy(u);  For(k:=m-n,k>=?0,k--) { q[k+1] := r[n+k+1]/v[n+1]; For (j:=n+k-1,j>=?k,j--) { r[j+1] := r[j+1] - q[k+1]*v[j-k+1]; }; }; Local(end); end:=Length(r); While (end>?n) { DestructiveDelete(r,end); end:=end-1; }; [q,r];};";
-        scriptMap.put("UniDivide",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "Function(\"UniGcd\",[u,v]){ Local(l,div,mod,m); DropEndZeroes(u); DropEndZeroes(v); l:=UniDivide(u,v); div:=l[1]; mod:=l[2]; DropEndZeroes(mod); m := Length(mod); Decide(m =? 0, v, UniGcd(v,mod));};";
-        scriptMap.put("UniGcd",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "Function(\"UniTaylor\",[taylorfunction,taylorvariable,taylorat,taylororder]){ Local(n,result,dif,polf); result:=[]; { MacroLocal(taylorvariable); MacroAssign(taylorvariable,taylorat); DestructiveAppend(result,Eval(taylorfunction)); }; dif:=taylorfunction; polf:=(taylorvariable-taylorat); For(n:=1,n<=?taylororder,n++) { dif:= Deriv(taylorvariable) dif; MacroLocal(taylorvariable); MacroAssign(taylorvariable,taylorat); DestructiveAppend(result,(Eval(dif)/n!)); }; UniVariate(taylorvariable,0,result);};";
-        scriptMap.put("UniTaylor",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "UniVarList(expr) := VarList(expr);";
-        scriptMap.put("UniVarList",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "10 # UniVar?(UniVariate(_var,_first,_coefs)) <-- True;20 # UniVar?(_anything) <-- False;200 # aLeft_UniVar? ^ aRight_PositiveInteger? <-- RepeatedSquaresMultiply(aLeft,aRight);200 # aLeft_UniVar? - aRight_UniVar? <--{ Local(from,result); Local(curl,curr,left,right); curl:=aLeft[2]; curr:=aRight[2]; left:=aLeft[3]; right:=aRight[3]; result:=[]; from:=Minimum(curl,curr); While(curl<?curr And? left !=? []) { DestructiveAppend(result,First(left)); left:=Rest(left); curl++; }; While(curl<?curr) { DestructiveAppend(result,0); curl++; }; While(curr<?curl And? right !=? []) { DestructiveAppend(result,-First(right)); right:=Rest(right); curr++; }; While(curr<?curl) { DestructiveAppend(result,0); curr++; }; While(left !=? [] And? right !=? []) { DestructiveAppend(result,First(left)-First(right)); left := Rest(left); right := Rest(right); }; While(left !=? []) { DestructiveAppend(result,First(left)); left := Rest(left); }; While(right !=? []) { DestructiveAppend(result,-First(right)); right := Rest(right); }; UniVariate(aLeft[1],from,result);};201 # (aLeft_UniVar? * _aRight)_((FreeOf?(aLeft[1],aRight))) <--{ aRight*aLeft;};";
-        scriptMap.put("UniVar?",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "ShiftUniVar(UniVariate(_var,_first,_coefs),_fact,_shift) <-- { UniVariate(var,first+shift,fact*coefs); };RulebaseHoldArguments(\"UniVariate\",[var,first,coefs]);RuleHoldArguments(\"UniVariate\",3,10,Length(coefs)>?0 And? coefs[1]=?0) UniVariate(var,first+1,Rest(coefs));RuleHoldArguments(\"UniVariate\",3,1000,Complex?(var) Or? List?(var)) ExpandUniVariate(var,first,coefs);500 # UniVariate(_var,_f1,_c1) + UniVariate(_var,_f2,_c2) <--{ Local(from,result); Local(curl,curr,left,right); Assign(curl, f1); Assign(curr, f2); Assign(left, c1); Assign(right, c2); Assign(result, []); Assign(from, Minimum(curl,curr)); While(And?(LessThan?(curl,curr),left !=? [])) { DestructiveAppend(result,First(left)); Assign(left,Rest(left)); Assign(curl,AddN(curl,1)); }; While(LessThan?(curl,curr)) { DestructiveAppend(result,0); Assign(curl,AddN(curl,1)); }; While(And?(LessThan?(curr,curl), right !=? [])) { DestructiveAppend(result,First(right)); Assign(right,Rest(right)); Assign(curr,AddN(curr,1)); }; While(LessThan?(curr,curl)) { DestructiveAppend(result,0); Assign(curr,AddN(curr,1)); }; While(And?(left !=? [], right !=? [])) { DestructiveAppend(result,First(left)+First(right)); Assign(left, Rest(left)); Assign(right, Rest(right)); }; While(left !=? []) { DestructiveAppend(result,First(left)); Assign(left, Rest(left)); }; While(right !=? []) { DestructiveAppend(result,First(right)); Assign(right, Rest(right)); }; UniVariate(var,from,result);};200 # UniVariate(_var,_first,_coefs) + a_Number? <-- UniVariate(var,first,coefs) + UniVariate(var,0,[a]);200 # a_Number? + UniVariate(_var,_first,_coefs) <-- UniVariate(var,first,coefs) + UniVariate(var,0,[a]);200 # - UniVariate(_var,_first,_coefs) <-- UniVariate(var,first,-coefs);200 # (_factor * UniVariate(_var,_first,_coefs))_((FreeOf?(var,factor))) <-- UniVariate(var,first,coefs*factor);200 # (UniVariate(_var,_first,_coefs)/_factor)_((FreeOf?(var,factor))) <-- UniVariate(var,first,coefs/factor);200 # UniVariate(_var,_f1,_c1) * UniVariate(_var,_f2,_c2) <--{ Local(i,j,n,shifted,result); Assign(result,MakeUni(0,var)); Assign(n,Length(c1)); For(i:=1,i<=?n,i++) { Assign(result,result+ShiftUniVar(UniVariate(var,f2,c2),MathNth(c1,i),f1+i-1)); }; result;};";
-        scriptMap.put("UniVariate",scriptString);
-        scriptMap.put("ShiftUniVar",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
         scriptString[1] = "Function(\"AddTerm\",[termlist,term,begining]){ Local(l,i); l := Length(termlist); Decide(term[2]!=?0, { i:=begining; Decide(l>=?1, While ((i<=?l) And? (term[1]<?termlist[i][1])) i++); Decide(i>?l, {DestructiveAppend(termlist,term);i++;}, Decide(term[1]=?termlist[i][1], { Local(nc); nc:=termlist[i][2]+term[2]; Decide(nc!=?0,DestructiveReplace(termlist,i,[term[1],nc]), {DestructiveDelete(termlist,i);i--;}); }, DestructiveInsert(termlist,i,term)) ); } ); i+1;};";
         scriptMap.put("AddTerm",scriptString);
 
@@ -2638,18 +2607,49 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
+        scriptString[1] = "Function(\"UniDivide\",[u,v]){ Local(m,n,q,r,k,j); m := Length(u)-1; n := Length(v)-1; While (m>?0 And? Zero?(u[m+1])) m--; While (n>?0 And? Zero?(v[n+1])) n--; q := ZeroVector(m-n+1); r := FlatCopy(u);  For(k:=m-n,k>=?0,k--) { q[k+1] := r[n+k+1]/v[n+1]; For (j:=n+k-1,j>=?k,j--) { r[j+1] := r[j+1] - q[k+1]*v[j-k+1]; }; }; Local(end); end:=Length(r); While (end>?n) { DestructiveDelete(r,end); end:=end-1; }; [q,r];};";
+        scriptMap.put("UniDivide",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
+        scriptString[1] = "Function(\"UniGcd\",[u,v]){ Local(l,div,mod,m); DropEndZeroes(u); DropEndZeroes(v); l:=UniDivide(u,v); div:=l[1]; mod:=l[2]; DropEndZeroes(mod); m := Length(mod); Decide(m =? 0, v, UniGcd(v,mod));};";
+        scriptMap.put("UniGcd",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
+        scriptString[1] = "Function(\"UniTaylor\",[taylorfunction,taylorvariable,taylorat,taylororder]){ Local(n,result,dif,polf); result:=[]; { MacroLocal(taylorvariable); MacroAssign(taylorvariable,taylorat); DestructiveAppend(result,Eval(taylorfunction)); }; dif:=taylorfunction; polf:=(taylorvariable-taylorat); For(n:=1,n<=?taylororder,n++) { dif:= Deriv(taylorvariable) dif; MacroLocal(taylorvariable); MacroAssign(taylorvariable,taylorat); DestructiveAppend(result,(Eval(dif)/n!)); }; UniVariate(taylorvariable,0,result);};";
+        scriptMap.put("UniTaylor",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
+        scriptString[1] = "10 # UniVar?(UniVariate(_var,_first,_coefs)) <-- True;20 # UniVar?(_anything) <-- False;200 # aLeft_UniVar? ^ aRight_PositiveInteger? <-- RepeatedSquaresMultiply(aLeft,aRight);200 # aLeft_UniVar? - aRight_UniVar? <--{ Local(from,result); Local(curl,curr,left,right); curl:=aLeft[2]; curr:=aRight[2]; left:=aLeft[3]; right:=aRight[3]; result:=[]; from:=Minimum(curl,curr); While(curl<?curr And? left !=? []) { DestructiveAppend(result,First(left)); left:=Rest(left); curl++; }; While(curl<?curr) { DestructiveAppend(result,0); curl++; }; While(curr<?curl And? right !=? []) { DestructiveAppend(result,-First(right)); right:=Rest(right); curr++; }; While(curr<?curl) { DestructiveAppend(result,0); curr++; }; While(left !=? [] And? right !=? []) { DestructiveAppend(result,First(left)-First(right)); left := Rest(left); right := Rest(right); }; While(left !=? []) { DestructiveAppend(result,First(left)); left := Rest(left); }; While(right !=? []) { DestructiveAppend(result,-First(right)); right := Rest(right); }; UniVariate(aLeft[1],from,result);};201 # (aLeft_UniVar? * _aRight)_((FreeOf?(aLeft[1],aRight))) <--{ aRight*aLeft;};";
+        scriptMap.put("UniVar?",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
+        scriptString[1] = "ShiftUniVar(UniVariate(_var,_first,_coefs),_fact,_shift) <-- { UniVariate(var,first+shift,fact*coefs); };RulebaseHoldArguments(\"UniVariate\",[var,first,coefs]);RuleHoldArguments(\"UniVariate\",3,10,Length(coefs)>?0 And? coefs[1]=?0) UniVariate(var,first+1,Rest(coefs));RuleHoldArguments(\"UniVariate\",3,1000,Complex?(var) Or? List?(var)) ExpandUniVariate(var,first,coefs);500 # UniVariate(_var,_f1,_c1) + UniVariate(_var,_f2,_c2) <--{ Local(from,result); Local(curl,curr,left,right); Assign(curl, f1); Assign(curr, f2); Assign(left, c1); Assign(right, c2); Assign(result, []); Assign(from, Minimum(curl,curr)); While(And?(LessThan?(curl,curr),left !=? [])) { DestructiveAppend(result,First(left)); Assign(left,Rest(left)); Assign(curl,AddN(curl,1)); }; While(LessThan?(curl,curr)) { DestructiveAppend(result,0); Assign(curl,AddN(curl,1)); }; While(And?(LessThan?(curr,curl), right !=? [])) { DestructiveAppend(result,First(right)); Assign(right,Rest(right)); Assign(curr,AddN(curr,1)); }; While(LessThan?(curr,curl)) { DestructiveAppend(result,0); Assign(curr,AddN(curr,1)); }; While(And?(left !=? [], right !=? [])) { DestructiveAppend(result,First(left)+First(right)); Assign(left, Rest(left)); Assign(right, Rest(right)); }; While(left !=? []) { DestructiveAppend(result,First(left)); Assign(left, Rest(left)); }; While(right !=? []) { DestructiveAppend(result,First(right)); Assign(right, Rest(right)); }; UniVariate(var,from,result);};200 # UniVariate(_var,_first,_coefs) + a_Number? <-- UniVariate(var,first,coefs) + UniVariate(var,0,[a]);200 # a_Number? + UniVariate(_var,_first,_coefs) <-- UniVariate(var,first,coefs) + UniVariate(var,0,[a]);200 # - UniVariate(_var,_first,_coefs) <-- UniVariate(var,first,-coefs);200 # (_factor * UniVariate(_var,_first,_coefs))_((FreeOf?(var,factor))) <-- UniVariate(var,first,coefs*factor);200 # (UniVariate(_var,_first,_coefs)/_factor)_((FreeOf?(var,factor))) <-- UniVariate(var,first,coefs/factor);200 # UniVariate(_var,_f1,_c1) * UniVariate(_var,_f2,_c2) <--{ Local(i,j,n,shifted,result); Assign(result,MakeUni(0,var)); Assign(n,Length(c1)); For(i:=1,i<=?n,i++) { Assign(result,result+ShiftUniVar(UniVariate(var,f2,c2),MathNth(c1,i),f1+i-1)); }; result;};";
+        scriptMap.put("UniVariate",scriptString);
+        scriptMap.put("ShiftUniVar",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
+        scriptString[1] = "UniVarList(expr) := VarList(expr);";
+        scriptMap.put("UniVarList",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
+        scriptString[1] = "RulebaseHoldArguments(\"UnparseLatex\",[expression]);RulebaseHoldArguments(\"UnparseLatex\",[expression, precedence]);Function (\"UnparseLatexBracketIf\", [predicate, string]){ Check(Boolean?(predicate) And? String?(string), \"Argument\", \"UnparseLatex internal error: non-boolean and/or non-string argument of UnparseLatexBracketIf\"); Decide(predicate, ConcatStrings(\"( \", string, \") \"), string);};Function (\"UnparseLatexMatrixBracketIf\", [predicate, string]){ Check(Boolean?(predicate) And? String?(string), \"Argument\", \"UnparseLatex internal error: non-boolean and/or non-string argument of UnparseLatexMatrixBracketIf\"); Decide(predicate, ConcatStrings(\"\\\\left[ \", string, \"\\\\right]\"), string);};UnparseLatexMaxPrec() := 60000; 100 # UnparseLatex(_x) <-- ConcatStrings(\"$\", UnparseLatex(x, UnparseLatexMaxPrec()), \"$\");110 # UnparseLatex(x_Number?, _p) <-- ToString(x);200 # UnparseLatex(x_Atom?, _p) <-- UnparseLatexLatexify(ToString(x));100 # UnparseLatex(x_String?, _p) <--{ Local(characterList); characterList := []; ForEach(character, x) { Decide(character !=? \" \", DestructiveAppend(characterList, character), DestructiveAppend(characterList, \"\\\\hspace{2 mm}\")); }; ConcatStrings(\"\\\\mathrm{''\", ListToString(characterList), \"''}\");};100 # UnparseLatex(x_Atom?, _p)_(Infix?(ToString(x))) <-- ConcatStrings(\"\\\\mathrm{\", ToString(x), \"}\");100 # UnparseLatex(x_List?, _p)_(Length(x) =? 0) <-- UnparseLatexBracketIf(True, \"\");110 # UnparseLatex(x_List?, _p) <-- UnparseLatexBracketIf(True, ConcatStrings(UnparseLatex(First(x), UnparseLatexMaxPrec()), UnparseLatexFinishList(Rest(x)) ) );100 # UnparseLatexFinishList(x_List?)_(Length(x) =? 0) <-- \"\";110 # UnparseLatexFinishList(x_List?) <-- ConcatStrings(\", \", UnparseLatex(First(x), UnparseLatexMaxPrec()), UnparseLatexFinishList(Rest(x)));  115 # UnparseLatex(_expr * n_Number?, _p) <-- UnparseLatexBracketIf(p <? PrecedenceGet(\"*\"), ConcatStrings(UnparseLatex(expr, LeftPrecedenceGet(\"*\")), \"\\\\times \", UnparseLatex(n, RightPrecedenceGet(\"*\")) ) );116 # UnparseLatex(_n * _expr, _p) _ (Function?(expr) And? Contains?([\"^\", \"!\", \"!!\"], Type(expr)) And? Number?(FunctionToList(expr)[2])) <-- UnparseLatexBracketIf(p <? PrecedenceGet(\"*\"), ConcatStrings(UnparseLatex(n, LeftPrecedenceGet(\"*\")), \"\\\\times \", UnparseLatex(expr, RightPrecedenceGet(\"*\")) ) ); 119 # UnparseLatex(expr_Function?, _p)_(ArgumentsCount(expr) =? 2 And? Infix?(Type(expr)) And? Not? Type(expr) =? \"^\" And? MetaGet(expr[0],\"HighlightColor\") !=? Empty) <-- UnparseLatexBracketIf(p <? PrecedenceGet(Type(expr)), ConcatStrings(UnparseLatex(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))), \"\\\\colorbox{\",MetaGet(expr[0],\"HighlightColor\"),\"}{\", UnparseLatexLatexify(Type(expr)), \"}\", UnparseLatex(FunctionToList(expr)[3], RightPrecedenceGet(Type(expr))) ) );120 # UnparseLatex(expr_Function?, _p)_(ArgumentsCount(expr) =? 2 And? Infix?(Type(expr)) ) <-- UnparseLatexBracketIf(p <? PrecedenceGet(Type(expr)), ConcatStrings(UnparseLatex(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))), UnparseLatexLatexify(Type(expr)), UnparseLatex(FunctionToList(expr)[3], RightPrecedenceGet(Type(expr))) ) );   119 # UnparseLatex(expr_Function?, _p)_(ArgumentsCount(expr) =? 1 And? Prefix?(Type(expr)) And? MetaGet(expr[0],\"HighlightColor\") !=? Empty) <-- UnparseLatexBracketIf(p <? PrecedenceGet(Type(expr)), ConcatStrings(\"\\\\colorbox{\",MetaGet(expr[0],\"HighlightColor\"),\"}{\", UnparseLatexLatexify(Type(expr)), \"}\", UnparseLatex(FunctionToList(expr)[2], RightPrecedenceGet(Type(expr)))) );120 # UnparseLatex(expr_Function?, _p)_(ArgumentsCount(expr) =? 1 And? Prefix?(Type(expr))) <-- UnparseLatexBracketIf(p <? PrecedenceGet(Type(expr)), ConcatStrings(UnparseLatexLatexify(Type(expr)), UnparseLatex(FunctionToList(expr)[2], RightPrecedenceGet(Type(expr)))) ); 120 # UnparseLatex(expr_Function?, _p)_(ArgumentsCount(expr) =? 1 And? Postfix?(Type(expr))) <-- UnparseLatexBracketIf(p <? LeftPrecedenceGet(Type(expr)), ConcatStrings( UnparseLatex(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))), UnparseLatexLatexify(Type(expr))) ); 98 # UnparseLatex(_x / _y, _p)_(Assigned?(operatorMetaMap) And? MetaGet(operatorMetaMap,\"HighlightColor\") !=? Empty) <-- UnparseLatexBracketIf(p <? PrecedenceGet(\"/\"), ConcatStrings(\"\\\\colorbox{\",MetaGet(operatorMetaMap,\"HighlightColor\"),\"}{\\\\frac \\\\textcolor{Black}{\", UnparseLatex(x, UnparseLatexMaxPrec()), \"} \\\\textcolor{Black}{\", UnparseLatex(y, UnparseLatexMaxPrec()), \"}} \") );100 # UnparseLatex(_x / _y, _p) <-- UnparseLatexBracketIf(p <? PrecedenceGet(\"/\"), ConcatStrings(\"\\\\frac{\", UnparseLatex(x, UnparseLatexMaxPrec()), \"}{\", UnparseLatex(y, UnparseLatexMaxPrec()), \"} \") ); 100 # UnparseLatex(_x ^ (1/2), _p) <-- ConcatStrings(\"\\\\sqrt{\", UnparseLatex(x, UnparseLatexMaxPrec()), \"}\");101 # UnparseLatex(_x ^ (1/_y), _p) <-- ConcatStrings(\"\\\\sqrt[\", UnparseLatex(y, UnparseLatexMaxPrec()), \"]{\", UnparseLatex(x, UnparseLatexMaxPrec()), \"}\");120 # UnparseLatex(_x ^ _y, _p) <-- UnparseLatexBracketIf(p <=? PrecedenceGet(\"^\"), ConcatStrings(UnparseLatex(x, PrecedenceGet(\"^\")), \" ^{\", UnparseLatex(y, UnparseLatexMaxPrec()), \"}\" ) );100 # UnparseLatex(If(_pred)_body, _p) <-- \"\\\\textrm{if }(\" ~ UnparseLatex(pred,60000) ~ \") \" ~ UnparseLatex(body,60000);100 # UnparseLatex(_left Else _right, _p) <-- UnparseLatex(left,60000) ~ \"\\\\textrm{ Else }\" ~ UnparseLatex(right,60000);LocalSymbols(UnparseLatexRegularOps, UnparseLatexRegularPrefixOps, UnparseLatexGreekLetters, UnparseLatexSpecialNames) {  UnparseLatexRegularOps := [ [\"+\",\" + \"], [\"-\",\" - \"], [\"*\",\" \\\\times \"], [\":=\",\" := \"],  [\"==\",\" = \"], [\"=?\",\" = \"], [\"!=?\",\"\\\\neq \"], [\"<=?\",\"\\\\leq \"], [\">=?\",\"\\\\geq \"], [\"<?\",\" < \"], [\">?\",\" > \"], [\"And?\",\"\\\\wedge \"], [\"Or?\", \"\\\\vee \"], [\"<>\", \"\\\\sim \"], [\"<=>\", \"\\\\approx \"], [\"Implies?\", \"\\\\Rightarrow \"], [\"Equivales?\", \"\\\\equiv \"], [\"%\", \"\\\\bmod \"], ]; UnparseLatexRegularPrefixOps := [ [\"+\",\" + \"], [\"-\",\" - \"], [\"Not?\",\" \\\\neg \"] ];  UnparseLatexGreekLetters := [\"Gamma\", \"Delta\", \"Theta\", \"Lambda\", \"Xi\", \"Pi\", \"Sigma\", \"Upsilon\", \"Phi\", \"Psi\", \"Omega\", \"alpha\", \"beta\", \"gamma\", \"delta\", \"epsilon\", \"zeta\", \"eta\", \"theta\", \"iota\", \"kappa\", \"lambda\", \"mu\", \"nu\", \"xi\", \"pi\", \"rho\", \"sigma\", \"tau\", \"upsilon\", \"phi\", \"chi\", \"psi\", \"omega\", \"varpi\", \"varrho\", \"varsigma\", \"varphi\", \"varepsilon\"]; UnparseLatexSpecialNames := [ [\"I\", \"\\\\imath \"],  [\"Pi\", \"\\\\pi \"],  [\"Infinity\", \"\\\\infty \"], [\"TeX\", \"\\\\textrm{\\\\TeX\\\\/}\"], [\"LaTeX\", \"\\\\textrm{\\\\LaTeX\\\\/}\"], [\"Maximum\", \"\\\\max \"],  [\"Minimum\", \"\\\\min \"], [\"Block\", \" \"], [\"Zeta\", \"\\\\zeta \"], ];  Function (\"UnparseLatexLatexify\", [string]) { Check(String?(string), \"Argument\", \"UnparseLatex internal error: non-string argument of UnparseLatexLatexify\");  Decide(Contains?(AssocIndices(UnparseLatexSpecialNames), string), UnparseLatexSpecialNames[string], Decide(Contains?(UnparseLatexGreekLetters, string), ConcatStrings(\"\\\\\", string, \" \"), Decide(Contains?(AssocIndices(UnparseLatexRegularOps), string), UnparseLatexRegularOps[string], Decide(Contains?(AssocIndices(UnparseLatexRegularPrefixOps), string), UnparseLatexRegularPrefixOps[string], Decide(Length(string) >=? 2 And? Number?(ToAtom(StringMidGet(2, Length(string)-1, string))), ConcatStrings(StringMidGet(1,1,string), \"_{\", StringMidGet(2, Length(string)-1, string), \"}\"), Decide(Length(string) >? 2, ConcatStrings(\"\\\\mathrm{ \", string, \" }\"), string )))))); };};200 # UnparseLatex(x_Function?, _p) _ (Bodied?(Type(x))) <-- { Local(func, args, lastarg); func := Type(x); args := Rest(FunctionToList(x)); lastarg := PopBack(args); UnparseLatexBracketIf(p <? PrecedenceGet(func), ConcatStrings( UnparseLatexLatexify(func), UnparseLatex(args, UnparseLatexMaxPrec()), UnparseLatex(lastarg, PrecedenceGet(func)) ));};220 # UnparseLatex(x_Function?, _p) <-- ConcatStrings(UnparseLatexLatexify(Type(x)), UnparseLatex(Rest(FunctionToList(x)), UnparseLatexMaxPrec()) ); 100 # UnparseLatex(Sqrt(_x), _p) <-- ConcatStrings(\"\\\\sqrt{\", UnparseLatex(x, UnparseLatexMaxPrec()), \"}\"); 100 # UnparseLatex(Exp(_x), _p) <-- UnparseLatexBracketIf(p <? PrecedenceGet(\"/\"), ConcatStrings(\"\\\\exp \", UnparseLatexBracketIf(True, UnparseLatex(x, UnparseLatexMaxPrec())) ) );LocalSymbols(UnparseLatexMathFunctions, UnparseLatexMathFunctions2) {   UnparseLatexMathFunctions := [ [\"Cos\",\"\\\\cos \"], [\"Sin\",\"\\\\sin \"], [\"Tan\",\"\\\\tan \"], [\"Cosh\",\"\\\\cosh \"], [\"Sinh\",\"\\\\sinh \"], [\"Tanh\",\"\\\\tanh \"], [\"Ln\",\"\\\\ln \"], [\"ArcCos\",\"\\\\arccos \"], [\"ArcSin\",\"\\\\arcsin \"], [\"ArcTan\",\"\\\\arctan \"], [\"ArcCosh\",\"\\\\mathrm{arccosh}\\\\, \"], [\"ArcSinh\",\"\\\\mathrm{arcsinh}\\\\, \"], [\"ArcTanh\",\"\\\\mathrm{arctanh}\\\\, \"], [\"Erf\", \"\\\\mathrm{erf}\\\\, \"], [\"Erfc\", \"\\\\mathrm{erfc}\\\\, \"], ];  UnparseLatexMathFunctions2 := [ [\"BesselI\", \"I \"], [\"BesselJ\", \"J \"], [\"BesselK\", \"K \"], [\"BesselY\", \"Y \"], [\"OrthoH\", \"H \"], [\"OrthoP\", \"P \"], [\"OrthoT\", \"T \"], [\"OrthoU\", \"U \"], ];    120 # UnparseLatex(expr_Function?, _p) _ (ArgumentsCount(expr) =? 1 And? Contains?(AssocIndices(UnparseLatexMathFunctions), Type(expr)) ) <-- UnparseLatexBracketIf(p <? PrecedenceGet(\"*\"), ConcatStrings(UnparseLatexMathFunctions[Type(expr)], UnparseLatex( FunctionToList(expr)[2], PrecedenceGet(\"*\")) ) );  120 # UnparseLatex(expr_Function?, _p) _ (ArgumentsCount(expr) =? 2 And? Contains?(AssocIndices(UnparseLatexMathFunctions2), Type(expr)) ) <-- UnparseLatexBracketIf(p <? PrecedenceGet(\"*\"), ConcatStrings( UnparseLatexMathFunctions2[Type(expr)], \"_{\", UnparseLatex( FunctionToList(expr)[2], UnparseLatexMaxPrec()),  \"}\", UnparseLatexBracketIf(True, UnparseLatex(FunctionToList(expr)[3], UnparseLatexMaxPrec()) )  ) );}; 100 # UnparseLatex(Complex(0, 1), _p) <-- UnparseLatex(Hold(I), p);100 # UnparseLatex(Complex(_x, 0), _p) <-- UnparseLatex(x, p);110 # UnparseLatex(Complex(_x, 1), _p) <-- UnparseLatex(x + Hold(I), p);110 # UnparseLatex(Complex(0, _y), _p) <-- UnparseLatex(Hold(I)*y, p);120 # UnparseLatex(Complex(_x, _y), _p) <-- UnparseLatex(x + Hold(I)*y, p);100 # UnparseLatex(Abs(_x), _p) <-- ConcatStrings(\"\\\\left| \", UnparseLatex(x, UnparseLatexMaxPrec()), \"\\\\right| \");100 # UnparseLatex(Floor(_x), _p) <-- ConcatStrings(\"\\\\left\\\\lfloor \", UnparseLatex(x, UnparseLatexMaxPrec()), \"\\\\right\\\\rfloor \");100 # UnparseLatex(Ceil(_x), _p) <-- ConcatStrings(\"\\\\left\\\\lceil \", UnparseLatex(x, UnparseLatexMaxPrec()), \"\\\\right\\\\rceil \");100 # UnparseLatex(Modulo(_x, _y), _p) <-- UnparseLatexBracketIf(p <? PrecedenceGet(\"/\"), ConcatStrings(UnparseLatex(x, PrecedenceGet(\"/\")), \"\\\\bmod \", UnparseLatex(y, PrecedenceGet(\"/\")) ) );100 # UnparseLatex(Union(_x, _y), _p) <-- UnparseLatexBracketIf(p <? PrecedenceGet(\"/\"), ConcatStrings(UnparseLatex(x, PrecedenceGet(\"/\")), \"\\\\cup \", UnparseLatex(y, PrecedenceGet(\"/\")) ) );100 # UnparseLatex(Intersection(_x, _y), _p) <-- UnparseLatexBracketIf(p <? PrecedenceGet(\"/\"), ConcatStrings(UnparseLatex(x, PrecedenceGet(\"/\")), \"\\\\cap \", UnparseLatex(y, PrecedenceGet(\"/\")) ) );100 # UnparseLatex(Difference(_x, _y), _p) <-- UnparseLatexBracketIf(p <? PrecedenceGet(\"/\"), ConcatStrings(UnparseLatex(x, PrecedenceGet(\"/\")), \"\\\\setminus \", UnparseLatex(y, PrecedenceGet(\"/\")) ) );100 # UnparseLatex(Contains?(_x, _y), _p) <-- UnparseLatexBracketIf(p <? PrecedenceGet(\"/\"), ConcatStrings(UnparseLatex(y, PrecedenceGet(\"/\")), \"\\\\in \", UnparseLatex(x, PrecedenceGet(\"/\")) ) );100 # UnparseLatex(BinomialCoefficient(_n, _m), _p) <-- UnparseLatexBracketIf(False, ConcatStrings(\"{\", UnparseLatex(n, UnparseLatexMaxPrec()), \" \\\\choose \", UnparseLatex(m, UnparseLatexMaxPrec()), \"}\" ));RulebaseHoldArguments(\"UnparseLatexNth\",[x,y]);100 # UnparseLatex(Nth(Nth(_x, i_List?), _j), _p) <-- UnparseLatex(UnparseLatexNth(x, Append(i,j)), p);100 # UnparseLatex(UnparseLatexNth(Nth(_x, i_List?), _j), _p) <-- UnparseLatex(UnparseLatexNth(x, Append(i,j)), p);110 # UnparseLatex(Nth(Nth(_x, _i), _j), _p) <-- UnparseLatex(UnparseLatexNth(x, List(i,j)), p);120 # UnparseLatex(Nth(_x, _i), _p) <-- ConcatStrings(UnparseLatex(x, UnparseLatexMaxPrec()), \" _{\", UnparseLatex(i, UnparseLatexMaxPrec()), \"}\");120 # UnparseLatex(UnparseLatexNth(_x, _i), _p) <-- ConcatStrings(UnparseLatex(x, UnparseLatexMaxPrec()), \" _{\", UnparseLatex(i, UnparseLatexMaxPrec()), \"}\");80 # UnparseLatex(M_Matrix?, _p) <-- UnparseLatexMatrixBracketIf(True, UnparseLatexPrintMatrix(M));Function (\"UnparseLatexPrintMatrix\", [M]){ Local(row, col, result, ncol); result := \"\\\\begin{array}{\"; ForEach(col, M[1]) result:=ConcatStrings(result, \"c\"); result := ConcatStrings(result, \"}\"); ForEach(row, 1 .. Length(M)) { ForEach(col, 1 .. Length(M[row])) { result := ConcatStrings( result, \" \", UnparseLatex(M[row][col], UnparseLatexMaxPrec()), Decide(col =? Length(M[row]), Decide(row =? Length(M), \"\", \" \\\\\\\\\"), \" &\")); }; }; ConcatStrings(result, \" \\\\end{array} \");};";
+        scriptMap.put("UnparseLatex",scriptString);
+        scriptMap.put("UnparseLatexFinishList",scriptString);
+        scriptMap.put("UnparseLatexFinishList",scriptString);
+
+        scriptString = new String[2];
+        scriptString[0] = null;
         scriptString[1] = "CharList(length,item):={ Local(line,i); line:=\"\"; For(Assign(i,0),LessThan?(i,length),Assign(i,AddN(i,1))) Assign(line, line~item); line;};CharField(width,height) := ArrayCreate(height,CharList(width,\" \"));WriteCharField(charfield):={ Local(i,len); len:=Length(charfield); For(Assign(i,1),i<=?len,Assign(i,AddN(i,1))) { WriteString(charfield[i]); NewLine(); }; True;};ColumnFilled(charfield,column):={ Local(i,result,len); result:=False; len:=Length(charfield); For(Assign(i, 1),(result =? False) And? (i<=?len),Assign(i,AddN(i,1))) { Decide(StringMidGet(column,1,charfield[i]) !=? \" \",result:=True); }; result;};WriteCharField(charfield,width):={ Local(pos,length,len); Assign(length, Length(charfield[1])); Assign(pos, 1); While(pos<=?length) { Local(i,thiswidth); Assign(thiswidth, width); Decide(thiswidth>?(length-pos)+1, { Assign(thiswidth, AddN(SubtractN(length,pos),1)); }, { While (thiswidth>?1 And? ColumnFilled(charfield,pos+thiswidth-1)) { Assign(thiswidth,SubtractN(thiswidth,1)); }; Decide(thiswidth =? 1, Assign(thiswidth, width)); } ); len:=Length(charfield); For(Assign(i, 1),i<=?len,Assign(i,AddN(i,1))) { WriteString(StringMidGet(pos,thiswidth,charfield[i])); NewLine(); }; Assign(pos, AddN(pos, thiswidth)); NewLine(); }; True;};PutString(charfield,x,y,string):={ cf[y] := StringMidSet(x,string,cf[y]); True;};MakeOper(x,y,width,height,oper,args,base):={ Local(result); Assign(result,ArrayCreate(7,0)); ArraySet(result,1,x); ArraySet(result,2,y); ArraySet(result,3,width); ArraySet(result,4,height); ArraySet(result,5,oper); ArraySet(result,6,args); ArraySet(result,7,base); result;};MoveOper(f,x,y):={ f[1]:=AddN(f[1], x);  f[2]:=AddN(f[2], y);  f[7]:=AddN(f[7], y); };AlignBase(i1,i2):={ Local(base); Assign(base, Maximum(i1[7],i2[7])); MoveOper(i1,0,SubtractN(base,(i1[7]))); MoveOper(i2,0,SubtractN(base,(i2[7])));};10 # BuildArgs([]) <-- Formula(ToAtom(\" \"));20 # BuildArgs([_head]) <-- head;30 # BuildArgs(_any) <-- { Local(item1,item2,comma,base,newitem); Assign(item1, any[1]); Assign(item2, any[2]); Assign(comma, Formula(ToAtom(\",\"))); Assign(base, Maximum(item1[7],item2[7])); MoveOper(item1,0,SubtractN(base,(item1[7]))); MoveOper(comma,AddN(item1[3],1),base); MoveOper(item2,comma[1]+comma[3]+1,SubtractN(base,(item2[7]))); Assign(newitem, MakeOper(0,0,AddN(item2[1],item2[3]),Maximum(item1[4],item2[4]),\"Func\",[item1,comma,item2],base)); BuildArgs(newitem~Rest(Rest(any))); };FormulaBracket(f):={ Local(left,right); Assign(left, Formula(ToAtom(\"(\"))); Assign(right, Formula(ToAtom(\")\"))); left[4]:=f[4]; right[4]:=f[4]; MoveOper(left,f[1],f[2]); MoveOper(f,2,0); MoveOper(right,f[1]+f[3]+1,f[2]); MakeOper(0,0,right[1]+right[3],f[4],\"Func\",[left,f,right],f[7]);};1 # Formula(f_Atom?) <-- MakeOper(0,0,Length(ToString(f)),1,\"ToAtom\",ToString(f),0);2 # Formula(_xx ^ _yy) <--{ Local(l,r); Assign(l, BracketOn(Formula(xx),xx,LeftPrecedenceGet(\"^\"))); Assign(r, BracketOn(Formula(yy),yy,RightPrecedenceGet(\"^\"))); MoveOper(l,0,r[4]); MoveOper(r,l[3],0); MakeOper(0,0,AddN(l[3],r[3]),AddN(l[4],r[4]),\"Func\",[l,r],l[2]+l[4]-1);};10 # FormulaArrayItem(xx_List?) <--{ Local(sub,height); sub := []; height := 0; ForEach(item,xx) { Local(made); made := FormulaBracket(Formula(item)); Decide(made[4] >? height,Assign(height,made[4])); DestructiveAppend(sub,made); }; MakeOper(0,0,0,height,\"List\",sub,height>>1);};20 # FormulaArrayItem(_item) <-- Formula(item);2 # Formula(xx_List?) <--{ Local(sub,width,height); sub:=[]; width := 0; height := 1; ForEach(item,xx) { Local(made); made := FormulaArrayItem(item); Decide(made[3] >? width,Assign(width,made[3])); MoveOper(made,0,height); Assign(height,AddN(height,AddN(made[4],1))); DestructiveAppend(sub,made); }; Local(thislength,maxlength); maxlength:=0; ForEach(item,xx) { thislength:=0; If(List?(item)) {thislength:=Length(item);}; If(maxlength<?thislength) {maxlength:=thislength;}; }; Decide(maxlength>?0, { Local(i,j); width:=0; For(j:=1,j<=?maxlength,j++) { Local(w); w := 0; For(i:=1,i<=?Length(sub),i++) { If(List?(xx[i]) And? j<=?Length(xx[i])) Decide(sub[i][6][j][3] >? w,w := sub[i][6][j][3]); }; For(i:=1,i<=?Length(sub),i++) { If(List?(xx[i]) And? j<=?Length(xx[i])) MoveOper(sub[i][6][j],width,0); }; width := width+w+1; }; For(i:=1,i<=?Length(sub),i++) { sub[i][3] := width; }; } ); sub := MakeOper(0,0,width,height,\"List\",sub,height>>1); FormulaBracket(sub);};2 # Formula(_xx / _yy) <--{ Local(l,r,dash,width); Assign(l, Formula(xx)); Assign(r, Formula(yy)); Assign(width, Maximum(l[3],r[3])); Assign(dash, Formula(ToAtom(CharList(width,\"-\")))); MoveOper(dash,0,l[4]); MoveOper(l,(SubtractN(width,l[3])>>1),0); MoveOper(r,(SubtractN(width,r[3])>>1),AddN(dash[2], dash[4])); MakeOper(0,0,width,AddN(r[2], r[4]),\"Func\",[l,r,dash],dash[2]);};RulebaseHoldArguments(\"BracketOn\",[op,f,prec]);RuleHoldArguments(\"BracketOn\",3,1,Function?(f) And? ArgumentsCount(f) =? 2 And? Infix?(Type(f)) And? PrecedenceGet(Type(f)) >? prec){ FormulaBracket(op);};RuleHoldArguments(\"BracketOn\",3,2,True){ op;};10 # Formula(f_Function?)_(ArgumentsCount(f) =? 2 And? Infix?(Type(f))) <--{ Local(l,r,oper,width,height,base); Assign(l, Formula(f[1])); Assign(r, Formula(f[2])); Assign(l, BracketOn(l,f[1],LeftPrecedenceGet(Type(f)))); Assign(r, BracketOn(r,f[2],RightPrecedenceGet(Type(f)))); Assign(oper, Formula(f[0])); Assign(base, Maximum(l[7],r[7])); MoveOper(oper,AddN(l[3],1),SubtractN(base,(oper[7]))); MoveOper(r,oper[1] + oper[3]+1,SubtractN(base,(r[7]))); MoveOper(l,0,SubtractN(base,(l[7]))); Assign(height, Maximum(AddN(l[2], l[4]),AddN(r[2], r[4]))); MakeOper(0,0,AddN(r[1], r[3]),height,\"Func\",[l,r,oper],base);};11 # Formula(f_Function?) <--{ Local(head,args,all); Assign(head, Formula(f[0])); Assign(all, Rest(FunctionToList(f))); Assign(args, FormulaBracket(BuildArgs(MapSingle(\"Formula\",Apply(\"Hold\",[all]))))); AlignBase(head,args); MoveOper(args,head[3],0); MakeOper(0,0,args[1]+args[3],Maximum(head[4],args[4]),\"Func\",[head,args],head[7]);};RulebaseHoldArguments(\"RenderFormula\",[cf,f,x,y]);RuleHoldArguments(\"RenderFormula\",4,1,f[5] =? \"ToAtom\" And? f[6] =? \"(\" And? f[4] >? 1){ Local(height,i); Assign(x, AddN(x,f[1])); Assign(y, AddN(y,f[2])); Assign(height, SubtractN(f[4],1)); cf[y] := StringMidSet(x, \"/\", cf[y]); cf[AddN(y,height)] := StringMidSet(x, \"\\\\\", cf[AddN(y,height)]); For (Assign(i,1),LessThan?(i,height),Assign(i,AddN(i,1))) cf[AddN(y,i)] := StringMidSet(x, \"|\", cf[AddN(y,i)]);};RuleHoldArguments(\"RenderFormula\",4,1,f[5] =? \"ToAtom\" And? f[6] =? \")\" And? f[4] >? 1){ Local(height,i); Assign(x, AddN(x,f[1])); Assign(y, AddN(y,f[2])); Assign(height, SubtractN(f[4],1)); cf[y] := StringMidSet(x, \"\\\\\", cf[y]); cf[y+height] := StringMidSet(x, \"/\", cf[y+height]); For (Assign(i,1),LessThan?(i,height),Assign(i,AddN(i,1))) cf[AddN(y,i)] := StringMidSet(x, \"|\", cf[AddN(y,i)]);};RuleHoldArguments(\"RenderFormula\",4,5,f[5] =? \"ToAtom\"){ cf[AddN(y, f[2]) ]:= StringMidSet(AddN(x,f[1]),f[6],cf[AddN(y, f[2]) ]);};RuleHoldArguments(\"RenderFormula\",4,6,True){ ForEach(item,f[6]) { RenderFormula(cf,item,AddN(x, f[1]),AddN(y, f[2])); };};LocalSymbols(formulaMaxWidth) { SetFormulaMaxWidth(width):= { formulaMaxWidth := width; }; FormulaMaxWidth() := formulaMaxWidth; SetFormulaMaxWidth(60);}; Function(\"UnparseMath2D\",[ff]){ Local(cf,f); f:=Formula(ff); cf:=CharField(f[3],f[4]); RenderFormula(cf,f,1,1); NewLine(); WriteCharField(cf,FormulaMaxWidth()); DumpErrors(); True;};EvalFormula(f):={ Local(result); result:= ListToFunction([ToAtom(\"=?\"),f,Eval(f)]); UnparseMath2D(result); True;};HoldArgument(\"EvalFormula\",f);";
         scriptMap.put("UnparseMath2D",scriptString);
         scriptMap.put("EvalFormula",scriptString);
         scriptMap.put("BuildArgs",scriptString);
         scriptMap.put("FormulaArrayItem",scriptString);
-
-        scriptString = new String[2];
-        scriptString[0] = null;
-        scriptString[1] = "RulebaseHoldArguments(\"UnparseLatex\",[expression]);RulebaseHoldArguments(\"UnparseLatex\",[expression, precedence]);Function (\"UnparseLatexBracketIf\", [predicate, string]){ Check(Boolean?(predicate) And? String?(string), \"Argument\", \"UnparseLatex internal error: non-boolean and/or non-string argument of UnparseLatexBracketIf\"); Decide(predicate, ConcatStrings(\"( \", string, \") \"), string);};Function (\"UnparseLatexMatrixBracketIf\", [predicate, string]){ Check(Boolean?(predicate) And? String?(string), \"Argument\", \"UnparseLatex internal error: non-boolean and/or non-string argument of UnparseLatexMatrixBracketIf\"); Decide(predicate, ConcatStrings(\"\\\\left[ \", string, \"\\\\right]\"), string);};UnparseLatexMaxPrec() := 60000; 100 # UnparseLatex(_x) <-- ConcatStrings(\"$\", UnparseLatex(x, UnparseLatexMaxPrec()), \"$\");110 # UnparseLatex(x_Number?, _p) <-- ToString(x);200 # UnparseLatex(x_Atom?, _p) <-- UnparseLatexLatexify(ToString(x));100 # UnparseLatex(x_String?, _p) <--{ Local(characterList); characterList := []; ForEach(character, x) { Decide(character !=? \" \", DestructiveAppend(characterList, character), DestructiveAppend(characterList, \"\\\\hspace{2 mm}\")); }; ConcatStrings(\"\\\\mathrm{''\", ListToString(characterList), \"''}\");};100 # UnparseLatex(x_Atom?, _p)_(Infix?(ToString(x))) <-- ConcatStrings(\"\\\\mathrm{\", ToString(x), \"}\");100 # UnparseLatex(x_List?, _p)_(Length(x) =? 0) <-- UnparseLatexBracketIf(True, \"\");110 # UnparseLatex(x_List?, _p) <-- UnparseLatexBracketIf(True, ConcatStrings(UnparseLatex(First(x), UnparseLatexMaxPrec()), UnparseLatexFinishList(Rest(x)) ) );100 # UnparseLatexFinishList(x_List?)_(Length(x) =? 0) <-- \"\";110 # UnparseLatexFinishList(x_List?) <-- ConcatStrings(\", \", UnparseLatex(First(x), UnparseLatexMaxPrec()), UnparseLatexFinishList(Rest(x)));  115 # UnparseLatex(_expr * n_Number?, _p) <-- UnparseLatexBracketIf(p <? PrecedenceGet(\"*\"), ConcatStrings(UnparseLatex(expr, LeftPrecedenceGet(\"*\")), \"\\\\times \", UnparseLatex(n, RightPrecedenceGet(\"*\")) ) );116 # UnparseLatex(_n * _expr, _p) _ (Function?(expr) And? Contains?([\"^\", \"!\", \"!!\"], Type(expr)) And? Number?(FunctionToList(expr)[2])) <-- UnparseLatexBracketIf(p <? PrecedenceGet(\"*\"), ConcatStrings(UnparseLatex(n, LeftPrecedenceGet(\"*\")), \"\\\\times \", UnparseLatex(expr, RightPrecedenceGet(\"*\")) ) ); 119 # UnparseLatex(expr_Function?, _p)_(ArgumentsCount(expr) =? 2 And? Infix?(Type(expr)) And? Not? Type(expr) =? \"^\" And? MetaGet(expr[0],\"op\") !=? Empty) <-- UnparseLatexBracketIf(p <? PrecedenceGet(Type(expr)), ConcatStrings(UnparseLatex(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))), \"\\\\textcolor{Red}{\", UnparseLatexLatexify(Type(expr)), \"}\", UnparseLatex(FunctionToList(expr)[3], RightPrecedenceGet(Type(expr))) ) );120 # UnparseLatex(expr_Function?, _p)_(ArgumentsCount(expr) =? 2 And? Infix?(Type(expr)) ) <-- UnparseLatexBracketIf(p <? PrecedenceGet(Type(expr)), ConcatStrings(UnparseLatex(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))), UnparseLatexLatexify(Type(expr)), UnparseLatex(FunctionToList(expr)[3], RightPrecedenceGet(Type(expr))) ) );   119 # UnparseLatex(expr_Function?, _p)_(ArgumentsCount(expr) =? 1 And? Prefix?(Type(expr)) And? MetaGet(expr[0],\"op\") !=? Empty) <-- UnparseLatexBracketIf(p <? PrecedenceGet(Type(expr)), ConcatStrings(\"\\\\textcolor{Red}{\", UnparseLatexLatexify(Type(expr)), \"}\", UnparseLatex(FunctionToList(expr)[2], RightPrecedenceGet(Type(expr)))) );120 # UnparseLatex(expr_Function?, _p)_(ArgumentsCount(expr) =? 1 And? Prefix?(Type(expr))) <-- UnparseLatexBracketIf(p <? PrecedenceGet(Type(expr)), ConcatStrings(UnparseLatexLatexify(Type(expr)), UnparseLatex(FunctionToList(expr)[2], RightPrecedenceGet(Type(expr)))) ); 120 # UnparseLatex(expr_Function?, _p)_(ArgumentsCount(expr) =? 1 And? Postfix?(Type(expr))) <-- UnparseLatexBracketIf(p <? LeftPrecedenceGet(Type(expr)), ConcatStrings( UnparseLatex(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))), UnparseLatexLatexify(Type(expr))) ); 98 # UnparseLatex(_x / _y, _p)_(Assigned?(operatorMetaMap)) <-- UnparseLatexBracketIf(p <? PrecedenceGet(\"/\"), ConcatStrings(\"\\\\textcolor{Red}{\\\\frac \\\\textcolor{Black}{\", UnparseLatex(x, UnparseLatexMaxPrec()), \"} \\\\textcolor{Black}{\", UnparseLatex(y, UnparseLatexMaxPrec()), \"}} \") );100 # UnparseLatex(_x / _y, _p) <-- UnparseLatexBracketIf(p <? PrecedenceGet(\"/\"), ConcatStrings(\"\\\\frac{\", UnparseLatex(x, UnparseLatexMaxPrec()), \"}{\", UnparseLatex(y, UnparseLatexMaxPrec()), \"} \") ); 100 # UnparseLatex(_x ^ (1/2), _p) <-- ConcatStrings(\"\\\\sqrt{\", UnparseLatex(x, UnparseLatexMaxPrec()), \"}\");101 # UnparseLatex(_x ^ (1/_y), _p) <-- ConcatStrings(\"\\\\sqrt[\", UnparseLatex(y, UnparseLatexMaxPrec()), \"]{\", UnparseLatex(x, UnparseLatexMaxPrec()), \"}\");120 # UnparseLatex(_x ^ _y, _p) <-- UnparseLatexBracketIf(p <=? PrecedenceGet(\"^\"), ConcatStrings(UnparseLatex(x, PrecedenceGet(\"^\")), \" ^{\", UnparseLatex(y, UnparseLatexMaxPrec()), \"}\" ) );100 # UnparseLatex(If(_pred)_body, _p) <-- \"\\\\textrm{if }(\" ~ UnparseLatex(pred,60000) ~ \") \" ~ UnparseLatex(body,60000);100 # UnparseLatex(_left Else _right, _p) <-- UnparseLatex(left,60000) ~ \"\\\\textrm{ Else }\" ~ UnparseLatex(right,60000);LocalSymbols(UnparseLatexRegularOps, UnparseLatexRegularPrefixOps, UnparseLatexGreekLetters, UnparseLatexSpecialNames) {  UnparseLatexRegularOps := [ [\"+\",\" + \"], [\"-\",\" - \"], [\"*\",\" \\\\times \"], [\":=\",\" := \"],  [\"==\",\" = \"], [\"=?\",\" = \"], [\"!=?\",\"\\\\neq \"], [\"<=?\",\"\\\\leq \"], [\">=?\",\"\\\\geq \"], [\"<?\",\" < \"], [\">?\",\" > \"], [\"And?\",\"\\\\wedge \"], [\"Or?\", \"\\\\vee \"], [\"<>\", \"\\\\sim \"], [\"<=>\", \"\\\\approx \"], [\"Implies?\", \"\\\\Rightarrow \"], [\"Equivales?\", \"\\\\equiv \"], [\"%\", \"\\\\bmod \"], ]; UnparseLatexRegularPrefixOps := [ [\"+\",\" + \"], [\"-\",\" - \"], [\"Not?\",\" \\\\neg \"] ];  UnparseLatexGreekLetters := [\"Gamma\", \"Delta\", \"Theta\", \"Lambda\", \"Xi\", \"Pi\", \"Sigma\", \"Upsilon\", \"Phi\", \"Psi\", \"Omega\", \"alpha\", \"beta\", \"gamma\", \"delta\", \"epsilon\", \"zeta\", \"eta\", \"theta\", \"iota\", \"kappa\", \"lambda\", \"mu\", \"nu\", \"xi\", \"pi\", \"rho\", \"sigma\", \"tau\", \"upsilon\", \"phi\", \"chi\", \"psi\", \"omega\", \"varpi\", \"varrho\", \"varsigma\", \"varphi\", \"varepsilon\"]; UnparseLatexSpecialNames := [ [\"I\", \"\\\\imath \"],  [\"Pi\", \"\\\\pi \"],  [\"Infinity\", \"\\\\infty \"], [\"TeX\", \"\\\\textrm{\\\\TeX\\\\/}\"], [\"LaTeX\", \"\\\\textrm{\\\\LaTeX\\\\/}\"], [\"Maximum\", \"\\\\max \"],  [\"Minimum\", \"\\\\min \"], [\"Block\", \" \"], [\"Zeta\", \"\\\\zeta \"], ];  Function (\"UnparseLatexLatexify\", [string]) { Check(String?(string), \"Argument\", \"UnparseLatex internal error: non-string argument of UnparseLatexLatexify\");  Decide(Contains?(AssocIndices(UnparseLatexSpecialNames), string), UnparseLatexSpecialNames[string], Decide(Contains?(UnparseLatexGreekLetters, string), ConcatStrings(\"\\\\\", string, \" \"), Decide(Contains?(AssocIndices(UnparseLatexRegularOps), string), UnparseLatexRegularOps[string], Decide(Contains?(AssocIndices(UnparseLatexRegularPrefixOps), string), UnparseLatexRegularPrefixOps[string], Decide(Length(string) >=? 2 And? Number?(ToAtom(StringMidGet(2, Length(string)-1, string))), ConcatStrings(StringMidGet(1,1,string), \"_{\", StringMidGet(2, Length(string)-1, string), \"}\"), Decide(Length(string) >? 2, ConcatStrings(\"\\\\mathrm{ \", string, \" }\"), string )))))); };};200 # UnparseLatex(x_Function?, _p) _ (Bodied?(Type(x))) <-- { Local(func, args, lastarg); func := Type(x); args := Rest(FunctionToList(x)); lastarg := PopBack(args); UnparseLatexBracketIf(p <? PrecedenceGet(func), ConcatStrings( UnparseLatexLatexify(func), UnparseLatex(args, UnparseLatexMaxPrec()), UnparseLatex(lastarg, PrecedenceGet(func)) ));};220 # UnparseLatex(x_Function?, _p) <-- ConcatStrings(UnparseLatexLatexify(Type(x)), UnparseLatex(Rest(FunctionToList(x)), UnparseLatexMaxPrec()) ); 100 # UnparseLatex(Sqrt(_x), _p) <-- ConcatStrings(\"\\\\sqrt{\", UnparseLatex(x, UnparseLatexMaxPrec()), \"}\"); 100 # UnparseLatex(Exp(_x), _p) <-- UnparseLatexBracketIf(p <? PrecedenceGet(\"/\"), ConcatStrings(\"\\\\exp \", UnparseLatexBracketIf(True, UnparseLatex(x, UnparseLatexMaxPrec())) ) );LocalSymbols(UnparseLatexMathFunctions, UnparseLatexMathFunctions2) {   UnparseLatexMathFunctions := [ [\"Cos\",\"\\\\cos \"], [\"Sin\",\"\\\\sin \"], [\"Tan\",\"\\\\tan \"], [\"Cosh\",\"\\\\cosh \"], [\"Sinh\",\"\\\\sinh \"], [\"Tanh\",\"\\\\tanh \"], [\"Ln\",\"\\\\ln \"], [\"ArcCos\",\"\\\\arccos \"], [\"ArcSin\",\"\\\\arcsin \"], [\"ArcTan\",\"\\\\arctan \"], [\"ArcCosh\",\"\\\\mathrm{arccosh}\\\\, \"], [\"ArcSinh\",\"\\\\mathrm{arcsinh}\\\\, \"], [\"ArcTanh\",\"\\\\mathrm{arctanh}\\\\, \"], [\"Erf\", \"\\\\mathrm{erf}\\\\, \"], [\"Erfc\", \"\\\\mathrm{erfc}\\\\, \"], ];  UnparseLatexMathFunctions2 := [ [\"BesselI\", \"I \"], [\"BesselJ\", \"J \"], [\"BesselK\", \"K \"], [\"BesselY\", \"Y \"], [\"OrthoH\", \"H \"], [\"OrthoP\", \"P \"], [\"OrthoT\", \"T \"], [\"OrthoU\", \"U \"], ];    120 # UnparseLatex(expr_Function?, _p) _ (ArgumentsCount(expr) =? 1 And? Contains?(AssocIndices(UnparseLatexMathFunctions), Type(expr)) ) <-- UnparseLatexBracketIf(p <? PrecedenceGet(\"*\"), ConcatStrings(UnparseLatexMathFunctions[Type(expr)], UnparseLatex( FunctionToList(expr)[2], PrecedenceGet(\"*\")) ) );  120 # UnparseLatex(expr_Function?, _p) _ (ArgumentsCount(expr) =? 2 And? Contains?(AssocIndices(UnparseLatexMathFunctions2), Type(expr)) ) <-- UnparseLatexBracketIf(p <? PrecedenceGet(\"*\"), ConcatStrings( UnparseLatexMathFunctions2[Type(expr)], \"_{\", UnparseLatex( FunctionToList(expr)[2], UnparseLatexMaxPrec()),  \"}\", UnparseLatexBracketIf(True, UnparseLatex(FunctionToList(expr)[3], UnparseLatexMaxPrec()) )  ) );}; 100 # UnparseLatex(Complex(0, 1), _p) <-- UnparseLatex(Hold(I), p);100 # UnparseLatex(Complex(_x, 0), _p) <-- UnparseLatex(x, p);110 # UnparseLatex(Complex(_x, 1), _p) <-- UnparseLatex(x + Hold(I), p);110 # UnparseLatex(Complex(0, _y), _p) <-- UnparseLatex(Hold(I)*y, p);120 # UnparseLatex(Complex(_x, _y), _p) <-- UnparseLatex(x + Hold(I)*y, p);100 # UnparseLatex(Abs(_x), _p) <-- ConcatStrings(\"\\\\left| \", UnparseLatex(x, UnparseLatexMaxPrec()), \"\\\\right| \");100 # UnparseLatex(Floor(_x), _p) <-- ConcatStrings(\"\\\\left\\\\lfloor \", UnparseLatex(x, UnparseLatexMaxPrec()), \"\\\\right\\\\rfloor \");100 # UnparseLatex(Ceil(_x), _p) <-- ConcatStrings(\"\\\\left\\\\lceil \", UnparseLatex(x, UnparseLatexMaxPrec()), \"\\\\right\\\\rceil \");100 # UnparseLatex(Modulo(_x, _y), _p) <-- UnparseLatexBracketIf(p <? PrecedenceGet(\"/\"), ConcatStrings(UnparseLatex(x, PrecedenceGet(\"/\")), \"\\\\bmod \", UnparseLatex(y, PrecedenceGet(\"/\")) ) );100 # UnparseLatex(Union(_x, _y), _p) <-- UnparseLatexBracketIf(p <? PrecedenceGet(\"/\"), ConcatStrings(UnparseLatex(x, PrecedenceGet(\"/\")), \"\\\\cup \", UnparseLatex(y, PrecedenceGet(\"/\")) ) );100 # UnparseLatex(Intersection(_x, _y), _p) <-- UnparseLatexBracketIf(p <? PrecedenceGet(\"/\"), ConcatStrings(UnparseLatex(x, PrecedenceGet(\"/\")), \"\\\\cap \", UnparseLatex(y, PrecedenceGet(\"/\")) ) );100 # UnparseLatex(Difference(_x, _y), _p) <-- UnparseLatexBracketIf(p <? PrecedenceGet(\"/\"), ConcatStrings(UnparseLatex(x, PrecedenceGet(\"/\")), \"\\\\setminus \", UnparseLatex(y, PrecedenceGet(\"/\")) ) );100 # UnparseLatex(Contains?(_x, _y), _p) <-- UnparseLatexBracketIf(p <? PrecedenceGet(\"/\"), ConcatStrings(UnparseLatex(y, PrecedenceGet(\"/\")), \"\\\\in \", UnparseLatex(x, PrecedenceGet(\"/\")) ) );100 # UnparseLatex(BinomialCoefficient(_n, _m), _p) <-- UnparseLatexBracketIf(False, ConcatStrings(\"{\", UnparseLatex(n, UnparseLatexMaxPrec()), \" \\\\choose \", UnparseLatex(m, UnparseLatexMaxPrec()), \"}\" ));RulebaseHoldArguments(\"UnparseLatexNth\",[x,y]);100 # UnparseLatex(Nth(Nth(_x, i_List?), _j), _p) <-- UnparseLatex(UnparseLatexNth(x, Append(i,j)), p);100 # UnparseLatex(UnparseLatexNth(Nth(_x, i_List?), _j), _p) <-- UnparseLatex(UnparseLatexNth(x, Append(i,j)), p);110 # UnparseLatex(Nth(Nth(_x, _i), _j), _p) <-- UnparseLatex(UnparseLatexNth(x, List(i,j)), p);120 # UnparseLatex(Nth(_x, _i), _p) <-- ConcatStrings(UnparseLatex(x, UnparseLatexMaxPrec()), \" _{\", UnparseLatex(i, UnparseLatexMaxPrec()), \"}\");120 # UnparseLatex(UnparseLatexNth(_x, _i), _p) <-- ConcatStrings(UnparseLatex(x, UnparseLatexMaxPrec()), \" _{\", UnparseLatex(i, UnparseLatexMaxPrec()), \"}\");80 # UnparseLatex(M_Matrix?, _p) <-- UnparseLatexMatrixBracketIf(True, UnparseLatexPrintMatrix(M));Function (\"UnparseLatexPrintMatrix\", [M]){ Local(row, col, result, ncol); result := \"\\\\begin{array}{\"; ForEach(col, M[1]) result:=ConcatStrings(result, \"c\"); result := ConcatStrings(result, \"}\"); ForEach(row, 1 .. Length(M)) { ForEach(col, 1 .. Length(M[row])) { result := ConcatStrings( result, \" \", UnparseLatex(M[row][col], UnparseLatexMaxPrec()), Decide(col =? Length(M[row]), Decide(row =? Length(M), \"\", \" \\\\\\\\\"), \" &\")); }; }; ConcatStrings(result, \" \\\\end{array} \");};";
-        scriptMap.put("UnparseLatex",scriptString);
-        scriptMap.put("UnparseLatexFinishList",scriptString);
-        scriptMap.put("UnparseLatexFinishList",scriptString);
     }
 
     public String[] getScript(String functionName)

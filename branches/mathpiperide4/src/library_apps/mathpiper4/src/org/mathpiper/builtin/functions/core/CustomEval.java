@@ -46,3 +46,16 @@ public class CustomEval extends BuiltinFunction
         throw new EvaluationException("Function not yet supported",aEnvironment.getCurrentInput().iStatus.getSourceName(), aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex());
     }
 }
+
+/*
+%mathpiper_docs,name="CustomEval",categories="Programming Functions;Native Objects;Built In"
+*CMD CustomEval --- Not yet implemented
+*CORE
+*CALL
+	CustomEval()
+
+*DESC
+Not yet implemented
+
+%/mathpiper_docs
+*/

@@ -43,3 +43,16 @@ public class DebugFile extends BuiltinFunction
         throw new Exception("Cannot call DebugFile in non-debug version of MathPiper");
     }
 }
+
+/*
+%mathpiper_docs,name="DebugFile",categories="Programming Functions;Native Objects;Built In"
+*CMD DebugFile --- Can't call this function in Non debug version
+*CORE
+*CALL
+	DebugFile()
+
+*DESC
+Can't call this function in Non debug version
+
+%/mathpiper_docs
+*/

@@ -46,3 +46,16 @@ public class CustomEvalExpression extends BuiltinFunction
         throw new EvaluationException("Function not yet supported",aEnvironment.getCurrentInput().iStatus.getSourceName(), aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex());
     }
 }
+
+/*
+%mathpiper_docs,name="CustomEvalExpression",categories="Programming Functions;Native Objects;Built In"
+*CMD CustomEvalExpression --- Not yet implemented
+*CORE
+*CALL
+	CustomEvalExpression()
+
+*DESC
+Not yet implemented
+
+%/mathpiper_docs
+*/

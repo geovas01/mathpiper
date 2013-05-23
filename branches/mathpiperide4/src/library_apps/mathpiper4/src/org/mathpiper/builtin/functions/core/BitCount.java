@@ -47,3 +47,19 @@ public class BitCount extends BuiltinFunction
         setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
     }
 }
+
+
+/*
+%mathpiper_docs,name="BitCount",categories="Programming Functions;Native Objects;Built In"
+*CMD BitCount --- Returns the number of bits as given by variable passed.
+*CORE
+*CALL
+	BitCount(var)
+
+*DESC
+Returns the given value or variable's number of bits in memory.  
+
+
+
+%/mathpiper_docs
+*/
