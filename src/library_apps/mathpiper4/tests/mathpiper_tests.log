@@ -1,6 +1,6 @@
-Fri Mar 08 02:41:49 EST 2013.
-MathPiper version: mp4_alpha_v.106.
-Running all tests except the following: Solve,PSolve.
+Wed May 22 22:29:39 EDT 2013.
+MathPiper version: mp4_minimal_alpha_v.109.
+Running all tests..
 Beginning of tests:
 
 ================================================================
@@ -533,4 +533,4 @@ GlobalVariables: Result: True
 Side Effects:
 [] 
 
-Elapsed Time: 0 min 11 sec
+Elapsed Time: 0 min 17 sec
