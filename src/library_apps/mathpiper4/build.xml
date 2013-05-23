@@ -6,9 +6,9 @@
     
     <property name="version" value="mp4_minimal_alpha_v.109" />
 
-    <property name="compile.source" value="1.5" />
+    <property name="compile.source" value="1.7" />
 
-    <property name="compile.target" value="1.5" />
+    <property name="compile.target" value="1.7" />
 
     <property name="src.dir" value="${basedir}/src" />
 
