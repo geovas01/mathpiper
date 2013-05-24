@@ -28,12 +28,12 @@ RuleHoldArguments(StandardOperatorsLoad, 0, 1, True)
     RulebaseHoldArguments(":",[left,right]);
     HoldArgument(":",left);
     Infix(":",3);
-    RightAssociativeSet(":")
+    RightAssociativeSet(":");
     
     RulebaseHoldArguments("::",[left,right]);
     HoldArgument("::",left);
     Infix("::",960);
-    RightAssociativeSet("::")
+    RightAssociativeSet("::");
     
     RulebaseHoldArguments("->",[left,right]);
     HoldArgument("->",left);
