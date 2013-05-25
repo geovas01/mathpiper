@@ -52,7 +52,7 @@ public class DebugFile extends BuiltinFunction
 	DebugFile()
 
 *DESC
-Can't call this function in Non debug version
+Can't call this function in non-debug version
 
 %/mathpiper_docs
 */
