@@ -63,11 +63,11 @@ public class BitsToDigits extends BuiltinFunction
 }
 
 /*
-%mathpiper_docs,name="BitstoDigits",categories="Programming Functions;Native Objects;Built In"
-*CMD BitstoDigits --- changes 2 small ints to digits
+%mathpiper_docs,name="BitsToDigits",categories="Programming Functions;Native Objects;Built In"
+*CMD BitsToDigits --- changes 2 small ints to digits
 *CORE
 *CALL
-	BitstoDigits(int1,int2)
+	BitsToDigits(int1,int2)
 
 *DESC
 Takes two small ints and changes them into digits to be expressed in binary.
