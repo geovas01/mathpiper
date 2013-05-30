@@ -4,7 +4,7 @@
     
     <description>Build file for MathPiper.</description>
     
-    <property name="version" value="mp4_minimal_alpha_v.110" />
+    <property name="version" value="mp4_minimal_alpha_v.111" />
 
     <property name="compile.source" value="1.7" />
 
@@ -395,16 +395,17 @@
 		<!-- <copy file="${mathpiper.dir}/src/org/mathpiper/scripts4/proposed/exercisesystem/arithmetic.mpw" todir="${library.dir}/android/classes" />-->
 		
 		
-		<!--<jar jarfile="${build.dir}/android/mathpiperandroid.jar"
-			basedir="${build.dir}/android/build/classes" update="true"
-			manifest="${mathpiper.dir}/resources/MANIFEST.MF">
+		<jar jarfile="${library.dir}/android/mathpiperandroid.jar"
+			basedir="${library.dir}/android/classes" update="true">
 			
 			<include name="**/*" />
 			<exclude name="**/*.bat,**/*.sh" />
 			<exclude name="tests/" />
 			
-			</jar> 
-		-->
+		</jar> 
+		
+		<delete dir="/home/tkosan/git/mathpiperexercise/MathPiperExercise/lib/mathpiperandroid.jar" />
+		<copy file="${library.dir}/android/mathpiperandroid.jar" todir="/home/tkosan/git/mathpiperexercise/MathPiperExercise/lib/" />		
 
 
 	</target>
