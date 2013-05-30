@@ -87,10 +87,9 @@ public class MathPiperTokenizer {
                 continue;
             } // parse literal strings
             else if (streamCharacter == '\"') {
-                String aResult;
-                aResult = "";
+                StringBuilder aResult = new StringBuilder();
                 //TODO FIXME is following append char correct?
-                aResult = aResult + ((char) streamCharacter);
+                aResult.append((char) streamCharacter);
                 while (aInput.peek() != '\"') {
                     if (aInput.peek() == '\\') {
                         aInput.next();
@@ -103,12 +102,12 @@ public class MathPiperTokenizer {
                         }*/
                     }
                     //TODO FIXME is following append char correct?
-                    aResult = aResult + ((char) aInput.next());
+                    aResult.append((char) aInput.next());
                     if(aInput.endOfStream()) LispError.throwError(aEnvironment, aStackTop, LispError.PARSING_INPUT, "Last character read was <" + aResult + ">.");
                 }
                 //TODO FIXME is following append char correct?
-                aResult = aResult + ((char) aInput.next()); // consume the close quote
-                return aResult;
+                aResult.append((char) aInput.next()); // consume the close quote
+                return aResult.toString();
             } //parse atoms
             else if (isAlpha(streamCharacter)) {
                 while (isAlNum(aInput.peek())) {
