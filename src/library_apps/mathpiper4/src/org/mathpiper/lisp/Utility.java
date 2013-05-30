@@ -1464,10 +1464,7 @@ public class Utility {
 	MathPiperTokenizer tokenizer = new MathPiperTokenizer();
 	InputStatus someStatus = new InputStatus("UTILITY_MATHPIPERPARSE");
 
-	StringBuffer inp = new StringBuffer();
-	inp.append(inputExpression);
-	inp.append(";");
-	StringInputStream inputExpressionBuffer = new StringInputStream(inp.toString(), someStatus);
+	StringInputStream inputExpressionBuffer = new StringInputStream(inputExpression + ";", someStatus);
 
 	Parser infixParser = new MathPiperParser(tokenizer, inputExpressionBuffer, aEnvironment, aEnvironment.iPrefixOperators,
 		aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
