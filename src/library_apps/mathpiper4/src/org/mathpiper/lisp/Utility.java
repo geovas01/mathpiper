@@ -1027,13 +1027,20 @@ public class Utility {
 	    LispError.checkArgument(aEnvironment, aStackTop, 1);
 
 	Cons value = null;
+	
+	if(variableString.contains("_"))
+	{
+		LispError.throwError(aEnvironment, aStackTop, "Values cannot be assigned to symbols: <" + variableString + ">. ");
+	}
 
-	if (aConstant == true) {
+	if (aConstant == true ) {
 	    value = BuiltinFunction.getArgument(aEnvironment, aStackTop, 1);
 	} else {
 	    value = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop,
 		    BuiltinFunction.getArgument(aEnvironment, aStackTop, 2));
 	}
+	
+	//System.out.println(variableString + ", " + value);
 
 	aEnvironment.setLocalOrGlobalVariable(aStackTop, variableString, value, aGlobalLazyVariable, aConstant); //Variable setting is deligated to Environment.
 

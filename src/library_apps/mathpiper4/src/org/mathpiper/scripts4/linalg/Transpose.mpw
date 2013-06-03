@@ -1,6 +1,6 @@
 %mathpiper,def="Transpose"
 
-Transpose(matrix_List?)_(Length(Dimensions(matrix))>?1) <--
+Transpose(matrix_List?)::(Length(Dimensions(matrix))>?1) <--
 {
   Local(i,j,result);
   result:=ZeroMatrix(Length(matrix[1]),Length(matrix));

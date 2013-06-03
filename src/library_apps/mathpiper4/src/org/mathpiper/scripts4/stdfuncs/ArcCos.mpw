@@ -1,6 +1,6 @@
 %mathpiper,def="ArcCos"
 
-2 # ArcCos(x_Number?)_NumericMode?() <-- InternalPi()/2-ArcSin(x);
+2 # ArcCos(x_Number?)::NumericMode?() <-- InternalPi()/2-ArcSin(x);
 
  /* TODO check! */
 200 # ArcCos(0) <-- Pi/2;
@@ -8,10 +8,10 @@
 200 # ArcCos(Sqrt(1/2)) <-- Pi/4;
 200 # ArcCos(Sqrt(3/4)) <-- Pi/6;
 200 # ArcCos(1) <-- 0;
-200 # ArcCos(_n)_(n =? -1) <-- Pi;
-200 # ArcCos(_n)_(-n =? Sqrt(3/4)) <-- 5/6*Pi;
-200 # ArcCos(_n)_(-n =? Sqrt(1/2)) <-- 3/4*Pi;
-200 # ArcCos(_n)_(-n =? 1/2) <-- 2/3*Pi;
+200 # ArcCos(_n)::(n =? -1) <-- Pi;
+200 # ArcCos(_n)::(-n =? Sqrt(3/4)) <-- 5/6*Pi;
+200 # ArcCos(_n)::(-n =? Sqrt(1/2)) <-- 3/4*Pi;
+200 # ArcCos(_n)::(-n =? 1/2) <-- 2/3*Pi;
 
 200 # ArcCos(Undefined) <-- Undefined;
 

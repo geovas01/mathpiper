@@ -33,7 +33,7 @@
 };
 
 
-15 # RoundToPlace( N_Integer?, place_Integer? )_(place <=? 0) <--
+15 # RoundToPlace( N_Integer?, place_Integer? )::(place <=? 0) <--
 {
     //Decide(InVerboseMode(),Tell("RoundToPlace_I",[N,place]));
     Local(oldRep,oldPrec,decN,newDecN,ans);
@@ -54,7 +54,7 @@
 
 
 
-20 # RoundToPlace( N_Complex?, place_Integer? )_(Not? Integer?(N)) <--
+20 # RoundToPlace( N_Complex?, place_Integer? )::(Not? Integer?(N)) <--
 {
     //Decide(InVerboseMode(),Tell("RoundToPlace_C",[N,place]));
     Local(rr,ii);

@@ -5,8 +5,8 @@
 50  # x_Number? * y_Number? <-- MultiplyN(x,y);
 100 #  1  * _x  <-- x;
 100 # _x  *  1  <-- x;
-100 # (_f  * _x)_(f=? -1)  <-- -x;
-100 # (_x  * _f)_(f=? -1)  <-- -x;
+100 # (_f  * _x)::(f=? -1)  <-- -x;
+100 # (_x  * _f)::(f=? -1)  <-- -x;
 
 100  # ((_x)*(_x ^ _m)) <-- x^(m+1);
 100  # ((_x ^ _m)*(_x)) <-- x^(m+1);
@@ -52,8 +52,8 @@
 };
 
 
-97 # (x_List? * y_NonObject?)_Not?(List?(y)) <-- y*x;
-98 # (x_NonObject? * y_List?)_Not?(List?(x)) <--
+97 # (x_List? * y_NonObject?)::Not?(List?(y)) <-- y*x;
+98 # (x_NonObject? * y_List?)::Not?(List?(x)) <--
 {
    Local(i,result);
    result:=[];
@@ -83,7 +83,7 @@
 100 # _x * (_y / _z) <-- (x*y)/z;
 // fractions
 100 # (_y / _z) * _x <-- (x*y)/z;
-100 # (_x * y_Number?)_Not?(Number?(x)) <-- y*x;
+100 # (_x * y_Number?)::Not?(Number?(x)) <-- y*x;
 
 100 # (_x) * (_x) ^ (n_Constant?) <-- x^(n+1);
 100 # (_x) ^ (n_Constant?) * (_x) <-- x^(n+1);
@@ -109,7 +109,7 @@
 /* Note: this rule MUST be past all the transformations on
  * matrices, since they are lists also.
  */
-230 # (aLeft_List? * aRight_List?)_(Length(aLeft)=?Length(aRight)) <--
+230 # (aLeft_List? * aRight_List?)::(Length(aLeft)=?Length(aRight)) <--
          Map("*",[aLeft,aRight]);
 // fractions
 242 # (x_Integer? / y_Integer?) * (v_Integer? / w_Integer?) <-- (x*v)/(y*w);

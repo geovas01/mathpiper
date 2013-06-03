@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- */ //}}}
+ *///}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp;
@@ -39,27 +39,31 @@ public abstract class Evaluator {
 	public static boolean iTraced = false;
 	private static List traceFunctionList = null;
 	private static List traceExceptFunctionList = null;
-        public static boolean iStackTraced = false;
+	public static boolean iStackTraced = false;
 	UserStackInformation iBasicInfo = new UserStackInformation();
 
-	public static void showExpression(StringBuffer outString, Environment aEnvironment, Cons aExpression) throws Throwable {
-		MathPiperUnparser infixprinter = new MathPiperUnparser(aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
+	public static void showExpression(StringBuffer outString,
+			Environment aEnvironment, Cons aExpression) throws Throwable {
+		MathPiperUnparser infixprinter = new MathPiperUnparser(
+				aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators,
+				aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
 		// Print out the current expression
-		//StringOutput stream(outString);
+		// StringOutput stream(outString);
 		MathPiperOutputStream stream = new StringOutputStream(outString);
 		infixprinter.print(-1, aExpression, stream, aEnvironment);
 		// Escape quotes.
 		for (int i = outString.length() - 1; i >= 0; --i) {
 			char c = outString.charAt(i);
 			if (c == '\"') {
-				//outString.insert(i, '\\');
+				// outString.insert(i, '\\');
 				outString.deleteCharAt(i);
 			}
 		}// end for.
 
-	}//end method.
+	}// end method.
 
-	public static void traceShowEnter(Environment aEnvironment, Cons aExpression, String extraInfo) throws Throwable {
+	public static void traceShowEnter(Environment aEnvironment,
+			Cons aExpression, String extraInfo) throws Throwable {
 		for (int i = 0; i < evalDepth; i++) {
 			// aEnvironment.iEvalDepth; i++) {
 			if (TRACE_TO_STANDARD_OUT) {
@@ -67,7 +71,7 @@ public abstract class Evaluator {
 			} else {
 				aEnvironment.write("    ");
 			}
-		}//end for.
+		}// end for.
 
 		if (TRACE_TO_STANDARD_OUT) {
 			System.out.print("Enter<" + extraInfo + ">{(");
@@ -86,7 +90,7 @@ public abstract class Evaluator {
 			System.out.print(function);
 		} else {
 			aEnvironment.write(function);
-		}//end else.
+		}// end else.
 
 		if (TRACE_TO_STANDARD_OUT) {
 			System.out.print(", ");
@@ -108,37 +112,36 @@ public abstract class Evaluator {
 				} else {
 					aEnvironment.write("    ");
 				}
-			}//end for.
+			}// end for.
 
-			//Trace stack frames.
+			// Trace stack frames.
 			List<String> functionsOnStack = new ArrayList();
 			LocalVariableFrame localVariableFrame = aEnvironment.iLocalVariablesFrame;
 			while (localVariableFrame != null) {
 				functionsOnStack.add(localVariableFrame.getFunctionName());
 				localVariableFrame = localVariableFrame.iNext;
-			}//end while
+			}// end while
 			Collections.reverse(functionsOnStack);
 			StringBuilder functionsDump = new StringBuilder();
 			functionsDump.append("(User Function Call Stack: ");
-			for(String functionName: functionsOnStack)
-			{
+			for (String functionName : functionsOnStack) {
 				functionsDump.append(functionName + ", ");
-			}//end for.
+			}// end for.
 			functionsDump.append(")\n");
 			if (TRACE_TO_STANDARD_OUT) {
 				System.out.print(functionsDump.toString());
 			} else {
 				aEnvironment.write(functionsDump.toString());
-			}//end else.
-		}//end if.
-
+			}// end else.
+		}// end if.
 
 		evalDepth++;
-	}//end method.
+	}// end method.
 
-	public static void traceShowArg(Environment aEnvironment, Cons aParam, Cons aValue) throws Throwable {
+	public static void traceShowArg(Environment aEnvironment, Cons aParam,
+			Cons aValue) throws Throwable {
 		for (int i = 0; i < evalDepth; i++) {
-			//aEnvironment.iEvalDepth; i++) {
+			// aEnvironment.iEvalDepth; i++) {
 			if (TRACE_TO_STANDARD_OUT) {
 				System.out.print("    ");
 			} else {
@@ -162,9 +165,10 @@ public abstract class Evaluator {
 		} else {
 			aEnvironment.write(");\n");
 		}
-	}//end method.
+	}// end method.
 
-	public static void traceShowExpression(Environment aEnvironment, Cons aExpression) throws Throwable {
+	public static void traceShowExpression(Environment aEnvironment,
+			Cons aExpression) throws Throwable {
 		StringBuffer outString = new StringBuffer();
 
 		showExpression(outString, aEnvironment, aExpression);
@@ -177,9 +181,10 @@ public abstract class Evaluator {
 		} else {
 			aEnvironment.write(expression);
 		}
-	}//end method.
+	}// end method.
 
-	public static void traceShowRule(Environment aEnvironment, Cons aExpression, String ruleDump) throws Throwable {
+	public static void traceShowRule(Environment aEnvironment,
+			Cons aExpression, String ruleDump) throws Throwable {
 
 		for (int i = 0; i < evalDepth; i++) {
 			// aEnvironment.iEvalDepth; i++) {
@@ -196,22 +201,26 @@ public abstract class Evaluator {
 			if (sub.car() instanceof String) {
 				function = (String) sub.car();
 			}
-		}//end function.
+		}// end function.
 
 		ruleDump = ruleDump.replace("\n", "");
 
 		if (TRACE_TO_STANDARD_OUT) {
-			System.out.print("**** Rule in function (" + function + ") matched: ");
+			System.out.print("**** Rule in function (" + function
+					+ ") matched: ");
 			System.out.print(ruleDump);
 			System.out.print("\n");
 		} else {
-			aEnvironment.write("**** Rule in function (" + function + ") matched: ");
+			aEnvironment.write("**** Rule in function (" + function
+					+ ") matched: ");
 			aEnvironment.write(ruleDump);
 			aEnvironment.write("\n");
 		}
-	}//end method.
+	}// end method.
 
-	public static void traceShowLeave(Environment aEnvironment, Cons aResult, Cons aExpression, String extraInfo, String localVariables) throws Throwable {
+	public static void traceShowLeave(Environment aEnvironment, Cons aResult,
+			Cons aExpression, String extraInfo, String localVariables)
+			throws Throwable {
 		if (evalDepth != 0) {
 			evalDepth--;
 		}
@@ -242,27 +251,25 @@ public abstract class Evaluator {
 				System.out.print(",    " + localVariables);
 			} else {
 				aEnvironment.write(",    " + localVariables);
-			}//end else.
+			}// end else.
 
-		}//end if.
+		}// end if.
 
 		if (TRACE_TO_STANDARD_OUT) {
 			System.out.print(");\n");
 		} else {
 			aEnvironment.write(");\n");
-		}//end else.
-	}//end method.
+		}// end else.
+	}// end method.
 
 	public static boolean isTraced(String functionName) {
 
-                if(iTraced == true && !functionName.endsWith("?"))
-                {
-                    return true;
-                }
-                else
-                {
-		    return false;
-                }
+		if (iTraced == true)// && !functionName.endsWith("?"))
+		{
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public static void traceOff() {
@@ -285,15 +292,16 @@ public abstract class Evaluator {
 		iStackTraced = true;
 	}
 
-	public abstract Cons evaluate(Environment aEnvironment, int aStackTop, Cons aArgumentsOrExpression) throws Throwable;
-
+	public abstract Cons evaluate(Environment aEnvironment, int aStackTop,
+			Cons aArgumentsOrExpression) throws Throwable;
 
 	public UserStackInformation stackInformation() {
 		return iBasicInfo;
 	}
 
-	public void showStack(Environment aEnvironment, MathPiperOutputStream aOutput) {
-	}//end method.
+	public void showStack(Environment aEnvironment,
+			MathPiperOutputStream aOutput) {
+	}// end method.
 
 	public static void setTraceFunctionList(List traceFunctionList) {
 		Evaluator.traceFunctionList = traceFunctionList;
@@ -310,7 +318,7 @@ public abstract class Evaluator {
 			return !traceExceptFunctionList.contains(functionName);
 		} else {
 			return true;
-		}//end else.
+		}// end else.
 
-	}//end method.
-}//end class.
+	}// end method.
+}// end class.

@@ -3,7 +3,7 @@
 /* Guard against distribution objects with senseless parameters
    Anti-nominalism */
 
-ExponentialDistribution(l_RationalOrNumber?)_(l<?0) <-- Undefined;
+ExponentialDistribution(l_RationalOrNumber?)::(l<?0) <-- Undefined;
 
 %/mathpiper
 

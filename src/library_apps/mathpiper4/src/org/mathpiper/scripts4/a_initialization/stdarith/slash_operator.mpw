@@ -6,12 +6,12 @@
 
 52 # x_PositiveNumber? / 0 <-- Infinity;
 52 # x_NegativeNumber? / 0 <-- -Infinity;
-55 # (_x / y_Number?)_(Zero?(y)) <-- Undefined;
+55 # (_x / y_Number?)::(Zero?(y)) <-- Undefined;
 55 # 0 / _x <-- 0;
 // unnecessary rule (see #100 below). TODO: REMOVE
 //55 # x_Number? / y_NegativeNumber? <-- (-x)/(-y);
 
-56 # (x_NonZeroInteger? / y_NonZeroInteger?)_(GcdN(x,y) >? 1) <--
+56 # (x_NonZeroInteger? / y_NonZeroInteger?)::(GcdN(x,y) >? 1) <--
      {
        Local(gcd);
        Assign(x,x);
@@ -20,7 +20,7 @@
        QuotientN(x,gcd)/QuotientN(y,gcd);
      };
 
-57 # ((x_NonZeroInteger? * _expr) / y_NonZeroInteger?)_(GcdN(x,y) >? 1) <--
+57 # ((x_NonZeroInteger? * _expr) / y_NonZeroInteger?)::(GcdN(x,y) >? 1) <--
      {
        Local(gcd);
        Assign(x,x);
@@ -29,7 +29,7 @@
        (QuotientN(x,gcd)*expr)/QuotientN(y,gcd);
      };
 
-57 # ((x_NonZeroInteger?) / (y_NonZeroInteger? * _expr))_(GcdN(x,y) >? 1) <--
+57 # ((x_NonZeroInteger?) / (y_NonZeroInteger? * _expr))::(GcdN(x,y) >? 1) <--
      {
        Local(gcd);
        Assign(x,x);
@@ -38,7 +38,7 @@
        QuotientN(x,gcd)/(QuotientN(y,gcd)*expr);
      };
 
-57 # ((x_NonZeroInteger? * _p) / (y_NonZeroInteger? * _q))_(GcdN(x,y) >? 1) <--
+57 # ((x_NonZeroInteger? * _p) / (y_NonZeroInteger? * _q))::(GcdN(x,y) >? 1) <--
      {
        Local(gcd);
        Assign(x,x);
@@ -49,7 +49,7 @@
 
 60 # (x_Decimal? / y_Number?)  <-- DivideN(x,y);
 60 # (x_Number?  / y_Decimal?) <-- DivideN(x,y); 
-60 # (x_Number?  / y_Number?)_(NumericMode?()) <-- DivideN(x,y);
+60 # (x_Number?  / y_Number?)::(NumericMode?()) <-- DivideN(x,y);
 
 
 90 # x_Infinity? / y_Infinity? <-- Undefined;
@@ -96,11 +96,11 @@
 200 # (_x / _y)/ _z <-- x/(y*z);
 230 # _x / (_y / _z) <-- (x*z)/y;
 
-240 # (xlist_List? / ylist_List?)_(Length(xlist)=?Length(ylist)) <--
+240 # (xlist_List? / ylist_List?)::(Length(xlist)=?Length(ylist)) <--
          Map("/",[xlist,ylist]);
 
 
-250 # (x_List? / _y)_(Not?(List?(y))) <--
+250 # (x_List? / _y)::(Not?(List?(y))) <--
 {
    Local(i,result);
    result:=[];
@@ -109,7 +109,7 @@
    result;
 };
 
-250 # (_x / y_List?)_(Not?(List?(x))) <--
+250 # (_x / y_List?)::(Not?(List?(x))) <--
 {
    Local(i,result);
    result:=[];

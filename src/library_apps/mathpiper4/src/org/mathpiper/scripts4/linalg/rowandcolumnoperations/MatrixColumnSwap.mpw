@@ -1,6 +1,6 @@
 %mathpiper,def="MatrixColumnSwap"
 
-MatrixColumnSwap( M_Matrix?, jCol1_PositiveInteger?, jCol2_PositiveInteger? )_
+MatrixColumnSwap( M_Matrix?, jCol1_PositiveInteger?, jCol2_PositiveInteger? )::
                           (And?(jCol1<=?Dimensions(M)[2],jCol2<=?Dimensions(M)[2])) <--
 {
     Decide( Not? Assigned?(iDebug), iDebug := False );

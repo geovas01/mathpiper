@@ -31,7 +31,7 @@ HoldArgument("<--",rightOperand);
 fn(_arg1, _arg2) <-- expression
 fn(arg1_PredicateFunction, _arg2) <-- expression
 fn(arg1_PredicateFunction, arg2_PredicateFunction) <-- expression
-fn(arg1_PredicateFunction, arg2_PredicateFunction)_(PredicateExpression) <-- expression
+fn(arg1_PredicateFunction, arg2_PredicateFunction)::(PredicateExpression) <-- expression
 _arg1 operator _arg2 <-- expression
 arg1_PredicateFunction operator _arg2 <-- expression
 arg1_PredicateFunction operator arg2_PredicateFunction <-- expression
@@ -100,7 +100,7 @@ is not matched. The underscore operator is to be used only on the left hand side
 the rule definition operator <--.
 
 There is another, slightly longer but equivalent way of writing the second rule:
-20 # f(_n)_(IntegerGreaterThanZero?(n)) <-- n*f(n-1);
+20 # f(_n)::(IntegerGreaterThanZero?(n)) <-- n*f(n-1);
 
 The underscore after the function object denotes a "postpredicate" that should return
 True or Else there is no match. This predicate may be a complicated expression involving
@@ -122,7 +122,7 @@ room to insert new transformation rules later on.
 
 Predicates can be combined: for example, {IntegerGreaterThanZero?()} could also
 have been defined as:
-10 # IntegerGreaterThanZero?(n_Integer?)_(n>?0) <-- True;
+10 # IntegerGreaterThanZero?(n_Integer?)::(n>?0) <-- True;
 20 # IntegerGreaterThanZero?(_n) <-- False;
 
 The first rule specifies that if n is an integer, and is greater than zero, the
@@ -132,7 +132,7 @@ precedence 10 did not apply) the predicate returns False.
 In the above example, the expression n > 0 is added after the pattern and allows
 the pattern to match only if this predicate return True. This is a useful syntax
 for defining rules with complicated predicates. There is no difference between the
-rules F(n_PositiveInteger?) <--... and F(_n)_(PositiveInteger?(n)) <-- ... except
+rules F(n_PositiveInteger?) <--... and F(_n)::(PositiveInteger?(n)) <-- ... except
 that the first syntax is a little more concise.
 
 The left hand side of a rule expression has the following form:

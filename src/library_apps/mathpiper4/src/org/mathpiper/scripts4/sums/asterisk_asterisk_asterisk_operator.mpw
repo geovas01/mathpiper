@@ -12,11 +12,11 @@ n1_RationalOrNumber? *** n2_RationalOrNumber? <--
 
 /// recursive routine to evaluate "partial factorial" a*(a+1)*...*b
 // TODO lets document why the >>1 as used here is allowed (rounding down? What is the idea behind this algorithm?)
-2# Factorialpartial(_a, _b) _ (b-a>=?4) <-- Factorialpartial(a, a+((b-a)>>1)) * Factorialpartial(a+((b-a)>>1)+1, b);
-3# Factorialpartial(_a, _b) _ (b-a>=?3) <-- a*(a+1)*(a+2)*(a+3);
-4# Factorialpartial(_a, _b) _ (b-a>=?2) <-- a*(a+1)*(a+2);
-5# Factorialpartial(_a, _b) _ (b-a>=?1) <-- a*(a+1);
-6# Factorialpartial(_a, _b) _ (b-a>=?0) <-- a;
+2# Factorialpartial(_a, _b):: (b-a>=?4) <-- Factorialpartial(a, a+((b-a)>>1)) * Factorialpartial(a+((b-a)>>1)+1, b);
+3# Factorialpartial(_a, _b):: (b-a>=?3) <-- a*(a+1)*(a+2)*(a+3);
+4# Factorialpartial(_a, _b):: (b-a>=?2) <-- a*(a+1)*(a+2);
+5# Factorialpartial(_a, _b):: (b-a>=?1) <-- a*(a+1);
+6# Factorialpartial(_a, _b):: (b-a>=?0) <-- a;
 %/mathpiper
 
 

@@ -5,7 +5,7 @@
      While(first+Length(coefs)>=?(degree+1) And? Length(coefs)>?0) DestructiveDelete(coefs,Length(coefs));
      UniVariate(var,first,coefs);
     };
-20 # BigOh(_uv,_var,_degree)_CanBeUni(uv,var) <-- NormalForm(BigOh(MakeUni(uv,var),var,degree));
+20 # BigOh(_uv,_var,_degree)::CanBeUni(uv,var) <-- NormalForm(BigOh(MakeUni(uv,var),var,degree));
 
 %/mathpiper
 

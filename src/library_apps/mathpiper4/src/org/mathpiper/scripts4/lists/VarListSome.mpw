@@ -7,7 +7,7 @@
 10 # VarListSome(expr_Variable?, _looklist) <-- [expr];
 15 # VarListSome(expr_Atom?, _looklist) <-- [];
 // a function not in the looking list - return it whole
-20 # VarListSome(expr_Function?, looklist_List?)_(Not? Contains?(looklist, ToAtom(Type(expr)))) <-- [expr];
+20 # VarListSome(expr_Function?, looklist_List?)::(Not? Contains?(looklist, ToAtom(Type(expr)))) <-- [expr];
 // a function in the looking list - traverse its arguments
 30 # VarListSome(expr_Function?, looklist_List?) <--
 RemoveDuplicates(

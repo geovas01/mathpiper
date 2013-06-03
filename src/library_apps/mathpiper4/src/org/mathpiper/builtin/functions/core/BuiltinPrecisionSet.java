@@ -47,10 +47,18 @@ public class BuiltinPrecisionSet extends BuiltinFunction
         if( index == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         if(! (index.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
-        int ind = Integer.parseInt( (String) index.car(), 10);
-        if( ind <= 0) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        aEnvironment.setPrecision(ind);
-        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
+        try
+        {
+	        int ind = Integer.parseInt( (String) index.car(), 10);
+	        
+	        if( ind <= 0) LispError.checkArgument(aEnvironment, aStackTop, 1);
+	        aEnvironment.setPrecision(ind);
+	        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
+        }
+        catch(Exception e)
+        {
+        	LispError.checkArgument(aEnvironment, aStackTop, 1);
+        }
     }
 }
 

@@ -27,10 +27,10 @@ Function("CanBeUni",[expression]) CanBeUni(UniVarList(expression),expression);
 40 # CanBeUni(_var,_x * _y) <-- CanBeUni(var,x) And? CanBeUni(var,y);
 40 # CanBeUni(_var,_x / _y) <-- CanBeUni(var,x) And? FreeOf?(var,y);
 /* Special case again: raising powers */
-40 # CanBeUni(_var,_x ^ y_Integer?)_(y >=? 0 And? CanBeUni(var,x)) <-- True;
+40 # CanBeUni(_var,_x ^ y_Integer?)::(y >=? 0 And? CanBeUni(var,x)) <-- True;
 41 # CanBeUni(_var,(x_FreeOf?(var)) ^ (y_FreeOf?(var))) <-- True;
 50 # CanBeUni(_var,UniVariate(_var,_first,_coefs)) <-- True;
-1000 # CanBeUni(_var,_f)_(Not?(FreeOf?(var,f))) <-- False;
+1000 # CanBeUni(_var,_f)::(Not?(FreeOf?(var,f))) <-- False;
 1001 # CanBeUni(_var,_f) <-- True;
 
 %/mathpiper

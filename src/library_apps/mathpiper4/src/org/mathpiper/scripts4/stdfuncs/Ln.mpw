@@ -6,13 +6,13 @@
 2 # Ln(Undefined)                   <-- Undefined;
 
 /* 2 # Ln(-Infinity)                    <-- 0; */
-2 # Ln(x_NegativeNumber?)_NumericMode?() <-- Complex(Ln(-x), Pi);
-3 # Ln(x_Number?)_(NumericMode?() And? x>=?1) <-- InternalLnNum(x);
+2 # Ln(x_NegativeNumber?)::NumericMode?() <-- Complex(Ln(-x), Pi);
+3 # Ln(x_Number?)::(NumericMode?() And? x>=?1) <-- InternalLnNum(x);
 4 # Ln(Exp(_x))              <-- x;
 
 3 # Ln(Complex(_r,_i)) <-- Complex(Ln(Abs(Complex(r,i))), Arg(Complex(r,i)));
 4 # Ln(x_NegativeNumber?) <-- Complex(Ln(-x), Pi);
-5 # Ln(x_Number?)_(NumericMode?() And? x<?1) <-- - InternalLnNum(DivideN(1, x));
+5 # Ln(x_Number?)::(NumericMode?() And? x<?1) <-- - InternalLnNum(DivideN(1, x));
 
 Ln(xlist_List?) <-- MapSingle("Ln",xlist);
 

@@ -3,7 +3,7 @@
 /* Guard against distribution objects with senseless parameters
    Anti-nominalism */
 
-PoissonDistribution(l_RationalOrNumber?)_(l<=?0) <-- Undefined;
+PoissonDistribution(l_RationalOrNumber?)::(l<=?0) <-- Undefined;
 
 %/mathpiper
 

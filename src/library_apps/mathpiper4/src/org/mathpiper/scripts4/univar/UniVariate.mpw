@@ -81,10 +81,10 @@ RuleHoldArguments("UniVariate",3,1000,Complex?(var) Or? List?(var))
 200 # - UniVariate(_var,_first,_coefs) <-- UniVariate(var,first,-coefs);
 
 
-200 # (_factor * UniVariate(_var,_first,_coefs))_((FreeOf?(var,factor))) <--
+200 # (_factor * UniVariate(_var,_first,_coefs))::((FreeOf?(var,factor))) <--
   UniVariate(var,first,coefs*factor);
 
-200 # (UniVariate(_var,_first,_coefs)/_factor)_((FreeOf?(var,factor))) <--
+200 # (UniVariate(_var,_first,_coefs)/_factor)::((FreeOf?(var,factor))) <--
   UniVariate(var,first,coefs/factor);
 
 

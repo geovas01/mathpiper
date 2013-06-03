@@ -1,6 +1,6 @@
 %mathpiper,def="ArcTanh"
 
-10 # ArcTanh(_x)_(NumericMode?() And? (Number?(x) Or? Type(x) =? "Complex")) <-- NM(Eval( Ln((1+x)/(1-x))/2 ));
+10 # ArcTanh(_x)::(NumericMode?() And? (Number?(x) Or? Type(x) =? "Complex")) <-- NM(Eval( Ln((1+x)/(1-x))/2 ));
 
 200 # ArcTanh(Infinity) <-- Infinity+I*Pi/2;
 200 # ArcTanh(-Infinity) <-- -Infinity-I*Pi/2;        // this is a little silly b/c we don't support correct branch cuts yet

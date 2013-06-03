@@ -7,7 +7,7 @@
 5 # ExpandFrac(expr_List?) <-- MapSingle("ExpandFrac", expr);
 
 // expression does not contain fractions
-10 # ExpandFrac(_expr)_Not?(HasFunctionSome?(expr, "/", [ToAtom("+"), ToAtom("-"), *, /, ^])) <-- expr;
+10 # ExpandFrac(_expr)::Not?(HasFunctionSome?(expr, "/", [ToAtom("+"), ToAtom("-"), *, /, ^])) <-- expr;
 15 # ExpandFrac(a_RationalOrNumber?) <-- a;
 20 # ExpandFrac(_expr) <-- ExpandFraccombine(GetNumerDenom(expr));
 

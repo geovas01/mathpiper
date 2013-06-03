@@ -1,13 +1,13 @@
 %mathpiper,def="DefinePattern;_",private="true"
 
-RulebaseHoldArguments("_",[a]);
-RulebaseHoldArguments("_",[a,b]);
+//RulebaseHoldArguments("_",[a]);
+RulebaseHoldArguments("::",[a,b]);
 
 RulebaseHoldArguments("DefinePattern",[leftOperand, rightOperand, rulePrecedence, postPredicate]);
 
 
 
-RuleHoldArguments("DefinePattern",4,9,Equal?(Type(leftOperand),"_"))
+RuleHoldArguments("DefinePattern",4,9,Equal?(Type(leftOperand),"::"))
 {
     DefinePattern(leftOperand[1], rightOperand, rulePrecedence, leftOperand[2]);
 };

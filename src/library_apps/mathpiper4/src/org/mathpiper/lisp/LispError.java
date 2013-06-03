@@ -201,7 +201,7 @@ public class LispError {
 
 
             if (aStackTop == -1) {
-                throw new EvaluationException("Error encountered during initialization or parsing: " + aErrorMessage + stackTrace,  aEnvironment.getCurrentInput().iStatus.getSourceName(),  lineNumber, tokenStartIndex, tokenEndIndex);
+                throw new EvaluationException("Error encountered during initialization: " + aErrorMessage + stackTrace,  aEnvironment.getCurrentInput().iStatus.getSourceName(),  lineNumber, tokenStartIndex, tokenEndIndex);
             } else if (aStackTop == -2) {
                 throw new EvaluationException("Error: " + aErrorMessage + stackTrace,  aEnvironment.getCurrentInput().iStatus.getSourceName(),  lineNumber, tokenStartIndex, tokenEndIndex);
             } else {
@@ -267,6 +267,27 @@ public class LispError {
     public static void raiseError(String errorMessage, int lineNumber, int tokenStartIndex, int tokenEndIndex, int aStackTop, Environment aEnvironment) throws Throwable {
         throwError( aEnvironment, aStackTop, errorMessage, lineNumber, tokenStartIndex, tokenEndIndex);
     }
+    
+    
+    //========================================
+    public static void raiseParseError(String aErrorMessage, int aStackTop, Environment aEnvironment) throws Throwable {
+        raiseParseError(aErrorMessage,  aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex(), aStackTop, aEnvironment);
+    }
+
+    public static void raiseParseError(String aErrorMessage, int lineNumber, int tokenStartIndex, int tokenEndIndex, int aStackTop, Environment aEnvironment) throws Throwable {
+        String stackTrace = "";
+
+        if (Evaluator.isStackTraced() && aStackTop >= 0) {
+            stackTrace = aEnvironment.dumpStacks(aEnvironment, aStackTop);
+        }
+
+
+           //String functionName = aEnvironment.getCurrentInput().iStatus.
+            EvaluationException exception =  new EvaluationException("ParseError", "Error encountered during parsing: " + aErrorMessage + stackTrace,  aEnvironment.getCurrentInput().iStatus.getSourceName(),  lineNumber, tokenStartIndex, tokenEndIndex,aEnvironment.getCurrentInput().iStatus.getSourceName());
+
+            throw exception;
+            
+    }    
 
     //========================================
 

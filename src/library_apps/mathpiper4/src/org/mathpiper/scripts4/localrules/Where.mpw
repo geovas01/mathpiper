@@ -14,7 +14,7 @@ UnFence("Where",2);
 };
 
 30 # (_body Where []) <-- [];
-40 # (_body Where list_List?)_List?(list[1])
+40 # (_body Where list_List?)::List?(list[1])
      <--
      {
        Local(head,rest);

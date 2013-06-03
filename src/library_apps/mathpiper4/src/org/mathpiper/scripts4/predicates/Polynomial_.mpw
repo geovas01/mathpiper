@@ -17,7 +17,7 @@
 25 # Polynomial?(_expr) <-- False;
 
 
-10 # Polynomial?(_expr,_var)_(CanBeUni(var,expr)) <-- True;
+10 # Polynomial?(_expr,_var)::(CanBeUni(var,expr)) <-- True;
 
 15 # Polynomial?(_expr,_var) <-- False;
 

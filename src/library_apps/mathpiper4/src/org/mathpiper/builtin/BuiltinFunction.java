@@ -77,8 +77,9 @@ public abstract class BuiltinFunction {
         aEnvironment.iPrefixOperators.setOperator(0, "`");
         aEnvironment.iPrefixOperators.setOperator(0, "'");
         aEnvironment.iPrefixOperators.setOperator(0, "@");
-        aEnvironment.iPrefixOperators.setOperator(0, "_");
-        aEnvironment.iInfixOperators.setOperator(0, "_");
+        //aEnvironment.iPrefixOperators.setOperator(0, "_");
+        //aEnvironment.iInfixOperators.setOperator(0, "_");
+        aEnvironment.iInfixOperators.setOperator(0, "::");
 
         functionNameInit = "AbsN"; aEnvironment.iBuiltinFunctions.put( functionNameInit, new BuiltinFunctionEvaluator(new Abs(functionNameInit), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
         functionNameInit = "AddN"; aEnvironment.iBuiltinFunctions.put(functionNameInit, new BuiltinFunctionEvaluator(new Add(functionNameInit), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));

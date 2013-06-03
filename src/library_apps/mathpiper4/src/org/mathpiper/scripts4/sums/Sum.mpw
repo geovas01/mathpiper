@@ -8,9 +8,9 @@ RulebaseHoldArguments("Sum",[sumvararg,sumfromarg,sumtoarg,sumbodyarg]);
 
 
 
-10  # Sum(_sumvar,sumfrom_Number?,sumto_Number?,_sumbody)_(sumfrom>?sumto) <-- 0;
+10  # Sum(_sumvar,sumfrom_Number?,sumto_Number?,_sumbody)::(sumfrom>?sumto) <-- 0;
 
-20 # Sum(_sumvar,sumfrom_Number?,sumto_Number?,_sumbody)_(sumto<?sumfrom) <--
+20 # Sum(_sumvar,sumfrom_Number?,sumto_Number?,_sumbody)::(sumto<?sumfrom) <--
      ApplyFast("Sum",[sumvar,sumto,sumfrom,sumbody]);
 30 # Sum(_sumvar,sumfrom_Number?,sumto_Number?,_sumbody) <--
 LocalSymbols(sumi,sumsum){
@@ -64,7 +64,7 @@ SumFunc(_sumvar,sumfrom_Integer?,_sumto,_sumbody,_sum) <--
         // index and subtract off the difference
 
         `(40 # Sum(@sumvar,@sumfrom,@sumto,@sumbody )        <-- Eval(@sum) );
-        `(41 # Sum(@sumvar,p_Integer?,@sumto,@sumbody)_(p >? @sumfrom)
+        `(41 # Sum(@sumvar,p_Integer?,@sumto,@sumbody)::(p >? @sumfrom)
              <--
              {
                   Local(sub);
@@ -76,8 +76,8 @@ SumFunc(_sumvar,sumfrom_Integer?,_sumto,_sumbody,_sum) <--
 SumFunc(_sumvar,sumfrom_Integer?,_sumto,_sumbody,_sum,_condition) <--
 {
 
-        `(40 # Sum(@sumvar,@sumfrom,@sumto,@sumbody)_(@condition)    <-- Eval(@sum) );
-        `(41 # Sum(@sumvar,p_Integer?,@sumto,@sumbody )_(@condition And? p >? @sumfrom)
+        `(40 # Sum(@sumvar,@sumfrom,@sumto,@sumbody)::(@condition)    <-- Eval(@sum) );
+        `(41 # Sum(@sumvar,p_Integer?,@sumto,@sumbody )::(@condition And? p >? @sumfrom)
              <--
              {
                   Local(sub);
@@ -125,7 +125,7 @@ SumFunc(_k,0,Infinity,(-1)^k*_x^(2*_k)/(2*_k)!,Cos(x) );
 SumFunc(_k,0,Infinity,_x^(2*_k+1)/(2*_k+1),ArcTanh(x) );
 SumFunc(_k,0,Infinity,1/(_k)!,Exp(1) );
 SumFunc(_k,0,Infinity,_x^_k/(_k)!,Exp(x) );
-40 # Sum(_var,_from,Infinity,_expr)_( `(Limit(@var,Infinity)(@expr)) =? Infinity) <-- Infinity;
+40 # Sum(_var,_from,Infinity,_expr)::( `(Limit(@var,Infinity)(@expr)) =? Infinity) <-- Infinity;
 
 SumFunc(_k,1,Infinity,1/BinomialCoefficient(2*_k,_k), (2*Pi*Sqrt(3)+9)/27 );
 SumFunc(_k,1,Infinity,1/(_k*BinomialCoefficient(2*_k,_k)), (Pi*Sqrt(3))/9 );

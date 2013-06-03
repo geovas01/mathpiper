@@ -14,7 +14,7 @@
   sgn2 := Sign(m1*n2);
   sgn1*sgn2*Floor(DivideN(sgn1*n1*m2,sgn2*m1*n2));
 };
-30 # Quotient(n_CanBeUni,m_CanBeUni)_(Length(VarList(n*m))=?1) <--
+30 # Quotient(n_CanBeUni,m_CanBeUni)::(Length(VarList(n*m))=?1) <--
 {
 
   Local(vars,nl,ml);
@@ -26,8 +26,8 @@
 
 
 //Note:tk:moved here from univariate.rep.
-0 # Quotient(n_UniVar?,m_UniVar?)_(Degree(n) <? Degree(m)) <-- 0;
-1 # Quotient(n_UniVar?,m_UniVar?)_
+0 # Quotient(n_UniVar?,m_UniVar?)::(Degree(n) <? Degree(m)) <-- 0;
+1 # Quotient(n_UniVar?,m_UniVar?)::
     (n[1] =? m[1] And? Degree(n) >=? Degree(m)) <--
 {
     UniVariate(n[1],0,

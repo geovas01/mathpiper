@@ -32,43 +32,43 @@
 // If n and m are symbolic after a single evaluation, see if they can be coerced in to a real-valued number.
 LocalSymbols(nNum,mNum)
 {
-  10 # (_n <? _m)_{nNum:=NM(Eval(n)); mNum:=NM(Eval(m));Number?(nNum) And? Number?(mNum);} <-- LessThan?(nNum-mNum,0);
+  10 # (_n <? _m)::{nNum:=NM(Eval(n)); mNum:=NM(Eval(m));Number?(nNum) And? Number?(mNum);} <-- LessThan?(nNum-mNum,0);
 };
 
 // Deal with Infinity
-20 #  (Infinity <? _n)_(Not?(Infinity?(n)))  <-- False;
-20 #  (-Infinity <? _n)_(Not?(Infinity?(n))) <-- True;
-20 #  (_n <? Infinity)_(Not?(Infinity?(n)))  <-- True;
-20 #  (_n <? -Infinity)_(Not?(Infinity?(n))) <-- False;
+20 #  (Infinity <? _n)::(Not?(Infinity?(n)))  <-- False;
+20 #  (-Infinity <? _n)::(Not?(Infinity?(n))) <-- True;
+20 #  (_n <? Infinity)::(Not?(Infinity?(n)))  <-- True;
+20 #  (_n <? -Infinity)::(Not?(Infinity?(n))) <-- False;
 
 // Lots of known identities go here
 30 # (_n1/_n2) <? 0  <--  (n1 <? 0) !=? (n2 <? 0);
 30 # (_n1*_n2) <? 0  <--  (n1 <? 0) !=? (n2 <? 0);
 
 // This doesn't sadly cover the case where a and b have opposite signs
-30 # ((_n1+_n2) <? 0)_((n1 <? 0) And? (n2 <? 0))  <--  True;
-30 # ((_n1+_n2) <? 0)_((n1 >? 0) And? (n2 >? 0))  <--  False;
+30 # ((_n1+_n2) <? 0)::((n1 <? 0) And? (n2 <? 0))  <--  True;
+30 # ((_n1+_n2) <? 0)::((n1 >? 0) And? (n2 >? 0))  <--  False;
 30 #  _x^a_Odd?  <? 0  <--  x <? 0;
 30 #  _x^a_Even? <? 0  <--  False; // This is wrong for complex x
 
 // Add other functions here!  Everything we can compare to 0 should be here.
-40 # (Sqrt(_x))_(x >? 0) <? 0          <--  False;
+40 # (Sqrt(_x))::(x >? 0) <? 0          <--  False;
 
-40 # (Sin(_x) <? 0)_(Not?(Even?(NM(x/Pi))) And? Even?(NM(Floor(x/Pi)))) <-- False;
-40 # (Sin(_x) <? 0)_(Not?(Odd? (NM(x/Pi))) And? Odd? (NM(Floor(x/Pi)))) <-- True;
+40 # (Sin(_x) <? 0)::(Not?(Even?(NM(x/Pi))) And? Even?(NM(Floor(x/Pi)))) <-- False;
+40 # (Sin(_x) <? 0)::(Not?(Odd? (NM(x/Pi))) And? Odd? (NM(Floor(x/Pi)))) <-- True;
 
 40 # Cos(_x) <? 0 <-- Sin(Pi/2-x) <? 0;
 
-40 # (Tan(_x) <? 0)_(Not?(Even?(NM(2*x/Pi))) And? Even?(NM(Floor(2*x/Pi)))) <-- False;
-40 # (Tan(_x) <? 0)_(Not?(Odd? (NM(2*x/Pi))) And? Odd? (NM(Floor(2*x/Pi)))) <-- True;
+40 # (Tan(_x) <? 0)::(Not?(Even?(NM(2*x/Pi))) And? Even?(NM(Floor(2*x/Pi)))) <-- False;
+40 # (Tan(_x) <? 0)::(Not?(Odd? (NM(2*x/Pi))) And? Odd? (NM(Floor(2*x/Pi)))) <-- True;
 
 // Functions that need special treatment with more than one of the comparison
 // operators as they always return true or false.  For these we must define
 // both the `<?' and `>=?' operators.
-40 # (Complex(_a,_b) <?  0)_(b!=?0) <--  False;
-40 # (Complex(_a,_b) >=? 0)_(b!=?0) <--  False;
-40 # (Sqrt(_x))_(x <? 0) <?  0      <--  False;
-40 # (Sqrt(_x))_(x <? 0) >=? 0      <--  False;
+40 # (Complex(_a,_b) <?  0)::(b!=?0) <--  False;
+40 # (Complex(_a,_b) >=? 0)::(b!=?0) <--  False;
+40 # (Sqrt(_x))::(x <? 0) <?  0      <--  False;
+40 # (Sqrt(_x))::(x <? 0) >=? 0      <--  False;
 
 // Deal with negated terms
 50 # -(_x) <? 0 <-- Not?((x<?0) Or? (x=?0));

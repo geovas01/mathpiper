@@ -1,6 +1,6 @@
 %mathpiper,def="MatrixRowSwap"
 
-MatrixRowSwap( M_Matrix?, iRow1_PositiveInteger?, iRow2_PositiveInteger? )_
+MatrixRowSwap( M_Matrix?, iRow1_PositiveInteger?, iRow2_PositiveInteger? )::
                           (And?(iRow1<=?Dimensions(M)[1],iRow2<=?Dimensions(M)[1])) <--
 {
     Decide( Not? Assigned?(iDebug), iDebug := False );

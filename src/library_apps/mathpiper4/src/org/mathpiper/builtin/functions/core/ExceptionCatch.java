@@ -18,6 +18,7 @@
 package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.lisp.Environment;
 
 
@@ -48,6 +49,17 @@ public class ExceptionCatch extends BuiltinFunction
         {   //Return the second argument.
             //e.printStackTrace();
             //Boolean interrupted = Thread.currentThread().interrupted(); //Clear interrupted condition.
+        	
+        	if(exception instanceof EvaluationException)
+        	{
+        		EvaluationException evaluationException = (EvaluationException) exception;
+        		
+        		if(evaluationException.getType().equals("ParseError"))
+            	{
+            		throw evaluationException;
+            	}
+        	}
+        	
             aEnvironment.iException = exception;
             setTopOfStack(aEnvironment, aStackTop, aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 2)));
             aEnvironment.iException = null;

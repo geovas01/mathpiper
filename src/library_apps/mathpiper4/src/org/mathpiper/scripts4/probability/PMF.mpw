@@ -27,7 +27,7 @@
 
 10 # PMF(BernoulliDistribution(_p),0) <-- p;
 10 # PMF(BernoulliDistribution(_p),1) <-- 1-p;
-10 # PMF(BernoulliDistribution(_p),x_Number?)_(x !=? 0 And? x !=? 1) <-- 0;
+10 # PMF(BernoulliDistribution(_p),x_Number?)::(x !=? 0 And? x !=? 1) <-- 0;
 10 # PMF(BernoulliDistribution(_p),_x) <-- Hold(Decide(x=?0,p,Decide(x=?1,1-p,0)));
 
 10 # PMF(BinomialDistribution(_p,_n),_k) <-- BinomialCoefficient(n,k)*p^k*(1-p)^(n-k);
@@ -42,7 +42,7 @@
 
 
 
-10 # PMF(DiscreteDistribution( dom_List?, prob_List?), _x)_( Length(dom)=?Length(prob) And? Simplify(Add(prob))=?1) <--
+10 # PMF(DiscreteDistribution( dom_List?, prob_List?), _x)::( Length(dom)=?Length(prob) And? Simplify(Add(prob))=?1) <--
     {
       Local(i);
       i:=Find(dom,x);
@@ -51,7 +51,7 @@
     
 
 
-10 # PMF(HypergeometricDistribution( N_Number?, M_Number?, n_Number?), x_Number?)_(M <=? N And? n <=? N) <-- (BinomialCoefficient(M,x) * BinomialCoefficient(N-M, n-x))/BinomialCoefficient(N,n);
+10 # PMF(HypergeometricDistribution( N_Number?, M_Number?, n_Number?), x_Number?)::(M <=? N And? n <=? N) <-- (BinomialCoefficient(M,x) * BinomialCoefficient(N-M, n-x))/BinomialCoefficient(N,n);
 
 %/mathpiper
 

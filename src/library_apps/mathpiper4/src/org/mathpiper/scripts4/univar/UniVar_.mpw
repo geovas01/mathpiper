@@ -67,7 +67,7 @@
 
 /*TODO this can be made twice as fast!*/
 
-201 # (aLeft_UniVar? * _aRight)_((FreeOf?(aLeft[1],aRight))) <--
+201 # (aLeft_UniVar? * _aRight)::((FreeOf?(aLeft[1],aRight))) <--
 {
     aRight*aLeft;
 };
