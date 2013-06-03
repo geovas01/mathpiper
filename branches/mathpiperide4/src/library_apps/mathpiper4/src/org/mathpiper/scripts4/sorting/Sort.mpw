@@ -15,18 +15,18 @@
  *  First version.   111124
  *-------------------------------------------------------------------*/
  
-10 # Sort( L_List? )_(Length(L) <? 20) <-- BubbleSort( L, "<?" );
+10 # Sort( L_List? )::(Length(L) <? 20) <-- BubbleSort( L, "<?" );
 
-15 # Sort( L_List?, _compare )_(Length(L) <? 20) <-- 
+15 # Sort( L_List?, _compare )::(Length(L) <? 20) <-- 
                                                     BubbleSort( L, compare );
 
 20 # Sort( L_List? ) <-- HeapSort( L, "<?" );
 
 25 # Sort( L_List?, _compare ) <--   HeapSort( L, compare );
  
-10 # SortIndexed( L_List? )_(Length(L) <? 20) <-- BubbleSortIndexed( L, "<?" );
+10 # SortIndexed( L_List? )::(Length(L) <? 20) <-- BubbleSortIndexed( L, "<?" );
 
-15 # SortIndexed( L_List?, _compare )_(Length(L) <? 20) <-- BubbleSortIndexed( L, compare );
+15 # SortIndexed( L_List?, _compare )::(Length(L) <? 20) <-- BubbleSortIndexed( L, compare );
 
 20 # SortIndexed( L_List? ) <-- HeapSortIndexed( L, "<?" );
 

@@ -4,7 +4,7 @@
 /// These are only called if NumericMode?() returns True
 
 // large positive x
-10 # ExpNum(x_Number?) _ (x >? MathExpThreshold()) <-- {
+10 # ExpNum(x_Number?):: (x >? MathExpThreshold()) <-- {
         Local(i, y);
         i:=0;
         For(i:=0, x >? MathExpThreshold(), i++)
@@ -15,7 +15,7 @@
 
 };
 // large negative x
-20 # ExpNum(x_Number?) _ (2*x <? -MathExpThreshold()) <-- DivideN(1, ExpNum(-x));
+20 # ExpNum(x_Number?):: (2*x <? -MathExpThreshold()) <-- DivideN(1, ExpNum(-x));
 // other values of x
 30 # ExpNum(x_Number?) <-- ExpN(x);
 

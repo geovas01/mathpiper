@@ -7,7 +7,7 @@
 };
 20 # Monic(poly_CanBeUni) <-- NormalForm(Monic(MakeUni(poly)));
 
-30 # Monic(_poly,_var)_CanBeUni(poly,var) <-- NormalForm(Monic(MakeUni(poly,var)));
+30 # Monic(_poly,_var)::CanBeUni(poly,var) <-- NormalForm(Monic(MakeUni(poly,var)));
 
 %/mathpiper
 

@@ -31,7 +31,7 @@ LocalSymbols(AssembleTerms, AssembleTermsRecursive)
 
 10 # ExpandBrackets(xx_Zero?) <-- 0;
 
-20 # ExpandBrackets(_xx)_(Type(xx)=?"/" Or? Type(-xx)=?"/") <--
+20 # ExpandBrackets(_xx)::(Type(xx)=?"/" Or? Type(-xx)=?"/") <--
 {
     Local(N,D,t);
     N := ReassembleListTerms(DisassembleExpression(Numerator(xx)));

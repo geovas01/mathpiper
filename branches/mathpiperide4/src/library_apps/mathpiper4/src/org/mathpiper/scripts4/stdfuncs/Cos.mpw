@@ -1,10 +1,10 @@
 %mathpiper,def="Cos;CosMap"
 
-1 # CosMap( _n )_(Not?(RationalOrNumber?(n))) <-- ListToFunction([ToAtom("Cos"),n*Pi]);
-2 # CosMap( _n )_(n<?0) <-- CosMap(-n);
-2 # CosMap( _n )_(n>?2) <-- CosMap(Modulo(n,2));
-3 # CosMap( _n )_(n>?1) <-- CosMap(2-n);
-4 # CosMap( _n )_(n>?1/2) <-- -CosMap(1-n);
+1 # CosMap( _n )::(Not?(RationalOrNumber?(n))) <-- ListToFunction([ToAtom("Cos"),n*Pi]);
+2 # CosMap( _n )::(n<?0) <-- CosMap(-n);
+2 # CosMap( _n )::(n>?2) <-- CosMap(Modulo(n,2));
+3 # CosMap( _n )::(n>?1) <-- CosMap(2-n);
+4 # CosMap( _n )::(n>?1/2) <-- -CosMap(1-n);
 
 5 # CosMap( 0 ) <-- 1;
 5 # CosMap( 1/6 ) <-- Sqrt(3)/2;
@@ -17,12 +17,12 @@
 
 
 
-2 # Cos(x_Number?)_NumericMode?() <-- CosNum(x);
+2 # Cos(x_Number?)::NumericMode?() <-- CosNum(x);
 4 # Cos(ArcCos(_x))           <-- x;
 4 # Cos(ArcSin(_x)) <-- Sqrt(1-x^2);
 4 # Cos(ArcTan(_x)) <-- 1/Sqrt(1+x^2);
-5 # Cos(- _x)_(Not? Constant?(x))                 <-- Cos(x);
-6 # (Cos(x_Constant?))_(NegativeNumber?(NM(Eval(x))))   <-- Cos(-x);
+5 # Cos(- _x)::(Not? Constant?(x))                 <-- Cos(x);
+6 # (Cos(x_Constant?))::(NegativeNumber?(NM(Eval(x))))   <-- Cos(-x);
 // must prevent it from looping
 
 110 # Cos(Complex(_r,_i)) <--
@@ -31,7 +31,7 @@
 6 # Cos(x_Infinity?) <-- Undefined;
 6 # Cos(Undefined) <-- Undefined;
 
-200 # Cos(v_CanBeUni(Pi))_(Not?(NumericMode?()) And? Degree(v,Pi) <? 2 And? Coef(v,Pi,0) =? 0) <--
+200 # Cos(v_CanBeUni(Pi))::(Not?(NumericMode?()) And? Degree(v,Pi) <? 2 And? Coef(v,Pi,0) =? 0) <--
       CosMap(Coef(v,Pi,1));
 
 400 # Cos(x_RationalOrNumber?) <--

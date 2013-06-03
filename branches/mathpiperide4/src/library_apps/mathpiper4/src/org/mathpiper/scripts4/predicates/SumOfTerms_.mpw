@@ -7,15 +7,15 @@
 12 # SumOfTerms?(_var,expr_Atom?()) <-- False;
 
 // after being "Listified", expr is a sum of terms if headed by "+" or "-"
-14 # SumOfTerms?(_var,expr_List?())_(expr[1]=?ToAtom("+") Or? expr[1]=?ToAtom("-")) <-- True;
+14 # SumOfTerms?(_var,expr_List?())::(expr[1]=?ToAtom("+") Or? expr[1]=?ToAtom("-")) <-- True;
 
 // after being "Listified", an expr headed by "*" is not considered a sum 
 // of terms unless one or the other operand is free of the variable
-16 # SumOfTerms?(_var,expr_List?())_(expr[1]=?ToAtom("*")) <-- Or?(FreeOf?(var,expr[2]),FreeOf?(var,expr[3]));
+16 # SumOfTerms?(_var,expr_List?())::(expr[1]=?ToAtom("*")) <-- Or?(FreeOf?(var,expr[2]),FreeOf?(var,expr[3]));
 
 // after being "Listified", an expr headed by "/" is not considered a sum 
 // of terms unless the denominator (only) is free of the variable
-18 # SumOfTerms?(_var,expr_List?())_(expr[1]=?ToAtom("/")) <-- FreeOf?(var,expr[3]);
+18 # SumOfTerms?(_var,expr_List?())::(expr[1]=?ToAtom("/")) <-- FreeOf?(var,expr[3]);
 
 // after being "Listified", any other expression is not a sum of terms
 20 # SumOfTerms?(_var,expr_List?()) <-- False;

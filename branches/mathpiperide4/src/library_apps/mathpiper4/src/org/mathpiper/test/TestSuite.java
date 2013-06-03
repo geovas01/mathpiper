@@ -324,7 +324,7 @@ public class TestSuite {
 
         } catch (Throwable e) {
             //System.out.println(e.getMessage());
-            //e.printStackTrace(); //todo:tk:uncomment for debugging.
+            e.printStackTrace(); //todo:tk:uncomment for debugging.
             
             //EvaluationException ee = new EvaluationException("\n\n\n***EXCEPTION[ " + e.getMessage() + " ]EXCEPTION***\n", aEnvironment.getCurrentInput().iStatus.getFileName(), aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineNumber());
             
@@ -334,7 +334,14 @@ public class TestSuite {
             {
         	EvaluationException evaluationException = (EvaluationException) e;
         	
-        	errorMessage = errorMessage + aEnvironment.getCurrentInput().iStatus.getSourceName() + ", Line: " + evaluationException.getLineNumber() + ", Start Index: " + evaluationException.getStartIndex();
+        	String sourceName = evaluationException.getFileName();
+        	
+        	if(sourceName == null || sourceName.equals(""))
+        	{
+        		sourceName = aEnvironment.getCurrentInput().iStatus.getSourceName();
+        	}
+        	
+        	errorMessage = errorMessage + ", Source: " + sourceName + ", Line: " + evaluationException.getLineNumber() + ", Start Index: " + evaluationException.getStartIndex();
             }
             
             

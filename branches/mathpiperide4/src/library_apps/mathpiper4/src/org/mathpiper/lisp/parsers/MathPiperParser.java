@@ -94,6 +94,8 @@ public class MathPiperParser extends Parser
 
     public Cons parse(int aStackTop) throws Throwable
     {
+	parsedExpression = null;
+	
         readToken(aStackTop); //The character is placed into lookAhead.
 
         if (iEndOfFile)
@@ -186,7 +188,7 @@ public class MathPiperParser extends Parser
                 // Match closing bracket
                 if (!iLookAhead[0].equals(iEnvironment.iIndexOrNameCloseAtom))
                 {
-                    LispError.raiseError("Expected a ***( " + iEnvironment.iIndexOrNameCloseAtom + " )*** close bracket token for program block but found ***( " + iLookAhead[0] + " )*** instead.", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
+                    LispError.raiseParseError("Expected a ***( " + iEnvironment.iIndexOrNameCloseAtom + " )*** close bracket token for program block but found ***( " + iLookAhead[0] + " )*** instead.", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
                     return;
                 }
                 
@@ -305,7 +307,7 @@ public class MathPiperParser extends Parser
                     matchToken(aStackTop, iLookAhead[0]);
                 } else if (!iLookAhead[0].equals(iEnvironment.iListCloseAtom))
                 {
-                    LispError.raiseError("Expected a ***( " + iEnvironment.iListCloseAtom + " )*** close bracket token for a list but found ***( " + iLookAhead[0] + " )*** instead.", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
+                    LispError.raiseParseError("Expected a ***( " + iEnvironment.iListCloseAtom + " )*** close bracket token for a list but found ***( " + iLookAhead[0] + " )*** instead.", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
                     return;
                 }
             }
@@ -333,7 +335,7 @@ public class MathPiperParser extends Parser
                     matchToken(aStackTop, iLookAhead[0]);
                 } else
                 {
-                    LispError.raiseError("Expected a ***( ; )*** end of statement token in program block but found ***( " + iLookAhead[0] + " )*** instead.", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
+                    LispError.raiseParseError("Expected a ***( ; )*** end of statement token in program block but found ***( " + iLookAhead[0] + " )*** instead.", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
                     return;
                 }
             }
@@ -399,7 +401,7 @@ public class MathPiperParser extends Parser
                         matchToken(aStackTop, iLookAhead[0]);
                     } else if (!iLookAhead[0].equals(iEnvironment.iBracketCloseAtom))
                     {
-                        LispError.raiseError("Expected a ***( ) )*** close parentheses token for sub-expression but found ***( " + iLookAhead[0] + " )*** instead. ", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
+                        LispError.raiseParseError("Expected a ***( ) )*** close parentheses token for sub-expression but found ***( " + iLookAhead[0] + " )*** instead. ", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
                         return;
                     }
                 }
@@ -512,9 +514,9 @@ public class MathPiperParser extends Parser
         iError = true;
         if (iLookAhead[0] != null)
         {
-            LispError.raiseError("Error parsing expression near token ***( " + iLookAhead[0] + " )***.", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, iEnvironment);
+            LispError.raiseParseError("Error parsing expression near token ***( " + iLookAhead[0] + " )***.", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, iEnvironment);
         }
-        LispError.raiseError("Error parsing expression.", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, iEnvironment);
+        LispError.raiseParseError("Error parsing expression.", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, iEnvironment);
     }
     
     

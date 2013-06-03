@@ -1,20 +1,20 @@
 %mathpiper,def="ArcTan"
 
-5 # (ArcTan(x_Constant?))_(NegativeNumber?(NM(Eval(x))))   <-- -ArcTan(-x);
+5 # (ArcTan(x_Constant?))::(NegativeNumber?(NM(Eval(x))))   <-- -ArcTan(-x);
 
 //TODO fix! 4 # ArcTan(Tan(_x))           <-- x;
 4 # ArcTan(-Tan(_x))           <-- -ArcTan(Tan(x));
 110 # ArcTan(Complex(_r,_i)) <--
      (- I*0.5)*Ln(Complex(1,Complex(r,i))/ Complex(1, - Complex(r,i)));
 
-150 # ArcTan(- _x)_(Not? Constant?(x))             <-- -ArcTan(x);
-160 # (ArcTan(x_Constant?))_(NegativeNumber?(NM(Eval(x)))) <-- -ArcTan(-x);
+150 # ArcTan(- _x)::(Not? Constant?(x))             <-- -ArcTan(x);
+160 # (ArcTan(x_Constant?))::(NegativeNumber?(NM(Eval(x)))) <-- -ArcTan(-x);
 
 200 # ArcTan(Sqrt(3)) <-- Pi/3;
 200 # ArcTan(-Sqrt(3)) <-- -Pi/3;
 200 # ArcTan(1) <-- Pi/4;
 200 # ArcTan(0) <-- 0;
-200 # ArcTan(_n)_(n =? -1) <-- -Pi/4;
+200 # ArcTan(_n)::(n =? -1) <-- -Pi/4;
 
 200 # ArcTan(Infinity) <-- Pi/2;
 200 # ArcTan(-Infinity) <-- -Pi/2;
@@ -22,7 +22,7 @@
 
 ArcTan(xlist_List?) <-- MapSingle("ArcTan",xlist);
 
-2 # ArcTan(x_Number?)_NumericMode?() <-- ArcTanNum(x);
+2 # ArcTan(x_Number?)::NumericMode?() <-- ArcTanNum(x);
 
 
 %/mathpiper

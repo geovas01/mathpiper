@@ -6,8 +6,8 @@
 //
 
 10 # II^n_NegativeInteger? <-- (-II)^(-n);
-20 # (II^_n)_(Even?(n) =? True) <-- (-1)^(n>>1);
-20 # (II^_n)_(Odd?(n)  =? True) <--  II*(-1)^(n>>1);
+20 # (II^_n)::(Even?(n) =? True) <-- (-1)^(n>>1);
+20 # (II^_n)::(Odd?(n)  =? True) <--  II*(-1)^(n>>1);
 
 %/mathpiper
 

@@ -7,7 +7,7 @@
 2 # Gcd(_n,1) <-- 1;
 2 # Gcd(1,_m) <-- 1;
 2 # Gcd(n_Integer?,m_Integer?) <-- GcdN(n,m);
-3 # Gcd(_n,_m)_(GaussianInteger?(m) And? GaussianInteger?(n) )<-- GaussianGcd(n,m);
+3 # Gcd(_n,_m)::(GaussianInteger?(m) And? GaussianInteger?(n) )<-- GaussianGcd(n,m);
 
 4 # Gcd(-(_n), (_m)) <-- Gcd(n,m);
 4 # Gcd( (_n),-(_m)) <-- Gcd(n,m);
@@ -21,7 +21,7 @@
 };
 
 
-10 # Gcd(list_List?)_(Length(list)>?2) <--
+10 # Gcd(list_List?)::(Length(list)>?2) <--
     {
       Local(first);
       first:=Gcd(list[1],list[2]);
@@ -30,9 +30,9 @@
 14 # Gcd([0]) <-- 1;
 15 # Gcd([_head]) <-- head;
 
-20 # Gcd(list_List?)_(Length(list)=?2) <-- Gcd(list[1],list[2]);
+20 # Gcd(list_List?)::(Length(list)=?2) <-- Gcd(list[1],list[2]);
 
-30 # Gcd(n_CanBeUni,m_CanBeUni)_(Length(VarList(n*m))=?1) <--
+30 # Gcd(n_CanBeUni,m_CanBeUni)::(Length(VarList(n*m))=?1) <--
 {
   Local(vars);
   vars:=VarList(n+m);
@@ -47,10 +47,10 @@
 
 
 //Note:tk:moved here from univar.rep.
-0 # Gcd(n_UniVar?,m_UniVar?)_
+0 # Gcd(n_UniVar?,m_UniVar?)::
     (n[1] =? m[1] And? Degree(n) <? Degree(m)) <-- Gcd(m,n);
 
-1 # Gcd(nn_UniVar?,mm_UniVar?)_
+1 # Gcd(nn_UniVar?,mm_UniVar?)::
     (nn[1] =? mm[1] And? Degree(nn) >=? Degree(mm)) <--
 {
    UniVariate(nn[1],0,

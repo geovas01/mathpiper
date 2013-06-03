@@ -5,7 +5,7 @@
 
 //Retract("CollectOn",*);
 
-10 # CollectOn(_var,_expr)_(CanBeUni(var,expr)) <--
+10 # CollectOn(_var,_expr)::(CanBeUni(var,expr)) <--
 {
     Decide(InVerboseMode(),Echo("<< Collect on:  ",var," in expression ",expr));
     

@@ -16,7 +16,7 @@ HeapSort(L_List?, _compare) <--
 };
 
 // this will sort "list" and mangle "tmplist"
-1 # HeapSort1(_L, _tmplist, _first, _last, _compare) _ (last - first <=? 2) <-- SmallSort(L, first, last, compare);
+1 # HeapSort1(_L, _tmplist, _first, _last, _compare):: (last - first <=? 2) <-- SmallSort(L, first, last, compare);
 
 2 # HeapSort1(_L, _tmplist, _first, _last, _compare) <--
 {       // See: J. W. J. Williams, Algorithm 232 (Heapsort), Com. of ACM, vol. 7, no. 6, p. 347 (1964)

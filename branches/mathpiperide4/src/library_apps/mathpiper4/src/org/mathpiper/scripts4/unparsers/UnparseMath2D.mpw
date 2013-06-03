@@ -381,7 +381,7 @@ RuleHoldArguments("BracketOn",3,2,True)
 
 
 
-10 # Formula(f_Function?)_(ArgumentsCount(f) =? 2 And? Infix?(Type(f))) <--
+10 # Formula(f_Function?)::(ArgumentsCount(f) =? 2 And? Infix?(Type(f))) <--
 {
   Local(l,r,oper,width,height,base);
   Assign(l, Formula(f[1]));

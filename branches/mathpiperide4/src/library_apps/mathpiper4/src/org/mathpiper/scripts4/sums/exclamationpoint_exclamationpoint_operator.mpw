@@ -11,9 +11,9 @@
 3# (_n)!! _ (n=? -1 Or? n=?0)<-- 1;
 
 // the purpose of this mess "Quotient(a+b,2)+1+Modulo(Quotient(a+b,2)+1-a, 2)" is to obtain the smallest integer which is >= Quotient(a+b,2)+1 and is also odd or even when a is odd or even; we need to add at most 1 to (Quotient(a+b,2)+1)
-2# Factorialdouble(_a, _b) _ (b-a>=?6) <-- Factorialdouble(a, Quotient(a+b,2)) * Factorialdouble(Quotient(a+b,2)+1+Modulo(Quotient(a+b,2)+1-a, 2), b);
-3# Factorialdouble(_a, _b) _ (b-a>=?4) <-- a*(a+2)*(a+4);
-4# Factorialdouble(_a, _b) _ (b-a>=?2) <-- a*(a+2);
+2# Factorialdouble(_a, _b):: (b-a>=?6) <-- Factorialdouble(a, Quotient(a+b,2)) * Factorialdouble(Quotient(a+b,2)+1+Modulo(Quotient(a+b,2)+1-a, 2), b);
+3# Factorialdouble(_a, _b):: (b-a>=?4) <-- a*(a+2)*(a+4);
+4# Factorialdouble(_a, _b):: (b-a>=?2) <-- a*(a+2);
 5# Factorialdouble(_a, _b) <-- a;
 
 /// double factorial for lists is threaded

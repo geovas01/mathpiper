@@ -17,7 +17,7 @@
 
 /* Print an argument within an environment of precedence n */
 10 # Print(x_Atom?,_n) <-- Write(x);
-10 # Print(_x,_n)_(Infix?(Type(x))And? ArgumentsCount(x) =? 2) <--
+10 # Print(_x,_n)::(Infix?(Type(x))And? ArgumentsCount(x) =? 2) <--
 {
   Local(bracket);
   bracket:= (PrecedenceGet(Type(x)) >? n);
@@ -28,7 +28,7 @@
   Decide(bracket,WriteString(")"));
 };
 
-10 # Print(_x,_n)_(Prefix?(Type(x)) And? ArgumentsCount(x) =? 1) <--
+10 # Print(_x,_n)::(Prefix?(Type(x)) And? ArgumentsCount(x) =? 1) <--
 {
   Local(bracket);
   bracket:= (PrecedenceGet(Type(x)) >? n);
@@ -38,7 +38,7 @@
   Decide(bracket,WriteString(")"));
 };
 
-10 # Print(_x,_n)_(Postfix?(Type(x))And? ArgumentsCount(x) =? 1) <--
+10 # Print(_x,_n)::(Postfix?(Type(x))And? ArgumentsCount(x) =? 1) <--
 {
   Local(bracket);
   bracket:= (PrecedenceGet(Type(x)) >? n);
@@ -48,20 +48,20 @@
   Decide(bracket,WriteString(")"));
 };
 
-20 # Print(_x,_n)_(Type(x) =? "List") <--
+20 # Print(_x,_n)::(Type(x) =? "List") <--
 {
   WriteString("[");
   PrintArg(x);
   WriteString("]");
 };
 
-20 # Print(_x,_n)_(Type(x) =? "Block") <--
+20 # Print(_x,_n)::(Type(x) =? "Block") <--
 {
   WriteString("[");
   PrintArgBlock(Rest(FunctionToList(x)));
   WriteString("]");
 };
-20 # Print(_x,_n)_(Type(x) =? "Nth") <--
+20 # Print(_x,_n)::(Type(x) =? "Nth") <--
 {
   Print(x[1],0);
   WriteString("[");

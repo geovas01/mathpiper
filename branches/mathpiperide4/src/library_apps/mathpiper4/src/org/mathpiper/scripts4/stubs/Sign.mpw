@@ -3,8 +3,8 @@
 10 # Sign(n_PositiveNumber?) <-- 1;
 10 # Sign(n_Zero?) <-- 0;
 20 # Sign(n_Number?) <-- -1;
-15 # Sign(n_Infinity?)_(n <? 0) <-- -1;
-15 # Sign(n_Infinity?)_(n >? 0) <-- 1;
+15 # Sign(n_Infinity?)::(n <? 0) <-- -1;
+15 # Sign(n_Infinity?)::(n >? 0) <-- 1;
 15 # Sign(n_Number?/m_Number?) <-- Sign(n)*Sign(m);
 20 # Sign(n_List?) <-- MapSingle("Sign",n);
 

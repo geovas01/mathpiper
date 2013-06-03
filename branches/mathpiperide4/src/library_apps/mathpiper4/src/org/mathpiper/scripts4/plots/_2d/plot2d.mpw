@@ -31,10 +31,10 @@ Function() Plot2D(func, range, options, ...);
 /// interface routines
 1 # Plot2D(_func) <-- ("Plot2D" @ [func, -5->5]);
 2 # Plot2D(_func, _range) <-- ("Plot2D" @ [func, range, []]);
-3 # Plot2D(_func, _range, option_Function?) _ (Type(option) =? ":" )  <-- ("Plot2D" @ [func, range, [option]]);
+3 # Plot2D(_func, _range, option_Function?):: (Type(option) =? ":" )  <-- ("Plot2D" @ [func, range, [option]]);
 
 /// Plot a single function
-5 # Plot2D(_func, _range, optionslist_List?)_(Not? List?(func)) <-- ("Plot2D" @ [[func], range, optionslist]);
+5 # Plot2D(_func, _range, optionslist_List?)::(Not? List?(func)) <-- ("Plot2D" @ [[func], range, optionslist]);
 
 /// Top-level 2D plotting routine:
 /// plot several functions sharing the same xrange and other options

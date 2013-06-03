@@ -100,14 +100,14 @@ UnparseLatexMaxPrec() := 60000;         /* This precedence will never be bracket
 
 
 /* FunctionToList(...) can generate lists with atoms that would otherwise result in unparsable expressions. */
-100 # UnparseLatex(x_Atom?, _p)_(Infix?(ToString(x))) <-- ConcatStrings("\\mathrm{", ToString(x), "}");
+100 # UnparseLatex(x_Atom?, _p)::(Infix?(ToString(x))) <-- ConcatStrings("\\mathrm{", ToString(x), "}");
 
 
 /* Lists: make sure to have matrices processed before them. Enveloping precedence is irrelevant because lists are always bracketed. List items are never bracketed. Note that UnparseLatexFinishList({a,b}) generates ",a,b" */
 
-100 # UnparseLatex(x_List?, _p)_(Length(x) =? 0) <-- UnparseLatexBracketIf(True, "");
+100 # UnparseLatex(x_List?, _p)::(Length(x) =? 0) <-- UnparseLatexBracketIf(True, "");
 110 # UnparseLatex(x_List?, _p) <-- UnparseLatexBracketIf(True, ConcatStrings(UnparseLatex(First(x), UnparseLatexMaxPrec()), UnparseLatexFinishList(Rest(x)) ) );
-100 # UnparseLatexFinishList(x_List?)_(Length(x) =? 0) <-- "";
+100 # UnparseLatexFinishList(x_List?)::(Length(x) =? 0) <-- "";
 110 # UnparseLatexFinishList(x_List?) <-- ConcatStrings(", ", UnparseLatex(First(x), UnparseLatexMaxPrec()), UnparseLatexFinishList(Rest(x)));
 
 /* Replace operations */
@@ -123,11 +123,11 @@ UnparseLatexMaxPrec() := 60000;         /* This precedence will never be bracket
 // cases like a*20! and a*10^x
 
 
-116 # UnparseLatex(_n * _expr, _p) _ (Function?(expr) And? Contains?(["^", "!", "!!"], Type(expr)) And? Number?(FunctionToList(expr)[2])) <-- UnparseLatexBracketIf(p <? PrecedenceGet("*"), ConcatStrings(UnparseLatex(n, LeftPrecedenceGet("*")), "\\times ", UnparseLatex(expr, RightPrecedenceGet("*")) ) );
+116 # UnparseLatex(_n * _expr, _p):: (Function?(expr) And? Contains?(["^", "!", "!!"], Type(expr)) And? Number?(FunctionToList(expr)[2])) <-- UnparseLatexBracketIf(p <? PrecedenceGet("*"), ConcatStrings(UnparseLatex(n, LeftPrecedenceGet("*")), "\\times ", UnparseLatex(expr, RightPrecedenceGet("*")) ) );
 
         /* generic binary ops here */
-119 # UnparseLatex(expr_Function?, _p)_(ArgumentsCount(expr) =? 2 And? Infix?(Type(expr)) And? Not? Type(expr) =? "^" And? MetaGet(expr[0],"HighlightColor") !=? Empty) <-- UnparseLatexBracketIf(p <? PrecedenceGet(Type(expr)), ConcatStrings(UnparseLatex(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))), "\\colorbox{",MetaGet(expr[0],"HighlightColor"),"}{", UnparseLatexLatexify(Type(expr)), "}", UnparseLatex(FunctionToList(expr)[3], RightPrecedenceGet(Type(expr))) ) );
-120 # UnparseLatex(expr_Function?, _p)_(ArgumentsCount(expr) =? 2 And? Infix?(Type(expr)) ) <-- UnparseLatexBracketIf(p <? PrecedenceGet(Type(expr)), ConcatStrings(UnparseLatex(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))), UnparseLatexLatexify(Type(expr)), UnparseLatex(FunctionToList(expr)[3], RightPrecedenceGet(Type(expr))) ) );
+119 # UnparseLatex(expr_Function?, _p)::(ArgumentsCount(expr) =? 2 And? Infix?(Type(expr)) And? Not? Type(expr) =? "^" And? MetaGet(expr[0],"HighlightColor") !=? Empty) <-- UnparseLatexBracketIf(p <? PrecedenceGet(Type(expr)), ConcatStrings(UnparseLatex(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))), "\\colorbox{",MetaGet(expr[0],"HighlightColor"),"}{", UnparseLatexLatexify(Type(expr)), "}", UnparseLatex(FunctionToList(expr)[3], RightPrecedenceGet(Type(expr))) ) );
+120 # UnparseLatex(expr_Function?, _p)::(ArgumentsCount(expr) =? 2 And? Infix?(Type(expr)) ) <-- UnparseLatexBracketIf(p <? PrecedenceGet(Type(expr)), ConcatStrings(UnparseLatex(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))), UnparseLatexLatexify(Type(expr)), UnparseLatex(FunctionToList(expr)[3], RightPrecedenceGet(Type(expr))) ) );
 
         /* Template for "regular" unary prefix operators:
 100 # UnparseLatex(+ _y, _p) <-- UnparseLatexBracketIf(p <? PrecedenceGet("+"), ConcatStrings(" + ", UnparseLatex(y, RightPrecedenceGet("+")) ) );
@@ -136,18 +136,18 @@ UnparseLatexMaxPrec() := 60000;         /* This precedence will never be bracket
 
         /* generic unary ops here */
         /* prefix */
-119 # UnparseLatex(expr_Function?, _p)_(ArgumentsCount(expr) =? 1 And? Prefix?(Type(expr)) And? MetaGet(expr[0],"HighlightColor") !=? Empty) <-- UnparseLatexBracketIf(p <? PrecedenceGet(Type(expr)), ConcatStrings("\\colorbox{",MetaGet(expr[0],"HighlightColor"),"}{", UnparseLatexLatexify(Type(expr)), "}", UnparseLatex(FunctionToList(expr)[2], RightPrecedenceGet(Type(expr)))) );
-120 # UnparseLatex(expr_Function?, _p)_(ArgumentsCount(expr) =? 1 And? Prefix?(Type(expr))) <-- UnparseLatexBracketIf(p <? PrecedenceGet(Type(expr)), ConcatStrings(UnparseLatexLatexify(Type(expr)), UnparseLatex(FunctionToList(expr)[2], RightPrecedenceGet(Type(expr)))) );
+119 # UnparseLatex(expr_Function?, _p)::(ArgumentsCount(expr) =? 1 And? Prefix?(Type(expr)) And? MetaGet(expr[0],"HighlightColor") !=? Empty) <-- UnparseLatexBracketIf(p <? PrecedenceGet(Type(expr)), ConcatStrings("\\colorbox{",MetaGet(expr[0],"HighlightColor"),"}{", UnparseLatexLatexify(Type(expr)), "}", UnparseLatex(FunctionToList(expr)[2], RightPrecedenceGet(Type(expr)))) );
+120 # UnparseLatex(expr_Function?, _p)::(ArgumentsCount(expr) =? 1 And? Prefix?(Type(expr))) <-- UnparseLatexBracketIf(p <? PrecedenceGet(Type(expr)), ConcatStrings(UnparseLatexLatexify(Type(expr)), UnparseLatex(FunctionToList(expr)[2], RightPrecedenceGet(Type(expr)))) );
 
 
         /* postfix */
-120 # UnparseLatex(expr_Function?, _p)_(ArgumentsCount(expr) =? 1 And? Postfix?(Type(expr))) <-- UnparseLatexBracketIf(p <? LeftPrecedenceGet(Type(expr)), ConcatStrings(
+120 # UnparseLatex(expr_Function?, _p)::(ArgumentsCount(expr) =? 1 And? Postfix?(Type(expr))) <-- UnparseLatexBracketIf(p <? LeftPrecedenceGet(Type(expr)), ConcatStrings(
         UnparseLatex(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))),
         UnparseLatexLatexify(Type(expr))
 ) );
 
         /* fraction and its operands are never bracketed except when they are under power */
-98 # UnparseLatex(_x / _y, _p)_(Assigned?(operatorMetaMap) And? MetaGet(operatorMetaMap,"HighlightColor") !=? Empty) <-- UnparseLatexBracketIf(p <? PrecedenceGet("/"), ConcatStrings("\\colorbox{",MetaGet(operatorMetaMap,"HighlightColor"),"}{\\frac \\textcolor{Black}{", UnparseLatex(x, UnparseLatexMaxPrec()), "} \\textcolor{Black}{", UnparseLatex(y, UnparseLatexMaxPrec()), "}} ") );
+98 # UnparseLatex(_x / _y, _p)::(Assigned?(operatorMetaMap) And? MetaGet(operatorMetaMap,"HighlightColor") !=? Empty) <-- UnparseLatexBracketIf(p <? PrecedenceGet("/"), ConcatStrings("\\colorbox{",MetaGet(operatorMetaMap,"HighlightColor"),"}{\\frac \\textcolor{Black}{", UnparseLatex(x, UnparseLatexMaxPrec()), "} \\textcolor{Black}{", UnparseLatex(y, UnparseLatexMaxPrec()), "}} ") );
 100 # UnparseLatex(_x / _y, _p) <-- UnparseLatexBracketIf(p <? PrecedenceGet("/"), ConcatStrings("\\frac{", UnparseLatex(x, UnparseLatexMaxPrec()), "}{", UnparseLatex(y, UnparseLatexMaxPrec()), "} ") );
 
         /* power's argument is never bracketed but it must be put in braces. Chained powers must be bracketed. Powers of 1/n are displayed as roots. */
@@ -157,7 +157,7 @@ UnparseLatexMaxPrec() := 60000;         /* This precedence will never be bracket
 
 120 # UnparseLatex(_x ^ _y, _p) <-- UnparseLatexBracketIf(p <=? PrecedenceGet("^"), ConcatStrings(UnparseLatex(x, PrecedenceGet("^")), " ^{", UnparseLatex(y, UnparseLatexMaxPrec()), "}" ) );
 
-100 # UnparseLatex(If(_pred)_body, _p) <-- "\\textrm{if }(" ~ UnparseLatex(pred,60000) ~ ") " ~ UnparseLatex(body,60000);
+100 # UnparseLatex(If(_pred) _body, _p) <-- "\\textrm{if }(" ~ UnparseLatex(pred,60000) ~ ") " ~ UnparseLatex(body,60000);
 100 # UnparseLatex(_left Else _right, _p) <-- UnparseLatex(left,60000) ~ "\\textrm{ Else }" ~ UnparseLatex(right,60000);
 
 
@@ -231,7 +231,7 @@ LocalSymbols(UnparseLatexRegularOps, UnparseLatexRegularPrefixOps, UnparseLatexG
 
 /* Unknown bodied function */
 
-200 # UnparseLatex(x_Function?, _p) _ (Bodied?(Type(x))) <-- {
+200 # UnparseLatex(x_Function?, _p):: (Bodied?(Type(x))) <-- {
         Local(func, args, lastarg);
         func := Type(x);
         args := Rest(FunctionToList(x));
@@ -242,7 +242,7 @@ LocalSymbols(UnparseLatexRegularOps, UnparseLatexRegularPrefixOps, UnparseLatexG
 };
 
 /* Unknown infix function : already done above
-210 # UnparseLatex(x_Function?, _p)_(Infix?(Type(x))) <-- ConcatStrings(UnparseLatexLatexify(Type(x)), UnparseLatex(Rest(FunctionToList(x)), UnparseLatexMaxPrec()) );
+210 # UnparseLatex(x_Function?, _p)::(Infix?(Type(x))) <-- ConcatStrings(UnparseLatexLatexify(Type(x)), UnparseLatex(Rest(FunctionToList(x)), UnparseLatexMaxPrec()) );
 */
 /* Unknown function that is not prefix, infix or postfix */
 220 # UnparseLatex(x_Function?, _p) <-- ConcatStrings(UnparseLatexLatexify(Type(x)), UnparseLatex(Rest(FunctionToList(x)), UnparseLatexMaxPrec()) );
@@ -275,10 +275,10 @@ LocalSymbols(UnparseLatexMathFunctions, UnparseLatexMathFunctions2) {
   /* Precedence of 120 because we'd like to process other functions like sqrt or exp first */
 
   // generic math functions of one argument
-  120 # UnparseLatex(expr_Function?, _p) _ (ArgumentsCount(expr) =? 1 And? Contains?(AssocIndices(UnparseLatexMathFunctions), Type(expr)) ) <-- UnparseLatexBracketIf(p <? PrecedenceGet("*"), ConcatStrings(UnparseLatexMathFunctions[Type(expr)], UnparseLatex( FunctionToList(expr)[2], PrecedenceGet("*")) ) );
+  120 # UnparseLatex(expr_Function?, _p):: (ArgumentsCount(expr) =? 1 And? Contains?(AssocIndices(UnparseLatexMathFunctions), Type(expr)) ) <-- UnparseLatexBracketIf(p <? PrecedenceGet("*"), ConcatStrings(UnparseLatexMathFunctions[Type(expr)], UnparseLatex( FunctionToList(expr)[2], PrecedenceGet("*")) ) );
 
   /// math functions two arguments of the form $A_n(x)$
-  120 # UnparseLatex(expr_Function?, _p) _ (ArgumentsCount(expr) =? 2 And? Contains?(AssocIndices(UnparseLatexMathFunctions2), Type(expr)) ) <-- UnparseLatexBracketIf(p <? PrecedenceGet("*"),
+  120 # UnparseLatex(expr_Function?, _p):: (ArgumentsCount(expr) =? 2 And? Contains?(AssocIndices(UnparseLatexMathFunctions2), Type(expr)) ) <-- UnparseLatexBracketIf(p <? PrecedenceGet("*"),
     ConcatStrings(
     UnparseLatexMathFunctions2[Type(expr)],
     "_{",
@@ -350,18 +350,18 @@ LocalSymbols(UnparseLatexMathFunctions, UnparseLatexMathFunctions2) {
 
 /* Use partial derivative only when the expression has several variables */
 /* todo:tk:commenting out for the minimal version of the scripts.
-100 # UnparseLatex(Deriv(_x)_y, _p) <-- UnparseLatexBracketIf(p <? PrecedenceGet("-"), ConcatStrings(
+100 # UnparseLatex(Deriv(_x) _y, _p) <-- UnparseLatexBracketIf(p <? PrecedenceGet("-"), ConcatStrings(
         Decide(Length(VarList(y))>?1, "\\frac{\\partial}{\\partial ", "\\frac{d}{d "
         ), UnparseLatex(x, PrecedenceGet("^")), "}", UnparseLatex(y, PrecedenceGet("/")) ) );
 
-100 # UnparseLatex(Deriv(_x, _n)_y, _p) <-- UnparseLatexBracketIf(p <? PrecedenceGet("-"), ConcatStrings(
+100 # UnparseLatex(Deriv(_x, _n) _y, _p) <-- UnparseLatexBracketIf(p <? PrecedenceGet("-"), ConcatStrings(
         Decide(
                 Length(VarList(y))>?1,
                 "\\frac{\\partial^" ~ UnparseLatex(n, UnparseLatexMaxPrec()) ~ "}{\\partial ",
                 "\\frac{d^" ~ UnparseLatex(n, UnparseLatexMaxPrec()) ~ "}{d "
         ), UnparseLatex(x, PrecedenceGet("^")), " ^", UnparseLatex(n, UnparseLatexMaxPrec()), "}", UnparseLatex(y, PrecedenceGet("/")) ) );
-100 # UnparseLatex(Differentiate(_x)_y, _p) <-- UnparseLatex(Deriv(x) y, p);
-100 # UnparseLatex(Differentiate(_x, _n)_y, _p) <-- UnparseLatex(Deriv(x, n) y, p);
+100 # UnparseLatex(Differentiate(_x) _y, _p) <-- UnparseLatex(Deriv(x) y, p);
+100 # UnparseLatex(Differentiate(_x, _n) _y, _p) <-- UnparseLatex(Deriv(x, n) y, p);
 */
 
 

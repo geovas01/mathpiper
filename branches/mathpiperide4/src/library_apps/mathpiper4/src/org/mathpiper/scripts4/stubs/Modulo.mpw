@@ -2,7 +2,7 @@
 
 //Retract("Modulo",*);
 
-0 # Modulo(_n,m_RationalOrNumber?)_(m<?0) <-- `Hold(Modulo(@n,@m));
+0 # Modulo(_n,m_RationalOrNumber?)::(m<?0) <-- `Hold(Modulo(@n,@m));
 
 1 # Modulo(n_NegativeInteger?,m_PositiveInteger?) <--
 {
@@ -40,8 +40,8 @@
 
 
 //Note:tk:moved here from univariate.rep.
-0 # Modulo(n_UniVar?,m_UniVar?)_(Degree(n) <? Degree(m)) <-- n;
-1 # Modulo(n_UniVar?,m_UniVar?)_
+0 # Modulo(n_UniVar?,m_UniVar?)::(Degree(n) <? Degree(m)) <-- n;
+1 # Modulo(n_UniVar?,m_UniVar?)::
     (n[1] =? m[1] And? Degree(n) >=? Degree(m)) <--
 {
     UniVariate(n[1],0,
@@ -49,7 +49,7 @@
                          Concat(ZeroVector(m[2]),m[3]))[2]);
 };
 
-10 # Modulo(n_CanBeUni, m_CanBeUni, vars_List?)_(Length(vars)=?1) <--
+10 # Modulo(n_CanBeUni, m_CanBeUni, vars_List?)::(Length(vars)=?1) <--
 {
     NormalForm(Modulo(MakeUni(n,vars),MakeUni(m,vars)));
 };

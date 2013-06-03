@@ -38,7 +38,7 @@ public class AtomPatternParameterMatcher extends PatternParameterMatcher {
         // If it is a floating point, don't even bother comparing
         if (aExpression != null) {
             try {
-                if (aExpression.getNumber(aEnvironment.getPrecision(), aEnvironment) != null) {
+                if (aExpression.getNumber(10, aEnvironment) != null) {
                     if (!((BigNumber) ((NumberCons) aExpression).getNumber(aEnvironment.getPrecision(), aEnvironment)).isInteger()) {
                         return false;
                     }

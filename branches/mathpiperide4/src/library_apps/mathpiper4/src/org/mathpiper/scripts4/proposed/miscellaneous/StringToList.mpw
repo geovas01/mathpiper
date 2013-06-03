@@ -2,7 +2,7 @@
 
 //Retract("StringToList", *);
 
-10 # StringToList(string_String?)_(Length(string) =? 0) <-- [];
+10 # StringToList(string_String?)::(Length(string) =? 0) <-- [];
 
 
 20 # StringToList(string_String?) <--

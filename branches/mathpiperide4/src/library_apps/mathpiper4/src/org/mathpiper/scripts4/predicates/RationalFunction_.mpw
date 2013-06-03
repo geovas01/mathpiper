@@ -2,13 +2,13 @@
 
 //Retract("RationalFunction?",*);
 
-10 # RationalFunction?(_expr)_(Length(VarList(expr))=?0) <-- False;
+10 # RationalFunction?(_expr)::(Length(VarList(expr))=?0) <-- False;
 
 15 # RationalFunction?(_expr) <-- RationalFunction?(expr,VarList(expr));
 
 10 # RationalFunction?(expr_RationalOrNumber?,_var) <-- False;
 
-15 # RationalFunction?(_expr,var_Atom?)_(Type(expr)=?"/" Or? Type(-expr)=?"/") <--
+15 # RationalFunction?(_expr,var_Atom?)::(Type(expr)=?"/" Or? Type(-expr)=?"/") <--
 {
     Decide(Polynomial?(Numerator(expr),var) And? Polynomial?(Denominator(expr),var),
         Contains?(VarList(Denominator(expr)),var),
@@ -16,7 +16,7 @@
     );
 };
 
-20 # RationalFunction?(_expr,vars_List?)_(Type(expr)=?"/" Or? Type(-expr)=?"/") <--
+20 # RationalFunction?(_expr,vars_List?)::(Type(expr)=?"/" Or? Type(-expr)=?"/") <--
 {
     Decide(Polynomial?(Numerator(expr),vars) And? Polynomial?(Denominator(expr),vars),
         Intersection(vars, VarList(expr)) !=? [],

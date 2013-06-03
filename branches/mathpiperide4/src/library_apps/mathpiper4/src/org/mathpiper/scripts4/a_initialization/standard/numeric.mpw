@@ -174,7 +174,7 @@ return {True} while {expr} is being evaluated.
 that defines how to get a numeric approximation of some expression. One
 could define a transformation rule
 
-        f(_x)_NumericMode?() <- {... some code to get a numeric approximation of f(x) ... };
+        f(_x)::NumericMode?() <- {... some code to get a numeric approximation of f(x) ... };
 
 {NumericMode?()} usually returns {False}, so transformation rules that check for this
 predicate are usually left alone.

@@ -1,5 +1,5 @@
-Wed May 29 22:53:16 EDT 2013.
-MathPiper version: mp4_minimal_alpha_v.111.
+Mon Jun 03 18:35:43 EDT 2013.
+MathPiper version: mp4_minimal_alpha_v.112.
 Running all tests..
 Beginning of tests:
 
@@ -533,4 +533,4 @@ GlobalVariables: Result: True
 Side Effects:
 [] 
 
-Elapsed Time: 0 min 18 sec
+Elapsed Time: 0 min 17 sec

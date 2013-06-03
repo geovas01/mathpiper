@@ -16,11 +16,11 @@ RuleHoldArguments("Degree",1,0, UniVar?(expr))
 
 10 # Degree(poly_CanBeUni)                           <-- Degree(MakeUni(poly));
 
-10 # Degree(_poly,_var)_(CanBeUni(var,poly))         <-- Degree(MakeUni(poly,var));
+10 # Degree(_poly,_var)::(CanBeUni(var,poly))         <-- Degree(MakeUni(poly,var));
 
-20 # Degree(_poly,_var)_(Type(poly)=?"Sqrt")          <-- Degree(poly^2,var)/2;
+20 # Degree(_poly,_var)::(Type(poly)=?"Sqrt")          <-- Degree(poly^2,var)/2;
 
-20 # Degree(_poly,_var)_(FunctionToList(poly)[1]=? ^) <--
+20 # Degree(_poly,_var)::(FunctionToList(poly)[1]=? ^) <--
 {
     Local(ex,pwr,deg);
     ex  := FunctionToList(poly)[3];

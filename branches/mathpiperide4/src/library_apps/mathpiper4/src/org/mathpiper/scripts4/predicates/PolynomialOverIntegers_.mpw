@@ -14,7 +14,7 @@
 15 # PolynomialOverIntegers?(_expr) <-- False;
 
 
-10 # PolynomialOverIntegers?(_expr,_var)_(CanBeUni(var,expr)) <--
+10 # PolynomialOverIntegers?(_expr,_var)::(CanBeUni(var,expr)) <--
 {
     Decide( AllSatisfy?("Integer?",Coef(expr,var,0 .. Degree(expr,var))),
         True,

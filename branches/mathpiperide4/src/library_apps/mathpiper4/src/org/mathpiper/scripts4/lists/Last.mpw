@@ -1,6 +1,6 @@
 %mathpiper,def="Last"
 
-Last(LL_List?)_(Length(LL)>?0) <-- First(Reverse(LL));
+Last(LL_List?)::(Length(LL)>?0) <-- First(Reverse(LL));
 
 %/mathpiper
 

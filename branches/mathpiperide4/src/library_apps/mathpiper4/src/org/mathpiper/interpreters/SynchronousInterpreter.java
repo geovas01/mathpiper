@@ -105,7 +105,10 @@ public class SynchronousInterpreter implements Interpreter {
 
     public boolean initialize() {
 
-
+    	if(returnValue == false)
+    	{
+    		return false;
+    	}
 
         try {
             switch (loopIndex) {

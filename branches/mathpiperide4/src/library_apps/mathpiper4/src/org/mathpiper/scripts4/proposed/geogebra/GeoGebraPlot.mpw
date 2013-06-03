@@ -8,7 +8,7 @@ RulebaseListedHoldArguments("GeoGebraPlot",[arg1,arg2]);
 5 # GeoGebraPlot(_arg1) <-- GeoGebraPlot(arg1,[]);  //Handle single argument call.
 
 
-20 # GeoGebraPlot(function_Function?, options_List?)_(Not? List?(function)) <--
+20 # GeoGebraPlot(function_Function?, options_List?)::(Not? List?(function)) <--
 {
     Local(command);
     
@@ -22,7 +22,7 @@ RulebaseListedHoldArguments("GeoGebraPlot",[arg1,arg2]);
 
 
 
-10 # GeoGebraPlot(list_List?, _options)_(NumericList?(list) )  <--
+10 # GeoGebraPlot(list_List?, _options)::(NumericList?(list) )  <--
 {
     Decide(List?(options), options := OptionsToAssociativeList(options), options := OptionsToAssociativeList([options]));
 
@@ -80,7 +80,7 @@ RulebaseListedHoldArguments("GeoGebraPlot",[arg1,arg2]);
 };
 
 
-5 # GeoGebraPlot(list_List?, _options)_(Matrix?(list)) <--
+5 # GeoGebraPlot(list_List?, _options)::(Matrix?(list)) <--
 {
     Local(flatList);
     

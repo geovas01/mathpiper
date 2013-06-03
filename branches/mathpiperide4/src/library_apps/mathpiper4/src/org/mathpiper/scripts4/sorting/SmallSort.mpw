@@ -4,9 +4,9 @@
 /// It is used to speed up the final steps of a HeapSort.
 /// SmallSort sorts up to 3 elements, HeapSort sorts 4 and more elements
 
-SmallSort(_list, _first, _last, _compare) _ (last=?first) <-- list;
+SmallSort(_list, _first, _last, _compare):: (last=?first) <-- list;
 
-SmallSort(_list, _first, _last, _compare) _ (last=?first+1) <--
+SmallSort(_list, _first, _last, _compare):: (last=?first+1) <--
 {
         Local(temp);
         temp := list[first];
@@ -21,7 +21,7 @@ SmallSort(_list, _first, _last, _compare) _ (last=?first+1) <--
         list;
 };
 
-SmallSort(_list, _first, _last, _compare) _ (last=?first+2) <--
+SmallSort(_list, _first, _last, _compare):: (last=?first+2) <--
 {
         Local(temp);
         temp := list[first];

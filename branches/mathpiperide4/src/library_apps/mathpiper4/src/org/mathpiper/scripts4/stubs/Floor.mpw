@@ -35,9 +35,9 @@
 10 # Ceil (x_Number?) <-- CeilN (x);
 10 # Round(x_Number?) <-- FloorN(x+0.5);
 
-20 # Floor(x_Rational?) _ (Number?(Numerator(x)) And? Number?(Denominator(x))) <-- FloorN(NM(x));
-20 # Ceil (x_Rational?) _ (Number?(Numerator(x)) And? Number?(Denominator(x))) <-- CeilN (NM(x));
-20 # Round(x_Rational?) _ (Number?(Numerator(x)) And? Number?(Denominator(x))) <-- FloorN(NM(x+0.5));
+20 # Floor(x_Rational?):: (Number?(Numerator(x)) And? Number?(Denominator(x))) <-- FloorN(NM(x));
+20 # Ceil (x_Rational?):: (Number?(Numerator(x)) And? Number?(Denominator(x))) <-- CeilN (NM(x));
+20 # Round(x_Rational?):: (Number?(Numerator(x)) And? Number?(Denominator(x))) <-- FloorN(NM(x+0.5));
 */
 
 %/mathpiper

@@ -117,10 +117,10 @@ public class MathPiperTokenizer {
                 while (isSymbolic(aInput.peek())) {
                     aInput.next();
                 }
-            } else if (streamCharacter == '_') {
+          /*  } else if (streamCharacter == '_') {
                 while (aInput.peek() == '_') {
                     aInput.next();
-                }
+                }*/
             } else if (isDigit(streamCharacter) || streamCharacter == '.') {
                 while (isDigit(aInput.peek())) {
                     aInput.next();
@@ -170,6 +170,8 @@ public class MathPiperTokenizer {
         } else if (c >= 'A' && c <= 'Z') {
             return true;
         } else if (c == '?') {
+            return true;
+        } else if (c == '_') {
             return true;
         }else if (c == 0x00b7) { // middle dot (for Catalan).
             return true;

@@ -30,11 +30,6 @@ RuleHoldArguments(StandardOperatorsLoad, 0, 1, True)
     Infix(":",960);
     RightAssociativeSet(":");
     
-    RulebaseHoldArguments("::",[left,right]);
-    HoldArgument("::",left);
-    Infix("::",960);
-    RightAssociativeSet("::");
-    
     RulebaseHoldArguments("->",[left,right]);
     HoldArgument("->",left);
     Infix("->",950);

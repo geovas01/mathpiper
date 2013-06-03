@@ -55,6 +55,26 @@ public class LocalSymbolSubstitute implements ASTProcessor {
             if (name.equals(iOriginalNames[i])) {
                 return AtomCons.getInstance(iEnvironment, aStackTop, iNewNames[i]);
             }
+            
+            if(name.contains("_"))
+            {
+	            if(name.startsWith("_") && name.substring(1, name.length()).equals(iOriginalNames[i]))
+	            {
+	            	String newName = name.replace(iOriginalNames[i], iNewNames[i]);
+	            	
+	            	return AtomCons.getInstance(iEnvironment, aStackTop, newName);
+	            }
+	            
+	            String[] parts = name.split("_", 2);
+	            
+	            if(parts[0].equals(iOriginalNames[i]))
+	            {
+	            	String newName = iNewNames[i] + "_" + parts[1];
+	            	
+	            	return AtomCons.getInstance(iEnvironment, aStackTop, newName);
+	            }
+            }
+            
         }
         return null;
     }

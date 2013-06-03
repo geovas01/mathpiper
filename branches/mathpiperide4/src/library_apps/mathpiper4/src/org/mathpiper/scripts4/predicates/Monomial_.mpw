@@ -3,7 +3,7 @@
 //Retract("CanBeMonomial",*);
 //Retract("Monomial?",*);
 
-10 # CanBeMonomial(_expr)_(Type(expr)=?"UniVariate") <-- False;
+10 # CanBeMonomial(_expr)::(Type(expr)=?"UniVariate") <-- False;
 
 10 # CanBeMonomial(_expr)<--Not? (HasFunction?(expr,ToAtom("+")) Or? HasFunction?(expr,ToAtom("-")));
 

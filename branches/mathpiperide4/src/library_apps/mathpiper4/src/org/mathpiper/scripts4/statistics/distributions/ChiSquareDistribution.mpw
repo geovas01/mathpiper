@@ -3,7 +3,7 @@
 /* Guard against distribution objects with senseless parameters
    Anti-nominalism */
 
-ChiSquareDistribution(m_RationalOrNumber?)_(m<=?0) <-- Undefined;
+ChiSquareDistribution(m_RationalOrNumber?)::(m<=?0) <-- Undefined;
 
 %/mathpiper
 

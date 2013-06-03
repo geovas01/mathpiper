@@ -19,7 +19,7 @@
 
 //Retract("IncompleteGamma",*);
 
-100 # IncompleteGamma(_a, _x)_(x<=?a+1) <--
+100 # IncompleteGamma(_a, _x)::(x<=?a+1) <--
 [
    Local(prec,eps);
    prec:=BuiltinPrecisionGet();
@@ -45,7 +45,7 @@
 ];
 
 
-100 # IncompleteGamma(_a, _x)_(x>?a+1) <--
+100 # IncompleteGamma(_a, _x)::(x>?a+1) <--
 [ // Asymptotic expansion
    Local(prec,eps);
    prec:=BuiltinPrecisionGet();

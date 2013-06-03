@@ -4,7 +4,7 @@
 GetNumerDenom(_expr, _a) <-- GetNumerDenom(expr)*[a,1];
 
 // on expressions that are not fractions, we return unit denominator
-10 # GetNumerDenom(_expr)_Not?(HasFunctionSome?(expr, "/", [ToAtom("+"), ToAtom("-"), *, /, ^])) <-- [expr, 1];
+10 # GetNumerDenom(_expr)::Not?(HasFunctionSome?(expr, "/", [ToAtom("+"), ToAtom("-"), *, /, ^])) <-- [expr, 1];
 // rational numbers are not simplified
 15 # GetNumerDenom(a_RationalOrNumber?) <-- [a, 1];
 // arithmetic
@@ -15,9 +15,9 @@ GetNumerDenom(_expr, _a) <-- GetNumerDenom(expr)*[a,1];
 20 # GetNumerDenom(_a * _b) <-- ExpandFracmultiply(GetNumerDenom(a), GetNumerDenom(b));
 20 # GetNumerDenom(_a / _b) <-- ExpandFracdivide(GetNumerDenom(a), GetNumerDenom(b));
 // integer powers
-20 # GetNumerDenom(_a ^ b_Integer?)_(b >? 1) <-- ExpandFracmultiply(GetNumerDenom(a), GetNumerDenom(a^(b-1)));
-20 # GetNumerDenom(_a ^ b_Integer?)_(b <? -1) <-- ExpandFracdivide(GetNumerDenom(1), GetNumerDenom(a^(-b)));
-20 # GetNumerDenom(_a ^ b_Integer?)_(b =? -1) <-- ExpandFracdivide(GetNumerDenom(1), GetNumerDenom(a));
+20 # GetNumerDenom(_a ^ b_Integer?)::(b >? 1) <-- ExpandFracmultiply(GetNumerDenom(a), GetNumerDenom(a^(b-1)));
+20 # GetNumerDenom(_a ^ b_Integer?)::(b <? -1) <-- ExpandFracdivide(GetNumerDenom(1), GetNumerDenom(a^(-b)));
+20 # GetNumerDenom(_a ^ b_Integer?)::(b =? -1) <-- ExpandFracdivide(GetNumerDenom(1), GetNumerDenom(a));
 // non-integer powers are not considered to be rational functions
 25 # GetNumerDenom(_a ^ _b) <-- [a^b, 1];
 
