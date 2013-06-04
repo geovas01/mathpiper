@@ -104,7 +104,7 @@ UnFence("LocChange",1);
     
     justPattern := pat;
     
-    Decide(Type(justPattern) =? "_",
+    Decide(Type(justPattern) =? "::",
         {
             //A post predicate was submitted.
 	        justPattern := pat[1];
