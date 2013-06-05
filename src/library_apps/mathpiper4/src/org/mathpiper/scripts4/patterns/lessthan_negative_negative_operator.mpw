@@ -35,7 +35,7 @@ fn(arg1_PredicateFunction, arg2_PredicateFunction)::(PredicateExpression) <-- ex
 _arg1 operator _arg2 <-- expression
 arg1_PredicateFunction operator _arg2 <-- expression
 arg1_PredicateFunction operator arg2_PredicateFunction <-- expression
-arg1_PredicateFunction operator arg2_PredicateFunction_(PredicateExpression) <-- expression
+arg1_PredicateFunction operator arg2_PredicateFunction::(PredicateExpression) <-- expression
 
 *PARMS
 
