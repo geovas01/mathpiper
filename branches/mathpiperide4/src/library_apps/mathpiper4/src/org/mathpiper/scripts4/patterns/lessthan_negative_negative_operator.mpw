@@ -1,6 +1,6 @@
 %mathpiper,def="<--"
 
-RulebaseHoldArguments("<--",[leftOperand,rightOperand]);
+RulebaseHoldArguments("<--",[_leftOperand,_rightOperand]);
 
 
 
@@ -16,8 +16,8 @@ RuleHoldArguments("<--",2,2,Function?(leftOperand))
  DefinePattern(leftOperand,rightOperand,0,True);
 };
 
-HoldArgument("<--",leftOperand);
-HoldArgument("<--",rightOperand);
+HoldArgument("<--","leftOperand");
+HoldArgument("<--","rightOperand");
 
 %/mathpiper
 

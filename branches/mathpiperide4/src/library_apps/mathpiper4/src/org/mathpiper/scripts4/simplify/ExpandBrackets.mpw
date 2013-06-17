@@ -36,7 +36,7 @@ LocalSymbols(AssembleTerms, AssembleTermsRecursive)
     Local(N,D,t);
     N := ReassembleListTerms(DisassembleExpression(Numerator(xx)));
     D := ExpandBrackets(Denominator(xx));
-    AssembleTerms(MapSingle([[t], t / D], N));
+    AssembleTerms(MapSingle('[[t], t / D], N));
 };
 
 

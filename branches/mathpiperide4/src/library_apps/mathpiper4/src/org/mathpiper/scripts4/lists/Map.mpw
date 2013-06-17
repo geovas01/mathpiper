@@ -2,7 +2,7 @@
 
 LocalSymbols(func,lists,mapsingleresult,mapsingleitem)
 {
-  TemplateFunction("Map",[func,lists])
+  TemplateFunction("Map",[_func,_lists])
   {
     Local(mapsingleresult,mapsingleitem);
     mapsingleresult:=[];
@@ -14,7 +14,7 @@ LocalSymbols(func,lists,mapsingleresult,mapsingleitem)
     DestructiveReverse(mapsingleresult);
   };
   UnFence("Map",2);
-  HoldArgument("Map",func);
+  HoldArgument("Map","func");
 };
 
 %/mathpiper

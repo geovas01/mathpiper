@@ -1,6 +1,6 @@
 %mathpiper,def="@"
 
-RulebaseHoldArguments("@",[func,arg]);
+RulebaseHoldArguments("@",[_func,_arg]);
 RuleHoldArguments("@",2,1,List?(arg)) Apply(func,arg);
 RuleHoldArguments("@",2,2,True       ) Apply(func,[arg]);
 

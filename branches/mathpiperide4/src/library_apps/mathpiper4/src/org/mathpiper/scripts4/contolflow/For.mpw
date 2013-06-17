@@ -1,7 +1,7 @@
 %mathpiper,def="For"
 
 /* Defining a For function */
-TemplateFunction("For",[start,predicate,increment,body])
+TemplateFunction("For",[_start,_predicate,_increment,_body])
 {
   Eval(start);
   While (Equal?(Eval(predicate),True))

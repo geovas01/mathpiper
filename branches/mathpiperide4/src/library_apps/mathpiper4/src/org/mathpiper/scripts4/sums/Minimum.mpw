@@ -14,7 +14,7 @@ FIXME
 
 //Function() Minimum(l1, l2)
 
-Function() Minimum(l1, l2, l3, ...);
+Function() Minimum(_l1, _l2, _l3, ...);
 
 10 # Minimum(_l1, _l2, l3_List?) <-- Minimum(Concat([l1, l2], l3));
 20 # Minimum(_l1, _l2, _l3) <-- Minimum([l1, l2, l3]);
@@ -82,9 +82,9 @@ Result: 4;
 
 Verify(Minimum(0,1),0);
 Verify(Minimum([]), Undefined);
-Verify(Minimum([x]), x);
-Verify(Minimum(x), x);
-Verify(Minimum(Exp(x)), Exp(x));
+Verify(Minimum([_x]), _x);
+Verify(Minimum(_x), _x);
+Verify(Minimum(Exp(_x)), Exp(_x));
 Verify(Minimum([1,2,3]), 1);
 // since Minimum(multiple args) is disabled, comment this out
 Verify(Minimum(1,2,3), 1);

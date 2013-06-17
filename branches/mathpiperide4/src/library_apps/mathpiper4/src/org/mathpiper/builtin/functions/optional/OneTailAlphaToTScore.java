@@ -17,7 +17,7 @@ public class OneTailAlphaToTScore extends BuiltinFunction{
     {
         this.functionName = "OneTailAlphaToTScore";
         aEnvironment.getBuiltinFunctions().put(
-                this.functionName, new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
+                this.functionName, new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.FixedNumberOfArguments | BuiltinFunctionEvaluator.EvaluateArguments));
     }//end method.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable

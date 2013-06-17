@@ -5,7 +5,7 @@
    scripts at this point. The functions in these plugins need to be defined with
    these "Defun" functions.
  */
-MacroRulebaseHoldArguments("Defun",[func,args,body]);
+MacroRulebaseHoldArguments("Defun",[_func,_args,_body]);
 RuleHoldArguments("Defun",3,0,True)
 {
   Local(nrargs);

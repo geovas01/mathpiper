@@ -13,7 +13,7 @@ FIXME
 
 //Function() Maximum(l1, l2);
 
-Function() Maximum(l1, l2, l3, ...);
+Function() Maximum(_l1, _l2, _l3, ...);
 
 
 

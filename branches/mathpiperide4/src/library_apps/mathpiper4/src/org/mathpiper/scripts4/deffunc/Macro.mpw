@@ -1,9 +1,9 @@
 %mathpiper,def="Macro"
 
-RulebaseHoldArguments("Macro",[oper,args,body]);
-HoldArgument("Macro",oper);
-HoldArgument("Macro",args);
-HoldArgument("Macro",body);
+RulebaseHoldArguments("Macro",[_oper,_args,_body]);
+HoldArgument("Macro","oper");
+HoldArgument("Macro","args");
+HoldArgument("Macro","body");
 
 // macro with variable number of arguments: Macro("func",[x,y, ...])body;
 RuleHoldArguments("Macro",3,2047,
@@ -24,7 +24,7 @@ RuleHoldArguments("Macro",3,2048,True)
   RuleEvaluateArguments(oper,Length(args),1025,True) body;
 };
 
-RulebaseHoldArguments("Macro",[oper]);
+RulebaseHoldArguments("Macro",[_oper]);
 // macro with variable number of arguments: Macro() f(x,y, ...)
 RuleHoldArguments("Macro",1,2047,
         And?(Function?(oper), GreaterThan?(Length(oper), 1), Equal?( MathNth(oper, Length(oper)), ToAtom("...") ))
@@ -124,15 +124,15 @@ Result: 10;
 
 {
   Local(a,b,c,d);
-  MacroRulebaseHoldArguments(foo,[a,b]);
+  MacroRulebaseHoldArguments(foo,[_a,_b]);
 
   // Simple check
   foo(_c,_d) <-- [@c,@d];
   Verify(foo(2,3),Hold([2,3]));
 
-  Macro("foo",[a]) [@a,a];
-  a:=A;
-  Verify(foo(B),[B,A]);
+  Macro("foo",[_a]) [@a,a];
+  a:=_A;
+  Verify(foo(_B),[_B,_A]);
 
   /*
   Removed from the test because the system now throws exceptions when\
@@ -147,8 +147,8 @@ Result: 10;
 {
   Local(a,i,tot);
   a:=100;
-  Retract(forloop,4);
-  Macro(forloop,[init,pred,inc,body])
+  Retract("forloop",4);
+  Macro("forloop",[_init,_pred,_inc,_body])
   {
     @init;
     While(@pred)
@@ -165,30 +165,30 @@ Result: 10;
 };
 
 {
-  Macro("bar",[list,...]) Length(@list);
-  Verify(bar(a,b,list,bar,list),5);
+  Macro("bar",[_list,...]) Length(@list);
+  Verify(bar(_a,_b,_list,_bar,_list),5);
 };
 
 {
   Local(x,y,z);
-  RulebaseHoldArguments("@",[x]);
-  y:=x;
-  Verify(`[@x,@y],[x,x]);
-  z:=u;
+  RulebaseHoldArguments("@",[_var]);
+  y := _x;
+  Verify(`[@_x,@y],[_x,_x]);
+  z := _u;
   y:=[@z,@z];
-  Verify(`[@x,@y],[x,[@z,@z]]);
-  Verify(`[@x,`(@y)],[x,[@u,@u]]);
+  Verify(`[@_x,@y],[_x,[@z,@z]]);
+  Verify(`[@_x,`(@y)],[_x,[@_u,@_u]]);
   y:=Hold(`[@z,@z]);
 
-  Verify(`[@x,@y],[x,[u,u]]);
-  Verify(`[@x,`(@y)],[x,[u,u]]);
+  Verify(`[@_x,@y],[_x,[_u,_u]]);
+  Verify(`[@_x,`(@y)],[_x,[_u,_u]]);
   Retract("@",1);
 };
 
 // check that a macro can reach a local from the calling environment.
 {
-  Macro(foo,[x]) a*(@x);
-  Function(bar,[x])
+  Macro("foo",[_x]) a*(@x);
+  Function("bar",[_x])
   {
     Local(a);
     a:=2;

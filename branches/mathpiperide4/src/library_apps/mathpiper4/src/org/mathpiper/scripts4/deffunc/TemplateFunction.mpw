@@ -1,23 +1,27 @@
 %mathpiper,def="TemplateFunction"
 
-RulebaseHoldArguments("TemplateFunction",[oper,args,body]);
+RulebaseHoldArguments("TemplateFunction",[_oper,_args,_body]);
 
-HoldArgument("TemplateFunction",oper);
+HoldArgument("TemplateFunction","oper");
 
-HoldArgument("TemplateFunction",args);
+HoldArgument("TemplateFunction","args");
 
-HoldArgument("TemplateFunction",body);
+HoldArgument("TemplateFunction","body");
 
 RuleHoldArguments("TemplateFunction",3,2047,True)
 {
   Retract(oper,Length(args));
+  
   Local(arglist);
+  
   arglist:=FlatCopy(args);
-
-  DestructiveAppend(arglist,[args,ListToFunction([Hold,body])]);
+  
+  DestructiveAppend(arglist,[args,ListToFunction(['Hold,body])]);
+  
   arglist:=ApplyFast("LocalSymbols",arglist);
 
   RulebaseEvaluateArguments(oper,arglist[1]);
+  
   RuleEvaluateArguments(oper,Length(args),1025,True) arglist[2];
 
 };
@@ -30,7 +34,7 @@ RuleHoldArguments("TemplateFunction",3,2047,True)
 %mathpiper_docs,name="TemplateFunction",categories="Programming Functions;Miscellaneous;Built In"
 *CMD TemplateFunction --- defines a function
 *CALL
-        TemplateFunction("operator",parameter)
+        TemplateFunction(_operator,_parameter)
 
 *PARMS
 {"operator"} -- string, name of a function
@@ -42,7 +46,7 @@ Defines a function.
 
 *E.G.
 /%mathpiper
-TemplateFunction("MyUntil",[predicate,body])
+TemplateFunction("MyUntil",[_predicate,_body])
 [
   Eval(body);
   While (Equal?(Eval(predicate),False))

@@ -87,7 +87,7 @@ Result: [Sin(x),-Cos(x)];
 
 %mathpiper,name="ParseLisp",subtype="automatic_test"
 
-Verify(PipeFromString("(+ a b)") ParseLisp(),a+b);
+Verify(PipeFromString("(+ _a _b)") ParseLisp(),_a+_b);
 
 %/mathpiper
 */

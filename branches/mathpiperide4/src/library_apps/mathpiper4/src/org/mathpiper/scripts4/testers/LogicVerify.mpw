@@ -1,6 +1,6 @@
 %mathpiper,def="LogicVerify"
 
-Function("LogicVerify",[aLeft,aRight])
+Function("LogicVerify",[_aLeft,_aRight])
 {
   Decide(aLeft !=? aRight,
     Verify(CanProve(aLeft  Implies?  aRight),True)

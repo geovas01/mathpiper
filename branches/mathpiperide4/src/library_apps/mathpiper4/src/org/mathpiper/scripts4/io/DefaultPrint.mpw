@@ -1,7 +1,7 @@
 %mathpiper,def="DefaultPrint"
 
 /// The new default pretty-printer: DefaultPrint
-Function("DefaultPrint", [x])
+Function("DefaultPrint", [_x])
 {
         DumpErrors();
         WriteString("Result: ");
@@ -9,6 +9,6 @@ Function("DefaultPrint", [x])
         WriteString(";
 ");
 };
-HoldArgument("DefaultPrint", x);
+HoldArgument("DefaultPrint", "x");
 
 %/mathpiper

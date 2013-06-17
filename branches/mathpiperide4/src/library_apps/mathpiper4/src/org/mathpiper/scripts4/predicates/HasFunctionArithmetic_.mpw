@@ -47,12 +47,12 @@ Result: False;
 
 %mathpiper,name="HasFunctionArithmetic?",subtype="automatic_test"
 
-Verify(HasFunctionArithmetic?(a*b+1,ToAtom("+")),True);
-Verify(HasFunctionArithmetic?(a+Sin(b*c),*),False);
-Verify(HasFunctionArithmetic?(a+Sin(b*c),Sin),True);
+Verify(HasFunctionArithmetic?(_a*_b+1,ToAtom("+")),True);
+Verify(HasFunctionArithmetic?(_a+Sin(_b*_c),'(*)),False);
+Verify(HasFunctionArithmetic?(_a+Sin(_b*_c),'Sin),True);
 
-RulebaseHoldArguments("f",[a]);
-Verify(HasFunctionArithmetic?(a*b+f([b,c]),List),False);
-Retract("f",1);
+RulebaseHoldArguments("f",[_a]);
+Verify(HasFunctionArithmetic?(_a*_b+f([_b,_c]),'List),False);
+Retract("f",*);
 
 %/mathpiper

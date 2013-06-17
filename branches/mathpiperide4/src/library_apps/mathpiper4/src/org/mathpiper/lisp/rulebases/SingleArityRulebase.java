@@ -20,6 +20,7 @@ import org.mathpiper.lisp.stacks.UserStackInformation;
 
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.SublistCons;
 import java.util.*;
 import org.mathpiper.builtin.BuiltinFunction;
@@ -42,7 +43,7 @@ public class SingleArityRulebase extends Evaluator {
     protected List<Rule> iBranchRules = new ArrayList();// CDeletingArrayGrower<BranchRuleBase*>
 
     // List of arguments
-    Cons iParameterList;
+    private Cons iParameterList;
     // / Abstract class providing the basic user function API.
     // / Instances of this class are associated to the name of the function
     // / via an associated hash table. When obtained, they can be used to
@@ -61,6 +62,8 @@ public class SingleArityRulebase extends Evaluator {
      * @throws java.lang.Exception
      */
     public SingleArityRulebase(Environment aEnvironment, int aStackTop, Cons aParameters, String functionName) throws Throwable {
+	
+	
 	iEnvironment = aEnvironment;
 	this.functionName = functionName;
 
@@ -81,8 +84,18 @@ public class SingleArityRulebase extends Evaluator {
 		    throw ex;
 		}
 	    }// end catch.
-
-	    ParameterName parameter = new ParameterName((String) parameters.car(), false);
+	    
+	    String parameterName = (String) parameters.car();
+	    
+	    if(! parameterName.contains("_")) 
+	    {
+		LispError.throwError(aEnvironment, aStackTop, "Parameter name <" + parameterName + "> must be a symbol.");
+	    }
+	    
+	    parameterName = parameterName.replace("_", "");
+	    parameters.setCar(parameterName);
+	    
+	    ParameterName parameter = new ParameterName(parameterName, false);
 	    iParameters.add(parameter);
 	    parameters = parameters.cdr();
 	}

@@ -46,7 +46,7 @@ public class LineChart extends BuiltinFunction {
     public void plugIn(Environment aEnvironment)  throws Throwable
     {
         aEnvironment.getBuiltinFunctions().put(
-                "LineChart", new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
+                "LineChart", new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.VariableNumberOfArguments | BuiltinFunctionEvaluator.EvaluateArguments));
 
         defaultOptions = new HashMap();
         defaultOptions.put("title", null);

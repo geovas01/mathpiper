@@ -1,7 +1,7 @@
 %mathpiper,def="MultiNomial"
 
 // The basic container for multivariates
-RulebaseHoldArguments("MultiNomial",[vars,terms]);
+RulebaseHoldArguments("MultiNomial",[_vars,_terms]);
 
 // using the sparse tree driver for multivariate polynomials
 //LoadScriptOnce("multivar.rep/sparsenomial.mpi");

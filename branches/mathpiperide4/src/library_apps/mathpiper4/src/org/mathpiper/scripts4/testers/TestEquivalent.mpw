@@ -3,7 +3,7 @@
 //Retract("TestEquivalent",*);
 //Retract("TestTwoLists",*);
 
-Macro("TestEquivalent",[left,right])
+Macro("TestEquivalent",[_left,_right])
 {
     Local(leftEval,rightEval,diff,vars,isEquiv);
     Decide(InVerboseMode(),{Tell(TestEquivalent,[left,right]);});

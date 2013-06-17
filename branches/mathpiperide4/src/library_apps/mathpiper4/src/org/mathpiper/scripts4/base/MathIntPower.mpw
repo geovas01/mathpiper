@@ -1,7 +1,7 @@
 %mathpiper,def="MathIntPower"
 
 // power x^y only for integer y (perhaps negative)
-Defun("MathIntPower", [x,y])
+Defun("MathIntPower", [_x,_y])
         Decide(Equal?(x,0),0,Decide(Equal?(x,1),1,
          Decide(Integer?(y),Decide(LessThan?(y,0), // negative power, need to convert x to float to save time, since x^(-n) is never going to be integer anyway
           DivideN(1, PositiveIntPower(AddN(x,0.),MathNegate(y))),

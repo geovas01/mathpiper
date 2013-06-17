@@ -46,7 +46,7 @@ LocalSymbols(x,y,xarg,yarg)
 {
   10 # ((x_List?) - (y_List?))::(Length(x)=?Length(y)) <--
   {
-    Map([[xarg,yarg],xarg-yarg],[x,y]);
+    Map('[[xarg,yarg],xarg-yarg],[x,y]);
   };
 };
 

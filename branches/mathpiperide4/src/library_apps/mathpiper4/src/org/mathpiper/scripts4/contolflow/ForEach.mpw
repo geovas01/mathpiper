@@ -3,7 +3,7 @@
 //Retract("ForEach" , *);
 
 /*TODO remove? Not yet. If the code above (ForEachExperimental) can be made to work we can do away with this version. */
-TemplateFunction("ForEach",[item,listOrString,body])
+TemplateFunction("ForEach",[_item,_listOrString,_body])
 {
   Decide(And?(Equal?(Generic?(listOrString),True),
          Equal?(GenericTypeName(listOrString),"Array")

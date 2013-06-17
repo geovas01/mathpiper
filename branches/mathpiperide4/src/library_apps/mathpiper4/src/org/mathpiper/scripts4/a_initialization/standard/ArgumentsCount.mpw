@@ -1,6 +1,6 @@
 %mathpiper,def="ArgumentsCount"
 
-Function("ArgumentsCount",[aLeft]) Length(FunctionToList(aLeft))-1;
+Function("ArgumentsCount",[_aLeft]) Length(FunctionToList(aLeft))-1;
 
 %/mathpiper
 

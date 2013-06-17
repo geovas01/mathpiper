@@ -1,6 +1,6 @@
 %mathpiper,def="WithValue"
 
-TemplateFunction("WithValue",[var,val,expr])
+TemplateFunction("WithValue",[_var,_val,_expr])
 {
   Decide(List?(var),
      ApplyFast("MacroLocal",var),

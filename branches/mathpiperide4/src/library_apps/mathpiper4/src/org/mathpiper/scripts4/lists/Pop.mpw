@@ -1,6 +1,6 @@
 %mathpiper,def="Pop"
 
-Function("Pop",[stack,index])
+Function("Pop",[_stack,_index])
 {
   Local(result);
   result:=stack[index];

@@ -1,6 +1,6 @@
 %mathpiper,def="NextTest"
 
-Function("NextTest",[aLeft])
+Function("NextTest",[_aLeft])
 {
 // curline++;
   WriteString("Test suite for "~aLeft~" : ");

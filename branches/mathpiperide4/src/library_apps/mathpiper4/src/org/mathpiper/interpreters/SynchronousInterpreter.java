@@ -23,6 +23,7 @@ import org.mathpiper.lisp.parsers.MathPiperParser;
 import org.mathpiper.io.StringOutputStream;
 import org.mathpiper.io.StringInputStream;
 import org.mathpiper.io.MathPiperOutputStream;
+import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
 
 import org.mathpiper.lisp.Environment;
@@ -176,8 +177,10 @@ public class SynchronousInterpreter implements Interpreter {
 
                         String functionName = (String) keyIterator.next();
 
-
-                        Utility.loadLibraryFunction(functionName, iEnvironment, loopIndex);
+                	if (Utility.loadLibraryFunction(functionName, iEnvironment, loopIndex) == false) {
+                	    LispError.throwError(iEnvironment, -1, "No script returned for function: " + functionName
+                		    + " from Scripts.java.");
+                	}
 
                     }//end while.
                     if (!keyIterator.hasNext()) {
@@ -188,6 +191,12 @@ public class SynchronousInterpreter implements Interpreter {
                 default:
 
                     //iEnvironment.scripts = null;
+                    
+                    initializationEvaluationResponse = evaluate("NM(1);");
+                    if (initializationEvaluationResponse.isExceptionThrown()) {
+                        Throwable ex = initializationEvaluationResponse.getException();
+                        throw ex;
+                    }
 
                     System.out.print("done. \n");
 

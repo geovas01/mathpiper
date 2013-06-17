@@ -6,7 +6,7 @@
  * (since they are defined as local symbols).
  */
 
-TemplateFunction("BuildList",[body,var,countfrom,countto,step])
+TemplateFunction("BuildList",[_body,_var,_countfrom,_countto,_step])
   {
     MacroLocal(var);
     Local(result,nr,ii);

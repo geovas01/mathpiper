@@ -1,6 +1,6 @@
 %mathpiper,def="ZeroVector"
 
-Function("ZeroVector",[n])
+Function("ZeroVector",[_n])
 {
     Local(i,result);
     result:=[];

@@ -19,7 +19,7 @@
 
 //Retract("Echo",*);
 
-RulebaseListedHoldArguments("Echo",[firstParameter, parametersList]);
+RulebaseListedHoldArguments("Echo",[_firstParameter, _parametersList]);
 
 //Handle no option call.
 5 # Echo(_firstParameter) <-- Echo(firstParameter, []);

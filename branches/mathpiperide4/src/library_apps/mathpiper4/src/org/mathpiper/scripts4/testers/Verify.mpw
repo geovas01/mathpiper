@@ -1,7 +1,7 @@
 %mathpiper,def="Verify"
 
 /*
-Macro("Verify",[aLeft,aRight])
+Macro("Verify",[_aLeft,_aRight])
 {
 
         Local(result);
@@ -31,7 +31,7 @@ Macro("Verify",[aLeft,aRight])
 */
 
 
-Function("Verify",[aLeft,aRight])
+Function("Verify",[_aLeft,_aRight])
 {
 
         Local(result);
@@ -59,13 +59,13 @@ Function("Verify",[aLeft,aRight])
     True
   );
 };
-HoldArgument("Verify",aLeft);
+HoldArgument("Verify","aLeft");
 UnFence("Verify",2);
 /*
-HoldArgument("Verify",aRight);
+HoldArgument("Verify","aRight");
 */
 
-Macro("Verify", [a,b,message])
+Macro("Verify", [_a,_b,_message])
 {
         Echo("test ", @message);
         Verify(@a, @b);

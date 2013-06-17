@@ -7,18 +7,18 @@
  
  
  
-Function("MacroSubstituteApply", [body, predicate, change])
+Function("MacroSubstituteApply", [_body, _predicate, _change])
 {
   `MacroSubstituteApply((Hold(@body)));
 };
 
-HoldArgument("MacroSubstituteApply", predicate);
+HoldArgument("MacroSubstituteApply", "predicate");
 
-HoldArgument("MacroSubstituteApply", change);
+HoldArgument("MacroSubstituteApply", "change");
 
 UnFence("MacroSubstituteApply", 3);
 
-RulebaseHoldArguments("MacroSubstituteApply", [body]);
+RulebaseHoldArguments("MacroSubstituteApply", [_body]);
 
 UnFence("MacroSubstituteApply", 1);
 

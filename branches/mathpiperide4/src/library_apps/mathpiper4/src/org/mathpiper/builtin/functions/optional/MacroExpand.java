@@ -36,7 +36,7 @@ public class MacroExpand extends BuiltinFunction
     {
         this.functionName = "MacroExpand";
         aEnvironment.getBuiltinFunctions().put(
-                this.functionName, new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro));
+                this.functionName, new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.FixedNumberOfArguments | BuiltinFunctionEvaluator.HoldArguments));
 	
 	aEnvironment.iBodiedOperators.setOperator(MathPiperUnparser.KMaxPrecedence, "MacroExpand");
     }//end method.

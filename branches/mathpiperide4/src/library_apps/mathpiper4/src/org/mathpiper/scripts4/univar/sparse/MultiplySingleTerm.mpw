@@ -7,7 +7,7 @@ but it seems like it was meant to be a published function.
 
 // Multiply a list of terms by a Single term.
 
-Function("MultiplySingleTerm",[termlist,term])
+Function("MultiplySingleTerm",[_termlist,_term])
 {
  Local(result,t);
  result:=[];

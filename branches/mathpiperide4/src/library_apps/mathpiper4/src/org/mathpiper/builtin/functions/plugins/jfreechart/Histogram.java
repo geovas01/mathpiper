@@ -49,7 +49,7 @@ public class Histogram extends BuiltinFunction {
     public void plugIn(Environment aEnvironment)  throws Throwable, Throwable
     {
         aEnvironment.getBuiltinFunctions().put(
-                "Histogram", new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
+                "Histogram", new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.VariableNumberOfArguments | BuiltinFunctionEvaluator.EvaluateArguments));
 
         defaultOptions = new HashMap();
         defaultOptions.put("title", null);

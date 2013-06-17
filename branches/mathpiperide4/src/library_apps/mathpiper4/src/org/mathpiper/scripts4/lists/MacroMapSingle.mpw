@@ -1,7 +1,7 @@
 %mathpiper,def="MacroMapSingle"
 
 /* Another Macro... hack for /: to work. */
-TemplateFunction("MacroMapSingle",[func,list])
+TemplateFunction("MacroMapSingle",[_func,_list])
 {
   Local(mapsingleresult);
   mapsingleresult:=[];
@@ -14,7 +14,7 @@ TemplateFunction("MacroMapSingle",[func,list])
   DestructiveReverse(mapsingleresult);
 };
 UnFence("MacroMapSingle",2);
-HoldArgument("MacroMapSingle",func);
-HoldArgument("MacroMapSingle",list);
+HoldArgument("MacroMapSingle","func");
+HoldArgument("MacroMapSingle","list");
 
 %/mathpiper

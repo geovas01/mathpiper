@@ -31,7 +31,7 @@ public class StackTraceOn extends BuiltinFunction {
     public void plugIn(Environment aEnvironment) throws Throwable {
         this.functionName = "StackTraceOn";
         aEnvironment.getBuiltinFunctions().put(
-                this.functionName, new BuiltinFunctionEvaluator(this, 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
+                this.functionName, new BuiltinFunctionEvaluator(this, 0, BuiltinFunctionEvaluator.FixedNumberOfArguments | BuiltinFunctionEvaluator.EvaluateArguments));
     }//end method.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable {

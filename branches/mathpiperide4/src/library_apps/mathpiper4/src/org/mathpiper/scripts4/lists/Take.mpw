@@ -10,7 +10,7 @@
  * Take( list, [m,n] ) elements m through n of 'list'
  */
 
-RulebaseHoldArguments("Take", [lst, range]);
+RulebaseHoldArguments("Take", [_lst, _range]);
 
 RuleHoldArguments("Take", 2, 1, List?(range))
     Take( Drop(lst, range[1] -1), range[2] - range[1] + 1);

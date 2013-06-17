@@ -57,7 +57,7 @@ public class Show extends BuiltinFunction {
 	this.functionName = "Show";
 	
         aEnvironment.getBuiltinFunctions().put(
-                "Show", new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
+                "Show", new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.VariableNumberOfArguments | BuiltinFunctionEvaluator.EvaluateArguments));
 
         defaultOptions = new HashMap();
         defaultOptions.put("Title", null);

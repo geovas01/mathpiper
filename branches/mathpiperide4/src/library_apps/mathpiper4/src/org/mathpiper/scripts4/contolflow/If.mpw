@@ -1,10 +1,10 @@
 %mathpiper,def="If"
 
-RulebaseHoldArguments("If",[predicate,body]);
+RulebaseHoldArguments("If",[_predicate,_body]);
 
 (If(True) _body) <-- Eval(body);
 
-HoldArgument("If",body);
+HoldArgument("If","body");
 
 UnFence("If",2);
 

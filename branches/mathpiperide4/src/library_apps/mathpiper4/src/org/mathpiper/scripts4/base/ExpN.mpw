@@ -4,7 +4,7 @@
 // (This is not optimal; it would be much better to use SumTaylorNum and DoublingMinus1 from elemfuncs.mpi. But this should be debugged for now, since ExpN is important for many algorithms.)
 /// TODO FIXME: No precision tracking yet. (i.e. the correct number of digits is not always there in the answer)
 
-Defun("ExpN", [x])
+Defun("ExpN", [_x])
         Decide(Equal?(x,0),1,
          Decide(LessThan?(x,0),DivideN(1, ExpN(MathNegate(x))),
           Decide(GreaterThan?(x,1), MathExpDoubling(MathExpTaylor0(MathMul2Exp(x,MathNegate(MathBitCount(x)))), MathBitCount(x)), MathExpTaylor0(x)

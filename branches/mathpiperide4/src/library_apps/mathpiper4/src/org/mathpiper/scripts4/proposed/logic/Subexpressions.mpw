@@ -103,7 +103,7 @@ Result: [a,b,c,a*b,a*b+c]
 
 Unassign(a,b,c);
 
-Verify(Subexpressions(a*b+c), [a,b,c,a*b,a*b+c]);
+Verify(Subexpressions(_a*_b+_c), [_a,_b,_c,_a*_b,_a*_b+_c]);
 
 %/mathpiper
 

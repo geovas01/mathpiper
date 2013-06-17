@@ -1,6 +1,6 @@
 %mathpiper,def="Contains?"
 
-Function("Contains?",[list,element])
+Function("Contains?",[_list,_element])
 {
   Local(result);
   Assign(result,False);

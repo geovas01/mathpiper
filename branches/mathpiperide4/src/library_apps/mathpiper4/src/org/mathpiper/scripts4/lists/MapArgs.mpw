@@ -1,6 +1,6 @@
 %mathpiper,def="MapArgs"
 
-TemplateFunction("MapArgs",[expr,oper])
+TemplateFunction("MapArgs",[_expr,_oper])
 {
   Assign(expr,FunctionToList(expr));
    ListToFunction(Concat([expr[1]],
@@ -8,7 +8,7 @@ TemplateFunction("MapArgs",[expr,oper])
    ) );
 };
 UnFence("MapArgs",2);
-HoldArgument("MapArgs",oper);
+HoldArgument("MapArgs","oper");
 
 %/mathpiper
 

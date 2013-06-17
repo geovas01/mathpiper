@@ -1,6 +1,6 @@
 %mathpiper,def="Count"
 
-Function("Count",[list,element])
+Function("Count",[_list,_element])
 {
    Local(result);
    Assign(result,0);

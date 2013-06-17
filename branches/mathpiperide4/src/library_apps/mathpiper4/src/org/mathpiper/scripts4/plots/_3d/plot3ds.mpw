@@ -18,13 +18,13 @@ Plot3DS<backend> on that data.
         3) concatenate resulting lists and return
 */
 
-        LocalSymbols(var, func, xrange, yrange, option, optionslist, xdelta, ydelta, optionshash, cx, cy, fc, allvalues, dummy)
+        LocalSymbols(var, func, xrange, yrange, option, optionslist, xdelta, ydelta, optionshash, cx, cy, fc, allvalues)
 {
 
 // declaration of Plot3DS with variable number of arguments
-Function() Plot3DS(func);
-Function() Plot3DS(func, xrange, yrange);
-Function() Plot3DS(func, xrange, yrange, options, ...);
+Function() Plot3DS(_func);
+Function() Plot3DS(_func, _xrange, _yrange);
+Function() Plot3DS(_func, _xrange, _yrange, _options, ...);
 
 
 /// interface routines
@@ -39,7 +39,7 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
 /// plot several functions sharing the same ranges and other options
 4 # Plot3DS(funclist_List?, _xrange, _yrange, optionslist_List?) <--
 {
-        Local(var, func, xdelta, ydelta, optionshash, cx, cy, fc, allvalues, dummy);
+        Local(var, func, xdelta, ydelta, optionshash, cx, cy, fc, allvalues);
         // this will be a list of all computed values
         allvalues := [];
         optionshash := "OptionsListToHash" @ [optionslist];
@@ -143,12 +143,15 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
         {
                 // obtain name of variable
                 var := VarList(func);        // variable names in a list
-            Check(Length(var)<=?2, "Argument", "Plot3DS: Error: expression is not a function of at most two variables: "
+                
+                func := MetaToObject(func);
+                
+                Check(Length(var)<=?2, "Argument", "Plot3DS: Error: expression is not a function of at most two variables: "
                         ~(PipeToString()Write(func))
                 );
                 // Allow plotting of constant functions
-                Decide(Length(var)=?0, var:=[dummy, dummy]);
-                Decide(Length(var)=?1, var:=[var[1], dummy]);
+                Decide(Length(var)=?0, var:=[_dummy, _dummy]);
+                Decide(Length(var)=?1, var:=[var[1], _dummy]);
                 // store variable name if not already done so
                 Decide(
                         optionshash["xname"] =? "",
@@ -438,7 +441,7 @@ Result: True;
 {
   Local(result);
   result:="[[[-1,-1,-1],[-1,0,-1],[-1,1,-1],[0,-1,0],[0,0,0],[0,1,0],[1,-1,1],[1,0,1],[1,1,1]]]";
-  Verify(PipeToString()Write(Plot3DS(a,-1->1,-1->1,output: data,points: 2)), result);
+  Verify(PipeToString()Write(Plot3DS(_a,-1->1,-1->1,output: data,points: 2)), result);
 };
 
 %/mathpiper

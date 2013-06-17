@@ -53,7 +53,7 @@ public class LatexView extends BuiltinFunction {
 	this.functionName = "LatexView";
 	
         aEnvironment.getBuiltinFunctions().put(
-                "LatexView", new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
+                "LatexView", new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.VariableNumberOfArguments | BuiltinFunctionEvaluator.EvaluateArguments));
 
         defaultOptions = new HashMap();
         defaultOptions.put("Scale", 40.0);

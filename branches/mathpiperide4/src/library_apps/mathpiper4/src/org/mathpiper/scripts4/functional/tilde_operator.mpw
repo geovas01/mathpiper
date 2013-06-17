@@ -4,7 +4,7 @@
 
 /* a ~ b will now return unevaluated (rather than cause error of invalid argument in Concat) if neither a nor b is a list and if one of them is not a string
 */
-RulebaseHoldArguments("~",[head,tail]);
+RulebaseHoldArguments("~",[_head,_tail]);
 RuleHoldArguments("~",2,20,List?(head) And? Not? List?(tail) ) Concat(head,[tail]);
 RuleHoldArguments("~",2,30,List?(tail) ) Concat([head],tail);
 RuleHoldArguments("~",2,10,String?(tail) And? String?(head)) ConcatStrings(head,tail);

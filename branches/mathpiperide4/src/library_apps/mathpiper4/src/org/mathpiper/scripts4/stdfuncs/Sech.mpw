@@ -11,6 +11,6 @@
 
 %mathpiper,name="Sech",subtype="automatic_test"
 
-Verify(Sech(x),1/Cosh(x));
+Verify(Sech(_x),1/Cosh(_x));
 
 %/mathpiper

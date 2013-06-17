@@ -56,7 +56,7 @@
       If(MultiLM(glt) =? MultiLM(plt) Or? MultiTermLess([MultiLM(glt),1], [MultiLM(plt),1]))
       {
         //   corrected if-select statement  110708    hso
-        If(Select(MultiLM(plt)-MultiLM(glt),[[n],n<?0]) =? [] )
+        If(Select(MultiLM(plt)-MultiLM(glt),'[[n],n<?0]) =? [] )
         {
           Local(ff,ltbefore,ltafter);
           ff := CreateTerm(v,[MultiLM(plt)-MultiLM(glt),MultiLC(plt)/MultiLC(glt)]);
@@ -78,8 +78,8 @@
 
     Decide(i =? nr + 1,
       {
-        r := r + LocalSymbols(a,b)(Substitute(a,b)plt);
-        p := p - LocalSymbols(a,b)(Substitute(a,b)plt);
+        r := r + LocalSymbols(a,b)(Substitute('a,'b)plt);
+        p := p - LocalSymbols(a,b)(Substitute('a,'b)plt);
       }
     );
     finished := MultiZero(p);

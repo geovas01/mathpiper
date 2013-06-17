@@ -52,12 +52,12 @@ Result: False;
 
 %mathpiper,name="HasFunction?",subtype="automatic_test"
 
-Verify(HasFunction?(a*b+1,*),True);
-Verify(HasFunction?(a+Sin(b*c),*),True);
-Verify(HasFunction?(a*b+1,List),False);
+Verify(HasFunction?(_a*_b+1,*),True);
+Verify(HasFunction?(_a+Sin(_b*_c),*),True);
+Verify(HasFunction?(_a*_b+1,'List),False);
 
-RulebaseHoldArguments("f",[a]);
-Verify(HasFunction?(a*b+f([b,c]),List),True);
-Retract("f",1);
+RulebaseHoldArguments("f",[_a]);
+Verify(HasFunction?('a*'b+f(['b,'c]),'List),True);
+Retract("f",*);
 
 %/mathpiper

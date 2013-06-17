@@ -2,7 +2,7 @@
 
 //Retract("Degree",*);
 
-RulebaseHoldArguments("Degree",[expr]);
+RulebaseHoldArguments("Degree",[_expr]);
 RuleHoldArguments("Degree",1,0, UniVar?(expr))
 {
 

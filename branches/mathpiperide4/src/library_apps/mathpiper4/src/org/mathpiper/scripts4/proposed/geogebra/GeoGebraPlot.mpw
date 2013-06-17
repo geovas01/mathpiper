@@ -1,7 +1,7 @@
 %mathpiper,def="GeoGebraPlot"
 //Retract("GeoGebraPlot",*);
 
-RulebaseListedHoldArguments("GeoGebraPlot",[arg1,arg2]);
+RulebaseListedHoldArguments("GeoGebraPlot",[_arg1,_arg2]);
 
 
 
@@ -96,7 +96,7 @@ RulebaseListedHoldArguments("GeoGebraPlot",[arg1,arg2]);
 
 };
 
-//HoldArgument("GeoGebraPlot",arg2);
+//HoldArgument("GeoGebraPlot","arg2");
 
 
 %/mathpiper

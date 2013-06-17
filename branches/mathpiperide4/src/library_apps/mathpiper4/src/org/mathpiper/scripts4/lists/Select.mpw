@@ -2,7 +2,7 @@
 
 LocalSymbols(predicate,list,result,item)
 {
-  Function("Select",[list,predicate])
+  Function("Select",[_list,_predicate])
   {
     Local(result);
     result:=[];
@@ -12,7 +12,7 @@ LocalSymbols(predicate,list,result,item)
     };
     result;
   };
-  HoldArgument("Select",predicate);
+  HoldArgument("Select","predicate");
   UnFence("Select",2);
 };
 

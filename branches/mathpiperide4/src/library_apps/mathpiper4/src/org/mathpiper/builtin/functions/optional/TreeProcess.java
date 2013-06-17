@@ -46,7 +46,7 @@ public class TreeProcess extends BuiltinFunction {
 
     public void plugIn(Environment aEnvironment) throws Throwable {
 	aEnvironment.getBuiltinFunctions().put("TreeProcess",
-		new BuiltinFunctionEvaluator(this, 3, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
+		new BuiltinFunctionEvaluator(this, 3, BuiltinFunctionEvaluator.VariableNumberOfArguments | BuiltinFunctionEvaluator.EvaluateArguments));
 
 	defaultOptions = new HashMap();
 	defaultOptions.put("title", null);

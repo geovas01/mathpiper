@@ -2,7 +2,7 @@
 
 /// Analyse arithmetic expressions
 
-HasExpressionArithmetic?(expr, atom) := HasExpressionSome?(expr, atom, [ToAtom("+"), ToAtom("-"), *, /]);
+HasExpressionArithmetic?(expr, atom) := HasExpressionSome?(expr, atom, [ToAtom("+"), ToAtom("-"), ToAtom("*"), ToAtom("/")]);
 
 
 %/mathpiper

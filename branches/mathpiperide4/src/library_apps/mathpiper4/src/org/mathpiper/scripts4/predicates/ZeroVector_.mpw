@@ -1,6 +1,6 @@
 %mathpiper,def="ZeroVector?"
 
-Function("ZeroVector?",[aList]) aList =? ZeroVector(Length(aList));
+Function("ZeroVector?",[_aList]) aList =? ZeroVector(Length(aList));
 
 %/mathpiper
 

@@ -48,6 +48,7 @@ public class HoldArgument extends BuiltinFunction
 
         // The arguments
         String tohold =  (String) getArgument(aEnvironment, aStackTop, 2).car();
+        tohold = Utility.stripEndQuotesIfPresent(tohold);
         if( tohold == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
         aEnvironment.holdArgument(aStackTop, Utility.getSymbolName(aEnvironment, orig), tohold, aEnvironment);
         // Return true

@@ -1,7 +1,7 @@
 %mathpiper,def="MathExpDoubling"
 
 /// Identity transformation, compute Exp(x) from value=Exp(x/2^n) by squaring the value n times
-Defun("MathExpDoubling", [value, n])
+Defun("MathExpDoubling", [_value, _n])
 {
         Local(shift, result);
         Assign(shift, n);

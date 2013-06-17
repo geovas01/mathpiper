@@ -10,7 +10,7 @@ ShiftUniVar(UniVariate(_var,_first,_coefs),_fact,_shift)
 
 
 
-RulebaseHoldArguments("UniVariate",[var,first,coefs]);
+RulebaseHoldArguments("UniVariate",[_var,_first,_coefs]);
 
 RuleHoldArguments("UniVariate",3,10,Length(coefs)>?0 And? coefs[1]=?0)
   UniVariate(var,first+1,Rest(coefs));

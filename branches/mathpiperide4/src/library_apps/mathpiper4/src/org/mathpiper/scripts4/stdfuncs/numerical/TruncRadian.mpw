@@ -17,7 +17,7 @@ TruncRadian(_r) <--
   }, BuiltinPrecisionGet() + IntLog(Ceil(Abs(NM(Eval(r), 1))), 10));
   r;
 };
-HoldArgument("TruncRadian",r);
+HoldArgument("TruncRadian","r");
 
 %/mathpiper
 

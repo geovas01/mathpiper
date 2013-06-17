@@ -1,9 +1,9 @@
 %mathpiper,def="MakeUni"
 
-Function("MakeUni",[expression]) MakeUni(expression,UniVarList(expression));
+Function("MakeUni",[_expression]) MakeUni(expression,UniVarList(expression));
 
 /* Convert normal form to univariate expression */
-RulebaseHoldArguments("MakeUni",[expression,var]);
+RulebaseHoldArguments("MakeUni",[_expression,_var]);
 
 5 # MakeUni(_expr,[]) <-- UniVariate(dummyvar,0,[expression]);
 6 # MakeUni(_expr,var_List?) <--

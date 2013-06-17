@@ -16,7 +16,7 @@ but it seems like it was meant to be a published function.
 // The function returns the position at which the new term is added plus 1.
 // (to be used as begining for sucesive AddTerm calls
 
-Function("AddTerm",[termlist,term,begining])
+Function("AddTerm",[_termlist,_term,_begining])
 {
  Local(l,i);
  l := Length(termlist);

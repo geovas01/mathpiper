@@ -1,11 +1,11 @@
 %mathpiper,def="Nth"
 
 /* Implementation of Nth that allows extending. */
-RulebaseHoldArguments("Nth",[alist,aindex]);
+RulebaseHoldArguments("Nth",[_alist,_aindex]);
 RuleHoldArguments("Nth",2,10,
     And?(Equal?(Function?(alist),True),
             Equal?(Integer?(aindex),True),
-            Not?(Equal?(First(FunctionToList(alist)),Nth))
+            Not?(Equal?(First(FunctionToList(alist)),'Nth))
             ))
      MathNth(alist,aindex);
 

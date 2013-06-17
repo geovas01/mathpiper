@@ -40,7 +40,7 @@ public class XmlExplodeTag extends BuiltinFunction {
 
             this.functionName = functionName;
             
-            Utility.lispEvaluate(aEnvironment, -1, "RulebaseHoldArguments(\"XmlTag\",[x,y,z]);");
+            Utility.lispEvaluate(aEnvironment, -1, "RulebaseHoldArguments(\"XmlTag\",[_x,_y,_z]);");
         } catch (Throwable e) {
             e.printStackTrace();
         }

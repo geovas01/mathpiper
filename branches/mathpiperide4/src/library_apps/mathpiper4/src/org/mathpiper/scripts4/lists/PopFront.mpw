@@ -1,6 +1,6 @@
 %mathpiper,def="PopFront"
 
-Function("PopFront",[stack]) Pop(stack,1);
+Function("PopFront",[_stack]) Pop(stack,1);
 
 %/mathpiper
 

@@ -39,7 +39,7 @@ public class TraceSome extends BuiltinFunction
     {
         this.functionName = "TraceSome";
         aEnvironment.getBuiltinFunctions().put(
-                this.functionName, new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro));
+                this.functionName, new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.FixedNumberOfArguments | BuiltinFunctionEvaluator.HoldArguments));
         aEnvironment.iBodiedOperators.setOperator(MathPiperUnparser.KMaxPrecedence, "TraceSome");
     }//end method.
 

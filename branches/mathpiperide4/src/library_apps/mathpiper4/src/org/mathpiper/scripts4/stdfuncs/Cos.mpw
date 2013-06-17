@@ -39,7 +39,7 @@
      Local(ll);
      ll:= FloorN(NM(Eval(x/Pi)));
      Decide(Even?(ll),x:=(x - Pi*ll),x:=(-x + Pi*(ll+1)));
-     ListToFunction([Cos,x]);
+     ListToFunction(['Cos,x]);
      };
 
 400 # Cos(x_RationalOrNumber?) <--
@@ -47,7 +47,7 @@
      Local(ll);
      ll:= FloorN(NM(Eval(Abs(x)/Pi)));
      Decide(Even?(ll),x:=(Abs(x) - Pi*ll),x:=(-Abs(x) + Pi*(ll+1)));
-     ListToFunction([Cos,x]);
+     ListToFunction(['Cos,x]);
      };
 
 

@@ -2,6 +2,7 @@
 
 /// Return integer part of the logarithm of x in given base. Use only integer arithmetic.
 10 # IntLog(_x, _base):: (base<=?1) <-- Undefined;
+
 /// Use variable steps to speed up operation for large numbers x
 20 # IntLog(_x, _base) <--
 {

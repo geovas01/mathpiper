@@ -1,6 +1,6 @@
 %mathpiper,def="FillList"
 
-Function("FillList", [aItem, aLength])
+Function("FillList", [_aItem, _aLength])
 {
   Local(i, aResult);
   aResult:=[];

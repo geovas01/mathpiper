@@ -67,7 +67,7 @@ variables are all atoms.
 
 *E.G.
 
-In> Atom?(x+5);
+In> Atom?('x+5);
 Result: False;
 
 In> Atom?(5);
@@ -82,8 +82,8 @@ Result: True;
 
 %mathpiper,name="Atom?",subtype="automatic_test"
 
-Verify(Atom?([a,b,c]),False);
-Verify(Atom?(a),True);
+Verify(Atom?('[a,b,c]),False);
+Verify(Atom?('a),True);
 Verify(Atom?(123),True);
 
 %/mathpiper

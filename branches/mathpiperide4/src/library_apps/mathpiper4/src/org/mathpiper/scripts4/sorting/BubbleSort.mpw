@@ -2,7 +2,7 @@
 
 //Retract("BubbleSort",*);
 
-Function("BubbleSort",[list,compare])
+Function("BubbleSort",[_list,_compare])
 {
   Local(i,j,length,left,right);
   

@@ -1,7 +1,7 @@
 %mathpiper,def="UniDivide"
 
 /* division algo: (for zero-base univariates:) */
-Function("UniDivide",[u,v])
+Function("UniDivide",[_u,_v])
 {
   Local(m,n,q,r,k,j);
   m := Length(u)-1;

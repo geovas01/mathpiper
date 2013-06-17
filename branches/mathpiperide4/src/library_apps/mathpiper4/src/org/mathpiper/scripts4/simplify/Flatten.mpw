@@ -1,6 +1,6 @@
 %mathpiper,def="Flatten;DoFlatten"
 
-RulebaseHoldArguments("DoFlatten",[doflattenx]);
+RulebaseHoldArguments("DoFlatten",[_doflattenx]);
 UnFence("DoFlatten",1);
 
 10 # DoFlatten(_doflattenx)::(Type(doflattenx)=?flattenoper) <--
@@ -8,7 +8,7 @@ UnFence("DoFlatten",1);
 20 # DoFlatten(_doflattenx) <-- [ doflattenx ];
 
 
-Function("Flatten",[body,flattenoper])
+Function("Flatten",[_body,_flattenoper])
 {
   DoFlatten(body);
 };

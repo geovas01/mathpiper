@@ -102,6 +102,7 @@ IsStronglyProbablyPrime(b_PositiveInteger?, n_PositiveInteger?) <--
     [root, prime] := IsStronglyProbablyPrime(primetable[i], n);
     //Decide(InVerboseMode() And? prime, Echo("RabinMiller: Info: ", n, "is spp base", primetable[i]));
     continue := (n >=? pseudotable[i]);
+
     i++;
   };
   // the function returns "Overflow" when we failed to check (i.e. the number n was too large)

@@ -1,6 +1,6 @@
 %mathpiper,def="Product"
 
-Function("Product",[sumvar,sumfrom,sumto,sumbody])
+Function("Product",[_sumvar,_sumfrom,_sumto,_sumbody])
 {
    Local(sumi,sumsum);
    sumsum:=1;
@@ -13,8 +13,8 @@ Function("Product",[sumvar,sumfrom,sumto,sumbody])
    sumsum;
 };
 UnFence("Product",4);
-HoldArgument("Product",sumvar);
-HoldArgument("Product",sumbody);
+HoldArgument("Product","sumvar");
+HoldArgument("Product","sumbody");
 
 Product(sumlist_List?) <--
 {

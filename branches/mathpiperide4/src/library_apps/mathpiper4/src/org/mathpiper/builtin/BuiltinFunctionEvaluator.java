@@ -28,10 +28,10 @@ import org.mathpiper.lisp.cons.SublistCons;
 public class BuiltinFunctionEvaluator extends Evaluator {
     // FunctionFlags can be ORed when passed to the constructor of this function
 
-    public static int Function = 0;    // Function: evaluate arguments. todo:tk:not used.
-    public static int Macro = 1;       // Function: don't evaluate arguments
-    public static int Fixed = 0;     // fixed number of arguments. todo:tk:not used.
-    public static int Variable = 2;  // variable number of arguments
+    public static int EvaluateArguments = 0;    // Function: evaluate arguments. todo:tk:not used.
+    public static int HoldArguments = 1;       // Function: don't evaluate arguments
+    public static int FixedNumberOfArguments = 0;     // fixed number of arguments. todo:tk:not used.
+    public static int VariableNumberOfArguments = 2;  // variable number of arguments
     BuiltinFunction iCalledBuiltinFunction;
     int iNumberOfArguments;
     int iFlags;
@@ -82,7 +82,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
 
 
 
-        if ((iFlags & Variable) == 0) { //This function has a fixed number of arguments.
+        if ((iFlags & VariableNumberOfArguments) == 0) { //This function has a fixed number of arguments.
 
             //1 is being added to the number of arguments to take into account
             // the function name that is at the beginning of the argument list.
@@ -106,7 +106,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
         int i;
         int numberOfArguments = iNumberOfArguments;
 
-        if ((iFlags & Variable) != 0) {//This function has a variable number of arguments.
+        if ((iFlags & VariableNumberOfArguments) != 0) {//This function has a variable number of arguments.
             numberOfArguments--;
         }//end if.
 
@@ -114,7 +114,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
 
         // Walk over all arguments, evaluating them only if this is a function. *****************************************************
 
-        if ((iFlags & Macro) != 0) {//This is a macro, not a function. Don't evaluate arguments.
+        if ((iFlags & HoldArguments) != 0) {//This is a macro, not a function. Don't evaluate arguments.
 
             for (i = 0; i < numberOfArguments; i++) {
                 //Push all arguments on the stack.
@@ -130,7 +130,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
                 argumentsConsTraverser = argumentsConsTraverser.cdr();
             }
 
-            if ((iFlags & Variable) != 0) {//This macro has a variable number of arguments.
+            if ((iFlags & VariableNumberOfArguments) != 0) {//This macro has a variable number of arguments.
                 Cons head = aEnvironment.iListAtom.copy(false);
                 head.setCdr(argumentsConsTraverser);
                 aEnvironment.iArgumentStack.pushArgumentOnStack(SublistCons.getInstance(aEnvironment, head), aStackTop, aEnvironment);
@@ -154,7 +154,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
                 argumentsConsTraverser = argumentsConsTraverser.cdr();
             }//end for.
 
-            if ((iFlags & Variable) != 0) {//This function has a variable number of arguments.
+            if ((iFlags & VariableNumberOfArguments) != 0) {//This function has a variable number of arguments.
 
                 //LispString res;
 
@@ -194,7 +194,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
             traceArgument = traceArgument.cdr();
 
             int parameterIndex = 1;
-            if ((iFlags & Variable) != 0) {//This function has a  variable number of arguments.
+            if ((iFlags & VariableNumberOfArguments) != 0) {//This function has a  variable number of arguments.
 
                 while (traceArgument != null) {
                     Evaluator.traceShowArg(aEnvironment, AtomCons.getInstance(aEnvironment, aStackTop, "parameter" + parameterIndex++), traceArgument);

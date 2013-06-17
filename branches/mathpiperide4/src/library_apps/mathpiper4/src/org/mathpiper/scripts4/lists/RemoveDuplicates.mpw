@@ -1,6 +1,6 @@
 %mathpiper,def="RemoveDuplicates"
 
-Function("RemoveDuplicates",[list])
+Function("RemoveDuplicates",[_list])
 {
    Local(result);
    Assign(result,[]);

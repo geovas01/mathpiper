@@ -1,6 +1,6 @@
 %mathpiper,def="MatrixRow"
 
-Function("MatrixRow",[matrix,row])
+Function("MatrixRow",[_matrix,_row])
 {
   Check(row >? 0, "Argument", "MatrixRow: row index out of range");
   Check(row <=? Length(matrix), "Argument", "MatrixRow: row index out of range");

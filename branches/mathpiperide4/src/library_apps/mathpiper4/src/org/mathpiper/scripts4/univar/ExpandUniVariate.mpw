@@ -1,6 +1,6 @@
 %mathpiper,def="ExpandUniVariate"
 
-Function("ExpandUniVariate",[var,first,coefs])
+Function("ExpandUniVariate",[_var,_first,_coefs])
 {
   Local(result,i);
   result:=0;

@@ -2,7 +2,7 @@
 
 // MathMul2Exp: multiply x by 2^n quickly (for integer n)
 // this should really be implemented in the core as a call to BigNumber::ShiftRight or ShiftLeft
-Defun("MathMul2Exp", [x,n])        // avoid roundoff by not calculating 1/2^n separately
+Defun("MathMul2Exp", [_x,_n])        // avoid roundoff by not calculating 1/2^n separately
         Decide(GreaterThan?(n,0), MultiplyN(x, MathIntPower(2,n)), DivideN(x, MathIntPower(2,MathNegate(n))));
 // this doesnt work because ShiftLeft/Right dont yet work on floats
 //        Decide(GreaterThan?(n,0), ShiftLeft(x,n), ShiftRight(x,n)
