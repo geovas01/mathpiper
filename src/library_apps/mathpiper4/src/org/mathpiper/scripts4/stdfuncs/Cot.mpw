@@ -10,6 +10,6 @@
 
 %mathpiper,name="Cot",subtype="automatic_test"
 
-Verify(Cot(x),1/Tan(x));
+Verify(Cot(_x),1/Tan(_x));
 
 %/mathpiper

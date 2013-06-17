@@ -1,13 +1,13 @@
 %mathpiper,def="KnownFailure"
 
-Function("KnownFailure",[expr])
+Function("KnownFailure",[_expr])
 {
   Local(rfail);
   Echo("Known failure: ", expr);
   Assign(rfail,Eval(expr));
   Decide(rfail,Echo(["Failure resolved!"]));
 };
-HoldArgument("KnownFailure",expr);
+HoldArgument("KnownFailure","expr");
 
 %/mathpiper
 

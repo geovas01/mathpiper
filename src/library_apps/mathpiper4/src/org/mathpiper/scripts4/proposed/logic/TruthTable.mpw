@@ -78,7 +78,7 @@ Result: class javax.swing.JFrame
 
 Unassign(a,b);
 
-Verify(TruthTable(a And? b), [[a,b,a And? b],[True,True,True],[True,False,False],[False,True,False],[False,False,False]]);
+Verify(TruthTable(_a And? _b), [[_a,_b,_a And? _b],[True,True,True],[True,False,False],[False,True,False],[False,False,False]]);
 
 %/mathpiper
 

@@ -35,7 +35,7 @@ public class JavaToValue extends BuiltinFunction {
     public void plugIn(Environment aEnvironment) throws Throwable {
         this.functionName = "JavaToValue";
         aEnvironment.getBuiltinFunctions().put(
-                this.functionName, new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
+                this.functionName, new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.FixedNumberOfArguments | BuiltinFunctionEvaluator.EvaluateArguments));
     }//end method.
 
     //private StandardFileOutputStream out = new StandardFileOutputStream(System.out);

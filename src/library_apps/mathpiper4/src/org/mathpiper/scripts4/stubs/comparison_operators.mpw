@@ -52,7 +52,7 @@ LocalSymbols(nNum,mNum)
 30 #  _x^a_Even? <? 0  <--  False; // This is wrong for complex x
 
 // Add other functions here!  Everything we can compare to 0 should be here.
-40 # (Sqrt(_x))::(x >? 0) <? 0          <--  False;
+40 # ((Sqrt(_x))::(x >? 0)) <? 0          <--  False;
 
 40 # (Sin(_x) <? 0)::(Not?(Even?(NM(x/Pi))) And? Even?(NM(Floor(x/Pi)))) <-- False;
 40 # (Sin(_x) <? 0)::(Not?(Odd? (NM(x/Pi))) And? Odd? (NM(Floor(x/Pi)))) <-- True;
@@ -67,8 +67,8 @@ LocalSymbols(nNum,mNum)
 // both the `<?' and `>=?' operators.
 40 # (Complex(_a,_b) <?  0)::(b!=?0) <--  False;
 40 # (Complex(_a,_b) >=? 0)::(b!=?0) <--  False;
-40 # (Sqrt(_x))::(x <? 0) <?  0      <--  False;
-40 # (Sqrt(_x))::(x <? 0) >=? 0      <--  False;
+40 # ((Sqrt(_x))::(x <? 0)) <?  0      <--  False;
+40 # ((Sqrt(_x))::(x <? 0)) >=? 0      <--  False;
 
 // Deal with negated terms
 50 # -(_x) <? 0 <-- Not?((x<?0) Or? (x=?0));
@@ -79,7 +79,7 @@ LocalSymbols(nNum,mNum)
 50 # _n >=? _m <-- Not?(n<?m);
 
 
-Function("!=?",[aLeft,aRight]) Not?(aLeft=?aRight);
+Function("!=?",[_aLeft,_aRight]) Not?(aLeft=?aRight);
 
 %/mathpiper
 
@@ -340,6 +340,17 @@ BuiltinPrecisionSet(32);
 Verify(0.999999999999999999999999999992 <? 1, True);
 BuiltinPrecisionSet(10);
 
+Verify(_a<?0,_a<?0);
+
+Verify(Undefined<?1, False);
+
+Verify(500 <? 0e-1,False);
+
+//Bug reported by Adrian Vontobel: comparison operators should coerce
+//to a real value as much as possible before trying the comparison.
+Verify(0.2*Pi <? 0.7, True);
+Verify(0.2*Pi <? 0.6, False);
+
 %/mathpiper
 
 
@@ -366,6 +377,16 @@ BuiltinPrecisionSet(32);
 Verify(1.0000000000000000000000000000111 >? 1, True);
 BuiltinPrecisionSet(10);
 
+Verify(_a>?0,_a>?0);
+
+Verify(Undefined>?Undefined, False);
+Verify(Undefined>?1, False);
+
+//Bug reported by Adrian Vontobel: comparison operators should coerce
+//to a real value as much as possible before trying the comparison.
+Verify(0.2*Pi >? 0.5, True);
+Verify(0.2*Pi >? 0.7, False);
+
 %/mathpiper
 
 
@@ -377,10 +398,6 @@ BuiltinPrecisionSet(10);
 Verify(1e-5 =? 2e-5, False);
 Verify(1e-5 =? 1e-6, False);
 
-Verify(A<?0,A<?0);
-
-Verify(A>?0,A>?0);
-
 %/mathpiper
 
 
@@ -390,46 +407,12 @@ Verify(A>?0,A>?0);
 %mathpiper,name="!=?",subtype="automatic_test"
 
 Verify((1==1) !=? True, True);
-Verify((a==a) !=? True, True);
+Verify((_a==_a) !=? True, True);
 Verify((1==2) !=? False, True);
-Verify((a==2) !=? False, True);
+Verify((_a==2) !=? False, True);
 
 %/mathpiper
 
-
-
-
-
-%mathpiper,name="<?",subtype="automatic_test"
-
-Verify(A<?0,A<?0);
-Verify(Undefined<?1, False);
-
-Verify(500 <? 0e-1,False);
-
-//Bug reported by Adrian Vontobel: comparison operators should coerce
-//to a real value as much as possible before trying the comparison.
-Verify(0.2*Pi <? 0.7, True);
-Verify(0.2*Pi <? 0.6, False);
-
-%/mathpiper
-
-
-
-
-
-%mathpiper,name=">?",subtype="automatic_test"
-
-Verify(A>?0,A>?0);
-Verify(Undefined>?Undefined, False);
-Verify(Undefined>?1, False);
-
-//Bug reported by Adrian Vontobel: comparison operators should coerce
-//to a real value as much as possible before trying the comparison.
-Verify(0.2*Pi >? 0.5, True);
-Verify(0.2*Pi >? 0.7, False);
-
-%/mathpiper
 
 
 

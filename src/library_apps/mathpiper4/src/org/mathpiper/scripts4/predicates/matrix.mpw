@@ -10,18 +10,18 @@ SquareMatrix?
 LocalSymbols(p,x)
 {
 // test for a scalar
-Function("Scalar?",[x]) Not?(List?(x));
+Function("Scalar?",[_x]) Not?(List?(x));
 
 
 
 // test for a vector
-Function("Vector?",[x])
+Function("Vector?",[_x])
    Decide(List?(x),
-   Length(Select(x, List?))=?0,
+   Length(Select(x, "List?"))=?0,
    False);
 
 // test for a vector w/ element test p
-Function("Vector?",[p,x])
+Function("Vector?",[_p,_x])
 {
    Decide(List?(x),
    {
@@ -40,19 +40,19 @@ Function("Vector?",[p,x])
 };
 
 // test for a matrix (dr)
-Function("Matrix?",[x])
+Function("Matrix?",[_x])
 Decide(List?(x) And? Length(x)>?0,
 {
    Local(n);
    n:=Length(x);
-   Decide(Length(Select(x, Vector?))=?n,
-   MapSingle(Length,x)=?Length(x[1])+ZeroVector(n),
+   Decide(Length(Select(x, "Vector?"))=?n,
+   MapSingle("Length",x)=?Length(x[1])+ZeroVector(n),
    False);
 },
 False);
 
 // test for a matrix w/ element test p (dr)
-Function("Matrix?",[p,x])
+Function("Matrix?",[_p,_x])
 Decide(Matrix?(x),
 {
    Local(i,j,m,n,result);
@@ -84,9 +84,9 @@ SquareMatrix?(_x) <--
 */
 
 // test for a square matrix (dr)
-Function("SquareMatrix?",[x]) Matrix?(x) And? Length(x)=?Length(x[1]);
+Function("SquareMatrix?",[_x]) Matrix?(x) And? Length(x)=?Length(x[1]);
 // test for a square matrix w/ element test p (dr)
-Function("SquareMatrix?",[p,x]) Matrix?(p,x) And? Length(x)=?Length(x[1]);
+Function("SquareMatrix?",[_p,_x]) Matrix?(p,x) And? Length(x)=?Length(x[1]);
 
 }; // LocalSymbols(p,x)
 
@@ -257,8 +257,8 @@ Result: True;
 
 %mathpiper,name="Scalar?",subtype="automatic_test"
 
-Verify(Scalar?(a),True);
-Verify(Scalar?([a]),False);
+Verify(Scalar?(_a),True);
+Verify(Scalar?([_a]),False);
 
 %/mathpiper
 
@@ -268,19 +268,19 @@ Verify(Scalar?([a]),False);
 %mathpiper,name="Vector?",subtype="automatic_test"
 
 Verify(Vector?(1),False);
-Verify(Vector?(a),False);
-Verify(Vector?(Sin(a)+2),False);
+Verify(Vector?(_a),False);
+Verify(Vector?(Sin(_a)+2),False);
 Verify(Vector?([]),True);
 Verify(Vector?([[]]),False);
-Verify(Vector?([1,2,a,4]),True);
-Verify(Vector?([1,[2,a],4]),False);
-Verify(Vector?([[a,b,c]]),False);
+Verify(Vector?([1,2,_a,4]),True);
+Verify(Vector?([1,[2,_a],4]),False);
+Verify(Vector?([[_a,_b,_c]]),False);
 
 Testing("-- Vector?(Number?)");
 Verify(Vector?(Number?,1),False);
 Verify(Vector?(Number?,[]),True);
-Verify(Vector?(Number?,[a,b,c]),False);
-Verify(Vector?(Number?,[a,2,c]),False);
+Verify(Vector?(Number?,[_a,_b,_c]),False);
+Verify(Vector?(Number?,[_a,2,_c]),False);
 Verify(Vector?(Number?,[2,2.5,4]),True);
 Verify(Vector?(Number?,[Pi,2,3]),False);
 Verify(Vector?(Number?,[[1],[2]]),False);
@@ -294,19 +294,19 @@ Verify(Vector?(Number?,[[1],[2]]),False);
 %mathpiper,name="Vector?",subtype="automatic_test"
 
 Verify(Vector?(1),False);
-Verify(Vector?(a),False);
-Verify(Vector?(Sin(a)+2),False);
+Verify(Vector?(_a),False);
+Verify(Vector?(Sin(_a)+2),False);
 Verify(Vector?([]),True);
 Verify(Vector?([[]]),False);
-Verify(Vector?([1,2,a,4]),True);
-Verify(Vector?([1,[2,a],4]),False);
-Verify(Vector?([[a,b,c]]),False);
+Verify(Vector?([1,2,_a,4]),True);
+Verify(Vector?([1,[2,_a],4]),False);
+Verify(Vector?([[_a,_b,_c]]),False);
 
 Testing("-- Vector?(Number?)");
 Verify(Vector?(Number?,1),False);
 Verify(Vector?(Number?,[]),True);
-Verify(Vector?(Number?,[a,b,c]),False);
-Verify(Vector?(Number?,[a,2,c]),False);
+Verify(Vector?(Number?,[_a,_b,_c]),False);
+Verify(Vector?(Number?,[_a,2,_c]),False);
 Verify(Vector?(Number?,[2,2.5,4]),True);
 Verify(Vector?(Number?,[Pi,2,3]),False);
 Verify(Vector?(Number?,[[1],[2]]),False);
@@ -320,24 +320,24 @@ Verify(Vector?(Number?,[[1],[2]]),False);
 %mathpiper,name="Matrix?",subtype="automatic_test"
 Verify(Matrix?(1),False);
 Verify(Matrix?([]),False);
-Verify(Matrix?([a,b]),False);
+Verify(Matrix?([_a,_b]),False);
 Verify(Matrix?([[]]),True);
-Verify(Matrix?([[a]]),True);
-Verify(Matrix?([[[a]]]),False);
-Verify(Matrix?([[],a]),False);
-Verify(Matrix?([[a],b]),False);
+Verify(Matrix?([[_a]]),True);
+Verify(Matrix?([[[_a]]]),False);
+Verify(Matrix?([[],_a]),False);
+Verify(Matrix?([[_a],_b]),False);
 Verify(Matrix?([[],[]]),True);
 Verify(Matrix?([[[]],[]]),False);
 Verify(Matrix?([[],[[]]]),False);
-Verify(Matrix?([[a,b],[c]]),False);
-Verify(Matrix?([[a,b],[c,d]]),True);
-Verify(Matrix?([[a,b],[c,[d]]]),False);
+Verify(Matrix?([[_a,_b],[_c]]),False);
+Verify(Matrix?([[_a,_b],[_c,_d]]),True);
+Verify(Matrix?([[_a,_b],[_c,[_d]]]),False);
 Verify(Matrix?([[[]]]), False);
-Verify(Matrix?([[[a]]]), False);
-Verify(Matrix?([[[[a]]],[[[b]]]]),False);
+Verify(Matrix?([[[_a]]]), False);
+Verify(Matrix?([[[[_a]]],[[[_b]]]]),False);
 
 Testing("---- Matrix?(Integer?)");
-Verify(Matrix?(Integer?,[[a,1]]),False);
+Verify(Matrix?(Integer?,[[_a,1]]),False);
 Verify(Matrix?(Integer?,[[1,2]]),True);
 Verify(Matrix?(Integer?,[[1,2/3]]),False);
 Verify(Matrix?(Integer?,[[1,2,3],[4,5,6]]),True);
@@ -355,13 +355,13 @@ Verify(Matrix?(Integer?,[[Sin(0),2,3],[4,5,6]]),True);
 %mathpiper,name="SquareMatrix?",subtype="automatic_test"
 
 Verify(SquareMatrix?([[]]),False);
-Verify(SquareMatrix?([[a]]),True);
+Verify(SquareMatrix?([[_a]]),True);
 Verify(SquareMatrix?([[],[]]),False);
-Verify(SquareMatrix?([[a,b]]),False);
-Verify(SquareMatrix?([[a,b],[c,d]]),True);
-Verify(SquareMatrix?([[a,b],[c,d],[e,f]]),False);
-Verify(SquareMatrix?([[a,b,c],[d,e,f],[g,h,i]]),True);
-Verify(SquareMatrix?([[a,b,c],[d,e,f]]),False);
-Verify(SquareMatrix?([[[a,b]],[[c,d]]]), False);
+Verify(SquareMatrix?([[_a,_b]]),False);
+Verify(SquareMatrix?([[_a,_b],[_c,_d]]),True);
+Verify(SquareMatrix?([[_a,_b],[_c,_d],[_e,_f]]),False);
+Verify(SquareMatrix?([[_a,_b,_c],[_d,_e,_f],[_g,_h,_i]]),True);
+Verify(SquareMatrix?([[_a,_b,_c],[_d,_e,_f]]),False);
+Verify(SquareMatrix?([[[_a,_b]],[[_c,_d]]]), False);
 
 %/mathpiper

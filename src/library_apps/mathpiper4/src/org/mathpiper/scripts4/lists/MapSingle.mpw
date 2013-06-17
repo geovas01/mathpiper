@@ -1,6 +1,6 @@
 %mathpiper,def="MapSingle"
 
-TemplateFunction("MapSingle",[func,list])
+TemplateFunction("MapSingle",[_func,_list])
 {
   Local(mapsingleresult);
   mapsingleresult:=[];
@@ -13,7 +13,7 @@ TemplateFunction("MapSingle",[func,list])
   DestructiveReverse(mapsingleresult);
 };
 UnFence("MapSingle",2);
-HoldArgument("MapSingle",func);
+HoldArgument("MapSingle","func");
 
 %/mathpiper
 

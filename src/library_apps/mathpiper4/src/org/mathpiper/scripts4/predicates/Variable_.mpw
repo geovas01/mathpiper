@@ -46,8 +46,8 @@ Result: False
 
 %mathpiper,name="Variable?",subtype="automatic_test"
 
-Verify(Variable?(a),True);
-Verify(Variable?(Sin(a)),False);
+Verify(Variable?(_a),True);
+Verify(Variable?(Sin(_a)),False);
 Verify(Variable?(2),False);
 Verify(Variable?(-2),False);
 Verify(Variable?(2.1),False);

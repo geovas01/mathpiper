@@ -3,7 +3,7 @@
 /* Defining a macro-like function that declares a function
  * with only one rule.
  */
-RulebaseHoldArguments("Function",[oper,args,body]);
+RulebaseHoldArguments("Function",[_oper,_args,_body]);
 
 
 
@@ -28,7 +28,7 @@ RuleHoldArguments("Function",3,2048,True)
 
 
 /// shorthand function declarations
-RulebaseHoldArguments("Function",[oper]);
+RulebaseHoldArguments("Function",[_oper]);
 // function with variable number of arguments: Function() f(x,y, ...)
 RuleHoldArguments("Function",1,2047,
         And?(Function?(oper), GreaterThan?(Length(oper), 1), Equal?( MathNth(oper, Length(oper)), ToAtom("...") ))
@@ -58,9 +58,9 @@ RuleHoldArguments("Function",1,2048,
 };
 
 
-HoldArgument("Function",oper);
-HoldArgument("Function",args);
-HoldArgument("Function",body);
+HoldArgument("Function","oper");
+HoldArgument("Function","args");
+HoldArgument("Function","body");
 
 %/mathpiper
 
@@ -155,7 +155,7 @@ Result: " 1 2 3";
 
 %mathpiper,name="Function",subtype="automatic_test"
 
-Function("count",[from,to])
+Function("count",[_from,_to])
 {
    Local(i);
    Local(sum);
@@ -170,6 +170,6 @@ Function("count",[from,to])
 Testing("Function definitions");
 Verify(count(1,11),55);
 
-Retract("count",2);
+Retract("count",*);
 
 %/mathpiper

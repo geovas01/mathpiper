@@ -1,6 +1,6 @@
 %mathpiper,def="--"
 
-Function("--",[aVar])
+Function("--",[_aVar])
 {
    MacroAssign(aVar,SubtractN(Eval(aVar),1));
 
@@ -9,7 +9,7 @@ Function("--",[aVar])
 
 UnFence("--",1);
 
-HoldArgument("--",aVar);
+HoldArgument("--","aVar");
 
 %/mathpiper
 

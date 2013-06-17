@@ -67,7 +67,7 @@ Result: Cos(a)-Sin(a)^2
 Verify(Apply("+",[2,3]),5);
 {
   Local(x,y);
-  Verify(Apply([[x,y],x+y],[2,3]),5);
+  Verify(Apply('[[x,y],x+y],[2,3]),5);
   Verify(Apply(Lambda([x,y],x+y),[2,3]),5);
   Verify(Lambda([x,y],x+y) @ [2,3],5);
 
@@ -76,15 +76,15 @@ Verify(Apply("+",[2,3]),5);
    * prematurely), so that the next test can then check that
    * Lambda solves the problem.
    */
-  Verify(Apply([[x],Length(x)],["aaa"]),Length);
+  Verify(Apply('[[x],Length(x)],["aaa"]),3);
   Verify(Apply(Lambda([x],Length(x)),["aaa"]),3);
 
-  Verify(x,x);
-  Verify(y,y);
+  Verify(_x,_x);
+  Verify(_y,_y);
 
   Testing("ThreadingListables");
-  x:=[bb,cc,dd];
-  Verify(Sin(aa*x),[Sin(aa*bb),Sin(aa*cc),Sin(aa*dd)]);
+  x:=[_bb,_cc,_dd];
+  Verify(Sin(_aa*x),[Sin(_aa*_bb),Sin(_aa*_cc),Sin(_aa*_dd)]);
 };
 
 %/mathpiper
@@ -97,13 +97,13 @@ Verify(Apply("+",[2,3]),5);
 //todo:tk:switching to manual_test for the minimal version of the scripts.
 LocalSymbols(f,x,n)
 {
-  RulebaseHoldArguments(f,[n]);
+  RulebaseHoldArguments("f",[_n]);
 
   f(_n) <-- Apply("Differentiate",[x,n, x^n]);
 
   Verify(f(10),(10!));
 
-  Retract(f,1);
+  Retract("f",*);
 };
 
 %/mathpiper

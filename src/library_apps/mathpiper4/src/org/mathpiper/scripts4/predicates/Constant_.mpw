@@ -45,7 +45,7 @@ Result: False;
 
 Verify(Constant?(Pi), True);
 Verify(Constant?(Exp(1)+Sqrt(3)), True);
-Verify(Constant?(x), False);
+Verify(Constant?(_x), False);
 Verify(Constant?(Infinity), True);
 Verify(Constant?(-Infinity), True);
 Verify(Constant?(Undefined), True);

@@ -112,8 +112,8 @@ Result: False;
 
 Verify(Number?(123),True);
 Verify(Number?(123.123),True);
-Verify(Number?(a),False);
-Verify(Number?([a]),False);
+Verify(Number?(_a),False);
+Verify(Number?([_a]),False);
 
 %/mathpiper
  

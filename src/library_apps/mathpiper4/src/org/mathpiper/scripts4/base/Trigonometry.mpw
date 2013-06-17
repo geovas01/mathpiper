@@ -1,6 +1,6 @@
 %mathpiper,def="Trigonometry"
 
-Defun("Trigonometry",[x,i,sum,term])
+Defun("Trigonometry",[_x,_i,_sum,_term])
 {
   Local(x2,orig,eps,previousPrec,newPrec);
   Assign(previousPrec,BuiltinPrecisionGet());

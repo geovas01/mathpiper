@@ -34,7 +34,7 @@ public class Delay extends BuiltinFunction
 
     public void plugIn(Environment aEnvironment) throws Throwable {
         this.functionName = "Delay";
-        aEnvironment.getBuiltinFunctions().put(this.functionName, new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
+        aEnvironment.getBuiltinFunctions().put(this.functionName, new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.FixedNumberOfArguments | BuiltinFunctionEvaluator.EvaluateArguments));
     }//end method.
 
 

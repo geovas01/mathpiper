@@ -75,7 +75,7 @@ LocalSymbols(SparseTreeMap2,SparseTreeScan2,Muaddterm,MuMuaddterm,
      SparseTreeMap2(item[2],AddN(depth,-1),Concat(coefs,[item[1]]));
    };
 UnFence("SparseTreeMap", 3);
-{Local(fn);fn:=ToString(SparseTreeMap2);`UnFence(@fn,3);};
+{Local(fn);fn:=ToString('SparseTreeMap2);`UnFence(@fn,3);};
 
 10 # SparseTreeScan(_op,_depth,_list) <-- SparseTreeScan2(list,depth,[]);
 10 # SparseTreeScan2(_list,0,_coefs)  <-- ApplyFast(op,[coefs,list]);
@@ -86,7 +86,7 @@ UnFence("SparseTreeMap", 3);
      SparseTreeScan2(item[2],AddN(depth,-1),Concat(coefs,[item[1]]));
    };
 UnFence("SparseTreeScan", 3);
-{Local(fn);fn:=ToString(SparseTreeScan2);`UnFence(@fn,3);};
+{Local(fn);fn:=ToString('SparseTreeScan2);`UnFence(@fn,3);};
 
 
 
@@ -134,7 +134,7 @@ UnFence("SparseTreeScan", 3);
   Assign(t1,Rest(t1));
   Assign(i,AddN(i,1));
 };
-{Local(fn);fn:=ToString(Muaddterm);`UnFence(@fn,2);};
+{Local(fn);fn:=ToString('Muaddterm);`UnFence(@fn,2);};
 
 5  # MultiplyAddSparseTrees(0,_x,_y,[],_fact) <-- x+fact*y;
 10 # MultiplyAddSparseTrees(_depth,_x,_y,_coefs,_fact)
@@ -187,8 +187,8 @@ UnFence("SparseTreeScan", 3);
   };
   result;
 };
-{Local(fn);fn:=ToString(meradd);`UnFence(@fn,2);};
-{Local(fn);fn:=ToString(meraddmap);`UnFence(@fn,2);};
+{Local(fn);fn:=ToString('meradd);`UnFence(@fn,2);};
+{Local(fn);fn:=ToString('meraddmap);`UnFence(@fn,2);};
 
 10 # MuMuaddterm([_pow1,_list1],[_pow2,_list2],_coefs)::(pow1=?pow2+coefs[1]) <--
 {
@@ -211,7 +211,7 @@ UnFence("SparseTreeScan", 3);
   Assign(t1,Rest(t1));
   Assign(i,AddN(i,1));
 };
-{Local(fn);fn:=ToString(MuMuaddterm);`UnFence(@fn,3);};
+{Local(fn);fn:=ToString('MuMuaddterm);`UnFence(@fn,3);};
 
 
 }; // LocalSymbols

@@ -1,10 +1,10 @@
 %mathpiper,def="->"
 
-RulebaseHoldArguments("->",[left,right]);
+RulebaseHoldArguments("->",[_left,_right]);
 
-HoldArgument("->",left);
+HoldArgument("->","left");
 
-//HoldArgument("->",right);
+//HoldArgument("->","right");
 
 %/mathpiper
 

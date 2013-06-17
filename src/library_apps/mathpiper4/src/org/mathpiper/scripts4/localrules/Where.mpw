@@ -1,19 +1,27 @@
 %mathpiper,def="Where"
 
-RulebaseHoldArguments("Where",[left,right]);
-//HoldArgument("Where",left);
-//HoldArgument("Where",right);
+RulebaseHoldArguments("Where",[_left,_right]);
+
 UnFence("Where",2);
-10 # (_body Where var_Atom? == _value)
-     <-- `{ Local(@var);@var := @value;@body;};
-20 # (_body Where (_a And? _b))
-     <--
+
+10 # (_body Where var_Atom? == _value) <-- 
+`{ 
+    //Local(@var);
+    //@var := @value;
+    //@body;
+    
+    Eval(Substitute(@var, @value) @body);
+};
+     
+     
+20 # (_body Where (_a And? _b)) <--
 {
   Assign(body,`(@body Where @a));
   `(@body Where @b);
 };
 
 30 # (_body Where []) <-- [];
+
 40 # (_body Where list_List?)::List?(list[1])
      <--
      {

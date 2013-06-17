@@ -1,6 +1,6 @@
 %mathpiper,def="UniTaylor"
 
-Function("UniTaylor",[taylorfunction,taylorvariable,taylorat,taylororder])
+Function("UniTaylor",[_taylorfunction,_taylorvariable,_taylorat,_taylororder])
 {
   Local(n,result,dif,polf);
   result:=[];

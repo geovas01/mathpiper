@@ -48,7 +48,7 @@ NthRoot(m_NonNegativeInteger?,n_Integer?)::(n>?1) <--
 };
 
 // internal functions
-Function("NthRootCalc",[m,n])
+Function("NthRootCalc",[_m,_n])
 {
    Local(i,j,f,r,in);
    Assign(i,2);
@@ -80,31 +80,31 @@ Function("NthRootCalc",[m,n])
 };
 
 // lookup table utilities
-Function("NthRootList",[n])
+Function("NthRootList",[_n])
 {
    Decide(Length(NthRootTable)>?0,
    {
       Local(p,xx);
-      p:=Select(NthRootTable, [[xx],First(xx)=?n]);
+      p:=Select(NthRootTable, '[[xx],First(xx)=?n]);
       Decide(Length(p)=?1,Rest(p[1]),List());
    },
    List());
 };
 
-Function("NthRootRestore",[m,n])
+Function("NthRootRestore",[_m,_n])
 {
    Local(p);
    p:=NthRootList(n);
    Decide(Length(p)>?0,
    {
       Local(r,xx);
-      r:=Select(p, [[xx],First(xx)=?m]);
+      r:=Select(p, '[[xx],First(xx)=?m]);
       Decide(Length(r)=?1,First(Rest(r[1])),List());
    },
    List());
 };
 
-Function("NthRootSave",[m,n,r])
+Function("NthRootSave",[_m,_n,_r])
 {
    Local(p);
    p:=NthRootList(n);
@@ -113,7 +113,7 @@ Function("NthRootSave",[m,n,r])
    DestructiveInsert(NthRootTable,1,List(n,List(m,r))),
    {
       Local(rr,xx);
-      rr:=Select(p, [[xx],First(xx)=?m]);
+      rr:=Select(p, '[[xx],First(xx)=?m]);
       Decide(Length(rr)=?0,
       {
          // save root only
@@ -125,7 +125,7 @@ Function("NthRootSave",[m,n,r])
 };
 
 //TODO why is NthRootTable both lazy global and protected with LocalSymbols?
-Function("NthRootClear",[]) SetGlobalLazyVariable(NthRootTable,List());
+Function("NthRootClear",[]) AssignGlobalLazy(NthRootTable,List());
 
 // create empty table
 NthRootClear();
@@ -191,7 +191,7 @@ Result: [12,1884];
 // you need to use ListToFunction for this one as -1 is actually -(1), eg. a unary function (minus)
 // applied to a positive integer (1). ListToFunction evaluates its arguments, resulting in a negative
 // integer (-1).
-Verify(NthRoot(-1,2),ListToFunction([NthRoot,-1,2]));
+Verify(NthRoot(-1,2),ListToFunction(['NthRoot,-1,2]));
 
 Verify(NthRoot(2,1),Hold(NthRoot(2,1)));
 Verify(NthRoot(2,2),[1,2]);

@@ -248,6 +248,7 @@ public class Utility {
 		String var = (String) oper2.car();
 		if (var == null)
 		    LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, args2);
+		var = var.replace("_", "");
 		Cons newly = args2.copy(false);
 		aEnvironment.newLocalVariable(var, newly, aStackTop);
 		oper2 = oper2.cdr();
@@ -1532,21 +1533,19 @@ public class Utility {
 
 
 
-    public static void loadLibraryFunction(String functionName, Environment aEnvironment, int aStackTop) throws Throwable {
+    public static boolean loadLibraryFunction(String functionName, Environment aEnvironment, int aStackTop) throws Throwable {
 	Scripts scripts = aEnvironment.scripts;
 
 	String[] scriptCode = scripts.getScript(functionName);
 
 	if (scriptCode == null) {
-	    LispError.throwError(aEnvironment, aStackTop, "No script returned for function: " + functionName
-		    + " from Scripts.java.");
+	    return false;
 	}
 
 	if (scriptCode[0] == null) {
 
 	    if (scriptCode[1] == null) {
-		LispError.throwError(aEnvironment, aStackTop, "No script returned for function: " + functionName
-			+ " from Scripts.java.");
+		return false;
 	    }
 
 	    if (Evaluator.DEBUG) {
@@ -1555,9 +1554,9 @@ public class Utility {
 		if (Evaluator.VERBOSE_DEBUG) {
 
 		    if (Evaluator.TRACE_TO_STANDARD_OUT) {
-			System.out.print("Debug> Reading function " + functionName + "\n");
+			System.out.print("Debug> Reading function " + scriptCode[2] + "\n");
 		    } else {
-			aEnvironment.write("Debug> Reading function " + functionName + "\n");
+			aEnvironment.write("Debug> Reading function " + scriptCode[2] + "\n");
 		    }
 
 		}
@@ -1600,6 +1599,8 @@ public class Utility {
 		}
 	    }
 	}
+	
+	return true;
     }
 
 }//end class.

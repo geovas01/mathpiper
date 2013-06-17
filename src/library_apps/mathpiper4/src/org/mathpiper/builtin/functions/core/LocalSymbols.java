@@ -48,7 +48,7 @@ public class LocalSymbols extends BuiltinFunction
         int numberOfSymbols = numberOfArguments - 2;
 
         String atomNames[] = new String[numberOfSymbols];
-        String localAtomNames[] = new String[numberOfSymbols];
+        String newAtomNames[] = new String[numberOfSymbols];
 
         int uniqueNumber = aEnvironment.getUniqueId();
         int i;
@@ -56,12 +56,13 @@ public class LocalSymbols extends BuiltinFunction
         {
             String atomName = (String) getArgument(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 0), i + 1).car();
             if( atomName == null) LispError.checkArgument(aEnvironment, aStackTop, i + 1);
+            //atomName = Utility.stripEndQuotesIfPresent(atomName);
             atomNames[i] = atomName;
             String newAtomName = "$" + atomName + uniqueNumber;
             String variable = newAtomName;
-            localAtomNames[i] = variable;
+            newAtomNames[i] = variable;
         }
-        LocalSymbolSubstitute substituteBehaviour = new LocalSymbolSubstitute(aEnvironment, atomNames, localAtomNames, numberOfSymbols);
+        LocalSymbolSubstitute substituteBehaviour = new LocalSymbolSubstitute(aEnvironment, atomNames, newAtomNames, numberOfSymbols);
 
         Cons result = Utility.substitute(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 0), numberOfArguments - 1), substituteBehaviour);
         

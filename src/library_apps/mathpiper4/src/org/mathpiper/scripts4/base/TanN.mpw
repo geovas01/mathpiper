@@ -1,6 +1,6 @@
 %mathpiper,def="TanN"
 
-Defun("TanN",[x])DivideN(SinN(x),CosN(x));
+Defun("TanN",[_x])DivideN(SinN(x),CosN(x));
 
 %/mathpiper
 

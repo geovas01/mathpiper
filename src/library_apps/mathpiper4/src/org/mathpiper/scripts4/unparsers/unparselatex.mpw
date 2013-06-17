@@ -44,15 +44,15 @@ TexForm
 /// TeXmacs unparser
 //TexForm(_expr) <-- {DumpErrors();WriteString(UnparseLatex(expr));NewLine();};
 
-RulebaseHoldArguments("UnparseLatex",[expression]);
-RulebaseHoldArguments("UnparseLatex",[expression, precedence]);
+RulebaseHoldArguments("UnparseLatex",[_expression]);
+RulebaseHoldArguments("UnparseLatex",[_expression, _precedence]);
 
 /* Boolean predicate */
 
 
 /* this function will put TeX brackets around the string if predicate holds */
 
-Function ("UnparseLatexBracketIf", [predicate, string])
+Function("UnparseLatexBracketIf", [_predicate, _string])
 {
         Check(Boolean?(predicate) And? String?(string), "Argument", "UnparseLatex internal error: non-boolean and/or non-string argument of UnparseLatexBracketIf");
         Decide(predicate, ConcatStrings("( ", string, ") "), string);
@@ -61,7 +61,7 @@ Function ("UnparseLatexBracketIf", [predicate, string])
 
 
 
-Function ("UnparseLatexMatrixBracketIf", [predicate, string])
+Function("UnparseLatexMatrixBracketIf", [_predicate, _string])
 {
         Check(Boolean?(predicate) And? String?(string), "Argument", "UnparseLatex internal error: non-boolean and/or non-string argument of UnparseLatexMatrixBracketIf");
         Decide(predicate, ConcatStrings("\\left[ ", string, "\\right]"), string);
@@ -81,7 +81,8 @@ UnparseLatexMaxPrec() := 60000;         /* This precedence will never be bracket
 
 110 # UnparseLatex(x_Number?, _p) <-- ToString(x);
 /* Variables */
-200 # UnparseLatex(x_Atom?, _p) <-- UnparseLatexLatexify(ToString(x));
+
+200 # UnparseLatex(x_Atom?, _p) <-- UnparseLatexLatexify(ToString(MetaToObject(x)));
 
 
 /* Strings must be quoted but not bracketed */
@@ -211,7 +212,7 @@ LocalSymbols(UnparseLatexRegularOps, UnparseLatexRegularPrefixOps, UnparseLatexG
 
 
   /* this function will take a user-defined variable or function name and output either this name unmodified if it's only 2 characters long, or the name in normal text if it's longer, or a Latex Greek letter code */
-  Function ("UnparseLatexLatexify", [string])
+  Function("UnparseLatexLatexify", [_string])
   {
     Check(String?(string), "Argument", "UnparseLatex internal error: non-string argument of UnparseLatexLatexify");
     /* Check if it's a greek letter or a special name */
@@ -373,7 +374,7 @@ LocalSymbols(UnparseLatexMathFunctions, UnparseLatexMathFunctions2) {
 100 # UnparseLatex(_x [ _i ], _p) <-- ConcatStrings(UnparseLatex(x, UnparseLatexMaxPrec()), " _{", UnparseLatex(i, UnparseLatexMaxPrec()), "}");
 */
 /* Need to introduce auxiliary function, or Else have trouble with arguments of Nth being lists */
-RulebaseHoldArguments("UnparseLatexNth",[x,y]);
+RulebaseHoldArguments("UnparseLatexNth",[_x,_y]);
 100 # UnparseLatex(Nth(Nth(_x, i_List?), _j), _p) <-- UnparseLatex(UnparseLatexNth(x, Append(i,j)), p);
 100 # UnparseLatex(UnparseLatexNth(Nth(_x, i_List?), _j), _p) <-- UnparseLatex(UnparseLatexNth(x, Append(i,j)), p);
 110 # UnparseLatex(Nth(Nth(_x, _i), _j), _p) <-- UnparseLatex(UnparseLatexNth(x, List(i,j)), p);
@@ -384,7 +385,7 @@ RulebaseHoldArguments("UnparseLatexNth",[x,y]);
 
 80 # UnparseLatex(M_Matrix?, _p) <-- UnparseLatexMatrixBracketIf(True, UnparseLatexPrintMatrix(M));
 
-Function ("UnparseLatexPrintMatrix", [M])
+Function("UnparseLatexPrintMatrix", [_M])
 {
 /*
         Want something like "\begin{array}{cc} a & b \\ c & d \\ e & f \end{array}"
@@ -459,11 +460,14 @@ UnparseLatex(Hold(Exp(A*B)/C/D/(E+F)*G-(-(a+b)-(c-d))-b^(c^d) -(a^b)^c))
 ,"$\\frac{\\frac{\\frac{\\exp ( A \\times B) }{C} }{D} }{E + F}  \\times G - (  - ( a + b)  - ( c - d) )  - b ^{c ^{d}} - ( a ^{b})  ^{c}$"
 );
 
+RulebaseHoldArguments("f",[_x,_y,_z]);
+RulebaseHoldArguments("g",[_x,_y]);
 Verify(
-UnparseLatex(Hold(Cos(A-B)*Sin(a)*f(b,c,d*(e+1))*Sqrt(C+D)-(g(a+b)^(c+d))^(c+d)))
+UnparseLatex(ObjectToMeta(Hold(Cos(A-B)*Sin(a)*f(b,c,d*(e+1))*Sqrt(C+D)-(g(a+b)^(c+d))^(c+d))))
 ,"$\\cos ( A - B)  \\times \\sin a \\times f( b, c, d \\times ( e + 1) )  \\times \\sqrt{C + D} - ( g( a + b)  ^{c + d})  ^{c + d}$"
 );
-
+Retract("f",*);
+Retract("g",*);
 
 /* This test is commented out because it throws an exception when orthopoly.mpw is removed from the build process.
 // testing latest features: \\times, %, (a/b)^n, BinomialCoefficient(), BesselI, OrthoH
@@ -488,51 +492,51 @@ UnparseLatex(Hold(Not? (c <? 0) And? (a+b)*c>=? -d^e And? (c <=? 0 Or? b+1 >? 0)
 
 
 /* todo:tk:commenting out for the minimal version of the scripts.
-RulebaseHoldArguments("f",[x]);
+RulebaseHoldArguments("f",[_x]);
 Verify(
 UnparseLatex(Hold(Differentiate(x)f(x)))
 ,"$\\frac{d}{d x}f( x) $");
-Retract("f",1);
+Retract("f",*);
 
 
-RulebaseHoldArguments("f",[x,y,z]);
+RulebaseHoldArguments("f",[_x,_y,_z]);
 Verify(
 UnparseLatex((Differentiate(x)f(x,y,z))*Cos(Omega)*Modulo(Sin(a)*4,5/a^b))
 ,"$( \\frac{\\partial}{\\partial x}f( x, y, z) )  \\times \\cos \\Omega  \\times ( 4 \\times \\sin a) \\bmod \\frac{5}{a ^{b}} $"
 );
-Retract("f",3);
+Retract("f",*);
 
-RulebaseHoldArguments("g",[x]);
-RulebaseHoldArguments("theta",[x]);
+RulebaseHoldArguments("g",[_x]);
+RulebaseHoldArguments("theta",[_x]);
 Verify(
 UnparseLatex(Pi+Exp(1)-Theta-Integrate(x,x1,3/g(Pi))2*theta(x)*Exp(1/x))
 ,"$\\pi  + \\exp ( 1)  - \\Theta  - \\int _{x_{1}} ^{\\frac{3}{g( \\pi ) }  } 2 \\times \\theta ( x)  \\times \\exp ( \\frac{1}{x} )  dx$"
 );
-Retract("g",1);
-Retract("theta",1);
+Retract("g",*);
+Retract("theta",*);
 */
 
 
 Verify(
-UnparseLatex([a[3]*b[5]-c[1][2],[a,b,c,d]])
+UnparseLatex(ObjectToMeta('([a[3]*b[5]-c[1][2],[a,b,c,d]])))
 ,"$( a _{3} \\times b _{5} - c _{( 1, 2) }, ( a, b, c, d) ) $"
 );
 
 
 //Note: this is the only code in the test suite that currently creates new rulebases.
-RulebaseHoldArguments("aa",[x,y,z]);
+RulebaseHoldArguments("aa",[_x,_y,_z]);
 Bodied("aa", 200);
-RulebaseHoldArguments("bar", [x,y]);
+RulebaseHoldArguments("bar", [_x,_y]);
 Infix("bar", 100);
 Verify(
-UnparseLatex(aa(x,y) z + 1 bar y!)
+UnparseLatex(ObjectToMeta('(aa(x,y) z + 1 bar y!)))
 ,"$aa( x, y) z + 1\\mathrm{ bar }y!$"
 );
-Retract("aa",3);
-Retract("bar",2);
+Retract("aa",*);
+Retract("bar",*);
 
 Verify(
-UnparseLatex(x^(1/3)+x^(1/2))
+UnparseLatex('(x^(1/3)+x^(1/2)))
 , "$\\sqrt[3]{x} + \\sqrt{x}$"
 );
 

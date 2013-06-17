@@ -62,13 +62,13 @@ public class ViewMath extends BuiltinFunction {
     {
         this.functionName = "ViewMathInternal";
         aEnvironment.getBuiltinFunctions().put(
-                this.functionName, new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro) );
+                this.functionName, new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.FixedNumberOfArguments | BuiltinFunctionEvaluator.HoldArguments) );
 
-       String[] parameters = new String[] {"expression","size"};
+       String[] parameters = new String[] {"_expression","_size"};
        Utility.declareFunction("ViewMath", parameters, "ViewMathInternal(expression, size);", aEnvironment, LispError.TODO);
 
 
-       parameters = new String[] {"expression"};
+       parameters = new String[] {"_expression"};
        Utility.declareFunction("ViewMath", parameters, "ViewMathInternal(expression, 2);", aEnvironment, LispError.TODO);
 
 

@@ -5,7 +5,7 @@
    an infinite loop. The C++ version of LogN never terminates, so I mapped LogN to your InternalLnNum
    which of course does a much better job of it. Corollary is that this function can be defined when we also
    have InternalLnNum in this file.
-Defun("MathFloatPower", [x,y])
+Defun("MathFloatPower", [_x,_y])
         Decide(Integer?(y), False, ExpN(MultiplyN(y,LogN(x))));
 */
 

@@ -1,6 +1,6 @@
 %mathpiper,def="Subfactorial"
 
-Function("Subfactorial",[n])
+Function("Subfactorial",[_n])
 {
         n! * Sum(k,0,n,(-1)^(k)/k!);
 };

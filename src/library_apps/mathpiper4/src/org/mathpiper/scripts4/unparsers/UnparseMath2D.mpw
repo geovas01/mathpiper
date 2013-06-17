@@ -235,7 +235,7 @@ FormulaBracket(f):=
 
 
 
-/* RulebaseHoldArguments("Formula",[f]); */
+/* RulebaseHoldArguments("Formula",[_f]); */
 
 1 # Formula(f_Atom?) <--
   MakeOper(0,0,Length(ToString(f)),1,"ToAtom",ToString(f),0);
@@ -361,7 +361,7 @@ FormulaBracket(f):=
 
 
 
-RulebaseHoldArguments("BracketOn",[op,f,prec]);
+RulebaseHoldArguments("BracketOn",[_op,_f,_prec]);
 
 RuleHoldArguments("BracketOn",3,1,Function?(f) And? ArgumentsCount(f) =? 2
      And? Infix?(Type(f)) And? PrecedenceGet(Type(f)) >? prec)
@@ -418,7 +418,7 @@ RuleHoldArguments("BracketOn",3,2,True)
 
 
 
-RulebaseHoldArguments("RenderFormula",[cf,f,x,y]);
+RulebaseHoldArguments("RenderFormula",["cf",_f,_x,_y]);
 
 /*
 /   /  /
@@ -490,7 +490,7 @@ LocalSymbols(formulaMaxWidth) {
 
 
 
-Function("UnparseMath2D",[ff])
+Function("UnparseMath2D",[_ff])
 {
   Local(cf,f);
 
@@ -506,7 +506,7 @@ Function("UnparseMath2D",[ff])
   True;
 };
 /*
-HoldArgument("UnparseMath2D",ff);
+HoldArgument("UnparseMath2D","ff");
 */
 
 
@@ -519,7 +519,7 @@ EvalFormula(f):=
   UnparseMath2D(result);
   True;
 };
-HoldArgument("EvalFormula",f);
+HoldArgument("EvalFormula","f");
 
 /*
 [x,y,width,height,oper,args,base]

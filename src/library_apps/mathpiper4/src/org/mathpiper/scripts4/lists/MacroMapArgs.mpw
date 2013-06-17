@@ -1,7 +1,7 @@
 %mathpiper,def="MacroMapArgs"
 
 /* Another Macro... hack for /: to work. */
-Macro("MacroMapArgs",[expr,oper])
+Macro("MacroMapArgs",[_expr,_oper])
 {
   Local(ex,tl,op);
   Assign(op,@oper);
@@ -14,6 +14,6 @@ Macro("MacroMapArgs",[expr,oper])
 };
 
 UnFence("MacroMapArgs",2);
-HoldArgument("MacroMapArgs",oper);
+HoldArgument("MacroMapArgs","oper");
 
 %/mathpiper

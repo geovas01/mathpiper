@@ -9,7 +9,7 @@ LocalSymbols(NFunctionNumberize)
 NFunction(newname_String?, oldname_String?, arglist_List?) <-- {
         RulebaseEvaluateArguments(newname, arglist);
         RuleEvaluateArguments(newname, Length(arglist), 0,        // check whether all args are numeric
-                ListToFunction([NumericList?, arglist])
+                ListToFunction(['NumericList?, arglist])
         )
 
                 /* this is the rule defined for the new function.
@@ -113,14 +113,14 @@ Result: True;
 %mathpiper,name="NFunction",subtype="automatic_test"
 
 BuiltinPrecisionSet(10);
-Retract("f",1);
-Retract("f1",1);
+Retract("f",*);
+Retract("f1",*);
 f(x) := NM(Abs(1/x-1));
 Verify(f(0), Infinity);
 NumericEqual(RoundToN(f(3),BuiltinPrecisionGet()), 0.6666666667,BuiltinPrecisionGet());
-NFunction("f1", "f", [x]);
+NFunction("f1", "f", [_x]);
 Verify(f1(0), Undefined);
 NumericEqual(RoundToN(f1(3),BuiltinPrecisionGet()), 0.6666666667,BuiltinPrecisionGet());
-Retract("f",1);
-Retract("f1",1);
+Retract("f",*);
+Retract("f1",*);
 %/mathpiper

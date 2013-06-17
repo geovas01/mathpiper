@@ -1,6 +1,6 @@
 %mathpiper,def="PopBack"
 
-Function("PopBack",[stack])  Pop(stack,Length(stack));
+Function("PopBack",[_stack])  Pop(stack,Length(stack));
 
 %/mathpiper
 

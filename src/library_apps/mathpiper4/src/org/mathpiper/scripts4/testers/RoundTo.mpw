@@ -35,7 +35,7 @@
 
 /* ------   moved to separate file (already present but empty!) ---
 
-Macro(NumericEqual,[left,right,precision])
+Macro("NumericEqual",[_left,_right,_precision])
 [
   Verify(RoundTo((@left)-(@right),@precision),0);
 ];

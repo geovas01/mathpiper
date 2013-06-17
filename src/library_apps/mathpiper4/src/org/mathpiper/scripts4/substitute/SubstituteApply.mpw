@@ -1,17 +1,17 @@
 %mathpiper,def="SubstituteApply"
 
-Function("SubstituteApply", [body, predicate, change])
+Function("SubstituteApply", [_body, _predicate, _change])
 {
   SubstituteApply(body);
 };
 
-HoldArgument("SubstituteApply", predicate);
+HoldArgument("SubstituteApply", "predicate");
 
-HoldArgument("SubstituteApply", change);
+HoldArgument("SubstituteApply", "change");
 
 UnFence("SubstituteApply", 3);
 
-RulebaseHoldArguments("SubstituteApply", [body]);
+RulebaseHoldArguments("SubstituteApply", [_body]);
 
 UnFence("SubstituteApply", 1);
 

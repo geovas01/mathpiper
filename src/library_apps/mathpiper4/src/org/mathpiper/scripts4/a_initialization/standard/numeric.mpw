@@ -18,7 +18,7 @@ LocalSymbols(numericMode)
 
   // NM function: evaluate numerically with given precision.
   LocalSymbols(previousNumericMode, previousPrecision, numericResult) 
-  Macro("NM",[expression, precision])
+  Macro("NM",[_expression, _precision])
   {
     //Decide(InVerboseMode(),
     //    [Tell("NM",[expression,precision]); Tell("  ",[@expression,@precision]);]
@@ -40,9 +40,11 @@ LocalSymbols(numericMode)
     //ExceptionCatch(Assign(numericResult, Eval(@expression)),Assign(exception,ExceptionGet()));
 
     ExceptionCatch( numericResult:=Eval(@expression), exception := ExceptionGet() );
+    
+    //SysOut(numericResult," ",@expression," ",Eval(@expression));
     //Decide(InVerboseMode(),Tell("  1",numericResult));
 
-    Decide(Decimal?(numericResult), numericResult := RoundToN(numericResult, @precision));
+    Decide(Assigned?(numericResult) And? Decimal?(numericResult), numericResult := RoundToN(numericResult, @precision));
     //Decide(InVerboseMode(),Tell("  2",numericResult));
 
     numericMode := previousNumericMode;
@@ -62,7 +64,7 @@ LocalSymbols(numericMode)
 
   // NM function: evaluate numerically with default precision.
   LocalSymbols(precision,heldExpression) 
-  Macro("NM",[expression])
+  Macro("NM",[_expression])
   {
      Local(precision, heldExpression);
      precision      :=  BuiltinPrecisionGet();
@@ -74,7 +76,7 @@ LocalSymbols(numericMode)
   
   // NonNM function.
   LocalSymbols(result) 
-  Macro("NonNM",[expression])
+  Macro("NonNM",[_expression])
   {
     Local(result);
     GlobalPush(numericMode);

@@ -37,7 +37,7 @@ public class PipeToFile extends BuiltinFunction
     public void plugIn(Environment aEnvironment) throws Throwable {
         this.functionName = "PipeToFile";
         aEnvironment.getBuiltinFunctions().put(
-                this.functionName, new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro));
+                this.functionName, new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.FixedNumberOfArguments | BuiltinFunctionEvaluator.HoldArguments));
         
         aEnvironment.iBodiedOperators.setOperator(MathPiperUnparser.KMaxPrecedence, "PipeToFile");
     }//end method.

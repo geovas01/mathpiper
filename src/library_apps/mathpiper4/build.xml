@@ -4,7 +4,7 @@
     
     <description>Build file for MathPiper.</description>
     
-    <property name="version" value="mp4_minimal_alpha_v.112" />
+    <property name="version" value="mp4_minimal_alpha_v.113" />
 
     <property name="compile.source" value="1.7" />
 
@@ -137,7 +137,9 @@
     <target name="compile_quick" depends="exclude_files_from_compilation,compile">
     </target>
 
-    
+  
+    <target name="buildscripts_compile_quick" depends="buildscripts,exclude_files_from_compilation,compile">
+    </target>
     
     <target name="build" depends="clean,init,compile_build_dot_java,buildscripts,exclude_files_from_compilation,compile">
         <copy file="${basedir}/tests/unix_test.sh" todir="${build.dir}" />

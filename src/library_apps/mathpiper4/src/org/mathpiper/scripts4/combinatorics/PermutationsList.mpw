@@ -1,6 +1,6 @@
 %mathpiper,def="PermutationsList"
 
-Function("PermutationsList",[result,list])
+Function("PermutationsList",[_result,_list])
 {
   Decide(Length(list) =? 0,
   {
@@ -25,7 +25,7 @@ Function("PermutationsList",[result,list])
 };
 
 
-Function("PermutationsList",[list])
+Function("PermutationsList",[_list])
 {
   PermutationsList([[]],list);
 };

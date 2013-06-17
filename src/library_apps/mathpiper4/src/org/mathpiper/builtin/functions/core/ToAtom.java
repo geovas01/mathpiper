@@ -88,7 +88,7 @@ Result: a;
 
 %mathpiper,name="ToAtom",subtype="automatic_test"
 
- Verify(ToAtom("a"),a);
+ Verify(ToAtom("_a"),_a);
 
 %/mathpiper
 */

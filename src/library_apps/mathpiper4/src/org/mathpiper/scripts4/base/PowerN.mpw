@@ -5,7 +5,7 @@
 
 /* Serge, as MathFloatPower cannot be defined yet, I made the "avoid PowerN(num,float) explicit :-)
 */
-Defun("PowerN", [x,y])
+Defun("PowerN", [_x,_y])
 // avoid PowerN(0,float)
         Decide(Equal?(x,0),0, Decide(Equal?(x,1),1,
           Decide(Integer?(y), MathIntPower(x,y), False/*MathFloatPower(x,y)*/)

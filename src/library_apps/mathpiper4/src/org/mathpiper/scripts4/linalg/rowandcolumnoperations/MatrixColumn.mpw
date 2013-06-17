@@ -1,6 +1,6 @@
 %mathpiper,def="MatrixColumn"
 
-Function("MatrixColumn",[matrix,col])
+Function("MatrixColumn",[_matrix,_col])
 {
   Local(m);
   m:=matrix[1];

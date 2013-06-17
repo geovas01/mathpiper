@@ -3,7 +3,7 @@
 /* VarList: return the variables this expression depends on. */
 VarList(_expr) <-- VarList(expr,"Variable?");
 
-Function("VarList",[expr,filter])
+Function("VarList",[_expr,_filter])
 {
   RemoveDuplicates(VarListAll(expr,filter));
 };

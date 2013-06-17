@@ -55,8 +55,8 @@
 204 # (xlist_List? ^ nlist_List?)::(Length(xlist)=?Length(nlist)) <--
          Map("^",[xlist,nlist]);
 205 # (xlist_List? ^ n_Constant?)::(Not?(List?(n))) <--
-         Map([[xx],xx^n],[xlist]);
-206 # (_x ^ n_List?)::(Not?(List?(x))) <-- Map([[xx],x^xx],[n]);
+         Map('[[xx],xx^n],[xlist]);
+206 # (_x ^ n_List?)::(Not?(List?(x))) <-- Map('[[xx],x^xx],[n]);
 249 # x_Infinity? ^ 0 <-- Undefined;
 250 # Infinity ^ (_n) <-- Infinity;
 250 # Infinity ^ (_x_Complex?) <-- Infinity;

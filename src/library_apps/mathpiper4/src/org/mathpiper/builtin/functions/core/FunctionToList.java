@@ -48,8 +48,12 @@ public class FunctionToList extends BuiltinFunction
         Cons head = aEnvironment.iListAtom.copy(false);
         Cons operatorCons = (Cons) getArgument(aEnvironment, aStackTop, 1).car();
         
-        //Uncomment to make each operator a string instead of an atom.
-        //operatorCons.setCar(Utility.toMathPiperString(aEnvironment, aStackTop,(String)operatorCons.car()));
+        /*
+        if(! ((String) operatorCons.car()).startsWith("_"))
+        {
+            operatorCons.setCar("_".concat(((String)operatorCons.car())));
+        }
+        */
         
         head.setCdr(operatorCons);
         setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,head));
@@ -95,7 +99,7 @@ Result: [*,3,a];
 %mathpiper,name="FunctionToList",subtype="automatic_test"
 
 // FunctionToList and ListToFunction coredumped when their arguments were invalid.
-Verify(FunctionToList(Cos(x)),[Cos,x]);
+Verify(FunctionToList(Cos(_x)),'[Cos,_x]);
 
 {
   Local(exception);

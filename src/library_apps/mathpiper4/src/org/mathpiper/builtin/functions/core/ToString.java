@@ -114,8 +114,8 @@ Result> "x^2"
 
 %mathpiper,name="ToString",subtype="automatic_test"
 
- Verify(ToString(a),"a");
- Verify(ToString(x^2),"x^2");
+ Verify(ToString(_a),"_a");
+ Verify(ToString(_x^2),"_x^2");
 
 %/mathpiper
 */

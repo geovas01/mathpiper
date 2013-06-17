@@ -80,14 +80,14 @@ LocalSymbols(knownRNGEngines, knownRNGDists) {
 //////////////////////////////////////////////////
 
 Function() RngCreate();
-Function() RngCreate(seed, ...);
-//HoldArgument("RngCreate", seed);        // this is needed to prevent evaluation of = and also to prevent substitution of variables, e.g. if "seed" is defined
+Function() RngCreate(_seed, ...);
+//HoldArgument("RngCreate", "seed");        // this is needed to prevent evaluation of = and also to prevent substitution of variables, e.g. if "seed" is defined
 //UnFence("RngCreate", 0);
 //UnFence("RngCreate", 1);
-Function() RngSeed(r, seed);
+Function() RngSeed(_r, _seed);
 //UnFence("RngSeed", 2);
 /// accessor for RNG objects
-Function() Rng(r);
+Function() Rng(_r);
 //UnFence("Rng", 1);
 
 
@@ -277,7 +277,7 @@ LocalSymbols(RandSeed) {
   RandSeed := SystemTimer(); //Was 76544321.
 
   /// assign random seed
-  Function("RandomSeed", [seed]) Assign(RandSeed, seed);
+  Function("RandomSeed", [_seed]) Assign(RandSeed, seed);
 
   /// Linear congruential generator
   RandomLCG(_im, _ia, _ic) <--

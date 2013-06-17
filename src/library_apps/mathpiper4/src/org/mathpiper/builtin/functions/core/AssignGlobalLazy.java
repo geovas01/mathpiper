@@ -25,14 +25,14 @@ import org.mathpiper.lisp.Environment;
  *
  *  
  */
-public class SetGlobalLazyVariable extends BuiltinFunction
+public class AssignGlobalLazy extends BuiltinFunction
 {
 
-    private SetGlobalLazyVariable()
+    private AssignGlobalLazy()
     {
     }
 
-    public SetGlobalLazyVariable(String functionName)
+    public AssignGlobalLazy(String functionName)
     {
         this.functionName = functionName;
     }
@@ -48,11 +48,11 @@ public class SetGlobalLazyVariable extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="SetGlobalLazyVariable",categories="Programming Functions;Variables;Built In"
-*CMD SetGlobalLazyVariable --- global variable is to be evaluated lazily
+%mathpiper_docs,name="AssignGlobalLazy",categories="Programming Functions;Variables;Built In"
+*CMD AssignGlobalLazy --- global variable is to be evaluated lazily
 *CORE
 *CALL
-	SetGlobalLazyVariable(var,value)
+	AssignGlobalLazy(var,value)
 
 *PARMS
 
@@ -62,7 +62,7 @@ public class SetGlobalLazyVariable extends BuiltinFunction
 
 *DESC
 
-{SetGlobalLazyVariable} enforces that a global variable will re-evaluate
+{AssignGlobalLazy} enforces that a global variable will re-evaluate
 when used. This functionality doesn't survive if {Unassign(var)}
 is called afterwards.
 
@@ -70,19 +70,19 @@ Places where this is used include the global variables {%} and {I}.
 
 The use of lazy in the name stems from the concept of lazy evaluation.
 The object the global variable is bound to will only be evaluated when
-called. The {SetGlobalLazyVariable} property only holds once: after
+called. The {AssignGlobalLazy} property only holds once: after
 that, the result of evaluation is stored in the global variable, and it won't be reevaluated again:
 
-In> SetGlobalLazyVariable(a,Hold(Taylor(x,0,30)Sin(x)))
+In> AssignGlobalLazy(a,Hold(Taylor(x,0,30)Sin(x)))
 Result: True
 
 Then the first time you call {a} it evaluates {Taylor(...)} and assigns the result to {a}. The next time
 you call {a} it immediately returns the result.
-{SetGlobalLazyVariable} is called for {%} each time {%} changes.
+{AssignGlobalLazy} is called for {%} each time {%} changes.
 
 The following example demonstrates the sequence of execution:
 
-In> SetGlobalLazyVariable(test,Hold(Write("hello")))
+In> AssignGlobalLazy(test,Hold(Write("hello")))
 Result: True
 
 The text "hello" is not written out to screen yet. However, evaluating
@@ -101,7 +101,7 @@ Result: True
 In> a
 Result: 2+3
 
-In> SetGlobalLazyVariable(a,Hold(2+3))
+In> AssignGlobalLazy(a,Hold(2+3))
 Result: True
 
 In> a

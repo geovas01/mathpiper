@@ -1,6 +1,6 @@
 %mathpiper,def="TellNow"
-Macro("TellNow",[id])    {SysOut("<< ",@id," >>");};
-Macro("TellNow",[id,x])  {SysOut("<< ",@id," >> ",Hold(@x),": ",Eval(@x));};
+Macro("TellNow",[_id])    {SysOut("<< ",@id," >>");};
+Macro("TellNow",[_id,_x])  {SysOut("<< ",@id," >> ",Hold(@x),": ",Eval(@x));};
 %/mathpiper
 
     %output,preserve="false"

@@ -1,6 +1,6 @@
 %mathpiper,def="Difference"
 
-Function("Difference",[list1,list2])
+Function("Difference",[_list1,_list2])
 {
   Local(l2,index,result);
   l2:=FlatCopy(list2);

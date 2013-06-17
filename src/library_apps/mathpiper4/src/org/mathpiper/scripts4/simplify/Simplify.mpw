@@ -76,59 +76,53 @@ Result: True
 
 %mathpiper,name="Simplify",subtype="automatic_test"
 
-TestMathPiper( Simplify((x+y)*(x-y)-(x+y)^2), -2*y^2-2*x*y );
-TestMathPiper( Simplify(1+x+x+3*y-4*(x+y+2)), -2*x-y-7 );
+TestMathPiper( Simplify((_x+_y)*(_x-_y)-(_x+_y)^2), -2*_y^2-2*_x*_y );
+TestMathPiper( Simplify(1+_x+_x+3*_y-4*(_x+_y+2)), -2*_x-_y-7 );
 TestMathPiper( Simplify((1+I)^4), -4 );
-TestMathPiper( Simplify((x-y)/(x*y)), 1/y-1/x );
-//See below, now handled with II KnownFailure(TestMathPiper( Simplify((x+I)^4), x^4+4*x^3*I-6*x^2-4*x*I+1 ));
+TestMathPiper( Simplify((_x-_y)/(_x*_y)), 1/_y-1/_x );
+//See below, now handled with II KnownFailure(TestMathPiper( Simplify((_x+I)^4), _x^4+4*_x^3*I-6*_x^2-4*_x*I+1 ));
 
-TestMathPiper( Simplify((xx+II)^4), xx^4+4*xx^3*II-6*xx^2-4*xx*II+1 );
+TestMathPiper( Simplify((_xx + II)^4), _xx^4+4*_xx^3*II-6*_xx^2-4*_xx*II+1 );
 
 /* todo:tk:commenting out for the minimal version of the scripts.
-TestMathPiper( Simplify(Differentiate(x,4)Exp(-x^2/2)), Exp(-x^2/2)*(x^4-6*x^2+3));
+TestMathPiper( Simplify(Differentiate(_x,4)Exp(-_x^2/2)), Exp(-_x^2/2)*(_x^4-6*_x^2+3));
 */
 
 TestMathPiper( Simplify(1),1);
-TestMathPiper( Simplify(1/x ), 1/x );
-TestMathPiper( Simplify( 1/(1/x+1) ),x/(x+1) );
-TestMathPiper( Simplify(1/(1/(1/x+1)+1) ),(x+1)/(2*x+1) );
-TestMathPiper( Simplify(1/(1/(1/(1/x+1)+1)+1) ),(2*x+1)/(3*x+2) );
-TestMathPiper( Simplify(1/(1/(1/(1/(1/x+1)+1)+1)+1) ),(3*x+2)/(5*x+3) );
-TestMathPiper( Simplify(1/(1/(1/(1/(1/(1/x+1)+1)+1)+1)+1) ),(5*x+3)/(8*x+5) );
+TestMathPiper( Simplify(1/_x ), 1/_x );
+TestMathPiper( Simplify( 1/(1/_x+1) ),_x/(_x+1) );
+TestMathPiper( Simplify(1/(1/(1/_x+1)+1) ),(_x+1)/(2*_x+1) );
+TestMathPiper( Simplify(1/(1/(1/(1/_x+1)+1)+1) ),(2*_x+1)/(3*_x+2) );
+TestMathPiper( Simplify(1/(1/(1/(1/(1/_x+1)+1)+1)+1) ),(3*_x+2)/(5*_x+3) );
+TestMathPiper( Simplify(1/(1/(1/(1/(1/(1/_x+1)+1)+1)+1)+1) ),(5*_x+3)/(8*_x+5) );
 
 
 
 /*Serge: these are not handled yet ;-)
-TestMathPiper( Simplify((x^2-y^2)/(x+y)), x-y );
+TestMathPiper( Simplify((_x^2-_y^2)/(_x+_y)), _x-_y );
 */
 
-TestMathPiper(ExpandFrac(x+y/x+1/3),(x^2+y+x/3)/x);
+TestMathPiper(ExpandFrac(_x+_y/_x+1/3),(_x^2+_y+_x/3)/_x);
 
 // this did not work until the latest fix to ExpandBrackets using MM()
-Verify(
-ExpandBrackets(x*(a+b)*y*z)
-, x*a*y*z+x*b*y*z
-);
+Verify(ExpandBrackets(_x*(_a+_b)*_y*_z), _x*_a*_y*_z+_x*_b*_y*_z);
 
-Verify(
-ExpandBrackets(ExpandFrac((x+1)/(x-1)+1/x))
-, Hold(x^2/(x^2-x)+(2*x)/(x^2-x)-1/(x^2-x))
-);
+Verify(ExpandBrackets(ExpandFrac((_x+1)/(_x-1)+1/_x)), Hold(_x^2/(_x^2-_x)+(2*_x)/(_x^2-_x)-1/(_x^2-_x)));
 
 // these used to fail. Added by Serge, resolved by Ayal
-Verify({Local(a);a:=0.1;Simplify(a*b);}, 0.1*b);
-Verify({Local(a);a:=0.1;Simplify(a/b);}, 0.1/b);
+Verify({Local(a);a:=0.1;Simplify(a*_b);}, 0.1*_b);
+Verify({Local(a);a:=0.1;Simplify(a/_b);}, 0.1/_b);
 
 
 
 
-Verify({Local(a);a:=0.1;Simplify((a*b*c)/(a*c*b));},1);
+Verify({Local(a);a:=0.1;Simplify((a*_b*_c)/(a*_c*_b));},1);
 
 
-LocalSymbols(p,a,x)
+LocalSymbols(p)
 {
-  p := a+2-(a+1);
-  Verify(Simplify(x^p),x);
+  p := _a+2-(_a+1);
+  Verify(Simplify(_x^p),_x);
 };
 
 
@@ -167,11 +161,11 @@ LocalSymbols(f,p,a,b,x,n,simple,u,v)
 //
 // The problem was caused by a gcd calculation (from the multivariate
 // code) not terminating.
-Verify( Simplify((a^2+b^2)/(2*a)), (a^2+b^2)/(2*a) );
+Verify( Simplify((_a^2+_b^2)/(2*_a)), (_a^2+_b^2)/(2*_a) );
 
 
 /* Bug #10: I don't know what we want to return, but '0' is definitely wrong! */
-Verify(Simplify(x^(-2)/(1-x)^3) !=? 0, True);
+Verify(Simplify(_x^(-2)/(1-_x)^3) !=? 0, True);
 
 
 
@@ -187,7 +181,7 @@ Verify(Simplify(x^(-2)/(1-x)^3) !=? 0, True);
   
   //The real test here is that no error is generated due to the fact that variables a or A are set.
    
-  Verify(Simplify((Integrate(x,a,b)Sin(x))-Cos(a)+Cos(b)),0);
+  Verify(Simplify((Integrate(_x,a,b)Sin(_x))-Cos(a)+Cos(b)),0);
 };
 */
 
@@ -196,7 +190,7 @@ Verify(Simplify(x^(-2)/(1-x)^3) !=? 0, True);
    returned some expression with three calls to Gcd, which was technically
    correct, but not the intended simplification.
  */
-Verify(Zero?(Simplify(Simplify(((4*x)-2.25)/2)-(2*x-2.25/2))),True);
+Verify(Zero?(Simplify(Simplify(((4*_x)-2.25)/2)-(2*_x-2.25/2))),True);
 
 
 

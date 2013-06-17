@@ -48,7 +48,7 @@ public class CumulativePlot extends BuiltinFunction {
     public void plugIn(Environment aEnvironment)  throws Throwable
     {
         aEnvironment.getBuiltinFunctions().put(
-                "CumulativePlot", new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
+                "CumulativePlot", new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.VariableNumberOfArguments | BuiltinFunctionEvaluator.EvaluateArguments));
 
         defaultOptions = new HashMap();
         defaultOptions.put("title", null);

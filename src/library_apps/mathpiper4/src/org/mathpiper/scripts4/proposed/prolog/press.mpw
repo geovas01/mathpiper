@@ -111,7 +111,7 @@ Retract("SolveEquation",*);
 
 
 
-RulebaseListedHoldArguments("SolveEquation",[equation, variable, optionsList]);
+RulebaseListedHoldArguments("SolveEquation",[_equation, _variable, _optionsList]);
 
 //Handle no options call.
 5 # SolveEquation(_equation, _variable) <-- SolveEquation(equation, variable, []);
@@ -183,7 +183,7 @@ Retract("StepsView",*);
 
 
 
-RulebaseListedHoldArguments("StepsView",[steps, optionsList]);
+RulebaseListedHoldArguments("StepsView",[_steps, _optionsList]);
 
 //Handle no options call.
 5 # StepsView(_steps) <-- StepsView(steps, []);

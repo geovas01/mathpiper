@@ -1,7 +1,7 @@
 %mathpiper,def="MathExpTaylor0"
 
 // simple Taylor expansion, use only for 0<=x<1
-Defun("MathExpTaylor0",[x])
+Defun("MathExpTaylor0",[_x])
 {
   Check(x<=?1 And? x>=?0,""," Argument must be between 0 and 1 inclusive.");
   Local(i,aResult,term,eps);

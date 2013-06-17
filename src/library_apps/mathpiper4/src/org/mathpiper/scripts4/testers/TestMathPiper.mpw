@@ -6,7 +6,7 @@
  */
 
 /*
-Macro ("TestMathPiper", [expr, ans])
+Macro ("TestMathPiper", [_expr, _ans])
 {
         Local(diff,exprEval, ansEval);
   exprEval:= @expr;
@@ -41,7 +41,7 @@ Macro ("TestMathPiper", [expr, ans])
 
 
 
-Function ("TestMathPiper", [expr, ans])
+Function ("TestMathPiper", [_expr, _ans])
 {
         Local(diff);
         diff := Simplify(Eval(expr)-Eval(ans));
@@ -70,8 +70,8 @@ Function ("TestMathPiper", [expr, ans])
                         );
 };
 
-HoldArgument("TestMathPiper", expr);
-HoldArgument("TestMathPiper", ans);
+HoldArgument("TestMathPiper", "expr");
+HoldArgument("TestMathPiper", "ans");
 
 
 %/mathpiper

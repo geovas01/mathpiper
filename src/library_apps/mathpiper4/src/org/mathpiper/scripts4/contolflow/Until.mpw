@@ -1,6 +1,6 @@
 %mathpiper,def="Until"
 
-TemplateFunction("Until",[predicate,body])
+TemplateFunction("Until",[_predicate,_body])
 {
   Eval(body);
   While (Equal?(Eval(predicate),False))

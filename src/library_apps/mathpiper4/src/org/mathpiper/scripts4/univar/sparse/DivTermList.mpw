@@ -2,7 +2,7 @@
 
 // Implements the division of polynomials!
 
-Function("DivTermList",[a,b])
+Function("DivTermList",[_a,_b])
 {
  Local(q,nq,t,c,begining);
  q := [];

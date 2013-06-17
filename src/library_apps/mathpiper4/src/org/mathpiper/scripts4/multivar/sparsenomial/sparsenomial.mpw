@@ -46,7 +46,7 @@ UnFence("muadm",2);
    for speed. This routine is a lot faster!
  */
 
-RulebaseHoldArguments("NormalForm",[expression]);
+RulebaseHoldArguments("NormalForm",[_expression]);
 RuleHoldArguments("NormalForm",1,1000,True) expression;
 0 # NormalForm(UniVariate(_var,_first,_coefs)) <--
     ExpandUniVariate(var,first,coefs);
@@ -189,6 +189,6 @@ This function returns an expression in normal form.
 
 NextTest("Test arithmetic: NormalForm");
 
-TestMathPiper(NormalForm(MM((x+y)^5)),y^5+5*x*y^4+10*x^2*y^3+10*x^3*y^2+5*x^4*y+x^5);
+TestMathPiper(NormalForm(MM((_x+_y)^5)),_y^5+5*_x*_y^4+10*_x^2*_y^3+10*_x^3*_y^2+5*_x^4*_y+_x^5);
 
 %/mathpiperiper

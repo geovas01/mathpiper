@@ -1,6 +1,6 @@
 %mathpiper,def="MultiplyTerms"
 
-Function("MultiplyTerms",[terms1,terms2])
+Function("MultiplyTerms",[_terms1,_terms2])
 {
  Local(result,t1,t2,begining);
  result:=[];

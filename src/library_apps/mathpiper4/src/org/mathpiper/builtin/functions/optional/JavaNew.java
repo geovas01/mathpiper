@@ -38,7 +38,7 @@ public class JavaNew extends BuiltinFunction {
     public void plugIn(Environment aEnvironment) throws Throwable {
         this.functionName = "JavaNew";
         aEnvironment.getBuiltinFunctions().put(
-                this.functionName, new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
+                this.functionName, new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.VariableNumberOfArguments | BuiltinFunctionEvaluator.EvaluateArguments));
     }//end method.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable {

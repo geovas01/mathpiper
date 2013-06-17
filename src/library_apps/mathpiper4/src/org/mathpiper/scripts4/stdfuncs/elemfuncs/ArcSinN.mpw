@@ -1,7 +1,7 @@
 %mathpiper,def="ArcSinN"
 
 
-Defun("ArcSinN",[int1])
+Defun("ArcSinN",[_int1])
 {
   Local(result,eps);
         Assign(result,FastArcSin(int1));

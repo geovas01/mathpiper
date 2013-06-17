@@ -1,6 +1,6 @@
 %mathpiper,def="HoldArgumentNumber"
 
-Function("HoldArgumentNumber",[function,arity,index])
+Function("HoldArgumentNumber",[_function,_arity,_index])
 {
   Local(args);
   args:=RulebaseArgumentsList(function,arity);

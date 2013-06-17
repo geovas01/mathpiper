@@ -42,7 +42,7 @@ public class ViewGraphicConsole extends BuiltinFunction
     {
         this.functionName = "ViewGraphicConsole";
         aEnvironment.getBuiltinFunctions().put(
-                this.functionName, new BuiltinFunctionEvaluator(this, 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
+                this.functionName, new BuiltinFunctionEvaluator(this, 0, BuiltinFunctionEvaluator.FixedNumberOfArguments | BuiltinFunctionEvaluator.EvaluateArguments));
     }//end method.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable

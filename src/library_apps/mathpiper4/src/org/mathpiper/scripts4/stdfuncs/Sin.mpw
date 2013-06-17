@@ -89,7 +89,7 @@ Result: Sqrt(2)/2;
 
 %mathpiper,name="Sin",subtype="automatic_test"
 
-Verify(NM(Sin(a)),Sin(a));
+Verify(NM(Sin(_a)),Sin(_a));
 
 Verify(Sin(2*Pi), 0);
 Verify(Sin(3*Pi/2)+1, 0);

@@ -1,12 +1,12 @@
 %mathpiper,def="BenchShow"
 
-Function("BenchShow",[expr])
+Function("BenchShow",[_expr])
 {
   Echo("In&gt ",expr);
   WriteString("<font color=ff0000> ");
   Echo("Out&gt ",Eval(expr),"</font>");
   True;
 };
-HoldArgument("BenchShow",expr);
+HoldArgument("BenchShow","expr");
 
 %/mathpiper

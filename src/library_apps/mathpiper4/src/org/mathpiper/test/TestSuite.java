@@ -31,6 +31,7 @@ import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.io.StringInputStream;
 import org.mathpiper.io.StringOutputStream;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.Evaluator;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.Cons;
 
@@ -385,6 +386,12 @@ public class TestSuite {
     public void setLogFileName(String logFileName) {
         this.logFileName = logFileName;
     }
+    
+    public void setPrintFunctionLoad(boolean printFunctionLoad)
+    {
+	Evaluator.DEBUG = printFunctionLoad;
+	Evaluator.TRACE_TO_STANDARD_OUT = printFunctionLoad;
+    }
 
     public static void main(String[] args) {
     	
@@ -405,7 +412,8 @@ public class TestSuite {
                                 + "-e test,test,... (Run all of the tests, except for the ones that are listed.)\n"
                                 + "-f <file name> (Specifies the name and path of the log file.)\n"
                                 + "-t (Include a stack trace when an exception is thrown.)\n"
-                                + "-p (Print each test just before it is evaluated.)\n";
+                                + "-p (Print each test just before it is evaluated.)\n"
+                        	+ "-n (Print the name of a function when it is loaded.)\n";
 
                         System.out.println(usageMessage);
 
@@ -422,6 +430,9 @@ public class TestSuite {
                         continue;
                     case 'p':
                         testSuite.setPrintExpression(true);
+                        continue;
+                    case 'n':
+                        testSuite.setPrintFunctionLoad(true);
                         continue;
                     default:
                         if (argumentErrorCount < argumentErrors.length) {

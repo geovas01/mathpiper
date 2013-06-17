@@ -1,6 +1,6 @@
 %mathpiper,def="Push"
 
-Function("Push",[stack,element])
+Function("Push",[_stack,_element])
 {
   DestructiveInsert(stack,1,element);
 };

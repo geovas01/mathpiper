@@ -48,7 +48,17 @@ public class ListToFunction extends BuiltinFunction
         Cons atom = (Cons) getArgument(aEnvironment, aStackTop, 1).car();
         if( atom == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         if(! (((String)atom.car()).equals((String)aEnvironment.iListAtom.car()))) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        setTopOfStack(aEnvironment, aStackTop, Utility.tail(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1)));
+      
+        Cons tail = Utility.tail(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1));
+        
+        /*
+        if(((String) tail.car()).startsWith("_"))
+        {
+            tail.setCar(((String) tail.car()).substring(1,((String) tail.car()).length()));
+        }
+        */
+        
+        setTopOfStack(aEnvironment, aStackTop, tail);
     }
 }
 
@@ -100,7 +110,7 @@ Result: 1-x^2/2+x^4/24;
 %mathpiper,name="ListToFunction",subtype="automatic_test"
 
 // FunctionToList and ListToFunction coredumped when their arguments were invalid.
-Verify(ListToFunction([Cos,x]),Cos(x));
+Verify(ListToFunction('[Cos,_x]),Cos(_x));
 
 {
   Local(exception);

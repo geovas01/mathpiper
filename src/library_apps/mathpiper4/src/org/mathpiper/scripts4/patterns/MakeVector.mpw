@@ -1,6 +1,6 @@
 %mathpiper,def="MakeVector"
 
-RulebaseHoldArguments("MakeVector",[vec,dimension]);
+RulebaseHoldArguments("MakeVector",[_vec,_dimension]);
 RuleHoldArguments("MakeVector",2,1,True)
 {
     Local(res,i);
@@ -23,7 +23,7 @@ RuleHoldArguments("MakeVector",2,1,True)
 *CMD MakeVector --- vector of uniquely numbered variable names
 *STD
 *CALL
-        MakeVector(var,n)
+        MakeVector(_var,n)
 
 *PARMS
 
@@ -40,8 +40,8 @@ which contains "var" with the number "n" appended to it.
 
 *E.G.
 
-In> MakeVector(a,3)
-Result: [a1,a2,a3];
+In> MakeVector(_a,3)
+Result: [_a1,_a2,_a3];
 
 *SEE RandomIntegerList, ZeroVector
 %/mathpiper_docs

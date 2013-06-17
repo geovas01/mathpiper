@@ -1,6 +1,6 @@
 %mathpiper,def="CosN"
 
-Defun("CosN",[x])Trigonometry(x,0.0,1.0,1.0);
+Defun("CosN",[_x])Trigonometry(x,0.0,1.0,1.0);
 
 %/mathpiper
 

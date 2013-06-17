@@ -1,6 +1,6 @@
 %mathpiper,def="/@"
 
-Function("/@",[func,lst]) Apply("MapSingle",[func,lst]);
+Function("/@",[_func,_lst]) Apply("MapSingle",[func,lst]);
 
 %/mathpiper
 

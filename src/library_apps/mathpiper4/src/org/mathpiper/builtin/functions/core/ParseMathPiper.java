@@ -88,7 +88,7 @@ Result: EndOfFile;
 
 %mathpiper,name="ParseMathPiper",subtype="automatic_test"
 
-Verify(PipeFromString("a+b;") ParseMathPiper(),a+b);
+Verify(PipeFromString("_a+_b;") ParseMathPiper(),_a+_b);
 
 %/mathpiper
 */

@@ -29,11 +29,13 @@ Verify(4!,24);
 Verify(BinomialCoefficient(2,1),2);
 
 NextTest("Testing math stuff");
-Verify(1*a,a);
-Verify(a*1,a);
-Verify(0*a,0);
-Verify(a*0,0);
-Verify(aa-aa,0);
+Verify(1*_a,_a);
+Verify(_a*1,_a);
+Verify(0*_a,0);
+Verify(_a*0,0);
+Verify(_aa-_aa,0);
+Verify(0+_a,_a);
+Verify(_a+0,_a);
 
 Verify(2+3,5);
 Verify(2*3,6);
@@ -48,9 +50,6 @@ Verify(15/5,3);
 Verify(-2+3,1);
 Verify(-2.01+3.01,1.);
 
-Verify(0+a,a);
-Verify(a+0,a);
-Verify(aa-aa,0);
 
 Testing("IntegerOperations");
 Verify(1<<10,1024);

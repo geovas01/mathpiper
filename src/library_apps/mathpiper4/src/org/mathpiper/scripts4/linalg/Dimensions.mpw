@@ -12,11 +12,11 @@ LocalSymbols(x,i,n,m,aux,dim,result)
     {
       Local(i,n,m,aux,dim,result);
       result:=List(Length(x));
-      Decide(Length(x)>?0 And? Length(Select(x, List?))=?Length(x),
+      Decide(Length(x)>?0 And? Length(Select(x, "List?"))=?Length(x),
         {
           n:=Length(x);
-              dim:=MapSingle(Dimensions,x);
-              m:=Minimum(MapSingle(Length,dim));
+              dim:=MapSingle("Dimensions",x);
+              m:=Minimum(MapSingle("Length",dim));
               For(i:=1,i<=?m,i++)
               {
                 aux:=BuildList(dim[j][i],j,1,n,1);
@@ -84,30 +84,30 @@ Result: [2]
 
 //Dimensions (Tensor Rank).
 
-Verify(Dimensions(a),[]);
+Verify(Dimensions(_a),[]);
 Verify(Dimensions([]),[0]);
-Verify(Dimensions([a,b]),[2]);
+Verify(Dimensions([_a,_b]),[2]);
 Verify(Dimensions([[]]),[1,0]);
-Verify(Dimensions([[a]]),[1,1]);
-Verify(Dimensions([[],a]),[2]);
-Verify(Dimensions([[a],b]),[2]);
+Verify(Dimensions([[_a]]),[1,1]);
+Verify(Dimensions([[],_a]),[2]);
+Verify(Dimensions([[_a],_b]),[2]);
 Verify(Dimensions([[],[]]),[2,0]);
 Verify(Dimensions([[],[[]]]),[2]);
-Verify(Dimensions([[a,b],[c]]),[2]);
-Verify(Dimensions([[a,b],[c,d]]),[2,2]);
-Verify(Dimensions([[a,b],[c,d],[e,f]]),[3,2]);
-Verify(Dimensions([[a,b,c],[d,e,f],[g,h,i]]),[3,3]);
-Verify(Dimensions([[a,b,c],[d,e,f]]),[2,3]);
-Verify(Dimensions([[[a,b]],[[c,d]]]), [2,1,2]);
-Verify(Dimensions([[[[a],[b]]],[[[c],d]]]),[2,1,2]);
-Verify(Dimensions([[[[[a,b]]]],[[[c,d]]]]),[2,1,1]);
-Verify(Dimensions([[[[[a,b]]]],[[[c],[d]]]]),[2,1]);
+Verify(Dimensions([[_a,_b],[_c]]),[2]);
+Verify(Dimensions([[_a,_b],[_c,_d]]),[2,2]);
+Verify(Dimensions([[_a,_b],[_c,_d],[_e,_f]]),[3,2]);
+Verify(Dimensions([[_a,_b,_c],[_d,_e,_f],[_g,_h,_i]]),[3,3]);
+Verify(Dimensions([[_a,_b,_c],[_d,_e,_f]]),[2,3]);
+Verify(Dimensions([[[_a,_b]],[[_c,_d]]]), [2,1,2]);
+Verify(Dimensions([[[[_a],[_b]]],[[[_c],_d]]]),[2,1,2]);
+Verify(Dimensions([[[[[_a,_b]]]],[[[_c,_d]]]]),[2,1,1]);
+Verify(Dimensions([[[[[_a,_b]]]],[[[_c],[_d]]]]),[2,1]);
 Verify(Dimensions([[[]]]),[1,1,0]);
-Verify(Dimensions([[[a]]]),[1,1,1]);
-Verify(Dimensions([[[[a]]],[[[b]]]]),[2,1,1,1]);
-Verify(Dimensions([[[[a],[b]]],[[[c],[d]]]]),[2,1,2,1]);
-Verify(Dimensions([[[[a,b]]],[[[c,d]]]]),[2,1,1,2]);
-Verify(Dimensions([[[[a,b]],[[c,d]]]]),[1,2,1,2]);
-Verify(Dimensions([[[[[[a,b],[c]]]]],[[[d],[e,f,g]]]]), [2,1]);
+Verify(Dimensions([[[_a]]]),[1,1,1]);
+Verify(Dimensions([[[[_a]]],[[[_b]]]]),[2,1,1,1]);
+Verify(Dimensions([[[[_a],[_b]]],[[[_c],[_d]]]]),[2,1,2,1]);
+Verify(Dimensions([[[[_a,_b]]],[[[_c,_d]]]]),[2,1,1,2]);
+Verify(Dimensions([[[[_a,_b]],[[_c,_d]]]]),[1,2,1,2]);
+Verify(Dimensions([[[[[[_a,_b],[_c]]]]],[[[_d],[_e,_f,_g]]]]), [2,1]);
 
 %/mathpiper

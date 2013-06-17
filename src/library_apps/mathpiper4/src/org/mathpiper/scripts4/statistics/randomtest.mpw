@@ -10,7 +10,7 @@ LoadScript("incompletegamma.mpi");
 LoadScript("hypothesystest.mpi");
 
 
-Function("DoTest",[size])
+Function("DoTest",[_size])
 [
   Local(arr,of,ef,i,j,m);
 //  size:=200; // sample size

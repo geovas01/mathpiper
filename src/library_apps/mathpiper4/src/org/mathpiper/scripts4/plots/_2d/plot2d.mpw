@@ -20,13 +20,13 @@ Plot2D<backend> on that data.
         3) concatenate resulting lists and return
 */
 
-LocalSymbols(var, func, range, option, optionslist, delta, optionshash, c, fc, allvalues, dummy)
+LocalSymbols(var, func, range, option, optionslist, delta, optionshash, c, fc, allvalues)
 {
 
 // declaration of Plot2D with variable number of arguments
-Function() Plot2D(func);
-Function() Plot2D(func, range);
-Function() Plot2D(func, range, options, ...);
+Function() Plot2D(_func);
+Function() Plot2D(_func, _range);
+Function() Plot2D(_func, _range, _options, ...);
 
 /// interface routines
 1 # Plot2D(_func) <-- ("Plot2D" @ [func, -5->5]);
@@ -40,7 +40,7 @@ Function() Plot2D(func, range, options, ...);
 /// plot several functions sharing the same xrange and other options
 4 # Plot2D(funclist_List?, _range, optionslist_List?) <--
 {
-        Local(var, func, delta, optionshash, c, fc, allvalues, dummy);
+        Local(var, func, delta, optionshash, c, fc, allvalues);
         allvalues := [];
         optionshash := "OptionsListToHash" @ [optionslist];
     
@@ -119,11 +119,14 @@ Function() Plot2D(func, range, options, ...);
         {
                 // obtain name of variable
                 var := VarList(func);        // variable name in a one-element list
+                
+                func := MetaToObject(func);
+                
                 Check(Length(var)<=?1, "Argument", "Plot2D: Error: expression is not a function of one variable: "
                         ~(PipeToString()Write(func))
                 );
                 // Allow plotting of constant functions
-                Decide(Length(var)=?0, var:=[dummy]);
+                Decide(Length(var)=?0, var:=[_dummy]);
                 // store variable name if not already done so
                 Decide(
                         optionshash["xname"] =? "",
@@ -131,9 +134,12 @@ Function() Plot2D(func, range, options, ...);
                 );
                 // store function name in options
                 DestructiveAppend(optionshash["yname"], PipeToString()Write(func));
+                
                 // compute the first point to see if it's okay
                 c := range[1];
+                
                 fc := NM(Eval(Apply([var, func], [c])));
+                
                 Check(Number?(fc) Or? fc=?Infinity Or? fc=? -Infinity Or? fc=?Undefined,
                         "Argument", 
                         "Plot2D: Error: cannot evaluate function "
@@ -144,6 +150,7 @@ Function() Plot2D(func, range, options, ...);
                         ~(PipeToString()Write(fc))
                         ~""
                 );
+                
                 // compute all other data points
                 DestructiveAppend(allvalues,  Plot2Dgetdata(func, var, c, fc, delta, optionshash) );
         
@@ -154,8 +161,8 @@ Function() Plot2D(func, range, options, ...);
         Plot2DOutputs()[optionshash["output"]] @ [allvalues, optionshash];
 };
 
-//HoldArgument("Plot2D", range);
-//HoldArgument("Plot2D", options);
+//HoldArgument("Plot2D", "range");
+//HoldArgument("Plot2D", "options");
 HoldArgumentNumber("Plot2D", 2, 2);
 HoldArgumentNumber("Plot2D", 3, 2);
 HoldArgumentNumber("Plot2D", 3, 3);
@@ -171,6 +178,7 @@ Plot2Dgetdata(_func, _var, _xinit, _yinit, _deltax, _optionshash) <--
         Local(i, a, fa, b, fb, c, fc, result);
         // initialize list by first points (later will always use Rest() to exclude first points of subintervals)
         result := [ [c,fc] := [xinit, yinit] ];
+        
         For(i:=0, i<?optionshash["points"], i++)
         {
                 [a,fa] := [c, fc];        // this is to save time but here a = xinit + i*deltax
@@ -251,7 +259,7 @@ Plot2Dadaptive(_func, _var, [_a,_b,_c], [_fa, _fb, _fc], _depth, _epsilon) <--
 
 *PARMS
 
-{f(x)} -- unevaluated expression containing one variables (function to be plotted)
+{f(x)} -- unevaluated expression containing one variable (function to be plotted)
 
 {list} -- list of functions to plot
 
@@ -348,6 +356,6 @@ singularities.)
 /* I stringified the results for now, as that is what the tests used to mean. The correct way to deal with this
  * would be to compare the resulting numbers to accepted precision.
  */
-Verify(PipeToString()Write(Plot2D(a,-1->1,output: data,points: 4,depth: 0)), "[[[-1,-1],[-0.5,-0.5],[0.0,0.0],[0.5,0.5],[1,1]]]");
+Verify(PipeToString()Write(Plot2D(_a,-1->1,output: data,points: 4,depth: 0)), "[[[-1,-1],[-0.5,-0.5],[0.0,0.0],[0.5,0.5],[1,1]]]");
 
 %/mathpiper

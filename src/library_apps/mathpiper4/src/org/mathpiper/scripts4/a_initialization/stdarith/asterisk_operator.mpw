@@ -167,7 +167,7 @@ Verify(Infinity*0,Undefined);
 // multiplication of 0 with a vector returns a zero vector.
 // This would automatically be caught with type checking.
 // More tests of this ilk are possible: 0*matrix, etcetera.
-Verify(0*[a,b,c],[0,0,0]);
+Verify(0*[_a,_b,_c],[0,0,0]);
 
 Verify(Undefined*0,Undefined);
 

@@ -64,7 +64,7 @@ public class TreeView extends BuiltinFunction {
 	this.functionName = "TreeView";
 	
         aEnvironment.getBuiltinFunctions().put(
-                "TreeView", new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
+                "TreeView", new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.VariableNumberOfArguments | BuiltinFunctionEvaluator.EvaluateArguments));
 
         defaultOptions = new HashMap();
 

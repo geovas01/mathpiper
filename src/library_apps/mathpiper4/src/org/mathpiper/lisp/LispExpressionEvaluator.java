@@ -22,6 +22,7 @@ import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 
 import org.mathpiper.lisp.rulebases.SingleArityRulebase;
+import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 
 /**
  * The basic evaluator for Lisp expressions.
@@ -138,7 +139,50 @@ public class LispExpressionEvaluator extends Evaluator {
 	    // Handle unbound variables.
 
 	    aEnvironment.iEvalDepth--;
-	    return aExpression.copy(false);
+	    
+
+	    if(atomName.charAt(0) == '.' || atomName.charAt(0) == '-') //todo:tk:why is .1 being treated differently than 0.1?
+	    {
+		return aExpression.copy(false);
+	    }
+	    
+	    
+	    
+	    boolean foundNonSymbol = false;
+	    for(char c : atomName.toCharArray())
+	    {
+		if(!MathPiperTokenizer.isSymbolic(c))
+		{
+		    foundNonSymbol = true;
+		    break;
+		}
+	    }
+	    if(foundNonSymbol == false)
+	    {
+		return aExpression.copy(false);
+	    }
+	    
+	    
+	    
+	    BuiltinFunctionEvaluator builtinInFunctionEvaluator = (BuiltinFunctionEvaluator) aEnvironment.getBuiltinFunctions().get(atomName);
+	    if (builtinInFunctionEvaluator != null) 
+            {
+		return aExpression.copy(false);
+            }
+	    
+	    Utility.loadLibraryFunction(atomName, aEnvironment, aStackTop);
+	    
+	    if(aEnvironment.getMultipleArityRulebase(aStackTop, atomName, false) != null)
+	    {
+		return aExpression.copy(false);
+	    }
+	    
+	    
+	    
+	    
+	   
+	    
+	    LispError.throwError(aEnvironment, aStackTop, "The variable <" + atomName + "> does not have a value assigned to it.");
 
 	}
 
@@ -228,7 +272,10 @@ public class LispExpressionEvaluator extends Evaluator {
 
 	    // System.out.println(functionName);
 
-	    Utility.loadLibraryFunction(functionName, aEnvironment, aStackTop);
+	    if (Utility.loadLibraryFunction(functionName, aEnvironment, aStackTop) == false) {
+		LispError.throwError(aEnvironment, aStackTop, "No script returned for function: " + functionName
+			+ " from Scripts.java.");
+            }
 
 	    userFunc = (SingleArityRulebase) aEnvironment.getRulebase(aStackTop, subList);
 
@@ -238,7 +285,7 @@ public class LispExpressionEvaluator extends Evaluator {
 
     }// end method.
     /*
-     * void TracedStackEvaluator::PushFrame() { UserStackInformation *op = NEW
+     * void TracedStackEvaluator::PushFrame() { UserStackInformaif (tion *op = NEW
      * UserStackInformation; objs.Append(op); }
      * 
      * void TracedStackEvaluator::PopFrame() { LISPASSERT (objs.Size() > 0); if

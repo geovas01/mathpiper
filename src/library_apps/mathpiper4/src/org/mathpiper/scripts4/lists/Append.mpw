@@ -1,6 +1,6 @@
 %mathpiper,def="Append"
 
-Function("Append",[list,element])
+Function("Append",[_list,_element])
 {
   Check(List?(list), "Argument", "The first argument must be a list.");
 

@@ -97,11 +97,11 @@ concatenated. The resulting big list is returned.
 
 *E.G.
 
-In> Concat([a,b], [c,d]);
+In> Concat('[a,b], '[c,d]);
 Result: [a,b,c,d];
 
-In> Concat([5], [a,b,c], [[f(x)]]);
-Result: [5,a,b,c,[f(x)]];
+In> Concat([5], '[a,b,c], [["Blue"]]);
+Result: [5,a,b,c,["Blue"]]
 
 *SEE ConcatStrings, :, Insert
 %/mathpiper_docs
@@ -111,7 +111,7 @@ Result: [5,a,b,c,[f(x)]];
 
 %mathpiper,name="Concat",subtype="automatic_test"
 
-Verify(Concat([a,b],[c,d]), [a,b,c,d]);
+Verify(Concat('[a,b],'[c,d]), '[a,b,c,d]);
 
 %/mathpiper
 

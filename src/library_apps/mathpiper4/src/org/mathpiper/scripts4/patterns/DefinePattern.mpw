@@ -1,9 +1,9 @@
-%mathpiper,def="DefinePattern;_",private="true"
+%mathpiper,def="DefinePattern",private="true"
 
 //RulebaseHoldArguments("_",[a]);
-RulebaseHoldArguments("::",[a,b]);
+RulebaseHoldArguments("::",[_a,_b]);
 
-RulebaseHoldArguments("DefinePattern",[leftOperand, rightOperand, rulePrecedence, postPredicate]);
+RulebaseHoldArguments("DefinePattern",[_leftOperand, _rightOperand, _rulePrecedence, _postPredicate]);
 
 
 
@@ -16,7 +16,7 @@ RuleHoldArguments("DefinePattern",4,9,Equal?(Type(leftOperand),"::"))
 
 RuleHoldArguments("DefinePattern",4,10,True)
 {
-      Local(patternFlat,patternVariables, pattern, patternOperator, arg, arity);
+      Local(patternFlat,patternVariables, pattern, patternOperator, arity);
       
       Assign(patternFlat, FunctionToList(leftOperand)); //Turn the pattern into a list.
       
@@ -33,7 +33,7 @@ RuleHoldArguments("DefinePattern",4,10,True)
       */
       Decide(Not?(RulebaseDefined(patternOperator,arity)),
          {
-          RulebaseEvaluateArguments(patternOperator,MakeVector(arg,arity));
+          RulebaseEvaluateArguments(patternOperator,MakeVector(_arg,arity));
          }
         );
     
