@@ -75,9 +75,15 @@ integer result is returned even if the calculation requires more digits than set
 {BuiltinPrecisionSet}.  However, when the result is mathematically not an integer,
 the functions return a floating-point result which is correct only to the current precision.
 
-*E.G.
-In> AbsN(-1)
-Result: 1
+*Examples
 
 %/mathpiper_docs
+
+
+%mathpiper,name="AbsN",subtype="in_prompts"
+
+AbsN(-1) -> 1;
+
+%/mathpiper
+
 */

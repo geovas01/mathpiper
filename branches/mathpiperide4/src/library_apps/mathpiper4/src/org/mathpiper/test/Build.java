@@ -531,7 +531,7 @@ public class Build {
                 }
                 
                 
-              
+                StringBuilder verifiedExamplesBuilder = new StringBuilder();
                 for(Fold fold: folds)
                 {
                     if(fold.getType().equalsIgnoreCase("%mathpiper"))
@@ -543,6 +543,19 @@ public class Build {
                 	    if(subTypeAttribute.equalsIgnoreCase("in_prompts"))
                 	    {
                 		this.processAutomaticTestFold(fold, mpwFilePath, TESTTYPE.DOCS);
+                		
+                		String prompts = fold.getContents();
+                        	String[] expressions = prompts.trim().split(";");
+                        	for(String expression: expressions)
+                        	{
+                        	    String[] arguments = expression.trim().split("->");
+                        	    
+                        	    if(arguments.length == 2)
+                        	    {
+                        		verifiedExamplesBuilder.append("In> " + arguments[0] + "\nResult: " + arguments[1] + "\n\n");
+                        	    }
+                        	}
+                		
                 	    }
                 	}
                     }
@@ -551,105 +564,123 @@ public class Build {
 
                 String[] functionNames = functionNamesString.split(";");
 
-                for (String functionName : functionNames) {
-                    //DataOutputStream individualDocumentationFile = null;
-                    /*
-                    try{
-                    individualDocumentationFile =  new DataOutputStream(new java.io.FileOutputStream(outputDirectory + functionName));
-                    }catch(Throwable ex)
-                    {
-                    ex.printStackTrace();
-                    }*/
 
+                
+                String contents = docsFold.getContents();
+                
+                String verifiedExamples = verifiedExamplesBuilder.toString();
+                
+                if(contents.contains("*E.G."))
+                {
+            	//Do nothing.
+                }
+                else if(contents.contains("*Examples") || ! verifiedExamples.equals(""))
+                {
+            	if(contents.contains("*Examples") && ! verifiedExamples.equals(""))
+            	{
+            	    contents = contents.replace("*Examples", "*Examples\n" + verifiedExamples);
+            	}
+            	else
+            	{
+            	    throw new Exception("Documentation for <" + mpwFilePath + "> missing *Example tag or missing examples fold.");
+            	}
+                }
+                else
+                {
+            		System.out.println("*** MISSING EXAMPLES ***");
+                }
+                
+        
+                
+
+                contents = contents + "\n*SOURCE " + mpwFilePath;
+
+                byte[] contentsBytes = contents.getBytes();
+                documentationOutputFile.write(contentsBytes, 0, contentsBytes.length);
+                //individualDocumentationFile.write(contentsBytes, 0, contentsBytes.length);
+                //individualDocumentationFile.close();
+
+                long endOfContentsOffset = documentationOffset + contents.length();
+                for (String functionName : functionNames) {
                     documentationOutputIndexFile.write(functionName + ",");
                     documentationOutputIndexFile.write(documentationOffset + ",");
-
-                    String contents = docsFold.getContents();
-                    
-                    
-                    //Handle *E.G. replacement here.
-                    
-
-                    contents = contents + "\n*SOURCE " + mpwFilePath;
-
-                    byte[] contentsBytes = contents.getBytes();
-                    documentationOutputFile.write(contentsBytes, 0, contentsBytes.length);
-                    //individualDocumentationFile.write(contentsBytes, 0, contentsBytes.length);
-                    //individualDocumentationFile.close();
-
-                    documentationOffset = documentationOffset + contents.length();
-                    documentationOutputIndexFile.write(documentationOffset + "\n");
-
-                    byte[] separator = "\n==========\n".getBytes();
-                    documentationOutputFile.write(separator, 0, separator.length);
-
-                    documentationOffset = documentationOffset + separator.length;
-
-                    String access = "public";
-
-                    if (docsFold.getAttributes().containsKey("categories")) {
-
-
-                        int commandIndex = contents.indexOf("*CMD");
-                        if (commandIndex == -1) {
-                            throw new Exception("Missing *CMD tag.");
-                        }
-                        String descriptionLine = contents.substring(commandIndex, contents.indexOf("\n", commandIndex));
-                        String description = descriptionLine.substring(descriptionLine.lastIndexOf("--") + 2);
-                        description = description.trim();
-
-                        if (description.contains(",")) {
-                            description = "\"" + description + "\"";
-                        }
-
-                        System.out.print(functionName + ": " + description + ", ");
-
-                        String functionCategories = (String) docsFold.getAttributes().get("categories");
-                        String[] categoryNames = functionCategories.split(";");
-                        String categories = "";
-
-                        int categoryIndex = 0;
-                        String functionCategoryName = "";
-
-                        for (String categoryName : categoryNames) {
-                            if (categoryIndex == 0) {
-                                //functionCategoriesFile.write(categoryName + ",");
-                                functionCategoryName = categoryName;
-
-                            } else {
-                                categories = categories + categoryName + ",";
-                            }
-                            categoryIndex++;
-                        }//end for.
-
-                        //functionCategoriesFile.write(functionName + ",");
-
-
-                        //functionCategoriesFile.write(description);
-
-
-                        if (!categories.equalsIgnoreCase("")) {
-                            categories = categories.substring(0, categories.length() - 1);
-                            //functionCategoriesFile.write("," + categories);
-
-                        }
-                        //functionCategoriesFile.write("\n");
-                        if (functionCategoryName.equalsIgnoreCase("")) {
-                            functionCategoryName = "Uncategorized";  //todo:tk:perhaps we should throw an exception here.
-                        }
-
-                        if (docsFold.getAttributes().containsKey("access")) {
-                            access = (String) docsFold.getAttributes().get("access");
-                        }
-
-                        CategoryEntry categoryEntry = new CategoryEntry(functionCategoryName, functionName, access, description, categories);
-
-                        functionCategoriesList.add(categoryEntry);
-
-                    } else {
-                        System.out.print(functionName + ": **** Uncategorized ****, ");
-                    }
+                    documentationOutputIndexFile.write(endOfContentsOffset + "\n");
                 }//end for.
+                
+                documentationOffset = documentationOffset + contents.length();
+
+                byte[] separator = "\n==========\n".getBytes();
+                documentationOutputFile.write(separator, 0, separator.length);
+
+                documentationOffset = documentationOffset + separator.length;
+
+                String access = "public";
+
+                if (docsFold.getAttributes().containsKey("categories")) {
+
+
+                    int commandIndex = contents.indexOf("*CMD");
+                    if (commandIndex == -1) {
+                        throw new Exception("Missing *CMD tag.");
+                    }
+                    String descriptionLine = contents.substring(commandIndex, contents.indexOf("\n", commandIndex));
+                    String description = descriptionLine.substring(descriptionLine.lastIndexOf("--") + 2);
+                    description = description.trim();
+
+                    if (description.contains(",")) {
+                        description = "\"" + description + "\"";
+                    }
+
+                    System.out.print(functionNamesString + ": " + description + ", ");
+
+                    String functionCategories = (String) docsFold.getAttributes().get("categories");
+                    String[] categoryNames = functionCategories.split(";");
+                    String categories = "";
+
+                    int categoryIndex = 0;
+                    String functionCategoryName = "";
+
+                    for (String categoryName : categoryNames) {
+                        if (categoryIndex == 0) {
+                            //functionCategoriesFile.write(categoryName + ",");
+                            functionCategoryName = categoryName;
+
+                        } else {
+                            categories = categories + categoryName + ",";
+                        }
+                        categoryIndex++;
+                    }//end for.
+
+                    //functionCategoriesFile.write(functionName + ",");
+
+
+                    //functionCategoriesFile.write(description);
+
+
+                    if (!categories.equalsIgnoreCase("")) {
+                        categories = categories.substring(0, categories.length() - 1);
+                        //functionCategoriesFile.write("," + categories);
+
+                    }
+                    //functionCategoriesFile.write("\n");
+                    if (functionCategoryName.equalsIgnoreCase("")) {
+                        functionCategoryName = "Uncategorized";  //todo:tk:perhaps we should throw an exception here.
+                    }
+
+                    if (docsFold.getAttributes().containsKey("access")) {
+                        access = (String) docsFold.getAttributes().get("access");
+                    }
+
+                    for(String functionName: functionNames)
+                    {
+                	CategoryEntry categoryEntry = new CategoryEntry(functionCategoryName, functionName, access, description, categories);
+                	
+                	functionCategoriesList.add(categoryEntry);
+                    }
+
+                } else {
+                    System.out.print(functionNamesString + ": **** Uncategorized ****, ");
+                }
             }
             else
             {
@@ -815,7 +846,7 @@ public class Build {
         	testsJavaFile.write("        userFunctionsTestsMap.put(\"" + nameAttribute + "\"," + "testString" + ");\n");
         	break;
             case DOCS:
-        	testsJavaFile.write("        documentationExamplesTestsMap.put(\"" + nameAttribute + "\"," + "testString" + ");\n");
+        	testsJavaFile.write("        documentationExamplesTestsMap.put(\"" + nameAttribute + "Docs\"," + "testString" + ");\n");
             }
             
             
