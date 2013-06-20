@@ -4,7 +4,7 @@ RulebaseHoldArguments("->",[_left,_right]);
 
 HoldArgument("->","left");
 
-//HoldArgument("->","right");
+HoldArgument("->","right");
 
 %/mathpiper
 
@@ -12,17 +12,16 @@ HoldArgument("->","left");
 
 
 %mathpiper_docs,name="->",categories="Operators"
-*CMD -> --- options operator
+*CMD -> --- an association operator
 *CALL
-        option -> value
+        expression1 -> expression2
 
 *PARMS
-[option] -- an option name
+{expression1} -- an expression
 
-[value] -- the value to associate with the option
+{expression2} -- an expression
 
 *DESC
-The -> operator is used to create options.  [option] and [value]
-need to be placed in quotes if they are not meant to be evaluated.
+The -> operator is used to associate two expressions.
 
 %/mathpiper_docs
