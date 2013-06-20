@@ -57,9 +57,9 @@ public class TestSuite {
     private static long elapsedTime;
 
     private static enum TestType {
-        ALL, NONE, SOME, EXCEPT
+        ALL, NONE, SOME, EXCEPT, DOCSONLY, DOCSNONE
     }
-    private static TestType testType = TestType.ALL;
+    private static TestType testType = TestType.DOCSNONE;
 
     public TestSuite() {
         super();
@@ -70,23 +70,34 @@ public class TestSuite {
     }//end constructor.
 
     private ArrayList getKeyArray() {
-        Set builtinFunctionsKeySet = tests.getBuiltInFunctionsMap().keySet();
+	
+	ArrayList testsKeyArray = new ArrayList();
+	
+	if(testType != TestType.DOCSONLY)
+	{
+            Set builtinFunctionsKeySet = tests.getBuiltInFunctionsMap().keySet();
+            ArrayList builtinKeyArray = new ArrayList(builtinFunctionsKeySet);
+            Collections.sort(builtinKeyArray, String.CASE_INSENSITIVE_ORDER);
+            testsKeyArray.addAll(builtinKeyArray);
+    
+    
+            Set userFunctionsKeySet = tests.getUserFunctionsMap().keySet();
+            ArrayList userKeyArray = new ArrayList(userFunctionsKeySet);
+            Collections.sort(userKeyArray, String.CASE_INSENSITIVE_ORDER);
+            testsKeyArray.addAll(userKeyArray);
+	}
+        
 
-        ArrayList builtInKeyArray = new ArrayList(builtinFunctionsKeySet);
+	if(testType != TestType.DOCSNONE)
+	{
+            Set documentationExamplesKeySet = tests.getdocumentationExamplesTestsMap().keySet();
+            ArrayList documentationExamplesKeyArray = new ArrayList(documentationExamplesKeySet);
+            Collections.sort(documentationExamplesKeyArray, String.CASE_INSENSITIVE_ORDER);
+            testsKeyArray.addAll(documentationExamplesKeyArray);
+	}
+        
 
-        Collections.sort(builtInKeyArray, String.CASE_INSENSITIVE_ORDER);
-
-
-        Set userFunctionsKeySet = tests.getUserFunctionsMap().keySet();
-
-        ArrayList userKeyArray = new ArrayList(userFunctionsKeySet);
-
-        Collections.sort(userKeyArray, String.CASE_INSENSITIVE_ORDER);
-
-
-        builtInKeyArray.addAll(userKeyArray);
-
-        return builtInKeyArray;
+        return testsKeyArray;
     }
 
     public void test() {
@@ -187,7 +198,7 @@ public class TestSuite {
             logFile.close();
 
         } catch (Throwable e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             System.out.flush();
             System.err.flush();
 
@@ -200,6 +211,10 @@ public class TestSuite {
 
         if (testScriptArray == null) {
             testScriptArray = (String[]) tests.getUserFunctionsMap().get(testName);
+        }
+        
+        if (testScriptArray == null) {
+            testScriptArray = (String[]) tests.getdocumentationExamplesTestsMap().get(testName);
         }
 
         if (testScriptArray == null) {
@@ -413,7 +428,10 @@ public class TestSuite {
                                 + "-f <file name> (Specifies the name and path of the log file.)\n"
                                 + "-t (Include a stack trace when an exception is thrown.)\n"
                                 + "-p (Print each test just before it is evaluated.)\n"
-                        	+ "-n (Print the name of a function when it is loaded.)\n";
+                        	+ "-n (Print the name of a function when it is loaded.)\n"
+                        	+ "-o (Run only documentation examples tests.)\n"
+                        	+ "-d (Run all tests except documentation examples tests.)\n"
+                        	+ "-h (This help message.)\n";
 
                         System.out.println(usageMessage);
 
@@ -433,6 +451,12 @@ public class TestSuite {
                         continue;
                     case 'n':
                         testSuite.setPrintFunctionLoad(true);
+                        continue;
+                    case 'o':
+                	testType = TestType.DOCSONLY;
+                        continue;
+                    case 'd':
+                        testType = TestType.DOCSNONE;
                         continue;
                     default:
                         if (argumentErrorCount < argumentErrors.length) {
@@ -491,6 +515,16 @@ public class TestSuite {
             switch (testType) {
                 case ALL:
                     testTypeMessage = "Running all tests.";
+                    testSuite.test();
+                    break;
+                    
+                case DOCSNONE:
+                    testTypeMessage = "Running all tests except for documentation examples tests.";
+                    testSuite.test();
+                    break;
+                    
+                case DOCSONLY:
+                    testTypeMessage = "Running only documentation examples tests.";
                     testSuite.test();
                     break;
 

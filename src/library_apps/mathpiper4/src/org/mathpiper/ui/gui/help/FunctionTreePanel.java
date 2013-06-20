@@ -1004,7 +1004,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
                 html.append("\n");
             }
-            else if (line.startsWith("*E.G."))
+            else if (line.startsWith("*E.G.") || line.startsWith("*Examples"))
             {
                 html.append("<h4>\nExamples:\n</h4>\n<table cellpadding=\"0\" width=\"100%\">\n<tr><td width=100% bgcolor=\"#DDDDEE\"><pre>");
 
