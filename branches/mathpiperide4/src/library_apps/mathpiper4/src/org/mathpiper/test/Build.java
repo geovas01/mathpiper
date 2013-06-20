@@ -30,6 +30,10 @@ public class Build {
 
     private boolean strip = false; //Set to false to have unaltered scripts placed into Scripts.java.
     
+    private enum TESTTYPE {
+	    BUILTIN,SCRIPTS,DOCS
+	}
+    
     private java.io.File scriptsDir;
     //private java.io.FileWriter packagesFile;
     private java.io.FileWriter scriptsJavaFile;
@@ -116,9 +120,11 @@ public class Build {
                 + "\n"
                 + "    private HashMap userFunctionsTestsMap = null;\n\n"
                 + "    private HashMap builtInFunctionsTestsMap = null;\n\n"
+                + "    private HashMap documentationExamplesTestsMap = null;\n\n"
                 + "    public Tests() {\n\n"
                 + "        userFunctionsTestsMap = new HashMap();\n\n"
                 + "        builtInFunctionsTestsMap = new HashMap();\n\n"
+                + "        documentationExamplesTestsMap = new HashMap();\n\n"
                 + "        String[] testString;\n\n";
         testsJavaFile.write(topOfClass);
 
@@ -294,6 +300,16 @@ public class Build {
                 + "    {\n"
                 + "        return builtInFunctionsTestsMap;\n"
                 + "    }\n"
+                + "\n"
+                + "    public String[] getdocumentationExamplesTestsScript(String testName)\n"
+                + "    {\n"
+                + "        return (String[]) documentationExamplesTestsMap.get(testName);\n"
+                + "    }\n"
+                + "\n"
+                + "    public Map getdocumentationExamplesTestsMap()\n"
+                + "    {\n"
+                + "        return documentationExamplesTestsMap;\n"
+                + "    }\n"
                 + "}\n";
         testsJavaFile.write(bottomOfClass);
         testsJavaFile.close();
@@ -375,7 +391,7 @@ public class Build {
 
                     if (subTypeAttribute.equalsIgnoreCase("automatic_test")) {
 
-                        processAutomaticTestFold(fold, mpwFile.getPath(),false);
+                        processAutomaticTestFold(fold, mpwFile.getPath(),TESTTYPE.SCRIPTS);
 
                     } else {
 
@@ -478,7 +494,7 @@ public class Build {
                 //System.out.println("        **** Contains docs *****");
                 hasDocs = true;
 
-                processMathPiperDocsFold(fold, mpwFilePath);
+                processMathPiperDocsFold(folds, fold, mpwFilePath);
             }
             else if (foldType.equalsIgnoreCase("%html") && fold.getAttributes().containsKey("subtype") && ((String)fold.getAttributes().get("subtype")).equals("license")) {
                 //System.out.println("        **** Contains docs *****");
@@ -499,19 +515,37 @@ public class Build {
         }
     }//end method.
 
-    private void processMathPiperDocsFold(Fold fold, String mpwFilePath) throws Throwable {
+    private void processMathPiperDocsFold(List<Fold> folds, Fold docsFold, String mpwFilePath) throws Throwable {
         if (documentationOutputFile != null) {
 
             String functionNamesString = "";
             
-            if (fold.getAttributes().containsKey("name")) {
+            if (docsFold.getAttributes().containsKey("name")) {
         	
-                functionNamesString = (String) fold.getAttributes().get("name");
+                functionNamesString = (String) docsFold.getAttributes().get("name");
 
                 if(functionNamesString.equals(""))
                 {
                     System.out.print("*** UNNAMED IN DOCUMENTATION ***");
                     return;
+                }
+                
+                
+              
+                for(Fold fold: folds)
+                {
+                    if(fold.getType().equalsIgnoreCase("%mathpiper"))
+                    {
+                	if (fold.getAttributes().containsKey("subtype")) 
+                	{
+                	    String subTypeAttribute = (String) fold.getAttributes().get("subtype");
+
+                	    if(subTypeAttribute.equalsIgnoreCase("in_prompts"))
+                	    {
+                		this.processAutomaticTestFold(fold, mpwFilePath, TESTTYPE.DOCS);
+                	    }
+                	}
+                    }
                 }
 
 
@@ -530,7 +564,11 @@ public class Build {
                     documentationOutputIndexFile.write(functionName + ",");
                     documentationOutputIndexFile.write(documentationOffset + ",");
 
-                    String contents = fold.getContents();
+                    String contents = docsFold.getContents();
+                    
+                    
+                    //Handle *E.G. replacement here.
+                    
 
                     contents = contents + "\n*SOURCE " + mpwFilePath;
 
@@ -549,7 +587,7 @@ public class Build {
 
                     String access = "public";
 
-                    if (fold.getAttributes().containsKey("categories")) {
+                    if (docsFold.getAttributes().containsKey("categories")) {
 
 
                         int commandIndex = contents.indexOf("*CMD");
@@ -566,7 +604,7 @@ public class Build {
 
                         System.out.print(functionName + ": " + description + ", ");
 
-                        String functionCategories = (String) fold.getAttributes().get("categories");
+                        String functionCategories = (String) docsFold.getAttributes().get("categories");
                         String[] categoryNames = functionCategories.split(";");
                         String categories = "";
 
@@ -600,8 +638,8 @@ public class Build {
                             functionCategoryName = "Uncategorized";  //todo:tk:perhaps we should throw an exception here.
                         }
 
-                        if (fold.getAttributes().containsKey("access")) {
-                            access = (String) fold.getAttributes().get("access");
+                        if (docsFold.getAttributes().containsKey("access")) {
+                            access = (String) docsFold.getAttributes().get("access");
                         }
 
                         CategoryEntry categoryEntry = new CategoryEntry(functionCategoryName, functionName, access, description, categories);
@@ -729,7 +767,7 @@ public class Build {
     
     
     
-    private void processAutomaticTestFold(Fold fold, String filePath, boolean builtin) throws Throwable {
+    private void processAutomaticTestFold(Fold fold, String filePath, TESTTYPE testType) throws Throwable {
 
         String foldContents = fold.getContents();
 
@@ -747,16 +785,40 @@ public class Build {
             //foldContents =  ("Testing(\\\"" + nameAttribute + "\\\");" + foldContents);
             testsJavaFile.write("\n        testString = new String[3];");
             testsJavaFile.write("\n        testString[0] = \"" + fold.getStartLineNumber() + "\";");
+            
+            if(testType == TESTTYPE.DOCS)
+            {
+        	StringBuilder sb = new StringBuilder();
+        	String[] expressions = foldContents.trim().split(";");
+        	for(String expression: expressions)
+        	{
+        	    String[] arguments = expression.trim().split("->");
+        	    
+        	    if(arguments.length == 2)
+        	    {
+        		sb.append("Verify(" + arguments[0] + "," + arguments[1] + ");\\n");
+        	    }
+        	}
+        	
+        	foldContents = sb.toString();
+            }
+            
             testsJavaFile.write("\n        testString[1] = \"" + foldContents + "\";");
             testsJavaFile.write("\n        testString[2] = \"" + filePath + "\";\n");
-            if(builtin)
+            
+            switch(testType)
             {
-                testsJavaFile.write("        builtInFunctionsTestsMap.put(\"" + nameAttribute + "\"," + "testString" + ");\n");
+            case BUILTIN:
+        	testsJavaFile.write("        builtInFunctionsTestsMap.put(\"" + nameAttribute + "\"," + "testString" + ");\n");
+        	break;
+            case SCRIPTS:
+        	testsJavaFile.write("        userFunctionsTestsMap.put(\"" + nameAttribute + "\"," + "testString" + ");\n");
+        	break;
+            case DOCS:
+        	testsJavaFile.write("        documentationExamplesTestsMap.put(\"" + nameAttribute + "\"," + "testString" + ");\n");
             }
-            else
-            {
-                testsJavaFile.write("        userFunctionsTestsMap.put(\"" + nameAttribute + "\"," + "testString" + ");\n");
-            }
+            
+            
 
         } else {
             throw new Exception("The following test code has no name: " + foldContents);
@@ -892,7 +954,7 @@ public class Build {
                         hasDocs = true;
 
 
-                        processMathPiperDocsFold(fold, javaFile.getPath());
+                        processMathPiperDocsFold(folds, fold, javaFile.getPath());
 
                     } else if (foldType.equalsIgnoreCase("%mathpiper")) {
                         if (fold.getAttributes().containsKey("scope")) {
@@ -909,7 +971,7 @@ public class Build {
 
 
                             if (subTypeAttribute.equalsIgnoreCase("automatic_test")) {
-                                this.processAutomaticTestFold(fold, javaFile.getPath(),true);
+                                this.processAutomaticTestFold(fold, javaFile.getPath(),TESTTYPE.BUILTIN);
                             }//end if.
                         }//end if.
                     }//end else.

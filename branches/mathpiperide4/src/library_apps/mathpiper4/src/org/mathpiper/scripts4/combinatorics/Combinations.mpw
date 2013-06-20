@@ -55,6 +55,14 @@ Result: 210;
 
 
 
+%mathpiper,name="Combinations",subtype="in_prompts"
+
+Combinations(10, 4) -> 210;
+
+BinomialCoefficient(10, 4) -> 210;
+
+%/mathpiper
+
 
 
 %mathpiper,name="BinomialCoefficient",subtype="automatic_test"
