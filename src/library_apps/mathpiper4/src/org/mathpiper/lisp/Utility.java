@@ -381,7 +381,7 @@ public class Utility {
 
     public static boolean isSublist(Cons aPtr) throws Throwable {
 	/**
-	 * todo:tk: I am currently not sure why non nested lists are not
+	 * todo:tk: I am currently not sure why non-nested lists are not
 	 * supported in Yacas.
 	 */
 	if (aPtr == null) {

@@ -49,11 +49,11 @@ if "r" is negative or greater than "n"; {BinomialCoefficient(0,0)}=1.
 
 
 
-%mathpiper,name="Combinations",subtype="in_prompts"
+%mathpiper,name="Combinations;BinomialCoefficient",subtype="in_prompts"
 
-Combinations(10, 4) -> 210;
+Combinations(10, 4) -> 210
 
-BinomialCoefficient(10, 4) -> 210;
+BinomialCoefficient(10, 4) -> 210
 
 %/mathpiper
 
@@ -64,3 +64,4 @@ BinomialCoefficient(10, 4) -> 210;
 Verify(BinomialCoefficient(0,0),1 );
 
 %/mathpiper
+

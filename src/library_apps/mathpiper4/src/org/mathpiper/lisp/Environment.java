@@ -478,7 +478,13 @@ public final class Environment {
 		if (!key.startsWith("$") && !key.equals("I") && !key.equals("%") && !key.equals("geogebra")) {
 		    // Do not unassign private variables (which are those which
 		    // start with a $) or the other listed variables.
-		    iGlobalState.remove(key);
+		    
+		    GlobalVariable globalVariable = iGlobalState.get(key);
+		    
+		    if(! globalVariable.iConstant)
+		    {
+			iGlobalState.remove(key);
+		    }
 		}
 	    }
 	} else {
