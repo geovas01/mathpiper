@@ -263,6 +263,7 @@
                 <exclude name="org/mathpiper/builtin/functions/optional/" />
                 <exclude name="org/mathpiper/builtin/functions/plugins/" />
                 <exclude name="org/mathpiper/builtin/library/" />
+                <exclude name="org/mathpiper/io/CachedStandardFileInputStream.java" />
 
                 <include name="org/mathpiper/exceptions/" />
 
