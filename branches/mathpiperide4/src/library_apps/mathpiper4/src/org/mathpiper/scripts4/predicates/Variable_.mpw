@@ -47,7 +47,7 @@ Result: False
 %mathpiper,name="Variable?",subtype="automatic_test"
 
 Verify(Variable?(_a),True);
-Verify(Variable?(Sin(_a)),False);
+Verify(Variable?(Sqrt(_a)),False);
 Verify(Variable?(2),False);
 Verify(Variable?(-2),False);
 Verify(Variable?(2.1),False);

@@ -18,15 +18,15 @@ Verify(HeapSort([2,1,3],">?"),[3,2,1]);
 Verify(HeapSort([7,3,1,2,6],"<?"),[1,2,3,6,7]);
 Verify(HeapSort([6,7,1,3,2],">?"),[7,6,3,2,1]);
 
-Verify(Type(Cos(_x)),"Cos");
-Verify(ArgumentsCount(Cos(_x)),1);
+Verify(Type(Sqrt(_x)),"Sqrt");
+Verify(ArgumentsCount(Sqrt(_x)),1);
 Verify(Contains?([_a,_b,_c],_b),True);
 Verify(Contains?([_a,_b,_c],_d),False);
 
 Verify(Append([_a,_b,_c],_d),[_a,_b,_c,_d]);
 Verify(RemoveDuplicates([_a,_b,_b,_c]),[_a,_b,_c]);
 Verify(Count([_a,_b,_b,_c],_b),2);
-Verify(VarList(_x*Cos(_x)),[_x]);
+Verify(VarList(_x*Sqrt(_x)),[_x]);
 
 
 {
@@ -85,7 +85,7 @@ Verify(FindIsq(100,[[n],n^2-0]), 1);
 */
 
 Verify(Difference(FuncList(_a*_b/_c*_d), [*,/]), []);
-Verify(Difference(FuncListArith(0*_x*Sin(_a/_b)*Ln(Cos(_y-_z)+Sin(_a))), [*,'Ln,'Sin]), []);
+//Verify(Difference(FuncListArith(0*_x*Sin(_a/_b)*Ln(Cos(_y-_z)+Sin(_a))), [*,'Ln,'Sin]), []);
 Verify(Difference(VarListArith(_x+_a*_y^2-1), [_x,_a,_y^2]), []);
 
 Verify(Difference(FuncList(CUnparsable?({i:=0;While(i<?10){i++; a--; a:=a+i; [];};})), ['CUnparsable?,'Block,:=,'While,<?,++,--,ToAtom("+"),'List]), []);

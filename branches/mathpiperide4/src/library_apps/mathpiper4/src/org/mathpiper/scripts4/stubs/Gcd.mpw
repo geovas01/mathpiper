@@ -32,12 +32,14 @@
 
 20 # Gcd(list_List?)::(Length(list)=?2) <-- Gcd(list[1],list[2]);
 
+/*
 30 # Gcd(n_CanBeUni,m_CanBeUni)::(Length(VarList(n*m))=?1) <--
 {
   Local(vars);
   vars:=VarList(n+m);
   NormalForm(Gcd(MakeUni(n,vars),MakeUni(m,vars)));
 };
+*/
 
 100 # Gcd(n_Constant?,m_Constant?) <-- 1;
 110 # Gcd(_m,_n) <--
@@ -46,6 +48,7 @@
 };
 
 
+/*
 //Note:tk:moved here from univar.rep.
 0 # Gcd(n_UniVar?,m_UniVar?)::
     (n[1] =? m[1] And? Degree(n) <? Degree(m)) <-- Gcd(m,n);
@@ -57,7 +60,7 @@
                 UniGcd(Concat(ZeroVector(nn[2]),nn[3]),
                        Concat(ZeroVector(mm[2]),mm[3])));
 };
-
+*/
 %/mathpiper
 
 

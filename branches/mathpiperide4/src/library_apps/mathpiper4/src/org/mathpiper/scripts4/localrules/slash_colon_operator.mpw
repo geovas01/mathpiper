@@ -105,8 +105,8 @@ Hold((a + b) * (1 + 2) * (2 + 1) * (1/2 + c) * (3/4 + d) ) /:
 
 %mathpiper,name="/:",subtype="automatic_test"
 
-RulebaseHoldArguments("sin", [_x]);
-Verify(_a[2]*Sin(_x)/:[Sin(_x) <- sin(_x)],_a[2]*sin(_x));
-Retract("sin", *);
+RulebaseHoldArguments("sqrt", [_x]);
+Verify(_a[2]*Sqrt(_x)/:[Sqrt(_x) <- sqrt(_x)],_a[2]*sqrt(_x));
+Retract("sqrt", *);
 
 %/mathpiper

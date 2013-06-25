@@ -118,11 +118,11 @@ SumFunc(_k,0,_n,(r_FreeOf?(k))^(_k), (1-r^(n+1))/(1-r) );
 SumFunc(_k,1,Infinity,1/(_k^_d), Zeta(d), FreeOf?(k,d) );
 SumFunc(_k,1,Infinity,_k^(-_d), Zeta(d), FreeOf?(k,d) );
 
-SumFunc(_k,0,Infinity,_x^(2*_k+1)/(2*_k+1)!,Sinh(x) );
-SumFunc(_k,0,Infinity,(-1)^k*_x^(2*_k+1)/(2*_k+1)!,Sin(x) );
-SumFunc(_k,0,Infinity,_x^(2*_k)/(2*_k)!,Cosh(x) );
-SumFunc(_k,0,Infinity,(-1)^k*_x^(2*_k)/(2*_k)!,Cos(x) );
-SumFunc(_k,0,Infinity,_x^(2*_k+1)/(2*_k+1),ArcTanh(x) );
+//SumFunc(_k,0,Infinity,_x^(2*_k+1)/(2*_k+1)!,Sinh(x) );
+//SumFunc(_k,0,Infinity,(-1)^k*_x^(2*_k+1)/(2*_k+1)!,Sin(x) );
+//SumFunc(_k,0,Infinity,_x^(2*_k)/(2*_k)!,Cosh(x) );
+//SumFunc(_k,0,Infinity,(-1)^k*_x^(2*_k)/(2*_k)!,Cos(x) );
+//SumFunc(_k,0,Infinity,_x^(2*_k+1)/(2*_k+1),ArcTanh(x) );
 SumFunc(_k,0,Infinity,1/(_k)!,Exp(1) );
 SumFunc(_k,0,Infinity,_x^_k/(_k)!,Exp(x) );
 40 # Sum(_var,_from,Infinity,_expr)::( `(Limit(@var,Infinity)(@expr)) =? Infinity) <-- Infinity;

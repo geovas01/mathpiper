@@ -11,7 +11,7 @@
 100 # _x + _x   <-- 2*x;
 100 # _x + n_Constant?*(_x)   <-- (n+1)*x;
 100 # n_Constant?*(_x) + _x   <-- (n+1)*x;
-100 # Sinh(_x)+Cosh(_x)                <-- Exp(x);
+//100 # Sinh(_x)+Cosh(_x)                <-- Exp(x);
 
 101 # _x + - _y <-- x-y;
 101 # _x + (- _y)/(_z) <-- x-(y/z);

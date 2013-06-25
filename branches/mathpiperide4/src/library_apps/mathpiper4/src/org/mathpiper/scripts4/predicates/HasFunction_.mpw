@@ -53,7 +53,7 @@ Result: False;
 %mathpiper,name="HasFunction?",subtype="automatic_test"
 
 Verify(HasFunction?(_a*_b+1,*),True);
-Verify(HasFunction?(_a+Sin(_b*_c),*),True);
+Verify(HasFunction?(_a+Sqrt(_b*_c),*),True);
 Verify(HasFunction?(_a*_b+1,'List),False);
 
 RulebaseHoldArguments("f",[_a]);

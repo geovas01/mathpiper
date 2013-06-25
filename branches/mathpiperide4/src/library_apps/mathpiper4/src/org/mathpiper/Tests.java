@@ -10,14 +10,24 @@ public class Tests {
 
     private HashMap builtInFunctionsTestsMap = null;
 
+    private HashMap documentationExamplesTestsMap = null;
+
     public Tests() {
 
         userFunctionsTestsMap = new HashMap();
 
         builtInFunctionsTestsMap = new HashMap();
 
+        documentationExamplesTestsMap = new HashMap();
+
         String[] testString;
 
+
+        testString = new String[3];
+        testString[0] = "83";
+        testString[1] = "Verify(AbsN(-1) , 1);\nUnassign(*);\n";
+        testString[2] = "/org/mathpiper/builtin/functions/core/Abs.java";
+        documentationExamplesTestsMap.put("AbsNDocs",testString);
 
         testString = new String[3];
         testString[0] = "151";
@@ -75,7 +85,7 @@ public class Tests {
 
         testString = new String[3];
         testString[0] = "99";
-        testString[1] = "\n// FunctionToList and ListToFunction coredumped when their arguments were invalid.\nVerify(FunctionToList(Cos(_x)),'[Cos,_x]);\n\n{\n  Local(exception);\n\n  exception := False;\n  ExceptionCatch(FunctionToList(1.2), exception := ExceptionGet());\n  Verify(exception =? False, False);\n};\n\n";
+        testString[1] = "\n// FunctionToList and ListToFunction coredumped when their arguments were invalid.\nVerify(FunctionToList(Sqrt(_x)),'[Sqrt,_x]);\n\n{\n  Local(exception);\n\n  exception := False;\n  ExceptionCatch(FunctionToList(1.2), exception := ExceptionGet());\n  Verify(exception =? False, False);\n};\n\n";
         testString[2] = "/org/mathpiper/builtin/functions/core/FunctionToList.java";
         builtInFunctionsTestsMap.put("FunctionToList",testString);
 
@@ -111,7 +121,7 @@ public class Tests {
 
         testString = new String[3];
         testString[0] = "110";
-        testString[1] = "\n// FunctionToList and ListToFunction coredumped when their arguments were invalid.\nVerify(ListToFunction('[Cos,_x]),Cos(_x));\n\n{\n  Local(exception);\n \n  exception := False;\n  ExceptionCatch(ListToFunction(1.2), exception := ExceptionGet());\n  Verify(exception =? False, False);\n};\n\n";
+        testString[1] = "\n// FunctionToList and ListToFunction coredumped when their arguments were invalid.\nVerify(ListToFunction('[Sqrt,_x]),Sqrt(_x));\n\n{\n  Local(exception);\n \n  exception := False;\n  ExceptionCatch(ListToFunction(1.2), exception := ExceptionGet());\n  Verify(exception =? False, False);\n};\n\n";
         testString[2] = "/org/mathpiper/builtin/functions/core/ListToFunction.java";
         builtInFunctionsTestsMap.put("ListToFunction",testString);
 
@@ -182,10 +192,22 @@ public class Tests {
         builtInFunctionsTestsMap.put("XmlExplodeTag",testString);
 
         testString = new String[3];
-        testString[0] = "1";
-        testString[1] = "\n/* Numerical testers - all confirmed with various programs */\nTesting(\" *** TESTING NUMERICS *** \");\n\nBuiltinPrecisionSet(10);   //Echo(\"BIP set to \",10);\nNumericEqual(NM(Sqrt(2),6), 1.41421,6);\nNumericEqual(NM(NM(1+Pi,20)-Pi,20),1,20);     \n// Should \"NM\" have \"HoldArgument\" in some way, so inner \"NM\" is \n// evaluated with outer precision 20?\n\nTesting(\"Pi\");\n/* \n   Got the first digits of Pi from the following page:\n   http://www.cecm.sfu.ca/projects/ISC/dataB/isc/C/pi10000.txt\n   Just checking that MathPiper agrees.\n   First, however, we need to set BuiltinPrecision way higher than 10 !!\n*/\nBuiltinPrecisionSet(90);//Echo(\"BIP set to \",90);\n\n\nNumericEqual(\nRoundToPrecision(NM(Pi), 50)\n, 3.14159265358979323846264338327950288419716939937511\n, 50);\nNumericEqual(NM(Pi,70),3.141592653589793238462643383279502884197169399375105820974944592307816,70);\nBuiltinPrecisionSet(10);//Echo(\"BIP set to \",10);\n\nTesting(\"Trig, Hyperbolic, Log, and Exp functions\");\nNumericEqual( NM(Sec(2),10), -2.402997962, 9);\nNumericEqual( NM(Csc(2),9),  1.09975017,9);\nNumericEqual( NM(Cot(2),9), -0.457657554, 9);\nNumericEqual( NM(Sinh(2),10), 3.626860408,10); \n    // matter of discussion whether rounding should be to nearest\n\nNumericEqual( NM(ArcSin(2), 9), Complex(1.570796327,1.316957897),9);\nNumericEqual( NM(ArcCos(2),9), Complex(0,-1.316957897),9);\nNumericEqual( NM(ArcTan(2*I), 12), NM(Complex(1.5707963267950,0.54930614433405),12),11); \n    // calculating to precision+1 because RoundToPrecision rounds... cluttering the last digit with round-off\nNumericEqual( NM(ArcSinh(2), 10), 1.443635475,9);\nNumericEqual( NM(ArcCosh(2), 10), 1.316957897,9);\nNumericEqual( NM(ArcCosh(-2), 8), Complex(-1.3169579,3.14159265),8);\nNumericEqual( NM(ArcTanh(2), 9), Complex(0.549306144,1.570796327),9);\n\n/* more Numerical tests - all confirmed with Maple */\nBuiltinPrecisionSet(55);//Echo(\"BIP set to \",55);\n/*\n (hso,100311) BuiltinPrecisionSet MUST specify a value higher\n than any of the precisions to be used in tests below.\n Otherwise, false errors are reported.  I have changed\n the value from 50 to 55, to satisfy this requirement.\n*/\nNumericEqual(\nRoundToPrecision(NM(Sin(2.0)), 49)\n, 0.9092974268256816953960198659117448427022549714479\n,48);\n\nNumericEqual(\nRoundToPrecision(NM(Sin(2.0)), 50)\n, 0.90929742682568169539601986591174484270225497144789\n,49);\n\nNumericEqual(\nRoundToPrecision(NM(Sin(2.0)), 51)\n, 0.90929742682568169539601986591174484270225497144789\n,50);\n\nNumericEqual(\nRoundToPrecision(NM(Cos(20.0)), 49)\n, 0.4080820618133919860622678609276449570992995103163\n, 48);\n\nNumericEqual(\nRoundToPrecision(NM(Tan(20.0)), 49)\n, 2.2371609442247422652871732477303491783724839749188\n, 48);  \n\nNumericEqual(\nRoundToPrecision(NM(Exp(10.32),54), 54)\n, 30333.2575962246035600343483350109621778376486335450125\n,48);   \n\nNumericEqual(\nRoundToPrecision(NM(Ln(10.32/4.07)), 50)\n, 0.93044076059891305468974486564632598071134270468002\n, 50);   \n\nNumericEqual(\nRoundToPrecision(NM(1.3^10.32), 48)\n, 14.99323664825717956473936947123246987802978985306\n, 48);\n\nNumericEqual(\nRoundToPrecision(NM(Sqrt(5.3),51), 51)\n, 2.302172886644267644194841586420201850185830282633675\n,51); \n\nNumericEqual(\nRoundToPrecision(NM(Sqrt(25.3)), 50)\n, 5.0299105359837166789719353820984438468186649281130\n,50);\n\nNumericEqual(\nRoundToPrecision(NM(PowerN(13, -23)), 50)\n, 0.23949855470974885180294666343025235387321690490245e-25\n, 50);\n\n\n/* todo:tk:commenting out for the minimal version of the scripts.\nTesting(\"Newton\");\nNumericEqual(\nRoundToPrecision({Local(x);x:=Newton(x*Exp(x)-4,x,1,10^(-49)); NM(x*Exp(x));}, 49)\n, 4\n,49);\n\nVerify(Newton(x^2+1,x,1,0.1,-3,3), Fail);\nNumericEqual(Newton(x^2-1,x,1,0.1,-3,3), 1,BuiltinPrecisionGet());\n*/\n\n\nTesting(\"Trig functions compounded with their Inverses\");\nNumericEqual(\nRoundToPrecision(NM(ArcSin(0.32)), 49)\n, 0.3257294872946301593103199105324500784354180998122808003\n,49);\n\nNumericEqual(\nRoundToPrecision(NM(Sin(NM(ArcSin(0.1234567)))), 49)\n, 0.1234567\n,49);\n\n/* ArcSin(x) for x close to 1 */\n\nNumericEqual(\nRoundToPrecision(NM( (1-Sin(NM(ArcSin(1-10^(-25)))))*10^25), 25)\n, 1\n, 25);\n\nNumericEqual(\nNM(ArcSin(NM(Sin(1.234567),50)),50)\n, NM(1.234567,50)\n, 49);  // calculating to precision+1 because RoundToPrecision rounds... cluttering the last digit with round-off\n\nNumericEqual(\nRoundToPrecision(NM(ArcCos(0.32)), 49)\n, 1.2450668395002664599210017811073013636631665998753\n, 49);\n\nNumericEqual(\nRoundToPrecision(NM(ArcTan(0.32)), 49)\n, 0.3097029445424561999173808103924156700884366304804\n, 49);\n\nNumericEqual(\nRoundToPrecision(NM(Cos(NM(ArcCos(0.1234567)))), 49)\n, 0.1234567\n, 49);\n\nNumericEqual(\nRoundToPrecision(NM(ArcCos(NM(Cos(1.234567)))), 49)\n, 1.234567\n, 49);\n\nNumericEqual(\nRoundToPrecision(NM(Tan(NM(ArcTan(20)))), 46)        // large roundoff error on Tan() calculation due to subtraction from Pi/2 -- unavoidable loss of precision\n, 20\n, 46);\n//KnownFailure(\nNumericEqual(\nRoundToPrecision(NM(Tan(NM(ArcTan(500000)))), 38)\n, 500000\n//)\n, 38);\n\nBuiltinPrecisionSet(60); //Echo(\"BIP set to \",60); // obviously, 50 is not enough for the following\n//KnownFailure(\nNumericEqual(\nRoundToPrecision(NM((Pi/2-ArcTan(NM(Tan(NM(Pi/2)-10^(-24)))))*10^24 ), 25)\n, 1\n//)\n, 25);\n\n/// special functions\nBuiltinPrecisionSet(50); //Echo(\"BIP set to \",50); // needs a pretty high value for Gamma\n\n\n/* todo:tk:commenting out for the minimal version of the scripts.\nTesting(\"Gamma function\");\nTestMathPiper(\nGamma(10.5)\n, (654729075*Sqrt(Pi))/1024\n);\n\nTestMathPiper(\nGamma(9/2)\n, (105*Sqrt(Pi))/16\n);\n\nTestMathPiper(\nGamma(-10.5)\n, (-2048*Sqrt(Pi))/13749310575\n);\n\nTestMathPiper(\nGamma(-7/2)\n, (16*Sqrt(Pi))/105\n);\n\nNumericEqual(RoundToPrecision(NM( InternalGammaNum(10.5) ), 13), 1133278.3889487855673, 13);\n\nKnownFailure(\nNumericEqual(RoundToPrecision(NM( InternalGammaNum(-11.5) ), 20), 0.00000002295758104824, 20)\n);\n// our gamma is wrong\n\nKnownFailure(\nNumericEqual(RoundToPrecision(NM( InternalGammaNum(-12.5) ), 20), -0.00000000183660648386, 20)\n);\n//our gamma is wrong\n\n// Check for one example that NM(Gamma(x)) returns the same as InternalGammaNum\nNumericEqual(RoundToPrecision(NM( Gamma(10.5) ), 13), 1133278.3889487855673, 13);\n\nTesting(\"Zeta function\");\nKnownFailure(\nNumericEqual(    \nRoundToPrecision(NM( Zeta(-11.5) ), 18), 0.020396978715942792,18)\n);\n\nTestMathPiper(\nZeta(40)\n, (261082718496449122051*Pi^40)/20080431172289638826798401128390556640625\n);\n\nTestMathPiper(\nZeta(-11)\n, 691/32760\n);\n\nTestMathPiper(\nZeta(-12)\n, 0\n);\n\nNumericEqual(\nRoundToPrecision(NM(Zeta(40)), 19)\n, 1.0000000000009094948\n,19);\n\nNumericEqual(\nRoundToPrecision(NM(Zeta(1.5)), 19)\n, 2.6123753486854883433\n,19);\n\n// test correctness of Zeta(3)\nNumericEqual(\nRoundToPrecision(InternalZetaNum(3)-NM(Zeta(3)), 20)\n, 0\n,20);\n\nTesting(\"Bernoulli number\");\nTestMathPiper(\nBernoulli(40)\n, -261082718496449122051/13530\n);\n\nTesting(\"Continued Fraction\");\nVerify(\nContFracList(355/113)\n, [3,7,16]\n);\n\nVerify(\nContFracList(-24, 4)\n, [-24]\n);\n\nVerify(\nContFracList(-355/113)\n, [-4,1,6,16]\n);\n\n\n/*\n//BuiltinPrecisionSet(7);//Echo(\"BIP set to \",7);\n\nVerify(\nNearRational(NM(Pi),3)\n, 201/64\n);\n\n/*\n  For the NearRational test, perhaps better would be a real test that\n  checks that the result is correct up to the required number of digits\n  accuracy.\n*/\nBuiltinPrecisionSet(10);//Echo(\"BIP set to \",10);\nVerify(\nNearRational(NM(Pi))\n, 355/113,\n);\n\n\n/* todo:tk:commenting out for the minimal version of the scripts.\n// Lambert's W function\nTesting(\"Lambert W function\");\nBuiltinPrecisionSet(20);\n\nNumericEqual(\nNM(RoundToPrecision(LambertW(-0.24),20)),-0.33576116478890275173,20);\n\nNumericEqual(\nNM(RoundToPrecision(LambertW(10),20)),1.7455280027406993831,20);\n\n// Bessel Functions\nTesting(\"Bessel functions\");\nBuiltinPrecisionSet(50);//Echo(\"BIP set to \",50);\nNumericEqual( NM(BesselJ(0,.5)), RoundToPrecision(.93846980724081290422840467359971262556892679709682,50),50 );\nNumericEqual( NM(BesselJ(0,.9)), RoundToPrecision(.80752379812254477730240904228745534863542363027564,50),50 );\nNumericEqual( NM(BesselJ(0,.99999)), RoundToPrecision(.76520208704756659155313775543958045290339472808482,50),50 );\nNumericEqual( NM(BesselJ(10,.75)), RoundToPrecision(.000000000014962171311759681469871248362168283485781647202136,50),50 );\nNumericEqual( NM(BesselJ(5,1)), RoundToPrecision(.00024975773021123443137506554098804519815836777698007,50),50 );\nNumericEqual( NM(BesselJ(4,2)), RoundToPrecision(.033995719807568434145759211288531044714832968346313,50),50 );\nNumericEqual( NM(BesselJ(10,3)), RoundToPrecision( .000012928351645715883777534530802580170743420832844164,50),50 );\n\nNumericEqual( NM(BesselJ(11,11)), RoundToPrecision( .20101400990926940339478738551009382430831534125484,50),50 );\nNumericEqual( NM(BesselJ(-11,11)), RoundToPrecision( -.20101400990926940339478738551009382430831534125484,50),50 );\nNumericEqual( RoundToPrecision(NM(BesselJ(1,10)),50), RoundToPrecision( .043472746168861436669748768025859288306272867118594, 50),50 );\nNumericEqual( NM(BesselJ(10,10)), RoundToPrecision( .20748610663335885769727872351875342803274461128682, 50 ),50 );\nNumericEqual( RoundToPrecision(NM(BesselJ(1,3.6)),50), RoundToPrecision( .095465547177876403845706744226060986019432754908851, 50 ),50) ;\n\nBuiltinPrecisionSet(20);//Echo(\"BIP set to \",20);\nVerify( RoundToPrecision(NM(Erf(Sqrt(0.8)),20),19),\nRoundToPrecision(.79409678926793169113034892342, 19)\n);\n\nVerify( RoundToPrecision(NM(Erf(50*I+20)/10^910,22),19),\nRoundToPrecision(1.09317119002909585408+I*0.00475463306931818955275, 19)\n);\n\n// testing GammaConstNum against Maple\nTesting(\"Gamma constant\");\nBuiltinPrecisionSet(41);//Echo(\"BIP set to \",41);\nNumericEqual(RoundToPrecision(Internalgamma(),40), 0.5772156649015328606065120900824024310422,BuiltinPrecisionGet());\nBuiltinPrecisionSet(20);//Echo(\"BIP set to \",20);\n\nVerify(gamma,ToAtom(\"gamma\"));\n\nNumericEqual(RoundToPrecision(Internalgamma()+0,19), 0.5772156649015328606,19);\n\nNumericEqual(RoundToPrecision(NM(1/2+gamma+Pi), 19), 4.2188083184913260991,19);\n\n// From GSL 1.0\n//NumericEqual( NM(PolyLog(2,-0.001),20), -0.00099975011104865108, 20 );\n// PolyLog I didn't write PolyLog, but it seems to not always calculate correctly up to the last digit.\nVerify( RoundToPrecision(NM(PolyLog(2,-0.001)+0.00099975011104865108,20),20),0);\n\n*/\n\n// Round-off errors\nNM({\n  Local(a,b);\n  a:= 77617;\n  b:= 33096;\n  // this expression gives a wrong answer on any hardware floating-point platform\n  NumericEqual( 333.75*b^6 + a^2*(11*a^2*b^2-b^6-121*b^4-2)+5.5*b^8 +a/(2*b), -0.827396,6);\n},40);\n\n";
-        testString[2] = "/org/mathpiper/scripts4/a_initialization/miscellaneous/numerics_tests.mpw";
-        userFunctionsTestsMap.put("numerics",testString);
+        testString[0] = "139";
+        testString[1] = "Verify(2*Infinity , Infinity);\nVerify(2 <? Infinity , True);\nUnassign(*);\n";
+        testString[2] = "/org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneousdocs.mpw";
+        documentationExamplesTestsMap.put("InfinityDocs",testString);
+
+        testString = new String[3];
+        testString[0] = "170";
+        testString[1] = "Verify(0*Infinity, Undefined);\nVerify(Sin(Infinity) , Undefined);\nVerify(Undefined+2*Exp(Undefined), Undefined);\nUnassign(*);\n";
+        testString[2] = "/org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneousdocs.mpw";
+        documentationExamplesTestsMap.put("UndefinedDocs",testString);
+
+        testString = new String[3];
+        testString[0] = "110";
+        testString[1] = "Verify((lst := [_a,_b,_c,13,19]) , [_a,_b,_c,13,19]);\nVerify(Nth(lst, 3) , _c);\nVerify(lst[3] , _c);\nVerify(Nth(lst, [3,4,1]) , [_c,13,_a]);\nVerify(Nth(_b*(_a+_c), 2) , _a+_c);\nUnassign(*);\n";
+        testString[2] = "/org/mathpiper/scripts4/a_initialization/standard/A_Nth.mpw";
+        documentationExamplesTestsMap.put("NthDocs",testString);
 
         testString = new String[3];
         testString[0] = "38";
@@ -207,7 +229,7 @@ public class Tests {
 
         testString = new String[3];
         testString[0] = "1";
-        testString[1] = "\nNextTest(\"Test arithmetic\");\n\nNextTest(\"Basic calculations\");\nVerify(3 + 2 , 5);\nVerify(3-7, -4);\nVerify(1 =? 2 , 0 =? -1);\nVerify(5 ^ 2 , 25);\n\nVerify(Zero?(0.000),True);\n\nVerify(2/5,Hold(2/5));\nVerify(Zero?(NM(2/5)-0.4),True);\nVerify(Rational?(2),True);\nVerify(Rational?(2/5),True);\nVerify(Rational?(-2/5),True);\nVerify(Rational?(2.0/5),False);\nVerify(Rational?(Pi/2),False);\nVerify(Numerator(2/5),2);\nVerify(Denominator(2/5),5);\n\nVerifyArithmetic(10,5,8);\nVerifyArithmetic(10000000000,5,8);\nVerifyArithmetic(10,50,80);\nVerifyArithmetic(10000,50,88);\n\nVerify(4!,24);\nVerify(BinomialCoefficient(2,1),2);\n\nNextTest(\"Testing math stuff\");\nVerify(1*_a,_a);\nVerify(_a*1,_a);\nVerify(0*_a,0);\nVerify(_a*0,0);\nVerify(_aa-_aa,0);\nVerify(0+_a,_a);\nVerify(_a+0,_a);\n\nVerify(2+3,5);\nVerify(2*3,6);\n\nVerify(2+3*4,14);\nVerify(3*4+2,14);\nVerify(3*(4+2),18);\nVerify((4+2)*3,18);\n\nVerify(15/5,3);\n\nVerify(-2+3,1);\nVerify(-2.01+3.01,1.);\n\n\nTesting(\"IntegerOperations\");\nVerify(1<<10,1024);\nVerify(1024>>10,1);\nVerify(Modulo(10,3),1);\nVerify(Quotient(10,3),3);\nVerify(GcdN(55,10),5);\n\nVerify(Modulo(2,Infinity),2);\nVerify(Modulo([0,1,2,3,4,5,6],2),[0,1,0,1,0,1,0]);\nVerify(Modulo([0,1,2,3,4,5,6],[2,2,2,2,2,2,2]),[0,1,0,1,0,1,0]);\n\nTesting(\"PowerN\");\n// was broken in the gmp version\nVerify(PowerN(19, 0), 1);\nVerify(PowerN(1, -1), 1);\nVerify(PowerN(1, -2), 1);\nVerify(Zero?(PowerN(10, -2)- 0.01),True);\nVerify(PowerN(2, 3), 8);\nNumericEqual(PowerN(2, -3), 0.125,BuiltinPrecisionGet());\n\nTesting(\"Rounding\");\nVerify(Floor(1.2),1);\nVerify(Floor(-1.2),-2);\nVerify(Ceil(1.2),2);\nVerify(Ceil(-1.2),-1);\nVerify(Round(1.49),1);\nVerify(Round(1.51),2);\nVerify(Round(-1.49),-1);\nVerify(Round(-1.51),-2);\n\nTesting(\"Bases\");\nVerify(ToBase(16,255),\"ff\");\nVerify(FromBase(2,\"100\"),4);\n\n// conversion between decimal and binary digits\nVerify(BitsToDigits(2000, 10), 602);\nVerify(DigitsToBits(602, 10), 2000);\n\nLocalSymbols(f,ft)\n{\n  f(x,y):=(Quotient(x,y)*y+Rem(x,y)-x);\n  ft(x,y):=\n  {\n    Verify(f(x,y),0);\n    Verify(f(-x,y),0);\n    Verify(f(x,-y),0);\n    Verify(f(-x,-y),0);\n  };\n  ft(10,4);\n  ft(2.5,1.2);\n};\n\n/* todo:tk:commenting out for the minimal version of the scripts.\nTesting(\"Factorization\");\nVerify(\nEval(Factors(447738843))\n, [[3,1],[17,1],[2729,1],[3217,1]]\n);\n*/\n\n//Exponential notation is now supported in the native arithmetic library too...\nVerify(2e3+1,2001.);\nVerify(2.0e3+1,2001.);\nVerify(2.00e3+1,2001.);\nVerify(2.000e3+1,2001.);\nVerify(2.0000e3+1,2001.);\n\nVerify(1+2e3,2001.);\nVerify(1+2.0e3,2001.);\nVerify(1+2.00e3,2001.);\nVerify(1+2.000e3,2001.);\nVerify(1+2.0000e3,2001.);\n\nNumericEqual(NM(Sqrt(1e4))-100,0,BuiltinPrecisionGet());\nNumericEqual(NM(Sqrt(1.0e4))-100,0,BuiltinPrecisionGet());\n\nVerify(2.0000e3-1,1999.);\n{\n  Local(p);\n  p:=BuiltinPrecisionGet();\n  BuiltinPrecisionSet(12);//TODO this will fail if you drop precision to below 12, for some reason.\n  NumericEqual(RoundToPrecision(10e3*1.2e-3,BuiltinPrecisionGet()),12.,BuiltinPrecisionGet());\n  BuiltinPrecisionSet(p);\n};\nVerify((10e3*1.2e-4)-1.2,0);\n\nVerify(Zero?(NM(Sin(0.1e1)-Sin(1),30)),True);\n{\n  /* In Dutch they have a saying \"dit verdient geen schoonheidsprijs\" ;-) We need to sort this out.\n   * But a passable result, for now.\n   */\n  Local(diff);\n  diff := NM(Sin(10e-1)-Sin(1),30);\n//BuiltinPrecisionSet(20);\n//Echo(\"diff = \",diff);\n//Echo(\"diff > -0.00001 = \",diff > -0.00001);\n//Echo(\"diff < 0.00001 = \",diff < 0.00001);\n  Verify(diff >? -0.00001 And? diff <? 0.00001,True);\n};\n\n\n/* Jonathan reported a problem with Simplify(-Sqrt(8)/2), which returned some\n * complex expression containing greatest common divisors of square roots.\n * This was fixed by adding some rules dealing with taking the gcd of two objects\n * where at least one is a square root.\n */\nVerify(-Sqrt(8)/2,-Sqrt(2));\nVerify(Sqrt(8)/2,Sqrt(2));\nVerify(Gcd(Sqrt(2),Sqrt(2)),Sqrt(2));\nVerify(Gcd(-Sqrt(2),-Sqrt(2)),Sqrt(2));\nVerify(Gcd(Sqrt(2),-Sqrt(2)),Sqrt(2));\nVerify(Gcd(-Sqrt(2),Sqrt(2)),Sqrt(2));\n\n\n";
+        testString[1] = "\nNextTest(\"Test arithmetic\");\n\nNextTest(\"Basic calculations\");\nVerify(3 + 2 , 5);\nVerify(3-7, -4);\nVerify(1 =? 2 , 0 =? -1);\nVerify(5 ^ 2 , 25);\n\nVerify(Zero?(0.000),True);\n\nVerify(2/5,Hold(2/5));\nVerify(Zero?(NM(2/5)-0.4),True);\nVerify(Rational?(2),True);\nVerify(Rational?(2/5),True);\nVerify(Rational?(-2/5),True);\nVerify(Rational?(2.0/5),False);\nVerify(Rational?(Pi/2),False);\nVerify(Numerator(2/5),2);\nVerify(Denominator(2/5),5);\n\nVerifyArithmetic(10,5,8);\nVerifyArithmetic(10000000000,5,8);\nVerifyArithmetic(10,50,80);\nVerifyArithmetic(10000,50,88);\n\nVerify(4!,24);\nVerify(BinomialCoefficient(2,1),2);\n\nNextTest(\"Testing math stuff\");\nVerify(1*_a,_a);\nVerify(_a*1,_a);\nVerify(0*_a,0);\nVerify(_a*0,0);\nVerify(_aa-_aa,0);\nVerify(0+_a,_a);\nVerify(_a+0,_a);\n\nVerify(2+3,5);\nVerify(2*3,6);\n\nVerify(2+3*4,14);\nVerify(3*4+2,14);\nVerify(3*(4+2),18);\nVerify((4+2)*3,18);\n\nVerify(15/5,3);\n\nVerify(-2+3,1);\nVerify(-2.01+3.01,1.);\n\n\nTesting(\"IntegerOperations\");\nVerify(1<<10,1024);\nVerify(1024>>10,1);\nVerify(Modulo(10,3),1);\nVerify(Quotient(10,3),3);\nVerify(GcdN(55,10),5);\n\nVerify(Modulo(2,Infinity),2);\nVerify(Modulo([0,1,2,3,4,5,6],2),[0,1,0,1,0,1,0]);\nVerify(Modulo([0,1,2,3,4,5,6],[2,2,2,2,2,2,2]),[0,1,0,1,0,1,0]);\n\nTesting(\"PowerN\");\n// was broken in the gmp version\nVerify(PowerN(19, 0), 1);\nVerify(PowerN(1, -1), 1);\nVerify(PowerN(1, -2), 1);\nVerify(Zero?(PowerN(10, -2)- 0.01),True);\nVerify(PowerN(2, 3), 8);\nNumericEqual(PowerN(2, -3), 0.125,BuiltinPrecisionGet());\n\nTesting(\"Rounding\");\nVerify(Floor(1.2),1);\nVerify(Floor(-1.2),-2);\nVerify(Ceil(1.2),2);\nVerify(Ceil(-1.2),-1);\nVerify(Round(1.49),1);\nVerify(Round(1.51),2);\nVerify(Round(-1.49),-1);\nVerify(Round(-1.51),-2);\n\nTesting(\"Bases\");\nVerify(ToBase(16,255),\"ff\");\nVerify(FromBase(2,\"100\"),4);\n\n// conversion between decimal and binary digits\nVerify(BitsToDigits(2000, 10), 602);\nVerify(DigitsToBits(602, 10), 2000);\n\nLocalSymbols(f,ft)\n{\n  f(x,y):=(Quotient(x,y)*y+Rem(x,y)-x);\n  ft(x,y):=\n  {\n    Verify(f(x,y),0);\n    Verify(f(-x,y),0);\n    Verify(f(x,-y),0);\n    Verify(f(-x,-y),0);\n  };\n  ft(10,4);\n  ft(2.5,1.2);\n};\n\n/* todo:tk:commenting out for the minimal version of the scripts.\nTesting(\"Factorization\");\nVerify(\nEval(Factors(447738843))\n, [[3,1],[17,1],[2729,1],[3217,1]]\n);\n*/\n\n//Exponential notation is now supported in the native arithmetic library too...\nVerify(2e3+1,2001.);\nVerify(2.0e3+1,2001.);\nVerify(2.00e3+1,2001.);\nVerify(2.000e3+1,2001.);\nVerify(2.0000e3+1,2001.);\n\nVerify(1+2e3,2001.);\nVerify(1+2.0e3,2001.);\nVerify(1+2.00e3,2001.);\nVerify(1+2.000e3,2001.);\nVerify(1+2.0000e3,2001.);\n\nNumericEqual(NM(Sqrt(1e4))-100,0,BuiltinPrecisionGet());\nNumericEqual(NM(Sqrt(1.0e4))-100,0,BuiltinPrecisionGet());\n\nVerify(2.0000e3-1,1999.);\n{\n  Local(p);\n  p:=BuiltinPrecisionGet();\n  BuiltinPrecisionSet(12);//TODO this will fail if you drop precision to below 12, for some reason.\n  NumericEqual(RoundToPrecision(10e3*1.2e-3,BuiltinPrecisionGet()),12.,BuiltinPrecisionGet());\n  BuiltinPrecisionSet(p);\n};\nVerify((10e3*1.2e-4)-1.2,0);\n\n//Verify(Zero?(NM(Sin(0.1e1)-Sin(1),30)),True);\n\n\n/*\n{\n  In Dutch they have a saying \"dit verdient geen schoonheidsprijs\" ;-) We need to sort this out.But a passable result, for now.\n   \n  Local(diff);\n  diff := NM(Sin(10e-1)-Sin(1),30);\n//BuiltinPrecisionSet(20);\n//Echo(\"diff = \",diff);\n//Echo(\"diff > -0.00001 = \",diff > -0.00001);\n//Echo(\"diff < 0.00001 = \",diff < 0.00001);\n  Verify(diff >? -0.00001 And? diff <? 0.00001,True);\n};\n*/\n\n/* Jonathan reported a problem with Simplify(-Sqrt(8)/2), which returned some\n * complex expression containing greatest common divisors of square roots.\n * This was fixed by adding some rules dealing with taking the gcd of two objects\n * where at least one is a square root.\n */\nVerify(-Sqrt(8)/2,-Sqrt(2));\nVerify(Sqrt(8)/2,Sqrt(2));\nVerify(Gcd(Sqrt(2),Sqrt(2)),Sqrt(2));\nVerify(Gcd(-Sqrt(2),-Sqrt(2)),Sqrt(2));\nVerify(Gcd(Sqrt(2),-Sqrt(2)),Sqrt(2));\nVerify(Gcd(-Sqrt(2),Sqrt(2)),Sqrt(2));\n\n\n";
         testString[2] = "/org/mathpiper/scripts4/a_initialization/stdarith/arithmetic_test.mpw";
         userFunctionsTestsMap.put("arithmetic",testString);
 
@@ -242,20 +264,20 @@ public class Tests {
         userFunctionsTestsMap.put("PowerN",testString);
 
         testString = new String[3];
-        testString[0] = "60";
+        testString[0] = "52";
+        testString[1] = "Verify(Combinations(10, 4) , 210);\nVerify(BinomialCoefficient(10, 4) , 210);\nUnassign(*);\n";
+        testString[2] = "/org/mathpiper/scripts4/combinatorics/Combinations.mpw";
+        documentationExamplesTestsMap.put("Combinations;BinomialCoefficientDocs",testString);
+
+        testString = new String[3];
+        testString[0] = "62";
         testString[1] = "\nVerify(BinomialCoefficient(0,0),1 );\n\n";
         testString[2] = "/org/mathpiper/scripts4/combinatorics/Combinations.mpw";
         userFunctionsTestsMap.put("BinomialCoefficient",testString);
 
         testString = new String[3];
-        testString[0] = "52";
-        testString[1] = "\nTestMathPiper(Arg(Exp(2*I*Pi/3)),2*Pi/3);\n\n";
-        testString[2] = "/org/mathpiper/scripts4/complex/Arg.mpw";
-        userFunctionsTestsMap.put("Arg",testString);
-
-        testString = new String[3];
         testString[0] = "148";
-        testString[1] = "\n/* todo:tk:commenting out for the minimal version of the scripts.\nVerify( Limit(z,2*I) (I*z^4+3*z^2-10*I), Complex(-12,6) );\nKnownFailure( (Limit(n,Infinity) (n^2*I^n)/(n^3+1)) =? 0 );\nVerify( Limit(n,Infinity) n*I^n, Undefined );\n*/\n\nVerify(1/I, -I);\nVerify(I^2, -1);\nVerify(2/(1+I), 1-I);\nVerify(I^3, -I);\nVerify(I^4, 1);\nVerify(I^5, I);\nVerify(1^I, 1);\nVerify(0^I, Undefined);\nVerify(I^(-I), Exp(Pi/2));\nVerify((1+I)^33, 65536+I*65536);\nVerify((1+I)^(-33), (1-I)/131072);\nVerify(Exp(I*Pi), -1);\nTestMathPiper((_a+_b*I)*(_c+_d*I), (_a*_c-_b*_d)+I*(_a*_d+_b*_c));\nVerify(Ln(-1), I*Pi);\nVerify(Ln(3+4*I), Ln(5)+I*ArcTan(4/3));\n\nVerify(Re(2*I-4), -4);\nVerify(Im(2*I-4), 2);\n\n";
+        testString[1] = "\n/* todo:tk:commenting out for the minimal version of the scripts.\nVerify( Limit(z,2*I) (I*z^4+3*z^2-10*I), Complex(-12,6) );\nKnownFailure( (Limit(n,Infinity) (n^2*I^n)/(n^3+1)) =? 0 );\nVerify( Limit(n,Infinity) n*I^n, Undefined );\n*/\n\nVerify(1/I, -I);\nVerify(I^2, -1);\nVerify(2/(1+I), 1-I);\nVerify(I^3, -I);\nVerify(I^4, 1);\nVerify(I^5, I);\nVerify(1^I, 1);\nVerify(0^I, Undefined);\nVerify(I^(-I), Exp(Pi/2));\nVerify((1+I)^33, 65536+I*65536);\nVerify((1+I)^(-33), (1-I)/131072);\n//Verify(Exp(I*Pi), -1);\n//TestMathPiper((_a+_b*I)*(_c+_d*I), (_a*_c-_b*_d)+I*(_a*_d+_b*_c));\nVerify(Ln(-1), I*Pi);\n//Verify(Ln(3+4*I), Ln(5)+I*ArcTan(4/3));\n\nVerify(Re(2*I-4), -4);\nVerify(Im(2*I-4), 2);\n\n";
         testString[2] = "/org/mathpiper/scripts4/complex/Complex.mpw";
         userFunctionsTestsMap.put("Complex",testString);
 
@@ -285,7 +307,7 @@ public class Tests {
 
         testString = new String[3];
         testString[0] = "65";
-        testString[1] = "\nVerify(Apply(\"+\",[2,3]),5);\n{\n  Local(x,y);\n  Verify(Apply('[[x,y],x+y],[2,3]),5);\n  Verify(Apply(Lambda([x,y],x+y),[2,3]),5);\n  Verify(Lambda([x,y],x+y) @ [2,3],5);\n\n  /* Basically the next line is to check that [[x],Length(x)]\n   * behaves in an undesirable way (Length being evaluated\n   * prematurely), so that the next test can then check that\n   * Lambda solves the problem.\n   */\n  Verify(Apply('[[x],Length(x)],[\"aaa\"]),3);\n  Verify(Apply(Lambda([x],Length(x)),[\"aaa\"]),3);\n\n  Verify(_x,_x);\n  Verify(_y,_y);\n\n  Testing(\"ThreadingListables\");\n  x:=[_bb,_cc,_dd];\n  Verify(Sin(_aa*x),[Sin(_aa*_bb),Sin(_aa*_cc),Sin(_aa*_dd)]);\n};\n\n";
+        testString[1] = "\nVerify(Apply(\"+\",[2,3]),5);\n{\n  Local(x,y);\n  Verify(Apply('[[x,y],x+y],[2,3]),5);\n  Verify(Apply(Lambda([x,y],x+y),[2,3]),5);\n  Verify(Lambda([x,y],x+y) @ [2,3],5);\n\n  /* Basically the next line is to check that [[x],Length(x)]\n   * behaves in an undesirable way (Length being evaluated\n   * prematurely), so that the next test can then check that\n   * Lambda solves the problem.\n   */\n  Verify(Apply('[[x],Length(x)],[\"aaa\"]),3);\n  Verify(Apply(Lambda([x],Length(x)),[\"aaa\"]),3);\n\n  Verify(_x,_x);\n  Verify(_y,_y);\n\n  Testing(\"ThreadingListables\");\n  x:=[_bb,_cc,_dd];\n  Verify(Sqrt(_aa*x),[Sqrt(_aa*_bb),Sqrt(_aa*_cc),Sqrt(_aa*_dd)]);\n};\n\n";
         testString[2] = "/org/mathpiper/scripts4/functional/Apply.mpw";
         userFunctionsTestsMap.put("Apply",testString);
 
@@ -321,27 +343,15 @@ public class Tests {
 
         testString = new String[3];
         testString[0] = "1";
-        testString[1] = "\nVerify(Intersection('[aa,b,c],'[b,c,d]),'[b,c]);\nVerify(Union('[aa,b,c],'[b,c,d]),'[aa,b,c,d]);\nVerify(Difference('[aa,b,c],'[b,c,d]),'[aa]);\n\nNextTest(\"VarList\");\nVerify(VarList(_x^2+_y^3) , [_x , _y]);\nVerify(List(1,2,3),[1 , 2 , 3]);\n\nTesting(\"BubbleSort\");\nVerify(BubbleSort([2,3,1],\"<?\"),[1,2,3]);\nVerify(BubbleSort([2,3,1],\">?\"),[3,2,1]);\n\nTesting(\"HeapSort\");\nVerify(HeapSort([2,3,1],\"<?\"),[1,2,3]);\nVerify(HeapSort([2,1,3],\">?\"),[3,2,1]);\nVerify(HeapSort([7,3,1,2,6],\"<?\"),[1,2,3,6,7]);\nVerify(HeapSort([6,7,1,3,2],\">?\"),[7,6,3,2,1]);\n\nVerify(Type(Cos(_x)),\"Cos\");\nVerify(ArgumentsCount(Cos(_x)),1);\nVerify(Contains?([_a,_b,_c],_b),True);\nVerify(Contains?([_a,_b,_c],_d),False);\n\nVerify(Append([_a,_b,_c],_d),[_a,_b,_c,_d]);\nVerify(RemoveDuplicates([_a,_b,_b,_c]),[_a,_b,_c]);\nVerify(Count([_a,_b,_b,_c],_b),2);\nVerify(VarList(_x*Cos(_x)),[_x]);\n\n\n{\n  Local(l);\n  l:=[1,2,3];\n  DestructiveDelete(l,1);\n  Verify(l,[2,3]);\n  DestructiveInsert(l,1,1);\n  Verify(l,[1,2,3]);\n  l[1] := 2;\n  Verify(l,[2,2,3]);\n  l[1] := 1;\n  DestructiveDelete(l,3);\n  Verify(l,[1,2]);\n  DestructiveInsert(l,3,3);\n  Verify(l,[1,2,3]);\n  DestructiveDelete(FlatCopy(l),1);\n  Verify(l,[1,2,3]);\n};\n\nVerify(BuildList(i!,i,1,4,1),[1,2,6,24]);\nVerify(PermutationsList([_a,_b,_c]),[[_a,_b,_c],[_a,_c,_b],[_c,_a,_b],[_b,_a,_c],[_b,_c,_a],[_c,_b,_a]]);\n\nTesting(\"ListOperations\");\nVerify(First('[a,b,c]),'a);\nVerify(Rest('[a,b,c]),'[b,c]);\nVerify(DestructiveReverse('[a,b,c]),'[c,b,a]);\nVerify(ListToFunction('[a,b,c]),'(a(b,c)));\nVerify(FunctionToList('(a(b,c))),'[a,b,c]);\n\nVerify(Delete([_a,_b,_c],2),[_a,_c]);\nVerify(Insert([_a,_c],2,_b),[_a,_b,_c]);\n\nTesting(\"Length\");\nVerify(Length([_a,_b]),2);\nVerify(Length([]),0);\n\nTesting(\"Nth\");\nVerify(Nth([_a,_b],1),_a);\nVerify([_a,_b,_c][2],_b);\n\nTesting(\"Concat\");\nVerify(Concat([_a,_b],[_c,_d]),[_a,_b,_c,_d]);\n//This is simply not true!!! Verify(Hold(Concat([a,b],[c,d])),Concat([a,b],[c,d]));\n\n/* todo:tk:commenting out for minimal version of the scripts.\nTesting(\"Binary searching\");\nVerify(BSearch(100,[[n],n^2-15]), -1);\nVerify(BSearch(100,[[n],n^2-16]), 4);\nVerify(BSearch(100,[[n],n^2-100002]), -1);\nVerify(BSearch(100,[[n],n^2-0]), -1);\nVerify(FindIsq(100,[[n],n^2-15]), 3);\nVerify(FindIsq(100,[[n],n^2-16]), 4);\nVerify(FindIsq(100,[[n],n^2-100002]), 100);\nVerify(FindIsq(100,[[n],n^2-0]), 1);\n*/\n\nVerify(Difference(FuncList(_a*_b/_c*_d), [*,/]), []);\nVerify(Difference(FuncListArith(0*_x*Sin(_a/_b)*Ln(Cos(_y-_z)+Sin(_a))), [*,'Ln,'Sin]), []);\nVerify(Difference(VarListArith(_x+_a*_y^2-1), [_x,_a,_y^2]), []);\n\nVerify(Difference(FuncList(CUnparsable?({i:=0;While(i<?10){i++; a--; a:=a+i; [];};})), ['CUnparsable?,'Block,:=,'While,<?,++,--,ToAtom(\"+\"),'List]), []);\nVerify(FuncList([1,2,3]),['List]);\nVerify(FuncList([[],[]]),['List]);\nVerify(FuncList([]),['List]);\n\nTesting(\"AssocDelete\");\n{\n  Local(hash);\n  hash:=[[\"A\",1],[\"A\",2],[\"B\",3],[\"B\",4]];\n  AssocDelete(hash,[\"B\",3]);\n  Verify(hash, [[\"A\",1],[\"A\",2],[\"B\",4]]);\n  Verify(AssocDelete(hash,\"A\"),True);\n  Verify(hash, [[\"A\",2],[\"B\",4]]);\n  Verify(AssocDelete(hash,\"C\"),False);\n  Verify(hash, [[\"A\",2],[\"B\",4]]);\n  AssocDelete(hash,\"A\");\n  Verify(hash, [[\"B\",4]]);\n  AssocDelete(hash, [\"A\",2]);\n  AssocDelete(hash,\"A\");\n  Verify(hash, [[\"B\",4]]);\n  Verify(AssocDelete(hash,\"B\"),True);\n  Verify(hash, []);\n  Verify(AssocDelete(hash,\"A\"),False);\n  Verify(hash, []);\n};\nTesting(\"-- Arithmetic Operations\");\nVerify(1+[3,4],[4,5]);\nVerify([3,4]+1,[4,5]);\nVerify([1]+[3,4],Hold([1]+[3,4]));\nVerify([3,4]+[1],Hold([3,4]+[1]));\nVerify([1,2]+[3,4],[4,6]);\nVerify(1-[3,4],[-2,-3]);\nVerify([3,4]-1,[2,3]);\nVerify([1]-[3,4],Hold([1]-[3,4]));\nVerify([3,4]-[1],Hold([3,4]-[1]));\nVerify([1,2]-[3,4],[-2,-2]);\nVerify(2*[3,4],[6,8]);\nVerify([3,4]*2,[6,8]);\nVerify([2]*[3,4],Hold([2]*[3,4]));\nVerify([3,4]*[2],Hold([3,4]*[2]));\nVerify([1,2]*[3,4],[3,8]);\nVerify(2/[3,4],[2/3,1/2]);\nVerify([3,4]/2,[3/2,2]);\nVerify([2]/[3,4],Hold([2]/[3,4]));\nVerify([3,4]/[2],Hold([3,4]/[2]));\nVerify([1,2]/[3,4],[1/3,1/2]);\nVerify(2^[3,4],[8,16]);\nVerify([3,4]^2,[9,16]);\nVerify([2]^[3,4],Hold([2]^[3,4]));\nVerify([3,4]^[2],Hold([3,4]^[2]));\nVerify([1,2]^[3,4],[1,16]);\n\n// non-destructive Reverse operation\n{\n  Local(lst,revlst);\n  lst:=[_a,_b,_c,13,19];\n  revlst:=Reverse(lst);\n  Verify(revlst,[19,13,_c,_b,_a]);\n  Verify(lst,[_a,_b,_c,13,19]);\n};\nVerify(Assigned?(lst),False);\nVerify(Assigned?(revlst),False);\n\n";
+        testString[1] = "\nVerify(Intersection('[aa,b,c],'[b,c,d]),'[b,c]);\nVerify(Union('[aa,b,c],'[b,c,d]),'[aa,b,c,d]);\nVerify(Difference('[aa,b,c],'[b,c,d]),'[aa]);\n\nNextTest(\"VarList\");\nVerify(VarList(_x^2+_y^3) , [_x , _y]);\nVerify(List(1,2,3),[1 , 2 , 3]);\n\nTesting(\"BubbleSort\");\nVerify(BubbleSort([2,3,1],\"<?\"),[1,2,3]);\nVerify(BubbleSort([2,3,1],\">?\"),[3,2,1]);\n\nTesting(\"HeapSort\");\nVerify(HeapSort([2,3,1],\"<?\"),[1,2,3]);\nVerify(HeapSort([2,1,3],\">?\"),[3,2,1]);\nVerify(HeapSort([7,3,1,2,6],\"<?\"),[1,2,3,6,7]);\nVerify(HeapSort([6,7,1,3,2],\">?\"),[7,6,3,2,1]);\n\nVerify(Type(Sqrt(_x)),\"Sqrt\");\nVerify(ArgumentsCount(Sqrt(_x)),1);\nVerify(Contains?([_a,_b,_c],_b),True);\nVerify(Contains?([_a,_b,_c],_d),False);\n\nVerify(Append([_a,_b,_c],_d),[_a,_b,_c,_d]);\nVerify(RemoveDuplicates([_a,_b,_b,_c]),[_a,_b,_c]);\nVerify(Count([_a,_b,_b,_c],_b),2);\nVerify(VarList(_x*Sqrt(_x)),[_x]);\n\n\n{\n  Local(l);\n  l:=[1,2,3];\n  DestructiveDelete(l,1);\n  Verify(l,[2,3]);\n  DestructiveInsert(l,1,1);\n  Verify(l,[1,2,3]);\n  l[1] := 2;\n  Verify(l,[2,2,3]);\n  l[1] := 1;\n  DestructiveDelete(l,3);\n  Verify(l,[1,2]);\n  DestructiveInsert(l,3,3);\n  Verify(l,[1,2,3]);\n  DestructiveDelete(FlatCopy(l),1);\n  Verify(l,[1,2,3]);\n};\n\nVerify(BuildList(i!,i,1,4,1),[1,2,6,24]);\nVerify(PermutationsList([_a,_b,_c]),[[_a,_b,_c],[_a,_c,_b],[_c,_a,_b],[_b,_a,_c],[_b,_c,_a],[_c,_b,_a]]);\n\nTesting(\"ListOperations\");\nVerify(First('[a,b,c]),'a);\nVerify(Rest('[a,b,c]),'[b,c]);\nVerify(DestructiveReverse('[a,b,c]),'[c,b,a]);\nVerify(ListToFunction('[a,b,c]),'(a(b,c)));\nVerify(FunctionToList('(a(b,c))),'[a,b,c]);\n\nVerify(Delete([_a,_b,_c],2),[_a,_c]);\nVerify(Insert([_a,_c],2,_b),[_a,_b,_c]);\n\nTesting(\"Length\");\nVerify(Length([_a,_b]),2);\nVerify(Length([]),0);\n\nTesting(\"Nth\");\nVerify(Nth([_a,_b],1),_a);\nVerify([_a,_b,_c][2],_b);\n\nTesting(\"Concat\");\nVerify(Concat([_a,_b],[_c,_d]),[_a,_b,_c,_d]);\n//This is simply not true!!! Verify(Hold(Concat([a,b],[c,d])),Concat([a,b],[c,d]));\n\n/* todo:tk:commenting out for minimal version of the scripts.\nTesting(\"Binary searching\");\nVerify(BSearch(100,[[n],n^2-15]), -1);\nVerify(BSearch(100,[[n],n^2-16]), 4);\nVerify(BSearch(100,[[n],n^2-100002]), -1);\nVerify(BSearch(100,[[n],n^2-0]), -1);\nVerify(FindIsq(100,[[n],n^2-15]), 3);\nVerify(FindIsq(100,[[n],n^2-16]), 4);\nVerify(FindIsq(100,[[n],n^2-100002]), 100);\nVerify(FindIsq(100,[[n],n^2-0]), 1);\n*/\n\nVerify(Difference(FuncList(_a*_b/_c*_d), [*,/]), []);\n//Verify(Difference(FuncListArith(0*_x*Sin(_a/_b)*Ln(Cos(_y-_z)+Sin(_a))), [*,'Ln,'Sin]), []);\nVerify(Difference(VarListArith(_x+_a*_y^2-1), [_x,_a,_y^2]), []);\n\nVerify(Difference(FuncList(CUnparsable?({i:=0;While(i<?10){i++; a--; a:=a+i; [];};})), ['CUnparsable?,'Block,:=,'While,<?,++,--,ToAtom(\"+\"),'List]), []);\nVerify(FuncList([1,2,3]),['List]);\nVerify(FuncList([[],[]]),['List]);\nVerify(FuncList([]),['List]);\n\nTesting(\"AssocDelete\");\n{\n  Local(hash);\n  hash:=[[\"A\",1],[\"A\",2],[\"B\",3],[\"B\",4]];\n  AssocDelete(hash,[\"B\",3]);\n  Verify(hash, [[\"A\",1],[\"A\",2],[\"B\",4]]);\n  Verify(AssocDelete(hash,\"A\"),True);\n  Verify(hash, [[\"A\",2],[\"B\",4]]);\n  Verify(AssocDelete(hash,\"C\"),False);\n  Verify(hash, [[\"A\",2],[\"B\",4]]);\n  AssocDelete(hash,\"A\");\n  Verify(hash, [[\"B\",4]]);\n  AssocDelete(hash, [\"A\",2]);\n  AssocDelete(hash,\"A\");\n  Verify(hash, [[\"B\",4]]);\n  Verify(AssocDelete(hash,\"B\"),True);\n  Verify(hash, []);\n  Verify(AssocDelete(hash,\"A\"),False);\n  Verify(hash, []);\n};\nTesting(\"-- Arithmetic Operations\");\nVerify(1+[3,4],[4,5]);\nVerify([3,4]+1,[4,5]);\nVerify([1]+[3,4],Hold([1]+[3,4]));\nVerify([3,4]+[1],Hold([3,4]+[1]));\nVerify([1,2]+[3,4],[4,6]);\nVerify(1-[3,4],[-2,-3]);\nVerify([3,4]-1,[2,3]);\nVerify([1]-[3,4],Hold([1]-[3,4]));\nVerify([3,4]-[1],Hold([3,4]-[1]));\nVerify([1,2]-[3,4],[-2,-2]);\nVerify(2*[3,4],[6,8]);\nVerify([3,4]*2,[6,8]);\nVerify([2]*[3,4],Hold([2]*[3,4]));\nVerify([3,4]*[2],Hold([3,4]*[2]));\nVerify([1,2]*[3,4],[3,8]);\nVerify(2/[3,4],[2/3,1/2]);\nVerify([3,4]/2,[3/2,2]);\nVerify([2]/[3,4],Hold([2]/[3,4]));\nVerify([3,4]/[2],Hold([3,4]/[2]));\nVerify([1,2]/[3,4],[1/3,1/2]);\nVerify(2^[3,4],[8,16]);\nVerify([3,4]^2,[9,16]);\nVerify([2]^[3,4],Hold([2]^[3,4]));\nVerify([3,4]^[2],Hold([3,4]^[2]));\nVerify([1,2]^[3,4],[1,16]);\n\n// non-destructive Reverse operation\n{\n  Local(lst,revlst);\n  lst:=[_a,_b,_c,13,19];\n  revlst:=Reverse(lst);\n  Verify(revlst,[19,13,_c,_b,_a]);\n  Verify(lst,[_a,_b,_c,13,19]);\n};\nVerify(Assigned?(lst),False);\nVerify(Assigned?(revlst),False);\n\n";
         testString[2] = "/org/mathpiper/scripts4/lists/lists_tests.mpw";
         userFunctionsTestsMap.put("lists",testString);
 
         testString = new String[3];
         testString[0] = "106";
-        testString[1] = "\nRulebaseHoldArguments(\"sin\", [_x]);\nVerify(_a[2]*Sin(_x)/:[Sin(_x) <- sin(_x)],_a[2]*sin(_x));\nRetract(\"sin\", *);\n\n";
+        testString[1] = "\nRulebaseHoldArguments(\"sqrt\", [_x]);\nVerify(_a[2]*Sqrt(_x)/:[Sqrt(_x) <- sqrt(_x)],_a[2]*sqrt(_x));\nRetract(\"sqrt\", *);\n\n";
         testString[2] = "/org/mathpiper/scripts4/localrules/slash_colon_operator.mpw";
         userFunctionsTestsMap.put("/:",testString);
-
-        testString = new String[3];
-        testString[0] = "48";
-        testString[1] = "\n// Actually, the following Groebner test is just to check that the program doesn't crash on this,\n// more than on the exact result (which is hopefully correct also ;-) )\nVerify(Groebner([_x*(_y-1),_y*(_x-1)]),[_x*_y-_x,_x*_y-_y,_y-_x,_y^2-_y]);\n\n";
-        testString[2] = "/org/mathpiper/scripts4/multivar/Groebner.mpw";
-        userFunctionsTestsMap.put("Groebner",testString);
-
-        testString = new String[3];
-        testString[0] = "188";
-        testString[1] = "\nNextTest(\"Test arithmetic: NormalForm\");\n\nTestMathPiper(NormalForm(MM((_x+_y)^5)),_y^5+5*_x*_y^4+10*_x^2*_y^3+10*_x^3*_y^2+5*_x^4*_y+_x^5);\n\n";
-        testString[2] = "/org/mathpiper/scripts4/multivar/sparsenomial/sparsenomial.mpw";
-        userFunctionsTestsMap.put("NormalForm",testString);
 
         testString = new String[3];
         testString[0] = "86";
@@ -405,25 +415,25 @@ public class Tests {
 
         testString = new String[3];
         testString[0] = "62";
-        testString[1] = "\nVerify(HasExpression?(_a*_b+1,1),True);\nVerify(HasExpression?(_a+Sin(_b*_c),_c),True);\nVerify(HasExpression?(_a*_b+1,2),False);\nVerify(HasExpressionArithmetic?(_a*_b+1,ToAtom(\"+\")),False);\nVerify(HasExpressionArithmetic?(_a*_b+1,1),True);\nVerify(HasExpressionArithmetic?(_a+Sin(_b*_c),_c),False);\nVerify(HasExpressionArithmetic?(_a+Sin(_b*_c),Sin(_b*_c)),True);\n\nRulebaseHoldArguments(\"f\",[_a]);\nVerify(HasExpression?(_a*_b+f([_b,_c]),'f),False);\nVerify(HasExpressionArithmetic?(_a*_b+f([_b,_c]),_c),False);\nRetract(\"f\",*);\n\n";
+        testString[1] = "\nVerify(HasExpression?(_a*_b+1,1),True);\nVerify(HasExpression?(_a+Sqrt(_b*_c),_c),True);\nVerify(HasExpression?(_a*_b+1,2),False);\nVerify(HasExpressionArithmetic?(_a*_b+1,ToAtom(\"+\")),False);\nVerify(HasExpressionArithmetic?(_a*_b+1,1),True);\nVerify(HasExpressionArithmetic?(_a+Sqrt(_b*_c),_c),False);\nVerify(HasExpressionArithmetic?(_a+Sqrt(_b*_c),Sqrt(_b*_c)),True);\n\nRulebaseHoldArguments(\"f\",[_a]);\nVerify(HasExpression?(_a*_b+f([_b,_c]),'f),False);\nVerify(HasExpressionArithmetic?(_a*_b+f([_b,_c]),_c),False);\nRetract(\"f\",*);\n\n";
         testString[2] = "/org/mathpiper/scripts4/predicates/HasExpression_.mpw";
         userFunctionsTestsMap.put("HasExpression?",testString);
 
         testString = new String[3];
         testString[0] = "48";
-        testString[1] = "\nVerify(HasFunctionArithmetic?(_a*_b+1,ToAtom(\"+\")),True);\nVerify(HasFunctionArithmetic?(_a+Sin(_b*_c),'(*)),False);\nVerify(HasFunctionArithmetic?(_a+Sin(_b*_c),'Sin),True);\n\nRulebaseHoldArguments(\"f\",[_a]);\nVerify(HasFunctionArithmetic?(_a*_b+f([_b,_c]),'List),False);\nRetract(\"f\",*);\n\n";
+        testString[1] = "\nVerify(HasFunctionArithmetic?(_a*_b+1,ToAtom(\"+\")),True);\nVerify(HasFunctionArithmetic?(_a+Sqrt(_b*_c),'(*)),False);\nVerify(HasFunctionArithmetic?(_a+Sqrt(_b*_c),'Sqrt),True);\n\nRulebaseHoldArguments(\"f\",[_a]);\nVerify(HasFunctionArithmetic?(_a*_b+f([_b,_c]),'List),False);\nRetract(\"f\",*);\n\n";
         testString[2] = "/org/mathpiper/scripts4/predicates/HasFunctionArithmetic_.mpw";
         userFunctionsTestsMap.put("HasFunctionArithmetic?",testString);
 
         testString = new String[3];
         testString[0] = "53";
-        testString[1] = "\nVerify(HasFunction?(_a*_b+1,*),True);\nVerify(HasFunction?(_a+Sin(_b*_c),*),True);\nVerify(HasFunction?(_a*_b+1,'List),False);\n\nRulebaseHoldArguments(\"f\",[_a]);\nVerify(HasFunction?('a*'b+f(['b,'c]),'List),True);\nRetract(\"f\",*);\n\n";
+        testString[1] = "\nVerify(HasFunction?(_a*_b+1,*),True);\nVerify(HasFunction?(_a+Sqrt(_b*_c),*),True);\nVerify(HasFunction?(_a*_b+1,'List),False);\n\nRulebaseHoldArguments(\"f\",[_a]);\nVerify(HasFunction?('a*'b+f(['b,'c]),'List),True);\nRetract(\"f\",*);\n\n";
         testString[2] = "/org/mathpiper/scripts4/predicates/HasFunction_.mpw";
         userFunctionsTestsMap.put("HasFunction?",testString);
 
         testString = new String[3];
         testString[0] = "47";
-        testString[1] = "\nVerify(Variable?(_a),True);\nVerify(Variable?(Sin(_a)),False);\nVerify(Variable?(2),False);\nVerify(Variable?(-2),False);\nVerify(Variable?(2.1),False);\n\n";
+        testString[1] = "\nVerify(Variable?(_a),True);\nVerify(Variable?(Sqrt(_a)),False);\nVerify(Variable?(2),False);\nVerify(Variable?(-2),False);\nVerify(Variable?(2.1),False);\n\n";
         testString[2] = "/org/mathpiper/scripts4/predicates/Variable_.mpw";
         userFunctionsTestsMap.put("Variable?",testString);
 
@@ -435,19 +445,19 @@ public class Tests {
 
         testString = new String[3];
         testString[0] = "268";
-        testString[1] = "\nVerify(Vector?(1),False);\nVerify(Vector?(_a),False);\nVerify(Vector?(Sin(_a)+2),False);\nVerify(Vector?([]),True);\nVerify(Vector?([[]]),False);\nVerify(Vector?([1,2,_a,4]),True);\nVerify(Vector?([1,[2,_a],4]),False);\nVerify(Vector?([[_a,_b,_c]]),False);\n\nTesting(\"-- Vector?(Number?)\");\nVerify(Vector?(Number?,1),False);\nVerify(Vector?(Number?,[]),True);\nVerify(Vector?(Number?,[_a,_b,_c]),False);\nVerify(Vector?(Number?,[_a,2,_c]),False);\nVerify(Vector?(Number?,[2,2.5,4]),True);\nVerify(Vector?(Number?,[Pi,2,3]),False);\nVerify(Vector?(Number?,[[1],[2]]),False);\n\n";
+        testString[1] = "\nVerify(Vector?(1),False);\nVerify(Vector?(_a),False);\nVerify(Vector?(Sqrt(_a)+2),False);\nVerify(Vector?([]),True);\nVerify(Vector?([[]]),False);\nVerify(Vector?([1,2,_a,4]),True);\nVerify(Vector?([1,[2,_a],4]),False);\nVerify(Vector?([[_a,_b,_c]]),False);\n\nTesting(\"-- Vector?(Number?)\");\nVerify(Vector?(Number?,1),False);\nVerify(Vector?(Number?,[]),True);\nVerify(Vector?(Number?,[_a,_b,_c]),False);\nVerify(Vector?(Number?,[_a,2,_c]),False);\nVerify(Vector?(Number?,[2,2.5,4]),True);\nVerify(Vector?(Number?,[Pi,2,3]),False);\nVerify(Vector?(Number?,[[1],[2]]),False);\n\n";
         testString[2] = "/org/mathpiper/scripts4/predicates/matrix.mpw";
         userFunctionsTestsMap.put("Vector?",testString);
 
         testString = new String[3];
         testString[0] = "294";
-        testString[1] = "\nVerify(Vector?(1),False);\nVerify(Vector?(_a),False);\nVerify(Vector?(Sin(_a)+2),False);\nVerify(Vector?([]),True);\nVerify(Vector?([[]]),False);\nVerify(Vector?([1,2,_a,4]),True);\nVerify(Vector?([1,[2,_a],4]),False);\nVerify(Vector?([[_a,_b,_c]]),False);\n\nTesting(\"-- Vector?(Number?)\");\nVerify(Vector?(Number?,1),False);\nVerify(Vector?(Number?,[]),True);\nVerify(Vector?(Number?,[_a,_b,_c]),False);\nVerify(Vector?(Number?,[_a,2,_c]),False);\nVerify(Vector?(Number?,[2,2.5,4]),True);\nVerify(Vector?(Number?,[Pi,2,3]),False);\nVerify(Vector?(Number?,[[1],[2]]),False);\n\n";
+        testString[1] = "\nVerify(Vector?(1),False);\nVerify(Vector?(_a),False);\nVerify(Vector?(Sqrt(_a)+2),False);\nVerify(Vector?([]),True);\nVerify(Vector?([[]]),False);\nVerify(Vector?([1,2,_a,4]),True);\nVerify(Vector?([1,[2,_a],4]),False);\nVerify(Vector?([[_a,_b,_c]]),False);\n\nTesting(\"-- Vector?(Number?)\");\nVerify(Vector?(Number?,1),False);\nVerify(Vector?(Number?,[]),True);\nVerify(Vector?(Number?,[_a,_b,_c]),False);\nVerify(Vector?(Number?,[_a,2,_c]),False);\nVerify(Vector?(Number?,[2,2.5,4]),True);\nVerify(Vector?(Number?,[Pi,2,3]),False);\nVerify(Vector?(Number?,[[1],[2]]),False);\n\n";
         testString[2] = "/org/mathpiper/scripts4/predicates/matrix.mpw";
         userFunctionsTestsMap.put("Vector?",testString);
 
         testString = new String[3];
         testString[0] = "320";
-        testString[1] = "Verify(Matrix?(1),False);\nVerify(Matrix?([]),False);\nVerify(Matrix?([_a,_b]),False);\nVerify(Matrix?([[]]),True);\nVerify(Matrix?([[_a]]),True);\nVerify(Matrix?([[[_a]]]),False);\nVerify(Matrix?([[],_a]),False);\nVerify(Matrix?([[_a],_b]),False);\nVerify(Matrix?([[],[]]),True);\nVerify(Matrix?([[[]],[]]),False);\nVerify(Matrix?([[],[[]]]),False);\nVerify(Matrix?([[_a,_b],[_c]]),False);\nVerify(Matrix?([[_a,_b],[_c,_d]]),True);\nVerify(Matrix?([[_a,_b],[_c,[_d]]]),False);\nVerify(Matrix?([[[]]]), False);\nVerify(Matrix?([[[_a]]]), False);\nVerify(Matrix?([[[[_a]]],[[[_b]]]]),False);\n\nTesting(\"---- Matrix?(Integer?)\");\nVerify(Matrix?(Integer?,[[_a,1]]),False);\nVerify(Matrix?(Integer?,[[1,2]]),True);\nVerify(Matrix?(Integer?,[[1,2/3]]),False);\nVerify(Matrix?(Integer?,[[1,2,3],[4,5,6]]),True);\nVerify(Matrix?(Integer?,[[1,[2],3],[4,5,6]]),False);\nVerify(Matrix?(Integer?,[[1,2,3],[4,5]]),False);\nVerify(Matrix?(Integer?,[[Sin(1),2,3],[4,5,6]]),False);\nVerify(Matrix?(Integer?,[[Sin(0),2,3],[4,5,6]]),True);\n\n";
+        testString[1] = "Verify(Matrix?(1),False);\nVerify(Matrix?([]),False);\nVerify(Matrix?([_a,_b]),False);\nVerify(Matrix?([[]]),True);\nVerify(Matrix?([[_a]]),True);\nVerify(Matrix?([[[_a]]]),False);\nVerify(Matrix?([[],_a]),False);\nVerify(Matrix?([[_a],_b]),False);\nVerify(Matrix?([[],[]]),True);\nVerify(Matrix?([[[]],[]]),False);\nVerify(Matrix?([[],[[]]]),False);\nVerify(Matrix?([[_a,_b],[_c]]),False);\nVerify(Matrix?([[_a,_b],[_c,_d]]),True);\nVerify(Matrix?([[_a,_b],[_c,[_d]]]),False);\nVerify(Matrix?([[[]]]), False);\nVerify(Matrix?([[[_a]]]), False);\nVerify(Matrix?([[[[_a]]],[[[_b]]]]),False);\n\nTesting(\"---- Matrix?(Integer?)\");\nVerify(Matrix?(Integer?,[[_a,1]]),False);\nVerify(Matrix?(Integer?,[[1,2]]),True);\nVerify(Matrix?(Integer?,[[1,2/3]]),False);\nVerify(Matrix?(Integer?,[[1,2,3],[4,5,6]]),True);\nVerify(Matrix?(Integer?,[[1,[2],3],[4,5,6]]),False);\nVerify(Matrix?(Integer?,[[1,2,3],[4,5]]),False);\nVerify(Matrix?(Integer?,[[Sqrt(2),2,3],[4,5,6]]),False);\nVerify(Matrix?(Integer?,[[Sqrt(0),2,3],[4,5,6]]),True);\n\n";
         testString[2] = "/org/mathpiper/scripts4/predicates/matrix.mpw";
         userFunctionsTestsMap.put("Matrix?",testString);
 
@@ -488,82 +498,10 @@ public class Tests {
         userFunctionsTestsMap.put("RabinMiller",testString);
 
         testString = new String[3];
-        testString[0] = "77";
-        testString[1] = "\nTestMathPiper( Simplify((_x+_y)*(_x-_y)-(_x+_y)^2), -2*_y^2-2*_x*_y );\nTestMathPiper( Simplify(1+_x+_x+3*_y-4*(_x+_y+2)), -2*_x-_y-7 );\nTestMathPiper( Simplify((1+I)^4), -4 );\nTestMathPiper( Simplify((_x-_y)/(_x*_y)), 1/_y-1/_x );\n//See below, now handled with II KnownFailure(TestMathPiper( Simplify((_x+I)^4), _x^4+4*_x^3*I-6*_x^2-4*_x*I+1 ));\n\nTestMathPiper( Simplify((_xx + II)^4), _xx^4+4*_xx^3*II-6*_xx^2-4*_xx*II+1 );\n\n/* todo:tk:commenting out for the minimal version of the scripts.\nTestMathPiper( Simplify(Differentiate(_x,4)Exp(-_x^2/2)), Exp(-_x^2/2)*(_x^4-6*_x^2+3));\n*/\n\nTestMathPiper( Simplify(1),1);\nTestMathPiper( Simplify(1/_x ), 1/_x );\nTestMathPiper( Simplify( 1/(1/_x+1) ),_x/(_x+1) );\nTestMathPiper( Simplify(1/(1/(1/_x+1)+1) ),(_x+1)/(2*_x+1) );\nTestMathPiper( Simplify(1/(1/(1/(1/_x+1)+1)+1) ),(2*_x+1)/(3*_x+2) );\nTestMathPiper( Simplify(1/(1/(1/(1/(1/_x+1)+1)+1)+1) ),(3*_x+2)/(5*_x+3) );\nTestMathPiper( Simplify(1/(1/(1/(1/(1/(1/_x+1)+1)+1)+1)+1) ),(5*_x+3)/(8*_x+5) );\n\n\n\n/*Serge: these are not handled yet ;-)\nTestMathPiper( Simplify((_x^2-_y^2)/(_x+_y)), _x-_y );\n*/\n\nTestMathPiper(ExpandFrac(_x+_y/_x+1/3),(_x^2+_y+_x/3)/_x);\n\n// this did not work until the latest fix to ExpandBrackets using MM()\nVerify(ExpandBrackets(_x*(_a+_b)*_y*_z), _x*_a*_y*_z+_x*_b*_y*_z);\n\nVerify(ExpandBrackets(ExpandFrac((_x+1)/(_x-1)+1/_x)), Hold(_x^2/(_x^2-_x)+(2*_x)/(_x^2-_x)-1/(_x^2-_x)));\n\n// these used to fail. Added by Serge, resolved by Ayal\nVerify({Local(a);a:=0.1;Simplify(a*_b);}, 0.1*_b);\nVerify({Local(a);a:=0.1;Simplify(a/_b);}, 0.1/_b);\n\n\n\n\nVerify({Local(a);a:=0.1;Simplify((a*_b*_c)/(a*_c*_b));},1);\n\n\nLocalSymbols(p)\n{\n  p := _a+2-(_a+1);\n  Verify(Simplify(_x^p),_x);\n};\n\n\n\n/* todo:tk:commenting out for the minimal version of the scripts.\nLocalSymbols(f,p,a,b,x,n,simple,u,v)\n{\n  simple := [\n            Exp(_a)*Exp(_b) <- Exp(a+b),\n            Exp(_a)*_u*Exp(_b) <- u*Exp(a+b),\n            _u*Exp(_a)*Exp(_b) <- u*Exp(a+b),\n            Exp(_a)*Exp(_b)*_u <- u*Exp(a+b),\n            _u*Exp(_a)*_v*Exp(_b) <- u*v*Exp(a+b),\n            Exp(_a)*_u*Exp(_b)*_v <- u*v*Exp(a+b),\n            _u*Exp(_a)*Exp(_b)*_v <- u*v*Exp(a+b),\n            _u*Exp(_a)*_v*Exp(_b)*_w <- u*v*w*Exp(a+b)\n          ];\n\n  a := Simplify(Exp(x)*(Differentiate(x) x*Exp(-x)));\n  b := Exp(x)*Exp(-x)-Exp(x)*x*Exp(-x);\n\n  a:= (a /: simple);\n  b:= (b /: simple);\n\n  Verify(Simplify(a-(1-x)),0);\n  Verify(Simplify(b-(1-x)),0);\n\n};\n*/\n\n\n// The following line catches a bug reported where Simplify\n// would go into an infinite loop. It doesn't check the correctness\n// of the returned value as such, but merely the fact that this\n// simplification terminates in the first place.\n//\n// The problem was caused by a gcd calculation (from the multivariate\n// code) not terminating.\nVerify( Simplify((_a^2+_b^2)/(2*_a)), (_a^2+_b^2)/(2*_a) );\n\n\n/* Bug #10: I don't know what we want to return, but '0' is definitely wrong! */\nVerify(Simplify(_x^(-2)/(1-_x)^3) !=? 0, True);\n\n\n\n\n/* In MatchLinear and MatchPureSquare, the matched coefficients were\n * assigned to global variables that were not protected with LocalSymbols.\n */\n/* todo:tk:commenting out for the minimal version of the scripts.\n{\n  Local(a,b,A);\n  a:=mystr;\n  A:=mystr;\n  \n  //The real test here is that no error is generated due to the fact that variables a or A are set.\n   \n  Verify(Simplify((Integrate(_x,a,b)Sin(_x))-Cos(a)+Cos(b)),0);\n};\n*/\n\n\n/* Bug reported by Michael Borcherds: Simplify(((4*x)-2.25)/2)\n   returned some expression with three calls to Gcd, which was technically\n   correct, but not the intended simplification.\n */\nVerify(Zero?(Simplify(Simplify(((4*_x)-2.25)/2)-(2*_x-2.25/2))),True);\n\n\n\n";
-        testString[2] = "/org/mathpiper/scripts4/simplify/Simplify.mpw";
-        userFunctionsTestsMap.put("Simplify",testString);
-
-        testString = new String[3];
         testString[0] = "122";
         testString[1] = "\nVerify(Sort([4,7,23,53,-2,1], \">?\"), [53,23,7,4,1,-2]);\nVerify(SortIndexed([4,7,23,53,-2,1], \">?\"), [[53,23,7,4,1,-2],[4,3,2,1,6,5]]);\nVerify(Sort([11,-17,-1,-19,-18,14,4,7,9,-15,13,11,-2,2,7,-19,5,-3,6,4,-1,14,5,-15,11]),\n            [-19,-19,-18,-17,-15,-15,-3,-2,-1,-1,2,4,4,5,5,6,7,7,9,11,11,11,13,14,14]);\n\n";
         testString[2] = "/org/mathpiper/scripts4/sorting/Sort.mpw";
         userFunctionsTestsMap.put("Sort",testString);
-
-        testString = new String[3];
-        testString[0] = "84";
-        testString[1] = "\n/* Bug #11 */\nVerify(ArcCos(Cos(_beta)) !=? _beta, True);\n\n";
-        testString[2] = "/org/mathpiper/scripts4/stdfuncs/ArcCos.mpw";
-        userFunctionsTestsMap.put("ArcCos",testString);
-
-        testString = new String[3];
-        testString[0] = "87";
-        testString[1] = "\nNumericEqual(\nRoundToN(NM(ArcSin(0.0000000321232123),50),50)\n, 0.000000032123212300000005524661243020493367846793163005802\n,50);\n\n";
-        testString[2] = "/org/mathpiper/scripts4/stdfuncs/ArcSin.mpw";
-        userFunctionsTestsMap.put("ArcSin",testString);
-
-        testString = new String[3];
-        testString[0] = "103";
-        testString[1] = "\nVerify(Cos(0),1);\nVerify(Cos(2*Pi), 1);\nVerify(Cos(4*Pi), 1);\nVerify(NM(Cos(Pi/6)), NM(Sqrt(3/4)));\nNumericEqual(NM(Cos(Pi/2),BuiltinPrecisionGet()+1), 0,BuiltinPrecisionGet());\n\n";
-        testString[2] = "/org/mathpiper/scripts4/stdfuncs/Cos.mpw";
-        userFunctionsTestsMap.put("Cos",testString);
-
-        testString = new String[3];
-        testString[0] = "11";
-        testString[1] = "\nVerify(Cot(_x),1/Tan(_x));\n\n";
-        testString[2] = "/org/mathpiper/scripts4/stdfuncs/Cot.mpw";
-        userFunctionsTestsMap.put("Cot",testString);
-
-        testString = new String[3];
-        testString[0] = "12";
-        testString[1] = "\nVerify(Sech(_x),1/Cosh(_x));\n\n";
-        testString[2] = "/org/mathpiper/scripts4/stdfuncs/Sech.mpw";
-        userFunctionsTestsMap.put("Sech",testString);
-
-        testString = new String[3];
-        testString[0] = "90";
-        testString[1] = "\nVerify(NM(Sin(_a)),Sin(_a));\n\nVerify(Sin(2*Pi), 0);\nVerify(Sin(3*Pi/2)+1, 0);\nVerify(Sin(Pi/2), 1);\n\n";
-        testString[2] = "/org/mathpiper/scripts4/stdfuncs/Sin.mpw";
-        userFunctionsTestsMap.put("Sin",testString);
-
-        testString = new String[3];
-        testString[0] = "48";
-        testString[1] = "\n/* Here follow some tests for MathBitCount. These were written while creating\n   the Java version, fixing BitCount in the process.\n */\nVerify(MathBitCount(3),2);\nVerify(MathBitCount(3.0),2);\n\nVerify(MathBitCount(4),3);\nVerify(MathBitCount(4.0),3);\n\nVerify(MathBitCount(0),0);\nVerify(MathBitCount(0.0),0);\n\nVerify(MathBitCount(0.5),0);\nVerify(MathBitCount(0.25),-1);\nVerify(MathBitCount(0.125),-2);\nVerify(MathBitCount(0.0125),-6);\n\nVerify(MathBitCount(-3),2);\nVerify(MathBitCount(-3.0),2);\n\nVerify(MathBitCount(-4),3);\nVerify(MathBitCount(-4.0),3);\n\nVerify(MathBitCount(-0),0);\nVerify(MathBitCount(-0.0),0);\n\nVerify(MathBitCount(-0.5),0);\nVerify(MathBitCount(-0.25),-1);\nVerify(MathBitCount(-0.125),-2);\nVerify(MathBitCount(-0.0125),-6);\n\n";
-        testString[2] = "/org/mathpiper/scripts4/stdfuncs/elemfuncs/MathBitCount.mpw";
-        userFunctionsTestsMap.put("MathBitCount",testString);
-
-        testString = new String[3];
-        testString[0] = "31";
-        testString[1] = "\nVerify(ExpNum(0),1);\nNumericEqual(ExpNum(0e-1),1,BuiltinPrecisionGet());\n\n";
-        testString[2] = "/org/mathpiper/scripts4/stdfuncs/numerical/ExpNum.mpw";
-        userFunctionsTestsMap.put("ExpNum",testString);
-
-        testString = new String[3];
-        testString[0] = "22";
-        testString[1] = "\nVerify(InternalLnNum(1), 0);\n\n";
-        testString[2] = "/org/mathpiper/scripts4/stdfuncs/numerical/InternalLnNum.mpw";
-        userFunctionsTestsMap.put("InternalLnNum",testString);
-
-        testString = new String[3];
-        testString[0] = "44";
-        testString[1] = "\n// LogN used to hang on *all* input\nVerify(LogN(2)!=?0,True);\n\n";
-        testString[2] = "/org/mathpiper/scripts4/stdfuncs/numerical/LogN.mpw";
-        userFunctionsTestsMap.put("LogN",testString);
-
-        testString = new String[3];
-        testString[0] = "159";
-        testString[1] = "\nBuiltinPrecisionSet(22);\n\nNumericEqual(NewtonNum('[[x], x+Sin(x)], 3, 5, 3), 3.14159265358979323846,20);\n\n";
-        testString[2] = "/org/mathpiper/scripts4/stdfuncs/nummethods/NewtonNum.mpw";
-        userFunctionsTestsMap.put("NewtonNum",testString);
 
         testString = new String[3];
         testString[0] = "65";
@@ -573,18 +511,12 @@ public class Tests {
 
         testString = new String[3];
         testString[0] = "76";
-        testString[1] = "\nTestMathPiper(Expand((1+_x)^2),_x^2+2*_x+1);\n\n";
-        testString[2] = "/org/mathpiper/scripts4/stubs/Expand.mpw";
-        userFunctionsTestsMap.put("Expand",testString);
-
-        testString = new String[3];
-        testString[0] = "76";
         testString[1] = "\n// Discovered that Floor didn't handle new exponent notation\nVerify(Floor(1001.1e-1),100);\nVerify(Floor(10.01e1),100);\nVerify(Floor(100.1),100);\n\n";
         testString[2] = "/org/mathpiper/scripts4/stubs/Floor.mpw";
         userFunctionsTestsMap.put("Floor",testString);
 
         testString = new String[3];
-        testString[0] = "121";
+        testString[0] = "124";
         testString[1] = "\nVerify( Gcd( 324 + 1608*I, -11800 + 7900*I ),Complex(-52,16) );\n// I changed from Complex(-4,4) to Complex(4,4) as the GaussianGcd algorithm suddenly returned this instead.\n// However, as it turned out it was a bug in FloorN, introduced when\n// we moved to the new number classes (so the numbers did not get converted\n// to string and back any more). The number got prematurely truncated with\n// this test case (regression test added to regress.yts also).\n//TODO we can expand this with randomized tests\nVerify( Gcd( 7300 + 12*I, 2700 + 100*I), Complex(-4,4) );\n\n\n// Bug was found: gcd sometimes returned 0! Very bad, since the\n// value returned by gcd is usually used to divide out greatest\n// common divisors, and dividing by zero is not a good idea.\nVerify(Gcd(0,0),1);\nVerify(Gcd([0]),1);\n\n\n\nVerifyGaussianGcd(x,y):=\n{\n  Local(gcd);\n  gcd:=Gcd(x,y);\n//  Echo(x/gcd);\n//  Echo(y/gcd);\n  Verify(GaussianInteger?(x/gcd) And? GaussianInteger?(y/gcd),True);\n};\nVerifyGaussianGcd(324 + 1608*I, -11800 + 7900*I);\nVerifyGaussianGcd(7300 + 12*I, 2700 + 100*I);\nVerifyGaussianGcd(120-I*200,-336+50*I);\n\n/* Bug #3 */\nKnownFailure(Gcd(10,3.3) !=? 3.3 And? Gcd(10,3.3) !=? 1);\n/* I don't know what the answer should be, but buth 1 and 3.3 seem */\n/* certainly wrong. */\nVerify(Gcd(-10, 0), 10);\nVerify(Gcd(0, -10), 10);\n\n\n\n";
         testString[2] = "/org/mathpiper/scripts4/stubs/Gcd.mpw";
         userFunctionsTestsMap.put("Gcd",testString);
@@ -596,7 +528,7 @@ public class Tests {
         userFunctionsTestsMap.put("Lcm",testString);
 
         testString = new String[3];
-        testString[0] = "120";
+        testString[0] = "123";
         testString[1] = "\n// Modulo generated a stack overflow on floats.\nVerify(Modulo(1.2,3.4),6/5);\n\n//TODO I need to understand why we need to put Eval here. Modulo(-1.2,3.4)-2.2 returns 0/5 where the 0 is not an integer according to the system. Round-off error?\nNumericEqual(NM(Eval(Modulo(-1.2,3.4))),2.2,BuiltinPrecisionGet());\n\nVerify(Modulo(-12/10,34/10),11/5);\n// just a test to see if Verify still gives correct error Verify(NM(Modulo(-12/10,34/10)),11/5);\n\n\n// Make sure Mod works threaded\nVerify(Modulo(2,Infinity),2);\nVerify(Modulo([2,1],[2,2]),[0,1]);\nVerify(Modulo([5,1],4),[1,1]);\n\n";
         testString[2] = "/org/mathpiper/scripts4/stubs/Modulo.mpw";
         userFunctionsTestsMap.put("Modulo",testString);
@@ -680,38 +612,8 @@ public class Tests {
         userFunctionsTestsMap.put("LogicTest",testString);
 
         testString = new String[3];
-        testString[0] = "42";
-        testString[1] = "\nVerify(CanBeUni(_x^(-1)),False);\n\n/* Bug report from Magnus Petursson regarding determinants of matrices that have symbolic entries */\n/* todo:tk:commenting out for the minimal version of the scripts.\n//Verify(CanBeUni(Determinant([[a,b],[c,d]])),True);\n*/\n\n";
-        testString[2] = "/org/mathpiper/scripts4/univar/CanBeUni.mpw";
-        userFunctionsTestsMap.put("CanBeUni",testString);
-
-        testString = new String[3];
-        testString[0] = "68";
-        testString[1] = "\n// Coef accepted non-integer arguments as second argument, and\n// crashed on it.\nVerify(Coef(3*Pi,Pi),Coef(3*Pi,Pi));\nVerify(Coef(3*Pi,_x), Coef(3*Pi,_x));\n\n";
-        testString[2] = "/org/mathpiper/scripts4/univar/Coef.mpw";
-        userFunctionsTestsMap.put("Coef",testString);
-
-        testString = new String[3];
-        testString[0] = "48";
-        testString[1] = "\nTestMathPiper(Content(1/2*_x+1/2),1/2);\n\nTestMathPiper(Content(1/2*_x+1/3),1/6);\n\n";
-        testString[2] = "/org/mathpiper/scripts4/univar/Content.mpw";
-        userFunctionsTestsMap.put("Content",testString);
-
-        testString = new String[3];
-        testString[0] = "97";
-        testString[1] = "\n// Univariates in Pi did not get handled well, due to Pi being\n// considered a constant, non-variable.\nVerify(Degree(Pi,Pi),1);\nVerify(Degree(2*Pi,Pi),1);\n\n";
-        testString[2] = "/org/mathpiper/scripts4/univar/Degree.mpw";
-        userFunctionsTestsMap.put("Degree",testString);
-
-        testString = new String[3];
-        testString[0] = "50";
-        testString[1] = "\nTestMathPiper(PrimitivePart(1/2*_x+1/2),_x+1);\n\nTestMathPiper(PrimitivePart(1/2*_x+1/3),3*_x+2);\n\n";
-        testString[2] = "/org/mathpiper/scripts4/univar/PrimitivePart.mpw";
-        userFunctionsTestsMap.put("PrimitivePart",testString);
-
-        testString = new String[3];
         testString[0] = "444";
-        testString[1] = "\n/* it worketh no more...\nTesting(\"Realistic example\");\nf:=Exp(I*lambda*eta)*w(T*(k+k1+lambda));\ng:=Simplify(Substitute(lambda,0) f+(k+k1)*(Differentiate(lambda)f)+k*k1*Differentiate(lambda)Differentiate(lambda)f );\nVerify(UnparseLatex(g), ...);\n*/\n\nVerify(\nUnparseLatex(Hold(Cos(A-B)*Sqrt(C+D)-(a+b)*c^d+2*I+Complex(a+b,a-b)/Complex(0,1)))\n,\"$\\\\cos ( A - B)  \\\\times \\\\sqrt{C + D} - ( a + b)  \\\\times c ^{d} + 2 \\\\times \\\\imath  + \\\\frac{a + b + \\\\imath  \\\\times ( a - b) }{\\\\imath } $\"\n);\n\nVerify(\nUnparseLatex(Hold(Exp(A*B)/C/D/(E+F)*G-(-(a+b)-(c-d))-b^(c^d) -(a^b)^c))\n,\"$\\\\frac{\\\\frac{\\\\frac{\\\\exp ( A \\\\times B) }{C} }{D} }{E + F}  \\\\times G - (  - ( a + b)  - ( c - d) )  - b ^{c ^{d}} - ( a ^{b})  ^{c}$\"\n);\n\nRulebaseHoldArguments(\"f\",[_x,_y,_z]);\nRulebaseHoldArguments(\"g\",[_x,_y]);\nVerify(\nUnparseLatex(ObjectToMeta(Hold(Cos(A-B)*Sin(a)*f(b,c,d*(e+1))*Sqrt(C+D)-(g(a+b)^(c+d))^(c+d))))\n,\"$\\\\cos ( A - B)  \\\\times \\\\sin a \\\\times f( b, c, d \\\\times ( e + 1) )  \\\\times \\\\sqrt{C + D} - ( g( a + b)  ^{c + d})  ^{c + d}$\"\n);\nRetract(\"f\",*);\nRetract(\"g\",*);\n\n/* This test is commented out because it throws an exception when orthopoly.mpw is removed from the build process.\n// testing latest features: \\\\times, %, (a/b)^n, BinomialCoefficient(), BesselI, OrthoH\nVerify(\nUnparseLatex(3*2^n+Hold(x*10!) + (x/y)^2 + BinomialCoefficient(x,y) + BesselI(n,x) + Maximum(a,b) + OrthoH(n,x))\n, \"$3\\\\times 2 ^{n} + x\\\\times 10! + ( \\\\frac{x}{y} )  ^{2} + {x \\\\choose y} + I _{n}( x)  + \\\\max ( a, b)  + H _{n}( x) $\"\n);\n*/\n\n/* this fails because of a bug that Differentiate(x) f(y) does not go to 0 */ /*\nVerify(\nUnparseLatex(3*Differentiate(x)f(x,y,z)*Cos(Omega)*Modulo(Sin(a)*4,5/a^b))\n,\"$3 ( \\\\frac{\\\\partial}{\\\\partial x}f( x, y, z) )  ( \\\\cos \\\\Omega )  ( 4 ( \\\\sin a) ) \\\\bmod \\\\frac{5}{a ^{b}} $\"\n);\n*/\n\n\nVerify(\nUnparseLatex(Hold(Not? (c <? 0) And? (a+b)*c>=? -d^e And? (c <=? 0 Or? b+1 >? 0) Or? a !=? 0 And? Not? (p =? q)))\n,\"$ \\\\neg c < 0\\\\wedge ( a + b)  \\\\times c\\\\geq  - d ^{e}\\\\wedge ( c\\\\leq 0\\\\vee b + 1 > 0) \\\\vee a\\\\neq 0\\\\wedge  \\\\neg p = q$\"\n);\n\n\n/* todo:tk:commenting out for the minimal version of the scripts.\nRulebaseHoldArguments(\"f\",[_x]);\nVerify(\nUnparseLatex(Hold(Differentiate(x)f(x)))\n,\"$\\\\frac{d}{d x}f( x) $\");\nRetract(\"f\",*);\n\n\nRulebaseHoldArguments(\"f\",[_x,_y,_z]);\nVerify(\nUnparseLatex((Differentiate(x)f(x,y,z))*Cos(Omega)*Modulo(Sin(a)*4,5/a^b))\n,\"$( \\\\frac{\\\\partial}{\\\\partial x}f( x, y, z) )  \\\\times \\\\cos \\\\Omega  \\\\times ( 4 \\\\times \\\\sin a) \\\\bmod \\\\frac{5}{a ^{b}} $\"\n);\nRetract(\"f\",*);\n\nRulebaseHoldArguments(\"g\",[_x]);\nRulebaseHoldArguments(\"theta\",[_x]);\nVerify(\nUnparseLatex(Pi+Exp(1)-Theta-Integrate(x,x1,3/g(Pi))2*theta(x)*Exp(1/x))\n,\"$\\\\pi  + \\\\exp ( 1)  - \\\\Theta  - \\\\int _{x_{1}} ^{\\\\frac{3}{g( \\\\pi ) }  } 2 \\\\times \\\\theta ( x)  \\\\times \\\\exp ( \\\\frac{1}{x} )  dx$\"\n);\nRetract(\"g\",*);\nRetract(\"theta\",*);\n*/\n\n\nVerify(\nUnparseLatex(ObjectToMeta('([a[3]*b[5]-c[1][2],[a,b,c,d]])))\n,\"$( a _{3} \\\\times b _{5} - c _{( 1, 2) }, ( a, b, c, d) ) $\"\n);\n\n\n//Note: this is the only code in the test suite that currently creates new rulebases.\nRulebaseHoldArguments(\"aa\",[_x,_y,_z]);\nBodied(\"aa\", 200);\nRulebaseHoldArguments(\"bar\", [_x,_y]);\nInfix(\"bar\", 100);\nVerify(\nUnparseLatex(ObjectToMeta('(aa(x,y) z + 1 bar y!)))\n,\"$aa( x, y) z + 1\\\\mathrm{ bar }y!$\"\n);\nRetract(\"aa\",*);\nRetract(\"bar\",*);\n\nVerify(\nUnparseLatex('(x^(1/3)+x^(1/2)))\n, \"$\\\\sqrt[3]{x} + \\\\sqrt{x}$\"\n);\n\n/*\nVerify(\nUnparseLatex()\n,\"\"\n);\n*/\n\n/* Bug report from Michael Borcherds. The brackets were missing. */\nVerify(UnparseLatex(Hold(2*x*(-2))), \"$2 \\\\times x \\\\times (  - 2) $\");\n\n\n";
+        testString[1] = "\n/* it worketh no more...\nTesting(\"Realistic example\");\nf:=Exp(I*lambda*eta)*w(T*(k+k1+lambda));\ng:=Simplify(Substitute(lambda,0) f+(k+k1)*(Differentiate(lambda)f)+k*k1*Differentiate(lambda)Differentiate(lambda)f );\nVerify(UnparseLatex(g), ...);\n*/\n\n/*\nVerify(\nUnparseLatex(Hold(Cos(A-B)*Sqrt(C+D)-(a+b)*c^d+2*I+Complex(a+b,a-b)/Complex(0,1)))\n,\"$\\\\cos ( A - B)  \\\\times \\\\sqrt{C + D} - ( a + b)  \\\\times c ^{d} + 2 \\\\times \\\\imath  + \\\\frac{a + b + \\\\imath  \\\\times ( a - b) }{\\\\imath } $\"\n);\n*/\n\nVerify(\nUnparseLatex(Hold(Exp(A*B)/C/D/(E+F)*G-(-(a+b)-(c-d))-b^(c^d) -(a^b)^c))\n,\"$\\\\frac{\\\\frac{\\\\frac{\\\\exp ( A \\\\times B) }{C} }{D} }{E + F}  \\\\times G - (  - ( a + b)  - ( c - d) )  - b ^{c ^{d}} - ( a ^{b})  ^{c}$\"\n);\n\n/*\nRulebaseHoldArguments(\"f\",[_x,_y,_z]);\nRulebaseHoldArguments(\"g\",[_x,_y]);\nVerify(\nUnparseLatex(ObjectToMeta(Hold(Cos(A-B)*Sin(a)*f(b,c,d*(e+1))*Sqrt(C+D)-(g(a+b)^(c+d))^(c+d))))\n,\"$\\\\cos ( A - B)  \\\\times \\\\sin a \\\\times f( b, c, d \\\\times ( e + 1) )  \\\\times \\\\sqrt{C + D} - ( g( a + b)  ^{c + d})  ^{c + d}$\"\n);\nRetract(\"f\",*);\nRetract(\"g\",*);\n*/\n\n/* This test is commented out because it throws an exception when orthopoly.mpw is removed from the build process.\n// testing latest features: \\\\times, %, (a/b)^n, BinomialCoefficient(), BesselI, OrthoH\nVerify(\nUnparseLatex(3*2^n+Hold(x*10!) + (x/y)^2 + BinomialCoefficient(x,y) + BesselI(n,x) + Maximum(a,b) + OrthoH(n,x))\n, \"$3\\\\times 2 ^{n} + x\\\\times 10! + ( \\\\frac{x}{y} )  ^{2} + {x \\\\choose y} + I _{n}( x)  + \\\\max ( a, b)  + H _{n}( x) $\"\n);\n*/\n\n/* this fails because of a bug that Differentiate(x) f(y) does not go to 0 */ /*\nVerify(\nUnparseLatex(3*Differentiate(x)f(x,y,z)*Cos(Omega)*Modulo(Sin(a)*4,5/a^b))\n,\"$3 ( \\\\frac{\\\\partial}{\\\\partial x}f( x, y, z) )  ( \\\\cos \\\\Omega )  ( 4 ( \\\\sin a) ) \\\\bmod \\\\frac{5}{a ^{b}} $\"\n);\n*/\n\n\nVerify(\nUnparseLatex(Hold(Not? (c <? 0) And? (a+b)*c>=? -d^e And? (c <=? 0 Or? b+1 >? 0) Or? a !=? 0 And? Not? (p =? q)))\n,\"$ \\\\neg c < 0\\\\wedge ( a + b)  \\\\times c\\\\geq  - d ^{e}\\\\wedge ( c\\\\leq 0\\\\vee b + 1 > 0) \\\\vee a\\\\neq 0\\\\wedge  \\\\neg p = q$\"\n);\n\n\n/* todo:tk:commenting out for the minimal version of the scripts.\nRulebaseHoldArguments(\"f\",[_x]);\nVerify(\nUnparseLatex(Hold(Differentiate(x)f(x)))\n,\"$\\\\frac{d}{d x}f( x) $\");\nRetract(\"f\",*);\n\n\n/*\nRulebaseHoldArguments(\"f\",[_x,_y,_z]);\nVerify(\nUnparseLatex((Differentiate(x)f(x,y,z))*Cos(Omega)*Modulo(Sin(a)*4,5/a^b))\n,\"$( \\\\frac{\\\\partial}{\\\\partial x}f( x, y, z) )  \\\\times \\\\cos \\\\Omega  \\\\times ( 4 \\\\times \\\\sin a) \\\\bmod \\\\frac{5}{a ^{b}} $\"\n);\nRetract(\"f\",*);\n*/\n\n\n/*\nRulebaseHoldArguments(\"g\",[_x]);\nRulebaseHoldArguments(\"theta\",[_x]);\nVerify(\nUnparseLatex(Pi+Exp(1)-Theta-Integrate(x,x1,3/g(Pi))2*theta(x)*Exp(1/x))\n,\"$\\\\pi  + \\\\exp ( 1)  - \\\\Theta  - \\\\int _{x_{1}} ^{\\\\frac{3}{g( \\\\pi ) }  } 2 \\\\times \\\\theta ( x)  \\\\times \\\\exp ( \\\\frac{1}{x} )  dx$\"\n);\nRetract(\"g\",*);\nRetract(\"theta\",*);\n*/\n\n\nVerify(\nUnparseLatex(ObjectToMeta('([a[3]*b[5]-c[1][2],[a,b,c,d]])))\n,\"$( a _{3} \\\\times b _{5} - c _{( 1, 2) }, ( a, b, c, d) ) $\"\n);\n\n\n//Note: this is the only code in the test suite that currently creates new rulebases.\nRulebaseHoldArguments(\"aa\",[_x,_y,_z]);\nBodied(\"aa\", 200);\nRulebaseHoldArguments(\"bar\", [_x,_y]);\nInfix(\"bar\", 100);\nVerify(\nUnparseLatex(ObjectToMeta('(aa(x,y) z + 1 bar y!)))\n,\"$aa( x, y) z + 1\\\\mathrm{ bar }y!$\"\n);\nRetract(\"aa\",*);\nRetract(\"bar\",*);\n\nVerify(\nUnparseLatex('(x^(1/3)+x^(1/2)))\n, \"$\\\\sqrt[3]{x} + \\\\sqrt{x}$\"\n);\n\n/*\nVerify(\nUnparseLatex()\n,\"\"\n);\n*/\n\n/* Bug report from Michael Borcherds. The brackets were missing. */\nVerify(UnparseLatex(Hold(2*x*(-2))), \"$2 \\\\times x \\\\times (  - 2) $\");\n\n\n";
         testString[2] = "/org/mathpiper/scripts4/unparsers/unparselatex.mpw";
         userFunctionsTestsMap.put("UnparseLatex",testString);
     }
@@ -734,5 +636,15 @@ public class Tests {
     public Map getBuiltInFunctionsMap()
     {
         return builtInFunctionsTestsMap;
+    }
+
+    public String[] getdocumentationExamplesTestsScript(String testName)
+    {
+        return (String[]) documentationExamplesTestsMap.get(testName);
+    }
+
+    public Map getdocumentationExamplesTestsMap()
+    {
+        return documentationExamplesTestsMap;
     }
 }

@@ -12,17 +12,17 @@
 100  # ((_x ^ _m)*(_x)) <-- x^(m+1);
 100  # ((_x ^ _n)*(_x ^ _m)) <-- x^(m+n);
 
-100 # Tan(_x)*Cos(_x) <-- Sin(x);
+//100 # Tan(_x)*Cos(_x) <-- Sin(x);
 
-100 # Sinh(_x)*Csch(_x) <-- 1;
+//100 # Sinh(_x)*Csch(_x) <-- 1;
 
-100 # Cosh(_x)*Sech(_x) <-- 1;
+//100 # Cosh(_x)*Sech(_x) <-- 1;
 
-100 # Cos(_x)*Tan(_x) <-- Sin(x);
+//100 # Cos(_x)*Tan(_x) <-- Sin(x);
 
-100 # Coth(_x)*Sinh(_x) <-- Cosh(x);
+//100 # Coth(_x)*Sinh(_x) <-- Cosh(x);
 
-100 # Tanh(_x)*Cosh(_x) <-- Sinh(x);
+//100 # Tanh(_x)*Cosh(_x) <-- Sinh(x);
 
 105 # (f_NegativeNumber? * _x)  <-- -(-f)*x;
 105 # (_x * f_NegativeNumber?)  <-- -(-f)*x;

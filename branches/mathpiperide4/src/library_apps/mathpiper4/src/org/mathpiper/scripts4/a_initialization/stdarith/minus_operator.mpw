@@ -9,8 +9,8 @@
 100 # _x - n_Constant?*(_x)   <-- (1-n)*x;
 100 # n_Constant?*(_x) - _x   <-- (n-1)*x;
 
-100 # Sinh(_x)^2-Cosh(_x)^2         <-- 1;
-100 # Sinh(_x)-Cosh(_x)                <-- Exp(-x);
+//100 # Sinh(_x)^2-Cosh(_x)^2         <-- 1;
+//100 # Sinh(_x)-Cosh(_x)                <-- Exp(-x);
 
 110 # - (_x - _y) <-- y-x;
 111 # - (x_Number? / _y) <-- (-x)/y;        

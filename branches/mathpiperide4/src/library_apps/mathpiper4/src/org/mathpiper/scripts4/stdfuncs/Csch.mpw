@@ -1,5 +1,0 @@
-%mathpiper,def="Csch"
-
-100 # Csch(_x)                <-- 1/Sinh(x);
-
-%/mathpiper

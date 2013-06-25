@@ -269,7 +269,7 @@ Verify(Scalar?([_a]),False);
 
 Verify(Vector?(1),False);
 Verify(Vector?(_a),False);
-Verify(Vector?(Sin(_a)+2),False);
+Verify(Vector?(Sqrt(_a)+2),False);
 Verify(Vector?([]),True);
 Verify(Vector?([[]]),False);
 Verify(Vector?([1,2,_a,4]),True);
@@ -295,7 +295,7 @@ Verify(Vector?(Number?,[[1],[2]]),False);
 
 Verify(Vector?(1),False);
 Verify(Vector?(_a),False);
-Verify(Vector?(Sin(_a)+2),False);
+Verify(Vector?(Sqrt(_a)+2),False);
 Verify(Vector?([]),True);
 Verify(Vector?([[]]),False);
 Verify(Vector?([1,2,_a,4]),True);
@@ -343,8 +343,8 @@ Verify(Matrix?(Integer?,[[1,2/3]]),False);
 Verify(Matrix?(Integer?,[[1,2,3],[4,5,6]]),True);
 Verify(Matrix?(Integer?,[[1,[2],3],[4,5,6]]),False);
 Verify(Matrix?(Integer?,[[1,2,3],[4,5]]),False);
-Verify(Matrix?(Integer?,[[Sin(1),2,3],[4,5,6]]),False);
-Verify(Matrix?(Integer?,[[Sin(0),2,3],[4,5,6]]),True);
+Verify(Matrix?(Integer?,[[Sqrt(2),2,3],[4,5,6]]),False);
+Verify(Matrix?(Integer?,[[Sqrt(0),2,3],[4,5,6]]),True);
 
 %/mathpiper
 

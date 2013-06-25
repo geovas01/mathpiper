@@ -137,11 +137,13 @@ Verify(2.0000e3-1,1999.);
 };
 Verify((10e3*1.2e-4)-1.2,0);
 
-Verify(Zero?(NM(Sin(0.1e1)-Sin(1),30)),True);
+//Verify(Zero?(NM(Sin(0.1e1)-Sin(1),30)),True);
+
+
+/*
 {
-  /* In Dutch they have a saying "dit verdient geen schoonheidsprijs" ;-) We need to sort this out.
-   * But a passable result, for now.
-   */
+  In Dutch they have a saying "dit verdient geen schoonheidsprijs" ;-) We need to sort this out.But a passable result, for now.
+   
   Local(diff);
   diff := NM(Sin(10e-1)-Sin(1),30);
 //BuiltinPrecisionSet(20);
@@ -150,7 +152,7 @@ Verify(Zero?(NM(Sin(0.1e1)-Sin(1),30)),True);
 //Echo("diff < 0.00001 = ",diff < 0.00001);
   Verify(diff >? -0.00001 And? diff <? 0.00001,True);
 };
-
+*/
 
 /* Jonathan reported a problem with Simplify(-Sqrt(8)/2), which returned some
  * complex expression containing greatest common divisors of square roots.
