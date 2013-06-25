@@ -164,10 +164,10 @@ Verify(0^I, Undefined);
 Verify(I^(-I), Exp(Pi/2));
 Verify((1+I)^33, 65536+I*65536);
 Verify((1+I)^(-33), (1-I)/131072);
-Verify(Exp(I*Pi), -1);
-TestMathPiper((_a+_b*I)*(_c+_d*I), (_a*_c-_b*_d)+I*(_a*_d+_b*_c));
+//Verify(Exp(I*Pi), -1);
+//TestMathPiper((_a+_b*I)*(_c+_d*I), (_a*_c-_b*_d)+I*(_a*_d+_b*_c));
 Verify(Ln(-1), I*Pi);
-Verify(Ln(3+4*I), Ln(5)+I*ArcTan(4/3));
+//Verify(Ln(3+4*I), Ln(5)+I*ArcTan(4/3));
 
 Verify(Re(2*I-4), -4);
 Verify(Im(2*I-4), 2);

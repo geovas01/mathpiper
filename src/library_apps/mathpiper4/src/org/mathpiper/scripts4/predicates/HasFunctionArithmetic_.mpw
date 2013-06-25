@@ -48,8 +48,8 @@ Result: False;
 %mathpiper,name="HasFunctionArithmetic?",subtype="automatic_test"
 
 Verify(HasFunctionArithmetic?(_a*_b+1,ToAtom("+")),True);
-Verify(HasFunctionArithmetic?(_a+Sin(_b*_c),'(*)),False);
-Verify(HasFunctionArithmetic?(_a+Sin(_b*_c),'Sin),True);
+Verify(HasFunctionArithmetic?(_a+Sqrt(_b*_c),'(*)),False);
+Verify(HasFunctionArithmetic?(_a+Sqrt(_b*_c),'Sqrt),True);
 
 RulebaseHoldArguments("f",[_a]);
 Verify(HasFunctionArithmetic?(_a*_b+f([_b,_c]),'List),False);

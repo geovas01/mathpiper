@@ -39,6 +39,8 @@
 };
 
 
+
+/*
 //Note:tk:moved here from univariate.rep.
 0 # Modulo(n_UniVar?,m_UniVar?)::(Degree(n) <? Degree(m)) <-- n;
 1 # Modulo(n_UniVar?,m_UniVar?)::
@@ -53,6 +55,7 @@
 {
     NormalForm(Modulo(MakeUni(n,vars),MakeUni(m,vars)));
 };
+*/
 
 %/mathpiper
 

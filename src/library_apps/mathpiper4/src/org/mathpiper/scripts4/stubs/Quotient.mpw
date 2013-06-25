@@ -25,6 +25,7 @@
 };
 
 
+/*
 //Note:tk:moved here from univariate.rep.
 0 # Quotient(n_UniVar?,m_UniVar?)::(Degree(n) <? Degree(m)) <-- 0;
 1 # Quotient(n_UniVar?,m_UniVar?)::
@@ -35,6 +36,7 @@
                          Concat(ZeroVector(m[2]),m[3]))[1]);
 };
 
+*/
 %/mathpiper
 
 

@@ -1,6 +1,6 @@
 %mathpiper,def="Arg"
 
-10 # Arg(Complex(Cos(_x),Sin(_x))) <-- x;
+//10 # Arg(Complex(Cos(_x),Sin(_x))) <-- x;
 10 # Arg(x_Zero?) <-- Undefined;
 15 # Arg(x_PositiveReal?) <-- 0;
 15 # Arg(x_NegativeReal?) <-- Pi;
@@ -49,7 +49,7 @@ Result: Pi/4;
 
 
 
-%mathpiper,name="Arg",subtype="automatic_test"
+%mathpiper,name="Arg",subtype="manual_test"
 
 TestMathPiper(Arg(Exp(2*I*Pi/3)),2*Pi/3);
 

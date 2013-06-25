@@ -143,7 +143,7 @@ Some more examples of rules (not made clickable because their equivalents are al
 in the basic MathPiper library):
 10 # _x + 0 <-- x;
 20 # _x - _x <-- 0;
-ArcSin(Sin(_x)) <-- x;
+//ArcSin(Sin(_x)) <-- x;
 
 The last rule has no explicit precedence specified in it (the precedence zero will
 be assigned automatically by the system). MathPiper will first try to match the pattern

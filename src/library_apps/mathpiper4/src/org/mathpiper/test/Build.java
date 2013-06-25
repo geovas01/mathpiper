@@ -27,7 +27,7 @@ import java.util.List;
 
 public class Build {
 
-    private boolean strip = false; // Set to false to have unaltered scripts
+    private boolean strip = true; // Set to false to have unaltered scripts
 				   // placed into Scripts.java.
 
     private enum TESTTYPE {

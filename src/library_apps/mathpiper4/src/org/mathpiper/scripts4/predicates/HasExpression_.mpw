@@ -62,12 +62,12 @@ Result: False;
 %mathpiper,name="HasExpression?",subtype="automatic_test"
 
 Verify(HasExpression?(_a*_b+1,1),True);
-Verify(HasExpression?(_a+Sin(_b*_c),_c),True);
+Verify(HasExpression?(_a+Sqrt(_b*_c),_c),True);
 Verify(HasExpression?(_a*_b+1,2),False);
 Verify(HasExpressionArithmetic?(_a*_b+1,ToAtom("+")),False);
 Verify(HasExpressionArithmetic?(_a*_b+1,1),True);
-Verify(HasExpressionArithmetic?(_a+Sin(_b*_c),_c),False);
-Verify(HasExpressionArithmetic?(_a+Sin(_b*_c),Sin(_b*_c)),True);
+Verify(HasExpressionArithmetic?(_a+Sqrt(_b*_c),_c),False);
+Verify(HasExpressionArithmetic?(_a+Sqrt(_b*_c),Sqrt(_b*_c)),True);
 
 RulebaseHoldArguments("f",[_a]);
 Verify(HasExpression?(_a*_b+f([_b,_c]),'f),False);

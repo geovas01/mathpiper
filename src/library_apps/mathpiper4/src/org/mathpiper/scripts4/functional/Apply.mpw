@@ -84,7 +84,7 @@ Verify(Apply("+",[2,3]),5);
 
   Testing("ThreadingListables");
   x:=[_bb,_cc,_dd];
-  Verify(Sin(_aa*x),[Sin(_aa*_bb),Sin(_aa*_cc),Sin(_aa*_dd)]);
+  Verify(Sqrt(_aa*x),[Sqrt(_aa*_bb),Sqrt(_aa*_cc),Sqrt(_aa*_dd)]);
 };
 
 %/mathpiper

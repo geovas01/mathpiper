@@ -2,7 +2,7 @@
 
 2 # Exp(x_Number?)::NumericMode?() <-- ExpNum(x);
 4 # Exp(Ln(_x))           <-- x;
-110 # Exp(Complex(_r,_i)) <--  Exp(r)*(Cos(i) + I*Sin(i));
+//110 # Exp(Complex(_r,_i)) <--  Exp(r)*(Cos(i) + I*Sin(i));
 200 # Exp(0) <-- 1;
 200 # Exp(-Infinity) <-- 0;
 200 # Exp(Infinity) <-- Infinity;

@@ -1,4 +1,4 @@
-%mathpiper,name="numerics",subtype="automatic_test"
+%mathpiper,name="numerics",subtype="manual_test"
 
 /* Numerical testers - all confirmed with various programs */
 Testing(" *** TESTING NUMERICS *** ");

@@ -450,16 +450,19 @@ g:=Simplify(Substitute(lambda,0) f+(k+k1)*(Differentiate(lambda)f)+k*k1*Differen
 Verify(UnparseLatex(g), ...);
 */
 
+/*
 Verify(
 UnparseLatex(Hold(Cos(A-B)*Sqrt(C+D)-(a+b)*c^d+2*I+Complex(a+b,a-b)/Complex(0,1)))
 ,"$\\cos ( A - B)  \\times \\sqrt{C + D} - ( a + b)  \\times c ^{d} + 2 \\times \\imath  + \\frac{a + b + \\imath  \\times ( a - b) }{\\imath } $"
 );
+*/
 
 Verify(
 UnparseLatex(Hold(Exp(A*B)/C/D/(E+F)*G-(-(a+b)-(c-d))-b^(c^d) -(a^b)^c))
 ,"$\\frac{\\frac{\\frac{\\exp ( A \\times B) }{C} }{D} }{E + F}  \\times G - (  - ( a + b)  - ( c - d) )  - b ^{c ^{d}} - ( a ^{b})  ^{c}$"
 );
 
+/*
 RulebaseHoldArguments("f",[_x,_y,_z]);
 RulebaseHoldArguments("g",[_x,_y]);
 Verify(
@@ -468,6 +471,7 @@ UnparseLatex(ObjectToMeta(Hold(Cos(A-B)*Sin(a)*f(b,c,d*(e+1))*Sqrt(C+D)-(g(a+b)^
 );
 Retract("f",*);
 Retract("g",*);
+*/
 
 /* This test is commented out because it throws an exception when orthopoly.mpw is removed from the build process.
 // testing latest features: \\times, %, (a/b)^n, BinomialCoefficient(), BesselI, OrthoH
@@ -499,13 +503,17 @@ UnparseLatex(Hold(Differentiate(x)f(x)))
 Retract("f",*);
 
 
+/*
 RulebaseHoldArguments("f",[_x,_y,_z]);
 Verify(
 UnparseLatex((Differentiate(x)f(x,y,z))*Cos(Omega)*Modulo(Sin(a)*4,5/a^b))
 ,"$( \\frac{\\partial}{\\partial x}f( x, y, z) )  \\times \\cos \\Omega  \\times ( 4 \\times \\sin a) \\bmod \\frac{5}{a ^{b}} $"
 );
 Retract("f",*);
+*/
 
+
+/*
 RulebaseHoldArguments("g",[_x]);
 RulebaseHoldArguments("theta",[_x]);
 Verify(

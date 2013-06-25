@@ -65,27 +65,27 @@
 100 # (_x / y_NegativeNumber?) <-- -x/(-y);
 100 # (_x / - _y) <-- -x/y;
 
-100 # Tan(_x)/Sin(_x) <-- (1/Cos(x));
+//100 # Tan(_x)/Sin(_x) <-- (1/Cos(x));
 
-100 # 1/Csch(_x)        <-- Sinh(x);
+//100 # 1/Csch(_x)        <-- Sinh(x);
 
-100 # Sin(_x)/Tan(_x) <-- Cos(x);
+//100 # Sin(_x)/Tan(_x) <-- Cos(x);
 
-100 # Sin(_x)/Cos(_x) <-- Tan(x);
+//100 # Sin(_x)/Cos(_x) <-- Tan(x);
 
-100 # 1/Sech(_x) <-- Cosh(x);
+//100 # 1/Sech(_x) <-- Cosh(x);
 
-100 # 1/Sec(_x)                <-- Cos(x);
+//100 # 1/Sec(_x)                <-- Cos(x);
 
-100 # 1/Csc(_x)                <-- Sin(x);
+//100 # 1/Csc(_x)                <-- Sin(x);
 
-100 # Cos(_x)/Sin(_x) <-- (1/Tan(x));
+//100 # Cos(_x)/Sin(_x) <-- (1/Tan(x));
 
-100 # 1/Cot(_x) <-- Tan(x);
+//100 # 1/Cot(_x) <-- Tan(x);
 
-100 # 1/Coth(_x)        <-- Tanh(x);
+//100 # 1/Coth(_x)        <-- Tanh(x);
 
-100 # Sinh(_x)/Cosh(_x) <-- Tanh(x);
+//100 # Sinh(_x)/Cosh(_x) <-- Tanh(x);
 
 150 # (_x) / (_x) ^ (n_Constant?) <-- x^(1-n);
 150 # Sqrt(_x) / (_x) ^ (n_Constant?) <-- x^(1/2-n);
