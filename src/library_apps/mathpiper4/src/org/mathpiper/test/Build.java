@@ -40,7 +40,7 @@ public class Build {
     private java.io.FileWriter testsJavaFile;
     private String sourceScriptsDirectory = null;
     // private String outputScriptsDirectory = null;
-    private String documentationOutputDirectory = null;
+    private String outputDirectory = null;
     private String sourceDirectory = null;
     private java.io.DataOutputStream documentationOutputFile;
     private java.io.FileWriter documentationOutputIndexFile;
@@ -63,7 +63,7 @@ public class Build {
 
 	this.sourceDirectory = sourceDirectory;
 
-	documentationOutputDirectory = outputDirectory;
+	this.outputDirectory = outputDirectory;
 
 	sourceScriptsDirectory = sourceDirectory + "org/mathpiper/scripts4/";
 
@@ -74,15 +74,15 @@ public class Build {
 
     public void initializeFiles() throws Throwable {
 
-	documentationOutputFile = new DataOutputStream(new java.io.FileOutputStream(documentationOutputDirectory + "org/mathpiper/ui/gui/help/data/documentation.txt"));
+	documentationOutputFile = new DataOutputStream(new java.io.FileOutputStream(outputDirectory + "org/mathpiper/ui/gui/help/data/documentation.txt"));
 
-	documentationOutputIndexFile = new java.io.FileWriter(documentationOutputDirectory + "org/mathpiper/ui/gui/help/data/documentation_index.txt");
+	documentationOutputIndexFile = new java.io.FileWriter(outputDirectory + "org/mathpiper/ui/gui/help/data/documentation_index.txt");
 
-	licenseOutputFile = new DataOutputStream(new java.io.FileOutputStream(documentationOutputDirectory + "org/mathpiper/ui/gui/help/data/license.txt"));
+	licenseOutputFile = new DataOutputStream(new java.io.FileOutputStream(outputDirectory + "org/mathpiper/ui/gui/help/data/license.txt"));
 
-	licenseOutputIndexFile = new java.io.FileWriter(documentationOutputDirectory + "org/mathpiper/ui/gui/help/data/license_index.txt");
+	licenseOutputIndexFile = new java.io.FileWriter(outputDirectory + "org/mathpiper/ui/gui/help/data/license_index.txt");
 
-	functionOutputCategoriesFile = new java.io.FileWriter(documentationOutputDirectory + "org/mathpiper/ui/gui/help/data/function_categories.txt");
+	functionOutputCategoriesFile = new java.io.FileWriter(outputDirectory + "org/mathpiper/ui/gui/help/data/function_categories.txt");
     }
 
     public void compileScripts() throws Throwable {
@@ -90,11 +90,11 @@ public class Build {
 	System.out.println("****************** Compiling scripts *******");
 	System.out.println("Source directory: " + this.sourceScriptsDirectory);
 
-	scriptsJavaFile = new java.io.FileWriter(sourceDirectory + "org/mathpiper/Scripts.java");
+	scriptsJavaFile = new java.io.FileWriter(outputDirectory + "src/" + "org/mathpiper/Scripts.java");
 	String topOfClass = "package org.mathpiper;\n" + "\n" + "import java.util.HashMap;\n" + "\n" + "import java.util.Map;\n" + "\n" + "public class Scripts {\n" + "\n" + "    private HashMap scriptMap = null;\n\n" + "    public Scripts() {\n\n" + "        scriptMap = new HashMap();\n\n" + "        String[] scriptString;\n\n";
 	scriptsJavaFile.write(topOfClass);
 
-	testsJavaFile = new java.io.FileWriter(sourceDirectory + "org/mathpiper/Tests.java");
+	testsJavaFile = new java.io.FileWriter(outputDirectory + "src/" + "org/mathpiper/Tests.java");
 	topOfClass = "package org.mathpiper;\n" + "\n" + "import java.util.HashMap;\n" + "\n" + "import java.util.Map;\n" + "\n" + "public class Tests {\n" + "\n" + "    private HashMap userFunctionsTestsMap = null;\n\n" + "    private HashMap builtInFunctionsTestsMap = null;\n\n" + "    private HashMap documentationExamplesTestsMap = null;\n\n" + "    public Tests() {\n\n" + "        userFunctionsTestsMap = new HashMap();\n\n" + "        builtInFunctionsTestsMap = new HashMap();\n\n" + "        documentationExamplesTestsMap = new HashMap();\n\n" + "        String[] testString;\n\n";
 	testsJavaFile.write(topOfClass);
 
@@ -105,11 +105,11 @@ public class Build {
 	    // Process built in functions first.
 	    if (documentationOutputFile != null) {
 
-		processBuiltinDocs(sourceDirectory, documentationOutputDirectory, "org/mathpiper/builtin/functions/core");
+		processBuiltinDocs(sourceDirectory, outputDirectory, "org/mathpiper/builtin/functions/core");
 
-		processBuiltinDocs(sourceDirectory, documentationOutputDirectory, "org/mathpiper/builtin/functions/optional");
+		processBuiltinDocs(sourceDirectory, outputDirectory, "org/mathpiper/builtin/functions/optional");
 
-		processBuiltinDocs(sourceDirectory, documentationOutputDirectory, "org/mathpiper/builtin/functions/plugins/jfreechart");
+		processBuiltinDocs(sourceDirectory, outputDirectory, "org/mathpiper/builtin/functions/plugins/jfreechart");
 	    }
 
 	    java.io.File[] packagesDirectory = scriptsDir.listFiles(new java.io.FilenameFilter() {
@@ -754,7 +754,7 @@ public class Build {
     private void createVersionJavaFile() throws Throwable {
 	System.out.println("****************** Creating version file *******");
 
-	FileWriter versionOutputFile = new java.io.FileWriter(sourceDirectory + "org/mathpiper/Version.java");
+	FileWriter versionOutputFile = new java.io.FileWriter(outputDirectory + "src/" + "org/mathpiper/Version.java");
 
 	String versionJavaFile = "package org.mathpiper;\n" + "\n" + "//*** GENERATED FILE, DO NOT EDIT ***\n" + "\n" + "public class Version\n" + "{\n" + "   private static final String version = \"" + this.version + "\";\n" + "\n" + "   public static String version()\n" + "   {\n" + "       return version;\n" + "   }\n" + "}\n";
 
@@ -1011,7 +1011,7 @@ public class Build {
 		outputDirectory = args[1];
 		version = args[2];
 
-		System.out.println("XXX " + sourceDirectory + ", " + outputDirectory);
+		//System.out.println("XXX " + sourceDirectory + ", " + outputDirectory);
 	    } else {
 		throw new Exception("Three arguments must be submitted to the main method.");
 	    }
