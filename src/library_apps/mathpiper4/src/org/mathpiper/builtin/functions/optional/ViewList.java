@@ -60,7 +60,7 @@ public class ViewList extends BuiltinFunction {
         contentPane.add(scrollPane);
         contentPane.add(mathPanelScaler, BorderLayout.NORTH);
 
-        frame.setAlwaysOnTop(false);
+        //frame.setAlwaysOnTop(false);
         frame.setTitle("List Viewer");
         frame.setResizable(true);
         frame.pack();

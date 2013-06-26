@@ -187,7 +187,7 @@ public class ViewMath extends BuiltinFunction {
         contentPane.add(latexPanelController, BorderLayout.NORTH);
 
 
-        frame.setAlwaysOnTop(false);
+        //frame.setAlwaysOnTop(false);
         frame.setTitle("Math Viewer");
         frame.setResizable(true);
         frame.pack();
