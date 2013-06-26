@@ -83,7 +83,7 @@ public class ViewHtml extends BuiltinFunction {
         editorPane.setEditable(false);
         editorPane.setText(htmlText);
         contentPane.add(editorScrollPane);
-        frame.setAlwaysOnTop(false);
+        //frame.setAlwaysOnTop(false);
         frame.setTitle("MathPiper");
         frame.pack();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

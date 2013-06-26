@@ -104,7 +104,7 @@ public class Show extends BuiltinFunction {
         frame.setBackground(Color.WHITE);
         contentPane.setBackground(Color.WHITE);
 
-        frame.setAlwaysOnTop(false);
+        //frame.setAlwaysOnTop(false);
         frame.setTitle((String) userOptions.get("title"));
         frame.setResizable(true);
         frame.pack();
