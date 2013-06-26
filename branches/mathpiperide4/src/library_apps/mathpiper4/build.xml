@@ -4,7 +4,7 @@
     
     <description>Build file for MathPiper.</description>
     
-    <property name="version" value="mp4_minimal_alpha_v.114" />
+    <property name="version" value="mp4_minimal_alpha_v.115" />
 
     <property name="compile.source" value="1.7" />
 
@@ -77,11 +77,27 @@
             <classpath refid="build_classpath" />
 
             <include name="**/*.java" />
-        </javac>        
+            <exclude name="dist/" />
+
+        </javac>   
+        
+        
+        <delete file="${build.dir}/org/mathpiper/Scripts.class"/>
+        <delete file="${build.dir}/org/mathpiper/Tests.class"/>
+        <delete file="${build.dir}/org/mathpiper/Version.class"/>
+        
+
+        <javac source="${compile.source}" target="${compile.target}" srcdir="${build.dir}/src" destdir="${build.classes.dir}" debug="on" deprecation="on" optimize="off" includeantruntime="false">
+            <classpath refid="build_classpath" />
+
+            <include name="**/*.java" />
+          
+        </javac> 
+        
         
     </target>
 
-    <target name="compile_build_dot_java" depends="init" description="Compiles the application">
+    <target name="compile_build_dot_java" depends="init" description="Compiles Build.java">
 <!--<echo message="${compile.source}." />
         <echo message="${src.dir}." />
         <echo message="${build.classes.dir}." />-->
@@ -114,6 +130,11 @@
     	<mkdir dir="${build.classes.dir}/org/mathpiper/builtin/functions/core" />
     	<mkdir dir="${build.classes.dir}/org/mathpiper/builtin/functions/optional" />
     	<mkdir dir="${build.classes.dir}/org/mathpiper/builtin/functions/plugins/jfreechart" />
+    	<mkdir dir="${build.dir}/src" />
+    	<copy file="${src.dir}/org/mathpiper/Scripts.java" todir="${build.dir}/src/org/mathpiper"/>
+    	<copy file="${src.dir}/org/mathpiper/Tests.java" todir="${build.dir}/src/org/mathpiper"/>
+    	<copy file="${src.dir}/org/mathpiper/Version.java" todir="${build.dir}/src/org/mathpiper"/>
+    	
     	<!--<copy file="${src.dir}/org/mathpiper/ui/gui/help/data/documentation.txt" todir="${build.classes.dir}/org/mathpiper/ui/gui/help/data"/>
     	<copy file="${src.dir}/org/mathpiper/ui/gui/help/data/documentation_index.txt" todir="${build.classes.dir}/org/mathpiper/ui/gui/help/data"/>
     	<copy file="${src.dir}/org/mathpiper/ui/gui/help/data/function_categories.txt" todir="${build.classes.dir}/org/mathpiper/ui/gui/help/data"/>-->
