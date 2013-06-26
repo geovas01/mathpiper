@@ -2,6 +2,8 @@ package org.mathpiper;
 
 import java.util.HashMap;
 
+//*** GENERATED FILE, DO NOT EDIT ***
+
 import java.util.Map;
 
 public class Tests {
