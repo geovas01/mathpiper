@@ -90,6 +90,7 @@ import org.mathpiper.lisp.cons.Cons;
 
 import org.mathpiper.lisp.cons.SublistCons;
 import org.mathpiper.lisp.parsers.Parser;
+import org.mathpiper.ui.gui.StateViewerPanel;
 import org.mathpiper.ui.gui.help.FunctionTreePanel;
 
 public class GraphicConsole extends javax.swing.JPanel implements ActionListener, KeyListener, ResponseListener, ItemListener, FocusListener, MathPiperOutputStream {
@@ -228,7 +229,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         codeResultCheckBox.addItemListener(this);
         consoleButtons.add(codeResultCheckBox);
 
-        showRealtimeOutputCheckBox = new JCheckBox("Show Realtime");
+        showRealtimeOutputCheckBox = new JCheckBox("Realtime");
         showRealtimeOutputCheckBox.setToolTipText("Open the realtime output text area that is at the bottom of the console.");
         showRealtimeOutputCheckBox.addItemListener(this);
         consoleButtons.add(showRealtimeOutputCheckBox);
@@ -238,6 +239,35 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
         clearConsoleButton = new JButton("Clear");
         clearConsoleButton.addActionListener(this);
+        consoleButtons.add(clearConsoleButton);
+        
+        clearConsoleButton = new JButton("Variables");
+        clearConsoleButton.addActionListener(new ActionListener() {
+ 
+            public void actionPerformed(ActionEvent e)
+            {
+        	StateViewerPanel stateViewerPanel = new StateViewerPanel(interpreter);
+                JFrame frame = new JFrame();
+                Container contentPane = frame.getContentPane();
+                frame.setBackground(Color.WHITE);
+                contentPane.setBackground(Color.WHITE);
+
+                //frame.setAlwaysOnTop(false);
+                frame.setTitle("Global Variables");
+                frame.setResizable(true);
+                frame.pack();
+                Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+                //int height = screenSize.height;
+                //int width = screenSize.width;
+                frame.setSize(300,300);
+                frame.setLocationRelativeTo(null); 
+
+                
+                contentPane.add(stateViewerPanel);
+                
+                frame.setVisible(true);
+            }
+        }); 
         consoleButtons.add(clearConsoleButton);
 
 
