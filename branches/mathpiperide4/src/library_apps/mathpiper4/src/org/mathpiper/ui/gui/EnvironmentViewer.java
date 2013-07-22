@@ -19,6 +19,7 @@ package org.mathpiper.ui.gui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.JFrame;
+
 import org.mathpiper.lisp.Environment;
 import java.awt.Container;
 import java.awt.Point;
@@ -37,6 +38,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -57,6 +59,7 @@ import javax.swing.table.AbstractTableModel;
 import org.mathpiper.lisp.variables.GlobalVariable;
 import org.mathpiper.lisp.Utility;
 
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.rulebases.Rule;
 import org.mathpiper.lisp.rulebases.MultipleArityRulebase;
 import org.mathpiper.lisp.rulebases.SingleArityRulebase;
@@ -72,7 +75,6 @@ public class EnvironmentViewer implements ActionListener {
     private JTextArea textArea = new JTextArea(4, 8);
     private List tables = new ArrayList();
     private JFrame frame;
-    private FunctionNameComparator functionNameComparator = new FunctionNameComparator();
     private JPopupMenu popupMenu = new JPopupMenu();
 
 
@@ -128,7 +130,8 @@ public class EnvironmentViewer implements ActionListener {
 
 
         //Add global state.
-        JTable table = this.getGlobalStateTable(aEnvironment);
+        JTable table = this.getGlobalStateTable(aEnvironment, true);
+        table.getSelectionModel().addListSelectionListener(new GlobalVariableListener(table, aEnvironment));
         tables.add(table);
         JScrollPane scrollPane = new JScrollPane(table);
         tables.add(scrollPane);
@@ -261,7 +264,12 @@ public class EnvironmentViewer implements ActionListener {
             private String getKey(int a_index) {
                 String retval = "";
                 ArrayList keyList = new ArrayList(map.keySet());
-                Collections.sort(keyList, functionNameComparator);
+                Collections.sort(keyList, new Comparator<String>() {
+
+                    public int compare(String s1, String s2) {
+                        return s1.compareToIgnoreCase(s2);
+                    }
+                });//end method.
 
                 // for (int i = 0; i < a_index + 1; i++) {
                 //         retval = e.next();
@@ -291,7 +299,7 @@ public class EnvironmentViewer implements ActionListener {
                         cancelCellEditing(jTable);
 
                         // create popup menu...
-                        JPopupMenu contextMenu = createContextMenu(row, mcol, jTable, map);
+                        JPopupMenu contextMenu = createContextMenu(row, mcol, jTable, map, this);
 
                         // ... and show it
                         if (contextMenu != null
@@ -369,7 +377,12 @@ public class EnvironmentViewer implements ActionListener {
             private String getKey(int a_index) {
                 String retval = "";
                 ArrayList keyList = new ArrayList(map.keySet());
-                Collections.sort(keyList, functionNameComparator);
+                Collections.sort(keyList, new Comparator<String>() {
+
+                    public int compare(String s1, String s2) {
+                        return s1.compareToIgnoreCase(s2);
+                    }
+                });//end method.
 
                 // for (int i = 0; i < a_index + 1; i++) {
                 //         retval = e.next();
@@ -391,13 +404,38 @@ public class EnvironmentViewer implements ActionListener {
      * @param aEnvironment the environment to view
      * @return a JTable which contains the global variable names
      */
-    public JTable getGlobalStateTable(Environment aEnvironment) {
+    public static JTable getGlobalStateTable(Environment aEnvironment, boolean showAll) {
         JTable table = new JTable();
 
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        table.getSelectionModel().addListSelectionListener(new GlobalVariableListener(table, aEnvironment));
+        
+        
+	Map<String, GlobalVariable> globalState = (Map<String, GlobalVariable>) aEnvironment
+		.getGlobalState();
 
-        final Map map =  aEnvironment.iGlobalState;
+	java.util.Set<String> variablesSet = globalState.keySet();
+
+	Map<String,GlobalVariable> userVariablesMap = new HashMap<String,GlobalVariable>();
+
+	for (String key : variablesSet) {
+	    if (!key.contains("$")
+		    && !key.equals("I")
+		    && !key.equals("%")
+		    && ((GlobalVariable) globalState.get(key)).iConstant == false) {
+		
+		
+		GlobalVariable globalVariable = globalState.get(key);
+
+
+		userVariablesMap.put(key, globalVariable);
+	    }
+
+	}
+
+ 
+        final Map map = (showAll) ?aEnvironment.iGlobalState :userVariablesMap;
+        
+        
 
         table.setModel(new AbstractTableModel() {
 
@@ -416,9 +454,9 @@ public class EnvironmentViewer implements ActionListener {
 
             public String getColumnName(int column) {
                 if (column == 0) {
-                    return "Global Variables";
+                    return "Name";
                 } else {
-                    return "Values";
+                    return "Value";
                 }
             }
 
@@ -436,7 +474,12 @@ public class EnvironmentViewer implements ActionListener {
             private String getKey(int a_index) {
                 String retval = "";
                 ArrayList keyList = new ArrayList(map.keySet());
-                Collections.sort(keyList, functionNameComparator);
+                Collections.sort(keyList, new Comparator<String>() {
+
+                    public int compare(String s1, String s2) {
+                        return s1.compareToIgnoreCase(s2);
+                    }
+                });//end method.
 
                 // for (int i = 0; i < a_index + 1; i++) {
                 //         retval = e.next();
@@ -467,7 +510,7 @@ public class EnvironmentViewer implements ActionListener {
                         cancelCellEditing(jTable);
 
                         // create popup menu...
-                        JPopupMenu contextMenu = createContextMenu(row, mcol, jTable, map);
+                        JPopupMenu contextMenu = createContextMenu(row, mcol, jTable, map, this);
 
                         // ... and show it
                         if (contextMenu != null
@@ -689,7 +732,7 @@ public class EnvironmentViewer implements ActionListener {
     private JScrollPane jScrollPane;
 
 
-    private void cancelCellEditing(JTable table) {
+    private static void cancelCellEditing(JTable table) {
         CellEditor ce = table.getCellEditor();
         if (ce != null) {
             ce.cancelCellEditing();
@@ -697,7 +740,7 @@ public class EnvironmentViewer implements ActionListener {
     }
 
 
-    private JPopupMenu createContextMenu(final int rowIndex, final int columnIndex, JTable table, Map map) {
+    private static JPopupMenu createContextMenu(final int rowIndex, final int columnIndex, JTable table, Map map, Object requester) {
 
         final Map finalMap = map;
 
@@ -720,11 +763,14 @@ public class EnvironmentViewer implements ActionListener {
 
         JMenuItem pasteMenu = new JMenuItem();
         pasteMenu.setText("Paste");
-        if (isClipboardContainingText(this) && table.getModel().isCellEditable(rowIndex, columnIndex)) {
+        final Object requesterFinal = requester;
+        if (isClipboardContainingText(requester) && table.getModel().isCellEditable(rowIndex, columnIndex)) {
             pasteMenu.addActionListener(new ActionListener() {
+        	
+        	
 
                 public void actionPerformed(ActionEvent e) {
-                    String value = getClipboardContents(EnvironmentViewer.this);
+                    String value = getClipboardContents(requesterFinal);
                     jTable.getModel().setValueAt(value, rowIndex,
                             columnIndex);
                 }
@@ -750,7 +796,7 @@ public class EnvironmentViewer implements ActionListener {
 
                     finalMap.remove(string);
 
-                    EnvironmentViewer.this.refresh();
+                    //EnvironmentViewer.this.refresh();
                 }
                 int x = 1;
             }
