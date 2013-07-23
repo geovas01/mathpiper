@@ -66,7 +66,10 @@ ChangeToForwardSlash(tempFilePath)
 
 mpwExecutionCount++;
 
-jEdit.getActiveView().getDockableWindowManager().hideDockableWindow( "error-list" );
+if(jEdit.getActiveView().getDockableWindowManager().isDockableWindowVisible( "error-list" ))
+{
+	jEdit.getActiveView().getDockableWindowManager().hideDockableWindow( "error-list" );
+}
 
 
 errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
