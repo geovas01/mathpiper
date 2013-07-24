@@ -54,7 +54,7 @@ abstract public class Surface extends Exhibit3D {
 	 * assign it to the protected variable {@link #data}.  Note: the gridSpacing for the grid is  
 	 * completely managed by the top-level surface class, so subclasses
 	 * do not have to concern themselves with which grid lines will be drawn.  In general, subclasses only
-	 * need to compute the veritces and intrinsic colors for the grid.  They could also compute normal vectors.
+	 * need to compute the vertices and intrinsic colors for the grid.  They could also compute normal vectors.
 	 */
 	abstract protected void createData();
 	
