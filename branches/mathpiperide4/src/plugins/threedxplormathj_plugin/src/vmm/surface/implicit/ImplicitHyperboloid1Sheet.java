@@ -21,7 +21,6 @@ public class ImplicitHyperboloid1Sheet extends SurfaceImplicit {
 	public double heightFunction(double x, double y, double z) {
 		double height;
 		double aa = a.getValue();
-		
 		height = -(sqr(x/aa) + sqr(y) - sqr(z)) ;  
 		return height;
 	}
