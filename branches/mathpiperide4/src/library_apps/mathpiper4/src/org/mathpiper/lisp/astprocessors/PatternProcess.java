@@ -20,12 +20,10 @@ public class PatternProcess implements ASTProcessor {
     Cons associationList;
     String operatorString;
 
-
-
-    public PatternProcess(Environment aEnvironment, Cons pattern, Cons associationList) throws Throwable {
+    public PatternProcess(Environment aEnvironment, Cons patternArguments, Cons associationList) throws Throwable {
 	iEnvironment = aEnvironment;
 
-	//check that associationList is a compound object
+	// check that associationList is a compound object
 	if (!(associationList.car() instanceof Cons))
 	    LispError.checkArgument(aEnvironment, -1, 2);
 	if (associationList.car() == null)
@@ -35,34 +33,47 @@ public class PatternProcess implements ASTProcessor {
 
 	Cons postPredicate = Utility.getTrueAtom(aEnvironment);
 
-	if (pattern.car() instanceof Cons) {
-	    Cons operator = (Cons) pattern.car();
+	if (patternArguments.car() instanceof Cons) {
+	    Cons operator = (Cons) patternArguments.car();
 
 	    operatorString = (String) operator.car();
 
-	    if (!(operatorString.equals("_") && operator.cdr().cdr() == null)) {
+	    if ((operatorString.equals("::"))) {
 
-		if (!operatorString.equals("_")) {
-		    pattern = operator.cdr();
-		}
+		patternArguments = operator.cdr();
+		
+		postPredicate = operator.cdr().cdr();
 
-		matcher = new org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher(aEnvironment, -1, pattern,
-			postPredicate);
+		patternArguments.setCdr(null);
+
+	    } else {
+		patternArguments = operator.cdr();
 	    }
 
+	    operatorString = (String) Cons.caar(patternArguments);
+	    
+	    patternArguments = (Cons) Cons.cdar(patternArguments);
+	    
+	    matcher = new org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher(aEnvironment, -1, patternArguments, postPredicate);
+
 	} else {
-	    operatorString = (String) pattern.car();
+	    String s = (String) patternArguments.car();
+
+	    if (s.contains("_")) {
+		matcher = new org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher(aEnvironment, -1, patternArguments, postPredicate);
+	    } else {
+		operatorString = s;
+	    }
 	}
 
     }
 
-
-
-    public Cons matches(Environment aEnvironment, int aStackTop, Cons aElement) throws Throwable {
+    public Cons matches(Environment aEnvironment, int aStackTop, Cons aElement)
+	    throws Throwable {
 
 	try {
 	    Object nodeSymbol;
-	    
+
 	    Cons elementCopy = aElement.copy(false);
 
 	    Cons returnCons = null;
@@ -75,11 +86,8 @@ public class PatternProcess implements ASTProcessor {
 		if (operatorString.equals(nodeSymbol) && matcher != null) {
 
 		    if (matcher.matches(aEnvironment, aStackTop, (Cons) Cons.cdar(elementCopy))) {
-			//Obtain the function from the association list;
-			Cons result = Utility
-				.associationListGet(aEnvironment, aStackTop,
-					AtomCons.getInstance(aEnvironment, aStackTop, "\"function\""),
-					((Cons) associationList.car()).cdr());
+			// Obtain the function from the association list;
+			Cons result = Utility.associationListGet(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "\"function\""), ((Cons) associationList.car()).cdr());
 			if (result != null) {
 			    result = ((Cons) result.car()).cdr().cdr();
 			}
@@ -93,14 +101,11 @@ public class PatternProcess implements ASTProcessor {
 		}
 	    } else {
 		nodeSymbol = elementCopy.car();
-		if (operatorString.equals(nodeSymbol) || operatorString.equals("_")) {
+		if (operatorString.equals(nodeSymbol)) { //|| operatorString.equals("_")) {
 
 		    if (matcher == null) {
-			//Obtain the function from the association list;
-			Cons result = Utility
-				.associationListGet(aEnvironment, aStackTop,
-					AtomCons.getInstance(aEnvironment, aStackTop, "\"function\""),
-					((Cons) associationList.car()).cdr());
+			// Obtain the function from the association list;
+			Cons result = Utility.associationListGet(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "\"function\""), ((Cons) associationList.car()).cdr());
 			if (result != null) {
 			    result = ((Cons) result.car()).cdr().cdr();
 			}
@@ -110,13 +115,10 @@ public class PatternProcess implements ASTProcessor {
 
 			returnCons = Utility.applyPure(aStackTop, function, associationList, aEnvironment);
 
-
 		    } else {
 			if (matcher.matches(aEnvironment, aStackTop, elementCopy)) {
-			    //Obtain the function from the association list;
-			    Cons result = Utility.associationListGet(aEnvironment, aStackTop,
-				    AtomCons.getInstance(aEnvironment, aStackTop, "\"function\""),
-				    ((Cons) associationList.car()).cdr());
+			    // Obtain the function from the association list;
+			    Cons result = Utility.associationListGet(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "\"function\""), ((Cons) associationList.car()).cdr());
 			    if (result != null) {
 				result = ((Cons) result.car()).cdr().cdr();
 			    }
@@ -128,20 +130,19 @@ public class PatternProcess implements ASTProcessor {
 			}
 		    }
 
-		}//end if.
+		}// end if.
 
 	    }
 
 	    return returnCons;
-	    
+
 	} finally {
 	    associationList.setCdr(null);
 	}
     }
 
-
-
-    public Cons getAssociationList(Environment aEnvironment, int aStackTop) throws Throwable {
+    public Cons getAssociationList(Environment aEnvironment, int aStackTop)
+	    throws Throwable {
 	return associationList;
     }
 

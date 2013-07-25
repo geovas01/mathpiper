@@ -57,84 +57,6 @@ public class TreeProcess extends BuiltinFunction {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable {
 
-	//TreeProcess(expression,pattern,function,options)
-	//TreeProcess(a+b-c,_x + _y, ["xx"])
-
-	/*
-	 
-	  
-	In> zz := '(a+b-c);
-	Result: (a+b)-c
-
-	In> TreeProcess(zz,a, [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"HighlightColor","GREEN");})]])
-	Result: [["track",["a"]],["function",Lambda([list,node],
-	{
-	    DestructiveAppend(list["track"],ToString(node));
-	    MetaSet(node,"HighlightColor","GREEN");
-	})]]
-
-	In> zz
-	Result: (a+b)-c
-
-	In> Show(TreeView(zz))
-	Result: class javax.swing.JFrame
-
-	In> MetaKeys(zz[1][1])
-	Result: [startIndex,"op",lineNumber,endIndex]
-	  
-	  
-	  
-	==================
-	  
-	In> zz := '(a+b-c*a);
-	Result: (a+b)-(c*a)
-
-	In> TreeProcess(zz,_y, [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"HighlightColor","GREEN");})]])
-
-
-	In> TreeProcess(zz,ToAtom("+"), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"HighlightColor","GREEN");})]])
-
-
-	In> TreeProcess(zz,y_Associative?, [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"HighlightColor","GREEN");})]])
-
-
-	In> TreeProcess(zz,y_Associative?:Commutative?, [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"HighlightColor","GREEN");})]])
-
-	In> TreeProcess(zz,(_x + _y)_(x >? 7), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"HighlightColor","GREEN");})]])
-
-	In> TreeProcess(zz,ToAtom("+"), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"HighlightColor","GREEN");})]])
-	In> TreeProcess(zz,ToAtom("+"), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"HighlightColor","GREEN");})]])
-	In> TreeProcess(zz,ToAtom("+"), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"HighlightColor","GREEN");})]])
-	In> TreeProcess(zz,ToAtom("+"), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"HighlightColor","GREEN");})]])
-
-
-	In> zz
-	Result: (a+b)-c
-
-	In> Show(TreeView(zz))
-	Result: class javax.swing.JFrame
-
-	In> MetaKeys(zz[1][1])
-	Result: [startIndex,"op",lineNumber,endIndex]
-
-	In> Show(TreeView('(y_(Associative?:Commutative?))))
-	Result: class javax.swing.JFrame
-
-	In> (_x + _y)_(x >? 7)
-	Result: (_x+_y)_(7<?x)
-
-	In> 
-
-	=============
-
-	In> zz := PatternCompile( _x * _y <- 3)[1][2]
-	Result: class org.mathpiper.builtin.PatternContainer
-
-	In> PatternMatch?(zz, '(a/b + c/d))
-	Result: True 
-
-	 */
-
 	Cons expression = getArgument(aEnvironment, aStackTop, 1);
 	
 	Cons pattern = getArgument(aEnvironment, aStackTop, 2);
@@ -175,4 +97,87 @@ Visits a tree
 *E.G.
 
 %/mathpiper_docs
+*/
+
+
+/*
+  
+In> zz := '(a+b-c);
+Result: (a+b)-c
+
+In> zz := TreeProcess(zz,'a, [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"HighlightColor","GREEN");})]])
+Result: (a+b)-c
+
+In> zz
+Result: (a+b)-c
+
+In> Show(TreeView(zz))
+Result: class javax.swing.JFrame
+
+In> MetaKeys(zz[1][1])
+Result: []
+
+In> zz := '(a+b-c*a);
+Result: (a+b)-(c*a)
+
+In> zz := TreeProcess(zz,_y, [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"HighlightColor","GREEN");})]])
+Result: (_a+_b)-_c
+
+In> zz := TreeProcess(zz,ToAtom("+"), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"HighlightColor","GREEN");})]])
+
+
+In> zz := TreeProcess(zz,y_Associative?, [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"HighlightColor","GREEN");})]])
+
+
+In> zz := TreeProcess(zz,y_Associative?:Commutative?, [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"HighlightColor","GREEN");})]])
+
+
+In> zz := 9 + 'a
+Result: 9+a
+
+In> zz := TreeProcess(zz,'((_x + _y)::(x >? 7)), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"HighlightColor","GREEN");})]])
+Result: (a+b)-c
+
+
+In> zz := _a + 9*_b +3*_b + 8*_b
+Result: ((_a+9*_b)+3*_b)+8*_b
+
+In> zz := TreeProcess(zz,'((_x * _y)::(x >? 7)), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"HighlightColor","GREEN");})]])
+Result: ((_a+9*_b)+3*_b)+8*_b
+
+In> zz := TreeProcess(zz,ToAtom("+"), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"HighlightColor","GREEN");})]])
+Result: (_a+_b)-_c
+
+In> zz := TreeProcess(zz,ToAtom("+"), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"HighlightColor","GREEN");})]])
+In> zz := TreeProcess(zz,ToAtom("+"), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"HighlightColor","GREEN");})]])
+In> zz := TreeProcess(zz,ToAtom("+"), [["track",[]],["function",Lambda([list,node], {DestructiveAppend(list["track"],ToString(node));MetaSet(node,"HighlightColor","GREEN");})]])
+
+
+In> zz
+Result: (_a+_b)-_c
+
+In> Show(TreeView(zz))
+Result: class javax.swing.JFrame
+
+In> MetaKeys(zz[1][1])
+Result: [startIndex,"op",lineNumber,endIndex]
+
+In> Show(TreeView('(y_(Associative?:Commutative?))))
+Result: Exception
+Exception: The variable <Commutative?> does not have a value assigned to it. In function: ApplyFast.  In function: Apply,   Error starts at index -2
+
+
+
+
+=============
+
+In> zz := PatternCompile( _x * _y <- 3)[1][2]
+Result: class org.mathpiper.builtin.PatternContainer
+
+In> PatternMatch?(zz, '(a/b + c/d))
+Result: True
+
+In> A
+
+
 */
