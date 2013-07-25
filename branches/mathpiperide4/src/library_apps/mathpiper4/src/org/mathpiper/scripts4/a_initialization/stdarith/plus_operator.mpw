@@ -8,7 +8,7 @@
 
 100 # 0 + _x    <-- x;
 100 # _x + 0    <-- x;
-100 # _x + _x   <-- 2*x;
+//100 # _x + _x   <-- 2*x;
 100 # _x + n_Constant?*(_x)   <-- (n+1)*x;
 100 # n_Constant?*(_x) + _x   <-- (n+1)*x;
 //100 # Sinh(_x)+Cosh(_x)                <-- Exp(x);
@@ -21,14 +21,16 @@
 102 # _x + y_NegativeNumber? * _z <-- x-((-y)*z);
 102 # _x + (y_NegativeNumber?)/(_z) <-- x-((-y)/z);
 102 # (y_NegativeNumber?)/(_z) + _x  <-- x-((-y)/z);
+
 102 # (x_NegativeNumber?) + _y <-- y-(-x);
 // fractions
 150 # _n1 / _d + _n2 / _d <-- (n1+n2)/d;
 
-200 # (x_Number? + _y)::Not?(Number?(y)) <-- y+x;
-200 # ((_y + x_Number?) + _z)::Not?(Number?(y) Or? Number?(z)) <-- (y+z)+x;
-200 # ((x_Number? + _y) + z_Number?)::Not?(Number?(y)) <-- y+(x+z);
-200 # ((_x + y_Number?) + z_Number?)::Not?(Number?(x)) <-- x+(y+z);
+//200 # (x_Number? + _y)::Not?(Number?(y)) <-- y+x;
+//200 # ((_y + x_Number?) + _z)::Not?(Number?(y) Or? Number?(z)) <-- (y+z)+x;
+//200 # ((x_Number? + _y) + z_Number?)::Not?(Number?(y)) <-- y+(x+z);
+//200 # ((_x + y_Number?) + z_Number?)::Not?(Number?(x)) <-- x+(y+z);
+
 // fractions
 210 # x_Number? + (y_Number? / z_Number?) <--(x*z+y)/z;
 210 # (y_Number? / z_Number?) + x_Number? <--(x*z+y)/z;
