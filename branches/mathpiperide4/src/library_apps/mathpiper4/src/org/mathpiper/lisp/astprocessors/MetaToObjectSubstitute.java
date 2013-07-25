@@ -6,9 +6,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.Cons;
 
-/** Substing one expression for another. The simplest form
- * of substitution
- */
+
 public class MetaToObjectSubstitute
         implements ASTProcessor {
 
