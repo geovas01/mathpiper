@@ -33,7 +33,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
     private Queue<SymbolNode> queue = new LinkedList();
     private int[] lastOnRasterArray = new int[10000];
     private int maxTreeY = 0;
-    private SymbolNode rootNode = null;
+    private SymbolNode mainRootNode = null;
 
     private int leftMostPosition = Integer.MAX_VALUE; //Initialize to maximum possible position.
     private int rightMostPosition = 0; //Initialize to minimum possible position.
@@ -115,10 +115,17 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 	    lastOnRasterArray[index] = -1;
 	}//end for.
 
-	rootNode = new SymbolNode();
+	mainRootNode = new SymbolNode();
 
 	try {
-	    listToTree(rootNode, expressionCons, null, null);
+	    //listToTree(rootNode, expressionCons, null, null);
+	    
+	    String operator = (String) Cons.caar(expressionCons);
+
+	    mainRootNode.setOperator(operator);
+	    
+	    handleSublistCons(mainRootNode, expressionCons, null, null);
+	    
 	} catch (Throwable e) {
 	    e.printStackTrace();
 	}
@@ -178,41 +185,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 	    if (cons instanceof SublistCons) {
 
-		Color markSubtreeColor = null;
-
-		if (markAllColor != null) {
-		    markSubtreeColor = markAllColor;
-		} else if (cons.getMetadataMap() != null) {
-		    Map map = cons.getMetadataMap();
-
-		    if (map.containsKey("\"HighlightColor\"")) {
-
-			Cons atomCons = (Cons) map.get("\"HighlightColor\"");
-
-			if (atomCons != null) {
-			    markSubtreeColor = colorMap.get(atomCons.car());
-			}
-		    }
-		}
-
-		String markSubtreeNodeShape = null;
-
-		if (markAllNodeShape != null) {
-		    markSubtreeNodeShape = markAllNodeShape;
-		} else if (cons.getMetadataMap() != null) {
-		    Map map = cons.getMetadataMap();
-
-		    if (map.containsKey("\"HighlightNodeShape\"")) {
-
-			Cons atomCons = (Cons) map.get("\"HighlightNodeShape\"");
-
-			if (atomCons != null) {
-			    markSubtreeNodeShape = Utility.stripEndQuotesIfPresent((String) atomCons.car());
-			}
-		    }
-		}
-
-		listToTree(node2, cons, markSubtreeColor, markSubtreeNodeShape);
+		handleSublistCons(node2, cons, markAllColor, markAllNodeShape);
 
 		rootNode.addChild(node2);
 
@@ -257,6 +230,46 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 	}
 
     }//end method.
+    
+    
+    private void handleSublistCons(SymbolNode node2, Cons cons, Color markAllColor, String markAllNodeShape) throws Throwable
+    {
+	Color markSubtreeColor = null;
+
+	if (markAllColor != null) {
+	    markSubtreeColor = markAllColor;
+	} else if (cons.getMetadataMap() != null) {
+	    Map map = cons.getMetadataMap();
+
+	    if (map.containsKey("\"HighlightColor\"")) {
+
+		Cons atomCons = (Cons) map.get("\"HighlightColor\"");
+
+		if (atomCons != null) {
+		    markSubtreeColor = colorMap.get(atomCons.car());
+		}
+	    }
+	}
+
+	String markSubtreeNodeShape = null;
+
+	if (markAllNodeShape != null) {
+	    markSubtreeNodeShape = markAllNodeShape;
+	} else if (cons.getMetadataMap() != null) {
+	    Map map = cons.getMetadataMap();
+
+	    if (map.containsKey("\"HighlightNodeShape\"")) {
+
+		Cons atomCons = (Cons) map.get("\"HighlightNodeShape\"");
+
+		if (atomCons != null) {
+		    markSubtreeNodeShape = Utility.stripEndQuotesIfPresent((String) atomCons.car());
+		}
+	    }
+	}
+
+	listToTree(node2, cons, markSubtreeColor, markSubtreeNodeShape);
+    }
 
 
 
@@ -275,10 +288,10 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 	ScaledGraphics sg = layoutTree(g2d);
 
-	queue.add(rootNode);
+	queue.add(mainRootNode);
 	paintHighlightLayer(sg);
 
-	queue.add(rootNode);
+	queue.add(mainRootNode);
 	paintDrawingLayer(sg);
 
     }
@@ -480,7 +493,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 	maxTreeY = 0;
 
-	layoutTree(rootNode, 40/*yPosition*/, 0/*position*/, null, sg);
+	layoutTree(mainRootNode, 40/*yPosition*/, 0/*position*/, null, sg);
 
 	return sg;
     }
@@ -637,6 +650,8 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 		    latex = symbolString;
 		}
 	    }
+	    
+	    latex = latex.replace("_", "");
 
 	    texFormula = new TeXFormula(latex);
 
