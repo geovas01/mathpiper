@@ -238,7 +238,7 @@ procedure:\\\\
 
     
     message := "\\text{Solve}\\ " ~ ToString(ToAtom(ListToString(Remove(StringToList(UnparseLatex(TagLeftSideDominantFunction(RemoveDollarSigns(steps[1][1])))),"$"))) ) ~ "\\ \\text{for}\\ " ~ ToString(steps[1][4]) ~ ".";
-    DestructiveAppend(result, LatexView(message, Scale: latexScale));
+    DestructiveAppend(result, LatexView(RemoveUnderscores(message), Scale: latexScale));
     
     
     Decide(options["ShowTree"] =? True, DestructiveAppend(result, TreeView(TagLeftSideDominantFunction(RemoveDollarSigns(steps[1][1])), Scale: treeScale, Resizable: False, IncludeExpression: False)));
@@ -281,7 +281,7 @@ Compose(result, newExpression, explanation, beforeSimplification, lengthFour?, s
 {
     DestructiveAppend(result, LatexView(" \\vspace{.75in}", Scale: latexScale));
 
-    DestructiveAppend(result, LatexView(ToLatex(explanation),Scale: latexScale));
+    DestructiveAppend(result, LatexView(ToLatex(RemoveUnderscores(explanation)),Scale: latexScale));
     
     If(lengthFour?)
     {
@@ -335,6 +335,14 @@ AddDollarSigns(equation) :=
     equation := Substitute(ToAtom("/"),ToAtom("/$")) equation;
     equation := Substitute(ToAtom("^"),ToAtom("^$")) equation;
 };
+
+
+
+RemoveUnderscores(string) :=
+{
+	JavaAccess(JavaNew("java.lang.String", string), "replace", "_", "");
+};
+
 
 
 
@@ -408,7 +416,7 @@ Isolax(side, equation) :=
 
 
 
-In> Show(StepsView(SolveEquation( '( ((- a) * b )/ c + d == e ), a), ShowTree: True))
+In> Show(StepsView(SolveEquation( '( ((- _a) * _b )/ _c + _d == _e ), _a), ShowTree: True))
 
 In> Show(StepsView(SolveEquation( '( ((- a) * b )/ c + d == e ), a), ShowTree: True, Scale: 3))
 
