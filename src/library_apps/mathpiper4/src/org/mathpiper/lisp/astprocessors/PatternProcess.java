@@ -45,24 +45,25 @@ public class PatternProcess implements ASTProcessor {
 		postPredicate = operator.cdr().cdr();
 
 		patternArguments.setCdr(null);
+		
+		operatorString = (String) Cons.caar(patternArguments);
+		    
+		patternArguments = (Cons) Cons.cdar(patternArguments);
 
 	    } else {
 		patternArguments = operator.cdr();
 	    }
 
-	    operatorString = (String) Cons.caar(patternArguments);
-	    
-	    patternArguments = (Cons) Cons.cdar(patternArguments);
 	    
 	    matcher = new org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher(aEnvironment, -1, patternArguments, postPredicate);
 
 	} else {
-	    String s = (String) patternArguments.car();
+	    String patternArgument = (String) patternArguments.car();
 
-	    if (s.contains("_")) {
-		matcher = new org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher(aEnvironment, -1, patternArguments, postPredicate);
+	    if (patternArgument.contains("_")) {
+		operatorString = "_";
 	    } else {
-		operatorString = s;
+		operatorString = patternArgument;
 	    }
 	}
 
@@ -101,7 +102,7 @@ public class PatternProcess implements ASTProcessor {
 		}
 	    } else {
 		nodeSymbol = elementCopy.car();
-		if (operatorString.equals(nodeSymbol)) { //|| operatorString.equals("_")) {
+		if (operatorString.equals(nodeSymbol) || operatorString.contains("_")) { //|| operatorString.equals("_")) {
 
 		    if (matcher == null) {
 			// Obtain the function from the association list;
