@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- */ //}}}
+ *///}}}
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.parametermatchers;
 
@@ -22,55 +22,55 @@ import org.mathpiper.lisp.cons.Cons;
 
 //Class for matching against a pattern variable.
 public class VariablePatternParameterMatcher extends PatternParameterMatcher {
-    //Index of variable in MathPiperPatternPredicateBase.iVariables.
+    // Index of variable in MathPiperPatternPredicateBase.iVariables.
     protected int iVarIndex;
 
-    //Not used.
+    // Not used.
     protected String iString;
 
-
     public VariablePatternParameterMatcher(int aVarIndex) {
-        iVarIndex = aVarIndex;
+	iVarIndex = aVarIndex;
     }
-
 
     /**
-     *Matches an expression against the pattern variable.
-     *@param aEnvironment the underlying Lisp environment.
-     *@param aExpression the expression to test.
-     *@param arguments (input/output) actual values of the pattern variables for aExpression.
-     *
-     *If entry iVarIndex in arguments is still empty, the
-     *pattern matches and aExpression is stored in this
-     *entry. Otherwise, the pattern only matches if the entry equals
-     *aExpression.
+     * Matches an expression against the pattern variable.
+     * 
+     * @param aEnvironment
+     *            the underlying Lisp environment.
+     * @param aExpression
+     *            the expression to test.
+     * @param patternVariableValues
+     *            (input/output) actual values of the pattern variables for
+     *            aExpression.
+     * 
+     *            If entry iVarIndex in arguments is still empty, the pattern
+     *            matches and aExpression is stored in this entry. Otherwise,
+     *            the pattern only matches if the entry equals aExpression.
      */
-    public boolean argumentMatches(Environment aEnvironment, int aStackTop, Cons aExpression, Cons[] arguments) throws Throwable {
+    public boolean argumentMatches(Environment aEnvironment, int aStackTop, Cons aExpression, Cons[] patternVariableValues)
+	    throws Throwable {
 
-        if (arguments[iVarIndex] == null) {
-            arguments[iVarIndex] = aExpression;
-            //Set var iVarIndex.
-            return true;
-        } else {
-            if (Utility.equals(aEnvironment, aStackTop, aExpression, arguments[iVarIndex])) {
-                //Matched var iVarIndex.
-                return true;
-            }
-            return false;
-        }
+	if (patternVariableValues[iVarIndex] == null) {
+	    patternVariableValues[iVarIndex] = aExpression;
+	    // Set var iVarIndex.
+	    return true;
+	} else {
+	    if (Utility.equals(aEnvironment, aStackTop, aExpression, patternVariableValues[iVarIndex])) {
+		// Matched var iVarIndex.
+		return true;
+	    }
+	    return false;
+	}
 
-    }//end method.
-
+    }// end method.
 
     public String getType() {
-        return "Variable";
+	return "Variable";
     }
 
-
     @Override
-    public String toString()
-    {
-        return "_";
+    public String toString() {
+	return "_";
     }
 
 };

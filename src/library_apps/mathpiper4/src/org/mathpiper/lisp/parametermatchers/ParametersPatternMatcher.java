@@ -275,38 +275,35 @@ public class ParametersPatternMatcher {
 
 	    }
 	}
-	
-	
+
 	Object object = aPattern.car();
-	if (object instanceof AtomCons && ( (String) ((Cons) object).car()   ).contains("_")) 
-	{
+	if (object instanceof AtomCons && ((String) ((Cons) object).car()).contains("_")) {
 	    Cons atomCons = Utility.flatCopy(aEnvironment, aStackTop, (Cons) aPattern.car());
-	    
-            String symbolString = (String) atomCons.car();
-            
-            String[] symbolStringAndFunctionName = symbolString.split("_");
-            
-            String variableName = symbolStringAndFunctionName[0];
-            
-            int index = lookUp(variableName);
-            
-            atomCons.setCar(symbolStringAndFunctionName[1]);
-            
-            Cons endOfList = atomCons;
-            
-            while (endOfList.cdr() != null) {
-                endOfList = endOfList.cdr();
-            }
 
-            endOfList.setCdr(org.mathpiper.lisp.cons.AtomCons.getInstance(aEnvironment, aStackTop, variableName));
+	    String symbolString = (String) atomCons.car();
 
-            Cons newPredicate = org.mathpiper.lisp.cons.SublistCons.getInstance(aEnvironment, atomCons);
+	    String[] symbolStringAndFunctionName = symbolString.split("_");
 
-            iPredicates.add(newPredicate);
-	    
-            return new VariablePatternParameterMatcher(index);
+	    String variableName = symbolStringAndFunctionName[0];
+
+	    int index = lookUp(variableName);
+
+	    atomCons.setCar(symbolStringAndFunctionName[1]);
+
+	    Cons endOfList = atomCons;
+
+	    while (endOfList.cdr() != null) {
+		endOfList = endOfList.cdr();
+	    }
+
+	    endOfList.setCdr(org.mathpiper.lisp.cons.AtomCons.getInstance(aEnvironment, aStackTop, variableName));
+
+	    Cons newPredicate = org.mathpiper.lisp.cons.SublistCons.getInstance(aEnvironment, atomCons);
+
+	    iPredicates.add(newPredicate);
+
+	    return new VariablePatternParameterMatcher(index);
 	}
-	
 
 	// Else, it must be a sublist pattern.
 	// See if it is a variable template:
