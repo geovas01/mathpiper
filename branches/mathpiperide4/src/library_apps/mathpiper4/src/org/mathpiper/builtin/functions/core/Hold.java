@@ -72,4 +72,59 @@ Side Effects:
 
 *SEE ', Eval, HoldArgument, ListToFunction
 %/mathpiper_docs
+
+%mathpiper_docs,name="'",categories="Operators"
+*CMD ' expression --- holds the evaluation of an expression
+*STD
+*CALL
+        ' expression
+
+*PARMS
+
+{expression} -- expression to hold
+
+*DESC
+
+This operator is used as a shortcut for the Hold function.
+
+*E.G.
+In> x := 3
+Result> 3
+
+In> 'x
+Result> x
+
+In> '(2+2)
+Result> 2+2
+
+*SEE Hold
+%/mathpiper_docs
+
+
+%mathpiper_docs,name="''",categories="Operators"
+*CMD '' expression --- holds the evaluation of an expression
+*STD
+*CALL
+        '' expression
+
+*PARMS
+
+{expression} -- expression to hold
+
+*DESC
+
+This operator is used as a shortcut for the Hold function.
+
+*E.G.
+In> x := 3
+Result> 3
+
+In> ''x
+Result> x
+
+In> '' 2+2
+Result> 2+2
+
+*SEE Hold
+%/mathpiper_docs
 */
