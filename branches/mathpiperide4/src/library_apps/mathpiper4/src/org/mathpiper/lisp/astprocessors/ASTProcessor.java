@@ -18,6 +18,8 @@
 
 package org.mathpiper.lisp.astprocessors;
 
+import java.util.List;
+
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.Cons;
 
@@ -26,5 +28,5 @@ import org.mathpiper.lisp.cons.Cons;
  */
 public interface ASTProcessor
 {
-    public Cons matches(Environment aEnvironment, int aStackTop, Cons aElement) throws Throwable;
+    public Cons matches(Environment aEnvironment, int aStackTop, Cons aElement, List<Integer> positionList) throws Throwable;
 };

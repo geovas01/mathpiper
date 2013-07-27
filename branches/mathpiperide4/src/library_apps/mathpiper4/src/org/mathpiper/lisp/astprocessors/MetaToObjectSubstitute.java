@@ -1,5 +1,7 @@
 package org.mathpiper.lisp.astprocessors;
 
+import java.util.List;
+
 import org.mathpiper.lisp.Utility;
 
 import org.mathpiper.lisp.Environment;
@@ -19,7 +21,7 @@ public class MetaToObjectSubstitute
     }
 
 
-    public Cons matches(Environment aEnvironment, int aStackTop, Cons aElement)
+    public Cons matches(Environment aEnvironment, int aStackTop, Cons aElement, List<Integer> positionList)
             throws Throwable {
 	
 	if(aElement.car() instanceof String)
