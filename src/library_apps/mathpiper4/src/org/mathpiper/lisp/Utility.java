@@ -23,6 +23,8 @@ import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.lisp.cons.SublistCons;
 import org.mathpiper.lisp.cons.AtomCons;
 
+import java.util.List;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -643,6 +645,15 @@ public class Utility {
 
     public static Cons substitute(Environment aEnvironment, int aStackTop, Cons aSource, ASTProcessor astProcessor)
 	    throws Throwable {
+	
+	List<Integer> positionList = new ArrayList<Integer>();
+	
+	return substituteHelper(aEnvironment, aStackTop, aSource, astProcessor, positionList);
+	
+    }
+	
+    private static Cons substituteHelper(Environment aEnvironment, int aStackTop, Cons aSource, ASTProcessor astProcessor, List<Integer> positionList)
+		    throws Throwable {
 
 	Cons sourceCons = aSource;
 
@@ -651,7 +662,7 @@ public class Utility {
 	if (sourceCons == null)
 	    LispError.lispAssert(aEnvironment, aStackTop);
 
-	if ((aDestination = astProcessor.matches(aEnvironment, aStackTop, aSource)) != null) {
+	if ((aDestination = astProcessor.matches(aEnvironment, aStackTop, aSource, positionList)) != null) {
 	    //Return a copy of the substitute expression.
 	    return aDestination;
 	} else {
@@ -669,31 +680,53 @@ public class Utility {
 		Cons indexCons = null;
 
 		boolean isHead = true;
-
+		
+		int position = 0;
+		
 		while (sourceListCons != null) {
-
-		    Cons result = substitute(aEnvironment, aStackTop, sourceListCons, astProcessor);
+		    
+		    Cons result = substituteHelper(aEnvironment, aStackTop, sourceListCons, astProcessor, positionList);
 
 		    if (isHead == true) {
 			headCons = result;
 			indexCons = headCons;
 			isHead = false;
+			
+			position = 1;
 		    } else {
 			//Point to next cons in the destination list.
 			indexCons.setCdr(result);
 			indexCons = result;
+			
+			if(positionList.size() > 0)
+			{
+			    positionList.remove(positionList.size()-1);
+			}
+			
+			position++;
 		    }
+		    
+		    
+		    positionList.add(position);
 
 		    //Point to next cons in the source list.
 		    sourceListCons = sourceListCons.cdr();
+		    
+		    
 
 		}//end while.
 
 		aDestination = SublistCons.getInstance(aEnvironment, headCons);
 		
 	    } else {
-		//Handle unmatched atoms.
+		System.out.println("UU " + sourceCons.car());
+		//Handle unmatched atoms. 		
 		aDestination = sourceCons.copy(false);
+	    }
+	    
+	    if(positionList.size() > 0)
+	    {
+		positionList.remove(positionList.size()-1);
 	    }
 
 	    //Return a copy of the original expression.

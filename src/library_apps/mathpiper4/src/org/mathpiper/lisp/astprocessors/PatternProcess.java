@@ -1,6 +1,7 @@
 package org.mathpiper.lisp.astprocessors;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mathpiper.builtin.PatternContainer;
@@ -69,7 +70,7 @@ public class PatternProcess implements ASTProcessor {
 
     }
 
-    public Cons matches(Environment aEnvironment, int aStackTop, Cons aElement)
+    public Cons matches(Environment aEnvironment, int aStackTop, Cons aElement, List<Integer> positionList)
 	    throws Throwable {
 
 	try {
@@ -97,6 +98,16 @@ public class PatternProcess implements ASTProcessor {
 			associationList.setCdr(elementCopy);
 
 			returnCons = Utility.applyPure(aStackTop, function, associationList, aEnvironment);
+			
+			    if(returnCons != null)
+			    {
+				StringBuilder sb = new StringBuilder();
+				for(int x:positionList)
+				{
+				    sb.append(x);
+				}
+				System.out.println(returnCons.car() + " " + sb);
+			    }
 
 		    }
 		}
@@ -115,6 +126,16 @@ public class PatternProcess implements ASTProcessor {
 			associationList.setCdr(elementCopy);
 
 			returnCons = Utility.applyPure(aStackTop, function, associationList, aEnvironment);
+			
+			    if(returnCons != null)
+			    {
+				StringBuilder sb = new StringBuilder();
+				for(int x:positionList)
+				{
+				    sb.append(x);
+				}
+				System.out.println(returnCons.car() + " " + sb);
+			    }
 
 		    } else {
 			if (matcher.matches(aEnvironment, aStackTop, elementCopy)) {
@@ -128,6 +149,16 @@ public class PatternProcess implements ASTProcessor {
 			    associationList.setCdr(elementCopy);
 
 			    returnCons = Utility.applyPure(aStackTop, function, associationList, aEnvironment);
+			    
+			    if(returnCons != null)
+			    {
+				StringBuilder sb = new StringBuilder();
+				for(int x:positionList)
+				{
+				    sb.append(x);
+				}
+				System.out.println(returnCons.car() + " " + sb);
+			    }
 			}
 		    }
 

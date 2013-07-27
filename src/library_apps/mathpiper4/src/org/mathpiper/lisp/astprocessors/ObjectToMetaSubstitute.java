@@ -1,5 +1,7 @@
 package org.mathpiper.lisp.astprocessors;
 
+import java.util.List;
+
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
@@ -24,7 +26,7 @@ public class ObjectToMetaSubstitute
     }
 
 
-    public Cons matches(Environment aEnvironment, int aStackTop, Cons aElement)
+    public Cons matches(Environment aEnvironment, int aStackTop, Cons aElement, List<Integer> positionList)
             throws Throwable {
 	
 	if(aElement instanceof NumberCons)
