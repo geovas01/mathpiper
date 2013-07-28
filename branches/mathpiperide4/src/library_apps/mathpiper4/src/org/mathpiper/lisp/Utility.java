@@ -718,16 +718,17 @@ public class Utility {
 
 		aDestination = SublistCons.getInstance(aEnvironment, headCons);
 		
+		if(positionList.size() > 0)
+		{
+		    positionList.remove(positionList.size()-1);
+		}
+		
 	    } else {
-		System.out.println("UU " + sourceCons.car());
 		//Handle unmatched atoms. 		
 		aDestination = sourceCons.copy(false);
 	    }
 	    
-	    if(positionList.size() > 0)
-	    {
-		positionList.remove(positionList.size()-1);
-	    }
+
 
 	    //Return a copy of the original expression.
 	    return aDestination;
