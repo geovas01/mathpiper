@@ -42,20 +42,19 @@ public class PatternProcess implements ASTProcessor {
 	    if ((operatorString.equals("::"))) {
 
 		patternArguments = operator.cdr();
-		
+
 		postPredicate = operator.cdr().cdr();
 
 		patternArguments.setCdr(null);
-		
+
 		operatorString = (String) Cons.caar(patternArguments);
-		    
+
 		patternArguments = (Cons) Cons.cdar(patternArguments);
 
 	    } else {
 		patternArguments = operator.cdr();
 	    }
 
-	    
 	    matcher = new org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher(aEnvironment, -1, patternArguments, postPredicate);
 
 	} else {
@@ -83,6 +82,8 @@ public class PatternProcess implements ASTProcessor {
 	    elementCopy.setMetadataMap(new HashMap());
 
 	    if (elementCopy instanceof SublistCons) {
+		// Attempt to match a subexpression.
+
 		nodeSymbol = Cons.caar(elementCopy);
 
 		if (operatorString.equals(nodeSymbol) && matcher != null) {
@@ -94,73 +95,38 @@ public class PatternProcess implements ASTProcessor {
 			    result = ((Cons) result.car()).cdr().cdr();
 			}
 			Cons function = result;
+			
+			Cons positionListAtom = AtomCons.getInstance(aEnvironment, aStackTop, positionListToString(positionList));
+			
+			positionListAtom.setCdr(elementCopy);
 
-			associationList.setCdr(elementCopy);
+			associationList.setCdr(positionListAtom);
 
 			returnCons = Utility.applyPure(aStackTop, function, associationList, aEnvironment);
-			
-			    if(returnCons != null)
-			    {
-				StringBuilder sb = new StringBuilder();
-				for(int x:positionList)
-				{
-				    sb.append(x);
-				}
-				System.out.println(returnCons.car() + " " + sb);
-			    }
 
 		    }
 		}
 	    } else {
 		nodeSymbol = elementCopy.car();
-		if (operatorString.equals(nodeSymbol) || operatorString.contains("_")) { //|| operatorString.equals("_")) {
+		if (operatorString.equals(nodeSymbol) || operatorString.contains("_")) { 
+											
+		    // Attempt to match a single symbol. A variable in it that
+		    // contains the _ character matches all symbols.
 
-		    if (matcher == null) {
-			// Obtain the function from the association list;
-			Cons result = Utility.associationListGet(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "\"function\""), ((Cons) associationList.car()).cdr());
-			if (result != null) {
-			    result = ((Cons) result.car()).cdr().cdr();
-			}
-			Cons function = result;
-
-			associationList.setCdr(elementCopy);
-
-			returnCons = Utility.applyPure(aStackTop, function, associationList, aEnvironment);
-			
-			    if(returnCons != null)
-			    {
-				StringBuilder sb = new StringBuilder();
-				for(int x:positionList)
-				{
-				    sb.append(x);
-				}
-				System.out.println(returnCons.car() + " " + sb);
-			    }
-
-		    } else {
-			if (matcher.matches(aEnvironment, aStackTop, elementCopy)) {
-			    // Obtain the function from the association list;
-			    Cons result = Utility.associationListGet(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "\"function\""), ((Cons) associationList.car()).cdr());
-			    if (result != null) {
-				result = ((Cons) result.car()).cdr().cdr();
-			    }
-			    Cons function = result;
-
-			    associationList.setCdr(elementCopy);
-
-			    returnCons = Utility.applyPure(aStackTop, function, associationList, aEnvironment);
-			    
-			    if(returnCons != null)
-			    {
-				StringBuilder sb = new StringBuilder();
-				for(int x:positionList)
-				{
-				    sb.append(x);
-				}
-				System.out.println(returnCons.car() + " " + sb);
-			    }
-			}
+		    // Obtain the function from the association list;
+		    Cons result = Utility.associationListGet(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "\"function\""), ((Cons) associationList.car()).cdr());
+		    if (result != null) {
+			result = ((Cons) result.car()).cdr().cdr();
 		    }
+		    Cons function = result;
+
+		    Cons positionListAtom = AtomCons.getInstance(aEnvironment, aStackTop, positionListToString(positionList));
+			
+		    positionListAtom.setCdr(elementCopy);
+
+		    associationList.setCdr(positionListAtom);
+
+		    returnCons = Utility.applyPure(aStackTop, function, associationList, aEnvironment);
 
 		}// end if.
 
@@ -176,6 +142,24 @@ public class PatternProcess implements ASTProcessor {
     public Cons getAssociationList(Environment aEnvironment, int aStackTop)
 	    throws Throwable {
 	return associationList;
+    }
+    
+    
+    private String positionListToString(List<Integer> positionList)
+    {
+	if(positionList.size() > 0)
+	{
+	    StringBuilder sb = new StringBuilder();
+	    for (int x : positionList) {
+		sb.append(x);
+	    }
+	
+	    return sb.toString();
+	}
+	else
+	{
+	    return " "; //todo:tk:An AtomCons needs at least one character.
+	}
     }
 
 };
