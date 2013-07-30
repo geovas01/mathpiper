@@ -877,13 +877,19 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
             
             Throwable exception = response.getException();
             
-            exceptionMessage = "\nException: " + exception.getMessage();
             
             if(exception instanceof EvaluationException)
             {
         	EvaluationException evaluationException = (EvaluationException) exception;
         	
-        	exceptionMessage = exceptionMessage + " Error starts at index " + ((evaluationException.getStartIndex())-1);
+        	exceptionMessage = "\nException: " + exception.getMessage() + " Error starts at index " + ((evaluationException.getStartIndex())-1);;
+      
+            }
+            else
+            {
+        	 exceptionMessage = "\n" + exception;
+        	 
+        	 exception.printStackTrace();
             }
             
             exceptionLength = exceptionMessage.length();
