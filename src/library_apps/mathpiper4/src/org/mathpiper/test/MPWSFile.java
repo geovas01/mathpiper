@@ -38,10 +38,10 @@ public class MPWSFile {
 	}
 	
 	
-	public static Map getFoldsMap(String sourceName, InputStream inputStream) throws Throwable
+	public static Map<String,Fold> getFoldsMap(String sourceName, InputStream inputStream) throws Throwable
 	{
 		
-		Map<String,Fold> namedFolds = new HashMap();
+		Map<String,Fold> namedFolds = new HashMap<String,Fold>();
 		
 		List<Fold> folds = scanSourceFile(sourceName, inputStream);
 		
@@ -68,7 +68,7 @@ public class MPWSFile {
 	
 	
 	
-    public static List scanSourceFile(String sourceName, InputStream inputStream) throws Throwable {
+    public static List<Fold> scanSourceFile(String sourceName, InputStream inputStream) throws Throwable {
 
         //Uncomment for debugging.
         /*
@@ -77,7 +77,7 @@ public class MPWSFile {
         }//end if.*/
 	
 
-        List<Fold> folds = new ArrayList();
+        List<Fold> folds = new ArrayList<Fold>();
         StringBuilder foldContents = new StringBuilder();
         String foldHeader = "";
         boolean inFold = false;
