@@ -50,7 +50,7 @@ public class Fold {
 
     }//end method.
 
-    public Map getAttributes() {
+    public Map<String,String> getAttributes() {
         return attributes;
     }
 
