@@ -45,10 +45,12 @@ public class ToAtom extends BuiltinFunction
     {
         Cons evaluated = getArgument(aEnvironment, aStackTop, 1);
 
-        // Get operator
-        if(evaluated == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        String orig =  (String) evaluated.car();
-        if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        Object object = evaluated.car();
+        
+        if( ! (object instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        
+        String orig =  (String) object;
+        
         setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, Utility.stripEndQuotesIfPresent(orig)));
     }
 }
