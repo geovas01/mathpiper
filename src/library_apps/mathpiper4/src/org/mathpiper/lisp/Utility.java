@@ -505,7 +505,7 @@ public class Utility {
 
 	String stringVersion = (String) aOriginal;
 
-	if (stringVersion != null && stringVersion.length() > 2) {
+	if (stringVersion != null && stringVersion.length() >= 2) {
 	    if (stringVersion.charAt(0) == '\"') {
 		if (stringVersion.charAt(stringVersion.length() - 1) == '\"') {
 		    return true;
