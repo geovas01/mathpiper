@@ -35,112 +35,112 @@
 
 
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="mathpiperdocs::MAIN">
-			<BEGIN>%mathpiper_docs[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<BEGIN>%mathpiper_docs[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;]*</BEGIN>
 			<END>%/mathpiper_docs</END>
 		</SPAN_REGEXP>
 		
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="mathpipertrace::MAIN">
-			<BEGIN>%mathpiper_trace[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<BEGIN>%mathpiper_trace[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;]*</BEGIN>
 			<END>%/mathpiper_trace</END>
 		</SPAN_REGEXP>
 
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="mathpiper::MAIN">
-			<BEGIN>%mathpiper[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<BEGIN>%mathpiper[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;]*</BEGIN>
 			<END>%/mathpiper</END>
 		</SPAN_REGEXP>
 
 		<SPAN_REGEXP  TYPE="MARKUP" DELEGATE="mathpiperideoutput::MAIN">
-			<BEGIN>%output[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<BEGIN>%output[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;]*</BEGIN>
 			<END>%/output</END>
 		</SPAN_REGEXP>
         
 		<SPAN_REGEXP  TYPE="INVALID" >
-			<BEGIN>%error[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<BEGIN>%error[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;]*</BEGIN>
 			<END>%/error</END>
 		</SPAN_REGEXP>
         
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="tex::MATH">
-			<BEGIN>%hoteqn[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<BEGIN>%hoteqn[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;]*</BEGIN>
 			<END>%/hoteqn</END>
 		</SPAN_REGEXP>
 
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="mathpiper::MAIN">
-			<BEGIN>%maxima[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<BEGIN>%maxima[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;]*</BEGIN>
 			<END>%/maxima</END>
 		</SPAN_REGEXP>
 		
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="mathpiper::MAIN">
-			<BEGIN>%_fricas[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<BEGIN>%_fricas[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;]*</BEGIN>
 			<END>%/_fricas</END>
 		</SPAN_REGEXP>
 		
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="mathpiper::MAIN">
-			<BEGIN>%reduce[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<BEGIN>%reduce[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;]*</BEGIN>
 			<END>%/reduce</END>
 		</SPAN_REGEXP>
 
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="lisp::MAIN">
-			<BEGIN>%lisp[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<BEGIN>%lisp[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;]*</BEGIN>
 			<END>%/lisp</END>
 		</SPAN_REGEXP>
 		
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="prolog::MAIN">
-			<BEGIN>%prolog[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<BEGIN>%prolog[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;]*</BEGIN>
 			<END>%/prolog</END>
 		</SPAN_REGEXP>
 		
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="clojure::MAIN">
-			<BEGIN>%clojure[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<BEGIN>%clojure[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;]*</BEGIN>
 			<END>%/clojure</END>
 		</SPAN_REGEXP>
 
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="beanshell::MAIN">
-			<BEGIN>%beanshell[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<BEGIN>%beanshell[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;]*</BEGIN>
 			<END>%/beanshell</END>
 		</SPAN_REGEXP>
 
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="html::MAIN">
-			<BEGIN>%html[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<BEGIN>%html[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;]*</BEGIN>
 			<END>%/html</END>
 		</SPAN_REGEXP>
  
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="xml::MAIN">
-			<BEGIN>%geogebra_xml[0-9a-zA-Z,;:=".()/'\- &amp;]*</BEGIN>
+			<BEGIN>%geogebra_xml[0-9a-zA-Z,;:=".()/'\-\+\* &amp;&lt;&gt;]*</BEGIN>
 			<END>%/geogebra_xml</END>
 		</SPAN_REGEXP>
 
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="mathpiper::MAIN">
-			<BEGIN>%geogebra[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<BEGIN>%geogebra[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;]*</BEGIN>
 			<END>%/geogebra</END>
 		</SPAN_REGEXP>
 		
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="uasm65::MAIN">
-			<BEGIN>%uasm65[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<BEGIN>%uasm65[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;]*</BEGIN>
 			<END>%/uasm65</END>
 		</SPAN_REGEXP>
 		
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="s19::MAIN">
-			<BEGIN>%s19[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<BEGIN>%s19[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;]*</BEGIN>
 			<END>%/s19</END>
 		</SPAN_REGEXP>
 		
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="pajek::MAIN">
-			<BEGIN>%jung[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<BEGIN>%jung[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;]*</BEGIN>
 			<END>%/jung</END>
 		</SPAN_REGEXP>
 		
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="latex::MAIN">
-			<BEGIN>%latex[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<BEGIN>%latex[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;]*</BEGIN>
 			<END>%/latex</END>
 		</SPAN_REGEXP>
 		
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="html::MAIN">
-			<BEGIN>%info[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<BEGIN>%info[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;]*</BEGIN>
 			<END>%/info</END>
 		</SPAN_REGEXP>
 		
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="pl-sql::MAIN">
-			<BEGIN>%sql[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<BEGIN>%sql[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;]*</BEGIN>
 			<END>%/sql</END>
 		</SPAN_REGEXP>
 
