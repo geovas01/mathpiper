@@ -101,7 +101,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
     private final Color purple = new Color(153, 0, 153);
     private Interpreter interpreter = Interpreters.getAsynchronousInterpreter();
     private StringBuilder input = new StringBuilder();
-    private JButton haltButton, clearConsoleButton, clearRealtimeButton, helpButton, docsButton, smallerFontButton, largerFontButton;
+    private JButton haltButton, variablesButton, clearConsoleButton, clearRealtimeButton, helpButton, docsButton, smallerFontButton, largerFontButton;
     private JCheckBox realtimeSideEffectsCheckBox;
     private boolean isCodeResult = true;
     private JCheckBox codeResultCheckBox;
@@ -241,8 +241,8 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         clearConsoleButton.addActionListener(this);
         consoleButtons.add(clearConsoleButton);
         
-        clearConsoleButton = new JButton("Variables");
-        clearConsoleButton.addActionListener(new ActionListener() {
+        variablesButton = new JButton("Variables");
+        variablesButton.addActionListener(new ActionListener() {
  
             public void actionPerformed(ActionEvent e)
             {
@@ -268,7 +268,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                 frame.setVisible(true);
             }
         }); 
-        consoleButtons.add(clearConsoleButton);
+        consoleButtons.add(variablesButton);
 
 
         clearRealtimeButton = new JButton("Clear");
