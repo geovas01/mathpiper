@@ -1,6 +1,6 @@
 %mathpiper,def="BuildMatrix"
 
-Function("BuildMatrix",[func,m,n])
+Function("BuildMatrix",[_func,_m,_n])
 {
   Local(i,j,result);
   result:=ZeroMatrix(m,n);
@@ -11,7 +11,7 @@ Function("BuildMatrix",[func,m,n])
 
   result;
 };
-HoldArgument("BuildMatrix",func);
+HoldArgument("BuildMatrix",_func);
 UnFence("BuildMatrix",3);
 
 %/mathpiper
