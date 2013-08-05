@@ -1,0 +1,143 @@
+%mathpiper,def="Factor"
+//Factor(2343), 3*11*71
+Retract("Factor",*);
+
+
+If(ExceptionCatch(mpreduce,"Exception") =? "Exception")
+{
+    mpreduce := JavaNew("org.mathpiper.mpreduce.Interpreter2");
+};
+
+
+
+HandleFactor(factorList) :=
+{
+    Local(result);
+    
+    If(factorList[2] =? 1)
+    {
+        result := factorList[1];
+    }
+    Else
+    {
+        result :=  ListToFunction([ToAtom("^"),factorList[1], factorList[2]]);
+    };
+
+    result;
+
+};
+
+
+MathPiperToReduce(expression) :=
+{
+    Local(expressionString);
+    
+    expressionString := ToString(expression);
+    
+    expressionString := ToString(JavaAccess(JavaNew("java.lang.String", expressionString), "replace", "_", "ztfxq"));
+};
+
+
+
+
+ReduceToMathPiper(expressionString) :=
+{
+    Local(result);
+    
+    expressionString := ToString(expressionString);
+
+    result := JavaAccess(JavaNew("java.lang.String", expressionString), "replace", "$", "");
+    
+    result := JavaAccess(JavaNew("java.lang.String", result), "replace", "ztfxq", "_");
+    
+    result := JavaAccess(JavaNew("java.lang.String", result), "replace", "**", "^");
+    
+    result := JavaAccess(JavaNew("java.lang.String", result), "replace", "{", "[");
+    
+    result := JavaAccess(JavaNew("java.lang.String", result), "replace", "}", "]");
+    
+    PipeFromString(ToString(result) ~ ";") ParseMathPiper();
+
+};
+
+
+
+
+
+Factor(expression) :=
+{
+    //Local(result, expressionString, base, exponent, list);
+    
+    expressionString := MathPiperToReduce(expression);
+
+    result := JavaAccess(mpreduce, "evaluate","Factorize(" ~ expressionString ~ ");");
+    
+    //Echo(result);
+    
+    list := ReduceToMathPiper(result);
+    
+    length := Length(list);
+    
+    If(length =? 0)
+    {
+        result := 1;
+    }
+    Else If(length =? 1)
+    {
+        result := HandleFactor(list[1]);
+    }
+    Else
+    {
+      result := HandleFactor(First(list));
+      
+      ForEach(item,Rest(list))
+      {
+        result := ListToFunction([ToAtom("*"),result,HandleFactor(item)]);
+      };
+
+    };
+    
+    result;
+
+};
+
+
+
+Solve(expression) :=
+{
+    //Local(result);
+
+    result := JavaAccess(mpreduce, "evaluate","Solve(" ~ MathPiperToReduce(expression) ~ ");"); 
+    
+    result := JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "Unknown:.*\\n", "");
+    
+    result := JavaAccess(JavaNew("java.lang.String", result), "replace", "=", "==");
+
+    ReduceToMathPiper(result);
+};
+
+
+
+
+Expand(expression) :=
+{
+    //Local(result);
+    
+    JavaCall(mpreduce, "evaluate","off factor;");
+
+    result := JavaAccess(mpreduce, "evaluate",MathPiperToReduce(expression) ~ ";");
+    
+    JavaCall(mpreduce, "evaluate","on factor;");
+    
+    ReduceToMathPiper(result);
+
+};
+
+%/mathpiper
+
+    %output,sequence="46,timestamp="2013-08-05 01:59:55.504",preserve="false"
+      Result: True
+.   %/output
+
+
+
