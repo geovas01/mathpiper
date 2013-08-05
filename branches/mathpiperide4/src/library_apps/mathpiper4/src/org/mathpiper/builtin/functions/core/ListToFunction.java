@@ -88,17 +88,15 @@ formed, but the resulting expression is left unevaluated. The functions
 
 *E.G.
 
-In> ListToFunction([Cos, x]);
+In> ListToFunction('[Cos, x]);
 Result: Cos(x);
 
-In> ListToFunction([f]);
+In> ListToFunction('[f]);
 Result: f();
 
-In> ListToFunction([Taylor,x,0,5,Cos(x)]);
+In> ListToFunction('[Taylor,x,0,5,Cos(x)]);
 Result: Taylor(x,0,5)Cos(x);
 
-In> Eval(%);
-Result: 1-x^2/2+x^4/24;
 
 *SEE List, FunctionToList, Hold
 %/mathpiper_docs
