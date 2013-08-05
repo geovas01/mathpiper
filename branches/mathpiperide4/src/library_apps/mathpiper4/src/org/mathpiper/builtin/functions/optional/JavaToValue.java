@@ -81,7 +81,7 @@ public class JavaToValue extends BuiltinFunction {
                     return;
 
                 } else {
-                    atomValue = (String) javaObject.getObject().toString().trim();
+                    atomValue = Utility.toMathPiperString(aEnvironment, aStackTop, (String) javaObject.getObject().toString().trim());
                 }
 
                 setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, atomValue));
