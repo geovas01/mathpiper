@@ -30,6 +30,7 @@
     	<pathelement path="${library.dir}/gwt-user.jar" />
     	<pathelement path="${library.dir}/validation-api-1.0.0.GA.jar" />
     	<pathelement path="${library.dir}/validation-api-1.0.0.GA-sources.jar" />
+    	<pathelement path="${library.dir}/jpl.jar" />
     </path>
 
 
