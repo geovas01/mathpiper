@@ -52,17 +52,17 @@ RuleHoldArguments(StandardOperatorsLoad, 0, 1, True)
     Bodied("ForEach",60000);
     Infix("<<",10);
     Infix(">>",10);
-    Bodied("Differentiate",60000);
-    Bodied("Deriv",60000);
+    //Bodied("Differentiate",60000);
+    //Bodied("Deriv",60000);
     Infix("X",30);
     Infix(".",30);
     Infix("o",30);
     Postfix("!", 30);
     Postfix("!!", 30);
     Infix("***", 50);
-    Bodied("Integrate",60000);
+    //Bodied("Integrate",60000);
 
-    Bodied("Limit",60000);
+    //Bodied("Limit",60000);
 
     Bodied("EchoTime", 60000);
 
