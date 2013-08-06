@@ -17,11 +17,11 @@ package org.mathpiper.test;
 
 import java.util.Hashtable;
 
-import jpl.Atom;
-import jpl.Compound;
-import jpl.Query;
-import jpl.Term;
-import jpl.Variable;
+//import jpl.Atom;
+//import jpl.Compound;
+//import jpl.Query;
+//import jpl.Term;
+//import jpl.Variable;
 
 import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.interpreters.Interpreters;
