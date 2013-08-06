@@ -420,7 +420,7 @@ public class EnvironmentViewer implements ActionListener {
 	for (String key : variablesSet) {
 	    if (!key.contains("$")
 		    && !key.equals("I")
-		    && !key.equals("%")
+		    && !key.equals("#")
 		    && ((GlobalVariable) globalState.get(key)).iConstant == false) {
 		
 		
@@ -435,6 +435,7 @@ public class EnvironmentViewer implements ActionListener {
  
         final Map map = (showAll) ?aEnvironment.iGlobalState :userVariablesMap;
         
+        final Environment finalEnvironment = aEnvironment;
         
 
         table.setModel(new AbstractTableModel() {
@@ -465,7 +466,20 @@ public class EnvironmentViewer implements ActionListener {
                 if (columnIndex == 0) {
                     return getKey(rowIndex);
                 } else {
-                    return map.get(getKey(rowIndex));
+                    GlobalVariable globalVariable = (GlobalVariable) map.get(getKey(rowIndex));
+                	    
+            	    Object value = globalVariable.iValue;
+    		
+    		    if(value instanceof Cons)
+    		    {
+    		        try {
+			    value = Utility.printMathPiperExpression(-1,  ((Cons) globalVariable.iValue), finalEnvironment, 0);
+			} catch (Throwable e) {
+			    e.printStackTrace();
+			}
+    		    }
+    		
+                    return value;
                 } // if-else
 
             }

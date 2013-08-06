@@ -76,7 +76,7 @@ public class State extends BuiltinFunction {
 		variablesList.add(key + ":" + globalState.get(key));
 	    } else if (!key.contains("$")
 		    && !key.equals("I")
-		    && !key.equals("%")
+		    && !key.equals("#")
 		    && ((GlobalVariable) globalState.get(key)).iConstant == false) {
 		
 		
