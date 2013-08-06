@@ -72,6 +72,10 @@ public class PatternProcess implements ASTProcessor {
 		    // Literal matching of variable names that begin with an
 		    // underscore.
 		    operatorString = patternArgument.substring(1, patternArgument.length());
+		} else if (patternArgument.endsWith("__")) {
+		    // Literal matching of variable names that end with an
+		    // underscore.
+		    operatorString = patternArgument.substring(0, patternArgument.length()-1);
 		} else if (patternArgument.startsWith("_")) {
 		    // Pattern variable with no checking function.
 		    operatorString = "_";
