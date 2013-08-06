@@ -93,7 +93,7 @@ public class MathPiperUnparser extends LispUnparser {
         }
 
         if (aExpression.car() instanceof BuiltinContainer) {
-            //TODO display genericclass
+            //TODO display generic class
             WriteToken(aOutput, ((BuiltinContainer) aExpression.car()).getObject().getClass().toString());
             return;
         }
@@ -143,7 +143,7 @@ public class MathPiperUnparser extends LispUnparser {
                     left = subList.cdr();
                 }
 
-                if (iPrecedence <= operator.iPrecedence) {
+                if (iPrecedence < operator.iPrecedence) { //todo:tk:change < to <= to show more parentheses.
                     WriteToken(aOutput, "(");
                 } else {
                     //Vladimir?    aOutput.write(" ");
@@ -199,7 +199,7 @@ public class MathPiperUnparser extends LispUnparser {
                     }//end if.
                 }
 
-                if (iPrecedence <= operator.iPrecedence) {
+                if (iPrecedence < operator.iPrecedence) { //todo:tk:change < to <= to show more parentheses.
                     WriteToken(aOutput, ")");
                 }
 
@@ -293,7 +293,7 @@ public class MathPiperUnparser extends LispUnparser {
                     } else {
                         Print(aEnvironment, aStackTop, subList, aOutput, 0);
                     }
-                    WriteToken(aOutput, "("); //Print the opening parenthese of the function argument list.
+                    WriteToken(aOutput, "("); //Print the opening parentheses of the function argument list.
 
                     Cons counter = consTraverser;
                     int nr = 0;
