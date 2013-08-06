@@ -15,6 +15,14 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.test;
 
+import java.util.Hashtable;
+
+import jpl.Atom;
+import jpl.Compound;
+import jpl.Query;
+import jpl.Term;
+import jpl.Variable;
+
 import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.interpreters.Interpreters;
 import org.mathpiper.interpreters.EvaluationResponse;
@@ -106,7 +114,36 @@ public class InterpreterTest implements ResponseListener
     
     public static void main(String[] args)
     {
-        new InterpreterTest();
+        //new InterpreterTest();
+	
+	
+	/* 
+	//This code works.
+	Variable X = new Variable();
+	Query q;
+	q = new Query("['/home/tkosan/git/press/swiload.pl']");
+	System.err.println(q.hasSolution());
+	
+	//q = new Query("tidy(x^2,X)");
+	q = new Query("tidy(a+b+a,X)");
+
+	System.err.println(q.hasSolution());
+
+	while (q.hasMoreElements()) {
+	    System.err.println(q.nextElement());
+	}
+	*/
+	
+	
+	/*
+	q = new Query( "tidy", new Term[]{new Atom("x^2"),X});
+	while ( q.hasMoreElements() ) {
+	 Hashtable binding = (Hashtable) q.nextElement();
+	 Term t = (Term) binding.get(X);
+	 System.out.println( t);
+	}
+	
+	*/
 
         /*
         JFrame frame = new JFrame();
