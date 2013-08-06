@@ -135,6 +135,34 @@ RuleHoldArguments(StandardOperatorsLoad, 0, 1, True)
     Bodied("Taylor3TaylorCoefs",0);
 
     Infix(":*:",3);
+    
+    
+    //Symbolic operators (that do not evaluate their operands).;
+    Infix("+$",70);
+    RulebaseHoldArguments("+$",[_lhs, _rhs]);
+    
+    Infix("-$",70);
+    RightPrecedenceSet("-$",40);
+    RulebaseHoldArguments("-$",[_lhs, _rhs]);
+    
+    Infix("/$",30);
+    RulebaseHoldArguments("/$",[_lhs, _rhs]);
+    
+    Infix("*$",40);
+    RulebaseHoldArguments("*$",[_lhs, _rhs]);
+    
+    Infix("^$",20);
+    LeftPrecedenceSet("^$",19); //Used to make expressions like x^n^2 unambiguous.
+    RightAssociativeSet("^$");
+    RulebaseHoldArguments("^$",[_lhs, _rhs]);
+    
+    Prefix("+$",50);
+    RulebaseHoldArguments("+$",[_operand]);
+    
+    Prefix("-$",50);
+    RightPrecedenceSet("-$",40);
+    RulebaseHoldArguments("-$",[_operand]);
+    
 
 };
 
