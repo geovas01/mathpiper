@@ -45,20 +45,20 @@ Result: restart;
 
 
 
-%mathpiper_docs,name="%v2",categories="Operators"
-*CMD % --- previous result
+%mathpiper_docs,name="#",categories="Operators"
+*CMD # --- previous result
 *CORE
 *CALL
-        %
+        #
 
 *DESC
 
-{%} evaluates to the previous result on the command line. {%} is a global
+{#} evaluates to the previous result on the command line. {#} is a global
 variable that is bound to the previous result from the command line.
-Using {%} will evaluate the previous result. (This uses the functionality
+Using {#} will evaluate the previous result. (This uses the functionality
 offered by the {SetGlobalLazyVariable} command).
 
-Typical examples are {Simplify(%)} and {UnparseMath2D(%)} to simplify and show the result in a nice
+Typical examples are {Simplify(#)} and {UnparseMath2D(#)} to simplify and show the result in a nice
 form respectively.
 
 *E.G..
@@ -66,7 +66,7 @@ form respectively.
 In> 2+2
 Result: 4
 
-In> %
+In> #
 Result: 4
 
 
