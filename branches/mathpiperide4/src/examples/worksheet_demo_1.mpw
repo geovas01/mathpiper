@@ -1,4 +1,4 @@
-/*  v 1.18.
+/*  v 1.19.
     This is a MathPiperIDE worksheet file and it consists of folds which contain source
     code.  A fold starts with %<keyword> and ends with %/<keyword>.  Code is entered inside
     a fold and then executed by placing the cursor anywhere inside the code and
@@ -16,7 +16,7 @@
 x := 1;
 While(x <? 100)
 {
-  Write(x,,);
+  Write(x,',);
   x := x + 1;  
 };
 
@@ -59,31 +59,14 @@ Show(LatexView("2\\sum_{i=1}^n a_i"));
 
 
 
-%mathpiper
-//Execute this fold to view the expression it creates in traditional mathematical form..
-
-Unassign(x);
-a := (2*x)*(x+3)*(x+4);
-b := Expand(a);
-
-ViewMath(b);
-
-%/mathpiper
-
-
-
-
-
-
-
-
 
 
 %mathpiper
 //Execute this fold to view a MathPiper expression as a Lisp box diagram.
 
-Unassign(x);
-ViewList(x^2 + 3*x + 7);
+//Names that contain underscores evaluate to themselves.
+
+ViewList(x_^2 + 3*x_ + 7);
 
 %/mathpiper
 
