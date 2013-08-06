@@ -1,12 +1,76 @@
-%mathpiper,def="Factor"
+%mathpiper,def="Factor;Solve;Expand;Differentiate;Integrate"
 //Factor(2343), 3*11*71
 Retract("Factor",*);
+
+Retract("Log",*);
+RulebaseHoldArguments("Log",[_x]);
+
+Retract("Arbint",*);
+RulebaseHoldArguments("Arbint",[_x]);
+
+
+
+
+
 
 
 If(ExceptionCatch(mpreduce,"Exception") =? "Exception")
 {
     mpreduce := JavaNew("org.mathpiper.mpreduce.Interpreter2");
 };
+
+
+
+
+
+
+MathPiperToReduce(expression) :=
+{
+    Local(expressionString);
+    
+    expressionString := ToString(expression);
+    
+    expressionString := ToString(JavaAccess(JavaNew("java.lang.String", expressionString), "replace", "_", "ztfxq"));
+    
+    expressionString := ToString(JavaAccess(JavaNew("java.lang.String", expressionString), "replace", "==", "="));
+};
+
+
+
+
+ReduceToMathPiper(expressionString) :=
+{
+    Local(result);
+        
+    expressionString := ToString(expressionString);
+//Write(expressionString);
+    result := JavaAccess(JavaNew("java.lang.String", expressionString), "replace", "$", "");
+//    Write(result);
+
+    result := JavaAccess(JavaNew("java.lang.String", result), "replace", "ztfxq", "_");
+  
+    result := JavaAccess(JavaNew("java.lang.String", result), "replace", "**", "^");
+
+    result := JavaAccess(JavaNew("java.lang.String", result), "replace", "sqrt", "Sqrt");
+  
+    result := JavaAccess(JavaNew("java.lang.String", result), "replace", "pi", "Pi");
+    
+    result := JavaAccess(JavaNew("java.lang.String", result), "replace", "log", "Log");
+    
+    result := JavaAccess(JavaNew("java.lang.String", result), "replace", "arbint", "Arbint");
+    
+    result := JavaAccess(JavaNew("java.lang.String", result), "replace", "{", "[");
+    
+    result := JavaAccess(JavaNew("java.lang.String", result), "replace", "}", "]");
+  
+    
+    Check(Not? JavaAccess(JavaNew("java.lang.String", result), "contains", "*****"),"",result);
+
+    PipeFromString(ToString(result) ~ ";") ParseMathPiper();
+    
+
+};
+
 
 
 
@@ -28,54 +92,16 @@ HandleFactor(factorList) :=
 };
 
 
-MathPiperToReduce(expression) :=
-{
-    Local(expressionString);
-    
-    expressionString := ToString(expression);
-    
-    expressionString := ToString(JavaAccess(JavaNew("java.lang.String", expressionString), "replace", "_", "ztfxq"));
-};
-
-
-
-
-ReduceToMathPiper(expressionString) :=
-{
-    Local(result);
-    
-    expressionString := ToString(expressionString);
-
-    result := JavaAccess(JavaNew("java.lang.String", expressionString), "replace", "$", "");
-    
-    result := JavaAccess(JavaNew("java.lang.String", result), "replace", "ztfxq", "_");
-    
-    result := JavaAccess(JavaNew("java.lang.String", result), "replace", "**", "^");
-    
-    result := JavaAccess(JavaNew("java.lang.String", result), "replace", "{", "[");
-    
-    result := JavaAccess(JavaNew("java.lang.String", result), "replace", "}", "]");
-    
-    PipeFromString(ToString(result) ~ ";") ParseMathPiper();
-
-};
-
-
-
-
-
 Factor(expression) :=
 {
-    //Local(result, expressionString, base, exponent, list);
+   // Local(result, expressionString, base, exponent, list);
     
     expressionString := MathPiperToReduce(expression);
 
     result := JavaAccess(mpreduce, "evaluate","Factorize(" ~ expressionString ~ ");");
     
-    //Echo(result);
-    
     list := ReduceToMathPiper(result);
-    
+
     length := Length(list);
     
     If(length =? 0)
@@ -84,7 +110,7 @@ Factor(expression) :=
     }
     Else If(length =? 1)
     {
-        result := HandleFactor(list[1]);
+        result := HandleFactor(list[1]);  
     }
     Else
     {
@@ -97,7 +123,9 @@ Factor(expression) :=
 
     };
     
-    result;
+    
+     
+    ReduceToMathPiper(result);
 
 };
 
@@ -105,7 +133,7 @@ Factor(expression) :=
 
 Solve(expression) :=
 {
-    //Local(result);
+    Local(result);
 
     result := JavaAccess(mpreduce, "evaluate","Solve(" ~ MathPiperToReduce(expression) ~ ");"); 
     
@@ -119,9 +147,24 @@ Solve(expression) :=
 
 
 
+Solve(expression, unknown) :=
+{
+    Local(result);
+
+    result := JavaAccess(mpreduce, "evaluate","Solve(" ~ MathPiperToReduce(expression) ~ ", " ~ MathPiperToReduce(unknown) ~ ");"); 
+    
+    result := JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "Unknown:.*\\n", "");
+    
+    result := JavaAccess(JavaNew("java.lang.String", result), "replace", "=", "==");
+
+    ReduceToMathPiper(result);
+};
+
+
+
 Expand(expression) :=
 {
-    //Local(result);
+    Local(result);
     
     JavaCall(mpreduce, "evaluate","off factor;");
 
@@ -133,11 +176,200 @@ Expand(expression) :=
 
 };
 
+
+
+
+
+Differentiate(expression, variable) :=
+{
+    Local(result);
+
+    result := JavaAccess(mpreduce, "evaluate","DF(" ~ MathPiperToReduce(expression) ~ ", " ~ MathPiperToReduce(variable) ~ ");"); 
+    
+    result := JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "Unknown:.*\\n", "");
+    
+    result := JavaAccess(JavaNew("java.lang.String", result), "replace", "=", "==");
+
+    ReduceToMathPiper(result);
+};
+
+
+
+
+
+
+Integrate(expression, variable) :=
+{
+    Local(result);
+
+    result := JavaAccess(mpreduce, "evaluate","INT(" ~ MathPiperToReduce(expression) ~ ", " ~ MathPiperToReduce(variable) ~ ");"); 
+    
+    result := JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "Unknown:.*\\n", "");
+    
+    result := JavaAccess(JavaNew("java.lang.String", result), "replace", "=", "==");
+
+    ReduceToMathPiper(result);
+};
+
 %/mathpiper
 
-    %output,sequence="46,timestamp="2013-08-05 01:59:55.504",preserve="false"
+    %output,sequence="3,timestamp="2013-08-05 22:56:26.087",preserve="false"
       Result: True
 .   %/output
 
 
+
+
+
+
+
+
+
+
+
+%mathpiper_docs,name="Factor",categories="Mathematics Functions;Polynomials (Operations);Number Theory"
+*CMD Factor -- Factorization of almost anything factorable
+*CALL
+Factor( expr )
+*PARMS
+{expr} -- An Integer, Rational number, Gaussian Integer, Polynomial, or Rational Function
+*DESC
+This function factors integers and symbolic polynomials.
+    
+*E.G.
+
+In> Factor(16940)
+Result: 2^2*5*7*11^2
+
+
+In> Factor('(5*x_^7-20*x_^6+25*x_^5-20*x_^4+25*x_^3-20*x_^2+20*x_))
+Result: 5*x_*(x_^6-4*x_^5+5*x_^4-4*x_^3+5*x_^2-4*x_+4)
+
+ 
+*SEE Expand
+
+%/mathpiper_docs
+
+    %output,parent="Factor",sequence="1,timestamp="2013-08-05 20:07:52.335",preserve="false"
+      
+.   %/output
+
+
+
+
+
+%mathpiper_docs,name="Solve",categories="Mathematics Functions;Solvers (Symbolic)"
+*CMD Solve --- solve an equation
+*STD
+*CALL
+        Solve(eq, var)
+
+*PARMS
+
+{eq} -- equation to solve
+
+{var} -- variable to solve for
+
+*DESC
+
+Solves equations.
+
+*E.G.
+
+In> Solve(x_^2+x_,x_)
+Result: [x_==0,x_==-1]
+
+*SEE Where, AddTo, ==
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper_docs,name="Expand",categories="Mathematics Functions;Polynomials (Operations)"
+*CMD Expand --- transform a polynomial to an expanded form
+*STD
+*CALL
+	Expand(expr)
+
+*PARMS
+
+{expr} -- a polynomial expression
+
+*DESC
+
+This command brings a polynomial in expanded form, in which
+polynomials are represented in the form 
+$c0 + c1*x + c2*x^2 + ... + c[n]*x^n$. In this form, it is easier to test whether a polynomial is
+zero, namely by testing whether all coefficients are zero.
+
+
+
+*E.G.
+In> Expand((1+x_)^5);
+Result: x_^5+5*x_^4+10*x_^3+10*x_^2+5*x_+1
+
+
+*SEE ExpandBrackets
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper_docs,name="Differentiate",categories="Mathematics Functions;Calculus Related (Symbolic)"
+*CMD Differentiate --- take derivative of expression with respect to variable
+*STD
+*CALL
+	Differentiate(expression,variable)
+
+*PARMS
+
+{expression} -- expression to take derivatives of
+
+{variable} -- variable
+
+
+*DESC
+
+This function calculates the derivative of the expression {expr} with
+respect to the variable {var}
+
+*E.G.
+
+In> Differentiate(x_^2,x_)
+Result: 2*x_
+
+*SEE Integrate
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper_docs,name="Integrate",categories="Mathematics Functions;Calculus Related (Symbolic)"
+*CMD Integrate --- integration
+
+*STD
+*CALL
+	Integrate(expression, variable)
+
+*PARMS
+
+{expr} -- expression to integrate
+
+{variable} -- atom, variable to integrate over
+
+
+*DESC
+
+This function integrates the expression {expression} with respect to the
+variable {variable}.
+
+*E.G.
+In> Integrate(x_^2,x_)
+Result: x_^3/3
+
+*SEE Differentiate
+%/mathpiper_docs
 
