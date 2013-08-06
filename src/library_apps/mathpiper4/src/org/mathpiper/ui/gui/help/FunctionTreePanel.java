@@ -372,13 +372,13 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         //mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Polynomials (Special)", "Special polynomials.")));
         mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Propositional Logic", "Functions for propositional logic.")));
         mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Series", "Functions which operate on series.")));
-        mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Solvers (Numeric)", "Functions for solving equations numerically.")));
+        //mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Solvers (Numeric)", "Functions for solving equations numerically.")));
         mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Solvers (Symbolic)", "By solving one tries to find a mathematical object that meets certain criteria.")));
         mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Special Functions", "In this section, special and transcendental mathematical functions are described.")));
         mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Statistics & Probability", "Statistics & Probability.")));
         //mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Transforms", "In this section, some facilities for various transforms are described.")));
         mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Trigonometry (Numeric)", "Functions for working with trigonometry numerically.")));
-        mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Trigonometry (Symbolic)", "Functions for working with trigonometry symbolically.")));
+        //mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Trigonometry (Symbolic)", "Functions for working with trigonometry symbolically.")));
         mathematicsFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Visualization", "Functions that help visualize data.")));
 
     }//end method.
