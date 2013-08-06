@@ -8,11 +8,11 @@
 	</description> 
 	
 	<!-- Misc properties -->
-	<property name="version" value=".81C_mp4_experimental" />
+	<property name="version" value=".811" />
 	<property name="mathpiper.version" value="mathpiper4" />        
 	
-	<property name="master.compile.source" value="1.5" />
-	<property name="master.compile.target" value="1.5" />
+	<property name="master.compile.source" value="1.6" />
+	<property name="master.compile.target" value="1.6" />
 	<property name="master.compile.debug" value="false" />
 	<property environment="env" />
 	
