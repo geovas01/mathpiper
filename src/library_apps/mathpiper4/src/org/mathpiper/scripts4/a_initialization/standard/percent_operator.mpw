@@ -7,7 +7,7 @@ a_NonNegativeInteger? % b_PositiveInteger? <-- Modulo(a,b);
 
 
 
-%mathpiper_docs,name="%_v1",categories="Operators"
+%mathpiper_docs,name="%",categories="Operators"
 *CMD  % --- modulus operator
 *STD
 *CALL
