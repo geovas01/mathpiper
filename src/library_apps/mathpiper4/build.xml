@@ -79,6 +79,7 @@
 
             <include name="**/*.java" />
             <exclude name="dist/" />
+            <compilerarg line="-encoding utf-8"/>
 
         </javac>   
         
@@ -92,7 +93,7 @@
             <classpath refid="build_classpath" />
 
             <include name="**/*.java" />
-          
+            <compilerarg line="-encoding utf-8"/>
         </javac> 
         
         
@@ -108,7 +109,7 @@
             <include name="org/mathpiper/test/Build.java" />
             <include name="org/mathpiper/test/MPWSFile.java" />
             <include name="org/mathpiper/test/Fold.java" />
-            
+            <compilerarg line="-encoding utf-8"/>
         </javac>
         
     </target>
@@ -447,6 +448,7 @@
         	includeantruntime="false">
 			
 			<include name="**/*.java" />
+			<compilerarg line="-encoding utf-8"/>
 		</javac>
 		
 		
