@@ -1,5 +1,5 @@
 
-%mathpiper,title="Locate all occurrences of the sign a." 
+%mathpiper,title="Locate all occurrences of the sign a."
 
 v1 := '(a+b-c/a);
 
