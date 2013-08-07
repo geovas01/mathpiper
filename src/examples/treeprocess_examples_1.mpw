@@ -1,0 +1,657 @@
+
+%mathpiper,title="Locate all occurrences of the sign a." 
+
+v1 := '(a+b-c/a);
+
+list := [
+    ["track",[]],
+    
+    ["function",
+        Lambda([trackingList,positionString,node], 
+        {
+            DestructiveAppend(trackingList["track"],ToString(node));
+            
+            MetaSet(node,"HighlightColor","GREEN");
+            
+            node; 
+        })
+    ]
+];
+
+v1 := TreeProcess(v1,'a, list);
+
+Show(TreeView(v1));
+
+%/mathpiper
+
+    %output,sequence="109,timestamp="2013-08-01 00:35:11.428",preserve="false"
+      Result: class javax.swing.JFrame
+.   %/output
+
+
+
+
+
+
+
+%mathpiper,title="Locate all occurrences of the sign _a."
+
+v1 := '(_a+_b-_c*_a);
+
+list := [
+    ["track",[]],
+    
+    ["function",
+        Lambda([trackingList,positionString,node], 
+        {
+            DestructiveAppend(trackingList["track"],ToString(node));
+            
+            MetaSet(node,"HighlightColor","GREEN");
+            
+            node; 
+        })
+    ]
+];
+
+//Two leading underscores are used to match a sign literally.
+v1 := TreeProcess(v1,__a, list);
+
+[track,function] := list;
+Echo(track);
+
+Show(TreeView(v1));
+
+%/mathpiper
+
+    %output,sequence="110,timestamp="2013-08-01 00:37:02.608",preserve="false"
+      Result: class javax.swing.JFrame
+      
+      Side Effects:
+      ["track",["_a","_a"]] 
+      
+.   %/output
+
+
+
+
+
+
+
+%mathpiper,title="Match all signs using a metavariable."
+
+v1 := '(a+b-c*a);
+
+list := [
+    ["track",[]],
+    
+    ["function",
+        Lambda([trackingList,positionString,node], 
+        {
+            DestructiveAppend(trackingList["track"],ToString(node));
+            
+            MetaSet(node,"HighlightColor","GREEN");
+            
+            node; 
+        })
+    ]
+];
+
+//_a is a metavariable that matches all signs.
+v1 := TreeProcess(v1,_a, list);
+
+[track,function] := list;
+Echo(track);
+
+Show(TreeView(v1));
+
+%/mathpiper
+
+    %output,sequence="111,timestamp="2013-08-01 00:37:36.425",preserve="false"
+      Result: class javax.swing.JFrame
+      
+      Side Effects:
+      ["track",["-","+","a","b","*","c","a"]] 
+      
+.   %/output
+
+
+
+
+
+
+
+%mathpiper,title="Locate all signs that are integers."
+
+v1 := '(a+b-c+9+ -6);
+
+list := [
+    ["track",[]],
+    
+    ["function",
+        Lambda([trackingList,positionString,node], 
+        {
+            DestructiveAppend(trackingList["track"],ToString(node));
+            
+            MetaSet(node,"HighlightColor","GREEN");
+            
+            node; 
+        })
+    ]
+];
+
+v1 := TreeProcess(v1,(a_Integer?), list);
+
+[track,function] := list;
+Echo(track);
+
+Show(TreeView(v1));
+
+%/mathpiper
+
+    %output,sequence="112,timestamp="2013-08-01 00:42:42.448",preserve="false"
+      Result: class javax.swing.JFrame
+      
+      Side Effects:
+      ["track",["9","6"]] 
+      
+.   %/output
+
+
+
+
+
+
+
+%mathpiper,title="Locate all signs that are negative integers."
+
+v1 := '(a+b-c+9+ -6);
+
+list := [
+    ["track",[]],
+    
+    ["function",
+        Lambda([trackingList,positionString,node], 
+        {
+            DestructiveAppend(trackingList["track"],ToString(node));
+            
+            MetaSet(node,"HighlightColor","GREEN");
+            
+            node; 
+        })
+    ]
+];
+
+v1 := TreeProcess(v1,(-a_Integer?), list);
+
+[track,function] := list;
+Echo(track);
+
+Show(TreeView(v1));
+
+%/mathpiper
+
+    %output,sequence="113,timestamp="2013-08-01 00:43:21.671",preserve="false"
+      Result: class javax.swing.JFrame
+      
+      Side Effects:
+      ["track",["-6"]] 
+      
+.   %/output
+
+
+
+
+
+
+%mathpiper,title="Locate all signs that are integers greater than 7."
+
+v1 := '(a+b-c+9+ -6);
+
+list := [
+    ["track",[]],
+    
+    ["function",
+        Lambda([trackingList,positionString,node], 
+        {
+            DestructiveAppend(trackingList["track"],ToString(node));
+            
+            MetaSet(node,"HighlightColor","GREEN");
+            
+            node; 
+        })
+    ]
+];
+
+v1 := TreeProcess(v1,'((a_Integer?)::(a >? 7)), list);
+
+[track,function] := list;
+Echo(track);
+
+Show(TreeView(v1));
+
+%/mathpiper
+
+
+
+
+
+%mathpiper,title="Locate all + signs."
+
+v1 := '(a+b-c+9+ -6);
+
+list := [
+    ["track",[]],
+    
+    ["function",
+        Lambda([trackingList,positionString,node], 
+        {
+            DestructiveAppend(trackingList["track"],ToString(node));
+            
+            MetaSet(node,"HighlightColor","GREEN");
+            
+            node; 
+        })
+    ]
+];
+
+//The ToAtom function must be used to specify operators.
+v1 := TreeProcess(v1,ToAtom("+"), list);
+
+[track,function] := list;
+Echo(track);
+
+Show(TreeView(v1));
+
+%/mathpiper
+
+    %output,sequence="114,timestamp="2013-08-01 01:00:41.472",preserve="false"
+      Result: class javax.swing.JFrame
+      
+      Side Effects:
+      ["track",["+","+","+"]] 
+      
+.   %/output
+
+
+
+
+
+%mathpiper,title="Locate all additions."
+
+//todo:tk:does not match all occurrence of _a + _b. I think this may be because it will not
+//substitute subexpressions of expressions that have already been matched.
+
+//v1 := '(a+b-c+9+ -6);
+
+v1 := '(a+b-c+b- -6);
+
+//v1 := '((a+b)* (c+d));
+
+list := [
+    ["track",[]],
+    
+    ["function",
+        Lambda([trackingList,positionString,node], 
+        {
+            DestructiveAppend(trackingList["track"],ToString(node));
+            
+            MetaSet(node,"HighlightColor","GREEN");
+            
+            Echo(ToString(node));
+            
+            node; 
+        })
+    ]
+];
+
+v1 := TreeProcess(v1,_a + _b, list);
+
+//v1 := TreeProcess(v1,_a + 'b, list);
+
+[track,function] := list;
+Echo(track);
+
+Show(TreeView(v1));
+
+%/mathpiper
+
+    %output,sequence="3,timestamp="2013-08-03 14:39:08.155",preserve="false"
+      Result: class javax.swing.JFrame
+      
+      Side Effects:
+      ((a+b)-c)+b
+      ["track",["((a+b)-c)+b"]] 
+      
+.   %/output
+
+
+
+
+
+%mathpiper,title="Locate all additions."
+
+
+v1 := '((a+b)* (c+d));
+
+list := [
+    ["track",[]],
+    
+    ["function",
+        Lambda([trackingList,positionString,node], 
+        {
+            DestructiveAppend(trackingList["track"],ToString(node));
+            
+            MetaSet(node,"HighlightColor","GREEN");
+            
+            node; 
+        })
+    ]
+];
+
+v1 := TreeProcess(v1,'((_a + _b)), list);
+
+
+[track,function] := list;
+Echo(track);
+
+Show(TreeView(v1));
+
+%/mathpiper
+
+    %output,sequence="117,timestamp="2013-08-01 01:06:14.995",preserve="false"
+      Result: class javax.swing.JFrame
+      
+      Side Effects:
+      ["track",["a+b","c+d"]] 
+      
+.   %/output
+
+
+
+
+%mathpiper,title="Obtain the positions of all occurences of an unknown."
+
+
+v1 := '((a+b)* (c+d+a));
+
+list := [
+    ["track",[]],
+    
+    ["function",
+        Lambda([trackingList,positionString,node], 
+        {
+            DestructiveAppend(trackingList["track"],[ToString(node),positionString]);
+            
+            MetaSet(node,"HighlightColor","GREEN");
+            
+            node; 
+        })
+    ]
+];
+
+v1 := TreeProcess(v1,'a, list);
+
+
+[track,function] := list;
+Echo(track);
+
+Show(TreeView(v1));
+
+%/mathpiper
+
+    %output,sequence="122,timestamp="2013-08-01 01:10:33.354",preserve="false"
+      Result: class javax.swing.JFrame
+      
+      Side Effects:
+      ["track",[["a",11],["a",22]]] 
+      
+.   %/output
+
+
+
+%mathpiper,title="Locate all multiplications where the left operator is > 7."
+
+//Symbols need to be used instead of quoting when using a post predicate.
+v1 := _a + 9*_b +3*_b + 8*_b;
+
+list := [
+    ["track",[]],
+    
+    ["function",
+        Lambda([trackingList,positionString,node], 
+        {
+            DestructiveAppend(trackingList["track"],ToString(node));
+            
+            MetaSet(node,"HighlightColor","GREEN");
+            
+            node; 
+        })
+    ]
+];
+
+v1 := TreeProcess(v1,'((_x * _y)::(x >? 7)), list);
+
+
+[track,function] := list;
+Echo(track);
+
+Show(TreeView(v1));
+
+%/mathpiper
+
+
+
+
+
+
+
+
+
+%mathpiper,title="Match all nodes but only process specific ones."
+
+v1 := '(a+b*c);
+
+list := [
+    ["track",[]],
+    
+    ["function",
+        Lambda([trackingList,positionString,node], 
+        {
+            DestructiveAppend(trackingList["track"],ToString(node));
+            
+            If(node =? 'a)
+            {
+                MetaSet(node,"HighlightColor","GREEN");
+                MetaSet(node,"HighlightNodeShape","RECTANGLE");
+            }
+            Else If(node =? ToAtom("*")) 
+            {
+                MetaSet(node,"HighlightColor","RED");
+                MetaSet(node,"HighlightNodeShape","CIRCLE");
+            };
+            
+            node; 
+        })
+    ]
+];
+
+v1 := TreeProcess(v1,_, list);
+
+
+[track,function] := list;
+Echo(track);
+
+Show(TreeView(v1));
+
+%/mathpiper
+
+    %output,sequence="116,timestamp="2013-08-01 01:02:01.242",preserve="false"
+      Result: class javax.swing.JFrame
+      
+      Side Effects:
+      ["track",["+","a","*","b","c"]] 
+      
+.   %/output
+
+
+
+
+
+%mathpiper,title=""
+
+compiled := PatternCompile( _x * _y <- 3);
+
+pattern := compiled[1][2];
+
+//The main operator needs to be matched manually.
+operator := compiled[1][1];
+
+Echo(PatternMatch?(pattern, '(a/b + c/d)));
+
+Echo(PatternMatch?(pattern, '(-4)));
+
+
+%/mathpiper
+
+    %output,sequence="95,timestamp="2013-07-31 23:48:01.868",preserve="false"
+      Result: True
+      
+      Side Effects:
+      True 
+      False 
+      
+.   %/output
+
+
+
+
+
+
+%mathpiper,title="Process subtrees."
+
+//todo:tk:need to add the ability to match all subtrees.
+
+compiled := PatternCompile( _x * _y <- 3);
+
+pattern := compiled[1][2];
+
+operator := compiled[1][1];
+
+v1 := '(a+b-c+9+ -6);
+
+list := [
+    ["track",[]],
+    
+    ["function",
+        Lambda([trackingList,positionString,node], 
+        {
+            DestructiveAppend(trackingList["track"],ToString(node));
+            
+            Echo(node);
+            
+            /*
+            If(PatternMatch?(pattern, node))
+            {
+                MetaSet(node,"HighlightColor","GREEN");
+            };
+            */
+            
+            node; 
+        })
+    ]
+];
+
+v1 := TreeProcess(v1,_, list);
+
+
+[track,function] := list;
+Echo(track);
+
+Show(TreeView(v1));
+
+%/mathpiper
+
+    %output,sequence="101,timestamp="2013-08-01 00:16:36.19",preserve="false"
+      Result: class javax.swing.JFrame
+      
+      Side Effects:
+      + 
+      + 
+      - 
+      + 
+      a 
+      b 
+      c 
+      9 
+      - 
+      6 
+      ["track",["+","+","-","+","a","b","c","9","-","6"]] 
+      
+.   %/output
+
+
+
+
+
+=========== test.mpi file
+
+expression := '(a+b-c*a);
+
+expression := '(a+b-c*a + x*(y + z));
+
+expression := '((3*a)-b+c*d);
+
+
+
+searchPattern := '(_a * _b);
+
+searchPattern := '(_a);
+
+//searchPattern := ToAtom("*");
+
+//searchPattern := '(_x*(_y + _z));
+
+
+
+f1 := Lambda([trackingList,positionString,node], {MetaSet(node,"HighlightColor","GREEN"); node;});
+
+f2 := Lambda([trackingList,positionString,node], {DestructiveAppend(list["track"],ToString(node)); node;});
+
+//replacementPattern := TreeProcess('(x*y + x*z), _x, [["function", f1]]);
+
+//f3 := Lambda([trackingList,positionString,node], {replacementPattern;});
+
+
+
+/*
+functions := [f1, f2, f3];
+
+processLogic := Lambda([trackingList,positionString,node],
+{   
+    ForEach(function, functions)
+    {
+        Apply(function, [trackingList,positionString,node]);
+    };
+    
+    node; //Note: must return node as the result, because it is used to build the result list.
+});
+*/
+
+
+
+findPositions := Lambda([trackingList,positionString,node],
+{
+    Echo(ToString(node), " ", positionString);
+    
+    node;
+});
+
+
+processList := [["track",[]], ["positions", []], ["function", findPositions]];
+
+z2 := TreeProcess(expression, searchPattern, processList);
+
+Echo(processList["track"]);
+
+
+Show(TreeView(z2)); 
