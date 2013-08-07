@@ -1,0 +1,490 @@
+%mathpiper,name="main",def="Position;PositionHelper;Occurrence;SingleOccurrence?;SolveSteps;Isolate;RemoveDollarSigns;AddDollarSigns;RemoveUnderscoresAndDollarSigns;TexFormNoDollarSigns;Isolax;StepsView;ToLatex"
+
+//Note:tk:Perhaps create a function called Value that obtains the value that is assigned to a variable
+// without evaluating the variable first.
+
+    
+
+
+Position(subTerm, term) :=
+{
+    Local(positionList);
+    
+    Check(Function?(term), "Argument", "The argument must be an expression that contains a function.");
+    
+    positionList := PositionHelper(subTerm, term,[False]);
+    
+    positionList := Rest(positionList);
+    
+    Rest(Reverse(positionList));
+
+};
+
+
+
+
+PositionHelper(subTerm, term, list) :=
+{   
+    Local(argPosition);
+
+    If(Atom?(term) And? (subTerm =? term))
+    {
+        list[1] := True;
+        
+        list;
+    }
+    Else If(Atom?(term) )
+    {
+        list;
+    }
+    Else
+    {
+        argPosition := Length(term);
+        
+        While(argPosition >? 0)
+        {  
+            list := PositionHelper(subTerm, term[argPosition], list);
+            
+            Decide(list[1] =? True, {list := Append(list, argPosition);argPosition := -1;});
+        
+            argPosition--;
+        };
+        
+        list;
+    };
+};
+
+
+
+
+Occurrence(expression, variable) :=
+{
+    Check(Function?(expression), "Argument", "The argument must be an expression that contains a function.");
+
+    Count(VarListAll(expression), variable);
+};
+
+
+
+SingleOccurrence?(expression, variable) :=
+{
+    Occurrence(expression, variable) =? 1;
+};
+
+
+
+
+//====================================================================
+Retract("SolveSteps",*);
+
+
+
+RulebaseListedHoldArguments("SolveSteps",[_equation, _variable, _optionsList]);
+
+//Handle no options call.
+5 # SolveSteps(_equation, _variable) <-- SolveSteps(equation, variable, []);
+
+
+//Main routine.  It will automatically accept two or more option calls because the
+//options come in a list.
+10 # SolveSteps(_equation, _variable, optionsList_List?) <--
+{
+    Local(options, path, steps);
+    
+    options := OptionsToAssociativeList(optionsList);
+    
+    Check(Occurrence(equation, variable) >? 0, "Argument", "The variable " ~ ToString(variable) ~ " does not occur in the equation.");
+    
+    Check(Occurrence(equation, variable) =? 1, "Argument", "Equations with multiple occurrences of the unknown are not currently supported.");
+    
+    equation := AddDollarSigns(equation);
+     
+    steps := Isolate(variable, equation);
+};
+
+
+//Handle a single option call because the option does not come in a list for some reason.
+20 # SolveSteps(_equation, _variable, _singleOption) <-- SolveSteps(equation, variable, [singleOption]);
+
+
+
+//===================================================================
+
+
+
+
+
+
+
+Isolate(variable, equation) :=
+{
+    Local(result, rest, currentEquation, path, showTree);
+
+    result := [];
+    
+    path := Position(variable, equation);
+    
+    DestructiveAppend(result, [equation,"Equation", "The original equation.", variable]);
+    
+    rest := [equation];
+
+    ForEach(pathNumber, path)
+    {
+        currentEquation := First(rest);
+    
+        rest := Isolax(pathNumber, currentEquation);
+        
+        DestructiveAppend(result, rest);
+    };
+
+    
+    result;
+};
+
+
+
+
+//================================================
+
+
+Retract("StepsView",*);
+
+
+
+RulebaseListedHoldArguments("StepsView",[_steps, _optionsList]);
+
+//Handle no options call.
+5 # StepsView(_steps) <-- StepsView(steps, []);
+
+
+//Main routine.  It will automatically accept two or more option calls because the
+//options come in a list.
+10 # StepsView(_steps, optionsList_List?) <--
+{
+    Local(result, currentEquation, options, message, treeScale, latexScale);
+    
+    result := [];
+        
+    options := OptionsToAssociativeList(optionsList);
+    
+    If(Number?(options["Scale"]))
+    {
+        treeScale := options["Scale"];
+    }
+    Else
+    {
+        treeScale := 1.5;
+    };
+    
+    latexScale := treeScale * 17;
+    
+    message := 
+"\\footnotesize \\mbox{
+The dominant operator on the left side of an equation is the\\\\
+operator that has the lowest precedence. This is always the top \\\\
+operator on the left side of the equation's expression tree.\\\\
+\\vspace{.75in}
+The expression tree of an equation that has only one occurrence\\\\
+of the variable to be isolated can be solved using the following\\\\
+procedure:\\\\
+\\vspace{.75in}
+1) Identify the operator that is at the top of the left side of the\\\\
+\\hspace{.5in}tree (it is highlighted in the trees below).\\\\
+\\vspace{.75in}
+2) Identify the operand of this operator that does not contain the\\\\
+\\hspace{.75in}variable to be isolated.\\\\
+\\vspace{.75in}
+3) Remove the top operator (along with the operand from step 2)\\\\
+\\hspace{.5in}from the left side of the tree, and add the inverse of\\\\
+\\hspace{.5in}this operator (along with the operand from step 2) to\\\\
+\\hspace{.5in}the top of the right side of the tree.\\\\
+\\vspace{.75in}
+}";
+    
+    DestructiveAppend(result, LatexView(message, Scale: latexScale));
+    
+    message := "\\text{Solve}\\ " ~ ToString(ToAtom(ListToString(Remove(StringToList(UnparseLatex(TagLeftSideDominantFunction(RemoveDollarSigns(steps[1][1])))),"$"))) ) ~ "\\ \\text{for}\\ " ~ ToString(steps[1][4]) ~ ".";
+    
+    DestructiveAppend(result, LatexView(RemoveUnderscoresAndDollarSigns(message), Scale: latexScale));
+    
+    
+    Decide(options["ShowTree"] =? True, DestructiveAppend(result, TreeView(TagLeftSideDominantFunction(RemoveDollarSigns(steps[1][1])), Scale: treeScale, Resizable: False, IncludeExpression: False)));
+    
+    
+    steps := Rest(steps);
+    
+
+    ForEach(rest, steps)
+    {   
+        If(Not? List?(rest[1]))
+        {
+            result := Compose(result, rest[1], rest[3], rest[4], Length(rest) =? 4, options["ShowTree"], treeScale, latexScale);
+        }
+        Else
+        {
+            result := Compose(result, rest[1][1], rest[3][1], rest[4][1], Length(rest) =? 4, options["ShowTree"],  treeScale, latexScale);
+            
+            result := Compose(result, rest[1][2], rest[3][2], rest[4][2], Length(rest) =? 4, options["ShowTree"],  treeScale, latexScale);
+        };
+        
+    };
+
+    
+    result;
+};
+
+
+//Handle a single option call because the option does not come in a list for some reason.
+20 # StepsView(_steps, _singleOption) <-- StepsView(steps, [singleOption]);
+
+
+
+//====================================================
+
+
+
+
+Compose(result, newExpression, explanation, beforeSimplification, lengthFour?, showTree?, treeScale, latexScale) :=
+{
+    DestructiveAppend(result, LatexView(" \\vspace{.75in}", Scale: latexScale));
+
+    DestructiveAppend(result, LatexView(ToLatex(RemoveUnderscoresAndDollarSigns(explanation)),Scale: latexScale));
+    
+    If(lengthFour?)
+    {
+        DestructiveAppend(result, LatexView(" \\vspace{.10in}", Scale: latexScale));
+        DestructiveAppend(result, LatexView(TexFormNoDollarSigns(beforeSimplification),Scale: latexScale));
+    };
+    
+    DestructiveAppend(result, LatexView(" \\vspace{.10in}", Scale: latexScale));
+    
+    
+    DestructiveAppend(result, LatexView(ToAtom(ListToString(Remove(StringToList(UnparseLatex(TagLeftSideDominantFunction(RemoveDollarSigns(newExpression)))),"$"))), Scale: latexScale ));
+    
+    
+    Decide(showTree? =? True, DestructiveAppend(result, TreeView(TagLeftSideDominantFunction(RemoveDollarSigns(newExpression)), Scale: treeScale, Resizable: False, IncludeExpression: False)));
+    
+    result;   
+};
+
+
+TagLeftSideDominantFunction(expression) :=
+{
+    If(Function?(expression) And? Function?(Cdr(Car(expression))))
+    {
+        MetaSet(Car(Cdr(Car(expression))),"HighlightColor","GREEN");
+        
+        MetaSet(Car(Cdr(Car(expression))),"HighlightNodeShape","RECTANGLE");
+    };
+    
+    expression;
+};
+
+
+
+
+
+RemoveDollarSigns(equation) :=
+{
+    equation := Substitute(ToAtom("+$"),ToAtom("+")) equation;
+    equation := Substitute(ToAtom("-$"),ToAtom("-")) equation;
+    equation := Substitute(ToAtom("*$"),ToAtom("*")) equation;
+    equation := Substitute(ToAtom("/$"),ToAtom("/")) equation;
+    equation := Substitute(ToAtom("^$"),ToAtom("^")) equation;
+};
+
+
+AddDollarSigns(equation) :=
+{
+    equation := Substitute(ToAtom("+"),ToAtom("+$")) equation;
+    equation := Substitute(ToAtom("-"),ToAtom("-$")) equation;
+    equation := Substitute(ToAtom("*"),ToAtom("*$")) equation;
+    equation := Substitute(ToAtom("/"),ToAtom("/$")) equation;
+    equation := Substitute(ToAtom("^"),ToAtom("^$")) equation;
+};
+
+
+
+RemoveUnderscoresAndDollarSigns(string) :=
+{
+	string := JavaAccess(JavaNew("java.lang.String", string), "replace", "_", "");
+	JavaAccess(JavaNew("java.lang.String", string), "replace", "$", "");
+};
+
+
+
+
+TexFormNoDollarSigns(equation) := 
+{
+    ToAtom(ListToString(Remove(StringToList(UnparseLatex(RemoveDollarSigns(equation))),"$")));
+};
+
+
+
+
+ToLatex(string) :=
+{
+    Local(oldList, newList);
+    
+    oldList := StringToList(string);
+    
+    oldList := Remove(oldList, "$");
+    
+    newList := [];
+
+    ForEach(character, oldList)
+    {
+        DestructiveAppend(newList, Decide(character =? " ", "\\ ", character));
+    };
+    
+    ListToString(newList);
+};
+
+
+
+
+Isolax(side, equation) :=
+{
+    
+    `(@side -> equation) /: [
+    
+     1 -> (-$ _lhs == _rhs) <- [lhs == -$ rhs, "UnaryMinus", "\\text{Multiply both sides by }" ~ ToString(-1) ~ "\\text{:}", -1 *$ -$ lhs == rhs *$ -1],
+     
+     1 -> (_term1 +$ _term2) == _rhs <- [term1 == rhs -$ term2, "Addition1", "\\text{Subtract }" ~ ToString(term2) ~ "\\text{ from both sides:}", -$ term2 +$ term1 +$ term2 == rhs -$ term2],
+     2 -> (_term1 +$ _term2) == _rhs <- [term2 == rhs -$ term1, "Addition2", "\\text{Subtract }" ~ ToString(term1) ~ "\\text{ from both sides:}", -$ term1 +$ term1 +$ term2 == rhs -$ term1],
+     
+     1 -> (_term1 -$ _term2) == _rhs <- [term1 == rhs +$ term2, "Subtraction1", "\\text{Add }" ~ ToString(term2) ~ "\\text{ to both sides:}", term2 +$ term1 -$ term2 == rhs +$ term2],
+     2 -> (_term1 -$ _term2) == _rhs <- [term2 == term1 -$ rhs, "Subtraction2", "\\text{Add }" ~ ToString(term1) ~ "\\text{ to both sides:}", term1 +$ term1 -$ term2 == rhs +$ term1],
+     
+     1 -> (_term1 *$ _term2) == _rhs <- [term1 == rhs /$ term2, "Multiplication1", "\\text{Divide both sides by }" ~ ToString(term2) ~ "\\text{:}", (term1 *$ term2) /$ term2 == rhs /$ term2],
+     2 -> (_term1 *$ _term2) == _rhs <- [term2 == rhs /$ term1, "Multiplication2", "\\text{Divide both sides by }" ~ ToString(term1) ~ "\\text{:}", (term1 *$ term2) /$ term1 == rhs /$ term1],
+     
+     1 -> (_term1 /$ _term2) == _rhs <- [term1 == rhs *$ term2, "Division1", "\\text{Multiply both sides by }" ~ ToString(term2) ~ "\\text{:}", term2 *$ (term1 /$ term2) == rhs *$ term2],
+     2 -> (_term1 /$ _term2) == _rhs <- [[rhs *$ term2 == term1, term2 == term1 /$ rhs], "Division2", ["\\text{Multiply both sides by }" ~ ToString(term2) ~ "\\text{ and exchange sides:}", "\\text{Divide both sides by }" ~ ToString(TexFormNoDollarSigns(rhs)) ~ "\\text{:}"], [(term1 /$ term2) *$ term2 == rhs *$ term2, (rhs *$ term2) /$ rhs == term1 /$ rhs]],
+     
+     
+     
+     //1 -> (_term1 ^$ 2 == _rhs) <- [term1 == Sqrt(rhs), "Exponentiation1a", "\\text{Take the square root of both sides:}", Sqrt(term1 ^$ 2) == Sqrt(rhs)],
+     
+     1 -> (_term1 ^$ _term2) == _rhs <- [term1 == rhs^$(1/$term2), "Exponentiation1b", "\\text{Take root }" ~ ToString(term2) ~ "\\text{ of both sides:}", (term1 ^$ term2)^$(1/$term2) == rhs^$(1/$ term2)],
+    //"Exponentiation2" # 2 :: _term1 ^ _term2 == _rhs <- term2 == Log(rhs)//Log(base(term1), rhs)
+                      
+    ];                 
+};
+
+
+
+%/mathpiper
+
+    %output,parent="main",sequence="1,timestamp="2013-08-05 13:30:39.133",preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+
+
+
+
+
+===========================================================
+Show([LatexView("a + b", Scale:300, Resizable:True, )])
+
+Show([LatexView("a + b", Scale: 300, Resizable: True, )])
+
+Show([LatexView("a + b"), LatexView("a + b")])
+
+Show(LatexView("a + b", scale: 300, Resizable: True, ), Title: "TEST")
+
+Show(TreeView(x^2, Scale: 3, Resizable: True))
+
+Show(TreeView(x^2, Scale: 3, Resizable: False))
+
+Show([TreeView(x^2, Scale: 3, Resizable: False), TreeView(x^2, Scale: 3, Resizable: False)])
+
+
+
+
+
+
+
+%mathpiper_docs,name="StepsView",categories="Mathematics Functions;Visualization"
+*CMD StepsView --- create a graphics view of mathematical operation steps
+
+*CALL
+    StepsView(listOfSteps, option, option, ...)
+
+*PARMS
+{listOfSteps} -- a list of mathematical operation steps
+
+{Options:}
+
+{ShowTree} -- if True, include an expression tree with each step
+{Scale} -- sets the size of the output
+
+
+*DESC
+Creates a graphics view of mathematical operation steps. 
+
+Right click on the images that are displayed to save them.
+ 
+*E.G.
+
+In> Show(StepsView(SolveSteps( ((- a_) * b_ )/ c_ + d_ == e_, a_), ShowTree: True))
+Result: class javax.swing.JFrame
+
+In> Show(StepsView(SolveSteps( ((- a_) * b_ )/ c_ + d_ == e_, a_), ShowTree: True, Scale: 2.1))
+Result: class javax.swing.JFrame
+
+In> Show(StepsView(SolveSteps( ((- a_) * b_ )/ c_ + 2*d_ + 7 == e_, a_), ShowTree: True))
+Result: class javax.swing.JFrame
+
+In> Show(StepsView(SolveSteps( 7/b_ == c_, b_), ShowTree: True))
+Result: class javax.swing.JFrame
+
+In> Show(StepsView(SolveSteps( ((- a_) * b_^f_)/c_+d_ == e_, b_), ShowTree: True))
+Result: class javax.swing.JFrame
+
+In> Show(StepsView(SolveSteps( ((- a_) * b_^2)/c_+d_ == e_, b_), ShowTree: True))
+Result: class javax.swing.JFrame
+
+In> Show(StepsView(SolveSteps( ((a_^2 * 7/b_)/c_^3 * d_^2)/ 5* e_ == f_, b_) , ShowTree: True))
+Result: class javax.swing.JFrame
+
+*SEE Show, SolveSteps
+%/mathpiper_docs
+
+
+
+
+
+
+%mathpiper_docs,name="SolveSteps",categories="Mathematics Functions;Solvers (Symbolic)"
+*CMD SolveSteps --- produce the steps that are needed to solve an equation
+
+*CALL
+    SolveSteps(equation, variable)
+
+*PARMS
+{equation} -- an equation
+
+{variable} -- the variable to solve for
+
+
+*DESC
+Produce the steps that are needed to solve an equation. Returns the steps in a list.
+Note: only equations that have a single occurrence of the variable to be
+solved for are currently supported.
+
+ 
+*E.G.
+
+In> SolveSteps( ((- a_) * b_ )/ c_ + d_ == e_ , a_)
+
+*SEE StepsView
+%/mathpiper_docs
+
+
+
