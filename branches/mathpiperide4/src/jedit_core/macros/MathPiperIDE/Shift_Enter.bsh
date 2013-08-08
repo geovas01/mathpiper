@@ -215,7 +215,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 		foldStartLineText = textArea.getLineText(foldStartLine);
 		
 		
-		pattern = Pattern.compile("%[a-z0-9_]+$|%[a-z0-9_]+([,][a-zA-Z_]+=\"[^,\"\\n]*\")+$");
+		pattern = Pattern.compile("%[a-z0-9_]+$|%[a-z0-9_]+( *[,] *[a-zA-Z_]+ *= *\"[^,\"\\n]*\")+ *$");
 		matcher = pattern.matcher(foldStartLineText);
 		if(matcher.find() == false)
 		{	
