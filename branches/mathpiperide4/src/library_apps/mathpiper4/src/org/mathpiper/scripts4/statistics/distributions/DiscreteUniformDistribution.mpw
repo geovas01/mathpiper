@@ -1,0 +1,29 @@
+%mathpiper,def="DiscreteUniformDistribution"
+
+/* Guard against distribution objects with senseless parameters
+   Anti-nominalism */
+   
+RulebaseHoldArguments("DiscreteUniformDistribution",[x_]);
+
+DiscreteUniformDistribution(a_RationalOrNumber?, b_RationalOrNumber?)::(a>=?b)
+   <-- Undefined;
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="DiscreteUniformDistribution",categories="Mathematics Functions;Statistics & Probability"
+*CMD DiscreteUniformDistribution --- Discrete uniform distribution
+*STD
+*CALL
+        DiscreteUniformDistribution(a, b)
+
+*PARMS
+
+{a} -- number, lower range value
+{b} -- number, upper range value
+
+
+*SEE BinomialDistribution, BernoulliDistribution, ChiSquareDistribution, ContinuousUniformDistribution, ExponentionalDistribution, GeometricDistribution, NormalDistribution, PoissonDistribution, tDistribution
+%/mathpiper_docs

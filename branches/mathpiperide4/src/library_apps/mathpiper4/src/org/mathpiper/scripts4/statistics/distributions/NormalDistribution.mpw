@@ -1,0 +1,40 @@
+%mathpiper,def="NormalDistribution"
+
+/* Guard against distribution objects with senseless parameters
+   Anti-nominalism */
+   
+RulebaseHoldArguments("NormalDistribution",[x_]);
+
+NormalDistribution( _m , s2_RationalOrNumber?)::(s2<=?0) <-- Undefined;
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="NormalDistribution",categories="Mathematics Functions;Statistics & Probability"
+*CMD NormalDistribution --- The normal distribution.
+*STD
+*CALL
+        NormalDistribution(mean, sigma)
+
+*PARMS
+
+{mean} -- Number, the mean of the distribution
+{sigma} -- Number, the standard deviation of the distribution
+
+*DESC
+The normal distribution.
+
+*Examples
+
+*SEE BinomialDistribution, BernoulliDistribution, ChiSquareDistribution, DiscreteUniformDistribution, ContinuousUniformDistribution, ExponentionalDistribution, GeometricDistribution, NormalDistribution, PoissonDistribution, tDistribution
+%/mathpiper_docs
+
+
+
+%mathpiper,name="NormalDistribution",subtype="in_prompts"
+
+NM(CDF(NormalDistribution(60,5),64.3)) -> 0.8051055221;
+
+%/mathpiper
