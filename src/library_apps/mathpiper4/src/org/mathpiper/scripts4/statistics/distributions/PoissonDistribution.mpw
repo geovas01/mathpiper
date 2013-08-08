@@ -1,0 +1,41 @@
+%mathpiper,def="PoissonDistribution"
+
+/* Guard against distribution objects with senseless parameters
+   Anti-nominalism */
+   
+RulebaseHoldArguments("PoissonDistribution",[x_]);
+
+PoissonDistribution(l_RationalOrNumber?)::(l<=?0) <-- Undefined;
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="PoissonDistribution",categories="Mathematics Functions;Statistics & Probability"
+*CMD PoissonDistribution --- Poisson distribution
+*STD
+*CALL
+        PoissonDistribution(lambda)
+
+*PARMS
+{lambda} -- number, the expected number of occurrences that occur during the given interval
+
+*DESC
+The poisson distribution.
+
+*Examples
+
+*SEE BinomialDistribution, BernoulliDistribution, DiscreteUniformDistribution, ChiSquareDistribution, ContinuousUniformDistribution, ExponentionalDistribution, GeometricDistribution, NormalDistribution, PoissonDistribution, tDistribution
+%/mathpiper_docs
+
+
+
+%mathpiper,name="PoissonDistribution",subtype="in_prompts"
+
+NM(PMF(PoissonDistribution(5), 7)) -> 0.1044448630;
+
+NM(CDF(PoissonDistribution(5), 2)) -> 0.1246520195;
+
+%/mathpiper

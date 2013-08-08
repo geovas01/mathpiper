@@ -1,0 +1,71 @@
+%mathpiper,def="Gamma"
+
+/////////////////////////////////////////////////
+/// Euler's Gamma function
+////////////////////////////////////////////////////
+/// Serge Winitzki
+
+/// User visible functions: Gamma(x), LnGamma(x)
+
+5 # Gamma(Infinity)        <-- Infinity;
+
+10 # Gamma(_n)::(Integer?(n) And? n<=?0) <-- Infinity;
+
+
+20 # Gamma(n_RationalOrNumber?)::(PositiveInteger?(n) Or? FloatIsInt?(2*n)) <-- (Round(2*n)/2-1)!;
+
+
+30 # Gamma(x_Constant?)::(NumericMode?()) <-- InternalGammaNum(NM(Eval(x)));
+
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Gamma",categories="Mathematics Functions;Special Functions"
+*CMD Gamma --- Euler's Gamma function
+*STD
+*CALL
+        Gamma(x)
+
+*PARMS
+
+{x} -- expression
+
+{number} -- expression that can be evaluated to a number
+
+*DESC
+
+{Gamma(x)} is an interface to Euler's Gamma function $Gamma(x)$. It returns exact values on integer 
+and half-integer arguments. {NM(Gamma(x)} takes a numeric parameter and always returns a floating-point 
+number in the current precision.
+
+Note that Euler's constant $gamma<=>0.57722$ is the lowercase {gamma} in MathPiper.
+
+*Examples
+
+*SEE !, NM, gamma
+%/mathpiper_docs
+
+
+
+
+%mathpiper,name="Gamma",subtype="in_prompts"
+
+NM(Gamma(1.3),10)-> 0.8974706963;
+
+Gamma(1.5) -> Sqrt(Pi)/2;
+
+NM(Gamma(1.5),10) -> 0.8862269255;
+
+%/mathpiper
+
+
+
+
+
+%mathpiper,name="Gamma",subtype="automatic_test"
+
+Verify(Gamma(1/2), Sqrt(Pi));
+
+%/mathpiper

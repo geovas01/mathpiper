@@ -1,0 +1,38 @@
+%mathpiper,def="StandardDeviation"
+
+StandardDeviation(list) := 
+{
+    Check(List?(list), "Argument", "Argument must be a list.");
+
+    Sqrt(UnbiasedVariance(list));
+};
+
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="StandardDeviation",categories="Mathematics Functions;Statistics & Probability"
+*CMD StandardDeviation --- calculates the standard deviation of a list of values
+*STD
+*CALL
+        StandardDeviation(list)
+
+*PARMS
+
+{list} -- list of values
+
+*DESC
+
+This function calculates the standard deviation of a list of values.
+
+*E.G.
+In> StandardDeviation([73,94,80,37,57,94,40,21,7,26])
+Result: Sqrt(88009/90)
+
+In> NM(StandardDeviation([73,94,80,37,57,94,40,21,7,26]))
+Result: 31.271037366
+
+*SEE Variance, UnbiasedVariance
+%/mathpiper_docs

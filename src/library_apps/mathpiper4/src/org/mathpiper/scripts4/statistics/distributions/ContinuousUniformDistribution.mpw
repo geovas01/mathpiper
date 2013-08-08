@@ -1,0 +1,43 @@
+%mathpiper,def="ContinuousUniformDistribution"
+
+/* Guard against distribution objects with senseless parameters
+   Anti-nominalism */
+   
+RulebaseHoldArguments("ContinuousUniformDistribution",[x_, y_]);
+
+ContinuousUniformDistribution(a_RationalOrNumber?, b_RationalOrNumber?)::(a >=? b)
+   <-- Undefined;
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="ContinuousUniformDistribution",categories="Mathematics Functions;Statistics & Probability"
+*CMD ContinuousUniformDistribution --- Discrete uniform distribution
+*STD
+Result: PMF(ContinuousUniformDistribution(1,2),1)
+
+
+*CALL
+        ContinuousUniformDistribution(a, b)
+
+*PARMS
+
+{a} -- number, lower range value
+{b} -- number, upper range value
+
+*Examples
+
+*SEE BinomialDistribution, BernoulliDistribution, ChiSquareDistribution, DiscreteUniformDistribution, ExponentionalDistribution, GeometricDistribution, NormalDistribution, PoissonDistribution, tDistribution
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="ContinuousUniformDistribution",subtype="in_prompts"
+
+NM(PDF(ContinuousUniformDistribution(1,5), 1.6)) -> 0.25;
+
+%/mathpiper

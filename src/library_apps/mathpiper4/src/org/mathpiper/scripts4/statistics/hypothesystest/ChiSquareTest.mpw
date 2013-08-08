@@ -1,0 +1,136 @@
+%mathpiper,def="ChiSquareTest"
+
+
+/* ChiSquare's CDF is computed as IncompleteGamma(x,dof/2)/Gamma(dof/2); */
+
+Retract(ChiSquareTest,*);
+
+
+10 # ChiSquareTest( observedFrequenciesMatrix_Matrix?, expectedFrequenciesMatrix_Matrix?) <--
+{
+
+    Local(observedFrequenciesList, expectedFrequenciesList);
+    
+    observedFrequenciesList := Flatten(observedFrequenciesMatrix,"List");
+    
+    expectedFrequenciesList := Flatten(expectedFrequenciesMatrix,"List");
+    
+    Check(Length(observedFrequenciesList) >? 0, "Argument", "The first argument must be a nonempty matrix.");
+    
+    Check(Length(expectedFrequenciesList) >? 0, "Argument", "The second argument must be a nonempty matrix.");
+    
+    Check(Length(expectedFrequenciesList) =? Length(expectedFrequenciesList), "Argument", "The matrices must be of equal length.");
+
+    Local( numerator, chi2, pValue, categoriesCount, degreesOfFreedom, resultList);
+   
+    resultList := [];
+
+    categoriesCount := Length(observedFrequenciesList);
+
+    numerator := (observedFrequenciesList - expectedFrequenciesList)^2; //threading
+
+    chi2 := Sum(i,1,categoriesCount,numerator[i]/(expectedFrequenciesList[i]));
+
+    degreesOfFreedom := (Dimensions(observedFrequenciesMatrix)[1] - 1)*(Dimensions(observedFrequenciesMatrix)[2] - 1);
+
+    pValue := 1-NM(IncompleteGamma(degreesOfFreedom/2,chi2/2)/Gamma(degreesOfFreedom/2));
+
+    resultList["degreesOfFreedom"] := degreesOfFreedom;
+    
+    resultList["pValue"] := pValue;
+   
+    resultList["chiSquareScore"] := chi2;
+    
+    NM(resultList);
+};
+
+
+
+
+20 # ChiSquareTest( observedFrequenciesList_List?, expectedFrequenciesList_List?) <--
+{
+    Check(Length(observedFrequenciesList) >? 0, "Argument", "The first argument must be a nonempty list.");
+    
+    Check(Length(expectedFrequenciesList) >? 0, "Argument", "The second argument must be a nonempty list.");
+    
+    Check(Length(expectedFrequenciesList) =? Length(expectedFrequenciesList), "Argument", "The lists must be of equal length.");
+
+    Local( numerator, chi2, pValue, categoriesCount, degreesOfFreedom, resultList);
+   
+    resultList := [];
+
+    categoriesCount := Length(observedFrequenciesList);
+
+    numerator := (observedFrequenciesList - expectedFrequenciesList)^2; //threading
+
+    chi2 := Sum(i,1,categoriesCount,numerator[i]/(expectedFrequenciesList[i]));
+
+    degreesOfFreedom := categoriesCount - 1;
+
+    pValue := 1-NM(IncompleteGamma(degreesOfFreedom/2,chi2/2)/Gamma(degreesOfFreedom/2));
+
+    resultList["degreesOfFreedom"] := degreesOfFreedom;
+    
+    resultList["pValue"] := pValue;
+   
+    resultList["chiSquareScore"] := chi2;
+    
+    NM(resultList);
+};
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+%mathpiper_docs,name="ChiSquareTest",categories="Mathematics Functions;Statistics & Probability"
+*CMD ChiSquareTest --- Pearson's ChiSquare test
+*STD
+
+*CALL
+        ChiSquareTest(observed,expected)
+
+*PARMS
+{observed} -- list of observed frequencies
+
+{expected} -- list of expected frequencies
+
+*DESC
+{ChiSquareTest} is intended to determine if a sample was drawn from a
+given distribution or not. To find this out, one has to calculate
+observed frequencies into certain intervals and expected ones.
+
+*E.G.
+/%mathpiper,title=""
+
+observedList := [145,128,73,32,22];
+
+expectedList := [160,120,80,20,20];
+
+a := ChiSquareTest(observedList, expectedList);
+
+TableForm(a);
+
+/%/mathpiper
+
+    /%output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      ["chiSquareScore",9.952083333]
+      ["pValue",0.0412426135]
+      ["degreesOfFreedom",4]
+      
+.   /%/output
+
+
+*SEE AlphaToChiSquareScore, ChiSquareScoreToAlpha
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+

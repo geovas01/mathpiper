@@ -183,8 +183,11 @@ public class TestSuite {
             //Check the global variables.
             evaluationResponse = interpreter.evaluate("Echo(State());");
             output = evaluationResponse(evaluationResponse);
-            System.out.println("Global variables: " + output);
-            logFile.write("GlobalVariables: " + output);
+            
+            String globalVariables = evaluationResponse.getSideEffects();
+            
+            System.out.println("Global variables: " + globalVariables);
+            logFile.write("GlobalVariables: " + globalVariables);
             
             elapsedTime = System.currentTimeMillis() - elapsedTime;
             

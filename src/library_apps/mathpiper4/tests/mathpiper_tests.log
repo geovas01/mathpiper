@@ -1,5 +1,5 @@
-Wed Jun 26 03:09:33 EDT 2013.
-MathPiper version: mp4_minimal_alpha_v.115.
+Wed Aug 07 22:10:37 EDT 2013.
+MathPiper version: mp4_alpha_v.117.
 Running all tests except for documentation examples tests..
 Beginning of tests:
 
@@ -234,6 +234,10 @@ Testing error_reporting in file </org/mathpiper/scripts4/io/Error_.mpw>:
 
 
 ================================================================
+Testing ExpNum in file </org/mathpiper/scripts4/stdfuncs/numerical/ExpNum.mpw>: 
+
+
+================================================================
 Testing Factorial in file </org/mathpiper/scripts4/sums/exclamationpoint_operator.mpw>: 
 
 
@@ -262,6 +266,10 @@ Testing Function in file </org/mathpiper/scripts4/deffunc/Function.mpw>:
 
 
 ================================================================
+Testing Gamma in file </org/mathpiper/scripts4/specfunc/Gamma.mpw>: 
+
+
+================================================================
 Testing GaussianInteger? in file </org/mathpiper/scripts4/numbers/gaussianintegers/GaussianInteger_.mpw>: 
 
 
@@ -285,6 +293,10 @@ Testing HasFunctionArithmetic? in file </org/mathpiper/scripts4/predicates/HasFu
 
 ================================================================
 Testing Im in file </org/mathpiper/scripts4/complex/Im.mpw>: 
+
+
+================================================================
+Testing InternalLnNum in file </org/mathpiper/scripts4/stdfuncs/numerical/InternalLnNum.mpw>: 
 
 
 ================================================================
@@ -345,6 +357,10 @@ Testing Minimum in file </org/mathpiper/scripts4/sums/Minimum.mpw>:
 
 ================================================================
 Testing Modulo in file </org/mathpiper/scripts4/stubs/Modulo.mpw>: 
+
+
+================================================================
+Testing NewtonNum in file </org/mathpiper/scripts4/stdfuncs/nummethods/NewtonNum.mpw>: 
 
 
 ================================================================
@@ -440,9 +456,6 @@ Testing | in file </org/mathpiper/scripts4/a_initialization/standard/vertical_ba
 
 ***** Tests complete *****
 
-GlobalVariables: Result: True
+GlobalVariables: [] 
 
-Side Effects:
-[] 
-
-Elapsed Time: 0 min 11 sec
+Elapsed Time: 0 min 15 sec
