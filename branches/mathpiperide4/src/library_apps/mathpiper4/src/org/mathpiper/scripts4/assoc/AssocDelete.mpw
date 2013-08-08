@@ -24,7 +24,7 @@ LocalSymbols(hash, key, element, hashexpr)
         AssocDelete(hash, BuiltinAssoc(key, hash));
 };
 
-30 # AssocDelete(hash_List?, Empty) <-- False;
+30 # AssocDelete(hash_List?, None) <-- False;
 
 //HoldArgument("AssocDelete", "hash");
 //UnFence("AssocDelete", 1);

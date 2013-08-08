@@ -234,11 +234,11 @@ function bodies. The {{ ... }} construct is a syntactically nicer version of the
 
 
 
-%mathpiper_docs,name="Empty",categories="Programming Functions;Constants"
-*CMD Empty --- used with association lists
+%mathpiper_docs,name="None",categories="Programming Functions;Constants"
+*CMD None --- used with association lists
 *CORE
 *CALL
-        Empty
+        None
 
 *DESC
 

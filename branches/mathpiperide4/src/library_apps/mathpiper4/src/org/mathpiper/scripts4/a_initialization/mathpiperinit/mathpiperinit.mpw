@@ -14,7 +14,7 @@ RuleHoldArguments(MathPiperInitLoad, 0, 1, True)
     
     Constant('False);
     
-    Constant('Empty);
+    Constant('None);
     
     Constant('Infinity);
     
