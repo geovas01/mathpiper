@@ -450,10 +450,16 @@ public class Build {
 				    }
 				    String[] expressions = singleNewlines.trim().split("\\n");
 				    for (String expression : expressions) {
-					String[] arguments = expression.trim().split("->");
+					
+					expression = expression.trim();
+					
+					if(!expression.startsWith("//"))
+					{
+					    String[] arguments = expression.split("->");
 
-					if (arguments.length == 2) {
-					    verifiedExamplesBuilder.append("In> " + arguments[0] + "\nResult: " + arguments[1] + "\n\n");
+					    if (arguments.length == 2) {
+						verifiedExamplesBuilder.append("In> " + arguments[0] + "\nResult: " + arguments[1] + "\n\n");
+					    }
 					}
 				    }
 
@@ -476,7 +482,7 @@ public class Build {
 		    if (contents.contains("*Examples") && !verifiedExamples.equals("")) {
 			contents = contents.replace("*Examples", "*Examples\n" + verifiedExamples);
 		    } else {
-			throw new Exception("Documentation for <" + mpwFilePath + "> missing *Example tag or missing examples fold in fold that start on line <" + docsFold.getStartLineNumber() + ">.");
+			throw new Exception("Documentation for <" + mpwFilePath + "> missing *Examples tag or missing examples fold in fold that start on line <" + docsFold.getStartLineNumber() + ">.");
 		    }
 		} else {
 		    System.out.println("*** MISSING EXAMPLES ***");
@@ -705,12 +711,18 @@ public class Build {
 		}
 		String[] expressions = singleNewlines.trim().split("\\n");
 		for (String expression : expressions) {
-		    String[] arguments = expression.trim().split("->");
+		    
+		    expression = expression.trim();
+		    
+		    if(!expression.startsWith("//"))
+		    {
+			String[] arguments = expression.split("->");
 
-		    if (arguments.length == 2) {
-			sb.append("Verify(" + arguments[0] + "," + arguments[1] + ");\n");
-		    } else {
-			throw new Exception("Invalid documentation example test syntax < " + expression.trim() + " > in the fold that starts on line <" + fold.getStartLineNumber() + ">.");
+			if (arguments.length == 2) {
+			    sb.append("Verify(" + arguments[0] + "," + arguments[1] + ");\n");
+			} else {
+			    throw new Exception("Invalid documentation example test syntax < " + expression.trim() + " > in the fold that starts on line <" + fold.getStartLineNumber() + ">.");
+			}
 		    }
 		}
 		
