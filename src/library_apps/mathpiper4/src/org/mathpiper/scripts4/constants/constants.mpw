@@ -46,7 +46,7 @@ RuleHoldArguments("CachedConstant", 3, 10, And?(Atom?(Catom), Function?(Cfunc)))
     //        Write(["debug step 0: ", Ccache, Eval(Ccache), Catom, Cfunc, Cname]);
             // check that the constant is not already defined
             Decide(
-              Equal?(BuiltinAssoc(Cname, Eval(Ccache)), Empty),        // the constant is not already defined, so need to define "Catom" and the corresponding function "Catom"()
+              Equal?(BuiltinAssoc(Cname, Eval(Ccache)), None),        // the constant is not already defined, so need to define "Catom" and the corresponding function "Catom"()
               {        // e.g. Catom evaluates to Pi, Ccache to a name e.g. CacheOfConstantsN, which is bound to a hash
                     MacroUnassign(Catom);
     //                Write(["debug step 1: ", Cachename, Ccache, Eval(Ccache)]);

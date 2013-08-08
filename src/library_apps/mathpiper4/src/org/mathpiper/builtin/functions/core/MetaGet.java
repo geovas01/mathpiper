@@ -40,7 +40,7 @@ public class MetaGet extends BuiltinFunction
         Map metadataMap = object.getMetadataMap();
 
         if (metadataMap == null) {
-            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "Empty"));
+            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "None"));
 
             return;
         }//end if.
@@ -50,7 +50,7 @@ public class MetaGet extends BuiltinFunction
 
 
         if (valueCons == null) {
-            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "Empty"));
+            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "None"));
         } else {
             setTopOfStack(aEnvironment, aStackTop, valueCons);
         }

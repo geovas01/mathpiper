@@ -4,7 +4,7 @@
     
     <description>Build file for MathPiper.</description>
     
-    <property name="version" value="mp4_alpha_v.118" />
+    <property name="version" value="mp4_alpha_v.119" />
 
     <property name="compile.source" value="1.7" />
 

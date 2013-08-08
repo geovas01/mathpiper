@@ -105,15 +105,15 @@ RngCreate() <-- RngCreate(0);
 
         // check options and assign defaults
         Decide(
-                options["seed"] =? Empty Or? options["seed"] <=? 0,
+                options["seed"] =? None Or? options["seed"] <=? 0,
                 options["seed"] := 76544321        // some default seed out of the blue sky
         );
         Decide(
-                options["engine"] =? Empty Or? Not? (Assert("warning", ["RngCreate: invalid engine", options["engine"]]) KnownRNGEngines()[options["engine"] ] !=? Empty),
+                options["engine"] =? None Or? Not? (Assert("warning", ["RngCreate: invalid engine", options["engine"]]) KnownRNGEngines()[options["engine"] ] !=? None),
                 options["engine"] := "default"
         );
         Decide(
-                options["dist"] =? Empty Or? Not? (Assert("warning", ["RngCreate: invalid distribution", options["dist"]]) KnownRNGDists()[options["dist"] ] !=? Empty),
+                options["dist"] =? None Or? Not? (Assert("warning", ["RngCreate: invalid distribution", options["dist"]]) KnownRNGDists()[options["dist"] ] !=? None),
                 options["dist"] := "default"
         );
 

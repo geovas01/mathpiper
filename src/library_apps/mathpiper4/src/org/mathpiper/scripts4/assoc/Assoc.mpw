@@ -2,7 +2,7 @@
 
 /* Assoc : given an assoc list like for example l:=[[a,2],[b,3]],
    Assoc(b,l) will return [b,3]. if the key is not in the list,
-   it will return the atom Empty.
+   it will return the atom None.
 */
 
 Function("Assoc",[_key,_list])  BuiltinAssoc(key,list);
@@ -27,7 +27,7 @@ Function("Assoc",[_key,_list])  BuiltinAssoc(key,list);
 
 The association list "alist" is searched for an entry stored with
 index "key". If such an entry is found, it is returned. Otherwise
-the atom {Empty} is returned.
+the atom {None} is returned.
 
 Association lists are represented as a list of two-entry lists. The
 first element in the two-entry list is the key, the second element is
@@ -54,7 +54,7 @@ In> Assoc("Henry IV", writer);
 Result: ["Henry IV","Shakespeare"];
 
 In> Assoc("War and Peace", writer);
-Result: Empty;
+Result: None;
 
 *SEE AssocIndices, [], :=, AssocDelete, AssocValues
 %/mathpiper_docs

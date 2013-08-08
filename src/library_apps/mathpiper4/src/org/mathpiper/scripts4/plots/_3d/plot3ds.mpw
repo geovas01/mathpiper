@@ -82,37 +82,37 @@ Function() Plot3DS(_func, _xrange, _yrange, _options, ...);
         );
         // set default option values
         Decide(
-                optionshash["points"] =? Empty,
+                optionshash["points"] =? None,
                 optionshash["points"] := 10        // default # of points along each axis
         );
         Decide(
-                optionshash["xpoints"] =? Empty,
+                optionshash["xpoints"] =? None,
                 optionshash["xpoints"] := optionshash["points"]
         );
         Decide(
-                optionshash["ypoints"] =? Empty,
+                optionshash["ypoints"] =? None,
                 optionshash["ypoints"] := optionshash["points"]
         );
 
         Decide(
-                optionshash["depth"] =? Empty,
+                optionshash["depth"] =? None,
                 optionshash["depth"] := 2
         );
         Decide(
-                optionshash["precision"] =? Empty,
+                optionshash["precision"] =? None,
                 optionshash["precision"] := 0.0001
         );
         Decide(
-                optionshash["hidden"] =? Empty Or? Not? Boolean?(optionshash["hidden"]),
+                optionshash["hidden"] =? None Or? Not? Boolean?(optionshash["hidden"]),
                 optionshash["hidden"] := True
         );
         Decide(
-                optionshash["output"] =? Empty Or? String?(optionshash["output"]) And? Plot3DSoutputs()[optionshash["output"]] =? Empty,
+                optionshash["output"] =? None Or? String?(optionshash["output"]) And? Plot3DSoutputs()[optionshash["output"]] =? None,
                 optionshash["output"] := Plot3DSoutputs()["default"]
         );
         // a "filename" parameter is required when using data file
         Decide(
-                optionshash["output"] =? "datafile" And? optionshash["filename"] =? Empty,
+                optionshash["output"] =? "datafile" And? optionshash["filename"] =? None,
                 optionshash["filename"] := "output.data"
         );
         optionshash["used depth"] := optionshash["depth"];

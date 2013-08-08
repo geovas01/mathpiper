@@ -64,7 +64,7 @@ public class BuiltinAssoc extends BuiltinFunction
             setTopOfStack(aEnvironment, aStackTop, result);
 
         } else {
-            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "Empty"));
+            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "None"));
         }
 
 

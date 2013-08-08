@@ -11,7 +11,7 @@ Error?() <--
 Error?(errorclass_String?) <--
 {
         CheckErrorTableau();
-        GetErrorTableau()[errorclass] !=? Empty;
+        GetErrorTableau()[errorclass] !=? None;
 };
 
 %/mathpiper

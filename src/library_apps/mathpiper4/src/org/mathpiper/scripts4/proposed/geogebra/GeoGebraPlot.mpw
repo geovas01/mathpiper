@@ -32,7 +32,7 @@ RulebaseListedHoldArguments("GeoGebraPlot",[_arg1,_arg2]);
     
     Decide(Odd?(length), list := Append(list,list[length])); //Make list even for line drawing.
     
-    Decide(options["pointSize"] !=? Empty, pointSize := ToString(options["pointSize"]), pointSize := "1");
+    Decide(options["pointSize"] !=? None, pointSize := ToString(options["pointSize"]), pointSize := "1");
     
     index := 1;
     
