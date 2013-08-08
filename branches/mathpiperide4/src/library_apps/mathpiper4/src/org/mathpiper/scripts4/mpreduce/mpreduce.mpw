@@ -1,6 +1,4 @@
 %mathpiper,def="Factor;Solve;Expand;Differentiate;Integrate"
-//Factor(2343), 3*11*71
-Retract("Factor",*);
 
 Retract("Log",*);
 RulebaseHoldArguments("Log",[_x]);
@@ -11,6 +9,8 @@ RulebaseHoldArguments("Arbint",[_x]);
 
 
 
+LocalSymbols(mpreduce)
+{
 
 
 
@@ -43,9 +43,8 @@ ReduceToMathPiper(expressionString) :=
     Local(result);
         
     expressionString := ToString(expressionString);
-//Write(expressionString);
+
     result := JavaAccess(JavaNew("java.lang.String", expressionString), "replace", "$", "");
-//    Write(result);
 
     result := JavaAccess(JavaNew("java.lang.String", result), "replace", "ztfxq", "_");
   
@@ -94,7 +93,7 @@ HandleFactor(factorList) :=
 
 Factor(expression) :=
 {
-   // Local(result, expressionString, base, exponent, list);
+    Local(result, expressionString, list, length);
     
     expressionString := MathPiperToReduce(expression);
 
@@ -209,6 +208,10 @@ Integrate(expression, variable) :=
     result := JavaAccess(JavaNew("java.lang.String", result), "replace", "=", "==");
 
     ReduceToMathPiper(result);
+};
+
+
+
 };
 
 %/mathpiper
