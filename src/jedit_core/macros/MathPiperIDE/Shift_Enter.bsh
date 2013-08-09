@@ -32,6 +32,8 @@ import java.util.regex.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/*
+//Used for Jung.
 import org.apache.commons.collections15.Factory;
 	Factory edgeFactory = new Factory() 
 	{
@@ -40,7 +42,7 @@ import org.apache.commons.collections15.Factory;
 			return i++;
 		}};
 
-
+*/
 ChangeToForwardSlash(tempFilePath)
 {
 // 	//Remove Windows drive letter from the path.
@@ -1497,6 +1499,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 
 
 	///{{{ *** %jung ***
+	/*
 		else if(foldType.startsWith("%jung")) //(foldStartLineText.indexOf("%geogebra") != -1)
 		{
 			
@@ -1577,7 +1580,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 
 		
 		
-		
+	*/
 	///{{{ *** %hoteqn ***
 		else if(foldType.equalsIgnoreCase("%hoteqn")) //(foldStartLineText.indexOf("%geogebra") != -1)
 		{
