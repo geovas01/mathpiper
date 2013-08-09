@@ -241,7 +241,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         clearConsoleButton.addActionListener(this);
         consoleButtons.add(clearConsoleButton);
         
-        variablesButton = new JButton("Variables");
+        variablesButton = new JButton("State");
         variablesButton.addActionListener(new ActionListener() {
  
             public void actionPerformed(ActionEvent e)
@@ -253,7 +253,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                 contentPane.setBackground(Color.WHITE);
 
                 //frame.setAlwaysOnTop(false);
-                frame.setTitle("Global Variables");
+                frame.setTitle("Global State");
                 frame.setResizable(true);
                 frame.pack();
                 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
