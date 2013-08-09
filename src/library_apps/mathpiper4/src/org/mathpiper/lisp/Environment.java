@@ -211,7 +211,7 @@ public final class Environment {
 	    if (globalVariable.iConstant == false) {
 		globalVariable.iValue = aValue;
 	    } else {
-		LispError.throwError(this, aStackTop, aVariable + " is a constant, and constants cannot be reassigned.");
+		LispError.throwError(this, aStackTop, "<"+ aVariable +"> is a constant, and values cannot be assigned to constants.");
 	    }
 	}
     }
