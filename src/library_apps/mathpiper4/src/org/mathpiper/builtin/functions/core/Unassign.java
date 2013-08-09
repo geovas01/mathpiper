@@ -54,7 +54,7 @@ public class Unassign extends BuiltinFunction
                 String variableName;
                 variableName =  (String) consTraverser.car();
                 if( variableName == null) LispError.checkArgument(aEnvironment, aStackTop, nr);
-                aEnvironment.unbindVariable(aStackTop, variableName);
+                aEnvironment.unassignVariable(aStackTop, variableName);
                 consTraverser = consTraverser.cdr();
                 nr++;
             }
@@ -97,7 +97,7 @@ Result> True;
 In> a^2;
 Result> a^2;
 
-In> Unassign(*)
+In> Unassign(All)
 Result> True
 
 *SEE Assign, :=

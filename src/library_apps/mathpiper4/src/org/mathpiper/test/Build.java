@@ -726,7 +726,7 @@ public class Build {
 		    }
 		}
 		
-		sb.append("Unassign(*);\n");
+		sb.append("Unassign(All);\n");
 
 		foldContents = sb.toString();
 	    }

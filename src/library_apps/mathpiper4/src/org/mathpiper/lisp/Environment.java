@@ -465,17 +465,17 @@ public final class Environment {
 
     }
 
-    public void unbindVariable(int aStackTop, String aVariableName)
+    public void unassignVariable(int aStackTop, String aVariableName)
 	    throws Throwable {
 
-	if (aVariableName.equals("*")) {
+	if (aVariableName.equals("All")) {
 	    this.unbindAllLocalVariables(aStackTop);
 
 	    // Unassign global variables
 	    Set<String> keySet = new HashSet(iGlobalState.keySet());
 
 	    for (String key : keySet) {
-		if (!key.startsWith("$") && !key.equals("I") && !key.equals("%") && !key.equals("geogebra")) {
+		if (!key.startsWith("$") && !key.equals("I") && !key.equals("#") && !key.equals("geogebra")) {
 		    // Do not unassign private variables (which are those which
 		    // start with a $) or the other listed variables.
 		    
