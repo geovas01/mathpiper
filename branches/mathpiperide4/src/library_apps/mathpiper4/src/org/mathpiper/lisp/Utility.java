@@ -1065,7 +1065,7 @@ public class Utility {
 	
 	if(variableString.contains("_"))
 	{
-		LispError.throwError(aEnvironment, aStackTop, "Values cannot be assigned to constants: <" + variableString + ">. ");
+		LispError.throwError(aEnvironment, aStackTop, "<" + variableString +"> is a constant, and values cannot be assigned to constants.");
 	}
 
 	if (aConstant == true ) {
