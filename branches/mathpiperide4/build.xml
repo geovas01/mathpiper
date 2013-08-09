@@ -51,7 +51,7 @@
 		<pathelement path="${master.lib.dir}/jars/clojure.jar" />
 		<pathelement path="${master.lib.dir}/non_plugin_jars/abcl.jar" />
 		<pathelement path="${plugins.jars.dir}/mathpiper_plugin.jar" />
-		<pathelement path="${plugins.jars.dir}/jung2.jar" />
+		<!--<pathelement path="${plugins.jars.dir}/jung2.jar" />-->
 		<pathelement path="${plugins.jars.dir}/mathpiperide_library.jar" />
 		<pathelement path="${plugins.jars.dir}/jfreechart_plugin.jar" />
 		<pathelement path="${master.lib.dir}/non_plugin_jars/jfreechart-1.0.13.jar" />
@@ -450,7 +450,7 @@
 	
 	<!-- -->
 	<target id="all-plugins" name="all-plugins" depends="mathpiper_plugin, mathpiper_docs_plugin, jlog_plugin, 
-		u6502_plugin, jung_plugin, jfreechart_plugin, threedxplormathj_plugin, mpreduce_plugin, sqldb_plugin" />
+		u6502_plugin, jfreechart_plugin, threedxplormathj_plugin, mpreduce_plugin, sqldb_plugin" />
 	
 	
 	
