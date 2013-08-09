@@ -14,8 +14,6 @@ RuleHoldArguments(MathPiperInitLoad, 0, 1, True)
     
     Constant('False);
     
-    Constant('None);
-    
     Constant('Infinity);
     
     Constant('Undefined);
@@ -23,6 +21,10 @@ RuleHoldArguments(MathPiperInitLoad, 0, 1, True)
     Constant('List);
     
     Constant('Block);
+    
+    Constant('All);
+    
+    Constant('None);
 
 };
 
