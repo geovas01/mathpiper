@@ -192,7 +192,7 @@ public class SynchronousInterpreter implements Interpreter {
 
                     //iEnvironment.scripts = null;
                     
-                    initializationEvaluationResponse = evaluate("NM(1);");
+                    initializationEvaluationResponse = evaluate("NM(2 + 2);");
                     if (initializationEvaluationResponse.isExceptionThrown()) {
                         Throwable ex = initializationEvaluationResponse.getException();
                         throw ex;
