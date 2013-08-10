@@ -1,0 +1,41 @@
+%mathpiper,def="EchoTime"
+
+/// Measure the time taken by evaluation and print results.
+Macro("EchoTime",[_expression])
+{
+        Local(result);
+        Echo(Time()Assign(result, @expression), "seconds taken.");
+        result;
+};
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="EchoTime",categories="Programming Functions;Input/Output"
+*CMD EchoTime --- measure the time taken by a function and echos it
+*CALL
+        EchoTime()expr
+*PARMS
+{expr} -- any expression
+
+*DESC
+
+The function {EchoTime()expr} evaluates the expression {expr} and prints the time in seconds needed for the evaluation.
+The time is printed to the current output stream.
+The built-in function {Time} is used for timing.
+
+The result is the "user time" as reported by the OS, not the real ("wall clock") time.
+Therefore, any CPU-intensive processes running alongside MathPiper will not significantly affect the result of {EchoTime}.
+
+*E.G.
+
+In> EchoTime() NM(Ln(1000),40)
+Result: 6.907755278982137052053974364053092622803
+Side Effects:
+0.756 seconds taken.
+
+*SEE Time
+%/mathpiper_docs
