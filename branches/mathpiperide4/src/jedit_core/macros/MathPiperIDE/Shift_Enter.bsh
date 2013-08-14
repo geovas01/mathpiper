@@ -68,11 +68,12 @@ ChangeToForwardSlash(tempFilePath)
 
 mpwExecutionCount++;
 
+/*
 if(jEdit.getActiveView().getDockableWindowManager().isDockableWindowVisible( "error-list" ))
 {
 	jEdit.getActiveView().getDockableWindowManager().hideDockableWindow( "error-list" );
 }
-
+*/
 
 errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
 errorSource.clear();
@@ -748,9 +749,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						
 						
 			
-						
-						
-						displayResult();
+						displayResultDelay();
 						
 						//JFreeChart handler.
 						/*if(evaluationResponse.getObject() != null)
@@ -866,7 +865,8 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				{
 					System.out.println("WWWW " + response );
 					result = response;
-					displayResult();
+					
+					displayResultDelay();
 					
 				}//end method.
 				
@@ -927,7 +927,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						
 						result = response;//The variable "result" is what gets displayed in the output fold.
 						
-						displayResult();
+						displayResultDelay();
 						
 					}//end method.
 					
@@ -1005,7 +1005,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						
 						result = response;//The variable "result" is what gets displayed in the output fold.
 						
-						displayResult();
+						displayResultDelay();
 						
 					}//end method.
 					
@@ -1102,24 +1102,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						}
 						
 						
-						
-						
-						
-						//Todo:tk:for some reason the reduce fold needs this check because
-						//otherwise it periodically causes exceptions to be thrown which are
-						//caused by textArea not being editable.
-						while(textArea.isEditable() == false)
-						{
-							try
-							{
-								Thread.sleep(10);
-							}
-							catch(InterruptedException ie)
-							{
-							}
-						};
-						
-						displayResult();
+						displayResultDelay();
 						
 					}//end method.
 					
@@ -2141,12 +2124,31 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 					
 				}//end if.
 				
+				
+				
+				void displayResultDelay()
+				{
+										//Todo:tk:for some reason this check is needed because
+					//otherwise it periodically causes exceptions to be thrown which are
+					//caused by textArea not being editable.
+					while(textArea.isEditable() == false)
+					{
+						try
+						{
+							Thread.sleep(10);
+						}
+						catch(InterruptedException ie)
+						{
+						}
+					};
+					
+					displayResult();
+				}
 						
 
 				
 				void displayResult()
 				{
-
 					//Buffer update needs to be done later in the AWT thread because of needing
 					// to wait for the buffer to be saved (which was requested earlier).
 					void run()

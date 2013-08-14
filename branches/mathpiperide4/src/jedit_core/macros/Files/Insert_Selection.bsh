@@ -7,7 +7,7 @@
  *
  * Copyright (C) 2004 Ollie Rutherfurd <oliver@jedit.org>
  *
- * $Id: Insert_Selection.bsh 5037 2004-05-06 22:35:11Z spestov $
+ * $Id: Insert_Selection.bsh 22845 2013-03-16 08:28:12Z thomasmey $
  */
 
 insertSelected(View view, String path){
@@ -24,17 +24,17 @@ insertSelected(View view, String path){
 		view.getTextArea().setSelectedText(text);
 	}finally{
 		if(b != null)
-			b.close();
+			jEdit._closeBuffer(null, b);
 	}
 }
 
 if(buffer.isReadOnly()){
-	getToolkit().beep();
+	Toolkit.getDefaultToolkit().beep();
 }
 else{
 	String selected = view.getTextArea().getSelectedText();
 	if(selected == null || selected.indexOf('\n') != -1)
-		getToolkit().beep();
+		Toolkit.getDefaultToolkit().beep();
 	else
 		insertSelected(view,selected);
 }

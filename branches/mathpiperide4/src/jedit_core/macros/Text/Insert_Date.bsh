@@ -19,7 +19,7 @@
  * along with the jEdit program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
- * $Id: Insert_Date.bsh 4988 2004-03-08 04:29:12Z spestov $
+ * $Id: Insert_Date.bsh 21353 2012-03-14 09:46:51Z jojaba_67 $
  */
 
 // Inserts the current date and Internet Time at the caret position
@@ -29,6 +29,11 @@
 
 // Wed Jan 31 03:12:33 AKST 2001 @550 /Internet Time/
 
+// Localization
+final static String InternetTimeLabel = jEdit.getProperty("macro.rs.InsertDate.InternetTime.label", "Internet Time");
+final static String NotEditableMessage = jEdit.getProperty("macro.rs.general.ErrorNotEditableDialog.message", "Buffer is not editable");
+
+// Process
 void insertDate()
 {
 	Calendar rightNow = Calendar.getInstance();
@@ -52,11 +57,11 @@ void insertDate()
 
 	// inserting date and internet time to textarea
 	textArea.setSelectedText(Calendar.getInstance().getTime().toString()
-		+ " @" + (int)swatch + " /Internet Time/");
+		+ " @" + (int)swatch + " /" + InternetTimeLabel + "/");
 }
 
 if(buffer.isReadOnly())
-	Macros.error(view, "Buffer is read-only.");
+	Macros.error(view, NotEditableMessage);
 else
 	insertDate();
 

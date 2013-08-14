@@ -20,12 +20,16 @@
  * along with the jEdit program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
- * $Id: Next_Char.bsh 4988 2004-03-08 04:29:12Z spestov $
+ * $Id: Next_Char.bsh 21353 2012-03-14 09:46:51Z jojaba_67 $
  *
  * Checked for jEdit 4.0 API
  *
  */
 
+ // Localization
+final static String EnterCharacterLabel = jEdit.getProperty("macro.rs.InsertTag.EnterCharacter.label", "Enter a character");
+
+// Process
 void nextChar()
 {
 	script = new StringBuffer(512);
@@ -38,7 +42,7 @@ void nextChar()
 	script.append( "if(__char__ != '\\n') ++match;"              );
 	script.append( "textArea.select(start, start + match - 1);}" );
 
-	view.getInputHandler().readNextChar("Enter a character",script.toString());
+	view.getInputHandler().readNextChar(EnterCharacterLabel,script.toString());
 }
 
 nextChar();

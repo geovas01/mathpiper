@@ -21,17 +21,22 @@
  * along with the jEdit program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
- * $Id: Run_Script.bsh 3912 2001-11-24 03:56:51Z jgellene $
+ * $Id: Run_Script.bsh 22582 2012-12-17 16:51:11Z kpouer $
  */
 
+// Localization
+final static String SpecifyParametersForRunningLabel = jEdit.getProperty("macro.rs.RunScript.SpecifyParametersForRunning.label", "Specify parameters for running script under");
+final static String ScriptExecutionCancelledMessage = jEdit.getProperty("macro.rs.RunScript.ScriptExecutionCancelled.message", "Script execution was cancelled.");
+final static String FileNotScriptError = jEdit.getProperty("macro.rs.RunScript.FileNotScript.error", "The current file does not appear to be a script.");
 
+// Process
 void execScript(interpreter, command)
 {
 	params = Macros.input(view,
-		"Specify parameters for running script under " + interpreter);
+		SpecifyParametersForRunningLabel + " " + interpreter);
 	if(params == null)
 	{
-		Macros.message(view, "Script execution was cancelled.");
+		Macros.message(view, ScriptExecutionCancelledMessage);
 		return;
 	}
 	runInSystemShell(view, command + params);
@@ -44,7 +49,7 @@ void runScript()
 	else
 		buffer.save(view, buffer.getPath());
 	mode = buffer.getMode().getName();
-	path = buffer.getPath() + " ";
+	path = buffer.getPath() ;
 	os = System.getProperty("os.name");
 	if(os.indexOf("Windows") != -1)
 		path = "\"" + path + "\"";
@@ -101,8 +106,7 @@ void runScript()
 		execScript("Windows Script Host", "wscript " + path);
 	}
 	else {
-		Macros.error(view,
-			"The current file does not appear to be a script.");
+		Macros.error(view, FileNotScriptError);
 	}
 }
 

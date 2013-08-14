@@ -18,15 +18,19 @@
  * along with the jEdit program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
- * $Id: Browse_Directory.bsh 3928 2001-12-01 05:48:48Z spestov $
+ * $Id: Browse_Directory.bsh 21353 2012-03-14 09:46:51Z jojaba_67 $
  *
  * Checked for jEdit 4.0 API
  *
  */
 
+//Localization
+final static String DirectoryBrowseLabel = jEdit.getProperty("macro.rs.BrowseDirectory.DirectoryBrowse.label",  "Directory to browse:");
+
+// Process
 void browseDirectory()
 {
-	path = Macros.input(view,"Directory to browse:");
+	path = Macros.input(view, DirectoryBrowseLabel);
 	if(path != null)
 		VFSBrowser.browseDirectory(view,path);
 }

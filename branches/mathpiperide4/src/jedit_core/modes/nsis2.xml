@@ -1,23 +1,48 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 
 <!DOCTYPE MODE SYSTEM "xmode.dtd">
 
 <!--
-Nullsoft Scriptable Installation System mode by Ryan Grove 2003
-Updated by Uwe Stöhr (donovaly@users.sourceforge.net) 2007
-Updated for 4.3pre9 by Alan Ezust 2007
-$Id: nsis2.xml 11164 2007-11-28 23:30:31Z blueyed $
+This is Nullsoft Scriptable Installation System mode by Ryan Grove 2003.
+Copyright (C) 2003 Ryan Grove
+Copyright (C) 2007-2012 Uwe Stöhr (donovaly@users.sourceforge.net)
 
-This file should be accurate as of the version of NSIS 2.30. If I've left something out, please let me know.
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+Updated for 4.3pre9 by Alan Ezust 2007
+$Id: nsis2.xml 22465 2012-11-13 06:45:29Z ezust $
 -->
 
 <MODE>
 	<PROPS>
+	  <PROPERTY NAME="commentStart" VALUE="/*" />
+	  <PROPERTY NAME="commentEnd" VALUE="*/" />
 		<PROPERTY NAME="lineComment" VALUE=";" />
 		<PROPERTY NAME="indentNextLine" VALUE="\s*(.*:|(function\s+.*)|(section\s+.*)|(subsection\s+.*))" />
 	</PROPS>
 
 	<RULES IGNORE_CASE="TRUE" HIGHLIGHT_DIGITS="TRUE" DEFAULT="NULL">
+	<!-- Java comment (C style) -->
+    <SPAN TYPE="COMMENT1">
+      <BEGIN>/*</BEGIN>
+      <END>*/</END>
+    </SPAN>
+
+    <!-- Silly comment -->
+    <SEQ TYPE="COMMENT1">/**/</SEQ>
+	
 		<EOL_SPAN TYPE="COMMENT1">;</EOL_SPAN>
 		<EOL_SPAN TYPE="COMMENT2">#</EOL_SPAN>
 
@@ -25,17 +50,17 @@ This file should be accurate as of the version of NSIS 2.30. If I've left someth
 		<MARK_PREVIOUS TYPE="FUNCTION" MATCH_TYPE="OPERATOR">::</MARK_PREVIOUS>
 		<MARK_PREVIOUS TYPE="LABEL" MATCH_TYPE="OPERATOR">:</MARK_PREVIOUS>
 
-		<SPAN TYPE="LITERAL1" DELEGATE="NSIS_LITERAL">
+		<SPAN TYPE="LITERAL1" ESCAPE="$\" DELEGATE="NSIS_LITERAL">
 			<BEGIN>"</BEGIN>
 			<END>"</END>
 		</SPAN>
 
-		<SPAN TYPE="LITERAL1" DELEGATE="NSIS_LITERAL">
+		<SPAN TYPE="LITERAL1" ESCAPE="$\" DELEGATE="NSIS_LITERAL">
 			<BEGIN>'</BEGIN>
 			<END>'</END>
 		</SPAN>
 
-		<SPAN TYPE="LITERAL1" DELEGATE="NSIS_LITERAL">
+		<SPAN TYPE="LITERAL1" ESCAPE="$\" DELEGATE="NSIS_LITERAL">
 			<BEGIN>`</BEGIN>
 			<END>`</END>
 		</SPAN>
@@ -44,6 +69,8 @@ This file should be accurate as of the version of NSIS 2.30. If I've left someth
 			<!-- Deprecated stuff -->
 			<INVALID>dim</INVALID>
 			<INVALID>uninstallexename</INVALID>
+			<INVALID>subsection</INVALID>
+			<INVALID>subsectionend</INVALID>
 
 			<!-- Global variables -->
 			<KEYWORD3>$0</KEYWORD3>
@@ -271,9 +298,9 @@ This file should be accurate as of the version of NSIS 2.30. If I've left someth
 			<KEYWORD1>function</KEYWORD1>
 			<KEYWORD1>functionend</KEYWORD1>
 			<KEYWORD1>section</KEYWORD1>
+			<KEYWORD1>sectiongroup</KEYWORD1>
 			<KEYWORD1>sectionend</KEYWORD1>
-			<KEYWORD1>subsection</KEYWORD1>
-			<KEYWORD1>subsectionend</KEYWORD1>
+			<KEYWORD1>sectiongroupend</KEYWORD1>
 
 			<!-- Instructions -->
 			<KEYWORD2>addbrandingimage</KEYWORD2>
@@ -398,12 +425,14 @@ This file should be accurate as of the version of NSIS 2.30. If I've left someth
 			<KEYWORD2>setdatesave</KEYWORD2>
 			<KEYWORD2>setdetailsprint</KEYWORD2>
 			<KEYWORD2>setdetailsview</KEYWORD2>
+			<KEYWORD2>seterrorlevel</KEYWORD2>
 			<KEYWORD2>setfileattributes</KEYWORD2>
 			<KEYWORD2>setfont</KEYWORD2>
 			<KEYWORD2>setoutpath</KEYWORD2>
 			<KEYWORD2>setoverwrite</KEYWORD2>
 			<KEYWORD2>setpluginunload</KEYWORD2>
 			<KEYWORD2>setrebootflag</KEYWORD2>
+			<KEYWORD2>setregview</KEYWORD2>
 			<KEYWORD2>setshellvarcontext</KEYWORD2>
 			<KEYWORD2>setstaticbkcolor</KEYWORD2>
 			<KEYWORD2>setwindowlong</KEYWORD2>
@@ -460,6 +489,7 @@ This file should be accurate as of the version of NSIS 2.30. If I've left someth
 			<KEYWORD1>quit</KEYWORD1>
 			<KEYWORD1>seterrors</KEYWORD1>
 			<KEYWORD1>strcmp</KEYWORD1>
+			<KEYWORD1>strcmps</KEYWORD1>
 
 			<!-- Callback functions -->
 			<KEYWORD3>.onguiinit</KEYWORD3>

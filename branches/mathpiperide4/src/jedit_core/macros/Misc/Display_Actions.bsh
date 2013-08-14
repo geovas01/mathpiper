@@ -22,12 +22,18 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+// Localization
+final static String jEditActionBar1Label = jEdit.getProperty("macro.rs.DisplayActions.jEditActionBar1.label", "The jEdit action bar can be opened via the Utilities menu and is usually");
+final static String jEditActionBar2Label = jEdit.getProperty("macro.rs.DisplayActions.jEditActionBar2.label", "assigned to the C+ENTER keyboard shortcut.");
+final static String NoLabelLabel = jEdit.getProperty("macro.rs.DisplayActions.NoLabel.label", "<no label>");
+
+//Process
 StringBuffer buf = new StringBuffer();
-buf.append("The jEdit action bar can be opened via the Utilities menu and is usually\n");
-buf.append("assigned to the C+ENTER keyboard shortcut.\n\n");
+buf.append(jEditActionBar1Label + "\n");
+buf.append(jEditActionBar2Label + "\n\n");
 
 actionSets = jEdit.getActionSets();
-Arrays.sort(actionSets,new MiscUtilities.StringICaseCompare());
+Arrays.sort(actionSets,new StandardUtilities.StringCompare(true));
 
 for(i = 0; i < actionSets.length; i++)
 {
@@ -37,14 +43,14 @@ for(i = 0; i < actionSets.length; i++)
 		buf.append("{{{ " + actionSet.getLabel() + "\n");
 
 		actions = actionSet.getActionNames();
-		Arrays.sort(actions,new MiscUtilities.StringICaseCompare());
+		Arrays.sort(actions,new StandardUtilities.StringCompare());
 
 		for(j = 0; j < actions.length; j++)
 		{
 			String name = actions[j];
 			String label = jEdit.getProperty(actions[j] + ".label");
 			if(label == null)
-				label = "<no label>";
+				label = NoLabelLabel;
 			else
 				label = GUIUtilities.prettifyMenuLabel(label);
 			buf.append(name + " : " + label + "\n");

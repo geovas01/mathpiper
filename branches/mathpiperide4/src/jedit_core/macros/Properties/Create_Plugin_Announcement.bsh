@@ -4,6 +4,7 @@
  * text for a plugin submission
  * Copyright ( C ) 2006 Jeffrey Hoyt
  * jchoyt@jedit.org
+ * Eric Berry <elberry@users.sourceforge.net> (version checking 2010)
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -24,6 +25,42 @@
 
 // import statements
 import javax.swing.border.*;
+import org.gjt.sp.util.Log;
+import java.util.Comparator;
+
+public class PluginDependency
+{
+    public String className;
+    public String simpleName;
+    public String version;
+    
+    public PluginDependency(String cn, String v)
+    {
+        className = cn;
+        version = v;
+        simpleName = jEdit.getProperty("plugin." + cn + ".name");
+        if(simpleName != null)
+        {
+            simpleName = simpleName.trim();
+        }
+        if(simpleName == null || simpleName.length() <= 0)
+        {
+            int lastDotIndex = cn.lastIndexOf(".");
+            simpleName = cn.substring(lastDotIndex + 1);
+        }
+        Log.log(Log.DEBUG, this, "new PluginDependency class: " + className + " | name: " + simpleName + " | version: " + version);
+    }
+}
+
+public class PluginDependencyNameComparator implements Comparator
+{
+    public int compare(Object o1, Object o2)
+    {
+        PluginDependency pd1 = (PluginDependency)o1;
+        PluginDependency pd2 = (PluginDependency)o2;
+        return pd1.simpleName.compareTo(pd2.simpleName);
+    }
+}
 
 // main routine
 void pluginTextDialog( View view, Buffer buffer )
@@ -91,11 +128,13 @@ void pluginTextDialog( View view, Buffer buffer )
                 }
                 else if( parts[0].equals( "plugin" ) )
                 {
-                    pluginDependencies.add( parts[1] + " " + parts[2] );
+                    Log.log(Log.DEBUG, this, "required plugin name - class: " + parts[1] + " | name: " + jEdit.getProperty("plugin." + parts[1] + ".name"));
+                    pluginDependencies.add(new PluginDependency(parts[1], parts[2]));
                 }
                 else if( parts[0].equals( "optional" ) && parts[1].equals( "plugin" ) )
                 {
-                    optionalPluginDependencies.add( parts[2] + " " + parts[3] );
+                    Log.log(Log.DEBUG, this, "optional plugin name - class: " + parts[2] + " | name: " + jEdit.getProperty("plugin." + parts[2] + ".name"));
+                    optionalPluginDependencies.add(new PluginDependency(parts[2], parts[3]));
                 }
                 else
                 {
@@ -184,15 +223,20 @@ void pluginTextDialog( View view, Buffer buffer )
     propsPanel.add( new JLabel( jEditDependency ) );
     propsPanel.add( new JLabel( "JDK Dependency" ) );
     propsPanel.add( new JLabel( javaDependency ) );
+    PluginDependencyNameComparator comparator = new PluginDependencyNameComparator();
+    Collections.sort(pluginDependencies, comparator);
+    Collections.sort(optionalPluginDependencies, comparator);
     for( int i=0; i<pluginDependencies.size(); i++ )
     {
         propsPanel.add( new JLabel( "Depends on" ) );
-        propsPanel.add( new JLabel( pluginDependencies.get( i ).toString() ) );
+        PluginDependency requiredPlugin = pluginDependencies.get( i );
+        propsPanel.add( new JLabel( requiredPlugin.simpleName + " " + requiredPlugin.version ) );
     }
     for( int i=0; i<optionalPluginDependencies.size(); i++ )
     {
         propsPanel.add( new JLabel( "Optional" ) );
-        propsPanel.add( new JLabel( optionalPluginDependencies.get( i ).toString() ) );
+        PluginDependency optionalPlugin = optionalPluginDependencies.get( i );
+        propsPanel.add( new JLabel( optionalPlugin.simpleName + " " + optionalPlugin.version ) );
     }
     content.add( propsPanel, "Center" );
 
@@ -224,14 +268,14 @@ void pluginTextDialog( View view, Buffer buffer )
     longDescriptionArea.setPreferredSize( new Dimension( 250, 120 ) );
     descriptionPanel.add( new JScrollPane( longDescriptionArea ) );
 
-        //add buttons to description panel
-        buttonPanel = new JPanel();
-        buttonPanel.setLayout( new BoxLayout( buttonPanel, BoxLayout.X_AXIS ) );
-        ok = new JButton( "Create Announcement" );
-        buttonPanel.add( ok );
-        cancel = new JButton( "Cancel" );
-        buttonPanel.add( cancel );
-        descriptionPanel.add( buttonPanel );
+    //add buttons to description panel
+    buttonPanel = new JPanel();
+    buttonPanel.setLayout( new BoxLayout( buttonPanel, BoxLayout.X_AXIS ) );
+    ok = new JButton( "Create Announcement" );
+    buttonPanel.add( ok );
+    cancel = new JButton( "Cancel" );
+    buttonPanel.add( cancel );
+    descriptionPanel.add( buttonPanel );
     content.add( descriptionPanel, "South" );
 
     // register this method as an ActionListener for
@@ -252,7 +296,9 @@ void pluginTextDialog( View view, Buffer buffer )
     {
         if( e.getSource() != cancel )
         {
-           createAnnouncement();
+        	  if(validateVersions()) {
+        	  	  createAnnouncement();
+        	  }
         }
         dialog.dispose();
     }
@@ -264,7 +310,7 @@ void pluginTextDialog( View view, Buffer buffer )
         longDescription = longDescriptionArea.getText();
         source = sourceArea.getText();
         StringBuffer ret = new StringBuffer();
-        ret.append( "Paste the text below into the Plugin Central Submission Tracker at http://sourceforge.net/tracker/?group_id=588&atid=625093\n" );
+        ret.append( "Paste the text below into the Plugin Central Submission Tracker at https://sourceforge.net/tracker/?group_id=588&atid=625093\n" );
         ret.append( "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" );
         ret.append( "\n{{{ " );
         ret.append( pluginName );
@@ -283,7 +329,8 @@ void pluginTextDialog( View view, Buffer buffer )
             for( int i=0; i<pluginDependencies.size(); i++ )
             {
                 ret.append( "\n        " );
-                ret.append( pluginDependencies.get( i ) );
+                PluginDependency plugin = pluginDependencies.get( i );
+                ret.append( plugin.simpleName + " " + plugin.version + " (" + plugin.className + ")"  );
             }
         }
         if( optionalPluginDependencies.size() > 0 )
@@ -292,7 +339,8 @@ void pluginTextDialog( View view, Buffer buffer )
             for( int i=0; i<optionalPluginDependencies.size(); i++ )
             {
                 ret.append( "\n        " );
-                ret.append( optionalPluginDependencies.get( i ) );
+                PluginDependency plugin = optionalPluginDependencies.get( i );
+                ret.append( plugin.simpleName + " " + plugin.version + " (" + plugin.className + ")"  );
             }
         }
         if( shortDescription!=null && !shortDescription.equals( "" ) )
@@ -307,6 +355,81 @@ void pluginTextDialog( View view, Buffer buffer )
         newbuf = jEdit.newFile( view );
         newbuf.insert( 0, ret.toString() );
     }
+    
+    boolean pluginIsNotInstalled(PluginDependency dependency, String installed) {
+        if(installed != null) {
+            installed = installed.trim();
+            if(!installed.equals(dependency.version))
+            {
+                return true;
+            }
+        } else {
+            return true;
+        }
+        return false;
+    }
+    
+    boolean validateVersions()
+    {
+    	 boolean valid = true;
+    	 StringBuilder builder = new StringBuilder();
+    	 builder.append(
+    	 	 "There are some inconsistencies in your plugin's requirements. The\n" +
+    	 	 "version numbers below don't match what you are working with in\n" +
+    	 	 "your installation of jEdit.\n\n");
+    	 
+    	 // check jEdit dependency against running build.
+    	 String build = jEdit.getBuild();
+    	 if(!build.equals(jEditDependency))
+    	 {
+    	 	 valid = false;
+    	 	 builder.append("      jEdit - Required: " + jEditDependency + " - Running: " + build + "\n");
+    	 }
+    	 
+    	 // check required plugin dependencies.
+    	 for( int i = 0; i < pluginDependencies.size(); i++ )
+		 {
+		     PluginDependency plugin = pluginDependencies.get(i);
+		     String installed = jEdit.getProperty("plugin." + plugin.className + ".version");
+		     if(pluginIsNotInstalled(plugin, installed)) {
+		         valid = false;
+		         builder.append("      " + plugin.simpleName + " - Required: " + plugin.version + " - Running: " + installed + "\n");
+		     }
+		 }
+		 
+		 // check optional plugin dependencies.
+    	 for( int i = 0; i < optionalPluginDependencies.size(); i++ )
+		 {
+		     PluginDependency plugin = optionalPluginDependencies.get(i);
+		     String installed = jEdit.getProperty("plugin." + plugin.className + ".version");
+		     if(pluginIsNotInstalled(plugin, installed)) {
+		         valid = false;
+		         builder.append("      " + plugin.simpleName + " - Optional: " + plugin.version + " - Running: " + installed + "\n");
+		     }
+		 }
+    	 
+    	 if(!valid)
+    	 {
+    	 	 builder.append("\n\n" +
+    	 	 	 "Note that your plugin will be tested against the latest released\n" +
+    	 	 	 "versions of jEdit and your plugin's dependencies before it is\n" +
+    	 	 	 "released.\n\n" +
+    	 	 	 "Do you want to continue creating this announcement, or would you\n" +
+    	 	 	 "like to cancel it, and update the version numbers?\n\n" +
+    	 	 	 "       \"Yes\" to create announcement as is.\n" +
+    	 	 	 "       \"No\" to cancel and update props.");
+    	 	 int choice = JOptionPane.showConfirmDialog(
+    	 	 	 					view,
+    	 	 	 					builder.toString(),
+    	 	 	 					"Versions don't match",
+    	 	 	 					JOptionPane.YES_NO_OPTION,
+    	 	 	 					JOptionPane.WARNING_MESSAGE);
+    	 	 
+    	 	 // if user's chosen yes, then announcement is created.
+    	 	 valid = (choice == JOptionPane.YES_OPTION);
+    	 }
+    	 return valid;
+    }
 }
 
 // this single line of code is the script's main routine
@@ -316,20 +439,4 @@ if( buffer.getMode().toString().equals( "properties" ) )
 else
 	Macros.error( view, "This must be run on a jEdit plugin's properties file.  \nOpen your Plugin's props file and rerun this macro." );
 
-/*
-	Macro index data ( in DocBook format )
-
-<listitem>
-    <para><filename>Create_Plugin_Announcement.bsh</filename></para>
-    <abstract><para>
-        Creates a machine-parsable version of the release announcement from the source files and minimal user input.
-        The wiz can then read this file and do the release automatically.
-    </para></abstract>
-    <para>
-        Creates a machine-parsable version of the release announcement from the source files and minimal user input.
-        The wiz can then read this file and do the release automatically.
-    </para>
-</listitem>
-
-*/
-
+// ::mode=beanshell:noTabs=true:tabSize=4:indentSize=4::

@@ -20,12 +20,23 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
- * $Id: Make_Bug_Report.bsh 3873 2001-11-06 17:57:35Z jgellene $
+ * $Id: Make_Bug_Report.bsh 22015 2012-08-17 08:27:45Z kpouer $
  *
  * Checked for jEdit 4.0 API
  *
  */
 
+// Localization
+final static String OpeningActivityLogError = jEdit.getProperty("macro.rs.MakeBugReport.OpeningActivityLog.error", "Error opening Activity Log.");
+final static String UsefulEntriesForReportLabel = jEdit.getProperty("macro.rs.MakeBugReport.UsefulEntriesForReport.label", "Activity log entries that might be useful in a bug report:\n\n.");
+final static String MessagejEditLabel = jEdit.getProperty("macro.rs.MakeBugReport.MessagejEdit.label", "[message] jEdit:");
+final static String NoticejEditLabel = jEdit.getProperty("macro.rs.MakeBugReport.NoticejEdit.label", "[notice] jEdit:");
+final static String NoticeJarClassLoaderLabel = jEdit.getProperty("macro.rs.MakeBugReport.NoticeJarClassLoader.label", "[notice] JARClassLoader:");
+final static String MessagejEditStartupCompleteLabel = jEdit.getProperty("macro.rs.MakeBugReport.MessagejEditStartupComplete.label", "[message] jEdit: Startup complete");
+final static String ErrorLabel = jEdit.getProperty("macro.rs.MakeBugReport.Error.label", "[error]");
+final static String ReadingActivityLogError = jEdit.getProperty("macro.rs.MakeBugReport.ReadingActivityLog.error", "Error reading Activity Log");
+
+// Process
 makeBugReport()
 {
 	Log.flushStream();
@@ -38,17 +49,17 @@ makeBugReport()
 	}
 	catch(IOException e)
 	{
-		Macros.error(view, "Error opening Activity Log.");
+		Macros.error(view, OpeningActivityLogError);
 		return;
 	}
 	report = new StringBuffer();
 
-	report.append("Activity log entries that might be useful in a bug report:\n\n");
+	report.append(UsefulEntriesForReportLabel);
 
 	lastError = new StringBuffer();
 	insideError = false;
 	startupDone = false;
-	activityLogHeaderLines = 9;
+	activityLogHeaderLines = 250;
 	try
 	{
 		for(i = 0; i < activityLogHeaderLines; ++i)
@@ -58,17 +69,17 @@ makeBugReport()
 		while((line = reader.readLine()) != null)
 		{
 			if(!startupDone &&
-				(line.startsWith("[message] jEdit:")
-					|| line.startsWith("[notice] jEdit:")
-					|| line.startsWith("[notice] JARClassLoader:")))
+				(line.startsWith(MessagejEditLabel)
+					|| line.startsWith(NoticejEditLabel)
+					|| line.startsWith(NoticeJarClassLoaderLabel)))
 			{
 				report.append(line).append('\n');
-				if(line.equals("[message] jEdit: Startup complete"))
+				if(line.equals(MessagejEditStartupCompleteLabel))
 				{
 					startupDone = true;
 				}
 			}
-			else if(line.startsWith("[error]"))
+			else if(line.startsWith(ErrorLabel))
 			{
 				if(!insideError)
 				{
@@ -84,12 +95,13 @@ makeBugReport()
 	}
 	catch(IOException e)
 	{
-		Macros.error(view, "Error reading Activity Log");
+		Macros.error(view, ReadingActivityLogError);
 	}
 
 	report.append(lastError.toString());
 	newBuffer = jEdit.newFile(view);
 	newBuffer.insert(0, report.toString());
+	newBuffer.setMode(jEdit.getMode("logs"));
 }
 
 makeBugReport();
