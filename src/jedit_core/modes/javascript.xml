@@ -10,8 +10,8 @@
 		<PROPERTY NAME="wordBreakChars" VALUE=",+-=&lt;&gt;/?^&amp;*" />
 
 		<!-- Auto indent -->
-		<PROPERTY NAME="indentOpenBrackets" VALUE="{" />
-		<PROPERTY NAME="indentCloseBrackets" VALUE="}" />
+		<PROPERTY NAME="indentOpenBrackets" VALUE="{[" />
+		<PROPERTY NAME="indentCloseBrackets" VALUE="]}" />
 		<PROPERTY NAME="unalignedOpenBrackets" VALUE="(" />
 		<PROPERTY NAME="unalignedCloseBrackets" VALUE=")" />
 		<PROPERTY NAME="indentNextLine"
@@ -27,6 +27,11 @@
 		DIGIT_RE="(0x[\p{XDigit}]+[lL]?|[\p{Digit}]+(e[\p{Digit}]*)?[lLdDfF]?)">
 
 		<!-- The rest of the javascript info -->
+
+		<SPAN TYPE="COMMENT3">
+			<BEGIN>/**</BEGIN>
+			<END>*/</END>
+		</SPAN>
 
 		<SPAN TYPE="COMMENT1">
 			<BEGIN>/*</BEGIN>
@@ -48,6 +53,7 @@
 
 		<SEQ TYPE="COMMENT2">//--&gt;</SEQ>
 		<EOL_SPAN TYPE="COMMENT2">//</EOL_SPAN>
+		<SEQ_REGEXP TYPE="MARKUP" HASH_CHAR="/" AT_WORD_START="TRUE">/[^\p{Blank}]*?/</SEQ_REGEXP>
 
 		<SEQ TYPE="COMMENT1">&lt;!--</SEQ>
 

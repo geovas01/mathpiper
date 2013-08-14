@@ -4,9 +4,12 @@
  *
  * Copyright 2004 Ollie Rutherfurd <oliver@jedit.org>
  *
- * $Id: Display_Character_Code.bsh 5050 2004-05-24 19:24:56Z orutherfurd $
+ * $Id: Display_Character_Code.bsh 21353 2012-03-14 09:46:51Z jojaba_67 $
  */
 
+// Localization
+final static String CharacterAtCaretLabel = jEdit.getProperty("macro.rs.DisplayCharacterCode.CharacterAtCaret.label", "Character at caret:"); 
+ 
 void displayCharacterCode(View view)
 {
 	JEditTextArea textArea = view.getTextArea();
@@ -16,7 +19,7 @@ void displayCharacterCode(View view)
 	{
 		char c = buffer.getText(caret,1).charAt(0);
 		StringBuffer buf = new StringBuffer();
-		buf.append("Character at caret: ");
+		buf.append(CharacterAtCaretLabel + " ");
 		buf.append("int=").append((int)c).append(", ");
 		buf.append("hex=").append(Integer.toString((int)c,16));
 		view.getStatus().setMessageAndClear(buf.toString());

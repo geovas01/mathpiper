@@ -18,11 +18,14 @@
  * along with the jEdit program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
- * $Id: Toggle_ReadOnly.bsh 4937 2003-12-22 04:14:55Z spestov $
+ * $Id: Toggle_ReadOnly.bsh 21353 2012-03-14 09:46:51Z jojaba_67 $
  */
 
-
-
+// Localization
+final static String OnlyLocalFilesError = jEdit.getProperty("macro.rs.ToggleReadOnly.OnlyLocalFiles.error", "This macro only works on local files.");
+final static String OnlyWindowsUnixMacosError = jEdit.getProperty("macro.rs.ToggleReadOnly.OnlyWindowsUnixMacos.error", "This macro only works on Windows, Unix, & MacOS X.");
+	
+//Process
 CmdThread(cmd, view)
 {
 	run()
@@ -37,13 +40,12 @@ CmdThread(cmd, view)
 
 void ToggleReadOnly(view)
 {
-
-	buffer = view.getBuffer();
+    buffer = view.getBuffer();
 
 	// must be using file vfs
 	if(!buffer.getVFS().getName().equals("file"))
 	{
-		Macros.error(view, "This macro only works on local files.");
+		Macros.error(view, OnlyLocalFilesError);
 		return;
 	}
 
@@ -62,7 +64,7 @@ void ToggleReadOnly(view)
 	}
 	else
 	{
-		Macros.error(view, "This macro only works on Windows, Unix, & MacOS X.");
+		Macros.error(view, OnlyWindowsUnixMacosError);
 		return;
 	}
 

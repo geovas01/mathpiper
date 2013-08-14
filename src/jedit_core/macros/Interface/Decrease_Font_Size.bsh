@@ -4,9 +4,13 @@
 *
 * Copyright (C) 2003 Ollie Rutherfurd <oliver@rutherfurd.net>
 *
-* $Id: Decrease_Font_Size.bsh 4937 2003-12-22 04:14:55Z spestov $
+* $Id: Decrease_Font_Size.bsh 21353 2012-03-14 09:46:51Z jojaba_67 $
 */
 
+//Localization
+final static String FontSizeMessage = jEdit.getProperty("macro.rs.ChangeFontSize.FontSize.message", "Font size now:");
+	
+//Process
 decreaseFontSize()
 {
 	FONT_SIZE = "view.fontsize";
@@ -18,7 +22,7 @@ decreaseFontSize()
 	jEdit.setIntegerProperty(CONSOLE_FONT_SIZE,size);
 	jEdit.propertiesChanged();
 	jEdit.saveSettings();
-	view.getStatus().setMessageAndClear("Font size now " + size);
+	view.getStatus().setMessageAndClear(FontSizeMessage + " " + size);
 }
 
 decreaseFontSize();

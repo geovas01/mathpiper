@@ -19,12 +19,15 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
  *
- * $Id: Duplicate_Line.bsh 3866 2001-11-06 15:04:21Z jgellene $
+ * $Id: Duplicate_Line.bsh 21353 2012-03-14 09:46:51Z jojaba_67 $
  *
  * Checked for jEdit 4.0 API
  *
  */
 
+// Localization
+final static String NotEditableMessage = jEdit.getProperty("macro.rs.general.ErrorNotEditableDialog.message", "Buffer is not editable");
+ 
 void duplicateLine()
 {
 	/*
@@ -34,7 +37,7 @@ void duplicateLine()
 	 */
 	if(buffer.isReadOnly())
 	{
-		Macros.error(view, "This file is read only.");
+		Macros.error(view, NotEditableMessage);
 		return;
 	}
 	line = textArea.getCaretLine();

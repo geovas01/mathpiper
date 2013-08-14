@@ -124,11 +124,6 @@
 			<END>%/s19</END>
 		</SPAN_REGEXP>
 		
-		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="pajek::MAIN">
-			<BEGIN>%jung[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;]*</BEGIN>
-			<END>%/jung</END>
-		</SPAN_REGEXP>
-		
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="latex::MAIN">
 			<BEGIN>%latex[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;]*</BEGIN>
 			<END>%/latex</END>

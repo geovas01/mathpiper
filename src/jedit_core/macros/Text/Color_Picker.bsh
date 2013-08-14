@@ -17,22 +17,27 @@
  * along with the jEdit application; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
- * $Id: Color_Picker.bsh 4988 2004-03-08 04:29:12Z spestov $
+ * $Id: Color_Picker.bsh 21353 2012-03-14 09:46:51Z jojaba_67 $
  */
 
+// Localization
+final static String ColorPickerLabel = jEdit.getProperty("macro.rs.ColorPicker.ColorPicker.label", "Color Picker");
+final static String NotEditableMessage = jEdit.getProperty("macro.rs.general.ErrorNotEditableDialog.message", "Buffer is not editable");
+
+// Process 
 selection = textArea.getSelectedText();
 if (selection != null)
     color = GUIUtilities.parseColor(selection);
 else
     color = null;
 
-color = JColorChooser.showDialog(view, "Color Picker", color);
+color = JColorChooser.showDialog(view, ColorPickerLabel, color);
 
 if (color != null){
 	if(buffer.isReadOnly())
-		Macros.error(view, "Buffer is read-only.");
+		Macros.error(view, NotEditableMessage);
 	else
-		textArea.setSelectedText(GUIUtilities.getColorHexString(color));
+		textArea.setSelectedText(SyntaxUtilities.getColorHexString(color));
 }
 
 /*
