@@ -1,0 +1,26 @@
+%mathpiper,def="ArcTangent"
+
+RulebaseHoldArguments("ArcTangent",[x_]);
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="ArcTangent",categories="Mathematics Functions;Trigonometry (Symbolic)"
+
+*CMD ArcTangent --- inverse trigonometric function arc-tangent
+
+*CALL
+        ArcTangent(x)
+
+*PARMS
+
+{x} -- argument to the function
+
+*DESC
+
+This function represents the inverse trigonometric function arc-tangent.
+
+*SEE Sine, Cosine, Tangent, Cotangent, Secant, Cosecant, ArcSine, ArcCosine, ArcCotangent, ArcSecant, ArcCosecant
+
+%/mathpiper_docs

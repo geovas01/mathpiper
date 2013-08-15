@@ -1,6 +1,6 @@
-%mathpiper,def="CosN"
+%mathpiper,def="SineN"
 
-Defun("CosN",[_x])Trigonometry(x,0.0,1.0,1.0);
+Defun("SineN",[_x])Trigonometry(x,1.0,x,x);
 
 %/mathpiper
 
@@ -8,10 +8,10 @@ Defun("CosN",[_x])Trigonometry(x,0.0,1.0,1.0);
 
 
 
-%mathpiper_docs,name="CosN",categories="Mathematics Functions;Numeric;Trigonometry (Numeric)"
-*CMD CosN --- cosine (arbitrary-precision math function)
+%mathpiper_docs,name="SineN",categories="Mathematics Functions;Numeric;Trigonometry (Numeric)"
+*CMD SineN --- sine (arbitrary-precision math function)
 *CALL
-        CosN(x)
+        SineN(x)
 
 *DESC
 
