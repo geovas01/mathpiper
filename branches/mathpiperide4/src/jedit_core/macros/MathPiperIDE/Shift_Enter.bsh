@@ -749,7 +749,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						
 						
 			
-						displayResultDelay();
+						displayResult();
 						
 						//JFreeChart handler.
 						/*if(evaluationResponse.getObject() != null)
@@ -866,7 +866,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 					System.out.println("WWWW " + response );
 					result = response;
 					
-					displayResultDelay();
+					displayResult();
 					
 				}//end method.
 				
@@ -927,7 +927,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						
 						result = response;//The variable "result" is what gets displayed in the output fold.
 						
-						displayResultDelay();
+						displayResult();
 						
 					}//end method.
 					
@@ -1005,7 +1005,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						
 						result = response;//The variable "result" is what gets displayed in the output fold.
 						
-						displayResultDelay();
+						displayResult();
 						
 					}//end method.
 					
@@ -1102,7 +1102,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						}
 						
 						
-						displayResultDelay();
+						displayResult();
 						
 					}//end method.
 					
@@ -2125,25 +2125,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				}//end if.
 				
 				
-				
-				void displayResultDelay()
-				{
-										//Todo:tk:for some reason this check is needed because
-					//otherwise it periodically causes exceptions to be thrown which are
-					//caused by textArea not being editable.
-					while(textArea.isEditable() == false)
-					{
-						try
-						{
-							Thread.sleep(10);
-						}
-						catch(InterruptedException ie)
-						{
-						}
-					};
-					
-					displayResult();
-				}
+
 						
 
 				
@@ -2330,8 +2312,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 
 				
 				}//end method.
-				
-				displayResult();
+
 				
 
 							
