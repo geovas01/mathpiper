@@ -1,6 +1,6 @@
-%mathpiper,def="TanN"
+%mathpiper,def="CosineN"
 
-Defun("TanN",[_x])DivideN(SinN(x),CosN(x));
+Defun("CosineN",[_x])Trigonometry(x,0.0,1.0,1.0);
 
 %/mathpiper
 
@@ -8,10 +8,10 @@ Defun("TanN",[_x])DivideN(SinN(x),CosN(x));
 
 
 
-%mathpiper_docs,name="TanN",categories="Mathematics Functions;Numeric;Trigonometry (Numeric)"
-*CMD TanN --- tangent (arbitrary-precision math function)
+%mathpiper_docs,name="CosineN",categories="Mathematics Functions;Numeric;Trigonometry (Numeric)"
+*CMD CosineN --- cosine (arbitrary-precision math function)
 *CALL
-        TanN(x)
+        CosineN(x)
 
 *DESC
 

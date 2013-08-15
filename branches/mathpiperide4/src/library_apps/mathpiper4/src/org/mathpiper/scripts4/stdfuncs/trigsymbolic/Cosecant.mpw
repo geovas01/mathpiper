@@ -1,0 +1,26 @@
+%mathpiper,def="Cosecant"
+
+RulebaseHoldArguments("Cosecant",[x_]);
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Cosecant",categories="Mathematics Functions;Trigonometry (Symbolic)"
+
+*CMD Cosecant --- trigonometric function cosecant
+
+*CALL
+        Cosecant(x)
+
+*PARMS
+
+{x} -- argument to the function
+
+*DESC
+
+This function represents the trigonometric function cosecant.
+
+*SEE Sine, Cosine, Tangent, Cotangent, Secant, ArcSine, ArcCosine, ArcTangent, ArcCotangent, ArcSecant, ArcCosecant
+
+%/mathpiper_docs

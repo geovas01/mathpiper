@@ -1,0 +1,26 @@
+%mathpiper,def="Cotangent"
+
+RulebaseHoldArguments("Cotangent",[x_]);
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Cotangent",categories="Mathematics Functions;Trigonometry (Symbolic)"
+
+*CMD Cotangent --- trigonometric function cotangent
+
+*CALL
+        Cotangent(x)
+
+*PARMS
+
+{x} -- argument to the function
+
+*DESC
+
+This function represents the trigonometric function cotangent.
+
+*SEE Sine, Cosine, Tangent, Secant, Cosecant, ArcSine, ArcCosine, ArcTangent, ArcCotangent, ArcSecant, ArcCosecant
+
+%/mathpiper_docs

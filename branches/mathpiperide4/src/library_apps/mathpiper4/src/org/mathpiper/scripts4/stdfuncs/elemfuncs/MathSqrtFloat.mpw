@@ -1,7 +1,7 @@
 %mathpiper,def="MathSqrtFloat"
 
 /** This file contains routines for numerical evaluation of elementary functions:
- *  PowerN, ExpN, SinN etc.
+ *  PowerN, ExpN, SineN etc.
  *  It is assumed that the arguments are real (not complex) floating-point or integer numbers. (The [NumericMode?()] flag does not have to be set.)
  *  The result is an exact integer or a floating-point number correct to BuiltinPrecisionGet() digits.
  *

@@ -160,7 +160,7 @@ Result: 3.14159265358979323846;
 
 BuiltinPrecisionSet(22);
 
-NumericEqual(NewtonNum('[[x], x+SinN(x)], 3, 5, 3), 3.14159265358979323846,20);
+NumericEqual(NewtonNum('[[x], x+SineN(x)], 3, 5, 3), 3.14159265358979323846,20);
 
 BuiltinPrecisionSet(22);
 

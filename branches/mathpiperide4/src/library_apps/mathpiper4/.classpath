@@ -10,5 +10,6 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/home/tkosan/swi/lib/swipl-6.2.6/lib/x86_64-linux"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/home/tkosan/workspace/lib/mpreduce.jar"/>
 	<classpathentry kind="output" path="build"/>
 </classpath>

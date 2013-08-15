@@ -1,0 +1,26 @@
+%mathpiper,def="Sine"
+
+RulebaseHoldArguments("Sine",[x_]);
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Sine",categories="Mathematics Functions;Trigonometry (Symbolic)"
+
+*CMD Sine --- trigonometric function sine
+
+*CALL
+        Sine(x)
+
+*PARMS
+
+{x} -- argument to the function
+
+*DESC
+
+This function represents the trigonometric function sine.
+
+*SEE Cosine, Tangent, Cotangent, Secant, Cosecant, ArcSine, ArcCosine, ArcTangent, ArcCotangent, ArcSecant, ArcCosecant
+
+%/mathpiper_docs

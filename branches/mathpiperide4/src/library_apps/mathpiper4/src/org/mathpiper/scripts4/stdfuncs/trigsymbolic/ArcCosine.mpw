@@ -1,0 +1,26 @@
+%mathpiper,def="ArcCosine"
+
+RulebaseHoldArguments("ArcCosine",[x_]);
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="ArcCosine",categories="Mathematics Functions;Trigonometry (Symbolic)"
+
+*CMD ArcCosine --- inverse trigonometric function arc-cosine
+
+*CALL
+        ArcCosine(x)
+
+*PARMS
+
+{x} -- argument to the function
+
+*DESC
+
+This function represents the inverse trigonometric function arc-cosine.
+
+*SEE Sine, Cosine, Tangent, Cotangent, Secant, Cosecant, ArcSine, ArcTangent, ArcCotangent, ArcSecant, ArcCosecant
+
+%/mathpiper_docs

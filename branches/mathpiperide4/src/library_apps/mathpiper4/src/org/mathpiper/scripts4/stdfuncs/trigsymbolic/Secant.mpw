@@ -1,0 +1,26 @@
+%mathpiper,def="Secant"
+
+RulebaseHoldArguments("Secant",[x_]);
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Secant",categories="Mathematics Functions;Trigonometry (Symbolic)"
+
+*CMD Secant --- trigonometric function secant
+
+*CALL
+        Secant(x)
+
+*PARMS
+
+{x} -- argument to the function
+
+*DESC
+
+This function represents the trigonometric function secant.
+
+*SEE Sine, Cosine, Tangent, Cotangent, Secant, Cosecant, ArcSine, ArcCosine, ArcTangent, ArcCotangent, ArcSecant, ArcCosecant
+
+%/mathpiper_docs

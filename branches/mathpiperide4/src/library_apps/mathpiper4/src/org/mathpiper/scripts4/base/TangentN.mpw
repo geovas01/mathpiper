@@ -1,6 +1,6 @@
-%mathpiper,def="SinN"
+%mathpiper,def="TangentN"
 
-Defun("SinN",[_x])Trigonometry(x,1.0,x,x);
+Defun("TangentN",[_x])DivideN(SineN(x),CosineN(x));
 
 %/mathpiper
 
@@ -8,10 +8,10 @@ Defun("SinN",[_x])Trigonometry(x,1.0,x,x);
 
 
 
-%mathpiper_docs,name="SinN",categories="Mathematics Functions;Numeric;Trigonometry (Numeric)"
-*CMD SinN --- sine (arbitrary-precision math function)
+%mathpiper_docs,name="TangentN",categories="Mathematics Functions;Numeric;Trigonometry (Numeric)"
+*CMD TangentN --- tangent (arbitrary-precision math function)
 *CALL
-        SinN(x)
+        TangentN(x)
 
 *DESC
 

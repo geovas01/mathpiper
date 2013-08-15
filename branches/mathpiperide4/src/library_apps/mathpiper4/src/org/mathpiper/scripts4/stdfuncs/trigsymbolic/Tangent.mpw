@@ -1,0 +1,26 @@
+%mathpiper,def="Tangent"
+
+RulebaseHoldArguments("Tangent",[x_]);
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Tangent",categories="Mathematics Functions;Trigonometry (Symbolic)"
+
+*CMD Tangent --- trigonometric function tangent
+
+*CALL
+        Tangent(x)
+
+*PARMS
+
+{x} -- argument to the function
+
+*DESC
+
+This function represents the trigonometric function tangent.
+
+*SEE Sine, Cosine, Cotangent, Secant, Cosecant, ArcSine, ArcCosine, ArcTangent, ArcCotangent, ArcSecant, ArcCosecant
+
+%/mathpiper_docs

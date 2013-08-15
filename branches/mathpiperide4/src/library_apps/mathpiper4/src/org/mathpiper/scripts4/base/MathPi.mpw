@@ -22,7 +22,7 @@ Defun("MathPi",[])
                  // start of iteration code
     // Get Sin(result)
     BuiltinPrecisionSet(curPrec);
-    Assign(result,AddN(result,SinN(result)));
+    Assign(result,AddN(result,SineN(result)));
     // Calculate new result: result := result + Sin(result);
                 // end of iteration code
                 // decide whether we are at end of loop now
