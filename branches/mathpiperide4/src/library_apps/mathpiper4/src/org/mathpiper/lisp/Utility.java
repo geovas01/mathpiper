@@ -1616,9 +1616,9 @@ public class Utility {
 
 	    StringInputStream functionInputStream = new StringInputStream(scriptString, inputStatus); // aEnvironment.getCurrentInput().iStatus);
 
-	    scriptCode[0] = "+";
-
 	    Utility.doInternalLoad(aEnvironment, aStackTop, functionInputStream);
+	    
+	    scriptCode[0] = "+";
 
 	    if (Evaluator.DEBUG) {
 

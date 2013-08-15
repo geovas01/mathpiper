@@ -601,7 +601,17 @@ public final class Environment {
 
     public void defineRulebase(int aStackTop, String aOperator, Cons aParameters, boolean aListed)
 	    throws Throwable {
-
+	
+	String[] scriptArray = this.scripts.getScript(aOperator);
+	
+	//System.out.println(iCurrentInput.iStatus.getSourceName());
+	
+	if(scriptArray != null && iCurrentInput.iStatus.getSourceName().contains("USER"))
+	{
+	    LispError.throwError(this, aStackTop, "The function <" + aOperator + "> is a library function, and library functions cannot be redefined.");
+	}
+	
+	
 	MultipleArityRulebase multipleArityUserFunction = getMultipleArityRulebase(aStackTop, aOperator, true);
 
 	// add an operator with this arity to the multiuserfunc.

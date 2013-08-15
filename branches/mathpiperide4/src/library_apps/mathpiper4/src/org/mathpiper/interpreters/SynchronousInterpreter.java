@@ -132,7 +132,7 @@ public class SynchronousInterpreter implements Interpreter {
                     printer = new MathPiperUnparser(iEnvironment.iPrefixOperators, iEnvironment.iInfixOperators, iEnvironment.iPostfixOperators, iEnvironment.iBodiedOperators);
 
 
-                    EvaluationResponse initializationEvaluationResponse = evaluate("MathPiperInitLoad();");
+                    EvaluationResponse initializationEvaluationResponse = evaluate("MathPiperInitLoad();", false, "INITIALIZATION");
                     if (initializationEvaluationResponse.isExceptionThrown()) {
                         Throwable ex = initializationEvaluationResponse.getException();
                         throw ex;
@@ -192,7 +192,7 @@ public class SynchronousInterpreter implements Interpreter {
 
                     //iEnvironment.scripts = null;
                     
-                    initializationEvaluationResponse = evaluate("NM(2 + 2);");
+                    initializationEvaluationResponse = evaluate("NM(2 + 2);", false, "INITIALIZATION");
                     if (initializationEvaluationResponse.isExceptionThrown()) {
                         Throwable ex = initializationEvaluationResponse.getException();
                         throw ex;
@@ -224,17 +224,16 @@ public class SynchronousInterpreter implements Interpreter {
     }
 
     public EvaluationResponse evaluate(String inputExpression) {
-        return this.evaluate(inputExpression, false);
+        return this.evaluate(inputExpression, false, "USER_STRING");
+    }//end method.
+    
+    
+    public EvaluationResponse evaluate(String inputExpression, boolean notifyEvaluationListeners) {
+        return this.evaluate(inputExpression, notifyEvaluationListeners, "USER_STRING");
     }//end method.
 
-    /**
-    Evaluate an input expression which is a string.
 
-    @param inputExpression
-    @param notifyEvaluationListeners
-    @return
-     */
-    public EvaluationResponse evaluate(String inputExpression, boolean notifyEvaluationListeners) {
+    public EvaluationResponse evaluate(String inputExpression, boolean notifyEvaluationListeners, String inputSource) {
 
 
         EvaluationResponse evaluationResponse = EvaluationResponse.newInstance();
@@ -259,7 +258,7 @@ public class SynchronousInterpreter implements Interpreter {
 
             Cons parsedOrAppliedInputExpression;
 
-            iEnvironment.iInputStatus.setTo("String");
+            iEnvironment.iInputStatus.setTo(inputSource);
 
             StringInputStream newInput = new StringInputStream(inputExpression + ";", iEnvironment.iInputStatus);
 

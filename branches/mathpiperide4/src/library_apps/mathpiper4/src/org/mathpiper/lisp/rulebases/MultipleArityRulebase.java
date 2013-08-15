@@ -116,5 +116,10 @@ public class MultipleArityRulebase {
     public Iterator getFunctions() {
         return this.iFunctions.iterator();
     }
+    
+    public String toString()
+    {
+	return this.functionName;
+    }
 
 }
