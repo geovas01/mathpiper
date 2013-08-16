@@ -882,7 +882,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
             {
         	EvaluationException evaluationException = (EvaluationException) exception;
         	
-        	exceptionMessage = "\nException: " + exception.getMessage() + " Error starts at index " + ((evaluationException.getStartIndex())-1);;
+        	exceptionMessage = "\nException: " + exception.getMessage() + " Error on or before line " + (evaluationException.getLineNumber() +1) + " starting at index " + (evaluationException.getStartIndex()) + ".";
       
             }
             else

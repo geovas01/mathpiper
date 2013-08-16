@@ -36,7 +36,7 @@ import org.mathpiper.lisp.unparsers.LispUnparser;
 public abstract class Cons //Note:tk:was MathPiperObject.
 {
 
-    protected Map metadataMap;
+    protected Map<String,Integer> metadataMap;
 
     public Cons() throws Throwable
     {
@@ -137,14 +137,14 @@ public abstract class Cons //Note:tk:was MathPiperObject.
      *  Return a pointer to extra info. This allows for annotating
      *  an object. Returns NULL by default.
      */
-    public Map getMetadataMap()
+    public Map<String,Integer> getMetadataMap()
     {
         return metadataMap;
     }//end method.
 
 
 
-    public void setMetadataMap(Map metaDataMap)
+    public void setMetadataMap(Map<String,Integer> metaDataMap)
     {
         this.metadataMap = metaDataMap;
     }//end method.

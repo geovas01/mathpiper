@@ -99,22 +99,23 @@ public class LoadScriptFile extends BuiltinFunction {
 }// end class.
 
 /*
- * %mathpiper_docs,name="LoadScriptFile",categories="Programming Functions;Input/Output;Built In"
- * CMD LoadScriptFile --- evaluate MathPiper code that is in a file
- * CORE
- * CALL LoadScriptFile(fileName)
- * 
- * PARMS
- * 
- * {fileName} -- a string that contains the path and name of a file that
- * contains MathPiper code
- * 
- * DESC
- * 
- * If the file is a .mpw file, all the code in %mathpiper folds that have a name attribute
- * and a def attribute is evaluated. For other file types, all MathPiper code in the file
- * is evaluated.
- * {LoadScriptFile} always returns {True}.
- * 
- * SEE LoadScript %/mathpiper_docs
- */
+%mathpiper_docs,name="LoadScriptFile",categories="Programming Functions;Input/Output;Built In"
+*CMD LoadScriptFile --- evaluate MathPiper code that is in a file
+
+*CALL LoadScriptFile(fileName)
+
+*PARMS
+
+{fileName} -- a string that contains the path and name of a file that
+contains MathPiper code
+
+*DESC
+
+If the file is a .mpw file, all the code in %mathpiper folds that have a name attribute
+and a def attribute is evaluated. For other file types, all MathPiper code in the file
+is evaluated.
+{LoadScriptFile} always returns {True}.
+
+*SEE LoadScript 
+%/mathpiper_docs
+*/
