@@ -17,6 +17,9 @@
 package org.mathpiper.lisp;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.Cons;
@@ -186,11 +189,22 @@ public class LispError {
     }//end method.
 
     //========================================
+    
+    
+    
 
     public static void throwError(Environment aEnvironment, int aStackTop, Object aErrorMessage) throws Throwable {
-        throwError(aEnvironment, aStackTop, aErrorMessage, aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex());
+	Map<String,Integer> location = new HashMap<String,Integer>();
+	location.put("lineNumber", -1);
+	location.put("startIndex", -1);
+	location.put("endIndex", -1);
+	throwError(aEnvironment, aStackTop, aErrorMessage, location.get("lineNumber"), location.get("startIndex"), location.get("endIndex"));
     }
 
+    public static void throwError(Environment aEnvironment, int aStackTop, Object aErrorMessage, Map<String,Integer> location) throws Throwable {
+        throwError(aEnvironment, aStackTop, aErrorMessage, location.get("lineNumber"), location.get("startIndex"), location.get("endIndex"));
+    }
+    
     public static void throwError(Environment aEnvironment, int aStackTop, Object aErrorMessage, int lineNumber, int tokenStartIndex, int tokenEndIndex) throws Throwable {
     
             String stackTrace = "";
@@ -234,7 +248,7 @@ public class LispError {
         throwError(aEnvironment, aStackTop, errNo, aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex());
     }
 
-    public static void throwError(Environment aEnvironment, int aStackTop, int errNo, int lineNumber, int tokenStartIndex, int tokenEndIndex) throws Throwable {
+    private static void throwError(Environment aEnvironment, int aStackTop, int errNo, int lineNumber, int tokenStartIndex, int tokenEndIndex) throws Throwable {
 
             String stackTrace = "";
 
@@ -270,9 +284,6 @@ public class LispError {
     
     
     //========================================
-    public static void raiseParseError(String aErrorMessage, int aStackTop, Environment aEnvironment) throws Throwable {
-        raiseParseError(aErrorMessage,  aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex(), aStackTop, aEnvironment);
-    }
 
     public static void raiseParseError(String aErrorMessage, int lineNumber, int tokenStartIndex, int tokenEndIndex, int aStackTop, Environment aEnvironment) throws Throwable {
         String stackTrace = "";
@@ -304,7 +315,7 @@ public class LispError {
         errorNumberOfArguments(needed, passed, aArguments, aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex(), aEnvironment, aStackTop);
     }
 
-    public static void errorNumberOfArguments(int needed, int passed, Cons aArguments,  int lineNumber, int tokenStartIndex, int tokenEndIndex, Environment aEnvironment, int aStackTop) throws Throwable {
+    private static void errorNumberOfArguments(int needed, int passed, Cons aArguments,  int lineNumber, int tokenStartIndex, int tokenEndIndex, Environment aEnvironment, int aStackTop) throws Throwable {
         String stackTrace = "";
 
         if (Evaluator.isStackTraced() && aStackTop >= 0) {
@@ -349,8 +360,13 @@ public class LispError {
 
     public static void lispAssert(Environment aEnvironment, int aStackTop) throws Throwable {
   
-            //throw new EvaluationException("Assertion failed.","none",-1);
-            throwError(aEnvironment, aStackTop, "Assertion error.");
+            Map<String,Integer> location = new HashMap<String,Integer>();
+            
+            location.put("lineNumber", -1);
+            location.put("startIndex", -1);
+            location.put("endIndex", -1);
+            
+            throwError(aEnvironment, aStackTop, "Assertion error.", location);
      
     }
 
@@ -375,7 +391,7 @@ public class LispError {
         checkArgumentTypeWithError(aEnvironment, aStackTop, aArgNr, aErrorDescription, aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex());
     }
 
-    public static void checkArgumentTypeWithError(Environment aEnvironment, int aStackTop, int aArgNr, String aErrorDescription, int lineNumber, int startIndex, int endIndex) throws Throwable {
+    private static void checkArgumentTypeWithError(Environment aEnvironment, int aStackTop, int aArgNr, String aErrorDescription, int lineNumber, int startIndex, int endIndex) throws Throwable {
 
             String stackTrace = "";
 

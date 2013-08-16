@@ -95,7 +95,7 @@ public class LispExpressionEvaluator extends Evaluator {
 	if (Environment.haltEvaluation == true) {
 	    Environment.haltEvaluation = false;
 
-	    LispError.raiseError(Environment.haltEvaluationMessage, aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex(), aStackTop, aEnvironment);
+	    LispError.raiseError(Environment.haltEvaluationMessage,  aStackTop, aEnvironment);
 	}
 
 	// evaluate an atom: find the bound value (treat it as a variable)
@@ -182,7 +182,7 @@ public class LispExpressionEvaluator extends Evaluator {
 	    
 	   
 	    
-	    LispError.throwError(aEnvironment, aStackTop, "The variable <" + atomName + "> does not have a value assigned to it.");
+	    LispError.throwError(aEnvironment, aStackTop, "The variable <" + atomName + "> does not have a value assigned to it.", aExpression.getMetadataMap());
 
 	}
 
@@ -273,8 +273,7 @@ public class LispExpressionEvaluator extends Evaluator {
 	    // System.out.println(functionName);
 
 	    if (Utility.loadLibraryFunction(functionName, aEnvironment, aStackTop) == false) {
-		LispError.throwError(aEnvironment, aStackTop, "No script returned for function: " + functionName
-			+ " from Scripts.java.");
+		LispError.throwError(aEnvironment, aStackTop, "The function <" + functionName + "> is not defined.", head.getMetadataMap());
             }
 
 	    userFunc = (SingleArityRulebase) aEnvironment.getRulebase(aStackTop, subList);

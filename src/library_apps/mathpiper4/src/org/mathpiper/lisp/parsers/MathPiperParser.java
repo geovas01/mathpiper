@@ -69,7 +69,6 @@ public class MathPiperParser extends Parser
         iBodiedOperators = aBodiedOperators;
         iEnvironment = aEnvironment;
 
-        iError = false;
         iEndOfFile = false;
         iLookAhead = new String[4];
     }
@@ -112,24 +111,11 @@ public class MathPiperParser extends Parser
         }
 
 
-        //todo:tk:is this iError code needed?
-        if (iError)
+        while (iLookAhead[0].length() > 0 && !iLookAhead[0].equals(iEnvironment.iEndStatementAtom))
         {
-            while (iLookAhead[0].length() > 0 && !iLookAhead[0].equals(iEnvironment.iEndStatementAtom))
-            {
-                readToken(aStackTop);
-            }
+            readToken(aStackTop);
         }
-
-        if (iError)
-        {
-            parsedExpression = null;
-        }
-
-
-
-
-        if(iError) LispError.throwError(iEnvironment, aStackTop, LispError.INVALID_EXPRESSION, "");
+        
 
         return parsedExpression;
     }
@@ -206,7 +192,7 @@ public class MathPiperParser extends Parser
                     if(iLookAhead[0].equals(""))
                     {
 
-                       LispError.raiseError("Expression must end with a semi-colon ***( ; )*** ", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
+                       LispError.raiseParseError("Expression must end with a semi-colon ***( ; )*** ", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
                         return;
                     }
                     if (MathPiperTokenizer.isSymbolic(iLookAhead[0].charAt(0)))
@@ -498,7 +484,7 @@ public class MathPiperParser extends Parser
 
         if(Environment.saveDebugInformation == true && aString[1] != null)
         {
-            Map metaDataMap = new HashMap();
+            Map<String,Integer> metaDataMap = new HashMap<String,Integer>();
             metaDataMap.put("lineNumber", Integer.parseInt(aString[1]));
             metaDataMap.put("startIndex", Integer.parseInt(aString[2]));
             metaDataMap.put("endIndex", Integer.parseInt(aString[3]));

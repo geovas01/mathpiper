@@ -203,7 +203,7 @@ public class WebConsole implements EntryPoint {
 						//<FONT COLOR="######">text text text text text</FONT>
 
 						errorResult = "<FONT COLOR=\"FF0000\">" + evaluationException.getMessage()
-								+ " Error near line "
+								+ " Error at or before line "
 								+ (errorLineNumber + 1)
 								+ " starting at index " + startIndex + ".</FONT>";
 

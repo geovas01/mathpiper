@@ -55,8 +55,7 @@ public class LoadLibraryFunction extends BuiltinFunction
         scriptString = Utility.stripEndQuotesIfPresent(scriptString);
 
 	if (Utility.loadLibraryFunction(scriptString, aEnvironment, aStackTop) == false) {
-	    LispError.throwError(aEnvironment, aStackTop, "No script returned for function: " + functionName
-		    + " from Scripts.java.");
+	    LispError.throwError(aEnvironment, aStackTop, "The function <" + functionName + "> is not defined.", evaluated.getMetadataMap());
 	}
 
         setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
