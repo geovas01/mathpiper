@@ -637,7 +637,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 								
 								errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
 				
-								errorResult =  exception.getMessage() + " Error at or before line " + (adjustedErrorLineNumber + 1) + " starting at index " + startIndex + ".";							
+								errorResult =  exception.getMessage() + " Error on or before line " + (adjustedErrorLineNumber + 1) + " starting at index " + startIndex + ".";							
 								
 								filePath = textArea.getBuffer().getPath();
 							
