@@ -751,7 +751,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						
 						
 			
-						displayResult();
+						displayResult(true);
 						
 						//JFreeChart handler.
 						/*if(evaluationResponse.getObject() != null)
@@ -782,7 +782,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				
 					//System.out.println(tempFilePath);
 				
-					//Evaluation has been moved to the displayResult() method.
+					//Evaluation has been moved to the displayResult(true) method.
 					//asynchronousInterpreter.evaluate("LoadScript(\""+tempFilePath+"\");");
 					//System.out.println("XXXXX submitted evaluation.");
 				new Thread(new Runnable() {
@@ -813,8 +813,11 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				//wm.addDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME);
 				wm.getDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME).setHaltButtonState(true);
 				
+				
+				 
+				
 				if(foldProperties.get("log").equalsIgnoreCase("true"))
-				{
+				{		
 					output_fold_type = "%info";
 					result = codeText.replace("\n","|");
 				}
@@ -868,7 +871,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 					System.out.println("WWWW " + response );
 					result = response;
 					
-					displayResult();
+					displayResult(true);
 					
 				}//end method.
 				
@@ -929,7 +932,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						
 						result = response;//The variable "result" is what gets displayed in the output fold.
 						
-						displayResult();
+						displayResult(true);
 						
 					}//end method.
 					
@@ -1007,7 +1010,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						
 						result = response;//The variable "result" is what gets displayed in the output fold.
 						
-						displayResult();
+						displayResult(true);
 						
 					}//end method.
 					
@@ -1104,7 +1107,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						}
 						
 						
-						displayResult();
+						displayResult(true);
 						
 					}//end method.
 					
@@ -2131,7 +2134,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						
 
 				
-				void displayResult()
+				void displayResult(saveBuffer)
 				{
 					//Buffer update needs to be done later in the AWT thread because of needing
 					// to wait for the buffer to be saved (which was requested earlier).
@@ -2249,7 +2252,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						result = result.replaceAll("\n","\n" + indentAmount + "  ");//("\n","\n      ");
 						result = indentAmount + "  " + result;
 						indentAmountPeriod = indentAmount.toString().replaceFirst(" ",".");
-						
+			
 						if(output_fold_type.equals("%info") && foldProperties.get("log").equals("false"))
 						{
 							preserveProperty = "false";
@@ -2304,8 +2307,10 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						*/
 
 									
-
-						buffer.save(view,null);
+						if(saveBuffer == true)
+						{
+							buffer.save(view,null);
+						}
 						
 
 					}//end run method.
@@ -2317,6 +2322,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				}//end method.
 
 				
+			    displayResult(false);	//Display %info fold.
 
 							
 
