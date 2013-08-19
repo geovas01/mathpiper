@@ -190,12 +190,25 @@ public class LispExpressionEvaluator extends Evaluator {
 	    Cons functionAndArgumentsList = (Cons) aExpression.car();
 	    Cons head = functionAndArgumentsList;
 	    if (head != null) {
+		
+
 
 		String functionName;
 
 		if (head.car() instanceof String) {
 
 		    functionName = (String) head.car();
+		    
+		    /*
+		     //Note:tk:this code prints the locations of operators that are being executed in the user's code.
+		    Map map = head.getMetadataMap();
+
+		    if(map != null)
+		    {
+			System.out.println(functionName + " " + map.get("lineNumber") + ", " + map.get("startIndex") + ", " + map.get("endIndex") + ",  " + Utility.printMathPiperExpression(-1, aExpression, aEnvironment, 0));
+		    }
+		    */
+		    
 
 		    // Built-in function handler.
 		    BuiltinFunctionEvaluator builtinInFunctionEvaluator = (BuiltinFunctionEvaluator) aEnvironment.getBuiltinFunctions().get(functionName);
