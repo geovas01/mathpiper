@@ -199,7 +199,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 		
 		indentAmount = "    ";
 		
-		userSelection = textArea.getSelection();
+		//userSelection = textArea.getSelection();
     }
 	else
 	{
@@ -207,7 +207,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 		//buffer.setMode("mathpiperide");
 		currentCaretPosition = textArea.getCaretPosition();
 		
-		userSelection = textArea.getSelection();
+		//userSelection = textArea.getSelection();
 		
 		textArea.selectFold();
 		fold  = textArea.getSelection()[0];
@@ -329,6 +329,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 		}//end if/else
 		
 		
+		/*
 		if(userSelection.length != 0)
 		{
 			textArea.setSelection(userSelection);
@@ -337,6 +338,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 			
 			textArea.setSelection(null);
 		}
+		*/
 	
 		
 		//Remove the rest of the fold text starting at \\ if present.
@@ -2294,11 +2296,12 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						}//end if.
 						
 						
-						
+						/*
 						if(userSelection.length != 0)
 						{
 						   textArea.setSelection(userSelection);
 						}
+						*/
 
 									
 
