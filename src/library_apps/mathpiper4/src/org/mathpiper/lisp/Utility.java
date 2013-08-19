@@ -1615,6 +1615,8 @@ public class Utility {
 	    inputStatus.nextLine();
 
 	    StringInputStream functionInputStream = new StringInputStream(scriptString, inputStatus); // aEnvironment.getCurrentInput().iStatus);
+	    
+	    Environment.saveDebugInformation = false;
 
 	    Utility.doInternalLoad(aEnvironment, aStackTop, functionInputStream);
 	    
@@ -1636,6 +1638,26 @@ public class Utility {
 	
 	return true;
     }
+    
+    
+    
+    public static boolean loadLibraryScript(String scriptCode, Environment aEnvironment, int aStackTop) throws Throwable {
+
+	InputStatus inputStatus = new InputStatus("UTILITY_LOADLIBRARYSCRIPT");
+
+	inputStatus.nextLine();
+
+	Environment.saveDebugInformation = false;
+
+	StringInputStream functionInputStream = new StringInputStream(scriptCode, inputStatus); // aEnvironment.getCurrentInput().iStatus);
+
+	Utility.doInternalLoad(aEnvironment, aStackTop, functionInputStream);
+
+
+
+	return true;
+    }
+
 
 }//end class.
 

@@ -131,14 +131,17 @@ public class SynchronousInterpreter implements Interpreter {
                     
                     printer = new MathPiperUnparser(iEnvironment.iPrefixOperators, iEnvironment.iInfixOperators, iEnvironment.iPostfixOperators, iEnvironment.iBodiedOperators);
 
-
+                    /*
                     EvaluationResponse initializationEvaluationResponse = evaluate("MathPiperInitLoad();", false, "INITIALIZATION");
                     if (initializationEvaluationResponse.isExceptionThrown()) {
                         Throwable ex = initializationEvaluationResponse.getException();
                         throw ex;
                     }
-
-
+                    */
+                    
+            	    Utility.loadLibraryScript("MathPiperInitLoad();", iEnvironment, loopIndex);
+            	
+            	
                     scripts = iEnvironment.scripts;
 
                     //Map scriptsMap = scripts.getMap();
@@ -150,6 +153,8 @@ public class SynchronousInterpreter implements Interpreter {
                     functionList.add("*");
                     functionList.add("/");
                     functionList.add("^");
+                    functionList.add("++");
+                    functionList.add("--");
                     //functionList.add("UniVar?");
                     //functionList.add("Sign");
                     //functionList.add("MakeMultiNomial");
@@ -192,11 +197,13 @@ public class SynchronousInterpreter implements Interpreter {
 
                     //iEnvironment.scripts = null;
                     
+                    /*
                     initializationEvaluationResponse = evaluate("NM(2 + 2);", false, "INITIALIZATION");
                     if (initializationEvaluationResponse.isExceptionThrown()) {
                         Throwable ex = initializationEvaluationResponse.getException();
                         throw ex;
                     }
+                    */
 
                     System.out.print("done. \n");
 

@@ -130,7 +130,14 @@ public class MathPiperParser extends Parser
    //if(iEnvironment.saveDebugInformation )System.out.println(iLookAhead[0] + "XX");
         
         if(Environment.saveDebugInformation)
-        {        
+        {     
+            /*
+            if(iLookAhead[0].equals("UnFence"))
+            {
+        	int xx = 1;
+            }
+            */
+            
             iLookAhead[1] = iInput.iStatus.getLineNumber() + "";
             iLookAhead[3] = iInput.iStatus.getLineIndex() + "";
             iLookAhead[2] = (iInput.iStatus.getLineIndex() - iLookAhead[0].length()) + "";
@@ -185,6 +192,7 @@ public class MathPiperParser extends Parser
                 combine(aEnvironment,aStackTop, 2);
             } else
             {
+        	//Handle infix operators.
                 Operator op = (Operator) iInfixOperators.map.get(iLookAhead[0]);
                 if (op == null)
                 {
@@ -263,7 +271,6 @@ public class MathPiperParser extends Parser
         if (op != null)
         {
             String[] theOperator = new String[4];
-
             System.arraycopy(iLookAhead, 0, theOperator, 0, iLookAhead.length);
 
             matchToken(aStackTop, iLookAhead[0]);
@@ -326,23 +333,6 @@ public class MathPiperParser extends Parser
                 }
             }
             
-    //-----
-/*    String fileName = iInput.iStatus.getFileName();
-    int commaIndex = fileName.indexOf(",");
-    if(commaIndex != -1)
-    {
-    fileName = fileName.substring(0, commaIndex);
-    
-    
-  System.out.println("convert(\"/home/tkosan/workspace/mathpiper4/src" + fileName + "\"," + (iInput.iStatus.getLineNumber()) + "," + (iInput.iStatus.getLineIndex()) + ");" );//Note:tk:remove.
-    }
-    else
-    {
-	    System.out.println(" XXX ," + fileName);
-    }
-    */
-    //-----
-            
             
             matchToken(aStackTop, iLookAhead[0]);
             String theOperator = (String) iEnvironment.iBlockAtom;
@@ -359,7 +349,7 @@ public class MathPiperParser extends Parser
 
             //System.out.println(iLookAhead[0] + " " + iInput.iStatus.getLineNumber() + " " + (iInput.iStatus.getLineIndex() - iLookAhead[0].length()) + "," + iInput.iStatus.getLineIndex());
 
-            //This code is used by AnalyzeScripts to locate where a given function or operator us located in the scripts.
+            //This code is used by AnalyzeScripts to locate where a given function or operator is located in the scripts.
             if(locateFunctionOrOperatorName != null && locateFunctionOrOperatorName.equals(iLookAhead[0]))
             {
                 Map locationInformation = new HashMap();
@@ -424,7 +414,9 @@ public class MathPiperParser extends Parser
         // parse postfix operators
         while ((op = (Operator) iPostfixOperators.map.get(iLookAhead[0])) != null)
         {
-            insertAtom(aEnvironment, aStackTop, iLookAhead[0]);
+            String[] theOperator = new String[4];
+            System.arraycopy(iLookAhead, 0, theOperator, 0, iLookAhead.length);
+            insertAtom(aEnvironment, aStackTop, theOperator);
             matchToken(aStackTop, iLookAhead[0]);
             combine(aEnvironment,aStackTop, 1);
         }
@@ -432,7 +424,8 @@ public class MathPiperParser extends Parser
 
     private void getOtherSide(Environment aEnvironment, int aStackTop, int aNrArgsToCombine, int depth) throws Throwable
     {
-        String theOperator = iLookAhead[0];
+        String[] theOperator = new String[4];
+        System.arraycopy(iLookAhead, 0, theOperator, 0, iLookAhead.length);
         matchToken(aStackTop, iLookAhead[0]);
         readExpression(aEnvironment, aStackTop,  depth);
         insertAtom(aEnvironment, aStackTop, theOperator);
