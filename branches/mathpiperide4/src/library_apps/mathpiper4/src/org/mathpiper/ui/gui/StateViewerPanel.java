@@ -117,6 +117,23 @@ public class StateViewerPanel extends JPanel implements ResponseListener {
 
 	add(buttonsPanel, BorderLayout.NORTH);
 
+	SwingUtilities.invokeLater(new Runnable() {
+	    @Override
+	    public void run() {
+		Font font = table.getFont();
+		font = font.deriveFont((float) (font.getSize2D() * 2));
+		table.setFont(font);
+		FontMetrics fontMetrics = table.getGraphics().getFontMetrics(font);
+		Rectangle2D rectangle = fontMetrics.getStringBounds("H", table.getGraphics());
+		table.setRowHeight((int) rectangle.getHeight());
+
+		JTableHeader tableHeader = table.getTableHeader();
+		font = tableHeader.getFont();
+		font = font.deriveFont((float) (font.getSize2D() * 1.7));
+		tableHeader.setFont(font);
+	    }
+	});
+
     }
 
     public void response(EvaluationResponse response) {
