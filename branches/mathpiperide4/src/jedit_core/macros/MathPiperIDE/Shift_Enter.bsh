@@ -119,7 +119,7 @@ else if (path.endsWith(".uasm")|| path.endsWith(".UASM") )
 	
 }
 else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
-{
+{	
 	File tempFile = null;
 	
 	getFoldProperties(startLine)
@@ -402,7 +402,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 			}//end if/else.
 			
 			tempFile = File.createTempFile("mathpiperide", fileExtension);
-		
+			
 			// Delete temp file when program exits.
 			tempFile.deleteOnExit();
 		
@@ -410,6 +410,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 			BufferedWriter out = new BufferedWriter(new FileWriter(tempFile));
 			out.write(codeText);
 			out.close();
+			
 		}
 		catch(Exception e)
 		{
@@ -2277,6 +2278,21 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						
 						textArea.setSelectedText(beforeNewlines + indentAmount + output_fold_type + "," + parentProperty + "sequence=\"" + mpwExecutionCount + ",timestamp=\"" + timestamp + "\",preserve=\"" +  preserveProperty  + "\"\n" + result + "\n" + indentAmountPeriod + "%/" + output_fold_type.substring(1,output_fold_type.length() ) + afterNewlines, false);
 						
+				 		try
+				 		{
+                            if(output_fold_type.equalsIgnoreCase("%info"))
+                            {
+                                File logFile = new File(path + ".log");
+                                BufferedWriter logFileWriter = new BufferedWriter(new FileWriter(logFile,true));
+                                logFileWriter.write("%info" + "," + parentProperty + "sequence=\"" + mpwExecutionCount + ",timestamp=\"" + timestamp + "\",username=\"" +  System.getProperty("user.name")  + "\",hostname=\"" +  InetAddress.getLocalHost().getHostName()  + "\",mpversion=\"" + org.mathpiper.Version.version() + "\"\n" + codeText.replace("\n","|") + "\n" + "%/" + output_fold_type.substring(1,output_fold_type.length() ) + "\n\n");
+                                logFileWriter.close();
+                            }
+                        }
+						catch(Exception e)
+						{
+							e.printStackTrace();;
+						}
+						
 						//textArea.setSelection(null);
 						//("\n\n     " + output_fold_type + "\n      "+ result + "\n     %end\n",false);
 				 
@@ -2323,6 +2339,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 
 				
 			    displayResult(false);	//Display %info fold.
+			    
 
 							
 

@@ -121,7 +121,7 @@ public class StateViewerPanel extends JPanel implements ResponseListener {
 	    @Override
 	    public void run() {
 		Font font = table.getFont();
-		font = font.deriveFont((float) (font.getSize2D() * 2));
+		font = font.deriveFont((float) (font.getSize2D() * 1.7));
 		table.setFont(font);
 		FontMetrics fontMetrics = table.getGraphics().getFontMetrics(font);
 		Rectangle2D rectangle = fontMetrics.getStringBounds("H", table.getGraphics());
@@ -129,7 +129,7 @@ public class StateViewerPanel extends JPanel implements ResponseListener {
 
 		JTableHeader tableHeader = table.getTableHeader();
 		font = tableHeader.getFont();
-		font = font.deriveFont((float) (font.getSize2D() * 1.7));
+		font = font.deriveFont((float) (font.getSize2D() * 1.4));
 		tableHeader.setFont(font);
 	    }
 	});
