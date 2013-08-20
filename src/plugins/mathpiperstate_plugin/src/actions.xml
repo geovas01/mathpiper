@@ -1,0 +1,28 @@
+<!-- Action definition file for MathPiperState plugin -->
+
+
+<!DOCTYPE ACTIONS SYSTEM "actions.dtd">
+
+<ACTIONS>
+	<ACTION NAME="mathpiperstate.choose-file">
+		<CODE>
+			wm.addDockableWindow(org.mathpiper.ide.mathpiperstateplugin.MathPiperStatePlugin.NAME);
+			wm.getDockableWindow(org.mathpiper.ide.mathpiperstateplugin.MathPiperStatePlugin.NAME).chooseFile();
+		</CODE>
+	</ACTION>
+
+	<ACTION NAME="mathpiperstate.save-file">
+		<CODE>
+			wm.addDockableWindow(org.mathpiper.ide.mathpiperstateplugin.MathPiperStatePlugin.NAME);
+			wm.getDockableWindow(org.mathpiper.ide.mathpiperstateplugin.MathPiperStatePlugin.NAME).saveFile();
+		</CODE>
+	</ACTION>
+
+	<ACTION NAME="mathpiperstate.copy-to-buffer">
+		<CODE>
+			wm.addDockableWindow(org.mathpiper.ide.mathpiperstateplugin.MathPiperStatePlugin.NAME);
+			wm.getDockableWindow(org.mathpiper.ide.mathpiperstateplugin.MathPiperStatePlugin.NAME).copyToBuffer();
+		</CODE>
+	</ACTION>
+</ACTIONS>
+

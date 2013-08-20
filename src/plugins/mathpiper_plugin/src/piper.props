@@ -7,7 +7,7 @@
 plugin.org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.activate=startup
 # we only have one dependency, jEdit 4.2, since we use the new plugin API
 # These two properties are required for all plugins
-plugin.org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.name=MathPiper
+plugin.org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.name=MathPiperConsole
 plugin.org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.author=Ted Kosan
 
 # version number == jEdit version number
@@ -62,7 +62,7 @@ options.mathpiper.choose-font=Font:
 options.mathpiper.show-filepath.title=Display notepad file path
 
 # window title
-mathpiper.title=MathPiper
+mathpiper.title=MathPiperConsole
 
 # window toolbar buttons
 mathpiper.choose-file.icon=Open.png

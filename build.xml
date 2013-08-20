@@ -8,7 +8,7 @@
 	</description> 
 	
 	<!-- Misc properties -->
-	<property name="version" value=".813" />
+	<property name="version" value=".815" />
 	<property name="mathpiper.version" value="mathpiper4" />        
 	
 	<property name="master.compile.source" value="1.6" />
@@ -358,6 +358,20 @@
 	</target>
 	
 	
+	<target id="mathpiperstate_plugin" name="mathpiperstate_plugin" depends="" >
+		<ant dir="${plugins.src.dir}/mathpiperstate_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
+			<property name="build.dir" value="${plugins.build.dir}/mathpiperstate_plugin"/>
+			<property name="compile.source" value="${master.compile.source}"/>
+			<property name="compile.target" value="${master.compile.target}"/>
+			<property name="src.dir" value="${plugins.src.dir}/mathpiperstate_plugin/src"/>
+			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
+			<reference refid="build_classpath"/>
+		</ant>
+		
+		<copy file="${plugins.build.dir}/mathpiperstate_plugin/dist/mathpiperstate_plugin.jar" todir="${plugins.jars.dir}"/>
+	</target>
+	
+	
 	
 	<target id="threedxplormathj_plugin" name="threedxplormathj_plugin" depends="" >
 		<ant dir="${plugins.src.dir}/threedxplormathj_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
@@ -450,7 +464,7 @@
 	
 	<!-- -->
 	<target id="all-plugins" name="all-plugins" depends="mathpiper_plugin, mathpiper_docs_plugin, jlog_plugin, 
-		u6502_plugin, jfreechart_plugin, threedxplormathj_plugin, mpreduce_plugin, sqldb_plugin" />
+		u6502_plugin, jfreechart_plugin, threedxplormathj_plugin, mpreduce_plugin, sqldb_plugin, mathpiperstate_plugin" />
 	
 	
 	
