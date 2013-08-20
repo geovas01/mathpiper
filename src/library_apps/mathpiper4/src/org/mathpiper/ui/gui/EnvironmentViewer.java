@@ -796,6 +796,7 @@ public class EnvironmentViewer implements ActionListener {
         contextMenu.add(pasteMenu);
 
 
+        /*
         JMenuItem unbindMenu = new JMenuItem();
         unbindMenu.setText("Unassign");
 
@@ -818,6 +819,7 @@ public class EnvironmentViewer implements ActionListener {
         });
 
         contextMenu.add(unbindMenu);
+        */
 
 
 
