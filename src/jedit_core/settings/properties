@@ -25,6 +25,7 @@ configurablefoldhandler.endfold=%/mathpiper|%/mathpiper_docs|%/mathpiper_trace|%
 configurablefoldhandler.startfold=%mathpiper|%mathpiper_docs|%mathpiper_trace|%maxima|%lisp|%prolog|%geogebra|%geogebra_xml|%hoteqn|%beanshell|%output|%error|%html|%uasm65|%group|%clojure|%uasm65|%s19|%jung|%latex|%_fricas|%reduce|%info|%sql
 configurablefoldhandler.use-regex=true
 console.extendedState=0
+console.dock-position=floating
 console.height=173
 console.width=416
 console.x=50
