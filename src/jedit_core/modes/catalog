@@ -493,6 +493,9 @@
 
 <MODE NAME="rd"			FILE="rd.xml"
 				FILE_NAME_GLOB="*.rd" />
+				
+<MODE NAME="regex"		FILE="regex.xml"
+				FILE_NAME_GLOB="*.regex" />
 
 <MODE NAME="rest"		FILE="rest.xml"
 				FILE_NAME_GLOB="*.{rst,rest}"

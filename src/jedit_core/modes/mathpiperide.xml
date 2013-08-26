@@ -138,6 +138,16 @@
 			<BEGIN>%sql[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;]*</BEGIN>
 			<END>%/sql</END>
 		</SPAN_REGEXP>
+		
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="regex::MAIN">
+			<BEGIN>%regex[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;]*</BEGIN>
+			<END>%/regex</END>
+		</SPAN_REGEXP>
+		
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="MAIN">
+			<BEGIN>%text[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;]*</BEGIN>
+			<END>%/text</END>
+		</SPAN_REGEXP>
 
 	</RULES>
     
