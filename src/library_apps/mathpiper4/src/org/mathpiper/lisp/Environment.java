@@ -214,13 +214,20 @@ public final class Environment {
 			if (globalVariable.iConstant == false) {
 				globalVariable.iValue = aValue;
 			} else {
-				LispError
-						.throwError(
-								this,
-								aStackTop,
-								"<"
-										+ aVariable
-										+ "> is a constant, and values cannot be assigned to constants.");
+				
+			    Map metaDataMap = aValue.getMetadataMap();
+
+			    int lineNumber = getCurrentInput().iStatus.getLineNumber();
+			    int startIndex = -1;
+			    int endIndex = getCurrentInput().iStatus.getLineIndex();
+
+			    if (metaDataMap != null) {
+					lineNumber = (Integer) metaDataMap.get("lineNumber");
+					startIndex = (Integer) metaDataMap.get("startIndex");
+					endIndex = (Integer) metaDataMap.get("endIndex");
+			    }
+
+			    LispError.raiseError("<" + aVariable + "> is a constant, and values cannot be assigned to constants.", lineNumber, startIndex, endIndex, aStackTop, this);
 			}
 		}
 	}
