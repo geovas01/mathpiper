@@ -79,7 +79,7 @@ public class SingleArityRulebase extends Evaluator {
 		    LispError.throwError(aEnvironment, aStackTop, LispError.CREATING_USER_FUNCTION, functionName);
 	    } catch (EvaluationException ex) {
 		if (ex.getFunctionName() == null) {
-		    throw ex; //todo:tk:verbose error chekcing. new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", -1, -1, -1, this.functionName);
+		    throw ex; //todo:tk:verbose error checking. new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", -1, -1, -1, this.functionName);
 		} else {
 		    throw ex;
 		}
@@ -241,7 +241,7 @@ public class SingleArityRulebase extends Evaluator {
 	    // debugging.
 
 	    if (ex.getFunctionName() == null) {
-		throw ex; //todo:tk:verbose error chekcing. new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", ex.getLineNumber(), ex.getStartIndex(), ex.getEndIndex(), this.functionName);
+		throw ex; //todo:tk:verbose error checking. new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", ex.getLineNumber(), ex.getStartIndex(), ex.getEndIndex(), this.functionName);
 	    } else {
 		throw ex;
 	    }
