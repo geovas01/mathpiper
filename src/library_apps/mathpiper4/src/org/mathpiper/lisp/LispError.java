@@ -345,6 +345,7 @@ public class LispError {
     //========================================
 
     public static String showFunctionError(Cons aArguments, Environment aEnvironment) throws Throwable {
+    	/*
         if (aArguments == null) {
             return "Error in compiled code. ";
         } else {
@@ -354,6 +355,8 @@ public class LispError {
             }
         }
         return "[Atom]";
+        */
+    	return "";
     }
 
 

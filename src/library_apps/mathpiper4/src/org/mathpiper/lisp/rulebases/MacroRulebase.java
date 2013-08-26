@@ -40,7 +40,7 @@ public class MacroRulebase extends SingleArityRulebase {
                 if(! (parameterTraverser.car() instanceof String)) LispError.throwError(aEnvironment, aStackTop, LispError.CREATING_USER_FUNCTION, "");
             } catch (EvaluationException ex) {
                 if (ex.getFunctionName() == null) {
-                    throw ex; //todo:tk:verbose error chekcing. new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", -1,-1,-1, this.functionName);
+                    throw ex; //todo:tk:verbose error checking. new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", -1,-1,-1, this.functionName);
                 } else {
                     throw ex;
                 }
@@ -116,7 +116,7 @@ public class MacroRulebase extends SingleArityRulebase {
             }
         } catch (EvaluationException ex) {
             if (ex.getFunctionName() == null) {
-                throw ex; //todo:tk:verbose error chekcing. new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", -1,-1, -1, this.functionName);
+                throw ex; //todo:tk:verbose error checking. new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", -1,-1, -1, this.functionName);
             } else {
                 throw ex;
             }
