@@ -31,6 +31,8 @@ import org.gjt.sp.jedit.bsh.EvalError;
 import java.util.regex.*;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 /*
 //Used for Jung.
@@ -43,6 +45,36 @@ import org.apache.commons.collections15.Factory;
 		}};
 
 */
+
+getHostAddresses()
+{
+	stringBuilder = new StringBuilder();
+	
+	networkInterfaces = java.net.NetworkInterface.getNetworkInterfaces();
+	
+	while(networkInterfaces.hasMoreElements())
+	{
+		networkInterface = networkInterfaces.nextElement();
+		
+		iNetAddresses = networkInterface.getInetAddresses();
+		
+		while(iNetAddresses.hasMoreElements())
+		{
+			 iNetAddress =  iNetAddresses.nextElement();
+			 
+			 if(! iNetAddress.getHostAddress().toString().startsWith("127") && ! iNetAddress.getHostAddress().toString().contains(":"))
+			 {
+				 stringBuilder.append((iNetAddress.getHostAddress()) + ",");
+			 }
+		}
+	}
+	
+	return stringBuilder.toString();
+}
+
+
+
+
 ChangeToForwardSlash(tempFilePath)
 {
 // 	//Remove Windows drive letter from the path.
@@ -2075,7 +2107,105 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 			
 
 		}//end else
-		//end %latex }}}		
+		//end %latex }}}	
+		
+		
+	///{{{ *** %regex ***
+		else if(foldType.equalsIgnoreCase("%regex")) 
+		{
+			originalCaretPosition = textArea.getCaretPosition();
+			
+			inputFoldName = foldProperties.get("input");
+			
+			if(inputFoldName == "")
+			{
+				org.gjt.sp.jedit.Macros.message(jEdit.getActiveView(),"An input fold name needs to be specified in the header.");
+				
+				return;
+			}
+			
+			fileInputStream = new java.io.FileInputStream(buffer.getPath());
+			
+			if(fileInputStream == null)
+			{
+				org.gjt.sp.jedit.Macros.message(jEdit.getActiveView(),"The file " + buffer.getPath() + " does not exist.");
+				
+				return;
+			}
+			
+			foldsMap = org.mathpiper.test.MPWSFile.getFoldsMap(buffer.getPath(), fileInputStream);
+
+			inputFold = foldsMap.get(inputFoldName);
+			
+			if(inputFold == null)
+			{
+				org.gjt.sp.jedit.Macros.message(jEdit.getActiveView(),"There is no fold named " + inputFoldName + ".");
+				
+				return;
+			}
+						
+			foldStartLine = inputFold.getStartLineNumber();
+			
+			foldStartOffset = textArea.getLineStartOffset(foldStartLine);			
+
+			foldText = inputFold.getContents();
+			
+			fileInputStream.close();
+			
+			output_fold_type = "%info";
+			
+			if(foldProperties.get("name").equals(""))
+			{
+				parentProperty = "";
+			}
+			else
+			{
+				parentProperty = "parent=\"" + foldProperties.get("name") + "\",";
+			}
+			
+			date = new java.util.Date();
+			timestamp = new java.sql.Timestamp(date.getTime());
+
+			try
+			{
+				File logFile = new File(path + ".log");
+				BufferedWriter logFileWriter = new BufferedWriter(new FileWriter(logFile,true));
+				logFileWriter.write("%info" + "," + parentProperty + "sequence=\"" + mpwExecutionCount + "\",timestamp=\"" + timestamp + "\",username=\"" +  System.getProperty("user.name")  + "\",hostname=\"" +  InetAddress.getLocalHost().getHostName() + "\",hostaddresses=\"" +  getHostAddresses() +  "\"\n" + codeText + "\n" + "%/" + output_fold_type.substring(1,output_fold_type.length() ) + "\n\n");
+				logFileWriter.close();
+		    }
+			catch(Exception e)
+			{
+				e.printStackTrace();;
+			}
+			
+			try
+			{
+                pattern =  Pattern.compile(codeText,  Pattern.MULTILINE);
+                
+                matcher = pattern.matcher(foldText);
+                
+                while(matcher.find() == true)
+                {  
+                   Selection range = new Selection.Range(foldStartOffset + matcher.start(), foldStartOffset + matcher.end());
+                   
+                   textArea.addToSelection(range);
+                }
+                
+                textArea.moveCaretPosition(originalCaretPosition);
+                
+                return;
+			
+			}
+			catch(e)
+			{
+				org.gjt.sp.jedit.Macros.message(jEdit.getActiveView(), e.getMessage());
+				
+				return;
+			}
+			
+
+		}//end else
+		//end %regex }}}
 		
 		
 	///{{{ *** %output ***
@@ -2135,7 +2265,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						
 
 				
-				void displayResult(saveBuffer)
+				void displayResult(isSaveBuffer)
 				{
 					//Buffer update needs to be done later in the AWT thread because of needing
 					// to wait for the buffer to be saved (which was requested earlier).
@@ -2284,7 +2414,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
                             {
                                 File logFile = new File(path + ".log");
                                 BufferedWriter logFileWriter = new BufferedWriter(new FileWriter(logFile,true));
-                                logFileWriter.write("%info" + "," + parentProperty + "sequence=\"" + mpwExecutionCount + ",timestamp=\"" + timestamp + "\",username=\"" +  System.getProperty("user.name")  + "\",hostname=\"" +  InetAddress.getLocalHost().getHostName()  + "\",mpversion=\"" + org.mathpiper.Version.version() + "\"\n" + codeText.replace("\n","|") + "\n" + "%/" + output_fold_type.substring(1,output_fold_type.length() ) + "\n\n");
+                                logFileWriter.write("%info" + "," + parentProperty + "sequence=\"" + mpwExecutionCount + "\",timestamp=\"" + timestamp + "\",username=\"" +  System.getProperty("user.name")  + "\",hostname=\"" +  InetAddress.getLocalHost().getHostName() + "\",hostaddresses=\"" +  getHostAddresses() +  "\",mpversion=\"" + org.mathpiper.Version.version() + "\"\n" + codeText.replace("\n","|") + "\n" + "%/" + output_fold_type.substring(1,output_fold_type.length() ) + "\n\n");
                                 logFileWriter.close();
                             }
                         }
@@ -2323,7 +2453,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						*/
 
 									
-						if(saveBuffer == true)
+						if(isSaveBuffer == true)
 						{
 							buffer.save(view,null);
 						}
