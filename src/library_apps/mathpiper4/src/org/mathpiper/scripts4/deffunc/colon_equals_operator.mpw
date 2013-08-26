@@ -85,7 +85,7 @@ RuleHoldArguments(":=", 2, 30, Function?(aLeftAssign) And? Not?(Equal?(aLeftAssi
 
             Assign(arity, Length(args));
 
-            Retract(oper, arity);
+            //Retract(oper, arity);
 
             RulebaseListedEvaluateArguments(oper, MapSingle(Lambda([x],ToAtom(ConcatStrings("_",ToString(x)))), args));
         },
