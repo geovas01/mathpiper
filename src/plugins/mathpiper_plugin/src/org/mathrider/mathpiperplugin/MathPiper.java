@@ -157,10 +157,10 @@ public class MathPiper extends JPanel
     // {{{ handleMessage
 	public void handleMessage(EBMessage message) {
 
-		/*if (message instanceof org.gjt.sp.jedit.msg.EditorStarted) {
+		if (message instanceof org.gjt.sp.jedit.msg.EditorExitRequested) {
 			org.gjt.sp.jedit.bsh.Interpreter bsh = new org.gjt.sp.jedit.bsh.Interpreter();
 			try{
-				bsh.eval("org.gjt.sp.jedit.jEdit.getAction(\"console.shell.MathPiper-show\").invoke(org.gjt.sp.jedit.jEdit.getFirstView());");
+				bsh.eval("view = org.gjt.sp.jedit.jEdit.getActiveView(); dockarea = view.getDockableWindowManager().getRightDockingArea(); if(view.getDockableWindowManager().getRightDockingArea().getCurrent() != null) dockarea.show(null); view.getTextArea().requestFocus();");
 			}
 			catch(Exception e)
 			{
