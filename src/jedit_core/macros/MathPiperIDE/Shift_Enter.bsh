@@ -2168,7 +2168,9 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 
 			try
 			{
-				File logFile = new File(path + ".log");
+				logFilePath = path + ".log";
+				outputURI = new java.net.URI(("file:///" + logFilePath.replaceAll(" ", "%20")));  
+               File logFile = new File(outputURI);
 				BufferedWriter logFileWriter = new BufferedWriter(new FileWriter(logFile,true));
 				logFileWriter.write("%info" + "," + parentProperty + "sequence=\"" + mpwExecutionCount + "\",timestamp=\"" + timestamp + "\",username=\"" +  System.getProperty("user.name")  + "\",hostname=\"" +  InetAddress.getLocalHost().getHostName() + "\",hostaddresses=\"" +  getHostAddresses() +  "\"\n" + codeText + "\n" + "%/" + output_fold_type.substring(1,output_fold_type.length() ) + "\n\n");
 				logFileWriter.close();
@@ -2406,13 +2408,15 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						date = new java.util.Date();
 						timestamp = new java.sql.Timestamp(date.getTime());
 						
-						textArea.setSelectedText(beforeNewlines + indentAmount + output_fold_type + "," + parentProperty + "sequence=\"" + mpwExecutionCount + ",timestamp=\"" + timestamp + "\",preserve=\"" +  preserveProperty  + "\"\n" + result + "\n" + indentAmountPeriod + "%/" + output_fold_type.substring(1,output_fold_type.length() ) + afterNewlines, false);
+						textArea.setSelectedText(beforeNewlines + indentAmount + output_fold_type + "," + parentProperty + "sequence=\"" + mpwExecutionCount + "\",timestamp=\"" + timestamp + "\",preserve=\"" +  preserveProperty  + "\"\n" + result + "\n" + indentAmountPeriod + "%/" + output_fold_type.substring(1,output_fold_type.length() ) + afterNewlines, false);
 						
 				 		try
 				 		{
                             if(output_fold_type.equalsIgnoreCase("%info"))
                             {
-                                File logFile = new File(path + ".log");
+								  logFilePath = path + ".log";
+								  outputURI = new java.net.URI(("file:///" + logFilePath.replaceAll(" ", "%20")));  
+								  File logFile = new File(outputURI);
                                 BufferedWriter logFileWriter = new BufferedWriter(new FileWriter(logFile,true));
                                 logFileWriter.write("%info" + "," + parentProperty + "sequence=\"" + mpwExecutionCount + "\",timestamp=\"" + timestamp + "\",username=\"" +  System.getProperty("user.name")  + "\",hostname=\"" +  InetAddress.getLocalHost().getHostName() + "\",hostaddresses=\"" +  getHostAddresses() +  "\",mpversion=\"" + org.mathpiper.Version.version() + "\"\n" + codeText.replace("\n","|") + "\n" + "%/" + output_fold_type.substring(1,output_fold_type.length() ) + "\n\n");
                                 logFileWriter.close();
