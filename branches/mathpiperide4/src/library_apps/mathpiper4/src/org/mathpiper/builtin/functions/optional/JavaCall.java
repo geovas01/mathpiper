@@ -116,6 +116,10 @@ public class JavaCall extends BuiltinFunction {
                                     if (string.equals("False")) {
                                         argument = Boolean.FALSE;
                                     }//end if.
+                                    
+                                    if (string.equals("Null")) {
+                                        argument = null;
+                                    }//end if.
                                 }//end if/else.
 
                             }//end if.
