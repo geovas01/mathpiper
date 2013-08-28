@@ -1,0 +1,193 @@
+%mathpiper,def="AssignmentPractice",log="false"
+
+AssignmentPractice(numberOfVariables, correctInARow, numberOfReassignments, variableRange) :=
+{
+
+    //todo:tk:make a,b,etc. local in a loop.
+    Local(a,b,c,d,e,f,actualAnswer,allCorrectFlag,allVariables,answerPanel,currentCorrectInARow,jPanel,label,main,mainLoopMessageLabel,mainLoopMessageString,questionString,questionTextArea,questionTime,reassignmentsIndex,result,textField,textFieldsList,totalTime,userAnswer1,userAnswer2,value,variable1Name,variable2,variable2Name,variable,variableCombination,variableCombinations,variableNames,variablesIndex,variableValues,wrongCount);
+    
+    currentCorrectInARow := 0;
+    
+    wrongCount := 0;
+    
+    WriteString("[" ~ Nl());
+    
+    totalTime := Time() Until(currentCorrectInARow =? correctInARow Or? main =? JavaAccess("javax.swing.JOptionPane","CANCEL_OPTION"))
+    {
+    
+        jPanel := JavaNew("javax.swing.JPanel");
+        
+        //this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+        
+        JavaCall(jPanel, "setLayout", JavaNew("javax.swing.BoxLayout", jPanel, JavaCall("javax.swing.BoxLayout","Y_AXIS")));
+        
+        allVariables := BuildList(UnicodeToString(x),x,97,97+numberOfVariables,1);
+        
+        variableNames := Take(allVariables, numberOfVariables);
+        
+        variableValues := Take(Shuffle(variableRange), numberOfVariables);
+        
+        textFieldsList := [];
+        
+        variablesIndex := 1;
+        
+        questionString :=  "What values are assigned to these variables" ~ Nl() ~ "after the following code is evaluated?" ~ Nl() ~ Nl();
+    
+    
+        questionTextArea := JavaNew("javax.swing.JTextArea", questionString);
+        
+        JavaCall(questionTextArea, "setEditable", False);
+        
+        JavaCall(jPanel, "add", questionTextArea);
+        
+        answerPanel := JavaNew("javax.swing.JPanel");
+        
+        
+        //Create initial variable assignments.
+        While(variablesIndex <=? numberOfVariables)
+        {
+            variable := variableNames[variablesIndex];
+            
+            value := variableValues[variablesIndex];
+            
+            `Assign(@variable, value);
+            
+            textField := JavaNew("javax.swing.JTextField", 2);
+            
+            textFieldsList[variable] := textField;
+            
+            label := JavaNew("javax.swing.JLabel", variable);
+            
+            JavaCall(answerPanel, "add", label);
+            
+            JavaCall(answerPanel, "add", textField);
+            
+            JavaCall(answerPanel, "add", JavaCall("javax.swing.Box","createHorizontalStrut", 15));
+            
+            JavaCall(questionTextArea, "append", variable ~ " := " ~ ToString(value) ~ ";" ~ Nl());
+            
+            variablesIndex++;
+        };
+        
+        JavaCall(questionTextArea, "append", Nl());
+        
+        
+        
+        //Create variable reassignments.
+        reassignmentsIndex := 1;
+        
+        variableCombinations := CombinationsList(Shuffle(variableNames),2);
+        
+        While(reassignmentsIndex <=? numberOfReassignments)
+        {
+            variableCombination := PopFront(variableCombinations);
+        
+            variable1Name := variableCombination[1];
+            
+            variable2Name := variableCombination[2];
+            
+            JavaCall(questionTextArea, "append", variable1Name ~ " := " ~ variable2Name ~ ";" ~ Nl());
+            
+            variable2 := Eval(ToAtom(variable2Name));
+            
+            `Assign(@variable1Name, variable2);
+            
+            reassignmentsIndex++;
+        };
+        
+            JavaCall(jPanel, "add", answerPanel);
+            
+            
+            WriteString("[");
+            questionTime := Time() Until(allCorrectFlag =? True Or? result =? JavaAccess("javax.swing.JOptionPane","CANCEL_OPTION"))
+            {
+                allCorrectFlag := True;
+                    
+                result := JavaAccess("javax.swing.JOptionPane","showConfirmDialog",Null, jPanel, "Question", JavaCall("javax.swing.JOptionPane","OK_CANCEL_OPTION"));
+                
+                ForEach(variableName, variableNames)
+                {
+                    userAnswer1 := JavaAccess(textFieldsList[variableName], "getText");
+                    
+                    userAnswer2 := Decide(userAnswer1 =? "", None, ToAtom(userAnswer1));
+                    
+                    actualAnswer := Eval(ToAtom(variableName));
+                    
+                    If(userAnswer2 !=? actualAnswer) (allCorrectFlag := False);
+                    
+                    WriteString("[");
+                    Write(variableName, ', , actualAnswer, ', , userAnswer2);
+                    WriteString("],");
+                };
+                     
+                
+                If(allCorrectFlag =? False And? result !=? JavaAccess("javax.swing.JOptionPane","CANCEL_OPTION"))
+                {   
+                    TellUser("Incorrect. Try again.");
+                    
+                    currentCorrectInARow := 0;
+                    
+                    wrongCount++;
+                };
+            
+            };
+            
+            Write(questionTime);
+            WriteString("],");
+            WriteString(Nl());
+            
+            
+            currentCorrectInARow++;
+            
+            
+            If(correctInARow !=? currentCorrectInARow)
+            {
+            
+                mainLoopMessageString := PatchString(
+                "<html>
+                You have <?Write(currentCorrectInARow);?> correct in a row.<br /><br />
+                Your goal is to get <?Write(correctInARow);?> in a row.<br /><br />
+                Press <b>OK</b> to keep going or <b>Cancel</b> to end.
+                
+                </html>");
+                mainLoopMessageLabel := JavaNew("javax.swing.JLabel", mainLoopMessageString);   
+    
+                main := JavaAccess("javax.swing.JOptionPane","showConfirmDialog",Null, mainLoopMessageLabel, "Question", JavaCall("javax.swing.JOptionPane","OK_CANCEL_OPTION"));
+            }
+            Else
+            {
+                TellUser("You answered " ~ ToString(correctInARow) ~ " in a row!");
+            };
+            
+            
+    };
+    
+    WriteString("]");
+    
+
+    Echo("Number Of Variables: ", numberOfVariables);
+    Echo("Number Of Reassignments: ", numberOfReassignments);
+    Echo("Variables Range: ", variableRange);
+    Echo("Correct In A Row Needed: ", correctInARow);
+    Echo("Total Time: ", totalTime);
+    Echo("Wrong Count: ", wrongCount);
+
+};
+
+%/mathpiper
+
+
+
+
+%mathpiper,title="",name="practice1",preserve_output="true",log="false"
+
+AssignmentPractice(2,2,1,0 .. 9);
+
+%/mathpiper
+
+
+
+
+
+
+
