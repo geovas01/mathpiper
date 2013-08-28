@@ -25,6 +25,8 @@ RuleHoldArguments(MathPiperInitLoad, 0, 1, True)
     Constant('All);
     
     Constant('None);
+    
+    Constant('Null); //For use with Java.
 
 };
 
