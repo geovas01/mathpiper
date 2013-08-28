@@ -35,6 +35,53 @@ assign_digits([D|Ds], List):-
 
 
 
+The predicate “basicpart” assigns the property of “can't be
+unassembled” to various parts.
+
+The predicate “assembly” relates a compound part to its subparts.
+
+The predicate “partsof” is a rule that relates a part to all of the
+basic parts it contains. A Prolog rule is a general statement about
+objects and their relationships.
+
+In Prolog, logic information is separate from control information. A
+Prolog program (like this one) consists only of logic that specifies
+facts and rules about objects and their relationships. The control
+information that is used to answer questions about these objects and
+their relationships is built into the Prolog system, and it is the
+same for every Prolog program.
+
+The following are queries about bicycle parts that are answered by the
+Prolog system (Note: % is the Prolog comment character, and X is a
+Prolog variable.):
+
+% What are the immediate subparts of a wheel?
+?- assembly(wheel, X).
+X = [spoke, rim, hub]
+
+% What part has a spoke, a rim, and a hub as subparts?
+?- assembly(X, [spoke, rim, hub]).
+X = wheel
+
+% Notice in the first of the above two queries that the variable is in
+the first argument
+% position, but in the second query it is in the second argument position. This
+% flexibility is due to the fact that predicates specify relations
+instead of functions.
+
+% What are all of the basic parts that are contained in a hub?
+?- partsof(hub, X).
+X = [gears, bolt, nut]
+
+% What are all of the basic parts that are contained in a frame?
+?- partsof(frame, X).
+X = [rearframe, fork, handles]
+
+% What are all of the basic parts that are contained in a bicycle?
+?- partsof(bike, X).
+X = [spoke, rim, gears, bolt, nut, spoke, rim, gears, bolt, nut,
+rearframe, fork, handles]
+
 %prolog,title=""
 
 % "Programming in Prolog" Clocksin and Mellish, 5th edition, Springer, p. 63-65.
@@ -43,6 +90,7 @@ append([], L, L).
 append([X|L1], L2, [X|L3]) :- append(L1, L2, L3).
 
 
+% Facts.
 basicpart(rim).
 basicpart(spoke).
 basicpart(rearframe).
@@ -52,7 +100,7 @@ basicpart(bolt).
 basicpart(nut).
 basicpart(fork).
 
-
+% Facts.
 assembly(bike, [wheel, wheel, frame]).
 assembly(wheel, [spoke, rim, hub]).
 assembly(frame, [rearframe, frontframe]).
@@ -60,14 +108,13 @@ assembly(frontframe, [fork, handles]).
 assembly(hub, [gears, axle]).
 assembly(axle, [bolt, nut]).
 
-
+% Rules.
 partsof(X, [X]) :- basicpart(X).
 partsof(X, P) :- assembly(X, Subparts), partsoflist(Subparts, P).
 partsoflist([], []).
-partsoflist([P|Tail], Total):- partsof(P, Headparts), partsoflist(Tail, Tailparts), append(Headparts, Tailparts, Total).
+partsoflist([P|Tail], Total):- partsof(P, Headparts),
+partsoflist(Tail, Tailparts), append(Headparts, Tailparts, Total).
 
-
-% ?- partsof(hub, X).
 
 %/prolog
 
