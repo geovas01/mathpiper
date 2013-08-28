@@ -57,9 +57,9 @@ public class StateViewerPanel extends JPanel implements ResponseListener {
 
 	table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-	DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-	centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-	table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+	DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+	cellRenderer.setHorizontalAlignment(JLabel.RIGHT);
+	table.getColumnModel().getColumn(0).setCellRenderer(cellRenderer);
 
 	scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 	scrollPane.getVerticalScrollBar().setUnitIncrement(16);
@@ -140,9 +140,9 @@ public class StateViewerPanel extends JPanel implements ResponseListener {
 
 	table.setModel(getTableModel());
 
-	DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-	centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-	table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+	DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+	cellRenderer.setHorizontalAlignment(JLabel.LEFT);
+	table.getColumnModel().getColumn(0).setCellRenderer(cellRenderer);
 
 	scrollPane.revalidate();
 
