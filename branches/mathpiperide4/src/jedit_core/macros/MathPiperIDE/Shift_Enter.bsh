@@ -2162,7 +2162,11 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				try
 				{
 					logFilePath = path + ".log";
-					outputURI = new java.net.URI(("file:///" + logFilePath.replaceAll(" ", "%20")));  
+					if(logFilePath.contains("\\")) //For windows.
+					{
+						logFilePath = logFilePath.substring(3,logFilePath.length());
+					}
+					outputURI = new java.net.URI("file:///" + logFilePath.replaceAll(" ", "%20").replaceAll("\\\\","/"));  
 					File logFile = new File(outputURI);
 					BufferedWriter logFileWriter = new BufferedWriter(new FileWriter(logFile,true));
 					logFileWriter.write("%info" + "," + parentProperty + "sequence=\"" + mpwExecutionCount + "\",timestamp=\"" + timestamp + "\",username=\"" +  System.getProperty("user.name")  + "\",hostname=\"" +  InetAddress.getLocalHost().getHostName() + "\",hostaddresses=\"" +  getHostAddresses() +  "\"\n" + codeText + "\n" + "%/" + output_fold_type.substring(1,output_fold_type.length() ) + "\n\n");
@@ -2406,9 +2410,12 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 							{
 								if(output_fold_type.equalsIgnoreCase("%info"))
 								{
-									  logFilePath = path + ".log";
-									  outputURI = new java.net.URI(("file:///" + logFilePath.replaceAll(" ", "%20")));  
-									  File logFile = new File(outputURI);
+									logFilePath = path + ".log";
+									if(logFilePath.contains("\\")) //For windows.
+									{
+										logFilePath = logFilePath.substring(3,logFilePath.length());
+									}
+									outputURI = new java.net.URI("file:///" + logFilePath.replaceAll(" ", "%20").replaceAll("\\\\","/"));  									  File logFile = new File(outputURI);
 									BufferedWriter logFileWriter = new BufferedWriter(new FileWriter(logFile,true));
 									logFileWriter.write("%info" + "," + parentProperty + "sequence=\"" + mpwExecutionCount + "\",timestamp=\"" + timestamp + "\",username=\"" +  System.getProperty("user.name")  + "\",hostname=\"" +  InetAddress.getLocalHost().getHostName() + "\",hostaddresses=\"" +  getHostAddresses() +  "\",mpversion=\"" + org.mathpiper.Version.version() + "\"\n" + codeText.replace("\n","|") + "\n" + "%/" + output_fold_type.substring(1,output_fold_type.length() ) + "\n\n");
 									logFileWriter.close();
