@@ -173,7 +173,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 		properties.put("scope","local");
 		properties.put("ver","");
 		properties.put("truncate","");
-		properties.put("log","false");
+		properties.put("log","true");
 		properties.put("timeout","-1");
 		properties.put("parent","");
 		
@@ -846,19 +846,10 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				//wm.addDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME);
 				wm.getDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME).setHaltButtonState(true);
 				
-				
-				 
-				
-				if(foldProperties.get("log").equalsIgnoreCase("true"))
-				{		
-					output_fold_type = "%info";
-					result = codeText.replace("\n","|");
-				}
-				else
-				{
-					output_fold_type = "%info";
-					result = "Processing...";
-				}
+
+
+				output_fold_type = "%info";
+				result = "Processing...";
 			
 			}//end if.
 					
@@ -2165,19 +2156,22 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 			
 			date = new java.util.Date();
 			timestamp = new java.sql.Timestamp(date.getTime());
-
-			try
-			{
-				logFilePath = path + ".log";
-				outputURI = new java.net.URI(("file:///" + logFilePath.replaceAll(" ", "%20")));  
-               File logFile = new File(outputURI);
-				BufferedWriter logFileWriter = new BufferedWriter(new FileWriter(logFile,true));
-				logFileWriter.write("%info" + "," + parentProperty + "sequence=\"" + mpwExecutionCount + "\",timestamp=\"" + timestamp + "\",username=\"" +  System.getProperty("user.name")  + "\",hostname=\"" +  InetAddress.getLocalHost().getHostName() + "\",hostaddresses=\"" +  getHostAddresses() +  "\"\n" + codeText + "\n" + "%/" + output_fold_type.substring(1,output_fold_type.length() ) + "\n\n");
-				logFileWriter.close();
-		    }
-			catch(Exception e)
-			{
-				e.printStackTrace();;
+			
+			if(foldProperties.get("log").equalsIgnoreCase("true"))
+			{	
+				try
+				{
+					logFilePath = path + ".log";
+					outputURI = new java.net.URI(("file:///" + logFilePath.replaceAll(" ", "%20")));  
+					File logFile = new File(outputURI);
+					BufferedWriter logFileWriter = new BufferedWriter(new FileWriter(logFile,true));
+					logFileWriter.write("%info" + "," + parentProperty + "sequence=\"" + mpwExecutionCount + "\",timestamp=\"" + timestamp + "\",username=\"" +  System.getProperty("user.name")  + "\",hostname=\"" +  InetAddress.getLocalHost().getHostName() + "\",hostaddresses=\"" +  getHostAddresses() +  "\"\n" + codeText + "\n" + "%/" + output_fold_type.substring(1,output_fold_type.length() ) + "\n\n");
+					logFileWriter.close();
+				}
+				catch(Exception e)
+				{
+					e.printStackTrace();;
+				}
 			}
 			
 			try
@@ -2234,10 +2228,6 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 					charIndex++;
 				}//end while
 				
-				
-
-        	
-        	
 
 				
 				result = result.trim();
@@ -2386,7 +2376,8 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						result = indentAmount + "  " + result;
 						indentAmountPeriod = indentAmount.toString().replaceFirst(" ",".");
 			
-						if(output_fold_type.equals("%info") && foldProperties.get("log").equals("false"))
+
+						if(output_fold_type.equals("%info"))
 						{
 							preserveProperty = "false";
 						}
@@ -2394,7 +2385,6 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						{
 							preserveProperty = foldProperties.get("preserve_output");
 						}
-						
 						
 						if(foldProperties.get("name").equals(""))
 						{
@@ -2410,21 +2400,24 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						
 						textArea.setSelectedText(beforeNewlines + indentAmount + output_fold_type + "," + parentProperty + "sequence=\"" + mpwExecutionCount + "\",timestamp=\"" + timestamp + "\",preserve=\"" +  preserveProperty  + "\"\n" + result + "\n" + indentAmountPeriod + "%/" + output_fold_type.substring(1,output_fold_type.length() ) + afterNewlines, false);
 						
-				 		try
-				 		{
-                            if(output_fold_type.equalsIgnoreCase("%info"))
-                            {
-								  logFilePath = path + ".log";
-								  outputURI = new java.net.URI(("file:///" + logFilePath.replaceAll(" ", "%20")));  
-								  File logFile = new File(outputURI);
-                                BufferedWriter logFileWriter = new BufferedWriter(new FileWriter(logFile,true));
-                                logFileWriter.write("%info" + "," + parentProperty + "sequence=\"" + mpwExecutionCount + "\",timestamp=\"" + timestamp + "\",username=\"" +  System.getProperty("user.name")  + "\",hostname=\"" +  InetAddress.getLocalHost().getHostName() + "\",hostaddresses=\"" +  getHostAddresses() +  "\",mpversion=\"" + org.mathpiper.Version.version() + "\"\n" + codeText.replace("\n","|") + "\n" + "%/" + output_fold_type.substring(1,output_fold_type.length() ) + "\n\n");
-                                logFileWriter.close();
-                            }
-                        }
-						catch(Exception e)
-						{
-							e.printStackTrace();;
+						if(foldProperties.get("log").equalsIgnoreCase("true"))
+						{	
+							try
+							{
+								if(output_fold_type.equalsIgnoreCase("%info"))
+								{
+									  logFilePath = path + ".log";
+									  outputURI = new java.net.URI(("file:///" + logFilePath.replaceAll(" ", "%20")));  
+									  File logFile = new File(outputURI);
+									BufferedWriter logFileWriter = new BufferedWriter(new FileWriter(logFile,true));
+									logFileWriter.write("%info" + "," + parentProperty + "sequence=\"" + mpwExecutionCount + "\",timestamp=\"" + timestamp + "\",username=\"" +  System.getProperty("user.name")  + "\",hostname=\"" +  InetAddress.getLocalHost().getHostName() + "\",hostaddresses=\"" +  getHostAddresses() +  "\",mpversion=\"" + org.mathpiper.Version.version() + "\"\n" + codeText.replace("\n","|") + "\n" + "%/" + output_fold_type.substring(1,output_fold_type.length() ) + "\n\n");
+									logFileWriter.close();
+								}
+							}
+							catch(Exception e)
+							{
+								e.printStackTrace();;
+							}
 						}
 						
 						//textArea.setSelection(null);
