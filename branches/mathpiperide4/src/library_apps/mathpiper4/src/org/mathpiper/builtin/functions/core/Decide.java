@@ -70,7 +70,7 @@ public class Decide extends BuiltinFunction
 
 /*
 %mathpiper_docs,name="Decide",categories="Programming Functions;Control Flow;Built In"
-*CMD If --- branch point
+*CMD Decide --- used to make decisions
 *CORE
 *CALL
 	Decide(pred, then)
