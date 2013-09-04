@@ -4,6 +4,8 @@ RulebaseHoldArguments("If",[_predicate,_body]);
 
 (If(True) _body) <-- Eval(body);
 
+(If(False) _body) <-- False;
+
 HoldArgument("If","body");
 
 UnFence("If",2);
@@ -14,8 +16,8 @@ UnFence("If",2);
 
 
 %mathpiper_docs,name="If",categories="Programming Functions;Control Flow"
-*CMD if --- branch point
-*STD
+*CMD If --- used to make decisions
+
 *CALL
     If(predicate)body
 
@@ -27,8 +29,33 @@ UnFence("If",2);
 
 *DESC
 
-(This description is in development.)
+The If() function evaluates the "predicate" expression that
+is passed to it as an argument, and then it looks at the value that the
+expression returns. If this value is True, the body of the If() function is
+executed. If the predicate expression evaluates to False, the body is not
+executed.
 
+*E.G.
+/%mathpiper
 
-*SEE If, Else
+number := 6;
+
+If(number >? 5)
+{
+    Echo(number, "is greater than 5.");
+};
+
+Echo("End of program.");
+
+/%/mathpiper
+
+    /%output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      6 is greater than 5.
+      End of program.
+   /%/output
+
+*SEE Else, Decide
 %/mathpiper_docs
