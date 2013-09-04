@@ -23,10 +23,10 @@ UnFence("Else",2);
 
 
 %mathpiper_docs,name="Else",categories="Programming Functions;Control Flow"
-*CMD Else --- branch point
-*STD
+*CMD Else --- used with the If function to make decisions
+
 *CALL
-    If(predicate) body Else otherwise)
+    If(predicate) body Else otherwise
 
 *PARMS
 
@@ -38,8 +38,35 @@ UnFence("Else",2);
 
 *DESC
 
-(This description under in development.)
+An If() function can be used with an Else operator to evaluate one body 
+if a predicate expression is True, and an alternative body if the predicate 
+expression is False.
 
+*E.G.
+/%mathpiper
+
+x := 4;
+
+If(x >? 5)
+{
+    Echo(x,"is greater than 5.");
+}
+Else
+{
+    Echo(x,"is NOT greater than 5.");
+};
+
+Echo("End of program.");
+
+/%/mathpiper
+
+    /%output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      4 is NOT greater than 5.
+      End of program.
+    /%/output
 
 *SEE If, Decide
 %/mathpiper_docs
