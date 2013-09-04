@@ -4,7 +4,7 @@ AssignmentPractice(numberOfVariables, correctInARow, numberOfReassignments, vari
 {
 
     //todo:tk:make a,b,etc. local in a loop.
-    Local(a,b,c,d,e,f,actualAnswer,allCorrectFlag,allVariables,answerPanel,currentCorrectInARow,jPanel,label,main,mainLoopMessageLabel,mainLoopMessageString,questionString,questionTextArea,questionTime,reassignmentsIndex,result,textField,textFieldsList,totalTime,userAnswer1,userAnswer2,value,variable1Name,variable2,variable2Name,variable,variableCombination,variableCombinations,variableNames,variablesIndex,variableValues,wrongCount);
+    Local(a,b,c,d,e,f,actualAnswer,allCorrectFlag,allVariables,anAssignment, answerPanel,currentCorrectInARow,jPanel,label,main,mainLoopMessageLabel,mainLoopMessageString,questionString,questionTextArea,questionTime,reassignmentsIndex,result,textField,textFieldsList,totalTime,userAnswer1,userAnswer2,value,variable1Name,variable2,variable2Name,variable,variableCombination,variableCombinations,variableNames,variablesIndex,variableValues,wrongCount);
     
     currentCorrectInARow := 0;
     
@@ -64,7 +64,13 @@ AssignmentPractice(numberOfVariables, correctInARow, numberOfReassignments, vari
             
             JavaCall(answerPanel, "add", JavaCall("javax.swing.Box","createHorizontalStrut", 15));
             
-            JavaCall(questionTextArea, "append", variable ~ " := " ~ ToString(value) ~ ";" ~ Nl());
+            anAssignment := variable ~ " := " ~ ToString(value) ~ ";";
+            
+            Write(anAssignment);
+            
+            Write(',);
+            
+            JavaCall(questionTextArea, "append", anAssignment ~ Nl());
             
             variablesIndex++;
         };
@@ -76,17 +82,24 @@ AssignmentPractice(numberOfVariables, correctInARow, numberOfReassignments, vari
         //Create variable reassignments.
         reassignmentsIndex := 1;
         
-        variableCombinations := CombinationsList(Shuffle(variableNames),2);
+        variableCombinations := Shuffle(CombinationsList(Shuffle(variableNames),2));
         
         While(reassignmentsIndex <=? numberOfReassignments)
         {
-            variableCombination := PopFront(variableCombinations);
-        
+
+            variableCombination := Shuffle(PopFront(variableCombinations));
+     
             variable1Name := variableCombination[1];
             
             variable2Name := variableCombination[2];
             
-            JavaCall(questionTextArea, "append", variable1Name ~ " := " ~ variable2Name ~ ";" ~ Nl());
+            anAssignment := variable1Name ~ " := " ~ variable2Name ~ ";";
+            
+            Write(anAssignment);
+            
+            Write(',);
+            
+            JavaCall(questionTextArea, "append", anAssignment ~ Nl());
             
             variable2 := Eval(ToAtom(variable2Name));
             
@@ -175,6 +188,10 @@ AssignmentPractice(numberOfVariables, correctInARow, numberOfReassignments, vari
 };
 
 %/mathpiper
+
+    %output,sequence="9",timestamp="2013-08-28 10:45:27.344",preserve="false"
+      Result: True
+.   %/output
 
 
 
