@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -15,9 +14,6 @@ import java.util.Map;
 import java.util.Queue;
 
 import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.border.EmptyBorder;
-
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.SublistCons;
@@ -139,11 +135,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 			e.printStackTrace();
 		}
 
-		// Determine the preferred size of this component.
-		BufferedImage image = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
-		Graphics g = image.getGraphics();
-		Graphics2D g2d = (Graphics2D) g;
-		layoutTree(g2d);
+		layoutTree();
 
 	}
 
@@ -290,7 +282,26 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 		Graphics2D g2d = (Graphics2D) g;
 
-		ScaledGraphics sg = layoutTree(g2d);
+		layoutTree();
+		
+		int xInset = getInsets().left;
+		int yInset = getInsets().top;
+		int w = getWidth() - getInsets().left - getInsets().right;
+		int h = getHeight() - getInsets().top - getInsets().bottom;
+		
+		g2d.setColor(Color.white);
+		g2d.fillRect(xInset, yInset, w, h);
+
+		g2d.addRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
+
+		g2d.setStroke(new BasicStroke((float) (2), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+		g2d.setColor(Color.black);
+
+		ScaledGraphics sg = new ScaledGraphics(g2d);
+
+		sg.setFontSize(viewScale * fontSize);
+
+		sg.setViewScale(viewScale);
 
 		queue.add(mainRootNode);
 		paintHighlightLayer(sg);
@@ -460,26 +471,9 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 		this.repaint();
 	}
 
-	private ScaledGraphics layoutTree(Graphics2D g2d) {
+	private void layoutTree() {
 		
 		rightMostPosition = 0;
-		int xInset = getInsets().left;
-		int yInset = getInsets().top;
-		int w = getWidth() - getInsets().left - getInsets().right;
-		int h = getHeight() - getInsets().top - getInsets().bottom;
-		g2d.setColor(Color.white);
-		g2d.fillRect(xInset, yInset, w, h);
-
-		g2d.addRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
-
-		g2d.setStroke(new BasicStroke((float) (2), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-		g2d.setColor(Color.black);
-
-		ScaledGraphics sg = new ScaledGraphics(g2d);
-
-		sg.setFontSize(viewScale * fontSize);
-
-		sg.setViewScale(viewScale);
 
 		for (int index = 0; index < lastOnRasterArray.length; index++) {
 			lastOnRasterArray[index] = -1;
@@ -487,14 +481,13 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 		maxTreeY = 0;
 
-		layoutTree(mainRootNode, 40/* yPosition */, 0/* position */, null, sg);
+		layoutTree(mainRootNode, 40/* yPosition */, 0/* position */, null);
 
-		return sg;
 	}
 
 	// Layout algorithm from "Esthetic Layout of Generalized Trees" by Anthony
 	// Bloesch.
-	private int layoutTree(SymbolNode treeNode, int yPosition, int leftSidePosition, SymbolNode parent, ScaledGraphics sg) {
+	private int layoutTree(SymbolNode treeNode, int yPosition, int leftSidePosition, SymbolNode parent) {
 		int Y_SEPARATION = 30;//35 /* y stretch from top of parent to top of child. */;
 		int MIN_X_SEPARATION = 20;
 
@@ -554,7 +547,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 				branchPosition = leftSidePosition;
 				
 				/* Position far left branch. */
-				childLeftSidePosition = layoutTree(treeNode.getChildren()[0], yPosition + Y_SEPARATION, branchPosition, treeNode, sg);
+				childLeftSidePosition = layoutTree(treeNode.getChildren()[0], yPosition + Y_SEPARATION, branchPosition, treeNode);
 
 				/* Position the other branches if they exist. */
 				childRightSidePosition = childLeftSidePosition;
@@ -562,7 +555,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 				for (i = 1; i < treeNode.getChildren().length; i++) {
 					branchPosition += MIN_X_SEPARATION /*adjusts space between siblings*/ + (treeNode.getChildren()[i - 1].getNodeWidth() + treeNode.getChildren()[i].getNodeWidth()) / 2;
 					
-					childRightSidePosition = layoutTree(treeNode.getChildren()[i], yPosition + Y_SEPARATION, branchPosition, treeNode, sg);
+					childRightSidePosition = layoutTree(treeNode.getChildren()[i], yPosition + Y_SEPARATION, branchPosition, treeNode);
 				} /* for */
 
 				if (childLeftSidePosition < leftMostPosition) {
