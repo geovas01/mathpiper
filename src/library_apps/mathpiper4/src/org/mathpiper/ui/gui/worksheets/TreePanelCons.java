@@ -51,7 +51,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 									   * smaller numbers moves the tree down.
 									   */
 
-	private double adjust = 1;
+	private int adjust = 1;
 
 	private boolean isCodeForm = false;
 
@@ -276,10 +276,13 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 		listToTree(node2, cons, markSubtreeColor, markSubtreeNodeShape);
 	}
 
+	//Uncomment for debugging.
 	/*
-	 * public void paint(Graphics g) { super.paint(g); Dimension d =
-	 * getPreferredSize(); g.drawRect(0, 0, d.width - 1, d.height - 1); }
-	 */
+	 public void paint(Graphics g) { 
+		 super.paint(g); Dimension d = getPreferredSize(); g.drawRect(0, 0, d.width - 1, d.height - 1); 
+	 }
+	*/
+	 
 
 	public void paintComponent(Graphics g) {
 
@@ -388,6 +391,8 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 				sg.setColor(Color.BLACK);
 				sg.drawLatex(currentNode.texFormula, nodeX0, nodeY0);
+				
+				//sg.drawRectangle(nodeX0, nodeY0, currentNode.getNodeWidth(), currentNode.getNodeHeight());
 
 				SymbolNode[] childrenNodes = currentNode.getChildren();
 
@@ -425,7 +430,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 		int maxHeightScaled = (int) ((maxTreeY - yPositionAdjust) * viewScale);
 
-		int maxWidth = rightMostPosition;// - leftMostPosition; //Adjusts how
+		int maxWidth = rightMostPosition ;//- leftMostPosition; //Adjusts how
 										 // far to the right the component will
 										 // extend.
 		int maxWidthScaled = (int) ((maxWidth) * viewScale);
@@ -448,14 +453,16 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 	public void setViewScale(double viewScale) {
 		this.viewScale = viewScale;
 
-		// this.adjust = viewScale;
-		// System.out.println(viewScale);
+		//this.adjust = (int) viewScale;
+		//System.out.println(adjust);
 
 		this.revalidate();
 		this.repaint();
 	}
 
 	private ScaledGraphics layoutTree(Graphics2D g2d) {
+		
+		rightMostPosition = 0;
 		int xInset = getInsets().left;
 		int yInset = getInsets().top;
 		int w = getWidth() - getInsets().left - getInsets().right;
@@ -487,23 +494,20 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 	// Layout algorithm from "Esthetic Layout of Generalized Trees" by Anthony
 	// Bloesch.
-	private int layoutTree(SymbolNode treeNode, int yPosition, int position, SymbolNode parent, ScaledGraphics sg) {
-		int Y_SEPARATION = 35 /* y stretch */;
+	private int layoutTree(SymbolNode treeNode, int yPosition, int leftSidePosition, SymbolNode parent, ScaledGraphics sg) {
+		int Y_SEPARATION = 30;//35 /* y stretch from top of parent to top of child. */;
 		int MIN_X_SEPARATION = 20;
 
 		int branchPosition; // Adjusts the x position of all nodes.
 		int i;
-		int leftPosition; // Adjusts the x position of all nodes.
-		int rightPosition; // Adjusts the x position of all nodes.
+		int childLeftSidePosition; // Adjusts the x position of all nodes.
+		int childRightSidePosition; // Adjusts the x position of all nodes.
 		int width; // Adjusting width causes very little change in the tree.
 
-		int interBranchSpace = 75; // Adjusts the x position of all nodes and
-								   // leaves.
-
 		if (treeNode == null) {
-			return position;
-		} else /* Place subtree. */
-		{
+			return leftSidePosition;
+		} 
+		else { /* Place subtree. */
 			/*
 			 * Ensure the nominal position of the node is to the right of any
 			 * other node.
@@ -517,87 +521,118 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 				 */
 				int possibleNewPosition = (lastOnRaster + MIN_X_SEPARATION + treeNode.getNodeWidth() / 2);
 
-				if (possibleNewPosition > position) {
-					position = possibleNewPosition;
+				if (possibleNewPosition > leftSidePosition) {
+					leftSidePosition = possibleNewPosition;
 				}// end if.
 
 			}// end for.
 
 			if (treeNode.getChildren().length >= 1) { /* Place branches if they exist. */
 
+				/* todo:tk
 				if (treeNode.getChildren().length > 1) {
 
 					width = (treeNode.getChildren()[0].getNodeWidth() + treeNode.getChildren()[treeNode.getChildren().length - 1]
 							.getNodeWidth()) / 2 + (treeNode.getChildren().length - 1) * MIN_X_SEPARATION;
 
-					for (i = 1; i < treeNode.getChildren().length - 1; i++)
+					for (i = 1; i < treeNode.getChildren().length - 1; i++){
 						width += treeNode.getChildren()[i].getNodeWidth();
+					}
 				}
 
-				else
-					width = 0;
+				else 
 
-				branchPosition = position - width / 2;
+				
+				{
+					width = 0;
+				}
+
+				branchPosition = leftSidePosition - width / 2;
+				
+				*/
+				
+				branchPosition = leftSidePosition;
 				
 				/* Position far left branch. */
-				leftPosition = layoutTree(treeNode.getChildren()[0], yPosition + Y_SEPARATION, branchPosition, treeNode, sg);
+				childLeftSidePosition = layoutTree(treeNode.getChildren()[0], yPosition + Y_SEPARATION, branchPosition, treeNode, sg);
 
 				/* Position the other branches if they exist. */
-				rightPosition = leftPosition;
+				childRightSidePosition = childLeftSidePosition;
+				
 				for (i = 1; i < treeNode.getChildren().length; i++) {
-					branchPosition += MIN_X_SEPARATION + (treeNode.getChildren()[i - 1].getNodeWidth() + treeNode.getChildren()[i].getNodeWidth()) / 2;
+					branchPosition += MIN_X_SEPARATION /*adjusts space between siblings*/ + (treeNode.getChildren()[i - 1].getNodeWidth() + treeNode.getChildren()[i].getNodeWidth()) / 2;
 					
-					rightPosition = layoutTree(treeNode.getChildren()[i], yPosition + Y_SEPARATION, branchPosition, treeNode, sg);
+					childRightSidePosition = layoutTree(treeNode.getChildren()[i], yPosition + Y_SEPARATION, branchPosition, treeNode, sg);
 				} /* for */
 
-				if (leftPosition < leftMostPosition) {
-					leftMostPosition = leftPosition;
+				if (childLeftSidePosition < leftMostPosition) {
+					leftMostPosition = childLeftSidePosition;
 				}
 
-				if (rightPosition > rightMostPosition) {
-					rightMostPosition = rightPosition;
+				if (childRightSidePosition > rightMostPosition) {
+					rightMostPosition = childRightSidePosition;
 				}
 
-				//position = (leftPosition + rightPosition) / 2;
-				position = (((leftPosition + (treeNode.getChildren()[0].getNodeWidth()/2)) + (rightPosition + (treeNode.getChildren()[treeNode.getChildren().length-1].getNodeWidth()/2))   ) /2) - (treeNode.getNodeWidth()/2);// / 2;
+				if(treeNode.getChildren().length == 1)
+				{
+					leftSidePosition = (childLeftSidePosition + childRightSidePosition) / 2;
+				}
+				else
+				{
+					leftSidePosition = (((childLeftSidePosition + (treeNode.getChildren()[0].getNodeWidth()/2)) + (childRightSidePosition + (treeNode.getChildren()[treeNode.getChildren().length-1].getNodeWidth()/2))   ) /2) - (treeNode.getNodeWidth()/2);// / 2;
+				}
+				
+				//position = position - adjust; //Adjusts the position of the operator.
 
-
-				treeNode.setTreeX(position);
+				treeNode.setTreeX(leftSidePosition);
 
 			} else if (parent.getChildren().length == 1) {
-				leftPosition = (position + (parent.getNodeWidth() / 2)) - treeNode.getNodeWidth() / 2;
+				childLeftSidePosition = (leftSidePosition + (parent.getNodeWidth() / 2)) - treeNode.getNodeWidth() / 2;
 
-				rightPosition = position + treeNode.getNodeWidth() / 2;
+				childRightSidePosition = leftSidePosition + treeNode.getNodeWidth() / 2;
 
-				if (leftPosition < leftMostPosition) {
-					leftMostPosition = leftPosition;
+				if (childLeftSidePosition < leftMostPosition) {
+					leftMostPosition = childLeftSidePosition;
 				}
 
-				if (rightPosition > rightMostPosition) {
-					rightMostPosition = rightPosition;
+				if (childRightSidePosition > rightMostPosition) {
+					rightMostPosition = childRightSidePosition;
 				}
+				
+				//position = position - adjust; //Adjusts the position of the operator.
 
-				treeNode.setTreeX((position + (parent.getNodeWidth() / 2)) - treeNode.getNodeWidth() / 2);
+				treeNode.setTreeX((leftSidePosition + parent.getNodeWidth() / 2) - treeNode.getNodeWidth() / 2);
 
 			} else {
-				leftPosition = position;
+				//Place leaf.
+				
+				childRightSidePosition = leftSidePosition + treeNode.getNodeWidth()/2;
+				
+				leftSidePosition = leftSidePosition - treeNode.getNodeWidth()/2;
+				
+				childLeftSidePosition = leftSidePosition;
 
-				rightPosition = position + treeNode.getNodeWidth();
-
-				if (leftPosition < leftMostPosition) {
-					leftMostPosition = leftPosition;
+				if (childLeftSidePosition < leftMostPosition) {
+					leftMostPosition = childLeftSidePosition;
 				}
 
-				if (rightPosition > rightMostPosition) {
-					rightMostPosition = rightPosition;
+				if (childRightSidePosition > rightMostPosition) {
+					rightMostPosition = childRightSidePosition;
 				}
+				
+				//position = (position + rightPosition)/2;
+				
+				//position = position - adjust; //Adjusts the position of the operator.
 
-				treeNode.setTreeX(position);
+				treeNode.setTreeX(leftSidePosition);
 			}
 
 			/* Add node to last. */
 			for (i = yPosition - Y_SEPARATION; i < yPosition + treeNode.getNodeHeight(); i++) {
-				lastOnRasterArray[i] = position + ((treeNode.getNodeWidth() + interBranchSpace) + 1) / 2;
+				//lastOnRasterArray[i] = leftSidePosition + ((treeNode.getNodeWidth() + interBranchSpace) + 1) / 2;
+				
+				lastOnRasterArray[i] = rightMostPosition;
+				
 				if (i > maxTreeY) {
 					maxTreeY = i;
 				}// end if.
@@ -607,7 +642,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 			treeNode.setTreeY(yPosition);
 
-			return position;
+			return leftSidePosition;
 
 		}// end else.
 
