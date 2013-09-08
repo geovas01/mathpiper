@@ -1,0 +1,42 @@
+In> Show(TreeView('(2222222222 == 3333333333)))
+Result: class javax.swing.JFrame
+
+In> Show(TreeView('(1*4*5+2*4*5+3*4*5)))
+Result: class javax.swing.JFrame
+
+
+In> Show(TreeView('(1111111111*4444444444*5555555555+2222222222*4444444444*5555555555+3333333333*4444444444*5555555555)))
+Result: class javax.swing.JFrame
+
+In> Show(TreeView('(2222222222 == 3)))
+Result: class javax.swing.JFrame
+
+In> Show(TreeView('(2 == 3333333333)))
+Result: class javax.swing.JFrame
+
+In> Show(TreeView('(Add(2222222222, 2222222222, 2222222222))))
+Result: class javax.swing.JFrame
+
+
+In> Show(TreeView('(2222222222222222222222222 == 3)))
+Result: class javax.swing.JFrame
+
+In> Show(TreeView('(2 == 3333333333333333333333333)))
+Result: class javax.swing.JFrame
+
+In> Show(TreeView('(-88888888)))
+
+In> Show(TreeView('(-8)))
+
+In> Show(TreeView('(2222222222 == -3)))
+Result: class javax.swing.JFrame
+
+In> Show(TreeView('(Decide( _die1 <=? 3 Or?  3 <=? _die2, Echo("Hello") ))))
+Result: class javax.swing.JFrame
+Side Effects:
+Hello
+
+
+In> 
+
+
