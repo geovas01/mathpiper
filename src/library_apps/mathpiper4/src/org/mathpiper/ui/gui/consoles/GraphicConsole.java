@@ -675,6 +675,13 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                     if (code.endsWith(";;")) {
                         this.suppressOutput = true;
                     }
+                    
+                    
+                    boolean placeInCodeBlock = false;
+                    if(code.endsWith(";"))
+                    {
+                    	placeInCodeBlock = true;
+                    }
 
                     String currentParserName = interpreter.getEnvironment().iParserName;
                     Parser currentParserInstance = Parser.getSupportedParser(currentParserName);
@@ -690,8 +697,16 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
                     if (code.length() > 0) {
                         interpreter.addResponseListener(this);
+                        
                         Environment.saveDebugInformation = true;
-                        interpreter.evaluate(currentParserInstance.processCodeBlock(code), true);
+                        
+                        if(placeInCodeBlock)
+                        {
+                        	code = currentParserInstance.processCodeBlock(code);
+                        }
+                        
+                        interpreter.evaluate(code, true);
+                        
                         haltButton.setEnabled(true);
 
                     }//end if.
@@ -882,8 +897,12 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
             {
         	EvaluationException evaluationException = (EvaluationException) exception;
         	
-        	exceptionMessage = "\nException: " + exception.getMessage() + " Error on or before line " + (evaluationException.getLineNumber()) + " starting at index " + (evaluationException.getStartIndex()) + ".";
-      
+        	exceptionMessage = "\nException: " + exception.getMessage();
+        	
+            	if(evaluationException.getStartIndex() > -1)
+            	{
+            		exceptionMessage += " Starting at index " + (evaluationException.getStartIndex()) + ".";
+            	}
             }
             else
             {
