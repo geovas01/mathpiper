@@ -24,6 +24,7 @@ RuleHoldArguments("Nth",2,14,
 
 RuleHoldArguments("Nth",2,15,Equal?(String?(alist),True))
 {
+  Check(aindex >? 0 And? aindex <? Length(alist) + 1,"Argument Error", "String indexes must between 1 and the length of the string (inclusive).");
   StringMidGet(aindex,1,alist);
 };
 
