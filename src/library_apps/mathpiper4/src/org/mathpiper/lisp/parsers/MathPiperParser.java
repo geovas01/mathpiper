@@ -519,7 +519,7 @@ public class MathPiperParser extends Parser
     
     public String processCodeBlock(String code)
     {
-	return "{" + code + "};";
+    	return "{" + code + "};";
     }
     
     
