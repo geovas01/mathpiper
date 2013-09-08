@@ -37,201 +37,215 @@ import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.variables.GlobalVariable;
 
 public class StateViewerPanel extends JPanel implements ResponseListener {
-    private Interpreter interpreter;
-    private Environment environment;
-    private JTextArea textArea = new JTextArea();
-    private JTable table;
-    private JScrollPane scrollPane;
+	private Interpreter interpreter;
+	private Environment environment;
+	private JTextArea textArea = new JTextArea();
+	private JTable table;
+	private JScrollPane scrollPane;
 
-    public StateViewerPanel(Interpreter interpreter) {
-	this.setLayout(new BorderLayout());
-	this.interpreter = interpreter;
+	public StateViewerPanel(Interpreter interpreter) {
+		this.setLayout(new BorderLayout());
+		this.interpreter = interpreter;
 
-	interpreter.addResponseListener(this);
+		interpreter.addResponseListener(this);
 
-	environment = interpreter.getEnvironment();
+		environment = interpreter.getEnvironment();
 
-	table = new JTable();
+		table = new JTable();
 
-	table.setModel(getTableModel());
+		table.setModel(getTableModel());
 
-	table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-	DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
-	cellRenderer.setHorizontalAlignment(JLabel.LEFT);
-	table.getColumnModel().getColumn(0).setCellRenderer(cellRenderer);
+		DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+		cellRenderer.setHorizontalAlignment(JLabel.LEFT);
+		table.getColumnModel().getColumn(0).setCellRenderer(cellRenderer);
 
-	scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-	scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+		scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
-	this.add(scrollPane);
+		this.add(scrollPane);
 
-	table.setPreferredScrollableViewportSize(table.getPreferredSize());
-	JScrollPane scrollPane = new JScrollPane(table);
-	add(scrollPane);
+		table.setPreferredScrollableViewportSize(table.getPreferredSize());
+		JScrollPane scrollPane = new JScrollPane(table);
+		add(scrollPane);
 
-	JPanel buttonsPanel = new JPanel();
-	buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.X_AXIS));
+		JPanel buttonsPanel = new JPanel();
+		buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.X_AXIS));
 
-	JButton decrease = new JButton("Zoom-");
-	decrease.addActionListener(new ActionListener() {
+		JButton decrease = new JButton("Zoom-");
+		decrease.addActionListener(new ActionListener() {
 
-	    public void actionPerformed(ActionEvent e) {
-		Font font = table.getFont();
-		font = font.deriveFont((float) (font.getSize2D() * .90));
-		table.setFont(font);
-		FontMetrics fontMetrics = table.getGraphics().getFontMetrics(font);
-		Rectangle2D rectangle = fontMetrics.getStringBounds("H", table.getGraphics());
-		table.setRowHeight((int) rectangle.getHeight());
+			public void actionPerformed(ActionEvent e) {
+				Font font = table.getFont();
+				font = font.deriveFont((float) (font.getSize2D() * .90));
+				table.setFont(font);
+				FontMetrics fontMetrics = table.getGraphics().getFontMetrics(font);
+				Rectangle2D rectangle = fontMetrics.getStringBounds("H", table.getGraphics());
+				table.setRowHeight((int) rectangle.getHeight());
 
-		JTableHeader tableHeader = table.getTableHeader();
-		font = tableHeader.getFont();
-		font = font.deriveFont((float) (font.getSize2D() * .90));
-		tableHeader.setFont(font);
-		fontMetrics = tableHeader.getGraphics().getFontMetrics(font);
-		rectangle = fontMetrics.getStringBounds("H", tableHeader.getGraphics());
-	    }
-	});
-	buttonsPanel.add(decrease);
+				JTableHeader tableHeader = table.getTableHeader();
+				font = tableHeader.getFont();
+				font = font.deriveFont((float) (font.getSize2D() * .90));
+				tableHeader.setFont(font);
+				fontMetrics = tableHeader.getGraphics().getFontMetrics(font);
+				rectangle = fontMetrics.getStringBounds("H", tableHeader.getGraphics());
+			}
+		});
+		buttonsPanel.add(decrease);
 
-	JButton increase = new JButton("Zoom+");
-	increase.addActionListener(new ActionListener() {
+		JButton increase = new JButton("Zoom+");
+		increase.addActionListener(new ActionListener() {
 
-	    public void actionPerformed(ActionEvent e) {
-		Font font = table.getFont();
-		font = font.deriveFont((float) (font.getSize2D() * 1.10));
-		table.setFont(font);
-		FontMetrics fontMetrics = table.getGraphics().getFontMetrics(font);
-		Rectangle2D rectangle = fontMetrics.getStringBounds("H", table.getGraphics());
-		table.setRowHeight((int) rectangle.getHeight());
+			public void actionPerformed(ActionEvent e) {
+				Font font = table.getFont();
+				font = font.deriveFont((float) (font.getSize2D() * 1.10));
+				table.setFont(font);
+				FontMetrics fontMetrics = table.getGraphics().getFontMetrics(font);
+				Rectangle2D rectangle = fontMetrics.getStringBounds("H", table.getGraphics());
+				table.setRowHeight((int) rectangle.getHeight());
 
-		JTableHeader tableHeader = table.getTableHeader();
-		font = tableHeader.getFont();
-		font = font.deriveFont((float) (font.getSize2D() * 1.10));
-		tableHeader.setFont(font);
-		fontMetrics = tableHeader.getGraphics().getFontMetrics(font);
-		rectangle = fontMetrics.getStringBounds("H", tableHeader.getGraphics());
-	    }
-	});
-	buttonsPanel.add(increase);
+				JTableHeader tableHeader = table.getTableHeader();
+				font = tableHeader.getFont();
+				font = font.deriveFont((float) (font.getSize2D() * 1.10));
+				tableHeader.setFont(font);
+				fontMetrics = tableHeader.getGraphics().getFontMetrics(font);
+				rectangle = fontMetrics.getStringBounds("H", tableHeader.getGraphics());
+			}
+		});
+		buttonsPanel.add(increase);
 
-	add(buttonsPanel, BorderLayout.NORTH);
+		JButton unassignAll = new JButton("Unassign All");
+		unassignAll.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+    				try {
+    					environment.unassignVariable(-1, "All");
+    					StateViewerPanel.this.response(null);
+    				} catch (Throwable e1) {
+    					e1.printStackTrace();
+    				}
+			}
+		});
+		buttonsPanel.add(unassignAll);
 
-	SwingUtilities.invokeLater(new Runnable() {
-	    @Override
-	    public void run() {
-		Font font = table.getFont();
-		font = font.deriveFont((float) (font.getSize2D() * 1.7));
-		table.setFont(font);
-		FontMetrics fontMetrics = table.getGraphics().getFontMetrics(font);
-		Rectangle2D rectangle = fontMetrics.getStringBounds("H", table.getGraphics());
-		table.setRowHeight((int) rectangle.getHeight());
+		add(buttonsPanel, BorderLayout.NORTH);
 
-		JTableHeader tableHeader = table.getTableHeader();
-		font = tableHeader.getFont();
-		font = font.deriveFont((float) (font.getSize2D() * 1.4));
-		tableHeader.setFont(font);
-	    }
-	});
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				Font font = table.getFont();
+				font = font.deriveFont((float) (font.getSize2D() * 1.7));
+				table.setFont(font);
+				FontMetrics fontMetrics = table.getGraphics().getFontMetrics(font);
+				Rectangle2D rectangle = fontMetrics.getStringBounds("H", table.getGraphics());
+				table.setRowHeight((int) rectangle.getHeight());
 
-    }
-
-    public void response(EvaluationResponse response) {
-
-	table.setModel(getTableModel());
-
-	DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
-	cellRenderer.setHorizontalAlignment(JLabel.LEFT);
-	table.getColumnModel().getColumn(0).setCellRenderer(cellRenderer);
-
-	scrollPane.revalidate();
-
-    }
-
-    public boolean remove() {
-	return false;
-    }
-
-    private TableModel getTableModel() {
-	Map<String, GlobalVariable> globalState = (Map<String, GlobalVariable>) environment.getGlobalState();
-
-	java.util.Set<String> variablesSet = globalState.keySet();
-
-	Map<String, GlobalVariable> userVariablesMap = new HashMap<String, GlobalVariable>();
-
-	for (String key : variablesSet) {
-	    if (!key.contains("$") && !key.equals("I") && !key.equals("#") && ((GlobalVariable) globalState.get(key)).iConstant == false) {
-
-		GlobalVariable globalVariable = globalState.get(key);
-
-		userVariablesMap.put(key, globalVariable);
-	    }
+				JTableHeader tableHeader = table.getTableHeader();
+				font = tableHeader.getFont();
+				font = font.deriveFont((float) (font.getSize2D() * 1.4));
+				tableHeader.setFont(font);
+			}
+		});
 
 	}
 
-	final Map<String, GlobalVariable> map = userVariablesMap;
+	public void response(EvaluationResponse response) {
 
-	final Environment finalEnvironment = environment;
+		table.setModel(getTableModel());
 
-	TableModel tableModel = new AbstractTableModel() {
+		DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+		cellRenderer.setHorizontalAlignment(JLabel.LEFT);
+		table.getColumnModel().getColumn(0).setCellRenderer(cellRenderer);
 
-	    private static final long serialVersionUID = 1L;
+		scrollPane.revalidate();
 
-	    public int getColumnCount() {
-		return 2;
-	    }
+	}
 
-	    public int getRowCount() {
-		return map.size();
-	    }
+	public boolean remove() {
+		return false;
+	}
 
-	    public String getColumnName(int column) {
-		if (column == 0) {
-		    return "Name";
-		} else {
-		    return "Value";
-		}
-	    }
+	private TableModel getTableModel() {
+		Map<String, GlobalVariable> globalState = (Map<String, GlobalVariable>) environment.getGlobalState();
 
-	    public Object getValueAt(int rowIndex, int columnIndex) {
-		if (columnIndex == 0) {
-		    return getKey(rowIndex);
-		} else {
-		    GlobalVariable globalVariable = (GlobalVariable) map.get(getKey(rowIndex));
+		java.util.Set<String> variablesSet = globalState.keySet();
 
-		    Object value = globalVariable.iValue;
+		Map<String, GlobalVariable> userVariablesMap = new HashMap<String, GlobalVariable>();
 
-		    if (value instanceof Cons) {
-			try {
-			    value = Utility.printMathPiperExpression(-1, ((Cons) globalVariable.iValue), finalEnvironment, 0);
-			} catch (Throwable e) {
-			    e.printStackTrace();
+		for (String key : variablesSet) {
+			if (!key.contains("$") && !key.equals("I") && !key.equals("#")
+					&& ((GlobalVariable) globalState.get(key)).iConstant == false) {
+
+				GlobalVariable globalVariable = globalState.get(key);
+
+				userVariablesMap.put(key, globalVariable);
 			}
-		    }
 
-		    return value;
-		} // if-else
+		}
 
-	    }
+		final Map<String, GlobalVariable> map = userVariablesMap;
 
-	    private String getKey(int a_index) {
-		String retval = "";
-		ArrayList<String> keyList = new ArrayList<String>(map.keySet());
-		Collections.sort(keyList, new Comparator<String>() {
+		final Environment finalEnvironment = environment;
 
-		    public int compare(String s1, String s2) {
-			return s1.compareToIgnoreCase(s2);
-		    }
-		});// end method.
+		TableModel tableModel = new AbstractTableModel() {
 
-		retval = (String) keyList.get(a_index);
+			private static final long serialVersionUID = 1L;
 
-		return retval;
-	    }
+			public int getColumnCount() {
+				return 2;
+			}
 
-	};
+			public int getRowCount() {
+				return map.size();
+			}
 
-	return tableModel;
-    }
+			public String getColumnName(int column) {
+				if (column == 0) {
+					return "Name";
+				} else {
+					return "Value";
+				}
+			}
+
+			public Object getValueAt(int rowIndex, int columnIndex) {
+				if (columnIndex == 0) {
+					return getKey(rowIndex);
+				} else {
+					GlobalVariable globalVariable = (GlobalVariable) map.get(getKey(rowIndex));
+
+					Object value = globalVariable.iValue;
+
+					if (value instanceof Cons) {
+						try {
+							value = Utility.printMathPiperExpression(-1, ((Cons) globalVariable.iValue), finalEnvironment, 0);
+						} catch (Throwable e) {
+							e.printStackTrace();
+						}
+					}
+
+					return value;
+				} // if-else
+
+			}
+
+			private String getKey(int a_index) {
+				String retval = "";
+				ArrayList<String> keyList = new ArrayList<String>(map.keySet());
+				Collections.sort(keyList, new Comparator<String>() {
+
+					public int compare(String s1, String s2) {
+						return s1.compareToIgnoreCase(s2);
+					}
+				});// end method.
+
+				retval = (String) keyList.get(a_index);
+
+				return retval;
+			}
+
+		};
+
+		return tableModel;
+	}
 
 }
