@@ -17,6 +17,8 @@
 package org.mathpiper.builtin.functions.optional;
 
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.lisp.Environment;
@@ -53,8 +55,17 @@ public class TellUser extends BuiltinFunction {
         }
 
         messageString = Utility.stripEndQuotesIfPresent(messageString);
+        
+        final String messageStringFinal = messageString;
+        
+        SwingUtilities.invokeAndWait(new Runnable(){
+            @Override
+            public void run() {
+            	JOptionPane.showMessageDialog(null, messageStringFinal, "Message from MathPiper", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
 
-        JOptionPane.showMessageDialog(null, messageString, "Message from MathPiper", JOptionPane.INFORMATION_MESSAGE);
+        
 
         setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }//end method.
