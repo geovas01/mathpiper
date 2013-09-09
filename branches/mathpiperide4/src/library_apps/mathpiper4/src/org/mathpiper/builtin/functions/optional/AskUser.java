@@ -64,12 +64,28 @@ public class AskUser extends BuiltinFunction {
         
         final AtomicReference<String> userInput = new AtomicReference<String>();
         
-        SwingUtilities.invokeAndWait(new Runnable(){
+        userInput.set("NO_INPUT_RECEIVED");
+        
+        SwingUtilities.invokeLater(new Runnable(){
             @Override
             public void run() {
              userInput.set(JOptionPane.showInputDialog(null, messageStringFinal, "Message from MathPiper", JOptionPane.INFORMATION_MESSAGE));
             }
         });
+        
+        
+        while(userInput.get() != null && ((String)userInput.get()).equals("NO_INPUT_RECEIVED"))
+        {
+        	try
+        	{
+        		Thread.sleep(100);
+        	}
+        	catch(InterruptedException e)
+        	{
+        		//Eat exception.
+        	}
+        }
+        		
         
 
         if (userInput.get() == null) {

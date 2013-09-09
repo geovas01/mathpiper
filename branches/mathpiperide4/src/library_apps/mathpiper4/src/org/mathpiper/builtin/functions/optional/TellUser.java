@@ -58,14 +58,12 @@ public class TellUser extends BuiltinFunction {
         
         final String messageStringFinal = messageString;
         
-        SwingUtilities.invokeAndWait(new Runnable(){
+        SwingUtilities.invokeLater(new Runnable(){
             @Override
             public void run() {
             	JOptionPane.showMessageDialog(null, messageStringFinal, "Message from MathPiper", JOptionPane.INFORMATION_MESSAGE);
             }
         });
-
-        
 
         setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }//end method.
