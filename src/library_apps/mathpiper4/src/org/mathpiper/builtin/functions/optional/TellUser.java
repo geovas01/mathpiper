@@ -16,6 +16,8 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin.functions.optional;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
@@ -58,12 +60,31 @@ public class TellUser extends BuiltinFunction {
         
         final String messageStringFinal = messageString;
         
+        final AtomicReference<String> userInput = new AtomicReference<String>();
+        
+        userInput.set("CONFIRMATION_NOT_RECEIVED");
+        
         SwingUtilities.invokeLater(new Runnable(){
             @Override
             public void run() {
             	JOptionPane.showMessageDialog(null, messageStringFinal, "Message from MathPiper", JOptionPane.INFORMATION_MESSAGE);
+            	
+            	userInput.set("CONFIRMATION_RECEIVED");
             }
         });
+        
+        
+        while(userInput.get() != null && ((String)userInput.get()).equals("CONFIRMATION_NOT_RECEIVED"))
+        {
+        	try
+        	{
+        		Thread.sleep(100);
+        	}
+        	catch(InterruptedException e)
+        	{
+        		//Eat exception.
+        	}
+        }
 
         setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }//end method.
