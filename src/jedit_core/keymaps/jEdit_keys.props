@@ -228,3 +228,10 @@ vfs.browser.up.shortcut=A+Up
 vfs.browser.previous.shortcut=A+Left
 vfs.browser.next.shortcut=A+Right
 #}}}
+
+
+#{{{ MathPiperIDE
+MathPiperIDE/Shift_Enter.shortcut=S+ENTER
+MathPiperIDE/Shift_Line_Numbers.shortcut=F2
+insert-newline.shortcut=ENTER
+#}}}
