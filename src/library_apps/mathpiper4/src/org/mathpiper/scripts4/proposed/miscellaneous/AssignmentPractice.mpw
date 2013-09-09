@@ -1,10 +1,13 @@
 %mathpiper,def="AssignmentPractice",log="false"
 
-AssignmentPractice(numberOfVariables, correctInARow, numberOfReassignments, variableRange) :=
+AssignmentPractice(numberOfVariables, correctInARow, numberOfReassignments, variableRange, includeIfFunction?) :=
 {
+    //numberOfVariables := 2; correctInARow := 2; numberOfReassignments := 1; variableRange := 0 .. 9; includeIfFunction? := True;
+
+    Check(Boolean?(includeIfFunction?), "Argument", "The argument includeIfFunction must be True or False.");
 
     //todo:tk:make a,b,etc. local in a loop.
-    Local(a,b,c,d,e,f,actualAnswer,allCorrectFlag,allVariables,anAssignment, answerPanel,currentCorrectInARow,jPanel,label,main,mainLoopMessageLabel,mainLoopMessageString,questionString,questionTextArea,questionTime,reassignmentsIndex,result,textField,textFieldsList,totalTime,userAnswer1,userAnswer2,value,variable1Name,variable2,variable2Name,variable,variableCombination,variableCombinations,variableNames,variablesIndex,variableValues,wrongCount);
+    Local(a,b,c,d,e,f,actualAnswer,allCorrectFlag,allVariables,anAssignment, answerPanel,booleanOperator, currentCorrectInARow,jPanel,label,main,mainLoopMessageLabel,mainLoopMessageString,questionString,questionTextArea,questionTime,reassignmentsIndex,result,textField,textFieldsList,totalTime,userAnswer1,userAnswer2,value,variable1Name,variable2,variable2Name,variable3Name,variable4Name,variable,variableCombination,variableCombinations,variableNames,variablesIndex,variableValues,wrongCount);
     
     currentCorrectInARow := 0;
     
@@ -41,8 +44,7 @@ AssignmentPractice(numberOfVariables, correctInARow, numberOfReassignments, vari
         JavaCall(jPanel, "add", questionTextArea);
         
         answerPanel := JavaNew("javax.swing.JPanel");
-        
-        
+             
         //Create initial variable assignments.
         While(variablesIndex <=? numberOfVariables)
         {
@@ -66,7 +68,7 @@ AssignmentPractice(numberOfVariables, correctInARow, numberOfReassignments, vari
             
             anAssignment := variable ~ " := " ~ ToString(value) ~ ";";
             
-            Write(anAssignment);
+            Write(JavaAccess(JavaNew("java.lang.String", anAssignment), "replaceAll", "\\n", "|"));
             
             Write(',);
             
@@ -81,33 +83,42 @@ AssignmentPractice(numberOfVariables, correctInARow, numberOfReassignments, vari
         
         //Create variable reassignments.
         reassignmentsIndex := 1;
-        
-        variableCombinations := Shuffle(CombinationsList(Shuffle(variableNames),2));
-        
         While(reassignmentsIndex <=? numberOfReassignments)
         {
-
+            variableCombinations := Shuffle(CombinationsList(Shuffle(variableNames),2));
             variableCombination := Shuffle(PopFront(variableCombinations));
-     
             variable1Name := variableCombination[1];
-            
             variable2Name := variableCombination[2];
+            
             
             anAssignment := variable1Name ~ " := " ~ variable2Name ~ ";";
             
-            Write(anAssignment);
+            If(includeIfFunction? =? True)
+            {
+                variableCombinations := Shuffle(CombinationsList(Shuffle(variableNames),2));
+                variableCombination := Shuffle(PopFront(variableCombinations));
+                variable3Name := variableCombination[1];
+                variable4Name := variableCombination[2];
+                
+                booleanOperator := RandomPick(["<?","<=?",">?",">=?","=?"]);
+                
+                
+                anAssignment := "If(" ~ ToString(variable3Name) ~ " " ~ booleanOperator ~ " " ~ ToString(variable4Name) ~ ")" ~ Nl() ~ "{" ~ Nl() ~ "    " ~ anAssignment ~ Nl() ~ "};" ~ Nl();
+            };
+            
+            Write(JavaAccess(JavaNew("java.lang.String", anAssignment), "replaceAll", "\\n", "|"));
             
             Write(',);
             
             JavaCall(questionTextArea, "append", anAssignment ~ Nl());
             
-            variable2 := Eval(ToAtom(variable2Name));
-            
-            `Assign(@variable1Name, variable2);
+            Eval(PipeFromString(anAssignment) ParseMathPiper());
             
             reassignmentsIndex++;
         };
         
+    //SysOut(ToString(a) ~ ", " ~ ToString(b) ~ ", " ~ ToString(c));     
+    
             JavaCall(jPanel, "add", answerPanel);
             
             
@@ -116,7 +127,9 @@ AssignmentPractice(numberOfVariables, correctInARow, numberOfReassignments, vari
             {
                 allCorrectFlag := True;
                     
-                result := JavaAccess("javax.swing.JOptionPane","showConfirmDialog",Null, jPanel, "Question", JavaCall("javax.swing.JOptionPane","OK_CANCEL_OPTION"));
+                //result := JavaAccess("javax.swing.JOptionPane","showConfirmDialog",Null, jPanel, "Question", JavaCall("javax.swing.JOptionPane","OK_CANCEL_OPTION"));
+                
+                result := AskUser(jPanel);
                 
                 ForEach(variableName, variableNames)
                 {
@@ -165,7 +178,9 @@ AssignmentPractice(numberOfVariables, correctInARow, numberOfReassignments, vari
                 </html>");
                 mainLoopMessageLabel := JavaNew("javax.swing.JLabel", mainLoopMessageString);   
     
-                main := JavaAccess("javax.swing.JOptionPane","showConfirmDialog",Null, mainLoopMessageLabel, "Question", JavaCall("javax.swing.JOptionPane","OK_CANCEL_OPTION"));
+                //main := JavaAccess("javax.swing.JOptionPane","showConfirmDialog",Null, mainLoopMessageLabel, "Question", JavaCall("javax.swing.JOptionPane","OK_CANCEL_OPTION"));
+                
+                main := AskUser(mainLoopMessageLabel);
             }
             Else
             {
@@ -189,18 +204,40 @@ AssignmentPractice(numberOfVariables, correctInARow, numberOfReassignments, vari
 
 %/mathpiper
 
-    %output,sequence="9",timestamp="2013-08-28 10:45:27.344",preserve="false"
+    %output,sequence="38",timestamp="2013-09-09 01:38:05.9",preserve="false"
       Result: True
 .   %/output
 
 
 
 
-%mathpiper,title="",name="practice1",preserve_output="true",log="false"
 
-AssignmentPractice(2,2,1,0 .. 9);
+
+%mathpiper,title="",name="practice1",preserve_output="false",log="false"
+
+AssignmentPractice(3,2,3,0 .. 9, True);
 
 %/mathpiper
+
+    %output,parent="practice1",sequence="39",timestamp="2013-09-09 01:38:56.339",preserve="false"
+      Result: True
+      
+      Side Effects:
+      [
+      "a := 1;","b := 3;","c := 7;","If(c <=? b)|{|    c := a;|};|","If(c <? b)|{|    c := b;|};|","If(c <? b)|{|    b := c;|};|",[["a",1,1],["b",3,3],["c",7,7],23.634430392],
+      "a := 7;","b := 9;","c := 6;","If(b =? a)|{|    b := c;|};|","If(b >? a)|{|    a := b;|};|","If(a <? c)|{|    a := c;|};|",[["a",9,9],["b",9,9],["c",6,6],20.829844018],
+      ]Number Of Variables: 3 
+      Number Of Reassignments: 3 
+      Variables Range: 0 1 2 3 4 5 6 7 8 9 
+      Correct In A Row Needed: 2 
+      Total Time: 47.248787965 
+      Wrong Count: 0 
+      
+.   %/output
+
+
+
+
 
 
 
