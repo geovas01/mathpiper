@@ -64,7 +64,7 @@ options.mathpiperstate.choose-font=Font:
 options.mathpiperstate.show-filepath.title=Display notepad file path
 
 # window title
-mathpiperstate.title=MathPiperState
+mathpiperstate.title=GlobalState
 
 # window toolbar buttons
 mathpiperstate.choose-file.icon=Open.png
