@@ -16,7 +16,11 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin.functions.optional;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.exceptions.BreakException;
@@ -56,15 +60,23 @@ public class AskUser extends BuiltinFunction {
         }
 
 
-        messageString = Utility.stripEndQuotesIfPresent(messageString);
+        final String messageStringFinal = Utility.stripEndQuotesIfPresent(messageString);
+        
+        final AtomicReference<String> userInput = new AtomicReference<String>();
+        
+        SwingUtilities.invokeAndWait(new Runnable(){
+            @Override
+            public void run() {
+             userInput.set(JOptionPane.showInputDialog(null, messageStringFinal, "Message from MathPiper", JOptionPane.INFORMATION_MESSAGE));
+            }
+        });
+        
 
-        String userInputString = JOptionPane.showInputDialog(null, messageString, "Message from MathPiper", JOptionPane.INFORMATION_MESSAGE);
-
-        if (userInputString == null) {
+        if (userInput.get() == null) {
             throw new BreakException();
         }//end method.
 
-        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "\"" + userInputString + "\""));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "\"" + userInput.get() + "\""));
     }//end method.
 }//end class.
 
