@@ -80,7 +80,10 @@ public class JavaToValue extends BuiltinFunction {
 
                     return;
 
-                } else {
+                } else if (object instanceof Integer) {
+                    atomValue = javaObject.getObject().toString();
+                }
+                else{
                     atomValue = Utility.toMathPiperString(aEnvironment, aStackTop, (String) javaObject.getObject().toString().trim());
                 }
 
