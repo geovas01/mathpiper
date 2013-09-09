@@ -23,6 +23,7 @@ import javax.swing.SwingUtilities;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
+import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.exceptions.BreakException;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
@@ -49,50 +50,79 @@ public class AskUser extends BuiltinFunction {
 
         Object argument = getArgument(aEnvironment, aStackTop, 1).car();
 
-        if (! (argument instanceof String)) {
-            LispError.raiseError("The argument to AskUser must be a string.", aStackTop, aEnvironment);
-        }
 
-        String messageString = (String) argument;
-
-        if (messageString == null) {
+        if (argument == null) {
             LispError.checkArgument(aEnvironment, aStackTop, 1);
         }
+        
 
-
-        final String messageStringFinal = Utility.stripEndQuotesIfPresent(messageString);
-        
-        final AtomicReference<String> userInput = new AtomicReference<String>();
-        
-        userInput.set("NO_INPUT_RECEIVED");
-        
-        SwingUtilities.invokeLater(new Runnable(){
-            @Override
-            public void run() {
-             userInput.set(JOptionPane.showInputDialog(null, messageStringFinal, "Message from MathPiper", JOptionPane.INFORMATION_MESSAGE));
-            }
-        });
-        
-        
-        while(userInput.get() != null && ((String)userInput.get()).equals("NO_INPUT_RECEIVED"))
+        if(argument instanceof String)
         {
-        	try
-        	{
-        		Thread.sleep(100);
-        	}
-        	catch(InterruptedException e)
-        	{
-        		//Eat exception.
-        	}
-        }
-        		
+            final AtomicReference<String> userInput = new AtomicReference<String>();
+            
+            userInput.set("NO_INPUT_RECEIVED");
+            
+        	final String messageStringFinal = Utility.stripEndQuotesIfPresent((String) argument);
         
-
-        if (userInput.get() == null) {
-            throw new BreakException();
-        }//end method.
-
-        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "\"" + userInput.get() + "\""));
+            SwingUtilities.invokeLater(new Runnable(){
+                @Override
+                public void run() {
+                 userInput.set(JOptionPane.showInputDialog(null, messageStringFinal, "Message from MathPiper", JOptionPane.INFORMATION_MESSAGE));
+                }
+            });
+            
+            while(userInput.get() != null && ((String)userInput.get()).equals("NO_INPUT_RECEIVED"))
+            {
+            	try
+            	{
+            		Thread.sleep(100);
+            	}
+            	catch(InterruptedException e)
+            	{
+            		//Eat exception.
+            	}
+            }
+            
+            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "\"" + userInput.get() + "\""));
+        }
+        else if(argument instanceof JavaObject)
+        {
+        	
+        	final Object componentFinal = ((JavaObject)argument).getObject();
+        	
+            if (!(componentFinal instanceof javax.swing.JComponent)) {
+                LispError.checkArgument(aEnvironment, aStackTop, 1);
+            }
+            
+            final AtomicReference<Integer> userInput = new AtomicReference<Integer>();
+            
+            userInput.set(-1);
+            
+        	
+            
+            SwingUtilities.invokeLater(new Runnable(){
+                @Override
+                public void run() {
+                 userInput.set(JOptionPane.showConfirmDialog(null, componentFinal, "AskUser", JOptionPane.OK_CANCEL_OPTION));
+                }
+            });
+            
+            while(userInput.get() != null && userInput.get() != JOptionPane.CANCEL_OPTION && userInput.get() != JOptionPane.OK_OPTION)
+            {
+            	try
+            	{
+            		Thread.sleep(100);
+            	}
+            	catch(InterruptedException e)
+            	{
+            		//Eat exception.
+            	}
+            }
+            
+            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, userInput.get().toString()));
+        }
+        
+        
     }//end method.
 }//end class.
 
@@ -107,7 +137,7 @@ public class AskUser extends BuiltinFunction {
 
 *PARMS
 
-{message} -- a message which indicates what kind of input to enter
+{message} -- a message (either a string or a javax.swing.JCompnent)) that indicates what kind of input to enter
 
 *DESC
 
@@ -119,3 +149,4 @@ the Break() function will be executed.
 *SEE TellUser
 %/mathpiper_docs
 */
+
