@@ -57,7 +57,7 @@ public class LoadScriptFile extends BuiltinFunction {
 
 	fileName = Utility.stripEndQuotesIfPresent(fileName);
 
-	InputStatus inputStatus = new InputStatus("File: " + fileName);
+	InputStatus inputStatus = new InputStatus("USER_File: " + fileName);
 
 	
 
