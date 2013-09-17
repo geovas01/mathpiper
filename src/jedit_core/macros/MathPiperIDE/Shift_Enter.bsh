@@ -2169,7 +2169,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 					outputURI = new java.net.URI("file:///" + logFilePath.replaceAll(" ", "%20").replaceAll("\\\\","/"));  
 					File logFile = new File(outputURI);
 					BufferedWriter logFileWriter = new BufferedWriter(new FileWriter(logFile,true));
-					logFileWriter.write("%info" + "," + parentProperty + "sequence=\"" + mpwExecutionCount + "\",timestamp=\"" + timestamp + "\",username=\"" +  System.getProperty("user.name")  + "\",hostname=\"" +  InetAddress.getLocalHost().getHostName() + "\",hostaddresses=\"" +  getHostAddresses() +  "\"\n" + codeText + "\n" + "%/" + output_fold_type.substring(1,output_fold_type.length() ) + "\n\n");
+					logFileWriter.write("%info" + "," + parentProperty + "sequence=\"" + mpwExecutionCount + "\",timestamp=\"" + timestamp + "\",username=\"" +  System.getProperty("user.name")  + "\",hostname=\"" +  InetAddress.getLocalHost().getHostName() + "\",hostaddresses=\"" +  getHostAddresses() +  "\"\n" + codeText + "\n" + "%/info" + "\n\n");
 					logFileWriter.close();
 				}
 				catch(Exception e)
@@ -2417,7 +2417,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 									}
 									outputURI = new java.net.URI("file:///" + logFilePath.replaceAll(" ", "%20").replaceAll("\\\\","/"));  									  File logFile = new File(outputURI);
 									BufferedWriter logFileWriter = new BufferedWriter(new FileWriter(logFile,true));
-									logFileWriter.write("%info" + "," + parentProperty + "sequence=\"" + mpwExecutionCount + "\",timestamp=\"" + timestamp + "\",username=\"" +  System.getProperty("user.name")  + "\",hostname=\"" +  InetAddress.getLocalHost().getHostName() + "\",hostaddresses=\"" +  getHostAddresses() +  "\",mpversion=\"" + org.mathpiper.Version.version() + "\"\n" + codeText.replace("\n","|") + "\n" + "%/" + output_fold_type.substring(1,output_fold_type.length() ) + "\n\n");
+									logFileWriter.write("%info" + "," + parentProperty + "sequence=\"" + mpwExecutionCount + "\",timestamp=\"" + timestamp + "\",username=\"" +  System.getProperty("user.name")  + "\",hostname=\"" +  InetAddress.getLocalHost().getHostName() + "\",hostaddresses=\"" +  getHostAddresses() +  "\",mpversion=\"" + org.mathpiper.Version.version() + "\"\n" + codeText.replace("\n","|") + "\n" + "%/info" + "\n\n");
 									logFileWriter.close();
 								}
 							}
