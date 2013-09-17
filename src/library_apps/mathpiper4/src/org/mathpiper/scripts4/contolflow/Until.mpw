@@ -48,24 +48,28 @@ command {While}. The {Until}
 command can be compared to the {do ... while}
 construct in the programming language C.
 
-*E.G. notest
+*E.G.
 
-In> x := 0;
-Result: 0;
+/%mathpiper
+x := 1;
 
-In> Until (x! >? 10^6) \
-          [ Echo([x, x!]); x++; ];
-         0  1
-         1  1
-         2  2
-         3  6
-         4  24
-         5  120
-         6  720
-         7  5040
-         8  40320
-         9  362880
-Result: True;
+Until(x >=? 5)
+{
+   Echo(x); 
+   x++;
+};
+/%/mathpiper
+
+    /%output,sequence="4",timestamp="2013-09-16 22:36:36.156",preserve="false"
+      Result: True
+      
+      Side Effects:
+      1 
+      2 
+      3 
+      4 
+      
+.   /%/output
 
 *SEE While, For, ForEach, Break, Continue
 %/mathpiper_docs
