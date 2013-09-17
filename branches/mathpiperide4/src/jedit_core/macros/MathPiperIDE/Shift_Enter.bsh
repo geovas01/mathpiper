@@ -599,7 +599,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						public class MyTimerTask extends TimerTask
 						{
 							public void run() {
-								asynchronousInterpreter.haltEvaluation("Evaluation timeout exceeded.");
+								asynchronousInterpreter.haltEvaluation("Evaluation timeout exceeded or user halted evaluation.");
 								timer.cancel();
 							}
 						}
@@ -663,33 +663,39 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 								
 								errorLineNumber = exception.getLineNumber();
 								
-								startIndex = exception.getStartIndex();
-								
-								endIndex = exception.getEndIndex();
-								
-								
-								adjustedErrorLineNumber = foldStartLine + errorLineNumber; 
-								
-								errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
-				
-								errorResult =  exception.getMessage() + " Error on or before line " + (adjustedErrorLineNumber + 1) + " starting at index " + startIndex + ".";							
-								
-								filePath = textArea.getBuffer().getPath();
-							
-								errorSource.clear();
-								
-								if(startIndex == endIndex)
+								if(errorLineNumber != -1)
 								{
-									if(startIndex > 0)
-									{
-										startIndex--;
-									}
+									startIndex = exception.getStartIndex();
 									
-									endIndex++;
-								}
-							
-								errorSource.addError(new DefaultErrorSource.DefaultError( errorSource, ErrorSource.ERROR, filePath, adjustedErrorLineNumber, startIndex, endIndex, errorResult ) );
+									endIndex = exception.getEndIndex();
+									
+									
+									adjustedErrorLineNumber = foldStartLine + errorLineNumber; 
+									
+									errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
+					
+									errorResult =  exception.getMessage() + " Error on or before line " + (adjustedErrorLineNumber + 1) + " starting at index " + startIndex + ".";							
+									
+									filePath = textArea.getBuffer().getPath();
 								
+									errorSource.clear();
+									
+									if(startIndex == endIndex)
+									{
+										if(startIndex > 0)
+										{
+											startIndex--;
+										}
+										
+										endIndex++;
+									}
+								
+									errorSource.addError(new DefaultErrorSource.DefaultError( errorSource, ErrorSource.ERROR, filePath, adjustedErrorLineNumber, startIndex, endIndex, errorResult ) );
+								}
+								else
+								{
+									errorResult =  exception.getMessage();
+								}
 							}
 							else
 							{
