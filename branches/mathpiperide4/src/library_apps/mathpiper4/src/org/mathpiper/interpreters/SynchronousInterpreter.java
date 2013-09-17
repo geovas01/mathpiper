@@ -458,9 +458,10 @@ public class SynchronousInterpreter implements Interpreter {
         //iEnvironment.iEvalDepth = iEnvironment.iMaxEvalDepth + 100; //Deprecated.
         //evaluationThread.interrupt();
         //}
-        Environment.haltEvaluation = true;
         
         Environment.haltEvaluationMessage = "User halted evaluation.";
+        
+        Environment.haltEvaluation = true;
     }
     
     public void haltEvaluation(String message) {
