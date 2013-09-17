@@ -95,7 +95,8 @@ public class LispExpressionEvaluator extends Evaluator {
 	if (Environment.haltEvaluation == true) {
 	    Environment.haltEvaluation = false;
 
-	    LispError.throwError(aEnvironment, aStackTop, Environment.haltEvaluationMessage);
+	    //LispError.throwError(aEnvironment, aStackTop, Environment.haltEvaluationMessage);
+	    LispError.throwError(aEnvironment,-2,Environment.haltEvaluationMessage,-1,-1,-1);
 	}
 
 	// evaluate an atom: find the bound value (treat it as a variable)
