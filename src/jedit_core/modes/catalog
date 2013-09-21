@@ -334,6 +334,9 @@
 <MODE NAME="maple"		FILE="maple.xml"
 				FILE_NAME_GLOB="*.{mpl,mws}" />
 				
+<MODE NAME="markdown"		FILE="markdown.xml"
+				FILE_NAME_GLOB="*.{md}" />
+				
 <MODE NAME="mathpiper"		FILE="mathpiper.xml"
 				FILE_NAME_GLOB="*.{mpi,mpt,ys,yts}" />
 				

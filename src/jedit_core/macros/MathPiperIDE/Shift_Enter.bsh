@@ -1370,7 +1370,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				}
 				else
 				{
-				output_fold_type = "%output ";
+				output_fold_type = "%output";
 				}
 	//Sy	stem.out.println("Out> " + result);
 				
@@ -2212,6 +2212,111 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 
 		}//end else
 		//end %regex }}}
+
+
+	///{{{ *** %markdown ***
+		else if(foldType.equalsIgnoreCase("%markdown")) 
+		{
+			//jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "piperdocs" );
+			
+			
+			result = "";
+			output_fold_type = "%output";
+			
+			try 
+			{   
+				//tempFilePath = tempFile.getAbsolutePath();
+				//tempFilePath = ChangeToForwardSlash(tempFilePath);
+				//tempFilePath = "file:///" + tempFilePath;
+				
+				
+				util = ua.pico.jedit.markdown.MarkdownUtil.getInstance();
+				processor = util.getProcessor();
+		
+				if (0 == codeText.length()) {
+					org.gjt.sp.jedit.Macros.message(jEdit.getActiveView(),"The %markdown fold is empty.");
+					return;
+				}
+		
+				htmlText = processor.markdownToHtml(codeText);
+				
+				htmlTextWithLatex = org.mathpiper.ui.gui.help.FunctionTreePanel.processLatex(htmlText);
+
+				
+				frame = new javax.swing.JFrame(); 
+				contentPane = frame.getContentPane();
+				contentPane.setLayout(new java.awt.BorderLayout());
+				JEditorPane editorPane = new JEditorPane();
+				editorPane.setEditorKit(new javax.swing.text.html.HTMLEditorKit());
+				JScrollPane editorScrollPane = new JScrollPane(editorPane);
+				editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+				editorPane.setEditable(false);
+				//editorPane.setPage(tempFilePath);
+				editorPane.setText(htmlTextWithLatex);
+				editorPane.setCaretPosition(0);
+				contentPane.add(editorScrollPane);//guiBox,BorderLayout.NORTH);
+				
+				
+				//{{{Experimental screen capture code.
+				button = new org.gjt.sp.jedit.gui.RolloverButton(GUIUtilities.loadIcon("Save.png"));
+				button.setToolTipText("Save image of this window.");
+				ActionListener actionListener = new java.awt.event.ActionListener() {
+					
+					public void actionPerformed(ActionEvent evt) 
+					{
+						String[] paths = org.gjt.sp.jedit.GUIUtilities.showVFSFileDialog(view, null, JFileChooser.SAVE_DIALOG, false);
+				
+						if (paths != null ) 
+						{
+							String fileName = paths[0];
+							java.io.File exportImageFile = new File(fileName);
+							try
+							{
+								org.mathpiperide.library.ScreenCapture.createImage(editorPane, fileName);
+							}
+							catch (java.io.IOException ioe)
+							{
+								ioe.printStackTrace();
+							}//end try/catch.
+						}//end if.
+					}//end method.
+				};//end anonymous.
+        		
+				button.addActionListener( actionListener);
+				
+				
+				toolPanel = new javax.swing.JPanel();
+				toolPanel.add(button);
+				contentPane.add(toolPanel, java.awt.BorderLayout.NORTH);
+				
+				//}}}*/
+
+				
+				
+
+				frame.pack();
+				frame.setAlwaysOnTop(false);
+				frame.setTitle("MathPiperIDE");
+				xsize = Integer.parseInt(foldProperties.get("width"));
+				ysize = Integer.parseInt(foldProperties.get("height"));
+				frame.setSize(new Dimension(xsize, ysize));
+				frame.setResizable(true);
+				//frame.setPreferredSize(new Dimension(400, 400));
+				frame.setLocationRelativeTo(null);
+				frame.show();
+
+
+			}catch(Exception e) 
+			{
+				result = e.getMessage();
+				output_fold_type = "%error ";
+			}
+			
+
+		}//end else
+		//end %markdown }}}
+
+
 		
 		
 	///{{{ *** %output ***

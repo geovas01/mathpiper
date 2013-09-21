@@ -148,6 +148,11 @@
 			<BEGIN>%text[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;\?]*</BEGIN>
 			<END>%/text</END>
 		</SPAN_REGEXP>
+		
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="markdown::MAIN">
+			<BEGIN>%markdown[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;\?]*</BEGIN>
+			<END>%/markdown</END>
+		</SPAN_REGEXP>
 
 	</RULES>
     
