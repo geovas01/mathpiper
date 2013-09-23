@@ -2239,10 +2239,9 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				}
 		
 				htmlText = processor.markdownToHtml(codeText);
-				
+				htmlText = htmlText.replace("$$", "$");
 				htmlTextWithLatex = org.mathpiper.ui.gui.help.FunctionTreePanel.processLatex(htmlText);
 
-				
 				frame = new javax.swing.JFrame(); 
 				contentPane = frame.getContentPane();
 				contentPane.setLayout(new java.awt.BorderLayout());
@@ -2255,7 +2254,6 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				editorPane.setText(htmlTextWithLatex);
 				editorPane.setCaretPosition(0);
 				contentPane.add(editorScrollPane);//guiBox,BorderLayout.NORTH);
-				
 				
 				//{{{Experimental screen capture code.
 				button = new org.gjt.sp.jedit.gui.RolloverButton(GUIUtilities.loadIcon("Save.png"));
