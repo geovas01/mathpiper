@@ -1,4 +1,4 @@
-%mathpiper,def="AssignmentPractice",log="false"
+%mathpiper,def="AssignmentPractice"
 
 AssignmentPractice(numberOfVariables, correctInARow, numberOfReassignments, variableRange, includeIfFunction?) :=
 {
