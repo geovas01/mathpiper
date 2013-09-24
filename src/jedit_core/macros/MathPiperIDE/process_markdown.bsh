@@ -1,0 +1,36 @@
+thisFile = buffer.getPath();
+mpwFile = new File(thisFile);
+parentDirectory = mpwFile.getParent();
+templateFile = new File(parentDirectory + java.io.File.separator + "html_template.mpw");
+
+try
+{
+    markdownFoldsMap = org.mathpiper.test.MPWSFile.getFoldsMap(mpwFile.getPath(), new java.io.FileInputStream(mpwFile));
+    templateFoldsMap = org.mathpiper.test.MPWSFile.getFoldsMap(mpwFile.getPath(), new java.io.FileInputStream(templateFile));
+    prologue = templateFoldsMap.get("prologue").getContents();
+    markdownFold = markdownFoldsMap.get("markdown");
+    outputFileName = markdownFold.getAttributes().get("output");
+    markdown = markdownFold.getContents();
+    markdown = markdown.replace("\\","\\\\");
+    util = ua.pico.jedit.markdown.MarkdownUtil.getInstance();
+    processor = util.getProcessor();
+    htmlText = processor.markdownToHtml(markdown);
+    epilogue = templateFoldsMap.get("epilogue").getContents();
+    combined = prologue + htmlText + epilogue;
+    outputFilePath = parentDirectory + java.io.File.separator + outputFileName;
+    if(outputFilePath.contains("\\")) //For windows.
+    {
+        outputFilePath = outputFilePath.substring(3,outputFilePath.length());
+    }
+    outputURI = new java.net.URI("file:///" + outputFilePath.replaceAll(" ", "%20").replaceAll("\\\\","/"));  
+    File outputFile = new File(outputURI);
+    BufferedWriter htmlFileWriter = new BufferedWriter(new FileWriter(outputFile,false));
+	htmlFileWriter.write(combined);
+	htmlFileWriter.close();
+    
+}
+catch(Throwable e)
+{
+    e.printStackTrace();
+}
+
