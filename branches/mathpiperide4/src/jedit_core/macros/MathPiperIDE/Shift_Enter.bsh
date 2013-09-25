@@ -1052,21 +1052,25 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				};
 	
 				
+				databaseName = foldProperties.get("input");
 				
-				sqlWrapper = SQLDBWrapper.getInstance();
-				
-				sqlWrapper.addResponseListener(responseListener);
-				
-				
-	
-				
-				//sendString = tempFile.getAbsolutePath();
-				
-				codeText = codeText.trim();
-				
-				sqlWrapper.send(codeText + "\n");
-				
-				output_fold_type = "%output";
+				if(!databaseName.equals(""))
+				{
+					sqlWrapper = SQLDBWrapper.getInstance(databaseName);
+					
+					sqlWrapper.addResponseListener(responseListener);
+					
+					codeText = codeText.trim();
+					
+					sqlWrapper.send(codeText + "\n");
+					
+					output_fold_type = "%output";
+				}
+				else
+				{
+					result = "No input attribute that contained a database name was given.";
+					output_fold_type = "%error ";
+				}
 			
 					
 			}catch(java.io.IOException ioe) 

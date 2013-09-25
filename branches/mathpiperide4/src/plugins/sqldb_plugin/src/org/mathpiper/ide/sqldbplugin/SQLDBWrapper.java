@@ -42,6 +42,7 @@ public class SQLDBWrapper implements Runnable
 {
 
 	private static SQLDBWrapper sqldbInstance = null;
+	private static String databaseName = "test";
 
 	private StringBuffer responseBuffer;
 	private Pattern inputPromptPattern;
@@ -66,7 +67,7 @@ public class SQLDBWrapper implements Runnable
 		
 		
 	    //RCData conData = new RCData("TestID", "jdbc:hsqldb:file:/home/tkosan/databases/aip/aip", "SA", "", null, null, null, null, null);
-	    RCData conData = new RCData("TestID", "jdbc:hsqldb:hsql://localhost/hotel", "SA", "", null, null, null, null, null);
+	    RCData conData = new RCData("TestID", "jdbc:hsqldb:hsql://localhost/" + SQLDBWrapper.databaseName, "SA", "", null, null, null, null, null);
 
 	    
 	    PipedReader reader = new PipedReader(writer);
@@ -118,15 +119,19 @@ public class SQLDBWrapper implements Runnable
 		return prompt;
 	}//end method.
 
-	public static SQLDBWrapper getInstance() throws Throwable
+	public static SQLDBWrapper getInstance(String databaseName) throws Throwable
 	{
+		SQLDBWrapper.databaseName = databaseName;
 		if(sqldbInstance == null) {
 			sqldbInstance = new SQLDBWrapper();
 		}
 		return sqldbInstance;
 	}//end method.
 
-
+	public static SQLDBWrapper getInstance() throws Throwable
+	{
+		return getInstance("test");
+	}
 
 	public synchronized void send(String send) throws Throwable
 	{
