@@ -30,11 +30,11 @@ void insert_sql_fold()
 	
 	offset = textArea.getLineStartOffset(line);
 
-	text = "%sql,title=\"\"\n\n%/sql\n\n";
+	text = "%sql,title=\"\",input=\"\"\n\n%/sql\n\n";
 
 	buffer.insert(offset, text);
 	
-    textArea.setCaretPosition(offset + 13);
+    textArea.setCaretPosition(offset + 22);
 }
 
 insert_sql_fold();
