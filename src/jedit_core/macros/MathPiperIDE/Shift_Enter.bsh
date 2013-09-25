@@ -1060,7 +1060,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 					
 					sqlWrapper.addResponseListener(responseListener);
 					
-					codeText = codeText.trim();
+					codeText = codeText.trim().replace("\n", " ");
 					
 					sqlWrapper.send(codeText + "\n");
 					
