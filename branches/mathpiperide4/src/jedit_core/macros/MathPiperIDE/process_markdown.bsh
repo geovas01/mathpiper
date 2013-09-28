@@ -1,3 +1,4 @@
+buffer.save(view,null);
 thisFile = buffer.getPath();
 mpwFile = new File(thisFile);
 parentDirectory = mpwFile.getParent();
@@ -5,18 +6,25 @@ templateFile = new File(parentDirectory + java.io.File.separator + "html_templat
 
 try
 {
-    markdownFoldsMap = org.mathpiper.test.MPWSFile.getFoldsMap(mpwFile.getPath(), new java.io.FileInputStream(mpwFile));
+    exerciseFoldsMap = org.mathpiper.test.MPWSFile.getFoldsMap(mpwFile.getPath(), new java.io.FileInputStream(mpwFile));
     templateFoldsMap = org.mathpiper.test.MPWSFile.getFoldsMap(mpwFile.getPath(), new java.io.FileInputStream(templateFile));
     prologue = templateFoldsMap.get("prologue").getContents();
-    markdownFold = markdownFoldsMap.get("markdown");
+    premarkdown = templateFoldsMap.get("preexplanation").getContents();
+    markdownFold = exerciseFoldsMap.get("explanation");
+    exerciseCode = exerciseFoldsMap.get("exerciseCode").getContents();
+    if(exerciseCode == null) 
+    {
+        exerciseCode = "";
+    }
     outputFileName = markdownFold.getAttributes().get("output");
     markdown = markdownFold.getContents();
     markdown = markdown.replace("\\","\\\\");
     util = ua.pico.jedit.markdown.MarkdownUtil.getInstance();
     processor = util.getProcessor();
     htmlText = processor.markdownToHtml(markdown);
+    postmarkdown = templateFoldsMap.get("postexplanation").getContents();
     epilogue = templateFoldsMap.get("epilogue").getContents();
-    combined = prologue + htmlText + epilogue;
+    combined = prologue + premarkdown + htmlText + postmarkdown + exerciseCode + epilogue;
     outputFilePath = parentDirectory + java.io.File.separator + outputFileName;
     if(outputFilePath.contains("\\")) //For windows.
     {
