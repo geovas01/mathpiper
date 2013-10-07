@@ -134,7 +134,7 @@
 			<END>%/info</END>
 		</SPAN_REGEXP>
 		
-		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="pl-sql::MAIN">
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="PostgreSQL::MAIN">
 			<BEGIN>%sql[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;\?]*</BEGIN>
 			<END>%/sql</END>
 		</SPAN_REGEXP>
