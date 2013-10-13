@@ -1038,7 +1038,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						//The contents of "response" can be manipluated here before assigning it to "result".
 						
 						
-						result = response;//The variable "result" is what gets displayed in the output fold.
+						result = response.trim();//The variable "result" is what gets displayed in the output fold.
 						
 						displayResult(true);
 						

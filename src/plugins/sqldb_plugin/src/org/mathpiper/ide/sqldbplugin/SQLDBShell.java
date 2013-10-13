@@ -38,7 +38,8 @@ public class SQLDBShell extends Shell implements org.mathpiperide.ResponseListen
 		try{
 
 			sqldb = SQLDBWrapper.getInstance();
-			sqldbStartMessage = sqldb.getStartMessage();
+			//sqldbStartMessage = sqldb.getStartMessage();
+			sqldbStartMessage = "";
 
 		}catch(java.io.IOException ioe)
 		{
@@ -148,7 +149,7 @@ public class SQLDBShell extends Shell implements org.mathpiperide.ResponseListen
 	{
 		if(sqldb != null)
 		{
-			output.writeAttrs(ConsolePane.colorAttributes(console.getPlainColor()), sqldb.getPrompt());
+			output.writeAttrs(ConsolePane.colorAttributes(console.getPlainColor()), "sql>"); //sqldb.getPrompt());
 		}
 		else
 		{

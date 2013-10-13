@@ -174,7 +174,7 @@ public class SqlFile {
     // TODO:  Implement PL variable to interactively change history length.
     // Study to be sure this won't cause state inconsistencies.
     private boolean          reportTimes;
-    private Reader           reader;
+    public Reader           reader;
     // Reader serves the auxiliary purpose of null meaning execute()
     // has finished.
     private String           inputStreamLabel;
@@ -772,7 +772,7 @@ public class SqlFile {
             scanner.setStdPrintStream(shared.psStd);
             scanner.setRawLeadinPrompt(SqltoolRB.raw_leadin.getString());
             if (interactive) {
-                stdprintln(SqltoolRB.SqlFile_banner.getString(revnum));
+                //stdprintln(SqltoolRB.SqlFile_banner.getString(revnum));
                 scanner.setRawPrompt(rawPrompt);
                 scanner.setSqlPrompt(contPrompt);
                 scanner.setSqltoolPrompt(primaryPrompt);
@@ -4139,9 +4139,12 @@ public class SqlFile {
 
                     condlPrintln("<TBODY></TABLE>", true);
 
-                    if (interactive && rows.size() != 1)
-                        stdprintln(LS + SqltoolRB.rows_fetched.getString(
-                                rows.size()), true);
+                    if(interactive && rows.size() != 1)
+                    {
+                    	String rowsMessage = LS + SqltoolRB.rows_fetched.getString(rows.size());
+                    	rowsMessage = rowsMessage.trim();
+                    	stdprintln(rowsMessage + "\n", true);
+                    }
 
                     break;
                 }
@@ -4181,8 +4184,8 @@ public class SqlFile {
 
                     pwDsv.print(dsvRowDelim);
                 }
-
                 stdprintln(SqltoolRB.rows_fetched_dsv.getString(rows.size()));
+                //stdprintln("\n");
                 // Undecided about whether should display row count here when
                 // in non-interactive mode
                 break;
@@ -6099,9 +6102,10 @@ public class SqlFile {
                     setBuf(macroToken);
                     buffer.val = "";
                     buffer.line = defToken.line;
+                    StringBuffer sb = new StringBuffer();
                     while (templateM.find()) {
-                        buffer.val += macroToken.val
-                                .substring(prevEnd, templateM.start());
+                        sb.append(macroToken.val
+                                .substring(prevEnd, templateM.start()));
                         varNum = Integer.valueOf(
                                 templateM.group(templateM.groupCount()));
                         varVal = (varNum > 0 && varNum <= splitVars.length)
@@ -6112,11 +6116,12 @@ public class SqlFile {
                             throw new BadSpecial(
                                     SqltoolRB.plvar_undefined.getString(
                                     templateM.group(templateM.groupCount())));
-                        if (varVal != null) buffer.val += varVal;
+                        if (varVal != null) sb.append(varVal);
                         prevEnd = templateM.end();
                     }
-                    buffer.val += macroToken.val.substring(prevEnd);
-                    if (thirdGroup != null) buffer.val += thirdGroup;
+                    sb.append(macroToken.val.substring(prevEnd));
+                    if (thirdGroup != null) sb.append(thirdGroup);
+                    buffer.val = sb.toString();
                     return;
                 }
 
