@@ -56,7 +56,9 @@ public class SQLDBWrapper implements Runnable
 	private boolean keepRunning;
 	private String prompt = "sql> ";
 	private ArrayList<ResponseListener> removeListeners;
-	
+	private SqlFile sqlFile;
+	private ByteArrayOutputStream baos;
+	private boolean isExecute = false;
 
 
 	protected SQLDBWrapper() throws Throwable
@@ -64,46 +66,23 @@ public class SQLDBWrapper implements Runnable
 
 		responseListeners = new ArrayList<ResponseListener>();
 		removeListeners = new ArrayList<ResponseListener>();
-		
-		
-	    //RCData conData = new RCData("TestID", "jdbc:hsqldb:file:/home/tkosan/databases/aip/aip", "SA", "", null, null, null, null, null);
-	    RCData conData = new RCData("TestID", "jdbc:hsqldb:hsql://localhost/" + SQLDBWrapper.databaseName, "SA", "", null, null, null, null, null);
 
-	    
-	    PipedReader reader = new PipedReader(writer);
-	    
-	    PipedOutputStream outputStream = new PipedOutputStream(inputStream);
-	    PrintStream printStream = new PrintStream(outputStream);
-	    
+		// RCData conData = new RCData("TestID",
+		// "jdbc:hsqldb:file:/home/tkosan/databases/aip/aip", "SA", "", null,
+		// null, null, null, null);
+		RCData conData = new RCData("TestID", "jdbc:hsqldb:hsql://localhost/" + SQLDBWrapper.databaseName, "SA", "", null, null,
+				null, null, null);
 
+		PipedReader reader = new PipedReader(writer);
 
-	    final SqlFile sqlFile = new SqlFile(reader, "HSQLDB",
-		    printStream, null, true, null);
-	    sqlFile.setConnection(conData.getConnection());
-		
+		baos = new ByteArrayOutputStream();
+		PrintStream printStream = new PrintStream(baos);
 
+		// String content = baos.toString(charsetName);
 
-	    Thread hsqlThread = new Thread() {
-		public void run() {
+		sqlFile = new SqlFile(new StringReader(""), "HSQLDB", printStream, null, true, null);
 
-		    try {
-		        sqlFile.execute();
-
-		    } catch (Throwable e) {
-			    notifyListeners(e.toString());
-		    }
-		}
-
-	    };
-	    
-	    hsqlThread.start();
-		
-		
-		responseBuffer = new StringBuffer();
-		inputPromptPattern = Pattern.compile("sql>");
-		startMessage = getResponse();
-
-
+		sqlFile.setConnection(conData.getConnection());
 
 		new Thread(this,"hsql").start();
 
@@ -135,8 +114,9 @@ public class SQLDBWrapper implements Runnable
 
 	public synchronized void send(String send) throws Throwable
 	{
-		writer.write(send);
-		writer.flush();
+		Reader reader = new StringReader(send);
+		sqlFile.reader = reader;
+		isExecute = true;
 	}//end send.
 
 
@@ -144,13 +124,31 @@ public class SQLDBWrapper implements Runnable
 	{
 		keepRunning = true;
 
-		String response;
-
 		while(keepRunning == true)
 		{
 			try
 			{
-				response = getResponse();
+				while(isExecute == false)
+				{
+					try
+					{
+						Thread.sleep(100);
+					}
+					catch(InterruptedException ie)
+					{
+						System.out.println("HSQL session interrupted.");
+					}
+		
+				}//end while.
+				
+				isExecute = false;
+				
+				sqlFile.execute();
+				
+				String response = baos.toString("UTF-8");
+				baos.reset();
+				response = response.replace("sql> ", "");
+				response = response.replace("  +> ", "");
 				notifyListeners(response);
 			}catch(IOException ioe)
 			{
@@ -170,63 +168,6 @@ public class SQLDBWrapper implements Runnable
 	}//end method.
 
 
-	protected String getResponse() throws Throwable
-	{
-		boolean keepChecking = true;
-
-mainLoop: while(keepChecking)
-		{
-			int serialAvailable = inputStream.available();
-			if (serialAvailable == 0)
-			{
-				try
-				{
-					Thread.sleep(100);
-				}
-				catch(InterruptedException ie)
-				{
-					System.out.println("HSQL session interrupted.");
-				}
-				continue mainLoop;
-			}//end while
-
-			byte[] bytes = new byte[serialAvailable];
-
-			inputStream.read( bytes, 0, serialAvailable );
-			responseBuffer.append(new String(bytes));
-			response = responseBuffer.toString();
-			//System.out.println("SSSSS " + response);
-			Matcher matcher = inputPromptPattern.matcher(response);
-			if(matcher.find())
-			{
-				//System.out.println("PPPPPP found end");
-				responseBuffer.delete(0,responseBuffer.length());
-				
-				/*
-				int promptIndex = response.lastIndexOf("(%");
-				if(promptIndex == -1)
-				{
-					promptIndex = response.lastIndexOf("MAX");
-				}
-				prompt = response.substring(promptIndex,response.length());
-				
-				
-				response = response.substring(0,promptIndex);
-				
-				*/
-				keepChecking = false;
-
-			}//end if.
-
-		}//end while.
-		
-		response = response.replace("sql> ", "");
-		
-		response = response.replace("  +> ", "");
-
-		return response;
-
-	}//end method
 
 	public void addResponseListener(ResponseListener listener)
 	{
