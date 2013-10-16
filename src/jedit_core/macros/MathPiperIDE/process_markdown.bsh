@@ -1,8 +1,8 @@
 buffer.save(view,null);
 thisFile = buffer.getPath();
 mpwFile = new File(thisFile);
-parentDirectory = mpwFile.getParent();
-templateFile = new File(parentDirectory + java.io.File.separator + "html_template.mpw");
+projectDirectory = mpwFile.getParentFile().getParentFile().getParent();
+templateFile = new File(projectDirectory + java.io.File.separator + "src" + java.io.File.separator + "templates" + java.io.File.separator + "site_template.mpw");
 
 try
 {
@@ -11,11 +11,25 @@ try
     prologue = templateFoldsMap.get("prologue").getContents();
     premarkdown = templateFoldsMap.get("preexplanation").getContents();
     markdownFold = exerciseFoldsMap.get("explanation");
-    exerciseCode = exerciseFoldsMap.get("exerciseCode").getContents();
-    if(exerciseCode == null) 
+    if(markdownFold == null)
+    {
+        org.gjt.sp.jedit.Macros.message(jEdit.getActiveView(),"The source file is missing a fold named \"explanation\".");
+        return;
+    }
+    if(markdownFold == null)
+    {
+        org.gjt.sp.jedit.Macros.message(jEdit.getActiveView(),"The source file is missing a fold named \"explanation\".");
+        return;
+    }
+    exerciseCodeFold = exerciseFoldsMap.get("exerciseCode");
+    if(exerciseCodeFold == null) 
     {
         exerciseCode = "";
     }
+    else
+    {
+        exerciseCode = exerciseFoldsMap.get("exerciseCode").getContents();
+    };
     outputFileName = markdownFold.getAttributes().get("output");
     markdown = markdownFold.getContents();
     markdown = markdown.replace("\\","\\\\");
@@ -25,7 +39,9 @@ try
     postmarkdown = templateFoldsMap.get("postexplanation").getContents();
     epilogue = templateFoldsMap.get("epilogue").getContents();
     combined = prologue + premarkdown + htmlText + postmarkdown + exerciseCode + epilogue;
-    outputFilePath = parentDirectory + java.io.File.separator + outputFileName;
+    buildDirectoryPath = projectDirectory + java.io.File.separator + "build" + java.io.File.separator;
+    outputFilePath = buildDirectoryPath + outputFileName;
+    
     if(outputFilePath.contains("\\")) //For windows.
     {
         outputFilePath = outputFilePath.substring(3,outputFilePath.length());
@@ -35,10 +51,38 @@ try
     BufferedWriter htmlFileWriter = new BufferedWriter(new FileWriter(outputFile,false));
 	htmlFileWriter.write(combined);
 	htmlFileWriter.close();
+	
+	copyFile(File sourceFile, File destFile) throws IOException {
+        if(!destFile.exists()) {
+            destFile.createNewFile();
+        }
     
+        java.nio.channels.FileChannel source = null;
+        java.nio.channels.FileChannel destination = null;
+    
+        try {
+            source = new java.io.FileInputStream(sourceFile).getChannel();
+            destination = new java.io.FileOutputStream(destFile).getChannel();
+            destination.transferFrom(source, 0, source.size());
+        }
+        finally {
+            if(source != null) {
+                source.close();
+            }
+            if(destination != null) {
+                destination.close();
+            }
+        }
+    }
+    
+    copyFile(new File(projectDirectory + java.io.File.separator + "lib" + java.io.File.separator + "raphael-min.js" ), new File(buildDirectoryPath + "raphael-min.js"));
+    copyFile(new File(projectDirectory + java.io.File.separator + "lib" + java.io.File.separator + "raphael.export.js" ), new File(buildDirectoryPath + "raphael.export.js"));
+    copyFile(new File(projectDirectory + java.io.File.separator + "src" + java.io.File.separator + "javascript" + java.io.File.separator + "patternmatics.js" ), new File(buildDirectoryPath + "patternmatics.js"));
+
 }
 catch(Throwable e)
 {
-    e.printStackTrace();
+    org.gjt.sp.jedit.Macros.message(jEdit.getActiveView(),e.getMessage());
+    //e.printStackTrace();
 }
 
