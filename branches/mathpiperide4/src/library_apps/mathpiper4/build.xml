@@ -169,6 +169,8 @@
 
         <copy file="${basedir}/tests/win_test.bat" todir="${build.dir}" />
         
+        <mkdir dir="${build.dir}/tests" />
+        
     </target>
     
     
