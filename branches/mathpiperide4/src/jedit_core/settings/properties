@@ -9,7 +9,6 @@ buffer.encoding=UTF-8
 buffer.folding=custom
 buffer.indentSize=4
 buffer.maxLineLen=132
-buffer.noTabs=true
 buffer.tabSize=4
 buffertabs.close-tab-on.double-left-click=true
 buffertabs.close-tab-on.single-middle-click=true
