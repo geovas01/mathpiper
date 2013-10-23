@@ -79,20 +79,20 @@ Randomly picks an element from the given list with a probability which is determ
 
 *E.G.
 
-In> RandomPickWeighted([[HEADS,1/2],[TAILS,1/2]]);
-Result: HEADS
+In> RandomPickWeighted([[_HEADS,1/2],[_TAILS,1/2]]);
+Result: _HEADS
 
 
-In> RandomPickWeighted([[HEADS,.5],[TAILS,.5]]);
-Result: TAILS
+In> RandomPickWeighted([[_HEADS,.5],[_TAILS,.5]]);
+Result: _TAILS
 
 
-In> RandomPickWeighted([[DOOR1,2/8], [DOOR2,1/8], [DOOR3,5/8]])
-Result: DOOR1
+In> RandomPickWeighted([[_DOOR1,2/8], [_DOOR2,1/8], [_DOOR3,5/8]])
+Result: _DOOR1
 
 
-In> RandomPickWeighted([[DOG,.2], [CAT,.3], [BIRD,.1], [MOUSE,.15], [TURTLE,.25]])
-Result: TURTLE
+In> RandomPickWeighted([[_DOG,.2], [_CAT,.3], [_BIRD,.1], [_MOUSE,.15], [_TURTLE,.25]])
+Result: _TURTLE
 
 
 In> RandomPickWeighted([[23,5/32],[56,10/32],[87,8/32],[92,6/32],[15,3/32]])
