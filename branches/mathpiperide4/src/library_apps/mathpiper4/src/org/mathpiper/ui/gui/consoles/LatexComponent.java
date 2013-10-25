@@ -24,10 +24,10 @@ import org.mathpiper.interpreters.EvaluationResponse;
 import org.mathpiper.interpreters.Interpreter;
 import org.mathpiper.interpreters.Interpreters;
 import org.mathpiper.lisp.Utility;
-import org.scilab.forge.jlatexmath.JMathTeXException;
-import org.scilab.forge.jlatexmath.TeXConstants;
-import org.scilab.forge.jlatexmath.TeXFormula;
-import org.scilab.forge.jlatexmath.TeXIcon;
+import org.scilab.forge.mp.jlatexmath.JMathTeXException;
+import org.scilab.forge.mp.jlatexmath.TeXConstants;
+import org.scilab.forge.mp.jlatexmath.TeXFormula;
+import org.scilab.forge.mp.jlatexmath.TeXIcon;
 
 public class LatexComponent extends JPanel implements RenderingComponent, MouseListener {
 

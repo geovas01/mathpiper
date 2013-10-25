@@ -10,12 +10,12 @@ import java.awt.geom.AffineTransform;
 
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import org.scilab.forge.jlatexmath.TeXConstants;
-import org.scilab.forge.jlatexmath.TeXFormula;
-import org.scilab.forge.jlatexmath.TeXIcon;
-import org.scilab.forge.jlatexmath.DefaultTeXFont;
-import org.scilab.forge.jlatexmath.cyrillic.CyrillicRegistration;
-import org.scilab.forge.jlatexmath.greek.GreekRegistration;
+import org.scilab.forge.mp.jlatexmath.TeXConstants;
+import org.scilab.forge.mp.jlatexmath.TeXFormula;
+import org.scilab.forge.mp.jlatexmath.TeXIcon;
+import org.scilab.forge.mp.jlatexmath.DefaultTeXFont;
+import org.scilab.forge.mp.jlatexmath.cyrillic.CyrillicRegistration;
+import org.scilab.forge.mp.jlatexmath.greek.GreekRegistration;
 
 public class RenderedLatex extends JLabel {
     

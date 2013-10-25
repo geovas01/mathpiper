@@ -18,9 +18,9 @@ import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.SublistCons;
 import org.mathpiper.ui.gui.worksheets.symbolboxes.ScaledGraphics;
-import org.scilab.forge.jlatexmath.TeXConstants;
-import org.scilab.forge.jlatexmath.TeXFormula;
-import org.scilab.forge.jlatexmath.TeXIcon;
+import org.scilab.forge.mp.jlatexmath.TeXConstants;
+import org.scilab.forge.mp.jlatexmath.TeXFormula;
+import org.scilab.forge.mp.jlatexmath.TeXIcon;
 
 public class TreePanelCons extends JComponent implements ViewPanel {
 

@@ -50,7 +50,7 @@ import org.mathpiper.ui.gui.worksheets.TreePanel;
 import org.mathpiper.ui.gui.worksheets.TreePanelCons;
 import org.mathpiper.ui.gui.worksheets.latexparser.TexParser;
 import org.mathpiper.ui.gui.worksheets.symbolboxes.SymbolBox;
-import org.scilab.forge.jlatexmath.TeXFormula;
+import org.scilab.forge.mp.jlatexmath.TeXFormula;
 
 /**
  *

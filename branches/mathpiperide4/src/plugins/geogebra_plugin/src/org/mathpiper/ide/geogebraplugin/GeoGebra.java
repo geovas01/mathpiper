@@ -54,7 +54,7 @@ import org.gjt.sp.util.Log;
 import org.gjt.sp.util.StandardUtilities;
 
 import geogebra.GeoGebraPanel;
-import geogebra.plugin.GgbAPI;
+import geogebra.common.plugin.GgbAPI;
 // }}}
 
 // {{{ GeoGebra class
@@ -268,7 +268,7 @@ public class GeoGebra extends javax.swing.JRootPane
 
 
 	// {{{ getGeoGebraApplet
-	public static geogebra.plugin.GgbAPI getGeoGebraAPI()
+	public static geogebra.common.plugin.GgbAPI getGeoGebraAPI()
 	{
 		return ggbPanel.getGeoGebraAPI();
 	}//end method

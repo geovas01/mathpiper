@@ -35,10 +35,10 @@ import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.ui.gui.worksheets.LatexRenderingController;
 import org.mathpiper.ui.gui.worksheets.ScreenCapturePanel;
-import org.scilab.forge.jlatexmath.DefaultTeXFont;
-import org.scilab.forge.jlatexmath.TeXFormula;
-import org.scilab.forge.jlatexmath.cyrillic.CyrillicRegistration;
-import org.scilab.forge.jlatexmath.greek.GreekRegistration;
+import org.scilab.forge.mp.jlatexmath.DefaultTeXFont;
+import org.scilab.forge.mp.jlatexmath.TeXFormula;
+import org.scilab.forge.mp.jlatexmath.cyrillic.CyrillicRegistration;
+import org.scilab.forge.mp.jlatexmath.greek.GreekRegistration;
 
 /**
  *
