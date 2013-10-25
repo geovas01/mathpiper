@@ -9,9 +9,9 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import org.scilab.forge.jlatexmath.TeXConstants;
-import org.scilab.forge.jlatexmath.TeXFormula;
-import org.scilab.forge.jlatexmath.TeXIcon;
+import org.scilab.forge.mp.jlatexmath.TeXConstants;
+import org.scilab.forge.mp.jlatexmath.TeXFormula;
+import org.scilab.forge.mp.jlatexmath.TeXIcon;
 
 public class LatexRenderingController extends JPanel implements ChangeListener {
 

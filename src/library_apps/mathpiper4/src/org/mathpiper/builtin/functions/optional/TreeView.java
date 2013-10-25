@@ -45,7 +45,7 @@ import org.mathpiper.ui.gui.worksheets.LatexRenderingController;
 import org.mathpiper.ui.gui.worksheets.MathPanelController;
 import org.mathpiper.ui.gui.worksheets.ScreenCapturePanel;
 import org.mathpiper.ui.gui.worksheets.TreePanelCons;
-import org.scilab.forge.jlatexmath.TeXFormula;
+import org.scilab.forge.mp.jlatexmath.TeXFormula;
 
 /**
  *

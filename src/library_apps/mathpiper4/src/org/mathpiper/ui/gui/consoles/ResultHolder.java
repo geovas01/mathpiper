@@ -20,10 +20,10 @@ import javax.swing.border.EmptyBorder;
 
 import org.mathpiper.ui.gui.Utility;
 
-import org.scilab.forge.jlatexmath.JMathTeXException;
-import org.scilab.forge.jlatexmath.TeXConstants;
-import org.scilab.forge.jlatexmath.TeXFormula;
-import org.scilab.forge.jlatexmath.TeXIcon;
+import org.scilab.forge.mp.jlatexmath.JMathTeXException;
+import org.scilab.forge.mp.jlatexmath.TeXConstants;
+import org.scilab.forge.mp.jlatexmath.TeXFormula;
+import org.scilab.forge.mp.jlatexmath.TeXIcon;
 
 public class ResultHolder extends JPanel implements RenderingComponent, MouseListener {
 
