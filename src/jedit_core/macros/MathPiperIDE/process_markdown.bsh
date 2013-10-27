@@ -90,7 +90,7 @@ try
     copyFile(new File(projectDirectory + java.io.File.separator + "lib" + java.io.File.separator + "raphael-min.js" ), new File(buildDirectoryPath + "raphael-min.js"));
     copyFile(new File(projectDirectory + java.io.File.separator + "lib" + java.io.File.separator + "raphael.export.js" ), new File(buildDirectoryPath + "raphael.export.js"));
     copyFile(new File(projectDirectory + java.io.File.separator + "src" + java.io.File.separator + "javascript" + java.io.File.separator + "patternmatics.js" ), new File(buildDirectoryPath + "patternmatics.js"));
-
+    copyFile(new File(projectDirectory + java.io.File.separator + "src" + java.io.File.separator + "javascript" + java.io.File.separator + "patternmaticstest.js" ), new File(buildDirectoryPath + "patternmaticstest.js"));
 }
 catch(Throwable e)
 {
