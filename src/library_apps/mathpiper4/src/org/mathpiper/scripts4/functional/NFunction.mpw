@@ -67,22 +67,22 @@ This operator can help the user to program in the style of functional programmin
 
 PKHG suggestion:
 
-%mathpiper,title=""
+/%mathpiper,title=""
 f(x) := Decide( Number?(x), SineN(x),Sine(x));
 NFunction("f1", "f", [_x]);
 Echo("indererminate arg _a --> ",f1(_a));
 Echo("f1(0) = ",f1(0)," and f1(1) = ",f1(1));
 Plot2D(f1(_x), 0 -> 1); //gives graphic!
-%/mathpiper
+/%/mathpiper
 
-    %output,sequence="33",timestamp="2013-10-27 11:45:44.214",preserve="false"
+    /%output,sequence="33",timestamp="2013-10-27 11:45:44.214",preserve="false"
       Result: class org.jfree.chart.ChartPanel
       
       Side Effects:
       indererminate arg _a --> f1(_a) 
       f1(0) = 0  and f1(1) = 0.841470984807895 
       
-.   %/output
+.   /%/output
 
 
 
