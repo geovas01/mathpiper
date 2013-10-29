@@ -70,11 +70,11 @@ has more uses, e.g. changing individual entries in a list.
 
 *E.G.
 
-In> Assign(a, Sin(x)+3);
+In> Assign(a, Sine(_x)+3);
 Result: True;
 
 In> a;
-Result: Sin(x)+3;
+Result: Sine(_x)+3;
 
 *SEE Unassign, :=
 %/mathpiper_docs
