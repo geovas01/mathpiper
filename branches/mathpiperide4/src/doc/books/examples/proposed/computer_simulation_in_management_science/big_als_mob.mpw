@@ -6,33 +6,33 @@ MS := 0;
 NG := 0;
 TARGET := 50;
 
-msList := {};
+msList := [];
 
 
-While(t <= 24)
-[
-    REC := N((TARGET - MS)/4);
+While(t <=? 24)
+{
+    REC := NM((TARGET - MS)/4);
     ARR := MS * .05;
-    ESC := N(NG/10);
+    ESC := NM(NG/10);
 
     MS := MS + (REC - ARR) + ESC;
     NG := NG + (ARR - ESC);
     
     msList := Append(msList, MS);
     
-    Echo("Week: ",t,"   REC: ",N(REC,3),"   ARR: ", N(ARR,3),"   ESC: ",N(ESC,3),"   NG: ",N(NG,3),"   MS: ",N(MS,4));
+    Echo("Week: ",t,"   REC: ",NM(REC,3),"   ARR: ", NM(ARR,3),"   ESC: ",NM(ESC,3),"   NG: ",NM(NG,3),"   MS: ",NM(MS,4));
     
 
     t++;
     
-];
+};
 
 
-BarChart({1 .. Length(msList), msList});
+BarChart([1 .. Length(msList), msList]);
 
 %/mathpiper
 
-    %output,preserve="false"
+    %output,sequence="17",timestamp="2013-10-30 11:12:36.843",preserve="false"
       Result: class org.jfree.chart.ChartPanel
       
       Side Effects:
@@ -70,14 +70,14 @@ BarChart({1 .. Length(msList), msList});
 
 
 %mathpiper,title=""
-data := Table(NormalDistributionValue(10.7, .13),x ,1 ,30, 1);
+data := BuildList(NormalDistributionValue(10.7, .13),x ,1 ,30, 1);
 
 Histogram(data);
 
 
 %/mathpiper
 
-    %output,preserve="false"
+    %output,sequence="19",timestamp="2013-10-30 11:14:28.141",preserve="false"
       Result: class org.jfree.chart.ChartPanel
 .   %/output
 
