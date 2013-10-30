@@ -140,10 +140,10 @@ Result: 1/2;
 In> NM(1/2)
 Result: 0.5;
 
-In> Sin(1)
+In> SinE(1)
 Result: Sin(1);
 
-In> NM(Sin(1),10)
+In> NM(SinE(1),10)
 Result: 0.8414709848;
 
 In> Pi
