@@ -16,7 +16,14 @@ try
     	if(foldType != null && foldType.equals("%markdown"))
     	{
     		foldName = fold.getAttributes().get("name");
+    		foldTitle = fold.getAttributes().get("title");
+    		if(foldTitle == null)
+    		{
+    			foldTitle = "";
+    		}
 			prologue = templateFoldsMap.get("prologue").getContents();
+			prologue = prologue.replace("$title", foldTitle);
+			
 			premarkdown = templateFoldsMap.get("preexplanation").getContents();
 			markdownFold = fold;
 
