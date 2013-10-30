@@ -157,6 +157,9 @@ to being built-in). This means that they can be extended by the user.
 In> 6/2
 Result: 3;
 
+In> 0/0
+Result: Undefined
+
 %/mathpiper_docs
 
 
