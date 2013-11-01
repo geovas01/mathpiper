@@ -25,16 +25,16 @@ import org.mathpiper.lisp.LispError;
 
 /**
  *
- *  
+ *
  */
-public class FastArcSin extends BuiltinFunction
+public class TangentN extends BuiltinFunction
 {
 
-    private FastArcSin()
+    private TangentN()
     {
     }
 
-    public FastArcSin(String functionName)
+    public TangentN(String functionName)
     {
         this.functionName = functionName;
     }
@@ -43,16 +43,16 @@ public class FastArcSin extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         BigNumber x;
-        
+
         x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
 
         double xDouble = x.toDouble();
 
-        double result = Math.asin(xDouble);
+        double result = Math.tan(xDouble);
 
         if(Double.isNaN(result))
         {
-            LispError.raiseError("The argument must have a value between -1 and 1.", aStackTop, aEnvironment);
+            LispError.raiseError("The result is NaN.", aStackTop, aEnvironment);
         }
 
         BigNumber z = new BigNumber(aEnvironment.getPrecision());
@@ -67,20 +67,24 @@ public class FastArcSin extends BuiltinFunction
 
 
 /*
-%mathpiper,name="FastArcSin",categories="Programming Functions;Built In"
-*CMD FastArcSin --- double-precision math function
+%mathpiper_docs,name="TangentN",categories="Mathematics Functions;Numeric;Trigonometry (Numeric)"
+*CMD TangentN --- double-precision math function
 *CORE
 *CALL
-	FastArcSin(x)
+	TangentN(x)
 
 *PARMS
-{a} -- a number
+{x} -- a number
 
 *DESC
-This function uses the Java math library. It
-should be faster than the arbitrary precision version.
+A numerical version of the Tangent function. The reason for the postfix {N} is the library needs 
+to define equivalent non-numerical functions for symbolic computations, such as {Sine}.
 
-*SEE FastLog, FastPower
+*SEE SineN, CosineN, ArcSineN, ArcCosineN, ArcTangentN
+
+*E.G.
+In> TangentN(.7)
+Result: 0.8422883805
 
 %/mathpiper_docs
 */

@@ -27,14 +27,14 @@ import org.mathpiper.lisp.LispError;
  *
  *
  */
-public class FastSin extends BuiltinFunction
+public class CosineN extends BuiltinFunction
 {
 
-    private FastSin()
+    private CosineN()
     {
     }
 
-    public FastSin(String functionName)
+    public CosineN(String functionName)
     {
         this.functionName = functionName;
     }
@@ -48,7 +48,7 @@ public class FastSin extends BuiltinFunction
 
         double xDouble = x.toDouble();
 
-        double result = Math.sin(xDouble);
+        double result = Math.cos(xDouble);
 
         if(Double.isNaN(result))
         {
@@ -67,20 +67,24 @@ public class FastSin extends BuiltinFunction
 
 
 /*
-%mathpiper,name="FastSin",categories="Programming Functions;Built In"
-*CMD FastSin --- double-precision math function
+%mathpiper_docs,name="CosineN",categories="Mathematics Functions;Numeric;Trigonometry (Numeric)"
+*CMD CosineN --- double-precision math function
 *CORE
 *CALL
-	FastSin(x)
+	CosineN(x)
 
 *PARMS
-{a} -- a number
+{x} -- a number
 
 *DESC
-This function uses the Java math library. It
-should be faster than the arbitrary precision version.
+A numerical version of the Cosine function. The reason for the postfix {N} is the library needs 
+to define equivalent non-numerical functions for symbolic computations, such as {Sine}.
 
-*SEE FastLog, FastPower
+*SEE SineN, TangentN, ArcSineN, ArcCosineN, ArcTangentN
+
+*E.G.
+In> CosineN(.7)
+Result: 0.7648421873
 
 %/mathpiper_docs
 */
