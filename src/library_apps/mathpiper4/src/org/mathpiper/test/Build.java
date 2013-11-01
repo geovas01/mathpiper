@@ -168,7 +168,7 @@ public class Build {
 
 			    processMPWFile(scriptFileOrSubdirectoy);
 
-			} else {
+			} else if(scriptFileOrSubdirectoy.isDirectory()) {
 			    // Process a
 			    // subdirectory.***********************************************************************************************
 
@@ -199,7 +199,11 @@ public class Build {
 
 			    }// end subpackage for.
 
-			}// end else.
+			}
+			else
+			{
+			    throw new Exception("The file " + scriptFileOrSubdirectoy.getPath() + " is not a .mpw file.");
+			}
 
 		    }// end package for.
 
