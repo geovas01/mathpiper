@@ -27,14 +27,14 @@ import org.mathpiper.lisp.LispError;
  *
  *
  */
-public class FastArcTan extends BuiltinFunction
+public class SineN extends BuiltinFunction
 {
 
-    private FastArcTan()
+    private SineN()
     {
     }
 
-    public FastArcTan(String functionName)
+    public SineN(String functionName)
     {
         this.functionName = functionName;
     }
@@ -48,11 +48,11 @@ public class FastArcTan extends BuiltinFunction
 
         double xDouble = x.toDouble();
 
-        double result = Math.atan(xDouble);
+        double result = Math.sin(xDouble);
 
         if(Double.isNaN(result))
         {
-            LispError.raiseError("The argument is NaN.", aStackTop, aEnvironment);
+            LispError.raiseError("The result is NaN.", aStackTop, aEnvironment);
         }
 
         BigNumber z = new BigNumber(aEnvironment.getPrecision());
@@ -67,20 +67,27 @@ public class FastArcTan extends BuiltinFunction
 
 
 /*
-%mathpiper,name="FastArcTan",categories="Programming Functions;Built In"
-*CMD FastArcTan --- double-precision math function
+%mathpiper_docs,name="SineN",categories="Mathematics Functions;Numeric;Trigonometry (Numeric)"
+*CMD SineN --- double-precision math function
 *CORE
 *CALL
-	FastArcTan(x)
+	SineN(x)
 
 *PARMS
-{a} -- a number
+{x} -- a number
 
 *DESC
-This function uses the Java math library. It
-should be faster than the arbitrary precision version.
+A numerical version of the Sine function. The reason for the postfix {N} is the library needs 
+to define equivalent non-numerical functions for symbolic computations, such as {Sine}.
 
-*SEE FastLog, FastPower
+*SEE CosineN, TangentN, ArcSineN, ArcCosineN, ArcTangentN
+
+*E.G.
+In> SineN(.7)
+Result: 0.6442176872
 
 %/mathpiper_docs
 */
+
+
+
