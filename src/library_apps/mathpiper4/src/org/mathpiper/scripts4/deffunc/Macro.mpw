@@ -89,7 +89,7 @@ easily with this function, in stead of having to use {MacroRulebaseHoldArguments
 
 the following example defines a looping function.
 
-In> Macro("myfor",[init,pred,inc,body]) [@init;While(@pred)[@body;@inc;];True;];
+In> Macro("myfor",[_init,_pred,_inc,_body]) [@init,While(@pred)[@body,@inc,],True];
 Result: True;
 
 In> a:=10
