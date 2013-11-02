@@ -74,17 +74,33 @@ public class ArcCosineN extends BuiltinFunction
 	ArcCosineN(x)
 
 *PARMS
-{x} -- a number
+{x} -- a decimal number (0 and 1 allowed too).
 
 *DESC
 A numerical version of the ArcCosine function. The reason for the postfix {N} is the library needs 
 to define equivalent non-numerical functions for symbolic computations, such as {Sine}.
+Math.acos(aDouble) is used, result has about 16 decimal places precision.
 
 *SEE SineN, CosineN, TangentN, ArcSineN, ArcTangentN
 
 *E.G.
-In> ArcCosineN(.7)
-Result: 0.7953988302
+
+In> ArcCosineN(0.5)
+Result: 1.047197551
+
+In> BuiltinPrecisionSet(40)
+Result: True
+
+In> ArcCosineN(0.5)
+Result: 1.0471975511965979
+
+In> Cosine(NM(Pi/3))
+Result: Cosine(1.047197551196597786975774432671607628066)
+
+In> CosineN(NM(Pi/3))
+Result: 0.4999999999999999
+
+In> 
 
 %/mathpiper_docs
 */
