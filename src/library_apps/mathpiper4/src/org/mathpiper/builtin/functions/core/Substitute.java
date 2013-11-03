@@ -77,17 +77,28 @@ stored as {(a+b)+c}. Hence {a+b} is a subexpression, but {b+c} is not.
 
 *E.G.
 
-In> Substitute(x, Sin(y)) x^2+x+1;
-Result: Sin(y)^2+Sin(y)+1;
+In> Substitute(_x, Sine(_y)) _x^2+_x+1;
+Result: Sine(_y)^2+Sine(_y)+1;
 
-In> Substitute(ToAtom("+"), ToAtom("-")) a+b
-Result: a-b
+In> Substitute(ToAtom("+"), ToAtom("-")) _a+_b
+Result: _a-_b
 
-In> Substitute(a+b, x) a+b+c;
-Result: x+c;
+In> Substitute(_a+_b, _x) _a+_b+_c;
+Result: _x+_c;
 
-In> Substitute(b+c, x) a+b+c;
-Result: a+b+c;
+
+In> Substitute(_b+_c, _x) _a+_b+_c;
+Result: _a+_b+_c;
+
+Workaround:
+In>tmp := Substitute(_c,_x-_b)  _a+_b+_c;
+Result: _a+_b+_x-_b
+
+In> tmp
+Result: _a+_b+_x-_b
+
+In> Expand(tmp)
+Result: _a+_x
 
 *SEE WithValue, /:, Where
 %/mathpiper_docs
