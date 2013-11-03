@@ -202,7 +202,7 @@ public class Build {
 			}
 			else
 			{
-			    throw new Exception("The file " + scriptFileOrSubdirectoy.getPath() + " is not a .mpw file.");
+			    System.out.println(scriptFileOrSubdirectoy.getPath() + " -> *** WARNING *** is not a .mpw file.");
 			}
 
 		    }// end package for.
