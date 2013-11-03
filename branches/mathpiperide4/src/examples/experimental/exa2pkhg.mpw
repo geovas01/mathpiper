@@ -1,0 +1,133 @@
+%mathpiper,def="Example"
+
+examplelist:=
+Hold(
+[
+  [40!,
+"Simple factorial of a number.
+"
+  ],
+  [Differentiate(Sine(_x),_x),
+"Taking the derivative of a function (the derivative of Sine(_x) with
+respect to _x in this case).
+"
+  ],
+  ["NOT YET",
+"Expanding a function into a taylor series. Sine(x) to order 6
+in reduce fold:taylor(sin(x),x,0,5); ==> taylor(x - 1/6*x**3 + 1/120*x**5,x,0,5)$
+"
+  ],
+
+  [Integrate(Sine(_x),_x),
+"Find the primitive of a function, integration. here Sine(_x)
+"
+  ],
+  [Solve(_a + _x * _y == _z, _x),
+"Solve a function for a variable.
+"
+  ],
+  ["not yet",
+"Take a limit. reduce fold  limit(sin(x)/x,x,0); gives 1
+"
+  ],
+  [Substitute(_x,Cosine(_a)) _x+_x,
+"Substitute an expression with another in the main expression. (from to in)
+"
+  ],
+  [Expand((1+_x)^3),
+"Expand  a polynomial expression.
+"
+  ],
+  [2^40,
+"Big numbers.
+"
+  ],
+  [1 << 40,
+"Bitwise operations
+"
+  ],
+  [1 .. 4,
+"Generating a list of numbers.
+"
+  ],
+  ["not understood yet PKHG",
+"Generating a list of items. a:b:c:{}
+"
+  ],
+  [[Local(x),x:=[_a,_b,_c],Sine(x)^2],
+"PKHG do not understand yet! Threading: Sin(..)^2 will be performed on all elements of the list
+passed in.
+"
+  ],
+  [[Local(list),list:=[_a,_b,_c,_d,_e,_f], list[2 .. 4]],
+"Selecting a sublist from a list.
+"
+  ],
+  [PermutationsList([_a,_b,_c]),
+"Generate all permutations of a list.
+"
+  ],
+  [VarList(_a+_b*_x),
+"Show all variables that occur in an expression.
+"
+  ],
+  ["NOT YET",
+"TrigSimpCombine(Cos(a)*Cos(a)+Sin(a)*Sin(a)) Convert factors between trigonometric functions to addition of
+trigonometric functions.
+"
+  ]
+]
+);
+exampleindex:=0;
+
+Example():=
+{
+  exampleindex++;
+  If (exampleindex >? Length(examplelist)) {exampleindex:=1;};
+
+  Local(example);
+  example:=examplelist[exampleindex];
+  WriteString("Current example : ");
+  Write(example[1]);WriteString(";");NewLine();
+  NewLine();
+  WriteString(example[2]);
+  NewLine();
+  Eval(example[1]);
+};
+
+
+
+%/mathpiper
+
+    %output,sequence="27",timestamp="2013-11-03 09:19:41.468",preserve="false"
+      Result: True
+.   %/output
+
+   
+
+%mathpiper,title="execute me several times"
+Echo("We are at example: ", exampleindex);
+Example();
+%/mathpiper
+
+    %output,sequence="87",timestamp="2013-11-03 09:29:15.027",preserve="false"
+      Result: _x^3+3*_x^2+3*_x+1
+      
+      Side Effects:
+      We are at example: 7 
+      Current example : Expand((1+_x)^3);
+      
+      Expand  a polynomial expression.
+      
+      
+.   %/output
+
+%mathpiper,title=""
+exampleindex;
+%/mathpiper
+
+    %output,sequence="61",timestamp="2013-11-03 09:27:49.998",preserve="false"
+      Result: 16
+.   %/output
+
+
