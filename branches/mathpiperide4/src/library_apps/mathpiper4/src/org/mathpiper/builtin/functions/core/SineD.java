@@ -27,14 +27,14 @@ import org.mathpiper.lisp.LispError;
  *
  *
  */
-public class TangentN extends BuiltinFunction
+public class SineD extends BuiltinFunction
 {
 
-    private TangentN()
+    private SineD()
     {
     }
 
-    public TangentN(String functionName)
+    public SineD(String functionName)
     {
         this.functionName = functionName;
     }
@@ -48,7 +48,7 @@ public class TangentN extends BuiltinFunction
 
         double xDouble = x.toDouble();
 
-        double result = Math.tan(xDouble);
+        double result = Math.sin(xDouble);
 
         if(Double.isNaN(result))
         {
@@ -67,24 +67,27 @@ public class TangentN extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="TangentN",categories="Mathematics Functions;Numeric;Trigonometry (Numeric)"
-*CMD TangentN --- double-precision math function
+%mathpiper_docs,name="SineD",categories="Mathematics Functions;Numeric;Trigonometry (Numeric)"
+*CMD SineD --- double-precision math function
 *CORE
 *CALL
-	TangentN(x)
+	SineD(x)
 
 *PARMS
 {x} -- a number
 
 *DESC
-A numerical version of the Tangent function. The reason for the postfix {N} is the library needs 
+A numerical version of the Sine function. The reason for the postfix {N} is the library needs 
 to define equivalent non-numerical functions for symbolic computations, such as {Sine}.
 
-*SEE SineN, CosineN, ArcSineN, ArcCosineN, ArcTangentN
+*SEE CosineD, TangentD, ArcSineD, ArcCosineD, ArcTangentD
 
 *E.G.
-In> TangentN(.7)
-Result: 0.8422883805
+In> SineD(.7)
+Result: 0.6442176872
 
 %/mathpiper_docs
 */
+
+
+

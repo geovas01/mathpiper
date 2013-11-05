@@ -27,14 +27,14 @@ import org.mathpiper.lisp.LispError;
  *
  *
  */
-public class ArcTangentN extends BuiltinFunction
+public class TangentD extends BuiltinFunction
 {
 
-    private ArcTangentN()
+    private TangentD()
     {
     }
 
-    public ArcTangentN(String functionName)
+    public TangentD(String functionName)
     {
         this.functionName = functionName;
     }
@@ -48,11 +48,11 @@ public class ArcTangentN extends BuiltinFunction
 
         double xDouble = x.toDouble();
 
-        double result = Math.atan(xDouble);
+        double result = Math.tan(xDouble);
 
         if(Double.isNaN(result))
         {
-            LispError.raiseError("The argument is NaN.", aStackTop, aEnvironment);
+            LispError.raiseError("The result is NaN.", aStackTop, aEnvironment);
         }
 
         BigNumber z = new BigNumber(aEnvironment.getPrecision());
@@ -67,24 +67,24 @@ public class ArcTangentN extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="ArcTangentN",categories="Mathematics Functions;Numeric;Trigonometry (Numeric)"
-*CMD ArcTangentN --- double-precision math function
+%mathpiper_docs,name="TangentD",categories="Mathematics Functions;Numeric;Trigonometry (Numeric)"
+*CMD TangentD --- double-precision math function
 *CORE
 *CALL
-	ArcTangentN(x)
+	TangentD(x)
 
 *PARMS
 {x} -- a number
 
 *DESC
-A numerical version of the ArcTangent function. The reason for the postfix {N} is the library needs 
+A numerical version of the Tangent function. The reason for the postfix {N} is the library needs 
 to define equivalent non-numerical functions for symbolic computations, such as {Sine}.
 
-*SEE SineN, CosineN, TangentN, ArcSineN, ArcCosineN
+*SEE SineD, CosineD, ArcSineD, ArcCosineD, ArcTangentD
 
 *E.G.
-In> ArcTangentN(.7)
-Result: 0.6107259644
+In> TangentD(.7)
+Result: 0.8422883805
 
 %/mathpiper_docs
 */

@@ -25,16 +25,16 @@ import org.mathpiper.lisp.LispError;
 
 /**
  *
- *
+ *  
  */
-public class SineN extends BuiltinFunction
+public class ArcSineD extends BuiltinFunction
 {
 
-    private SineN()
+    private ArcSineD()
     {
     }
 
-    public SineN(String functionName)
+    public ArcSineD(String functionName)
     {
         this.functionName = functionName;
     }
@@ -43,16 +43,16 @@ public class SineN extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         BigNumber x;
-
+        
         x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
 
         double xDouble = x.toDouble();
 
-        double result = Math.sin(xDouble);
+        double result = Math.asin(xDouble);
 
         if(Double.isNaN(result))
         {
-            LispError.raiseError("The result is NaN.", aStackTop, aEnvironment);
+            LispError.raiseError("The argument must have a value between -1 and 1.", aStackTop, aEnvironment);
         }
 
         BigNumber z = new BigNumber(aEnvironment.getPrecision());
@@ -67,27 +67,24 @@ public class SineN extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="SineN",categories="Mathematics Functions;Numeric;Trigonometry (Numeric)"
-*CMD SineN --- double-precision math function
+%mathpiper_docs,name="ArcSineD",categories="Mathematics Functions;Numeric;Trigonometry (Numeric)"
+*CMD ArcSineD --- double-precision math function
 *CORE
 *CALL
-	SineN(x)
+	ArcSineD(x)
 
 *PARMS
 {x} -- a number
 
 *DESC
-A numerical version of the Sine function. The reason for the postfix {N} is the library needs 
+A numerical version of the ArcSine function. The reason for the postfix {N} is the library needs 
 to define equivalent non-numerical functions for symbolic computations, such as {Sine}.
 
-*SEE CosineN, TangentN, ArcSineN, ArcCosineN, ArcTangentN
+*SEE SineD, CosineD, TangentD, ArcCosineD, ArcTangentD
 
 *E.G.
-In> SineN(.7)
-Result: 0.6442176872
+In> ArcSineD(.7)
+Result: 0.7753974966
 
 %/mathpiper_docs
 */
-
-
-
