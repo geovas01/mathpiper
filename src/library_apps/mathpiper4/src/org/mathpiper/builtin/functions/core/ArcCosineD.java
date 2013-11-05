@@ -27,14 +27,14 @@ import org.mathpiper.lisp.LispError;
  *
  *
  */
-public class CosineN extends BuiltinFunction
+public class ArcCosineD extends BuiltinFunction
 {
 
-    private CosineN()
+    private ArcCosineD()
     {
     }
 
-    public CosineN(String functionName)
+    public ArcCosineD(String functionName)
     {
         this.functionName = functionName;
     }
@@ -48,11 +48,11 @@ public class CosineN extends BuiltinFunction
 
         double xDouble = x.toDouble();
 
-        double result = Math.cos(xDouble);
+        double result = Math.acos(xDouble);
 
         if(Double.isNaN(result))
         {
-            LispError.raiseError("The result is NaN.", aStackTop, aEnvironment);
+            LispError.raiseError("The argument must have a value between -1 and 1.", aStackTop, aEnvironment);
         }
 
         BigNumber z = new BigNumber(aEnvironment.getPrecision());
@@ -67,24 +67,40 @@ public class CosineN extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="CosineN",categories="Mathematics Functions;Numeric;Trigonometry (Numeric)"
-*CMD CosineN --- double-precision math function
+%mathpiper_docs,name="ArcCosineD",categories="Mathematics Functions;Numeric;Trigonometry (Numeric)"
+*CMD ArcCosineD --- double-precision math function
 *CORE
 *CALL
-	CosineN(x)
+	ArcCosineD(x)
 
 *PARMS
-{x} -- a number
+{x} -- a decimal number (0 and 1 allowed too).
 
 *DESC
-A numerical version of the Cosine function. The reason for the postfix {N} is the library needs 
+A numerical version of the ArcCosine function. The reason for the postfix {N} is the library needs 
 to define equivalent non-numerical functions for symbolic computations, such as {Sine}.
+Math.acos(aDouble) is used, result has about 16 decimal places precision.
 
-*SEE SineN, TangentN, ArcSineN, ArcCosineN, ArcTangentN
+*SEE SineD, CosineD, TangentD, ArcSineD, ArcTangentD
 
 *E.G.
-In> CosineN(.7)
-Result: 0.7648421873
+
+In> ArcCosineD(0.5)
+Result: 1.047197551
+
+In> BuiltinPrecisionSet(40)
+Result: True
+
+In> ArcCosineD(0.5)
+Result: 1.0471975511965979
+
+In> Cosine(NM(Pi/3))
+Result: Cosine(1.047197551196597786975774432671607628066)
+
+In> CosineD(NM(Pi/3))
+Result: 0.4999999999999999
+
+In> 
 
 %/mathpiper_docs
 */

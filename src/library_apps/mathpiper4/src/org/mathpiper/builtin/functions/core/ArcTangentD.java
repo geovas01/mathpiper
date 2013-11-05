@@ -25,16 +25,16 @@ import org.mathpiper.lisp.LispError;
 
 /**
  *
- *  
+ *
  */
-public class ArcSineN extends BuiltinFunction
+public class ArcTangentD extends BuiltinFunction
 {
 
-    private ArcSineN()
+    private ArcTangentD()
     {
     }
 
-    public ArcSineN(String functionName)
+    public ArcTangentD(String functionName)
     {
         this.functionName = functionName;
     }
@@ -43,16 +43,16 @@ public class ArcSineN extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
         BigNumber x;
-        
+
         x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
 
         double xDouble = x.toDouble();
 
-        double result = Math.asin(xDouble);
+        double result = Math.atan(xDouble);
 
         if(Double.isNaN(result))
         {
-            LispError.raiseError("The argument must have a value between -1 and 1.", aStackTop, aEnvironment);
+            LispError.raiseError("The argument is NaN.", aStackTop, aEnvironment);
         }
 
         BigNumber z = new BigNumber(aEnvironment.getPrecision());
@@ -67,24 +67,24 @@ public class ArcSineN extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="ArcSineN",categories="Mathematics Functions;Numeric;Trigonometry (Numeric)"
-*CMD ArcSineN --- double-precision math function
+%mathpiper_docs,name="ArcTangentD",categories="Mathematics Functions;Numeric;Trigonometry (Numeric)"
+*CMD ArcTangentD --- double-precision math function
 *CORE
 *CALL
-	ArcSineN(x)
+	ArcTangentD(x)
 
 *PARMS
 {x} -- a number
 
 *DESC
-A numerical version of the ArcSine function. The reason for the postfix {N} is the library needs 
+A numerical version of the ArcTangent function. The reason for the postfix {N} is the library needs 
 to define equivalent non-numerical functions for symbolic computations, such as {Sine}.
 
-*SEE SineN, CosineN, TangentN, ArcCosineN, ArcTangentN
+*SEE SineD, CosineD, TangentD, ArcSineD, ArcCosineD
 
 *E.G.
-In> ArcSineN(.7)
-Result: 0.7753974966
+In> ArcTangentD(.7)
+Result: 0.6107259644
 
 %/mathpiper_docs
 */
