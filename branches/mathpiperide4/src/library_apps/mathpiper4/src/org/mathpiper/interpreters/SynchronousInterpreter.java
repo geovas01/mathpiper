@@ -197,13 +197,13 @@ public class SynchronousInterpreter implements Interpreter {
 
                     //iEnvironment.scripts = null;
                     
-                    /*
-                    initializationEvaluationResponse = evaluate("NM(2 + 2);", false, "INITIALIZATION");
+                    //Initialize constants such as Pi.
+                    EvaluationResponse initializationEvaluationResponse = evaluate("NM(2 + 2);", false, "INITIALIZATION");
                     if (initializationEvaluationResponse.isExceptionThrown()) {
                         Throwable ex = initializationEvaluationResponse.getException();
                         throw ex;
                     }
-                    */
+                    
 
                     System.out.print("done. \n");
 
