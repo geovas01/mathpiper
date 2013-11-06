@@ -50,7 +50,7 @@ public class MPReduceWrapper implements Runnable, EBComponent
 	{
 		responseListeners = new ArrayList<ResponseListener>();
 		removeListeners = new ArrayList<ResponseListener>();
-		mpreduce = new org.mathpiper.mpreduce.Interpreter2();
+		mpreduce = org.mathpiper.mpreduce.Interpreter2.getInstance();
 
 		new Thread(this,"reduce").start();
 

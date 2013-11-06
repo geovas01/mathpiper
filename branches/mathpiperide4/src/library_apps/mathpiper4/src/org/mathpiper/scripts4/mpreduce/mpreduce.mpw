@@ -16,7 +16,7 @@ LocalSymbols(mpreduce)
 
 If(ExceptionCatch(mpreduce,"Exception") =? "Exception")
 {
-    mpreduce := JavaNew("org.mathpiper.mpreduce.Interpreter2");
+    mpreduce := JavaCall("org.mathpiper.mpreduce.Interpreter2", "getInstance");
 };
 
 
