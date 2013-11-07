@@ -1,4 +1,4 @@
-#summary This page contains miscelaenous unused MathPiper scripts.
+#summary This page contains miscellaneous unused MathPiper scripts.
 
 
 === Removed from the bottom of mathpiperinit.mpw ===
