@@ -46,24 +46,17 @@ public class GeoGebraToolPanel extends JPanel {
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		pad = qnpad;
 
+		/*
 		Box labelBox = new Box(BoxLayout.Y_AXIS);
 		labelBox.add(Box.createGlue());
-
 		label = new JLabel("This is an experimental version of GeoGebra. Please do not distribute it outside of MathPiperIDE.");
-		//JLabel title = new JLabel("Want a Raise?", JLabel.CENTER);
-		//title.setFont(new Font("Serif", Font.BOLD, 48));
-
 		label.setForeground(java.awt.Color.BLUE);
-		
 		label.setVisible(jEdit.getProperty(
 				GeoGebraPlugin.OPTION_PREFIX + "show-filepath").equals(
 				"true"));
-
 		labelBox.add(label);
 		labelBox.add(Box.createGlue());
-
 		add(labelBox);
-
 		add(Box.createGlue());
 
 		add(makeCustomButton("geogebra.reset", new ActionListener() {
@@ -71,7 +64,7 @@ public class GeoGebraToolPanel extends JPanel {
 				GeoGebraToolPanel.this.pad.reset();
 			}
 		}));
-		/*
+		
 		add(makeCustomButton("piper.save-file", new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				GeoGebraToolPanel.this.pad.saveFile();
