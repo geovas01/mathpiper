@@ -206,16 +206,27 @@ This is a "cached constant" which is recalculated only when precision is increas
 
 *E.G.
 
-In> Sin(3*Pi/2)
-Result: -1;
-
 In> Pi+1
 Result: Pi+1;
 
-In> NM(Pi)
-Result: 3.14159265358979323846;
+In> NM(Pi+1);
+Result: 4.141592654
 
-*SEE Sin, Cos, NM, CachedConstant
+In> NM(Pi,40)
+Result: 3.141592653589793238462643383279502884197
+
+In> Pin :=NM(Pi)
+Result: 3.141592654
+
+In> Sine(3*Pi/2)
+Result: Sine((3*Pi)/2)
+
+In> SineD(3*Pin/2)
+Result: -1.0
+
+
+
+*SEE Sine, Cosine, NM, CachedConstant
 %/mathpiper_docs
 
 
