@@ -29,9 +29,9 @@ is needed and creating a normal function is either inconvenient or impossible.
 
 *E.G.
 In>  Apply(Lambda([x,y], x-y^2), [Cosine(_a), Sine(_a)]);
-Result: Cos(a)-Sin(a)^2
+Result: Cosine(_a)-Sine(_a)^2
 
-In>  Lambda([x,y], x-y^2) @ [Cos(a), Sin(a)]
+In>  Lambda([x,y], x-y^2) @ [Cosine(_a), Sine(_a)]
 Result: Cosine(_a)-Sine(_a)^2
 
 
