@@ -229,8 +229,6 @@ Expand(expression) :=
 
 
 
-
-
 Differentiate(expression, variable) :=
 {
     Local(result);
@@ -245,7 +243,18 @@ Differentiate(expression, variable) :=
 };
 
 
+Limit(expression, variable, where) :=
+{
+    Local(result);
 
+    result := JavaAccess(mpreduce, "evaluate","LIMIT(" ~ MathPiperToReduce(expression) ~ ", " ~ MathPiperToReduce(variable) ~ ", " ~ MathPiperToReduce(where)~ ");"); 
+    
+    result := JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "Unknown:.*\\n", "");
+    
+    result := JavaAccess(JavaNew("java.lang.String", result), "replace", "=", "==");
+
+    ReduceToMathPiper(result);
+};
 
 
 
@@ -268,9 +277,9 @@ Integrate(expression, variable) :=
 
 %/mathpiper
 
-    %output,sequence="3,timestamp="2013-08-05 22:56:26.087",preserve="false"
-      Result: True
-.   %/output
+    %error,sequence="2",timestamp="2013-11-11 09:25:44.041",preserve="false"
+      Result: The function <Factor> is a library function, and library functions cannot be redefined. 
+.   %/error
 
 
 
@@ -396,6 +405,40 @@ In> Differentiate(x_^2,x_)
 Result: 2*x_
 
 *SEE Integrate
+%/mathpiper_docs
+
+%mathpiper_docs,name="Limit",categories="Mathematics Functions;Calculus Related (Symbolic)"
+*CMD Limit --- (try) to compute a limit
+*STD
+*CALL
+	Limit(expression,variable,where)
+
+*PARMS
+
+{expression} -- expression to take a the limit, for  variable -> where
+
+{variable} -- variable
+
+{where} -- value  
+
+
+*DESC
+
+This function calculates the limit of the expression {expr} with
+respect to the variable {var} var  to where (number).
+
+*E.G.
+
+In> ForEach( i ,[0,1,3,4,Infinity]) {tmp := "lim(x*Sine(1/x),x," ~  ToString(i) ~ ") = ";Echo(tmp,Limit(Sine(1/_x)*_x,_x,i));} 
+Result: True
+Side Effects:
+lim(x*Sine(1/x),x,0) = 0 
+lim(x*Sine(1/x),x,1) = Sine(1) 
+lim(x*Sine(1/x),x,3) = 3*Sine(1/3) 
+lim(x*Sine(1/x),x,4) = 4*Sine(1/4) 
+lim(x*Sine(1/x),x,Infinity) = 1 
+
+*SEE ForEach, 
 %/mathpiper_docs
 
 
