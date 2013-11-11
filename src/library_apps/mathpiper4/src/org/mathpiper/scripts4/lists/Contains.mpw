@@ -41,16 +41,16 @@ that case the top-level operands are tested for the occurrence of
 
 *E.G.
 
-In> Contains?([a,b,c,d], b);
+In> Contains?([_a,_b,_c,_d], _b);
 Result: True;
 
-In> Contains?([a,b,c,d], x);
+In> Contains?([_a,_b,_c,_d], _x);
 Result: False;
 
-In> Contains?([a,[1,2,3],z], 1);
+In> Contains?([_a,[1,2,3],_z], 1);
 Result: False;
 
-In> Contains?(a*b, b);
+In> Contains?(_a*_b, _b);
 Result: True;
 
 *SEE Find, Count
