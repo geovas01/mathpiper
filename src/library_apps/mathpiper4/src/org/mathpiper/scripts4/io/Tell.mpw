@@ -49,25 +49,25 @@ Result: 123
 In> var2:= "a string"
 Result: "a string"
 
-In> var3:=Sin(x)+Exp(x)
-Result: Sin(x)+Exp(x)
+In> var3:=Sine(_x)+Exp(1)
+Result: Sine(_x)+Exp(1)
 
-In> Tell(ID1)
+In> Tell('ID1)
 Result: True
         Side Effects>
         << ID1 >>
 
-In> Tell(ID2,[var1])
+In> Tell('ID2,[var1])
 Result: True
         Side Effects>
         << ID2 >> [var1] :  [123] 
 
-In> Tell(ID3,[var1,var2])
+In> Tell('ID3,[var1,var2])
 Result: True
         Side Effects>
         << ID3 >> [var1,var2] [123,"a string"] 
 
-In> Tell(ID4,[var1,var2,var3])
+In> Tell('ID4,[var1,var2,var3])
 Result: True
         Side Effects>
         << ID4 >> [var1,var2,var3] :  [123,"a string",Sin(x)+Exp(x)] 
