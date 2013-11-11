@@ -32,11 +32,15 @@ expression containing things such as {Ln(a*b)}, and we want
 to change these into {Ln(a)+Ln(b)}, the easiest way
 to do this is using the {/:} operator, as follows:
 
-In> Sin(x)*Ln(a*b)
-Result: Sin(x)*Ln(a*b);
+PKHG: 
+In> Sine(_x)*Ln(_a*_b) /: [ Ln(_x*_y) <- Ln(x)+Ln(y) ]
+Result: Sine(_x)*(Ln(_a)+Ln(_b))
 
-In> % /: [ Ln(_x*_y) <- Ln(x)+Ln(y) ]
-Result: Sin(x)*(Ln(a)+Ln(b));
+In> Sine(_x)*Ln(_a*_b)
+Result: Sine(_x)*Ln(_a*_b);
+
+In> # /: [ Ln(_x*_y) <- Ln(x)+Ln(y) ]
+Result: Sine(_x)*(Ln(_a)+Ln(_b));
 
 A whole list of simplification rules can be built up in the list,
 and they will be applied to the expression on the left hand side
@@ -68,7 +72,7 @@ the rule will be printed as a side effect.
 
 *E.G.
 
-In> Sin(u)*Ln(a*b) /: [Ln(_x*_y) <- Ln(x) + Ln(y)]
+In> Sine(_u)*Ln(_a*_b) /: [Ln(_x*_y) <- Ln(x) + Ln(y)]
 Result: Sin(u)*(Ln(a)+Ln(b));
 
 In> V(Sin(u)*Ln(a*b) /: [ "RuleName" # Ln(_x*_y) <- Ln(x) + Ln(y)])
