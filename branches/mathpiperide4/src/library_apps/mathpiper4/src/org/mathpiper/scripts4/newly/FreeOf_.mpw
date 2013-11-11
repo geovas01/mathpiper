@@ -42,22 +42,22 @@ The second form test whether the expression depends on <i>any</i> of
 the variables named in the list. The result is {True} if none of the 
 variables appear in the expression and {False} otherwise.
 
-*E.G.
+*E.G. PKHG 11-11-2-13 changes _ before variables
 
-In> FreeOf?(x, Sin(x));
+In> FreeOf?(_x, Sine(_x));
 Result: False;
 
-In> FreeOf?(y, Sin(x));
+In> FreeOf?(_y, Sine(_x));
 Result: True;
 
-In> FreeOf?(x, Differentiate(x) a*x+b);
+In> FreeOf?(_x, Differentiate( _a*_x+_b,_x));
 Result: True;
 
-In> FreeOf?([x,y], Sin(x));
+In> FreeOf?([_x,_y], Sine(_x));
 Result: False;
 
 The third command returns [True] because the
-expression [Differentiate(x) a*x+b] evaluates to [a], which does not depend on [x].
+expression [Differentiate( _a*_x+_b,_x)] evaluates to [_a], which does not depend on [_x].
 
 *SEE Contains?
 %/mathpiper_docs
