@@ -177,11 +177,11 @@ accepting a variable number of arguments.
 
 A simple assignment:
 
-In> a := Sin(x) + 3;
-Result: Sin(x)+3;
+In> a := Sine(_x) + 3;
+Result: Sine(_x)+3;
 
 In> a;
-Result: Sin(x)+3;
+Result: Sine(_x)+3;
 
 Multiple assignments:
 
@@ -230,8 +230,8 @@ Result: True;
 In> f(3);
 Result: 9;
 
-In> f(Sin(a));
-Result: Sin(a)^2;
+In> f(Sine(_a));
+Result: Sine(+a)^2;
 
 Defining a function with variable number of arguments:
 
@@ -252,18 +252,26 @@ Result: True;
 In> x1 *&* x2 := x1/x2 + x2/x1;
 Result: True;
 
-In> Sin(a) *&* Cos(a);
-Result: Tan(1)+Cos(1)/Sin(1);
+In>Sine(_a) *&* Cosine(_a);
+Result: Sine(_a)/Cosine(_a)+Cosine(_a)/Sine(_a)
+
+PKHG12-11-13 TODO
+In> Sine(_a) *&* Cosine(_a)
+Result: Sine(_a)/Cosine(_a)+Cosine(_a)/Sine(_a)
+
+In>  Sine(_a) *&* CosineN(NM(Pi));
+Result: -(1.000000000/Sine(_a)+Sine(_a))
 
 In> Unassign(a);
 Result: True;
 
-In> Sin(a) *&* Exp(a);
-Result: Sin(a)/Exp(a)+Exp(a)/Sin(a);
+In> Sine(_a) *&* Exp(_a);
+Result: Sine(_a)/Exp(_a)+Exp(_a)/Sine(_a)
 
 In the following example, it may take some time to compute the Taylor
 expansion. This has to be done every time the function [f] is called.
 
+PKHG12-11-13 TODO!
 In> f(a) := Taylor(x,0,25) Sin(x);
 Result: True;
 
