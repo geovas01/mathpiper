@@ -31,9 +31,9 @@ RuleHoldArguments("Repeat",2,10,Integer?(iterations) And? iterations >? 0)
 
     While (iterations >? 0)
     {
-        Eval(body);
         iterations--;
         count++;
+        Eval(body);
     };
 
     count;
