@@ -195,6 +195,18 @@ Solve(expression) :=
     ReduceToMathPiper(result);
 };
 
+Solve(expression, unknown) := 		
+{ 		
+ 	Local(result); 		
+ 			
+ 	result := JavaAccess(mpreduce, "evaluate","Solve(" ~ MathPiperToReduce(expression) ~ ", " ~ MathPiperToReduce(unknown) ~ ");"); 		
+ 			
+ 	result := JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "Unknown:.*\\n", ""); 		
+ 			
+ 	result := JavaAccess(JavaNew("java.lang.String", result), "replace", "=", "=="); 		
+ 			
+ 	ReduceToMathPiper(result); 		
+};
 
 
 
