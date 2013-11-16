@@ -677,6 +677,8 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 									errorResult =  exception.getMessage() + " Error on or before line " + (adjustedErrorLineNumber + 1) + " starting at index " + startIndex + ".";							
 									
 									filePath = textArea.getBuffer().getPath();
+									
+									jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "error-list" );
 								
 									errorSource.clear();
 									
@@ -686,7 +688,6 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 										{
 											startIndex--;
 										}
-										
 										endIndex++;
 									}
 								
@@ -702,11 +703,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 								errorResult =  exception.getMessage();
 							}
 							
-							
 							output_fold_type = "%error";
-							
-			
-							jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "error-list" );
 							
 							if(!evaluationResponse.getSideEffects().equalsIgnoreCase(""))
 							{
