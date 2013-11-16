@@ -1,0 +1,202 @@
+//PKHG: TaylorString, version 1.0 16-11-2013
+%mathpiper,title="tayor"
+mpreduce := JavaCall("org.mathpiper.mpreduce.Interpreter2", "getInstance");
+
+MathPiperToReduce(expression) :=
+{
+    Local(expressionString);
+    
+    expressionString := ToString(expression);
+    
+    expressionString := ToString(JavaAccess(JavaNew("java.lang.String", expressionString), "replace", "_", "ztfxq"));
+    
+    expressionString := ToString(JavaAccess(JavaNew("java.lang.String", expressionString), "replace", "==", "="));
+    
+    expressionString := ToString(JavaAccess(JavaNew("java.lang.String", expressionString), "replaceAll", "(?<![a-zA-Z])ArcCosine", "acos"));
+    
+    expressionString := ToString(JavaAccess(JavaNew("java.lang.String", expressionString), "replaceAll", "(?<![a-zA-Z])ArcCotangent", "acot"));
+    
+    expressionString := ToString(JavaAccess(JavaNew("java.lang.String", expressionString), "replaceAll", "(?<![a-zA-Z])ArcCosecant", "acsc"));
+    
+    expressionString := ToString(JavaAccess(JavaNew("java.lang.String", expressionString), "replaceAll", "(?<![a-zA-Z])ArcSecant", "asec"));
+    
+    expressionString := ToString(JavaAccess(JavaNew("java.lang.String", expressionString), "replaceAll", "(?<![a-zA-Z])ArcSine", "asin"));
+    
+    expressionString := ToString(JavaAccess(JavaNew("java.lang.String", expressionString), "replaceAll", "(?<![a-zA-Z])ArcTangent", "atan"));
+    
+    expressionString := ToString(JavaAccess(JavaNew("java.lang.String", expressionString), "replaceAll", "(?<![a-zA-Z])Cosine", "cos"));
+    
+    expressionString := ToString(JavaAccess(JavaNew("java.lang.String", expressionString), "replaceAll", "(?<![a-zA-Z])Cotangent", "cot"));
+    
+    expressionString := ToString(JavaAccess(JavaNew("java.lang.String", expressionString), "replaceAll", "(?<![a-zA-Z])Cosecant", "csc"));
+    
+    expressionString := ToString(JavaAccess(JavaNew("java.lang.String", expressionString), "replaceAll", "(?<![a-zA-Z])Secant", "sec"));
+    
+    expressionString := ToString(JavaAccess(JavaNew("java.lang.String", expressionString), "replaceAll", "(?<![a-zA-Z])Sine", "sin"));
+    
+    expressionString := ToString(JavaAccess(JavaNew("java.lang.String", expressionString), "replaceAll", "(?<![a-zA-Z])Tangent", "tan"));
+    
+};
+
+
+
+ReduceToMathPiper(expressionString) :=
+{
+    Local(result);
+        
+    expressionString := ToString(expressionString);
+
+    result := JavaAccess(JavaNew("java.lang.String", expressionString), "replace", "$", "");
+
+    result := JavaAccess(JavaNew("java.lang.String", result), "replace", "ztfxq", "_");
+    
+    result := JavaAccess(JavaNew("java.lang.String", result), "replace", "**", "^");
+
+    result := JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "(?<![a-zA-Z])sqrt", "Sqrt");
+  
+    result := JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "(?<![a-zA-Z])pi", "Pi");
+    
+    result := JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "(?<![a-zA-Z])log", "Log");
+    
+    result := JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "(?<![a-zA-Z])arbint", "Arbint");
+    
+    result := JavaAccess(JavaNew("java.lang.String", result), "replace", "{", "[");
+    
+    result := JavaAccess(JavaNew("java.lang.String", result), "replace", "}", "]");
+    
+    result := ToString(JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "(?<![a-zA-Z])acos", "ArcCosine"));
+                                                                                                                      
+    result := ToString(JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "(?<![a-zA-Z])acot", "ArcCotangent"));
+                                                                                                                      
+    result := ToString(JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "(?<![a-zA-Z])acsc", "ArcCosecant"));
+                                                                                                                      
+    result := ToString(JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "(?<![a-zA-Z])asec", "ArcSecant"));
+                                                                                                                      
+    result := ToString(JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "(?<![a-zA-Z])asin", "ArcSine"));
+                                                                                                                      
+    result := ToString(JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "(?<![a-zA-Z])atan", "ArcTangent"));
+
+    result := ToString(JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "(?<![a-zA-Z])cos", "Cosine"));
+                                                                                                                      
+    result := ToString(JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "(?<![a-zA-Z])cot", "Cotangent"));
+                                                                                                                      
+    result := ToString(JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "(?<![a-zA-Z])csc", "Cosecant"));
+                                                                                                                      
+    result := ToString(JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "(?<![a-zA-Z])sec", "Secant"));
+                                                                                                                      
+    result := ToString(JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "(?<![a-zA-Z])sin", "Sine"));
+                                                                                                                      
+    result := ToString(JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "(?<![a-zA-Z])tan", "Tangent"));
+  
+    
+    Check(Not? JavaAccess(JavaNew("java.lang.String", result), "contains", "*****"),"",result);
+
+    PipeFromString(ToString(result) ~ ";") ParseMathPiper();
+    
+};
+
+//today, the result is like the command but surrounded by taylor(...,arguments)
+//and the variable name are to be found ;-), separated by a "komma" .. => this
+//function
+
+findAllKommas(str) :=
+{
+	Local(result, len);	
+	result := [];
+	len := Length(str);
+	//Echo("findAllKommas str =>>",str,Nl(),"len =", len);
+
+	For( i := 1 , i <=? len, i++)
+	{
+	  If (str[i] =? ",") { result := Append(result, i); 
+	  //Echo("found an , at ", i , result);
+	  };	 
+	};
+	result;
+};
+
+
+//the expression is like a REDUCE taylorcommmand, no underscores in variables!
+
+TaylorString(expression) :=
+{
+ Local(result, lengthResult, firstVar, lookthis, args, res , replBy);
+ //Echo("input of TaylorString = ", expression);
+
+ result :=  JavaAccess(mpreduce, "evaluate", Eval(expression));
+ //Echo("Reduce givs this back = ", result);
+ 
+ lengthResult := Length(result);
+ result := result[8 .. lengthResult]; //delete: taylor( at start of result
+ //Echo("result now became >" , result);
+ 
+ lookthis := findAllKommas(result);
+ //Echo("Kommas at: ", lookthis);
+ 
+ //firstVar := ToAtom(result[lookthis[1] + 1 .. lookthis[2] - 1]); //needed to let it be prefixed by _
+ firstVar := result[lookthis[1] + 1 .. lookthis[2] - 1];
+ replBy := ToAtom("_" ~ firstVar);
+ firstVar := ToAtom(firstVar);
+ //Echo("firstVar = " , firstVar);
+ 
+ lengthResult := Length(result);
+ args := result[lookthis[1] + 1 .. lengthResult - 2];
+ //Echo("args = ", args);
+
+
+// firstKommaJava:= JavaAccess(JavaNew("java.lang.String", result), "indexOf", ",");
+// Echo("firstKommaJava = ",firstKommaJava =? lookthis[1] - 1);
+  
+ 
+ result := result[1 .. lookthis[1] - 1 ];
+ result := result ~ ";" ;
+ Echo(Nl(),"shortened result is now with ; at end => ", result , Nl());
+ 
+ // LOOKS GOOD (no reduce switches set necessary?); TODO !!! TESTS!! e.g. taylorprintterm := all :(or integer)!!!
+
+ result := ReduceToMathPiper(result);
+ //Echo("result is now " , result);
+ //Echo("check this: ", firstVar =? "x");
+ 
+ Substitute(firstVar,replBy) result;
+  //TODO  a loop for all other variables ...
+};
+
+//Echo(TaylorString("taylor(sin(x) +y^2,x,7,5,y,pp,4)"));
+//TaylorString("taylor(sin(x) +y^2,x,7,5,y,pp,4)");
+//TaylorString("taylor(x^2,x,3,2)","x");
+testcase := TaylorString("taylor(yy^3 ,yy,4,4)");
+Eval(Substitute(_yy,2) testcase) =? 2^3;
+%/mathpiper
+
+    %output,sequence="1",timestamp="2013-11-16 18:20:23.632",preserve="false"
+      Result: True
+      
+      Side Effects:
+      
+      shortened result is now with ; at end => 64 + 48*(yy - 4) + 12*(yy - 4)**2 + (yy - 4)**3;
+      
+      
+.   %/output
+
+
+
+%mathpiper,title=""
+Echo("testcase = " , testcase, " is yy^3 taylor at 2 to order 4 ");
+newTestcase := Expand(testcase);
+Echo("so newTestcase ===>", newTestcase, "<== should be yy^3, shouldn't it ;-), nearly, yy without value is not alowed ==> en _ (underscore before yy)");
+
+%/mathpiper
+
+    %output,sequence="2",timestamp="2013-11-16 18:20:40.478",preserve="false"
+      Result: True
+      
+      Side Effects:
+      testcase = 64+48*(_yy-4)+12*(_yy-4)^2+(_yy-4)^3  is yy^3 taylor at 2 to order 4 
+      so newTestcase ===>_yy^3 <== should be yy^3, shouldn't it ;-), nearly, yy without value is not alowed ==> en _ (underscore before yy)
+      
+.   %/output
+
+
+
+
