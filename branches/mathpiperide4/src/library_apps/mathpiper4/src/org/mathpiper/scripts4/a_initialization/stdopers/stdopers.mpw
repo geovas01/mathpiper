@@ -137,7 +137,7 @@ RuleHoldArguments(StandardOperatorsLoad, 0, 1, True)
     Infix(":*:",3);
     
     
-    //Symbolic operators (that do not evaluate their operands).;
+    //Symbolic operators.;
     Infix("+$",70);
     RulebaseHoldArguments("+$",[_lhs, _rhs]);
     
