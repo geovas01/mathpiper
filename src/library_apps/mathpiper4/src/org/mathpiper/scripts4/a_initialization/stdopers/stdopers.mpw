@@ -137,7 +137,7 @@ RuleHoldArguments(StandardOperatorsLoad, 0, 1, True)
     Infix(":*:",3);
     
     
-    //Symbolic operators.;
+    //Symbolic operators.
     Infix("+$",70);
     RulebaseHoldArguments("+$",[_lhs, _rhs]);
     
@@ -162,8 +162,6 @@ RuleHoldArguments(StandardOperatorsLoad, 0, 1, True)
     Prefix("-$",50);
     RightPrecedenceSet("-$",40);
     RulebaseHoldArguments("-$",[_operand]);
-    
-
 };
 
 
