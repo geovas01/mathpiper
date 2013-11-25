@@ -43,14 +43,16 @@ a string or as a pure function (see Apply for more information on
 pure functions).
 
 *E.G.
-In> MapSingle("Sin",[a,b,c]);
-Result> [Sin(a),Sin(b),Sin(c)];
-
-In> Map("+",[[a,b],[c,d]]);
-Result> [a+c,b+d];
+For functions needing TWO arguments
+In> Map("+",[[_a,1/5],[Pi,4]]);
+Result> [_a+Pi,21/5]
 
 In> Map("List",[[1,2,3],[4,5,6]]);
 Result: [[1,4],[2,5],[3,6]]
+
+For functions needing ONE argument
+In> MapSingle("Sine",[_a,Pi,0]);
+Result> [Sine(_a),Sine(Pi),Sine(0)]
 
 *SEE MapSingle, MapArgs, Apply
 %/mathpiper_docs
