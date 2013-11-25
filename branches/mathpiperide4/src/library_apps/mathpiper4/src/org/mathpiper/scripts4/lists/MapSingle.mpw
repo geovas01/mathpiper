@@ -43,13 +43,18 @@ The {/@} operator provides a shorthand for
 
 *E.G.
 
-In> MapSingle("Sin",[a,b,c]);
-Result: [Sin(a),Sin(b),Sin(c)];
+Known functions of with one argument:
+In> MapSingle(Sine,[_a,4,Pi]);
+Result: [Sine(_a),Sine(4),Sine(Pi)]
 
-In> MapSingle([[x],x^2], [a,2,c]);
-Result: [a^2,4,c^2];
+In> MapSingle(Lambda([x],x^2), [(_a+2)^2,2,Pi]); 
+Result: [(_a+2)^4,4,Pi^2]
 
-*SEE Map, MapArgs, /@, Apply
+In> MapSingle(Lambda([x],Expand(x^2)), [(_a+2)^2,2,Pi])
+Result: [_a^4+8*_a^3+24*_a^2+32*_a+16,4,Pi^2]
+
+
+*SEE Map, MapArgs, /@, Apply, Lambda
 %/mathpiper_docs
 
 
