@@ -67,17 +67,22 @@ If the global stack is empty, an error message is printed.
 In> GlobalPush(3)
 Result: 3;
 
-In> GlobalPush(Sin(x))
-Result: Sin(x);
+In> GlobalPush(Sine(_x))
+Result: Sine(_x);
 
 In> GlobalPop(x)
-Result: Sin(x);
+Result: Sin_(_x);
 
 In> GlobalPop(x)
 Result: 3;
 
 In> x
 Result: 3;
+
+In> GlobalPop()
+Result: Exception
+Exception: Invariant Error: GlobalPop: Error: empty GlobalStack 
+
 
 *SEE Push, PopFront
 %/mathpiper_docs
