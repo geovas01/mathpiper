@@ -8,7 +8,7 @@
 	</description> 
 	
 	<!-- Misc properties -->
-	<property name="version" value=".828" />
+	<property name="version" value=".829" />
 	<property name="mathpiper.version" value="mathpiper4" />        
 	
 	<property name="master.compile.source" value="1.6" />
@@ -497,7 +497,7 @@
 		</copy>
 		
 		
-		<!--<mkdir dir="${master.build.dir}/mathpiperide/settings/jars/geogebra_properties" /> -->
+		<mkdir dir="${master.build.dir}/mathpiperide/settings/jars/geogebra_properties" />
 		
 		
 		<!-- Copy examples directory. -->
@@ -540,7 +540,7 @@
 		
 
 		
-		<!-- <copy file="${plugins.src.dir}/geogebra_plugin/init.ggb" todir="${plugins.jars.dir}/scripts"/> -->
+		<copy file="${plugins.src.dir}/geogebra_plugin/init.ggb" todir="${plugins.jars.dir}/scripts"/>
 		
 		
 		<antcall target="chmod-unix-launch-script">
