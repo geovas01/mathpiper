@@ -35,11 +35,14 @@ unevaluated atom "{+}".
 
 *E.G.
 
-In> VarList(Sin(x))
-Result: [x];
+In> VarList(Sine(_x))
+Result: [_x];
 
-In> VarList(x+a*y)
-Result: [x,a,y];
+In> VarList(_x+_a*_y)
+Result: [_x,_a,_y];
+
+In> VarList(2+_a*3)
+Result: [_a]
 
 *SEE VarListArith, VarListSome, VarListAll, FreeOf?, Variable?, FuncList, HasExpression?, HasFunction?
 %/mathpiper_docs
