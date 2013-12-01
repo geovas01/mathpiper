@@ -71,7 +71,7 @@ current output, followed by a newline. If {item} is a string, it is
 printed without quotation marks.
 
 If {Echo} is called with a variable number of arguments, they will all
-be printed with spaces inbetween them and finally a newline will be printed.
+be printed and finally a newline will be printed.
 
 If no arguments are passed to {Echo}, it will simply output a newline.
 
@@ -90,10 +90,10 @@ Side Effects:
 The square of two is 4 
 
 
-In> Echo([a,b,c]);
+In> Echo([_a,NM(Pi),[1,2,"PKHG"]]);
 Result: True
 Side Effects:
-[a,b,c] 
+[_a,3.141592654,[1,2,"PKHG"]] 
 
 *SEE UnparseMath2D, Write, WriteString, RulebaseListedHoldArguments
 %/mathpiper_docs
