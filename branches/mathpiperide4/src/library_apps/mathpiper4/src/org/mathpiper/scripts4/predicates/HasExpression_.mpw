@@ -43,19 +43,27 @@ the unevaluated atom "{+}".
 
 *E.G.
 
-In> HasExpression?(x+y*Cos(Ln(z)/z), z)
+In> HasExpression?(_x+_y*Cosine(Ln(_z)/_z), _z)
 Result: True;
 
-In> HasExpression?(x+y*Cos(Ln(z)/z), Ln(z))
+In> HasExpression?(_x+_y*Cosine(Ln(_z)/_z), Ln(_z))
 Result: True;
 
-In> HasExpression?(x+y*Cos(Ln(z)/z), z/Ln(z))
+In> HasExpression?(_x+_y*Cosine(Ln(_z)/_z), _z/Ln(_z))
 Result: False;
+
+In> HasExpression?(_x+_y*Cosine(Ln(_z)/_z), Ln(_z)/_z)
+Result: True
+
+In> HasExpression?(_x+_y*Cosine(Ln(_z)/_z), _z)
+Result: True
+
+In> HasExpression?(_x+_y*Cosine(Ln(_z)/_z), 1/_z)
+Result: False
+
 
 *SEE HasExpressionArithmetic?, HasExpressionSome?, FuncList, VarList, HasFunction?
 %/mathpiper_docs
-
-
 
 
 
