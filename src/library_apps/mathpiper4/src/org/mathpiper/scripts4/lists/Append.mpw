@@ -36,8 +36,22 @@ constant.
 
 *E.G.
 
-In> Append([a,b,c,d], 1);
-Result: [a,b,c,d,1];
+In> ll := [_a,Pi,3,[1,2,3]]
+Result: [_a,Pi,3,[1,2,3]]
+
+In> Append(ll,1);
+Result: [_a,Pi,3,[1,2,3],1]
+
+In> ll
+Result: [_a,Pi,3,[1,2,3]]
+
+Therefore assignment needed for changing ll!
+
+In> ll := Append(ll,"PKHG")
+Result: [_a,Pi,3,[1,2,3],"PKHG"]
+
+In> ll
+Result: [_a,Pi,3,[1,2,3],"PKHG"]
 
 *SEE Concat, :, DestructiveAppend
 %/mathpiper_docs
