@@ -32,11 +32,18 @@ programming languages such as Miranda or Haskell.
 
 *E.G.
 
-In> "Sin" /@ [a,b]
-Result: [Sin(a),Sin(b)];
+In> "Sine" /@ [_a,3]
+Result: [Sine(_a),Sine(3)];
 
-In> [[a],Sin(a)*a] /@ [a,b]
-Result: [Sin(a)*a,Sin(b)*b];
+In> Sine /@ [2,4,NM(Pi,16), Pi]
+Result: [Sine(2),Sine(4),Sine(3.141592653589793),Sine(Pi)]
+
+In> SineN /@ [2,4,NM(Pi,16)]
+Result: [0.9092974269,-0.7568024961,0.0000000003906125890]
+
+In> Lambda([a],Sine(a)*a) /@ [_a,4]
+Result: [Sine(_a)*_a,4*Sine(4)]
+
 
 *SEE MapSingle, Map, MapArgs
 %/mathpiper_docs
