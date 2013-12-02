@@ -155,6 +155,7 @@ public class SynchronousInterpreter implements Interpreter {
                     functionList.add("^");
                     functionList.add("++");
                     functionList.add("--");
+                    functionList.add("II");
                     //functionList.add("UniVar?");
                     //functionList.add("Sign");
                     //functionList.add("MakeMultiNomial");
