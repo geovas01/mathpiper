@@ -138,7 +138,7 @@ AnovaCompletelyRandomizedBlock(levelsList, alpha) :=
     
     summaryTableRows := "";
     
-    summaryTableRow := "<TR> <TD> <?Write(ToAtom(ToString(Level)~ToString(index)));?> </TD> <TD align=\"right\"> <?Write(lengthsList[index]);?> </TD> <TD> <?Write(sumsList[index]);?> </TD>  <TD> <?Write(meansList[index]);?> </TD> <TD> <?Write(variancesList[index]);?> </TD> </TR>"~Nl();
+    summaryTableRow := "<TR> <TD> <?Write(ToAtom(ToString('Level)~ToString(index)));?> </TD> <TD align=\"right\"> <?Write(lengthsList[index]);?> </TD> <TD> <?Write(sumsList[index]);?> </TD>  <TD> <?Write(meansList[index]);?> </TD> <TD> <?Write(variancesList[index]);?> </TD> </TR>"~Nl();
     
     
     //Data summary.
