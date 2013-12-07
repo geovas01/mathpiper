@@ -92,7 +92,7 @@ In> Decimal?(1/2);
 Result: False;
 
 In> Decimal?(3.2/10);
-Result: False;
+Result: True;
 
 *SEE String?, Atom?, Integer?, PositiveNumber?, NegativeNumber?, Number?
 %/mathpiper_docs
