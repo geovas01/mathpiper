@@ -95,7 +95,7 @@ Side Effects:
 
 *E.G.
 
-In> Set(a,Hold(2+3))
+In> Assign(a,Hold(2+3))
 Result: True
 
 In> a
@@ -108,6 +108,7 @@ In> a
 Result: 5
 
 
-*SEE Assign, Unassign, Local, %, I
+*SEE Assign, Unassign, Local, #, I
+Note: # works only in the mathpiper console!
 %/mathpiper_docs
 */
