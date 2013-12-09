@@ -138,6 +138,11 @@ public class MathPiper extends JPanel
     {
 	    console.setHaltButtonEnabledState(state);
     }
+
+    public boolean getHaltButtonState()
+    {
+	    return console.getHaltButtonEnabledState();
+    }
         // }}}
     
     // {{{ focusOnDefaultComponent

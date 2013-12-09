@@ -460,6 +460,12 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 		
 		if(foldType.equalsIgnoreCase("%In>"))
 		{
+			if(wm.getDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME).getHaltButtonState() == true)
+			{
+				org.gjt.sp.jedit.Macros.message(jEdit.getActiveView(),"A MathPiper evaluation is currently in progress.");
+				return;
+			}
+				
 			lineText = lineText.substring(3,lineText.length()).trim();
 			
 			if(! lineText.endsWith(";"))
@@ -566,6 +572,12 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 		///{{{ *** %mathpiper ***.
 		else if(foldType.equalsIgnoreCase("%mathpiper"))    
 		{
+			
+			if(wm.getDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME).getHaltButtonState() == true)
+			{
+				org.gjt.sp.jedit.Macros.message(jEdit.getActiveView(),"A MathPiper evaluation is currently in progress.");
+				return;
+			}
 			
 			performEvaluation = true;
 
