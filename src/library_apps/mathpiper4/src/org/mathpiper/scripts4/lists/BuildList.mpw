@@ -68,8 +68,9 @@ Result: [3,7,11,15]
 In> BuildList(i^2, i, 10, 1, -1);
 Result: [100,81,64,49,36,25,16,9,4,1]
 
-In> BuildList(a+b, b, 0, 2, 1)
-Result: [a,a+1,a+2]
+The loop variables may not be Constants!
+In> BuildList(_a+b, b, 0, 2, 1)
+Result: [_a,_a+1,_a+2]
 
 In> BuildList(BuildList(a+b, b, 0, 2, 1), a, 0, 2, 1)
 Result: [[0,1,2],[1,2,3],[2,3,4]]
