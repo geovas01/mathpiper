@@ -100,7 +100,6 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
     private final Color green = new Color(0, 130, 0);
     private final Color purple = new Color(153, 0, 153);
     private Interpreter interpreter = Interpreters.getAsynchronousInterpreter();
-    private StringBuilder input = new StringBuilder();
     private JButton haltButton, variablesButton, clearConsoleButton, clearRealtimeButton, helpButton, docsButton, smallerFontButton, largerFontButton;
     private JCheckBox realtimeSideEffectsCheckBox;
     private boolean isCodeResult = true;
@@ -127,7 +126,6 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
     private boolean controlKeyDown = false;
     private int historyIndex = -1;
     private int caretPositionWhenEnterWasPressed = -1;
-    private boolean deleteFlag = false;
     private JRadioButton numericModeButton;
     private JRadioButton symbolicModeButton;
     private ButtonGroup resultModeGroup;
@@ -603,6 +601,12 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
 
     public void keyTyped(KeyEvent e) {
+    	
+    	if(haltButton.isEnabled())
+    	{
+    		JOptionPane.showMessageDialog(null, "An evaluation is currently in process.");
+    		return;
+    	}
 
         char key = e.getKeyChar();
 
@@ -748,17 +752,6 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
             } catch (java.io.IOException ev) {
             ev.printStackTrace();
             }//*/
-        } else {
-            //System.out.println(key);
-            //registers[0] = (int) key;
-            if ((int) key == e.VK_BACK_SPACE) {  //== 8) {
-                deleteFlag = true;
-            }
-
-            input.append(key);
-            //typeArea.append(Character.toString(key));
-            //buffer.put((int) key);
-            //setReceiveDataRegisterFull(true);
         }
     }//end method.
 
@@ -1121,9 +1114,14 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
     public void setHaltButtonEnabledState(boolean state) {
         this.haltButton.setEnabled(state);
-
     }//end method.
 
+    
+    public boolean getHaltButtonEnabledState() {
+        return this.haltButton.isEnabled();
+    }//end method.
+    
+    
     class ColorPane extends JTextPane {
 
         public ColorPane() {
