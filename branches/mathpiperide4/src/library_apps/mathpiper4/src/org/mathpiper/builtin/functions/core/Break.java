@@ -63,31 +63,44 @@ cause the loop to be exited.
 
 *E.G.
 
-/%mathpiper
+%/mathpiper
+
+    %output,sequence="1",timestamp="2013-12-05 09:27:53.559",preserve="false"
+      Result: class javax.swing.JFrame
+      
+      Side Effects:
+      [["criticalFScoreBlock",3.325834530],["fScoreBlock",0.08045614890],["criticalFScore",4.102821015],["fScore",3.078377024],["meanSquareBlock",0.1418888884],["meanSquareWithin",1.763555556],["meanSquareBetween",5.428888905],["sumOfSquaresTotal",29.20277781],["sumOfSquaresBlock",0.7094444419],["sumOfSquaresBetween",10.85777781],["sumOfSquaresWithin",17.63555556],["html",class java.lang.String]] 
+      
+      F-Score of the block: 0.08045614890 
+      
+.   %/output
+
+%mathpiper
 
 x := 1;
 
-While(x <= 10)
-[
+While(x <=? 10)
+{
     Echo(x);
 
-    If(x = 5, Break());
+    If(x =? 5,) Break();
 
     x++;
-];
+};
 
-/%/mathpiper
+%/mathpiper
 
-    /%output,preserve="false"
+    %output,sequence="5",timestamp="2013-12-09 12:41:41.334",preserve="false"
       Result: True
-
+      
       Side Effects:
-      1
-      2
-      3
-      4
-      5
-.   /%/output
+      1 
+      2 
+      3 
+      4 
+      5 
+      
+.   %/output
 
 *SEE While, Until, For, ForEach, Continue
 %/mathpiper_docs
