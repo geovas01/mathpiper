@@ -604,7 +604,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
     	
     	if(haltButton.isEnabled())
     	{
-    		JOptionPane.showMessageDialog(null, "An evaluation is currently in process.");
+    		JOptionPane.showMessageDialog(null, "A MathPiper evaluation is currently in progress.");
     		return;
     	}
 
