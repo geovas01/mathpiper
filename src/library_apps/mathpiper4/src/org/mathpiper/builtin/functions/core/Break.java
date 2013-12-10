@@ -63,7 +63,7 @@ cause the loop to be exited.
 
 *E.G.
 
-%/mathpiper
+/%/mathpiper
 
     %output,sequence="1",timestamp="2013-12-05 09:27:53.559",preserve="false"
       Result: class javax.swing.JFrame
@@ -75,7 +75,7 @@ cause the loop to be exited.
       
 .   %/output
 
-%mathpiper
+/%mathpiper
 
 x := 1;
 
@@ -88,9 +88,9 @@ While(x <=? 10)
     x++;
 };
 
-%/mathpiper
+/%/mathpiper
 
-    %output,sequence="5",timestamp="2013-12-09 12:41:41.334",preserve="false"
+    /%output,sequence="5",timestamp="2013-12-09 12:41:41.334",preserve="false"
       Result: True
       
       Side Effects:
@@ -100,7 +100,7 @@ While(x <=? 10)
       4 
       5 
       
-.   %/output
+.   /%/output
 
 *SEE While, Until, For, ForEach, Continue
 %/mathpiper_docs
