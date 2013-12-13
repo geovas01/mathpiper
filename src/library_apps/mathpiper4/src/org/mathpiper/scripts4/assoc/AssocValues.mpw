@@ -36,7 +36,7 @@ Result: True;
 In> writer["Ulysses"] := "James Joyce";
 Result: True;
 
-In> AssocIndices(writer);
+In> AssocValues(writer);
 Result: ["Homer","ShakespeareJames Joyce"];
 
 *SEE Assoc, AssocDelete, AssocIndices
