@@ -72,7 +72,7 @@ Result: Complex(0,1);
 
 Verify(Sqrt(Infinity),Infinity);
 
-// version 1.0.56: Due to MathBitCount returning negative values sometimes, functions depending on
+// version 1.0.56: Due to BitCount returning negative values sometimes, functions depending on
 // proper functioning failed. MathSqrtFloat failed for instance on NM(1/2). It did give the right
 // result for 0.5.
 NumericEqual(NM(Sqrt(500000e-6),20),NM(Sqrt(0.0000005e6),20),20);

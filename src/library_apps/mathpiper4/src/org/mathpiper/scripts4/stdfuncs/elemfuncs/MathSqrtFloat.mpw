@@ -15,7 +15,7 @@
 MathSqrtFloat(_A) <--
 {
         Local(bitshift, a0, x0, x0sq, targetbits, subtargetbits, gotbits, targetprec);
-        bitshift := ShiftRight(MathBitCount(A)-1,1);
+        bitshift := ShiftRight(BitCount(A)-1,1);
         // this is how many bits of precision we need
         targetprec := BuiltinPrecisionGet();
         // argument reduction: a0 is between 1 and 4 and has the full target precision

@@ -7,7 +7,7 @@
 Defun("ExpN", [_x])
         Decide(Equal?(x,0),1,
          Decide(LessThan?(x,0),DivideN(1, ExpN(MathNegate(x))),
-          Decide(GreaterThan?(x,1), MathExpDoubling(MathExpTaylor0(MathMul2Exp(x,MathNegate(MathBitCount(x)))), MathBitCount(x)), MathExpTaylor0(x)
+          Decide(GreaterThan?(x,1), MathExpDoubling(MathExpTaylor0(MathMul2Exp(x,MathNegate(BitCount(x)))), BitCount(x)), MathExpTaylor0(x)
         )));
 
 %/mathpiper
