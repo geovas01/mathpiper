@@ -1,10 +1,6 @@
 %mathpiper,def="ChiSquareTest"
 
-
 /* ChiSquare's CDF is computed as IncompleteGamma(x,dof/2)/Gamma(dof/2); */
-
-Retract(ChiSquareTest,*);
-
 
 10 # ChiSquareTest( observedFrequenciesMatrix_Matrix?, expectedFrequenciesMatrix_Matrix?) <--
 {
