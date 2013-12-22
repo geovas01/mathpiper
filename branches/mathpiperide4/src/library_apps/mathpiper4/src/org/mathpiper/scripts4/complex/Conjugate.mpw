@@ -31,8 +31,8 @@ unbound variables are real.
 In> Conjugate(2)
 Result: 2;
 
-In> Conjugate(Complex(a,b))
-Result: Complex(a,-b);
+In> Conjugate(Complex(3,5))
+Result: Complex(3,-5);
 
 *SEE Complex, Re, Im
 %/mathpiper_docs
