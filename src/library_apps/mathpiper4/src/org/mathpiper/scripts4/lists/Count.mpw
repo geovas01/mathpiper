@@ -31,16 +31,16 @@ occurs in "list" and returns this number.
 
 *E.G.
 
-In> lst := [a,b,c,b,a];
-Result: [a,b,c,b,a];
+In> lst := [_a,Pi,3,1,Pi,II];
+Result: [_a,Pi,3,1,Pi,II]
 
-In> Count(lst, a);
-Result: 2;
+In> Count(lst,Pi)
+Result: 2
 
-In> Count(lst, c);
+In> Count(lst, 1);
 Result: 1;
 
-In> Count(lst, x);
+In> Count(lst, _x);
 Result: 0;
 
 *SEE Length, Select, Contains?
