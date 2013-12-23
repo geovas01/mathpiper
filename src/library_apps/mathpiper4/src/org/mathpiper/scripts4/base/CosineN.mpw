@@ -29,7 +29,13 @@ integer result is returned even if the calculation requires more digits than set
 the functions return a floating-point result which is correct only to the current precision.
 
 *E.G.
-In>
-Result:
+In> BuiltinPrecisionSet(50)
+Result: True
+
+In> CosineN(0.7)
+Result: 0.76484218728448842625585999019186490926821055037373
+
+In>CosineN(0.7)^2 + SineN(0.7)^2
+Result: 1.0000000000000000000000000000000000000000000000000
 
 %/mathpiper_docs
