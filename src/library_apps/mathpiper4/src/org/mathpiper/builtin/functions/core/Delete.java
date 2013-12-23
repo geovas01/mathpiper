@@ -69,8 +69,8 @@ is returned.
 
 *E.G.
 
-In> Delete([a,b,c,d,e,f], 4);
-Result: [a,b,c,e,f];
+In> Delete([_a,_b,_c,[1,2,3],_e,_f], 4);
+Result: [_a,_b,_c,_e,_f];
 
 *SEE DestructiveDelete, Insert, Replace
 %/mathpiper_docs
