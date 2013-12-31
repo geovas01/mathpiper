@@ -849,9 +849,13 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
             }
 
         }//end for.
+        
+        String string = stringBuilder.toString();
+        
+        string = string.replace("&#123;", "{");
+        string = string.replace("&#125;", "}");
 
-
-        return stringBuilder.toString();
+        return string;
     }//end method.
 
 
@@ -868,7 +872,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
         //convertedScriptCode = convertedScriptCode.replaceAll("\\$.*\\$", "\b");
 
-        convertedScriptCode = convertedScriptCode.replace("&", "&amp;");
+        //convertedScriptCode = convertedScriptCode.replace("&", "&amp;");
         convertedScriptCode = convertedScriptCode.replace("<", "&lt;");
         convertedScriptCode = convertedScriptCode.replace(">", "&gt;");
 
