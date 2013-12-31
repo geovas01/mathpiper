@@ -37,7 +37,7 @@ In> Denominator(_a / _x^2)
 Result: _x^2;
 
 In> Denominator(-_a / _x^2)
-Result: x^2
+Result: _x^2
 
 In> Denominator(5)
 Result: 1;
