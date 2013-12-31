@@ -221,11 +221,11 @@ the comment markers. */ b;
 
 *DESC
 
-The {Block} and the {{ ... }} construct have the same effect: they evaluate all
+The {Block} and the {&#123; ... &#125;} construct have the same effect: they evaluate all
 arguments in order and return the result of the last evaluated expression.
 
-{Block(a,b);} is the same as typing [[a;b;];] and is very useful for writing out
-function bodies. The {{ ... }} construct is a syntactically nicer version of the
+{Block(_a,_b);} is the same as typing {&#123;_a;_b;&#125;} and is very useful for writing out
+function bodies. The {&#123; ... &#125;} construct is a syntactically nicer version of the
 {Block} call; it is converted into {Block(...)} during the parsing stage.
 
 *SEE Block
