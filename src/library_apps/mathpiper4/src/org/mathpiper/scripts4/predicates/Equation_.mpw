@@ -32,12 +32,12 @@ Equations are defined by the property that they are of the form {a==b}.
 *E.G.
 
 
-In> Equation?(x^2==4)
+In> Equation?(_x^2==4)
 
 Result: True
 
 
-In> Equation?(x^2-4)
+In> Equation?(_x^2-4)
 
 Result: False
 
