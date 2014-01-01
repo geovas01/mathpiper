@@ -42,6 +42,8 @@ Result: _x^2
 In> Denominator(5)
 Result: 1;
 
+*File: ../src/org/mathpiper/scripts4/a_initialization/standard/Denominator.mpw
+
 *SEE Numerator, Rational?, Number?
 %/mathpiper_docs
 
