@@ -156,7 +156,7 @@ public class Build {
 			if (scriptFileOrSubdirectoy.getName().toLowerCase().endsWith(".mrw")) {
 			    throw new Exception("The .mrw file extension has been deprecated ( " + scriptFileOrSubdirectoy.getName() + " ).");
 			}
-
+			
 			if (scriptFileOrSubdirectoy.getName().toLowerCase().endsWith(".mpw")) {
 			    // Process a .mpw files that is in a top-level
 			    // package.
@@ -188,12 +188,19 @@ public class Build {
 			    Arrays.sort(packageSubDirectoryContentsArray);
 
 			    for (int x3 = 0; x3 < packageSubDirectoryContentsArray.length; x3++) {
-				// Process each script in a package subdirectlry
-				// directory.
+				// Process each script in a package subdirectory.
 				File scriptFile2 = packageSubDirectoryContentsArray[x3];
-				System.out.print("        " + scriptFile2.getName() + " -> ");
-
-				processMPWFile(scriptFile2);
+				if(scriptFile2.isDirectory())
+				{
+				}				
+				else if (scriptFile2.getName().toLowerCase().endsWith(".mpw")) {
+				    System.out.print("        " + scriptFile2.getName() + " -> ");
+				    processMPWFile(scriptFile2);
+				}
+				else
+				{
+				    System.out.println("        " + scriptFile2.getName() + " -> *** WARNING *** is not a .mpw file.");
+				}
 
 				// mpi file.
 
