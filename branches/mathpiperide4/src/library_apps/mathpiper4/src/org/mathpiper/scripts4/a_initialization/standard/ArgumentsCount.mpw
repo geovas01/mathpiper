@@ -24,14 +24,13 @@ expression "expr". The argument "expr" may not be an atom, since
 that would lead to an error.
 
 *E.G.
-
-In> ArgumentsCount(f(a,b,c))
+In> ArgumentsCount(f(_a,3,Pi)) //If f is a 'known' function
 Result: 3;
 
-In> ArgumentsCount(Sin(x));
+In> ArgumentsCount(Sine(_x));
 Result: 1;
 
-In> ArgumentsCount(a*(b+c));
+In> ArgumentsCount(_a*(_b+_c));
 Result: 2;
 
 *SEE Type, Length
