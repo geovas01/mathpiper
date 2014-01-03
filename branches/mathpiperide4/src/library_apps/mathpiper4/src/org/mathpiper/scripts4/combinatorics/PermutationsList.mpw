@@ -51,9 +51,9 @@ the elements in the original list.
 
 *E.G.
 
-In> PermutationsList([a,b,c])
-Result: [[a,b,c],[a,c,b],[c,a,b],[b,a,c],
-        [b,c,a],[c,b,a]];
+In> PermutationsList([_a,_b,_c])
+Result: [[_a,_b,_c],[_a,_c,_b],[_c,_a,_b],[_b,_a,_c],
+        [_b,_c,_a],[_c,_b,_a]];
 
 *SEE Permutations, Combinations, CombinationsList, LeviCivita
 %/mathpiper_docs
