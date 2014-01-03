@@ -86,20 +86,20 @@ An alternative but equivalent form of {Nth(list, n)} is
 
 *E.G.
 
-In> lst := [a,b,c,13,19];
-Result: [a,b,c,13,19];
+In> lst := [_a,_b,_c,13,19];
+Result: [_a,_b,_c,13,19];
 
 In> Nth(lst, 3);
-Result: c;
+Result: _c;
 
 In> lst[3];
-Result: c;
+Result: _c;
 
 In> Nth(lst, [3,4,1]);
-Result: [c,13,a];
+Result: [_c,13,a];
 
-In> Nth(b*(a+c), 2);
-Result: a+c;
+In> Nth(_b*(_a+_c), 2);
+Result: _a+_c;
 
 *Examples
 
