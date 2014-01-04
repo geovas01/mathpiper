@@ -34,14 +34,17 @@ programming languages such as Miranda or Haskell.
 
 *E.G.
 
-In> "Sin" @ a
-Result: Sin(a);
+In> "Sine" @ _a
+Result: Sine(_a);
 
-In> [[a],Sin(a)] @ a
-Result: Sin(a);
+In> [[_a],Sine(_a)] @ _a
+Result: Sine(_a);
 
-In> "f" @ [a,b]
-Result: f(a,b);
+If f is a function ?? PKHG>TODO
+In> "f" @ [_a,_b]
+Result: f(_a,_b);
+
+
 
 *SEE Apply
 %/mathpiper_docs
