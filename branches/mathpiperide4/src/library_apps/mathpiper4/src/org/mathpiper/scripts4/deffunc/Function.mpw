@@ -66,7 +66,7 @@ HoldArgument("Function","body");
 
 
 
-%mathpiper_docs,name="Function",categories="Programming Functions;Miscellaneous;Built In"
+%mathpiper_docs,name="Function",categories="Programming Functions;Programming"
 *CMD Function --- declare or define a function
 *STD
 *CALL
@@ -136,7 +136,7 @@ Result: a;
 
 The following function will print all arguments to a string:
 
-In> Function("PrintAll",[x, ...]) Decide(List?(x),
+In> Function("PrintAll",[_x, ...]) Decide(List?(x),
           PrintList(x), PipeToString()Write(x));
 Result: True;
 
