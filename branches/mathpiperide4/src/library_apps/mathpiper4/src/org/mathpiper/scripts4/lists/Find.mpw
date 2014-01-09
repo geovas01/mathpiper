@@ -40,7 +40,7 @@ NOTE: Find is a synonym for FindFirst.
 
 *E.G.
 
-In> Find([a,b,c,d,e,f], d);
+In> Find([_a,_b,_c,_d,_e,_f],_d);
 Result: 4;
 
 In> Find([1,2,3,2,1], 2);
