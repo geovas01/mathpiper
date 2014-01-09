@@ -39,7 +39,7 @@ index is returned. If "expr" does not occur at all,
 
 *E.G.
 
-In> FindFirst([a,b,c,d,e,f], d);
+In> FindFirst([_a,_b,_c,_d,_e,_f], _d);
 Result: 4;
 
 In> FindFirst([1,2,3,2,1], 2);

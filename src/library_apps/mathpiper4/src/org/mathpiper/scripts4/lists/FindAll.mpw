@@ -39,7 +39,7 @@ the empty list, [], is returned.
 
 *E.G.
 
-In> FindAll([a,b,c,d,e,f], d);
+In> FindAll([_a,_b,_c,_d,_e,_f], _d);
 Result: [4]
 
 In> FindAll([1,2,3,2,1], 2);
