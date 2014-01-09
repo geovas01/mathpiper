@@ -31,6 +31,17 @@ just lists of lists, this is a useful operation too for lists.
 
 *E.G.
 
-In> Transpose([[a,b]])
-Result: [[a],[b]];
+In> res := Transpose([[_a,_b]])
+Result: [[_a],[_b]];
+
+In> res2:=Transpose(res)
+Result: [[_a,_b]]
+
+In> re2*res
+Result: [[_a^2+_b^2]]
+
+In> res*res2
+Result: [[_a^2,_a*_b],[_b*_a,_b^2]]
+
+
 %/mathpiper_docs
