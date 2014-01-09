@@ -51,17 +51,17 @@ through "n".
 
 *E.G.
 
-In> lst := [a,b,c,d,e,f,g];
-Result: [a,b,c,d,e,f,g];
+In> lst := [_a,_b,_c,_d,_e,_f,_g];
+Result: [_a,_b,_c,_d,_e,_f,_g];
 
 In> Drop(lst, 2);
-Result: [c,d,e,f,g];
+Result: [_c,_d,_e,_f,_g];
 
 In> Drop(lst, -3);
-Result: [a,b,c,d];
+Result: [_a,_b,_c,_d];
 
 In> Drop(lst, [2,4]);
-Result: [a,e,f,g];
+Result: [_a,_e,_f,_g];
 
 *SEE Take, Select, Remove
 %/mathpiper_docs
