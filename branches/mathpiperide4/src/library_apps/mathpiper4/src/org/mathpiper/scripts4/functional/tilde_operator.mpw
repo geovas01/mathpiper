@@ -45,17 +45,17 @@ This operator can help the user to program in the style of functional programmin
 
 *E.G.
 
-In> []~a
-Result: [a]
+In> []~_a
+Result: [_a]
 
-In> [a,b]~c
-Result: [a,b,c]
+In> [_a,_b]~_c
+Result: [_a,_b,_c]
 
-In> a~b~c~[]
-Result: [a,b,c];
+In> _a~_b~_c~[]
+Result: [_a,_b,_c];
 
-In> a~b~[c]~d
-Result: [a,b,c,d]
+In> _a~_b~[_c]~_d
+Result: [_a,_b,_c,_d]
 
 In> "This"~"Is"~"A"~"String"
 Result: "ThisIsAString";
