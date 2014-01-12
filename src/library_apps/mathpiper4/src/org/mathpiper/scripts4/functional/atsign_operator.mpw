@@ -40,7 +40,9 @@ Result: Sine(_a);
 In> [[_a],Sine(_a)] @ _a
 Result: Sine(_a);
 
-If f is a function ?? PKHG>TODO
+In>Function() f(_x,_y) 
+Result: True
+
 In> "f" @ [_a,_b]
 Result: f(_a,_b);
 
