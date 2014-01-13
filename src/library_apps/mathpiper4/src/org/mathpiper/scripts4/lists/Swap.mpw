@@ -1,6 +1,6 @@
 %mathpiper,def="Swap"
 
-Function("Swap",["list",_index1,_index2])
+Function("Swap",[_list,_index1,_index2])
 {
   Local(item1,item2);
   item1:=list[index1];
@@ -37,11 +37,11 @@ returned.
 
 *E.G.
 
-In> lst := [a,b,c,d,e,f];
-Result: [a,b,c,d,e,f];
+In> lst := [_a,_b,_c,_d,_e,_f];
+Result: [_a,_b,_c,_d,_e,_f];
 
 In> Swap(lst, 2, 4);
-Result: [a,d,c,b,e,f];
+Result: [_a,_d,_c,_b,_e,_f];
 
 *SEE Replace, DestructiveReplace, ArrayCreate
 %/mathpiper_docs
