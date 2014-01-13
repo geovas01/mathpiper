@@ -43,7 +43,7 @@ if desired.
 
 *E.G.
 
-In> Select([a,b,2,c,3,d,4,e,f], "Integer?")
+In> Select([_a,_b,2,_c,3,_d,4,_e,_f], "Integer?")
 Result: [2,3,4];
 
 
