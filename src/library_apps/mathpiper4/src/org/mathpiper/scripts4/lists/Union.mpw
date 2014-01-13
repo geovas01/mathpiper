@@ -27,11 +27,11 @@ the lists. In the resulting list, any element will occur only once.
 
 *E.G.
 
-In> Union([a,b,c], [b,c,d]);
-Result: [a,b,c,d];
+In> Union([_a,_b,_c], [_b,_c,_d]);
+Result: [_a,_b,_c,_d];
 
-In> Union([a,e,i,o,u], [f,o,u,r,t,e,e,n]);
-Result: [a,e,i,o,u,f,r,t,n];
+In> Union([_a,_e,_i,_o,_u], [_f,_o,_u,_r,_t,_e,_e,_n]);
+Result: [_a,_e,_i,_o,_u,_f,_r,_t,_n];
 
 In> Union([1,2,2,3,3,3], [2,2,3,3,4,4]);
 Result: [1,2,3,4];

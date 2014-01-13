@@ -50,17 +50,17 @@ number "m" and ending with the "n"-th entry.
 
 *E.G.
 
-In> lst := [a,b,c,d,e,f,g];
-Result: [a,b,c,d,e,f,g];
+In> lst := [_a,_b,_c,_d,_e,_f,_g];
+Result: [_a,_b,_c,_d,_e,_f,_g];
 
 In> Take(lst, 2);
-Result: [a,b];
+Result: [_a,_b];
 
 In> Take(lst, -3);
-Result: [e,f,g];
+Result: [_e,_f,_g];
 
 In> Take(lst, [2,4]);
-Result: [b,c,d];
+Result: [_b,_c,_d];
 
 *SEE Drop, Select, Remove
 %/mathpiper_docs
