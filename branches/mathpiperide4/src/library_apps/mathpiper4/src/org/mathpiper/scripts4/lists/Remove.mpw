@@ -30,8 +30,8 @@ Remove(list, expression) :=
 This command removes all elements that match a given expression from a given list and returns the resulting list.
 
 *E.G.
-In> Remove([a,b,a,b,c,a,c],a)
-Result> [b,b,c,c]
+In> Remove([_a,_b,_a,_b,_c,_a,_c],_a)
+Result> [_b,_b,_c,_c]
 
 *SEE RemoveDuplicates
 

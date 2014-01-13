@@ -43,13 +43,13 @@ unevaluated atom "{+}".
 
 *E.G. notest
 
-In> FuncList(x+y*Cos(Ln(x)/x))
-Result: [+,*,Cos,/,Ln];
+In> FuncList(_x+_y*Cosine(Ln(_x)/_x))
+Result: [+,*,Cosine,/,Ln];
 
-In> FuncListArith(x+y*Cos(Ln(x)/x))
+In> FuncListArith(_x+y*Cosine(Ln(_x)/_x))
 Result: [+,*,Cos];
 
-In> FuncListSome([a+b*2,c/d],[List])
+In> FuncListSome([_a+_b*2,_c/_d],[List])
 Result: [List,+,/];
 
 *SEE VarList, HasExpression?, HasFunction?

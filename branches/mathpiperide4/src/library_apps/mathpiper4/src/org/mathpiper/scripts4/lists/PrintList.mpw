@@ -40,8 +40,8 @@ If padding is not specified, a standard one is used (comma, space).
 
 *E.G.
 
-In> PrintList([a,b,[c, d]], " .. ")
-Result: " a ..  b .. [ c ..  d]";
+In> PrintList([_a,_b,[_c,_d]], " .. ")
+Result: " _a ..  _b .. [ _c ..  _d]";
 
 *SEE Write, WriteString
 %/mathpiper_docs

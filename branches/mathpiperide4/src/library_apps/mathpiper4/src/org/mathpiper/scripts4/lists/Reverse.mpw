@@ -26,14 +26,14 @@ and slower.
 
 *E.G.
 
-In> lst:=[a,b,c,13,19]
-Result: [a,b,c,13,19];
+In> lst:=[_a,_b,_c,13,19]
+Result: [_a,_b,_c,13,19];
 
 In> revlst:=Reverse(lst)
-Result: [19,13,c,b,a];
+Result: [19,13,_c,_b,_a];
 
 In> lst
-Result: [a,b,c,13,19];
+Result: [_a,_b,_c,13,19];
 
 *SEE FlatCopy, DestructiveReverse
 %/mathpiper_docs
