@@ -432,6 +432,10 @@ public class EMU6502 implements Runnable
 
 			while(runFlag == true)
 			{
+				if(pc == 0x0200)
+				{
+					int aa = 4;
+				}
 				block = (pc & 0xe000) >> 13;
 				block2 = 0;
 
@@ -451,6 +455,8 @@ public class EMU6502 implements Runnable
 				cc = ir & 0x03;
 				bbb = (ir & 0x1c) >> 2;
 				aaa = (ir & 0xe0) >> 5;
+		
+				accumulatorFlag = 0;
 
 				if (cc == 01)
 				{
@@ -560,7 +566,7 @@ public class EMU6502 implements Runnable
 						}
 
 
-						//Perform caclulation.
+						//Perform calculation.
 						tmp = a + chip2[offset2] + c;
 
 						if ((tmp & 0x100) != 0)
@@ -1061,7 +1067,17 @@ public class EMU6502 implements Runnable
 								}
 								else
 								{
-									tmp = chip2[offset2];
+									if(block2 == 5)
+									{
+										int bank = offset2 >> 9;
+										IOChip ioChip = ioChips[bank];
+										tmp = ioChip.read(offset2 & 0x1ff); //Note:tk:temporary masking of offset until a more systematic solution is developed.
+									}
+									else
+									{
+										tmp = chip2[offset2];
+									}
+									
 									tmp = tmp << 1;
 									if ((tmp & 0x100) == 1)
 									{
@@ -1071,7 +1087,18 @@ public class EMU6502 implements Runnable
 									{
 										c = 0;
 									}//end else.
-									tmp = chip2[offset2] = (tmp & 0xff);
+									
+									if(block2 == 5)
+									{
+										int bank = offset2 >> 9;
+										IOChip ioChip = ioChips[bank];
+										ioChip.write(offset2 & 0x1ff, (tmp & 0xff)); //Note:tk:temporary masking of offset until a more systematic solution is developed.
+										tmp = (tmp & 0xff);
+									}
+									else
+									{									
+										tmp = chip2[offset2] = (tmp & 0xff);
+									}
 								}//end else.
 
 								ck_n = ck_z = 1;
@@ -1096,7 +1123,17 @@ public class EMU6502 implements Runnable
 								}
 								else
 								{
-									tmp = chip2[offset2];
+									if(block2 == 5)
+									{
+										int bank = offset2 >> 9;
+										IOChip ioChip = ioChips[bank];
+										tmp = ioChip.read(offset2 & 0x1ff); //Note:tk:temporary masking of offset until a more systematic solution is developed.
+									}
+									else
+									{
+										tmp = chip2[offset2];
+									};
+									
 									tmp = tmp << 1;
 									tmp = tmp | c;
 									if ((tmp & 0x100) != 0)
@@ -1107,7 +1144,18 @@ public class EMU6502 implements Runnable
 									{
 										c = 0;
 									}//end else.
-									tmp = chip2[offset2] = (tmp & 0xff);
+
+									if(block2 == 5)
+									{
+										int bank = offset2 >> 9;
+										IOChip ioChip = ioChips[bank];
+										ioChip.write(offset2 & 0x1ff, (tmp & 0xff)); //Note:tk:temporary masking of offset until a more systematic solution is developed.
+										tmp = (tmp & 0xff);
+									}
+									else
+									{									
+										tmp = chip2[offset2] = (tmp & 0xff);
+									}
 								}//end else.
 
 								ck_n = ck_z = 1;
@@ -1125,10 +1173,29 @@ public class EMU6502 implements Runnable
 								}
 								else
 								{
-									tmp = chip2[offset2];
+									if(block2 == 5)
+									{
+										int bank = offset2 >> 9;
+										IOChip ioChip = ioChips[bank];
+										tmp = ioChip.read(offset2 & 0x1ff); //Note:tk:temporary masking of offset until a more systematic solution is developed.
+									}
+									else
+									{
+										tmp = chip2[offset2];
+									};
 									c = tmp & 0x01;
 									tmp = tmp >> 1;
-									tmp = chip2[offset2] = (tmp & 0xff);
+            						if(block2 == 5)
+            						{
+            							int bank = offset2 >> 9;
+            							IOChip ioChip = ioChips[bank];
+            							ioChip.write(offset2 & 0x1ff, (tmp & 0xff)); //Note:tk:temporary masking of offset until a more systematic solution is developed.
+            							tmp = (tmp & 0xff);
+            						}
+            						else
+            						{									
+            							tmp = chip2[offset2] = (tmp & 0xff);
+            						}
 								}//end else.
 
 								ck_n = ck_z = 1;
@@ -1150,12 +1217,31 @@ public class EMU6502 implements Runnable
 								else
 								{
 									tmp2 = c;
-									tmp = chip2[offset2];
+									if(block2 == 5)
+									{
+										int bank = offset2 >> 9;
+										IOChip ioChip = ioChips[bank];
+										tmp = ioChip.read(offset2 & 0x1ff); //Note:tk:temporary masking of offset until a more systematic solution is developed.
+									}
+									else
+									{
+										tmp = chip2[offset2];
+									};
 									c = tmp & 0x01;
 									tmp = tmp >> 1;
 									tmp2 = tmp2 << 7;
 									tmp = tmp | tmp2;
-									tmp = chip2[offset2] = (tmp & 0xff);
+            						if(block2 == 5)
+            						{
+            							int bank = offset2 >> 9;
+            							IOChip ioChip = ioChips[bank];
+            							ioChip.write(offset2 & 0x1ff, (tmp & 0xff)); //Note:tk:temporary masking of offset until a more systematic solution is developed.
+            							tmp = (tmp & 0xff);
+            						}
+            						else
+            						{									
+            							tmp = chip2[offset2] = (tmp & 0xff);
+            						}
 								}//end else.
 
 								ck_n = ck_z = 1;
@@ -1163,11 +1249,30 @@ public class EMU6502 implements Runnable
 								break;
 
 							case STX:
-								chip2[offset2] = x;
+								if(block2 == 5)
+								{
+									int bank = offset2 >> 9;
+									IOChip ioChip = ioChips[bank];
+									ioChip.write(offset2 & 0x1ff,x); //Note:tk:temporary masking of offset until a more systematic solution is developed.
+								}
+								else
+								{
+									chip2[offset2] = x;
+								}
 								break;
 
 							case LDX:
-								tmp = x = chip2[offset2];
+								if(block2 == 5)
+								{
+									int bank = offset2 >> 9;
+									IOChip ioChip = ioChips[bank];
+									tmp = x = ioChip.read(offset2 & 0x1ff); //Note:tk:temporary masking of offset until a more systematic solution is developed.
+								}
+								else
+								{
+									tmp = x = chip2[offset2];
+								}
+								
 								ck_n = ck_z = 1;
 								break;
 
@@ -1273,13 +1378,32 @@ public class EMU6502 implements Runnable
 
 								case STY:
 
-									chip2[offset2] = y;
+									if(block2 == 5)
+									{
+										int bank = offset2 >> 9;
+										IOChip ioChip = ioChips[bank];
+										ioChip.write(offset2 & 0x1ff,y); //Note:tk:temporary masking of offset until a more systematic solution is developed.
+									}
+									else
+									{
+										chip2[offset2] = y;
+									}
 
 									break;
 
 								case LDY:
 
-									tmp = y = chip2[offset2];
+									if(block2 == 5)
+									{
+										int bank = offset2 >> 9;
+										IOChip ioChip = ioChips[bank];
+										tmp = y = ioChip.read(offset2 & 0x1ff); //Note:tk:temporary masking of offset until a more systematic solution is developed.
+									}
+									else
+									{
+										tmp = y = chip2[offset2];
+									}
+									
 									ck_n = ck_z = 1;
 
 									break;
@@ -1408,3 +1532,4 @@ public class EMU6502 implements Runnable
 */
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
+
