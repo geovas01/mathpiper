@@ -89,11 +89,11 @@ Plot2D(f1(_x), 0 -> 1); //gives graphic!
 In> f(x) := NM(Sine(x));
 Result: True;
 
-In> NFunction("f1", "f", [x]);
+In> NFunction("f1", "f", [_x]);	
 Result: True;
 
-In> f1(a);
-Result: f1(a);
+In> f1(_a);
+Result: f1(_a);
 
 In> f1(0);
 Result: 0;
@@ -111,11 +111,11 @@ In> t(x);
         CommandLine(1) : Invalid argument
 Then, we can use [NFunction()] to define a wrapper [t1(x)] around [t(x)] which will not try to evaluate [t(x)] unless [x] is a number.
 
-In> NFunction("t1", "t", [x])
+In> NFunction("t1", "t", [_x])
 Result: True;
 
-In> t1(x);
-Result: t1(x);
+In> t1(_x);
+Result: t1(_x);
 
 In> t1(0.2);
 Result: 0.4;
