@@ -51,16 +51,23 @@ Returns a list that contains a truth table for a boolean expression. The truth t
 list of lists.
 
 *E.G.
-In> za := TruthTable(a And? b)
-Result: [[a,b,a And? b],[True,True,True],[True,False,False],[False,True,False],[False,False,False]]
+In> za := TruthTable(_a And? _b)
+Result: [[_a,_b,_a And? _b],[True,True,True],[True,False,False],[False,True,False],[False,False,False]]
 
 //Substitute T and F for True and False.
-In> zb := (za /: [True <- T, False <- F])
+In> zb := (za /: [True <- 'T, False <- 'F])
 Result: [[a,b,a And? b],[T,T,T],[T,F,F],[F,T,F],[F,F,F]]
 
 //View the table in traditional mathematics format.
 In> ViewMath(zb)
-Result: class javax.swing.JFrame
+Result: class javax.swing.JFrame 
+
+In> za2 := TruthTable(0 And? _b)
+Result: [[_b,0 And? _b],[True,0],[False,False]]
+
+In> zb := (za2 /: [True <- 'T, False <- 'F])
+Result: [[_b,0 And? _b],[T,0],[F,F]]
+
 
 *SEE Subexpressions, BooleanList, BooleanLists
 
