@@ -84,8 +84,8 @@ Returns a list that contains all of the subexpressions in an expression. The lis
 and the subexpressions are arranged in order from shortest to longest.
 
 *E.G.
-In> Subexpressions(a*b+c)
-Result: [a,b,c,a*b,a*b+c]
+In> Subexpressions(_a*_b+_c)
+Result: [_a,_b,_c,_a*_b,_a*_b+_c]
 
 *SEE TruthTable
 
