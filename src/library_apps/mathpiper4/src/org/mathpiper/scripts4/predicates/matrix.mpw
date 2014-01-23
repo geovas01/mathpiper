@@ -149,10 +149,10 @@ predicate test {pred} returns {True} when applied to every element of
 the vector {expr}, {False} otherwise.
 
 *E.G.
-In> Vector?([a,b,c])
+In> Vector?([_a,_b,_c])
 Result: True;
 
-In> Vector?([a,[b],c])
+In> Vector?([_a,[_b],_c])
 Result: False;
 
 In> Vector?(Integer?,[1,2,3])
