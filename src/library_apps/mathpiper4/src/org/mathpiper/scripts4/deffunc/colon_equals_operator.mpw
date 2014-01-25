@@ -185,7 +185,7 @@ Result: Sine(_x)+3;
 
 Multiple assignments:
 
-In> [a,b,c] := [1,2,3];
+In> [_a,_b,_c] := [1,2,3];
 Result: [1,2,3];
 
 In> a;
@@ -231,7 +231,7 @@ In> f(3);
 Result: 9;
 
 In> f(Sine(_a));
-Result: Sine(+a)^2;
+Result: Sine(_a)^2;
 
 Defining a function with variable number of arguments:
 
@@ -249,7 +249,7 @@ Defining a new infix operator:
 In> Infix("*&*",10);
 Result: True;
 
-In> x1 *&* x2 := x1/x2 + x2/x1;
+In> _x1 *&* _x2 := _x1/_x2 + _x2/_x1;
 Result: True;
 
 In>Sine(_a) *&* Cosine(_a);
@@ -294,7 +294,7 @@ x^11/39916800+x^13/6227020800-x^15
 The remedy is to evaluate the Taylor expansion immediately. Now the
 expansion is computed only once.
 
-In> f(a) := Eval(Taylor(x,0,25) Sin(x));
+In> f(a) := Eval(Taylor(_x,0,25) Sin(_x));
 Result: True;
 
 In> f(1);
