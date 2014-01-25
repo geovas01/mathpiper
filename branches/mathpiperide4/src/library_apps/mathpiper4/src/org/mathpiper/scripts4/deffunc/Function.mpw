@@ -119,10 +119,14 @@ can be defined by adding more rules.
 *E.G. notest
 
 This will declare a new function with two or more arguments, but define no rules for it. This is equivalent to [Rulebase ("f1", [x, y, ...])].
-In> Function() f1(x,y,...);
-Result: True;
 
-In> Function() f1(x,y);
+In> Function() f1(_x,_y,...);
+Result: True
+
+In> f1(3,4,5,[1,2,3])
+Result: f1(3,[4,5,[1,2,3]])
+
+In> Function() f1(_x,_y);
 Result: False;
 
 This defines a function FirstOf which returns the
@@ -131,8 +135,8 @@ FirstOf(_list) <-- list[1] or FirstOf(list) := list[1].
 In> Function("FirstOf", [list])  list[1];
 Result: True;
 
-In> FirstOf([a,b,c]);
-Result: a;
+In> FirstOf([_a,_b,_c]);
+Result: _a;
 
 The following function will print all arguments to a string:
 
@@ -141,10 +145,10 @@ In> Function("PrintAll",[_x, ...]) Decide(List?(x),
 Result: True;
 
 In> PrintAll(1):
-Result: " 1";
+Result: "1";
 
 In> PrintAll(1,2,3);
-Result: " 1 2 3";
+Result: "1 2 3";
 
 *SEE TemplateFunction, Rule, Rulebase,  RulebaseListedHoldArguments, :=, Retract
 %/mathpiper_docs
