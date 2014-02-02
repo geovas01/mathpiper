@@ -108,6 +108,7 @@ public final class Environment {
 	public static boolean haltEvaluation = false;
 	public static String haltEvaluationMessage = "";
 	public static boolean saveDebugInformation = false;
+	public static boolean lockLibrary = true;
 
 	public Environment(MathPiperOutputStream aCurrentOutput/* TODO FIXME */) throws Throwable {
 
@@ -606,7 +607,7 @@ public final class Environment {
 
 		// System.out.println(iCurrentInput.iStatus.getSourceName());
 
-		if (scriptArray != null && iCurrentInput.iStatus.getSourceName().contains("USER")) {
+		if (lockLibrary == true && scriptArray != null && iCurrentInput.iStatus.getSourceName().contains("USER")) {
 			LispError.throwError(this, aStackTop, "The function <" + aOperator
 					+ "> is a library function, and library functions cannot be redefined.");
 		}
