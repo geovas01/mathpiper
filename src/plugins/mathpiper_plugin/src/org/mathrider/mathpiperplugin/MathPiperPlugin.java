@@ -37,12 +37,13 @@ public class MathPiperPlugin extends EditPlugin implements EBComponent{
 	public void handleMessage(EBMessage msg)
 	{
 		//System.out.println("************************************************MathPiper plugin received editor message... "+ msg);
+		
+		//Uncomment the following 'if' statement to open the MathPiperConsole plugin immediate after MathPiperIDE is launched.
+		/*
 		if (msg instanceof org.gjt.sp.jedit.msg.EditorStarted) {
-			//System.out.println("************************************************MathPiper plugin received editor started message...");
-			
-			//Uncomment the following line to open the MathPiperConsole plugin immediate after MathPiperIDE is launched.
-			//jEdit.getActiveView().getDockableWindowManager().addDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME);
-		}//*/
+			jEdit.getActiveView().getDockableWindowManager().addDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME);
+		}
+		*/
 
 	}
 	
