@@ -35,8 +35,8 @@ a list which contains the sample.
 
 *E.G.
 
-In> Sample([a,b,c,d,e,f,g],3)
-Result: [a,c,g]
+In> Sample([_a,_b,_c,_d,_e,_f,_g],3)
+Result: [_a,_c,_g]
 
 %/mathpiper_docs
 
