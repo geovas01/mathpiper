@@ -1,0 +1,58 @@
+%mathpiper,def="ReduceToMathPiper"
+
+ReduceToMathPiper(expressionString) :=
+{
+    Local(result);
+        
+    expressionString := ToString(expressionString);
+
+    result := JavaAccess(JavaNew("java.lang.String", expressionString), "replace", "$", "");
+
+    result := JavaAccess(JavaNew("java.lang.String", result), "replace", "ztfxq", "_");
+  
+    result := JavaAccess(JavaNew("java.lang.String", result), "replace", "**", "^");
+
+    result := JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "(?<![a-zA-Z])sqrt", "Sqrt");
+  
+    result := JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "(?<![a-zA-Z])pi", "Pi");
+    
+    result := JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "(?<![a-zA-Z])log", "Log");
+    
+    result := JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "(?<![a-zA-Z])arbint", "Arbint");
+    
+    result := JavaAccess(JavaNew("java.lang.String", result), "replace", "{", "[");
+    
+    result := JavaAccess(JavaNew("java.lang.String", result), "replace", "}", "]");
+    
+    result := ToString(JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "(?<![a-zA-Z])acos", "ArcCosine"));
+                                                                                                                      
+    result := ToString(JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "(?<![a-zA-Z])acot", "ArcCotangent"));
+                                                                                                                      
+    result := ToString(JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "(?<![a-zA-Z])acsc", "ArcCosecant"));
+                                                                                                                      
+    result := ToString(JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "(?<![a-zA-Z])asec", "ArcSecant"));
+                                                                                                                      
+    result := ToString(JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "(?<![a-zA-Z])asin", "ArcSine"));
+                                                                                                                      
+    result := ToString(JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "(?<![a-zA-Z])atan", "ArcTangent"));
+
+    result := ToString(JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "(?<![a-zA-Z])cos", "Cosine"));
+                                                                                                                      
+    result := ToString(JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "(?<![a-zA-Z])cot", "Cotangent"));
+                                                                                                                      
+    result := ToString(JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "(?<![a-zA-Z])csc", "Cosecant"));
+                                                                                                                      
+    result := ToString(JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "(?<![a-zA-Z])sec", "Secant"));
+                                                                                                                      
+    result := ToString(JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "(?<![a-zA-Z])sin", "Sine"));
+                                                                                                                      
+    result := ToString(JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "(?<![a-zA-Z])tan", "Tangent"));
+  
+    
+    Check(Not? JavaAccess(JavaNew("java.lang.String", result), "contains", "*****"),"",result);
+
+    PipeFromString(ToString(result) ~ ";") ParseMathPiper();
+    
+};
+
+%/mathpiper
