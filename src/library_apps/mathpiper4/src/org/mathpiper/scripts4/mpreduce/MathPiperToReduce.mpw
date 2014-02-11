@@ -1,0 +1,40 @@
+%mathpiper,def="MathPiperToReduce"
+
+MathPiperToReduce(expression) :=
+{
+    Local(expressionString);
+    
+    expressionString := ToString(expression);
+    
+    expressionString := ToString(JavaAccess(JavaNew("java.lang.String", expressionString), "replace", "_", "ztfxq"));
+    
+    expressionString := ToString(JavaAccess(JavaNew("java.lang.String", expressionString), "replace", "==", "="));
+    
+    expressionString := ToString(JavaAccess(JavaNew("java.lang.String", expressionString), "replaceAll", "(?<![a-zA-Z])ArcCosine", "acos"));
+    
+    expressionString := ToString(JavaAccess(JavaNew("java.lang.String", expressionString), "replaceAll", "(?<![a-zA-Z])ArcCotangent", "acot"));
+    
+    expressionString := ToString(JavaAccess(JavaNew("java.lang.String", expressionString), "replaceAll", "(?<![a-zA-Z])ArcCosecant", "acsc"));
+    
+    expressionString := ToString(JavaAccess(JavaNew("java.lang.String", expressionString), "replaceAll", "(?<![a-zA-Z])ArcSecant", "asec"));
+    
+    expressionString := ToString(JavaAccess(JavaNew("java.lang.String", expressionString), "replaceAll", "(?<![a-zA-Z])ArcSine", "asin"));
+    
+    expressionString := ToString(JavaAccess(JavaNew("java.lang.String", expressionString), "replaceAll", "(?<![a-zA-Z])ArcTangent", "atan"));
+    
+    expressionString := ToString(JavaAccess(JavaNew("java.lang.String", expressionString), "replaceAll", "(?<![a-zA-Z])Cosine", "cos"));
+    
+    expressionString := ToString(JavaAccess(JavaNew("java.lang.String", expressionString), "replaceAll", "(?<![a-zA-Z])Cotangent", "cot"));
+    
+    expressionString := ToString(JavaAccess(JavaNew("java.lang.String", expressionString), "replaceAll", "(?<![a-zA-Z])Cosecant", "csc"));
+    
+    expressionString := ToString(JavaAccess(JavaNew("java.lang.String", expressionString), "replaceAll", "(?<![a-zA-Z])Secant", "sec"));
+    
+    expressionString := ToString(JavaAccess(JavaNew("java.lang.String", expressionString), "replaceAll", "(?<![a-zA-Z])Sine", "sin"));
+    
+    expressionString := ToString(JavaAccess(JavaNew("java.lang.String", expressionString), "replaceAll", "(?<![a-zA-Z])Tangent", "tan"));
+    
+};
+
+
+%/mathpiper

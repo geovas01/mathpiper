@@ -1,0 +1,250 @@
+%mathpiper,def="TaylorString;removeCrLf;findAllKommas"
+
+//PKHG: TaylorString, version 1.0 16-11-2013
+//17-11 trying to replace all variable by _variable strange error i in taylor ..???
+//after a rebuild and a fresh start not visible?!
+//21-11-2013 11:58
+//24-11-2013 10:27 annoying Cr Lf removed grrr!
+//Better solution suggested by Ted ;-)
+//Adding more comment 5-2-14 PKHG
+
+
+
+//today, the result is like the command but surrounded by taylor(...,arguments)
+//and the variable name are to be found ;-), separated by a "komma" .. => this
+//function
+
+//To get rid of newlines characters:
+removeCrLf(str) := {
+    str := ToString(JavaAccess(JavaNew("java.lang.String", str),"replaceAll", "\\n", ""));
+    str := ToString(JavaAccess(JavaNew("java.lang.String", str),"replaceAll", "\\r", ""));
+    str;
+};
+
+//to parse for arguments, one needs the location of a comma
+findAllKommas(str) :=
+{
+    Local(result, len, lenResult, nr, toReplace);   
+    result := [];
+    secondResult := [];
+    len := Length(str) - 2; // str ends with )$ , not wanted
+    str := str[1 .. len];  //to remove )$
+    //Echo("findAllKommas str =>>",str,Nl(),"len =", len);
+
+    For( i := 1 , i <=? len, i++)
+    {
+        If (str[i] =? ",") { result := Append(result, i); 
+        //Echo("found an , at ", i , result);
+        };   
+    };
+    
+    lenResult := Length(result);
+    nr := Append(result,len + 1); //a sentinel to show end of ...
+    //Echo("nr is ",nr);
+
+    For(i:=1, i <=? lenResult, i++) secondResult:=Append(secondResult,[str[(nr[i] + 1) .. (nr[i+1] - 1)]]);
+    //Echo(secondResult);
+
+    [result,secondResult];
+};
+
+
+//the expression is like a REDUCE taylorcommmand, no underscores in variables!
+
+TaylorString(expression) :=
+{
+    Local(mpreduce, result, lengthResult, firstVar, lookthis,/* second,*/ args, res , replBy);
+    
+    //Get Reduce!
+    mpreduce := JavaCall("org.mathpiper.mpreduce.Interpreter2", "getInstance");
+
+    Echo("input of TaylorString = ", expression);
+
+    //test because of error?! wrong i in ouput
+    //PKHG???? TODO really needed? YES 27-11-2013!! 
+    JavaAccess(mpreduce,"evaluate","off factor");
+
+    result := JavaAccess(mpreduce, "evaluate", Eval(expression));
+    result := removeCrLf(result);
+
+    lengthResult := Length(result);
+    result := result[8 .. lengthResult]; //delete: taylor( at start of result
+    //Echo("result now became >" ,"==========> ", result);
+    
+    lookthis := findAllKommas(result);
+    second := lookthis[2];  
+    //all arguments of taylor(f(x), ... arguments ..) as e.g. [["x"],["0"],["3"]]
+    //Echo("second is now= ","",second);
+    
+    lookthis:= lookthis[1]; 
+    //lookthis now a list were comma (,) where found 
+    //Echo("Kommas at: ", lookthis);
+    
+    lengthResult := Length(result);
+    args := result[lookthis[1] + 1 .. lengthResult - 2];
+    //ForEach(val,second) Echo(val);
+    //Echo("back",">>", ListToString(second[5]),"<<",Nl());//,">>>",second[5][2],"<<<");
+    //Echo("args = ", args,Nl(), "second= ", second);
+    
+    toReplace := [];
+    //ForEach(i,second)  toReplace := Append(toReplace,[ExceptionCatch(StringToNumber(i[1]),[True,ToAtom(i[1])])]);
+    ForEach(i,second)  toReplace := Append(toReplace,ExceptionCatch(StringToNumber(i[1]),i[1]));
+    //Echo("the to be replace values ", " " , toReplace);
+    
+    // firstKommaJava:= JavaAccess(JavaNew("java.lang.String", result), "indexOf", ",");
+    // Echo("firstKommaJava = ",firstKommaJava =? lookthis[1] - 1);
+    
+    result := result[1 .. lookthis[1] - 1 ];
+    result := result ~ ";" ;
+    // Echo(Nl(),"shortened result is now with ; at end => ", result , Nl());
+    
+    // LOOKS GOOD (no reduce switches set necessary?); TODO !!! TESTS!! e.g. taylorprintterm := all :(or integer)!!!
+    
+    result := ReduceToMathPiper(result);
+    //Echo("result is now " , result);
+    //Echo("check this: ", firstVar =? "x");
+    ForEach(info,toReplace) {  
+        If(Not? Number?(info)){   
+            Echo("what has to be replaced =" ,"---->", info,"<---");
+            replBy := ToAtom("_" ~ info);
+            firstVar := ToAtom(info);
+            result := Substitute(firstVar,replBy) result;
+            Unassign(firstVar);
+        };   
+    };
+
+    result;
+};
+
+testcase:=TaylorString("taylor(cos(xx) +y^6,xx,7,5,y,1,4)");
+//testcase0:=TaylorString("taylor(x +y ,x,0,1,y,0,1)");
+//TaylorString("taylor(x^2,x,3,2)","x");
+//testcase := TaylorString("taylor(yy^3 ,yy,4,3)");Eval(Substitute(_yy,2) testcase) =? 2^3;
+testcase;
+%/mathpiper
+
+    %output,sequence="1",timestamp="2014-02-08 07:05:04.913",preserve="false"
+      Result: Cosine(7)+1+6*(_y-1)+15*(_y-1)^2+20*(_y-1)^3+15*(_y-1)^4-Sine(7)*(_xx-7)-Cosine(7)/2*(_xx-7)^2+Sine(7)/6*(_xx-7)^3+Cosine(7)/24*(_xx-7)^4-Sine(7)/120*(_xx-7)^5
+      
+      Side Effects:
+      input of TaylorString = taylor(cos(xx) +y^6,xx,7,5,y,1,4)
+      what has to be replaced =---->xx<---
+      what has to be replaced =---->y<---
+      
+.   %/output
+
+%mathpiper,title="after expanding yy power 3  a second evaluation gives wrong i in answer comma if not done: off factor see above!"
+testcase:=TaylorString("taylor(cos(x) +y^2,x,7,5,y,1,4)");
+%/mathpiper
+
+    %output,sequence="13",timestamp="2014-02-05 08:40:29.831",preserve="false"
+      Result: Cosine(7)+1+2*(_y-1)+(_y-1)^2-Sine(7)*(_x-7)-Cosine(7)/2*(_x-7)^2+Sine(7)/6*(_x-7)^3+Cosine(7)/24*(_x-7)^4-Sine(7)/120*(_x-7)^5
+      
+      Side Effects:
+      input of TaylorString = taylor(cos(x) +y^2,x,7,5,y,1,4)
+      what has to be replaced =---->x<---
+      what has to be replaced =---->y<---
+      
+.   %/output
+
+
+
+%mathpiper,title=""
+testcase := TaylorString("taylor(yy^3 ,yy,4,3)");
+Echo("testcase = " , testcase, " is yy^3 taylor at 2 to order 4 ");
+newTestcase := Expand(testcase);
+Echo("so newTestcase ===>", newTestcase, "<== should be yy^3, shouldn't it ;-), nearly, yy without value is not alowed ==> en _ (underscore before yy)");
+
+%/mathpiper
+
+    %output,sequence="16",timestamp="2014-02-05 08:43:36.616",preserve="false"
+      Result: True
+      
+      Side Effects:
+      input of TaylorString = taylor(yy^3 ,yy,4,3)
+      what has to be replaced =---->yy<---
+      testcase = 64+48*(_yy-4)+12*(_yy-4)^2+(_yy-4)^3  is yy^3 taylor at 2 to order 4 
+      so newTestcase ===>_yy^3 <== should be yy^3, shouldn't it ;-), nearly, yy without value is not alowed ==> en _ (underscore before yy)
+      
+.   %/output
+
+
+%mathpiper,title="now wrong result ..."
+testcase:=TaylorString("taylor(sin(x) +y^2,x,7,5,y,1,4)");
+%/mathpiper
+
+    %output,sequence="4",timestamp="2014-01-28 09:00:19.889",preserve="false"
+      Result: Sine(7)+1+2*(_y-1)+(_y-1)^2+Cosine(7)*(_x-7)-Sine(7)/2*(_x-7)^2-Cosine(7)/6*(_x-7)^3+Sine(7)/24*(_x-7)^4+Cosine(7)/120*(_x-7)^5
+      
+      Side Effects:
+      what has to be replaced =---->x<---
+      what has to be replaced =---->y<---
+      
+.   %/output
+
+
+%mathpiper,title="Do not execute this correct answer but strange replacement of 1 questionmark"
+testcase:=TaylorString("taylor(sin(x) +y^2,x,7,5,y,1,4)");
+%/mathpiper
+
+    %output,sequence="5",timestamp="2014-01-28 09:00:32.388",preserve="false"
+      Result: Sine(7)+1+2*(_y-1)+(_y-1)^2+Cosine(7)*(_x-7)-Sine(7)/2*(_x-7)^2-Cosine(7)/6*(_x-7)^3+Sine(7)/24*(_x-7)^4+Cosine(7)/120*(_x-7)^5
+      
+      Side Effects:
+      what has to be replaced =---->x<---
+      what has to be replaced =---->y<---
+      
+.   %/output
+
+%reduce,title=""
+off factor;
+%/reduce
+
+    %output,sequence="41",timestamp="2013-11-23 11:33:25.036",preserve="false"
+      
+
+      
+
+      
+.   %/output
+%mathpiper,title=""
+TaylorString("taylor (tan x / x, x, 0, 2)   ");
+%/mathpiper
+
+    %output,sequence="6",timestamp="2014-01-28 09:00:51.582",preserve="false"
+      Result: 1+1/3*_x^2
+      
+      Side Effects:
+      what has to be replaced =---->x<---
+      
+.   %/output
+
+%latex,title=""
+\mathrm{hugo}\mathrm{:=}
+\sin\left(x\right)+\frac{\cos\left(x\right)\*\left(\cos\left(x\right)^2\*x+\cos\left(x\right)\*\sin\left(x\right)+\sin\left(x\right)^2\*x-2\*x\right)}4\*k^2+
+\left(\cos\left(x\right)^5\*x-2\*\cos\left(x\right)^4\*\sin\left(x\right)\*x^2+5\*\cos\left(x\right)^4\*\sin\left(x\right)-\mathrm{10}\*\cos\left(x\right)^3\*\sin\left(x\right)^2\*x+6\*\cos\left(x\right)^3\*x-4\*\cos\left(x\right)^2\*\sin\left(x\right)^3\*x^2+\cos\left(x\right)^2\*\sin\left(x\right)^3+
+8\*\cos\left(x\right)^2\*\sin\left(x\right)\*x^2+4\*\cos\left(x\right)^2\*\sin\left(x\right)-\mathrm{11}\*\cos\left(x\right)\*\sin\left(x\right)^4\*x+\mathrm{30}\*\cos\left(x\right)\*\sin\left(x\right)^2\*x-\mathrm{16}\*\cos\left(x\right)\*x-2\*\sin\left(x\right)^5\*x^2+8\*\sin\left(x\right)^3\*x^2-8\*\sin\left(x\right)\*x^2\right)/\mathrm{64}\*
+k^4+
+\left(-6\*\cos\left(x\right)^7\*x^3+\mathrm{17}\*\cos\left(x\right)^7\*x-\mathrm{99}\*\cos\left(x\right)^6\*\sin\left(x\right)\*x^2+\mathrm{21}\*\cos\left(x\right)^6\*\sin\left(x\right)-\mathrm{18}\*\cos\left(x\right)^5\*\sin\left(x\right)^2\*x^3-\mathrm{71}\*\cos\left(x\right)^5\*\sin\left(x\right)^2\*x+\mathrm{36}\*\cos\left(x\right)^5\*x^3-
+\mathrm{18}\*\cos\left(x\right)^5\*x-\mathrm{135}\*\cos\left(x\right)^4\*\sin\left(x\right)^3\*x^2-\mathrm{133}\*\cos\left(x\right)^4\*\sin\left(x\right)^3+\mathrm{324}\*\cos\left(x\right)^4\*\sin\left(x\right)\*x^2+\mathrm{172}\*\cos\left(x\right)^4\*\sin\left(x\right)-\mathrm{18}\*\cos\left(x\right)^3\*\sin\left(x\right)^4\*x^3-
+\mathrm{13}\*\cos\left(x\right)^3\*\sin\left(x\right)^4\*x+\mathrm{72}\*\cos\left(x\right)^3\*\sin\left(x\right)^2\*x^3-\mathrm{156}\*\cos\left(x\right)^3\*\sin\left(x\right)^2\*x-\mathrm{72}\*\cos\left(x\right)^3\*x^3+\mathrm{160}\*\cos\left(x\right)^3\*x+\mathrm{27}\*\cos\left(x\right)^2\*\sin\left(x\right)^5\*x^2-
+\mathrm{118}\*\cos\left(x\right)^2\*\sin\left(x\right)^5+\mathrm{176}\*\cos\left(x\right)^2\*\sin\left(x\right)^3-\mathrm{108}\*\cos\left(x\right)^2\*\sin\left(x\right)\*x^2+\mathrm{32}\*\cos\left(x\right)^2\*\sin\left(x\right)-6\*\cos\left(x\right)\*\sin\left(x\right)^6\*x^3+\mathrm{75}\*\cos\left(x\right)\*\sin\left(x\right)^6\*x+
+\mathrm{36}\*\cos\left(x\right)\*\sin\left(x\right)^4\*x^3-\mathrm{498}\*\cos\left(x\right)\*\sin\left(x\right)^4\*x-\mathrm{72}\*\cos\left(x\right)\*\sin\left(x\right)^2\*x^3+\mathrm{888}\*\cos\left(x\right)\*\sin\left(x\right)^2\*x+\mathrm{48}\*\cos\left(x\right)\*x^3-\mathrm{384}\*\cos\left(x\right)\*x+\mathrm{63}\*\sin\left(x\right)^7\*x^2-
+\mathrm{324}\*\sin\left(x\right)^5\*x^2+\mathrm{540}\*\sin\left(x\right)^3\*x^2-\mathrm{288}\*\sin\left(x\right)\*x^2\right)/\mathrm{2304}\*k^6+O\left(k^7\right)
+
+%/latex
+
+    %output,sequence="7",timestamp="2014-01-28 09:01:03.833",preserve="false"
+      Problem with command frac at position 1:151
+      Unknown symbol or command or predefined TeXFormula: '*'
+.   %/output
+
+
+%mathpiper,title=""
+TaylorString("taylor(x^2,x,3,2)","x");
+%/mathpiper
+
+    %error,sequence="2",timestamp="2014-02-05 08:15:16.433",preserve="false"
+      Result: The function <TaylorString> is not defined.  Error on or before line 325 starting at index 0.
+.   %/error
+
