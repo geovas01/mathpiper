@@ -455,7 +455,7 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 
 		location = location & 3;
 
-		if(value == 7 || value == 8)
+		if(value == 7 || value == 8 || value == 13)
 		{
 			//Do not print.
 		}
