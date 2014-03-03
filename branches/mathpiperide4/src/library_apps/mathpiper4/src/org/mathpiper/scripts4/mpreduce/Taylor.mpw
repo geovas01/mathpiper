@@ -85,77 +85,80 @@ TaylorToMathPiperPKHG(exp) :=
 removeCrLf(str) := {
     str := ToString(JavaAccess(JavaNew("java.lang.String", str),"replaceAll", "\\n", ""));
     str := ToString(JavaAccess(JavaNew("java.lang.String", str),"replaceAll", "\\r", ""));
-    str;
 };
 
 
 Function("Taylor", [_argsList, _function])
 {
-	Local(tmp1,lenTmp1,tmp2,tmp3,result,mpreduce);
+	Local(redArgs, lenRedArgs, redExpr, firstComma, result, mpRED);
 	
 	//transform the arguments to Reduce variables
-	tmp1 := MathPiperToTaylorPKHG(argsList);
-	//Echo(tmp1);
-	//Echo();
+	redArgs := MathPiperToTaylorPKHG(argsList);
+	//Echo(redArgs);
 	
 	//replace [ bij an , and the ] bij an )
-	tmp1 := StringMidSet(1,",",tmp1);
-	lenTmp1 := Length(tmp1);
-	//Write(lenTemp1);
-	//Echo(lenTmp1);
-	tmp1 := StringMidSet(lenTmp1,")",tmp1);
-    //Echo(tmp1);
-    //Echo("");
-    
+	redArgs := StringMidSet(1,",",redArgs);
+	lenRedArgs := Length(redArgs);
+	redArgs := StringMidSet(lenRedArgs,")",redArgs);
+   	//Echo(redArgs);
+
     //expression (the function) has to be changed too
-    tmp2 := MathPiperToTaylorPKHG(function);
-    //Echo(tmp2);
+    redExpr := MathPiperToTaylorPKHG(function);
+    //Echo(redExpr);
     
     //prepare the Reduce taylor command
-    result:= ConcatStrings("taylor(",tmp2,tmp1,";");
+    redCommand := ConcatStrings("taylor(",redExpr,redArgs,";");
     
-	//for an Reduce interpeter and let it use NOT 2d output!!
+	//for an Reduce interpeter let it use NOT 2d output: off factor needed!!
 	mpRED := JavaCall("org.mathpiper.mpreduce.Interpreter2", "getInstance");
 	JavaAccess(mpRED,"evaluate","off factor");    
-    result := removeCrLf(JavaAccess(mpRED, "evaluate", Eval(result)));
+    result := removeCrLf(JavaAccess(mpRED, "evaluate", Eval(redCommand)));
     //Reduce dit its work: done
+
+    //now  prepare for MathPiper-conversion
+    //remove taylor( and the development parameters at the end 
+	//and make a trailing semicolon
+    //Search for a first comma needed, because Reduce converts decimal fractions 
+    //into an equal valued fraction!
+    firstComma := FindFirst(StringToList(result),","); 
     
-    //now  prepare for MathPiper
-    //remove taylor( and the development parameters at the end!
-    tmp3 := Length(result);
-    result := result[8 .. (tmp3 - lenTmp1 -1)];
-    
+    result := result[8 .. firstComma];
+    result := StringMidSet(firstComma - 7,";",result);
+    //Echo(" shortened result");
+    //Echo(result);
+
     //backtransformation of variables and functionnames
-    TaylorToMathPiperPKHG(result);
+    TaylorToMathPiperPKHG(result);    
     //Finished ;-)
 };
 
 
 %/mathpiper 
 
-    %output,sequence="3",timestamp="2014-03-03 08:09:46.485",preserve="false"
+    %output,sequence="12",timestamp="2014-03-03 12:39:14.306",preserve="false"
       Result: True
 .   %/output
 
+  
     
 
 %mathpiper,title="test 1 maybe REMOVE this"    
-help1 := Taylor([_xx,7,5,_y,1,5]) Cosine(_xx) + _y^6 ;
-Echo(help1);
-help1 := Taylor([_xx,1,4]) _xx^4;
-Echo(help1);
+helpCosine:= Taylor([_xx,Pi,5,_y,1.1,5]) Cosine(_xx) + _y^6 ;
+Echo(helpCosine);
+help1 := Taylor([_xx,3.14,4]) _xx^4;
+//Echo(help1);
 help2 := Expand(help1);
 tmp := help2 =? _xx^4 ;
 
 %/mathpiper
 
-    %output,sequence="4",timestamp="2014-03-03 08:09:50.282",preserve="false"
+    %output,sequence="18",timestamp="2014-03-03 13:02:11.383",preserve="false"
       Result: True
       
       Side Effects:
-      Cosine(7)+1+6*(_y-1)+15*(_y-1)^2+20*(_y-1)^3+15*(_y-1)^4+6*(_y-1)^5-Sine(7)*(_xx-7)-Cosine(7)/2*(_xx-7)^2+Sine(7)/6*(_xx-7)^3+Cosine(7)/24*(_xx-7)^4-Sine(7)/120*(_xx-7)^5 
-      1+4*(_xx-1)+6*(_xx-1)^2+4*(_xx-1)^3+(_xx-1)^4 
+      771561/1000000+483153/50000*(_y-11/10)+43923/2000*(_y-11/10)^2+1331/50*(_y-11/10)^3+363/20*(_y-11/10)^4+33/5*(_y-11/10)^5+1/2*(_xx-Pi)^2-1/24*(_xx-Pi)^4 
       
 .   %/output
 
-   
+ 
+
