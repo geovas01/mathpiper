@@ -460,7 +460,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 		
 		if(foldType.equalsIgnoreCase("%In>"))
 		{
-			if(wm.getDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME).getHaltButtonState() == true)
+			if(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.getHaltButtonState() == true)
 			{
 				org.gjt.sp.jedit.Macros.message(jEdit.getActiveView(),"A MathPiper evaluation is currently in progress.");
 				return;
@@ -480,7 +480,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 			
 			synchronousInterpreter = org.mathpiper.interpreters.Interpreters.getSynchronousInterpreter();
 			
-			wm.getDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME).setHaltButtonState(true);
+			org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.setHaltButtonState(true);
 			
 			evaluationResponse = synchronousInterpreter.evaluate("LoadScript(\"" + lineText + "\");", true);
 			
@@ -555,7 +555,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 		
 
 		
-		    wm.getDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME).setHaltButtonState(false);
+		    org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.setHaltButtonState(false);
 		    
 		    foldProperties = getFoldProperties(-1);
 		    
@@ -573,7 +573,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 		else if(foldType.equalsIgnoreCase("%mathpiper"))    
 		{
 			
-			if(wm.getDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME).getHaltButtonState() == true)
+			if(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.getHaltButtonState() == true)
 			{
 				org.gjt.sp.jedit.Macros.message(jEdit.getActiveView(),"A MathPiper evaluation is currently in progress.");
 				return;
@@ -657,7 +657,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						}*/
 						
 						System.out.println("<shift><enter> Received response.");
-						wm.getDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME).setHaltButtonState(false);
+						org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.setHaltButtonState(false);
 							
 						//result = evaluationResponse[2];
 						result = evaluationResponse.getResult();//("load_result");
@@ -859,7 +859,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				}).start();
 					
 				//wm.addDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME);
-				wm.getDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME).setHaltButtonState(true);
+				org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.setHaltButtonState(true);
 				
 
 
