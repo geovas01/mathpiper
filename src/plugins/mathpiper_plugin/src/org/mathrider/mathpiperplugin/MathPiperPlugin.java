@@ -3,6 +3,7 @@ package org.mathpiper.ide.mathpiperplugin;
 
 import org.gjt.sp.jedit.*;
 import org.gjt.sp.jedit.gui.DockableWindowManager;
+import org.mathpiper.ui.gui.consoles.GraphicConsole;
 
 
 
@@ -14,6 +15,8 @@ import org.gjt.sp.jedit.gui.DockableWindowManager;
 public class MathPiperPlugin extends EditPlugin implements EBComponent{
 	public static final String NAME = "mathpiper";
 	public static final String OPTION_PREFIX = "options.mathpiper.";
+	
+	public static GraphicConsole console;
 	
 	public void start()
 	{
@@ -30,6 +33,8 @@ public class MathPiperPlugin extends EditPlugin implements EBComponent{
         org.mathpiper.interpreters.Interpreters.addOptionalFunctions(environment,"org/mathpiper/builtin/functions/optional/");
         
         org.mathpiper.interpreters.Interpreters.addOptionalFunctions(environment,"org/mathpiper/builtin/functions/plugins/jfreechart/");
+        
+        console = new org.mathpiper.ui.gui.consoles.GraphicConsole();
 		
 	}//end method.
 	
@@ -46,6 +51,17 @@ public class MathPiperPlugin extends EditPlugin implements EBComponent{
 		*/
 
 	}
+	
+
+    public static void setHaltButtonState(boolean state)
+    {
+	    console.setHaltButtonEnabledState(state);
+    }
+
+    public static boolean getHaltButtonState()
+    {
+	    return console.getHaltButtonEnabledState();
+    }
 	
 	
 }//end class.
