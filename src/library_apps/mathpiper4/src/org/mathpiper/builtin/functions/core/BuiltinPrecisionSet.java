@@ -22,7 +22,9 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.AtomCons; /*PKHG added*/
 import org.mathpiper.lisp.cons.Cons;
+
 
 /**
  *
@@ -52,8 +54,10 @@ public class BuiltinPrecisionSet extends BuiltinFunction
 	        int ind = Integer.parseInt( (String) index.car(), 10);
 	        
 	        if( ind <= 0) LispError.checkArgument(aEnvironment, aStackTop, 1);
+ setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + aEnvironment.iPrecision));
 	        aEnvironment.setPrecision(ind);
-	        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
+
+		//PKHG>>080314 setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
         }
         catch(Exception e)
         {
@@ -75,6 +79,8 @@ public class BuiltinPrecisionSet extends BuiltinFunction
 
 {n} -- integer, new value of precision
 
+returns old precsion!
+
 *DESC
 
 This command sets the number of decimal digits to be used in calculations.
@@ -95,14 +101,11 @@ Also, when typing floating-point numbers, the current value of {BuiltinPrecision
 
 *E.G.
 
-In> BuiltinPrecisionSet(10)
-Result: True;
-
 In> NM(Sin(1))
 Result: 0.8414709848;
 
 In> BuiltinPrecisionSet(20)
-Result: True;
+Result: 10;
 
 In> x:=NM(Sin(1))
 Result: 0.84147098480789650665;
