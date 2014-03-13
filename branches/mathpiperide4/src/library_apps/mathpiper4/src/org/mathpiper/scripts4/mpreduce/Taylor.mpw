@@ -1,164 +1,198 @@
-%mathpiper,title="For Taylor  expansions by PKHG"
-
-MathPiperToTaylorPKHG(exp) :=
-{ 
-    Local(expString);
-    expString := ToString(exp);
-    expString := ToString(JavaAccess(JavaNew("java.lang.String", expString), "replace", "_", "pkhg_"));
-    expString := ToString(JavaAccess(JavaNew("java.lang.String", expString), "replace", "==", "=")); 
-    expString := ToString(JavaAccess(JavaNew("java.lang.String", expString), 
-    	      "replaceAll", "(?<![a-zA-Z])ArcCosine", "acos"));
-    expString := ToString(JavaAccess(JavaNew("java.lang.String", expString), 
-    	      "replaceAll", "(?<![a-zA-Z])ArcCotangent", "acot"));
-    expString := ToString(JavaAccess(JavaNew("java.lang.String", expString), 
-    	      "replaceAll", "(?<![a-zA-Z])ArcCosecant", "acsc"));
-    expString := ToString(JavaAccess(JavaNew("java.lang.String", expString), 
-    	      "replaceAll", "(?<![a-zA-Z])ArcSecant", "asec"));
-    expString := ToString(JavaAccess(JavaNew("java.lang.String", expString), 
-    	      "replaceAll", "(?<![a-zA-Z])ArcSine", "asin"));
-    expString := ToString(JavaAccess(JavaNew("java.lang.String", expString), 
-    	      "replaceAll", "(?<![a-zA-Z])ArcTangent", "atan"));
-    expString := ToString(JavaAccess(JavaNew("java.lang.String", expString), 
-    	      "replaceAll", "(?<![a-zA-Z])Cosine", "cos"));
-    expString := ToString(JavaAccess(JavaNew("java.lang.String", expString), 
-    	      "replaceAll", "(?<![a-zA-Z])Cotangent", "cot"));
-    expString := ToString(JavaAccess(JavaNew("java.lang.String", expString), 
-    	      "replaceAll", "(?<![a-zA-Z])Cosecant", "csc"));
-    expString := ToString(JavaAccess(JavaNew("java.lang.String", expString), 
-    	      "replaceAll", "(?<![a-zA-Z])Secant", "sec"));
-    expString := ToString(JavaAccess(JavaNew("java.lang.String", expString), 
-    	      "replaceAll", "(?<![a-zA-Z])Sine", "sin"));
-    expString := ToString(JavaAccess(JavaNew("java.lang.String", expString), 
-    	      "replaceAll", "(?<![a-zA-Z])Tangent", "tan"));
-};
-
-TaylorToMathPiperPKHG(exp) :=
-{
-    Local(result);
-    expString := ToString(exp);
-    result := JavaAccess(JavaNew("java.lang.String", expString), "replace", "$", "");
-    result := JavaAccess(JavaNew("java.lang.String", result),
-    	    "replace", "pkhg", "");
-    result := JavaAccess(JavaNew("java.lang.String", result),
-    	    "replace", "**", "^");
-    result := JavaAccess(JavaNew("java.lang.String", result), 
-    	   "replaceAll", "(?<![a-zA-Z])sqrt", "Sqrt");
-    result := JavaAccess(JavaNew("java.lang.String", result),
-    	    "replaceAll", "(?<![a-zA-Z])pi", "Pi");
-    result := JavaAccess(JavaNew("java.lang.String", result),
-    	    "replaceAll", "(?<![a-zA-Z])log", "Log");
-    result := JavaAccess(JavaNew("java.lang.String", result), 
-    	   "replaceAll", "(?<![a-zA-Z])arbint", "Arbint");
-    result := JavaAccess(JavaNew("java.lang.String", result),
-    	    "replace", "{", "[");
-    result := JavaAccess(JavaNew("java.lang.String", result),
-    	    "replace", "}", "]");
-    result := ToString(JavaAccess(JavaNew("java.lang.String", result), 
-    	   "replaceAll", "(?<![a-zA-Z])acos", "ArcCosine"));
-    result := ToString(JavaAccess(JavaNew("java.lang.String", result), 
-    	   "replaceAll", "(?<![a-zA-Z])acot", "ArcCotangent"));
-    result := ToString(JavaAccess(JavaNew("java.lang.String", result), 
-    	   "replaceAll", "(?<![a-zA-Z])acsc", "ArcCosecant"));
-    result := ToString(JavaAccess(JavaNew("java.lang.String", result), 
-    	   "replaceAll", "(?<![a-zA-Z])asec", "ArcSecant"));
-    result := ToString(JavaAccess(JavaNew("java.lang.String", result), 
-    	   "replaceAll", "(?<![a-zA-Z])asin", "ArcSine"));
-    result := ToString(JavaAccess(JavaNew("java.lang.String", result), 
-    	   "replaceAll", "(?<![a-zA-Z])atan", "ArcTangent"));
-    result := ToString(JavaAccess(JavaNew("java.lang.String", result), 
-    	   "replaceAll", "(?<![a-zA-Z])cos", "Cosine"));
-    result := ToString(JavaAccess(JavaNew("java.lang.String", result), 
-    	   "replaceAll", "(?<![a-zA-Z])cot", "Cotangent"));
-    result := ToString(JavaAccess(JavaNew("java.lang.String", result), 
-    	   "replaceAll", "(?<![a-zA-Z])csc", "Cosecant"));
-    result := ToString(JavaAccess(JavaNew("java.lang.String", result), 
-    	   "replaceAll", "(?<![a-zA-Z])sec", "Secant"));
-    result := ToString(JavaAccess(JavaNew("java.lang.String", result), 
-    	   "replaceAll", "(?<![a-zA-Z])sin", "Sine"));
-    result := ToString(JavaAccess(JavaNew("java.lang.String", result), 
-    	   "replaceAll", "(?<![a-zA-Z])tan", "Tangent"));
-    Check(Not? JavaAccess(JavaNew("java.lang.String", result), 
-    	       "contains", "*****"),"",result);
-    PipeFromString(ToString(result) ~ ";") ParseMathPiper();
-};
-
+%mathpiper,def="Taylor;removeCrLf"
+//*
 removeCrLf(str) := {
     str := ToString(JavaAccess(JavaNew("java.lang.String", str),"replaceAll", "\\n", ""));
     str := ToString(JavaAccess(JavaNew("java.lang.String", str),"replaceAll", "\\r", ""));
 };
-
+//*/
 
 Function("Taylor", [_argsList, _function])
 {
 	Local(redArgs, lenRedArgs, redExpr, firstComma, result, mpRED);
 	
 	//transform the arguments to Reduce variables
-	redArgs := MathPiperToTaylorPKHG(argsList);
-	//Echo(redArgs);
+	redArgs := MathPiperToReduce(argsList);
+	////DBG: Echo(redArgs);
 	
 	//replace [ bij an , and the ] bij an )
 	redArgs := StringMidSet(1,",",redArgs);
 	lenRedArgs := Length(redArgs);
 	redArgs := StringMidSet(lenRedArgs,")",redArgs);
-   	//Echo(redArgs);
+   	////DBG: Echo(redArgs);
 
     //expression (the function) has to be changed too
-    redExpr := MathPiperToTaylorPKHG(function);
-    //Echo(redExpr);
+    redExpr := MathPiperToReduce(function);
+    ////DBG: Echo(redExpr);
     
     //prepare the Reduce taylor command
     redCommand := ConcatStrings("taylor(",redExpr,redArgs,";");
+    ////DBG: Echo(redCommand);
     
 	//for an Reduce interpeter let it use NOT 2d output: off factor needed!!
 	mpRED := JavaCall("org.mathpiper.mpreduce.Interpreter2", "getInstance");
 	JavaAccess(mpRED,"evaluate","off factor");    
     result := removeCrLf(JavaAccess(mpRED, "evaluate", Eval(redCommand)));
-    //Reduce dit its work: done
+    ////DBG: Echo(result);
+    //Reduce did its work: done
 
     //now  prepare for MathPiper-conversion
     //remove taylor( and the development parameters at the end 
 	//and make a trailing semicolon
     //Search for a first comma needed, because Reduce converts decimal fractions 
     //into an equal valued fraction!
-    firstComma := FindFirst(StringToList(result),","); 
     
+    //using indexOf of Java, be aware of zero based indices!
+    //resultSb :=  JavaNew("java.lang.StringBuilder",result);
+    //Echo(JavaAccess(resultSb,"indexOf", ","));
+    
+    firstComma := FindFirst(StringToList(result),","); 
+    ////DBG: Echo(firstComma);
     result := result[8 .. firstComma];
     result := StringMidSet(firstComma - 7,";",result);
-    //Echo(" shortened result");
-    //Echo(result);
+    ////DBG: Echo(" shortened result");
+    ////DBG: Echo(result);
 
     //backtransformation of variables and functionnames
-    TaylorToMathPiperPKHG(result);    
+    result := ReduceToMathPiper(result);       
     //Finished ;-)
 };
 
 
 %/mathpiper 
 
-    %output,sequence="12",timestamp="2014-03-03 12:39:14.306",preserve="false"
+    %output,sequence="1",timestamp="2014-03-12 07:39:31.403",preserve="false"
       Result: True
+.   %/output
+
+
+%mathpiper_docs,name="Taylor",categories="Mathematics Functions;Series"
+*CMD Taylor --- a Taylor development of an expression
+*STD
+*CALL
+        Taylor([args]) expression;
+
+*PARMS
+
+{args} -- one ore more triples of variable, where, order
+ 
+*DESC
+Taylor carries out the Taylor expansion of an expression in one or more variables.
+
+*E.G.
+
+
+*SEE 
+%/mathpiper_docs
+
+%mathpiper,title="some checks"
+h:= Taylor([_xx, Pi, 5]) Sine(_xx);
+Echo(h);
+help1 := Taylor([_xx,1.1,4]) _xx^4;
+Echo(help1);
+help2 := Expand(help1);
+tmp := help2 =? _xx^4 ;
+%/mathpiper
+
+    %output,sequence="3",timestamp="2014-03-12 07:40:16.333",preserve="false"
+      Result: True
+      
+      Side Effects:
+      -(_xx-Pi)+1/6*(_xx-Pi)^3-1/120*(_xx-Pi)^5 
+      14641/10000+1331/250*(_xx-11/10)+363/50*(_xx-11/10)^2+22/5*(_xx-11/10)^3+(_xx-11/10)^4 
+      
 .   %/output
 
   
     
 
-%mathpiper,title="test 1 maybe REMOVE this"    
-helpCosine:= Taylor([_xx,Pi,5,_y,1.1,5]) Cosine(_xx) + _y^6 ;
-Echo(helpCosine);
-help1 := Taylor([_xx,3.14,4]) _xx^4;
-//Echo(help1);
-help2 := Expand(help1);
-tmp := help2 =? _xx^4 ;
-
+%mathpiper,title="multivariate expansion"    
+Taylor([_xx,1,8,_y,1.1,6]) Cosine(_xx) + _y^6 ;
 %/mathpiper
 
-    %output,sequence="18",timestamp="2014-03-03 13:02:11.383",preserve="false"
-      Result: True
+    %output,sequence="5",timestamp="2014-03-12 07:41:25.89",preserve="false"
+      Result: (1000000*Cosine(1)+1771561)/1000000+483153/50000*(_y-11/10)+43923/2000*(_y-11/10)^2+1331/50*(_y-11/10)^3+363/20*(_y-11/10)^4+33/5*(_y-11/10)^5+(_y-11/10)^6-Sine(1)*(_xx-1)-Cosine(1)/2*(_xx-1)^2+Sine(1)/6*(_xx-1)^3+Cosine(1)/24*(_xx-1)^4-Sine(1)/120*(_xx-1)^5-Cosine(1)/720*(_xx-1)^6+Sine(1)/5040*(_xx-1)^7+Cosine(1)/40320*(_xx-1)^8
+.   %/output
+
+%mathpiper,title="change to numerics"
+h:= Taylor([_x,1.2,3]) Sine(_x);
+Echo(h);
+h := NM(h);
+h:=Substitute(Sine,SineN)h;
+Echo(h);
+h:=Substitute(Cosine,CosineN)h;
+Echo(h);
+mS(x):= Substitute(_x,x) h;
+res:= mS(1);
+Echo(res);
+Eval(res);
+//*/
+%/mathpiper
+
+    %output,sequence="8",timestamp="2014-03-12 07:44:42.565",preserve="false"
+      Result: 0.8414098971
       
       Side Effects:
-      771561/1000000+483153/50000*(_y-11/10)+43923/2000*(_y-11/10)^2+1331/50*(_y-11/10)^3+363/20*(_y-11/10)^4+33/5*(_y-11/10)^5+1/2*(_xx-Pi)^2-1/24*(_xx-Pi)^4 
+      Sine(6/5)+Cosine(6/5)*(_x-6/5)-Sine(6/5)/2*(_x-6/5)^2-Cosine(6/5)/6*(_x-6/5)^3 
+      0.932039085967227+0.362357754476674*(_x-1.2)-0.466019542983614*(_x-1.2)^2-0.0603929590794457*(_x-1.2)^3 
+      0.932039085967227+0.362357754476674*(_x-1.2)-0.466019542983614*(_x-1.2)^2-0.0603929590794457*(_x-1.2)^3 
+      0.932039085967227+0.362357754476674*(1-1.2)-0.466019542983614*(1-1.2)^2-0.0603929590794457*(1-1.2)^3 
       
 .   %/output
 
- 
+
+
+%mathpiper,title=""
+h:= Taylor([_x,1.2,3]) Cosine(_x)^2;
+Function("ff",[_xx]) {Eval(Substitute(_x,xx) h);};
+Plot2D(ff(_x), 0-> 3.5);
+%/mathpiper
+
+    %output,sequence="15",timestamp="2014-03-11 18:46:58.483",preserve="false"
+      Result: class org.jfree.chart.ChartPanel
+.   %/output
+
+%mathpiper,title="plotting example"
+
+t := Taylor([_x,0.2,2]) _x^4;
+Echo(t);
+nt := NM(t);
+Echo(Expand(nt));
+Echo(nt);
+Function("ft",[_yy]) Eval(Substitute(_x,yy) nt);
+NFunction("myFT","ft",[_xxx]);
+Plot2D([_x^4,myFT(_x)],-1 -> 1);
+%/mathpiper
+
+    %output,sequence="9",timestamp="2014-03-12 07:45:49.901",preserve="false"
+      Result: class org.jfree.chart.ChartPanel
+      
+      Side Effects:
+      1/625+4/125*(_x-1/5)+6/25*(_x-1/5)^2 
+      (150*_x^2-40*_x+3)/625 
+      0.0016+0.032*(_x-0.2)+0.24*(_x-0.2)^2 
+      
+.   %/output
+
+
+%mathpiper,title="Ted's propsal to make a function suitable for Plot2D"
+
+h:= Taylor([_x,1.2,3]) Sine(_x)^2;
+//DBG: Echo(h);
+h := NM(h);
+h:=Substitute(Sine,SineN)h;
+h:=Substitute(Cosine,CosineN)h;
+mS(x):= Substitute(_x,x) h;
+
+mS2(x) := Eval(mS(' 'x)); //There is a space between the ' operators. 
+Plot2D(mS2(_x), 0 -> 1.5);
+%/mathpiper
+
+    %output,sequence="12",timestamp="2014-03-12 07:48:32.723",preserve="false"
+      Result: class org.jfree.chart.ChartPanel
+.   %/output
+
+
+
+
+
 
