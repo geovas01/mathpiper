@@ -80,40 +80,39 @@ Taylor carries out the Taylor expansion of an expression in one or more variable
 
 *E.G.
 
-
-*SEE 
-%/mathpiper_docs
-
-%mathpiper,title="some checks"
+/%mathpiper,title="some checks"
 h:= Taylor([_xx, Pi, 5]) Sine(_xx);
 Echo(h);
 help1 := Taylor([_xx,1.1,4]) _xx^4;
 Echo(help1);
 help2 := Expand(help1);
 tmp := help2 =? _xx^4 ;
-%/mathpiper
+/%/mathpiper
 
-    %output,sequence="3",timestamp="2014-03-12 07:40:16.333",preserve="false"
+    /%output,sequence="3",timestamp="2014-03-12 07:40:16.333",preserve="false"
       Result: True
       
       Side Effects:
       -(_xx-Pi)+1/6*(_xx-Pi)^3-1/120*(_xx-Pi)^5 
       14641/10000+1331/250*(_xx-11/10)+363/50*(_xx-11/10)^2+22/5*(_xx-11/10)^3+(_xx-11/10)^4 
       
-.   %/output
+.   /%/output
 
   
+  
     
-
-%mathpiper,title="multivariate expansion"    
+/%mathpiper,title="multivariate expansion"    
 Taylor([_xx,1,8,_y,1.1,6]) Cosine(_xx) + _y^6 ;
-%/mathpiper
+/%/mathpiper
 
-    %output,sequence="5",timestamp="2014-03-12 07:41:25.89",preserve="false"
+    /%output,sequence="5",timestamp="2014-03-12 07:41:25.89",preserve="false"
       Result: (1000000*Cosine(1)+1771561)/1000000+483153/50000*(_y-11/10)+43923/2000*(_y-11/10)^2+1331/50*(_y-11/10)^3+363/20*(_y-11/10)^4+33/5*(_y-11/10)^5+(_y-11/10)^6-Sine(1)*(_xx-1)-Cosine(1)/2*(_xx-1)^2+Sine(1)/6*(_xx-1)^3+Cosine(1)/24*(_xx-1)^4-Sine(1)/120*(_xx-1)^5-Cosine(1)/720*(_xx-1)^6+Sine(1)/5040*(_xx-1)^7+Cosine(1)/40320*(_xx-1)^8
-.   %/output
+.   /%/output
 
-%mathpiper,title="change to numerics"
+
+
+
+/%mathpiper,title="change to numerics"
 h:= Taylor([_x,1.2,3]) Sine(_x);
 Echo(h);
 h := NM(h);
@@ -126,9 +125,9 @@ res:= mS(1);
 Echo(res);
 Eval(res);
 //*/
-%/mathpiper
+/%/mathpiper
 
-    %output,sequence="8",timestamp="2014-03-12 07:44:42.565",preserve="false"
+    /%output,sequence="8",timestamp="2014-03-12 07:44:42.565",preserve="false"
       Result: 0.8414098971
       
       Side Effects:
@@ -137,21 +136,25 @@ Eval(res);
       0.932039085967227+0.362357754476674*(_x-1.2)-0.466019542983614*(_x-1.2)^2-0.0603929590794457*(_x-1.2)^3 
       0.932039085967227+0.362357754476674*(1-1.2)-0.466019542983614*(1-1.2)^2-0.0603929590794457*(1-1.2)^3 
       
-.   %/output
+.   /%/output
 
 
 
-%mathpiper,title=""
+
+/%mathpiper,title=""
 h:= Taylor([_x,1.2,3]) Cosine(_x)^2;
 Function("ff",[_xx]) {Eval(Substitute(_x,xx) h);};
 Plot2D(ff(_x), 0-> 3.5);
-%/mathpiper
+/%/mathpiper
 
-    %output,sequence="15",timestamp="2014-03-11 18:46:58.483",preserve="false"
+    /%output,sequence="15",timestamp="2014-03-11 18:46:58.483",preserve="false"
       Result: class org.jfree.chart.ChartPanel
-.   %/output
+.   /%/output
 
-%mathpiper,title="plotting example"
+
+
+
+/%mathpiper,title="plotting example"
 
 t := Taylor([_x,0.2,2]) _x^4;
 Echo(t);
@@ -161,9 +164,9 @@ Echo(nt);
 Function("ft",[_yy]) Eval(Substitute(_x,yy) nt);
 NFunction("myFT","ft",[_xxx]);
 Plot2D([_x^4,myFT(_x)],-1 -> 1);
-%/mathpiper
+/%/mathpiper
 
-    %output,sequence="9",timestamp="2014-03-12 07:45:49.901",preserve="false"
+    /%output,sequence="9",timestamp="2014-03-12 07:45:49.901",preserve="false"
       Result: class org.jfree.chart.ChartPanel
       
       Side Effects:
@@ -171,10 +174,12 @@ Plot2D([_x^4,myFT(_x)],-1 -> 1);
       (150*_x^2-40*_x+3)/625 
       0.0016+0.032*(_x-0.2)+0.24*(_x-0.2)^2 
       
-.   %/output
+.   /%/output
 
 
-%mathpiper,title="Ted's propsal to make a function suitable for Plot2D"
+
+
+/%mathpiper,title="Ted's propsal to make a function suitable for Plot2D"
 
 h:= Taylor([_x,1.2,3]) Sine(_x)^2;
 //DBG: Echo(h);
@@ -185,11 +190,16 @@ mS(x):= Substitute(_x,x) h;
 
 mS2(x) := Eval(mS(' 'x)); //There is a space between the ' operators. 
 Plot2D(mS2(_x), 0 -> 1.5);
-%/mathpiper
+/%/mathpiper
 
-    %output,sequence="12",timestamp="2014-03-12 07:48:32.723",preserve="false"
+    /%output,sequence="12",timestamp="2014-03-12 07:48:32.723",preserve="false"
       Result: class org.jfree.chart.ChartPanel
-.   %/output
+.   /%/output
+
+*SEE 
+%/mathpiper_docs
+
+
 
 
 
