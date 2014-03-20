@@ -1,0 +1,68 @@
+%mathpiper,title="SolveSystem"
+
+
+SolveSystem(expression, unknown) := 		
+{ 	
+ 	Local(result, assumpt, b1, b2, b3);
+	b1 := List?(expression);
+	b2 := List?(unknown);
+    b3 := b1 And? b2;
+	If(b3) {
+		mpreduce := JavaCall("org.mathpiper.mpreduce.Interpreter2", "getInstance");
+	JavaAccess(mpreduce,"evaluate","off factor"); 
+	       //adjust
+	       b1 := MathPiperToReduce(expression);
+	       b1 := StringMidSet(1,"{",b1);
+	       b3 := Length(b1);
+	       b1 := StringMidSet(b3,"}",b1);
+	       //DBG Echo(b1);
+	       //DBG Echo("Solve(" ~ b1);
+	       b2 := MathPiperToReduce(unknown);
+	       b2 := StringMidSet(1,"{",b2);
+	       b3 := Length(b2);
+	       b2 := StringMidSet(b3,"}",b2);
+	       //DBG Echo(b2);
+	       b3 := "Solve(" ~ b1 ~ ","  ~ b2 ~ ");";
+	       //DBG Echo(b3);
+	       result := JavaAccess(mpreduce, "evaluate", b3); 
+	       //DBG Echo(result);
+	       result := JavaAccess(JavaNew("java.lang.String", result), "replace", "\{", "["); 
+	       result := JavaAccess(JavaNew("java.lang.String", result), "replace", "\}", "]");
+	       result := JavaAccess(JavaNew("java.lang.String", result), "replace", ",", "],[");
+	       result := JavaAccess(JavaNew("java.lang.String", result), "replace", "=", "],[");
+	       //DBG Echo(result);
+	       result  := removeCrLf(result);
+	       assumpt:= JavaAccess(mpreduce, "evaluate", "assumptions;"); 
+	       Echo(ReduceToMathPiper("NotZeroAssumptions: " ~ assumpt));
+	       //result := JavaAccess(JavaNew("java.lang.String", result), "replaceAll", "Unknown:.*\\n", "");
+	       result := ReduceToMathPiper(result); 	
+	//result[1];
+	}
+	Else { 
+		result := "both parameters must be lists";
+		Echo(result);
+	};
+ 	result;		
+ 	//result := JavaAccess(JavaNew("java.lang.String", result), "replace", "=", "=="); 
+ 	
+};
+
+
+%/mathpiper
+
+    %output,sequence="1",timestamp="2014-03-20 08:00:05.256",preserve="false"
+      Result: True
+.   %/output
+%mathpiper,title=""
+h:=SolveSystem([_a*_x-_b*_y+_x,_y-_c/_d],[_x,_y]);
+%/mathpiper
+
+    %output,sequence="2",timestamp="2014-03-20 08:00:12.087",preserve="false"
+      Result: [[_x],[(_b*_c)/(_d*(_a+1))],[_y],[_c/_d]]
+      
+      Side Effects:
+      NotZeroAssumptions:[_d,_a+1] 
+      
+.   %/output
+
+
