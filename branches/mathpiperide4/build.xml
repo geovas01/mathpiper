@@ -28,6 +28,7 @@
 	<property name="plugins.src.dir" value="${master.src.dir}/plugins" />
 	<property name="plugins.build.dir" value="${master.build.dir}/plugins" />
 	<property name="plugins.jars.dir" value="${master.build.dir}/mathpiperide/jars" />
+  <property name="jeditpropertiesdir" value="${master.build.dir}/mathpiperide/settings" />
 	<property name="non_plugin.jars.dir" value="${master.build.dir}/mathpiperide/non_plugin_jars" />
 	<property name="library_apps.src.dir" value="${master.src.dir}/library_apps" />
 	<property name="library_apps.build.dir" value="${master.build.dir}/library_apps" />
@@ -81,10 +82,29 @@
 	
 	
 <!-- Targets -->
+ <target id="savejeditproperties" name="savejeditproperties"
+    description="Save old jedit properties" >
+    <echo message="Trying old properties of jedit"></echo>
+	 	<copy todir="${master.src.dir}">
+			<file name="${jeditpropertiesdir}/properties">
+			</file>
+		</copy>
+  </target>
+
+  <target id="replacejeditproperties" name="replacejeditproperties"
+    description=" replace jedits properties by saved version">
+   <echo message="Trying to replace fresh properties of jedit withe preveously saved one"></echo>
+		<copy todir="${jeditpropertiesdir}" overwrite="true">
+      <file name="${master.src.dir}/properties" > </file>
+		</copy>
+  </target>
 
 	<target id="*all" name="*all" description="Builds all of mathpiperide from scratch." depends="clean,*mathpiperide,all-plugins-dist">
 	</target>
 
+	<target id="*allpkhg" name="*allpkhg" description="Builds all of mathpiperide from scratch." depends="savejeditproperties,clean,*mathpiperide,all-plugins-dist,replacejeditproperties">
+	</target>
+ 
 	<target id="clean" name="clean" 
 		description="Deletes the master build directory" >
 		
