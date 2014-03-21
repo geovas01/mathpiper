@@ -53,23 +53,24 @@ public class ObjectToMeta extends BuiltinFunction
 }
 
 /*
-%mathpiper_docs,name="VariablesToSymbols",categories="Programming Functions;Miscellaneous;Built In"
-*CMD SymbolToVariable --- keep expression unevaluated
-*CORE
+%mathpiper_docs,name="ObjectToMeta",categories="Programming Functions;Variables;Built In",access="experimental"
+*CMD ObjectToMeta --- Converts an object-level expression into a meta-level expression.
 *CALL
-	VariablesToSymbols(expr)
+	ObjectToMeta(expr)
 
 *PARMS
 
-{expr} -- expression to keep unevaluated
+{expr} -- expression to convert
 
 *DESC
 
-The 
+Converts an object-level expression into a meta-level expression. This is done by prepending an underscore
+character to all variable names in the expression.
 
 *E.G.
+In> ObjectToMeta('(a+b))
+Result: _a+_b
 
-
-*SEE VariablesToSymbols
+*SEE MetaToObject
 %/mathpiper_docs
 */
