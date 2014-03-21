@@ -1,4 +1,4 @@
-%mathpiper,title="SolveSystem"
+%mathpiper,def="SolveSystem"
 
 
 SolveSystem(expression, unknown) := 		
