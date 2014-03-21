@@ -53,23 +53,25 @@ public class MetaToObject extends BuiltinFunction
 }
 
 /*
-%mathpiper_docs,name="SymbolsToVariables",categories="Programming Functions;Miscellaneous;Built In"
-*CMD SymbolToVariable --- keep expression unevaluated
-*CORE
+%mathpiper_docs,name="MetaToObject",categories="Programming Functions;Variables;Built In",access="experimental"
+*CMD MetaToObject --- Converts a meta-level expression into an object-level expression.
+
 *CALL
-	SymbolsToVariables(expr)
+	MetaToObject(expr)
 
 *PARMS
 
-{expr} -- expression to keep unevaluated
+{expr} -- expression to convert
 
 *DESC
 
-The 
+Converts a meta-level expression into an object-level expression. This is done by removing underscore
+characters from all constant names that are in the expression.
 
 *E.G.
+In> MetaToObject(_a+_b)
+Result: a+b
 
-
-*SEE VariablesToSymbols
+*SEE ObjectToMeta
 %/mathpiper_docs
 */
