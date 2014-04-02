@@ -1,0 +1,106 @@
+/* Implementation of the ABIN formal grammar
+	(see MathPiper tutorial essays) */
+	
+%mathpiper,title="ABNI in new mathpiper Info in old files "
+/*PKHG>missing the inbetween out put as in ABIN.ys */
+AtomToCharList(x_Atom?) <-- {
+    Local(index, result);
+    For( [ index:=Length(ToString(x)), result:=[] ],
+	   index >? 0, index:=index-1 )
+	   Push(result, StringMidGet(index, 1,    ToString(x)));
+    result;
+};
+var := ToAtom("Peter");
+Echo(AtomToCharList(var));
+AtomToCharList(["Peter was here"]);
+
+10 # IsBExpr([]) <-- False;
+10 # IsBExpr(["B"]) <-- True;
+20 # IsBExpr(x_List?) <--  x[Length(x)]=?"I" And? IsBExpr(Take(x, [1, Length(x)-1]));
+
+10 # IsNExpr([]) <-- False;
+20 # IsNExpr(x_List?) <-- x[1] =? "N" And? IsExpr(Rest(x));
+
+ 5 # IsAExpr([]) <-- False;
+10 # IsAExpr(x_List?) : (Length(x) <=? 1) <-- False;
+20 # IsAExpr(x_IsList) <-- x[1] =? "A" And? FindTwoExprs(Rest(x))[1];
+
+IsExpr(x_List?) <-- IsBExpr(x) Or? IsNExpr(x) Or? IsAExpr(x);
+IsProvable(x_List?) <-- IsAxiom(x) Or? IsTheorem(x);
+IsAxiom(x_List?) <-- IsNExpr(x) And?  IsBExpr(Rest(x));
+/*{
+	Echo("Axiom " ~ Map("ConcatStrings",x))
+	Else {False;};
+};*/
+
+tax1 := AtomToCharList("NBIIII");
+Echo(IsNExpr(tax1));
+Echo(IsBExpr(Rest(tax1)));
+Echo(IsAxiom(tax1));
+
+ 5 # IsAExpr([]) <-- False;
+10 # IsAExpr(x_List?) : (Length(x) <? 1) <-- False;
+20 # IsAExpr(x_List?) <-- x[1] =? "A" And? FindTwoExprs(Rest(x))[1];
+	
+FindTwoExprs(x_List?) <-- {
+	 Local(iter, result, lenX);
+	 result := False;
+	 lenX := Length(x);
+	 For(  iter:=1, iter <? lenX And? Not? result, iter := iter + 1 )
+	   {
+	    result := IsExpr(x[1 .. iter])  And? IsExpr(x[iter+1 .. lenX]);
+	   };
+	 [result, iter-1];
+	};	
+	
+//PKHF>??? usable for inbetween output? How?	
+NBInfo(txt,x) := {
+  Local(tmp);
+  tmp := txt ~ ListToString(Map("ConcatStrings",x));
+  Echo(tmp);
+  tmp;
+  };
+ NBInfo("Axiom=", AtomToCharList("Peter was here"));
+
+
+%/mathpiper
+
+    %output,sequence="1",timestamp="2014-04-02 17:12:27.054",preserve="false"
+      Result: "Axiom=Peter was here"
+      
+      Side Effects:
+      ["P","e","t","e","r"] 
+      True 
+      True 
+      True 
+      Axiom=Peter was here
+      
+.   %/output
+
+  
+
+%mathpiper,title="the theorem prover plus 3 theorems "
+//CDDR(x) := If(List?(x)) Rest(Rest(x));
+IsTheorem(x_List?) <-- IsNExpr(x) And? IsAExpr(Rest(x)) And? 
+	   IsProvable(Concat(["N"], Take(Rest(Rest(x)),FindTwoExprs(Rest(Rest(x)))[2])));
+	  
+provable1 := AtomToCharList("NAAABIBBB");
+Echo(IsTheorem(provable1));
+provable2 := AtomToCharList("NAABNBIIABBII");
+Echo(IsTheorem(provable2));
+provable3 := AtomToCharList("NAAABNBIIABBIINB");
+Echo(IsTheorem(provable3));
+
+%/mathpiper
+
+    %output,sequence="2",timestamp="2014-04-02 17:12:36.508",preserve="false"
+      Result: True
+      
+      Side Effects:
+      True 
+      True 
+      True 
+      
+.   %/output
+
+
