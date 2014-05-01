@@ -1,0 +1,244 @@
+%mathpiper,title="Example"
+
+examplelist:=
+Hold(
+[
+  [40!,
+"Simple factorial of a number.
+"
+  ],
+  [Differentiate(Sine(_x),_x),
+"Taking the derivative of a function (the derivative of Sine(_x) with
+respect to x in this case).
+"
+  ],
+  [Taylor([_x, 0, 5])Sine(_x),
+"Expanding a function into a taylor series.
+"
+  ],
+  [Integrate(Sine(_x), _x),
+"Integrate a function.
+"
+  ],
+  [Solve(_a + _x * _y == _z, _x),
+"Solve a function for a variable.
+"
+  ],
+  [Limit( Sine(_x)/_x, _x, 0),
+"Take a limit.
+"
+  ],
+  [Substitute(_x,Cosine(_a)) _x+_x,
+"Substitute an expression with another in the main expression.
+"
+  ],
+  [Expand((1+_x)^3),
+"Expand into a polynomial.
+"
+  ],
+  [2^40,
+"Big numbers.
+"
+  ],
+  [1<<40,
+"Bitwise operations
+"
+  ],
+  [1 .. 4,
+"Generating a list of numbers.
+"
+  ],
+  [_a:_b:_c:[],
+"Generating a list of items.
+"
+  ],
+  [{Local(x);x:=[_a, _b, _c];Sine(x)^2;},
+"PKHG>??? 30APR. Threading: Sine(..)^2 will be performed on all elements of the list
+passed in.
+"
+  ],
+  [{Local(list);list:=[_a, _b, _c, _d, _e, _f]; list[2 .. 4];},
+"Selecting a sublist from a list.
+"
+  ],
+  [PermutationsList([_a, _b, _c]),
+"Generate all permutations of a list.
+"
+  ],
+  [VarList(_a + _b*_x),
+"Show all variables that occur in an expression.
+"
+  ],
+  ["not yet implemented again: TrigSimpCombine(Cosine(_a)*Cosine(_a)+Sine(_a)*Sine(_a)) ",
+"Convert factors between trigonometric functions to addition of
+trigonometric functions.
+"
+  ]
+]
+);
+
+
+ExamplePKHG(examplelist):=
+{
+ Local(example, exampleindex, nrExamples);
+  nrExample := Length(examplelist);
+  //Write("nr examples", nrExample);
+  For ( exampleindex := 1, exampleindex <=? nrExample, exampleindex := exampleindex + 1){
+  //If (exampleindex >? Length(examplelist))exampleindex:=1 ;
+
+  //Write("example index = ", exampleindex); 
+  example := examplelist[exampleindex];
+  WriteString("Current example : ");
+  Write(example[1]);WriteString(";");NewLine();
+  NewLine();
+  WriteString(example[2]);
+  NewLine();
+  Write("Result is ", Eval(example[1]),Nl(),"***************************");
+  NewLine(2);
+  };
+};
+
+
+ExamplePKHG(examplelist);
+
+
+%/mathpiper
+
+    %output,sequence="1",timestamp="2014-05-01 08:43:20.345",preserve="false"
+      Result: True
+      
+      Side Effects:
+      Current example : 40!;
+      
+      Simple factorial of a number.
+      
+      "Result is "815915283247897734345611269596115894272000000000"
+      ""***************************"
+      
+      Current example : Differentiate(Sine(_x),_x);
+      
+      Taking the derivative of a function (the derivative of Sine(_x) with
+      respect to x in this case).
+      
+      "Result is "Cosine(_x)"
+      ""***************************"
+      
+      Current example : Taylor([_x,0,5])Sine(_x);
+      
+      Expanding a function into a taylor series.
+      
+      "Result is "_x-1/6*_x^3+1/120*_x^5"
+      ""***************************"
+      
+      Current example : Integrate(Sine(_x),_x);
+      
+      Integrate a function.
+      
+      "Result is "-Cosine(_x)"
+      ""***************************"
+      
+      Current example : Solve(_a+_x*_y==_z,_x);
+      
+      Solve a function for a variable.
+      
+      "Result is "[_x==(-_a+_z)/_y]"
+      ""***************************"
+      
+      Current example : Limit(Sine(_x)/_x,_x,0);
+      
+      Take a limit.
+      
+      "Result is "1"
+      ""***************************"
+      
+      Current example : Substitute(_x,Cosine(_a))_x+_x;
+      
+      Substitute an expression with another in the main expression.
+      
+      "Result is "Cosine(_a)+Cosine(_a)"
+      ""***************************"
+      
+      Current example : Expand((1+_x)^3);
+      
+      Expand into a polynomial.
+      
+      "Result is "_x^3+3*_x^2+3*_x+1"
+      ""***************************"
+      
+      Current example : 2^40;
+      
+      Big numbers.
+      
+      "Result is "1099511627776"
+      ""***************************"
+      
+      Current example : 1<<40;
+      
+      Bitwise operations
+      
+      "Result is "1099511627776"
+      ""***************************"
+      
+      Current example : 1..4;
+      
+      Generating a list of numbers.
+      
+      "Result is "[1,2,3,4]"
+      ""***************************"
+      
+      Current example : _a:_b:_c:[];
+      
+      Generating a list of items.
+      
+      "Result is "_a:_b:_c:[]"
+      ""***************************"
+      
+      Current example : 
+      {
+          Local(x);
+          x:=[_a,_b,_c];
+          Sine(x)^2;
+      };
+      
+      PKHG>??? 30APR. Threading: Sine(..)^2 will be performed on all elements of the list
+      passed in.
+      
+      "Result is "Sine([_a,_b,_c])^2"
+      ""***************************"
+      
+      Current example : 
+      {
+          Local(list);
+          list:=[_a,_b,_c,_d,_e,_f];
+          list[2..4];
+      };
+      
+      Selecting a sublist from a list.
+      
+      "Result is "[_b,_c,_d]"
+      ""***************************"
+      
+      Current example : PermutationsList([_a,_b,_c]);
+      
+      Generate all permutations of a list.
+      
+      "Result is "[[_a,_b,_c],[_a,_c,_b],[_c,_a,_b],[_b,_a,_c],[_b,_c,_a],[_c,_b,_a]]"
+      ""***************************"
+      
+      Current example : VarList(_a+_b*_x);
+      
+      Show all variables that occur in an expression.
+      
+      "Result is "[_a,_b,_x]"
+      ""***************************"
+      
+      Current example : "not yet implemented again: TrigSimpCombine(Cosine(_a)*Cosine(_a)+Sine(_a)*Sine(_a)) ";
+      
+      Convert factors between trigonometric functions to addition of
+      trigonometric functions.
+      
+      "Result is ""not yet implemented again: TrigSimpCombine(Cosine(_a)*Cosine(_a)+Sine(_a)*Sine(_a)) ""
+      ""***************************"
+      
+      
+.   %/output
