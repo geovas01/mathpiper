@@ -67,5 +67,27 @@ public class ArraySize extends BuiltinFunction
 *DESC
 Returns the size of an array (number of elements in the array).
 
+PKHG TODO 18-11-2013
+All 4 array alements ar[1] .. ar[4]
+
+In> ar := ArrayCreate(4,[1 .. 4 ])
+Result: class org.mathpiper.builtin.Array
+
+In> ArraySize(ar)
+Result: 4
+
+In> ar[2]
+Result: [[1,2,3,4]]
+
+In> Type(ar[2])
+Result: "List"
+
+In> First(ar[2])
+Result: [1,2,3,4]
+
+In> First(ar[2])[4]
+Result: 4
+
+
 %/mathpiper_docs
 */

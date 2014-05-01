@@ -74,16 +74,16 @@ because the latter copy the list before they alter it.
 
 *E.G.
 
-In> lst := [a,b,c,d];
+In> lst := '[a,b,c,d];
 Result: [a,b,c,d];
 
-In> Insert(lst, 2, x);
+In> Insert(lst, 2, 'x);
 Result: [a,x,b,c,d];
 
 In> lst;
 Result: [a,b,c,d];
 
-In> DestructiveInsert(lst, 2, x);
+In> DestructiveInsert(lst, 2, 'x);
 Result: [a,x,b,c,d];
 
 In> lst;

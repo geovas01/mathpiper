@@ -77,7 +77,7 @@ list nondestructively.
 In> reverse(l_List?) <-- DestructiveReverse (FlatCopy(l));
 Result: True;
 
-In> lst := [a,b,c,d,e];
+In> lst := '[a,b,c,d,e];
 Result: [a,b,c,d,e];
 
 In> reverse(lst);

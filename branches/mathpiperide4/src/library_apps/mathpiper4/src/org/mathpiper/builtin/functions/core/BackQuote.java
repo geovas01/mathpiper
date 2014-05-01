@@ -101,11 +101,20 @@ a {NM(...)} section).
 In> Decl(f1,f2) :=  `(@f1(x_Number?) <-- NM(@f2(x)));
 Result: True;
 
+PKHG_TODO 17-11-2013: better example?! See the quote before sin!
+In> Decl('sin,SineN)
+Result: True
+
+In> sin(1)
+Result: 0.8414709848
+
+PKHG_TODO 17-11-2013 Sin does not exist now
 In> Decl(nSin,Sin)
 Result: True;
 
 In> Sin(1)
 Result: Sin(1);
+
 
 In> nSin(1)
 Result: 0.8414709848;

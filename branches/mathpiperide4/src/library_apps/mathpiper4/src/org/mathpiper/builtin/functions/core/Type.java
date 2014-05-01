@@ -79,10 +79,10 @@ the result is the empty string {""}.
 
 *E.G.
 
-In> Type([a,b,c]);
+In> Type([1,'b,Pi]);
 Result: "List";
 
-In> Type(a*(b+c));
+In> Type('a * ('b + 'c));
 Result: "*";
 
 In> Type(123);

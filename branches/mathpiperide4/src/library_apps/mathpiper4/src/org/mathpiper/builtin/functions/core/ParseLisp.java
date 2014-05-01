@@ -73,8 +73,12 @@ default.
 In> PipeFromString("(+ a b)") ParseLisp();
 Result: a+b;
 
-In> PipeFromString("(List (Sin x) (- (Cos x)))") ParseLisp();
-Result: [Sin(x),-Cos(x)];
+
+In> PipeFromString("(List (Sine _x) (- (Cosine Pi)))") ParseLisp();
+Result: [Sine(_x),-Cosine(Pi)];
+
+In> PipeFromString("(List (Sine _x) (- (Cosine (/ 1 4))))") ParseLisp();
+Result: [Sine(_x),-Cosine(1/4)]
 
 *SEE PipeFromFile, PipeFromString, ParseMathPiper, ParseMathPiperToken, UnparseLisp, ParseMathPiper ParseLispListed
 %/mathpiper_docs
