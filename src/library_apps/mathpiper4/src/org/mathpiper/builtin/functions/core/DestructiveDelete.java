@@ -72,7 +72,7 @@ because the latter copy the list before they alter it.
 
 *E.G.
 
-In> lst := [a,b,c,d,e,f];
+In> lst := '[a,b,c,d,e,f];
 Result: [a,b,c,d,e,f];
 
 In> Delete(lst, 4);

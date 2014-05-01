@@ -80,8 +80,8 @@ This function returns the rest of a Lisp list.
 
 *E.G.
 
-In> Cdr(Car([a,b,c]))
-Result: a
+In> Cdr(Car([_a,_b,_c]))
+Result: _a
 
 *SEE Car
 %/mathpiper_docs

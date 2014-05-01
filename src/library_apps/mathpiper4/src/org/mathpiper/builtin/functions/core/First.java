@@ -68,10 +68,13 @@ returned if "list" is an atom.
 
 *E.G.
 
-In> First([a,b,c])
+In> First('[a,b,c])
 Result: a;
 
-In> First(f(a,b,c));
+In> f(a,b,c) := [a,b,c]
+Result: True
+
+In> First(f('a,3,4));
 Result: a;
 
 *SEE Rest, Length

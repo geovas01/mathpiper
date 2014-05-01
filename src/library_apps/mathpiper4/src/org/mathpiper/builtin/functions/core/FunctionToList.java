@@ -74,7 +74,7 @@ public class FunctionToList extends BuiltinFunction
 {expr} -- expression to be converted
 
 *DESC
-
+Source: FunctionToList.java
 The parameter "expr" is expected to be a compound object, i.e. not
 an atom. It is evaluated and then converted to a list. The car entry
 in the list is the top-level operator in the evaluated expression and
@@ -83,11 +83,11 @@ list is returned.
 
 *E.G.
 
-In> FunctionToList(Cos(x));
-Result: [Cos,x];
+In> FunctionToList(Cosine(x));
+Result: [Cosine,x];
 
-In> FunctionToList(3*a);
-Result: [*,3,a];
+In> FunctionToList(3*_a);
+Result: [*,3,_a];
 
 *SEE List, ListToFunction, Atom?
 %/mathpiper_docs

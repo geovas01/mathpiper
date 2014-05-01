@@ -74,8 +74,15 @@ returned if {lispList} is an atom.
 
 *E.G.
 
-In> Car([a,b,c])
+In> Car([_a,_b,_c])
 Result: List
+
+reason why you see List:
+In> UnparseLisp([1,3,4])
+Result: [1,3,4]
+Side Effects:
+(List 1 3 4)
+
 
 *SEE Cdr
 %/mathpiper_docs
