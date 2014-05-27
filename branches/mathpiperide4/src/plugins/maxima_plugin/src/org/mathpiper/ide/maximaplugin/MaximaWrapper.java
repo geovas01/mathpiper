@@ -22,7 +22,7 @@ package org.mathpiper.ide.maximaplugin;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.mathpiper.ide.ResponseListener;
+import org.mathpiperide.ResponseListener;
 import java.io.*;
 //import errorlist.*;
 import org.gjt.sp.jedit.jEdit;
