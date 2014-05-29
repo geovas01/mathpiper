@@ -935,9 +935,9 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				//System.out.println(
 								
 					
-			}catch(org.mathpiper.ide.maxima.MathPiperException ye) 
+			}catch(Exception e) 
 			{
-				result = ye.getMessage();
+				result = e.getMessage();
 				output_fold_type = "%error ";
 			}
 			
