@@ -906,7 +906,6 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 			org.mathpiperide.ResponseListener responseListener = new org.mathpiperide.ResponseListener() {
 				response(response)
 				{
-					System.out.println("WWWW " + response );
 					result = response;
 					
 					displayResult(true);
@@ -923,10 +922,13 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				system = MaximaWrapper.getInstance();
 				system.addResponseListener(responseListener);
 				//System.out.println(tempFilePath);
-				tempFileName = tempFile.getName();
-				sendString = "batch(\""+tempFileName+"\");\n";
-				system.send(sendString);//sendString
+				//tempFileName = tempFile.getName();
+				//sendString = "batch(\""+tempFileName+"\");\n";
 				
+				sendString = codeText;
+				sendString = sendString.trim();
+				system.send(sendString + "\n");
+								
 				//this.console.setShell("Maxima");o = console.getOutput();o.writeAttrs(null, "\n");
 				//runCommandInConsole(view,"Maxima","LoadScript(\""+path+"\");");
 				//runCommandInConsole(view,"Maxima",codeText + "\n");
