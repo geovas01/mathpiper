@@ -74,20 +74,20 @@ because the latter copy the list before they alter it.
 
 *E.G.
 
-In> lst := '[a,b,c,d];
-Result: [a,b,c,d];
+In> lst := [_a,_b,_c,_d];
+Result: [_a,_b,_c,_d];
 
-In> Insert(lst, 2, 'x);
-Result: [a,x,b,c,d];
-
-In> lst;
-Result: [a,b,c,d];
-
-In> DestructiveInsert(lst, 2, 'x);
-Result: [a,x,b,c,d];
+In> Insert(lst, 2, _x);
+Result: [_a,_x,_b,_c,_d];
 
 In> lst;
-Result: [a,x,b,c,d];
+Result: [a,b,c,d];
+
+In> DestructiveInsert(lst, 2, _x);
+Result: [_a,_x,_b,_c,_d];
+
+In> lst;
+Result: [_a,_x,_b,_c,_d];
 
 *SEE Insert, DestructiveDelete, DestructiveReplace
 %/mathpiper_docs
