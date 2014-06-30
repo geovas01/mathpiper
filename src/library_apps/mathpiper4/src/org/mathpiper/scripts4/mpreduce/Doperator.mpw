@@ -1,0 +1,107 @@
+
+%mathpiper,def="D"
+//PKHG>5-4-2014
+/*
+removeCrLf(str) := {
+    str := ToString(JavaAccess(JavaNew("java.lang.String", str),"replaceAll", "\\n", ""));
+    str := ToString(JavaAccess(JavaNew("java.lang.String", str),"replaceAll", "\\r", ""));
+};
+//*/
+Bodied("Dx", 60000);
+Function("Dx", [_x, _function])
+{
+	Local(redArg, RedCommand, redExpr, firstComma, result, mpRED, Dorder);
+	result := "notyetimplemented";
+	//transform the arguments to Reduce variables
+	If(List?(x)) {
+	   //DBG Echo(x);
+	   If (Not? (x[1] =? []) And? Variable?(x[1]) And? x[2] >=? 0){
+      	 redArg := MathPiperToReduce(x[1]);
+      	 Dorder := x[2];
+      	 //DBG Write("DBG",redArg, Dorder,Nl());
+      }
+      Else {
+         Dorder := 0;
+         redArg := "x";
+         Write("***ERROR*** Wrong parameter(s) given: ", x, " no differentiation done!", Nl());
+      };
+	}
+	Else{
+	   redArg := MathPiperToReduce(x);
+	   Dorder := 1;
+	   //DBG: 	Echo(redArg);
+   	}; //end Else
+   	If (Dorder =? 0) {
+   		result := function;
+   	}
+   	Else {
+       redArg := redArg ~ "," ~ ToString(Dorder) ~ ");";
+    
+       //expression (the function) has to be changed too
+       redExpr := MathPiperToReduce(function) ~ ",";
+       //DBG:   Echo(redExpr);
+    
+       //*
+       //prepare the Reduce taylor command
+       RedCommand := ("df(" ~ redExpr) ~ redArg ; //neded separators already concatenated!
+       //DBG:   Write("The Reduce command now: ", RedCommand, Nl());
+       //*
+       //for an Reduce interpeter let it use NOT 2d output: off factor needed!!
+       mpRED := JavaCall("org.mathpiper.mpreduce.Interpreter2", "getInstance");
+       JavaAccess(mpRED,"evaluate","off factor");    
+       result := removeCrLf(JavaAccess(mpRED, "evaluate", Eval(RedCommand)));
+       //DBG: Echo(result);
+       //Reduce did its work: done
+    
+       //backtransformation of variables and functionnames
+       result := ReduceToMathPiper(result);    
+       //Finished ;-)
+       //*/
+    }; //End Else of If(Dorder =? 0)
+    result;
+};
+Dx([_x,3]) _x;
+//*
+res1 := Dx(_x) Dx(_x) Sine(_x)*Cosine(_x)+ _x^2;
+res2 := Dx([_x,2]) Sine(_x)*Cosine(_x)+ _x^2;
+res1 =? res2;
+//*/
+
+%/mathpiper 
+
+    %output,sequence="3",timestamp="2014-04-06 18:19:33.928",preserve="false"
+      Result: True
+.   %/output
+
+
+%mathpiper_docs,name="D",categories="Mathematics Functions;Calculus Related (Symbolic)"
+*CMD Dx(arg) expression --- Differentiate expression as function of arg, or Dx([var,order]) expression
+*STD
+*CALL
+        Dx(arg) expression;
+
+*PARMS
+
+{arg} -- one (unknown) variable
+      -- or [unknown,order]
+ 
+*DESC
+Differentiate the expression once with respect to arg
+
+*E.G.
+
+/%mathpiper,title="example"
+Echo(Dx(_x) Sine(_x));
+Dx(_x) Dx(_x) Sine(_x); 
+/%/mathpiper
+.	/%output,sequence="27",timestamp="2014-04-04 09:31:37.838",preserve="false"
+      Result: -Sine(_x)
+      
+      Side Effects:
+      Cosine(_x) 
+      
+.   /%/output
+ 
+*SEE 
+%/mathpiper_docs
+
