@@ -68,14 +68,14 @@ returned if "list" is an atom.
 
 *E.G.
 
-In> First('[a,b,c])
-Result: a;
+In> First([_a,_b,_c])
+Result: _a;
 
 In> f(a,b,c) := [a,b,c]
 Result: True
 
-In> First(f('a,3,4));
-Result: a;
+In> First(f(_a,3,4));
+Result: _a;
 
 *SEE Rest, Length
 %/mathpiper_docs

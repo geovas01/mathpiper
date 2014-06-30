@@ -76,10 +76,10 @@ the same, and "False" otherwise.
 
 %mathpiper,name="Equal?",subtype="automatic_test"
 
-Verify(Equal?('a,'b),False);
-Verify(Equal?('a,'a),True);
-Verify(Equal?('[a,b],'[a]),False);
-Verify(Equal?('[a,b],'[a,b]),True);
+Verify(Equal?(_a,_b),False);
+Verify(Equal?(_a,_a),True);
+Verify(Equal?([_a,_b],[_a]),False);
+Verify(Equal?([_a,_b],[_a,_b]),True);
 
 %/mathpiper
 

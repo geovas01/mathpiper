@@ -77,14 +77,14 @@ list nondestructively.
 In> reverse(l_List?) <-- DestructiveReverse (FlatCopy(l));
 Result: True;
 
-In> lst := '[a,b,c,d,e];
-Result: [a,b,c,d,e];
+In> lst := [_a,_b,_c,_d,_e];
+Result: [_a,_b,_c,_d,_e];
 
 In> reverse(lst);
-Result: [e,d,c,b,a];
+Result: [_e,_d,_c,_b,_a]_;
 
 In> lst;
-Result: [a,b,c,d,e];
+Result: [_a,_b,_c,_d,_e];
 %/mathpiper_docs
 
 
