@@ -82,8 +82,8 @@ Result: True;
 
 %mathpiper,name="Atom?",subtype="automatic_test"
 
-Verify(Atom?('[a,b,c]),False);
-Verify(Atom?('a),True);
+Verify(Atom?([_a,_b,_c]),False);
+Verify(Atom?(_a),True);
 Verify(Atom?(123),True);
 
 %/mathpiper
