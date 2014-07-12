@@ -83,38 +83,39 @@ arguments. Transformation rules can be defined for the new function as usual.
 
 The definitions
 
-    RulebaseListedHoldArguments("f",[a,b,c]);
+    RulebaseListedHoldArguments("f",[_a,_b,_c]);
     10 # f(_a,_b,[_c,_d]) <-- Echo(["four args",a,b,c,d]);
     20 # f(_a,_b,c_List?) <-- Echo(["more than four args",a,b,c]);
     30 # f(_a,_b,_c) <-- Echo(["three args",a,b,c]);
 	
 give the following interaction:
+In> Function() f(_a); Function() f(_a,_b);
 
-In> f(A)
-Result: f(A);
+In> f(_A) 
+Result: f(_A);
 
-In> f(A,B)
-Result: f(A,B);
+In> f(_A,_B) 
+Result: f(_A,_B);
 
-In> f(A,B,C)
+In> f(_A,_B,_C)
 Result: True;
 Side Effects:
-three args A B C
+three args _A _B _C
 
-In> f(A,B,C,D)
+In> f(_A,_B,_C,_D)
 Result: True
 Side Effects:
-four args A B C D
+four args _A _B _C _D
 
-In> f(A,B,C,D,E)
+In> f(_A,_B,_C,_D,_E)
 Result: True
 Side Effects:
-more than four args A B [C,D,E]
+more than four args _A _B [_C,_D,_E]
 
-In> f(A,B,C,D,E,E)
+In> f(_A,_B,_C,_D,_E,_E)
 Result: True
 Side Effects:
-more than four args A B [C,D,E,E]
+more than four args _A _B [_C,_D,_E,_E]
 
 The function {f} now appears to occupy all arities greater than 3:
 
