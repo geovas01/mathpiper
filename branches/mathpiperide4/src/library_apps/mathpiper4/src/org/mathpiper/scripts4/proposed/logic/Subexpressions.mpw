@@ -101,7 +101,7 @@ Result: [_a,_b,_c,_a*_b,_a*_b+_c]
 
 %mathpiper,name="Subexpressions",subtype="automatic_test"
 
-Unassign(a,b,c);
+
 
 Verify(Subexpressions(_a*_b+_c), [_a,_b,_c,_a*_b,_a*_b+_c]);
 
