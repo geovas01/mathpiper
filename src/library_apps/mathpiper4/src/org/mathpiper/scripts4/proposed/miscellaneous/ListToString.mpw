@@ -46,7 +46,7 @@ This function converts each of the elementes in a list into a string and then co
 strings into a single string.
 
 *E.G.
-In> ListToString([a,b,c,d])
+In> ListToString(['a,'b,'c,'d])
 Result: "abcd"
 
 *SEE StringToList
