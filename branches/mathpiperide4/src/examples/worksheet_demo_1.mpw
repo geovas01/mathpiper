@@ -1,4 +1,4 @@
-/*  v 1.20.
+/*  v 1.21.
     This is a MathPiperIDE worksheet file and it consists of folds which contain source
     code.  A fold starts with %<keyword> and ends with %/<keyword>.  Code is entered inside
     a fold and then executed by placing the cursor anywhere inside the code and
@@ -10,18 +10,19 @@
     in the Folding menu at the top of the window.
 */
 
+
 %mathpiper,title="loop"
 //Loop demonstration.
 
 x := 1;
-While(x <? 100)
+While(x <? 50)
 {
-  Write(x,',);
+  Write(x);
+  WriteString(",");
   x := x + 1;  
 };
 
 %/mathpiper
-
 
 
 
@@ -44,15 +45,10 @@ While(x <? 100)
 
 
 
-
 %mathpiper
 //Execute this fold to render the LaTeX expression it contains.
 Show(LatexView("2\\sum_{i=1}^n a_i"));
 %/mathpiper
-
-
-
-
 
 
 
@@ -69,9 +65,6 @@ Show(LatexView("2\\sum_{i=1}^n a_i"));
 ViewList(x_^2 + 3*x_ + 7);
 
 %/mathpiper
-
-
-
 
 
 
@@ -110,7 +103,6 @@ HTML demo.  Execute this code by pressing <shift><enter> inside the fold.
     </html>
 
 %/html
-
 
 
 
@@ -195,13 +187,8 @@ HTML demo.  Execute this code by pressing <shift><enter> inside the fold.
 
 
 
+
 %latex
 \lim_{x \to 0} f(x) = 0
 %/latex
-
-
-
-
-
-
 
