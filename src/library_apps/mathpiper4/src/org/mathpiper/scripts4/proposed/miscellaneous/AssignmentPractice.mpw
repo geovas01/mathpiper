@@ -129,31 +129,39 @@ AssignmentPractice(numberOfVariables, correctInARow, numberOfReassignments, vari
                     
                 //result := JavaAccess("javax.swing.JOptionPane","showConfirmDialog",Null, jPanel, "Question", JavaCall("javax.swing.JOptionPane","OK_CANCEL_OPTION"));
                 
-                result := AskUser(jPanel);
+                result := main := AskUser(jPanel);
                 
-                ForEach(variableName, variableNames)
+                If(result !=? JavaAccess("javax.swing.JOptionPane","CANCEL_OPTION"))
                 {
-                    userAnswer1 := JavaAccess(textFieldsList[variableName], "getText");
-                    
-                    userAnswer2 := Decide(userAnswer1 =? "", None, ToAtom(userAnswer1));
-                    
-                    actualAnswer := Eval(ToAtom(variableName));
-                    
-                    If(userAnswer2 !=? actualAnswer) (allCorrectFlag := False);
-                    
-                    WriteString("[");
-                    Write(variableName, ', , actualAnswer, ', , userAnswer2);
-                    WriteString("],");
-                };
-                     
+					ForEach(variableName, variableNames)
+					{
+						userAnswer1 := JavaAccess(textFieldsList[variableName], "getText");
+						
+						userAnswer2 := Decide(userAnswer1 =? "", None, ToAtom(userAnswer1));
+						
+						actualAnswer := Eval(ToAtom(variableName));
+						
+						If(userAnswer2 !=? actualAnswer) (allCorrectFlag := False);
+						
+						WriteString("[");
+						Write(variableName, ', , actualAnswer, ', , userAnswer2);
+						WriteString("],");
+					};
+						 
+					
+					If(allCorrectFlag =? False And? result !=? JavaAccess("javax.swing.JOptionPane","CANCEL_OPTION"))
+					{   
+						TellUser("Incorrect. Try again.");
+						
+						currentCorrectInARow := 0;
+						
+						wrongCount++;
+					};
                 
-                If(allCorrectFlag =? False And? result !=? JavaAccess("javax.swing.JOptionPane","CANCEL_OPTION"))
-                {   
-                    TellUser("Incorrect. Try again.");
-                    
-                    currentCorrectInARow := 0;
-                    
-                    wrongCount++;
+                }
+                Else
+                {
+                	currentCorrectInARow--;
                 };
             
             };
@@ -166,7 +174,7 @@ AssignmentPractice(numberOfVariables, correctInARow, numberOfReassignments, vari
             currentCorrectInARow++;
             
             
-            If(correctInARow !=? currentCorrectInARow)
+            If(correctInARow !=? currentCorrectInARow And? main !=? JavaAccess("javax.swing.JOptionPane","CANCEL_OPTION"))
             {
             
                 mainLoopMessageString := PatchString(
@@ -184,7 +192,7 @@ AssignmentPractice(numberOfVariables, correctInARow, numberOfReassignments, vari
             }
             Else
             {
-                TellUser("You answered " ~ ToString(correctInARow) ~ " in a row!");
+                TellUser("You answered " ~ ToString(currentCorrectInARow) ~ " in a row!");
             };
             
             
@@ -196,6 +204,7 @@ AssignmentPractice(numberOfVariables, correctInARow, numberOfReassignments, vari
     Echo("Number Of Variables: ", numberOfVariables);
     Echo("Number Of Reassignments: ", numberOfReassignments);
     Echo("Variables Range: ", variableRange);
+    Echo("Correct In A Row: ", currentCorrectInARow);
     Echo("Correct In A Row Needed: ", correctInARow);
     Echo("Total Time: ", totalTime);
     Echo("Wrong Count: ", wrongCount);
