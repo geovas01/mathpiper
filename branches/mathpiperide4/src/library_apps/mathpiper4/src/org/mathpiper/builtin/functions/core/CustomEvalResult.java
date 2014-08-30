@@ -48,7 +48,7 @@ public class CustomEvalResult extends BuiltinFunction
 }
 
 /*
-%mathpiper_docs,name="ArrayGet",categories="Programming Functions;Native Objects;Built In"
+%mathpiper_docs,name="CustomEvalResult",categories="Programming Functions;Native Objects;Built In"
 *CMD CustomEvalResult --- Not yet implemented
 *CORE
 *CALL
