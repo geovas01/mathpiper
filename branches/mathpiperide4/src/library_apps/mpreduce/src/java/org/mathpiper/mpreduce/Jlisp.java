@@ -211,7 +211,7 @@ public class Jlisp extends Environment
                             throw new ResourceException("error count");
                         }
 
-		
+
 
 		checkExit(s);
 
@@ -259,6 +259,7 @@ public class Jlisp extends Environment
 		out = Xout;
 		lispIO = null;
 		standAlone = standAloneFlag;
+		finishingUp = false;
 		Thread t = null;
 		if (standAlone)
 		{   final int screenRefreshInterval = 2500;
@@ -275,11 +276,14 @@ public class Jlisp extends Environment
 		}
                 catch (Exception e)
  	  	{e.printStackTrace();}
+ 	  	catch (Throwable th)
+ 	  	{th.printStackTrace();}
 		finally
 		{
 			lispIO = null;
 			finishingUp = true;
-			t.interrupt();     // so it can exit
+			if(t!=null)
+			  t.interrupt();     // so it can exit
 			int i;
 			// In general I close in the opposite order from that in which I opened files.
 			// The code here is such that if closing one file happened to have a side
@@ -571,7 +575,7 @@ public class Jlisp extends Environment
                                         {
                                             is = cl.getResourceAsStream("reduce.img");
                                         }
-                                        
+
                                         if(is == null)
                                         {
                                             is = cl.getResourceAsStream("minireduce.img");
@@ -1258,10 +1262,10 @@ public class Jlisp extends Environment
 		}
 		return;
 	}//end method.
-	
-	
-	
-	
+
+
+
+
 
 	private static void checkExit(String errorMessage)
 	{
@@ -1322,7 +1326,7 @@ public class Jlisp extends Environment
 			{
 				e.printStackTrace();
 			}
-		
+
 	}//end method.
 
 
