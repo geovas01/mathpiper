@@ -113,7 +113,6 @@ buffer.save(view,null);
 
 path = buffer.getPath();
 
-
 if(path.endsWith(".mpi")|| path.endsWith(".MPI") ){
 	
 	buffer.setMode("mathpiper");
@@ -852,7 +851,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						codeText = codeText.replace("\"","\\\"");
 						
 						asynchronousInterpreter.evaluate("LoadScript(\"" + codeText + "\");", true);
-						System.out.println("<shift><enter> submitted evaluation request. ");
+						System.out.println("<shift><enter> submitted evaluation request from worksheet " + path + ".");
 					}//end run.
 					
 				}).start();
@@ -2533,12 +2532,9 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 							{
 								if(output_fold_type.equalsIgnoreCase("%info"))
 								{
-									logFilePath = path + ".log";
-									if(logFilePath.contains("\\")) //For windows.
-									{
-										logFilePath = logFilePath.substring(3,logFilePath.length());
-									}
-									outputURI = new java.net.URI("file:///" + logFilePath.replaceAll(" ", "%20").replaceAll("\\\\","/"));  									  File logFile = new File(outputURI);
+									logFilePath = path + ".mpwlog";
+									outputURI = new java.net.URI("file:///" + logFilePath.replaceAll(" ", "%20").replaceAll("\\\\","/"));  									  
+									File logFile = new File(logFilePath);
 									BufferedWriter logFileWriter = new BufferedWriter(new FileWriter(logFile,true));
 									logFileWriter.write("%info" + "," + parentProperty + "sequence=\"" + mpwExecutionCount + "\",timestamp=\"" + timestamp + "\",username=\"" +  System.getProperty("user.name")  + "\",hostname=\"" +  InetAddress.getLocalHost().getHostName() + "\",hostaddresses=\"" +  getHostAddresses() +  "\",mpversion=\"" + org.mathpiper.Version.version() + "\"\n" + codeText.replace("\n","|") + "\n" + "%/info" + "\n\n");
 									logFileWriter.close();
@@ -2610,7 +2606,6 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 	
 
 }//end else if.
-
 
 
 
