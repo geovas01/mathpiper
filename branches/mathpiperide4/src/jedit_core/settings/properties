@@ -74,7 +74,6 @@ Interface/Increase_Font_Size.icon=22x22/actions/go-up.png
 jedit-directory.label=$MathPiperIDE Home Directory
 jfreechart.dock-position=right
 jung.dock-position=right
-log-viewer.dock-position=bottom
 log-viewer.extendedState=0
 log-viewer.height=518
 log-viewer.tail=true
