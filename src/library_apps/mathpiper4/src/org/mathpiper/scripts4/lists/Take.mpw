@@ -62,8 +62,5 @@ Result: [_e,_f,_g];
 In> Take(lst, [2,4]);
 Result: [_b,_c,_d];
 
-In> Take(testList,[-3,-6])
-Result: [_b,_c]
-
 *SEE Drop, Select, Remove
 %/mathpiper_docs
