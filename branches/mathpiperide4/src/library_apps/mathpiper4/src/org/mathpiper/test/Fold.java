@@ -22,13 +22,16 @@ import java.util.Map;
 public class Fold {
 
     private int startLineNumber;
+    private int endLineNumber;
     private String type;
     private String contents;
     private Map<String, String> attributes = new HashMap();
 
-    public Fold(int startLineNumber, String header, String contents) {
+    public Fold(int startLineNumber, int endLineNumber, String header, String contents) {
 
         this.startLineNumber = startLineNumber;
+        
+        this.endLineNumber = endLineNumber;
 
         scanHeader(header);
 
@@ -65,6 +68,11 @@ public class Fold {
     public int getStartLineNumber()
     {
         return this.startLineNumber;
+    }
+    
+    public int getEndLineNumber()
+    {
+        return this.endLineNumber;
     }
     
 }//end class.

@@ -112,7 +112,7 @@ public class MPWSFile {
                         throw new Exception("Opening fold tag missing in file " + sourceName + " on line " + lineCounter);
                     }
         
-                    Fold fold = new Fold(startLineNumber, foldHeader, foldContents.toString());
+                    Fold fold = new Fold(startLineNumber, lineCounter, foldHeader, foldContents.toString());
                     foldContents.delete(0, foldContents.length());
                     folds.add(fold);
                     inFold = false;
