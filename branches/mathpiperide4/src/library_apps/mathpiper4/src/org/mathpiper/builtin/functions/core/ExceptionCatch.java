@@ -93,8 +93,7 @@ result of evaluating {expression}. If an exception is thrown,
  
 *E.G.
 
-
-In> ExceptionCatch(Check(1 = 2, "Test", "Throwing a test exception."), "This string is returned if an exception is thrown.");
+In> ExceptionCatch(Check(1 =? 2, "Test", "Throwing a test exception."), "This string is returned if an exception is thrown.");
 Result: "This string is returned if an exception is thrown."
 
 
@@ -102,18 +101,18 @@ Result: "This string is returned if an exception is thrown."
 
 /%mathpiper,title="Example of how to use ExceptionCatch and ExceptionGet in test code (long version)."
 {
-  Local(exception);
-
-  exception := False;
-
-  ExceptionCatch(Check(1 = 2, "Test", "Throwing a test exception."), exception := True);
-
-  Verify(exception, True);
+	Local(exception);
+	
+	exception := False;
+	
+	ExceptionCatch(Check(1 =? 2, "Test", "Throwing a test exception."), exception := True);
+	
+	Verify(exception, True);
 
 };
 /%/mathpiper
 
-    /%output,preserve="false"
+    /%output,sequence="8",timestamp="2014-10-09 17:15:18.472",preserve="false"
       Result: True
 .   /%/output
 
@@ -124,7 +123,7 @@ Result: "This string is returned if an exception is thrown."
 /%mathpiper,title="Example of how to use ExceptionCatch and ExceptionGet in test code (short version)."
 
 //ExceptionGet returns False if there is no exception or an association list if there is.
-Verify( ExceptionCatch(Check(1 =? 2, "Test", "Throwing a test exception."), ExceptionGet()) = False, False);
+Verify( ExceptionCatch(Check(1 =? 2, "Test", "Throwing a test exception."), ExceptionGet()) =? False, False);
 
 /%/mathpiper
 
@@ -139,12 +138,11 @@ Verify( ExceptionCatch(Check(1 =? 2, "Test", "Throwing a test exception."), Exce
 /%mathpiper,title="Example of how to handle a caught exception."
 
 TestFunction(x) :=
-[
+{
 
     Check(Integer?(x), "Argument", "The argument must be an integer.");
 
-];
-
+};
 
 
 
@@ -163,16 +161,16 @@ Echo("Message: ", caughtException["message"]);
 
 /%/mathpiper
 
-    /%output,preserve="false"
+    /%output,sequence="11",timestamp="2014-10-09 17:19:05.509",preserve="false"
       Result: True
-
+      
       Side Effects:
-      {{"type","Argument"},{"message","The argument must be an integer."},{"exceptionObject",class org.mathpiper.exceptions.EvaluationException}}
-
-      Type: Argument
-
-      Message: The argument must be an integer.
-
+      [["type","Unspecified"],["message","Argument Error: The argument must be an integer. "],["exceptionObject",class org.mathpiper.exceptions.EvaluationException]] 
+      
+      Type: Unspecified
+      
+      Message: Argument Error: The argument must be an integer. 
+      
 .   /%/output
 
 *SEE Check, ExceptionGet
