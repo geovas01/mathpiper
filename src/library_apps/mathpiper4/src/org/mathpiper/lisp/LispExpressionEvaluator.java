@@ -168,20 +168,16 @@ public class LispExpressionEvaluator extends Evaluator {
 	    BuiltinFunctionEvaluator builtinInFunctionEvaluator = (BuiltinFunctionEvaluator) aEnvironment.getBuiltinFunctions().get(atomName);
 	    if (builtinInFunctionEvaluator != null) 
             {
-		return aExpression.copy(false);
+		LispError.throwError(aEnvironment, aStackTop, "The name <" + atomName + "> is a function that cannot be evaluated without arguments.", aExpression.getMetadataMap());
             }
 	    
 	    Utility.loadLibraryFunction(atomName, aEnvironment, aStackTop);
 	    
 	    if(aEnvironment.getMultipleArityRulebase(aStackTop, atomName, false) != null)
 	    {
-		return aExpression.copy(false);
+		LispError.throwError(aEnvironment, aStackTop, "The name <" + atomName + "> is a function that cannot be evaluated without arguments.", aExpression.getMetadataMap());
 	    }
 	    
-	    
-	    
-	    
-	   
 	    
 	    LispError.throwError(aEnvironment, aStackTop, "The variable <" + atomName + "> does not have a value assigned to it.", aExpression.getMetadataMap());
 
