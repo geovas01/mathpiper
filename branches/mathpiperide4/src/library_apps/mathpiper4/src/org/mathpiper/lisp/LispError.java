@@ -202,7 +202,14 @@ public class LispError {
     }
 
     public static void throwError(Environment aEnvironment, int aStackTop, Object aErrorMessage, Map<String,Integer> location) throws Throwable {
-        throwError(aEnvironment, aStackTop, aErrorMessage, location.get("lineNumber"), location.get("startIndex"), location.get("endIndex"));
+        if(location != null)
+        {
+            throwError(aEnvironment, aStackTop, aErrorMessage, location.get("lineNumber"), location.get("startIndex"), location.get("endIndex"));
+        }
+        else
+        {
+            throwError(aEnvironment, aStackTop, aErrorMessage, -1, -1, -1);
+        }
     }
     
     public static void throwError(Environment aEnvironment, int aStackTop, Object aErrorMessage, int lineNumber, int tokenStartIndex, int tokenEndIndex) throws Throwable {
@@ -215,7 +222,9 @@ public class LispError {
 
 
             if (aStackTop == -1) {
-                throw new EvaluationException("Error encountered during initialization: " + aErrorMessage + stackTrace,  aEnvironment.getCurrentInput().iStatus.getSourceName(),  lineNumber, tokenStartIndex, tokenEndIndex);
+                // String errorMessage = "Error encountered during initialization: "; // TODO: Find better way to report errors that occur during system initialization.
+                String errorMessage = "Error: ";
+                throw new EvaluationException(errorMessage + aErrorMessage + stackTrace,  aEnvironment.getCurrentInput().iStatus.getSourceName(),  lineNumber, tokenStartIndex, tokenEndIndex);
             } else if (aStackTop == -2) {
                 throw new EvaluationException("Error: " + aErrorMessage + stackTrace,  aEnvironment.getCurrentInput().iStatus.getSourceName(),  lineNumber, tokenStartIndex, tokenEndIndex);
             } else {
@@ -257,7 +266,9 @@ public class LispError {
             }
 
             if (aStackTop == -1) {
-                throw new EvaluationException("Error encountered during initialization: " + errorString(errNo) + stackTrace,  aEnvironment.getCurrentInput().iStatus.getSourceName(), lineNumber, tokenStartIndex, tokenEndIndex);
+                // String errorMessage = "Error encountered during initialization: "; // TODO: Find better way to report errors that occur during system initialization.
+                String errorMessage = "Error: ";
+                throw new EvaluationException(errorMessage + errorString(errNo) + stackTrace,  aEnvironment.getCurrentInput().iStatus.getSourceName(), lineNumber, tokenStartIndex, tokenEndIndex);
             } else if (aStackTop == -2) {
                 throw new EvaluationException(errorString(errNo) + stackTrace,  aEnvironment.getCurrentInput().iStatus.getSourceName(),  lineNumber, tokenStartIndex, tokenEndIndex);
             } else {
