@@ -303,13 +303,13 @@ Verify(Vector?([1,[2,_a],4]),False);
 Verify(Vector?([[_a,_b,_c]]),False);
 
 Testing("-- Vector?(Number?)");
-Verify(Vector?(Number?,1),False);
-Verify(Vector?(Number?,[]),True);
-Verify(Vector?(Number?,[_a,_b,_c]),False);
-Verify(Vector?(Number?,[_a,2,_c]),False);
-Verify(Vector?(Number?,[2,2.5,4]),True);
-Verify(Vector?(Number?,[Pi,2,3]),False);
-Verify(Vector?(Number?,[[1],[2]]),False);
+Verify(Vector?("Number?",1),False);
+Verify(Vector?("Number?",[]),True);
+Verify(Vector?("Number?",[_a,_b,_c]),False);
+Verify(Vector?("Number?",[_a,2,_c]),False);
+Verify(Vector?("Number?",[2,2.5,4]),True);
+Verify(Vector?("Number?",[Pi,2,3]),False);
+Verify(Vector?("Number?",[[1],[2]]),False);
 
 %/mathpiper
 
@@ -337,14 +337,14 @@ Verify(Matrix?([[[_a]]]), False);
 Verify(Matrix?([[[[_a]]],[[[_b]]]]),False);
 
 Testing("---- Matrix?(Integer?)");
-Verify(Matrix?(Integer?,[[_a,1]]),False);
-Verify(Matrix?(Integer?,[[1,2]]),True);
-Verify(Matrix?(Integer?,[[1,2/3]]),False);
-Verify(Matrix?(Integer?,[[1,2,3],[4,5,6]]),True);
-Verify(Matrix?(Integer?,[[1,[2],3],[4,5,6]]),False);
-Verify(Matrix?(Integer?,[[1,2,3],[4,5]]),False);
-Verify(Matrix?(Integer?,[[Sqrt(2),2,3],[4,5,6]]),False);
-Verify(Matrix?(Integer?,[[Sqrt(0),2,3],[4,5,6]]),True);
+Verify(Matrix?("Integer?",[[_a,1]]),False);
+Verify(Matrix?("Integer?",[[1,2]]),True);
+Verify(Matrix?("Integer?",[[1,2/3]]),False);
+Verify(Matrix?("Integer?",[[1,2,3],[4,5,6]]),True);
+Verify(Matrix?("Integer?",[[1,[2],3],[4,5,6]]),False);
+Verify(Matrix?("Integer?",[[1,2,3],[4,5]]),False);
+Verify(Matrix?("Integer?",[[Sqrt(2),2,3],[4,5,6]]),False);
+Verify(Matrix?("Integer?",[[Sqrt(0),2,3],[4,5,6]]),True);
 
 %/mathpiper
 
