@@ -137,7 +137,7 @@ Plot2DJFreeChart(values_List?, _optionsHash) <--
 
     
     //Put LineChart() function call into list form so it can be manipulated.
-    lineChartCallListForm := [LineChart, allProcessedFunctionData ];
+    lineChartCallListForm := ['LineChart, allProcessedFunctionData ];
     
     
     
