@@ -153,6 +153,11 @@
 			<BEGIN>%markdown[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;\?]*</BEGIN>
 			<END>%/markdown</END>
 		</SPAN_REGEXP>
+		
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="asciidoc::MAIN">
+			<BEGIN>%asciidoc[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;\?]*</BEGIN>
+			<END>%/asciidoc</END>
+		</SPAN_REGEXP>
 
 	</RULES>
     
