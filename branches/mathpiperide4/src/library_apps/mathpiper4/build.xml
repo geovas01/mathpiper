@@ -318,7 +318,7 @@
         <mkdir dir="${gwt_dist.dir}/war/WEB-INF/lib" />
 
         <copy todir="${gwt_dist.dir}/src">
-            <fileset dir="${mathpiper.dir}/src/">
+            <fileset dir="${src.dir}">
                 <include name="org/mathpiper/builtin/" />
                 <exclude name="org/mathpiper/builtin/functions/optional/" />
                 <exclude name="org/mathpiper/builtin/functions/plugins/" />
@@ -360,6 +360,9 @@
             </fileset>
         </copy>
 
+        <copy file="${gwt_lib.dir}/google_web_toolkit/Time.java" todir="${gwt_dist.dir}/src/org/mathpiper/builtin/functions/core" />
+        <copy file="${build.dir}/src/org/mathpiper/Scripts.java" todir="${gwt_dist.dir}/src/org/mathpiper" />
+        <copy file="${build.dir}/src/org/mathpiper/Version.java" todir="${gwt_dist.dir}/src/org/mathpiper" />
         <copy file="${gwt_lib.dir}/google_web_toolkit/mathpiper.html" todir="${gwt_dist.dir}/war" />
         <copy file="${gwt_lib.dir}/google_web_toolkit/WebConsole.css" todir="${gwt_dist.dir}/war" />
     	<copy file="${gwt_lib.dir}/google_web_toolkit/icons.gif" todir="${gwt_dist.dir}/war" />
