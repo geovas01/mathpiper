@@ -16,11 +16,11 @@
 
     <property name="library.dir" value="${basedir}/../lib" />
     
-	<property name="gwt_lib.dir" value="${basedir}/lib" />
+    <property name="gwt_lib.dir" value="${basedir}/lib" />
 
     <property name="mathpiper.dir" value="${basedir}" />  
 	
-	<property name="gwt_dist.dir" value="${library.dir}/gwt_dist" />
+    <property name="gwt_dist.dir" value="${library.dir}/gwt_dist" />
 
     <path id="build_classpath">
         <pathelement path="${library.dir}/jfreechart-1.0.13.jar" />
@@ -333,20 +333,13 @@
                 <include name="org/mathpiper/interpreters/ResponseListener.java" />
                 <include name="org/mathpiper/ui/gui/gwt/" />
 
-
                 <include name="org/mathpiper/io/" />
 
                 <include name="org/mathpiper/lisp/" />
 
-                
-
-                <include name="org/mathpiper/Scripts.java" />
-
-                <include name="org/mathpiper/Version.java" />
             </fileset>
         </copy>
-
-        <copy file="${gwt_lib.dir}/google_web_toolkit/module.gwt.xml" todir="${gwt_dist.dir}/src/org" />
+        
 
         <copy todir="${gwt_dist.dir}/">
             <fileset dir="${gwt_lib.dir}/google_web_toolkit">
@@ -360,21 +353,39 @@
             </fileset>
         </copy>
 
-        <copy file="${gwt_lib.dir}/google_web_toolkit/Time.java" todir="${gwt_dist.dir}/src/org/mathpiper/builtin/functions/core" />
+        <copy overwrite="true" file="${gwt_lib.dir}/google_web_toolkit/Time.java" todir="${gwt_dist.dir}/src/org/mathpiper/builtin/functions/core" />
         <copy file="${build.dir}/src/org/mathpiper/Scripts.java" todir="${gwt_dist.dir}/src/org/mathpiper" />
         <copy file="${build.dir}/src/org/mathpiper/Version.java" todir="${gwt_dist.dir}/src/org/mathpiper" />
-        <copy file="${gwt_lib.dir}/google_web_toolkit/mathpiper.html" todir="${gwt_dist.dir}/war" />
-        <copy file="${gwt_lib.dir}/google_web_toolkit/WebConsole.css" todir="${gwt_dist.dir}/war" />
-    	<copy file="${gwt_lib.dir}/google_web_toolkit/icons.gif" todir="${gwt_dist.dir}/war" />
-        <copy file="${gwt_lib.dir}/google_web_toolkit/RichTextToolbar.css" todir="${gwt_dist.dir}/war" />
         
         <copy file="${gwt_lib.dir}/google_web_toolkit/dot_classpath" tofile="${gwt_dist.dir}/.classpath" />
         <copy file="${gwt_lib.dir}/google_web_toolkit/dot_project" tofile="${gwt_dist.dir}/.project" />
         
         <copy file="${gwt_lib.dir}/google_web_toolkit/WEB-INF/web.xml" todir="${gwt_dist.dir}/war/WEB-INF" />
-        <copy file="${library.dir}/gwt-servlet.jar" todir="${gwt_dist.dir}/war/WEB-INF/lib" />
+        <!-- <copy file="${library.dir}/gwt-servlet.jar" todir="${gwt_dist.dir}/war/WEB-INF/lib" /> -->
         
-        
+    </target>
+
+
+    
+    <target id="gwt_console_dist" name="gwt_console_dist" depends="gwt_dist">
+        <copy file="${gwt_lib.dir}/google_web_toolkit/module.gwt.xml.console" tofile="${gwt_dist.dir}/src/org/module.gwt.xml" />
+        <copy file="${gwt_lib.dir}/google_web_toolkit/mathpiper.html" todir="${gwt_dist.dir}/war" />
+        <copy file="${gwt_lib.dir}/google_web_toolkit/WebConsole.css" todir="${gwt_dist.dir}/war" />
+    	<copy file="${gwt_lib.dir}/google_web_toolkit/icons.gif" todir="${gwt_dist.dir}/war" />
+    </target>
+    
+    
+    
+    <target id="gwt_api_dist" name="gwt_api_dist" depends="gwt_dist">
+        <copy file="${gwt_lib.dir}/google_web_toolkit/module.gwt.xml.api" tofile="${gwt_dist.dir}/src/org/module.gwt.xml" />
+        <copy file="${gwt_lib.dir}/google_web_toolkit/api.html" todir="${gwt_dist.dir}/war" />
+
+    </target>
+    
+    
+    
+    <target id="gwt_editor_dist" name="gwt_editor_dist" depends="gwt_dist">
+        <copy file="${gwt_lib.dir}/google_web_toolkit/RichTextToolbar.css" tofile="${gwt_dist.dir}/war" />
     </target>
     
     

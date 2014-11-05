@@ -26,6 +26,8 @@ import com.google.gwt.core.client.Scheduler.RepeatingCommand;
 public class JavaScript implements EntryPoint {
 
     private static Interpreter interpreterInstance;
+    
+    private static EvaluationResponse evaluationResponse;
 
     public JavaScript() {
         interpreterInstance = SynchronousInterpreter.getInstance();
@@ -71,10 +73,8 @@ public class JavaScript implements EntryPoint {
     }
 
     //---------
-    public static String casEvaluate(String send) {
-        EvaluationResponse evaluationResponse = interpreterInstance.evaluate(send);
-
-        return evaluationResponse.getResult();
+    public static void casEvaluate(String send) {
+         evaluationResponse = interpreterInstance.evaluate(send);
     }
 
     //---------
@@ -90,8 +90,13 @@ public class JavaScript implements EntryPoint {
     }-*/;
 
     public static native void exportEvaluateMethod() /*-{
-    $wnd.casEval = function(send){
-    return @org.mathpiper.ui.gui.gwt.JavaScript::casEvaluate(Ljava/lang/String;)(send);
+    $wnd.casEvaluate = function(send){
+    @org.mathpiper.ui.gui.gwt.JavaScript::casEvaluate(Ljava/lang/String;)(send);
+    return {
+    	result: @org.mathpiper.ui.gui.gwt.JavaScript::evaluationResponse.@org.mathpiper.interpreters.EvaluationResponse::getResult()(),
+    	sideeffects: @org.mathpiper.ui.gui.gwt.JavaScript::evaluationResponse.@org.mathpiper.interpreters.EvaluationResponse::getSideEffects()(),
+    	exception: (@org.mathpiper.ui.gui.gwt.JavaScript::evaluationResponse.@org.mathpiper.interpreters.EvaluationResponse::getException()()) ? @org.mathpiper.ui.gui.gwt.JavaScript::evaluationResponse.@org.mathpiper.interpreters.EvaluationResponse::getException()().@java.lang.Exception::getMessage()() : null
+    }
     }
     }-*/;
 

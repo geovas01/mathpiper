@@ -15,11 +15,11 @@
 
   <!-- Specify the app entry point class.                         -->
   
-  <!-- <set-property name="user.agent" value="gecko1_8"/> -->
+   <set-property name="user.agent" value="gecko1_8"/> 
   
   <source path="mathpiper" />
   
-  <entry-point class="org.mathpiper.ui.gui.gwt.WebConsole" />
+  <entry-point class="org.mathpiper.ui.gui.gwt.JavaScript" />
 
 </module>
  
