@@ -24,7 +24,7 @@ try
 			prologue = templateFoldsMap.get("prologue").getContents();
 			prologue = prologue.replace("$title", foldTitle);
 			
-			premarkdown = templateFoldsMap.get("preexplanation").getContents();
+			pre = templateFoldsMap.get("preexplanation").getContents();
 			markdownFold = fold;
 
 			if(markdownFold == null)
@@ -91,7 +91,7 @@ try
 		
 		}
     
-};
+	};
     
     
     copyFile(new File(projectDirectory + java.io.File.separator + "lib" + java.io.File.separator + "raphael-min.js" ), new File(buildDirectoryPath + "raphael-min.js"));
