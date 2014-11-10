@@ -158,6 +158,10 @@
 			<BEGIN>%asciidoc[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;\?]*</BEGIN>
 			<END>%/asciidoc</END>
 		</SPAN_REGEXP>
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="wolfram::MAIN">
+			<BEGIN>%wolfram[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;\?]*</BEGIN>
+			<END>%/wolfram</END>
+		</SPAN_REGEXP>
 
 	</RULES>
     

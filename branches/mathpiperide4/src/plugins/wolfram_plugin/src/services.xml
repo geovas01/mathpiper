@@ -1,0 +1,7 @@
+<!DOCTYPE SERVICES SYSTEM "services.dtd">
+
+<SERVICES>
+	<SERVICE CLASS="console.Shell" NAME="Wolfram">
+                new org.mathpiper.ide.wolframplugin.WolframShell();
+        </SERVICE>
+</SERVICES>

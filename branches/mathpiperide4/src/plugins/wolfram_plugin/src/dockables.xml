@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<!-- Dockable component definition file for wolfram plugin -->
+<!-- $Id: dockables.xml 4474 2003-02-09 20:37:14Z spestov $
+-->
+
+<!DOCTYPE DOCKABLES SYSTEM "dockables.dtd">
+
+<!-- wolfram dockable windows -->
+
+<DOCKABLES>
+	<DOCKABLE NAME="wolfram">
+		new org.mathpiper.ide.wolframplugin.Wolfram(view, position);
+	</DOCKABLE>
+</DOCKABLES>

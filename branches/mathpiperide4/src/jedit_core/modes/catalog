@@ -665,6 +665,9 @@
 
 <MODE NAME="vrml2"		FILE="vrml2.xml"
 				FILE_NAME_GLOB="*.{wrl,wrz}"/>
+				
+<MODE NAME="wolfram"		FILE="wolfram.xml"
+				FILE_NAME_GLOB="*.m" />
 
 <MODE NAME="xml"		FILE="xml.xml"
 				FILE_NAME_GLOB="*.{xml,xhtml,xsd,qrc,ui,docbook}"

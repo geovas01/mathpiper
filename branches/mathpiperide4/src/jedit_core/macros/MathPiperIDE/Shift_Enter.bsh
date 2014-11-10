@@ -19,6 +19,8 @@
 
 import org.mathpiper.ide.mathpiperplugin.MathPiperInterpreter;
 import org.mathpiper.ide.maximaplugin.MaximaWrapper;
+import org.mathpiper.ide.wolframplugin.WolframWrapper;
+import org.mathpiper.ide.wolframplugin.WolframPlugin;
 import org.mathpiper.ide.fricasplugin.FriCASWrapper;
 import org.mathpiper.ide.sqldbplugin.SQLDBWrapper;
 import java.io.File;
@@ -944,6 +946,69 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 			
 			
 
+					
+		}//end if }}}
+
+		
+		
+		
+		///{{{ *** %wolfram ***.
+		else if(foldType.equalsIgnoreCase("%wolfram"))    
+		{
+			//Wolfram section.			
+			
+
+			try 
+			{   
+
+				foldName = foldProperties.get("name");
+				
+				
+			//{{{
+			org.mathpiperide.ResponseListener responseListener = new org.mathpiperide.ResponseListener() {
+				response(response)
+				{
+					result = response;
+					
+					//displayResult(true);
+					
+				}//end method.
+				
+				remove()
+				{
+					return true;
+				}//end method.
+				
+			};//end interface implementation.
+			
+			//}}}
+				system = WolframWrapper.getInstance(jEdit.getProperty(WolframPlugin.OPTION_PREFIX + "hostname"),
+					jEdit.getProperty(WolframPlugin.OPTION_PREFIX + "username"),
+					jEdit.getProperty(WolframPlugin.OPTION_PREFIX + "password"));
+				
+				system.addResponseListener(responseListener);
+				//System.out.println(tempFilePath);
+				//tempFileName = tempFile.getName();
+				//sendString = "batch(\""+tempFileName+"\");\n";
+				
+				sendString = codeText;
+				sendString = sendString.trim();
+				system.send(sendString + "\n");
+								
+				//this.console.setShell("Maxima");o = console.getOutput();o.writeAttrs(null, "\n");
+				//runCommandInConsole(view,"Maxima","LoadScript(\""+path+"\");");
+				//runCommandInConsole(view,"Maxima",codeText + "\n");
+				
+				output_fold_type = "%output";
+				//System.out.println(
+								
+					
+			}catch(Exception e) 
+			{
+				result = e.getMessage();
+				output_fold_type = "%error ";
+			}
+			
 					
 		}//end if }}}
 
