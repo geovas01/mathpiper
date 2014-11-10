@@ -75,6 +75,7 @@
 		<pathelement path="${non_plugin.jars.dir}/jlog.jar" />
 		<pathelement path="${non_plugin.jars.dir}/hsqldb.jar" />
 		<pathelement path="${non_plugin.jars.dir}/sqltool.jar" />
+		<pathelement path="${non_plugin.jars.dir}/ganymed-ssh2-build210.jar" />
 		<!--<pathelement path="${master.lib.dir}/jars/bsh-2.0b4.jar" />
 		<pathelement path="${master.lib.dir}/jars/beansheet_plugin.jar" />  
 		-->
@@ -236,6 +237,21 @@
 		</ant>
 		
 		<copy file="${plugins.build.dir}/maxima_plugin/dist/maxima_plugin.jar" todir="${plugins.jars.dir}"/>
+		
+	</target>
+	
+	
+	<target id="wolfram_plugin" name="wolfram_plugin" depends="" >
+		<ant dir="${plugins.src.dir}/wolfram_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
+			<property name="build.dir" value="${plugins.build.dir}/wolfram_plugin"/>
+			<property name="compile.source" value="${master.compile.source}"/>
+			<property name="compile.target" value="${master.compile.target}"/>
+			<property name="src.dir" value="${plugins.src.dir}/wolfram_plugin/src"/>
+			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
+			<reference refid="build_classpath"/>
+		</ant>
+		
+		<copy file="${plugins.build.dir}/wolfram_plugin/dist/wolfram_plugin.jar" todir="${plugins.jars.dir}"/>
 		
 	</target>
 	
@@ -491,7 +507,8 @@
 	
 	<!-- -->
 	<target id="all-plugins" name="all-plugins" depends="mathpiper_plugin, mathpiper_docs_plugin, jlog_plugin, 
-		geogebra_plugin, u6502_plugin, jfreechart_plugin, threedxplormathj_plugin, mpreduce_plugin, sqldb_plugin, mathpiperstate_plugin" />
+		geogebra_plugin, u6502_plugin, jfreechart_plugin, threedxplormathj_plugin, mpreduce_plugin, sqldb_plugin, 
+		wolfram_plugin, mathpiperstate_plugin" />
 	
 	
 	

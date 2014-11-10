@@ -1,0 +1,26 @@
+A fold can be executed by placing the cursor in a fold then pressing <shift><enter>.
+The Reduce console can be accessed by selecting Plugins->Console->Console and then 
+the MPReduce console.
+
+
+
+
+%wolfram,title=""
+
+2 + 2
+
+%/wolfram
+
+
+
+%wolfram,title=""
+
+n = 1; 
+While[n < 4, Print[n]; n++];
+
+%/wolfram
+
+
+
+
+

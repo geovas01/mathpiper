@@ -1,0 +1,75 @@
+# Properties file for Wolfram plugin.
+
+
+#{{{ Must be in order.
+# jEdit only needs to load the plugin the first time the user accesses it
+# the presence of this property also tells jEdit the plugin is using the new API
+plugin.org.mathpiper.ide.wolframplugin.WolframPlugin.activate=defer
+# we only have one dependency, jEdit 4.2, since we use the new plugin API
+# These two properties are required for all plugins
+plugin.org.mathpiper.ide.wolframplugin.WolframPlugin.name=Wolfram
+plugin.org.mathpiper.ide.wolframplugin.WolframPlugin.author=Ted Kosan
+
+# version number == jEdit version number
+plugin.org.mathpiper.ide.wolframplugin.WolframPlugin.version=4.3
+
+# online help
+plugin.org.mathpiper.ide.wolframplugin.WolframPlugin.docs=index.html
+plugin.org.mathpiper.ide.wolframplugin.WolframPlugin.depend.0=jedit 04.02.01.00
+plugin.org.mathpiper.ide.wolframplugin.WolframPlugin.depend.1=jdk 1.5
+plugin.org.mathpiper.ide.wolframplugin.WolframPlugin.2=plugin console.ConsolePlugin 4.3.5
+plugin.org.mathpiper.ide.wolframplugin.WolframPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
+plugin.org.mathpiper.ide.wolframplugin.WolframPlugin..longdescription=description.html
+#}}}
+
+
+
+
+wolfram.shell.msg.info=\nWolfram Shell \n\
+
+
+wolfram.shell.msg.usage=See http://wolfram.sourceforge.net for information on how to use Wolfram.
+
+
+
+# plugin menu
+plugin.org.mathpiper.ide.wolframplugin.WolframPlugin.menu=wolfram
+#	- \
+#	wolfram.choose-file \
+#	wolfram.save-file \
+#	wolfram.copy-to-buffer
+
+# action labels for actions supplied by dockables.xml
+wolfram.label=wolfram
+
+
+# plugin option pane
+plugin.org.mathpiper.ide.wolframplugin.WolframPlugin.option-pane=wolfram
+
+# Option pane activation BeanShell snippet
+options.wolfram.code=new org.mathpiper.ide.wolframplugin.WolframOptionPane();
+
+# Option pane labels
+options.wolfram.label=Wolfram
+
+
+# window title
+wolfram.title=Wolfram
+
+# window toolbar buttons
+wolfram.choose-file.icon=Open.png
+wolfram.save-file.icon=Save.png
+wolfram.copy-to-buffer.icon=CopyToBuffer.png
+
+
+# Setting not defined but supplied for completeness
+options.wolfram.filepath=
+
+options.wolfram.save-options-button-label=Save
+
+options.wolfram.hostname=192.168.254.27
+options.wolfram.username=pi
+options.wolfram.password=<none>
+
+
+# :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:
