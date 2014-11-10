@@ -101,6 +101,8 @@ ChangeToForwardSlash(tempFilePath)
 
 mpwExecutionCount++;
 
+displayInProcess = false;
+
 /*
 if(jEdit.getActiveView().getDockableWindowManager().isDockableWindowVisible( "error-list" ))
 {
@@ -798,7 +800,11 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						//wm.getDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME).haltCurrentExecutionButton.setEnabled(false);
 						
 						
-			
+						while(displayInProcess == true)
+						{
+							Thread.sleep(20);
+						}
+						
 						displayResult(true);
 						
 						//JFreeChart handler.
@@ -840,7 +846,6 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						//Note:MathPiper evaluation was moved here to prevent late posting of "Processing..." output fold message.
 					try  
 					{
-						
 						Thread.sleep(200);
 					}
 					catch(InterruptedException e)
@@ -909,6 +914,11 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				{
 					result = response;
 					
+					while(displayInProcess == true)
+					{
+						Thread.sleep(20);
+					}
+					
 					displayResult(true);
 					
 				}//end method.
@@ -970,7 +980,12 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				{
 					result = response;
 					
-					//displayResult(true);
+					while(displayInProcess == true)
+					{
+						Thread.sleep(20);
+					}
+					
+					displayResult(true);
 					
 				}//end method.
 				
@@ -999,6 +1014,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				//runCommandInConsole(view,"Maxima","LoadScript(\""+path+"\");");
 				//runCommandInConsole(view,"Maxima",codeText + "\n");
 				
+				result = "Processing...";
 				output_fold_type = "%output";
 				//System.out.println(
 								
@@ -1035,6 +1051,11 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						
 						
 						result = response;//The variable "result" is what gets displayed in the output fold.
+
+						while(displayInProcess == true)
+						{
+							Thread.sleep(20);
+						}
 						
 						displayResult(true);
 						
@@ -1113,6 +1134,11 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						
 						
 						result = response.trim();//The variable "result" is what gets displayed in the output fold.
+						
+						while(displayInProcess == true)
+						{
+							Thread.sleep(20);
+						}
 						
 						displayResult(true);
 						
@@ -1214,6 +1240,10 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 							}
 						}
 						
+						while(displayInProcess == true)
+						{
+							Thread.sleep(20);
+						}
 						
 						displayResult(true);
 						
@@ -2540,8 +2570,9 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 					
 				}//end if.
 				
-				
+				displayInProcess = true;
 				org.gjt.sp.jedit.io.VFSManager.waitForRequests();
+				
 				
 				void displayResult(isSaveBuffer)
 				{
@@ -2753,7 +2784,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				
 			    displayResult(false);	//Display %info fold.
 			    
-
+			    displayInProcess = false;
 							
 
     } 
