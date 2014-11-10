@@ -183,10 +183,10 @@ public class WolframWrapper implements Runnable {
 	    inputStream.read(bytes, 0, serialAvailable);
 	    responseBuffer.append(new String(bytes));
 	    response = responseBuffer.toString();
-	    // System.out.println("SSSSS " + response);
+	    // System.out.println("WOLFRAM RESPONSE: " + response);
 	    Matcher matcher = inputPromptPattern.matcher(response);
 	    if (matcher.find()) {
-		// System.out.println("PPPPPP found end");
+	    	// System.out.println("WOLFRAM FOUND In[]:= ");
 		responseBuffer.delete(0, responseBuffer.length());
 		int promptIndex = response.lastIndexOf("In[");
 
