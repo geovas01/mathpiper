@@ -83,15 +83,17 @@ Result: Sine(_y)^2+Sine(_y)+1;
 In> Substitute(ToAtom("+"), ToAtom("-")) _a+_b
 Result: _a-_b
 
+In> Substitute(ToAtom("And?"), ToAtom("+")) _x And? _y
+Result: _x+_y
+
 In> Substitute(_a+_b, _x) _a+_b+_c;
 Result: _x+_c;
-
 
 In> Substitute(_b+_c, _x) _a+_b+_c;
 Result: _a+_b+_c;
 
 Workaround:
-In>tmp := Substitute(_c,_x-_b)  _a+_b+_c;
+In> tmp := Substitute(_c,_x-_b)  _a+_b+_c;
 Result: _a+_b+_x-_b
 
 In> tmp
