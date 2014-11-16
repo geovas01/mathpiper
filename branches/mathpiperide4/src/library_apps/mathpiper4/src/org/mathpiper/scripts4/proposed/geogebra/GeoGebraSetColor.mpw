@@ -1,0 +1,14 @@
+%mathpiper,def="GeoGebraSetColor"
+
+10 # GeoGebraSetColor(name_String?, red_Integer?, green_Integer?, blue_Integer?)  <--
+{
+    JavaCall(geogebra,"setColor", name, red, green, blue);
+};
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
