@@ -1,0 +1,14 @@
+%mathpiper,def="GeoGebraSetPointSize"
+
+10 # GeoGebraSetPointSize(name_String?, size_Integer?)  <--
+{
+    JavaCall(geogebra,"setPointSize", name, size);
+};
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+

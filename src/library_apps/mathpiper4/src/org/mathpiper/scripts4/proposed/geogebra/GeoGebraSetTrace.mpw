@@ -1,0 +1,14 @@
+%mathpiper,def="GeoGebraSetTrace"
+
+10 # GeoGebraSetTrace(name_String?, state_Boolean?)  <--
+{
+    JavaCall(geogebra,"setTrace", name, state);
+};
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+

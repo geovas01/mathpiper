@@ -1,0 +1,14 @@
+%mathpiper,def="GeoGebraSetLabelVisible"
+
+10 # GeoGebraSetLabelVisible(name_String?, size_Boolean?)  <--
+{
+    JavaCall(geogebra,"setLabelVisible", name, size);
+};
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
