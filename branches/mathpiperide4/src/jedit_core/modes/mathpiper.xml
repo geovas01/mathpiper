@@ -316,7 +316,8 @@
             <KEYWORD2>AssocDelete</KEYWORD2>
             <KEYWORD2>AssocIndices</KEYWORD2>
             <KEYWORD2>AssocValues</KEYWORD2>
-            <KEYWORD2>CosN</KEYWORD2>
+            <KEYWORD2>CosineN</KEYWORD2>
+            <KEYWORD2>CosineD</KEYWORD2>
             <KEYWORD2>ExpN</KEYWORD2>
             <KEYWORD2>MathExpDoubling</KEYWORD2>
             <KEYWORD2>MathExpTaylor0</KEYWORD2>
@@ -326,8 +327,10 @@
             <KEYWORD2>MathPi</KEYWORD2>
             <KEYWORD2>PositiveIntPower</KEYWORD2>
             <KEYWORD2>PowerN</KEYWORD2>
-            <KEYWORD2>SinN</KEYWORD2>
-            <KEYWORD2>TanN</KEYWORD2>
+            <KEYWORD2>SineN</KEYWORD2>
+            <KEYWORD2>SineD</KEYWORD2>
+            <KEYWORD2>TangentN</KEYWORD2>
+            <KEYWORD2>TangentD</KEYWORD2>
             <KEYWORD2>Trigonometry</KEYWORD2>
             <KEYWORD2>Easter</KEYWORD2>
             <KEYWORD2>Combinations</KEYWORD2>
@@ -785,19 +788,22 @@
             <KEYWORD2>PoissonDistribution</KEYWORD2>
             <KEYWORD2>tDistribution</KEYWORD2>
             <KEYWORD2>ChiSquareTest</KEYWORD2>
-            <KEYWORD2>ArcCos</KEYWORD2>
-            <KEYWORD2>ArcSin</KEYWORD2>
-            <KEYWORD2>ArcTan</KEYWORD2>
-            <KEYWORD2>Cos</KEYWORD2>
+            <KEYWORD2>ArcCosine</KEYWORD2>
+            <KEYWORD2>ArcSine</KEYWORD2>
+            <KEYWORD2>ArcTangent</KEYWORD2>
+            <KEYWORD2>Cosine</KEYWORD2>
             <KEYWORD2>Exp</KEYWORD2>
             <KEYWORD2>Ln</KEYWORD2>
-            <KEYWORD2>Sin</KEYWORD2>
-            <KEYWORD2>Tan</KEYWORD2>
-            <KEYWORD2>ArcCosN</KEYWORD2>
+            <KEYWORD2>Sine</KEYWORD2>
+            <KEYWORD2>SineD</KEYWORD2>
+            <KEYWORD2>Tangent</KEYWORD2>
+            <KEYWORD2>ArcCosineD</KEYWORD2>
             <KEYWORD2>ArcCoshN</KEYWORD2>
-            <KEYWORD2>ArcSinN</KEYWORD2>
+            <KEYWORD2>ArcSineN</KEYWORD2>
+            <KEYWORD2>ArcSineD</KEYWORD2>
             <KEYWORD2>ArcSinhN</KEYWORD2>
-            <KEYWORD2>ArcTanN</KEYWORD2>
+            <KEYWORD2>ArcTangentN</KEYWORD2>
+            <KEYWORD2>ArcTangentD</KEYWORD2>
             <KEYWORD2>ArcTanhN</KEYWORD2>
             <KEYWORD2>CoshN</KEYWORD2>
             <KEYWORD2>MathPi</KEYWORD2>
