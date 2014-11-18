@@ -980,10 +980,14 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				{
 					result = response;
 					
-					while(displayInProcess == true)
+					System.out.println("XXX " + result);
+					
+					if(result.startsWith("\n"))
 					{
-						Thread.sleep(20);
+						result = result.substring(1, result.length());
 					}
+					
+					result = result.replaceAll("Out\\[[0-9]+\\]=", "");
 					
 					displayResult(true);
 					
@@ -1008,6 +1012,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				
 				sendString = codeText;
 				sendString = sendString.trim();
+				sendString = sendString.replace("\n", " ");
 				system.send(sendString + "\n");
 								
 				//this.console.setShell("Maxima");o = console.getOutput();o.writeAttrs(null, "\n");

@@ -191,7 +191,7 @@ public class WolframWrapper implements Runnable {
 		int promptIndex = response.lastIndexOf("In[");
 
 		prompt = response.substring(promptIndex, response.length());
-		response = response.substring(0, promptIndex);
+		response = response.substring(0, promptIndex - 2);
 		keepChecking = false;
 
 	    }// end if.
