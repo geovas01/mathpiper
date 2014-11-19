@@ -232,6 +232,7 @@ vfs.browser.next.shortcut=A+Right
 
 #{{{ MathPiperIDE
 MathPiperIDE/Shift_Enter.shortcut=S+ENTER
+MathPiperIDE/Control_Shift_Enter.shortcut=CS+ENTER
 MathPiperIDE/Shift_Line_Numbers.shortcut=F2
 insert-newline.shortcut=ENTER
 MathPiperIDE/process_markdown.shortcut=F4
