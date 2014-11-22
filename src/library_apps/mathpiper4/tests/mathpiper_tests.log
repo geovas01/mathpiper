@@ -1,5 +1,5 @@
-Wed Aug 07 22:10:37 EDT 2013.
-MathPiper version: mp4_alpha_v.117.
+Sat Nov 22 01:15:08 EST 2014.
+MathPiper version: mp4_beta_v.133.
 Running all tests except for documentation examples tests..
 Beginning of tests:
 
@@ -324,7 +324,7 @@ Test suite for VarList :
 
 --Concat
 
---AssocDelete
+--AssociationDelete
 
 ---- Arithmetic Operations
 
@@ -458,4 +458,4 @@ Testing | in file </org/mathpiper/scripts4/a_initialization/standard/vertical_ba
 
 GlobalVariables: [] 
 
-Elapsed Time: 0 min 15 sec
+Elapsed Time: 0 min 2 sec

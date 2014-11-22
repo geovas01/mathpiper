@@ -106,7 +106,7 @@ Plot2DJFreeChart(values_List?, _optionsHash) <--
     //Remove Plot2Ds options so that they dont get passed through to LineChart();
     ForEach(name, ["xrange", "xname", "yname", "output", "precision", "points", "depth"])
     {
-        AssocDelete(optionsHash, name);
+        AssociationDelete(optionsHash, name);
     };
     
     
@@ -142,7 +142,7 @@ Plot2DJFreeChart(values_List?, _optionsHash) <--
     
     
     //Add any options to the list.
-    ForEach(key, AssocIndices(optionsHash))
+    ForEach(key, AssociationIndices(optionsHash))
     {
         lineChartCallListForm := Append(lineChartCallListForm, Apply(":", [key, optionsHash[key]]));
     };

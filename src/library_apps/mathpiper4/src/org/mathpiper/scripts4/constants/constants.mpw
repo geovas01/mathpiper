@@ -46,7 +46,7 @@ RuleHoldArguments("CachedConstant", 3, 10, And?(Atom?(Catom), Function?(Cfunc)))
     //        Write(["debug step 0: ", Ccache, Eval(Ccache), Catom, Cfunc, Cname]);
             // check that the constant is not already defined
             Decide(
-              Equal?(BuiltinAssoc(Cname, Eval(Ccache)), None),        // the constant is not already defined, so need to define "Catom" and the corresponding function "Catom"()
+              Equal?(BuiltinAssociation(Cname, Eval(Ccache)), None),        // the constant is not already defined, so need to define "Catom" and the corresponding function "Catom"()
               {        // e.g. Catom evaluates to Pi, Ccache to a name e.g. CacheOfConstantsN, which is bound to a hash
                     MacroUnassign(Catom);
     //                Write(["debug step 1: ", Cachename, Ccache, Eval(Ccache)]);
@@ -64,7 +64,7 @@ RuleHoldArguments("CachedConstant", 3, 10, And?(Atom?(Catom), Function?(Cfunc)))
                             Assign(newprec, BuiltinPrecisionGet());
                             // fetch the cache entry for this constant
                             // note that this procedure will store the name of the cache here in this statement as Eval(Ccache)
-                            Assign(cachedC, BuiltinAssoc(@Cname, @Ccache));
+                            Assign(cachedC, BuiltinAssociation(@Cname, @Ccache));
                             Decide( MathNth(cachedC, 2) !=? newprec,
                               {        // need to recalculate at current precision
                                     Decide(Equal?(InVerboseMode(),True), Echo("CachedConstant: Info: constant ", @Cname, " is being recalculated at precision ", newprec));
@@ -95,7 +95,7 @@ RuleHoldArguments("CachedConstant", 3, 10, And?(Atom?(Catom), Function?(Cfunc)))
     Function("AssignCachedConstantsN", [])
     {
             Local(var,fname);
-            ForEach(var, AssocIndices(CacheOfConstantsN))
+            ForEach(var, AssociationIndices(CacheOfConstantsN))
             {
                 MacroUnassign(ToAtom(var));
         		Assign(fname,ConcatStrings("Internal",var));
@@ -127,7 +127,7 @@ RuleHoldArguments("CachedConstant", 3, 10, And?(Atom?(Catom), Function?(Cfunc)))
     {
     	Check(String?(name), "Argument", "The argument must be a string.");
     	
-        Contains?(AssocIndices(CacheOfConstantsN), name);
+        Contains?(AssociationIndices(CacheOfConstantsN), name);
     };    
     
     

@@ -20,9 +20,9 @@ VerifyNumeric(expression1, expression2, optionsList) :=
         
         associativeList := OptionsToAssociationList(optionsList);
         
-        optionsVariableNamesList := MapSingle("ToAtom", AssocIndices(associativeList));
+        optionsVariableNamesList := MapSingle("ToAtom", AssociationIndices(associativeList));
         
-        optionsValuesList := MapSingle("ToAtom", AssocValues(associativeList));
+        optionsValuesList := MapSingle("ToAtom", AssociationValues(associativeList));
         
         variablesList1 := HeapSort(variablesList1,"LessThan?");
         
