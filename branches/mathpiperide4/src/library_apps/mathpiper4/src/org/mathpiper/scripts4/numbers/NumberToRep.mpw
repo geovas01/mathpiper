@@ -18,18 +18,18 @@
     sgn      := Sign(N); 
     assoc    := DumpNumber(Abs(N));
     //Decide(InVerboseMode(),[ Tell("   ",assoc); Tell("   ",sgn); ]);
-    typ := Assoc("type",assoc)[2];
+    typ := Association("type",assoc)[2];
     //Decide(InVerboseMode(),Tell("   ",typ));
     Decide( typ =? "BigDecimal",
        {
-          rep := [ sgn*Assoc("unscaledValue",assoc)[2],
-                   Assoc("precision",    assoc)[2],
-                   Assoc("scale",        assoc)[2] 
+          rep := [ sgn*Association("unscaledValue",assoc)[2],
+                   Association("precision",    assoc)[2],
+                   Association("scale",        assoc)[2] 
                  ];
        },
        {
           Local(val,prec);
-          val  := Assoc("value",assoc)[2];
+          val  := Association("value",assoc)[2];
           prec := Length(ToString(val));
           rep := [ sgn*val, prec ];
        }

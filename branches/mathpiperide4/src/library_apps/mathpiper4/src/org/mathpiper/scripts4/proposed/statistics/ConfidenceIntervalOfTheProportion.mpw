@@ -71,7 +71,7 @@ which contains the lower limit, the upper limit, and the critical Z score.
 In> ConfidenceIntervalOfTheProportion(110,175,.90)
 Result: [["lowerLimit",0.5684923463],["upperLimit",0.6886505109],["criticalZScore",1.644853952]]
 
-*SEE ConfidenceIntervalOfTheMean, V, Assoc
+*SEE ConfidenceIntervalOfTheMean, V, Association
 %/mathpiper_docs
 
     %output,preserve="false"

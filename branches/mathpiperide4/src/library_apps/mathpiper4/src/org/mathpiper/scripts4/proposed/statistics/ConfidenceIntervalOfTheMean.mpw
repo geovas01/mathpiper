@@ -118,7 +118,7 @@ Using the normal distribution.
 Critical Z-Score: 1.644853952 
 Standard error of the mean: 6.629126073 
 
-*SEE ConfidenceIntervalOfTheProportion, V, Assoc
+*SEE ConfidenceIntervalOfTheProportion, V, Association
 %/mathpiper_docs
 
     %output,preserve="false"

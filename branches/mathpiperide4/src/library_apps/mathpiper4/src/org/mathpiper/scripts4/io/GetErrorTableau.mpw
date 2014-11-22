@@ -42,7 +42,7 @@ GetError(errorclass_String?) <--
 
 
 /// delete error
-ClearError(errorclass_String?) <-- AssocDelete(GetErrorTableau(), errorclass);
+ClearError(errorclass_String?) <-- AssociationDelete(GetErrorTableau(), errorclass);
 
 %/mathpiper
 

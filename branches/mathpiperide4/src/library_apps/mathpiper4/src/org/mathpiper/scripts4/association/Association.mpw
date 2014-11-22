@@ -1,21 +1,21 @@
-%mathpiper,def="Assoc"
+%mathpiper,def="Association"
 
-/* Assoc : given an assoc list like for example l:=[[a,2],[b,3]],
-   Assoc(b,l) will return [b,3]. if the key is not in the list,
+/* Association : given an assoc list like for example l:=[[a,2],[b,3]],
+   Association(b,l) will return [b,3]. if the key is not in the list,
    it will return the atom None.
 */
 
-Function("Assoc",[_key,_list])  BuiltinAssoc(key,list);
+Function("Association",[_key,_list])  BuiltinAssociation(key,list);
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="Assoc",categories="Programming Functions;Lists (Operations)"
-*CMD Assoc --- return element stored in association list
+%mathpiper_docs,name="Association",categories="Programming Functions;Lists (Operations)"
+*CMD Association --- return element stored in association list
 *STD
 *CALL
-        Assoc(key, alist)
+        Association(key, alist)
 
 *PARMS
 
@@ -33,7 +33,7 @@ Association lists are represented as a list of two-entry lists. The
 first element in the two-entry list is the key, the second element is
 the value stored under this key.
 
-The call {Assoc(key, alist)} can (probably more
+The call {Association(key, alist)} can (probably more
 intuitively) be accessed as {alist[key]}.
 
 *E.G.
@@ -50,11 +50,11 @@ Result: True;
 In> writer["Ulysses"] := "James Joyce";
 Result: True;
 
-In> Assoc("Henry IV", writer);
+In> Association("Henry IV", writer);
 Result: ["Henry IV","Shakespeare"];
 
-In> Assoc("War and Peace", writer);
+In> Association("War and Peace", writer);
 Result: None;
 
-*SEE AssocIndices, [], :=, AssocDelete, AssocValues
+*SEE AssociationIndices, [], :=, AssociationDelete, AssociationValues
 %/mathpiper_docs

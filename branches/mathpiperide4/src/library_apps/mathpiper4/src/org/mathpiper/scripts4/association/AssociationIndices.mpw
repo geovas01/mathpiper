@@ -1,17 +1,17 @@
-%mathpiper,def="AssocIndices"
+%mathpiper,def="AssociationIndices"
 
-AssocIndices(associndiceslist_List?) <--
+AssociationIndices(associndiceslist_List?) <--
   DestructiveReverse(MapSingle("First",associndiceslist));
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="AssocIndices",categories="Programming Functions;Lists (Operations)"
-*CMD AssocIndices --- return the keys in an association list
+%mathpiper_docs,name="AssociationIndices",categories="Programming Functions;Lists (Operations)"
+*CMD AssociationIndices --- return the keys in an association list
 *STD
 *CALL
-        AssocIndices(alist)
+        AssociationIndices(alist)
 
 *PARMS
 
@@ -36,8 +36,8 @@ Result: True;
 In> writer["Ulysses"] := "James Joyce";
 Result: True;
 
-In> AssocIndices(writer);
+In> AssociationIndices(writer);
 Result: ["Iliad","Henry IV","Ulysses"];
 
-*SEE Assoc, AssocDelete, AssocValues
+*SEE Association, AssociationDelete, AssociationValues
 %/mathpiper_docs

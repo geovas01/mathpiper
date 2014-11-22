@@ -1,17 +1,17 @@
-%mathpiper,def="AssocValues"
+%mathpiper,def="AssociationValues"
 
-AssocValues(assocvalueslist_List?) <--
+AssociationValues(assocvalueslist_List?) <--
   DestructiveReverse(MapSingle(Lambda([x],First(Rest(x))),assocvalueslist));
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="AssocValues",categories="Programming Functions;Lists (Operations)",access="experimental"
-*CMD AssocValues --- return the values in an association list
+%mathpiper_docs,name="AssociationValues",categories="Programming Functions;Lists (Operations)",access="experimental"
+*CMD AssociationValues --- return the values in an association list
 *STD
 *CALL
-        AssocValues(alist)
+        AssociationValues(alist)
 
 *PARMS
 
@@ -36,8 +36,8 @@ Result: True;
 In> writer["Ulysses"] := "James Joyce";
 Result: True;
 
-In> AssocValues(writer);
+In> AssociationValues(writer);
 Result: ["Homer","ShakespeareJames Joyce"];
 
-*SEE Assoc, AssocDelete, AssocIndices
+*SEE Association, AssociationDelete, AssociationIndices
 %/mathpiper_docs

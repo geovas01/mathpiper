@@ -1,11 +1,11 @@
-%mathpiper,def="AssocDelete"
+%mathpiper,def="AssociationDelete"
 
 /// Delete an element of an associative list.
 LocalSymbols(hash, key, element, hashexpr)
 {
 
-/// AssocDelete(hash,["key", value])
-10 # AssocDelete(hash_List?, element_List?) <--
+/// AssociationDelete(hash,["key", value])
+10 # AssociationDelete(hash_List?, element_List?) <--
 {
         Local(index);
         index := Find(hash, element);
@@ -18,17 +18,17 @@ LocalSymbols(hash, key, element, hashexpr)
 };
 
 
-/// AssocDelete(hash, "key")
-20 # AssocDelete(hash_List?, key_String?) <--
+/// AssociationDelete(hash, "key")
+20 # AssociationDelete(hash_List?, key_String?) <--
 {
-        AssocDelete(hash, BuiltinAssoc(key, hash));
+        AssociationDelete(hash, BuiltinAssociation(key, hash));
 };
 
-30 # AssocDelete(hash_List?, None) <-- False;
+30 # AssociationDelete(hash_List?, None) <-- False;
 
-//HoldArgument("AssocDelete", "hash");
-//UnFence("AssocDelete", 1);
-//UnFence("AssocDelete", 2);
+//HoldArgument("AssociationDelete", "hash");
+//UnFence("AssociationDelete", 1);
+//UnFence("AssociationDelete", 2);
 
 };        // LocalSymbols(hash, ...)
 
@@ -36,12 +36,12 @@ LocalSymbols(hash, key, element, hashexpr)
 
 
 
-%mathpiper_docs,name="AssocDelete",categories="Programming Functions;Lists (Operations)"
-*CMD AssocDelete --- delete an entry in an association list
+%mathpiper_docs,name="AssociationDelete",categories="Programming Functions;Lists (Operations)"
+*CMD AssociationDelete --- delete an entry in an association list
 *STD
 *CALL
-        AssocDelete(alist, "key")
-        AssocDelete(alist, [key, value])
+        AssociationDelete(alist, "key")
+        AssociationDelete(alist, [key, value])
 
 *PARMS
 
@@ -76,10 +76,10 @@ Result: True;
 In> writer["Ulysses"] := "James Joyce";
 Result: True;
 
-In> AssocDelete(writer, "Henry IV")
+In> AssociationDelete(writer, "Henry IV")
 Result: True;
 
-In> AssocDelete(writer, "Henry XII")
+In> AssociationDelete(writer, "Henry XII")
 Result: False;
 
 In> writer
@@ -94,12 +94,12 @@ Result: [["Iliad","Homer"],["Ulysses","James Joyce"],
 In> writer["Ulysses"];
 Result: "James Joyce";
 
-In> AssocDelete(writer,["Ulysses","James Joyce"]);
+In> AssociationDelete(writer,["Ulysses","James Joyce"]);
 Result: True;
 
 In> writer
 Result: [["Iliad","Homer"],["Ulysses","Dublin"]];
 
 
-*SEE Assoc, AssocIndices, AssocValues
+*SEE Association, AssociationIndices, AssociationValues
 %/mathpiper_docs

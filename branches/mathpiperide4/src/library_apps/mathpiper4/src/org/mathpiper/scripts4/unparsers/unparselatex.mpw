@@ -216,10 +216,10 @@ LocalSymbols(UnparseLatexRegularOps, UnparseLatexRegularPrefixOps, UnparseLatexG
   {
     Check(String?(string), "Argument", "UnparseLatex internal error: non-string argument of UnparseLatexLatexify");
     /* Check if it's a greek letter or a special name */
-    Decide(Contains?(AssocIndices(UnparseLatexSpecialNames), string), UnparseLatexSpecialNames[string],
+    Decide(Contains?(AssociationIndices(UnparseLatexSpecialNames), string), UnparseLatexSpecialNames[string],
     Decide(Contains?(UnparseLatexGreekLetters, string), ConcatStrings("\\", string, " "),
-    Decide(Contains?(AssocIndices(UnparseLatexRegularOps), string), UnparseLatexRegularOps[string],
-    Decide(Contains?(AssocIndices(UnparseLatexRegularPrefixOps), string), UnparseLatexRegularPrefixOps[string],
+    Decide(Contains?(AssociationIndices(UnparseLatexRegularOps), string), UnparseLatexRegularOps[string],
+    Decide(Contains?(AssociationIndices(UnparseLatexRegularPrefixOps), string), UnparseLatexRegularPrefixOps[string],
     Decide(Length(string) >=? 2 And? Number?(ToAtom(StringMidGet(2, Length(string)-1, string))), ConcatStrings(StringMidGet(1,1,string), "_{", StringMidGet(2, Length(string)-1, string), "}"),
     Decide(Length(string) >? 2, ConcatStrings("\\mathrm{ ", string, " }"),
     string
@@ -276,10 +276,10 @@ LocalSymbols(UnparseLatexMathFunctions, UnparseLatexMathFunctions2) {
   /* Precedence of 120 because we'd like to process other functions like sqrt or exp first */
 
   // generic math functions of one argument
-  120 # UnparseLatex(expr_Function?, _p):: (ArgumentsCount(expr) =? 1 And? Contains?(AssocIndices(UnparseLatexMathFunctions), Type(expr)) ) <-- UnparseLatexBracketIf(p <? PrecedenceGet("*"), ConcatStrings(UnparseLatexMathFunctions[Type(expr)], UnparseLatex( FunctionToList(expr)[2], PrecedenceGet("*")) ) );
+  120 # UnparseLatex(expr_Function?, _p):: (ArgumentsCount(expr) =? 1 And? Contains?(AssociationIndices(UnparseLatexMathFunctions), Type(expr)) ) <-- UnparseLatexBracketIf(p <? PrecedenceGet("*"), ConcatStrings(UnparseLatexMathFunctions[Type(expr)], UnparseLatex( FunctionToList(expr)[2], PrecedenceGet("*")) ) );
 
   /// math functions two arguments of the form $A_n(x)$
-  120 # UnparseLatex(expr_Function?, _p):: (ArgumentsCount(expr) =? 2 And? Contains?(AssocIndices(UnparseLatexMathFunctions2), Type(expr)) ) <-- UnparseLatexBracketIf(p <? PrecedenceGet("*"),
+  120 # UnparseLatex(expr_Function?, _p):: (ArgumentsCount(expr) =? 2 And? Contains?(AssociationIndices(UnparseLatexMathFunctions2), Type(expr)) ) <-- UnparseLatexBracketIf(p <? PrecedenceGet("*"),
     ConcatStrings(
     UnparseLatexMathFunctions2[Type(expr)],
     "_{",

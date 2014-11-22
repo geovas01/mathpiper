@@ -30,14 +30,14 @@ import org.mathpiper.lisp.Utility;
  *
  *  
  */
-public class BuiltinAssoc extends BuiltinFunction
+public class BuiltinAssociation extends BuiltinFunction
 {
 
-    private BuiltinAssoc()
+    private BuiltinAssociation()
     {
     }
 
-    public BuiltinAssoc(String functionName)
+    public BuiltinAssociation(String functionName)
     {
         this.functionName = functionName;
     }

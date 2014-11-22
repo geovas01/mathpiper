@@ -10,7 +10,7 @@ RuleHoldArguments("AssignArray", 3, 1, String?(indexOrKey))
 {
     Local(keyValuePair);
 
-    keyValuePair := Assoc(indexOrKey, listOrAssociationList);
+    keyValuePair := Association(indexOrKey, listOrAssociationList);
 
     Decide(keyValuePair =? None,
 
