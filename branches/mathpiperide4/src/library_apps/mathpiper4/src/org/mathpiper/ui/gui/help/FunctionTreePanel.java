@@ -17,6 +17,7 @@
 package org.mathpiper.ui.gui.help;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -30,7 +31,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.RandomAccessFile;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -58,6 +58,8 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.ToolTipManager;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.event.ListSelectionEvent;
@@ -90,7 +92,6 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
     private FunctionInfoTree functionsTree;
     private Map documentationIndex;
     private Map licenseIndex;
-    private RandomAccessFile documentFile;
     private JEditorPane editorPane;
     private static StringBuilder seeFunctionsBuilder = new StringBuilder();
     private List pageList;
@@ -170,7 +171,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         docsScrollPane.getVerticalScrollBar().setUnitIncrement(16);
         
 
-        JTabbedPane tabbedPane = new JTabbedPane();
+        final JTabbedPane tabbedPane = new JTabbedPane();
 
         JPanel treePanelContainer = new JPanel();
 
@@ -203,7 +204,22 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
         tabbedPane.addTab("Functions", null, treePanelContainer, "Functions tree.");
 
-        tabbedPane.addTab("Search", null, new SearchPanel(), "Search the function descriptions.");
+        final SearchPanel searchPanel = new SearchPanel();
+        
+        tabbedPane.addTab("Search", null, searchPanel, "Search the function descriptions.");
+        
+        
+    tabbedPane.addChangeListener(new ChangeListener()
+    {
+      public void stateChanged(ChangeEvent e)
+      {
+        Component comp = tabbedPane.getSelectedComponent();
+        if (comp.equals(searchPanel))
+        {
+          searchPanel.focus();
+        }
+      }
+    });
 
 
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, tabbedPane, docsScrollPane);
@@ -1678,6 +1694,28 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
                 for (index = 0; index < mathematicsFunctionsData.length; index++)
                 {
+                    if (showPrivateFunctions == true && mathematicsFunctionsData[index][1].equals("private"))
+                    {
+                        //Pass through to add.
+                    }
+                    else if (showExperimentalFunctions == true && mathematicsFunctionsData[index][1].equals("experimental"))
+                    {
+                        //Pass through to add.
+                    }
+                    else if (mathematicsFunctionsData[index][1].equals("public"))
+                    {
+                        //Pass through to add.
+                    }
+                    else if (showUndocumentedFunctions == true && mathematicsFunctionsData[index][1].equals("undocumented"))
+                    {
+                        //Pass through to add.
+                    }
+                    else
+                    {
+                        //Skip add.
+                        continue;
+                    }
+                    
                     if (mathematicsFunctionsData[index][0].toLowerCase().contains(searchString) || mathematicsFunctionsData[index][2].toLowerCase().contains(searchString))
                     {
                         hits.add(mathematicsFunctionsData[index][0] + " -- " + mathematicsFunctionsData[index][2] + ".");
@@ -1691,6 +1729,28 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
                 for (index = 0; index < programmingFunctionsData.length; index++)
                 {
+                    if (showPrivateFunctions == true && programmingFunctionsData[index][1].equals("private"))
+                    {
+                        //Pass through to add.
+                    }
+                    else if (showExperimentalFunctions == true && programmingFunctionsData[index][1].equals("experimental"))
+                    {
+                        //Pass through to add.
+                    }
+                    else if (programmingFunctionsData[index][1].equals("public"))
+                    {
+                        //Pass through to add.
+                    }
+                    else if (showUndocumentedFunctions == true && programmingFunctionsData[index][1].equals("undocumented"))
+                    {
+                        //Pass through to add.
+                    }
+                    else
+                    {
+                        //Skip add.
+                        continue;
+                    }
+                    
                     if (programmingFunctionsData[index][0].toLowerCase().contains(searchString) || programmingFunctionsData[index][2].toLowerCase().contains(searchString))
                     {
                         hits.add(programmingFunctionsData[index][0] + " -- " + programmingFunctionsData[index][2] + ".");
@@ -1704,6 +1764,28 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
                 for (index = 0; index < operatorsData.length; index++)
                 {
+                    if (showPrivateFunctions == true && operatorsData[index][1].equals("private"))
+                    {
+                        //Pass through to add.
+                    }
+                    else if (showExperimentalFunctions == true && operatorsData[index][1].equals("experimental"))
+                    {
+                        //Pass through to add.
+                    }
+                    else if (operatorsData[index][1].equals("public"))
+                    {
+                        //Pass through to add.
+                    }
+                    else if (showUndocumentedFunctions == true && operatorsData[index][1].equals("undocumented"))
+                    {
+                        //Pass through to add.
+                    }
+                    else
+                    {
+                        //Skip add.
+                        continue;
+                    }
+                    
                     if (operatorsData[index][0].toLowerCase().contains(searchString) || operatorsData[index][2].toLowerCase().contains(searchString))
                     {
                         hits.add(operatorsData[index][0] + " -- " + operatorsData[index][2] + ".");
@@ -1732,6 +1814,12 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                 }
             }
         }//end method.
+        
+        
+        public void focus()
+        {
+            searchTextField.requestFocusInWindow();
+        }
 
 
     }//end class.
