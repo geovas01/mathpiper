@@ -91,7 +91,7 @@ RulebaseListedHoldArguments("SolveSteps",[_equation, _variable, _optionsList]);
 {
     Local(options, path, steps);
     
-    options := OptionsToAssociativeList(optionsList);
+    options := OptionsToAssociationList(optionsList);
     
     Check(Occurrence(equation, variable) >? 0, "Argument", "The variable " ~ ToString(variable) ~ " does not occur in the equation.");
     
@@ -165,7 +165,7 @@ RulebaseListedHoldArguments("StepsView",[_steps, _optionsList]);
     
     result := [];
         
-    options := OptionsToAssociativeList(optionsList);
+    options := OptionsToAssociationList(optionsList);
     
     If(Number?(options["Scale"]))
     {

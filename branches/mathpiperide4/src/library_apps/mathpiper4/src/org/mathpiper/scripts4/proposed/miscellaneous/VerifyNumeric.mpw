@@ -18,7 +18,7 @@ VerifyNumeric(expression1, expression2, optionsList) :=
     {
         optionsList := HeapSort(optionsList, Lambda([x,y],LessThan?(x[1],y[1])));
         
-        associativeList := OptionsToAssociativeList(optionsList);
+        associativeList := OptionsToAssociationList(optionsList);
         
         optionsVariableNamesList := MapSingle("ToAtom", AssocIndices(associativeList));
         

@@ -24,7 +24,7 @@ RulebaseListedHoldArguments("GeoGebraPlot",[_arg1,_arg2]);
 
 10 # GeoGebraPlot(list_List?, _options)::(NumericList?(list) )  <--
 {
-    Decide(List?(options), options := OptionsToAssociativeList(options), options := OptionsToAssociativeList([options]));
+    Decide(List?(options), options := OptionsToAssociationList(options), options := OptionsToAssociationList([options]));
 
     Local(length, index, labelIndex, pointTemplate, segmentCommandTemplate, segmentElementTemplate, command, code, x, y, pointSize);
     
