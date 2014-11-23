@@ -73,19 +73,19 @@ because the latter copy the list before they alter it.
 *E.G.
 
 In> lst := [_a,_b,_c,_d,_e,_f];
-Result: [_a,_b,_c,_d,_e,_f];
+Result: [_a,_b,_c,_d,_e,_f]
 
 In> Delete(lst, 4);
-Result: [_a,_b,_c,_e,_f];
+Result: [_a,_b,_c,_e,_f]
 
 In> lst;
-Result: [_a,_b,_c,_d,_e,f];
+Result: [_a,_b,_c,_d,_e,_f]
 
 In> DestructiveDelete(lst, 4);
-Result: [_a,_b,_c,_e,_f];
+Result: [_a,_b,_c,_e,_f]
 
 In> lst;
-Result: [a,b,c,e,f];
+Result: [_a,_b,_c,_e,_f]
 
 *SEE Delete, DestructiveInsert, DestructiveReplace
 %/mathpiper_docs
