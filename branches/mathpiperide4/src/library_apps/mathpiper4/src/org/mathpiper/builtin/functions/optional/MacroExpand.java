@@ -85,7 +85,7 @@ Note: only back quoted macros are supported at this time.
 
 *E.G.
 //Assign the variable var to the atom Echo.
-In> var := Echo;
+In> var := 'Echo;
 Result: Echo
 
 //Show the macro in expanded form.
