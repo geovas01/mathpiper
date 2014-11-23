@@ -25,6 +25,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.SublistCons;
 import org.mathpiper.lisp.variables.GlobalVariable;
@@ -62,45 +63,40 @@ public class State extends BuiltinFunction {
 	Map userOptions = Utility.optionsListToJavaMap(aEnvironment, aStackTop,
 		options, defaultOptions);
 
-	Map<String, GlobalVariable> globalState = (Map<String, GlobalVariable>) aEnvironment
-		.getGlobalState();
+	Map<String, GlobalVariable> globalState = (Map<String, GlobalVariable>) aEnvironment.getGlobalState();
 
-	java.util.Set<String> variablesSet = globalState.keySet();
+	java.util.List<String> variablesList = new ArrayList(globalState.keySet());
+        
+        Collections.sort(variablesList, new NameComparator());
 
-	java.util.List<String> variablesList = null;
+        
+        Cons listAtomCons = aEnvironment.iListAtom.copy(false);
+ 
+        Cons pointerCons = listAtomCons;
 
-	variablesList = new ArrayList<String>();
-
-	for (String key : variablesSet) {
-	    if (userOptions.get("ShowPrivate").equals(true)) {
-		variablesList.add(key + ":" + globalState.get(key));
-	    } else if (!key.contains("$")
+	for (String key : variablesList) {
+            
+            Cons element = (Cons)globalState.get(key).getValue();
+            
+            Cons colonAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, ":");
+            
+	    if (userOptions.get("ShowPrivate").equals(true) || !key.contains("$")
 		    && !key.equals("I")
 		    && !key.equals("#")
 		    && ((GlobalVariable) globalState.get(key)).iConstant == false) {
-		
-		
-		GlobalVariable globalVariable = globalState.get(key);
-		
-		Object value = globalVariable.iValue;
-		
-		if(value instanceof Cons)
-		{
-		    value = Utility.printMathPiperExpression(aStackTop,  ((Cons) globalVariable.iValue), aEnvironment, 0);
-		}
 
-		variablesList.add(key + ":" + value);
-	    }
-
+                Cons keyAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "" + key + "");
+                colonAtomCons.setCdr(keyAtomCons);
+                keyAtomCons.setCdr(element);
+                Cons sublistCons = SublistCons.getInstance(aEnvironment, colonAtomCons);
+                pointerCons.setCdr(sublistCons);
+                pointerCons = sublistCons;
+            }
 	}
 
-	Collections.sort(variablesList, new NameComparator());
+        Cons list = SublistCons.getInstance(aEnvironment, listAtomCons);
 
-	Cons head = Utility.iterableToList(aEnvironment, aStackTop,
-		variablesList);
-
-	setTopOfStack(aEnvironment, aStackTop,
-		SublistCons.getInstance(aEnvironment, head));
+	setTopOfStack(aEnvironment, aStackTop, list);
 
     }// end method.
 
