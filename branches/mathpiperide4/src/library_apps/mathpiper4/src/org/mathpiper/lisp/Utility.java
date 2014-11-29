@@ -368,9 +368,25 @@ public class Utility {
 	return aExpression.car() == aEnvironment.iFalseString || (isSublist(aExpression) && (listLength(aExpression.car()) == 1));
 	 */
     }
+    
+
+    
+    public static boolean isBoolean(Environment aEnvironment, Cons aExpression, int aStackTop) throws Throwable {
+	if (aExpression == null)
+	    LispError.lispAssert(aEnvironment, aStackTop);
+	return aExpression.car() instanceof String && ((((String) aExpression.car()).equals(aEnvironment.iTrueString)) || (((String) aExpression.car()).equals(aEnvironment.iFalseString)));
+    }
 
 
+    
+    public static boolean isConstant(Environment aEnvironment, Cons aExpression, int aStackTop) throws Throwable {
+	if (aExpression == null)
+	    LispError.lispAssert(aEnvironment, aStackTop);
+	return aExpression.car() instanceof String && ((String) aExpression.car()).contains("_");
+    }
 
+    
+    
     public static String getSymbolName(Environment aEnvironment, String aSymbol) throws Throwable {
 	if (aSymbol.charAt(0) == '\"') {
 	    return Utility.stripEndQuotesIfPresent(aSymbol);
