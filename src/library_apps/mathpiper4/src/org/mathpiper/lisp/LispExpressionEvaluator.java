@@ -283,7 +283,7 @@ public class LispExpressionEvaluator extends Evaluator {
 	    // System.out.println(functionName);
 
 	    if (Utility.loadLibraryFunction(functionName, aEnvironment, aStackTop) == false) {
-		LispError.throwError(aEnvironment, aStackTop, "The function <" + functionName + "> is not defined.", head.getMetadataMap());
+		LispError.throwError(aEnvironment, aStackTop, "The function <" + functionName + "> is not declared.", head.getMetadataMap());
             }
 
 	    userFunc = (SingleArityRulebase) aEnvironment.getRulebase(aStackTop, subList);
