@@ -53,7 +53,7 @@ Result: [_a,Pi,3,[1,2,3],"PKHG"]
 In> ll
 Result: [_a,Pi,3,[1,2,3],"PKHG"]
 
-*SEE Concat, :, DestructiveAppend
+*SEE Concat, ~, DestructiveAppend
 %/mathpiper_docs
 
     %output,preserve="false"
