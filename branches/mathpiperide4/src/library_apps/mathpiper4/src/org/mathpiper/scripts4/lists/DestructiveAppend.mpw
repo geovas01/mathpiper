@@ -49,5 +49,5 @@ Result: [_a,_b,_c,_d,1];
 In> lst;
 Result: [_a,_b,_c,_d,1];
 
-*SEE Concat, :, Append
+*SEE Concat, ~, Append
 %/mathpiper_docs
