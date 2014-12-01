@@ -8,7 +8,7 @@
 	</description> 
 	
 	<!-- Misc properties -->
-	<property name="version" value=".845" />
+	<property name="version" value=".846" />
 	<property name="mathpiper.version" value="mathpiper4" />        
 	
 	<property name="master.compile.source" value="1.6" />
@@ -28,7 +28,7 @@
 	<property name="plugins.src.dir" value="${master.src.dir}/plugins" />
 	<property name="plugins.build.dir" value="${master.build.dir}/plugins" />
 	<property name="plugins.jars.dir" value="${master.build.dir}/mathpiperide/jars" />
-  <property name="jeditpropertiesdir" value="${master.build.dir}/mathpiperide/settings" />
+	<property name="jeditpropertiesdir" value="${master.build.dir}/mathpiperide/settings" />
 	<property name="non_plugin.jars.dir" value="${master.build.dir}/mathpiperide/non_plugin_jars" />
 	<property name="library_apps.src.dir" value="${master.src.dir}/library_apps" />
 	<property name="library_apps.build.dir" value="${master.build.dir}/library_apps" />
@@ -83,27 +83,48 @@
 	
 	
 <!-- Targets -->
- <target id="savejeditproperties" name="savejeditproperties"
-    description="Save old jedit properties" >
-    <echo message="Trying old properties of jedit"></echo>
-	 	<copy todir="${master.src.dir}">
+
+	<target id="init" name="init" depends="svnversion">
+		<condition property="IsUnix" value="true">
+			<os family="unix" />
+		</condition>
+		
+		<tstamp>
+			<format property="build.time" pattern="MM/dd/yyyy hh:mm aa" />
+		</tstamp>
+		<mkdir dir="${master.build.dir}" />
+	</target>
+
+	
+	<target name="svnversion">
+	   <exec executable="svnversion" outputproperty="svnversion" />
+	   <echo message="SVN Version: r${svnversion}"/>
+	</target>
+	
+	
+	<target id="savejeditproperties" name="savejeditproperties"
+	   description="Save old jedit properties" >
+	   <echo message="Trying old properties of jedit"></echo>
+		<copy todir="${master.src.dir}">
 			<file name="${jeditpropertiesdir}/properties">
 			</file>
 		</copy>
-  </target>
-
-  <target id="replacejeditproperties" name="replacejeditproperties"
-    description=" replace jedits properties by saved version">
-   <echo message="Trying to replace fresh properties of jedit withe preveously saved one"></echo>
+	</target>
+	
+	  
+	<target id="replacejeditproperties" name="replacejeditproperties"
+	  	description=" replace jedits properties by saved version">
+	  	<echo message="Trying to replace fresh properties of jedit withe preveously saved one"></echo>
 		<copy todir="${jeditpropertiesdir}" overwrite="true">
-      <file name="${master.src.dir}/properties" > </file>
+			<file name="${master.src.dir}/properties" > </file>
 		</copy>
-  </target>
-
-	<target id="*all" name="*all" description="Builds all of mathpiperide from scratch." depends="clean,*mathpiperide,all-plugins-dist">
 	</target>
 
-	<target id="*allpkhg" name="*allpkhg" description="Builds all of mathpiperide from scratch." depends="savejeditproperties,clean,*mathpiperide,all-plugins-dist,replacejeditproperties">
+  
+	<target id="*all" name="*all" description="Builds all of mathpiperide from scratch." depends="clean,init,*mathpiperide,all-plugins-dist">
+	</target>
+
+	<target id="*allpkhg" name="*allpkhg" description="Builds all of mathpiperide from scratch." depends="savejeditproperties,clean,init,*mathpiperide,all-plugins-dist,replacejeditproperties">
 	</target>
  
 	<target id="clean" name="clean" 
@@ -111,18 +132,6 @@
 		
 		<echo message="Removing the build directory...." />
 		<delete dir="${master.build.dir}" />
-	</target>
-
-	<target id="init" name="init">
-	
-	<condition property="IsUnix" value="true">
-		<os family="unix" />
-	</condition>
-		
-		<tstamp>
-			<format property="build.time" pattern="MM/dd/yyyy hh:mm aa" />
-		</tstamp>
-		<mkdir dir="${master.build.dir}" />
 	</target>
 
 
@@ -529,7 +538,7 @@
 		<delete file="${master.build.dir}/mathpiperide/doc/welcome.html" />
 		<copy file="${master.src.dir}/jedit_core/doc/welcome.html" todir="${master.build.dir}/mathpiperide/doc">
 			<filterset>
-		       	   <filter token="VERSION" value="${version}" />
+		       	   <filter token="VERSION" value="${version}_r${svnversion}" />
 			 </filterset>
 		</copy>
 		
@@ -636,10 +645,10 @@
 	<target name="dist_windows" depends=""
 		description="zips the application for distribution." >
 
-		<zip zipfile="${dist.build.dir}/mathpiperide_windows_binary_dist_v${version}_beta.zip" basedir="${master.build.dir}" update="true" includes="mathpiperide/**" excludes="**/unix_run.sh" >
+		<zip zipfile="${dist.build.dir}/mathpiperide_windows_binary_dist_v${version}_r${svnversion}_beta.zip" basedir="${master.build.dir}" update="true" includes="mathpiperide/**" excludes="**/unix_run.sh" >
 		</zip>
 		
-		<zip zipfile="${dist.build.dir}/mathpiperide_source_dist_v${version}_beta.zip" update="true" >
+		<zip zipfile="${dist.build.dir}/mathpiperide_source_dist_v${version}_r${svnversion}_beta.zip" update="true" >
 		   <fileset dir="${basedir}" >
 			<include name="src/**" />
 			<include name="lib/**" />
@@ -657,7 +666,7 @@
 		<!--<copy file="${master.src.dir}/jedit_core/win_run.bat.with_jre" tofile="${master.build.dir}/mathpiperide/win_run.bat" overwrite="true" />-->
 		
 		<!--
-		<jar jarfile="${dist.build.dir}/mathpiperide_windows_dist_with_java_v${version}_beta.zip" basedir="${master.build.dir}" update="true" includes="mathpiperide/**" excludes="**/unix_run.sh"
+		<jar jarfile="${dist.build.dir}/mathpiperide_windows_dist_with_java_v${version}_r${svnversion}_beta.zip" basedir="${master.build.dir}" update="true" includes="mathpiperide/**" excludes="**/unix_run.sh"
 		 whenmanifestonly="skip" >
 			<manifest> 
 				<section name="MathPiperIDE" >
@@ -677,7 +686,7 @@
 		 <arg value="--exclude=windows"/>
 		 <arg value="--exclude=win_run.bat"/>
 		    <arg value="-cf"/>
-		    <arg value="${dist.build.dir}/mathpiperide_unix_mac_binary_dist_v${version}_beta.tar.bz2"/>
+		    <arg value="${dist.build.dir}/mathpiperide_unix_mac_binary_dist_v${version}_r${svnversion}_beta.tar.bz2"/>
 		   <arg value="-C"/>
 		    <arg value="${master.build.dir}"/>
 		    <arg value="mathpiperide"/>
@@ -688,20 +697,20 @@
 	
 		
 	
-	<target name="*dist" depends="clean, *mathpiperide, all-plugins-dist, dist_clean, dist_unix_mac, dist_windows" >
+	<target name="*dist" depends="clean, init, *mathpiperide, all-plugins-dist, dist_clean, dist_unix_mac, dist_windows" >
 		
 		
-		<exec executable="md5sum"  output ="${dist.build.dir}/mathpiperide_unix_mac_binary_dist_v${version}_beta.tar.bz2.md5" >
-			 <arg value="${dist.build.dir}/mathpiperide_unix_mac_binary_dist_v${version}_beta.tar.bz2"/>
+		<exec executable="md5sum"  output ="${dist.build.dir}/mathpiperide_unix_mac_binary_dist_v${version}_r${svnversion}_beta.tar.bz2.md5" >
+			 <arg value="${dist.build.dir}/mathpiperide_unix_mac_binary_dist_v${version}_r${svnversion}_beta.tar.bz2"/>
 			
 		</exec>
 		
-		<exec executable="md5sum" output ="${dist.build.dir}/mathpiperide_windows_binary_dist_v${version}_beta.zip.md5" >
-			 <arg value="${dist.build.dir}/mathpiperide_windows_binary_dist_v${version}_beta.zip"/>
+		<exec executable="md5sum" output ="${dist.build.dir}/mathpiperide_windows_binary_dist_v${version}_r${svnversion}_beta.zip.md5" >
+			 <arg value="${dist.build.dir}/mathpiperide_windows_binary_dist_v${version}_r${svnversion}_beta.zip"/>
 		 </exec>
 		 
-		<exec executable="md5sum" output ="${dist.build.dir}/mathpiperide_source_dist_v${version}_beta.zip.md5" >
-			 <arg value="${dist.build.dir}/mathpiperide_source_dist_v${version}_beta.zip"/>
+		<exec executable="md5sum" output ="${dist.build.dir}/mathpiperide_source_dist_v${version}_r${svnversion}_beta.zip.md5" >
+			 <arg value="${dist.build.dir}/mathpiperide_source_dist_v${version}_r${svnversion}_beta.zip"/>
 		 </exec>
 		
 	</target>	
@@ -852,7 +861,7 @@
 			</fileset>
 		</copy> 
 		
-</target>	
+	</target>	
 
 	
 </project>
