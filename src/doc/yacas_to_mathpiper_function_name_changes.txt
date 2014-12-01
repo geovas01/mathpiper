@@ -1,5 +1,18 @@
-============================== Proposed function name changes: 
+============================== Proposed function and operator name changes: 
 
+~ -> %
+
+-> -> Depracate.
+
+&. -> Symbolic logical "and".
+|. -> Symbolic logical "or".
+~. -> Symbolic logical "not".
+->. -> Symbolic logical implication.
+
+&? -> Logical "and".
+|? -> Logical "or".
+~? -> Logical "not".
+->? -> Logical implication.
 
 
 Change the bodied operators D, Integrate, Limit, and Taylor to non-bodied operators to make function calls uniform and to reduce confusion.
@@ -30,6 +43,10 @@ GetError -> GetException
 BuiltinPrecisionSet -> PrecisionSet
 BuiltinPrecisionGet -> PrecisionGet
 SetGlobalLazyVariable - GlobalLazyVariableSet
+Find -> <remove>
+FindFirst -> IndexOfFirst
+-> IndexOfLast
+FindAll -> IndexOfAll
 
 
 InVerboseMode -> VerboseMode?
