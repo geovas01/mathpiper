@@ -111,6 +111,6 @@ Hold((a + b) * (1 + 2) * (2 + 1) * (1/2 + c) * (3/4 + d) ) /:
 
 RulebaseHoldArguments("sqrt", [_x]);
 Verify(_a[2]*Sqrt(_x)/:[Sqrt(_x) <- sqrt(_x)],_a[2]*sqrt(_x));
-Retract("sqrt", *);
+Retract("sqrt", All);
 
 %/mathpiper

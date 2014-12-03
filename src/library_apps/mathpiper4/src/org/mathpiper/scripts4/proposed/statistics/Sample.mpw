@@ -1,7 +1,5 @@
 %mathpiper,def="Sample"
 
-//Retract("Sample",*);
-
 Sample(list, sampleSize) :=
 {
     Check(List?(list), "Argument", "The first argument must be a list.");

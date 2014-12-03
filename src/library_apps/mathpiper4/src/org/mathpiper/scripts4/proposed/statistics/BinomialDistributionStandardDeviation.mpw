@@ -1,8 +1,5 @@
 %mathpiper,def="BinomialDistributionStandardDeviation"
 
-
-//Retract("BinomialDistributionStandardDeviation", *);
-
 BinomialDistributionStandardDeviation(probability,numberOfTrials) :=
 {
 

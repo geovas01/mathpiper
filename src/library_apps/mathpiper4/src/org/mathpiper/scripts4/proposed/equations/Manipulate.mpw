@@ -1,7 +1,5 @@
 %mathpiper,def="Manipulate"
 
-//Retract("Manipulate",*);
-
 RulebaseHoldArguments("Manipulate",[_symbolicEquation]);
 HoldArgument("Manipulate","symbolicEquation");
 10 # Manipulate(_symbolicEquation)::HasFunction?(Eval(symbolicEquation), "==") <--

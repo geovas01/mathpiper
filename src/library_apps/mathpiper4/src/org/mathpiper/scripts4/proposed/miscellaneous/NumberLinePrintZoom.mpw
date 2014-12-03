@@ -1,9 +1,5 @@
 %mathpiper,def="NumberLinePrintZoom;ZoomInOnce"
 
-//Retract("NumberLineZoom", *);
-
-//Retract("ZoomInOnce", *);
-
 LocalSymbols(ZoomInOnce)
 {
 

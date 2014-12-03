@@ -1,7 +1,5 @@
 %mathpiper,def="BubbleSort"
 
-//Retract("BubbleSort",*);
-
 Function("BubbleSort",[_list,_compare])
 {
   Local(i,j,length,left,right);

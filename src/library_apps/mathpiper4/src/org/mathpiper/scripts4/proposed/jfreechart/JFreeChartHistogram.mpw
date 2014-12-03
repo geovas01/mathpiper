@@ -1,7 +1,5 @@
   %mathpiper
   
-  //Retract("JFreeChartHistogram",*);
-  
   JFreeChartHistogram(data) :=
   [
       histogramDataset := JavaNew("org.jfree.data.statistics.HistogramDataset");

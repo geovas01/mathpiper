@@ -1,7 +1,5 @@
 %mathpiper,def="ConfidenceIntervalOfTheMean"
 
-//Retract("ConfidenceIntervalOfTheMean",*);
-
 ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnown,sampleSize,confidenceLevel) :=
 {
     Check(Boolean?(standardDeviationIsKnown), "Argument", "The third argument must be True or False.");

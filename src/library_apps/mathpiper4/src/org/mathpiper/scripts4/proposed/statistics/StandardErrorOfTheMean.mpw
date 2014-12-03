@@ -1,7 +1,5 @@
 %mathpiper,def="StandardErrorOfTheMean"
 
-//Retract("StandardErrorOfTheMean",*);
-
 StandardErrorOfTheMean(sigma, sampleSize) :=
 {
     Check(sigma >? 0, "Argument", "The first argument must be a number which is greater than 0.");

@@ -1,7 +1,5 @@
 %mathpiper,def="GeoGebraHistogram"
 
-//Retract("GeoGebraHistogram",*);
-
 GeoGebraHistogram(classBoundaries, data) := 
 {
     Local(command);

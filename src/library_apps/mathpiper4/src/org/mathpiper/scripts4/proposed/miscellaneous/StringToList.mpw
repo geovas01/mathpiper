@@ -1,7 +1,5 @@
 %mathpiper,def="StringToList"
 
-//Retract("StringToList", *);
-
 10 # StringToList(string_String?)::(Length(string) =? 0) <-- [];
 
 

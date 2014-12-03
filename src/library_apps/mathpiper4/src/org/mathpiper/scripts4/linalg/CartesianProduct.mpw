@@ -1,7 +1,5 @@
 %mathpiper,def="CartesianProduct"
 
-//Retract("CartesianProduct",*);
-
 CartesianProduct(xList_List?, yList_List?) <--
 {
     Local(cartesianProduct);

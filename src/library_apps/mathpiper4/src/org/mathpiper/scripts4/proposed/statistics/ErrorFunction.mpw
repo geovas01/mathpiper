@@ -20,7 +20,6 @@ technique is known as Horner's method. John D. Cook."
 
 */
 
-//Retract("ErrorFunction",*);
 
 ErrorFunction(x) :=
 {

@@ -1,7 +1,5 @@
 %mathpiper,def="Echo;EchoInternal"
 
-//Retract("EchoInternal",*);
-
 10 # EchoInternal(string_String?) <--
 {
   WriteString(string);
@@ -17,7 +15,6 @@
 
 
 
-//Retract("Echo",*);
 
 RulebaseListedHoldArguments("Echo",[_firstParameter, _parametersList]);
 

@@ -1,7 +1,5 @@
 %mathpiper,def="GGBLine"
 
-//Retract("ggbLine", *);
-
 GGBLine(point1Label, point2Label) :=
 {
     Local(command);

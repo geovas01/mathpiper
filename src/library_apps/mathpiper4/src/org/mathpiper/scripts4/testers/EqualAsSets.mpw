@@ -1,7 +1,5 @@
 %mathpiper,def="EqualAsSets"
 
-//Retract("EqualAsSets",*);
-
 10 # EqualAsSets( A_List?, B_List? )::(Length(A)=?Length(B)) <--
 {
     Local(Acopy,b,nba,result);

@@ -1,7 +1,5 @@
 %mathpiper,def="SmallSortIndexed"
 
-//Retract("SmallSortIndexed",*);
-
 /// This is a fast in-place sorting of a short list (or array!)
 /// It is used to speed up the final steps of a HeapSort.
 /// SmallSort sorts up to 3 elements, HeapSort sorts 4 and more elements

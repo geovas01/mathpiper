@@ -1,7 +1,5 @@
 %mathpiper,def="Permutations"
 
-//Retract("Permutations", *);
-
 Permutations(n) :=
 {
     Check(Integer?(n), "Argument", "Argument must be an integer");

@@ -79,7 +79,7 @@ Result: False;
 
 RulebaseHoldArguments("a", [_b]);
 Verify(Function?(a('b)),True);
-Retract("a", *);
+Retract("a", All);
 Verify(Function?(_a),False);
 
 %/mathpiper

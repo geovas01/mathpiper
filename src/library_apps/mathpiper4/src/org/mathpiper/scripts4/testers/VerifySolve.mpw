@@ -1,8 +1,5 @@
 %mathpiper,def="VerifySolve;VerifySolveEqual"
 
-//Retract("VerifySolve",*);
-//Retract("VerifySolveEqual",*);
-
 VerifySolve(_e1, _e2) <--
 Decide(VerifySolveEqual(Eval(e1), Eval(e2)), 
     True,

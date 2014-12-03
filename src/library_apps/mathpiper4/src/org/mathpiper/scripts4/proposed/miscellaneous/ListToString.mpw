@@ -1,9 +1,5 @@
 %mathpiper,def="ListToString"
 
-
-//Retract("ListToString", *);
-
-
 10 # ListToString(list_List?)::(Length(list) =? 0) <-- "";
 
 

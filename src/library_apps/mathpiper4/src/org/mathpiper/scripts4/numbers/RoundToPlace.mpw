@@ -1,7 +1,5 @@
 %mathpiper,def="RoundToPlace"
 
-//Retract("RoundToPlace",*);
-
 10 # RoundToPlace( N_Decimal?, place_Integer? ) <--
 {
     //Decide(InVerboseMode(),Tell("RoundToPlace_D",[N,place]));

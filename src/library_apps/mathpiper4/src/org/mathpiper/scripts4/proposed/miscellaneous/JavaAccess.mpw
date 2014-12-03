@@ -1,7 +1,5 @@
 %mathpiper,title=""
 
-//Retract("JavaAccess",*);
-
 RulebaseListedHoldArguments("JavaAccess",[_object, _method, _parameters]);
 
 //Handle no option call.

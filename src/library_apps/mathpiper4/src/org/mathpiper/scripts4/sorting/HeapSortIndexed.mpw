@@ -1,8 +1,5 @@
 %mathpiper,def="HeapSortIndexed"
 
-//Retract("HeapSortIndexed",*);
-//Retract("HeapSortIndexed1",*);
-
 HeapSortIndexed( L_List?, _compare ) <-- HeapSortIndexed1( FlatCopy(L), compare );
 
 HeapSortIndexed1( L_List?, _compare ) <--

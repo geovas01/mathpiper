@@ -1,12 +1,5 @@
 %mathpiper,def="RandomInterestingPolynomial;NewRandomPoly;RandomIrreducibleQuadratic;RandomIrreducibleQuadraticWithRealRoots;RandomIrreducibleQuadraticWithComplexRoots"
 
-//Retract("RandomInterestingPolynomial",*);
-//Retract("NewRandomPoly",*);
-//Retract("RandomIrreducibleQuadratic",*);
-//Retract("RandomIrreducibleQuadraticWithComplexRoots",*);
-//Retract("RandomIrreducibleQuadraticWithRealRoots",*);
-
-
 10 # RandomInterestingPolynomial( deg_PositiveInteger?, _var ) <--
 {
     RandomSeed( SystemTimer() );   //  randomize random number generator

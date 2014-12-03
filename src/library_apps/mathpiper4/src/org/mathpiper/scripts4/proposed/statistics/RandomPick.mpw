@@ -1,8 +1,5 @@
 %mathpiper,def="RandomPick"
 
-//Retract("RandomPick",*);
-
-
 RandomPick(list) :=
 {
     Check(List?(list), "Argument", "Argument must be a list.");

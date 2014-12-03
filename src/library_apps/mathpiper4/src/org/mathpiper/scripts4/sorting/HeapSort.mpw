@@ -1,9 +1,5 @@
 %mathpiper,def="HeapSort"
 
-//Retract("HeapSort",*);
-//Retract("HeapSort1",*);
-
-
 //*------ Because HeapSort is a Recursive function, and acts on its 
 //*       original data, we have created a two-stage proces, so that the
 //*       input list is not changed.

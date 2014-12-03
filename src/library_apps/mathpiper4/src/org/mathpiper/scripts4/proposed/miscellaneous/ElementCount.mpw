@@ -1,7 +1,5 @@
 %mathpiper,def="ElementCount"
 
-//Retract("ElementCount",*);
-
 ElementCount(list) :=
 {   
     If(Length(list) =? 0)

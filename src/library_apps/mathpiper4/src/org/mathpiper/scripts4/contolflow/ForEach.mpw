@@ -1,7 +1,5 @@
 %mathpiper,def="ForEach"
 
-//Retract("ForEach" , *);
-
 /*TODO remove? Not yet. If the code above (ForEachExperimental) can be made to work we can do away with this version. */
 TemplateFunction("ForEach",[_item,_listOrString,_body])
 {

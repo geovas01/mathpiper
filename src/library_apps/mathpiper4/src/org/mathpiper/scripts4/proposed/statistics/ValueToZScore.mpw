@@ -1,7 +1,5 @@
 %mathpiper,def="ValueToZScore"
 
-//Retract("ValueToZScore",*);
-
 ValueToZScore(value,mean,standardDeviation) :=
 {
     (value - mean)/standardDeviation;

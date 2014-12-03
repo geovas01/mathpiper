@@ -54,7 +54,7 @@ FunctionListAllHelper(expression) :=
     Else If(Function?(expression))
     {
     
-      Concat( [First(FunctionToList(expression))],
+      Concat( [ToString(First(FunctionToList(expression)))],
          Apply("Concat", MapSingle("FunctionListAllHelper", Rest(FunctionToList(expression)))));
     }
     Else

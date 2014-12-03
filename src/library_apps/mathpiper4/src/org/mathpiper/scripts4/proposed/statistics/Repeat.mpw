@@ -1,10 +1,5 @@
 %mathpiper,def="Repeat"
 
-
-
-//Retract("Repeat",*);
-
-
 /*
     These variables need to be declared as local symbols because
     body is unfenced and expressions in the body could see them

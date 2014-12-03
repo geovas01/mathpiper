@@ -1,7 +1,5 @@
 %mathpiper,def="ReassembleListTerms"
 
-//Retract("ReassembleListTerms",*);
-
 10 # ReassembleListTerms( disassembly_List? ) <--
 {
     Local(vars,lst,powers,coeffs,ii,pows,coef,term);

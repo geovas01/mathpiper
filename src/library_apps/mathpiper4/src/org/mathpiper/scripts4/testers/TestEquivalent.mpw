@@ -1,8 +1,5 @@
 %mathpiper,def="TestEquivalent;TestTwoLists"
 
-//Retract("TestEquivalent",*);
-//Retract("TestTwoLists",*);
-
 Macro("TestEquivalent",[_left,_right])
 {
     Local(leftEval,rightEval,diff,vars,isEquiv);

@@ -1,8 +1,5 @@
 %mathpiper,def="BinomialDistributionMean"
 
-
-//Retract("BinomialDistributionMean", *);
-
 BinomialDistributionMean(probability,numberOfTrials) :=
 {
 

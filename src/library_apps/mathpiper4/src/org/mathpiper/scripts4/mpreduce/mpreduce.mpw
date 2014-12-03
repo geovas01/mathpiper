@@ -1,12 +1,8 @@
 %mathpiper,def="Factor;Solve;Expand;Differentiate;Integrate"
 
-Retract("Log",*);
 RulebaseHoldArguments("Log",[_x]);
 
-Retract("Arbint",*);
 RulebaseHoldArguments("Arbint",[_x]);
-
-
 
 
 LocalSymbols(mpreduce)

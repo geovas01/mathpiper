@@ -1,7 +1,5 @@
 %mathpiper,def="Intersection"
 
-//Retract("Intersection",*);
-
 10 # Intersection( LoL_List? )::(AllSatisfy?("List?",LoL)) <--
 {
   //Decide(InVerboseMode(),Tell("Intersection_listOfLists",LoL));

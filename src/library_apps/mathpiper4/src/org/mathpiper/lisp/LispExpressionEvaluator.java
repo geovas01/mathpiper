@@ -160,7 +160,7 @@ public class LispExpressionEvaluator extends Evaluator {
 	    }
 	    if(foundNonSymbol == false)
 	    {
-		return aExpression.copy(false);
+		LispError.throwError(aEnvironment, aStackTop, "The name <" + atomName + "> is an operator that cannot be evaluated without operands.", aExpression.getMetadataMap());
 	    }
 	    
 	    

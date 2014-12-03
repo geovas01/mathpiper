@@ -80,6 +80,6 @@ Verify(HasExpressionArithmetic?(_a+Sqrt(_b*_c),Sqrt(_b*_c)),True);
 RulebaseHoldArguments("f",[_a]);
 Verify(HasExpression?(_a*_b+f([_b,_c]),'f),False);
 Verify(HasExpressionArithmetic?(_a*_b+f([_b,_c]),_c),False);
-Retract("f",*);
+Retract("f",All);
 
 %/mathpiper

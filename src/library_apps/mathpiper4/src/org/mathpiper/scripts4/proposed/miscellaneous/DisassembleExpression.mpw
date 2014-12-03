@@ -1,7 +1,5 @@
 %mathpiper,def="DisassembleExpression"
 
-//Retract("DisassembleExpression",*);
-
 10 # DisassembleExpression( _expr ) <--
 {
     Local(vars);

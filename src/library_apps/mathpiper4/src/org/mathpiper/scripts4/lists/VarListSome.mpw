@@ -3,11 +3,14 @@
 /// VarListSome is just like FuncList(x,y)
 
 10 # VarListSome([], _looklist) <-- [];
+
 // an atom should be a variable to qualify
 10 # VarListSome(expr_Variable?, _looklist) <-- [expr];
 15 # VarListSome(expr_Atom?, _looklist) <-- [];
+
 // a function not in the looking list - return it whole
-20 # VarListSome(expr_Function?, looklist_List?)::(Not? Contains?(looklist, ToAtom(Type(expr)))) <-- [expr];
+20 # VarListSome(expr_Function?, looklist_List?)::(Not? Contains?(looklist, ToString(Type(expr)))) <-- [expr];
+
 // a function in the looking list - traverse its arguments
 30 # VarListSome(expr_Function?, looklist_List?) <--
 RemoveDuplicates(

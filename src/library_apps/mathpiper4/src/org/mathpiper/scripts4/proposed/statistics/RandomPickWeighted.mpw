@@ -1,7 +1,5 @@
 %mathpiper,def="RandomPickWeighted"
 
-//Retract("RandomPickWeighted",*);
-
 RandomPickWeighted(list) :=
 {
 
