@@ -1,8 +1,5 @@
 %mathpiper,def="NumberToRep"
 
-//Retract("NumberToRep",*);
-
-
 10 # NumberToRep( N_Number? ) <--
 {
     //Decide(InVerboseMode(),Tell(NumberToRep,N));

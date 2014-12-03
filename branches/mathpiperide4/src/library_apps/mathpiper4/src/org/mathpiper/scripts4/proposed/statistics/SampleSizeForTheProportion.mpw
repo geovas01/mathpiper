@@ -1,7 +1,5 @@
 %mathpiper,def="SampleSizeForTheProportion"
 
-//Retract("SampleSizeForTheProportion",*);
-
 SampleSizeForTheProportion(probabilityOfSuccess,confidenceLevel,marginOfError) :=
 {
     Check(probabilityOfSuccess >=?0 And? probabilityOfSuccess <=? 1, "Argument", "The first argument must be between 0 and 1.");

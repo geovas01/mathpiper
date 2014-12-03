@@ -134,14 +134,14 @@ Result: True;
 %mathpiper,name="NFunction",subtype="automatic_test"
 
 BuiltinPrecisionSet(10);
-Retract("f",*);
-Retract("f1",*);
+Retract("f",All);
+Retract("f1",All);
 f(x) := NM(Abs(1/x-1));
 Verify(f(0), Infinity);
 NumericEqual(RoundToN(f(3),BuiltinPrecisionGet()), 0.6666666667,BuiltinPrecisionGet());
 NFunction("f1", "f", [_x]);
 Verify(f1(0), Undefined);
 NumericEqual(RoundToN(f1(3),BuiltinPrecisionGet()), 0.6666666667,BuiltinPrecisionGet());
-Retract("f",*);
-Retract("f1",*);
+Retract("f",All);
+Retract("f1",All);
 %/mathpiper

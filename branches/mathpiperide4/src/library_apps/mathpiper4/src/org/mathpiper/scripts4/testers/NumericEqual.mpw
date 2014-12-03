@@ -1,7 +1,5 @@
 %mathpiper,def="NumericEqual"
 
-//Retract("NumericEqual",*);
-
 10 # NumericEqual(left_Decimal?, right_Decimal?, precision_PositiveInteger?) <--
 {
     Decide(InVerboseMode(),Tell("NumericEqual",[left,right]));

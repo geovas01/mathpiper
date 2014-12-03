@@ -6,7 +6,7 @@
   Verify(VerifyZero(Dot(p, p)),True);
 ];*/
 
-Retract("Dx", *);
+Retract("Dx", All);
 
 Rulebase("Dx", {u,v});
 

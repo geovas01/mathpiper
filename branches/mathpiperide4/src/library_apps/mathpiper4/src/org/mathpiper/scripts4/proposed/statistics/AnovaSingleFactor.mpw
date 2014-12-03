@@ -1,7 +1,5 @@
 %mathpiper,def="AnovaSingleFactor"
 
-//Retract("AnovaSingleFactor",*);
-
 AnovaSingleFactor(levelsList, alpha) :=
 {
     Check(ListOfLists?(levelsList), "Argument", "The first argument must be a list of lists.");

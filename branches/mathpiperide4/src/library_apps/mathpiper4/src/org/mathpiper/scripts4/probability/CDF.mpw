@@ -26,8 +26,6 @@
 
 /* Evaluates Cumulative probability function CDF(x)=Pr(X<x) */
 
-//Retract("CDF", *);
-
 //Discrete distributions.
 
 10 # CDF(BernoulliDistribution(_p), x_Number?) <-- Decide(x<=?0,0,Decide(x>?0 And? x<=?1, p,1));

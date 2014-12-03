@@ -39,8 +39,6 @@ TexForm
         2. Need to figure out how to deal with variable names such as "alpha3"
 */
 
-//Retract("UnparseLatex", *);
-
 /// TeXmacs unparser
 //TexForm(_expr) <-- {DumpErrors();WriteString(UnparseLatex(expr));NewLine();};
 
@@ -469,8 +467,8 @@ Verify(
 UnparseLatex(ObjectToMeta(Hold(Cos(A-B)*Sin(a)*f(b,c,d*(e+1))*Sqrt(C+D)-(g(a+b)^(c+d))^(c+d))))
 ,"$\\cos ( A - B)  \\times \\sin a \\times f( b, c, d \\times ( e + 1) )  \\times \\sqrt{C + D} - ( g( a + b)  ^{c + d})  ^{c + d}$"
 );
-Retract("f",*);
-Retract("g",*);
+Retract("f",All);
+Retract("g",All);
 */
 
 /* This test is commented out because it throws an exception when orthopoly.mpw is removed from the build process.
@@ -500,7 +498,7 @@ RulebaseHoldArguments("f",[_x]);
 Verify(
 UnparseLatex(Hold(Differentiate(x)f(x)))
 ,"$\\frac{d}{d x}f( x) $");
-Retract("f",*);
+Retract("f",All);
 
 
 /*
@@ -509,7 +507,7 @@ Verify(
 UnparseLatex((Differentiate(x)f(x,y,z))*Cos(Omega)*Modulo(Sin(a)*4,5/a^b))
 ,"$( \\frac{\\partial}{\\partial x}f( x, y, z) )  \\times \\cos \\Omega  \\times ( 4 \\times \\sin a) \\bmod \\frac{5}{a ^{b}} $"
 );
-Retract("f",*);
+Retract("f",All);
 */
 
 
@@ -520,8 +518,8 @@ Verify(
 UnparseLatex(Pi+Exp(1)-Theta-Integrate(x,x1,3/g(Pi))2*theta(x)*Exp(1/x))
 ,"$\\pi  + \\exp ( 1)  - \\Theta  - \\int _{x_{1}} ^{\\frac{3}{g( \\pi ) }  } 2 \\times \\theta ( x)  \\times \\exp ( \\frac{1}{x} )  dx$"
 );
-Retract("g",*);
-Retract("theta",*);
+Retract("g",All);
+Retract("theta",All);
 */
 
 
@@ -540,8 +538,8 @@ Verify(
 UnparseLatex(ObjectToMeta('(aa(x,y) z + 1 bar y!)))
 ,"$aa( x, y) z + 1\\mathrm{ bar }y!$"
 );
-Retract("aa",*);
-Retract("bar",*);
+Retract("aa",All);
+Retract("bar",All);
 
 Verify(
 UnparseLatex('(x^(1/3)+x^(1/2)))

@@ -1,7 +1,5 @@
 %mathpiper,def="StandardErrorOfTheProportion"
 
-//Retract("StandardErrorOfTheProportion",*);
-
 StandardErrorOfTheProportion(meanOfSampleProportions, sampleSize) :=
 {
     Check(RationalOrNumber?(meanOfSampleProportions), "Argument", "The first argument must be a number.");

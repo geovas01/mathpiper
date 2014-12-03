@@ -1,7 +1,5 @@
 %mathpiper,def="Quartile"
 
-//Retract("Quartile",*);
-
 Quartile(list) :=
 {
     sortedList := HeapSort(list,"<?");

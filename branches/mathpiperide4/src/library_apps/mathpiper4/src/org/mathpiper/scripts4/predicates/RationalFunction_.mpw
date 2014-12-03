@@ -1,7 +1,5 @@
 %mathpiper,def="RationalFunction?"
 
-//Retract("RationalFunction?",*);
-
 10 # RationalFunction?(_expr)::(Length(VarList(expr))=?0) <-- False;
 
 15 # RationalFunction?(_expr) <-- RationalFunction?(expr,VarList(expr));

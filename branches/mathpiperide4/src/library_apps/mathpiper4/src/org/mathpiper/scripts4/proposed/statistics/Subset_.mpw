@@ -1,7 +1,5 @@
 %mathpiper,def="Subset?"
 
-//Retract("Subset?",*);
-
 Subset?(bigList, littleList) :=
 {
     Local(result);

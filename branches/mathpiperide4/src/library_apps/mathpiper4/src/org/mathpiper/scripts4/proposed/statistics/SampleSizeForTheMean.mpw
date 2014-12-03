@@ -1,7 +1,5 @@
 %mathpiper,def="SampleSizeForTheMean"
 
-//Retract("SampleSizeForTheMean",*);
-
 SampleSizeForTheMean(standardDeviation,confidenceLevel,marginOfError) :=
 {
     Local(minimumSampleSize);

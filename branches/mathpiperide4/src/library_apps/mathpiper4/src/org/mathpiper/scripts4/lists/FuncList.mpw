@@ -6,10 +6,11 @@
 /// like VarList except collects functions
 
 10 # FuncList(expr_Atom?) <-- [];
+
 20 # FuncList(expr_Function?) <--
 RemoveDuplicates(
         Concat(
-                [First(FunctionToList(expr))],
+                [ToString(First(FunctionToList(expr)))],
                 Apply("Concat",
                         MapSingle("FuncList", Rest(FunctionToList(expr)))
                 )
@@ -21,8 +22,10 @@ This is like FuncList except only looks at arguments of a given list of function
 
 */
 10 # FuncList(expr_Atom?, looklist_List?) <-- [];
+
 // a function not in the looking list - return its type
-20 # FuncList(expr_Function?, looklist_List?)::(Not? Contains?(looklist, ToAtom(Type(expr)))) <-- [ToAtom(Type(expr))];
+20 # FuncList(expr_Function?, looklist_List?)::(Not? Contains?(looklist, ToString(Type(expr)))) <-- [ToAtom(Type(expr))];
+
 // a function in the looking list - traverse its arguments
 30 # FuncList(expr_Function?, looklist_List?) <--
 RemoveDuplicates(

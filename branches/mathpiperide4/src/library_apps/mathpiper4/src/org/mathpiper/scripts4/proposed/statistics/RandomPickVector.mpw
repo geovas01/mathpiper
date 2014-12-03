@@ -1,7 +1,5 @@
 %mathpiper,def="RandomPickVector"
 
-//Retract("RandomPickVector", *);
-
 RandomPickVector(list, count) :=
 {
     Check(List?(list), "Argument", "Argument 1 must be a list.");

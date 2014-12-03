@@ -1,7 +1,5 @@
 %mathpiper,def="BubbleSortIndexed"
 
-//Retract("BubbleSortIndexed",*);
-
 BubbleSortIndexed( L_List?, _compare ) <--
 {
   Local(list,indices,pairs,sortedPairs);

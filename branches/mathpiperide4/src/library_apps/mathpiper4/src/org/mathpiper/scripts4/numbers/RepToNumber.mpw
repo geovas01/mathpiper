@@ -1,8 +1,5 @@
 %mathpiper,def="RepToNumber"
 
-//Retract("RepToNumber",*);
-
-
 10 # RepToNumber( rep_ListOfLists? ) <--
 {
     //Decide(InVerboseMode(),[Tell(RepToNumberZ,rep); Tell("     complex");]);

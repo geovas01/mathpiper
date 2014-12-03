@@ -1,8 +1,5 @@
 %mathpiper,def="ConfidenceLevelToZScore"
 
-
-//Retract("ConfidenceLevelToZScore",*);
-
 ConfidenceLevelToZScore(probability) :=
 {
     //Shift the probability higher to turn it into a confidence interval.

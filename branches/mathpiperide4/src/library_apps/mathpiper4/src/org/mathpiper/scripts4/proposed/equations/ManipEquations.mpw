@@ -1,14 +1,5 @@
 %mathpiper
 
-//Retract("Equation?",*);
-
-//Retract("*==",*);
-//Retract("/==",*);
-//Retract("+==",*);
-//Retract("-==",*);
-//Retract("==+",*);
-//Retract("==-",*);
-
 10 # Equation?(expr_Atom?) <-- False;
 12 # Equation?(_expr) <-- 
 [

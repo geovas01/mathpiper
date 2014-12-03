@@ -1,7 +1,5 @@
 %mathpiper,def="Numerator"
 
-//Retract("Numerator",*);
-
 1 # Numerator(_x / _y)      <-- x;
 1 # Numerator(-_x/ _y)      <-- -x;
 2 # Numerator(x_Number?)   <-- x;

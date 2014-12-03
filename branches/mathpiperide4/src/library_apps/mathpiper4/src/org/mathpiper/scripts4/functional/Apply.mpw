@@ -104,7 +104,7 @@ LocalSymbols(f,x,n)
 
   Verify(f(10),(10!));
 
-  Retract("f",*);
+  Retract("f",All);
 };
 
 %/mathpiper

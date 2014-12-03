@@ -5,10 +5,6 @@ FIXME
 /// Min, Max with many arguments
 */
 
-//Retract("Maximum", 1);
-//Retract("Maximum", 2);
-//Retract("Maximum", 3);
-
 //Function() Maximum(list);
 
 //Function() Maximum(l1, l2);

@@ -57,7 +57,7 @@ public class Retract extends BuiltinFunction
         Cons arityCons = getArgument(aEnvironment, aStackTop, 2);
         if(!(arityCons.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2);
         String arityString = (String) arityCons.car();
-        if(arityString.equalsIgnoreCase("*"))
+        if(arityString.equalsIgnoreCase("All"))
         {
             aEnvironment.retractRule(oper, -1, aStackTop, aEnvironment);
         }
@@ -83,13 +83,13 @@ public class Retract extends BuiltinFunction
 *PARMS
 {"function"} -- string, name of function
 
-{arity} -- positive integer or *
+{arity} -- positive integer or All
 
 *DESC
 
-Remove a rulebase for the function named {"function"} with the specific {arity}, if it exists at all. This will make
+Remove a rulebase for the function named {"function"} with the specific {arity}, if it exists. This will make
 MathPiper forget all rules defined for a given function with the given arity. Rules for functions with
-the same name but different arities are not affected unless the * wildcard character is used.  If * is used for the
+the same name but different arities are not affected unless the All constant is used.  If All is used for the
 arity, then all arities of the rulebase are removed.
 
 Assignment {:=} of a function automatically does a single arity retract to the function being (re)defined.

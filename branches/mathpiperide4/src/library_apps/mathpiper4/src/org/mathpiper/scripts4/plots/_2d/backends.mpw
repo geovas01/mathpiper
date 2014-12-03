@@ -96,7 +96,6 @@ Plot2DGeogebra(values_List?, _optionsHash) <--
 
 
 //JFreeChart backend.
-//Retract("Plot2DJFreeChart", *);
 Plot2DJFreeChart(values_List?, _optionsHash) <--
 {
     Local(rangeList, domainList, function, allProcessedFunctionData, lineChartCallListForm);

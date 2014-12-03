@@ -1,7 +1,5 @@
 %mathpiper,def="Plot2D;Plot2Dgetdata;Plot2Dadaptive"
 
-//Retract("Plot2D", *);
-
 //////////////////////////////////////////////////
 /// Plot2D --- adaptive two-dimensional plotting
 //////////////////////////////////////////////////
@@ -168,8 +166,6 @@ HoldArgumentNumber("Plot2D", 3, 2);
 HoldArgumentNumber("Plot2D", 3, 3);
 
 
-
-//Retract("Plot2Dgetdata", *);
 /// this is the middle-level plotting routine; it generates the initial
 /// grid, calls the adaptive routine, and gathers data points.
 /// func must be just one function (not a list)
@@ -203,7 +199,6 @@ Plot2Dgetdata(_func, _var, _xinit, _yinit, _deltax, _optionshash) <--
         See documentation (Algorithms.chapt.txt) for the description of the algorithm.
 */
 
-//Retract("Plot2Dadaptive", *);
 Plot2Dadaptive(_func, _var, [_a,_b,_c], [_fa, _fb, _fc], _depth, _epsilon) <--
 {
         Local(a1, b1, fa1, fb1);

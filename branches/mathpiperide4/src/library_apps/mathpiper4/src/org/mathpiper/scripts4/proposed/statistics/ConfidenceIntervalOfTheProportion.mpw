@@ -1,7 +1,5 @@
 %mathpiper,def="ConfidenceIntervalOfTheProportion"
 
-//Retract("ConfidenceIntervalOfTheProportion",*);
-
 ConfidenceIntervalOfTheProportion(numberOfSuccesses,sampleSize,confidenceLevel) :=
 {
     Check(Integer?(numberOfSuccesses) And? numberOfSuccesses >=? 0, "Argument", "The first argument must be an integer which is >=?0");

@@ -1,7 +1,5 @@
 %mathpiper,def=""
 
-//Retract("HighschoolForm",*);
-
 HighschoolForm(expression) :=
 [
     //Note: since := is at a higher precedence than :/, parentheses are needed.

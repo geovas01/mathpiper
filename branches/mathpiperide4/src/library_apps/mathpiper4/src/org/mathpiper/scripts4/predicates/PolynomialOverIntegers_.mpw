@@ -1,7 +1,5 @@
 %mathpiper,def="PolynomialOverIntegers?"
 
-//Retract("PolynomialOverIntegers?",*);
-
 10 # PolynomialOverIntegers?(expr_Function?) <-- 
 {
     Local(x,vars);

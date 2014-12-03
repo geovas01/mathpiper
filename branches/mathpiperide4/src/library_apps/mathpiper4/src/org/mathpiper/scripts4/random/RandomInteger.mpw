@@ -1,8 +1,5 @@
 %mathpiper,def="RandomInteger"
 
-//Retract("RandomInteger", *);
-
-
 10 # RandomInteger(_n) <--
 {
     Check(PositiveInteger?(n), "Argument", "The argument must be a positive integer.");

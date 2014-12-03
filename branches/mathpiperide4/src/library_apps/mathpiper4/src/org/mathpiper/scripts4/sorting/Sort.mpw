@@ -1,8 +1,5 @@
 %mathpiper,def="Sort;SortIndexed"
 
-//Retract("Sort",*);
-//Retract("SortIndexed",*);
-
 /*-------------------------------------------------------------------
  *  Sort()
  *  SortIndexed()
