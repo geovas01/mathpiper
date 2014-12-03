@@ -343,7 +343,7 @@ public class TestSuite {
 
         } catch (Throwable e) {
             //System.out.println(e.getMessage());
-            e.printStackTrace(); //todo:tk:uncomment for debugging.
+            //e.printStackTrace(); //todo:tk:uncomment for debugging.
             
             //EvaluationException ee = new EvaluationException("\n\n\n***EXCEPTION[ " + e.getMessage() + " ]EXCEPTION***\n", aEnvironment.getCurrentInput().iStatus.getFileName(), aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineNumber());
             
