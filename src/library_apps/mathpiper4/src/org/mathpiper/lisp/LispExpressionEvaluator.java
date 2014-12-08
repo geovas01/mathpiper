@@ -20,6 +20,7 @@ import java.util.Map;
 
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
+import org.mathpiper.exceptions.EvaluationException;
 
 import org.mathpiper.lisp.rulebases.SingleArityRulebase;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
@@ -206,23 +207,41 @@ public class LispExpressionEvaluator extends Evaluator {
 		    }
 		    */
 		    
+                    try {
+                        // Built-in function handler.
+                        BuiltinFunctionEvaluator builtinInFunctionEvaluator = (BuiltinFunctionEvaluator) aEnvironment.getBuiltinFunctions().get(functionName);
+                        if (builtinInFunctionEvaluator != null) {
 
-		    // Built-in function handler.
-		    BuiltinFunctionEvaluator builtinInFunctionEvaluator = (BuiltinFunctionEvaluator) aEnvironment.getBuiltinFunctions().get(functionName);
-		    if (builtinInFunctionEvaluator != null) {
+                            aEnvironment.iEvalDepth--;
+                            return builtinInFunctionEvaluator.evaluate(aEnvironment, aStackTop, functionAndArgumentsList);
+                        }
 
-			aEnvironment.iEvalDepth--;
-			return builtinInFunctionEvaluator.evaluate(aEnvironment, aStackTop, functionAndArgumentsList);
-		    }
+                        // User function handler.
+                        SingleArityRulebase userFunction;
+                        userFunction = getUserFunction(aEnvironment, aStackTop, functionAndArgumentsList);
+                        if (userFunction != null) {
 
-		    // User function handler.
-		    SingleArityRulebase userFunction;
-		    userFunction = getUserFunction(aEnvironment, aStackTop, functionAndArgumentsList);
-		    if (userFunction != null) {
+                            aEnvironment.iEvalDepth--;
+                            return userFunction.evaluate(aEnvironment, aStackTop, functionAndArgumentsList);
+                        }
 
-			aEnvironment.iEvalDepth--;
-			return userFunction.evaluate(aEnvironment, aStackTop, functionAndArgumentsList);
-		    }
+                    } catch (Throwable e) {
+                        Map<String, Integer> map = Utility.findMetaData(aEnvironment, aStackTop, aExpression);
+
+                        if (map != null) {
+                            if (e instanceof EvaluationException) {
+                                EvaluationException ee = (EvaluationException) e;
+
+                                if (!ee.getType().equals("Evaluate")) {
+                                    throw new EvaluationException("Evaluate", ee.getMessage(), ee.getFileName(), map.get("lineNumber"), map.get("startIndex"), map.get("endIndex"), null);
+                                }
+                            } else {
+                                throw new EvaluationException("Evaluate", e.getMessage(), aEnvironment.getCurrentInput().iStatus.getSourceName(), map.get("lineNumber"), map.get("startIndex"), map.get("endIndex"), null);
+                            }
+                        }
+
+                        throw e;
+                    }
 
 		    if (functionName.equals("FreeOf?")) {
 
@@ -245,7 +264,7 @@ public class LispExpressionEvaluator extends Evaluator {
 		    LispError.raiseError("Problem with function ***(" + functionName + ")***, <wrong code: " + Utility.printLispExpression(-1, functionAndArgumentsList, aEnvironment, 50) + ">, <the " + (Utility.listLength(aEnvironment, aStackTop, functionAndArgumentsList) - 1) + " parameter version of this function is not defined (MAKE SURE THE FUNCTION IS SPELLED CORRECTLY).>", lineNumber, startIndex, endIndex, aStackTop, aEnvironment);
 
 		} else {
-		    // Pure function handler.
+		    // Pure function handler.  todo:tk:determine when this code is executed.
 		    Cons operator = functionAndArgumentsList;
 		    Cons args2 = functionAndArgumentsList.cdr();
 
