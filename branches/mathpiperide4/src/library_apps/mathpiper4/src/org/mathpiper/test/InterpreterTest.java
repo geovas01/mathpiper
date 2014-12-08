@@ -41,6 +41,7 @@ public class InterpreterTest implements ResponseListener
         EvaluationResponse response;
        
         final Interpreter interpreter = Interpreters.getSynchronousInterpreter();
+        Interpreters.addOptionalFunctions(interpreter.getEnvironment(), "org/mathpiper/builtin/functions/optional/");
 
         /*
          final Timer timer = new Timer();
@@ -59,13 +60,14 @@ public class InterpreterTest implements ResponseListener
        // System.out.println("Straight: " + "Result: " + response.getResult() + "  Side Effects: " + response.getSideEffects() + "  Errors: " + response.getExceptionMessage());
          
         //Load("/home/tkosan/NetBeansProjects/mathpiper/src/org/mathpiper/test/test.mpi");
-        //response = interpreter.evaluate("LoadScript(\"/home/tkosan/NetBeansProjects/mathpiper/src/org/mathpiper/test/test.mpi\");");
+        
+        response = interpreter.evaluate("LoadScriptFile(\"/home/tkosan/NetBeansProjects/mathpiper4/src/org/mathpiper/test/test.mpi\");");
 
         //response = interpreter.evaluate("LoadScript(\" a;\nb;\nc\nd;\n \");");
 
         //response = interpreter.evaluate("LoadScript(\"x := 1;\nWhile(x <? 100) \n[\nwrite(x,,);\nx := x + 1;  \n];\");");
 
-        response = interpreter.evaluate("LoadScript(\"Hello\");");
+        //response = interpreter.evaluate("LoadScript(\"Hello\");");
         //response = interpreter.evaluate(" \"Hello\";");
         //response = interpreter.evaluate("LoadScript(\" 2+2;\");");
 
@@ -114,7 +116,7 @@ public class InterpreterTest implements ResponseListener
     
     public static void main(String[] args)
     {
-        //new InterpreterTest();
+        new InterpreterTest();
 	
 	
 	/* 

@@ -754,6 +754,56 @@ public class Utility {
 
 
 
+    public static Map<String,Integer> findMetaData(Environment aEnvironment, int aStackTop, Cons aSource)
+            throws Throwable {
+
+        Cons sourceCons = aSource;
+
+        Map<String,Integer> result = null;
+
+        if (sourceCons == null) {
+            LispError.lispAssert(aEnvironment, aStackTop);
+        }
+
+        if (aSource.getMetadataMap() != null) {
+
+            return aSource.getMetadataMap();
+        } else {
+            //Recursively process list.
+
+            Object sourceListCar = sourceCons.car();
+
+            if (sourceListCar instanceof Cons) {
+		//Handle sublist.
+
+                Cons sourceListCons = (Cons) sourceListCar;
+
+                int position = 0;
+
+                while (sourceListCons != null) {
+
+                    result = findMetaData(aEnvironment, aStackTop, sourceListCons);
+
+                    if (result != null) {
+                        return result;
+                    }
+
+                    position++;
+
+                    //Point to next cons in the source list.
+                    sourceListCons = sourceListCons.cdr();
+
+                }//end while.
+
+            }
+
+            return null;
+
+        }//end matches if.
+    }
+
+
+    
 	public static String stripEndQuotesIfPresent(String aOriginal) {
 
 		if (aOriginal == null) {

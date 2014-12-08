@@ -17,7 +17,9 @@
 package org.mathpiper.builtin.functions.core;
 
 
+import java.util.Map;
 import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.Cons;
@@ -43,6 +45,8 @@ public class Block extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable {
         // Allow accessing previous locals.
         aEnvironment.pushLocalFrame(false, "Block");
+        
+        Cons consTraverser = null;
 
         try {
 
@@ -51,7 +55,7 @@ public class Block extends BuiltinFunction
             Cons result = Utility.getTrueAtom(aEnvironment);
 
             // Evaluate args one by one.
-            Cons consTraverser = (Cons) getArgument(aEnvironment, aStackTop, 1).car();
+            consTraverser = (Cons) getArgument(aEnvironment, aStackTop, 1).car();
             consTraverser =  consTraverser.cdr();
             while (consTraverser != null) {
                 result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser);
@@ -61,7 +65,24 @@ public class Block extends BuiltinFunction
             setTopOfStack(aEnvironment, aStackTop, result);
 
         } catch (Throwable e) {
+            
+            Map<String,Integer> map = Utility.findMetaData(aEnvironment, aStackTop, consTraverser);
+            
+            if(map != null)
+            {
+                if(e instanceof EvaluationException)
+                {
+                    EvaluationException ee = (EvaluationException) e;
+                    throw new EvaluationException(ee.getMessage(), ee.getFileName(), map.get("lineNumber"), map.get("startIndex"), map.get("endIndex"));
+                }
+                else
+                {
+                    throw new Exception("Internal error in org/mathpiper.builtin/functions/core/Block.java.");
+                }
+            }
+           
             throw e;
+            
         } finally {
             aEnvironment.popLocalFrame(aStackTop);
         }
