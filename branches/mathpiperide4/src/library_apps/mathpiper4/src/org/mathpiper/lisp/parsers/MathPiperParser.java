@@ -136,7 +136,7 @@ public class MathPiperParser extends Parser
             {
         	int xx = 1;
             }
-            */
+            // */
             
             iLookAhead[1] = iInput.iStatus.getLineNumber() + "";
             iLookAhead[3] = iInput.iStatus.getLineIndex() + "";
@@ -349,6 +349,13 @@ public class MathPiperParser extends Parser
 
             //System.out.println(iLookAhead[0] + " " + iInput.iStatus.getLineNumber() + " " + (iInput.iStatus.getLineIndex() - iLookAhead[0].length()) + "," + iInput.iStatus.getLineIndex());
 
+            /*
+            if(iLookAhead[0].equals("data"))
+            {
+        	int xx = 1;
+            }
+            // */
+            
             //This code is used by AnalyzeScripts to locate where a given function or operator is located in the scripts.
             if(locateFunctionOrOperatorName != null && locateFunctionOrOperatorName.equals(iLookAhead[0]))
             {

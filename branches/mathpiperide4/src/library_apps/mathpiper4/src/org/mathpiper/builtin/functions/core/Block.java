@@ -73,11 +73,15 @@ public class Block extends BuiltinFunction
                 if(e instanceof EvaluationException)
                 {
                     EvaluationException ee = (EvaluationException) e;
-                    throw new EvaluationException(ee.getMessage(), ee.getFileName(), map.get("lineNumber"), map.get("startIndex"), map.get("endIndex"));
+                    
+                    if(! ee.getType().equals("Block"))
+                    {
+                        throw new EvaluationException("Block", ee.getMessage(), ee.getFileName(), map.get("lineNumber"), map.get("startIndex"), map.get("endIndex"), null);
+                    }
                 }
                 else
                 {
-                    throw new Exception("Internal error in org/mathpiper.builtin/functions/core/Block.java.");
+                    throw new EvaluationException("Block", e.getMessage(), aEnvironment.getCurrentInput().iStatus.getSourceName(), map.get("lineNumber"), map.get("startIndex"), map.get("endIndex"), null);
                 }
             }
            

@@ -1681,10 +1681,14 @@ public class Utility {
 	    inputStatus.nextLine();
 
 	    StringInputStream functionInputStream = new StringInputStream(scriptString, inputStatus); // aEnvironment.getCurrentInput().iStatus);
+            
+            boolean oldSaveDebugInformation = Environment.saveDebugInformation;
 	    
 	    Environment.saveDebugInformation = false;
 
 	    Utility.doInternalLoad(aEnvironment, aStackTop, functionInputStream);
+            
+            Environment.saveDebugInformation = oldSaveDebugInformation;
 	    
 	    scriptCode[0] = "+";
 
