@@ -65,28 +65,7 @@ public class Block extends BuiltinFunction
             setTopOfStack(aEnvironment, aStackTop, result);
 
         } catch (Throwable e) {
-            
-            Map<String,Integer> map = Utility.findMetaData(aEnvironment, aStackTop, consTraverser);
-            
-            if(map != null)
-            {
-                if(e instanceof EvaluationException)
-                {
-                    EvaluationException ee = (EvaluationException) e;
-                    
-                    if(! ee.getType().equals("Block"))
-                    {
-                        throw new EvaluationException("Block", ee.getMessage(), ee.getFileName(), map.get("lineNumber"), map.get("startIndex"), map.get("endIndex"), null);
-                    }
-                }
-                else
-                {
-                    throw new EvaluationException("Block", e.getMessage(), aEnvironment.getCurrentInput().iStatus.getSourceName(), map.get("lineNumber"), map.get("startIndex"), map.get("endIndex"), null);
-                }
-            }
-           
             throw e;
-            
         } finally {
             aEnvironment.popLocalFrame(aStackTop);
         }
