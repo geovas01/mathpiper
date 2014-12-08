@@ -53,9 +53,11 @@ public class BuiltinAssociation extends BuiltinFunction
         Cons listCons;
 
         //check that it is a compound object
-        if(! (list.car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        if(! (list.car() instanceof Cons)) LispError.raiseError("The second argument must be a list, but it evaluated to ***( " + list.car().toString() + " )***", aStackTop, aEnvironment);
+        
         listCons = (Cons) list.car();
         if( listCons == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        
         listCons = listCons.cdr();
 
         Cons result = Utility.associationListGet(aEnvironment, aStackTop, key, listCons);
