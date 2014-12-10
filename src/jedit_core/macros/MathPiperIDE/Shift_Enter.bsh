@@ -117,6 +117,14 @@ buffer.save(view,null);
 
 path = buffer.getPath();
 
+if(path.toLowerCase().contains("rename"))
+{
+	org.gjt.sp.jedit.Macros.message(jEdit.getActiveView(),"The worksheet must be renamed before it can be used.");
+	
+	return;
+}
+
+
 if(path.endsWith(".mpi")|| path.endsWith(".MPI") ){
 	
 	buffer.setMode("mathpiper");
