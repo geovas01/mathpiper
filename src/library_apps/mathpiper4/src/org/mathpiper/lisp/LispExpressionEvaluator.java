@@ -225,7 +225,7 @@ public class LispExpressionEvaluator extends Evaluator {
                             return userFunction.evaluate(aEnvironment, aStackTop, functionAndArgumentsList);
                         }
 
-                    } catch (Throwable e) {
+                    } catch (Exception e) {
                         Map<String, Integer> map = Utility.findMetaData(aEnvironment, aStackTop, aExpression);
 
                         if (map != null) {

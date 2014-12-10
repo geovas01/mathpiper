@@ -6,6 +6,6 @@
 package org.mathpiper.exceptions;
 
 
-public class ContinueException extends Exception{
+public class ContinueException extends Throwable{
 
 }
