@@ -350,7 +350,7 @@
 				FILE_NAME_GLOB="*.{mpr}" />
                 
 <MODE NAME="mathpiperide"		FILE="mathpiperide.xml"
-				FILE_NAME_GLOB="*.mpw" />
+				FILE_NAME_GLOB="*.{mpw,mpwl,mpwnl}" />
                 
 <MODE NAME="mathpiperideoutput" FILE="mathpiperideoutput.xml"
 				FILE_NAME_GLOB="" />
