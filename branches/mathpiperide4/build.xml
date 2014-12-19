@@ -97,7 +97,7 @@
 
 	
 	<target name="svnversion">
-	   <exec executable="svnversion" outputproperty="svnversion" />
+	   <exec executable="svnversion" outputproperty="svnversion" failifexecutionfails="false" />
 	   <echo message="SVN Version: r${svnversion}"/>
 	</target>
 	
