@@ -105,7 +105,7 @@ represent an equation and an expression tree makes it easy to determine what
 operation to perform next when solving a simple equation. For example, consider
 the first expression tree in the above example. Think of the = sign as being the
 root of an inverted tree that has a left branch that leads to a + sign and a
-right branch that leads to the variable “e”. The topmost function on either side
+right branch that leads to the variable "e". The topmost function on either side
 of the = sign is called the dominant function for that side of the equation. In
 this tree, the dominant function on the left side of the equation is +.
 
