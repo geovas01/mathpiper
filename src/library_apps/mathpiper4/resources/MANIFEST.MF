@@ -1,2 +1,2 @@
-Main-Class: org/mathpiper/ui/gui/consoles/Console
+Main-Class: org/mathpiper/ui/gui/consoles/GraphicConsole
 Class-Path: mathpiper.jar
