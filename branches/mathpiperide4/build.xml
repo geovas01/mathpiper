@@ -583,6 +583,7 @@
 			<param name="target" value="dist"/>
 		</antcall>
 		<copy file="${library_apps.build.dir}/${mathpiper.version}/dist/mathpiper.jar" todir="${non_plugin.jars.dir}"/>
+		<copy file="${library_apps.build.dir}/${mathpiper.version}/resources/mathpiper.xml" todir="${master.build.dir}/mathpiperide/modes"/>
 		
 
 		
