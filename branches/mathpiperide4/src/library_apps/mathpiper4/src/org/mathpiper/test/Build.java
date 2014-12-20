@@ -44,6 +44,7 @@ public class Build {
     private String sourceDirectory = null;
     private java.io.DataOutputStream documentationOutputFile;
     private java.io.FileWriter documentationOutputIndexFile;
+    private java.io.FileWriter jEditModeFileOutput;
     private java.io.DataOutputStream licenseOutputFile;
     private java.io.FileWriter licenseOutputIndexFile;
     private long documentationOffset = 0;
@@ -83,6 +84,8 @@ public class Build {
 	licenseOutputIndexFile = new java.io.FileWriter(outputDirectory + "org/mathpiper/ui/gui/help/data/license_index.txt");
 
 	functionOutputCategoriesFile = new java.io.FileWriter(outputDirectory + "org/mathpiper/ui/gui/help/data/function_categories.txt");
+        
+        this.jEditModeFileOutput = new java.io.FileWriter(outputDirectory + "resources/mathpiper.xml", true);
     }
 
     public void compileScripts() throws Throwable {
@@ -247,6 +250,13 @@ public class Build {
 	    documentationOutputIndexFile.close();
 	    functionOutputCategoriesFile.close();
 	}
+ 
+        
+        if(this.jEditModeFileOutput != null)
+        {
+            this.jEditModeFileOutput.write("\n		</KEYWORDS>\n	\n	</RULES>\n\n</MODE>\n");
+            this.jEditModeFileOutput.close();
+        }
 
 	System.out.println("\nDocumented functions: " + this.documentedFunctionsCount + "\n");
 
@@ -512,6 +522,11 @@ public class Build {
 		    documentationOutputIndexFile.write(functionName + ",");
 		    documentationOutputIndexFile.write(documentationOffset + ",");
 		    documentationOutputIndexFile.write(endOfContentsOffset + "\n");
+                    
+                    if(functionName.matches("^[a-zA-Z?]+$"))
+                    {
+                        this.jEditModeFileOutput.write("                    <KEYWORD2>" + functionName + "</KEYWORD2>\n");
+                    }
 		}// end for.
 
 		documentationOffset = documentationOffset + contents.length();
