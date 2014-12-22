@@ -352,13 +352,13 @@ public class SynchronousInterpreter implements Interpreter {
                 }
 
                 printer.rememberLastChar(' ');
-                printer.print(-1, applyResult, outputStream, iEnvironment);
+                printer.print(-1, applyResult, outputStream, iEnvironment, false);
                 resultString = outputBuffer.toString();
 
             } else {
                 //Default printer.
                 printer.rememberLastChar(' ');
-                printer.print(-1, result, outputStream, iEnvironment);
+                printer.print(-1, result, outputStream, iEnvironment, false);
                 resultString = outputBuffer.toString();
             }
 
@@ -389,7 +389,7 @@ public class SynchronousInterpreter implements Interpreter {
                     StringBuffer string_out = new StringBuffer();
                     MathPiperOutputStream output = new StringOutputStream(string_out);
                     printer.rememberLastChar(' ');
-                    printer.print(-1, loadResult, output, iEnvironment);
+                    printer.print(-1, loadResult, output, iEnvironment, false);
                     String loadResultString = string_out.toString();
                     evaluationResponse.setResult(loadResultString);
                     if (loadResult.type() == Utility.OBJECT) {

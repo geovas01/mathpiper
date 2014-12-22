@@ -7,9 +7,12 @@ package org.mathpiper.builtin.functions.core;
 
 import java.util.Map;
 import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.AtomCons;
+import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.lisp.cons.Cons;
 
 
@@ -46,14 +49,21 @@ public class MetaGet extends BuiltinFunction
         }//end if.
 
 
-        Cons valueCons = (Cons) metadataMap.get((String) key.car());
-
-
-        if (valueCons == null) {
+        Object value = metadataMap.get(Utility.stripEndQuotesIfPresent((String) key.car()));
+        
+        if (value== null) {
             setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "None"));
-        } else {
+            return;
+        } 
+        
+        if(value instanceof Cons)
+        {
+            Cons valueCons = (Cons) value;
             setTopOfStack(aEnvironment, aStackTop, valueCons);
+            return;
         }
+        
+        setTopOfStack(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, new JavaObject(value)));
 
 
 

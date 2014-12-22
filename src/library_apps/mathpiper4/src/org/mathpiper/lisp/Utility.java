@@ -754,12 +754,12 @@ public class Utility {
 
 
 
-    public static Map<String,Integer> findMetaData(Environment aEnvironment, int aStackTop, Cons aSource)
+    public static Map<String,Object> findMetaData(Environment aEnvironment, int aStackTop, Cons aSource)
             throws Throwable {
 
         Cons sourceCons = aSource;
 
-        Map<String,Integer> result = null;
+        Map<String,Object> result = null;
 
         if (sourceCons == null) {
             LispError.lispAssert(aEnvironment, aStackTop);
@@ -928,7 +928,7 @@ public class Utility {
 	StringOutputStream newOutput = new StringOutputStream(result);
 	MathPiperUnparser infixprinter = new MathPiperUnparser(aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators,
 		aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
-	infixprinter.print(aStackTop, aExpression, newOutput, aEnvironment);
+	infixprinter.print(aStackTop, aExpression, newOutput, aEnvironment, false);
 	if (aMaxChars > 0 && result.length() > aMaxChars) {
 	    result.delete(aMaxChars, result.length());
 	    result.append((char) '.');
@@ -950,7 +950,7 @@ public class Utility {
 
 	LispUnparser printer = new LispUnparser();
 
-	printer.print(aStackTop, aExpression, out, aEnvironment);
+	printer.print(aStackTop, aExpression, out, aEnvironment, false);
 
 	//todo:tk:add the ability to truncate the result.
 

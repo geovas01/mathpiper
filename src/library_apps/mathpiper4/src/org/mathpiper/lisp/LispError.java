@@ -201,10 +201,10 @@ public class LispError {
 	throwError(aEnvironment, aStackTop, aErrorMessage, location.get("lineNumber"), location.get("startIndex"), location.get("endIndex"));
     }
 
-    public static void throwError(Environment aEnvironment, int aStackTop, Object aErrorMessage, Map<String,Integer> location) throws Throwable {
+    public static void throwError(Environment aEnvironment, int aStackTop, Object aErrorMessage, Map<String,Object> location) throws Throwable {
         if(location != null)
         {
-            throwError(aEnvironment, aStackTop, aErrorMessage, location.get("lineNumber"), location.get("startIndex"), location.get("endIndex"));
+            throwError(aEnvironment, aStackTop, aErrorMessage, (Integer) location.get("lineNumber"), (Integer) location.get("startIndex"), (Integer) location.get("endIndex"));
         }
         else
         {
@@ -374,7 +374,7 @@ public class LispError {
 
     public static void lispAssert(Environment aEnvironment, int aStackTop) throws Throwable {
   
-            Map<String,Integer> location = new HashMap<String,Integer>();
+            Map<String,Object> location = new HashMap<String,Object>();
             
             location.put("lineNumber", -1);
             location.put("startIndex", -1);

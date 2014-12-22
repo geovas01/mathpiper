@@ -17,6 +17,8 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.tokenizers;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.lisp.*;
@@ -27,6 +29,8 @@ public class MathPiperTokenizer {
     static String symbolics = "~'`!@#$^&*-=+:<>?/\\|⊕⊖⊗⊘∪∩∁⊆⊈⊂⊄=≠∈∉";
     //static String unicodeVariableChars = "αβγ";
     String iToken; //Can be used as a token container.
+    
+    private List comments = new ArrayList();
 
     /// NextToken returns a string representing the next token,
     /// or an empty list.
@@ -67,12 +71,33 @@ public class MathPiperTokenizer {
                 }
             } // parse comments
             else if (streamCharacter == '/' && aInput.peek() == '*') {
-                aInput.next(); //consume *
+                
+                String[] commentInfo = new String[3];
+                commentInfo[1] = aInput.iStatus.getLineNumber() + "";
+                commentInfo[2] = aInput.iStatus.getLineIndex() -1 + "";
+                
+                StringBuilder comment = new StringBuilder();
+                
+                comment.append(streamCharacter);
+                
+                comment.append(aInput.next()); //consume *
+                
                 while (true) {
-                    while (aInput.next() != '*' && !aInput.endOfStream());
+                    while (aInput.peek() != '*' && !aInput.endOfStream())
+                    {
+                        comment.append(aInput.next());
+                    }
+                    comment.append(aInput.next());
+                    
                     if(aInput.endOfStream()) LispError.throwError(aEnvironment, aStackTop, LispError.COMMENT_TO_END_OF_FILE, "");
+                    
                     if (aInput.peek() == '/') {
-                        aInput.next();  // consume /
+                        comment.append(aInput.next()); // consume /
+                        
+                        commentInfo[0] = comment.toString();
+
+                        comments.add(commentInfo);
+                        
                         redo = true;
                         break;
                     }
@@ -81,8 +106,26 @@ public class MathPiperTokenizer {
                     continue;
                 }
             } else if (streamCharacter == '/' && aInput.peek() == '/') {
-                aInput.next(); //consume /
-                while (aInput.next() != '\n' && !aInput.endOfStream());
+                
+                String[] commentInfo = new String[3];
+                commentInfo[1] = aInput.iStatus.getLineNumber() + "";
+                commentInfo[2] = aInput.iStatus.getLineIndex() -1 + "";
+                
+                StringBuilder comment = new StringBuilder();
+                
+                comment.append(streamCharacter);
+                
+                comment.append(aInput.next()); //consume /
+                while (aInput.peek() != '\n' && !aInput.endOfStream())
+                {
+                    comment.append(aInput.next());
+                };
+                aInput.next();
+                
+                commentInfo[0] = comment.toString();
+                
+                comments.add(commentInfo);
+                
                 redo = true;
                 continue;
             } // parse literal strings
@@ -220,5 +263,10 @@ public class MathPiperTokenizer {
     public static boolean isSymbolic(char c) {
         return (symbolics.indexOf(c) != -1);
     }
+
+    public List getComments() {
+        return comments;
+    }
+    
 };
 

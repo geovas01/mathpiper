@@ -376,7 +376,7 @@ public class TestSuite {
         MathPiperUnparser infixprinter = new MathPiperUnparser(aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
 
         MathPiperOutputStream stream = new StringOutputStream(outString);
-        infixprinter.print(-1, aExpression, stream, aEnvironment);
+        infixprinter.print(-1, aExpression, stream, aEnvironment, false);
         outString.append(";");
 
     }//end method.

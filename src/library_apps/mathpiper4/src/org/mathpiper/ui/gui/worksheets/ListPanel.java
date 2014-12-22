@@ -6,8 +6,13 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.Queue;
+import java.util.Set;
 import java.util.Stack;
 import javax.swing.JPanel;
 import org.mathpiper.lisp.Environment;
@@ -26,14 +31,21 @@ public class ListPanel extends JPanel implements ViewPanel {
     private boolean paintedOnce = false;
     private int largestX = 0;
     private int largestY = 0;
+    private Map options;
+    private boolean metaData;
 
     /*
         The code in this constructor rearranges the cons cells that are in a Lisp list into a row-oriented data
         structure that more closely reflects the way the list will be displayed graphically.
      */
 
-    public ListPanel(Environment aEnvironment, int aStackTop, Cons cons, double viewScale) {
+    public ListPanel(Environment aEnvironment, int aStackTop, Cons cons, double viewScale, Map options) {
         super();
+        this.options = options;
+        if(options.containsKey("metaData"))
+        {
+            metaData = (Boolean) options.get("metaData");
+        }
         this.setOpaque(true);
         this.viewScale = viewScale;
         this.setBackground(Color.white);
@@ -49,6 +61,7 @@ public class ListPanel extends JPanel implements ViewPanel {
             Cons headCons = cons;
 
             headNode = new ConsNode();
+            headNode.setMetaData(headCons.getMetadataMap());
             if (headCons instanceof SublistCons) {
                 headNode.setName(sublistName);
             } else {
@@ -85,6 +98,7 @@ public class ListPanel extends JPanel implements ViewPanel {
                         currentCons = currentCons.cdr();
 
                         ConsNode newNode = new ConsNode();
+                        newNode.setMetaData(currentCons.getMetadataMap());
 
                         if (!(currentCons instanceof SublistCons)) {
                             String name = currentCons.car().toString();
@@ -119,6 +133,7 @@ public class ListPanel extends JPanel implements ViewPanel {
                         }//end if.
 
                         ConsNode newNode = new ConsNode();
+                        newNode.setMetaData(currentCons.getMetadataMap());
 
                         if (!(currentCons instanceof SublistCons)) {
                             String name = currentCons.car().toString();
@@ -227,7 +242,55 @@ public class ListPanel extends JPanel implements ViewPanel {
 
         //Draw cons cell dividing line.
         sg.drawLine(x + textWidth, y, x + textWidth, y + height);
-
+        
+        if(metaData && currentNode.getMetaData() != null)
+        {
+            // sg.drawRectangle(x, y, 5 , 5);
+            
+            Map metaData = currentNode.getMetaData();
+            
+            Set keys = metaData.keySet();
+            
+            Iterator<String> iterator = keys.iterator();
+            
+            int offset = 0;
+            
+            while(iterator.hasNext())
+            {
+                String key = iterator.next();
+                Object object = metaData.get(key);
+                
+                if(object instanceof ArrayList)
+                {
+                    List list = (List) object;
+                    
+                    Iterator<String[]> stringIterator = list.iterator();
+                    
+                    while(stringIterator.hasNext())
+                    {
+                        String[] strings = stringIterator.next();
+                        
+                        for(String string:strings)
+                        {
+                            sg.setColor(Color.RED);
+                            sg.drawscaledText(string, x + offset + 1, y-.5, .7);
+                            sg.setColor(Color.BLACK);
+                            textWidth = sg.getScaledTextWidth(string) * .7;
+                            offset += textWidth + 2;
+                        }
+                        offset += 2;
+                    }
+                }
+                else
+                {
+                    sg.setColor(Color.RED);
+                    sg.drawscaledText(key + ":" + object.toString(), x + 1, y-.5 + offset, .7);
+                    sg.setColor(Color.BLACK);
+                    offset += 5;
+                }
+            }
+            
+        }
 
         if (name != null) {
             sg.setColor(Color.BLUE);
@@ -296,6 +359,7 @@ public class ListPanel extends JPanel implements ViewPanel {
         private ConsNode cdr;
         private String name = "";
         private int y;
+        private Map<String,Object> metaData;
 
 
         public ConsNode() {
@@ -339,6 +403,14 @@ public class ListPanel extends JPanel implements ViewPanel {
 
         public void setY(int y) {
             this.y = y;
+        }
+
+        public Map<String, Object> getMetaData() {
+            return metaData;
+        }
+
+        public void setMetaData(Map<String, Object> metaData) {
+            this.metaData = metaData;
         }
 
     }//end class.

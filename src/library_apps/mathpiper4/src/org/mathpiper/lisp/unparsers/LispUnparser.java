@@ -32,7 +32,7 @@ public class LispUnparser {
 
     //private List<Cons> visitedLists = new ArrayList<Cons>();
 
-    public void print(int aStackTop, Cons aExpression, MathPiperOutputStream aOutput, Environment aEnvironment) throws Throwable {
+    public void print(int aStackTop, Cons aExpression, MathPiperOutputStream aOutput, Environment aEnvironment, boolean isCompact) throws Throwable {
         printExpression(aExpression, aOutput, aEnvironment, 0);
 
         //visitedLists.clear();

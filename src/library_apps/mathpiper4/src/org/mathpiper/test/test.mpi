@@ -1,10 +1,31 @@
-{
-	d := [];
-	d["who"] := 8;
-	x := 1;
-	y := 9;
-	d[""][""];
-	x := 1;
-	y := 9;
-	z := 7;
+v := "
+'{
+
+x := 1   ;
+z := -3;
+//  Hi
+// Bye
+y := 2;
+
+/* Lo */
+
+
+
+
+While(x <? 50)
+{ // Hi
+  Write(x);
+  WriteString(\",\"); // test3
+  x := x + 1;  
+
+    /*
+        More
+        Stuff
+    */
 };
+};";
+
+a := PipeFromString(v) ParseMathPiper();
+
+ViewGraphicConsole();
+//ViewList(a, metaData:True);

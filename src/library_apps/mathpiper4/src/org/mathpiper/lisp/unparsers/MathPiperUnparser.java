@@ -37,6 +37,7 @@ public class MathPiperUnparser extends LispUnparser {
     OperatorMap iBodiedOperators;
     char iPrevLastChar;
     Environment iCurrentEnvironment;
+    private boolean isCompact;
 
     //private List<Cons> visitedLists = new ArrayList<Cons>();
     public MathPiperUnparser(OperatorMap aPrefixOperators,
@@ -51,11 +52,12 @@ public class MathPiperUnparser extends LispUnparser {
     }
 
     @Override
-    public void print(int aStackTop, Cons aExpression,  MathPiperOutputStream aOutput, Environment aEnvironment) throws Throwable {
+    public void print(int aStackTop, Cons aExpression, MathPiperOutputStream aOutput, Environment aEnvironment, boolean isCompact) throws Throwable {
         iCurrentEnvironment = aEnvironment;
 
+        this.isCompact = isCompact;
 
-        Print(aEnvironment, aStackTop, aExpression, aOutput, KMaxPrecedence);
+        printHelper(aEnvironment, aStackTop, aExpression, aOutput, KMaxPrecedence);
 
         //visitedLists.clear();
     }
@@ -65,7 +67,7 @@ public class MathPiperUnparser extends LispUnparser {
         iPrevLastChar = aChar;
     }
 
-    void Print(Environment aEnvironment, int aStackTop, Cons aExpression, MathPiperOutputStream aOutput, int iPrecedence) throws Throwable {
+    void printHelper(Environment aEnvironment, int aStackTop, Cons aExpression, MathPiperOutputStream aOutput, int iPrecedence) throws Throwable {
 
         if(aExpression == null) 
         {
@@ -156,7 +158,7 @@ public class MathPiperUnparser extends LispUnparser {
                         WriteToken(aOutput, "(");
                     }//end if.
 
-                    Print(aEnvironment, aStackTop, left, aOutput, operator.iLeftPrecedence);
+                    printHelper(aEnvironment, aStackTop, left, aOutput, operator.iLeftPrecedence);
 
                     if (functionOrOperatorName.equals("/") && Utility.functionType(left).equals("/")) {
                         //Code for In> Hold((3/2)/(1/2)) Result> (3/2)/(1/2) .
@@ -164,10 +166,16 @@ public class MathPiperUnparser extends LispUnparser {
                     }//end if.
                 }
 
-                boolean addSpaceAroundInfixOperator = false; //Todo:tk:perhaps a more general way should be found to place a space around operators which are words.
+                boolean addSpaceAroundInfixOperator = !isCompact; //Todo:tk:perhaps a more general way should be found to place a space around operators which are words.
+                
                 if(functionOrOperatorName.equals("And?") || functionOrOperatorName.equals("Or?") || functionOrOperatorName.equals("Implies?") || functionOrOperatorName.equals("Equivales?"))
                 {
                     addSpaceAroundInfixOperator = true;
+                }
+                
+                if(functionOrOperatorName.equals("^") || functionOrOperatorName.equals("-"))
+                {
+                    addSpaceAroundInfixOperator = false;
                 }
 
                 if (addSpaceAroundInfixOperator == true) {
@@ -191,7 +199,7 @@ public class MathPiperUnparser extends LispUnparser {
                         WriteToken(aOutput, " ");
                     }//end if.
 
-                    Print(aEnvironment, aStackTop, right, aOutput, operator.iRightPrecedence);
+                    printHelper(aEnvironment, aStackTop, right, aOutput, operator.iRightPrecedence);
 
                     if (functionOrOperatorName.equals("/") && Utility.functionType(right).equals("/")) {
                         //Code for In> Hold((3/2)/(1/2)) Result> (3/2)/(1/2) .
@@ -240,7 +248,7 @@ public class MathPiperUnparser extends LispUnparser {
                     WriteToken(aOutput, "[");
 
                     while (consTraverser != null) {
-                        Print(aEnvironment, aStackTop, consTraverser, aOutput, KMaxPrecedence);
+                        printHelper(aEnvironment, aStackTop, consTraverser, aOutput, KMaxPrecedence);
                         consTraverser = consTraverser.cdr();
                         if (consTraverser != null) {
                             WriteToken(aOutput, ",");
@@ -260,7 +268,7 @@ public class MathPiperUnparser extends LispUnparser {
 
                     while (consTraverser != null) {
                         aOutput.write(spaces.toString());
-                        Print(aEnvironment, aStackTop, consTraverser, aOutput, KMaxPrecedence);
+                        printHelper(aEnvironment, aStackTop, consTraverser, aOutput, KMaxPrecedence);
                         consTraverser = consTraverser.cdr();
                         WriteToken(aOutput, ";");
                         aOutput.write("\n");
@@ -272,10 +280,10 @@ public class MathPiperUnparser extends LispUnparser {
                     //aOutput.write("\n");
 
                 } else if (functionOrOperatorName.equals(iCurrentEnvironment.iNthAtom)) {
-                    Print(aEnvironment, aStackTop, consTraverser, aOutput, 0);
+                    printHelper(aEnvironment, aStackTop, consTraverser, aOutput, 0);
                     consTraverser = consTraverser.cdr();
                     WriteToken(aOutput, "[");
-                    Print(aEnvironment, aStackTop,  consTraverser, aOutput, KMaxPrecedence);
+                    printHelper(aEnvironment, aStackTop,  consTraverser, aOutput, KMaxPrecedence);
                     WriteToken(aOutput, "]");
                 } else {
                     boolean bracket = false;
@@ -291,7 +299,7 @@ public class MathPiperUnparser extends LispUnparser {
                     if (functionOrOperatorName != null) {
                         WriteToken(aOutput, functionOrOperatorName); //Print function name.
                     } else {
-                        Print(aEnvironment, aStackTop, subList, aOutput, 0);
+                        printHelper(aEnvironment, aStackTop, subList, aOutput, 0);
                     }
                     WriteToken(aOutput, "("); //Print the opening parentheses of the function argument list.
 
@@ -307,7 +315,7 @@ public class MathPiperUnparser extends LispUnparser {
                         nr--;
                     }
                     while (nr-- != 0) {
-                        Print(aEnvironment, aStackTop, consTraverser, aOutput, KMaxPrecedence); //Print argument.
+                        printHelper(aEnvironment, aStackTop, consTraverser, aOutput, KMaxPrecedence); //Print argument.
 
                         consTraverser = consTraverser.cdr();
 
@@ -319,7 +327,7 @@ public class MathPiperUnparser extends LispUnparser {
                     WriteToken(aOutput, ")");
 
                     if (consTraverser != null) {
-                        Print(aEnvironment, aStackTop, consTraverser, aOutput, bodied.iPrecedence);
+                        printHelper(aEnvironment, aStackTop, consTraverser, aOutput, bodied.iPrecedence);
                     }
 
                     if (bracket) {
