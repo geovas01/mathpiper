@@ -100,6 +100,7 @@ public class MathPiperParser extends Parser
         if (iEndOfFile)
         {
             parsedExpression = iEnvironment.iEndOfFileAtom.copy(true);
+            addMetaData();
             return parsedExpression;
         }
 
@@ -116,8 +117,27 @@ public class MathPiperParser extends Parser
             readToken(aStackTop);
         }
         
-
+        
+        addMetaData();
         return parsedExpression;
+    }
+    
+    
+    
+    private void addMetaData()
+    {
+        if(this.iTokenizer.getComments().size() != 0)
+        {
+            Map<String,Object> metaData= parsedExpression.getMetadataMap();
+
+            if(metaData == null)
+            {
+                metaData = new HashMap<String,Object>();
+                parsedExpression.setMetadataMap(metaData);
+            }
+            
+            metaData.put("comments", this.iTokenizer.getComments());
+        }
     }
 
     private void readToken(int aStackTop) throws Throwable
@@ -484,7 +504,7 @@ public class MathPiperParser extends Parser
 
         if(Environment.saveDebugInformation == true && aString[1] != null)
         {
-            Map<String,Integer> metaDataMap = new HashMap<String,Integer>();
+            Map<String,Object> metaDataMap = new HashMap<String,Object>();
             metaDataMap.put("lineNumber", Integer.parseInt(aString[1]));
             metaDataMap.put("startIndex", Integer.parseInt(aString[2]));
             metaDataMap.put("endIndex", Integer.parseInt(aString[3]));

@@ -42,7 +42,7 @@ public class UnparseLisp extends BuiltinFunction
     {
         setTopOfStack(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1));
         LispUnparser printer = new LispUnparser();
-        printer.print(aStackTop, getTopOfStack(aEnvironment, aStackTop), aEnvironment.iCurrentOutput, aEnvironment);
+        printer.print(aStackTop, getTopOfStack(aEnvironment, aStackTop), aEnvironment.iCurrentOutput, aEnvironment, false);
         aEnvironment.write("\n");
     }
 }

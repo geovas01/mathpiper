@@ -226,17 +226,17 @@ public class LispExpressionEvaluator extends Evaluator {
                         }
 
                     } catch (Exception e) {
-                        Map<String, Integer> map = Utility.findMetaData(aEnvironment, aStackTop, aExpression);
+                        Map<String, Object> map = Utility.findMetaData(aEnvironment, aStackTop, aExpression);
 
-                        if (map != null) {
+                        if (map != null && map.get("lineNumber") != null) {
                             if (e instanceof EvaluationException) {
                                 EvaluationException ee = (EvaluationException) e;
 
                                 if (!ee.getType().equals("Evaluate")) {
-                                    throw new EvaluationException("Evaluate", ee.getMessage(), ee.getFileName(), map.get("lineNumber"), map.get("startIndex"), map.get("endIndex"), null);
+                                    throw new EvaluationException("Evaluate", ee.getMessage(), ee.getFileName(), (Integer) map.get("lineNumber"), (Integer) (Integer) map.get("startIndex"), (Integer) map.get("endIndex"), null);
                                 }
                             } else {
-                                throw new EvaluationException("Evaluate", e.getMessage(), aEnvironment.getCurrentInput().iStatus.getSourceName(), map.get("lineNumber"), map.get("startIndex"), map.get("endIndex"), null);
+                                throw new EvaluationException("Evaluate", e.getMessage(), aEnvironment.getCurrentInput().iStatus.getSourceName(), (Integer) map.get("lineNumber"), (Integer) map.get("startIndex"), (Integer) map.get("endIndex"), null);
                             }
                         }
 

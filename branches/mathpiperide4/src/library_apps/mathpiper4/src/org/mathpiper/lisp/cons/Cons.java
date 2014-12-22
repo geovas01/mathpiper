@@ -36,7 +36,7 @@ import org.mathpiper.lisp.unparsers.LispUnparser;
 public abstract class Cons //Note:tk:was MathPiperObject.
 {
 
-    protected Map<String,Integer> metadataMap;
+    protected Map<String,Object> metadataMap;
 
     public Cons() throws Throwable
     {
@@ -137,14 +137,14 @@ public abstract class Cons //Note:tk:was MathPiperObject.
      *  Return a pointer to extra info. This allows for annotating
      *  an object. Returns NULL by default.
      */
-    public Map<String,Integer> getMetadataMap()
+    public Map<String,Object> getMetadataMap()
     {
         return metadataMap;
     }//end method.
 
 
 
-    public void setMetadataMap(Map<String,Integer> metaDataMap)
+    public void setMetadataMap(Map<String,Object> metaDataMap)
     {
         this.metadataMap = metaDataMap;
     }//end method.
@@ -192,7 +192,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
         StringOutput out = new StringOutput();
         LispUnparser printer = new LispUnparser();
         try {
-            printer.print(-1, this, out, null);
+            printer.print(-1, this, out, null, false);
         } catch (Throwable e) {
             e.printStackTrace();
         }
