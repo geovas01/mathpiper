@@ -111,7 +111,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
     private JScrollPane typePane;
     private JPanel consoleButtons;
     private JPanel realtimeButtons;
-    private int fontSize = 12;
+    private int fontSize = 14;
     private int resultHolderAdjustment = 3;
     private StringBuilder inputLines;
     private int responseInsertionOffset = -1;
