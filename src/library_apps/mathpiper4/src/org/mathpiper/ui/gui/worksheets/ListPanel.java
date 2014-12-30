@@ -42,9 +42,9 @@ public class ListPanel extends JPanel implements ViewPanel {
     public ListPanel(Environment aEnvironment, int aStackTop, Cons cons, double viewScale, Map options) {
         super();
         this.options = options;
-        if(options.containsKey("metaData"))
+        if(options.containsKey("MetaData"))
         {
-            metaData = (Boolean) options.get("metaData");
+            metaData = (Boolean) options.get("MetaData");
         }
         this.setOpaque(true);
         this.viewScale = viewScale;
