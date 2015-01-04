@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -14,6 +15,7 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.Cons;
@@ -169,8 +171,13 @@ public class ListPanel extends JPanel implements ViewPanel {
         } catch (Throwable e) {
             e.printStackTrace();
         }
-
-
+        
+        JFrame frame = new javax.swing.JFrame();
+        frame.getContentPane().add(this);
+        frame.pack();
+        BufferedImage bufferedImage = new java.awt.image.BufferedImage(this.getWidth(), this.getHeight(), java.awt.image.BufferedImage.TYPE_INT_RGB);
+        
+        this.paint(bufferedImage.getGraphics());								
     }
 
 
