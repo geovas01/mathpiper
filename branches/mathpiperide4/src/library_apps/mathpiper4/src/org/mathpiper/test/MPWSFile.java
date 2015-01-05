@@ -81,6 +81,7 @@ public class MPWSFile {
         StringBuilder foldContents = new StringBuilder();
         String foldHeader = "";
         boolean inFold = false;
+        boolean inOutputFold = false;
         int lineCounter = 0;
         int startLineNumber = -1;
 
@@ -95,17 +96,21 @@ public class MPWSFile {
             //System.out.println(line);
             lineCounter++;
 
-            if (! line.matches("^ */%/.*$") && ! line.matches("^ *\\. */%/.*$") && line.contains("%/")) {
+            if (!line.matches("^ */%/.*$") && !line.matches("^ *\\. */%/.*$") && line.contains("%/")) {
         	
         	String tempLine = line;
         	
 	        if(tempLine.startsWith("."))
 	        {
 	            tempLine = line.substring(1);
+                    
+                    if(tempLine.trim().startsWith("%/output"))
+                    {
+                        inOutputFold = false;
+                    }
 	        }
-	       
-	            
-	        if (tempLine.trim().startsWith("%/"))
+                
+	        if(!inOutputFold && tempLine.trim().startsWith("%/"))
 	        {
 	            	        
                     if (inFold == false) {
@@ -119,10 +124,15 @@ public class MPWSFile {
 	        }
 	        
 
-            } else if (line.trim().startsWith("%") && line.trim().length() > 2 && line.trim().charAt(1) != ' ') {
+            } else if (!inOutputFold && line.trim().startsWith("%") && line.trim().length() > 2 && line.trim().charAt(1) != ' ') {
         	
                 if (inFold == true) {
                     throw new Exception("Closing fold tag missing in file " + sourceName + " on line " + lineCounter);
+                }
+                
+                if(line.trim().startsWith("%output"))
+                {
+                    inOutputFold = true;
                 }
 
                 startLineNumber = lineCounter;
@@ -151,7 +161,7 @@ public class MPWSFile {
     
     public static void main(String[] args)
     {
-    	File mpwFile = new File("/home/tkosan/workspace/mathpiper4/src/org/mathpiper/scripts4/localrules/slash_colon_operator.mpw");
+    	File mpwFile = new File("/home/tkosan/workspace/mathpiper4/src/org/mathpiper/scripts4/a_initialization/standard/numeric.mpw");
     	
     	try
     	{
@@ -189,3 +199,4 @@ public class MPWSFile {
 
 
 }
+
