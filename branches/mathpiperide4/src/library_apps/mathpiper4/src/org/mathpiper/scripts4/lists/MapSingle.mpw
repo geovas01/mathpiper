@@ -44,7 +44,7 @@ The {/@} operator provides a shorthand for
 *E.G.
 
 Known functions of with one argument:
-In> MapSingle(Sine,[_a,4,Pi]);
+In> MapSingle("Sine",[_a,4,Pi]);
 Result: [Sine(_a),Sine(4),Sine(Pi)]
 
 In> MapSingle(Lambda([x],x^2), [(_a+2)^2,2,Pi]); 
