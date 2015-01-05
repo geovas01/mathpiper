@@ -47,6 +47,8 @@ import org.apache.commons.collections15.Factory;
 
 */
 
+saveBuffer = false;
+
 getHostAddresses()
 {
 	stringBuilder = new StringBuilder();
@@ -97,6 +99,121 @@ ChangeToForwardSlash(tempFilePath)
 //Note: This code needs to be moved to a Java object.
 //errorSource = new DefaultErrorSource("MathPiperIDE");
 //ErrorSource.registerErrorSource(errorSource);
+
+asciidoc()
+{
+	processor = org.asciidoctor.Asciidoctor.Factory.create();
+
+	if (0 == codeText.length()) {
+		org.gjt.sp.jedit.Macros.message(jEdit.getActiveView(),"The %asciidoc fold is empty.");
+		return;
+	}
+
+	
+	optionsMap = new HashMap();
+	
+	attributes = new HashMap();
+	
+	/*
+	attributes.put("backend", "deck.js");
+	
+	it = getFoldProperties(foldStartLine).entrySet().iterator();
+	while (it.hasNext()) {
+		pairs = it.next();
+		
+		if(pairs.getKey().startsWith("ad_"))
+		{
+			key = pairs.getKey().substring(3);
+			
+			value = pairs.getValue();
+			
+			if(key.equals("template_dirs"))
+			{
+				
+				value = new java.util.ArrayList().add(value); 
+				optionsMap.put("presentation_library", "git://github.com/imakewebthings/deck.js.git");
+			}
+			
+			optionsMap.put(key, value);
+		}
+	}
+	*/
+
+	htmlText = processor.convert(codeText, optionsMap);
+	htmlText = htmlText.replace("$$", "$");
+	htmlTextWithLatex = org.mathpiper.ui.gui.help.FunctionTreePanel.processLatex(htmlText);
+	
+	return(htmlTextWithLatex);
+}
+
+
+
+
+showHTML(htmlTextWithLatex)
+{
+	JEditorPane editorPane = new JEditorPane();
+	editorPane.setEditorKit(new javax.swing.text.html.HTMLEditorKit());
+	editorPane.setEditable(false);
+	//editorPane.setPage(tempFilePath);
+	editorPane.setText(htmlTextWithLatex); // System.out.println("XXX " + htmlTextWithLatex);
+	editorPane.setCaretPosition(0);
+	
+	show(editorPane);
+}
+
+
+show(content)
+{
+	frame = new javax.swing.JFrame(); 
+	contentPane = frame.getContentPane();
+	contentPane.setLayout(new java.awt.BorderLayout());
+	JScrollPane editorScrollPane = new JScrollPane(content);
+	editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+	contentPane.add(editorScrollPane);
+	
+	//{{{Experimental screen capture code.
+	button = new org.gjt.sp.jedit.gui.RolloverButton(GUIUtilities.loadIcon("Save.png"));
+	button.setToolTipText("Save image of this window.");
+	ActionListener actionListener = new java.awt.event.ActionListener() {
+		
+	public void actionPerformed(ActionEvent evt) 
+		{
+			String[] paths = org.gjt.sp.jedit.GUIUtilities.showVFSFileDialog(view, null, JFileChooser.SAVE_DIALOG, false);
+	
+			if (paths != null ) 
+			{
+				String fileName = paths[0];
+				java.io.File exportImageFile = new File(fileName);
+				try
+				{
+					org.mathpiperide.library.ScreenCapture.createImage(editorPane, fileName);
+				}
+				catch (java.io.IOException ioe)
+				{
+					ioe.printStackTrace();
+				}//end try/catch.
+			}//end if.
+		}//end method.
+	};//end anonymous.
+	
+	button.addActionListener( actionListener);
+	
+	
+	toolPanel = new javax.swing.JPanel();
+	toolPanel.add(button);
+	contentPane.add(toolPanel, java.awt.BorderLayout.NORTH);
+	
+	//}}}*/
+
+	frame.pack();
+	frame.setAlwaysOnTop(false);
+	frame.setTitle("MathPiperIDE");
+	frame.setResizable(true);
+	//frame.setPreferredSize(new Dimension(100, 100));
+	frame.setLocationRelativeTo(null);
+	frame.show();	
+}
 
 
 mpwExecutionCount++;
@@ -160,7 +277,7 @@ else if (path.endsWith(".uasm")|| path.endsWith(".UASM") )
 	org.gjt.sp.jedit.Macros.message(jEdit.getActiveView(),"A .lst and a .s19 file have been successfully created\n in the same directory as the source .uasm file.");
 	
 }
-else if (path.toLowerCase().endsWith(".mpw") || path.toLowerCase().endsWith(".mpwl") || path.toLowerCase().endsWith(".mpwnl") )
+else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mpwl") || path.toLowerCase().contains(".mpwnl"))
 {	
 	File tempFile = null;
 	
@@ -169,6 +286,7 @@ else if (path.toLowerCase().endsWith(".mpw") || path.toLowerCase().endsWith(".mp
 		
 		properties = new java.util.Hashtable();
 		properties.put("type","");
+		properties.put("subtype","");
 		properties.put("preserve","true");
 		properties.put("preserve_output","false");
 		properties.put("input","");
@@ -186,8 +304,9 @@ else if (path.toLowerCase().endsWith(".mpw") || path.toLowerCase().endsWith(".mp
 		properties.put("timeout","-1");
 		properties.put("parent","");
 		properties.put("log","true");
+		properties.put("path","");
 		
-		if(path.toLowerCase().endsWith(".mpwnl"))
+		if(path.toLowerCase().contains(".mpwnl"))
 		{
 			properties.put("log","false");
 		}
@@ -238,7 +357,32 @@ else if (path.toLowerCase().endsWith(".mpw") || path.toLowerCase().endsWith(".mp
 	
 	lineText = textArea.getLineText(currentLineNumber);
 	
-	if(lineText.startsWith("In>"))
+	if(lineText.trim().startsWith(":mathpiper:"))
+	{		
+
+		foldProperties = new java.util.Hashtable();
+
+		foldProperties.put("pipe_to","");
+
+		foldType = "%asciidoc";
+		
+		codeText = textArea.getText();
+		
+		Macros.getMacro("MathPiperIDE/Control_Shift_Enter").invoke(view);
+		
+		//html = asciidoc();
+		
+		//Runtime.getRuntime().exec("asciidoctor " + buffer.getPath());
+		
+		
+		//showHTML(html);
+		
+		//buf = jEdit.newFile(view);
+		//buf.insert(0,html);
+		
+		return;
+	}
+	else if(lineText.startsWith("In>"))
 	{	
 		foldEndLine = currentLineNumber;
 		
@@ -250,7 +394,6 @@ else if (path.toLowerCase().endsWith(".mpw") || path.toLowerCase().endsWith(".mp
     }
 	else
 	{
-	
 		//buffer.setMode("mathpiperide");
 		currentCaretPosition = textArea.getCaretPosition();
 		
@@ -265,6 +408,14 @@ else if (path.toLowerCase().endsWith(".mpw") || path.toLowerCase().endsWith(".mp
 		foldStartLineText = textArea.getLineText(foldStartLine);
 		
 		
+		if(!foldStartLineText.trim().startsWith("%"))
+		{
+			org.gjt.sp.jedit.Macros.message(jEdit.getActiveView(),"You must place the cursor inside of a fold to execute it with <shift><Enter>.");
+			textArea.selectNone();
+			textArea.setCaretPosition(currentCaretPosition);
+			return;
+		}
+		
 		pattern = Pattern.compile("%[a-z0-9_]+$|%[a-z0-9_]+( *[,] *[a-zA-Z_]+ *= *\"[^,\"\\n]*\")+ *$");
 		matcher = pattern.matcher(foldStartLineText);
 		if(matcher.find() == false)
@@ -278,14 +429,6 @@ else if (path.toLowerCase().endsWith(".mpw") || path.toLowerCase().endsWith(".mp
 			return;
 		}
 		
-		
-		if(!foldStartLineText.trim().startsWith("%"))
-		{
-			org.gjt.sp.jedit.Macros.message(jEdit.getActiveView(),"You must place the cursor inside of a fold to execute it with <shift><Enter>.");
-			textArea.selectNone();
-			textArea.setCaretPosition(currentCaretPosition);
-			return;
-		}
 		codeStartLine = foldStartLine+1;
 		codeEndLine = foldEndLine-1;
 		codeStartIndex = fold.getStart(textArea.getBuffer(),codeStartLine);
@@ -473,7 +616,17 @@ else if (path.toLowerCase().endsWith(".mpw") || path.toLowerCase().endsWith(".mp
 		output_fold_type = "";
 		
 		
-		if(foldType.equalsIgnoreCase("%In>"))
+// ====================================================== Start of fold checking code.		
+		
+		if(foldType.equalsIgnoreCase("%group")) //(foldStartLineText.indexOf("%geogebra") != -1)
+		{
+			result = "Test";
+			output_fold_type = "%output";
+			
+			saveBuffer = true;
+
+		}//end else
+		else if(foldType.equalsIgnoreCase("%In>"))
 		{
 			if(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.getHaltButtonState() == true)
 			{
@@ -793,6 +946,54 @@ else if (path.toLowerCase().endsWith(".mpw") || path.toLowerCase().endsWith(".mp
 							{
 								output_fold_type = "%mathpiper_trace";
 							}
+							else if(foldProperties.get("output").equalsIgnoreCase("imageFile"))
+							{
+								try
+								{
+									resultObject = evaluationResponse.getObject();
+									
+									if(resultObject != null && resultObject instanceof javax.swing.JComponent)
+									{
+										frame = new javax.swing.JFrame();
+										frame.setLayout(new FlowLayout());
+										contentPane = frame.getContentPane();
+										contentPane.add(resultObject);
+										
+										frame.pack();
+																				
+										d = resultObject.getSize();
+
+										if (d.width == 0)
+										{
+											d = resultObject.getPreferredSize();
+											resultObject.setSize( d );
+										}
+
+										bufferedImage = new java.awt.image.BufferedImage(resultObject.getWidth(), resultObject.getHeight(), java.awt.image.BufferedImage.TYPE_INT_RGB);
+										 
+										resultObject.paint(bufferedImage.getGraphics());
+										 
+										firstPartOfPath = buffer.getDirectory();
+										
+										lastPartOfPath = foldProperties.get("path");
+										
+										if(lastPartOfPath == null)
+										{
+											org.gjt.sp.jedit.Macros.message(jEdit.getActiveView(), "The 'path' attribute is missing.");
+											return;
+										}
+										
+										org.mathpiperide.library.ScreenCapture.writeImage(bufferedImage, firstPartOfPath + lastPartOfPath);
+	
+									}
+								}
+								catch (Throwable e)
+								{
+									System.out.println(e);
+								}//end try/catch.							
+							
+								output_fold_type = "%output";
+							}
 							else
 							{
 								output_fold_type = "%output";
@@ -857,13 +1058,13 @@ else if (path.toLowerCase().endsWith(".mpw") || path.toLowerCase().endsWith(".mp
 					public void run()
 					{
 						//Note:MathPiper evaluation was moved here to prevent late posting of "Processing..." output fold message.
-					try  
-					{
-						Thread.sleep(200);
-					}
-					catch(InterruptedException e)
-					{
-					}
+						try  
+						{
+							Thread.sleep(200);
+						}
+						catch(InterruptedException e)
+						{
+						}
 					
 						//System.out.println("XXXXXXXX1 " + "LoadScript(\""+codeText+"\");");
 						
@@ -1796,68 +1997,10 @@ else if (path.toLowerCase().endsWith(".mpw") || path.toLowerCase().endsWith(".mp
 				//tempFilePath = "file:///" + tempFilePath;
 				
 				htmlTextWithLatex = org.mathpiper.ui.gui.help.FunctionTreePanel.processLatex(codeText);
-				frame = new javax.swing.JFrame(); 
-				contentPane = frame.getContentPane();
-				contentPane.setLayout(new java.awt.BorderLayout());
-				JEditorPane editorPane = new JEditorPane();
-				editorPane.setEditorKit(new javax.swing.text.html.HTMLEditorKit());
-				JScrollPane editorScrollPane = new JScrollPane(editorPane);
-				editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-				editorPane.setEditable(false);
-				//editorPane.setPage(tempFilePath);
-				editorPane.setText(htmlTextWithLatex);
-				editorPane.setCaretPosition(0);
-				contentPane.add(editorScrollPane);//guiBox,BorderLayout.NORTH);
 				
+				showHTML(htmlTextWithLatex);
 				
-				//{{{Experimental screen capture code.
-				button = new org.gjt.sp.jedit.gui.RolloverButton(GUIUtilities.loadIcon("Save.png"));
-				button.setToolTipText("Save image of this window.");
-				ActionListener actionListener = new java.awt.event.ActionListener() {
-					
-					public void actionPerformed(ActionEvent evt) 
-					{
-						String[] paths = org.gjt.sp.jedit.GUIUtilities.showVFSFileDialog(view, null, JFileChooser.SAVE_DIALOG, false);
-				
-						if (paths != null ) 
-						{
-							String fileName = paths[0];
-							java.io.File exportImageFile = new File(fileName);
-							try
-							{
-								org.mathpiperide.library.ScreenCapture.createImage(editorPane, fileName);
-							}
-							catch (java.io.IOException ioe)
-							{
-								ioe.printStackTrace();
-							}//end try/catch.
-						}//end if.
-					}//end method.
-				};//end anonymous.
-        		
-				button.addActionListener( actionListener);
-				
-				
-				toolPanel = new javax.swing.JPanel();
-				toolPanel.add(button);
-				contentPane.add(toolPanel, java.awt.BorderLayout.NORTH);
-				
-				//}}}*/
-
-				
-				
-
-				frame.pack();
-				frame.setAlwaysOnTop(false);
-				frame.setTitle("MathPiperIDE");
-				xsize = Integer.parseInt(foldProperties.get("width"));
-				ysize = Integer.parseInt(foldProperties.get("height"));
-				frame.setSize(new Dimension(xsize, ysize));
-				frame.setResizable(true);
-				//frame.setPreferredSize(new Dimension(400, 400));
-				frame.setLocationRelativeTo(null);
-				frame.show();
-
+				saveBuffer = true;
 
 			}catch(Exception e) 
 			{
@@ -2023,8 +2166,7 @@ else if (path.toLowerCase().endsWith(".mpw") || path.toLowerCase().endsWith(".mp
 					output_fold_type = "%error";
 				}
 				
-				
-				
+				saveBuffer = true;
 					
 			}catch(java.io.IOException e) 
 			{
@@ -2123,6 +2265,8 @@ else if (path.toLowerCase().endsWith(".mpw") || path.toLowerCase().endsWith(".mp
 					output_fold_type = "%error";
 				}
 			}//end if/else.
+			
+			saveBuffer = true;
 			
 		}//end else
 		
@@ -2451,81 +2595,7 @@ else if (path.toLowerCase().endsWith(".mpw") || path.toLowerCase().endsWith(".mp
 			
 			try 
 			{   
-				//tempFilePath = tempFile.getAbsolutePath();
-				//tempFilePath = ChangeToForwardSlash(tempFilePath);
-				//tempFilePath = "file:///" + tempFilePath;
-				
-				
-
-				processor = org.asciidoctor.Asciidoctor.Factory.create();
-		
-				if (0 == codeText.length()) {
-					org.gjt.sp.jedit.Macros.message(jEdit.getActiveView(),"The %asciidoc fold is empty.");
-					return;
-				}
-		
-				htmlText = processor.convert(codeText, new java.util.HashMap());
-				htmlText = htmlText.replace("$$", "$");
-				htmlTextWithLatex = org.mathpiper.ui.gui.help.FunctionTreePanel.processLatex(htmlText);
-
-				frame = new javax.swing.JFrame(); 
-				contentPane = frame.getContentPane();
-				contentPane.setLayout(new java.awt.BorderLayout());
-				JEditorPane editorPane = new JEditorPane();
-				editorPane.setEditorKit(new javax.swing.text.html.HTMLEditorKit());
-				JScrollPane editorScrollPane = new JScrollPane(editorPane);
-				editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-				editorPane.setEditable(false);
-				//editorPane.setPage(tempFilePath);
-				editorPane.setText(htmlTextWithLatex);
-				editorPane.setCaretPosition(0);
-				contentPane.add(editorScrollPane);//guiBox,BorderLayout.NORTH);
-				
-				//{{{Experimental screen capture code.
-				button = new org.gjt.sp.jedit.gui.RolloverButton(GUIUtilities.loadIcon("Save.png"));
-				button.setToolTipText("Save image of this window.");
-				ActionListener actionListener = new java.awt.event.ActionListener() {
-					
-					public void actionPerformed(ActionEvent evt) 
-					{
-						String[] paths = org.gjt.sp.jedit.GUIUtilities.showVFSFileDialog(view, null, JFileChooser.SAVE_DIALOG, false);
-				
-						if (paths != null ) 
-						{
-							String fileName = paths[0];
-							java.io.File exportImageFile = new File(fileName);
-							try
-							{
-								org.mathpiperide.library.ScreenCapture.createImage(editorPane, fileName);
-							}
-							catch (java.io.IOException ioe)
-							{
-								ioe.printStackTrace();
-							}//end try/catch.
-						}//end if.
-					}//end method.
-				};//end anonymous.
-        		
-				button.addActionListener( actionListener);
-				
-				
-				toolPanel = new javax.swing.JPanel();
-				toolPanel.add(button);
-				contentPane.add(toolPanel, java.awt.BorderLayout.NORTH);
-				
-				//}}}*/
-
-				
-				frame.pack();
-				frame.setAlwaysOnTop(false);
-				frame.setTitle("MathPiperIDE");
-				xsize = Integer.parseInt(foldProperties.get("width"));
-				ysize = Integer.parseInt(foldProperties.get("height"));
-				frame.setSize(new Dimension(xsize, ysize));
-				frame.setResizable(true);
-				//frame.setPreferredSize(new Dimension(400, 400));
-				frame.setLocationRelativeTo(null);
-				frame.show();
+				asciidoc();
 
 
 			}catch(Exception e) 
@@ -2533,6 +2603,8 @@ else if (path.toLowerCase().endsWith(".mpw") || path.toLowerCase().endsWith(".mp
 				result = e.getMessage();
 				output_fold_type = "%error ";
 			}
+			
+			saveBuffer = true;
 			
 
 		}//end else
@@ -2545,7 +2617,9 @@ else if (path.toLowerCase().endsWith(".mpw") || path.toLowerCase().endsWith(".mp
 		{
 			return; //For now.
 		}
-		//end %uasm65 }}}
+		//end %output }}}
+		
+		// All other fold types.
 		else
 		{
 			return;
@@ -2651,6 +2725,8 @@ else if (path.toLowerCase().endsWith(".mpw") || path.toLowerCase().endsWith(".mp
 								
 								
 							afterFoldIndex = textArea.getLineStartOffset(foldEndLine+1);
+							textArea.setCaretPosition(afterFoldIndex);
+							textArea.insert(" ",false);
 							rangeSelection = new Range(afterFoldIndex,afterFoldIndex+1);//(isolatedCodeEndIndex, codeEndIndex);
 							textArea.setSelection(rangeSelection);
 							beforeNewlines = "\n";
@@ -2671,6 +2747,8 @@ else if (path.toLowerCase().endsWith(".mpw") || path.toLowerCase().endsWith(".mp
 							else if(nextFoldProperties.get("preserve").equalsIgnoreCase("true"))
 							{
 								afterFoldIndex = textArea.getLineStartOffset(foldEndLine+1);
+								textArea.setCaretPosition(afterFoldIndex);
+								textArea.insert(" ",false);
 								rangeSelection = new Range(afterFoldIndex,afterFoldIndex+1);
 								textArea.setSelection(rangeSelection);
 								beforeNewlines = "\n";
@@ -2784,11 +2862,18 @@ else if (path.toLowerCase().endsWith(".mpw") || path.toLowerCase().endsWith(".mp
 						}
 						*/
 
-									
-						if(isSaveBuffer == true)
+						Thread t = new Thread()
 						{
-							buffer.save(view,null);
-						}
+							 public void run()
+							 {
+								if(isSaveBuffer == true)
+								{
+									buffer.save(view,null);
+								}
+							 }
+						};
+						t.start();	
+
 						
 
 					}//end run method.
@@ -2800,7 +2885,7 @@ else if (path.toLowerCase().endsWith(".mpw") || path.toLowerCase().endsWith(".mp
 				}//end method.
 
 				
-			    displayResult(false);	//Display %info fold.
+			    displayResult(saveBuffer);	//Display %info fold.
 			    
 			    displayInProcess = false;
 							
@@ -2810,9 +2895,6 @@ else if (path.toLowerCase().endsWith(".mpw") || path.toLowerCase().endsWith(".mp
 	{
 		e.printStackTrace();
     }
-	
-
-	
 
 }//end else if.
 

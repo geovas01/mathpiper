@@ -16,7 +16,6 @@ for(fold:foldsMap)
 	
 	if(foldType.equals("%mathpiper"))
 	{
-		
 		if (fold.getAttributes().containsKey("name")) {
 		    nameAttribute = (String) fold.getAttributes().get("name");
 		    
@@ -43,7 +42,7 @@ for(fold:foldsMap)
 		codeText = codeText.replace("\\","\\\\");
 		codeText = codeText.replace("\"","\\\"");
 		
-		evaluationResponse = interpreter.evaluate("LoadScript(\"" + codeText + "\");", true);
+		evaluationResponse = interpreter.evaluate("LoadScript(\"" + codeText + "\");", false);
 		
 		
 		if(evaluationResponse.isExceptionThrown())
@@ -54,7 +53,57 @@ for(fold:foldsMap)
 			
 		}
 		
-		result = evaluationResponse.getResult();
+		if (fold.getAttributes().containsKey("output")) 
+		{
+		    nameAttribute = (String) fold.getAttributes().get("output");
+		    
+			if(nameAttribute.equals("imageFile"))
+			{
+				try
+				{
+					resultObject = evaluationResponse.getObject();
+					
+					if(resultObject != null && resultObject instanceof javax.swing.JComponent)
+					{
+						frame = new javax.swing.JFrame();
+						frame.setLayout(new java.awt.FlowLayout());
+						contentPane = frame.getContentPane();
+						contentPane.add(resultObject);
+						frame.pack();
+						
+						d = resultObject.getSize();
+	
+						if (d.width == 0)
+						{
+							d = resultObject.getPreferredSize();
+							resultObject.setSize( d );
+						}
+	
+						bufferedImage = new java.awt.image.BufferedImage(resultObject.getWidth(), resultObject.getHeight(), java.awt.image.BufferedImage.TYPE_INT_RGB);
+						 
+						resultObject.paint(bufferedImage.getGraphics());
+						
+						firstPartOfPath = buffer.getDirectory();
+						
+						lastPartOfPath = (String) fold.getAttributes().get("path");
+						
+						if(lastPartOfPath == null)
+						{
+							org.gjt.sp.jedit.Macros.message(jEdit.getActiveView(), "The 'path' attribute is missing.");
+							return;
+						}
+						
+						org.mathpiperide.library.ScreenCapture.writeImage(bufferedImage, firstPartOfPath + lastPartOfPath);
+					}
+				}
+				catch (Throwable e)
+				{
+					org.gjt.sp.jedit.Macros.message(jEdit.getActiveView(), e.getMessage());
+				}//end try/catch.							
+			
+				output_fold_type = "%output";
+			}
+		}
 		
 	}
 	
