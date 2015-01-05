@@ -42,10 +42,13 @@
                         <BEGIN>`</BEGIN>
                         <END>`</END>
                 </SPAN>
+                
+                <!--
                 <SPAN TYPE="LITERAL2" DELEGATE="LITERAL_TWO">
                         <BEGIN>'</BEGIN>
                         <END>'</END>
                 </SPAN>
+                -->
                
                                                 <!-- bold -->
                 <SEQ_REGEXP

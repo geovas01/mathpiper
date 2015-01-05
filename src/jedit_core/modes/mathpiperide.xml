@@ -14,24 +14,63 @@
 	
 	<RULES IGNORE_CASE="FALSE" >
 
-		<!-- Silly comment -->
-		<SEQ TYPE="COMMENT1">/**/</SEQ>
+		<EOL_SPAN TYPE="COMMENT1">////</EOL_SPAN>
+		<EOL_SPAN AT_WHITESPACE_END="TRUE" TYPE="COMMENT3">== </EOL_SPAN>
+		<EOL_SPAN AT_WHITESPACE_END="TRUE" TYPE="COMMENT3">=== </EOL_SPAN>
+		<EOL_SPAN AT_WHITESPACE_END="TRUE" TYPE="COMMENT3">==== </EOL_SPAN>
+		<EOL_SPAN AT_WHITESPACE_END="TRUE" TYPE="COMMENT3">===== </EOL_SPAN>
 
-
-		<!-- C style comment -->
-		<SPAN TYPE="COMMENT1">
-			<BEGIN>/*</BEGIN>
-			<END>*/</END>
+		<!-- Standard literals -->
+		<SPAN TYPE="LITERAL1" DELEGATE="LITERAL_ONE">
+				<BEGIN>`</BEGIN>
+				<END>`</END>
 		</SPAN>
-        
-		<EOL_SPAN TYPE="COMMENT1">//</EOL_SPAN>
-        
+		
+
+	   
+										<!-- bold -->
+		<SEQ_REGEXP
+				HASH_CHAR="*"
+				AT_LINE_START="FALSE"
+				TYPE="KEYWORD4"
+		>\*[^\s*][^*]*\*</SEQ_REGEXP>
+
+		<!-- bold and italic -->
+		<SEQ_REGEXP
+				HASH_CHAR="_"
+				AT_LINE_START="FALSE"
+				TYPE="KEYWORD4"
+		>__\w.*?\w__</SEQ_REGEXP>
+
+		<!-- italic -->
+		<SEQ_REGEXP
+				HASH_CHAR="_"
+				AT_LINE_START="FALSE"
+				TYPE="KEYWORD4"
+		>_\w.*?\w_</SEQ_REGEXP>
+
+		<!-- fixed font -->
+		<SEQ_REGEXP
+				HASH_CHAR="+"
+				AT_LINE_START="FALSE"
+				TYPE="KEYWORD4"
+		>\+\w.*?\w\+</SEQ_REGEXP>
+
+	   
+		<!-- variables -->
+	   
+		<SEQ_REGEXP HASH_CHAR="$" TYPE="KEYWORD2">\$#?((\p{Alpha}\w*|_\w+)?::)*(\p{Alpha}\w*|_\w+|\d+)\$*</SEQ_REGEXP>
+		<!-- <SEQ_REGEXP HASH_CHAR="%" TYPE="KEYWORD2">%((\p{Alpha}\w*|_\w+)?::)*(\p{Alpha}\w*|_\w+|\d+)%*</SEQ_REGEXP> -->
+
+		<SEQ TYPE="OPERATOR">+</SEQ>
+		
+		
+		
+		<!-- Start of MathPiperIDE code. -->
+                
+                
         <EOL_SPAN TYPE="COMMENT3">%group</EOL_SPAN>
         <EOL_SPAN TYPE="COMMENT3">%/group</EOL_SPAN>
-        
-        <SEQ TYPE="COMMENT3">In></SEQ>
-        
-        <SEQ TYPE="KEYWORD4">========================================================================================================</SEQ>
 
 
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="mathpiperdocs::MAIN">
@@ -158,6 +197,7 @@
 			<BEGIN>%asciidoc[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;\?]*</BEGIN>
 			<END>%/asciidoc</END>
 		</SPAN_REGEXP>
+		
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="wolfram::MAIN">
 			<BEGIN>%wolfram[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;\?]*</BEGIN>
 			<END>%/wolfram</END>
