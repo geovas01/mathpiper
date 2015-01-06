@@ -17,7 +17,7 @@
 package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
+import javax.swing.Icon;
 
 import javax.swing.JLabel;
 
@@ -115,6 +115,15 @@ public class ScaledGraphics {
 	
 	//iG.drawRect((int)(x * viewScale), (int)(y * viewScale), (int)(icon.getIconWidth()), (int)(icon.getIconHeight()));
         
+    }
+    
+    public void drawIcon(Icon icon, double x, double y)
+    {
+	JLabel jl = new JLabel();
+
+	jl.setForeground(new Color(0, 0, 0));
+	
+	icon.paintIcon(jl, iG, (int)(x * viewScale), (int)(y * viewScale));
     }
 
 
