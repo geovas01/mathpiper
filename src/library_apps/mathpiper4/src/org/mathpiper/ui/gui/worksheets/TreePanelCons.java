@@ -22,6 +22,9 @@ import org.scilab.forge.mp.jlatexmath.TeXConstants;
 import org.scilab.forge.mp.jlatexmath.TeXFormula;
 import org.scilab.forge.mp.jlatexmath.TeXIcon;
 
+import com.foundationdb.sql.parser.SQLParser;
+import com.foundationdb.sql.parser.StatementNode;
+
 public class TreePanelCons extends JComponent implements ViewPanel {
 
 	protected Cons expressionCons;
@@ -38,7 +41,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 	private double defaultLineThickness = .6;
 	private int fontSize = 11;
 
-	private Map<String, String> latexMap = new HashMap();
+	
 
 	private Map<String, Color> colorMap = new HashMap();
 
@@ -72,28 +75,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 		// this.setBorder(new EmptyBorder(1,1,1,1));
 
-		latexMap.put(":=", ":=");
-		latexMap.put("=?", "=");
-		latexMap.put("!=?", "\\neq");
-		latexMap.put("<=?", "\\leq");
-		latexMap.put(">=?", "\\geq");
-		latexMap.put("<?", "<");
-		latexMap.put(">?", ">");
-		latexMap.put("And?", "\\wedge");
-		latexMap.put("Or?", "\\vee");
-		latexMap.put("<>", "\\sim");
-		latexMap.put("<=>", "\\approx");
-		latexMap.put("Implies?", "\\Rightarrow");
-		latexMap.put("Equivales?", "\\equiv");
-		latexMap.put("%", "\\bmod");
-		latexMap.put("Not?", "\\neg");
-		latexMap.put("+", "+");
-		latexMap.put("-", "-");
-		latexMap.put("/", "\\div");
-		latexMap.put("*", "\\times");
-		latexMap.put("==", "=");
-		latexMap.put("^", "^\\wedge");
-		latexMap.put("Sqrt", "\\sqrt");
+
 
 		colorMap.put("\"RED\"", Color.RED);
 		colorMap.put("\"BLACK\"", Color.BLACK);
@@ -120,22 +102,26 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 			lastOnRasterArray[index] = -1;
 		}// end for.
 
-		mainRootNode = new SymbolNode();
+                
+                if(expressionCons != null)
+                {
+                    mainRootNode = new SymbolNode();
 
-		try {
-			// listToTree(rootNode, expressionCons, null, null);
+                    try {
+                            // listToTree(rootNode, expressionCons, null, null);
 
-			String operator = (String) Cons.caar(expressionCons);
+                            String operator = (String) Cons.caar(expressionCons);
 
-			mainRootNode.setOperator(operator);
+                            mainRootNode.setOperator(operator, isCodeForm);
 
-			handleSublistCons(mainRootNode, expressionCons, null, null);
+                            handleSublistCons(mainRootNode, expressionCons, null, null);
 
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
+                    } catch (Throwable e) {
+                            e.printStackTrace();
+                    }
 
-		layoutTree();
+                    layoutTree();
+                }
 
 	}
 
@@ -175,7 +161,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 		String operator = (String) cons.car();
 
-		rootNode.setOperator(operator);
+		rootNode.setOperator(operator, isCodeForm);
 
 		while (cons.cdr() != null) {
 			cons = cons.cdr();
@@ -222,7 +208,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 				operator = (String) cons.car();
 
-				node2.setOperator(operator);
+				node2.setOperator(operator, isCodeForm);
 
 				rootNode.addChild(node2);
 			}
@@ -401,7 +387,8 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 				double nodeY1 = nodeY0 + currentNode.getNodeHeight();
 
 				sg.setColor(Color.BLACK);
-				sg.drawLatex(currentNode.texFormula, nodeX0, nodeY0);
+				sg.drawLatex(currentNode.getTexFormula(), nodeX0, nodeY0);
+                                //sg.drawIcon(currentNode.getIcon(), nodeX0, nodeY0); todo:tk:this code is for SQL experiments.
 				
 				//sg.drawRectangle(nodeX0, nodeY0, currentNode.getNodeWidth(), currentNode.getNodeHeight());
 
@@ -471,7 +458,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 		this.repaint();
 	}
 
-	private void layoutTree() {
+	public void layoutTree() {
 		
 		rightMostPosition = 0;
 
@@ -481,14 +468,14 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 		maxTreeY = 0;
 
-		layoutTree(mainRootNode, 40/* yPosition */, 0/* position */, null);
+		layoutTree(mainRootNode, 40/* yPosition */, 0/* position */, null); // todo:tk:add to 40 to stretch in the Y direction.
 
 	}
 
 	// Layout algorithm from "Esthetic Layout of Generalized Trees" by Anthony
 	// Bloesch.
 	private int layoutTree(SymbolNode treeNode, int yPosition, int leftSidePosition, SymbolNode parent) {
-		int Y_SEPARATION = 30;//35 /* y stretch from top of parent to top of child. */;
+		int Y_SEPARATION = 30;//35 /* y stretch from top of parent to top of child. */; // todo:tk:add to 30 to stretch in the Y direction.
 		int MIN_X_SEPARATION = 20;
 
 		int branchPosition; // Adjusts the x position of all nodes.
@@ -641,102 +628,29 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 	}// end method.
 
-	private class SymbolNode {
-		private String symbolString;
+    public SymbolNode getMainRootNode() {
+        return mainRootNode;
+    }
 
-		private List<SymbolNode> children = new ArrayList();
+    public void setMainRootNode(SymbolNode mainRootNode) {
+        this.mainRootNode = mainRootNode;
+    }
+        
+        
+        
+    public static void main(String[] args) {
+        try
+        {
+            SQLParser parser = new SQLParser();
 
-		private TeXIcon icon;
+                StatementNode stmt = parser.parseStatement("SELECT hotel_no, SUM(price) FROM room r WHERE room_no NOT IN (SELECT room_no FROM booking b, hotel h WHERE (date_from <= CURRENT_DATE AND date_to >= CURRENT_DATE) AND b.hotel_no = h.hotel_no) GROUP BY hotel_no");
+                stmt.treePrint();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
 
-		private TeXFormula texFormula;
-
-		private int treeX;
-
-		private int treeY;
-
-		private Color highlightColor;
-
-		private String highlightNodeShape = "SQUARE";
-
-		public void setOperator(String symbolString) {
-			this.symbolString = symbolString;
-
-			String latex = "";
-
-			if (isCodeForm) {
-				latex = symbolString;
-			} else {
-				latex = latexMap.get(symbolString);
-
-				if (latex == null) {
-					latex = symbolString;
-				}
-			}
-
-			latex = latex.replace("_", "");
-
-			texFormula = new TeXFormula(latex);
-
-			icon = texFormula.createTeXIcon(TeXConstants.STYLE_DISPLAY, (float) (12));
-
-		}
-
-		public TeXFormula getTeXFormula() {
-			return texFormula;
-		}
-
-		public void addChild(SymbolNode child) {
-			children.add(child);
-		}
-
-		public SymbolNode[] getChildren() {
-			return (SymbolNode[]) children.toArray(new SymbolNode[children.size()]);
-		}
-
-		public int getNodeWidth() {
-			return (int) icon.getIconWidth();
-		}
-
-		public int getNodeHeight() {
-			return (int) icon.getIconHeight();
-		}
-
-		public int getTreeX() {
-			return treeX;
-		}
-
-		public void setTreeX(int treeX) {
-			this.treeX = treeX;
-		}
-
-		public int getTreeY() {
-			return treeY;
-		}
-
-		public void setTreeY(int treeY) {
-			this.treeY = treeY;
-		}
-
-		public Color getHighlightColor() {
-			return highlightColor;
-		}
-
-		public void setHighlightColor(Color color) {
-			this.highlightColor = color;
-		}
-
-		public String getHighlightNodeShape() {
-			return highlightNodeShape;
-		}
-
-		public void setHighlightNodeShape(String hilightNodeShape) {
-			this.highlightNodeShape = hilightNodeShape;
-		}
-
-		public String toString() {
-			return symbolString;
-		}
-
-	}
+    }
 
 }// end class.
