@@ -145,7 +145,7 @@ public class MathPiperUnparser extends LispUnparser {
                     left = subList.cdr();
                 }
 
-                if (iPrecedence < operator.iPrecedence) { //todo:tk:change < to <= to show more parentheses.
+                if (iPrecedence <= operator.iPrecedence) { //todo:tk:change < to <= to show more parentheses. Is needed for expressions such as '(3*((x+1)*(x-1))).
                     WriteToken(aOutput, "(");
                 } else {
                     //Vladimir?    aOutput.write(" ");
@@ -207,7 +207,7 @@ public class MathPiperUnparser extends LispUnparser {
                     }//end if.
                 }
 
-                if (iPrecedence < operator.iPrecedence) { //todo:tk:change < to <= to show more parentheses.
+                if (iPrecedence <= operator.iPrecedence) { //todo:tk:change < to <= to show more parentheses.
                     WriteToken(aOutput, ")");
                 }
 
