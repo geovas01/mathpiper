@@ -1,5 +1,5 @@
 
-%mathpiper,def="D"
+%mathpiper,def="Dx"
 //PKHG>5-4-2014
 /*
 removeCrLf(str) := {
