@@ -360,7 +360,7 @@ Use {NFunction} to overcome this difficulty.
 
 Data files are created in a temporary directory {/tmp/plot.tmp/} unless otherwise requested.
 File names
-and other information is printed if {InVerboseMode()} returns {True} on using {V()}.
+and other information is printed if {InVerboseMode()} returns {True} on using {VM()}.
 
 The current algorithm uses Newton-Cotes cubatures and some heuristics for error 
 estimation (see <*mathpiperdoc://Algo/3/1/*>).
@@ -415,7 +415,7 @@ Same limitations as {Plot2D}.
 In> Plot3DS(a*b^2)
 Result: True;
 
-In> V(Plot3DS(Sin(x)*Cos(y),x: 0->20, y: 0->20,depth: 3))
+In> VM(Plot3DS(Sin(x)*Cos(y),x: 0->20, y: 0->20,depth: 3))
         CachedConstant: Info: constant Pi is being 
           recalculated at precision 10
         CachedConstant: Info: constant Pi is being
