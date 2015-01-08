@@ -76,6 +76,8 @@
 		<pathelement path="${non_plugin.jars.dir}/hsqldb.jar" />
 		<pathelement path="${non_plugin.jars.dir}/sqltool.jar" />
 		<pathelement path="${non_plugin.jars.dir}/ganymed-ssh2-build210.jar" />
+		<pathelement path="${non_plugin.jars.dir}/jpl.jar" />
+		<pathelement path="${non_plugin.jars.dir}/fdb-sql-parser-1.4.0.jar" />
 		<!--<pathelement path="${master.lib.dir}/jars/bsh-2.0b4.jar" />
 		<pathelement path="${master.lib.dir}/jars/beansheet_plugin.jar" />  
 		-->
@@ -583,7 +585,7 @@
 			<param name="target" value="dist"/>
 		</antcall>
 		<copy file="${library_apps.build.dir}/${mathpiper.version}/dist/mathpiper.jar" todir="${non_plugin.jars.dir}"/>
-		<copy file="${library_apps.build.dir}/${mathpiper.version}/resources/mathpiper.xml" todir="${master.build.dir}/mathpiperide/modes"/>
+		<copy overwrite="true" file="${library_apps.build.dir}/${mathpiper.version}/resources/mathpiper.xml" todir="${master.build.dir}/mathpiperide/modes"/>
 		
 
 		
@@ -786,6 +788,15 @@
 		</copy>	
 	</target>
 	
+	<target id="save-perspective-file" name="save-perspective-file" description="Saves the perspective.xml file." > 
+		<copy overwrite="true" file="${master.build.dir}/mathpiperide/settings/perspective.xml" 
+		todir="${java.io.tmpdir}"/>
+	</target>
+	
+	<target id="restore-perspective-file" name="restore-perspective-file" description="Restores the perspective.xml file." > 
+		<copy overwrite="true" file="${java.io.tmpdir}/perspective.xml"
+		todir="${master.build.dir}/mathpiperide/settings" />  
+	</target>
 	
 	<target id="latex" name="latex" depends=""
 		description="Compiles newbies book." >
