@@ -6,11 +6,12 @@
     
 
 
+// Return the position of a variable.
 Position(subTerm, term) :=
 {
     Local(positionList);
     
-    Check(Function?(term), "Argument", "The argument must be an expression that contains a function.");
+    Check(Occurrence(term, subTerm) >? 0, "Argument", "The argument must be an expression that contains a function.");
     
     positionList := PositionHelper(subTerm, term,[False]);
     
