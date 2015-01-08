@@ -1,4 +1,4 @@
-%mathpiper,def="V;InVerboseMode"
+%mathpiper,def="VM;InVerboseMode"
 
 LocalSymbols(Verbose) {
 
@@ -29,11 +29,11 @@ UnFence("V",1);
 
 
 
-%mathpiper_docs,name="V;InVerboseMode",categories="Programming Functions;Input/Output"
+%mathpiper_docs,name="VM;InVerboseMode",categories="Programming Functions;Input/Output"
 *CMD V, InVerboseMode --- set verbose output mode
 *STD
 *CALL
-        V(expression)
+        VM(expression)
         InVerboseMode()
 
 *PARMS
@@ -42,7 +42,7 @@ UnFence("V",1);
 
 *DESC
 
-The function {V(expression)} will evaluate the expression in
+The function {VM(expression)} will evaluate the expression in
 verbose mode. Various parts of MathPiper can show extra information
 about the work done while doing a calculation when using {V}.
 
@@ -54,7 +54,7 @@ it will return {False}.
 In> OldSolve([x+2==0],[x])
 Result: [[-2]];
 
-In> V(OldSolve([x+2==0],[x]))
+In> VM(OldSolve([x+2==0],[x]))
         Entering OldSolve
         From  x+2==0  it follows that  x  = -2
            x+2==0  simplifies to  True
@@ -64,7 +64,7 @@ Result: [[-2]];
 In> InVerboseMode()
 Result: False
 
-In> V(InVerboseMode())
+In> VM(InVerboseMode())
 Result: True
 
 *SEE Echo, NM, OldSolve

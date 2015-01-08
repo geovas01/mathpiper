@@ -84,7 +84,7 @@ Result: 0.9437314906
 In> Rationalize(x)
 Result: 4718657453/5000000000;
 
-In> V(GuessRational(x))
+In> VM(GuessRational(x))
         
         GuessRational: using 10 terms of the  continued fraction
 Result: 956/1013;

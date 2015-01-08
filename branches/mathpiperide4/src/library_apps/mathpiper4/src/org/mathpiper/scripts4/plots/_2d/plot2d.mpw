@@ -289,7 +289,7 @@ Use {NFunction} to overcome this difficulty.
 
 Data files are created in a temporary directory {/tmp/plot.tmp/} unless otherwise requested.
 File names
-and other information is printed if {InVerboseMode()} returns {True} on using {V()}.
+and other information is printed if {InVerboseMode()} returns {True} on using {VM()}.
 
 The current algorithm uses Newton-Cotes quadratures and some heuristics for error 
 estimation (see <*mathpiperdoc://Algo/3/1/*>). The initial grid of {points+1} 

@@ -15,7 +15,8 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.test;
 
-import java.util.Hashtable;
+import jpl.Query;
+import jpl.Variable;
 
 //import jpl.Atom;
 //import jpl.Compound;
@@ -116,10 +117,10 @@ public class InterpreterTest implements ResponseListener
     
     public static void main(String[] args)
     {
-        new InterpreterTest();
+       // new InterpreterTest();
 	
 	
-	/* 
+	
 	//This code works.
 	Variable X = new Variable();
 	Query q;
@@ -134,7 +135,7 @@ public class InterpreterTest implements ResponseListener
 	while (q.hasMoreElements()) {
 	    System.err.println(q.nextElement());
 	}
-	*/
+	// */
 	
 	
 	/*

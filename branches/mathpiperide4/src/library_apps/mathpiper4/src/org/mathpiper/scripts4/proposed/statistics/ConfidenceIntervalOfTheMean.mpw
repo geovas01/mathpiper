@@ -109,7 +109,7 @@ In> result["criticalTScore"]
 Result: 1.710882080
 
 
-In> result := V(ConfidenceIntervalOfTheMean(78.25,37.50,True,32,.90))
+In> result := VM(ConfidenceIntervalOfTheMean(78.25,37.50,True,32,.90))
 Result: [["lowerLimit",67.34605578],["upperLimit",89.15394422],["criticalZScore",1.644853952]]
 Side Effects:
 Using the normal distribution.
