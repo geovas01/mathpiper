@@ -74,7 +74,7 @@ res1 =? res2;
 .   %/output
 
 
-%mathpiper_docs,name="D",categories="Mathematics Functions;Calculus Related (Symbolic)"
+%mathpiper_docs,name="Dx",categories="Mathematics Functions;Calculus Related (Symbolic)"
 *CMD Dx(arg) expression --- Differentiate expression as function of arg, or Dx([var,order]) expression
 *STD
 *CALL
