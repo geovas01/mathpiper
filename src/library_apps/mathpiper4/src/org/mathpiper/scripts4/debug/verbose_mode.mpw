@@ -5,7 +5,7 @@ LocalSymbols(Verbose) {
   Assign(Verbose,False);
 
 
-  Function("V",[_aNumberBody])
+  Function("VM",[_aNumberBody])
   {
     Local(prevVerbose,result);
     Assign(prevVerbose,Verbose);
