@@ -44,7 +44,7 @@ import java.util.Map.Entry;
 
 public class ABCLShell extends Shell
 {
-	private static ScriptEngine interpreter;
+	private static Interpreter interpreter;
 	//private static Interpreter interpreter;
 
 	public ABCLShell() //throws org.mathpiper.ide.abcl.Piperexception
@@ -54,12 +54,13 @@ public class ABCLShell extends Shell
 
 	}//end constructor.
 	
-	public static synchronized ScriptEngine getInterpreter()
+	public static synchronized Interpreter getInterpreter()
 	{
 		if(interpreter == null)
 		{
-			interpreter = new ScriptEngineManager().getEngineByExtension("lisp");
-			//interpreter = Interpreter.createInstance();
+			//interpreter = new ScriptEngineManager().getEngineByExtension("lisp"); todo:tk:this method stopped working for some reason.
+			
+			interpreter = Interpreter.createInstance();
 			return interpreter;
 		}
 		else
@@ -97,7 +98,7 @@ public class ABCLShell extends Shell
 			if(response instanceof LispObject)
 			{
 				LispObject lispObject = (LispObject) response;
-				String responseString = lispObject.writeToString();
+				String responseString = lispObject.princToString();
 				responseString = responseString.replaceAll("ABCL-SCRIPT-USER::","");
 				output.print(null,  responseString);
 			}
