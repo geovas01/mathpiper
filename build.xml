@@ -2,6 +2,8 @@
 
 <!-- Copyright (C) 2008 Ted Kosan (license information is at the end of this document.) -->
 
+<!-- ant -Dtarget=dist abcl_plugin -->
+
 <project name="mathpiperide" default="help" basedir="." >
 	<description>
 		Main build file for the MathPiperIDE project.
@@ -50,7 +52,7 @@
 		<pathelement path="${master.lib.dir}/jars/SideKick.jar" />
 		<pathelement path="${master.lib.dir}/jars/Console.jar" />
 		<pathelement path="${master.lib.dir}/jars/clojure.jar" />
-		<pathelement path="${master.lib.dir}/non_plugin_jars/abcl.jar" />
+		<pathelement path="${master.lib.dir}/extra_jars/abcl.jar" />
 		<pathelement path="${master.lib.dir}/non_plugin_jars/geogebra.jar" />
 		<pathelement path="${master.lib.dir}/non_plugin_jars/geogebra_algos.jar" />
 		<pathelement path="${master.lib.dir}/non_plugin_jars/geogebra_cas.jar" />
@@ -234,6 +236,7 @@
 		</ant>
 		
 		<copy file="${plugins.build.dir}/abcl_plugin/dist/abcl_plugin.jar" todir="${plugins.jars.dir}"/>
+		<copy file="${master.lib.dir}/extra_jars/abcl.jar" todir="${non_plugins.jars.dir}"/>
 	</target>
 	
 	
