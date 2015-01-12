@@ -432,10 +432,12 @@ public class EMU6502 implements Runnable
 
 			while(runFlag == true)
 			{
+				/*
 				if(pc == 0x0200)
 				{
 					int aa = 4;
 				}
+				*/
 				block = (pc & 0xe000) >> 13;
 				block2 = 0;
 
