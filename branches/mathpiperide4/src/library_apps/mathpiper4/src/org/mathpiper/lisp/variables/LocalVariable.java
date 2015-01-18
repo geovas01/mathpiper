@@ -24,6 +24,7 @@ public class LocalVariable {
     public LocalVariable iNext;
     public String iVariable;
     public Cons iValue;
+    public boolean iConstant;
 
 
     public LocalVariable(Environment aEnvironment, String aVariable, Cons aValue) {

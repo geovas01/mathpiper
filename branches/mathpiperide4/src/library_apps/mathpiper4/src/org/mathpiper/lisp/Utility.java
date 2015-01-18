@@ -872,7 +872,7 @@ public class Utility {
 
 		    Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, readIn);
 		    if (aStackTop != -1) {
-			aEnvironment.setLocalOrGlobalVariable(aStackTop, "$LoadResult", result, false, false);//Note:tk:added to make the result of executing Loaded code available.
+			aEnvironment.setLocalOrGlobalVariable(aStackTop, "$LoadResult", result, false, false, false);//Note:tk:added to make the result of executing Loaded code available.
 		    }
 		}
 	    }//end while.
@@ -1110,7 +1110,7 @@ public class Utility {
      * @throws java.lang.Exception
      */
     public static void setVariableOrConstant(Environment aEnvironment, int aStackTop, boolean aMacroMode,
-	    boolean aGlobalLazyVariable, boolean aConstant) throws Throwable {
+	    boolean aGlobalLazyVariable, boolean aConstant, boolean isSymbolConstant) throws Throwable {
 	String variableString = null;
 	if (aMacroMode) {
 	    Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop,
@@ -1134,7 +1134,7 @@ public class Utility {
 		LispError.throwError(aEnvironment, aStackTop, "<" + variableString +"> is a constant, and values cannot be assigned to constants.");
 	}
 
-	if (aConstant == true ) {
+	if (isSymbolConstant == true) {
 	    value = BuiltinFunction.getArgument(aEnvironment, aStackTop, 1);
 	} else {
 	    value = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop,
@@ -1143,7 +1143,7 @@ public class Utility {
 	
 	//System.out.println(variableString + ", " + value);
 
-	aEnvironment.setLocalOrGlobalVariable(aStackTop, variableString, value, aGlobalLazyVariable, aConstant); //Variable setting is deligated to Environment.
+	aEnvironment.setLocalOrGlobalVariable(aStackTop, variableString, value, aGlobalLazyVariable, aConstant, isSymbolConstant); //Variable setting is deligated to Environment.
 
 	BuiltinFunction.setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }

@@ -1,31 +1,7 @@
-v := "
-'{
-
-x := 1   ;
-z := -3;
-//  Hi
-// Bye
-y := 2;
-
-/* Lo */
-
-
-
-
-While(x <? 50)
-{ // Hi
-  Write(x);
-  WriteString(\",\"); // test3
-  x := x + 1;  
-
-    /*
-        More
-        Stuff
-    */
-};
-};";
-
-a := PipeFromString(v) ParseMathPiper();
-
-ViewGraphicConsole();
-//ViewList(a, metaData:True);
+Unassign(v1);
+Verify(ExceptionCatch(v1,"Exception"), "Exception");
+Constant('v1, True);
+Verify(v1,v1);
+Constant(v1, False);
+Verify(ExceptionCatch(v1,"Exception"), "Exception");
+Unassign(v1);

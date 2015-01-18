@@ -5,7 +5,7 @@
 // The difference is it isn't converted to the form Complex(x,y).
 //
 
-Constant('II);
+Constant('II, True);
 
 10 # II^n_NegativeInteger? <-- (-II)^(-n);
 20 # (II^_n)::(Even?(n) =? True) <-- (-1)^(n>>1);

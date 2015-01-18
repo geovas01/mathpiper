@@ -1,5 +1,5 @@
-Mon Dec 22 03:37:02 EST 2014.
-MathPiper version: mp4_beta_v.136_r5345M.
+Sun Jan 18 18:55:57 EST 2015.
+MathPiper version: mp4_beta_v.138_r5345:5367M.
 Running all tests except for documentation examples tests..
 Beginning of tests:
 
@@ -17,6 +17,10 @@ Testing Concat in file </org/mathpiper/builtin/functions/core/Concatenate.java>:
 
 ================================================================
 Testing ConcatStrings in file </org/mathpiper/builtin/functions/core/ConcatenateStrings.java>: 
+
+
+================================================================
+Testing Constant in file </org/mathpiper/builtin/functions/core/Constant.java>: 
 
 
 ================================================================

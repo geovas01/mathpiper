@@ -117,11 +117,11 @@ public class InterpreterTest implements ResponseListener
     
     public static void main(String[] args)
     {
-       // new InterpreterTest();
+        new InterpreterTest();
 	
 	
 	
-	//This code works.
+	/*//This code works.
 	Variable X = new Variable();
 	Query q;
 	q = new Query("['/home/tkosan/git/press/swiload.pl']");

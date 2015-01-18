@@ -807,7 +807,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                         //Set the # variable to the original result.
                         Environment iEnvironment = syncronousInterpreter.getEnvironment();
                         String percent = "#";
-                        iEnvironment.setLocalOrGlobalVariable(-1, percent, response.getResultList(), true, false);
+                        iEnvironment.setLocalOrGlobalVariable(-1, percent, response.getResultList(), true, false, false);
 
 
                     } catch (Throwable e) {
