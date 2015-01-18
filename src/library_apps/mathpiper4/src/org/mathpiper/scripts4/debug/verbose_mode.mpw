@@ -20,8 +20,8 @@ LocalSymbols(Verbose) {
 
 }; // LocalSymbols(Verbose)
 
-HoldArgument("V","aNumberBody");
-UnFence("V",1);
+HoldArgument("VM","aNumberBody");
+UnFence("VM",1);
 
 %/mathpiper
 
@@ -30,7 +30,7 @@ UnFence("V",1);
 
 
 %mathpiper_docs,name="VM;InVerboseMode",categories="Programming Functions;Input/Output"
-*CMD V, InVerboseMode --- set verbose output mode
+*CMD VM, InVerboseMode --- set verbose output mode
 *STD
 *CALL
         VM(expression)
@@ -44,7 +44,7 @@ UnFence("V",1);
 
 The function {VM(expression)} will evaluate the expression in
 verbose mode. Various parts of MathPiper can show extra information
-about the work done while doing a calculation when using {V}.
+about the work done while doing a calculation when using {VM}.
 
 In verbose mode, {InVerboseMode()} will return {True}, otherwise
 it will return {False}.
