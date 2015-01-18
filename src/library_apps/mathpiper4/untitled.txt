@@ -1,0 +1,24 @@
+MathPiper version mp4_beta_v.138_r5345:5367M
+Enter an expression after any In> prompt and press <enter> or <shift><enter> to evaluate it.
+
+In> rock
+Result: Exception
+Exception: Error: The variable <rock> does not have a value assigned to it. Starting at index 0.
+
+In> Constant('rock, True);
+Result: True
+
+In> rock
+Result: Exception
+Exception: Error: The variable <rock> does not have a value assigned to it. Starting at index 0.
+
+In> Constant('rock, False);
+Result: True
+
+In> rock
+Result: Exception
+Exception: Error: The variable <rock> does not have a value assigned to it. Starting at index 0.
+
+In> 
+
+

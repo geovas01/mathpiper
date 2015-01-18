@@ -40,7 +40,7 @@ public class AssignGlobalLazy extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
-        Utility.setVariableOrConstant(aEnvironment, aStackTop, false, true, false);
+        Utility.setVariableOrConstant(aEnvironment, aStackTop, false, true, false, false);
     }
 }
 

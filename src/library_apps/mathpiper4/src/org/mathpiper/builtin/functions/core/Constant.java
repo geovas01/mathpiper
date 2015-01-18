@@ -20,6 +20,7 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -40,7 +41,9 @@ public class Constant extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
-        Utility.setVariableOrConstant(aEnvironment, aStackTop, false, false, true);
+        boolean isSetConstant = Utility.isTrue(aEnvironment, BuiltinFunction.getArgument(aEnvironment, aStackTop, 2), aStackTop);
+        
+        Utility.setVariableOrConstant(aEnvironment, aStackTop, false, false, isSetConstant, true);
     }
 }
 
@@ -48,19 +51,62 @@ public class Constant extends BuiltinFunction
 
 /*
 %mathpiper_docs,name="Constant",categories="Programming Functions;Variables;Built In"
-*CMD Constant --- assignment
-*CORE
+*CMD Constant --- make a symbol a constant or a nonconstant
 *CALL
-	Constant(var, exp)
+	Constant(symbol, boolean)
 
 *PARMS
 
-{var} -- name
+{symbol} -- the symbol to be modified
 
-{exp} -- expression to assign to the name
+{boolean} -- True means make the symbol constant, and False means make the symbol nonconstant
 
 *DESC
-todo
+This function makes a symbol a constant or a nonconstant.
 
+*E.G.
+In> rock
+Result: Exception
+Exception: Error: The variable <rock> does not have a value assigned to it. Starting at index 0.
+
+In> Constant('rock, True);
+Result: True
+
+In> rock
+Result: rock
+
+In> Constant(rock, False);
+Result: True
+
+In> rock
+Result: Exception
+Exception: Error: The variable <rock> does not have a value assigned to it. Starting at index 0.
 %/mathpiper_docs
+
+
+
+%mathpiper,name="Constant",subtype="automatic_test"
+// Testing a local variable.
+{
+    Local(v1);
+    Unassign(v1);
+    Verify(ExceptionCatch(v1,"Exception"), "Exception");
+    Constant('v1, True);
+    Verify(v1,v1);
+    Constant(v1, False);
+    Verify(ExceptionCatch(v1,"Exception"), "Exception");
+    Unassign(v1);
+};
+
+// Testing a global variable.
+{
+    Unassign(v1);
+    Verify(ExceptionCatch(v1,"Exception"), "Exception");
+    Constant('v1, True);
+    Verify(v1,v1);
+    Constant(v1, False);
+    Verify(ExceptionCatch(v1,"Exception"), "Exception");
+    Unassign(v1);
+};
+%/mathpiper
 */

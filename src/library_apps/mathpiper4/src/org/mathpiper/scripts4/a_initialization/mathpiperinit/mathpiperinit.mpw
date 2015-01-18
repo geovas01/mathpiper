@@ -10,23 +10,23 @@ RuleHoldArguments(MathPiperInitLoad, 0, 1, True)
 
     StandardOperatorsLoad();
 
-    Constant('True);
+    Constant('True, 'True);
     
-    Constant('False);
+    Constant('False, 'True);
     
-    Constant('Infinity);
+    Constant('Infinity, True);
     
-    Constant('Undefined);
+    Constant('Undefined, True);
     
-    Constant('List);
+    Constant('List, True);
     
-    Constant('Block);
+    Constant('Block, True);
     
-    Constant('All);
+    Constant('All, True);
     
-    Constant('None);
+    Constant('None, True);
     
-    Constant('Null); //For use with Java.
+    Constant('Null, True); //For use with Java.
 
 };
 

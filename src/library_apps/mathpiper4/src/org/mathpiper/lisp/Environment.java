@@ -182,52 +182,76 @@ public final class Environment {
 		iPrecision = aPrecision; // getPrecision in decimal digits
 	}
 
-	public void setLocalOrGlobalVariable(int aStackTop, String aVariable, Cons aValue, boolean aGlobalLazyVariable, boolean constant)
+	public void setLocalOrGlobalVariable(int aStackTop, String aVariableName, Cons aValue, boolean aGlobalLazyVariable, boolean isConstant, boolean isSymbolConstant)
 			throws Throwable {
 
-		LocalVariable localVariable = getLocalVariable(aStackTop, aVariable);
+		LocalVariable localVariable = getLocalVariable(aStackTop, aVariableName);
 
 		if (localVariable != null) {
-			localVariable.iValue = aValue;
-			return;
+                        
+                    if (localVariable.iConstant == false) {
+                        localVariable.iValue = aValue;
+                        localVariable.iConstant = isConstant;
+                    } else if (localVariable.iConstant == true && isConstant == false) {
+                        localVariable.iValue = null;
+                        localVariable.iConstant = false;
+                    } else {
+
+                        Map metaDataMap = aValue.getMetadataMap();
+
+                        int lineNumber = getCurrentInput().iStatus.getLineNumber();
+                        int startIndex = -1;
+                        int endIndex = getCurrentInput().iStatus.getLineIndex();
+
+                        if (metaDataMap != null) {
+                            lineNumber = (Integer) metaDataMap.get("lineNumber");
+                            startIndex = (Integer) metaDataMap.get("startIndex");
+                            endIndex = (Integer) metaDataMap.get("endIndex");
+                        }
+
+                        LispError.raiseError("<" + aVariableName + "> is a constant, and values cannot be assigned to constants.", lineNumber, startIndex, endIndex, aStackTop, this);
+                    }
+                    return;
 		}
 
-		Object object = iGlobalState.get(aVariable);
+		Object object = iGlobalState.get(aVariableName);
 
 		if (object == null) {
-
+                    if(!(isSymbolConstant && isConstant == false))
+                    {
 			GlobalVariable globalVariable = new GlobalVariable(aValue);
 
-			globalVariable.iConstant = constant;
+			globalVariable.iConstant = isConstant;
 
-			iGlobalState.put(aVariable, globalVariable);
+			iGlobalState.put(aVariableName, globalVariable);
 
 			if (aGlobalLazyVariable) {
 				globalVariable.iEvalBeforeReturn = true;
 			}
-
+                    }
 		} else {
-			GlobalVariable globalVariable = (GlobalVariable) object;
+                    GlobalVariable globalVariable = (GlobalVariable) object;
 
-			if (globalVariable.iConstant == false) {
-				globalVariable.iValue = aValue;
-			} else {
+                    if (globalVariable.iConstant == false) {
+                        globalVariable.iValue = aValue;
+                    } else if (globalVariable.iConstant == true && isConstant == false) {
+                        iGlobalState.remove(aVariableName);
+                    } else {
 
-				Map metaDataMap = aValue.getMetadataMap();
+                        Map metaDataMap = aValue.getMetadataMap();
 
-				int lineNumber = getCurrentInput().iStatus.getLineNumber();
-				int startIndex = -1;
-				int endIndex = getCurrentInput().iStatus.getLineIndex();
+                        int lineNumber = getCurrentInput().iStatus.getLineNumber();
+                        int startIndex = -1;
+                        int endIndex = getCurrentInput().iStatus.getLineIndex();
 
-				if (metaDataMap != null) {
-					lineNumber = (Integer) metaDataMap.get("lineNumber");
-					startIndex = (Integer) metaDataMap.get("startIndex");
-					endIndex = (Integer) metaDataMap.get("endIndex");
-				}
+                        if (metaDataMap != null) {
+                            lineNumber = (Integer) metaDataMap.get("lineNumber");
+                            startIndex = (Integer) metaDataMap.get("startIndex");
+                            endIndex = (Integer) metaDataMap.get("endIndex");
+                        }
 
-				LispError
-						.raiseError("<" + aVariable + "> is a constant, and values cannot be assigned to constants.", lineNumber, startIndex, endIndex, aStackTop, this);
-			}
+                        LispError.raiseError("<" + aVariableName + "> is a constant, and values cannot be assigned to constants.", lineNumber, startIndex, endIndex, aStackTop, this);
+                    }
 		}
 	}
 

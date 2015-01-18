@@ -40,7 +40,7 @@ public class Assign extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
-        Utility.setVariableOrConstant(aEnvironment, aStackTop, false, false, false);
+        Utility.setVariableOrConstant(aEnvironment, aStackTop, false, false, false, false);
     }
 }
 

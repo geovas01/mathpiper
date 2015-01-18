@@ -116,7 +116,7 @@ RuleHoldArguments("CachedConstant", 3, 10, And?(Atom?(Catom), Function?(Cfunc)))
             ForEach(centry, CacheOfConstantsN)
             {
                 MacroUnassign(ToAtom(centry[1]));
-                Constant(ToAtom(centry[1]));
+                Constant(ToAtom(centry[1]), True);
             };
     };
     UnFence("ClearCachedConstantsN", 0);

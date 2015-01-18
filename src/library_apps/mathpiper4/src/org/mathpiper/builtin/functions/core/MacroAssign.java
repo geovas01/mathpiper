@@ -40,7 +40,7 @@ public class MacroAssign extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
-        Utility.setVariableOrConstant(aEnvironment, aStackTop, true, false, false);
+        Utility.setVariableOrConstant(aEnvironment, aStackTop, true, false, false, false);
     }
 }
 
