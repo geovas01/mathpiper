@@ -84,7 +84,8 @@ public final class Environment {
 	public OperatorMap iPostfixOperators = new OperatorMap(this);
 	public OperatorMap iBodiedOperators = new OperatorMap(this);
 	public volatile int iEvalDepth = 0;
-	public int iMaxEvalDepth = 10000;
+	public int iMaxEvalDepth = 1000;
+        public int iMaxEvalDepthReached = 0;
 	// TODO FIXME
 	public LocalVariableFrame iLocalVariablesFrame;
 	public boolean iSecure = false;

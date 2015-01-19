@@ -85,7 +85,11 @@ public class LispExpressionEvaluator extends Evaluator {
 	    LispError.lispAssert(aEnvironment, aStackTop);
 	}
 
-	aEnvironment.iEvalDepth++;
+        if(aEnvironment.iEvalDepth++ > aEnvironment.iMaxEvalDepthReached)
+        {
+            aEnvironment.iMaxEvalDepthReached = aEnvironment.iEvalDepth;
+        }
+        
 	if (aEnvironment.iEvalDepth >= aEnvironment.iMaxEvalDepth) {
 
 	    if (aEnvironment.iEvalDepth >= aEnvironment.iMaxEvalDepth)
@@ -139,12 +143,11 @@ public class LispExpressionEvaluator extends Evaluator {
 	     */
 
 	    // Handle unbound variables.
-
-	    aEnvironment.iEvalDepth--;
 	    
 
 	    if(atomName.charAt(0) == '.' || atomName.charAt(0) == '-') //todo:tk:why is .1 being treated differently than 0.1?
 	    {
+                aEnvironment.iEvalDepth--;
 		return aExpression.copy(false);
 	    }
 	    
@@ -212,8 +215,9 @@ public class LispExpressionEvaluator extends Evaluator {
                         BuiltinFunctionEvaluator builtinInFunctionEvaluator = (BuiltinFunctionEvaluator) aEnvironment.getBuiltinFunctions().get(functionName);
                         if (builtinInFunctionEvaluator != null) {
 
+                            Cons result = builtinInFunctionEvaluator.evaluate(aEnvironment, aStackTop, functionAndArgumentsList);
                             aEnvironment.iEvalDepth--;
-                            return builtinInFunctionEvaluator.evaluate(aEnvironment, aStackTop, functionAndArgumentsList);
+                            return(result);
                         }
 
                         // User function handler.
@@ -221,8 +225,10 @@ public class LispExpressionEvaluator extends Evaluator {
                         userFunction = getUserFunction(aEnvironment, aStackTop, functionAndArgumentsList);
                         if (userFunction != null) {
 
+                            
+                            Cons result = userFunction.evaluate(aEnvironment, aStackTop, functionAndArgumentsList);
                             aEnvironment.iEvalDepth--;
-                            return userFunction.evaluate(aEnvironment, aStackTop, functionAndArgumentsList);
+                            return result;
                         }
 
                     } catch (Exception e) {
@@ -245,9 +251,9 @@ public class LispExpressionEvaluator extends Evaluator {
 
 		    if (functionName.equals("FreeOf?")) {
 
-			aEnvironment.iEvalDepth--;
-
-			return Utility.returnUnEvaluated(aStackTop, functionAndArgumentsList, aEnvironment);
+			Cons result = Utility.returnUnEvaluated(aStackTop, functionAndArgumentsList, aEnvironment);
+                        aEnvironment.iEvalDepth--;
+                        return result; 
 		    }
 		    Map metaDataMap = functionAndArgumentsList.getMetadataMap();
 
@@ -268,14 +274,14 @@ public class LispExpressionEvaluator extends Evaluator {
 		    Cons operator = functionAndArgumentsList;
 		    Cons args2 = functionAndArgumentsList.cdr();
 
-		    aEnvironment.iEvalDepth--;
-		    return Utility.applyPure(aStackTop, operator, args2, aEnvironment);
+		    Cons result = Utility.applyPure(aStackTop, operator, args2, aEnvironment);
+                    aEnvironment.iEvalDepth--;
+                    return result;
 		}
 	    }
 	}
 
 	aEnvironment.iEvalDepth--;
-
 	return aExpression.copy(false);
     }
 

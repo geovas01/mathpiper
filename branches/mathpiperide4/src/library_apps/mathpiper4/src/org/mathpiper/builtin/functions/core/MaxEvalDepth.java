@@ -72,10 +72,8 @@ Use this command to set the maximum evaluation depth to the integer
 The point of having a maximum evaluation depth is to catch any
 infinite recursion. For example, after the definition {f(x) := f(x)}, evaluating the expression {f(x)} would call {f(x)}, which would
 call {f(x)}, etc. The interpreter will halt if
-the maximum evaluation depth is reached and an error message will be printed. Also indirect recursion, e.g.
-the pair of definitions {f(x) := g(x)} and {g(x) := f(x)}, will be caught.
-
-*E.G. notest
+the maximum evaluation depth is reached and an error message will be printed. Indirect recursion, e.g.
+the pair of definitions {f(x) := g(x)} and {g(x) := f(x)}, will also be caught.
 
 An example of an infinite recursion, caught because the maximum
 evaluation depth is reached.
