@@ -2365,6 +2365,8 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 				result = "True";
 			}
 			
+			saveBuffer = true;
+			
 			output_fold_type = "%output";
 			
 
