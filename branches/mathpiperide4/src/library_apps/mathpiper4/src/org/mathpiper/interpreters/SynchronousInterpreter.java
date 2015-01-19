@@ -244,6 +244,7 @@ public class SynchronousInterpreter implements Interpreter {
     public EvaluationResponse evaluate(String inputExpression, boolean notifyEvaluationListeners, String inputSource) {
 
         iEnvironment.iMaxEvalDepthReached = 0;
+        Evaluator.evalDepth = 0;
 
         EvaluationResponse evaluationResponse = EvaluationResponse.newInstance();
         if (inputExpression == null || inputExpression.length() == 0) {
@@ -306,6 +307,7 @@ public class SynchronousInterpreter implements Interpreter {
     public EvaluationResponse evaluate(Cons inputExpression, boolean notifyEvaluationListeners) {
 
         iEnvironment.iMaxEvalDepthReached = 0;
+        Evaluator.evalDepth = 0;
         
         //return this.evaluate(inputExpression, false);
         EvaluationResponse evaluationResponse = EvaluationResponse.newInstance();
