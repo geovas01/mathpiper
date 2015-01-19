@@ -306,6 +306,7 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 		properties.put("log","true");
 		properties.put("path","");
 		properties.put("indent","true");
+		properties.put("output_fold_type","");
 		
 		if(path.toLowerCase().contains(".mpwnl"))
 		{
@@ -881,7 +882,14 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 							}
 							else
 							{
-								errorResult =  exception.getMessage();
+								if(exception.getMessage() == null)
+								{
+									errorResult = exception;
+								}
+								else
+								{
+									errorResult =  exception.getMessage();
+								}
 							}
 							
 							output_fold_type = "%error";
@@ -2810,6 +2818,11 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 						
 						date = new java.util.Date();
 						timestamp = new java.sql.Timestamp(date.getTime());
+						
+						if(!foldProperties.get("output_fold_type").equals(""))
+						{
+							output_fold_type = "%" + foldProperties.get("output_fold_type");
+						}
 						
 						textArea.setSelectedText(beforeNewlines + indentAmount + output_fold_type + "," + parentProperty + "sequence=\"" + mpwExecutionCount + "\",timestamp=\"" + timestamp + "\",preserve=\"" +  preserveProperty  + "\"\n" + result + "\n" + indentAmountPeriod + "%/" + output_fold_type.substring(1,output_fold_type.length() ) + afterNewlines, false);
 						
