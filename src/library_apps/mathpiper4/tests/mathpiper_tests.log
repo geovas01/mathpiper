@@ -1,5 +1,5 @@
-Sun Jan 18 18:55:57 EST 2015.
-MathPiper version: mp4_beta_v.138_r5345:5367M.
+Mon Jan 19 01:32:54 EST 2015.
+MathPiper version: mp4_beta_v.138_r5345:5368M.
 Running all tests except for documentation examples tests..
 Beginning of tests:
 
@@ -460,6 +460,6 @@ Testing | in file </org/mathpiper/scripts4/a_initialization/standard/vertical_ba
 
 ***** Tests complete *****
 
-GlobalVariables: [] 
-
-Elapsed Time: 0 min 2 sec
+GlobalVariables: []
+Elapsed Time: 0 min 3 sec
+Maximum Evaluation Depth Reached: 153

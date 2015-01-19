@@ -49,6 +49,7 @@ public class TestSuite {
     private String logFileName = "mathpiper_tests.log";
     private Tests tests;
     private String output = "";
+    private int maxEvaluationDepthReached = 0;
     //-------------------
     private static String[] argumentErrors = new String[10];
     private static int argumentErrorCount = 0;
@@ -134,7 +135,7 @@ public class TestSuite {
 
             logFile = new java.io.FileWriter("./tests/" + logFileName); //"./tests/mathpiper_tests.log"
             
-        	elapsedTime = System.currentTimeMillis();
+            elapsedTime = System.currentTimeMillis();
 
             interpreter = Interpreters.newSynchronousInterpreter();
 
@@ -184,7 +185,7 @@ public class TestSuite {
             evaluationResponse = interpreter.evaluate("Echo(State());");
             output = evaluationResponse(evaluationResponse);
             
-            String globalVariables = evaluationResponse.getSideEffects();
+            String globalVariables = evaluationResponse.getSideEffects().trim();
             
             System.out.println("Global variables: " + globalVariables);
             logFile.write("GlobalVariables: " + globalVariables);
@@ -197,6 +198,9 @@ public class TestSuite {
             
             System.out.println("Elapsed Time: " + minutes + " min " + seconds + " sec");
             logFile.write("\nElapsed Time: " + minutes  + " min " + seconds + " sec");
+            
+            System.out.println("Maximum Evaluation Depth Reached: " + this.maxEvaluationDepthReached);
+            logFile.write("\nMaximum Evaluation Depth Reached: " + this.maxEvaluationDepthReached);
 
             logFile.close();
 
@@ -288,9 +292,6 @@ public class TestSuite {
         aEnvironment.iCurrentOutput = new StringOutputStream(outputStringBuffer);
 
 
-
-
-
         try {
             aEnvironment.setCurrentInput(aInput);
             // TODO make "EndOfFile" a global thing
@@ -326,6 +327,15 @@ public class TestSuite {
                     if (evaluate == true) {
                         
                         Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, readIn);
+                        
+                        int maxEvalDepthReachedDuringThisEvaluation = aEnvironment.iMaxEvalDepthReached;
+                        
+                        aEnvironment.iMaxEvalDepthReached = 0;
+                        
+                        if(maxEvalDepthReachedDuringThisEvaluation > this.maxEvaluationDepthReached)
+                        {
+                            this.maxEvaluationDepthReached = maxEvalDepthReachedDuringThisEvaluation;
+                        }
 
                         if (outputStringBuffer.length() > 0) {
                             String sideEffectOutputString = outputStringBuffer.toString();
@@ -333,7 +343,7 @@ public class TestSuite {
                             logFile.append(sideEffectOutputString + "\n");
                             outputStringBuffer.delete(0, outputStringBuffer.length());
                         }
-                        ;
+                        
                     }
 
                 }
