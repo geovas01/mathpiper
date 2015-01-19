@@ -305,6 +305,7 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 		properties.put("parent","");
 		properties.put("log","true");
 		properties.put("path","");
+		properties.put("indent","true");
 		
 		if(path.toLowerCase().contains(".mpwnl"))
 		{
@@ -2771,9 +2772,22 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 							
 						}
 					
+						if(foldProperties.get("indent").equalsIgnoreCase("true"))
+						{
+							contentIndentAmount = indentAmount;
+							extraIndent = "  ";
+
+						}
+						else
+						{
+							contentIndentAmount = "";
+							extraIndent = "";
+						}
+						
 						//result = result.trim();
-						result = result.replaceAll("\n","\n" + indentAmount + "  ");//("\n","\n      ");
-						result = indentAmount + "  " + result;
+						result = result.replaceAll("\n","\n" + contentIndentAmount + extraIndent);//("\n","\n      ");
+						result = contentIndentAmount + extraIndent + result;
+						
 						indentAmountPeriod = indentAmount.toString().replaceFirst(" ",".");
 			
 
