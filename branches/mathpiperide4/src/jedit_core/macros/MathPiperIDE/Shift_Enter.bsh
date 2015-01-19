@@ -2166,9 +2166,6 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 	///{{{ *** %s19 ***
 		else if(foldType.equalsIgnoreCase("%s19")) 
 		{
-			jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "u6502" );
-
-
 			
 			if(foldProperties.get("output").equalsIgnoreCase("array") )
 			{
@@ -2233,6 +2230,7 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 			}
 			else
 			{
+				jEdit.getActiveView().getDockableWindowManager().showDockableWindow("u6502");
 				
 				try 
 				{   
@@ -2244,7 +2242,8 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 					
 					output_fold_type = "%output";
 					
-				}catch(Exception e) 
+				}
+				catch(Exception e) 
 				{
 					result = e.getMessage();
 					
