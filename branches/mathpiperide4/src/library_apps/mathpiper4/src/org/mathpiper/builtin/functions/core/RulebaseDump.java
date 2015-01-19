@@ -69,7 +69,7 @@ public class RulebaseDump extends BuiltinFunction
 
             }//end while.
         } else {
-            aEnvironment.write("Rule not defined");
+            aEnvironment.write("The rulebase is not defined.");
         }
 
         setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
