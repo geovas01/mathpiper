@@ -1,5 +1,5 @@
-Fri Jan 23 01:26:22 EST 2015.
-MathPiper version: mp4_beta_v.138_r5345:5377M.
+Fri Jan 23 02:13:09 EST 2015.
+MathPiper version: mp4_beta_v.138_r5377:5378M.
 Running all tests except for documentation examples tests..
 Beginning of tests:
 
@@ -230,6 +230,10 @@ Testing Constant? in file </org/mathpiper/scripts4/predicates/Constant_.mpw>:
 
 
 ================================================================
+Testing CUnparsable? in file </org/mathpiper/scripts4/unparsers/CUnparsable_.mpw>: 
+
+
+================================================================
 Testing Dimensions in file </org/mathpiper/scripts4/linalg/Dimensions.mpw>: 
 
 
@@ -452,6 +456,10 @@ Testing TruthTable in file </org/mathpiper/scripts4/proposed/logic/TruthTable.mp
 
 
 ================================================================
+Testing UnparseC in file </org/mathpiper/scripts4/unparsers/UnparseC.mpw>: 
+
+
+================================================================
 Testing UnparseLatex in file </org/mathpiper/scripts4/unparsers/unparselatex.mpw>: 
 
 
@@ -474,4 +482,4 @@ Testing | in file </org/mathpiper/scripts4/a_initialization/standard/vertical_ba
 
 GlobalVariables: []
 Elapsed Time: 0 min 3 sec
-Maximum Evaluation Depth Reached: 153
+Maximum Evaluation Depth Reached: 167
