@@ -1,5 +1,5 @@
-Mon Jan 19 01:32:54 EST 2015.
-MathPiper version: mp4_beta_v.138_r5345:5368M.
+Fri Jan 23 01:26:22 EST 2015.
+MathPiper version: mp4_beta_v.138_r5345:5377M.
 Running all tests except for documentation examples tests..
 Beginning of tests:
 
@@ -380,6 +380,10 @@ Testing NthRoot in file </org/mathpiper/scripts4/numbers/NthRoot.mpw>:
 
 
 ================================================================
+Testing OptionsToAssociationList in file </org/mathpiper/scripts4/proposed/miscellaneous/OptionsToAssociationList.mpw>: 
+
+
+================================================================
 Testing Plot2D in file </org/mathpiper/scripts4/plots/_2d/plot2d.mpw>: 
 
 
@@ -416,6 +420,10 @@ Testing SmallPrime? in file </org/mathpiper/scripts4/numbers/SmallPrime_.mpw>:
 
 
 ================================================================
+Testing SolveSteps in file </org/mathpiper/scripts4/steps/algebra/SolveSteps.mpw>: 
+
+
+================================================================
 Testing Sort in file </org/mathpiper/scripts4/sorting/Sort.mpw>: 
 
 
@@ -425,6 +433,10 @@ Testing Sqrt in file </org/mathpiper/scripts4/stubs/Sqrt.mpw>:
 
 ================================================================
 Testing SquareMatrix? in file </org/mathpiper/scripts4/predicates/matrix.mpw>: 
+
+
+================================================================
+Testing StepsView in file </org/mathpiper/scripts4/steps/algebra/SolveSteps.mpw>: 
 
 
 ================================================================
