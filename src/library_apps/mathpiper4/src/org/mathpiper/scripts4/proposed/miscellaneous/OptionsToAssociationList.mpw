@@ -7,7 +7,7 @@ OptionsToAssociationList(optionList) :=
     
     ForEach(option, optionList)
     {
-        Decide(option[0] =? : ,
+        Decide(option[0] =? ToAtom(":"),
         {
             Decide(String?(option[1]), key := option[1], key := ToString(option[1]));
             Decide(String?(option[2]) Or? Number?(option[2]) Or? Constant?(option[2]), value := option[2], value := ToString(option[2]));
@@ -45,9 +45,9 @@ Result> [["b",2],["a",1]]
 
 
 
-%mathpiper,title="",scope="nobuild",subtype="manual_test"
+%mathpiper,name="OptionsToAssociationList",subtype="automatic_test"
 
-OptionsToAssociationList([ lines: True, labels: False ]);
+Verify( OptionsToAssociationList([ lines: True, labels: False ]), [["labels",False],["lines",True]]);
 
 %/mathpiper
 

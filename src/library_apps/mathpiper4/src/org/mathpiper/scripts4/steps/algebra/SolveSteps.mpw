@@ -485,3 +485,20 @@ In> SolveSteps( ((- a_) * b_ )/ c_ + d_ == e_ , a_)
 
 
 
+
+
+%mathpiper,name="SolveSteps",subtype="automatic_test"
+
+Verify(SolveSteps( ((- a_) * b_ )/ c_ + d_ == e_ , a_), 
+[[d_ -$ (a_ *$ b_) /$ c_ == e_,"Equation","The original equation.",a_],[(a_ *$ b_) /$ c_ == d_ -$ e_,"Subtraction2","\\text{Add }d_\\text{ to both sides:}",(d_ +$ d_) -$ (a_ *$ b_) /$ c_ == e_ +$ d_],[a_ *$ b_ == (d_ -$ e_) *$ c_,"Division1","\\text{Multiply both sides by }c_\\text{:}",c_ *$ (a_ *$ b_) /$ c_ == (d_ -$ e_) *$ c_],[a_ == ((d_ -$ e_) *$ c_) /$ b_,"Multiplication1","\\text{Divide both sides by }b_\\text{:}",(a_ *$ b_) /$ b_ == ((d_ -$ e_) *$ c_) /$ b_]]);
+
+%/mathpiper
+
+
+
+
+%mathpiper,name="StepsView",subtype="automatic_test"
+
+Verify(ToString(StepsView(SolveSteps( ((- a_) * b_ )/ c_ + d_ == e_, a_), ShowTree: True)),"[class javax.swing.Box,class javax.swing.Box,class javax.swing.JPanel,class javax.swing.Box,class javax.swing.Box,class javax.swing.Box,class javax.swing.Box,class javax.swing.Box,class javax.swing.Box,class javax.swing.JPanel,class javax.swing.Box,class javax.swing.Box,class javax.swing.Box,class javax.swing.Box,class javax.swing.Box,class javax.swing.Box,class javax.swing.JPanel,class javax.swing.Box,class javax.swing.Box,class javax.swing.Box,class javax.swing.Box,class javax.swing.Box,class javax.swing.Box,class javax.swing.JPanel]");
+
+%/mathpiper
