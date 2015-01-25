@@ -84,15 +84,17 @@ class AsynchronousInterpreter implements Interpreter
 
     public EvaluationResponse evaluate(String expression, boolean notifyEvaluationListeners)
     {
-
-        FutureTask task = new EvaluationTask(new Evaluator(expression, notifyEvaluationListeners));
+        return evaluate(expression, notifyEvaluationListeners, "NONE");
+    }//end method.
+    
+    public EvaluationResponse evaluate(String inputExpression, boolean notifyEvaluationListeners, String inputSource) 
+    {
+        FutureTask task = new EvaluationTask(new Evaluator(expression, notifyEvaluationListeners, inputSource));
   
         es.submit(task);
 
-        return EvaluationResponse.newInstance();
-
-    }//end method.
-
+        return EvaluationResponse.newInstance();  
+    }
 
     public synchronized EvaluationResponse evaluate(Cons inputExpression) {
         return interpreter.evaluate(inputExpression);
@@ -130,8 +132,9 @@ class AsynchronousInterpreter implements Interpreter
 
         private String expression;
 	private boolean notifyEvaluationListeners;
+        private String sourceName;
 
-        public Evaluator(String expression, boolean notifyEvaluationListeners)
+        public Evaluator(String expression, boolean notifyEvaluationListeners, String sourceName)
         {
             this.expression = expression;
 	    this.notifyEvaluationListeners = notifyEvaluationListeners;
@@ -139,7 +142,7 @@ class AsynchronousInterpreter implements Interpreter
 
         public EvaluationResponse call() throws Exception
         {
-            EvaluationResponse evaluationResponse = interpreter.evaluate(expression, notifyEvaluationListeners);
+            EvaluationResponse evaluationResponse = interpreter.evaluate(expression, notifyEvaluationListeners, sourceName);
             return evaluationResponse;
         }
     } // MyCallable
