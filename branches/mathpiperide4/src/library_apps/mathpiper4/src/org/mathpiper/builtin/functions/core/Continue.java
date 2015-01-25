@@ -68,15 +68,14 @@ will be started.
 
 x := 0;
 
-While(x < 8)
-[
+While(x <? 8)
+{
     x++;
 
-    If(x = 5, Continue());
+    Decide(x =? 5, Continue());
 
     Echo(x);
-
-];
+};
 
 /%/mathpiper
 
