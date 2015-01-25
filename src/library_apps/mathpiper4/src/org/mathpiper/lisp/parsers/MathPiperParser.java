@@ -508,6 +508,7 @@ public class MathPiperParser extends Parser
             metaDataMap.put("lineNumber", Integer.parseInt(aString[1]));
             metaDataMap.put("startIndex", Integer.parseInt(aString[2]));
             metaDataMap.put("endIndex", Integer.parseInt(aString[3]));
+            metaDataMap.put("sourceName",aEnvironment.iInputStatus.getSourceName());
             newCons.setMetadataMap(metaDataMap);
         }
 

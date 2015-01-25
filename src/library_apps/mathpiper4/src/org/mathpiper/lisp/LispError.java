@@ -305,7 +305,7 @@ public class LispError {
 
 
            //String functionName = aEnvironment.getCurrentInput().iStatus.
-            EvaluationException exception =  new EvaluationException("ParseError", "Error encountered during parsing: " + aErrorMessage + stackTrace,  aEnvironment.getCurrentInput().iStatus.getSourceName(),  lineNumber, tokenStartIndex, tokenEndIndex,aEnvironment.getCurrentInput().iStatus.getSourceName());
+            EvaluationException exception =  new EvaluationException("ParseError", "Error encountered during parsing: " + aErrorMessage + stackTrace,  aEnvironment.getCurrentInput().iStatus.getSourceName(),  lineNumber, tokenStartIndex, tokenEndIndex,aEnvironment.getCurrentInput().iStatus.getSourceName(), aEnvironment.getCurrentInput().iStatus.getSourceName());
 
             throw exception;
             

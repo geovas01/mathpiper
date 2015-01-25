@@ -26,15 +26,16 @@ public class EvaluationException extends Exception //Note:tk: made this class pu
     private String fileName = null;
     private String functionName = null;
     private String type = null;
+    private String sourceName = null;
 
 
-    public EvaluationException(String message, String fileName, int lineNumber, int startIndex, int endIndex, String functionName) {
-        this("Unspecified", message, fileName, lineNumber, startIndex, endIndex, functionName);
+    public EvaluationException(String message, String fileName, int lineNumber, int startIndex, int endIndex, String functionName, String sourceName) {
+        this("Unspecified", message, fileName, lineNumber, startIndex, endIndex, functionName, sourceName);
     }
 
 
 
-    public EvaluationException(String type, String message, String fileName, int lineNumber, int startIndex, int endIndex, String functionName) {
+    public EvaluationException(String type, String message, String fileName, int lineNumber, int startIndex, int endIndex, String functionName, String sourceName) {
         super(message);
         this.type = type;
         this.fileName = fileName;
@@ -42,10 +43,11 @@ public class EvaluationException extends Exception //Note:tk: made this class pu
         this.startIndex = startIndex;
         this.endIndex = endIndex;
         this.functionName = functionName;
+        this.sourceName = sourceName;
     }
 
     public EvaluationException(String message, String fileName, int lineNumber, int startIndex, int endIndex) {
-        this( message,  fileName,  lineNumber, startIndex, endIndex, null);
+        this( message,  fileName,  lineNumber, startIndex, endIndex, null, null);
     }
 
 
@@ -70,10 +72,13 @@ public class EvaluationException extends Exception //Note:tk: made this class pu
     public String getFunctionName() {
         return functionName;
     }
+    
+    public String getSourceName() {
+        return sourceName;
+    }
 
     public String getType() {
         return type;
     }
-
 
 }
