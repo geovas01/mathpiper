@@ -36,7 +36,7 @@ public interface Interpreter
     public EvaluationResponse evaluate(String expression);
     
     /**
-     * Evaluates a MathPiper expression and optinally notifies evaluation listeners.  The results of the evaluation are returned
+     * Evaluates a MathPiper expression and optionally notifies evaluation listeners.  The results of the evaluation are returned
      * in a {@link EvaluationResponse} object.
      *
      * @param expression the MathPiper expression to be evaluated
@@ -44,6 +44,17 @@ public interface Interpreter
      * @return an EvaluationResponse object
      */
     public EvaluationResponse evaluate(String expression, boolean notifyListeners);
+    
+    /**
+     * Evaluates a MathPiper expression and optionally notifies evaluation listeners.  The results of the evaluation are returned
+     * in a {@link EvaluationResponse} object.
+     *
+     * @param expression the MathPiper expression to be evaluated
+     * @param notifyListeners if true, evaluation listeners will be notified
+     * @param sourceName a name that is given to the source which is being evaluated
+     * @return an EvaluationResponse object
+     */
+    public EvaluationResponse evaluate(String expression, boolean notifyListeners, String sourceName);
 
     /**
      * Evaluates a MathPiper expression.  The results of the evaluation are returned
@@ -83,7 +94,7 @@ public interface Interpreter
     public void addResponseListener(ResponseListener responseListener);
 
      /**
-     * Allows asynchrnous interpreter clients to remove themselves from the list of listeners which
+     * Allows asynchronous interpreter clients to remove themselves from the list of listeners which
      * get notified when the response from an asynchronous evaluation is ready.
      * 
      * @param responseListener a response listener
