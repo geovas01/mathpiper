@@ -28,6 +28,7 @@ RuleHoldArguments(MathPiperInitLoad, 0, 1, True)
     
     Constant('Null, True); //For use with Java.
 
+    Constant('EndOfFile, True);
 };
 
 
