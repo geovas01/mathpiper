@@ -33,7 +33,6 @@ class AsynchronousInterpreter implements Interpreter
 {
     private static AsynchronousInterpreter singletonInstance;
     private SynchronousInterpreter interpreter;
-    private String expression;
     private ExecutorService es = Executors.newSingleThreadExecutor();
 
     private AsynchronousInterpreter(SynchronousInterpreter interpreter)
@@ -82,14 +81,14 @@ class AsynchronousInterpreter implements Interpreter
 	    return this.evaluate(inputExpression, false);
     }//end method.
 
-    public EvaluationResponse evaluate(String expression, boolean notifyEvaluationListeners)
+    public EvaluationResponse evaluate(String inputExpression, boolean notifyEvaluationListeners)
     {
-        return evaluate(expression, notifyEvaluationListeners, "NONE");
+        return evaluate(inputExpression, notifyEvaluationListeners, "NONE");
     }//end method.
     
     public EvaluationResponse evaluate(String inputExpression, boolean notifyEvaluationListeners, String inputSource) 
     {
-        FutureTask task = new EvaluationTask(new Evaluator(expression, notifyEvaluationListeners, inputSource));
+        FutureTask task = new EvaluationTask(new Evaluator(inputExpression, notifyEvaluationListeners, inputSource));
   
         es.submit(task);
 
@@ -138,6 +137,7 @@ class AsynchronousInterpreter implements Interpreter
         {
             this.expression = expression;
 	    this.notifyEvaluationListeners = notifyEvaluationListeners;
+            this.sourceName = sourceName;
         }
 
         public EvaluationResponse call() throws Exception
