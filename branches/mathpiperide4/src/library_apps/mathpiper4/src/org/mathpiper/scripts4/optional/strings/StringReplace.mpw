@@ -1,0 +1,58 @@
+%mathpiper,def="StringReplace"
+
+StringReplace(string, original, replacement) :=
+{
+	Local(javaString);
+	javaString := JavaNew("java.lang.String", string);
+	JavaAccess(javaString,"replace", original, replacement);
+};
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="StringReplace",categories="Programming Functions;Strings",access="experimental"
+*CMD StringReplace --- replaces part of a string with another string
+*CALL
+        StringReplace(string, original, replacement)
+
+*PARMS
+{string} -- the parent string
+
+{original} -- the string within the parent string to be replaced
+
+{replacement} -- the string with which to replace the original substring
+
+*DESC
+This function replaces an {original} substring within a parent {string} with 
+a {replacement} string and returns the new string. If the {original} substring 
+is not located within the parent {string} then the function returns the parent 
+{string}. This function is case sensitive.
+
+*E.G.
+In> StringReplace("Heljo", "j", "l")
+Result: "Hello"
+
+In> StringReplace("RedBlueRedGreen", "Green", "Blue")
+Result: "RedBlueRedBlue"
+
+In> StringReplace("Yes", "yes", "no")
+Result: "Yes"
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="StringReplace",subtype="automatic_test"
+
+Verify(StringReplace("Heljo", "j", "l"),"Hello" );
+Verify(StringReplace("","","l"), "l");
+
+%/mathpiper
+
+
+
+

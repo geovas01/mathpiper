@@ -72,7 +72,7 @@ public class StringMidSet extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="StringMidSet",categories="Programming Functions;String Manipulation;Built In"
+%mathpiper_docs,name="StringMidSet",categories="Programming Functions;Strings;Built In"
 *CMD StringMidSet --- change a substring
 *CORE
 *CALL

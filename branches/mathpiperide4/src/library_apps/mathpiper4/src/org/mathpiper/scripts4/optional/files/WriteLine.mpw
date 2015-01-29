@@ -1,0 +1,42 @@
+%mathpiper,def="WriteLine"
+
+WriteLine(writer, line) :=
+{	
+	line := JavaCall(writer, "writeLine", line);
+};
+
+%/mathpiper
+
+    %error,sequence="1",timestamp="2015-01-27 13:38:15.218",preserve="false"
+      Result: The variable <writer> does not have a value assigned to it.  Error on or before line 8 starting at index 0.
+.   %/error
+
+
+%mathpiper_docs
+
+*CMD WriteLine --- writes a line to the
+*CALL
+        WriteLine(writer, line)
+
+*PARMS
+{writer} -- 
+
+{line} -- line to add to specified file
+
+*DESC
+This function writes a line to a program.
+
+*E.G.
+In> WriteLine();
+Result: 
+
+In> WriteLine();
+Result: 
+
+%/mathpiper_docs
+
+%mathpiper
+
+Verify(
+
+%/mathpiper

@@ -1,0 +1,69 @@
+%mathpiper,def="RegexGet"
+
+RegexGet(string, regex) :=
+{
+    Local(stringList, pattern, matcher, start, end);
+    
+    stringList := [];
+    
+    pattern := JavaCall("java.util.regex.Pattern","compile",regex,JavaCall("java.util.regex.Pattern","MULTILINE"));
+    
+    matcher := JavaCall(pattern,"matcher",string);
+    
+    While(JavaAccess(matcher,"find") =? True)
+    {
+        start := ToAtom(JavaAccess(matcher,"start")) + 1;
+        
+        end := ToAtom(JavaAccess(matcher,"end")) + 1;
+
+        DestructiveAppend(stringList, StringMidGet(start,(end-(start)), string));
+    };
+    
+    stringList;
+};
+
+%/mathpiper
+
+
+
+
+
+
+%mathpiper_docs,name="RegexGet",categories="Programming Functions;Strings",access="experimental"
+*CMD RegexGet -- Searches a string for the regular expression specified.
+*CALL
+        RegexGet(string, regex)
+
+*PARMS
+{string} -- a string to search.
+
+{regex} -- a string that contains a regular expression. Note: all \ must be escaped with a \.
+
+*DESC
+This function searches a string for a regular expression.
+
+*E.G.
+In> RegexGet("This example finds the first character in the string.", "^.")
+Result: ["T"]
+%/mathpiper_docs
+
+
+
+
+
+
+%mathpiper,name="RegexGet,subtype="automatic_test"
+
+Verify(RegexGet("This example finds the first character in the string.", "^."), ["T"]);
+
+%/mathpiper
+
+
+
+
+
+
+
+
+
+

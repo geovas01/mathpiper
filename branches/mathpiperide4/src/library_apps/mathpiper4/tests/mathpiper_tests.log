@@ -1,5 +1,5 @@
-Fri Jan 23 02:13:09 EST 2015.
-MathPiper version: mp4_beta_v.138_r5377:5378M.
+Thu Jan 29 12:06:38 EST 2015.
+MathPiper version: mp4_beta_v.138_r5387M.
 Running all tests except for documentation examples tests..
 Beginning of tests:
 
@@ -234,6 +234,10 @@ Testing CUnparsable? in file </org/mathpiper/scripts4/unparsers/CUnparsable_.mpw
 
 
 ================================================================
+Testing DateToNumber in file </org/mathpiper/scripts4/optional/strings/DateToNumber.mpw>: 
+
+
+================================================================
 Testing Dimensions in file </org/mathpiper/scripts4/linalg/Dimensions.mpw>: 
 
 
@@ -412,6 +416,10 @@ Testing RabinMiller in file </org/mathpiper/scripts4/rabinmiller/RabinMiller.mpw
 
 
 ================================================================
+Testing RegexGet in file </org/mathpiper/scripts4/optional/strings/RegexGet.mpw>: 
+
+
+================================================================
 Testing Reverse in file </org/mathpiper/scripts4/lists/Reverse.mpw>: 
 
 
@@ -441,6 +449,26 @@ Testing SquareMatrix? in file </org/mathpiper/scripts4/predicates/matrix.mpw>:
 
 ================================================================
 Testing StepsView in file </org/mathpiper/scripts4/steps/algebra/SolveSteps.mpw>: 
+
+
+================================================================
+Testing StringLowerCase in file </org/mathpiper/scripts4/optional/strings/StringLowerCase.mpw>: 
+
+
+================================================================
+Testing StringMatches in file </org/mathpiper/scripts4/optional/strings/StringMatches_.mpw>: 
+
+
+================================================================
+Testing StringReplace in file </org/mathpiper/scripts4/optional/strings/StringReplace.mpw>: 
+
+
+================================================================
+Testing StringStartsWith in file </org/mathpiper/scripts4/optional/strings/StringStartsWith.mpw>: 
+
+
+================================================================
+Testing StringUpperCase in file </org/mathpiper/scripts4/optional/strings/StringUpperCase.mpw>: 
 
 
 ================================================================

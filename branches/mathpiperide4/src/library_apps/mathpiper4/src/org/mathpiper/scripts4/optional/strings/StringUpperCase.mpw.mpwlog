@@ -1,0 +1,8 @@
+%info,sequence="24",timestamp="2015-01-29 11:28:32.629",username="tkosan",hostname="tkosan-ThinkPad-W520",hostaddresses="206.21.94.66,",mpversion="mp4_beta_v.138_r5387M"
+|StringUpperCase(string) :=|{|	Local(javaString);|	javaString := JavaNew("java.lang.String", string);|	JavaAccess(javaString,"toUpperCase");|};
+%/info
+
+%info,parent="StringUpperCase",sequence="25",timestamp="2015-01-29 11:28:35.066",username="tkosan",hostname="tkosan-ThinkPad-W520",hostaddresses="206.21.94.66,",mpversion="mp4_beta_v.138_r5387M"
+|Verify(StringUpperCase("hello"), "HELLO");
+%/info
+

@@ -1,0 +1,4 @@
+%info,sequence="23",timestamp="2015-01-29 11:24:48.2",username="tkosan",hostname="tkosan-ThinkPad-W520",hostaddresses="206.21.94.66,",mpversion="mp4_beta_v.138_r5387M"
+|Verify(StringSubstring("Goodbye", 1,4), "Good");
+%/info
+

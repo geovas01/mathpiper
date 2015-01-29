@@ -1,0 +1,40 @@
+%mathpiper,def="FileWriterOpen"
+
+FileWriterOpen(fileName) :=
+{
+	Local(fileWriter);
+	
+	fileWriter := JavaNew("java.io.FileWriter", fileName);
+	
+	JavaNew("java.io.BufferedWriter", fileWriter);
+};
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="FileWriterOpen",categories="Programming Functions;Input/Output"
+*CMD FileWriterOpen - opens a file
+*CALL
+        FileWriterOpen(filename)
+
+*PARMS
+(filename) --- the full path of a file in a string
+
+*DESC
+This function takes the full path of a file, and reads it so that the result of the function will be the "insides" of the file itself.
+
+*E.G.
+In> FileWriterOpen("<filename>")
+%/mathpiper_docs
+
+
+
+
+
+
+
+
+

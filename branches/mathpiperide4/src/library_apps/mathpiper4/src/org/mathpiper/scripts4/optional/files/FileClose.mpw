@@ -1,0 +1,29 @@
+%mathpiper,def="FileClose"
+
+FileClose(file) :=
+{
+	JavaCall(file, "close");
+};
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs
+*CMD FileClose --- closes an open file
+*CALL
+        FileClose(file)
+
+*PARMS
+{file} --  file object
+
+*DESC
+This function accepts a file object, if that file objec thas been previously opened the function will close it.
+
+*E.G.
+FileClose(<file object>)
+%/mathpiper_docs
+
+

@@ -59,7 +59,7 @@ public class ToAtom extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="ToAtom",categories="Programming Functions;String Manipulation"
+%mathpiper_docs,name="ToAtom",categories="Programming Functions;Strings"
 *CMD ToAtom --- convert string to atom
 *CORE
 *CALL
