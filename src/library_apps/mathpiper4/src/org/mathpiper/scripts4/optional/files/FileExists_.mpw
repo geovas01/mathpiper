@@ -1,0 +1,32 @@
+%mathpiper,def="FileExists?"
+
+FileExists?(filename) :=
+{
+	JavaAccess(JavaNew("java.io.File", filename), "exists");
+};
+
+%/mathpiper
+
+
+
+
+
+
+
+%mathpiper_docs,name="FileExists?",categories="Programming Functions;Input/Output"
+*CMD FileExists? -- tests file to determine if it exists
+
+*CALL
+	FileExists?(filename)
+	
+*PARMS
+{filename} -- a file used to be tested
+
+*DESC
+This function returns as true or false in determining whether a file exists or not.
+
+*E.G.
+In> FileExists?(<filename>)
+%/mathpiper_docs
+
+

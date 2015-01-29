@@ -1,0 +1,44 @@
+%mathpiper,def="DateToNumber"
+DateToNumber(dateForm) := 
+{
+	Local(dateFormat, date);
+	
+	dateFormat := JavaNew("java.text.SimpleDateFormat","yyyy-MM-dd HH:mm:ss.SSS");
+	
+	date := JavaCall(dateFormat, "parse", dateForm);
+	
+	ToAtom(JavaAccess(date,"getTime"));
+};
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="DateToNumber",categories="Programming Functions;Strings",access="experimental"
+*CMD DateToNumber --- converts a string that is in date format to number format
+*CALL
+        DateToNumber(date)
+
+*PARMS
+{date} -- a string in yyyy-MM-dd HH:mm:ss.SSS format
+
+
+*DESC
+converts a string that is in date format to number format
+
+*E.G.
+In> DateToNumber("2015-01-13 12:37:40.612")
+Result: 1421170660612
+%/mathpiper_docs
+
+
+
+
+%mathpiper,name="DateToNumber",subtype="automatic_test
+
+Verify(DateToNumber("2015-01-13 12:37:40.612"),1421170660612);
+
+%/mathpiper
+
+
+

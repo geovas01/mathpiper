@@ -1,0 +1,60 @@
+%mathpiper,def="StringIndexOf"
+
+StringIndexOf(string, substring) :=
+{
+	Local(javaString, index);
+	javaString := JavaNew("java.lang.String", string);
+	index := JavaAccess(javaString,"indexOf", substring) + 1;
+	Decide(index =? 0, -1, index);
+};
+
+%/mathpiper
+
+
+
+
+
+
+
+%mathpiper_docs,name="StringIndexOf",categories="Programming Functions;Strings",access="experimental"
+*CMD StringIndexOf --- locate the beginning index of a substring within a larger string. 
+*CALL
+	StringIndexOf(string, substring)
+
+*PARMS
+{string} -- a string of characters
+
+{substring} -- a character or string of characters
+
+
+*DESC
+This function returns the Mathpiper index of the given string where the given substring begins. 
+
+If the given substring cannot be found, the function will return -1.
+
+*E.G.
+In> StringIndexOf("Hello", "H")
+Result: 1;
+
+In> StringIndexOf("Hello", "llo")
+Result: 3
+
+In> StringIndexOf("Hello", "G")
+Result: -1
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="StringIndexOf",subtype="manual_test"
+
+Verify(StringIndexOf("Hello", "H"), 1);
+
+%/mathpiper
+
+
+
+
+
+

@@ -1,0 +1,62 @@
+%mathpiper,def="StringLowerCase"
+
+StringLowerCase(string) :=
+{
+	Local(javaString);
+	javaString := JavaNew("java.lang.String", string);
+	JavaAccess(javaString,"toLowerCase");
+};
+
+%/mathpiper
+
+    %output,sequence="15",timestamp="2015-01-29 04:29:00.432",preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+
+%mathpiper_docs,name="StringLowerCase",categories="Programming Functions;Strings",access="experimental"
+*CMD StringLowerCase --- return a copy of a string that contains only lower case letters
+*CALL
+	StringLowerCase(string)
+
+*PARMS
+{string} -- A string
+
+*DESC
+This function accepts a string and returns the same string with all letters being lower case.
+
+*E.G.
+In> StringLowerCase("ThIs iS aN ExAmPlE")
+Result: "this is an example"
+
+%/mathpiper_docs
+
+    %output,parent="StringLowerCase",sequence="18",timestamp="2015-01-29 04:29:15.857",preserve="false"
+      
+.   %/output
+
+
+
+
+
+
+%mathpiper,name="StringLowerCase",subtype="automatic_test"
+
+Verify(StringLowerCase("HELLO"), "hello");
+
+Verify(StringLowerCase("Hi How Are You?"), "hi how are you?");
+
+Verify(StringLowerCase("ZZZzZzzzZZZZzzzZzZ"), "zzzzzzzzzzzzzzzzzz");
+
+%/mathpiper
+
+    %output,sequence="16",timestamp="2015-01-29 04:29:03.757",preserve="false"
+      Result: True
+.   %/output
+
+
+

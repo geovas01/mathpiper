@@ -1,0 +1,37 @@
+%mathpiper,def="StringFromFile"
+
+StringFromFile(path) :=
+{
+	Check(FileExists?(path), "", "The file <" ~ path ~ "> does not exist.");
+	
+	Local(path);
+	
+	path2 := JavaCall("java.nio.file.Paths","get", path, JavaCall("java.lang.reflect.Array", "newInstance", JavaCall(JavaNew("java.lang.String"),"getClass"),0));
+	
+	JavaToValue(JavaNew("java.lang.String", JavaCall("java.nio.file.Files", "readAllBytes", path2)));
+};
+
+%/mathpiper
+
+    %output,sequence="1",timestamp="2015-01-27 13:06:32.022",preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+%mathpiper_docs,name="StringFromFile",categories="Programming Functions;Input/Output"
+*CMD StringFromFile --- reads in a text file as a string
+*CALL
+        StringFromFile(path)
+
+*PARMS
+{path} -- the path of the file as a string
+
+*DESC
+This function reads in a text file as a string.
+
+*E.G.
+In> StringFromFile("filename")
+%/mathpiper_docs

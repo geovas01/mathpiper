@@ -1,0 +1,47 @@
+%mathpiper,def="StringMatches?"
+
+StringMatches?(string, regexp) :=
+{
+	Local(javaString);
+	javaString := JavaNew("java.lang.String", string);
+	JavaAccess(javaString,"matches", regexp);
+};
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="StringMatches?",categories="Programming Functions;Strings",access="experimental"
+*CMD StringMatches? -- tests if a string matches a regular expression
+*CALL
+	StringMatches?(string, regexp)
+	
+*PARMS
+{string} -- a string
+
+{regexp} -- a regular expression
+
+*DESC
+This function returns True if it matches {regexp} and False otherwise.
+
+*E.G.
+In> StringMatches?("AAA", "A*")
+Result: True
+
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="StringMatches",subtype="automatic_test"
+
+Verify(StringMatches?("AAA", "A*"), True);
+
+%/mathpiper
+
+
+
+

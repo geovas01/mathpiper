@@ -417,7 +417,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         programmingFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Numerical (Arbitrary Precision)", "Functions for programming numerical calculations with arbitrary precision.")));
         programmingFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Predicates", "A predicate is a function that returns a boolean value, i.e. True or False.")));
         programmingFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Sorting", "Functions for sorting.")));
-        programmingFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("String Manipulation", "Functions for manipulating strings.")));
+        programmingFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Strings", "Functions for working with strings.")));
         programmingFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Testing", "Functions for verifying the correct operation of MathPiper code.")));
         programmingFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Variables", "Functions that work with variables.")));
 

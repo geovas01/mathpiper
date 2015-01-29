@@ -1,0 +1,54 @@
+%mathpiper,def="StringSubstring"
+
+StringSubstring(string, beginIndex, endIndex) :=
+{
+	Local(javaString);
+	javaString := JavaNew("java.lang.String", string);
+	JavaAccess(javaString,"substring", beginIndex-1, endIndex);
+};
+
+%/mathpiper
+
+
+
+
+
+
+%mathpiper_docs,name="StringSubstring",categories="Programming Functions;Strings",access="experimental"
+*CMD StringSubstring --- returns a substring of a string
+
+*CALL
+        StringSubstring(string, beginIndex, endIndex)
+
+*PARMS
+{string} -- A string.
+
+{beginIndex} -- The index of the string where you wish to begin.
+
+{endIndex} -- The index of the string where you wish to end.
+
+*DESC
+This function takes a string and returns every character inbetween the indexes provided.  
+
+*E.G.
+In> StringSubstring("Goodbye", 1,4)
+Result: "Good"
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,subtype="manual_test"
+
+Verify(StringSubstring("Goodbye", 1,4), "Good");
+
+%/mathpiper
+
+
+
+
+
+
+
+

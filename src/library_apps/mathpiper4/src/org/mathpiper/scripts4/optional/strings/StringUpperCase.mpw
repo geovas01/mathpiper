@@ -1,0 +1,49 @@
+%mathpiper,def="StringUpperCase"
+
+StringUpperCase(string) :=
+{
+	Local(javaString);
+	javaString := JavaNew("java.lang.String", string);
+	JavaAccess(javaString,"toUpperCase");
+};
+
+%/mathpiper
+
+
+
+
+
+
+
+%mathpiper_docs,name="StringUpperCase",categories="Programming Functions;Strings",access="experimental"
+*CMD StringUpperCase --- capitalizes all letters in a string
+
+*CALL
+        StringUpperCase(string)
+
+*PARMS
+{string} -- a string
+
+*DESC
+Capitializes all letters in a string.
+
+*E.G.
+In> StringUpperCase("hello")
+Result: "HELLO"
+%/mathpiper_docs
+
+
+
+
+
+
+%mathpiper,name="StringUpperCase",subtype="automatic_test"
+
+Verify(StringUpperCase("hello"), "HELLO");
+
+%/mathpiper
+
+
+
+
+

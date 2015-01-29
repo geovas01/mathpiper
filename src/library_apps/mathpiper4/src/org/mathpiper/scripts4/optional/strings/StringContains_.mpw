@@ -1,0 +1,48 @@
+%mathpiper,def="StringContains?"
+
+StringContains?(string, substring) :=
+{
+	Local(javaString);
+	javaString := JavaNew("java.lang.String", string);
+	JavaAccess(javaString,"contains", substring);    
+};
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="StringContains?",categories="Programming Functions;Strings",access="experimental"
+*CMD StringContains? -- Searches for substrings that are in strings. 
+*CALL
+	StringContains?(string, substring)
+
+*PARMS
+{string} --  The string that you are searcing for the substring in.
+
+{substring} --  The word or part of a string that you are looking for in the string.
+ 
+*DESC
+This function searches for a word or a substring in the string that you specify it to search within. 
+
+*E.G.
+In> StringContains?("This is a string", "is");
+Result: True 
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="StringContains?",subtype="manual_test"
+ 
+Verify(StringContains?("This is a string", "is"), True);
+
+%/mathpiper
+
+
+
+
+
+

@@ -1,0 +1,30 @@
+%mathpiper,def="ReadLine"
+
+ReadLine(reader) :=
+{
+	Local(line);
+	
+	line := JavaCall(reader, "readLine");
+	
+	Decide(line =? True, False, JavaToValue(line));
+};
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="ReadLine",categories="Programming Functions;Input/Output"
+*CMD  ReadLine --- returns the next line of a file as a string
+*CALL
+        ReadLine(reader)
+
+*PARMS
+{reader} -- a reader
+
+*DESC
+Returns the next line of the file as a string or False if the end of the file was reached.
+
+*E.G.
+ReadLine(<reader object>)
+%/mathpiper_docs
+

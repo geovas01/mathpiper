@@ -1,0 +1,130 @@
+v.01
+
+========================================================================================================
+Exercise 0
+
+Type your name into the following fold.
+
+%info,name="exercise0"
+
+Sarrency Seymour
+
+%/info
+
+
+========================================================================================================
+Exercise 1
+
+Write a function named "addList(list) that accepts a list of integers as
+a parameter and does the following:
+
+1) Check to make sure the value that was passed in is a list using the
+Check() function.
+
+2) Uses a summing variable and a While loop to calculate the sum of the
+numbers in the list.
+
+3) Returns the sum from #2 as a result.
+
+Place the function definition into the following fold:
+
+%mathpiper,name="main",def="SystemExecute"
+
+SystemExecute(command) :=
+{
+	SystemExecute(command, [], Null);
+};
+
+
+SystemExecute(command, environment, directory) :=
+{
+	Check(String?(command), "", "The first argument must be a string.");
+
+	Check(List?(environment), "", "The second argument must be a list.");
+	
+	Check(directory =? Null Or? String?(directory), "", "The third argument must be a string or Null.");
+	
+	Local(runtime, reader, process, lines, file);
+	
+	runtime := JavaCall("java.lang.Runtime", "getRuntime");
+	
+	If(directory !=? Null)
+	{
+		file := JavaNew("java.io.File", directory);
+		
+		Check(JavaAccess(file,"exists") =? True, "", "The file <" ~ directory ~ "> does not exist.");
+	}
+	Else
+	{
+		file := Null;
+	};
+	
+	process := JavaCall(runtime, "exec", command, Null, file);
+	
+	reader:= JavaNew("java.io.BufferedReader", JavaNew("java.io.InputStreamReader", JavaCall(process, "getInputStream")));
+	
+	lines := ReadLines(reader);
+	
+	JavaCall(reader, "close");
+	
+	lines;
+};
+
+//SystemExecute("libreoffice --headless --convert-to png:\"draw_png_Export\" --outdir \"/home/tkosan/git/u6502/books/6502_assembly_language_for_beginners/src/images\" \"/home/tkosan/git/u6502/books/6502_assembly_language_for_beginners/src/images_src/*.fodg\"");
+
+
+//SystemExecute("libreoffice --headless --convert-to png:\"draw_png_Export\" --outdir \"../images\" \"memory_map_1.fodg\"", [], "/home/tkosan/git/u6502/books/6502_assembly_language_for_beginners/src/images_src");
+SystemExecute("libreoffice --headless --convert-to png:\"draw_png_Export\" --outdir \"../images\" \"memory_map_1.fodg\"", [], "/home/tkosan/git/u6502/books/6502_assembly_language_for_beginners/src/images_src");
+
+
+%/mathpiper
+
+    %error,parent="main",sequence="59",timestamp="2015-01-27 13:41:36.633",preserve="false"
+      Result:  Error: The file </home/tkosan/git/u6502/books/6502_assembly_language_for_beginners/src/images_src> does not exist.  Error on or before line 55 starting at index 2.
+.   %/error
+
+
+
+
+
+Create documentation for your function by modifying the code that is
+inside of this mathpiper_docs fold:
+
+%mathpiper_docs
+*CMD SystemExecute --- executes a command in the system
+
+*CALL
+		SystemExecute(command)
+        SystemExecute(command, environment, directory)
+
+*PARMS
+{command} -- command to execute
+
+{environment} -- ?? environment  to execute the command in ??
+
+{directory} -- directory to execute the command at
+
+*DESC
+This function Executes a command in the given environment at the given directory
+%/mathpiper_docs
+
+
+
+
+Place some testing code for your function into the following fold.
+
+%mathpiper,subtype="manual_test"
+
+//Verify(addTwo(1,2), 3);
+SystemExecute("dir");
+
+%/mathpiper
+
+    %error,sequence="61",timestamp="2015-01-27 13:43:47.778",preserve="false"
+      Result: Array index out of range: 3589
+.   %/error
+
+
+
+
+

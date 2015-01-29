@@ -1,0 +1,30 @@
+%mathpiper,def="FileReaderOpen"
+
+FileReaderOpen(fileName) :=
+{
+	Local(fileReader);
+	
+	fileReader := JavaNew("java.io.FileReader", fileName);
+	
+	JavaNew("java.io.BufferedReader", fileReader);
+};
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="FileReaderOpen",categories="Programming Functions;Input/Output"
+*CMD FileReaderOpen --- opens a file
+*CALL
+        FileReaderOpen(fileName)
+
+*PARMS
+{fileName} -- a string of the full path to the file
+
+*DESC
+This function opens a file. The full path to the file must be passed in as an argument.
+
+*E.G.
+FireReaderOpen("<filename")
+%/mathpiper_docs
+

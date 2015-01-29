@@ -1,0 +1,56 @@
+%mathpiper,def="DirectoryFiles"
+
+DirectoryFiles(filename) :=
+{
+	Local(filesList, directory, array, fileCount, file, fileNumber);
+	
+	Check(FileExists?(filename), "", "The file <" ~ filename ~ "> does not exist.");
+	
+	filesList := [];
+	
+	directory := JavaNew("java.io.File", filename);
+	
+	array := JavaCall(directory, "listFiles");
+	
+	fileCount := JavaAccess("java.lang.reflect.Array","getLength",array);
+	
+	For(fileNumber := 0, fileNumber <? fileCount, fileNumber++)
+	{
+		file := JavaCall("java.lang.reflect.Array","get", array, fileNumber);
+		DestructiveAppend(filesList, file);
+	};
+	
+	filesList;
+};
+
+
+%/mathpiper
+
+    %output,sequence="26",timestamp="2015-01-29 11:31:13.568",preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+
+
+%mathpiper_docs,name="DirectoryFiles",categories="Programming Functions;Input/Output"
+
+*CMD DirectoryFiles() --- Returns a list of all the files in a directory.
+
+*CALL DirectoryFiles(filename)
+        
+
+*PARMS 
+{filename} -- The filename that you enter.
+
+*DESC
+This function returns a list of all the files in a directory.
+
+*E.G.
+In> DirectoryFiles("/")
+Result: [class java.io.File,class java.io.File,class java.io.File]
+%/mathpiper_docs
+

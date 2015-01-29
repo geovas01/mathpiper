@@ -1,0 +1,52 @@
+%mathpiper,def="StringStartsWith?"
+
+StringStartsWith?(string, substring) :=
+{
+	Local(javaString);
+	javaString := JavaNew("java.lang.String", string);
+	JavaAccess(javaString,"startsWith", substring);
+};
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="StringStartsWith",categories="Programming Functions;Strings",access="experimental"
+*CMD StringStartsWith? --- check if start of string matches
+*CALL
+        StringStartsWith?(string, substring)
+
+*PARMS
+{string} -- the string to check
+
+{substring} -- string to check with
+
+*DESC
+This function checks if "string" starts with "substring" and is case-sensitive
+
+*E.G.
+In> StringStartsWith?("Hello", "He");
+Result: True;
+
+In> StringStartsWith?("Hello", "Help");
+Result: False;
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="StringStartsWith",subtype="automatic_test"
+
+Verify(StringStartsWith?("Hello", "He"), True);
+Verify(StringStartsWith?("Hello", "he"), False);
+
+%/mathpiper
+
+
+
+
+
+
