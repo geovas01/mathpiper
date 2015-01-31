@@ -1098,7 +1098,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                 {
                     html.append(
                         "This is a built-in function and its source file is written in Java. <br />" +
-                        "The path to the Java source code for this function is: <br />" + line.substring(1, line.length()) + "<br /><br />" +
+                        "The path to the Java source code for this function is: <br />" + line.substring(line.lastIndexOf("src"), line.length()) + "<br /><br />" +
                         "The source code can be browsed on the MathPiper project site at: <br />" +
                         "http://code.google.com/p/mathpiper/source/browse/");
 
