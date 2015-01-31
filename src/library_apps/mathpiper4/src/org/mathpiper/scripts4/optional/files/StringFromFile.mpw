@@ -13,15 +13,11 @@ StringFromFile(path) :=
 
 %/mathpiper
 
-    %output,sequence="1",timestamp="2015-01-27 13:06:32.022",preserve="false"
-      Result: True
-.   %/output
 
 
 
 
-
-%mathpiper_docs,name="StringFromFile",categories="Programming Functions;Input/Output"
+%mathpiper_docs,name="StringFromFile",categories="Programming Functions;Input/Output",access="experimental"
 *CMD StringFromFile --- reads in a text file as a string
 *CALL
         StringFromFile(path)

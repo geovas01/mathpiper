@@ -11,7 +11,7 @@ FileClose(file) :=
 
 
 
-%mathpiper_docs
+%mathpiper_docs,name="FileClose",categories="Programming Functions;Input/Output",access="experimental"
 *CMD FileClose --- closes an open file
 *CALL
         FileClose(file)

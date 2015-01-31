@@ -15,7 +15,7 @@ FileWriterOpen(fileName) :=
 
 
 
-%mathpiper_docs,name="FileWriterOpen",categories="Programming Functions;Input/Output"
+%mathpiper_docs,name="FileWriterOpen",categories="Programming Functions;Input/Output",access="experimental"
 *CMD FileWriterOpen - opens a file
 *CALL
         FileWriterOpen(filename)

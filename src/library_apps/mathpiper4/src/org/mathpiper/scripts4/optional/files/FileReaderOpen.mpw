@@ -13,7 +13,7 @@ FileReaderOpen(fileName) :=
 
 
 
-%mathpiper_docs,name="FileReaderOpen",categories="Programming Functions;Input/Output"
+%mathpiper_docs,name="FileReaderOpen",categories="Programming Functions;Input/Output",access="experimental"
 *CMD FileReaderOpen --- opens a file
 *CALL
         FileReaderOpen(fileName)
