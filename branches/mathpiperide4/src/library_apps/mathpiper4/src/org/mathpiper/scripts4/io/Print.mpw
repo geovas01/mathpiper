@@ -55,7 +55,7 @@
   WriteString("]");
 };
 
-20 # Print(_x,_n)::(Type(x) =? "Block") <--
+20 # Print(_x,_n)::(Type(x) =? "Sequence") <--
 {
   WriteString("[");
   PrintArgBlock(Rest(FunctionToList(x)));

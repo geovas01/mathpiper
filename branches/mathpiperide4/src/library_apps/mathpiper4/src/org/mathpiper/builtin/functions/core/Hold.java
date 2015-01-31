@@ -20,10 +20,6 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 
-/**
- *
- *  tkosan
- */
 public class Hold extends BuiltinFunction
 {
 

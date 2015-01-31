@@ -29,14 +29,14 @@ import org.mathpiper.lisp.cons.Cons;
  *
  *  
  */
-public class Block extends BuiltinFunction
+public class Sequence extends BuiltinFunction
 {
 
-    private Block()
+    private Sequence()
     {
     }
 
-    public Block(String functionName)
+    public Sequence(String functionName)
     {
         this.functionName = functionName;
     }
@@ -44,7 +44,7 @@ public class Block extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable {
         // Allow accessing previous locals.
-        aEnvironment.pushLocalFrame(false, "Block");
+        aEnvironment.pushLocalFrame(false, "Sequence");
         
         Cons consTraverser = null;
 
@@ -77,11 +77,11 @@ public class Block extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Block",categories="Programming Functions;Miscellaneous;Built In"
-*CMD Block --- block of statements
+%mathpiper_docs,name="Sequence",categories="Programming Functions;Miscellaneous;Built In"
+*CMD Sequence --- block of statements
 *CORE
 *CALL
-	Block(statement1, statement2, ...)
+	Sequence(statement1, statement2, ...)
 
 *PARMS
 
@@ -89,12 +89,12 @@ public class Block extends BuiltinFunction
 
 *DESC
 
-The {Block} and the {&#123; ... &#125;} construct have the same effect: they evaluate all
+The {Sequence} and the {&#123; ... &#125;} construct have the same effect: they evaluate all
 arguments in order and return the result of the last evaluated expression.
 
-{Block(_a,_b);} is the same as typing {&#123;_a;_b;&#125;} and is very useful for writing out
+{Sequence(_a,_b);} is the same as typing {&#123;_a;_b;&#125;} and is very useful for writing out
 function bodies. The {&#123; ... &#125;} construct is a syntactically nicer version of the
-{Block} call; it is converted into {Block(...)} during the parsing stage.
+{Sequence} call; it is converted into {Sequence(...)} during the parsing stage.
 
 *SEE {, }
 %/mathpiper_docs
