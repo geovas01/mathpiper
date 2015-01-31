@@ -153,7 +153,7 @@ public final class Environment {
 		iSetAtom = ("Set");
 		iBlockAtom = ("Block");
 
-		iArgumentStack = new ArgumentStack(this, 50000 /* TODO FIXME */);
+		iArgumentStack = new ArgumentStack(this, 2000 /* TODO FIXME */);
 		// org.mathpiper.builtin.Functions mc = new
 		// org.mathpiper.builtin.Functions();
 		// mc.addCoreFunctions(this);
