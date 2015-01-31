@@ -216,7 +216,7 @@ LocalSymbols(cindent) {
 
 UnparseCStatement(_x) <-- UnparseC(x) ~ ";" ~ NlIndented();
 
-120 # UnparseC(_x,_p)::(Type(x) =? "Block") <--
+120 # UnparseC(_x,_p)::(Type(x) =? "Sequence") <--
 {
   Local(result);
   result:=CIndent()~"{"~NlIndented();

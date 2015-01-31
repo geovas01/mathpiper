@@ -151,7 +151,7 @@ public final class Environment {
 		iListCloseAtom = ("]");
 		iCommaAtom = (",");
 		iSetAtom = ("Set");
-		iBlockAtom = ("Block");
+		iBlockAtom = ("Sequence");
 
 		iArgumentStack = new ArgumentStack(this, 2000 /* TODO FIXME */);
 		// org.mathpiper.builtin.Functions mc = new

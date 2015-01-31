@@ -204,7 +204,7 @@ LocalSymbols(UnparseLatexRegularOps, UnparseLatexRegularPrefixOps, UnparseLatexG
     ["LaTeX", "\\textrm{\\LaTeX\\/}"],
     ["Maximum", "\\max "],        // this replaces these function names
     ["Minimum", "\\min "],
-    ["Block", " "],
+    ["Sequence", " "],
     ["Zeta", "\\zeta "],
   ];
 
