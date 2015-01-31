@@ -26,17 +26,11 @@ DirectoryFiles(filename) :=
 
 %/mathpiper
 
-    %output,sequence="26",timestamp="2015-01-29 11:31:13.568",preserve="false"
-      Result: True
-.   %/output
 
 
 
 
-
-
-
-%mathpiper_docs,name="DirectoryFiles",categories="Programming Functions;Input/Output"
+%mathpiper_docs,name="DirectoryFiles",categories="Programming Functions;Input/Output",access="experimental"
 
 *CMD DirectoryFiles() --- Returns a list of all the files in a directory.
 

@@ -13,7 +13,7 @@ FileExists?(filename) :=
 
 
 
-%mathpiper_docs,name="FileExists?",categories="Programming Functions;Input/Output"
+%mathpiper_docs,name="FileExists?",categories="Programming Functions;Input/Output",access="experimental"
 *CMD FileExists? -- tests file to determine if it exists
 
 *CALL

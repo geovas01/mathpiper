@@ -13,7 +13,7 @@ ReadLine(reader) :=
 
 
 
-%mathpiper_docs,name="ReadLine",categories="Programming Functions;Input/Output"
+%mathpiper_docs,name="ReadLine",categories="Programming Functions;Input/Output",access="experimental"
 *CMD  ReadLine --- returns the next line of a file as a string
 *CALL
         ReadLine(reader)
