@@ -258,7 +258,7 @@ public class MathPiperUnparser extends LispUnparser {
                     WriteToken(aOutput, "]");
 
                     // }//end else.
-                } else if (functionOrOperatorName.equals(iCurrentEnvironment.iBlockAtom)) // Program block brackets.
+                } else if (functionOrOperatorName.equals(iCurrentEnvironment.iSequenceAtom)) // Program block brackets.
                 {
                     aOutput.write("\n" + spaces.toString());
 

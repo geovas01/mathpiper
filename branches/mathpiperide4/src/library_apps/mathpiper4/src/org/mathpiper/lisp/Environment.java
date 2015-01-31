@@ -66,8 +66,8 @@ public final class Environment {
 	public final String iFalseString;
 	public Cons iEndOfFileAtom;
 	public String iEndStatementAtom;
-	public String iBlockOpenAtom;
-	public String iBlockCloseAtom;
+	public String iSequenceOpenAtom;
+	public String iSequenceCloseAtom;
 	public String iIndexOrNameOpenAtom;
 	public String iIndexOrNameCloseAtom;
 	public String iNthAtom;
@@ -78,7 +78,7 @@ public final class Environment {
 	public String iListCloseAtom;
 	public String iCommaAtom;
 	public String iSetAtom;
-	public String iBlockAtom;
+	public String iSequenceAtom;
 	public OperatorMap iPrefixOperators = new OperatorMap(this);
 	public OperatorMap iInfixOperators = new OperatorMap(this);
 	public OperatorMap iPostfixOperators = new OperatorMap(this);
@@ -139,8 +139,8 @@ public final class Environment {
 
 		iEndOfFileAtom = new AtomCons("EndOfFile");
 		iEndStatementAtom = ";";
-		iBlockOpenAtom = ("{");
-		iBlockCloseAtom = ("}");
+		iSequenceOpenAtom = ("{");
+		iSequenceCloseAtom = ("}");
 		iIndexOrNameOpenAtom = ("[");
 		iIndexOrNameCloseAtom = ("]");
 		iNthAtom = ("Nth");
@@ -151,7 +151,7 @@ public final class Environment {
 		iListCloseAtom = ("]");
 		iCommaAtom = (",");
 		iSetAtom = ("Set");
-		iBlockAtom = ("Sequence");
+		iSequenceAtom = ("Sequence");
 
 		iArgumentStack = new ArgumentStack(this, 2000 /* TODO FIXME */);
 		// org.mathpiper.builtin.Functions mc = new

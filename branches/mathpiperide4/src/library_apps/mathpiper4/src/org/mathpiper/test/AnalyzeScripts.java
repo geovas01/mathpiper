@@ -214,7 +214,7 @@ public class AnalyzeScripts {
     }//end method.
 
     private static void processLocalSymbols(Cons prog, String[] scriptCodeArray, Object[] result) throws Throwable {
-        //Scan past variables to the Block.
+        //Scan past variables to the Sequence.
         while (prog.cdr() != null) {
             prog = prog.cdr();
         }

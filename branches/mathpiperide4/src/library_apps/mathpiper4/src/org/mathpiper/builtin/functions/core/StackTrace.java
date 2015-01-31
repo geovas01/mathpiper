@@ -88,10 +88,10 @@ Side Effects:
 
 
 ========================================= Start Of Built In Function Stack Trace
-0: Block
+0: Sequence
    1: -> TestFunction()
 -----------------------------------------
-2: Block
+2: Sequence
    3: -> index:=1
    4: -> While(index<10)[
     If(index=5,StackTrace());
@@ -107,7 +107,7 @@ Side Effects:
 ]
 
 -----------------------------------------
-7: Block
+7: Sequence
    8: -> If(index=5,StackTrace())
    9: -> index++
 -----------------------------------------
@@ -121,13 +121,13 @@ Side Effects:
 ****** THE PROBLEM IS EITHER IMMEDIATELY ABOVE THIS LINE OR IMMEDIATELY BELOW THIS LINE ******
 
 ========================================= Start Of User Function Stack Trace
-0: Block
+0: Sequence
 -----------------------------------------
-1: Block
+1: Sequence
 -----------------------------------------
 2: TestFunction
 -----------------------------------------
-3: Block
+3: Sequence
 -----------------------------------------
 4: <START>
 ========================================= End Of User Function Stack Trace
