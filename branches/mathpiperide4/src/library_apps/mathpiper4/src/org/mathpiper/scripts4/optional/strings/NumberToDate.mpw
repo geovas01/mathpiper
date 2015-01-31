@@ -1,0 +1,76 @@
+%mathpiper,def="NumberToDate"
+
+NumberToDate(number) := 
+{
+	Local(date);
+	
+	date := JavaNew("java.util.Date", JavaNew("java.lang.Long", ToString(number)));
+	
+	JavaAccess(date,"toString");
+};
+
+%/mathpiper
+
+    %output,sequence="15",timestamp="2015-01-29 13:30:12.394",preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+%mathpiper_docs,name="NumberToDate",categories="Programming Functions;Strings",access="experimental"
+*CMD NumberToDate --- converts an integer to a date
+*CALL
+        NumberToDate(date)
+
+*PARMS
+{date} -- an integer that represents milliseconds from
+
+*DESC
+This function converts an integer to a date string that is similar in format to "Tue Jan 13 12:37:40 EST 2015".
+
+The string has the form "dow mon dd hh:mm:ss zzz yyyy" where:
+
+- {dow} is the day of the week (Sun, Mon, Tue, Wed, Thu, Fri, Sat).
+
+- {mon} is the month (Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec).
+
+- {dd} is the day of the month (01 through 31), as two decimal digits.
+
+- {hh} is the hour of the day (00 through 23), as two decimal digits.
+
+- {mm} is the minute within the hour (00 through 59), as two decimal digits.
+
+- {ss} is the second within the minute (00 through 61, as two decimal digits.
+
+- {zzz} is the time zone (which may use daylight saving time).
+
+- {yyyy} is the year, as four decimal digits. 
+
+*E.G.
+In> NumberToDate(1421170660612)
+Result: "Tue Jan 13 12:37:40 EST 2015"
+%/mathpiper_docs
+
+    %output,parent="DateToNumber",sequence="23",timestamp="2015-01-29 13:50:20.61",preserve="false"
+      
+.   %/output
+
+
+
+
+
+%mathpiper,name="NumberToDate",subtype="automatic_test"
+
+Verify(NumberToDate(1421170660612),"Tue Jan 13 12:37:40 EST 2015");
+
+%/mathpiper
+
+    %output,parent="NumberToDate",sequence="18",timestamp="2015-01-29 13:36:46.461",preserve="false"
+      Result: True
+.   %/output
+
+
+
+

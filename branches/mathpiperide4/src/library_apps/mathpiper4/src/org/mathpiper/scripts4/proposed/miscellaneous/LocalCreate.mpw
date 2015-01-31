@@ -1,0 +1,72 @@
+%mathpiper,def="LocalCreate"
+
+LocalCreate() :=
+{
+	Local(stringList, localVariables);
+	
+	stringList := ["Local("];
+	
+	localVariables := AssociationIndices(State());
+	
+	ForEach(variable, localVariables)
+	{
+		DestructiveAppend(stringList, ToString(variable));
+		
+		DestructiveAppend(stringList, ", ");
+	};
+	
+	DestructiveDelete(stringList, Length(stringList));
+	
+	DestructiveAppend(stringList, ");");
+	
+	Echo(ListToString(stringList));
+};
+
+%/mathpiper
+
+
+
+
+
+
+%mathpiper_docs,name="LocalCreate",categories="Programming Functions;Variables"
+*CMD LocalCreate --- create a string that contains a call to the function "Local" 
+*CALL
+	LocalCreate()
+
+	
+*DESC
+This function is used to create a call to the function "Local" using all of the global
+variables that are currently assigned as arguments. It is useful for adding a call to 
+the function "Local" as the last part of the following function definition process:
+
+1) Define the function.
+2) Test the function for correct operation.
+3) Unassign all global variables.
+4) Call the function once.
+5) Call LocalCreate().
+6) Paste the generated call to the function "Local" into the top of the function definition.
+
+
+*E.G.
+In> Unassign(All)
+Result: True
+
+In> arg1 := 3
+Result: 3
+
+In> arg2 := 5
+Result: 5
+
+In> State()
+Result: [arg1:3,arg2:5]
+
+In> LocalCreate()
+Result: True
+Side Effects:
+Local(arg2, arg1);
+%/mathpiper_docs
+
+
+
+
