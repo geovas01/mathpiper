@@ -681,10 +681,10 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                     }
                     
                     
-                    boolean placeInCodeBlock = false;
+                    boolean placeInCodeSequence = false;
                     if(code.endsWith(";"))
                     {
-                    	placeInCodeBlock = true;
+                    	placeInCodeSequence = true;
                     }
 
                     String currentParserName = interpreter.getEnvironment().iParserName;
@@ -704,9 +704,9 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                         
                         Environment.saveDebugInformation = true;
                         
-                        if(placeInCodeBlock)
+                        if(placeInCodeSequence)
                         {
-                        	code = currentParserInstance.processCodeBlock(code);
+                        	code = currentParserInstance.processCodeSequence(code);
                         }
                         
                         interpreter.evaluate(code, true);

@@ -17,9 +17,9 @@
 package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
 import java.awt.*;
-import javax.swing.Icon;
 
 import javax.swing.JLabel;
+import org.mathpiper.ui.gui.worksheets.DynamicIcon;
 
 import org.scilab.forge.mp.jlatexmath.TeXConstants;
 import org.scilab.forge.mp.jlatexmath.TeXFormula;
@@ -117,7 +117,7 @@ public class ScaledGraphics {
         
     }
     
-    public void drawIcon(Icon icon, double x, double y)
+    public void drawIcon(DynamicIcon icon, double x, double y) // todo:tk:this method needs more work.
     {
 	JLabel jl = new JLabel();
 

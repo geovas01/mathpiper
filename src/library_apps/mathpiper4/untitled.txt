@@ -1,23 +1,14 @@
-MathPiper version mp4_beta_v.138_r5345:5367M
+MathPiper version mp4_beta_v.138_r5387:5394M
 Enter an expression after any In> prompt and press <enter> or <shift><enter> to evaluate it.
 
-In> rock
-Result: Exception
-Exception: Error: The variable <rock> does not have a value assigned to it. Starting at index 0.
+In> zz := '{x := 8;Decide(x =? 7, "Seven",Decide(x =? 8, "Eight",Decide(x =? 9,"Nine")));};
+Result: {
+    x := 8;
+    Decide(x =? 7,"Seven",Decide(x =? 8,"Eight",Decide(x =? 9,"Nine")));
+}
 
-In> Constant('rock, True);
-Result: True
-
-In> rock
-Result: Exception
-Exception: Error: The variable <rock> does not have a value assigned to it. Starting at index 0.
-
-In> Constant('rock, False);
-Result: True
-
-In> rock
-Result: Exception
-Exception: Error: The variable <rock> does not have a value assigned to it. Starting at index 0.
+In> Show(TreeView(zz,Code:True))
+Result: class javax.swing.JFrame
 
 In> 
 

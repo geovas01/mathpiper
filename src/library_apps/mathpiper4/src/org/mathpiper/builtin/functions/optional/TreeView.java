@@ -18,7 +18,7 @@ package org.mathpiper.builtin.functions.optional;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
+import java.awt.Font;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,7 +41,6 @@ import org.mathpiper.lisp.parsers.MathPiperParser;
 import org.mathpiper.lisp.parsers.Parser;
 import org.mathpiper.lisp.parsers.LispParser;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
-import org.mathpiper.ui.gui.worksheets.LatexRenderingController;
 import org.mathpiper.ui.gui.worksheets.MathPanelController;
 import org.mathpiper.ui.gui.worksheets.ScreenCapturePanel;
 import org.mathpiper.ui.gui.worksheets.TreePanelCons;
@@ -147,7 +146,7 @@ public class TreeView extends BuiltinFunction {
         }
         
         
-        
+        JPanel latexScreenCapturePanel = new ScreenCapturePanel();
         if(!((Boolean) userOptions.get("Lisp")))
         {
             if(!((Boolean) userOptions.get("Code")))
@@ -166,21 +165,23 @@ public class TreeView extends BuiltinFunction {
                 texString = Utility.stripEndQuotesIfPresent(texString);
                 texString = texString.substring(1, texString.length());
                 texString = texString.substring(0, texString.length() - 1);
+                
+                TeXFormula formula = new TeXFormula(texString);
+                JLabel latexLabel = new JLabel();
+                // JPanel latexPanelController = new LatexRenderingController(formula, latexLabel, 40);
+                latexScreenCapturePanel.add(latexLabel); 
             }
             else
             {
-                texString = Utility.printMathPiperExpression(aStackTop, expression, aEnvironment, -1); 
+                texString = Utility.printMathPiperExpression(aStackTop, expression, aEnvironment, -1);
+                JLabel codeLabel = new JLabel(texString);
+                codeLabel.setFont(new Font("Serif", Font.PLAIN, 25));
+                latexScreenCapturePanel.add(codeLabel);
             }
         }
 
 
-
-
-	TeXFormula formula = new TeXFormula(texString);
-	JLabel latexLabel = new JLabel();
-        JPanel latexPanelController = new LatexRenderingController(formula, latexLabel, 40);
-        JPanel latexScreenCapturePanel = new ScreenCapturePanel();
-        latexScreenCapturePanel.add(latexLabel);        
+       
         
 
         

@@ -387,10 +387,17 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 				double nodeY1 = nodeY0 + currentNode.getNodeHeight();
 
 				sg.setColor(Color.BLACK);
-				sg.drawLatex(currentNode.getTexFormula(), nodeX0, nodeY0);
-                                //sg.drawIcon(currentNode.getIcon(), nodeX0, nodeY0); todo:tk:this code is for SQL experiments.
+                                
+                                if(this.isCodeForm)
+                                {
+                                    sg.drawText(currentNode.toString(), nodeX0, nodeY0 + currentNode.getNodeHeight() - 2);
+                                }
+                                else
+                                {
+                                    sg.drawLatex(currentNode.getTexFormula(), nodeX0, nodeY0);
+                                }
 				
-				//sg.drawRectangle(nodeX0, nodeY0, currentNode.getNodeWidth(), currentNode.getNodeHeight());
+				// sg.drawRectangle(nodeX0, nodeY0, currentNode.getNodeWidth(), currentNode.getNodeHeight());
 
 				SymbolNode[] childrenNodes = currentNode.getChildren();
 
