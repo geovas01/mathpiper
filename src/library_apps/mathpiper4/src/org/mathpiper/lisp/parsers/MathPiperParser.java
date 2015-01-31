@@ -330,7 +330,7 @@ public class MathPiperParser extends Parser
             combine(aEnvironment, aStackTop, nrargs);
 
         } // parse prog bodies
-        else if (iLookAhead[0].equals(iEnvironment.iBlockOpenAtom))
+        else if (iLookAhead[0].equals(iEnvironment.iSequenceOpenAtom))
         {
             
     
@@ -338,7 +338,7 @@ public class MathPiperParser extends Parser
             int nrargs = 0;
 
             matchToken(aStackTop, iLookAhead[0]);
-            while (!iLookAhead[0].equals(iEnvironment.iBlockCloseAtom))
+            while (!iLookAhead[0].equals(iEnvironment.iSequenceCloseAtom))
             {
                 readExpression(aEnvironment,aStackTop, MathPiperUnparser.KMaxPrecedence);  // least precedence
                 nrargs++;
@@ -355,7 +355,7 @@ public class MathPiperParser extends Parser
             
             
             matchToken(aStackTop, iLookAhead[0]);
-            String theOperator = (String) iEnvironment.iBlockAtom;
+            String theOperator = (String) iEnvironment.iSequenceAtom;
             insertAtom(aEnvironment, aStackTop, theOperator);
 
             combine(aEnvironment, aStackTop, nrargs);
@@ -545,7 +545,7 @@ public class MathPiperParser extends Parser
     }
     
     
-    public String processCodeBlock(String code)
+    public String processCodeSequence(String code)
     {
     	return "{" + code + "};";
     }

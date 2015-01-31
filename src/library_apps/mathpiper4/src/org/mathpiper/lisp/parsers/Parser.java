@@ -48,7 +48,7 @@ public abstract class Parser {
     
     public abstract String processLineTermination(String code);
     
-    public abstract String processCodeBlock(String code);
+    public abstract String processCodeSequence(String code);
     
     
     public static boolean isSupportedParser(String parserName)

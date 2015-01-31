@@ -43,7 +43,7 @@ public class LispParser extends Parser {
 	return code;
     }
     
-    public String processCodeBlock(String code)
+    public String processCodeSequence(String code)
     {
 	return code;
     }

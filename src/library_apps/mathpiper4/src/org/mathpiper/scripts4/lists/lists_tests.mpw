@@ -88,7 +88,7 @@ Verify(Difference(FuncList(_a*_b/_c*_d), ["*","/"]), []);
 //Verify(Difference(FuncListArith(0*_x*Sin(_a/_b)*Ln(Cos(_y-_z)+Sin(_a))), [ToAtom("*"),'Ln,'Sin]), []);
 Verify(Difference(VarListArith(_x+_a*_y^2-1), [_x,_a,_y^2]), []);
 
-//Verify(Difference(FuncList(CUnparsable?({i:=0;While(i<?10){i++; a--; a:=a+i; [];};})), ['CUnparsable?,'Block,:=,'While,<?,++,--,ToAtom("+"),'List]), []);
+//Verify(Difference(FuncList(CUnparsable?({i:=0;While(i<?10){i++; a--; a:=a+i; [];};})), ['CUnparsable?,'Sequence,:=,'While,<?,++,--,ToAtom("+"),'List]), []);
 Verify(FuncList([1,2,3]),["List"]);
 Verify(FuncList([[],[]]),["List"]);
 Verify(FuncList([]),["List"]);
