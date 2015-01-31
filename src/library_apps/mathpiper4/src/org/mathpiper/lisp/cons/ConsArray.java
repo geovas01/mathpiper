@@ -16,8 +16,6 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.cons;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.mathpiper.lisp.Environment;
 
 /** 
@@ -32,7 +30,7 @@ public class ConsArray {
 
     public ConsArray(Environment aEnvironment, int aSize) {
        iSize = aSize;
-       iArray = new Cons[50000];
+       iArray = new Cons[aSize];
     }
 
 
