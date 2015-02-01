@@ -53,7 +53,7 @@ public class SymbolNode {
 
     private TeXFormula texFormula;
 
-    private int treeX;
+    private int treeLeftX;
 
     private int treeY;
 
@@ -113,11 +113,11 @@ public class SymbolNode {
     }
 
     public int getTreeX() {
-        return treeX;
+        return treeLeftX;
     }
 
-    public void setTreeX(int treeX) {
-        this.treeX = treeX;
+    public void setTreeLeftX(int treeX) {
+        this.treeLeftX = treeX;
     }
 
     public int getTreeY() {

@@ -72,6 +72,7 @@ public class TreeView extends BuiltinFunction {
         defaultOptions.put("IncludeExpression", true);
         defaultOptions.put("Lisp", false);
         defaultOptions.put("Code", false);
+        defaultOptions.put("Debug", false);
 
 
 
@@ -196,7 +197,7 @@ public class TreeView extends BuiltinFunction {
 	//box.setOpaque(true);
 
 
-        TreePanelCons treePanel = new TreePanelCons(expression, viewScale, (Boolean)userOptions.get("Code"));
+        TreePanelCons treePanel = new TreePanelCons(expression, viewScale, userOptions);
         
         JPanel treeScreenCapturePanel = new ScreenCapturePanel();
         

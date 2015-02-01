@@ -6,10 +6,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
@@ -18,9 +16,6 @@ import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.SublistCons;
 import org.mathpiper.ui.gui.worksheets.symbolboxes.ScaledGraphics;
-import org.scilab.forge.mp.jlatexmath.TeXConstants;
-import org.scilab.forge.mp.jlatexmath.TeXFormula;
-import org.scilab.forge.mp.jlatexmath.TeXIcon;
 
 import com.foundationdb.sql.parser.SQLParser;
 import com.foundationdb.sql.parser.StatementNode;
@@ -41,8 +36,6 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 	private double defaultLineThickness = .6;
 	private int fontSize = 11;
 
-	
-
 	private Map<String, Color> colorMap = new HashMap();
 
 	private int yPositionAdjust = 39; /*
@@ -52,7 +45,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 	private int adjust = 1;
 
-	private boolean isCodeForm = false;
+        Map<String, Object>  optionsMap = new HashMap();
 
 	// Show(TreeView(a/b == 3))
 	// 99 # UnparseLatex(_x / _y, _p)_( <-- UnparseLatexBracketIf(p <?
@@ -69,7 +62,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 	// Show(TreeView( '(-50000000000000*a), Resizable -> True, IncludeExpression
 	// -> True))
 
-	public TreePanelCons(Cons expressionCons, double viewScale, boolean isCodeForm) {
+	public TreePanelCons(Cons expressionCons, double viewScale, Map optionsMap) {
 
 		super();
 
@@ -90,7 +83,10 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 		colorMap.put("\"WHITE\"", Color.WHITE);
 		colorMap.put("\"YELLOW\"", Color.YELLOW);
 
-		this.isCodeForm = isCodeForm;
+                if(optionsMap != null)
+                {
+                    this.optionsMap = optionsMap;
+                }
 
 		this.setLayout(null);
 
@@ -112,7 +108,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
                             String operator = (String) Cons.caar(expressionCons);
 
-                            mainRootNode.setOperator(operator, isCodeForm);
+                            mainRootNode.setOperator(operator, (Boolean) optionsMap.get("Code"));
 
                             handleSublistCons(mainRootNode, expressionCons, null, null);
 
@@ -132,11 +128,11 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 		if (markAllColor != null) {
 			rootNode.setHighlightColor(markAllColor);
 		} else if (cons.getMetadataMap() != null) {
-			Map map = cons.getMetadataMap();
+			Map optionsMap = cons.getMetadataMap();
 
-			if (map.containsKey("\"HighlightColor\"")) {
+			if (optionsMap.containsKey("\"HighlightColor\"")) {
 
-				Cons atomCons = (Cons) map.get("\"HighlightColor\"");
+				Cons atomCons = (Cons) optionsMap.get("\"HighlightColor\"");
 
 				if (atomCons != null) {
 					rootNode.setHighlightColor(colorMap.get(atomCons.car()));
@@ -161,7 +157,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 		String operator = (String) cons.car();
 
-		rootNode.setOperator(operator, isCodeForm);
+		rootNode.setOperator(operator, (Boolean) optionsMap.get("Code"));
 
 		while (cons.cdr() != null) {
 			cons = cons.cdr();
@@ -208,7 +204,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 				operator = (String) cons.car();
 
-				node2.setOperator(operator, isCodeForm);
+				node2.setOperator(operator, (Boolean) optionsMap.get("Code"));
 
 				rootNode.addChild(node2);
 			}
@@ -369,7 +365,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 	}
 
-	private void paintDrawingLayer(ScaledGraphics sg) {
+	private void paintDrawingLayer(ScaledGraphics sg){
 		SymbolNode currentNode;
 
 		while (!queue.isEmpty()) {
@@ -388,7 +384,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 				sg.setColor(Color.BLACK);
                                 
-                                if(this.isCodeForm)
+                                if((Boolean) this.optionsMap.get("Code"))
                                 {
                                     sg.drawText(currentNode.toString(), nodeX0, nodeY0 + currentNode.getNodeHeight() - 2);
                                 }
@@ -396,8 +392,12 @@ public class TreePanelCons extends JComponent implements ViewPanel {
                                 {
                                     sg.drawLatex(currentNode.getTexFormula(), nodeX0, nodeY0);
                                 }
-				
-				// sg.drawRectangle(nodeX0, nodeY0, currentNode.getNodeWidth(), currentNode.getNodeHeight());
+                                
+                                if((Boolean) this.optionsMap.get("Debug"))
+                                {
+                                    sg.drawRectangle(nodeX0, nodeY0, currentNode.getNodeWidth(), currentNode.getNodeHeight());
+                                }
+                                
 
 				SymbolNode[] childrenNodes = currentNode.getChildren();
 
@@ -539,17 +539,17 @@ public class TreePanelCons extends JComponent implements ViewPanel {
             
             if (treeNode.getChildren().length == 1) {
                 parentLeftSidePosition = (childLeftSidePosition + treeNode.getChildren()[0].getNodeWidth()/2) - treeNode.getNodeWidth()/2;
-                treeNode.setTreeX(parentLeftSidePosition);
+                treeNode.setTreeLeftX(parentLeftSidePosition);
             } else {
                 parentLeftSidePosition = (((childLeftSidePosition + (treeNode.getChildren()[0].getNodeWidth()/2)) + (childRightSidePosition 
                     + (treeNode.getChildren()[treeNode.getChildren().length - 1].getNodeWidth()/2)))/2)
                     - (treeNode.getNodeWidth()/2);
-                treeNode.setTreeX(parentLeftSidePosition);
+                treeNode.setTreeLeftX(parentLeftSidePosition);
             }
         } else {
             //Leaf.
             parentLeftSidePosition = parentLeftSidePosition - treeNode.getNodeWidth()/2;
-            treeNode.setTreeX(parentLeftSidePosition);
+            treeNode.setTreeLeftX(parentLeftSidePosition);
         }
         
         /* Add node to last. */
