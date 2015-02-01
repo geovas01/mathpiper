@@ -132,7 +132,7 @@ public class ViewMath extends BuiltinFunction {
         treeControllerPanel.setLayout(new BorderLayout());
         //
         //TreePanel treePanel = new TreePanel(sBoxExpression,viewScale.toDouble());
-        TreePanelCons treePanel = new TreePanelCons(expression2, viewScale.toDouble(), false);
+        TreePanelCons treePanel = new TreePanelCons(expression2, viewScale.toDouble(), null);
         //
         MathPanelController treePanelScaler = new MathPanelController(treePanel,viewScale.toDouble());
         JScrollPane treeScrollPane = new JScrollPane(treePanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);

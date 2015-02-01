@@ -126,7 +126,7 @@ public class SQLVisitor implements Visitor {
 
             double viewScale = 1.5;
 
-            TreePanelCons treePanel = new TreePanelCons(null, viewScale, true);
+            TreePanelCons treePanel = new TreePanelCons(null, viewScale, null);
             treePanel.setMainRootNode(rootNode);
 
             treePanel.layoutTree();
