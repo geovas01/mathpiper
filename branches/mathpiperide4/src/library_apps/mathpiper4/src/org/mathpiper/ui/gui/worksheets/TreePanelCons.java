@@ -475,166 +475,104 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 		maxTreeY = 0;
 
-		layoutTree(mainRootNode, 40/* yPosition */, 0/* position */, null); // todo:tk:add to 40 to stretch in the Y direction.
+		layoutTree(mainRootNode, 40/* yPosition */, 0/* position */, null, true); // todo:tk:add to 40 to stretch in the Y direction.
 
 	}
 
 	// Layout algorithm from "Esthetic Layout of Generalized Trees" by Anthony
 	// Bloesch.
-	private int layoutTree(SymbolNode treeNode, int yPosition, int leftSidePosition, SymbolNode parent) {
-		int Y_SEPARATION = 30;//35 /* y stretch from top of parent to top of child. */; // todo:tk:add to 30 to stretch in the Y direction.
+	private int layoutTree(SymbolNode treeNode, int yPosition, int parentLeftSidePosition, SymbolNode parent, boolean first) {
+		int Y_SEPARATION = 30;// 35 /* y stretch from top of parent to top of child. */;
 		int MIN_X_SEPARATION = 20;
-
 		int branchPosition; // Adjusts the x position of all nodes.
 		int i;
 		int childLeftSidePosition; // Adjusts the x position of all nodes.
 		int childRightSidePosition; // Adjusts the x position of all nodes.
 		int width; // Adjusting width causes very little change in the tree.
+		/* Place subtree. */
+		
+        /*
+         * Ensure the nominal position of the node is to the right of any
+         * other node.
+         */
+                int ySeparation;
 
-		if (treeNode == null) {
-			return leftSidePosition;
-		} 
-		else { /* Place subtree. */
-			/*
-			 * Ensure the nominal position of the node is to the right of any
-			 * other node.
-			 */
-			for (i = yPosition - Y_SEPARATION; i < yPosition + treeNode.getNodeHeight(); i++) {
-				int lastOnRaster = lastOnRasterArray[i];
+        if(first == true)
+        {
+            ySeparation = 0;
+        }
+        else
+        {
+            ySeparation = Y_SEPARATION;
+        }
+        for (i = yPosition - ySeparation; i < yPosition
+                + treeNode.getNodeHeight(); i++) {
+            int lastOnRaster = lastOnRasterArray[i];
+            /*
+             * possibleNewPosition adjusts the horizontal stretch of the
+             * whole tree
+             */
+            int possibleNewPosition = (lastOnRaster + MIN_X_SEPARATION + treeNode.getNodeWidth()/2);
+            if (possibleNewPosition > parentLeftSidePosition) {
+                parentLeftSidePosition = possibleNewPosition;
+            }
+        }
+        if (treeNode.getChildren() != null && treeNode.getChildren().length >= 1) { /* Place branches if they exist. */
 
-				/*
-				 * possibleNewPosition adjusts the horizontal stretch of the
-				 * whole tree
-				 */
-				int possibleNewPosition = (lastOnRaster + MIN_X_SEPARATION + treeNode.getNodeWidth() / 2);
+            branchPosition = parentLeftSidePosition;
 
-				if (possibleNewPosition > leftSidePosition) {
-					leftSidePosition = possibleNewPosition;
-				}// end if.
+            /* Position far left branch. */
+            childLeftSidePosition = layoutTree(treeNode.getChildren()[0], yPosition
+                    + Y_SEPARATION, branchPosition, treeNode, false);
+            /* Position the other branches if they exist. */
+            childRightSidePosition = childLeftSidePosition;// + treeNode.getChildren()[0].getNodeWidth() - treeNode.getNodeWidth()/2;
+            
+            branchPosition = childLeftSidePosition + treeNode.getChildren()[0].getNodeWidth()/2;
 
-			}// end for.
+            for (i = 1; i < treeNode.getChildren().length; i++) {
+                branchPosition += MIN_X_SEPARATION /* adjusts space between siblings */
+                        + (treeNode.getChildren()[i-1].getNodeWidth() + treeNode.getChildren()[i].getNodeWidth())/2;
 
-			if (treeNode.getChildren().length >= 1) { /* Place branches if they exist. */
+                childRightSidePosition = layoutTree(treeNode.getChildren()[i],
+                        yPosition + Y_SEPARATION, branchPosition, treeNode, false);// + treeNode.getChildren()[i].getNodeWidth();
+            }
+            
+            if (treeNode.getChildren().length == 1) {
+                parentLeftSidePosition = (childLeftSidePosition + treeNode.getChildren()[0].getNodeWidth()/2) - treeNode.getNodeWidth()/2;
+                treeNode.setTreeX(parentLeftSidePosition);
+            } else {
+                parentLeftSidePosition = (((childLeftSidePosition + (treeNode.getChildren()[0].getNodeWidth()/2)) + (childRightSidePosition 
+                    + (treeNode.getChildren()[treeNode.getChildren().length - 1].getNodeWidth()/2)))/2)
+                    - (treeNode.getNodeWidth()/2);
+                treeNode.setTreeX(parentLeftSidePosition);
+            }
+        } else {
+            //Leaf.
+            parentLeftSidePosition = parentLeftSidePosition - treeNode.getNodeWidth()/2;
+            treeNode.setTreeX(parentLeftSidePosition);
+        }
+        
+        /* Add node to last. */
+        for (i = yPosition - ySeparation; i < yPosition + treeNode.getNodeHeight(); i++) {
+            lastOnRasterArray[i] = rightMostPosition; // PM.treeRightMostX;
 
-				/* todo:tk
-				if (treeNode.getChildren().length > 1) {
+            if (i > maxTreeY) {
+                maxTreeY = i;
+            }
+        }
 
-					width = (treeNode.getChildren()[0].getNodeWidth() + treeNode.getChildren()[treeNode.getChildren().length - 1]
-							.getNodeWidth()) / 2 + (treeNode.getChildren().length - 1) * MIN_X_SEPARATION;
-
-					for (i = 1; i < treeNode.getChildren().length - 1; i++){
-						width += treeNode.getChildren()[i].getNodeWidth();
-					}
-				}
-
-				else 
-
-				
-				{
-					width = 0;
-				}
-
-				branchPosition = leftSidePosition - width / 2;
-				
-				*/
-				
-				branchPosition = leftSidePosition;
-				
-				/* Position far left branch. */
-				childLeftSidePosition = layoutTree(treeNode.getChildren()[0], yPosition + Y_SEPARATION, branchPosition, treeNode);
-
-				/* Position the other branches if they exist. */
-				childRightSidePosition = childLeftSidePosition;
-				
-				for (i = 1; i < treeNode.getChildren().length; i++) {
-					branchPosition += MIN_X_SEPARATION /*adjusts space between siblings*/ + (treeNode.getChildren()[i - 1].getNodeWidth() + treeNode.getChildren()[i].getNodeWidth()) / 2;
-					
-					childRightSidePosition = layoutTree(treeNode.getChildren()[i], yPosition + Y_SEPARATION, branchPosition, treeNode);
-				} /* for */
-
-				if (childLeftSidePosition < leftMostPosition) {
-					leftMostPosition = childLeftSidePosition;
-				}
-
-				if (childRightSidePosition > rightMostPosition) {
-					rightMostPosition = childRightSidePosition;
-				}
-
-				if(treeNode.getChildren().length == 1)
-				{
-					leftSidePosition = (childLeftSidePosition + childRightSidePosition) / 2;
-				}
-				else
-				{
-					leftSidePosition = (((childLeftSidePosition + (treeNode.getChildren()[0].getNodeWidth()/2)) + (childRightSidePosition + (treeNode.getChildren()[treeNode.getChildren().length-1].getNodeWidth()/2))   ) /2) - (treeNode.getNodeWidth()/2);// / 2;
-				}
-				
-				//position = position - adjust; //Adjusts the position of the operator.
-
-				treeNode.setTreeX(leftSidePosition);
-
-			} else if (parent.getChildren().length == 1) {
-				childLeftSidePosition = (leftSidePosition + (parent.getNodeWidth() / 2)) - treeNode.getNodeWidth() / 2;
-
-				childRightSidePosition = leftSidePosition + treeNode.getNodeWidth() / 2;
-
-				if (childLeftSidePosition < leftMostPosition) {
-					leftMostPosition = childLeftSidePosition;
-				}
-
-				if (childRightSidePosition > rightMostPosition) {
-					rightMostPosition = childRightSidePosition;
-				}
-				
-				//position = position - adjust; //Adjusts the position of the operator.
-
-				treeNode.setTreeX((leftSidePosition + parent.getNodeWidth() / 2) - treeNode.getNodeWidth() / 2);
-
-			} else {
-				//Place leaf.
-				
-				childRightSidePosition = leftSidePosition + treeNode.getNodeWidth()/2;
-				
-				leftSidePosition = leftSidePosition - treeNode.getNodeWidth()/2;
-				
-				childLeftSidePosition = leftSidePosition;
-
-				if (childLeftSidePosition < leftMostPosition) {
-					leftMostPosition = childLeftSidePosition;
-				}
-
-				if (childRightSidePosition > rightMostPosition) {
-					rightMostPosition = childRightSidePosition;
-				}
-				
-				//position = (position + rightPosition)/2;
-				
-				//position = position - adjust; //Adjusts the position of the operator.
-
-				treeNode.setTreeX(leftSidePosition);
-			}
-
-			/* Add node to last. */
-			for (i = yPosition - Y_SEPARATION; i < yPosition + treeNode.getNodeHeight(); i++) {
-				//lastOnRasterArray[i] = leftSidePosition + ((treeNode.getNodeWidth() + interBranchSpace) + 1) / 2;
-				
-				lastOnRasterArray[i] = rightMostPosition;
-				
-				if (i > maxTreeY) {
-					maxTreeY = i;
-				}// end if.
-			}// end for.
-
-			// treeNode.setTreeX(position);
-
-			treeNode.setTreeY(yPosition);
-
-			return leftSidePosition;
-
-		}// end else.
-
-	}// end method.
-
+        treeNode.setTreeY(yPosition);
+        
+        if (treeNode.getTreeX() < leftMostPosition/*PM.treeLeftMostX*/) {
+            leftMostPosition/*PM.treeLeftMostX*/ = treeNode.getTreeX();
+        }
+        if (treeNode.getTreeX() + treeNode.getNodeWidth() > rightMostPosition/*PM.treeRightMostX*/) {
+            rightMostPosition/*PM.treeRightMostX*/ = treeNode.getTreeX() + treeNode.getNodeWidth();
+        }			
+			
+			return parentLeftSidePosition;
+}
+        
     public SymbolNode getMainRootNode() {
         return mainRootNode;
     }
