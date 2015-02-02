@@ -101,6 +101,7 @@ public class UASM65
 	                                     "Invalid addressing mode for operator.",
 	                                     "",
 	                                     "Empty character not allowed.",
+	                                     "Invalid Label: label format is 'label:'"
 	                                 };
 
 
@@ -817,8 +818,29 @@ public class UASM65
 	//{{ scan_label
 	private int scan_label()
 	{
+		
+		boolean here = false;
+		for(int i = 0; i<source_line.length;i++){
+			if(i>1){
+				if((source_line[i] == ':') && (source_line[i-1] != ' ')){
+					here = true;
+				}
+			}
+		}
+		if(!here){
+			return(33);
+		}
+		
 		while (source_line[line_index] != ' ' && source_line[line_index] != 9)
 		{
+
+			if(source_line[line_index] == ':'){
+				source_line[line_index] = ' ';
+				source_line[line_index+1] = ':';
+				source_line[line_index+2] = 9;
+				continue;
+			}
+			
 			if (check_label_character(source_line[line_index]))
 			{
 				hold_label[line_index] = source_line[line_index];
@@ -833,6 +855,7 @@ public class UASM65
 			{
 				return(18);
 			}
+			                                
 		}
 		hold_label[line_index] = 0;
 		hold_location = location_counter;
@@ -1106,7 +1129,7 @@ public class UASM65
 		{
 			end_flag=1;
 		}
-		else if (strcmp(hold_operator,"*\0")==0)
+		else if (strcmp(hold_operator,":\0")==0)
 		{
 			;
 		}
@@ -1246,7 +1269,7 @@ public class UASM65
 			print_line();
 			end_flag=1;
 		}
-		else if (strcmp(hold_operator,"*\0")==0)
+		else if (strcmp(hold_operator,":\0")==0)
 		{
 			no_obj_flag = 1;
 			print_line();
@@ -2173,7 +2196,7 @@ public class UASM65
 	//{{{check_operator_character
 	private boolean check_operator_character(int character)
 	{
-		if (character >= 'A' && character <= 'z' || character == '*')
+		if (character >= 'A' && character <= 'z' || character == ':')
 		{
 			return(true);
 		}
@@ -3236,7 +3259,7 @@ public class UASM65
 		op_table[   0] = new op_tbl( "LON\0", "IMP\0", 0x00, 0, 0 );
 		op_table[   1] = new op_tbl( "LOF\0", "IMP\0", 0x00, 0, 0 );
 		op_table[   2] = new op_tbl( "ORG\0", "DIR\0", 0x00, 0, 0 );
-		op_table[   3] = new op_tbl( "*\0", 	"IMP\0", 0x00, 0, 0 );
+		op_table[   3] = new op_tbl( ":\0",  "IMP\0", 0x00, 0, 0 );
 		op_table[   4] = new op_tbl( "EQU\0", "DIR\0", 0x00, 0, 0 );
 		op_table[   5] = new op_tbl( "DBT\0", "DIR\0", 0x00, 0, 0 );
 		op_table[   6] = new op_tbl( "DWD\0", "DIR\0", 0x00, 0, 0 );
