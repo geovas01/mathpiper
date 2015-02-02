@@ -2,4 +2,4 @@ buffer.save(view,null);
 exporter = ServiceManager.getService( "code2html.services.ExporterProvider", "html" ).getExporter(buffer, textArea.getPainter().getStyles(), textArea.getSelection());
 textArea.selectNone();
 textArea.setCaretPosition(textArea.getCaretPosition() + 6);
-textArea.insert("+++++\n" + exporter.getContentString() + "+++++",false);
+textArea.insert("+++++\n" + exporter.getContentString().replace("%", "&#37;") + "+++++",false);
