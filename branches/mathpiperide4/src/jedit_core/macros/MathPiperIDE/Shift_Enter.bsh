@@ -360,7 +360,7 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 	lineText = textArea.getLineText(currentLineNumber);
 	
 	if(lineText.trim().startsWith(":mathpiper:"))
-	{		
+	{
 
 		foldProperties = new java.util.Hashtable();
 
@@ -452,64 +452,54 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 		textArea.setSelection(null);
 	
 		
-			//{{{ Fold information.
+		//{{{ Fold information.
 			
 	
-				foldStartSelection = new Range(foldStartIndex, foldStartIndex + foldStartLineText.length());
-				
-				
-				//Determine the indent character and how much the fold is indented by.  Then, create a string
-				//that indents one more level for the output fold.
-				indentCharType = foldStartLineText.charAt(0);
-				indentAmount = new StringBuffer();
-				if(indentCharType == 9 || indentCharType == 32)
-				{
-					
-					for(indentCount = 0; foldStartLineText.charAt(indentCount) == indentCharType; indentCount++)
-					{
-						indentAmount.append(indentCharType);
-					}//end for.
-					
-					
-					if(indentCharType == 9)
-					{indentAmount.append("\t");
-					}
-					else
-					{
-						indentAmount.append("    ");
-					}//end if/else/
-				}//end if.
-				else
-				{
-					indentAmount.append("    ");
-				}//end else.
-					
-				
-				
-				//}}}
-	
-				foldProperties = getFoldProperties(foldStartLine);
-
-				foldType = foldProperties.get("type");
-				
+		foldStartSelection = new Range(foldStartIndex, foldStartIndex + foldStartLineText.length());
 		
-	/*	endDollarSignIndex = -1;
-		if(foldType.equalsIgnoreCase("%hoteqn"))
+		
+		//Determine the indent character and how much the fold is indented by.  Then, create a string
+		//that indents one more level for the output fold.
+		indentCharType = foldStartLineText.charAt(0);
+		indentAmount = new StringBuffer();
+		if(indentCharType == 9 || indentCharType == 32)
 		{
-			startDollarSignIndex = allFoldText.indexOf("$");
-			if(startDollarSignIndex != -1)
+			
+			for(indentCount = 0; foldStartLineText.charAt(indentCount) == indentCharType; indentCount++)
 			{
-				endDollarSignIndex = allFoldText.indexOf("$", startDollarSignIndex+1);
-			}//end if.
-	
+				indentAmount.append(indentCharType);
+			}//end for.
+			
+			
+			if(indentCharType == 9)
+			{indentAmount.append("\t");
+			}
+			else
+			{
+				indentAmount.append("    ");
+			}//end if/else/
 		}//end if.
-		*/	
-	
-		/* Used when output folds were inside of the parent fold.
-		foldSections = allFoldText.split("%piper|%maxima|%lisp|%output|%geogebra|%beanshell|%hoteqn|%error|%html|%group");
-		codeText = foldSections[0];
-		codeText = codeText.replaceAll("\\s+$", "");//Note:tk:verify that this is needed.
-		*/
+		else
+		{
+			indentAmount.append("    ");
+		}//end else.
+			
+		
+		
+		//}}}
+
+		foldProperties = getFoldProperties(foldStartLine);
+			
+		if(foldProperties.get("indent").equalsIgnoreCase("false"))
+		{
+			resultNewline = "\n";
+		}
+		else
+		{
+			resultNewline = "";
+		}
+
+		foldType = foldProperties.get("type");
 		
 		if(foldProperties.get("type").equalsIgnoreCase("%html"))
 		{
@@ -658,7 +648,7 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 			
 			
 			if(evaluationResponse.isExceptionThrown())
-			{	
+			{
 				exception = evaluationResponse.getException();
 				
 				if(exception instanceof org.mathpiper.exceptions.EvaluationException)
@@ -711,7 +701,7 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 
 			}
 			else
-			{
+			{				
 				if(!evaluationResponse.getSideEffects().equalsIgnoreCase(""))
 				{
 					result = "Result: " + evaluationResponse.getResult() + "\n\nSide Effects:\n" + evaluationResponse.getSideEffects();
@@ -839,20 +829,71 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 							
 							exception = evaluationResponse.getException();
 							
+							
 							if(exception instanceof org.mathpiper.exceptions.EvaluationException)
 							{
 								exception = (org.mathpiper.exceptions.EvaluationException) exception;
 								
 								errorLineNumber = exception.getLineNumber();
-								
+
 								if(errorLineNumber != -1)
 								{
 									startIndex = exception.getStartIndex();
 									
 									endIndex = exception.getEndIndex();
+
+									sourceName = exception.getSourceName();
 									
+									if(true) // sourceName.equals("LOADSCRIPT_EVALUATE_USER")) todo:tk
+									{
+										// The error is in the current fold.
+										
+										adjustedErrorLineNumber = foldStartLine + errorLineNumber;
+									}
+									else
+									{
+										// The error is in another fold.
+										fileInputStream = new java.io.FileInputStream(buffer.getPath());
+										
+										if(fileInputStream == null)
+										{
+											org.gjt.sp.jedit.Macros.message(jEdit.getActiveView(),"The file " + buffer.getPath() + " does not exist.");
+											
+											return;
+										}
+										
+										foldsMap = org.mathpiper.test.MPWSFile.getFoldsMap(buffer.getPath(), fileInputStream);
+										
+										for(fold:foldsMap.entrySet())
+										{
+											System.out.println("LLLL " + fold);
+										}
+										
+										sourceFold = foldsMap.get(sourceName);
+										
+										if(sourceFold == null)
+										{
+											org.gjt.sp.jedit.Macros.message(jEdit.getActiveView(),"The code that the error is in does not have a unique 'name' attribute.");
+											
+											return;
+										}
+										
+	
+										errorSourceFoldBeginningLineNumber = sourceFold.getStartLineNumber();
+										
+										if(foldStartLine  > errorSourceFoldBeginningLineNumber-1)
+										{
+											adjustedErrorLineNumber = errorSourceFoldBeginningLineNumber-1 + errorLineNumber;
+										}
+										else
+										{
+											// todo:tk:add code here to determine the starting linenumber of folds beneath the current fold.
+											adjustedErrorLineNumber = sourceFold.getEndLineNumber()-1;
+											
+										}
+										
 									
-									adjustedErrorLineNumber = foldStartLine + errorLineNumber; 
+									}
 									
 									errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
 					
@@ -955,6 +996,40 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 							{
 								output_fold_type = "%mathpiper_trace";
 							}
+							else if(foldProperties.get("output").equalsIgnoreCase("plantuml") )
+							{
+								System.out.println("RRR");
+								result = evaluationResponse.getResult();
+import net.sourceforge.plantuml.*;
+
+SourceStringReader reader = new SourceStringReader(result);
+final ByteArrayOutputStream os = new ByteArrayOutputStream();
+
+
+//String desc = reader.generateImage(os, new FileFormatOption(FileFormat.SVG));
+String desc = reader.generateImage(os);
+
+os.close();
+
+imageIcon = new javax.swing.ImageIcon(os.toByteArray());
+
+jLabel = new javax.swing.JLabel();
+jLabel.setIcon(imageIcon);
+
+
+frame = new javax.swing.JFrame();
+frame.setLayout(new FlowLayout());
+contentPane = frame.getContentPane();
+contentPane.add(jLabel);
+frame.pack();
+screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int height = screenSize.height;
+        int width = screenSize.width;
+        frame.setSize(width/2, height/2);
+        frame.setLocationRelativeTo(null);
+frame.setVisible(true);
+								output_fold_type = "%output";
+							}
 							else if(foldProperties.get("output").equalsIgnoreCase("imageFile"))
 							{
 								try
@@ -1008,13 +1083,14 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 								output_fold_type = "%output";
 							}
 				//System.out.println("Out> " + evaluationResponse);
+				
 							if(!evaluationResponse.getSideEffects().equalsIgnoreCase(""))
 							{
-								result = "Result: " + evaluationResponse.getResult() + "\n\nSide Effects:\n" + evaluationResponse.getSideEffects();
+								result = "Result: " + resultNewline + evaluationResponse.getResult() + "\n\nSide Effects:\n" + evaluationResponse.getSideEffects();
 							}
 							else
 							{
-								result = "Result: " + result ;
+								result = "Result: " + resultNewline + result ;
 							}
 						}//end else.
 						//System.out.println("XTTXTXTXTT :" + result);
@@ -1080,7 +1156,7 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 						codeText = codeText.replace("\\","\\\\");
 						codeText = codeText.replace("\"","\\\"");
 						
-						asynchronousInterpreter.evaluate("LoadScript(\"" + codeText + "\");", true);
+						asynchronousInterpreter.evaluate("LoadScript(\"" + codeText + "\");", true, foldProperties.get("name"));
 						System.out.println("<shift><enter> submitted evaluation request from worksheet " + path + ".");
 					}//end run.
 					
@@ -1566,8 +1642,7 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 				output_fold_type = "%error ";
 			}
 			
-			
-
+			safeBuffer = true;
 					
 		}//end if }}}
 
@@ -1631,8 +1706,8 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 			if(scope.equalsIgnoreCase("global"))
 			{
 				bshInterpreter = bsi;
-				ggb = org.mathpiper.ide.geogebraplugin.GeoGebra.getGeoGebraAPI();
-				bshInterpreter.set("ggb",ggbWraper());
+				// ggb = org.mathpiper.ide.geogebraplugin.GeoGebra.getGeoGebraAPI();
+				// bshInterpreter.set("ggb",ggbWraper());
 				//bshInterpreter.set("jEdit",jEdit); Note:tk: this stopped working for some reason.
 				bshInterpreter.set("returnError","none");
 			}
@@ -1641,9 +1716,9 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 
 				import bsh.Interpreter;
 				bshInterpreter = new Interpreter();
-				bshInterpreter.eval("import geogebra.GeoGebra;");
-				ggb = org.mathpiper.ide.geogebraplugin.GeoGebra.getGeoGebraAPI();
-				bshInterpreter.set("ggb",ggbWraper());
+				// bshInterpreter.eval("import geogebra.GeoGebra;");
+				// ggb = org.mathpiper.ide.geogebraplugin.GeoGebra.getGeoGebraAPI();
+				// bshInterpreter.set("ggb",ggbWraper());
 				//bshInterpreter.set("jEdit",jEdit); Note:tk: this stopped working for some reason.
 				bshInterpreter.set("returnError","none");
 				
@@ -1742,6 +1817,8 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 		}//end else
 		// end %beanshell }}}
 	
+		
+		
 	///{{{ *** %geogebra ***
 		else if(foldType.startsWith("%geogebra")) //(foldStartLineText.indexOf("%geogebra") != -1)
 		{
@@ -2174,24 +2251,36 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 	///{{{ *** %s19 ***
 		else if(foldType.equalsIgnoreCase("%s19")) 
 		{
+			if(foldProperties.get("start_address") != null)
+			{
+				startAddressAttribute = Integer.parseInt(foldProperties.get("start_address"), 16);
+			}
+			else
+			{
+				startAddressAttribute = 0;
+			}
 			
 			if(foldProperties.get("output").equalsIgnoreCase("array") )
 			{
 				sr = codeText;
-				 bytes = new ArrayList();
+				bytes = new ArrayList();
     
 				startAddress = "";
 				firstAddress = 1;
 			  
 				  lines = sr.split("\n");
 				  
-				  for(int x=0;x<lines.length;x++)
+				  for(int x=0; x<lines.length; x++)
 				  {
 					  line = lines[x];
 					  line = line.trim();
 					  
 					  recordType = line.charAt(1);
 					  byteCount = Integer.parseInt( line.substring(2,4), 16 );
+					  address = Integer.parseInt( line.substring(4,8), 16 );
+					  
+					  if(address < startAddressAttribute) continue;
+					  
 								
 					  if( recordType == '1' && byteCount > 3)
 					  {
@@ -2203,8 +2292,8 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 						  }
 						  
 						  
-						  index = 8;
-						  count = 0;
+						index = 8;
+						count = 0;
 						while(count <= byteCount-3-1)
 						{
 							aByte = line.substring(index,index+2);
@@ -2215,8 +2304,6 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 							parsedByte = Integer.parseInt(aByte,16 );
 							
 							bytes.add(parsedByte );
-							System.out.println(aByte);
-			
 						}
 						  
 					  }
@@ -2785,7 +2872,6 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 						{
 							contentIndentAmount = indentAmount;
 							extraIndent = "  ";
-
 						}
 						else
 						{
