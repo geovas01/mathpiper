@@ -13,7 +13,7 @@ try
     { 
     	foldType = fold.getType();
     	
-    	if(foldType != null && foldType.equals("%markdown"))
+    	if(foldType != null && foldType.equals("markdown"))
     	{
     		foldName = fold.getAttributes().get("name");
     		foldTitle = fold.getAttributes().get("title");
