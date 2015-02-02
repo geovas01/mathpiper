@@ -347,7 +347,13 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 	{
 
 		char key = e.getKeyChar();
-		//System.out.println((int)key);
+		// System.out.println("XXX: " + (int)key);
+		
+		// The u6502 monitor uses CR as the end of line character.
+		if(key == 10)
+		{
+			key = 13;
+		}
 
 		if((int)key == 22)
 		{
