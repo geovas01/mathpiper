@@ -281,7 +281,7 @@ public class Build {
 
 	    String foldType = fold.getType();
 
-	    if (foldType.equalsIgnoreCase("%mathpiper")) {
+	    if (foldType.equalsIgnoreCase("mathpiper")) {
 
 		if (fold.getAttributes().containsKey("scope")) {
 		    scopeAttribute = (String) fold.getAttributes().get("scope");
@@ -414,12 +414,12 @@ public class Build {
 
 		}// end if.
 
-	    } else if (foldType.equalsIgnoreCase("%mathpiper_docs")) {
+	    } else if (foldType.equalsIgnoreCase("mathpiper_docs")) {
 		// System.out.println("        **** Contains docs *****");
 		hasDocs = true;
 
 		processMathPiperDocsFold(folds, fold, mpwFilePath);
-	    } else if (foldType.equalsIgnoreCase("%html") && fold.getAttributes().containsKey("subtype") && ((String) fold.getAttributes().get("subtype")).equals("license")) {
+	    } else if (foldType.equalsIgnoreCase("html") && fold.getAttributes().containsKey("subtype") && ((String) fold.getAttributes().get("subtype")).equals("license")) {
 		// System.out.println("        **** Contains docs *****");
 		hasDocs = true;
 
@@ -454,7 +454,7 @@ public class Build {
 
 		StringBuilder verifiedExamplesBuilder = new StringBuilder();
 		for (Fold fold : folds) {
-		    if (fold.getType().equalsIgnoreCase("%mathpiper")) {
+		    if (fold.getType().equalsIgnoreCase("mathpiper")) {
 			if (fold.getAttributes().containsKey("subtype")) {
 			    String subTypeAttribute = (String) fold.getAttributes().get("subtype");
 
@@ -883,14 +883,14 @@ public class Build {
 		for (Fold fold : folds) {
 
 		    String foldType = fold.getType();
-		    if (foldType.equalsIgnoreCase("%mathpiper_docs")) {
+		    if (foldType.equalsIgnoreCase("mathpiper_docs")) {
 			// System.out.println("        **** Contains docs *****  "
 			// + javaFileName);
 			hasDocs = true;
 
 			processMathPiperDocsFold(folds, fold, javaFile.getPath());
 
-		    } else if (foldType.equalsIgnoreCase("%mathpiper")) {
+		    } else if (foldType.equalsIgnoreCase("mathpiper")) {
 			if (fold.getAttributes().containsKey("scope")) {
 			    scopeAttribute = (String) fold.getAttributes().get("scope");
 			}

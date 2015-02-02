@@ -41,7 +41,7 @@ public class Fold {
     private void scanHeader(String header) {
         String[] headerParts = header.trim().split(",");
 
-        type = headerParts[0];
+        type = headerParts[0].substring(1, headerParts[0].length());
 
         for (int x = 1; x < headerParts.length; x++) {
             headerParts[x] = headerParts[x].replaceFirst("=", ",");
