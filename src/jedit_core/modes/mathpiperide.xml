@@ -40,14 +40,14 @@
 				HASH_CHAR="_"
 				AT_LINE_START="FALSE"
 				TYPE="KEYWORD4"
-		>__\w.*?\w__</SEQ_REGEXP>
+		>\s__\w.*?\w__\s</SEQ_REGEXP>
 
 		<!-- italic -->
 		<SEQ_REGEXP
 				HASH_CHAR="_"
 				AT_LINE_START="FALSE"
 				TYPE="KEYWORD4"
-		>_\w.*?\w_</SEQ_REGEXP>
+		>\s_\w.*?\w_\s</SEQ_REGEXP>
 
 		<!-- fixed font -->
 		<SEQ_REGEXP
