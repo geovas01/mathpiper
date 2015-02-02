@@ -67,8 +67,13 @@ getHostAddresses()
 			 
 			 if(! iNetAddress.getHostAddress().toString().startsWith("127") && ! iNetAddress.getHostAddress().toString().contains(":"))
 			 {
-				 stringBuilder.append((iNetAddress.getHostAddress()) + ",");
+				 stringBuilder.append((iNetAddress.getHostAddress()) + ";");
 			 }
+		}
+
+		if(stringBuilder.charAt(stringBuilder.length()-1) == ';')
+		{
+			stringBuilder.deleteCharAt(stringBuilder.length()-1);
 		}
 	}
 	
@@ -511,6 +516,36 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 		}//end if/else
 		
 		
+		if(foldProperties.get("name").equals(""))
+		{
+			parentProperty = "";
+		}
+		else
+		{
+			parentProperty = "parent=\"" + foldProperties.get("name") + "\",";
+		}
+		
+		date = new java.util.Date();
+		timestamp = new java.sql.Timestamp(date.getTime());
+						
+		if(foldProperties.get("log").equalsIgnoreCase("true"))
+		{	
+			try
+			{
+				logFilePath = path + ".mpwlog";
+				outputURI = new java.net.URI("file:///" + logFilePath.replaceAll(" ", "%20").replaceAll("\\\\","/"));  									  
+				File logFile = new File(logFilePath);
+				BufferedWriter logFileWriter = new BufferedWriter(new FileWriter(logFile,true));
+				logFileWriter.write("%info" + "," + "parentFoldType=\"" + foldProperties.get("type").substring(1,foldProperties.get("type").length()) + "\"," + parentProperty + "sequence=\"" + mpwExecutionCount + "\",timestamp=\"" + timestamp + "\",username=\"" +  System.getProperty("user.name")  + "\",hostname=\"" +  InetAddress.getLocalHost().getHostName() + "\",hostaddresses=\"" +  getHostAddresses() +  "\",mpversion=\"" + org.mathpiper.Version.version() + "\"\n" + codeText.replace("\n","|") + "\n" + "%/info" + "\n\n");
+				logFileWriter.close();
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();;
+			}
+		}
+
+						
 		/*
 		if(userSelection.length != 0)
 		{
@@ -2503,6 +2538,7 @@ frame.setVisible(true);
 			
 			fileInputStream.close();
 			
+/*			
 			output_fold_type = "%info";
 			
 			if(foldProperties.get("name").equals(""))
@@ -2537,6 +2573,7 @@ frame.setVisible(true);
 					e.printStackTrace();;
 				}
 			}
+	*/
 			
 			try
 			{
@@ -2895,17 +2932,6 @@ frame.setVisible(true);
 							preserveProperty = foldProperties.get("preserve_output");
 						}
 						
-						if(foldProperties.get("name").equals(""))
-						{
-							parentProperty = "";
-						}
-						else
-						{
-							parentProperty = "parent=\"" + foldProperties.get("name") + "\",";
-						}
-						
-						date = new java.util.Date();
-						timestamp = new java.sql.Timestamp(date.getTime());
 						
 						if(!foldProperties.get("output_fold_type").equals(""))
 						{
@@ -2913,26 +2939,6 @@ frame.setVisible(true);
 						}
 						
 						textArea.setSelectedText(beforeNewlines + indentAmount + output_fold_type + "," + parentProperty + "sequence=\"" + mpwExecutionCount + "\",timestamp=\"" + timestamp + "\",preserve=\"" +  preserveProperty  + "\"\n" + result + "\n" + indentAmountPeriod + "%/" + output_fold_type.substring(1,output_fold_type.length() ) + afterNewlines, false);
-						
-						if(foldProperties.get("log").equalsIgnoreCase("true"))
-						{	
-							try
-							{
-								if(output_fold_type.equalsIgnoreCase("%info"))
-								{
-									logFilePath = path + ".mpwlog";
-									outputURI = new java.net.URI("file:///" + logFilePath.replaceAll(" ", "%20").replaceAll("\\\\","/"));  									  
-									File logFile = new File(logFilePath);
-									BufferedWriter logFileWriter = new BufferedWriter(new FileWriter(logFile,true));
-									logFileWriter.write("%info" + "," + parentProperty + "sequence=\"" + mpwExecutionCount + "\",timestamp=\"" + timestamp + "\",username=\"" +  System.getProperty("user.name")  + "\",hostname=\"" +  InetAddress.getLocalHost().getHostName() + "\",hostaddresses=\"" +  getHostAddresses() +  "\",mpversion=\"" + org.mathpiper.Version.version() + "\"\n" + codeText.replace("\n","|") + "\n" + "%/info" + "\n\n");
-									logFileWriter.close();
-								}
-							}
-							catch(Exception e)
-							{
-								e.printStackTrace();;
-							}
-						}
 						
 						//textArea.setSelection(null);
 						//("\n\n     " + output_fold_type + "\n      "+ result + "\n     %end\n",false);
