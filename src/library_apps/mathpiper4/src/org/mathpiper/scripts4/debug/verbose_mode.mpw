@@ -1,24 +1,27 @@
 %mathpiper,def="Verbose;Verbose?"
 
-LocalSymbols(Verbose) {
+LocalSymbols(verbose) {
 
-  Assign(Verbose,False);
+  Assign(verbose,False);
 
 
   Function("Verbose",[_aNumberBody])
   {
     Local(prevVerbose,result);
-    Assign(prevVerbose,Verbose);
-    Assign(Verbose,True);
+    Assign(prevVerbose,verbose);
+    Assign(verbose,True);
     Assign(result,Eval(aNumberBody));
-    Assign(Verbose,prevVerbose);
+    Assign(verbose,prevVerbose);
     result;
   };
 
 
-  Function("Verbose?",[]) Verbose;
-
-}; // LocalSymbols(Verbose)
+  Function("Verbose?",[]) verbose;
+  
+  Function("VerboseOn",[]) Assign(verbose,True);
+  
+  Function("VerboseOff",[]) Assign(verbose,False);
+};
 
 HoldArgument("Verbose","aNumberBody");
 UnFence("Verbose",1);
@@ -48,6 +51,8 @@ about the work done while doing a calculation when using {Verbose}.
 
 In verbose mode, {Verbose?()} will return {True}, otherwise
 it will return {False}.
+
+VerboseOn() turns verbose mode on, and VerboseOff() turns verbose mode off.
 
 *E.G. notest
 
