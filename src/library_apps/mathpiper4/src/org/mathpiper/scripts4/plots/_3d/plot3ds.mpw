@@ -178,8 +178,8 @@ Function() Plot3DS(_func, _xrange, _yrange, _options, ...);
                 );
                 // compute all other data points
                 DestructiveAppend(allvalues, RemoveRepeated(HeapSort( Plot3DSgetdata(func, var, [cx, cy, fc], [xdelta, ydelta], optionshash), Hold([[x,y],x[1]<?y[1] Or? x[1] =? y[1] And? x[2] <=? y[2] ] ) )) );
-                Decide(InVerboseMode(), Echo(["Plot3DS: using ", Length(allvalues[Length(allvalues)]), " points for function ", func]), True);
-                Decide(InVerboseMode(), Echo(["Plot3DS: max. used ", 2^(optionshash["depth"] - optionshash["used depth"]), "subdivisions for ", func]), True);
+                Decide(Verbose?(), Echo(["Plot3DS: using ", Length(allvalues[Length(allvalues)]), " points for function ", func]), True);
+                Decide(Verbose?(), Echo(["Plot3DS: max. used ", 2^(optionshash["depth"] - optionshash["used depth"]), "subdivisions for ", func]), True);
         };
         // call the specified output backend
         Plot3DSoutputs()[optionshash["output"]] @ [allvalues, optionshash];
@@ -360,7 +360,7 @@ Use {NFunction} to overcome this difficulty.
 
 Data files are created in a temporary directory {/tmp/plot.tmp/} unless otherwise requested.
 File names
-and other information is printed if {InVerboseMode()} returns {True} on using {VM()}.
+and other information is printed if {Verbose?()} returns {True} on using {Verbose()}.
 
 The current algorithm uses Newton-Cotes cubatures and some heuristics for error 
 estimation (see <*mathpiperdoc://Algo/3/1/*>).
@@ -415,7 +415,7 @@ Same limitations as {Plot2D}.
 In> Plot3DS(a*b^2)
 Result: True;
 
-In> VM(Plot3DS(Sin(x)*Cos(y),x: 0->20, y: 0->20,depth: 3))
+In> Verbose(Plot3DS(Sin(x)*Cos(y),x: 0->20, y: 0->20,depth: 3))
         CachedConstant: Info: constant Pi is being 
           recalculated at precision 10
         CachedConstant: Info: constant Pi is being

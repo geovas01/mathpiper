@@ -47,7 +47,7 @@ public class DumpNumber extends BuiltinFunction
         Cons resultCons = x.dumpNumber(aEnvironment, aStackTop);
 
         /*
-        ConsPointer isVerbosePointer = Utility.lispEvaluate(aEnvironment, aStackTop, "InVerboseMode();");
+        ConsPointer isVerbosePointer = Utility.lispEvaluate(aEnvironment, aStackTop, "Verbose?();");
 
         if(((String)isVerbosePointer.car()).equals("True"))
         {

@@ -75,7 +75,7 @@ the rule will be printed as a side effect.
 In> Sine(_u)*Ln(_a*_b) /: [Ln(_x*_y) <- Ln(x) + Ln(y)]
 Result: Sin(u)*(Ln(a)+Ln(b));
 
-In> VM(Sin(u)*Ln(a*b) /: [ "RuleName" # Ln(_x*_y) <- Ln(x) + Ln(y)])
+In> Verbose(Sin(u)*Ln(a*b) /: [ "RuleName" # Ln(_x*_y) <- Ln(x) + Ln(y)])
 Result: Sin(u)*(Ln(a)+Ln(b))
 Side Effects:
 RuleName

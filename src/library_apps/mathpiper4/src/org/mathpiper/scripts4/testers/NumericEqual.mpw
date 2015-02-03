@@ -2,36 +2,36 @@
 
 10 # NumericEqual(left_Decimal?, right_Decimal?, precision_PositiveInteger?) <--
 {
-    Decide(InVerboseMode(),Tell("NumericEqual",[left,right]));
+    Decide(Verbose?(),Tell("NumericEqual",[left,right]));
     Local(repL,repR,precL,precR,newL,newR,plo,phi,replo,rephi);
     Local(newhi,newrepL,newlo,newrepR,ans);
     repL     := NumberToRep(left);
     repR     := NumberToRep(right);
     precL    := repL[2];
     precR    := repR[2];
-    Decide(InVerboseMode(),Tell("  ",[precL,precR,precision]));
+    Decide(Verbose?(),Tell("  ",[precL,precR,precision]));
     newL     := RoundToPrecision(left,  precision );
     newR     := RoundToPrecision(right, precision );
-    Decide(InVerboseMode(),Tell("  ",[newL,newR]));
+    Decide(Verbose?(),Tell("  ",[newL,newR]));
     newrepL  := NumberToRep( newL );
     newrepR  := NumberToRep( newR );
-    Decide(InVerboseMode(),Tell("  ",[newrepL,newrepR]));
+    Decide(Verbose?(),Tell("  ",[newrepL,newrepR]));
     ans      := Verify( newrepL[1] - newrepR[1], 0 );
-    Decide(InVerboseMode(),Tell("        ",ans));
+    Decide(Verbose?(),Tell("        ",ans));
     ans;
 };
 
 
 15 # NumericEqual(left_Integer?, right_Integer?, precision_PositiveInteger?) <--
 {
-    Decide(InVerboseMode(),Tell("NumericEqualInt",[left,right]));
+    Decide(Verbose?(),Tell("NumericEqualInt",[left,right]));
     left =? right;
 };
 
 
 20 # NumericEqual(left_Number?, right_Number?, precision_PositiveInteger?) <--
 {
-    Decide(InVerboseMode(),Tell("NumericEqualNum",[left,right]));
+    Decide(Verbose?(),Tell("NumericEqualNum",[left,right]));
     Local(nI,nD,repI,repD,precI,precD,intAsDec,newDec,newrepI,newrepD,ans);
     Decide( Integer?(left), {nI:=left; nD:=right;}, {nI:=right; nD:=left;});
     // the integer can be converted to the equivalent decimal at any precision
@@ -43,7 +43,7 @@
     newDec   := RoundToPrecision( nD,   precision );
     newrepI  := NumberToRep( intAsDec );
     newrepD  := NumberToRep( newDec   );
-    Decide(InVerboseMode(),
+    Decide(Verbose?(),
       {
           Tell("        ",[nI,nD]);
           Tell("    ",[repI,repD]);
@@ -53,20 +53,20 @@
        }
     );
     ans      := Verify( newrepI[1] - newrepD[1], 0 );
-    Decide(InVerboseMode(),Tell("        ",ans));
+    Decide(Verbose?(),Tell("        ",ans));
     ans;
 };
 
 
 25 # NumericEqual(left_Complex?, right_Complex?, precision_PositiveInteger?) <--
 {
-    Decide(InVerboseMode(),Tell("NumericEqualC",[left,right]));
+    Decide(Verbose?(),Tell("NumericEqualC",[left,right]));
     Local(rrL,iiL,rrR,iiR,ans);
     rrL := Re(left);
     iiL := Im(left);
     rrR := Re(right);
     iiR := Im(right);
-    Decide(InVerboseMode(),
+    Decide(Verbose?(),
       {
          Tell("  ",[left,right]);
          Tell("  ",[rrL,rrR]);

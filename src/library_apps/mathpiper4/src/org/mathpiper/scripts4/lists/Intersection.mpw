@@ -2,7 +2,7 @@
 
 10 # Intersection( LoL_List? )::(AllSatisfy?("List?",LoL)) <--
 {
-  //Decide(InVerboseMode(),Tell("Intersection_listOfLists",LoL));
+  //Decide(Verbose?(),Tell("Intersection_listOfLists",LoL));
   Local(nLists,L0,L1,ii,result,LI);
   nLists := Length(LoL);
   //Tell("  ",nLists);
@@ -15,12 +15,12 @@
       For( ii:=2,ii<=?nLists,ii++)
       {
           L1 := FlatCopy(LoL[ii]);
-          //Decide(InVerboseMode(),Tell("    ",[ii,L0,L1]));
+          //Decide(Verbose?(),Tell("    ",[ii,L0,L1]));
           LI := Intersection(L0,L1);
-          //Decide(InVerboseMode(),Tell("  -->",LI));
+          //Decide(Verbose?(),Tell("  -->",LI));
           L0 := FlatCopy(LI);
       };
-      //Decide(InVerboseMode(),Tell("  result ",L0));
+      //Decide(Verbose?(),Tell("  result ",L0));
       result := L0;
     }
   );
@@ -30,7 +30,7 @@
 
 11 # Intersection(list1_List?,list2_List?) <--
 {
-    //Decide(InVerboseMode(),Tell("Intersection_pairOfLists",[list1,list2]));
+    //Decide(Verbose?(),Tell("Intersection_pairOfLists",[list1,list2]));
     Local(l2,index,result);
     l2:=FlatCopy(list2);
     result:=[];

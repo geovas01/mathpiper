@@ -152,7 +152,7 @@ Function() Plot2D(_func, _range, _options, ...);
                 // compute all other data points
                 DestructiveAppend(allvalues,  Plot2Dgetdata(func, var, c, fc, delta, optionshash) );
         
-                Decide(InVerboseMode(), Echo(["Plot2D: using ", Length(allvalues[Length(allvalues)]), " points for function ", func]), True);
+                Decide(Verbose?(), Echo(["Plot2D: using ", Length(allvalues[Length(allvalues)]), " points for function ", func]), True);
         };
     
         // call the specified output backend
@@ -289,7 +289,7 @@ Use {NFunction} to overcome this difficulty.
 
 Data files are created in a temporary directory {/tmp/plot.tmp/} unless otherwise requested.
 File names
-and other information is printed if {InVerboseMode()} returns {True} on using {VM()}.
+and other information is printed if {Verbose?()} returns {True} on using {Verbose()}.
 
 The current algorithm uses Newton-Cotes quadratures and some heuristics for error 
 estimation (see <*mathpiperdoc://Algo/3/1/*>). The initial grid of {points+1} 

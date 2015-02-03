@@ -67,7 +67,7 @@ RuleHoldArguments("CachedConstant", 3, 10, And?(Atom?(Catom), Function?(Cfunc)))
                             Assign(cachedC, BuiltinAssociation(@Cname, @Ccache));
                             Decide( MathNth(cachedC, 2) !=? newprec,
                               {        // need to recalculate at current precision
-                                    Decide(Equal?(InVerboseMode(),True), Echo("CachedConstant: Info: constant ", @Cname, " is being recalculated at precision ", newprec));
+                                    Decide(Equal?(Verbose?(),True), Echo("CachedConstant: Info: constant ", @Cname, " is being recalculated at precision ", newprec));
                                     Assign(newC, RoundTo(Eval(@Cfunc),newprec));
                                     DestructiveReplace(cachedC, 2, newprec);
                                     DestructiveReplace(cachedC, 3, newC);
@@ -139,10 +139,10 @@ RuleHoldArguments("CachedConstant", 3, 10, And?(Atom?(Catom), Function?(Cfunc)))
     {        
         Local(result,oldprec);
         Assign(oldprec,BuiltinPrecisionGet());
-        Decide(Equal?(InVerboseMode(),True), Echo("Recalculating Pi at precision ",oldprec+5));
+        Decide(Equal?(Verbose?(),True), Echo("Recalculating Pi at precision ",oldprec+5));
         BuiltinPrecisionSet(BuiltinPrecisionGet()+5);
         result := MathPi();
-        Decide(Equal?(InVerboseMode(),True),Echo("Switching back to precision ",oldprec));
+        Decide(Equal?(Verbose?(),True),Echo("Switching back to precision ",oldprec));
         BuiltinPrecisionSet(oldprec);
         result;
     }
@@ -263,7 +263,7 @@ Result: 0.6180339887;
 In> NM(1/GoldenRatio)
 Result: 0.6180339887;
 
-In> VM(NM(GoldenRatio,20));
+In> Verbose(NM(GoldenRatio,20));
 
         CachedConstant: Info: constant GoldenRatio is
         being recalculated at precision 20 
@@ -299,7 +299,7 @@ Result: 0.9159655941;
 In> DirichletBeta(2)
 Result: Catalan;
 
-In> VM(NM(Catalan,20))
+In> Verbose(NM(Catalan,20))
 
         CachedConstant: Info: constant Catalan is
         being recalculated at precision 20
@@ -336,7 +336,7 @@ Result: gamma+Pi;
 In> NM(gamma+Pi)
 Result: 3.7188083184;
 
-In> VM(NM(gamma,20))
+In> Verbose(NM(gamma,20))
         
         CachedConstant: Info: constant gamma is being
           recalculated at precision 20 
@@ -396,7 +396,7 @@ Result: True;
 In> InternalLn2()
 Result: 0.6931471806;
 
-In> VM(NM(InternalLn2(),20))
+In> Verbose(NM(InternalLn2(),20))
         CachedConstant: Info: constant Ln2 is being
           recalculated at precision 20 
 Result: 0.69314718055994530942;

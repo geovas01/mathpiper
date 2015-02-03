@@ -198,7 +198,7 @@
 :Im:Im(x):imaginary part of a complex number:
 :InNumericMode:InNumericMode():determine if currently in numeric mode:
 :InProduct:InProduct(a,b):inner product of vectors (deprecated):
-:InVerboseMode:InVerboseMode():set verbose output mode:
+:Verbose?:Verbose?():set verbose output mode:
 :Infinity:Infinity:constant representing mathematical infinity:
 :Infix:Infix("op"):define function syntax (infix operator):
 :Infix:Infix("op", precedence)::

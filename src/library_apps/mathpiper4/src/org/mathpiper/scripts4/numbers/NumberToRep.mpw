@@ -2,7 +2,7 @@
 
 10 # NumberToRep( N_Number? ) <--
 {
-    //Decide(InVerboseMode(),Tell(NumberToRep,N));
+    //Decide(Verbose?(),Tell(NumberToRep,N));
     Local(oldPrec,sgn,assoc,typ,val,prec,rep);
     oldPrec  := BuiltinPrecisionGet();
     BuiltinPrecisionSet(300);
@@ -14,9 +14,9 @@
      
     sgn      := Sign(N); 
     assoc    := DumpNumber(Abs(N));
-    //Decide(InVerboseMode(),[ Tell("   ",assoc); Tell("   ",sgn); ]);
+    //Decide(Verbose?(),[ Tell("   ",assoc); Tell("   ",sgn); ]);
     typ := Association("type",assoc)[2];
-    //Decide(InVerboseMode(),Tell("   ",typ));
+    //Decide(Verbose?(),Tell("   ",typ));
     Decide( typ =? "BigDecimal",
        {
           rep := [ sgn*Association("unscaledValue",assoc)[2],
@@ -31,7 +31,7 @@
           rep := [ sgn*val, prec ];
        }
     );
-    //Decide(InVerboseMode(),Tell("   ",rep));
+    //Decide(Verbose?(),Tell("   ",rep));
     BuiltinPrecisionSet(oldPrec);
     rep;
 };

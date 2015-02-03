@@ -22,11 +22,11 @@ GuessRational(x_RationalOrNumber?, prec_Integer?) <-- {
                         );
                 };
         Decide(denomestimate <? 10^prec,
-                //Decide(InVerboseMode(), Echo(["GuessRational: all ", i, "terms are within limits"])),
+                //Decide(Verbose?(), Echo(["GuessRational: all ", i, "terms are within limits"])),
                 i--        // do not use the last term
         );
         i--;        // loop returns one more number
-        //Decide(InVerboseMode(), Echo(["GuessRational: using ", i, "terms of the continued fraction"]));
+        //Decide(Verbose?(), Echo(["GuessRational: using ", i, "terms of the continued fraction"]));
         ContFracEval(Take(cf, i));
 };
 
@@ -84,7 +84,7 @@ Result: 0.9437314906
 In> Rationalize(x)
 Result: 4718657453/5000000000;
 
-In> VM(GuessRational(x))
+In> Verbose(GuessRational(x))
         
         GuessRational: using 10 terms of the  continued fraction
 Result: 956/1013;

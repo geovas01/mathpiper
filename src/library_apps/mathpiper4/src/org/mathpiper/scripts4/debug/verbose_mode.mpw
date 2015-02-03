@@ -1,11 +1,11 @@
-%mathpiper,def="VM;InVerboseMode"
+%mathpiper,def="Verbose;Verbose?"
 
 LocalSymbols(Verbose) {
 
   Assign(Verbose,False);
 
 
-  Function("VM",[_aNumberBody])
+  Function("Verbose",[_aNumberBody])
   {
     Local(prevVerbose,result);
     Assign(prevVerbose,Verbose);
@@ -16,12 +16,12 @@ LocalSymbols(Verbose) {
   };
 
 
-  Function("InVerboseMode",[]) Verbose;
+  Function("Verbose?",[]) Verbose;
 
 }; // LocalSymbols(Verbose)
 
-HoldArgument("VM","aNumberBody");
-UnFence("VM",1);
+HoldArgument("Verbose","aNumberBody");
+UnFence("Verbose",1);
 
 %/mathpiper
 
@@ -29,12 +29,12 @@ UnFence("VM",1);
 
 
 
-%mathpiper_docs,name="VM;InVerboseMode",categories="Programming Functions;Input/Output"
-*CMD VM, InVerboseMode --- set verbose output mode
+%mathpiper_docs,name="Verbose;Verbose?",categories="Programming Functions;Input/Output"
+*CMD Verbose, Verbose? --- set verbose output mode
 *STD
 *CALL
-        VM(expression)
-        InVerboseMode()
+        Verbose(expression)
+        Verbose?()
 
 *PARMS
 
@@ -42,11 +42,11 @@ UnFence("VM",1);
 
 *DESC
 
-The function {VM(expression)} will evaluate the expression in
+The function {Verbose(expression)} will evaluate the expression in
 verbose mode. Various parts of MathPiper can show extra information
-about the work done while doing a calculation when using {VM}.
+about the work done while doing a calculation when using {Verbose}.
 
-In verbose mode, {InVerboseMode()} will return {True}, otherwise
+In verbose mode, {Verbose?()} will return {True}, otherwise
 it will return {False}.
 
 *E.G. notest
@@ -54,17 +54,17 @@ it will return {False}.
 In> OldSolve([x+2==0],[x])
 Result: [[-2]];
 
-In> VM(OldSolve([x+2==0],[x]))
+In> Verbose(OldSolve([x+2==0],[x]))
         Entering OldSolve
         From  x+2==0  it follows that  x  = -2
            x+2==0  simplifies to  True
         Leaving OldSolve
 Result: [[-2]];
 
-In> InVerboseMode()
+In> Verbose?()
 Result: False
 
-In> VM(InVerboseMode())
+In> Verbose(Verbose?())
 Result: True
 
 *SEE Echo, NM, OldSolve
