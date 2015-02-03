@@ -2,7 +2,7 @@
 
 WriteLine(writer, line) :=
 {	
-	line := JavaCall(writer, "writeLine", line);
+	line := JavaCall(writer, "write", line);
 };
 
 %/mathpiper
@@ -26,16 +26,6 @@ WriteLine(writer, line) :=
 This function writes a line to a program.
 
 *E.G.
-In> WriteLine();
-Result: 
-
-In> WriteLine();
-Result: 
+In> WriteLine("Some text.");
 
 %/mathpiper_docs
-
-%mathpiper
-
-Verify(
-
-%/mathpiper
