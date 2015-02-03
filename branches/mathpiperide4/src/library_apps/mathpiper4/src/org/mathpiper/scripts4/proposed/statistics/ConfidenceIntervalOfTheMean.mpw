@@ -21,7 +21,7 @@ ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnow
         upperLimitValue := NM(sampleMean + criticalZScore * standardErrorOfTheMean);
 
         
-        Decide(InVerboseMode(),
+        Decide(Verbose?(),
             {
                 Echo("Using the normal distribution.");
                 
@@ -42,7 +42,7 @@ ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnow
         upperLimitValue := NM(sampleMean + criticalTScore * standardErrorOfTheMean);
         
         
-        Decide(InVerboseMode(),
+        Decide(Verbose?(),
             {
                 Echo("Using the t-distribution.");
                 
@@ -109,7 +109,7 @@ In> result["criticalTScore"]
 Result: 1.710882080
 
 
-In> result := VM(ConfidenceIntervalOfTheMean(78.25,37.50,True,32,.90))
+In> result := Verbose(ConfidenceIntervalOfTheMean(78.25,37.50,True,32,.90))
 Result: [["lowerLimit",67.34605578],["upperLimit",89.15394422],["criticalZScore",1.644853952]]
 Side Effects:
 Using the normal distribution.

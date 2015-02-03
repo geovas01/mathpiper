@@ -6,7 +6,7 @@
 {
     Local(result,n,d);
     result:=SubstituteApply(aNumber,[[x],Number?(x) And? Not?(Integer?(x))],"RationalizeNumber");
-    Decide(InVerboseMode(),Tell("",result));
+    Decide(Verbose?(),Tell("",result));
     Decide(Length(VarList(aNumber))=?0,
       {
         n:=Numerator(result);

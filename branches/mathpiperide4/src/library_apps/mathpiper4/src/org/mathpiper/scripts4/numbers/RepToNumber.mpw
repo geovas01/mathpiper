@@ -2,14 +2,14 @@
 
 10 # RepToNumber( rep_ListOfLists? ) <--
 {
-    //Decide(InVerboseMode(),[Tell(RepToNumberZ,rep); Tell("     complex");]);
+    //Decide(Verbose?(),[Tell(RepToNumberZ,rep); Tell("     complex");]);
     RepToNumber(rep[1])+I*RepToNumber(rep[2]);
 };
 
 
 12 # RepToNumber( rep_List? ) <--
 {
-    //Decide(InVerboseMode(),Tell(RepToNumber,rep));
+    //Decide(Verbose?(),Tell(RepToNumber,rep));
     Local(bigInt,precision,scale,strBI,sgn,index,ans);
     Local(first,secnd,third,LS,numStr);
     precision := rep[2];
@@ -20,7 +20,7 @@
     Decide( Length(rep) >? 2, scale := rep[3] );
     strBI     := ToString(Abs(bigInt));
     LS        := Length(strBI);
-    //Decide(InVerboseMode(),[Tell("   ",[bigInt,precision,scale,sgn]);Tell("   ",strBI);]);
+    //Decide(Verbose?(),[Tell("   ",[bigInt,precision,scale,sgn]);Tell("   ",strBI);]);
     Decide( Length(rep)=?2,
        { numStr := strBI; },
        {
@@ -28,28 +28,28 @@
            first := strBI[1];
            secnd := StringMidGet(2,LS-1,strBI);   
            third := ToString(index-1);
-           //Decide(InVerboseMode(),Tell("     ",[index,first,secnd,third]));
+           //Decide(Verbose?(),Tell("     ",[index,first,secnd,third]));
            If( index >? 0 )
                {
                    If( index <? precision )
                        {
-                           //Decide(InVerboseMode(),Tell("   index < precision "));
+                           //Decide(Verbose?(),Tell("   index < precision "));
                            numStr := ConcatStrings(first,".",secnd,"E",third);
                        }
                    Else If( index >=? precision )
                        {
-                           //Decide(InVerboseMode(),Tell("   index >=? precision "));
+                           //Decide(Verbose?(),Tell("   index >=? precision "));
                            numStr := ConcatStrings(first,".",secnd,"E+",third);
                        };
                }
            Else If( index <? 0 )
                {
-                   //Decide(InVerboseMode(),Tell("   index < 0 "));
+                   //Decide(Verbose?(),Tell("   index < 0 "));
                    numStr := ConcatStrings(first,".",secnd,"E",third);
                }
            Else
                {
-                   //Decide(InVerboseMode(),Tell("   index = 0 "));
+                   //Decide(Verbose?(),Tell("   index = 0 "));
                    first  := "0." ; 
                    secnd  := strBI;
                    numStr := ConcatStrings(first,secnd);
@@ -57,7 +57,7 @@
         }
      );
      ans := sgn * ToAtom(numStr);
-     //Decide(InVerboseMode(),Tell("     ",ans));
+     //Decide(Verbose?(),Tell("     ",ans));
      ans;
 };
 

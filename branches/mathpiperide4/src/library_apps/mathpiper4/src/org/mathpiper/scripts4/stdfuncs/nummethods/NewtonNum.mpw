@@ -50,7 +50,7 @@ NewtonNum(_func, _xinit, _prec0, _order) <--
       x0 := x1;
       x1 := (func @ x0);
       exactdigits := Commondigits(x0, x1);
-  //                Decide(InVerboseMode(), Echo("NewtonNum: Info: got", exactdigits, "exact digits at prec. ", BuiltinPrecisionGet()));
+  //                Decide(Verbose?(), Echo("NewtonNum: Info: got", exactdigits, "exact digits at prec. ", BuiltinPrecisionGet()));
     };
     // need to check that the initial precision is achieved
     Decide(
@@ -66,7 +66,7 @@ NewtonNum(_func, _xinit, _prec0, _order) <--
       BuiltinPrecisionSet(2+Minimum(exactdigits, Quotient(prec,order)+1)-intpart);
       x0 := x1;
       x1 := (func @ x0);
-  //                Decide(InVerboseMode(), Echo("NewtonNum: Info: got", Commondigits(x0, x1), "exact digits at prec. ", BuiltinPrecisionGet()));
+  //                Decide(Verbose?(), Echo("NewtonNum: Info: got", Commondigits(x0, x1), "exact digits at prec. ", BuiltinPrecisionGet()));
     };
     // last iteration by hand
     BuiltinPrecisionSet(2+prec);

@@ -19,7 +19,7 @@ LocalSymbols(numericMode)
   LocalSymbols(previousNumericMode, previousPrecision, numericResult) 
   Macro("NM",[_expression, _precision])
   {
-    //Decide(InVerboseMode(),
+    //Decide(Verbose?(),
     //    [Tell("NM",[expression,precision]); Tell("  ",[@expression,@precision]);]
     //);
     
@@ -27,7 +27,7 @@ LocalSymbols(numericMode)
     Local(previousNumericMode, previousPrecision, numericResult, exception);
 
     previousPrecision := BuiltinPrecisionGet();
-    //Decide(InVerboseMode(),Tell("  ",previousPrecision));
+    //Decide(Verbose?(),Tell("  ",previousPrecision));
     BuiltinPrecisionSet(@precision+5);
 
     AssignCachedConstantsN();
@@ -41,10 +41,10 @@ LocalSymbols(numericMode)
     ExceptionCatch( numericResult:=Eval(@expression), exception := ExceptionGet() );
     
     //SysOut(numericResult," ",@expression," ",Eval(@expression));
-    //Decide(InVerboseMode(),Tell("  1",numericResult));
+    //Decide(Verbose?(),Tell("  1",numericResult));
 
     Decide(Assigned?(numericResult) And? Decimal?(numericResult), numericResult := RoundToN(numericResult, @precision));
-    //Decide(InVerboseMode(),Tell("  2",numericResult));
+    //Decide(Verbose?(),Tell("  2",numericResult));
 
     numericMode := previousNumericMode;
 

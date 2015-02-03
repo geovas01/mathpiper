@@ -20,7 +20,7 @@ LocalSymbols(UnparseCAllFunctions) {
     Decide(Length(badfunctions)=?0,
       True,
       {
-        Decide(InVerboseMode(),
+        Decide(Verbose?(),
           Echo("CUnparsable?: Info: unexportable function(s): ", badfunctions)
         );
         False;
@@ -85,7 +85,7 @@ The second calling format of {CUnparsable?} can be used to "allow" certain funct
 In> CUnparsable?(Sine(a1)+2*Cosine(b1))
 Result: True
 
-VM(CUnparsable?(1+func123(b1)))
+Verbose(CUnparsable?(1+func123(b1)))
 Result: False
 Side Effects:
 CUnparsable?: Info: unexportable function(s): func123

@@ -17,7 +17,7 @@ LocalSymbols(localResult) {
     {
       Decide(First(First(patternsList)) =? exp,
       {
-        Decide(InVerboseMode() =? True,  Echo(Last(First(patternsList))));
+        Decide(Verbose?() =? True,  Echo(Last(First(patternsList))));
         
         Assign(localResult,Eval(First(Rest(First(patternsList)))));
         
@@ -49,7 +49,7 @@ LocalSymbols(localResult) {
       
       Decide(Not?(Atom?(head)) And? exp[0] =? head[1] And? PatternMatch?(head[2], exp),
       {
-        Decide(InVerboseMode() =? True, Echo(Last(First(patternsList))));
+        Decide(Verbose?() =? True, Echo(Last(First(patternsList))));
         
         Assign(localResult, Eval(First(Rest(First(patternsList)))));
         
