@@ -94,7 +94,7 @@
 				FILE_NAME_GLOB="*.binsource" />
 <!-- We let c++ color the .h files -->
 <MODE NAME="c"			FILE="c.xml"
-				FILE_NAME_GLOB="*.c" />
+				FILE_NAME_GLOB="*.{c,ino}" />
 
 <MODE NAME="cfscript"		FILE="cfscript.xml"
 				FILE_NAME_GLOB="*.cfc" />
