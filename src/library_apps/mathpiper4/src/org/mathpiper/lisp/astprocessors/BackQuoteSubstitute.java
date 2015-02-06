@@ -74,7 +74,14 @@ public class BackQuoteSubstitute implements ASTProcessor {
 
             Cons cur = ptr;
             return iEnvironment.iLispExpressionEvaluator.evaluate(iEnvironment, aStackTop, cur);
-        } else {
+        } else if(((String)((Cons)ptr.car()).car()).equals("Nth")){
+            Cons cur = ptr;
+
+            Cons result = iEnvironment.iLispExpressionEvaluator.evaluate(iEnvironment, aStackTop, cur);
+
+            return Utility.substitute(aEnvironment, aStackTop, result, this);
+        }
+        else {
             ptr = (Cons) ptr.car();
 
             Cons cur = ptr;
@@ -87,7 +94,6 @@ public class BackQuoteSubstitute implements ASTProcessor {
             Cons result2 = SublistCons.getInstance(aEnvironment, result);
             return Utility.substitute(aEnvironment, aStackTop, result2, this);
         }
-        //      return false;
     }
 
 };
