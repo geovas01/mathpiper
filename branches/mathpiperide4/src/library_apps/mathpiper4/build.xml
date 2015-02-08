@@ -51,12 +51,6 @@
     </condition>
     
 <!-- Targets -->
-    
-    <target name="svnversion">
-    	<exec executable="svnversion" outputproperty="svnversion" />
-    	<echo message="SVN Version: r${svnversion}"/>
-    </target>
-
     <target id="noop" name="noop" description="Do nothing." />
 
     <target id="clean" name="clean" description="Deletes the MathPiper build directory">
@@ -65,16 +59,22 @@
         <delete dir="${build.dir}" />
     </target>
 
-    <target name="init" depends="svnversion">
-        <condition property="IsUnix" value="true">
-            <os family="unix" />
-        </condition>
-
+    <target name="init" depends="svnversion,svnwindows">
         <tstamp>
             <format property="build.time" pattern="MM/dd/yyyy hh:mm aa" />
         </tstamp>
 
         <mkdir dir="${build.dir}" />
+    </target>
+	
+    <target name="svnversion" if="isUnix">
+    	<exec executable="svnversion" outputproperty="svnversion" failifexecutionfails="false" />
+    	<echo message="SVN Version: r${svnversion}"/>
+    </target>
+	
+    <target name="svnwindows" if="isWindows">
+    	<property name="svnversion" value="_unknown" />
+    	<echo message="SVN Version: r${svnversion}"/>
     </target>
 
     <target name="compile" depends="init" description="Compiles the application">
