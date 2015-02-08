@@ -86,17 +86,17 @@
 	</path>
 	
 	
+	<condition property="isUnix" value="true">
+		<os family="unix" />
+	</condition>
+	
+	<condition property="isWindows" value="true">
+		<os family="windows" />
+	</condition>
+	
 <!-- Targets -->
 
 	<target id="init" name="init" depends="svnversion,svnwindows">
-		<condition property="isUnix" value="true">
-			<os family="unix" />
-		</condition>
-		
-		<condition property="isWindows" value="true">
-			<os family="windows" />
-		</condition>
-		
 		<tstamp>
 			<format property="build.time" pattern="MM/dd/yyyy hh:mm aa" />
 		</tstamp>
