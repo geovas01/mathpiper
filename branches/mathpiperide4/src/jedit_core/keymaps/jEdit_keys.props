@@ -236,4 +236,6 @@ MathPiperIDE/Control_Shift_Enter.shortcut=CS+ENTER
 MathPiperIDE/Shift_Line_Numbers.shortcut=F2
 insert-newline.shortcut=ENTER
 MathPiperIDE/process_markdown.shortcut=F4
+Interface/Increase_Font_Size.shortcut=C+EQUALS
+Interface/Decrease_Font_Size.shortcut=C+MINUS
 #}}}
