@@ -39,7 +39,7 @@ Result: "Good"
 
 
 
-%mathpiper,subtype="manual_test"
+%mathpiper,name="StringSubstring",subtype="automatic_test"
 
 Verify(StringSubstring("Goodbye", 1,4), "Good");
 
