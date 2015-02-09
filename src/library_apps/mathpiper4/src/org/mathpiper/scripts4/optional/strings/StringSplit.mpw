@@ -1,0 +1,65 @@
+%mathpiper,def="StringSplit"
+
+StringSplit(string, regularExpression) :=
+{
+	Local(javaString, list);
+	
+	Check(String?(string), "Argument", "The first argument must be a string.");
+
+        Check(String?(regularExpression), "Argument", "The second argument must be a string.");
+	
+	javaString := JavaNew("java.lang.String", string);
+	
+	list := JavaAccess(javaString, "split", regularExpression);
+};
+
+%/mathpiper
+
+
+
+
+
+
+%mathpiper_docs,name="StringSplit",categories="Programming Functions;Strings",access="experimental"
+*CMD StringSplit --- splits a string into a list of substrings using a regular expression
+
+*CALL
+        StringSplit(string, reqularExpression)
+
+*PARMS
+{string} -- A string.
+
+{regularExpression} -- The regular expression to use for splitting.
+
+
+*DESC
+This function splits a string into a list of substrings using a regular expression.
+
+*E.G.
+In> StringSplit("1,2,3", ",")
+Result: ["1","2","3"]
+
+In> StringSplit("1	2	3", "\\t")
+Result: ["1","2","3"]
+
+In> StringSplit("oneTwoThree", "(?=\\p{Upper})");
+Result: ["one","Two","Three"]
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="StringSplit",subtype="automatic_test"
+
+Verify(StringSplit("oneTwoThree", "(?=\\p{Upper})"), ["one","Two","Three"]);
+
+%/mathpiper
+
+
+
+
+
+
+
+
