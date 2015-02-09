@@ -1,5 +1,5 @@
-Sat Jan 31 16:39:21 EST 2015.
-MathPiper version: mp4_beta_v.138_r5395M.
+Mon Feb 09 12:16:59 EST 2015.
+MathPiper version: mp4_beta_v.141_r5419:5420M.
 Running all tests except for documentation examples tests..
 Beginning of tests:
 
@@ -468,7 +468,7 @@ Testing StringReplace in file </org/mathpiper/scripts4/optional/strings/StringRe
 
 
 ================================================================
-Testing StringStartsWith in file </org/mathpiper/scripts4/optional/strings/StringStartsWith.mpw>: 
+Testing StringStartsWith? in file </org/mathpiper/scripts4/optional/strings/StringStartsWith_.mpw>: 
 
 
 ================================================================
@@ -513,5 +513,5 @@ Testing | in file </org/mathpiper/scripts4/a_initialization/standard/vertical_ba
 ***** Tests complete *****
 
 GlobalVariables: []
-Elapsed Time: 0 min 3 sec
+Elapsed Time: 0 min 4 sec
 Maximum Evaluation Depth Reached: 167
