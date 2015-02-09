@@ -13,7 +13,7 @@ StringStartsWith?(string, substring) :=
 
 
 
-%mathpiper_docs,name="StringStartsWith",categories="Programming Functions;Strings",access="experimental"
+%mathpiper_docs,name="StringStartsWith?",categories="Programming Functions;Strings",access="experimental"
 *CMD StringStartsWith? --- check if start of string matches
 *CALL
         StringStartsWith?(string, substring)
@@ -38,7 +38,7 @@ Result: False;
 
 
 
-%mathpiper,name="StringStartsWith",subtype="automatic_test"
+%mathpiper,name="StringStartsWith?",subtype="automatic_test"
 
 Verify(StringStartsWith?("Hello", "He"), True);
 Verify(StringStartsWith?("Hello", "he"), False);
