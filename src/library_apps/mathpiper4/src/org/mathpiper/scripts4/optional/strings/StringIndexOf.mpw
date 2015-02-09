@@ -8,6 +8,15 @@ StringIndexOf(string, substring) :=
 	Decide(index =? 0, -1, index);
 };
 
+
+StringIndexOf(string, substring, startIndex) :=
+{
+	Local(javaString, index);
+	javaString := JavaNew("java.lang.String", string);
+	index := JavaAccess(javaString,"indexOf", substring, startIndex - 1) + 1;
+	Decide(index =? 0, -1, index);
+};
+
 %/mathpiper
 
 
@@ -21,15 +30,18 @@ StringIndexOf(string, substring) :=
 *CALL
 	StringIndexOf(string, substring)
 
+        StringIndexOf(string, startIndex)
+
 *PARMS
 {string} -- a string of characters
 
 {substring} -- a character or string of characters
 
+{startIndex} -- the index to start the search from
+
 
 *DESC
 This function returns the Mathpiper index of the given string where the given substring begins. 
-
 If the given substring cannot be found, the function will return -1.
 
 *E.G.
@@ -41,6 +53,9 @@ Result: 3
 
 In> StringIndexOf("Hello", "G")
 Result: -1
+
+In> StringIndexOff("abcdcfg", "c", 4)
+Result: 5
 %/mathpiper_docs
 
 
@@ -50,6 +65,8 @@ Result: -1
 %mathpiper,name="StringIndexOf",subtype="manual_test"
 
 Verify(StringIndexOf("Hello", "H"), 1);
+
+Verify(StringIndexOff("abcdcfg", "c", 4), 5);
 
 %/mathpiper
 
