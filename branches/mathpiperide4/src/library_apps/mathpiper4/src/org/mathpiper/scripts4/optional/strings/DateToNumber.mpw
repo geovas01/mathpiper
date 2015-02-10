@@ -3,7 +3,7 @@ DateToNumber(dateForm) :=
 {
 	Local(dateFormat, date);
 	
-	dateFormat := JavaNew("java.text.SimpleDateFormat","yyyy-MM-dd HH:mm:ss.SSS");
+	dateFormat := JavaNew("java.text.SimpleDateFormat","EEE MMM dd HH:mm:ss z yyyy");
 	
 	date := JavaCall(dateFormat, "parse", dateForm);
 	
@@ -20,15 +20,15 @@ DateToNumber(dateForm) :=
         DateToNumber(date)
 
 *PARMS
-{date} -- a string in yyyy-MM-dd HH:mm:ss.SSS format
+{date} -- a string in "EEE MMM dd HH:mm:ss z yyyy" format
 
 
 *DESC
 converts a string that is in date format to number format
 
 *E.G.
-In> DateToNumber("2015-01-13 12:37:40.612")
-Result: 1421170660612
+In> DateToNumber("Tue Jan 13 12:37:40 EST 2015")
+Result: 1421170660000
 %/mathpiper_docs
 
 
@@ -36,7 +36,7 @@ Result: 1421170660612
 
 %mathpiper,name="DateToNumber",subtype="automatic_test
 
-Verify(DateToNumber("2015-01-13 12:37:40.612"),1421170660612);
+Verify(DateToNumber("Tue Jan 13 12:37:40 EST 2015"),1421170660000);
 
 %/mathpiper
 
