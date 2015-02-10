@@ -1,0 +1,52 @@
+%mathpiper,def="StringEndsWith?"
+
+StringEndsWith?(string, substring) :=
+{
+	Local(javaString);
+	javaString := JavaNew("java.lang.String", string);
+	JavaAccess(javaString,"endsWith", substring);
+};
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="StringEndsWith?",categories="Programming Functions;Strings",access="experimental"
+*CMD StringEndsWith? --- check if end of string matches
+*CALL
+        StringEndsWith?(string, substring)
+
+*PARMS
+{string} -- the string to check
+
+{substring} -- string to check with
+
+*DESC
+This function checks if "string" ends with "substring" and is case-sensitive
+
+*E.G.
+In> StringEndsWith?("Hello", "lo");
+Result: True;
+
+In> StringEndsWith?("Hello", "clo");
+Result: False;
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="StringEndsWith?",subtype="automatic_test"
+
+Verify(StringEndsWith?("Hello", "lo"), True);
+Verify(StringEndsWith?("Hello", "Lo"), False);
+
+%/mathpiper
+
+
+
+
+
+
