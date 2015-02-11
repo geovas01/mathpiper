@@ -20,14 +20,11 @@ Copyright (C) 2008 Ted Kosan
 package org.mathpiper.ide.u6502;
 
 import java.io.File;
-import java.io.RandomAccessFile;
-import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.Reader;
 import java.io.Writer;
 import java.io.IOException;
 //import org.gjt.sp.jedit.bsh.EvalError;
-import java.util.HashMap;
 import java.util.ArrayList;
 
 
@@ -65,6 +62,8 @@ public class UASM65
 	private int operand_index;
 
 	private int EOF = -1;
+        
+        private boolean errorLogLimitReached = false;
 
 
 	private String[] error_message = new String[]{
@@ -73,7 +72,7 @@ public class UASM65
 	                                     "Symbol not defined.",
 	                                     "Missing END directive or no CR after END.",
 	                                     "Redefinition of a symbol.",
-	                                     "",
+	                                     "Labels must end with a colon.",
 	                                     "Operand expected.",
 	                                     "Operator expected.",
 	                                     "Value out of range.",
@@ -101,7 +100,6 @@ public class UASM65
 	                                     "Invalid addressing mode for operator.",
 	                                     "",
 	                                     "Empty character not allowed.",
-	                                     "Invalid Label: label format is 'label:'"
 	                                 };
 
 
@@ -740,21 +738,33 @@ public class UASM65
 				log_error(error_number);
 				return(false);
 			}
+                        
+                        if (scan_to_EOL(line_index))
+                        {
+                            if(hold_label[0] != 0)
+                            {
+                                hold_operator[0] = '*';
+                                hold_operator[1] = 0;
+                                strcpy(hold_operand,"       \0");
+                                strcpy(hold_add_mode,"IMP\0");
+                                return(true);
+                            }
+                        }
 
 		}
 
 		while(source_line[line_index] ==' ' || source_line[line_index] == 9)
 		{
-			line_index++;
-			if (line_index >= 125)
-			{
-				log_error(7);
-				return(false);
-			}
-			else if (source_line[line_index] == 0)
-			{
-				return(true);
-			}
+                    line_index++;
+                    if (line_index >= 125)
+                    {
+                            log_error(7);
+                            return(false);
+                    }
+                    else if (source_line[line_index] == 0)
+                    {
+                        return(true);
+                    }
 		}
 
 		if ((error_number = scan_operator()) != 0)
@@ -818,29 +828,8 @@ public class UASM65
 	//{{ scan_label
 	private int scan_label()
 	{
-		
-		boolean here = false;
-		for(int i = 0; i<source_line.length;i++){
-			if(i>1){
-				if((source_line[i] == ':') && (source_line[i-1] != ' ')){
-					here = true;
-				}
-			}
-		}
-		if(!here){
-			return(33);
-		}
-		
-		while (source_line[line_index] != ' ' && source_line[line_index] != 9)
+		while (source_line[line_index] != ' ' && source_line[line_index] != 9 && source_line[line_index] != 0)
 		{
-
-			if(source_line[line_index] == ':'){
-				source_line[line_index] = ' ';
-				source_line[line_index+1] = ':';
-				source_line[line_index+2] = 9;
-				continue;
-			}
-			
 			if (check_label_character(source_line[line_index]))
 			{
 				hold_label[line_index] = source_line[line_index];
@@ -855,9 +844,12 @@ public class UASM65
 			{
 				return(18);
 			}
-			                                
 		}
-		hold_label[line_index] = 0;
+                if(hold_label[line_index-1] != ':')
+                {
+                    return(5);
+                }
+		hold_label[line_index-1] = 0;
 		hold_location = location_counter;
 		str_to_upper(hold_label);
 		return(0);
@@ -1129,7 +1121,7 @@ public class UASM65
 		{
 			end_flag=1;
 		}
-		else if (strcmp(hold_operator,":\0")==0)
+		else if (strcmp(hold_operator,"*\0")==0)
 		{
 			;
 		}
@@ -1269,7 +1261,7 @@ public class UASM65
 			print_line();
 			end_flag=1;
 		}
-		else if (strcmp(hold_operator,":\0")==0)
+		else if (strcmp(hold_operator,"*\0")==0)
 		{
 			no_obj_flag = 1;
 			print_line();
@@ -2196,7 +2188,7 @@ public class UASM65
 	//{{{check_operator_character
 	private boolean check_operator_character(int character)
 	{
-		if (character >= 'A' && character <= 'z' || character == ':')
+		if (character >= 'A' && character <= 'z' || character == '*')
 		{
 			return(true);
 		}
@@ -2267,10 +2259,31 @@ public class UASM65
 			return(false);
 		}
 	}//}}}
+        
+	//{{{scan_to_eol2
+	private boolean scan_to_EOL(int index)
+	{
+		while(source_line[index] == ' ' || source_line[index] == 9)
+		{
+			index++;
+		}
+		if (source_line[index] == 0 || source_line[index] == ';')
+		{
+			return(true);
+		}
+		else
+		{
+			return(false);
+		}
+	}//}}}
 
 	//{{{log_error
 	private void log_error(int error_number)
 	{
+            if(errorLogLimitReached)
+            {
+                return;
+            }
 		error_index++;
 		error_table[error_index].line_number = source_line_number;
 		error_table[error_index].line_index = line_index;
@@ -2293,7 +2306,10 @@ public class UASM65
 		else
 		{
 			no_obj_flag=1;
-			print_line();
+                        if(print_line() == false)
+                        {
+                            return;
+                        }
 
 			no_lc_flag = 1;
 			no_obj_flag = 1;
@@ -2536,9 +2552,16 @@ public class UASM65
 				{
 					e.printStackTrace();
 				}
-
+                                
 				print_error_index++;
-
+                              System.out.println(print_error_index + ", " + error_table.length);
+                                if(print_error_index == error_table.length-1)
+                                {
+                                    sprintf.format("\n\n********* ERROR COUNT LIMIT HAS BEEN REACHED *********\n");
+                                    System.out.println("\n\n********* ERROR COUNT LIMIT HAS BEEN REACHED *********\n");
+                                    errorLogLimitReached = true;
+                                    return(false);
+                                }
 			}
 		}
 		else
@@ -2552,7 +2575,7 @@ public class UASM65
 			hold_obj_3=-1;
 		}
 
-		return false; //Note: This line added to provide return value.
+		return true;
 	}//}}}
 
 
@@ -3259,7 +3282,7 @@ public class UASM65
 		op_table[   0] = new op_tbl( "LON\0", "IMP\0", 0x00, 0, 0 );
 		op_table[   1] = new op_tbl( "LOF\0", "IMP\0", 0x00, 0, 0 );
 		op_table[   2] = new op_tbl( "ORG\0", "DIR\0", 0x00, 0, 0 );
-		op_table[   3] = new op_tbl( ":\0",  "IMP\0", 0x00, 0, 0 );
+		op_table[   3] = new op_tbl( "*\0", 	"IMP\0", 0x00, 0, 0 );
 		op_table[   4] = new op_tbl( "EQU\0", "DIR\0", 0x00, 0, 0 );
 		op_table[   5] = new op_tbl( "DBT\0", "DIR\0", 0x00, 0, 0 );
 		op_table[   6] = new op_tbl( "DWD\0", "DIR\0", 0x00, 0, 0 );
@@ -3852,7 +3875,7 @@ public class UASM65
 
 		//bsh.args = new String[] {"one","two"};
 
-		System.out.println("\nUASM65 - Understandable Assembler for the 6500 series microprocessors.\nWritten by Ted Kosan.\n");
+		System.out.println("\nUASM65 v.100 - Understandable Assembler for the 6500 series microprocessors.\nWritten by Ted Kosan.\n");
 
 
 
@@ -3893,4 +3916,5 @@ public class UASM65
 }//end class
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
+
 
