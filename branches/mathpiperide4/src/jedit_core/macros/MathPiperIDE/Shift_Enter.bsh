@@ -2365,10 +2365,11 @@ frame.setVisible(true);
 				try 
 				{   
 					uart = org.mathpiper.ide.u6502.EMU6551.getInstance();
+					uart.resetAll();
 					uart.send("L\r\n");
 					codeText = codeText.replaceAll(" ", "");
 					codeText = codeText.replaceAll("\t", "");
-					uart.send(codeText + "\r\n");
+					uart.send(codeText);
 					
 					output_fold_type = "%output";
 					
