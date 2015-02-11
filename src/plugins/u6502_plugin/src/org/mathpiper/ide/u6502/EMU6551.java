@@ -141,7 +141,7 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 		ioChips[2] = new EMUOutputPort("8 LEDs interfaced to memory location A400: ");
 		ioChips[3] = new EMUInputPort("8 switches interfaced to memory location A600: ");
 		ioChips[4] = new EMUTimer("100 millisecond period count down timer at memory location A800: ");
-		ioChips[5] = new EMURandomIOChip();
+		ioChips[5] = new ConfigurationPort();
 		ioChips[6] = new EMURandomIOChip();
 		ioChips[7] = new EMURandomIOChip();
 		ioChips[8] = new EMURandomIOChip();
