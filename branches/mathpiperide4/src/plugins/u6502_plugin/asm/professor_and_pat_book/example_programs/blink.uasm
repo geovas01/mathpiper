@@ -11,17 +11,17 @@
 ;**************************************
 	org 0200h
 
-Main *
+Main:
 ;Turn all the lights on and then waste some time
 ; so that the user can see the lights on.
 	lda #11111111b
-	sta 4001h
+	sta 0a200h
 	jsr delay
 	
 ;Turn all the lights off and then waste some time
 ; so that the user can see the lights off.
 	lda #00000000b
-	sta 4001h
+	sta 0a200h
 	jsr delay
 	
 	jmp Main
@@ -44,7 +44,7 @@ Main *
 ;Change the number that is being loaded into
 ; the 'A' register to change the delay time.
 ;**************************************
-Delay *
+Delay:
 ;Save registers on the stack.
 	pha
 	txa
@@ -56,13 +56,13 @@ Delay *
 ; 'A' register in order to change the delay time.
 	lda #010h
 	
-OutLoop *
+OutLoop:
 	ldx #0ffh
 	
-InLoop1 *
+InLoop1:
 	ldy #0ffh
 	
-InLoop2 *
+InLoop2:
 	dey
 	bne InLoop2
 	
