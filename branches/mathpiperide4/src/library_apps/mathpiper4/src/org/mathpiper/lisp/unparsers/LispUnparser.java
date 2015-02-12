@@ -23,8 +23,8 @@ import org.mathpiper.lisp.cons.Cons;
 
 public class LispUnparser {
 
-    String newLineCharacter = "";
-    String spaceCharacter = "";
+    String newLineCharacter = "\n";
+    String spaceCharacter = "    ";
 
     public LispUnparser() {
 
@@ -33,8 +33,17 @@ public class LispUnparser {
     //private List<Cons> visitedLists = new ArrayList<Cons>();
 
     public void print(int aStackTop, Cons aExpression, MathPiperOutputStream aOutput, Environment aEnvironment, boolean isCompact) throws Throwable {
-        printExpression(aExpression, aOutput, aEnvironment, 0);
-
+        printExpression(aExpression, aOutput, aEnvironment, -1);
+        if(isCompact)
+        {
+            newLineCharacter = "";
+            spaceCharacter = "";
+        }
+        else
+        {
+            newLineCharacter = "\n";
+            spaceCharacter = "    ";
+        }
         //visitedLists.clear();
     }
 
@@ -63,9 +72,6 @@ public class LispUnparser {
 
             } // else print "(", print sublist, and print ")"
             else if (consWalker.car() instanceof Cons) {
-                if (item != 0) {
-                    indent(aOutput, aDepth + 1);
-                }
 
                 /*
                 Cons atomCons = (Cons) consWalker.getCons();
@@ -105,6 +111,7 @@ public class LispUnparser {
 
     void indent(MathPiperOutputStream aOutput, int aDepth) throws Throwable {
         aOutput.write(newLineCharacter);
+        
         int i;
         for (i = aDepth; i > 0; i--) {
             aOutput.write(spaceCharacter);
