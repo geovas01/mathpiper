@@ -40,10 +40,10 @@ public class UnparseLisp extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
+        aEnvironment.write("\n");
         setTopOfStack(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1));
         LispUnparser printer = new LispUnparser();
         printer.print(aStackTop, getTopOfStack(aEnvironment, aStackTop), aEnvironment.iCurrentOutput, aEnvironment, false);
-        aEnvironment.write("\n");
     }
 }
 
