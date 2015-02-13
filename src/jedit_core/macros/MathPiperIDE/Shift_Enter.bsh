@@ -2243,11 +2243,12 @@ frame.setVisible(true);
 				{
 					s19 = results.get(1);
 					symbolTable = results.get(2);
-					result = "*** List file ***\n" + lst_or_error + "\n\n";
 					//result = result + "*** Symbol table ***\n\n" + symbolTable + "\n\n";
 					s19 = s19.substring(0,s19.length()-1);
 					s19 = s19.replaceAll("\n","\n\t");
-					result = result + "*** Executable code ***\n\n"+ "%s19,descrption=\"Execute this fold to send program to U6502 monitor.\",preserve=\"false\"\n\t" + s19 + "\n%/s19";
+					listFile = "*** List file ***\n" + lst_or_error + "\n\n";
+					s19File =  "*** Executable code ***\n\n"+ "%s19,descrption=\"Execute this fold to send program to U6502 monitor.\",preserve=\"false\"\n\t" + s19 + "\n%/s19";
+					result = s19File + listFile;
 					
 					output_fold_type = "%output";
 				}
