@@ -69,9 +69,11 @@
 		<!-- Start of MathPiperIDE code. -->
                 
                 
-        <EOL_SPAN TYPE="COMMENT3">%group</EOL_SPAN>
-        <EOL_SPAN TYPE="COMMENT3">%/group</EOL_SPAN>
-
+		<EOL_SPAN TYPE="COMMENT3">%group</EOL_SPAN>
+		<EOL_SPAN TYPE="COMMENT3">%/group</EOL_SPAN>
+        
+        
+		<EOL_SPAN TYPE="COMMENT4" DELEGATE="mathpiper::MAIN">In></EOL_SPAN>
 
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="mathpiperdocs::MAIN">
 			<BEGIN>%mathpiper_docs[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;\?\!]*</BEGIN>
