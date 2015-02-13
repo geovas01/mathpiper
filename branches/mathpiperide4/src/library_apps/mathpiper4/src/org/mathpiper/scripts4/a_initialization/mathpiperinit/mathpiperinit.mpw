@@ -18,10 +18,6 @@ RuleHoldArguments(MathPiperInitLoad, 0, 1, True)
     
     Constant('Undefined, True);
     
-    Constant('List, True);
-    
-    Constant('Sequence, True);
-    
     Constant('All, True);
     
     Constant('None, True);
