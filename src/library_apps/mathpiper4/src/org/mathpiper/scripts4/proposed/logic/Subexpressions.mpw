@@ -36,7 +36,7 @@ SubexpressionsHelper(expression, list) :=
         
         Decide(Length(rest) !=? 0, rest := First(rest));
      
-        Decide(Length(rest) !=? 0, list := SubexpressionsHelper(rest, list));
+        Decide((Not? Atom?(rest)) And? Length(rest) !=? 0, list := SubexpressionsHelper(rest, list));
     };
     
     Append(list, expression);
