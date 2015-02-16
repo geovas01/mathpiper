@@ -106,7 +106,16 @@ public class TreePanelCons extends JComponent implements ViewPanel {
                     try {
                             // listToTree(rootNode, expressionCons, null, null);
 
-                            String operator = (String) Cons.caar(expressionCons);
+                            String operator;
+                                    
+                            if(expressionCons.car() instanceof Cons)
+                            {
+                                operator = (String) Cons.caar(expressionCons);
+                            } 
+                            else
+                            {
+                                operator = (String) expressionCons.car();
+                            }
 
                             mainRootNode.setOperator(operator, (Boolean) optionsMap.get("Code"));
 
