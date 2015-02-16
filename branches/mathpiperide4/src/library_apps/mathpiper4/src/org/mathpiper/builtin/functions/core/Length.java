@@ -67,7 +67,8 @@ public class Length extends BuiltinFunction
                 setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + size));
                 return;
             }
-        //  CHK_ISLIST_CORE(aEnvironment,aStackTop,getArgumentPointer(aEnvironment, aStackTop, 1),1);
+            
+            LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, argument);
         }//end if.
 
 
@@ -85,6 +86,7 @@ public class Length extends BuiltinFunction
             return;
         }//end if.
         
+        LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, argument);
 
     }//end method..
 
