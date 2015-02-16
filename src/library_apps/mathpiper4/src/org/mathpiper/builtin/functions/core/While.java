@@ -50,7 +50,7 @@ public class While extends BuiltinFunction
 
         Cons predicate = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, arg1);
 
-        Cons evaluated;
+        Cons evaluated = Utility.getFalseAtom(aEnvironment);
 
         int beforeStackTop = -1;
         int beforeEvaluationDepth = -1;
@@ -82,7 +82,7 @@ public class While extends BuiltinFunction
               aEnvironment.iEvalDepth = beforeEvaluationDepth;
         }
 
-        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
+        setTopOfStack(aEnvironment, aStackTop, evaluated);
     }
 
 
