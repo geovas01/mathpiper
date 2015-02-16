@@ -1,13 +1,13 @@
 %mathpiper,def="Until"
 
-TemplateFunction("Until",[_predicate,_body])
+LocalSymbols(result) TemplateFunction("Until",[_predicate,_body])
 {
-  Eval(body);
+  result := Eval(body);
   While (Equal?(Eval(predicate),False))
   {
-    Eval(body);
+    result := Eval(body);
   };
-  True;
+  result;
 };
 UnFence("Until",2);
 HoldArgumentNumber("Until",2,1);

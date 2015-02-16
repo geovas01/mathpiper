@@ -1,7 +1,7 @@
 %mathpiper,def="ForEach"
 
 /*TODO remove? Not yet. If the code above (ForEachExperimental) can be made to work we can do away with this version. */
-TemplateFunction("ForEach",[_item,_listOrString,_body])
+LocalSymbols(result) TemplateFunction("ForEach",[_item,_listOrString,_body])
 {
   Decide(And?(Equal?(Generic?(listOrString),True),
          Equal?(GenericTypeName(listOrString),"Array")
@@ -23,9 +23,11 @@ TemplateFunction("ForEach",[_item,_listOrString,_body])
           {
              MacroAssign(item,listOrString[index] );
              
-             Eval(body);
+             result := Eval(body);
              
              index++;
+
+             result;
           };
 
       },
@@ -35,8 +37,9 @@ TemplateFunction("ForEach",[_item,_listOrString,_body])
           While(Not?(Equal?(foreachtail,[])))
           {
             MacroAssign(item,First(foreachtail));
-            Eval(body);
+            result := Eval(body);
             Assign(foreachtail,Rest(foreachtail));
+            result;
           };
       });
     });
