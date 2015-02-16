@@ -52,7 +52,7 @@ public class ViewList extends BuiltinFunction {
 
         //if(! Utility.isList(argument)) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_LIST, "");
 
-        Cons dataList = (Cons) argument.car(); //Grab the first member of the list.
+        //Cons dataList = (Cons) argument.car(); //Grab the first member of the list.
 
         Cons options = argument.cdr();
 
