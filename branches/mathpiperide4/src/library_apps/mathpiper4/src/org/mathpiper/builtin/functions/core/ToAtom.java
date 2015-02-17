@@ -81,7 +81,7 @@ as the evaluated argument. Example: {ToAtom("foo");} returns
 In> ToAtom("a")
 Result: a;
 
-*SEE ToString, ExpressionToString
+*SEE ToString
 %/mathpiper_docs
 
 
