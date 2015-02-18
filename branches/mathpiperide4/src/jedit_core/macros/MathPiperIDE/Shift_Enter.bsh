@@ -1,4 +1,4 @@
-// :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
+                                                                                                                          // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 //Copyright (C) 2008 Ted Kosan
 /* {{{ License.
  * This program is free software; you can redistribute it and/or
@@ -397,6 +397,15 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 		
 		indentAmount = "    ";
 		
+		resultNewline = "";
+		
+		date = new java.util.Date();
+		timestamp = new java.sql.Timestamp(date.getTime());
+		
+		parentProperty = "";
+		
+		saveBuffer = true;
+		
 		//userSelection = textArea.getSelection();
     }
 	else
@@ -737,13 +746,18 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 			}
 			else
 			{				
+				if(result.indexOf("\n") != -1)
+				{
+					resultNewline = "\n";
+				}
+				
 				if(!evaluationResponse.getSideEffects().equalsIgnoreCase(""))
 				{
-					result = "Result: " + evaluationResponse.getResult() + "\n\nSide Effects:\n" + evaluationResponse.getSideEffects();
+					result = "Result: " + resultNewline + result + "\n\nSide Effects:\n" + evaluationResponse.getSideEffects();
 				}
 				else
 				{
-					result = "Result: " + result ;
+					result = "Result: " + resultNewline + result ;
 				}
 			}
 		
@@ -1033,36 +1047,25 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 							}
 							else if(foldProperties.get("output").equalsIgnoreCase("plantuml") )
 							{
-								System.out.println("RRR");
+
 								result = evaluationResponse.getResult();
-import net.sourceforge.plantuml.*;
+								
+								import net.sourceforge.plantuml.*;
+								
+								SourceStringReader reader = new SourceStringReader(result);
+								final ByteArrayOutputStream os = new ByteArrayOutputStream();
+								
+								//String desc = reader.generateImage(os, new FileFormatOption(FileFormat.SVG));
+								String desc = reader.generateImage(os);
+								
+								os.close();
+								
+								imageIcon = new javax.swing.ImageIcon(os.toByteArray());
+								
+								jLabel = new javax.swing.JLabel();
+								jLabel.setIcon(imageIcon);
+								show(jLabel);
 
-SourceStringReader reader = new SourceStringReader(result);
-final ByteArrayOutputStream os = new ByteArrayOutputStream();
-
-
-//String desc = reader.generateImage(os, new FileFormatOption(FileFormat.SVG));
-String desc = reader.generateImage(os);
-
-os.close();
-
-imageIcon = new javax.swing.ImageIcon(os.toByteArray());
-
-jLabel = new javax.swing.JLabel();
-jLabel.setIcon(imageIcon);
-
-
-frame = new javax.swing.JFrame();
-frame.setLayout(new FlowLayout());
-contentPane = frame.getContentPane();
-contentPane.add(jLabel);
-frame.pack();
-screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int height = screenSize.height;
-        int width = screenSize.width;
-        frame.setSize(width/2, height/2);
-        frame.setLocationRelativeTo(null);
-frame.setVisible(true);
 								output_fold_type = "%output";
 							}
 							else if(foldProperties.get("output").equalsIgnoreCase("imageFile"))
@@ -1117,11 +1120,12 @@ frame.setVisible(true);
 							{
 								output_fold_type = "%output";
 							}
-				//System.out.println("Out> " + evaluationResponse);
+
 							if(result.indexOf("\n") != -1)
 							{
 								resultNewline = "\n";
 							}
+							
 							if(!evaluationResponse.getSideEffects().equalsIgnoreCase(""))
 							{
 								result = "Result: " + resultNewline + result + "\n\nSide Effects:\n" + evaluationResponse.getSideEffects();
@@ -2246,7 +2250,7 @@ frame.setVisible(true);
 					//result = result + "*** Symbol table ***\n\n" + symbolTable + "\n\n";
 					s19 = s19.substring(0,s19.length()-1);
 					s19 = s19.replaceAll("\n","\n\t");
-					listFile = "*** List file ***\n" + lst_or_error + "\n\n";
+					listFile = "\n\n*** List file ***\n" + lst_or_error + "\n\n";
 					s19File =  "*** Executable code ***\n\n"+ "%s19,descrption=\"Execute this fold to send program to U6502 monitor.\",preserve=\"false\"\n\t" + s19 + "\n%/s19";
 					result = s19File + listFile;
 					
