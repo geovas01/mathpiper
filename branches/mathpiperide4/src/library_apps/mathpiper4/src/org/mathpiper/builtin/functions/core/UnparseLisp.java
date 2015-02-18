@@ -40,7 +40,6 @@ public class UnparseLisp extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable
     {
-        aEnvironment.write("\n");
         setTopOfStack(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1));
         LispUnparser printer = new LispUnparser();
         printer.print(aStackTop, getTopOfStack(aEnvironment, aStackTop), aEnvironment.iCurrentOutput, aEnvironment, false);
@@ -63,7 +62,7 @@ public class UnparseLisp extends BuiltinFunction
 *DESC
 
 Evaluates "expr", and prints it in LISP-format on the current
-output. It is followed by a newline. The evaluated expression is also
+output. The evaluated expression is also
 returned.
 
 This can be useful if you want to study the internal representation of
@@ -86,6 +85,6 @@ internally represented. In the second example, {2*I} is
 first evaluated to {Complex(0,2)} before the expression
 is printed.
 
-*SEE ParseLisp, ViewList
+*SEE ParseLisp
 %/mathpiper_docs
 */
