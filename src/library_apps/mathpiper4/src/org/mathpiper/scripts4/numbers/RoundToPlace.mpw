@@ -145,7 +145,7 @@ Result: 12345700
     
 
 In> int2:=RoundToPlace(int,2)
-Result: RoundToPlace(12345678,2
+Result: RoundToPlace(12345678,2)
 
 *SEE RoundToPrecision, RoundToN, NumberToRep, DumpNumber
 %/mathpiper_docs
