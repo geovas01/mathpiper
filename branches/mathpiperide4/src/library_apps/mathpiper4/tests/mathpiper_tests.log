@@ -1,5 +1,5 @@
-Mon Feb 09 12:50:13 EST 2015.
-MathPiper version: mp4_beta_v.141_r5419:5425M.
+Tue Feb 17 23:32:21 EST 2015.
+MathPiper version: mp4_beta_v.142_r5451:5454M.
 Running all tests except for documentation examples tests..
 Beginning of tests:
 
@@ -109,6 +109,10 @@ Testing ToBase in file </org/mathpiper/builtin/functions/core/ToBase.java>:
 
 ================================================================
 Testing ToString in file </org/mathpiper/builtin/functions/core/ToString.java>: 
+
+
+================================================================
+Testing UnparseMathPiper in file </org/mathpiper/builtin/functions/core/UnparseMathPiper.java>: 
 
 
 ================================================================
@@ -456,6 +460,10 @@ Testing StepsView in file </org/mathpiper/scripts4/steps/algebra/SolveSteps.mpw>
 
 
 ================================================================
+Testing StringEndsWith? in file </org/mathpiper/scripts4/optional/strings/StringEndsWith_.mpw>: 
+
+
+================================================================
 Testing StringLowerCase in file </org/mathpiper/scripts4/optional/strings/StringLowerCase.mpw>: 
 
 
@@ -522,4 +530,4 @@ Testing | in file </org/mathpiper/scripts4/a_initialization/standard/vertical_ba
 
 GlobalVariables: []
 Elapsed Time: 0 min 3 sec
-Maximum Evaluation Depth Reached: 167
+Maximum Evaluation Depth Reached: 195
