@@ -63,12 +63,15 @@ public class LispUnparser {
         }
 
         while (consWalker != null) {
+            
+            if (item != 0) {
+                indent(aOutput, aDepth + 1);
+            }
 
             if (consWalker.car() instanceof String) {
                 String atom = (String) consWalker.car();
                 
                 aOutput.write(atom);
-
 
             } // else print "(", print sublist, and print ")"
             else if (consWalker.car() instanceof Cons) {
@@ -81,9 +84,6 @@ public class LispUnparser {
                 } else {
                 visitedLists.add(atomCons);*/
 
-                if (item != 0) {
-                    indent(aOutput, aDepth + 1);
-                }
                 aOutput.write("(");
                 printExpression(((Cons) consWalker.car()), aOutput, aEnvironment, aDepth + 1);
                 aOutput.write(")");
