@@ -84,6 +84,7 @@ RuleHoldArguments(StandardOperatorsLoad, 0, 1, True)
     Bodied("InverseTaylor",60000);
 
     Infix("<--",22000);
+    RulebaseHoldArguments("#",[left_,right_]);
     Infix("#",21900);
 
     Bodied("TSum",60000);
