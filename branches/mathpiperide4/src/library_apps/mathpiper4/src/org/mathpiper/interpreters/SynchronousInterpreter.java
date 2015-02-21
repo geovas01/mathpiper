@@ -27,7 +27,6 @@ import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
 
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.parsers.Parser;
 import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.lisp.unparsers.LispUnparser;
 import org.mathpiper.lisp.unparsers.MathPiperUnparser;
@@ -44,7 +43,6 @@ import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.SublistCons;
 
-import org.mathpiper.builtin.JavaObject;
 
 /**
  *
@@ -397,8 +395,8 @@ public class SynchronousInterpreter implements Interpreter {
                     String loadResultString = string_out.toString();
                     evaluationResponse.setResult(loadResultString);
                     if (loadResult.type() == Utility.OBJECT) {
-                        JavaObject javaObject = (JavaObject) loadResult.car();
-                        evaluationResponse.setObject(javaObject.getObject());
+                        BuiltinContainer builtinContainer = (BuiltinContainer) loadResult.car();
+                        evaluationResponse.setObject(builtinContainer.getObject());
                     }//end if.
                 }//if.
             }//end if
