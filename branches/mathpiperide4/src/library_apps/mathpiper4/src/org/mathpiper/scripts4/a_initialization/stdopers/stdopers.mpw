@@ -111,9 +111,9 @@ RuleHoldArguments(StandardOperatorsLoad, 0, 1, True)
     Infix("%",50);
 
     /* local pattern replacement operators */
-    Infix("/:",20000);
-    Infix("/::",20000);
-    Infix("<-",10000);
+    Infix("/:",25000);
+    Infix("/::",25000);
+    Infix("<-",22000);
 
     /* Operators used for manual layout */
     Infix("<>", PrecedenceGet("=?"));
