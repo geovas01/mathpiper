@@ -64,6 +64,13 @@ public abstract class Evaluator {
 
 	public static void traceShowEnter(Environment aEnvironment,
 			Cons aExpression, String extraInfo) throws Throwable {
+            
+                if (TRACE_TO_STANDARD_OUT) {
+                        System.out.print("\n");
+                } else {
+                        aEnvironment.write("\n");
+                }
+                
 		for (int i = 0; i < evalDepth; i++) {
 			// aEnvironment.iEvalDepth; i++) {
 			if (TRACE_TO_STANDARD_OUT) {
