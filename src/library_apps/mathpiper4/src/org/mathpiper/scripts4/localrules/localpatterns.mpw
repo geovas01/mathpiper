@@ -45,13 +45,13 @@ LocalSymbols(localResult) {
     
     While (patternsList !=? [])
     {
-      Assign(head, First(First(patternsList)));
-      
+      Assign(head, First(patternsList));
+     
       Decide(Not?(Atom?(head)) And? exp[0] =? head[1] And? PatternMatch?(head[2], exp),
       {
         Decide(Verbose?() =? True, Echo(Last(First(patternsList))));
         
-        Assign(localResult, Eval(First(Rest(First(patternsList)))));
+        Assign(localResult, Eval(First(Rest(Rest(First(patternsList))))));
         
         Assign(result, True);
         
@@ -84,70 +84,59 @@ UnFence("LocChange",1);
 //============== PatternCompile ===============================
 //Convert a local rule into a rule which has its pattern replaced by a ParametersPatternMatcher.
 
-10 # PatternCompile([_pat, _post, _exp]) <-- [ [pat[0], PatternCreate(pat, post)], exp, "UNNAMED" ];
-
-
-20 # PatternCompile([pat_Function?, _exp]) <-- [ [pat[0], PatternCreate(pat,True)], exp, "UNNAMED" ];
-
-
-30 # PatternCompile([pat_Atom?, _exp]) <-- [ pat, exp, "UNNAMED" ];
-
 
 /*
-    40 # PatternCompile(pat_Function? <- _exp) <-- [ [pat[0],PatternCreate(pat,True)],exp ];
-    todo:tk:this rule was not handling post predicates so I replaced it with a new version that does.
-    I suspect that the other rules for this Rulebase have problems too. 
+// This is the original local rule syntax.
+10 # PatternCompile([_pat, _post, _exp]) <-- [ pat[0], PatternCreate(pat, post), exp, "UNNAMED" ];
+
+20 # PatternCompile([pat_Function?, _exp]) <-- [ pat[0], PatternCreate(pat,True), exp, "UNNAMED" ];
+
+30 # PatternCompile([pat_Atom?, _exp]) <-- [ pat, pat, exp, "UNNAMED" ];
 */
+
 40 # PatternCompile(pat_Function? <- _exp) <-- 
 {
     Local(justPattern, postPredicate, ruleName);
     
     justPattern := pat;
     
-    Decide(Type(justPattern) =? "::",
-        {
-            //A post predicate was submitted.
-	        justPattern := pat[1];
-	        postPredicate := pat[2];
-        },
-        {
-            //No post predicate was submitted.
-            postPredicate := True;
-        }
-    );
-            
-            
-            
-    Decide(Type(justPattern) =? "#",
-        {
-           //A name has been given to the rule.
-           ruleName := pat[1];
-           justPattern := pat[2];
-           
-           Decide(Function?(justPattern),
-             {
-               [ [justPattern[0], PatternCreate(justPattern, postPredicate)], exp , ruleName];
-             },
-             {
-               //Atom.
-               [ justPattern, exp, ruleName ];
-             }
-           
-           );
-        },
-        {
-           ruleName := "UNNAMED";
-           justPattern := pat;
-           [ [justPattern[0], PatternCreate(justPattern, postPredicate)], exp , ruleName];
-        }
-    );
-            
+    
+    If(justPattern[0] =? ToAtom("#"))
+    {
+    	ruleName := pat[1];
+    	justPattern := pat[2];
+    }
+    Else
+    {
+    	ruleName := "UNNAMED";
+    };
+    
+    
+    If(justPattern[0] =? ToAtom("::"))
+    {
+    	postPredicate := justPattern[2];
+    	justPattern := justPattern[1];
+    }
+    Else
+    {
+    	postPredicate := True;
+    };
+    
+    
+	If(Function?(justPattern))
+	{
+		[justPattern[0], PatternCreate(justPattern, postPredicate), exp , ruleName];
+	}
+	Else
+	{
+		//Atom.
+		[justPattern, exp, ruleName ];
+	};
+                
 };
 
 
-
-50 # PatternCompile(pat_Atom? <- _exp) <-- [ pat, exp, "UNNAMED" ];
-
+50 # PatternCompile(pat_Atom? <- _exp) <-- [pat, exp, "UNNAMED" ];
 
 
 
@@ -158,9 +147,6 @@ PatternsCompile(patterns) :=
 {
   MapSingle("PatternCompile", patterns);
 };
-
-
-
 
 
 %/mathpiper
