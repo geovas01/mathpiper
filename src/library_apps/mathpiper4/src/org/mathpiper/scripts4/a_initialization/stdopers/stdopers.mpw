@@ -22,7 +22,7 @@ RuleHoldArguments(StandardOperatorsLoad, 0, 1, True)
     Infix(">=?",90);
     Infix("!=?",90);
 
-    Infix(":=",22000);
+    Infix(":=",26000);
     RightAssociativeSet(":=");
     
     RulebaseHoldArguments(":",[_left,_right]);
