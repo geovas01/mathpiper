@@ -1644,10 +1644,10 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 				result="consulted";
 				
 				
-				output_fold_type = "%output";
-				
+				output_fold_type = "%output";				
 			
-			}catch(Throwable e) 
+			}
+			catch(Throwable e) 
 			{
 				if(e instanceof ubc.cs.JLog.Parser.SyntaxErrorException)
 				{
@@ -1684,7 +1684,7 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 				output_fold_type = "%error ";
 			}
 			
-			safeBuffer = true;
+			saveBuffer = true;
 					
 		}//end if }}}
 
