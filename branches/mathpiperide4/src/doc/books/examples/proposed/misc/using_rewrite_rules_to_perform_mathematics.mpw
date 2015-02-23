@@ -1,4 +1,4 @@
-Using Rewrite Rules To Perform Mathematics. v1.03.
+Using Rewrite Rules To Perform Mathematics. v1.04.
 
 This is an introductory level explanation of how a computer algebra system (CAS)
 can be programmed to use the same techniques to solve a simple equation that a
@@ -11,14 +11,18 @@ predefined rules. However, MathPiper was specifically designed to enable users
 to easily create their own rules. The following example uses a rule (that 
 was obtained from from the above Wikipedia article) to transform the expression
 
-(x And? y) Or? z 
+(x_ And? y_) Or? z_ 
 
 into 
 
-(x Or? z) And? (y Or? z)
+(x_ Or? z_) And? (y_ Or? z_)
 
-In>   (x And? y) Or? z  /: {(_a And? _b) Or? _c <- (a Or? c) And? (b Or? c)} 
-Result: (x Or? z) And? (y Or? z)
+In>   (x_ And? y_) Or? z_  /: [(a_ And? b_) Or? c_ <- (a Or? c) And? (b Or? c)]
+
+    %output,sequence="67",timestamp="2015-02-23 00:16:54.397",preserve="false"
+      Result: (x_ Or? z_) And? (y_ Or? z_)
+.   %/output
+
 
 /: is MathPiper's local rules operator. It takes the expression that is on its
 left side and tries to match it to the list of rules that is on its right side
@@ -26,8 +30,11 @@ left side and tries to match it to the list of rules that is on its right side
 If it finds a match, the result of the transformation is returned. If it does
 not find a match, the original expression is returned:
 
-In>   x And? y  /: {(_a And? _b) Or? _c <- (a Or? c) And? (b Or? c)} 
-Result: x And? y
+In>   x_ And? y_  /: [(a_ And? b_) Or? c_ <- (a Or? c) And? (b Or? c)]
+
+    %output,sequence="69",timestamp="2015-02-23 00:18:22.014",preserve="false"
+      Result: x_ And? y_
+.   %/output
 
 
 //==============================================================================
@@ -39,43 +46,66 @@ expressions:
 %mathpiper
 
 SimpLogic(expression) :=
-[
+{
     expression /: 
-      {
+      [
         //Double negative elimination.
-        Not? Not? _a <- a, 
+        Not? Not? a_ <- a, 
         
         //DeMorgan's laws.
-        Not?(_a And? _b) <- Not? a Or? Not? b,
-        Not?(_a Or? _b) <- Not? a And? Not? b,
+        Not?(a_ And? b_) <- Not? a Or? Not? b,
+        Not?(a_ Or? b_) <- Not? a And? Not? b,
         
         //Distributivity.
-        (_a And? _b) Or? _c <- (a Or? c) And? (b Or? c),
-        (_a Or? _b) And? _c <- (a And? c) Or? (b And? c)
-      };
-];
+        (a_ And? b_) Or? c_ <- (a Or? c) And? (b Or? c),
+        (a_ Or? b_) And? c_ <- (a And? c) Or? (b And? c)
+      ];
+};
 
 %/mathpiper
 
-    %output,preserve="false"
+    %output,sequence="70",timestamp="2015-02-23 00:19:44.911",preserve="false"
       Result: True
 .   %/output
 
 
-In> SimpLogic(Not? Not? x)
-Result: x
+In> SimpLogic(Not? Not? x_)
 
-In> SimpLogic( Not? (x And? y))
-Result: Not? x Or? Not? y
+    %output,sequence="71",timestamp="2015-02-23 00:19:54.773",preserve="false"
+      Result: x_
+.   %/output
 
-In> SimpLogic( Not? (x Or? y))
-Result: Not? x And? Not? y
 
-In> SimpLogic( (x And? y) Or? z )
-Result: (x Or? z) And? (y Or? z)
+In> SimpLogic( Not? (x_ And? y_))
 
-In> SimpLogic( (x Or? y) And? z)
-Result: x And? z Or? y And? z
+    %output,sequence="72",timestamp="2015-02-23 00:20:10.141",preserve="false"
+      Result: Not?  x_ Or?  Not?  y_
+.   %/output
+
+
+
+In> SimpLogic( Not? (x_ Or? y_))
+
+    %output,sequence="73",timestamp="2015-02-23 00:20:30.881",preserve="false"
+      Result: Not?  x_ And?  Not?  y_
+.   %/output
+
+
+
+In> SimpLogic( (x_ And? y_) Or? z_)
+
+    %output,sequence="74",timestamp="2015-02-23 00:20:54.16",preserve="false"
+      Result: (x_ Or? z_) And? (y_ Or? z_)
+.   %/output
+
+
+
+In> SimpLogic( (x_ Or? y_) And? z_)
+
+    %output,sequence="75",timestamp="2015-02-23 00:21:10.358",preserve="false"
+      Result: x_ And? z_ Or? y_ And? z_
+.   %/output
+
 
 
 //==============================================================================
@@ -86,11 +116,19 @@ simple or relatively complex. The following example shows how a rule that
 embodies the distributive law of multiplication over addition can match a simple
 subexpression such as 3 or a more complex one such as (a - b):
 
-In> 3*(w + x) /: { _a*(_b + _c) <- a*b + a*c }
-Result: 3*w+3*x
+In> 3*(w_ + x_) /: [ a_*(b_ + c_) <- a*b + a*c ]
 
-In> (w - x)*(y + z) /: { _a*(_b + _c) <- a*b + a*c }
-Result: (w-x)*y+(w-x)*z
+    %output,sequence="76",timestamp="2015-02-23 00:21:54.89",preserve="false"
+      Result: 3 * w_ + 3 * x_
+.   %/output
+
+
+In> (w_ - x_)*(y_ + z_) /: [ a_*(b_ + c_) <- a*b + a*c ]
+
+    %output,sequence="78",timestamp="2015-02-23 00:22:30.793",preserve="false"
+      Result: (w_-x_) * y_ + (w_-x_) * z_
+.   %/output
+
 
 
 //=============================================================================
@@ -120,8 +158,8 @@ Here are the rules that were used to solve the example problem:
 
 
 Isolax(side, equation) :=
-[
-    side : equation /: {
+{
+    side : equation /: [
     
      1: -$ _lhs == _rhs <- {lhs == -$ rhs},
      
@@ -140,8 +178,8 @@ Isolax(side, equation) :=
      1: _term1 ^$ _term2 == _rhs <- {term1 == rhs^$(1/$term2)},
     //"Exponentiation2" # 2 : _term1 ^ _term2 == _rhs <- term2 == Log(rhs)//Log(base(term1), rhs)
                       
-    };                 
-];
+    ];                 
+};
 
 
 Note: these rules were obtained from the PRESS Prolog-based CAS.
