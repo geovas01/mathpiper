@@ -1,178 +1,8 @@
-/*
-  v.003
-  
-  To assemble the code in any uasm65 fold, simply place the cursor
-  inside of the fold and press <shift><enter>.
-  
-  To automatically load a program into the U6502 plugin, assemble the
-  program then press <shift><enter> in the s19 fold that is produced.
-  
-  Note: these progams may not exactly match the examples in the 
-  "Professor and Pat" books.
-*/
+\%uasm65,title="Sum 10."
 
-
-%uasm65,description="Example 1"
-	org 0200h
-	
-	lda #10d
-	adc #5d
-	sta 0208h
-	brk
-	
-	end
-%/uasm65
-
-
-
-
-
-%uasm65,title=""
-
-;Program Name: blink.asm.
+;Program Name: sum10.
 ;
-;Version: 1.1.
-;
-;Description: The purpose of this program is to blink
-; the lights on and off continuously.
-;
-
-;**************************************
-;      Program entry point.
-;**************************************
-	org 0200h
-
-Main:
-;Turn all the lights on and then waste some time
-; so that the user can see the lights on.
-	lda #11111111b
-	sta 0a200h
-	jsr delay
-	
-;Turn all the lights off and then waste some time
-; so that the user can see the lights off.
-	lda #00000000b
-	sta 0a200h
-	jsr delay
-	
-	jmp Main
-	
-;Exit the program.
-	brk
-	
-	
-;**************************************
-;        Subroutines area.
-;**************************************
-
-;**************************************
-;Delay subroutine.
-;
-;The purpose of this subroutine is to generate
-; a delay so that the rate of the blinking
-; can be controlled.
-;
-;Change the number that is being loaded into
-; the 'A' register to change the delay time.
-;**************************************
-Delay:
-;Save registers on the stack.
-	pha
-	txa
-	pha
-	tya
-	pha
-	
-;Change the number that is being loaded into the
-; 'A' register in order to change the delay time.
-	lda #01h
-	
-OutLoop:
-	ldx #0ffh
-	
-InLoop1:
-	ldy #0ffh
-	
-InLoop2:
-	dey
-	bne InLoop2
-	
-	dex
-	bne InLoop1
-	
-	sec
-	sbc #1d
-	bne OutLoop
-	
-;Restore registers from the stack.
-	pla
-	tay
-	pla
-	tax
-	pla
-
-	rts
-
-;**************************************
-;        Variables area.
-;**************************************
-
-	end
-	
-
-%/uasm65
-
-
-
-
-
-%uasm65,description="Garage example."
-        org 0200h
-
-        lda garage_width
-        adc #1d
-        sta garage_width
-
-        lda garage_length
-        adc #1d
-        sta garage_length
-        brk
-        
-garage_width: dbt 9d
-garage_length: dbt 8d
-        
-        end
-
-%/uasm65
-
-
-
-
-
-%uasm65,description="Add with carry."
-	org 0200h
-	
-	lda number1
-	clc
-	adc number2
-	
-	brk
-    
-number1: dbt 11111111b
-number2: dbt 00000001b
-	
-	end
-
-%/uasm65
-
-
-
-
-
-%uasm65,description="sum10.asm"
-;Program Name: sum10
-;
-;Version: 1.02
+;Version: 1.04
 ;
 ;Description: In this program, the sum of the 
 ; numbers between 1 and 10 inclusive will be 
@@ -224,21 +54,20 @@ sum:	dbt 0d
 count: 	dbt 0d
 	
 	end
-    
+
 %/uasm65
 
 
 
 
 
+%uasm65,title="Find the largest integer."
 
-
-%uasm65,description=""
-;Program Name: largest
+;Program Name: largest.
 ;
-;Version: 1.0.
+;Version: 1.02.
 ;
-;Description: Find the largest number in a list 
+;Description: Find the largest number in a list
 ; of 100 numbers.
 ;
 ;Assumptions: The numbers in the list will be no 
@@ -304,18 +133,19 @@ CheckListEnd:
 
 ;Holds the largest number 
 ; encountered so far in the list.
-; ( Notice that variables can
+; (Notice that variables can
 ; be initialized here instead of
-; in the code as an option ).
+; in the code as an option).
 largest: dbt 0d
 
 
 ;This list contains 100 numbers ranging from 0
 ; to 255.
-list:	dbt 59d,61d,37d,128d,71d,150d,195d,130d,69d,84d
+list:	
+	dbt 59d,61d,37d,128d,71d,150d,195d,130d,69d,84d     
 	dbt 171d,227d,99d,214d,233d,136d,80d,253d,242d
 	dbt 112d,221d,151d,101d,117d,76d,226d,174d,205d
-	dbt 84d,78d,139d,89d,195d,243d,69d,128d,217d,215d
+    dbt 84d,78d,139d,89d,195d,243d,69d,128d,217d,215d
 	dbt 57d,100d,227d,226d,233d,238d,229d,228d,135d
 	dbt 140d,98d,211d,245d,120d,206d,198d,47d,191d
 	dbt 239d,27d,236d,12d,242d,148d,98d,11d,38d,189d
@@ -323,35 +153,38 @@ list:	dbt 59d,61d,37d,128d,71d,150d,195d,130d,69d,84d
 	dbt 178d,123d,125d,123d,10d,166d,123d,135d,220d
 	dbt 193d,46d,248d,222d,63d,206d,197d,101d,144d
 	dbt 201d,233d,12d,241d,85d,180d,29d
-	
-	end
 
+	end
 %/uasm65
 
 
 
 
 
-%uasm65,description=""
-;Program Name: copy
+%uasm65,title="Copy integers."
+
+;Program Name: copy.
 ;
-;Version: 1.0.
+;Version: 1.03.
 ;
-;Description: Copy the contents of list1 to list2.
+;Description: Copy the contents of nums1 to nums2.
+;
+;Assumptions: The numbers will be no 
+; lower than 0 and no higher than 255.
 
 
 ;**************************************
 ;Program entry point.
 	org 0200h
 
-;The X register will be used to point to each number in both list1 and list2.
+;The X register will be used to point to each number in both nums1 and nums2.
 	ldx #0d
 	
 
-;Copy the 10 bytes from list1 to list2.
+;Copy the 10 bytes from nums1 to nums2.
 LoopTop:
-	lda list1,x
-	sta list2,x
+	lda nums1,x
+	sta nums2,x
 	
 	inx
 	
@@ -367,15 +200,15 @@ LoopTop:
 ;**************************************
 ;Variables area.
 
-;This list contains 10 bytes.
-list1:	dbt 41h,42h,43h,44h,45h,46h,47h,44h,49h,4ah
+;Place 10 bytes in memory.
+nums1:	dbt 41h,42h,43h,44h,45h,46h,47h,48h,49h,4ah
 
-;This byte is placed here to make it easier to see the contents of list1
-;and list2 when they are dumped in the monitor.
-	dbt 0d
+;This byte is placed here to make it easier to see the contents of nums1
+;and nums2 when they are dumped in the monitor.
+	dbt "#"
 
 ;Set aside 10 memory locations and initialize each one to 0d. 
-list2:	dbt 10d(0d)
+nums2:	dbt 10d(0d)
 
 	end
 
@@ -385,16 +218,14 @@ list2:	dbt 10d(0d)
 
 
 
-%uasm65,description=""
-;Program Name: scan
+%uasm65,title="Scan memory for capital A's."
+
+;Program Name: scan.
 ;
-;Version: 1.0.
+;Version: 1.02.
 ;
-;Description: Scan list1 and determine how many capital A's and lower case
+;Description: Scan string1 and determine how many capital A's and lower case
 ; a's it contains.
-;
-;Assumptions: The numbers in the list will be no 
-; lower than 0 and no higher than 255.
 
 
 ;**************************************
@@ -444,8 +275,10 @@ LowerCaseCount: dbt 0d
 UpperCaseCount: dbt 0d
 
 ;This list contains a string of ASCII characters.
-string1:	dbt "A bird in the hand is worth two in the bush.  Early to bed and "
-	dbt "early to rise makes a person healthy, wealthy, and wise", dbt 0d
+string1:
+	dbt "A bird in the hand is worth two in the bush.  Early to bed and "
+	dbt "early to rise makes a person healthy, wealthy, and wise."
+	dbt 0d
 
 	end
 
@@ -455,10 +288,11 @@ string1:	dbt "A bird in the hand is worth two in the bush.  Early to bed and "
 
 
 
-%uasm65,description=""
-;Program Name: alpha
+%uasm65,title="Generate letters."
+
+;Program Name: alpha.
 ;
-;Version: 1.01.
+;Version: 1.03.
 ;
 ;Description: Place capital A's in the first 10 bytes of alphaList, capital B's
 ; in the second 10 bytes of alphalist and so on until alphaList is filled
@@ -516,12 +350,96 @@ EndOfList:
 ;**************************************
 ;Variables area.
 
-rowCount: 	dbt 0d
-columnCount: 	dbt 0d
-alphalist: 	dbt 100d(?)
+rowCount: 	 dbt 0d
+columnCount: dbt 0d
+alphalist: 	 dbt 100d(?)
 
 	end
 
 %/uasm65
 
 
+
+
+
+%uasm65,title="Sum integers that are in memory."
+
+;Program Name: sumlist.
+;
+;Version: 1.02.
+;
+;Description: Calculate the sum of the numbers that are in numberlist.
+;
+;Assumptions: The numbers in the list will be no 
+; lower than 0 and no higher than 255.
+
+
+;**************************************
+;Program entry point.
+	org 0200h
+
+;The X register will be used as a pointer.
+	ldx #0d
+	
+;Initialize the 16 bit wide variable "sum" to 0.  Note: 8 bits is called a 
+; "byte" and 16 bits is called a "word".  sum+0d accesses the high byte of sum
+; and sum+1d accesses the low byte of sum.
+	lda #0d
+	sta sum+0d
+	sta sum+1d
+
+LoopTop:
+;Obtain the next number from the list.
+	lda numberList,x
+
+;Add the number to the low byte of sum and then place the result back into
+; the low byte of sum.
+	clc
+	adc sum+1d
+	sta sum+1d
+	
+;If the carry flag was set during the addition, this means that the addition 
+; resulted in a value that was greater than 255 and the high byte of sum needs
+; to be incremented by 1.  If the result was 255 or less, the carry would not
+; be set and we can branch around the increment of the high byte of sum.
+	bcc NoCarry
+Carry:
+	inc sum+0d
+	
+NoCarry:
+;Point to the next number in the list and loop back if we have not reached
+; the end of the list.
+	inx
+	cpx #100d
+	bne LoopTop
+	
+;Exit the program.
+	brk
+
+
+;**************************************
+;Variables area.
+
+;DWD stands for Define Word and it creates a variable that is 16 bits wide.
+; Sum needs to be 16 bits wide because the sum of the numbers in numberList
+; will be greater than 255 (which is the largest number that can be held in
+; an 8 bit byte).
+sum: dwd ?
+
+;This list contains 100 numbers ranging from 0 to 255.
+numberList:
+	dbt 59d,61d,37d,128d,71d,150d,195d,130d,69d,84d
+	dbt 171d,227d,99d,214d,233d,136d,80d,253d,242d
+	dbt 112d,221d,151d,101d,117d,76d,226d,174d,205d
+	dbt 84d,78d,139d,89d,195d,243d,69d,128d,217d,215d
+	dbt 57d,100d,227d,226d,233d,238d,229d,228d,135d
+	dbt 140d,98d,211d,245d,120d,206d,198d,47d,191d
+	dbt 239d,27d,236d,12d,242d,148d,98d,11d,38d,189d
+	dbt 238d,225d,142d,214d,214d,21d,75d,17d,190d
+	dbt 178d,123d,125d,123d,10d,166d,123d,135d,220d
+	dbt 193d,46d,248d,222d,63d,206d,197d,101d,144d
+	dbt 201d,233d,12d,241d,85d,180d,29d
+
+	end
+
+%/uasm65
