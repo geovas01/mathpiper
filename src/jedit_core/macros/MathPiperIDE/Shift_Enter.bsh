@@ -2860,6 +2860,7 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 								
 								if(textArea.getLineText(i).startsWith("In>"))
 								{
+									isLastFold = false;
 									inPromptLine = i;
 									break;
 								}
@@ -2900,37 +2901,49 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 						}
 						else
 						{
-							textArea.goToNextFold(false);
 							
-							originalFoldType = foldType;
-							nextFoldProperties = getFoldProperties(textArea.getCaretLine());
-							
-							if(nextFoldProperties.get("preserve").equalsIgnoreCase("false"))//Delete next fold if set to preserve="false".
-							{
-								textArea.selectFold();
-								beforeNewlines = afterNewlines = "";
-								//textArea.setSelectedText("");
-								//textArea.deleteLine();
-								//textArea.deleteLine();
-							}//end if.
-							else if(nextFoldProperties.get("preserve").equalsIgnoreCase("true"))
-							{
+							if(foldType.equalsIgnoreCase("%In>") && inPromptLine != -1)
+							{						
 								afterFoldIndex = textArea.getLineStartOffset(foldEndLine+1);
 								textArea.setCaretPosition(afterFoldIndex);
 								textArea.insert(" ",false);
 								rangeSelection = new Range(afterFoldIndex,afterFoldIndex+1);
 								textArea.setSelection(rangeSelection);
 								beforeNewlines = "\n";
+								afterNewlines = "\n\n";
+							}
+							else
+							{
+								textArea.goToNextFold(false);
 								
-								if(originalFoldType.equalsIgnoreCase("%In>") && inPromptLine == -1)
+								originalFoldType = foldType;
+								nextFoldProperties = getFoldProperties(textArea.getCaretLine());
+								
+								if(nextFoldProperties.get("preserve").equalsIgnoreCase("false"))//Delete next fold if set to preserve="false".
 								{
-									afterNewlines = "\n\n\n\nIn> ";
-								}
-								else
+									textArea.selectFold();
+									beforeNewlines = afterNewlines = "";
+								}//end if.
+								else if(nextFoldProperties.get("preserve").equalsIgnoreCase("true"))
 								{
-									afterNewlines = "\n\n";
+									afterFoldIndex = textArea.getLineStartOffset(foldEndLine+1);
+									textArea.setCaretPosition(afterFoldIndex);
+									textArea.insert(" ",false);
+									rangeSelection = new Range(afterFoldIndex,afterFoldIndex+1);
+									textArea.setSelection(rangeSelection);
+									beforeNewlines = "\n";
+									
+									if(originalFoldType.equalsIgnoreCase("%In>"))
+									{
+										afterNewlines = "\n\n\n\nIn> \n";
+									}
+									else
+									{
+										afterNewlines = "\n\n";
+									}
 								}
 							}
+
 						}//end if/else.
 				
 						
@@ -2999,6 +3012,10 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 						if(! afterNewlines.contains("In>"))
 						{
 							textArea.setCaretPosition(currentCaretPosition);
+						}
+						else
+						{
+							textArea.setCaretPosition(textArea.getCaretPosition()-1);
 						}
 						
 						if(collapseFold.equalsIgnoreCase("true"))
