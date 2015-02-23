@@ -1,4 +1,4 @@
-                                                                                                                          // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
+// :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 //Copyright (C) 2008 Ted Kosan
 /* {{{ License.
  * This program is free software; you can redistribute it and/or
@@ -411,7 +411,7 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 	else
 	{
 		//buffer.setMode("mathpiperide");
-		currentCaretPosition = textArea.getCaretPosition();
+		currentCaretPosition = textArea.getCaretPosition(); // Todo:tk.
 		
 		//userSelection = textArea.getSelection();
 		
@@ -681,6 +681,23 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 			lineText = lineText.replace("\"","\\\"");
 			
 			//System.out.println(lineText);
+			
+			if(getFoldProperties(-1).get("log").equalsIgnoreCase("true"))
+			{	
+				try
+				{
+					logFilePath = path + ".mpwlog";
+					outputURI = new java.net.URI("file:///" + logFilePath.replaceAll(" ", "%20").replaceAll("\\\\","/"));  									  
+					File logFile = new File(logFilePath);
+					BufferedWriter logFileWriter = new BufferedWriter(new FileWriter(logFile,true));
+					logFileWriter.write("%info" + "," + "parentFoldType=\"In>\",sequence=\"" + mpwExecutionCount + "\",timestamp=\"" + timestamp + "\",username=\"" +  System.getProperty("user.name")  + "\",hostname=\"" +  InetAddress.getLocalHost().getHostName() + "\",hostaddresses=\"" +  getHostAddresses() +  "\",mpversion=\"" + org.mathpiper.Version.version() + "\"\n" + lineText + "\n" + "%/info" + "\n\n");
+					logFileWriter.close();
+				}
+				catch(Exception e)
+				{
+					e.printStackTrace();;
+				}
+			}
 			
 			synchronousInterpreter = org.mathpiper.interpreters.Interpreters.getSynchronousInterpreter();
 			
@@ -2828,20 +2845,31 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 						textArea.setSelection(null);
 						
 						boolean isLastFold = true;
+						inPromptLine = -1;
 						buffer = textArea.getBuffer();
 						lineCount = buffer.getLineCount();
-						for(int i = foldEndLine; i < lineCount; i++)
+						if(foldEndLine + 1 < lineCount)
 						{
-							if(buffer.isFoldStart(i))
+							for(int i = foldEndLine+1; i < lineCount; i++)
 							{
-								isLastFold = false;
-								break;
-							}//end if.
-						}//end for.
+								if(buffer.isFoldStart(i))
+								{
+									isLastFold = false;
+									break;
+								}//end if.
+								
+								if(textArea.getLineText(i).startsWith("In>"))
+								{
+									inPromptLine = i;
+									break;
+								}
+
+							}//end for.
+						}
 						
 						if(isLastFold == true)
 						{
-							//System.out.println("XXXXX isLastFold == true: " + foldEndLine + ",   " + lineCount);return;
+							// System.out.println("XXXXX isLastFold == true: " + foldEndLine + ",   " + lineCount + ",  " + foldType);
 							if(foldEndLine == lineCount-1)
 							{
 								textArea.setCaretPosition(buffer.getLength());
@@ -2860,12 +2888,23 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 							rangeSelection = new Range(afterFoldIndex,afterFoldIndex+1);//(isolatedCodeEndIndex, codeEndIndex);
 							textArea.setSelection(rangeSelection);
 							beforeNewlines = "\n";
-							afterNewlines = "\n\n";
+							
+							if(foldType.equalsIgnoreCase("%In>"))
+							{
+								afterNewlines = "\n\n\n\nIn> ";
+							}
+							else
+							{
+								afterNewlines = "\n\n";
+							}
 						}
 						else
 						{
 							textArea.goToNextFold(false);
+							
+							originalFoldType = foldType;
 							nextFoldProperties = getFoldProperties(textArea.getCaretLine());
+							
 							if(nextFoldProperties.get("preserve").equalsIgnoreCase("false"))//Delete next fold if set to preserve="false".
 							{
 								textArea.selectFold();
@@ -2882,7 +2921,15 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 								rangeSelection = new Range(afterFoldIndex,afterFoldIndex+1);
 								textArea.setSelection(rangeSelection);
 								beforeNewlines = "\n";
-								afterNewlines = "\n\n";
+								
+								if(originalFoldType.equalsIgnoreCase("%In>") && inPromptLine == -1)
+								{
+									afterNewlines = "\n\n\n\nIn> ";
+								}
+								else
+								{
+									afterNewlines = "\n\n";
+								}
 							}
 						}//end if/else.
 				
@@ -2948,35 +2995,17 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 						}
 						
 						textArea.setSelectedText(beforeNewlines + indentAmount + output_fold_type + "," + parentProperty + "sequence=\"" + mpwExecutionCount + "\",timestamp=\"" + timestamp + "\",preserve=\"" +  preserveProperty  + "\"\n" + result + "\n" + indentAmountPeriod + "%/" + output_fold_type.substring(1,output_fold_type.length() ) + afterNewlines, false);
-						
-						//textArea.setSelection(null);
-						//("\n\n     " + output_fold_type + "\n      "+ result + "\n     %end\n",false);
-				 
-						/*//If fold type was blank, set it to the default fold type.
-						if(foldStartSelection != null)
+
+						if(! afterNewlines.contains("In>"))
 						{
-							textArea.setSelection(foldStartSelection);
-							line = textArea.getSelectedText();
-							line = line.replaceFirst("\\{\\{\\{", "\u007b\u007b\u007b" + defaultFoldType);
-							textArea.setSelectedText(line);
-							textArea.setSelection(null);
-						}//end if
-						  */
-						
-						textArea.setCaretPosition(currentCaretPosition);
+							textArea.setCaretPosition(currentCaretPosition);
+						}
 						
 						if(collapseFold.equalsIgnoreCase("true"))
 						{
 							textArea.collapseFold();
 						}//end if.
 						
-						
-						/*
-						if(userSelection.length != 0)
-						{
-						   textArea.setSelection(userSelection);
-						}
-						*/
 
 						Thread t = new Thread()
 						{
