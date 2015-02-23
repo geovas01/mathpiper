@@ -19,8 +19,6 @@
 
 void insert_in_prompt()
 {
-	
-	//Test for read only files.
 	if(buffer.isReadOnly())
 	{
 		Macros.error(view, "This file is read only.");
@@ -30,11 +28,9 @@ void insert_in_prompt()
 	
 	offset = textArea.getLineStartOffset(line);
     
-	text = "In> \n\n    %output,preserve=\"false\"\n.   %/output\n";
+	text = "In> ";
 
 	buffer.insert(offset, text);
-	
-    textArea.setCaretPosition(offset + 4);
 }
 
 insert_in_prompt();
