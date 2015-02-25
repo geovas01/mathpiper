@@ -1,4 +1,175 @@
-\%uasm65,title="Sum 10."
+/*
+v.004
+
+To assemble the code in any uasm65 fold, simply place the cursor
+inside of the fold and press <shift><enter>.
+
+To automatically load a program into the U6502 plugin, assemble the
+program then press <shift><enter> in the s19 fold that is produced.
+
+Note: these progams may not exactly match the examples in the
+"Professor and Pat" books.
+*/
+
+
+%uasm65,description="Example 1"
+	org 0200h
+	
+	lda #10d
+	adc #5d
+	sta 0208h
+	brk
+	
+	end
+%/uasm65
+
+
+
+
+
+%uasm65,title=""
+
+;Program Name: blink.asm.
+;
+;Version: 1.1.
+;
+;Description: The purpose of this program is to blink
+; the lights on and off continuously.
+;
+
+;**************************************
+;      Program entry point.
+;**************************************
+	org 0200h
+
+Main:
+;Turn all the lights on and then waste some time
+; so that the user can see the lights on.
+	lda #11111111b
+	sta 0a200h
+	jsr delay
+	
+;Turn all the lights off and then waste some time
+; so that the user can see the lights off.
+	lda #00000000b
+	sta 0a200h
+	jsr delay
+	
+	jmp Main
+	
+;Exit the program.
+	brk
+	
+	
+;**************************************
+;        Subroutines area.
+;**************************************
+
+;**************************************
+;Delay subroutine.
+;
+;The purpose of this subroutine is to generate
+; a delay so that the rate of the blinking
+; can be controlled.
+;
+;Change the number that is being loaded into
+; the 'A' register to change the delay time.
+;**************************************
+Delay:
+;Save registers on the stack.
+	pha
+	txa
+	pha
+	tya
+	pha
+	
+;Change the number that is being loaded into the
+; 'A' register in order to change the delay time.
+	lda #01h
+	
+OutLoop:
+	ldx #0ffh
+	
+InLoop1:
+	ldy #0ffh
+	
+InLoop2:
+	dey
+	bne InLoop2
+	
+	dex
+	bne InLoop1
+	
+	sec
+	sbc #1d
+	bne OutLoop
+	
+;Restore registers from the stack.
+	pla
+	tay
+	pla
+	tax
+	pla
+
+	rts
+
+;**************************************
+;        Variables area.
+;**************************************
+
+	end
+	
+
+%/uasm65
+
+
+
+
+
+%uasm65,description="Garage example."
+        org 0200h
+
+        lda garage_width
+        adc #1d
+        sta garage_width
+
+        lda garage_length
+        adc #1d
+        sta garage_length
+        brk
+        
+garage_width: dbt 9d
+garage_length: dbt 8d
+        
+        end
+
+%/uasm65
+
+                      
+
+
+
+%uasm65,description="Add with carry."
+	org 0200h
+	
+	lda number1
+	clc
+	adc number2
+	
+	brk
+    
+number1: dbt 11111111b
+number2: dbt 00000001b
+	
+	end
+
+%/uasm65
+
+
+
+
+
+%uasm65,title="Sum 10."
 
 ;Program Name: sum10.
 ;
