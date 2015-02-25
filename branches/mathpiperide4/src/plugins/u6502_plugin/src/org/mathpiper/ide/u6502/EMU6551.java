@@ -161,6 +161,8 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 
 		Box guiBox = new Box(BoxLayout.Y_AXIS);
 		typeArea = new JTextArea(30,20);
+		// javax.swing.text.DefaultCaret caret = (javax.swing.text.DefaultCaret) typeArea.getCaret();
+		// caret.setUpdatePolicy(javax.swing.text.DefaultCaret.NEVER_UPDATE);
 
 		java.io.InputStream inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathpiper.ide.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/ttf-bitstream-vera-1.10/VeraMono.ttf" );
 		try
@@ -232,8 +234,6 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 		registers[1] = 0x10;
 		buffer = new CircularBuffer();
 
-
-
 		this.setLayout(new BorderLayout());
 
 		//keySendQueue = new java.util.concurrent.ArrayBlockingQueue(30);
@@ -245,37 +245,37 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 
 		//java.io.InputStream inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathpiper.ide.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/ttf-bitstream-vera-1.10/VeraMono.ttf" );
 
-			//bitstreamVera = Font.createFont (Font.TRUETYPE_FONT, inputStream);
-			//bitstreamVera = bitstreamVera.deriveFont(fontSize);
-			//typeArea.setFont(bitstreamVera);
+		//bitstreamVera = Font.createFont (Font.TRUETYPE_FONT, inputStream);
+		//bitstreamVera = bitstreamVera.deriveFont(fontSize);
+		//typeArea.setFont(bitstreamVera);
 
 
-			typeArea.addKeyListener(this);
-			typePane = new JScrollPane(typeArea);
-			guiBox.add(typePane);
+		typeArea.addKeyListener(this);
+		typePane = new JScrollPane(typeArea);
+		guiBox.add(typePane);
 
-			Box ioBox = new Box(BoxLayout.Y_AXIS);
+		Box ioBox = new Box(BoxLayout.Y_AXIS);
 
-			button1 = new JButton("Reset");
-			//button1.setBackground(Color.green);
-			button1.addActionListener(this);
-			buttons.add(button1);
-			button2 = new JButton("Font--");
-			button2.addActionListener(this);
-			buttons.add(button2);
-			button3 = new JButton("Font++");
-			button3.addActionListener(this);
-			buttons.add(button3);
+		button1 = new JButton("Reset");
+		//button1.setBackground(Color.green);
+		button1.addActionListener(this);
+		buttons.add(button1);
+		button2 = new JButton("Font--");
+		button2.addActionListener(this);
+		buttons.add(button2);
+		button3 = new JButton("Font++");
+		button3.addActionListener(this);
+		buttons.add(button3);
 
-			ioBox.add(buttons);
-			
+		ioBox.add(buttons);
+		
 
-			this.add(ioBox,BorderLayout.NORTH);
-			//this.add((JPanel)ioChips[1],BorderLayout.SOUTH);
-			this.add(guiBox,BorderLayout.CENTER);
+		this.add(ioBox,BorderLayout.NORTH);
+		//this.add((JPanel)ioChips[1],BorderLayout.SOUTH);
+		this.add(guiBox,BorderLayout.CENTER);
 
 
-			ioChips = new IOChip[16];
+		ioChips = new IOChip[16];
 		ioChips[0] = this;//A000.
 		ioChips[1] = new EMURandomIOChip();
 		ioChips[2] = new EMURandomIOChip();
@@ -293,7 +293,7 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 		ioChips[14] = new EMURandomIOChip();
 		ioChips[15] = new EMURandomIOChip();
 
-			emulator = new EMU6502(ioChips);
+		emulator = new EMU6502(ioChips);
 		
 
 
@@ -476,7 +476,16 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 			typedKey[0] = (char)value;
 			typeArea.append(new String(typedKey));
 			typeArea.setCaretPosition( typeArea.getDocument().getLength() );
-
+			
+			// javax.swing.JScrollBar horizontalScrollBar = typePane.getHorizontalScrollBar();
+			// horizontalScrollBar.setValue(horizontalScrollBar.getMinimum());
+			
+			javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			  public void run() {
+				 javax.swing.JScrollBar horizontalScrollBar = typePane.getHorizontalScrollBar();
+				 horizontalScrollBar.setValue(horizontalScrollBar.getMinimum());
+			  }
+		   });
 		}
 		registers[location] = value;
 
@@ -531,10 +540,26 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 		
 		typeArea.append(text);
 		typeArea.setCaretPosition( typeArea.getDocument().getLength() );
+		
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+		  public void run() {
+			 javax.swing.JScrollBar horizontalScrollBar = typePane.getHorizontalScrollBar();
+			 horizontalScrollBar.setValue(horizontalScrollBar.getMinimum());
+		  }
+	   });
+		
+		// javax.swing.JScrollBar horizontalScrollBar = typePane.getHorizontalScrollBar();
+		// horizontalScrollBar.setValue(horizontalScrollBar.getMinimum());
 			
 		setReceiveDataRegisterFull(true);
 		
    }//end method.
+   
+   
+	public Object[] getMemory()
+	{
+		return emulator.getMemory();
+	}
 	
 	
 	public static void main(String[] args)
