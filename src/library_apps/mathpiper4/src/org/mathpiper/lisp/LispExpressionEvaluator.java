@@ -242,7 +242,7 @@ public class LispExpressionEvaluator extends Evaluator {
                                     throw new EvaluationException("Evaluate", ee.getMessage(), ee.getFileName(), (Integer) map.get("lineNumber"), (Integer) (Integer) map.get("startIndex"), (Integer) map.get("endIndex"), null, (String) map.get("sourceName"));
                                 }
                             } else {
-                                throw new EvaluationException("Evaluate", e.getMessage(), aEnvironment.getCurrentInput().iStatus.getSourceName(), (Integer) map.get("lineNumber"), (Integer) map.get("startIndex"), (Integer) map.get("endIndex"), null, (String) map.get("sourceName"));
+                                throw new EvaluationException("Evaluate", e.getClass().getName() + ": " + e.getMessage() + ".", aEnvironment.getCurrentInput().iStatus.getSourceName(), (Integer) map.get("lineNumber"), (Integer) map.get("startIndex"), (Integer) map.get("endIndex"), null, (String) map.get("sourceName"));
                             }
                         }
 
