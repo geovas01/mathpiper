@@ -2252,7 +2252,6 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 			}
 			
 
-			
 			try 
 			{   
 				results = asm.assemble(codeText + "\n"); //Add newline to prevent no CR after END error.
@@ -2267,9 +2266,12 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 					//result = result + "*** Symbol table ***\n\n" + symbolTable + "\n\n";
 					s19 = s19.substring(0,s19.length()-1);
 					s19 = s19.replaceAll("\n","\n\t");
-					listFile = "\n\n*** List file ***\n" + lst_or_error + "\n\n";
-					s19File =  "*** Executable code ***\n\n"+ "%s19,descrption=\"Execute this fold to send program to U6502 monitor.\",preserve=\"false\"\n\t" + s19 + "\n%/s19";
-					result = s19File + listFile;
+					listFile = "\n\n*** List File ***\n" + lst_or_error;
+					s19File =  "*** Executable Code ***\n\n"+ "%s19,descrption=\"Execute this fold to send program to U6502 monitor.\",preserve=\"false\"\n\t" + s19 + "\n%/s19";
+					symbolTableFile = "\n\n*** Symbol Table ***\n" + symbolTable;
+					
+					
+					result = s19File + listFile + symbolTableFile;
 					
 					output_fold_type = "%output";
 				}
