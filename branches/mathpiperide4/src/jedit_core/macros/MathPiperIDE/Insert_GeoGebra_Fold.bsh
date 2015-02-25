@@ -17,7 +17,7 @@
  */ //}}}
 
 
-void insert_group_fold()
+void insert_geogebra_fold()
 {
 	
 	//Test for read only files.
@@ -37,4 +37,4 @@ void insert_group_fold()
     textArea.setCaretPosition(offset + 18);
 }
 
-insert_group_fold();
+insert_geogebra_fold();
