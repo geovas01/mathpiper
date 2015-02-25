@@ -179,150 +179,151 @@ public class EMU6502 implements Runnable
 
 
 	//cc == 01.
-	static final int ORA = 0;
-	static final int AND = 1;
-	static final int EOR = 2;
-	static final int ADC = 3;
-	static final int STA = 4;
-	static final int LDA = 5;
-	static final int CMP = 6;
-	static final int SBC = 7;
+	private static final int ORA = 0;
+	private static final int AND = 1;
+	private static final int EOR = 2;
+	private static final int ADC = 3;
+	private static final int STA = 4;
+	private static final int LDA = 5;
+	private static final int CMP = 6;
+	private static final int SBC = 7;
 
 	//Addressing modes 01.
-	static final int ZERO_PAGE_X_01 = 0;
-	static final int ZERO_PAGE_01 = 1;
-	static final int IMMEDIATE_01 = 2;
-	static final int ABSOLUTE_01 = 3;
-	static final int INDIRECT_Y_01 = 4;
-	static final int INDIRECT_X_01 = 5;
-	static final int ABSOLUTE_Y_01 = 6;
-	static final int ABSOLUTE_X_01 = 7;
+	private static final int ZERO_PAGE_X_01 = 0;
+	private static final int ZERO_PAGE_01 = 1;
+	private static final int IMMEDIATE_01 = 2;
+	private static final int ABSOLUTE_01 = 3;
+	private static final int INDIRECT_Y_01 = 4;
+	private static final int INDIRECT_X_01 = 5;
+	private static final int ABSOLUTE_Y_01 = 6;
+	private static final int ABSOLUTE_X_01 = 7;
 
 	//cc == 10.
-	static final int ASL = 0;
-	static final int ROL = 1;
-	static final int LSR = 2;
-	static final int ROR = 3;
-	static final int STX = 4;
-	static final int LDX = 5;
-	static final int DEC = 6;
-	static final int INC = 7;
+	private static final int ASL = 0;
+	private static final int ROL = 1;
+	private static final int LSR = 2;
+	private static final int ROR = 3;
+	private static final int STX = 4;
+	private static final int LDX = 5;
+	private static final int DEC = 6;
+	private static final int INC = 7;
 
-	static final int BRK = 0X00;
-	static final int JSR = 0X20;
-	static final int RTI = 0X40;
-	static final int RTS = 0X60;
-	static final int PHP = 0X08;
-	static final int PLP = 0X28;
-	static final int PHA = 0X48;
-	static final int PLA = 0X68;
-	static final int DEY = 0X88;
-	static final int TAY = 0XA8;
-	static final int INY = 0XC8;
-	static final int INX = 0XE8;
-	static final int CLC = 0X18;
-	static final int SEC = 0X38;
-	static final int CLI = 0X58;
-	static final int SEI = 0X78;
-	static final int TYA = 0X98;
-	static final int CLV = 0XB8;
-	static final int CLD = 0XD8;
-	static final int SED = 0XF8;
+	private static final int BRK = 0X00;
+	private static final int JSR = 0X20;
+	private static final int RTI = 0X40;
+	private static final int RTS = 0X60;
+	private static final int PHP = 0X08;
+	private static final int PLP = 0X28;
+	private static final int PHA = 0X48;
+	private static final int PLA = 0X68;
+	private static final int DEY = 0X88;
+	private static final int TAY = 0XA8;
+	private static final int INY = 0XC8;
+	private static final int INX = 0XE8;
+	private static final int CLC = 0X18;
+	private static final int SEC = 0X38;
+	private static final int CLI = 0X58;
+	private static final int SEI = 0X78;
+	private static final int TYA = 0X98;
+	private static final int CLV = 0XB8;
+	private static final int CLD = 0XD8;
+	private static final int SED = 0XF8;
 
-	static final int TXA = 0X8A;
-	static final int TXS = 0X9A;
-	static final int TAX = 0XAA;
-	static final int TSX = 0XBA;
-	static final int DEX = 0XCA;
-	static final int NOP = 0XEA;
+	private static final int TXA = 0X8A;
+	private static final int TXS = 0X9A;
+	private static final int TAX = 0XAA;
+	private static final int TSX = 0XBA;
+	private static final int DEX = 0XCA;
+	private static final int NOP = 0XEA;
 
 
 
 	//Addressing modes 10_00.
-	static final int IMMEDIATE_10_00 = 0;
-	static final int INDIRECT_10_00 = 1;
-	static final int ACCUMULATOR_10 = 2;
-	static final int ABSOLUTE_10_00 = 3;
-	static final int RELATIVE = 4;
-	static final int ZERO_PAGE_Y_10_00 = 5;
-	static final int ABSOLUTE_X_10_00 = 7;
+	private static final int IMMEDIATE_10_00 = 0;
+	private static final int INDIRECT_10_00 = 1;
+	private static final int ACCUMULATOR_10 = 2;
+	private static final int ABSOLUTE_10_00 = 3;
+	private static final int RELATIVE = 4;
+	private static final int ZERO_PAGE_Y_10_00 = 5;
+	private static final int ABSOLUTE_X_10_00 = 7;
 
 	//cc == 00.
-	static final int BIT = 1;
-	static final int JMP_ABS = 2;
-	static final int JMP_IND_ABS = 3;
-	static final int STY = 4;
-	static final int LDY = 5;
-	static final int CPY = 6;
-	static final int CPX = 7;
+	private static final int BIT = 1;
+	private static final int JMP_ABS = 2;
+	private static final int JMP_IND_ABS = 3;
+	private static final int STY = 4;
+	private static final int LDY = 5;
+	private static final int CPY = 6;
+	private static final int CPX = 7;
 
 	//Flags for branches.
-	static final int NEGATIVE = 0;
-	static final int OVERFLOW = 1;
-	static final int CARRY = 2;
-	static final int ZERO = 3;
+	private static final int NEGATIVE = 0;
+	private static final int OVERFLOW = 1;
+	private static final int CARRY = 2;
+	private static final int ZERO = 3;
 
 
-	public boolean runFlag;
-	public boolean haltFlag;
+	private boolean runFlag;
+	private boolean haltFlag;
 
 
-	public int cc;
-	public int bbb;
-	public int aaa;
-	public int pc;
-	public int a;
-	public int x;
-	public int y;
-	public int sp = 0x01ff;
-	public int ir;
+	private int cc;
+	private int bbb;
+	private int aaa;
+	private int pc;
+	private int a;
+	private int x;
+	private int y;
+	private int sp = 0x01ff;
+	private int ir;
 
-	public int n;	//Negative
-	public int v;	//Overflow
-	public int b;	//Break
-	public int d;	//Decimal (use BCD for arithmetics)
-	public int i;	//Interrupt (IRQ disable)
-	public int z;	//Zero
-	public int c;	//Carry
+	private int n;	//Negative
+	private int v;	//Overflow
+	private int b;	//Break
+	private int d;	//Decimal (use BCD for arithmetics)
+	private int i;	//Interrupt (IRQ disable)
+	private int z;	//Zero
+	private int c;	//Carry
 
-	public int ck_n;
-	public int ck_v;
-	public int ck_z;;
+	private int ck_n;
+	private int ck_v;
+	private int ck_z;;
 
-	public int operand1;
-	public int operand2;
+	private int operand1;
+	private int operand2;
 
-	public int[] ram;
-	public int[] rom;
-	public int[] randomMemory;
+	private int[] ram1;
+	private int[] ram2;
+	private int[] rom;
+	private int[] randomMemory;
 
-	public int resetVector;
-	public int interruptVector;
+	private int resetVector;
+	private int interruptVector;
 
-	public Object[] memory;
-	public IOChip[] ioChips;
+	private Object[] memory;
+	private IOChip[] ioChips;
 	IOChip uart;
 
-	public Object mem;
-	public int[] chip;
-	public int[] chip2;
-	public int[] chip3;
+	private Object mem;
+	private int[] chip;
+	private int[] chip2;
+	private int[] chip3;
 
-	public int block;
-	public int block2;
-	public int offset;
-	public int offset2;
-	public int oldOffset;
-	public int access;
+	private int block;
+	private int block2;
+	private int offset;
+	private int offset2;
+	private int oldOffset;
+	private int access;
 
-	public int tmp;
-	public int tmp2;
+	private int tmp;
+	private int tmp2;
 
 
-	public int bothNegativeFlag;
-	public int negativeLargerFlag;
-	public int accumulatorFlag;
-	public boolean singleByteInstructionFlag;
+	private int bothNegativeFlag;
+	private int negativeLargerFlag;
+	private int accumulatorFlag;
+	private boolean singleByteInstructionFlag;
 	
 	private int sleepCount = 1000;
 
@@ -348,7 +349,8 @@ public class EMU6502 implements Runnable
                     this.ioChips[0] = this.uart;
                 }
 
-		ram = new int[8192];
+		ram1 = new int[8192];
+		ram2 = new int[8192];
 		randomMemory = new int[8192];
 		//rom = new int[1000];
 		memory = new Object[8];
@@ -401,13 +403,13 @@ public class EMU6502 implements Runnable
 		haltFlag = false;
 
 		//Place chips into memory.
-		memory[0] = ram;
+		memory[0] = ram1;
 		memory[1] = randomMemory;
 		memory[2] = randomMemory;
 		memory[3] = randomMemory;
 		memory[4] = randomMemory;
-		memory[5] = new int[8192];
-		memory[6] = randomMemory;
+		memory[5] = randomMemory;
+		memory[6] = ram2;
 		memory[7] = rom;
 
 		resetVector = ((((int[])memory[7])[0x1ffc]) << 8) | (((int[])memory[7])[0x1ffd]);
@@ -1514,6 +1516,11 @@ public class EMU6502 implements Runnable
 	public void reset()
 	{
 		runFlag = false;
+	}
+	
+	public Object[] getMemory()
+	{
+		return memory;
 	}
 
 	public static void main(String[] args)
