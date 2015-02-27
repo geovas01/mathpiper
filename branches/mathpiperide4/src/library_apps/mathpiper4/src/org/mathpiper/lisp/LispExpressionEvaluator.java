@@ -255,19 +255,25 @@ public class LispExpressionEvaluator extends Evaluator {
                         aEnvironment.iEvalDepth--;
                         return result; 
 		    }
-		    Map metaDataMap = functionAndArgumentsList.getMetadataMap();
 
 		    int lineNumber = aEnvironment.getCurrentInput().iStatus.getLineNumber();
 		    int startIndex = -1;
 		    int endIndex = aEnvironment.getCurrentInput().iStatus.getLineIndex();
-
+                    
+                    String metaDataSourceName = null;
+                    Map metaDataMap = functionAndArgumentsList.getMetadataMap();
 		    if (metaDataMap != null) {
 			lineNumber = (Integer) metaDataMap.get("lineNumber");
 			startIndex = (Integer) metaDataMap.get("startIndex");
 			endIndex = (Integer) metaDataMap.get("endIndex");
+                        metaDataSourceName = (String) metaDataMap.get("sourceName");
 		    }
+                    
+                    String sourceName = metaDataSourceName != null? metaDataSourceName: aEnvironment.getCurrentInput().iStatus.getSourceName();
 
-		    LispError.raiseError("Problem with function ***(" + functionName + ")***, <wrong code: " + Utility.printLispExpression(-1, functionAndArgumentsList, aEnvironment, 50) + ">, <the " + (Utility.listLength(aEnvironment, aStackTop, functionAndArgumentsList) - 1) + " parameter version of this function is not defined (MAKE SURE THE FUNCTION IS SPELLED CORRECTLY).>", lineNumber, startIndex, endIndex, aStackTop, aEnvironment);
+		    // LispError.raiseError("Problem with function ***(" + functionName + ")***, <wrong code: " + Utility.printLispExpression(-1, functionAndArgumentsList, aEnvironment, 50) + ">, <the " + (Utility.listLength(aEnvironment, aStackTop, functionAndArgumentsList) - 1) + " parameter version of this function is not defined (MAKE SURE THE FUNCTION IS SPELLED CORRECTLY).>", lineNumber, startIndex, endIndex, aStackTop, aEnvironment);
+
+                    throw new EvaluationException("Evaluate", "Problem with function ***(" + functionName + ")***, <wrong code: " + Utility.printLispExpression(-1, functionAndArgumentsList, aEnvironment, 50) + ">, <the " + (Utility.listLength(aEnvironment, aStackTop, functionAndArgumentsList) - 1) + " parameter version of this function is not defined (MAKE SURE THE FUNCTION IS SPELLED CORRECTLY).>", aEnvironment.getCurrentInput().iStatus.getSourceName(), lineNumber, startIndex, endIndex, functionName, sourceName);
 
 		} else {
 		    // Pure function handler.  todo:tk:determine when this code is executed.
