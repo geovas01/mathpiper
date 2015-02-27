@@ -4,7 +4,7 @@ StringFromFile(path) :=
 {
 	Check(FileExists?(path), "", "The file <" ~ path ~ "> does not exist.");
 	
-	Local(path);
+	Local(path2);
 	
 	path2 := JavaCall("java.nio.file.Paths","get", path, JavaCall("java.lang.reflect.Array", "newInstance", JavaCall(JavaNew("java.lang.String"),"getClass"),0));
 	
