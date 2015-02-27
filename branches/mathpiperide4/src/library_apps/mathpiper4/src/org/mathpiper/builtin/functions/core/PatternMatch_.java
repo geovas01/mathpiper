@@ -69,7 +69,8 @@ public class PatternMatch_ extends BuiltinFunction
         
         consTraverser = consTraverser.cdr();
 
-        if( consTraverser == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        //  Todo:tk:The following check was removed because it was preventing functions with no arguments from being matched.
+        // if( consTraverser == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
         
         boolean matches = patternContainer.matches(aEnvironment, aStackTop, consTraverser);
         
