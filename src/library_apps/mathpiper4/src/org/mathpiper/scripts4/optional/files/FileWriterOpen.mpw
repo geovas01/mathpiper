@@ -2,11 +2,28 @@
 
 FileWriterOpen(fileName) :=
 {
-	Local(fileWriter);
+    Check(String?(fileName), "", "The filename argument must be a string.");
+
+    Local(fileWriter);
 	
-	fileWriter := JavaNew("java.io.FileWriter", fileName);
+    fileWriter := JavaNew("java.io.FileWriter", fileName);
 	
-	JavaNew("java.io.BufferedWriter", fileWriter);
+    JavaNew("java.io.BufferedWriter", fileWriter);
+};
+
+
+
+FileWriterOpen(fileName, append?) :=
+{
+    Check(String?(fileName), "", "The filename argument must be a string.");
+
+    Check(Boolean?(append?), "", "The append argument must be True or False.");
+
+    Local(fileWriter);
+	
+    fileWriter := JavaNew("java.io.FileWriter", fileName, JavaNew("java.lang.Boolean", append?));
+	
+    JavaNew("java.io.BufferedWriter", fileWriter);
 };
 
 %/mathpiper
@@ -19,12 +36,14 @@ FileWriterOpen(fileName) :=
 *CMD FileWriterOpen - opens a file
 *CALL
         FileWriterOpen(filename)
+        FileWriterOpen(filename, append?)
 
 *PARMS
-(filename) --- the full path of a file in a string
+filename --- the full path of a file in a string
+append? --- "True" means append to the file if it exists, and "False" means replace the file if it exists.
 
 *DESC
-This function takes the full path of a file, and reads it so that the result of the function will be the "insides" of the file itself.
+This function opens a file for writing. The full path of the file must be given.
 
 *E.G.
 In> FileWriterOpen("<filename>")
