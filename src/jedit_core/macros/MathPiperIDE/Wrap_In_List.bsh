@@ -17,10 +17,10 @@
  */ //}}}
 
 
- void processText()
+void processText()
 {
-	prefix = "{";
-	suffix = ",}";
+	prefix = "[";
+	suffix = ",]";
 	    
 	if(textArea.getSelectionCount() != 0)
 	{
