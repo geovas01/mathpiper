@@ -306,6 +306,17 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 		this.fontSize = fontSize;
 		bitstreamVera = bitstreamVera.deriveFont(fontSize);
 		typeArea.setFont(bitstreamVera);
+		typeArea.setCaretPosition(typeArea.getDocument().getLength());
+		
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+		  public void run() {
+			 javax.swing.JScrollBar horizontalScrollBar = typePane.getHorizontalScrollBar();
+			 horizontalScrollBar.setValue(horizontalScrollBar.getMinimum());
+			 
+			 javax.swing.JScrollBar verticalScrollBar = typePane.getVerticalScrollBar();
+			 verticalScrollBar.setValue(verticalScrollBar.getMaximum());
+		  }
+	   });
 	}//end method.
 
 
@@ -323,12 +334,34 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 			this.fontSize -= 2;
 			bitstreamVera = bitstreamVera.deriveFont(fontSize);
 			typeArea.setFont(bitstreamVera);
+			typeArea.setCaretPosition(typeArea.getDocument().getLength());
+			
+			javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			  public void run() {
+				 javax.swing.JScrollBar horizontalScrollBar = typePane.getHorizontalScrollBar();
+				 horizontalScrollBar.setValue(horizontalScrollBar.getMinimum());
+				 
+				 javax.swing.JScrollBar verticalScrollBar = typePane.getVerticalScrollBar();
+				 verticalScrollBar.setValue(verticalScrollBar.getMaximum());
+			  }
+		   });
 		}
 		else if (src == button3)
 		{
 			this.fontSize += 2;
 			bitstreamVera = bitstreamVera.deriveFont(fontSize);
 			typeArea.setFont(bitstreamVera);
+			typeArea.setCaretPosition(typeArea.getDocument().getLength());
+			
+			javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			  public void run() {
+				 javax.swing.JScrollBar horizontalScrollBar = typePane.getHorizontalScrollBar();
+				 horizontalScrollBar.setValue(horizontalScrollBar.getMinimum());
+				 
+				 javax.swing.JScrollBar verticalScrollBar = typePane.getVerticalScrollBar();
+				 verticalScrollBar.setValue(verticalScrollBar.getMaximum());
+			  }
+		   });
 		}
 
 	}
@@ -475,7 +508,7 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 			//System.out.println(value);
 			typedKey[0] = (char)value;
 			typeArea.append(new String(typedKey));
-			typeArea.setCaretPosition( typeArea.getDocument().getLength() );
+			typeArea.setCaretPosition(typeArea.getDocument().getLength());
 			
 			// javax.swing.JScrollBar horizontalScrollBar = typePane.getHorizontalScrollBar();
 			// horizontalScrollBar.setValue(horizontalScrollBar.getMinimum());
@@ -539,7 +572,7 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 		}//end for.
 		
 		typeArea.append(text);
-		typeArea.setCaretPosition( typeArea.getDocument().getLength() );
+		typeArea.setCaretPosition(typeArea.getDocument().getLength());
 		
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 		  public void run() {
