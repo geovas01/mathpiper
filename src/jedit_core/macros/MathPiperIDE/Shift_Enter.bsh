@@ -53,28 +53,35 @@ getHostAddresses()
 {
 	stringBuilder = new StringBuilder();
 	
-	networkInterfaces = java.net.NetworkInterface.getNetworkInterfaces();
-	
-	while(networkInterfaces.hasMoreElements())
+	try
 	{
-		networkInterface = networkInterfaces.nextElement();
+		networkInterfaces = java.net.NetworkInterface.getNetworkInterfaces();
 		
-		iNetAddresses = networkInterface.getInetAddresses();
-		
-		while(iNetAddresses.hasMoreElements())
+		while(networkInterfaces != null && networkInterfaces.hasMoreElements())
 		{
-			 iNetAddress =  iNetAddresses.nextElement();
-			 
-			 if(! iNetAddress.getHostAddress().toString().startsWith("127") && ! iNetAddress.getHostAddress().toString().contains(":"))
-			 {
-				 stringBuilder.append((iNetAddress.getHostAddress()) + ";");
-			 }
+			networkInterface = networkInterfaces.nextElement();
+			
+			iNetAddresses = networkInterface.getInetAddresses();
+			
+			while(iNetAddresses.hasMoreElements())
+			{
+				 iNetAddress =  iNetAddresses.nextElement();
+				 
+				 if(! iNetAddress.getHostAddress().toString().startsWith("127") && ! iNetAddress.getHostAddress().toString().contains(":"))
+				 {
+					 stringBuilder.append((iNetAddress.getHostAddress()) + ";");
+				 }
+			}
+	
+			if(stringBuilder.lastIndexOf(";") == stringBuilder.length()-1)
+			{
+				stringBuilder.deleteCharAt(stringBuilder.length()-1);
+			}
 		}
-
-		if(stringBuilder.charAt(stringBuilder.length()-1) == ';')
-		{
-			stringBuilder.deleteCharAt(stringBuilder.length()-1);
-		}
+	}
+	catch(Throwable t)
+	{
+		stringBuilder.append(t.getMessage());
 	}
 	
 	return stringBuilder.toString();
