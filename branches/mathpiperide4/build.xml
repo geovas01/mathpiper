@@ -10,7 +10,7 @@
 	</description> 
 	
 	<!-- Misc properties -->
-	<property name="version" value=".856" />
+	<property name="version" value=".857" />
 	<property name="mathpiper.version" value="mathpiper4" />        
 	
 	<property name="master.compile.source" value="1.6" />
