@@ -1,0 +1,58 @@
+%mathpiper,def="ReadLines"
+
+Retract("ReadLines", All);
+
+10 # ReadLines(filename_String?) <--
+{
+	Check(FileExists?(filename), "", "The file <" ~ filename ~ "> does not exist.");
+
+	Local(lines, file);
+	
+	file := FileReaderOpen(filename);
+	
+	lines := ReadLines(file);
+	
+	FileClose(file);
+	
+	lines;
+};
+
+
+ReadLines(reader) :=
+{
+	Local(lines, line);
+	
+	lines := [];
+	
+	While((line := ReadLine(reader)) !=? False)
+	{
+		DestructiveAppend(lines, line);
+	};
+	
+	lines;
+};
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="ReadLines",categories="Programming Functions;Input/Output",access="experimental"
+*CMD  ReadLines --- returns the lines of a text file as an array of strings
+*CALL
+        ReadLines(filename)
+        ReadLines(reader)
+
+*PARMS
+{filename} -- a string that contains the name of a file
+
+{reader} -- a reader
+
+*DESC
+This function returns the lines of a text file as an array of strings. The full path of the
+file must be provided if the version of the function that accepts a filename is used.
+
+*E.G.
+ReadLines("testfile.txt)
+%/mathpiper_docs
