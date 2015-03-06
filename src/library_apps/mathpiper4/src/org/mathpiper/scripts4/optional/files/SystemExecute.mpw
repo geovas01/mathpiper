@@ -8,38 +8,47 @@ SystemExecute(command) :=
 
 SystemExecute(command, environment, directory) :=
 {
-	Check(String?(command), "", "The first argument must be a string.");
+    Check(String?(command), "", "The first argument must be a string.");
 
-	Check(List?(environment), "", "The second argument must be a list.");
-	
-	Check(directory =? Null Or? String?(directory), "", "The third argument must be a string or Null.");
-	
-	Local(runtime, reader, process, lines, file);
-	
-	runtime := JavaCall("java.lang.Runtime", "getRuntime");
-	
-	If(directory !=? Null)
-	{
-		file := JavaNew("java.io.File", directory);
-		
-		Check(JavaAccess(file,"exists") =? True, "", "The file <" ~ directory ~ "> does not exist.");
-	}
-	Else
-	{
-		file := Null;
-	};
-	
-	process := JavaCall(runtime, "exec", command, Null, file);
-	
-	reader:= JavaNew("java.io.BufferedReader", JavaNew("java.io.InputStreamReader", JavaCall(process, "getInputStream")));
-	
-	lines := ReadLines(reader);
-	
-	JavaCall(reader, "close");
-	
-	lines;
+    Check(List?(environment), "", "The second argument must be a list.");
+
+    Check(directory =? Null Or? String?(directory), "", "The third argument must be a string or Null.");
+
+    Local(runtime, reader, errorReader, process, resultLines, errorLines, file);
+
+    runtime := JavaCall("java.lang.Runtime", "getRuntime");
+
+    If(directory !=? Null)
+    {
+            file := JavaNew("java.io.File", directory);
+
+            Check(JavaAccess(file,"exists") =? True, "", "The file <" ~ directory ~ "> does not exist.");
+    }
+    Else
+    {
+            file := Null;
+    };
+
+    process := JavaCall(runtime, "exec", command, Null, file);
+
+    JavaCall(process, "waitFor");
+
+    reader := JavaNew("java.io.BufferedReader", JavaNew("java.io.InputStreamReader", JavaCall(process, "getInputStream")));
+
+    errorReader := JavaNew("java.io.BufferedReader", JavaNew("java.io.InputStreamReader", JavaCall(process, "getErrorStream")));
+
+    resultLines := ReadLines(reader);
+
+    errorLines := ReadLines(errorReader);
+
+    JavaCall(reader, "close");
+
+    JavaCall(errorReader, "close");
+
+    Echo(errorLines);
+
+    resultLines;
 };
-
 %/mathpiper
 
 
@@ -56,12 +65,12 @@ SystemExecute(command, environment, directory) :=
 *PARMS
 {command} -- command to execute
 
-{environment} -- a list that contains the environment  to execute the command in
+{environment} -- a list that contains the environment to execute the command in
 
-{directory} -- directory to execute the command at
+{directory} -- directory to execute the command in
 
 *DESC
-This function Executes a command in the given environment in a given directory.
+This function executes a command in a system shell.
 
 $E.G.
 SystemExecute("dir /")
