@@ -2909,9 +2909,8 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 							}
 						}
 						else
-						{
-							
-							if(foldType.equalsIgnoreCase("%In>") && inPromptLine != -1)
+						{	
+							if(inPromptLine != -1)
 							{						
 								afterFoldIndex = textArea.getLineStartOffset(foldEndLine+1);
 								textArea.setCaretPosition(afterFoldIndex);
