@@ -205,7 +205,7 @@ procedure:\\\\
     DestructiveAppend(result, LatexView(RemoveUnderscoresAndDollarSigns(message), Scale: latexScale));
     
     
-    Decide(options["ShowTree"] =? True, DestructiveAppend(result, TreeView(TagLeftSideDominantFunction(RemoveDollarSigns(steps[1][1])), Scale: treeScale, Resizable: False, IncludeExpression: False)));
+    Decide(options["ShowTree"] =? True, DestructiveAppend(result, TreeView(TagLeftSideDominantFunction(RemoveDollarSigns(steps[1][1])), Scale: treeScale, Resizable: False, IncludeExpression: False, Code:False)));
     
     
     steps := Rest(steps);
@@ -259,7 +259,7 @@ Compose(result, newExpression, explanation, beforeSimplification, lengthFour?, s
     DestructiveAppend(result, LatexView(ToAtom(ListToString(Remove(StringToList(UnparseLatex(TagLeftSideDominantFunction(RemoveDollarSigns(newExpression)))),"$"))), Scale: latexScale ));
     
     
-    Decide(showTree? =? True, DestructiveAppend(result, TreeView(TagLeftSideDominantFunction(RemoveDollarSigns(newExpression)), Scale: treeScale, Resizable: False, IncludeExpression: False)));
+    Decide(showTree? =? True, DestructiveAppend(result, TreeView(TagLeftSideDominantFunction(RemoveDollarSigns(newExpression)), Scale: treeScale, Resizable: False, IncludeExpression: False, Code:False)));
     
     result;   
 };
