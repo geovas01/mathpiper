@@ -187,6 +187,8 @@ LocalSymbols(UnparseLatexRegularOps, UnparseLatexRegularPrefixOps, UnparseLatexG
     ["Implies?", "\\Rightarrow "],
     ["Equivales?", "\\equiv "],
     ["%", "\\bmod "],
+    ["<-", "\\leftarrow "],
+    ["<--", "\\longleftarrow "]
   ];
 
   UnparseLatexRegularPrefixOps := [ ["+"," + "], ["-"," - "], ["Not?"," \\neg "] ];
