@@ -31,7 +31,7 @@ public class ScaledGraphics {
     private Graphics iG = null;
     private Graphics2D iG2D = null;
     int prevGray = -1;
-    int prevSetFontSize = -1;
+    float prevSetFontSize = -1;
     FontMetrics metrics = null;
 
     public ScaledGraphics(Graphics g) {
@@ -128,15 +128,14 @@ public class ScaledGraphics {
 
 
     public void setFontSize(double aSize) {
-        int newFontSize = (int) (viewScale * aSize);
-        if (prevSetFontSize != newFontSize) {
-            prevSetFontSize = newFontSize;
-            Font f = new Font("Monospaced", Font.PLAIN, newFontSize);
-            if (f != null) {
-                iG.setFont(f);
-                metrics = iG.getFontMetrics();
-            }
-        }
+        this.prevSetFontSize = (int) (viewScale * aSize);
+        
+                        
+        Font font = new Font("Monospaced", Font.PLAIN, 12);
+
+        iG.setFont(font.deriveFont(this.prevSetFontSize));
+        metrics = iG.getFontMetrics();
+        
     }
 
     public double getFontSize() {

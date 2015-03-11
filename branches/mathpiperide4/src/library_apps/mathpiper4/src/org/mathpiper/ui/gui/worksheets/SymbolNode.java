@@ -1,13 +1,6 @@
 package org.mathpiper.ui.gui.worksheets;
 
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.font.FontRenderContext;
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +11,7 @@ import org.scilab.forge.mp.jlatexmath.TeXFormula;
 
 public class SymbolNode {
 
-    private static Map<String, String> latexMap = new HashMap();
+    private final static Map<String, String> latexMap = new HashMap();
 
     static {
         latexMap.put(":=", ":=");
@@ -43,6 +36,8 @@ public class SymbolNode {
         latexMap.put("==", "=");
         latexMap.put("^", "^\\wedge");
         latexMap.put("Sqrt", "\\sqrt");
+        latexMap.put("<-", "\\leftarrow");
+        latexMap.put("<--", "\\longleftarrow");
 
     }
     private String symbolString;
@@ -60,6 +55,10 @@ public class SymbolNode {
     private Color highlightColor;
 
     private String highlightNodeShape = "SQUARE";
+    
+    private String position = "";
+    
+    private boolean isSlected = false;
 
     public void setOperator(String symbolString, boolean isCodeForm) throws Exception {
 
@@ -144,6 +143,15 @@ public class SymbolNode {
         this.highlightNodeShape = hilightNodeShape;
     }
 
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+    
+    
     public String toString() {
         return symbolString;
     }
@@ -154,6 +162,14 @@ public class SymbolNode {
 
     public Icon getIcon() {
         return icon;
+    }
+
+    public boolean isSlected() {
+        return isSlected;
+    }
+
+    public void select(boolean isSlected) {
+        this.isSlected = isSlected;
     }
 
 

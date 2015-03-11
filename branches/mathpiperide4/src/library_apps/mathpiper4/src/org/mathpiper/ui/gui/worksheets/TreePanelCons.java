@@ -19,8 +19,10 @@ import org.mathpiper.ui.gui.worksheets.symbolboxes.ScaledGraphics;
 
 import com.foundationdb.sql.parser.SQLParser;
 import com.foundationdb.sql.parser.StatementNode;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class TreePanelCons extends JComponent implements ViewPanel {
+public class TreePanelCons extends JComponent implements ViewPanel, MouseListener {
 
 	protected Cons expressionCons;
 	protected double viewScale = 1;
@@ -45,7 +47,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 	private int adjust = 1;
 
-        Map<String, Object>  optionsMap = new HashMap();
+        Map<String, Object>  treeOptionsMap = new HashMap();
 
 	// Show(TreeView(a/b == 3))
 	// 99 # UnparseLatex(_x / _y, _p)_( <-- UnparseLatexBracketIf(p <?
@@ -85,7 +87,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
                 if(optionsMap != null)
                 {
-                    this.optionsMap = optionsMap;
+                    this.treeOptionsMap = optionsMap;
                 }
 
 		this.setLayout(null);
@@ -93,6 +95,8 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 		this.expressionCons = expressionCons;
 		this.setOpaque(true);
 		this.viewScale = viewScale;
+                
+                this.addMouseListener(this);
 
 		for (int index = 0; index < lastOnRasterArray.length; index++) {
 			lastOnRasterArray[index] = -1;
@@ -117,7 +121,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
                                 operator = (String) expressionCons.car();
                             }
 
-                            mainRootNode.setOperator(operator, (Boolean) optionsMap.get("Code"));
+                            mainRootNode.setOperator(operator, (Boolean) treeOptionsMap.get("Code"));
 
                             handleSublistCons(mainRootNode, expressionCons, null, null);
 
@@ -133,11 +137,12 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 	private void listToTree(SymbolNode rootNode, Cons rootCons, Color markAllColor, String markAllNodeShape) throws Throwable {
 
 		Cons cons = (Cons) rootCons.car(); // Go into sublist.
+                
+                Map optionsMap = cons.getMetadataMap();
 
 		if (markAllColor != null) {
 			rootNode.setHighlightColor(markAllColor);
-		} else if (cons.getMetadataMap() != null) {
-			Map optionsMap = cons.getMetadataMap();
+		} else if (optionsMap != null) {
 
 			if (optionsMap.containsKey("\"HighlightColor\"")) {
 
@@ -151,22 +156,31 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 		if (markAllNodeShape != null) {
 			rootNode.setHighlightNodeShape(markAllNodeShape);
-		} else if (cons.getMetadataMap() != null) {
-			Map map = cons.getMetadataMap();
+		} else if (optionsMap != null) {
 
-			if (map.containsKey("\"HighlightNodeShape\"")) {
+			if (optionsMap.containsKey("\"HighlightNodeShape\"")) {
 
-				Cons atomCons = (Cons) map.get("\"HighlightNodeShape\"");
+				Cons atomCons = (Cons) optionsMap.get("\"HighlightNodeShape\"");
 
 				if (atomCons != null) {
 					rootNode.setHighlightNodeShape(Utility.stripEndQuotesIfPresent((String) atomCons.car()));
 				}
 			}
 		}
+   
+                if (optionsMap != null && optionsMap.containsKey("\"Position\"")) {
+
+                        Cons atomCons = (Cons) optionsMap.get("\"Position\"");
+
+                        if (atomCons != null) {
+                                rootNode.setPosition(Utility.stripEndQuotesIfPresent((String) atomCons.car()));
+                        }
+                }
+                
 
 		String operator = (String) cons.car();
 
-		rootNode.setOperator(operator, (Boolean) optionsMap.get("Code"));
+		rootNode.setOperator(operator, (Boolean) treeOptionsMap.get("Code"));
 
 		while (cons.cdr() != null) {
 			cons = cons.cdr();
@@ -180,12 +194,13 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 				rootNode.addChild(node2);
 
 			} else {
+                            
+                                Map map = cons.getMetadataMap();
 
 				if (markAllColor != null) {
 					node2.setHighlightColor(markAllColor);
-				} else if (cons.getMetadataMap() != null) {
-					Map map = cons.getMetadataMap();
-
+				} else if (map != null) {
+					
 					if (map.containsKey("\"HighlightColor\"")) {
 
 						Cons atomCons = (Cons) map.get("\"HighlightColor\"");
@@ -198,8 +213,7 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 				if (markAllNodeShape != null) {
 					node2.setHighlightNodeShape(markAllNodeShape);
-				} else if (cons.getMetadataMap() != null) {
-					Map map = cons.getMetadataMap();
+				} else if (map != null) {
 
 					if (map.containsKey("\"HighlightNodeShape\"")) {
 
@@ -210,10 +224,19 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 						}
 					}
 				}
+                                
+                                if (map != null && map.containsKey("\"Position\"")) {
+
+                                        Cons atomCons = (Cons) map.get("\"Position\"");
+
+                                        if (atomCons != null) {
+                                                node2.setPosition(Utility.stripEndQuotesIfPresent((String) atomCons.car()));
+                                        }
+                                }
 
 				operator = (String) cons.car();
 
-				node2.setOperator(operator, (Boolean) optionsMap.get("Code"));
+				node2.setOperator(operator, (Boolean) treeOptionsMap.get("Code"));
 
 				rootNode.addChild(node2);
 			}
@@ -224,10 +247,11 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 	private void handleSublistCons(SymbolNode node2, Cons cons, Color markAllColor, String markAllNodeShape) throws Throwable {
 		Color markSubtreeColor = null;
 
+                Map map = cons.getMetadataMap();
+                
 		if (markAllColor != null) {
 			markSubtreeColor = markAllColor;
-		} else if (cons.getMetadataMap() != null) {
-			Map map = cons.getMetadataMap();
+		} else if (map != null) {
 
 			if (map.containsKey("\"HighlightColor\"")) {
 
@@ -238,13 +262,12 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 				}
 			}
 		}
-
+                
 		String markSubtreeNodeShape = null;
 
 		if (markAllNodeShape != null) {
 			markSubtreeNodeShape = markAllNodeShape;
-		} else if (cons.getMetadataMap() != null) {
-			Map map = cons.getMetadataMap();
+		} else if (map != null) {
 
 			if (map.containsKey("\"HighlightNodeShape\"")) {
 
@@ -302,143 +325,183 @@ public class TreePanelCons extends JComponent implements ViewPanel {
 
 	}
 
-	private void paintHighlightLayer(ScaledGraphics sg) {
-		SymbolNode currentNode;
+    private void paintHighlightLayer(ScaledGraphics sg) {
+        SymbolNode currentNode;
 
-		while (!queue.isEmpty()) {
+        while (!queue.isEmpty()) {
 
-			currentNode = queue.remove();
+            currentNode = queue.remove();
 
-			if (currentNode != null) {
+            if (currentNode != null) {
 
-				double nodeX0 = currentNode.getTreeX() - (leftMostPosition);
+                double nodeX0 = currentNode.getTreeX() - (leftMostPosition);
 
-				double nodeY0 = currentNode.getTreeY() - (yPositionAdjust /* height of symbol */);
+                double nodeY0 = currentNode.getTreeY() - (yPositionAdjust /* height of symbol */);
 
-				double nodeX1 = nodeX0 + currentNode.getNodeWidth();
+                if (currentNode.getHighlightColor() != null) {
+                    sg.setColor(currentNode.getHighlightColor());
+                    // sg.setLineThickness(1.0);
 
-				double nodeY1 = nodeY0 + currentNode.getNodeHeight();
+                    if (currentNode.getHighlightNodeShape() != null && currentNode.getHighlightNodeShape().equals("RECTANGLE")) {
+                        sg.fillRect(nodeX0, nodeY0, currentNode.getNodeWidth(), currentNode.getNodeHeight());
+                    } else {
+                        sg.fillArc(nodeX0, nodeY0, currentNode.getNodeWidth(), currentNode.getNodeHeight(), 0, 360);
+                    }
 
-				if (currentNode.getHighlightColor() != null) {
-					sg.setColor(currentNode.getHighlightColor());
-					// sg.setLineThickness(1.0);
+                    // sg.setLineThickness(defaultLineThickness);
+                    sg.setColor(Color.BLACK);
+                }
 
-					if (currentNode.getHighlightNodeShape() != null && currentNode.getHighlightNodeShape().equals("RECTANGLE")) {
-						sg.fillRect(nodeX0, nodeY0, currentNode.getNodeWidth(), currentNode.getNodeHeight());
-					} else {
-						sg.fillArc(nodeX0, nodeY0, currentNode.getNodeWidth(), currentNode.getNodeHeight(), 0, 360);
-					}
+                SymbolNode[] childrenNodes = currentNode.getChildren();
 
-					// sg.setLineThickness(defaultLineThickness);
-					sg.setColor(Color.BLACK);
-				}
+                if (childrenNodes != null) {
 
-				SymbolNode[] childrenNodes = currentNode.getChildren();
-
-				if (childrenNodes != null) {
-
-					for (SymbolNode childNode : childrenNodes) {
+                    for (SymbolNode childNode : childrenNodes) {
 						// Draw highlighting. This is done in a separate for
-						// loop to prevent overwriting the ends of normal arcs.
+                        // loop to prevent overwriting the ends of normal arcs.
 
-						if (childNode != null) {
+                        if (childNode != null) {
 
-							queue.add(childNode);
+                            queue.add(childNode);
 
-							if (currentNode.getHighlightColor() != null && childNode.getHighlightColor() != null) {
+                            if (currentNode.getHighlightColor() != null && childNode.getHighlightColor() != null) {
 
-								double x0 = currentNode.getTreeX() + currentNode.getNodeWidth() / 2 - (leftMostPosition);
+                                double x0 = currentNode.getTreeX() + currentNode.getNodeWidth() / 2 - (leftMostPosition);
 
-								double y0 = currentNode.getTreeY() + currentNode.getNodeHeight() - (yPositionAdjust * 1/* height of nodes
-																													    */);
+                                double y0 = currentNode.getTreeY() + currentNode.getNodeHeight() - (yPositionAdjust * 1/* height of nodes
+                                         */);
 
-								double x1 = childNode.getTreeX() + childNode.getNodeWidth() / 2 - (leftMostPosition);
+                                double x1 = childNode.getTreeX() + childNode.getNodeWidth() / 2 - (leftMostPosition);
 
-								double y1 = childNode.getTreeY() - (yPositionAdjust * 1 /* height of leaves */);
+                                double y1 = childNode.getTreeY() - (yPositionAdjust * 1 /* height of leaves */);
 
-								sg.setColor(currentNode.getHighlightColor());
-								sg.setLineThickness(defaultLineThickness * 4);
-								sg.drawLine(x0, y0, x1, y1);
-							}
+                                sg.setColor(currentNode.getHighlightColor());
+                                sg.setLineThickness(defaultLineThickness * 4);
+                                sg.drawLine(x0, y0, x1, y1);
+                            }
 
-						}
-					}// end for
+                        }
+                    }// end for
 
-				}// end if.
+                }// end if.
 
-			} else {
-				System.out.print("<Null>");
-			}
+            } else {
+                System.out.print("<Null>");
+            }
 
-		}// end while.
+        }// end while.
 
-	}
+    }
 
-	private void paintDrawingLayer(ScaledGraphics sg){
-		SymbolNode currentNode;
+    private void paintDrawingLayer(ScaledGraphics sg) {
+        SymbolNode currentNode;
 
-		while (!queue.isEmpty()) {
+        while (!queue.isEmpty()) {
 
-			currentNode = queue.remove();
+            currentNode = queue.remove();
 
-			if (currentNode != null) {
+            if (currentNode != null) {
 
-				double nodeX0 = currentNode.getTreeX() - (leftMostPosition);
+                double nodeX0 = currentNode.getTreeX() - (leftMostPosition);
 
-				double nodeY0 = currentNode.getTreeY() - (yPositionAdjust /* height of symbol */);
+                double nodeY0 = currentNode.getTreeY() - (yPositionAdjust /* height of symbol */);
 
-				double nodeX1 = nodeX0 + currentNode.getNodeWidth();
+                sg.setLineThickness(defaultLineThickness);
 
-				double nodeY1 = nodeY0 + currentNode.getNodeHeight();
+                sg.setColor(Color.BLACK);
 
-				sg.setColor(Color.BLACK);
-                                
-                                if((Boolean) this.optionsMap.get("Code"))
-                                {
-                                    sg.drawText(currentNode.toString(), nodeX0, nodeY0 + currentNode.getNodeHeight() - 2);
-                                }
-                                else
-                                {
-                                    sg.drawLatex(currentNode.getTexFormula(), nodeX0, nodeY0);
-                                }
-                                
-                                if((Boolean) this.optionsMap.get("Debug"))
-                                {
-                                    sg.drawRectangle(nodeX0, nodeY0, currentNode.getNodeWidth(), currentNode.getNodeHeight());
-                                }
-                                
+                if ((Boolean) this.treeOptionsMap.get("Code")) {
+                    String operatorText = currentNode.toString();
+                    double operatorTextWidth = (sg.getScaledTextWidth(operatorText));
+                    double operatorTextHeight = (sg.getScaledTextHeight(operatorText)) * .7; // todo:tk:the .7 is used to make the top of the rectangle come closer to the top of the number.
 
-				SymbolNode[] childrenNodes = currentNode.getChildren();
+                    sg.drawText(operatorText, nodeX0, nodeY0 + operatorTextHeight);
 
-				if (childrenNodes != null) {
+                    if (currentNode.isSlected() || (Boolean) this.treeOptionsMap.get("Debug")) {
+                        sg.drawRectangle(nodeX0, nodeY0, operatorTextWidth, operatorTextHeight);
+                        // System.out.println("P: " + nodeX0 * this.viewScale + ", " + nodeY0 * this.viewScale);
+                    }
+                } else {
+                    sg.drawLatex(currentNode.getTexFormula(), nodeX0, nodeY0);
 
-					for (SymbolNode childNode : childrenNodes) {
-						if (childNode != null) {
-							queue.add(childNode);
+                    if (currentNode.isSlected() || (Boolean) this.treeOptionsMap.get("Debug")) {
+                        sg.drawRectangle(nodeX0, nodeY0, currentNode.getNodeWidth(), currentNode.getNodeHeight());
+                    }
+                }
 
-							double x0 = currentNode.getTreeX() + currentNode.getNodeWidth() / 2 - (leftMostPosition);
+                SymbolNode[] childrenNodes = currentNode.getChildren();
 
-							double y0 = currentNode.getTreeY() + currentNode.getNodeHeight() - (yPositionAdjust * 1/* height of nodes */);
+                if (childrenNodes != null) {
+                    int childCounter = 1;
+                    for (SymbolNode childNode : childrenNodes) {
+                        if (childNode != null) {
+                            queue.add(childNode);
+                            
+                            double width = 10;
+                            double height = 10;
+                            double childNodeWidth = 10;
+                            
+                            if ((Boolean) this.treeOptionsMap.get("Code")) {
+                                String nodeText = childNode.toString();
+                                width = (sg.getScaledTextWidth(nodeText));
+                                height = (sg.getScaledTextHeight(nodeText)) * .7; // todo:tk:the .7 is used to make the top of the rectangle come closer to the top of the number.
+                                String childNodeText = childNode.toString();
+                                childNodeWidth = (sg.getScaledTextWidth(childNodeText));
+                            }
+                            else
+                            {
+                                width = currentNode.getNodeWidth();
+                                height = currentNode.getNodeHeight();
+                                childNodeWidth = childNode.getNodeWidth();
+                            }
 
-							double x1 = childNode.getTreeX() + childNode.getNodeWidth() / 2 - (leftMostPosition);
+                            double x0 = currentNode.getTreeX() + width / 2 - (leftMostPosition);
 
-							double y1 = childNode.getTreeY() - (yPositionAdjust * 1 /* height of leaves */);
+                            double y0 = currentNode.getTreeY() + height - (yPositionAdjust * 1/* height of nodes */);
 
-							sg.setColor(Color.BLACK);
-							sg.setLineThickness(defaultLineThickness);
-							sg.drawLine(x0, y0, x1, y1);
-						}
-					}// end for
+                            double x1 = childNode.getTreeX() + childNodeWidth / 2 - (leftMostPosition);
 
-				}// end if.
+                            double y1 = childNode.getTreeY() - (yPositionAdjust * 1 /* height of leaves */);
 
-			} else {
-				System.out.print("<Null>");
-			}
+                            sg.setColor(Color.BLACK);
+                            sg.setLineThickness(defaultLineThickness);
+                            sg.drawLine(x0, y0, x1, y1);
 
-		}// end while.
+                            double positionScale = .5;
 
-	}
+                            double midX = (x0 + x1) / 2;
+                            double midY = (y0 + y1) / 2;
+
+                            String positionText = "" + childCounter++;
+
+                            double positionTextWidth = (sg.getTextWidth(positionText) + 2) * positionScale / this.viewScale;
+                            double positionTextHeight = ((sg.getTextHeight(positionText) + 2) * positionScale / this.viewScale) * .7; // todo:tk:the .7 is used to make the top of the rectangle come closer to the top of the number.
+
+                            double positionTextX = midX - positionTextWidth / 2;
+                            double positionTextY = midY + positionTextHeight / 2;
+
+                            /*
+                            sg.setColor(Color.WHITE);
+                            sg.fillRect(positionTextX, positionTextY - positionTextHeight, positionTextWidth, positionTextHeight);
+
+                            sg.setLineThickness(.2);
+                            sg.setColor(Color.BLACK);
+                            sg.drawRectangle(positionTextX, positionTextY - positionTextHeight, positionTextWidth, positionTextHeight);
+
+                            sg.drawscaledText(positionText, positionTextX, positionTextY - .2, positionScale);
+                            */
+                        }
+                    }// end for
+
+                }// end if.
+
+            } else {
+                System.out.print("<Null>");
+            }
+
+        }// end while.
+
+    }
 
 	public Dimension getPreferredSize() {
 
@@ -605,6 +668,59 @@ public class TreePanelCons extends JComponent implements ViewPanel {
             e.printStackTrace();
         }
 
+    }
+    
+    
+    
+    private void selectNode(SymbolNode node, int x, int y)
+    {
+        
+        double nodeX0 = (node.getTreeX() - (leftMostPosition)) * this.viewScale;
+
+        double nodeY0 = (node.getTreeY() - (yPositionAdjust /* height of symbol */)) * this.viewScale;
+        
+        double nodeWidth = node.getNodeWidth() * this.viewScale;
+        double nodeHeight = node.getNodeHeight() * this.viewScale;
+        
+        if(x >= nodeX0 && x <= nodeX0 + nodeWidth && y >= nodeY0 && y <= nodeY0 + nodeHeight)
+        {
+            node.select(true);
+        }
+        else
+        {
+            node.select(false);
+        }
+            
+        SymbolNode[] children = node.getChildren();
+
+        if(children != null)
+        {
+            for(int childIndex = 0; childIndex < children.length; childIndex++)
+            {
+                selectNode(children[childIndex], x, y);
+            }
+
+        }
+        
+    
+    }
+
+    public void mouseClicked(MouseEvent me) {
+        // System.out.println(me.getX() + ", " + me.getY());
+        this.selectNode(mainRootNode, me.getX(), me.getY());
+        this.repaint();
+    }
+
+    public void mousePressed(MouseEvent me) {
+    }
+
+    public void mouseReleased(MouseEvent me) {
+    }
+
+    public void mouseEntered(MouseEvent me) {
+    }
+
+    public void mouseExited(MouseEvent me) {
     }
 
 }// end class.
