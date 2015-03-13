@@ -1,5 +1,6 @@
 %mathpiper,def="SystemExecute"
 
+
 SystemExecute(command) :=
 {
 	SystemExecute(command, [], Null);
@@ -8,13 +9,23 @@ SystemExecute(command) :=
 
 SystemExecute(command, environment, directory) :=
 {
-    Check(String?(command), "", "The first argument must be a string.");
+    Check(List?(command), "", "The first argument must be a list.");
 
     Check(List?(environment), "", "The second argument must be a list.");
 
     Check(directory =? Null Or? String?(directory), "", "The third argument must be a string or Null.");
 
-    Local(runtime, reader, errorReader, process, resultLines, errorLines, file);
+    Local(runtime, reader, errorReader, process, resultLines, errorLines, file, commandCount, commandArray, index);
+    
+    commandCount := Length(command);
+    
+    commandArray := JavaCall("java.lang.reflect.Array", "newInstance", JavaCall(JavaNew("java.lang.String"),"getClass"), commandCount);
+    
+    For(index := 0, index <? commandCount, index++)
+    {
+    	JavaCall("java.lang.reflect.Array", "set", commandArray, index, command[index+1]);
+    };
+    
 
     runtime := JavaCall("java.lang.Runtime", "getRuntime");
 
@@ -29,7 +40,7 @@ SystemExecute(command, environment, directory) :=
             file := Null;
     };
 
-    process := JavaCall(runtime, "exec", command, Null, file);
+    process := JavaCall(runtime, "exec", commandArray, Null, file);
 
     JavaCall(process, "waitFor");
 
@@ -49,6 +60,8 @@ SystemExecute(command, environment, directory) :=
 
     resultLines;
 };
+
+SystemExecute(["ls","-l"]);
 %/mathpiper
 
 
@@ -63,7 +76,7 @@ SystemExecute(command, environment, directory) :=
         SystemExecute(command, environment, directory)
 
 *PARMS
-{command} -- command to execute
+{command} -- a list of strings that contains the command to execute along with its arguments
 
 {environment} -- a list that contains the environment to execute the command in
 
@@ -73,5 +86,5 @@ SystemExecute(command, environment, directory) :=
 This function executes a command in a system shell.
 
 *E.G.
-SystemExecute("dir /")
+SystemExecute(["ls", "-la"])
 %/mathpiper_docs
