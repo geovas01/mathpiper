@@ -72,6 +72,6 @@ SystemExecute(command, environment, directory) :=
 *DESC
 This function executes a command in a system shell.
 
-$E.G.
+*E.G.
 SystemExecute("dir /")
 %/mathpiper_docs
