@@ -452,17 +452,21 @@
                 <include name="org/mathpiper/lisp/" />
         			
         		
-        	    <include name="org/mathpiper/test/MPWSFile.java" />
-        		<include name="org/mathpiper/test/Fold.java" />
+        	<include name="org/mathpiper/test/MPWSFile.java" />
+                <include name="org/mathpiper/test/Fold.java" />
+                
+                <exclude name="org/mathpiper/Scripts.java" />
 
+                <exclude name="org/mathpiper/Version.java" />
 
-                <include name="org/mathpiper/Scripts.java" />
-
-                <include name="org/mathpiper/Version.java" />
             </fileset>
         </copy>
         
+        <copy file="${build.dir}/src/org/mathpiper/Scripts.java" todir="${library.dir}/android/src/" />
         
+        <copy file="${build.dir}/src/org/mathpiper/Version.java" todir="${library.dir}/android/src/" />
+        
+
 
         <javac 
 			source="1.6"
@@ -492,8 +496,8 @@
 			
 		</jar> 
 		
-		<delete dir="/home/tkosan/git/mathpiperexercise/MathPiperExercise/lib/mathpiperandroid.jar" />
-		<copy file="${library.dir}/android/mathpiperandroid.jar" todir="/home/tkosan/git/mathpiperexercise/MathPiperExercise/lib/" />		
+		<!-- <delete dir="/home/tkosan/git/mathpiperexercise/MathPiperExercise/lib/mathpiperandroid.jar" /> -->
+		<!-- <copy file="${library.dir}/android/mathpiperandroid.jar" todir="/home/tkosan/git/mathpiperexercise/MathPiperExercise/lib/" /> -->		
 
 
 	</target>
