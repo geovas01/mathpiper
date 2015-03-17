@@ -228,6 +228,30 @@ show(content)
 }
 
 
+
+showPlantUML(code)
+{
+	import net.sourceforge.plantuml.*;
+	
+	SourceStringReader reader = new SourceStringReader(code);
+	final ByteArrayOutputStream os = new ByteArrayOutputStream();
+	
+	//String desc = reader.generateImage(os, new FileFormatOption(FileFormat.SVG));
+	String desc = reader.generateImage(os);
+	
+	os.close();
+	
+	imageIcon = new javax.swing.ImageIcon(os.toByteArray());
+	
+	jLabel = new javax.swing.JLabel();
+	jLabel.setIcon(imageIcon);
+	show(jLabel);		
+}
+
+
+// ===================================================================
+
+
 mpwExecutionCount++;
 
 displayInProcess = false;
@@ -1074,21 +1098,7 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 
 								result = evaluationResponse.getResult();
 								
-								import net.sourceforge.plantuml.*;
-								
-								SourceStringReader reader = new SourceStringReader(result);
-								final ByteArrayOutputStream os = new ByteArrayOutputStream();
-								
-								//String desc = reader.generateImage(os, new FileFormatOption(FileFormat.SVG));
-								String desc = reader.generateImage(os);
-								
-								os.close();
-								
-								imageIcon = new javax.swing.ImageIcon(os.toByteArray());
-								
-								jLabel = new javax.swing.JLabel();
-								jLabel.setIcon(imageIcon);
-								show(jLabel);
+								showPlantUML(result);
 
 								output_fold_type = "%output";
 							}
@@ -2765,6 +2775,23 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 
 		}//end else
 		//end %asciidoc }}}
+		
+		
+		
+	///{{{ *** %plantuml ***
+		else if(foldType.equalsIgnoreCase("%plantuml")) 
+		{
+			
+			showPlantUML(codeText);
+			
+			result = "";
+			output_fold_type = "%output";
+			
+			saveBuffer = true;
+			
+
+		}//end else
+		//end %plantuml }}}
 		
 		
 		
