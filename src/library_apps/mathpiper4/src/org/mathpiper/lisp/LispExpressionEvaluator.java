@@ -222,13 +222,22 @@ public class LispExpressionEvaluator extends Evaluator {
 
                         // User function handler.
                         SingleArityRulebase userFunction;
+                        
                         userFunction = getUserFunction(aEnvironment, aStackTop, functionAndArgumentsList);
+                        
                         if (userFunction != null) {
-
-                            
                             Cons result = userFunction.evaluate(aEnvironment, aStackTop, functionAndArgumentsList);
                             aEnvironment.iEvalDepth--;
                             return result;
+                        }
+                        if(functionName.startsWith("\"")) // Return functions that have a string as a function name unevaluated.
+                        {
+                            aEnvironment.iEvalDepth--;
+                            return aExpression.copy(false);
+                        }
+                        else
+                        {
+                            LispError.throwError(aEnvironment, aStackTop, "The function <" + functionName + "> is not declared.", head.getMetadataMap());
                         }
 
                     } catch (Exception e) {
@@ -314,11 +323,11 @@ public class LispExpressionEvaluator extends Evaluator {
 	    // System.out.println(functionName);
 
 	    if (Utility.loadLibraryFunction(functionName, aEnvironment, aStackTop) == false) {
-		LispError.throwError(aEnvironment, aStackTop, "The function <" + functionName + "> is not declared.", head.getMetadataMap());
+                
+		return null;
             }
 
 	    userFunc = (SingleArityRulebase) aEnvironment.getRulebase(aStackTop, subList);
-
 	}
 
 	return userFunc;
