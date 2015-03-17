@@ -209,6 +209,11 @@
 			<BEGIN>%wolfram[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;\?\!~]*</BEGIN>
 			<END>%/wolfram</END>
 		</SPAN_REGEXP>
+		
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="mathpiper::MAIN">
+			<BEGIN>%plantuml[0-9a-zA-Z,;:="._()/'\-\+\* &amp;&lt;&gt;\?\!~]*</BEGIN>
+			<END>%/plantuml</END>
+		</SPAN_REGEXP>
 
 	</RULES>
     
