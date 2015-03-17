@@ -442,7 +442,7 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
                             double childNodeWidth = 10;
                             
                             if ((Boolean) this.treeOptionsMap.get("Code")) {
-                                String nodeText = childNode.toString();
+                                String nodeText = currentNode.toString();
                                 width = (sg.getScaledTextWidth(nodeText));
                                 height = (sg.getScaledTextHeight(nodeText)) * .7; // todo:tk:the .7 is used to make the top of the rectangle come closer to the top of the number.
                                 String childNodeText = childNode.toString();
