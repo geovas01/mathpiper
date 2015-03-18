@@ -1,0 +1,73 @@
+%mathpiper,def="-:="
+
+RulebaseHoldArguments("-:=",[_aLeft, _aRight]);
+UnFence("-:=", 2);
+HoldArgument("-:=", "aLeft");
+HoldArgument("-:=", "aRight");
+
+RuleHoldArguments("-:=", 2, 0, Number?(Eval(aLeft)))
+{
+    MacroAssign(aLeft,Eval(SubtractN(Eval(aLeft),Eval(aRight))));
+    Eval(aLeft);
+};
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="-:=",categories="Operators"
+*CMD -:= --- subtract to a variable
+*STD
+*CALL
+        var -:= subVar
+
+*PARMS
+
+{var} -- variable to subtract from
+{subVar} -- variable to subtract
+*DESC
+
+The variable with name "subVar" is subtracted from var. This operation is a destructive assignment, ie. the 
+variable is over written with the result of var - subVar. The expression {x -:= y} is equivalent to
+the assignment {x := x - y}.
+
+*E.G.
+In> test := 9;
+Result: 9
+
+In> test -:= 5
+Result: 4
+
+In> test
+Result: 4
+
+In> x := 1
+Result: 1
+
+In> x -:= 3
+Result: -2
+
+In> x
+Result: -2
+
+*SEE :=, --
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="-:=",subtype="automatic_test"
+{
+    x := 9;
+
+    y := 3;
+
+    Verify(x -:= 2, 7);
+
+    Verify(x -:= y, 4);
+};
+
+%/mathpiper

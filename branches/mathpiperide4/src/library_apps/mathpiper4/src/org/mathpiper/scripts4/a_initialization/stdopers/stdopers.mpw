@@ -24,6 +24,12 @@ RuleHoldArguments(StandardOperatorsLoad, 0, 1, True)
 
     Infix(":=",26000);
     RightAssociativeSet(":=");
+
+    Infix("+:=",26000);
+    RightAssociativeSet("+:=");
+
+    Infix("-:=",26000);
+    RightAssociativeSet("-:=");
     
     RulebaseHoldArguments(":",[_left,_right]);
     HoldArgument(":","left");

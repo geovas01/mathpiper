@@ -1,5 +1,5 @@
-Tue Feb 17 23:32:21 EST 2015.
-MathPiper version: mp4_beta_v.142_r5451:5454M.
+Wed Mar 18 09:40:10 EDT 2015.
+MathPiper version: mp4_beta_v.142_r5501:5503M.
 Running all tests except for documentation examples tests..
 Beginning of tests:
 
@@ -133,6 +133,14 @@ Testing & in file </org/mathpiper/scripts4/a_initialization/standard/ampersand_o
 
 ================================================================
 Testing * in file </org/mathpiper/scripts4/a_initialization/stdarith/asterisk_operator.mpw>: 
+
+
+================================================================
+Testing +:= in file </org/mathpiper/scripts4/a_initialization/standard/plus_colon_equals.mpw>: 
+
+
+================================================================
+Testing -:= in file </org/mathpiper/scripts4/a_initialization/standard/minus_colon_equals.mpw>: 
 
 
 ================================================================
@@ -528,6 +536,6 @@ Testing | in file </org/mathpiper/scripts4/a_initialization/standard/vertical_ba
 
 ***** Tests complete *****
 
-GlobalVariables: []
+GlobalVariables: [x : 4,y : 3]
 Elapsed Time: 0 min 3 sec
 Maximum Evaluation Depth Reached: 195

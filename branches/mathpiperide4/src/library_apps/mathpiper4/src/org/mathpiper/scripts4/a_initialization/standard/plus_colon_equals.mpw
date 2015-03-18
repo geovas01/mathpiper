@@ -1,0 +1,73 @@
+%mathpiper,def="+:="
+
+RulebaseHoldArguments("+:=",[_aLeft, _aRight]);
+UnFence("+:=", 2);
+HoldArgument("+:=", "aLeft");
+HoldArgument("+:=", "aRight");
+
+RuleHoldArguments("+:=", 2, 0, Integer?(Eval(aLeft)))
+{
+    MacroAssign(aLeft,Eval(AddN(Eval(aLeft),Eval(aRight))));
+
+    Eval(aLeft);
+};
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="+:=",categories="Operators"
+*CMD +:= --- add to variable
+*CALL
+        var +:= addVar
+
+*PARMS
+
+{var} -- variable to add to
+{addVar} -- variable to add 
+
+*DESC
+The variable with name "addVar" is added to var. This operation is a destructive assignment, ie. the 
+variable is over written with the result of var + addVar. The expression {x +:= y} is equivalent to
+the assignment {x := x + y}.
+
+*E.G.
+In> test := 3;
+Result: 3
+
+In> test +:= 2;
+Result: 5
+
+In> test
+Result: 5
+
+
+*SEE :=, ++
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="+:=",subtype="automatic_test"
+{
+    Local(x,y);
+
+    x := 2;
+
+    y := 3;
+
+    Verify(x +:= 2, 4);
+
+    Verify(x +:= y, 7);
+};
+
+%/mathpiper
+
+
+
+
+
+
