@@ -13,8 +13,8 @@
 	<property name="version" value=".858" />
 	<property name="mathpiper.version" value="mathpiper4" />        
 	
-	<property name="master.compile.source" value="1.6" />
-	<property name="master.compile.target" value="1.6" />
+	<property name="master.compile.source" value="1.7" />
+	<property name="master.compile.target" value="1.7" />
 	<property name="master.compile.debug" value="false" />
 	<property environment="env" />
 	
