@@ -52,8 +52,10 @@ public class EMUOutputPort extends javax.swing.JPanel implements IOChip, ActionL
 		
 		
 		//Load on image.
-		java.io.InputStream inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathpiper.ide.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/images/yellow.gif" );
-		java.io.BufferedInputStream bufferedInputStream = new java.io.BufferedInputStream( inputStream );
+		// java.io.InputStream inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathpiper.ide.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/images/yellow.gif" );
+		java.io.InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("resources/images/yellow.gif");
+                
+                java.io.BufferedInputStream bufferedInputStream = new java.io.BufferedInputStream( inputStream );
 		byte[] buffer = new byte[4096];
 		try 
 		{
@@ -65,8 +67,10 @@ public class EMUOutputPort extends javax.swing.JPanel implements IOChip, ActionL
 		onIcon = new javax.swing.ImageIcon(java.awt.Toolkit.getDefaultToolkit().createImage( buffer ));
 		
 		//Load off image.
-		inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathpiper.ide.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/images/gray.gif" );
-		bufferedInputStream = new java.io.BufferedInputStream( inputStream );
+		// inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathpiper.ide.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/images/gray.gif" );
+		inputStream = this.getClass().getClassLoader().getResourceAsStream("resources/images/gray.gif");
+                
+                bufferedInputStream = new java.io.BufferedInputStream( inputStream );
 		buffer = new byte[4096];
 		try 
 		{
