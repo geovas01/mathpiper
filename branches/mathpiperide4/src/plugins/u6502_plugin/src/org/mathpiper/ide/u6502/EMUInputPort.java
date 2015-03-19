@@ -52,8 +52,10 @@ public class EMUInputPort extends javax.swing.JPanel implements IOChip, ActionLi
 		
 		
 		//Load on image.
-		java.io.InputStream inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathpiper.ide.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/images/button_on.png" );
-		java.io.BufferedInputStream bufferedInputStream = new java.io.BufferedInputStream( inputStream );
+		//java.io.InputStream inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathpiper.ide.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/images/button_on.png" );
+		java.io.InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("resources/images/button_on.png");
+                
+                java.io.BufferedInputStream bufferedInputStream = new java.io.BufferedInputStream( inputStream );
 		byte[] buffer = new byte[4096];
 		try 
 		{
@@ -65,8 +67,10 @@ public class EMUInputPort extends javax.swing.JPanel implements IOChip, ActionLi
 		onIcon = new javax.swing.ImageIcon(java.awt.Toolkit.getDefaultToolkit().createImage( buffer ));
 		
 		//Load off image.
-		inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathpiper.ide.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/images/button_off.png" );
-		bufferedInputStream = new java.io.BufferedInputStream( inputStream );
+		// inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathpiper.ide.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/images/button_off.png" );
+                inputStream = this.getClass().getClassLoader().getResourceAsStream("resources/images/button_off.png");
+                
+                bufferedInputStream = new java.io.BufferedInputStream( inputStream );
 		buffer = new byte[4096];
 		try 
 		{
