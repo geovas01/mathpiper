@@ -943,9 +943,22 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 									
 									if(true) // sourceName.equals("LOADSCRIPT_EVALUATE_USER")) todo:tk
 									{
-										// The error is in the current fold.
+										/*
+											The code in this block will eventually only handle errors that are in the current fold.
+											However, the more sophisticated handling of errors that are in other folds (whether
+											they are in the current worksheet or another worksheet) is not working yet, so the
+											code that is currently in this block sets adjustErrorLineNumber to -1 to indicate 
+											the error is in another fold.
+										*/
 										
-										adjustedErrorLineNumber = foldStartLine + errorLineNumber;
+										if(foldStartLine + errorLineNumber < foldEndLine)
+										{
+											adjustedErrorLineNumber = foldStartLine + errorLineNumber;
+										}
+										else
+										{
+											adjustedErrorLineNumber = -1;
+										}
 									}
 									else
 									{
@@ -994,24 +1007,31 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 									
 									errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
 					
-									errorResult =  exception.getMessage() + " Error on or before line " + (adjustedErrorLineNumber + 1) + " starting at index " + startIndex + ".";							
-									
-									filePath = textArea.getBuffer().getPath();
-									
-									jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "error-list" );
-								
-									errorSource.clear();
-									
-									if(startIndex == endIndex)
+									if(adjustedErrorLineNumber == -1)
 									{
-										if(startIndex > 0)
-										{
-											startIndex--;
-										}
-										endIndex++;
+										errorResult =  exception.getMessage() + " Error in another fold on or before line offset " + (errorLineNumber) + " into the fold starting at index " + startIndex + ".";							
 									}
-								
-									errorSource.addError(new DefaultErrorSource.DefaultError( errorSource, ErrorSource.ERROR, filePath, adjustedErrorLineNumber, startIndex, endIndex, errorResult ) );
+									else
+									{
+										errorResult =  exception.getMessage() + " Error on or before line " + (adjustedErrorLineNumber + 1) + " starting at index " + startIndex + ".";							
+
+										filePath = textArea.getBuffer().getPath();
+										
+										jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "error-list" );
+									
+										errorSource.clear();
+										
+										if(startIndex == endIndex)
+										{
+											if(startIndex > 0)
+											{
+												startIndex--;
+											}
+											endIndex++;
+										}
+									
+										errorSource.addError(new DefaultErrorSource.DefaultError( errorSource, ErrorSource.ERROR, filePath, adjustedErrorLineNumber, startIndex, endIndex, errorResult ) );
+									}
 								}
 								else
 								{
