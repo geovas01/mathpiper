@@ -180,13 +180,14 @@ public class PatternProcess implements ASTProcessor {
     private String positionListToString(List<Integer> positionList) {
 	if (positionList.size() > 0) {
 	    StringBuilder sb = new StringBuilder();
+            sb.append("\"");
 	    for (int x : positionList) {
 		sb.append(x);
 	    }
-
+            sb.append("\"");
 	    return sb.toString();
 	} else {
-	    return " "; // todo:tk:An AtomCons needs at least one character.
+	    return "\"\""; // todo:tk:An AtomCons needs at least one character.
 	}
     }
 
