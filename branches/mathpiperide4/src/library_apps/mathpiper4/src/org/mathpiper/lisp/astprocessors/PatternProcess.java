@@ -20,9 +20,12 @@ public class PatternProcess implements ASTProcessor {
     ParametersPatternMatcher matcher = null;
     Cons associationList;
     String operatorString;
+    String positionToMatch;
 
-    public PatternProcess(Environment aEnvironment, Cons patternArguments, Cons associationList) throws Throwable {
+    public PatternProcess(Environment aEnvironment, Cons patternArguments, String positionToMatch, Cons associationList) throws Throwable {
 	iEnvironment = aEnvironment;
+        
+        this.positionToMatch = "\"" + positionToMatch + "\"";
 
 	// check that associationList is a compound object
 	if (!(associationList.car() instanceof Cons))
@@ -101,8 +104,15 @@ public class PatternProcess implements ASTProcessor {
 	    Cons elementCopy = aElement.copy(false);
 
 	    Cons returnCons = null;
+            
+            String position = positionListToString(positionList);
 
 	    elementCopy.setMetadataMap(new HashMap());
+            
+            if(this.positionToMatch != null && !positionToMatch.equals(position))
+            {
+                return null;
+            }
 
 	    if (elementCopy instanceof SublistCons) {
 		// Attempt to match a subexpression.
@@ -112,8 +122,7 @@ public class PatternProcess implements ASTProcessor {
 		if (operatorString.equals(nodeSymbol) && matcher != null) {
 
 		    if (matcher.matches(aEnvironment, aStackTop, (Cons) Cons.cdar(elementCopy))) {
-			returnCons = handleMatch(aEnvironment, aStackTop, elementCopy, positionList);
-
+			returnCons = handleMatch(aEnvironment, aStackTop, elementCopy, position);
 		    }
 		}
 	    } else {
@@ -121,7 +130,7 @@ public class PatternProcess implements ASTProcessor {
 
 		if (matcher != null && operatorString.equals("_")) {
 		    if (matcher.matches(aEnvironment, aStackTop, elementCopy)) {
-			returnCons = handleMatch(aEnvironment, aStackTop, elementCopy, positionList);
+			returnCons = handleMatch(aEnvironment, aStackTop, elementCopy, position);
 		    }
 		} else if (matcher == null && (operatorString.equals(nodeSymbol) || operatorString.equals("_"))) {
 
@@ -154,7 +163,7 @@ public class PatternProcess implements ASTProcessor {
 	}
     }
 
-    private Cons handleMatch(Environment aEnvironment, int aStackTop, Cons elementCopy, List<Integer> positionList)
+    private Cons handleMatch(Environment aEnvironment, int aStackTop, Cons elementCopy, String position)
 	    throws Throwable {
 	// Obtain the function from the association list;
 	Cons result = Utility.associationListGet(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "\"function\""), ((Cons) associationList.car()).cdr());
@@ -163,7 +172,7 @@ public class PatternProcess implements ASTProcessor {
 	}
 	Cons function = result;
 
-	Cons positionListAtom = AtomCons.getInstance(aEnvironment, aStackTop, positionListToString(positionList));
+	Cons positionListAtom = AtomCons.getInstance(aEnvironment, aStackTop, position);
 
 	positionListAtom.setCdr(elementCopy);
 
