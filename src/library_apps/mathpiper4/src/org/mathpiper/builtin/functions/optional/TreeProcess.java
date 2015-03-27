@@ -21,18 +21,13 @@ package org.mathpiper.builtin.functions.optional;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.jfree.chart.plot.PlotOrientation;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
-import org.mathpiper.builtin.PatternContainer;
-import org.mathpiper.builtin.functions.plugins.jfreechart.ChartUtility;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
-import org.mathpiper.lisp.astprocessors.ASTProcessor;
 import org.mathpiper.lisp.astprocessors.PatternProcess;
 import org.mathpiper.lisp.cons.Cons;
-import org.mathpiper.lisp.cons.SublistCons;
 
 /**
  *
@@ -43,13 +38,13 @@ public class TreeProcess extends BuiltinFunction {
     private Map defaultOptions;
 
 
-
     public void plugIn(Environment aEnvironment) throws Throwable {
 	aEnvironment.getBuiltinFunctions().put("TreeProcess",
 		new BuiltinFunctionEvaluator(this, 3, BuiltinFunctionEvaluator.VariableNumberOfArguments | BuiltinFunctionEvaluator.EvaluateArguments));
 
 	defaultOptions = new HashMap();
 	defaultOptions.put("title", null);
+        defaultOptions.put("Position", null);
 
     }//end method.
 
@@ -64,9 +59,14 @@ public class TreeProcess extends BuiltinFunction {
 	Cons associationList = ((Cons) getArgument(aEnvironment, aStackTop, 3).car()).cdr();
 	
 	if(! Utility.isList(associationList)) LispError.throwError(aEnvironment, aStackTop, "The third argument must be an association list.");
+        
+        Cons options = ((Cons) getArgument(aEnvironment, aStackTop, 3).car()).cdr().cdr();
 
-	
-	PatternProcess patternVisitor = new org.mathpiper.lisp.astprocessors.PatternProcess(aEnvironment, pattern, associationList);
+        Map userOptions = Utility.optionsListToJavaMap(aEnvironment, aStackTop, options, defaultOptions);
+        
+        if(userOptions.get("Position") != null && !(userOptions.get("Position") instanceof String)) LispError.throwError(aEnvironment, aStackTop, "The Position option must be a string.");
+
+	PatternProcess patternVisitor = new org.mathpiper.lisp.astprocessors.PatternProcess(aEnvironment, pattern, (String) userOptions.get("Position"), associationList);
 
 	Cons resultCons = Utility.substitute(aEnvironment, aStackTop, expression, patternVisitor);
 
@@ -89,6 +89,10 @@ public class TreeProcess extends BuiltinFunction {
 {pattern} -- a pattern that matches on parts of the tree
 
 {associationlist} -- an association list that contains an anonymous function that is called at each match
+
+{Options:}
+
+{Position} -- String: a match will only be checked at the specified position
 
 *DESC
 
