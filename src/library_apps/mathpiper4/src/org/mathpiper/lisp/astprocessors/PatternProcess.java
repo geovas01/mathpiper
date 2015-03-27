@@ -20,12 +20,15 @@ public class PatternProcess implements ASTProcessor {
     ParametersPatternMatcher matcher = null;
     Cons associationList;
     String operatorString;
-    String positionToMatch;
+    String positionToMatch = null;
 
     public PatternProcess(Environment aEnvironment, Cons patternArguments, String positionToMatch, Cons associationList) throws Throwable {
 	iEnvironment = aEnvironment;
         
-        this.positionToMatch = "\"" + positionToMatch + "\"";
+        if(positionToMatch != null)
+        {
+            this.positionToMatch = "\"" + positionToMatch + "\"";
+        }
 
 	// check that associationList is a compound object
 	if (!(associationList.car() instanceof Cons))
