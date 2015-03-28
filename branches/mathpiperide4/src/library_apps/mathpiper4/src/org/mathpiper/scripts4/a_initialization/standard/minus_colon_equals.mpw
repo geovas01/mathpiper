@@ -61,6 +61,8 @@ Result: -2
 
 %mathpiper,name="-:=",subtype="automatic_test"
 {
+    Local(x, y);
+
     x := 9;
 
     y := 3;
