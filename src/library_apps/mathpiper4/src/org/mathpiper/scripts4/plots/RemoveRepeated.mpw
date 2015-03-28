@@ -1,7 +1,7 @@
 %mathpiper,def="RemoveRepeated"
 
 10 # RemoveRepeated([]) <-- [];
-10 # RemoveRepeated([_x]) <-- [x];
+10 # RemoveRepeated([x_]) <-- [x];
 20 # RemoveRepeated(list_List?) <-- {
         Local(i, done);
         done := False;

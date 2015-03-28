@@ -28,7 +28,7 @@ LocalSymbols(x,i,n,m,aux,dim,result)
       result;
     };
 
- 2 # Dimensions(_x) <-- List();
+ 2 # Dimensions(x_) <-- List();
 };  // LocalSymbols
 
 %/mathpiper

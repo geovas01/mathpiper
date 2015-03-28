@@ -24,22 +24,22 @@
 
 
 
-10 # PDF(ExponentialDistribution(_l), _x) <-- Decide(x<?0,0,l*Exp(-l*x));
+10 # PDF(ExponentialDistribution(l_), x_) <-- Decide(x<?0,0,l*Exp(-l*x));
 
-10 # PDF(NormalDistribution(_m,_s),_x) <-- Exp(-(x-m)^2/(2*s^2))/Sqrt(2*Pi*s^2); //See http://en.wikipedia.org/wiki/Normal_distribution.
+10 # PDF(NormalDistribution(m_, s_), x_) <-- Exp(-(x-m)^2/(2*s^2))/Sqrt(2*Pi*s^2); //See http://en.wikipedia.org/wiki/Normal_distribution.
 
-10 # PDF(ContinuousUniformDistribution(_a,_b),_x)::(a<?b) <-- Decide(x <? a Or? x >? b,0 ,1/(b-a));
+10 # PDF(ContinuousUniformDistribution(a_, b_), x_)::(a<?b) <-- Decide(x <? a Or? x >? b,0 ,1/(b-a));
 
-10 # PDF(DiscreteDistribution( dom_List?, prob_List?), _x)::( Length(dom)=?Length(prob) And? Simplify(Add(prob))=?1) <--
+10 # PDF(DiscreteDistribution( dom_List?, prob_List?), x_)::( Length(dom)=?Length(prob) And? Simplify(Add(prob))=?1) <--
     {
       Local(i);
       i:=Find(dom,x);
       Decide(i =? -1,0,prob[i]);
     };
-10 # PDF( ChiSquareDistribution( _m),x_RationalOrNumber?)::(x<=?0) <-- 0;
-20 # PDF( ChiSquareDistribution( _m),_x) <-- x^(m/2-1)*Exp(-x/2)/2^(m/2)/Gamma(m/2);
+10 # PDF( ChiSquareDistribution(m_),x_RationalOrNumber?)::(x <=? 0) <-- 0;
+20 # PDF( ChiSquareDistribution(m_), x_) <-- x^(m/2-1)*Exp(-x/2)/2^(m/2)/Gamma(m/2);
 
-10 # PDF(tDistribution(_m),x) <-- Gamma((m+1)/2)*(1+x^2/m)^(-(m+1)/2)/Gamma(m/2)/Sqrt(Pi*m);
+10 # PDF(tDistribution(m_), x_) <-- Gamma((m+1)/2)*(1+x^2/m)^(-(m+1)/2)/Gamma(m/2)/Sqrt(Pi*m);
 
 
 %/mathpiper

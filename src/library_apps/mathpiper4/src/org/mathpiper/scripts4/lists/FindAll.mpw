@@ -1,6 +1,6 @@
 %mathpiper,def="FindAll"
   
-10 # FindAll( list_List?, _element ) <--
+10 # FindAll( list_List?, element_ ) <--
   {
      Local(results,count);
      results := [];

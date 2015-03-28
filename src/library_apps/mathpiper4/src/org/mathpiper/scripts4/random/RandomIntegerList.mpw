@@ -1,6 +1,6 @@
 %mathpiper,def="RandomIntegerList"
 
-RandomIntegerList(_count,_coefmin,_coefmax) <--
+RandomIntegerList(count_, coefmin_, coefmax_) <--
   BuildList(FloorN(coefmin+Random()*(coefmax+1-coefmin)),i,1,count,1);
 
 %/mathpiper

@@ -1,7 +1,7 @@
 %mathpiper,def="VarList"
 
 /* VarList: return the variables this expression depends on. */
-VarList(_expr) <-- VarList(expr,"Variable?");
+VarList(expr_) <-- VarList(expr,"Variable?");
 
 Function("VarList",[_expr,_filter])
 {

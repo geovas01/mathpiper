@@ -1,13 +1,13 @@
 %mathpiper,def="Infinity?"
 
 10 # Infinity?(Infinity) <-- True;
-10 # Infinity?(-(_x)) <-- Infinity?(x);
+10 # Infinity?(-(x_)) <-- Infinity?(x);
 
 // This is just one example, we probably need to extend this further to include all
 // cases for f*Infinity where f can be guaranteed to not be zero
-11 # Infinity?(Sign(_x)*y_Infinity?) <-- True;
+11 # Infinity?(Sign(x_)*y_Infinity?) <-- True;
 
-60000 # Infinity?(_x) <-- False;
+60000 # Infinity?(x_) <-- False;
 
 %/mathpiper
 

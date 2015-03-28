@@ -75,7 +75,7 @@ Decide(Matrix?(x),
 False);
 
 /* remove? (dr)
-SquareMatrix?(_x) <--
+SquareMatrix?(x_) <--
 [
    Local(d);
    d:=Dimensions(x);

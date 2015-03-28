@@ -5,7 +5,7 @@
   WriteString(string);
 };
 
-20 # EchoInternal(_item) <--
+20 # EchoInternal(item_) <--
 {
   Write(item);Space();
 };
@@ -19,12 +19,12 @@
 RulebaseListedHoldArguments("Echo",[_firstParameter, _parametersList]);
 
 //Handle no option call.
-5 # Echo(_firstParameter) <-- Echo(firstParameter, []);
+5 # Echo(firstParameter_) <-- Echo(firstParameter, []);
 
 
 //Main routine.  It will automatically accept 1 or more option calls because the
 //options come in a list.
-10 # Echo(_firstParameter, parametersList_List?) <--
+10 # Echo(firstParameter_, parametersList_List?) <--
 {
     EchoInternal(firstParameter);
     ForEach(item,parametersList) EchoInternal(item);
@@ -34,7 +34,7 @@ RulebaseListedHoldArguments("Echo",[_firstParameter, _parametersList]);
 
 
 //Handle a single option call because the option does not come in a list for some reason.
-20 # Echo(_firstParameter, _secondParameter) <-- Echo(firstParameter, [secondParameter]);
+20 # Echo(firstParameter_, secondParameter_) <-- Echo(firstParameter, [secondParameter]);
 
 
 //No argument Echo simply prints a newline.

@@ -117,13 +117,13 @@ IsStronglyProbablyPrime(b_PositiveInteger?, n_PositiveInteger?) <--
  * result is less than 4^(-p).
  */
 // these 4 rules are not really used now because RabinMillerProbabilistic is only called for large enough n
-10 # RabinMillerProbabilistic(1, _p) <-- False;
+10 # RabinMillerProbabilistic(1, p_) <-- False;
 
-10 # RabinMillerProbabilistic(2, _p) <-- True;
+10 # RabinMillerProbabilistic(2, p_) <-- True;
 
-20 # RabinMillerProbabilistic(n_Even?, _p) <-- False;
+20 # RabinMillerProbabilistic(n_Even?, p_) <-- False;
 
-20 # RabinMillerProbabilistic(3, _p) <-- True;
+20 # RabinMillerProbabilistic(3, p_) <-- True;
 
 30 # RabinMillerProbabilistic(n_PositiveInteger?, p_PositiveInteger?) <--
 {

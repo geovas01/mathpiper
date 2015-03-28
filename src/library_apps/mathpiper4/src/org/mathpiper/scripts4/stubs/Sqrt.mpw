@@ -14,7 +14,7 @@ Sqrt(xlist_List?) <-- MapSingle("Sqrt",xlist);
 
 90 # (Sqrt(x_Constant?))::(NegativeNumber?(NM(x))) <-- Complex(0,Sqrt(-x));
 
-110 # Sqrt(Complex(_r,_i)) <-- Exp(Ln(Complex(r,i))/2);
+110 # Sqrt(Complex(r_, i_)) <-- Exp(Ln(Complex(r,i))/2);
 
 
 400 # Sqrt(x_Integer?)::Integer?(SqrtN(x)) <-- SqrtN(x);

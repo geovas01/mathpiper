@@ -1,6 +1,6 @@
 %mathpiper,def="RandomInteger"
 
-10 # RandomInteger(_n) <--
+10 # RandomInteger(n_) <--
 {
     Check(PositiveInteger?(n), "Argument", "The argument must be a positive integer.");
 
@@ -9,7 +9,7 @@
 
 
 
-10 # RandomInteger(_lowerBoundInclusive, _upperBoundInclusive) <--
+10 # RandomInteger(lowerBoundInclusive_, upperBoundInclusive_) <--
 {
     Check(Integer?(lowerBoundInclusive) And? Integer?(upperBoundInclusive), "Argument", "Both arguments must be integers.");
 
@@ -21,9 +21,6 @@
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-.   %/output
 
 
 
@@ -43,10 +40,6 @@ Verify(ExceptionCatch(RandomInteger(4, 1), "Exception"), "Exception");
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-.   %/output
-
 
 
 
@@ -57,7 +50,6 @@ Verify(ExceptionCatch(RandomInteger(4, 1), "Exception"), "Exception");
         Test that the two argument version of RandomInteger produces a
         discrete uniform distribution.
     */
-
 
     Local(randomNumbers, chiSquareTest, criticalChiSquareScore);
 

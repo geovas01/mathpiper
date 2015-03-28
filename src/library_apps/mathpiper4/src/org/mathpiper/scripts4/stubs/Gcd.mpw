@@ -1,16 +1,16 @@
 %mathpiper,def="Gcd"
 
 0 # Gcd(0,0) <-- 1;
-1 # Gcd(0,_m) <-- Abs(m);
-1 # Gcd(_n,0) <-- Abs(n);
-1 # Gcd(_m,_m) <-- Abs(m);
-2 # Gcd(_n,1) <-- 1;
-2 # Gcd(1,_m) <-- 1;
+1 # Gcd(0, m_) <-- Abs(m);
+1 # Gcd(n_,0) <-- Abs(n);
+1 # Gcd(m_,m_) <-- Abs(m);
+2 # Gcd(n_,1) <-- 1;
+2 # Gcd(1,m_) <-- 1;
 2 # Gcd(n_Integer?,m_Integer?) <-- GcdN(n,m);
-3 # Gcd(_n,_m)::(GaussianInteger?(m) And? GaussianInteger?(n) )<-- GaussianGcd(n,m);
+3 # Gcd(n_,m_)::(GaussianInteger?(m) And? GaussianInteger?(n) )<-- GaussianGcd(n,m);
 
-4 # Gcd(-(_n), (_m)) <-- Gcd(n,m);
-4 # Gcd( (_n),-(_m)) <-- Gcd(n,m);
+4 # Gcd(-(n_), (m_)) <-- Gcd(n,m);
+4 # Gcd( (n_),-(m_)) <-- Gcd(n,m);
 4 # Gcd(Sqrt(n_Integer?),Sqrt(m_Integer?)) <-- Sqrt(Gcd(n,m));
 4 # Gcd(Sqrt(n_Integer?),m_Integer?) <-- Sqrt(Gcd(n,m^2));
 4 # Gcd(n_Integer?,Sqrt(m_Integer?)) <-- Sqrt(Gcd(n^2,m));
@@ -28,7 +28,7 @@
       Gcd(first~Rest(Rest(list)));
     };
 14 # Gcd([0]) <-- 1;
-15 # Gcd([_head]) <-- head;
+15 # Gcd([head_]) <-- head;
 
 20 # Gcd(list_List?)::(Length(list)=?2) <-- Gcd(list[1],list[2]);
 
@@ -42,7 +42,7 @@
 */
 
 100 # Gcd(n_Constant?,m_Constant?) <-- 1;
-110 # Gcd(_m,_n) <--
+110 # Gcd(m_, n_) <--
 {
   Echo("Not simplified");
 };

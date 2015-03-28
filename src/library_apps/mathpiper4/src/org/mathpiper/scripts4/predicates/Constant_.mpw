@@ -1,6 +1,6 @@
 %mathpiper,def="Constant?"
 
-Constant?(_n) <-- (VarList(n) =? []);
+Constant?(n_) <-- (VarList(n) =? []);
 
 %/mathpiper
 

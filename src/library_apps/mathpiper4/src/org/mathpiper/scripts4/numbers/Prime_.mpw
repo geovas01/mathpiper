@@ -1,6 +1,6 @@
 %mathpiper,def="Prime?",categories="Mathematics Functions;Number Theory"
 
-2 # Prime?(_n)::(Not? Integer?(n) Or? n<=?1) <-- False;
+2 # Prime?(n_)::(Not? Integer?(n) Or? n<=?1) <-- False;
 3 # Prime?(n_Integer?)::(n<=?FastIsPrime(0)) <-- SmallPrime?(n);
 
 /* Fast pseudoprime testing: if n is a prime, then 24 divides (n^2-1) */

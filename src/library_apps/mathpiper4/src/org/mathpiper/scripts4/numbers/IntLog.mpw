@@ -1,10 +1,10 @@
 %mathpiper,def="IntLog"
 
 /// Return integer part of the logarithm of x in given base. Use only integer arithmetic.
-10 # IntLog(_x, _base):: (base<=?1) <-- Undefined;
+10 # IntLog(x_, base_):: (base<=?1) <-- Undefined;
 
 /// Use variable steps to speed up operation for large numbers x
-20 # IntLog(_x, _base) <--
+20 # IntLog(x_, base_) <--
 {
         Local(result, step, oldstep, factor, oldfactor);
         result := 0;

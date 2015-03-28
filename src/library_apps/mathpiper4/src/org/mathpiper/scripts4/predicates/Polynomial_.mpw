@@ -5,7 +5,7 @@
 
 15 # Polynomial?( expr_Constant? ) <-- True;
  
-20 # Polynomial?(_expr) <-- 
+20 # Polynomial?(expr_) <-- 
 {
     Local(x,vars);
     vars := VarList(expr);
@@ -14,12 +14,12 @@
     Polynomial?(expr,x);
 };
 
-25 # Polynomial?(_expr) <-- False;
+25 # Polynomial?(expr_) <-- False;
 
 
-10 # Polynomial?(_expr,_var)::(CanBeUni(var,expr)) <-- True;
+10 # Polynomial?(expr_,var_)::(CanBeUni(var,expr)) <-- True;
 
-15 # Polynomial?(_expr,_var) <-- False;
+15 # Polynomial?(expr_,var_) <-- False;
 
 %/mathpiper
 

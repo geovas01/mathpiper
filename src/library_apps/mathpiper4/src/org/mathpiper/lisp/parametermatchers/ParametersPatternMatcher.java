@@ -220,7 +220,7 @@ public class ParametersPatternMatcher {
      * PatternParameterMatcher objects are collected in a SublistCons, which is
      * returned. - Otherwise, this function returns #null.
      */
-    protected PatternParameterMatcher makeParameterMatcher(Environment aEnvironment, int aStackTop, Cons aPattern)
+    private PatternParameterMatcher makeParameterMatcher(Environment aEnvironment, int aStackTop, Cons aPattern)
 	    throws Throwable {
 
 	if (aPattern == null) {
@@ -239,10 +239,12 @@ public class ParametersPatternMatcher {
 	    if (!string.contains("_")) {
 		return new AtomPatternParameterMatcher(string);
 	    } else if (string.startsWith("_")) {
-		// A symbolic variable such as _x.
-		int index = lookUp(string.substring(1, string.length()));
+		// A constant such as _x.
+		// int index = lookUp(string.substring(1, string.length()));
 
-		return new VariablePatternParameterMatcher(index);
+		// return new VariablePatternParameterMatcher(index);
+                
+                return new AtomPatternParameterMatcher(string);
 	    } else {
 		String[] variables = string.split("_");
 

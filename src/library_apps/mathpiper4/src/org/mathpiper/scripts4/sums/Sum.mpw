@@ -8,11 +8,12 @@ RulebaseHoldArguments("Sum",[_sumvararg,_sumfromarg,_sumtoarg,_sumbodyarg]);
 
 
 
-10  # Sum(_sumvar,sumfrom_Number?,sumto_Number?,_sumbody)::(sumfrom>?sumto) <-- 0;
+10  # Sum(sumvar_, sumfrom_Number?,sumto_Number?, sumbody_)::(sumfrom>?sumto) <-- 0;
 
-20 # Sum(_sumvar,sumfrom_Number?,sumto_Number?,_sumbody)::(sumto<?sumfrom) <--
+20 # Sum(sumvar_, sumfrom_Number?, sumto_Number?, sumbody_)::(sumto<?sumfrom) <--
      ApplyFast("Sum",[sumvar,sumto,sumfrom,sumbody]);
-30 # Sum(_sumvar,sumfrom_Number?,sumto_Number?,_sumbody) <--
+
+30 # Sum(sumvar_, sumfrom_Number?, sumto_Number?, sumbody_) <--
 LocalSymbols(sumi,sumsum){
    Local(sumi,sumsum);
    sumsum:=0;
@@ -57,7 +58,7 @@ HoldArgument("SumFunc","sum");
 HoldArgument("SumFunc","summand");
 
 // Difference code does not work
-SumFunc(_sumvar,sumfrom_Integer?,_sumto,_sumbody,_sum) <--
+SumFunc(sumvar_, sumfrom_Integer?, sumto_, sumbody_, sum_) <--
 {
         // Take the given answer and create 2 rules, one for an exact match
         // for sumfrom, and one which will catch sums starting at a different
@@ -73,7 +74,7 @@ SumFunc(_sumvar,sumfrom_Integer?,_sumto,_sumbody,_sum) <--
              });
 };
 
-SumFunc(_sumvar,sumfrom_Integer?,_sumto,_sumbody,_sum,_condition) <--
+SumFunc(sumvar_, sumfrom_Integer?, sumto_, sumbody_, sum_, condition_) <--
 {
 
         `(40 # Sum(@sumvar,@sumfrom,@sumto,@sumbody)::(@condition)    <-- Eval(@sum) );
@@ -89,7 +90,7 @@ SumFunc(_sumvar,sumfrom_Integer?,_sumto,_sumbody,_sum,_condition) <--
 // Some type of canonical form is needed so that these match when
 // given in a different order, like x^k/k! vs. (1/k!)*x^k
 // works !
-SumFunc(_k,1,_n,_c + _d,
+SumFunc(_k, 1, _n, _c + _d,
   Eval(ListToFunction(['Sum,sumvararg,1,n,c])) +
   Eval(ListToFunction(['Sum,sumvararg,1,n,d]))
 );
@@ -125,7 +126,7 @@ SumFunc(_k,1,Infinity,_k^(-_d), Zeta(d), FreeOf?(k,d) );
 //SumFunc(_k,0,Infinity,_x^(2*_k+1)/(2*_k+1),ArcTanh(x) );
 SumFunc(_k,0,Infinity,1/(_k)!,Exp(1) );
 SumFunc(_k,0,Infinity,_x^_k/(_k)!,Exp(x) );
-40 # Sum(_var,_from,Infinity,_expr)::( `(Limit(@var,Infinity)(@expr)) =? Infinity) <-- Infinity;
+40 # Sum(var_, from_, Infinity, expr_)::( `(Limit(@var,Infinity)(@expr)) =? Infinity) <-- Infinity;
 
 SumFunc(_k,1,Infinity,1/BinomialCoefficient(2*_k,_k), (2*Pi*Sqrt(3)+9)/27 );
 SumFunc(_k,1,Infinity,1/(_k*BinomialCoefficient(2*_k,_k)), (Pi*Sqrt(3))/9 );

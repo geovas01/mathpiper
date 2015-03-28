@@ -8,7 +8,7 @@
 
 
 /* 60000 is the maximum precedence allowed for operators */
-10 # Print(_x) <--
+10 # Print(x_) <--
 {
   Print(x,60000);
   NewLine();
@@ -16,8 +16,8 @@
 };
 
 /* Print an argument within an environment of precedence n */
-10 # Print(x_Atom?,_n) <-- Write(x);
-10 # Print(_x,_n)::(Infix?(Type(x))And? ArgumentsCount(x) =? 2) <--
+10 # Print(x_Atom?,n_) <-- Write(x);
+10 # Print(x_,n_)::(Infix?(Type(x))And? ArgumentsCount(x) =? 2) <--
 {
   Local(bracket);
   bracket:= (PrecedenceGet(Type(x)) >? n);
@@ -28,7 +28,7 @@
   Decide(bracket,WriteString(")"));
 };
 
-10 # Print(_x,_n)::(Prefix?(Type(x)) And? ArgumentsCount(x) =? 1) <--
+10 # Print(x_,n_)::(Prefix?(Type(x)) And? ArgumentsCount(x) =? 1) <--
 {
   Local(bracket);
   bracket:= (PrecedenceGet(Type(x)) >? n);
@@ -38,7 +38,7 @@
   Decide(bracket,WriteString(")"));
 };
 
-10 # Print(_x,_n)::(Postfix?(Type(x))And? ArgumentsCount(x) =? 1) <--
+10 # Print(x_,n_)::(Postfix?(Type(x))And? ArgumentsCount(x) =? 1) <--
 {
   Local(bracket);
   bracket:= (PrecedenceGet(Type(x)) >? n);
@@ -48,20 +48,20 @@
   Decide(bracket,WriteString(")"));
 };
 
-20 # Print(_x,_n)::(Type(x) =? "List") <--
+20 # Print(x_,n_)::(Type(x) =? "List") <--
 {
   WriteString("[");
   PrintArg(x);
   WriteString("]");
 };
 
-20 # Print(_x,_n)::(Type(x) =? "Sequence") <--
+20 # Print(x_,n_)::(Type(x) =? "Sequence") <--
 {
   WriteString("[");
   PrintArgBlock(Rest(FunctionToList(x)));
   WriteString("]");
 };
-20 # Print(_x,_n)::(Type(x) =? "Nth") <--
+20 # Print(x_,n_)::(Type(x) =? "Nth") <--
 {
   Print(x[1],0);
   WriteString("[");
@@ -69,7 +69,7 @@
   WriteString("]");
 };
 
-100 # Print(x_Function?,_n) <--
+100 # Print(x_Function?,n_) <--
  {
    Write(x[0]);
    WriteString("(");
@@ -81,13 +81,13 @@
 /* Print the arguments of an ordinary function */
 10 # PrintArg([]) <-- True;
 
-20 # PrintArg(_list) <--
+20 # PrintArg(list_) <--
 {
   Print(First(list),60000);
   PrintArgComma(Rest(list));
 };
 10 # PrintArgComma([]) <-- True;
-20 # PrintArgComma(_list) <--
+20 # PrintArgComma(list_) <--
 {
   WriteString(",");
   Print(First(list),60000);
@@ -95,25 +95,20 @@
 };
 
 
-18 # Print(Complex(0,1),_n)   <-- {WriteString("I");};
-19 # Print(Complex(0,_y),_n)  <-- {WriteString("I*");Print(y,4);};
-19 # Print(Complex(_x,1),_n)  <-- {Print(x,7);WriteString("+I");};
-20 # Print(Complex(_x,_y),_n) <-- {Print(x,7);WriteString("+I*");Print(y,4);};
+18 # Print(Complex(0,1),n_)   <-- {WriteString("I");};
+19 # Print(Complex(0,y_),n_)  <-- {WriteString("I*");Print(y,4);};
+19 # Print(Complex(x_,1),n_)  <-- {Print(x,7);WriteString("+I");};
+20 # Print(Complex(x_,y_),n_) <-- {Print(x,7);WriteString("+I*");Print(y,4);};
 
 
 /* Tail-recursive printing the body of a compound statement */
 10 # PrintArgBlock([]) <-- True;
-20 # PrintArgBlock(_list) <--
+20 # PrintArgBlock(list_) <--
 {
    Print(First(list),60000);
    WriteString(";");
    PrintArgBlock(Rest(list));
 };
-
-
-
-
-
 
 
 

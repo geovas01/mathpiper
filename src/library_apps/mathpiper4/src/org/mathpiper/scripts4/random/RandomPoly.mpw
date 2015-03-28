@@ -2,7 +2,7 @@
 
 /* Generate a random polynomial */
 
-RandomPoly(_var,_degree,_coefmin,_coefmax) <--
+RandomPoly(var_, degree_, coefmin_, coefmax_) <--
   NormalForm(UniVariate(var,0,RandomIntegerList(degree+1,coefmin,coefmax)));
 
 %/mathpiper

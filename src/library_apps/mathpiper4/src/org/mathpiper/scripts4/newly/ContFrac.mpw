@@ -5,17 +5,17 @@
 //////////////////////////////////////////////////
 
 /// main interface
-10 # ContFrac(_n) <-- ContFrac(n, 6);
-50 # ContFrac(_n,_depth) <-- ContFracEval(ContFracList(n, depth), rest);
+10 # ContFrac(n_) <-- ContFrac(n, 6);
+50 # ContFrac(n_,depth_) <-- ContFracEval(ContFracList(n, depth), rest);
 
-40 # ContFrac(n_CanBeUni,_depth)::(Length(VarList(n)) =? 1) <--
+40 # ContFrac(n_CanBeUni,depth_)::(Length(VarList(n)) =? 1) <--
 {
   ContFracDoPoly(n,depth,VarList(n)[1]);
 };
 
-5  # ContFracDoPoly(_exp,0,_var) <-- rest;
-5  # ContFracDoPoly(0,0,_var) <-- rest;
-10 # ContFracDoPoly(_exp,_depth,_var) <--
+5  # ContFracDoPoly(exp_,0,var_) <-- rest;
+5  # ContFracDoPoly(0,0,var_) <-- rest;
+10 # ContFracDoPoly(exp_,depth_,var_) <--
 {
   Local(content,exp2,first,second);
   first:=Coef(exp,var,0);

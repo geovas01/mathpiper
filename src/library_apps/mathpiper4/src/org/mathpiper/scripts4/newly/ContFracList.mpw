@@ -6,19 +6,19 @@
 
 /// compute the list of continued fraction coefficients for a given number
 /// if order is not given, computes to the end
-10 # ContFracList(_n) <-- ContFracList(n, Infinity);
+10 # ContFracList(n_) <-- ContFracList(n, Infinity);
 /// compute list of given length
-10 # ContFracList(_n, _depth)::(depth <=? 0) <-- [];
-20 # ContFracList(n_Integer?, _depth) <-- [n];
+10 # ContFracList(n_, depth_)::(depth <=? 0) <-- [];
+20 # ContFracList(n_Integer?, depth_) <-- [n];
 // prevent infinite loop when in numeric mode
-30 # ContFracList(n_Number?, _depth)::NumericMode?() <-- NonNM(ContFracList(Rationalize(n), depth));
+30 # ContFracList(n_Number?, depth_)::NumericMode?() <-- NonNM(ContFracList(Rationalize(n), depth));
 
-40 # ContFracList(n_Number?, _depth) <-- ContFracList(Rationalize(n), depth);
+40 # ContFracList(n_Number?, depth_) <-- ContFracList(Rationalize(n), depth);
 
 /* n/m = Quotient(n,m) + 1/( m/Modulo(n,m) ) */
-35 # ContFracList((n_NegativeInteger?) / (m_Integer?), _depth) <-- Push( ContFracList(m/Modulo(n,m), depth-1) , Quotient(n,m)-1);
+35 # ContFracList((n_NegativeInteger?) / (m_Integer?), depth_) <-- Push( ContFracList(m/Modulo(n,m), depth-1) , Quotient(n,m)-1);
 
-40 # ContFracList((n_Integer?) / (m_Integer?), _depth) <-- Push( ContFracList(m/Modulo(n,m), depth-1) , Quotient(n,m));
+40 # ContFracList((n_Integer?) / (m_Integer?), depth_) <-- Push( ContFracList(m/Modulo(n,m), depth-1) , Quotient(n,m));
 
 %/mathpiper
 

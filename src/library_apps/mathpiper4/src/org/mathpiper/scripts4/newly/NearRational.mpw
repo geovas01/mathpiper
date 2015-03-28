@@ -7,7 +7,7 @@
 /// find rational number with smallest num./denom. near a given number x
 /// See: HAKMEM, MIT AI Memo 239, 02/29/1972, Item 101C
 
-10 # NearRational(_x) <-- NearRational(x, Floor(1/2*BuiltinPrecisionGet()));
+10 # NearRational(x_) <-- NearRational(x, Floor(1/2*BuiltinPrecisionGet()));
 
 15 # NearRational(x_RationalOrNumber?, prec_Integer?) <-- 
 {
@@ -55,7 +55,7 @@
 };
 
 
-20 # NearRational(_z, prec_Integer?)::
+20 # NearRational(z_, prec_Integer?)::
       (And?(Im(z)!=?0,RationalOrNumber?(Im(z)),RationalOrNumber?(Re(z)))) <--
 {
     Local(rr,ii);

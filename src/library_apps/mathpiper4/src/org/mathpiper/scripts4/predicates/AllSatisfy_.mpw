@@ -2,7 +2,7 @@
 
 10 # AllSatisfy?(pred_String?,lst_List?) <-- Apply("And?",(MapSingle(pred,lst)));
 
-20 # AllSatisfy?(_pred,_lst) <-- False;
+20 # AllSatisfy?(pred_,lst_) <-- False;
 
 %/mathpiper
 

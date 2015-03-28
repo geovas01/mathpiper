@@ -24,7 +24,7 @@ LocalSymbols(GlobalStack, x)
                 PopFront(GlobalStack);
         };
 
-        GlobalPush(_x) <--
+        GlobalPush(x_) <--
         {
                 Push(GlobalStack, x);
                 x;

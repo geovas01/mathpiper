@@ -1,6 +1,6 @@
 %mathpiper,def="VerifySolve;VerifySolveEqual"
 
-VerifySolve(_e1, _e2) <--
+VerifySolve(e1_, e2_) <--
 Decide(VerifySolveEqual(Eval(e1), Eval(e2)), 
     True,
     { 
@@ -32,10 +32,10 @@ HoldArgumentNumber("VerifySolve", 2, 1);
   Decide(found, VerifySolveEqual(Rest(e1), Delete(e2, i)), False);
 };
 
-40 # VerifySolveEqual(_l1 == _r1, _l2 == _r2) 
-<-- Equal?(l1,l2) And? Simplify(r1-r2)=?0;
+40 # VerifySolveEqual(l1_ == r1_, l2_ == r2_) 
+    <-- Equal?(l1,l2) And? Simplify(r1-r2)=?0;
 
-50 # VerifySolveEqual(_e1, _e2) <-- Simplify(e1-e2) =? 0;
+50 # VerifySolveEqual(e1_, e2_) <-- Simplify(e1-e2) =? 0;
 
 %/mathpiper
 

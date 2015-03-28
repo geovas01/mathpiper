@@ -12,7 +12,7 @@
 
 // This function is *only* for float and positive A!
 // The answer is only obtained at the current precision.
-MathSqrtFloat(_A) <--
+MathSqrtFloat(A_) <--
 {
         Local(bitshift, a0, x0, x0sq, targetbits, subtargetbits, gotbits, targetprec);
         bitshift := ShiftRight(BitCount(A)-1,1);

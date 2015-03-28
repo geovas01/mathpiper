@@ -51,19 +51,19 @@ UnparseCDoublePrecisionNumber(x_Number?) <--
 // UnparseCMaxPrec should perhaps only be used from within this file, it is thus not in the .def file.
 UnparseCMaxPrec() := 60000;         /* This precedence will never be bracketed. It is equal to KMaxPrec */
 
-100 # UnparseC(_x) <-- UnparseC(x, UnparseCMaxPrec());
+100 # UnparseC(x_) <-- UnparseC(x, UnparseCMaxPrec());
 
 /* Replace numbers and variables -- never bracketed except explicitly */
-110 # UnparseC(x_Integer?, _p) <-- ToString(x);
-111 # UnparseC(x_Zero?, _p) <-- "0.";
-112 # UnparseC(x_Number?, _p) <-- UnparseCDoublePrecisionNumber(x);
+110 # UnparseC(x_Integer?, p_) <-- ToString(x);
+111 # UnparseC(x_Zero?, p_) <-- "0.";
+112 # UnparseC(x_Number?, p_) <-- UnparseCDoublePrecisionNumber(x);
 /* Variables are left as is, except some special ones */
-190 # UnparseC(False, _p) <-- "false";
-190 # UnparseC(True, _p) <-- "true";
-200 # UnparseC(x_Atom?, _p) <-- ToString(x);
+190 # UnparseC(False, p_) <-- "false";
+190 # UnparseC(True, p_) <-- "true";
+200 # UnparseC(x_Atom?, p_) <-- ToString(x);
 
 /* Strings must be quoted but not bracketed */
-100 # UnparseC(x_String?, _p) <-- ConcatStrings("\"", x, "\"");
+100 # UnparseC(x_String?, p_) <-- ConcatStrings("\"", x, "\"");
 
 /* Replace operations */
 
@@ -86,20 +86,20 @@ LocalSymbols(cUnparserRegularOps) {
 }; // LocalSymbols(cUnparserRegularOps)
 
         /* This is the template for "regular" binary infix operators:
-100 # UnparseC(_x + _y, _p) <-- UnparseCBracketIf(p<?PrecedenceGet("+"), ConcatStrings(UnparseC(x, LeftPrecedenceGet("+")), " + ", UnparseC(y, RightPrecedenceGet("+")) ) );
+100 # UnparseC(x_ + y_, p_) <-- UnparseCBracketIf(p<?PrecedenceGet("+"), ConcatStrings(UnparseC(x, LeftPrecedenceGet("+")), " + ", UnparseC(y, RightPrecedenceGet("+")) ) );
         */
 
         /* unary addition */
-100 # UnparseC(+ _y, _p) <-- UnparseCBracketIf(p<?PrecedenceGet("+"), ConcatStrings(" + ", UnparseC(y, RightPrecedenceGet("+")) ) );
+100 # UnparseC(+ y_, p_) <-- UnparseCBracketIf(p<?PrecedenceGet("+"), ConcatStrings(" + ", UnparseC(y, RightPrecedenceGet("+")) ) );
 
         /* unary subtraction */
-100 # UnparseC(- _y, _p) <-- UnparseCBracketIf(p<?PrecedenceGet("-"), ConcatStrings(" - ", UnparseC(y, RightPrecedenceGet("-")) ) );
+100 # UnparseC(- y_, p_) <-- UnparseCBracketIf(p<?PrecedenceGet("-"), ConcatStrings(" - ", UnparseC(y, RightPrecedenceGet("-")) ) );
 
         /* power's argument is never bracketed but it must be put in braces. */
-100 # UnparseC(_x ^ _y, _p) <-- UnparseCBracketIf(p<=?PrecedenceGet("^"), ConcatStrings("pow(", UnparseC(x, UnparseCMaxPrec()), ", ", UnparseC(y, UnparseCMaxPrec()), ")" ) );
+100 # UnparseC(x_ ^ y_, p_) <-- UnparseCBracketIf(p<=?PrecedenceGet("^"), ConcatStrings("pow(", UnparseC(x, UnparseCMaxPrec()), ", ", UnparseC(y, UnparseCMaxPrec()), ")" ) );
 
-100 # UnparseC(If(_pred)_body, _p) <-- "If("~UnparseC(pred,60000)~") "~UnparseC(body);
-100 # UnparseC(_left Else _right, _p) <-- UnparseC(left)~" Else "~UnparseC(right);
+100 # UnparseC(If(pred_)body_, p_) <-- "If("~UnparseC(pred,60000)~") "~UnparseC(body);
+100 # UnparseC(left_ Else right_, p_) <-- UnparseC(left)~" Else "~UnparseC(right);
 
 
 LocalSymbols(cUnparserMathFunctions) {
@@ -135,13 +135,13 @@ LocalSymbols(cUnparserMathFunctions) {
 /* Precedence of 120 because we'd like to process some special functions like pow() first */
 
 
-120 # UnparseC(expr_Function?, _p)::(ArgumentsCount(expr)=?2 And? Contains?(AssociationIndices(UnparseCRegularOps()), Type(expr)) ) <--
+120 # UnparseC(expr_Function?, p_)::(ArgumentsCount(expr)=?2 And? Contains?(AssociationIndices(UnparseCRegularOps()), Type(expr)) ) <--
       UnparseCBracketIf(p<?PrecedenceGet(Type(expr)), ConcatStrings(UnparseC(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))), UnparseCRegularOps()[Type(expr)], UnparseC(FunctionToList(expr)[3], RightPrecedenceGet(Type(expr))) ) );
 
 
 /* Sin, Cos, etc. and their argument is always bracketed */
 
-120 # UnparseC(expr_Function?, _p) ::
+120 # UnparseC(expr_Function?, p_) ::
       (ArgumentsCount(expr)=?1 And? Contains?(AssociationIndices(UnparseCMathFunctions()), Type(expr)) ) <--
       ConcatStrings(UnparseCMathFunctions()[Type(expr)], "(", UnparseC( FunctionToList(expr)[2], UnparseCMaxPrec()),")" );
 
@@ -163,27 +163,27 @@ UnparseCArgs(list_List?) <--
 };
 
 
-200 # UnparseC(_x, _p)::(Function?(x)) <--
+200 # UnparseC(x_, p_)::(Function?(x)) <--
 {
   ConcatStrings(Type(x), "(", UnparseCArgs(Rest(FunctionToList(x))),")" );
 };
 
 /* Complex numbers */
-100 # UnparseC(Complex(0, 1), _p) <-- "I";
-100 # UnparseC(Complex(_x, 0), _p) <-- UnparseC(x, p);
-110 # UnparseC(Complex(_x, 1), _p) <-- UnparseC(x+Hold(I), p);
-110 # UnparseC(Complex(0, _y), _p) <-- UnparseC(Hold(I)*y, p);
-120 # UnparseC(Complex(_x, _y), _p) <-- UnparseC(x+Hold(I)*y, p);
+100 # UnparseC(Complex(0, 1), p_) <-- "I";
+100 # UnparseC(Complex(x_, 0), p_) <-- UnparseC(x, p);
+110 # UnparseC(Complex(x_, 1), p_) <-- UnparseC(x+Hold(I), p);
+110 # UnparseC(Complex(0, y_), p_) <-- UnparseC(Hold(I)*y, p);
+120 # UnparseC(Complex(x_, y_), p_) <-- UnparseC(x+Hold(I)*y, p);
 
 /* Some special functions: Mod */
 
-100 # UnparseC(Modulo(_x, _y), _p) <-- UnparseCBracketIf(p<?PrecedenceGet("/"), ConcatStrings(UnparseC(x, PrecedenceGet("/")), " % ", UnparseC(y, PrecedenceGet("/")) ) )
+100 # UnparseC(Modulo(x_, y_), p_) <-- UnparseCBracketIf(p<?PrecedenceGet("/"), ConcatStrings(UnparseC(x, PrecedenceGet("/")), " % ", UnparseC(y, PrecedenceGet("/")) ) )
 ;
 
 /* Indexed expressions are never bracketed */
 // the rule with [ ] seems to have no effect?
-//100 # UnparseC(_x [ _i ], _p) <-- ConcatStrings(UnparseC(x, UnparseCMaxPrec()), "[", UnparseC(i, UnparseCMaxPrec()), "]");
-100 # UnparseC(Nth(_x, _i), _p) <-- ConcatStrings(UnparseC(x, UnparseCMaxPrec()), "[", UnparseC(i, UnparseCMaxPrec()), "]");
+//100 # UnparseC(x_ [ i_ ], p_) <-- ConcatStrings(UnparseC(x, UnparseCMaxPrec()), "[", UnparseC(i, UnparseCMaxPrec()), "]");
+100 # UnparseC(Nth(x_, i_), p_) <-- ConcatStrings(UnparseC(x, UnparseCMaxPrec()), "[", UnparseC(i, UnparseCMaxPrec()), "]");
 
 LocalSymbols(cindent) {
   cindent:=1;
@@ -214,9 +214,9 @@ LocalSymbols(cindent) {
   };
 }; // LocalSymbols(cindent)
 
-UnparseCStatement(_x) <-- UnparseC(x) ~ ";" ~ NlIndented();
+UnparseCStatement(x_) <-- UnparseC(x) ~ ";" ~ NlIndented();
 
-120 # UnparseC(_x,_p)::(Type(x) =? "Sequence") <--
+120 # UnparseC(x_, p_)::(Type(x) =? "Sequence") <--
 {
   Local(result);
   result:=CIndent()~"{"~NlIndented();
@@ -228,14 +228,14 @@ UnparseCStatement(_x) <-- UnparseC(x) ~ ";" ~ NlIndented();
   result;
 };
 
-120 # UnparseC(For(_from,_to,_step)_body,_p) <--
+120 # UnparseC(For(from_, to_, step_) body_, p_) <--
   "for(" ~ UnparseC(from,UnparseCMaxPrec()) ~ ";"
         ~ UnparseC(to,UnparseCMaxPrec()) ~ ";"
         ~ UnparseC(step,UnparseCMaxPrec()) ~ ")"
         ~ CIndent() ~ NlIndented()
         ~ UnparseCStatement(body) ~ CUndent();
 
-120 # UnparseC(While(_pred)_body, _p) <--
+120 # UnparseC(While(pred_) body_, p_) <--
         "while(" ~ UnparseC(pred,UnparseCMaxPrec()) ~ ")"
         ~ CIndent() ~ NlIndented()
         ~ UnparseCStatement(body) ~ CUndent();

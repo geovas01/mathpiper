@@ -17,11 +17,11 @@
 /// but current value of precision is used
 /// Note that we return LnGamma(z), not of z+1
 /// This function should not be used directly by applications
-10 # InternalLnGammaNum(_z, _a)::(NM(Re(z))<?0) <-- {
+10 # InternalLnGammaNum(z_, a_)::(NM(Re(z))<?0) <-- {
         Decide(Verbose?(), Echo(["InternalLnGammaNum: using 1-z identity"]));
         NM(Ln(Pi/Sin(Pi*z)) - InternalLnGammaNum(1-z, a));
 };
-20 # InternalLnGammaNum(_z, _a) <-- {
+20 # InternalLnGammaNum(z_, a_) <-- {
         Local(e, k, tmpcoeff, coeff, result);
         a := Maximum(a, 4);        // guard against low values
         Decide(Verbose?(), Echo(["InternalLnGammaNum: precision parameter = ", a]));

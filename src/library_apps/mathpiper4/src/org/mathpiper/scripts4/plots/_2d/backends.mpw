@@ -35,10 +35,10 @@ Plot2DOutputs() := options;
 */
 
 /// trivial backend: return data list (do not confuse with Plot2Dgetdata() defined in the main code which is the middle-level plotting routine)
-Plot2DData(values_List?, _optionsHash) <-- values;
+Plot2DData(values_List?, optionsHash_) <-- values;
 
 /// The Java back-end generates a call-list that the Java graph plotter can handle
-Plot2DJava(values_List?, _optionsHash) <--
+Plot2DJava(values_List?, optionsHash_) <--
 {
   Local(result,count);
   count := 0;
@@ -65,13 +65,13 @@ Plot2DJava(values_List?, _optionsHash) <--
 10 # ColorForGraphNr(0) <-- " pencolor 64 64 128 ";
 10 # ColorForGraphNr(1) <-- " pencolor 128 64 64 ";
 10 # ColorForGraphNr(2) <-- " pencolor 64 128 64 ";
-20 # ColorForGraphNr(_count) <-- ColorForGraphNr(Modulo(count,3));
+20 # ColorForGraphNr(count_) <-- ColorForGraphNr(Modulo(count,3));
 
 
 
 
 //GeoGebra backend.
-Plot2DGeogebra(values_List?, _optionsHash) <--
+Plot2DGeogebra(values_List?, optionsHash_) <--
 {
   Local(result,count);
   count := 0;
@@ -96,7 +96,7 @@ Plot2DGeogebra(values_List?, _optionsHash) <--
 
 
 //JFreeChart backend.
-Plot2DJFreeChart(values_List?, _optionsHash) <--
+Plot2DJFreeChart(values_List?, optionsHash_) <--
 {
     Local(rangeList, domainList, function, allProcessedFunctionData, lineChartCallListForm);
     

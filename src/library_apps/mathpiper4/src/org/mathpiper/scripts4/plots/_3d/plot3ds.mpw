@@ -28,16 +28,16 @@ Function() Plot3DS(_func, _xrange, _yrange, _options, ...);
 
 
 /// interface routines
-1 # Plot3DS(_func) <-- ("Plot3DS" @ [func, -5->5, -5->5]);
-2 # Plot3DS(_func, _xrange, _yrange) <-- ("Plot3DS" @ [func, xrange, yrange, []]);
-3 # Plot3DS(_func, _xrange, _yrange, option_Function?):: (Type(option) =? ":" ) <-- ("Plot3DS" @ [func, xrange, yrange, [option]]);
+1 # Plot3DS(func_) <-- ("Plot3DS" @ [func, -5->5, -5->5]);
+2 # Plot3DS(func_, xrange_, yrange_) <-- ("Plot3DS" @ [func, xrange, yrange, []]);
+3 # Plot3DS(func_, xrange_, yrange_, option_Function?):: (Type(option) =? ":" ) <-- ("Plot3DS" @ [func, xrange, yrange, [option]]);
 
 /// Plot a single function
-5 # Plot3DS(_func, _xrange, _yrange, optionslist_List?)::(Not? List?(func)) <-- ("Plot3DS" @ [[func], xrange, yrange, optionslist]);
+5 # Plot3DS(func_, xrange_, yrange_, optionslist_List?)::(Not? List?(func)) <-- ("Plot3DS" @ [[func], xrange, yrange, optionslist]);
 
 /// Top-level 3D plotting routine:
 /// plot several functions sharing the same ranges and other options
-4 # Plot3DS(funclist_List?, _xrange, _yrange, optionslist_List?) <--
+4 # Plot3DS(funclist_List?, xrange_, yrange_, optionslist_List?) <--
 {
         Local(var, func, xdelta, ydelta, optionshash, cx, cy, fc, allvalues);
         // this will be a list of all computed values
@@ -195,7 +195,7 @@ HoldArgumentNumber("Plot3DS", 4, 4);
 /// grid, calls the adaptive routine, and gathers data points.
 /// func must be just one function (not a list).
 /// initvalues is a list with values [x,y,f]; deltas is a list [deltax, deltay].
-Plot3DSgetdata(_func, _var, _initvalues, _deltas, _optionshash) <--
+Plot3DSgetdata(func_, var_, initvalues_, deltas_, optionshash_) <--
 {
         Local(i, j, xa, ya, fa, xb, yb, fb, result, rowcache);
         // compute all grid points in the 0th row in the y direction;
@@ -253,8 +253,8 @@ Plot3DSgetdata(_func, _var, _initvalues, _deltas, _optionshash) <--
         See the Algo book for the description of the algorithm.
 */
 
-10 # Plot3DSadaptive(_func, _var, _square, 0, _epsilon, _optionshash) <-- [];
-20 # Plot3DSadaptive(_func, _var, [_x1, _y1, _x2, _y2, _f11, _f12, _f21, _f22], _depth, _epsilon, _optionshash) <--
+10 # Plot3DSadaptive(func_, var_, square_, 0, epsilon_, optionshash_) <-- [];
+20 # Plot3DSadaptive(func_, var_, [x1_, y1_, x2_, y2_, f11_, f12_, f21_, f22_], depth_, epsilon_, optionshash_) <--
 {
         Local(x3, y3, f13, f31, f33, f32, f23, result);
 

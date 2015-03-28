@@ -1,6 +1,6 @@
 %mathpiper,def="RandomIntegerMatrix"
 
-RandomIntegerMatrix(_rows,_cols,_coefmin,_coefmax) <--
+RandomIntegerMatrix(rows_, cols_, coefmin_, coefmax_) <--
         BuildMatrix([[i,j], FloorN(coefmin+Random()*(coefmax+1-coefmin))], rows, cols );
 
 %/mathpiper

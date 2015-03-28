@@ -8,7 +8,7 @@ LocalSymbols(complexReduce) {
       Exp(x_ComplexII?) <- Exp(ReII(x))*(Cos(ImII(x))+II*Sin(ImII(x)))
     ]));
 
-  NN(_c) <--
+  NN(c_) <--
   {
     Local(result);
     c := (c /:: complexReduce);

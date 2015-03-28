@@ -2,7 +2,7 @@
 
 /* See if a number, when evaluated, would be a positive real value */
 
-NegativeReal?(_r) <--
+NegativeReal?(r_) <--
 {
   r:=NM(Eval(r));
   (Number?(r) And? r <=? 0);

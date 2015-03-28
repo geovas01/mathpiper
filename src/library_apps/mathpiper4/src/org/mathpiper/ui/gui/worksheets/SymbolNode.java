@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.Icon;
+import org.mathpiper.lisp.Utility;
 import org.scilab.forge.mp.jlatexmath.TeXConstants;
 import org.scilab.forge.mp.jlatexmath.TeXFormula;
 
@@ -62,6 +63,8 @@ public class SymbolNode {
 
     public void setOperator(String symbolString, boolean isCodeForm) throws Exception {
 
+        symbolString = Utility.stripEndQuotesIfPresent(symbolString);
+        
         if (symbolString == null) {
             this.symbolString = "NULL";
         } else {
@@ -89,6 +92,22 @@ public class SymbolNode {
             icon = texFormula.createTeXIcon(TeXConstants.STYLE_DISPLAY, (float) 12);
         }
 
+    }
+    
+    public void setOperator(String symbolString, boolean isCodeForm, int wordWrap) throws Exception {
+        if(isCodeForm && wordWrap > 0)
+        {
+            StringBuilder sb = new StringBuilder(symbolString);
+
+            int i = 0;
+            while (i + wordWrap < sb.length() && (i = sb.lastIndexOf(" ", i + wordWrap)) != -1) {
+                sb.replace(i, i + 1, "\n");
+            }
+
+            symbolString = sb.toString();
+        }
+
+        setOperator(symbolString, isCodeForm);
     }
 
     public TeXFormula getTeXFormula() {

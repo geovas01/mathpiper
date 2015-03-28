@@ -5,7 +5,7 @@
    
 RulebaseHoldArguments("NormalDistribution",[x_]);
 
-NormalDistribution( _m , s2_RationalOrNumber?)::(s2<=?0) <-- Undefined;
+NormalDistribution( m_ , s2_RationalOrNumber?)::(s2 <=? 0) <-- Undefined;
 
 %/mathpiper
 

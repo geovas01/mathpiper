@@ -1,12 +1,12 @@
 %mathpiper,def="RationalFunction?"
 
-10 # RationalFunction?(_expr)::(Length(VarList(expr))=?0) <-- False;
+10 # RationalFunction?(expr_)::(Length(VarList(expr))=?0) <-- False;
 
-15 # RationalFunction?(_expr) <-- RationalFunction?(expr,VarList(expr));
+15 # RationalFunction?(expr_) <-- RationalFunction?(expr,VarList(expr));
 
-10 # RationalFunction?(expr_RationalOrNumber?,_var) <-- False;
+10 # RationalFunction?(expr_RationalOrNumber?, var_) <-- False;
 
-15 # RationalFunction?(_expr,var_Atom?)::(Type(expr)=?"/" Or? Type(-expr)=?"/") <--
+15 # RationalFunction?(expr_,var_Atom?)::(Type(expr)=?"/" Or? Type(-expr)=?"/") <--
 {
     Decide(Polynomial?(Numerator(expr),var) And? Polynomial?(Denominator(expr),var),
         Contains?(VarList(Denominator(expr)),var),
@@ -14,7 +14,7 @@
     );
 };
 
-20 # RationalFunction?(_expr,vars_List?)::(Type(expr)=?"/" Or? Type(-expr)=?"/") <--
+20 # RationalFunction?(expr_,vars_List?)::(Type(expr)=?"/" Or? Type(-expr)=?"/") <--
 {
     Decide(Polynomial?(Numerator(expr),vars) And? Polynomial?(Denominator(expr),vars),
         Intersection(vars, VarList(expr)) !=? [],
@@ -22,7 +22,7 @@
     );
 };
 
-60000 # RationalFunction?(_expr,_var) <-- False;
+60000 # RationalFunction?(expr_,var_) <-- False;
 
 
 %/mathpiper

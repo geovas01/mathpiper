@@ -9,10 +9,10 @@
     PolynomialOverIntegers?(expr,x);
 };
 
-15 # PolynomialOverIntegers?(_expr) <-- False;
+15 # PolynomialOverIntegers?(expr_) <-- False;
 
 
-10 # PolynomialOverIntegers?(_expr,_var)::(CanBeUni(var,expr)) <--
+10 # PolynomialOverIntegers?(expr_,var_)::(CanBeUni(var,expr)) <--
 {
     Decide( AllSatisfy?("Integer?",Coef(expr,var,0 .. Degree(expr,var))),
         True,
@@ -20,7 +20,7 @@
       );
 };
 
-15 # PolynomialOverIntegers?(_expr,_var) <-- False;
+15 # PolynomialOverIntegers?(expr_,var_) <-- False;
 
 %/mathpiper
 

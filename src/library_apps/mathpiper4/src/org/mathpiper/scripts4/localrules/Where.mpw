@@ -4,7 +4,7 @@ RulebaseHoldArguments("Where",[_left,_right]);
 
 UnFence("Where",2);
 
-10 # (_body Where var_Atom? == _value) <-- 
+10 # (body_ Where var_Atom? == value_) <-- 
 `{ 
     //Local(@var);
     //@var := @value;
@@ -14,15 +14,15 @@ UnFence("Where",2);
 };
      
      
-20 # (_body Where (_a And? _b)) <--
+20 # (body_ Where (a_ And? b_)) <--
 {
   Assign(body,`(@body Where @a));
   `(@body Where @b);
 };
 
-30 # (_body Where []) <-- [];
+30 # (body_ Where []) <-- [];
 
-40 # (_body Where list_List?)::List?(list[1])
+40 # (body_ Where list_List?)::List?(list[1])
      <--
      {
        Local(head,rest);
@@ -32,7 +32,7 @@ UnFence("Where",2);
        `(@body Where @head) ~ rest;
      };
 
-50 # (_body Where list_List?)
+50 # (body_ Where list_List?)
      <--
      {
        Local(head,rest);
@@ -46,7 +46,7 @@ UnFence("Where",2);
      };
 
 
-60 # (_body Where _var == _value) <-- Substitute(var,value)body;
+60 # (body_ Where var_ == value_) <-- Substitute(var,value)body;
 
 %/mathpiper
 

@@ -1,7 +1,7 @@
 %mathpiper,def="PositiveReal?"
 
 /* See if a number, when evaluated, would be a positive real value */
-PositiveReal?(_r) <--
+PositiveReal?(r_) <--
 {
   r:=NM(Eval(r));
   (Number?(r) And? r >=? 0);

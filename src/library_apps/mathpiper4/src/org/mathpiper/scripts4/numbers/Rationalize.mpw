@@ -2,7 +2,7 @@
 
 10 # Rationalize(aNumber_List?) <-- Rationalize /@ aNumber;
 
-20 # Rationalize( _aNumber ) <--
+20 # Rationalize( aNumber_ ) <--
 {
     Local(result,n,d);
     result:=SubstituteApply(aNumber,[[x],Number?(x) And? Not?(Integer?(x))],"RationalizeNumber");

@@ -4,7 +4,7 @@ RulebaseListedHoldArguments("GeoGebraPlot",[_arg1,_arg2]);
 
 
 
-5 # GeoGebraPlot(_arg1) <-- GeoGebraPlot(arg1,[]);  //Handle single argument call.
+5 # GeoGebraPlot(arg1_) <-- GeoGebraPlot(arg1,[]);  //Handle single argument call.
 
 
 20 # GeoGebraPlot(function_Function?, options_List?)::(Not? List?(function)) <--
@@ -21,7 +21,7 @@ RulebaseListedHoldArguments("GeoGebraPlot",[_arg1,_arg2]);
 
 
 
-10 # GeoGebraPlot(list_List?, _options)::(NumericList?(list) )  <--
+10 # GeoGebraPlot(list_List?, options_)::(NumericList?(list) )  <--
 {
     Decide(List?(options), options := OptionsToAssociationList(options), options := OptionsToAssociationList([options]));
 
@@ -79,7 +79,7 @@ RulebaseListedHoldArguments("GeoGebraPlot",[_arg1,_arg2]);
 };
 
 
-5 # GeoGebraPlot(list_List?, _options)::(Matrix?(list)) <--
+5 # GeoGebraPlot(list_List?, options_)::(Matrix?(list)) <--
 {
     Local(flatList);
     
@@ -99,10 +99,6 @@ RulebaseListedHoldArguments("GeoGebraPlot",[_arg1,_arg2]);
 
 
 %/mathpiper
-
-    %output,preserve="false"
-      Result: True
-.   %/output
 
 
 

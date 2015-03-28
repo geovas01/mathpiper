@@ -2,7 +2,8 @@
 
 RulebaseHoldArguments("Manipulate",[_symbolicEquation]);
 HoldArgument("Manipulate","symbolicEquation");
-10 # Manipulate(_symbolicEquation)::HasFunction?(Eval(symbolicEquation), "==") <--
+
+10 # Manipulate(symbolicEquation_)::HasFunction?(Eval(symbolicEquation), "==") <--
 {
     Local(listForm, operator, operand, left, right, leftManipulated, rightManipulated, operandIndex, equationIndex, leftOrder, rightOrder);
 

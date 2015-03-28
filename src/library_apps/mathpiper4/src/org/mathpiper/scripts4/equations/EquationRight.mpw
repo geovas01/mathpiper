@@ -1,6 +1,6 @@
 %mathpiper,def="EquationRight"
 
-EquationRight(_symbolicEquation)::(Type(symbolicEquation) =? "==")  <--
+EquationRight(symbolicEquation_)::(Type(symbolicEquation) =? "==")  <--
 {
     Local(listForm);
     

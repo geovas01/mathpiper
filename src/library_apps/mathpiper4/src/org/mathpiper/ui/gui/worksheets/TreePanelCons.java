@@ -121,7 +121,7 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
                                 operator = (String) expressionCons.car();
                             }
 
-                            mainRootNode.setOperator(operator, (Boolean) treeOptionsMap.get("Code"));
+                            mainRootNode.setOperator(operator, (Boolean) treeOptionsMap.get("Code"), (int) (long) Math.floor(((Integer) treeOptionsMap.get("WordWrap")).doubleValue()));
 
                             handleSublistCons(mainRootNode, expressionCons, null, null);
 
@@ -180,7 +180,7 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
 
 		String operator = (String) cons.car();
 
-		rootNode.setOperator(operator, (Boolean) treeOptionsMap.get("Code"));
+		rootNode.setOperator(operator, (Boolean) treeOptionsMap.get("Code"), (int) (long) Math.floor(((Integer) treeOptionsMap.get("WordWrap")).doubleValue()));
 
 		while (cons.cdr() != null) {
 			cons = cons.cdr();
@@ -236,7 +236,7 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
 
 				operator = (String) cons.car();
 
-				node2.setOperator(operator, (Boolean) treeOptionsMap.get("Code"));
+				node2.setOperator(operator, (Boolean) treeOptionsMap.get("Code"), (int) (long) Math.floor(((Integer) treeOptionsMap.get("WordWrap")).doubleValue()));
 
 				rootNode.addChild(node2);
 			}
@@ -409,16 +409,33 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
                 sg.setLineThickness(defaultLineThickness);
 
                 sg.setColor(Color.BLACK);
+                
+                double operatorTextWidthMax = 0;
+                double operatorTextHeightTotal = 0;
 
                 if ((Boolean) this.treeOptionsMap.get("Code")) {
                     String operatorText = currentNode.toString();
-                    double operatorTextWidth = (sg.getScaledTextWidth(operatorText));
-                    double operatorTextHeight = (sg.getScaledTextHeight(operatorText)) * .7; // todo:tk:the .7 is used to make the top of the rectangle come closer to the top of the number.
-
-                    sg.drawText(operatorText, nodeX0, nodeY0 + operatorTextHeight);
-
+                    
+                    String[] lines = operatorText.split("\n");
+                    
+                    double textY = nodeY0;
+                    
+                    for(String line:lines)
+                    {
+                        sg.drawText(line, nodeX0, textY + sg.getScaledTextHeight(line) * .7);
+                        
+                        textY += sg.getScaledTextHeight(line) * .7;
+                        
+                        if(sg.getScaledTextWidth(line) > operatorTextWidthMax)
+                        {
+                            operatorTextWidthMax = sg.getScaledTextWidth(line);
+                        }
+                        operatorTextHeightTotal += (sg.getScaledTextHeight(line)) * .7; // todo:tk:the .7 is used to make the top of the rectangle come closer to the top of the number.
+                    }
+                    
+                 
                     if (currentNode.isSlected() || (Boolean) this.treeOptionsMap.get("Debug")) {
-                        sg.drawRectangle(nodeX0, nodeY0, operatorTextWidth, operatorTextHeight);
+                        sg.drawRectangle(nodeX0, nodeY0, operatorTextWidthMax, operatorTextHeightTotal);
                         // System.out.println("P: " + nodeX0 * this.viewScale + ", " + nodeY0 * this.viewScale);
                     }
                 } else {
@@ -442,11 +459,11 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
                             double childNodeWidth = 10;
                             
                             if ((Boolean) this.treeOptionsMap.get("Code")) {
-                                String nodeText = currentNode.toString();
-                                width = (sg.getScaledTextWidth(nodeText));
-                                height = (sg.getScaledTextHeight(nodeText)) * .7; // todo:tk:the .7 is used to make the top of the rectangle come closer to the top of the number.
+                                width = operatorTextWidthMax;
+                                height = operatorTextHeightTotal;
+                                
                                 String childNodeText = childNode.toString();
-                                childNodeWidth = (sg.getScaledTextWidth(childNodeText));
+                                childNodeWidth = (sg.getScaledTextWidth(childNodeText)); //todo:tk.
                             }
                             else
                             {

@@ -3,9 +3,9 @@
 RulebaseHoldArguments("DoFlatten",[_doflattenx]);
 UnFence("DoFlatten",1);
 
-10 # DoFlatten(_doflattenx)::(Type(doflattenx)=?flattenoper) <--
+10 # DoFlatten(doflattenx_)::(Type(doflattenx)=?flattenoper) <--
      Apply("Concat",MapSingle("DoFlatten",Rest(FunctionToList(doflattenx))));
-20 # DoFlatten(_doflattenx) <-- [ doflattenx ];
+20 # DoFlatten(doflattenx_) <-- [ doflattenx ];
 
 
 Function("Flatten",[_body,_flattenoper])

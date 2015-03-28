@@ -15,7 +15,7 @@
      result;
 };
 
-20 # EqualAsSets( _A, _B ) <-- False;
+20 # EqualAsSets( A_, B_ ) <-- False;
 
 %/mathpiper
 

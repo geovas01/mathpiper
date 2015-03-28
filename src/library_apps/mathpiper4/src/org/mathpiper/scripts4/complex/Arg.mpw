@@ -1,6 +1,6 @@
 %mathpiper,def="Arg"
 
-//10 # Arg(Complex(Cos(_x),Sin(_x))) <-- x;
+//10 # Arg(Complex(Cos(x_),Sin(x_))) <-- x;
 10 # Arg(x_Zero?) <-- Undefined;
 15 # Arg(x_PositiveReal?) <-- 0;
 15 # Arg(x_NegativeReal?) <-- Pi;

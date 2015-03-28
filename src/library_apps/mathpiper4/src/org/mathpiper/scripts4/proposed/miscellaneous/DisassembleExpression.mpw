@@ -1,13 +1,13 @@
 %mathpiper,def="DisassembleExpression"
 
-10 # DisassembleExpression( _expr ) <--
+10 # DisassembleExpression( expr_ ) <--
 {
     Local(vars);
     vars := MultiExpressionList( expr );
     DisassembleExpression( expr, vars );
 };
 
-10 # DisassembleExpression( _expr, vars_List? ) <--
+10 # DisassembleExpression( expr_, vars_List? ) <--
 {
     Local(mexpr,func,termList,result,powers,coeffs);
     mexpr    := MakeMultiNomial(expr,vars);

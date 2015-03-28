@@ -1,7 +1,7 @@
 %mathpiper,def="/:"
 
 
-10 # (_expression /: _patterns) <--
+10 # (expression_ /: patterns_) <--
 {
   Assign(patterns, PatternsCompile(patterns));
   

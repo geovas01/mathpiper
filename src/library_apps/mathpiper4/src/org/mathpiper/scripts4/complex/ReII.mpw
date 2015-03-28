@@ -1,6 +1,6 @@
 %mathpiper,def="ReII"
 
-ReII(_c) <-- NN(c)[1];
+ReII(c_) <-- NN(c)[1];
 
 %/mathpiper
 

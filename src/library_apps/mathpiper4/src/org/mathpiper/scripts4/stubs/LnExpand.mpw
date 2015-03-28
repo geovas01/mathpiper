@@ -5,10 +5,10 @@
 // LnExpand
 1 # LnExpand(Ln(x_Integer?))
                             <-- Add(Map([[n,m],m*Ln(n)],Transpose(Factors(x))));
-1 # LnExpand(Ln(_a*_b))     <-- LnExpand(Ln(a))+LnExpand(Ln(b));
-1 # LnExpand(Ln(_a/_b))     <-- LnExpand(Ln(a))-LnExpand(Ln(b));
-1 # LnExpand(Ln(_a^_n))     <-- LnExpand(Ln(a))*n;
-2 # LnExpand(_a)            <-- a;
+1 # LnExpand(Ln(a_*b_))     <-- LnExpand(Ln(a))+LnExpand(Ln(b));
+1 # LnExpand(Ln(a_/b_))     <-- LnExpand(Ln(a))-LnExpand(Ln(b));
+1 # LnExpand(Ln(a_^n_))     <-- LnExpand(Ln(a))*n;
+2 # LnExpand(a_)            <-- a;
 
 %/mathpiper
 

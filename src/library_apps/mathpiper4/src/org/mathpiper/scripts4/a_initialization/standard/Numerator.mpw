@@ -1,7 +1,7 @@
 %mathpiper,def="Numerator"
 
-1 # Numerator(_x / _y)      <-- x;
-1 # Numerator(-_x/ _y)      <-- -x;
+1 # Numerator(x_ / y_)      <-- x;
+1 # Numerator(-x_/ y_)      <-- -x;
 2 # Numerator(x_Number?)   <-- x;
 
 %/mathpiper

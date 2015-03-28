@@ -127,7 +127,7 @@ Result: 10;
   MacroRulebaseHoldArguments(foo,[_a,_b]);
 
   // Simple check
-  foo(_c,_d) <-- [@c,@d];
+  foo(c_,d_) <-- [@c,@d];
   Verify(foo(2,3),Hold([2,3]));
 
   Macro("foo",[_a]) [@a,a];

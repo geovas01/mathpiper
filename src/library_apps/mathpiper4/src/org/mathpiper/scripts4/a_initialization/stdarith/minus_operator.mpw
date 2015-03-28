@@ -4,16 +4,16 @@
 
 //50 # -0 <-- 0;
 51 # -Undefined <-- Undefined;
-54 # - (- _x)      <-- x;
+54 # - (- x_)      <-- x;
 55 # (- (x_Number?)) <-- SubtractN(0,x);
-100 # _x - n_Constant?*(_x)   <-- (1-n)*x;
-100 # n_Constant?*(_x) - _x   <-- (n-1)*x;
+100 # x_ - n_Constant?*(x_)   <-- (1-n)*x;
+100 # n_Constant?*(x_) - x_   <-- (n-1)*x;
 
-//100 # Sinh(_x)^2-Cosh(_x)^2         <-- 1;
-//100 # Sinh(_x)-Cosh(_x)                <-- Exp(-x);
+//100 # Sinh(x_)^2-Cosh(x_)^2         <-- 1;
+//100 # Sinh(x_)-Cosh(x_)                <-- Exp(-x);
 
-110 # - (_x - _y) <-- y-x;
-111 # - (x_Number? / _y) <-- (-x)/y;        
+110 # - (x_ - y_) <-- y-x;
+111 # - (x_Number? / y_) <-- (-x)/y;        
 LocalSymbols(x)
 {
   200 # - (x_List?) <-- MapSingle("-",x);
@@ -23,22 +23,22 @@ LocalSymbols(x)
 50  # x_Number? - y_Number? <-- SubtractN(x,y);
 50  # x_Number? - y_Number? <-- SubtractN(x,y);
 60  # Infinity - Infinity <-- Undefined;
-100 # 0 - _x <-- -x;
-100 # _x - 0 <-- x;
-100 # _x - _x <-- 0;
+100 # 0 - x_ <-- -x;
+100 # x_ - 0 <-- x;
+100 # x_ - x_ <-- 0;
 
-107 # -( (-(_x))/(_y)) <-- x/y;
-107 # -( (_x)/(-(_y))) <-- x/y;
+107 # -( (-(x_))/(y_)) <-- x/y;
+107 # -( (x_)/(-(y_))) <-- x/y;
 
-110 # _x - (- _y) <-- x + y;
-110 # _x - (y_NegativeNumber?) <-- x + (-y);
-111 # (_x + _y)- _x <-- y;
-111 # (_x + _y)- _y <-- x;
-112 # _x - (_x + _y) <-- - y;
-112 # _y - (_x + _y) <-- - x;
-113 # (- _x) - _y <-- -(x+y);
-113 # (x_NegativeNumber?) - _y <-- -((-x)+y);
-113 # (x_NegativeNumber?)/_y - _z <-- -((-x)/y+z);
+110 # x_ - (- y_) <-- x + y;
+110 # x_ - (y_NegativeNumber?) <-- x + (-y);
+111 # (x_ + y_)- x_ <-- y;
+111 # (x_ + y_)- y_ <-- x;
+112 # x_ - (x_ + y_) <-- - y;
+112 # y_ - (x_ + y_) <-- - x;
+113 # (- x_) - y_ <-- -(x+y);
+113 # (x_NegativeNumber?) - y_ <-- -((-x)+y);
+113 # (x_NegativeNumber?)/y_ - z_ <-- -((-x)/y+z);
 
 
 /* TODO move to this precedence everywhere? */
@@ -61,14 +61,14 @@ LocalSymbols(x,y,xarg,yarg)
    result;
 };
 
-250 # z_Infinity? - Complex(_x,_y) <-- Complex(-x+z,-y);
-250 # Complex(_x,_y) - z_Infinity? <-- Complex(x-z,y);
+250 # z_Infinity? - Complex(x_,y_) <-- Complex(-x+z,-y);
+250 # Complex(x_,y_) - z_Infinity? <-- Complex(x-z,y);
 
-251 # z_Infinity? - _x <-- z;
-251 # _x - z_Infinity? <-- -z;
+251 # z_Infinity? - x_ <-- z;
+251 # x_ - z_Infinity? <-- -z;
 
-250 # Undefined - _y <-- Undefined;
-250 # _x - Undefined <-- Undefined;
+250 # Undefined - y_ <-- Undefined;
+250 # x_ - Undefined <-- Undefined;
 // fractions
 210 # x_Number? - (y_Number? / z_Number?) <--(x*z-y)/z;
 210 # (y_Number? / z_Number?) - x_Number? <--(y-x*z)/z;

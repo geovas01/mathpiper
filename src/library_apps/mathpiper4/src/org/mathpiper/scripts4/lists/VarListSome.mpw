@@ -2,11 +2,11 @@
 
 /// VarListSome is just like FuncList(x,y)
 
-10 # VarListSome([], _looklist) <-- [];
+10 # VarListSome([], looklist_) <-- [];
 
 // an atom should be a variable to qualify
-10 # VarListSome(expr_Variable?, _looklist) <-- [expr];
-15 # VarListSome(expr_Atom?, _looklist) <-- [];
+10 # VarListSome(expr_Variable?, looklist_) <-- [expr];
+15 # VarListSome(expr_Atom?, looklist_) <-- [];
 
 // a function not in the looking list - return it whole
 20 # VarListSome(expr_Function?, looklist_List?)::(Not? Contains?(looklist, ToString(Type(expr)))) <-- [expr];
