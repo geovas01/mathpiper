@@ -73,6 +73,7 @@ public class TreeView extends BuiltinFunction {
         defaultOptions.put("Lisp", false);
         defaultOptions.put("Code", true);
         defaultOptions.put("Debug", false);
+        defaultOptions.put("WordWrap", 0);
 
 
 
