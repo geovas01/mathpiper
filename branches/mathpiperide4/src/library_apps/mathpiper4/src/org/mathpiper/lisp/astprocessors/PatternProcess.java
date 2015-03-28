@@ -67,34 +67,24 @@ public class PatternProcess implements ASTProcessor {
 
 	    matcher = new org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher(aEnvironment, -1, patternArguments, postPredicate);
 
-	} else {
-	    String patternArgument = (String) patternArguments.car();
+        } else {
+            String patternArgument = (String) patternArguments.car();
 
-	    if (patternArgument.contains("_")) {
-
-		if (patternArgument.equals("_")) {
-		    operatorString = patternArgument;
-		} else if (patternArgument.startsWith("__")) {
-		    // Literal matching of variable names that begin with an
-		    // underscore.
-		    operatorString = patternArgument.substring(1, patternArgument.length());
-		} else if (patternArgument.endsWith("__")) {
-		    // Literal matching of variable names that end with an
-		    // underscore.
-		    operatorString = patternArgument.substring(0, patternArgument.length()-1);
-		} else if (patternArgument.startsWith("_")) {
-		    // Pattern variable with no checking function.
-		    operatorString = "_";
-		} else {
-		    // Pattern variable with a function.
-		    operatorString = "_";
-		    matcher = new org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher(aEnvironment, -1, patternArguments, Utility.getTrueAtom(aEnvironment));
-		}
-	    } else {
-		// Literal operator.
-		operatorString = patternArgument;
-	    }
-	}
+            if (patternArgument.equals("_")) {
+                // Pattern variable with no checking function.
+                operatorString = patternArgument;
+            } else if (patternArgument.startsWith("_")) {
+		// Literal matching of variable names that begin with an underscore.
+                operatorString = patternArgument;
+            } else if (patternArgument.contains("_")) {
+                // Pattern variable with a function.
+                operatorString = "_";
+                matcher = new org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher(aEnvironment, -1, patternArguments, Utility.getTrueAtom(aEnvironment));
+            } else {
+                // Literal operator.
+                operatorString = patternArgument;
+            }
+        }
 
     }
 
