@@ -280,7 +280,7 @@ LocalSymbols(RandSeed) {
   Function("RandomSeed", [_seed]) Assign(RandSeed, seed);
 
   /// Linear congruential generator
-  RandomLCG(_im, _ia, _ic) <--
+  RandomLCG(im_, ia_, ic_) <--
   {
     RandSeed:=ModuloN(RandSeed*ia+ic,im);
     DivideN(RandSeed,im);        // should never give 1
