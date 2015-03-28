@@ -2,7 +2,7 @@
 
 10 # NewLine()  <-- WriteN(Nl(),1);
 20 # NewLine(n_PositiveInteger?) <--  WriteN(Nl(),n);
-30 # NewLine(_n) <-- Check(False, "Argument", "The argument must be a positive integer  ");
+30 # NewLine(n_) <-- Check(False, "Argument", "The argument must be a positive integer  ");
 
 
 %/mathpiper

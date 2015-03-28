@@ -16,7 +16,7 @@ SqrtN(x) := MathSqrt1(x);        // to have another function is easier for debug
 /// Compute square root(x) with nonnegative x. FIXME: No precision tracking yet.
 10 # MathSqrt1(0) <-- 0;
 /// negative or non-numeric arguments give error message
-100 # MathSqrt1(_x) <-- { Echo("SqrtN: invalid argument: ", x); False;};
+100 # MathSqrt1(x_) <-- { Echo("SqrtN: invalid argument: ", x); False;};
 
 // this is too slow at the moment
 30 # MathSqrt1(x_PositiveNumber?) <-- x*NewtonNum([[r], r+r*(1-x*r^2)/2], FastPower(x,-0.5), 4, 2);

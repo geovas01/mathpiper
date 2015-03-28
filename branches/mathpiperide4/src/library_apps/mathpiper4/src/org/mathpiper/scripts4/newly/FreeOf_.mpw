@@ -1,19 +1,19 @@
 %mathpiper,def="FreeOf?"
 
-1 # FreeOf?([],_expr) <-- True;
-2 # FreeOf?(var_List?, _expr) <-- And?(FreeOf?(First(var),expr), FreeOf?(Rest(var),expr));
+1 # FreeOf?([], expr_) <-- True;
+2 # FreeOf?(var_List?, expr_) <-- And?(FreeOf?(First(var),expr), FreeOf?(Rest(var),expr));
 
-4 # FreeOf?(_var,[]) <-- True;
-5 # FreeOf?(_var,expr_List?) <-- And?(FreeOf?(var,First(expr)), FreeOf?(var,Rest(expr)));
+4 # FreeOf?(var_,[]) <-- True;
+5 # FreeOf?(var_,expr_List?) <-- And?(FreeOf?(var,First(expr)), FreeOf?(var,Rest(expr)));
 
 /* Accept any variable. */
-10 # FreeOf?(_expr,_expr) <-- False;
+10 # FreeOf?(expr_,expr_) <-- False;
 
 /* Otherwise check all leafs of a function. */
-11 # FreeOf?(_var,expr_Function?) <-- FreeOf?(var,Rest(FunctionToList(expr)));
+11 # FreeOf?(var_,expr_Function?) <-- FreeOf?(var,Rest(FunctionToList(expr)));
 
 /* Else it doesn't depend on any variable. */
-12 # FreeOf?(_var,_expr) <-- True;
+12 # FreeOf?(var_,expr_) <-- True;
 
 %/mathpiper
 

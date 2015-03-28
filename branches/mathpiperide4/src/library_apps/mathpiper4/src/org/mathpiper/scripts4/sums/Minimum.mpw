@@ -12,8 +12,8 @@ FIXME
 
 Function() Minimum(_l1, _l2, _l3, ...);
 
-10 # Minimum(_l1, _l2, l3_List?) <-- Minimum(Concat([l1, l2], l3));
-20 # Minimum(_l1, _l2, _l3) <-- Minimum([l1, l2, l3]);
+10 # Minimum(l1_, l2_, l3_List?) <-- Minimum(Concat([l1, l2], l3));
+20 # Minimum(l1_, l2_, l3_) <-- Minimum([l1, l2, l3]);
 
 10 # Minimum(l1_List?,l2_List?) <-- Map("Minimum",[l1,l2]);
 
@@ -32,7 +32,7 @@ Function() Minimum(_l1, _l2, _l3, ...);
   result;
 };
 
-30 # Minimum(_x) <-- x;
+30 # Minimum(x_) <-- x;
 
 %/mathpiper
 

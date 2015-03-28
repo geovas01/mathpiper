@@ -3,7 +3,7 @@
 /* Lagrangian power series reversion. Copied
    from Knuth seminumerical algorithms */
 
-ReversePoly(_f,_g,_var,_newvar,_degree) <--
+ReversePoly(f_, g_, var_, newvar_, degree_) <--
 {
   Local(orig,origg,G,V,W,U,n,initval,firstder,j,k,newsum);
   orig:=MakeUni(f,var);

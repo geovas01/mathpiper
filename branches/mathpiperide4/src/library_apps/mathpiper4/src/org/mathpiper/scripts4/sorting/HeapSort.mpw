@@ -4,7 +4,7 @@
 //*       original data, we have created a two-stage proces, so that the
 //*       input list is not changed.
 
-HeapSort(L_List?, _compare) <-- 
+HeapSort(L_List?, compare_) <-- 
 {
    Local(list);
    list := FlatCopy(L);
@@ -12,9 +12,9 @@ HeapSort(L_List?, _compare) <--
 };
 
 // this will sort "list" and mangle "tmplist"
-1 # HeapSort1(_L, _tmplist, _first, _last, _compare):: (last - first <=? 2) <-- SmallSort(L, first, last, compare);
+1 # HeapSort1(L_, tmplist_, first_, last_, compare_):: (last - first <=? 2) <-- SmallSort(L, first, last, compare);
 
-2 # HeapSort1(_L, _tmplist, _first, _last, _compare) <--
+2 # HeapSort1(L_, tmplist_, first_, last_, compare_) <--
 {       // See: J. W. J. Williams, Algorithm 232 (Heapsort), Com. of ACM, vol. 7, no. 6, p. 347 (1964)
         // sort two halves recursively, then merge two halves
         // cannot merge in-place efficiently, so need a second list

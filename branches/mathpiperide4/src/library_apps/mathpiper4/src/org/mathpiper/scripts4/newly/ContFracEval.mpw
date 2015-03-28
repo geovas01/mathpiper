@@ -7,14 +7,14 @@
 /// ContFracEval([[a0, b0], [a1, b1], ...]) = a0+b0/(a1+b1/(...))
 /// ContFracEval([a0, a1, ...]) = a0+1/(a1+1/(...))
 
-10 # ContFracEval([], _rest) <-- rest;
+10 # ContFracEval([], rest_) <-- rest;
 // finish recursion here
-10 # ContFracEval([[_n, _m]], _rest) <-- n+m+rest;
-15 # ContFracEval([_n], _rest) <-- n+rest;
+10 # ContFracEval([[n_, m_]], rest_) <-- n+m+rest;
+15 # ContFracEval([n_], rest_) <-- n+rest;
 /// Continued fractions with nontrivial numerators
-20 # ContFracEval(list_List?, _rest)::(List?(First(list))) <-- First(First(list)) + Rest(First(list)) / ContFracEval(Rest(list), rest);
+20 # ContFracEval(list_List?, rest_)::(List?(First(list))) <-- First(First(list)) + Rest(First(list)) / ContFracEval(Rest(list), rest);
 /// Continued fractions with unit numerators
-30 # ContFracEval(list_List?, _rest) <-- First(list) + 1 / ContFracEval(Rest(list), rest);
+30 # ContFracEval(list_List?, rest_) <-- First(list) + 1 / ContFracEval(Rest(list), rest);
 
 /// evaluate continued fraction: main interface
 ContFracEval(list_List?) <-- ContFracEval(list, 0);

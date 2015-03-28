@@ -15,14 +15,14 @@
 */
 
 // Undefined is a very special case as we return False for everything
-1 # Undefined <?  _x  <--  False;
-1 # Undefined <=? _x  <--  False;
-1 # Undefined >?  _x  <--  False;
-1 # Undefined >=? _x  <--  False;
-1 # _x <?  Undefined  <--  False;
-1 # _x <=? Undefined  <--  False;
-1 # _x >?  Undefined  <--  False;
-1 # _x >=? Undefined  <--  False;
+1 # Undefined <?  x_  <--  False;
+1 # Undefined <=? x_  <--  False;
+1 # Undefined >?  x_  <--  False;
+1 # Undefined >=? x_  <--  False;
+1 # x_ <?  Undefined  <--  False;
+1 # x_ <=? Undefined  <--  False;
+1 # x_ >?  Undefined  <--  False;
+1 # x_ >=? Undefined  <--  False;
 
 
 // If n and m are numbers, use the standard LessThan function immediately
@@ -32,51 +32,51 @@
 // If n and m are symbolic after a single evaluation, see if they can be coerced in to a real-valued number.
 LocalSymbols(nNum,mNum)
 {
-  10 # (_n <? _m)::{nNum:=NM(Eval(n)); mNum:=NM(Eval(m));Number?(nNum) And? Number?(mNum);} <-- LessThan?(nNum-mNum,0);
+  10 # (n_ <? m_)::{nNum:=NM(Eval(n)); mNum:=NM(Eval(m));Number?(nNum) And? Number?(mNum);} <-- LessThan?(nNum-mNum,0);
 };
 
 // Deal with Infinity
-20 #  (Infinity <? _n)::(Not?(Infinity?(n)))  <-- False;
-20 #  (-Infinity <? _n)::(Not?(Infinity?(n))) <-- True;
-20 #  (_n <? Infinity)::(Not?(Infinity?(n)))  <-- True;
-20 #  (_n <? -Infinity)::(Not?(Infinity?(n))) <-- False;
+20 #  (Infinity <? n_)::(Not?(Infinity?(n)))  <-- False;
+20 #  (-Infinity <? n_)::(Not?(Infinity?(n))) <-- True;
+20 #  (n_ <? Infinity)::(Not?(Infinity?(n)))  <-- True;
+20 #  (n_ <? -Infinity)::(Not?(Infinity?(n))) <-- False;
 
 // Lots of known identities go here
-30 # (_n1/_n2) <? 0  <--  (n1 <? 0) !=? (n2 <? 0);
-30 # (_n1*_n2) <? 0  <--  (n1 <? 0) !=? (n2 <? 0);
+30 # (n1_/n2_) <? 0  <--  (n1 <? 0) !=? (n2 <? 0);
+30 # (n1_*n2_) <? 0  <--  (n1 <? 0) !=? (n2 <? 0);
 
 // This doesn't sadly cover the case where a and b have opposite signs
-30 # ((_n1+_n2) <? 0)::((n1 <? 0) And? (n2 <? 0))  <--  True;
-30 # ((_n1+_n2) <? 0)::((n1 >? 0) And? (n2 >? 0))  <--  False;
-30 #  _x^a_Odd?  <? 0  <--  x <? 0;
-30 #  _x^a_Even? <? 0  <--  False; // This is wrong for complex x
+30 # ((n1_+n2_) <? 0)::((n1 <? 0) And? (n2 <? 0))  <--  True;
+30 # ((n1_+n2v) <? 0)::((n1 >? 0) And? (n2 >? 0))  <--  False;
+30 #  x_^a_Odd?  <? 0  <--  x <? 0;
+30 #  x_^a_Even? <? 0  <--  False; // This is wrong for complex x
 
 // Add other functions here!  Everything we can compare to 0 should be here.
-40 # ((Sqrt(_x))::(x >? 0)) <? 0          <--  False;
+40 # ((Sqrt(x_))::(x >? 0)) <? 0          <--  False;
 
-//40 # (Sin(_x) <? 0)::(Not?(Even?(NM(x/Pi))) And? Even?(NM(Floor(x/Pi)))) <-- False;
-//40 # (Sin(_x) <? 0)::(Not?(Odd? (NM(x/Pi))) And? Odd? (NM(Floor(x/Pi)))) <-- True;
+//40 # (Sin(x_) <? 0)::(Not?(Even?(NM(x/Pi))) And? Even?(NM(Floor(x/Pi)))) <-- False;
+//40 # (Sin(x_) <? 0)::(Not?(Odd? (NM(x/Pi))) And? Odd? (NM(Floor(x/Pi)))) <-- True;
 
-//40 # Cos(_x) <? 0 <-- Sin(Pi/2-x) <? 0;
+//40 # Cos(x_) <? 0 <-- Sin(Pi/2-x) <? 0;
 
-//40 # (Tan(_x) <? 0)::(Not?(Even?(NM(2*x/Pi))) And? Even?(NM(Floor(2*x/Pi)))) <-- False;
-//40 # (Tan(_x) <? 0)::(Not?(Odd? (NM(2*x/Pi))) And? Odd? (NM(Floor(2*x/Pi)))) <-- True;
+//40 # (Tan(x_) <? 0)::(Not?(Even?(NM(2*x/Pi))) And? Even?(NM(Floor(2*x/Pi)))) <-- False;
+//40 # (Tan(x_) <? 0)::(Not?(Odd? (NM(2*x/Pi))) And? Odd? (NM(Floor(2*x/Pi)))) <-- True;
 
 // Functions that need special treatment with more than one of the comparison
 // operators as they always return true or false.  For these we must define
 // both the `<?' and `>=?' operators.
-40 # (Complex(_a,_b) <?  0)::(b!=?0) <--  False;
-40 # (Complex(_a,_b) >=? 0)::(b!=?0) <--  False;
-40 # ((Sqrt(_x))::(x <? 0)) <?  0      <--  False;
-40 # ((Sqrt(_x))::(x <? 0)) >=? 0      <--  False;
+40 # (Complex(a_,b_) <?  0)::(b!=?0) <--  False;
+40 # (Complex(a_,b_) >=? 0)::(b!=?0) <--  False;
+40 # ((Sqrt(x_))::(x <? 0)) <?  0      <--  False;
+40 # ((Sqrt(x_))::(x <? 0)) >=? 0      <--  False;
 
 // Deal with negated terms
-50 # -(_x) <? 0 <-- Not?((x<?0) Or? (x=?0));
+50 # -(x_) <? 0 <-- Not?((x<?0) Or? (x=?0));
 
 // Define each of [>?,<=?,>=?] in terms of <?
-50 # _n >?  _m <-- m <? n;
-50 # _n <=? _m <-- m >=? n;
-50 # _n >=? _m <-- Not?(n<?m);
+50 # n_ >?  m_ <-- m <? n;
+50 # n_ <=? m_ <-- m >=? n;
+50 # n_ >=? m_ <-- Not?(n<?m);
 
 
 Function("!=?",[_aLeft,_aRight]) Not?(aLeft=?aRight);

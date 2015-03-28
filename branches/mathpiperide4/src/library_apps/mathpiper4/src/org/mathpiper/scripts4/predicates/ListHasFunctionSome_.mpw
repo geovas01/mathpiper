@@ -1,8 +1,8 @@
 %mathpiper,def="ListHasFunctionSome?"
 
-10 # ListHasFunctionSome?([], _atom, _looklist) <-- False;
+10 # ListHasFunctionSome?([], atom_, looklist_) <-- False;
 
-15 # ListHasFunctionSome?(expr_List?, string_String?, _looklist) <-- ListHasFunctionSome?(expr, ToAtom(string), looklist);
+15 # ListHasFunctionSome?(expr_List?, string_String?, looklist_) <-- ListHasFunctionSome?(expr, ToAtom(string), looklist);
 
-20 # ListHasFunctionSome?(expr_List?, atom_Atom?, _looklist) <-- HasFunctionSome?(First(expr), atom, looklist) Or? ListHasFunctionSome?(Rest(expr), atom, looklist);
+20 # ListHasFunctionSome?(expr_List?, atom_Atom?, looklist_) <-- HasFunctionSome?(First(expr), atom, looklist) Or? ListHasFunctionSome?(Rest(expr), atom, looklist);
 %/mathpiper

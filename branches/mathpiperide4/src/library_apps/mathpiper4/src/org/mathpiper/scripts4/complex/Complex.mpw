@@ -1,29 +1,29 @@
 %mathpiper,def="Complex"
 
-0 # Complex(_r,i_Zero?) <-- r;
-2 # Complex(Complex(_r1,_i1),_i2) <-- Complex(r1,i1+i2);
-2 # Complex(_r1,Complex(_r2,_i2)) <-- Complex(r1-i2,r2);
+0 # Complex(r_,i_Zero?) <-- r;
+2 # Complex(Complex(r1_, i1_), i2_) <-- Complex(r1,i1+i2);
+2 # Complex(r1_,Complex(r2_,i2_)) <-- Complex(r1-i2,r2);
 
-6 # Complex(Undefined,_x) <-- Undefined;
-6 # Complex(_x,Undefined) <-- Undefined;
+6 # Complex(Undefined, x_) <-- Undefined;
+6 # Complex(x_,Undefined) <-- Undefined;
 
 
 /* Addition */
 
-110 # Complex(_r1,_i1) + Complex(_r2,_i2) <-- Complex(r1+r2,i1+i2);
-300 # Complex(_r,_i) + x_Constant? <-- Complex(r+x,i);
-300 # x_Constant? + Complex(_r,_i) <-- Complex(r+x,i);
+110 # Complex(r1_,i1_) + Complex(r2_,i2_) <-- Complex(r1+r2,i1+i2);
+300 # Complex(r_,i_) + x_Constant? <-- Complex(r+x,i);
+300 # x_Constant? + Complex(r_,i_) <-- Complex(r+x,i);
 
-110 # - Complex(_r,_i) <-- Complex(-r,-i);
+110 # - Complex(r_,i_) <-- Complex(-r,-i);
 
-300 # Complex(_r,_i) - x_Constant? <-- Complex(r-x,i);
-300 # x_Constant? - Complex(_r,_i) <-- Complex((-r)+x,-i);
-111 # Complex(_r1,_i1) - Complex(_r2,_i2) <-- Complex(r1-r2,i1-i2);
+300 # Complex(r_,i_) - x_Constant? <-- Complex(r-x,i);
+300 # x_Constant? - Complex(r_,i_) <-- Complex((-r)+x,-i);
+111 # Complex(r1_,i1_) - Complex(r2_,i2_) <-- Complex(r1-r2,i1-i2);
 
 /* Multiplication */
-110 # Complex(_r1,_i1) * Complex(_r2,_i2) <-- Complex(r1*r2-i1*i2,r1*i2+r2*i1);
+110 # Complex(r1_,i1_) * Complex(r2_,i2_) <-- Complex(r1*r2-i1*i2,r1*i2+r2*i1);
 /* right now this is slower than above
-110 # Complex(_r1,_i1) * Complex(_r2,_i2) <--
+110 # Complex(r1_,i1_) * Complex(r2_,i2_) <--
 [        // the Karatsuba trick
         Local(A,B);
         A:=r1*r2;
@@ -34,40 +34,40 @@
 
 
 // Multiplication in combination with complex numbers in the light of infinity
-250 # Complex(r_Zero?,_i) * x_Infinity? <-- Complex(0,i*x);
-250 # Complex(_r,i_Zero?) * x_Infinity? <-- Complex(r*x,0);
-251 # Complex(_r,_i) * x_Infinity? <-- Complex(r*x,i*x);
+250 # Complex(r_Zero?,i_) * x_Infinity? <-- Complex(0,i*x);
+250 # Complex(r_,i_Zero?) * x_Infinity? <-- Complex(r*x,0);
+251 # Complex(r_,i_) * x_Infinity? <-- Complex(r*x,i*x);
 
-250 # x_Infinity? * Complex(r_Zero?,_i) <-- Complex(0,i*x);
-250 # x_Infinity? * Complex(_r,i_Zero?) <-- Complex(r*x,0);
-251 # x_Infinity? * Complex(_r,_i) <-- Complex(r*x,i*x);
-
-
-300 # Complex(_r,_i) * y_Constant? <-- Complex(r*y,i*y);
-300 # y_Constant? * Complex(_r,_i) <-- Complex(r*y,i*y);
-
-330 # Complex(_r,_i) * (y_Constant? / _z) <-- (Complex(r*y,i*y))/z;
-330 # (y_Constant? / _z) * Complex(_r,_i) <-- (Complex(r*y,i*y))/z;
+250 # x_Infinity? * Complex(r_Zero?, i_) <-- Complex(0,i*x);
+250 # x_Infinity? * Complex(r_,i_Zero?) <-- Complex(r*x,0);
+251 # x_Infinity? * Complex(r_,i_) <-- Complex(r*x,i*x);
 
 
-110 # x_Constant? / Complex(_r,_i) <-- (x*Conjugate(Complex(r,i)))/(r^2+i^2);
+300 # Complex(r_,i_) * y_Constant? <-- Complex(r*y,i*y);
+300 # y_Constant? * Complex(r_,i_) <-- Complex(r*y,i*y);
+
+330 # Complex(r_,i_) * (y_Constant? / z_) <-- (Complex(r*y,i*y))/z;
+330 # (y_Constant? / z_) * Complex(r_,i_) <-- (Complex(r*y,i*y))/z;
 
 
-300 # Complex(_r,_i) / y_Constant? <-- Complex(r/y,i/y);
-
-110 # (_x ^ Complex(_r,_i)) <-- Exp(Complex(r,i)*Ln(x));
+110 # x_Constant? / Complex(r_,i_) <-- (x*Conjugate(Complex(r,i)))/(r^2+i^2);
 
 
-110 # (Complex(_r,_i) ^ x_RationalOrNumber?)::(Not?(Integer?(x))) <-- Exp(x*Ln(Complex(r,i)));
+300 # Complex(r_,i_) / y_Constant? <-- Complex(r/y,i/y);
+
+110 # (x_ ^ Complex(r_,i_)) <-- Exp(Complex(r,i)*Ln(x));
+
+
+110 # (Complex(r_,i_) ^ x_RationalOrNumber?)::(Not?(Integer?(x))) <-- Exp(x*Ln(Complex(r,i)));
 
 // This is commented out because it used PowerN so (2*I)^(-10) became a floating-point number. Now everything is handled by binary algorithm below
-//120 # Complex(r_Zero?,_i) ^ n_Integer? <-- [1,I,-1,-I][1+Modulo(n,4)] * i^n;
+//120 # Complex(r_Zero?,i_) ^ n_Integer? <-- [1,I,-1,-I][1+Modulo(n,4)] * i^n;
 
-123 # Complex(_r, _i) ^ n_NegativeInteger? <-- 1/Complex(r, i)^(-n);
+123 # Complex(r_, i_) ^ n_NegativeInteger? <-- 1/Complex(r, i)^(-n);
 
-124 # Complex(_r, _i) ^ (p_Zero?) <-- 1;        // cannot have Complex(0,0) here
+124 # Complex(r_, i_) ^ (p_Zero?) <-- 1;        // cannot have Complex(0,0) here
 
-125 # Complex(_r, _i) ^ n_PositiveInteger? <--
+125 # Complex(r_, i_) ^ n_PositiveInteger? <--
 {
         // use binary method
         Local(result, x);
@@ -165,7 +165,7 @@ Verify(I^(-I), Exp(Pi/2));
 Verify((1+I)^33, 65536+I*65536);
 Verify((1+I)^(-33), (1-I)/131072);
 //Verify(Exp(I*Pi), -1);
-//TestMathPiper((_a+_b*I)*(_c+_d*I), (_a*_c-_b*_d)+I*(_a*_d+_b*_c));
+//TestMathPiper((a_+b_*I)*(c_+d_*I), (a_*c_-b_*d_)+I*(a_*d_+b_*c_));
 Verify(Ln(-1), I*Pi);
 //Verify(Ln(3+4*I), Ln(5)+I*ArcTan(4/3));
 

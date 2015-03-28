@@ -1,7 +1,7 @@
 %mathpiper,def="Assert"
 
 /// post an error if assertion fails
-(Assert(_errorclass, _errorobject) _predicate) <--
+(Assert(errorclass_, errorobject_) predicate_) <--
 {
         CheckErrorTableau();
         Decide(Equal?(predicate, True),        // if it does not evaluate to True, its an error
@@ -14,10 +14,10 @@
 };
 
 /// interface
-(Assert(_errorclass) _predicate) <-- Assert(errorclass, True) predicate;
+(Assert(errorclass_) predicate_) <-- Assert(errorclass, True) predicate;
 
 /// interface
-(Assert() _predicate) <-- Assert("generic", True) predicate;
+(Assert() predicate_) <-- Assert("generic", True) predicate;
 
 %/mathpiper
 

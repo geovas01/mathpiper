@@ -1,6 +1,6 @@
 %mathpiper,def="Find"
 
-10 # Find( list_List?, _element ) <--
+10 # Find( list_List?, element_ ) <--
   {
      Local(result,count);
      result := -1;

@@ -8,18 +8,18 @@ Function("RationalNumeric?",[_aLeft])
     Number?(aLeft[1]) And?
     Number?(aLeft[2]);
 
-RationalOrNumber?(_x) <-- (Number?(x) Or? RationalNumeric?(x));
+RationalOrNumber?(x_) <-- (Number?(x) Or? RationalNumeric?(x));
 
 10 # RationalOrInteger?(x_Integer?) <-- True;
 10 # RationalOrInteger?(x_Integer? / y_Integer?) <-- True;
-20 # RationalOrInteger?(_x) <-- False;
+20 # RationalOrInteger?(x_) <-- False;
 
 */
 
 10 # Rational?(x_Integer?) <-- True;
 10 # Rational?(x_Integer? / y_Integer?) <-- True;
 10 # Rational?(-(x_Integer? / y_Integer?)) <-- True;
-60000 # Rational?(_x) <-- False;
+60000 # Rational?(x_) <-- False;
 
 %/mathpiper
 

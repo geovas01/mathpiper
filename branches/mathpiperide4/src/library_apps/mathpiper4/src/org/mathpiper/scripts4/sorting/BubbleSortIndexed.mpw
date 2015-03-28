@@ -1,6 +1,6 @@
 %mathpiper,def="BubbleSortIndexed"
 
-BubbleSortIndexed( L_List?, _compare ) <--
+BubbleSortIndexed( L_List?, compare_ ) <--
 {
   Local(list,indices,pairs,sortedPairs);
 

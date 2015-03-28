@@ -27,16 +27,16 @@ Function() Plot2D(_func, _range);
 Function() Plot2D(_func, _range, _options, ...);
 
 /// interface routines
-1 # Plot2D(_func) <-- ("Plot2D" @ [func, -5->5]);
-2 # Plot2D(_func, _range) <-- ("Plot2D" @ [func, range, []]);
-3 # Plot2D(_func, _range, option_Function?):: (Type(option) =? ":" )  <-- ("Plot2D" @ [func, range, [option]]);
+1 # Plot2D(func_) <-- ("Plot2D" @ [func, -5->5]);
+2 # Plot2D(func_, range_) <-- ("Plot2D" @ [func, range, []]);
+3 # Plot2D(func_, range_, option_Function?):: (Type(option) =? ":" )  <-- ("Plot2D" @ [func, range, [option]]);
 
 /// Plot a single function
-5 # Plot2D(_func, _range, optionslist_List?)::(Not? List?(func)) <-- ("Plot2D" @ [[func], range, optionslist]);
+5 # Plot2D(func_, range_, optionslist_List?)::(Not? List?(func)) <-- ("Plot2D" @ [[func], range, optionslist]);
 
 /// Top-level 2D plotting routine:
 /// plot several functions sharing the same xrange and other options
-4 # Plot2D(funclist_List?, _range, optionslist_List?) <--
+4 # Plot2D(funclist_List?, range_, optionslist_List?) <--
 {
         Local(var, func, delta, optionshash, c, fc, allvalues);
         allvalues := [];
@@ -169,7 +169,7 @@ HoldArgumentNumber("Plot2D", 3, 3);
 /// this is the middle-level plotting routine; it generates the initial
 /// grid, calls the adaptive routine, and gathers data points.
 /// func must be just one function (not a list)
-Plot2Dgetdata(_func, _var, _xinit, _yinit, _deltax, _optionshash) <--
+Plot2Dgetdata(func_, var_, xinit_, yinit_, deltax_, optionshash_) <--
 {
         Local(i, a, fa, b, fb, c, fc, result);
         // initialize list by first points (later will always use Rest() to exclude first points of subintervals)
@@ -199,7 +199,7 @@ Plot2Dgetdata(_func, _var, _xinit, _yinit, _deltax, _optionshash) <--
         See documentation (Algorithms.chapt.txt) for the description of the algorithm.
 */
 
-Plot2Dadaptive(_func, _var, [_a,_b,_c], [_fa, _fb, _fc], _depth, _epsilon) <--
+Plot2Dadaptive(func_, var_, [a_,b_,c_], [fa_, fb_, fc_], depth_, epsilon_) <--
 {
         Local(a1, b1, fa1, fb1);
 

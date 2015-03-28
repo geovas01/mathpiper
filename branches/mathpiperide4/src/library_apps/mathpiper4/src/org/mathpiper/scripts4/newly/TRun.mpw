@@ -3,7 +3,7 @@
 //todo:tk:this function is completely commented out.
 
 /*
-TRun(_f,_g,_degree)<--
+TRun(f_, g_, degree_)<--
 [
   Local(l2,l3,l4);
   l2:=ReversePoly(f,g,t,z,degree);
@@ -20,7 +20,7 @@ TRun(2+t/2-t^2,t,10);
 */
 
 /*
-TRun(_f,_degree)<--
+TRun(f_, degree_)<--
 [
   Local(l2,l3,l4);
   l2:=InverseTaylor(t,0,degree)f;

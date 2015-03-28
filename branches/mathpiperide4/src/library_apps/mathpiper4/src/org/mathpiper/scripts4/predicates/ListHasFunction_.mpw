@@ -4,7 +4,7 @@
 /// this is mainly useful to test whether a list has nested lists, 
 /// i.e. ListHasFunction?([1,2,3], List)=False and ListHasFunction?([1,2,[3]], List)=True.
 // need to exclude the List atom itself, so don't use FunctionToList
-10 # ListHasFunction?([], _atom) <-- False;
+10 # ListHasFunction?([], atom_) <-- False;
 15 # ListHasFunction?(expr_List?, string_String?) <-- ListHasFunction?(expr, ToAtom(string));
 20 # ListHasFunction?(expr_List?, atom_Atom?) <-- HasFunction?(First(expr), atom) Or? ListHasFunction?(Rest(expr), atom);
 

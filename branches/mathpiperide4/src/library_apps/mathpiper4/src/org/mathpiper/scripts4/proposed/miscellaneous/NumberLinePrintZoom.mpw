@@ -3,9 +3,8 @@
 LocalSymbols(ZoomInOnce)
 {
 
-    10 # NumberLinePrintZoom(_lowValue, _highValue, divisions_PositiveInteger?, depth_PositiveInteger?)::(lowValue <? highValue) <-- 
+    10 # NumberLinePrintZoom(lowValue_, highValue_, divisions_PositiveInteger?, depth_PositiveInteger?)::(lowValue <? highValue) <-- 
     {
-    
         Local(numbers, stepAmount, zoomIndexes, nextZoomIndex, outputWidth, numbersString, output, randomStep, randomZoomNumber, iteration);
         
         iteration := 1;
@@ -57,7 +56,7 @@ LocalSymbols(ZoomInOnce)
     
     
     
-    ZoomInOnce(_lowValue, _highValue, divisions_PositiveInteger?)::(lowValue <? highValue) <--
+    ZoomInOnce(lowValue_, highValue_, divisions_PositiveInteger?)::(lowValue <? highValue) <--
     {
         Local(stepAmount, x, numbers);
         
@@ -84,10 +83,6 @@ LocalSymbols(ZoomInOnce)
 };
 
 %/mathpiper
-
-    %output,preserve="false"
-      Result: True
-.   %/output
 
 
 

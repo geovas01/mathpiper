@@ -5,7 +5,7 @@
 
 RulebaseHoldArguments("FDistribution",[x_]);
 
-FDistribution(_n1, _n2) <-- Undefined;
+FDistribution(n1_, n2_) <-- Undefined;
 
 %/mathpiper
 

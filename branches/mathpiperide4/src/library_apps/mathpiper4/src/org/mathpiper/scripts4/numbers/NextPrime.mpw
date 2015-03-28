@@ -1,7 +1,7 @@
 %mathpiper,def="NextPrime"
 
 /// obtain the real next prime number -- use primality testing
-1# NextPrime(_i) <--
+1# NextPrime(i_) <--
 {
         Until(Prime?(i)) i := NextPseudoPrime(i);
         i;

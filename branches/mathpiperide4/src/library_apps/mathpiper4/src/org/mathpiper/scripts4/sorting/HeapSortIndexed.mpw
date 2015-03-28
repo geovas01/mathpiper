@@ -1,8 +1,8 @@
 %mathpiper,def="HeapSortIndexed"
 
-HeapSortIndexed( L_List?, _compare ) <-- HeapSortIndexed1( FlatCopy(L), compare );
+HeapSortIndexed( L_List?, compare_ ) <-- HeapSortIndexed1( FlatCopy(L), compare );
 
-HeapSortIndexed1( L_List?, _compare ) <--
+HeapSortIndexed1( L_List?, compare_ ) <--
 {
   Local(list,indices,pairs,sortedPairs);
 

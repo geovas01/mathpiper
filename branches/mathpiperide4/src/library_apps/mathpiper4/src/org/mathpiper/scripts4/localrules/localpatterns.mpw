@@ -67,11 +67,11 @@ LocalSymbols(localResult) {
   
   
   
-  20 # LocPredicate(_exp) <-- False;
+  20 # LocPredicate(exp_) <-- False;
 
   
   
-  LocChange(_exp) <-- localResult;
+  LocChange(exp_) <-- localResult;
   
   
 }; // LocalSymbols(localResult)
@@ -87,14 +87,14 @@ UnFence("LocChange",1);
 
 /*
 // This is the original local rule syntax.
-10 # PatternCompile([_pat, _post, _exp]) <-- [ pat[0], PatternCreate(pat, post), exp, "UNNAMED" ];
+10 # PatternCompile([pat_, post_, exp_]) <-- [ pat[0], PatternCreate(pat, post), exp, "UNNAMED" ];
 
-20 # PatternCompile([pat_Function?, _exp]) <-- [ pat[0], PatternCreate(pat,True), exp, "UNNAMED" ];
+20 # PatternCompile([pat_Function?, exp_]) <-- [ pat[0], PatternCreate(pat,True), exp, "UNNAMED" ];
 
-30 # PatternCompile([pat_Atom?, _exp]) <-- [ pat, pat, exp, "UNNAMED" ];
+30 # PatternCompile([pat_Atom?, exp_]) <-- [ pat, pat, exp, "UNNAMED" ];
 */
 
-40 # PatternCompile(pat_Function? <- _exp) <-- 
+40 # PatternCompile(pat_Function? <- exp_) <-- 
 {
     Local(justPattern, postPredicate, ruleName);
     
@@ -136,7 +136,7 @@ UnFence("LocChange",1);
 };
 
 
-50 # PatternCompile(pat_Atom? <- _exp) <-- [pat, exp, "UNNAMED" ];
+50 # PatternCompile(pat_Atom? <- exp_) <-- [pat, exp, "UNNAMED" ];
 
 
 

@@ -162,7 +162,7 @@ result of the assignment is {True}.
 
 The last form defines a function. For example, the assignment {fn(x) := x^2}
 removes any rules previously associated with {fn(x)} and defines the rule
-{fn(_x) <-- x^2}. Note that the left-hand side may take a different form if
+{fn(x_) <-- x^2}. Note that the left-hand side may take a different form if
 {fn} is defined to be a prefix, infix or bodied function. This case
 is special since the right-hand side is not evaluated
 immediately, but only when the function {fn} is used. If this takes

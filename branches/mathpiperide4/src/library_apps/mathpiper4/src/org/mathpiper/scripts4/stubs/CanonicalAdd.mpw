@@ -4,18 +4,18 @@
 // ie a+(b+(c+d))
 // This doesn't preserve order of terms, when doing this would cause more
 // subtractions and nested parentheses than necessary.
-1 # CanonicalAdd((_a+_b)+_c) <-- CanonicalAdd(CanonicalAdd(a)+
+1 # CanonicalAdd((a_ + b_)+ c_) <-- CanonicalAdd(CanonicalAdd(a)+
                                               CanonicalAdd(CanonicalAdd(b)+
                                                            CanonicalAdd(c)));
-1 # CanonicalAdd((_a-_b)+_c) <-- CanonicalAdd(CanonicalAdd(a)+
+1 # CanonicalAdd((a_ - b_) + c_) <-- CanonicalAdd(CanonicalAdd(a)+
                                               CanonicalAdd(CanonicalAdd(c)-
                                                            CanonicalAdd(b)));
-1 # CanonicalAdd((_a+_b)-_c) <-- CanonicalAdd(CanonicalAdd(a)+
+1 # CanonicalAdd((a_ + b_) - c_) <-- CanonicalAdd(CanonicalAdd(a)+
                                               CanonicalAdd(CanonicalAdd(b)-
                                                            CanonicalAdd(c)));
-1 # CanonicalAdd((_a-_b)-_c) <-- CanonicalAdd(CanonicalAdd(a)-
+1 # CanonicalAdd((a_ - b_) - c_) <-- CanonicalAdd(CanonicalAdd(a)-
                                               CanonicalAdd(CanonicalAdd(b)+
                                                            CanonicalAdd(c)));
-2 # CanonicalAdd(_a)         <-- a;
+2 # CanonicalAdd(a_) <-- a;
 
 %/mathpiper

@@ -1,9 +1,9 @@
 %mathpiper,def="Apply"
 
-10 # Apply(_applyoper,_applyargs):: (Or?(String?(applyoper), List?(applyoper))) <-- ApplyFast(applyoper,applyargs);
-20 # Apply(applyoper_Atom?,_applyargs) <-- ApplyFast(ToString(applyoper),applyargs);
+10 # Apply(applyoper_,applyargs_):: (Or?(String?(applyoper), List?(applyoper))) <-- ApplyFast(applyoper,applyargs);
+20 # Apply(applyoper_Atom?,applyargs_) <-- ApplyFast(ToString(applyoper),applyargs);
 
-30 # Apply(Lambda(_args,_body),_applyargs) <-- `ApplyFast(Hold([@args,@body]),applyargs);
+30 # Apply(Lambda(args_,body_),applyargs_) <-- `ApplyFast(Hold([@args,@body]),applyargs);
 UnFence("Apply",2);
 
 %/mathpiper
@@ -100,7 +100,7 @@ LocalSymbols(f,x,n)
 {
   RulebaseHoldArguments("f",[_n]);
 
-  f(_n) <-- Apply("Differentiate",[x,n, x^n]);
+  f(n_) <-- Apply("Differentiate",[x,n, x^n]);
 
   Verify(f(10),(10!));
 

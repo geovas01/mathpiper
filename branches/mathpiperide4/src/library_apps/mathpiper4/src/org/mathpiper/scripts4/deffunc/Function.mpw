@@ -111,7 +111,7 @@ variable arguments), {Function} returns false and does nothing.
 
 The second, longer form of the {Function} call declares a function and also 
 defines a function body. It is equivalent to a
-single rule such as {op(_arg1, _arg2) <-- body}. The rule will be declared at
+single rule such as {op(arg1_, arg2_) <-- body}. The rule will be declared at
 precedence 1025. Any previous rules associated with {"op"} (with the same
 arity) will be discarded. More complicated functions (with more than one body)
 can be defined by adding more rules.
@@ -131,7 +131,7 @@ Result: False;
 
 This defines a function FirstOf which returns the
 first element of a list. Equivalent definitions would be
-FirstOf(_list) <-- list[1] or FirstOf(list) := list[1].
+FirstOf(list_) <-- list[1] or FirstOf(list) := list[1].
 In> Function("FirstOf", [list])  list[1];
 Result: True;
 
@@ -140,7 +140,7 @@ Result: _a;
 
 The following function will print all arguments to a string:
 
-In> Function("PrintAll",[_x, ...]) Decide(List?(x),
+In> Function("PrintAll",[x_, ...]) Decide(List?(x),
           PrintList(x), PipeToString()Write(x));
 Result: True;
 

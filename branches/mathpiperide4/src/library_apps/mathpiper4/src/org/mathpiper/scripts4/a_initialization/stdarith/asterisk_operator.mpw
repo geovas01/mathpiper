@@ -3,29 +3,29 @@
 /* Multiplication */
 
 50  # x_Number? * y_Number? <-- MultiplyN(x,y);
-100 #  1  * _x  <-- x;
-100 # _x  *  1  <-- x;
-100 # (_f  * _x)::(f=? -1)  <-- -x;
-100 # (_x  * _f)::(f=? -1)  <-- -x;
+100 #  1  * x_ <-- x;
+100 # x_  *  1  <-- x;
+100 # (f_  * x_)::(f=? -1)  <-- -x;
+100 # (x_  * f_)::(f=? -1)  <-- -x;
 
-100  # ((_x)*(_x ^ _m)) <-- x^(m+1);
-100  # ((_x ^ _m)*(_x)) <-- x^(m+1);
-100  # ((_x ^ _n)*(_x ^ _m)) <-- x^(m+n);
+100  # ((x_)*(x_ ^ m_)) <-- x^(m+1);
+100  # ((x_ ^ m_)*(x_)) <-- x^(m+1);
+100  # ((x_ ^ n_)*(x_ ^ m_)) <-- x^(m+n);
 
-//100 # Tan(_x)*Cos(_x) <-- Sin(x);
+//100 # Tan(x_)*Cos(x_) <-- Sin(x);
 
-//100 # Sinh(_x)*Csch(_x) <-- 1;
+//100 # Sinh(x_)*Csch(x_) <-- 1;
 
-//100 # Cosh(_x)*Sech(_x) <-- 1;
+//100 # Cosh(x_)*Sech(x_) <-- 1;
 
-//100 # Cos(_x)*Tan(_x) <-- Sin(x);
+//100 # Cos(x_)*Tan(x_) <-- Sin(x);
 
-//100 # Coth(_x)*Sinh(_x) <-- Cosh(x);
+//100 # Coth(x_)*Sinh(x_) <-- Cosh(x);
 
-//100 # Tanh(_x)*Cosh(_x) <-- Sinh(x);
+//100 # Tanh(x_)*Cosh(x_) <-- Sinh(x);
 
-105 # (f_NegativeNumber? * _x)  <-- -(-f)*x;
-105 # (_x * f_NegativeNumber?)  <-- -(-f)*x;
+105 # (f_NegativeNumber? * x_)  <-- -(-f)*x;
+105 # (x_ * f_NegativeNumber?)  <-- -(-f)*x;
 
 95 # x_Matrix? * y_Matrix? <--
 {
@@ -63,44 +63,44 @@
 };
 
 
-50  # _x * Undefined <-- Undefined;
-50  # Undefined * _y <-- Undefined;
+50  # x_ * Undefined <-- Undefined;
+50  # Undefined * y_ <-- Undefined;
 
 
 100  # 0 * y_Infinity? <-- Undefined;
 100  # x_Infinity? * 0 <-- Undefined;
 
-101 # 0    * (_x) <-- 0;
-101 # (_x) *    0 <-- 0;
+101 # 0    * (x_) <-- 0;
+101 # (x_) *    0 <-- 0;
 
-100 # x_Number? * (y_Number? * _z) <-- (x*y)*z;
-100 # x_Number? * (_y * z_Number?) <-- (x*z)*y;
+100 # x_Number? * (y_Number? * z_) <-- (x*y)*z;
+100 # x_Number? * (y_ * z_Number?) <-- (x*z)*y;
 
-100 # (_x * _y) * _y <-- x * y^2;
-100 # (_x * _y) * _x <-- y * x^2;
-100 # _y * (_x * _y) <-- x * y^2;
-100 # _x * (_x * _y) <-- y * x^2;
-100 # _x * (_y / _z) <-- (x*y)/z;
+100 # (x_ * y_) * y_ <-- x * y^2;
+100 # (x_ * y_) * x_ <-- y * x^2;
+100 # y_ * (x_ * y_) <-- x * y^2;
+100 # x_ * (x_ * y_) <-- y * x^2;
+100 # x_ * (y_ / z_) <-- (x*y)/z;
 // fractions
-100 # (_y / _z) * _x <-- (x*y)/z;
-100 # (_x * y_Number?)::Not?(Number?(x)) <-- y*x;
+100 # (y_ / z_) * x_ <-- (x*y)/z;
+100 # (x_ * y_Number?)::Not?(Number?(x)) <-- y*x;
 
-100 # (_x) * (_x) ^ (n_Constant?) <-- x^(n+1);
-100 # (_x) ^ (n_Constant?) * (_x) <-- x^(n+1);
-100 # (_x * _y)* _x ^ n_Constant? <-- y * x^(n+1);
-100 # (_y * _x)* _x ^ n_Constant? <-- y * x^(n+1);
-100 # Sqrt(_x) * (_x) ^ (n_Constant?) <-- x^(n+1/2);
-100 # (_x) ^ (n_Constant?) * Sqrt(_x) <-- x^(n+1/2);
-100 # Sqrt(_x) * (_x) <-- x^(3/2);
-100 # (_x) * Sqrt(_x) <-- x^(3/2);
+100 # (x_) * (x_) ^ (n_Constant?) <-- x^(n+1);
+100 # (x_) ^ (n_Constant?) * (x_) <-- x^(n+1);
+100 # (x_ * y_)* x_ ^ n_Constant? <-- y * x^(n+1);
+100 # (y_ * x_)* x_ ^ n_Constant? <-- y * x^(n+1);
+100 # Sqrt(x_) * (x_) ^ (n_Constant?) <-- x^(n+1/2);
+100 # (x_) ^ (n_Constant?) * Sqrt(x_) <-- x^(n+1/2);
+100 # Sqrt(x_) * (x_) <-- x^(3/2);
+100 # (x_) * Sqrt(x_) <-- x^(3/2);
 
-105 # x_Number? * -(_y) <-- (-x)*y;
-105 # (-(_x)) * (y_Number?) <-- (-y)*x;
+105 # x_Number? * -(y_) <-- (-x)*y;
+105 # (-(x_)) * (y_Number?) <-- (-y)*x;
 
-106 # _x * -(_y) <-- -(x*y);
-106 # (- _x) * _y <-- -(x*y);
+106 # x_ * -(y_) <-- -(x*y);
+106 # (- x_) * y_ <-- -(x*y);
 
-150 # (_x) ^ (n_Constant?) * (_x) <-- x^(n-1);
+150 # (x_) ^ (n_Constant?) * (x_) <-- x^(n-1);
 
 250  # x_Number? * y_Infinity? <-- Sign(x)*y;
 250  # x_Infinity? * y_Number? <-- Sign(y)*x;
@@ -116,7 +116,7 @@
 243 #  x_Integer? * (y_Integer? / z_Integer?) <--  (x*y)/z;
 243 #  (y_Integer? / z_Integer?) * x_Integer? <--  (x*y)/z;
 
-400 # (_x) * (_x) <-- x^2;
+400 # (x_) * (x_) <-- x^2;
 
 400 # x_RationalOrNumber? * Sqrt(y_RationalOrNumber?)  <-- Sign(x)*Sqrt(x^2*y);
 400 # Sqrt(y_RationalOrNumber?) * x_RationalOrNumber?  <-- Sign(x)*Sqrt(x^2*y);

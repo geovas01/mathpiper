@@ -4,9 +4,9 @@
 LocalSymbols(TrueFalse)
 {
   RulebaseHoldArguments("TrueFalse",[_var,_expr]);
-  10 # TrueFalse(var_Atom?,_expr) <-- `[(@expr) Where (@var)==False,(@expr) Where (@var)==True];
-  20 # TrueFalse([],_expr) <-- `(@expr);
-  30 # TrueFalse(var_List?,_expr) <--
+  10 # TrueFalse(var_Atom?, expr_) <-- `[(@expr) Where (@var)==False,(@expr) Where (@var)==True];
+  20 # TrueFalse([], expr_) <-- `(@expr);
+  30 # TrueFalse(var_List?, expr_) <--
   `{ 
     Local(t,h);
     Assign(h,First(@var));

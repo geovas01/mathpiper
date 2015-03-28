@@ -2,8 +2,8 @@
 
 /* All things you can request a real and imaginary part for are complex */
 1 # Complex?(x_RationalOrNumber?)     <-- True;
-2 # Complex?(Complex(_r,_i)) <-- True;
-3 # Complex?(_x)             <-- False;
+2 # Complex?(Complex(r_,i_)) <-- True;
+3 # Complex?(x_)             <-- False;
 
 %/mathpiper
 

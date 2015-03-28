@@ -1,6 +1,6 @@
 %mathpiper,def="RandVerifyArithmetic"
 
-RandVerifyArithmetic(_n)<--
+RandVerifyArithmetic(n_)<--
 {
  While(n>?0)
  {

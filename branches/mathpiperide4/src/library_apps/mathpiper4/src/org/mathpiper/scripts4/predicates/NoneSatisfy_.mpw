@@ -2,7 +2,7 @@
 
 10 # NoneSatisfy?(pred_String?,lst_List?) <-- Not? Apply("Or?",(MapSingle(pred,lst)));
 
-20 # NoneSatisfy?(_pred,_lst) <-- True;
+20 # NoneSatisfy?(pred_,lst_) <-- True;
 
 %/mathpiper
 

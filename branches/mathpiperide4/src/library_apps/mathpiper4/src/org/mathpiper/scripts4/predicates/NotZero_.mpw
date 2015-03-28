@@ -7,7 +7,7 @@
 
 10 # NotZero?(x_Number?) <-- ( AbsN(x)  >=? PowerN(10, -BuiltinPrecisionGet()));
 10 # NotZero?(x_Infinity?) <-- True;
-60000 # NotZero?(_x) <-- False;
+60000 # NotZero?(x_) <-- False;
 
 %/mathpiper
 

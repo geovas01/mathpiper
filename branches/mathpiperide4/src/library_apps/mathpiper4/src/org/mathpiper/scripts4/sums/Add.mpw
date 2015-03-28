@@ -12,7 +12,7 @@ Function() Add(_val, ...);
 };
 
 // Add(1) should return 1
-30 # Add(_value) <-- value;
+30 # Add(value_) <-- value;
 
 %/mathpiper
 

@@ -2,9 +2,9 @@
 
 RulebaseHoldArguments("If",[_predicate,_body]);
 
-(If(True) _body) <-- Eval(body);
+(If(True) body_) <-- Eval(body);
 
-(If(False) _body) <-- False;
+(If(False) body_) <-- False;
 
 HoldArgument("If","body");
 

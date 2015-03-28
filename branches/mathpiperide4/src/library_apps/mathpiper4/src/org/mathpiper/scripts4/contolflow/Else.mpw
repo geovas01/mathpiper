@@ -1,12 +1,12 @@
 %mathpiper,def="Else"
 
-RulebaseHoldArguments("Else",[_ifthen,_otherwise]);
+RulebaseHoldArguments("Else",[ifthen_,otherwise_]);
 
-0 # (If(_predicate) _body Else _otherwise)::(Eval(predicate) =? True) <-- Eval(body);
+0 # (If(predicate_) body_ Else otherwise_)::(Eval(predicate) =? True) <-- Eval(body);
 
-0 # (If(_predicate) _body Else _otherwise)::(Eval(predicate) =? False) <-- Eval(otherwise);
+0 # (If(predicate_) body_ Else otherwise_)::(Eval(predicate) =? False) <-- Eval(otherwise);
 
-1 # (If(_predicate) _body Else _otherwise) <--
+1 # (If(predicate_) body_ Else otherwise_) <--
     ListToFunction([ToAtom("Else"),
             ListToFunction([ToAtom("If"), (Eval(predicate)), body]),
             otherwise]);

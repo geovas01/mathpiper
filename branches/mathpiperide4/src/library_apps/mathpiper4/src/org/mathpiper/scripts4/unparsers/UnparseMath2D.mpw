@@ -196,12 +196,12 @@ AlignBase(i1,i2):=
 
 
 
-20 # BuildArgs([_head]) <-- head;
+20 # BuildArgs([head_]) <-- head;
 
 
 
 
-30 # BuildArgs(_any)    <--
+30 # BuildArgs(any_)    <--
      {
         Local(item1,item2,comma,base,newitem);
         Assign(item1, any[1]);
@@ -243,7 +243,7 @@ FormulaBracket(f):=
 
 
 
-2 # Formula(_xx ^ _yy) <--
+2 # Formula(xx_ ^ yy_) <--
 {
   Local(l,r);
   Assign(l, BracketOn(Formula(xx),xx,LeftPrecedenceGet("^")));
@@ -273,7 +273,7 @@ FormulaBracket(f):=
 
 
 
-20 # FormulaArrayItem(_item) <-- Formula(item);
+20 # FormulaArrayItem(item_) <-- Formula(item);
 
 
 
@@ -341,7 +341,7 @@ FormulaBracket(f):=
 
 
 
-2 # Formula(_xx / _yy) <--
+2 # Formula(xx_ / yy_) <--
 {
   Local(l,r,dash,width);
 /*

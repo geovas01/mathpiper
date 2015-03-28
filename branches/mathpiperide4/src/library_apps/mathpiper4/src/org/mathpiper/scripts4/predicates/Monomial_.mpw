@@ -1,8 +1,8 @@
 %mathpiper,def="Monomial?;CanBeMonomial"
 
-10 # CanBeMonomial(_expr)::(Type(expr)=?"UniVariate") <-- False;
+10 # CanBeMonomial(expr_)::(Type(expr)=?"UniVariate") <-- False;
 
-10 # CanBeMonomial(_expr)<--Not? (HasFunction?(expr,ToAtom("+")) Or? HasFunction?(expr,ToAtom("-")));
+10 # CanBeMonomial(expr_)<--Not? (HasFunction?(expr,ToAtom("+")) Or? HasFunction?(expr,ToAtom("-")));
 
 10 # Monomial?(expr_CanBeMonomial) <-- 
 {
@@ -13,7 +13,7 @@
     );
 };
 
-15 # Monomial?(_expr) <-- False;
+15 # Monomial?(expr_) <-- False;
 
 %/mathpiper
 

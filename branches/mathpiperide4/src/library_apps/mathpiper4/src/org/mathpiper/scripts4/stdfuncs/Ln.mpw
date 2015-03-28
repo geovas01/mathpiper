@@ -8,9 +8,9 @@
 /* 2 # Ln(-Infinity)                    <-- 0; */
 2 # Ln(x_NegativeNumber?)::NumericMode?() <-- Complex(Ln(-x), Pi);
 3 # Ln(x_Number?)::(NumericMode?() And? x>=?1) <-- InternalLnNum(x);
-4 # Ln(Exp(_x))              <-- x;
+4 # Ln(Exp(x_))              <-- x;
 
-3 # Ln(Complex(_r,_i)) <-- Complex(Ln(Abs(Complex(r,i))), Arg(Complex(r,i)));
+3 # Ln(Complex(r_, i_)) <-- Complex(Ln(Abs(Complex(r,i))), Arg(Complex(r,i)));
 4 # Ln(x_NegativeNumber?) <-- Complex(Ln(-x), Pi);
 5 # Ln(x_Number?)::(NumericMode?() And? x<?1) <-- - InternalLnNum(DivideN(1, x));
 

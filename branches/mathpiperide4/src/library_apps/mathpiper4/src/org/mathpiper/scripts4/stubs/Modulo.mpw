@@ -1,6 +1,6 @@
 %mathpiper,def="Modulo"
 
-0 # Modulo(_n,m_RationalOrNumber?)::(m<?0) <-- `Hold(Modulo(@n,@m));
+0 # Modulo(n_, m_RationalOrNumber?)::(m<?0) <-- `Hold(Modulo(@n,@m));
 
 1 # Modulo(n_NegativeInteger?,m_PositiveInteger?) <--
 {
@@ -10,7 +10,7 @@
   result;
 };
 1 # Modulo(n_PositiveInteger?,m_PositiveInteger?) <-- ModuloN(n,m);
-2 # Modulo(0,_m) <-- 0;
+2 # Modulo(0, m_) <-- 0;
 2 # Modulo(n_PositiveInteger?,Infinity) <-- n;
 3 # Modulo(n_Integer?,m_Integer?) <-- ModuloN(n,m);
 4 # Modulo(n_Number?,m_Number?) <-- NonNM(Modulo(Rationalize(n),Rationalize(m)));
@@ -26,10 +26,10 @@
 };
 
 6 # Modulo(n_List?,m_List?) <-- Map("Modulo",[n,m]);
-7 # Modulo(n_List?,_m) <-- Map("Modulo",[n,FillList(m,Length(n))]);
+7 # Modulo(n_List?, m_) <-- Map("Modulo",[n,FillList(m,Length(n))]);
 
 
-30 # Modulo(n_CanBeUni,m_CanBeUni) <--
+30 # Modulo(n_CanBeUni, m_CanBeUni) <--
 {
   Local(vars);
   vars:=VarList(n+m);

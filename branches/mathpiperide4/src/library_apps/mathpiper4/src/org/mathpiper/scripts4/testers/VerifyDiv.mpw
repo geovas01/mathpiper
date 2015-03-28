@@ -1,6 +1,6 @@
 %mathpiper,def="VerifyDiv"
 
-VerifyDiv(_u,_v) <--
+VerifyDiv(u_, v_) <--
 {
   Local(q,r);
   q:=Quotient(u,v);

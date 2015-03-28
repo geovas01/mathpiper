@@ -5,10 +5,10 @@
 // these should be calls to MathSign() and the math library should do this. Or it should be just MathEquals(x,0).
 // for now, avoid underflow and avoid Zero?(10^(-BuiltinPrecisionGet())) returning True.
 10 # Zero?(x_Number?) <-- ( MathSign(x) =? 0 Or? AbsN(x)  <? PowerN(10, -BuiltinPrecisionGet()));
-60000 # Zero?(_x) <-- False;
+60000 # Zero?(x_) <-- False;
 
 //Note:tk:moved here from univariate.rep.
-20 # Zero?(UniVariate(_var,_first,_coefs)) <-- ZeroVector?(coefs);
+20 # Zero?(UniVariate(var_, first_, coefs_)) <-- ZeroVector?(coefs);
 
 %/mathpiper
 

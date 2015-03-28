@@ -17,7 +17,7 @@
 
 /* This function is commented out because IncompleteGamma(2.5,3.6) causes infinite looping.
 
-100 # IncompleteGamma(_a, _x)_(x<=?a+1) <--
+100 # IncompleteGamma(a_, x_)_(x <=? a+1) <--
 [
    Local(prec,eps);
    prec:=BuiltinPrecisionGet();
@@ -43,7 +43,7 @@
 ];
 
 
-100 # IncompleteGamma(_a, _x)_(x>?a+1) <--
+100 # IncompleteGamma(a_, x_)::(x >? a+1) <--
 [ // Asymptotic expansion
    Local(prec,eps);
    prec:=BuiltinPrecisionGet();

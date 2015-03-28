@@ -1,7 +1,7 @@
 %mathpiper,def="AddTo"
 
 // (a or b) and (c or d) -> (a and c) or (a and d) or (b and c) or (b and d)
-20 # (list_List? AddTo _rest) <--
+20 # (list_List? AddTo rest_) <--
 {
   Local(res);
   res:=[];
@@ -11,11 +11,11 @@
   };
   res;
 };
-30 # (_aitem AddTo list_List?) <--
+30 # (aitem_ AddTo list_List?) <--
 {
   MapSingle([[orig],aitem And? orig],list);
 };
-40 # (_aitem AddTo _b) <-- aitem And? b;
+40 # (aitem_ AddTo b_) <-- aitem And? b;
 
 %/mathpiper
 
