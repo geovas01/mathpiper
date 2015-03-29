@@ -14,7 +14,7 @@ for(fold:foldsMap)
 {
 	foldType = fold.getType();
 	
-	if(foldType.equals("%mathpiper"))
+	if(foldType.equals("mathpiper"))
 	{
 		if (fold.getAttributes().containsKey("name")) {
 		    nameAttribute = (String) fold.getAttributes().get("name");
