@@ -1,4 +1,5 @@
-// Slava Pestov's startup script. Doesn't have much in it yet.
+// jEdit default startup.bsh script.
+//  Used mostly for experimental keyboard workarounds.
 // :folding=explicit:expandFolds=1:
 
 //Most of the file is commented out. Note that the hacks here are
@@ -17,6 +18,7 @@ ac()
 {
 	setAccessibility(true);
 }
+
 
 /* For the mathematicians among us. */
 e = Math.E;
@@ -63,7 +65,7 @@ s(search,replace,flags)
 
 /*}}}*/
 
-/*{{{ Remapping modifier keys part I */
+/*{{{ Remapping modifier keys  */
 
 /* The below is the default, swap the items around to
  * change meaning of C+, A+, M+, S+.
@@ -78,55 +80,74 @@ s(search,replace,flags)
 //	InputEvent.ALT_MASK,   /* == M+ */
 //	InputEvent.SHIFT_MASK  /* == S+ */);
 
-/*}}}*/
+/* ... if you want MacOS keyboard to behave like a Linux or Windows keyboard
+   (This is also a MacOSX plugin option): */
 
-/*{{{ Remapping modifier keys part II */
+// KeyEventTranslator.setModifierMapping(InputEvent.CTRL_MASK,
+//	InputEvent.META_MASK, InputEvent.ALT_MASK,
+//	InputEvent.SHIFT_MASK);
 
-/* Note if you chose to make use of the M+ (option key) prefix on MacOS, you
- * will need to disable a little piece of code: */
-Debug.ALT_KEY_PRESSED_DISABLED = false;
-/* Otherwise M+ will be ignored for the purposes of keyboard shortcuts. */
-
-/* But if you enable this, you might find that Option+8 for example invokes your
- * macro but also inserts a bulletpoint, as per standard Macintosh keyboard
- * behavior. To disable the Option key for inserting special high ASCII
- * characters, uncomment this. Note that it has wider implications, notably
- * DROVAK keyboard shortcuts will be mapped as if the keyboard was QWERTY. */
-Debug.ALTERNATIVE_DISPATCHER = false;
 
 /*}}}*/
+
+/*{{{ Keypad arrowkeys vs regular arrowkeys 
+    Linux distinguishes between keypad arrowkeys and regular arrows, unlike Windows.
+    The translations below force keypad arrowkeys to behave the same way as regular arrowkeys
+    on all platforms.
+*/
+
+String[] modifierList = new String[] {"A", "C", "S", "CA", "AS", "CS", null};
+
+for (String mod: modifierList) {
+    linp = new KeyEventTranslator.Key(mod, KeyEvent.VK_KP_LEFT, (char)0);
+    crossp = new KeyEventTranslator.Key(mod, KeyEvent.VK_LEFT, (char)0); 
+    KeyEventTranslator.addTranslation(linp, crossp);
+    linp = new KeyEventTranslator.Key(mod, KeyEvent.VK_KP_RIGHT, (char)0);
+    crossp = new KeyEventTranslator.Key(mod, KeyEvent.VK_RIGHT, (char)0); 
+    KeyEventTranslator.addTranslation(linp, crossp);
+    linp = new KeyEventTranslator.Key(mod, KeyEvent.VK_KP_UP, (char)0);
+    crossp = new KeyEventTranslator.Key(mod, KeyEvent.VK_UP, (char)0); 
+    KeyEventTranslator.addTranslation(linp, crossp);
+    linp = new KeyEventTranslator.Key(mod, KeyEvent.VK_KP_DOWN, (char)0);
+    crossp = new KeyEventTranslator.Key(mod, KeyEvent.VK_DOWN, (char)0); 
+    KeyEventTranslator.addTranslation(linp, crossp);
+}
+
+/* }}}*/
+
+
 
 /*{{{ Workaround for buggy international key handling */
 
 /* If international keys do not work in the text area, sometimes it is possible
  * to workaround the problem by adding translation mappings: */
 
-// KeyEventTranslator.translateKey(
+// KeyEventTranslator.addTranslation(
 //	new KeyEventTranslator.Key("CS",KeyEvent.VK_COMMA,'\0'),
 //	new KeyEventTranslator.Key("C",KeyEvent.VK_SEMICOLON,'\0')
 // );
 
-// KeyEventTranslator.translateKey(
+// KeyEventTranslator.addTranslation(
 //	new KeyEventTranslator.Key(null,KeyEvent.VK_CLOSE_BRACKET,'\0'),
 //	new KeyEventTranslator.Key(null,0,'"')
 // );
 
-// KeyEventTranslator.translateKey(
+// KeyEventTranslator.addTranslation(
 //	new KeyEventTranslator.Key("S",KeyEvent.VK_CLOSE_BRACKET,'\0'),
 //	new KeyEventTranslator.Key(null,0,(char)0x5e)
 // );
 
-// KeyEventTranslator.translateKey(
+// KeyEventTranslator.addTranslation(
 //	new KeyEventTranslator.Key("C",KeyEvent.VK_CLOSE_BRACKET,'\0'),
 //	new KeyEventTranslator.Key(null,0,'~')
 // );
 
-// KeyEventTranslator.translateKey(
+// KeyEventTranslator.addTranslation(
 //	new KeyEventTranslator.Key(null,KeyEvent.VK_EQUALS,'\0'),
 //	new KeyEventTranslator.Key(null,0,'\'')
 // );
 
-// KeyEventTranslator.translateKey(
+// KeyEventTranslator.addTranslation(
 //	new KeyEventTranslator.Key("S",KeyEvent.VK_EQUALS,'\0'),
 //	new KeyEventTranslator.Key(null,0,'`')
 // );
