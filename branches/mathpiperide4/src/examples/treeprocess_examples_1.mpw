@@ -1,4 +1,4 @@
-v.002
+v.003
 
 
 
@@ -23,9 +23,11 @@ list := [
 
 v1 := TreeProcess(v1,'a, list);
 
-Show(TreeView(v1));
+Show(TreeView(v1, Code:False));
 
 %/mathpiper
+
+
 
 
 
@@ -54,14 +56,16 @@ list := [
 ];
 
 //Two leading underscores are used to match a sign literally.
-v1 := TreeProcess(v1,__a, list);
+v1 := TreeProcess(v1,_a, list);
 
 [track,function] := list;
 Echo(track);
 
-Show(TreeView(v1));
+Show(TreeView(v1, Code:False));
 
 %/mathpiper
+
+
 
 
 
@@ -90,14 +94,16 @@ list := [
 ];
 
 //_a is a metavariable that matches all signs.
-v1 := TreeProcess(v1,_a, list);
+v1 := TreeProcess(v1,a_, list);
 
 [track,function] := list;
 Echo(track);
 
-Show(TreeView(v1));
+Show(TreeView(v1, Code:False));
 
 %/mathpiper
+
+
 
 
 
@@ -130,9 +136,11 @@ v1 := TreeProcess(v1,(a_Integer?), list);
 [track,function] := list;
 Echo(track);
 
-Show(TreeView(v1));
+Show(TreeView(v1, Code:False));
 
 %/mathpiper
+
+
 
 
 
@@ -165,9 +173,11 @@ v1 := TreeProcess(v1,(-a_Integer?), list);
 [track,function] := list;
 Echo(track);
 
-Show(TreeView(v1));
+Show(TreeView(v1, Code:False));
 
 %/mathpiper
+
+
 
 
 
@@ -199,9 +209,11 @@ v1 := TreeProcess(v1,'((a_Integer?)::(a >? 7)), list);
 [track,function] := list;
 Echo(track);
 
-Show(TreeView(v1));
+Show(TreeView(v1, Code:False));
 
 %/mathpiper
+
+
 
 
 
@@ -234,9 +246,11 @@ v1 := TreeProcess(v1,ToAtom("+"), list);
 [track,function] := list;
 Echo(track);
 
-Show(TreeView(v1));
+Show(TreeView(v1, Code:False));
 
 %/mathpiper
+
+
 
 
 
@@ -271,16 +285,18 @@ list := [
     ]
 ];
 
-v1 := TreeProcess(v1,_a + _b, list);
+v1 := TreeProcess(v1, a_ + b_, list);
 
 //v1 := TreeProcess(v1,_a + 'b, list);
 
 [track,function] := list;
 Echo(track);
 
-Show(TreeView(v1));
+Show(TreeView(v1, Code:False));
 
 %/mathpiper
+
+
 
 
 
@@ -307,15 +323,17 @@ list := [
     ]
 ];
 
-v1 := TreeProcess(v1,'((_a + _b)), list);
+v1 := TreeProcess(v1,'((a_ + b_)), list);
 
 
 [track,function] := list;
 Echo(track);
 
-Show(TreeView(v1));
+Show(TreeView(v1, Code:False));
 
 %/mathpiper
+
+
 
 
 
@@ -347,9 +365,11 @@ v1 := TreeProcess(v1,'a, list);
 [track,function] := list;
 Echo(track);
 
-Show(TreeView(v1));
+Show(TreeView(v1, Code:False));
 
 %/mathpiper
+
+
 
 
 
@@ -374,15 +394,17 @@ list := [
     ]
 ];
 
-v1 := TreeProcess(v1,'((_x * _y)::(x >? 7)), list);
+v1 := TreeProcess(v1,'((x_ * y_)::(x >? 7)), list);
 
 
 [track,function] := list;
 Echo(track);
 
-Show(TreeView(v1));
+Show(TreeView(v1, Code:False));
 
 %/mathpiper
+
+
 
 
 
@@ -426,7 +448,7 @@ v1 := TreeProcess(v1,_, list);
 [track,function] := list;
 Echo(track);
 
-Show(TreeView(v1));
+Show(TreeView(v1, Code:False));
 
 %/mathpiper
 
@@ -435,9 +457,11 @@ Show(TreeView(v1));
 
 
 
+
+
 %mathpiper,title=""
 
-compiled := PatternCompile( _x * _y <- 3);
+compiled := PatternCompile( x_ * y_ <- 3);
 
 pattern := compiled[2];
 
@@ -457,11 +481,13 @@ Echo(PatternMatch?(pattern, '(-4)));
 
 
 
+
+
 %mathpiper,title="Process subtrees."
 
 //todo:tk:need to add the ability to match all subtrees.
 
-compiled := PatternCompile( _x * _y <- 3);
+compiled := PatternCompile( x_ * y_ <- 3);
 
 pattern := compiled[2];
 
@@ -497,9 +523,11 @@ v1 := TreeProcess(v1,_, list);
 [track,function] := list;
 Echo(track);
 
-Show(TreeView(v1));
+Show(TreeView(v1, Code:False));
 
 %/mathpiper
+
+
 
 
 
@@ -516,13 +544,13 @@ expression := '((3*a)-b+c*d);
 
 
 
-searchPattern := '(_a * _b);
+searchPattern := '(a_ * b_);
 
-searchPattern := '(_a);
+searchPattern := '(a_);
 
 //searchPattern := ToAtom("*");
 
-//searchPattern := '(_x*(_y + _z));
+//searchPattern := '(x_*(y_ + z_));
 
 
 
@@ -567,4 +595,5 @@ z2 := TreeProcess(expression, searchPattern, processList);
 Echo(processList["track"]);
 
 
-Show(TreeView(z2)); 
+Show(TreeView(z2, Code:False)); 
+
