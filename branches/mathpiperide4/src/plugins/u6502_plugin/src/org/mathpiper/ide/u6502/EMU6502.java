@@ -309,6 +309,7 @@ public class EMU6502 implements Runnable
 	private int[] chip;
 	private int[] chip2;
 	private int[] chip3;
+	private int[] chip4;
 
 	private int block;
 	private int block2;
@@ -340,15 +341,17 @@ public class EMU6502 implements Runnable
 		
 		if(ioChips != null)
 		{
-                    this.ioChips = ioChips;
-                    this.uart = ioChips[0];
+         	this.ioChips = ioChips;
+         	this.uart = ioChips[0];
+         	//System.out.println("This is a test for a non null ioChip***************************************************************************************");
 		}
-                else
-                {
-                    this.ioChips = new IOChip[8];
-                    this.uart = new EMURandomIOChip();
-                    this.ioChips[0] = this.uart;
-                }
+        else
+        {
+        	this.ioChips = new IOChip[8];
+        	this.uart = new EMURandomIOChip();
+        	this.ioChips[0] = this.uart;
+        	//System.out.println("This is a test for a null ioChip***************************************************************************************");
+        }
 
 		ram1 = new int[8192];
 		ram2 = new int[8192];
