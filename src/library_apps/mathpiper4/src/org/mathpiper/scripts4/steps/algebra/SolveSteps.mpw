@@ -132,6 +132,11 @@ Isolate(variable, equation) :=
     {
         currentEquation := First(rest);
     
+        /*
+            Todo:tk: The division in the following example causes a list of equations to be returned:
+            In> Show(StepsView(SolveSteps( ((a_^2 * 7/b_)/c_^3 * d_^2)/ 5* e_ == f_, b_) , ShowTree: True))
+            Code needs to be added here that will handle a list of equations.
+        */
         rest := Isolax(pathNumber, currentEquation);
         
         DestructiveAppend(result, rest);
@@ -445,9 +450,6 @@ In> Show(StepsView(SolveSteps( ((- a_) * b_^f_)/c_+d_ == e_, b_), ShowTree: True
 Result: class javax.swing.JFrame
 
 In> Show(StepsView(SolveSteps( ((- a_) * b_^2)/c_+d_ == e_, b_), ShowTree: True))
-Result: class javax.swing.JFrame
-
-In> Show(StepsView(SolveSteps( ((a_^2 * 7/b_)/c_^3 * d_^2)/ 5* e_ == f_, b_) , ShowTree: True))
 Result: class javax.swing.JFrame
 
 *SEE Show, SolveSteps
