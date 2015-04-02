@@ -228,9 +228,9 @@ DataTemp:	dbt ?
 ;
 ;****************************************************************************
 start:
-	ldx #0ffh	;Initialize stack pointer and clear decimal
-	txs		; mode.
-;	cli		;
+	ldx #0ffh	;Initialize stack pointer, inable interrupts, and
+	txs		; clear decimal mode.
+	cli		;
 	cld		;
 	
 	jsr InitVars	;Initialize variables.
@@ -636,7 +636,7 @@ BRK:
 	pla		; 
 	sbc #0d		;
 	sta UPgmCntr+1d	;
-;	cli
+	cli
 
 ResetEntryPoint:
 	ldy #0d		;Print user's registers.
@@ -3668,7 +3668,7 @@ DgtTblUC:	dbt "0123456789ABCDEF"
 DgtTblLC:	dbt "0123456789abcdef"
 			dbt 0h
 OpenMess:	dbt 10d,13d,10d
-			dbt "UMON65 V1.19 - Understandable Monitor for the 6500 series microprocessors."
+			dbt "UMON65 V1.20 - Understandable Monitor for the 6500 series microprocessors."
 			dbt 10d,13d
 			dbt 0h
 prompt:		dbt 10d,13d
@@ -3963,14 +3963,18 @@ OpTable:		dbt "ADC IMM"
 ;****************************************************************************
 ;       Initialize 6502 reset vector and maskable interrupt vector.
 ;****************************************************************************
-			org 0fffch	;Initialize reset vector.
+			org 0fffch	    ;Initialize reset vector.
 			dbt 00h,0e0h	;                                                                                         
 ;	
-			org 0fffeh	;Initialize maskable interrupt vector.
-			dbt #MaskInt<	;
+			org 0fffeh	    ;Initialize maskable
+			dbt #MaskInt<	; interrupt vector.
 			dbt #MaskInt>	;
+			
 			end
 		
 ; ,output="array",start_address="E000"
 %/uasm65
+
+
+
 
