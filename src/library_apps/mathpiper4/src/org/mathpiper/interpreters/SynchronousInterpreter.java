@@ -50,8 +50,8 @@ import org.mathpiper.lisp.cons.SublistCons;
  */
 public class SynchronousInterpreter implements Interpreter {
 
-    private ArrayList<ResponseListener> removeListeners;
-    private ArrayList<ResponseListener> responseListeners;
+    private List<ResponseListener> removeListeners;
+    private List<ResponseListener> responseListeners;
     private Environment iEnvironment = null;
     LispUnparser printer = null;
     //private String iException = null;

@@ -21,6 +21,17 @@ import com.foundationdb.sql.parser.SQLParser;
 import com.foundationdb.sql.parser.StatementNode;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.List;
+import org.mathpiper.interpreters.EvaluationResponse;
+import org.mathpiper.interpreters.Interpreter;
+import org.mathpiper.interpreters.ResponseListener;
+import org.mathpiper.interpreters.SynchronousInterpreter;
+import org.mathpiper.io.StringInputStream;
+import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.cons.AtomCons;
+import org.mathpiper.lisp.parsers.MathPiperParser;
+import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 
 public class TreePanelCons extends JComponent implements ViewPanel, MouseListener {
 
@@ -47,7 +58,15 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
 
 	private int adjust = 1;
 
-        Map<String, Object>  treeOptionsMap = new HashMap();
+        private Map<String, Object>  treeOptionsMap = new HashMap();
+        
+        private List<ResponseListener> responseListeners;
+        
+        private Environment environment;
+        
+        private String positionString = null;
+            
+        private String operatorString = null;
 
 	// Show(TreeView(a/b == 3))
 	// 99 # UnparseLatex(_x / _y, _p)_( <-- UnparseLatexBracketIf(p <?
@@ -64,13 +83,15 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
 	// Show(TreeView( '(-50000000000000*a), Resizable -> True, IncludeExpression
 	// -> True))
 
-	public TreePanelCons(Cons expressionCons, double viewScale, Map optionsMap) {
+	public TreePanelCons(Environment aEnvironment, Cons expressionCons, double viewScale, Map optionsMap) {
 
 		super();
+                
+                this.environment = aEnvironment;
 
 		// this.setBorder(new EmptyBorder(1,1,1,1));
 
-
+                responseListeners = new ArrayList<ResponseListener>();
 
 		colorMap.put("\"RED\"", Color.RED);
 		colorMap.put("\"BLACK\"", Color.BLACK);
@@ -659,7 +680,7 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
             rightMostPosition/*PM.treeRightMostX*/ = treeNode.getTreeX() + treeNode.getNodeWidth();
         }			
 			
-			return parentLeftSidePosition;
+	return parentLeftSidePosition;
 }
         
     public SymbolNode getMainRootNode() {
@@ -689,7 +710,7 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
     
     
     
-    private void selectNode(SymbolNode node, int x, int y)
+    private void selectedNodeGet(SymbolNode node, int x, int y, List<SymbolNode> nodeList)
     {
         
         double nodeX0 = (node.getTreeX() - (leftMostPosition)) * this.viewScale;
@@ -701,7 +722,7 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
         
         if(x >= nodeX0 && x <= nodeX0 + nodeWidth && y >= nodeY0 && y <= nodeY0 + nodeHeight)
         {
-            node.select(true);
+            nodeList.add(node);
         }
         else
         {
@@ -714,18 +735,116 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
         {
             for(int childIndex = 0; childIndex < children.length; childIndex++)
             {
-                selectNode(children[childIndex], x, y);
+                selectedNodeGet(children[childIndex], x, y, nodeList);
             }
 
         }
         
-    
+        return;
     }
 
     public void mouseClicked(MouseEvent me) {
         // System.out.println(me.getX() + ", " + me.getY());
-        this.selectNode(mainRootNode, me.getX(), me.getY());
-        this.repaint();
+        List<SymbolNode> nodeList = new ArrayList();
+        
+        this.selectedNodeGet(mainRootNode, me.getX(), me.getY(), nodeList);
+        
+        if(!nodeList.isEmpty()){
+            
+            SymbolNode selectedNode = nodeList.get(0);
+            
+            positionString = selectedNode.getPosition();
+            
+            operatorString = selectedNode.toString();
+            
+            System.out.println("XX: " + positionString);
+
+            EvaluationResponse response = EvaluationResponse.newInstance();
+
+            // response.setResult(positionString);
+
+            // notifyListeners(response);
+            
+            if(treeOptionsMap.containsKey("Process"))
+            {
+                Cons cons = (Cons) treeOptionsMap.get("Process");
+
+                try
+                {
+                    
+                    StringInputStream newInput = new StringInputStream("'(x_ " + operatorString + " y_);" , environment.iInputStatus);
+                    MathPiperParser parser = new MathPiperParser(new MathPiperTokenizer(), newInput, environment, environment.iPrefixOperators, environment.iInfixOperators, environment.iPostfixOperators, environment.iBodiedOperators);
+
+            
+                    Cons pattern = parser.parse(-1);
+                    Cons from = AtomCons.getInstance(environment, -1, "\"pattern\"");
+                    Cons to = pattern;
+                    org.mathpiper.lisp.astprocessors.ExpressionSubstitute behaviour = new org.mathpiper.lisp.astprocessors.ExpressionSubstitute(environment, from, to);
+                    cons = Utility.substitute(environment,-1, cons, behaviour);
+                    
+                    from = AtomCons.getInstance(environment, -1, "\"position\"");
+                    to = AtomCons.getInstance(environment, -1, "\"" + positionString + "\"");
+                    behaviour = new org.mathpiper.lisp.astprocessors.ExpressionSubstitute(environment, from, to);
+                    cons = Utility.substitute(environment,-1, cons, behaviour);
+                }
+                catch(Throwable e)
+                {
+                    e.printStackTrace();
+                }
+
+                Interpreter interpreter = SynchronousInterpreter.getInstance();
+                
+                EvaluationResponse response2 = interpreter.evaluate(cons);
+                
+
+                relayoutTree(response2.getResultList());
+
+            }
+        }
+        else
+        {
+            positionString = null;
+            operatorString = null;
+
+            relayoutTree(this.expressionCons);
+        }
+        
+    }
+    
+    public void relayoutTree(Cons annotatedTree) {
+
+        for (int index = 0; index < lastOnRasterArray.length; index++) {
+            lastOnRasterArray[index] = -1;
+        }// end for.
+
+        if (annotatedTree != null) {
+            mainRootNode = new SymbolNode();
+
+            try {
+                // listToTree(rootNode, expressionCons, null, null);
+
+                String operator;
+
+                if (annotatedTree.car() instanceof Cons) {
+                    operator = (String) Cons.caar(annotatedTree);
+                } else {
+                    operator = (String) annotatedTree.car();
+                }
+
+                mainRootNode.setOperator(operator, (Boolean) treeOptionsMap.get("Code"), (int) (long) Math.floor(((Integer) treeOptionsMap.get("WordWrap")).doubleValue()));
+
+                handleSublistCons(mainRootNode, annotatedTree, null, null);
+
+            } catch (Throwable e) {
+                e.printStackTrace();
+            }
+
+            layoutTree();
+            
+            this.repaint();
+        }
+        
+
     }
 
     public void mousePressed(MouseEvent me) {
@@ -739,5 +858,34 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
 
     public void mouseExited(MouseEvent me) {
     }
+    
+    
+    
+    public void addResponseListener(ResponseListener listener) {
+        responseListeners.add(listener);
+    }
+
+    public void removeResponseListener(ResponseListener listener) {
+        responseListeners.remove(listener);
+    }
+
+    protected void notifyListeners(EvaluationResponse response) {
+
+        for (ResponseListener listener : responseListeners) {
+            listener.response(response);
+
+        }//end for.
+
+    }//end method.
+
+    public String getPositionString() {
+        return positionString;
+    }
+
+    public String getOperatorString() {
+        return operatorString;
+    }
+    
+    
 
 }// end class.

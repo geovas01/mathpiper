@@ -486,8 +486,7 @@ public class Utility {
 
 	    //Obtain value.
 	    option = option.cdr();
-	    if (option.type() != Utility.ATOM && option.type() != Utility.NUMBER)
-		LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, arguments);
+
 	    if (option.type() == Utility.ATOM) {
 		String value = (String) option.car();
 		value = Utility.stripEndQuotesIfPresent(value);
@@ -496,13 +495,20 @@ public class Utility {
 		} else {
 		    userOptions.put(key, value);
 		}//ende else.
-	    } else //Number
+	    } else if (option.type() == Utility.NUMBER)
 	    {
 		NumberCons numberCons = (NumberCons) option;
 		BigNumber bigNumber = (BigNumber) numberCons.getNumber(10, aEnvironment);
 		Double value = bigNumber.toDouble();
 		userOptions.put(key, value);
-	    }//end if/else.
+	    } else if (option.type() == Utility.SUBLIST)
+	    {
+		userOptions.put(key, Cons.deepCopy(aEnvironment, aStackTop, option));
+	    }
+            else
+            {
+                LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, arguments);
+            }
 
 	    arguments = arguments.cdr();
 
