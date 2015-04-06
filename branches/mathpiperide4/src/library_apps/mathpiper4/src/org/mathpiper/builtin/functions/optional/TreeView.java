@@ -18,17 +18,30 @@ package org.mathpiper.builtin.functions.optional;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.AbstractAction;
+import javax.swing.Icon;
+import javax.swing.JButton;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.builtin.JavaObject;
+import org.mathpiper.interpreters.EvaluationResponse;
+import org.mathpiper.interpreters.Interpreter;
+import org.mathpiper.interpreters.SynchronousInterpreter;
 import org.mathpiper.io.StringInputStream;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
@@ -44,6 +57,7 @@ import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 import org.mathpiper.ui.gui.worksheets.MathPanelController;
 import org.mathpiper.ui.gui.worksheets.ScreenCapturePanel;
 import org.mathpiper.ui.gui.worksheets.TreePanelCons;
+import org.scilab.forge.mp.jlatexmath.TeXConstants;
 import org.scilab.forge.mp.jlatexmath.TeXFormula;
 
 /**
@@ -57,6 +71,10 @@ public class TreeView extends BuiltinFunction {
     // Show(StepsView(SolveEquation( '( ((- a^2) * b )/ c + d == e ), a), ShowTree: True))
 
     private Map defaultOptions;
+    
+    private TreePanelCons treePanel = null;
+    
+    private JTable rulesTable;
     
     public void plugIn(Environment aEnvironment)  throws Throwable
     {
@@ -87,7 +105,7 @@ public class TreeView extends BuiltinFunction {
         
         Cons options = (Cons) Cons.cddar(arguments);
 
-        Map userOptions = Utility.optionsListToJavaMap(aEnvironment, aStackTop, options, defaultOptions);
+        final Map userOptions = Utility.optionsListToJavaMap(aEnvironment, aStackTop, options, defaultOptions);
         
         
 
@@ -198,7 +216,7 @@ public class TreeView extends BuiltinFunction {
 	//box.setOpaque(true);
 
 
-        TreePanelCons treePanel = new TreePanelCons(expression, viewScale, userOptions);
+        treePanel = new TreePanelCons(aEnvironment, expression, viewScale, userOptions);
         
         JPanel treeScreenCapturePanel = new ScreenCapturePanel();
         
@@ -210,6 +228,9 @@ public class TreeView extends BuiltinFunction {
 
 	boolean includeSlider = (Boolean) userOptions.get("Resizable");
 	boolean includeExpression = (Boolean) userOptions.get("IncludeExpression");
+        
+        JPanel southPanel = new JPanel();
+        panel.add(southPanel, BorderLayout.SOUTH);
 
 	
 	if(includeSlider && includeExpression)
@@ -221,7 +242,7 @@ public class TreeView extends BuiltinFunction {
 	    
             panel.add(latexScreenCapturePanel, BorderLayout.NORTH);
             panel.add(treeScrollPane, BorderLayout.CENTER);
-            panel.add(treePanelScaler, BorderLayout.SOUTH);
+            southPanel.add(treePanelScaler);
 
 	}
 	else if(includeSlider)
@@ -232,7 +253,7 @@ public class TreeView extends BuiltinFunction {
 	    treeScrollPane.getVerticalScrollBar().setUnitIncrement(16);
 	    
             panel.add(treeScrollPane, BorderLayout.CENTER);
-            panel.add(treePanelScaler, BorderLayout.SOUTH);
+            southPanel.add(treePanelScaler);
 	}
 	else if(includeExpression)
 	{
@@ -243,7 +264,92 @@ public class TreeView extends BuiltinFunction {
 	{
 	    panel.add(treeScreenCapturePanel, BorderLayout.CENTER);
 	}
- 
+        
+        
+        if(userOptions.containsKey("Manipulate") && ((Boolean)userOptions.get("Manipulate")) == true)
+        {
+            rulesTable = makeTable(aEnvironment, userOptions);
+            panel.add(new JScrollPane(rulesTable), BorderLayout.EAST);
+
+            JButton applyButton = new JButton("Apply");
+
+            final Environment environment = aEnvironment;
+
+            applyButton.addActionListener(new AbstractAction() {
+                public void actionPerformed(ActionEvent e) {
+                    if(treePanel.getPositionString() != null)
+                    {
+                        String positionString = treePanel.getPositionString();
+                        String operatorString = treePanel.getOperatorString();
+
+                        if(rulesTable.getSelectedRowCount() != 0)
+                        {
+                            try
+                            {
+                                int selectedRow = rulesTable.getSelectedRow() + 1;
+
+                                Cons cons = (Cons) userOptions.get("Theorems");
+
+                                Cons cons2 = Utility.nth(environment, -1, cons, selectedRow);
+
+                                Cons ruleName = Utility.nth(environment, -1, cons2, 1);
+                                String ruleNameString = Utility.toNormalString(environment, -1, ruleName.toString());
+                                Cons pattern = Utility.nth(environment, -1, cons2, 2);
+                                Cons patternTex = Utility.nth(environment, -1, cons2, 3);
+                                String patternTexString = Utility.toNormalString(environment, -1, patternTex.toString());
+                                Cons replacement = Utility.nth(environment, -1, cons2, 4);
+                                Cons replacementTex = Utility.nth(environment, -1, cons2, 5);
+                                String replacementTexString = Utility.toNormalString(environment, -1, replacementTex.toString());
+
+
+                                if(userOptions.containsKey("Substitute"))
+                                {
+                                    Cons cons3 = (Cons) userOptions.get("Substitute");
+
+                                    try
+                                    {
+
+                                        Cons from = AtomCons.getInstance(environment, -1, "\"pattern\"");
+                                        Cons to = pattern;
+                                        org.mathpiper.lisp.astprocessors.ExpressionSubstitute behaviour = new org.mathpiper.lisp.astprocessors.ExpressionSubstitute(environment, from, to);
+                                        cons3 = Utility.substitute(environment,-1, cons3, behaviour);
+
+                                        from = AtomCons.getInstance(environment, -1, "\"replacement\"");
+                                        to = replacement;
+                                        behaviour = new org.mathpiper.lisp.astprocessors.ExpressionSubstitute(environment, from, to);
+                                        cons3 = Utility.substitute(environment,-1, cons3, behaviour);
+
+                                        from = AtomCons.getInstance(environment, -1, "\"position\"");
+                                        to = AtomCons.getInstance(environment, -1, "\"" + positionString + "\"");
+                                        behaviour = new org.mathpiper.lisp.astprocessors.ExpressionSubstitute(environment, from, to);
+                                        cons3 = Utility.substitute(environment,-1, cons3, behaviour);
+                                    }
+                                    catch(Throwable t)
+                                    {
+                                        t.printStackTrace();
+                                    }
+
+                                    Interpreter interpreter = SynchronousInterpreter.getInstance();
+
+                                    EvaluationResponse response2 = interpreter.evaluate(cons3);
+
+
+                                    treePanel.relayoutTree(response2.getResultList());
+
+                                }
+                            }
+                            catch(Throwable t)
+                            {
+                                t.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            });
+
+            southPanel.add(applyButton);
+        
+        }
 
         JavaObject response = new JavaObject(panel);
 
@@ -252,8 +358,127 @@ public class TreeView extends BuiltinFunction {
 
     }//end method.
     
+    
+    private JTable makeTable(Environment environment, Map m)
+    {
+        Cons cons = (Cons) m.get("Theorems");
+        
+        
+        final JTable table = new JTable(new SimpleColorTableModel());
+        
+        table.setFillsViewportHeight(true);
+
+        table.setDefaultRenderer(Color.class, new ColorTableCellRenderer());
+        
+        SimpleColorTableModel model = (SimpleColorTableModel) table.getModel();
+        
+        Cons cons2 = null;
+        
+        try
+        {
+            int length = Utility.listLength(environment, -1, (Cons) ((Cons)cons.car()).cdr());
+            
+            for(int index = 1; index <= length; index++)
+            {
+                cons2 = Utility.nth(environment, -1, cons, index);
+                
+                Cons ruleName = Utility.nth(environment, -1, cons2, 1);
+                String ruleNameString = Utility.toNormalString(environment, -1, ruleName.toString());
+                Cons pattern = Utility.nth(environment, -1, cons2, 2);
+                Cons patternTex = Utility.nth(environment, -1, cons2, 3);
+                String patternTexString = Utility.toNormalString(environment, -1, patternTex.toString());
+                Cons replacement = Utility.nth(environment, -1, cons2, 4);
+                Cons replacementTex = Utility.nth(environment, -1, cons2, 5);
+                String replacementTexString = Utility.toNormalString(environment, -1, replacementTex.toString());
+                
+                TeXFormula texFormula = new TeXFormula(patternTexString + " \\leftarrow " + replacementTexString);
+                Icon rule = texFormula.createTeXIcon(TeXConstants.STYLE_DISPLAY, (float) 20);
+                model.addRow(new Object[]{ruleNameString, rule});
+
+            }
+        }
+        catch(Throwable t)
+        {
+            t.printStackTrace();
+        }
+        
+        /*
+        TeXFormula texFormula = new TeXFormula("a\\_ + b\\_ \\leftarrow b + a");
+        Icon rule = texFormula.createTeXIcon(TeXConstants.STYLE_DISPLAY, (float) 12);
+        model.addRow(new Object[]{"Commutative +", rule});
+        */
+
+        
+        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    int index = table.getSelectedRow();
+                    System.out.println("xx " + index);
+                }
+            }
+        });
+        
+        
+        return table;
+    }
+    
+    
+    
+class ColorTableCellRenderer extends DefaultTableCellRenderer {
+
+    @Override
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+
+        super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+        setText(null);
+        if (value instanceof Color) {
+
+            setOpaque(true);
+            setBackground((Color)value);
+
+        }
+
+        return this;
+
+    }
+
+}
+
+public class SimpleColorTableModel extends DefaultTableModel {
+
+    public SimpleColorTableModel() {
+
+        addColumn("Theorem");
+        addColumn("Pattern");
+
+    }
+
+    @Override
+    public Class<?> getColumnClass(int columnIndex) {
+
+        Class clazz = String.class;
+
+        switch (columnIndex) {
+
+            case 1:
+                clazz = Icon.class;
+                break;              
+
+        }
+
+        return clazz;
+
+    }
+
+}
+    
 
 }//end class.
+
+
+
 
 
 
