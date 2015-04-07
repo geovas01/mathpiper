@@ -92,6 +92,7 @@ public class TreeView extends BuiltinFunction {
         defaultOptions.put("Code", true);
         defaultOptions.put("Debug", false);
         defaultOptions.put("WordWrap", 0);
+        defaultOptions.put("ShowPositions", false);
 
 
 
