@@ -80,7 +80,7 @@ process2 := [
 function2 := ` '(TreeProcess(@v1, "pattern", @process2, Position:"position"));
 
 
-Show(TreeView(v1, Code:False, Manipulate:True, Process:function, Substitute:function2, Theorems:theorems));
+Show(TreeView(v1, Code:False, Manipulate:True, Process:function, Substitute:function2, Theorems:theorems, ShowPositions:True));
 
 
 

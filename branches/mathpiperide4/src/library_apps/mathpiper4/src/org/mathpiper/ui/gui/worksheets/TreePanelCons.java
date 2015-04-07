@@ -518,16 +518,18 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
                             double positionTextX = midX - positionTextWidth / 2;
                             double positionTextY = midY + positionTextHeight / 2;
 
-                            /*
-                            sg.setColor(Color.WHITE);
-                            sg.fillRect(positionTextX, positionTextY - positionTextHeight, positionTextWidth, positionTextHeight);
+                            if (((Boolean) this.treeOptionsMap.get("ShowPositions")) == true) {
+                            
+                                sg.setColor(Color.WHITE);
+                                sg.fillRect(positionTextX, positionTextY - positionTextHeight, positionTextWidth, positionTextHeight);
 
-                            sg.setLineThickness(.2);
-                            sg.setColor(Color.BLACK);
-                            sg.drawRectangle(positionTextX, positionTextY - positionTextHeight, positionTextWidth, positionTextHeight);
+                                sg.setLineThickness(.2);
+                                sg.setColor(Color.BLACK);
+                                sg.drawRectangle(positionTextX, positionTextY - positionTextHeight, positionTextWidth, positionTextHeight);
 
-                            sg.drawscaledText(positionText, positionTextX, positionTextY - .2, positionScale);
-                            */
+                                sg.drawscaledText(positionText, positionTextX, positionTextY - .2, positionScale);
+
+                            }
                         }
                     }// end for
 
