@@ -30,6 +30,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -54,6 +55,7 @@ import org.mathpiper.lisp.parsers.MathPiperParser;
 import org.mathpiper.lisp.parsers.Parser;
 import org.mathpiper.lisp.parsers.LispParser;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
+import org.mathpiper.ui.gui.RulesPanel;
 import org.mathpiper.ui.gui.worksheets.MathPanelController;
 import org.mathpiper.ui.gui.worksheets.ScreenCapturePanel;
 import org.mathpiper.ui.gui.worksheets.TreePanelCons;
@@ -74,7 +76,7 @@ public class TreeView extends BuiltinFunction {
     
     private TreePanelCons treePanel = null;
     
-    private JTable rulesTable;
+    private RulesPanel rulesPanel = null;
     
     public void plugIn(Environment aEnvironment)  throws Throwable
     {
@@ -211,7 +213,6 @@ public class TreeView extends BuiltinFunction {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
         
-
         
 	panel.setBackground(Color.white);
 	//box.setOpaque(true);
@@ -233,44 +234,10 @@ public class TreeView extends BuiltinFunction {
         JPanel southPanel = new JPanel();
         panel.add(southPanel, BorderLayout.SOUTH);
 
-	
-	if(includeSlider && includeExpression)
-	{
-	    MathPanelController treePanelScaler = new MathPanelController(treePanel, viewScale);
-	    
-	    JScrollPane treeScrollPane = new JScrollPane(treeScreenCapturePanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-	    treeScrollPane.getVerticalScrollBar().setUnitIncrement(16);
-	    
-            panel.add(latexScreenCapturePanel, BorderLayout.NORTH);
-            panel.add(treeScrollPane, BorderLayout.CENTER);
-            southPanel.add(treePanelScaler);
-
-	}
-	else if(includeSlider)
-	{
-	    MathPanelController treePanelScaler = new MathPanelController(treePanel, viewScale);
-	    
-	    JScrollPane treeScrollPane = new JScrollPane(treeScreenCapturePanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-	    treeScrollPane.getVerticalScrollBar().setUnitIncrement(16);
-	    
-            panel.add(treeScrollPane, BorderLayout.CENTER);
-            southPanel.add(treePanelScaler);
-	}
-	else if(includeExpression)
-	{
-	    panel.add(latexScreenCapturePanel, BorderLayout.NORTH);
-            panel.add(treeScreenCapturePanel, BorderLayout.CENTER);
-	}
-	else
-	{
-	    panel.add(treeScreenCapturePanel, BorderLayout.CENTER);
-	}
-        
-        
         if(userOptions.containsKey("Manipulate") && ((Boolean)userOptions.get("Manipulate")) == true)
         {
-            rulesTable = makeTable(aEnvironment, userOptions);
-            panel.add(new JScrollPane(rulesTable), BorderLayout.EAST);
+            rulesPanel = new RulesPanel(aEnvironment, userOptions);
+            //panel.add(new RulesPanel(aEnvironment, userOptions), BorderLayout.EAST);
 
             JButton applyButton = new JButton("Apply");
 
@@ -283,11 +250,11 @@ public class TreeView extends BuiltinFunction {
                         String positionString = treePanel.getPositionString();
                         String operatorString = treePanel.getOperatorString();
 
-                        if(rulesTable.getSelectedRowCount() != 0)
+                        if(rulesPanel.getSelectedRowCount() != 0)
                         {
                             try
                             {
-                                int selectedRow = rulesTable.getSelectedRow() + 1;
+                                int selectedRow = rulesPanel.getSelectedRow() + 1;
 
                                 Cons cons = (Cons) userOptions.get("Theorems");
 
@@ -352,6 +319,85 @@ public class TreeView extends BuiltinFunction {
         
         }
 
+        
+	
+
+	if(includeSlider && includeExpression)
+	{
+	    MathPanelController treePanelScaler = new MathPanelController(treePanel, viewScale);
+	    
+	    JScrollPane treeScrollPane = new JScrollPane(treeScreenCapturePanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+	    treeScrollPane.getVerticalScrollBar().setUnitIncrement(16);
+	    
+            panel.add(latexScreenCapturePanel, BorderLayout.NORTH);
+            
+            if(rulesPanel == null)
+            {
+                panel.add(treeScrollPane, BorderLayout.CENTER);
+            }
+            else
+            {
+                JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeScrollPane, rulesPanel);
+                splitPane.setOneTouchExpandable(true);
+                //splitPane.setDividerLocation(150);
+                panel.add(splitPane, BorderLayout.CENTER);
+            }
+            southPanel.add(treePanelScaler);
+
+	}
+	else if(includeSlider)
+	{
+	    MathPanelController treePanelScaler = new MathPanelController(treePanel, viewScale);
+	    
+	    JScrollPane treeScrollPane = new JScrollPane(treeScreenCapturePanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+	    treeScrollPane.getVerticalScrollBar().setUnitIncrement(16);
+	    
+            if(rulesPanel == null)
+            {
+                panel.add(treeScrollPane, BorderLayout.CENTER);
+            }
+            else
+            {
+                JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeScrollPane, rulesPanel);
+                splitPane.setOneTouchExpandable(true);
+                //splitPane.setDividerLocation(150);
+                panel.add(splitPane, BorderLayout.CENTER);
+            }
+            southPanel.add(treePanelScaler);
+	}
+	else if(includeExpression)
+	{
+	    panel.add(latexScreenCapturePanel, BorderLayout.NORTH);
+
+            if(rulesPanel == null)
+            {
+                panel.add(treeScreenCapturePanel, BorderLayout.CENTER);
+            }
+            else
+            {
+                JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeScreenCapturePanel, rulesPanel);
+                splitPane.setOneTouchExpandable(true);
+                //splitPane.setDividerLocation(150);
+                panel.add(treeScreenCapturePanel, BorderLayout.CENTER);
+            }
+	}
+	else
+	{
+	    if(rulesPanel == null)
+            {
+                panel.add(treeScreenCapturePanel, BorderLayout.CENTER);
+            }
+            else
+            {
+                JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeScreenCapturePanel, rulesPanel);
+                splitPane.setOneTouchExpandable(true);
+                //splitPane.setDividerLocation(150);
+                panel.add(treeScreenCapturePanel, BorderLayout.CENTER);
+            }
+	}
+        
+        
+
         JavaObject response = new JavaObject(panel);
 
         setTopOfStack(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
@@ -359,121 +405,11 @@ public class TreeView extends BuiltinFunction {
 
     }//end method.
     
-    
-    private JTable makeTable(Environment environment, Map m)
-    {
-        Cons cons = (Cons) m.get("Theorems");
-        
-        
-        final JTable table = new JTable(new SimpleColorTableModel());
-        
-        table.setFillsViewportHeight(true);
-
-        table.setDefaultRenderer(Color.class, new ColorTableCellRenderer());
-        
-        SimpleColorTableModel model = (SimpleColorTableModel) table.getModel();
-        
-        Cons cons2 = null;
-        
-        try
-        {
-            int length = Utility.listLength(environment, -1, (Cons) ((Cons)cons.car()).cdr());
-            
-            for(int index = 1; index <= length; index++)
-            {
-                cons2 = Utility.nth(environment, -1, cons, index);
-                
-                Cons ruleName = Utility.nth(environment, -1, cons2, 1);
-                String ruleNameString = Utility.toNormalString(environment, -1, ruleName.toString());
-                Cons pattern = Utility.nth(environment, -1, cons2, 2);
-                Cons patternTex = Utility.nth(environment, -1, cons2, 3);
-                String patternTexString = Utility.toNormalString(environment, -1, patternTex.toString());
-                Cons replacement = Utility.nth(environment, -1, cons2, 4);
-                Cons replacementTex = Utility.nth(environment, -1, cons2, 5);
-                String replacementTexString = Utility.toNormalString(environment, -1, replacementTex.toString());
-                
-                TeXFormula texFormula = new TeXFormula(patternTexString + " \\leftarrow " + replacementTexString);
-                Icon rule = texFormula.createTeXIcon(TeXConstants.STYLE_DISPLAY, (float) 20);
-                model.addRow(new Object[]{ruleNameString, rule});
-
-            }
-        }
-        catch(Throwable t)
-        {
-            t.printStackTrace();
-        }
-        
-        /*
-        TeXFormula texFormula = new TeXFormula("a\\_ + b\\_ \\leftarrow b + a");
-        Icon rule = texFormula.createTeXIcon(TeXConstants.STYLE_DISPLAY, (float) 12);
-        model.addRow(new Object[]{"Commutative +", rule});
-        */
-
-        
-        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()) {
-                    int index = table.getSelectedRow();
-                    System.out.println("xx " + index);
-                }
-            }
-        });
-        
-        
-        return table;
-    }
+   
     
     
     
-class ColorTableCellRenderer extends DefaultTableCellRenderer {
 
-    @Override
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-
-        super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-        setText(null);
-        if (value instanceof Color) {
-
-            setOpaque(true);
-            setBackground((Color)value);
-
-        }
-
-        return this;
-
-    }
-
-}
-
-public class SimpleColorTableModel extends DefaultTableModel {
-
-    public SimpleColorTableModel() {
-
-        addColumn("Theorem");
-        addColumn("Pattern");
-
-    }
-
-    @Override
-    public Class<?> getColumnClass(int columnIndex) {
-
-        Class clazz = String.class;
-
-        switch (columnIndex) {
-
-            case 1:
-                clazz = Icon.class;
-                break;              
-
-        }
-
-        return clazz;
-
-    }
-
-}
     
 
 }//end class.

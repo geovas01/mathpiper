@@ -62,8 +62,8 @@ function := ` '(TreeProcess(@v1, "pattern", @process, Position:"position"));
 
 
     theorems := [
-            ["Commutative +", x_ + y_, "x\\_ + y\\_", y_ + x_, "y + x"],
-            ["Commutative *", x_ * y_, "x\\_ * y\\_", y_ * x_, "y * x"],
+            ["Commutative +", x_ + y_, "x\\_ + y\\_", '(y + x), "y + x"],
+            ["Commutative *", x_ * y_, "x\\_ * y\\_", '(y * x), "y * x"],
     ];
     
     
