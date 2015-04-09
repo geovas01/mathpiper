@@ -2304,7 +2304,7 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 					s19 = s19.substring(0,s19.length()-1);
 					s19 = s19.replaceAll("\n","\n\t");
 					listFile = "\n\n*** List File ***\n" + lst_or_error;
-					s19File =  "*** Executable Code ***\n\n"+ "%s19,descrption=\"Execute this fold to send program to U6502 monitor.\",preserve=\"false\"\n\t" + s19 + "\n%/s19";
+					s19File =  "*** Executable Code ***\n\n"+ "%s19,description=\"Execute this fold to send program to U6502 monitor.\",preserve=\"false\"\n\t" + s19 + "\n%/s19";
 					symbolTableFile = "\n\n*** Symbol Table ***\n" + symbolTable;
 					
 					
