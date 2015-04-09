@@ -35,7 +35,7 @@ import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 
 public class TreePanelCons extends JComponent implements ViewPanel, MouseListener {
 
-	protected Cons expressionCons;
+	protected Cons expression;
 	protected double viewScale = 1;
 	private Queue<SymbolNode> queue = new LinkedList();
 	private int[] lastOnRasterArray = new int[10000];
@@ -113,7 +113,7 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
 
 		this.setLayout(null);
 
-		this.expressionCons = expressionCons;
+		this.expression = expressionCons;
 		this.setOpaque(true);
 		this.viewScale = viewScale;
                 
@@ -144,7 +144,7 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
 
                             mainRootNode.setOperator(operator, (Boolean) treeOptionsMap.get("Code"), (int) (long) Math.floor(((Integer) treeOptionsMap.get("WordWrap")).doubleValue()));
 
-                            handleSublistCons(mainRootNode, expressionCons, null, null);
+                            handleSublistCons(mainRootNode, expressionCons, null, null, "");
 
                     } catch (Throwable e) {
                             e.printStackTrace();
@@ -155,7 +155,7 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
 
 	}
 
-	private void listToTree(SymbolNode rootNode, Cons rootCons, Color markAllColor, String markAllNodeShape) throws Throwable {
+	private void listToTree(SymbolNode rootNode, Cons rootCons, Color markAllColor, String markAllNodeShape, String position) throws Throwable {
 
 		Cons cons = (Cons) rootCons.car(); // Go into sublist.
                 
@@ -189,28 +189,29 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
 			}
 		}
    
-                if (optionsMap != null && optionsMap.containsKey("\"Position\"")) {
 
-                        Cons atomCons = (Cons) optionsMap.get("\"Position\"");
+                rootNode.setPosition(position);
 
-                        if (atomCons != null) {
-                                rootNode.setPosition(Utility.stripEndQuotesIfPresent((String) atomCons.car()));
-                        }
-                }
                 
 
 		String operator = (String) cons.car();
 
 		rootNode.setOperator(operator, (Boolean) treeOptionsMap.get("Code"), (int) (long) Math.floor(((Integer) treeOptionsMap.get("WordWrap")).doubleValue()));
 
+                int positionInt = 0;
+                
 		while (cons.cdr() != null) {
 			cons = cons.cdr();
+                        positionInt++;
+                        
 
 			SymbolNode node2 = new SymbolNode();
+                        
+                        node2.setPosition(position + positionInt);
 
 			if (cons instanceof SublistCons) {
 
-				handleSublistCons(node2, cons, markAllColor, markAllNodeShape);
+				handleSublistCons(node2, cons, markAllColor, markAllNodeShape, position + positionInt);
 
 				rootNode.addChild(node2);
 
@@ -246,14 +247,7 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
 					}
 				}
                                 
-                                if (map != null && map.containsKey("\"Position\"")) {
 
-                                        Cons atomCons = (Cons) map.get("\"Position\"");
-
-                                        if (atomCons != null) {
-                                                node2.setPosition(Utility.stripEndQuotesIfPresent((String) atomCons.car()));
-                                        }
-                                }
 
 				operator = (String) cons.car();
 
@@ -265,7 +259,7 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
 
 	}// end method.
 
-	private void handleSublistCons(SymbolNode node2, Cons cons, Color markAllColor, String markAllNodeShape) throws Throwable {
+	private void handleSublistCons(SymbolNode node2, Cons cons, Color markAllColor, String markAllNodeShape, String position) throws Throwable {
 		Color markSubtreeColor = null;
 
                 Map map = cons.getMetadataMap();
@@ -300,7 +294,7 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
 			}
 		}
 
-		listToTree(node2, cons, markSubtreeColor, markSubtreeNodeShape);
+		listToTree(node2, cons, markSubtreeColor, markSubtreeNodeShape, position);
 	}
 
 	//Uncomment for debugging.
@@ -758,8 +752,6 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
             positionString = selectedNode.getPosition();
             
             operatorString = selectedNode.toString();
-            
-            System.out.println("XX: " + positionString);
 
             EvaluationResponse response = EvaluationResponse.newInstance();
 
@@ -773,15 +765,19 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
 
                 try
                 {
+                    Cons from = AtomCons.getInstance(environment, -1, "\"expression\"");
+                    Cons to = this.expression;
+                    org.mathpiper.lisp.astprocessors.ExpressionSubstitute behaviour = new org.mathpiper.lisp.astprocessors.ExpressionSubstitute(environment, from, to);
+                    cons = Utility.substitute(environment,-1, cons, behaviour);
+                    
                     
                     StringInputStream newInput = new StringInputStream("'(x_ " + operatorString + " y_);" , environment.iInputStatus);
                     MathPiperParser parser = new MathPiperParser(new MathPiperTokenizer(), newInput, environment, environment.iPrefixOperators, environment.iInfixOperators, environment.iPostfixOperators, environment.iBodiedOperators);
 
-            
                     Cons pattern = parser.parse(-1);
-                    Cons from = AtomCons.getInstance(environment, -1, "\"pattern\"");
-                    Cons to = pattern;
-                    org.mathpiper.lisp.astprocessors.ExpressionSubstitute behaviour = new org.mathpiper.lisp.astprocessors.ExpressionSubstitute(environment, from, to);
+                    from = AtomCons.getInstance(environment, -1, "\"pattern\"");
+                    to = pattern;
+                    behaviour = new org.mathpiper.lisp.astprocessors.ExpressionSubstitute(environment, from, to);
                     cons = Utility.substitute(environment,-1, cons, behaviour);
                     
                     from = AtomCons.getInstance(environment, -1, "\"position\"");
@@ -808,7 +804,7 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
             positionString = null;
             operatorString = null;
 
-            relayoutTree(this.expressionCons);
+            relayoutTree(this.expression);
         }
         
     }
@@ -835,7 +831,7 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
 
                 mainRootNode.setOperator(operator, (Boolean) treeOptionsMap.get("Code"), (int) (long) Math.floor(((Integer) treeOptionsMap.get("WordWrap")).doubleValue()));
 
-                handleSublistCons(mainRootNode, annotatedTree, null, null);
+                handleSublistCons(mainRootNode, annotatedTree, null, null, "");
 
             } catch (Throwable e) {
                 e.printStackTrace();
@@ -886,6 +882,14 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
 
     public String getOperatorString() {
         return operatorString;
+    }
+
+    public Cons getExpression() {
+        return expression;
+    }
+
+    public void setExpression(Cons expression) {
+        this.expression = expression;
     }
     
     

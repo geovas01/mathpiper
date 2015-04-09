@@ -18,24 +18,17 @@ package org.mathpiper.builtin.functions.optional;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.AbstractAction;
-import javax.swing.Icon;
 import javax.swing.JButton;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
-import javax.swing.JTable;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
@@ -59,7 +52,6 @@ import org.mathpiper.ui.gui.RulesPanel;
 import org.mathpiper.ui.gui.worksheets.MathPanelController;
 import org.mathpiper.ui.gui.worksheets.ScreenCapturePanel;
 import org.mathpiper.ui.gui.worksheets.TreePanelCons;
-import org.scilab.forge.mp.jlatexmath.TeXConstants;
 import org.scilab.forge.mp.jlatexmath.TeXFormula;
 
 /**
@@ -77,6 +69,8 @@ public class TreeView extends BuiltinFunction {
     private TreePanelCons treePanel = null;
     
     private RulesPanel rulesPanel = null;
+    
+    private Cons candidateResult;
     
     public void plugIn(Environment aEnvironment)  throws Throwable
     {
@@ -276,10 +270,14 @@ public class TreeView extends BuiltinFunction {
 
                                     try
                                     {
-
-                                        Cons from = AtomCons.getInstance(environment, -1, "\"pattern\"");
-                                        Cons to = pattern;
+                                        Cons from = AtomCons.getInstance(environment, -1, "\"expression\"");
+                                        Cons to = TreeView.this.treePanel.getExpression();
                                         org.mathpiper.lisp.astprocessors.ExpressionSubstitute behaviour = new org.mathpiper.lisp.astprocessors.ExpressionSubstitute(environment, from, to);
+                                        cons3 = Utility.substitute(environment,-1, cons3, behaviour);
+                                        
+                                        from = AtomCons.getInstance(environment, -1, "\"pattern\"");
+                                        to = pattern;
+                                        behaviour = new org.mathpiper.lisp.astprocessors.ExpressionSubstitute(environment, from, to);
                                         cons3 = Utility.substitute(environment,-1, cons3, behaviour);
 
                                         from = AtomCons.getInstance(environment, -1, "\"replacement\"");
@@ -303,6 +301,11 @@ public class TreeView extends BuiltinFunction {
 
 
                                     treePanel.relayoutTree(response2.getResultList());
+                                    
+                                    TreeView.this.candidateResult = response2.getResultList();
+                                    
+                                    clearMetaInformation(TreeView.this.candidateResult);
+                                    
 
                                 }
                             }
@@ -316,6 +319,19 @@ public class TreeView extends BuiltinFunction {
             });
 
             southPanel.add(applyButton);
+            
+            
+            
+            JButton acceptButton = new JButton("Accept");
+            
+            acceptButton.addActionListener(new AbstractAction() {
+                public void actionPerformed(ActionEvent e) {
+                    TreeView.this.treePanel.setExpression(candidateResult);
+                    treePanel.relayoutTree(candidateResult);
+                }
+            });
+            
+            southPanel.add(acceptButton);
         
         }
 
@@ -407,7 +423,23 @@ public class TreeView extends BuiltinFunction {
     
    
     
-    
+    public void clearMetaInformation(Cons expression) throws Throwable {
+        Cons cons = (Cons) expression.car(); // Go into sublist.
+
+        cons.setMetadataMap(null);
+
+        while (cons.cdr() != null) {
+            
+            cons = cons.cdr();
+            
+            cons.setMetadataMap(null);
+            
+            if (cons instanceof SublistCons) {
+
+               clearMetaInformation(cons);
+            }
+        }
+    }
     
 
     

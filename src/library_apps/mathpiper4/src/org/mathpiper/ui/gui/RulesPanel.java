@@ -167,7 +167,6 @@ public class RulesPanel extends JPanel {
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
                     int index = table.getSelectedRow();
-                    System.out.println("xx " + index);
                 }
             }
         });

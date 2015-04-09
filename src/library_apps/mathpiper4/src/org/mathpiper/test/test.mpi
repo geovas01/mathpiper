@@ -23,7 +23,13 @@ Show(TreeView(v1, Code:False));
 */
 
 
-v1 := '(_a+_b-_c*_a);
+
+
+
+
+/*
+// Add position information.
+v1 := '(_a+_b-_c*_d);
 
 list := [
     ["track",[]],
@@ -40,12 +46,11 @@ list := [
     ]
 ];
 
-//Two leading underscores are used to match a sign literally.
 v1 := TreeProcess(v1, _, list);
+*/
 
-[track,function] := list;
-Echo(track);
 
+v1 := '(_a+_b-_c* (_d * (_e + _f)));
 
 process := [
     
@@ -58,12 +63,14 @@ process := [
         })
     ]
 ];
-function := ` '(TreeProcess(@v1, "pattern", @process, Position:"position"));
+function := ` '(TreeProcess("expression", "pattern", @process, Position:"position"));
 
 
     theorems := [
-            ["Commutative +", x_ + y_, "x\\_ + y\\_", '(y + x), "y + x"],
-            ["Commutative *", x_ * y_, "x\\_ * y\\_", '(y * x), "y * x"],
+        ["Commutative +", x_ + y_, "x\\_ + y\\_", '(y + x), "y + x"],
+        ["Commutative *", x_ * y_, "x\\_ * y\\_", '(y * x), "y * x"],
+        ["Distributive1 *", x_ * (y_ + z_), "x\\_ * (y\\_ + z\\_)", '(x * y + x * z), "x * y + x * z"],
+        ["Distributive2 *", x_ * y_ + x_ * z_, "x\\_ * y\\_ + x\\_ * z\\_", '(x * (y + z)), "x * (y + z)"],
     ];
     
     
@@ -77,10 +84,10 @@ process2 := [
 		})
 	]
 ];
-function2 := ` '(TreeProcess(@v1, "pattern", @process2, Position:"position"));
+function2 := ` '(TreeProcess("expression", "pattern", @process2, Position:"position"));
 
 
-Show(TreeView(v1, Code:False, Manipulate:True, Process:function, Substitute:function2, Theorems:theorems, ShowPositions:True));
+Show(TreeView(v1, Code:False, Manipulate:True, Process:function, Substitute:function2, Theorems:theorems, ShowPositions:False));
 
 
 
