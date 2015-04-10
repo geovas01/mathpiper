@@ -840,6 +840,8 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
             layoutTree();
             
             this.repaint();
+            this.invalidate();
+            this.revalidate();
         }
         
 

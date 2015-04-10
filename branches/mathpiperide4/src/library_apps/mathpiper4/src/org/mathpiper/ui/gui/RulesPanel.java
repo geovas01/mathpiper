@@ -17,10 +17,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import org.mathpiper.interpreters.Interpreter;
 import org.mathpiper.lisp.Environment;
@@ -36,13 +39,16 @@ public class RulesPanel extends JPanel {
     private JTextArea textArea = new JTextArea();
     private JTable table;
     private JScrollPane scrollPane;
+    private String column1Name = "Name";
+    private String column2Name = "Rule";
+    private TableColumnAdjuster tableColumnAdjuster;
 
     public RulesPanel(Environment aEnvironment, Map userOptions) {
         this.setLayout(new BorderLayout());
 
         table = makeTable(aEnvironment, userOptions);
 
-        scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane = new JScrollPane(new JPanel().add(table), JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
         this.add(scrollPane);
@@ -79,6 +85,8 @@ public class RulesPanel extends JPanel {
                    LatexIcon latexIcon = (LatexIcon) model.getValueAt(index,1);
                    latexIcon.changeSize(.90);
                 }
+                
+                RulesPanel.this.tableColumnAdjuster.adjustColumns();
             }
         });
         buttonsPanel.add(decrease);
@@ -108,11 +116,17 @@ public class RulesPanel extends JPanel {
                    LatexIcon latexIcon = (LatexIcon) model.getValueAt(index,1);
                    latexIcon.changeSize(1.10);
                 }
+                
+                RulesPanel.this.tableColumnAdjuster.adjustColumns();
             }
         });
         buttonsPanel.add(increase);
 
         add(buttonsPanel, BorderLayout.NORTH);
+
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+        tableColumnAdjuster = new TableColumnAdjuster(table);
+        tableColumnAdjuster.adjustColumns();
 
     }
 
@@ -178,9 +192,8 @@ public class RulesPanel extends JPanel {
 
         public RulesTableModel() {
 
-            addColumn("Name");
-            addColumn("Rule");
-
+            addColumn(column1Name);
+            addColumn(column2Name);
         }
 
         @Override
