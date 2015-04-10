@@ -33,7 +33,7 @@ public class SymbolNode {
         latexMap.put("+", "+");
         latexMap.put("-", "-");
         latexMap.put("/", "\\div");
-        latexMap.put("*", "\\times");
+        latexMap.put("*", "*"); // "\\times"
         latexMap.put("==", "=");
         latexMap.put("^", "^\\wedge");
         latexMap.put("Sqrt", "\\sqrt");

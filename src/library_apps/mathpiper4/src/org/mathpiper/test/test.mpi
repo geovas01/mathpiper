@@ -50,7 +50,8 @@ v1 := TreeProcess(v1, _, list);
 */
 
 
-v1 := '(_a+_b-_c* (_d * (_e + _f)));
+//v1 := '(_a+$_b-$_c*$ (_d *$ (_e +$ _f)));
+v1 := '(_a+$_b-$_c*$ (_d *$ (_e -$ _f)));
 
 process := [
     
@@ -67,10 +68,16 @@ function := ` '(TreeProcess("expression", "pattern", @process, Position:"positio
 
 
     theorems := [
-        ["Commutative +", x_ + y_, "x\\_ + y\\_", '(y + x), "y + x"],
-        ["Commutative *", x_ * y_, "x\\_ * y\\_", '(y * x), "y * x"],
-        ["Distributive1 *", x_ * (y_ + z_), "x\\_ * (y\\_ + z\\_)", '(x * y + x * z), "x * y + x * z"],
-        ["Distributive2 *", x_ * y_ + x_ * z_, "x\\_ * y\\_ + x\\_ * z\\_", '(x * (y + z)), "x * (y + z)"],
+        ["Commutative +", x_ +$ y_, "x\\_ + y\\_", '(y +$ x), "y + x"],
+        ["Commutative *", x_ *$ y_, "x\\_ * y\\_", '(y *$ x), "y * x"],
+        ["Distributive1 *", x_ *$ (y_ +$ z_), "x\\_ * (y\\_ + z\\_)", '(x *$ y + x *$ z), "x * y + x * z"],
+        ["Distributive2 *", x_ *$ y_ +$ x_ *$ z_, "x\\_ * y\\_ + x\\_ * z\\_", '(x *$ (y +$ z)), "x * (y + z)"],
+        ["Associative1 +", (x_ +$ y_) +$ z_, "(x\\_ + y\\_) + z\\_", '(x +$ (y +$ z)), "x + (y + z)"],
+        ["Associative2 +", x_ +$ (_ +$ z_), "x\\_ + (y\\_ + z\\_)", '((x +$ y) +$ z), "(x + y) + z"],
+        ["Associative1 *", (x_ *$ y_) *$ z_, "(x\\_ * y\\_) * z\\_", '(x *$ (y +$ z)), "x * (y * z)"],
+        ["Associative2 *", x_ *$ (y_ *$ z_), "x\\_ * (y\\_ * z\\_)", '((x *$ y) *$ z), "(x * y) * z"],
+        ["Undefine -", x_ -$ y_, "x\\_ - y\\_", '(x +$ -$y), "x + -y"],
+
     ];
     
     
