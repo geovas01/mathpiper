@@ -237,6 +237,7 @@ public class TreeView extends BuiltinFunction {
 
             final Environment environment = aEnvironment;
 
+            
             applyButton.addActionListener(new AbstractAction() {
                 public void actionPerformed(ActionEvent e) {
                     if(treePanel.getPositionString() != null)
@@ -424,6 +425,8 @@ public class TreeView extends BuiltinFunction {
    
     
     public void clearMetaInformation(Cons expression) throws Throwable {
+        expression.setMetadataMap(null);
+        
         Cons cons = (Cons) expression.car(); // Go into sublist.
 
         cons.setMetadataMap(null);
@@ -432,11 +435,13 @@ public class TreeView extends BuiltinFunction {
             
             cons = cons.cdr();
             
-            cons.setMetadataMap(null);
-            
             if (cons instanceof SublistCons) {
 
                clearMetaInformation(cons);
+            }
+            else
+            {
+                cons.setMetadataMap(null);
             }
         }
     }
