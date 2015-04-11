@@ -51,7 +51,10 @@ v1 := TreeProcess(v1, _, list);
 
 
 //v1 := '(_a+$_b-$_c*$ (_d *$ (_e +$ _f)));
-v1 := '(_a+$_b-$_c*$ (_d *$ (_e -$ _f)));
+//v1 := '(_a+$_b-$_c*$ (_d *$ (_e -$ _f)));
+//v1 := _a +$ _b;
+// v1 := '(_a *$ _x +$ _b == _c *$ _x);
+v1 := '(_a *$ _x +$ _b -$(_c *$ _x) == 0);
 
 process := [
     
@@ -74,13 +77,91 @@ function := ` '(TreeProcess("expression", "pattern", @process, Position:"positio
         ["Distributive2 *", x_ *$ y_ +$ x_ *$ z_, "x\\_ * y\\_ + x\\_ * z\\_", '(x *$ (y +$ z)), "x * (y + z)"],
         ["Associative1 +", (x_ +$ y_) +$ z_, "(x\\_ + y\\_) + z\\_", '(x +$ (y +$ z)), "x + (y + z)"],
         ["Associative2 +", x_ +$ (_ +$ z_), "x\\_ + (y\\_ + z\\_)", '((x +$ y) +$ z), "(x + y) + z"],
-        ["Associative1 *", (x_ *$ y_) *$ z_, "(x\\_ * y\\_) * z\\_", '(x *$ (y +$ z)), "x * (y * z)"],
+        ["Associative1 *", (x_ *$ y_) *$ z_, "(x\\_ * y\\_) * z\\_", '(x *$ (y *$ z)), "x * (y * z)"],
         ["Associative2 *", x_ *$ (y_ *$ z_), "x\\_ * (y\\_ * z\\_)", '((x *$ y) *$ z), "(x * y) * z"],
-        ["Undefine -", x_ -$ y_, "x\\_ - y\\_", '(x +$ -$y), "x + -y"],
+        ["Undefine -", x_ -$ y_, "x\\_ - y\\_", '(x +$ SubtractN(0,1) *$ y), "x + -1 * y"],
+        ["Equality -", x_ == y_, "x\\_ = y\\_", 
+            '{
+                // Local(operator, term);
+                // operator := ToAtom(AskUser("Operator?"));
+                // term := PipeFromString(AskUser("Term?") ~ ";") ParseMathPiper();
+                ListToFunction([ToAtom("=="), 
+                    ListToFunction([operator, term, x]),
+                    ListToFunction([operator, term, x])]);
+                
+            }, "-term\\ +\\ x = y\\ +\\ -term"],
+        ["Isolate 1", x_ == y_, "x\\_ = y\\_", 'Isolax(2, x == y)[4], ""],
+        ["Isolate 2", x_ == y_, "x\\_ = y\\_", 'Isolax(2, x == y)[4], ""],
+        ["Identity +", x_ +$ 0, "x\\_ + 0", 'x, "x"],
+        ["Inverse +", x_ +$ (-$ x_), "\\textcolor{blue}{x\\_ + (-y\\_)}", 0, "\\textcolor{green}{0}"],
+        ["Collect 1", u_ *$ w_ +$ v_ *$ w_ , "u\\_ * w\\_ + v\\_ * w\\_", '((u +$ v) *$ w), "(u + v) * w"],
+        ["Undefine /", x_ /$ y_, "x\\_ / y\\_", '(x *$ 1/y), "x * 1/y"],
+        ["Undivide", x_ *$ 1/x_, "x\\_ * 1/x\\_", 1, "1"],
+        ["Identity *", x_ *$ 1, "x\\_ * 1", 'x, "x\\_"],
+        ["Define -", -1 *$ x_, "-1 * x\\_", '(-x), "-x"],
+        ["Define /", x_ *$ 1/_y, "x\\_ 1/y\\_", '(x/y), "x/y"],
+        
 
     ];
+
+/*
+Closure Property of Addition
+
+    Sum (or difference) of 2 reals equals a real number
+
+Additive Identity
+
+    a + 0 = a
+
+Additive Inverse
+
+    a + (-a) = 0
+
+Associative of Addition
+
+    (a + b) + c = a + (b + c)
+
+Commutative of Addition
+
+    a + b = b + a
+
+Definition of Subtraction
+
+    a - b = a + (-b)
+
+Closure Property of Multiplication
+
+    Product (or quotient if denominator (!=)0) of 2 reals equals a real number
+
+Multiplicative Identity
+
+    a * 1 = a
+
+Multiplicative Inverse
+
+    a * (1/a) = 1     (a (!=) 0)
+
+(Multiplication times 0)
+
+    a * 0 = 0
+
+Associative of Multiplication
+
+    (a * b) * c = a * (b * c)
+
+Commutative of Multiplication
+
+    a * b = b * a
+
+Distributive Law
+
+    a(b + c) = ab + ac
+
+Definition of Division
+
+    a / b = a(1/b)
     
-    
+*/
 
     
 process2 := [
@@ -94,7 +175,7 @@ process2 := [
 function2 := ` '(TreeProcess("expression", "pattern", @process2, Position:"position"));
 
 
-Show(TreeView(v1, Code:False, Manipulate:True, Process:function, Substitute:function2, Theorems:theorems, ShowPositions:False));
+Show(TreeView(v1, IncludeExpression:True, Code:False, Manipulate:True, Process:function, Substitute:function2, Theorems:theorems, ShowPositions:False));
 
 
 
