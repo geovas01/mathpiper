@@ -71,7 +71,14 @@ public class EvaluationResponse {
      */
     public void setResult(String result)
     {
-        this.result = result.trim();
+        if(result != null)
+        {
+            this.result = result.trim();
+        }
+        else
+        {
+            this.result = result;
+        }
     }
 
     /**
