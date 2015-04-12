@@ -222,7 +222,7 @@ public class RulesPanel extends JPanel {
         private double size = 14;
 
         public LatexIcon(String patternTexString, String replacementTexString, double size) {
-                texFormula = new TeXFormula(patternTexString + " \\ \\ \\leftarrow \\ \\ " + replacementTexString);
+                texFormula = new TeXFormula(patternTexString + " \\ \\ \\boldsymbol{\\textcolor{red}{\\leftarrow}} \\ \\ " + replacementTexString);
                 icon = texFormula.createTeXIcon(TeXConstants.STYLE_DISPLAY, (float) size);
                 this.size = size;
         }

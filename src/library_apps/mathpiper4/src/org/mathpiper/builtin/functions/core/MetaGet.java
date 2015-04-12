@@ -49,7 +49,7 @@ public class MetaGet extends BuiltinFunction
         }//end if.
 
 
-        Object value = metadataMap.get(Utility.stripEndQuotesIfPresent((String) key.car()));
+        Object value = metadataMap.get((String) key.car());
         
         if (value== null) {
             setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "None"));

@@ -1,8 +1,8 @@
 package org.mathpiper.lisp.astprocessors;
 
+import java.util.HashMap;
 import java.util.List;
 
-import org.mathpiper.lisp.Utility;
 
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.AtomCons;
@@ -28,7 +28,14 @@ public class MetaToObjectSubstitute
 	{
 	    String name = ((String) aElement.car()).replace("_", "");
 	    
-	    return(AtomCons.getInstance(aEnvironment, aStackTop, name));
+            Cons newCons = AtomCons.getInstance(aEnvironment, aStackTop, name);
+            
+            if(aElement.getMetadataMap() != null)
+            {
+                newCons.setMetadataMap(new HashMap<String,Object>(aElement.getMetadataMap()));
+            }
+            
+	    return(newCons);
 	}
 
         return null;

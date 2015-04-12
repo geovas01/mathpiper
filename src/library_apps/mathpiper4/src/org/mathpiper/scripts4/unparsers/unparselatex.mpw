@@ -77,10 +77,13 @@ UnparseLatexMaxPrec() := 60000;         /* This precedence will never be bracket
 
 /* Replace numbers and variables -- never bracketed except explicitly */
 
-110 # UnparseLatex(x_Number?, p_) <-- ToString(x);
+110 # UnparseLatex(x_Number?, p_)::(MetaGet(x,"HighlightColor") !=? None) <-- "\\textcolor{" ~ MetaGet(x,"HighlightColor") ~ "}{" ~ ToString(x) ~ "}";
+111 # UnparseLatex(x_Number?, p_) <-- ToString(x);
 /* Variables */
 
-200 # UnparseLatex(x_Atom?, p_) <-- UnparseLatexLatexify(ToString(MetaToObject(x)));
+
+200 # UnparseLatex(x_Atom?, p_)::(MetaGet(x,"HighlightColor") !=? None) <-- "\\textcolor{" ~ MetaGet(x,"HighlightColor") ~ "}{" ~ UnparseLatexLatexify(ToString(MetaToObject(x))) ~ "}";
+201 # UnparseLatex(x_Atom?, p_) <-- UnparseLatexLatexify(ToString(MetaToObject(x)));
 
 
 /* Strings must be quoted but not bracketed */
@@ -125,7 +128,7 @@ UnparseLatexMaxPrec() := 60000;         /* This precedence will never be bracket
 116 # UnparseLatex(n_ * expr_, p_):: (Function?(expr) And? Contains?(["^", "!", "!!"], Type(expr)) And? Number?(FunctionToList(expr)[2])) <-- UnparseLatexBracketIf(p <? PrecedenceGet("*"), ConcatStrings(UnparseLatex(n, LeftPrecedenceGet("*")), "\\times ", UnparseLatex(expr, RightPrecedenceGet("*")) ) );
 
         /* generic binary ops here */
-119 # UnparseLatex(expr_Function?, p_)::(ArgumentsCount(expr) =? 2 And? Infix?(Type(expr)) And? Not? Type(expr) =? "^" And? MetaGet(expr[0],"HighlightColor") !=? None) <-- UnparseLatexBracketIf(p <? PrecedenceGet(Type(expr)), ConcatStrings(UnparseLatex(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))), "\\colorbox{",MetaGet(expr[0],"HighlightColor"),"}{", UnparseLatexLatexify(Type(expr)), "}", UnparseLatex(FunctionToList(expr)[3], RightPrecedenceGet(Type(expr))) ) );
+119 # UnparseLatex(expr_Function?, p_)::(ArgumentsCount(expr) =? 2 And? Infix?(Type(expr)) And? Not? Type(expr) =? "^" And? MetaGet(expr[0],"HighlightColor") !=? None) <-- UnparseLatexBracketIf(p <? PrecedenceGet(Type(expr)), ConcatStrings(UnparseLatex(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))), "\\textcolor{",MetaGet(expr[0],"HighlightColor"),"}{", UnparseLatexLatexify(Type(expr)), "}", UnparseLatex(FunctionToList(expr)[3], RightPrecedenceGet(Type(expr))) ) );
 120 # UnparseLatex(expr_Function?, p_)::(ArgumentsCount(expr) =? 2 And? Infix?(Type(expr)) ) <-- UnparseLatexBracketIf(p <? PrecedenceGet(Type(expr)), ConcatStrings(UnparseLatex(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))), UnparseLatexLatexify(Type(expr)), UnparseLatex(FunctionToList(expr)[3], RightPrecedenceGet(Type(expr))) ) );
 
         /* Template for "regular" unary prefix operators:
@@ -135,7 +138,7 @@ UnparseLatexMaxPrec() := 60000;         /* This precedence will never be bracket
 
         /* generic unary ops here */
         /* prefix */
-119 # UnparseLatex(expr_Function?, p_)::(ArgumentsCount(expr) =? 1 And? Prefix?(Type(expr)) And? MetaGet(expr[0],"HighlightColor") !=? None) <-- UnparseLatexBracketIf(p <? PrecedenceGet(Type(expr)), ConcatStrings("\\colorbox{",MetaGet(expr[0],"HighlightColor"),"}{", UnparseLatexLatexify(Type(expr)), "}", UnparseLatex(FunctionToList(expr)[2], RightPrecedenceGet(Type(expr)))) );
+119 # UnparseLatex(expr_Function?, p_)::(ArgumentsCount(expr) =? 1 And? Prefix?(Type(expr)) And? MetaGet(expr[0],"HighlightColor") !=? None) <-- UnparseLatexBracketIf(p <? PrecedenceGet(Type(expr)), ConcatStrings("\\textcolor{",MetaGet(expr[0],"HighlightColor"),"}{", UnparseLatexLatexify(Type(expr)), "}", UnparseLatex(FunctionToList(expr)[2], RightPrecedenceGet(Type(expr)))) );
 120 # UnparseLatex(expr_Function?, p_)::(ArgumentsCount(expr) =? 1 And? Prefix?(Type(expr))) <-- UnparseLatexBracketIf(p <? PrecedenceGet(Type(expr)), ConcatStrings(UnparseLatexLatexify(Type(expr)), UnparseLatex(FunctionToList(expr)[2], RightPrecedenceGet(Type(expr)))) );
 
 
@@ -146,7 +149,7 @@ UnparseLatexMaxPrec() := 60000;         /* This precedence will never be bracket
 ) );
 
         /* fraction and its operands are never bracketed except when they are under power */
-98 # UnparseLatex(x_ / y_, p_)::(Assigned?(operatorMetaMap) And? MetaGet(operatorMetaMap,"HighlightColor") !=? None) <-- UnparseLatexBracketIf(p <? PrecedenceGet("/"), ConcatStrings("\\colorbox{",MetaGet(operatorMetaMap,"HighlightColor"),"}{\\frac \\textcolor{Black}{", UnparseLatex(x, UnparseLatexMaxPrec()), "} \\textcolor{Black}{", UnparseLatex(y, UnparseLatexMaxPrec()), "}} ") );
+98 # UnparseLatex(x_ / y_, p_)::(Assigned?(operatorMetaMap) And? MetaGet(operatorMetaMap,"HighlightColor") !=? None) <-- UnparseLatexBracketIf(p <? PrecedenceGet("/"), ConcatStrings("\\textcolor{",MetaGet(operatorMetaMap,"HighlightColor"),"}{\\frac \\textcolor{Black}{", UnparseLatex(x, UnparseLatexMaxPrec()), "} \\textcolor{Black}{", UnparseLatex(y, UnparseLatexMaxPrec()), "}} ") );
 100 # UnparseLatex(x_ / y_, p_) <-- UnparseLatexBracketIf(p <? PrecedenceGet("/"), ConcatStrings("\\frac{", UnparseLatex(x, UnparseLatexMaxPrec()), "}{", UnparseLatex(y, UnparseLatexMaxPrec()), "} ") );
 
         /* power's argument is never bracketed but it must be put in braces. Chained powers must be bracketed. Powers of 1/n are displayed as roots. */
@@ -171,7 +174,7 @@ LocalSymbols(UnparseLatexRegularOps, UnparseLatexRegularPrefixOps, UnparseLatexG
   [
     ["+"," + "],
     ["-"," - "],
-    ["*"," \\times "],
+    ["*"," * "], // " \\times "
     [":="," := "], //\\equiv "],
     ["=="," = "],
     ["=?"," = "],
@@ -459,7 +462,8 @@ UnparseLatex(Hold(Cos(A-B)*Sqrt(C+D)-(a+b)*c^d+2*I+Complex(a+b,a-b)/Complex(0,1)
 
 Verify(
 UnparseLatex(Hold(Exp(A*B)/C/D/(E+F)*G-(-(a+b)-(c-d))-b^(c^d) -(a^b)^c))
-,"$\\frac{\\frac{\\frac{\\exp ( A \\times B) }{C} }{D} }{E + F}  \\times G - (  - ( a + b)  - ( c - d) )  - b ^{c ^{d}} - ( a ^{b})  ^{c}$"
+,"$\\frac{\\frac{\\frac{\\exp ( A * B) }{C} }{D} }{E + F}  * G - (  - ( a + b)  - ( c - d) )  - b ^{c ^{d}} - ( a ^{b})  ^{c}$"
+
 );
 
 /*
@@ -491,7 +495,7 @@ UnparseLatex(3*Differentiate(x)f(x,y,z)*Cos(Omega)*Modulo(Sin(a)*4,5/a^b))
 
 Verify(
 UnparseLatex(Hold(Not? (c <? 0) And? (a+b)*c>=? -d^e And? (c <=? 0 Or? b+1 >? 0) Or? a !=? 0 And? Not? (p =? q)))
-,"$ \\neg c < 0\\wedge ( a + b)  \\times c\\geq  - d ^{e}\\wedge ( c\\leq 0\\vee b + 1 > 0) \\vee a\\neq 0\\wedge  \\neg p = q$"
+,"$ \\neg c < 0\\wedge ( a + b)  * c\\geq  - d ^{e}\\wedge ( c\\leq 0\\vee b + 1 > 0) \\vee a\\neq 0\\wedge  \\neg p = q$"
 );
 
 
@@ -527,7 +531,7 @@ Retract("theta",All);
 
 Verify(
 UnparseLatex(ObjectToMeta('([a[3]*b[5]-c[1][2],[a,b,c,d]])))
-,"$( a _{3} \\times b _{5} - c _{( 1, 2) }, ( a, b, c, d) ) $"
+,"$( a _{3} * b _{5} - c _{( 1, 2) }, ( a, b, c, d) ) $"
 );
 
 
@@ -556,7 +560,7 @@ UnparseLatex()
 */
 
 /* Bug report from Michael Borcherds. The brackets were missing. */
-Verify(UnparseLatex(Hold(2*x*(-2))), "$2 \\times x \\times (  - 2) $");
+Verify(UnparseLatex(Hold(2*x*(-2))), "$2 * x * (  - 2) $");
 
 
 %/mathpiper

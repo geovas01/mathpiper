@@ -23,6 +23,8 @@ import java.awt.event.ActionEvent;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.AbstractAction;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 
 import javax.swing.JLabel;
@@ -35,6 +37,7 @@ import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.interpreters.EvaluationResponse;
 import org.mathpiper.interpreters.Interpreter;
+import org.mathpiper.interpreters.ResponseListener;
 import org.mathpiper.interpreters.SynchronousInterpreter;
 import org.mathpiper.io.StringInputStream;
 import org.mathpiper.lisp.Environment;
@@ -49,6 +52,7 @@ import org.mathpiper.lisp.parsers.Parser;
 import org.mathpiper.lisp.parsers.LispParser;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 import org.mathpiper.ui.gui.RulesPanel;
+import org.mathpiper.ui.gui.worksheets.LatexRenderingController;
 import org.mathpiper.ui.gui.worksheets.MathPanelController;
 import org.mathpiper.ui.gui.worksheets.ScreenCapturePanel;
 import org.mathpiper.ui.gui.worksheets.TreePanelCons;
@@ -66,11 +70,17 @@ public class TreeView extends BuiltinFunction {
 
     private Map defaultOptions;
     
-    private TreePanelCons treePanel = null;
+    private TreePanelCons treePanel;
     
-    private RulesPanel rulesPanel = null;
+    private RulesPanel rulesPanel;
     
     private Cons candidateResult;
+    
+    private TeXFormula formula;
+    
+    private JLabel latexLabel;
+    
+    private LatexRenderingController latexPanelController;
     
     public void plugIn(Environment aEnvironment)  throws Throwable
     {
@@ -96,7 +106,6 @@ public class TreeView extends BuiltinFunction {
     }//end method.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Throwable {
-	
 
         Cons arguments = getArgument(aEnvironment, aStackTop, 1);
         
@@ -162,31 +171,34 @@ public class TreeView extends BuiltinFunction {
             
         }
         
+        Box latexBox = new Box(BoxLayout.Y_AXIS);
+
+        
+        Box treeBox = new Box(BoxLayout.Y_AXIS);
         
         JPanel latexScreenCapturePanel = new ScreenCapturePanel();
         if(!((Boolean) userOptions.get("Lisp")))
         {
             if(!((Boolean) userOptions.get("Code")))
             {
-                //Evaluate Hold function.
-                Cons holdAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "Hold");
-                holdAtomCons.setCdr(Cons.deepCopy(aEnvironment, aStackTop, expression));
-                Cons holdSubListCons = SublistCons.getInstance(aEnvironment, holdAtomCons);
-                Cons holdInputExpression = holdSubListCons;        
-                
-        	//Obtain LaTeX version of the expression.
-        	Cons head = SublistCons.getInstance(aEnvironment, AtomCons.getInstance(aEnvironment, aStackTop, "UnparseLatex"));
-                ((Cons) head.car()).setCdr(holdInputExpression);
-                Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, head);
-                texString = (String) result.car();
-                texString = Utility.stripEndQuotesIfPresent(texString);
-                texString = texString.substring(1, texString.length());
-                texString = texString.substring(0, texString.length() - 1);
-                
-                TeXFormula formula = new TeXFormula(texString);
-                JLabel latexLabel = new JLabel();
-                // JPanel latexPanelController = new LatexRenderingController(formula, latexLabel, 40);
-                latexScreenCapturePanel.add(latexLabel); 
+                try
+                {
+                    String latexString = expressionToLatex(aEnvironment, aStackTop, expression);
+
+                    formula = new TeXFormula(latexString);
+                    latexLabel = new JLabel();
+                    latexPanelController = new LatexRenderingController(formula, latexLabel, 40); // Do not delete.
+                    latexScreenCapturePanel.add(latexLabel);
+                    
+                    latexBox.add(latexPanelController);
+                    JScrollPane latexScrollPane = new JScrollPane(latexScreenCapturePanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+                    latexBox.add(latexScrollPane);
+                }
+                catch(Throwable t)
+                {
+                    t.printStackTrace();
+                }
             }
             else
             {
@@ -194,6 +206,9 @@ public class TreeView extends BuiltinFunction {
                 JLabel codeLabel = new JLabel(texString);
                 codeLabel.setFont(new Font("Serif", Font.PLAIN, 25));
                 latexScreenCapturePanel.add(codeLabel);
+                JScrollPane latexScrollPane = new JScrollPane(latexScreenCapturePanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+                latexBox.add(latexScrollPane);
             }
         }
 
@@ -213,6 +228,38 @@ public class TreeView extends BuiltinFunction {
 
 
         treePanel = new TreePanelCons(aEnvironment, expression, viewScale, userOptions);
+        
+        
+        final Environment environment = aEnvironment;
+        final int stackTop = aStackTop;
+        
+        treePanel.addResponseListener(new ResponseListener() {
+
+            public void response(EvaluationResponse response) {
+                String positionString = response.getResult();
+                Cons expression = response.getResultList();
+
+                try {
+                    TreeView.this.clearMetaInformation(expression);
+                    Cons subExpression = expression;
+                    for (int index = 0; index < positionString.length(); index++) {
+                        int position = Integer.parseInt("" + positionString.charAt(index));
+                        subExpression = Utility.nth(environment, stackTop, subExpression, position);
+                    }
+
+                    highlightTree(environment, stackTop, subExpression, "green");
+                    String latexString = expressionToLatex(environment, stackTop, response.getResultList());
+                    formula.setLaTeX(latexString);
+                    TreeView.this.latexPanelController.adjust();
+                } catch (Throwable t) {
+                    t.printStackTrace();
+                }
+            }
+
+            public boolean remove() {
+                return false;
+            }
+        });
         
         JPanel treeScreenCapturePanel = new ScreenCapturePanel();
         
@@ -234,8 +281,6 @@ public class TreeView extends BuiltinFunction {
             //panel.add(new RulesPanel(aEnvironment, userOptions), BorderLayout.EAST);
 
             JButton applyButton = new JButton("Apply");
-
-            final Environment environment = aEnvironment;
 
             
             applyButton.addActionListener(new AbstractAction() {
@@ -305,6 +350,31 @@ public class TreeView extends BuiltinFunction {
                                     
                                     TreeView.this.candidateResult = response2.getResultList();
                                     
+                                    try
+                                    {
+                                        
+
+                                        //Cons head0 = SublistCons.getInstance(environment, AtomCons.getInstance(environment, stackTop, "RemoveDollarSigns"));
+                                        //((Cons) head0.car()).setCdr(candidateResult);
+                                        //Cons result0 = environment.iLispExpressionEvaluator.evaluate(environment, stackTop, head0);
+                
+                                        Cons subExpression = candidateResult;
+                                        for(int index = 0; index < positionString.length(); index++)
+                                        {
+                                            int position = Integer.parseInt("" + positionString.charAt(index));
+                                            subExpression = Utility.nth(environment, stackTop, subExpression, position);
+                                        }
+                                        
+                                        highlightTree(environment, stackTop, subExpression, "orange");
+                                        String latexString = expressionToLatex(environment, stackTop, candidateResult);
+                                        formula.setLaTeX(latexString);
+                                        TreeView.this.latexPanelController.adjust();
+                                    }
+                                    catch(Throwable t)
+                                    {
+                                        t.printStackTrace();
+                                    }
+                                    
                                     clearMetaInformation(TreeView.this.candidateResult);
                                     
 
@@ -329,6 +399,17 @@ public class TreeView extends BuiltinFunction {
                 public void actionPerformed(ActionEvent e) {
                     TreeView.this.treePanel.setExpression(candidateResult);
                     treePanel.relayoutTree(candidateResult);
+                    
+                    try
+                    {
+                        String latexString = expressionToLatex(environment, stackTop, candidateResult);
+                        formula.setLaTeX(latexString);
+                        TreeView.this.latexPanelController.adjust();
+                    }
+                    catch(Throwable t)
+                    {
+                        t.printStackTrace();
+                    }
                 }
             });
             
@@ -337,7 +418,7 @@ public class TreeView extends BuiltinFunction {
         }
 
         
-	
+//panel.add(latexPanelController, BorderLayout.WEST);	
 
 	if(includeSlider && includeExpression)
 	{
@@ -346,20 +427,21 @@ public class TreeView extends BuiltinFunction {
 	    JScrollPane treeScrollPane = new JScrollPane(treeScreenCapturePanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 	    treeScrollPane.getVerticalScrollBar().setUnitIncrement(16);
 	    
-            panel.add(latexScreenCapturePanel, BorderLayout.NORTH);
+            treeBox.add(treeScrollPane);
+            panel.add(latexBox, BorderLayout.NORTH);
             
             if(rulesPanel == null)
             {
-                panel.add(treeScrollPane, BorderLayout.CENTER);
+                panel.add(treeBox, BorderLayout.CENTER);
             }
             else
             {
-                JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeScrollPane, rulesPanel);
+                JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeBox, rulesPanel);
                 splitPane.setOneTouchExpandable(true);
                 //splitPane.setDividerLocation(150);
                 panel.add(splitPane, BorderLayout.CENTER);
             }
-            southPanel.add(treePanelScaler);
+            treeBox.add(treePanelScaler);
 
 	}
 	else if(includeSlider)
@@ -368,23 +450,23 @@ public class TreeView extends BuiltinFunction {
 	    
 	    JScrollPane treeScrollPane = new JScrollPane(treeScreenCapturePanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 	    treeScrollPane.getVerticalScrollBar().setUnitIncrement(16);
-	    
+	    treeBox.add(treeScrollPane);
             if(rulesPanel == null)
             {
-                panel.add(treeScrollPane, BorderLayout.CENTER);
+                panel.add(treeBox, BorderLayout.CENTER);
             }
             else
             {
-                JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeScrollPane, rulesPanel);
+                JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeBox, rulesPanel);
                 splitPane.setOneTouchExpandable(true);
                 //splitPane.setDividerLocation(150);
                 panel.add(splitPane, BorderLayout.CENTER);
             }
-            southPanel.add(treePanelScaler);
+            treeBox.add(treePanelScaler);
 	}
 	else if(includeExpression)
 	{
-	    panel.add(latexScreenCapturePanel, BorderLayout.NORTH);
+	    panel.add(latexBox, BorderLayout.NORTH);
 
             if(rulesPanel == null)
             {
@@ -422,6 +504,8 @@ public class TreeView extends BuiltinFunction {
 
     }//end method.
     
+    
+
    
     
     public void clearMetaInformation(Cons expression) throws Throwable {
@@ -444,6 +528,81 @@ public class TreeView extends BuiltinFunction {
                 cons.setMetadataMap(null);
             }
         }
+    }
+    
+    
+    public void highlightTree(Environment environment, int stackTop, Cons expression, String color) throws Throwable {
+        Map metaDataMap = null;
+        if(expression.getMetadataMap() == null)
+        {
+            metaDataMap = new HashMap();
+            expression.setMetadataMap(metaDataMap);
+        }
+        else
+        {
+            metaDataMap = expression.getMetadataMap();
+        }
+        metaDataMap.put("\"HighlightColor\"", AtomCons.getInstance(environment, stackTop, "\"" + color  + "\""));
+        
+        Cons cons = (Cons) expression.car(); // Go into sublist.
+
+
+        if(cons.getMetadataMap() == null)
+        {
+            metaDataMap = new HashMap();
+            cons.setMetadataMap(metaDataMap);
+        }
+        else
+        {
+            metaDataMap = cons.getMetadataMap();
+        }
+        metaDataMap.put("\"HighlightColor\"", AtomCons.getInstance(environment, stackTop, "\"" + color  + "\""));
+
+        while (cons.cdr() != null) {
+            
+            cons = cons.cdr();
+            
+            if (cons instanceof SublistCons) {
+
+               highlightTree(environment, stackTop, cons, color);
+            }
+            else
+            {
+                if(cons.getMetadataMap() == null)
+                {
+                    metaDataMap = new HashMap();
+                    cons.setMetadataMap(metaDataMap);
+                }
+                else
+                {
+                    metaDataMap = cons.getMetadataMap();
+                }
+                metaDataMap.put("\"HighlightColor\"", AtomCons.getInstance(environment, stackTop, "\"" + color  + "\""));
+            }
+        }
+    }
+    
+    
+    public String expressionToLatex(Environment aEnvironment, int aStackTop, Cons expression) throws Throwable
+    {
+                        //Evaluate Hold function.
+                Cons holdAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "Hold");
+                holdAtomCons.setCdr(Cons.deepCopy(aEnvironment, aStackTop, expression));
+                Cons holdSubListCons = SublistCons.getInstance(aEnvironment, holdAtomCons);
+                Cons holdInputExpression = holdSubListCons;        
+                
+        	//Obtain LaTeX version of the expression.
+        	Cons head = SublistCons.getInstance(aEnvironment, AtomCons.getInstance(aEnvironment, aStackTop, "UnparseLatex"));
+                ((Cons) head.car()).setCdr(holdInputExpression);
+                Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, head);
+                String texString = (String) result.car();
+                texString = Utility.stripEndQuotesIfPresent(texString);
+                texString = texString.substring(1, texString.length());
+                texString = texString.substring(0, texString.length() - 1);
+                
+                texString = texString.replace("$", "");
+
+                return texString;
     }
     
 
