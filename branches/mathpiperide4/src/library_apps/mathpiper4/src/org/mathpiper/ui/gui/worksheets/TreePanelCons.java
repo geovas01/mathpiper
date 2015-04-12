@@ -769,7 +769,18 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
                     
                     if(isOperator(operatorString))
                     {
-                        ruleString = "'(x_ " + operatorString + " y_);";
+                        if(selectedNode.getChildren().length == 2)
+                        {
+                            ruleString = "'(x_ " + operatorString + " y_);";
+                        }
+                        else if(selectedNode.getChildren().length == 1)
+                        {
+                            ruleString = "'(" + operatorString + " x_);";
+                        }
+                        else
+                        {
+                            throw new Exception("Only unary and binary operators are currently supported.");
+                        }
                     }
                     else
                     {

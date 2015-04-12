@@ -183,7 +183,7 @@ public class RulesPanel extends JPanel {
                 String replacementTexString = Utility.toNormalString(environment, -1, replacementTex.toString());
 
 
-                model.addRow(new Object[]{ruleNameString, new LatexIcon(patternTexString, replacementTexString, 18)});
+                model.addRow(new Object[]{" " + ruleNameString, new LatexIcon(patternTexString, replacementTexString, 18)});
             }
         } catch (Throwable t) {
             t.printStackTrace();
@@ -240,7 +240,7 @@ public class RulesPanel extends JPanel {
         private double size = 14;
 
         public LatexIcon(String patternTexString, String replacementTexString, double size) {
-                texFormula = new TeXFormula(patternTexString + " \\ \\ \\boldsymbol{\\textcolor{orange}{\\leftarrow}} \\ \\ " + replacementTexString);
+                texFormula = new TeXFormula(patternTexString + " \\ \\ \\boldsymbol{\\textcolor{RoyalBlue}{\\leftarrow}} \\ \\ " + replacementTexString);
                 icon = texFormula.createTeXIcon(TeXConstants.STYLE_DISPLAY, (float) size);
                 this.size = size;
         }
