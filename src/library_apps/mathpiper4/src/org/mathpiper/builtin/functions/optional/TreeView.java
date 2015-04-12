@@ -190,10 +190,10 @@ public class TreeView extends BuiltinFunction {
                     latexPanelController = new LatexRenderingController(formula, latexLabel, 40); // Do not delete.
                     latexScreenCapturePanel.add(latexLabel);
                     
-                    latexBox.add(latexPanelController);
                     JScrollPane latexScrollPane = new JScrollPane(latexScreenCapturePanel, JScrollPane.VERTICAL_SCROLLBAR_NEVER,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
                     latexBox.add(latexScrollPane);
+                    latexBox.add(latexPanelController);
                 }
                 catch(Throwable t)
                 {
@@ -274,8 +274,8 @@ public class TreeView extends BuiltinFunction {
 	boolean includeSlider = (Boolean) userOptions.get("Resizable");
 	boolean includeExpression = (Boolean) userOptions.get("IncludeExpression");
         
-        JPanel southPanel = new JPanel();
-        panel.add(southPanel, BorderLayout.SOUTH);
+        JPanel buttonPanel = new JPanel();
+        panel.add(buttonPanel, BorderLayout.NORTH);
 
         if(userOptions.containsKey("Manipulate") && ((Boolean)userOptions.get("Manipulate")) == true)
         {
@@ -391,7 +391,7 @@ public class TreeView extends BuiltinFunction {
                 }
             });
 
-            southPanel.add(applyButton);
+            buttonPanel.add(applyButton);
             
             
             
@@ -415,7 +415,7 @@ public class TreeView extends BuiltinFunction {
                 }
             });
             
-            southPanel.add(acceptButton);
+            buttonPanel.add(acceptButton);
         
         }
 

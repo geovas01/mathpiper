@@ -53,8 +53,9 @@ v1 := TreeProcess(v1, _, list);
 //v1 := '(_a+$_b-$_c*$ (_d *$ (_e +$ _f)));
 //v1 := '(_a+$_b-$_c*$ (_d *$ (_e -$ _f)));
 //v1 := _a +$ _b;
-// v1 := '(_a *$ _x +$ _b == _c *$ _x);
-v1 := '(_a *$ _x +$ _b -$(_c *$ _x) == 0);
+//v1 := '(_a *$ _x +$ _b == _c *$ _x);
+//v1 := '(_a *$ _x +$ _b -$(_c *$ _x) == 0);
+v1 := '(-$20 == -$4 *$ _x -$ 6 *$ _x);
 
 process := [
     
@@ -69,40 +70,45 @@ process := [
 ];
 function := ` '(TreeProcess("expression", "pattern", @process, Position:"position"));
 
-
-    theorems := [
-        ["Commutative +", x_ +$ y_, "x\\_ + y\\_", '(y +$ x), "y + x"],
-        ["Commutative *", x_ *$ y_, "x\\_ * y\\_", '(y *$ x), "y * x"],
-        ["Distributive1 *", x_ *$ (y_ +$ z_), "x\\_ * (y\\_ + z\\_)", '(x *$ y + x *$ z), "x * y + x * z"],
-        ["Distributive2 *", x_ *$ y_ +$ x_ *$ z_, "x\\_ * y\\_ + x\\_ * z\\_", '(x *$ (y +$ z)), "x * (y + z)"],
-        ["Associative1 +", (x_ +$ y_) +$ z_, "(x\\_ + y\\_) + z\\_", '(x +$ (y +$ z)), "x + (y + z)"],
-        ["Associative2 +", x_ +$ (_ +$ z_), "x\\_ + (y\\_ + z\\_)", '((x +$ y) +$ z), "(x + y) + z"],
-        ["Associative1 *", (x_ *$ y_) *$ z_, "(x\\_ * y\\_) * z\\_", '(x *$ (y *$ z)), "x * (y * z)"],
-        ["Associative2 *", x_ *$ (y_ *$ z_), "x\\_ * (y\\_ * z\\_)", '((x *$ y) *$ z), "(x * y) * z"],
-        ["Undefine -", x_ -$ y_, "x\\_ - y\\_", '(x +$ SubtractN(0,1) *$ y), "x + -1 * y"],
-        ["Equality -", x_ == y_, "x\\_ = y\\_", 
-            '{
-                // Local(operator, term);
-                // operator := ToAtom(AskUser("Operator?"));
-                // term := PipeFromString(AskUser("Term?") ~ ";") ParseMathPiper();
-                ListToFunction([ToAtom("=="), 
-                    ListToFunction([operator, term, x]),
-                    ListToFunction([operator, term, x])]);
-                
-            }, "-term\\ +\\ x = y\\ +\\ -term"],
-        ["Isolate 1", x_ == y_, "x\\_ = y\\_", 'Isolax(2, x == y)[4], ""],
-        ["Isolate 2", x_ == y_, "x\\_ = y\\_", 'Isolax(2, x == y)[4], ""],
-        ["Identity +", x_ +$ 0, "x\\_ + 0", 'x, "x"],
-        ["Inverse +", x_ +$ (-$ x_), "x\\_ + (-x\\_)", 0, "0"],
-        ["Collect 1", u_ *$ w_ +$ v_ *$ w_ , "u\\_ * w\\_ + v\\_ * w\\_", '((u +$ v) *$ w), "(u + v) * w"],
-        ["Undefine /", x_ /$ y_, "x\\_ / y\\_", '(x *$ 1/y), "x * 1/y"],
-        ["Cancel", x_ *$ 1/x_, "x\\_ * 1/x\\_", 1, "1"],
-        ["Identity *", x_ *$ 1, "x\\_ * 1", 'x, "x\\_"],
-        ["Define -", -1 *$ x_, "-1 * x\\_", '(-x), "-x"],
-        ["Define /", x_ *$ 1/_y, "x\\_ * 1/y\\_", '(x/y), "x/y"],
-        
-
-    ];
+theorems := [
+	["Unbury q_", q_ == r_, "\\textcolor{orange}{q\\_} \\ op\\  r\\_ = s\\_", 'Isolax(2, q == r)[1], "r\\_ = s\\_ \\ antiop\\  q\\_"],
+	["Unbury r_", q_ == r_, "q\\_ \\ op\\  \\textcolor{orange}{r\\_} = s\\_", 'Isolax(1, q == r)[1], "q\\_ = s\\_ \\ antiop\\  r\\_"],
+	["Decrease s_", q_ *$ s_ +$ r_ *$ s_ , "q\\_ * \\textcolor{orange}{s\\_} + r\\_ * \\textcolor{orange}{s\\_}", '((q +$ r) *$ s), "(q + r) * s"],
+	["Twist +", q_ +$ r_, "q\\_ + r\\_", '(r +$ q), "r + q"],
+	["Twist *", q_ *$ r_, "q\\_ * r\\_", '(r *$ q), "r * q"],
+	["Twist =", q_ == r_, "q\\_ = r\\_", '(r == q), "r = q"],
+	["Hoist q_ [+]", (q_ +$ r_) +$ s_, "(\\textcolor{orange}{q\\_} + r\\_) + s\\_", '(q +$ (r +$ s)), "q + (r + s)"],
+	["Hoist s_ [+]", q_ +$ (r_ +$ s_), "q\\_ + (r\\_ + \\textcolor{orange}{s\\_})", '((q +$ r) +$ s), "(q + r) + s"],
+	["Hoist q_ [*]", (q_ *$ r_) *$ s_, "(\\textcolor{orange}{q\\_} * r\\_) * s\\_", '(q *$ (r *$ s)), "q * (r * s)"],
+	["Hoist s_ [*]", q_ *$ (r_ *$ s_), "q\\_ * (r\\_ * \\textcolor{orange}{s\\_})", '((q *$ r) *$ s), "(q * r) * s"],
+	["Remove 0 [+]", q_ +$ 0, "q\\_ + \\textcolor{orange}{0}", 'q, "q"],
+	["Remove 1 [*]", q_ *$ 1, "q\\_ * \\textcolor{orange}{1}", 'q, "q\\_"],
+	["Remove -1 [*]", q_Number? *$ SubtractN(0,1), "q\\_Number? * \\textcolor{orange}{-1}", 'SubtractN(0,q), "-q\\_"],
+	["Remove q_ [+]", q_ +$ (-$ q_), "\\textcolor{orange}{q\\_} + (-\\textcolor{orange}{q\\_})", 0, "0"],
+	["Remove q_ [/]", q_ *$ 1/q_, "\\textcolor{orange}{q\\_} * 1/\\textcolor{orange}{q\\_}", 1, "1"],
+	["Undefine q_ - r_", q_ -$ r_, "q\\_ - r\\_", '(q +$ SubtractN(0,1) *$ r), "q + -1 * r"],
+	["Undefine -q_", -$ q_, "- q\\_", '(SubtractN(0,1) *$ q), "-1 * r"],
+	["Undefine -q_Number?", -$ q_Number?, "- q\\_Number?", '(SubtractN(0,q)), "-q"],
+	["Undefine q_ / r_", q_ /$ r_, "q\\_ / r\\_", '(q *$ 1/r), "q * 1/r"],
+	["Define -", -1 *$ q_, "-1 * q\\_", '(-q), "-q"],
+	["Define /", q_ *$ 1/r_, "q\\_ * 1/r\\_", '(q/r), "q/r"],
+	["Arithmetic [+]", q_Number? +$ r_Number?, "q\\_Number? + r\\_Number?", '(q + r), "q + r"],
+	["Arithmetic [*]", q_Number? *$ r_Number?, "q\\_Number? * r\\_Number?", '(q * r), "q * r"],
+	["Arithmetic [/]", q_Number? /$ r_Number?, "q\\_Number? / r\\_Number?", '(q / r), "q / r"],
+	//["Distribute *", q_ *$ (r_ +$ s_), "q\\_ * (r\\_ + s\\_)", '(q *$ r + q *$ s), "q * r + q * s"],
+	//["Distribute *", q_ *$ r_ +$ q_ *$ s_, "q\\_ * r\\_ + q\\_ * s\\_", '(q *$ (r +$ s)), "q * (r + s)"],
+	//["Equality -", q_ == r_, "q\\_ = r\\_", 
+	//    '{
+	//        // Local(operator, term);
+	//        // operator := ToAtom(AskQser("Operator?"));
+	//        // term := PipeFromString(AskQser("Term?") ~ ";") ParseMathPiper();
+	//        ListToFqnction([ToAtom("=="), 
+	//            ListToFqnction([operator, term, q]),
+	//            ListToFqnction([operator, term, q])]);
+	//        
+	//    }, "-term\\ +\\ q = r\\ +\\ -term"],
+	
+];
 
 /*
 Closure Property of Addition
