@@ -796,7 +796,18 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
                 
 
                 relayoutTree(response2.getResultList());
-
+                
+                EvaluationResponse response3 = EvaluationResponse.newInstance();
+                response3.setResult(positionString);
+                try
+                {
+                    response3.setResultList(Cons.deepCopy(environment, -1, response2.getResultList()));
+                    this.notifyListeners(response3);
+                }
+                catch(Throwable t)
+                {
+                    t.printStackTrace();
+                }
             }
         }
         else

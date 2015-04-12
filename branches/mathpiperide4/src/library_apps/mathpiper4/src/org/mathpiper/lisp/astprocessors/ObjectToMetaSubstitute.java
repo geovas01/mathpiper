@@ -1,5 +1,6 @@
 package org.mathpiper.lisp.astprocessors;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
@@ -91,7 +92,14 @@ public class ObjectToMetaSubstitute
 		atomName = "_".concat(atomName);
 	    }
 	    
-	    return(AtomCons.getInstance(aEnvironment, aStackTop, atomName));
+            Cons newCons = AtomCons.getInstance(aEnvironment, aStackTop, atomName);
+            
+            if(aElement.getMetadataMap() != null)
+            {
+                newCons.setMetadataMap(new HashMap<String,Object>(aElement.getMetadataMap()));
+            }
+            
+	    return(newCons);
 	}
 
         return null;

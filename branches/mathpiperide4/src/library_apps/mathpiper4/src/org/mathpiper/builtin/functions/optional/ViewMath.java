@@ -21,6 +21,8 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.Box;
 import javax.swing.JFrame;
@@ -46,7 +48,6 @@ import org.mathpiper.ui.gui.worksheets.LatexRenderingController;
 import org.mathpiper.ui.gui.worksheets.MathPanel;
 import org.mathpiper.ui.gui.worksheets.MathPanelController;
 import org.mathpiper.ui.gui.worksheets.ScreenCapturePanel;
-import org.mathpiper.ui.gui.worksheets.TreePanel;
 import org.mathpiper.ui.gui.worksheets.TreePanelCons;
 import org.mathpiper.ui.gui.worksheets.latexparser.TexParser;
 import org.mathpiper.ui.gui.worksheets.symbolboxes.SymbolBox;
@@ -130,9 +131,19 @@ public class ViewMath extends BuiltinFunction {
         //Tree viewer.
         JPanel treeControllerPanel = new JPanel();
         treeControllerPanel.setLayout(new BorderLayout());
+        
+        Map defaultOptions = new HashMap();
+        defaultOptions.put("Scale", 2.5);
+        defaultOptions.put("Resizable", true);
+        defaultOptions.put("IncludeExpression", true);
+        defaultOptions.put("Lisp", false);
+        defaultOptions.put("Code", true);
+        defaultOptions.put("Debug", false);
+        defaultOptions.put("WordWrap", 0);
+        defaultOptions.put("ShowPositions", false);
         //
         //TreePanel treePanel = new TreePanel(sBoxExpression,viewScale.toDouble());
-        TreePanelCons treePanel = new TreePanelCons(aEnvironment, expression2, viewScale.toDouble(), null);
+        TreePanelCons treePanel = new TreePanelCons(aEnvironment, expression2, viewScale.toDouble(), defaultOptions);
         //
         MathPanelController treePanelScaler = new MathPanelController(treePanel,viewScale.toDouble());
         JScrollPane treeScrollPane = new JScrollPane(treePanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);

@@ -46,19 +46,19 @@ public class LatexRenderingController extends JPanel implements ChangeListener {
 
     public void stateChanged(ChangeEvent e) {
 
-        JSlider source = (JSlider) e.getSource();
-        //if (!source.getValueIsAdjusting()) {
-        int intValue = (int) source.getValue();
+        adjust();
 
-        TeXIcon icon = texFormula.createTeXIcon(TeXConstants.STYLE_DISPLAY, intValue);
+    }//end method.
+    
+    
+    public void adjust()
+    {
+        TeXIcon icon = texFormula.createTeXIcon(TeXConstants.STYLE_DISPLAY, (int) scaleSlider.getValue());
         icon.setInsets(new Insets(5, 5, 5, 5));
         texLabel.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
         texLabel.setAlignmentY(icon.getBaseLine());
         texLabel.setIcon(icon);
         texLabel.repaint();
+    }
 
-        //}
-        }//end method.
-
-
-    }//end class.
+}//end class.
