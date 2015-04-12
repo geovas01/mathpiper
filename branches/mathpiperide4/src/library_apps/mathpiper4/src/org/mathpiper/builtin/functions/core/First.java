@@ -43,7 +43,7 @@ public class First extends BuiltinFunction
     {
 	Cons argumentCons = getArgument(aEnvironment, aStackTop, 1);
 	
-        setTopOfStack(aEnvironment, aStackTop, Utility.nth(aEnvironment, aStackTop, argumentCons, 1));
+        setTopOfStack(aEnvironment, aStackTop, Utility.nth(aEnvironment, aStackTop, argumentCons, 1, true));
     }
 }
 

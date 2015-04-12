@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Rectangle2D;
@@ -17,13 +18,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
-import javax.swing.SwingUtilities;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import org.mathpiper.interpreters.Interpreter;
 import org.mathpiper.lisp.Environment;
@@ -80,13 +80,20 @@ public class RulesPanel extends JPanel {
                 
                 int rowCount = table.getRowCount();
                 TableModel model = table.getModel();
+                LatexIcon latexIcon = null;
                 for(int index = 0; index < rowCount; index++)
                 {
-                   LatexIcon latexIcon = (LatexIcon) model.getValueAt(index,1);
+                   latexIcon = (LatexIcon) model.getValueAt(index,1);
                    latexIcon.changeSize(.90);
                 }
                 
                 RulesPanel.this.tableColumnAdjuster.adjustColumns();
+                
+                if(latexIcon != null)
+                {
+                    table.setRowHeight(latexIcon.getIconHeight());
+                    table.repaint();
+                }
             }
         });
         buttonsPanel.add(decrease);
@@ -111,13 +118,20 @@ public class RulesPanel extends JPanel {
                 
                 int rowCount = table.getRowCount();
                 TableModel model = table.getModel();
+                LatexIcon latexIcon = null;
                 for(int index = 0; index < rowCount; index++)
                 {
-                   LatexIcon latexIcon = (LatexIcon) model.getValueAt(index,1);
+                   latexIcon = (LatexIcon) model.getValueAt(index,1);
                    latexIcon.changeSize(1.10);
                 }
                 
                 RulesPanel.this.tableColumnAdjuster.adjustColumns();
+                
+                if(latexIcon != null)
+                {
+                    table.setRowHeight(latexIcon.getIconHeight());
+                    table.repaint();
+                }
             }
         });
         buttonsPanel.add(increase);
@@ -127,6 +141,8 @@ public class RulesPanel extends JPanel {
         table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
         tableColumnAdjuster = new TableColumnAdjuster(table);
         tableColumnAdjuster.adjustColumns();
+        
+        table.setRowHeight(25);
 
     }
 
@@ -144,6 +160,8 @@ public class RulesPanel extends JPanel {
         final JTable table = new JTable(new RulesTableModel());
 
         table.setFillsViewportHeight(true);
+        
+        // table.setBorder(new EmptyBorder(new Insets(1,4,1,4)));
 
         RulesTableModel model = (RulesTableModel) table.getModel();
 
@@ -153,19 +171,19 @@ public class RulesPanel extends JPanel {
             int length = Utility.listLength(environment, -1, (Cons) ((Cons) cons.car()).cdr());
 
             for (int index = 1; index <= length; index++) {
-                cons2 = Utility.nth(environment, -1, cons, index);
+                cons2 = Utility.nth(environment, -1, cons, index, true);
 
-                Cons ruleName = Utility.nth(environment, -1, cons2, 1);
+                Cons ruleName = Utility.nth(environment, -1, cons2, 1, true);
                 String ruleNameString = Utility.toNormalString(environment, -1, ruleName.toString());
-                Cons pattern = Utility.nth(environment, -1, cons2, 2);
-                Cons patternTex = Utility.nth(environment, -1, cons2, 3);
+                Cons pattern = Utility.nth(environment, -1, cons2, 2, true);
+                Cons patternTex = Utility.nth(environment, -1, cons2, 3, true);
                 String patternTexString = Utility.toNormalString(environment, -1, patternTex.toString());
-                Cons replacement = Utility.nth(environment, -1, cons2, 4);
-                Cons replacementTex = Utility.nth(environment, -1, cons2, 5);
+                Cons replacement = Utility.nth(environment, -1, cons2, 4, true);
+                Cons replacementTex = Utility.nth(environment, -1, cons2, 5, true);
                 String replacementTexString = Utility.toNormalString(environment, -1, replacementTex.toString());
 
 
-                model.addRow(new Object[]{ruleNameString, new LatexIcon(patternTexString, replacementTexString, 14)});
+                model.addRow(new Object[]{ruleNameString, new LatexIcon(patternTexString, replacementTexString, 18)});
             }
         } catch (Throwable t) {
             t.printStackTrace();
@@ -222,7 +240,7 @@ public class RulesPanel extends JPanel {
         private double size = 14;
 
         public LatexIcon(String patternTexString, String replacementTexString, double size) {
-                texFormula = new TeXFormula(patternTexString + " \\ \\ \\boldsymbol{\\textcolor{red}{\\leftarrow}} \\ \\ " + replacementTexString);
+                texFormula = new TeXFormula(patternTexString + " \\ \\ \\boldsymbol{\\textcolor{orange}{\\leftarrow}} \\ \\ " + replacementTexString);
                 icon = texFormula.createTeXIcon(TeXConstants.STYLE_DISPLAY, (float) size);
                 this.size = size;
         }

@@ -752,12 +752,6 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
             positionString = selectedNode.getPosition();
             
             operatorString = selectedNode.toString();
-
-            EvaluationResponse response = EvaluationResponse.newInstance();
-
-            // response.setResult(positionString);
-
-            // notifyListeners(response);
             
             if(treeOptionsMap.containsKey("Process"))
             {
@@ -771,7 +765,18 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
                     cons = Utility.substitute(environment,-1, cons, behaviour);
                     
                     
-                    StringInputStream newInput = new StringInputStream("'(x_ " + operatorString + " y_);" , environment.iInputStatus);
+                    String ruleString;
+                    
+                    if(isOperator(operatorString))
+                    {
+                        ruleString = "'(x_ " + operatorString + " y_);";
+                    }
+                    else
+                    {
+                        ruleString = operatorString + ";";
+                    }
+                    
+                    StringInputStream newInput = new StringInputStream(ruleString , environment.iInputStatus);
                     MathPiperParser parser = new MathPiperParser(new MathPiperTokenizer(), newInput, environment, environment.iPrefixOperators, environment.iInfixOperators, environment.iPostfixOperators, environment.iBodiedOperators);
 
                     Cons pattern = parser.parse(-1);
@@ -792,17 +797,17 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
 
                 Interpreter interpreter = SynchronousInterpreter.getInstance();
                 
-                EvaluationResponse response2 = interpreter.evaluate(cons);
+                EvaluationResponse selectionHighlightedResponse = interpreter.evaluate(cons);
                 
 
-                relayoutTree(response2.getResultList());
+                relayoutTree(selectionHighlightedResponse.getResultList());
                 
-                EvaluationResponse response3 = EvaluationResponse.newInstance();
-                response3.setResult(positionString);
+                EvaluationResponse notifyResponse = EvaluationResponse.newInstance();
+                notifyResponse.setResult(positionString);
                 try
                 {
-                    response3.setResultList(Cons.deepCopy(environment, -1, response2.getResultList()));
-                    this.notifyListeners(response3);
+                    notifyResponse.setResultList(Cons.deepCopy(environment, -1, selectionHighlightedResponse.getResultList()));
+                    this.notifyListeners(notifyResponse);
                 }
                 catch(Throwable t)
                 {
@@ -810,12 +815,20 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
                 }
             }
         }
-        else
-        {
+        else {
             positionString = null;
             operatorString = null;
 
             relayoutTree(this.expression);
+
+            EvaluationResponse notifyResponse = EvaluationResponse.newInstance();
+            notifyResponse.setResult(positionString);
+            try {
+                notifyResponse.setResultList(Cons.deepCopy(environment, -1, this.expression));
+                this.notifyListeners(notifyResponse);
+            } catch (Throwable t) {
+                t.printStackTrace();
+            }
         }
         
     }
@@ -903,6 +916,19 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
 
     public void setExpression(Cons expression) {
         this.expression = expression;
+    }
+    
+    
+    private boolean isOperator(String symbol)
+    {
+        if(symbol.contains("+") || symbol.contains("-") || symbol.contains("*") || symbol.contains("/") || symbol.contains("^") || symbol.contains("=="))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     
     

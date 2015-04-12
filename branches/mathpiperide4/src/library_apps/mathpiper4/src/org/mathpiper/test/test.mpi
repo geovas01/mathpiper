@@ -93,13 +93,13 @@ function := ` '(TreeProcess("expression", "pattern", @process, Position:"positio
         ["Isolate 1", x_ == y_, "x\\_ = y\\_", 'Isolax(2, x == y)[4], ""],
         ["Isolate 2", x_ == y_, "x\\_ = y\\_", 'Isolax(2, x == y)[4], ""],
         ["Identity +", x_ +$ 0, "x\\_ + 0", 'x, "x"],
-        ["Inverse +", x_ +$ (-$ x_), "x\\_ + (-y\\_)", 0, "0"],
+        ["Inverse +", x_ +$ (-$ x_), "x\\_ + (-x\\_)", 0, "0"],
         ["Collect 1", u_ *$ w_ +$ v_ *$ w_ , "u\\_ * w\\_ + v\\_ * w\\_", '((u +$ v) *$ w), "(u + v) * w"],
         ["Undefine /", x_ /$ y_, "x\\_ / y\\_", '(x *$ 1/y), "x * 1/y"],
-        ["Undivide", x_ *$ 1/x_, "x\\_ * 1/x\\_", 1, "1"],
+        ["Cancel", x_ *$ 1/x_, "x\\_ * 1/x\\_", 1, "1"],
         ["Identity *", x_ *$ 1, "x\\_ * 1", 'x, "x\\_"],
         ["Define -", -1 *$ x_, "-1 * x\\_", '(-x), "-x"],
-        ["Define /", x_ *$ 1/_y, "x\\_ 1/y\\_", '(x/y), "x/y"],
+        ["Define /", x_ *$ 1/_y, "x\\_ * 1/y\\_", '(x/y), "x/y"],
         
 
     ];

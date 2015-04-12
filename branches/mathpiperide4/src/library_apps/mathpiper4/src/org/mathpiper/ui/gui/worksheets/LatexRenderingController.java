@@ -59,6 +59,8 @@ public class LatexRenderingController extends JPanel implements ChangeListener {
         texLabel.setAlignmentY(icon.getBaseLine());
         texLabel.setIcon(icon);
         texLabel.repaint();
+        // Todo:tk:more work needs to be done here to get a scrollpane that contains this component to resize properly.
+        // this.revalidate();
     }
 
 }//end class.

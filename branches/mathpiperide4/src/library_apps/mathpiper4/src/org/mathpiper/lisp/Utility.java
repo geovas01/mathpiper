@@ -291,7 +291,7 @@ public class Utility {
 
 
 
-    public static Cons nth(Environment aEnvironment, int aStackTop, Cons aArg, int n) throws Throwable {
+    public static Cons nth(Environment aEnvironment, int aStackTop, Cons aArg, int n, boolean copyResult) throws Throwable {
 	if (aArg == null)
 	    LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, aArg);
 	if (!(aArg.car() instanceof Cons))
@@ -308,7 +308,14 @@ public class Utility {
 	}
 	if (consTraverser == null)
 	    LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, aArg);
-	return consTraverser.copy(false);
+        if(copyResult)
+        {
+            return consTraverser.copy(false);
+        }
+        else
+        {
+            return consTraverser;
+        }
     }
 
 

@@ -191,7 +191,7 @@ public class TreeView extends BuiltinFunction {
                     latexScreenCapturePanel.add(latexLabel);
                     
                     latexBox.add(latexPanelController);
-                    JScrollPane latexScrollPane = new JScrollPane(latexScreenCapturePanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+                    JScrollPane latexScrollPane = new JScrollPane(latexScreenCapturePanel, JScrollPane.VERTICAL_SCROLLBAR_NEVER,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
                     latexBox.add(latexScrollPane);
                 }
@@ -212,9 +212,6 @@ public class TreeView extends BuiltinFunction {
             }
         }
 
-
-       
-        
 
         
         double viewScale = ((Double)userOptions.get("Scale")).doubleValue();
@@ -241,14 +238,19 @@ public class TreeView extends BuiltinFunction {
 
                 try {
                     TreeView.this.clearMetaInformation(expression);
-                    Cons subExpression = expression;
-                    for (int index = 0; index < positionString.length(); index++) {
-                        int position = Integer.parseInt("" + positionString.charAt(index));
-                        subExpression = Utility.nth(environment, stackTop, subExpression, position);
-                    }
+                    
+                    if(positionString != null)
+                    {
+                        Cons subExpression = expression;
+                        for (int index = 0; index < positionString.length(); index++) {
+                            int position = Integer.parseInt("" + positionString.charAt(index));
+                            subExpression = Utility.nth(environment, stackTop, subExpression, position, false);
+                        }
 
-                    highlightTree(environment, stackTop, subExpression, "green");
-                    String latexString = expressionToLatex(environment, stackTop, response.getResultList());
+                        highlightTree(environment, stackTop, subExpression, "ForestGreen");
+                    }
+                    
+                    String latexString = expressionToLatex(environment, stackTop, expression);
                     formula.setLaTeX(latexString);
                     TreeView.this.latexPanelController.adjust();
                 } catch (Throwable t) {
@@ -298,15 +300,15 @@ public class TreeView extends BuiltinFunction {
 
                                 Cons cons = (Cons) userOptions.get("Theorems");
 
-                                Cons cons2 = Utility.nth(environment, -1, cons, selectedRow);
+                                Cons cons2 = Utility.nth(environment, -1, cons, selectedRow, true);
 
-                                Cons ruleName = Utility.nth(environment, -1, cons2, 1);
+                                Cons ruleName = Utility.nth(environment, -1, cons2, 1, true);
                                 String ruleNameString = Utility.toNormalString(environment, -1, ruleName.toString());
-                                Cons pattern = Utility.nth(environment, -1, cons2, 2);
-                                Cons patternTex = Utility.nth(environment, -1, cons2, 3);
+                                Cons pattern = Utility.nth(environment, -1, cons2, 2, true);
+                                Cons patternTex = Utility.nth(environment, -1, cons2, 3, true);
                                 String patternTexString = Utility.toNormalString(environment, -1, patternTex.toString());
-                                Cons replacement = Utility.nth(environment, -1, cons2, 4);
-                                Cons replacementTex = Utility.nth(environment, -1, cons2, 5);
+                                Cons replacement = Utility.nth(environment, -1, cons2, 4, true);
+                                Cons replacementTex = Utility.nth(environment, -1, cons2, 5, true);
                                 String replacementTexString = Utility.toNormalString(environment, -1, replacementTex.toString());
 
 
@@ -362,10 +364,10 @@ public class TreeView extends BuiltinFunction {
                                         for(int index = 0; index < positionString.length(); index++)
                                         {
                                             int position = Integer.parseInt("" + positionString.charAt(index));
-                                            subExpression = Utility.nth(environment, stackTop, subExpression, position);
+                                            subExpression = Utility.nth(environment, stackTop, subExpression, position, false);
                                         }
                                         
-                                        highlightTree(environment, stackTop, subExpression, "orange");
+                                        highlightTree(environment, stackTop, subExpression, "YellowOrange");
                                         String latexString = expressionToLatex(environment, stackTop, candidateResult);
                                         formula.setLaTeX(latexString);
                                         TreeView.this.latexPanelController.adjust();
@@ -424,22 +426,23 @@ public class TreeView extends BuiltinFunction {
 	{
 	    MathPanelController treePanelScaler = new MathPanelController(treePanel, viewScale);
 	    
-	    JScrollPane treeScrollPane = new JScrollPane(treeScreenCapturePanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+	    JScrollPane treeScrollPane = new JScrollPane(treeScreenCapturePanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 	    treeScrollPane.getVerticalScrollBar().setUnitIncrement(16);
 	    
             treeBox.add(treeScrollPane);
-            panel.add(latexBox, BorderLayout.NORTH);
             
             if(rulesPanel == null)
             {
-                panel.add(treeBox, BorderLayout.CENTER);
+                JSplitPane verticalSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, latexBox, treeBox);
+                panel.add(verticalSplitPane, BorderLayout.CENTER);
             }
             else
             {
-                JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeBox, rulesPanel);
-                splitPane.setOneTouchExpandable(true);
+                JSplitPane horizontalSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeBox, rulesPanel);
+                horizontalSplitPane.setOneTouchExpandable(true);
                 //splitPane.setDividerLocation(150);
-                panel.add(splitPane, BorderLayout.CENTER);
+                JSplitPane verticalSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, latexBox, horizontalSplitPane);
+                panel.add(verticalSplitPane, BorderLayout.CENTER);
             }
             treeBox.add(treePanelScaler);
 
@@ -466,18 +469,18 @@ public class TreeView extends BuiltinFunction {
 	}
 	else if(includeExpression)
 	{
-	    panel.add(latexBox, BorderLayout.NORTH);
-
             if(rulesPanel == null)
             {
-                panel.add(treeScreenCapturePanel, BorderLayout.CENTER);
+                JSplitPane verticalSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, latexBox, treeScreenCapturePanel);
+                panel.add(verticalSplitPane, BorderLayout.CENTER);
             }
             else
             {
-                JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeScreenCapturePanel, rulesPanel);
-                splitPane.setOneTouchExpandable(true);
+                JSplitPane horizontalSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeScreenCapturePanel, rulesPanel);
+                horizontalSplitPane.setOneTouchExpandable(true);
                 //splitPane.setDividerLocation(150);
-                panel.add(treeScreenCapturePanel, BorderLayout.CENTER);
+                JSplitPane verticalSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, latexBox, horizontalSplitPane);
+                panel.add(verticalSplitPane, BorderLayout.CENTER);
             }
 	}
 	else
@@ -544,40 +547,27 @@ public class TreeView extends BuiltinFunction {
         }
         metaDataMap.put("\"HighlightColor\"", AtomCons.getInstance(environment, stackTop, "\"" + color  + "\""));
         
-        Cons cons = (Cons) expression.car(); // Go into sublist.
-
-
-        if(cons.getMetadataMap() == null)
+        if(expression instanceof SublistCons)
         {
-            metaDataMap = new HashMap();
-            cons.setMetadataMap(metaDataMap);
-        }
-        else
-        {
-            metaDataMap = cons.getMetadataMap();
-        }
-        metaDataMap.put("\"HighlightColor\"", AtomCons.getInstance(environment, stackTop, "\"" + color  + "\""));
+        
+            Cons cons = (Cons) expression.car(); // Go into sublist.
 
-        while (cons.cdr() != null) {
-            
-            cons = cons.cdr();
-            
-            if (cons instanceof SublistCons) {
 
-               highlightTree(environment, stackTop, cons, color);
+            if(cons.getMetadataMap() == null)
+            {
+                metaDataMap = new HashMap();
+                cons.setMetadataMap(metaDataMap);
             }
             else
             {
-                if(cons.getMetadataMap() == null)
-                {
-                    metaDataMap = new HashMap();
-                    cons.setMetadataMap(metaDataMap);
-                }
-                else
-                {
-                    metaDataMap = cons.getMetadataMap();
-                }
-                metaDataMap.put("\"HighlightColor\"", AtomCons.getInstance(environment, stackTop, "\"" + color  + "\""));
+                metaDataMap = cons.getMetadataMap();
+            }
+            metaDataMap.put("\"HighlightColor\"", AtomCons.getInstance(environment, stackTop, "\"" + color + "\""));
+
+            while (cons.cdr() != null) {
+                cons = cons.cdr();
+
+                highlightTree(environment, stackTop, cons, color);
             }
         }
     }
