@@ -60,6 +60,10 @@ public class ScaledGraphics {
     public void drawRectangle(double x, double y, double width, double height) {
         iG.drawRect((int) (x * viewScale), (int) (y * viewScale), (int) (width * viewScale), (int) (height * viewScale));
     }
+    
+    public void drawOval(double x, double y, double width, double height) {
+        iG.drawOval((int) (x * viewScale), (int) (y * viewScale), (int) (width * viewScale), (int) (height * viewScale));
+    }
 
     public void fillRect(double x, double y, double width, double height) {
         iG.fillRect((int) (x * viewScale), (int) (y * viewScale), (int) (width * viewScale), (int) (height * viewScale));

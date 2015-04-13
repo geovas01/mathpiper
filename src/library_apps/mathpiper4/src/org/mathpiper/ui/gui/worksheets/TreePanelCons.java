@@ -67,6 +67,8 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
         private String positionString = null;
             
         private String operatorString = null;
+        
+        private boolean isShowPositions = false;
 
 	// Show(TreeView(a/b == 3))
 	// 99 # UnparseLatex(_x / _y, _p)_( <-- UnparseLatexBracketIf(p <?
@@ -512,14 +514,15 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
                             double positionTextX = midX - positionTextWidth / 2;
                             double positionTextY = midY + positionTextHeight / 2;
 
-                            if (((Boolean) this.treeOptionsMap.get("ShowPositions")) == true) {
+                            if (isShowPositions == true || ((Boolean) this.treeOptionsMap.get("ShowPositions")) == true) {
                             
-                                sg.setColor(Color.WHITE);
-                                sg.fillRect(positionTextX, positionTextY - positionTextHeight, positionTextWidth, positionTextHeight);
+                                sg.setColor(new Color(0xff, 0xcc, 0xff));
+                                sg.fillOval(positionTextX-1, positionTextY-1 - positionTextHeight, positionTextWidth+2, positionTextHeight+2);
 
                                 sg.setLineThickness(.2);
                                 sg.setColor(Color.BLACK);
-                                sg.drawRectangle(positionTextX, positionTextY - positionTextHeight, positionTextWidth, positionTextHeight);
+                                sg.drawOval(positionTextX-1, positionTextY-1 - positionTextHeight, positionTextWidth+2, positionTextHeight+2);
+                                
 
                                 sg.drawscaledText(positionText, positionTextX, positionTextY - .2, positionScale);
 
@@ -940,6 +943,13 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
         {
             return false;
         }
+    }
+    
+    
+    public void showPositions(boolean isShowPositions)
+    {
+        this.isShowPositions = isShowPositions;
+        this.repaint();
     }
     
     
