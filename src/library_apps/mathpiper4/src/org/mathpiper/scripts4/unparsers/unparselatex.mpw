@@ -528,7 +528,7 @@ Retract("g",All);
 Retract("theta",All);
 */
 
-
+/*
 Verify(
 UnparseLatex(ObjectToMeta('([a[3]*b[5]-c[1][2],[a,b,c,d]])))
 ,"$( a _{3} * b _{5} - c _{( 1, 2) }, ( a, b, c, d) ) $"
@@ -546,6 +546,8 @@ UnparseLatex(ObjectToMeta('(aa(x,y) z + 1 bar y!)))
 );
 Retract("aa",All);
 Retract("bar",All);
+*/
+
 
 Verify(
 UnparseLatex('(x^(1/3)+x^(1/2)))

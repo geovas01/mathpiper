@@ -276,7 +276,7 @@ Result: False;
 *CMD = --- test for equality of expressions
 *STD
 *CALL
-        e1 = e2
+        e1 =? e2
 Precedence:
 *EVAL PrecedenceGet("=?")
 
@@ -288,7 +288,7 @@ Precedence:
 *DESC
 
 Both expressions are evaluated and compared. If they turn out to be equal, the
-result is {True}. Otherwise, the result is {False}. The function {Equals} does
+result is {True}. Otherwise, the result is {False}. The function {Equals?} does
 the same.
 
 Note that the test is on syntactic equality, not mathematical equality. Hence
@@ -299,20 +299,18 @@ if they were printed.
 
 *E.G.
 
-In> e1 := (x+1) * (x-1);
+In> e1 := '((x+1) * (x-1));
 Result: (x+1)*(x-1);
 
-In> e2 := x^2 - 1;
+In> e2 := '(x^2 - 1);
 Result: x^2-1;
         
 
-In> e1 = e2;
+In> e1 =? e2;
 Result: False;
 
-In> Expand(e1) = e2;
-Result: True;
 
-*SEE !=?, Equals
+*SEE !=?, Equals?
 %/mathpiper_docs
 
 

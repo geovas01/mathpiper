@@ -20,14 +20,9 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.Utility;
-import org.mathpiper.lisp.astprocessors.ExpressionSubstitute;
-import org.mathpiper.lisp.astprocessors.LocalSymbolSubstitute;
 import org.mathpiper.lisp.cons.Cons;
 
-/**
- *
- *  tkosan
- */
+
 public class ObjectToMeta extends BuiltinFunction
 {
 
