@@ -109,15 +109,24 @@ public class PatternProcess implements ASTProcessor {
 
 	    if (elementCopy instanceof SublistCons) {
 		// Attempt to match a subexpression.
-
-		nodeSymbol = Cons.caar(elementCopy);
-
-		if (operatorString.equals(nodeSymbol) && matcher != null) {
-
-		    if (matcher.matches(aEnvironment, aStackTop, (Cons) Cons.cdar(elementCopy))) {
+                
+                if(operatorString.equals("_")) // Match all subtrees.
+                {
+                    if (matcher.matches(aEnvironment, aStackTop, (Cons) elementCopy)) {
 			returnCons = handleMatch(aEnvironment, aStackTop, elementCopy, position);
 		    }
-		}
+                }
+                else
+                {
+                    nodeSymbol = Cons.caar(elementCopy);
+
+                    if (operatorString.equals(nodeSymbol) && matcher != null) 
+                    {
+                        if (matcher.matches(aEnvironment, aStackTop, (Cons) Cons.cdar(elementCopy))) {
+                            returnCons = handleMatch(aEnvironment, aStackTop, elementCopy, position);
+                        }
+                    }
+                }
 	    } else {
 		nodeSymbol = elementCopy.car();
 
