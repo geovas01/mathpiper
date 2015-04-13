@@ -20,17 +20,25 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.swing.AbstractAction;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
@@ -75,6 +83,12 @@ public class TreeView extends BuiltinFunction {
     private RulesPanel rulesPanel;
     
     private Cons candidateResult;
+    
+    private String candidateRuleName;
+    
+    private String candidatePositionString;
+    
+    private List<String> steps = new ArrayList<String>();
     
     private TeXFormula formula;
     
@@ -167,6 +181,7 @@ public class TreeView extends BuiltinFunction {
             arguments = arguments.cdr(); //Strip List tag.
             
             expression = (Cons) arguments;
+            expression.setCdr(null);
             //expression = (Cons) argument;
             
         }
@@ -222,6 +237,9 @@ public class TreeView extends BuiltinFunction {
         
 	panel.setBackground(Color.white);
 	//box.setOpaque(true);
+        
+        
+        this.saveStep(aEnvironment, aStackTop, expression, "", "");
 
 
         treePanel = new TreePanelCons(aEnvironment, expression, viewScale, userOptions);
@@ -352,6 +370,10 @@ public class TreeView extends BuiltinFunction {
                                     
                                     TreeView.this.candidateResult = response2.getResultList();
                                     
+                                    TreeView.this.candidateRuleName = ruleNameString;
+                                    
+                                    TreeView.this.candidatePositionString = positionString;
+                                    
                                     try
                                     {
                                         
@@ -407,20 +429,84 @@ public class TreeView extends BuiltinFunction {
                         String latexString = expressionToLatex(environment, stackTop, candidateResult);
                         formula.setLaTeX(latexString);
                         TreeView.this.latexPanelController.adjust();
+                        
+                        saveStep(environment, stackTop, candidateResult, candidateRuleName, candidatePositionString);
                     }
                     catch(Throwable t)
                     {
                         t.printStackTrace();
                     }
+                    
+                    
                 }
             });
             
             buttonPanel.add(acceptButton);
+            
+            
+            JButton showStepsButton = new JButton("Show Steps");
+            
+            showStepsButton.addActionListener(new AbstractAction() {
+                public void actionPerformed(ActionEvent e) {
+                    final StringBuilder sb = new StringBuilder();
+
+                    for (String step : TreeView.this.steps) {
+                        sb.append(step);
+                        sb.append("\n");
+                    }
+
+                    Runnable r = new Runnable() {
+
+                        @Override
+                        public void run() {
+                            
+                            JTextArea stepsTextArea = new JTextArea();
+                            
+                            stepsTextArea.setFont(new Font("Monospaced", 0, 14));
+                            
+                            stepsTextArea.setText(sb.toString());
+
+                            JFrame f = new JFrame("Steps");
+                            f.add(new JScrollPane(stepsTextArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
+
+                            f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                            f.setLocationByPlatform(true);
+                            f.pack();
+                            f.setMinimumSize(f.getSize());
+                            f.setVisible(true);
+                        }
+                    };
+                    SwingUtilities.invokeLater(r);
+
+                }
+            });
+            
+            buttonPanel.add(showStepsButton);
         
         }
-
         
-//panel.add(latexPanelController, BorderLayout.WEST);	
+        
+        JCheckBox showPositionsCheckBox = new JCheckBox("Show Positions");
+        
+        showPositionsCheckBox.setSelected(false);
+        
+        showPositionsCheckBox.addItemListener(new ItemListener() {
+            
+            public void itemStateChanged(ItemEvent ie)
+            {
+                if(ie.getStateChange() == ItemEvent.SELECTED)
+                {
+                    TreeView.this.treePanel.showPositions(true);      
+                }
+                else
+                {
+                    TreeView.this.treePanel.showPositions(false); 
+                }
+            }
+        
+        
+        });
+	
 
 	if(includeSlider && includeExpression)
 	{
@@ -445,7 +531,7 @@ public class TreeView extends BuiltinFunction {
                 panel.add(verticalSplitPane, BorderLayout.CENTER);
             }
             treeBox.add(treePanelScaler);
-
+            treeBox.add(showPositionsCheckBox);
 	}
 	else if(includeSlider)
 	{
@@ -466,6 +552,7 @@ public class TreeView extends BuiltinFunction {
                 panel.add(splitPane, BorderLayout.CENTER);
             }
             treeBox.add(treePanelScaler);
+            treeBox.add(showPositionsCheckBox);
 	}
 	else if(includeExpression)
 	{
@@ -509,6 +596,29 @@ public class TreeView extends BuiltinFunction {
     
     
 
+    private void saveStep(Environment environment, int stackTop, Cons expression, String ruleName, String positionString)
+    {
+        if(positionString.equals(""))
+        {
+            positionString = "0";
+        }
+        
+        try
+        {
+            //Utility.loadLibraryFunction("RemoveDollarSigns", environment, stackTop);
+            
+            Cons head0 = SublistCons.getInstance(environment, AtomCons.getInstance(environment, stackTop, "MetaToObject"));
+            ((Cons) head0.car()).setCdr(expression);
+            Cons result0 = environment.iLispExpressionEvaluator.evaluate(environment, stackTop, head0);                     
+
+
+            TreeView.this.steps.add(Utility.printMathPiperExpression(stackTop, result0, environment, 0) + " : " + ruleName + " : " + positionString);
+        }
+        catch(Throwable t)
+        {
+            t.printStackTrace();
+        }
+    }
    
     
     public void clearMetaInformation(Cons expression) throws Throwable {
