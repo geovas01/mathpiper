@@ -272,6 +272,7 @@ public class TreeView extends BuiltinFunction {
                         highlightTree(environment, stackTop, subExpression, "ForestGreen");
                     }
                     
+                    TreeView.this.acceptButton.setEnabled(false);
                     String latexString = expressionToLatex(environment, stackTop, expression);
                     formula.setLaTeX(latexString);
                     TreeView.this.latexPanelController.adjust();
@@ -333,63 +334,65 @@ public class TreeView extends BuiltinFunction {
                                 Cons replacementTex = Utility.nth(environment, -1, cons2, 5, true);
                                 String replacementTexString = Utility.toNormalString(environment, -1, replacementTex.toString());
 
+                                Cons originalExpression = null;
+                                Cons newExpression = null;
+                                
+                                
+                                if (ruleNameString.equals(" Arithmetic")) {
 
-                                if(userOptions.containsKey("Substitute"))
-                                {
-                                    Cons cons3 = (Cons) userOptions.get("Substitute");
+                                } else {
+                                    if (userOptions.containsKey("Substitute")) {
+                                        Cons cons3 = (Cons) userOptions.get("Substitute");
 
-                                    try
-                                    {
-                                        Cons from = AtomCons.getInstance(environment, -1, "\"expression\"");
-                                        Cons to = TreeView.this.treePanel.getExpression();
-                                        org.mathpiper.lisp.astprocessors.ExpressionSubstitute behaviour = new org.mathpiper.lisp.astprocessors.ExpressionSubstitute(environment, from, to);
-                                        cons3 = Utility.substitute(environment,-1, cons3, behaviour);
+                                        try {
+                                            Cons from = AtomCons.getInstance(environment, -1, "\"expression\"");
+                                            Cons to = TreeView.this.treePanel.getExpression();
+                                            org.mathpiper.lisp.astprocessors.ExpressionSubstitute behaviour = new org.mathpiper.lisp.astprocessors.ExpressionSubstitute(environment, from, to);
+                                            cons3 = Utility.substitute(environment, -1, cons3, behaviour);
+
+                                            from = AtomCons.getInstance(environment, -1, "\"pattern\"");
+                                            to = pattern;
+                                            behaviour = new org.mathpiper.lisp.astprocessors.ExpressionSubstitute(environment, from, to);
+                                            cons3 = Utility.substitute(environment, -1, cons3, behaviour);
+
+                                            from = AtomCons.getInstance(environment, -1, "\"replacement\"");
+                                            to = replacement;
+                                            behaviour = new org.mathpiper.lisp.astprocessors.ExpressionSubstitute(environment, from, to);
+                                            cons3 = Utility.substitute(environment, -1, cons3, behaviour);
+
+                                            from = AtomCons.getInstance(environment, -1, "\"position\"");
+                                            to = AtomCons.getInstance(environment, -1, "\"" + positionString + "\"");
+                                            behaviour = new org.mathpiper.lisp.astprocessors.ExpressionSubstitute(environment, from, to);
+                                            cons3 = Utility.substitute(environment, -1, cons3, behaviour);
+                                        } catch (Throwable t) {
+                                            t.printStackTrace();
+                                        }
+
+
+                                        Interpreter interpreter = SynchronousInterpreter.getInstance();
+
+                                        EvaluationResponse response2 = interpreter.evaluate(cons3);
+
+                                        if (response2.isExceptionThrown()) {
+                                            System.out.println(response2.getException().getMessage());
+                                            return;
+                                        }
                                         
-                                        from = AtomCons.getInstance(environment, -1, "\"pattern\"");
-                                        to = pattern;
-                                        behaviour = new org.mathpiper.lisp.astprocessors.ExpressionSubstitute(environment, from, to);
-                                        cons3 = Utility.substitute(environment,-1, cons3, behaviour);
-
-                                        from = AtomCons.getInstance(environment, -1, "\"replacement\"");
-                                        to = replacement;
-                                        behaviour = new org.mathpiper.lisp.astprocessors.ExpressionSubstitute(environment, from, to);
-                                        cons3 = Utility.substitute(environment,-1, cons3, behaviour);
-
-                                        from = AtomCons.getInstance(environment, -1, "\"position\"");
-                                        to = AtomCons.getInstance(environment, -1, "\"" + positionString + "\"");
-                                        behaviour = new org.mathpiper.lisp.astprocessors.ExpressionSubstitute(environment, from, to);
-                                        cons3 = Utility.substitute(environment,-1, cons3, behaviour);
-                                    }
-                                    catch(Throwable t)
-                                    {
-                                        t.printStackTrace();
+                                        originalExpression = ((Cons) cons3.car()).cdr();
+                                        originalExpression.setCdr(null);
+                                        newExpression = response2.getResultList();
                                     }
 
-                                    Interpreter interpreter = SynchronousInterpreter.getInstance();
+                                    treePanel.relayoutTree(newExpression);
 
-                                    
-                                    EvaluationResponse response2 = interpreter.evaluate(cons3);
-                                    
-                                    if(response2.isExceptionThrown())
-                                    {
-                                        System.out.println(response2.getException().getMessage());
-                                        return;
-                                    }
+                                    TreeView.this.candidateResult = newExpression;
 
-
-                                    treePanel.relayoutTree(response2.getResultList());
-                                    
-                                    TreeView.this.candidateResult = response2.getResultList();
-                                    
                                     TreeView.this.candidateRuleName = ruleNameString;
-                                    
+
                                     TreeView.this.candidatePositionString = positionString;
+
                                     
-                                    Cons expressionOnly = ((Cons) cons3.car()).cdr();
-                                    
-                                    expressionOnly.setCdr(null);
-                                    
-                                    boolean equal = Utility.equals(environment, stackTop, expressionOnly , candidateResult);
+                                    boolean equal = Utility.equals(environment, stackTop, originalExpression , candidateResult);
                                     
                                     if(equal)
                                     {

@@ -1,13 +1,10 @@
-MathPiper version mp4_beta_v.138_r5387:5394M
+MathPiper version mp4_beta_v.146_r5527:5546M
 Enter an expression after any In> prompt and press <enter> or <shift><enter> to evaluate it.
 
-In> zz := '{x := 8;Decide(x =? 7, "Seven",Decide(x =? 8, "Eight",Decide(x =? 9,"Nine")));};
-Result: {
-    x := 8;
-    Decide(x =? 7,"Seven",Decide(x =? 8,"Eight",Decide(x =? 9,"Nine")));
-}
+In> Manipulate('(8*x - 2 == -9 + 7*x))
+Result: class javax.swing.JFrame
 
-In> Show(TreeView(zz,Code:True))
+In> Manipulate('(1+2*3))
 Result: class javax.swing.JFrame
 
 In> 
