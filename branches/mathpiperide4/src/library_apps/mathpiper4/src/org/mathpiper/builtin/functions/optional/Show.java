@@ -100,6 +100,7 @@ public class Show extends BuiltinFunction {
         
         
         JFrame frame = new JFrame();
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         Container contentPane = frame.getContentPane();
         frame.setBackground(Color.WHITE);
         contentPane.setBackground(Color.WHITE);

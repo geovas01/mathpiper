@@ -158,8 +158,15 @@ public class TreePanelCons extends JComponent implements ViewPanel, MouseListene
 	}
 
 	private void listToTree(SymbolNode rootNode, Cons rootCons, Color markAllColor, String markAllNodeShape, String position) throws Throwable {
-
-		Cons cons = (Cons) rootCons.car(); // Go into sublist.
+                
+                Object object = rootCons.car();
+            
+                if(! (object instanceof Cons))
+                {
+                    return;
+                }
+                
+		Cons cons = (Cons) object; // Go into sublist.
                 
                 Map optionsMap = cons.getMetadataMap();
 

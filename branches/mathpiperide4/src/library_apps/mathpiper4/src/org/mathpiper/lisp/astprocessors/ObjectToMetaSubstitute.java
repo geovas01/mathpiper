@@ -40,6 +40,7 @@ public class ObjectToMetaSubstitute
 	{
 	    String atomName = ((String) aElement.car());
 	    
+            // Handle operators.
 	    boolean foundNonSymbol = false;
 	    for(char c : atomName.toCharArray())
 	    {
@@ -51,6 +52,23 @@ public class ObjectToMetaSubstitute
 	    }
 	    if(foundNonSymbol == false)
 	    {
+                if("+-*/".contains(atomName))
+                {
+                    if(! atomName.contains("$"))
+                    {
+                        atomName = atomName.concat("$");
+                    }
+
+                    Cons newCons = AtomCons.getInstance(aEnvironment, aStackTop, atomName);
+
+                    if(aElement.getMetadataMap() != null)
+                    {
+                        newCons.setMetadataMap(new HashMap<String,Object>(aElement.getMetadataMap()));
+                    }
+
+                    return(newCons);
+                }
+                
 		return null;
 	    }
 	    

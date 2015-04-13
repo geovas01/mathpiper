@@ -88,13 +88,15 @@ public class TreeView extends BuiltinFunction {
     
     private String candidatePositionString;
     
-    private List<String> steps = new ArrayList<String>();
+    private List<String> steps;
     
     private TeXFormula formula;
     
     private JLabel latexLabel;
     
     private LatexRenderingController latexPanelController;
+    
+    private JButton acceptButton;
     
     public void plugIn(Environment aEnvironment)  throws Throwable
     {
@@ -239,6 +241,8 @@ public class TreeView extends BuiltinFunction {
 	//box.setOpaque(true);
         
         
+        this.steps = new ArrayList<String>();
+        
         this.saveStep(aEnvironment, aStackTop, expression, "", "");
 
 
@@ -363,7 +367,14 @@ public class TreeView extends BuiltinFunction {
 
                                     Interpreter interpreter = SynchronousInterpreter.getInstance();
 
+                                    
                                     EvaluationResponse response2 = interpreter.evaluate(cons3);
+                                    
+                                    if(response2.isExceptionThrown())
+                                    {
+                                        System.out.println(response2.getException().getMessage());
+                                        return;
+                                    }
 
 
                                     treePanel.relayoutTree(response2.getResultList());
@@ -374,34 +385,49 @@ public class TreeView extends BuiltinFunction {
                                     
                                     TreeView.this.candidatePositionString = positionString;
                                     
-                                    try
+                                    Cons expressionOnly = ((Cons) cons3.car()).cdr();
+                                    
+                                    expressionOnly.setCdr(null);
+                                    
+                                    boolean equal = Utility.equals(environment, stackTop, expressionOnly , candidateResult);
+                                    
+                                    if(equal)
                                     {
+                                        acceptButton.setEnabled(false);
                                         
-
-                                        //Cons head0 = SublistCons.getInstance(environment, AtomCons.getInstance(environment, stackTop, "RemoveDollarSigns"));
-                                        //((Cons) head0.car()).setCdr(candidateResult);
-                                        //Cons result0 = environment.iLispExpressionEvaluator.evaluate(environment, stackTop, head0);
-                
-                                        Cons subExpression = candidateResult;
-                                        for(int index = 0; index < positionString.length(); index++)
-                                        {
-                                            int position = Integer.parseInt("" + positionString.charAt(index));
-                                            subExpression = Utility.nth(environment, stackTop, subExpression, position, false);
-                                        }
+                                        clearMetaInformation(TreeView.this.candidateResult);
                                         
-                                        highlightTree(environment, stackTop, subExpression, "YellowOrange");
                                         String latexString = expressionToLatex(environment, stackTop, candidateResult);
                                         formula.setLaTeX(latexString);
                                         TreeView.this.latexPanelController.adjust();
+                                              
                                     }
-                                    catch(Throwable t)
+                                    else
                                     {
-                                        t.printStackTrace();
+                                        acceptButton.setEnabled(true);
+                                        
+                                        try
+                                        {
+                                            Cons subExpression = candidateResult;
+                                            for(int index = 0; index < positionString.length(); index++)
+                                            {
+                                                int position = Integer.parseInt("" + positionString.charAt(index));
+                                                subExpression = Utility.nth(environment, stackTop, subExpression, position, false);
+                                            }
+
+                                            highlightTree(environment, stackTop, subExpression, "YellowOrange");
+                                            String latexString = expressionToLatex(environment, stackTop, candidateResult);
+                                            formula.setLaTeX(latexString);
+                                            TreeView.this.latexPanelController.adjust();
+                                            
+                                            clearMetaInformation(TreeView.this.candidateResult);
+                                        }
+                                        catch(Throwable t)
+                                        {
+                                            t.printStackTrace();
+                                        }
                                     }
                                     
-                                    clearMetaInformation(TreeView.this.candidateResult);
-                                    
-
                                 }
                             }
                             catch(Throwable t)
@@ -417,7 +443,9 @@ public class TreeView extends BuiltinFunction {
             
             
             
-            JButton acceptButton = new JButton("Accept");
+            acceptButton = new JButton("Accept");
+            
+            acceptButton.setEnabled(false);
             
             acceptButton.addActionListener(new AbstractAction() {
                 public void actionPerformed(ActionEvent e) {
@@ -437,7 +465,7 @@ public class TreeView extends BuiltinFunction {
                         t.printStackTrace();
                     }
                     
-                    
+                    acceptButton.setEnabled(false);
                 }
             });
             
@@ -624,7 +652,14 @@ public class TreeView extends BuiltinFunction {
     public void clearMetaInformation(Cons expression) throws Throwable {
         expression.setMetadataMap(null);
         
-        Cons cons = (Cons) expression.car(); // Go into sublist.
+        Object object = expression.car();
+
+        if(! (object instanceof Cons))
+        {
+            return;
+        }
+        
+        Cons cons = (Cons) object; // Go into sublist.
 
         cons.setMetadataMap(null);
 
