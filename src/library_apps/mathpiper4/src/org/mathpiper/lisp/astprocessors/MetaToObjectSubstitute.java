@@ -27,6 +27,8 @@ public class MetaToObjectSubstitute
 	if(aElement.car() instanceof String)
 	{
 	    String name = ((String) aElement.car()).replace("_", "");
+            
+            name = name.replace("$", "");
 	    
             Cons newCons = AtomCons.getInstance(aEnvironment, aStackTop, name);
             
