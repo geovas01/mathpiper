@@ -83,7 +83,7 @@ public class RulesPanel extends JPanel {
                 LatexIcon latexIcon = null;
                 for(int index = 0; index < rowCount; index++)
                 {
-                   latexIcon = (LatexIcon) model.getValueAt(index,1);
+                   latexIcon = (LatexIcon) model.getValueAt(index,2);
                    latexIcon.changeSize(.90);
                 }
                 
@@ -121,7 +121,7 @@ public class RulesPanel extends JPanel {
                 LatexIcon latexIcon = null;
                 for(int index = 0; index < rowCount; index++)
                 {
-                   latexIcon = (LatexIcon) model.getValueAt(index,1);
+                   latexIcon = (LatexIcon) model.getValueAt(index,2);
                    latexIcon.changeSize(1.10);
                 }
                 
@@ -183,7 +183,7 @@ public class RulesPanel extends JPanel {
                 String replacementTexString = Utility.toNormalString(environment, -1, replacementTex.toString());
 
 
-                model.addRow(new Object[]{" " + ruleNameString, new LatexIcon(patternTexString, replacementTexString, 18)});
+                model.addRow(new Object[]{" " + index, " " + ruleNameString, new LatexIcon(patternTexString, replacementTexString, 18)});
             }
         } catch (Throwable t) {
             t.printStackTrace();
@@ -209,7 +209,7 @@ public class RulesPanel extends JPanel {
     public class RulesTableModel extends DefaultTableModel {
 
         public RulesTableModel() {
-
+            addColumn("#");
             addColumn(column1Name);
             addColumn(column2Name);
         }
@@ -221,7 +221,7 @@ public class RulesPanel extends JPanel {
 
             switch (columnIndex) {
 
-                case 1:
+                case 2:
                     clazz = Icon.class;
                     break;
 
