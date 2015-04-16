@@ -19,8 +19,8 @@ Manipulate(expression) :=
     function := ` '(TreeProcess("expression", "pattern", @process, Position:"position"));
 
     theorems := [
-	["Move q_", q_ == r_, "\\textcolor{orange}{q\\_} \\ op\\  r\\_ = s\\_", 'Isolax(2, q == r)[1], "r\\_ = s\\_ \\ antiop\\  q\\_"],
-	["Move r_", q_ == r_, "q\\_ \\ op\\  \\textcolor{orange}{r\\_} = s\\_", 'Isolax(1, q == r)[1], "q\\_ = s\\_ \\ antiop\\  r\\_"],
+	["Otherside q_", q_ == r_, "\\textcolor{orange}{q\\_} \\ \\textcolor{ProcessBlue}{op}\\  r\\_ \\textcolor{green}{=} s\\_", 'Isolax(2, q == r)[1], "r = s \\ antiop\\  q"],
+	["Otherside r_", q_ == r_, "q\\_ \\ \\textcolor{ProcessBlue}{op}\\  \\textcolor{orange}{r\\_} \\textcolor{green}{=} s\\_", 'Isolax(1, q == r)[1], "q = s \\ antiop\\  r"],
 	["Decrease s_", q_ *$ s_ +$ r_ *$ s_ , "q\\_ * \\textcolor{orange}{s\\_} + r\\_ * \\textcolor{orange}{s\\_}", '((q +$ r) *$ s), "(q + r) * s"],
 	["Decrease q_", q_ +$ r_ *$ q_, "\\textcolor{orange}{q\\_} + r\\_ * \\textcolor{orange}{q\\_}", '((r +$ 1) *$ q), "(r + 1) * q"],
 	["Decrease q_", q_ +$ q_, "\\textcolor{orange}{q\\_} + \\textcolor{orange}{q\\_}", '(2 *$ q), "2 * q"],
@@ -39,15 +39,15 @@ Manipulate(expression) :=
 	["Remove 1 [*]", q_ *$ 1, "q\\_ * \\textcolor{orange}{1}", 'q, "q\\_"],
 	//["Remove -1 [*]", q_Number? *$ SubtractN(0,1), "q\\_Number? * \\textcolor{orange}{-1}", 'SubtractN(0,q), "-q\\_"],
 	["Remove q_ [+]", q_ +$ (-$ q_), "\\textcolor{orange}{q\\_} + (-\\textcolor{orange}{q\\_})", 0, "0"],
-	["Remove q_ [/]", q_ *$ 1/q_, "\\textcolor{orange}{q\\_} * 1/\\textcolor{orange}{q\\_}", 1, "1"],
-
+	["Remove q_ [*]", q_ *$ 1/q_, "\\textcolor{orange}{q\\_} * 1/\\textcolor{orange}{q\\_}", 1, "1"],
+        ["Remove q_ [/]", (q_ /$ q_)::('q !=? 0), "(\\textcolor{orange}{q\\_} / \\textcolor{orange}{q\\_})::(q\\ !=?\\ 0)", 1, "1"],
 	["Define -", -1 *$ q_, "-1 * q\\_", '(-$q), "-q"],
 	["Define /", q_ *$ 1/r_, "q\\_ * 1/r\\_", '(q/$r), "q/r"],
         ["Arithmetic", q_, "q\\_", '(Eval(MetaToObject(q))), "Eval(q)"],
 	//["Arithmetic [+]", q_Number? +$ r_Number?, "q\\_Number? + r\\_Number?", '(q + r), "q + r"],
 	//["Arithmetic [*]", q_Number? *$ r_Number?, "q\\_Number? * r\\_Number?", '(q * r), "q * r"],
 	//["Arithmetic [/]", q_Number? /$ r_Number?, "q\\_Number? / r\\_Number?", '(q / r), "q / r"],
-	["Increase q", q_ *$ (r_ +$ s_), "q\\_ * (r\\_ + s\\_)", '(q *$ r +$ q *$ s), "q * r + q * s"],
+	["Increase q", q_ *$ (r_ +$ s_), "\\textcolor{orange}{q\\_} * (r\\_ + s\\_)", '(q *$ r +$ q *$ s), "q * r + q * s"],
 	//["Distribute *", q_ *$ r_ +$ q_ *$ s_, "q\\_ * r\\_ + q\\_ * s\\_", '(q *$ (r +$ s)), "q * (r + s)"],
 	//["Equality -", q_ == r_, "q\\_ = r\\_", 
 	//    '{
