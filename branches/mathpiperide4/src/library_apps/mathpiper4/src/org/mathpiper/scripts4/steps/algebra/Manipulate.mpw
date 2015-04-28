@@ -31,7 +31,7 @@ Manipulate(expression) :=
 	["Seesaw ↓q_ ↑s_, [+]", q_ +$ (r_ +$ s_), "\\textcolor{blue}{q\\_} + (r\\_ + \\textcolor{orange}{s\\_})", '((q +$ r) +$ s), "(q + r) + s"],
 	["Seesaw ↑q_ ↓s_ [*]", (q_ *$ r_) *$ s_, "(\\textcolor{orange}{q\\_} * r\\_) * \\textcolor{blue}{s\\_}", '(q *$ (r *$ s)), "q * (r * s)"],
 	["Seesaw ↓q_ ↑s_ [*]", q_ *$ (r_ *$ s_), "\\textcolor{blue}{q\\_} * (r\\_ * \\textcolor{orange}{s\\_})", '((q *$ r) *$ s), "(q * r) * s"],
-	["Undefine -q_", -$ q_, "- q\\_", '(SubtractN(0,1) *$ q), "-1 * r"],
+	["Undefine -q_", -$ q_, "- q\\_", '(SubtractN(0,1) *$ q), "-1 * q"],
 	["Undefine q_ - r_", q_ -$ r_, "q\\_ - r\\_", '(q +$ SubtractN(0,1) *$ r), "q + -1 * r"],
 	//["Undefine -q_Number?", -$ q_Number?, "- q\\_Number?", '(SubtractN(0,q)), "-q"],
 	["Undefine q_ / r_", q_ /$ r_, "q\\_ / r\\_", '(q *$ 1/$r), "q * 1/r"],
