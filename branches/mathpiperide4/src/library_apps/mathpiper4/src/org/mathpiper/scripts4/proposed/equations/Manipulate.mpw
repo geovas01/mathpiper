@@ -1,4 +1,4 @@
-%mathpiper,def="Manipulate"
+%mathpiper
 
 RulebaseHoldArguments("Manipulate",[_symbolicEquation]);
 HoldArgument("Manipulate","symbolicEquation");
