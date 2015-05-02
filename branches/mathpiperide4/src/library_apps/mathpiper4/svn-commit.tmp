@@ -1,0 +1,5 @@
+Added 'Undo Step' and 'Redo Step' buttons.
+--This line, and those below, will be ignored--
+
+M    src/org/mathpiper/builtin/functions/optional/TreeView.java
+M    src/org/mathpiper/scripts4/steps/algebra/Manipulate.mpw

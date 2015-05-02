@@ -64,6 +64,7 @@ public class MathPiperTokenizer {
             } else if (streamCharacter == ',') {
             } else if (streamCharacter == ';') {
             } else if (streamCharacter == '%') {
+            } else if (streamCharacter == '#') {
             } //    else if (c == '\'') {}
             else if (streamCharacter == '.' && !isDigit(aInput.peek())) {
                 while (aInput.peek() == '.') {
