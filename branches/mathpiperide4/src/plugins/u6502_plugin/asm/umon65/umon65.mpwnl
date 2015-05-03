@@ -228,17 +228,34 @@ DataTemp:	dbt ?
 ;
 ;****************************************************************************
 start:
-	ldx #0ffh	;Initialize stack pointer, inable interrupts, and
+	sei
+	ldx #0ffh	;Initialize stack pointer and
 	txs		; clear decimal mode.
-	cli		;
+;	cli		;
 	cld		;
 	
 	jsr InitVars	;Initialize variables.
 	
-	lda 0aa00h		; If the byte at 0c000h is not zero, there is a program
-	cmp #0d			; in the EEPROM. Run this program instead of
-	beq EnterMon	; entering the monitor.
-	jmp 0c000h		;
+    lda #00000100b	 ;Initialize user's status register.
+	sta UStatReg	;
+
+	lda #0d	    ;Initialize user's accumulator.
+	sta UAccum	;
+	
+	sta UXReg	;Initialize user's X register.
+	
+	sta UYReg	;Initialize user's Y register.
+	
+	lda #0ffh    ;Initialize user's stack pointer
+	sta UStkPtr	 ;.
+	
+	lda 0aa00h		; If ESC has been pressed, enter the monitor.
+	cmp #0d			;
+	beq EnterMon	;
+	
+	lda 0c000h		; If the byte at 0c000h is not zero, there is a program
+	beq EnterMon    ; in the EEPROM that has been copied to 0200h by the emulator.
+	jmp 0200h		; Run this program.
 
 ;	jmp EnterMon	;Enter the monitor. (Fix, until boards are updated).
 		
@@ -258,20 +275,7 @@ EnterMon:
 	ldy #OpenMess>	;
 	jsr PrntMess	;
 	;brk		    ;
-    lda #00000000b	 ;Initialize user's status register.
-	sta UStatReg	;
-
-	
-	lda #0d	    ;Initialize user's accumulator.
-	sta UAccum	;
-	
-	sta UXReg	;Initialize user's X register.
-	
-	sta UYReg	;Initialize user's Y register.
-	
-	lda #0ffh    ;Initialize user's stack pointer
-	sta UStkPtr	 ;.
-    
+   
     jmp ResetEntryPoint
 
 CkEEPROM:
@@ -636,7 +640,7 @@ BRK:
 	pla		; 
 	sbc #0d		;
 	sta UPgmCntr+1d	;
-	cli
+;	cli
 
 ResetEntryPoint:
 	ldy #0d		;Print user's registers.
@@ -3668,7 +3672,7 @@ DgtTblUC:	dbt "0123456789ABCDEF"
 DgtTblLC:	dbt "0123456789abcdef"
 			dbt 0h
 OpenMess:	dbt 10d,13d,10d
-			dbt "UMON65 V1.20 - Understandable Monitor for the 6500 series microprocessors."
+			dbt "UMON65 V1.21 - Understandable Monitor for the 6500 series microprocessors."
 			dbt 10d,13d
 			dbt 0h
 prompt:		dbt 10d,13d
@@ -3974,6 +3978,8 @@ OpTable:		dbt "ADC IMM"
 		
 ; ,output="array",start_address="E000"
 %/uasm65
+
+
 
 
 
