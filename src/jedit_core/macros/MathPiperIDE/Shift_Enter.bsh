@@ -2418,6 +2418,8 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
 				  
 				  sb.deleteCharAt(sb.length()-1);
 				  sb.append("};");
+				  sb.append("\n");
+				  sb.append("bytes = " + bytes.size());
 				  
 				  output_fold_type = "%output";
 				  result = sb.toString();
@@ -3114,5 +3116,6 @@ else if (path.toLowerCase().contains(".mpw") || path.toLowerCase().contains(".mp
     }
 
 }//end else if.
+
 
 
