@@ -157,7 +157,7 @@ public class TestSuite {
             output += new java.util.Date() + ".\n";
             //output += "***** Using a new interpreter instance for each test file. *****\n";
             output += "MathPiper version: " + org.mathpiper.Version.version() + ".\n";
-            output += testTypeMessage + ".\n";
+            output += testTypeMessage + "\n";
             output += "Beginning of tests:\n";
             System.out.print(output);
             logFile.write(output);
