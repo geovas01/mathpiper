@@ -91,6 +91,17 @@ public class InterpreterTest implements ResponseListener
         {
             response.getException().printStackTrace();
         }
+        else
+        {
+            try
+            {
+
+            }
+            catch(Throwable t)
+            {
+                t.printStackTrace();
+            }
+        }
 
         
        /* response = interpreter.evaluate("3+3;");
@@ -101,6 +112,9 @@ public class InterpreterTest implements ResponseListener
         interpreter.addResponseListener(this);
         response = interpreter.evaluate("2+2;");
         System.out.println("AsynchronousInterpreter evaluation request sent.");*/
+        
+        
+        
         
         
     }
@@ -114,6 +128,20 @@ public class InterpreterTest implements ResponseListener
     {
         return true;
     }
+    
+    
+    private org.mathpiper.lisp.cons.Cons getGlobalVariable(Interpreter interpreter, String variableName) {
+        org.mathpiper.lisp.variables.GlobalVariable variable = interpreter.getEnvironment().iGlobalState
+                .get(variableName);
+
+        if (variable == null) {
+            return null;
+        }
+
+        return variable.getValue();
+    }
+    
+    
     
     public static void main(String[] args)
     {
