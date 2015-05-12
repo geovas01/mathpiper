@@ -176,7 +176,7 @@ public class JavaCall extends BuiltinFunction {
                     } else {
                         JavaObject response = new JavaObject(returnObject);
                         if (response == null || response.getObject() == null) {
-                            setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
+                            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "Null"));
                             return;
                         }
                         setTopOfStack(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
