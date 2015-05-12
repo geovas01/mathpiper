@@ -85,7 +85,7 @@ public interface Interpreter
 
    
     /**
-     * Allows asynchrnous interpreter clients to add themselves to the list of listeners which
+     * Allows asynchronous interpreter clients to add themselves to the list of listeners which
      * get notified when the response from an asynchronous evaluation is ready.  These
      * clients must all implement the {@link ResponseListener} interface.
      *
