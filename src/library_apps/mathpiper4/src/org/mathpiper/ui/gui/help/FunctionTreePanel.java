@@ -1001,12 +1001,42 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                     }//end if.
 
                     line = lines[x].trim();
+                    
+                    
+                    if(line.startsWith("|table"))
+                    {
+                        html.append("\n<table>\n");
+                        continue;
+                    }
+
+                    if(line.startsWith("|/table"))
+                    {
+                        html.append("\n</table>\n");
+                        continue;
+                    }
+                    
+                    if (line.startsWith("|"))
+                    {
+                        String[] columns = line.substring(1).split("\\|");
+                        
+                        html.append("\n<tr>\n");
+                        
+                        for(String column:columns)
+                        {
+                           html.append("\n<td>" + column + "</td>\n"); 
+                        }
+                        
+                        html.append("\n</tr>\n");
+                        
+                        continue;
+                    }
 
                     if (line.startsWith("*"))
                     {
                         x--;
                         break;
                     }
+                    
                     if (line.equalsIgnoreCase(""))
                     {
                         html.append("\n<p>\n");
