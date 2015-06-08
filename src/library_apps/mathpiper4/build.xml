@@ -182,7 +182,7 @@
         
         <mkdir dir="${build.dir}/tests" />
         
-        <copy file="${basedir}/src/org/mathpiper/builtin/functions/optional/speech/english_lexicon.txt" todir="${build.dir}org/mathpiper/builtin/functions/optional/speech" />
+        <copy file="${basedir}/src/org/mathpiper/builtin/functions/optional/speech/english_lexicon.txt" todir="${build.dir}/org/mathpiper/builtin/functions/optional/speech" />
         
     </target>
     
