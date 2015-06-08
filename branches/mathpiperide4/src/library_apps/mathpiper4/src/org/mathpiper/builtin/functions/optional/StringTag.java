@@ -14,6 +14,7 @@ import org.mathpiper.builtin.functions.optional.speech.Tokenizer;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.SublistCons;
 
@@ -53,17 +54,32 @@ public class StringTag extends BuiltinFunction {
         messageString = Utility.stripEndQuotesIfPresent(messageString);
 
         List<String> words = Tokenizer.wordsToList(messageString);
+        
         List<String> tags = tag(words);
         
-        ArrayList<String> wordsAndTagsList = new ArrayList<String>();
+        // ArrayList<String> wordsAndTagsList = new ArrayList<String>();
+        
+        Cons wordsList = aEnvironment.iListAtom.copy(false);
+        
+        Cons wordsListPointer = wordsList;
 
         for (int i = 0; i < words.size(); i++) {
-            wordsAndTagsList.add("\"" + words.get(i) + "_" + tags.get(i) + "\"");
+            Cons wordList = aEnvironment.iListAtom.copy(false);
+            Cons wordSublist = SublistCons.getInstance(aEnvironment, wordList);
+            Cons word = AtomCons.getInstance(aEnvironment, aStackTop, "\"" + words.get(i) + "\"");
+            Cons tag = AtomCons.getInstance(aEnvironment, aStackTop, "\"" + tags.get(i) + "\"");
+            word.setCdr(tag);
+            wordList.setCdr(word);
+            
+            wordsListPointer.setCdr(wordSublist);
+            wordsListPointer = wordsListPointer.cdr();
+                
+            //wordsAndTagsList.add("\"" + words.get(i) + "_" + tags.get(i) + "\"");
         }
 
-        Cons listCons = Utility.iterableToList(aEnvironment, aStackTop, wordsAndTagsList);
+        //Cons listCons = Utility.iterableToList(aEnvironment, aStackTop, wordsAndTagsList);  
 
-        setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, listCons));
+        setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, wordsList));
     }//end method.
 
     /**
@@ -216,7 +232,7 @@ contain words tagged with the following parts of speech tags:
 |table
 |"|quote|"
 |#|Pound sign|#
-|$|Dollar sign|$
+|\$|Dollar sign|\$
 |(|Left paren|(
 |)|Right paren|)
 |,|Comma|,
@@ -240,9 +256,9 @@ contain words tagged with the following parts of speech tags:
 |PDT|Predeterminer|all,both
 |POS|Possessive ending|'s
 |PP|Personal pronoun|I,you,she
-|PP$|Possessive pronoun|my,one's
+|PP\$|Possessive pronoun|my,one's
 |PRP|Personal|pronoun
-|PRP$|Possessive|pronoun
+|PRP\$|Possessive|pronoun
 |RB|Adverb|quickly
 |RBR|Adverb, comparative|faster
 |RBS|Adverb, superlative|fastest
@@ -258,12 +274,13 @@ contain words tagged with the following parts of speech tags:
 |VBZ|Verb, 3rd person singular present|eats
 |WDT|Wh-determiner|which,that
 |WP|Wh-pronoun|who,what	
-|WP$|Possessive wh-pronoun|whose
+|WP\$|Possessive wh-pronoun|whose
 |WRB|Wh-adverb|how,where
 |/table
 
 *E.G.
-In> StringTag("The rain in Spain falls mainly on the plain.")
+In> StringTag("The dog barked.")
+Result: [["The","DT"],["dog","NN"],["barked","VBD"],[".","."]]
 
 %/mathpiper_docs
 */
