@@ -1005,7 +1005,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                     
                     if(line.startsWith("|table"))
                     {
-                        html.append("\n<table>\n");
+                        html.append("\n<table border=\"1\">\n");
                         continue;
                     }
 
