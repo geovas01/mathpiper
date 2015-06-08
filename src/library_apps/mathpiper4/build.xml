@@ -182,6 +182,8 @@
         
         <mkdir dir="${build.dir}/tests" />
         
+        <copy file="${basedir}/src/org/mathpiper/builtin/functions/optional/speech/english_lexicon.txt" todir="${build.dir}org/mathpiper/builtin/functions/optional/speech" />
+        
     </target>
     
     
@@ -402,105 +404,105 @@
     <!-- ======================================== Android ========================================================= -->    
     
     
-	<target id="android_dist" name="android_dist" depends="clean,init,compile_build_dot_java,buildscripts,exclude_files_from_compilation" >
-	
-	<!--  
-	cvs -z3 -d:ext:tkosan@geogebra.cvs.sourceforge.net:/cvsroot/geogebra co -P geogebra
-	export CVSROOT=:ext:tkosan@geogebra.cvs.sourceforge.net:/cvsroot/geogebra
-	cvs commit -m "The code is now compatible with Java 1.4."
-	cvs import -m "This is a stripped-down version of MathPiper.  An example of how to use MathPiper can be found in the org/mathpiper/HowToUse.java file." geogebra/org/mathpiper/geogebrascripts MATHPIPER V0_63
-	
-	Edit BuiltinFunctionInitialize to remove functions at the bottom of the file.
-	Edit Interpreters to remove references to AsynchronousInterpreter.
-	
-	-->
-		
-		<delete dir="${library.dir}/android" />
-	
-		<!--<copy todir="${build.classes.dir}">
-			<fileset dir="${mathpiper.dir}/scripts" >
-				<include name="**/*" />
-			</fileset>
-		</copy>-->
-		
+    <target id="android_dist" name="android_dist" depends="clean,init,compile_build_dot_java,buildscripts,exclude_files_from_compilation" >
 
-		
+    <!--  
+    cvs -z3 -d:ext:tkosan@geogebra.cvs.sourceforge.net:/cvsroot/geogebra co -P geogebra
+    export CVSROOT=:ext:tkosan@geogebra.cvs.sourceforge.net:/cvsroot/geogebra
+    cvs commit -m "The code is now compatible with Java 1.4."
+    cvs import -m "This is a stripped-down version of MathPiper.  An example of how to use MathPiper can be found in the org/mathpiper/HowToUse.java file." geogebra/org/mathpiper/geogebrascripts MATHPIPER V0_63
 
-		<mkdir dir="${library.dir}/android" />
-		<mkdir dir="${library.dir}/android/classes" />
-		<mkdir dir="${library.dir}/android/dist" />
+    Edit BuiltinFunctionInitialize to remove functions at the bottom of the file.
+    Edit Interpreters to remove references to AsynchronousInterpreter.
 
-		
-		<copy todir="${library.dir}/android/src">
-        		<fileset dir="${mathpiper.dir}/src/">
-                
-                <include name="org/mathpiper/builtin/" />
-                <exclude name="org/mathpiper/builtin/functions/optional/" />
-                <exclude name="org/mathpiper/builtin/functions/plugins/" />
-                <exclude name="org/mathpiper/builtin/library/" />
-                <exclude name="org/mathpiper/ui/gui/" />
+    -->
 
-                <include name="org/mathpiper/exceptions/" />
-                
-                <include name="org/mathpiper/interpreters/" />
+            <delete dir="${library.dir}/android" />
 
-                <include name="org/mathpiper/ui/text/" />
+            <!--<copy todir="${build.classes.dir}">
+                    <fileset dir="${mathpiper.dir}/scripts" >
+                            <include name="**/*" />
+                    </fileset>
+            </copy>-->
 
 
-                <include name="org/mathpiper/io/" />
-
-                <include name="org/mathpiper/lisp/" />
-        			
-        		
-        	<include name="org/mathpiper/test/MPWSFile.java" />
-                <include name="org/mathpiper/test/Fold.java" />
-                
-                <exclude name="org/mathpiper/Scripts.java" />
-
-                <exclude name="org/mathpiper/Version.java" />
-
-            </fileset>
-        </copy>
-        
-        <copy file="${build.dir}/src/org/mathpiper/Scripts.java" todir="${library.dir}/android/src/" />
-        
-        <copy file="${build.dir}/src/org/mathpiper/Version.java" todir="${library.dir}/android/src/" />
-        
 
 
-        <javac 
-			source="1.6"
-			target="1.6" 
-			srcdir="${library.dir}/android/src"
-			destdir="${library.dir}/android/classes"
-			debug="on"
-			deprecation="on"
-			optimize="off"
-        	includeantruntime="false">
-			
-			<include name="**/*.java" />
-			<compilerarg line="-encoding utf-8"/>
-		</javac>
-		
-		
-		
-		<!-- <copy file="${mathpiper.dir}/src/org/mathpiper/scripts4/proposed/exercisesystem/arithmetic.mpw" todir="${library.dir}/android/classes" />-->
-		
-		
-		<jar jarfile="${library.dir}/android/mathpiperandroid.jar"
-			basedir="${library.dir}/android/classes" update="true">
-			
-			<include name="**/*" />
-			<exclude name="**/*.bat,**/*.sh" />
-			<exclude name="tests/" />
-			
-		</jar> 
-		
-		<!-- <delete dir="/home/tkosan/git/mathpiperexercise/MathPiperExercise/lib/mathpiperandroid.jar" /> -->
-		<!-- <copy file="${library.dir}/android/mathpiperandroid.jar" todir="/home/tkosan/git/mathpiperexercise/MathPiperExercise/lib/" /> -->		
+            <mkdir dir="${library.dir}/android" />
+            <mkdir dir="${library.dir}/android/classes" />
+            <mkdir dir="${library.dir}/android/dist" />
 
 
-	</target>
+            <copy todir="${library.dir}/android/src">
+                    <fileset dir="${mathpiper.dir}/src/">
+
+            <include name="org/mathpiper/builtin/" />
+            <exclude name="org/mathpiper/builtin/functions/optional/" />
+            <exclude name="org/mathpiper/builtin/functions/plugins/" />
+            <exclude name="org/mathpiper/builtin/library/" />
+            <exclude name="org/mathpiper/ui/gui/" />
+
+            <include name="org/mathpiper/exceptions/" />
+
+            <include name="org/mathpiper/interpreters/" />
+
+            <include name="org/mathpiper/ui/text/" />
+
+
+            <include name="org/mathpiper/io/" />
+
+            <include name="org/mathpiper/lisp/" />
+
+
+            <include name="org/mathpiper/test/MPWSFile.java" />
+            <include name="org/mathpiper/test/Fold.java" />
+
+            <exclude name="org/mathpiper/Scripts.java" />
+
+            <exclude name="org/mathpiper/Version.java" />
+
+        </fileset>
+    </copy>
+
+    <copy file="${build.dir}/src/org/mathpiper/Scripts.java" todir="${library.dir}/android/src/" />
+
+    <copy file="${build.dir}/src/org/mathpiper/Version.java" todir="${library.dir}/android/src/" />
+
+
+
+    <javac 
+                    source="1.6"
+                    target="1.6" 
+                    srcdir="${library.dir}/android/src"
+                    destdir="${library.dir}/android/classes"
+                    debug="on"
+                    deprecation="on"
+                    optimize="off"
+            includeantruntime="false">
+
+                    <include name="**/*.java" />
+                    <compilerarg line="-encoding utf-8"/>
+            </javac>
+
+
+
+            <!-- <copy file="${mathpiper.dir}/src/org/mathpiper/scripts4/proposed/exercisesystem/arithmetic.mpw" todir="${library.dir}/android/classes" />-->
+
+
+            <jar jarfile="${library.dir}/android/mathpiperandroid.jar"
+                    basedir="${library.dir}/android/classes" update="true">
+
+                    <include name="**/*" />
+                    <exclude name="**/*.bat,**/*.sh" />
+                    <exclude name="tests/" />
+
+            </jar> 
+
+            <!-- <delete dir="/home/tkosan/git/mathpiperexercise/MathPiperExercise/lib/mathpiperandroid.jar" /> -->
+            <!-- <copy file="${library.dir}/android/mathpiperandroid.jar" todir="/home/tkosan/git/mathpiperexercise/MathPiperExercise/lib/" /> -->		
+
+
+    </target>
 	
 	
 	
