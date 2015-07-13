@@ -857,7 +857,7 @@ public class Utility {
 
 
 
-    public static void doInternalLoad(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput) throws Throwable {
+    public static Cons doInternalLoad(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput) throws Throwable {
 	MathPiperInputStream previous = aEnvironment.getCurrentInput();
 	try {
 	    aEnvironment.setCurrentInput(aInput);
@@ -871,6 +871,8 @@ public class Utility {
 		    aEnvironment.iBodiedOperators);
 	    //Parser parser = new Parser(new MathPiperTokenizer(), aEnvironment.iCurrentInput, aEnvironment);
 
+            Cons resultCons = null;
+                    
 	    while (!endoffile) {
 		// Read expression
 		Cons readIn = parser.parse(aStackTop);
@@ -883,12 +885,14 @@ public class Utility {
 		} // Else evaluate
 		else {
 
-		    Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, readIn);
+		    resultCons = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, readIn);
 		    if (aStackTop != -1) {
-			aEnvironment.setLocalOrGlobalVariable(aStackTop, "$LoadResult", result, false, false, false);//Note:tk:added to make the result of executing Loaded code available.
+			aEnvironment.setLocalOrGlobalVariable(aStackTop, "$LoadResult", resultCons, false, false, false);//Note:tk:added to make the result of executing Loaded code available.
 		    }
 		}
 	    }//end while.
+            
+            return resultCons;
 
 	} catch (Throwable e) {
 	    //System.out.println(e.getMessage()); e.printStackTrace(); //todo:tk:uncomment for debugging.
