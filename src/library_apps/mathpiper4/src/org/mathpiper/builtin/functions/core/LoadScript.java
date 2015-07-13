@@ -62,11 +62,11 @@ public class LoadScript extends BuiltinFunction
 
         Environment.saveDebugInformation = true;
 
-        Utility.doInternalLoad(aEnvironment, aStackTop, functionInputStream);
+        Cons resultCons = Utility.doInternalLoad(aEnvironment, aStackTop, functionInputStream);
 
         Environment.saveDebugInformation = false;
         
-        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
+        setTopOfStack(aEnvironment, aStackTop, resultCons);
          
     }
 }

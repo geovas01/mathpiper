@@ -62,6 +62,8 @@ public class LoadScriptFile extends BuiltinFunction {
 	
 
 	Environment.saveDebugInformation = true;
+        
+        Cons resultCons = null;
 
 	if (fileName.toLowerCase().endsWith(".mpw")) {
 	    
@@ -80,19 +82,19 @@ public class LoadScriptFile extends BuiltinFunction {
 
 			StringInputStream stringInputStream = new StringInputStream(codeText, inputStatus);
 			
-			Utility.doInternalLoad(aEnvironment, aStackTop, stringInputStream);
+			resultCons = Utility.doInternalLoad(aEnvironment, aStackTop, stringInputStream);
 		    }
 		}
 
 	    }
 	} else {
 	    FileInputStream mathpiperFileInputStream = new FileInputStream(fileName, inputStatus); // aEnvironment.iCurrentInput.iStatus);
-	    Utility.doInternalLoad(aEnvironment, aStackTop, mathpiperFileInputStream);
+	    resultCons = Utility.doInternalLoad(aEnvironment, aStackTop, mathpiperFileInputStream);
 	}
 
 	Environment.saveDebugInformation = false;
 
-	setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
+	setTopOfStack(aEnvironment, aStackTop, resultCons);
 
     }// end method.
 

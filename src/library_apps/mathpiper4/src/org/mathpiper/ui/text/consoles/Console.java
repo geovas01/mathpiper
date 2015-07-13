@@ -194,7 +194,7 @@ public class Console {
 
         if (i < argv.length) {
             for (; i < argv.length; ++i) {
-                String cmd = "LoadScript(\"".concat(argv[i]).concat("\");");
+                String cmd = "LoadScriptFile(\"".concat(argv[i]).concat("\");");
                 System.out.println(console.evaluate(cmd));
             }
         } else {
